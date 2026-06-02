@@ -1,28 +1,71 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import './NavBar.css'
 
 const NAV_ITEMS = [
-  { to: '/',          icon: '🏠', label: '홈' },
-  { to: '/character', icon: '🤖', label: '캐릭터' },
-  { to: '/settings',  icon: '⚙️', label: '설정' },
+  {
+    to: '/',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+      </svg>
+    ),
+    label: '레슨',
+  },
+  {
+    to: '/train',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="23 4 23 10 17 10"/>
+        <path d="M20.49 15a9 9 0 1 1-.17-2.17"/>
+      </svg>
+    ),
+    label: '훈련',
+  },
+  {
+    to: '/character',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg>
+    ),
+    label: '내 캐릭터',
+  },
 ]
 
 export default function NavBar() {
+  const location = useLocation()
+
+  // 스테이지/보스 화면 등 서브 경로에서 어느 탭이 활성인지 계산
+  const isLessonActive =
+    location.pathname.startsWith('/lesson') ||
+    location.pathname.startsWith('/stage') ||
+    location.pathname.startsWith('/boss') ||
+    location.pathname === '/'
+
   return (
     <nav className="navbar" role="navigation" aria-label="하단 내비게이션">
       <div className="navbar-inner">
-        {NAV_ITEMS.map(({ to, icon, label }) => (
-          <NavLink
-            key={to}
-            to={to}
-            end={to === '/'}
-            className={({ isActive }) => `nav-item${isActive ? ' active' : ''}`}
-            aria-label={label}
-          >
-            <span className="nav-icon">{icon}</span>
-            <span className="nav-label">{label}</span>
-          </NavLink>
-        ))}
+        {NAV_ITEMS.map(({ to, icon, label }) => {
+          // 레슨 탭은 여러 경로를 커버하므로 수동 active 처리
+          const active =
+            to === '/'
+              ? isLessonActive
+              : location.pathname.startsWith(to)
+
+          return (
+            <NavLink
+              key={to}
+              to={to}
+              className={`nav-item${active ? ' active' : ''}`}
+              aria-label={label}
+            >
+              <span className="nav-icon">{icon}</span>
+              <span className="nav-label">{label}</span>
+            </NavLink>
+          )
+        })}
       </div>
     </nav>
   )

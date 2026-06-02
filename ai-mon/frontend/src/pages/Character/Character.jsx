@@ -1,28 +1,35 @@
 import { useAuthStore } from '../../hooks/useAuthStore'
-import { userApi } from '../../api/index'
-import { useState } from 'react'
+import { userApi, progressApi } from '../../api/index'
+import { useState, useEffect } from 'react'
 import CharacterDisplay from '../../components/CharacterDisplay/CharacterDisplay'
 import './Character.css'
 
 const CHARACTERS = [
-  { id: 'default', emoji: '🤖', name: '에이몬 기본형', desc: '기본 캐릭터. 균형 잡힌 능력치', unlock: 0 },
-  { id: 'fire',    emoji: '🔥', name: '파이어봇',      desc: '공격적인 스타일. 높은 퀴즈 점수 보너스', unlock: 5 },
-  { id: 'cyber',   emoji: '⚡', name: '사이버봇',      desc: '분석 특화. 오답 힌트 강화', unlock: 10 },
-  { id: 'crystal', emoji: '💎', name: '크리스탈봇',    desc: '최강의 캐릭터. 모든 능력치 강화', unlock: 20 },
+  { id: 'slime',         emoji: '🟣', name: '에이몬 슬라임', desc: '기본 캐릭터', unlockUnits: 0 },
+  { id: 'robot',         emoji: '🤖', name: '에이몬 로봇', desc: 'Unit 3 완료 시 해금', unlockUnits: 3 },
+  { id: 'speech_bubble', emoji: '💬', name: '에이몬 말풍선', desc: 'Unit 6 완료 시 해금', unlockUnits: 6 },
+  { id: 'final_ghost',   emoji: '👻', name: '파이널 에이몬', desc: 'Unit 8 완료 시 해금', unlockUnits: 8 },
 ]
 
 export default function Character() {
   const user = useAuthStore((s) => s.user)
   const updateUser = useAuthStore((s) => s.updateUser)
-  const [selected, setSelected] = useState(user?.character || 'default')
+  const [selected, setSelected] = useState(user?.character || 'slime')
   const [saving, setSaving]     = useState(false)
   const [saved, setSaved]       = useState(false)
+  const [stats, setStats]       = useState(null)
 
-  const completedStages = 0 // TODO: pull from progress store
+  useEffect(() => {
+    progressApi.getStats()
+      .then((r) => setStats(r.data))
+      .catch(() => {})
+  }, [])
+
+  const completedUnits = Math.floor((stats?.completed_stages || 0) / 7)
 
   const handleSelect = (id) => {
     const char = CHARACTERS.find((c) => c.id === id)
-    if (completedStages < char.unlock) return
+    if (completedUnits < char.unlockUnits) return
     setSelected(id)
   }
 
@@ -57,7 +64,7 @@ export default function Character() {
           <h2 className="char-select-title">캐릭터 선택</h2>
           <div className="char-grid stagger">
             {CHARACTERS.map((char) => {
-              const locked = completedStages < char.unlock
+              const locked = completedUnits < char.unlockUnits
               return (
                 <button
                   key={char.id}
@@ -68,7 +75,7 @@ export default function Character() {
                 >
                   <span className="char-opt-emoji">{locked ? '🔒' : char.emoji}</span>
                   <div className="char-opt-name">{char.name}</div>
-                  <div className="char-opt-desc">{locked ? `${char.unlock}스테이지 완료 후 해금` : char.desc}</div>
+                  <div className="char-opt-desc">{locked ? `${char.unlockUnits}유닛 완료 후 해금` : char.desc}</div>
                   {selected === char.id && <div className="char-opt-check">✓</div>}
                 </button>
               )

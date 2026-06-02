@@ -1,14 +1,14 @@
 import './CharacterDisplay.css'
 
 const CHARACTER_MAP = {
-  default: { emoji: '🤖', name: '에이몬 기본형', color: '#7c3aed', title: '입문자' },
-  fire:    { emoji: '🔥', name: '파이어봇',      color: '#ef4444', title: '코딩 전사' },
-  cyber:   { emoji: '⚡', name: '사이버봇',      color: '#06b6d4', title: '디버거' },
-  crystal: { emoji: '💎', name: '크리스탈봇',    color: '#f59e0b', title: '마스터' },
+  slime:         { emoji: '🟣', name: '에이몬 슬라임', color: '#7c3aed', title: '초보자' },
+  robot:         { emoji: '🤖', name: '에이몬 로봇', color: '#06b6d4', title: '탐험가' },
+  speech_bubble: { emoji: '💬', name: '에이몬 말풍선', color: '#10b981', title: '마스터' },
+  final_ghost:   { emoji: '👻', name: '파이널 에이몬', color: '#f59e0b', title: '전설' },
 }
 
-export default function CharacterDisplay({ characterId = 'default', level = 1, xp = 0, maxXp = 100, compact = false }) {
-  const char = CHARACTER_MAP[characterId] || CHARACTER_MAP.default
+export default function CharacterDisplay({ characterId = 'slime', level = 1, xp = 0, maxXp = 100, compact = false }) {
+  const char = CHARACTER_MAP[characterId] || CHARACTER_MAP.slime
   const xpPercent = Math.min(100, (xp / maxXp) * 100)
 
   if (compact) {

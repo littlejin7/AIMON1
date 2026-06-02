@@ -1,63 +1,147 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import NavBar from './components/NavBar/NavBar'
 import Home from './pages/Home/Home'
+import LessonHome from './pages/Lesson/LessonHome'
 import Lesson from './pages/Lesson/Lesson'
 import Stage from './pages/Stage/Stage'
 import Boss from './pages/Boss/Boss'
 import Character from './pages/Character/Character'
 import Settings from './pages/Settings/Settings'
+import Train from './pages/Train/Train'
 import Auth from './pages/Auth/Auth'
 import { useAuthStore } from './hooks/useAuthStore'
 
+/** 로그인 필수 경로 */
 function ProtectedRoute({ children }) {
   const token = useAuthStore((s) => s.token)
-  return token ? children : <Navigate to="/auth" replace />
+  return token ? children : <Navigate to="/" replace />
+}
+
+/** NavBar가 포함된 공통 레이아웃 */
+function AppLayout({ children }) {
+  return (
+    <div className="page">
+      {children}
+      <NavBar />
+    </div>
+  )
 }
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* 인증 페이지 */}
+        {/* ── 인증 페이지 (NavBar 없음) ── */}
         <Route path="/auth" element={<Auth />} />
 
-        {/* Public Routes: 비로그인 선체험 허용 (홈, 1-1 스테이지) */}
+        {/* ── Public Routes: 비로그인 접근 가능 ── */}
+
+        {/* 홈 대시보드: 비로그인 랜딩 / 로그인 대시보드 */}
         <Route
           path="/"
           element={
-            <div className="page">
+            <AppLayout>
               <Home />
-              <NavBar />
-            </div>
-          }
-        />
-        <Route
-          path="/stage/1/1"
-          element={
-            <div className="page">
-              <Stage />
-            </div>
+            </AppLayout>
           }
         />
 
-        {/* Private Routes: 로그인 필수 */}
+        {/* 레슨 홈: 유닛 목록 (비로그인 시 Unit1만 열려 있음) */}
         <Route
-          path="/*"
+          path="/lesson"
+          element={
+            <AppLayout>
+              <LessonHome />
+            </AppLayout>
+          }
+        />
+
+        {/* 1-1 스테이지: 비로그인 선체험 허용 */}
+        <Route
+          path="/stage/1/1"
+          element={
+            <AppLayout>
+              <Stage _lessonId="1" _stage="1" />
+            </AppLayout>
+          }
+        />
+
+        {/* ── Private Routes: 로그인 필수 ── */}
+
+        {/* 유닛 상세 (스테이지 목록) */}
+        <Route
+          path="/lesson/:id"
           element={
             <ProtectedRoute>
-              <div className="page">
-                <Routes>
-                  <Route path="/lesson/:id"                element={<Lesson />} />
-                  <Route path="/stage/:lessonId/:stage"    element={<Stage />} />
-                  <Route path="/boss/:lessonId"            element={<Boss />} />
-                  <Route path="/character"                 element={<Character />} />
-                  <Route path="/settings"                  element={<Settings />} />
-                </Routes>
-                <NavBar />
-              </div>
+              <AppLayout>
+                <Lesson />
+              </AppLayout>
             </ProtectedRoute>
           }
         />
+
+        {/* 스테이지 퀴즈 (1-1 제외한 모든 스테이지) */}
+        <Route
+          path="/stage/:lessonId/:stage"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <Stage />
+              </AppLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* 보스 전투 */}
+        <Route
+          path="/boss/:lessonId"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <Boss />
+              </AppLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* 훈련 탭 */}
+        <Route
+          path="/train"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <Train />
+              </AppLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* 내 캐릭터 */}
+        <Route
+          path="/character"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <Character />
+              </AppLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* 설정 */}
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <Settings />
+              </AppLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* 그 외 경로 → 레슨 홈 */}
+        <Route path="*" element={<Navigate to="/lesson" replace />} />
       </Routes>
     </BrowserRouter>
   )
