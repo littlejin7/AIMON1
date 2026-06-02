@@ -5,8 +5,10 @@ import QuizCard from '../../components/QuizCard/QuizCard'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import './Stage.css'
 
-export default function Stage() {
-  const { lessonId, stage } = useParams()
+export default function Stage({ _lessonId, _stage }) {
+  const params = useParams()
+  const lessonId = _lessonId || params.lessonId
+  const stage = _stage || params.stage
   const navigate = useNavigate()
   const stageNum = parseInt(stage, 10)
   const token = useAuthStore((s) => s.token)
@@ -19,17 +21,38 @@ export default function Stage() {
   const [loading, setLoading]     = useState(true)
   // 비로그인 선체험 완료 후 회원가입/로그인 모달
   const [showAuthModal, setShowAuthModal] = useState(false)
+  
+  // 브리핑 슬라이드 상태
+  const [briefings, setBriefings]         = useState([])
+  const [briefingIndex, setBriefingIndex] = useState(0)
+  const [showBriefing, setShowBriefing]   = useState(true)
 
   useEffect(() => {
+    // 1-1 스테이지 임시 데이터 (MVP 연동)
+    if (String(lessonId) === '1' && stageNum === 1) {
+      import('../../data/mockData').then(({ MOCK_BRIEFINGS, MOCK_QUESTIONS }) => {
+        setBriefings(MOCK_BRIEFINGS['1-1'])
+        setQuestions(MOCK_QUESTIONS)
+        setShowBriefing(true)
+        setLoading(false)
+      })
+      return
+    }
+
     quizApi.getQuestions({ lesson_id: lessonId, stage: stageNum, limit: 5 })
-      .then((r) => setQuestions(r.data))
+      .then((r) => {
+        setQuestions(r.data)
+        setBriefings([])
+        setShowBriefing(false)
+      })
       .finally(() => setLoading(false))
   }, [lessonId, stageNum])
 
-  const handleAnswer = async ({ correct: isCorrect }) => {
-    const pts = isCorrect ? 20 : 0
+  const handleAnswer = async ({ correct: isCorrect, retried }) => {
+    // 재도전해서 맞춘 문제는 0점, 한 번에 맞추면 20점
+    const pts = (isCorrect && !retried) ? 20 : 0
     const newScore = score + pts
-    const newCorrect = correct + (isCorrect ? 1 : 0)
+    const newCorrect = correct + ((isCorrect && !retried) ? 1 : 0)
     setScore(newScore)
     setCorrect(newCorrect)
 
@@ -149,6 +172,72 @@ export default function Stage() {
     )
   }
 
+  // ── 1) 브리핑 슬라이드 모드 ──
+  if (showBriefing && briefings.length > 0) {
+    const slide = briefings[briefingIndex]
+    const isLast = briefingIndex === briefings.length - 1
+
+    return (
+      <div className="stage-page">
+        <div className="stage-header">
+          <button className="btn btn-ghost btn-sm" onClick={() => navigate(`/lesson/${lessonId}`)}>✕</button>
+          <div className="stage-progress-section">
+            <div className="stage-progress-label">
+              <span>브리핑</span>
+              <span>{briefingIndex + 1} / {briefings.length}</span>
+            </div>
+            <div className="progress-bar">
+              <div className="progress-bar-fill" style={{ width: `${((briefingIndex + 1) / briefings.length) * 100}%` }} />
+            </div>
+          </div>
+          <div style={{ width: 32 }} />
+        </div>
+        
+        <div className="stage-content container">
+          <div className="briefing-card card-glass animate-fade-in-up" key={slide.id} style={{ padding: '2rem', textAlign: 'left' }}>
+            <h2 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: '1rem', color: 'var(--clr-text)' }}>
+              {slide.title}
+            </h2>
+            
+            <p style={{ color: 'var(--clr-text-muted)', lineHeight: 1.7, marginBottom: '1.5rem', whiteSpace: 'pre-line' }}>
+              {slide.text}
+            </p>
+            
+            {slide.code && (
+              <div className="briefing-code" style={{ 
+                background: '#1e1e2e', padding: '1rem', borderRadius: '8px', 
+                fontFamily: 'monospace', color: '#a6accd', marginBottom: '1.5rem', 
+                border: '1px solid #313244', whiteSpace: 'pre', overflowX: 'auto'
+              }}>
+                {slide.code}
+              </div>
+            )}
+            
+            {slide.tip && (
+              <div style={{ background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: '8px', padding: '1rem', marginBottom: '2rem' }}>
+                <strong style={{ color: '#34d399', display: 'block', marginBottom: '4px' }}>💡 에이몬의 팁</strong>
+                <p style={{ margin: 0, color: 'var(--clr-text-muted)', fontSize: '0.9rem', lineHeight: 1.5 }}>
+                  {slide.tip}
+                </p>
+              </div>
+            )}
+            
+            <button
+              className="btn btn-primary btn-lg btn-full"
+              onClick={() => {
+                if (isLast) setShowBriefing(false)
+                else setBriefingIndex(b => b + 1)
+              }}
+            >
+              {isLast ? '🚀 퀴즈 시작하기' : '다음 슬라이드 ➔'}
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // ── 2) 본 퀴즈 모드 ──
   const progressPct = (current / questions.length) * 100
 
   return (
