@@ -1,0 +1,99 @@
+.boss-page { padding-bottom: 90px; min-height: 100vh; }
+.boss-page-loading { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-4); color: #fca5a5; }
+.boss-page-header { padding: var(--sp-4) var(--sp-4) 0; }
+
+.boss-challenge { margin-top: var(--sp-5); }
+
+.boss-question-box {
+  background: linear-gradient(145deg, #1a1235, #221c3a);
+  border: 1px solid rgba(239,68,68,0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-6);
+  margin-bottom: var(--sp-5);
+}
+
+.boss-q-title {
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  color: #fca5a5;
+  margin-bottom: var(--sp-3);
+}
+
+.boss-q-text {
+  font-size: var(--font-size-md);
+  line-height: 1.7;
+  color: var(--clr-text);
+}
+
+.boss-answer-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.boss-textarea {
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: var(--font-size-sm);
+  resize: vertical;
+  min-height: 160px;
+  line-height: 1.7;
+  tab-size: 2;
+}
+
+/* Result */
+.boss-result {
+  margin-top: var(--sp-5);
+  padding: var(--sp-8) var(--sp-6);
+  border-radius: var(--radius-xl);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+.boss-result.correct {
+  background: rgba(16,185,129,0.08);
+  border: 1px solid rgba(16,185,129,0.3);
+}
+
+.boss-result.wrong {
+  background: rgba(239,68,68,0.08);
+  border: 1px solid rgba(239,68,68,0.3);
+}
+
+.boss-result-icon { font-size: 4rem; animation: float 2s ease-in-out infinite; }
+.boss-result-title { font-size: var(--font-size-xl); font-weight: 800; }
+.boss-result-score { font-size: 3rem; font-weight: 900; color: var(--clr-accent); }
+
+.boss-result-feedback {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: var(--sp-4);
+  font-size: var(--font-size-sm);
+  color: var(--clr-text-muted);
+  line-height: 1.7;
+  text-align: left;
+  width: 100%;
+}
+
+.boss-hint {
+  margin-top: var(--sp-3);
+  padding: var(--sp-3);
+  background: rgba(245,158,11,0.1);
+  border: 1px solid rgba(245,158,11,0.2);
+  border-radius: var(--radius-sm);
+  color: #fde68a;
+  font-size: var(--font-size-xs);
+}
+
+.boss-hint span { font-weight: 700; }
+
+.boss-result-actions {
+  display: flex;
+  gap: var(--sp-3);
+  width: 100%;
+  flex-wrap: wrap;
+}
+.boss-result-actions .btn { flex: 1; }

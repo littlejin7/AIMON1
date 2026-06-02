@@ -1,0 +1,123 @@
+import { useEffect, useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+import { quizApi, progressApi } from '../../api/index'
+import './Lesson.css'
+
+const STAGE_ICONS = ['⚡', '🔥', '💎', '👑']
+
+export default function Lesson() {
+  const { id } = useParams()
+  const navigate = useNavigate()
+  const [lesson, setLesson]     = useState(null)
+  const [progress, setProgress] = useState([])
+  const [loading, setLoading]   = useState(true)
+
+  useEffect(() => {
+    Promise.all([
+      quizApi.getLesson(id),
+      progressApi.getProgress(),
+    ]).then(([l, p]) => {
+      setLesson(l.data)
+      setProgress(p.data.filter((x) => x.lesson_id === id))
+    }).finally(() => setLoading(false))
+  }, [id])
+
+  if (loading) return <div className="lesson-loading"><div className="spinner" /></div>
+  if (!lesson) return <div className="lesson-loading"><p>레슨을 찾을 수 없습니다.</p></div>
+
+  const getStageStatus = (stage) => {
+    const p = progress.find((x) => x.stage === stage)
+    if (!p) return 'locked'
+    if (p.is_completed) return 'completed'
+    return 'in_progress'
+  }
+
+  const isStageUnlocked = (stageNum) => {
+    if (stageNum === 1) return true
+    const prev = progress.find((x) => x.stage === stageNum - 1)
+    return prev?.is_completed
+  }
+
+  return (
+    <div className="lesson-page">
+      <div className="lesson-hero">
+        <button className="btn btn-ghost btn-sm" onClick={() => navigate('/')}>
+          ← 홈으로
+        </button>
+        <div className="lesson-hero-content">
+          <span className="lesson-hero-icon">{lesson.icon}</span>
+          <h1 className="lesson-hero-title">{lesson.title}</h1>
+          <p className="lesson-hero-desc">{lesson.description}</p>
+          <span className="badge badge-cyan">{lesson.difficulty}</span>
+        </div>
+      </div>
+
+      <div className="container">
+        <h2 className="lesson-stages-title">스테이지 선택</h2>
+
+        <div className="stage-list stagger">
+          {Array.from({ length: lesson.stages }, (_, i) => i + 1).map((stage) => {
+            const status = getStageStatus(stage)
+            const unlocked = isStageUnlocked(stage)
+            const prog = progress.find((x) => x.stage === stage)
+
+            return (
+              <button
+                key={stage}
+                id={`stage-${stage}`}
+                className={`stage-item ${status} ${!unlocked ? 'locked-item' : ''} animate-fade-in-up`}
+                onClick={() => unlocked && navigate(`/stage/${id}/${stage}`)}
+                disabled={!unlocked}
+                aria-label={`스테이지 ${stage}`}
+              >
+                <div className="stage-number-wrap">
+                  <span className="stage-icon">{unlocked ? STAGE_ICONS[stage - 1] || '⭐' : '🔒'}</span>
+                  <span className="stage-number">Stage {stage}</span>
+                </div>
+                <div className="stage-info">
+                  <div className="stage-status-badge">
+                    {status === 'completed' && <span className="badge badge-success">완료 ✅</span>}
+                    {status === 'in_progress' && <span className="badge badge-warning">진행 중</span>}
+                    {status === 'locked' && !unlocked && <span className="badge">잠김 🔒</span>}
+                    {status === 'locked' && unlocked && <span className="badge badge-primary">도전!</span>}
+                  </div>
+                  {prog && (
+                    <div className="stage-score">점수: {prog.score}점</div>
+                  )}
+                </div>
+                {unlocked && <span className="stage-arrow">›</span>}
+              </button>
+            )
+          })}
+
+          {/* Boss Stage */}
+          <button
+            id="stage-boss"
+            className={`stage-item boss-stage animate-fade-in-up ${
+              progress.filter((p) => p.is_completed).length >= lesson.stages ? '' : 'locked-item'
+            }`}
+            onClick={() =>
+              progress.filter((p) => p.is_completed).length >= lesson.stages &&
+              navigate(`/boss/${id}`)
+            }
+            disabled={progress.filter((p) => p.is_completed).length < lesson.stages}
+          >
+            <div className="stage-number-wrap">
+              <span className="stage-icon">🐉</span>
+              <span className="stage-number">보스 전투</span>
+            </div>
+            <div className="stage-info">
+              <span className="badge badge-danger">최종 보스</span>
+              <div className="stage-score" style={{ color: '#fca5a5' }}>
+                {progress.filter((p) => p.is_completed).length >= lesson.stages
+                  ? '도전 가능!'
+                  : `모든 스테이지 완료 후 해금`}
+              </div>
+            </div>
+            <span className="stage-arrow">›</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}

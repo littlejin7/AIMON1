@@ -1,0 +1,129 @@
+.home-page {
+  padding: var(--sp-6) var(--sp-4) var(--sp-4);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.home-loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-4);
+  color: var(--clr-text-muted);
+}
+
+.home-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-6);
+  padding: var(--sp-5);
+  background: var(--grad-card);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-xl);
+}
+
+.home-greeting-sub {
+  font-size: var(--font-size-sm);
+  color: var(--clr-text-muted);
+}
+
+.home-greeting-name {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Stats */
+.home-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-8);
+}
+
+.stat-card {
+  background: var(--grad-card);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-4) var(--sp-3);
+  text-align: center;
+  transition: transform var(--transition-normal);
+}
+.stat-card:hover { transform: translateY(-4px); }
+
+.stat-icon { font-size: 1.5rem; display: block; margin-bottom: var(--sp-2); }
+.stat-value { font-size: var(--font-size-2xl); font-weight: 800; color: var(--clr-primary-lt); }
+.stat-label { font-size: 0.65rem; color: var(--clr-text-muted); margin-top: var(--sp-1); letter-spacing: 0.03em; }
+
+/* Section */
+.home-section { margin-bottom: var(--sp-6); }
+.home-section-title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  margin-bottom: var(--sp-4);
+  color: var(--clr-text);
+}
+
+/* Lesson List */
+.lesson-list { display: flex; flex-direction: column; gap: var(--sp-3); }
+
+.lesson-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--grad-card) !important;
+}
+
+.lesson-icon { font-size: 2.2rem; flex-shrink: 0; }
+
+.lesson-info { flex: 1; min-width: 0; }
+
+.lesson-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-1);
+}
+
+.lesson-title { font-size: var(--font-size-md); font-weight: 700; }
+
+.lesson-desc {
+  font-size: var(--font-size-xs);
+  color: var(--clr-text-muted);
+  margin-bottom: var(--sp-3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lesson-progress-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.lesson-progress-text {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--clr-primary-lt);
+  white-space: nowrap;
+}
+
+.lesson-arrow {
+  font-size: 1.5rem;
+  color: var(--clr-text-faint);
+  flex-shrink: 0;
+  transition: transform var(--transition-normal);
+}
+.lesson-item:hover .lesson-arrow { transform: translateX(4px); color: var(--clr-primary-lt); }
