@@ -92,6 +92,21 @@ export default function App() {
           }
         />
 
+        {/* 파이널 보스 (준비중) */}
+        <Route
+          path="/boss/final"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <div style={{ padding: '4rem 2rem', textAlign: 'center', color: 'var(--clr-text-muted)' }}>
+                  <h2>👿 파이널 보스</h2>
+                  <p>Unit 8까지 모두 완료하면 해금됩니다!</p>
+                </div>
+              </AppLayout>
+            </ProtectedRoute>
+          }
+        />
+
         {/* 보스 전투 */}
         <Route
           path="/boss/:lessonId"
@@ -135,6 +150,21 @@ export default function App() {
             <ProtectedRoute>
               <AppLayout>
                 <Settings />
+              </AppLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* 미니게임 (준비중) */}
+        <Route
+          path="/game"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <div style={{ padding: '4rem 2rem', textAlign: 'center', color: 'var(--clr-text-muted)' }}>
+                  <h2>🎮 미니게임 탭</h2>
+                  <p>곧 재미있는 미니게임이 추가될 예정입니다!</p>
+                </div>
               </AppLayout>
             </ProtectedRoute>
           }
