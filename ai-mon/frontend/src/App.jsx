@@ -18,19 +18,40 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* 인증 페이지 */}
         <Route path="/auth" element={<Auth />} />
+
+        {/* Public Routes: 비로그인 선체험 허용 (홈, 1-1 스테이지) */}
+        <Route
+          path="/"
+          element={
+            <div className="page">
+              <Home />
+              <NavBar />
+            </div>
+          }
+        />
+        <Route
+          path="/stage/1/1"
+          element={
+            <div className="page">
+              <Stage />
+            </div>
+          }
+        />
+
+        {/* Private Routes: 로그인 필수 */}
         <Route
           path="/*"
           element={
             <ProtectedRoute>
               <div className="page">
                 <Routes>
-                  <Route path="/"              element={<Home />} />
-                  <Route path="/lesson/:id"    element={<Lesson />} />
-                  <Route path="/stage/:lessonId/:stage" element={<Stage />} />
-                  <Route path="/boss/:lessonId"         element={<Boss />} />
-                  <Route path="/character"     element={<Character />} />
-                  <Route path="/settings"      element={<Settings />} />
+                  <Route path="/lesson/:id"                element={<Lesson />} />
+                  <Route path="/stage/:lessonId/:stage"    element={<Stage />} />
+                  <Route path="/boss/:lessonId"            element={<Boss />} />
+                  <Route path="/character"                 element={<Character />} />
+                  <Route path="/settings"                  element={<Settings />} />
                 </Routes>
                 <NavBar />
               </div>

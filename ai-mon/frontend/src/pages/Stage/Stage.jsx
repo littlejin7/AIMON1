@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { quizApi, progressApi } from '../../api/index'
 import QuizCard from '../../components/QuizCard/QuizCard'
+import { useAuthStore } from '../../hooks/useAuthStore'
 import './Stage.css'
 
 export default function Stage() {
   const { lessonId, stage } = useParams()
   const navigate = useNavigate()
   const stageNum = parseInt(stage, 10)
+  const token = useAuthStore((s) => s.token)
 
   const [questions, setQuestions] = useState([])
   const [current, setCurrent]     = useState(0)
@@ -15,6 +17,8 @@ export default function Stage() {
   const [correct, setCorrect]     = useState(0)
   const [finished, setFinished]   = useState(false)
   const [loading, setLoading]     = useState(true)
+  // 비로그인 선체험 완료 후 회원가입/로그인 모달
+  const [showAuthModal, setShowAuthModal] = useState(false)
 
   useEffect(() => {
     quizApi.getQuestions({ lesson_id: lessonId, stage: stageNum, limit: 5 })
@@ -32,7 +36,14 @@ export default function Stage() {
     await new Promise((r) => setTimeout(r, 1200))
 
     if (current + 1 >= questions.length) {
-      // Save progress
+      // 1-1 스테이지 선체험: 비로그인 시 진행 저장 없이 모달만 표시
+      const isFreeTrial = String(lessonId) === '1' && stageNum === 1
+      if (isFreeTrial && !token) {
+        setFinished(true)
+        setShowAuthModal(true)
+        return
+      }
+      // 로그인 상태 또는 일반 스테이지: 진행도 저장 후 완료 처리
       const totalScore = Math.round((newCorrect / questions.length) * 100)
       await progressApi.saveProgress({
         lesson_id: lessonId,
@@ -54,6 +65,55 @@ export default function Stage() {
   if (finished) {
     return (
       <div className="stage-result animate-fade-in">
+        {/* 비로그인 회원가입/로그인 모달 */}
+        {showAuthModal && (
+          <div
+            className="auth-modal-overlay"
+            onClick={() => setShowAuthModal(false)}
+            style={{
+              position: 'fixed', inset: 0, zIndex: 1000,
+              background: 'rgba(0,0,0,0.65)', backdropFilter: 'blur(4px)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}
+          >
+            <div
+              className="auth-modal"
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                background: 'var(--surface, #1e1e2e)',
+                border: '1px solid rgba(255,255,255,0.12)',
+                borderRadius: '20px', padding: '2.5rem 2rem',
+                maxWidth: '380px', width: '90%', textAlign: 'center',
+                boxShadow: '0 24px 64px rgba(0,0,0,0.5)',
+              }}
+            >
+              <div style={{ fontSize: '3rem', marginBottom: '0.75rem' }}>🎉</div>
+              <h2 style={{ margin: '0 0 0.5rem', fontSize: '1.4rem', fontWeight: 700 }}>
+                1-1 스테이지 완료!
+              </h2>
+              <p style={{ color: 'var(--text-secondary, #a0a0b0)', marginBottom: '1.5rem', lineHeight: 1.6 }}>
+                다음 스테이지로 이어가려면<br />로그인 또는 회원가입이 필요해요 😊
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                <button
+                  className="btn btn-primary"
+                  style={{ width: '100%' }}
+                  onClick={() => navigate('/auth')}
+                >
+                  로그인 / 회원가입
+                </button>
+                <button
+                  className="btn btn-ghost"
+                  style={{ width: '100%' }}
+                  onClick={() => { setShowAuthModal(false); navigate('/') }}
+                >
+                  홈으로 돌아가기
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="result-icon animate-float">{passed ? '🏆' : '😅'}</div>
         <h2 className="result-title">{passed ? '스테이지 클리어!' : '다시 도전해보세요!'}</h2>
         <div className="result-score" style={{ color: passed ? '#10b981' : '#ef4444' }}>
