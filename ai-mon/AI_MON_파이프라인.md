@@ -35,19 +35,16 @@
 └ 파이널 보스 (레벨 전체 완료 시)
 ```
 
-**스테이지 진행 흐름**
-```
 Stage 입장 → 브리핑 슬라이드 넘기기 → 퀴즈 → 다음 스테이지 잠금 해제
-```
-
-**네비게이션**
-- MVP: 레슨 / 훈련 / 내 캐릭터 (3탭)
-- 2단계: 레슨 / 훈련 / 미니게임 / 내 캐릭터 (4탭)
 
 - beginner/intermediate/advanced 커리큘럼 주제 동일, **질문 세트만 난이도별 교체**
 - beginner: 개념 이해 위주, multiple_choice
 - intermediate: 코드 읽기 + 단순 code_input, multiple_choice + code_input 혼합
 - advanced: 코드 작성 + 응용, code_input 위주
+
+**네비게이션**
+- MVP: 레슨 / 훈련 / 내 캐릭터 (3탭)
+- 2단계: 레슨 / 훈련 / 미니게임 / 내 캐릭터 (4탭)
 
 ---
 
@@ -81,11 +78,11 @@ Stage 입장 → 브리핑 슬라이드 넘기기 → 퀴즈 → 다음 스테�
 ## 4. AI 피드백 파이프라인
 
 ```
-유저 오답 제출 (multiple_choice or 코드 입력)
+유저 오답 제출 (multiple_choice or code_input)
     ↓
 오답 판정
     ↓
-설명 레벨 선택 UI (설정 기본값 or 문제 화면에서 변경)
+설명 레벨 선택 (설정 기본값, 언제든 변경 가능)
     ↓
 beginner / intermediate / advanced
     ↓
@@ -102,7 +99,6 @@ Claude API 호출
 재도전 버튼 노출 + 오답노트 자동 큐레이션 저장
 ```
 
-**레벨별 설명 방식**
 | 레벨 | 설명 스타일 |
 |---|---|
 | beginner | 비유 + 일상 예시 + 왜 틀렸는지 설명 |
@@ -116,7 +112,7 @@ Claude API 호출
 - 오답 시: Claude API 호출 → 레벨별 맞춤 설명 (매 스테이지 적용)
 - API 호출 제한 없음 (오답 시에만 호출이라 비용 미미)
 
-**미확정 사항**
+**미확정**
 - [ ] FastAPI SSE Replit 환경 호환 확인 (스트리밍 전환 시)
 
 ---
@@ -140,159 +136,14 @@ FastAPI → Judge0 API 호출
 ## 6. 문제 데이터 구조
 
 - **저장 방식:** JSON (MVP) → 이후 DB(SQLite → PostgreSQL) 마이그레이션
-
-**파일 구성**
-- `questions.json` — 문제 데이터
-- `users.json` — 유저 정보 + XP + 왕관
-- `progress.json` — 유닛/스테이지 진도
-- `wrong_answers.json` — 오답노트
-
----
-
-### questions.json
-```json
-{
-  "questions": [
-    {
-      "question_id": "q_1_1_easy",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "question": "print('Hello')를 실행하면 무엇이 출력될까요?",
-      "choices": ["Hello", "'Hello'", "print(Hello)", "오류 발생"],
-      "answer": "Hello",
-      "hint": "따옴표는 '문자열이에요'라는 표시일 뿐, 출력엔 나타나지 않아요.",
-      "feedback": {
-        "correct": "맞아요! print()는 괄호 안 글자를 화면에 그대로 보여줘요.",
-        "wrong": "따옴표는 Python에게 '이건 글자야'라고 알려주는 표시예요. 실제 화면엔 따옴표 없이 안쪽 글자만 나와요."
-      }
-    },
-    {
-      "question_id": "q_1_1_medium",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "output_select",
-      "question": "다음 코드를 실행하면 몇 줄이 출력될까요?\n\nprint('에이몬')\n# print('코드몬')\nprint('레벨업!')",
-      "choices": ["1줄 — 에이몬", "2줄 — 에이몬, 레벨업!", "3줄 — 에이몬, 코드몬, 레벨업!", "오류 발생"],
-      "answer": "2줄 — 에이몬, 레벨업!",
-      "hint": "# 이 붙은 줄은 Python이 읽지 않아요.",
-      "feedback": {
-        "correct": "완벽해요! # 으로 시작하는 줄은 Python이 완전히 무시해요.",
-        "wrong": "# 이 붙은 줄은 코드가 아니라 메모(주석)예요. Python은 그 줄을 완전히 건너뛰어요."
-      }
-    },
-    {
-      "question_id": "q_1_2_hard",
-      "unit": 1,
-      "stage": "1-2",
-      "course_level": "advanced",
-      "difficulty": "hard",
-      "type": "code_input",
-      "question": "변수 name에 '에이몬'을 저장하고 출력하는 코드를 작성하세요.",
-      "choices": null,
-      "answer": "name = '에이몬'\nprint(name)",
-      "hint": "변수는 = 기호로 값을 저장해요.",
-      "feedback": {
-        "correct": "훌륭해요! 변수에 값을 저장하고 print()로 출력했어요.",
-        "wrong": "변수 선언은 변수명 = 값 형식이에요. 저장 후 print()로 출력하면 돼요."
-      }
-    }
-  ]
-}
-```
-
-**필드 설명**
-- `course_level`: beginner / intermediate / advanced (수강 레벨)
-- `difficulty`: easy / medium / hard (문제 난이도)
-- `type`: multiple_choice / output_select / fill_in_blank / code_input
-- `feedback.correct`: 정답 시 출력 (API 호출 없음)
-- `feedback.wrong`: 오답 시 기본 텍스트 → Claude API 레벨별 맞춤 설명으로 대체
-
----
-
-### users.json
-```json
-{
-  "user_id": "u001",
-  "nickname": "지니",
-  "course_level": "beginner",
-  "xp": 320,
-  "lv": 5,
-  "crowns": 5,
-  "streak": 3,
-  "last_login": "2026-06-02",
-  "avatar_stage": "slime",
-  "created_at": "2026-06-01"
-}
-```
-
----
-
-### progress.json
-```json
-{
-  "user_id": "u001",
-  "course_level": "beginner",
-  "final_boss": {
-    "status": "locked",
-    "attempts": 0
-  },
-  "units": [
-    {
-      "unit": 1,
-      "status": "completed",
-      "stages": [
-        { "stage": "1-1", "status": "completed", "score": 100, "attempts": 1, "completed_at": "2026-06-01" }
-      ],
-      "boss": {
-        "status": "completed",
-        "attempts": 1,
-        "boss_attempts_today": 1,
-        "last_attempt_date": "2026-06-01",
-        "hints_used": 0
-      },
-      "training": { "status": "completed", "score": 90, "attempts": 1 }
-    }
-  ]
-}
-```
+- **파일 구성:** lessons.json / questions.json / users.json / progress.json / wrong_answers.json
+- **상세 필드 정의 및 예시 →** 📋 AI MON 데이터 스키마 페이지 참고
 
 **힌트 규칙**
 - 스테이지: 힌트 없음
 - 보스: 힌트 2개 (`hints_used` 0~2로 관리)
 - 파이널 보스: 힌트 없음 (필드 없음)
 - 파이널 보스: Unit 8 보스 클리어 후 해금
-
----
-
-### wrong_answers.json
-```json
-{
-  "user_id": "u001",
-  "wrong_answers": [
-    {
-      "question_id": "q001",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "type": "multiple_choice",
-      "question": "print()의 역할은?",
-      "choices": ["A", "B", "C", "D"],
-      "user_answer": "B",
-      "correct_answer": "A",
-      "ai_explanation": "...",
-      "wrong_count": 2,
-      "reviewed": false,
-      "last_wrong_at": "2026-06-02",
-      "created_at": "2026-06-01"
-    }
-  ]
-}
-```
 
 ---
 
@@ -405,11 +256,12 @@ Lv 36→40: 레벨당 20,000 XP
 
 **메인/네비**
 - 홈 (진도 현황 + 오늘의 학습 유도)
-- 네비게이션 바 (레슨 / 훈련 / 내캐릭터)
+- 네비게이션 바 (레슨 / 훈련 / 내 캐릭터)
 
 **레슨 흐름**
 - 레슨 홈 (beginner/intermediate/advanced 선택 + 유닛 목록)
 - 유닛 상세 (스테이지 목록 + 잠금 상태)
+- 브리핑 화면 (개념 설명 슬라이드 + 터미널 + 팁)
 - 스테이지 퀴즈 화면 (문제 + 선택지 or code_input)
 - 정답 화면 (explanation 출력)
 - 오답 화면 (Claude AI 피드백 + 재도전 버튼)
@@ -442,6 +294,11 @@ POST /auth/login        로그인 → JWT 발급
 GET  /user/me           내 정보 조회 (XP, 왕관, 레벨, 스트릭)
 ```
 
+**브리핑**
+```
+GET  /lesson/{unit}/{stage}   브리핑 슬라이드 데이터 조회
+```
+
 **퀴즈**
 ```
 GET  /quiz/{level}/{unit}/{stage}   스테이지 문제 조회
@@ -468,15 +325,10 @@ POST /boss/fail         보스 실패 처리 (도전 횟수 업데이트)
 POST /code/run          Judge0 API 호출 → 실행 결과 반환
 ```
 
-**브리핑**
-```
-GET  /lesson/{unit}/{stage}   브리핑 슬라이드 데이터 조회
-```
-
 **미니게임 (MVP 이후)**
 ```
 GET  /game/list         미니게임 목록
-POST /game/clear        게임 클리어 → 왕관 지급
+POST /game/clear        게임 클리어 → 왕관/XP 지급
 ```
 
 ---
@@ -488,12 +340,12 @@ ai-mon/
 ├── frontend/                 # React + Vite
 │   ├── public/
 │   ├── src/
-│   │   ├── components/       # 공통 컴포넌트
+│   │   ├── components/
 │   │   │   ├── QuizCard/
 │   │   │   ├── BossCard/
 │   │   │   ├── CharacterDisplay/
 │   │   │   └── NavBar/
-│   │   ├── pages/            # 화면 목록
+│   │   ├── pages/
 │   │   │   ├── Home/
 │   │   │   ├── Lesson/
 │   │   │   ├── Stage/
@@ -509,8 +361,8 @@ ai-mon/
 │   │   │   ├── Character/
 │   │   │   ├── Settings/
 │   │   │   └── Auth/
-│   │   ├── hooks/            # 커스텀 훅
-│   │   ├── api/              # API 호출 함수
+│   │   ├── hooks/
+│   │   ├── api/
 │   │   └── App.jsx
 │
 ├── backend/                  # FastAPI
@@ -525,7 +377,8 @@ ai-mon/
 │   ├── services/
 │   │   ├── claude_service.py
 │   │   └── judge0_service.py
-│   └── data/                 # JSON 파일
+│   └── data/
+│       ├── lessons.json
 │       ├── questions.json
 │       ├── users.json
 │       ├── progress.json
