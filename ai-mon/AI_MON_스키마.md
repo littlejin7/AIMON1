@@ -1,0 +1,414 @@
+# AI MON 데이터 스키마
+> 각 JSON 파일의 필드 정의 + 예시. 문제 데이터 제작 및 개발 연동 시 기준 문서.
+
+---
+
+## 1. lessons.json
+
+브리핑 슬라이드 데이터 — 스테이지별 개념 설명
+
+| 필드 | 타입 | 필수 | 설명 |
+|---|---|---|---|
+| `lesson_id` | string | ✅ | 스테이지 ID (예: "1-1") |
+| `unit` | number | ✅ | 유닛 번호 (1~8) |
+| `stage` | string | ✅ | 스테이지 번호 (예: "1-1") |
+| `title` | string | ✅ | 스테이지 제목 |
+| `villain` | string | ✅ | 등장 악당 (codemmon / speechbubble_king / interferencemon) |
+| `slides` | array | ✅ | 슬라이드 목록 |
+| `slides[].order` | number | ✅ | 슬라이드 순서 |
+| `slides[].text` | string | ✅ | 개념 설명 텍스트 |
+| `slides[].terminal` | object | ❌ | 터미널 예시 (없을 수도 있음) |
+| `slides[].terminal.code` | array | ❌ | 코드 라인 배열 |
+| `slides[].terminal.output` | array | ❌ | 실행 결과 배열 |
+| `slides[].tip` | string | ❌ | 하단 팁 텍스트 |
+
+```json
+{
+  "lessons": [{
+    "lesson_id": "1-1",
+    "unit": 1,
+    "stage": "1-1",
+    "title": "Hello, Python!",
+    "villain": "codemmon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "코드 맨 앞에 샵 기호('#')를 붙이면, 컴퓨터는 그 줄을 완전히 무시합니다.",
+        "terminal": {
+          "code": ["# 이 줄은 실행되지 않는 주석입니다.", "print('에이몬 가동')"],
+          "output": ["에이몬 가동"]
+        },
+        "tip": "주석은 코드 맨 앞에 올 수도 있고, 코드 끝에 붙여 쓸 수도 있어요."
+      }
+    ]
+  }]
+}
+```
+
+---
+
+## 2. questions.json
+
+퀴즈 문제 데이터
+
+| 필드 | 타입 | 허용값 | 필수 | 설명 |
+|---|---|---|---|---|
+| `question_id` | string | - | ✅ | 문제 ID (예: "q_1_1_easy") |
+| `unit` | number | 1~8 | ✅ | 유닛 번호 |
+| `stage` | string | - | ✅ | 스테이지 번호 |
+| `course_level` | string | beginner / intermediate / advanced | ✅ | 수강 레벨 |
+| `difficulty` | string | easy / medium / hard | ✅ | 문제 난이도 |
+| `type` | string | multiple_choice / output_select / fill_in_blank / code_input | ✅ | 문제 유형 |
+| `question` | string | - | ✅ | 문제 텍스트 |
+| `choices` | array | - | ❌ | 선택지 (multiple_choice / output_select만 해당) |
+| `answer` | string | - | ✅ | 정답 |
+| `hint` | string | - | ✅ | 힌트 텍스트 |
+| `feedback.correct` | string | - | ✅ | 정답 시 출력 텍스트 (API 호출 없음) |
+| `feedback.wrong` | string | - | ✅ | 오답 시 기본 텍스트 → Claude API로 대체 |
+
+```json
+{
+  "questions": [
+    {
+      "question_id": "q_1_1_easy",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question": "print('Hello')를 실행하면 무엇이 출력될까요?",
+      "choices": ["Hello", "'Hello'", "print(Hello)", "오류 발생"],
+      "answer": "Hello",
+      "hint": "따옴표는 '문자열이에요'라는 표시일 뿐, 출력엔 나타나지 않아요.",
+      "feedback": {
+        "correct": "맞아요! print()는 괄호 안 글자를 화면에 그대로 보여줘요.",
+        "wrong": "따옴표는 Python에게 '이건 글자야'라고 알려주는 표시예요."
+      }
+    }
+  ]
+}
+```
+
+---
+
+## 3. users.json
+
+유저 정보
+
+| 필드 | 타입 | 허용값 | 필수 | 설명 |
+|---|---|---|---|---|
+| `user_id` | string | - | ✅ | 유저 고유 ID |
+| `nickname` | string | - | ✅ | 닉네임 |
+| `course_level` | string | beginner / intermediate / advanced | ✅ | 수강 레벨 |
+| `xp` | number | 0~ | ✅ | 보유 XP |
+| `lv` | number | 1~40 | ✅ | 현재 레벨 |
+| `crowns` | number | 0~ | ✅ | 보유 왕관 수 |
+| `streak` | number | 0~ | ✅ | 연속 접속일 |
+| `last_login` | string | YYYY-MM-DD | ✅ | 마지막 접속일 (스트릭 계산용) |
+| `avatar_stage` | string | slime / robot / speech_bubble / final_ghost | ✅ | 현재 캐릭터 진화 단계 |
+| `created_at` | string | YYYY-MM-DD | ✅ | 가입일 |
+
+```json
+{
+  "user_id": "u001",
+  "nickname": "지니",
+  "course_level": "beginner",
+  "xp": 320,
+  "lv": 5,
+  "crowns": 5,
+  "streak": 3,
+  "last_login": "2026-06-02",
+  "avatar_stage": "slime",
+  "created_at": "2026-06-01"
+}
+```
+
+---
+
+## 4. progress.json
+
+유저 학습 진도
+
+| 필드 | 타입 | 허용값 | 필수 | 설명 |
+|---|---|---|---|---|
+| `user_id` | string | - | ✅ | 유저 ID |
+| `course_level` | string | beginner / intermediate / advanced | ✅ | 수강 레벨 |
+| `final_boss.status` | string | locked / in_progress / completed | ✅ | 파이널 보스 상태 |
+| `final_boss.attempts` | number | 0~ | ✅ | 파이널 보스 도전 횟수 |
+| `units[].unit` | number | 1~8 | ✅ | 유닛 번호 |
+| `units[].status` | string | locked / in_progress / completed | ✅ | 유닛 상태 |
+| `units[].stages[].stage` | string | - | ✅ | 스테이지 번호 |
+| `units[].stages[].status` | string | locked / in_progress / completed | ✅ | 스테이지 상태 |
+| `units[].stages[].score` | number | 0~100 | ❌ | 퀴즈 점수 |
+| `units[].stages[].attempts` | number | 0~ | ✅ | 도전 횟수 |
+| `units[].stages[].completed_at` | string | YYYY-MM-DD | ❌ | 클리어 날짜 |
+| `units[].boss.status` | string | locked / in_progress / completed | ✅ | 보스 상태 |
+| `units[].boss.attempts` | number | 0~ | ✅ | 보스 도전 누적 횟수 |
+| `units[].boss.boss_attempts_today` | number | 0~ | ✅ | 오늘 보스 도전 횟수 (하루 2회 제한) |
+| `units[].boss.last_attempt_date` | string | YYYY-MM-DD | ❌ | 마지막 도전일 |
+| `units[].boss.hints_used` | number | 0~2 | ✅ | 힌트 사용 횟수 |
+| `units[].training.status` | string | locked / in_progress / completed | ✅ | 훈련 상태 (MVP 이후) |
+| `units[].training.score` | number | 0~100 | ❌ | 훈련 점수 |
+| `units[].training.attempts` | number | 0~ | ✅ | 훈련 도전 횟수 |
+
+```json
+{
+  "user_id": "u001",
+  "course_level": "beginner",
+  "final_boss": { "status": "locked", "attempts": 0 },
+  "units": [{
+    "unit": 1,
+    "status": "in_progress",
+    "stages": [
+      {
+        "stage": "1-1",
+        "status": "completed",
+        "score": 100,
+        "attempts": 1,
+        "completed_at": "2026-06-02"
+      }
+    ],
+    "boss": {
+      "status": "locked",
+      "attempts": 0,
+      "boss_attempts_today": 0,
+      "last_attempt_date": null,
+      "hints_used": 0
+    },
+    "training": { "status": "locked", "score": null, "attempts": 0 }
+  }]
+}
+```
+
+---
+
+## 5. wrong_answers.json
+
+오답 노트 (MVP 이후 활성화)
+
+| 필드 | 타입 | 허용값 | 필수 | 설명 |
+|---|---|---|---|---|
+| `user_id` | string | - | ✅ | 유저 ID |
+| `wrong_answers[].question_id` | string | - | ✅ | 문제 ID |
+| `wrong_answers[].unit` | number | 1~8 | ✅ | 유닛 번호 |
+| `wrong_answers[].stage` | string | - | ✅ | 스테이지 번호 |
+| `wrong_answers[].course_level` | string | beginner / intermediate / advanced | ✅ | 수강 레벨 |
+| `wrong_answers[].type` | string | multiple_choice / output_select / fill_in_blank / code_input | ✅ | 문제 유형 |
+| `wrong_answers[].question` | string | - | ✅ | 문제 텍스트 |
+| `wrong_answers[].choices` | array | - | ❌ | 선택지 |
+| `wrong_answers[].user_answer` | string | - | ✅ | 유저 답안 |
+| `wrong_answers[].correct_answer` | string | - | ✅ | 정답 |
+| `wrong_answers[].ai_explanation` | string | - | ❌ | Claude AI 설명 (저장해두면 재호출 불필요) |
+| `wrong_answers[].wrong_count` | number | 1~ | ✅ | 틀린 횟수 |
+| `wrong_answers[].reviewed` | boolean | true / false | ✅ | 오답노트 재풀이 여부 |
+| `wrong_answers[].last_wrong_at` | string | YYYY-MM-DD | ✅ | 마지막으로 틀린 날짜 |
+| `wrong_answers[].created_at` | string | YYYY-MM-DD | ✅ | 처음 틀린 날짜 |
+
+```json
+{
+  "user_id": "u001",
+  "wrong_answers": [{
+    "question_id": "q_1_1_easy",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "beginner",
+    "type": "multiple_choice",
+    "question": "print('Hello')를 실행하면 무엇이 출력될까요?",
+    "choices": ["Hello", "'Hello'", "print(Hello)", "오류 발생"],
+    "user_answer": "'Hello'",
+    "correct_answer": "Hello",
+    "ai_explanation": "",
+    "wrong_count": 1,
+    "reviewed": false,
+    "last_wrong_at": "2026-06-02",
+    "created_at": "2026-06-02"
+  }]
+}
+```
+
+---
+
+## 6. 실제 문제 데이터 (Unit 1 · Stage 1-1)
+
+> Stage 1-1 실제 제작 문제. beginner / intermediate / advanced 레벨별 / 화면별 분리.
+
+---
+
+### beginner
+
+**stage_lesson — multiple_choice**
+
+```json
+{
+  "type": "stage_lesson", "level": "beginner", "quiz_type": "multiple_choice",
+  "unit": 1, "stage": "1-1", "pass_score": 80,
+  "questions": [
+    { "question_id": "sl_beg_mc_1_1_001", "type": "multiple_choice",
+      "question": "print()의 역할은 무엇인가요?",
+      "choices": ["A. 값을 저장한다","B. 값을 출력한다","C. 값을 삭제한다","D. 값을 계산한다"],
+      "answer": "B", "explanation": "print()는 괄호 안의 값을 화면에 출력하는 함수예요." },
+    { "question_id": "sl_beg_mc_1_1_002", "type": "multiple_choice",
+      "question": "Python에서 주석을 작성할 때 사용하는 기호는?",
+      "choices": ["A. //","B. --","C. #","D. /*"],
+      "answer": "C", "explanation": "# 뒤에 오는 내용은 Python이 무시해요." },
+    { "question_id": "sl_beg_mc_1_1_003", "type": "multiple_choice",
+      "question": "다음 중 올바른 print() 사용법은?",
+      "choices": ["A. print[Hello]","B. print Hello","C. print('Hello')","D. Print('Hello')"],
+      "answer": "C", "explanation": "print()는 소문자, 출력 내용은 괄호 안에 따옴표로 감싸야 해요." }
+  ]
+}
+```
+
+**concept_check — multiple_choice**
+
+```json
+{
+  "type": "concept_check", "level": "beginner", "quiz_type": "multiple_choice",
+  "unit": 1, "stage": "1-1", "villain": "codemmon", "pass_score": 80,
+  "questions": [
+    { "question_id": "cc_beg_mc_1_1_001",
+      "question": "print('에이몬') 을 실행하면 화면에 무엇이 출력될까요?",
+      "choices": ["A. '에이몬'","B. 에이몬","C. print(에이몬)","D. 오류 발생"],
+      "answer": "B", "explanation": "따옴표는 문자열 표시일 뿐이에요. 화면엔 따옴표 없이 에이몬만 출력돼요." },
+    { "question_id": "cc_beg_mc_1_1_002",
+      "question": "다음 중 주석 처리된 줄은?",
+      "choices": ["A. print('Hello')","B. # print('Hello')","C. //print('Hello')","D. --print('Hello')"],
+      "answer": "B", "explanation": "# 기호가 앞에 붙으면 그 줄 전체가 주석이 돼요." }
+  ]
+}
+```
+
+**boss — multiple_choice + output_select**
+
+```json
+{
+  "type": "boss", "level": "beginner", "unit": 1, "boss_name": "코드몬 Unit 1 보스",
+  "pass_score": 80, "free_attempts_per_day": 2, "crown_cost_from_attempt": 3,
+  "hints_allowed": 2, "xp_reward": 2000,
+  "questions": [
+    { "question_id": "boss_beg_mc_1_001", "type": "multiple_choice",
+      "question": "다음 중 Python에서 실행되지 않는 줄은?",
+      "choices": ["A. print('에이몬')","B. # print('에이몬')","C. print('# 에이몬')","D. print('에이몬') # 출력"],
+      "answer": "B", "explanation": "줄 맨 앞에 # 이 붙으면 그 줄 전체가 주석이에요." },
+    { "question_id": "boss_beg_os_1_001", "type": "output_select",
+      "question": "다음 코드의 출력값을 고르세요.\n\nprint('코드몬' + '을' + ' 물리쳐라!')\n# print('게임 오버')\nprint('승리!')",
+      "choices": ["A. 코드몬을 물리쳐라! / 게임 오버 / 승리!","B. 코드몬을 물리쳐라! / 승리!","C. 코드몬 + 을 + 물리쳐라! / 승리!","D. 오류 발생"],
+      "answer": "B", "explanation": "+ 는 문자열을 이어붙이고, # 주석 줄은 무시돼요." }
+  ]
+}
+```
+
+**final_boss — output_select + fill_in_blank (hints_allowed: 0)**
+
+```json
+{
+  "type": "final_boss", "level": "beginner", "boss_name": "파이널 보스 — 검정 에이몬",
+  "unlock_condition": "Unit 8 보스 클리어 후 해금", "hints_allowed": 0, "xp_reward": 5000,
+  "questions": [
+    { "question_id": "fb_beg_os_001", "type": "output_select",
+      "question": "다음 코드의 출력값을 고르세요.\n\nname = '에이몬'\nlevel = 8\nprint(f'{name}이 Lv.{level}로 최종 진화했습니다!')\n# print('슬라임 시절이 그립다')\nprint('축하합니다!')",
+      "choices": ["A. 에이몬이 Lv.8로 최종 진화했습니다! / 슬라임 시절이 그립다 / 축하합니다!","B. 에이몬이 Lv.8로 최종 진화했습니다! / 축하합니다!","C. {name}이 Lv.{level}로 최종 진화했습니다! / 축하합니다!","D. 오류 발생"],
+      "answer": "B", "explanation": "f-string은 {} 안의 변수를 값으로 치환해요. # 주석은 무시됩니다." },
+    { "question_id": "fb_beg_fib_001", "type": "fill_in_blank",
+      "question": "빈칸을 채워 '에이몬 최종 진화 완료!' 를 출력하세요.\n\n_____('에이몬 최종 진화 완료!')",
+      "answer": "print", "explanation": "print() 함수를 사용하면 괄호 안의 내용을 화면에 출력할 수 있어요." }
+  ]
+}
+```
+
+---
+
+### intermediate
+
+**stage_lesson — multiple_choice + output_select**
+
+```json
+{
+  "type": "stage_lesson", "level": "intermediate", "quiz_type": "multiple_choice",
+  "unit": 1, "stage": "1-1", "pass_score": 80,
+  "questions": [
+    { "question_id": "sl_mid_mc_1_1_001",
+      "question": "print()에서 쉼표(,)와 + 의 차이로 올바른 것은?",
+      "choices": ["A. 둘 다 공백 없이 이어붙인다","B. + 는 공백 추가, 쉼표는 공백 없음","C. 쉼표는 자동 공백 추가, + 는 공백 없이 이어붙임","D. 둘 다 동일하게 동작한다"],
+      "answer": "C", "explanation": "쉼표(,)로 구분하면 print()가 값 사이에 공백을 자동 삽입합니다." },
+    { "question_id": "sl_mid_os_1_1_001", "type": "output_select",
+      "question": "다음 코드의 출력값을 고르세요.\n\nprint('에이몬', 'Lv', 5)\nprint('에이몬' + 'Lv' + str(5))",
+      "choices": ["A. 에이몬 Lv 5 / 에이몬Lv5","B. 에이몬Lv5 / 에이몬 Lv 5","C. 에이몬 Lv 5 / 에이몬 Lv 5","D. 오류 발생"],
+      "answer": "A", "explanation": "쉼표는 공백 자동 삽입, + 는 공백 없이 연결이에요." }
+  ]
+}
+```
+
+**boss — output_select + fill_in_blank**
+
+```json
+{
+  "type": "boss", "level": "intermediate", "unit": 1,
+  "pass_score": 80, "free_attempts_per_day": 2, "crown_cost_from_attempt": 3,
+  "hints_allowed": 2, "xp_reward": 2000,
+  "questions": [
+    { "question_id": "boss_mid_os_1_001", "type": "output_select",
+      "question": "다음 코드의 출력값을 고르세요.\n\nname = '에이몬'\nhp = 100\nprint(f'{name}의 HP: {hp - 30}')\n# print('공격 받음!')\nprint(f'남은 HP: {hp - 30}')",
+      "choices": ["A. 에이몬의 HP: 100 / 공격 받음! / 남은 HP: 70","B. 에이몬의 HP: 70 / 남은 HP: 70","C. 에이몬의 HP: {hp - 30} / 남은 HP: {hp - 30}","D. 오류 발생"],
+      "answer": "B", "explanation": "f-string {} 안 연산식이 계산되어 출력돼요. # 주석은 무시됩니다." },
+    { "question_id": "boss_mid_fib_1_001", "type": "fill_in_blank",
+      "question": "빈칸을 채워 f-string으로 출력하세요.\n\nxp = 2000\nprint(___'에이몬 보스 클리어! XP: {xp}')",
+      "answer": "f", "explanation": "f-string은 문자열 앞에 f를 붙여요." }
+  ]
+}
+```
+
+---
+
+### advanced
+
+**stage_lesson — output_select + fill_in_blank**
+
+```json
+{
+  "type": "stage_lesson", "level": "advanced", "unit": 1, "stage": "1-1", "pass_score": 80,
+  "questions": [
+    { "question_id": "sl_adv_os_1_1_001", "type": "output_select",
+      "question": "다음 코드의 출력값을 고르세요.\n\nfor i in range(3):\n    print(i, end='-')\nprint('끝')",
+      "choices": ["A. 0-1-2-끝","B. 0 / 1 / 2 / 끝","C. 0-1-2- / 끝","D. 012-끝"],
+      "answer": "A", "explanation": "end='-'로 줄바꿈 대신 - 가 붙어요." },
+    { "question_id": "sl_adv_fib_1_1_001", "type": "fill_in_blank",
+      "question": "print()가 여러 값을 | 로 구분해 출력하게 빈칸을 채우세요.\n출력 목표: 에이몬|로봇|고스트\n\nprint('에이몬', '로봇', '고스트', _____='|')",
+      "answer": "sep", "explanation": "sep 파라미터는 여러 값 사이 구분자를 지정해요." }
+  ]
+}
+```
+
+**boss — fill_in_blank + code_input**
+
+```json
+{
+  "type": "boss", "level": "advanced", "unit": 1,
+  "pass_score": 80, "hints_allowed": 2, "xp_reward": 2000, "judge0_required": true,
+  "questions": [
+    { "question_id": "boss_adv_fib_1_001", "type": "fill_in_blank",
+      "question": "빈칸을 채워 숫자를 소수점 3자리로 포맷해 출력하세요.\n\nscore = 98.7564\nprint(f'스코어: {score:_____}')",
+      "answer": ".3f", "explanation": ":.3f는 소수점 아래 3자리까지 반올림하여 출력해요." },
+    { "question_id": "boss_adv_ci_1_001", "type": "code_input",
+      "question": "리스트 [1, 2, 3, 4, 5]를 한 줄에 공백으로 구분 출력. print() 한 번만 사용.\n출력 목표: 1 2 3 4 5",
+      "answer": "print(*[1, 2, 3, 4, 5])", "judge0_required": true }
+  ]
+}
+```
+
+**final_boss — code_input 위주 (hints_allowed: 0)**
+
+```json
+{
+  "type": "final_boss", "level": "advanced", "hints_allowed": 0, "xp_reward": 5000,
+  "judge0_required": true,
+  "questions": [
+    { "question_id": "fb_adv_ci_001", "type": "code_input",
+      "question": "함수 show_status(name, level, hp) 정의\nshow_status('에이몬', 40, 9999) 호출\n출력 목표: [ 에이몬 ] Lv.40 | HP: 9999",
+      "answer": "def show_status(name, level, hp):\n    print(f'[ {name} ] Lv.{level} | HP: {hp}')\n\nshow_status('에이몬', 40, 9999)", "judge0_required": true },
+    { "question_id": "fb_adv_ci_002", "type": "code_input",
+      "question": "scores = [72, 88, 95, 61, 100]에서 80점 이상만 필터링 출력\n출력 목표: 88 / 95 / 100",
+      "answer": "scores = [72, 88, 95, 61, 100]\nfor score in scores:\n    if score >= 80:\n        print(score)", "judge0_required": true }
+  ]
+}
+```
