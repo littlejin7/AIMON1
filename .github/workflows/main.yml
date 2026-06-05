@@ -1,0 +1,21 @@
+name: Notion Sync
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '**.md'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Push MD to Notion
+        uses: anyer9/github-action-md-to-notion@v1
+        with:
+          notion-token: ${{ secrets.NOTION_TOKEN }}
+          notion-page-id: ${{ secrets.NOTION_PAGE_ID }}
+          file-path: './ai-mon/AI_MON_기획안.md' # 폴더 경로를 완벽하게 맞췄어!
