@@ -6,8 +6,13 @@ export const authApi = {
 }
 
 export const quizApi = {
+  // 유닛 목록 (lessons.json)
+  getUnits:        ()           => api.get('/quiz/units'),
+  getUnit:         (unitId)     => api.get(`/quiz/units/${unitId}`),
+  // 브리핑 슬라이드 (lessons/ 폴더)
   getLessons:      ()           => api.get('/quiz/lessons'),
-  getLesson:       (id)         => api.get(`/quiz/lessons/${id}`),
+  getLesson:       (lessonId)   => api.get(`/quiz/lessons/${lessonId}`),
+  // 퀴즈 문제
   getQuestions:    (params)     => api.get('/quiz/questions', { params }),
   getQuestion:     (id)         => api.get(`/quiz/questions/${id}`),
   getAiFeedback:   (data)       => api.post('/quiz/ai-feedback', data),

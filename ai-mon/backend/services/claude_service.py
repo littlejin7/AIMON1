@@ -7,9 +7,8 @@ _client = None
 def get_client() -> anthropic.Anthropic:
     global _client
     if _client is None:
-        _client = anthropic.Anthropic(
-            api_key=os.getenv("ANTHROPIC_API_KEY", "")
-        )
+        api_key = os.getenv("ANTHROPIC_API_KEY") or os.getenv("CLAUDE_API_KEY", "")
+        _client = anthropic.Anthropic(api_key=api_key)
     return _client
 
 

@@ -10,7 +10,8 @@ SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
 
 QUESTIONS_FILE = os.path.join(os.path.dirname(__file__), "../data/questions.json")
-LESSONS_DIR    = os.path.join(os.path.dirname(__file__), "../data/lessons")
+LESSONS_DIR    = os.path.join(os.path.dirname(__file__), "../data/lessons")  # 브리핑 슬라이드 폴더
+UNITS_FILE     = os.path.join(os.path.dirname(__file__), "../data/lessons.json")  # 유닛 목록
 
 
 def load_questions():
@@ -24,7 +25,7 @@ def load_questions():
 
 
 def load_lessons():
-    """lessons/ 폴더 내 모든 JSON 파일을 읽어 합쳐 반환합니다."""
+    """레슨 브리핑 슬라이드: lessons/ 폴더 내 JSON 파일을 합쳐 반환."""
     if not os.path.exists(LESSONS_DIR):
         return []
     all_lessons = []
@@ -34,12 +35,19 @@ def load_lessons():
         filepath = os.path.join(LESSONS_DIR, filename)
         with open(filepath, "r", encoding="utf-8") as f:
             data = json.load(f)
-            # 파일이 배열이면 extend, 단일 객체면 append
             if isinstance(data, list):
                 all_lessons.extend(data)
             else:
                 all_lessons.append(data)
     return all_lessons
+
+
+def load_units():
+    """유닛 목록: lessons.json 로드."""
+    if not os.path.exists(UNITS_FILE):
+        return []
+    with open(UNITS_FILE, "r", encoding="utf-8") as f:
+        return json.load(f)
 
 
 def verify_token(authorization: str) -> str:
@@ -51,17 +59,38 @@ def verify_token(authorization: str) -> str:
         raise HTTPException(status_code=401, detail="토큰이 유효하지 않습니다.")
 
 
+# ── 유닛 목록 (lessons.json) ────────────────────────────────────
+
+@router.get("/units")
+def get_units():
+    """유닛 목록 조회 (lessons.json 기반)."""
+    return load_units()
+
+
+@router.get("/units/{unit_id}")
+def get_unit(unit_id: int):
+    """특정 유닛 조회."""
+    units = load_units()
+    unit = next((u for u in units if u.get("unit_id") == unit_id), None)
+    if not unit:
+        raise HTTPException(status_code=404, detail="유닛을 찾을 수 없습니다.")
+    return unit
+
+
+# ── 브리핑 슬라이드 (lessons/ 폴더) ─────────────────────────────
+
 @router.get("/lessons")
 def get_lessons():
+    """전체 브리핑 슬라이드 목록."""
     return load_lessons()
 
 
 @router.get("/lessons/{lesson_id}")
 def get_lesson(lesson_id: str):
+    """브리핑 슬라이드 조회. lesson_id 예: '1-1-beginner'"""
     lessons = load_lessons()
-    # lesson_id 또는 id 키 모두 지원 (하위 호환)
     lesson = next(
-        (l for l in lessons if l.get("lesson_id") == lesson_id or l.get("id") == lesson_id),
+        (l for l in lessons if l.get("lesson_id") == lesson_id),
         None,
     )
     if not lesson:
