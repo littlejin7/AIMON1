@@ -74,3 +74,45 @@
   width: 100%;
   margin-top: var(--sp-4);
 }
+
+/* Villain Mode */
+.stage-page.villain-mode {
+  background: radial-gradient(circle at 50% 0%, rgba(139, 0, 0, 0.15) 0%, var(--clr-bg) 70%);
+}
+
+.villain-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: var(--sp-6);
+}
+
+.villain-emoji {
+  font-size: 4rem;
+  margin-bottom: var(--sp-2);
+  filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.4));
+  animation: float 3s ease-in-out infinite;
+}
+
+.villain-speech {
+  background: rgba(30, 30, 46, 0.8);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-3) var(--sp-4);
+  color: #fca5a5;
+  font-weight: 700;
+  font-size: var(--font-size-md);
+  box-shadow: 0 8px 32px rgba(239, 68, 68, 0.15);
+  position: relative;
+}
+
+.villain-speech::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 8px 8px 8px;
+  border-style: solid;
+  border-color: transparent transparent rgba(239, 68, 68, 0.3) transparent;
+}

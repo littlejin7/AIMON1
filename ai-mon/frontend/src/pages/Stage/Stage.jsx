@@ -21,6 +21,8 @@ export default function Stage({ _lessonId, _stage }) {
   const [correct, setCorrect]     = useState(0)
   const [finished, setFinished]   = useState(false)
   const [loading, setLoading]     = useState(true)
+  const [unitInfo, setUnitInfo]   = useState(null)
+  
   // 비로그인 선체험 완료 후 회원가입/로그인 모달
   const [showAuthModal, setShowAuthModal] = useState(false)
   
@@ -30,6 +32,8 @@ export default function Stage({ _lessonId, _stage }) {
   const [showBriefing, setShowBriefing]   = useState(true)
 
   useEffect(() => {
+    const fetchUnit = quizApi.getUnit(lessonId).then((r) => r.data).catch(() => null)
+    
     // 브리핑 슬라이드 조회 (예: 1-1-beginner)
     const formattedLessonId = `${lessonId}-${stageNum}-${courseLevel}`
     const fetchSlides = quizApi.getLesson(formattedLessonId)
@@ -44,7 +48,8 @@ export default function Stage({ _lessonId, _stage }) {
       limit: 5 
     }).then((r) => r.data).catch(() => [])
 
-    Promise.all([fetchSlides, fetchQuestions]).then(([lessonData, questionsData]) => {
+    Promise.all([fetchUnit, fetchSlides, fetchQuestions]).then(([unitData, lessonData, questionsData]) => {
+      setUnitInfo(unitData)
       if (lessonData && lessonData.slides && lessonData.slides.length > 0) {
         setBriefings(lessonData.slides)
         setShowBriefing(true)
@@ -161,12 +166,31 @@ export default function Stage({ _lessonId, _stage }) {
           </div>
         )}
         <div className="result-actions">
+          {passed && unitInfo && (
+            <button 
+              className="btn btn-primary" 
+              onClick={() => {
+                if (stageNum < unitInfo.stages) {
+                  // 다음 일반 스테이지로 이동
+                  navigate(`/stage/${lessonId}/${stageNum + 1}`);
+                  window.location.reload(); // 상태 초기화를 위해 새로고침 (간편 라우팅)
+                } else {
+                  // 보스 스테이지로 이동
+                  navigate(`/stage/${lessonId}/boss`);
+                }
+              }}
+            >
+              다음 스테이지로 ➔
+            </button>
+          )}
           <button className="btn btn-secondary" onClick={() => navigate(`/lesson/${lessonId}`)}>
             레슨으로 돌아가기
           </button>
-          <button className="btn btn-primary" onClick={() => window.location.reload()}>
-            다시 도전 🔄
-          </button>
+          {!passed && (
+            <button className="btn btn-primary" onClick={() => window.location.reload()}>
+              다시 도전 🔄
+            </button>
+          )}
         </div>
       </div>
     )
@@ -298,9 +322,11 @@ export default function Stage({ _lessonId, _stage }) {
 
   // ── 2) 본 퀴즈 모드 ──
   const progressPct = (current / questions.length) * 100
+  const currentQ = questions[current]
+  const isVillain = currentQ?.quiz_category === 'concept_check'
 
   return (
-    <div className="stage-page">
+    <div className={`stage-page ${isVillain ? 'villain-mode' : ''}`}>
       <div className="stage-header">
         <button className="btn btn-ghost btn-sm" onClick={() => navigate(`/lesson/${lessonId}`)}>
           ✕
@@ -320,9 +346,17 @@ export default function Stage({ _lessonId, _stage }) {
       </div>
 
       <div className="stage-content container">
+        {isVillain && (
+          <div className="villain-intro animate-fade-in-up">
+            <span className="villain-emoji">😈</span>
+            <div className="villain-speech">
+              "엉뚱한 코드로 널 괴롭혀주지! 코드몬 등장!"
+            </div>
+          </div>
+        )}
         <QuizCard
           key={current}
-          question={questions[current]}
+          question={currentQ}
           onAnswer={handleAnswer}
         />
       </div>

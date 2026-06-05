@@ -11,41 +11,57 @@ export default function Boss() {
   // 'intro' | 'battle' | 'cleared' | 'failed'
   const [phase, setPhase]     = useState('intro')
   const [bossData, setBossData] = useState(null)
-  const [currentQIndex, setCurrentQIndex] = useState(0)
+  const [currentQuestion, setCurrentQuestion] = useState(null)
   const [selectedOption, setSelectedOption] = useState(null)
+  const [answerInput, setAnswerInput] = useState('')
+  const [aiResult, setAiResult] = useState(null)
+  const [errorMsg, setErrorMsg] = useState('')
   
-  // 모의 데이터 (boss_beg_output_select.json)
   useEffect(() => {
-    setTimeout(() => {
-      setBossData({
-        boss_name: "코드몬 Unit 1 보스",
-        xp_reward: 2000,
-        hints_allowed: 2,
-        free_attempts_per_day: 2,
-        crown_cost_from_attempt: 3,
-        questions: [
-          {
-            question_id: "boss_beg_os_1_001",
-            type: "output_select",
-            question: "다음 코드의 출력값을 고르세요.\n\nprint('코드몬' + '을' + ' 물리쳐라!')\n# print('게임 오버')\nprint('승리!')",
-            choices: ["A. 코드몬을 물리쳐라! / 게임 오버 / 승리!", "B. 코드몬을 물리쳐라! / 승리!", "C. 코드몬 + 을 + 물리쳐라! / 승리!", "D. 오류 발생"],
-            answer: "B",
-            explanation: "+ 는 문자열을 이어붙이고, # 주석 줄은 무시돼요. 출력되는 줄은 2개예요."
-          }
-        ]
-      })
+    bossApi.getInfo(lessonId).then(res => {
+      setBossData(res.data)
       setLoading(false)
-    }, 600)
+    }).catch(err => {
+      console.error(err)
+      setLoading(false)
+    })
   }, [lessonId])
 
-  const currentQuestion = bossData?.questions[currentQIndex]
-
-  const handleStart = () => setPhase('battle')
+  const handleStart = async () => {
+    try {
+      const res = await bossApi.startBattle(lessonId)
+      setCurrentQuestion(res.data)
+      setPhase('battle')
+      setErrorMsg('')
+    } catch (err) {
+      setErrorMsg(err.response?.data?.detail || '도전 비용이 부족합니다!')
+    }
+  }
   
-  const handleSubmit = () => {
-    if (!selectedOption) return
-    // 정오답 상관없이 현재는 바로 클리어 처리 (뼈대)
-    setPhase('cleared')
+  const handleSubmit = async () => {
+    if (!currentQuestion) return
+    const isCodeType = currentQuestion.type === 'code_input' || currentQuestion.type === 'fill_in_blank'
+    const userAnswer = isCodeType ? answerInput : selectedOption
+    if (!userAnswer) return
+
+    setLoading(true)
+    try {
+      const res = await bossApi.submitAnswer({
+        question_id: currentQuestion.question_id,
+        user_answer: userAnswer,
+        is_code_question: isCodeType
+      })
+      setAiResult(res.data)
+      if (res.data.is_correct) {
+        setPhase('cleared')
+      } else {
+        setPhase('failed')
+      }
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setLoading(false)
+    }
   }
 
   if (loading) {
@@ -115,31 +131,44 @@ export default function Boss() {
             
             <h2 className="battle-q-title" style={{ whiteSpace: 'pre-line' }}>{currentQuestion.question}</h2>
             
-            <div className="battle-choices" style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '16px', marginBottom: '16px' }}>
-              {currentQuestion.choices.map((opt, idx) => {
-                const optionKey = opt.substring(0, 1) // "A", "B", "C", "D"
-                return (
-                  <button
-                    key={idx}
-                    className={`btn ${selectedOption === optionKey ? 'btn-primary' : 'btn-ghost'}`}
-                    style={{ 
-                      textAlign: 'left', 
-                      padding: '12px 16px', 
-                      justifyContent: 'flex-start',
-                      border: selectedOption === optionKey ? '1px solid var(--clr-primary)' : '1px solid rgba(255,255,255,0.1)'
-                    }}
-                    onClick={() => setSelectedOption(optionKey)}
-                  >
-                    {opt}
-                  </button>
-                )
-              })}
-            </div>
+            {currentQuestion.type === 'multiple_choice' || currentQuestion.type === 'output_select' ? (
+              <div className="battle-choices" style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '16px', marginBottom: '16px' }}>
+                {currentQuestion.choices?.map((opt, idx) => {
+                  const optionKey = opt.substring(0, 1) // "A", "B", "C", "D"
+                  return (
+                    <button
+                      key={idx}
+                      className={`btn ${selectedOption === optionKey ? 'btn-primary' : 'btn-ghost'}`}
+                      style={{ 
+                        textAlign: 'left', 
+                        padding: '12px 16px', 
+                        justifyContent: 'flex-start',
+                        border: selectedOption === optionKey ? '1px solid var(--clr-primary)' : '1px solid rgba(255,255,255,0.1)'
+                      }}
+                      onClick={() => setSelectedOption(optionKey)}
+                    >
+                      {opt}
+                    </button>
+                  )
+                })}
+              </div>
+            ) : (
+              <div style={{ marginTop: '16px', marginBottom: '16px' }}>
+                <input 
+                  type="text" 
+                  value={answerInput} 
+                  onChange={(e) => setAnswerInput(e.target.value)} 
+                  className="input" 
+                  placeholder="정답을 입력하세요" 
+                  style={{ width: '100%', background: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.3)' }}
+                />
+              </div>
+            )}
             
             <button 
               className="btn btn-primary btn-lg btn-full" 
               onClick={handleSubmit}
-              disabled={!selectedOption}
+              disabled={(!selectedOption && !answerInput.trim()) || loading}
             >
               공격하기 🚀
             </button>
@@ -155,18 +184,54 @@ export default function Boss() {
               훌륭합니다! 보스를 쓰러뜨리고 전리품을 획득했습니다.
             </p>
             
-            <div className="result-rewards">
-              <div className="reward-item">
+            <div className="result-rewards" style={{ margin: '24px 0', background: 'rgba(255,255,255,0.05)', padding: '16px', borderRadius: '12px' }}>
+              <div className="reward-item" style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
                 <span className="reward-icon">⭐</span>
-                <span>+{bossData?.xp_reward} XP</span>
+                <span style={{ fontWeight: 700, color: '#a6e3a1', marginLeft: '8px' }}>+{bossData?.xp_reward} XP</span>
               </div>
-              <div className="reward-item">
+              <div className="reward-item" style={{ fontSize: '1.1rem' }}>
                 <span className="reward-icon">💳</span>
-                <span>클리어 인증카드</span>
+                <span style={{ fontWeight: 700, color: '#f9e2af', marginLeft: '8px' }}>Unit {lessonId} 클리어 인증카드</span>
               </div>
             </div>
             
             <button className="btn btn-primary btn-lg btn-full" onClick={() => navigate('/lesson')}>
+              레슨 홈으로 돌아가기
+            </button>
+          </div>
+        )}
+
+        {/* ── 4) 실패 화면 & AI 피드백 ── */}
+        {phase === 'failed' && (
+          <div className="boss-card result-card card-glass animate-fade-in-up">
+            <div className="result-crown" style={{ filter: 'grayscale(1)', opacity: 0.8 }}>💀</div>
+            <h1 className="result-title" style={{ color: '#f38ba8' }}>보스 처치 실패...</h1>
+            <p className="result-desc">
+              아쉽네요. 보스의 체력을 다 깎지 못했습니다.
+            </p>
+            
+            {aiResult?.feedback && (
+              <div style={{ marginTop: '24px', textAlign: 'left', background: 'rgba(17, 24, 39, 0.7)', padding: '20px', borderRadius: '16px', border: '1px solid rgba(243, 139, 168, 0.3)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+                  <span style={{ fontSize: '1.5rem' }}>🤖</span>
+                  <span style={{ fontWeight: 700, color: '#cba6f7' }}>Claude AI 분석</span>
+                </div>
+                <p style={{ color: '#cdd6f4', lineHeight: 1.6, fontSize: '0.95rem' }}>
+                  {aiResult.feedback}
+                </p>
+                {aiResult.hint && (
+                  <div style={{ marginTop: '16px', padding: '12px', background: 'rgba(255, 255, 255, 0.05)', borderRadius: '8px', borderLeft: '3px solid #f9e2af' }}>
+                    <span style={{ color: '#f9e2af', fontWeight: 600, display: 'block', marginBottom: '4px', fontSize: '0.85rem' }}>💡 힌트</span>
+                    <span style={{ color: '#a0a0b0', fontSize: '0.9rem' }}>{aiResult.hint}</span>
+                  </div>
+                )}
+              </div>
+            )}
+            
+            <button className="btn btn-primary btn-lg btn-full" style={{ marginTop: '24px' }} onClick={() => window.location.reload()}>
+              다시 도전하기 🔄
+            </button>
+            <button className="btn btn-ghost btn-full" style={{ marginTop: '12px' }} onClick={() => navigate('/lesson')}>
               레슨 홈으로 돌아가기
             </button>
           </div>

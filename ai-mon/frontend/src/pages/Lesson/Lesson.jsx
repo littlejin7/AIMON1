@@ -26,7 +26,8 @@ export default function Lesson() {
   if (!lesson) return <div className="lesson-loading"><p>레슨을 찾을 수 없습니다.</p></div>
 
   const getStageStatus = (stage) => {
-    const p = progress.find((x) => x.stage === stage)
+    const stageStr = `${id}-${stage}`
+    const p = progress.find((x) => x.stage === stageStr)
     if (!p) return 'locked'
     if (p.is_completed) return 'completed'
     return 'in_progress'
@@ -34,7 +35,8 @@ export default function Lesson() {
 
   const isStageUnlocked = (stageNum) => {
     if (stageNum === 1) return true
-    const prev = progress.find((x) => x.stage === stageNum - 1)
+    const prevStr = `${id}-${stageNum - 1}`
+    const prev = progress.find((x) => x.stage === prevStr)
     return prev?.is_completed
   }
 
@@ -59,7 +61,7 @@ export default function Lesson() {
           {Array.from({ length: lesson.stages }, (_, i) => i + 1).map((stage) => {
             const status = getStageStatus(stage)
             const unlocked = isStageUnlocked(stage)
-            const prog = progress.find((x) => x.stage === stage)
+            const prog = progress.find((x) => x.stage === `${id}-${stage}`)
 
             return (
               <button

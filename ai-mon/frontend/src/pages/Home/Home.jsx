@@ -494,6 +494,28 @@ export default function Home() {
               )}
             </div>
           </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <button
+              onClick={() => {
+                useAuthStore.getState().logout()
+                navigate('/')
+              }}
+              style={{
+                background: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.15)',
+                color: 'var(--clr-text-dim)',
+                padding: '6px 14px',
+                borderRadius: '8px',
+                fontSize: '0.85rem',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+              }}
+              onMouseEnter={(e) => { e.target.style.background = 'rgba(239, 68, 68, 0.1)'; e.target.style.color = '#ef4444'; e.target.style.borderColor = 'rgba(239, 68, 68, 0.3)' }}
+              onMouseLeave={(e) => { e.target.style.background = 'rgba(255,255,255,0.05)'; e.target.style.color = 'var(--clr-text-dim)'; e.target.style.borderColor = 'rgba(255,255,255,0.15)' }}
+            >
+              로그아웃
+            </button>
+          </div>
           {!user?.is_level_tested && (
             <button
               onClick={() => setShowLevelTest(true)}

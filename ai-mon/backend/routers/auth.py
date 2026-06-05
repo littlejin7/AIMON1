@@ -65,6 +65,9 @@ def register(req: RegisterRequest):
         "course_level": level,
         "is_level_tested": req.is_level_tested,
         "character": "default",
+        "crowns": 5,
+        "daily_free_attempts": 2,
+        "last_free_attempt_date": "",
         "created_at": datetime.utcnow().isoformat(),
     }
     users.append(new_user)
