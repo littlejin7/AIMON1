@@ -25,7 +25,8 @@ export const progressApi = {
 }
 
 export const bossApi = {
-  getQuestion:   ()     => api.get('/boss/question'),
+  getInfo:       (unit) => api.get(`/boss/info?unit=${unit}`),
+  startBattle:   (unit) => api.post(`/boss/start?unit=${unit}`),
   submitAnswer:  (data) => api.post('/boss/answer', data),
 }
 

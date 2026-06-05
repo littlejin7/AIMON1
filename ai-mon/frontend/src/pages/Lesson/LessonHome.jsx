@@ -41,12 +41,7 @@ const COURSE_LEVELS = [
   },
 ]
 
-// 진화 마일스톤
-const EVOLUTION_MILESTONES = [
-  { unit: 3, next: 'robot',         icon: '🤖', label: 'Unit 3 클리어 → 로봇 진화' },
-  { unit: 6, next: 'speech_bubble', icon: '💬', label: 'Unit 6 클리어 → 말풍선 진화' },
-  { unit: 8, next: 'final_ghost',   icon: '👻', label: 'Unit 8 클리어 → 파이널 진화' },
-]
+
 
 export default function LessonHome() {
   const user     = useAuthStore((s) => s.user)
@@ -54,9 +49,7 @@ export default function LessonHome() {
   const navigate = useNavigate()
 
   // 코스 레벨 — 유저 설정값 우선, 없으면 beginner
-  const [courseLevel, setCourseLevel] = useState(
-    user?.course_level || 'beginner'
-  )
+  const courseLevel = user?.course_level || 'beginner'
 
   const [lessons,  setLessons]  = useState([])
   const [progress, setProgress] = useState([])
@@ -130,37 +123,26 @@ export default function LessonHome() {
         </div>
       </div>
 
-      {/* ── 코스 레벨 선택기 ── */}
+      {/* ── 코스 레벨 표시 ── */}
       <div className="lh-level-section">
-        <p className="lh-level-label">학습 레벨 선택</p>
+        <p className="lh-level-label">현재 나의 학습 레벨</p>
         <div className="lh-level-tabs">
-          {COURSE_LEVELS.map((lv) => (
-            <button
-              key={lv.id}
-              id={`level-${lv.id}`}
-              className={`lh-level-tab ${courseLevel === lv.id ? 'active' : ''}`}
-              style={courseLevel === lv.id ? { borderColor: lv.color, color: lv.color } : {}}
-              onClick={() => setCourseLevel(lv.id)}
-            >
-              <span className="lh-level-badge">{lv.badge}</span>
-              <span className="lh-level-name">{lv.label}</span>
-            </button>
-          ))}
+          {(() => {
+            const lv = COURSE_LEVELS.find((l) => l.id === courseLevel) || COURSE_LEVELS[0];
+            return (
+              <div
+                className="lh-level-tab active"
+                style={{ borderColor: lv.color, color: lv.color, cursor: 'default' }}
+              >
+                <span className="lh-level-badge">{lv.badge}</span>
+                <span className="lh-level-name">{lv.label}</span>
+              </div>
+            )
+          })()}
         </div>
-        {/* 선택된 레벨 설명 */}
         <p className="lh-level-desc">
           {COURSE_LEVELS.find((l) => l.id === courseLevel)?.desc}
         </p>
-      </div>
-
-      {/* ── 진화 마일스톤 칩 ── */}
-      <div className="lh-milestones">
-        {EVOLUTION_MILESTONES.map((m) => (
-          <div key={m.unit} className="lh-milestone-chip">
-            <span>{m.icon}</span>
-            <span>{m.label}</span>
-          </div>
-        ))}
       </div>
 
       {/* ── 유닛 목록 ── */}

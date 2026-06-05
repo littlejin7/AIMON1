@@ -106,6 +106,7 @@ def get_questions(
     limit: int = Query(10),
 ):
     questions = load_questions()
+    print(f"DEBUG get_questions: course_level={course_level!r}")
     if unit is not None:
         questions = [q for q in questions if q.get("unit") == unit]
     if stage is not None:
@@ -113,7 +114,17 @@ def get_questions(
     if course_level is not None:
         questions = [q for q in questions if q.get("course_level") == course_level]
     random.shuffle(questions)
-    return questions[:limit]
+    
+    # concept_check(보스)를 맨 마지막으로 배치
+    stage_lessons = [q for q in questions if q.get("quiz_category") != "concept_check"]
+    concept_checks = [q for q in questions if q.get("quiz_category") == "concept_check"]
+    
+    if concept_checks:
+        result = stage_lessons[:limit - 1] + [concept_checks[0]]
+    else:
+        result = questions[:limit]
+        
+    return result
 
 
 @router.get("/questions/{question_id}")
