@@ -497,14 +497,14 @@ backend/data/lessons/
 ```json
 {
   "type": "boss", "level": "advanced", "unit": 1,
-  "pass_score": 80, "hints_allowed": 2, "xp_reward": 2000, "judge0_required": true,
+  "pass_score": 80, "hints_allowed": 2, "xp_reward": 2000, "pyodide_eval": true,
   "questions": [
     { "question_id": "boss_adv_fib_1_001", "type": "fill_in_blank",
       "question": "빈칸을 채워 숫자를 소수점 3자리로 포맷해 출력하세요.\n\nscore = 98.7564\nprint(f'스코어: {score:_____}')",
       "answer": ".3f", "explanation": ":.3f는 소수점 아래 3자리까지 반올림하여 출력해요." },
     { "question_id": "boss_adv_ci_1_001", "type": "code_input",
       "question": "리스트 [1, 2, 3, 4, 5]를 한 줄에 공백으로 구분 출력. print() 한 번만 사용.\n출력 목표: 1 2 3 4 5",
-      "answer": "print(*[1, 2, 3, 4, 5])", "judge0_required": true }
+      "answer": "print(*[1, 2, 3, 4, 5])", "pyodide_eval": true }
   ]
 }
 ```
@@ -514,14 +514,14 @@ backend/data/lessons/
 ```json
 {
   "type": "final_boss", "level": "advanced", "hints_allowed": 0, "xp_reward": 5000,
-  "judge0_required": true,
+  "pyodide_eval": true,
   "questions": [
     { "question_id": "fb_adv_ci_001", "type": "code_input",
       "question": "함수 show_status(name, level, hp) 정의\nshow_status('에이몬', 40, 9999) 호출\n출력 목표: [ 에이몬 ] Lv.40 | HP: 9999",
-      "answer": "def show_status(name, level, hp):\n    print(f'[ {name} ] Lv.{level} | HP: {hp}')\n\nshow_status('에이몬', 40, 9999)", "judge0_required": true },
+      "answer": "def show_status(name, level, hp):\n    print(f'[ {name} ] Lv.{level} | HP: {hp}')\n\nshow_status('에이몬', 40, 9999)", "pyodide_eval": true },
     { "question_id": "fb_adv_ci_002", "type": "code_input",
       "question": "scores = [72, 88, 95, 61, 100]에서 80점 이상만 필터링 출력\n출력 목표: 88 / 95 / 100",
-      "answer": "scores = [72, 88, 95, 61, 100]\nfor score in scores:\n    if score >= 80:\n        print(score)", "judge0_required": true }
+      "answer": "scores = [72, 88, 95, 61, 100]\nfor score in scores:\n    if score >= 80:\n        print(score)", "pyodide_eval": true }
   ]
 }
 ```

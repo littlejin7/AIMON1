@@ -137,7 +137,7 @@ title: AI MON PROPOSAL
 - **유닛 퀴즈:** 유닛 전체 내용 복합 문제 (multiple_choice + code_input)
 - **보스전:** 유닛 퀴즈 마지막 단계 · 클리어 시 XP + 인증카드 자동 생성
 - 오답 시 **Claude AI가 왜 틀렸는지 설명** → 핵심 차별점
-- 브라우저 내 Python 실행: Judge0 API
+- 브라우저 내 Python 실행: **Pyodide** (WASM 기반, 서버 불필요)
 
 ### 🔄 훈련 (Training)
 
@@ -220,7 +220,7 @@ title: AI MON PROPOSAL
 | 프론트엔드 (PWA) | React + Vite | 수업 스택 그대로 활용 |
 | 백엔드 | FastAPI (Python) | AI API 연동 + REST 엔드포인트 |
 | AI 엔진 | Claude + Gemini | 문제 생성 · 힌트 · 코드 평가 |
-| 코드 실행 | Judge0 API | 브라우저 내 Python 실행 |
+| 코드 실행 | **Pyodide** (WASM) | 서버 불필요, 브라우저에서 직접 실행 |
 | IDE | Google Antigravity | AI Agent로 뼈대 생성 |
 | 협업/실행 | Replit | 팀 실행 테스트 |
 | 버전 관리 | GitHub | 전체 프레임워크 관리 |

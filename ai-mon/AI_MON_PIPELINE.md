@@ -123,16 +123,16 @@ Claude API 호출
 
 ## 5. 코드 실행 파이프라인
 
-- **방식:** Judge0 API (확정)
+- **방식:** Pyodide (브라우저 내 Python 실행 — 서버 불필요)
 
 ```
 유저 코드 작성
     ↓
-FastAPI → Judge0 API 호출
+브라우저 Pyodide 엔진에서 직접 실행 (JS → WASM)
     ↓
 실행 결과 반환 (stdout / stderr)
     ↓
-프론트 결과 출력
+프론트 결과 출력 + 정답 비교
 ```
 
 ---
@@ -337,7 +337,8 @@ POST /boss/fail         보스 실패 처리 (도전 횟수 업데이트)
 
 **코드 실행**
 ```
-POST /code/run          Judge0 API 호출 → 실행 결과 반환
+# 백엔드 엔드포인트 없음
+# code_input 채점은 프론트 Pyodide가 전담 (브라우저 내 실행)
 ```
 
 **미니게임 (MVP 이후)**
@@ -385,7 +386,7 @@ ai-mon/
 │   │   └── code.py
 │   ├── services/
 │   │   ├── claude_service.py
-│   │   └── judge0_service.py
+│   │   └── gemini_service.py
 │   └── data/
 │       ├── lessons/          ← 유닛별 브리핑 슬라이드 (폴더, 수동 관리)
 │       │   ├── unit_1.json   ← Stage 1-1~1-N × beginner/intermediate/advanced
@@ -403,12 +404,12 @@ ai-mon/
 
 ## 16. 퀴즈 유형 정의
 
-| 유형 | 설명 | Judge0 필요 |
+| 유형 | 설명 | 채점 방식 |
 |---|---|---|
-| multiple_choice | 선택지 중 하나 고르기 | ❌ |
-| output_select | 코드 실행 결과 선택 | ❌ |
-| fill_in_blank | 빈칸 채우기 | ❌ |
-| code_input | 직접 코드 작성 | ✅ |
+| multiple_choice | 선택지 중 하나 고르기 | 정답 문자열 비교 |
+| output_select | 코드 실행 결과 선택 | 정답 문자열 비교 |
+| fill_in_blank | 빈칸 채우기 | 정답 문자열 비교 |
+| code_input | 직접 코드 작성 | **Pyodide** 브라우저 실행 → stdout 비교 |
 
 **화면별 퀴즈 유형**
 
