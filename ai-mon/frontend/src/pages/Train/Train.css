@@ -1,77 +1,64 @@
 .train-page {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: var(--sp-16);
+  padding-top: 2rem;
+  padding-bottom: 5rem;
 }
 
-.train-hero {
-  text-align: center;
-  padding: var(--sp-8) var(--sp-4) var(--sp-6);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--sp-4);
-}
-
-.train-hero-icon {
-  font-size: 4.5rem;
-  line-height: 1;
-}
-
-.train-hero-title {
-  font-size: var(--font-size-3xl);
+.train-title {
+  font-size: 2rem;
   font-weight: 800;
-  background: var(--grad-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  margin-bottom: 0.5rem;
+  color: #cdd6f4;
 }
 
-.train-hero-desc {
-  color: var(--clr-text-muted);
-  font-size: var(--font-size-md);
-  line-height: 1.7;
+.train-desc {
+  color: #bac2de;
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.train-desc strong {
+  color: #cba6f7;
+}
+
+.train-card {
   text-align: center;
+  padding: 3rem 2rem;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
-.train-locked-notice {
-  width: 100%;
-  padding: 0 var(--sp-4);
+.train-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
 }
 
-.train-locked-card {
+.train-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #cdd6f4;
+}
+
+.train-card p {
+  color: #a6adc8;
+  margin-bottom: 2rem;
+}
+
+.train-header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  gap: var(--sp-4);
-  padding: var(--sp-8) var(--sp-6);
-  text-align: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  margin-bottom: 2rem;
 }
 
-.train-locked-icon {
-  font-size: 2.5rem;
+.train-progress {
+  font-weight: 700;
+  color: #a6adc8;
 }
 
-.train-locked-text {
-  font-size: var(--font-size-md);
-  color: var(--clr-text-muted);
-  line-height: 1.7;
-}
-
-.train-locked-sub {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  flex-wrap: wrap;
-  justify-content: center;
-  font-size: var(--font-size-sm);
-  color: var(--clr-text-faint);
-  margin-top: var(--sp-2);
-}
-
-.train-locked-sub span:not(:nth-child(even)) {
-  color: var(--clr-text-muted);
-  font-weight: 600;
+.mt-4 {
+  margin-top: 1rem;
 }

@@ -301,11 +301,17 @@ export default function Home() {
 
   useEffect(() => {
     if (!token) { setLoading(false); return }
-    progressApi.getStats()
-      .then((r) => setStats(r.data))
-      .catch(() => {})
+    Promise.all([
+      progressApi.getStats(),
+      userApi.getMe()
+    ])
+      .then(([statsRes, userRes]) => {
+        setStats(statsRes.data)
+        updateUser(userRes.data)
+      })
+      .catch((err) => console.error(err))
       .finally(() => setLoading(false))
-  }, [token])
+  }, [token, updateUser])
 
   /* ── 비로그인 랜딩 ── */
   if (!token) {
@@ -437,9 +443,9 @@ export default function Home() {
 
   /* ── 로그인 대시보드 ── */
   const completedStages = stats?.completed_stages || 0
-  const completedUnits  = Math.floor(completedStages / 7)   // 대략 7 스테이지/유닛
+  const completedUnits  = user?.completed_units || 0
   const evoStage        = getEvolutionStage(completedUnits)
-  const totalXp         = completedStages * 500
+  const totalXp         = user?.xp || 0
   const { lv, xpInLevel, xpForNext } = calcLevel(totalXp)
   const xpPct = xpForNext > 0 ? Math.round((xpInLevel / xpForNext) * 100) : 100
   const streak = user?.streak || 0
@@ -495,49 +501,29 @@ export default function Home() {
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <button
-              onClick={() => {
-                useAuthStore.getState().logout()
-                navigate('/')
-              }}
-              style={{
-                background: 'rgba(255,255,255,0.05)',
-                border: '1px solid rgba(255,255,255,0.15)',
-                color: 'var(--clr-text-dim)',
-                padding: '6px 14px',
-                borderRadius: '8px',
-                fontSize: '0.85rem',
-                cursor: 'pointer',
-                transition: 'all 0.2s',
-              }}
-              onMouseEnter={(e) => { e.target.style.background = 'rgba(239, 68, 68, 0.1)'; e.target.style.color = '#ef4444'; e.target.style.borderColor = 'rgba(239, 68, 68, 0.3)' }}
-              onMouseLeave={(e) => { e.target.style.background = 'rgba(255,255,255,0.05)'; e.target.style.color = 'var(--clr-text-dim)'; e.target.style.borderColor = 'rgba(255,255,255,0.15)' }}
-            >
-              로그아웃
-            </button>
+            {!user?.is_level_tested && (
+              <button
+                onClick={() => setShowLevelTest(true)}
+                id="btn-level-test-dashboard"
+                style={{
+                  background: 'rgba(124, 58, 237, 0.08)',
+                  border: '1px solid rgba(124, 58, 237, 0.25)',
+                  borderRadius: '8px',
+                  padding: '6px 12px',
+                  fontSize: '0.75rem',
+                  fontWeight: 600,
+                  color: 'var(--clr-primary-lt)',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  transition: 'all 0.2s'
+                }}
+              >
+                🔍 첫 레벨 진단받기
+              </button>
+            )}
           </div>
-          {!user?.is_level_tested && (
-            <button
-              onClick={() => setShowLevelTest(true)}
-              id="btn-level-test-dashboard"
-              style={{
-                background: 'rgba(124, 58, 237, 0.08)',
-                border: '1px solid rgba(124, 58, 237, 0.25)',
-                borderRadius: '8px',
-                padding: '6px 12px',
-                fontSize: '0.75rem',
-                fontWeight: 600,
-                color: 'var(--clr-primary-lt)',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px',
-                transition: 'all 0.2s'
-              }}
-            >
-              🔍 첫 레벨 진단받기
-            </button>
-          )}
         </div>
 
         {/* 현재 에이몬 진화 카드 */}
