@@ -60,11 +60,15 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
         None,
     )
 
+    award_xp = False
     if existing:
-        existing["score"] = max(existing["score"], req.score)
-        existing["is_completed"] = req.is_completed or existing["is_completed"]
+        if not existing.get("is_completed", False) and req.is_completed:
+            award_xp = True
+        existing["score"] = max(existing.get("score", 0), req.score)
+        existing["is_completed"] = req.is_completed or existing.get("is_completed", False)
         existing["updated_at"] = datetime.utcnow().isoformat()
     else:
+        award_xp = req.is_completed
         progress.append({
             "id": str(uuid.uuid4()),
             "user_id": user_id,
@@ -77,7 +81,26 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
         })
 
     save_progress(progress)
-    return {"message": "진행상황이 저장되었습니다."}
+
+    if award_xp:
+        # XP 부여 로직 (user.py와 유사하게 users.json 로드)
+        USERS_FILE = os.path.join(os.path.dirname(__file__), "../data/users.json")
+        if os.path.exists(USERS_FILE):
+            with open(USERS_FILE, "r", encoding="utf-8") as f:
+                users = json.load(f)
+            for u in users:
+                if u["id"] == user_id:
+                    u["xp"] = u.get("xp", 0) + 500
+                    # 레벨업 로직 간단 구현 (Lv 1~5는 1000XP마다 레벨업)
+                    current_xp = u["xp"]
+                    new_lv = (current_xp // 1000) + 1
+                    if new_lv > u.get("lv", 1):
+                        u["lv"] = new_lv
+                    break
+            with open(USERS_FILE, "w", encoding="utf-8") as f:
+                json.dump(users, f, ensure_ascii=False, indent=2)
+
+    return {"message": "진행상황이 저장되었습니다.", "xp_awarded": 500 if award_xp else 0}
 
 
 @router.get("/stats")
