@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { quizApi } from '../../api/index'
+import { usePyodide } from '../../hooks/usePyodide'
 import './QuizCard.css'
 
 export default function QuizCard({ question, onAnswer, disabled = false }) {
@@ -6,6 +8,10 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
   const [input, setInput] = useState('')
   const [revealed, setRevealed] = useState(false)
   const [retried, setRetried] = useState(false)
+  const [aiFeedback, setAiFeedback] = useState('')
+  const [aiFeedbackLoading, setAiFeedbackLoading] = useState(false)
+  const [codeRunResult, setCodeRunResult] = useState(null)
+  const { runPython, pyLoading } = usePyodide()
 
   if (!question) return null
 
@@ -22,11 +28,29 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
     return ans === selected && ans !== question.answer
   }
 
+  const fetchAiFeedback = async (userAnswer) => {
+    setAiFeedbackLoading(true)
+    try {
+      const res = await quizApi.getAiFeedback({
+        question: question.question,
+        correct_answer: question.answer,
+        user_answer: userAnswer,
+        level: 'beginner',
+      })
+      setAiFeedback(res.data.feedback)
+    } catch {
+      setAiFeedback('AI 피드백을 불러오지 못했습니다. 다시 시도해주세요.')
+    } finally {
+      setAiFeedbackLoading(false)
+    }
+  }
+
   const handleSelect = (option) => {
     if (disabled || revealed) return
     setSelected(option)
     setRevealed(true)
     const correct = option === question.answer
+    if (!correct) fetchAiFeedback(option)
     if (correct) {
       setTimeout(() => onAnswer?.({ correct, userAnswer: option, retried }), 1500)
     }
@@ -38,8 +62,23 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
     setSelected(input.trim())
     setRevealed(true)
     const correct = input.trim().toLowerCase() === question.answer.toLowerCase()
+    if (!correct) fetchAiFeedback(input.trim())
     if (correct) {
       setTimeout(() => onAnswer?.({ correct, userAnswer: input.trim(), retried }), 1500)
+    }
+  }
+
+  const handleCodeSubmit = async () => {
+    if (!input.trim() || revealed) return
+    // Pyodide로 브라우저에서 직접 실행
+    const result = await runPython(input)
+    setCodeRunResult(result)
+    const correct = result.success && result.stdout.trim() === (question.answer || '').trim()
+    setSelected(input)
+    setRevealed(true)
+    if (!correct) fetchAiFeedback(input)
+    if (correct) {
+      setTimeout(() => onAnswer?.({ correct, userAnswer: input, retried }), 1500)
     }
   }
 
@@ -115,13 +154,20 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
               disabled={disabled || revealed}
             />
           </div>
+          {codeRunResult && (
+            <div style={{ marginTop: '8px', padding: '10px', background: '#1e1e2e', borderRadius: '6px', fontFamily: 'monospace', fontSize: '0.85rem' }}>
+              {codeRunResult.stdout && <div style={{ color: '#a6e3a1' }}>▶ {codeRunResult.stdout}</div>}
+              {codeRunResult.stderr && <div style={{ color: '#f38ba8' }}>⚠ {codeRunResult.stderr}</div>}
+              {codeRunResult.compile_output && <div style={{ color: '#fab387' }}>⚙ {codeRunResult.compile_output}</div>}
+            </div>
+          )}
           <button
             className="btn btn-primary btn-full"
             style={{ marginTop: '12px' }}
-            onClick={handleFillSubmit}
-            disabled={!input.trim() || disabled || revealed}
+            onClick={handleCodeSubmit}
+            disabled={!input.trim() || disabled || revealed || pyLoading}
           >
-            코드 실행 및 제출 🚀
+            {pyLoading ? '⏳ Python 실행 중...' : '코드 실행 및 제출 🚀'}
           </button>
         </div>
       )}
@@ -147,9 +193,13 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
               <strong style={{ color: '#c4b5fd', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
                 🧠 Claude AI 피드백
               </strong>
-              <p style={{ margin: 0, color: 'var(--clr-text-muted)', marginBottom: '12px' }}>
-                혹시 헷갈리셨나요? 개념을 비유하자면, 마치 <strong>{question.answer}</strong> 처럼 동작한다고 생각해보세요! 천천히 다시 확인해 보세요.
-              </p>
+              {aiFeedbackLoading ? (
+                <p style={{ margin: 0, color: 'var(--clr-text-muted)', fontStyle: 'italic' }}>AI 설명을 불러오는 중...</p>
+              ) : (
+                <p style={{ margin: 0, color: 'var(--clr-text-muted)', marginBottom: '12px', whiteSpace: 'pre-line' }}>
+                  {aiFeedback || '피드백을 불러오지 못했습니다.'}
+                </p>
+              )}
               <button 
                 className="btn btn-secondary btn-sm" 
                 style={{ width: '100%', borderColor: 'rgba(124,58,237,0.4)', color: '#c4b5fd' }}

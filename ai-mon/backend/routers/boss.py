@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Header
 from pydantic import BaseModel
 from jose import jwt, JWTError
-from services.claude_service import ask_claude
+from services.claude_service import ask_claude_json
 import json, os, uuid
 from datetime import datetime
 
@@ -39,7 +39,10 @@ def load_questions():
     if not os.path.exists(QUESTIONS_FILE):
         return []
     with open(QUESTIONS_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
+        data = json.load(f)
+        if isinstance(data, dict) and "questions" in data:
+            return data["questions"]
+        return data
 
 
 class BossAnswerRequest(BaseModel):
@@ -52,7 +55,11 @@ class BossAnswerRequest(BaseModel):
 def get_boss_question(authorization: str = Header(...)):
     verify_token(authorization)
     questions = load_questions()
-    boss_qs = [q for q in questions if q.get("is_boss", False)]
+    # question_id가 "boss_"로 시작하거나 type이 "boss"이거나 is_boss가 True인 경우
+    boss_qs = [
+        q for q in questions 
+        if q.get("is_boss") or q.get("type") == "boss" or "boss" in q.get("question_id", "").lower()
+    ]
     if not boss_qs:
         raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
     import random
@@ -83,7 +90,7 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
   "hint": "틀렸을 경우 힌트 (맞았으면 빈 문자열)"
 }}
 """
-    ai_result = await ask_claude(prompt)
+    ai_result = await ask_claude_json(prompt)
 
     # 오답 기록
     if not ai_result.get("is_correct", False):

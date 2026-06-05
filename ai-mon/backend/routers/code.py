@@ -2,6 +2,5 @@ from fastapi import APIRouter
 
 router = APIRouter()
 
-# 코드 실행 로직은 프론트엔드(Pyodide)로 이관되어
-# 백엔드 API (Judge0 연동 등)는 모두 제거되었습니다.
-
+# 코드 실행은 프론트엔드 Pyodide (브라우저 내 Python)에서 전담합니다.
+# Judge0 API 연동은 사용하지 않습니다.

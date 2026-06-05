@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import NavBar from './components/NavBar/NavBar'
 import Home from './pages/Home/Home'
@@ -10,6 +11,13 @@ import Settings from './pages/Settings/Settings'
 import Train from './pages/Train/Train'
 import Auth from './pages/Auth/Auth'
 import { useAuthStore } from './hooks/useAuthStore'
+
+// 앱 시작 시 Pyodide를 백그라운드에서 미리 로드 (code_input 문제 대비)
+if (typeof window !== 'undefined' && window.loadPyodide) {
+  window.__pyodidePreload = window.loadPyodide({
+    indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.25.1/full/',
+  })
+}
 
 /** 로그인 필수 경로 */
 function ProtectedRoute({ children }) {
