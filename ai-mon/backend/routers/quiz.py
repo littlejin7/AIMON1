@@ -10,7 +10,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
 
 QUESTIONS_FILE = os.path.join(os.path.dirname(__file__), "../data/questions.json")
-LESSONS_FILE   = os.path.join(os.path.dirname(__file__), "../data/lessons.json")
+LESSONS_DIR    = os.path.join(os.path.dirname(__file__), "../data/lessons")
 
 
 def load_questions():
@@ -24,10 +24,22 @@ def load_questions():
 
 
 def load_lessons():
-    if not os.path.exists(LESSONS_FILE):
+    """lessons/ 폴더 내 모든 JSON 파일을 읽어 합쳐 반환합니다."""
+    if not os.path.exists(LESSONS_DIR):
         return []
-    with open(LESSONS_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
+    all_lessons = []
+    for filename in sorted(os.listdir(LESSONS_DIR)):
+        if not filename.endswith(".json"):
+            continue
+        filepath = os.path.join(LESSONS_DIR, filename)
+        with open(filepath, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            # 파일이 배열이면 extend, 단일 객체면 append
+            if isinstance(data, list):
+                all_lessons.extend(data)
+            else:
+                all_lessons.append(data)
+    return all_lessons
 
 
 def verify_token(authorization: str) -> str:
@@ -47,7 +59,11 @@ def get_lessons():
 @router.get("/lessons/{lesson_id}")
 def get_lesson(lesson_id: str):
     lessons = load_lessons()
-    lesson = next((l for l in lessons if l["id"] == lesson_id), None)
+    # lesson_id 또는 id 키 모두 지원 (하위 호환)
+    lesson = next(
+        (l for l in lessons if l.get("lesson_id") == lesson_id or l.get("id") == lesson_id),
+        None,
+    )
     if not lesson:
         raise HTTPException(status_code=404, detail="레슨을 찾을 수 없습니다.")
     return lesson

@@ -1,41 +1,74 @@
-export const MOCK_BRIEFINGS = {
-  '1-1': [
-    {
-      id: 1,
-      title: '파이썬 첫걸음: 변수와 출력',
-      text: '파이썬에서 **변수**는 데이터를 담아두는 "이름표 붙인 상자"와 같습니다.\n`=` 기호를 사용해서 상자 안에 값을 넣을 수 있어요.',
-      code: 'x = 42\nname = "에이몬"',
-      tip: '주의: 파이썬에서 `=`는 "같다"는 뜻이 아니라, "오른쪽 값을 왼쪽에 넣는다(대입)"는 뜻이에요!'
-    },
-    {
-      id: 2,
-      title: '화면에 값 보여주기',
-      text: '상자(변수) 안에 든 값을 확인하려면 `print()` 함수를 사용합니다.\n괄호 안에 보고 싶은 변수나 값을 넣으면 콘솔 화면에 출력됩니다.',
-      code: 'print(x)\n# 출력 결과: 42\n\nprint("안녕하세요!")\n# 출력 결과: 안녕하세요!',
-      tip: '`print()`는 프로그래밍할 때 값이 맞게 들어갔는지 확인하는 가장 기본적이고 중요한 도구랍니다.'
-    }
-  ]
-}
+// ──────────────────────────────────────────────────────────
+// 스키마 기준: lesson_id, unit, stage, course_level, villain, slides[]
+// 실제 데이터: backend/data/lessons/lessons_1_1.json 참조
+// 이 목 데이터는 API 없이 로컬 개발·테스트 시 사용
+// ──────────────────────────────────────────────────────────
+
+export const MOCK_LESSONS = [
+  {
+    lesson_id: '1-1-beginner',
+    unit: 1,
+    stage: '1-1',
+    course_level: 'beginner',
+    title: 'Hello, Python!',
+    villain: 'codemmon',
+    slides: [
+      {
+        order: 1,
+        text: 'Python에서 화면에 글자를 보여주려면 print()를 사용해요.\n마치 스피커처럼, 괄호 안에 넣은 내용을 소리 내어 출력해줘요.\n글자는 반드시 따옴표(\' \')로 감싸야 해요.',
+        terminal: {
+          code: ["print('안녕, 에이몬!')"],
+          output: ['안녕, 에이몬!']
+        },
+        tip: "따옴표는 Python에게 '이건 글자야!'라고 알려주는 신호예요. 출력 결과엔 따옴표가 나타나지 않아요."
+      },
+      {
+        order: 2,
+        text: 'print()를 두 번 쓰면 두 줄이 출력돼요.\nprint()는 한 번 실행될 때마다 자동으로 줄을 바꿔줘요.\n한 줄씩 차례대로 실행된다는 것도 기억해두세요!',
+        terminal: {
+          code: ["print('첫 번째 줄')", "print('두 번째 줄')"],
+          output: ['첫 번째 줄', '두 번째 줄']
+        },
+        tip: '코드는 위에서 아래로 한 줄씩 순서대로 실행돼요.'
+      },
+      {
+        order: 3,
+        text: "코드 앞에 # 기호를 붙이면 그 줄은 실행되지 않아요.\n이걸 '주석'이라고 해요.\n코드에 메모를 남기거나, 잠깐 코드를 꺼두고 싶을 때 유용해요.",
+        terminal: {
+          code: ["print('이건 실행돼요')", "# print('이건 실행 안 돼요')", "print('이것도 실행돼요')"],
+          output: ['이건 실행돼요', '이것도 실행돼요']
+        },
+        tip: '# 이 붙은 줄은 Python이 완전히 무시해요. 주석은 실행 결과에 영향을 주지 않아요.'
+      }
+    ]
+  }
+]
+
+// ──────────────────────────────────────────────────────────
+// 퀴즈 목 데이터 — 스키마: question_id, unit, stage, course_level
+// ──────────────────────────────────────────────────────────
 
 export const MOCK_QUESTIONS = [
   {
-    "id": "q-l01-s1-01",
-    "lesson_id": "1",
-    "stage": 1,
-    "type": "multiple_choice",
-    "question": "파이썬에서 숫자 42를 변수 x에 저장하는 올바른 코드는?",
-    "options": ["x == 42", "x = 42", "x := 42", "int x = 42"],
-    "answer": "x = 42",
-    "explanation": "파이썬은 = 기호로 변수에 값을 대입합니다."
+    question_id: 'sl_beg_mc_1_1_001',
+    unit: 1,
+    stage: '1-1',
+    course_level: 'beginner',
+    type: 'multiple_choice',
+    question: 'print()의 역할은 무엇인가요?',
+    choices: ['A. 값을 저장한다', 'B. 값을 출력한다', 'C. 값을 삭제한다', 'D. 값을 계산한다'],
+    answer: 'B',
+    explanation: 'print()는 괄호 안의 값을 화면에 출력하는 함수예요.'
   },
   {
-    "id": "q-l01-s1-02",
-    "lesson_id": "1",
-    "stage": 1,
-    "type": "multiple_choice",
-    "question": "print() 함수는 어떤 역할을 하나요?",
-    "options": ["값을 저장한다", "화면에 출력한다", "숫자를 계산한다", "파일을 읽는다"],
-    "answer": "화면에 출력한다",
-    "explanation": "print()는 소괄호 안의 내용을 화면(콘솔)에 출력합니다."
+    question_id: 'sl_beg_mc_1_1_002',
+    unit: 1,
+    stage: '1-1',
+    course_level: 'beginner',
+    type: 'multiple_choice',
+    question: 'Python에서 주석을 작성할 때 사용하는 기호는?',
+    choices: ['A. //', 'B. --', 'C. #', 'D. /*'],
+    answer: 'C',
+    explanation: '# 뒤에 오는 내용은 Python이 무시해요.'
   }
 ]

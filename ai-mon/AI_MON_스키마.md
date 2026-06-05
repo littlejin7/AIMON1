@@ -3,17 +3,35 @@
 
 ---
 
-## 1. lessons.json
+## 1. lessons — 브리핑 슬라이드 데이터
 
-브리핑 슬라이드 데이터 — 스테이지별 개념 설명
+브리핑 슬라이드 데이터 — 스테이지 × 레벨별 개념 설명
+
+### 📁 파일 관리 구조
+
+```
+backend/data/lessons/
+├── unit_1.json   ← Unit 1의 모든 스테이지 × 레벨 슬라이드
+├── unit_2.json
+...
+└── unit_8.json
+```
+
+각 파일은 **배열** 형태로, 하나의 유닛 내 모든 `stage × course_level` 조합을 담아요.  
+백엔드가 `lessons/` 폴더 내 파일을 자동으로 읽어 합쳐 서빙합니다.
+
+---
+
+### 필드 정의
 
 | 필드 | 타입 | 필수 | 설명 |
 |---|---|---|---|
-| `lesson_id` | string | ✅ | 스테이지 ID (예: "1-1") |
+| `lesson_id` | string | ✅ | `"{stage}-{course_level}"` 형식 (예: `"1-1-beginner"`) |
 | `unit` | number | ✅ | 유닛 번호 (1~8) |
-| `stage` | string | ✅ | 스테이지 번호 (예: "1-1") |
+| `stage` | string | ✅ | 스테이지 번호 (예: `"1-1"`) |
+| `course_level` | string | ✅ | 수강 레벨: `beginner` / `intermediate` / `advanced` |
 | `title` | string | ✅ | 스테이지 제목 |
-| `villain` | string | ✅ | 등장 악당 (codemmon / speechbubble_king / interferencemon) |
+| `villain` | string | ✅ | 등장 악당 (`codemmon` / `speechbubble_king` / `interferencemon`) |
 | `slides` | array | ✅ | 슬라이드 목록 |
 | `slides[].order` | number | ✅ | 슬라이드 순서 |
 | `slides[].text` | string | ✅ | 개념 설명 텍스트 |
@@ -22,30 +40,73 @@
 | `slides[].terminal.output` | array | ❌ | 실행 결과 배열 |
 | `slides[].tip` | string | ❌ | 하단 팁 텍스트 |
 
+---
+
+### 레벨별 교육 전략
+
+| `course_level` | 교육 전략 | Stage 1-1 기준 핵심 개념 |
+|---|---|---|
+| `beginner` | 비유 중심, 개념 하나씩, 쉬운 언어 | print() = 스피커 비유, 따옴표 역할, 주석 기초(`#`) |
+| `intermediate` | 실용적 비교, 차이 중심 | `,` vs `+` 공백 차이, `str()` 타입 변환, 인라인 주석 |
+| `advanced` | 파라미터 깊이, Pythonic 패턴 | `sep`/`end` 파라미터, f-string 포맷, `*` 언패킹 |
+
+> 같은 `stage` 내에서 `course_level`만 달라지고, `title`·`villain`은 동일해요.
+
+---
+
+### 예시 (unit_1.json 일부)
+
 ```json
-{
-  "lessons": [{
-    "lesson_id": "1-1",
+[
+  {
+    "lesson_id": "1-1-beginner",
     "unit": 1,
     "stage": "1-1",
+    "course_level": "beginner",
     "title": "Hello, Python!",
     "villain": "codemmon",
     "slides": [
       {
         "order": 1,
-        "text": "코드 맨 앞에 샵 기호('#')를 붙이면, 컴퓨터는 그 줄을 완전히 무시합니다.",
+        "text": "Python에서 화면에 글자를 보여주려면 print()를 사용해요.\n마치 스피커처럼, 괄호 안에 넣은 내용을 소리 내어 출력해줘요.",
         "terminal": {
-          "code": ["# 이 줄은 실행되지 않는 주석입니다.", "print('에이몬 가동')"],
-          "output": ["에이몬 가동"]
+          "code": ["print('안녕, 에이몬!')"],
+          "output": ["안녕, 에이몬!"]
         },
-        "tip": "주석은 코드 맨 앞에 올 수도 있고, 코드 끝에 붙여 쓸 수도 있어요."
+        "tip": "따옴표는 Python에게 '이건 글자야!'라고 알려주는 신호예요."
       }
     ]
-  }]
-}
+  },
+  {
+    "lesson_id": "1-1-intermediate",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "intermediate",
+    "title": "Hello, Python!",
+    "villain": "codemmon",
+    "slides": [ ... ]
+  },
+  {
+    "lesson_id": "1-1-advanced",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "advanced",
+    "title": "Hello, Python!",
+    "villain": "codemmon",
+    "slides": [ ... ]
+  },
+  {
+    "lesson_id": "1-2-beginner",
+    "unit": 1,
+    "stage": "1-2",
+    "course_level": "beginner",
+    "slides": [ ... ]
+  }
+]
 ```
 
 ---
+
 
 ## 2. questions.json
 
