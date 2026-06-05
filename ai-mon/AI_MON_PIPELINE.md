@@ -1,3 +1,7 @@
+---
+notion_page: https://app.notion.com/p/AI-MON-PIPELINE-373ea473fb45813a8d91cd58551751ab
+title: AI MON PIPELINE
+---
 # AI MON 파이프라인 정리
 > 브레인스토밍 기반 실시간 업데이트 문서
 

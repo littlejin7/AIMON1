@@ -1,0 +1,26 @@
+name: Notion Sync All Files
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # 변경된 파일 감지에 필요
+
+      - name: Push MD files to Notion
+        uses: JoshStern/push-md-to-notion@v0.4.1
+        with:
+          notion-token: ${{ secrets.NOTION_TOKEN }}
+          # 참고: 이 액션은 각 .md 파일의 frontmatter(notion_page: URL)를 읽어 동기화합니다.
+          # 동기화할 파일 상단에 아래 내용을 추가하세요:
+          #
+          # ---
+          # notion_page: https://app.notion.com/p/AI-MON-_-334ea473fb45804c878ee39b49a1c36a
+          # title: AI MON PROPOSAL
+          # ---
