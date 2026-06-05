@@ -1,3 +1,7 @@
+---
+notion_page: https://app.notion.com/p/AI-MON-_-334ea473fb45804c878ee39b49a1c36a
+title: AI MON PROPOSAL
+---
 # 🤖 AI MON — 에이몬
 # AI 코딩 학습 플랫폼 기획안 | v1.0 | 2026
 

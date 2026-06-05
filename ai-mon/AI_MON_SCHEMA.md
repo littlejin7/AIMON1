@@ -1,3 +1,7 @@
+---
+notion_page: https://app.notion.com/p/AI-MON-SCHEMA-373ea473fb4581968fa1fb9a1ba08a83
+title: AI MON SCHEMA
+---
 # AI MON 데이터 스키마
 > 각 JSON 파일의 필드 정의 + 예시. 문제 데이터 제작 및 개발 연동 시 기준 문서.
 
