@@ -55,10 +55,12 @@ class BossAnswerRequest(BaseModel):
 def get_boss_question(authorization: str = Header(...)):
     verify_token(authorization)
     questions = load_questions()
-    # question_id가 "boss_"로 시작하거나 type이 "boss"이거나 is_boss가 True인 경우
+    # type=="boss" 이거나 is_boss==True 이거나 question_id가 "boss_"로 시작하는 문제
     boss_qs = [
-        q for q in questions 
-        if q.get("is_boss") or q.get("type") == "boss" or "boss" in q.get("question_id", "").lower()
+        q for q in questions
+        if q.get("is_boss")
+        or q.get("type") == "boss"
+        or str(q.get("question_id", "")).lower().startswith("boss_")
     ]
     if not boss_qs:
         raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
@@ -70,7 +72,11 @@ def get_boss_question(authorization: str = Header(...)):
 async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header(...)):
     user_id = verify_token(authorization)
     questions = load_questions()
-    question = next((q for q in questions if q["id"] == req.question_id), None)
+    # 우리 스키마는 "question_id" 필드 사용 ("id" 필드 없음)
+    question = next(
+        (q for q in questions if q.get("question_id") == req.question_id or q.get("id") == req.question_id),
+        None,
+    )
     if not question:
         raise HTTPException(status_code=404, detail="문제를 찾을 수 없습니다.")
 

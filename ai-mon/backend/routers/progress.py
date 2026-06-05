@@ -34,8 +34,8 @@ def save_progress(data):
 
 
 class ProgressUpdateRequest(BaseModel):
-    lesson_id: str
-    stage: int
+    unit: int
+    stage: str  # 예: "1-1", "1-2", "1-final"
     score: int
     is_completed: bool = False
 
@@ -55,7 +55,7 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
 
     existing = next(
         (p for p in progress if p["user_id"] == user_id
-         and p["lesson_id"] == req.lesson_id
+         and p["unit"] == req.unit
          and p["stage"] == req.stage),
         None,
     )
@@ -68,7 +68,7 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
         progress.append({
             "id": str(uuid.uuid4()),
             "user_id": user_id,
-            "lesson_id": req.lesson_id,
+            "unit": req.unit,
             "stage": req.stage,
             "score": req.score,
             "is_completed": req.is_completed,
