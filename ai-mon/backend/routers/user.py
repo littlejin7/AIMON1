@@ -37,9 +37,13 @@ def get_current_user(authorization: str):
         raise HTTPException(status_code=401, detail="토큰이 유효하지 않습니다.")
 
 
+from typing import Optional
+
 class UpdateProfileRequest(BaseModel):
-    nickname: str = None
-    character: str = None
+    nickname: Optional[str] = None
+    character: Optional[str] = None
+    course_level: Optional[str] = None
+    is_level_tested: Optional[bool] = None
 
 
 @router.get("/me")
@@ -52,12 +56,18 @@ def get_me(authorization: str = Header(...)):
 def update_me(req: UpdateProfileRequest, authorization: str = Header(...)):
     user = get_current_user(authorization)
     users = load_users()
+    print("PATCH /user/me payload:", req.dict())
     for u in users:
         if u["id"] == user["id"]:
-            if req.nickname:
+            if req.nickname is not None:
                 u["nickname"] = req.nickname
-            if req.character:
+            if req.character is not None:
                 u["character"] = req.character
+            if req.course_level is not None:
+                u["course_level"] = req.course_level
+            if req.is_level_tested is not None:
+                u["is_level_tested"] = req.is_level_tested
             save_users(users)
+            print("PATCH /user/me successfully saved user:", u)
             return {k: v for k, v in u.items() if k != "password"}
     raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")

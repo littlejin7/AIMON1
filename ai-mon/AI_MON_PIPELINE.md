@@ -187,32 +187,38 @@ Unit 8 완료 → speech_bubble → final_ghost
 
 ## 9. 인증 / 로그인 파이프라인
 
-### 비로그인 랜딩 흐름 (2가지 CTA)
+### 비로그인 랜딩 흐름
 
 ```
-앱 진입 (비로그인 랜딩)
+앱 진입 (비로그인 랜딩 / 메인)
      │
-     ├── 1. [바로 체험하기] ──────────────────────────────────────────
-     │    Stage 1-1 브리핑 → beginner 퀴즈
-     │    퀴즈 클리어 → 축하 모달 (🎉)
-     │         └── "회원가입하고 계속하기" → /auth?mode=register
-     │              (비로그인 체험에서는 레벨=beginner 기본 설정)
+     ├── 1. [로그인 / 이미 계정이 있어요] ──────────────────────
+     │    /auth?mode=login
      │
-     └── 2. [내 에이몬 찾기 (레벨 테스트)] ─────────────────────────
-          인라인 모달: 3문제 빠른 퀴즈
-          ├─ 0~1점 → beginner    🟣 "아기 슬라임 에이몬!"
-          ├─ 2~3점 → intermediate 🤖 "로봇 에이몬!"
-          └─ 4점+  → advanced    👻 "파이널 에이몬 발견!"
-          → "가입하고 에이몬 받기" → /auth?level={beginner|intermediate|advanced}&mode=register
+     └── 2. [레벨 테스트 시작하기 (비회원 클릭 시)] ────────────
+          /level-test-info 안내 페이지로 이동
+          └─ "회원가입하고 레벨 진단받기" → /auth?mode=register
+```
+
+### 로그인 후 대시보드 흐름
+
+```
+로그인 완료 (대시보드 진입)
+     │
+     ├── 레벨 테스트 미완료 (is_level_tested: false)
+     │    └─ 중앙에 [내 코딩 레벨 진단하기] 버튼 노출
+     │    └─ 클릭 시 → 레벨 테스트 모달 진행 → 완료 후 course_level, is_level_tested 업데이트
+     │
+     └── 레벨 테스트 완료 (is_level_tested: true)
+          └─ 진단 버튼 숨김
+          └─ 상단 유저 정보 영역에 현재 레벨 배지(예: intermediate) 노출
 ```
 
 ### Auth 페이지 (/auth)
 
-- URL 파라미터: `?level=beginner|intermediate|advanced` `?mode=login|register`
-- **가입 시 `course_level` 자동 반영**: URL에서 읽은 level → `RegisterRequest.course_level` → `users.json`에 저장
-- **소셜 로그인 (프레임)**: 구글 / 카카오 / 네이버 OAuth 버튼 UI 포함
-  - 실제 동작: 각 플랫폼 앱 등록 + `.env` Client ID/Secret 설정 후 활성화
-  - MVP 단계: UI 표시만, 클릭 시 "준비 중" 안내
+- URL 파라미터: `?mode=login|register`
+- **소셜 로그인 (프레임)**: 구글 / 카카오 / 네이버 OAuth 버튼 UI (추후 구현)
+- 회원가입 완료 후 대시보드 이동 시 레벨 테스트를 유도
 
 ### RegisterRequest 스키마 (백엔드)
 
@@ -221,7 +227,8 @@ class RegisterRequest(BaseModel):
     username: str
     password: str
     nickname: str = ""
-    course_level: str = "beginner"   # ← URL ?level= 값이 여기로 들어옴
+    course_level: str = "beginner"
+    is_level_tested: bool = False
 ```
 
 ### users.json 저장 필드
@@ -231,11 +238,11 @@ class RegisterRequest(BaseModel):
 | `id` | UUID | 자동 생성 |
 | `username` | str | 로그인 ID |
 | `nickname` | str | 표시 이름 |
-| `course_level` | str | beginner / intermediate / advanced (가입 시 결정) |
+| `course_level` | str | beginner / intermediate / advanced |
+| `is_level_tested` | bool | 레벨 테스트 완료 여부 |
 | `character` | str | "default" |
 | `created_at` | ISO 8601 | 가입 시각 |
 
-- Stage 1-1 이전: 진도/XP 저장 없음
 - 로그인 후: `users.json` / `progress.json` 생성 및 저장 시작
 
 ---

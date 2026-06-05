@@ -10,6 +10,7 @@ import Character from './pages/Character/Character'
 import Settings from './pages/Settings/Settings'
 import Train from './pages/Train/Train'
 import Auth from './pages/Auth/Auth'
+import LevelTestInfo from './pages/LevelTestInfo/LevelTestInfo'
 import { useAuthStore } from './hooks/useAuthStore'
 
 // 앱 시작 시 Pyodide를 백그라운드에서 미리 로드 (code_input 문제 대비)
@@ -70,6 +71,16 @@ export default function App() {
           element={
             <AppLayout>
               <Stage _lessonId="1" _stage="1" />
+            </AppLayout>
+          }
+        />
+
+        {/* 레벨 테스트 안내 페이지 (비로그인 전용 제한 설명) */}
+        <Route
+          path="/level-test-info"
+          element={
+            <AppLayout>
+              <LevelTestInfo />
             </AppLayout>
           }
         />

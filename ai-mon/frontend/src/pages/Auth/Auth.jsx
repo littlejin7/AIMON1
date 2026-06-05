@@ -77,7 +77,9 @@ export default function Auth() {
     setError('')
     try {
       const fn = mode === 'login' ? authApi.login : authApi.register
-      const res = await fn(form)
+      const isLevelTested = !!searchParams.get('level')
+      const payload = mode === 'login' ? form : { ...form, is_level_tested: isLevelTested }
+      const res = await fn(payload)
       setAuth(res.data.access_token, res.data.user)
       navigate('/lesson')
     } catch (err) {

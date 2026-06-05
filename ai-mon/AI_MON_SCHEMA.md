@@ -213,6 +213,7 @@ backend/data/lessons/
 | `user_id` | string | - | ✅ | 유저 고유 ID |
 | `nickname` | string | - | ✅ | 닉네임 |
 | `course_level` | string | beginner / intermediate / advanced | ✅ | 수강 레벨 |
+| `is_level_tested` | boolean | true / false | ✅ | 레벨 테스트 완료 여부 |
 | `xp` | number | 0~ | ✅ | 보유 XP |
 | `lv` | number | 1~40 | ✅ | 현재 레벨 |
 | `crowns` | number | 0~ | ✅ | 보유 왕관 수 |
@@ -226,6 +227,7 @@ backend/data/lessons/
   "user_id": "u001",
   "nickname": "지니",
   "course_level": "beginner",
+  "is_level_tested": true,
   "xp": 320,
   "lv": 5,
   "crowns": 5,
