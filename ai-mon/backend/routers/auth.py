@@ -41,6 +41,7 @@ class RegisterRequest(BaseModel):
     password: str
     nickname: str = ""
     course_level: str = "beginner"   # 레벨 테스트 결과 or 기본값
+    is_level_tested: bool = False
 
 
 class LoginRequest(BaseModel):
@@ -62,6 +63,7 @@ def register(req: RegisterRequest):
         "password": hash_password(req.password),
         "nickname": req.nickname or req.username,
         "course_level": level,
+        "is_level_tested": req.is_level_tested,
         "character": "default",
         "created_at": datetime.utcnow().isoformat(),
     }

@@ -234,7 +234,8 @@ title: AI MON PROPOSAL
 > 기간 내 제출 가능한 수준으로 기능 컷.
 
 **✅ MVP 필수 (이것만 완벽하게)**
-- Stage 1-1 비로그인 체험 → 클리어 시 회원가입/로그인 유도 (JWT)
+- 비로그인 사용자는 /level-test-info 안내 페이지 노출 → 회원가입 유도
+- 로그인 사용자 한정 레벨 테스트 제공 및 대시보드 레벨 배지 노출
 - 스테이지 퀴즈 풀기 (multiple_choice / output_select / fill_in_blank / code_input)
 - 정답 시: explanation 필드 텍스트 출력 (API 호출 없음)
 - 오답 시: Claude AI 피드백 설명 (레벨별 다름) → **핵심 차별점**

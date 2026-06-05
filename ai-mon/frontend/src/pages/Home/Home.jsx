@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { progressApi } from '../../api/index'
+import { progressApi, userApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import './Home.css'
 
@@ -109,7 +109,7 @@ function calcLevelResult(score) {
 }
 
 // ── 레벨 테스트 모달 ──
-function LevelTestModal({ onClose, onFinish }) {
+function LevelTestModal({ onClose, onFinish, isLoggedIn }) {
   const [step, setStep]         = useState(0)   // 0=인트로, 1~3=문제, 4=결과
   const [score, setScore]       = useState(0)
   const [selected, setSelected] = useState(null)
@@ -250,7 +250,9 @@ function LevelTestModal({ onClose, onFinish }) {
               <h2 style={{ fontSize: '1.2rem', fontWeight: 800, marginBottom: '0.5rem' }}>{res.msg}</h2>
               <p style={{ color: 'var(--clr-text-muted)', fontSize: '0.88rem', lineHeight: 1.7, marginBottom: '1.75rem' }}>
                 {res.desc}<br />
-                <strong style={{ color: 'var(--clr-primary-lt)' }}>지금 가입하면 에이몬이 바로 시작돼요! 🔥</strong>
+                <strong style={{ color: 'var(--clr-primary-lt)' }}>
+                  {isLoggedIn ? '설정을 완료하면 레벨에 맞는 에이몬이 분양됩니다! 🔥' : '지금 가입하면 에이몬이 바로 시작돼요! 🔥'}
+                </strong>
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 <button
@@ -258,9 +260,11 @@ function LevelTestModal({ onClose, onFinish }) {
                   onClick={() => onFinish(levelKey)}
                   id="btn-level-test-register"
                 >
-                  ✨ 가입하고 에이몬 받기
+                  {isLoggedIn ? '✨ 에이몬 레벨 설정하기' : '✨ 가입하고 에이몬 받기'}
                 </button>
-                <button className="btn btn-ghost" onClick={onClose}>나중에 할게요</button>
+                <button className="btn btn-ghost" onClick={onClose}>
+                  {isLoggedIn ? '취소' : '나중에 할게요'}
+                </button>
               </div>
             </div>
           )
@@ -273,11 +277,27 @@ function LevelTestModal({ onClose, onFinish }) {
 export default function Home() {
   const user     = useAuthStore((s) => s.user)
   const token    = useAuthStore((s) => s.token)
+  const updateUser = useAuthStore((s) => s.updateUser)
   const navigate = useNavigate()
 
   const [stats,         setStats]         = useState(null)
   const [loading,       setLoading]       = useState(!!token)
   const [showLevelTest, setShowLevelTest] = useState(false)
+
+  const handleLevelTestFinish = async (levelKey) => {
+    if (token) {
+      try {
+        const res = await userApi.updateMe({ course_level: levelKey, is_level_tested: true })
+        updateUser(res.data)
+      } catch (err) {
+        alert('레벨 설정 변경에 실패했습니다.')
+      } finally {
+        setShowLevelTest(false)
+      }
+    } else {
+      navigate(`/auth?level=${levelKey}&mode=register`)
+    }
+  }
 
   useEffect(() => {
     if (!token) { setLoading(false); return }
@@ -294,7 +314,8 @@ export default function Home() {
         {showLevelTest && (
           <LevelTestModal
             onClose={() => setShowLevelTest(false)}
-            onFinish={(levelKey) => navigate(`/auth?level=${levelKey}&mode=register`)}
+            onFinish={handleLevelTestFinish}
+            isLoggedIn={false}
           />
         )}
 
@@ -323,22 +344,39 @@ export default function Home() {
 
             {/* CTA 2: 레벨 테스트 */}
             <button
-              className="btn btn-ghost"
-              onClick={() => setShowLevelTest(true)}
+              className="btn btn-ghost btn-lg"
+              onClick={() => navigate('/level-test-info')}
               id="btn-level-test"
               style={{ border: '1px solid rgba(124,58,237,0.45)', color: 'var(--clr-primary-lt)' }}
             >
               🔍 내 에이몬 찾기 (레벨 테스트)
             </button>
 
-            <button
-              className="btn btn-ghost"
-              onClick={() => navigate('/auth')}
-              id="btn-login-home"
-              style={{ fontSize: '0.83rem', color: 'var(--clr-text-muted)' }}
-            >
-              이미 계정이 있어요 → 로그인
-            </button>
+            {/* 회원가입 / 로그인 보조 링크 */}
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '12px', marginTop: '8px', fontSize: '0.88rem' }}>
+              <button
+                id="btn-register-home"
+                onClick={() => navigate('/auth?mode=register')}
+                style={{
+                  background: 'none', border: 'none', padding: 0,
+                  color: 'var(--clr-primary-lt)', textDecoration: 'underline',
+                  cursor: 'pointer', fontWeight: 600
+                }}
+              >
+                회원가입
+              </button>
+              <span style={{ color: 'var(--clr-text-faint)' }}>|</span>
+              <button
+                id="btn-login-home"
+                onClick={() => navigate('/auth?mode=login')}
+                style={{
+                  background: 'none', border: 'none', padding: 0,
+                  color: 'var(--clr-text-muted)', cursor: 'pointer'
+                }}
+              >
+                이미 계정이 있어요 (로그인)
+              </button>
+            </div>
           </div>
         </div>
 
@@ -408,11 +446,76 @@ export default function Home() {
 
   return (
     <div className="home-page">
+      {showLevelTest && (
+        <LevelTestModal
+          onClose={() => setShowLevelTest(false)}
+          onFinish={handleLevelTestFinish}
+          isLoggedIn={true}
+        />
+      )}
       {/* 인사 + 캐릭터 카드 */}
       <div className="home-dashboard-header">
-        <div className="home-dash-greeting">
-          <p className="home-dash-sub">안녕하세요,</p>
-          <h1 className="home-dash-name">{user?.nickname || user?.username} 님! 👋</h1>
+        <div className="home-dash-greeting" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
+          <div>
+            <p className="home-dash-sub">안녕하세요,</p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+              <h1 className="home-dash-name" style={{ margin: 0 }}>{user?.nickname || user?.username} 님! 👋</h1>
+              {user?.is_level_tested && (
+                (() => {
+                  const level = user?.course_level || 'beginner'
+                  const colorMap = {
+                    beginner:     { bg: 'rgba(124, 58, 237, 0.15)', border: '1px solid rgba(124, 58, 237, 0.4)', text: '#a78bfa', label: '비기너', emoji: '🟣' },
+                    intermediate: { bg: 'rgba(6, 182, 212, 0.15)',  border: '1px solid rgba(6, 182, 212, 0.4)',  text: '#22d3ee', label: '인터미디에이트', emoji: '🤖' },
+                    advanced:     { bg: 'rgba(245, 158, 11, 0.15)',  border: '1px solid rgba(245, 158, 11, 0.4)',  text: '#fcd34d', label: '어드밴스드', emoji: '👻' }
+                  }
+                  const badge = colorMap[level] || colorMap.beginner
+                  return (
+                    <span
+                      id="user-course-level-badge"
+                      style={{
+                        background: badge.bg,
+                        border: badge.border,
+                        color: badge.text,
+                        borderRadius: '999px',
+                        padding: '4px 12px',
+                        fontSize: '0.78rem',
+                        fontWeight: 800,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                      }}
+                    >
+                      <span>{badge.emoji}</span>
+                      <span>내 레벨: {badge.label}</span>
+                    </span>
+                  )
+                })()
+              )}
+            </div>
+          </div>
+          {!user?.is_level_tested && (
+            <button
+              onClick={() => setShowLevelTest(true)}
+              id="btn-level-test-dashboard"
+              style={{
+                background: 'rgba(124, 58, 237, 0.08)',
+                border: '1px solid rgba(124, 58, 237, 0.25)',
+                borderRadius: '8px',
+                padding: '6px 12px',
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                color: 'var(--clr-primary-lt)',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+                transition: 'all 0.2s'
+              }}
+            >
+              🔍 첫 레벨 진단받기
+            </button>
+          )}
         </div>
 
         {/* 현재 에이몬 진화 카드 */}
