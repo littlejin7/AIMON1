@@ -40,6 +40,7 @@ class RegisterRequest(BaseModel):
     username: str
     password: str
     nickname: str = ""
+    course_level: str = "beginner"   # 레벨 테스트 결과 or 기본값
 
 
 class LoginRequest(BaseModel):
@@ -52,11 +53,15 @@ def register(req: RegisterRequest):
     users = load_users()
     if any(u["username"] == req.username for u in users):
         raise HTTPException(status_code=400, detail="이미 존재하는 아이디입니다.")
+    # course_level 유효성 검증
+    valid_levels = {"beginner", "intermediate", "advanced"}
+    level = req.course_level if req.course_level in valid_levels else "beginner"
     new_user = {
         "id": str(uuid.uuid4()),
         "username": req.username,
         "password": hash_password(req.password),
         "nickname": req.nickname or req.username,
+        "course_level": level,
         "character": "default",
         "created_at": datetime.utcnow().isoformat(),
     }

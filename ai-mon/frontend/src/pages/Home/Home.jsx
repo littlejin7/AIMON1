@@ -294,7 +294,7 @@ export default function Home() {
         {showLevelTest && (
           <LevelTestModal
             onClose={() => setShowLevelTest(false)}
-            onFinish={(levelKey) => navigate(`/auth?level=${levelKey}`)}
+            onFinish={(levelKey) => navigate(`/auth?level=${levelKey}&mode=register`)}
           />
         )}
 

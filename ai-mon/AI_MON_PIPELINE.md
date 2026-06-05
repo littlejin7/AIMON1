@@ -194,19 +194,49 @@ Unit 8 완료 → speech_bubble → final_ghost
      │
      ├── 1. [바로 체험하기] ──────────────────────────────────────────
      │    Stage 1-1 브리핑 → beginner 퀴즈
-     │    퀴즈 클리어 → "축하합니다! 에이몬을 진화시키세요! 🔥" → 가입 유도
+     │    퀴즈 클리어 → 축하 모달 (🎉)
+     │         └── "회원가입하고 계속하기" → /auth?mode=register
+     │              (비로그인 체험에서는 레벨=beginner 기본 설정)
      │
      └── 2. [내 에이몬 찾기 (레벨 테스트)] ─────────────────────────
           인라인 모달: 3문제 빠른 퀴즈
-          ├─ 0~1점 → 비기너  🟣 "아기 슬라임 에이몬!"
-          ├─ 2~3점 → 인터미디에이트 🤖 "로봇 에이몬!"
-          └─ 4점   → 어드밴스드 👻 "파이널 에이몬 발견!"
-          → "가입하고 에이몬 받기" → /auth?level={beginner|intermediate|advanced}
+          ├─ 0~1점 → beginner    🟣 "아기 슬라임 에이몬!"
+          ├─ 2~3점 → intermediate 🤖 "로봇 에이몬!"
+          └─ 4점+  → advanced    👻 "파이널 에이몬 발견!"
+          → "가입하고 에이몬 받기" → /auth?level={beginner|intermediate|advanced}&mode=register
 ```
 
+### Auth 페이지 (/auth)
+
+- URL 파라미터: `?level=beginner|intermediate|advanced` `?mode=login|register`
+- **가입 시 `course_level` 자동 반영**: URL에서 읽은 level → `RegisterRequest.course_level` → `users.json`에 저장
+- **소셜 로그인 (프레임)**: 구글 / 카카오 / 네이버 OAuth 버튼 UI 포함
+  - 실제 동작: 각 플랫폼 앱 등록 + `.env` Client ID/Secret 설정 후 활성화
+  - MVP 단계: UI 표시만, 클릭 시 "준비 중" 안내
+
+### RegisterRequest 스키마 (백엔드)
+
+```python
+class RegisterRequest(BaseModel):
+    username: str
+    password: str
+    nickname: str = ""
+    course_level: str = "beginner"   # ← URL ?level= 값이 여기로 들어옴
+```
+
+### users.json 저장 필드
+
+| 필드 | 타입 | 설명 |
+|------|------|------|
+| `id` | UUID | 자동 생성 |
+| `username` | str | 로그인 ID |
+| `nickname` | str | 표시 이름 |
+| `course_level` | str | beginner / intermediate / advanced (가입 시 결정) |
+| `character` | str | "default" |
+| `created_at` | ISO 8601 | 가입 시각 |
+
 - Stage 1-1 이전: 진도/XP 저장 없음
-- 로그인 후: users.json / progress.json 생성 및 저장 시작
-- 레벨 테스트 결과는 Auth 페이지로만 전달 (추후: 회원가입 시 `course_level` 자동 설정 예정)
+- 로그인 후: `users.json` / `progress.json` 생성 및 저장 시작
 
 ---
 
