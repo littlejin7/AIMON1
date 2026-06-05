@@ -29,18 +29,33 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
   }
 
   const fetchAiFeedback = async (userAnswer) => {
+    // 1) questions.json의 feedback.wrong을 즉시 fallback으로 표시
+    const staticFallback = question.feedback?.wrong || '정답을 다시 확인해 보세요!'
+    setAiFeedback(staticFallback)
     setAiFeedbackLoading(true)
+
+    // 2) Claude API 호출 (5초 타임아웃)
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), 5000)
     try {
-      const res = await quizApi.getAiFeedback({
-        question: question.question,
-        correct_answer: question.answer,
-        user_answer: userAnswer,
-        level: 'beginner',
-      })
-      setAiFeedback(res.data.feedback)
+      const res = await quizApi.getAiFeedback(
+        {
+          question: question.question,
+          correct_answer: question.answer,
+          user_answer: userAnswer,
+          level: 'beginner',
+        },
+        { signal: controller.signal }
+      )
+      // Claude 성공 시 → AI 응답으로 업그레이드 (is_ai_fallback=false이고 feedback이 있을 때만)
+      if (res.data?.feedback && !res.data?.is_ai_fallback) {
+        setAiFeedback(res.data.feedback)
+      }
+      // is_ai_fallback=true면 staticFallback 유지 (이미 표시 중)
     } catch {
-      setAiFeedback('AI 피드백을 불러오지 못했습니다. 다시 시도해주세요.')
+      // 타임아웃 / 네트워크 오류 → staticFallback 유지 (이미 표시 중)
     } finally {
+      clearTimeout(timer)
       setAiFeedbackLoading(false)
     }
   }
@@ -192,14 +207,24 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
             }}>
               <strong style={{ color: '#c4b5fd', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
                 🧠 Claude AI 피드백
+                {aiFeedbackLoading && (
+                  <span style={{
+                    fontSize: '0.7rem',
+                    background: 'rgba(124,58,237,0.25)',
+                    border: '1px solid rgba(124,58,237,0.4)',
+                    borderRadius: '999px',
+                    padding: '1px 8px',
+                    color: '#c4b5fd',
+                    fontWeight: 400,
+                    animation: 'pulse 1.5s infinite',
+                  }}>
+                    AI 분석 중...
+                  </span>
+                )}
               </strong>
-              {aiFeedbackLoading ? (
-                <p style={{ margin: 0, color: 'var(--clr-text-muted)', fontStyle: 'italic' }}>AI 설명을 불러오는 중...</p>
-              ) : (
-                <p style={{ margin: 0, color: 'var(--clr-text-muted)', marginBottom: '12px', whiteSpace: 'pre-line' }}>
-                  {aiFeedback || '피드백을 불러오지 못했습니다.'}
-                </p>
-              )}
+              <p style={{ margin: 0, color: 'var(--clr-text-muted)', marginBottom: '12px', whiteSpace: 'pre-line' }}>
+                {aiFeedback}
+              </p>
               <button 
                 className="btn btn-secondary btn-sm" 
                 style={{ width: '100%', borderColor: 'rgba(124,58,237,0.4)', color: '#c4b5fd' }}
