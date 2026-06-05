@@ -139,7 +139,7 @@ class AiFeedbackRequest(BaseModel):
 async def get_ai_feedback(req: AiFeedbackRequest):
     """
     오답 제출 시 Claude API를 호출해 레벨별 맞춤 피드백을 반환합니다.
-    프론트엔드 QuizCard / Boss 오답 화면에서 호출합니다.
+    Claude 실패/타임아웃 시 is_ai_fallback=True와 함께 200 반환 (프론트 crash 방지).
     """
     prompt = (
         f"[문제]\n{req.question}\n\n"
@@ -148,6 +148,8 @@ async def get_ai_feedback(req: AiFeedbackRequest):
         "학생이 왜 틀렸는지, 그리고 올바른 개념을 이해할 수 있도록 설명해주세요."
     )
     result = await ask_claude(prompt, level=req.level)
-    if not result["success"]:
-        raise HTTPException(status_code=502, detail=result["feedback"])
-    return {"feedback": result["feedback"]}
+    if result["success"]:
+        return {"feedback": result["feedback"], "is_ai_fallback": False}
+    # Claude 실패 → 프론트의 questions.json fallback을 쓰도록 빈 feedback 반환
+    return {"feedback": "", "is_ai_fallback": True}
+
