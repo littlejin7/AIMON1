@@ -183,16 +183,26 @@ Unit 8 완료 → speech_bubble → final_ghost
 
 ## 9. 인증 / 로그인 파이프라인
 
+### 비로그인 랜딩 흐름 (2가지 CTA)
+
 ```
-앱 진입 → 비로그인으로 Stage 1-1 체험
-    ↓
-Stage 1-1 클리어 시 → 회원가입/로그인 모달 노출
-    ↓
-JWT 발급 → 유저 데이터 저장 시작
+앱 진입 (비로그인 랜딩)
+     │
+     ├── 1. [바로 체험하기] ──────────────────────────────────────────
+     │    Stage 1-1 브리핑 → beginner 퀴즈
+     │    퀴즈 클리어 → "축하합니다! 에이몬을 진화시키세요! 🔥" → 가입 유도
+     │
+     └── 2. [내 에이몬 찾기 (레벨 테스트)] ─────────────────────────
+          인라인 모달: 3문제 빠른 퀴즈
+          ├─ 0~1점 → 비기너  🟣 "아기 슬라임 에이몬!"
+          ├─ 2~3점 → 인터미디에이트 🤖 "로봇 에이몬!"
+          └─ 4점   → 어드밴스드 👻 "파이널 에이몬 발견!"
+          → "가입하고 에이몬 받기" → /auth?level={beginner|intermediate|advanced}
 ```
 
 - Stage 1-1 이전: 진도/XP 저장 없음
 - 로그인 후: users.json / progress.json 생성 및 저장 시작
+- 레벨 테스트 결과는 Auth 페이지로만 전달 (추후: 회원가입 시 `course_level` 자동 설정 예정)
 
 ---
 
@@ -294,9 +304,10 @@ POST /auth/login        로그인 → JWT 발급
 GET  /user/me           내 정보 조회 (XP, 왕관, 레벨, 스트릭)
 ```
 
-**브리핑**
+**브리핑 / 레슨**
 ```
-GET  /lesson/{unit}/{stage}   브리핑 슬라이드 데이터 조회
+GET  /lessons                      전체 레슨 목록 (lessons/ 폴더 내 unit_N.json 자동 합산)
+GET  /lessons/{lesson_id}          특정 레슨 조회 (lesson_id: "1-1-beginner" 등)
 ```
 
 **퀴즈**
@@ -339,37 +350,31 @@ POST /game/clear        게임 클리어 → 왕관/XP 지급
 ai-mon/
 ├── frontend/                 # React + Vite
 │   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── QuizCard/
-│   │   │   ├── BossCard/
-│   │   │   ├── CharacterDisplay/
-│   │   │   └── NavBar/
-│   │   ├── pages/
-│   │   │   ├── Home/
-│   │   │   ├── Lesson/
-│   │   │   ├── Stage/
-│   │   │   │   ├── BriefingPage/
-│   │   │   │   ├── QuizPage/
-│   │   │   │   ├── CorrectPage/
-│   │   │   │   ├── WrongPage/
-│   │   │   │   └── LoadingPage/
-│   │   │   ├── Boss/
-│   │   │   │   ├── BossPage/
-│   │   │   │   ├── BossClearPage/
-│   │   │   │   └── LoadingPage/
-│   │   │   ├── Character/
-│   │   │   ├── Settings/
-│   │   │   └── Auth/
-│   │   ├── hooks/
-│   │   ├── api/
-│   │   └── App.jsx
+│   └── src/
+│       ├── components/
+│       │   ├── QuizCard/
+│       │   ├── BossCard/
+│       │   ├── CharacterDisplay/
+│       │   └── NavBar/
+│       ├── pages/
+│       │   ├── Home/         # 랜딩 + 로그인 대시보드 (레벨 테스트 모달 포함)
+│       │   ├── Lesson/       # 유닛 목록 (LessonHome) + 스테이지 목록 (Lesson)
+│       │   ├── Stage/        # 브리핑 + 퀴즈 통합 (Stage.jsx)
+│       │   ├── Boss/
+│       │   ├── Character/
+│       │   ├── Settings/
+│       │   └── Auth/
+│       ├── data/
+│       │   └── mockData.js   # 로컬 개발용 목 데이터 (MOCK_LESSONS, MOCK_QUESTIONS)
+│       ├── hooks/
+│       ├── api/
+│       └── App.jsx
 │
 ├── backend/                  # FastAPI
 │   ├── main.py
 │   ├── routers/
-│   │   ├── auth.py
-│   │   ├── quiz.py
+│   │   ├── auth.py           # POST /auth/register, /auth/login
+│   │   ├── quiz.py           # GET /lessons, /lessons/{id}, /questions, /ai-feedback
 │   │   ├── boss.py
 │   │   ├── progress.py
 │   │   ├── user.py
@@ -378,11 +383,13 @@ ai-mon/
 │   │   ├── claude_service.py
 │   │   └── judge0_service.py
 │   └── data/
-│       ├── lessons.json
-│       ├── questions.json
-│       ├── users.json
-│       ├── progress.json
-│       └── wrong_answers.json
+│       ├── lessons/          ← 유닛별 브리핑 슬라이드 (폴더, 수동 관리)
+│       │   ├── unit_1.json   ← Stage 1-1~1-N × beginner/intermediate/advanced
+│       │   └── unit_N.json   ← (이후 추가)
+│       ├── questions.json    ← 리플릿 환경 수동 관리
+│       ├── users.json        ← 자동 생성 (회원가입 시)
+│       ├── progress.json     ← 자동 생성 (진도 저장 시)
+│       └── wrong_answers.json ← 자동 생성 (오답 시)
 │
 ├── .env
 └── .gitignore

@@ -14,11 +14,11 @@ export default function Lesson() {
 
   useEffect(() => {
     Promise.all([
-      quizApi.getLesson(id),
+      quizApi.getUnit(id),
       progressApi.getProgress(),
     ]).then(([l, p]) => {
       setLesson(l.data)
-      setProgress(p.data.filter((x) => x.lesson_id === id))
+      setProgress(p.data.filter((x) => x.unit === Number(id)))
     }).finally(() => setLoading(false))
   }, [id])
 

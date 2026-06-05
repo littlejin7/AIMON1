@@ -30,8 +30,12 @@ export default function Stage({ _lessonId, _stage }) {
   useEffect(() => {
     // 1-1 스테이지 임시 데이터 (MVP 연동)
     if (String(lessonId) === '1' && stageNum === 1) {
-      import('../../data/mockData').then(({ MOCK_BRIEFINGS, MOCK_QUESTIONS }) => {
-        setBriefings(MOCK_BRIEFINGS['1-1'])
+      import('../../data/mockData').then(({ MOCK_LESSONS, MOCK_QUESTIONS }) => {
+        // beginner 레벨 슬라이드 사용 (추후 유저 레벨에 따라 분기)
+        const lessonData = MOCK_LESSONS.find(
+          (l) => l.stage === '1-1' && l.course_level === 'beginner'
+        )
+        setBriefings(lessonData?.slides || [])
         setQuestions(MOCK_QUESTIONS)
         setShowBriefing(true)
         setLoading(false)
@@ -183,7 +187,7 @@ export default function Stage({ _lessonId, _stage }) {
           <button className="btn btn-ghost btn-sm" onClick={() => navigate(`/lesson/${lessonId}`)}>✕</button>
           <div className="stage-progress-section">
             <div className="stage-progress-label">
-              <span>브리핑</span>
+              <span>📖 브리핑</span>
               <span>{briefingIndex + 1} / {briefings.length}</span>
             </div>
             <div className="progress-bar">
@@ -192,36 +196,86 @@ export default function Stage({ _lessonId, _stage }) {
           </div>
           <div style={{ width: 32 }} />
         </div>
-        
+
         <div className="stage-content container">
-          <div className="briefing-card card-glass animate-fade-in-up" key={slide.id} style={{ padding: '2rem', textAlign: 'left' }}>
-            <h2 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: '1rem', color: 'var(--clr-text)' }}>
-              {slide.title}
-            </h2>
-            
-            <p style={{ color: 'var(--clr-text-muted)', lineHeight: 1.7, marginBottom: '1.5rem', whiteSpace: 'pre-line' }}>
+          <div
+            className="briefing-card card-glass animate-fade-in-up"
+            key={slide.order}
+            style={{ padding: '2rem', textAlign: 'left' }}
+          >
+            {/* 슬라이드 번호 배지 */}
+            <div style={{ marginBottom: '1rem' }}>
+              <span style={{
+                background: 'var(--grad-primary)', color: '#fff',
+                fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.1em',
+                padding: '3px 12px', borderRadius: '999px'
+              }}>
+                SLIDE {slide.order}
+              </span>
+            </div>
+
+            {/* 개념 설명 텍스트 */}
+            <p style={{
+              color: 'var(--clr-text)', lineHeight: 1.85, marginBottom: '1.5rem',
+              whiteSpace: 'pre-line', fontSize: '1rem'
+            }}>
               {slide.text}
             </p>
-            
-            {slide.code && (
-              <div className="briefing-code" style={{ 
-                background: '#1e1e2e', padding: '1rem', borderRadius: '8px', 
-                fontFamily: 'monospace', color: '#a6accd', marginBottom: '1.5rem', 
-                border: '1px solid #313244', whiteSpace: 'pre', overflowX: 'auto'
-              }}>
-                {slide.code}
+
+            {/* 터미널 블록 */}
+            {slide.terminal && (
+              <div style={{ marginBottom: '1.5rem', borderRadius: '10px', overflow: 'hidden', border: '1px solid #313244' }}>
+                {/* 터미널 헤더 */}
+                <div style={{
+                  background: '#181825', padding: '8px 14px',
+                  display: 'flex', alignItems: 'center', gap: '6px'
+                }}>
+                  <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#ff5f57', display: 'inline-block' }} />
+                  <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#febc2e', display: 'inline-block' }} />
+                  <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#28c840', display: 'inline-block' }} />
+                  <span style={{ color: '#585b70', fontSize: '0.72rem', marginLeft: 8 }}>Python</span>
+                </div>
+                {/* 코드 영역 */}
+                <div style={{
+                  background: '#1e1e2e', padding: '1rem 1.2rem',
+                  fontFamily: 'monospace', fontSize: '0.9rem', color: '#cdd6f4',
+                  whiteSpace: 'pre', overflowX: 'auto'
+                }}>
+                  {slide.terminal.code.map((line, i) => (
+                    <div key={i} style={{ color: line.startsWith('#') ? '#6c7086' : '#cdd6f4' }}>
+                      <span style={{ color: '#585b70', userSelect: 'none', marginRight: 12 }}>&gt;&gt;&gt;</span>
+                      {line}
+                    </div>
+                  ))}
+                </div>
+                {/* 출력 결과 영역 */}
+                {slide.terminal.output?.length > 0 && (
+                  <div style={{
+                    background: '#181825', padding: '0.75rem 1.2rem',
+                    borderTop: '1px solid #313244',
+                    fontFamily: 'monospace', fontSize: '0.9rem'
+                  }}>
+                    {slide.terminal.output.map((line, i) => (
+                      <div key={i} style={{ color: '#a6e3a1' }}>{line}</div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
-            
+
+            {/* 팁 블록 */}
             {slide.tip && (
-              <div style={{ background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: '8px', padding: '1rem', marginBottom: '2rem' }}>
-                <strong style={{ color: '#34d399', display: 'block', marginBottom: '4px' }}>💡 에이몬의 팁</strong>
-                <p style={{ margin: 0, color: 'var(--clr-text-muted)', fontSize: '0.9rem', lineHeight: 1.5 }}>
+              <div style={{
+                background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.25)',
+                borderRadius: '10px', padding: '1rem 1.2rem', marginBottom: '2rem'
+              }}>
+                <strong style={{ color: '#34d399', display: 'block', marginBottom: '6px', fontSize: '0.85rem' }}>💡 에이몬의 팁</strong>
+                <p style={{ margin: 0, color: 'var(--clr-text-muted)', fontSize: '0.88rem', lineHeight: 1.6 }}>
                   {slide.tip}
                 </p>
               </div>
             )}
-            
+
             <button
               className="btn btn-primary btn-lg btn-full"
               onClick={() => {

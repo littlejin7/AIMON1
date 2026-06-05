@@ -3,7 +3,25 @@
 
 ---
 
-## 1. lessons — 브리핑 슬라이드 데이터
+## 1. lessons.json (유닛 목록)
+
+메인 홈 화면의 유닛 리스트에 표시되는 각 레슨의 메타데이터입니다.
+
+| 필드 | 타입 | 필수 | 설명 |
+|---|---|---|---|
+| `unit_id` | number | ✅ | 유닛 번호 (예: `1`) |
+| `title` | string | ✅ | 유닛 제목 (예: `"파이썬 첫걸음"`) |
+| `description` | string | ✅ | 유닛 설명 |
+| `stages` | number | ✅ | 해당 유닛에 속한 스테이지 수 (예: `4`) |
+| `boss_stage` | number | ✅ | 보스 스테이지 번호 (예: `5`) |
+| `icon` | string | ✅ | 카드 아이콘 이모지 (예: `"🖨️"`) |
+| `keywords` | array | ✅ | 해시태그 목록 (예: `["print", "변수"]`) |
+| `evolution` | string | ✅ | 이 유닛을 깨면 진화하는 펫 단계 (예: `"slime"`) |
+| `difficulty` | string | ✅ | 난이도 라벨 (예: `"입문"`) |
+
+---
+
+## 1-1. lessons/ 폴더 (브리핑 슬라이드 데이터)
 
 브리핑 슬라이드 데이터 — 스테이지 × 레벨별 개념 설명
 
@@ -110,40 +128,70 @@ backend/data/lessons/
 
 ## 2. questions.json
 
-퀴즈 문제 데이터
+퀴즈 문제 데이터 — 스테이지 퀴즈 + 보스 문제 통합 관리
 
 | 필드 | 타입 | 허용값 | 필수 | 설명 |
 |---|---|---|---|---|
-| `question_id` | string | - | ✅ | 문제 ID (예: "q_1_1_easy") |
+| `question_id` | string | - | ✅ | 문제 ID. 스테이지: `q{번호}` / 보스: `boss_{level}_{type}_{unit}_{번호}` |
 | `unit` | number | 1~8 | ✅ | 유닛 번호 |
-| `stage` | string | - | ✅ | 스테이지 번호 |
+| `stage` | string | - | ✅ | 스테이지 번호 (`"1-1"`, `"1-boss"` 등) |
 | `course_level` | string | beginner / intermediate / advanced | ✅ | 수강 레벨 |
 | `difficulty` | string | easy / medium / hard | ✅ | 문제 난이도 |
 | `type` | string | multiple_choice / output_select / fill_in_blank / code_input | ✅ | 문제 유형 |
+| `is_boss` | boolean | true / false | ✅ | 보스 문제 여부 (`stage: "1-boss"` 와 함께 사용) |
 | `question` | string | - | ✅ | 문제 텍스트 |
-| `choices` | array | - | ❌ | 선택지 (multiple_choice / output_select만 해당) |
+| `choices` | array | - | ❌ | 선택지 (multiple_choice / output_select만 해당, fill_in_blank는 빈 배열) |
 | `answer` | string | - | ✅ | 정답 |
 | `hint` | string | - | ✅ | 힌트 텍스트 |
 | `feedback.correct` | string | - | ✅ | 정답 시 출력 텍스트 (API 호출 없음) |
 | `feedback.wrong` | string | - | ✅ | 오답 시 기본 텍스트 → Claude API로 대체 |
 
+> `stage: "1-boss"` + `is_boss: true` 조합으로 보스 문제 구분.
+
+### question_id 네이밍 규칙
+
+| 구분 | 패턴 | 예시 |
+|---|---|---|
+| 스테이지 beginner | `q{세자리}` | `q001`, `q002`, `q003` |
+| 스테이지 intermediate | `q{1로 시작 세자리}` | `q101`, `q102`, `q103` |
+| 스테이지 advanced | `q{2로 시작 세자리}` | `q201`, `q202`, `q203` |
+| 보스 | `boss_{level}_{type}_{unit}_{번호}` | `boss_beg_mc_1_001` |
+
 ```json
 {
   "questions": [
     {
-      "question_id": "q_1_1_easy",
+      "question_id": "q001",
       "unit": 1,
       "stage": "1-1",
       "course_level": "beginner",
       "difficulty": "easy",
       "type": "multiple_choice",
-      "question": "print('Hello')를 실행하면 무엇이 출력될까요?",
-      "choices": ["Hello", "'Hello'", "print(Hello)", "오류 발생"],
-      "answer": "Hello",
-      "hint": "따옴표는 '문자열이에요'라는 표시일 뿐, 출력엔 나타나지 않아요.",
+      "is_boss": false,
+      "question": "print()의 역할은 무엇인가요?",
+      "choices": ["A. 값을 저장한다", "B. 값을 출력한다", "C. 값을 삭제한다", "D. 값을 계산한다"],
+      "answer": "B. 값을 출력한다",
+      "hint": "화면에 무언가를 보여줄 때 쓰는 함수예요.",
       "feedback": {
-        "correct": "맞아요! print()는 괄호 안 글자를 화면에 그대로 보여줘요.",
-        "wrong": "따옴표는 Python에게 '이건 글자야'라고 알려주는 표시예요."
+        "correct": "맞아요! print()는 화면에 값을 출력합니다.",
+        "wrong": "print()는 화면에 글자나 숫자를 보여주기 위해 사용해요."
+      }
+    },
+    {
+      "question_id": "boss_beg_mc_1_001",
+      "unit": 1,
+      "stage": "1-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "is_boss": true,
+      "question": "다음 중 Python에서 실행되지 않는 줄은?",
+      "choices": ["A. print('에이몬')", "B. # print('에이몬')", "C. print('# 에이몬')", "D. print('에이몬') # 출력"],
+      "answer": "B",
+      "hint": "줄 맨 앞에 # 이 붙으면 어떻게 될까요?",
+      "feedback": {
+        "correct": "정답! 줄 맨 앞에 # 이 붙으면 그 줄 전체가 주석이에요.",
+        "wrong": "줄 맨 앞에 # 이 붙으면 그 줄 전체가 주석이에요."
       }
     }
   ]

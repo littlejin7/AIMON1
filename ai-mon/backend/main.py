@@ -1,6 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers import auth, quiz, boss, progress, user, code
+from dotenv import load_dotenv
+import os
+
+# 상위 폴더의 .env 파일 로드
+load_dotenv(os.path.join(os.path.dirname(__file__), "../.env"))
 
 app = FastAPI(title="AI MON API - MVP", version="1.0.0")
 

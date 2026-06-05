@@ -63,7 +63,7 @@ export default function LessonHome() {
   const [loading,  setLoading]  = useState(true)
 
   useEffect(() => {
-    const calls = [quizApi.getLessons()]
+    const calls = [quizApi.getUnits()]
     if (token) calls.push(progressApi.getProgress())
 
     Promise.all(calls)
@@ -75,8 +75,8 @@ export default function LessonHome() {
       .finally(() => setLoading(false))
   }, [token])
 
-  const getUnitProgress = (lessonId) => {
-    const items     = progress.filter((p) => p.lesson_id === String(lessonId))
+  const getUnitProgress = (unitId) => {
+    const items     = progress.filter((p) => p.unit === unitId)
     const completed = items.filter((p) => p.is_completed).length
     return { completed, total: items.length }
   }
@@ -85,7 +85,7 @@ export default function LessonHome() {
     if (index === 0) return true
     const prev = lessons[index - 1]
     if (!prev) return false
-    const prog = getUnitProgress(prev.id)
+    const prog = getUnitProgress(prev.unit_id)
     return prog.completed >= (prev.stages || 1)
   }
 
@@ -169,16 +169,15 @@ export default function LessonHome() {
         {lessons.map((lesson, idx) => {
           const meta     = UNIT_META[idx] || { icon: '📖', color: '#7c3aed', keywords: [] }
           const unlocked = isUnitUnlocked(idx)
-          const prog     = getUnitProgress(lesson.id)
+          const prog     = getUnitProgress(lesson.unit_id)
           const pct      = lesson.stages > 0 ? (prog.completed / lesson.stages) * 100 : 0
           const done     = prog.completed >= lesson.stages && lesson.stages > 0
-          // Unit 1은 비로그인도 1-1만 접근 가능
           const isUnit1  = idx === 0
 
           return (
             <button
-              key={lesson.id}
-              id={`unit-${lesson.id}`}
+              key={lesson.unit_id}
+              id={`unit-${lesson.unit_id}`}
               className={[
                 'lh-unit-card',
                 'animate-fade-in-up',
@@ -189,16 +188,15 @@ export default function LessonHome() {
               onClick={() => {
                 if (!unlocked) return
                 if (!token && isUnit1) {
-                  // 비로그인은 1-1만 직접 이동
                   navigate('/stage/1/1')
                 } else if (token) {
-                  navigate(`/lesson/${lesson.id}`)
+                  navigate(`/lesson/${lesson.unit_id}`)
                 } else {
                   navigate('/auth')
                 }
               }}
               disabled={!unlocked}
-              aria-label={`유닛 ${idx + 1} — ${lesson.title}`}
+              aria-label={`유닛 ${lesson.unit_id} — ${lesson.title}`}
             >
               {/* 번호 원형 배지 */}
               <div
