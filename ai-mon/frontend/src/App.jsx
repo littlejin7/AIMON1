@@ -26,10 +26,13 @@ function ProtectedRoute({ children }) {
   return token ? children : <Navigate to="/" replace />
 }
 
+import TopBar from './components/TopBar/TopBar'
+
 /** NavBar가 포함된 공통 레이아웃 */
 function AppLayout({ children }) {
   return (
     <div className="page">
+      <TopBar />
       {children}
       <NavBar />
     </div>

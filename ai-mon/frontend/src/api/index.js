@@ -38,3 +38,7 @@ export const userApi = {
   getMe:    ()     => api.get('/user/me'),
   updateMe: (data) => api.patch('/user/me', data),
 }
+
+export const trainApi = {
+  getReview: (params) => api.get('/train/review', { params }),
+}
