@@ -1,5 +1,7 @@
 from fastapi import APIRouter, HTTPException, Header, Query
+from pydantic import BaseModel
 from jose import jwt, JWTError
+from services.claude_service import ask_claude
 import json, os, random
 
 router = APIRouter()
@@ -15,7 +17,10 @@ def load_questions():
     if not os.path.exists(QUESTIONS_FILE):
         return []
     with open(QUESTIONS_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
+        data = json.load(f)
+        if isinstance(data, dict) and "questions" in data:
+            return data["questions"]
+        return data
 
 
 def load_lessons():
@@ -50,13 +55,13 @@ def get_lesson(lesson_id: str):
 
 @router.get("/questions")
 def get_questions(
-    lesson_id: str = Query(None),
-    stage: int = Query(None),
+    unit: int = Query(None),
+    stage: str = Query(None),
     limit: int = Query(10),
 ):
     questions = load_questions()
-    if lesson_id:
-        questions = [q for q in questions if q.get("lesson_id") == lesson_id]
+    if unit is not None:
+        questions = [q for q in questions if q.get("unit") == unit]
     if stage is not None:
         questions = [q for q in questions if q.get("stage") == stage]
     random.shuffle(questions)
@@ -66,7 +71,38 @@ def get_questions(
 @router.get("/questions/{question_id}")
 def get_question(question_id: str):
     questions = load_questions()
-    q = next((q for q in questions if q["id"] == question_id), None)
+    # 새 스키마는 "question_id" 키 사용
+    q = next(
+        (q for q in questions if q.get("question_id") == question_id or q.get("id") == question_id),
+        None,
+    )
     if not q:
         raise HTTPException(status_code=404, detail="문제를 찾을 수 없습니다.")
     return q
+
+
+# ── AI 피드백 엔드포인트 ──────────────────────────────────────
+
+class AiFeedbackRequest(BaseModel):
+    question: str          # 문제 텍스트
+    correct_answer: str    # 정답
+    user_answer: str       # 유저 답
+    level: str = "beginner"  # beginner | intermediate | advanced
+
+
+@router.post("/ai-feedback")
+async def get_ai_feedback(req: AiFeedbackRequest):
+    """
+    오답 제출 시 Claude API를 호출해 레벨별 맞춤 피드백을 반환합니다.
+    프론트엔드 QuizCard / Boss 오답 화면에서 호출합니다.
+    """
+    prompt = (
+        f"[문제]\n{req.question}\n\n"
+        f"[정답]\n{req.correct_answer}\n\n"
+        f"[학생 답변]\n{req.user_answer}\n\n"
+        "학생이 왜 틀렸는지, 그리고 올바른 개념을 이해할 수 있도록 설명해주세요."
+    )
+    result = await ask_claude(prompt, level=req.level)
+    if not result["success"]:
+        raise HTTPException(status_code=502, detail=result["feedback"])
+    return {"feedback": result["feedback"]}

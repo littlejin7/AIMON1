@@ -10,6 +10,7 @@ export const quizApi = {
   getLesson:       (id)         => api.get(`/quiz/lessons/${id}`),
   getQuestions:    (params)     => api.get('/quiz/questions', { params }),
   getQuestion:     (id)         => api.get(`/quiz/questions/${id}`),
+  getAiFeedback:   (data)       => api.post('/quiz/ai-feedback', data),
 }
 
 export const progressApi = {
