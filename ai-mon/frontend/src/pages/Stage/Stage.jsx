@@ -125,9 +125,9 @@ export default function Stage({ _lessonId, _stage }) {
                 <button
                   className="btn btn-primary"
                   style={{ width: '100%' }}
-                  onClick={() => navigate('/auth')}
+                  onClick={() => navigate('/auth?mode=register')}
                 >
-                  로그인 / 회원가입
+                  ✨ 회원가입하고 계속하기
                 </button>
                 <button
                   className="btn btn-ghost"
