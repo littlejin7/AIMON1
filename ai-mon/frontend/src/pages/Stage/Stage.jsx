@@ -12,6 +12,8 @@ export default function Stage({ _lessonId, _stage }) {
   const navigate = useNavigate()
   const stageNum = parseInt(stage, 10)
   const token = useAuthStore((s) => s.token)
+  const user = useAuthStore((s) => s.user)
+  const courseLevel = user?.course_level || 'beginner'
 
   const [questions, setQuestions] = useState([])
   const [current, setCurrent]     = useState(0)
@@ -28,29 +30,32 @@ export default function Stage({ _lessonId, _stage }) {
   const [showBriefing, setShowBriefing]   = useState(true)
 
   useEffect(() => {
-    // 1-1 스테이지 임시 데이터 (MVP 연동)
-    if (String(lessonId) === '1' && stageNum === 1) {
-      import('../../data/mockData').then(({ MOCK_LESSONS, MOCK_QUESTIONS }) => {
-        // beginner 레벨 슬라이드 사용 (추후 유저 레벨에 따라 분기)
-        const lessonData = MOCK_LESSONS.find(
-          (l) => l.stage === '1-1' && l.course_level === 'beginner'
-        )
-        setBriefings(lessonData?.slides || [])
-        setQuestions(MOCK_QUESTIONS)
-        setShowBriefing(true)
-        setLoading(false)
-      })
-      return
-    }
+    // 브리핑 슬라이드 조회 (예: 1-1-beginner)
+    const formattedLessonId = `${lessonId}-${stageNum}-${courseLevel}`
+    const fetchSlides = quizApi.getLesson(formattedLessonId)
+      .then((r) => r.data)
+      .catch(() => null)
+    
+    // 문제 목록 조회
+    const fetchQuestions = quizApi.getQuestions({ 
+      unit: lessonId, 
+      stage: `${lessonId}-${stageNum}`, 
+      course_level: courseLevel, 
+      limit: 5 
+    }).then((r) => r.data).catch(() => [])
 
-    quizApi.getQuestions({ lesson_id: lessonId, stage: stageNum, limit: 5 })
-      .then((r) => {
-        setQuestions(r.data)
+    Promise.all([fetchSlides, fetchQuestions]).then(([lessonData, questionsData]) => {
+      if (lessonData && lessonData.slides && lessonData.slides.length > 0) {
+        setBriefings(lessonData.slides)
+        setShowBriefing(true)
+      } else {
         setBriefings([])
         setShowBriefing(false)
-      })
-      .finally(() => setLoading(false))
-  }, [lessonId, stageNum])
+      }
+      setQuestions(questionsData)
+      setLoading(false)
+    })
+  }, [lessonId, stageNum, courseLevel])
 
   const handleAnswer = async ({ correct: isCorrect, retried }) => {
     // 재도전해서 맞춘 문제는 0점, 한 번에 맞추면 20점
@@ -73,8 +78,8 @@ export default function Stage({ _lessonId, _stage }) {
       // 로그인 상태 또는 일반 스테이지: 진행도 저장 후 완료 처리
       const totalScore = Math.round((newCorrect / questions.length) * 100)
       await progressApi.saveProgress({
-        lesson_id: lessonId,
-        stage: stageNum,
+        unit: parseInt(lessonId, 10),
+        stage: `${lessonId}-${stageNum}`,
         score: totalScore,
         is_completed: totalScore >= 60,
       })

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { quizApi } from '../../api/index'
 import { usePyodide } from '../../hooks/usePyodide'
+import { useAuthStore } from '../../hooks/useAuthStore'
 import './QuizCard.css'
 
 export default function QuizCard({ question, onAnswer, disabled = false }) {
@@ -28,6 +29,9 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
     return ans === selected && ans !== question.answer
   }
 
+  const user = useAuthStore((s) => s.user)
+  const courseLevel = user?.course_level || 'beginner'
+
   const fetchAiFeedback = async (userAnswer) => {
     // 1) questions.json의 feedback.wrong을 즉시 fallback으로 표시
     const staticFallback = question.feedback?.wrong || '정답을 다시 확인해 보세요!'
@@ -43,7 +47,7 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
           question: question.question,
           correct_answer: question.answer,
           user_answer: userAnswer,
-          level: 'beginner',
+          level: courseLevel,
         },
         { signal: controller.signal }
       )
@@ -193,7 +197,7 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
             {selected === question.answer ? '✅ 정답!' : '❌ 오답'}
           </div>
           <p style={{ marginBottom: selected !== question.answer ? '12px' : '0' }}>
-            {question.explanation}
+            {selected === question.answer ? (question.feedback?.correct || question.explanation) : ''}
           </p>
           
           {selected !== question.answer && (

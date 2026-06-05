@@ -102,6 +102,7 @@ def get_lesson(lesson_id: str):
 def get_questions(
     unit: int = Query(None),
     stage: str = Query(None),
+    course_level: str = Query(None),
     limit: int = Query(10),
 ):
     questions = load_questions()
@@ -109,6 +110,8 @@ def get_questions(
         questions = [q for q in questions if q.get("unit") == unit]
     if stage is not None:
         questions = [q for q in questions if q.get("stage") == stage]
+    if course_level is not None:
+        questions = [q for q in questions if q.get("course_level") == course_level]
     random.shuffle(questions)
     return questions[:limit]
 
