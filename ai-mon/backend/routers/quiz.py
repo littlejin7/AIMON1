@@ -115,12 +115,12 @@ def get_questions(
         questions = [q for q in questions if q.get("course_level") == course_level]
     random.shuffle(questions)
     
-    # concept_check(보스)를 맨 마지막으로 배치
-    stage_lessons = [q for q in questions if q.get("quiz_category") != "concept_check"]
-    concept_checks = [q for q in questions if q.get("quiz_category") == "concept_check"]
+    # miniboss(스테이지 미니보스)를 맨 마지막으로 배치
+    stage_quizzes = [q for q in questions if q.get("quiz_category") != "miniboss"]
+    minibosses = [q for q in questions if q.get("quiz_category") == "miniboss"]
     
-    if concept_checks:
-        result = stage_lessons[:limit - 1] + [concept_checks[0]]
+    if minibosses:
+        result = stage_quizzes[:limit - 1] + [minibosses[0]]
     else:
         result = questions[:limit]
         

@@ -50,7 +50,7 @@ export default function Stage({ _lessonId, _stage }) {
       unit: lessonId, 
       stage: `${lessonId}-${stageNum}`, 
       course_level: courseLevel, 
-      limit: 5 
+      limit: 10 
     }).then((r) => r.data).catch(() => [])
 
     Promise.all([fetchUnit, fetchSlides, fetchQuestions]).then(([unitData, lessonData, questionsData]) => {
