@@ -13,6 +13,7 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
   const [aiFeedback, setAiFeedback] = useState('')
   const [aiFeedbackLoading, setAiFeedbackLoading] = useState(false)
   const [codeRunResult, setCodeRunResult] = useState(null)
+  const [isCorrectResult, setIsCorrectResult] = useState(null)
   const { runPython, pyLoading } = usePyodide()
 
   if (!question) return null
@@ -23,10 +24,16 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
   const choicesList = question.choices || question.options || []
   const isCorrect = (ans) => {
     if (!revealed) return false
+    if (question.answer.length === 1 && /^[A-Z]$/.test(question.answer)) {
+      return ans.startsWith(question.answer + '.')
+    }
     return ans === question.answer
   }
   const isWrong = (ans) => {
     if (!revealed) return false
+    if (question.answer.length === 1 && /^[A-Z]$/.test(question.answer)) {
+      return ans === selected && !ans.startsWith(question.answer + '.')
+    }
     return ans === selected && ans !== question.answer
   }
 
@@ -69,7 +76,13 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
     if (disabled || revealed) return
     setSelected(option)
     setRevealed(true)
-    const correct = option === question.answer
+    let correct = false
+    if (question.answer.length === 1 && /^[A-Z]$/.test(question.answer)) {
+      correct = option.startsWith(question.answer + '.')
+    } else {
+      correct = option === question.answer
+    }
+    setIsCorrectResult(correct)
     if (!correct) fetchAiFeedback(option)
     if (correct) {
       setTimeout(() => onAnswer?.({ correct, userAnswer: option, retried }), 1500)
@@ -82,6 +95,7 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
     setSelected(input.trim())
     setRevealed(true)
     const correct = input.trim().toLowerCase() === question.answer.toLowerCase()
+    setIsCorrectResult(correct)
     if (!correct) fetchAiFeedback(input.trim())
     if (correct) {
       setTimeout(() => onAnswer?.({ correct, userAnswer: input.trim(), retried }), 1500)
@@ -96,6 +110,7 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
     const correct = result.success && result.stdout.trim() === (question.answer || '').trim()
     setSelected(input)
     setRevealed(true)
+    setIsCorrectResult(correct)
     if (!correct) fetchAiFeedback(input)
     if (correct) {
       setTimeout(() => onAnswer?.({ correct, userAnswer: input, retried }), 1500)
@@ -193,15 +208,15 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
       )}
 
       {revealed && (
-        <div className={`quiz-explanation ${selected === question.answer ? 'correct' : 'wrong'}`}>
+        <div className={`quiz-explanation ${isCorrectResult ? 'correct' : 'wrong'}`}>
           <div style={{ marginBottom: '8px' }}>
-            {selected === question.answer ? '✅ 정답!' : '❌ 오답'}
+            {isCorrectResult ? '✅ 정답!' : '❌ 오답'}
           </div>
-          <p style={{ marginBottom: selected !== question.answer ? '12px' : '0' }}>
-            {selected === question.answer ? (question.feedback?.correct || question.explanation) : ''}
+          <p style={{ marginBottom: !isCorrectResult ? '12px' : '0' }}>
+            {isCorrectResult ? (question.feedback?.correct || question.explanation) : ''}
           </p>
           
-          {selected !== question.answer && (
+          {!isCorrectResult && (
             <div className="ai-feedback-box" style={{
               background: 'rgba(124,58,237,0.1)',
               border: '1px solid rgba(124,58,237,0.3)',

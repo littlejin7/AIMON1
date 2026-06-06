@@ -32,7 +32,7 @@ async def ask_claude(prompt: str, level: str = "beginner") -> dict:
     client = get_client()
     try:
         message = client.messages.create(
-            model="claude-3-5-haiku-20241022",
+            model="claude-haiku-4-5-20251001",
             max_tokens=512,
             system=system_prompt,
             messages=[{"role": "user", "content": prompt}],
@@ -56,7 +56,7 @@ async def ask_claude_json(prompt: str) -> dict:
     client = get_client()
     try:
         message = client.messages.create(
-            model="claude-3-5-haiku-20241022",
+            model="claude-haiku-4-5-20251001",
             max_tokens=512,
             messages=[{"role": "user", "content": prompt}],
         )
