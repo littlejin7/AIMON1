@@ -80,7 +80,7 @@ def get_boss_info(unit: int = 1, authorization: str = Header(...)):
     # 보스 메타데이터 (고정값으로 MVP 구현)
     return {
         "boss_name": f"코드몬 Unit {unit} 보스",
-        "xp_reward": 2000,
+        "xp_reward": 3000,
         "hints_allowed": 2,
         "crown_cost_from_attempt": 1,
         "free_attempts_per_day": user.get("daily_free_attempts", 2),
@@ -111,7 +111,7 @@ def start_boss_battle(unit: int = 1, authorization: str = Header(...)):
     questions = load_questions()
     boss_qs = [
         q for q in questions
-        if (q.get("is_boss") or q.get("type") == "boss" or str(q.get("question_id", "")).lower().startswith("boss_"))
+        if q.get("quiz_category") == "unit_boss"
         and q.get("course_level") == user.get("course_level", "beginner")
         and q.get("unit") == unit
     ]
@@ -132,6 +132,8 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
     )
     if not question:
         raise HTTPException(status_code=404, detail="문제를 찾을 수 없습니다.")
+
+    is_unit_boss = question.get("quiz_category") == "unit_boss"
 
     users = load_users()
     user = next((u for u in users if u["id"] == user_id), None)
@@ -212,15 +214,23 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
             users = load_users()
             for u in users:
                 if u["id"] == user_id:
-                    u["xp"] = u.get("xp", 0) + 2000
-                    u["completed_units"] = u.get("completed_units", 0) + 1
-                    # 진화 로직: 1유닛 클리어시 다음 형태? 
-                    # 기획안: Unit 3/6/8 클리어 시 진화. 여기서는 단순 카운트로 체크.
-                    if u["completed_units"] >= 3 and u.get("character") == "default":
+                    u["xp"] = u.get("xp", 0) + 3000  # 유닛 보스 클리어 XP
+                    if is_unit_boss:
+                        u["completed_units"] = u.get("completed_units", 0) + 1
+                    
+                    lv = u.get("lv", 1)
+                    # Lv.10 달성 시 slime → robot (초급 파이널보스 클리어)
+                    if lv >= 10 and u.get("character") == "slime":
                         u["character"] = "robot"
+                    # Lv.20 달성 시 robot → speech_bubble (중급 파이널보스 클리어)
+                    elif lv >= 20 and u.get("character") == "robot":
+                        u["character"] = "speech_bubble"
+                    # Lv.30 달성 시 speech_bubble → final_ghost (고급 파이널보스 클리어)
+                    elif lv >= 30 and u.get("character") == "speech_bubble":
+                        u["character"] = "final_ghost"
                     break
             save_users(users)
-            ai_result["xp_awarded"] = 2000
+            ai_result["xp_awarded"] = 3000
         else:
             ai_result["xp_awarded"] = 0
 

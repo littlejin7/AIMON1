@@ -82,6 +82,13 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
 
     save_progress(progress)
 
+    # 1. XP 획득량을 stage 종류별로 구분
+    stage = req.stage
+    if "boss" in stage:
+        xp_gain = 3000   # 유닛 보스 클리어
+    else:
+        xp_gain = 2000   # 스테이지 퀴즈 클리어
+
     if award_xp:
         # XP 부여 로직 (user.py와 유사하게 users.json 로드)
         USERS_FILE = os.path.join(os.path.dirname(__file__), "../data/users.json")
@@ -90,17 +97,28 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
                 users = json.load(f)
             for u in users:
                 if u["id"] == user_id:
-                    u["xp"] = u.get("xp", 0) + 500
-                    # 레벨업 로직 간단 구현 (Lv 1~5는 1000XP마다 레벨업)
-                    current_xp = u["xp"]
-                    new_lv = (current_xp // 1000) + 1
-                    if new_lv > u.get("lv", 1):
-                        u["lv"] = new_lv
+                    u["xp"] = u.get("xp", 0) + xp_gain
+                    
+                    # 2. 레벨업 로직: 필요 XP = 현재 레벨 × 1,000
+                    def calc_level(xp):
+                        lv = 1
+                        accumulated = 0
+                        while lv < 30:
+                            needed = lv * 1000
+                            if xp < accumulated + needed:
+                                break
+                            accumulated += needed
+                            lv += 1
+                        return lv
+
+                    new_lv = calc_level(u["xp"])
+                    u["lv"] = max(new_lv, u.get("lv", 1))
                     break
             with open(USERS_FILE, "w", encoding="utf-8") as f:
                 json.dump(users, f, ensure_ascii=False, indent=2)
 
-    return {"message": "진행상황이 저장되었습니다.", "xp_awarded": 500 if award_xp else 0}
+    # 3. return xp_gain 으로 변경
+    return {"message": "진행상황이 저장되었습니다.", "xp_awarded": xp_gain if award_xp else 0}
 
 
 @router.get("/stats")

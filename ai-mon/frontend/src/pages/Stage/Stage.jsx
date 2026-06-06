@@ -50,7 +50,7 @@ export default function Stage({ _lessonId, _stage }) {
       unit: lessonId, 
       stage: `${lessonId}-${stageNum}`, 
       course_level: courseLevel, 
-      limit: 11 
+      limit: 20 
     }).then((r) => r.data).catch(() => [])
 
     Promise.all([fetchUnit, fetchSlides, fetchQuestions]).then(([unitData, lessonData, questionsData]) => {
@@ -91,7 +91,7 @@ export default function Stage({ _lessonId, _stage }) {
         unit: parseInt(lessonId, 10),
         stage: `${lessonId}-${stageNum}`,
         score: totalScore,
-        is_completed: totalScore >= 60,
+        is_completed: totalScore >= 80,
       })
       if (res && res.data) {
         setXpAwarded(res.data.xp_awarded || 0)
@@ -108,7 +108,7 @@ export default function Stage({ _lessonId, _stage }) {
   }
 
   const finalScore = questions.length > 0 ? Math.round((correct / questions.length) * 100) : 0
-  const passed = finalScore >= 60
+  const passed = finalScore >= 80
 
   if (loading) return <div className="stage-loading"><div className="spinner" /></div>
 
