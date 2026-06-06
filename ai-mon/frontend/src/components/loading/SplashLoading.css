@@ -1,0 +1,127 @@
+/* SplashLoading.css */
+
+.splash-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #0f0a1e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+/* 행진 무대: overflow hidden → 화면 밖 에이몬이 잘려 보이게 */
+.splash-track {
+  position: relative;
+  width: 280px;
+  height: 80px;
+  overflow: hidden;
+}
+
+/* 에이몬 공통: absolute로 left 값 애니메이션 */
+.blob {
+  position: absolute;
+  bottom: 0;
+  width: 52px;
+  height: 52px;
+}
+
+.blob img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 각 에이몬 행진 애니메이션 + 딜레이 */
+.blob-a { animation: marchA 3.2s ease-in-out infinite; }
+.blob-b { animation: marchB 3.2s ease-in-out infinite; animation-delay: 0.35s; }
+.blob-c { animation: marchC 3.2s ease-in-out infinite; animation-delay: 0.7s; }
+
+/* 합체 에이몬: 중앙 고정, delay 2.1s 후 팡 등장 */
+.blob-merged {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 72px;
+  height: 72px;
+  animation: mergePop 3.2s ease-in-out infinite;
+  animation-delay: 2.1s;
+  opacity: 0;
+}
+
+.blob-merged img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.splash-progress-track {
+  width: 200px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+/* 0% → 75% → 100% 로 채워짐 */
+.splash-progress-fill {
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #7c3aed, #06b6d4);
+  width: 0%;
+  animation: splashProgress 3.2s ease-in-out infinite;
+}
+
+.splash-loading-text {
+  font-size: 13px;
+  color: #a09aba;
+  font-family: 'Outfit', 'Noto Sans KR', sans-serif;
+  animation: textBlink 3.2s ease-in-out infinite;
+}
+
+/* ── KEYFRAMES ── */
+
+/* 왼쪽 밖 → 각자 위치 → 합체지점(40%)에서 사라짐 */
+@keyframes marchA {
+  0%   { left: -60px; opacity: 1; }
+  55%  { left: 30%;   opacity: 1; }
+  68%  { left: 40%;   opacity: 0; }
+  100% { left: 40%;   opacity: 0; }
+}
+@keyframes marchB {
+  0%   { left: -60px; opacity: 1; }
+  55%  { left: 44%;   opacity: 1; }
+  68%  { left: 40%;   opacity: 0; }
+  100% { left: 40%;   opacity: 0; }
+}
+@keyframes marchC {
+  0%   { left: -60px; opacity: 1; }
+  55%  { left: 58%;   opacity: 1; }
+  68%  { left: 40%;   opacity: 0; }
+  100% { left: 40%;   opacity: 0; }
+}
+
+/* scale 0.2 → 1.25(팡) → 0.92(탄성) → 1.06 → 1(안정) → 사라짐 */
+@keyframes mergePop {
+  0%       { opacity: 0; transform: translateX(-50%) scale(0.2); }
+  12%      { opacity: 1; transform: translateX(-50%) scale(1.25); }
+  22%      { opacity: 1; transform: translateX(-50%) scale(0.92); }
+  30%      { opacity: 1; transform: translateX(-50%) scale(1.06); }
+  38%, 78% { opacity: 1; transform: translateX(-50%) scale(1); }
+  90%      { opacity: 0; transform: translateX(-50%) scale(1); }
+  100%     { opacity: 0; }
+}
+
+@keyframes splashProgress {
+  0%   { width: 0%; }
+  65%  { width: 75%; }
+  82%  { width: 100%; }
+  100% { width: 100%; }
+}
+
+@keyframes textBlink {
+  0%, 65% { opacity: 1; }
+  85%, 100% { opacity: 0.4; }
+}
