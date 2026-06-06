@@ -220,9 +220,9 @@ backend/data/lessons/
 | `nickname` | string | - | ✅ | 표시 이름 |
 | `course_level` | string | beginner / intermediate / advanced | ✅ | 수강 레벨 |
 | `is_level_tested` | boolean | true / false | ✅ | 레벨 테스트 완료 여부 |
-| `character` | string | default / slime / robot / speech_bubble / final_ghost | ✅ | 현재 캐릭터 진화 단계 |
+| `character` | string | slime / robot / speech_bubble / final_ghost | ✅ | 현재 캐릭터 (회원가입 시 slime 고정, 레벨테스트 결과 무관) |
 | `xp` | number | 0~ | ✅ | 보유 XP |
-| `lv` | number | 1~40 | 🚧 | 현재 레벨 (미구현) |
+| `lv` | number | 1~30+ | ✅ | 현재 레벨 (초급 1~10 / 중급 11~20 / 고급 21~30 / 리미트해제 30+) |
 | `crowns` | number | 0~ | ✅ | 보유 왕관 수 (기본값: 5) |
 | `daily_free_attempts` | number | 0~2 | ✅ | 오늘 남은 보스 무료 도전 횟수 |
 | `last_free_attempt_date` | string | YYYY-MM-DD | ✅ | 마지막 보스 도전일 (무료 횟수 리셋 기준) |
@@ -240,7 +240,7 @@ backend/data/lessons/
   "is_level_tested": true,
   "character": "slime",
   "xp": 500,
-  "lv": 1,
+  "lv": 3,
   "crowns": 5,
   "daily_free_attempts": 2,
   "last_free_attempt_date": "2026-06-06",
