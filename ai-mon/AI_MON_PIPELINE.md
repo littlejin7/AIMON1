@@ -530,19 +530,35 @@ ai-mon/
 | 복습(훈련) | multiple_choice + output_select | fill_in_blank + output_select | fill_in_blank + code_input |
 
 **복습(훈련) 구성**
-- 오답 복습: wrong_answers.json 기반 틀렸던 문제 재출제
-- 반복 학습: 해당 유닛 전체 랜덤 문제 출제
-- 두 가지 섞어서 구성
+- 오답 우선: wrong_answers.json 기반 reviewed: false 문제 우선 출제
+- 부족하면 해당 유닛 stage_quiz + miniboss 전체에서 랜덤으로 채워 15개 맞춤
+- 유닛 선택 UI (Unit 1~8) → 선택한 유닛 문제만 출제
+- 엔드포인트: GET /train/review?unit={n}&course_level={level}&limit=15
 
 ---
 
-## 17. 미확정 / 논의 필요
+## 17. 문제 데이터 현황 (2026-06-07 기준)
+
+| quiz_category | 문제 수 |
+|---|---|
+| stage_quiz | 118개 |
+| miniboss | 101개 |
+| unit_boss | 11개 |
+| **총합** | **230개** |
+
+- Unit 1: stage_quiz 98개 (Set A/B 각 7개×7스테이지) + miniboss 91개 + unit_boss beginner 7개
+- Unit 2: stage_quiz 20개 (stage 2-1) + miniboss 10개 (stage 2-1)
+- Unit 2-2 ~ 8: 제작 예정
+
+---
+
+## 18. 미확정 / 논의 필요
 
 - [ ] FastAPI SSE Replit 환경 호환 확인 (스트리밍 전환 시)
 - [ ] 커스텀 아이템 가격 책정
 - [ ] 2단계 미니게임 기획 (AI 지식 게임 방향)
 
-## 18. 별도 논의 필요 (기준 미확정)
+## 19. 별도 논의 필요 (기준 미확정)
 
 - [x] **XP 레벨업 로직** — 확정. 레벨 × 1,000 XP 구조.
 - [x] **캐릭터 진화 디테일** — 확정. 초급/중급/고급 파이널 보스 클리어 시 진화, Lv.10/20/30 기준.
