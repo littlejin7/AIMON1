@@ -13,6 +13,9 @@ import Auth from './pages/Auth/Auth'
 import LevelTestInfo from './pages/LevelTestInfo/LevelTestInfo'
 import { useAuthStore } from './hooks/useAuthStore'
 import SplashLoading from './components/loading/SplashLoading'
+import TopBar from './components/TopBar/TopBar'
+
+
 // 앱 시작 시 Pyodide를 백그라운드에서 미리 로드 (code_input 문제 대비)
 if (typeof window !== 'undefined' && window.loadPyodide) {
   window.__pyodidePreload = window.loadPyodide({
@@ -26,7 +29,7 @@ function ProtectedRoute({ children }) {
   return token ? children : <Navigate to="/" replace />
 }
 
-import TopBar from './components/TopBar/TopBar'
+
 
 /** NavBar가 포함된 공통 레이아웃 */
 function AppLayout({ children }) {
@@ -40,7 +43,13 @@ function AppLayout({ children }) {
 }
 
 export default function App() {
-    const [ready, setReady] = useState(false)
+  const theme = useAuthStore((s) => s.theme)
+  const [ready, setReady] = useState(false)
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme || 'dark')
+  }, [theme])
+
   useEffect(() => {
     const timer = setTimeout(() => setReady(true), 3500)
     return () => clearTimeout(timer)
