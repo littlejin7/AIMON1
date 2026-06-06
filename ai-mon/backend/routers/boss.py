@@ -60,6 +60,9 @@ class BossAnswerRequest(BaseModel):
     question_id: str
     user_answer: str
     is_code_question: bool = False
+    wrong_count: int = 0
+    my_hp: int = 1000
+    boss_hp: int = 1000
 
 
 @router.get("/info")
@@ -169,7 +172,26 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
 """
     ai_result = await ask_claude_json(prompt)
 
-    # 오답 기록
+    # 채점 후 HP 계산 로직 추가
+    if ai_result.get("is_correct"):
+        new_boss_hp = req.boss_hp - 150
+        new_my_hp = req.my_hp
+        new_wrong_count = req.wrong_count
+    else:
+        new_boss_hp = req.boss_hp
+        new_my_hp = req.my_hp - 350
+        new_wrong_count = req.wrong_count + 1
+
+    is_clear = new_boss_hp <= 0
+    is_fail = new_my_hp <= 0 or new_wrong_count >= 3
+
+    # 응답에 HP 정보 추가
+    ai_result["my_hp"] = new_my_hp
+    ai_result["boss_hp"] = new_boss_hp
+    ai_result["wrong_count"] = new_wrong_count
+    ai_result["is_clear"] = is_clear
+    ai_result["is_fail"] = is_fail
+
     # 오답 기록
     if not ai_result.get("is_correct", False):
         wrong_answers = load_wrong_answers()
@@ -182,8 +204,9 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
             "timestamp": datetime.utcnow().isoformat(),
         })
         save_wrong_answers(wrong_answers)
-    else:
-        # 정답 시 진행도 저장 (boss 스테이지 클리어)
+
+    # is_clear일 때만 XP/진화 처리 및 진행도 완료 저장
+    if is_clear:
         from routers.progress import load_progress, save_progress
         progress = load_progress()
         existing = next((p for p in progress if p["user_id"] == user_id and p["unit"] == question.get("unit") and p["stage"] == question.get("stage")), None)
@@ -219,13 +242,10 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
                         u["completed_units"] = u.get("completed_units", 0) + 1
                     
                     lv = u.get("lv", 1)
-                    # Lv.10 달성 시 slime → robot (초급 파이널보스 클리어)
                     if lv >= 10 and u.get("character") == "slime":
                         u["character"] = "robot"
-                    # Lv.20 달성 시 robot → speech_bubble (중급 파이널보스 클리어)
                     elif lv >= 20 and u.get("character") == "robot":
                         u["character"] = "speech_bubble"
-                    # Lv.30 달성 시 speech_bubble → final_ghost (고급 파이널보스 클리어)
                     elif lv >= 30 and u.get("character") == "speech_bubble":
                         u["character"] = "final_ghost"
                     break
@@ -233,5 +253,7 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
             ai_result["xp_awarded"] = 3000
         else:
             ai_result["xp_awarded"] = 0
+    else:
+        ai_result["xp_awarded"] = 0
 
     return ai_result

@@ -27,6 +27,8 @@ export default function Stage({ _lessonId, _stage }) {
   const [loading, setLoading]     = useState(true)
   const [xpAwarded, setXpAwarded] = useState(0)
   const [unitInfo, setUnitInfo]   = useState(null)
+  const [attempt, setAttempt] = useState(1)
+  const [correctQuestions, setCorrectQuestions] = useState([])
   
   // 비로그인 선체험 완료 후 회원가입/로그인 모달
   const [showAuthModal, setShowAuthModal] = useState(false)
@@ -50,7 +52,8 @@ export default function Stage({ _lessonId, _stage }) {
       unit: lessonId, 
       stage: `${lessonId}-${stageNum}`, 
       course_level: courseLevel, 
-      limit: 20 
+      limit: 20,
+      attempt
     }).then((r) => r.data).catch(() => [])
 
     Promise.all([fetchUnit, fetchSlides, fetchQuestions]).then(([unitData, lessonData, questionsData]) => {
@@ -67,6 +70,27 @@ export default function Stage({ _lessonId, _stage }) {
     })
   }, [lessonId, stageNum, courseLevel])
 
+  const handleStageQuizFailure = (newCorrectQuestions) => {
+    setAttempt(prev => prev + 1)
+    setQuestions([])
+    setCorrectQuestions([])
+    setCurrent(0)
+    setScore(0)
+    setCorrect(0)
+    setFinished(false)
+    setShowBriefing(false)
+    
+    alert("개념 퀴즈를 60% 이상 맞춰야 미니보스에 도전할 수 있어요! 다시 도전해봐요 💪")
+    
+    quizApi.getQuestions({
+      unit: lessonId,
+      stage: `${lessonId}-${stageNum}`,
+      course_level: courseLevel,
+      limit: 20,
+      attempt: attempt + 1
+    }).then(r => setQuestions(r.data))
+  }
+
   const handleAnswer = async ({ correct: isCorrect, retried }) => {
     // 재도전해서 맞춘 문제는 0점, 한 번에 맞추면 20점
     const pts = (isCorrect && !retried) ? 20 : 0
@@ -75,9 +99,29 @@ export default function Stage({ _lessonId, _stage }) {
     setScore(newScore)
     setCorrect(newCorrect)
 
+    const isCorrectFirstTry = isCorrect && !retried
+    const newCorrectQuestions = isCorrectFirstTry 
+      ? [...correctQuestions, questions[current].question_id]
+      : correctQuestions
+    if (isCorrectFirstTry) {
+      setCorrectQuestions(newCorrectQuestions)
+    }
+
     await new Promise((r) => setTimeout(r, 1200))
 
     if (current + 1 >= questions.length) {
+      // 개념퀴즈 채점 (미니보스가 없거나 마지막인 경우 대비)
+      const stageQuizQuestions = questions.filter(q => q.quiz_category === 'stage_quiz')
+      const stageQuizCorrect = stageQuizQuestions.filter(q => newCorrectQuestions.includes(q.question_id)).length
+      const stageQuizScore = stageQuizQuestions.length > 0
+        ? Math.round((stageQuizCorrect / stageQuizQuestions.length) * 100)
+        : 100
+
+      if (stageQuizScore < 60) {
+        handleStageQuizFailure(newCorrectQuestions)
+        return
+      }
+
       // 1-1 스테이지 선체험: 비로그인 시 진행 저장 없이 모달만 표시
       const isFreeTrial = String(lessonId) === '1' && stageNum === 1
       if (isFreeTrial && !token) {
@@ -100,6 +144,18 @@ export default function Stage({ _lessonId, _stage }) {
     } else {
       const nextQ = questions[current + 1]
       if (nextQ?.quiz_category === 'miniboss') {
+        // 개념퀴즈 채점 (미니보스로 진입하기 직전)
+        const stageQuizQuestions = questions.filter(q => q.quiz_category === 'stage_quiz')
+        const stageQuizCorrect = stageQuizQuestions.filter(q => newCorrectQuestions.includes(q.question_id)).length
+        const stageQuizScore = stageQuizQuestions.length > 0
+          ? Math.round((stageQuizCorrect / stageQuizQuestions.length) * 100)
+          : 100
+
+        if (stageQuizScore < 60) {
+          handleStageQuizFailure(newCorrectQuestions)
+          return
+        }
+
         setShowMinibossAlert(true)
       } else {
         setCurrent(current + 1)
