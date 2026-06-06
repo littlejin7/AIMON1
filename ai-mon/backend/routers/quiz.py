@@ -104,6 +104,7 @@ def get_questions(
     stage: str = Query(None),
     course_level: str = Query(None),
     limit: int = Query(10),
+    attempt: int = Query(1),
 ):
     questions = load_questions()
     print(f"DEBUG get_questions: course_level={course_level!r}")
@@ -115,16 +116,24 @@ def get_questions(
         questions = [q for q in questions if q.get("course_level") == course_level]
     random.shuffle(questions)
     
-    stage_quizzes = [q for q in questions if q.get("quiz_category") == "stage_quiz"]
+    all_stage_quizzes = [q for q in questions if q.get("quiz_category") == "stage_quiz"]
     minibosses = [q for q in questions if q.get("quiz_category") == "miniboss"]
 
-    # 스테이지 퀴즈 10개 + 미니보스 10개 각각 제한
+    # attempt에 따라 Set 구분
+    if attempt == 1:
+        pool = [q for q in all_stage_quizzes if q.get("quiz_set") == "A"]
+    elif attempt == 2:
+        pool = [q for q in all_stage_quizzes if q.get("quiz_set") == "B"]
+    else:
+        # 3회차 이상: A + B 섞어서 랜덤 10개
+        pool = all_stage_quizzes
+        random.shuffle(pool)
+
+    stage_quizzes = pool
+
     quiz_limit = 10
     boss_limit = 10
-
     result = stage_quizzes[:quiz_limit] + minibosses[:boss_limit]
-
-    # 섞지 않고 스테이지 퀴즈 먼저, 미니보스 나중에 순서 유지
     return result
 
 
