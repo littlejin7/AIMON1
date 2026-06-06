@@ -143,6 +143,7 @@ backend/data/lessons/
 | `difficulty` | string | easy / medium / hard | ✅ | 문제 난이도 |
 | `type` | string | multiple_choice / output_select / fill_in_blank / code_input | ✅ | 문제 형식 (출력 방식) |
 | `quiz_category` | string | stage_quiz / miniboss / unit_boss / final_boss | ✅ | 문제 세트 유형 (흐름상 위치) |
+| `quiz_set` | string | A / B | ❌ | stage_quiz 전용. Set A(1회차) / Set B(2회차) / 없으면 3회차 혼합 |
 | `is_boss` | boolean | true / false | ✅ | 유닛 보스 / 파이널 보스 여부 (`stage: "1-boss"` 와 함께 사용) |
 | `question` | string | - | ✅ | 문제 텍스트 |
 | `choices` | array | - | ❌ | 선택지 (multiple_choice / output_select만 해당, fill_in_blank는 빈 배열) |
@@ -152,6 +153,18 @@ backend/data/lessons/
 | `feedback.wrong` | string | - | ✅ | 오답 시 기본 텍스트 → Claude API로 대체 |
 
 > `stage: "1-boss"` + `is_boss: true` 조합으로 보스 문제 구분.
+
+### quiz_set 규칙
+
+| quiz_category | quiz_set 필요 | 값 |
+|---|---|---|
+| stage_quiz | ✅ | `"A"` (1회차) 또는 `"B"` (2회차) |
+| miniboss | ❌ | 없음 |
+| unit_boss | ❌ | 없음 |
+| final_boss | ❌ | 없음 |
+
+- 스테이지별 stage_quiz는 총 14문제 → Set A 7개 / Set B 7개로 분리
+- `attempt=1` → Set A만 / `attempt=2` → Set B만 / `attempt=3+` → A+B 혼합 랜덤
 
 ### question_id 네이밍 규칙
 
@@ -297,7 +310,39 @@ backend/data/lessons/
 
 ---
 
-## 5. wrong_answers.json
+## 5. BossAnswerRequest (유닛 보스 배틀)
+
+보스 전투 중 답안 제출 시 프론트에서 백엔드로 전달하는 필드.
+
+| 필드 | 타입 | 기본값 | 설명 |
+|---|---|---|---|
+| `question_id` | string | - | 문제 ID |
+| `user_answer` | string | - | 유저 답안 |
+| `wrong_count` | number | 0 | 현재까지 틀린 횟수 |
+| `my_hp` | number | 1000 | 현재 내 HP |
+| `boss_hp` | number | 1000 | 현재 보스 HP |
+
+**백엔드 응답 추가 필드:**
+
+| 필드 | 타입 | 설명 |
+|---|---|---|
+| `my_hp` | number | 업데이트된 내 HP |
+| `boss_hp` | number | 업데이트된 보스 HP |
+| `wrong_count` | number | 업데이트된 오답 횟수 |
+| `is_clear` | boolean | 보스 HP ≤ 0 → 클리어 |
+| `is_fail` | boolean | 내 HP ≤ 0 또는 오답 3번 → 실패 |
+
+**HP 계산 규칙:**
+```
+정답: 보스 HP -150 / 내 HP 유지
+오답: 내 HP -350 / 보스 HP 유지 / wrong_count +1
+클리어 조건: boss_hp ≤ 0 (7문제 전부 정답)
+실패 조건: my_hp ≤ 0 OR wrong_count ≥ 3
+```
+
+---
+
+## 6. wrong_answers.json
 
 오답 노트 (MVP 이후 활성화)
 
