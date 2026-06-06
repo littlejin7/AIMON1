@@ -4672,6 +4672,716 @@
         "correct": "맞아요! * 연산자로 문자열을 반복할 수 있어요.",
         "wrong": "문자열 * 숫자 = 문자열 반복이에요. \"에이몬\" * 3 = \"에이몬에이몬에이몬\"이에요."
       }
+    },
+    {
+      "question_id": "cc_beg_mc_2_1_001",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "리스트를 만들 때 사용하는 기호는?",
+      "choices": [
+        "A. []",
+        "B. ()",
+        "C. {}",
+        "D. <>"
+      ],
+      "answer": "A",
+      "hint": "리스트는 대괄호로 만들어요.",
+      "feedback": {
+        "correct": "맞아요! 리스트는 대괄호 []로 만들어요. 예: [1, 2, 3]",
+        "wrong": "리스트는 대괄호 []로 만들어요. ()는 튜플, {}는 딕셔너리예요."
+      }
+    },
+    {
+      "question_id": "cc_beg_mc_2_1_002",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 중 올바른 리스트는?",
+      "choices": [
+        "A. (1, 2, 3)",
+        "B. [1, 2, 3]",
+        "C. {1, 2, 3}",
+        "D. <1, 2, 3>"
+      ],
+      "answer": "B",
+      "hint": "리스트는 []를 사용해요.",
+      "feedback": {
+        "correct": "맞아요! 리스트는 []로 값을 감싸고 쉼표로 구분해요.",
+        "wrong": "리스트는 []를 사용해요. ()는 튜플, {}는 딕셔너리 또는 세트예요."
+      }
+    },
+    {
+      "question_id": "cc_beg_mc_2_1_003",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "Python 리스트의 인덱스는 몇 번부터 시작하나요?",
+      "choices": [
+        "A. 1",
+        "B. -1",
+        "C. 0",
+        "D. 2"
+      ],
+      "answer": "C",
+      "hint": "Python 인덱스는 0부터 시작해요.",
+      "feedback": {
+        "correct": "맞아요! Python 리스트의 인덱스는 0부터 시작해요.",
+        "wrong": "Python 인덱스는 0부터 시작해요. fruits[0]이 첫 번째 값이에요."
+      }
+    },
+    {
+      "question_id": "cc_beg_mc_2_1_004",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\nfruits = ['사과', '바나나', '포도']\nprint(fruits[0])",
+      "choices": [
+        "A. 바나나",
+        "B. 포도",
+        "C. 사과",
+        "D. ['사과', '바나나', '포도']"
+      ],
+      "answer": "C",
+      "hint": "인덱스 0은 첫 번째 값이에요.",
+      "feedback": {
+        "correct": "맞아요! 인덱스 0은 첫 번째 값 사과예요.",
+        "wrong": "인덱스 0은 첫 번째 값이에요. fruits[0] = 사과예요."
+      }
+    },
+    {
+      "question_id": "cc_beg_mc_2_1_005",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "리스트의 길이를 구하는 함수는?",
+      "choices": [
+        "A. size()",
+        "B. count()",
+        "C. length()",
+        "D. len()"
+      ],
+      "answer": "D",
+      "hint": "Python에서 길이는 len() 함수로 구해요.",
+      "feedback": {
+        "correct": "맞아요! len() 함수로 리스트의 요소 개수를 알 수 있어요.",
+        "wrong": "Python에서 길이는 len() 함수로 구해요. len([1, 2, 3]) = 3이에요."
+      }
+    },
+    {
+      "question_id": "cc_beg_mc_2_1_006",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "리스트 맨 끝에 값을 추가하는 메서드는?",
+      "choices": [
+        "A. add()",
+        "B. insert()",
+        "C. push()",
+        "D. append()"
+      ],
+      "answer": "D",
+      "hint": "리스트 끝에 값을 추가하려면 append()를 사용해요.",
+      "feedback": {
+        "correct": "맞아요! append()는 리스트 맨 끝에 값을 추가해요.",
+        "wrong": "리스트 끝에 값을 추가하려면 append()를 사용해요. add()나 push()는 Python 리스트 메서드가 아니에요."
+      }
+    },
+    {
+      "question_id": "cc_beg_mc_2_1_007",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\nscores = [70, 85, 90, 60]\nprint(scores[2])",
+      "choices": [
+        "A. 70",
+        "B. 60",
+        "C. 85",
+        "D. 90"
+      ],
+      "answer": "D",
+      "hint": "인덱스는 0부터 시작해요.",
+      "feedback": {
+        "correct": "맞아요! 인덱스 2는 세 번째 값 90이에요.",
+        "wrong": "인덱스는 0부터 시작해요. [0]=70, [1]=85, [2]=90, [3]=60이에요."
+      }
+    },
+    {
+      "question_id": "cc_beg_mc_2_1_008",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\ncities = ['서울', '부산', '대구', '인천']\nprint(cities[-1])",
+      "choices": [
+        "A. 서울",
+        "B. 인천",
+        "C. 대구",
+        "D. 부산"
+      ],
+      "answer": "B",
+      "hint": "음수 인덱스 -1은 마지막 값이에요.",
+      "feedback": {
+        "correct": "맞아요! 음수 인덱스 -1은 마지막 값 인천이에요.",
+        "wrong": "음수 인덱스는 뒤에서부터 세요. -1은 마지막 값 인천이에요."
+      }
+    },
+    {
+      "question_id": "cc_beg_mc_2_1_009",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\nnums = [10, 20, 30, 40, 50]\nprint(len(nums))",
+      "choices": [
+        "A. 4",
+        "B. 5",
+        "C. 50",
+        "D. 10"
+      ],
+      "answer": "B",
+      "hint": "len()은 리스트 요소 개수를 반환해요.",
+      "feedback": {
+        "correct": "맞아요! 리스트에 값이 5개 있으므로 len(nums) = 5예요.",
+        "wrong": "len()은 리스트 요소 개수를 반환해요. 10, 20, 30, 40, 50 → 5개예요."
+      }
+    },
+    {
+      "question_id": "cc_beg_mc_2_1_010",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드 실행 후 리스트의 모습은?\n\nsubjects = ['국어', '수학']\nsubjects.append('영어')\nprint(subjects)",
+      "choices": [
+        "A. ['국어', '수학']",
+        "B. ['영어', '국어', '수학']",
+        "C. ['국어', '수학', '영어']",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "append()는 리스트 맨 끝에 값을 추가해요.",
+      "feedback": {
+        "correct": "맞아요! append()는 리스트 맨 끝에 값을 추가해요.",
+        "wrong": "append()는 리스트 맨 뒤에 추가해요. 영어가 맨 뒤에 붙어요."
+      }
+    },
+    {
+      "question_id": "cc_beg_mc_2_1_011",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\ndata = [1, 2, 3, 4, 5]\nprint(data[-2])",
+      "choices": [
+        "A. 3",
+        "B. 5",
+        "C. 2",
+        "D. 4"
+      ],
+      "answer": "D",
+      "hint": "음수 인덱스는 뒤에서 세요.",
+      "feedback": {
+        "correct": "맞아요! -2는 뒤에서 두 번째 값 4예요.",
+        "wrong": "음수 인덱스는 뒤에서 세요. -1=5, -2=4, -3=3이에요."
+      }
+    },
+    {
+      "question_id": "cc_beg_mc_2_1_012",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "리스트의 특정 값을 변경하는 올바른 방법은?",
+      "choices": [
+        "A. list.change(0, 99)",
+        "B. list[0] == 99",
+        "C. list[0] = 99",
+        "D. list.update(0, 99)"
+      ],
+      "answer": "C",
+      "hint": "리스트 값 변경은 list[인덱스] = 새값 형태예요.",
+      "feedback": {
+        "correct": "맞아요! list[인덱스] = 새값 형태로 값을 변경해요.",
+        "wrong": "리스트 값 변경은 list[인덱스] = 새값 형태예요. ==는 비교 연산자라 변경이 안 돼요."
+      }
+    },
+    {
+      "question_id": "cc_beg_mc_2_1_013",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\ntemps = [22, 25, 18, 30]\ntemps[1] = 27\nprint(temps)",
+      "choices": [
+        "A. [22, 25, 18, 30]",
+        "B. [22, 27, 18, 30]",
+        "C. [27, 25, 18, 30]",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "인덱스 1번(두 번째 값)이 바뀌어요.",
+      "feedback": {
+        "correct": "맞아요! 인덱스 1(두 번째 값) 25가 27로 바뀌어요.",
+        "wrong": "temps[1] = 27은 인덱스 1번(25)을 27로 교체해요. 나머지는 그대로예요."
+      }
+    },
+    {
+      "question_id": "cc_beg_mc_2_1_014",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "빈 리스트를 만드는 올바른 방법은?",
+      "choices": [
+        "A. list = {}",
+        "B. list = ()",
+        "C. list = []",
+        "D. list = <>"
+      ],
+      "answer": "C",
+      "hint": "빈 리스트는 []만 쓰면 돼요.",
+      "feedback": {
+        "correct": "맞아요! 빈 리스트는 []만 쓰면 돼요.",
+        "wrong": "빈 리스트는 []예요. {}는 빈 딕셔너리, ()는 빈 튜플이에요."
+      }
+    },
+    {
+      "question_id": "cc_beg_mc_2_1_015",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\ngrades = [90, 85, 78, 92]\ngrades.append(88)\nprint(grades[4])",
+      "choices": [
+        "A. 92",
+        "B. 85",
+        "C. 78",
+        "D. 88"
+      ],
+      "answer": "D",
+      "hint": "append 후 인덱스 4는 몇 번째 값일까요?",
+      "feedback": {
+        "correct": "맞아요! append(88) 후 리스트는 [90, 85, 78, 92, 88]이에요. grades[4]는 88이에요.",
+        "wrong": "append(88) 후 리스트는 [90, 85, 78, 92, 88]이에요. 인덱스 4는 다섯 번째 값 88이에요."
+      }
+    },
+    {
+      "question_id": "cc_beg_mc_2_1_016",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\nitems = ['연필', '지우개', '자', '가위']\nprint(items[-3])",
+      "choices": [
+        "A. 지우개",
+        "B. 자",
+        "C. 연필",
+        "D. 가위"
+      ],
+      "answer": "A",
+      "hint": "-3은 뒤에서 세 번째 값이에요.",
+      "feedback": {
+        "correct": "맞아요! -3은 뒤에서 세 번째 값이에요. -1=가위, -2=자, -3=지우개예요.",
+        "wrong": "음수 인덱스는 뒤에서 세요. -1=가위, -2=자, -3=지우개예요."
+      }
+    },
+    {
+      "question_id": "cc_beg_mc_2_1_017",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드 실행 후 len(nums)의 값은?\n\nnums = [1, 2, 3]\nnums.append(4)\nnums.append(5)\nprint(len(nums))",
+      "choices": [
+        "A. 3",
+        "B. 4",
+        "C. 5",
+        "D. 2"
+      ],
+      "answer": "C",
+      "hint": "처음 3개 + append 2번 = 총 몇 개?",
+      "feedback": {
+        "correct": "맞아요! 처음 3개 + append 2번 = 총 5개예요.",
+        "wrong": "처음 [1, 2, 3]에 4, 5를 추가하면 [1, 2, 3, 4, 5]로 5개가 돼요."
+      }
+    },
+    {
+      "question_id": "cc_beg_mc_2_1_018",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\ncolors = ['빨강', '파랑', '초록']\ncolors[0] = '노랑'\ncolors.append('보라')\nprint(colors)",
+      "choices": [
+        "A. ['빨강', '파랑', '초록', '보라']",
+        "B. ['노랑', '파랑', '초록', '보라']",
+        "C. ['노랑', '파랑', '초록']",
+        "D. ['보라', '빨강', '파랑', '초록']"
+      ],
+      "answer": "B",
+      "hint": "값 변경 후 append가 순서대로 적용돼요.",
+      "feedback": {
+        "correct": "맞아요! colors[0]=노랑으로 교체 후 append(보라)로 끝에 추가돼요.",
+        "wrong": "두 가지가 적용돼요. colors[0]=노랑으로 빨강이 교체되고, append(보라)로 맨 끝에 추가돼요."
+      }
+    },
+    {
+      "question_id": "cc_beg_mc_2_1_019",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\nscores = [70, 80, 90]\nscores[-1] = 95\nprint(scores)",
+      "choices": [
+        "A. [70, 80, 90]",
+        "B. [95, 80, 90]",
+        "C. [70, 95, 90]",
+        "D. [70, 80, 95]"
+      ],
+      "answer": "D",
+      "hint": "scores[-1]은 마지막 값이에요.",
+      "feedback": {
+        "correct": "맞아요! scores[-1]은 마지막 값(90)을 95로 교체해요.",
+        "wrong": "-1은 마지막 인덱스예요. scores[-1]=95는 마지막 값 90을 95로 바꿔요."
+      }
+    },
+    {
+      "question_id": "cc_beg_mc_2_1_020",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\ndata = ['A', 'B', 'C', 'D', 'E']\nprint(data[1])\nprint(data[-2])\nprint(len(data))",
+      "choices": [
+        "A. A / D / 5",
+        "B. B / D / 5",
+        "C. B / E / 4",
+        "D. A / E / 5"
+      ],
+      "answer": "B",
+      "hint": "인덱스 1, 음수 인덱스 -2, len 각각 계산해봐요.",
+      "feedback": {
+        "correct": "맞아요! data[1]=B, data[-2]=D(-1=E, -2=D), len=5이에요.",
+        "wrong": "data[1]=B(두 번째), data[-2]=D(-1=E, -2=D), len(data)=5(총 5개)예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_2_1_001",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "리스트를 만들 때 사용하는 기호는?",
+      "choices": [
+        "A. ()",
+        "B. []",
+        "C. {}",
+        "D. <>"
+      ],
+      "answer": "B",
+      "hint": "리스트는 대괄호로 만들어요.",
+      "feedback": {
+        "correct": "맞아요! 리스트는 대괄호 []로 만들어요.",
+        "wrong": "리스트는 대괄호 []로 만들어요. ()는 튜플, {}는 딕셔너리예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_2_1_002",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "fruits = ['사과', '바나나', '포도']에서 fruits[0]의 값은?",
+      "choices": [
+        "A. 포도",
+        "B. 바나나",
+        "C. 사과",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "인덱스 0은 첫 번째 값이에요.",
+      "feedback": {
+        "correct": "맞아요! 인덱스 0은 첫 번째 값 사과예요.",
+        "wrong": "인덱스는 0부터 시작해요. fruits[0]은 첫 번째 값 사과예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_2_1_003",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "리스트 맨 끝에 값을 추가하는 올바른 방법은?",
+      "choices": [
+        "A. list.add('새값')",
+        "B. list.push('새값')",
+        "C. list.insert('새값')",
+        "D. list.append('새값')"
+      ],
+      "answer": "D",
+      "hint": "리스트 끝에 추가하려면 append()를 사용해요.",
+      "feedback": {
+        "correct": "맞아요! append()는 리스트 맨 끝에 값을 추가해요.",
+        "wrong": "리스트 끝에 값을 추가하려면 append()를 사용해요. add()와 push()는 Python 리스트 메서드가 아니에요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_2_1_004",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "data = [10, 20, 30, 40, 50]에서 data[-1]의 값은?",
+      "choices": [
+        "A. 10",
+        "B. 40",
+        "C. 30",
+        "D. 50"
+      ],
+      "answer": "D",
+      "hint": "음수 인덱스 -1은 마지막 값이에요.",
+      "feedback": {
+        "correct": "맞아요! -1은 마지막 값 50이에요.",
+        "wrong": "음수 인덱스 -1은 항상 마지막 값을 가리켜요. data[-1] = 50이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_2_1_005",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드 실행 후 scores의 모습은?\n\nscores = [85, 90, 78]\nscores[0] = 95",
+      "choices": [
+        "A. [85, 90, 78]",
+        "B. [95, 90, 78]",
+        "C. [85, 95, 78]",
+        "D. [85, 90, 95]"
+      ],
+      "answer": "B",
+      "hint": "scores[0]은 첫 번째 값을 바꿔요.",
+      "feedback": {
+        "correct": "맞아요! scores[0] = 95는 첫 번째 값 85를 95로 교체해요.",
+        "wrong": "scores[0] = 95는 인덱스 0번(85)을 95로 바꿔요. 나머지는 그대로예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_1_006",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\ncolors = ['빨강', '파랑', '초록']\nprint(colors[1])",
+      "choices": [
+        "A. 빨강",
+        "B. 파랑",
+        "C. 초록",
+        "D. ['빨강', '파랑', '초록']"
+      ],
+      "answer": "B",
+      "hint": "인덱스 1은 두 번째 값이에요.",
+      "feedback": {
+        "correct": "맞아요! 인덱스 1은 두 번째 값 파랑이에요.",
+        "wrong": "인덱스 1은 두 번째 값이에요. 빨강(0) - 파랑(1) - 초록(2)이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_1_007",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nnums = [5, 10, 15, 20]\nprint(len(nums))",
+      "choices": [
+        "A. 20",
+        "B. 5",
+        "C. 3",
+        "D. 4"
+      ],
+      "answer": "D",
+      "hint": "len()은 요소 개수를 반환해요.",
+      "feedback": {
+        "correct": "맞아요! 리스트에 4개의 값이 있으므로 len(nums) = 4예요.",
+        "wrong": "len()은 요소 개수를 반환해요. 5, 10, 15, 20 → 4개예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_1_008",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nsubjects = ['국어', '수학', '영어']\nsubjects.append('과학')\nprint(subjects)",
+      "choices": [
+        "A. ['과학', '국어', '수학', '영어']",
+        "B. ['국어', '수학', '영어']",
+        "C. ['국어', '수학', '영어', '과학']",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "append()는 항상 맨 끝에 추가해요.",
+      "feedback": {
+        "correct": "맞아요! append()는 리스트 맨 끝에 추가해요. 과학이 맨 뒤에 붙어요.",
+        "wrong": "append()는 항상 맨 끝에 추가해요. 기존 순서는 바뀌지 않아요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_1_009",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\ngrades = [70, 80, 90, 60]\ngrades[-1] = 95\ngrades.append(85)\nprint(grades)\nprint(len(grades))",
+      "choices": [
+        "A. [70, 80, 90, 60, 85] / 5",
+        "B. [70, 80, 90, 95, 85] / 4",
+        "C. [70, 80, 90, 95] / 4",
+        "D. [70, 80, 90, 95, 85] / 5"
+      ],
+      "answer": "D",
+      "hint": "grades[-1]=95로 교체 후 append(85)로 추가해요.",
+      "feedback": {
+        "correct": "맞아요! grades[-1]=95로 마지막 60이 95로 교체되고, append(85)로 끝에 추가돼요. 총 5개예요.",
+        "wrong": "두 단계예요. grades[-1]=95로 60이 95로 교체 → [70, 80, 90, 95]. 그다음 append(85) → [70, 80, 90, 95, 85]. 총 5개예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_1_010",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\ncities = ['서울', '부산', '대구', '인천', '광주']\nprint(cities[1])\nprint(cities[-2])\nprint(len(cities))",
+      "choices": [
+        "A. 부산 / 광주 / 5",
+        "B. 서울 / 인천 / 5",
+        "C. 부산 / 인천 / 5",
+        "D. 부산 / 인천 / 4"
+      ],
+      "answer": "C",
+      "hint": "인덱스 1, 음수 인덱스 -2, len 각각 계산해봐요.",
+      "feedback": {
+        "correct": "맞아요! cities[1]=부산, cities[-2]=인천(-1=광주, -2=인천), len=5예요.",
+        "wrong": "cities[1]=부산(두 번째), cities[-2]=인천(-1=광주, -2=인천), len(cities)=5(5개 도시)예요."
+      }
     }
   ]
 }
