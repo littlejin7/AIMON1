@@ -115,15 +115,16 @@ def get_questions(
         questions = [q for q in questions if q.get("course_level") == course_level]
     random.shuffle(questions)
     
-    # miniboss(스테이지 미니보스)를 맨 마지막으로 배치
-    stage_quizzes = [q for q in questions if q.get("quiz_category") != "miniboss"]
+    stage_quizzes = [q for q in questions if q.get("quiz_category") == "stage_quiz"]
     minibosses = [q for q in questions if q.get("quiz_category") == "miniboss"]
-    
-    if minibosses:
-        result = stage_quizzes[:limit - 1] + [minibosses[0]]
-    else:
-        result = questions[:limit]
-        
+
+    # 스테이지 퀴즈 10개 + 미니보스 10개 각각 제한
+    quiz_limit = 10
+    boss_limit = 10
+
+    result = stage_quizzes[:quiz_limit] + minibosses[:boss_limit]
+
+    # 섞지 않고 스테이지 퀴즈 먼저, 미니보스 나중에 순서 유지
     return result
 
 

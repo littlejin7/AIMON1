@@ -20,7 +20,8 @@
       "feedback": {
         "correct": "정답! 줄 맨 앞에 # 이 붙으면 그 줄 전체가 주석이에요.",
         "wrong": "줄 맨 앞에 # 이 붙으면 그 줄 전체가 주석이에요."
-      }
+      },
+      "quiz_category": "unit_boss"
     },
     {
       "question_id": "boss_beg_os_1_001",
@@ -42,7 +43,8 @@
       "feedback": {
         "correct": "정답! + 는 문자열을 이어붙이고, # 주석 줄은 무시돼요.",
         "wrong": "+ 는 문자열을 이어붙이고, # 주석 줄은 무시돼요."
-      }
+      },
+      "quiz_category": "unit_boss"
     },
     {
       "question_id": "boss_mid_os_1_001",
@@ -64,7 +66,8 @@
       "feedback": {
         "correct": "정답! f-string {} 안 연산식이 계산되어 출력돼요. # 주석은 무시됩니다.",
         "wrong": "f-string {} 안 연산식이 계산되어 출력돼요. # 주석은 무시됩니다."
-      }
+      },
+      "quiz_category": "unit_boss"
     },
     {
       "question_id": "boss_mid_fib_1_001",
@@ -81,7 +84,8 @@
       "feedback": {
         "correct": "정답! f-string은 문자열 앞에 f를 붙여요.",
         "wrong": "f-string은 문자열 앞에 f를 붙여요."
-      }
+      },
+      "quiz_category": "unit_boss"
     },
     {
       "question_id": "boss_adv_fib_1_001",
@@ -98,7 +102,8 @@
       "feedback": {
         "correct": "정답! :.3f는 소수점 아래 3자리까지 반올림하여 출력해요.",
         "wrong": ":.3f는 소수점 아래 3자리까지 반올림하여 출력해요."
-      }
+      },
+      "quiz_category": "unit_boss"
     },
     {
       "question_id": "boss_adv_ci_1_001",
@@ -115,7 +120,8 @@
       "feedback": {
         "correct": "정답! *로 리스트를 언패킹하면 print()가 공백으로 구분해 출력해요.",
         "wrong": "리스트 앞에 * 를 붙이면 언패킹되어 print()가 공백으로 구분 출력해요."
-      }
+      },
+      "quiz_category": "unit_boss"
     },
     {
       "question_id": "sl_beg_mc_1_1_001_1",
@@ -1264,7 +1270,8 @@
       "feedback": {
         "correct": "맞아요! print()는 괄호 안의 내용을 화면에 출력하는 함수예요. 첫 라운드 승리!",
         "wrong": "print()는 '출력'을 담당해요. 저장은 변수(=), 삭제는 del, 계산은 연산자예요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_1_mc_002",
@@ -1286,7 +1293,8 @@
       "feedback": {
         "correct": "정답! # 뒤에 쓰는 내용은 Python이 완전히 무시해요.",
         "wrong": "Python은 # 기호만 단일 라인 주석으로 사용해요. //는 JavaScript, /* */는 C/Java 주석이에요. Python에서는 쓸 수 없어요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_1_mc_003",
@@ -1308,7 +1316,8 @@
       "feedback": {
         "correct": "완벽해요! print()는 소문자, 괄호 안에 따옴표로 내용을 감싸야 해요.",
         "wrong": "print()는 소문자로만 써야 하고(Python 대소문자 구분), 내용은 괄호 () 안에 따옴표로 감싸야 해요. 대괄호 [], 중괄호 {}는 쓸 수 없어요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_1_mc_004",
@@ -1330,7 +1339,8 @@
       "feedback": {
         "correct": "정확해요! 줄 맨 앞에 # 이 붙으면 전체 주석이에요. B는 따옴표 안 # 이라 문자, D는 코드 실행 후 # 뒤만 무시돼요.",
         "wrong": "# 위치가 핵심이에요. 줄 맨 앞 → 전체 주석, 따옴표 안 → 그냥 문자, 코드 뒤 → 코드 실행되고 # 이후만 무시돼요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_1_mc_005",
@@ -1352,7 +1362,8 @@
       "feedback": {
         "correct": "맞아요! + 는 문자열을 공백 없이 이어붙여요. '파이' + '썬' = '파이썬'이에요.",
         "wrong": "+ 는 문자열 연결 연산자예요. 공백을 자동으로 추가하지 않고 그대로 이어붙여요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_1_os_006",
@@ -1374,7 +1385,8 @@
       "feedback": {
         "correct": "맞아요! print()는 자동 줄바꿈이 있어서 각각 새 줄에 출력돼요.",
         "wrong": "print()는 기본적으로 출력 후 줄을 바꿔요. 두 번의 print()는 각각 새 줄에 출력돼요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_1_os_007",
@@ -1396,7 +1408,8 @@
       "feedback": {
         "correct": "정답! # 주석 줄은 무시되어 봄과 가을 두 줄만 출력돼요.",
         "wrong": "# print('여름')은 주석이라 Python이 완전히 건너뛰어요. 실행되는 print()는 봄과 가을 두 개뿐이에요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_1_os_008",
@@ -1418,7 +1431,8 @@
       "feedback": {
         "correct": "완벽해요! 쉼표(,)로 나열하면 값 사이에 공백이 자동으로 삽입돼요.",
         "wrong": "print()에서 쉼표(,)로 값을 나열하면 Python이 값 사이에 공백을 자동으로 넣어줘요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_1_os_009",
@@ -1440,7 +1454,8 @@
       "feedback": {
         "correct": "훌륭해요! + 는 공백 없이 이어붙이고('파이썬 입문'), # 주석 줄은 무시돼요. 쉼표(,)는 자동 공백('학습 완료: 100 점'). 2줄만 출력돼요.",
         "wrong": "두 가지 개념을 함께 적용해요. + 는 문자열을 공백 없이 이어붙여요. # 주석은 Python이 무시해요. 파이썬 입문과 학습 완료: 100 점 두 줄만 출력돼요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_1_os_010",
@@ -1462,7 +1477,8 @@
       "feedback": {
         "correct": "완벽해요! # 주석 2줄 무시, + 는 공백 없이 연결, 쉼표 자동 공백, (95+87)//2 = 91(정수 나누기)이에요. 보스 클리어! 🎉",
         "wrong": "네 가지를 확인해요. 첫째, # 이 붙은 줄은 무시(1번째, 4번째). 둘째, + 는 공백 없이 연결. 셋째, 쉼표는 자동 공백. 넷째, (95+87)//2 = 182//2 = 91(// 는 정수 나누기). 남은 print() 3개가 출력돼요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "cc_1_1_001",
@@ -1484,7 +1500,8 @@
       "feedback": {
         "correct": "맞아요! print()는 괄호 안의 내용을 화면에 출력하는 함수예요.",
         "wrong": "print()는 화면에 글자나 숫자를 보여주기 위해 사용해요. 저장은 변수(=), 계산은 연산자(+, - 등)가 담당해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_1_002",
@@ -1506,7 +1523,8 @@
       "feedback": {
         "correct": "맞아요! # 뒤에 오는 내용은 Python이 완전히 무시해요. 코드에 메모를 남길 때 써요.",
         "wrong": "다른 언어(Java, JavaScript)에서는 //나 /* */를 쓰지만, Python은 # 만 사용해요. # 하나로 그 줄 전체를 주석으로 만들 수 있어요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_1_003",
@@ -1528,7 +1546,8 @@
       "feedback": {
         "correct": "완벽해요! print()는 소문자로 쓰고, 출력할 내용은 괄호 안에 따옴표로 감싸야 해요.",
         "wrong": "print()를 쓸 때 두 가지를 기억하세요. 첫째, 소문자로만 써야 해요(Python은 대소문자 구분). 둘째, 괄호를 꼭 써야 해요. 문자를 출력할 땐 따옴표로 감싸야 해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_1_004",
@@ -1550,7 +1569,8 @@
       "feedback": {
         "correct": "맞아요! 따옴표는 'Python에게 이건 글자야'라고 알려주는 표시예요. 출력할 때 사라지고 Hello만 나와요.",
         "wrong": "따옴표는 Python에게 '이 안이 문자야'라고 알려주는 신호예요. 실제 화면에는 따옴표 없이 Hello만 나와요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_1_005",
@@ -1572,7 +1592,8 @@
       "feedback": {
         "correct": "완벽해요! # 주석 줄은 무시되어 실행되는 print()는 2개뿐이에요. 국어, 영어 두 줄만 출력돼요.",
         "wrong": "# 이 붙은 줄은 코드가 아니라 메모(주석)예요. Python은 그 줄을 완전히 건너뛰어요. 실행되는 print()는 위아래 두 줄뿐이에요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_1_006",
@@ -1594,7 +1615,8 @@
       "feedback": {
         "correct": "맞아요! # 기호가 줄 앞에 붙으면 그 줄 전체가 주석이 돼요. Python이 건너뛰는 메모 공간이에요.",
         "wrong": "Python에서 주석은 # 기호로만 만들어요. //나 --는 Python 주석 기호가 아니에요. # 이 줄 앞에 붙은 순간 그 줄 전체를 Python이 무시해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_1_007",
@@ -1616,7 +1638,8 @@
       "feedback": {
         "correct": "맞아요! + 는 문자열을 공백 없이 이어붙여요. '봄' + '여름' = '봄여름'이에요.",
         "wrong": "+ 는 문자열 연결 연산자예요. 공백을 자동으로 추가하지 않고 그대로 이어붙여요. 공백이 필요하면 '봄' + ' ' + '여름'처럼 직접 넣어야 해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_1_008",
@@ -1638,7 +1661,8 @@
       "feedback": {
         "correct": "정확해요! 줄 맨 앞에 # 이 붙으면 전체 주석이에요. B는 따옴표 안 # 이라 문자로 출력되고, D는 코드는 실행되고 # 뒤만 무시돼요.",
         "wrong": "# 위치가 핵심이에요. 줄 맨 앞에 있으면 전체 주석, 따옴표 안에 있으면 그냥 문자, 코드 뒤에 있으면 코드는 실행되고 # 이후만 무시돼요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_1_009",
@@ -1660,7 +1684,8 @@
       "feedback": {
         "correct": "완벽해요! 쉼표(,)로 값을 나열하면 print()가 사이에 공백을 자동으로 넣어줘요.",
         "wrong": "print()에서 쉼표(,)로 값을 나열하면 Python이 값 사이에 공백을 자동으로 삽입해요. 4개 값 사이에 공백이 들어가요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_1_010",
@@ -1682,7 +1707,8 @@
       "feedback": {
         "correct": "훌륭해요! # 주석 2줄은 무시되고, + 는 공백 없이 이어붙이고('국어: 95점'), 쉼표(,)는 자동 공백이에요('수학: 87').",
         "wrong": "세 가지를 확인해요. 첫째, # 이 붙은 줄은 무시(1번째, 4번째 줄). 둘째, + 는 공백 없이 연결 → '국어: 95점'. 셋째, 쉼표(,)는 자동 공백 → '수학: 87'. 남은 print() 2개가 출력돼요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "boss_1_2_mc_001",
@@ -1704,7 +1730,8 @@
       "feedback": {
         "correct": "맞아요! = 는 오른쪽 값을 왼쪽 변수에 저장하는 할당 연산자예요.",
         "wrong": "Python에서 = 는 '저장해라'는 명령이에요. == 는 값이 같은지 비교, => 와 := 는 다른 용도로 쓰여요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_2_mc_002",
@@ -1726,7 +1753,8 @@
       "feedback": {
         "correct": "완벽해요! student_name은 영문자로 시작하고 언더스코어(_)로 단어를 연결한 올바른 이름이에요.",
         "wrong": "변수 이름 규칙 3가지예요. 숫자로 시작 불가(1st_grade), 공백 불가(my grade), - 는 빼기 연산자(total-score). 단어 사이는 _로 연결해요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_2_mc_003",
@@ -1748,7 +1776,8 @@
       "feedback": {
         "correct": "맞아요! 변수에 새 값을 저장하면 이전 값은 사라지고 새 값만 남아요. 이걸 값 재할당이라고 해요.",
         "wrong": "변수는 언제든 새 값으로 바꿀 수 있어요(재할당 가능). 변수 이름은 숫자로 시작할 수 없어요. 변수에는 숫자, 문자열 등 다양한 값을 저장할 수 있어요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_2_mc_004",
@@ -1770,7 +1799,8 @@
       "feedback": {
         "correct": "맞아요! 변수에 값을 저장할 때마다 이전 값은 사라져요. 마지막으로 저장한 18만 남아요.",
         "wrong": "변수는 마지막으로 저장된 값 하나만 기억해요. temperature에 20→25→18 순서로 덮어쓰면 최종값은 18이에요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_2_mc_005",
@@ -1792,7 +1822,8 @@
       "feedback": {
         "correct": "정확해요! 4seasons는 숫자 4로 시작해서 SyntaxError가 발생해요. 나머지는 모두 올바른 이름이에요.",
         "wrong": "변수 이름은 영문자 또는 _로 시작해야 해요. 4seasons는 숫자 4로 시작하므로 SyntaxError가 발생해요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_2_os_006",
@@ -1814,7 +1845,8 @@
       "feedback": {
         "correct": "맞아요! print(city)는 변수 city에 저장된 값 '서울'을 출력해요. 따옴표는 사라지고 서울만 나와요.",
         "wrong": "print(city)는 변수 city에 저장된 값을 출력해요. 따옴표 없이 변수 이름만 쓰면 저장된 값이 출력돼요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_2_os_007",
@@ -1836,7 +1868,8 @@
       "feedback": {
         "correct": "완벽해요! score + 10은 80 + 10 = 90이에요. 그 결과가 다시 score에 저장되어 90이 출력돼요.",
         "wrong": "score = score + 10은 현재 score(80)에 10을 더해서 다시 저장해요. 80 + 10 = 90이 score에 저장돼요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_2_os_008",
@@ -1858,7 +1891,8 @@
       "feedback": {
         "correct": "맞아요! 첫 print()는 subject가 '국어'일 때, 두 번째 print()는 '수학'으로 바뀐 후 실행돼요.",
         "wrong": "코드는 위에서 아래로 순서대로 실행돼요. 첫 print()는 subject='국어'일 때 → 국어 출력. subject가 '수학'으로 바뀌고 두 번째 print() → 수학 출력."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_2_os_009",
@@ -1880,7 +1914,8 @@
       "feedback": {
         "correct": "훌륭해요! total = korean + math는 80+90=170이 저장돼요. 이후 korean이 95로 바뀌어도 total은 이미 170이에요. print(total)=170, print(korean)=95예요.",
         "wrong": "total = korean + math가 실행될 때 korean은 80이라 170이 저장돼요. 이후 korean = 95로 바뀌어도 total은 이미 170이 저장된 상태예요. Python은 변수의 계산 시점 값을 사용해요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_2_os_010",
@@ -1902,7 +1937,8 @@
       "feedback": {
         "correct": "완벽해요! point = 0+100=100, 100+200=300, 300+150=450이에요. 보스 클리어! 🎉",
         "wrong": "point가 단계별로 누적돼요. 0→100→300→450 순서예요. point = point + 값 패턴으로 이전 값에 계속 더해져요. 100+200+150 = 450이에요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "cc_1_2_001",
@@ -1924,7 +1960,8 @@
       "feedback": {
         "correct": "맞아요! = 는 오른쪽 값을 왼쪽 변수에 저장하는 할당 연산자예요. 수학의 '같다'와 달리 Python에서는 '저장해라'는 명령이에요.",
         "wrong": "Python에서 변수에 값을 저장할 때 = 기호를 써요. == 는 값이 같은지 비교하는 기호예요. => 는 Python에서 사용하지 않아요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_2_002",
@@ -1946,7 +1983,8 @@
       "feedback": {
         "correct": "맞아요! = 오른쪽의 '국어'가 왼쪽 변수 subject에 저장돼요. 따옴표는 사라지고 국어가 저장돼요.",
         "wrong": "변수명 = 값 형식에서 = 오른쪽의 값이 왼쪽 변수에 저장돼요. subject라는 이름이 저장되는 게 아니라, 문자열 국어가 저장돼요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_2_003",
@@ -1968,7 +2006,8 @@
       "feedback": {
         "correct": "맞아요! my_grade는 영문자로 시작하고 언더스코어(_)로 단어를 연결한 올바른 이름이에요.",
         "wrong": "변수 이름 규칙 3가지예요. 숫자로 시작 불가(1grade), 공백 불가(my grade), - 는 빼기 연산자(my-grade). 단어 사이는 _로 연결해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_2_004",
@@ -1990,7 +2029,8 @@
       "feedback": {
         "correct": "맞아요! 변수에 새 값을 저장하면 이전 값은 사라져요. 마지막으로 저장한 '가을'만 남아요.",
         "wrong": "변수는 마지막으로 저장된 값 하나만 기억해요. season에 '봄'→'여름'→'가을' 순서로 덮어쓰면 최종값은 '가을'이에요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_2_005",
@@ -2012,7 +2052,8 @@
       "feedback": {
         "correct": "완벽해요! count + 1은 현재 count 값(1)에 1을 더한 2예요. 그 결과를 다시 count에 저장해요.",
         "wrong": "count = count + 1은 '현재 count 값에 1을 더해서 다시 count에 저장해라'는 뜻이에요. 오른쪽을 먼저 계산(1+1=2)하고, 그 결과를 왼쪽 변수에 저장해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_2_006",
@@ -2034,7 +2075,8 @@
       "feedback": {
         "correct": "맞아요! 2nd_place는 숫자 2로 시작해서 SyntaxError가 발생해요. 나머지는 모두 올바른 변수 이름이에요.",
         "wrong": "Python 변수 이름의 첫 글자는 영문자 또는 _여야 해요. 숫자로 시작하면 Python이 숫자로 인식하려다 오류가 나요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_2_007",
@@ -2056,7 +2098,8 @@
       "feedback": {
         "correct": "완벽해요! korean(85) + english(90) = 175가 total에 저장돼요. print(total)은 저장된 값 175를 출력해요.",
         "wrong": "total = korean + english에서 Python은 오른쪽을 먼저 계산해요. 85+90=175가 total에 저장되고 출력돼요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_2_008",
@@ -2078,7 +2121,8 @@
       "feedback": {
         "correct": "맞아요! 첫 번째 print는 subject가 '수학'일 때 실행되고, 두 번째 print는 '과학'으로 바뀐 후 실행돼요.",
         "wrong": "코드는 위에서 아래로 순서대로 실행돼요. 첫 번째 print()는 subject='수학'일 때 → 수학 출력. subject가 '과학'으로 바뀌고 두 번째 print() → 과학 출력."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_2_009",
@@ -2100,7 +2144,8 @@
       "feedback": {
         "correct": "정확해요! 3rd_score는 숫자 3으로 시작해서 SyntaxError가 발생해요. _total, score2, first_score는 모두 올바른 이름이에요.",
         "wrong": "변수 이름은 영문자 또는 _로 시작해야 해요. 3rd_score는 숫자 3으로 시작하므로 SyntaxError가 발생해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_2_010",
@@ -2122,7 +2167,8 @@
       "feedback": {
         "correct": "맞아요! x = y는 y의 값(5)을 x에 저장해요. 기존 x의 값 10은 사라지고 x=5, y는 그대로 5예요.",
         "wrong": "x = y는 y의 현재 값을 x에 복사하는 거예요. y는 5이니까 x도 5가 돼요. y는 변하지 않아요. 그래서 둘 다 5예요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "boss_1_3_mc_001",
@@ -2144,7 +2190,8 @@
       "feedback": {
         "correct": "맞아요! 소수점이 있는 50.0은 실수(float)예요. 50은 정수(int), '50'은 문자열(str)이에요.",
         "wrong": "실수(float)는 소수점이 있는 숫자예요. 따옴표 없이 소수점과 함께 쓰면 float예요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_3_mc_002",
@@ -2166,7 +2213,8 @@
       "feedback": {
         "correct": "맞아요! 2 ** 5 = 2 × 2 × 2 × 2 × 2 = 32예요.",
         "wrong": "** 는 거듭제곱이에요. 2 ** 5는 2를 5번 곱하는 거예요. 2→4→8→16→32예요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_3_mc_003",
@@ -2188,7 +2236,8 @@
       "feedback": {
         "correct": "맞아요! 30 ÷ 8 = 몫 3, 나머지 6이에요. 8 × 3 = 24, 30 - 24 = 6이에요.",
         "wrong": "% 는 나머지 연산자예요. 30을 8로 나누면 몫 3, 나머지 6이에요. 8 × 3 = 24, 30 - 24 = 6으로 계산해요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_3_mc_004",
@@ -2210,7 +2259,8 @@
       "feedback": {
         "correct": "맞아요! * 가 + 보다 먼저예요. 4 + (6 × 3) = 4 + 18 = 22예요.",
         "wrong": "연산자 우선순위에서 * 는 + 보다 먼저 계산돼요. 4 + 6 * 3은 6 * 3을 먼저(18), 그다음 4 + 18 = 22예요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_3_mc_005",
@@ -2232,7 +2282,8 @@
       "feedback": {
         "correct": "정확해요! 19 // 4 = 4(몫), 19 % 4 = 3(나머지)예요. 4 × 4 = 16, 19 - 16 = 3이에요.",
         "wrong": "19를 4로 나누면 몫 4, 나머지 3이에요. // 는 몫(4), % 는 나머지(3)를 반환해요. 4 × 4 = 16, 19 - 16 = 3으로 검증해요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_3_os_006",
@@ -2254,7 +2305,8 @@
       "feedback": {
         "correct": "맞아요! 6 + 9 = 15, 6 * 9 = 54예요.",
         "wrong": "+ 는 덧셈, * 는 곱셈이에요. 6 + 9 = 15, 6 * 9 = 54예요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_3_os_007",
@@ -2276,7 +2328,8 @@
       "feedback": {
         "correct": "맞아요! 13 // 4 = 3(소수점 버림), 13 % 4 = 1(나머지)이에요. 4 × 3 = 12, 13 - 12 = 1이에요.",
         "wrong": "13 ÷ 4 = 3.25인데, // 는 소수점을 버려서 3이에요. % 는 나머지를 반환하는데, 13 - (3 × 4) = 1이에요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_3_os_008",
@@ -2298,7 +2351,8 @@
       "feedback": {
         "correct": "훌륭해요! price(1200) × count(3) = 3600이 total에 저장돼요.",
         "wrong": "total = price * count에서 오른쪽을 먼저 계산해요. price는 1200, count는 3이라 1200 × 3 = 3600이 total에 저장돼요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_3_os_009",
@@ -2320,7 +2374,8 @@
       "feedback": {
         "correct": "완벽해요! 29 // 6 = 4, 29 % 6 = 5, 4 × 6 + 5 = 29이에요. 나누기 검증 공식: 몫 × 제수 + 나머지 = 원래 수!",
         "wrong": "a // b = 4(몫), a % b = 5(나머지)예요. 마지막 줄은 4 × 6 + 5 = 29이에요. 이게 나누기 검증 공식이에요: 몫 × 제수 + 나머지 = 원래 수."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_3_os_010",
@@ -2342,7 +2397,8 @@
       "feedback": {
         "correct": "훌륭해요! 215 // 60 = 3(분), 215 % 60 = 35(초)예요. // 와 % 를 활용한 실용적인 시간 변환이에요. 보스 클리어! 🎉",
         "wrong": "215초를 60으로 나눠요. 215 // 60 = 3(분, 소수점 버림), 215 % 60 = 35(초, 나머지). 60 × 3 = 180, 215 - 180 = 35로 검증해요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "cc_1_3_001",
@@ -2364,7 +2420,8 @@
       "feedback": {
         "correct": "맞아요! 따옴표 없이 쓴 100은 정수(int)예요. 3.14는 실수(float), '100'과 '3'은 따옴표가 있어서 문자열(str)이에요.",
         "wrong": "숫자를 따옴표 없이 쓰면 숫자 타입이에요. 소수점이 없으면 int(정수), 소수점이 있으면 float(실수)예요. 따옴표로 감싸면 str(문자열)이에요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_3_002",
@@ -2386,7 +2443,8 @@
       "feedback": {
         "correct": "맞아요! % 는 나머지 연산자예요. 10 % 3 = 1이에요.",
         "wrong": "나머지를 구하는 연산자는 %(모듈로)예요. / 는 나누기, // 는 몫, ** 는 거듭제곱이에요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_3_003",
@@ -2408,7 +2466,8 @@
       "feedback": {
         "correct": "맞아요! ** 는 거듭제곱 연산자예요. 3 ** 3 = 3 × 3 × 3 = 27이에요.",
         "wrong": "** 는 거듭제곱(제곱수) 연산자예요. 3 ** 3은 3을 3번 곱한다는 뜻이에요. 3 × 3 × 3 = 27이에요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_3_004",
@@ -2430,7 +2489,8 @@
       "feedback": {
         "correct": "맞아요! // 는 정수 나누기예요. 20 ÷ 6 = 3.33...인데 소수점을 버리면 3이에요.",
         "wrong": "// 는 정수 나누기예요. 20을 6으로 나누면 3.33...이지만 소수점을 버리고 3만 반환해요. / 는 3.33...을 그대로 반환해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_3_005",
@@ -2452,7 +2512,8 @@
       "feedback": {
         "correct": "맞아요! Python 3에서 / 는 항상 float로 나눠요. 15 ÷ 6 = 2.5예요.",
         "wrong": "Python 3의 / 는 결과가 정수여도 float를 반환해요. 15 / 6 = 2.5예요. 소수점 없는 몫을 원하면 // 를 써야 해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_3_006",
@@ -2474,7 +2535,8 @@
       "feedback": {
         "correct": "맞아요! 23 ÷ 7 = 몫 3, 나머지 2예요. 7 × 3 = 21, 23 - 21 = 2예요.",
         "wrong": "% 는 나머지 연산자예요. 23을 7로 나누면 몫 3, 나머지 2예요. 7 × 3 = 21, 23 - 21 = 2로 직접 계산해볼 수 있어요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_3_007",
@@ -2496,7 +2558,8 @@
       "feedback": {
         "correct": "맞아요! 소수점이 있는 7.0은 실수(float)예요. 7은 정수(int), '7'은 문자열(str), True는 불리언(bool)이에요.",
         "wrong": "실수(float)는 소수점이 있는 숫자예요. 7.0처럼 소수점이 붙어 있으면 float예요. 7은 소수점이 없어서 int예요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_3_008",
@@ -2518,7 +2581,8 @@
       "feedback": {
         "correct": "맞아요! 연산자 우선순위대로 * 가 먼저예요. 5 + (3 × 2) = 5 + 6 = 11이에요.",
         "wrong": "수학처럼 Python도 연산자 우선순위가 있어요. * 는 + 보다 먼저 계산돼요. 5 + 3 * 2는 3 * 2를 먼저(6), 그다음 5 + 6 = 11이에요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_3_009",
@@ -2540,7 +2604,8 @@
       "feedback": {
         "correct": "훌륭해요! 25 // 7 = 3(몫), 25 % 7 = 4(나머지)예요. 7 × 3 = 21, 25 - 21 = 4예요.",
         "wrong": "25를 7로 나누면 몫 3, 나머지 4예요. // 는 몫(3), % 는 나머지(4)를 반환해요. 7 × 3 = 21, 25 - 21 = 4로 검증해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_3_010",
@@ -2562,7 +2627,8 @@
       "feedback": {
         "correct": "완벽해요! 2 ** 8 = 256. 256 // 10 = 25(몫), 256 % 10 = 6(나머지)이에요. 세 연산자를 모두 이해했어요!",
         "wrong": "순서대로 계산해요. 2 ** 8 = 256. 그다음 256 // 10 = 25(소수점 버림 몫), 256 % 10 = 6(나머지)이에요. 10 × 25 = 250, 256 - 250 = 6으로 검증 가능해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "boss_1_4_mc_001",
@@ -2584,7 +2650,8 @@
       "feedback": {
         "correct": "맞아요! 문자열은 따옴표(' ' 또는 \" \")로 감싸야 해요.",
         "wrong": "문자열은 반드시 따옴표로 감싸야 해요. 따옴표 없이 쓰면 변수명으로 인식해요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_4_mc_002",
@@ -2606,7 +2673,8 @@
       "feedback": {
         "correct": "맞아요! 공백 포함 h-e-l-l-o- -w-o-r-l-d = 11글자예요.",
         "wrong": "len()은 공백도 한 글자로 세요. 'hello world'는 공백 포함 11글자예요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_4_mc_003",
@@ -2628,7 +2696,8 @@
       "feedback": {
         "correct": "맞아요! 인덱스 0은 첫 번째 글자 'P'예요.",
         "wrong": "인덱스는 0부터 시작해요. 'Python'[0] = 'P'예요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_4_mc_004",
@@ -2650,7 +2719,8 @@
       "feedback": {
         "correct": "맞아요! `str()`로 정수를 문자열로 변환하면 `+`로 연결할 수 있어요.",
         "wrong": "문자열 + 정수는 TypeError가 발생해요. `str(95)`로 변환 후 연결해야 해요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_4_mc_005",
@@ -2672,7 +2742,8 @@
       "feedback": {
         "correct": "맞아요! 'data'는 d(0)-a(1)-t(2)-a(3)으로 4글자예요. 마지막 인덱스는 3이에요. word[-1]도 동일해요.",
         "wrong": "'data'는 4글자라 마지막 인덱스는 3이에요. word[-1]도 같은 결과예요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_4_os_006",
@@ -2694,7 +2765,8 @@
       "feedback": {
         "correct": "맞아요! print()는 실행될 때마다 자동으로 줄바꿈이 돼요.",
         "wrong": "print()는 한 번 실행될 때마다 줄이 바뀌어요. 두 줄로 각각 출력돼요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_4_os_007",
@@ -2716,7 +2788,8 @@
       "feedback": {
         "correct": "맞아요! 문자열 `+`는 공백 없이 이어붙여요.",
         "wrong": "문자열을 `+`로 연결하면 공백 없이 붙어요. 'AI' + 'MON' = 'AIMON'이에요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_4_os_008",
@@ -2738,7 +2811,8 @@
       "feedback": {
         "correct": "맞아요! len('Python') = 6, word[1] = 'y'(두 번째 글자)예요.",
         "wrong": "len('Python') = 6이에요. word[1]은 두 번째 글자로 P(0)-y(1)에서 'y'예요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_4_os_009",
@@ -2760,7 +2834,8 @@
       "feedback": {
         "correct": "맞아요! 'analysis'에서 -1은 마지막 's', -3은 뒤에서 세 번째 'l'이에요.",
         "wrong": "'analysis'를 뒤에서 세어봐요. -1=s, -2=i, -3=l이에요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_4_os_010",
@@ -2782,7 +2857,8 @@
       "feedback": {
         "correct": "맞아요! 'Data'(4) + 'Science'(7) = 'DataScience'(11글자)예요. 두 번째 줄은 공백 포함 'Data Science'가 출력돼요.",
         "wrong": "len(a + b) = len('DataScience') = 11이에요. 두 번째 print에는 ' '(공백)이 포함돼 'Data Science'가 출력돼요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "cc_1_4_001",
@@ -2804,7 +2880,8 @@
       "feedback": {
         "correct": "맞아요! 문자열은 따옴표(' ' 또는 \" \")로 감싸야 해요.",
         "wrong": "문자열은 반드시 따옴표로 감싸야 해요. 따옴표 없이 쓰면 Python이 변수 이름으로 인식해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_4_002",
@@ -2826,7 +2903,8 @@
       "feedback": {
         "correct": "맞아요! 따옴표는 문자열 표시일 뿐, 출력 결과에는 나타나지 않아요.",
         "wrong": "print()로 문자열을 출력하면 따옴표 없이 글자만 나와요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_4_003",
@@ -2848,7 +2926,8 @@
       "feedback": {
         "correct": "맞아요! `len()` 함수로 문자열의 글자 수를 알 수 있어요.",
         "wrong": "Python에서 길이는 `len()` 함수로 구해요. `len('Python')` = 6이에요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_4_004",
@@ -2870,7 +2949,8 @@
       "feedback": {
         "correct": "맞아요! h-e-l-l-o 총 5글자예요.",
         "wrong": "'hello'를 한 글자씩 세어봐요. h(1)-e(2)-l(3)-l(4)-o(5) = 5글자예요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_4_005",
@@ -2892,7 +2972,8 @@
       "feedback": {
         "correct": "맞아요! Python의 인덱스는 항상 0번부터 시작해요.",
         "wrong": "Python 인덱스는 0부터 시작해요. 'Python'의 첫 글자는 [1]이 아닌 [0]이에요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_4_006",
@@ -2914,7 +2995,8 @@
       "feedback": {
         "correct": "맞아요! 인덱스 0은 첫 번째 글자 'd'예요.",
         "wrong": "인덱스 0은 첫 번째 글자예요. 'data'에서 [0] = 'd'예요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_4_007",
@@ -2936,7 +3018,8 @@
       "feedback": {
         "correct": "맞아요! 문자열 `+`는 공백 없이 이어붙여요.",
         "wrong": "문자열 + 문자열은 공백 없이 붙어요. 공백을 원하면 `'AI' + ' ' + 'MON'`처럼 써야 해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_4_008",
@@ -2958,7 +3041,8 @@
       "feedback": {
         "correct": "맞아요! 음수 인덱스 -1은 마지막 글자를 가리켜요. 'Python'의 마지막 글자는 'n'이에요.",
         "wrong": "음수 인덱스는 뒤에서부터 세요. -1은 마지막 글자예요. 'Python'[-1] = 'n'이에요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_4_009",
@@ -2980,7 +3064,8 @@
       "feedback": {
         "correct": "맞아요! 문자열 + 정수는 TypeError가 발생해요. `str(score)` 또는 f-string을 사용해야 해요.",
         "wrong": "Python에서 문자열과 정수를 `+`로 바로 연결하면 TypeError가 발생해요. `str(score)`로 변환 후 연결해야 해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_4_010",
@@ -3002,7 +3087,8 @@
       "feedback": {
         "correct": "맞아요! 'model'은 5글자예요. -2는 뒤에서 두 번째 글자 'e'예요. m(0)-o(1)-d(2)-e(3)-l(4)에서 -1=l, -2=e예요.",
         "wrong": "len('model') = 5예요. -2는 뒤에서 두 번째 = 'e'예요. m-o-d-e-l에서 뒤에서 -1=l, -2=e예요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "boss_1_5_mc_001",
@@ -3024,7 +3110,8 @@
       "feedback": {
         "correct": "맞아요! Python의 bool은 `True`와 `False`예요.",
         "wrong": "Python bool 값은 `True`와 `False`예요. 첫 글자를 대문자로 써야 해요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_5_mc_002",
@@ -3046,7 +3133,8 @@
       "feedback": {
         "correct": "맞아요! 10은 5보다 크므로 `True`예요.",
         "wrong": "비교 연산자의 결과는 `True` 또는 `False`예요. 10 > 5는 참이므로 `True`예요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_5_mc_003",
@@ -3068,7 +3156,8 @@
       "feedback": {
         "correct": "맞아요! `==`는 두 값이 같은지 비교하는 연산자예요.",
         "wrong": "`=`는 할당, `==`는 비교예요. 두 값이 같은지 확인할 땐 `==`를 사용해요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_5_mc_004",
@@ -3090,7 +3179,8 @@
       "feedback": {
         "correct": "맞아요! `true`는 Python에서 변수 이름으로 인식돼요. 반드시 `True`로 써야 해요.",
         "wrong": "Python bool 값은 `True`, `False`로 첫 글자가 대문자예요. `true`는 NameError가 발생해요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_5_mc_005",
@@ -3112,7 +3202,8 @@
       "feedback": {
         "correct": "맞아요! 5 < 3은 5가 3보다 작다는 의미인데, 5는 3보다 크므로 `False`예요.",
         "wrong": "A: 10>=10 → True, B: 5<3 → False(5는 3보다 큼), C: 7!=8 → True, D: 3==3 → True예요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_5_os_006",
@@ -3134,7 +3225,8 @@
       "feedback": {
         "correct": "맞아요! 3은 10보다 작으므로 `True`예요.",
         "wrong": "비교 연산자는 True 또는 False를 반환해요. 3 < 10은 참이므로 `True`예요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_5_os_007",
@@ -3156,7 +3248,8 @@
       "feedback": {
         "correct": "맞아요! 5==5 → True(같음), 5!=5 → False(다르지 않음)예요.",
         "wrong": "5==5 → True(5와 5는 같아요), 5!=5 → False(5와 5는 다르지 않아요)예요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_5_os_008",
@@ -3178,7 +3271,8 @@
       "feedback": {
         "correct": "맞아요! 100 >= 100 → True(같으니까 이상에 포함), 100 > 100 → False(초과는 안 됨)예요.",
         "wrong": "`>=`는 크거나 같을 때 True, `>`는 클 때만 True예요. 100과 100은 같으므로 >= → True, > → False예요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_5_os_009",
@@ -3200,7 +3294,8 @@
       "feedback": {
         "correct": "맞아요! 10<20 → True, 10==20 → False, 10!=20 → True예요.",
         "wrong": "10<20 → True, 10==20 → False(다른 값), 10!=20 → True(다른 값)예요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_5_os_010",
@@ -3222,7 +3317,8 @@
       "feedback": {
         "correct": "맞아요! 75 >= 60 → True(result에 저장), 75 == 60 → False(다른 값)예요.",
         "wrong": "75 >= 60 → True이므로 result = True예요. 75 == 60 → False(75와 60은 다른 값)예요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "cc_1_5_001",
@@ -3244,7 +3340,8 @@
       "feedback": {
         "correct": "맞아요! bool은 `True`와 `False` 두 가지 값만 가져요.",
         "wrong": "Python의 bool은 `True`와 `False`만 가능해요. 반드시 첫 글자를 대문자로 써야 해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_5_002",
@@ -3266,7 +3363,8 @@
       "feedback": {
         "correct": "맞아요! `True`는 첫 글자만 대문자예요.",
         "wrong": "Python의 bool 값은 `True`, `False`로 첫 글자만 대문자예요. `true`나 `TRUE`는 오류가 발생해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_5_003",
@@ -3288,7 +3386,8 @@
       "feedback": {
         "correct": "맞아요! 5는 3보다 크므로 `True`예요.",
         "wrong": "비교 연산자의 결과는 `True` 또는 `False`예요. 5 > 3은 참이므로 `True`예요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_5_004",
@@ -3310,7 +3409,8 @@
       "feedback": {
         "correct": "맞아요! `=`는 값을 저장하는 할당 연산자, `==`는 두 값이 같은지 비교하는 연산자예요.",
         "wrong": "`=`는 `x = 5`처럼 값을 저장할 때, `==`는 `x == 5`처럼 값을 비교할 때 사용해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_5_005",
@@ -3332,7 +3432,8 @@
       "feedback": {
         "correct": "맞아요! 자료형은 달라도 값이 같으면 `True`예요. int 10과 float 10.0은 값이 같아요.",
         "wrong": "`==`는 값의 동등성을 비교해요. 10과 10.0은 자료형은 달라도 값이 같으므로 `True`예요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_5_006",
@@ -3354,7 +3455,8 @@
       "feedback": {
         "correct": "맞아요! `!=`는 '다르다'를 비교해요. 7과 7은 같으므로 '다르다'는 `False`예요.",
         "wrong": "`!=`는 두 값이 다른지 확인해요. 7과 7은 같은 값이니 '다르다'는 조건은 `False`예요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_5_007",
@@ -3376,7 +3478,8 @@
       "feedback": {
         "correct": "맞아요! 3은 5보다 작거나 같으므로(이하) `True`예요.",
         "wrong": "각 항목을 확인해요. A: 3==5 → False, B: 3<=5 → True, C: 3!=3 → False, D: 3>=5 → False예요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_5_008",
@@ -3398,7 +3501,8 @@
       "feedback": {
         "correct": "맞아요! 10>5 → True, 10==10 → True, 10!=10 → False예요.",
         "wrong": "10>5 → True, 10==10 → True, 10!=10(10이 10과 다르다?) → False예요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_5_009",
@@ -3420,7 +3524,8 @@
       "feedback": {
         "correct": "맞아요! Python은 대소문자를 구분해요. 'apple'과 'Apple'은 다른 문자열이에요.",
         "wrong": "Python은 대소문자를 엄격히 구분해요. 'apple' ≠ 'Apple'이므로 == → False, != → True예요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_5_010",
@@ -3442,7 +3547,8 @@
       "feedback": {
         "correct": "맞아요! 75 >= 60은 True이고, 비교 연산의 결과는 bool 자료형이에요.",
         "wrong": "75 >= 60은 참이므로 True예요. 비교 연산의 결과는 항상 bool 자료형이에요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "boss_1_6_mc_001",
@@ -3464,7 +3570,8 @@
       "feedback": {
         "correct": "맞아요! `input()` 함수로 사용자 입력을 받아요.",
         "wrong": "Python에서 사용자 입력은 `input()` 함수예요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_6_mc_002",
@@ -3486,7 +3593,8 @@
       "feedback": {
         "correct": "맞아요! input()은 항상 str을 반환해요.",
         "wrong": "input()은 어떤 값을 입력해도 항상 str(문자열)로 반환해요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_6_mc_003",
@@ -3508,7 +3616,8 @@
       "feedback": {
         "correct": "맞아요! `int(input())`이 입력받으면서 정수로 변환하는 올바른 패턴이에요.",
         "wrong": "input()을 int()로 감싸면 입력받은 문자열이 바로 정수로 변환돼요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_6_mc_004",
@@ -3530,7 +3639,8 @@
       "feedback": {
         "correct": "맞아요! input()은 자동 형 변환을 하지 않아요. 모든 입력은 str로 반환돼요.",
         "wrong": "input()은 자동으로 형 변환하지 않아요. 항상 str을 반환하며, 직접 int()나 float()로 변환해야 해요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_6_mc_005",
@@ -3552,7 +3662,8 @@
       "feedback": {
         "correct": "맞아요! 소수점 있는 값은 `float(input())`으로 변환해요.",
         "wrong": "소수점이 있는 실수는 `float(input())`으로 변환해요. `int()`에 '3.14' 같은 값을 넣으면 오류가 발생해요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_6_os_006",
@@ -3574,7 +3685,8 @@
       "feedback": {
         "correct": "맞아요! 입력받은 값이 name에 저장되고, print(name)으로 출력돼요.",
         "wrong": "input()으로 입력받은 '에이몬'이 name에 저장돼요. print(name)은 저장된 값인 '에이몬'을 출력해요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_6_os_007",
@@ -3596,7 +3708,8 @@
       "feedback": {
         "correct": "맞아요! 5를 입력해도 input()은 str을 반환해요.",
         "wrong": "input()은 항상 str을 반환해요. 숫자 5를 입력해도 '5'(문자열)로 받아요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_6_os_008",
@@ -3618,7 +3731,8 @@
       "feedback": {
         "correct": "맞아요! `int(input())`으로 '3'이 정수 3으로 변환되고, 3 + 7 = 10이에요.",
         "wrong": "`int(input())`으로 '3'이 정수 3으로 변환돼요. 3 + 7 = 10이에요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_6_os_009",
@@ -3640,7 +3754,8 @@
       "feedback": {
         "correct": "맞아요! n은 str이라 '4' * 3 = '444'(문자열 반복), int(n) * 3 = 4 * 3 = 12(수학 곱셈)예요.",
         "wrong": "n은 str '4'예요. str * 3 = '444'(반복), int(n) * 3 = 4 * 3 = 12(수학 계산)이에요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_6_os_010",
@@ -3662,7 +3777,8 @@
       "feedback": {
         "correct": "맞아요! int(input())으로 10이 정수로 변환돼요. 10 > 5 → True, 10 * 2 = 20이에요.",
         "wrong": "`int(input())`으로 10이 정수로 변환돼요. 10 > 5 → True, 10 * 2 = 20(수학 곱셈)이에요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "cc_1_6_001",
@@ -3684,7 +3800,8 @@
       "feedback": {
         "correct": "맞아요! `input()` 함수로 사용자의 입력을 받을 수 있어요.",
         "wrong": "Python에서 사용자 입력은 `input()` 함수를 사용해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_6_002",
@@ -3706,7 +3823,8 @@
       "feedback": {
         "correct": "맞아요! `input()`은 항상 문자열(str)을 반환해요.",
         "wrong": "`input()`은 숫자를 입력해도 항상 str로 반환해요. 숫자로 사용하려면 변환이 필요해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_6_003",
@@ -3728,7 +3846,8 @@
       "feedback": {
         "correct": "맞아요! `input()` 괄호 안의 문자열이 입력 전 안내 메시지로 출력돼요.",
         "wrong": "`input('메시지')` 형태로 쓰면 입력 전에 안내 메시지가 먼저 출력돼요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_6_004",
@@ -3750,7 +3869,8 @@
       "feedback": {
         "correct": "맞아요! input()은 항상 문자열로 반환해요. 5를 입력해도 '5'(str)가 돼요.",
         "wrong": "input()의 반환값은 항상 str이에요. 5를 입력해도 정수 5가 아닌 문자열 '5'가 돼요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_6_005",
@@ -3772,7 +3892,8 @@
       "feedback": {
         "correct": "맞아요! `int(input())`은 입력받은 문자열을 정수로 변환하는 올바른 패턴이에요.",
         "wrong": "`int(input())`처럼 input()을 int()로 감싸면 입력받으면서 바로 정수로 변환돼요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_6_006",
@@ -3794,7 +3915,8 @@
       "feedback": {
         "correct": "맞아요! 소수점 있는 값은 `float(input())`으로 변환해요.",
         "wrong": "소수점 있는 실수는 `float()`로 변환해요. `int()`에 소수점 값을 넣으면 오류가 발생해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_6_007",
@@ -3816,7 +3938,8 @@
       "feedback": {
         "correct": "맞아요! input()은 str을 반환하므로 str + int는 TypeError가 발생해요.",
         "wrong": "input()의 반환값은 str이에요. str과 int를 `+`로 연결하면 TypeError가 발생해요. `int(n) + 10`으로 써야 해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_6_008",
@@ -3838,7 +3961,8 @@
       "feedback": {
         "correct": "맞아요! input()은 str을 반환해요. 문자열 * 2는 문자열을 2번 반복해요. '10' * 2 = '1010'이에요.",
         "wrong": "input()의 반환값은 str이에요. 문자열 '10' * 2는 수학 곱셈이 아닌 문자열 반복이라 '1010'이 돼요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_6_009",
@@ -3860,7 +3984,8 @@
       "feedback": {
         "correct": "맞아요! `int(input())`으로 '7'을 정수 7로 변환했어요. 7 * 2 = 14이고 자료형은 int예요.",
         "wrong": "`int(input())`으로 '7'이 정수 7로 변환돼요. 7 * 2 = 14(수학 곱셈), type(n) = int예요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_6_010",
@@ -3882,7 +4007,8 @@
       "feedback": {
         "correct": "맞아요! `int(input())`으로 변환 후 정수 연산이 가능해요.",
         "wrong": "input()의 반환값은 str이에요. 정수 연산을 하려면 `int(input())`으로 변환 후 더해야 해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "boss_1_7_mc_001",
@@ -3904,7 +4030,8 @@
       "feedback": {
         "correct": "맞아요! 따옴표 바로 앞에 `f`를 붙이면 f-string이 돼요.",
         "wrong": "f-string은 따옴표 바로 앞에 `f`를 붙여요. `f'...'` 형태예요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_7_mc_002",
@@ -3926,7 +4053,8 @@
       "feedback": {
         "correct": "맞아요! `{item}`은 변수 item의 값 '왕관'으로 치환돼요.",
         "wrong": "f-string의 `{item}`은 변수의 실제 값으로 바뀌어요. item = '왕관'이므로 '획득: 왕관'이 출력돼요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_7_mc_003",
@@ -3948,7 +4076,8 @@
       "feedback": {
         "correct": "맞아요! f-string에서 변수는 중괄호 `{}`로 감싸요.",
         "wrong": "f-string에서 변수 치환은 `{}`를 사용해요. 다른 괄호는 변수 치환이 안 돼요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_7_mc_004",
@@ -3970,7 +4099,8 @@
       "feedback": {
         "correct": "맞아요! f-string에서 변수는 `{}`로 감싸요. `f'에이몬 Lv.{lv}'`에서 `{lv}`가 8로 치환돼요.",
         "wrong": "f-string은 `f`를 앞에 붙이고 변수는 `{}`로 감싸야 해요. `()`나 `[]`는 변수 치환이 안 되고, `f` 없이 쓰면 일반 문자열이에요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_7_mc_005",
@@ -3992,7 +4122,8 @@
       "feedback": {
         "correct": "맞아요! 줄 2는 `f`가 없어서 `{name}`이 그대로 출력돼요. 줄 3은 `{}`가 없어서 'name'이 그대로 출력돼요.",
         "wrong": "줄 2: `f` 없음 → `{name}` 그대로 출력. 줄 3: `{}` 없음 → 'name' 글자 그대로 출력. 올바른 건 줄 1뿐이에요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_7_os_006",
@@ -4014,7 +4145,8 @@
       "feedback": {
         "correct": "맞아요! `{lv}` → 5, `{xp}` → 500으로 치환돼요.",
         "wrong": "f-string의 `{}`안 변수는 모두 실제 값으로 치환돼요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_7_os_007",
@@ -4036,7 +4168,8 @@
       "feedback": {
         "correct": "맞아요! `{a}` → 3, `{b}` → 4, `{a * b}` → 12로 치환돼요.",
         "wrong": "f-string `{}`안에서 연산도 실행돼요. {a * b} = 3 * 4 = 12예요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_7_os_008",
@@ -4058,7 +4191,8 @@
       "feedback": {
         "correct": "맞아요! `{name}` → '에이몬', `{stage}` → '1-7'로 치환돼요. # 주석 줄은 실행되지 않아요.",
         "wrong": "변수는 실제 값으로 치환되고, # 주석 줄은 무시돼요. 두 줄만 출력돼요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_7_os_009",
@@ -4080,7 +4214,8 @@
       "feedback": {
         "correct": "맞아요! {x // y} → 10 // 3 = 3(몫), {x % y} → 10 % 3 = 1(나머지)예요.",
         "wrong": "`//`는 몫, `%`는 나머지예요. 10 // 3 = 3, 10 % 3 = 1이에요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "boss_1_7_os_010",
@@ -4102,7 +4237,8 @@
       "feedback": {
         "correct": "맞아요! `:.2f`는 소수점 2자리로 반올림해요. 0.9567 → 0.96, 0.1823 → 0.18이에요.",
         "wrong": "`:.2f`는 소수점 2자리까지 표시(반올림)해요. 0.9567 → 0.96(반올림), 0.1823 → 0.18이에요."
-      }
+      },
+      "quiz_category": "miniboss"
     },
     {
       "question_id": "cc_1_7_001",
@@ -4124,7 +4260,8 @@
       "feedback": {
         "correct": "맞아요! f-string은 따옴표 앞에 `f`를 붙여요. 예: `f'안녕 {name}'`",
         "wrong": "f-string은 따옴표 앞에 소문자 `f`를 붙여요. `b`는 바이트 문자열, `r`은 raw 문자열이에요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_7_002",
@@ -4146,7 +4283,8 @@
       "feedback": {
         "correct": "맞아요! f-string에서 변수는 중괄호 `{}`로 감싸요.",
         "wrong": "f-string에서 변수는 `{}`로 감싸요. 예: `f'이름: {name}'`"
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_7_003",
@@ -4168,7 +4306,8 @@
       "feedback": {
         "correct": "맞아요! f-string의 `{name}`은 변수 name의 값인 '에이몬'으로 치환돼요.",
         "wrong": "f-string에서 `{변수명}`은 변수의 실제 값으로 바뀌어요. name = '에이몬'이므로 '안녕, 에이몬!'이 출력돼요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_7_004",
@@ -4190,7 +4329,8 @@
       "feedback": {
         "correct": "맞아요! `{lv}`는 변수 lv의 값 7로 치환돼요.",
         "wrong": "f-string의 `{}` 안에 변수 이름을 넣으면 변수의 값으로 바뀌어요. lv = 7이므로 '현재 레벨: 7'이 출력돼요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_7_005",
@@ -4212,7 +4352,8 @@
       "feedback": {
         "correct": "맞아요! `f`가 없으면 `{score}`가 변수로 인식되지 않고 문자 그대로 출력돼요.",
         "wrong": "`f`를 빠뜨리면 `{score}`가 그냥 글자로 출력돼요. 변수 치환을 원하면 따옴표 앞에 반드시 `f`를 붙여야 해요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_7_006",
@@ -4234,7 +4375,8 @@
       "feedback": {
         "correct": "맞아요! f-string에서 변수는 반드시 `{}`로 감싸야 해요.",
         "wrong": "f-string에서 변수는 `{}`로 감싸야 해요. `f` 없이 쓰거나 `()`를 쓰면 변수 치환이 안 돼요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_7_007",
@@ -4256,7 +4398,8 @@
       "feedback": {
         "correct": "맞아요! f-string의 `{}` 안에서 연산도 바로 실행돼요. {x + y} → 8이에요.",
         "wrong": "f-string의 `{}` 안에는 연산식도 넣을 수 있어요. {x} → 5, {y} → 3, {x + y} → 8이에요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_7_008",
@@ -4278,7 +4421,8 @@
       "feedback": {
         "correct": "맞아요! `{name}` → '에이몬', `{xp}` → 2000으로 치환돼요. 주석 줄은 실행되지 않아요.",
         "wrong": "f-string의 변수는 실제 값으로 치환돼요. # 주석 줄은 실행되지 않으므로 두 줄만 출력돼요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_7_009",
@@ -4300,7 +4444,8 @@
       "feedback": {
         "correct": "맞아요! {a} → 9, {b} → 4, {a / b} → 2.25(Python 3에서 / 는 항상 float 반환)예요.",
         "wrong": "Python 3에서 `/`는 항상 실수 결과를 반환해요. 9 / 4 = 2.25예요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     },
     {
       "question_id": "cc_1_7_010",
@@ -4322,7 +4467,8 @@
       "feedback": {
         "correct": "맞아요! `:.2f`는 소수점 2자리(3.14), `:.4f`는 소수점 4자리(3.1416 - 반올림)예요.",
         "wrong": "`:.2f`는 소수점 2자리까지 표시(반올림), `:.4f`는 소수점 4자리까지 표시해요. 3.14159를 4자리로 표시하면 반올림해서 3.1416이에요."
-      }
+      },
+      "quiz_category": "stage_quiz"
     }
   ]
 }
