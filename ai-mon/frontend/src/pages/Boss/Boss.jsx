@@ -207,7 +207,7 @@ export default function Boss() {
             <div className="result-rewards" style={{ margin: '24px 0', background: 'rgba(255,255,255,0.05)', padding: '16px', borderRadius: '12px' }}>
               <div className="reward-item" style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
                 <span className="reward-icon">⭐</span>
-                <span style={{ fontWeight: 700, color: '#a6e3a1', marginLeft: '8px' }}>+{bossData?.xp_reward} XP</span>
+                <span style={{ fontWeight: 700, color: '#a6e3a1', marginLeft: '8px' }}>+{aiResult?.xp_awarded || 0} XP</span>
               </div>
               <div className="reward-item" style={{ fontSize: '1.1rem' }}>
                 <span className="reward-icon">💳</span>

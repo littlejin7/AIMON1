@@ -138,11 +138,12 @@ backend/data/lessons/
 |---|---|---|---|---|
 | `question_id` | string | - | ✅ | 문제 ID. 스테이지: `q{번호}` / 보스: `boss_{level}_{type}_{unit}_{번호}` |
 | `unit` | number | 1~8 | ✅ | 유닛 번호 |
-| `stage` | string | - | ✅ | 스테이지 번호 (`"1-1"`, `"1-boss"` 등) |
+| `stage` | string | - | ✅ | 스테이지 번호 (`"1-1"` ~ `"1-7"`: 스테이지, `"1-boss"`: 유닛 보스, `"final-boss"`: 파이널 보스) |
 | `course_level` | string | beginner / intermediate / advanced | ✅ | 수강 레벨 |
 | `difficulty` | string | easy / medium / hard | ✅ | 문제 난이도 |
-| `type` | string | multiple_choice / output_select / fill_in_blank / code_input | ✅ | 문제 유형 |
-| `is_boss` | boolean | true / false | ✅ | 보스 문제 여부 (`stage: "1-boss"` 와 함께 사용) |
+| `type` | string | multiple_choice / output_select / fill_in_blank / code_input | ✅ | 문제 형식 (출력 방식) |
+| `quiz_category` | string | stage_quiz / miniboss / unit_boss / final_boss | ✅ | 문제 세트 유형 (흐름상 위치) |
+| `is_boss` | boolean | true / false | ✅ | 유닛 보스 / 파이널 보스 여부 (`stage: "1-boss"` 와 함께 사용) |
 | `question` | string | - | ✅ | 문제 텍스트 |
 | `choices` | array | - | ❌ | 선택지 (multiple_choice / output_select만 해당, fill_in_blank는 빈 배열) |
 | `answer` | string | - | ✅ | 정답 |
@@ -159,7 +160,9 @@ backend/data/lessons/
 | 스테이지 beginner | `q{세자리}` | `q001`, `q002`, `q003` |
 | 스테이지 intermediate | `q{1로 시작 세자리}` | `q101`, `q102`, `q103` |
 | 스테이지 advanced | `q{2로 시작 세자리}` | `q201`, `q202`, `q203` |
-| 보스 | `boss_{level}_{type}_{unit}_{번호}` | `boss_beg_mc_1_001` |
+| 스테이지 미니보스 | `miniboss_{level}_{type}_{unit}_{stage}_{번호}` | `miniboss_beg_mc_1_1_001` |
+| 유닛 보스 | `unitboss_{level}_{type}_{unit}_{번호}` | `unitboss_beg_os_1_001` |
+| 파이널 보스 | `finalboss_{level}_{type}_{번호}` | `finalboss_beg_fib_001` |
 
 ```json
 {
@@ -171,6 +174,7 @@ backend/data/lessons/
       "course_level": "beginner",
       "difficulty": "easy",
       "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
       "is_boss": false,
       "question": "print()의 역할은 무엇인가요?",
       "choices": ["A. 값을 저장한다", "B. 값을 출력한다", "C. 값을 삭제한다", "D. 값을 계산한다"],
@@ -188,6 +192,7 @@ backend/data/lessons/
       "course_level": "beginner",
       "difficulty": "hard",
       "type": "multiple_choice",
+      "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 중 Python에서 실행되지 않는 줄은?",
       "choices": ["A. print('에이몬')", "B. # print('에이몬')", "C. print('# 에이몬')", "D. print('에이몬') # 출력"],
@@ -210,31 +215,39 @@ backend/data/lessons/
 
 | 필드 | 타입 | 허용값 | 필수 | 설명 |
 |---|---|---|---|---|
-| `user_id` | string | - | ✅ | 유저 고유 ID |
-| `nickname` | string | - | ✅ | 닉네임 |
+| `user_id` | string | UUID | ✅ | 유저 고유 ID (백엔드 필드명: `id`) |
+| `username` | string | - | ✅ | 로그인 ID |
+| `nickname` | string | - | ✅ | 표시 이름 |
 | `course_level` | string | beginner / intermediate / advanced | ✅ | 수강 레벨 |
 | `is_level_tested` | boolean | true / false | ✅ | 레벨 테스트 완료 여부 |
+| `character` | string | default / slime / robot / speech_bubble / final_ghost | ✅ | 현재 캐릭터 진화 단계 |
 | `xp` | number | 0~ | ✅ | 보유 XP |
-| `lv` | number | 1~40 | ✅ | 현재 레벨 |
-| `crowns` | number | 0~ | ✅ | 보유 왕관 수 |
-| `streak` | number | 0~ | ✅ | 연속 접속일 |
-| `last_login` | string | YYYY-MM-DD | ✅ | 마지막 접속일 (스트릭 계산용) |
-| `avatar_stage` | string | slime / robot / speech_bubble / final_ghost | ✅ | 현재 캐릭터 진화 단계 |
-| `created_at` | string | YYYY-MM-DD | ✅ | 가입일 |
+| `lv` | number | 1~40 | 🚧 | 현재 레벨 (미구현) |
+| `crowns` | number | 0~ | ✅ | 보유 왕관 수 (기본값: 5) |
+| `daily_free_attempts` | number | 0~2 | ✅ | 오늘 남은 보스 무료 도전 횟수 |
+| `last_free_attempt_date` | string | YYYY-MM-DD | ✅ | 마지막 보스 도전일 (무료 횟수 리셋 기준) |
+| `completed_units` | number | 0~ | ✅ | 완료한 유닛 수 (캐릭터 진화 트리거) |
+| `streak` | number | 0~ | 🚧 | 연속 접속일 (미구현) |
+| `last_login` | string | YYYY-MM-DD | 🚧 | 마지막 접속일 (미구현) |
+| `created_at` | string | ISO 8601 | ✅ | 가입 시각 |
 
 ```json
 {
-  "user_id": "u001",
+  "user_id": "bb2fb53b-403d-4fbc-89b8-9bf4648f2f03",
+  "username": "jinny",
   "nickname": "지니",
   "course_level": "beginner",
   "is_level_tested": true,
-  "xp": 320,
-  "lv": 5,
+  "character": "slime",
+  "xp": 500,
+  "lv": 1,
   "crowns": 5,
+  "daily_free_attempts": 2,
+  "last_free_attempt_date": "2026-06-06",
+  "completed_units": 0,
   "streak": 3,
-  "last_login": "2026-06-02",
-  "avatar_stage": "slime",
-  "created_at": "2026-06-01"
+  "last_login": "2026-06-06",
+  "created_at": "2026-06-01T10:00:00"
 }
 ```
 
@@ -242,57 +255,44 @@ backend/data/lessons/
 
 ## 4. progress.json
 
-유저 학습 진도
+유저 학습 진도 — **플랫 배열** 구조. 스테이지 완료 시마다 레코드 추가.
 
 | 필드 | 타입 | 허용값 | 필수 | 설명 |
 |---|---|---|---|---|
-| `user_id` | string | - | ✅ | 유저 ID |
-| `course_level` | string | beginner / intermediate / advanced | ✅ | 수강 레벨 |
-| `final_boss.status` | string | locked / in_progress / completed | ✅ | 파이널 보스 상태 |
-| `final_boss.attempts` | number | 0~ | ✅ | 파이널 보스 도전 횟수 |
-| `units[].unit` | number | 1~8 | ✅ | 유닛 번호 |
-| `units[].status` | string | locked / in_progress / completed | ✅ | 유닛 상태 |
-| `units[].stages[].stage` | string | - | ✅ | 스테이지 번호 |
-| `units[].stages[].status` | string | locked / in_progress / completed | ✅ | 스테이지 상태 |
-| `units[].stages[].score` | number | 0~100 | ❌ | 퀴즈 점수 |
-| `units[].stages[].attempts` | number | 0~ | ✅ | 도전 횟수 |
-| `units[].stages[].completed_at` | string | YYYY-MM-DD | ❌ | 클리어 날짜 |
-| `units[].boss.status` | string | locked / in_progress / completed | ✅ | 보스 상태 |
-| `units[].boss.attempts` | number | 0~ | ✅ | 보스 도전 누적 횟수 |
-| `units[].boss.boss_attempts_today` | number | 0~ | ✅ | 오늘 보스 도전 횟수 (하루 2회 제한) |
-| `units[].boss.last_attempt_date` | string | YYYY-MM-DD | ❌ | 마지막 도전일 |
-| `units[].boss.hints_used` | number | 0~2 | ✅ | 힌트 사용 횟수 |
-| `units[].training.status` | string | locked / in_progress / completed | ✅ | 훈련 상태 (MVP 이후) |
-| `units[].training.score` | number | 0~100 | ❌ | 훈련 점수 |
-| `units[].training.attempts` | number | 0~ | ✅ | 훈련 도전 횟수 |
+| `id` | string | UUID | ✅ | 레코드 고유 ID (자동 생성) |
+| `user_id` | string | UUID | ✅ | 유저 ID |
+| `unit` | number | 1~8 | ✅ | 유닛 번호 |
+| `stage` | string | - | ✅ | 스테이지 번호 (`"1-1"` ~ `"1-7"`, `"1-boss"` 등) |
+| `score` | number | 0~100 | ✅ | 퀴즈 점수 |
+| `is_completed` | boolean | true / false | ✅ | 완료 여부 |
+| `created_at` | string | ISO 8601 | ✅ | 최초 기록 시각 |
+| `updated_at` | string | ISO 8601 | ✅ | 마지막 업데이트 시각 |
+
+> stage가 `"1-boss"`이면 유닛 보스 클리어 기록.
 
 ```json
-{
-  "user_id": "u001",
-  "course_level": "beginner",
-  "final_boss": { "status": "locked", "attempts": 0 },
-  "units": [{
+[
+  {
+    "id": "d867a352-b3f0-46a8-ada3-03a49b657af2",
+    "user_id": "bb2fb53b-403d-4fbc-89b8-9bf4648f2f03",
     "unit": 1,
-    "status": "in_progress",
-    "stages": [
-      {
-        "stage": "1-1",
-        "status": "completed",
-        "score": 100,
-        "attempts": 1,
-        "completed_at": "2026-06-02"
-      }
-    ],
-    "boss": {
-      "status": "locked",
-      "attempts": 0,
-      "boss_attempts_today": 0,
-      "last_attempt_date": null,
-      "hints_used": 0
-    },
-    "training": { "status": "locked", "score": null, "attempts": 0 }
-  }]
-}
+    "stage": "1-1",
+    "score": 100,
+    "is_completed": true,
+    "created_at": "2026-06-05T11:54:42.826289",
+    "updated_at": "2026-06-05T11:54:42.826804"
+  },
+  {
+    "id": "e923b123-...",
+    "user_id": "bb2fb53b-403d-4fbc-89b8-9bf4648f2f03",
+    "unit": 1,
+    "stage": "1-boss",
+    "score": 85,
+    "is_completed": true,
+    "created_at": "2026-06-06T09:00:00.000000",
+    "updated_at": "2026-06-06T09:00:00.000000"
+  }
+]
 ```
 
 ---
@@ -351,11 +351,11 @@ backend/data/lessons/
 
 ### beginner
 
-**stage_lesson — multiple_choice**
+**stage_quiz — multiple_choice**
 
 ```json
 {
-  "type": "stage_lesson", "level": "beginner", "quiz_type": "multiple_choice",
+  "type": "stage_quiz", "level": "beginner", "quiz_type": "multiple_choice",
   "unit": 1, "stage": "1-1", "pass_score": 80,
   "questions": [
     { "question_id": "sl_beg_mc_1_1_001", "type": "multiple_choice",
@@ -374,11 +374,11 @@ backend/data/lessons/
 }
 ```
 
-**concept_check — multiple_choice**
+**stage_quiz — multiple_choice**
 
 ```json
 {
-  "type": "concept_check", "level": "beginner", "quiz_type": "multiple_choice",
+  "type": "stage_quiz", "level": "beginner", "quiz_type": "multiple_choice",
   "unit": 1, "stage": "1-1", "villain": "codemmon", "pass_score": 80,
   "questions": [
     { "question_id": "cc_beg_mc_1_1_001",
@@ -397,7 +397,7 @@ backend/data/lessons/
 
 ```json
 {
-  "type": "boss", "level": "beginner", "unit": 1, "boss_name": "코드몬 Unit 1 보스",
+  "type": "unit_boss", "level": "beginner", "unit": 1, "boss_name": "코드몬 Unit 1 유닛 보스",
   "pass_score": 80, "free_attempts_per_day": 2, "crown_cost_from_attempt": 3,
   "hints_allowed": 2, "xp_reward": 2000,
   "questions": [
@@ -435,11 +435,11 @@ backend/data/lessons/
 
 ### intermediate
 
-**stage_lesson — multiple_choice + output_select**
+**stage_quiz — multiple_choice + output_select**
 
 ```json
 {
-  "type": "stage_lesson", "level": "intermediate", "quiz_type": "multiple_choice",
+  "type": "stage_quiz", "level": "intermediate", "quiz_type": "multiple_choice",
   "unit": 1, "stage": "1-1", "pass_score": 80,
   "questions": [
     { "question_id": "sl_mid_mc_1_1_001",
@@ -477,11 +477,11 @@ backend/data/lessons/
 
 ### advanced
 
-**stage_lesson — output_select + fill_in_blank**
+**stage_quiz — output_select + fill_in_blank**
 
 ```json
 {
-  "type": "stage_lesson", "level": "advanced", "unit": 1, "stage": "1-1", "pass_score": 80,
+  "type": "stage_quiz", "level": "advanced", "unit": 1, "stage": "1-1", "pass_score": 80,
   "questions": [
     { "question_id": "sl_adv_os_1_1_001", "type": "output_select",
       "question": "다음 코드의 출력값을 고르세요.\n\nfor i in range(3):\n    print(i, end='-')\nprint('끝')",
