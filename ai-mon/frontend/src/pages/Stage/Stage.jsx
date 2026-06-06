@@ -25,6 +25,7 @@ export default function Stage({ _lessonId, _stage }) {
   const [correct, setCorrect]     = useState(0)
   const [finished, setFinished]   = useState(false)
   const [loading, setLoading]     = useState(true)
+  const [xpAwarded, setXpAwarded] = useState(0)
   const [unitInfo, setUnitInfo]   = useState(null)
   
   // 비로그인 선체험 완료 후 회원가입/로그인 모달
@@ -86,12 +87,15 @@ export default function Stage({ _lessonId, _stage }) {
       }
       // 로그인 상태 또는 일반 스테이지: 진행도 저장 후 완료 처리
       const totalScore = Math.round((newCorrect / questions.length) * 100)
-      await progressApi.saveProgress({
+      const res = await progressApi.saveProgress({
         unit: parseInt(lessonId, 10),
         stage: `${lessonId}-${stageNum}`,
         score: totalScore,
         is_completed: totalScore >= 60,
       })
+      if (res && res.data) {
+        setXpAwarded(res.data.xp_awarded || 0)
+      }
       setFinished(true)
     } else {
       setCurrent(current + 1)
@@ -168,10 +172,16 @@ export default function Stage({ _lessonId, _stage }) {
         <p className="result-desc">
           {questions.length}문제 중 {correct}개 정답
         </p>
-        {passed && (
-          <div className="result-reward">
+        {passed && xpAwarded > 0 && (
+          <div className="result-reward" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px', marginBottom: '16px' }}>
             <span>⭐ 스테이지 완료</span>
-            <span>+{finalScore} EXP 획득!</span>
+            <span style={{ color: '#a6e3a1', fontWeight: 'bold' }}>+{xpAwarded} XP 획득!</span>
+          </div>
+        )}
+        {passed && xpAwarded === 0 && (
+          <div className="result-reward" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px', marginBottom: '16px' }}>
+            <span>⭐ 스테이지 재완료</span>
+            <span style={{ fontSize: '0.9em', color: '#a0a0b0' }}>이미 보상을 획득했습니다.</span>
           </div>
         )}
         <div className="result-actions">

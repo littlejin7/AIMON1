@@ -15,7 +15,8 @@ title: AI MON PIPELINE
 | 대단위 | 유닛 (Unit) |
 | 소단위 | 스테이지 (Stage) |
 | 스테이지 내 문제 | 퀴즈 |
-| 유닛 마지막 관문 | 보스 |
+| 스테이지 마지막 관문 | 스테이지 미니보스 |
+| 유닛 마지막 관문 | 유닛 보스 |
 | 레벨 마지막 관문 | 파이널 보스 (검정 캐릭터) |
 | 유닛 완료 후 열리는 복습 | 훈련 |
 
@@ -56,14 +57,15 @@ Stage 입장 → 브리핑 슬라이드 넘기기 → 퀴즈 → 다음 스테�
 
 ### 스테이지 진행
 ```
-레슨 → 퀴즈 → 다음 스테이지 잠금 해제
+레슨 → 스테이지 퀴즈 → 스테이지 미니보스 → 다음 스테이지 잠금 해제
 ```
+Stage 1-1 ~ 1-7 전부 완료 시 → **유닛 보스** 해금
 - 유닛 내 스테이지 순서 강제 (스킵 불가)
 - 유닛 간 순서 강제 (Unit 2는 Unit 1 완료 후 오픈)
 - 유닛 오픈 시 왕관 지급 (유닛 번호 = 왕관 수, 예: Unit 2 오픈 = 왕관 2개)
 
 ### 퀴즈 통과 기준
-- 개념확인 퀴즈: **80% 이상** 통과
+- 스테이지 퀴즈: **80% 이상** 통과
   - Unit 1~3: 3개 / Unit 4~6: 4개 / Unit 7~8: 5개
 - 훈련(복습) 퀴즈: **90% 이상** 통과
   - beginner: 10개 / intermediate: 12개 / advanced: 15개
@@ -321,14 +323,19 @@ Lv 36→40: 레벨당 20,000 XP
 - 보스 클리어 화면 (XP 획득 + 왕관 애니메이션 + 인증카드 예고)
 
 **인증**
-- 온보딩 (Stage 1-1 비로그인 체험)
-- 회원가입 / 로그인 모달
+- 온보딩 — `/stage/1/1` (Stage 1-1 비로그인 선체험, public route)
+- 레벨테스트 안내 — `/level-test-info` (비로그인 시 레벨테스트 진입 안내)
+- 회원가입 / 로그인 — `/auth`
 
 **내 캐릭터**
-- 캐릭터 화면 (진화 현황 + XP바 + 왕관 수)
+- 캐릭터 화면 — `/character` (진화 현황 + XP바 + 왕관 수)
 
 **설정**
-- AI 설명 레벨 설정 (beginner / intermediate / advanced)
+- AI 설명 레벨 설정 — `/settings` (beginner / intermediate / advanced)
+
+**준비중 (플레이스홀더)**
+- 파이널 보스 — `/boss/final` (Unit 8 완료 시 해금 예정)
+- 미니게임 — `/game` (MVP 이후 오픈 예정)
 
 ---
 
@@ -453,9 +460,10 @@ ai-mon/
 | 화면 | beginner | intermediate | advanced |
 |---|---|---|---|
 | 스테이지 레슨 | multiple_choice | multiple_choice + output_select | output_select + fill_in_blank |
-| 개념체크 퀴즈 | multiple_choice | fill_in_blank | fill_in_blank + output_select |
-| 일반 보스 | multiple_choice + output_select | output_select + fill_in_blank | fill_in_blank + code_input |
-| 파이널 보스 | output_select + fill_in_blank | fill_in_blank + code_input | code_input 위주 |
+| 스테이지 퀴즈 | multiple_choice | fill_in_blank | fill_in_blank + output_select |
+| 스테이지 미니보스 | multiple_choice + output_select | output_select + fill_in_blank | fill_in_blank + code_input |
+| 유닛 보스 | output_select + fill_in_blank | fill_in_blank + code_input | code_input 위주 |
+| 파이널 보스 | output_select + fill_in_blank (심화) | fill_in_blank + code_input (심화) | code_input 위주 (심화) |
 | 복습(훈련) | multiple_choice + output_select | fill_in_blank + output_select | fill_in_blank + code_input |
 
 **복습(훈련) 구성**
@@ -470,3 +478,8 @@ ai-mon/
 - [ ] FastAPI SSE Replit 환경 호환 확인 (스트리밍 전환 시)
 - [ ] 커스텀 아이템 가격 책정
 - [ ] 2단계 미니게임 기획 (AI 지식 게임 방향)
+
+## 18. 별도 논의 필요 (기준 미확정)
+
+- [ ] **XP 레벨업 로직** — 파이프라인 구간별 기준(Lv1~5: 1000XP, Lv6~15: 2500XP 등) vs 현재 코드 단순 계산(`xp // 1000`) 중 확정 필요. 게임 밸런스에 직접 영향.
+- [ ] **캐릭터 진화 디테일** — 파이프라인 기준(Unit 3/6/8 완료 시 slime→robot→speech_bubble→final_ghost)이 맞으나 `completed_units` 카운트 계산 방식 및 백엔드 반영 기준 확정 필요.

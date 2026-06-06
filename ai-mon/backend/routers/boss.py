@@ -149,6 +149,10 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
 다음 코딩 문제에 대한 사용자의 답변을 채점하고 피드백해주세요.
 틀렸을 경우, {level_instruction}
 
+[중요 지시사항]
+- 사용자의 답변이 예시 정답의 기호(예: A, B, C, D)만 입력했거나 내용이 일치한다면 반드시 "is_correct": true 로 채점하세요.
+- JSON 응답 외에 어떠한 부가 설명 텍스트도 출력하지 마세요. 오직 JSON만 출력해야 합니다.
+
 문제: {question['question']}
 예시 정답: {question.get('answer', '없음')}
 사용자 답변: {req.user_answer}
@@ -216,5 +220,8 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
                         u["character"] = "robot"
                     break
             save_users(users)
+            ai_result["xp_awarded"] = 2000
+        else:
+            ai_result["xp_awarded"] = 0
 
     return ai_result
