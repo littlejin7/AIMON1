@@ -14,7 +14,7 @@ const EVOLUTION_STAGES = [
     id: 'slime',
     icon: slimeIcon,
     name: '에이몬 슬라임',
-    unitRange: 'Unit 1 ~ 3',
+    unitRange: 'Lv.1 ~ 9',
     color: '#7c3aed',
     glow: 'rgba(124,58,237,0.5)',
     desc: '동글동글한 보라 슬라임 · 왕관 · </> 배지',
@@ -23,7 +23,7 @@ const EVOLUTION_STAGES = [
     id: 'robot',
     icon: robotIcon,
     name: '에이몬 로봇',
-    unitRange: 'Unit 4 ~ 6',
+    unitRange: 'Lv.10 ~ 19',
     color: '#06b6d4',
     glow: 'rgba(6,182,212,0.5)',
     desc: '헤드폰 달린 보라 로봇 · 왕관 · 입체감 UP',
@@ -32,7 +32,7 @@ const EVOLUTION_STAGES = [
     id: 'speech_bubble',
     icon: speechBubbleIcon,
     name: '에이몬 말풍선',
-    unitRange: 'Unit 7 ~ 8',
+    unitRange: 'Lv.20 ~ 29',
     color: '#10b981',
     glow: 'rgba(16,185,129,0.5)',
     desc: '말풍선 몸체 · 흰 얼굴 패널 · {} </> 배지',
@@ -41,38 +41,45 @@ const EVOLUTION_STAGES = [
     id: 'final_ghost',
     icon: finalGhostIcon,
     name: '파이널 에이몬',
-    unitRange: '전 유닛 클리어',
+    unitRange: 'Lv.30+',
     color: '#f59e0b',
     glow: 'rgba(245,158,11,0.5)',
     desc: '연보라 반투명 고스트 · AI 배지 · 프리미엄',
   },
 ]
 
-// 완료 유닛 수 → 현재 진화 단계
-function getEvolutionStage(completedUnits) {
-  if (completedUnits >= 8) return EVOLUTION_STAGES[3]
-  if (completedUnits >= 6) return EVOLUTION_STAGES[2]
-  if (completedUnits >= 3) return EVOLUTION_STAGES[1]
-  return EVOLUTION_STAGES[0]
+// 캐릭터 ID → 현재 진화 단계
+function getEvolutionStage(characterId) {
+  const stage = EVOLUTION_STAGES.find(s => s.id === characterId)
+  return stage || EVOLUTION_STAGES[0]
 }
 
 // XP 레벨 테이블
 function calcLevel(xp) {
-  const thresholds = [
-    ...Array(5).fill(1000),
-    ...Array(10).fill(2500),
-    ...Array(10).fill(5000),
-    ...Array(10).fill(10000),
-    ...Array(5).fill(20000),
-  ]
-  let lv = 1, remaining = xp
-  for (const threshold of thresholds) {
-    if (remaining < threshold) return { lv, xpInLevel: remaining, xpForNext: threshold }
-    remaining -= threshold
+  let lv = 1
+  let accumulated = 0
+
+  while (lv < 30) {
+    const needed = lv * 1000
+    if (xp < accumulated + needed) {
+      return {
+        lv,
+        xpInLevel: xp - accumulated,
+        xpForNext: needed
+      }
+    }
+    accumulated += needed
     lv++
-    if (lv >= 40) return { lv: 40, xpInLevel: 0, xpForNext: 0 }
   }
-  return { lv, xpInLevel: remaining, xpForNext: thresholds[lv - 1] }
+
+  // Lv.30+ 리미트 해제
+  const extraXp = xp - accumulated
+  const extraLv = Math.floor(extraXp / 30000)
+  return {
+    lv: 30 + extraLv,
+    xpInLevel: extraXp % 30000,
+    xpForNext: 30000
+  }
 }
 
 // ── 레벨 테스트 문제 (3문항) ──
@@ -445,7 +452,7 @@ export default function Home() {
   /* ── 로그인 대시보드 ── */
   const completedStages = stats?.completed_stages || 0
   const completedUnits  = user?.completed_units || 0
-  const evoStage        = getEvolutionStage(completedUnits)
+  const evoStage        = getEvolutionStage(user?.character)
   const totalXp         = user?.xp || 0
   const { lv, xpInLevel, xpForNext } = calcLevel(totalXp)
   const xpPct = xpForNext > 0 ? Math.round((xpInLevel / xpForNext) * 100) : 100
@@ -555,13 +562,13 @@ export default function Home() {
           )}
         </div>
 
-        {completedUnits < 8 && (
+        {user?.character !== 'final_ghost' && (
           <div className="home-next-evo">
             <span className="home-next-evo-label">다음 진화까지</span>
             <span className="home-next-evo-val">
-              {completedUnits < 3 && `Unit 3 완료 → 🤖 로봇 진화`}
-              {completedUnits >= 3 && completedUnits < 6 && `Unit 6 완료 → 💬 말풍선 진화`}
-              {completedUnits >= 6 && `Unit 8 완료 → 👻 파이널 진화`}
+              {(!user?.character || user?.character === 'slime') && `Lv.10 달성 → 🤖 로봇 진화`}
+              {user?.character === 'robot' && `Lv.20 달성 → 💬 말풍선 진화`}
+              {user?.character === 'speech_bubble' && `Lv.30 달성 → 👻 파이널 진화`}
             </span>
           </div>
         )}

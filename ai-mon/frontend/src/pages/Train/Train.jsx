@@ -10,8 +10,9 @@ export default function Train() {
   const navigate = useNavigate()
 
   const [questions, setQuestions] = useState([])
+  const [currentUnit, setCurrentUnit] = useState(1)
   const [current, setCurrent]     = useState(0)
-  const [loading, setLoading]     = useState(true)
+  const [loading, setLoading]     = useState(false)
   const [mode, setMode]           = useState('idle') // idle | playing | result
   const [correctCount, setCorrectCount] = useState(0)
 
@@ -24,7 +25,7 @@ export default function Train() {
   const startTraining = async () => {
     setLoading(true)
     try {
-      const res = await trainApi.getReview({ limit: 5, course_level: user?.course_level || 'beginner' })
+      const res = await trainApi.getReview({ unit: currentUnit, limit: 15, course_level: user?.course_level || 'beginner' })
       setQuestions(res.data)
       setCurrent(0)
       setCorrectCount(0)
@@ -72,9 +73,23 @@ export default function Train() {
         <div className="train-card card-glass animate-fade-in-up">
           <div className="train-icon">📚</div>
           <h2>오늘의 복습 훈련</h2>
-          <p>내 레벨({user?.course_level})에 맞는 복습 문제 5개가 준비되어 있습니다.</p>
+          <p>내 레벨({user?.course_level})에 맞는 복습 문제 15개가 준비되어 있습니다.</p>
+          
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'center', margin: '1.5rem 0' }}>
+            {[1, 2, 3, 4, 5, 6, 7, 8].map(u => (
+              <button
+                key={u}
+                className={`btn btn-sm ${currentUnit === u ? 'btn-primary' : 'btn-outline'}`}
+                onClick={() => setCurrentUnit(u)}
+                style={{ flex: '1 1 calc(25% - 8px)', minWidth: '70px' }}
+              >
+                Unit {u}
+              </button>
+            ))}
+          </div>
+
           <button 
-            className="btn btn-primary btn-lg btn-full mt-4" 
+            className="btn btn-primary btn-lg btn-full mt-2" 
             onClick={startTraining}
             disabled={loading}
           >
