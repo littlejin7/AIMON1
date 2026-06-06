@@ -132,6 +132,8 @@ backend/data/lessons/
 
 ## 2. questions.json
 
+> 현황 (2026-06-07): stage_quiz 118개 / miniboss 101개 / unit_boss 11개 / 총 230개
+
 퀴즈 문제 데이터 — 스테이지 퀴즈 + 보스 문제 통합 관리
 
 | 필드 | 타입 | 허용값 | 필수 | 설명 |
