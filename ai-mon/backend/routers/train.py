@@ -1,5 +1,9 @@
 import json, os, random
-from fastapi import APIRouter, Header
+from fastapi import APIRouter, Header, HTTPException
+from jose import jwt, JWTError
+
+SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
 router = APIRouter()
 
 QUESTIONS_FILE = os.path.join(os.path.dirname(__file__), "../data/questions.json")
@@ -36,12 +40,11 @@ def get_train_review(
     user_id = None
     if authorization and authorization.startswith("Bearer "):
         token = authorization.split(" ")[1]
-        users = load_users()
-        for u in users:
-            # 토큰 기반 유저 매칭 (기존 auth 방식 그대로 활용)
-            if u.get("token") == token or u.get("id") == token:
-                user_id = u.get("id")
-                break
+        try:
+            payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+            user_id = payload.get("sub")
+        except JWTError:
+            pass
 
     # 해당 유닛 스테이지 퀴즈 + 미니보스 문제 풀
     unit_pool = [
