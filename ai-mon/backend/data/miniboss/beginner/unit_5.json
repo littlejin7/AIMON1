@@ -1,0 +1,1384 @@
+{
+  "questions": [
+    {
+      "question_id": "miniboss_5_1_mc_001",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "Python에서 함수를 정의하는 키워드는?",
+      "choices": [
+        "A. def",
+        "B. func",
+        "C. define",
+        "D. function"
+      ],
+      "answer": "A. def",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `def` 키워드로 함수를 정의해요.",
+        "wrong": "Python 함수 정의는 `def` 키워드로 시작해요. `function`이나 `func`는 Python에 없어요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_1_mc_002",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "함수를 호출하는 올바른 방법은?",
+      "choices": [
+        "A. `call greet`",
+        "B. `run greet()`",
+        "C. `greet()`",
+        "D. `execute greet`"
+      ],
+      "answer": "C. `greet()`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 함수 이름 뒤에 괄호 `()`를 붙여서 호출해요.",
+        "wrong": "함수 호출은 `함수이름()` 형태예요. 별도 키워드 없이 괄호만 붙이면 돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_1_mc_003",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 중 올바른 함수 정의 형태는?",
+      "choices": [
+        "A. `def show_result():`",
+        "B. `def show_result()`",
+        "C. `show_result() def:`",
+        "D. `def: show_result()`"
+      ],
+      "answer": "A. `def show_result():`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `def 함수이름():` 형태가 올바른 Python 함수 정의예요.",
+        "wrong": "함수 정의는 `def 함수이름():` 형태예요. 콜론 `:`이 반드시 필요해요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_1_mc_004",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드에서 함수가 실행되는 횟수는?\n\n```python\ndef greet():\n    print('안녕하세요')\n\ngreet()\ngreet()\ngreet()\n```",
+      "choices": [
+        "A. 1번",
+        "B. 2번",
+        "C. 3번",
+        "D. 0번"
+      ],
+      "answer": "C. 3번",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `greet()`를 3번 호출했으므로 함수가 3번 실행돼요.",
+        "wrong": "함수는 호출한 횟수만큼 실행돼요. `greet()`가 3번 있으므로 3번 실행돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_1_mc_005",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "함수를 사용하는 주된 이유로 올바른 것은?",
+      "choices": [
+        "A. 코드를 더 길게 만들기 위해",
+        "B. 같은 코드를 반복하지 않고 재사용하기 위해",
+        "C. 변수를 자동으로 삭제하기 위해",
+        "D. 실행 속도를 높이기 위해"
+      ],
+      "answer": "B. 같은 코드를 반복하지 않고 재사용하기 위해",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 함수의 핵심 장점은 코드 재사용이에요. 한 번 정의하고 여러 번 호출할 수 있어요.",
+        "wrong": "함수를 쓰는 가장 큰 이유는 코드 재사용이에요. 같은 코드를 여러 곳에서 반복하지 않아도 돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_1_os_006",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef show():\n    print('Python')\n\nshow()\n```",
+      "choices": [
+        "A. Python",
+        "B. show",
+        "C. def show()",
+        "D. 아무것도 출력 안 됨"
+      ],
+      "answer": "A. Python",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `show()`를 호출하면 함수 안의 `print('Python')`이 실행돼요.",
+        "wrong": "함수를 호출하면 함수 안의 코드가 실행돼요. `print('Python')`이 실행되어 Python이 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_1_os_007",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef display():\n    print('1번')\n    print('2번')\n\nprint('시작')\ndisplay()\n```",
+      "choices": [
+        "A. 시작",
+        "B. 1번 / 2번 / 시작",
+        "C. 시작 / 1번 / 2번",
+        "D. 1번 / 2번"
+      ],
+      "answer": "C. 시작 / 1번 / 2번",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! '시작' 출력 후 display()를 호출하면 '1번', '2번'이 순서대로 출력돼요.",
+        "wrong": "코드 순서대로 실행돼요. print('시작') → display() 호출(1번, 2번) 순이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_1_os_008",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef repeat():\n    print('반복')\n\nrepeat()\nrepeat()\nprint('종료')\n```",
+      "choices": [
+        "A. 반복 / 종료",
+        "B. 반복 / 반복 / 종료",
+        "C. 종료 / 반복 / 반복",
+        "D. 반복 / 반복"
+      ],
+      "answer": "B. 반복 / 반복 / 종료",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! repeat()를 2번 호출해 '반복'이 2번 출력되고, 마지막에 '종료'가 출력돼요.",
+        "wrong": "repeat()가 2번 호출되어 '반복'이 2번 출력돼요. 그 뒤 print('종료')가 실행돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_1_os_009",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef calculate():\n    x = 5 + 3\n    print(x)\n\ncalculate()\ncalculate()\n```",
+      "choices": [
+        "A. 5 / 3 / 5 / 3",
+        "B. 16",
+        "C. 8",
+        "D. 8 / 8"
+      ],
+      "answer": "D. 8 / 8",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 5+3=8이고, 함수를 2번 호출했으므로 8이 두 번 출력돼요.",
+        "wrong": "함수 안에서 5+3=8을 계산하고 출력해요. 함수를 2번 호출했으므로 8이 2번 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_1_os_010",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef inner():\n    print('내부')\n\ndef outer():\n    print('외부 시작')\n    inner()\n    print('외부 끝')\n\nouter()\n```",
+      "choices": [
+        "A. 외부 시작 / 외부 끝 / 내부",
+        "B. 내부 / 외부 시작 / 외부 끝",
+        "C. 외부 시작 / 내부 / 외부 끝",
+        "D. 오류 발생"
+      ],
+      "answer": "C. 외부 시작 / 내부 / 외부 끝",
+      "hint": "",
+      "feedback": {
+        "correct": "훌륭해요! outer() 안에서 inner()를 호출해요. '외부 시작' → inner() 실행('내부') → '외부 끝' 순이에요.",
+        "wrong": "outer()가 호출되면 순서대로 실행돼요. '외부 시작' → inner() 호출(내부) → '외부 끝' 순이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_2_mc_001",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "함수 호출 시 전달하는 실제 값을 무엇이라고 하나요?",
+      "choices": [
+        "A. 반환값",
+        "B. 인수 (argument)",
+        "C. 매개변수",
+        "D. 지역변수"
+      ],
+      "answer": "B. 인수 (argument)",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 함수 호출 시 전달하는 실제 값을 인수(argument)라고 해요.",
+        "wrong": "호출할 때 `greet('철수')`처럼 전달하는 '철수'가 인수예요. 함수 정의의 변수 이름은 매개변수예요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_2_mc_002",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "매개변수 기본값 설정으로 올바른 것은?",
+      "choices": [
+        "A. `def f(x == 0):`",
+        "B. `def f(x: 0):`",
+        "C. `def f(x=0):`",
+        "D. `def f(x; 0):`"
+      ],
+      "answer": "C. `def f(x=0):`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 기본값은 `매개변수=값` 형태로 설정해요.",
+        "wrong": "기본값 설정은 `매개변수=값` 형태예요. `==`이나 `:`는 기본값 설정에 사용하지 않아요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_2_mc_003",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드에서 a, b에 들어가는 값은?\n\n```python\ndef sub(a, b):\n    print(a - b)\n\nsub(8, 3)\n```",
+      "choices": [
+        "A. a=3, b=8",
+        "B. a=8, b=8",
+        "C. a=8, b=3",
+        "D. a=3, b=3"
+      ],
+      "answer": "C. a=8, b=3",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 인수는 순서대로 전달돼요. 첫 번째 8이 a, 두 번째 3이 b가 돼요.",
+        "wrong": "인수는 매개변수 순서대로 전달돼요. `sub(8, 3)`에서 a=8, b=3이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_2_mc_004",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드에서 오류가 발생하는 이유는?\n\n```python\ndef show(a, b):\n    print(a, b)\n\nshow(1)\n```",
+      "choices": [
+        "A. 함수 이름이 잘못되었기 때문",
+        "B. 매개변수가 2개인데 인수를 1개만 전달했기 때문",
+        "C. print() 사용이 잘못되었기 때문",
+        "D. 들여쓰기가 잘못되었기 때문"
+      ],
+      "answer": "B. 매개변수가 2개인데 인수를 1개만 전달했기 때문",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 매개변수가 2개(a, b)인데 인수를 1개(1)만 전달해서 오류가 발생해요.",
+        "wrong": "매개변수 수와 인수 수가 일치해야 해요. a, b 두 개가 필요한데 1 하나만 전달했으므로 오류가 발생해요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_2_mc_005",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "키워드 인수의 장점으로 올바른 것은?",
+      "choices": [
+        "A. 함수 실행 속도가 빨라진다",
+        "B. 매개변수 이름을 명시해 순서와 상관없이 전달할 수 있다",
+        "C. 기본값을 자동으로 설정해 준다",
+        "D. 매개변수 수를 줄일 수 있다"
+      ],
+      "answer": "B. 매개변수 이름을 명시해 순서와 상관없이 전달할 수 있다",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 키워드 인수는 `매개변수이름=값` 형태로 순서와 무관하게 전달할 수 있어요.",
+        "wrong": "키워드 인수(`f(b=2, a=1)` 형태)는 이름을 명시해서 순서와 상관없이 전달할 수 있어요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_2_os_006",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef greet(name):\n    print('Hi,', name)\n\ngreet('Alice')\ngreet('Bob')\n```",
+      "choices": [
+        "A. Hi, greet / Hi, greet",
+        "B. Hi, name / Hi, name",
+        "C. Hi, Alice / Hi, Bob",
+        "D. 오류 발생"
+      ],
+      "answer": "C. Hi, Alice / Hi, Bob",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 첫 번째 호출에서 name='Alice', 두 번째에서 name='Bob'이 전달돼요.",
+        "wrong": "각 호출마다 다른 인수가 전달돼요. name='Alice' → 'Hi, Alice', name='Bob' → 'Hi, Bob'이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_2_os_007",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef power(base, exp=2):\n    print(base ** exp)\n\npower(3)\npower(2, 3)\n```",
+      "choices": [
+        "A. 3 / 8",
+        "B. 9 / 6",
+        "C. 9 / 8",
+        "D. 6 / 8"
+      ],
+      "answer": "C. 9 / 8",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `power(3)`은 exp=2(기본값)라 3²=9, `power(2, 3)`은 exp=3이라 2³=8이에요.",
+        "wrong": "`power(3)`은 exp=2(기본값)이라 3**2=9. `power(2, 3)`은 exp=3이라 2**3=8이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_2_os_008",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef label(text, mark='*'):\n    print(mark + text + mark)\n\nlabel('Python')\nlabel('Java', '#')\n```",
+      "choices": [
+        "A. Python / Java",
+        "B. *Python* / #Java#",
+        "C. *Python / #Java",
+        "D. Python* / Java#"
+      ],
+      "answer": "B. *Python* / #Java#",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 첫 번째는 mark='*'(기본값), 두 번째는 mark='#'이 전달돼요.",
+        "wrong": "`label('Python')`은 mark='*'(기본값)이라 '*Python*'. `label('Java', '#')`은 mark='#'이라 '#Java#'이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_2_os_009",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef describe(item, count, unit='개'):\n    print(f'{item} {count}{unit}')\n\ndescribe('사과', 3)\ndescribe('우유', 2, '리터')\n```",
+      "choices": [
+        "A. 사과 3개 / 우유 2개",
+        "B. 사과 3리터 / 우유 2리터",
+        "C. 사과 3 / 우유 2",
+        "D. 사과 3개 / 우유 2리터"
+      ],
+      "answer": "D. 사과 3개 / 우유 2리터",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 첫 번째는 unit='개'(기본값), 두 번째는 unit='리터'가 전달돼요.",
+        "wrong": "`describe('사과', 3)`은 unit='개'(기본값)이라 '사과 3개'. `describe('우유', 2, '리터')`는 '우유 2리터'예요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_2_os_010",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef calc(x, y, op='+'):\n    if op == '+':\n        print(x + y)\n    elif op == '*':\n        print(x * y)\n\ncalc(y=4, x=3)\ncalc(3, 4, '*')\n```",
+      "choices": [
+        "A. 7 / 12",
+        "B. 12 / 7",
+        "C. 7 / 7",
+        "D. 12 / 12"
+      ],
+      "answer": "A. 7 / 12",
+      "hint": "",
+      "feedback": {
+        "correct": "훌륭해요! 첫 번째는 키워드 인수로 x=3, y=4, op='+'(기본값)이라 7. 두 번째는 op='*'이라 3*4=12예요.",
+        "wrong": "`calc(y=4, x=3)`은 키워드 인수라 x=3, y=4, op='+'(기본값) → 7. `calc(3, 4, '*')`은 3*4=12예요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_3_mc_001",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "`return`이 없는 함수가 반환하는 값은?",
+      "choices": [
+        "A. None",
+        "B. 0",
+        "C. False",
+        "D. ''"
+      ],
+      "answer": "A. None",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `return`이 없으면 함수는 자동으로 `None`을 반환해요.",
+        "wrong": "Python에서 return이 없는 함수는 자동으로 None을 반환해요. None은 '값이 없음'을 의미해요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_3_mc_002",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "`return`을 만나면 함수는 어떻게 되나요?",
+      "choices": [
+        "A. 처음부터 다시 실행된다",
+        "B. 잠시 멈췄다 재개된다",
+        "C. 즉시 종료되고 값을 반환한다",
+        "D. 다음 줄만 건너뛴다"
+      ],
+      "answer": "C. 즉시 종료되고 값을 반환한다",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `return`을 만나면 함수가 즉시 종료되고 값을 반환해요.",
+        "wrong": "return은 함수를 즉시 종료하고 값을 돌려줘요. return 아래 코드는 실행되지 않아요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_3_mc_003",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "`print()`와 `return`의 차이로 올바른 것은?",
+      "choices": [
+        "A. 둘 다 값을 반환한다",
+        "B. 둘 다 화면에 출력한다",
+        "C. `print()`는 화면 출력, `return`은 값 반환이다",
+        "D. `print()`는 값 반환, `return`은 화면 출력이다"
+      ],
+      "answer": "C. `print()`는 화면 출력, `return`은 값 반환이다",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `print()`는 화면에 보여주기만 하고, `return`은 값을 돌려줘요.",
+        "wrong": "print()는 화면 출력만 해요. return은 값을 반환해서 변수에 저장하거나 연산에 사용할 수 있어요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_3_mc_004",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드에서 result에 저장되는 값은?\n\n```python\ndef add(a, b):\n    return a + b\n\nresult = add(5, 7)\n```",
+      "choices": [
+        "A. None",
+        "B. 57",
+        "C. a + b",
+        "D. 12"
+      ],
+      "answer": "D. 12",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! a=5, b=7이 전달되어 5+7=12가 반환되고 result에 저장돼요.",
+        "wrong": "`add(5, 7)`에서 a=5, b=7이에요. 5+7=12가 반환되어 result=12가 돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_3_mc_005",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드에서 x에 저장되는 값은?\n\n```python\ndef show(n):\n    print(n * 2)\n\nx = show(5)\n```",
+      "choices": [
+        "A. 5",
+        "B. 10",
+        "C. None",
+        "D. 오류 발생"
+      ],
+      "answer": "C. None",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `show()`는 print만 하고 return이 없어요. None이 반환되어 x=None이 돼요.",
+        "wrong": "show()는 print만 하고 return이 없어요. return 없는 함수는 None을 반환해요. x=None이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_3_os_006",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef get_square(n):\n    return n * n\n\nprint(get_square(4))\n```",
+      "choices": [
+        "A. n * n",
+        "B. get_square(4)",
+        "C. None",
+        "D. 16"
+      ],
+      "answer": "D. 16",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! n=4가 전달되어 4*4=16이 반환되고, print()가 16을 출력해요.",
+        "wrong": "get_square(4)에서 n=4이고 4*4=16이 반환돼요. print()가 반환값 16을 출력해요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_3_os_007",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef greet(name):\n    print('Hello,', name)\n\nresult = greet('Python')\nprint(result)\n```",
+      "choices": [
+        "A. Hello, Python / Hello, Python",
+        "B. Hello, Python / None",
+        "C. None / Hello, Python",
+        "D. None / None"
+      ],
+      "answer": "B. Hello, Python / None",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! greet()는 print만 하고 return이 없어요. 화면엔 'Hello, Python'이 출력되고 result=None이에요.",
+        "wrong": "greet()의 print()가 'Hello, Python'을 출력해요. return이 없으므로 result=None이고 print(result)는 None을 출력해요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_3_os_008",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef add(a, b):\n    return a + b\n\nprint(add(add(1, 2), 3))\n```",
+      "choices": [
+        "A. 1 2 3",
+        "B. 3 3",
+        "C. 9",
+        "D. 6"
+      ],
+      "answer": "D. 6",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 안쪽 add(1, 2)=3이 먼저 실행되고, add(3, 3)=6이 출력돼요.",
+        "wrong": "안쪽 add(1, 2)=3이 먼저 실행돼요. 그 결과를 바깥 add(3, 3)에 전달하면 6이 반환돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_3_os_009",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef check(n):\n    if n % 2 == 0:\n        return '짝수'\n    return '홀수'\n\nresults = []\nfor i in range(1, 4):\n    results.append(check(i))\nprint(results)\n```",
+      "choices": [
+        "A. ['짝수', '홀수', '짝수']",
+        "B. ['홀수', '홀수', '홀수']",
+        "C. ['홀수', '짝수', '홀수']",
+        "D. ['짝수', '짝수', '홀수']"
+      ],
+      "answer": "C. ['홀수', '짝수', '홀수']",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! check(1)='홀수', check(2)='짝수', check(3)='홀수'가 리스트에 담겨요.",
+        "wrong": "1은 홀수, 2는 짝수, 3은 홀수예요. check()의 반환값이 리스트에 순서대로 담겨요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_3_os_010",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef clamp(value, minimum, maximum):\n    if value < minimum:\n        return minimum\n    if value > maximum:\n        return maximum\n    return value\n\nprint(clamp(5, 1, 10))\nprint(clamp(-3, 1, 10))\nprint(clamp(15, 1, 10))\n```",
+      "choices": [
+        "A. 5 / 1 / 10",
+        "B. 5 / -3 / 15",
+        "C. 1 / 1 / 10",
+        "D. 5 / 0 / 10"
+      ],
+      "answer": "A. 5 / 1 / 10",
+      "hint": "",
+      "feedback": {
+        "correct": "훌륭해요! 5는 범위 안이라 5 반환, -3은 최솟값 미만이라 1 반환, 15는 최댓값 초과라 10 반환이에요.",
+        "wrong": "clamp(5,1,10)은 1≤5≤10이라 5 반환. clamp(-3,1,10)은 -3<1이라 1 반환. clamp(15,1,10)은 15>10이라 10 반환이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_4_mc_001",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "함수 안에서 만든 변수는?",
+      "choices": [
+        "A. 전역변수",
+        "B. 매개변수",
+        "C. 지역변수",
+        "D. 상수"
+      ],
+      "answer": "C. 지역변수",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 함수 안에서 만든 변수는 지역변수예요. 함수 밖에서는 사용할 수 없어요.",
+        "wrong": "함수 안에서 만든 변수는 지역변수예요. 함수 밖에서 만든 변수는 전역변수예요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_4_mc_002",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "함수 안에서 전역변수를 수정할 때 필요한 키워드는?",
+      "choices": [
+        "A. local",
+        "B. var",
+        "C. global",
+        "D. public"
+      ],
+      "answer": "C. global",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `global 변수이름`을 선언하면 함수 안에서 전역변수를 수정할 수 있어요.",
+        "wrong": "함수 안에서 전역변수를 수정하려면 `global` 키워드가 필요해요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_4_mc_003",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "지역변수의 유효 범위는?",
+      "choices": [
+        "A. 프로그램 전체",
+        "B. 선언한 함수 안에서만",
+        "C. 같은 파일 안에서",
+        "D. 모든 함수에서"
+      ],
+      "answer": "B. 선언한 함수 안에서만",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 지역변수는 선언한 함수 안에서만 유효하고 함수가 끝나면 사라져요.",
+        "wrong": "지역변수는 해당 함수 안에서만 사용할 수 있어요. 함수 밖에서 접근하면 오류가 발생해요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_4_mc_004",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드에서 오류가 발생하는 이유는?\n\n```python\ndef make():\n    data = [1, 2, 3]\n\nmake()\nprint(data)\n```",
+      "choices": [
+        "A. 리스트를 잘못 만들었기 때문",
+        "B. make()를 호출하지 않았기 때문",
+        "C. data가 지역변수라 함수 밖에서 접근할 수 없기 때문",
+        "D. print() 사용이 잘못되었기 때문"
+      ],
+      "answer": "C. data가 지역변수라 함수 밖에서 접근할 수 없기 때문",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! data는 make() 안의 지역변수예요. 함수 밖에서 접근하면 NameError가 발생해요.",
+        "wrong": "data는 함수 안에서 만든 지역변수예요. 함수가 끝나면 사라지므로 함수 밖에서 접근할 수 없어요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_4_mc_005",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드에서 전역변수 x에 저장된 최종 값은?\n\n```python\nx = 5\n\ndef change():\n    x = 100\n\nchange()\n```",
+      "choices": [
+        "A. 5",
+        "B. 100",
+        "C. None",
+        "D. 오류 발생"
+      ],
+      "answer": "A. 5",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! change() 안의 x=100은 지역변수예요. 전역변수 x=5는 변하지 않아요.",
+        "wrong": "`global` 없이 함수 안에서 x=100을 쓰면 새로운 지역변수가 생겨요. 전역변수 x는 5 그대로예요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_4_os_006",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nval = 10\n\ndef show():\n    print(val)\n\nshow()\nprint(val)\n```",
+      "choices": [
+        "A. 오류 발생 / 10",
+        "B. 10 / 10",
+        "C. 10 / 오류 발생",
+        "D. None / 10"
+      ],
+      "answer": "B. 10 / 10",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 전역변수 val=10은 함수 안에서도 읽을 수 있어요. 두 번 모두 10이 출력돼요.",
+        "wrong": "전역변수는 읽기만 할 때 `global` 없이도 함수 안에서 사용할 수 있어요. 10 / 10이 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_4_os_007",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nmsg = '전역'\n\ndef update():\n    msg = '지역'\n    print(msg)\n\nupdate()\nprint(msg)\n```",
+      "choices": [
+        "A. 전역 / 전역",
+        "B. 지역 / 지역",
+        "C. 전역 / 지역",
+        "D. 지역 / 전역"
+      ],
+      "answer": "D. 지역 / 전역",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 함수 안의 msg='지역'은 지역변수예요. 전역변수 msg='전역'은 영향받지 않아요.",
+        "wrong": "함수 안 msg='지역'은 새로운 지역변수예요. update() 안에서는 '지역', 함수 밖에서는 전역변수 '전역'이 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_4_os_008",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nn = 1\n\ndef double():\n    global n\n    n = n * 2\n\ndouble()\ndouble()\ndouble()\nprint(n)\n```",
+      "choices": [
+        "A. 1",
+        "B. 4",
+        "C. 6",
+        "D. 8"
+      ],
+      "answer": "D. 8",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 1*2=2 → 2*2=4 → 4*2=8. 세 번 호출 후 n=8이에요.",
+        "wrong": "`global n`으로 전역변수를 수정해요. 1→2→4→8. 세 번 호출 후 n=8이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_4_os_009",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ntotal = 100\n\ndef subtract(n):\n    global total\n    total = total - n\n    return total\n\na = subtract(30)\nb = subtract(20)\nprint(a, b)\n```",
+      "choices": [
+        "A. 70 50",
+        "B. 30 20",
+        "C. 100 100",
+        "D. 70 70"
+      ],
+      "answer": "A. 70 50",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! subtract(30): total=70, a=70. subtract(20): total=50, b=50. 70 50이 출력돼요.",
+        "wrong": "subtract(30)→total=100-30=70, a=70. subtract(20)→total=70-20=50, b=50. print(a, b)는 70 50이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_4_os_010",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nx = 10\ny = 20\n\ndef swap():\n    global x, y\n    x, y = y, x\n\nswap()\nprint(x, y)\n```",
+      "choices": [
+        "A. 10 20",
+        "B. 20 10",
+        "C. 20 20",
+        "D. 10 10"
+      ],
+      "answer": "B. 20 10",
+      "hint": "",
+      "feedback": {
+        "correct": "훌륭해요! `global x, y`로 두 전역변수를 동시에 선언해요. x, y = y, x로 값이 바뀌어 20 10이 출력돼요.",
+        "wrong": "`global x, y`로 두 변수를 모두 전역으로 선언해요. `x, y = y, x`로 값이 교환되어 x=20, y=10이 돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_5_mc_001",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "`*args`로 받은 인수들은 어떤 자료형으로 저장되나요?",
+      "choices": [
+        "A. 리스트",
+        "B. 딕셔너리",
+        "C. 튜플",
+        "D. 집합(set)"
+      ],
+      "answer": "C. 튜플",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `*args`는 전달된 인수들을 튜플로 묶어요.",
+        "wrong": "`*args`는 튜플로 저장돼요. `**kwargs`는 딕셔너리로 저장돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_5_mc_002",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "`",
+      "choices": [
+        "A. 값만 전달 (예: `f(1, 2)`)",
+        "B. 키=값 형태 (예: `f(x=1, y=2)`)",
+        "C. 리스트로 전달 (예: `f([1, 2])`)",
+        "D. 튜플로 전달 (예: `f((1, 2))`)"
+      ],
+      "answer": "B. 키=값 형태 (예: `f(x=1, y=2)`)",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `**kwargs`는 `키=값` 형태의 키워드 인수를 받아요.",
+        "wrong": "`**kwargs`는 `name='철수'`처럼 키워드 인수를 받아요. 값만 전달하는 건 `*args`예요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_5_mc_003",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "`*args`와 `",
+      "choices": [
+        "A. `**kwargs` → `*args` → 일반 매개변수",
+        "B. 일반 매개변수 → `**kwargs` → `*args`",
+        "C. `*args` → `**kwargs` → 일반 매개변수",
+        "D. 일반 매개변수 → `*args` → `**kwargs`"
+      ],
+      "answer": "D. 일반 매개변수 → `*args` → `**kwargs`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 일반 → `*args` → `**kwargs` 순서를 반드시 지켜야 해요.",
+        "wrong": "매개변수 순서는 일반 → `*args` → `**kwargs`예요. 이 순서를 어기면 오류가 발생해요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_5_mc_004",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드에서 args에 저장되는 값은?\n\n```python\ndef show(*args):\n    print(args)\n\nshow(10, 20, 30)\n```",
+      "choices": [
+        "A. [10, 20, 30]",
+        "B. {10, 20, 30}",
+        "C. (10, 20, 30)",
+        "D. 10 20 30"
+      ],
+      "answer": "C. (10, 20, 30)",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `*args`는 인수들을 튜플로 묶어요. `(10, 20, 30)`이 저장돼요.",
+        "wrong": "`*args`는 전달된 인수를 튜플로 저장해요. 리스트 `[]`나 집합 `{}`이 아닌 `(10, 20, 30)`이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_5_mc_005",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드에서 kwargs에 저장되는 값은?\n\n```python\ndef show(**kwargs):\n    print(kwargs)\n\nshow(name='Alice', score=90)\n```",
+      "choices": [
+        "A. ('Alice', 90)",
+        "B. {'name': 'Alice', 'score': 90}",
+        "C. ['Alice', 90]",
+        "D. name score"
+      ],
+      "answer": "B. {'name': 'Alice', 'score': 90}",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `**kwargs`는 키워드 인수를 딕셔너리로 묶어요.",
+        "wrong": "`**kwargs`는 `키=값` 형태의 인수를 딕셔너리로 저장해요. `{'name': 'Alice', 'score': 90}`이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_5_os_006",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef total(*args):\n    print(sum(args))\n\ntotal(1, 2, 3, 4, 5)\n```",
+      "choices": [
+        "A. (1, 2, 3, 4, 5)",
+        "B. 5",
+        "C. 1 2 3 4 5",
+        "D. 15"
+      ],
+      "answer": "D. 15",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `sum((1, 2, 3, 4, 5))`=1+2+3+4+5=15예요.",
+        "wrong": "`*args`로 받은 튜플에 sum()을 적용하면 1+2+3+4+5=15가 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_5_os_007",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef show(**kwargs):\n    print(list(kwargs.keys()))\n\nshow(a=1, b=2, c=3)\n```",
+      "choices": [
+        "A. [1, 2, 3]",
+        "B. ['a', 'b', 'c']",
+        "C. {'a': 1, 'b': 2, 'c': 3}",
+        "D. a b c"
+      ],
+      "answer": "B. ['a', 'b', 'c']",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `kwargs.keys()`는 키만 반환하고 list()로 변환하면 `['a', 'b', 'c']`예요.",
+        "wrong": "`kwargs.keys()`는 딕셔너리의 키만 반환해요. list()로 변환하면 `['a', 'b', 'c']`가 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_5_os_008",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef info(label, *values):\n    print(f'{label}: {len(values)}개')\n\ninfo('점수', 80, 90, 70, 85)\n```",
+      "choices": [
+        "A. 점수: 4개",
+        "B. 점수: (80, 90, 70, 85)",
+        "C. label: 4",
+        "D. 80 90 70 85"
+      ],
+      "answer": "A. 점수: 4개",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! label='점수', values=(80, 90, 70, 85)→len=4예요. f-string으로 '점수: 4개'가 출력돼요.",
+        "wrong": "label='점수', *values=(80,90,70,85)예요. len(values)=4이고 f-string으로 '점수: 4개'가 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_5_os_009",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef describe(**kwargs):\n    for k, v in kwargs.items():\n        if v > 80:\n            print(k)\n\ndescribe(math=75, english=92, science=88)\n```",
+      "choices": [
+        "A. math / english / science",
+        "B. 75 / 92 / 88",
+        "C. english / science",
+        "D. math"
+      ],
+      "answer": "C. english / science",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! math=75(75<=80 통과), english=92(>80 출력), science=88(>80 출력)이에요.",
+        "wrong": "v>80 조건에 맞는 키만 출력해요. math=75는 80 이하라 제외, english=92와 science=88이 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_5_os_010",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef combine(sep, *words):\n    return sep.join(words)\n\nprint(combine('-', 'a', 'b', 'c'))\nprint(combine(' ', 'hello', 'world'))\n```",
+      "choices": [
+        "A. a-b-c / hello world",
+        "B. a b c / hello-world",
+        "C. -a-b-c / hello world",
+        "D. abc / helloworld"
+      ],
+      "answer": "A. a-b-c / hello world",
+      "hint": "",
+      "feedback": {
+        "correct": "훌륭해요! `'-'.join(('a','b','c'))`='a-b-c', `' '.join(('hello','world'))`='hello world'예요.",
+        "wrong": "sep='-'이면 '-'.join(words)='a-b-c', sep=' '이면 ' '.join(words)='hello world'예요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_6_mc_001",
+      "unit": 5,
+      "stage": "5-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "람다 함수의 올바른 형태는?",
+      "choices": [
+        "A. `lambda x: x * 2`",
+        "B. `def lambda x: x * 2`",
+        "C. `lambda x => x * 2`",
+        "D. `lambda(x): x * 2`"
+      ],
+      "answer": "A. `lambda x: x * 2`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `lambda 매개변수: 표현식` 형태가 올바른 람다 함수예요.",
+        "wrong": "람다는 `lambda 매개변수: 표현식` 형태예요. `=>`는 Python에서 사용하지 않아요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_6_mc_002",
+      "unit": 5,
+      "stage": "5-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "람다 함수의 특징으로 올바른 것은?",
+      "choices": [
+        "A. 반드시 이름이 있어야 한다",
+        "B. 여러 줄 코드를 작성할 수 있다",
+        "C. 한 줄 표현식만 가능하고 표현식의 결과가 자동 반환된다",
+        "D. return 키워드가 필요하다"
+      ],
+      "answer": "C. 한 줄 표현식만 가능하고 표현식의 결과가 자동 반환된다",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 람다는 한 줄 표현식만 가능하고, 표현식 결과가 자동으로 반환돼요.",
+        "wrong": "람다는 한 줄 표현식만 가능하고 return이 필요 없어요. 이름도 없어도 돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_6_mc_003",
+      "unit": 5,
+      "stage": "5-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "`filter()`의 역할로 올바른 것은?",
+      "choices": [
+        "A. 리스트 각 항목에 함수를 적용한 결과를 반환한다",
+        "B. 리스트를 정렬한다",
+        "C. 조건 함수가 True인 항목만 걸러낸다",
+        "D. 리스트 항목을 합산한다"
+      ],
+      "answer": "C. 조건 함수가 True인 항목만 걸러낸다",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `filter(함수, 리스트)`는 함수가 True를 반환하는 항목만 남겨요.",
+        "wrong": "`filter()`는 조건에 맞는 항목만 걸러내요. 각 항목에 함수를 적용하는 건 `map()`이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_6_mc_004",
+      "unit": 5,
+      "stage": "5-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 람다 함수가 반환하는 값은?\n\n```python\nf = lambda x, y: x * y\nf(4, 5)\n```",
+      "choices": [
+        "A. 9",
+        "B. 20",
+        "C. x * y",
+        "D. 45"
+      ],
+      "answer": "B. 20",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! x=4, y=5가 전달되어 4*5=20이 반환돼요.",
+        "wrong": "`lambda x, y: x * y`에서 x=4, y=5이면 4*5=20이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_6_mc_005",
+      "unit": 5,
+      "stage": "5-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "`map()`의 결과를 리스트로 변환하려면?",
+      "choices": [
+        "A. `list(map(...))`",
+        "B. `map(...).tolist()`",
+        "C. `[map(...)]`",
+        "D. `convert(map(...))`"
+      ],
+      "answer": "A. `list(map(...))`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `map()`의 결과를 리스트로 변환하려면 `list()`로 감싸야 해요.",
+        "wrong": "`map()`은 이터레이터를 반환해요. `list(map(...))`처럼 list()로 감싸야 리스트가 돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_6_os_006",
+      "unit": 5,
+      "stage": "5-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ntriple = lambda x: x * 3\nprint(triple(7))\n```",
+      "choices": [
+        "A. x * 3",
+        "B. 10",
+        "C. 7",
+        "D. 21"
+      ],
+      "answer": "D. 21",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! x=7이 전달되어 7*3=21이 반환돼요.",
+        "wrong": "`lambda x: x * 3`에서 x=7이면 7*3=21이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_6_os_007",
+      "unit": 5,
+      "stage": "5-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nresult = list(map(lambda x: x + 10, [5, 10, 15]))\nprint(result)\n```",
+      "choices": [
+        "A. [5, 10, 15]",
+        "B. [15, 20, 25]",
+        "C. [50, 100, 150]",
+        "D. [10, 10, 10]"
+      ],
+      "answer": "B. [15, 20, 25]",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 각 항목에 +10을 적용해요. [5+10, 10+10, 15+10]=[15, 20, 25]예요.",
+        "wrong": "`map(lambda x: x+10, ...)`은 각 항목에 10을 더해요. 5→15, 10→20, 15→25예요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_6_os_008",
+      "unit": 5,
+      "stage": "5-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nresult = list(filter(lambda x: len(x) > 4, ['hi', 'hello', 'python', 'ok']))\nprint(result)\n```",
+      "choices": [
+        "A. ['hi', 'ok']",
+        "B. ['hello', 'python']",
+        "C. ['python']",
+        "D. ['hi', 'hello', 'python', 'ok']"
+      ],
+      "answer": "B. ['hello', 'python']",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! len>4인 항목은 'hello'(5), 'python'(6)이에요. 'hi'(2), 'ok'(2)는 제외돼요.",
+        "wrong": "len('hi')=2, len('hello')=5, len('python')=6, len('ok')=2예요. 4 초과인 hello, python만 남아요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_6_os_009",
+      "unit": 5,
+      "stage": "5-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nnums = [3, 1, 4, 1, 5, 9, 2]\nresult = list(filter(lambda x: x % 2 != 0 and x > 3, nums))\nprint(result)\n```",
+      "choices": [
+        "A. [3, 1, 5, 9, 1]",
+        "B. [4, 2]",
+        "C. [5, 9]",
+        "D. [1, 1, 3]"
+      ],
+      "answer": "C. [5, 9]",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 홀수이면서 3 초과인 항목은 5, 9예요.",
+        "wrong": "조건은 홀수(`x%2!=0`) AND 3 초과(`x>3`)예요. 3은 홀수지만 3>3이 False. 5와 9만 통과해요."
+      }
+    },
+    {
+      "question_id": "miniboss_5_6_os_010",
+      "unit": 5,
+      "stage": "5-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nops = [lambda x: x + 2, lambda x: x * 3]\nvalue = 4\nfor op in ops:\n    value = op(value)\nprint(value)\n```",
+      "choices": [
+        "A. 14",
+        "B. 12",
+        "C. 8",
+        "D. 18"
+      ],
+      "answer": "D. 18",
+      "hint": "",
+      "feedback": {
+        "correct": "훌륭해요! 4+2=6 → 6*3=18 순으로 처리돼요.",
+        "wrong": "람다가 순서대로 적용돼요. 4→6(+2)→18(*3). 최종값은 18이에요."
+      }
+    }
+  ]
+}

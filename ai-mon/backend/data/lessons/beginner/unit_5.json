@@ -1,0 +1,523 @@
+[
+  {
+    "lesson_id": "5-1-beginner",
+    "unit": 5,
+    "stage": "5-1",
+    "course_level": "beginner",
+    "title": "함수 기초",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "함수는 특정 작업을 수행하는 코드 묶음이에요.\n`def 함수이름():` 으로 정의하고, 함수 이름을 호출해서 실행해요.\n같은 코드를 여러 번 쓰는 대신 함수를 한 번 정의하고 여러 번 호출할 수 있어요.",
+        "terminal": {
+          "code": [
+            "def greet():",
+            "    print('안녕하세요!')",
+            "    print('파이썬 함수입니다.')",
+            "greet()",
+            "greet()"
+          ],
+          "output": [
+            "안녕하세요!",
+            "파이썬 함수입니다.",
+            "안녕하세요!",
+            "파이썬 함수입니다."
+          ]
+        },
+        "tip": "함수는 정의만 해서는 실행되지 않아요. 반드시 호출(`greet()`)해야 실행돼요."
+      },
+      {
+        "order": 2,
+        "text": "같은 코드를 여러 번 반복하면 수정할 때 모든 곳을 바꿔야 해요.\n함수로 묶으면 한 곳만 수정하면 돼요. 이를 코드 재사용이라고 해요.",
+        "terminal": {
+          "code": [
+            "# 함수 없이 — 반복되는 코드",
+            "print('=== 결과 출력 ===')",
+            "print('점수:', 85)",
+            "print('=== 결과 출력 ===')",
+            "print('점수:', 92)",
+            "# 함수로 묶으면",
+            "def print_result(score):",
+            "    print('=== 결과 출력 ===')",
+            "    print('점수:', score)",
+            "print_result(85)",
+            "print_result(92)"
+          ],
+          "output": []
+        },
+        "tip": "같은 코드가 2번 이상 반복된다면 함수로 만드는 걸 고려해요."
+      },
+      {
+        "order": 3,
+        "text": "함수 정의는 `def` 키워드로 시작하고, 함수 이름 뒤에 괄호 `()`와 콜론 `:`이 와요.\n함수 안의 코드는 들여쓰기(4칸)로 구분해요.\n함수 이름은 소문자와 언더스코어(`_`)를 사용하는 게 관례예요.",
+        "terminal": {
+          "code": [
+            "# 올바른 함수 정의",
+            "def calculate_average():",
+            "    total = 80 + 90 + 70",
+            "    avg = total / 3",
+            "    print('평균:', avg)",
+            "calculate_average()"
+          ],
+          "output": [
+            "평균: 80.0"
+          ]
+        },
+        "tip": "`def` 뒤에 콜론 `:`을 빠뜨리면 SyntaxError가 발생해요. 들여쓰기도 필수예요."
+      },
+      {
+        "order": 4,
+        "text": "Python은 함수를 정의한 뒤에 호출해야 해요.\n정의보다 호출이 먼저 나오면 오류가 발생해요.\n함수 안의 코드는 호출될 때만 실행돼요 — 정의할 때는 실행되지 않아요.",
+        "terminal": {
+          "code": [
+            "def show_info():",
+            "    print('학습 시작')",
+            "print('함수 정의 완료')",
+            "show_info()",
+            "print('함수 호출 완료')"
+          ],
+          "output": [
+            "함수 정의 완료",
+            "학습 시작",
+            "함수 호출 완료"
+          ]
+        },
+        "tip": "`def` 블록은 정의할 때 실행되지 않아요. `show_info()`처럼 호출해야 비로소 실행돼요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "5-2-beginner",
+    "unit": 5,
+    "stage": "5-2",
+    "course_level": "beginner",
+    "title": "매개변수 & 인수",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "매개변수(parameter)는 함수가 외부에서 값을 받을 때 사용하는 변수예요.\n함수 정의 시 괄호 안에 이름을 써서 선언해요.\n호출할 때 전달하는 값을 인수(argument)라고 해요.",
+        "terminal": {
+          "code": [
+            "def greet(name):        # name이 매개변수",
+            "    print('안녕하세요,', name)",
+            "greet('철수')           # '철수'가 인수",
+            "greet('영희')"
+          ],
+          "output": [
+            "안녕하세요, 철수",
+            "안녕하세요, 영희"
+          ]
+        },
+        "tip": "매개변수는 함수 정의에 쓰는 변수 이름, 인수는 호출할 때 실제로 전달하는 값이에요."
+      },
+      {
+        "order": 2,
+        "text": "매개변수를 여러 개 쓸 때는 쉼표로 구분해요.\n호출할 때도 같은 순서로 인수를 전달해야 해요.",
+        "terminal": {
+          "code": [
+            "def add(a, b):",
+            "    print(a + b)",
+            "add(3, 5)",
+            "add(10, 20)"
+          ],
+          "output": [
+            "8",
+            "30"
+          ]
+        },
+        "tip": "인수는 매개변수 순서에 맞게 전달돼요. `add(3, 5)`에서 a=3, b=5가 돼요."
+      },
+      {
+        "order": 3,
+        "text": "매개변수에 기본값을 설정하면 인수를 전달하지 않아도 기본값이 사용돼요.\n기본값은 `매개변수=값` 형태로 정의해요.",
+        "terminal": {
+          "code": [
+            "def greet(name, lang='Korean'):",
+            "    print(name, '/', lang)",
+            "greet('Alice', 'English')   # 인수 전달",
+            "greet('Bob')                # 기본값 사용"
+          ],
+          "output": [
+            "Alice / English",
+            "Bob / Korean"
+          ]
+        },
+        "tip": "기본값이 있는 매개변수는 항상 기본값이 없는 매개변수 뒤에 와야 해요."
+      },
+      {
+        "order": 4,
+        "text": "인수를 전달할 때 `매개변수이름=값` 형태로 쓰면 순서와 상관없이 전달할 수 있어요.\n이를 키워드 인수라고 해요.",
+        "terminal": {
+          "code": [
+            "def describe(subject, score):",
+            "    print(subject, ':', score, '점')",
+            "describe(score=90, subject='수학')   # 순서 바꿔서 전달",
+            "describe('영어', 85)                 # 순서대로 전달"
+          ],
+          "output": [
+            "수학 : 90 점",
+            "영어 : 85 점"
+          ]
+        },
+        "tip": "키워드 인수를 쓰면 매개변수 이름을 명시해서 가독성을 높일 수 있어요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "5-3-beginner",
+    "unit": 5,
+    "stage": "5-3",
+    "course_level": "beginner",
+    "title": "return 값 반환",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "`return`은 함수가 계산한 값을 호출한 곳으로 돌려주는 키워드예요.\n`print()`는 화면에 출력만 하지만, `return`은 값을 반환해서 변수에 저장하거나 다른 연산에 사용할 수 있어요.",
+        "terminal": {
+          "code": [
+            "def add(a, b):",
+            "    return a + b",
+            "result = add(3, 5)",
+            "print(result)"
+          ],
+          "output": [
+            "8"
+          ]
+        },
+        "tip": "`return`을 만나면 함수가 즉시 종료되고 값을 반환해요. 반환된 값은 변수에 저장할 수 있어요."
+      },
+      {
+        "order": 2,
+        "text": "`print()`는 화면에 출력하지만 값을 돌려주지 않아요.\n`return`은 값을 돌려줘서 다른 곳에서 사용할 수 있어요.",
+        "terminal": {
+          "code": [
+            "# print만 사용",
+            "def add_print(a, b):",
+            "    print(a + b)",
+            "x = add_print(3, 5)   # 8이 출력되지만",
+            "print(x)              # None이 출력됨",
+            "# return 사용",
+            "def add_return(a, b):",
+            "    return a + b",
+            "y = add_return(3, 5)  # 반환값이 y에 저장됨",
+            "print(y)              # 8이 출력됨"
+          ],
+          "output": [
+            "8",
+            "None",
+            "8"
+          ]
+        },
+        "tip": "반환값을 다른 계산에 쓰거나 저장해야 한다면 `return`을 사용해야 해요."
+      },
+      {
+        "order": 3,
+        "text": "`return`을 명시하지 않은 함수는 자동으로 `None`을 반환해요.\n`None`은 Python에서 '값이 없음'을 나타내는 특별한 값이에요.",
+        "terminal": {
+          "code": [
+            "def greet(name):",
+            "    print('안녕,', name)",
+            "result = greet('철수')",
+            "print(result)",
+            "print(type(result))"
+          ],
+          "output": [
+            "안녕, 철수",
+            "None",
+            "<class 'NoneType'>"
+          ]
+        },
+        "tip": "`return` 없이 함수를 변수에 저장하면 None이 들어가요. None인지 확인할 땐 `result is None`을 써요."
+      },
+      {
+        "order": 4,
+        "text": "반환값은 변수에 저장하거나, 다른 함수의 인수로 바로 사용하거나, 연산에 활용할 수 있어요.",
+        "terminal": {
+          "code": [
+            "def square(n):",
+            "    return n * n",
+            "a = square(4)           # 변수에 저장",
+            "print(a)                # 16",
+            "print(square(3))        # 바로 출력에 활용",
+            "print(square(2) + 1)    # 연산에 활용"
+          ],
+          "output": [
+            "16",
+            "9",
+            "5"
+          ]
+        },
+        "tip": "반환값을 다양하게 활용할수록 함수가 더 유연해져요. 함수 안에서 여러 번 return을 쓸 수도 있어요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "5-4-beginner",
+    "unit": 5,
+    "stage": "5-4",
+    "course_level": "beginner",
+    "title": "스코프 (지역/전역)",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "스코프(scope)는 변수가 유효한 범위예요.\n함수 안에서 만든 변수는 함수 안에서만 사용할 수 있어요. 이를 지역변수라고 해요.\n함수 밖에서 만든 변수는 어디서든 읽을 수 있어요. 이를 전역변수라고 해요.",
+        "terminal": {
+          "code": [
+            "x = 10          # 전역변수",
+            "def show():",
+            "    y = 20      # 지역변수",
+            "    print(x)    # 전역변수 읽기 가능",
+            "    print(y)    # 지역변수 읽기 가능",
+            "show()",
+            "print(x)        # 전역변수 읽기 가능",
+            "# print(y)      # 오류! 지역변수는 함수 밖에서 사용 불가"
+          ],
+          "output": [
+            "10",
+            "20",
+            "10"
+          ]
+        },
+        "tip": "함수 안에서 만든 변수는 함수가 끝나면 사라져요. 함수 밖에서는 접근할 수 없어요."
+      },
+      {
+        "order": 2,
+        "text": "함수 안팎에 같은 이름의 변수가 있으면 함수 안에서는 지역변수가 우선돼요.\n전역변수는 영향을 받지 않아요.",
+        "terminal": {
+          "code": [
+            "count = 100     # 전역변수",
+            "def reset():",
+            "    count = 0   # 지역변수 (전역변수와 별개)",
+            "    print('함수 안:', count)",
+            "reset()",
+            "print('함수 밖:', count)"
+          ],
+          "output": [
+            "함수 안: 0",
+            "함수 밖: 100"
+          ]
+        },
+        "tip": "함수 안에서 같은 이름으로 변수를 만들면 전역변수가 아닌 새로운 지역변수가 생겨요."
+      },
+      {
+        "order": 3,
+        "text": "함수 안에서 전역변수를 수정하고 싶을 때 `global` 키워드를 사용해요.\n`global 변수이름`을 함수 안에 선언하면 전역변수를 직접 변경할 수 있어요.",
+        "terminal": {
+          "code": [
+            "count = 0",
+            "def increment():",
+            "    global count    # 전역변수 count를 사용하겠다고 선언",
+            "    count = count + 1",
+            "increment()",
+            "increment()",
+            "increment()",
+            "print(count)"
+          ],
+          "output": [
+            "3"
+          ]
+        },
+        "tip": "`global`을 남용하면 코드가 복잡해져요. 꼭 필요한 경우에만 사용하고, 가능하면 return을 활용하는 게 좋아요."
+      },
+      {
+        "order": 4,
+        "text": "변수를 어디서 만드느냐에 따라 사용 가능한 범위가 달라져요.\n\n| 구분 | 만드는 위치 | 사용 가능 범위 |\n|------|-------------|----------------|\n| 전역변수 | 함수 밖 | 어디서든 읽기 가능 |\n| 지역변수 | 함수 안 | 해당 함수 안에서만 |",
+        "terminal": {
+          "code": [
+            "total = 0           # 전역변수",
+            "def add(n):",
+            "    result = n * 2  # 지역변수",
+            "    return result",
+            "total = add(5)",
+            "print(total)"
+          ],
+          "output": [
+            "10"
+          ]
+        },
+        "tip": "전역변수를 수정하기보다 return으로 값을 반환해 변수에 저장하는 방식이 더 안전해요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "5-5-beginner",
+    "unit": 5,
+    "stage": "5-5",
+    "course_level": "beginner",
+    "title": "*args / **kwargs",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "`*args`는 개수가 정해지지 않은 인수를 받을 때 사용해요.\n전달된 인수들이 튜플로 묶여서 함수에 전달돼요.\n`args`는 관례적인 이름이고, `*`가 핵심이에요.",
+        "terminal": {
+          "code": [
+            "def total(*args):",
+            "    print(args)",
+            "    print(sum(args))",
+            "total(1, 2, 3)",
+            "total(10, 20)"
+          ],
+          "output": [
+            "(1, 2, 3)",
+            "6",
+            "(10, 20)",
+            "30"
+          ]
+        },
+        "tip": "`*args`를 쓰면 인수를 몇 개 전달하든 전부 받을 수 있어요. 받은 값은 튜플로 저장돼요."
+      },
+      {
+        "order": 2,
+        "text": "`**kwargs`는 키워드 인수를 개수 제한 없이 받을 때 사용해요.\n전달된 인수들이 딕셔너리로 묶여서 함수에 전달돼요.\n`kwargs`는 관례적인 이름이고, `**`가 핵심이에요.",
+        "terminal": {
+          "code": [
+            "def show_info(**kwargs):",
+            "    print(kwargs)",
+            "    for key, value in kwargs.items():",
+            "        print(key, ':', value)",
+            "show_info(name='철수', score=95)"
+          ],
+          "output": [
+            "{'name': '철수', 'score': 95}",
+            "name : 철수",
+            "score : 95"
+          ]
+        },
+        "tip": "`**kwargs`를 쓰면 `키=값` 형태로 인수를 몇 개 전달하든 딕셔너리로 받을 수 있어요."
+      },
+      {
+        "order": 3,
+        "text": "`*args`와 `**kwargs`를 함께 쓸 수 있어요.\n순서는 반드시 일반 매개변수 → `*args` → `**kwargs` 순이어야 해요.",
+        "terminal": {
+          "code": [
+            "def describe(title, *args, **kwargs):",
+            "    print('제목:', title)",
+            "    print('항목:', args)",
+            "    print('정보:', kwargs)",
+            "describe('결과', 85, 92, unit='점', grade='B')"
+          ],
+          "output": [
+            "제목: 결과",
+            "항목: (85, 92)",
+            "정보: {'unit': '점', 'grade': 'B'}"
+          ]
+        },
+        "tip": "매개변수 순서 규칙 — 일반 매개변수 → `*args` → `**kwargs`. 이 순서를 지키지 않으면 오류가 발생해요."
+      },
+      {
+        "order": 4,
+        "text": "`*args`와 `**kwargs`는 인수 개수가 유동적인 함수를 만들 때 유용해요.\n특히 여러 값을 한꺼번에 처리하거나 설정값을 전달할 때 많이 써요.",
+        "terminal": {
+          "code": [
+            "def calculate(*numbers):",
+            "    total = sum(numbers)",
+            "    count = len(numbers)",
+            "    return total / count",
+            "print(calculate(80, 90, 70))",
+            "print(calculate(100, 95, 85, 90))"
+          ],
+          "output": [
+            "80.0",
+            "92.5"
+          ]
+        },
+        "tip": "`*args`를 활용하면 같은 함수로 2개든 10개든 값을 처리할 수 있어요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "5-6-beginner",
+    "unit": 5,
+    "stage": "5-6",
+    "course_level": "beginner",
+    "title": "람다 함수",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "람다(lambda) 함수는 이름 없이 한 줄로 정의하는 함수예요.\n`lambda 매개변수: 표현식` 형태로 작성하고, 표현식의 결과가 자동으로 반환돼요.\n간단한 함수를 짧게 표현할 때 사용해요.",
+        "terminal": {
+          "code": [
+            "# 일반 함수",
+            "def double(x):",
+            "    return x * 2",
+            "# 람다 함수 (동일한 기능)",
+            "double_lambda = lambda x: x * 2",
+            "print(double(5))",
+            "print(double_lambda(5))"
+          ],
+          "output": [
+            "10",
+            "10"
+          ]
+        },
+        "tip": "람다 함수는 변수에 저장해서 사용할 수 있어요. 표현식이 곧 반환값이에요."
+      },
+      {
+        "order": 2,
+        "text": "`def`는 이름이 있고 여러 줄 작성이 가능해요.\n`lambda`는 이름이 없고 한 줄 표현식만 가능해요.\n복잡한 로직은 `def`, 간단한 한 줄 연산은 `lambda`가 적합해요.",
+        "terminal": {
+          "code": [
+            "# def로 정의",
+            "def add(a, b):",
+            "    return a + b",
+            "# lambda로 정의 (동일한 기능)",
+            "add_lambda = lambda a, b: a + b",
+            "print(add(3, 4))",
+            "print(add_lambda(3, 4))"
+          ],
+          "output": [
+            "7",
+            "7"
+          ]
+        },
+        "tip": "람다는 단순 표현식만 가능해요. `if/for` 블록이나 여러 줄 코드는 `def`를 사용해야 해요."
+      },
+      {
+        "order": 3,
+        "text": "람다는 `sorted()`, `map()`, `filter()` 같은 함수의 `key` 인수로 자주 사용돼요.\n`sorted()`의 `key`에 람다를 전달하면 정렬 기준을 직접 지정할 수 있어요.",
+        "terminal": {
+          "code": [
+            "students = [('Kim', 85), ('Lee', 92), ('Park', 78)]",
+            "# 점수 기준으로 정렬",
+            "sorted_students = sorted(students, key=lambda s: s[1])",
+            "print(sorted_students)",
+            "# 점수 내림차순",
+            "sorted_desc = sorted(students, key=lambda s: s[1], reverse=True)",
+            "print(sorted_desc)"
+          ],
+          "output": [
+            "[('Park', 78), ('Kim', 85), ('Lee', 92)]",
+            "[('Lee', 92), ('Kim', 85), ('Park', 78)]"
+          ]
+        },
+        "tip": "`key=lambda x: x[1]`처럼 정렬 기준을 람다로 지정할 수 있어요. 리스트의 특정 요소 기준으로 정렬할 때 자주 써요."
+      },
+      {
+        "order": 4,
+        "text": "`map(함수, 리스트)`는 리스트 각 항목에 함수를 적용해요.\n`filter(함수, 리스트)`는 함수가 True인 항목만 걸러내요.\n람다와 함께 쓰면 한 줄로 간결하게 표현할 수 있어요.",
+        "terminal": {
+          "code": [
+            "numbers = [1, 2, 3, 4, 5]",
+            "# map: 각 항목을 제곱",
+            "squared = list(map(lambda x: x ** 2, numbers))",
+            "print(squared)",
+            "# filter: 짝수만 걸러내기",
+            "evens = list(filter(lambda x: x % 2 == 0, numbers))",
+            "print(evens)"
+          ],
+          "output": [
+            "[1, 4, 9, 16, 25]",
+            "[2, 4]"
+          ]
+        },
+        "tip": "`map()`과 `filter()`는 결과를 `list()`로 감싸야 리스트로 변환돼요."
+      }
+    ]
+  }
+]
