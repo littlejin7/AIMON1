@@ -164,7 +164,7 @@ Claude API 호출
 ## 6. 문제 데이터 구조
 
 - **저장 방식:** JSON (MVP) → 이후 DB(SQLite → PostgreSQL) 마이그레이션
-- **파일 구성:** lessons.json / questions.json / users.json / progress.json / wrong_answers.json
+- **파일 구성:** lessons/ 폴더 / questions/ 폴더 / users.json / progress.json / wrong_answers.json
 - **상세 필드 정의 및 예시 →** 📋 AI MON 데이터 스키마 페이지 참고
 
 **힌트 규칙**
@@ -417,7 +417,7 @@ GET  /user/me           내 정보 조회 (XP, 왕관, 레벨, 스트릭)
 
 **브리핑 / 레슨**
 ```
-GET  /lessons                      전체 레슨 목록 (lessons/ 폴더 내 unit_N.json 자동 합산)
+GET  /lessons                      전체 레슨 목록
 GET  /lessons/{lesson_id}          특정 레슨 조회 (lesson_id: "1-1-beginner" 등)
 ```
 
@@ -495,10 +495,16 @@ ai-mon/
 │   │   ├── claude_service.py
 │   │   └── gemini_service.py
 │   └── data/
-│       ├── lessons/          ← 유닛별 브리핑 슬라이드 (폴더, 수동 관리)
-│       │   ├── unit_1.json   ← Stage 1-1~1-N × beginner/intermediate/advanced
-│       │   └── unit_N.json   ← (이후 추가)
-│       ├── questions.json    ← 리플릿 환경 수동 관리
+│       ├── lessons/          ← 레벨/유닛별 브리핑 슬라이드
+│       │   ├── beginner/
+│       │   │   ├── unit_1.json
+│       │   │   └── ...
+│       │   └── intermediate/, advanced/
+│       ├── questions/        ← 레벨/유닛별 문제 데이터
+│       │   ├── beginner/
+│       │   │   ├── unit_1.json
+│       │   │   └── ...
+│       │   └── intermediate/, advanced/
 │       ├── users.json        ← 자동 생성 (회원가입 시)
 │       ├── progress.json     ← 자동 생성 (진도 저장 시)
 │       └── wrong_answers.json ← 자동 생성 (오답 시)

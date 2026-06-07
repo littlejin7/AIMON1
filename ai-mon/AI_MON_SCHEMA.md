@@ -33,14 +33,16 @@ title: AI MON SCHEMA
 
 ```
 backend/data/lessons/
-├── unit_1.json   ← Unit 1의 모든 스테이지 × 레벨 슬라이드
-├── unit_2.json
-...
-└── unit_8.json
+├── beginner/
+│   ├── unit_1.json   ← 초급 Unit 1의 모든 스테이지 슬라이드
+│   ├── unit_2.json
+│   └── ...
+├── intermediate/
+└── advanced/
 ```
 
-각 파일은 **배열** 형태로, 하나의 유닛 내 모든 `stage × course_level` 조합을 담아요.  
-백엔드가 `lessons/` 폴더 내 파일을 자동으로 읽어 합쳐 서빙합니다.
+각 파일은 **배열** 형태로, 해당 레벨의 하나의 유닛 내 모든 스테이지 조합을 담아요.  
+백엔드가 `lessons/{course_level}/` 폴더 내 파일을 자동으로 읽어 합쳐 서빙합니다.
 
 ---
 
@@ -130,11 +132,25 @@ backend/data/lessons/
 ---
 
 
-## 2. questions.json
+## 2. questions/ 폴더
 
 > 현황 (2026-06-07): stage_quiz 118개 / miniboss 101개 / unit_boss 11개 / 총 230개
 
-퀴즈 문제 데이터 — 스테이지 퀴즈 + 보스 문제 통합 관리
+퀴즈 문제 데이터 — 레벨별, 유닛별로 분리 관리
+
+### 📁 파일 관리 구조
+
+```
+backend/data/questions/
+├── beginner/
+│   ├── unit_1.json   ← 초급 Unit 1의 모든 문제
+│   ├── unit_2.json
+│   └── ...
+├── intermediate/
+└── advanced/
+```
+
+각 파일은 `{"questions": [...]}` 형태 또는 `[...]` 배열 형태를 가지며, 백엔드에서 `load_questions` 호출 시 `course_level` 파라미터를 이용해 해당 폴더의 파일들을 취합합니다.
 
 | 필드 | 타입 | 허용값 | 필수 | 설명 |
 |---|---|---|---|---|
