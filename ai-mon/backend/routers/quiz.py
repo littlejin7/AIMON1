@@ -14,32 +14,42 @@ LESSONS_DIR    = os.path.join(os.path.dirname(__file__), "../data/lessons")  # �
 UNITS_FILE     = os.path.join(os.path.dirname(__file__), "../data/lessons.json")  # 유닛 목록
 
 
-def load_questions():
-    if not os.path.exists(QUESTIONS_FILE):
-        return []
-    with open(QUESTIONS_FILE, "r", encoding="utf-8") as f:
-        data = json.load(f)
-        if isinstance(data, dict) and "questions" in data:
-            return data["questions"]
-        return data
-
-
-def load_lessons():
-    """레슨 브리핑 슬라이드: lessons/ 폴더 내 JSON 파일을 합쳐 반환."""
-    if not os.path.exists(LESSONS_DIR):
-        return []
-    all_lessons = []
-    for filename in sorted(os.listdir(LESSONS_DIR)):
-        if not filename.endswith(".json"):
+def load_questions(course_level: str = None, unit: int = None):
+    base = os.path.join(os.path.dirname(__file__), "../data/questions")
+    result = []
+    levels = [course_level] if course_level else ["beginner", "intermediate", "advanced"]
+    for level in levels:
+        folder = os.path.join(base, level)
+        if not os.path.exists(folder):
             continue
-        filepath = os.path.join(LESSONS_DIR, filename)
-        with open(filepath, "r", encoding="utf-8") as f:
-            data = json.load(f)
-            if isinstance(data, list):
-                all_lessons.extend(data)
-            else:
-                all_lessons.append(data)
-    return all_lessons
+        if unit:
+            fpath = os.path.join(folder, f"unit_{unit}.json")
+            if os.path.exists(fpath):
+                with open(fpath, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    result.extend(data.get("questions", data) if isinstance(data, dict) else data)
+        else:
+            for fname in sorted(os.listdir(folder)):
+                if fname.endswith(".json"):
+                    with open(os.path.join(folder, fname), "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                        result.extend(data.get("questions", data) if isinstance(data, dict) else data)
+    return result
+
+
+def load_lessons(course_level: str = None):
+    base = os.path.join(os.path.dirname(__file__), "../data/lessons")
+    result = []
+    levels = [course_level] if course_level else ["beginner", "intermediate", "advanced"]
+    for level in levels:
+        folder = os.path.join(base, level)
+        if not os.path.exists(folder):
+            continue
+        for fname in sorted(os.listdir(folder)):
+            if fname.endswith(".json"):
+                with open(os.path.join(folder, fname), "r", encoding="utf-8") as f:
+                    result.extend(json.load(f))
+    return result
 
 
 def load_units():
@@ -80,15 +90,15 @@ def get_unit(unit_id: int):
 # ── 브리핑 슬라이드 (lessons/ 폴더) ─────────────────────────────
 
 @router.get("/lessons")
-def get_lessons():
+def get_lessons(course_level: str = Query(None)):
     """전체 브리핑 슬라이드 목록."""
-    return load_lessons()
+    return load_lessons(course_level)
 
 
 @router.get("/lessons/{lesson_id}")
-def get_lesson(lesson_id: str):
+def get_lesson(lesson_id: str, course_level: str = Query(None)):
     """브리핑 슬라이드 조회. lesson_id 예: '1-1-beginner'"""
-    lessons = load_lessons()
+    lessons = load_lessons(course_level)
     lesson = next(
         (l for l in lessons if l.get("lesson_id") == lesson_id),
         None,
@@ -106,8 +116,7 @@ def get_questions(
     limit: int = Query(10),
     attempt: int = Query(1),
 ):
-    questions = load_questions()
-    print(f"DEBUG get_questions: course_level={course_level!r}")
+    questions = load_questions(course_level=course_level, unit=unit)
     if unit is not None:
         questions = [q for q in questions if q.get("unit") == unit]
     if stage is not None:

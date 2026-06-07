@@ -6,15 +6,10 @@ SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
 router = APIRouter()
 
-QUESTIONS_FILE = os.path.join(os.path.dirname(__file__), "../data/questions.json")
+from routers.quiz import load_questions
+
 WRONG_FILE = os.path.join(os.path.dirname(__file__), "../data/wrong_answers.json")
 USERS_FILE = os.path.join(os.path.dirname(__file__), "../data/users.json")
-
-def load_questions():
-    if not os.path.exists(QUESTIONS_FILE): return []
-    with open(QUESTIONS_FILE, encoding="utf-8") as f:
-        d = json.load(f)
-        return d["questions"] if isinstance(d, dict) else d
 
 def load_wrong_answers():
     if not os.path.exists(WRONG_FILE): return []
@@ -33,7 +28,7 @@ def get_train_review(
     limit: int = 15,
     authorization: str = Header(None)
 ):
-    questions = load_questions()
+    questions = load_questions(course_level=course_level, unit=unit)
     wrong_answers = load_wrong_answers()
 
     # 유저 ID 추출 (JWT 토큰 파싱)
@@ -49,9 +44,7 @@ def get_train_review(
     # 해당 유닛 스테이지 퀴즈 + 미니보스 문제 풀
     unit_pool = [
         q for q in questions
-        if q.get("unit") == unit
-        and q.get("course_level") == course_level
-        and q.get("quiz_category") in ["stage_quiz", "miniboss"]
+        if q.get("quiz_category") in ["stage_quiz", "miniboss"]
     ]
 
     # 오답 문제 우선 선별
