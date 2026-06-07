@@ -1,0 +1,155 @@
+{
+  "questions": [
+    {
+      "question_id": "unitboss_beg_os_1_001",
+      "unit": 1,
+      "stage": "1-boss",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\nx = 10\nprint(x)\n# print(x + 5)\nprint(\"끝\")",
+      "choices": [
+        "A. 10 / 15 / 끝",
+        "B. 10 / 끝",
+        "C. 15 / 끝",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "# 이 붙은 줄은 실행되지 않아요.",
+      "feedback": {
+        "correct": "맞아요! # 주석은 무시되고 print(x)와 print(\"끝\")만 실행돼요.",
+        "wrong": "# 기호가 앞에 붙으면 그 줄 전체가 주석이 되어 실행되지 않아요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_os_1_002",
+      "unit": 1,
+      "stage": "1-boss",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\nname = \"슬라임\"\nname = \"에이몬\"\nprint(name)",
+      "choices": [
+        "A. 슬라임",
+        "B. 에이몬",
+        "C. 슬라임 에이몬",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "변수는 마지막에 저장된 값을 가져요.",
+      "feedback": {
+        "correct": "맞아요! 변수는 재할당 시 새 값으로 덮어써져요.",
+        "wrong": "변수에 값을 두 번 저장하면 마지막 값만 남아요. name은 결국 에이몬이에요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_os_1_003",
+      "unit": 1,
+      "stage": "1-boss",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\na = 7\nb = 3\nprint(a // b)\nprint(a % b)",
+      "choices": [
+        "A. 2 / 1",
+        "B. 2.33 / 1",
+        "C. 3 / 1",
+        "D. 2 / 3"
+      ],
+      "answer": "A",
+      "hint": "// 는 나눗셈의 몫, % 는 나머지예요.",
+      "feedback": {
+        "correct": "맞아요! 7 // 3 = 2(몫), 7 % 3 = 1(나머지)이에요.",
+        "wrong": "// 는 정수 나눗셈(몫만), % 는 나머지를 구해요. 7 // 3 = 2, 7 % 3 = 1이에요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_os_1_004",
+      "unit": 1,
+      "stage": "1-boss",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\nhero = \"에이몬\"\nenemy = \"코드몬\"\nprint(hero + \" vs \" + enemy)\nprint(len(hero))",
+      "choices": [
+        "A. 에이몬 vs 코드몬 / 3",
+        "B. 에이몬 vs 코드몬 / 4",
+        "C. hero vs enemy / 3",
+        "D. 오류 발생"
+      ],
+      "answer": "A",
+      "hint": "len()은 문자열의 글자 수를 반환해요.",
+      "feedback": {
+        "correct": "맞아요! 에이몬은 3글자라 len(hero) = 3이에요.",
+        "wrong": "에이몬은 에·이·몬 3글자예요. len()은 글자 수를 세어줘요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_os_1_005",
+      "unit": 1,
+      "stage": "1-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\nlv = 8\nprint(lv >= 10)\nprint(lv > 5)",
+      "choices": [
+        "A. True / True",
+        "B. False / True",
+        "C. True / False",
+        "D. False / False"
+      ],
+      "answer": "B",
+      "hint": "각 비교식이 참인지 거짓인지 판단해봐요.",
+      "feedback": {
+        "correct": "맞아요! 8 >= 10은 False, 8 > 5는 True예요.",
+        "wrong": "8은 10보다 크거나 같지 않으므로 False, 8은 5보다 크므로 True예요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_fib_1_001",
+      "unit": 1,
+      "stage": "1-boss",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "빈칸을 채워 f-string으로 출력하세요.\n\nname = \"에이몬\"\nlv = 8\nprint(___\"내 이름은 {name}, 레벨은 {lv}이야!\")",
+      "choices": [],
+      "answer": "f",
+      "hint": "f-string은 문자열 앞에 특정 알파벳을 붙여요.",
+      "feedback": {
+        "correct": "맞아요! f를 앞에 붙이면 {} 안의 변수가 값으로 바뀌어요.",
+        "wrong": "f-string은 print(f\"...\") 형태로 써요. f를 따옴표 바로 앞에 붙여줘요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_fib_1_002",
+      "unit": 1,
+      "stage": "1-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "빈칸을 채워 \"에이몬에이몬에이몬\"이 출력되게 하세요.\n\nmsg = \"에이몬\"\nprint(msg _____ 3)",
+      "choices": [],
+      "answer": "*",
+      "hint": "문자열을 여러 번 반복할 때 쓰는 연산자예요.",
+      "feedback": {
+        "correct": "맞아요! * 연산자로 문자열을 반복할 수 있어요.",
+        "wrong": "문자열 * 숫자 = 문자열 반복이에요. \"에이몬\" * 3 = \"에이몬에이몬에이몬\"이에요."
+      }
+    }
+  ]
+}

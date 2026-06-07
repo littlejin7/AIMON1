@@ -6,7 +6,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
 router = APIRouter()
 
-from routers.quiz import load_questions
+from routers.quiz import load_questions_by_category
 
 WRONG_FILE = os.path.join(os.path.dirname(__file__), "../data/wrong_answers.json")
 USERS_FILE = os.path.join(os.path.dirname(__file__), "../data/users.json")
@@ -28,7 +28,8 @@ def get_train_review(
     limit: int = 15,
     authorization: str = Header(None)
 ):
-    questions = load_questions(course_level=course_level, unit=unit)
+    questions = load_questions_by_category("quiz", course_level=course_level, unit=unit) + \
+                load_questions_by_category("miniboss", course_level=course_level, unit=unit)
     wrong_answers = load_wrong_answers()
 
     # 유저 ID 추출 (JWT 토큰 파싱)
@@ -42,10 +43,7 @@ def get_train_review(
             pass
 
     # 해당 유닛 스테이지 퀴즈 + 미니보스 문제 풀
-    unit_pool = [
-        q for q in questions
-        if q.get("quiz_category") in ["stage_quiz", "miniboss"]
-    ]
+    unit_pool = questions
 
     # 오답 문제 우선 선별
     priority_ids = set()

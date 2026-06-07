@@ -1,0 +1,40 @@
+{
+  "questions": [
+    {
+      "question_id": "boss_adv_fib_1_001",
+      "unit": 1,
+      "stage": "1-boss",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "is_boss": true,
+      "question": "빈칸을 채워 숫자를 소수점 3자리로 포맷해 출력하세요.\n\nscore = 98.7564\nprint(f'스코어: {score:_____}')",
+      "choices": [],
+      "answer": ".3f",
+      "hint": "f-string의 포맷 지정자는 : 뒤에 작성해요.",
+      "feedback": {
+        "correct": "정답! :.3f는 소수점 아래 3자리까지 반올림하여 출력해요.",
+        "wrong": ":.3f는 소수점 아래 3자리까지 반올림하여 출력해요."
+      },
+      "quiz_category": "unit_boss"
+    },
+    {
+      "question_id": "boss_adv_ci_1_001",
+      "unit": 1,
+      "stage": "1-boss",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "code_input",
+      "is_boss": true,
+      "question": "리스트 [1, 2, 3, 4, 5]를 한 줄에 공백으로 구분 출력하세요. print() 한 번만 사용.\n출력 목표: 1 2 3 4 5",
+      "choices": [],
+      "answer": "print(*[1, 2, 3, 4, 5])",
+      "hint": "리스트 앞에 * 를 붙이면 언패킹이 돼요.",
+      "feedback": {
+        "correct": "정답! *로 리스트를 언패킹하면 print()가 공백으로 구분해 출력해요.",
+        "wrong": "리스트 앞에 * 를 붙이면 언패킹되어 print()가 공백으로 구분 출력해요."
+      },
+      "quiz_category": "unit_boss"
+    }
+  ]
+}
