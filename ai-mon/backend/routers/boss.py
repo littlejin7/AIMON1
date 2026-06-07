@@ -10,7 +10,8 @@ router = APIRouter()
 SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
 
-QUESTIONS_FILE     = os.path.join(os.path.dirname(__file__), "../data/questions.json")
+from routers.quiz import load_questions
+
 WRONG_ANSWERS_FILE = os.path.join(os.path.dirname(__file__), "../data/wrong_answers.json")
 USERS_FILE = os.path.join(os.path.dirname(__file__), "../data/users.json")
 
@@ -40,20 +41,9 @@ def load_wrong_answers():
     with open(WRONG_ANSWERS_FILE, "r", encoding="utf-8") as f:
         return json.load(f)
 
-
 def save_wrong_answers(data):
     with open(WRONG_ANSWERS_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-
-
-def load_questions():
-    if not os.path.exists(QUESTIONS_FILE):
-        return []
-    with open(QUESTIONS_FILE, "r", encoding="utf-8") as f:
-        data = json.load(f)
-        if isinstance(data, dict) and "questions" in data:
-            return data["questions"]
-        return data
 
 
 class BossAnswerRequest(BaseModel):
@@ -111,12 +101,11 @@ def start_boss_battle(unit: int = 1, authorization: str = Header(...)):
         
     save_users(users)
 
-    questions = load_questions()
+    course_level = user.get("course_level", "beginner")
+    questions = load_questions(course_level=course_level, unit=unit)
     boss_qs = [
         q for q in questions
         if q.get("quiz_category") == "unit_boss"
-        and q.get("course_level") == user.get("course_level", "beginner")
-        and q.get("unit") == unit
     ]
     if not boss_qs:
         raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
