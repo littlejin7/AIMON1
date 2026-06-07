@@ -1,0 +1,2764 @@
+{
+  "questions": [
+    {
+      "question_id": "cc_6_1_001",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`'hello'.upper()`의 결과는?",
+      "choices": [
+        "A. Hello",
+        "B. HELLO",
+        "C. hello",
+        "D. 오류 발생"
+      ],
+      "answer": "B. HELLO",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `.upper()`는 모든 글자를 대문자로 변환해요.",
+        "wrong": "`.upper()`는 문자열의 모든 글자를 대문자로 바꿔요. 'hello' → 'HELLO'예요."
+      }
+    },
+    {
+      "question_id": "cc_6_1_002",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`'PYTHON'.lower()`의 결과는?",
+      "choices": [
+        "A. PYTHON",
+        "B. python",
+        "C. Python",
+        "D. 오류 발생"
+      ],
+      "answer": "B. python",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `.lower()`는 모든 글자를 소문자로 변환해요.",
+        "wrong": "`.lower()`는 모든 글자를 소문자로 바꿔요. 'PYTHON' → 'python'이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_1_003",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`'  hello  '.strip()`의 결과는?",
+      "choices": [
+        "A. '  hello  '",
+        "B. 'hello'",
+        "C. 'hello  '",
+        "D. '  hello'"
+      ],
+      "answer": "B. 'hello'",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `.strip()`은 양쪽 끝 공백을 제거해요.",
+        "wrong": "`.strip()`은 문자열 양쪽 끝의 공백을 모두 제거해요. '  hello  ' → 'hello'예요."
+      }
+    },
+    {
+      "question_id": "cc_6_1_004",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`'a,b,c'.split(',')`의 결과는?",
+      "choices": [
+        "A. 'a b c'",
+        "B. ('a', 'b', 'c')",
+        "C. {'a', 'b', 'c'}",
+        "D. ['a', 'b', 'c']"
+      ],
+      "answer": "D. ['a', 'b', 'c']",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `.split()`은 구분자 기준으로 잘라 리스트를 반환해요.",
+        "wrong": "`.split(',')`은 쉼표 기준으로 문자열을 잘라 리스트로 반환해요. ['a', 'b', 'c']예요."
+      }
+    },
+    {
+      "question_id": "cc_6_1_005",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`'I like cats'.replace('cats', 'dogs')`의 결과는?",
+      "choices": [
+        "A. 'I like dogs'",
+        "B. 'I like cats'",
+        "C. 'cats like dogs'",
+        "D. 오류 발생"
+      ],
+      "answer": "A. 'I like dogs'",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `.replace(old, new)`는 old를 new로 교체해요.",
+        "wrong": "`.replace('cats', 'dogs')`는 'cats'를 'dogs'로 바꿔요. 'I like cats' → 'I like dogs'예요."
+      }
+    },
+    {
+      "question_id": "cc_6_1_006",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "문자열 메서드는 원본 문자열을 어떻게 하나요?",
+      "choices": [
+        "A. 원본을 직접 수정한다",
+        "B. 원본을 삭제한다",
+        "C. 원본은 변경하지 않고 새 문자열을 반환한다",
+        "D. 원본에 결과를 덧붙인다"
+      ],
+      "answer": "C. 원본은 변경하지 않고 새 문자열을 반환한다",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 문자열은 불변(immutable)이에요. 메서드는 새 문자열을 반환해요.",
+        "wrong": "Python 문자열은 변경할 수 없어요. 메서드를 호출하면 원본은 유지되고 새로운 문자열이 반환돼요."
+      }
+    },
+    {
+      "question_id": "cc_6_1_007",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ntext = 'Python'\nprint(text.upper())\nprint(text)\n```",
+      "choices": [
+        "A. PYTHON / PYTHON",
+        "B. Python / Python",
+        "C. PYTHON / Python",
+        "D. python / Python"
+      ],
+      "answer": "C. PYTHON / Python",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `.upper()`는 새 문자열을 반환하고 원본 text는 그대로예요.",
+        "wrong": "`.upper()`는 원본을 바꾸지 않아요. text는 여전히 'Python'이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_1_008",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ndata = '  research  '\nprint(len(data.strip()))\n```",
+      "choices": [
+        "A. 12",
+        "B. 10",
+        "C. 6",
+        "D. 8"
+      ],
+      "answer": "D. 8",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! strip() 후 'research'는 8글자예요.",
+        "wrong": "'  research  '.strip()은 'research'이에요. len('research')=8이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_1_009",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nsentence = 'data science is fun'\nwords = sentence.split()\nprint(len(words))\n```",
+      "choices": [
+        "A. 4",
+        "B. 3",
+        "C. 19",
+        "D. 5"
+      ],
+      "answer": "A. 4",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 공백으로 나누면 'data', 'science', 'is', 'fun' 4개가 돼요.",
+        "wrong": "`.split()`의 기본 구분자는 공백이에요. 4개의 단어로 나뉘어요."
+      }
+    },
+    {
+      "question_id": "cc_6_1_010",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ntext = 'abcabc'\nprint(text.replace('a', 'X'))\n```",
+      "choices": [
+        "A. XbcXbc",
+        "B. abcXbc",
+        "C. Xbcabc",
+        "D. XXXXXX"
+      ],
+      "answer": "A. XbcXbc",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `.replace()`는 일치하는 모든 항목을 교체해요.",
+        "wrong": "`.replace('a', 'X')`는 문자열 안의 모든 'a'를 'X'로 바꿔요. 'abcabc' → 'XbcXbc'예요."
+      }
+    },
+    {
+      "question_id": "cc_6_1_011",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ntext = 'python is great'\nprint('python' in text)\nprint('java' in text)\n```",
+      "choices": [
+        "A. True / True",
+        "B. False / True",
+        "C. False / False",
+        "D. True / False"
+      ],
+      "answer": "D. True / False",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 'python'은 text에 있고 'java'는 없어요.",
+        "wrong": "`in` 연산자는 문자열 포함 여부를 확인해요. 'python'은 True, 'java'는 False예요."
+      }
+    },
+    {
+      "question_id": "cc_6_1_012",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ntext = 'Hello World'\nprint(text.lower().replace('hello', 'hi'))\n```",
+      "choices": [
+        "A. Hello World",
+        "B. HI WORLD",
+        "C. hi World",
+        "D. hi world"
+      ],
+      "answer": "D. hi world",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! lower()로 'hello world'가 되고, replace()로 'hello'가 'hi'로 바뀌어요.",
+        "wrong": "먼저 lower() → 'hello world', 그다음 replace('hello', 'hi') → 'hi world'예요."
+      }
+    },
+    {
+      "question_id": "cc_6_1_013",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`'  hello  '.lstrip()`의 결과는?",
+      "choices": [
+        "A. 'hello'",
+        "B. '  hello'",
+        "C. 'hello  '",
+        "D. '  hello  '"
+      ],
+      "answer": "C. 'hello  '",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `.lstrip()`은 왼쪽 공백만 제거해요.",
+        "wrong": "`.lstrip()`은 문자열 왼쪽(앞쪽) 공백만 제거해요. 오른쪽 공백은 유지돼요."
+      }
+    },
+    {
+      "question_id": "cc_6_1_014",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ntext = 'banana'\nprint(text.find('an'))\n```",
+      "choices": [
+        "A. -1",
+        "B. 1",
+        "C. 2",
+        "D. True"
+      ],
+      "answer": "B. 1",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 'banana'에서 'an'이 처음 등장하는 인덱스는 1이에요.",
+        "wrong": "`.find()`는 찾는 문자열의 첫 번째 인덱스를 반환해요. 'b(0)a(1)n(2)...' 에서 'an'은 인덱스 1에서 시작해요."
+      }
+    },
+    {
+      "question_id": "cc_6_1_015",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ndata = '  Python , Java , C++  '\nparts = data.strip().split(',')\nresult = [p.strip() for p in parts]\nprint(result)\n```",
+      "choices": [
+        "A. ['Python', 'Java', 'C++']",
+        "B. ['  Python ', ' Java ', ' C++  ']",
+        "C. ['Python , Java , C++']",
+        "D. 오류 발생"
+      ],
+      "answer": "A. ['Python', 'Java', 'C++']",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 전체 공백 제거 후 ','로 분리하고, 각 항목의 공백도 strip()으로 제거해요.",
+        "wrong": "data.strip()으로 양끝 공백 제거 → split(',')으로 3개로 분리 → 각 항목 strip()으로 공백 제거예요."
+      }
+    },
+    {
+      "question_id": "cc_6_1_016",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ntext = 'the quick brown fox'\nwords = text.split()\nresult = ' '.join([w.upper() for w in words])\nprint(result)\n```",
+      "choices": [
+        "A. the quick brown fox",
+        "B. THEQUICKBROWNFOX",
+        "C. THE QUICK BROWN FOX",
+        "D. ['THE', 'QUICK', 'BROWN', 'FOX']"
+      ],
+      "answer": "C. THE QUICK BROWN FOX",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! split()으로 분리 → 각 단어 upper() → ' '.join()으로 다시 합쳐요.",
+        "wrong": "각 단어를 upper()로 대문자화한 뒤 ' '.join()으로 공백을 사이에 넣어 다시 합쳐요."
+      }
+    },
+    {
+      "question_id": "cc_6_1_017",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ntext = 'aabbcc'\nprint(text.replace('b', '').replace('c', 'X'))\n```",
+      "choices": [
+        "A. aaXX",
+        "B. aabbXX",
+        "C. aaXXcc",
+        "D. aacc"
+      ],
+      "answer": "A. aaXX",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 먼저 'b' 제거 → 'aacc', 그다음 'c'→'X' 교체 → 'aaXX'예요.",
+        "wrong": "replace()가 순서대로 적용돼요. 'aabbcc'.replace('b','')='aacc' → 'aacc'.replace('c','X')='aaXX'예요."
+      }
+    },
+    {
+      "question_id": "cc_6_1_018",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ncsv = 'kim,lee,park,choi'\nnames = csv.split(',')\nprint(names[-1].upper())\n```",
+      "choices": [
+        "A. KIM",
+        "B. LEE",
+        "C. PARK",
+        "D. CHOI"
+      ],
+      "answer": "D. CHOI",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! split(',')으로 4개 리스트가 되고, [-1]은 마지막 'choi', upper()로 'CHOI'가 돼요.",
+        "wrong": "split(',') → ['kim','lee','park','choi']. [-1]은 마지막 'choi'. upper() → 'CHOI'예요."
+      }
+    },
+    {
+      "question_id": "cc_6_1_019",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ntext = 'Python 3.11'\nprint(text.startswith('Python'))\nprint(text.endswith('3.11'))\nprint(text.find('3'))\n```",
+      "choices": [
+        "A. True / True / 6",
+        "B. True / True / 7",
+        "C. False / True / 7",
+        "D. True / False / 6"
+      ],
+      "answer": "B. True / True / 7",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 'Python'으로 시작(True), '3.11'로 끝(True), 'P(0)y(1)t(2)h(3)o(4)n(5) (6)3(7)'에서 '3'의 인덱스는 7이에요.",
+        "wrong": "startswith('Python')=True, endswith('3.11')=True. 'Python 3.11'에서 공백이 인덱스 6, '3'은 인덱스 7이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_1_020",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nsentence = 'to be or not to be'\ncount = sentence.split().count('be')\nprint(count)\n```",
+      "choices": [
+        "A. 1",
+        "B. 3",
+        "C. 2",
+        "D. 0"
+      ],
+      "answer": "C. 2",
+      "hint": "",
+      "feedback": {
+        "correct": "훌륭해요! split()으로 단어 리스트가 되고, .count('be')로 'be'가 몇 번 나오는지 세요. 2번이에요.",
+        "wrong": "'to be or not to be'.split() = ['to','be','or','not','to','be']. 'be'는 2번 나와요."
+      }
+    },
+    {
+      "question_id": "cc_6_2_001",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "f-string에서 `{pi:.2f}`의 의미는?",
+      "choices": [
+        "A. pi를 소수점 2자리까지 출력",
+        "B. pi를 정수로 출력",
+        "C. pi를 2번 반복 출력",
+        "D. pi의 길이를 2로 설정"
+      ],
+      "answer": "A. pi를 소수점 2자리까지 출력",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `:.2f`는 소수점 아래 2자리까지 출력하는 포맷이에요.",
+        "wrong": "`:.2f`에서 `.2`는 소수점 자리수, `f`는 float 형식이에요. 소수점 2자리까지 출력해요."
+      }
+    },
+    {
+      "question_id": "cc_6_2_002",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`f'{1500000:,}'`의 출력 결과는?",
+      "choices": [
+        "A. 1500000",
+        "B. 1.500.000",
+        "C. 1,500,000",
+        "D. 15,00,000"
+      ],
+      "answer": "C. 1,500,000",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `:,`는 천 단위 쉼표 구분자를 추가해요.",
+        "wrong": "f-string에서 `:,`를 쓰면 천 단위마다 쉼표가 삽입돼요. 1,500,000이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_2_003",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`'{}'.format('hello')`의 결과는?",
+      "choices": [
+        "A. {}",
+        "B. 'hello'",
+        "C. hello",
+        "D. format"
+      ],
+      "answer": "C. hello",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `.format()`은 `{}`에 값을 삽입해요. 따옴표 없이 hello가 출력돼요.",
+        "wrong": "`.format('hello')`는 `{}`에 'hello'를 삽입해요. 결과는 'hello'가 아닌 hello예요."
+      }
+    },
+    {
+      "question_id": "cc_6_2_004",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "f-string에서 `{name!r}`의 역할은?",
+      "choices": [
+        "A. name을 역순으로 출력",
+        "B. name을 반올림",
+        "C. name을 repr() 형태(따옴표 포함)로 출력",
+        "D. name을 삭제"
+      ],
+      "answer": "C. name을 repr() 형태(따옴표 포함)로 출력",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `!r`은 repr() 형태로 출력해요. 문자열이면 따옴표가 포함돼요.",
+        "wrong": "`!r`은 repr() 변환자예요. `f'{name!r}'`는 name='hello'면 \"'hello'\"처럼 따옴표가 포함돼요."
+      }
+    },
+    {
+      "question_id": "cc_6_2_005",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`f'{\"hello\":>10}'`에서 `>10`의 의미는?",
+      "choices": [
+        "A. 왼쪽 정렬, 너비 10",
+        "B. 오른쪽 정렬, 너비 10",
+        "C. 가운데 정렬, 너비 10",
+        "D. 길이를 10으로 자르기"
+      ],
+      "answer": "B. 오른쪽 정렬, 너비 10",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `>`는 오른쪽 정렬, 숫자는 전체 너비를 지정해요.",
+        "wrong": "`<`는 왼쪽, `>`는 오른쪽, `^`는 가운데 정렬이에요. 숫자는 전체 출력 너비예요."
+      }
+    },
+    {
+      "question_id": "cc_6_2_006",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`'{0} {1}'.format('hello', 'world')`의 결과는?",
+      "choices": [
+        "A. world hello",
+        "B. {0} {1}",
+        "C. 0 1",
+        "D. hello world"
+      ],
+      "answer": "D. hello world",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `{0}`은 첫 번째 인수, `{1}`은 두 번째 인수를 삽입해요.",
+        "wrong": "`{0}`은 format()의 첫 번째 인수 'hello', `{1}`은 두 번째 'world'가 들어가요."
+      }
+    },
+    {
+      "question_id": "cc_6_2_007",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\npi = 3.14159\nprint(f'{pi:.3f}')\n```",
+      "choices": [
+        "A. 3.14",
+        "B. 3.14159",
+        "C. 3.1",
+        "D. 3.142"
+      ],
+      "answer": "D. 3.142",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `:.3f`는 소수점 3자리까지 출력하고, 네 번째 자리에서 반올림해요.",
+        "wrong": "`:.3f`는 소수점 아래 3자리까지예요. 3.14159를 3자리로 반올림하면 3.142예요."
+      }
+    },
+    {
+      "question_id": "cc_6_2_008",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nscore = 95\nname = 'Alice'\nprint(f'{name}의 점수: {score:05d}')\n```",
+      "choices": [
+        "A. Alice의 점수: 00095",
+        "B. Alice의 점수: 95",
+        "C. Alice의 점수: 95000",
+        "D. Alice의 점수: 095"
+      ],
+      "answer": "A. Alice의 점수: 00095",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `:05d`는 5자리로 맞추고 앞을 0으로 채워요.",
+        "wrong": "`:05d`에서 `0`은 빈자리를 0으로 채우고, `5`는 전체 5자리, `d`는 정수예요. '00095'가 출력돼요."
+      }
+    },
+    {
+      "question_id": "cc_6_2_009",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nvalues = [80, 90, 100]\navg = sum(values) / len(values)\nprint(f'평균: {avg:.1f}')\n```",
+      "choices": [
+        "A. 평균: 90.0",
+        "B. 평균: 90",
+        "C. 평균: 90.00",
+        "D. 평균: 90.000"
+      ],
+      "answer": "A. 평균: 90.0",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! (80+90+100)/3=90.0이고, `:.1f`는 소수점 1자리까지 출력해요.",
+        "wrong": "sum([80,90,100])/3=90.0. `:.1f`는 소수점 1자리까지이므로 '90.0'이 출력돼요."
+      }
+    },
+    {
+      "question_id": "cc_6_2_010",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nprint(f'{\"hi\":^10}')\n```",
+      "choices": [
+        "A. 'hi        '",
+        "B. '    hi    '",
+        "C. '        hi'",
+        "D. 'hi'"
+      ],
+      "answer": "B. '    hi    '",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `^10`은 너비 10에서 가운데 정렬이에요. 양쪽에 공백이 채워져요.",
+        "wrong": "`^`는 가운데 정렬이에요. 'hi'(2글자)를 10자리에 맞추면 앞뒤에 4칸씩 공백이 채워져요."
+      }
+    },
+    {
+      "question_id": "cc_6_2_011",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nx = 255\nprint(f'{x:b}')\n```",
+      "choices": [
+        "A. 255",
+        "B. 11111111",
+        "C. ff",
+        "D. 0xFF"
+      ],
+      "answer": "B. 11111111",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `:b`는 2진수(binary) 형태로 출력해요. 255 = 11111111이에요.",
+        "wrong": "`:b`는 2진수 포맷이에요. 255를 2진수로 변환하면 11111111이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_2_012",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nprint('{name}은 {age}살'.format(age=25, name='Bob'))\n```",
+      "choices": [
+        "A. {name}은 {age}살",
+        "B. 25은 Bob살",
+        "C. 오류 발생",
+        "D. Bob은 25살"
+      ],
+      "answer": "D. Bob은 25살",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 키워드 인수를 사용하면 순서와 상관없이 이름에 맞게 삽입돼요.",
+        "wrong": "`{name}`에는 name='Bob', `{age}`에는 age=25가 삽입돼요. 'Bob은 25살'이 출력돼요."
+      }
+    },
+    {
+      "question_id": "cc_6_2_013",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nratio = 0.856\nprint(f'{ratio:.1%}')\n```",
+      "choices": [
+        "A. 0.856%",
+        "B. 85%",
+        "C. 85.6%",
+        "D. 0.9%"
+      ],
+      "answer": "C. 85.6%",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `:.1%`는 비율을 백분율로 변환하고 소수점 1자리까지 출력해요.",
+        "wrong": "`:%`는 0~1 사이 값을 100배하여 % 기호를 붙여요. `.1%`는 소수점 1자리까지이므로 85.6%예요."
+      }
+    },
+    {
+      "question_id": "cc_6_2_014",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nitems = ['apple', 'banana', 'cherry']\nfor i, item in enumerate(items, 1):\n    print(f'{i:2}. {item:<10}')\n```",
+      "choices": [
+        "A. `1. apple     `",
+        "B. ` 1. apple`",
+        "C. `01. apple     `",
+        "D. ` 1. apple     `"
+      ],
+      "answer": "D. ` 1. apple     `",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `i:2`는 너비 2로 오른쪽 정렬이라 ' 1'이고, `item:<10`은 왼쪽 정렬 너비 10이에요.",
+        "wrong": "`{i:2}`는 너비 2에 오른쪽 정렬이라 ' 1'. `{item:<10}`은 왼쪽 정렬 너비 10이라 'apple     '예요."
+      }
+    },
+    {
+      "question_id": "cc_6_2_015",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ndata = {'name': 'Kim', 'score': 92.567}\nprint(f\"{data['name']}: {data['score']:.1f}점\")\n```",
+      "choices": [
+        "A. Kim: 92.6점",
+        "B. Kim: 92.567점",
+        "C. data['name']: 92.6점",
+        "D. 오류 발생"
+      ],
+      "answer": "A. Kim: 92.6점",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! f-string 안에서 딕셔너리 접근도 가능해요. 92.567을 소수점 1자리로 반올림하면 92.6이에요.",
+        "wrong": "f-string `{}`에서 딕셔너리 접근이 가능해요. `:.1f`로 92.567→92.6이 출력돼요."
+      }
+    },
+    {
+      "question_id": "cc_6_2_016",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nscores = [78, 85, 92]\nprint(f'최소: {min(scores):3d} / 최대: {max(scores):3d}')\n```",
+      "choices": [
+        "A. 최소:  78 / 최대:  92",
+        "B. 최소: 78 / 최대: 92",
+        "C. 최소: 078 / 최대: 092",
+        "D. 최소: 78.0 / 최대: 92.0"
+      ],
+      "answer": "A. 최소:  78 / 최대:  92",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `:3d`는 너비 3에 오른쪽 정렬이라 앞에 공백 1개가 붙어요.",
+        "wrong": "`:3d`는 3자리 정수 오른쪽 정렬이에요. 78은 ' 78', 92는 ' 92'로 앞에 공백 1개가 붙어요."
+      }
+    },
+    {
+      "question_id": "cc_6_2_017",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ntemplate = '{subject:<8} {score:>5} {grade:^6}'\nprint(template.format(subject='수학', score=95, grade='A'))\n```",
+      "choices": [
+        "A. 수학       95    A",
+        "B. 수학     95  A",
+        "C. 수학     95   A",
+        "D. 오류 발생"
+      ],
+      "answer": "C. 수학     95   A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! subject는 왼쪽 정렬 너비 8, score는 오른쪽 정렬 너비 5, grade는 가운데 정렬 너비 6이에요.",
+        "wrong": "`<8`=왼쪽 정렬 8자리, `>5`=오른쪽 정렬 5자리, `^6`=가운데 정렬 6자리로 각각 정렬돼요."
+      }
+    },
+    {
+      "question_id": "cc_6_2_018",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nn = 42\nprint(f'{n:08b}')\n```",
+      "choices": [
+        "A. 42",
+        "B. 00101010",
+        "C. 101010",
+        "D. 00042"
+      ],
+      "answer": "B. 00101010",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `:08b`는 2진수로 8자리, 앞을 0으로 채워요. 42=101010(2진수)이고 앞에 0 2개를 채워요.",
+        "wrong": "`:b`는 2진수, `0`은 0으로 채우기, `8`은 8자리예요. 42=101010이고 8자리로 맞추면 00101010이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_2_019",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nvalue = 1234567.89\nprint(f'{value:,.2f}')\n```",
+      "choices": [
+        "A. 1234567.89",
+        "B. 1,234,567.89",
+        "C. 1234567.9",
+        "D. 1,234,568"
+      ],
+      "answer": "B. 1,234,567.89",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `:,.2f`는 천 단위 쉼표와 소수점 2자리를 함께 적용해요.",
+        "wrong": "`,`는 천 단위 쉼표, `.2f`는 소수점 2자리예요. 1,234,567.89가 출력돼요."
+      }
+    },
+    {
+      "question_id": "cc_6_2_020",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nitems = [('사과', 1200), ('포도', 3500)]\nfor name, price in items:\n    print(f'{name:4} {price:>8,}원')\n```",
+      "choices": [
+        "A. 사과   1,200원",
+        "B. 사과    1200원",
+        "C. 사과   1200원",
+        "D. 사과  1,200원"
+      ],
+      "answer": "D. 사과  1,200원",
+      "hint": "",
+      "feedback": {
+        "correct": "훌륭해요! `name:4`는 왼쪽 정렬 4자리, `price:>8,`는 오른쪽 정렬 8자리에 쉼표 포함이에요.",
+        "wrong": "`{name:4}`는 왼쪽 정렬 4자리, `{price:>8,}`는 오른쪽 정렬 8자리에 천 단위 쉼표예요. '사과  1,200원'이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_3_001",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "Python에서 외부 기능을 불러올 때 사용하는 키워드는?",
+      "choices": [
+        "A. import",
+        "B. include",
+        "C. require",
+        "D. load"
+      ],
+      "answer": "A. import",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `import` 키워드로 라이브러리를 불러와요.",
+        "wrong": "`import 라이브러리이름` 형태로 사용해요. include나 require는 Python에 없어요."
+      }
+    },
+    {
+      "question_id": "cc_6_3_002",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`import math`로 불러온 뒤 제곱근 함수를 쓰는 올바른 방법은?",
+      "choices": [
+        "A. sqrt(16)",
+        "B. math.sqrt(16)",
+        "C. math->sqrt(16)",
+        "D. import sqrt(16)"
+      ],
+      "answer": "B. math.sqrt(16)",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `라이브러리이름.함수이름()` 형태로 사용해요.",
+        "wrong": "`import math` 후에는 `math.sqrt()`처럼 점(.)으로 접근해요."
+      }
+    },
+    {
+      "question_id": "cc_6_3_003",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`from math import sqrt`를 쓰면 어떤 장점이 있나요?",
+      "choices": [
+        "A. math 전체가 로드된다",
+        "B. 더 빠르게 실행된다",
+        "C. math. 없이 sqrt()를 바로 쓸 수 있다",
+        "D. 오류가 없어진다"
+      ],
+      "answer": "C. math. 없이 sqrt()를 바로 쓸 수 있다",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `from ... import`로 가져오면 라이브러리 이름 없이 직접 사용할 수 있어요.",
+        "wrong": "`from math import sqrt` 후에는 `math.` 없이 `sqrt()`만 써도 돼요."
+      }
+    },
+    {
+      "question_id": "cc_6_3_004",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`import datetime as dt`에서 `as dt`의 역할은?",
+      "choices": [
+        "A. datetime을 삭제",
+        "B. 오류 방지",
+        "C. dt 라이브러리를 추가로 import",
+        "D. datetime에 별칭 dt를 붙임"
+      ],
+      "answer": "D. datetime에 별칭 dt를 붙임",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `as`로 별칭을 붙이면 더 짧은 이름으로 사용할 수 있어요.",
+        "wrong": "`as dt`는 datetime을 dt라는 이름으로 줄여 쓸 수 있게 해줘요."
+      }
+    },
+    {
+      "question_id": "cc_6_3_005",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "Python 표준 라이브러리란?",
+      "choices": [
+        "A. 설치 없이 Python에 포함된 라이브러리",
+        "B. 직접 만든 함수 모음",
+        "C. pip으로만 설치 가능한 라이브러리",
+        "D. 인터넷 연결이 필요한 라이브러리"
+      ],
+      "answer": "A. 설치 없이 Python에 포함된 라이브러리",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 표준 라이브러리는 Python 설치 시 함께 포함돼 있어요.",
+        "wrong": "math, random, datetime 등이 표준 라이브러리예요. pip 설치 없이 바로 import해서 사용해요."
+      }
+    },
+    {
+      "question_id": "cc_6_3_006",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`from math import *`의 단점은?",
+      "choices": [
+        "A. 아무것도 import되지 않는다",
+        "B. 이름 충돌이 생길 수 있다",
+        "C. 실행 속도가 빨라진다",
+        "D. 문법 오류가 발생한다"
+      ],
+      "answer": "B. 이름 충돌이 생길 수 있다",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `*`로 전부 가져오면 기존 변수 이름과 충돌할 수 있어요.",
+        "wrong": "`from math import *`는 math의 모든 함수를 가져오는데, 이미 같은 이름 변수가 있으면 덮어써요."
+      }
+    },
+    {
+      "question_id": "cc_6_3_007",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nimport math\nprint(math.floor(4.9))\n```",
+      "choices": [
+        "A. 5",
+        "B. 4.9",
+        "C. 4",
+        "D. 오류 발생"
+      ],
+      "answer": "C. 4",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `math.floor()`는 소수점 아래를 버려서 내림해요.",
+        "wrong": "`floor()`는 내림 함수예요. 4.9 → 4가 돼요."
+      }
+    },
+    {
+      "question_id": "cc_6_3_008",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nfrom math import ceil\nprint(ceil(3.2))\n```",
+      "choices": [
+        "A. 3",
+        "B. 오류 발생",
+        "C. 3.2",
+        "D. 4"
+      ],
+      "answer": "D. 4",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `ceil()`은 올림 함수예요. 3.2 → 4가 돼요.",
+        "wrong": "`from math import ceil` 후 ceil()을 바로 사용해요. 올림이므로 4예요."
+      }
+    },
+    {
+      "question_id": "cc_6_3_009",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nimport math as m\nprint(m.sqrt(64))\n```",
+      "choices": [
+        "A. 8.0",
+        "B. 8",
+        "C. 64",
+        "D. 오류 발생"
+      ],
+      "answer": "A. 8.0",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `math`를 `m`이라는 별칭으로 쓰고, sqrt(64)=8.0이에요.",
+        "wrong": "`as m`으로 별칭을 설정하면 `m.sqrt()`로 사용해요. sqrt()는 float을 반환하므로 8.0이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_3_010",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드에서 오류가 발생하는 이유는?\n\n```python\nprint(sqrt(25))\n```",
+      "choices": [
+        "A. sqrt가 잘못된 함수이기 때문",
+        "B. import math를 하지 않았기 때문",
+        "C. 25가 잘못된 인수이기 때문",
+        "D. print()를 사용했기 때문"
+      ],
+      "answer": "B. import math를 하지 않았기 때문",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! sqrt를 사용하려면 먼저 import를 해야 해요.",
+        "wrong": "`sqrt`를 쓰려면 `import math`(후 math.sqrt) 또는 `from math import sqrt`가 필요해요."
+      }
+    },
+    {
+      "question_id": "cc_6_3_011",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nfrom math import pi, e\nprint(round(pi, 2))\nprint(round(e, 2))\n```",
+      "choices": [
+        "A. 3.14 / 2.71",
+        "B. 3.141 / 2.718",
+        "C. 3.14 / 2.72",
+        "D. 3.1 / 2.7"
+      ],
+      "answer": "C. 3.14 / 2.72",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! pi≈3.14159를 소수점 2자리로 반올림하면 3.14, e≈2.71828은 2.72예요.",
+        "wrong": "`round(pi, 2)`=3.14, `round(e, 2)`=2.72예요."
+      }
+    },
+    {
+      "question_id": "cc_6_3_012",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nimport math\nprint(math.pow(3, 4))\n```",
+      "choices": [
+        "A. 12",
+        "B. 81",
+        "C. 7",
+        "D. 81.0"
+      ],
+      "answer": "D. 81.0",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `math.pow()`는 항상 float을 반환해요. 3⁴=81.0이에요.",
+        "wrong": "`math.pow(3, 4)`=3**4=81이지만, math.pow()는 항상 float이므로 81.0이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_3_013",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`from datetime import date, datetime`에서 올바른 것은?",
+      "choices": [
+        "A. date와 datetime을 각각 따로 import한다",
+        "B. date 라이브러리 안의 datetime만 가져온다",
+        "C. datetime 전체를 가져온다",
+        "D. 오류 발생"
+      ],
+      "answer": "A. date와 datetime을 각각 따로 import한다",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 쉼표로 여러 항목을 한 번에 가져올 수 있어요.",
+        "wrong": "`from ... import A, B`로 여러 항목을 한 번에 가져올 수 있어요."
+      }
+    },
+    {
+      "question_id": "cc_6_3_014",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nimport math\nprint(math.log(100, 10))\n```",
+      "choices": [
+        "A. 10",
+        "B. 2.0",
+        "C. 100",
+        "D. 오류 발생"
+      ],
+      "answer": "B. 2.0",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! log(100, 10)은 10을 밑으로 하는 100의 로그예요. 10²=100이므로 2.0이에요.",
+        "wrong": "`math.log(x, base)`는 base를 밑으로 하는 x의 로그예요. log₁₀(100)=2.0이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_3_015",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nfrom math import sqrt, floor\nresult = floor(sqrt(50))\nprint(result)\n```",
+      "choices": [
+        "A. 7.07",
+        "B. 8",
+        "C. 7",
+        "D. 6"
+      ],
+      "answer": "C. 7",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! sqrt(50)≈7.07이고, floor(7.07)=7이에요.",
+        "wrong": "sqrt(50)≈7.071, floor(7.071)=7(소수점 버림)이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_3_016",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nimport math as m\nfrom math import pi\nprint(round(m.sqrt(pi), 3))\n```",
+      "choices": [
+        "A. 1.414",
+        "B. 1.571",
+        "C. 3.142",
+        "D. 1.772"
+      ],
+      "answer": "D. 1.772",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! sqrt(π)≈sqrt(3.14159)≈1.7724이고 소수점 3자리 반올림은 1.772예요.",
+        "wrong": "math.sqrt(pi)=sqrt(3.14159...)≈1.7724. round(1.7724, 3)=1.772예요."
+      }
+    },
+    {
+      "question_id": "cc_6_3_017",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 중 올바른 코드는?",
+      "choices": [
+        "A. from math import sqrt",
+        "B. from math import, sqrt",
+        "C. import math.sqrt",
+        "D. from import math sqrt"
+      ],
+      "answer": "A. from math import sqrt",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `from math import sqrt`가 올바른 형태예요.",
+        "wrong": "`from 라이브러리 import 함수` 형태가 올바른 문법이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_3_018",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nimport math\nnums = [4, 9, 16, 25]\nresults = list(map(math.sqrt, nums))\nprint(results)\n```",
+      "choices": [
+        "A. [2, 3, 4, 5]",
+        "B. [2.0, 3.0, 4.0, 5.0]",
+        "C. [4, 9, 16, 25]",
+        "D. 오류 발생"
+      ],
+      "answer": "B. [2.0, 3.0, 4.0, 5.0]",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! map()으로 리스트 각 항목에 math.sqrt를 적용해요. float을 반환해요.",
+        "wrong": "map(math.sqrt, nums)는 각 항목에 sqrt를 적용해요. sqrt는 float을 반환하므로 [2.0, 3.0, 4.0, 5.0]이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_3_019",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nimport math\nprint(math.ceil(-3.2))\nprint(math.floor(-3.2))\n```",
+      "choices": [
+        "A. -3 / -3",
+        "B. -4 / -3",
+        "C. -3 / -4",
+        "D. 오류 발생"
+      ],
+      "answer": "C. -3 / -4",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 음수에서 ceil(올림)=-3, floor(내림)=-4예요.",
+        "wrong": "음수에서 ceil은 0에 가까운 방향(-3), floor는 0에서 먼 방향(-4)이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_3_020",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nfrom math import factorial\nprint(factorial(5))\n```",
+      "choices": [
+        "A. 5",
+        "B. 25",
+        "C. 오류 발생",
+        "D. 120"
+      ],
+      "answer": "D. 120",
+      "hint": "",
+      "feedback": {
+        "correct": "훌륭해요! 5!=1×2×3×4×5=120이에요.",
+        "wrong": "`math.factorial(n)`은 n의 팩토리얼을 계산해요. 5!=120이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_4_001",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`random.randint(1, 6)`이 반환하는 값의 범위는?",
+      "choices": [
+        "A. 1 이상 6 이하",
+        "B. 1 이상 5 이하",
+        "C. 0 이상 5 이하",
+        "D. 0 이상 6 이하"
+      ],
+      "answer": "A. 1 이상 6 이하",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `randint(a, b)`는 a 이상 b 이하의 정수를 반환해요.",
+        "wrong": "`randint(1, 6)`은 1, 2, 3, 4, 5, 6 중 하나를 반환해요. 양쪽 끝 포함이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_4_002",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`random.choice([1, 2, 3, 4])`의 역할은?",
+      "choices": [
+        "A. 리스트를 정렬한다",
+        "B. 리스트에서 무작위로 항목 하나를 선택한다",
+        "C. 리스트를 섞는다",
+        "D. 리스트의 합을 구한다"
+      ],
+      "answer": "B. 리스트에서 무작위로 항목 하나를 선택한다",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `random.choice()`는 시퀀스에서 무작위로 항목 하나를 선택해요.",
+        "wrong": "`choice()`는 리스트에서 무작위로 하나를 뽑아요."
+      }
+    },
+    {
+      "question_id": "cc_6_4_003",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`math.ceil(4.1)`의 결과는?",
+      "choices": [
+        "A. 4",
+        "B. 4.1",
+        "C. 5",
+        "D. 오류 발생"
+      ],
+      "answer": "C. 5",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `math.ceil()`은 올림 함수예요. 4.1 → 5가 돼요.",
+        "wrong": "`ceil()`은 소수점 이하를 올려서 정수로 만들어요."
+      }
+    },
+    {
+      "question_id": "cc_6_4_004",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`date.today()`로 얻을 수 있는 것은?",
+      "choices": [
+        "A. 현재 시분초",
+        "B. 연도만",
+        "C. 현재 타임스탬프",
+        "D. 오늘 날짜(연월일)"
+      ],
+      "answer": "D. 오늘 날짜(연월일)",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `date.today()`는 오늘의 연·월·일 정보를 반환해요.",
+        "wrong": "`date.today()`는 년-월-일 형태의 date 객체를 반환해요."
+      }
+    },
+    {
+      "question_id": "cc_6_4_005",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`random.shuffle(items)`의 역할은?",
+      "choices": [
+        "A. items의 순서를 무작위로 섞는다",
+        "B. items를 정렬한다",
+        "C. items에서 하나를 제거한다",
+        "D. items를 복사한다"
+      ],
+      "answer": "A. items의 순서를 무작위로 섞는다",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `shuffle()`은 리스트의 순서를 무작위로 섞어요. 원본 리스트를 직접 수정해요.",
+        "wrong": "`shuffle()`은 원본 리스트를 직접 섞어요. 반환값은 None이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_4_006",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`datetime.now().strftime('%Y-%m-%d')`의 출력 형태는?",
+      "choices": [
+        "A. 2026/06/08",
+        "B. 2026-06-08",
+        "C. 20260608",
+        "D. June 8, 2026"
+      ],
+      "answer": "B. 2026-06-08",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `%Y`=4자리 연도, `%m`=2자리 월, `%d`=2자리 일이에요.",
+        "wrong": "`%Y-%m-%d` 포맷은 '2026-06-08'처럼 하이픈으로 연결된 형태예요."
+      }
+    },
+    {
+      "question_id": "cc_6_4_007",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nimport math\nprint(math.sqrt(144))\n```",
+      "choices": [
+        "A. 12",
+        "B. 144",
+        "C. 12.0",
+        "D. 오류 발생"
+      ],
+      "answer": "C. 12.0",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `math.sqrt()`는 float을 반환해요. √144=12.0이에요.",
+        "wrong": "`sqrt(144)`=12지만 math.sqrt()는 항상 float을 반환하므로 12.0이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_4_008",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nfrom datetime import date\nd = date(2026, 1, 15)\nprint(d.month)\n```",
+      "choices": [
+        "A. 2026",
+        "B. 15",
+        "C. 01",
+        "D. 1"
+      ],
+      "answer": "D. 1",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `.month`는 월을 정수로 반환해요. 1월이므로 1이에요.",
+        "wrong": "`date.month`는 정수로 월을 반환해요. '01'이 아니라 숫자 1이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_4_009",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nimport random\nrandom.seed(42)\nprint(random.randint(1, 10))\nprint(random.randint(1, 10))\n```",
+      "choices": [
+        "A. 항상 같은 값 / 같은 값",
+        "B. 매번 다른 값 / 다른 값",
+        "C. 1 / 10",
+        "D. 오류 발생"
+      ],
+      "answer": "A. 항상 같은 값 / 같은 값",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `seed()`를 고정하면 항상 같은 난수 시퀀스가 나와요.",
+        "wrong": "`random.seed(42)`로 시드를 고정하면 실행마다 동일한 결과가 나와요."
+      }
+    },
+    {
+      "question_id": "cc_6_4_010",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nfrom datetime import timedelta, date\ntoday = date(2026, 6, 1)\nresult = today + timedelta(days=30)\nprint(result.month)\n```",
+      "choices": [
+        "A. 6",
+        "B. 7",
+        "C. 30",
+        "D. 1"
+      ],
+      "answer": "B. 7",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 6월 1일 + 30일 = 7월 1일이에요. month는 7이에요.",
+        "wrong": "2026-06-01에 30일을 더하면 2026-07-01이에요. month는 7이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_4_011",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nimport math\nprint(math.pow(2, 8))\n```",
+      "choices": [
+        "A. 16",
+        "B. 256",
+        "C. 256.0",
+        "D. 오류 발생"
+      ],
+      "answer": "C. 256.0",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `math.pow()`는 float을 반환해요. 2⁸=256.0이에요.",
+        "wrong": "`math.pow(2, 8)`=2**8=256이지만 float 반환이므로 256.0이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_4_012",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nimport random\nitems = ['A', 'B', 'C']\nrandom.shuffle(items)\nprint(len(items))\n```",
+      "choices": [
+        "A. 1",
+        "B. 2",
+        "C. 0",
+        "D. 3"
+      ],
+      "answer": "D. 3",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `shuffle()`은 순서만 바꾸고 항목 수는 그대로예요.",
+        "wrong": "`shuffle()`은 원본 리스트의 순서를 섞어요. 항목 수는 변하지 않아요."
+      }
+    },
+    {
+      "question_id": "cc_6_4_013",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nfrom datetime import date\nd1 = date(2026, 1, 1)\nd2 = date(2026, 4, 1)\ndiff = d2 - d1\nprint(diff.days)\n```",
+      "choices": [
+        "A. 90",
+        "B. 31",
+        "C. 89",
+        "D. 3"
+      ],
+      "answer": "A. 90",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 1월 1일부터 4월 1일까지 90일이에요.  (31+28+31=90일)",
+        "wrong": "1월(31일)+2월(28일)+3월(31일)=90일. d2-d1은 timedelta이고 .days로 일수를 꺼내요."
+      }
+    },
+    {
+      "question_id": "cc_6_4_014",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nimport math\nprint(math.gcd(12, 8))\n```",
+      "choices": [
+        "A. 2",
+        "B. 4",
+        "C. 8",
+        "D. 12"
+      ],
+      "answer": "B. 4",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! gcd(12, 8)은 최대공약수예요. 12와 8의 최대공약수는 4예요.",
+        "wrong": "`math.gcd()`는 최대공약수(Greatest Common Divisor)를 반환해요. gcd(12, 8)=4예요."
+      }
+    },
+    {
+      "question_id": "cc_6_4_015",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nfrom datetime import datetime\ndt = datetime(2026, 6, 8, 14, 30)\nprint(dt.strftime('%H:%M'))\n```",
+      "choices": [
+        "A. 6:8",
+        "B. 2026-06-08",
+        "C. 14:30",
+        "D. 08:06"
+      ],
+      "answer": "C. 14:30",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `%H`=24시간 형식 시, `%M`=분이에요. '14:30'이 출력돼요.",
+        "wrong": "`%H`는 시(0~23), `%M`은 분이에요. datetime(2026,6,8,14,30)에서 시=14, 분=30이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_4_016",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nimport random\nscores = list(range(60, 101, 10))\nrandom.seed(0)\nresult = random.sample(scores, 3)\nprint(len(result))\n```",
+      "choices": [
+        "A. 5",
+        "B. 6",
+        "C. 0",
+        "D. 3"
+      ],
+      "answer": "D. 3",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `random.sample()`은 중복 없이 n개를 선택해요. 3개를 선택했으므로 len=3이에요.",
+        "wrong": "`random.sample(population, k)`는 k개를 중복 없이 선택해요. k=3이므로 len=3이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_4_017",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nimport math\nprint(math.isnan(float('nan')))\nprint(math.isinf(float('inf')))\n```",
+      "choices": [
+        "A. True / True",
+        "B. True / False",
+        "C. False / True",
+        "D. False / False"
+      ],
+      "answer": "A. True / True",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `float('nan')`은 NaN, `float('inf')`는 무한대예요. 각각 True를 반환해요.",
+        "wrong": "`isnan(nan)`=True, `isinf(inf)`=True예요. 둘 다 True가 출력돼요."
+      }
+    },
+    {
+      "question_id": "cc_6_4_018",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nfrom datetime import date\ntoday = date(2026, 6, 8)\nprint(today.weekday())\n```",
+      "choices": [
+        "A. 1(화요일)",
+        "B. 0(월요일)",
+        "C. 5(토요일)",
+        "D. 6(일요일)"
+      ],
+      "answer": "B. 0(월요일)",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `weekday()`는 월=0, 화=1, ..., 일=6을 반환해요. 2026-06-08은 월요일이에요.",
+        "wrong": "`weekday()`에서 0=월, 1=화, 2=수, 3=목, 4=금, 5=토, 6=일이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_4_019",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nimport random\nresult = [random.randint(1, 3) for _ in range(100)]\nprint(result.count(1) + result.count(2) + result.count(3))\n```",
+      "choices": [
+        "A. 3",
+        "B. 33",
+        "C. 100",
+        "D. 오류 발생"
+      ],
+      "answer": "C. 100",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 100개의 난수이므로 1, 2, 3의 합계는 반드시 100이에요.",
+        "wrong": "100개의 randint(1,3) 결과에서 1, 2, 3의 개수를 모두 더하면 전체 100이 돼요."
+      }
+    },
+    {
+      "question_id": "cc_6_4_020",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nfrom datetime import date, timedelta\nstart = date(2026, 1, 1)\ndates = [start + timedelta(days=i) for i in range(5)]\nprint(dates[-1])\n```",
+      "choices": [
+        "A. 2026-01-04",
+        "B. 2026-01-01",
+        "C. 2026-01-06",
+        "D. 2026-01-05"
+      ],
+      "answer": "D. 2026-01-05",
+      "hint": "",
+      "feedback": {
+        "correct": "훌륭해요! i=0~4이므로 마지막은 1월 1일+4일=1월 5일이에요.",
+        "wrong": "range(5)는 0,1,2,3,4예요. 마지막 i=4이면 2026-01-01+4일=2026-01-05예요."
+      }
+    },
+    {
+      "question_id": "cc_6_5_001",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "Python에서 외부 라이브러리를 설치하는 명령어는?",
+      "choices": [
+        "A. pip install",
+        "B. python install",
+        "C. apt install",
+        "D. conda install"
+      ],
+      "answer": "A. pip install",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `pip install 패키지이름`으로 외부 라이브러리를 설치해요.",
+        "wrong": "pip은 Python의 기본 패키지 관리자예요. `pip install 이름`으로 설치해요."
+      }
+    },
+    {
+      "question_id": "cc_6_5_002",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "표준 라이브러리와 외부 라이브러리의 차이는?",
+      "choices": [
+        "A. 표준은 느리고 외부는 빠르다",
+        "B. 표준은 Python에 기본 포함, 외부는 pip으로 설치 필요",
+        "C. 표준은 무료, 외부는 유료",
+        "D. 둘 다 동일하다"
+      ],
+      "answer": "B. 표준은 Python에 기본 포함, 외부는 pip으로 설치 필요",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 표준 라이브러리는 Python에 포함돼 있고, 외부 라이브러리는 pip으로 따로 설치해요.",
+        "wrong": "math, random 등은 표준 라이브러리, requests, pandas 등은 외부 라이브러리예요."
+      }
+    },
+    {
+      "question_id": "cc_6_5_003",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`requests.get(url)`의 결과로 확인해야 할 중요한 값은?",
+      "choices": [
+        "A. response.text",
+        "B. response.status_code",
+        "C. response.url",
+        "D. response.method"
+      ],
+      "answer": "C. response.url",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! status_code로 요청 성공 여부를 확인해요. 200이면 성공이에요.",
+        "wrong": "200=성공, 404=없음, 500=서버오류예요. 먼저 status_code를 확인하는 게 좋아요."
+      }
+    },
+    {
+      "question_id": "cc_6_5_004",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "가상환경을 사용하는 이유로 올바른 것은?",
+      "choices": [
+        "A. 코드 실행 속도를 높이기 위해",
+        "B. 오류를 자동으로 수정하기 위해",
+        "C. Python을 최신 버전으로 업데이트하기 위해",
+        "D. 프로젝트별로 독립된 라이브러리 환경을 유지하기 위해"
+      ],
+      "answer": "D. 프로젝트별로 독립된 라이브러리 환경을 유지하기 위해",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 가상환경으로 프로젝트마다 다른 버전의 라이브러리를 사용할 수 있어요.",
+        "wrong": "프로젝트 A에서 requests 2.0, B에서 requests 3.0을 각각 쓰려면 가상환경이 필요해요."
+      }
+    },
+    {
+      "question_id": "cc_6_5_005",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`pip list`의 역할은?",
+      "choices": [
+        "A. pip을 최신 버전으로 업데이트",
+        "B. 현재 설치된 패키지 목록 출력",
+        "C. 패키지를 삭제",
+        "D. 패키지 검색"
+      ],
+      "answer": "A. pip을 최신 버전으로 업데이트",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `pip list`는 현재 환경에 설치된 모든 패키지와 버전을 출력해요.",
+        "wrong": "`pip list`로 설치된 패키지 목록을 확인할 수 있어요."
+      }
+    },
+    {
+      "question_id": "cc_6_5_006",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`requirements.txt`의 용도는?",
+      "choices": [
+        "A. Python 코드를 저장하는 파일",
+        "B. 프로젝트에 필요한 라이브러리 목록을 저장하는 파일",
+        "C. 오류 로그 파일",
+        "D. 설정 파일"
+      ],
+      "answer": "B. 프로젝트에 필요한 라이브러리 목록을 저장하는 파일",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! requirements.txt에 필요한 패키지를 기록해두면 다른 환경에서 일괄 설치할 수 있어요.",
+        "wrong": "`pip install -r requirements.txt`로 목록의 패키지를 한 번에 설치해요."
+      }
+    },
+    {
+      "question_id": "cc_6_5_007",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "HTTP status_code 200의 의미는?",
+      "choices": [
+        "A. 요청 실패",
+        "B. 서버 오류",
+        "C. 요청 성공",
+        "D. 파일 없음"
+      ],
+      "answer": "C. 요청 성공",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 200은 요청이 정상적으로 처리됐다는 의미예요.",
+        "wrong": "200=성공, 400=잘못된 요청, 404=찾을 수 없음, 500=서버 오류예요."
+      }
+    },
+    {
+      "question_id": "cc_6_5_008",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "특정 버전의 패키지를 설치하는 명령어는?",
+      "choices": [
+        "A. pip install requests:2.28",
+        "B. pip install requests/2.28",
+        "C. pip version requests=2.28",
+        "D. pip install requests==2.28"
+      ],
+      "answer": "D. pip install requests==2.28",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `==`으로 특정 버전을 지정해요.",
+        "wrong": "`pip install 패키지==버전` 형태로 특정 버전을 설치해요."
+      }
+    },
+    {
+      "question_id": "cc_6_5_009",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "설치된 패키지를 삭제하는 명령어는?",
+      "choices": [
+        "A. pip uninstall requests",
+        "B. pip remove requests",
+        "C. pip delete requests",
+        "D. pip clear requests"
+      ],
+      "answer": "A. pip uninstall requests",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `pip uninstall 패키지이름`으로 삭제해요.",
+        "wrong": "`pip uninstall` 명령으로 설치된 패키지를 제거할 수 있어요."
+      }
+    },
+    {
+      "question_id": "cc_6_5_010",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`response.json()`의 역할은?",
+      "choices": [
+        "A. 응답을 JSON 파일로 저장",
+        "B. 응답 상태코드 반환",
+        "C. JSON을 문자열로 변환",
+        "D. 응답 본문을 딕셔너리/리스트로 변환"
+      ],
+      "answer": "B. 응답 상태코드 반환",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `response.json()`은 JSON 형식의 응답을 Python 딕셔너리/리스트로 변환해요.",
+        "wrong": "`response.json()`은 API의 JSON 응답을 Python 객체(dict/list)로 파싱해요."
+      }
+    },
+    {
+      "question_id": "cc_6_5_011",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "가상환경을 생성하는 명령어는?",
+      "choices": [
+        "A. pip create venv",
+        "B. python venv create",
+        "C. python -m venv 이름",
+        "D. venv install 이름"
+      ],
+      "answer": "C. python -m venv 이름",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `python -m venv 이름`으로 가상환경을 생성해요.",
+        "wrong": "`python -m venv 환경이름`으로 지정한 이름의 가상환경을 만들어요."
+      }
+    },
+    {
+      "question_id": "cc_6_5_012",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 중 외부 라이브러리가 아닌 것은?",
+      "choices": [
+        "A. requests",
+        "B. pandas",
+        "C. numpy",
+        "D. math"
+      ],
+      "answer": "D. math",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `math`는 Python 표준 라이브러리예요. pip 설치 없이 사용 가능해요.",
+        "wrong": "requests, pandas, numpy는 pip으로 설치해야 하는 외부 라이브러리예요."
+      }
+    },
+    {
+      "question_id": "cc_6_5_013",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`pip freeze > requirements.txt`의 역할은?",
+      "choices": [
+        "A. 현재 설치된 패키지 목록을 requirements.txt에 저장",
+        "B. requirements.txt를 삭제",
+        "C. requirements.txt를 실행",
+        "D. 패키지를 업데이트"
+      ],
+      "answer": "A. 현재 설치된 패키지 목록을 requirements.txt에 저장",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `pip freeze`는 현재 환경의 패키지 목록을 출력하고, `>`로 파일에 저장해요.",
+        "wrong": "`pip freeze`로 목록을 출력하고 `>`로 파일에 리다이렉트해서 저장해요."
+      }
+    },
+    {
+      "question_id": "cc_6_5_014",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`pip install -r requirements.txt`의 역할은?",
+      "choices": [
+        "A. requirements.txt의 패키지를 일괄 설치",
+        "B. requirements.txt를 생성",
+        "C. 현재 패키지 목록을 업데이트",
+        "D. 패키지를 삭제"
+      ],
+      "answer": "B. requirements.txt를 생성",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `-r` 플래그로 파일에 나열된 패키지를 한 번에 설치해요.",
+        "wrong": "`pip install -r requirements.txt`는 파일에 있는 모든 패키지를 한 번에 설치해요."
+      }
+    },
+    {
+      "question_id": "cc_6_5_015",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드에서 오류가 발생하지 않으려면 무엇이 필요한가요?\n\n```python\nimport requests\nresponse = requests.get('https://api.example.com')\n```",
+      "choices": [
+        "A. math 라이브러리 import",
+        "B. import datetime 추가",
+        "C. pip install requests 실행",
+        "D. 가상환경 비활성화"
+      ],
+      "answer": "C. pip install requests 실행",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! requests는 외부 라이브러리이므로 먼저 pip으로 설치해야 해요.",
+        "wrong": "`requests`는 표준 라이브러리가 아니에요. `pip install requests`로 먼저 설치해야 해요."
+      }
+    },
+    {
+      "question_id": "cc_6_5_016",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "requirements.txt의 내용으로 올바른 형태는?",
+      "choices": [
+        "A. import requests==2.31.0",
+        "B. install requests==2.31.0",
+        "C. pip requests==2.31.0",
+        "D. requests>=2.31.0"
+      ],
+      "answer": "D. requests>=2.31.0",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `패키지이름>=버전` 또는 `패키지이름==버전` 형태로 작성해요.",
+        "wrong": "requirements.txt는 `패키지이름==버전` 또는 `패키지이름>=버전` 형태로 작성해요."
+      }
+    },
+    {
+      "question_id": "cc_6_5_017",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 중 HTTP GET 요청의 특징으로 올바른 것은?",
+      "choices": [
+        "A. URL로 데이터를 조회할 때 사용",
+        "B. 데이터를 서버에 전송할 때 사용",
+        "C. 파일을 삭제할 때 사용",
+        "D. 인증이 항상 필요하다"
+      ],
+      "answer": "A. URL로 데이터를 조회할 때 사용",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! GET 요청은 서버에서 데이터를 가져올 때 사용해요.",
+        "wrong": "GET=조회, POST=생성, PUT=수정, DELETE=삭제예요."
+      }
+    },
+    {
+      "question_id": "cc_6_5_018",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드에서 timeout=5의 역할은?\n\n```python\nresponse = requests.get(url, timeout=5)\n```",
+      "choices": [
+        "A. 5번까지 재시도",
+        "B. 응답을 5초간 캐시",
+        "C. 5초 안에 응답 없으면 오류 발생",
+        "D. 5MB 이하만 수신"
+      ],
+      "answer": "B. 응답을 5초간 캐시",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `timeout`은 지정 시간(초) 내 응답이 없으면 Timeout 예외를 발생시켜요.",
+        "wrong": "`timeout=5`는 5초 안에 응답이 없으면 `requests.exceptions.Timeout` 오류가 발생해요."
+      }
+    },
+    {
+      "question_id": "cc_6_5_019",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "가상환경 안에서 pip install을 하면?",
+      "choices": [
+        "A. 시스템 전체에 설치된다",
+        "B. 다른 모든 가상환경에도 설치된다",
+        "C. 해당 가상환경에만 설치된다",
+        "D. 설치가 불가능하다"
+      ],
+      "answer": "C. 해당 가상환경에만 설치된다",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 가상환경 활성화 후 pip install하면 해당 환경에만 설치돼요.",
+        "wrong": "가상환경의 핵심 장점이에요. 각 환경이 독립적으로 패키지를 관리해요."
+      }
+    },
+    {
+      "question_id": "cc_6_5_020",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 중 requests 라이브러리가 필요한 상황은?",
+      "choices": [
+        "A. 파일 읽기/쓰기",
+        "B. 수학 계산",
+        "C. 날짜 계산",
+        "D. 외부 API에서 데이터 가져오기"
+      ],
+      "answer": "D. 외부 API에서 데이터 가져오기",
+      "hint": "",
+      "feedback": {
+        "correct": "훌륭해요! requests는 HTTP 요청을 보내 외부 API나 웹에서 데이터를 가져올 때 사용해요.",
+        "wrong": "파일=open(), 수학=math, 날짜=datetime이에요. HTTP 요청에는 requests가 필요해요."
+      }
+    },
+    {
+      "question_id": "cc_6_6_001",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "예외처리에서 오류가 발생할 수 있는 코드를 넣는 블록은?",
+      "choices": [
+        "A. finally",
+        "B. try",
+        "C. except",
+        "D. else"
+      ],
+      "answer": "A. finally",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 오류가 날 수 있는 코드는 `try` 블록에 넣어요.",
+        "wrong": "`try` 블록 안의 코드에서 오류가 발생하면 `except` 블록으로 이동해요."
+      }
+    },
+    {
+      "question_id": "cc_6_6_002",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`ZeroDivisionError`는 어떤 상황에서 발생하나요?",
+      "choices": [
+        "A. 변수가 없을 때",
+        "B. 0으로 나눌 때",
+        "C. 문자열을 숫자로 변환할 때",
+        "D. 인덱스 범위를 벗어날 때"
+      ],
+      "answer": "B. 0으로 나눌 때",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 0으로 나누면 `ZeroDivisionError`가 발생해요.",
+        "wrong": "`10 / 0`처럼 0으로 나누면 ZeroDivisionError가 발생해요."
+      }
+    },
+    {
+      "question_id": "cc_6_6_003",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`ValueError`는 어떤 상황에서 발생하나요?",
+      "choices": [
+        "A. 0으로 나눌 때",
+        "B. 인덱스 범위를 벗어날 때",
+        "C. 잘못된 값으로 변환 시도할 때",
+        "D. 키가 없을 때"
+      ],
+      "answer": "C. 잘못된 값으로 변환 시도할 때",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `int('hello')`처럼 변환할 수 없는 값에 `int()`를 쓰면 ValueError가 발생해요.",
+        "wrong": "`int('abc')`처럼 숫자로 변환할 수 없는 값을 변환하려 할 때 ValueError가 발생해요."
+      }
+    },
+    {
+      "question_id": "cc_6_6_004",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`finally` 블록은 언제 실행되나요?",
+      "choices": [
+        "A. 오류가 발생했을 때만",
+        "B. 오류가 없을 때만",
+        "C. 오류 발생 여부와 상관없이 항상",
+        "D. except 블록 이전에"
+      ],
+      "answer": "D. except 블록 이전에",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `finally`는 오류 발생 여부와 무관하게 항상 실행돼요.",
+        "wrong": "`finally`는 try/except 이후 반드시 실행돼요. 파일 닫기 등 정리 작업에 써요."
+      }
+    },
+    {
+      "question_id": "cc_6_6_005",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "예외처리를 사용하는 이유로 올바른 것은?",
+      "choices": [
+        "A. 오류가 발생해도 프로그램이 계속 실행되게 하기 위해",
+        "B. 코드를 더 길게 만들기 위해",
+        "C. 코드 실행 속도를 높이기 위해",
+        "D. 변수를 자동으로 초기화하기 위해"
+      ],
+      "answer": "A. 오류가 발생해도 프로그램이 계속 실행되게 하기 위해",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 예외처리는 오류 발생 시 프로그램이 멈추지 않고 계속 실행될 수 있게 해줘요.",
+        "wrong": "try/except 없이 오류가 발생하면 프로그램이 즉시 멈춰요. 예외처리로 이를 방지해요."
+      }
+    },
+    {
+      "question_id": "cc_6_6_006",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`except Exception as e`에서 `e`의 역할은?",
+      "choices": [
+        "A. 예외 이름을 바꾼다",
+        "B. 발생한 예외 객체를 변수 e에 저장한다",
+        "C. 예외를 무시한다",
+        "D. 다음 except 블록으로 넘긴다"
+      ],
+      "answer": "B. 발생한 예외 객체를 변수 e에 저장한다",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `as e`로 발생한 예외 객체를 변수에 저장해서 오류 메시지를 출력할 수 있어요.",
+        "wrong": "`as e`로 예외 객체를 받아 `print(e)`로 오류 내용을 확인할 수 있어요."
+      }
+    },
+    {
+      "question_id": "cc_6_6_007",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ntry:\n    print(1 / 0)\nexcept ZeroDivisionError:\n    print('오류')\nprint('종료')\n```",
+      "choices": [
+        "A. 1 / 종료",
+        "B. 오류",
+        "C. 오류 / 종료",
+        "D. 종료"
+      ],
+      "answer": "C. 오류 / 종료",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 오류 발생 → except 블록 실행('오류') → 이후 코드 실행('종료')이에요.",
+        "wrong": "ZeroDivisionError 발생 → except 블록 '오류' 출력 → 이후 print('종료') 실행돼요."
+      }
+    },
+    {
+      "question_id": "cc_6_6_008",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ntry:\n    x = int('42')\nexcept ValueError:\n    print('오류')\nelse:\n    print('성공:', x)\n```",
+      "choices": [
+        "A. 오류",
+        "B. 아무것도 출력 안 됨",
+        "C. 오류 / 성공: 42",
+        "D. 성공: 42"
+      ],
+      "answer": "D. 성공: 42",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! '42'는 정상적으로 int 변환이 되므로 오류 없이 else 블록이 실행돼요.",
+        "wrong": "`int('42')`는 성공이므로 except가 아닌 else 블록이 실행돼요."
+      }
+    },
+    {
+      "question_id": "cc_6_6_009",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ntry:\n    x = int('abc')\n    print('변환 성공')\nexcept ValueError:\n    print('변환 실패')\nfinally:\n    print('완료')\n```",
+      "choices": [
+        "A. 변환 실패 / 완료",
+        "B. 변환 성공 / 완료",
+        "C. 변환 성공",
+        "D. 변환 실패"
+      ],
+      "answer": "A. 변환 실패 / 완료",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! ValueError 발생 → except('변환 실패') → finally('완료') 순으로 실행돼요.",
+        "wrong": "`int('abc')`에서 ValueError → except 실행 → finally는 항상 실행되어 '완료'가 출력돼요."
+      }
+    },
+    {
+      "question_id": "cc_6_6_010",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ndef divide(a, b):\n    try:\n        return a / b\n    except ZeroDivisionError:\n        return 0\n\nprint(divide(10, 2))\nprint(divide(10, 0))\n```",
+      "choices": [
+        "A. 5.0 / 오류",
+        "B. 5.0 / 0",
+        "C. 5 / 0",
+        "D. 오류 / 0"
+      ],
+      "answer": "B. 5.0 / 0",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 10/2=5.0은 정상 반환, 10/0은 except에서 0을 반환해요.",
+        "wrong": "divide(10,2)=5.0, divide(10,0)은 ZeroDivisionError 발생 → except에서 0 반환이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_6_011",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`IndexError`가 발생하는 상황은?",
+      "choices": [
+        "A. 딕셔너리에 없는 키 접근",
+        "B. 0으로 나눌 때",
+        "C. 리스트 범위를 벗어난 인덱스 접근",
+        "D. 잘못된 타입 변환"
+      ],
+      "answer": "C. 리스트 범위를 벗어난 인덱스 접근",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `[1,2,3][10]`처럼 범위를 벗어난 인덱스에 접근하면 IndexError가 발생해요.",
+        "wrong": "`list[10]`처럼 존재하지 않는 인덱스에 접근하면 IndexError가 발생해요."
+      }
+    },
+    {
+      "question_id": "cc_6_6_012",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ntry:\n    data = {'a': 1}\n    print(data['b'])\nexcept KeyError as e:\n    print(f'키 없음: {e}')\n```",
+      "choices": [
+        "A. 키 없음: b",
+        "B. 오류 발생",
+        "C. 키 없음: KeyError",
+        "D. 키 없음: 'b'"
+      ],
+      "answer": "D. 키 없음: 'b'",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! KeyError에서 e는 없는 키 'b'를 따옴표와 함께 표시해요.",
+        "wrong": "KeyError의 `e`는 없는 키 값을 담아요. 출력 시 따옴표가 포함돼 `'b'`로 나와요."
+      }
+    },
+    {
+      "question_id": "cc_6_6_013",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\nfor val in ['1', 'x', '3']:\n    try:\n        print(int(val))\n    except ValueError:\n        print('skip')\n```",
+      "choices": [
+        "A. skip / skip / skip",
+        "B. 1 / skip / 3",
+        "C. 1 / x / 3",
+        "D. 오류 발생"
+      ],
+      "answer": "A. skip / skip / skip",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! '1'→1, 'x'→ValueError→skip, '3'→3이 출력돼요.",
+        "wrong": "`int('x')`에서 ValueError 발생 → except에서 skip 출력. '1'과 '3'은 정상 변환돼요."
+      }
+    },
+    {
+      "question_id": "cc_6_6_014",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ntry:\n    result = 10 / 2\nexcept ZeroDivisionError:\n    print('오류')\nelse:\n    print(result)\nfinally:\n    print('끝')\n```",
+      "choices": [
+        "A. 오류 / 끝",
+        "B. 5.0 / 끝",
+        "C. 5 / 끝",
+        "D. 끝"
+      ],
+      "answer": "B. 5.0 / 끝",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 오류 없이 10/2=5.0이 실행되어 else(5.0) → finally(끝) 순으로 출력돼요.",
+        "wrong": "오류 없음 → else 블록 실행(5.0) → finally 항상 실행(끝)이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_6_015",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ndef safe_convert(values):\n    result = []\n    for v in values:\n        try:\n            result.append(int(v))\n        except (ValueError, TypeError):\n            result.append(None)\n    return result\n\nprint(safe_convert(['1', 'x', '3', None]))\n```",
+      "choices": [
+        "A. [1, 0, 3, 0]",
+        "B. [1, 'x', 3, None]",
+        "C. [1, None, 3, None]",
+        "D. 오류 발생"
+      ],
+      "answer": "C. [1, None, 3, None]",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! '1'→1, 'x'→ValueError→None, '3'→3, None→TypeError→None이에요.",
+        "wrong": "`int('x')`=ValueError, `int(None)`=TypeError 둘 다 except에서 잡혀요. [1, None, 3, None]이에요."
+      }
+    },
+    {
+      "question_id": "cc_6_6_016",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ntry:\n    x = int('5')\n    y = 10 / x\n    print(y)\nexcept ValueError:\n    print('V')\nexcept ZeroDivisionError:\n    print('Z')\nfinally:\n    print('F')\n```",
+      "choices": [
+        "A. F",
+        "B. V / F",
+        "C. Z / F",
+        "D. 2.0 / F"
+      ],
+      "answer": "D. 2.0 / F",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! int('5')=5, 10/5=2.0은 오류 없이 성공 → finally('F')도 실행돼요.",
+        "wrong": "오류 없음 → print(2.0) → finally print('F')예요. 2.0 / F가 출력돼요."
+      }
+    },
+    {
+      "question_id": "cc_6_6_017",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ncount = 0\nfor i in range(5):\n    try:\n        result = 10 // (i - 2)\n        count += 1\n    except ZeroDivisionError:\n        pass\nprint(count)\n```",
+      "choices": [
+        "A. 4",
+        "B. 3",
+        "C. 5",
+        "D. 2"
+      ],
+      "answer": "A. 4",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! i=2일 때 10//(2-2)=10//0으로 오류. 나머지 4번은 정상이므로 count=4예요.",
+        "wrong": "i=0(-5),1(-10),2(오류skip),3(10),4(5). ZeroDivisionError는 i=2 한 번이라 count=4예요."
+      }
+    },
+    {
+      "question_id": "cc_6_6_018",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ndef process(data):\n    try:\n        return data[0] / data[1]\n    except IndexError:\n        return 'index_error'\n    except ZeroDivisionError:\n        return 'zero_error'\n    except Exception:\n        return 'unknown'\n\nprint(process([10, 2]))\nprint(process([10, 0]))\nprint(process([]))\n```",
+      "choices": [
+        "A. 5.0 / zero_error / unknown",
+        "B. 5.0 / zero_error / index_error",
+        "C. 5.0 / 0 / index_error",
+        "D. 오류 발생"
+      ],
+      "answer": "B. 5.0 / zero_error / index_error",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! [10,2]→5.0, [10,0]→ZeroDivisionError→zero_error, []→IndexError→index_error예요.",
+        "wrong": "[10,2]: 10/2=5.0. [10,0]: ZeroDivisionError. []: data[0]에서 IndexError가 발생해요."
+      }
+    },
+    {
+      "question_id": "cc_6_6_019",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ntry:\n    raise ValueError('테스트 오류')\nexcept ValueError as e:\n    print(str(e))\nfinally:\n    print('완료')\n```",
+      "choices": [
+        "A. ValueError / 완료",
+        "B. 오류 발생",
+        "C. 테스트 오류 / 완료",
+        "D. 완료"
+      ],
+      "answer": "C. 테스트 오류 / 완료",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `raise`로 의도적으로 예외를 발생시킬 수 있어요. e를 str로 변환하면 메시지가 나와요.",
+        "wrong": "`raise ValueError('메시지')`로 예외를 발생시켜요. str(e)는 '테스트 오류', finally는 항상 실행돼요."
+      }
+    },
+    {
+      "question_id": "cc_6_6_020",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?\n\n```python\ndef safe_get(lst, idx, default=None):\n    try:\n        return lst[idx]\n    except IndexError:\n        return default\n\nprint(safe_get([10, 20, 30], 1))\nprint(safe_get([10, 20, 30], 5))\nprint(safe_get([10, 20, 30], 5, -1))\n```",
+      "choices": [
+        "A. 오류 발생",
+        "B. 10 / None / -1",
+        "C. 20 / -1 / None",
+        "D. 20 / None / -1"
+      ],
+      "answer": "D. 20 / None / -1",
+      "hint": "",
+      "feedback": {
+        "correct": "훌륭해요! idx=1→20, idx=5→IndexError→None(기본값), idx=5→IndexError→-1(지정값)이에요.",
+        "wrong": "safe_get([10,20,30],1)=20, safe_get(...,5)=None(기본값), safe_get(...,5,-1)=-1이에요."
+      }
+    }
+  ]
+}
