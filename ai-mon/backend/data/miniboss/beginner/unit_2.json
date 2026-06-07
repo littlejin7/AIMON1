@@ -1,0 +1,1844 @@
+{
+  "questions": [
+    {
+      "question_id": "miniboss_beg_mc_2_1_001",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "리스트를 만들 때 사용하는 기호는?",
+      "choices": [
+        "A. ()",
+        "B. []",
+        "C. {}",
+        "D. <>"
+      ],
+      "answer": "B",
+      "hint": "리스트는 대괄호로 만들어요.",
+      "feedback": {
+        "correct": "맞아요! 리스트는 대괄호 []로 만들어요.",
+        "wrong": "리스트는 대괄호 []로 만들어요. ()는 튜플, {}는 딕셔너리예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_2_1_002",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "fruits = ['사과', '바나나', '포도']에서 fruits[0]의 값은?",
+      "choices": [
+        "A. 포도",
+        "B. 바나나",
+        "C. 사과",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "인덱스 0은 첫 번째 값이에요.",
+      "feedback": {
+        "correct": "맞아요! 인덱스 0은 첫 번째 값 사과예요.",
+        "wrong": "인덱스는 0부터 시작해요. fruits[0]은 첫 번째 값 사과예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_2_1_003",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "리스트 맨 끝에 값을 추가하는 올바른 방법은?",
+      "choices": [
+        "A. list.add('새값')",
+        "B. list.push('새값')",
+        "C. list.insert('새값')",
+        "D. list.append('새값')"
+      ],
+      "answer": "D",
+      "hint": "리스트 끝에 추가하려면 append()를 사용해요.",
+      "feedback": {
+        "correct": "맞아요! append()는 리스트 맨 끝에 값을 추가해요.",
+        "wrong": "리스트 끝에 값을 추가하려면 append()를 사용해요. add()와 push()는 Python 리스트 메서드가 아니에요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_2_1_004",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "data = [10, 20, 30, 40, 50]에서 data[-1]의 값은?",
+      "choices": [
+        "A. 10",
+        "B. 40",
+        "C. 30",
+        "D. 50"
+      ],
+      "answer": "D",
+      "hint": "음수 인덱스 -1은 마지막 값이에요.",
+      "feedback": {
+        "correct": "맞아요! -1은 마지막 값 50이에요.",
+        "wrong": "음수 인덱스 -1은 항상 마지막 값을 가리켜요. data[-1] = 50이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_2_1_005",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드 실행 후 scores의 모습은?\n\nscores = [85, 90, 78]\nscores[0] = 95",
+      "choices": [
+        "A. [85, 90, 78]",
+        "B. [95, 90, 78]",
+        "C. [85, 95, 78]",
+        "D. [85, 90, 95]"
+      ],
+      "answer": "B",
+      "hint": "scores[0]은 첫 번째 값을 바꿔요.",
+      "feedback": {
+        "correct": "맞아요! scores[0] = 95는 첫 번째 값 85를 95로 교체해요.",
+        "wrong": "scores[0] = 95는 인덱스 0번(85)을 95로 바꿔요. 나머지는 그대로예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_1_006",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\ncolors = ['빨강', '파랑', '초록']\nprint(colors[1])",
+      "choices": [
+        "A. 빨강",
+        "B. 파랑",
+        "C. 초록",
+        "D. ['빨강', '파랑', '초록']"
+      ],
+      "answer": "B",
+      "hint": "인덱스 1은 두 번째 값이에요.",
+      "feedback": {
+        "correct": "맞아요! 인덱스 1은 두 번째 값 파랑이에요.",
+        "wrong": "인덱스 1은 두 번째 값이에요. 빨강(0) - 파랑(1) - 초록(2)이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_1_007",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nnums = [5, 10, 15, 20]\nprint(len(nums))",
+      "choices": [
+        "A. 20",
+        "B. 5",
+        "C. 3",
+        "D. 4"
+      ],
+      "answer": "D",
+      "hint": "len()은 요소 개수를 반환해요.",
+      "feedback": {
+        "correct": "맞아요! 리스트에 4개의 값이 있으므로 len(nums) = 4예요.",
+        "wrong": "len()은 요소 개수를 반환해요. 5, 10, 15, 20 → 4개예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_1_008",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nsubjects = ['국어', '수학', '영어']\nsubjects.append('과학')\nprint(subjects)",
+      "choices": [
+        "A. ['과학', '국어', '수학', '영어']",
+        "B. ['국어', '수학', '영어']",
+        "C. ['국어', '수학', '영어', '과학']",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "append()는 항상 맨 끝에 추가해요.",
+      "feedback": {
+        "correct": "맞아요! append()는 리스트 맨 끝에 추가해요. 과학이 맨 뒤에 붙어요.",
+        "wrong": "append()는 항상 맨 끝에 추가해요. 기존 순서는 바뀌지 않아요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_1_009",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\ngrades = [70, 80, 90, 60]\ngrades[-1] = 95\ngrades.append(85)\nprint(grades)\nprint(len(grades))",
+      "choices": [
+        "A. [70, 80, 90, 60, 85] / 5",
+        "B. [70, 80, 90, 95, 85] / 4",
+        "C. [70, 80, 90, 95] / 4",
+        "D. [70, 80, 90, 95, 85] / 5"
+      ],
+      "answer": "D",
+      "hint": "grades[-1]=95로 교체 후 append(85)로 추가해요.",
+      "feedback": {
+        "correct": "맞아요! grades[-1]=95로 마지막 60이 95로 교체되고, append(85)로 끝에 추가돼요. 총 5개예요.",
+        "wrong": "두 단계예요. grades[-1]=95로 60이 95로 교체 → [70, 80, 90, 95]. 그다음 append(85) → [70, 80, 90, 95, 85]. 총 5개예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_1_010",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\ncities = ['서울', '부산', '대구', '인천', '광주']\nprint(cities[1])\nprint(cities[-2])\nprint(len(cities))",
+      "choices": [
+        "A. 부산 / 광주 / 5",
+        "B. 서울 / 인천 / 5",
+        "C. 부산 / 인천 / 5",
+        "D. 부산 / 인천 / 4"
+      ],
+      "answer": "C",
+      "hint": "인덱스 1, 음수 인덱스 -2, len 각각 계산해봐요.",
+      "feedback": {
+        "correct": "맞아요! cities[1]=부산, cities[-2]=인천(-1=광주, -2=인천), len=5예요.",
+        "wrong": "cities[1]=부산(두 번째), cities[-2]=인천(-1=광주, -2=인천), len(cities)=5(5개 도시)예요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_1_mc_001",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "리스트를 만들 때 사용하는 기호는?",
+      "choices": [
+        "A. `()`",
+        "B. `[]`",
+        "C. `{}`",
+        "D. `<>`"
+      ],
+      "answer": "B. `[]`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 리스트는 대괄호 `[]`로 만들어요. 예: `[1, 2, 3]`",
+        "wrong": "리스트는 대괄호 `[]`로 만들어요. `()`는 튜플, `{}`는 딕셔너리예요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_1_mc_002",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "`fruits = ['사과', '바나나', '포도']`에서 `fruits[0]`의 값은?",
+      "choices": [
+        "A. `포도`",
+        "B. `바나나`",
+        "C. `사과`",
+        "D. 오류 발생"
+      ],
+      "answer": "C. `사과`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 인덱스 0은 첫 번째 값 '사과'예요.",
+        "wrong": "인덱스는 0부터 시작해요. fruits[0]은 첫 번째 값 '사과'예요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_1_mc_003",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "리스트 맨 끝에 값을 추가하는 올바른 방법은?",
+      "choices": [
+        "A. `list.add('새값')`",
+        "B. `list.push('새값')`",
+        "C. `list.insert('새값')`",
+        "D. `list.append('새값')`"
+      ],
+      "answer": "D. `list.append('새값')`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `append()`는 리스트 맨 끝에 값을 추가해요.",
+        "wrong": "리스트 끝에 값을 추가하려면 `append()`를 사용해요. `add()`와 `push()`는 Python 리스트 메서드가 아니에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_1_mc_004",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드에서 `data[-1]`의 값은?\n\n```python\ndata = [10, 20, 30, 40, 50]\n```",
+      "choices": [
+        "A. `10`",
+        "B. `40`",
+        "C. `30`",
+        "D. `50`"
+      ],
+      "answer": "D. `50`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! -1은 마지막 값 50이에요.",
+        "wrong": "음수 인덱스 -1은 항상 마지막 값을 가리켜요. data[-1] = 50이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_1_mc_005",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드 실행 후 `scores`의 모습은?\n\n```python\nscores = [85, 90, 78]\nscores[0] = 95\n```",
+      "choices": [
+        "A. `[85, 90, 78]`",
+        "B. `[95, 90, 78]`",
+        "C. `[85, 95, 78]`",
+        "D. `[85, 90, 95]`"
+      ],
+      "answer": "B. `[95, 90, 78]`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `scores[0] = 95`는 첫 번째 값 85를 95로 교체해요.",
+        "wrong": "`scores[0] = 95`는 인덱스 0번(첫 번째 값 85)을 95로 바꿔요. 나머지는 그대로예요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_1_os_006",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ncolors = ['빨강', '파랑', '초록']\nprint(colors[1])\n```",
+      "choices": [
+        "A. `빨강`",
+        "B. `파랑`",
+        "C. `초록`",
+        "D. `['빨강', '파랑', '초록']`"
+      ],
+      "answer": "B. `파랑`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 인덱스 1은 두 번째 값 '파랑'이에요.",
+        "wrong": "인덱스 1은 두 번째 값이에요. 빨강(0) - 파랑(1) - 초록(2)이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_1_os_007",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nnums = [5, 10, 15, 20]\nprint(len(nums))\n```",
+      "choices": [
+        "A. `20`",
+        "B. `5`",
+        "C. `3`",
+        "D. `4`"
+      ],
+      "answer": "D. `4`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 리스트에 4개의 값이 있으므로 len(nums) = 4예요.",
+        "wrong": "`len()`은 요소 개수를 반환해요. 5, 10, 15, 20 → 4개예요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_1_os_008",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nsubjects = ['국어', '수학', '영어']\nsubjects.append('과학')\nprint(subjects)\n```",
+      "choices": [
+        "A. `['과학', '국어', '수학', '영어']`",
+        "B. `['국어', '수학', '영어']`",
+        "C. `['국어', '수학', '영어', '과학']`",
+        "D. 오류 발생"
+      ],
+      "answer": "C. `['국어', '수학', '영어', '과학']`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `append()`는 리스트 맨 끝에 추가해요. '과학'이 맨 뒤에 붙어요.",
+        "wrong": "`append()`는 항상 맨 끝에 추가해요. 기존 순서는 바뀌지 않아요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_1_os_009",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ngrades = [70, 80, 90, 60]\ngrades[-1] = 95\ngrades.append(85)\nprint(grades)\nprint(len(grades))\n```",
+      "choices": [
+        "A. `[70, 80, 90, 60, 85]` / `5`",
+        "B. `[70, 80, 90, 95, 85]` / `4`",
+        "C. `[70, 80, 90, 95]` / `4`",
+        "D. `[70, 80, 90, 95, 85]` / `5`"
+      ],
+      "answer": "D. `[70, 80, 90, 95, 85]` / `5`",
+      "hint": "",
+      "feedback": {
+        "correct": "완벽해요! grades[-1]=95로 마지막 60이 95로 교체되고, append(85)로 끝에 추가돼요. 총 5개예요.",
+        "wrong": "두 단계예요. grades[-1]=95 → 마지막 60이 95로 교체 → [70, 80, 90, 95]. 그다음 append(85) → [70, 80, 90, 95, 85]. 총 5개예요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_1_os_010",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ncities = ['서울', '부산', '대구', '인천', '광주']\nprint(cities[1])\nprint(cities[-2])\nprint(len(cities))\n```",
+      "choices": [
+        "A. `부산` / `광주` / `5`",
+        "B. `서울` / `인천` / `5`",
+        "C. `부산` / `인천` / `5`",
+        "D. `부산` / `인천` / `4`"
+      ],
+      "answer": "C. `부산` / `인천` / `5`",
+      "hint": "",
+      "feedback": {
+        "correct": "훌륭해요! cities[1]='부산'(두 번째), cities[-2]='인천'(-1=광주, -2=인천), len=5예요. 보스 클리어! 🎉",
+        "wrong": "cities[1]='부산'(인덱스 1 = 두 번째), cities[-2]='인천'(-1=광주, -2=인천), len(cities)=5(5개 도시)예요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_2_mc_001",
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "`[10, 20, 30, 40, 50]`에서 `[1:4]`의 결과는?",
+      "choices": [
+        "A. `[20, 30, 40]`",
+        "B. `[10, 20, 30]`",
+        "C. `[20, 30, 40, 50]`",
+        "D. `[10, 20, 30, 40]`"
+      ],
+      "answer": "A. `[20, 30, 40]`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `[1:4]`는 인덱스 1, 2, 3 → [20, 30, 40]이에요. 4는 미포함이에요.",
+        "wrong": "슬라이싱 끝 인덱스는 포함 안 돼요. `[1:4]`는 인덱스 1, 2, 3만 포함해요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_2_mc_002",
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "`'포도' in ['사과', '바나나', '포도']`의 결과는?",
+      "choices": [
+        "A. `True`",
+        "B. `포도`",
+        "C. `1`",
+        "D. 오류 발생"
+      ],
+      "answer": "A. `True`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! '포도'가 리스트에 있으므로 True예요.",
+        "wrong": "`in` 연산자는 값이 있으면 True를 반환해요. '포도'가 리스트 안에 있어요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_2_mc_003",
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "`remove()`와 `pop()`에 대한 설명으로 올바른 것은?",
+      "choices": [
+        "A. remove는 값으로 삭제, pop은 인덱스로 꺼낸다",
+        "B. 둘 다 값으로 삭제한다",
+        "C. remove는 인덱스로, pop은 값으로 삭제한다",
+        "D. 둘 다 인덱스로 삭제한다"
+      ],
+      "answer": "A. remove는 값으로 삭제, pop은 인덱스로 꺼낸다",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `remove(값)`은 값으로 삭제하고, `pop(인덱스)`는 인덱스로 꺼내요.",
+        "wrong": "`remove()`는 값으로, `pop()`은 인덱스로 삭제해요. pop()은 꺼낸 값을 반환해요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_2_mc_004",
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드 실행 후 `items`의 모습은?\n\n```python\nitems = ['A', 'B', 'C', 'D']\nitems.remove('B')\n```",
+      "choices": [
+        "A. `['A', 'C', 'D']`",
+        "B. `['B', 'C', 'D']`",
+        "C. `['A', 'B', 'D']`",
+        "D. `['A', 'B', 'C']`"
+      ],
+      "answer": "A. `['A', 'C', 'D']`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `remove('B')`는 'B'를 찾아 삭제해요. → ['A', 'C', 'D']예요.",
+        "wrong": "`remove()`는 해당 값을 삭제해요. 'B'가 사라지면 ['A', 'C', 'D']가 남아요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_2_mc_005",
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "`nums = [5, 10, 15, 20]`에서 `nums.pop()`의 반환값은?",
+      "choices": [
+        "A. `5`",
+        "B. `10`",
+        "C. `15`",
+        "D. `20`"
+      ],
+      "answer": "D. `20`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 인덱스 생략 시 `pop()`은 마지막 값 20을 꺼내요.",
+        "wrong": "`pop()` 인덱스 생략 시 마지막 값을 반환해요. nums의 마지막 값은 20이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_2_os_006",
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndata = [10, 20, 30, 40, 50]\nprint(data[:3])\n```",
+      "choices": [
+        "A. `[10, 20, 30]`",
+        "B. `[30, 40, 50]`",
+        "C. `[20, 30, 40]`",
+        "D. `[10, 20]`"
+      ],
+      "answer": "A. `[10, 20, 30]`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `[:3]`은 처음부터 인덱스 2까지 → [10, 20, 30]이에요.",
+        "wrong": "시작 생략은 처음부터를 의미해요. `[:3]`은 인덱스 0, 1, 2 → [10, 20, 30]이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_2_os_007",
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nfruits = ['사과', '포도', '딸기']\nprint('포도' in fruits)\nprint('수박' in fruits)\n```",
+      "choices": [
+        "A. `True` / `True`",
+        "B. `False` / `False`",
+        "C. `False` / `True`",
+        "D. `True` / `False`"
+      ],
+      "answer": "D. `True` / `False`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! '포도'는 있어서 True, '수박'은 없어서 False예요.",
+        "wrong": "`in`은 값이 있으면 True, 없으면 False예요. '포도'→True, '수박'→False예요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_2_os_008",
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nnums = [1, 2, 3, 4, 5]\nnums.pop(2)\nprint(nums)\n```",
+      "choices": [
+        "A. `[1, 2, 4, 5]`",
+        "B. `[1, 2, 3, 4]`",
+        "C. `[2, 3, 4, 5]`",
+        "D. `[1, 3, 4, 5]`"
+      ],
+      "answer": "A. `[1, 2, 4, 5]`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `pop(2)`는 인덱스 2의 값 3을 꺼내 삭제해요. → [1, 2, 4, 5]예요.",
+        "wrong": "`pop(2)`는 인덱스 2(세 번째 값 3)를 삭제해요. 나머지는 그대로 붙어요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_2_os_009",
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nscores = [50, 60, 70, 80, 90]\nscores.remove(60)\nscores.pop()\nprint(scores)\nprint(len(scores))\n```",
+      "choices": [
+        "A. `[50, 70, 80]` / `3`",
+        "B. `[50, 70, 80, 90]` / `4`",
+        "C. `[60, 70, 80]` / `3`",
+        "D. `[50, 70, 80]` / `4`"
+      ],
+      "answer": "A. `[50, 70, 80]` / `3`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! remove(60)→[50,70,80,90]. pop()→마지막 90 삭제→[50,70,80]. len=3이에요.",
+        "wrong": "remove(60)으로 60이 삭제→[50,70,80,90]. pop()으로 마지막 90이 삭제→[50,70,80]. 총 3개예요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_2_os_010",
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndata = ['A', 'B', 'C', 'D', 'E', 'F']\nsub = data[2:5]\nprint(sub)\nprint('D' in sub)\nprint(len(sub))\n```",
+      "choices": [
+        "A. `['C', 'D', 'E']` / `True` / `3`",
+        "B. `['B', 'C', 'D', 'E']` / `True` / `4`",
+        "C. `['C', 'D', 'E', 'F']` / `True` / `4`",
+        "D. `['C', 'D', 'E']` / `False` / `3`"
+      ],
+      "answer": "A. `['C', 'D', 'E']` / `True` / `3`",
+      "hint": "",
+      "feedback": {
+        "correct": "훌륭해요! data[2:5]는 인덱스 2,3,4 → ['C','D','E']. 'D'가 있어 True. len=3이에요. 보스 클리어! 🎉",
+        "wrong": "`[2:5]`는 인덱스 2,3,4 → ['C','D','E']. 'D'는 sub에 있으므로 True. 요소 3개라 len=3이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_3_mc_001",
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "딕셔너리에서 값을 꺼낼 때 사용하는 올바른 방법은?",
+      "choices": [
+        "A. `dict.key`",
+        "B. `dict(key)`",
+        "C. `dict[key]`",
+        "D. `dict->key`"
+      ],
+      "answer": "C. `dict[key]`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `dict[key]` 형태로 딕셔너리에서 값을 꺼내요.",
+        "wrong": "딕셔너리 값은 `dict[key]` 형태로 꺼내요. 점(.) 문법이나 `()` 사용은 안 돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_3_mc_002",
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "`get()`을 쓸 때 key가 없으면 기본으로 반환하는 값은?",
+      "choices": [
+        "A. `0`",
+        "B. `None`",
+        "C. `False`",
+        "D. `''`"
+      ],
+      "answer": "B. `None`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `get(key)`에서 key가 없으면 기본적으로 None을 반환해요.",
+        "wrong": "`get()`은 key가 없으면 None을 반환해요. 두 번째 인자로 기본값을 바꿀 수 있어요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_3_mc_003",
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "딕셔너리의 key 목록을 반환하는 메서드는?",
+      "choices": [
+        "A. `dict.values()`",
+        "B. `dict.items()`",
+        "C. `dict.keys()`",
+        "D. `dict.list()`"
+      ],
+      "answer": "C. `dict.keys()`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `keys()`는 딕셔너리의 모든 key를 반환해요.",
+        "wrong": "`keys()`가 key 목록, `values()`가 value 목록이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_3_mc_004",
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값은?\n\n```python\ninfo = {'name': '이수진', 'age': 28}\nprint(info.get('score', 0))\n```",
+      "choices": [
+        "A. `이수진`",
+        "B. `28`",
+        "C. `None`",
+        "D. `0`"
+      ],
+      "answer": "D. `0`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 'score' key가 없으므로 기본값 0을 반환해요.",
+        "wrong": "`get(key, 기본값)`은 key가 없으면 기본값을 반환해요. 'score'가 없어서 0이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_3_mc_005",
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "없는 key를 `dict[key]`로 접근하면 어떻게 되나요?",
+      "choices": [
+        "A. `None` 반환",
+        "B. `0` 반환",
+        "C. `KeyError` 발생",
+        "D. 빈 문자열 반환"
+      ],
+      "answer": "C. `KeyError` 발생",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 없는 key를 `[]`로 접근하면 KeyError가 발생해요. 안전하게 쓰려면 `get()`을 사용해요.",
+        "wrong": "`dict[없는key]`는 KeyError 오류가 발생해요. `get()`은 오류 없이 None을 반환해요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_3_os_006",
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nscores = {'국어': 85, '수학': 90, '영어': 78}\nprint(scores['영어'])\n```",
+      "choices": [
+        "A. `85`",
+        "B. `90`",
+        "C. `78`",
+        "D. `영어`"
+      ],
+      "answer": "C. `78`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `scores['영어']`는 key '영어'의 value 78을 반환해요.",
+        "wrong": "`딕셔너리[key]`는 해당 key의 value를 반환해요. '영어'의 값은 78이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_3_os_007",
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndata = {'a': 1, 'b': 2, 'c': 3}\nprint(list(data.values()))\n```",
+      "choices": [
+        "A. `['a', 'b', 'c']`",
+        "B. `[1, 2, 3]`",
+        "C. `[('a',1), ('b',2), ('c',3)]`",
+        "D. `{1, 2, 3}`"
+      ],
+      "answer": "B. `[1, 2, 3]`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `values()`는 모든 value를 반환해요. → [1, 2, 3]이에요.",
+        "wrong": "`values()`는 value만 반환해요. key 목록은 `keys()`가 반환해요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_3_os_008",
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nperson = {'name': '김지훈', 'age': 30, 'city': '대구'}\nprint(person.get('name'))\nprint(person.get('email', '없음'))\n```",
+      "choices": [
+        "A. `김지훈` / `None`",
+        "B. `김지훈` / `없음`",
+        "C. `None` / `없음`",
+        "D. `30` / `없음`"
+      ],
+      "answer": "B. `김지훈` / `없음`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 'name'은 있어서 '김지훈', 'email'은 없어서 기본값 '없음'을 반환해요.",
+        "wrong": "get(key, 기본값)은 key가 있으면 그 값, 없으면 기본값을 반환해요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_3_os_009",
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nschool = {\n    'A반': {'인원': 30, '담임': '박선생'},\n    'B반': {'인원': 28, '담임': '최선생'}\n}\nprint(school['A반']['인원'])\nprint(school['B반']['담임'])\n```",
+      "choices": [
+        "A. `30` / `박선생`",
+        "B. `28` / `최선생`",
+        "C. `30` / `최선생`",
+        "D. `28` / `박선생`"
+      ],
+      "answer": "C. `30` / `최선생`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! school['A반']['인원']=30, school['B반']['담임']='최선생'이에요.",
+        "wrong": "중첩 딕셔너리는 순서대로 접근해요. A반의 인원=30, B반의 담임=최선생이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_3_os_010",
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nconfig = {'host': 'localhost', 'port': 8000, 'debug': True}\nkeys = list(config.keys())\nvals = list(config.values())\nprint(keys[0])\nprint(vals[1])\nprint(config.get('timeout', 30))\n```",
+      "choices": [
+        "A. `host` / `8000` / `30`",
+        "B. `localhost` / `8000` / `30`",
+        "C. `host` / `localhost` / `True`",
+        "D. `port` / `8000` / `30`"
+      ],
+      "answer": "A. `host` / `8000` / `30`",
+      "hint": "",
+      "feedback": {
+        "correct": "훌륭해요! keys[0]='host', vals[1]=8000, 'timeout' 없어서 기본값 30이에요. 보스 클리어! 🎉",
+        "wrong": "keys=['host','port','debug']→[0]='host'. vals=['localhost',8000,True]→[1]=8000. 'timeout'없어서 30이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_4_mc_001",
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "딕셔너리에 새 항목을 추가하는 올바른 방법은?",
+      "choices": [
+        "A. `dict[key] = value`",
+        "B. `dict.add(key, value)`",
+        "C. `dict.append(key, value)`",
+        "D. `dict.insert(key, value)`"
+      ],
+      "answer": "A. `dict[key] = value`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `dict[key] = value` 형태로 새 항목을 추가해요.",
+        "wrong": "딕셔너리 추가와 수정 모두 `dict[key] = value` 형태를 써요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_4_mc_002",
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "딕셔너리에서 항목을 삭제하는 올바른 방법은?",
+      "choices": [
+        "A. `dict.remove(key)`",
+        "B. `dict.delete(key)`",
+        "C. `del dict[key]`",
+        "D. `dict.pop_key(key)`"
+      ],
+      "answer": "C. `del dict[key]`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `del dict[key]`로 해당 key-value 쌍을 삭제해요.",
+        "wrong": "딕셔너리 항목 삭제는 `del dict[key]`를 써요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_4_mc_003",
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "`items()`가 반환하는 것은?",
+      "choices": [
+        "A. key 목록만",
+        "B. value 목록만",
+        "C. (key, value) 튜플 쌍 목록",
+        "D. 딕셔너리 복사본"
+      ],
+      "answer": "C. (key, value) 튜플 쌍 목록",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `items()`는 (key, value) 튜플 쌍의 목록을 반환해요.",
+        "wrong": "`keys()`는 key만, `values()`는 value만, `items()`는 (key,value) 쌍을 반환해요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_4_mc_004",
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드 실행 후 `d`의 모습은?\n\n```python\nd = {'a': 1, 'b': 2}\nd['b'] = 99\nd['c'] = 3\n```",
+      "choices": [
+        "A. `{'a': 1, 'b': 2, 'c': 3}`",
+        "B. `{'a': 1, 'b': 99, 'c': 3}`",
+        "C. `{'a': 1, 'c': 3}`",
+        "D. `{'b': 99, 'c': 3}`"
+      ],
+      "answer": "B. `{'a': 1, 'b': 99, 'c': 3}`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 'b'는 99로 수정되고, 'c'=3이 추가돼요.",
+        "wrong": "있는 key 'b' → 99로 수정. 없는 key 'c' → 3 추가. 결과: {'a':1,'b':99,'c':3}이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_4_mc_005",
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드 실행 후 딕셔너리의 항목 수는?\n\n```python\ndata = {'x': 1, 'y': 2, 'z': 3}\ndel data['y']\ndata['w'] = 4\nprint(len(data))\n```",
+      "choices": [
+        "A. `2`",
+        "B. `4`",
+        "C. `3`",
+        "D. `1`"
+      ],
+      "answer": "C. `3`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 시작 3개 - 'y' 삭제 + 'w' 추가 = 3개예요.",
+        "wrong": "시작 3개, del 'y'→2개, 'w' 추가→3개예요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_4_os_006",
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ninfo = {'name': '김민준', 'age': 20}\ninfo['city'] = '서울'\nprint(info)\n```",
+      "choices": [
+        "A. `{'name': '김민준', 'age': 20}`",
+        "B. `{'city': '서울'}`",
+        "C. `{'name': '김민준', 'age': 20, 'city': '서울'}`",
+        "D. 오류 발생"
+      ],
+      "answer": "C. `{'name': '김민준', 'age': 20, 'city': '서울'}`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 없는 key 'city'에 값을 대입하면 새 항목이 추가돼요.",
+        "wrong": "없는 key에 값을 대입하면 추가돼요. 기존 항목은 그대로예요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_4_os_007",
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nd = {'a': 1, 'b': 2, 'c': 3}\nprint(list(d.items()))\n```",
+      "choices": [
+        "A. `['a', 'b', 'c']`",
+        "B. `[1, 2, 3]`",
+        "C. `[('a', 1), ('b', 2), ('c', 3)]`",
+        "D. `{'a': 1}`"
+      ],
+      "answer": "C. `[('a', 1), ('b', 2), ('c', 3)]`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `items()`는 (key, value) 튜플 쌍의 목록을 반환해요.",
+        "wrong": "`items()`는 (key, value) 쌍을 반환해요. keys()는 key만, values()는 value만이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_4_os_008",
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nscores = {'국어': 85, '수학': 90, '영어': 78}\nscores['수학'] = 95\ndel scores['영어']\nprint(scores)\n```",
+      "choices": [
+        "A. `{'국어': 85, '수학': 90, '영어': 78}`",
+        "B. `{'국어': 85, '수학': 95}`",
+        "C. `{'수학': 95, '영어': 78}`",
+        "D. `{'국어': 85, '영어': 78}`"
+      ],
+      "answer": "B. `{'국어': 85, '수학': 95}`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! '수학'이 95로 수정되고, '영어'가 삭제돼요. '국어'는 그대로예요.",
+        "wrong": "'수학'=95(수정), del '영어'(삭제). 남은 {'국어':85, '수학':95}예요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_4_os_009",
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndata = {'a': 10, 'b': 20}\ndata['c'] = data['a'] + data['b']\ndel data['a']\nprint(list(data.keys()))\nprint(data['c'])\n```",
+      "choices": [
+        "A. `['a', 'b', 'c']` / `30`",
+        "B. `['b', 'c']` / `30`",
+        "C. `['b', 'c']` / `10`",
+        "D. `['a', 'c']` / `30`"
+      ],
+      "answer": "B. `['b', 'c']` / `30`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! c = 10+20 = 30 추가, a 삭제. keys=['b','c'], data['c']=30이에요.",
+        "wrong": "data['c']=10+20=30(추가), del data['a'](삭제). 남은 keys=['b','c'], c=30이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_4_os_010",
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nconfig = {}\nconfig['width'] = 1920\nconfig['height'] = 1080\nconfig['width'] = 2560\ndel config['height']\nconfig['fps'] = 60\nprint(list(config.items()))\n```",
+      "choices": [
+        "A. `[('width', 1920), ('height', 1080)]`",
+        "B. `[('width', 1920), ('fps', 60)]`",
+        "C. `[('width', 2560), ('fps', 60)]`",
+        "D. `[('width', 2560), ('height', 1080), ('fps', 60)]`"
+      ],
+      "answer": "C. `[('width', 2560), ('fps', 60)]`",
+      "hint": "",
+      "feedback": {
+        "correct": "훌륭해요! width=2560(수정), height 삭제, fps=60 추가. 결과: {width:2560, fps:60}이에요. 보스 클리어! 🎉",
+        "wrong": "width=1920 추가→2560 수정. height=1080 추가→삭제. fps=60 추가. 최종: {width:2560, fps:60}→items()=[('width',2560),('fps',60)]이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_5_mc_001",
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "`data = [{'a': 1}, {'a': 2}]`에서 두 번째 딕셔너리의 'a' 값을 꺼내는 방법은?",
+      "choices": [
+        "A. `data['a'][1]`",
+        "B. `data[1]['a']`",
+        "C. `data[1, 'a']`",
+        "D. `data.get(1, 'a')`"
+      ],
+      "answer": "B. `data[1]['a']`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 리스트 인덱스[1] → 딕셔너리 key['a'] 순서예요.",
+        "wrong": "두 단계예요. 먼저 리스트 인덱스[1], 그다음 딕셔너리 key['a']예요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_5_mc_002",
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값은?\n\n```python\nitems = [{'name': '연필', 'price': 500}, {'name': '공책', 'price': 1200}]\nprint(items[0]['name'])\n```",
+      "choices": [
+        "A. `공책`",
+        "B. `연필`",
+        "C. `500`",
+        "D. `1200`"
+      ],
+      "answer": "B. `연필`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! items[0]은 첫 번째 딕셔너리. ['name']은 '연필'이에요.",
+        "wrong": "items[0]={'name':'연필','price':500}. ['name']='연필'이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_5_mc_003",
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "리스트 안의 딕셔너리 값을 수정하는 올바른 방법은?",
+      "choices": [
+        "A. `list[idx][key] = val`",
+        "B. `list.update(idx, key, val)`",
+        "C. `list[key][idx] = val`",
+        "D. `list.modify(idx, key, val)`"
+      ],
+      "answer": "A. `list[idx][key] = val`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `list[인덱스][key] = 새값` 형태로 수정해요.",
+        "wrong": "수정은 `list[인덱스][key] = 새값`이에요. 인덱스가 먼저, key가 나중이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_5_mc_004",
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값은?\n\n```python\nstudents = [\n    {'name': '최민준', 'score': 88},\n    {'name': '장서윤', 'score': 95}\n]\nprint(students[0]['score'] + students[1]['score'])\n```",
+      "choices": [
+        "A. `88`",
+        "B. `183`",
+        "C. `95`",
+        "D. `7`"
+      ],
+      "answer": "B. `183`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! students[0]['score']=88, students[1]['score']=95. 88+95=183이에요.",
+        "wrong": "두 딕셔너리의 'score' 값을 더해요. 88+95=183이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_5_mc_005",
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드 실행 후 data[1]['x']의 값은?\n\n```python\ndata = [{'x': 5}, {'x': 10}]\ndata[1]['x'] += 5\n```",
+      "choices": [
+        "A. `5`",
+        "B. `10`",
+        "C. `15`",
+        "D. `20`"
+      ],
+      "answer": "C. `15`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! data[1]['x'] += 5는 10+5=15로 수정해요.",
+        "wrong": "data[1]['x']는 10이에요. += 5로 10+5=15가 돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_5_os_006",
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nproducts = [{'name': '사과', 'price': 1500}, {'name': '바나나', 'price': 800}]\nprint(products[1]['price'])\n```",
+      "choices": [
+        "A. `1500`",
+        "B. `사과`",
+        "C. `바나나`",
+        "D. `800`"
+      ],
+      "answer": "D. `800`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! products[1]은 두 번째 딕셔너리. ['price']는 800이에요.",
+        "wrong": "products[1]={'name':'바나나','price':800}. ['price']=800이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_5_os_007",
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nrecords = [\n    {'name': '국어', 'score': 85},\n    {'name': '수학', 'score': 90}\n]\nprint(records[0]['name'])\nprint(records[1]['score'])\n```",
+      "choices": [
+        "A. `국어` / `85`",
+        "B. `수학` / `90`",
+        "C. `국어` / `90`",
+        "D. `수학` / `85`"
+      ],
+      "answer": "C. `국어` / `90`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! records[0]['name']='국어', records[1]['score']=90이에요.",
+        "wrong": "records[0]은 첫 번째→['name']='국어'. records[1]은 두 번째→['score']=90이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_5_os_008",
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nrecords = [\n    {'name': '이준서', 'score': 80},\n    {'name': '김나연', 'score': 90}\n]\nrecords[0]['score'] = 85\nprint(records[0])\n```",
+      "choices": [
+        "A. `{'name': '이준서', 'score': 80}`",
+        "B. `{'name': '이준서', 'score': 85}`",
+        "C. `{'name': '김나연', 'score': 85}`",
+        "D. 오류 발생"
+      ],
+      "answer": "B. `{'name': '이준서', 'score': 85}`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! records[0]['score'] = 85로 첫 번째 딕셔너리의 score가 85로 수정돼요.",
+        "wrong": "records[0]['score'] = 85로 첫 번째 딕셔너리의 'score'가 80 → 85로 바뀌어요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_5_os_009",
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\norders = [\n    {'item': '커피', 'qty': 3, 'price': 4000},\n    {'item': '주스', 'qty': 2, 'price': 5000}\n]\ntotal = 0\nfor o in orders:\n    total += o['qty'] * o['price']\nprint(total)\n```",
+      "choices": [
+        "A. `12000`",
+        "B. `10000`",
+        "C. `22000`",
+        "D. `20000`"
+      ],
+      "answer": "C. `22000`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 커피: 3×4000=12000. 주스: 2×5000=10000. 12000+10000=22000이에요.",
+        "wrong": "각 항목의 qty×price를 누적해요. 3×4000=12000 + 2×5000=10000 = 22000이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_5_os_010",
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndata = {\n    '팀A': [{'name': '김민수', 'score': 80}, {'name': '이수진', 'score': 90}],\n    '팀B': [{'name': '박태양', 'score': 75}]\n}\nprint(data['팀A'][1]['name'])\nprint(data['팀B'][0]['score'])\n```",
+      "choices": [
+        "A. `이수진` / `75`",
+        "B. `김민수` / `75`",
+        "C. `이수진` / `80`",
+        "D. `박태양` / `90`"
+      ],
+      "answer": "A. `이수진` / `75`",
+      "hint": "",
+      "feedback": {
+        "correct": "훌륭해요! data['팀A'][1]={'name':'이수진','score':90}. ['name']='이수진'. data['팀B'][0]['score']=75. 보스 클리어! 🎉",
+        "wrong": "data['팀A'][1]은 두 번째 딕셔너리(이수진). ['name']='이수진'. data['팀B'][0]['score']=75예요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_6_mc_001",
+      "unit": 2,
+      "stage": "2-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "`for x in [1, 2, 3]:` 은 몇 번 반복되나요?",
+      "choices": [
+        "A. 1번",
+        "B. 3번",
+        "C. 2번",
+        "D. 무한"
+      ],
+      "answer": "B. 3번",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 리스트에 3개가 있으므로 3번 반복돼요.",
+        "wrong": "for문은 리스트 요소 수만큼 반복해요. 3개 → 3번이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_6_mc_002",
+      "unit": 2,
+      "stage": "2-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값은?\n\n```python\ntotal = 0\nfor n in [10, 20, 30]:\n    total += n\nprint(total)\n```",
+      "choices": [
+        "A. `30`",
+        "B. `60`",
+        "C. `10`",
+        "D. `6`"
+      ],
+      "answer": "B. `60`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 10+20+30=60이에요.",
+        "wrong": "0에서 시작해 10, 20, 30을 차례로 더해요. 0+10+20+30=60이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_6_mc_003",
+      "unit": 2,
+      "stage": "2-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "`enumerate()`를 쓰는 이유는?",
+      "choices": [
+        "A. 리스트를 정렬하기 위해",
+        "B. 인덱스와 값을 동시에 받기 위해",
+        "C. 리스트를 역순으로 만들기 위해",
+        "D. 값이 있는지 확인하기 위해"
+      ],
+      "answer": "B. 인덱스와 값을 동시에 받기 위해",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `enumerate()`는 for문에서 인덱스와 값을 동시에 받을 때 사용해요.",
+        "wrong": "`enumerate()`는 인덱스와 값을 쌍으로 반환해요. 인덱스가 필요할 때 써요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_6_mc_004",
+      "unit": 2,
+      "stage": "2-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값은?\n\n```python\ncount = 0\nfor x in [1, 2, 3, 4, 5]:\n    if x % 2 == 0:\n        count += 1\nprint(count)\n```",
+      "choices": [
+        "A. `5`",
+        "B. `3`",
+        "C. `2`",
+        "D. `4`"
+      ],
+      "answer": "C. `2`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 짝수는 2, 4로 2개예요.",
+        "wrong": "x%2==0인 짝수: 2, 4 → 2개. count = 2예요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_6_mc_005",
+      "unit": 2,
+      "stage": "2-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값은?\n\n```python\nresult = []\nfor n in [1, 2, 3, 4, 5]:\n    if n > 3:\n        result.append(n)\nprint(result)\n```",
+      "choices": [
+        "A. `[1, 2, 3]`",
+        "B. `[3, 4, 5]`",
+        "C. `[4, 5]`",
+        "D. `[1, 2]`"
+      ],
+      "answer": "C. `[4, 5]`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 3보다 큰 값은 4, 5예요.",
+        "wrong": "n>3 조건에 맞는 값은 4, 5예요. result = [4, 5]예요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_6_os_006",
+      "unit": 2,
+      "stage": "2-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nfor fruit in ['사과', '바나나', '포도']:\n    print(fruit)\n```",
+      "choices": [
+        "A. `['사과', '바나나', '포도']`",
+        "B. `사과` / `바나나` / `포도` (세 줄)",
+        "C. `사과바나나포도`",
+        "D. `포도`"
+      ],
+      "answer": "B. `사과` / `바나나` / `포도` (세 줄)",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! for문은 각 값을 한 줄씩 출력해요.",
+        "wrong": "for문은 각 값을 순서대로 print해요. 세 줄이 나와요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_6_os_007",
+      "unit": 2,
+      "stage": "2-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nsubjects = ['국어', '수학', '영어']\nfor i, s in enumerate(subjects):\n    print(i, s)\n```",
+      "choices": [
+        "A. `1 국어` / `2 수학` / `3 영어`",
+        "B. `국어 0` / `수학 1` / `영어 2`",
+        "C. `0 국어` / `1 수학` / `2 영어`",
+        "D. `0` / `1` / `2`"
+      ],
+      "answer": "C. `0 국어` / `1 수학` / `2 영어`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! enumerate()는 0부터 인덱스를 시작해요.",
+        "wrong": "enumerate()의 인덱스는 0부터 시작해요. `i s` 순서로 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_6_os_008",
+      "unit": 2,
+      "stage": "2-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nscores = [70, 85, 60, 90]\nfor score in scores:\n    if score >= 80:\n        print(f'합격: {score}')\n```",
+      "choices": [
+        "A. `합격: 70` / `합격: 85`",
+        "B. `합격: 85` / `합격: 90`",
+        "C. `합격: 85` / `합격: 60` / `합격: 90`",
+        "D. `합격: 90`"
+      ],
+      "answer": "B. `합격: 85` / `합격: 90`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 80 이상인 85, 90만 출력돼요.",
+        "wrong": "80 이상인 값만 출력해요. 85, 90이 조건을 만족해요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_6_os_009",
+      "unit": 2,
+      "stage": "2-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndata = [3, 6, 9, 12]\nresult = []\nfor i, n in enumerate(data):\n    if i % 2 == 0:\n        result.append(n)\nprint(result)\n```",
+      "choices": [
+        "A. `[6, 12]`",
+        "B. `[3, 9]`",
+        "C. `[3, 6, 9, 12]`",
+        "D. `[9, 12]`"
+      ],
+      "answer": "B. `[3, 9]`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 짝수 인덱스(0, 2)의 값 3, 9를 append해요. [3, 9]예요.",
+        "wrong": "짝수 인덱스(0, 2): data[0]=3, data[2]=9. result=[3, 9]예요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_6_os_010",
+      "unit": 2,
+      "stage": "2-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nnums = [1, 2, 3, 4, 5]\ntotal = 0\ncount = 0\nfor n in nums:\n    if n % 2 != 0:\n        total += n\n        count += 1\nprint(f'홀수 합: {total}, 개수: {count}')\n```",
+      "choices": [
+        "A. `홀수 합: 9, 개수: 2`",
+        "B. `홀수 합: 6, 개수: 3`",
+        "C. `홀수 합: 15, 개수: 5`",
+        "D. `홀수 합: 9, 개수: 3`"
+      ],
+      "answer": "D. `홀수 합: 9, 개수: 3`",
+      "hint": "",
+      "feedback": {
+        "correct": "훌륭해요! 홀수: 1, 3, 5. 합=9, 개수=3이에요. 보스 클리어! 🎉",
+        "wrong": "홀수(n%2!=0): 1, 3, 5. total=1+3+5=9. count=3이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_7_mc_001",
+      "unit": 2,
+      "stage": "2-7",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "딕셔너리의 키와 값을 동시에 순회하는 올바른 방법은?",
+      "choices": [
+        "A. `for k, v in d.items():`",
+        "B. `for k, v in d:`",
+        "C. `for k, v in d.keys():`",
+        "D. `for k, v in d.values():`"
+      ],
+      "answer": "A. `for k, v in d.items():`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `for k, v in d.items():` 형태로 키와 값을 동시에 받아요.",
+        "wrong": "키-값 쌍을 동시에 받으려면 `.items()`를 써요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_7_mc_002",
+      "unit": 2,
+      "stage": "2-7",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값은?\n\n```python\nd = {'a': 1, 'b': 2, 'c': 3}\nfor k in d:\n    print(k)\n```",
+      "choices": [
+        "A. `a` / `b` / `c`",
+        "B. `1` / `2` / `3`",
+        "C. `a:1` / `b:2` / `c:3`",
+        "D. `('a',1)` / `('b',2)` / `('c',3)`"
+      ],
+      "answer": "A. `a` / `b` / `c`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 딕셔너리를 그냥 for문으로 돌리면 키만 나와요.",
+        "wrong": "for문에 딕셔너리를 넣으면 키만 순회해요. a, b, c가 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_7_mc_003",
+      "unit": 2,
+      "stage": "2-7",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "값만 순회하려면 어떤 메서드를 써야 하나요?",
+      "choices": [
+        "A. `keys()`",
+        "B. `items()`",
+        "C. `values()`",
+        "D. `get()`"
+      ],
+      "answer": "C. `values()`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `for v in d.values():`로 값만 순회해요.",
+        "wrong": "값만 순회하려면 `.values()`를 써요. `.keys()`는 키, `.items()`는 키-값 쌍이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_7_mc_004",
+      "unit": 2,
+      "stage": "2-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값은?\n\n```python\nscores = {'국어': 80, '수학': 90, '영어': 70}\ncount = 0\nfor v in scores.values():\n    if v >= 80:\n        count += 1\nprint(count)\n```",
+      "choices": [
+        "A. `3`",
+        "B. `1`",
+        "C. `2`",
+        "D. `0`"
+      ],
+      "answer": "C. `2`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 80 이상인 값: 80, 90 → 2개예요.",
+        "wrong": "values()로 80, 90, 70을 꺼내 80 이상인 값: 80, 90 → 2개예요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_7_mc_005",
+      "unit": 2,
+      "stage": "2-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값은?\n\n```python\ndata = {'x': 5, 'y': 10, 'z': 15}\nresult = []\nfor k, v in data.items():\n    if v > 7:\n        result.append(k)\nprint(result)\n```",
+      "choices": [
+        "A. `['x']`",
+        "B. `['x', 'y']`",
+        "C. `['y', 'z']`",
+        "D. `[10, 15]`"
+      ],
+      "answer": "C. `['y', 'z']`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 7 초과인 값: y(10), z(15). 키를 append해요.",
+        "wrong": "v>7인 항목: y(10), z(15). 키 y, z를 result에 담아요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_7_os_006",
+      "unit": 2,
+      "stage": "2-7",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nscores = {'국어': 85, '수학': 90, '영어': 78}\nfor subject, score in scores.items():\n    print(f'{subject}: {score}점')\n```",
+      "choices": [
+        "A. `국어` / `수학` / `영어`",
+        "B. `85` / `90` / `78`",
+        "C. `국어: 85점` / `수학: 90점` / `영어: 78점`",
+        "D. `국어85` / `수학90` / `영어78`"
+      ],
+      "answer": "C. `국어: 85점` / `수학: 90점` / `영어: 78점`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! f-string으로 `과목: 점수점` 형태로 출력돼요.",
+        "wrong": "`for subject, score in items()`로 받아 f-string으로 출력해요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_7_os_007",
+      "unit": 2,
+      "stage": "2-7",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ntotal = 0\nd = {'a': 10, 'b': 20, 'c': 30}\nfor v in d.values():\n    total += v\nprint(total)\n```",
+      "choices": [
+        "A. `10`",
+        "B. `30`",
+        "C. `60`",
+        "D. `abc`"
+      ],
+      "answer": "C. `60`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 10+20+30=60이에요.",
+        "wrong": "values()로 10, 20, 30을 꺼내 더해요. 합계는 60이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_7_os_008",
+      "unit": 2,
+      "stage": "2-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ngrades = {'국어': 85, '수학': 70, '영어': 90}\nfor subject, grade in grades.items():\n    if grade >= 80:\n        print(subject)\n```",
+      "choices": [
+        "A. `수학`",
+        "B. `국어` / `영어`",
+        "C. `국어` / `수학` / `영어`",
+        "D. `영어`"
+      ],
+      "answer": "B. `국어` / `영어`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 80 이상인 과목: 국어(85), 영어(90)예요.",
+        "wrong": "80 이상: 국어(85), 영어(90). 수학(70)은 미달이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_7_os_009",
+      "unit": 2,
+      "stage": "2-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nstudents = [\n    {'name': '박민서', 'score': 75},\n    {'name': '김태양', 'score': 88},\n    {'name': '이수진', 'score': 92}\n]\nresult = []\nfor s in students:\n    if s['score'] >= 85:\n        result.append(s['name'])\nprint(result)\nprint(len(result))\n```",
+      "choices": [
+        "A. `['박민서']` / `1`",
+        "B. `['김태양', '이수진']` / `2`",
+        "C. `['이수진']` / `1`",
+        "D. `['박민서', '김태양']` / `2`"
+      ],
+      "answer": "B. `['김태양', '이수진']` / `2`",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 85 이상: 김태양(88), 이수진(92) → 2명이에요.",
+        "wrong": "85 이상: 88(김태양), 92(이수진). result=['김태양','이수진'], len=2예요."
+      }
+    },
+    {
+      "question_id": "miniboss_2_7_os_010",
+      "unit": 2,
+      "stage": "2-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ninventory = {'사과': 10, '바나나': 3, '포도': 8, '딸기': 2}\nlow_stock = []\ntotal = 0\nfor item, qty in inventory.items():\n    total += qty\n    if qty <= 3:\n        low_stock.append(item)\nprint(f'총 재고: {total}')\nprint(f'부족 항목: {low_stock}')\n```",
+      "choices": [
+        "A. `총 재고: 23` / `부족 항목: ['바나나', '딸기']`",
+        "B. `총 재고: 13` / `부족 항목: ['딸기']`",
+        "C. `총 재고: 23` / `부족 항목: ['딸기']`",
+        "D. `총 재고: 10` / `부족 항목: ['바나나', '딸기']`"
+      ],
+      "answer": "A. `총 재고: 23` / `부족 항목: ['바나나', '딸기']`",
+      "hint": "",
+      "feedback": {
+        "correct": "훌륭해요! 총 재고=10+3+8+2=23. 3 이하: 바나나(3), 딸기(2). 보스 클리어! 🎉",
+        "wrong": "총 재고=10+3+8+2=23. qty<=3: 바나나(3), 딸기(2). low_stock=['바나나','딸기']예요."
+      }
+    }
+  ]
+}

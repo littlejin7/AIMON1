@@ -14,30 +14,32 @@ LESSONS_DIR    = os.path.join(os.path.dirname(__file__), "../data/lessons")  # �
 UNITS_FILE     = os.path.join(os.path.dirname(__file__), "../data/lessons.json")  # 유닛 목록
 
 
-def load_questions(course_level: str = None, unit: int = None):
-    base = os.path.join(os.path.dirname(__file__), "../data/questions")
+def load_questions_by_category(category: str, course_level: str = None, unit: int = None):
+    base = os.path.join(os.path.dirname(__file__), f"../data/{category}")
     result = []
     levels = [course_level] if course_level else ["beginner", "intermediate", "advanced"]
     for level in levels:
-        folder = os.path.join(base, level)
-        if not os.path.exists(folder):
-            continue
-        if unit:
-            fpath = os.path.join(folder, f"unit_{unit}.json")
+        if category == "finalboss":
+            fpath = os.path.join(base, f"{level}.json")
             if os.path.exists(fpath):
                 with open(fpath, "r", encoding="utf-8") as f:
                     data = json.load(f)
-                    result.extend(data.get("questions", data) if isinstance(data, dict) else data)
+                    result.extend(data.get("questions", []))
         else:
-            for fname in sorted(os.listdir(folder)):
-                if fname.endswith(".json"):
-                    with open(os.path.join(folder, fname), "r", encoding="utf-8") as f:
+            folder = os.path.join(base, level)
+            if not os.path.exists(folder):
+                continue
+            files = [f"unit_{unit}.json"] if unit else sorted(os.listdir(folder))
+            for fname in files:
+                fpath = os.path.join(folder, fname)
+                if os.path.exists(fpath) and fname.endswith(".json"):
+                    with open(fpath, "r", encoding="utf-8") as f:
                         data = json.load(f)
-                        result.extend(data.get("questions", data) if isinstance(data, dict) else data)
+                        result.extend(data.get("questions", []))
     return result
 
 
-def load_lessons(course_level: str = None):
+def load_lessons(course_level: str = None, unit: int = None):
     base = os.path.join(os.path.dirname(__file__), "../data/lessons")
     result = []
     levels = [course_level] if course_level else ["beginner", "intermediate", "advanced"]
@@ -45,9 +47,11 @@ def load_lessons(course_level: str = None):
         folder = os.path.join(base, level)
         if not os.path.exists(folder):
             continue
-        for fname in sorted(os.listdir(folder)):
-            if fname.endswith(".json"):
-                with open(os.path.join(folder, fname), "r", encoding="utf-8") as f:
+        files = [f"unit_{unit}.json"] if unit else sorted(os.listdir(folder))
+        for fname in files:
+            fpath = os.path.join(folder, fname)
+            if os.path.exists(fpath) and fname.endswith(".json"):
+                with open(fpath, "r", encoding="utf-8") as f:
                     result.extend(json.load(f))
     return result
 
@@ -90,9 +94,9 @@ def get_unit(unit_id: int):
 # ── 브리핑 슬라이드 (lessons/ 폴더) ─────────────────────────────
 
 @router.get("/lessons")
-def get_lessons(course_level: str = Query(None)):
+def get_lessons(course_level: str = Query(None), unit: int = Query(None)):
     """전체 브리핑 슬라이드 목록."""
-    return load_lessons(course_level)
+    return load_lessons(course_level, unit)
 
 
 @router.get("/lessons/{lesson_id}")
@@ -113,42 +117,35 @@ def get_questions(
     unit: int = Query(None),
     stage: str = Query(None),
     course_level: str = Query(None),
+    category: str = Query("quiz"),
     limit: int = Query(10),
     attempt: int = Query(1),
 ):
-    questions = load_questions(course_level=course_level, unit=unit)
-    if unit is not None:
-        questions = [q for q in questions if q.get("unit") == unit]
+    questions = load_questions_by_category(category, course_level, unit)
     if stage is not None:
         questions = [q for q in questions if q.get("stage") == stage]
-    if course_level is not None:
-        questions = [q for q in questions if q.get("course_level") == course_level]
     random.shuffle(questions)
     
-    all_stage_quizzes = [q for q in questions if q.get("quiz_category") == "stage_quiz"]
-    minibosses = [q for q in questions if q.get("quiz_category") == "miniboss"]
-
-    # attempt에 따라 Set 구분
-    if attempt == 1:
-        pool = [q for q in all_stage_quizzes if q.get("quiz_set") == "A"]
-    elif attempt == 2:
-        pool = [q for q in all_stage_quizzes if q.get("quiz_set") == "B"]
-    else:
-        # 3회차 이상: A + B 섞어서 랜덤 10개
-        pool = all_stage_quizzes
-        random.shuffle(pool)
-
-    stage_quizzes = pool
-
-    quiz_limit = 10
-    boss_limit = 10
-    result = stage_quizzes[:quiz_limit] + minibosses[:boss_limit]
-    return result
+    if category == "quiz":
+        # attempt에 따라 Set 구분
+        if attempt == 1:
+            pool = [q for q in questions if q.get("quiz_set") == "A"]
+        elif attempt == 2:
+            pool = [q for q in questions if q.get("quiz_set") == "B"]
+        else:
+            # 3회차 이상: A + B 섞어서 랜덤
+            pool = questions
+            random.shuffle(pool)
+        return pool[:limit]
+    
+    return questions[:limit]
 
 
 @router.get("/questions/{question_id}")
 def get_question(question_id: str):
-    questions = load_questions()
+    # This might need to search all categories if category is unknown.
+    # For now, we search 'quiz' and 'miniboss'.
+    questions = load_questions_by_category("quiz") + load_questions_by_category("miniboss") + load_questions_by_category("unitboss") + load_questions_by_category("finalboss")
     # 새 스키마는 "question_id" 키 사용
     q = next(
         (q for q in questions if q.get("question_id") == question_id or q.get("id") == question_id),

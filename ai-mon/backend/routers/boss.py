@@ -10,7 +10,7 @@ router = APIRouter()
 SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
 
-from routers.quiz import load_questions
+from routers.quiz import load_questions_by_category
 
 WRONG_ANSWERS_FILE = os.path.join(os.path.dirname(__file__), "../data/wrong_answers.json")
 USERS_FILE = os.path.join(os.path.dirname(__file__), "../data/users.json")
@@ -102,11 +102,7 @@ def start_boss_battle(unit: int = 1, authorization: str = Header(...)):
     save_users(users)
 
     course_level = user.get("course_level", "beginner")
-    questions = load_questions(course_level=course_level, unit=unit)
-    boss_qs = [
-        q for q in questions
-        if q.get("quiz_category") == "unit_boss"
-    ]
+    boss_qs = load_questions_by_category("unitboss", course_level=course_level, unit=unit)
     if not boss_qs:
         raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
     import random
@@ -116,7 +112,7 @@ def start_boss_battle(unit: int = 1, authorization: str = Header(...)):
 @router.post("/answer")
 async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header(...)):
     user_id = verify_token(authorization)
-    questions = load_questions()
+    questions = load_questions_by_category("unitboss") + load_questions_by_category("finalboss")
     # 우리 스키마는 "question_id" 필드 사용 ("id" 필드 없음)
     question = next(
         (q for q in questions if q.get("question_id") == req.question_id or q.get("id") == req.question_id),
