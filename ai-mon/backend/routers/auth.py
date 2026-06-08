@@ -103,3 +103,11 @@ def login(req: LoginRequest):
 
     token = create_token({"sub": user["id"], "username": user["username"]})
     return {"access_token": token, "token_type": "bearer", "user": {k: v for k, v in user.items() if k != "password"}}
+
+
+@router.get("/check-id")
+def check_id(username: str):
+    users = load_users()
+    if any(u["username"] == username.strip() for u in users):
+        raise HTTPException(status_code=400, detail="이미 존재하는 아이디입니다.")
+    return {"ok": True}

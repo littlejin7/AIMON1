@@ -82,28 +82,67 @@ function calcLevel(xp) {
   }
 }
 
-// ── 레벨 테스트 문제 (3문항) ──
+// ── 레벨 테스트 문제 (10문항) ──
 const LEVEL_TEST_QUESTIONS = [
   {
     id: 'lt1',
     question: 'Python에서 화면에 글자를 출력하는 함수는?',
     choices: ['show()', 'print()', 'display()', 'echo()'],
     answer: 1,
-    points: 1,
   },
   {
     id: 'lt2',
     question: "다음 코드의 출력 결과는?\n\nprint('a', 'b', sep='-')",
-    choices: ['a b', 'ab', 'a-b', "a, b"],
+    choices: ['a b', 'ab', 'a-b', 'a, b'],
     answer: 2,
-    points: 2,
   },
   {
     id: 'lt3',
     question: "f-string 출력 결과는?\n\nname = '에이몬'\nprint(f'[{name}]')",
     choices: ['[f에이몬]', '[name]', '{에이몬]', '[에이몬]'],
     answer: 3,
-    points: 3,
+  },
+  {
+    id: 'lt4',
+    question: "다음 중 리스트를 만드는 올바른 방법은?",
+    choices: ['list = (1, 2, 3)', 'list = {1, 2, 3}', 'list = [1, 2, 3]', 'list = <1, 2, 3>'],
+    answer: 2,
+  },
+  {
+    id: 'lt5',
+    question: "for 반복문으로 1~5를 출력하려면?\n\nfor i in ___:\n    print(i)",
+    choices: ['range(5)', 'range(1, 6)', 'range(1, 5)', 'range(0, 5)'],
+    answer: 1,
+  },
+  {
+    id: 'lt6',
+    question: "다음 코드의 출력은?\n\nprint(10 // 3)",
+    choices: ['3.33', '3', '4', '1'],
+    answer: 1,
+  },
+  {
+    id: 'lt7',
+    question: "함수를 정의하는 키워드는?",
+    choices: ['function', 'func', 'def', 'define'],
+    answer: 2,
+  },
+  {
+    id: 'lt8',
+    question: "다음 코드의 출력은?\n\nx = [1, 2, 3]\nprint(x[-1])",
+    choices: ['1', '2', '3', 'Error'],
+    answer: 2,
+  },
+  {
+    id: 'lt9',
+    question: "딕셔너리에서 키 'name'의 값을 가져오는 방법은?\n\nd = {'name': '에이몬'}",
+    choices: ["d('name')", "d['name']", "d.get['name']", "d{name}"],
+    answer: 1,
+  },
+  {
+    id: 'lt10',
+    question: "다음 코드의 출력은?\n\ndef add(a, b=10):\n    return a + b\nprint(add(5))",
+    choices: ['5', '10', '15', 'Error'],
+    answer: 2,
   },
 ]
 
@@ -113,16 +152,17 @@ const LEVEL_RESULT = {
   advanced:     { label: '어드밴스드',    icon: finalGhostIcon, color: '#f59e0b', msg: '파이널 에이몬이 라이벌을 발견했어요!', desc: 'f-string까지 꿰뚫는 당신, 에이몬도 긴장했어요 🔥' },
 }
 
-function calcLevelResult(score) {
-  if (score <= 1) return 'beginner'
-  if (score <= 3) return 'intermediate'
-  return 'advanced'
+// wrongCount: 틀린 문항 수
+function calcLevelResult(wrongCount) {
+  if (wrongCount <= 2) return 'advanced'
+  if (wrongCount <= 6) return 'intermediate'
+  return 'beginner'
 }
 
 // ── 레벨 테스트 모달 ──
 function LevelTestModal({ onClose, onFinish, isLoggedIn }) {
   const [step, setStep]         = useState(0)
-  const [score, setScore]       = useState(0)
+  const [wrongCount, setWrongCount] = useState(0)   // ← score → wrongCount
   const [selected, setSelected] = useState(null)
   const [answered, setAnswered] = useState(false)
   const [levelKey, setLevelKey] = useState(null)
@@ -133,16 +173,16 @@ function LevelTestModal({ onClose, onFinish, isLoggedIn }) {
     if (answered) return
     setSelected(idx)
     setAnswered(true)
-    const pts = idx === q.answer ? q.points : 0
-    const newScore = score + pts
+    const isWrong = idx !== q.answer
+    const newWrongCount = wrongCount + (isWrong ? 1 : 0)
     setTimeout(() => {
       const nextStep = step + 1
       if (nextStep > LEVEL_TEST_QUESTIONS.length) {
-        setLevelKey(calcLevelResult(newScore))
-        setScore(newScore)
-        setStep(4)
+        setLevelKey(calcLevelResult(newWrongCount))
+        setWrongCount(newWrongCount)
+        setStep(LEVEL_TEST_QUESTIONS.length + 1)   // 결과 스텝
       } else {
-        setScore(newScore)
+        setWrongCount(newWrongCount)
         setStep(nextStep)
         setSelected(null)
         setAnswered(false)
@@ -177,7 +217,7 @@ function LevelTestModal({ onClose, onFinish, isLoggedIn }) {
             <div style={{ fontSize: '3.5rem', marginBottom: '1rem' }}>🔍</div>
             <h2 style={{ fontSize: '1.35rem', fontWeight: 800, marginBottom: '0.75rem' }}>내 에이몬 찾기</h2>
             <p style={{ color: 'var(--clr-text-muted)', lineHeight: 1.75, marginBottom: '1.75rem', fontSize: '0.93rem' }}>
-              딱 3문제만 풀면 나의 Python 레벨이 나와요!<br />
+              딱 10문제만 풀면 나의 Python 레벨이 나와요!<br />
               결과에 맞는 에이몬이 기다리고 있어요 🎮
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
@@ -242,7 +282,7 @@ function LevelTestModal({ onClose, onFinish, isLoggedIn }) {
         )}
 
         {/* ── 결과 ── */}
-        {step === 4 && levelKey && (() => {
+        {step === LEVEL_TEST_QUESTIONS.length + 1 && levelKey && (() => {
           const res = LEVEL_RESULT[levelKey]
           return (
             <div style={{ textAlign: 'center' }}>
