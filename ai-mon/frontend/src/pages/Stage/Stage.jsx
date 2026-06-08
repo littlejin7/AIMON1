@@ -109,26 +109,25 @@ export default function Stage({ _lessonId, _stage }) {
     setScore(newScore)
     setCorrect(newCorrect)
 
-    const isCorrectFirstTry = isCorrect && !retried
-    const newCorrectQuestions = isCorrectFirstTry 
+    const newCorrectQuestions = isCorrect   // retried 여부 무관, 맞추기만 하면 인정
       ? [...correctQuestions, questions[current].question_id]
       : correctQuestions
-    if (isCorrectFirstTry) {
+    if (isCorrect) {
       setCorrectQuestions(newCorrectQuestions)
     }
+  }
 
-    await new Promise((r) => setTimeout(r, 1200))
-
+  const handleNext = async () => {
     if (current + 1 >= questions.length) {
       // 개념퀴즈 채점 (미니보스가 없거나 마지막인 경우 대비)
       const stageQuizQuestions = questions.filter(q => q.quiz_category === 'stage_quiz')
-      const stageQuizCorrect = stageQuizQuestions.filter(q => newCorrectQuestions.includes(q.question_id)).length
+      const stageQuizCorrect = stageQuizQuestions.filter(q => correctQuestions.includes(q.question_id)).length
       const stageQuizScore = stageQuizQuestions.length > 0
         ? Math.round((stageQuizCorrect / stageQuizQuestions.length) * 100)
         : 100
 
       if (stageQuizScore < 60) {
-        handleStageQuizFailure(newCorrectQuestions)
+        handleStageQuizFailure(correctQuestions)
         return
       }
 
@@ -140,57 +139,57 @@ export default function Stage({ _lessonId, _stage }) {
         return
       }
       // 로그인 상태 또는 일반 스테이지: 진행도 저장 후 완료 처리
-      const totalScore = Math.round((newCorrect / questions.length) * 100)
-const prevLv = user?.lv || 1
-const prevChar = user?.character || 'slime'
+      const totalScore = Math.round((correct / questions.length) * 100)
+      const prevLv = user?.lv || 1
+      const prevChar = user?.character || 'slime'
 
-const res = await progressApi.saveProgress({
-  unit: parseInt(lessonId, 10),
-  stage: `${lessonId}-${stageNum}`,
-  score: totalScore,
-  is_completed: totalScore >= 80,
-})
-
-if (res && res.data) {
-  setXpAwarded(res.data.xp_awarded || 0)
-
-  // ── 진화 감지 ──
-  // 백엔드가 내려준 새 lv와 character로 판단
-  const newLv   = res.data.lv       || prevLv
-  const newChar = res.data.character || prevChar
-
-  // 진화 레벨(10/20/30) 중 이전 lv < 진화lv <= 새 lv 인 경우
-  for (const [lvStr, evo] of Object.entries(EVOLUTION_MAP)) {
-    const lvNum = Number(lvStr)
-    if (prevLv < lvNum && newLv >= lvNum) {
-      setEvoModal({
-        fromChar: evo.from,
-        toChar:   evo.to,
-        newLevel: lvNum,
+      const res = await progressApi.saveProgress({
+        unit: parseInt(lessonId, 10),
+        stage: `${lessonId}-${stageNum}`,
+        score: totalScore,
+        is_completed: totalScore >= 80,
       })
-      break
-    }
-  }
 
-  // zustand 유저 정보 업데이트 (lv, character 반영)
-  if (newLv !== prevLv || newChar !== prevChar) {
-    updateUser({ ...user, lv: newLv, character: newChar })
-  }
-}
+      if (res && res.data) {
+        setXpAwarded(res.data.xp_awarded || 0)
 
-setFinished(true)
+        // ── 진화 감지 ──
+        // 백엔드가 내려준 새 lv와 character로 판단
+        const newLv   = res.data.lv       || prevLv
+        const newChar = res.data.character || prevChar
+
+        // 진화 레벨(10/20/30) 중 이전 lv < 진화lv <= 새 lv 인 경우
+        for (const [lvStr, evo] of Object.entries(EVOLUTION_MAP)) {
+          const lvNum = Number(lvStr)
+          if (prevLv < lvNum && newLv >= lvNum) {
+            setEvoModal({
+              fromChar: evo.from,
+              toChar:   evo.to,
+              newLevel: lvNum,
+            })
+            break
+          }
+        }
+
+        // zustand 유저 정보 업데이트 (lv, character 반영)
+        if (newLv !== prevLv || newChar !== prevChar) {
+          updateUser({ ...user, lv: newLv, character: newChar })
+        }
+      }
+
+      setFinished(true)
     } else {
       const nextQ = questions[current + 1]
       if (nextQ?.quiz_category === 'miniboss') {
         // 개념퀴즈 채점 (미니보스로 진입하기 직전)
         const stageQuizQuestions = questions.filter(q => q.quiz_category === 'stage_quiz')
-        const stageQuizCorrect = stageQuizQuestions.filter(q => newCorrectQuestions.includes(q.question_id)).length
+        const stageQuizCorrect = stageQuizQuestions.filter(q => correctQuestions.includes(q.question_id)).length
         const stageQuizScore = stageQuizQuestions.length > 0
           ? Math.round((stageQuizCorrect / stageQuizQuestions.length) * 100)
           : 100
 
         if (stageQuizScore < 60) {
-          handleStageQuizFailure(newCorrectQuestions)
+          handleStageQuizFailure(correctQuestions)
           return
         }
 
@@ -481,6 +480,7 @@ if (showMinibossAlert) {
           key={current}
           question={currentQ}
           onAnswer={handleAnswer}
+          onNext={handleNext}
         />
       </div>
     </div>

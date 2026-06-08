@@ -19,8 +19,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 에이전트는 목표→계획→행동→확인→반복으로 일을 끝까지 처리해요.",
-        "wrong": ""
+        "correct": "맞아요! 에이전트는 목표→계획→행동→확인→반복으로 일을 끝까지 처리해요."
       },
       "villain": "interferencemon"
     },
@@ -43,8 +42,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! Think→Act→Observe가 에이전트 루프의 핵심이에요.",
-        "wrong": ""
+        "correct": "맞아요! Think→Act→Observe가 에이전트 루프의 핵심이에요."
       },
       "villain": "interferencemon"
     },
@@ -67,8 +65,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 검색, 계산, API 호출 같은 Python 함수가 도구예요.",
-        "wrong": ""
+        "correct": "맞아요! 검색, 계산, API 호출 같은 Python 함수가 도구예요."
       },
       "villain": "interferencemon"
     },
@@ -91,8 +88,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! max_steps 없으면 루프가 무한히 실행되어 API 비용이 폭발할 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! max_steps 없으면 루프가 무한히 실행되어 API 비용이 폭발할 수 있어요."
       },
       "villain": "interferencemon"
     },
@@ -115,8 +111,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! end_turn = AI가 더 이상 도구 없이 최종 답변을 완성했다는 신호예요.",
-        "wrong": ""
+        "correct": "맞아요! end_turn = AI가 더 이상 도구 없이 최종 답변을 완성했다는 신호예요."
       },
       "villain": "interferencemon"
     },
@@ -139,8 +134,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! step=0,1,2,3,4까지 5번 실행돼요.",
-        "wrong": ""
+        "correct": "맞아요! step=0,1,2,3,4까지 5번 실행돼요."
       },
       "villain": "interferencemon"
     },
@@ -163,8 +157,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 실시간 환율은 AI 단독으로 알 수 없어요. 외부 API 도구가 필요해요.",
-        "wrong": ""
+        "correct": "맞아요! 실시간 환율은 AI 단독으로 알 수 없어요. 외부 API 도구가 필요해요."
       },
       "villain": "interferencemon"
     },
@@ -187,8 +180,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! messages에 tool_result가 없으면 AI가 결과를 모르고 계속 같은 요청을 해요.",
-        "wrong": ""
+        "correct": "맞아요! messages에 tool_result가 없으면 AI가 결과를 모르고 계속 같은 요청을 해요."
       },
       "villain": "interferencemon"
     },
@@ -211,8 +203,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! step=2가 되는 순간 break로 탈출해요.",
-        "wrong": ""
+        "correct": "맞아요! step=2가 되는 순간 break로 탈출해요."
       },
       "villain": "interferencemon"
     },
@@ -235,8 +226,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! tool_functions['calc']=fn_b, **{'expr':'2*3'}로 fn_b(expr='2*3')이 호출돼요.",
-        "wrong": ""
+        "correct": "맞아요! tool_functions['calc']=fn_b, **{'expr':'2*3'}로 fn_b(expr='2*3')이 호출돼요."
       },
       "villain": "interferencemon"
     },
@@ -259,8 +249,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! Tool Use로 AI가 외부 Python 함수를 호출 요청할 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! Tool Use로 AI가 외부 Python 함수를 호출 요청할 수 있어요."
       },
       "villain": "interferencemon"
     },
@@ -283,8 +272,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! AI는 요청만 해요. 실제 실행은 항상 개발자 코드예요.",
-        "wrong": ""
+        "correct": "맞아요! AI는 요청만 해요. 실제 실행은 항상 개발자 코드예요."
       },
       "villain": "interferencemon"
     },
@@ -307,8 +295,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! description이 모호하면 AI가 도구를 잘못 선택하거나 안 써요.",
-        "wrong": ""
+        "correct": "맞아요! description이 모호하면 AI가 도구를 잘못 선택하거나 안 써요."
       },
       "villain": "interferencemon"
     },
@@ -331,8 +318,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! name(이름)+description(설명)+input_schema(파라미터)가 Tool의 3대 필수 필드예요.",
-        "wrong": ""
+        "correct": "맞아요! name(이름)+description(설명)+input_schema(파라미터)가 Tool의 3대 필수 필드예요."
       },
       "villain": "interferencemon"
     },
@@ -355,8 +341,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! tool_use = '이 함수 실행해줘'라는 AI의 요청이에요.",
-        "wrong": ""
+        "correct": "맞아요! tool_use = '이 함수 실행해줘'라는 AI의 요청이에요."
       },
       "villain": "interferencemon"
     },
@@ -379,8 +364,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! tool_result는 role='user'로 messages에 추가해요.",
-        "wrong": ""
+        "correct": "맞아요! tool_result는 role='user'로 messages에 추가해요."
       },
       "villain": "interferencemon"
     },
@@ -403,8 +387,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 'stuff'는 너무 모호해요. AI가 이 도구를 언제 써야 할지 알 수 없어요.",
-        "wrong": ""
+        "correct": "맞아요! 'stuff'는 너무 모호해요. AI가 이 도구를 언제 써야 할지 알 수 없어요."
       },
       "villain": "interferencemon"
     },
@@ -427,8 +410,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! AI호출→tool_use→함수실행→결과전달→AI재호출→end_turn→반환이에요.",
-        "wrong": ""
+        "correct": "맞아요! AI호출→tool_use→함수실행→결과전달→AI재호출→end_turn→반환이에요."
       },
       "villain": "interferencemon"
     },
@@ -451,8 +433,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 병렬 결과는 모아서 한 번에 전달해야 AI가 모든 결과를 볼 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! 병렬 결과는 모아서 한 번에 전달해야 AI가 모든 결과를 볼 수 있어요."
       },
       "villain": "interferencemon"
     },
@@ -475,8 +456,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 구체적인 설명이 AI의 올바른 도구 선택을 도와요.",
-        "wrong": ""
+        "correct": "맞아요! 구체적인 설명이 AI의 올바른 도구 선택을 도와요."
       },
       "villain": "interferencemon"
     },
@@ -499,8 +479,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! while 루프로 목표 달성 전까지 반복해요.",
-        "wrong": ""
+        "correct": "맞아요! while 루프로 목표 달성 전까지 반복해요."
       },
       "villain": "interferencemon"
     },
@@ -523,8 +502,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! stop_reason='end_turn'이 AI의 작업 완료 신호예요.",
-        "wrong": ""
+        "correct": "맞아요! stop_reason='end_turn'이 AI의 작업 완료 신호예요."
       },
       "villain": "interferencemon"
     },
@@ -547,8 +525,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! tool_result를 messages에 추가해야 AI가 결과를 보고 다음 단계로 넘어가요.",
-        "wrong": ""
+        "correct": "맞아요! tool_result를 messages에 추가해야 AI가 결과를 보고 다음 단계로 넘어가요."
       },
       "villain": "interferencemon"
     },
@@ -571,8 +548,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 성공 여부와 결과/오류를 함께 반환해야 에러 처리가 쉬워요.",
-        "wrong": ""
+        "correct": "맞아요! 성공 여부와 결과/오류를 함께 반환해야 에러 처리가 쉬워요."
       },
       "villain": "interferencemon"
     },
@@ -595,8 +571,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 실패 원인을 알 수 있는 메시지를 반환해야 사용자가 상황을 이해해요.",
-        "wrong": ""
+        "correct": "맞아요! 실패 원인을 알 수 있는 메시지를 반환해야 사용자가 상황을 이해해요."
       },
       "villain": "interferencemon"
     },
@@ -619,8 +594,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! step=0,1,2,3까지 실행, step<4이므로 4 미포함이에요.",
-        "wrong": ""
+        "correct": "맞아요! step=0,1,2,3까지 실행, step<4이므로 4 미포함이에요."
       },
       "villain": "interferencemon"
     },
@@ -643,8 +617,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 로그로 각 단계를 기록해두면 문제 발생 시 원인을 빠르게 찾아요.",
-        "wrong": ""
+        "correct": "맞아요! 로그로 각 단계를 기록해두면 문제 발생 시 원인을 빠르게 찾아요."
       },
       "villain": "interferencemon"
     },
@@ -667,8 +640,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! tool_use 후 반드시 user(tool_result)로 결과를 전달해야 AI가 최종 답변을 만들어요.",
-        "wrong": ""
+        "correct": "맞아요! tool_use 후 반드시 user(tool_result)로 결과를 전달해야 AI가 최종 답변을 만들어요."
       },
       "villain": "interferencemon"
     },
@@ -691,8 +663,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! stop_reason 체크 없이 바로 반환하면 도구 호출이 필요한 경우를 처리 못해요.",
-        "wrong": ""
+        "correct": "맞아요! stop_reason 체크 없이 바로 반환하면 도구 호출이 필요한 경우를 처리 못해요."
       },
       "villain": "interferencemon"
     },
@@ -715,8 +686,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 5가지 요소가 모두 있어야 안전하고 추적 가능한 루프예요.",
-        "wrong": ""
+        "correct": "맞아요! 5가지 요소가 모두 있어야 안전하고 추적 가능한 루프예요."
       },
       "villain": "interferencemon"
     },
@@ -739,8 +709,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! AI는 기억이 없어요. messages에 넣어서 보내야 기억하는 것처럼 동작해요.",
-        "wrong": ""
+        "correct": "맞아요! AI는 기억이 없어요. messages에 넣어서 보내야 기억하는 것처럼 동작해요."
       },
       "villain": "interferencemon"
     },
@@ -763,8 +732,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! history[-N:]으로 최근 N개만 유지하는 게 트리밍이에요.",
-        "wrong": ""
+        "correct": "맞아요! history[-N:]으로 최근 N개만 유지하는 게 트리밍이에요."
       },
       "villain": "interferencemon"
     },
@@ -787,8 +755,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! json.dump()로 저장하고 json.load()로 불러와 이어서 실행해요.",
-        "wrong": ""
+        "correct": "맞아요! json.dump()로 저장하고 json.load()로 불러와 이어서 실행해요."
       },
       "villain": "interferencemon"
     },
@@ -811,8 +778,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! system 메시지가 없어지면 AI의 역할 설정이 사라져요.",
-        "wrong": ""
+        "correct": "맞아요! system 메시지가 없어지면 AI의 역할 설정이 사라져요."
       },
       "villain": "interferencemon"
     },
@@ -835,8 +801,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 민감 정보는 .env로 분리 관리해요. 상태 파일에 포함하면 보안 위험이에요.",
-        "wrong": ""
+        "correct": "맞아요! 민감 정보는 .env로 분리 관리해요. 상태 파일에 포함하면 보안 위험이에요."
       },
       "villain": "interferencemon"
     },
@@ -859,8 +824,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! history[-3:]=[5,6,7]. [0]=5예요.",
-        "wrong": ""
+        "correct": "맞아요! history[-3:]=[5,6,7]. [0]=5예요."
       },
       "villain": "interferencemon"
     },
@@ -883,8 +847,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! dumps→loads 후에도 step=7이 그대로 복원돼요.",
-        "wrong": ""
+        "correct": "맞아요! dumps→loads 후에도 step=7이 그대로 복원돼요."
       },
       "villain": "interferencemon"
     },
@@ -907,8 +870,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! AI는 매 요청이 독립적이에요. messages 컨텍스트로 기억처럼 구현해요.",
-        "wrong": ""
+        "correct": "맞아요! AI는 매 요청이 독립적이에요. messages 컨텍스트로 기억처럼 구현해요."
       },
       "villain": "interferencemon"
     },
@@ -931,8 +893,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! save 시점의 count=5가 저장돼요. 이후 리셋해도 파일엔 5가 남아요.",
-        "wrong": ""
+        "correct": "맞아요! save 시점의 count=5가 저장돼요. 이후 리셋해도 파일엔 5가 남아요."
       },
       "villain": "interferencemon"
     },
@@ -955,8 +916,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 세 가지가 함께 있어야 실용적인 에이전트 메모리 시스템이에요.",
-        "wrong": ""
+        "correct": "맞아요! 세 가지가 함께 있어야 실용적인 에이전트 메모리 시스템이에요."
       },
       "villain": "interferencemon"
     },
@@ -979,8 +939,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 여러 도구를 순서대로 자동 실행하는 게 멀티스텝 태스크예요.",
-        "wrong": ""
+        "correct": "맞아요! 여러 도구를 순서대로 자동 실행하는 게 멀티스텝 태스크예요."
       },
       "villain": "interferencemon"
     },
@@ -1003,8 +962,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 오류도 정보예요. AI에 전달하면 대안을 시도해줘요.",
-        "wrong": ""
+        "correct": "맞아요! 오류도 정보예요. AI에 전달하면 대안을 시도해줘요."
       },
       "villain": "interferencemon"
     },
@@ -1027,8 +985,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 검색(수집)→요약(처리)→저장(출력) 순서예요.",
-        "wrong": ""
+        "correct": "맞아요! 검색(수집)→요약(처리)→저장(출력) 순서예요."
       },
       "villain": "interferencemon"
     },
@@ -1051,8 +1008,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 독립적인 두 정보를 병렬로 수집하면 순차보다 빠르게 결과를 얻어요.",
-        "wrong": ""
+        "correct": "맞아요! 독립적인 두 정보를 병렬로 수집하면 순차보다 빠르게 결과를 얻어요."
       },
       "villain": "interferencemon"
     },
@@ -1075,8 +1031,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 성공 여부와 결과/오류를 함께 반환해야 에러 처리가 가능해요.",
-        "wrong": ""
+        "correct": "맞아요! 성공 여부와 결과/오류를 함께 반환해야 에러 처리가 가능해요."
       },
       "villain": "interferencemon"
     },
@@ -1099,8 +1054,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 3번 반복해서 step=3이에요.",
-        "wrong": ""
+        "correct": "맞아요! 3번 반복해서 step=3이에요."
       },
       "villain": "interferencemon"
     },
@@ -1123,8 +1077,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! messages에 누적된 tool_result가 다음 단계의 맥락이에요.",
-        "wrong": ""
+        "correct": "맞아요! messages에 누적된 tool_result가 다음 단계의 맥락이에요."
       },
       "villain": "interferencemon"
     },
@@ -1147,8 +1100,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! i=0(search),1(analyze),2(search),3(analyze)이에요.",
-        "wrong": ""
+        "correct": "맞아요! i=0(search),1(analyze),2(search),3(analyze)이에요."
       },
       "villain": "interferencemon"
     },
@@ -1171,8 +1123,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 독립적인 A·B 주가는 병렬로, 비교는 두 결과 후 수행해요.",
-        "wrong": ""
+        "correct": "맞아요! 독립적인 A·B 주가는 병렬로, 비교는 두 결과 후 수행해요."
       },
       "villain": "interferencemon"
     },
@@ -1195,8 +1146,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 이 4가지가 안전하고 디버깅 가능한 멀티스텝 에이전트의 핵심이에요.",
-        "wrong": ""
+        "correct": "맞아요! 이 4가지가 안전하고 디버깅 가능한 멀티스텝 에이전트의 핵심이에요."
       },
       "villain": "interferencemon"
     },
@@ -1219,8 +1169,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 텍스트를 카테고리로 나누는 에이전트가 분류봇이에요.",
-        "wrong": ""
+        "correct": "맞아요! 텍스트를 카테고리로 나누는 에이전트가 분류봇이에요."
       },
       "villain": "interferencemon"
     },
@@ -1243,8 +1192,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 입출력이 명확해야 도구와 흐름 설계가 따라와요.",
-        "wrong": ""
+        "correct": "맞아요! 입출력이 명확해야 도구와 흐름 설계가 따라와요."
       },
       "villain": "interferencemon"
     },
@@ -1267,8 +1215,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! system에 스키마 예시를 명시하면 AI가 그 형식을 따라요.",
-        "wrong": ""
+        "correct": "맞아요! system에 스키마 예시를 명시하면 AI가 그 형식을 따라요."
       },
       "villain": "interferencemon"
     },
@@ -1291,8 +1238,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 낮은 confidence=불확실=사람 검토가 필요한 신호예요.",
-        "wrong": ""
+        "correct": "맞아요! 낮은 confidence=불확실=사람 검토가 필요한 신호예요."
       },
       "villain": "interferencemon"
     },
@@ -1315,8 +1261,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! JSON 구조 덕분에 각 항목을 코드에서 바로 처리할 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! JSON 구조 덕분에 각 항목을 코드에서 바로 처리할 수 있어요."
       },
       "villain": "interferencemon"
     },
@@ -1339,8 +1284,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 읽기(수집)→요약(처리)→저장(출력) 순서예요.",
-        "wrong": ""
+        "correct": "맞아요! 읽기(수집)→요약(처리)→저장(출력) 순서예요."
       },
       "villain": "interferencemon"
     },
@@ -1363,8 +1307,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! category='긍정', 0.92>0.8은 True예요.",
-        "wrong": ""
+        "correct": "맞아요! category='긍정', 0.92>0.8은 True예요."
       },
       "villain": "interferencemon"
     },
@@ -1387,8 +1330,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 민감 정보는 .env로 분리 관리해요.",
-        "wrong": ""
+        "correct": "맞아요! 민감 정보는 .env로 분리 관리해요."
       },
       "villain": "interferencemon"
     },
@@ -1411,8 +1353,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 분류(판단)→선택(결정)→발송(행동) 순서예요.",
-        "wrong": ""
+        "correct": "맞아요! 분류(판단)→선택(결정)→발송(행동) 순서예요."
       },
       "villain": "interferencemon"
     },
@@ -1435,8 +1376,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 5가지 체크리스트가 완성된 에이전트 설계의 기준이에요.",
-        "wrong": ""
+        "correct": "맞아요! 5가지 체크리스트가 완성된 에이전트 설계의 기준이에요."
       },
       "villain": "interferencemon"
     },
@@ -1459,8 +1399,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! LangChain은 에이전트와 파이프라인 코드를 간결하게 만들어줘요.",
-        "wrong": ""
+        "correct": "맞아요! LangChain은 에이전트와 파이프라인 코드를 간결하게 만들어줘요."
       },
       "villain": "interferencemon"
     },
@@ -1483,8 +1422,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! `prompt | llm | parser`처럼 `|`로 단계를 연결해요.",
-        "wrong": ""
+        "correct": "맞아요! `prompt | llm | parser`처럼 `|`로 단계를 연결해요."
       },
       "villain": "interferencemon"
     },
@@ -1507,8 +1445,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! @tool을 붙이면 그 함수가 LangChain 에이전트 도구가 돼요.",
-        "wrong": ""
+        "correct": "맞아요! @tool을 붙이면 그 함수가 LangChain 에이전트 도구가 돼요."
       },
       "villain": "interferencemon"
     },
@@ -1531,8 +1468,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 타입 힌트가 있어야 LangChain이 input_schema를 만들어요.",
-        "wrong": ""
+        "correct": "맞아요! 타입 힌트가 있어야 LangChain이 input_schema를 만들어요."
       },
       "villain": "interferencemon"
     },
@@ -1555,8 +1491,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 원리 이해나 세밀한 제어에는 직접 구현이 더 유리해요.",
-        "wrong": ""
+        "correct": "맞아요! 원리 이해나 세밀한 제어에는 직접 구현이 더 유리해요."
       },
       "villain": "interferencemon"
     },
@@ -1579,8 +1514,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! `|`는 왼쪽→오른쪽 순서예요.",
-        "wrong": ""
+        "correct": "맞아요! `|`는 왼쪽→오른쪽 순서예요."
       },
       "villain": "interferencemon"
     },
@@ -1603,8 +1537,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! chain 끝에 붙이면 AI 응답에서 텍스트 문자열만 꺼내줘요.",
-        "wrong": ""
+        "correct": "맞아요! chain 끝에 붙이면 AI 응답에서 텍스트 문자열만 꺼내줘요."
       },
       "villain": "interferencemon"
     },
@@ -1627,8 +1560,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! StrOutputParser()가 마지막에 오면 str을 반환해요.",
-        "wrong": ""
+        "correct": "맞아요! StrOutputParser()가 마지막에 오면 str을 반환해요."
       },
       "villain": "interferencemon"
     },
@@ -1651,8 +1583,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! @tool이 함수 정의에서 Tool 딕셔너리를 자동으로 만들어줘요.",
-        "wrong": ""
+        "correct": "맞아요! @tool이 함수 정의에서 Tool 딕셔너리를 자동으로 만들어줘요."
       },
       "villain": "interferencemon"
     },
@@ -1675,8 +1606,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 원리 이해 → 프레임워크 활용이 가장 효과적인 학습 순서예요.",
-        "wrong": ""
+        "correct": "맞아요! 원리 이해 → 프레임워크 활용이 가장 효과적인 학습 순서예요."
       },
       "villain": "interferencemon"
     },
@@ -1699,8 +1629,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 텍스트를 카테고리로 분류해 처리하는 에이전트예요.",
-        "wrong": ""
+        "correct": "맞아요! 텍스트를 카테고리로 분류해 처리하는 에이전트예요."
       },
       "villain": "interferencemon"
     },
@@ -1723,8 +1652,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 정상+엣지+오류 케이스를 모두 테스트해야 안전하게 배포할 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! 정상+엣지+오류 케이스를 모두 테스트해야 안전하게 배포할 수 있어요."
       },
       "villain": "interferencemon"
     },
@@ -1747,8 +1675,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! JSON 구조 덕분에 각 항목을 코드로 바로 처리할 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! JSON 구조 덕분에 각 항목을 코드로 바로 처리할 수 있어요."
       },
       "villain": "interferencemon"
     },
@@ -1771,8 +1698,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 분류(판단)→선택(결정)→발송(행동) 순서예요.",
-        "wrong": ""
+        "correct": "맞아요! 분류(판단)→선택(결정)→발송(행동) 순서예요."
       },
       "villain": "interferencemon"
     },
@@ -1795,8 +1721,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 일반적이지 않은 입력으로 에이전트가 올바르게 동작하는지 확인해요.",
-        "wrong": ""
+        "correct": "맞아요! 일반적이지 않은 입력으로 에이전트가 올바르게 동작하는지 확인해요."
       },
       "villain": "interferencemon"
     },
@@ -1819,8 +1744,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! r.lower()='처리 성공(success)'에 'success'가 포함되어 True예요.",
-        "wrong": ""
+        "correct": "맞아요! r.lower()='처리 성공(success)'에 'success'가 포함되어 True예요."
       },
       "villain": "interferencemon"
     },
@@ -1843,8 +1767,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 스키마를 명시하지 않으면 AI가 제각각 형식으로 응답해요.",
-        "wrong": ""
+        "correct": "맞아요! 스키마를 명시하지 않으면 AI가 제각각 형식으로 응답해요."
       },
       "villain": "interferencemon"
     },
@@ -1867,8 +1790,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 80 이상은 85, 90, 95로 3개예요.",
-        "wrong": ""
+        "correct": "맞아요! 80 이상은 85, 90, 95로 3개예요."
       },
       "villain": "interferencemon"
     },
@@ -1891,8 +1813,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! JSONDecodeError를 잡아 기본값을 반환해야 에이전트가 멈추지 않아요.",
-        "wrong": ""
+        "correct": "맞아요! JSONDecodeError를 잡아 기본값을 반환해야 에이전트가 멈추지 않아요."
       },
       "villain": "interferencemon"
     },
@@ -1915,8 +1836,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! Python 기초부터 실제 AI 에이전트 구축까지, 완주 진심으로 축하해요! 🎉",
-        "wrong": ""
+        "correct": "맞아요! Python 기초부터 실제 AI 에이전트 구축까지, 완주 진심으로 축하해요! 🎉"
       },
       "villain": "interferencemon"
     },
@@ -1939,8 +1859,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 로그로 어느 단계에서 문제가 생겼는지 추적해요.",
-        "wrong": ""
+        "correct": "맞아요! 로그로 어느 단계에서 문제가 생겼는지 추적해요."
       },
       "villain": "interferencemon"
     },
@@ -1963,8 +1882,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 입출력 토큰 수와 API 호출 횟수에 따라 비용이 발생해요.",
-        "wrong": ""
+        "correct": "맞아요! 입출력 토큰 수와 API 호출 횟수에 따라 비용이 발생해요."
       },
       "villain": "interferencemon"
     },
@@ -1987,8 +1905,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! cache={}에 결과를 저장해두면 같은 입력에 재호출하지 않아요.",
-        "wrong": ""
+        "correct": "맞아요! cache={}에 결과를 저장해두면 같은 입력에 재호출하지 않아요."
       },
       "villain": "interferencemon"
     },
@@ -2011,8 +1928,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! tool_result가 없으면 AI가 결과를 못 보고 계속 같은 요청을 해요.",
-        "wrong": ""
+        "correct": "맞아요! tool_result가 없으면 AI가 결과를 못 보고 계속 같은 요청을 해요."
       },
       "villain": "interferencemon"
     },
@@ -2035,8 +1951,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 캐싱+호출최소화+모델선택이 API 비용 최적화의 3대 전략이에요.",
-        "wrong": ""
+        "correct": "맞아요! 캐싱+호출최소화+모델선택이 API 비용 최적화의 3대 전략이에요."
       },
       "villain": "interferencemon"
     },
@@ -2059,8 +1974,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 'hi' 첫 번째 호출(저장), 두 번째 캐시 반환, 'hello' 첫 번째 호출(저장). 총 2번이에요.",
-        "wrong": ""
+        "correct": "맞아요! 'hi' 첫 번째 호출(저장), 두 번째 캐시 반환, 'hello' 첫 번째 호출(저장). 총 2번이에요."
       },
       "villain": "interferencemon"
     },
@@ -2083,8 +1997,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 로그가 외부에 노출되면 민감 정보도 함께 노출돼요.",
-        "wrong": ""
+        "correct": "맞아요! 로그가 외부에 노출되면 민감 정보도 함께 노출돼요."
       },
       "villain": "interferencemon"
     },
@@ -2107,8 +2020,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 'hi','hello','world' 3개 고유 키만 저장돼요.",
-        "wrong": ""
+        "correct": "맞아요! 'hi','hello','world' 3개 고유 키만 저장돼요."
       },
       "villain": "interferencemon"
     },
@@ -2131,8 +2043,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! API 키는 절대 로그에 출력하면 안 돼요.",
-        "wrong": ""
+        "correct": "맞아요! API 키는 절대 로그에 출력하면 안 돼요."
       },
       "villain": "interferencemon"
     },
@@ -2155,8 +2066,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 6가지가 모두 완료되어야 프로덕션 수준의 에이전트예요.",
-        "wrong": ""
+        "correct": "맞아요! 6가지가 모두 완료되어야 프로덕션 수준의 에이전트예요."
       },
       "villain": "interferencemon"
     }

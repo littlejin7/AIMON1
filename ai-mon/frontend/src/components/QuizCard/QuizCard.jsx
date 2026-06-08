@@ -5,7 +5,7 @@ import { useAuthStore } from '../../hooks/useAuthStore'
 import './QuizCard.css'
 import villainIcon from '../../assets/boss_midcmorg.png'
 
-export default function QuizCard({ question, onAnswer, disabled = false }) {
+export default function QuizCard({ question, onAnswer, onNext, disabled = false }) {
   const [selected, setSelected] = useState(null)
   const [input, setInput] = useState('')
   const [revealed, setRevealed] = useState(false)
@@ -75,18 +75,20 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
   const handleSelect = (option) => {
     if (disabled || revealed) return
     setSelected(option)
+  }
+
+  const handleSubmitChoice = () => {
+    if (!selected || revealed) return
     setRevealed(true)
     let correct = false
     if (question.answer.length === 1 && /^[A-Z]$/.test(question.answer)) {
-      correct = option.startsWith(question.answer + '.')
+      correct = selected.startsWith(question.answer + '.')
     } else {
-      correct = option === question.answer
+      correct = selected === question.answer
     }
     setIsCorrectResult(correct)
-    if (!correct) fetchAiFeedback(option)
-    if (correct) {
-      setTimeout(() => onAnswer?.({ correct, userAnswer: option, retried }), 1500)
-    }
+    if (!correct) fetchAiFeedback(selected)
+    onAnswer?.({ correct, userAnswer: selected, retried })
   }
 
   const handleFillSubmit = (e) => {
@@ -97,9 +99,7 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
     const correct = input.trim().toLowerCase() === question.answer.toLowerCase()
     setIsCorrectResult(correct)
     if (!correct) fetchAiFeedback(input.trim())
-    if (correct) {
-      setTimeout(() => onAnswer?.({ correct, userAnswer: input.trim(), retried }), 1500)
-    }
+    onAnswer?.({ correct, userAnswer: input.trim(), retried })
   }
 
   const handleCodeSubmit = async () => {
@@ -112,15 +112,14 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
     setRevealed(true)
     setIsCorrectResult(correct)
     if (!correct) fetchAiFeedback(input)
-    if (correct) {
-      setTimeout(() => onAnswer?.({ correct, userAnswer: input, retried }), 1500)
-    }
+    onAnswer?.({ correct, userAnswer: input, retried })
   }
 
   const handleRetry = () => {
     setRevealed(false)
     setSelected(null)
     setInput('')
+    setAiFeedback('')
     setRetried(true)
   }
 
@@ -149,6 +148,16 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
               {opt}
             </button>
           ))}
+          {!revealed && (
+            <button
+              className="btn btn-primary btn-full"
+              style={{ marginTop: '12px' }}
+              disabled={!selected || disabled}
+              onClick={handleSubmitChoice}
+            >
+              확인하기 ✓
+            </button>
+          )}
         </div>
       )}
 
@@ -168,7 +177,7 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
             className="btn btn-primary btn-full"
             disabled={!input.trim() || disabled || revealed}
           >
-            제출하기
+            확인하기 ✓
           </button>
         </form>
       )}
@@ -202,7 +211,7 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
             onClick={handleCodeSubmit}
             disabled={!input.trim() || disabled || revealed || pyLoading}
           >
-            {pyLoading ? '⏳ Python 실행 중...' : '코드 실행 및 제출 🚀'}
+            {pyLoading ? '⏳ Python 실행 중...' : '확인하기 ✓'}
           </button>
         </div>
       )}
@@ -215,6 +224,15 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
           <p style={{ marginBottom: !isCorrectResult ? '12px' : '0' }}>
             {isCorrectResult ? (question.feedback?.correct || question.explanation) : ''}
           </p>
+          {isCorrectResult && (
+            <button
+              className="btn btn-primary btn-sm"
+              style={{ width: '100%', marginTop: '12px' }}
+              onClick={onNext}
+            >
+              다음으로 ➔
+            </button>
+          )}
           
           {!isCorrectResult && (
             <div className="ai-feedback-box" style={{
@@ -245,13 +263,22 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
               <p style={{ margin: 0, color: 'var(--clr-text-muted)', marginBottom: '12px', whiteSpace: 'pre-line' }}>
                 {aiFeedback}
               </p>
-              <button 
-                className="btn btn-secondary btn-sm" 
-                style={{ width: '100%', borderColor: 'rgba(124,58,237,0.4)', color: '#c4b5fd' }}
-                onClick={handleRetry}
-              >
-                🔄 다시 시도하기
-              </button>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <button 
+                  className="btn btn-secondary btn-sm" 
+                  style={{ flex: 1, borderColor: 'rgba(124,58,237,0.4)', color: '#c4b5fd' }}
+                  onClick={handleRetry}
+                >
+                  🔄 다시 풀기
+                </button>
+                <button 
+                  className="btn btn-primary btn-sm" 
+                  style={{ flex: 1 }}
+                  onClick={onNext}
+                >
+                  다음으로 ➔
+                </button>
+              </div>
             </div>
           )}
         </div>

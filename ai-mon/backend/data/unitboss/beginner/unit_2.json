@@ -10,12 +10,16 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 코드의 출력값을 고르세요.\n\nitems = [10, 20, 30]\nprint(items[0])\nprint(items[-1])",
-      "choices": ["A. 10 / 30", "B. 10 / 20", "C. 20 / 30", "D. 오류 발생"],
+      "choices": [
+        "A. 10 / 30",
+        "B. 10 / 20",
+        "C. 20 / 30",
+        "D. 오류 발생"
+      ],
       "answer": "A",
       "hint": "인덱스 0은 첫 번째, -1은 마지막 요소예요.",
       "feedback": {
-        "correct": "맞아요! items[0]은 첫 번째 요소 10, items[-1]은 마지막 요소 30이에요.",
-        "wrong": "인덱스 0은 첫 번째 값, -1은 뒤에서 첫 번째 값이에요. 각각 10과 30이에요."
+        "correct": "맞아요! items[0]은 첫 번째 요소 10, items[-1]은 마지막 요소 30이에요."
       }
     },
     {
@@ -32,8 +36,7 @@
       "answer": "[",
       "hint": "리스트는 대괄호로 만들어요.",
       "feedback": {
-        "correct": "맞아요! 리스트는 [ ] 대괄호로 감싸서 만들어요.",
-        "wrong": "리스트는 대괄호를 사용해요. monsters = ['슬라임', '코드몬', '에이몬'] 형태예요."
+        "correct": "맞아요! 리스트는 [ ] 대괄호로 감싸서 만들어요."
       }
     },
     {
@@ -46,12 +49,16 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 코드의 출력값을 고르세요.\n\nplayer = {'name': '에이몬', 'lv': 5}\nprint(player['name'])\nprint(player['lv'] + 1)",
-      "choices": ["A. 에이몬 / 5", "B. 에이몬 / 6", "C. name / 6", "D. 오류 발생"],
+      "choices": [
+        "A. 에이몬 / 5",
+        "B. 에이몬 / 6",
+        "C. name / 6",
+        "D. 오류 발생"
+      ],
       "answer": "B",
       "hint": "딕셔너리는 키로 값을 가져와요.",
       "feedback": {
-        "correct": "맞아요! player['name']은 '에이몬', player['lv'] + 1은 5 + 1 = 6이에요.",
-        "wrong": "딕셔너리에서 키로 값을 꺼낼 수 있어요. 'lv' 값인 5에 1을 더하면 6이에요."
+        "correct": "맞아요! player['name']은 '에이몬', player['lv'] + 1은 5 + 1 = 6이에요."
       }
     },
     {
@@ -64,12 +71,16 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "아래 코드에서 오류가 발생하는 줄은 어디일까요?\n\n1: nums = [1, 2, 3]\n2: print(nums[0])\n3: print(nums[5])\n4: print(nums[-1])",
-      "choices": ["A. 1번 줄", "B. 2번 줄", "C. 3번 줄", "D. 4번 줄"],
+      "choices": [
+        "A. 1번 줄",
+        "B. 2번 줄",
+        "C. 3번 줄",
+        "D. 4번 줄"
+      ],
       "answer": "C",
       "hint": "리스트 길이보다 큰 인덱스는 접근할 수 없어요.",
       "feedback": {
-        "correct": "맞아요! 리스트 길이가 3인데 인덱스 5를 접근하면 IndexError가 발생해요.",
-        "wrong": "nums는 3개짜리 리스트라 인덱스 0, 1, 2만 사용 가능해요. 5는 범위를 벗어나요."
+        "correct": "맞아요! 리스트 길이가 3인데 인덱스 5를 접근하면 IndexError가 발생해요."
       }
     },
     {
@@ -86,8 +97,7 @@
       "answer": "append('",
       "hint": "리스트에 요소를 추가하는 메서드예요.",
       "feedback": {
-        "correct": "맞아요! append()는 리스트 맨 뒤에 요소를 추가해요.",
-        "wrong": "리스트에 요소를 추가할 때는 .append()를 써요. team.append('에이몬') 형태예요."
+        "correct": "맞아요! append()는 리스트 맨 뒤에 요소를 추가해요."
       }
     },
     {
@@ -100,12 +110,16 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 코드의 출력값을 고르세요.\n\nscores = [80, 90, 70, 85]\nprint(len(scores))\nprint(90 in scores)",
-      "choices": ["A. 4 / True", "B. 3 / True", "C. 4 / False", "D. 오류 발생"],
+      "choices": [
+        "A. 4 / True",
+        "B. 3 / True",
+        "C. 4 / False",
+        "D. 오류 발생"
+      ],
       "answer": "A",
       "hint": "len()은 요소 개수, in은 포함 여부를 확인해요.",
       "feedback": {
-        "correct": "맞아요! 리스트에 4개 요소가 있고, 90이 포함되어 있으므로 True예요.",
-        "wrong": "scores에는 4개 요소가 있고, 90이 포함되어 있어요. len = 4, in 결과 = True예요."
+        "correct": "맞아요! 리스트에 4개 요소가 있고, 90이 포함되어 있으므로 True예요."
       }
     },
     {
@@ -118,12 +132,16 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "아래 코드에서 오류가 발생하는 줄은 어디일까요?\n\n1: info = {'name': '에이몬', 'lv': 5}\n2: print(info['name'])\n3: print(info['hp'])\n4: print(info.get('lv', 0))",
-      "choices": ["A. 1번 줄", "B. 2번 줄", "C. 3번 줄", "D. 4번 줄"],
+      "choices": [
+        "A. 1번 줄",
+        "B. 2번 줄",
+        "C. 3번 줄",
+        "D. 4번 줄"
+      ],
       "answer": "C",
       "hint": "딕셔너리에 없는 키를 대괄호로 접근하면 KeyError가 나요.",
       "feedback": {
-        "correct": "맞아요! 'hp' 키가 없는데 대괄호로 접근하면 KeyError가 발생해요.",
-        "wrong": "info에 'hp' 키가 없어요. 없는 키는 .get()을 쓰거나 KeyError가 발생해요."
+        "correct": "맞아요! 'hp' 키가 없는데 대괄호로 접근하면 KeyError가 발생해요."
       }
     },
     {
@@ -140,8 +158,7 @@
       "answer": "get('",
       "hint": "키가 없을 때 기본값을 반환하는 딕셔너리 메서드예요.",
       "feedback": {
-        "correct": "맞아요! .get(키, 기본값)은 키가 없을 때 기본값을 반환해요.",
-        "wrong": "딕셔너리에 없는 키를 안전하게 조회하려면 .get()을 써요. stats.get('hp', 0) 형태예요."
+        "correct": "맞아요! .get(키, 기본값)은 키가 없을 때 기본값을 반환해요."
       }
     },
     {
@@ -154,12 +171,16 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 코드의 출력값을 고르세요.\n\nnums = [10, 20, 30, 40, 50]\nprint(nums[1:3])\nprint(nums[:2])",
-      "choices": ["A. [20, 30] / [10, 20]", "B. [20, 30, 40] / [10, 20]", "C. [10, 20] / [10, 20]", "D. [20, 30] / [20, 30]"],
+      "choices": [
+        "A. [20, 30] / [10, 20]",
+        "B. [20, 30, 40] / [10, 20]",
+        "C. [10, 20] / [10, 20]",
+        "D. [20, 30] / [20, 30]"
+      ],
       "answer": "A",
       "hint": "슬라이싱 [a:b]는 인덱스 a부터 b-1까지예요.",
       "feedback": {
-        "correct": "맞아요! nums[1:3]은 인덱스 1,2인 [20, 30], nums[:2]는 인덱스 0,1인 [10, 20]이에요.",
-        "wrong": "슬라이싱 [1:3]은 인덱스 1부터 2까지예요. [:2]는 처음부터 인덱스 1까지예요."
+        "correct": "맞아요! nums[1:3]은 인덱스 1,2인 [20, 30], nums[:2]는 인덱스 0,1인 [10, 20]이에요."
       }
     },
     {
@@ -176,8 +197,7 @@
       "answer": "['lv']",
       "hint": "딕셔너리 값을 바꾸려면 키로 접근 후 대입해요.",
       "feedback": {
-        "correct": "맞아요! player['lv'] = 10 으로 기존 값을 덮어쓸 수 있어요.",
-        "wrong": "딕셔너리 값 수정은 player['lv'] = 10 처럼 키로 접근 후 새 값을 대입해요."
+        "correct": "맞아요! player['lv'] = 10 으로 기존 값을 덮어쓸 수 있어요."
       }
     }
   ]

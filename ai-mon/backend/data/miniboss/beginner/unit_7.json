@@ -19,8 +19,7 @@
       "answer": "A",
       "hint": "'r'=읽기, 'w'=쓰기, 'a'=추가예요.",
       "feedback": {
-        "correct": "맞아요! 'w'는 쓰기 모드예요.",
-        "wrong": "'r'=읽기, 'w'=쓰기, 'a'=추가예요."
+        "correct": "맞아요! 'w'는 쓰기 모드예요."
       },
       "villain": "interferencemon"
     },
@@ -43,8 +42,7 @@
       "answer": "B",
       "hint": "with문은 블록이 끝나면 자동으로 close()를 호출해요.",
       "feedback": {
-        "correct": "맞아요! with문은 close()를 자동으로 호출해요.",
-        "wrong": "with문은 블록이 끝나면 자동으로 close()를 호출해요."
+        "correct": "맞아요! with문은 close()를 자동으로 호출해요."
       },
       "villain": "interferencemon"
     },
@@ -67,8 +65,7 @@
       "answer": "C",
       "hint": "'w'는 덮어쓰기, 'a'는 추가예요.",
       "feedback": {
-        "correct": "맞아요! 'a' (append) 모드는 기존 내용 뒤에 추가해요.",
-        "wrong": "'w'는 덮어쓰기, 'a'는 추가예요."
+        "correct": "맞아요! 'a' (append) 모드는 기존 내용 뒤에 추가해요."
       },
       "villain": "interferencemon"
     },
@@ -91,8 +88,7 @@
       "answer": "A",
       "hint": "'w' 모드는 파일을 덮어써요.",
       "feedback": {
-        "correct": "맞아요! 두 번째 'w' 모드가 덮어써요. 최종 내용은 'B'예요.",
-        "wrong": "'w' 모드는 파일을 덮어써요."
+        "correct": "맞아요! 두 번째 'w' 모드가 덮어써요. 최종 내용은 'B'예요."
       },
       "villain": "interferencemon"
     },
@@ -115,8 +111,7 @@
       "answer": "B",
       "hint": "readlines()는 ['줄1\\n', '줄2\\n'] 형태의 리스트를 반환해요.",
       "feedback": {
-        "correct": "맞아요! readlines()는 각 줄을 요소로 하는 리스트를 반환해요.",
-        "wrong": "readlines()는 ['줄1\\n', '줄2\\n'] 형태의 리스트를 반환해요."
+        "correct": "맞아요! readlines()는 각 줄을 요소로 하는 리스트를 반환해요."
       },
       "villain": "interferencemon"
     },
@@ -139,8 +134,7 @@
       "answer": "C",
       "hint": "write()는 \\n을 자동 추가하지 않아요.",
       "feedback": {
-        "correct": "맞아요! write('hello')는 줄바꿈 없이 저장해요. read()는 'hello'를 반환해요.",
-        "wrong": "write()는 \\n을 자동 추가하지 않아요."
+        "correct": "맞아요! write('hello')는 줄바꿈 없이 저장해요. read()는 'hello'를 반환해요."
       },
       "villain": "interferencemon"
     },
@@ -163,8 +157,7 @@
       "answer": "A",
       "hint": "'A\\nB\\nC\\n'은 3줄이에요.",
       "feedback": {
-        "correct": "맞아요! A, B, C 세 줄이 저장되므로 readlines()의 길이는 3이에요.",
-        "wrong": "'A\\nB\\nC\\n'은 3줄이에요."
+        "correct": "맞아요! A, B, C 세 줄이 저장되므로 readlines()의 길이는 3이에요."
       },
       "villain": "interferencemon"
     },
@@ -187,8 +180,7 @@
       "answer": "D",
       "hint": "각 줄을 int로 변환하면 [10,20,30]. max=30이에요.",
       "feedback": {
-        "correct": "맞아요! [10,20,30] 중 max=30이에요.",
-        "wrong": "각 줄을 int로 변환하면 [10,20,30]. max=30이에요."
+        "correct": "맞아요! [10,20,30] 중 max=30이에요."
       },
       "villain": "interferencemon"
     },
@@ -211,8 +203,7 @@
       "answer": "B",
       "hint": "'a' 모드로 추가 후 두 번째 줄은 'second'예요.",
       "feedback": {
-        "correct": "맞아요! 'a' 모드로 추가 후 lines[1]='second\\n', strip()→'second'예요.",
-        "wrong": "'a' 모드로 추가 후 두 번째 줄은 'second'예요."
+        "correct": "맞아요! 'a' 모드로 추가 후 lines[1]='second\\n', strip()→'second'예요."
       },
       "villain": "interferencemon"
     },
@@ -235,8 +226,7 @@
       "answer": "D",
       "hint": "x\\n, y\\n, z\\n 세 줄이므로 '\\n' 개수=3이에요.",
       "feedback": {
-        "correct": "훌륭해요! writelines로 3줄 저장, '\\n'은 3개예요.",
-        "wrong": "x\\n, y\\n, z\\n 세 줄이므로 '\\n' 개수=3이에요."
+        "correct": "훌륭해요! writelines로 3줄 저장, '\\n'은 3개예요."
       },
       "villain": "interferencemon"
     },
@@ -259,8 +249,7 @@
       "answer": "A",
       "hint": "JSON 표준은 반드시 큰따옴표를 사용해요.",
       "feedback": {
-        "correct": "맞아요! JSON은 큰따옴표만 사용해요.",
-        "wrong": "JSON 표준은 반드시 큰따옴표를 사용해요."
+        "correct": "맞아요! JSON은 큰따옴표만 사용해요."
       },
       "villain": "interferencemon"
     },
@@ -283,8 +272,7 @@
       "answer": "B",
       "hint": "loads=문자열→Python 객체예요.",
       "feedback": {
-        "correct": "맞아요! loads는 JSON 문자열을 Python 객체로 변환해요.",
-        "wrong": "loads=문자열→Python 객체예요."
+        "correct": "맞아요! loads는 JSON 문자열을 Python 객체로 변환해요."
       },
       "villain": "interferencemon"
     },
@@ -307,8 +295,7 @@
       "answer": "C",
       "hint": "Python True/False/None → JSON true/false/null이에요.",
       "feedback": {
-        "correct": "맞아요! Python True → JSON true로 변환돼요.",
-        "wrong": "Python True/False/None → JSON true/false/null이에요."
+        "correct": "맞아요! Python True → JSON true로 변환돼요."
       },
       "villain": "interferencemon"
     },
@@ -331,8 +318,7 @@
       "answer": "A",
       "hint": "dumps()의 반환값은 항상 str이에요.",
       "feedback": {
-        "correct": "맞아요! json.dumps()는 항상 문자열(str)을 반환해요.",
-        "wrong": "dumps()의 반환값은 항상 str이에요."
+        "correct": "맞아요! json.dumps()는 항상 문자열(str)을 반환해요."
       },
       "villain": "interferencemon"
     },
@@ -355,8 +341,7 @@
       "answer": "B",
       "hint": "'s'가 string이에요.",
       "feedback": {
-        "correct": "맞아요! dump는 파일에, dumps는 문자열로 변환이에요.",
-        "wrong": "'s'가 string이에요."
+        "correct": "맞아요! dump는 파일에, dumps는 문자열로 변환이에요."
       },
       "villain": "interferencemon"
     },
@@ -379,8 +364,7 @@
       "answer": "C",
       "hint": "JSON 숫자는 Python 정수로 변환돼요.",
       "feedback": {
-        "correct": "맞아요! json.loads()로 파싱 후 dict로 접근해요. score=95(정수)예요.",
-        "wrong": "JSON 숫자는 Python 정수로 변환돼요."
+        "correct": "맞아요! json.loads()로 파싱 후 dict로 접근해요. score=95(정수)예요."
       },
       "villain": "interferencemon"
     },
@@ -403,8 +387,7 @@
       "answer": "A",
       "hint": "json.dumps()는 Python 타입을 JSON 규칙으로 변환해요.",
       "feedback": {
-        "correct": "맞아요! True→true, None→null, 키는 큰따옴표로 변환돼요.",
-        "wrong": "json.dumps()는 Python 타입을 JSON 규칙으로 변환해요."
+        "correct": "맞아요! True→true, None→null, 키는 큰따옴표로 변환돼요."
       },
       "villain": "interferencemon"
     },
@@ -427,8 +410,7 @@
       "answer": "D",
       "hint": "JSON 배열은 Python 리스트로 변환돼요.",
       "feedback": {
-        "correct": "맞아요! JSON 배열→리스트. [0]은 첫 번째 항목, ['name']='Kim'이에요.",
-        "wrong": "JSON 배열은 Python 리스트로 변환돼요."
+        "correct": "맞아요! JSON 배열→리스트. [0]은 첫 번째 항목, ['name']='Kim'이에요."
       },
       "villain": "interferencemon"
     },
@@ -451,8 +433,7 @@
       "answer": "B",
       "hint": "json.dumps/loads 후에도 중첩 구조가 유지돼요.",
       "feedback": {
-        "correct": "맞아요! dumps→loads 후 원본 복원. b=[2,3], [1]=3이에요.",
-        "wrong": "json.dumps/loads 후에도 중첩 구조가 유지돼요."
+        "correct": "맞아요! dumps→loads 후 원본 복원. b=[2,3], [1]=3이에요."
       },
       "villain": "interferencemon"
     },
@@ -475,8 +456,7 @@
       "answer": "D",
       "hint": "JSON은 큰따옴표만 허용해요. 작은따옴표 사용 시 JSONDecodeError예요.",
       "feedback": {
-        "correct": "훌륭해요! 작은따옴표는 유효한 JSON이 아니에요. JSONDecodeError가 발생해요.",
-        "wrong": "JSON은 큰따옴표만 허용해요. 작은따옴표 사용 시 JSONDecodeError예요."
+        "correct": "훌륭해요! 작은따옴표는 유효한 JSON이 아니에요. JSONDecodeError가 발생해요."
       },
       "villain": "interferencemon"
     },
@@ -499,8 +479,7 @@
       "answer": "A",
       "hint": "GET=조회, POST=생성, PUT=수정, DELETE=삭제예요.",
       "feedback": {
-        "correct": "맞아요! GET은 데이터를 조회(읽기)할 때 사용해요.",
-        "wrong": "GET=조회, POST=생성, PUT=수정, DELETE=삭제예요."
+        "correct": "맞아요! GET은 데이터를 조회(읽기)할 때 사용해요."
       },
       "villain": "interferencemon"
     },
@@ -523,8 +502,7 @@
       "answer": "B",
       "hint": "2xx=성공, 4xx=클라이언트오류, 5xx=서버오류예요.",
       "feedback": {
-        "correct": "맞아요! 200은 요청 성공이에요.",
-        "wrong": "2xx=성공, 4xx=클라이언트오류, 5xx=서버오류예요."
+        "correct": "맞아요! 200은 요청 성공이에요."
       },
       "villain": "interferencemon"
     },
@@ -547,8 +525,7 @@
       "answer": "C",
       "hint": "잘못된 URL 또는 삭제된 리소스에 접근 시 404가 반환돼요.",
       "feedback": {
-        "correct": "맞아요! 404 Not Found는 리소스를 찾을 수 없다는 의미예요.",
-        "wrong": "잘못된 URL 또는 삭제된 리소스에 접근 시 404가 반환돼요."
+        "correct": "맞아요! 404 Not Found는 리소스를 찾을 수 없다는 의미예요."
       },
       "villain": "interferencemon"
     },
@@ -571,8 +548,7 @@
       "answer": "A",
       "hint": "status_code를 먼저 확인 후 데이터를 처리해요.",
       "feedback": {
-        "correct": "맞아요! 상태코드로 성공/실패를 먼저 확인해요.",
-        "wrong": "status_code를 먼저 확인 후 데이터를 처리해요."
+        "correct": "맞아요! 상태코드로 성공/실패를 먼저 확인해요."
       },
       "villain": "interferencemon"
     },
@@ -595,8 +571,7 @@
       "answer": "B",
       "hint": "JSON은 가볍고 읽기 쉬워서 API 표준 형식이에요.",
       "feedback": {
-        "correct": "맞아요! 현대 REST API는 대부분 JSON 형식을 사용해요.",
-        "wrong": "JSON은 가볍고 읽기 쉬워서 API 표준 형식이에요."
+        "correct": "맞아요! 현대 REST API는 대부분 JSON 형식을 사용해요."
       },
       "villain": "interferencemon"
     },
@@ -619,8 +594,7 @@
       "answer": "C",
       "hint": "2xx는 모두 성공이에요. 201은 POST 성공 시 주로 사용해요.",
       "feedback": {
-        "correct": "맞아요! 201 Created는 새 리소스 생성 성공을 나타내요.",
-        "wrong": "2xx는 모두 성공이에요. 201은 POST 성공 시 주로 사용해요."
+        "correct": "맞아요! 201 Created는 새 리소스 생성 성공을 나타내요."
       },
       "villain": "interferencemon"
     },
@@ -643,8 +617,7 @@
       "answer": "A",
       "hint": "GET=조회(읽기 전용)이에요.",
       "feedback": {
-        "correct": "맞아요! 데이터를 읽기만 하는 조회에 GET을 사용해요.",
-        "wrong": "GET=조회(읽기 전용)이에요."
+        "correct": "맞아요! 데이터를 읽기만 하는 조회에 GET을 사용해요."
       },
       "villain": "interferencemon"
     },
@@ -667,8 +640,7 @@
       "answer": "D",
       "hint": "URL에서 `?` 이후가 쿼리 파라미터예요.",
       "feedback": {
-        "correct": "맞아요! `?` 이후의 `q=python&page=2`가 쿼리 파라미터예요.",
-        "wrong": "URL에서 `?` 이후가 쿼리 파라미터예요."
+        "correct": "맞아요! `?` 이후의 `q=python&page=2`가 쿼리 파라미터예요."
       },
       "villain": "interferencemon"
     },
@@ -691,8 +663,7 @@
       "answer": "B",
       "hint": "401=인증 실패예요.",
       "feedback": {
-        "correct": "맞아요! 잘못된 API 키는 인증 실패로 401 Unauthorized가 반환돼요.",
-        "wrong": "401=인증 실패예요."
+        "correct": "맞아요! 잘못된 API 키는 인증 실패로 401 Unauthorized가 반환돼요."
       },
       "villain": "interferencemon"
     },
@@ -715,8 +686,7 @@
       "answer": "D",
       "hint": "201=새 리소스 생성 성공이에요.",
       "feedback": {
-        "correct": "훌륭해요! 201 Created는 새 리소스 생성 성공이에요.",
-        "wrong": "201=새 리소스 생성 성공이에요."
+        "correct": "훌륭해요! 201 Created는 새 리소스 생성 성공이에요."
       },
       "villain": "interferencemon"
     },
@@ -739,8 +709,7 @@
       "answer": "A",
       "hint": "Response 객체에서 .status_code, .json() 등을 꺼낼 수 있어요.",
       "feedback": {
-        "correct": "맞아요! requests.get()은 Response 객체를 반환해요.",
-        "wrong": "Response 객체에서 .status_code, .json() 등을 꺼낼 수 있어요."
+        "correct": "맞아요! requests.get()은 Response 객체를 반환해요."
       },
       "villain": "interferencemon"
     },
@@ -763,8 +732,7 @@
       "answer": "B",
       "hint": "json()은 JSON 파싱까지 자동으로 해줘요.",
       "feedback": {
-        "correct": "맞아요! response.json()은 JSON을 Python 딕셔너리/리스트로 변환해요.",
-        "wrong": "json()은 JSON 파싱까지 자동으로 해줘요."
+        "correct": "맞아요! response.json()은 JSON을 Python 딕셔너리/리스트로 변환해요."
       },
       "villain": "interferencemon"
     },
@@ -787,8 +755,7 @@
       "answer": "C",
       "hint": "params={}를 전달하면 requests가 URL에 자동으로 붙여줘요.",
       "feedback": {
-        "correct": "맞아요! params 딕셔너리를 전달하면 자동으로 쿼리 문자열로 변환돼요.",
-        "wrong": "params={}를 전달하면 requests가 URL에 자동으로 붙여줘요."
+        "correct": "맞아요! params 딕셔너리를 전달하면 자동으로 쿼리 문자열로 변환돼요."
       },
       "villain": "interferencemon"
     },
@@ -811,8 +778,7 @@
       "answer": "A",
       "hint": "timeout 없이 응답을 무한정 기다리는 것을 방지해요.",
       "feedback": {
-        "correct": "맞아요! 5초 내 응답이 없으면 Timeout 예외가 발생해요.",
-        "wrong": "timeout 없이 응답을 무한정 기다리는 것을 방지해요."
+        "correct": "맞아요! 5초 내 응답이 없으면 Timeout 예외가 발생해요."
       },
       "villain": "interferencemon"
     },
@@ -835,8 +801,7 @@
       "answer": "B",
       "hint": "4xx=클라이언트오류, 5xx=서버오류예요.",
       "feedback": {
-        "correct": "맞아요! 4xx는 클라이언트(내 코드) 오류예요.",
-        "wrong": "4xx=클라이언트오류, 5xx=서버오류예요."
+        "correct": "맞아요! 4xx는 클라이언트(내 코드) 오류예요."
       },
       "villain": "interferencemon"
     },
@@ -859,8 +824,7 @@
       "answer": "C",
       "hint": "httpbin.org/status/N은 N 상태코드를 반환하는 테스트 API예요.",
       "feedback": {
-        "correct": "맞아요! /status/200은 200을 반환해요.",
-        "wrong": "httpbin.org/status/N은 N 상태코드를 반환하는 테스트 API예요."
+        "correct": "맞아요! /status/200은 200을 반환해요."
       },
       "villain": "interferencemon"
     },
@@ -883,8 +847,7 @@
       "answer": "A",
       "hint": "params는 ?q=ai&n=5 형태로 URL 뒤에 붙어요.",
       "feedback": {
-        "correct": "맞아요! params 딕셔너리는 ?키=값&키=값 형태로 URL에 붙어요.",
-        "wrong": "params는 ?q=ai&n=5 형태로 URL 뒤에 붙어요."
+        "correct": "맞아요! params 딕셔너리는 ?키=값&키=값 형태로 URL에 붙어요."
       },
       "villain": "interferencemon"
     },
@@ -907,8 +870,7 @@
       "answer": "D",
       "hint": "404 응답은 예외가 아니에요. status_code=404가 반환돼요.",
       "feedback": {
-        "correct": "맞아요! timeout이 아닌 정상 응답이므로 status_code=404가 반환돼요.",
-        "wrong": "404 응답은 예외가 아니에요. status_code=404가 반환돼요."
+        "correct": "맞아요! timeout이 아닌 정상 응답이므로 status_code=404가 반환돼요."
       },
       "villain": "interferencemon"
     },
@@ -931,8 +893,7 @@
       "answer": "B",
       "hint": "중첩 딕셔너리/리스트는 단계별로 접근해요.",
       "feedback": {
-        "correct": "맞아요! result→items→[0]→value 순으로 접근해요.",
-        "wrong": "중첩 딕셔너리/리스트는 단계별로 접근해요."
+        "correct": "맞아요! result→items→[0]→value 순으로 접근해요."
       },
       "villain": "interferencemon"
     },
@@ -955,8 +916,7 @@
       "answer": "D",
       "hint": "status_code는 정수예요. 200+404=604예요.",
       "feedback": {
-        "correct": "훌륭해요! 200+404=604예요.",
-        "wrong": "status_code는 정수예요. 200+404=604예요."
+        "correct": "훌륭해요! 200+404=604예요."
       },
       "villain": "interferencemon"
     },
@@ -979,8 +939,7 @@
       "answer": "A",
       "hint": "API 키 노출 → 타인 사용 → 과금 및 보안 문제예요.",
       "feedback": {
-        "correct": "맞아요! 코드에 직접 쓴 키가 GitHub에 올라가면 누구나 볼 수 있어요.",
-        "wrong": "API 키 노출 → 타인 사용 → 과금 및 보안 문제예요."
+        "correct": "맞아요! 코드에 직접 쓴 키가 GitHub에 올라가면 누구나 볼 수 있어요."
       },
       "villain": "interferencemon"
     },
@@ -1003,8 +962,7 @@
       "answer": "B",
       "hint": ".env 파일에 저장하고 .gitignore에 추가해요.",
       "feedback": {
-        "correct": "맞아요! .env + .gitignore가 API 키 관리의 기본이에요.",
-        "wrong": ".env 파일에 저장하고 .gitignore에 추가해요."
+        "correct": "맞아요! .env + .gitignore가 API 키 관리의 기본이에요."
       },
       "villain": "interferencemon"
     },
@@ -1027,8 +985,7 @@
       "answer": "C",
       "hint": "노출된 키는 즉시 재발급(rotate)이 필수예요.",
       "feedback": {
-        "correct": "맞아요! 노출된 키는 즉시 비활성화하고 새 키를 발급받아요.",
-        "wrong": "노출된 키는 즉시 재발급(rotate)이 필수예요."
+        "correct": "맞아요! 노출된 키는 즉시 비활성화하고 새 키를 발급받아요."
       },
       "villain": "interferencemon"
     },
@@ -1051,8 +1008,7 @@
       "answer": "A",
       "hint": "Bearer 인증은 가장 일반적인 API 인증 방식이에요.",
       "feedback": {
-        "correct": "맞아요! Authorization: Bearer 토큰값이 표준 형식이에요.",
-        "wrong": "Bearer 인증은 가장 일반적인 API 인증 방식이에요."
+        "correct": "맞아요! Authorization: Bearer 토큰값이 표준 형식이에요."
       },
       "villain": "interferencemon"
     },
@@ -1075,8 +1031,7 @@
       "answer": "B",
       "hint": "KeyError 없이 None을 반환해요.",
       "feedback": {
-        "correct": "맞아요! os.environ.get()은 없는 키에 None을 반환해요.",
-        "wrong": "KeyError 없이 None을 반환해요."
+        "correct": "맞아요! os.environ.get()은 없는 키에 None을 반환해요."
       },
       "villain": "interferencemon"
     },
@@ -1099,8 +1054,7 @@
       "answer": "C",
       "hint": "os.environ.get()은 있으면 값을, 없으면 None을 반환해요.",
       "feedback": {
-        "correct": "맞아요! 'abc'가 설정되어 있으므로 get('K')='abc', None이 아니므로 True예요.",
-        "wrong": "os.environ.get()은 있으면 값을, 없으면 None을 반환해요."
+        "correct": "맞아요! 'abc'가 설정되어 있으므로 get('K')='abc', None이 아니므로 True예요."
       },
       "villain": "interferencemon"
     },
@@ -1123,8 +1077,7 @@
       "answer": "A",
       "hint": "get()은 없는 키에도 None을 반환해요.",
       "feedback": {
-        "correct": "맞아요! 없는 환경변수를 get()으로 읽으면 None을 반환해요.",
-        "wrong": "get()은 없는 키에도 None을 반환해요."
+        "correct": "맞아요! 없는 환경변수를 get()으로 읽으면 None을 반환해요."
       },
       "villain": "interferencemon"
     },
@@ -1147,8 +1100,7 @@
       "answer": "D",
       "hint": "os.environ.get()은 키가 있으면 해당 값을 반환해요. len('secret123')=9예요.",
       "feedback": {
-        "correct": "맞아요! 'secret123'은 9글자예요.",
-        "wrong": "os.environ.get()은 키가 있으면 해당 값을 반환해요. len('secret123')=9예요."
+        "correct": "맞아요! 'secret123'은 9글자예요."
       },
       "villain": "interferencemon"
     },
@@ -1171,8 +1123,7 @@
       "answer": "B",
       "hint": "환경변수가 없으면 ValueError를 raise하고 except에서 잡아요.",
       "feedback": {
-        "correct": "맞아요! MY_KEY가 없으므로 ValueError 발생 → '키 없음' 출력이에요.",
-        "wrong": "환경변수가 없으면 ValueError를 raise하고 except에서 잡아요."
+        "correct": "맞아요! MY_KEY가 없으므로 ValueError 발생 → '키 없음' 출력이에요."
       },
       "villain": "interferencemon"
     },
@@ -1195,8 +1146,7 @@
       "answer": "D",
       "hint": ".env는 절대 GitHub에 올라가면 안 돼요.",
       "feedback": {
-        "correct": "훌륭해요! .env에는 API 키 등 민감한 정보가 있으므로 .gitignore에 추가해야 해요.",
-        "wrong": ".env는 절대 GitHub에 올라가면 안 돼요."
+        "correct": "훌륭해요! .env에는 API 키 등 민감한 정보가 있으므로 .gitignore에 추가해야 해요."
       },
       "villain": "interferencemon"
     },
@@ -1219,8 +1169,7 @@
       "answer": "A",
       "hint": "system=AI 설정, user=질문이에요.",
       "feedback": {
-        "correct": "맞아요! system 메시지는 AI가 어떻게 동작할지 기본 설정을 해요.",
-        "wrong": "system=AI 설정, user=질문이에요."
+        "correct": "맞아요! system 메시지는 AI가 어떻게 동작할지 기본 설정을 해요."
       },
       "villain": "interferencemon"
     },
@@ -1243,8 +1192,7 @@
       "answer": "B",
       "hint": "대상+목적+형식+제약이 포함된 프롬프트가 좋아요.",
       "feedback": {
-        "correct": "맞아요! 구체적이고 맥락이 풍부한 프롬프트일수록 좋은 답변을 받아요.",
-        "wrong": "대상+목적+형식+제약이 포함된 프롬프트가 좋아요."
+        "correct": "맞아요! 구체적이고 맥락이 풍부한 프롬프트일수록 좋은 답변을 받아요."
       },
       "villain": "interferencemon"
     },
@@ -1267,8 +1215,7 @@
       "answer": "C",
       "hint": "역할 부여(Role Prompting)는 system 메시지에 설정하는 게 효과적이에요.",
       "feedback": {
-        "correct": "맞아요! '당신은 ~예요'로 역할을 부여하면 그에 맞는 답변을 해요.",
-        "wrong": "역할 부여(Role Prompting)는 system 메시지에 설정하는 게 효과적이에요."
+        "correct": "맞아요! '당신은 ~예요'로 역할을 부여하면 그에 맞는 답변을 해요."
       },
       "villain": "interferencemon"
     },
@@ -1291,8 +1238,7 @@
       "answer": "A",
       "hint": "beginner=비유/일상예시, intermediate=개념/코드예시예요.",
       "feedback": {
-        "correct": "맞아요! beginner는 비유와 일상 예시로 친절하게 설명해요.",
-        "wrong": "beginner=비유/일상예시, intermediate=개념/코드예시예요."
+        "correct": "맞아요! beginner는 비유와 일상 예시로 친절하게 설명해요."
       },
       "villain": "interferencemon"
     },
@@ -1315,8 +1261,7 @@
       "answer": "B",
       "hint": "role: system/user/assistant 세 가지예요.",
       "feedback": {
-        "correct": "맞아요! 실제 질문은 'user' 역할로 담아요.",
-        "wrong": "role: system/user/assistant 세 가지예요."
+        "correct": "맞아요! 실제 질문은 'user' 역할로 담아요."
       },
       "villain": "interferencemon"
     },
@@ -1339,8 +1284,7 @@
       "answer": "C",
       "hint": "system=AI 성격 설정이에요.",
       "feedback": {
-        "correct": "맞아요! system 메시지는 AI의 역할, 말투, 형식을 설정해요.",
-        "wrong": "system=AI 성격 설정이에요."
+        "correct": "맞아요! system 메시지는 AI의 역할, 말투, 형식을 설정해요."
       },
       "villain": "interferencemon"
     },
@@ -1363,8 +1307,7 @@
       "answer": "A",
       "hint": "좋은 프롬프트=대상+목적+형식+제약이에요.",
       "feedback": {
-        "correct": "맞아요! 주제+대상+형식이 명시된 구체적인 프롬프트가 좋아요.",
-        "wrong": "좋은 프롬프트=대상+목적+형식+제약이에요."
+        "correct": "맞아요! 주제+대상+형식이 명시된 구체적인 프롬프트가 좋아요."
       },
       "villain": "interferencemon"
     },
@@ -1387,8 +1330,7 @@
       "answer": "D",
       "hint": "system → user 순서가 올바른 구성이에요.",
       "feedback": {
-        "correct": "맞아요! system 메시지는 항상 messages 배열의 첫 번째에 와야 해요.",
-        "wrong": "system → user 순서가 올바른 구성이에요."
+        "correct": "맞아요! system 메시지는 항상 messages 배열의 첫 번째에 와야 해요."
       },
       "villain": "interferencemon"
     },
@@ -1411,8 +1353,7 @@
       "answer": "B",
       "hint": "출력 형식을 명시하면 AI가 그 형식을 따라요.",
       "feedback": {
-        "correct": "맞아요! 정확한 JSON 스키마를 예시로 제공하면 파싱 가능한 응답을 받아요.",
-        "wrong": "출력 형식을 명시하면 AI가 그 형식을 따라요."
+        "correct": "맞아요! 정확한 JSON 스키마를 예시로 제공하면 파싱 가능한 응답을 받아요."
       },
       "villain": "interferencemon"
     },
@@ -1435,8 +1376,7 @@
       "answer": "D",
       "hint": "맥락이 풍부할수록 AI가 더 정확한 피드백을 줄 수 있어요.",
       "feedback": {
-        "correct": "훌륭해요! 레벨별 system 프롬프트와 문제 맥락을 함께 전달해야 좋은 피드백을 받아요.",
-        "wrong": "맥락이 풍부할수록 AI가 더 정확한 피드백을 줄 수 있어요."
+        "correct": "훌륭해요! 레벨별 system 프롬프트와 문제 맥락을 함께 전달해야 좋은 피드백을 받아요."
       },
       "villain": "interferencemon"
     }
