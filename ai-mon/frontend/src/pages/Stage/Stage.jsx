@@ -39,6 +39,8 @@ export default function Stage({ _lessonId, _stage }) {
   const [attempt, setAttempt] = useState(1)
   const [correctQuestions, setCorrectQuestions] = useState([])
   const [evoModal, setEvoModal] = useState(null)
+  const [minibossStartIndex, setMinibossStartIndex] = useState(null)
+  const [stageQuizCorrect, setStageQuizCorrect] = useState(0)
   
   // 비로그인 선체험 완료 후 회원가입/로그인 모달
   const [showAuthModal, setShowAuthModal] = useState(false)
@@ -66,23 +68,51 @@ export default function Stage({ _lessonId, _stage }) {
       attempt
     }).then((r) => r.data).catch(() => [])
 
-    Promise.all([fetchUnit, fetchSlides, fetchQuestions]).then(([unitData, lessonData, questionsData]) => {
+    const fetchProgress = token
+      ? progressApi.getProgress().then(r => r.data).catch(() => [])
+      : Promise.resolve([])
+
+    Promise.all([fetchUnit, fetchSlides, fetchQuestions, fetchProgress]).then(([unitData, lessonData, questionsData, progressData]) => {
       setUnitInfo(unitData)
+      let shouldShowBriefing = false
       if (lessonData && lessonData.slides && lessonData.slides.length > 0) {
         setBriefings(lessonData.slides)
-        setShowBriefing(true)
+        shouldShowBriefing = true
       } else {
         setBriefings([])
-        setShowBriefing(false)
       }
+      
+      const stageKey = `${lessonId}-${stageNum}`
+      const existing = progressData.find(
+        p => p.unit === parseInt(lessonId, 10) && p.stage === stageKey
+      )
+
+      let startMini = false
+      if (existing?.checkpoint === 'miniboss_ready' && !existing?.is_completed && questionsData.length > 0) {
+        const miniIndex = questionsData.findIndex(q => q.quiz_category === 'miniboss')
+        if (miniIndex !== -1) {
+          shouldShowBriefing = false
+          startMini = true
+          setCurrent(miniIndex)
+          setMinibossStartIndex(miniIndex)
+          setStageQuizCorrect(0)
+          setCorrect(0)
+        }
+      }
+      
+      setShowBriefing(shouldShowBriefing)
       setQuestions(questionsData)
       setLoading(false)
+      
+      if (startMini) {
+        setShowMinibossAlert(true)
+      }
     })
-  }, [lessonId, stageNum, courseLevel])
+  }, [lessonId, stageNum, courseLevel, attempt, token])
 
   const handleStageQuizFailure = (newCorrectQuestions) => {
     setAttempt(prev => prev + 1)
-    setQuestions([])
+    setLoading(true)
     setCorrectQuestions([])
     setCurrent(0)
     setScore(0)
@@ -98,7 +128,19 @@ export default function Stage({ _lessonId, _stage }) {
       course_level: courseLevel,
       limit: 20,
       attempt: attempt + 1
-    }).then(r => setQuestions(r.data))
+    }).then(r => {
+      setQuestions(r.data)
+      setLoading(false)
+    }).catch(() => {
+      setQuestions([])
+      setLoading(false)
+    })
+  }
+
+  const handleMinibossRetry = () => {
+    setCurrent(minibossStartIndex)
+    setCorrect(stageQuizCorrect)
+    setFinished(false)
   }
 
   const handleAnswer = async ({ correct: isCorrect, retried }) => {
@@ -131,7 +173,20 @@ export default function Stage({ _lessonId, _stage }) {
         return
       }
 
-      // 60% 이상이면 미니보스 알림 표시
+      // 60% 이상이면 미니보스 알림 표시 및 시작 인덱스, 정답 수 저장
+      setMinibossStartIndex(current + 1)
+      setStageQuizCorrect(correct)
+      
+      if (token) {
+        progressApi.saveProgress({
+          unit: parseInt(lessonId, 10),
+          stage: `${lessonId}-${stageNum}`,
+          score: stageQuizScore,
+          is_completed: false,
+          checkpoint: 'miniboss_ready',
+        }).catch(err => console.error(err))
+      }
+      
       setShowMinibossAlert(true)
       return
     }
@@ -154,7 +209,12 @@ export default function Stage({ _lessonId, _stage }) {
         return
       }
       // 로그인 상태 또는 일반 스테이지: 진행도 저장 후 완료 처리
-      const totalScore = Math.round((correct / questions.length) * 100)
+      let totalScore = Math.round((correct / questions.length) * 100)
+      if (minibossStartIndex !== null) {
+        const miniTotal = questions.length - minibossStartIndex;
+        const miniCorrect = correct - stageQuizCorrect;
+        totalScore = Math.round((miniCorrect / miniTotal) * 100);
+      }
       const prevLv = user?.lv || 1
       const prevChar = user?.character || 'slime'
 
@@ -163,6 +223,7 @@ export default function Stage({ _lessonId, _stage }) {
         stage: `${lessonId}-${stageNum}`,
         score: totalScore,
         is_completed: totalScore >= 80,
+        checkpoint: 'done',
       })
 
       if (res && res.data) {
@@ -198,7 +259,10 @@ export default function Stage({ _lessonId, _stage }) {
     }
   }
 
-  const finalScore = questions.length > 0 ? Math.round((correct / questions.length) * 100) : 0
+  const isMinibossPlayed = minibossStartIndex !== null
+  const evalTotalCount = isMinibossPlayed ? questions.length - minibossStartIndex : questions.length
+  const evalCorrectCount = isMinibossPlayed ? correct - stageQuizCorrect : correct
+  const finalScore = evalTotalCount > 0 ? Math.round((evalCorrectCount / evalTotalCount) * 100) : 0
   const passed = finalScore >= 80
 
   if (loading) return <div className="stage-loading"><div className="spinner" /></div>
@@ -241,7 +305,7 @@ export default function Stage({ _lessonId, _stage }) {
           {finalScore}점
         </div>
         <p className="result-desc">
-          {questions.length}문제 중 {correct}개 정답
+          {isMinibossPlayed && '미니보스 '}{evalTotalCount}문제 중 {evalCorrectCount}개 정답
         </p>
         {passed && xpAwarded > 0 && (
           <div className="result-reward" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px', marginBottom: '16px' }}>
@@ -277,9 +341,15 @@ export default function Stage({ _lessonId, _stage }) {
             레슨으로 돌아가기
           </button>
           {!passed && (
-            <button className="btn btn-primary" onClick={() => window.location.reload()}>
-              다시 도전 🔄
-            </button>
+            isMinibossPlayed ? (
+              <button className="btn btn-primary" onClick={handleMinibossRetry}>
+                미니보스 다시 도전 ⚔️
+              </button>
+            ) : (
+              <button className="btn btn-primary" onClick={() => window.location.reload()}>
+                다시 도전 🔄
+              </button>
+            )
           )}
         </div>
       </div>
