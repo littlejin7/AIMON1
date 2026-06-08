@@ -53,19 +53,24 @@ const NAV_ITEMS = [
 export default function NavBar() {
   const location = useLocation()
   const token = useAuthStore((s) => s.token)
+  const user = useAuthStore((s) => s.user)
   const [isTrainUnlocked, setIsTrainUnlocked] = useState(() => {
-    return localStorage.getItem('is_train_unlocked') === 'true'
+    if (user) {
+      return localStorage.getItem(`is_train_unlocked_${user.id}`) === 'true'
+    }
+    return false
   })
 
   useEffect(() => {
-    if (!token) {
+    if (!token || !user) {
       setIsTrainUnlocked(false)
-      localStorage.setItem('is_train_unlocked', 'false')
       return
     }
 
+    const cacheKey = `is_train_unlocked_${user.id}`
+
     // If already unlocked in cache, no need to query again
-    if (localStorage.getItem('is_train_unlocked') === 'true') {
+    if (localStorage.getItem(cacheKey) === 'true') {
       setIsTrainUnlocked(true)
       return
     }
@@ -82,14 +87,14 @@ export default function NavBar() {
         const unit1TotalStages = unit1Data?.stages || 1
         const unlocked = unit1Progress >= unit1TotalStages
         setIsTrainUnlocked(unlocked)
-        localStorage.setItem('is_train_unlocked', unlocked ? 'true' : 'false')
+        localStorage.setItem(cacheKey, unlocked ? 'true' : 'false')
       } catch (err) {
         console.error('Failed to check training lock status in NavBar:', err)
       }
     }
 
     checkTrainUnlocked()
-  }, [token, location.pathname]) // Refresh on path changes to pick up progress changes
+  }, [token, user, location.pathname]) // Refresh on path changes to pick up progress changes
 
   // 스테이지/보스 화면 등 서브 경로에서 어느 탭이 활성인지 계산
   const isLessonActive =
