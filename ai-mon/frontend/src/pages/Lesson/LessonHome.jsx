@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { quizApi, progressApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
+import LevelTestModal from '../../components/LevelTestModal/LevelTestModal'
+import { userApi } from '../../api/index'
 import './LessonHome.css'
 
 // 유닛별 메타 정보 (기획안)
@@ -46,7 +48,11 @@ const COURSE_LEVELS = [
 export default function LessonHome() {
   const user     = useAuthStore((s) => s.user)
   const token    = useAuthStore((s) => s.token)
+  const updateUser = useAuthStore((s) => s.updateUser)
   const navigate = useNavigate()
+
+  const [showLevelTest, setShowLevelTest] = useState(false)
+  const [pendingUnitId, setPendingUnitId] = useState(null)
 
   // 코스 레벨 — 유저 설정값 우선, 없으면 beginner
   const courseLevel = user?.course_level || 'beginner'
@@ -67,6 +73,21 @@ export default function LessonHome() {
       .catch(() => {})
       .finally(() => setLoading(false))
   }, [token])
+
+  const handleLevelTestFinish = async (levelKey) => {
+    try {
+      const res = await userApi.updateMe({ course_level: levelKey, is_level_tested: true })
+      updateUser(res.data)
+      if (pendingUnitId) {
+        navigate(`/lesson/${pendingUnitId}`)
+      }
+    } catch (err) {
+      alert('레벨 설정 변경에 실패했습니다.')
+    } finally {
+      setShowLevelTest(false)
+      setPendingUnitId(null)
+    }
+  }
 
   const getUnitProgress = (unitId) => {
     const items     = progress.filter((p) => p.unit === unitId)
@@ -97,6 +118,16 @@ export default function LessonHome() {
 
   return (
     <div className="lh-page">
+      {showLevelTest && (
+        <LevelTestModal
+          onClose={() => {
+            setShowLevelTest(false)
+            setPendingUnitId(null)
+          }}
+          onFinish={handleLevelTestFinish}
+          isLoggedIn={true}
+        />
+      )}
 
       {/* ── 헤더 ── */}
       <div className="lh-header">
@@ -172,7 +203,12 @@ export default function LessonHome() {
                 if (!token && isUnit1) {
                   navigate('/stage/1/1')
                 } else if (token) {
-                  navigate(`/lesson/${lesson.unit_id}`)
+                  if (!user?.is_level_tested) {
+                    setPendingUnitId(lesson.unit_id)
+                    setShowLevelTest(true)
+                  } else {
+                    navigate(`/lesson/${lesson.unit_id}`)
+                  }
                 } else {
                   navigate('/auth')
                 }
