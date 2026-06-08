@@ -108,6 +108,20 @@ def start_boss_battle(unit: int = 1, authorization: str = Header(...)):
         raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
     import random
     return random.choice(boss_qs)
+    
+@router.post("/next")
+def get_next_question(unit: int = 1, authorization: str = Header(...)):
+    user_id = verify_token(authorization)
+    users = load_users()
+    user = next((u for u in users if u["id"] == user_id), None)
+    if not user:
+        raise HTTPException(status_code=401, detail="User not found")
+    course_level = user.get("course_level", "beginner")
+    boss_qs = load_questions_by_category("unitboss", course_level=course_level, unit=unit)
+    if not boss_qs:
+        raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
+    import random
+    return random.choice(boss_qs)
 
 
 @router.post("/answer")
