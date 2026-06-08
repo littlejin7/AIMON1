@@ -311,6 +311,7 @@ backend/data/questions/
 | `stage`        | string  | -            | ✅   | 스테이지 번호 (`"1-1"` ~ `"1-7"`, `"1-boss"` 등) |
 | `score`        | number  | 0~100        | ✅   | 퀴즈 점수                                        |
 | `is_completed` | boolean | true / false | ✅   | 완료 여부                                        |
+| `checkpoint`   | string  | "miniboss_ready", "done" | ❌ | 스테이지 재진입(Resume)을 위한 중간 저장 지점 |
 | `created_at`   | string  | ISO 8601     | ✅   | 최초 기록 시각                                   |
 | `updated_at`   | string  | ISO 8601     | ✅   | 마지막 업데이트 시각                             |
 
