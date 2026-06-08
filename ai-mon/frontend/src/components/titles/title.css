@@ -1,0 +1,364 @@
+/* ──────────────────────────────────────
+   Profile Page — AI MON
+   ────────────────────────────────────── */
+
+.profile-page {
+  padding: var(--sp-4) 0 var(--sp-16);
+}
+
+/* ── 히어로 카드 ── */
+.pf-hero {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  padding: var(--sp-5);
+  margin-bottom: var(--sp-4);
+}
+
+/* 아바타 + 테두리 */
+.pf-avatar-wrap {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+}
+
+.pf-avatar-inner {
+  position: absolute;
+  inset: 5px;
+  border-radius: var(--radius-full);
+  background: var(--clr-bg-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pf-avatar-emoji {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.pf-lv-badge {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  background: var(--clr-bg-card);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-full);
+  padding: 2px 8px;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--clr-text);
+  z-index: 1;
+}
+
+/* 테두리 티어 */
+.ring-purple  { border: 4px solid #7c3aed; }
+.ring-cyan    { border: 4px solid #06b6d4; box-shadow: 0 0 0 2px #0e7490; }
+.ring-emerald {
+  border: 4px solid transparent;
+  background:
+    linear-gradient(var(--clr-bg-card), var(--clr-bg-card)) padding-box,
+    linear-gradient(135deg, #10b981, #06b6d4, #7c3aed) border-box;
+}
+.ring-gold    { border: 4px solid #f59e0b; box-shadow: 0 0 0 2px #92400e; }
+
+/* 히어로 정보 */
+.pf-hero-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.pf-username {
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  color: var(--clr-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pf-title-chip {
+  display: inline-block;
+  background: rgba(124, 58, 237, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.35);
+  border-radius: var(--radius-full);
+  padding: 2px 10px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--clr-primary-lt);
+  width: fit-content;
+}
+
+.pf-xp-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.pf-xp-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+  color: var(--clr-text-muted);
+}
+
+/* ── 통계 카드 ── */
+.pf-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-6);
+}
+
+.pf-stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-1);
+  padding: var(--sp-4) var(--sp-2);
+  text-align: center;
+}
+
+.pf-stat-val {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  color: var(--clr-text);
+}
+
+.pf-stat-label {
+  font-size: var(--font-size-xs);
+  color: var(--clr-text-muted);
+}
+
+/* ── 섹션 공통 ── */
+.pf-section {
+  margin-bottom: var(--sp-8);
+}
+
+.pf-section-title {
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  color: var(--clr-text);
+  margin-bottom: var(--sp-1);
+}
+
+.pf-section-desc {
+  font-size: var(--font-size-sm);
+  color: var(--clr-text-muted);
+  margin-bottom: var(--sp-4);
+}
+
+/* ── 칭호 목록 ── */
+.pf-title-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.pf-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--grad-card);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: var(--sp-3) var(--sp-4);
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.pf-title-row:hover:not(:disabled) {
+  border-color: rgba(124, 58, 237, 0.5);
+}
+
+.pf-title-row.equipped {
+  border-color: var(--clr-primary);
+  background: rgba(124, 58, 237, 0.08);
+}
+
+.pf-title-row.locked {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.pf-title-left {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.pf-title-emoji {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.pf-title-name {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--clr-text);
+}
+
+.pf-title-desc {
+  font-size: var(--font-size-xs);
+  color: var(--clr-text-muted);
+  margin-top: 2px;
+}
+
+.pf-radio {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--clr-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pf-title-row.equipped .pf-radio {
+  border-color: var(--clr-primary);
+}
+
+.pf-radio-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: var(--clr-primary);
+}
+
+.pf-lock {
+  font-size: 0.85rem;
+}
+
+/* ── 뱃지 그리드 ── */
+.pf-badge-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-3);
+}
+
+.pf-badge-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-1);
+  padding: var(--sp-4) var(--sp-2);
+  text-align: center;
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition-fast);
+}
+
+.pf-badge-card.locked {
+  opacity: 0.4;
+}
+
+.pf-badge-card.equipped {
+  border-color: var(--clr-primary) !important;
+}
+
+.pf-badge-emoji {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.pf-badge-name {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--clr-text);
+}
+
+.pf-badge-desc {
+  font-size: 0.68rem;
+  color: var(--clr-text-muted);
+  line-height: 1.3;
+}
+
+.pf-badge-status {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  margin-top: var(--sp-1);
+}
+
+.status-equipped {
+  background: rgba(124, 58, 237, 0.2);
+  color: var(--clr-primary-lt);
+}
+
+.status-owned {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--clr-success);
+}
+
+.status-locked {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--clr-text-faint);
+}
+
+/* ── 테두리 안내 목록 ── */
+.pf-ring-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.pf-ring-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--radius-md);
+}
+
+.pf-ring-row.current {
+  border-color: var(--clr-primary) !important;
+  background: rgba(124, 58, 237, 0.06) !important;
+}
+
+.pf-ring-preview {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  background: var(--clr-bg-2);
+}
+
+.pf-ring-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pf-ring-label {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--clr-text);
+}
+
+.pf-ring-range {
+  font-size: var(--font-size-xs);
+  color: var(--clr-text-muted);
+}
+
+.pf-current-chip {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  background: rgba(124, 58, 237, 0.2);
+  color: var(--clr-primary-lt);
+  border-radius: var(--radius-full);
+  padding: 2px 10px;
+  white-space: nowrap;
+}

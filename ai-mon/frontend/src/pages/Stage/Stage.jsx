@@ -7,7 +7,15 @@ import StageLoading from '../../components/loading/StageLoading'
 import villainIcon from '../../assets/boss_midcmorg.png'
 import stageClearIcon from '../../assets/boss_midcmlose.png'
 import stageFailIcon from '../../assets/boss_midcmorg.png'
+import EvolutionModal from '../../components/Evolution/Evolution'
 import './Stage.css'
+
+const EVOLUTION_MAP = {
+  10: { from: 'slime',         to: 'robot' },
+  20: { from: 'robot',         to: 'speech_bubble' },
+  30: { from: 'speech_bubble', to: 'final_ghost' },
+}
+
 
 export default function Stage({ _lessonId, _stage }) {
   const params = useParams()
@@ -17,6 +25,7 @@ export default function Stage({ _lessonId, _stage }) {
   const stageNum = parseInt(stage, 10)
   const token = useAuthStore((s) => s.token)
   const user = useAuthStore((s) => s.user)
+  const updateUser = useAuthStore((s) => s.updateUser)
   const courseLevel = user?.course_level || 'beginner'
   const [showMinibossAlert, setShowMinibossAlert] = useState(false)
   const [questions, setQuestions] = useState([])
@@ -29,6 +38,7 @@ export default function Stage({ _lessonId, _stage }) {
   const [unitInfo, setUnitInfo]   = useState(null)
   const [attempt, setAttempt] = useState(1)
   const [correctQuestions, setCorrectQuestions] = useState([])
+  const [evoModal, setEvoModal] = useState(null)
   
   // 비로그인 선체험 완료 후 회원가입/로그인 모달
   const [showAuthModal, setShowAuthModal] = useState(false)
@@ -131,16 +141,44 @@ export default function Stage({ _lessonId, _stage }) {
       }
       // 로그인 상태 또는 일반 스테이지: 진행도 저장 후 완료 처리
       const totalScore = Math.round((newCorrect / questions.length) * 100)
-      const res = await progressApi.saveProgress({
-        unit: parseInt(lessonId, 10),
-        stage: `${lessonId}-${stageNum}`,
-        score: totalScore,
-        is_completed: totalScore >= 80,
+const prevLv = user?.lv || 1
+const prevChar = user?.character || 'slime'
+
+const res = await progressApi.saveProgress({
+  unit: parseInt(lessonId, 10),
+  stage: `${lessonId}-${stageNum}`,
+  score: totalScore,
+  is_completed: totalScore >= 80,
+})
+
+if (res && res.data) {
+  setXpAwarded(res.data.xp_awarded || 0)
+
+  // ── 진화 감지 ──
+  // 백엔드가 내려준 새 lv와 character로 판단
+  const newLv   = res.data.lv       || prevLv
+  const newChar = res.data.character || prevChar
+
+  // 진화 레벨(10/20/30) 중 이전 lv < 진화lv <= 새 lv 인 경우
+  for (const [lvStr, evo] of Object.entries(EVOLUTION_MAP)) {
+    const lvNum = Number(lvStr)
+    if (prevLv < lvNum && newLv >= lvNum) {
+      setEvoModal({
+        fromChar: evo.from,
+        toChar:   evo.to,
+        newLevel: lvNum,
       })
-      if (res && res.data) {
-        setXpAwarded(res.data.xp_awarded || 0)
-      }
-      setFinished(true)
+      break
+    }
+  }
+
+  // zustand 유저 정보 업데이트 (lv, character 반영)
+  if (newLv !== prevLv || newChar !== prevChar) {
+    updateUser({ ...user, lv: newLv, character: newChar })
+  }
+}
+
+setFinished(true)
     } else {
       const nextQ = questions[current + 1]
       if (nextQ?.quiz_category === 'miniboss') {
@@ -171,6 +209,17 @@ export default function Stage({ _lessonId, _stage }) {
   if (finished) {
     return (
       <div className="stage-result animate-fade-in">
+      {evoModal && (
+  <EvolutionModal
+    fromChar={evoModal.fromChar}
+    toChar={evoModal.toChar}
+    newLevel={evoModal.newLevel}
+    onClose={() => {
+      setEvoModal(null)
+      // 진화 모달 닫힌 후에도 결과 화면은 그대로 유지
+    }}
+  />
+)}
         {/* 비로그인 회원가입/로그인 모달 */}
         {showAuthModal && (
           <div className="auth-modal-overlay" onClick={() => setShowAuthModal(false)}>
