@@ -201,3 +201,68 @@
   75% { transform: translateX(8px); }
 }
 .shake { animation: shake 0.4s ease; }
+
+@keyframes boss-shake {
+  0%   { transform: translateX(0) rotate(0deg); }
+  20%  { transform: translateX(-10px) rotate(-3deg); }
+  40%  { transform: translateX(10px) rotate(3deg); }
+  60%  { transform: translateX(-8px) rotate(-2deg); }
+  80%  { transform: translateX(8px) rotate(2deg); }
+  100% { transform: translateX(0) rotate(0deg); }
+}
+.boss-shake { animation: boss-shake 0.5s ease; }
+
+@keyframes my-shake {
+  0%, 100% { transform: translateY(0); }
+  25%       { transform: translateY(-6px); }
+  75%       { transform: translateY(4px); }
+}
+.my-shake { animation: my-shake 0.5s ease; }
+
+@keyframes screen-shake {
+  0%   { transform: translate(0, 0); }
+  10%  { transform: translate(-6px, -4px); }
+  20%  { transform: translate(6px, 4px); }
+  30%  { transform: translate(-5px, 3px); }
+  40%  { transform: translate(5px, -3px); }
+  60%  { transform: translate(4px, -2px); }
+  80%  { transform: translate(3px, -1px); }
+  100% { transform: translate(0, 0); }
+}
+.screen-shake {
+  animation: screen-shake 0.6s ease;
+  outline: 2px solid rgba(239, 68, 68, 0.5);
+  outline-offset: -2px;
+}
+
+.quiz-attack-wrap { transform-origin: center top; }
+
+@keyframes attack-fly {
+  0%   { transform: translateY(0) scale(1);       opacity: 1; }
+  60%  { transform: translateY(-80px) scale(0.4); opacity: 0.7; }
+  100% { transform: translateY(-120px) scale(0.1); opacity: 0; }
+}
+.quiz-attack-wrap.attack-fly {
+  animation: attack-fly 0.5s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+  pointer-events: none;
+}
+
+@keyframes dmg-float {
+  0%   { transform: translateX(-50%) translateY(0) scale(1);      opacity: 1; }
+  40%  { transform: translateX(-50%) translateY(-20px) scale(1.3); opacity: 1; }
+  100% { transform: translateX(-50%) translateY(-50px) scale(0.8); opacity: 0; }
+}
+.dmg-popup {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #f9e2af;
+  text-shadow: 0 0 10px rgba(249,226,175,0.8), 0 2px 4px rgba(0,0,0,0.6);
+  pointer-events: none;
+  animation: dmg-float 0.8s ease forwards;
+  white-space: nowrap;
+  z-index: 10;
+}
