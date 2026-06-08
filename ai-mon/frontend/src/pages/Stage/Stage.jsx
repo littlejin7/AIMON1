@@ -39,7 +39,6 @@ export default function Stage({ _lessonId, _stage }) {
   const [attempt, setAttempt] = useState(1)
   const [correctQuestions, setCorrectQuestions] = useState([])
   const [evoModal, setEvoModal] = useState(null)
-  const [minibossQuestions, setMinibossQuestions] = useState([])
   
   // 비로그인 선체험 완료 후 회원가입/로그인 모달
   const [showAuthModal, setShowAuthModal] = useState(false)
@@ -67,19 +66,7 @@ export default function Stage({ _lessonId, _stage }) {
       attempt
     }).then((r) => r.data).catch(() => [])
 
-    // 미니보스 문제 목록 조회
-    const fetchMiniboss = quizApi.getQuestions({
-      unit: lessonId,
-      stage: `${lessonId}-${stageNum}`,
-      course_level: courseLevel,
-      category: 'miniboss',
-      limit: 20
-    }).then(r => {
-      setMinibossQuestions(r.data)
-      return r.data
-    }).catch(() => [])
-
-    Promise.all([fetchUnit, fetchSlides, fetchQuestions, fetchMiniboss]).then(([unitData, lessonData, questionsData]) => {
+    Promise.all([fetchUnit, fetchSlides, fetchQuestions]).then(([unitData, lessonData, questionsData]) => {
       setUnitInfo(unitData)
       if (lessonData && lessonData.slides && lessonData.slides.length > 0) {
         setBriefings(lessonData.slides)
@@ -131,25 +118,30 @@ export default function Stage({ _lessonId, _stage }) {
   }
 
   const handleNext = async () => {
-    if (current + 1 >= questions.length) {
-      // 모든 문제가 끝난 시점 (stage_quiz 마지막이거나 miniboss 마지막)
-      const isStageQuizEnd = questions[current]?.quiz_category === 'stage_quiz'
-      
-      if (isStageQuizEnd) {
-        // stage_quiz만 있는 시점이므로 전체 length와 correct로 계산 가능
-        const stageQuizScore = questions.length > 0
-          ? Math.round((correct / questions.length) * 100)
-          : 100
+    const currentCategory = questions[current]?.quiz_category
+    const nextCategory = questions[current + 1]?.quiz_category
 
+    // 1. stage_quiz를 다 풀고 miniboss로 넘어갈 때 (미니보스 등장 조건)
+    if (currentCategory === 'stage_quiz' && nextCategory === 'miniboss') {
+      const stageQuizCount = current + 1
+      const stageQuizScore = Math.round((correct / stageQuizCount) * 100)
+
+      if (stageQuizScore < 60) {
+        handleStageQuizFailure(correctQuestions)
+        return
+      }
+
+      // 60% 이상이면 미니보스 알림 표시
+      setShowMinibossAlert(true)
+      return
+    }
+
+    // 2. 모든 문제가 끝난 시점
+    if (current + 1 >= questions.length) {
+      if (currentCategory === 'stage_quiz') {
+        const stageQuizScore = Math.round((correct / questions.length) * 100)
         if (stageQuizScore < 60) {
           handleStageQuizFailure(correctQuestions)
-          return
-        }
-
-        // 60% 이상 → 미니보스 문제가 있으면 이어붙이고 미니보스 알림
-        if (minibossQuestions.length > 0) {
-          setQuestions(prev => [...prev, ...minibossQuestions])
-          setShowMinibossAlert(true)
           return
         }
       }
