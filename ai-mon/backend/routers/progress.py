@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from jose import jwt, JWTError
 import json, os, uuid
 from datetime import datetime
+from routers.titles import check_and_award_titles
 
 router = APIRouter()
 
@@ -65,6 +66,7 @@ def get_progress(authorization: str = Header(...)):
 def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)):
     user_id = verify_token(authorization)
     progress = load_progress()
+    newly_earned = []
 
     existing = next(
         (p for p in progress if p["user_id"] == user_id
@@ -165,6 +167,18 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
                 break
         save_users(users)
 
+    # 칭호 체크
+    users = load_users()
+    for u in users:
+        if u.get("id") == user_id:
+            context = {
+                "stage_completed": award_xp,
+                "unit_fully_done": unit_just_completed,
+            }
+            newly_earned = check_and_award_titles(u, context)
+            break
+    save_users(users)
+
     # return 할 때 현재 유저 상태를 조회하여 안전하게 반환
     current_u = next((usr for usr in load_users() if usr.get("id") == user_id), {})
 
@@ -173,7 +187,8 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
         "xp_awarded": xp_gain if award_xp else 0,
         "crowns_awarded": crowns_awarded,
         "character": current_u.get("character", "slime"),
-        "lv": current_u.get("lv", 1)
+        "lv": current_u.get("lv", 1),
+        "newly_earned_titles": newly_earned,
     }
 
 
