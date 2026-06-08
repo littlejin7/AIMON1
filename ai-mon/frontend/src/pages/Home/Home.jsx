@@ -343,8 +343,34 @@ export default function Home() {
             <img src={evoStage.icon} alt={evoStage.name} className="home-char-orb-img" />
           </div>
           <div className="home-char-meta">
-            <span className="home-char-name" style={{ color: evoStage.color }}>{evoStage.name}</span>
-            <span className="home-char-range">{evoStage.unitRange}</span>
+<span className="home-char-name" style={{ color: evoStage.color }}>{evoStage.name}</span>
+{(() => {
+  const equippedTitleId = localStorage.getItem('equipped_title')
+  if (!equippedTitleId) return null
+  const TITLES = {
+    first_step:   '🌱 첫 발걸음',
+    streak_7:     '🔥 연속학습자',
+    boss_slayer:  '⚔️ 보스슬레이어',
+    ai_explorer:  '🧠 AI 탐구자',
+    unit_master:  '👑 유닛 마스터',
+    aimon_master: '💎 에이몬 마스터',
+  }
+  return (
+    <span style={{
+      fontSize: '0.75rem',
+      fontWeight: 700,
+      background: 'rgba(124,58,237,0.15)',
+      border: '1px solid rgba(124,58,237,0.35)',
+      borderRadius: '999px',
+      padding: '2px 10px',
+      color: '#a78bfa',
+      width: 'fit-content',
+    }}>
+      {TITLES[equippedTitleId]}
+    </span>
+  )
+})()}
+<span className="home-char-range">{evoStage.unitRange}</span>
             <div className="home-char-xp">
               <div className="home-char-xp-label">
                 <span>Lv.{lv}</span>
