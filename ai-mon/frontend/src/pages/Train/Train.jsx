@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { trainApi, userApi } from '../../api/index'
+import { trainApi, userApi, progressApi, quizApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import QuizCard from '../../components/QuizCard/QuizCard'
 import './Train.css'
@@ -15,11 +15,38 @@ export default function Train() {
   const [loading, setLoading]     = useState(false)
   const [mode, setMode]           = useState('idle') // idle | playing | result
   const [correctCount, setCorrectCount] = useState(0)
+  const [checkingLock, setCheckingLock] = useState(true)
+  const [isLocked, setIsLocked] = useState(false)
 
   useEffect(() => {
     if (!token) {
       navigate('/auth?mode=login')
+      return
     }
+
+    const checkLockState = async () => {
+      try {
+        const [progressRes, unitRes] = await Promise.all([
+          progressApi.getProgress(),
+          quizApi.getUnit(1)
+        ])
+        const progress = progressRes.data || []
+        const unit1Data = unitRes.data
+        const unit1Progress = progress.filter(p => p.unit === 1 && p.is_completed).length
+        const unit1TotalStages = unit1Data?.stages || 1
+        const isUnit1Done = unit1Progress >= unit1TotalStages
+        setIsLocked(!isUnit1Done)
+        
+        // Cache to localStorage for NavBar visual representation
+        localStorage.setItem('is_train_unlocked', isUnit1Done ? 'true' : 'false')
+      } catch (err) {
+        console.error('Failed to verify training lock state:', err)
+      } finally {
+        setCheckingLock(false)
+      }
+    }
+
+    checkLockState()
   }, [token, navigate])
 
   const startTraining = async () => {
@@ -61,6 +88,33 @@ export default function Train() {
         console.error(e)
       }
     }
+  }
+
+  if (checkingLock && token) {
+    return (
+      <div className="train-page container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
+        <div className="spinner" />
+        <p style={{ marginTop: '1rem', color: 'var(--clr-text-muted)', fontWeight: 600 }}>진행도를 확인하고 있습니다...</p>
+      </div>
+    )
+  }
+
+  if (isLocked) {
+    return (
+      <div className="train-page container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '70vh' }}>
+        <div className="train-card card-glass animate-fade-in-up" style={{ maxWidth: '480px', padding: '3rem 2rem', textAlign: 'center', border: '1px solid rgba(255,255,255,0.08)' }}>
+          <div className="train-icon" style={{ fontSize: '3.5rem', marginBottom: '1rem', textShadow: '0 0 20px rgba(124,58,237,0.3)' }}>🔒</div>
+          <h2 style={{ color: 'var(--clr-text-bright)', marginBottom: '0.8rem', fontSize: '1.75rem', fontWeight: 800 }}>훈련장 잠김</h2>
+          <p style={{ color: 'var(--clr-text-muted)', lineHeight: '1.6', marginBottom: '2rem' }}>
+            파이썬의 기초를 배우는 <strong>Unit 1</strong>을 모두 완료하면<br />
+            실력을 복습하고 성장시킬 수 있는 훈련장이 해금됩니다!
+          </p>
+          <button className="btn btn-primary btn-lg btn-full" onClick={() => navigate('/lesson')}>
+            📚 레슨으로 가기
+          </button>
+        </div>
+      </div>
+    )
   }
 
   if (mode === 'idle') {
