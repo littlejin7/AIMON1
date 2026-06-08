@@ -19,8 +19,7 @@
       "answer": "A. True일 때",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! if문은 조건이 True일 때만 들여쓴 코드를 실행해요.",
-        "wrong": "if문은 조건이 True일 때만 실행돼요. False이면 건너뛰어요."
+        "correct": "맞아요! if문은 조건이 True일 때만 들여쓴 코드를 실행해요."
       }
     },
     {
@@ -42,8 +41,7 @@
       "answer": "B. :`",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! `if 조건:` 형태로 콜론 `:`이 반드시 필요해요.",
-        "wrong": "Python if문은 `if 조건:` 형태예요. 콜론이 필수예요."
+        "correct": "맞아요! `if 조건:` 형태로 콜론 `:`이 반드시 필요해요."
       }
     },
     {
@@ -65,8 +63,7 @@
       "answer": "B. `=`는 저장, `==`는 비교",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! `=`는 변수에 값을 저장, `==`는 두 값이 같은지 비교해요.",
-        "wrong": "`=`는 할당(저장), `==`는 비교예요. if 조건에는 반드시 `==`를 써야 해요."
+        "correct": "맞아요! `=`는 변수에 값을 저장, `==`는 두 값이 같은지 비교해요."
       }
     },
     {
@@ -88,8 +85,7 @@
       "answer": "A. 크다",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 10>5는 True이므로 if 블록 '크다'가 출력돼요.",
-        "wrong": "10>5는 True이므로 if 블록이 실행돼요. '크다'만 출력돼요."
+        "correct": "맞아요! 10>5는 True이므로 if 블록 '크다'가 출력돼요."
       }
     },
     {
@@ -111,8 +107,7 @@
       "answer": "C. 불합격",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 45>=60은 False이므로 else 블록 '불합격'이 출력돼요.",
-        "wrong": "45>=60은 False이므로 else의 '불합격'이 출력돼요."
+        "correct": "맞아요! 45>=60은 False이므로 else 블록 '불합격'이 출력돼요."
       }
     },
     {
@@ -134,8 +129,7 @@
       "answer": "A. 참",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 8>5는 True이므로 '참'이 출력돼요.",
-        "wrong": "8>5는 True이므로 if 블록이 실행돼요. '참'이 출력돼요."
+        "correct": "맞아요! 8>5는 True이므로 '참'이 출력돼요."
       }
     },
     {
@@ -157,8 +151,7 @@
       "answer": "B. 시원해요",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 15>20은 False이므로 else의 '시원해요'가 출력돼요.",
-        "wrong": "15>20은 False이므로 else 블록이 실행돼요. '시원해요'가 출력돼요."
+        "correct": "맞아요! 15>20은 False이므로 else의 '시원해요'가 출력돼요."
       }
     },
     {
@@ -180,8 +173,7 @@
       "answer": "B. 짝수",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 6 % 2 = 0이고 0 == 0은 True예요. '짝수'가 출력돼요.",
-        "wrong": "6 % 2 = 0(나머지). 0 == 0은 True이므로 if 블록 '짝수'가 실행돼요."
+        "correct": "맞아요! 6 % 2 = 0이고 0 == 0은 True예요. '짝수'가 출력돼요."
       }
     },
     {
@@ -203,8 +195,7 @@
       "answer": "B. 결과: 합격 / 채점 완료",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 85>=80은 True→grade='합격'. f-string 출력 후 '채점 완료'도 출력돼요.",
-        "wrong": "85>=80은 True→grade='합격'. f-string→'결과: 합격'. 들여쓰기 없는 print→'채점 완료'도 실행돼요."
+        "correct": "맞아요! 85>=80은 True→grade='합격'. f-string 출력 후 '채점 완료'도 출력돼요."
       }
     },
     {
@@ -226,8 +217,7 @@
       "answer": "C. 비어 있음 / 확인 완료",
       "hint": "",
       "feedback": {
-        "correct": "훌륭해요! len([])=0이고 0>0은 False→else '비어 있음'. 마지막 print는 항상 실행돼요. 보스 클리어! 🎉",
-        "wrong": "len([])=0. 0>0은 False이므로 else '비어 있음'. 들여쓰기 없는 print('확인 완료')는 항상 실행돼요."
+        "correct": "훌륭해요! len([])=0이고 0>0은 False→else '비어 있음'. 마지막 print는 항상 실행돼요. 보스 클리어! 🎉"
       }
     },
     {
@@ -249,8 +239,7 @@
       "answer": "B. 위의 조건이 False일 때만",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! elif는 위의 if(또는 elif) 조건이 False일 때만 검사돼요.",
-        "wrong": "elif는 위 조건이 False일 때만 검사돼요. 위 조건이 True면 건너뛰어요."
+        "correct": "맞아요! elif는 위의 if(또는 elif) 조건이 False일 때만 검사돼요."
       }
     },
     {
@@ -272,8 +261,7 @@
       "answer": "B. 최대 1개",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 처음으로 True인 블록 하나만 실행돼요.",
-        "wrong": "처음으로 True인 블록 하나만 실행되고 나머지는 건너뛰어요."
+        "correct": "맞아요! 처음으로 True인 블록 하나만 실행돼요."
       }
     },
     {
@@ -295,8 +283,7 @@
       "answer": "C. F",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 55>=90→False, 55>=60→False→else 'F'가 출력돼요.",
-        "wrong": "55>=90→False, 55>=60→False, else→'F' 출력이에요."
+        "correct": "맞아요! 55>=90→False, 55>=60→False→else 'F'가 출력돼요."
       }
     },
     {
@@ -318,8 +305,7 @@
       "answer": "C. 3의 배수",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 15%2=1→False, 15%3=0→True→'3의 배수'가 출력돼요.",
-        "wrong": "15%2=1≠0→False. 15%3=0==0→True→'3의 배수' 출력이에요."
+        "correct": "맞아요! 15%2=1→False, 15%3=0→True→'3의 배수'가 출력돼요."
       }
     },
     {
@@ -341,8 +327,7 @@
       "answer": "A. 합격",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 80>=80→True→'합격'. 나머지는 건너뛰어요.",
-        "wrong": "80>=80은 True이므로 '합격'이 출력돼요. 나머지는 건너뛰어요."
+        "correct": "맞아요! 80>=80→True→'합격'. 나머지는 건너뛰어요."
       }
     },
     {
@@ -364,8 +349,7 @@
       "answer": "B. B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 88>=90→False, 88>=80→True→'B'가 출력돼요.",
-        "wrong": "88>=90→False. 88>=80→True→'B' 출력이에요."
+        "correct": "맞아요! 88>=90→False, 88>=80→True→'B'가 출력돼요."
       }
     },
     {
@@ -387,8 +371,7 @@
       "answer": "C. 저녁",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 20<12→False, 20<18→False→else '저녁'이 출력돼요.",
-        "wrong": "20<12→False, 20<18→False, else→'저녁' 출력이에요."
+        "correct": "맞아요! 20<12→False, 20<18→False→else '저녁'이 출력돼요."
       }
     },
     {
@@ -410,8 +393,7 @@
       "answer": "B. A / C / B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 95→A, 65→C(65<70), 80→B. A/C/B 순서예요.",
-        "wrong": "95>=90→A. 65>=90→F, 65>=70→F→C. 80>=90→F, 80>=70→T→B. A/C/B예요."
+        "correct": "맞아요! 95→A, 65→C(65<70), 80→B. A/C/B 순서예요."
       }
     },
     {
@@ -433,8 +415,7 @@
       "answer": "B. 등급: C / 채점 완료",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 72>=90→F, 72>=80→F, 72>=70→T→grade='C'. '등급: C' 후 '채점 완료'도 출력돼요.",
-        "wrong": "72>=70→True→grade='C'. f-string→'등급: C'. 들여쓰기 없는 print→'채점 완료'도 실행돼요."
+        "correct": "맞아요! 72>=90→F, 72>=80→F, 72>=70→T→grade='C'. '등급: C' 후 '채점 완료'도 출력돼요."
       }
     },
     {
@@ -456,8 +437,7 @@
       "answer": "D. 2월: 겨울",
       "hint": "",
       "feedback": {
-        "correct": "훌륭해요! 2는 어떤 리스트에도 없으므로 else→season='겨울'. '2월: 겨울'이 출력돼요. 보스 클리어! 🎉",
-        "wrong": "2 in [3,4,5]→False, 2 in [6,7,8]→False, 2 in [9,10,11]→False, else→season='겨울'이에요."
+        "correct": "훌륭해요! 2는 어떤 리스트에도 없으므로 else→season='겨울'. '2월: 겨울'이 출력돼요. 보스 클리어! 🎉"
       }
     },
     {
@@ -479,8 +459,7 @@
       "answer": "A. True",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 10과 10은 같으므로 `==`는 True를 반환해요.",
-        "wrong": "`==`는 두 값이 같으면 True예요. 10==10이므로 True예요."
+        "correct": "맞아요! 10과 10은 같으므로 `==`는 True를 반환해요."
       }
     },
     {
@@ -502,8 +481,7 @@
       "answer": "B. False",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! `>`는 같을 때 False예요. 5>5는 같으므로 False예요.",
-        "wrong": "`>`는 엄격히 클 때만 True예요. 5>5는 같으므로 False예요. 같을 때 포함하려면 `>=`를 써요."
+        "correct": "맞아요! `>`는 같을 때 False예요. 5>5는 같으므로 False예요."
       }
     },
     {
@@ -525,8 +503,7 @@
       "answer": "B. False",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 7과 7은 같으므로 `!=`는 False를 반환해요.",
-        "wrong": "`!=`는 두 값이 다를 때만 True예요. 7==7이므로 !=의 결과는 False예요."
+        "correct": "맞아요! 7과 7은 같으므로 `!=`는 False를 반환해요."
       }
     },
     {
@@ -548,8 +525,7 @@
       "answer": "B. `x >= 8`",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 8>=8은 True예요. `>=`는 같을 때도 포함해요.",
-        "wrong": "8>10→F, 8>=8→T(같으므로 포함), 8==9→F, 8<5→F예요."
+        "correct": "맞아요! 8>=8은 True예요. `>=`는 같을 때도 포함해요."
       }
     },
     {
@@ -571,8 +547,7 @@
       "answer": "C. C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 75>=70→True, 75<80→True. 둘 다 True이므로 'C'가 출력돼요.",
-        "wrong": "75>=70→T, 75<80→T. and 조건을 모두 만족하므로 'C'가 출력돼요."
+        "correct": "맞아요! 75>=70→True, 75<80→True. 둘 다 True이므로 'C'가 출력돼요."
       }
     },
     {
@@ -594,8 +569,7 @@
       "answer": "B. True / False",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 5==5→True, 5!=5→False예요.",
-        "wrong": "x=5. 5==5→True(같으므로), 5!=5→False(같으므로 '다름'이 False)예요."
+        "correct": "맞아요! 5==5→True, 5!=5→False예요."
       }
     },
     {
@@ -617,8 +591,7 @@
       "answer": "B. 우수",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 90>=90→True이므로 '우수'가 출력돼요.",
-        "wrong": "90>=90→True이므로 if 블록 '우수'가 실행돼요."
+        "correct": "맞아요! 90>=90→True이므로 '우수'가 출력돼요."
       }
     },
     {
@@ -640,8 +613,7 @@
       "answer": "B. True / False / True",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 5==5→T, 5>5→F(같을 때는 F), 5>=5→T(같을 때도 포함)예요.",
-        "wrong": "5==5→T, 5>5→F(같을 때는 포함 안 됨), 5>=5→T(같을 때 포함)예요."
+        "correct": "맞아요! 5==5→T, 5>5→F(같을 때는 F), 5>=5→T(같을 때도 포함)예요."
       }
     },
     {
@@ -663,8 +635,7 @@
       "answer": "B. 80점 이상: 3명",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 80→T, 60→F, 90→T, 70→F, 100→T. 80 이상: 3개예요.",
-        "wrong": "s>=80인 값: 80(T), 60(F), 90(T), 70(F), 100(T). 총 3개예요."
+        "correct": "맞아요! 80→T, 60→F, 90→T, 70→F, 100→T. 80 이상: 3개예요."
       }
     },
     {
@@ -686,8 +657,7 @@
       "answer": "A. `[3, 7, 2, 9]` / `4`",
       "hint": "",
       "feedback": {
-        "correct": "훌륭해요! 5가 아닌 값: 3, 7, 2, 9 → result=[3,7,2,9], len=4예요. 보스 클리어! 🎉",
-        "wrong": "d!=5인 값: 3(T), 7(T), 2(T), 9(T), 5(F). result=[3,7,2,9], len=4예요."
+        "correct": "훌륭해요! 5가 아닌 값: 3, 7, 2, 9 → result=[3,7,2,9], len=4예요. 보스 클리어! 🎉"
       }
     },
     {
@@ -709,8 +679,7 @@
       "answer": "B. False",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! and는 하나라도 False면 결과가 False예요.",
-        "wrong": "and는 모두 True여야 True예요. 하나라도 False면 False예요."
+        "correct": "맞아요! and는 하나라도 False면 결과가 False예요."
       }
     },
     {
@@ -732,8 +701,7 @@
       "answer": "B. True",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! or은 하나라도 True면 True예요.",
-        "wrong": "or은 하나라도 True면 True예요. False or True = True예요."
+        "correct": "맞아요! or은 하나라도 True면 True예요."
       }
     },
     {
@@ -755,8 +723,7 @@
       "answer": "C. True",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! not은 값을 반대로 뒤집어요. not False = True예요.",
-        "wrong": "not은 True↔False를 뒤집어요. not False = True예요."
+        "correct": "맞아요! not은 값을 반대로 뒤집어요. not False = True예요."
       }
     },
     {
@@ -778,8 +745,7 @@
       "answer": "B. 범위 안",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 5>3→T, 5<10→T. T and T = T이므로 '범위 안'이에요.",
-        "wrong": "5>3→T, 5<10→T. T and T = True이므로 '범위 안'이 출력돼요."
+        "correct": "맞아요! 5>3→T, 5<10→T. T and T = T이므로 '범위 안'이에요."
       }
     },
     {
@@ -801,8 +767,7 @@
       "answer": "B. 로그인 필요",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! not False = True이므로 '로그인 필요'가 출력돼요.",
-        "wrong": "not False = True이므로 if 블록 '로그인 필요'가 실행돼요."
+        "correct": "맞아요! not False = True이므로 '로그인 필요'가 출력돼요."
       }
     },
     {
@@ -824,8 +789,7 @@
       "answer": "B. True / False",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! T and T = T, T and F = F예요.",
-        "wrong": "and는 모두 True여야 True예요. T and T=T, T and F=F예요."
+        "correct": "맞아요! T and T = T, T and F = F예요."
       }
     },
     {
@@ -847,8 +811,7 @@
       "answer": "C. True / False",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! F or T = T, F or F = F예요.",
-        "wrong": "or은 하나라도 True면 True예요. F or T=T, F or F=F예요."
+        "correct": "맞아요! F or T = T, F or F = F예요."
       }
     },
     {
@@ -870,8 +833,7 @@
       "answer": "B. 입장 가능",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 22>=19→T, has_ticket=True. T and T = T이므로 '입장 가능'이에요.",
-        "wrong": "22>=19→T, has_ticket→T. T and T = T이므로 '입장 가능'이 출력돼요."
+        "correct": "맞아요! 22>=19→T, has_ticket=True. T and T = T이므로 '입장 가능'이에요."
       }
     },
     {
@@ -893,8 +855,7 @@
       "answer": "B. `[85, 95]`",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 80 이상이고 92가 아닌 값: 85(T), 92(F, 92==92), 78(F), 70(F), 95(T). result=[85, 95]예요.",
-        "wrong": "s>=80 and s!=92: 85(T and T→T), 92(T and F→F), 78(F), 70(F), 95(T and T→T). result=[85, 95]예요."
+        "correct": "맞아요! 80 이상이고 92가 아닌 값: 85(T), 92(F, 92==92), 78(F), 70(F), 95(T). result=[85, 95]예요."
       }
     },
     {
@@ -916,8 +877,7 @@
       "answer": "B. 사과",
       "hint": "",
       "feedback": {
-        "correct": "훌륭해요! 사과: 1500<=2000(T) and 10>0(T)→T. 바나나: 800<=2000(T) and 0>0(F)→F. 포도: 3000<=2000(F)→F. 보스 클리어! 🎉",
-        "wrong": "사과: price<=2000(T) and stock>0(T)→출력. 바나나: price<=2000(T) and stock>0(F)→건너뜀. 포도: price<=2000(F)→건너뜀. '사과'만 출력돼요."
+        "correct": "훌륭해요! 사과: 1500<=2000(T) and 10>0(T)→T. 바나나: 800<=2000(T) and 0>0(F)→F. 포도: 3000<=2000(F)→F. 보스 클리어! 🎉"
       }
     },
     {
@@ -939,8 +899,7 @@
       "answer": "A. 바깥 if가 True일 때만",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 바깥 if가 True일 때만 안쪽 if가 검사돼요.",
-        "wrong": "중첩 if에서 안쪽 if는 바깥 if가 True일 때만 실행돼요."
+        "correct": "맞아요! 바깥 if가 True일 때만 안쪽 if가 검사돼요."
       }
     },
     {
@@ -962,8 +921,7 @@
       "answer": "B. 작음",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 3>5→False이므로 바깥 else '작음'이 출력돼요.",
-        "wrong": "3>5→False→else '작음' 출력이에요."
+        "correct": "맞아요! 3>5→False이므로 바깥 else '작음'이 출력돼요."
       }
     },
     {
@@ -985,8 +943,7 @@
       "answer": "B. 안쪽 else가 없고 두 조건 모두 True여야 할 때",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 안쪽 else가 없고 두 조건이 모두 True여야 할 때만 and로 합칠 수 있어요.",
-        "wrong": "안쪽에 else가 있으면 중첩 if를 유지해야 해요. else가 없을 때만 and로 합칠 수 있어요."
+        "correct": "맞아요! 안쪽 else가 없고 두 조건이 모두 True여야 할 때만 and로 합칠 수 있어요."
       }
     },
     {
@@ -1008,8 +965,7 @@
       "answer": "B. 보통 성인",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 25>=20→T(바깥 실행). 65>=80→F→else '보통 성인'이에요.",
-        "wrong": "25>=20→T. 65>=80→F→안쪽 else '보통 성인' 출력이에요."
+        "correct": "맞아요! 25>=20→T(바깥 실행). 65>=80→F→else '보통 성인'이에요."
       }
     },
     {
@@ -1031,8 +987,7 @@
       "answer": "D. 불합격",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 35>=60→F→바깥 else. 35>=40→F→안쪽 else '불합격'이에요.",
-        "wrong": "35>=60→F→else 진입. 35>=40→F→else '불합격' 출력이에요."
+        "correct": "맞아요! 35>=60→F→바깥 else. 35>=40→F→안쪽 else '불합격'이에요."
       }
     },
     {
@@ -1054,8 +1009,7 @@
       "answer": "C. 8 초과",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 10>5→T, 10>8→T→'8 초과'가 출력돼요.",
-        "wrong": "10>5→T(바깥 실행). 10>8→T(안쪽 if)→'8 초과' 출력이에요."
+        "correct": "맞아요! 10>5→T, 10>8→T→'8 초과'가 출력돼요."
       }
     },
     {
@@ -1077,8 +1031,7 @@
       "answer": "C. 회원 보통",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! is_member=True→바깥 실행. 70>=80→F→안쪽 else '회원 보통'이에요.",
-        "wrong": "is_member=True→바깥 if 실행. 70>=80→False→안쪽 else '회원 보통' 출력이에요."
+        "correct": "맞아요! is_member=True→바깥 실행. 70>=80→F→안쪽 else '회원 보통'이에요."
       }
     },
     {
@@ -1100,8 +1053,7 @@
       "answer": "A. 김철수: 합격",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 김철수: 20>=19(T), 85>=80(T)→합격. 이영희: 17>=19(F)→건너뜀. 박민준: 22>=19(T), 60>=80(F)→건너뜀이에요.",
-        "wrong": "김철수: age>=19→T, score>=80→T→합격. 이영희: age>=19→F→건너뜀. 박민준: age>=19→T, score>=80→F→건너뜀이에요."
+        "correct": "맞아요! 김철수: 20>=19(T), 85>=80(T)→합격. 이영희: 17>=19(F)→건너뜀. 박민준: 22>=19(T), 60>=80(F)→건너뜀이에요."
       }
     },
     {
@@ -1123,8 +1075,7 @@
       "answer": "D. 완전 불합격",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 58>=60→F→바깥 else. is_retake=False→안쪽 else '완전 불합격'이에요.",
-        "wrong": "58>=60→False→바깥 else. is_retake=False→안쪽 else '완전 불합격' 출력이에요."
+        "correct": "맞아요! 58>=60→F→바깥 else. is_retake=False→안쪽 else '완전 불합격'이에요."
       }
     },
     {
@@ -1146,8 +1097,7 @@
       "answer": "A. 노트북: 고가 상품 / 마우스: 품절 / 키보드: 구매 가능",
       "hint": "",
       "feedback": {
-        "correct": "훌륭해요! 노트북: stock=3>0(T), price=1200000>100000→고가. 마우스: stock=0>0(F)→품절. 키보드: stock=10>0(T), price=80000<=100000→구매 가능이에요. 보스 클리어! 🎉",
-        "wrong": "노트북: 3>0→T, 1200000>100000→고가. 마우스: 0>0→F→품절. 키보드: 10>0→T, 80000<=100000→구매 가능이에요."
+        "correct": "훌륭해요! 노트북: stock=3>0(T), price=1200000>100000→고가. 마우스: stock=0>0(F)→품절. 키보드: stock=10>0(T), price=80000<=100000→구매 가능이에요. 보스 클리어! 🎉"
       }
     }
   ]

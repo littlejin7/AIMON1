@@ -10,12 +10,16 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 코드의 출력값을 고르세요.\n\nword = 'aimon'\nprint(word.upper())",
-      "choices": ["A. aimon", "B. AIMON", "C. Aimon", "D. 오류 발생"],
+      "choices": [
+        "A. aimon",
+        "B. AIMON",
+        "C. Aimon",
+        "D. 오류 발생"
+      ],
       "answer": "B",
       "hint": "upper()는 모든 알파벳을 대문자로 바꿔요.",
       "feedback": {
-        "correct": "맞아요! upper()는 문자열의 모든 알파벳을 대문자로 변환해요.",
-        "wrong": "upper() 메서드는 문자열 전체를 대문자로 바꿔요. 'aimon' → 'AIMON'이 돼요."
+        "correct": "맞아요! upper()는 문자열의 모든 알파벳을 대문자로 변환해요."
       }
     },
     {
@@ -32,8 +36,7 @@
       "answer": "in",
       "hint": "문자열 안에 특정 단어가 포함되어 있는지 확인하는 키워드예요.",
       "feedback": {
-        "correct": "맞아요! in 키워드로 문자열 포함 여부를 확인할 수 있어요.",
-        "wrong": "'파이썬' in sentence 처럼 in을 써야 해요. 문자열 포함 여부를 True/False로 반환해요."
+        "correct": "맞아요! in 키워드로 문자열 포함 여부를 확인할 수 있어요."
       }
     },
     {
@@ -46,12 +49,16 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 코드의 출력값을 고르세요.\n\nname = '  에이몬  '\nprint(name.strip())",
-      "choices": ["A. '  에이몬  '", "B. '에이몬  '", "C. '에이몬'", "D. 오류 발생"],
+      "choices": [
+        "A. '  에이몬  '",
+        "B. '에이몬  '",
+        "C. '에이몬'",
+        "D. 오류 발생"
+      ],
       "answer": "C",
       "hint": "strip()은 문자열 양쪽 끝의 공백을 없애줘요.",
       "feedback": {
-        "correct": "맞아요! strip()은 문자열 앞뒤의 공백을 모두 제거해요.",
-        "wrong": "strip()은 문자열 양쪽 끝의 공백을 제거해요. '  에이몬  ' → '에이몬'이 돼요."
+        "correct": "맞아요! strip()은 문자열 앞뒤의 공백을 모두 제거해요."
       }
     },
     {
@@ -64,12 +71,16 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "아래 코드에서 오류가 발생하는 줄은 어디일까요?\n\n1: hero = '에이몬'\n2: hero[0] = 'A'\n3: print(hero)",
-      "choices": ["A. 1번 줄: 변수 이름 오류", "B. 2번 줄: 문자열은 수정할 수 없음", "C. 3번 줄: print 오류", "D. 오류 없음"],
+      "choices": [
+        "A. 1번 줄: 변수 이름 오류",
+        "B. 2번 줄: 문자열은 수정할 수 없음",
+        "C. 3번 줄: print 오류",
+        "D. 오류 없음"
+      ],
       "answer": "B",
       "hint": "파이썬 문자열은 한 번 만들면 개별 문자를 바꿀 수 없어요.",
       "feedback": {
-        "correct": "맞아요! 문자열은 불변(immutable)이라서 인덱스로 개별 문자를 수정할 수 없어요. TypeError가 발생해요.",
-        "wrong": "파이썬 문자열은 변경 불가능해요. hero[0] = 'A' 처럼 인덱스로 수정하려고 하면 TypeError가 발생해요."
+        "correct": "맞아요! 문자열은 불변(immutable)이라서 인덱스로 개별 문자를 수정할 수 없어요. TypeError가 발생해요."
       }
     },
     {
@@ -86,8 +97,7 @@
       "answer": "split",
       "hint": "구분자를 기준으로 문자열을 잘라 리스트로 만드는 메서드예요.",
       "feedback": {
-        "correct": "맞아요! split(',')은 콤마를 기준으로 문자열을 잘라 리스트를 반환해요.",
-        "wrong": "split(구분자)는 문자열을 구분자 기준으로 나눠 리스트를 만들어요. fruit.split(',')이 필요해요."
+        "correct": "맞아요! split(',')은 콤마를 기준으로 문자열을 잘라 리스트를 반환해요."
       }
     },
     {
@@ -100,12 +110,16 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 코드의 출력값을 고르세요.\n\nsentence = '에이몬은 강하다'\nresult = sentence.replace('강하다', '최고다')\nprint(result)",
-      "choices": ["A. 에이몬은 강하다", "B. 에이몬은 최고다", "C. 강하다 최고다", "D. 오류 발생"],
+      "choices": [
+        "A. 에이몬은 강하다",
+        "B. 에이몬은 최고다",
+        "C. 강하다 최고다",
+        "D. 오류 발생"
+      ],
       "answer": "B",
       "hint": "replace(old, new)는 old를 찾아 new로 교체해요.",
       "feedback": {
-        "correct": "맞아요! replace('강하다', '최고다')는 문자열 안의 '강하다'를 '최고다'로 바꿔요.",
-        "wrong": "replace(old, new)는 문자열 안의 특정 부분을 다른 값으로 교체해요. '강하다' → '최고다'로 바뀌어요."
+        "correct": "맞아요! replace('강하다', '최고다')는 문자열 안의 '강하다'를 '최고다'로 바꿔요."
       }
     },
     {
@@ -118,12 +132,16 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "아래 코드에서 오류가 발생하는 줄은 어디일까요?\n\n1: word = 'AIMON'\n2: idx = 2\n3: result = word[0:idx] + word[idx + '1']\n4: print(result)",
-      "choices": ["A. 1번 줄: 대문자 문자열 오류", "B. 2번 줄: idx 선언 오류", "C. 3번 줄: 문자열과 숫자를 더할 수 없음", "D. 오류 없음"],
+      "choices": [
+        "A. 1번 줄: 대문자 문자열 오류",
+        "B. 2번 줄: idx 선언 오류",
+        "C. 3번 줄: 문자열과 숫자를 더할 수 없음",
+        "D. 오류 없음"
+      ],
       "answer": "C",
       "hint": "인덱스는 숫자여야 해요. 문자열 '1'과 숫자를 더하면 어떻게 될까요?",
       "feedback": {
-        "correct": "맞아요! idx + '1'은 숫자 + 문자열이라 TypeError가 발생해요. idx + 1 이라고 써야 해요.",
-        "wrong": "3번 줄에서 idx(숫자 2)와 '1'(문자열)을 더하려 해서 TypeError가 발생해요. '1' 대신 1로 써야 해요."
+        "correct": "맞아요! idx + '1'은 숫자 + 문자열이라 TypeError가 발생해요. idx + 1 이라고 써야 해요."
       }
     },
     {
@@ -140,8 +158,7 @@
       "answer": "-",
       "hint": "join()은 리스트 원소들을 구분자로 연결해요. 구분자로 무엇을 써야 할까요?",
       "feedback": {
-        "correct": "맞아요! '-'.join(fruits)은 리스트 원소를 '-'로 연결해서 '사과-바나나-포도'를 만들어요.",
-        "wrong": "구분자.join(리스트) 형태로 써요. '-'를 구분자로 쓰면 '사과-바나나-포도'가 돼요."
+        "correct": "맞아요! '-'.join(fruits)은 리스트 원소를 '-'로 연결해서 '사과-바나나-포도'를 만들어요."
       }
     },
     {
@@ -154,12 +171,16 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 코드의 출력값을 고르세요.\n\nword = 'AIMON'\nprint(word[::2])",
-      "choices": ["A. AIM", "B. ION", "C. AMN", "D. NOM"],
+      "choices": [
+        "A. AIM",
+        "B. ION",
+        "C. AMN",
+        "D. NOM"
+      ],
       "answer": "C",
       "hint": "word[::2]는 처음부터 끝까지 2칸씩 건너뛰며 가져와요.",
       "feedback": {
-        "correct": "맞아요! A(0), I(1), M(2), O(3), N(4) 에서 2칸씩 건너뛰면 인덱스 0, 2, 4 → A, M, N이에요.",
-        "wrong": "word[::2]는 step=2로 인덱스 0, 2, 4 위치의 문자를 가져와요. 'AIMON'에서 A(0), M(2), N(4) → 'AMN'이에요."
+        "correct": "맞아요! A(0), I(1), M(2), O(3), N(4) 에서 2칸씩 건너뛰면 인덱스 0, 2, 4 → A, M, N이에요."
       }
     },
     {
@@ -176,8 +197,7 @@
       "answer": "3",
       "hint": "'에이몬'은 몇 글자인가요?",
       "feedback": {
-        "correct": "맞아요! '에이몬'은 3글자라서 start부터 3글자를 슬라이싱하면 '에이몬'이 나와요.",
-        "wrong": "'에이몬'은 에·이·몬 3글자예요. text[start:start+3]으로 슬라이싱해야 해요."
+        "correct": "맞아요! '에이몬'은 3글자라서 start부터 3글자를 슬라이싱하면 '에이몬'이 나와요."
       }
     }
   ]

@@ -19,8 +19,7 @@
       "answer": "A",
       "hint": "파일 모드: 'r'=읽기, 'w'=쓰기, 'a'=추가예요. 쓰기는 'w'예요.",
       "feedback": {
-        "correct": "맞아요! `'w'`는 쓰기 모드예요. 파일이 없으면 새로 만들고, 있으면 덮어써요.",
-        "wrong": "파일 모드: 'r'=읽기, 'w'=쓰기, 'a'=추가예요. 쓰기는 'w'예요."
+        "correct": "맞아요! `'w'`는 쓰기 모드예요. 파일이 없으면 새로 만들고, 있으면 덮어써요."
       },
       "quiz_set": "A"
     },
@@ -43,8 +42,7 @@
       "answer": "C",
       "hint": "'w'는 덮어쓰기, 'a'는 추가예요. 기존 내용을 유지하려면 'a'를 써야 해요.",
       "feedback": {
-        "correct": "맞아요! `'a'`(append) 모드는 기존 내용을 유지하고 뒤에 추가해요.",
-        "wrong": "'w'는 덮어쓰기, 'a'는 추가예요. 기존 내용을 유지하려면 'a'를 써야 해요."
+        "correct": "맞아요! `'a'`(append) 모드는 기존 내용을 유지하고 뒤에 추가해요."
       },
       "quiz_set": "A"
     },
@@ -67,8 +65,7 @@
       "answer": "A",
       "hint": "encoding='utf-8'을 지정하지 않으면 한글이 깨질 수 있어요.",
       "feedback": {
-        "correct": "맞아요! 한글이 포함된 파일은 `encoding='utf-8'`을 지정해야 해요.",
-        "wrong": "encoding='utf-8'을 지정하지 않으면 한글이 깨질 수 있어요."
+        "correct": "맞아요! 한글이 포함된 파일은 `encoding='utf-8'`을 지정해야 해요."
       },
       "quiz_set": "A"
     },
@@ -91,8 +88,7 @@
       "answer": "C",
       "hint": "write()는 자동으로 줄바꿈을 추가하지 않아요. '\\n'을 직접 넣어야 해요.",
       "feedback": {
-        "correct": "맞아요! `write()`는 줄바꿈 없이 그대로 저장해요. `\\n` 없이 'hello'만 출력돼요.",
-        "wrong": "write()는 자동으로 줄바꿈을 추가하지 않아요. '\\n'을 직접 넣어야 해요."
+        "correct": "맞아요! `write()`는 줄바꿈 없이 그대로 저장해요. `\\n` 없이 'hello'만 출력돼요."
       },
       "quiz_set": "A"
     },
@@ -115,8 +111,7 @@
       "answer": "A",
       "hint": "'w' 모드는 파일을 덮어써요. 두 번째 write 후에는 'second\\n'만 남아요.",
       "feedback": {
-        "correct": "맞아요! 두 번째 `'w'` 모드가 파일을 덮어써요. 'first'는 사라지고 'second'만 남아요.",
-        "wrong": "'w' 모드는 파일을 덮어써요. 두 번째 write 후에는 'second\\n'만 남아요."
+        "correct": "맞아요! 두 번째 `'w'` 모드가 파일을 덮어써요. 'first'는 사라지고 'second'만 남아요."
       },
       "quiz_set": "A"
     },
@@ -139,8 +134,7 @@
       "answer": "C",
       "hint": "readlines()는 각 줄을 '\\n' 포함으로 반환해요. strip()으로 제거해야 해요.",
       "feedback": {
-        "correct": "맞아요! readlines()[0]은 '90\\n'이고 strip()으로 '\\n'을 제거하면 '90'이에요.",
-        "wrong": "readlines()는 각 줄을 '\\n' 포함으로 반환해요. strip()으로 제거해야 해요."
+        "correct": "맞아요! readlines()[0]은 '90\\n'이고 strip()으로 '\\n'을 제거하면 '90'이에요."
       },
       "quiz_set": "A"
     },
@@ -163,8 +157,7 @@
       "answer": "A",
       "hint": "'연구 결과\\n': 연(1)+구(2)+공백(3)+결(4)+과(5)+\\n(6)=6자예요.",
       "feedback": {
-        "correct": "맞아요! '연구 결과\\n'은 '연','구',' ','결','과','\\n' 6글자인데, 한글 문자도 len()에서 1로 계산돼요. '연구 결과\\n'=6자예요.",
-        "wrong": "'연구 결과\\n': 연(1)+구(2)+공백(3)+결(4)+과(5)+\\n(6)=6자예요."
+        "correct": "맞아요! '연구 결과\\n'은 '연','구',' ','결','과','\\n' 6글자인데, 한글 문자도 len()에서 1로 계산돼요. '연구 결과\\n'=6자예요."
       },
       "quiz_set": "A"
     },
@@ -187,8 +180,7 @@
       "answer": "C",
       "hint": "readlines로 읽고 strip()으로 '\\n' 제거 후 int 변환→[10,20,30]. sum=60이에요.",
       "feedback": {
-        "correct": "맞아요! 각 줄을 int로 변환하면 [10, 20, 30]이 되고 합은 60이에요.",
-        "wrong": "readlines로 읽고 strip()으로 '\\n' 제거 후 int 변환→[10,20,30]. sum=60이에요."
+        "correct": "맞아요! 각 줄을 int로 변환하면 [10, 20, 30]이 되고 합은 60이에요."
       },
       "quiz_set": "A"
     },
@@ -211,8 +203,7 @@
       "answer": "A",
       "hint": "0→1→2→3. 매 반복에서 읽고 +1해서 다시 써요. 최종값은 3이에요.",
       "feedback": {
-        "correct": "맞아요! 0에서 시작해 3번 +1하면 최종값은 3이에요.",
-        "wrong": "0→1→2→3. 매 반복에서 읽고 +1해서 다시 써요. 최종값은 3이에요."
+        "correct": "맞아요! 0에서 시작해 3번 +1하면 최종값은 3이에요."
       },
       "quiz_set": "A"
     },
@@ -235,8 +226,7 @@
       "answer": "C",
       "hint": "파일 생성 후 os.path.exists=True, os.remove로 삭제 후 False예요.",
       "feedback": {
-        "correct": "맞아요! 파일 생성 후 exists=True, remove 후 exists=False예요.",
-        "wrong": "파일 생성 후 os.path.exists=True, os.remove로 삭제 후 False예요."
+        "correct": "맞아요! 파일 생성 후 exists=True, remove 후 exists=False예요."
       },
       "quiz_set": "A"
     },
@@ -259,8 +249,7 @@
       "answer": "B",
       "hint": "with문은 자동으로 파일을 닫아줘요. close()를 잊어버리는 실수를 방지해요.",
       "feedback": {
-        "correct": "맞아요! `with`문은 블록이 끝나면 자동으로 `close()`를 호출해요.",
-        "wrong": "with문은 자동으로 파일을 닫아줘요. close()를 잊어버리는 실수를 방지해요."
+        "correct": "맞아요! `with`문은 블록이 끝나면 자동으로 `close()`를 호출해요."
       },
       "quiz_set": "B"
     },
@@ -283,8 +272,7 @@
       "answer": "D",
       "hint": "readlines()는 파일의 각 줄을 리스트 항목으로 반환해요.",
       "feedback": {
-        "correct": "맞아요! `readlines()`는 각 줄을 요소로 하는 리스트를 반환해요.",
-        "wrong": "readlines()는 파일의 각 줄을 리스트 항목으로 반환해요."
+        "correct": "맞아요! `readlines()`는 각 줄을 요소로 하는 리스트를 반환해요."
       },
       "quiz_set": "B"
     },
@@ -307,8 +295,7 @@
       "answer": "B",
       "hint": "파일은 반드시 닫아야 해요. with문을 쓰면 자동으로 닫혀요.",
       "feedback": {
-        "correct": "맞아요! `close()`를 호출하지 않으면 버퍼의 데이터가 파일에 저장되지 않을 수 있어요.",
-        "wrong": "파일은 반드시 닫아야 해요. with문을 쓰면 자동으로 닫혀요."
+        "correct": "맞아요! `close()`를 호출하지 않으면 버퍼의 데이터가 파일에 저장되지 않을 수 있어요."
       },
       "quiz_set": "B"
     },
@@ -331,8 +318,7 @@
       "answer": "D",
       "hint": "'line1\\n'과 'line2\\n' 두 줄이 저장되므로 readlines()의 결과는 2개예요.",
       "feedback": {
-        "correct": "맞아요! 두 줄을 썼으므로 readlines()는 2개 요소의 리스트를 반환해요.",
-        "wrong": "'line1\\n'과 'line2\\n' 두 줄이 저장되므로 readlines()의 결과는 2개예요."
+        "correct": "맞아요! 두 줄을 썼으므로 readlines()는 2개 요소의 리스트를 반환해요."
       },
       "quiz_set": "B"
     },
@@ -355,8 +341,7 @@
       "answer": "B",
       "hint": "'a' 모드는 기존 내용을 유지해요. 'A\\n' 뒤에 'B\\n'이 추가돼요.",
       "feedback": {
-        "correct": "맞아요! 'w'로 'A'를 쓴 후 'a' 모드로 'B'를 추가해요. 두 줄 모두 남아요.",
-        "wrong": "'a' 모드는 기존 내용을 유지해요. 'A\\n' 뒤에 'B\\n'이 추가돼요."
+        "correct": "맞아요! 'w'로 'A'를 쓴 후 'a' 모드로 'B'를 추가해요. 두 줄 모두 남아요."
       },
       "quiz_set": "B"
     },
@@ -379,8 +364,7 @@
       "answer": "D",
       "hint": "range(1,4)=1,2,3으로 3번 write해요. 'item'은 3번 포함돼요.",
       "feedback": {
-        "correct": "맞아요! 'item1', 'item2', 'item3' 세 줄이 저장되고, 'item'은 3번 나와요.",
-        "wrong": "range(1,4)=1,2,3으로 3번 write해요. 'item'은 3번 포함돼요."
+        "correct": "맞아요! 'item1', 'item2', 'item3' 세 줄이 저장되고, 'item'은 3번 나와요."
       },
       "quiz_set": "B"
     },
@@ -403,8 +387,7 @@
       "answer": "B",
       "hint": "파일을 for문으로 순회하면 한 줄씩 읽어요. '\\n'으로 구분된 3줄이므로 count=3이에요.",
       "feedback": {
-        "correct": "맞아요! for문으로 파일을 순회하면 줄 단위로 읽어요. 3줄이므로 count=3이에요.",
-        "wrong": "파일을 for문으로 순회하면 한 줄씩 읽어요. '\\n'으로 구분된 3줄이므로 count=3이에요."
+        "correct": "맞아요! for문으로 파일을 순회하면 줄 단위로 읽어요. 3줄이므로 count=3이에요."
       },
       "quiz_set": "B"
     },
@@ -427,8 +410,7 @@
       "answer": "D",
       "hint": "95>=90(Alice), 87<90(Bob 제외), 92>=90(Carol). 통과 2명이에요.",
       "feedback": {
-        "correct": "맞아요! 90점 이상은 Alice(95), Carol(92) 2명이에요.",
-        "wrong": "95>=90(Alice), 87<90(Bob 제외), 92>=90(Carol). 통과 2명이에요."
+        "correct": "맞아요! 90점 이상은 Alice(95), Carol(92) 2명이에요."
       },
       "quiz_set": "B"
     },
@@ -451,8 +433,7 @@
       "answer": "B",
       "hint": "'apple\\nbanana\\ncherry\\n'.split('\\n')=['apple','banana','cherry',''] → [1]='banana'예요.",
       "feedback": {
-        "correct": "맞아요! content는 'apple\\nbanana\\ncherry\\n'이고 split('\\n')[1]은 'banana'예요.",
-        "wrong": "'apple\\nbanana\\ncherry\\n'.split('\\n')=['apple','banana','cherry',''] → [1]='banana'예요."
+        "correct": "맞아요! content는 'apple\\nbanana\\ncherry\\n'이고 split('\\n')[1]은 'banana'예요."
       },
       "quiz_set": "B"
     },
@@ -475,8 +456,7 @@
       "answer": "D",
       "hint": "start\\n + middle\\n(예외 전 작성 완료) + end\\n = 3줄. '\\n' 개수=3이에요.",
       "feedback": {
-        "correct": "훌륭해요! start, middle, end 세 줄이 저장돼요. '\\n' 개수는 3이에요.",
-        "wrong": "start\\n + middle\\n(예외 전 작성 완료) + end\\n = 3줄. '\\n' 개수=3이에요."
+        "correct": "훌륭해요! start, middle, end 세 줄이 저장돼요. '\\n' 개수는 3이에요."
       },
       "quiz_set": "B"
     },
@@ -499,8 +479,7 @@
       "answer": "A",
       "hint": "JSON 표준은 큰따옴표만 허용해요. Python 딕셔너리는 작은따옴표도 가능하지만 JSON은 아니에요.",
       "feedback": {
-        "correct": "맞아요! JSON은 반드시 큰따옴표만 사용해요. 작은따옴표는 유효한 JSON이 아니에요.",
-        "wrong": "JSON 표준은 큰따옴표만 허용해요. Python 딕셔너리는 작은따옴표도 가능하지만 JSON은 아니에요."
+        "correct": "맞아요! JSON은 반드시 큰따옴표만 사용해요. 작은따옴표는 유효한 JSON이 아니에요."
       },
       "quiz_set": "A"
     },
@@ -523,8 +502,7 @@
       "answer": "C",
       "hint": "dumps=Python 객체→JSON 문자열, loads=JSON 문자열→Python 객체예요.",
       "feedback": {
-        "correct": "맞아요! `dumps`는 Python 객체→JSON 문자열 변환이에요.",
-        "wrong": "dumps=Python 객체→JSON 문자열, loads=JSON 문자열→Python 객체예요."
+        "correct": "맞아요! `dumps`는 Python 객체→JSON 문자열 변환이에요."
       },
       "quiz_set": "A"
     },
@@ -547,8 +525,7 @@
       "answer": "A",
       "hint": "dump(파일저장)/load(파일읽기), dumps(문자열변환)/loads(문자열파싱)이에요.",
       "feedback": {
-        "correct": "맞아요! dump는 파일 객체에 저장, dumps는 문자열로 반환이에요. 's'가 string이에요.",
-        "wrong": "dump(파일저장)/load(파일읽기), dumps(문자열변환)/loads(문자열파싱)이에요."
+        "correct": "맞아요! dump는 파일 객체에 저장, dumps는 문자열로 반환이에요. 's'가 string이에요."
       },
       "quiz_set": "A"
     },
@@ -571,8 +548,7 @@
       "answer": "C",
       "hint": "loads()의 결과는 dict예요. JSON 객체{}는 Python dict로 변환돼요.",
       "feedback": {
-        "correct": "맞아요! `json.loads()`는 JSON 문자열을 Python 딕셔너리로 변환해요.",
-        "wrong": "loads()의 결과는 dict예요. JSON 객체{}는 Python dict로 변환돼요."
+        "correct": "맞아요! `json.loads()`는 JSON 문자열을 Python 딕셔너리로 변환해요."
       },
       "quiz_set": "A"
     },
@@ -595,8 +571,7 @@
       "answer": "A",
       "hint": "JSON 배열[]은 Python 리스트로 변환돼요. 인덱스 2는 세 번째 요소 3이에요.",
       "feedback": {
-        "correct": "맞아요! JSON 배열 '[1,2,3,4,5]'를 loads()하면 Python 리스트가 돼요. [2]는 3이에요.",
-        "wrong": "JSON 배열[]은 Python 리스트로 변환돼요. 인덱스 2는 세 번째 요소 3이에요."
+        "correct": "맞아요! JSON 배열 '[1,2,3,4,5]'를 loads()하면 Python 리스트가 돼요. [2]는 3이에요."
       },
       "quiz_set": "A"
     },
@@ -619,8 +594,7 @@
       "answer": "C",
       "hint": "json.dump/load는 파일에 JSON을 저장하고 읽어요. 정수 2가 그대로 복원돼요.",
       "feedback": {
-        "correct": "맞아요! json.dump()로 저장하고 json.load()로 읽으면 딕셔너리가 복원돼요. version=2예요.",
-        "wrong": "json.dump/load는 파일에 JSON을 저장하고 읽어요. 정수 2가 그대로 복원돼요."
+        "correct": "맞아요! json.dump()로 저장하고 json.load()로 읽으면 딕셔너리가 복원돼요. version=2예요."
       },
       "quiz_set": "A"
     },
@@ -643,8 +617,7 @@
       "answer": "A",
       "hint": "dumps→loads 후 원본 리스트 복원. 리스트 길이는 2예요.",
       "feedback": {
-        "correct": "맞아요! JSON 배열로 변환 후 복원해도 원본 리스트 길이 2가 유지돼요.",
-        "wrong": "dumps→loads 후 원본 리스트 복원. 리스트 길이는 2예요."
+        "correct": "맞아요! JSON 배열로 변환 후 복원해도 원본 리스트 길이 2가 유지돼요."
       },
       "quiz_set": "A"
     },
@@ -667,8 +640,7 @@
       "answer": "C",
       "hint": "90>=85(Kim), 75<85(Lee 제외), 88>=85(Park). 결과는 ['Kim', 'Park']이에요.",
       "feedback": {
-        "correct": "맞아요! 85점 이상은 Kim(90), Park(88)이에요.",
-        "wrong": "90>=85(Kim), 75<85(Lee 제외), 88>=85(Park). 결과는 ['Kim', 'Park']이에요."
+        "correct": "맞아요! 85점 이상은 Kim(90), Park(88)이에요."
       },
       "quiz_set": "A"
     },
@@ -691,8 +663,7 @@
       "answer": "A",
       "hint": "json.dumps(): Python False→JSON false, Python None→JSON null, 키는 큰따옴표예요.",
       "feedback": {
-        "correct": "맞아요! False→false, None→null로 변환돼요. 큰따옴표를 사용해요.",
-        "wrong": "json.dumps(): Python False→JSON false, Python None→JSON null, 키는 큰따옴표예요."
+        "correct": "맞아요! False→false, None→null로 변환돼요. 큰따옴표를 사용해요."
       },
       "quiz_set": "A"
     },
@@ -715,8 +686,7 @@
       "answer": "C",
       "hint": "'{\"a\": 1}'은 유효한 JSON이에요. loads 성공 후 a=1(정수)이에요.",
       "feedback": {
-        "correct": "맞아요! 유효한 JSON이므로 정상 파싱돼요. data['a']=1(정수)이에요.",
-        "wrong": "'{\"a\": 1}'은 유효한 JSON이에요. loads 성공 후 a=1(정수)이에요."
+        "correct": "맞아요! 유효한 JSON이므로 정상 파싱돼요. data['a']=1(정수)이에요."
       },
       "quiz_set": "A"
     },
@@ -739,8 +709,7 @@
       "answer": "B",
       "hint": "loads=JSON 문자열→Python 객체, dumps=Python 객체→JSON 문자열이에요.",
       "feedback": {
-        "correct": "맞아요! `loads`는 JSON 문자열→Python 객체 변환이에요. 's'는 string이에요.",
-        "wrong": "loads=JSON 문자열→Python 객체, dumps=Python 객체→JSON 문자열이에요."
+        "correct": "맞아요! `loads`는 JSON 문자열→Python 객체 변환이에요. 's'는 string이에요."
       },
       "quiz_set": "B"
     },
@@ -763,8 +732,7 @@
       "answer": "D",
       "hint": "Python: True/False/None → JSON: true/false/null로 변환돼요.",
       "feedback": {
-        "correct": "맞아요! Python `True`는 JSON에서 소문자 `true`로 변환돼요.",
-        "wrong": "Python: True/False/None → JSON: true/false/null로 변환돼요."
+        "correct": "맞아요! Python `True`는 JSON에서 소문자 `true`로 변환돼요."
       },
       "quiz_set": "B"
     },
@@ -787,8 +755,7 @@
       "answer": "B",
       "hint": "Python→JSON 타입 변환: True→true, False→false, None→null이에요.",
       "feedback": {
-        "correct": "맞아요! Python None → JSON null로 변환돼요.",
-        "wrong": "Python→JSON 타입 변환: True→true, False→false, None→null이에요."
+        "correct": "맞아요! Python None → JSON null로 변환돼요."
       },
       "quiz_set": "B"
     },
@@ -811,8 +778,7 @@
       "answer": "D",
       "hint": "json.dumps()는 Python 타입을 JSON 규칙으로 변환해요. True→true, None→null이에요.",
       "feedback": {
-        "correct": "맞아요! Python True→JSON true, Python None→JSON null로 변환돼요.",
-        "wrong": "json.dumps()는 Python 타입을 JSON 규칙으로 변환해요. True→true, None→null이에요."
+        "correct": "맞아요! Python True→JSON true, Python None→JSON null로 변환돼요."
       },
       "quiz_set": "B"
     },
@@ -835,8 +801,7 @@
       "answer": "B",
       "hint": "dumps()로 문자열 변환 후 loads()로 복원해요. scores[1]=85예요.",
       "feedback": {
-        "correct": "맞아요! dumps→loads 후 딕셔너리 복원. ['scores'][1]=85예요.",
-        "wrong": "dumps()로 문자열 변환 후 loads()로 복원해요. scores[1]=85예요."
+        "correct": "맞아요! dumps→loads 후 딕셔너리 복원. ['scores'][1]=85예요."
       },
       "quiz_set": "B"
     },
@@ -859,8 +824,7 @@
       "answer": "D",
       "hint": "dumps()의 반환값은 항상 문자열이에요. indent 파라미터는 보기 좋게 줄바꿈을 추가해요.",
       "feedback": {
-        "correct": "맞아요! json.dumps()는 항상 문자열(str)을 반환해요. indent는 출력 형식만 바꿔요.",
-        "wrong": "dumps()의 반환값은 항상 문자열이에요. indent 파라미터는 보기 좋게 줄바꿈을 추가해요."
+        "correct": "맞아요! json.dumps()는 항상 문자열(str)을 반환해요. indent는 출력 형식만 바꿔요."
       },
       "quiz_set": "B"
     },
@@ -883,8 +847,7 @@
       "answer": "B",
       "hint": "json.loads()로 파싱 후 Python 딕셔너리처럼 수정할 수 있어요. 3개가 돼요.",
       "feedback": {
-        "correct": "맞아요! loads()로 파싱 후 일반 Python 딕셔너리처럼 사용해요. append 후 길이=3이에요.",
-        "wrong": "json.loads()로 파싱 후 Python 딕셔너리처럼 수정할 수 있어요. 3개가 돼요."
+        "correct": "맞아요! loads()로 파싱 후 일반 Python 딕셔너리처럼 사용해요. append 후 길이=3이에요."
       },
       "quiz_set": "B"
     },
@@ -907,8 +870,7 @@
       "answer": "D",
       "hint": "json.dumps/loads 후에도 중첩 구조가 유지돼요. ['outer']['inner']['value']=42예요.",
       "feedback": {
-        "correct": "맞아요! 중첩 딕셔너리는 JSON으로 변환 후 복원해도 동일하게 접근할 수 있어요.",
-        "wrong": "json.dumps/loads 후에도 중첩 구조가 유지돼요. ['outer']['inner']['value']=42예요."
+        "correct": "맞아요! 중첩 딕셔너리는 JSON으로 변환 후 복원해도 동일하게 접근할 수 있어요."
       },
       "quiz_set": "B"
     },
@@ -931,8 +893,7 @@
       "answer": "B",
       "hint": "JSON 파일에서 리스트 로드 후 append(4)→[1,2,3,4]. sum=1+2+3+4=10이에요.",
       "feedback": {
-        "correct": "맞아요! [1,2,3]을 저장 후 로드, append(4)→[1,2,3,4]. sum=10이에요.",
-        "wrong": "JSON 파일에서 리스트 로드 후 append(4)→[1,2,3,4]. sum=1+2+3+4=10이에요."
+        "correct": "맞아요! [1,2,3]을 저장 후 로드, append(4)→[1,2,3,4]. sum=10이에요."
       },
       "quiz_set": "B"
     },
@@ -955,8 +916,7 @@
       "answer": "D",
       "hint": "JSON은 큰따옴표만 허용해요. 작은따옴표 딕셔너리 문자열은 JSONDecodeError를 발생시켜요.",
       "feedback": {
-        "correct": "훌륭해요! 작은따옴표는 유효한 JSON이 아니에요. JSONDecodeError가 발생해요.",
-        "wrong": "JSON은 큰따옴표만 허용해요. 작은따옴표 딕셔너리 문자열은 JSONDecodeError를 발생시켜요."
+        "correct": "훌륭해요! 작은따옴표는 유효한 JSON이 아니에요. JSONDecodeError가 발생해요."
       },
       "quiz_set": "B"
     },
@@ -979,8 +939,7 @@
       "answer": "A",
       "hint": "GET=조회, POST=생성, PUT=수정, DELETE=삭제예요.",
       "feedback": {
-        "correct": "맞아요! GET은 서버에서 데이터를 조회(읽기)할 때 사용해요.",
-        "wrong": "GET=조회, POST=생성, PUT=수정, DELETE=삭제예요."
+        "correct": "맞아요! GET은 서버에서 데이터를 조회(읽기)할 때 사용해요."
       },
       "quiz_set": "A"
     },
@@ -1003,8 +962,7 @@
       "answer": "C",
       "hint": "404 Not Found는 URL이 잘못됐거나 리소스가 없을 때 발생해요.",
       "feedback": {
-        "correct": "맞아요! 404는 요청한 리소스를 서버에서 찾을 수 없다는 의미예요.",
-        "wrong": "404 Not Found는 URL이 잘못됐거나 리소스가 없을 때 발생해요."
+        "correct": "맞아요! 404는 요청한 리소스를 서버에서 찾을 수 없다는 의미예요."
       },
       "quiz_set": "A"
     },
@@ -1027,8 +985,7 @@
       "answer": "A",
       "hint": "Header는 메타정보, Body는 실제 데이터예요.",
       "feedback": {
-        "correct": "맞아요! 헤더에는 API 키, 데이터 형식, 언어 등 부가 정보가 담겨요.",
-        "wrong": "Header는 메타정보, Body는 실제 데이터예요."
+        "correct": "맞아요! 헤더에는 API 키, 데이터 형식, 언어 등 부가 정보가 담겨요."
       },
       "quiz_set": "A"
     },
@@ -1051,8 +1008,7 @@
       "answer": "C",
       "hint": "메뉴판=API 문서, 주문=Request, 음식=Response, 주방=서버예요.",
       "feedback": {
-        "correct": "맞아요! API 요청은 주문, 응답은 음식에 해당해요.",
-        "wrong": "메뉴판=API 문서, 주문=Request, 음식=Response, 주방=서버예요."
+        "correct": "맞아요! API 요청은 주문, 응답은 음식에 해당해요."
       },
       "quiz_set": "A"
     },
@@ -1075,8 +1031,7 @@
       "answer": "A",
       "hint": "JSON은 가볍고 읽기 쉬워서 API의 표준 데이터 형식이에요.",
       "feedback": {
-        "correct": "맞아요! 현대 REST API는 대부분 JSON 형식으로 데이터를 주고받아요.",
-        "wrong": "JSON은 가볍고 읽기 쉬워서 API의 표준 데이터 형식이에요."
+        "correct": "맞아요! 현대 REST API는 대부분 JSON 형식으로 데이터를 주고받아요."
       },
       "quiz_set": "A"
     },
@@ -1099,8 +1054,7 @@
       "answer": "C",
       "hint": "401=인증 필요, 403=권한 없음, 404=찾을 수 없음이에요.",
       "feedback": {
-        "correct": "맞아요! 401 Unauthorized는 인증이 필요하거나 API 키가 잘못됐을 때 발생해요.",
-        "wrong": "401=인증 필요, 403=권한 없음, 404=찾을 수 없음이에요."
+        "correct": "맞아요! 401 Unauthorized는 인증이 필요하거나 API 키가 잘못됐을 때 발생해요."
       },
       "quiz_set": "A"
     },
@@ -1123,8 +1077,7 @@
       "answer": "A",
       "hint": "status_code를 먼저 확인해요. 200이 아니면 에러 처리가 필요해요.",
       "feedback": {
-        "correct": "맞아요! 상태 코드로 요청 성공 여부를 먼저 확인하고, 그다음 데이터를 처리해요.",
-        "wrong": "status_code를 먼저 확인해요. 200이 아니면 에러 처리가 필요해요."
+        "correct": "맞아요! 상태 코드로 요청 성공 여부를 먼저 확인하고, 그다음 데이터를 처리해요."
       },
       "quiz_set": "A"
     },
@@ -1147,8 +1100,7 @@
       "answer": "C",
       "hint": "201 Created: POST 요청 성공 후 새 리소스가 생성됐음을 나타내요.",
       "feedback": {
-        "correct": "맞아요! 201 Created는 성공적으로 새 리소스가 생성됐다는 의미예요.",
-        "wrong": "201 Created: POST 요청 성공 후 새 리소스가 생성됐음을 나타내요."
+        "correct": "맞아요! 201 Created는 성공적으로 새 리소스가 생성됐다는 의미예요."
       },
       "quiz_set": "A"
     },
@@ -1171,8 +1123,7 @@
       "answer": "A",
       "hint": "로그인=POST, 글작성=POST, 탈퇴=DELETE, 조회=GET이에요.",
       "feedback": {
-        "correct": "맞아요! 데이터를 읽기만 하는 조회 작업에 GET을 사용해요.",
-        "wrong": "로그인=POST, 글작성=POST, 탈퇴=DELETE, 조회=GET이에요."
+        "correct": "맞아요! 데이터를 읽기만 하는 조회 작업에 GET을 사용해요."
       },
       "quiz_set": "A"
     },
@@ -1195,8 +1146,7 @@
       "answer": "C",
       "hint": "예: Content-Type: application/json은 JSON 데이터를 보낸다는 의미예요.",
       "feedback": {
-        "correct": "맞아요! Content-Type은 요청/응답 Body의 데이터 형식을 알려줘요.",
-        "wrong": "예: Content-Type: application/json은 JSON 데이터를 보낸다는 의미예요."
+        "correct": "맞아요! Content-Type은 요청/응답 Body의 데이터 형식을 알려줘요."
       },
       "quiz_set": "A"
     },
@@ -1219,8 +1169,7 @@
       "answer": "B",
       "hint": "2xx=성공, 4xx=클라이언트 오류, 5xx=서버 오류예요. 200은 가장 기본적인 성공 코드예요.",
       "feedback": {
-        "correct": "맞아요! 200은 요청이 성공적으로 처리됐다는 의미예요.",
-        "wrong": "2xx=성공, 4xx=클라이언트 오류, 5xx=서버 오류예요. 200은 가장 기본적인 성공 코드예요."
+        "correct": "맞아요! 200은 요청이 성공적으로 처리됐다는 의미예요."
       },
       "quiz_set": "B"
     },
@@ -1243,8 +1192,7 @@
       "answer": "D",
       "hint": "로그인, 글 작성, 파일 업로드 등에 POST를 사용해요.",
       "feedback": {
-        "correct": "맞아요! POST는 서버에 데이터를 생성하거나 전송할 때 사용해요.",
-        "wrong": "로그인, 글 작성, 파일 업로드 등에 POST를 사용해요."
+        "correct": "맞아요! POST는 서버에 데이터를 생성하거나 전송할 때 사용해요."
       },
       "quiz_set": "B"
     },
@@ -1267,8 +1215,7 @@
       "answer": "B",
       "hint": "5xx는 서버 오류예요. 내 코드가 아닌 서버 측 문제예요.",
       "feedback": {
-        "correct": "맞아요! 500 Internal Server Error는 서버 측에서 오류가 발생했다는 의미예요.",
-        "wrong": "5xx는 서버 오류예요. 내 코드가 아닌 서버 측 문제예요."
+        "correct": "맞아요! 500 Internal Server Error는 서버 측에서 오류가 발생했다는 의미예요."
       },
       "quiz_set": "B"
     },
@@ -1291,8 +1238,7 @@
       "answer": "D",
       "hint": "4xx=클라이언트 오류(내 실수), 5xx=서버 오류(서버 측 문제)예요.",
       "feedback": {
-        "correct": "맞아요! 4xx는 클라이언트(내 코드) 오류예요. 404는 잘못된 URL로 요청한 경우예요.",
-        "wrong": "4xx=클라이언트 오류(내 실수), 5xx=서버 오류(서버 측 문제)예요."
+        "correct": "맞아요! 4xx는 클라이언트(내 코드) 오류예요. 404는 잘못된 URL로 요청한 경우예요."
       },
       "quiz_set": "B"
     },
@@ -1315,8 +1261,7 @@
       "answer": "B",
       "hint": "예: `https://api.com/data?city=Seoul&units=metric` — `?` 이후가 쿼리 파라미터예요.",
       "feedback": {
-        "correct": "맞아요! 쿼리 파라미터는 URL 뒤에 `?키=값` 형태로 붙어요.",
-        "wrong": "예: `https://api.com/data?city=Seoul&units=metric` — `?` 이후가 쿼리 파라미터예요."
+        "correct": "맞아요! 쿼리 파라미터는 URL 뒤에 `?키=값` 형태로 붙어요."
       },
       "quiz_set": "B"
     },
@@ -1339,8 +1284,7 @@
       "answer": "D",
       "hint": "GET 파라미터는 URL에 노출돼요. 민감한 데이터는 POST Body에 담는 게 좋아요.",
       "feedback": {
-        "correct": "맞아요! GET은 URL 파라미터로, POST는 요청 Body에 데이터를 담아요.",
-        "wrong": "GET 파라미터는 URL에 노출돼요. 민감한 데이터는 POST Body에 담는 게 좋아요."
+        "correct": "맞아요! GET은 URL 파라미터로, POST는 요청 Body에 데이터를 담아요."
       },
       "quiz_set": "B"
     },
@@ -1363,8 +1307,7 @@
       "answer": "B",
       "hint": "GET=조회, POST=생성, PUT=수정, DELETE=삭제. 각 메서드의 의미를 지켜야 해요.",
       "feedback": {
-        "correct": "맞아요! REST API는 HTTP 메서드를 목적에 맞게 사용해요. DELETE는 삭제예요.",
-        "wrong": "GET=조회, POST=생성, PUT=수정, DELETE=삭제. 각 메서드의 의미를 지켜야 해요."
+        "correct": "맞아요! REST API는 HTTP 메서드를 목적에 맞게 사용해요. DELETE는 삭제예요."
       },
       "quiz_set": "B"
     },
@@ -1387,8 +1330,7 @@
       "answer": "D",
       "hint": "API 키 오류=401, URL 없음=404, 서버 오류=500이에요.",
       "feedback": {
-        "correct": "맞아요! 잘못된 API 키는 인증 실패로 401 Unauthorized가 반환돼요.",
-        "wrong": "API 키 오류=401, URL 없음=404, 서버 오류=500이에요."
+        "correct": "맞아요! 잘못된 API 키는 인증 실패로 401 Unauthorized가 반환돼요."
       },
       "quiz_set": "B"
     },
@@ -1411,8 +1353,7 @@
       "answer": "B",
       "hint": "https://api.example.com/users는 사용자 관련 엔드포인트예요.",
       "feedback": {
-        "correct": "맞아요! 엔드포인트는 API의 특정 기능에 접근하는 URL이에요.",
-        "wrong": "https://api.example.com/users는 사용자 관련 엔드포인트예요."
+        "correct": "맞아요! 엔드포인트는 API의 특정 기능에 접근하는 URL이에요."
       },
       "quiz_set": "B"
     },
@@ -1435,8 +1376,7 @@
       "answer": "D",
       "hint": "클라이언트가 요청을 생성해 보내면, 서버가 처리한 후 응답을 돌려줘요.",
       "feedback": {
-        "correct": "훌륭해요! API 호출은 항상 요청→처리→응답 순서로 진행돼요.",
-        "wrong": "클라이언트가 요청을 생성해 보내면, 서버가 처리한 후 응답을 돌려줘요."
+        "correct": "훌륭해요! API 호출은 항상 요청→처리→응답 순서로 진행돼요."
       },
       "quiz_set": "B"
     },
@@ -1459,8 +1399,7 @@
       "answer": "A",
       "hint": "Response 객체에서 .status_code, .json(), .text 등으로 데이터를 꺼낼 수 있어요.",
       "feedback": {
-        "correct": "맞아요! `requests.get()`은 Response 객체를 반환해요. 상태코드, JSON 등을 꺼낼 수 있어요.",
-        "wrong": "Response 객체에서 .status_code, .json(), .text 등으로 데이터를 꺼낼 수 있어요."
+        "correct": "맞아요! `requests.get()`은 Response 객체를 반환해요. 상태코드, JSON 등을 꺼낼 수 있어요."
       },
       "quiz_set": "A"
     },
@@ -1483,8 +1422,7 @@
       "answer": "C",
       "hint": "params={} 또는 URL에 직접 붙이는 방법 둘 다 가능하지만 params가 더 깔끔해요.",
       "feedback": {
-        "correct": "맞아요! `params` 딕셔너리를 전달하면 requests가 자동으로 URL 쿼리 문자열로 변환해줘요.",
-        "wrong": "params={} 또는 URL에 직접 붙이는 방법 둘 다 가능하지만 params가 더 깔끔해요."
+        "correct": "맞아요! `params` 딕셔너리를 전달하면 requests가 자동으로 URL 쿼리 문자열로 변환해줘요."
       },
       "quiz_set": "A"
     },
@@ -1507,8 +1445,7 @@
       "answer": "A",
       "hint": "pip install requests → import requests 순서로 사용해요.",
       "feedback": {
-        "correct": "맞아요! requests는 외부 라이브러리라 pip install 후 import해야 해요.",
-        "wrong": "pip install requests → import requests 순서로 사용해요."
+        "correct": "맞아요! requests는 외부 라이브러리라 pip install 후 import해야 해요."
       },
       "quiz_set": "A"
     },
@@ -1531,8 +1468,7 @@
       "answer": "C",
       "hint": "params={'q':'python','lang':'ko'}는 URL 뒤에 ?q=python&lang=ko로 붙어요.",
       "feedback": {
-        "correct": "맞아요! params 딕셔너리는 `?키=값&키=값` 형태의 쿼리 문자열로 변환돼요.",
-        "wrong": "params={'q':'python','lang':'ko'}는 URL 뒤에 ?q=python&lang=ko로 붙어요."
+        "correct": "맞아요! params 딕셔너리는 `?키=값&키=값` 형태의 쿼리 문자열로 변환돼요."
       },
       "quiz_set": "A"
     },
@@ -1555,8 +1491,7 @@
       "answer": "A",
       "hint": "status_code가 4xx/5xx여도 예외가 발생하지 않아요. raise_for_status()를 써야 예외가 발생해요.",
       "feedback": {
-        "correct": "맞아요! httpbin.org/status/404는 404 상태코드를 반환해요. 예외는 발생하지 않아요.",
-        "wrong": "status_code가 4xx/5xx여도 예외가 발생하지 않아요. raise_for_status()를 써야 예외가 발생해요."
+        "correct": "맞아요! httpbin.org/status/404는 404 상태코드를 반환해요. 예외는 발생하지 않아요."
       },
       "quiz_set": "A"
     },
@@ -1579,8 +1514,7 @@
       "answer": "C",
       "hint": "raise_for_status()를 쓰면 오류 응답을 자동으로 예외로 변환할 수 있어요.",
       "feedback": {
-        "correct": "맞아요! raise_for_status()는 4xx/5xx 상태코드일 때 HTTPError 예외를 발생시켜요.",
-        "wrong": "raise_for_status()를 쓰면 오류 응답을 자동으로 예외로 변환할 수 있어요."
+        "correct": "맞아요! raise_for_status()는 4xx/5xx 상태코드일 때 HTTPError 예외를 발생시켜요."
       },
       "quiz_set": "A"
     },
@@ -1603,8 +1537,7 @@
       "answer": "A",
       "hint": "text=문자열, json()=파싱된 딕셔너리/리스트예요.",
       "feedback": {
-        "correct": "맞아요! text는 응답 본문 문자열 그대로, json()은 JSON을 파싱해 Python 객체로 반환해요.",
-        "wrong": "text=문자열, json()=파싱된 딕셔너리/리스트예요."
+        "correct": "맞아요! text는 응답 본문 문자열 그대로, json()은 JSON을 파싱해 Python 객체로 반환해요."
       },
       "quiz_set": "A"
     },
@@ -1627,8 +1560,7 @@
       "answer": "C",
       "hint": "httpbin.org/status/200은 200 반환 → raise_for_status() 통과 → json() 반환. 'error' 키 없음=False예요.",
       "feedback": {
-        "correct": "맞아요! /status/200은 성공이므로 예외 없이 json()을 반환해요. 'error' 키가 없어요.",
-        "wrong": "httpbin.org/status/200은 200 반환 → raise_for_status() 통과 → json() 반환. 'error' 키 없음=False예요."
+        "correct": "맞아요! /status/200은 성공이므로 예외 없이 json()을 반환해요. 'error' 키가 없어요."
       },
       "quiz_set": "A"
     },
@@ -1651,8 +1583,7 @@
       "answer": "A",
       "hint": "data['results']는 리스트예요. [0]으로 첫 번째 항목에 접근 후 ['value']예요.",
       "feedback": {
-        "correct": "맞아요! results는 리스트이므로 [0]으로 첫 번째 항목에 접근한 후 ['value']를 꺼내요.",
-        "wrong": "data['results']는 리스트예요. [0]으로 첫 번째 항목에 접근 후 ['value']예요."
+        "correct": "맞아요! results는 리스트이므로 [0]으로 첫 번째 항목에 접근한 후 ['value']를 꺼내요."
       },
       "quiz_set": "A"
     },
@@ -1675,8 +1606,7 @@
       "answer": "C",
       "hint": "urls 3개 중 200을 반환하는 게 2개, 404가 1개예요.",
       "feedback": {
-        "correct": "맞아요! 200이 두 번, 404가 한 번이에요. count(200)=2예요.",
-        "wrong": "urls 3개 중 200을 반환하는 게 2개, 404가 1개예요."
+        "correct": "맞아요! 200이 두 번, 404가 한 번이에요. count(200)=2예요."
       },
       "quiz_set": "A"
     },
@@ -1699,8 +1629,7 @@
       "answer": "B",
       "hint": "json() 메서드는 JSON 파싱까지 자동으로 해줘요.",
       "feedback": {
-        "correct": "맞아요! `response.json()`은 JSON 응답을 Python 딕셔너리/리스트로 변환해요.",
-        "wrong": "json() 메서드는 JSON 파싱까지 자동으로 해줘요."
+        "correct": "맞아요! `response.json()`은 JSON 응답을 Python 딕셔너리/리스트로 변환해요."
       },
       "quiz_set": "B"
     },
@@ -1723,8 +1652,7 @@
       "answer": "D",
       "hint": "timeout=5는 5초 안에 응답이 없으면 Timeout 예외를 발생시켜요.",
       "feedback": {
-        "correct": "맞아요! timeout을 설정하지 않으면 서버가 응답하지 않을 때 무한정 기다려요.",
-        "wrong": "timeout=5는 5초 안에 응답이 없으면 Timeout 예외를 발생시켜요."
+        "correct": "맞아요! timeout을 설정하지 않으면 서버가 응답하지 않을 때 무한정 기다려요."
       },
       "quiz_set": "B"
     },
@@ -1747,8 +1675,7 @@
       "answer": "B",
       "hint": "status_code를 확인해서 성공(200)과 실패를 구분해요.",
       "feedback": {
-        "correct": "맞아요! status_code 200은 요청이 성공적으로 처리됐다는 의미예요.",
-        "wrong": "status_code를 확인해서 성공(200)과 실패를 구분해요."
+        "correct": "맞아요! status_code 200은 요청이 성공적으로 처리됐다는 의미예요."
       },
       "quiz_set": "B"
     },
@@ -1771,8 +1698,7 @@
       "answer": "D",
       "hint": "timeout 초과 시 requests.exceptions.Timeout이, 연결 실패 시 ConnectionError가 발생해요.",
       "feedback": {
-        "correct": "맞아요! 3초 내 응답이 없으면 `requests.exceptions.Timeout` 예외가 발생해요.",
-        "wrong": "timeout 초과 시 requests.exceptions.Timeout이, 연결 실패 시 ConnectionError가 발생해요."
+        "correct": "맞아요! 3초 내 응답이 없으면 `requests.exceptions.Timeout` 예외가 발생해요."
       },
       "quiz_set": "B"
     },
@@ -1795,8 +1721,7 @@
       "answer": "B",
       "hint": "200이면 'success', 그 외면 'fail'. 두 URL이 각각 200, 500을 반환해요.",
       "feedback": {
-        "correct": "맞아요! /status/200은 200, /status/500은 500 반환. 조건 분기에 따라 결과가 달라요.",
-        "wrong": "200이면 'success', 그 외면 'fail'. 두 URL이 각각 200, 500을 반환해요."
+        "correct": "맞아요! /status/200은 200, /status/500은 500 반환. 조건 분기에 따라 결과가 달라요."
       },
       "quiz_set": "B"
     },
@@ -1819,8 +1744,7 @@
       "answer": "D",
       "hint": "Authorization 헤더는 가장 일반적인 API 인증 방식이에요.",
       "feedback": {
-        "correct": "맞아요! 헤더에 API 키를 담아 서버에 인증 정보를 전달해요.",
-        "wrong": "Authorization 헤더는 가장 일반적인 API 인증 방식이에요."
+        "correct": "맞아요! 헤더에 API 키를 담아 서버에 인증 정보를 전달해요."
       },
       "quiz_set": "B"
     },
@@ -1843,8 +1767,7 @@
       "answer": "B",
       "hint": "인터넷 연결 끊김, 서버 다운, 타임아웃 등 다양한 오류가 발생할 수 있어요.",
       "feedback": {
-        "correct": "맞아요! 네트워크는 항상 불안정할 수 있어요. 예외처리로 프로그램이 멈추지 않게 해요.",
-        "wrong": "인터넷 연결 끊김, 서버 다운, 타임아웃 등 다양한 오류가 발생할 수 있어요."
+        "correct": "맞아요! 네트워크는 항상 불안정할 수 있어요. 예외처리로 프로그램이 멈추지 않게 해요."
       },
       "quiz_set": "B"
     },
@@ -1867,8 +1790,7 @@
       "answer": "D",
       "hint": "httpbin.org/get은 args 필드에 쿼리 파라미터를 그대로 돌려줘요.",
       "feedback": {
-        "correct": "맞아요! httpbin.org/get은 전달된 파라미터를 그대로 반환해요. args['key1']='val1'이에요.",
-        "wrong": "httpbin.org/get은 args 필드에 쿼리 파라미터를 그대로 돌려줘요."
+        "correct": "맞아요! httpbin.org/get은 전달된 파라미터를 그대로 반환해요. args['key1']='val1'이에요."
       },
       "quiz_set": "B"
     },
@@ -1891,8 +1813,7 @@
       "answer": "B",
       "hint": "HTML이나 빈 응답을 json()으로 파싱하면 JSONDecodeError가 발생해요.",
       "feedback": {
-        "correct": "맞아요! 응답 Body가 JSON 형식이 아니면 json.JSONDecodeError가 발생해요.",
-        "wrong": "HTML이나 빈 응답을 json()으로 파싱하면 JSONDecodeError가 발생해요."
+        "correct": "맞아요! 응답 Body가 JSON 형식이 아니면 json.JSONDecodeError가 발생해요."
       },
       "quiz_set": "B"
     },
@@ -1915,8 +1836,7 @@
       "answer": "D",
       "hint": "requests.post(url, json={})으로 POST 요청과 함께 JSON 데이터를 전송해요.",
       "feedback": {
-        "correct": "훌륭해요! POST 요청은 `requests.post()`를 사용하고, JSON Body는 `json=` 파라미터로 전달해요.",
-        "wrong": "requests.post(url, json={})으로 POST 요청과 함께 JSON 데이터를 전송해요."
+        "correct": "훌륭해요! POST 요청은 `requests.post()`를 사용하고, JSON Body는 `json=` 파라미터로 전달해요."
       },
       "quiz_set": "B"
     },
@@ -1939,8 +1859,7 @@
       "answer": "A",
       "hint": "API 키 노출 → 다른 사람이 내 계정으로 API 사용 → 과금 및 보안 문제 발생이에요.",
       "feedback": {
-        "correct": "맞아요! 코드에 직접 쓴 API 키가 GitHub에 올라가면 누구나 볼 수 있고 악용될 수 있어요.",
-        "wrong": "API 키 노출 → 다른 사람이 내 계정으로 API 사용 → 과금 및 보안 문제 발생이에요."
+        "correct": "맞아요! 코드에 직접 쓴 API 키가 GitHub에 올라가면 누구나 볼 수 있고 악용될 수 있어요."
       },
       "quiz_set": "A"
     },
@@ -1963,8 +1882,7 @@
       "answer": "C",
       "hint": "git add를 해도 .gitignore에 있는 파일은 커밋에 포함되지 않아요.",
       "feedback": {
-        "correct": "맞아요! .gitignore에 .env를 추가하면 Git이 해당 파일을 추적하지 않아요.",
-        "wrong": "git add를 해도 .gitignore에 있는 파일은 커밋에 포함되지 않아요."
+        "correct": "맞아요! .gitignore에 .env를 추가하면 Git이 해당 파일을 추적하지 않아요."
       },
       "quiz_set": "A"
     },
@@ -1987,8 +1905,7 @@
       "answer": "A",
       "hint": "os.environ.get('KEY')는 환경변수 KEY의 값을 반환해요. 없으면 None을 반환해요.",
       "feedback": {
-        "correct": "맞아요! os.environ.get()으로 환경변수에 저장된 값을 읽어요.",
-        "wrong": "os.environ.get('KEY')는 환경변수 KEY의 값을 반환해요. 없으면 None을 반환해요."
+        "correct": "맞아요! os.environ.get()으로 환경변수에 저장된 값을 읽어요."
       },
       "quiz_set": "A"
     },
@@ -2011,8 +1928,7 @@
       "answer": "C",
       "hint": "API 키는 환경변수로 관리하고 헤더에 담아 전달해요.",
       "feedback": {
-        "correct": "맞아요! os.environ.get()으로 환경변수에서 키를 읽고 헤더에 담아요.",
-        "wrong": "API 키는 환경변수로 관리하고 헤더에 담아 전달해요."
+        "correct": "맞아요! os.environ.get()으로 환경변수에서 키를 읽고 헤더에 담아요."
       },
       "quiz_set": "A"
     },
@@ -2035,8 +1951,7 @@
       "answer": "A",
       "hint": "Bearer 인증은 Authorization 헤더에 'Bearer 토큰' 형태로 설정해요.",
       "feedback": {
-        "correct": "맞아요! `Authorization: Bearer 토큰값`이 표준 Bearer 토큰 인증 헤더 형식이에요.",
-        "wrong": "Bearer 인증은 Authorization 헤더에 'Bearer 토큰' 형태로 설정해요."
+        "correct": "맞아요! `Authorization: Bearer 토큰값`이 표준 Bearer 토큰 인증 헤더 형식이에요."
       },
       "quiz_set": "A"
     },
@@ -2059,8 +1974,7 @@
       "answer": "C",
       "hint": ".env 파일 형식: `KEY=value` 또는 `KEY='value'`예요.",
       "feedback": {
-        "correct": "맞아요! .env 파일은 `키=값` 형태로 작성해요. 따옴표는 선택 사항이에요.",
-        "wrong": ".env 파일 형식: `KEY=value` 또는 `KEY='value'`예요."
+        "correct": "맞아요! .env 파일은 `키=값` 형태로 작성해요. 따옴표는 선택 사항이에요."
       },
       "quiz_set": "A"
     },
@@ -2083,8 +1997,7 @@
       "answer": "A",
       "hint": "os.environ.get('없는키')는 None을 반환해요. KeyError가 발생하지 않아요.",
       "feedback": {
-        "correct": "맞아요! 존재하지 않는 환경변수를 get()으로 읽으면 None을 반환해요.",
-        "wrong": "os.environ.get('없는키')는 None을 반환해요. KeyError가 발생하지 않아요."
+        "correct": "맞아요! 존재하지 않는 환경변수를 get()으로 읽으면 None을 반환해요."
       },
       "quiz_set": "A"
     },
@@ -2107,8 +2020,7 @@
       "answer": "C",
       "hint": "os.environ.get(name, default)는 없을 때 default를 반환해요.",
       "feedback": {
-        "correct": "맞아요! get()의 두 번째 인수는 기본값이에요. 없으면 '없음', 두 번째 호출은 'default_val'이에요.",
-        "wrong": "os.environ.get(name, default)는 없을 때 default를 반환해요."
+        "correct": "맞아요! get()의 두 번째 인수는 기본값이에요. 없으면 '없음', 두 번째 호출은 'default_val'이에요."
       },
       "quiz_set": "A"
     },
@@ -2131,8 +2043,7 @@
       "answer": "A",
       "hint": "os.environ['MY_KEY']='abc123' 설정 → get으로 읽음 → if not key=False → len('abc123')=6이에요.",
       "feedback": {
-        "correct": "맞아요! 'abc123'은 6글자예요. key가 있으므로 if not key는 False, len=6이에요.",
-        "wrong": "os.environ['MY_KEY']='abc123' 설정 → get으로 읽음 → if not key=False → len('abc123')=6이에요."
+        "correct": "맞아요! 'abc123'은 6글자예요. key가 있으므로 if not key는 False, len=6이에요."
       },
       "quiz_set": "A"
     },
@@ -2155,8 +2066,7 @@
       "answer": "C",
       "hint": "키가 없을 때 빈 문자열이나 기본값을 사용하면 나중에 인증 오류가 발생해요.",
       "feedback": {
-        "correct": "맞아요! 키가 없으면 의미 있는 오류 메시지와 함께 즉시 중단하는 게 좋아요.",
-        "wrong": "키가 없을 때 빈 문자열이나 기본값을 사용하면 나중에 인증 오류가 발생해요."
+        "correct": "맞아요! 키가 없으면 의미 있는 오류 메시지와 함께 즉시 중단하는 게 좋아요."
       },
       "quiz_set": "A"
     },
@@ -2179,8 +2089,7 @@
       "answer": "B",
       "hint": ".env + .gitignore가 API 키 관리의 기본이에요.",
       "feedback": {
-        "correct": "맞아요! .env 파일에 저장하고 .gitignore에 추가해 GitHub에 올라가지 않게 해야 해요.",
-        "wrong": ".env + .gitignore가 API 키 관리의 기본이에요."
+        "correct": "맞아요! .env 파일에 저장하고 .gitignore에 추가해 GitHub에 올라가지 않게 해야 해요."
       },
       "quiz_set": "B"
     },
@@ -2203,8 +2112,7 @@
       "answer": "D",
       "hint": "노출된 키는 즉시 재발급(rotate)해요. 몇 초 만에 악용될 수 있어요.",
       "feedback": {
-        "correct": "맞아요! 키가 노출되면 즉시 기존 키를 비활성화하고 새 키를 발급받아야 해요.",
-        "wrong": "노출된 키는 즉시 재발급(rotate)해요. 몇 초 만에 악용될 수 있어요."
+        "correct": "맞아요! 키가 노출되면 즉시 기존 키를 비활성화하고 새 키를 발급받아야 해요."
       },
       "quiz_set": "B"
     },
@@ -2227,8 +2135,7 @@
       "answer": "B",
       "hint": "from dotenv import load_dotenv; load_dotenv()로 .env 파일을 로드해요.",
       "feedback": {
-        "correct": "맞아요! `load_dotenv()`로 .env 파일을 읽어 환경변수로 설정해줘요.",
-        "wrong": "from dotenv import load_dotenv; load_dotenv()로 .env 파일을 로드해요."
+        "correct": "맞아요! `load_dotenv()`로 .env 파일을 읽어 환경변수로 설정해줘요."
       },
       "quiz_set": "B"
     },
@@ -2251,8 +2158,7 @@
       "answer": "D",
       "hint": "os.environ['KEY']='val'로 설정 후 get('KEY')는 'val'을 반환해요. None이 아니므로 True예요.",
       "feedback": {
-        "correct": "맞아요! os.environ에 값을 설정 후 get()으로 읽으면 None이 아니에요. True를 출력해요.",
-        "wrong": "os.environ['KEY']='val'로 설정 후 get('KEY')는 'val'을 반환해요. None이 아니므로 True예요."
+        "correct": "맞아요! os.environ에 값을 설정 후 get()으로 읽으면 None이 아니에요. True를 출력해요."
       },
       "quiz_set": "B"
     },
@@ -2275,8 +2181,7 @@
       "answer": "B",
       "hint": "API_KEY는 os.environ.get()으로 환경변수에서 읽어야 해요.",
       "feedback": {
-        "correct": "맞아요! API_KEY를 코드에 하드코딩하면 GitHub에 노출될 수 있어요.",
-        "wrong": "API_KEY는 os.environ.get()으로 환경변수에서 읽어야 해요."
+        "correct": "맞아요! API_KEY를 코드에 하드코딩하면 GitHub에 노출될 수 있어요."
       },
       "quiz_set": "B"
     },
@@ -2299,8 +2204,7 @@
       "answer": "D",
       "hint": "API 키 노출의 가장 큰 위험은 무단 사용으로 인한 요금 청구예요.",
       "feedback": {
-        "correct": "맞아요! 노출된 API 키로 타인이 요청하면 내 계정에 과금이 발생할 수 있어요.",
-        "wrong": "API 키 노출의 가장 큰 위험은 무단 사용으로 인한 요금 청구예요."
+        "correct": "맞아요! 노출된 API 키로 타인이 요청하면 내 계정에 과금이 발생할 수 있어요."
       },
       "quiz_set": "B"
     },
@@ -2323,8 +2227,7 @@
       "answer": "B",
       "hint": "공개된 채널에 API 키를 올리지 않아요.",
       "feedback": {
-        "correct": "맞아요! API 키는 보안 채널(개인 메시지, 비밀번호 관리 도구 등)을 통해 공유해요.",
-        "wrong": "공개된 채널에 API 키를 올리지 않아요."
+        "correct": "맞아요! API 키는 보안 채널(개인 메시지, 비밀번호 관리 도구 등)을 통해 공유해요."
       },
       "quiz_set": "B"
     },
@@ -2347,8 +2250,7 @@
       "answer": "D",
       "hint": "환경변수에서 읽는 것이 가장 안전한 방법이에요.",
       "feedback": {
-        "correct": "맞아요! os.environ.get()으로 환경변수에서 읽으면 코드에 키가 노출되지 않아요.",
-        "wrong": "환경변수에서 읽는 것이 가장 안전한 방법이에요."
+        "correct": "맞아요! os.environ.get()으로 환경변수에서 읽으면 코드에 키가 노출되지 않아요."
       },
       "quiz_set": "B"
     },
@@ -2371,8 +2273,7 @@
       "answer": "B",
       "hint": ".env는 절대 GitHub에 올라가면 안 돼요. .gitignore에 반드시 추가해요.",
       "feedback": {
-        "correct": "맞아요! .env 파일에는 API 키 등 민감한 정보가 있어서 반드시 .gitignore에 추가해야 해요.",
-        "wrong": ".env는 절대 GitHub에 올라가면 안 돼요. .gitignore에 반드시 추가해요."
+        "correct": "맞아요! .env 파일에는 API 키 등 민감한 정보가 있어서 반드시 .gitignore에 추가해야 해요."
       },
       "quiz_set": "B"
     },
@@ -2395,8 +2296,7 @@
       "answer": "D",
       "hint": "Claude API, OpenAI 등 대부분의 AI API가 이 방식을 사용해요.",
       "feedback": {
-        "correct": "훌륭해요! Bearer 토큰 인증의 표준 형식은 `Authorization: Bearer 토큰값`이에요.",
-        "wrong": "Claude API, OpenAI 등 대부분의 AI API가 이 방식을 사용해요."
+        "correct": "훌륭해요! Bearer 토큰 인증의 표준 형식은 `Authorization: Bearer 토큰값`이에요."
       },
       "quiz_set": "B"
     },
@@ -2419,8 +2319,7 @@
       "answer": "A",
       "hint": "system=AI의 성격/역할 설정, user=실제 질문이에요.",
       "feedback": {
-        "correct": "맞아요! system 메시지는 AI가 어떻게 동작할지 기본 설정을 해요.",
-        "wrong": "system=AI의 성격/역할 설정, user=실제 질문이에요."
+        "correct": "맞아요! system 메시지는 AI가 어떻게 동작할지 기본 설정을 해요."
       },
       "quiz_set": "A"
     },
@@ -2443,8 +2342,7 @@
       "answer": "C",
       "hint": "좋은 프롬프트 = 대상 + 목적 + 형식 + 제약이에요.",
       "feedback": {
-        "correct": "맞아요! 구체적인 주제, 대상 수준, 원하는 형식이 포함된 프롬프트가 좋아요.",
-        "wrong": "좋은 프롬프트 = 대상 + 목적 + 형식 + 제약이에요."
+        "correct": "맞아요! 구체적인 주제, 대상 수준, 원하는 형식이 포함된 프롬프트가 좋아요."
       },
       "quiz_set": "A"
     },
@@ -2467,8 +2365,7 @@
       "answer": "A",
       "hint": "beginner/intermediate/advanced마다 다른 system 프롬프트를 사용해요.",
       "feedback": {
-        "correct": "맞아요! 레벨별로 다른 system 프롬프트를 설정해서 맞춤형 설명을 제공해요.",
-        "wrong": "beginner/intermediate/advanced마다 다른 system 프롬프트를 사용해요."
+        "correct": "맞아요! 레벨별로 다른 system 프롬프트를 설정해서 맞춤형 설명을 제공해요."
       },
       "quiz_set": "A"
     },
@@ -2491,8 +2388,7 @@
       "answer": "C",
       "hint": "system 메시지는 AI의 '기본 성격'을 설정해요. 질문은 user 메시지에 담아요.",
       "feedback": {
-        "correct": "맞아요! system 메시지는 AI의 역할, 말투, 형식을 설정하는 지시문이에요.",
-        "wrong": "system 메시지는 AI의 '기본 성격'을 설정해요. 질문은 user 메시지에 담아요."
+        "correct": "맞아요! system 메시지는 AI의 역할, 말투, 형식을 설정하는 지시문이에요."
       },
       "quiz_set": "A"
     },
@@ -2515,8 +2411,7 @@
       "answer": "A",
       "hint": "messages 배열에서 system은 첫 번째, user는 그 뒤에 와요.",
       "feedback": {
-        "correct": "맞아요! system 메시지가 먼저, user 메시지가 뒤에 오는 올바른 구성이에요.",
-        "wrong": "messages 배열에서 system은 첫 번째, user는 그 뒤에 와요."
+        "correct": "맞아요! system 메시지가 먼저, user 메시지가 뒤에 오는 올바른 구성이에요."
       },
       "quiz_set": "A"
     },
@@ -2539,8 +2434,7 @@
       "answer": "C",
       "hint": "'for문을 설명해줘'에 대상(초보자?), 형식(코드 예시?), 수준을 추가하면 좋아요.",
       "feedback": {
-        "correct": "맞아요! '설명해줘'만으로는 대상, 수준, 형식이 없어 모호해요.",
-        "wrong": "'for문을 설명해줘'에 대상(초보자?), 형식(코드 예시?), 수준을 추가하면 좋아요."
+        "correct": "맞아요! '설명해줘'만으로는 대상, 수준, 형식이 없어 모호해요."
       },
       "quiz_set": "A"
     },
@@ -2563,8 +2457,7 @@
       "answer": "A",
       "hint": "역할 부여는 system 메시지에 하는 게 가장 효과적이에요.",
       "feedback": {
-        "correct": "맞아요! '당신은 ~예요'처럼 역할을 명시하면 AI가 그 관점에서 답변해요.",
-        "wrong": "역할 부여는 system 메시지에 하는 게 가장 효과적이에요."
+        "correct": "맞아요! '당신은 ~예요'처럼 역할을 명시하면 AI가 그 관점에서 답변해요."
       },
       "quiz_set": "A"
     },
@@ -2587,8 +2480,7 @@
       "answer": "C",
       "hint": "출력 형식을 예시와 함께 명시하면 AI가 그 형식을 따르게 돼요.",
       "feedback": {
-        "correct": "맞아요! 정확한 JSON 스키마를 프롬프트에 포함하면 파싱 가능한 응답을 얻을 수 있어요.",
-        "wrong": "출력 형식을 예시와 함께 명시하면 AI가 그 형식을 따르게 돼요."
+        "correct": "맞아요! 정확한 JSON 스키마를 프롬프트에 포함하면 파싱 가능한 응답을 얻을 수 있어요."
       },
       "quiz_set": "A"
     },
@@ -2611,8 +2503,7 @@
       "answer": "A",
       "hint": "messages의 role은 system(설정), user(질문), assistant(AI응답) 세 가지예요.",
       "feedback": {
-        "correct": "맞아요! 실제 질문은 'user' 역할로 담아요.",
-        "wrong": "messages의 role은 system(설정), user(질문), assistant(AI응답) 세 가지예요."
+        "correct": "맞아요! 실제 질문은 'user' 역할로 담아요."
       },
       "quiz_set": "A"
     },
@@ -2635,8 +2526,7 @@
       "answer": "C",
       "hint": "예: '입력: 기쁨 → 출력: 긍정, 입력: 슬픔 → 출력: 부정'처럼 예시를 제공하는 방식이에요.",
       "feedback": {
-        "correct": "맞아요! 예시를 몇 개 제공하면 AI가 그 패턴을 따라 답변해요.",
-        "wrong": "예: '입력: 기쁨 → 출력: 긍정, 입력: 슬픔 → 출력: 부정'처럼 예시를 제공하는 방식이에요."
+        "correct": "맞아요! 예시를 몇 개 제공하면 AI가 그 패턴을 따라 답변해요."
       },
       "quiz_set": "A"
     },
@@ -2659,8 +2549,7 @@
       "answer": "B",
       "hint": "같은 AI라도 프롬프트에 따라 결과가 크게 달라요. 잘 쓰는 것이 핵심이에요.",
       "feedback": {
-        "correct": "맞아요! 프롬프트를 어떻게 작성하느냐에 따라 AI 답변의 품질이 크게 달라져요.",
-        "wrong": "같은 AI라도 프롬프트에 따라 결과가 크게 달라요. 잘 쓰는 것이 핵심이에요."
+        "correct": "맞아요! 프롬프트를 어떻게 작성하느냐에 따라 AI 답변의 품질이 크게 달라져요."
       },
       "quiz_set": "B"
     },
@@ -2683,8 +2572,7 @@
       "answer": "D",
       "hint": "역할 부여(Role Prompting)는 일관된 스타일과 전문성 있는 답변을 얻는 데 효과적이에요.",
       "feedback": {
-        "correct": "맞아요! '당신은 X예요'처럼 역할을 부여하면 AI가 그 역할에 맞게 답변해요.",
-        "wrong": "역할 부여(Role Prompting)는 일관된 스타일과 전문성 있는 답변을 얻는 데 효과적이에요."
+        "correct": "맞아요! '당신은 X예요'처럼 역할을 부여하면 AI가 그 역할에 맞게 답변해요."
       },
       "quiz_set": "B"
     },
@@ -2707,8 +2595,7 @@
       "answer": "B",
       "hint": "구체적인 요소들을 포함할수록 AI가 원하는 답변을 더 잘 제공해요.",
       "feedback": {
-        "correct": "맞아요! 좋은 프롬프트는 대상, 목적, 원하는 형식, 제약 조건이 포함돼요.",
-        "wrong": "구체적인 요소들을 포함할수록 AI가 원하는 답변을 더 잘 제공해요."
+        "correct": "맞아요! 좋은 프롬프트는 대상, 목적, 원하는 형식, 제약 조건이 포함돼요."
       },
       "quiz_set": "B"
     },
@@ -2731,8 +2618,7 @@
       "answer": "D",
       "hint": "모호한 프롬프트 → 일반적인 답변. 구체적인 프롬프트 → 정확한 답변이에요.",
       "feedback": {
-        "correct": "맞아요! '도와줘', '설명해줘' 같은 모호한 프롬프트는 AI가 원하는 방향으로 답변하기 어려워요.",
-        "wrong": "모호한 프롬프트 → 일반적인 답변. 구체적인 프롬프트 → 정확한 답변이에요."
+        "correct": "맞아요! '도와줘', '설명해줘' 같은 모호한 프롬프트는 AI가 원하는 방향으로 답변하기 어려워요."
       },
       "quiz_set": "B"
     },
@@ -2755,8 +2641,7 @@
       "answer": "B",
       "hint": "출력 형식 지정은 AI 응답을 코드로 처리할 때 매우 유용해요.",
       "feedback": {
-        "correct": "맞아요! '결과를 JSON 형식으로 반환해줘' 같이 형식을 지정하면 파싱하기 쉬운 응답을 받아요.",
-        "wrong": "출력 형식 지정은 AI 응답을 코드로 처리할 때 매우 유용해요."
+        "correct": "맞아요! '결과를 JSON 형식으로 반환해줘' 같이 형식을 지정하면 파싱하기 쉬운 응답을 받아요."
       },
       "quiz_set": "B"
     },
@@ -2779,8 +2664,7 @@
       "answer": "D",
       "hint": "beginner=비유/일상예시, intermediate=개념/코드예시, advanced=원리/엣지케이스예요.",
       "feedback": {
-        "correct": "맞아요! beginner는 비유와 일상 예시로 쉽게 설명하고, 왜 틀렸는지 친절하게 알려줘요.",
-        "wrong": "beginner=비유/일상예시, intermediate=개념/코드예시, advanced=원리/엣지케이스예요."
+        "correct": "맞아요! beginner는 비유와 일상 예시로 쉽게 설명하고, 왜 틀렸는지 친절하게 알려줘요."
       },
       "quiz_set": "B"
     },
@@ -2803,8 +2687,7 @@
       "answer": "B",
       "hint": "구체적인 언어, 오류 종류, 원하는 출력 형식을 포함한 좋은 프롬프트예요.",
       "feedback": {
-        "correct": "맞아요! 언어(Python), 오류 종류(ValueError), 요청 내용(원인 설명 + 수정 방법)이 구체적이에요.",
-        "wrong": "구체적인 언어, 오류 종류, 원하는 출력 형식을 포함한 좋은 프롬프트예요."
+        "correct": "맞아요! 언어(Python), 오류 종류(ValueError), 요청 내용(원인 설명 + 수정 방법)이 구체적이에요."
       },
       "quiz_set": "B"
     },
@@ -2827,8 +2710,7 @@
       "answer": "D",
       "hint": "좋은 system 프롬프트: 역할 + 말투 + 형식 + 제약 + 예시를 포함해요.",
       "feedback": {
-        "correct": "맞아요! '당신은 AI예요'는 너무 모호해요. 도메인, 말투, 형식, 제약을 명시해야 해요.",
-        "wrong": "좋은 system 프롬프트: 역할 + 말투 + 형식 + 제약 + 예시를 포함해요."
+        "correct": "맞아요! '당신은 AI예요'는 너무 모호해요. 도메인, 말투, 형식, 제약을 명시해야 해요."
       },
       "quiz_set": "B"
     },
@@ -2851,8 +2733,7 @@
       "answer": "B",
       "hint": "'Let's think step by step' 같은 지시가 Chain-of-Thought 프롬프팅이에요.",
       "feedback": {
-        "correct": "맞아요! '단계별로 생각해줘' 같은 지시로 AI가 논리적으로 추론하게 유도해요.",
-        "wrong": "'Let's think step by step' 같은 지시가 Chain-of-Thought 프롬프팅이에요."
+        "correct": "맞아요! '단계별로 생각해줘' 같은 지시로 AI가 논리적으로 추론하게 유도해요."
       },
       "quiz_set": "B"
     },
@@ -2875,8 +2756,7 @@
       "answer": "D",
       "hint": "맥락이 풍부할수록 AI가 더 정확한 피드백을 줄 수 있어요.",
       "feedback": {
-        "correct": "훌륭해요! 레벨별 system 프롬프트와 함께 문제, 유저 답, 정답을 모두 전달해야 맥락에 맞는 피드백을 받아요.",
-        "wrong": "맥락이 풍부할수록 AI가 더 정확한 피드백을 줄 수 있어요."
+        "correct": "훌륭해요! 레벨별 system 프롬프트와 함께 문제, 유저 답, 정답을 모두 전달해야 맥락에 맞는 피드백을 받아요."
       },
       "quiz_set": "B"
     }

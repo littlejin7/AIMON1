@@ -10,12 +10,16 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 코드의 출력값을 고르세요.\n\ndef greet():\n    print('안녕, 에이몬!')\n\ngreet()",
-      "choices": ["A. greet()", "B. 안녕, 에이몬!", "C. def greet()", "D. 아무것도 출력 안 됨"],
+      "choices": [
+        "A. greet()",
+        "B. 안녕, 에이몬!",
+        "C. def greet()",
+        "D. 아무것도 출력 안 됨"
+      ],
       "answer": "B",
       "hint": "함수를 정의한 뒤 이름으로 호출하면 함수 내부가 실행돼요.",
       "feedback": {
-        "correct": "맞아요! greet()를 호출하면 함수 내부의 print('안녕, 에이몬!')이 실행돼요.",
-        "wrong": "def로 함수를 정의하고 greet()로 호출하면 함수 내부 코드가 실행돼요. '안녕, 에이몬!'이 출력돼요."
+        "correct": "맞아요! greet()를 호출하면 함수 내부의 print('안녕, 에이몬!')이 실행돼요."
       }
     },
     {
@@ -32,8 +36,7 @@
       "answer": "return",
       "hint": "함수에서 값을 돌려줄 때 쓰는 키워드예요.",
       "feedback": {
-        "correct": "맞아요! return 키워드로 함수가 값을 돌려줘요.",
-        "wrong": "함수가 값을 돌려주려면 return 키워드를 써요. return 10 이라고 쓰면 돼요."
+        "correct": "맞아요! return 키워드로 함수가 값을 돌려줘요."
       }
     },
     {
@@ -46,12 +49,16 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 코드의 출력값을 고르세요.\n\ndef add(a, b):\n    return a + b\n\nresult = add(3, 7)\nprint(result)",
-      "choices": ["A. a + b", "B. 3 + 7", "C. 10", "D. 오류 발생"],
+      "choices": [
+        "A. a + b",
+        "B. 3 + 7",
+        "C. 10",
+        "D. 오류 발생"
+      ],
       "answer": "C",
       "hint": "a에 3, b에 7이 들어가서 더해진 값이 반환돼요.",
       "feedback": {
-        "correct": "맞아요! add(3, 7)은 3 + 7 = 10을 반환해요.",
-        "wrong": "add(3, 7)을 호출하면 a=3, b=7이 되어 3 + 7 = 10이 반환되고 print하면 10이 출력돼요."
+        "correct": "맞아요! add(3, 7)은 3 + 7 = 10을 반환해요."
       }
     },
     {
@@ -64,12 +71,16 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "아래 코드에서 예상과 다른 결과가 나오는 원인은 어디일까요?\n\n1: def double(n):\n2:     n * 2\n3:\n4: result = double(5)\n5: print(result)",
-      "choices": ["A. 1번 줄: 함수 이름 오류", "B. 2번 줄: return 없이 계산만 해서 None이 반환됨", "C. 4번 줄: 함수 호출 오류", "D. 5번 줄: print 오류"],
+      "choices": [
+        "A. 1번 줄: 함수 이름 오류",
+        "B. 2번 줄: return 없이 계산만 해서 None이 반환됨",
+        "C. 4번 줄: 함수 호출 오류",
+        "D. 5번 줄: print 오류"
+      ],
       "answer": "B",
       "hint": "계산 결과를 바깥으로 내보내려면 return이 필요해요.",
       "feedback": {
-        "correct": "맞아요! 2번 줄에서 n * 2만 쓰고 return을 빠뜨렸기 때문에 함수가 None을 반환해요.",
-        "wrong": "함수 안에서 계산만 하고 return을 쓰지 않으면 None이 반환돼요. return n * 2 로 고쳐야 해요."
+        "correct": "맞아요! 2번 줄에서 n * 2만 쓰고 return을 빠뜨렸기 때문에 함수가 None을 반환해요."
       }
     },
     {
@@ -86,8 +97,7 @@
       "answer": "용사",
       "hint": "def 선언 시 매개변수에 = 으로 기본값을 지정해요.",
       "feedback": {
-        "correct": "맞아요! name='용사' 처럼 기본값을 지정하면 인자 없이 호출 시 기본값이 사용돼요.",
-        "wrong": "def hello(name='용사'): 처럼 기본값을 지정하면 hello()만 호출해도 '용사'가 사용돼요."
+        "correct": "맞아요! name='용사' 처럼 기본값을 지정하면 인자 없이 호출 시 기본값이 사용돼요."
       }
     },
     {
@@ -100,12 +110,16 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 코드의 출력값을 고르세요.\n\nx = 100\n\ndef show():\n    x = 5\n    print(x)\n\nshow()\nprint(x)",
-      "choices": ["A. 5 / 5", "B. 100 / 100", "C. 5 / 100", "D. 100 / 5"],
+      "choices": [
+        "A. 5 / 5",
+        "B. 100 / 100",
+        "C. 5 / 100",
+        "D. 100 / 5"
+      ],
       "answer": "C",
       "hint": "함수 안의 x와 함수 밖의 x는 서로 다른 변수예요.",
       "feedback": {
-        "correct": "맞아요! 함수 안의 x=5는 지역변수라 함수 밖 x=100에 영향을 주지 않아요.",
-        "wrong": "함수 안에서 만든 x는 지역변수예요. show()가 끝나면 사라지고 바깥 x = 100은 그대로예요."
+        "correct": "맞아요! 함수 안의 x=5는 지역변수라 함수 밖 x=100에 영향을 주지 않아요."
       }
     },
     {
@@ -118,12 +132,16 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "아래 코드에서 오류가 발생하는 줄은 어디일까요?\n\n1: result = greet('에이몬')\n2:\n3: def greet(name):\n4:     return f'안녕, {name}!'\n5:\n6: print(result)",
-      "choices": ["A. 1번 줄: 함수 정의 전에 호출해서 오류", "B. 3번 줄: def 문법 오류", "C. 4번 줄: f-string 오류", "D. 6번 줄: print 오류"],
+      "choices": [
+        "A. 1번 줄: 함수 정의 전에 호출해서 오류",
+        "B. 3번 줄: def 문법 오류",
+        "C. 4번 줄: f-string 오류",
+        "D. 6번 줄: print 오류"
+      ],
       "answer": "A",
       "hint": "파이썬은 위에서 아래로 실행돼요. 함수를 먼저 정의해야 호출할 수 있어요.",
       "feedback": {
-        "correct": "맞아요! 1번 줄에서 greet()를 호출할 때 아직 함수가 정의되지 않아서 NameError가 발생해요.",
-        "wrong": "파이썬은 순서대로 실행돼요. def greet(...)가 1번 줄보다 뒤에 있어서 호출 시점에 함수가 없어요."
+        "correct": "맞아요! 1번 줄에서 greet()를 호출할 때 아직 함수가 정의되지 않아서 NameError가 발생해요."
       }
     },
     {
@@ -140,8 +158,7 @@
       "answer": "def",
       "hint": "파이썬에서 함수를 정의할 때 쓰는 키워드예요.",
       "feedback": {
-        "correct": "맞아요! def 키워드로 함수를 정의해요.",
-        "wrong": "함수를 정의하려면 def 키워드를 써요. def add(a, b): 형태예요."
+        "correct": "맞아요! def 키워드로 함수를 정의해요."
       }
     },
     {
@@ -154,12 +171,16 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 코드의 출력값을 고르세요.\n\ndef square(n):\n    return n * n\n\ndef double(n):\n    return n * 2\n\nprint(double(square(3)))",
-      "choices": ["A. 36", "B. 18", "C. 12", "D. 오류 발생"],
+      "choices": [
+        "A. 36",
+        "B. 18",
+        "C. 12",
+        "D. 오류 발생"
+      ],
       "answer": "B",
       "hint": "안쪽 함수가 먼저 실행돼요. square(3)의 결과를 double에 넣어봐요.",
       "feedback": {
-        "correct": "맞아요! square(3) = 9, double(9) = 18이에요.",
-        "wrong": "안쪽 square(3)이 먼저 실행돼서 9가 되고, 그 결과를 double(9)에 넣어 18이 돼요."
+        "correct": "맞아요! square(3) = 9, double(9) = 18이에요."
       }
     },
     {
@@ -176,8 +197,7 @@
       "answer": "15",
       "hint": "base + 10 = 25가 되려면 base는 얼마여야 할까요?",
       "feedback": {
-        "correct": "맞아요! 15 + 10 = 25이에요. attack(15, 10)을 호출하면 25가 반환돼요.",
-        "wrong": "base + bonus = 25이고 bonus = 10이면, base = 25 - 10 = 15가 필요해요."
+        "correct": "맞아요! 15 + 10 = 25이에요. attack(15, 10)을 호출하면 25가 반환돼요."
       }
     }
   ]

@@ -19,8 +19,7 @@
       "answer": "A",
       "hint": "`range(n)`은 0부터 n-1까지예요. `range(5)` = 0,1,2,3,4예요.",
       "feedback": {
-        "correct": "맞아요! `range(5)`는 0부터 4까지예요.",
-        "wrong": "`range(n)`은 0부터 n-1까지예요. `range(5)` = 0,1,2,3,4예요."
+        "correct": "맞아요! `range(5)`는 0부터 4까지예요."
       },
       "villain": "speechbubble_king"
     },
@@ -43,8 +42,7 @@
       "answer": "A",
       "hint": "`range(시작, 끝)`에서 끝 값은 포함 안 돼요. range(1, 6) = 1,2,3,4,5예요.",
       "feedback": {
-        "correct": "맞아요! `range(1, 6)`은 1부터 5까지예요. 6은 포함 안 돼요.",
-        "wrong": "`range(시작, 끝)`에서 끝 값은 포함 안 돼요. range(1, 6) = 1,2,3,4,5예요."
+        "correct": "맞아요! `range(1, 6)`은 1부터 5까지예요. 6은 포함 안 돼요."
       },
       "villain": "speechbubble_king"
     },
@@ -67,8 +65,7 @@
       "answer": "C",
       "hint": "0부터 3씩 9 미만까지: 0, 3, 6이에요. 9는 포함 안 돼요.",
       "feedback": {
-        "correct": "맞아요! range(0,9,3)은 0, 3, 6이에요. 9는 포함 안 돼요.",
-        "wrong": "0부터 3씩 9 미만까지: 0, 3, 6이에요. 9는 포함 안 돼요."
+        "correct": "맞아요! range(0,9,3)은 0, 3, 6이에요. 9는 포함 안 돼요."
       },
       "villain": "speechbubble_king"
     },
@@ -91,8 +88,7 @@
       "answer": "C",
       "hint": "range(3, 8)은 3, 4, 5, 6, 7이에요. 끝(8)은 포함 안 되므로 5번이에요.",
       "feedback": {
-        "correct": "맞아요! range(3, 8)은 3, 4, 5, 6, 7 → 5번 반복돼요.",
-        "wrong": "range(3, 8)은 3, 4, 5, 6, 7이에요. 끝(8)은 포함 안 되므로 5번이에요."
+        "correct": "맞아요! range(3, 8)은 3, 4, 5, 6, 7 → 5번 반복돼요."
       },
       "villain": "speechbubble_king"
     },
@@ -115,8 +111,7 @@
       "answer": "B",
       "hint": "range(1, 5)=1,2,3,4. 합=10이에요.",
       "feedback": {
-        "correct": "맞아요! range(1,5)=1,2,3,4. 1+2+3+4=10이에요.",
-        "wrong": "range(1, 5)=1,2,3,4. 합=10이에요."
+        "correct": "맞아요! range(1,5)=1,2,3,4. 1+2+3+4=10이에요."
       },
       "villain": "speechbubble_king"
     },
@@ -139,8 +134,7 @@
       "answer": "B",
       "hint": "range(3)은 0,1,2예요. 3은 포함 안 돼요.",
       "feedback": {
-        "correct": "맞아요! range(3)=0,1,2예요.",
-        "wrong": "range(3)은 0,1,2예요. 3은 포함 안 돼요."
+        "correct": "맞아요! range(3)=0,1,2예요."
       },
       "villain": "speechbubble_king"
     },
@@ -163,8 +157,7 @@
       "answer": "C",
       "hint": "range(1,4)=1,2,3. 각 i*2: 1×2=2, 2×2=4, 3×2=6이에요.",
       "feedback": {
-        "correct": "맞아요! range(1,4)=1,2,3. 각각 ×2: 2,4,6이에요.",
-        "wrong": "range(1,4)=1,2,3. 각 i*2: 1×2=2, 2×2=4, 3×2=6이에요."
+        "correct": "맞아요! range(1,4)=1,2,3. 각각 ×2: 2,4,6이에요."
       },
       "villain": "speechbubble_king"
     },
@@ -187,8 +180,7 @@
       "answer": "B",
       "hint": "range(len(scores))=0,1,2. i+1=1,2,3. f-string으로 '1번:90점','2번:75점','3번:85점'이에요.",
       "feedback": {
-        "correct": "맞아요! i는 0,1,2이고 i+1은 1,2,3. scores[i]는 90,75,85예요.",
-        "wrong": "range(len(scores))=0,1,2. i+1=1,2,3. f-string으로 '1번:90점','2번:75점','3번:85점'이에요."
+        "correct": "맞아요! i는 0,1,2이고 i+1은 1,2,3. scores[i]는 90,75,85예요."
       },
       "villain": "speechbubble_king"
     },
@@ -211,8 +203,7 @@
       "answer": "B",
       "hint": "range(1,11)=1~10에서 3의 배수: 3, 6, 9. 합=18이에요.",
       "feedback": {
-        "correct": "맞아요! 1~10에서 3의 배수: 3, 6, 9. 3+6+9=18이에요.",
-        "wrong": "range(1,11)=1~10에서 3의 배수: 3, 6, 9. 합=18이에요."
+        "correct": "맞아요! 1~10에서 3의 배수: 3, 6, 9. 3+6+9=18이에요."
       },
       "villain": "speechbubble_king"
     },
@@ -235,8 +226,7 @@
       "answer": "D",
       "hint": "max_val=5로 시작. 8>5→max_val=8. 9>8→max_val=9. 최종 max_val=9이에요.",
       "feedback": {
-        "correct": "훌륭해요! 리스트의 최댓값을 찾는 코드예요. [5,2,8,1,9,3]에서 가장 큰 값은 9예요. 보스 클리어! 🎉",
-        "wrong": "max_val=5로 시작. 8>5→max_val=8. 9>8→max_val=9. 최종 max_val=9이에요."
+        "correct": "훌륭해요! 리스트의 최댓값을 찾는 코드예요. [5,2,8,1,9,3]에서 가장 큰 값은 9예요. 보스 클리어! 🎉"
       },
       "villain": "speechbubble_king"
     },
@@ -259,8 +249,7 @@
       "answer": "A",
       "hint": "while은 조건이 True인 동안 반복하고 False가 되면 멈춰요.",
       "feedback": {
-        "correct": "맞아요! while문은 조건이 False가 되면 반복을 멈춰요.",
-        "wrong": "while은 조건이 True인 동안 반복하고 False가 되면 멈춰요."
+        "correct": "맞아요! while문은 조건이 False가 되면 반복을 멈춰요."
       },
       "villain": "speechbubble_king"
     },
@@ -283,8 +272,7 @@
       "answer": "B",
       "hint": "i<4가 True인 동안: 0,1,2,3(4번). i=4가 되면 False로 멈춰요.",
       "feedback": {
-        "correct": "맞아요! i=0,1,2,3일 때 True. i=4이면 False. 4번이에요.",
-        "wrong": "i<4가 True인 동안: 0,1,2,3(4번). i=4가 되면 False로 멈춰요."
+        "correct": "맞아요! i=0,1,2,3일 때 True. i=4이면 False. 4번이에요."
       },
       "villain": "speechbubble_king"
     },
@@ -307,8 +295,7 @@
       "answer": "B",
       "hint": "조건이 변하지 않으면 항상 True이므로 무한 루프가 돼요.",
       "feedback": {
-        "correct": "맞아요! 반복 안에서 조건 변수가 변하지 않으면 무한 루프가 돼요.",
-        "wrong": "조건이 변하지 않으면 항상 True이므로 무한 루프가 돼요."
+        "correct": "맞아요! 반복 안에서 조건 변수가 변하지 않으면 무한 루프가 돼요."
       },
       "villain": "speechbubble_king"
     },
@@ -331,8 +318,7 @@
       "answer": "A",
       "hint": "n>0인 동안: 5→3→1→-1(F). 5,3,1이 출력돼요.",
       "feedback": {
-        "correct": "맞아요! n=5(T), n=3(T), n=1(T), n=-1(F). 5,3,1이에요.",
-        "wrong": "n>0인 동안: 5→3→1→-1(F). 5,3,1이 출력돼요."
+        "correct": "맞아요! n=5(T), n=3(T), n=1(T), n=-1(F). 5,3,1이에요."
       },
       "villain": "speechbubble_king"
     },
@@ -355,8 +341,7 @@
       "answer": "B",
       "hint": "i=1~4. 각 i의 제곱 합: 1+4+9+16=30이에요.",
       "feedback": {
-        "correct": "맞아요! 1²+2²+3²+4²=1+4+9+16=30이에요.",
-        "wrong": "i=1~4. 각 i의 제곱 합: 1+4+9+16=30이에요."
+        "correct": "맞아요! 1²+2²+3²+4²=1+4+9+16=30이에요."
       },
       "villain": "speechbubble_king"
     },
@@ -379,8 +364,7 @@
       "answer": "B",
       "hint": "n>0인 동안: n=3(T→출력), n=2(T→출력), n=1(T→출력), n=0(F→멈춤). 3,2,1이에요.",
       "feedback": {
-        "correct": "맞아요! n>0인 동안: 3,2,1. n=0이 되면 멈춰요.",
-        "wrong": "n>0인 동안: n=3(T→출력), n=2(T→출력), n=1(T→출력), n=0(F→멈춤). 3,2,1이에요."
+        "correct": "맞아요! n>0인 동안: 3,2,1. n=0이 되면 멈춰요."
       },
       "villain": "speechbubble_king"
     },
@@ -403,8 +387,7 @@
       "answer": "A",
       "hint": "x=1→x*2=2, x=3→6, x=5→10, x=7→F. 2,6,10이에요.",
       "feedback": {
-        "correct": "맞아요! x=1(→출력2), x=3(→출력6), x=5(→출력10), x=7(F). 2,6,10이에요.",
-        "wrong": "x=1→x*2=2, x=3→6, x=5→10, x=7→F. 2,6,10이에요."
+        "correct": "맞아요! x=1(→출력2), x=3(→출력6), x=5(→출력10), x=7(F). 2,6,10이에요."
       },
       "villain": "speechbubble_king"
     },
@@ -427,8 +410,7 @@
       "answer": "B",
       "hint": "n=1~10에서 짝수(2,4,6,8,10)를 더해요. 2+4+6+8+10=30이에요.",
       "feedback": {
-        "correct": "맞아요! 1~10 짝수 합: 2+4+6+8+10=30이에요.",
-        "wrong": "n=1~10에서 짝수(2,4,6,8,10)를 더해요. 2+4+6+8+10=30이에요."
+        "correct": "맞아요! 1~10 짝수 합: 2+4+6+8+10=30이에요."
       },
       "villain": "speechbubble_king"
     },
@@ -451,8 +433,7 @@
       "answer": "A",
       "hint": "result 길이가 4가 될 때까지: n=2→append(→n=4), 4→append(→n=8), 8→append(→n=16), 16→append→멈춤. [2,4,8,16]이에요.",
       "feedback": {
-        "correct": "맞아요! n이 2배씩 늘어나요. 2,4,8,16을 4개 담으면 멈춰요.",
-        "wrong": "result 길이가 4가 될 때까지: n=2→append(→n=4), 4→append(→n=8), 8→append(→n=16), 16→append→멈춤. [2,4,8,16]이에요."
+        "correct": "맞아요! n이 2배씩 늘어나요. 2,4,8,16을 4개 담으면 멈춰요."
       },
       "villain": "speechbubble_king"
     },
@@ -475,8 +456,7 @@
       "answer": "B",
       "hint": "80이상: 85(T), 90(T), 80(T)→3. 70미만: 60(T), 55(T)→2. '80이상:3, 70미만:2'이에요.",
       "feedback": {
-        "correct": "훌륭해요! 80이상: 85,90,80→3. 70미만: 60,55→2이에요. 보스 클리어! 🎉",
-        "wrong": "80이상: 85(T), 90(T), 80(T)→3. 70미만: 60(T), 55(T)→2. '80이상:3, 70미만:2'이에요."
+        "correct": "훌륭해요! 80이상: 85,90,80→3. 70미만: 60,55→2이에요. 보스 클리어! 🎉"
       },
       "villain": "speechbubble_king"
     },
@@ -499,8 +479,7 @@
       "answer": "A",
       "hint": "break는 반복문 전체를 즉시 종료해요. 현재 반복만 건너뛰는 건 continue예요.",
       "feedback": {
-        "correct": "맞아요! break는 반복문을 즉시 종료해요.",
-        "wrong": "break는 반복문 전체를 즉시 종료해요. 현재 반복만 건너뛰는 건 continue예요."
+        "correct": "맞아요! break는 반복문을 즉시 종료해요."
       },
       "villain": "speechbubble_king"
     },
@@ -523,8 +502,7 @@
       "answer": "B",
       "hint": "continue는 현재 반복만 건너뛰어요. 반복 자체는 계속돼요.",
       "feedback": {
-        "correct": "맞아요! continue는 현재 반복의 나머지를 건너뛰고 다음 반복으로 넘어가요.",
-        "wrong": "continue는 현재 반복만 건너뛰어요. 반복 자체는 계속돼요."
+        "correct": "맞아요! continue는 현재 반복의 나머지를 건너뛰고 다음 반복으로 넘어가요."
       },
       "villain": "speechbubble_king"
     },
@@ -547,8 +525,7 @@
       "answer": "B",
       "hint": "i=0(출력), i=1(출력), i=2(break). 2줄이에요.",
       "feedback": {
-        "correct": "맞아요! i=0,1 출력 후 i=2에서 break. 2줄이에요.",
-        "wrong": "i=0(출력), i=1(출력), i=2(break). 2줄이에요."
+        "correct": "맞아요! i=0,1 출력 후 i=2에서 break. 2줄이에요."
       },
       "villain": "speechbubble_king"
     },
@@ -571,8 +548,7 @@
       "answer": "C",
       "hint": "짝수(2,4)→continue. 홀수(1,3,5)→출력이에요.",
       "feedback": {
-        "correct": "맞아요! 짝수→continue. 홀수 1,3,5만 출력돼요.",
-        "wrong": "짝수(2,4)→continue. 홀수(1,3,5)→출력이에요."
+        "correct": "맞아요! 짝수→continue. 홀수 1,3,5만 출력돼요."
       },
       "villain": "speechbubble_king"
     },
@@ -595,8 +571,7 @@
       "answer": "B",
       "hint": "count가 4가 되면 break. count=4가 출력돼요.",
       "feedback": {
-        "correct": "맞아요! count=4가 되면 break. print(count)→4예요.",
-        "wrong": "count가 4가 되면 break. count=4가 출력돼요."
+        "correct": "맞아요! count=4가 되면 break. print(count)→4예요."
       },
       "villain": "speechbubble_king"
     },
@@ -619,8 +594,7 @@
       "answer": "A",
       "hint": "i=0,1,2,3 출력 후 i=4에서 break. 0,1,2,3이에요.",
       "feedback": {
-        "correct": "맞아요! i=4에서 break. 0,1,2,3이 출력돼요.",
-        "wrong": "i=0,1,2,3 출력 후 i=4에서 break. 0,1,2,3이에요."
+        "correct": "맞아요! i=4에서 break. 0,1,2,3이 출력돼요."
       },
       "villain": "speechbubble_king"
     },
@@ -643,8 +617,7 @@
       "answer": "B",
       "hint": "3의 배수→continue(건너뜀). 1,2,4,5,7이 출력돼요.",
       "feedback": {
-        "correct": "맞아요! 3의 배수(3,6)→continue. 나머지 1,2,4,5,7이 출력돼요.",
-        "wrong": "3의 배수→continue(건너뜀). 1,2,4,5,7이 출력돼요."
+        "correct": "맞아요! 3의 배수(3,6)→continue. 나머지 1,2,4,5,7이 출력돼요."
       },
       "villain": "speechbubble_king"
     },
@@ -667,8 +640,7 @@
       "answer": "B",
       "hint": "5(F), 3(F), 8(T→출력→break). '큰 수: 8' 후 break. for 밖 '완료'는 실행돼요.",
       "feedback": {
-        "correct": "맞아요! 첫 번째 7 초과 값은 8. break 후 '완료'가 출력돼요.",
-        "wrong": "5(F), 3(F), 8(T→출력→break). '큰 수: 8' 후 break. for 밖 '완료'는 실행돼요."
+        "correct": "맞아요! 첫 번째 7 초과 값은 8. break 후 '완료'가 출력돼요."
       },
       "villain": "speechbubble_king"
     },
@@ -691,8 +663,7 @@
       "answer": "C",
       "hint": "짝수→continue. 홀수: 1+3+5=9(9<15계속), +7=16(16≥15→break). total=16이에요.",
       "feedback": {
-        "correct": "맞아요! 홀수만 더해요. 1+3+5=9(15미만), +7=16(≥15→break). total=16이에요.",
-        "wrong": "짝수→continue. 홀수: 1+3+5=9(9<15계속), +7=16(16≥15→break). total=16이에요."
+        "correct": "맞아요! 홀수만 더해요. 1+3+5=9(15미만), +7=16(≥15→break). total=16이에요."
       },
       "villain": "speechbubble_king"
     },
@@ -715,8 +686,7 @@
       "answer": "A",
       "hint": "홀수→continue. 4(append,1개), 7→skip, 2(append,2개→break). evens=[4,2]이에요.",
       "feedback": {
-        "correct": "훌륭해요! 짝수만 append. 4(1개), 7→skip, 2(2개)→break. [4,2]예요. 보스 클리어! 🎉",
-        "wrong": "홀수→continue. 4(append,1개), 7→skip, 2(append,2개→break). evens=[4,2]이에요."
+        "correct": "훌륭해요! 짝수만 append. 4(1개), 7→skip, 2(2개)→break. [4,2]예요. 보스 클리어! 🎉"
       },
       "villain": "speechbubble_king"
     },
@@ -739,8 +709,7 @@
       "answer": "B",
       "hint": "중첩 for문의 총 실행 횟수는 바깥(3) × 안쪽(4) = 12번이에요.",
       "feedback": {
-        "correct": "맞아요! 3 × 4 = 12번이에요.",
-        "wrong": "중첩 for문의 총 실행 횟수는 바깥(3) × 안쪽(4) = 12번이에요."
+        "correct": "맞아요! 3 × 4 = 12번이에요."
       },
       "villain": "speechbubble_king"
     },
@@ -763,8 +732,7 @@
       "answer": "C",
       "hint": "바깥 루프 1번 → 안쪽 루프 전체 실행. 이게 반복돼요.",
       "feedback": {
-        "correct": "맞아요! 바깥 루프 1회마다 안쪽 루프 전체가 실행돼요.",
-        "wrong": "바깥 루프 1번 → 안쪽 루프 전체 실행. 이게 반복돼요."
+        "correct": "맞아요! 바깥 루프 1회마다 안쪽 루프 전체가 실행돼요."
       },
       "villain": "speechbubble_king"
     },
@@ -787,8 +755,7 @@
       "answer": "C",
       "hint": "바깥(2) × 안쪽(3) = 6번 print해요.",
       "feedback": {
-        "correct": "맞아요! 2 × 3 = 6줄이에요.",
-        "wrong": "바깥(2) × 안쪽(3) = 6번 print해요."
+        "correct": "맞아요! 2 × 3 = 6줄이에요."
       },
       "villain": "speechbubble_king"
     },
@@ -811,8 +778,7 @@
       "answer": "C",
       "hint": "바깥(3) × 안쪽(3) = 9번 total이 증가해요.",
       "feedback": {
-        "correct": "맞아요! 3 × 3 = 9번이에요.",
-        "wrong": "바깥(3) × 안쪽(3) = 9번 total이 증가해요."
+        "correct": "맞아요! 3 × 3 = 9번이에요."
       },
       "villain": "speechbubble_king"
     },
@@ -835,8 +801,7 @@
       "answer": "C",
       "hint": "3개의 행 × 각 행 2개의 값 = 6번 count가 증가해요.",
       "feedback": {
-        "correct": "맞아요! 3행 × 2열 = 6개의 값이에요.",
-        "wrong": "3개의 행 × 각 행 2개의 값 = 6번 count가 증가해요."
+        "correct": "맞아요! 3행 × 2열 = 6개의 값이에요."
       },
       "villain": "speechbubble_king"
     },
@@ -859,8 +824,7 @@
       "answer": "A",
       "hint": "i=1:j=1→2,j=2→3. i=2:j=1→3,j=2→4. 2,3,3,4예요.",
       "feedback": {
-        "correct": "맞아요! (1+1)=2, (1+2)=3, (2+1)=3, (2+2)=4이에요.",
-        "wrong": "i=1:j=1→2,j=2→3. i=2:j=1→3,j=2→4. 2,3,3,4예요."
+        "correct": "맞아요! (1+1)=2, (1+2)=3, (2+1)=3, (2+2)=4이에요."
       },
       "villain": "speechbubble_king"
     },
@@ -883,8 +847,7 @@
       "answer": "A",
       "hint": "i+1 개의 * 출력. 0+1=1개, 1+1=2개, 2+1=3개예요.",
       "feedback": {
-        "correct": "맞아요! i=0:'*', i=1:'**', i=2:'***'이에요.",
-        "wrong": "i+1 개의 * 출력. 0+1=1개, 1+1=2개, 2+1=3개예요."
+        "correct": "맞아요! i=0:'*', i=1:'**', i=2:'***'이에요."
       },
       "villain": "speechbubble_king"
     },
@@ -907,8 +870,7 @@
       "answer": "C",
       "hint": "모든 요소 합: 1+2+3=6, 4+5+6=15. 6+15=21이에요.",
       "feedback": {
-        "correct": "맞아요! 1+2+3+4+5+6=21이에요.",
-        "wrong": "모든 요소 합: 1+2+3=6, 4+5+6=15. 6+15=21이에요."
+        "correct": "맞아요! 1+2+3+4+5+6=21이에요."
       },
       "villain": "speechbubble_king"
     },
@@ -931,8 +893,7 @@
       "answer": "A",
       "hint": "곱이 4 초과인 것: (2,3)=6, (3,2)=6, (3,3)=9. result=[6,6,9]이에요.",
       "feedback": {
-        "correct": "맞아요! i*j>4인 쌍: (2,3)=6, (3,2)=6, (3,3)=9. [6,6,9]이에요.",
-        "wrong": "곱이 4 초과인 것: (2,3)=6, (3,2)=6, (3,3)=9. result=[6,6,9]이에요."
+        "correct": "맞아요! i*j>4인 쌍: (2,3)=6, (3,2)=6, (3,3)=9. [6,6,9]이에요."
       },
       "villain": "speechbubble_king"
     },
@@ -955,8 +916,7 @@
       "answer": "A",
       "hint": "각 행 최댓값: 5,3,8에서 8. 1,9,2에서 9. 7,4,6에서 7. [8,9,7]이에요.",
       "feedback": {
-        "correct": "훌륭해요! 각 행의 최댓값: [5,3,8]→8, [1,9,2]→9, [7,4,6]→7. [8,9,7]이에요. 보스 클리어! 🎉",
-        "wrong": "각 행 최댓값: 5,3,8에서 8. 1,9,2에서 9. 7,4,6에서 7. [8,9,7]이에요."
+        "correct": "훌륭해요! 각 행의 최댓값: [5,3,8]→8, [1,9,2]→9, [7,4,6]→7. [8,9,7]이에요. 보스 클리어! 🎉"
       },
       "villain": "speechbubble_king"
     },
@@ -979,8 +939,7 @@
       "answer": "A",
       "hint": "조건에 맞는 값만 새 리스트에 담으려면 for + if + append를 써요.",
       "feedback": {
-        "correct": "맞아요! for + if + append 조합이 조건에 맞는 값만 골라내는 기본 패턴이에요.",
-        "wrong": "조건에 맞는 값만 새 리스트에 담으려면 for + if + append를 써요."
+        "correct": "맞아요! for + if + append 조합이 조건에 맞는 값만 골라내는 기본 패턴이에요."
       },
       "villain": "speechbubble_king"
     },
@@ -1003,8 +962,7 @@
       "answer": "B",
       "hint": "Python에서 빈 리스트 `[]`는 False로 처리돼요.",
       "feedback": {
-        "correct": "맞아요! 빈 리스트는 False예요. 값이 있어야 True예요.",
-        "wrong": "Python에서 빈 리스트 `[]`는 False로 처리돼요."
+        "correct": "맞아요! 빈 리스트는 False예요. 값이 있어야 True예요."
       },
       "villain": "speechbubble_king"
     },
@@ -1027,8 +985,7 @@
       "answer": "A",
       "hint": "짝수인 값만 append. 2, 4가 result에 담겨요.",
       "feedback": {
-        "correct": "맞아요! 짝수(2, 4)만 append해요.",
-        "wrong": "짝수인 값만 append. 2, 4가 result에 담겨요."
+        "correct": "맞아요! 짝수(2, 4)만 append해요."
       },
       "villain": "speechbubble_king"
     },
@@ -1051,8 +1008,7 @@
       "answer": "B",
       "hint": "values()로 85, 60, 90 꺼냄. 80이상: 85(T), 60(F), 90(T). count=2예요.",
       "feedback": {
-        "correct": "맞아요! 80이상: 국어(85), 영어(90) → 2개예요.",
-        "wrong": "values()로 85, 60, 90 꺼냄. 80이상: 85(T), 60(F), 90(T). count=2예요."
+        "correct": "맞아요! 80이상: 국어(85), 영어(90) → 2개예요."
       },
       "villain": "speechbubble_king"
     },
@@ -1075,8 +1031,7 @@
       "answer": "A",
       "hint": "total=85+72+91=248. len=3. 248//3=82예요.",
       "feedback": {
-        "correct": "맞아요! (85+72+91)//3 = 248//3 = 82예요.",
-        "wrong": "total=85+72+91=248. len=3. 248//3=82예요."
+        "correct": "맞아요! (85+72+91)//3 = 248//3 = 82예요."
       },
       "villain": "speechbubble_king"
     },
@@ -1099,8 +1054,7 @@
       "answer": "A",
       "hint": "v>=10: a(10)→T, b(5)→F, c(20)→T. key 'a', 'c'를 담아요.",
       "feedback": {
-        "correct": "맞아요! v>=10인 항목: a(10), c(20). key를 append해요.",
-        "wrong": "v>=10: a(10)→T, b(5)→F, c(20)→T. key 'a', 'c'를 담아요."
+        "correct": "맞아요! v>=10인 항목: a(10), c(20). key를 append해요."
       },
       "villain": "speechbubble_king"
     },
@@ -1123,8 +1077,7 @@
       "answer": "B",
       "hint": "pop(0)은 첫 번째를 꺼내요. A→B→C 순서로 result에 담겨요.",
       "feedback": {
-        "correct": "맞아요! pop(0)은 맨 앞을 꺼내요. A→B→C 순서로 담겨요.",
-        "wrong": "pop(0)은 첫 번째를 꺼내요. A→B→C 순서로 result에 담겨요."
+        "correct": "맞아요! pop(0)은 맨 앞을 꺼내요. A→B→C 순서로 담겨요."
       },
       "villain": "speechbubble_king"
     },
@@ -1147,8 +1100,7 @@
       "answer": "B",
       "hint": "qty=0인 바나나→continue(건너뜀). 사과, 포도만 출력돼요.",
       "feedback": {
-        "correct": "맞아요! qty=0(바나나)→continue. 사과, 포도만 출력돼요.",
-        "wrong": "qty=0인 바나나→continue(건너뜀). 사과, 포도만 출력돼요."
+        "correct": "맞아요! qty=0(바나나)→continue. 사과, 포도만 출력돼요."
       },
       "villain": "speechbubble_king"
     },
@@ -1171,8 +1123,7 @@
       "answer": "A",
       "hint": "qty=0→continue. 커피(8000)+케이크(6000)=14000이에요.",
       "feedback": {
-        "correct": "맞아요! 주스(qty=0)→continue. 커피: 2×4000=8000. 케이크: 1×6000=6000. 합=14000이에요.",
-        "wrong": "qty=0→continue. 커피(8000)+케이크(6000)=14000이에요."
+        "correct": "맞아요! 주스(qty=0)→continue. 커피: 2×4000=8000. 케이크: 1×6000=6000. 합=14000이에요."
       },
       "villain": "speechbubble_king"
     },
@@ -1195,8 +1146,7 @@
       "answer": "B",
       "hint": "85이상: 강민준(80,F), 윤서아(92,T→1개), 임태양(75,F), 채수빈(88,T→2개→break). ['윤서아','채수빈']이에요.",
       "feedback": {
-        "correct": "훌륭해요! 85이상: 강민준(F), 윤서아(92→T,1개), 임태양(F), 채수빈(88→T,2개→break). ['윤서아','채수빈']이에요. 보스 클리어! 🎉",
-        "wrong": "85이상: 강민준(80,F), 윤서아(92,T→1개), 임태양(75,F), 채수빈(88,T→2개→break). ['윤서아','채수빈']이에요."
+        "correct": "훌륭해요! 85이상: 강민준(F), 윤서아(92→T,1개), 임태양(F), 채수빈(88→T,2개→break). ['윤서아','채수빈']이에요. 보스 클리어! 🎉"
       },
       "villain": "speechbubble_king"
     }

@@ -19,8 +19,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 목표를 받아 스스로 도구를 쓰며 완료하는 게 AI 에이전트예요.",
-        "wrong": ""
+        "correct": "맞아요! 목표를 받아 스스로 도구를 쓰며 완료하는 게 AI 에이전트예요."
       },
       "quiz_set": "A"
     },
@@ -43,8 +42,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 에이전트가 외부에서 정보를 가져오거나 행동할 때 쓰는 게 도구예요.",
-        "wrong": ""
+        "correct": "맞아요! 에이전트가 외부에서 정보를 가져오거나 행동할 때 쓰는 게 도구예요."
       },
       "quiz_set": "A"
     },
@@ -67,8 +65,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 제한 없이 돌면 요금 폭탄이 생길 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! 제한 없이 돌면 요금 폭탄이 생길 수 있어요."
       },
       "quiz_set": "A"
     },
@@ -91,8 +88,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! end_turn은 AI가 더 이상 도구 없이 최종 답변을 완성했다는 신호예요.",
-        "wrong": ""
+        "correct": "맞아요! end_turn은 AI가 더 이상 도구 없이 최종 답변을 완성했다는 신호예요."
       },
       "quiz_set": "A"
     },
@@ -115,8 +111,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 두 도시 날씨를 먼저 가져온 후 차이를 계산해요.",
-        "wrong": ""
+        "correct": "맞아요! 두 도시 날씨를 먼저 가져온 후 차이를 계산해요."
       },
       "quiz_set": "A"
     },
@@ -139,8 +134,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 개념 설명은 AI가 학습된 지식으로 단독 처리 가능해요.",
-        "wrong": ""
+        "correct": "맞아요! 개념 설명은 AI가 학습된 지식으로 단독 처리 가능해요."
       },
       "quiz_set": "A"
     },
@@ -163,8 +157,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 로그로 각 단계를 기록해두면 문제 발생 시 원인을 빠르게 찾을 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! 로그로 각 단계를 기록해두면 문제 발생 시 원인을 빠르게 찾을 수 있어요."
       },
       "quiz_set": "A"
     },
@@ -187,8 +180,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! done이 항상 False면 step=1,2,3까지 실행하고 step<3 불만족으로 종료돼요.",
-        "wrong": ""
+        "correct": "맞아요! done이 항상 False면 step=1,2,3까지 실행하고 step<3 불만족으로 종료돼요."
       },
       "quiz_set": "A"
     },
@@ -211,8 +203,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 초기 1개 + append 2번 = 총 3개예요.",
-        "wrong": ""
+        "correct": "맞아요! 초기 1개 + append 2번 = 총 3개예요."
       },
       "quiz_set": "A"
     },
@@ -235,8 +226,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 두 도구를 병렬 요청하면 tool_use 블록이 2개 포함돼요.",
-        "wrong": ""
+        "correct": "맞아요! 두 도구를 병렬 요청하면 tool_use 블록이 2개 포함돼요."
       },
       "quiz_set": "A"
     },
@@ -259,8 +249,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 에이전트는 목표→계획→행동→확인→반복으로 일을 끝까지 처리해요.",
-        "wrong": ""
+        "correct": "맞아요! 에이전트는 목표→계획→행동→확인→반복으로 일을 끝까지 처리해요."
       },
       "quiz_set": "B"
     },
@@ -283,8 +272,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! Think(생각)→Act(행동)→Observe(확인), 딱 맞는 비유예요!",
-        "wrong": ""
+        "correct": "맞아요! Think(생각)→Act(행동)→Observe(확인), 딱 맞는 비유예요!"
       },
       "quiz_set": "B"
     },
@@ -307,8 +295,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! Act 후 결과가 어떻게 됐는지 확인하는 단계예요.",
-        "wrong": ""
+        "correct": "맞아요! Act 후 결과가 어떻게 됐는지 확인하는 단계예요."
       },
       "quiz_set": "B"
     },
@@ -331,8 +318,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! AI의 end_turn 신호 또는 최대 10단계 도달 시 종료해요.",
-        "wrong": ""
+        "correct": "맞아요! AI의 end_turn 신호 또는 최대 10단계 도달 시 종료해요."
       },
       "quiz_set": "B"
     },
@@ -355,8 +341,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! tool_functions[block.name](**block.input)처럼 if/elif 없이 유연하게 호출해요.",
-        "wrong": ""
+        "correct": "맞아요! tool_functions[block.name](**block.input)처럼 if/elif 없이 유연하게 호출해요."
       },
       "quiz_set": "B"
     },
@@ -379,8 +364,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! step 0,1,2,3,4 → 총 5번 호출돼요.",
-        "wrong": ""
+        "correct": "맞아요! step 0,1,2,3,4 → 총 5번 호출돼요."
       },
       "quiz_set": "B"
     },
@@ -403,8 +387,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 일반 함수는 개발자가 호출 시점을 코드에 고정하지만, 에이전트는 AI가 판단해요.",
-        "wrong": ""
+        "correct": "맞아요! 일반 함수는 개발자가 호출 시점을 코드에 고정하지만, 에이전트는 AI가 판단해요."
       },
       "quiz_set": "B"
     },
@@ -427,8 +410,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! messages에 없으면 AI가 결과를 모르므로 계속 같은 도구를 요청해요.",
-        "wrong": ""
+        "correct": "맞아요! messages에 없으면 AI가 결과를 모르므로 계속 같은 도구를 요청해요."
       },
       "quiz_set": "B"
     },
@@ -451,8 +433,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 입출력이 불분명하면 어떤 도구가 필요한지, 언제 끝나는지 정의할 수 없어요.",
-        "wrong": ""
+        "correct": "맞아요! 입출력이 불분명하면 어떤 도구가 필요한지, 언제 끝나는지 정의할 수 없어요."
       },
       "quiz_set": "B"
     },
@@ -475,8 +456,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 5가지 요소가 갖춰진 에이전트 루프가 안전하고 추적 가능해요.",
-        "wrong": ""
+        "correct": "맞아요! 5가지 요소가 갖춰진 에이전트 루프가 안전하고 추적 가능해요."
       },
       "quiz_set": "B"
     },
@@ -499,8 +479,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! Tool Use 덕분에 AI가 외부 앱·함수를 직접 호출 요청할 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! Tool Use 덕분에 AI가 외부 앱·함수를 직접 호출 요청할 수 있어요."
       },
       "quiz_set": "A"
     },
@@ -523,8 +502,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! description이 도구의 사용설명서예요. 모호하면 AI가 잘못 써요.",
-        "wrong": ""
+        "correct": "맞아요! description이 도구의 사용설명서예요. 모호하면 AI가 잘못 써요."
       },
       "quiz_set": "A"
     },
@@ -547,8 +525,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! AI가 description을 보고 상황에 맞는 도구를 스스로 선택해요.",
-        "wrong": ""
+        "correct": "맞아요! AI가 description을 보고 상황에 맞는 도구를 스스로 선택해요."
       },
       "quiz_set": "A"
     },
@@ -571,8 +548,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 'do stuff'는 AI가 언제 이 도구를 써야 할지 전혀 알 수 없어요.",
-        "wrong": ""
+        "correct": "맞아요! 'do stuff'는 AI가 언제 이 도구를 써야 할지 전혀 알 수 없어요."
       },
       "quiz_set": "A"
     },
@@ -595,8 +571,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! required에 있는 파라미터가 없으면 AI가 이 도구를 호출할 수 없어요.",
-        "wrong": ""
+        "correct": "맞아요! required에 있는 파라미터가 없으면 AI가 이 도구를 호출할 수 없어요."
       },
       "quiz_set": "A"
     },
@@ -619,8 +594,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 도구 description=언제 쓸지, 파라미터 description=어떤 값을 넣을지 판단해요.",
-        "wrong": ""
+        "correct": "맞아요! 도구 description=언제 쓸지, 파라미터 description=어떤 값을 넣을지 판단해요."
       },
       "quiz_set": "A"
     },
@@ -643,8 +617,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! tool_functions['calculator']=fn_b, **{'expr':'2+2'}로 fn_b(expr='2+2')가 호출돼요.",
-        "wrong": ""
+        "correct": "맞아요! tool_functions['calculator']=fn_b, **{'expr':'2+2'}로 fn_b(expr='2+2')가 호출돼요."
       },
       "quiz_set": "A"
     },
@@ -667,8 +640,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! tool_result는 role='user'로 messages에 추가해요.",
-        "wrong": ""
+        "correct": "맞아요! tool_result는 role='user'로 messages에 추가해요."
       },
       "quiz_set": "A"
     },
@@ -691,8 +663,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! object 타입으로 city, units 등 여러 파라미터를 딕셔너리 구조로 정의해요.",
-        "wrong": ""
+        "correct": "맞아요! object 타입으로 city, units 등 여러 파라미터를 딕셔너리 구조로 정의해요."
       },
       "quiz_set": "A"
     },
@@ -715,8 +686,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 구체적인 B가 훨씬 좋아요. AI는 description으로 도구 사용 여부를 판단해요.",
-        "wrong": ""
+        "correct": "맞아요! 구체적인 B가 훨씬 좋아요. AI는 description으로 도구 사용 여부를 판단해요."
       },
       "quiz_set": "A"
     },
@@ -739,8 +709,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! AI는 '이 함수 실행해줘'라고 요청만 해요. 진짜 실행은 내 코드가 해요.",
-        "wrong": ""
+        "correct": "맞아요! AI는 '이 함수 실행해줘'라고 요청만 해요. 진짜 실행은 내 코드가 해요."
       },
       "quiz_set": "B"
     },
@@ -763,8 +732,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! tool_use = '이 함수 실행해줘'라는 AI의 요청이에요.",
-        "wrong": ""
+        "correct": "맞아요! tool_use = '이 함수 실행해줘'라는 AI의 요청이에요."
       },
       "quiz_set": "B"
     },
@@ -787,8 +755,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 간단한 수학·번역·설명은 AI가 학습된 지식으로 단독 처리해요.",
-        "wrong": ""
+        "correct": "맞아요! 간단한 수학·번역·설명은 AI가 학습된 지식으로 단독 처리해요."
       },
       "quiz_set": "B"
     },
@@ -811,8 +778,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! AI가 여러 도구를 한 번에 요청할 때 id로 요청-결과를 연결해요.",
-        "wrong": ""
+        "correct": "맞아요! AI가 여러 도구를 한 번에 요청할 때 id로 요청-결과를 연결해요."
       },
       "quiz_set": "B"
     },
@@ -835,8 +801,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! AI의 tool_use 요청을 받으면 해당 Python 함수를 실행해요.",
-        "wrong": ""
+        "correct": "맞아요! AI의 tool_use 요청을 받으면 해당 Python 함수를 실행해요."
       },
       "quiz_set": "B"
     },
@@ -859,8 +824,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 실시간 외부 정보는 AI 단독으로 알 수 없어요. 외부 API 도구가 필요해요.",
-        "wrong": ""
+        "correct": "맞아요! 실시간 외부 정보는 AI 단독으로 알 수 없어요. 외부 API 도구가 필요해요."
       },
       "quiz_set": "B"
     },
@@ -883,8 +847,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! name(이름)+description(설명)+input_schema(파라미터 정의)가 Tool의 3대 필수 필드예요.",
-        "wrong": ""
+        "correct": "맞아요! name(이름)+description(설명)+input_schema(파라미터 정의)가 Tool의 3대 필수 필드예요."
       },
       "quiz_set": "B"
     },
@@ -907,8 +870,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 병렬 요청은 모두 실행하고 결과를 한 번에 묶어서 전달해요.",
-        "wrong": ""
+        "correct": "맞아요! 병렬 요청은 모두 실행하고 결과를 한 번에 묶어서 전달해요."
       },
       "quiz_set": "B"
     },
@@ -931,8 +893,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! AI는 '이 함수 써줘'라고 요청만 해요. 실행은 항상 개발자 코드예요.",
-        "wrong": ""
+        "correct": "맞아요! AI는 '이 함수 써줘'라고 요청만 해요. 실행은 항상 개발자 코드예요."
       },
       "quiz_set": "B"
     },
@@ -955,8 +916,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! AI호출→tool_use→함수실행→결과전달→AI재호출→end_turn→반환이 완전한 흐름이에요.",
-        "wrong": ""
+        "correct": "맞아요! AI호출→tool_use→함수실행→결과전달→AI재호출→end_turn→반환이 완전한 흐름이에요."
       },
       "quiz_set": "B"
     },
@@ -979,8 +939,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! while 루프로 목표 달성 전까지 Think→Act→Observe를 반복해요.",
-        "wrong": ""
+        "correct": "맞아요! while 루프로 목표 달성 전까지 Think→Act→Observe를 반복해요."
       },
       "quiz_set": "A"
     },
@@ -1003,8 +962,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! tool_result는 role='user'로 감싸서 messages에 추가해요.",
-        "wrong": ""
+        "correct": "맞아요! tool_result는 role='user'로 감싸서 messages에 추가해요."
       },
       "quiz_set": "A"
     },
@@ -1027,8 +985,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 로그를 남기면 어느 단계에서 무슨 일이 일어났는지 추적할 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! 로그를 남기면 어느 단계에서 무슨 일이 일어났는지 추적할 수 있어요."
       },
       "quiz_set": "A"
     },
@@ -1051,8 +1008,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! step=0,1,2,3까지 실행, step<4이므로 4는 미포함이에요.",
-        "wrong": ""
+        "correct": "맞아요! step=0,1,2,3까지 실행, step<4이므로 4는 미포함이에요."
       },
       "quiz_set": "A"
     },
@@ -1075,8 +1031,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! tool_results=[]에 두 결과를 append 후 한 번에 전달해요.",
-        "wrong": ""
+        "correct": "맞아요! tool_results=[]에 두 결과를 append 후 한 번에 전달해요."
       },
       "quiz_set": "A"
     },
@@ -1099,8 +1054,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 꼭 필요한 만큼만 설정해야 비용을 아낄 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! 꼭 필요한 만큼만 설정해야 비용을 아낄 수 있어요."
       },
       "quiz_set": "A"
     },
@@ -1123,8 +1077,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 성공 여부와 결과 또는 오류를 함께 반환해야 에러 처리가 쉬워요.",
-        "wrong": ""
+        "correct": "맞아요! 성공 여부와 결과 또는 오류를 함께 반환해야 에러 처리가 쉬워요."
       },
       "quiz_set": "A"
     },
@@ -1147,8 +1100,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! step=3이 되는 순간 break로 탈출, print(3)이에요.",
-        "wrong": ""
+        "correct": "맞아요! step=3이 되는 순간 break로 탈출, print(3)이에요."
       },
       "quiz_set": "A"
     },
@@ -1171,8 +1123,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 오류도 맥락이에요. AI가 받으면 대안을 찾거나 실패 이유를 설명해줘요.",
-        "wrong": ""
+        "correct": "맞아요! 오류도 맥락이에요. AI가 받으면 대안을 찾거나 실패 이유를 설명해줘요."
       },
       "quiz_set": "A"
     },
@@ -1195,8 +1146,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 5가지 요소가 모두 있어야 안전하고 디버깅 가능한 루프예요.",
-        "wrong": ""
+        "correct": "맞아요! 5가지 요소가 모두 있어야 안전하고 디버깅 가능한 루프예요."
       },
       "quiz_set": "A"
     },
@@ -1219,8 +1169,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! stop_reason='end_turn'이 AI의 '작업 완료!' 신호예요.",
-        "wrong": ""
+        "correct": "맞아요! stop_reason='end_turn'이 AI의 '작업 완료!' 신호예요."
       },
       "quiz_set": "B"
     },
@@ -1243,8 +1192,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! messages에 없으면 AI가 결과를 못 보고 무한 루프에 빠질 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! messages에 없으면 AI가 결과를 못 보고 무한 루프에 빠질 수 있어요."
       },
       "quiz_set": "B"
     },
@@ -1267,8 +1215,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! tool_functions[block.name](**block.input) 한 줄로 어떤 도구든 호출해요.",
-        "wrong": ""
+        "correct": "맞아요! tool_functions[block.name](**block.input) 한 줄로 어떤 도구든 호출해요."
       },
       "quiz_set": "B"
     },
@@ -1291,8 +1238,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! end_turn 체크도 없고 결과도 messages에 안 넣으면 영원히 멈추지 않아요.",
-        "wrong": ""
+        "correct": "맞아요! end_turn 체크도 없고 결과도 messages에 안 넣으면 영원히 멈추지 않아요."
       },
       "quiz_set": "B"
     },
@@ -1315,8 +1261,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! assistant(tool_use)→user(tool_result) 쌍이 맞아야 AI가 흐름을 이해해요.",
-        "wrong": ""
+        "correct": "맞아요! assistant(tool_use)→user(tool_result) 쌍이 맞아야 AI가 흐름을 이해해요."
       },
       "quiz_set": "B"
     },
@@ -1339,8 +1284,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! step으로 현재 몇 번째인지 알아야 max_steps 초과 여부를 확인해요.",
-        "wrong": ""
+        "correct": "맞아요! step으로 현재 몇 번째인지 알아야 max_steps 초과 여부를 확인해요."
       },
       "quiz_set": "B"
     },
@@ -1363,8 +1307,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 실패 원인을 알 수 있는 메시지를 반환해야 사용자가 상황을 이해해요.",
-        "wrong": ""
+        "correct": "맞아요! 실패 원인을 알 수 있는 메시지를 반환해야 사용자가 상황을 이해해요."
       },
       "quiz_set": "B"
     },
@@ -1387,8 +1330,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! tool_use 후 반드시 user(tool_result)로 결과를 전달해야 AI가 최종 답변을 만들어요.",
-        "wrong": ""
+        "correct": "맞아요! tool_use 후 반드시 user(tool_result)로 결과를 전달해야 AI가 최종 답변을 만들어요."
       },
       "quiz_set": "B"
     },
@@ -1411,8 +1353,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 딕셔너리 매핑 한 줄로 어떤 도구든 이름 기반으로 호출할 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! 딕셔너리 매핑 한 줄로 어떤 도구든 이름 기반으로 호출할 수 있어요."
       },
       "quiz_set": "B"
     },
@@ -1435,8 +1376,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 히스토리가 길어지면 컨텍스트 초과와 비용 증가가 생겨요. trimming으로 관리해요.",
-        "wrong": ""
+        "correct": "맞아요! 히스토리가 길어지면 컨텍스트 초과와 비용 증가가 생겨요. trimming으로 관리해요."
       },
       "quiz_set": "B"
     },
@@ -1459,8 +1399,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! AI는 기억이 없어요. 이전 대화를 messages에 넣어서 보내야 기억하는 것처럼 동작해요.",
-        "wrong": ""
+        "correct": "맞아요! AI는 기억이 없어요. 이전 대화를 messages에 넣어서 보내야 기억하는 것처럼 동작해요."
       },
       "quiz_set": "A"
     },
@@ -1483,8 +1422,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! json.dump()로 상태를 저장하고 재시작 시 json.load()로 불러와요.",
-        "wrong": ""
+        "correct": "맞아요! json.dump()로 상태를 저장하고 재시작 시 json.load()로 불러와요."
       },
       "quiz_set": "A"
     },
@@ -1507,8 +1445,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! system 메시지가 없어지면 AI의 기본 성격 설정이 사라져요.",
-        "wrong": ""
+        "correct": "맞아요! system 메시지가 없어지면 AI의 기본 성격 설정이 사라져요."
       },
       "quiz_set": "A"
     },
@@ -1531,8 +1468,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! history[-3:]=['5','6','7']. [0]='5'예요.",
-        "wrong": ""
+        "correct": "맞아요! history[-3:]=['5','6','7']. [0]='5'예요."
       },
       "quiz_set": "A"
     },
@@ -1555,8 +1491,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! user와 assistant가 번갈아 추가돼야 AI가 대화 흐름을 올바르게 이해해요.",
-        "wrong": ""
+        "correct": "맞아요! user와 assistant가 번갈아 추가돼야 AI가 대화 흐름을 올바르게 이해해요."
       },
       "quiz_set": "A"
     },
@@ -1579,8 +1514,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! trimming과 요약으로 컨텍스트를 적정 크기로 유지해요.",
-        "wrong": ""
+        "correct": "맞아요! trimming과 요약으로 컨텍스트를 적정 크기로 유지해요."
       },
       "quiz_set": "A"
     },
@@ -1603,8 +1537,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! AI는 기억이 없어요. messages 컨텍스트로 기억하는 척 구현해요.",
-        "wrong": ""
+        "correct": "맞아요! AI는 기억이 없어요. messages 컨텍스트로 기억하는 척 구현해요."
       },
       "quiz_set": "A"
     },
@@ -1627,8 +1560,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! [-4:]=[6,7,8,9], len=4, [0]=6이에요.",
-        "wrong": ""
+        "correct": "맞아요! [-4:]=[6,7,8,9], len=4, [0]=6이에요."
       },
       "quiz_set": "A"
     },
@@ -1651,8 +1583,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! save(state) 시점의 count=5가 저장돼요. 이후 리셋해도 파일엔 5가 남아요.",
-        "wrong": ""
+        "correct": "맞아요! save(state) 시점의 count=5가 저장돼요. 이후 리셋해도 파일엔 5가 남아요."
       },
       "quiz_set": "A"
     },
@@ -1675,8 +1606,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! trimming=컨텍스트관리, 상태저장=재시작지원, .env=보안이 각 역할이에요.",
-        "wrong": ""
+        "correct": "맞아요! trimming=컨텍스트관리, 상태저장=재시작지원, .env=보안이 각 역할이에요."
       },
       "quiz_set": "A"
     },
@@ -1699,8 +1629,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 컨텍스트 윈도우 한계를 넘으면 오류가 나거나 앞 내용이 잘려요.",
-        "wrong": ""
+        "correct": "맞아요! 컨텍스트 윈도우 한계를 넘으면 오류가 나거나 앞 내용이 잘려요."
       },
       "quiz_set": "B"
     },
@@ -1723,8 +1652,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! history[-N:]으로 최근 N개만 유지하는 게 트리밍이에요.",
-        "wrong": ""
+        "correct": "맞아요! history[-N:]으로 최근 N개만 유지하는 게 트리밍이에요."
       },
       "quiz_set": "B"
     },
@@ -1747,8 +1675,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! AI 응답도 누적하지 않으면 대화 흐름이 끊겨요.",
-        "wrong": ""
+        "correct": "맞아요! AI 응답도 누적하지 않으면 대화 흐름이 끊겨요."
       },
       "quiz_set": "B"
     },
@@ -1771,8 +1698,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! state['step']=3 설정 후 dumps→loads해도 3이 그대로 복원돼요.",
-        "wrong": ""
+        "correct": "맞아요! state['step']=3 설정 후 dumps→loads해도 3이 그대로 복원돼요."
       },
       "quiz_set": "B"
     },
@@ -1795,8 +1721,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 첫 실행 시 파일이 없으므로 예외를 잡아 기본 상태로 시작해야 해요.",
-        "wrong": ""
+        "correct": "맞아요! 첫 실행 시 파일이 없으므로 예외를 잡아 기본 상태로 시작해야 해요."
       },
       "quiz_set": "B"
     },
@@ -1819,8 +1744,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 민감 정보는 .env로 관리해요. 상태 파일은 공유될 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! 민감 정보는 .env로 관리해요. 상태 파일은 공유될 수 있어요."
       },
       "quiz_set": "B"
     },
@@ -1843,8 +1767,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 상태 저장 없이 중단되면 처음부터 다시 해야 해요.",
-        "wrong": ""
+        "correct": "맞아요! 상태 저장 없이 중단되면 처음부터 다시 해야 해요."
       },
       "quiz_set": "B"
     },
@@ -1867,8 +1790,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! AI는 매 요청이 독립적이에요. messages 컨텍스트가 기억처럼 보이게 해줘요.",
-        "wrong": ""
+        "correct": "맞아요! AI는 매 요청이 독립적이에요. messages 컨텍스트가 기억처럼 보이게 해줘요."
       },
       "quiz_set": "B"
     },
@@ -1891,8 +1813,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! system 제거나 쌍이 깨지면 AI가 오작동해요.",
-        "wrong": ""
+        "correct": "맞아요! system 제거나 쌍이 깨지면 AI가 오작동해요."
       },
       "quiz_set": "B"
     },
@@ -1915,8 +1836,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 3가지가 함께 있어야 실용적인 에이전트 메모리 시스템이에요.",
-        "wrong": ""
+        "correct": "맞아요! 3가지가 함께 있어야 실용적인 에이전트 메모리 시스템이에요."
       },
       "quiz_set": "B"
     },
@@ -1939,8 +1859,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 여러 도구를 순서대로 자동 실행하는 게 멀티스텝 태스크예요.",
-        "wrong": ""
+        "correct": "맞아요! 여러 도구를 순서대로 자동 실행하는 게 멀티스텝 태스크예요."
       },
       "quiz_set": "A"
     },
@@ -1963,8 +1882,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 독립적인 정보는 병렬로 수집하면 더 빨라요.",
-        "wrong": ""
+        "correct": "맞아요! 독립적인 정보는 병렬로 수집하면 더 빨라요."
       },
       "quiz_set": "A"
     },
@@ -1987,8 +1905,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 검색(수집)→요약(처리)→저장(출력) 순서예요.",
-        "wrong": ""
+        "correct": "맞아요! 검색(수집)→요약(처리)→저장(출력) 순서예요."
       },
       "quiz_set": "A"
     },
@@ -2011,8 +1928,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 3번 반복해서 step=0→1→2→3이에요.",
-        "wrong": ""
+        "correct": "맞아요! 3번 반복해서 step=0→1→2→3이에요."
       },
       "quiz_set": "A"
     },
@@ -2035,8 +1951,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 병렬 결과는 모아서 한 번에 전달해야 AI가 모든 결과를 볼 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! 병렬 결과는 모아서 한 번에 전달해야 AI가 모든 결과를 볼 수 있어요."
       },
       "quiz_set": "A"
     },
@@ -2059,8 +1974,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 여러 단계가 필요한 복잡한 작업일수록 멀티스텝 에이전트의 가치가 커요.",
-        "wrong": ""
+        "correct": "맞아요! 여러 단계가 필요한 복잡한 작업일수록 멀티스텝 에이전트의 가치가 커요."
       },
       "quiz_set": "A"
     },
@@ -2083,8 +1997,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! step 추적이 있어야 중단 시 이어서 실행할 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! step 추적이 있어야 중단 시 이어서 실행할 수 있어요."
       },
       "quiz_set": "A"
     },
@@ -2107,8 +2020,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! i=0(짝수→search),1(홀수→analyze),2(짝수→search),3(홀수→analyze)이에요.",
-        "wrong": ""
+        "correct": "맞아요! i=0(짝수→search),1(홀수→analyze),2(짝수→search),3(홀수→analyze)이에요."
       },
       "quiz_set": "A"
     },
@@ -2131,8 +2043,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 오류 내용을 tool_result로 전달하면 AI가 다음 행동을 지능적으로 결정해요.",
-        "wrong": ""
+        "correct": "맞아요! 오류 내용을 tool_result로 전달하면 AI가 다음 행동을 지능적으로 결정해요."
       },
       "quiz_set": "A"
     },
@@ -2155,8 +2066,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 이 4가지가 갖춰져야 안전하고 디버깅 가능한 멀티스텝 에이전트예요.",
-        "wrong": ""
+        "correct": "맞아요! 이 4가지가 갖춰져야 안전하고 디버깅 가능한 멀티스텝 에이전트예요."
       },
       "quiz_set": "A"
     },
@@ -2179,8 +2089,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 오류도 정보예요. AI에 전달하면 대안을 시도해줘요.",
-        "wrong": ""
+        "correct": "맞아요! 오류도 정보예요. AI에 전달하면 대안을 시도해줘요."
       },
       "quiz_set": "B"
     },
@@ -2203,8 +2112,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 로그로 어느 단계에서 무슨 도구를 썼는지 추적해요.",
-        "wrong": ""
+        "correct": "맞아요! 로그로 어느 단계에서 무슨 도구를 썼는지 추적해요."
       },
       "quiz_set": "B"
     },
@@ -2227,8 +2135,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! messages에 누적된 tool_result가 다음 단계의 맥락이에요.",
-        "wrong": ""
+        "correct": "맞아요! messages에 누적된 tool_result가 다음 단계의 맥락이에요."
       },
       "quiz_set": "B"
     },
@@ -2251,8 +2158,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 성공 여부와 결과/오류를 함께 반환해야 에러 처리가 가능해요.",
-        "wrong": ""
+        "correct": "맞아요! 성공 여부와 결과/오류를 함께 반환해야 에러 처리가 가능해요."
       },
       "quiz_set": "B"
     },
@@ -2275,8 +2181,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 정상+엣지 케이스를 모두 테스트해야 견고한 에이전트예요.",
-        "wrong": ""
+        "correct": "맞아요! 정상+엣지 케이스를 모두 테스트해야 견고한 에이전트예요."
       },
       "quiz_set": "B"
     },
@@ -2299,8 +2204,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 에러도 맥락이에요. AI가 받으면 더 지능적으로 대응할 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! 에러도 맥락이에요. AI가 받으면 더 지능적으로 대응할 수 있어요."
       },
       "quiz_set": "B"
     },
@@ -2323,8 +2227,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 반복 수집은 에이전트가, 분석과 결정은 사람이 담당하는 분업이 가능해요.",
-        "wrong": ""
+        "correct": "맞아요! 반복 수집은 에이전트가, 분석과 결정은 사람이 담당하는 분업이 가능해요."
       },
       "quiz_set": "B"
     },
@@ -2347,8 +2250,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 분류(판단)→선택(결정)→발송(행동)이 자연스러운 순서예요.",
-        "wrong": ""
+        "correct": "맞아요! 분류(판단)→선택(결정)→발송(행동)이 자연스러운 순서예요."
       },
       "quiz_set": "B"
     },
@@ -2371,8 +2273,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 독립적인 A·B 주가는 병렬로 수집하고, 비교는 두 결과를 받은 후 수행해요.",
-        "wrong": ""
+        "correct": "맞아요! 독립적인 A·B 주가는 병렬로 수집하고, 비교는 두 결과를 받은 후 수행해요."
       },
       "quiz_set": "B"
     },
@@ -2395,8 +2296,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 파이프라인처럼 단계가 연결되면 단독으로는 불가능한 복잡한 작업이 가능해요.",
-        "wrong": ""
+        "correct": "맞아요! 파이프라인처럼 단계가 연결되면 단독으로는 불가능한 복잡한 작업이 가능해요."
       },
       "quiz_set": "B"
     },
@@ -2419,8 +2319,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 텍스트를 카테고리로 나누는 에이전트가 분류봇이에요.",
-        "wrong": ""
+        "correct": "맞아요! 텍스트를 카테고리로 나누는 에이전트가 분류봇이에요."
       },
       "quiz_set": "A"
     },
@@ -2443,8 +2342,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 입출력을 먼저 정하면 필요한 도구와 흐름이 자연스럽게 따라와요.",
-        "wrong": ""
+        "correct": "맞아요! 입출력을 먼저 정하면 필요한 도구와 흐름이 자연스럽게 따라와요."
       },
       "quiz_set": "A"
     },
@@ -2467,8 +2365,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! max_sentences를 system 프롬프트에 넣으면 AI가 그 수를 지켜요.",
-        "wrong": ""
+        "correct": "맞아요! max_sentences를 system 프롬프트에 넣으면 AI가 그 수를 지켜요."
       },
       "quiz_set": "A"
     },
@@ -2491,8 +2388,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 낮은 confidence=불확실, 사람의 검토가 필요한 신호예요.",
-        "wrong": ""
+        "correct": "맞아요! 낮은 confidence=불확실, 사람의 검토가 필요한 신호예요."
       },
       "quiz_set": "A"
     },
@@ -2515,8 +2411,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! max_steps 없이는 에이전트가 무한히 실행될 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! max_steps 없이는 에이전트가 무한히 실행될 수 있어요."
       },
       "quiz_set": "A"
     },
@@ -2539,8 +2434,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 민감 정보는 .env로 분리 관리하고 설계 문서에는 포함하지 않아요.",
-        "wrong": ""
+        "correct": "맞아요! 민감 정보는 .env로 분리 관리하고 설계 문서에는 포함하지 않아요."
       },
       "quiz_set": "A"
     },
@@ -2563,8 +2457,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! score 기반 분기 처리로 코드 검토를 더 자동화할 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! score 기반 분기 처리로 코드 검토를 더 자동화할 수 있어요."
       },
       "quiz_set": "A"
     },
@@ -2587,8 +2480,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! category='긍정', 0.92>0.8은 True이에요.",
-        "wrong": ""
+        "correct": "맞아요! category='긍정', 0.92>0.8은 True이에요."
       },
       "quiz_set": "A"
     },
@@ -2611,8 +2503,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 모호한 system → 제각각 출력, 구체적인 system → 일관된 출력이에요.",
-        "wrong": ""
+        "correct": "맞아요! 모호한 system → 제각각 출력, 구체적인 system → 일관된 출력이에요."
       },
       "quiz_set": "A"
     },
@@ -2635,8 +2526,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 분류(레벨 판단)+생성(맞춤 설명)이 에이몬 피드백의 핵심 구조예요.",
-        "wrong": ""
+        "correct": "맞아요! 분류(레벨 판단)+생성(맞춤 설명)이 에이몬 피드백의 핵심 구조예요."
       },
       "quiz_set": "A"
     },
@@ -2659,8 +2549,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 긴 텍스트를 핵심만 추려내는 게 요약봇이에요.",
-        "wrong": ""
+        "correct": "맞아요! 긴 텍스트를 핵심만 추려내는 게 요약봇이에요."
       },
       "quiz_set": "B"
     },
@@ -2683,8 +2572,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! system에 '{\"category\": \"긍정\"}' 같은 예시를 명시하면 AI가 그 형식을 따라요.",
-        "wrong": ""
+        "correct": "맞아요! system에 '{\"category\": \"긍정\"}' 같은 예시를 명시하면 AI가 그 형식을 따라요."
       },
       "quiz_set": "B"
     },
@@ -2707,8 +2595,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! JSON 구조 덕분에 각 항목을 코드로 바로 처리할 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! JSON 구조 덕분에 각 항목을 코드로 바로 처리할 수 있어요."
       },
       "quiz_set": "B"
     },
@@ -2731,8 +2618,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 읽기(입력수집)→요약(처리)→저장(출력) 순서예요.",
-        "wrong": ""
+        "correct": "맞아요! 읽기(입력수집)→요약(처리)→저장(출력) 순서예요."
       },
       "quiz_set": "B"
     },
@@ -2755,8 +2641,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! JSON 파싱 실패를 예외로 잡아 처리해야 에이전트가 멈추지 않아요.",
-        "wrong": ""
+        "correct": "맞아요! JSON 파싱 실패를 예외로 잡아 처리해야 에이전트가 멈추지 않아요."
       },
       "quiz_set": "B"
     },
@@ -2779,8 +2664,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 실패 시나리오를 미리 설계해야 견고한 에이전트를 만들 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! 실패 시나리오를 미리 설계해야 견고한 에이전트를 만들 수 있어요."
       },
       "quiz_set": "B"
     },
@@ -2803,8 +2687,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 불필요한 호출을 줄이는 설계가 효율적인 에이전트를 만들어요.",
-        "wrong": ""
+        "correct": "맞아요! 불필요한 호출을 줄이는 설계가 효율적인 에이전트를 만들어요."
       },
       "quiz_set": "B"
     },
@@ -2827,8 +2710,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! '20000'이 포함된 문자열에서만 True예요.",
-        "wrong": ""
+        "correct": "맞아요! '20000'이 포함된 문자열에서만 True예요."
       },
       "quiz_set": "B"
     },
@@ -2851,8 +2733,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 설계 없이 코딩하면 나중에 큰 리팩터링이 필요해요.",
-        "wrong": ""
+        "correct": "맞아요! 설계 없이 코딩하면 나중에 큰 리팩터링이 필요해요."
       },
       "quiz_set": "B"
     },
@@ -2875,8 +2756,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 이 5가지 체크리스트가 완성된 에이전트 설계의 기준이에요.",
-        "wrong": ""
+        "correct": "맞아요! 이 5가지 체크리스트가 완성된 에이전트 설계의 기준이에요."
       },
       "quiz_set": "B"
     },
@@ -2899,8 +2779,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! LangChain은 에이전트와 파이프라인 코드를 간결하게 만들어주는 프레임워크예요.",
-        "wrong": ""
+        "correct": "맞아요! LangChain은 에이전트와 파이프라인 코드를 간결하게 만들어주는 프레임워크예요."
       },
       "quiz_set": "A"
     },
@@ -2923,8 +2802,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! @tool을 붙이면 그 함수가 LangChain 에이전트 도구가 돼요.",
-        "wrong": ""
+        "correct": "맞아요! @tool을 붙이면 그 함수가 LangChain 에이전트 도구가 돼요."
       },
       "quiz_set": "A"
     },
@@ -2947,8 +2825,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! AgentExecutor가 AI 호출→도구 처리→반복을 자동으로 관리해줘요.",
-        "wrong": ""
+        "correct": "맞아요! AgentExecutor가 AI 호출→도구 처리→반복을 자동으로 관리해줘요."
       },
       "quiz_set": "A"
     },
@@ -2971,8 +2848,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! `|`는 왼쪽→오른쪽 순서예요.",
-        "wrong": ""
+        "correct": "맞아요! `|`는 왼쪽→오른쪽 순서예요."
       },
       "quiz_set": "A"
     },
@@ -2995,8 +2871,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! chain 끝에 붙이면 AI 응답에서 텍스트 문자열만 꺼내줘요.",
-        "wrong": ""
+        "correct": "맞아요! chain 끝에 붙이면 AI 응답에서 텍스트 문자열만 꺼내줘요."
       },
       "quiz_set": "A"
     },
@@ -3019,8 +2894,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! @tool + 타입 힌트 + docstring이 모두 갖춰진 올바른 형태예요.",
-        "wrong": ""
+        "correct": "맞아요! @tool + 타입 힌트 + docstring이 모두 갖춰진 올바른 형태예요."
       },
       "quiz_set": "A"
     },
@@ -3043,8 +2917,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 플레이스홀더를 쓰면 같은 프롬프트에 다양한 입력을 동적으로 넣을 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! 플레이스홀더를 쓰면 같은 프롬프트에 다양한 입력을 동적으로 넣을 수 있어요."
       },
       "quiz_set": "A"
     },
@@ -3067,8 +2940,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! StrOutputParser()가 마지막에 오면 결과는 문자열(str)이에요.",
-        "wrong": ""
+        "correct": "맞아요! StrOutputParser()가 마지막에 오면 결과는 문자열(str)이에요."
       },
       "quiz_set": "A"
     },
@@ -3091,8 +2963,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! @tool은 파라미터 타입 힌트로 Tool 딕셔너리의 input_schema를 자동 생성해줘요.",
-        "wrong": ""
+        "correct": "맞아요! @tool은 파라미터 타입 힌트로 Tool 딕셔너리의 input_schema를 자동 생성해줘요."
       },
       "quiz_set": "A"
     },
@@ -3115,8 +2986,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 원리 이해 → 프레임워크 활용이 가장 효과적인 학습 순서예요.",
-        "wrong": ""
+        "correct": "맞아요! 원리 이해 → 프레임워크 활용이 가장 효과적인 학습 순서예요."
       },
       "quiz_set": "A"
     },
@@ -3139,8 +3009,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! `prompt | llm | parser`처럼 `|`로 단계를 연결해요.",
-        "wrong": ""
+        "correct": "맞아요! `prompt | llm | parser`처럼 `|`로 단계를 연결해요."
       },
       "quiz_set": "B"
     },
@@ -3163,8 +3032,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! @tool에서 docstring이 description 역할을 자동으로 해줘요.",
-        "wrong": ""
+        "correct": "맞아요! @tool에서 docstring이 description 역할을 자동으로 해줘요."
       },
       "quiz_set": "B"
     },
@@ -3187,8 +3055,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 원리를 알면 LangChain이 '아 이걸 대신해주는구나'가 명확해요.",
-        "wrong": ""
+        "correct": "맞아요! 원리를 알면 LangChain이 '아 이걸 대신해주는구나'가 명확해요."
       },
       "quiz_set": "B"
     },
@@ -3211,8 +3078,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! def fn(city: str) -> str처럼 타입 힌트가 있어야 LangChain이 스키마를 만들어요.",
-        "wrong": ""
+        "correct": "맞아요! def fn(city: str) -> str처럼 타입 힌트가 있어야 LangChain이 스키마를 만들어요."
       },
       "quiz_set": "B"
     },
@@ -3235,8 +3101,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 직접 구현=원리 이해·세밀한 제어, LangChain=빠른 개발·표준화예요.",
-        "wrong": ""
+        "correct": "맞아요! 직접 구현=원리 이해·세밀한 제어, LangChain=빠른 개발·표준화예요."
       },
       "quiz_set": "B"
     },
@@ -3259,8 +3124,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 팀이 같은 LangChain 구조를 공유하면 코드 이해와 협업이 쉬워요.",
-        "wrong": ""
+        "correct": "맞아요! 팀이 같은 LangChain 구조를 공유하면 코드 이해와 협업이 쉬워요."
       },
       "quiz_set": "B"
     },
@@ -3283,8 +3147,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 빠른 개발과 표준화가 필요한 팀 프로젝트에 LangChain이 유리해요.",
-        "wrong": ""
+        "correct": "맞아요! 빠른 개발과 표준화가 필요한 팀 프로젝트에 LangChain이 유리해요."
       },
       "quiz_set": "B"
     },
@@ -3307,8 +3170,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! `|`로 연결하면 파이프라인 구조가 한눈에 보이고 단계 교체도 쉬워요.",
-        "wrong": ""
+        "correct": "맞아요! `|`로 연결하면 파이프라인 구조가 한눈에 보이고 단계 교체도 쉬워요."
       },
       "quiz_set": "B"
     },
@@ -3331,8 +3193,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! AgentExecutor가 에이전트 루프 전체를 자동으로 처리해줘요.",
-        "wrong": ""
+        "correct": "맞아요! AgentExecutor가 에이전트 루프 전체를 자동으로 처리해줘요."
       },
       "quiz_set": "B"
     },
@@ -3355,8 +3216,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! @tool이 함수 정의에서 Tool 딕셔너리를 자동으로 만들어줘요.",
-        "wrong": ""
+        "correct": "맞아요! @tool이 함수 정의에서 Tool 딕셔너리를 자동으로 만들어줘요."
       },
       "quiz_set": "B"
     },
@@ -3379,8 +3239,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 텍스트를 카테고리로 분류하는 에이전트예요.",
-        "wrong": ""
+        "correct": "맞아요! 텍스트를 카테고리로 분류하는 에이전트예요."
       },
       "quiz_set": "A"
     },
@@ -3403,8 +3262,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! JSON 구조 덕분에 각 항목을 코드로 바로 처리할 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! JSON 구조 덕분에 각 항목을 코드로 바로 처리할 수 있어요."
       },
       "quiz_set": "A"
     },
@@ -3427,8 +3285,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 반복 수집은 에이전트가, 사람은 분석과 결정에 집중하는 분업이 가능해요.",
-        "wrong": ""
+        "correct": "맞아요! 반복 수집은 에이전트가, 사람은 분석과 결정에 집중하는 분업이 가능해요."
       },
       "quiz_set": "A"
     },
@@ -3451,8 +3308,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! r.lower()='처리 성공(success)'에 'success'가 포함되어 True예요.",
-        "wrong": ""
+        "correct": "맞아요! r.lower()='처리 성공(success)'에 'success'가 포함되어 True예요."
       },
       "quiz_set": "A"
     },
@@ -3475,8 +3331,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 분류(판단)→선택(결정)→발송(행동) 순서예요.",
-        "wrong": ""
+        "correct": "맞아요! 분류(판단)→선택(결정)→발송(행동) 순서예요."
       },
       "quiz_set": "A"
     },
@@ -3499,8 +3354,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! score 값을 조건으로 다음 행동을 자동화할 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! score 값을 조건으로 다음 행동을 자동화할 수 있어요."
       },
       "quiz_set": "A"
     },
@@ -3523,8 +3377,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 모든 입력 유형에 자연스럽게 대응해야 완성도 높은 에이전트예요.",
-        "wrong": ""
+        "correct": "맞아요! 모든 입력 유형에 자연스럽게 대응해야 완성도 높은 에이전트예요."
       },
       "quiz_set": "A"
     },
@@ -3547,8 +3400,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 80 이상은 85, 90, 95로 3개예요.",
-        "wrong": ""
+        "correct": "맞아요! 80 이상은 85, 90, 95로 3개예요."
       },
       "quiz_set": "A"
     },
@@ -3571,8 +3423,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 낮은 confidence=불확실=사람 검토 필요라는 신호예요.",
-        "wrong": ""
+        "correct": "맞아요! 낮은 confidence=불확실=사람 검토 필요라는 신호예요."
       },
       "quiz_set": "A"
     },
@@ -3595,8 +3446,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 이론보다 직접 만들어보는 게 에이전트 원리를 가장 빠르게 체득하는 방법이에요.",
-        "wrong": ""
+        "correct": "맞아요! 이론보다 직접 만들어보는 게 에이전트 원리를 가장 빠르게 체득하는 방법이에요."
       },
       "quiz_set": "A"
     },
@@ -3619,8 +3469,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 분류→템플릿선택→발송 순서예요.",
-        "wrong": ""
+        "correct": "맞아요! 분류→템플릿선택→발송 순서예요."
       },
       "quiz_set": "B"
     },
@@ -3643,8 +3492,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 일반적이지 않은 입력으로 에이전트를 테스트하는 게 엣지 케이스 테스트예요.",
-        "wrong": ""
+        "correct": "맞아요! 일반적이지 않은 입력으로 에이전트를 테스트하는 게 엣지 케이스 테스트예요."
       },
       "quiz_set": "B"
     },
@@ -3667,8 +3515,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 정상+엣지+오류 케이스를 모두 테스트해야 안전하게 배포할 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! 정상+엣지+오류 케이스를 모두 테스트해야 안전하게 배포할 수 있어요."
       },
       "quiz_set": "B"
     },
@@ -3691,8 +3538,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 스키마를 명시하지 않으면 AI가 제각각 형식으로 응답해요.",
-        "wrong": ""
+        "correct": "맞아요! 스키마를 명시하지 않으면 AI가 제각각 형식으로 응답해요."
       },
       "quiz_set": "B"
     },
@@ -3715,8 +3561,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! expected_tools와 실제 호출 도구를 비교해 에이전트가 올바른 도구를 쓰는지 확인해요.",
-        "wrong": ""
+        "correct": "맞아요! expected_tools와 실제 호출 도구를 비교해 에이전트가 올바른 도구를 쓰는지 확인해요."
       },
       "quiz_set": "B"
     },
@@ -3739,8 +3584,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! Unit 8 완성 에이전트는 실제 작동하는 AI 프로젝트로 포트폴리오에 바로 쓸 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! Unit 8 완성 에이전트는 실제 작동하는 AI 프로젝트로 포트폴리오에 바로 쓸 수 있어요."
       },
       "quiz_set": "B"
     },
@@ -3763,8 +3607,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 수집→분석이 끝난 뒤 최종 결과를 저장해야 완전한 데이터가 남아요.",
-        "wrong": ""
+        "correct": "맞아요! 수집→분석이 끝난 뒤 최종 결과를 저장해야 완전한 데이터가 남아요."
       },
       "quiz_set": "B"
     },
@@ -3787,8 +3630,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! JSONDecodeError를 잡아 기본값을 반환해야 에이전트가 멈추지 않아요.",
-        "wrong": ""
+        "correct": "맞아요! JSONDecodeError를 잡아 기본값을 반환해야 에이전트가 멈추지 않아요."
       },
       "quiz_set": "B"
     },
@@ -3811,8 +3653,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 실패 케이스를 명확히 표시해야 무엇을 수정해야 할지 알 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! 실패 케이스를 명확히 표시해야 무엇을 수정해야 할지 알 수 있어요."
       },
       "quiz_set": "B"
     },
@@ -3835,8 +3676,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! Python 기초부터 실제 AI 에이전트 구축까지, 완주 진심으로 축하해요! 🎉",
-        "wrong": ""
+        "correct": "맞아요! Python 기초부터 실제 AI 에이전트 구축까지, 완주 진심으로 축하해요! 🎉"
       },
       "quiz_set": "B"
     },
@@ -3859,8 +3699,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 로그가 있어야 어느 단계에서 무슨 문제가 생겼는지 추적할 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! 로그가 있어야 어느 단계에서 무슨 문제가 생겼는지 추적할 수 있어요."
       },
       "quiz_set": "A"
     },
@@ -3883,8 +3722,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! cache={}에 결과를 저장해두면 같은 입력에 API를 다시 호출하지 않아요.",
-        "wrong": ""
+        "correct": "맞아요! cache={}에 결과를 저장해두면 같은 입력에 API를 다시 호출하지 않아요."
       },
       "quiz_set": "A"
     },
@@ -3907,8 +3745,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 간단한 작업=저렴한 모델, 복잡한 추론=고성능 모델로 비용을 최적화해요.",
-        "wrong": ""
+        "correct": "맞아요! 간단한 작업=저렴한 모델, 복잡한 추론=고성능 모델로 비용을 최적화해요."
       },
       "quiz_set": "A"
     },
@@ -3931,8 +3768,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 첫 번째에만 API 호출 후 캐시 저장, 두 번째는 캐시에서 반환해요.",
-        "wrong": ""
+        "correct": "맞아요! 첫 번째에만 API 호출 후 캐시 저장, 두 번째는 캐시에서 반환해요."
       },
       "quiz_set": "A"
     },
@@ -3955,8 +3791,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 개발 중엔 haiku로 빠르게 테스트, 완성 후 필요한 부분만 opus로 교체해요.",
-        "wrong": ""
+        "correct": "맞아요! 개발 중엔 haiku로 빠르게 테스트, 완성 후 필요한 부분만 opus로 교체해요."
       },
       "quiz_set": "A"
     },
@@ -3979,8 +3814,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 실제 응답이 어떤 형식으로 왔는지 출력해보면 파싱 문제가 명확해져요.",
-        "wrong": ""
+        "correct": "맞아요! 실제 응답이 어떤 형식으로 왔는지 출력해보면 파싱 문제가 명확해져요."
       },
       "quiz_set": "A"
     },
@@ -4003,8 +3837,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! API 키는 절대 로그에 출력하면 안 돼요.",
-        "wrong": ""
+        "correct": "맞아요! API 키는 절대 로그에 출력하면 안 돼요."
       },
       "quiz_set": "A"
     },
@@ -4027,8 +3860,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 'hi','hello','world' 3개 고유 키만 저장돼요. 중복 호출은 캐시에서 반환해요.",
-        "wrong": ""
+        "correct": "맞아요! 'hi','hello','world' 3개 고유 키만 저장돼요. 중복 호출은 캐시에서 반환해요."
       },
       "quiz_set": "A"
     },
@@ -4051,8 +3883,7 @@
       "answer": "A",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 6가지가 모두 완료되어야 프로덕션 수준의 에이전트예요.",
-        "wrong": ""
+        "correct": "맞아요! 6가지가 모두 완료되어야 프로덕션 수준의 에이전트예요."
       },
       "quiz_set": "A"
     },
@@ -4075,8 +3906,7 @@
       "answer": "C",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! Unit 1~8 완주는 실제 AI 서비스를 만들고 최적화할 수 있는 능력이에요.",
-        "wrong": ""
+        "correct": "맞아요! Unit 1~8 완주는 실제 AI 서비스를 만들고 최적화할 수 있는 능력이에요."
       },
       "quiz_set": "A"
     },
@@ -4099,8 +3929,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 입출력 토큰 수와 API 호출 횟수에 따라 비용이 발생해요.",
-        "wrong": ""
+        "correct": "맞아요! 입출력 토큰 수와 API 호출 횟수에 따라 비용이 발생해요."
       },
       "quiz_set": "B"
     },
@@ -4123,8 +3952,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! description이 명확해야 AI가 올바른 도구를 선택해요.",
-        "wrong": ""
+        "correct": "맞아요! description이 명확해야 AI가 올바른 도구를 선택해요."
       },
       "quiz_set": "B"
     },
@@ -4147,8 +3975,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! tool_result가 없으면 AI가 결과를 못 보고 계속 같은 도구를 요청해요.",
-        "wrong": ""
+        "correct": "맞아요! tool_result가 없으면 AI가 결과를 못 보고 계속 같은 도구를 요청해요."
       },
       "quiz_set": "B"
     },
@@ -4171,8 +3998,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 로그가 외부에 노출되면 민감 정보도 함께 노출돼요.",
-        "wrong": ""
+        "correct": "맞아요! 로그가 외부에 노출되면 민감 정보도 함께 노출돼요."
       },
       "quiz_set": "B"
     },
@@ -4195,8 +4021,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! INFO는 '지금 이 단계를 실행 중'처럼 정상 흐름 추적에 써요.",
-        "wrong": ""
+        "correct": "맞아요! INFO는 '지금 이 단계를 실행 중'처럼 정상 흐름 추적에 써요."
       },
       "quiz_set": "B"
     },
@@ -4219,8 +4044,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 캐싱+호출최소화+모델선택이 API 비용 최적화의 3대 전략이에요.",
-        "wrong": ""
+        "correct": "맞아요! 캐싱+호출최소화+모델선택이 API 비용 최적화의 3대 전략이에요."
       },
       "quiz_set": "B"
     },
@@ -4243,8 +4067,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 짧은 컨텍스트 = 적은 토큰 = 낮은 비용 + 빠른 응답이에요.",
-        "wrong": ""
+        "correct": "맞아요! 짧은 컨텍스트 = 적은 토큰 = 낮은 비용 + 빠른 응답이에요."
       },
       "quiz_set": "B"
     },
@@ -4267,8 +4090,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 상세 로그가 있으면 다양한 종류의 버그를 발견하고 수정할 수 있어요.",
-        "wrong": ""
+        "correct": "맞아요! 상세 로그가 있으면 다양한 종류의 버그를 발견하고 수정할 수 있어요."
       },
       "quiz_set": "B"
     },
@@ -4291,8 +4113,7 @@
       "answer": "B",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 파라미터 description을 명확히 하면 AI가 올바른 값을 전달해요.",
-        "wrong": ""
+        "correct": "맞아요! 파라미터 description을 명확히 하면 AI가 올바른 값을 전달해요."
       },
       "quiz_set": "B"
     },
@@ -4315,8 +4136,7 @@
       "answer": "D",
       "hint": "",
       "feedback": {
-        "correct": "맞아요! 에이몬은 포기하지 않게 설계된 비전공자 맞춤 AI 학습 게임이에요. 완주 진심으로 축하해요! 🎉",
-        "wrong": ""
+        "correct": "맞아요! 에이몬은 포기하지 않게 설계된 비전공자 맞춤 AI 학습 게임이에요. 완주 진심으로 축하해요! 🎉"
       },
       "quiz_set": "B"
     }
