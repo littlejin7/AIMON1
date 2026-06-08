@@ -1,0 +1,184 @@
+{
+  "questions": [
+    {
+      "question_id": "unitboss_beg_os_3_001",
+      "unit": 3,
+      "stage": "3-boss",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\nx = 15\nif x > 10:\n    print('통과')\nelse:\n    print('실패')",
+      "choices": ["A. 통과", "B. 실패", "C. 통과 / 실패", "D. 오류 발생"],
+      "answer": "A",
+      "hint": "15 > 10이 참인지 거짓인지 확인해봐요.",
+      "feedback": {
+        "correct": "맞아요! 15 > 10은 True이므로 if 블록이 실행돼 '통과'가 출력돼요.",
+        "wrong": "15는 10보다 크므로 if 조건이 True가 되어 '통과'가 출력돼요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_fib_3_001",
+      "unit": 3,
+      "stage": "3-boss",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "빈칸을 채워 조건 분기를 완성하세요.\n\nscore = 75\nif score >= 90:\n    print('A')\n___ score >= 70:\n    print('B')\nelse:\n    print('C')",
+      "choices": [],
+      "answer": "elif",
+      "hint": "if 다음에 추가 조건을 붙일 때 쓰는 키워드예요.",
+      "feedback": {
+        "correct": "맞아요! elif는 if 조건이 False일 때 추가로 확인하는 조건이에요.",
+        "wrong": "if / elif / else 순서로 조건을 연결해요. 두 번째 조건에는 elif를 써요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_os_3_002",
+      "unit": 3,
+      "stage": "3-boss",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\nhp = 80\nmp = 20\nprint(hp > 50 and mp > 30)\nprint(hp > 50 or mp > 30)",
+      "choices": ["A. False / True", "B. True / True", "C. False / False", "D. True / False"],
+      "answer": "A",
+      "hint": "and는 둘 다 True여야 True, or는 하나만 True여도 True예요.",
+      "feedback": {
+        "correct": "맞아요! hp > 50은 True, mp > 30은 False. and → False, or → True예요.",
+        "wrong": "and는 두 조건 모두 True여야 해요. mp > 30이 False라 and 결과는 False, or는 True예요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_ef_3_001",
+      "unit": 3,
+      "stage": "3-boss",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "error_find",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "아래 코드에서 오류가 발생하는 줄은 어디일까요?\n\n1: lv = 10\n2: if lv >= 5\n3:     print('중급 이상')\n4: else:\n5:     print('초급')",
+      "choices": ["A. 1번 줄", "B. 2번 줄", "C. 3번 줄", "D. 4번 줄"],
+      "answer": "B",
+      "hint": "if 조건문 끝에 꼭 필요한 기호가 있어요.",
+      "feedback": {
+        "correct": "맞아요! if 조건식 뒤에는 반드시 콜론(:)이 있어야 해요.",
+        "wrong": "2번 줄 if lv >= 5 뒤에 콜론(:)이 빠져 있어요. if lv >= 5: 로 써야 해요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_fib_3_002",
+      "unit": 3,
+      "stage": "3-boss",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "빈칸을 채워 두 값이 같은지 확인하세요.\n\npassword = '1234'\nguess = '1234'\nif password ___ guess:\n    print('정답!')",
+      "choices": [],
+      "answer": "==",
+      "hint": "값이 같은지 비교하는 연산자예요. 대입(=)과 달라요.",
+      "feedback": {
+        "correct": "맞아요! == 는 두 값이 같은지 비교해요. 대입 연산자 = 와 다르게 주의하세요.",
+        "wrong": "같음을 비교할 땐 == 를 써요. = 는 대입이고, == 는 비교예요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_os_3_003",
+      "unit": 3,
+      "stage": "3-boss",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\nalive = False\nprint(not alive)\nprint(not True)",
+      "choices": ["A. True / False", "B. False / True", "C. True / True", "D. False / False"],
+      "answer": "A",
+      "hint": "not은 True를 False로, False를 True로 바꿔요.",
+      "feedback": {
+        "correct": "맞아요! not False = True, not True = False예요.",
+        "wrong": "not은 불리언 값을 반전시켜요. not False는 True, not True는 False가 돼요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_ef_3_002",
+      "unit": 3,
+      "stage": "3-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "error_find",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "아래 코드에서 오류가 발생하는 줄은 어디일까요?\n\n1: hp = 50\n2: if hp > 0:\n3: print('생존')\n4: else:\n5:     print('사망')",
+      "choices": ["A. 1번 줄", "B. 2번 줄", "C. 3번 줄", "D. 5번 줄"],
+      "answer": "C",
+      "hint": "if 블록 안의 코드는 반드시 들여쓰기가 필요해요.",
+      "feedback": {
+        "correct": "맞아요! 3번 줄 print('생존')에 들여쓰기(4칸 또는 탭)가 없어서 오류가 발생해요.",
+        "wrong": "if 블록 내부의 코드는 들여쓰기가 필수예요. print 앞에 공백을 넣어야 해요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_fib_3_003",
+      "unit": 3,
+      "stage": "3-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "빈칸을 채워 두 조건을 모두 만족할 때만 출력되게 하세요.\n\nlv = 10\nhp = 80\nif lv >= 5 ___ hp >= 50:\n    print('보스 입장 가능')",
+      "choices": [],
+      "answer": "and",
+      "hint": "두 조건이 모두 참이어야 할 때 쓰는 논리 연산자예요.",
+      "feedback": {
+        "correct": "맞아요! and는 두 조건이 모두 True일 때만 전체가 True가 돼요.",
+        "wrong": "두 조건을 모두 만족해야 할 땐 and를 써요. or는 하나만 만족해도 True예요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_os_3_004",
+      "unit": 3,
+      "stage": "3-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\nscore = 75\nif score >= 90:\n    print('A')\nelif score >= 70:\n    print('B')\nelif score >= 60:\n    print('C')\nelse:\n    print('D')",
+      "choices": ["A. A", "B. B", "C. C", "D. B / C"],
+      "answer": "B",
+      "hint": "조건을 위에서부터 순서대로 확인해요. 처음 참인 조건만 실행돼요.",
+      "feedback": {
+        "correct": "맞아요! score >= 90은 False, score >= 70은 True라 'B'가 출력돼요.",
+        "wrong": "elif는 위에서부터 순서대로 확인하고, 처음 True인 블록 하나만 실행해요. 75 >= 70이 True라 B예요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_fib_3_004",
+      "unit": 3,
+      "stage": "3-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "빈칸을 채워 레벨이 1이거나 hp가 0이면 '게임오버'를 출력하세요.\n\nlv = 1\nhp = 50\nif lv == 1 ___ hp == 0:\n    print('게임오버')",
+      "choices": [],
+      "answer": "or",
+      "hint": "둘 중 하나만 참이어도 실행되게 하는 논리 연산자예요.",
+      "feedback": {
+        "correct": "맞아요! or는 둘 중 하나만 True여도 전체가 True가 돼요.",
+        "wrong": "하나만 참이어도 실행되려면 or를 써요. lv == 1이 True라 '게임오버'가 출력돼요."
+      }
+    }
+  ]
+}

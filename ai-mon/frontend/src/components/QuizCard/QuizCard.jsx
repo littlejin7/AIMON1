@@ -19,7 +19,7 @@ export default function QuizCard({ question, onAnswer, disabled = false }) {
   if (!question) return null
 
   const type = question.quiz_type || question.type
-  const isChoiceType = type === 'multiple_choice' || type === 'output_select'
+  const isChoiceType = type === 'multiple_choice' || type === 'output_select' || type === 'error_find'
   const isCodeInput = type === 'code_input'
   const choicesList = question.choices || question.options || []
   const isCorrect = (ans) => {
