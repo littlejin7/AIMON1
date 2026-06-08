@@ -1,30 +1,6 @@
 {
   "questions": [
     {
-      "question_id": "sl_beg_mc_1_1_001_1",
-      "type": "multiple_choice",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "is_boss": false,
-      "question": "print()의 역할은 무엇인가요?",
-      "choices": [
-        "A. 값을 저장한다",
-        "B. 값을 출력한다",
-        "C. 값을 삭제한다",
-        "D. 값을 계산한다"
-      ],
-      "answer": "B. 값을 출력한다",
-      "hint": "화면에 무언가를 보여줄 때 쓰는 함수예요.",
-      "feedback": {
-        "correct": "맞아요! print()는 괄호 안의 값을 화면에 출력하는 함수예요.",
-        "wrong": "print()는 화면에 출력하는 역할을 해요."
-      },
-      "quiz_category": "stage_quiz",
-      "quiz_set": "B"
-    },
-    {
       "question_id": "sl_beg_mc_1_1_001_2",
       "type": "multiple_choice",
       "unit": 1,
@@ -169,30 +145,6 @@
       "quiz_set": "B"
     },
     {
-      "question_id": "sl_beg_mc_1_1_002_1",
-      "type": "multiple_choice",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "is_boss": false,
-      "question": "Python에서 주석을 작성할 때 사용하는 기호는?",
-      "choices": [
-        "A. //",
-        "B. --",
-        "C. #",
-        "D. /*"
-      ],
-      "answer": "C. #",
-      "hint": "특정 줄을 무시하고 싶을 때 쓰는 기호입니다.",
-      "feedback": {
-        "correct": "정답! # 뒤에 오는 내용은 Python이 무시해요.",
-        "wrong": "Python에서는 # 기호로 주석을 작성합니다."
-      },
-      "quiz_category": "stage_quiz",
-      "quiz_set": "B"
-    },
-    {
       "question_id": "sl_beg_mc_1_1_002_2",
       "type": "multiple_choice",
       "unit": 1,
@@ -332,246 +284,6 @@
       "feedback": {
         "correct": "정답! # 뒤에 오는 내용은 Python이 무시해요.",
         "wrong": "Python에서는 # 기호로 주석을 작성합니다."
-      },
-      "quiz_category": "stage_quiz",
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "cc_1_1_001",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "is_boss": false,
-      "question": "print()의 역할은 무엇인가요?",
-      "choices": [
-        "A. 값을 저장한다",
-        "B. 값을 삭제한다",
-        "C. 값을 화면에 출력한다",
-        "D. 값을 계산한다"
-      ],
-      "answer": "C",
-      "hint": "print()는 화면에 글자나 숫자를 보여주기 위해 사용해요.",
-      "feedback": {
-        "correct": "맞아요! print()는 괄호 안의 내용을 화면에 출력하는 함수예요.",
-        "wrong": "print()는 화면에 글자나 숫자를 보여주기 위해 사용해요. 저장은 변수(=), 계산은 연산자(+, - 등)가 담당해요."
-      },
-      "quiz_category": "stage_quiz",
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "cc_1_1_002",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "is_boss": false,
-      "question": "Python에서 주석을 작성할 때 사용하는 기호는?",
-      "choices": [
-        "A. #",
-        "B. //",
-        "C. --",
-        "D. /*"
-      ],
-      "answer": "A",
-      "hint": "다른 언어(Java, JavaScript)에서는 //나 /* */를 쓰지만, Python은 # 만 사용해요.",
-      "feedback": {
-        "correct": "맞아요! # 뒤에 오는 내용은 Python이 완전히 무시해요. 코드에 메모를 남길 때 써요.",
-        "wrong": "다른 언어(Java, JavaScript)에서는 //나 /* */를 쓰지만, Python은 # 만 사용해요. # 하나로 그 줄 전체를 주석으로 만들 수 있어요."
-      },
-      "quiz_category": "stage_quiz",
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "cc_1_1_003",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "is_boss": false,
-      "question": "다음 중 올바른 print() 사용법은?",
-      "choices": [
-        "A. PRINT('Hello')",
-        "B. print Hello",
-        "C. print['Hello']",
-        "D. print('Hello')"
-      ],
-      "answer": "D",
-      "hint": "print()를 쓸 때 두 가지를 기억하세요.",
-      "feedback": {
-        "correct": "완벽해요! print()는 소문자로 쓰고, 출력할 내용은 괄호 안에 따옴표로 감싸야 해요.",
-        "wrong": "print()를 쓸 때 두 가지를 기억하세요. 첫째, 소문자로만 써야 해요(Python은 대소문자 구분). 둘째, 괄호를 꼭 써야 해요. 문자를 출력할 땐 따옴표로 감싸야 해요."
-      },
-      "quiz_category": "stage_quiz",
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "cc_1_1_004",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "is_boss": false,
-      "question": "`print('Hello')`를 실행하면 화면에 무엇이 출력될까요?",
-      "choices": [
-        "A. Hello",
-        "B. 'Hello'",
-        "C. print(Hello)",
-        "D. 오류 발생"
-      ],
-      "answer": "A",
-      "hint": "따옴표는 Python에게 '이 안이 문자야'라고 알려주는 신호예요.",
-      "feedback": {
-        "correct": "맞아요! 따옴표는 'Python에게 이건 글자야'라고 알려주는 표시예요. 출력할 때 사라지고 Hello만 나와요.",
-        "wrong": "따옴표는 Python에게 '이 안이 문자야'라고 알려주는 신호예요. 실제 화면에는 따옴표 없이 Hello만 나와요."
-      },
-      "quiz_category": "stage_quiz",
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "cc_1_1_005",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "is_boss": false,
-      "question": "다음 코드를 실행하면 몇 줄이 출력될까요?\n\nprint('국어')\n# print('수학')\nprint('영어')",
-      "choices": [
-        "A. 1줄",
-        "B. 3줄",
-        "C. 2줄",
-        "D. 오류 발생"
-      ],
-      "answer": "C",
-      "hint": "# 이 붙은 줄은 코드가 아니라 메모(주석)예요.",
-      "feedback": {
-        "correct": "완벽해요! # 주석 줄은 무시되어 실행되는 print()는 2개뿐이에요. 국어, 영어 두 줄만 출력돼요.",
-        "wrong": "# 이 붙은 줄은 코드가 아니라 메모(주석)예요. Python은 그 줄을 완전히 건너뛰어요. 실행되는 print()는 위아래 두 줄뿐이에요."
-      },
-      "quiz_category": "stage_quiz",
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "cc_1_1_006",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "is_boss": false,
-      "question": "다음 중 주석 처리된 줄은?",
-      "choices": [
-        "A. print('월요일')",
-        "B. //print('화요일')",
-        "C. --print('수요일')",
-        "D. # print('목요일')"
-      ],
-      "answer": "D",
-      "hint": "Python에서 주석은 # 기호로만 만들어요.",
-      "feedback": {
-        "correct": "맞아요! # 기호가 줄 앞에 붙으면 그 줄 전체가 주석이 돼요. Python이 건너뛰는 메모 공간이에요.",
-        "wrong": "Python에서 주석은 # 기호로만 만들어요. //나 --는 Python 주석 기호가 아니에요. # 이 줄 앞에 붙은 순간 그 줄 전체를 Python이 무시해요."
-      },
-      "quiz_category": "stage_quiz",
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "cc_1_1_007",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "is_boss": false,
-      "question": "`print('봄' + '여름')`의 출력값은?",
-      "choices": [
-        "A. 봄 여름",
-        "B. 봄+여름",
-        "C. 봄여름",
-        "D. 오류 발생"
-      ],
-      "answer": "C",
-      "hint": "+ 는 문자열 연결 연산자예요.",
-      "feedback": {
-        "correct": "맞아요! + 는 문자열을 공백 없이 이어붙여요. '봄' + '여름' = '봄여름'이에요.",
-        "wrong": "+ 는 문자열 연결 연산자예요. 공백을 자동으로 추가하지 않고 그대로 이어붙여요. 공백이 필요하면 '봄' + ' ' + '여름'처럼 직접 넣어야 해요."
-      },
-      "quiz_category": "stage_quiz",
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "cc_1_1_008",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "multiple_choice",
-      "is_boss": false,
-      "question": "다음 중 Python에서 실행되지 않는 줄은?",
-      "choices": [
-        "A. print('1교시')",
-        "B. print('# 2교시')",
-        "C. # print('3교시')",
-        "D. print('4교시')  # 오후"
-      ],
-      "answer": "C",
-      "hint": "# 위치가 핵심이에요.",
-      "feedback": {
-        "correct": "정확해요! 줄 맨 앞에 # 이 붙으면 전체 주석이에요. B는 따옴표 안 # 이라 문자로 출력되고, D는 코드는 실행되고 # 뒤만 무시돼요.",
-        "wrong": "# 위치가 핵심이에요. 줄 맨 앞에 있으면 전체 주석, 따옴표 안에 있으면 그냥 문자, 코드 뒤에 있으면 코드는 실행되고 # 이후만 무시돼요."
-      },
-      "quiz_category": "stage_quiz",
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "cc_1_1_009",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "multiple_choice",
-      "is_boss": false,
-      "question": "`print('과목:', '국어', '점수:', 95)`의 출력값은?",
-      "choices": [
-        "A. 과목:국어점수:95",
-        "B. 과목: 국어 점수: 95",
-        "C. 과목:, 국어, 점수:, 95",
-        "D. 오류 발생"
-      ],
-      "answer": "B",
-      "hint": "print()에서 쉼표(,)로 값을 나열하면 Python이 값 사이에 공백을 자동으로 삽입해요.",
-      "feedback": {
-        "correct": "완벽해요! 쉼표(,)로 값을 나열하면 print()가 사이에 공백을 자동으로 넣어줘요.",
-        "wrong": "print()에서 쉼표(,)로 값을 나열하면 Python이 값 사이에 공백을 자동으로 삽입해요. 4개 값 사이에 공백이 들어가요."
-      },
-      "quiz_category": "stage_quiz",
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "cc_1_1_010",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "multiple_choice",
-      "is_boss": false,
-      "question": "다음 코드의 출력값은?\n\n# 성적표 출력\nprint('국어: ' + '95점')\nprint('수학:', 87)\n# print('영어: 92점')",
-      "choices": [
-        "A. 국어: 95점 / 수학: 87 / 영어: 92점",
-        "B. 국어: 95점 / 수학:87",
-        "C. 국어:95점 / 수학: 87",
-        "D. 국어: 95점 / 수학: 87"
-      ],
-      "answer": "D",
-      "hint": "세 가지를 확인해요.",
-      "feedback": {
-        "correct": "훌륭해요! # 주석 2줄은 무시되고, + 는 공백 없이 이어붙이고('국어: 95점'), 쉼표(,)는 자동 공백이에요('수학: 87').",
-        "wrong": "세 가지를 확인해요. 첫째, # 이 붙은 줄은 무시(1번째, 4번째 줄). 둘째, + 는 공백 없이 연결 → '국어: 95점'. 셋째, 쉼표(,)는 자동 공백 → '수학: 87'. 남은 print() 2개가 출력돼요."
       },
       "quiz_category": "stage_quiz",
       "quiz_set": "B"
@@ -2017,198 +1729,6 @@
       "quiz_set": "B"
     },
     {
-      "question_id": "cc_1_1_011",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "is_boss": false,
-      "question": "print(10)을 실행하면 무엇이 출력될까요?",
-      "choices": [
-        "A. '10'",
-        "B. 10",
-        "C. print(10)",
-        "D. 오류 발생"
-      ],
-      "answer": "B",
-      "hint": "print()는 숫자도 그대로 출력할 수 있어요. 따옴표 없이요.",
-      "feedback": {
-        "correct": "맞아요! print()는 숫자를 넣으면 그대로 숫자로 출력해요. 따옴표 없이 10이 나와요.",
-        "wrong": "print()는 문자뿐 아니라 숫자도 출력할 수 있어요. print(10)은 따옴표 없이 숫자 10을 그대로 출력해요."
-      },
-      "quiz_category": "stage_quiz",
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "cc_1_1_012",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "is_boss": false,
-      "question": "`print('사과', '바나나')`의 출력값은?",
-      "choices": [
-        "A. 사과바나나",
-        "B. 사과, 바나나",
-        "C. 사과 바나나",
-        "D. '사과' '바나나'"
-      ],
-      "answer": "C",
-      "hint": "쉼표(,)로 여러 값을 나열하면 print()가 사이에 공백을 자동으로 넣어줘요.",
-      "feedback": {
-        "correct": "정확해요! 쉼표(,)로 나열하면 Python이 값 사이에 공백을 자동으로 추가해요.",
-        "wrong": "쉼표(,)로 여러 값을 나열하면 print()가 사이에 공백을 자동으로 넣어줘요. 그래서 '사과 바나나'가 출력돼요."
-      },
-      "quiz_category": "stage_quiz",
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "cc_1_1_013",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "is_boss": false,
-      "question": "다음 코드에서 실제로 실행되는 줄은 몇 개일까요?\n\n# 시작\nprint('월요일')\n# print('화요일')\nprint('수요일')\n# 끝",
-      "choices": [
-        "A. 5개",
-        "B. 3개",
-        "C. 2개",
-        "D. 1개"
-      ],
-      "answer": "C",
-      "hint": "# 기호가 붙은 줄은 Python이 건너뛰어요.",
-      "feedback": {
-        "correct": "완벽해요! # 이 붙은 줄(1, 3, 5번째)은 모두 주석이라 무시돼요. print() 두 줄만 실행돼요.",
-        "wrong": "# 기호가 붙은 줄은 Python이 건너뛰어요. 주석 3줄이 무시되고, print() 두 줄만 실행돼요."
-      },
-      "quiz_category": "stage_quiz",
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "cc_1_1_014",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "is_boss": false,
-      "question": "`print('Hello' + ' ' + 'World')`의 출력값은?",
-      "choices": [
-        "A. Hello+World",
-        "B. Hello World",
-        "C. HelloWorld",
-        "D. Hello + World"
-      ],
-      "answer": "B",
-      "hint": "' ' (공백 문자)도 + 로 이어붙일 수 있어요.",
-      "feedback": {
-        "correct": "맞아요! 'Hello' + ' ' + 'World'는 공백을 가운데에 직접 넣어서 이어붙이는 방법이에요.",
-        "wrong": "+ 는 문자열을 그대로 이어붙여요. 가운데 ' '(공백)까지 포함해서 붙이면 Hello World가 돼요."
-      },
-      "quiz_category": "stage_quiz",
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "cc_1_1_015",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "multiple_choice",
-      "is_boss": false,
-      "question": "다음 코드를 실행하면 출력 결과는?\n\nprint('1번')  # 첫 번째\n# print('2번')\nprint('3번')\nprint('4' + '번')",
-      "choices": [
-        "A. 1번\n2번\n3번\n4번",
-        "B. 1번\n3번\n4번",
-        "C. 1번\n3번\n4 번",
-        "D. 1번\n3번"
-      ],
-      "answer": "B",
-      "hint": "세 가지를 체크하세요: 인라인 주석, 줄 전체 주석, + 연산자.",
-      "feedback": {
-        "correct": "훌륭해요! ①print('1번') 뒤 # 이후는 무시 → '1번'. ②# print('2번')은 전체 주석 → 무시. ③'4'+'번'='4번'. 총 3줄 출력.",
-        "wrong": "① print('1번') 뒤 # 뒤는 인라인 주석 무시 → '1번' 출력. ② # print('2번')은 전체 주석 → 무시. ③ '4'+'번'='4번' 출력. 결과: 1번/3번/4번."
-      },
-      "quiz_category": "stage_quiz",
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "cc_1_1_016",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "is_boss": false,
-      "question": "다음 중 아무것도 출력하지 않는 코드는?",
-      "choices": [
-        "A. print()",
-        "B. print('')",
-        "C. # print('안녕')",
-        "D. print(' ')"
-      ],
-      "answer": "C",
-      "hint": "# 이 붙은 줄은 Python이 실행하지 않아요.",
-      "feedback": {
-        "correct": "맞아요! # 주석 처리된 줄은 실행되지 않아요.",
-        "wrong": "# 이 붙은 줄은 완전히 무시돼요. print()와 print('')는 빈 줄, print(' ')는 공백을 출력해요."
-      },
-      "quiz_category": "stage_quiz",
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "cc_1_1_017",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "is_boss": false,
-      "question": "`print('AI' + 'MON')`과 `print('AI', 'MON')`의 차이로 올바른 것은?",
-      "choices": [
-        "A. 둘 다 AIMON 출력",
-        "B. 둘 다 AI MON 출력",
-        "C. +는 AIMON, 쉼표는 AI MON 출력",
-        "D. +는 AI MON, 쉼표는 AIMON 출력"
-      ],
-      "answer": "C",
-      "hint": "+ 는 공백 없이 붙이고, 쉼표는 자동 공백을 넣어요.",
-      "feedback": {
-        "correct": "정확해요! + 연산자는 공백 없이 이어붙이고, 쉼표는 값 사이에 공백을 자동으로 추가해요.",
-        "wrong": "+ 는 문자열을 그대로 이어붙여 AIMON, 쉼표는 자동 공백으로 AI MON이 돼요."
-      },
-      "quiz_category": "stage_quiz",
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "cc_1_1_018",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "multiple_choice",
-      "is_boss": false,
-      "question": "다음 코드의 출력 줄 수는?\n\nprint('A')  # 첫째\nprint('B')\n# print('C')\nprint('D')",
-      "choices": [
-        "A. 4줄",
-        "B. 3줄",
-        "C. 2줄",
-        "D. 1줄"
-      ],
-      "answer": "B",
-      "hint": "# 이 붙은 전체 줄은 무시되고, 줄 끝 # 뒤는 무시돼도 print()는 실행돼요.",
-      "feedback": {
-        "correct": "맞아요! print('A')의 인라인 주석은 무시되지만 print 자체는 실행돼요. # print('C')만 전체 주석. A, B, D 3줄 출력.",
-        "wrong": "인라인 주석(줄 끝 #)과 전체 주석(줄 앞 #)을 구분하세요. print('A'), print('B'), print('D')는 모두 실행돼요."
-      },
-      "quiz_category": "stage_quiz",
-      "quiz_set": "A"
-    },
-    {
       "question_id": "cc_1_2_011",
       "unit": 1,
       "stage": "1-2",
@@ -3356,6 +2876,466 @@
       "feedback": {
         "correct": "완벽해요! {lv}=5, {xp}=1500, {lv*1000-xp}=3500. 모두 계산되어 삽입돼요.",
         "wrong": "lv=5, xp=1500. lv*1000=5000, 5000-1500=3500. f-string이 모두 계산해서 삽입해요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_1_001",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "`print(100)`을 실행하면 화면에 무엇이 출력될까요?",
+      "choices": [
+        "A. '100'",
+        "B. print(100)",
+        "C. 100",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "print()는 숫자도 그대로 출력해요. 따옴표 없이요.",
+      "feedback": {
+        "correct": "맞아요! 숫자를 print()에 넣으면 따옴표 없이 숫자 그대로 출력돼요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_1_002",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 중 실행하면 오류가 발생하는 코드는?",
+      "choices": [
+        "A. print('안녕')",
+        "B. Print('안녕')",
+        "C. print(\"안녕\")",
+        "D. print('안녕하세요')"
+      ],
+      "answer": "B",
+      "hint": "Python은 대소문자를 구분해요.",
+      "feedback": {
+        "correct": "맞아요! Python은 대소문자를 엄격히 구분해요. `Print`는 Python이 모르는 이름이라 NameError가 발생해요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_1_003",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "`# print('Hello')`를 실행하면 어떻게 될까요?",
+      "choices": [
+        "A. Hello가 출력된다",
+        "B. #Hello가 출력된다",
+        "C. 아무것도 실행되지 않는다",
+        "D. 오류가 발생한다"
+      ],
+      "answer": "C",
+      "hint": "# 기호가 줄 맨 앞에 오면 그 줄 전체가 주석이에요.",
+      "feedback": {
+        "correct": "맞아요! # 이 붙은 줄은 Python이 완전히 무시해요. print()가 있어도 실행되지 않아요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_1_004",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "`print('파이썬')`을 실행하면 화면에 무엇이 출력될까요?",
+      "choices": [
+        "A. '파이썬'",
+        "B. 파이썬",
+        "C. print(파이썬)",
+        "D. \"파이썬\""
+      ],
+      "answer": "B",
+      "hint": "따옴표는 Python에게 '이건 문자야'라고 알려주는 표시예요. 출력할 때는 사라져요.",
+      "feedback": {
+        "correct": "맞아요! 따옴표는 문자열의 시작과 끝을 표시할 뿐, 실제 출력엔 나타나지 않아요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_1_005",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 몇 줄이 출력될까요?\n\nprint('월')\nprint('화')\n# print('수')\nprint('목')",
+      "choices": [
+        "A. 4줄",
+        "B. 3줄",
+        "C. 2줄",
+        "D. 1줄"
+      ],
+      "answer": "B",
+      "hint": "# 이 붙은 줄은 실행되지 않아요.",
+      "feedback": {
+        "correct": "맞아요! # print('수')는 주석이라 건너뛰고, 나머지 print() 세 개가 실행돼요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_1_006",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "`print('AI' + 'MON')`의 출력값은?",
+      "choices": [
+        "A. AI MON",
+        "B. AI+MON",
+        "C. AIMON",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "문자열끼리 + 는 공백 없이 이어 붙여요.",
+      "feedback": {
+        "correct": "맞아요! 문자열 + 는 두 문자열을 공백 없이 연결해요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_1_007",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드에서 주석이 아닌 줄은 몇 개인가요?\n\n# 시작\nprint('1번')\n# print('2번')\nprint('3번')\n# 끝",
+      "choices": [
+        "A. 1개",
+        "B. 2개",
+        "C. 3개",
+        "D. 5개"
+      ],
+      "answer": "B",
+      "hint": "# 이 줄 맨 앞에 있으면 주석이에요.",
+      "feedback": {
+        "correct": "맞아요! # 시작, # print('2번'), # 끝은 모두 주석. print('1번')과 print('3번') 두 줄만 코드예요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_1_008",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "`print('오늘은', '월요일')`의 출력값은?",
+      "choices": [
+        "A. 오늘은월요일",
+        "B. 오늘은, 월요일",
+        "C. 오늘은 월요일",
+        "D. '오늘은' '월요일'"
+      ],
+      "answer": "C",
+      "hint": "print()에서 쉼표(,)로 값을 나열하면 사이에 공백이 자동으로 들어가요.",
+      "feedback": {
+        "correct": "정확해요! 쉼표로 나열하면 print()가 값 사이에 공백을 자동으로 추가해요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_1_009",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\nprint('A')  # 첫 번째\n# print('B')\nprint('C')",
+      "choices": [
+        "A. A / B / C (3줄)",
+        "B. A / C (2줄)",
+        "C. A # 첫 번째 / C (2줄)",
+        "D. A (1줄)"
+      ],
+      "answer": "B",
+      "hint": "줄 끝의 # 주석은 무시되지만 그 앞의 print()는 실행돼요.",
+      "feedback": {
+        "correct": "맞아요! print('A') 뒤의 # 주석은 무시되고 A는 정상 출력돼요. # print('B')는 전체 주석이라 건너뛰고, print('C')는 실행돼요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_1_010",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\n# 코드 시작\nprint('1' + '2')\nprint(1 + 2)\n# 코드 끝",
+      "choices": [
+        "A. 12 / 12",
+        "B. 3 / 3",
+        "C. 12 / 3",
+        "D. 3 / 12"
+      ],
+      "answer": "C",
+      "hint": "따옴표가 있으면 문자열, 없으면 숫자예요. + 의 동작이 달라요.",
+      "feedback": {
+        "correct": "완벽해요! '1' + '2' 는 문자열 이어붙이기 → 12. 1 + 2 는 숫자 덧셈 → 3."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_1_011",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "Python에서 `#` 기호의 역할은?",
+      "choices": [
+        "A. 곱셈 연산자",
+        "B. 주석을 작성할 때 사용한다",
+        "C. 문자열을 만들 때 사용한다",
+        "D. 숫자 앞에 붙이는 기호다"
+      ],
+      "answer": "B",
+      "hint": "# 뒤에 오는 내용은 Python이 코드로 인식하지 않아요.",
+      "feedback": {
+        "correct": "맞아요! # 는 주석 기호예요. # 뒤의 내용은 Python이 완전히 무시해요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_1_012",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 중 화면에 `Hello`를 출력하는 코드는?",
+      "choices": [
+        "A. print(Hello)",
+        "B. print['Hello']",
+        "C. print{'Hello'}",
+        "D. print('Hello')"
+      ],
+      "answer": "D",
+      "hint": "print()는 소문자, 출력할 문자열은 괄호와 따옴표로 감싸야 해요.",
+      "feedback": {
+        "correct": "맞아요! print()는 소문자, 문자열은 괄호 안에 따옴표로 감싸야 해요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_1_013",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\nprint('score:', 95)",
+      "choices": [
+        "A. score:95",
+        "B. score: 95",
+        "C. 'score:' 95",
+        "D. score:, 95"
+      ],
+      "answer": "B",
+      "hint": "쉼표(,)로 나열하면 값 사이에 공백이 자동으로 들어가요.",
+      "feedback": {
+        "correct": "맞아요! print()에서 쉼표로 나열하면 각 값 사이에 공백이 자동으로 추가돼요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_1_014",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드에서 실제로 출력되는 줄 수는?\n\nprint('봄')\n# print('여름')\nprint('가을')  # 세 번째 계절\n# print('겨울')",
+      "choices": [
+        "A. 4줄",
+        "B. 3줄",
+        "C. 2줄",
+        "D. 1줄"
+      ],
+      "answer": "C",
+      "hint": "줄 전체가 주석인 것과, 줄 끝에 주석이 달린 것을 구분하세요.",
+      "feedback": {
+        "correct": "맞아요! # print('여름'), # print('겨울')은 전체 주석. print('봄')과 print('가을') 두 줄만 출력돼요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_1_015",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "`print('안녕' + '하세요')`와 `print('안녕', '하세요')`의 출력 결과 차이는?",
+      "choices": [
+        "A. 둘 다 안녕하세요",
+        "B. 둘 다 안녕 하세요",
+        "C. +는 안녕하세요, 쉼표는 안녕 하세요",
+        "D. +는 안녕 하세요, 쉼표는 안녕하세요"
+      ],
+      "answer": "C",
+      "hint": "+ 는 공백 없이 붙이고, 쉼표는 공백을 자동으로 넣어요.",
+      "feedback": {
+        "correct": "정확해요! + 는 문자열을 그대로 이어붙이고, 쉼표는 값 사이에 공백을 자동으로 추가해요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_1_016",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드에서 Python이 실행하지 않는 부분은?\n\nprint('이름: 에이몬')  # 캐릭터 이름",
+      "choices": [
+        "A. print 전체",
+        "B. '이름: 에이몬' 부분",
+        "C. # 캐릭터 이름 부분",
+        "D. 실행하지 않는 부분이 없다"
+      ],
+      "answer": "C",
+      "hint": "# 뒤의 내용은 Python이 무시해요.",
+      "feedback": {
+        "correct": "맞아요! # 캐릭터 이름은 인라인 주석이에요. print()는 정상 실행되고 # 뒤만 무시돼요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_1_017",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\nprint('Hello')\nprint('# World')\n# print('Python')",
+      "choices": [
+        "A. Hello / World (2줄)",
+        "B. Hello / # World (2줄)",
+        "C. Hello / # World / Python (3줄)",
+        "D. Hello (1줄)"
+      ],
+      "answer": "B",
+      "hint": "따옴표 안에 있는 # 은 주석이 아니에요.",
+      "feedback": {
+        "correct": "완벽해요! print('# World')에서 # 는 따옴표 안에 있으므로 그냥 문자예요. # print('Python')만 주석이에요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_1_018",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\nprint('국어: ' + '90점')\nprint('수학:', 85)\n# print('영어: 78점')",
+      "choices": [
+        "A. 국어: 90점 / 수학: 85 / 영어: 78점",
+        "B. 국어:90점 / 수학: 85",
+        "C. 국어: 90점 / 수학: 85",
+        "D. 국어: 90점 / 수학:85"
+      ],
+      "answer": "C",
+      "hint": "+ 는 공백 없이 붙이고, 쉼표는 공백을 자동으로 넣어요. 주석 줄은 무시돼요.",
+      "feedback": {
+        "correct": "맞아요! '국어: ' + '90점' → 국어: 90점(공백이 문자열에 포함). print('수학:', 85) → 수학: 85. 주석 줄은 무시."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_1_019",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 출력 결과로 올바른 것은?\n\n# 출력 테스트\nprint('1번')\nprint('2번')  # 두 번째\n# print('3번')\nprint('4번')",
+      "choices": [
+        "A. 1번 / 2번 / 3번 / 4번",
+        "B. 1번 / 2번 / 4번",
+        "C. 1번 / 2번 두 번째 / 4번",
+        "D. 2번 / 4번"
+      ],
+      "answer": "B",
+      "hint": "줄 전체 주석과 인라인 주석을 모두 구분해야 해요.",
+      "feedback": {
+        "correct": "완벽해요! 첫 줄 전체 주석 무시. print('1번') 실행. print('2번') 실행(# 뒤 무시). # print('3번') 전체 주석 무시. print('4번') 실행."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_1_020",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\nprint('a' + 'b' + 'c')\nprint('a', 'b', 'c')",
+      "choices": [
+        "A. abc / abc",
+        "B. a b c / a b c",
+        "C. abc / a b c",
+        "D. a b c / abc"
+      ],
+      "answer": "C",
+      "hint": "+ 는 공백 없이 이어붙이고, 쉼표는 공백을 자동으로 넣어요.",
+      "feedback": {
+        "correct": "맞아요! + 로 이어붙이면 공백 없이 abc. 쉼표로 나열하면 공백 자동 추가로 a b c."
       },
       "quiz_category": "stage_quiz",
       "quiz_set": "B"
