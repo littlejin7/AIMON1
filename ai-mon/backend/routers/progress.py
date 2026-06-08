@@ -52,6 +52,7 @@ class ProgressUpdateRequest(BaseModel):
     stage: str  # 예: "1-1", "1-2", "1-final"
     score: int
     is_completed: bool = False
+    checkpoint: str | None = None
 
 
 @router.get("/")
@@ -81,6 +82,12 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
             award_xp = True
         existing["score"] = max(existing.get("score", 0), req.score)
         existing["is_completed"] = req.is_completed or existing.get("is_completed", False)
+        
+        # checkpoint 로직: 기존이 'done'이면 하위 상태로 덮어쓰지 않음
+        if req.checkpoint:
+            if existing.get("checkpoint") != "done":
+                existing["checkpoint"] = req.checkpoint
+                
         existing["updated_at"] = datetime.utcnow().isoformat()
     else:
         award_xp = req.is_completed
@@ -91,6 +98,7 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
             "stage": req.stage,
             "score": req.score,
             "is_completed": req.is_completed,
+            "checkpoint": req.checkpoint,
             "created_at": datetime.utcnow().isoformat(),
             "updated_at": datetime.utcnow().isoformat(),
         })

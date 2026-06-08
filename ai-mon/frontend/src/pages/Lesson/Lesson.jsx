@@ -79,12 +79,19 @@ export default function Lesson() {
                 <div className="stage-info">
                   <div className="stage-status-badge">
                     {status === 'completed' && <span className="badge badge-success">완료 ✅</span>}
-                    {status === 'in_progress' && <span className="badge badge-warning">진행 중</span>}
+                    {status === 'in_progress' && prog?.checkpoint === 'miniboss_ready' && <span className="badge badge-warning">미니보스 대기중</span>}
+                    {status === 'in_progress' && prog?.checkpoint !== 'miniboss_ready' && <span className="badge badge-warning">진행 중</span>}
                     {status === 'locked' && !unlocked && <span className="badge">잠김 🔒</span>}
                     {status === 'locked' && unlocked && <span className="badge badge-primary">도전!</span>}
                   </div>
                   {prog && (
-                    <div className="stage-score">점수: {prog.score}점</div>
+                    <div className="stage-score">
+                      {prog.is_completed
+                        ? `최종 점수: ${prog.score}점`
+                        : prog.checkpoint === 'miniboss_ready'
+                        ? `개념퀴즈 통과 (${prog.score}점)`
+                        : `진행 중: ${prog.score}점`}
+                    </div>
                   )}
                 </div>
                 {unlocked && <span className="stage-arrow">›</span>}
