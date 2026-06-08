@@ -154,7 +154,7 @@ if (isCorrect) {
           setTimeout(async () => {
             try {
               setLoading(true)
-              const nextRes = await bossApi.startBattle(lessonId)
+              const nextRes = await bossApi.nextQuestion(lessonId)
               setCurrentQuestion(nextRes.data)
               setAiResult(null)
               setSelectedOption(null)
@@ -184,7 +184,7 @@ if (isCorrect) {
     
     setLoading(true)
     try {
-      const nextRes = await bossApi.startBattle(lessonId)
+      const nextRes = await bossApi.nextQuestion(lessonId)
       setCurrentQuestion(nextRes.data)
       setAiResult(null)
       setSelectedOption(null)
