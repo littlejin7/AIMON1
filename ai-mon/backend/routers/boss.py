@@ -4,6 +4,7 @@ from jose import jwt, JWTError
 from services.claude_service import ask_claude_json
 import json, os, uuid
 from datetime import datetime
+from routers.titles import check_and_award_titles
 
 router = APIRouter()
 
@@ -257,11 +258,18 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
                     elif lv >= 30 and u.get("character") == "speech_bubble":
                         u["character"] = "final_ghost"
                     break
+
+            context = {"boss_cleared": True}
+            newly_earned = check_and_award_titles(u, context)
+            ai_result["newly_earned_titles"] = newly_earned
+
             save_users(users)
             ai_result["xp_awarded"] = 3000
         else:
             ai_result["xp_awarded"] = 0
+            ai_result["newly_earned_titles"] = []
     else:
         ai_result["xp_awarded"] = 0
+        ai_result["newly_earned_titles"] = []
 
     return ai_result

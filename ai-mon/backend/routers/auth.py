@@ -69,6 +69,10 @@ def register(req: RegisterRequest):
         "crowns": 5,
         "daily_free_attempts": 2,
         "last_free_attempt_date": "",
+        "streak": 0,
+        "last_login": "",
+        "titles": [],
+        "ai_feedback_count": 0,
         "created_at": datetime.utcnow().isoformat(),
     }
     users.append(new_user)
@@ -83,5 +87,19 @@ def login(req: LoginRequest):
     user = next((u for u in users if u["username"] == req.username), None)
     if not user or user["password"] != hash_password(req.password):
         raise HTTPException(status_code=401, detail="아이디 또는 비밀번호가 올바르지 않습니다.")
+
+    today = datetime.utcnow().strftime("%Y-%m-%d")
+    last = user.get("last_login", "")
+
+    if last == today:
+        pass
+    elif last == (datetime.utcnow() - timedelta(days=1)).strftime("%Y-%m-%d"):
+        user["streak"] = user.get("streak", 0) + 1
+    else:
+        user["streak"] = 1
+
+    user["last_login"] = today
+    save_users(users)
+
     token = create_token({"sub": user["id"], "username": user["username"]})
     return {"access_token": token, "token_type": "bearer", "user": {k: v for k, v in user.items() if k != "password"}}

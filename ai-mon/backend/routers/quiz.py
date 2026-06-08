@@ -166,7 +166,7 @@ class AiFeedbackRequest(BaseModel):
 
 
 @router.post("/ai-feedback")
-async def get_ai_feedback(req: AiFeedbackRequest):
+async def get_ai_feedback(req: AiFeedbackRequest, authorization: str = Header(None)):
     """
     오답 제출 시 Claude API를 호출해 레벨별 맞춤 피드백을 반환합니다.
     Claude 실패/타임아웃 시 is_ai_fallback=True와 함께 200 반환 (프론트 crash 방지).
@@ -178,6 +178,33 @@ async def get_ai_feedback(req: AiFeedbackRequest):
         "학생이 왜 틀렸는지, 그리고 올바른 개념을 이해할 수 있도록 설명해주세요."
     )
     result = await ask_claude(prompt, level=req.level)
+
+    if authorization:
+        try:
+            import os
+            from jose import jwt
+            from routers.user import load_users, save_users
+            from routers.titles import TITLE_DEFINITIONS
+
+            SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
+            ALGORITHM = os.getenv("ALGORITHM", "HS256")
+
+            token = authorization.replace("Bearer ", "")
+            payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+            user_id = payload.get("sub")
+            users = load_users()
+            for u in users:
+                if u["id"] == user_id:
+                    u["ai_feedback_count"] = u.get("ai_feedback_count", 0) + 1
+                    earned = set(u.get("titles", []))
+                    if u["ai_feedback_count"] >= 10 and "ai_explorer" not in earned:
+                        earned.add("ai_explorer")
+                    u["titles"] = list(earned)
+                    break
+            save_users(users)
+        except Exception:
+            pass
+
     if result["success"]:
         return {"feedback": result["feedback"], "is_ai_fallback": False}
     # Claude 실패 → 프론트의 questions.json fallback을 쓰도록 빈 feedback 반환
