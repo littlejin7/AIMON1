@@ -158,24 +158,29 @@ def get_questions(
     limit: int = Query(10),
     attempt: int = Query(1),
 ):
-    questions = load_questions_by_category(category, course_level, unit)
-    if stage is not None:
-        questions = [q for q in questions if q.get("stage") == stage]
-    random.shuffle(questions)
-    
+    quiz_questions = load_questions_by_category(category, course_level, unit)
+    if stage:
+        quiz_questions = [q for q in quiz_questions if q.get("stage") == stage]
+    random.shuffle(quiz_questions)
+
     if category == "quiz":
-        # attempt에 따라 Set 구분
+        # attempt별 quiz_set 필터 (quiz 문제에만 적용)
         if attempt == 1:
-            pool = [q for q in questions if q.get("quiz_set") == "A"]
+            pool = [q for q in quiz_questions if q.get("quiz_set") == "A"]
         elif attempt == 2:
-            pool = [q for q in questions if q.get("quiz_set") == "B"]
+            pool = [q for q in quiz_questions if q.get("quiz_set") == "B"]
         else:
-            # 3회차 이상: A + B 섞어서 랜덤
-            pool = questions
-            random.shuffle(pool)
-        return pool[:limit]
-    
-    return questions[:limit]
+            pool = quiz_questions
+        quiz_pool = pool[:limit]
+
+        # miniboss 문제 로드 (quiz_set 필터 없이 항상 포함)
+        miniboss_questions = load_questions_by_category("miniboss", course_level, unit)
+        if stage:
+            miniboss_questions = [q for q in miniboss_questions if q.get("stage") == stage]
+
+        return quiz_pool + miniboss_questions
+
+    return quiz_questions[:limit]
 
 
 @router.get("/questions/{question_id}")
