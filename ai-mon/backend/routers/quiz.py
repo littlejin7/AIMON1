@@ -17,42 +17,79 @@ UNITS_FILE     = os.path.join(os.path.dirname(__file__), "../data/lessons.json")
 def load_questions_by_category(category: str, course_level: str = None, unit: int = None):
     base = os.path.join(os.path.dirname(__file__), f"../data/{category}")
     result = []
-    levels = [course_level] if course_level else ["beginner", "intermediate", "advanced"]
-    for level in levels:
+
+    # 시도할 레벨 목록: 요청 레벨 우선, 없으면 beginner 폴백
+    if course_level:
+        levels_to_try = [course_level]
+        if course_level != "beginner":
+            levels_to_try.append("beginner")  # 폴백
+    else:
+        levels_to_try = ["beginner", "intermediate", "advanced"]
+
+    tried_paths = set()
+
+    for level in levels_to_try:
         if category == "finalboss":
             fpath = os.path.join(base, f"{level}.json")
-            if os.path.exists(fpath):
-                with open(fpath, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                    result.extend(data.get("questions", []))
+            if fpath in tried_paths or not os.path.exists(fpath):
+                continue
+            tried_paths.add(fpath)
+            with open(fpath, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                result.extend(data.get("questions", []))
+            break  # finalboss는 첫 번째 존재하는 레벨만 사용
         else:
             folder = os.path.join(base, level)
             if not os.path.exists(folder):
-                continue
+                continue  # 다음 레벨(폴백)로 이동
+
             files = [f"unit_{unit}.json"] if unit else sorted(os.listdir(folder))
+            loaded_any = False
             for fname in files:
                 fpath = os.path.join(folder, fname)
+                if fpath in tried_paths:
+                    continue
                 if os.path.exists(fpath) and fname.endswith(".json"):
+                    tried_paths.add(fpath)
                     with open(fpath, "r", encoding="utf-8") as f:
                         data = json.load(f)
                         result.extend(data.get("questions", []))
+                    loaded_any = True
+
+            if loaded_any:
+                break  # 데이터 찾았으면 폴백 불필요
+
     return result
 
 
 def load_lessons(course_level: str = None, unit: int = None):
     base = os.path.join(os.path.dirname(__file__), "../data/lessons")
     result = []
-    levels = [course_level] if course_level else ["beginner", "intermediate", "advanced"]
-    for level in levels:
+
+    if course_level:
+        levels_to_try = [course_level]
+        if course_level != "beginner":
+            levels_to_try.append("beginner")
+    else:
+        levels_to_try = ["beginner", "intermediate", "advanced"]
+
+    for level in levels_to_try:
         folder = os.path.join(base, level)
         if not os.path.exists(folder):
             continue
+
         files = [f"unit_{unit}.json"] if unit else sorted(os.listdir(folder))
+        loaded_any = False
         for fname in files:
             fpath = os.path.join(folder, fname)
             if os.path.exists(fpath) and fname.endswith(".json"):
                 with open(fpath, "r", encoding="utf-8") as f:
                     result.extend(json.load(f))
+                loaded_any = True
+
+        if loaded_any:
+            break  # 데이터 찾았으면 폴백 불필요
+
     return result
 
 

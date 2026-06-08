@@ -62,6 +62,9 @@ export default function Auth() {
   const [loading, setLoading]       = useState(false)
   const [error, setError]           = useState('')
   const [socialMsg, setSocialMsg]   = useState('')
+  const [passwordConfirm, setPasswordConfirm] = useState('')
+  const [idChecked, setIdChecked]             = useState(false)
+  const [idCheckMsg, setIdCheckMsg]           = useState('')   // '' | 'ok' | 'dup' | 'error'
   const setAuth = useAuthStore((s) => s.setAuth)
   const navigate = useNavigate()
 
@@ -70,10 +73,30 @@ export default function Auth() {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
     setError('')
+    if (e.target.name === 'username') { setIdChecked(false); setIdCheckMsg('') }
+  }
+
+  const handleIdCheck = async () => {
+    const id = form.username.trim()
+    if (!id) { setIdCheckMsg('error'); return }
+    try {
+      await authApi.checkId(id)       // 아래 api 항목 참고
+      setIdCheckMsg('ok')
+      setIdChecked(true)
+    } catch (err) {
+      const detail = err.response?.data?.detail || ''
+      setIdCheckMsg(detail.includes('존재') ? 'dup' : 'error')
+      setIdChecked(false)
+    }
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (mode === 'register') {
+      if (!idChecked) { setError('아이디 중복 확인을 해주세요.'); return }
+      if (form.password !== passwordConfirm) { setError('비밀번호가 일치하지 않습니다.'); return }
+      if (form.password.length < 6) { setError('비밀번호는 6자 이상이어야 합니다.'); return }
+    }
     setLoading(true)
     setError('')
     try {
@@ -188,17 +211,33 @@ export default function Auth() {
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
             <label htmlFor="username">아이디</label>
-            <input
-              id="username"
-              name="username"
-              type="text"
-              className="input"
-              placeholder="아이디를 입력하세요"
-              value={form.username}
-              onChange={handleChange}
-              required
-              autoComplete="username"
-            />
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                className="input"
+                placeholder="아이디를 입력하세요"
+                value={form.username}
+                onChange={handleChange}
+                required
+                autoComplete="username"
+                style={{ flex: 1 }}
+              />
+              {mode === 'register' && (
+                <button
+                  type="button"
+                  className="btn btn-outline btn-sm"
+                  onClick={handleIdCheck}
+                  style={{ whiteSpace: 'nowrap', padding: '0 14px' }}
+                >
+                  중복확인
+                </button>
+              )}
+            </div>
+            {mode === 'register' && idCheckMsg === 'ok'  && <p style={{ color: '#10b981', fontSize: '0.8rem', marginTop: '4px' }}>✅ 사용 가능한 아이디입니다.</p>}
+            {mode === 'register' && idCheckMsg === 'dup' && <p style={{ color: '#ef4444', fontSize: '0.8rem', marginTop: '4px' }}>❌ 이미 사용 중인 아이디입니다.</p>}
+            {mode === 'register' && idCheckMsg === 'error' && <p style={{ color: '#f59e0b', fontSize: '0.8rem', marginTop: '4px' }}>⚠️ 아이디를 입력해주세요.</p>}
           </div>
 
           <div className="form-group">
@@ -215,6 +254,29 @@ export default function Auth() {
               autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
             />
           </div>
+
+          {mode === 'register' && (
+            <div className="form-group animate-fade-in">
+              <label htmlFor="passwordConfirm">비밀번호 확인</label>
+              <input
+                id="passwordConfirm"
+                name="passwordConfirm"
+                type="password"
+                className="input"
+                placeholder="비밀번호를 다시 입력하세요"
+                value={passwordConfirm}
+                onChange={(e) => setPasswordConfirm(e.target.value)}
+                required
+                autoComplete="new-password"
+                style={{
+                  borderColor: passwordConfirm && form.password !== passwordConfirm ? '#ef4444' : undefined
+                }}
+              />
+              {passwordConfirm && form.password !== passwordConfirm && (
+                <p style={{ color: '#ef4444', fontSize: '0.8rem', marginTop: '4px' }}>비밀번호가 일치하지 않습니다.</p>
+              )}
+            </div>
+          )}
 
           {mode === 'register' && (
             <div className="form-group animate-fade-in">
