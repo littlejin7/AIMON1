@@ -174,7 +174,7 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
         ai_result = {
             "is_correct": matched,
             "score": 100 if matched else 0,
-            "feedback": question["feedback"]["correct"] if matched else question["feedback"]["wrong"],
+            "feedback": question.get("feedback", {}).get("correct", "") if matched else question.get("feedback", {}).get("wrong", "정답을 다시 확인해 보세요!"),
             "hint": "" if matched else question.get("hint", ""),
         }
     else:
