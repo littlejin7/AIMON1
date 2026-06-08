@@ -173,49 +173,13 @@ export default function Stage({ _lessonId, _stage }) {
       <div className="stage-result animate-fade-in">
         {/* 비로그인 회원가입/로그인 모달 */}
         {showAuthModal && (
-          <div
-            className="auth-modal-overlay"
-            onClick={() => setShowAuthModal(false)}
-            style={{
-              position: 'fixed', inset: 0, zIndex: 1000,
-              background: 'rgba(0,0,0,0.65)', backdropFilter: 'blur(4px)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}
-          >
-            <div
-              className="auth-modal"
-              onClick={(e) => e.stopPropagation()}
-              style={{
-                background: 'var(--surface, #1e1e2e)',
-                border: '1px solid rgba(255,255,255,0.12)',
-                borderRadius: '20px', padding: '2.5rem 2rem',
-                maxWidth: '380px', width: '90%', textAlign: 'center',
-                boxShadow: '0 24px 64px rgba(0,0,0,0.5)',
-              }}
-            >
-              <div style={{ fontSize: '3rem', marginBottom: '0.75rem' }}>🎉</div>
-              <h2 style={{ margin: '0 0 0.5rem', fontSize: '1.4rem', fontWeight: 700 }}>
-                1-1 스테이지 완료!
-              </h2>
-              <p style={{ color: 'var(--text-secondary, #a0a0b0)', marginBottom: '1.5rem', lineHeight: 1.6 }}>
-                다음 스테이지로 이어가려면<br />로그인 또는 회원가입이 필요해요 😊
-              </p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                <button
-                  className="btn btn-primary"
-                  style={{ width: '100%' }}
-                  onClick={() => navigate('/auth?mode=register')}
-                >
-                  ✨ 회원가입하고 계속하기
-                </button>
-                <button
-                  className="btn btn-ghost"
-                  style={{ width: '100%' }}
-                  onClick={() => { setShowAuthModal(false); navigate('/') }}
-                >
-                  홈으로 돌아가기
-                </button>
-              </div>
+          <div className="auth-modal-overlay" onClick={() => setShowAuthModal(false)}>
+            <div className="auth-modal" onClick={e => e.stopPropagation()}>
+              <h2>🎉 1-1 클리어!</h2>
+              <p>회원가입하면 모든 스테이지를 계속 진행할 수 있어요.</p>
+              <button className="btn btn-primary" style={{width: '100%', marginBottom: '0.5rem'}} onClick={() => navigate('/auth?mode=register')}>회원가입하기</button>
+              <button className="btn btn-secondary" style={{width: '100%', marginBottom: '0.5rem'}} onClick={() => navigate('/auth?mode=login')}>이미 계정이 있어요</button>
+              <button className="btn btn-ghost" style={{width: '100%'}} onClick={() => setShowAuthModal(false)}>나중에 할게요</button>
             </div>
           </div>
         )}
