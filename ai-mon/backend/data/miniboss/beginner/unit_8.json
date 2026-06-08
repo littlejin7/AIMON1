@@ -1,0 +1,2164 @@
+{
+  "questions": [
+    {
+      "question_id": "miniboss_8_1_mc_001",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "챗봇은 질문에 답만 해요. 에이전트는 뭐가 달라요?",
+      "choices": [
+        "A. 목표를 주면 도구를 써서 여러 단계를 알아서 처리해요",
+        "B. 더 빨리 답해요",
+        "C. 더 짧게 답해요",
+        "D. 그림을 그려줘요"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 에이전트는 목표→계획→행동→확인→반복으로 일을 끝까지 처리해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_1_mc_002",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "에이전트 루프의 세 단계는?",
+      "choices": [
+        "A. Read-Write-Execute",
+        "B. Think-Act-Observe",
+        "C. Plan-Code-Test",
+        "D. Ask-Reply-Done"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! Think→Act→Observe가 에이전트 루프의 핵심이에요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_1_mc_003",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "에이전트에서 도구(Tool)란?",
+      "choices": [
+        "A. AI 모델",
+        "B. API 키",
+        "C. 에이전트가 호출하는 Python 함수",
+        "D. 데이터베이스"
+      ],
+      "answer": "C",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 검색, 계산, API 호출 같은 Python 함수가 도구예요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_1_mc_004",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "에이전트 루프에서 max_steps를 설정하는 이유는?",
+      "choices": [
+        "A. 더 나은 답변",
+        "B. 무한 루프 방지와 API 비용 제한",
+        "C. 코드 가독성",
+        "D. 메모리 절약"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! max_steps 없으면 루프가 무한히 실행되어 API 비용이 폭발할 수 있어요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_1_mc_005",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "stop_reason == 'end_turn' 의 의미는?",
+      "choices": [
+        "A. 도구 호출 필요",
+        "B. AI가 최종 답변 완성",
+        "C. 오류 발생",
+        "D. 루프 한계 초과"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! end_turn = AI가 더 이상 도구 없이 최종 답변을 완성했다는 신호예요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_1_os_006",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 루프에서 최대 실행 횟수는?**\n\n```python\nstep = 0\nwhile step < 5:\n    step += 1\n```",
+      "choices": [
+        "A. 4번",
+        "B. 6번",
+        "C. 5번",
+        "D. 3번"
+      ],
+      "answer": "C",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! step=0,1,2,3,4까지 5번 실행돼요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_1_os_007",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 중 도구가 반드시 필요한 상황은?",
+      "choices": [
+        "A. 지금 원달러 환율 알려줘",
+        "B. 2+3 계산",
+        "C. 파이썬 설명해줘",
+        "D. 안녕이라고 인사"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 실시간 환율은 AI 단독으로 알 수 없어요. 외부 API 도구가 필요해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_1_os_008",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "에이전트 루프에서 tool_result를 messages에 추가 안 하면?",
+      "choices": [
+        "A. 속도 향상",
+        "B. AI가 결과를 못 보고 같은 도구를 계속 요청해 무한 루프 위험",
+        "C. 오류 즉시 발생",
+        "D. 답변이 짧아짐"
+      ],
+      "answer": "D",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! messages에 tool_result가 없으면 AI가 결과를 모르고 계속 같은 요청을 해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_1_os_009",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드에서 step의 최종값은?**\n\n```python\nstep = 0\nwhile step < 3:\n    step += 1\n    if step == 2:\n        break\nprint(step)\n```",
+      "choices": [
+        "A. 3",
+        "B. 2",
+        "C. 4",
+        "D. 1"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! step=2가 되는 순간 break로 탈출해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_1_os_010",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "tool_functions = {'weather': fn_a, 'calc': fn_b} 에서\nblock.name='calc', block.input={'expr':'2*3'} 일 때 실행되는 코드는?",
+      "choices": [
+        "A. fn_a(expr='2*3')",
+        "B. fn_b()",
+        "C. fn_a()",
+        "D. fn_b(expr='2*3')"
+      ],
+      "answer": "D",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! tool_functions['calc']=fn_b, **{'expr':'2*3'}로 fn_b(expr='2*3')이 호출돼요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_2_mc_001",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "Tool Use란?",
+      "choices": [
+        "A. AI가 Python 함수 호출을 요청하는 기능",
+        "B. AI 모델 학습",
+        "C. 데이터 저장",
+        "D. UI 구성"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! Tool Use로 AI가 외부 Python 함수를 호출 요청할 수 있어요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_2_mc_002",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "AI가 Tool Use로 도구를 '호출'할 때 실제로 함수를 실행하는 건?",
+      "choices": [
+        "A. AI 모델",
+        "B. 개발자 코드",
+        "C. Claude 서버",
+        "D. 데이터베이스"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! AI는 요청만 해요. 실제 실행은 항상 개발자 코드예요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_2_mc_003",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "Tool description을 잘 써야 하는 이유는?",
+      "choices": [
+        "A. 코드 보안",
+        "B. 파일 크기",
+        "C. AI가 description으로 언제 이 도구를 쓸지 결정해서",
+        "D. API 속도"
+      ],
+      "answer": "C",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! description이 모호하면 AI가 도구를 잘못 선택하거나 안 써요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_2_mc_004",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "Tool 정의의 필수 필드 3가지는?",
+      "choices": [
+        "A. name, type, required",
+        "B. name, description, input_schema",
+        "C. description, model, version",
+        "D. input_schema, api_key, name"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! name(이름)+description(설명)+input_schema(파라미터)가 Tool의 3대 필수 필드예요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_2_mc_005",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "stop_reason == 'tool_use' 의 의미는?",
+      "choices": [
+        "A. 작업 완료",
+        "B. AI가 도구 호출을 요청함",
+        "C. 오류 발생",
+        "D. 루프 종료"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! tool_use = '이 함수 실행해줘'라는 AI의 요청이에요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_2_os_006",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "Tool 호출 결과를 messages에 추가할 때 role은?",
+      "choices": [
+        "A. system",
+        "B. assistant",
+        "C. user",
+        "D. tool"
+      ],
+      "answer": "C",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! tool_result는 role='user'로 messages에 추가해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_2_os_007",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 Tool 정의에서 문제점은?**\n\n```python\n{'name': 'fn', 'description': 'stuff', 'input_schema': {'type': 'object'}}\n```",
+      "choices": [
+        "A. description이 모호해 AI가 언제 사용할지 모름",
+        "B. name 길이",
+        "C. type 오류",
+        "D. schema 오류"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 'stuff'는 너무 모호해요. AI가 이 도구를 언제 써야 할지 알 수 없어요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_2_os_008",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "Tool Use 흐름의 올바른 순서는?",
+      "choices": [
+        "A. 결과전달→AI호출→tool_use",
+        "B. tool_use→AI→결과",
+        "C. AI→반환→tool_use",
+        "D. AI호출→tool_use수신→함수실행→결과전달→AI재호출→end_turn→반환"
+      ],
+      "answer": "D",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! AI호출→tool_use→함수실행→결과전달→AI재호출→end_turn→반환이에요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_2_os_009",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "AI가 병렬로 tool_use를 2개 반환했을 때 처리는?",
+      "choices": [
+        "A. 첫 번째만 실행",
+        "B. 두 결과를 tool_results 리스트에 모아 한 번에 messages 추가",
+        "C. 두 번 AI 호출",
+        "D. 마지막 것만 실행"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 병렬 결과는 모아서 한 번에 전달해야 AI가 모든 결과를 볼 수 있어요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_2_os_010",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 설명 중 더 좋은 Tool description은?",
+      "choices": [
+        "A. '데이터 처리'",
+        "B. 둘 다 같아요",
+        "C. description은 필요 없어요",
+        "D. '지정한 도시의 현재 기온과 날씨 상태를 실시간으로 반환. 날씨 질문에 사용'"
+      ],
+      "answer": "D",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 구체적인 설명이 AI의 올바른 도구 선택을 도와요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_3_mc_001",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "에이전트 루프를 Python에서 어떻게 구현해요?",
+      "choices": [
+        "A. while 루프",
+        "B. for 반복",
+        "C. if 조건문",
+        "D. 함수 정의"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! while 루프로 목표 달성 전까지 반복해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_3_mc_002",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "AI가 '다 됐어요!'라고 알려주는 신호는?",
+      "choices": [
+        "A. done=True",
+        "B. stop_reason='end_turn'",
+        "C. finish=1",
+        "D. complete=True"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! stop_reason='end_turn'이 AI의 작업 완료 신호예요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_3_mc_003",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "도구 결과를 messages에 안 넣으면?",
+      "choices": [
+        "A. 답변이 짧아져요",
+        "B. 오류 발생",
+        "C. AI가 결과를 모르고 같은 도구를 계속 요청해요",
+        "D. 빨라져요"
+      ],
+      "answer": "C",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! tool_result를 messages에 추가해야 AI가 결과를 보고 다음 단계로 넘어가요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_3_mc_004",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "safe_tool_call 함수가 반환하는 구조는?",
+      "choices": [
+        "A. 결과값만",
+        "B. {'success': True/False, 'result': 값 또는 'error': 오류}",
+        "C. {'done': True}",
+        "D. 결과 문자열만"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 성공 여부와 결과/오류를 함께 반환해야 에러 처리가 쉬워요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_3_mc_005",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "max_steps 초과로 루프 강제 종료 시 올바른 처리는?",
+      "choices": [
+        "A. None 반환",
+        "B. 실패 메시지를 반환해 사용자에게 알림",
+        "C. 정상 결과 반환",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 실패 원인을 알 수 있는 메시지를 반환해야 사용자가 상황을 이해해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_3_os_006",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드 출력은?**\n\n```python\nresults = []\nstep = 0\nwhile step < 4:\n    results.append(step)\n    step += 1\nprint(results)\n```",
+      "choices": [
+        "A. [1,2,3,4]",
+        "B. [0,1,2,3,4]",
+        "C. [0,1,2,3]",
+        "D. [1,2,3]"
+      ],
+      "answer": "C",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! step=0,1,2,3까지 실행, step<4이므로 4 미포함이에요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_3_os_007",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "에이전트 루프에서 로그를 남기는 가장 큰 이유는?",
+      "choices": [
+        "A. 어떤 도구를 어떤 인수로 호출했는지 추적해 디버깅하려고",
+        "B. 사용자에게 보여주려고",
+        "C. API 요구사항",
+        "D. 성능 향상"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 로그로 각 단계를 기록해두면 문제 발생 시 원인을 빠르게 찾아요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_3_os_008",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 messages 흐름에서 빠진 단계는?\n\n`user('날씨 알려줘') → assistant(tool_use) → ??? → assistant('서울 24도예요')`",
+      "choices": [
+        "A. user('다시 물어봐')",
+        "B. 루프 재시작",
+        "C. system 메시지 추가",
+        "D. user(tool_result) — 도구 실행 결과 전달"
+      ],
+      "answer": "D",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! tool_use 후 반드시 user(tool_result)로 결과를 전달해야 AI가 최종 답변을 만들어요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_3_os_009",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 루프의 문제점은?**\n\n```python\nwhile True:\n    response = call_ai(messages)\n    return response.content[0].text\n```",
+      "choices": [
+        "A. while True 사용",
+        "B. stop_reason 체크 없이 바로 반환 — tool_use 처리 불가",
+        "C. messages 없음",
+        "D. call_ai 오류"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! stop_reason 체크 없이 바로 반환하면 도구 호출이 필요한 경우를 처리 못해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_3_os_010",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "완성된 에이전트 루프가 갖춰야 할 요소를 모두 포함한 것은?",
+      "choices": [
+        "A. while True만",
+        "B. step=0만",
+        "C. tools 없음",
+        "D. max_steps + stop_reason 체크 + tool_result messages 추가 + 오류처리 + 로그"
+      ],
+      "answer": "D",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 5가지 요소가 모두 있어야 안전하고 추적 가능한 루프예요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_4_mc_001",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "AI한테 이전 대화를 기억하게 하려면?",
+      "choices": [
+        "A. 이전 대화를 messages에 담아서 같이 보내줘야 해요",
+        "B. AI가 알아서 기억해요",
+        "C. 새로 시작해야 해요",
+        "D. 파일에 저장해요"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! AI는 기억이 없어요. messages에 넣어서 보내야 기억하는 것처럼 동작해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_4_mc_002",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "오래된 대화를 지우고 최근 것만 남기는 기법은?",
+      "choices": [
+        "A. 삭제",
+        "B. 히스토리 트리밍(trimming)",
+        "C. 캐싱",
+        "D. 암호화"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! history[-N:]으로 최근 N개만 유지하는 게 트리밍이에요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_4_mc_003",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "에이전트 상태를 JSON으로 저장하면?",
+      "choices": [
+        "A. AI 성능 향상",
+        "B. API 비용 절감",
+        "C. 프로그램 재시작 후에도 이어서 실행 가능",
+        "D. 보안 강화"
+      ],
+      "answer": "C",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! json.dump()로 저장하고 json.load()로 불러와 이어서 실행해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_4_mc_004",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "히스토리 트리밍 시 절대 지우면 안 되는 메시지는?",
+      "choices": [
+        "A. system 메시지",
+        "B. assistant 메시지",
+        "C. user 메시지",
+        "D. tool_result"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! system 메시지가 없어지면 AI의 역할 설정이 사라져요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_4_mc_005",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "에이전트 상태 파일에 저장하면 안 되는 정보는?",
+      "choices": [
+        "A. 중간 결과",
+        "B. 완료된 작업 목록",
+        "C. API 키·비밀번호 등 민감 정보",
+        "D. 현재 단계 번호"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 민감 정보는 .env로 분리 관리해요. 상태 파일에 포함하면 보안 위험이에요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_4_os_006",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드 출력은?**\n\n```python\nhistory = list(range(8))\ntrimmed = history[-3:]\nprint(trimmed[0])\n```",
+      "choices": [
+        "A. 0",
+        "B. 4",
+        "C. 5",
+        "D. 7"
+      ],
+      "answer": "C",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! history[-3:]=[5,6,7]. [0]=5예요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_4_os_007",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드 출력은?**\n\n```python\nimport json\nstate = {'step': 0}\nstate['step'] = 7\nloaded = json.loads(json.dumps(state))\nprint(loaded['step'])\n```",
+      "choices": [
+        "A. 7",
+        "B. 1",
+        "C. 3",
+        "D. 0"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! dumps→loads 후에도 step=7이 그대로 복원돼요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_4_os_008",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "AI가 이전 대화를 기억하는 것처럼 보이는 원리는?",
+      "choices": [
+        "A. AI 내부 저장",
+        "B. 클라우드 동기화",
+        "C. 쿠키 사용",
+        "D. messages에 이전 대화를 포함해 매 요청마다 전달"
+      ],
+      "answer": "D",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! AI는 매 요청이 독립적이에요. messages 컨텍스트로 기억처럼 구현해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_4_os_009",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드에서 save 후 load하면 count 값은?**\n\n```python\nimport json\nstate = {'count': 0}\nstate['count'] += 5\nwith open('s.json','w') as f: json.dump(state, f)\nstate['count'] = 0  # 리셋!\nwith open('s.json') as f: loaded = json.load(f)\nprint(loaded['count'])\n```",
+      "choices": [
+        "A. 0",
+        "B. 5",
+        "C. 3",
+        "D. 1"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! save 시점의 count=5가 저장돼요. 이후 리셋해도 파일엔 5가 남아요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_4_os_010",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "완성된 에이전트 메모리 시스템이 올바른 것은?",
+      "choices": [
+        "A. messages 무한 보관",
+        "B. API 키를 messages에 포함",
+        "C. 모든 메시지 삭제",
+        "D. trimming으로 컨텍스트 관리 + json으로 상태 저장·복원 + 민감 정보 .env 분리"
+      ],
+      "answer": "D",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 세 가지가 함께 있어야 실용적인 에이전트 메모리 시스템이에요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_5_mc_001",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "'검색→요약→저장'처럼 여러 단계를 자동 실행하는 걸?",
+      "choices": [
+        "A. 멀티스텝 태스크",
+        "B. 단일 API 호출",
+        "C. 단순 챗봇",
+        "D. 번역 기능"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 여러 도구를 순서대로 자동 실행하는 게 멀티스텝 태스크예요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_5_mc_002",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "도구 호출 중 오류 발생 시?",
+      "choices": [
+        "A. 즉시 종료",
+        "B. 오류 내용을 AI에 전달해 다른 방법을 찾게 해요",
+        "C. 오류 무시",
+        "D. 처음부터 재시작"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 오류도 정보예요. AI에 전달하면 대안을 시도해줘요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_5_mc_003",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "뉴스 요약 자동화의 올바른 도구 순서는?",
+      "choices": [
+        "A. 저장→요약→검색",
+        "B. 요약→저장→검색",
+        "C. 검색→요약→저장",
+        "D. 저장→검색→요약"
+      ],
+      "answer": "C",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 검색(수집)→요약(처리)→저장(출력) 순서예요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_5_mc_004",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "병렬 도구 호출의 장점은?",
+      "choices": [
+        "A. 코드 간결",
+        "B. 독립적 정보를 동시 수집해 처리 시간 단축",
+        "C. 오류 감소",
+        "D. 비용 절감"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 독립적인 두 정보를 병렬로 수집하면 순차보다 빠르게 결과를 얻어요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_5_mc_005",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "safe_tool_call이 반환하는 구조로 올바른 것은?",
+      "choices": [
+        "A. 결과값만",
+        "B. {'success': True/False, 'result': 값 또는 'error': 오류}",
+        "C. {'done': True}",
+        "D. 결과 문자열만"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 성공 여부와 결과/오류를 함께 반환해야 에러 처리가 가능해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_5_os_006",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드에서 step의 최종값은?**\n\n```python\nstep = 0\nfor tool in ['search', 'analyze', 'save']:\n    step += 1\nprint(step)\n```",
+      "choices": [
+        "A. 2",
+        "B. 4",
+        "C. 3",
+        "D. 1"
+      ],
+      "answer": "C",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 3번 반복해서 step=3이에요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_5_os_007",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "멀티스텝에서 이전 단계 결과가 다음 단계에 전달되는 방법은?",
+      "choices": [
+        "A. messages 히스토리를 통해 AI가 이전 tool_result를 기반으로 다음 호출 결정",
+        "B. 전역 변수",
+        "C. 직접 함수 전달",
+        "D. 파일 저장"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! messages에 누적된 tool_result가 다음 단계의 맥락이에요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_5_os_008",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드 출력은?**\n\n```python\ntools_called = []\nfor i in range(4):\n    if i % 2 == 0:\n        tools_called.append('search')\n    else:\n        tools_called.append('analyze')\nprint(tools_called)\n```",
+      "choices": [
+        "A. ['search','analyze','search']",
+        "B. ['search','search','search','search']",
+        "C. ['analyze','search','analyze','search']",
+        "D. ['search','analyze','search','analyze']"
+      ],
+      "answer": "D",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! i=0(search),1(analyze),2(search),3(analyze)이에요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_5_os_009",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "'A사 B사 주가 비교'의 올바른 도구 호출 순서는?",
+      "choices": [
+        "A. A주가→B주가→비교(순차)",
+        "B. A주가+B주가(병렬)→비교→답변",
+        "C. 비교→A주가→B주가",
+        "D. 답변→A주가→B주가"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 독립적인 A·B 주가는 병렬로, 비교는 두 결과 후 수행해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_5_os_010",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "안전한 멀티스텝 에이전트의 4대 요소는?",
+      "choices": [
+        "A. 속도+메모리+캐시+API키",
+        "B. while True만",
+        "C. tools 없음",
+        "D. max_steps + 오류처리 + 로그 + 종료조건"
+      ],
+      "answer": "D",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 이 4가지가 안전하고 디버깅 가능한 멀티스텝 에이전트의 핵심이에요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_6_mc_001",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "스팸메일 여부를 자동 판단하는 에이전트는?",
+      "choices": [
+        "A. 분류봇",
+        "B. 검색봇",
+        "C. 요약봇",
+        "D. 생성봇"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 텍스트를 카테고리로 나누는 에이전트가 분류봇이에요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_6_mc_002",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "에이전트 설계 시 가장 먼저 해야 할 일은?",
+      "choices": [
+        "A. 코딩",
+        "B. 입출력 정의 — 무엇을 받아 무엇을 반환할지",
+        "C. API 키 발급",
+        "D. 서버 설정"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 입출력이 명확해야 도구와 흐름 설계가 따라와요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_6_mc_003",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "분류봇이 JSON으로 응답하게 하려면?",
+      "choices": [
+        "A. json.loads() 호출",
+        "B. API 파라미터",
+        "C. system에 정확한 JSON 형식 예시 명시",
+        "D. 응답 자동 변환"
+      ],
+      "answer": "C",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! system에 스키마 예시를 명시하면 AI가 그 형식을 따라요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_6_mc_004",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "분류봇 confidence=0.3일 때 권장 처리는?",
+      "choices": [
+        "A. 사람이 검토하도록 플래그 처리",
+        "B. 무조건 첫 번째 카테고리",
+        "C. 오류 발생",
+        "D. 재분류"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 낮은 confidence=불확실=사람 검토가 필요한 신호예요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_6_mc_005",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "코드 검토 에이전트가 JSON 응답을 쓰는 이유는?",
+      "choices": [
+        "A. 보기 좋아서",
+        "B. result['score']처럼 각 항목을 코드로 바로 사용 가능",
+        "C. API 요구사항",
+        "D. 저장 효율"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! JSON 구조 덕분에 각 항목을 코드에서 바로 처리할 수 있어요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_6_os_006",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "요약봇 파이프라인의 올바른 순서는?",
+      "choices": [
+        "A. 저장→읽기→요약",
+        "B. 요약→저장→읽기",
+        "C. 읽기→요약→저장",
+        "D. 저장→요약→읽기"
+      ],
+      "answer": "C",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 읽기(수집)→요약(처리)→저장(출력) 순서예요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_6_os_007",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드 출력은?**\n\n```python\nimport json\nresult = json.loads('{\"category\": \"긍정\", \"confidence\": 0.92}')\nprint(result['category'], result['confidence'] > 0.8)\n```",
+      "choices": [
+        "A. 긍정 True",
+        "B. 부정 True",
+        "C. 긍정 False",
+        "D. 오류 발생"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! category='긍정', 0.92>0.8은 True예요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_6_os_008",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "에이전트 설계 체크리스트에 API 키를 넣으면 안 되는 이유는?",
+      "choices": [
+        "A. 키가 길어서",
+        "B. 필요 없어서",
+        "C. 형식 오류",
+        "D. 설계 문서는 팀과 공유되어 노출 위험"
+      ],
+      "answer": "D",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 민감 정보는 .env로 분리 관리해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_6_os_009",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "이메일 자동 처리의 올바른 도구 순서는?",
+      "choices": [
+        "A. 발송→분류→선택",
+        "B. 분류→템플릿선택→발송",
+        "C. 선택→발송→분류",
+        "D. 저장→분류→발송"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 분류(판단)→선택(결정)→발송(행동) 순서예요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_6_os_010",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "에이전트 설계 완성도 체크리스트가 올바른 것은?",
+      "choices": [
+        "A. 빠른 CPU만",
+        "B. API 키 포함",
+        "C. 코드 길이 최소화",
+        "D. 입출력 정의 + 필요 도구 + max_steps + 실패 처리 + 테스트 케이스"
+      ],
+      "answer": "D",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 5가지 체크리스트가 완성된 에이전트 설계의 기준이에요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_7_mc_001",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "에이전트 코드를 더 짧고 쉽게 만들어주는 라이브러리는?",
+      "choices": [
+        "A. LangChain",
+        "B. Pandas",
+        "C. NumPy",
+        "D. Requests"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! LangChain은 에이전트와 파이프라인 코드를 간결하게 만들어줘요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_7_mc_002",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "LangChain에서 단계를 파이프라인처럼 연결하는 기호는?",
+      "choices": [
+        "A. ->",
+        "B. |",
+        "C. >>",
+        "D. &&"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `prompt | llm | parser`처럼 `|`로 단계를 연결해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_7_mc_003",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "Python 함수를 LangChain 도구로 등록하는 데코레이터는?",
+      "choices": [
+        "A. @agent",
+        "B. @function",
+        "C. @tool",
+        "D. @register"
+      ],
+      "answer": "C",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! @tool을 붙이면 그 함수가 LangChain 에이전트 도구가 돼요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_7_mc_004",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "@tool 함수에서 타입 힌트가 필요한 이유는?",
+      "choices": [
+        "A. LangChain이 타입 힌트로 input_schema를 자동 생성하기 위해",
+        "B. Python 규정",
+        "C. 실행 속도",
+        "D. 오류 방지"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 타입 힌트가 있어야 LangChain이 input_schema를 만들어요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_7_mc_005",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "직접 구현이 LangChain보다 유리한 상황은?",
+      "choices": [
+        "A. 빠른 배포",
+        "B. 에이전트 원리 이해 학습 또는 세밀한 도구 호출 제어",
+        "C. 팀 프로젝트",
+        "D. 표준화 필요"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 원리 이해나 세밀한 제어에는 직접 구현이 더 유리해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_7_os_006",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "chain = prompt | llm | StrOutputParser() 실행 순서는?",
+      "choices": [
+        "A. parser→llm→prompt",
+        "B. llm→prompt→parser",
+        "C. prompt→llm→parser",
+        "D. prompt→parser→llm"
+      ],
+      "answer": "C",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! `|`는 왼쪽→오른쪽 순서예요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_7_os_007",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "StrOutputParser()의 역할은?",
+      "choices": [
+        "A. AI 응답 객체에서 텍스트만 추출",
+        "B. 문자열→JSON 변환",
+        "C. 입력 파싱",
+        "D. 오류 처리"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! chain 끝에 붙이면 AI 응답에서 텍스트 문자열만 꺼내줘요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_7_os_008",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 Chain의 결과 타입은?**\n\n```python\nchain = prompt | llm | StrOutputParser()\nresult = chain.invoke({'q': '안녕'})\n```",
+      "choices": [
+        "A. dict",
+        "B. Response 객체",
+        "C. list",
+        "D. str"
+      ],
+      "answer": "D",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! StrOutputParser()가 마지막에 오면 str을 반환해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_7_os_009",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "@tool 사용의 가장 큰 이점은?",
+      "choices": [
+        "A. 실행 속도 향상",
+        "B. name·description·input_schema를 직접 작성 않아도 자동 생성",
+        "C. API 비용 절감",
+        "D. 더 많은 언어 지원"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! @tool이 함수 정의에서 Tool 딕셔너리를 자동으로 만들어줘요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_7_os_010",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "Unit 8에서 직접 구현을 먼저 배우는 이유는?",
+      "choices": [
+        "A. LangChain이 어렵기 때문",
+        "B. 비용 때문",
+        "C. Python 제한 때문에",
+        "D. 원리를 체득한 후 LangChain을 보면 무엇을 자동화해주는지 명확히 알 수 있어서"
+      ],
+      "answer": "D",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 원리 이해 → 프레임워크 활용이 가장 효과적인 학습 순서예요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_8_mc_001",
+      "unit": 8,
+      "stage": "8-8",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "고객 이메일을 자동 분류·처리하는 에이전트는?",
+      "choices": [
+        "A. 이메일 분류 에이전트",
+        "B. 요약봇",
+        "C. 파일 저장 에이전트",
+        "D. 검색봇"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 텍스트를 카테고리로 분류해 처리하는 에이전트예요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_8_mc_002",
+      "unit": 8,
+      "stage": "8-8",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "에이전트 배포 전 반드시 해야 할 일은?",
+      "choices": [
+        "A. 서버 업그레이드",
+        "B. 다양한 입력으로 테스트해 예상치 못한 오류를 미리 확인",
+        "C. 코드 줄이기",
+        "D. 로고 만들기"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 정상+엣지+오류 케이스를 모두 테스트해야 안전하게 배포할 수 있어요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_8_mc_003",
+      "unit": 8,
+      "stage": "8-8",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "코드 검토 에이전트가 JSON으로 결과를 반환하면 편한 이유는?",
+      "choices": [
+        "A. 보기 좋아서",
+        "B. API 요구사항",
+        "C. result['score']처럼 각 항목을 코드로 바로 사용 가능",
+        "D. 저장 효율"
+      ],
+      "answer": "C",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! JSON 구조 덕분에 각 항목을 코드로 바로 처리할 수 있어요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_8_mc_004",
+      "unit": 8,
+      "stage": "8-8",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "이메일 분류 에이전트의 도구 순서는?",
+      "choices": [
+        "A. 분류→템플릿선택→발송",
+        "B. 발송→분류→선택",
+        "C. 선택→발송→분류",
+        "D. 저장→분류→발송"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 분류(판단)→선택(결정)→발송(행동) 순서예요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_8_mc_005",
+      "unit": 8,
+      "stage": "8-8",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "엣지 케이스 테스트란?",
+      "choices": [
+        "A. 가장 일반적인 입력",
+        "B. 빈 문자열·특수 문자 등 예상치 못한 입력",
+        "C. API 응답",
+        "D. 최종 답변"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 일반적이지 않은 입력으로 에이전트가 올바르게 동작하는지 확인해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_8_os_006",
+      "unit": 8,
+      "stage": "8-8",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "check = lambda r: 'success' in r.lower() 가 True인 입력은?",
+      "choices": [
+        "A. r = 'FAIL'",
+        "B. r = 'DONE'",
+        "C. r = '처리 성공(SUCCESS)'",
+        "D. r = 'ERROR'"
+      ],
+      "answer": "C",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! r.lower()='처리 성공(success)'에 'success'가 포함되어 True예요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_8_os_007",
+      "unit": 8,
+      "stage": "8-8",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "코드 검토 에이전트 system에 JSON 스키마를 명시하는 이유는?",
+      "choices": [
+        "A. json.loads()로 파싱 가능한 일관된 형식의 응답을 얻으려고",
+        "B. API 요구사항",
+        "C. 속도 향상",
+        "D. 오류 방지"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 스키마를 명시하지 않으면 AI가 제각각 형식으로 응답해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_8_os_008",
+      "unit": 8,
+      "stage": "8-8",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드 출력은?**\n\n```python\nresults = []\nfor score in [60, 85, 90, 70, 95]:\n    if score >= 80:\n        results.append(score)\nprint(len(results))\n```",
+      "choices": [
+        "A. 2",
+        "B. 4",
+        "C. 5",
+        "D. 3"
+      ],
+      "answer": "D",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 80 이상은 85, 90, 95로 3개예요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_8_os_009",
+      "unit": 8,
+      "stage": "8-8",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "json.loads() 실패 대비 올바른 코드는?",
+      "choices": [
+        "A. 오류 무시",
+        "B. try: json.loads(text) except json.JSONDecodeError: return 기본값",
+        "C. None 반환",
+        "D. 재호출"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! JSONDecodeError를 잡아 기본값을 반환해야 에이전트가 멈추지 않아요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_8_os_010",
+      "unit": 8,
+      "stage": "8-8",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "에이몬 Unit 1~8 완주 후 갖추게 되는 능력은?",
+      "choices": [
+        "A. 서버 구성",
+        "B. UI 디자인",
+        "C. 데이터베이스 관리",
+        "D. Python 기초 + API 호출 + AI 에이전트 구축 + 자동화 파이프라인 설계"
+      ],
+      "answer": "D",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! Python 기초부터 실제 AI 에이전트 구축까지, 완주 진심으로 축하해요! 🎉",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_9_mc_001",
+      "unit": 8,
+      "stage": "8-9",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "에이전트 이상 동작 시 제일 먼저 봐야 할 것은?",
+      "choices": [
+        "A. 로그 — 각 단계에서 무슨 도구를 어떻게 호출했는지",
+        "B. 코드 삭제",
+        "C. API 재시작",
+        "D. 모델 교체"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 로그로 어느 단계에서 문제가 생겼는지 추적해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_9_mc_002",
+      "unit": 8,
+      "stage": "8-9",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "AI API 요금은 주로 무엇에 따라 나와요?",
+      "choices": [
+        "A. 서버 크기",
+        "B. 토큰 수와 API 호출 횟수",
+        "C. 사용자 수",
+        "D. 코드 길이"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 입출력 토큰 수와 API 호출 횟수에 따라 비용이 발생해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_9_mc_003",
+      "unit": 8,
+      "stage": "8-9",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "같은 입력에 API를 재호출 하지 않고 저장 결과를 재사용하는 방법은?",
+      "choices": [
+        "A. 무한 루프",
+        "B. 더 큰 모델",
+        "C. 캐싱(Caching)",
+        "D. API 재시작"
+      ],
+      "answer": "C",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! cache={}에 결과를 저장해두면 같은 입력에 재호출하지 않아요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_9_mc_004",
+      "unit": 8,
+      "stage": "8-9",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "에이전트 무한 루프의 가장 흔한 원인은?",
+      "choices": [
+        "A. tool_result를 messages에 안 넣어 AI가 계속 같은 도구를 요청",
+        "B. API 서버 오류",
+        "C. 모델 오류",
+        "D. 네트워크 끊김"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! tool_result가 없으면 AI가 결과를 못 보고 계속 같은 요청을 해요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_9_mc_005",
+      "unit": 8,
+      "stage": "8-9",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "비용 최적화 3대 전략을 올바르게 묶은 것은?",
+      "choices": [
+        "A. 서버 변경+코드 최적화+모델 삭제",
+        "B. 캐싱 + 불필요한 호출 최소화 + 작업별 적절한 모델 선택",
+        "C. API 키 변경+호출 증가",
+        "D. 모든 결과 캐싱만"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 캐싱+호출최소화+모델선택이 API 비용 최적화의 3대 전략이에요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_9_os_006",
+      "unit": 8,
+      "stage": "8-9",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 캐싱 코드에서 API 실제 호출 횟수는?**\n\n```python\ncache = {}\ndef cached(p):\n    if p in cache: return cache[p]\n    cache[p] = p.upper()\n    return cache[p]\ncached('hi'); cached('hi'); cached('hello')\n```",
+      "choices": [
+        "A. 0번",
+        "B. 3번",
+        "C. 2번",
+        "D. 1번"
+      ],
+      "answer": "C",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 'hi' 첫 번째 호출(저장), 두 번째 캐시 반환, 'hello' 첫 번째 호출(저장). 총 2번이에요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_9_os_007",
+      "unit": 8,
+      "stage": "8-9",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "로그에 절대 포함하면 안 되는 정보는?",
+      "choices": [
+        "A. API 키·비밀번호 등 민감 정보",
+        "B. 도구 이름",
+        "C. step 번호",
+        "D. 도구 입력 인수"
+      ],
+      "answer": "A",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 로그가 외부에 노출되면 민감 정보도 함께 노출돼요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_9_os_008",
+      "unit": 8,
+      "stage": "8-9",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 캐싱 코드에서 cache의 최종 길이는?**\n\n```python\ncache = {}\ndef run(p):\n    if p in cache: return cache[p]\n    cache[p] = p.upper(); return cache[p]\nrun('hi'); run('hello'); run('hi'); run('world'); run('hello')\n```",
+      "choices": [
+        "A. 5",
+        "B. 4",
+        "C. 2",
+        "D. 3"
+      ],
+      "answer": "D",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 'hi','hello','world' 3개 고유 키만 저장돼요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_9_os_009",
+      "unit": 8,
+      "stage": "8-9",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "에이전트 최적화 체크리스트에 포함되지 않아야 할 것은?",
+      "choices": [
+        "A. max_steps 설정",
+        "B. API 키를 로그에 출력",
+        "C. 캐싱 적용",
+        "D. 오류처리"
+      ],
+      "answer": "B",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! API 키는 절대 로그에 출력하면 안 돼요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_8_9_os_010",
+      "unit": 8,
+      "stage": "8-9",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "에이전트 최적화 완성도 체크리스트가 올바른 것은?",
+      "choices": [
+        "A. API 키 로그 포함",
+        "B. while False만",
+        "C. tools 없음",
+        "D. max_steps+로그+캐싱+모델선택+trim+오류처리 모두 완료"
+      ],
+      "answer": "D",
+      "hint": "",
+      "feedback": {
+        "correct": "맞아요! 6가지가 모두 완료되어야 프로덕션 수준의 에이전트예요.",
+        "wrong": ""
+      },
+      "villain": "interferencemon"
+    }
+  ]
+}

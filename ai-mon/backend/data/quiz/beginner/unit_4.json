@@ -1,0 +1,2404 @@
+{
+  "questions": [
+    {
+      "question_id": "cc_4_1_001",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`range(5)`가 생성하는 숫자의 개수는?",
+      "choices": [
+        "A. 4개",
+        "B. 5개",
+        "C. 6개",
+        "D. 10개"
+      ],
+      "answer": "B",
+      "hint": "`range(n)`은 0부터 n-1까지 n개의 숫자를 생성해요. `range(5)` = 0,1,2,3,4 → 5개예요.",
+      "feedback": {
+        "correct": "맞아요! `range(5)`는 0, 1, 2, 3, 4로 5개의 숫자를 생성해요.",
+        "wrong": "`range(n)`은 0부터 n-1까지 n개의 숫자를 생성해요. `range(5)` = 0,1,2,3,4 → 5개예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_1_003",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`range(1, 5)`가 생성하는 숫자는?",
+      "choices": [
+        "A. 1, 2, 3, 4, 5",
+        "B. 0, 1, 2, 3, 4",
+        "C. 1, 2, 3, 4",
+        "D. 1, 2, 3, 4, 5, 6"
+      ],
+      "answer": "C",
+      "hint": "`range(시작, 끝)`에서 끝 값은 포함되지 않아요. `range(1, 5)` = 1, 2, 3, 4예요.",
+      "feedback": {
+        "correct": "맞아요! `range(1, 5)`는 1부터 4까지(5 미포함)예요.",
+        "wrong": "`range(시작, 끝)`에서 끝 값은 포함되지 않아요. `range(1, 5)` = 1, 2, 3, 4예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_1_005",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`range(0, 10, 2)`가 생성하는 마지막 숫자는?",
+      "choices": [
+        "A. 10",
+        "B. 8",
+        "C. 2",
+        "D. 9"
+      ],
+      "answer": "B",
+      "hint": "간격 2로 0부터 10 미만까지: 0, 2, 4, 6, 8. 마지막은 8이에요.",
+      "feedback": {
+        "correct": "맞아요! `range(0, 10, 2)`는 0, 2, 4, 6, 8이에요. 10은 포함 안 돼요.",
+        "wrong": "간격 2로 0부터 10 미만까지: 0, 2, 4, 6, 8. 마지막은 8이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_1_007",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\ntotal = 0\nfor i in range(1, 4):\n    total += i\nprint(total)\n```",
+      "choices": [
+        "A. `3`",
+        "B. `6`",
+        "C. `10`",
+        "D. `4`"
+      ],
+      "answer": "B",
+      "hint": "range(1, 4)는 1, 2, 3이에요. 합 = 6이에요.",
+      "feedback": {
+        "correct": "맞아요! range(1, 4) = 1, 2, 3. 1+2+3=6이에요.",
+        "wrong": "range(1, 4)는 1, 2, 3이에요. 합 = 6이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_1_009",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nfor i in range(5, 0, -1):\n    print(i)\n```",
+      "choices": [
+        "A. `5` / `4` / `3` / `2` / `1` / `0`",
+        "B. `0` / `1` / `2` / `3` / `4` / `5`",
+        "C. `5` / `4` / `3` / `2` / `1`",
+        "D. `4` / `3` / `2` / `1` / `0`"
+      ],
+      "answer": "C",
+      "hint": "range(5, 0, -1)은 5, 4, 3, 2, 1이에요. 끝(0)은 포함 안 돼요.",
+      "feedback": {
+        "correct": "맞아요! range(5, 0, -1)은 5부터 1까지 역순이에요. 0은 포함 안 돼요.",
+        "wrong": "range(5, 0, -1)은 5, 4, 3, 2, 1이에요. 끝(0)은 포함 안 돼요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_1_011",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "1부터 100까지 모두 더하는 올바른 range는?",
+      "choices": [
+        "A. `range(100)`",
+        "B. `range(1, 101)`",
+        "C. `range(1, 100)`",
+        "D. `range(0, 100)`"
+      ],
+      "answer": "B",
+      "hint": "1부터 100까지 포함하려면 range(1, 101)을 써야 해요. 끝 값은 포함 안 되니까요.",
+      "feedback": {
+        "correct": "맞아요! `range(1, 101)`은 1부터 100까지예요. 101은 포함 안 돼요.",
+        "wrong": "1부터 100까지 포함하려면 range(1, 101)을 써야 해요. 끝 값은 포함 안 되니까요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_1_013",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nresult = []\nfor i in range(1, 6):\n    result.append(i * i)\nprint(result)\n```",
+      "choices": [
+        "A. `[1, 2, 3, 4, 5]`",
+        "B. `[2, 4, 6, 8, 10]`",
+        "C. `[1, 4, 9, 16, 25]`",
+        "D. `[0, 1, 4, 9, 16]`"
+      ],
+      "answer": "C",
+      "hint": "range(1, 6)은 1, 2, 3, 4, 5예요. 각 값의 제곱: 1, 4, 9, 16, 25이에요.",
+      "feedback": {
+        "correct": "맞아요! range(1, 6)=1~5. 1²=1, 2²=4, 3²=9, 4²=16, 5²=25이에요.",
+        "wrong": "range(1, 6)은 1, 2, 3, 4, 5예요. 각 값의 제곱: 1, 4, 9, 16, 25이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_1_015",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\ntotal = 0\nfor i in range(1, 6):\n    total += i * 2\nprint(total)\n```",
+      "choices": [
+        "A. `15`",
+        "B. `30`",
+        "C. `20`",
+        "D. `25`"
+      ],
+      "answer": "B",
+      "hint": "range(1, 6)=1,2,3,4,5. 각각 2를 곱해 더해요. 2+4+6+8+10=30이에요.",
+      "feedback": {
+        "correct": "맞아요! range(1,6)=1~5. 2+4+6+8+10=30이에요.",
+        "wrong": "range(1, 6)=1,2,3,4,5. 각각 2를 곱해 더해요. 2+4+6+8+10=30이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_1_017",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nn = 5\nresult = 1\nfor i in range(1, n + 1):\n    result *= i\nprint(result)\n```",
+      "choices": [
+        "A. `15`",
+        "B. `25`",
+        "C. `120`",
+        "D. `60`"
+      ],
+      "answer": "C",
+      "hint": "range(1, 6)=1,2,3,4,5. 누적 곱: 1×2=2, ×3=6, ×4=24, ×5=120이에요.",
+      "feedback": {
+        "correct": "맞아요! 1×2×3×4×5=120이에요. 팩토리얼(5!) 계산이에요.",
+        "wrong": "range(1, 6)=1,2,3,4,5. 누적 곱: 1×2=2, ×3=6, ×4=24, ×5=120이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_1_019",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\ntotal = 0\nfor i in range(10, 0, -2):\n    total += i\nprint(total)\n```",
+      "choices": [
+        "A. `25`",
+        "B. `30`",
+        "C. `55`",
+        "D. `45`"
+      ],
+      "answer": "B",
+      "hint": "range(10, 0, -2)는 10, 8, 6, 4, 2예요. 합=30이에요.",
+      "feedback": {
+        "correct": "맞아요! range(10,0,-2)=10,8,6,4,2. 10+8+6+4+2=30이에요.",
+        "wrong": "range(10, 0, -2)는 10, 8, 6, 4, 2예요. 합=30이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_1_002",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`range(5)`의 첫 번째 숫자는?",
+      "choices": [
+        "A. 1",
+        "B. 0",
+        "C. 5",
+        "D. -1"
+      ],
+      "answer": "B",
+      "hint": "`range(n)`은 0부터 시작해요. 1부터 시작하려면 `range(1, n+1)`을 써요.",
+      "feedback": {
+        "correct": "맞아요! range()는 기본적으로 0부터 시작해요.",
+        "wrong": "`range(n)`은 0부터 시작해요. 1부터 시작하려면 `range(1, n+1)`을 써요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_1_004",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 줄 수는?**\n\n```python\nfor i in range(3):\n    print(i)\n```",
+      "choices": [
+        "A. 2줄",
+        "B. 3줄",
+        "C. 4줄",
+        "D. 1줄"
+      ],
+      "answer": "B",
+      "hint": "range(3)은 0, 1, 2 세 번 반복해요. print가 3번 실행돼요.",
+      "feedback": {
+        "correct": "맞아요! `range(3)`은 0, 1, 2 — 3번 반복하므로 3줄이 출력돼요.",
+        "wrong": "range(3)은 0, 1, 2 세 번 반복해요. print가 3번 실행돼요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_1_006",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "for문에서 range()를 사용하는 주된 이유는?",
+      "choices": [
+        "A. 리스트를 만들기 위해",
+        "B. 조건을 검사하기 위해",
+        "C. 특정 횟수만큼 반복하기 위해",
+        "D. 변수를 저장하기 위해"
+      ],
+      "answer": "C",
+      "hint": "range()는 반복 횟수를 제어하기 위해 for문과 함께 사용해요.",
+      "feedback": {
+        "correct": "맞아요! range()는 특정 횟수만큼 반복을 제어할 때 for문과 함께 사용해요.",
+        "wrong": "range()는 반복 횟수를 제어하기 위해 for문과 함께 사용해요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_1_008",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nfor i in range(2, 8, 2):\n    print(i)\n```",
+      "choices": [
+        "A. `2` / `4` / `6` / `8`",
+        "B. `2` / `4` / `6`",
+        "C. `0` / `2` / `4` / `6`",
+        "D. `2` / `3` / `4` / `5` / `6` / `7`"
+      ],
+      "answer": "B",
+      "hint": "range(2, 8, 2)는 2부터 8 미만까지 2씩 증가: 2, 4, 6이에요.",
+      "feedback": {
+        "correct": "맞아요! range(2, 8, 2)는 2, 4, 6이에요. 8은 포함 안 돼요.",
+        "wrong": "range(2, 8, 2)는 2부터 8 미만까지 2씩 증가: 2, 4, 6이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_1_010",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nscores = [85, 90, 78]\nfor i in range(len(scores)):\n    print(scores[i])\n```",
+      "choices": [
+        "A. `0` / `1` / `2`",
+        "B. `85` / `90` / `78`",
+        "C. `3`",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "range(len(scores))=range(3)=0,1,2. scores[0]=85, scores[1]=90, scores[2]=78이 출력돼요.",
+      "feedback": {
+        "correct": "맞아요! range(len(scores))는 0, 1, 2이고 scores[0]=85, scores[1]=90, scores[2]=78이에요.",
+        "wrong": "range(len(scores))=range(3)=0,1,2. scores[0]=85, scores[1]=90, scores[2]=78이 출력돼요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_1_012",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\ncount = 0\nfor i in range(1, 11):\n    if i % 2 == 0:\n        count += 1\nprint(count)\n```",
+      "choices": [
+        "A. `4`",
+        "B. `5`",
+        "C. `6`",
+        "D. `10`"
+      ],
+      "answer": "B",
+      "hint": "range(1, 11)=1~10. 짝수: 2, 4, 6, 8, 10 → 5개예요.",
+      "feedback": {
+        "correct": "맞아요! 1~10에서 짝수: 2, 4, 6, 8, 10 → 5개예요.",
+        "wrong": "range(1, 11)=1~10. 짝수: 2, 4, 6, 8, 10 → 5개예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_1_014",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nfor i in range(3):\n    print(f'반복 {i+1}회')\n```",
+      "choices": [
+        "A. `반복 0회` / `반복 1회` / `반복 2회`",
+        "B. `반복 1회` / `반복 2회` / `반복 3회`",
+        "C. `반복 1회` / `반복 2회`",
+        "D. `반복 3회`"
+      ],
+      "answer": "B",
+      "hint": "range(3)은 0, 1, 2. i+1은 1, 2, 3이에요. f-string으로 '반복 1회', '반복 2회', '반복 3회'가 출력돼요.",
+      "feedback": {
+        "correct": "맞아요! i는 0, 1, 2이고 i+1은 1, 2, 3이에요.",
+        "wrong": "range(3)은 0, 1, 2. i+1은 1, 2, 3이에요. f-string으로 '반복 1회', '반복 2회', '반복 3회'가 출력돼요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_1_016",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\ndata = [10, 20, 30, 40, 50]\nresult = 0\nfor i in range(0, len(data), 2):\n    result += data[i]\nprint(result)\n```",
+      "choices": [
+        "A. `30`",
+        "B. `60`",
+        "C. `90`",
+        "D. `150`"
+      ],
+      "answer": "C",
+      "hint": "range(0, 5, 2)=0,2,4. data[0]=10, data[2]=30, data[4]=50. 합=90이에요.",
+      "feedback": {
+        "correct": "맞아요! 짝수 인덱스(0,2,4): data[0]=10, data[2]=30, data[4]=50. 10+30+50=90이에요.",
+        "wrong": "range(0, 5, 2)=0,2,4. data[0]=10, data[2]=30, data[4]=50. 합=90이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_1_018",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nscores = [70, 85, 90, 60, 95]\nabove_80 = 0\nfor i in range(len(scores)):\n    if scores[i] >= 80:\n        above_80 += 1\nprint(f'80점 이상: {above_80}명')\n```",
+      "choices": [
+        "A. `80점 이상: 2명`",
+        "B. `80점 이상: 3명`",
+        "C. `80점 이상: 4명`",
+        "D. `80점 이상: 5명`"
+      ],
+      "answer": "B",
+      "hint": "scores 중 >=80: 70(F), 85(T), 90(T), 60(F), 95(T). 3명이에요.",
+      "feedback": {
+        "correct": "맞아요! 80 이상: 85, 90, 95 → 3명이에요.",
+        "wrong": "scores 중 >=80: 70(F), 85(T), 90(T), 60(F), 95(T). 3명이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_1_020",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nresult = []\nfor i in range(1, 10, 3):\n    result.append(i)\nprint(result)\nprint(len(result))\n```",
+      "choices": [
+        "A. `[1, 4, 7]` / `3`",
+        "B. `[1, 3, 6, 9]` / `4`",
+        "C. `[1, 4, 7, 10]` / `4`",
+        "D. `[3, 6, 9]` / `3`"
+      ],
+      "answer": "A",
+      "hint": "1부터 3씩 10 미만까지: 1, 4, 7. result=[1,4,7], len=3이에요.",
+      "feedback": {
+        "correct": "훌륭해요! range(1, 10, 3)=1, 4, 7. 10은 미포함. result=[1,4,7], len=3이에요.",
+        "wrong": "1부터 3씩 10 미만까지: 1, 4, 7. result=[1,4,7], len=3이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_2_001",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "while문은 언제 반복을 멈추나요?",
+      "choices": [
+        "A. 정해진 횟수에 도달했을 때",
+        "B. 조건이 False가 됐을 때",
+        "C. 조건이 True가 됐을 때",
+        "D. 코드가 끝났을 때"
+      ],
+      "answer": "B",
+      "hint": "while문은 조건이 True인 동안 반복하고, False가 되면 멈춰요.",
+      "feedback": {
+        "correct": "맞아요! while문은 조건이 False가 되면 반복을 멈춰요.",
+        "wrong": "while문은 조건이 True인 동안 반복하고, False가 되면 멈춰요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_2_003",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "무한 루프가 발생하는 원인은?",
+      "choices": [
+        "A. 조건이 처음부터 False일 때",
+        "B. 반복 안에서 조건이 변하지 않을 때",
+        "C. while 뒤에 콜론이 없을 때",
+        "D. 들여쓰기가 없을 때"
+      ],
+      "answer": "B",
+      "hint": "while 조건이 항상 True면 무한 루프가 돼요. 반복 안에서 조건 변수를 변화시켜야 해요.",
+      "feedback": {
+        "correct": "맞아요! 반복 안에서 조건 변수가 변하지 않으면 무한 루프가 돼요.",
+        "wrong": "while 조건이 항상 True면 무한 루프가 돼요. 반복 안에서 조건 변수를 변화시켜야 해요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_2_005",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "while문과 for문의 가장 큰 차이는?",
+      "choices": [
+        "A. while은 리스트만 순회할 수 있다",
+        "B. for는 조건 기반, while은 횟수 기반이다",
+        "C. while은 조건 기반, for는 반복 대상이 정해져 있다",
+        "D. 둘 다 동일하다"
+      ],
+      "answer": "C",
+      "hint": "while은 조건이 False가 될 때까지 반복, for는 리스트/range 등 반복 대상이 필요해요.",
+      "feedback": {
+        "correct": "맞아요! while은 조건 기반, for는 리스트나 range 같은 반복 대상이 있어요.",
+        "wrong": "while은 조건이 False가 될 때까지 반복, for는 리스트/range 등 반복 대상이 필요해요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_2_007",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nn = 1\nwhile n <= 4:\n    print(n * 2)\n    n += 1\n```",
+      "choices": [
+        "A. `2` / `4` / `6` / `8`",
+        "B. `1` / `2` / `3` / `4`",
+        "C. `2` / `4` / `6`",
+        "D. `1` / `3` / `5` / `7`"
+      ],
+      "answer": "A",
+      "hint": "n<=4인 동안: n=1→2, n=2→4, n=3→6, n=4→8. 2,4,6,8이 출력돼요.",
+      "feedback": {
+        "correct": "맞아요! n=1,2,3,4. n*2=2,4,6,8이에요.",
+        "wrong": "n<=4인 동안: n=1→2, n=2→4, n=3→6, n=4→8. 2,4,6,8이 출력돼요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_2_009",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\ni = 10\nwhile i > 0:\n    print(i)\n    i -= 3\n```",
+      "choices": [
+        "A. `10` / `7` / `4` / `1`",
+        "B. `10` / `7` / `4`",
+        "C. `10` / `7` / `4` / `1` / `-2`",
+        "D. `10` / `8` / `6` / `4` / `2`"
+      ],
+      "answer": "A",
+      "hint": "i>0인 동안: 10→7→4→1→-2(멈춤). 10,7,4,1이 출력돼요.",
+      "feedback": {
+        "correct": "맞아요! i=10(T), i=7(T), i=4(T), i=1(T), i=-2(F). 10,7,4,1이 출력돼요.",
+        "wrong": "i>0인 동안: 10→7→4→1→-2(멈춤). 10,7,4,1이 출력돼요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_2_011",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nx = 1\nwhile x < 100:\n    x *= 2\nprint(x)\n```",
+      "choices": [
+        "A. `64`",
+        "B. `128`",
+        "C. `100`",
+        "D. `256`"
+      ],
+      "answer": "B",
+      "hint": "x가 2배씩 증가: 1,2,4,8,16,32,64,128. 128이 처음으로 100 이상이에요.",
+      "feedback": {
+        "correct": "맞아요! 1→2→4→8→16→32→64→128. 128>=100이므로 멈춰요. x=128이에요.",
+        "wrong": "x가 2배씩 증가: 1,2,4,8,16,32,64,128. 128이 처음으로 100 이상이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_2_013",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nn = 5\ntotal = 0\nwhile n > 0:\n    total += n\n    n -= 1\nprint(total)\n```",
+      "choices": [
+        "A. `10`",
+        "B. `15`",
+        "C. `20`",
+        "D. `25`"
+      ],
+      "answer": "B",
+      "hint": "n=5,4,3,2,1을 더해요. 5+4+3+2+1=15예요.",
+      "feedback": {
+        "correct": "맞아요! 5+4+3+2+1=15예요.",
+        "wrong": "n=5,4,3,2,1을 더해요. 5+4+3+2+1=15예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_2_015",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nresult = []\nn = 2\nwhile len(result) < 4:\n    result.append(n)\n    n *= 2\nprint(result)\n```",
+      "choices": [
+        "A. `[2, 4, 8, 16]`",
+        "B. `[2, 4, 6, 8]`",
+        "C. `[1, 2, 4, 8]`",
+        "D. `[2, 4, 8, 32]`"
+      ],
+      "answer": "A",
+      "hint": "result 길이가 4가 될 때까지: n=2→append, n=4→append, n=8→append, n=16→append→멈춤. [2,4,8,16]이에요.",
+      "feedback": {
+        "correct": "맞아요! n이 2배씩 늘어나요. 2,4,8,16을 4개 담으면 멈춰요.",
+        "wrong": "result 길이가 4가 될 때까지: n=2→append, n=4→append, n=8→append, n=16→append→멈춤. [2,4,8,16]이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_2_017",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nscores = [70, 85, 60, 90, 75]\ni = 0\nabove = 0\nwhile i < len(scores):\n    if scores[i] >= 80:\n        above += 1\n    i += 1\nprint(above)\n```",
+      "choices": [
+        "A. `1`",
+        "B. `2`",
+        "C. `3`",
+        "D. `5`"
+      ],
+      "answer": "B",
+      "hint": "scores를 순회. 70(F), 85(T), 60(F), 90(T), 75(F). above=2예요.",
+      "feedback": {
+        "correct": "맞아요! 80 이상: 85, 90 → 2개예요.",
+        "wrong": "scores를 순회. 70(F), 85(T), 60(F), 90(T), 75(F). above=2예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_2_019",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드에서 while문이 멈추는 시점의 n 값은?**\n\n```python\nn = 1\ntotal = 0\nwhile total < 15:\n    total += n\n    n += 1\nprint(n)\n```",
+      "choices": [
+        "A. `4`",
+        "B. `5`",
+        "C. `6`",
+        "D. `15`"
+      ],
+      "answer": "C",
+      "hint": "total이 15 이상이 되면 멈춰요. 1+2+3+4+5=15에서 멈추고 n은 6이 돼요.",
+      "feedback": {
+        "correct": "맞아요! n=1:total=1, n=2:total=3, n=3:total=6, n=4:total=10, n=5:total=15→멈춤. 루프 후 n=6이에요.",
+        "wrong": "total이 15 이상이 되면 멈춰요. 1+2+3+4+5=15에서 멈추고 n은 6이 돼요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_2_002",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 while문은 몇 번 반복되나요?**\n\n```python\ni = 0\nwhile i < 3:\n    i += 1\n```",
+      "choices": [
+        "A. 1번",
+        "B. 3번",
+        "C. 4번",
+        "D. 무한"
+      ],
+      "answer": "B",
+      "hint": "i<3이 True인 동안: i=0(T), i=1(T), i=2(T), i=3(F→멈춤). 3번이에요.",
+      "feedback": {
+        "correct": "맞아요! i=0,1,2일 때 조건 True. i=3이면 False가 돼요. 3번 반복이에요.",
+        "wrong": "i<3이 True인 동안: i=0(T), i=1(T), i=2(T), i=3(F→멈춤). 3번이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_2_004",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nn = 3\nwhile n > 0:\n    print(n)\n    n -= 1\n```",
+      "choices": [
+        "A. `3` / `2` / `1` / `0`",
+        "B. `3` / `2` / `1`",
+        "C. `0` / `1` / `2` / `3`",
+        "D. `3`"
+      ],
+      "answer": "B",
+      "hint": "n>0인 동안 반복: n=3→T, n=2→T, n=1→T, n=0→F. 3,2,1이 출력돼요.",
+      "feedback": {
+        "correct": "맞아요! n=3(T), n=2(T), n=1(T), n=0(F→멈춤). 3,2,1이 출력돼요.",
+        "wrong": "n>0인 동안 반복: n=3→T, n=2→T, n=1→T, n=0→F. 3,2,1이 출력돼요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_2_006",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드는 몇 번 반복되나요?**\n\n```python\nx = 1\nwhile x <= 5:\n    x += 2\n```",
+      "choices": [
+        "A. 2번",
+        "B. 3번",
+        "C. 5번",
+        "D. 무한"
+      ],
+      "answer": "B",
+      "hint": "x=1→T(→3), x=3→T(→5), x=5→T(→7), x=7→F. 3번이에요.",
+      "feedback": {
+        "correct": "맞아요! x=1(T), x=3(T), x=5(T), x=7(F). 3번 반복이에요.",
+        "wrong": "x=1→T(→3), x=3→T(→5), x=5→T(→7), x=7→F. 3번이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_2_008",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\ntotal = 0\nn = 1\nwhile n <= 5:\n    total += n\n    n += 1\nprint(total)\n```",
+      "choices": [
+        "A. `10`",
+        "B. `15`",
+        "C. `21`",
+        "D. `5`"
+      ],
+      "answer": "B",
+      "hint": "n=1~5까지 합산. 1+2+3+4+5=15예요.",
+      "feedback": {
+        "correct": "맞아요! 1+2+3+4+5=15예요.",
+        "wrong": "n=1~5까지 합산. 1+2+3+4+5=15예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_2_010",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nn = 0\ncount = 0\nwhile n < 20:\n    n += 3\n    count += 1\nprint(count)\n```",
+      "choices": [
+        "A. `6`",
+        "B. `7`",
+        "C. `8`",
+        "D. `20`"
+      ],
+      "answer": "B",
+      "hint": "0+3=3(T), 6(T), 9(T), 12(T), 15(T), 18(T), 21(F). 7번 반복이에요.",
+      "feedback": {
+        "correct": "맞아요! n=0→3→6→9→12→15→18→21. 21>=20에서 멈춤. count=7이에요.",
+        "wrong": "0+3=3(T), 6(T), 9(T), 12(T), 15(T), 18(T), 21(F). 7번 반복이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_2_012",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "조건이 처음부터 False이면 while문은?",
+      "choices": [
+        "A. 오류가 발생한다",
+        "B. 한 번 실행된다",
+        "C. 한 번도 실행 안 된다",
+        "D. 무한 반복된다"
+      ],
+      "answer": "C",
+      "hint": "while 조건이 처음부터 False이면 블록이 한 번도 실행 안 돼요.",
+      "feedback": {
+        "correct": "맞아요! while 조건이 처음부터 False면 블록 전체를 건너뛰어요.",
+        "wrong": "while 조건이 처음부터 False이면 블록이 한 번도 실행 안 돼요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_2_014",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nn = 1\ntotal = 0\nwhile n <= 10:\n    if n % 2 == 0:\n        total += n\n    n += 1\nprint(total)\n```",
+      "choices": [
+        "A. `20`",
+        "B. `30`",
+        "C. `55`",
+        "D. `25`"
+      ],
+      "answer": "B",
+      "hint": "n=1~10에서 짝수(2,4,6,8,10)를 더해요. 2+4+6+8+10=30이에요.",
+      "feedback": {
+        "correct": "맞아요! 1~10 짝수 합: 2+4+6+8+10=30이에요.",
+        "wrong": "n=1~10에서 짝수(2,4,6,8,10)를 더해요. 2+4+6+8+10=30이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_2_016",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\ndigits = []\nn = 123\nwhile n > 0:\n    digits.append(n % 10)\n    n //= 10\nprint(digits)\n```",
+      "choices": [
+        "A. `[1, 2, 3]`",
+        "B. `[3, 2, 1]`",
+        "C. `[1, 23]`",
+        "D. `[123]`"
+      ],
+      "answer": "B",
+      "hint": "123%10=3→append. 123//10=12. 12%10=2→append. 12//10=1. 1%10=1→append. 1//10=0→멈춤. [3,2,1]이에요.",
+      "feedback": {
+        "correct": "맞아요! 123%10=3(append), 12%10=2(append), 1%10=1(append). [3,2,1]이에요.",
+        "wrong": "123%10=3→append. 123//10=12. 12%10=2→append. 12//10=1. 1%10=1→append. 1//10=0→멈춤. [3,2,1]이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_2_018",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nn = 1\nresult = []\nwhile len(result) < 5:\n    if n % 2 != 0:\n        result.append(n)\n    n += 1\nprint(result)\n```",
+      "choices": [
+        "A. `[1, 2, 3, 4, 5]`",
+        "B. `[2, 4, 6, 8, 10]`",
+        "C. `[1, 3, 5, 7, 9]`",
+        "D. `[1, 3, 5, 7, 9, 11]`"
+      ],
+      "answer": "C",
+      "hint": "홀수만 append. result 길이가 5가 될 때까지: 1,3,5,7,9. result=[1,3,5,7,9]예요.",
+      "feedback": {
+        "correct": "맞아요! 홀수(1,3,5,7,9)를 5개 모을 때까지 반복해요.",
+        "wrong": "홀수만 append. result 길이가 5가 될 때까지: 1,3,5,7,9. result=[1,3,5,7,9]예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_2_020",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\na, b = 1, 1\ncount = 0\nwhile a + b < 30:\n    a, b = b, a + b\n    count += 1\nprint(count)\nprint(b)\n```",
+      "choices": [
+        "A. `5` / `13`",
+        "B. `6` / `21`",
+        "C. `6` / `34`",
+        "D. `5` / `21`"
+      ],
+      "answer": "B",
+      "hint": "피보나치: 1+1=2(T), 1+2=3(T), 2+3=5(T), 3+5=8(T), 5+8=13(T), 8+13=21(T), 13+21=34≥30(F). count=6, b=21이에요.",
+      "feedback": {
+        "correct": "훌륭해요! 피보나치 수열이에요. (1,1)→(1,2)→(2,3)→(3,5)→(5,8)→(8,13)→(13,21). a+b=34≥30에서 멈춤. count=6, b=21이에요.",
+        "wrong": "피보나치: 1+1=2(T), 1+2=3(T), 2+3=5(T), 3+5=8(T), 5+8=13(T), 8+13=21(T), 13+21=34≥30(F). count=6, b=21이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_3_001",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "break의 역할은?",
+      "choices": [
+        "A. 현재 반복만 건너뛴다",
+        "B. 반복문을 즉시 종료한다",
+        "C. 조건을 검사한다",
+        "D. 다음 반복으로 넘어간다"
+      ],
+      "answer": "B",
+      "hint": "break는 반복문 전체를 즉시 종료해요. 현재 반복만 건너뛰는 건 continue예요.",
+      "feedback": {
+        "correct": "맞아요! break는 반복문을 즉시 종료하고 빠져나가요.",
+        "wrong": "break는 반복문 전체를 즉시 종료해요. 현재 반복만 건너뛰는 건 continue예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_3_003",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 줄 수는?**\n\n```python\nfor i in range(5):\n    if i == 3:\n        break\n    print(i)\n```",
+      "choices": [
+        "A. 2줄",
+        "B. 3줄",
+        "C. 4줄",
+        "D. 5줄"
+      ],
+      "answer": "B",
+      "hint": "i=0(출력), i=1(출력), i=2(출력), i=3(break→종료). 3줄이에요.",
+      "feedback": {
+        "correct": "맞아요! i=0,1,2를 출력하고 i=3에서 break해요. 3줄이에요.",
+        "wrong": "i=0(출력), i=1(출력), i=2(출력), i=3(break→종료). 3줄이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_3_005",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "while True를 탈출하는 방법은?",
+      "choices": [
+        "A. while False로 바꾼다",
+        "B. pass를 사용한다",
+        "C. break를 사용한다",
+        "D. return을 사용한다"
+      ],
+      "answer": "C",
+      "hint": "while True 루프를 탈출하려면 break를 사용해요.",
+      "feedback": {
+        "correct": "맞아요! while True 루프는 break를 만나면 탈출해요.",
+        "wrong": "while True 루프를 탈출하려면 break를 사용해요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_3_007",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nfor i in range(10):\n    if i == 4:\n        break\n    print(i)\n```",
+      "choices": [
+        "A. `0` / `1` / `2` / `3`",
+        "B. `0` / `1` / `2` / `3` / `4`",
+        "C. `5` / `6` / `7` / `8` / `9`",
+        "D. `4`"
+      ],
+      "answer": "A",
+      "hint": "i=0,1,2,3 출력 후 i=4에서 break. 4는 출력 안 돼요.",
+      "feedback": {
+        "correct": "맞아요! i=4에서 break이므로 0,1,2,3이 출력돼요.",
+        "wrong": "i=0,1,2,3 출력 후 i=4에서 break. 4는 출력 안 돼요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_3_009",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\ncount = 0\nwhile True:\n    count += 1\n    if count == 5:\n        break\nprint(count)\n```",
+      "choices": [
+        "A. `4`",
+        "B. `5`",
+        "C. `6`",
+        "D. 무한 루프"
+      ],
+      "answer": "B",
+      "hint": "count=1,2,3,4,5에서 break. print(count)→5예요.",
+      "feedback": {
+        "correct": "맞아요! count가 5가 되면 break. print(count)→5이에요.",
+        "wrong": "count=1,2,3,4,5에서 break. print(count)→5예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_3_011",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nfor i in range(5):\n    if i == 2:\n        continue\n    if i == 4:\n        break\n    print(i)\n```",
+      "choices": [
+        "A. `0` / `1` / `3`",
+        "B. `0` / `1` / `3` / `4`",
+        "C. `0` / `1` / `2` / `3`",
+        "D. `0` / `1`"
+      ],
+      "answer": "A",
+      "hint": "i=0(출력), i=1(출력), i=2(continue→건너뜀), i=3(출력), i=4(break→종료). 0,1,3이에요.",
+      "feedback": {
+        "correct": "맞아요! i=2→continue(건너뜀), i=4→break(종료). 0,1,3이 출력돼요.",
+        "wrong": "i=0(출력), i=1(출력), i=2(continue→건너뜀), i=3(출력), i=4(break→종료). 0,1,3이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_3_013",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nresult = []\nfor i in range(1, 10):\n    if i % 2 == 0:\n        continue\n    result.append(i)\n    if len(result) == 3:\n        break\nprint(result)\n```",
+      "choices": [
+        "A. `[1, 3, 5]`",
+        "B. `[1, 3, 5, 7]`",
+        "C. `[2, 4, 6]`",
+        "D. `[1, 2, 3]`"
+      ],
+      "answer": "A",
+      "hint": "짝수→continue. 홀수 1,3,5를 append. 3개 채워지면 break. [1,3,5]예요.",
+      "feedback": {
+        "correct": "맞아요! 홀수만 append하고 3개가 되면 break. [1,3,5]예요.",
+        "wrong": "짝수→continue. 홀수 1,3,5를 append. 3개 채워지면 break. [1,3,5]예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_3_015",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nfound = False\ndata = [3, 7, 2, 9, 5]\nfor d in data:\n    if d > 8:\n        found = True\n        break\nprint(found)\nprint(d)\n```",
+      "choices": [
+        "A. `True` / `9`",
+        "B. `False` / `5`",
+        "C. `True` / `5`",
+        "D. `False` / `9`"
+      ],
+      "answer": "A",
+      "hint": "3(F), 7(F), 2(F), 9(T→found=True,break). d=9. found=True이에요.",
+      "feedback": {
+        "correct": "맞아요! 9>8이므로 found=True, break. 루프 종료 시 d=9예요.",
+        "wrong": "3(F), 7(F), 2(F), 9(T→found=True,break). d=9. found=True이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_3_017",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nscores = [75, 82, 68, 91, 55, 88]\nresult = []\nfor s in scores:\n    if s < 70:\n        continue\n    result.append(s)\n    if len(result) == 3:\n        break\nprint(result)\n```",
+      "choices": [
+        "A. `[75, 82, 68]`",
+        "B. `[75, 82, 91]`",
+        "C. `[82, 91, 88]`",
+        "D. `[75, 82, 68, 91]`"
+      ],
+      "answer": "B",
+      "hint": "70이상만 append. 75(1개), 82(2개), 68→continue, 91(3개)→break. [75,82,91]이에요.",
+      "feedback": {
+        "correct": "맞아요! 70 미만 건너뜀. 75(1개), 82(2개), 68→continue, 91(3개)→break. [75,82,91]이에요.",
+        "wrong": "70이상만 append. 75(1개), 82(2개), 68→continue, 91(3개)→break. [75,82,91]이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_3_019",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nn = 100\nwhile n > 1:\n    if n % 7 == 0:\n        print(f'{n}은 7의 배수')\n        break\n    n -= 1\n```",
+      "choices": [
+        "A. `98은 7의 배수`",
+        "B. `91은 7의 배수`",
+        "C. `100은 7의 배수`",
+        "D. `7은 7의 배수`"
+      ],
+      "answer": "A",
+      "hint": "100%7=2(아님), 99%7=1(아님), 98%7=0→출력→break. 98이에요.",
+      "feedback": {
+        "correct": "맞아요! 100부터 내려가며 첫 7의 배수: 98(98%7=0)이에요.",
+        "wrong": "100%7=2(아님), 99%7=1(아님), 98%7=0→출력→break. 98이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_3_002",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "continue의 역할은?",
+      "choices": [
+        "A. 반복문을 즉시 종료한다",
+        "B. 오류를 발생시킨다",
+        "C. 현재 반복의 나머지를 건너뛰고 다음 반복으로 넘어간다",
+        "D. 반복을 처음부터 다시 시작한다"
+      ],
+      "answer": "C",
+      "hint": "continue는 현재 반복의 나머지 코드를 건너뛰고 다음 반복으로 넘어가요. 반복 자체는 계속돼요.",
+      "feedback": {
+        "correct": "맞아요! continue는 현재 반복만 건너뛰고 반복은 계속돼요.",
+        "wrong": "continue는 현재 반복의 나머지 코드를 건너뛰고 다음 반복으로 넘어가요. 반복 자체는 계속돼요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_3_004",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 줄 수는?**\n\n```python\nfor i in range(5):\n    if i == 3:\n        continue\n    print(i)\n```",
+      "choices": [
+        "A. 3줄",
+        "B. 4줄",
+        "C. 5줄",
+        "D. 2줄"
+      ],
+      "answer": "B",
+      "hint": "i=3일 때 continue로 건너뛰어요. 0,1,2,4가 출력돼요. 4줄이에요.",
+      "feedback": {
+        "correct": "맞아요! i=3만 건너뛰어요. 0,1,2,4 → 4줄이에요.",
+        "wrong": "i=3일 때 continue로 건너뛰어요. 0,1,2,4가 출력돼요. 4줄이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_3_006",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "break와 continue의 차이는?",
+      "choices": [
+        "A. 둘 다 반복문을 종료한다",
+        "B. break는 반복 종료, continue는 현재 반복 건너뜀",
+        "C. continue는 반복 종료, break는 현재 반복 건너뜀",
+        "D. 둘 다 현재 반복만 건너뛴다"
+      ],
+      "answer": "B",
+      "hint": "break는 반복문 전체를 종료, continue는 현재 반복만 건너뛰고 계속해요.",
+      "feedback": {
+        "correct": "맞아요! break는 반복 전체 종료, continue는 현재 반복만 건너뛰어요.",
+        "wrong": "break는 반복문 전체를 종료, continue는 현재 반복만 건너뛰고 계속해요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_3_008",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nfor i in range(1, 7):\n    if i % 3 == 0:\n        continue\n    print(i)\n```",
+      "choices": [
+        "A. `1` / `2` / `4` / `5`",
+        "B. `3` / `6`",
+        "C. `1` / `2` / `3` / `4` / `5` / `6`",
+        "D. `1` / `2`"
+      ],
+      "answer": "A",
+      "hint": "3의 배수일 때 continue. 3(건너뜀), 6(건너뜀). 1,2,4,5가 출력돼요.",
+      "feedback": {
+        "correct": "맞아요! 3의 배수(3,6)를 건너뛰어요. 1,2,4,5가 출력돼요.",
+        "wrong": "3의 배수일 때 continue. 3(건너뜀), 6(건너뜀). 1,2,4,5가 출력돼요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_3_010",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nnumbers = [1, 3, 5, 8, 11]\nfor n in numbers:\n    if n % 2 == 0:\n        print(f'짝수 발견: {n}')\n        break\n```",
+      "choices": [
+        "A. `짝수 발견: 8` / `짝수 발견: 11`",
+        "B. `짝수 발견: 8`",
+        "C. `짝수 발견: 5`",
+        "D. 아무것도 출력 안 됨"
+      ],
+      "answer": "B",
+      "hint": "1(홀수), 3(홀수), 5(홀수), 8(짝수→출력→break). '짝수 발견: 8'만 출력돼요.",
+      "feedback": {
+        "correct": "맞아요! 첫 번째 짝수 8에서 break. 한 줄만 출력돼요.",
+        "wrong": "1(홀수), 3(홀수), 5(홀수), 8(짝수→출력→break). '짝수 발견: 8'만 출력돼요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_3_012",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\ntotal = 0\nfor i in range(1, 11):\n    if total + i > 20:\n        break\n    total += i\nprint(total)\n```",
+      "choices": [
+        "A. `15`",
+        "B. `21`",
+        "C. `20`",
+        "D. `10`"
+      ],
+      "answer": "A",
+      "hint": "1+2+3+4+5=15. 6을 더하면 21>20이므로 break. total=15예요.",
+      "feedback": {
+        "correct": "맞아요! 1+2+3+4+5=15. 다음 6을 더하면 21>20이므로 break. total=15예요.",
+        "wrong": "1+2+3+4+5=15. 6을 더하면 21>20이므로 break. total=15예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_3_014",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nfor i in range(1, 6):\n    print(i)\n    if i == 3:\n        break\nprint('종료')\n```",
+      "choices": [
+        "A. `1` / `2` / `3` / `종료`",
+        "B. `1` / `2` / `3` / `4` / `5` / `종료`",
+        "C. `1` / `2` / `종료`",
+        "D. `3` / `종료`"
+      ],
+      "answer": "A",
+      "hint": "i=1,2,3을 출력 후 break. '종료'는 for문 밖이라 항상 실행돼요.",
+      "feedback": {
+        "correct": "맞아요! 1,2,3을 출력하고 i=3에서 break. for문 밖의 '종료'는 항상 출력돼요.",
+        "wrong": "i=1,2,3을 출력 후 break. '종료'는 for문 밖이라 항상 실행돼요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_3_016",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\ncount = 0\nfor i in range(1, 20):\n    if i % 2 == 0:\n        continue\n    if i > 10:\n        break\n    count += 1\nprint(count)\n```",
+      "choices": [
+        "A. `4`",
+        "B. `5`",
+        "C. `10`",
+        "D. `9`"
+      ],
+      "answer": "B",
+      "hint": "짝수→continue. i>10→break. 홀수이고 10이하: 1,3,5,7,9. count=5예요.",
+      "feedback": {
+        "correct": "맞아요! 홀수이고 10이하: 1,3,5,7,9 → 5개. 11에서 break이에요.",
+        "wrong": "짝수→continue. i>10→break. 홀수이고 10이하: 1,3,5,7,9. count=5예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_3_018",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\ndata = [2, 5, 3, 8, 1, 7, 4]\ntotal = 0\nfor d in data:\n    if d % 2 != 0:\n        continue\n    total += d\n    if total >= 10:\n        break\nprint(total)\n```",
+      "choices": [
+        "A. `2`",
+        "B. `6`",
+        "C. `10`",
+        "D. `14`"
+      ],
+      "answer": "C",
+      "hint": "홀수→continue. 2(total=2), 8(total=10≥10→break). total=10이에요.",
+      "feedback": {
+        "correct": "맞아요! 짝수만 더해요. 2(total=2), 5→continue, 3→continue, 8(total=10≥10→break). total=10이에요.",
+        "wrong": "홀수→continue. 2(total=2), 8(total=10≥10→break). total=10이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_3_020",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nitems = ['a', 'b', 'c', 'd', 'e']\nresult = []\nfor i, item in enumerate(items):\n    if i % 2 == 0:\n        continue\n    result.append(item)\n    if len(result) == 2:\n        break\nprint(result)\n```",
+      "choices": [
+        "A. `['a', 'c']`",
+        "B. `['b', 'd']`",
+        "C. `['a', 'b']`",
+        "D. `['b', 'c', 'd']`"
+      ],
+      "answer": "B",
+      "hint": "짝수 인덱스→continue. i=1(b,1개), i=3(d,2개)→break. result=['b','d']예요.",
+      "feedback": {
+        "correct": "훌륭해요! 홀수 인덱스(1,3): 'b'(1개), 'd'(2개)→break. ['b','d']예요.",
+        "wrong": "짝수 인덱스→continue. i=1(b,1개), i=3(d,2개)→break. result=['b','d']예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_4_001",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "중첩 for문에서 바깥 루프가 1번 돌 때 안쪽 루프는?",
+      "choices": [
+        "A. 1번 실행된다",
+        "B. 실행 안 된다",
+        "C. 전체를 다 돌아요",
+        "D. 바깥 루프와 동시에 실행된다"
+      ],
+      "answer": "C",
+      "hint": "바깥 루프 1회 → 안쪽 루프 전체 실행. 총 실행 횟수 = 바깥 × 안쪽이에요.",
+      "feedback": {
+        "correct": "맞아요! 바깥 루프가 1번 돌 때마다 안쪽 루프는 전체를 모두 실행해요.",
+        "wrong": "바깥 루프 1회 → 안쪽 루프 전체 실행. 총 실행 횟수 = 바깥 × 안쪽이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_4_003",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 줄 수는?**\n\n```python\nfor i in range(2):\n    for j in range(3):\n        print(i, j)\n```",
+      "choices": [
+        "A. 2줄",
+        "B. 3줄",
+        "C. 5줄",
+        "D. 6줄"
+      ],
+      "answer": "D",
+      "hint": "바깥(2) × 안쪽(3) = 6번 print해요.",
+      "feedback": {
+        "correct": "맞아요! 2 × 3 = 6줄이에요.",
+        "wrong": "바깥(2) × 안쪽(3) = 6번 print해요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_4_005",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드에서 안쪽 루프가 실행되는 총 횟수는?**\n\n```python\nfor i in range(4):\n    for j in range(5):\n        pass\n```",
+      "choices": [
+        "A. `4`",
+        "B. `5`",
+        "C. `9`",
+        "D. `20`"
+      ],
+      "answer": "D",
+      "hint": "바깥(4) × 안쪽(5) = 20번 실행돼요.",
+      "feedback": {
+        "correct": "맞아요! 4 × 5 = 20번이에요.",
+        "wrong": "바깥(4) × 안쪽(5) = 20번 실행돼요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_4_007",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nfor i in range(1, 3):\n    for j in range(1, 3):\n        print(i * j)\n```",
+      "choices": [
+        "A. `1` / `2` / `2` / `4`",
+        "B. `1` / `2` / `3` / `4`",
+        "C. `1` / `4`",
+        "D. `2` / `4`"
+      ],
+      "answer": "A",
+      "hint": "(i=1,j=1)=1, (i=1,j=2)=2, (i=2,j=1)=2, (i=2,j=2)=4예요.",
+      "feedback": {
+        "correct": "맞아요! i=1:1×1=1,1×2=2. i=2:2×1=2,2×2=4이에요.",
+        "wrong": "(i=1,j=1)=1, (i=1,j=2)=2, (i=2,j=1)=2, (i=2,j=2)=4예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_4_009",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nmatrix = [[1, 2], [3, 4]]\ntotal = 0\nfor row in matrix:\n    for val in row:\n        total += val\nprint(total)\n```",
+      "choices": [
+        "A. `3`",
+        "B. `7`",
+        "C. `10`",
+        "D. `6`"
+      ],
+      "answer": "C",
+      "hint": "모든 행의 모든 값을 더해요. 1+2+3+4=10이에요.",
+      "feedback": {
+        "correct": "맞아요! 1+2+3+4=10이에요.",
+        "wrong": "모든 행의 모든 값을 더해요. 1+2+3+4=10이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_4_011",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nfor i in range(3):\n    print('*' * (i + 1))\n```",
+      "choices": [
+        "A. `*` / `**` / `***`",
+        "B. `***` / `**` / `*`",
+        "C. `*` / `*` / `*`",
+        "D. `***`"
+      ],
+      "answer": "A",
+      "hint": "i+1 개의 * 출력. i=0→1개, i=1→2개, i=2→3개예요.",
+      "feedback": {
+        "correct": "맞아요! i=0:'*', i=1:'**', i=2:'***'이에요.",
+        "wrong": "i+1 개의 * 출력. i=0→1개, i=1→2개, i=2→3개예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_4_013",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\npairs = []\nfor x in [1, 2]:\n    for y in ['a', 'b']:\n        pairs.append((x, y))\nprint(len(pairs))\n```",
+      "choices": [
+        "A. `2`",
+        "B. `4`",
+        "C. `3`",
+        "D. `6`"
+      ],
+      "answer": "B",
+      "hint": "바깥(2) × 안쪽(2) = 4쌍이 생성돼요.",
+      "feedback": {
+        "correct": "맞아요! 2 × 2 = 4쌍이에요. (1,'a'), (1,'b'), (2,'a'), (2,'b')예요.",
+        "wrong": "바깥(2) × 안쪽(2) = 4쌍이 생성돼요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_4_015",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nmatrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\ntotal = 0\nfor i in range(len(matrix)):\n    total += matrix[i][i]\nprint(total)\n```",
+      "choices": [
+        "A. `9`",
+        "B. `15`",
+        "C. `45`",
+        "D. `12`"
+      ],
+      "answer": "B",
+      "hint": "i==j인 대각선 요소: 1, 5, 9. 합=15예요.",
+      "feedback": {
+        "correct": "맞아요! 대각선 요소: matrix[0][0]=1, matrix[1][1]=5, matrix[2][2]=9. 1+5+9=15예요.",
+        "wrong": "i==j인 대각선 요소: 1, 5, 9. 합=15예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_4_017",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\ndata = [[3, 1, 4], [1, 5, 9], [2, 6, 5]]\nrow_sums = []\nfor row in data:\n    s = 0\n    for val in row:\n        s += val\n    row_sums.append(s)\nprint(row_sums)\n```",
+      "choices": [
+        "A. `[8, 15, 13]`",
+        "B. `[6, 7, 8]`",
+        "C. `[3, 9, 5]`",
+        "D. `[4, 14, 13]`"
+      ],
+      "answer": "A",
+      "hint": "각 행의 합: 3+1+4=8, 1+5+9=15, 2+6+5=13. [8,15,13]이에요.",
+      "feedback": {
+        "correct": "맞아요! 행별 합: 3+1+4=8, 1+5+9=15, 2+6+5=13이에요.",
+        "wrong": "각 행의 합: 3+1+4=8, 1+5+9=15, 2+6+5=13. [8,15,13]이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_4_019",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nscores = [\n    {'name': '철수', 'grades': [85, 90, 78]},\n    {'name': '영희', 'grades': [92, 88, 95]}\n]\nfor s in scores:\n    total = 0\n    for g in s['grades']:\n        total += g\n    avg = total // len(s['grades'])\n    print(f\"{s['name']}: {avg}점\")\n```",
+      "choices": [
+        "A. `철수: 85점` / `영희: 92점`",
+        "B. `철수: 253점` / `영희: 275점`",
+        "C. `철수: 84점` / `영희: 91점`",
+        "D. `철수: 90점` / `영희: 95점`"
+      ],
+      "answer": "C",
+      "hint": "철수: 253//3=84. 영희: 275//3=91이에요.",
+      "feedback": {
+        "correct": "맞아요! 철수: (85+90+78)//3=253//3=84. 영희: (92+88+95)//3=275//3=91이에요.",
+        "wrong": "철수: 253//3=84. 영희: 275//3=91이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_4_002",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`for i in range(3): for j in range(2):`의 총 실행 횟수는?",
+      "choices": [
+        "A. 2번",
+        "B. 3번",
+        "C. 5번",
+        "D. 6번"
+      ],
+      "answer": "D",
+      "hint": "중첩 for문의 총 실행 횟수는 바깥(3) × 안쪽(2) = 6번이에요.",
+      "feedback": {
+        "correct": "맞아요! 3 × 2 = 6번이에요.",
+        "wrong": "중첩 for문의 총 실행 횟수는 바깥(3) × 안쪽(2) = 6번이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_4_004",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "2차원 리스트 `[[1,2],[3,4],[5,6]]`을 중첩 for문으로 순회하면 값은 몇 개?",
+      "choices": [
+        "A. 3개",
+        "B. 2개",
+        "C. 6개",
+        "D. 5개"
+      ],
+      "answer": "C",
+      "hint": "3행 × 2열 = 6개의 값이 있어요.",
+      "feedback": {
+        "correct": "맞아요! 3개의 행 × 2개의 값 = 6개예요.",
+        "wrong": "3행 × 2열 = 6개의 값이 있어요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_4_006",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "중첩 for문에서 안쪽 for문 블록의 들여쓰기는?",
+      "choices": [
+        "A. 4칸",
+        "B. 8칸",
+        "C. 2칸",
+        "D. 바깥 루프와 동일"
+      ],
+      "answer": "B",
+      "hint": "중첩될 때마다 들여쓰기가 4칸씩 추가돼요. 안쪽 for문 블록은 8칸이에요.",
+      "feedback": {
+        "correct": "맞아요! 바깥 for문이 4칸이면 안쪽 for문 블록은 8칸이에요.",
+        "wrong": "중첩될 때마다 들여쓰기가 4칸씩 추가돼요. 안쪽 for문 블록은 8칸이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_4_008",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\ncount = 0\nfor i in range(3):\n    for j in range(4):\n        count += 1\nprint(count)\n```",
+      "choices": [
+        "A. `7`",
+        "B. `12`",
+        "C. `9`",
+        "D. `16`"
+      ],
+      "answer": "B",
+      "hint": "바깥(3) × 안쪽(4) = 12번 count가 증가해요.",
+      "feedback": {
+        "correct": "맞아요! 3 × 4 = 12이에요.",
+        "wrong": "바깥(3) × 안쪽(4) = 12번 count가 증가해요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_4_010",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nfor i in range(1, 4):\n    for j in range(1, 4):\n        if i == j:\n            print(i * j)\n```",
+      "choices": [
+        "A. `1` / `4` / `9`",
+        "B. `1` / `2` / `3`",
+        "C. `2` / `4` / `6`",
+        "D. `1` / `4` / `9` / `16`"
+      ],
+      "answer": "A",
+      "hint": "i==j일 때만 출력: (1,1)→1, (2,2)→4, (3,3)→9이에요.",
+      "feedback": {
+        "correct": "맞아요! i==j인 경우만: 1×1=1, 2×2=4, 3×3=9이에요.",
+        "wrong": "i==j일 때만 출력: (1,1)→1, (2,2)→4, (3,3)→9이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_4_012",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 총 출력 줄 수는?**\n\n```python\nfor i in range(2):\n    for j in range(2):\n        for k in range(2):\n            print(i + j + k)\n```",
+      "choices": [
+        "A. 4줄",
+        "B. 6줄",
+        "C. 8줄",
+        "D. 2줄"
+      ],
+      "answer": "C",
+      "hint": "3중 중첩: 2 × 2 × 2 = 8번 실행돼요.",
+      "feedback": {
+        "correct": "맞아요! 2 × 2 × 2 = 8번 print해요.",
+        "wrong": "3중 중첩: 2 × 2 × 2 = 8번 실행돼요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_4_014",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nfor i in range(1, 4):\n    line = ''\n    for j in range(1, i + 1):\n        line += str(j)\n    print(line)\n```",
+      "choices": [
+        "A. `1` / `12` / `123`",
+        "B. `123` / `12` / `1`",
+        "C. `1` / `2` / `3`",
+        "D. `1` / `22` / `333`"
+      ],
+      "answer": "A",
+      "hint": "i=1:j는 1→line='1'. i=2:j는 1,2→line='12'. i=3:j는 1,2,3→line='123'이에요.",
+      "feedback": {
+        "correct": "맞아요! i=1:'1', i=2:'12', i=3:'123'이에요.",
+        "wrong": "i=1:j는 1→line='1'. i=2:j는 1,2→line='12'. i=3:j는 1,2,3→line='123'이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_4_016",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\ncount = 0\nfor i in range(1, 5):\n    for j in range(i, 5):\n        count += 1\nprint(count)\n```",
+      "choices": [
+        "A. `6`",
+        "B. `10`",
+        "C. `12`",
+        "D. `16`"
+      ],
+      "answer": "B",
+      "hint": "i=1→j=1,2,3,4(4회), i=2→j=2,3,4(3회), i=3→j=3,4(2회), i=4→j=4(1회). 총 10회예요.",
+      "feedback": {
+        "correct": "맞아요! i=1:4번, i=2:3번, i=3:2번, i=4:1번. 4+3+2+1=10이에요.",
+        "wrong": "i=1→j=1,2,3,4(4회), i=2→j=2,3,4(3회), i=3→j=3,4(2회), i=4→j=4(1회). 총 10회예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_4_018",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nresult = []\nfor i in range(1, 4):\n    for j in range(1, 4):\n        if i + j == 4:\n            result.append((i, j))\nprint(result)\n```",
+      "choices": [
+        "A. `[(1, 3), (2, 2), (3, 1)]`",
+        "B. `[(1, 4), (2, 3), (3, 2)]`",
+        "C. `[(2, 2), (3, 3)]`",
+        "D. `[(1, 3), (3, 1)]`"
+      ],
+      "answer": "A",
+      "hint": "i+j==4: (1,3)(T), (2,2)(T), (3,1)(T). 다른 조합은 합이 4가 아니에요.",
+      "feedback": {
+        "correct": "맞아요! i+j=4인 쌍: (1,3), (2,2), (3,1)이에요.",
+        "wrong": "i+j==4: (1,3)(T), (2,2)(T), (3,1)(T). 다른 조합은 합이 4가 아니에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_4_020",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\ngrid = []\nfor i in range(3):\n    row = []\n    for j in range(3):\n        row.append(i * 3 + j + 1)\n    grid.append(row)\nprint(grid[1][2])\nprint(grid[2][0])\n```",
+      "choices": [
+        "A. `6` / `7`",
+        "B. `5` / `7`",
+        "C. `6` / `8`",
+        "D. `5` / `8`"
+      ],
+      "answer": "A",
+      "hint": "i=0:[1,2,3], i=1:[4,5,6], i=2:[7,8,9]. grid[1][2]=6, grid[2][0]=7이에요.",
+      "feedback": {
+        "correct": "훌륭해요! grid=[[1,2,3],[4,5,6],[7,8,9]]. grid[1][2]=6, grid[2][0]=7이에요.",
+        "wrong": "i=0:[1,2,3], i=1:[4,5,6], i=2:[7,8,9]. grid[1][2]=6, grid[2][0]=7이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_5_001",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "for문으로 리스트를 순회하면서 조건에 맞는 값만 모을 때 사용하는 패턴은?",
+      "choices": [
+        "A. for + print",
+        "B. for + if + append",
+        "C. for + break",
+        "D. for + continue"
+      ],
+      "answer": "B",
+      "hint": "조건에 맞는 값만 골라낼 때는 for + if + append 조합을 써요.",
+      "feedback": {
+        "correct": "맞아요! for + if + append 패턴으로 조건에 맞는 값만 골라 새 리스트를 만들어요.",
+        "wrong": "조건에 맞는 값만 골라낼 때는 for + if + append 조합을 써요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_5_003",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nnums = [1, 2, 3, 4, 5]\nresult = []\nfor n in nums:\n    if n % 2 == 0:\n        result.append(n)\nprint(result)\n```",
+      "choices": [
+        "A. `[1, 3, 5]`",
+        "B. `[2, 4]`",
+        "C. `[1, 2, 3, 4, 5]`",
+        "D. `[2, 4, 6]`"
+      ],
+      "answer": "B",
+      "hint": "짝수인 값만 append. 2, 4가 result에 담겨요.",
+      "feedback": {
+        "correct": "맞아요! 짝수(2, 4)만 append해요.",
+        "wrong": "짝수인 값만 append. 2, 4가 result에 담겨요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_5_005",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`while 리스트:`는 언제 True인가요?",
+      "choices": [
+        "A. 리스트가 비어 있을 때",
+        "B. 리스트에 값이 하나 이상 있을 때",
+        "C. 리스트의 첫 번째 값이 True일 때",
+        "D. 항상 True"
+      ],
+      "answer": "B",
+      "hint": "Python에서 비어 있지 않은 리스트는 True, 빈 리스트 `[]`는 False예요.",
+      "feedback": {
+        "correct": "맞아요! 비어 있지 않은 리스트는 True로 처리돼요.",
+        "wrong": "Python에서 비어 있지 않은 리스트는 True, 빈 리스트 `[]`는 False예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_5_007",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nscores = [70, 85, 60, 90, 78, 95]\nabove = []\nfor s in scores:\n    if s >= 80:\n        above.append(s)\nprint(len(above))\n```",
+      "choices": [
+        "A. `2`",
+        "B. `3`",
+        "C. `4`",
+        "D. `6`"
+      ],
+      "answer": "B",
+      "hint": "80 이상인 값: 85, 90, 95. len=3이에요.",
+      "feedback": {
+        "correct": "맞아요! 80 이상: 85, 90, 95 → 3개예요.",
+        "wrong": "80 이상인 값: 85, 90, 95. len=3이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_5_009",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nstudents = [\n    {'name': '박서준', 'score': 82},\n    {'name': '한소영', 'score': 91},\n    {'name': '오민재', 'score': 74}\n]\ntotal = 0\nfor s in students:\n    total += s['score']\navg = total // len(students)\nprint(avg)\n```",
+      "choices": [
+        "A. `82`",
+        "B. `91`",
+        "C. `82`",
+        "D. `82`"
+      ],
+      "answer": "C",
+      "hint": "total=82+91+74=247. len=3. 247//3=82예요.",
+      "feedback": {
+        "correct": "맞아요! (82+91+74)//3 = 247//3 = 82예요.",
+        "wrong": "total=82+91+74=247. len=3. 247//3=82예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_5_011",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\ninventory = {'사과': 10, '바나나': 0, '포도': 5}\nfor item, qty in inventory.items():\n    if qty == 0:\n        continue\n    print(f'{item}: {qty}개')\n```",
+      "choices": [
+        "A. `사과: 10개` / `바나나: 0개` / `포도: 5개`",
+        "B. `사과: 10개` / `포도: 5개`",
+        "C. `바나나: 0개`",
+        "D. 아무것도 출력 안 됨"
+      ],
+      "answer": "B",
+      "hint": "qty=0인 바나나→continue(건너뜀). 사과, 포도만 출력돼요.",
+      "feedback": {
+        "correct": "맞아요! qty==0(바나나)→continue. 사과, 포도만 출력돼요.",
+        "wrong": "qty=0인 바나나→continue(건너뜀). 사과, 포도만 출력돼요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_5_013",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nnums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\nresult = {'even': [], 'odd': []}\nfor n in nums:\n    if n % 2 == 0:\n        result['even'].append(n)\n    else:\n        result['odd'].append(n)\nprint(len(result['even']), len(result['odd']))\n```",
+      "choices": [
+        "A. `4` / `6`",
+        "B. `5` / `5`",
+        "C. `6` / `4`",
+        "D. `3` / `7`"
+      ],
+      "answer": "B",
+      "hint": "짝수: 2,4,6,8,10→5개. 홀수: 1,3,5,7,9→5개예요.",
+      "feedback": {
+        "correct": "맞아요! 짝수 5개(2,4,6,8,10), 홀수 5개(1,3,5,7,9)예요.",
+        "wrong": "짝수: 2,4,6,8,10→5개. 홀수: 1,3,5,7,9→5개예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_5_015",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nscores = [88, 72, 95, 61, 84, 78, 90]\ngroups = {'A': [], 'B': [], 'C': []}\nfor s in scores:\n    if s >= 90:\n        groups['A'].append(s)\n    elif s >= 80:\n        groups['B'].append(s)\n    else:\n        groups['C'].append(s)\nprint(len(groups['A']), len(groups['B']), len(groups['C']))\n```",
+      "choices": [
+        "A. `2` / `2` / `3`",
+        "B. `2` / `3` / `2`",
+        "C. `3` / `2` / `2`",
+        "D. `1` / `3` / `3`"
+      ],
+      "answer": "A",
+      "hint": "A: 95,90(2개). B: 88,84(2개). C: 72,61,78(3개). 2,2,3이에요.",
+      "feedback": {
+        "correct": "맞아요! A(90이상): 95,90→2개. B(80~89): 88,84→2개. C(79이하): 72,61,78→3개예요.",
+        "wrong": "A: 95,90(2개). B: 88,84(2개). C: 72,61,78(3개). 2,2,3이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_5_017",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nstudents = [\n    {'name': '김민서', 'score': 85},\n    {'name': '이준혁', 'score': 92},\n    {'name': '박소연', 'score': 71},\n    {'name': '최태양', 'score': 88}\n]\ntop2 = []\nfor s in sorted(students, key=lambda x: x['score'], reverse=True):\n    top2.append(s['name'])\n    if len(top2) == 2:\n        break\nprint(top2)\n```",
+      "choices": [
+        "A. `['김민서', '최태양']`",
+        "B. `['이준혁', '최태양']`",
+        "C. `['이준혁', '김민서']`",
+        "D. `['박소연', '최태양']`"
+      ],
+      "answer": "B",
+      "hint": "sorted(reverse=True)로 점수 높은 순: 이준혁(92), 최태양(88). 2명 break. ['이준혁','최태양']이에요.",
+      "feedback": {
+        "correct": "맞아요! 점수 내림차순: 92(이준혁), 88(최태양), 85(김민서), 71(박소연). 상위 2명 = [이준혁, 최태양]이에요.",
+        "wrong": "sorted(reverse=True)로 점수 높은 순: 이준혁(92), 최태양(88). 2명 break. ['이준혁','최태양']이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_5_019",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nmatrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\nflat = []\nfor row in matrix:\n    for val in row:\n        if val % 2 != 0:\n            flat.append(val)\nprint(flat)\n```",
+      "choices": [
+        "A. `[2, 4, 6, 8]`",
+        "B. `[1, 3, 5, 7, 9]`",
+        "C. `[1, 2, 3, 4, 5]`",
+        "D. `[1, 3, 7, 9]`"
+      ],
+      "answer": "B",
+      "hint": "val%2!=0인 홀수: 1,3,5,7,9. flat=[1,3,5,7,9]이에요.",
+      "feedback": {
+        "correct": "맞아요! 홀수만 append. 1,3,5,7,9가 담겨요.",
+        "wrong": "val%2!=0인 홀수: 1,3,5,7,9. flat=[1,3,5,7,9]이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_4_5_002",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "딕셔너리를 for문으로 순회할 때 key와 value를 동시에 받는 방법은?",
+      "choices": [
+        "A. `for k in d.keys():`",
+        "B. `for v in d.values():`",
+        "C. `for k, v in d.items():`",
+        "D. `for k, v in d:`"
+      ],
+      "answer": "C",
+      "hint": "key와 value를 동시에 받으려면 `.items()`를 써요.",
+      "feedback": {
+        "correct": "맞아요! `for k, v in d.items():`로 key와 value를 동시에 받아요.",
+        "wrong": "key와 value를 동시에 받으려면 `.items()`를 써요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_5_004",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nscores = {'국어': 85, '수학': 70, '영어': 90}\ntotal = 0\nfor v in scores.values():\n    total += v\nprint(total)\n```",
+      "choices": [
+        "A. `85`",
+        "B. `90`",
+        "C. `245`",
+        "D. `70`"
+      ],
+      "answer": "C",
+      "hint": "values()로 85, 70, 90을 꺼내 더해요. 합=245예요.",
+      "feedback": {
+        "correct": "맞아요! 85+70+90=245예요.",
+        "wrong": "values()로 85, 70, 90을 꺼내 더해요. 합=245예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_5_006",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nstudents = [\n    {'name': '김철수', 'score': 88},\n    {'name': '이영희', 'score': 72}\n]\nfor s in students:\n    print(s['name'])\n```",
+      "choices": [
+        "A. `김철수 88` / `이영희 72`",
+        "B. `88` / `72`",
+        "C. `김철수` / `이영희`",
+        "D. `name` / `name`"
+      ],
+      "answer": "C",
+      "hint": "`s['name']`은 각 딕셔너리의 'name' 값이에요. '김철수', '이영희'가 출력돼요.",
+      "feedback": {
+        "correct": "맞아요! 각 딕셔너리에서 'name' 값만 꺼내요.",
+        "wrong": "`s['name']`은 각 딕셔너리의 'name' 값이에요. '김철수', '이영희'가 출력돼요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_5_008",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nd = {'a': 10, 'b': 20, 'c': 30}\nkeys_above_15 = []\nfor k, v in d.items():\n    if v > 15:\n        keys_above_15.append(k)\nprint(keys_above_15)\n```",
+      "choices": [
+        "A. `['a']`",
+        "B. `['b', 'c']`",
+        "C. `[20, 30]`",
+        "D. `['a', 'b', 'c']`"
+      ],
+      "answer": "B",
+      "hint": "v>15인 항목: b(20), c(30). key인 'b', 'c'를 담아요.",
+      "feedback": {
+        "correct": "맞아요! 15 초과인 값: b(20), c(30). key를 append해요.",
+        "wrong": "v>15인 항목: b(20), c(30). key인 'b', 'c'를 담아요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_5_010",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nqueue = ['작업A', '작업B', '작업C']\nresult = []\nwhile queue:\n    task = queue.pop(0)\n    result.append(task)\nprint(result)\n```",
+      "choices": [
+        "A. `['작업C', '작업B', '작업A']`",
+        "B. `['작업A', '작업B', '작업C']`",
+        "C. `['작업A']`",
+        "D. `[]`"
+      ],
+      "answer": "B",
+      "hint": "pop(0)은 첫 번째를 꺼내요. A→B→C 순서로 result에 담겨요.",
+      "feedback": {
+        "correct": "맞아요! pop(0)은 맨 앞을 꺼내요. 순서대로 A, B, C가 담겨요.",
+        "wrong": "pop(0)은 첫 번째를 꺼내요. A→B→C 순서로 result에 담겨요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_5_012",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\ndata = [3, 6, 9, 2, 8, 5]\nfound = None\nfor d in data:\n    if d > 7:\n        found = d\n        break\nprint(found)\n```",
+      "choices": [
+        "A. `9`",
+        "B. `8`",
+        "C. `5`",
+        "D. `None`"
+      ],
+      "answer": "A",
+      "hint": "3(F), 6(F), 9(T→found=9,break). found=9예요.",
+      "feedback": {
+        "correct": "맞아요! 7 초과 첫 번째 값은 9. break 후 found=9예요.",
+        "wrong": "3(F), 6(F), 9(T→found=9,break). found=9예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_5_014",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\norders = [\n    {'item': '커피', 'qty': 2, 'price': 4000},\n    {'item': '케이크', 'qty': 1, 'price': 6000}\n]\ntotal = 0\nfor o in orders:\n    total += o['qty'] * o['price']\nprint(total)\n```",
+      "choices": [
+        "A. `10000`",
+        "B. `14000`",
+        "C. `8000`",
+        "D. `6000`"
+      ],
+      "answer": "B",
+      "hint": "각 항목의 qty×price. 8000+6000=14000이에요.",
+      "feedback": {
+        "correct": "맞아요! 커피: 2×4000=8000. 케이크: 1×6000=6000. 8000+6000=14000이에요.",
+        "wrong": "각 항목의 qty×price. 8000+6000=14000이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_5_016",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\ndata = {'x': [1, 2, 3], 'y': [4, 5, 6], 'z': [7, 8, 9]}\nresult = {}\nfor key, vals in data.items():\n    result[key] = sum(vals)\nprint(result)\n```",
+      "choices": [
+        "A. `{'x': 6, 'y': 15, 'z': 24}`",
+        "B. `{'x': 3, 'y': 6, 'z': 9}`",
+        "C. `[6, 15, 24]`",
+        "D. `{'x': 1, 'y': 4, 'z': 7}`"
+      ],
+      "answer": "A",
+      "hint": "각 key의 리스트 합계: x=6, y=15, z=24. {'x':6,'y':15,'z':24}예요.",
+      "feedback": {
+        "correct": "맞아요! x:1+2+3=6, y:4+5+6=15, z:7+8+9=24예요.",
+        "wrong": "각 key의 리스트 합계: x=6, y=15, z=24. {'x':6,'y':15,'z':24}예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_5_018",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nstock = {'사과': 5, '바나나': 0, '포도': 3, '딸기': 8, '수박': 0}\navailable = []\nfor item, qty in stock.items():\n    if qty == 0:\n        continue\n    available.append(item)\nprint(available)\nprint(len(available))\n```",
+      "choices": [
+        "A. `['사과', '바나나', '포도', '딸기', '수박']` / `5`",
+        "B. `['바나나', '수박']` / `2`",
+        "C. `['사과', '포도', '딸기']` / `3`",
+        "D. `['사과', '포도', '딸기', '수박']` / `4`"
+      ],
+      "answer": "C",
+      "hint": "qty=0→continue. 남은 것: 사과(5), 포도(3), 딸기(8). ['사과','포도','딸기'], len=3이에요.",
+      "feedback": {
+        "correct": "맞아요! qty=0인 바나나, 수박→continue. 사과, 포도, 딸기 3개가 남아요.",
+        "wrong": "qty=0→continue. 남은 것: 사과(5), 포도(3), 딸기(8). ['사과','포도','딸기'], len=3이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_4_5_020",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?**\n\n```python\nrecords = [\n    {'city': '서울', 'temp': 32},\n    {'city': '부산', 'temp': 28},\n    {'city': '대구', 'temp': 35},\n    {'city': '인천', 'temp': 30}\n]\nhot_cities = []\ntotal_temp = 0\nfor r in records:\n    total_temp += r['temp']\n    if r['temp'] >= 30:\n        hot_cities.append(r['city'])\navg = total_temp // len(records)\nprint(hot_cities)\nprint(f'평균기온: {avg}도')\n```",
+      "choices": [
+        "A. `['서울', '대구', '인천']` / `평균기온: 31도`",
+        "B. `['서울', '대구']` / `평균기온: 31도`",
+        "C. `['서울', '대구', '인천']` / `평균기온: 32도`",
+        "D. `['대구']` / `평균기온: 31도`"
+      ],
+      "answer": "A",
+      "hint": "30이상: 서울(32),대구(35),인천(30)→3개. 총합=125, 125//4=31도예요.",
+      "feedback": {
+        "correct": "훌륭해요! 30이상: 서울(32), 대구(35), 인천(30). 평균: (32+28+35+30)//4=125//4=31이에요.",
+        "wrong": "30이상: 서울(32),대구(35),인천(30)→3개. 총합=125, 125//4=31도예요."
+      },
+      "quiz_set": "B"
+    }
+  ]
+}
