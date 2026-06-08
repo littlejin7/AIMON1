@@ -1,0 +1,184 @@
+{
+  "questions": [
+    {
+      "question_id": "unitboss_beg_mc_8_001",
+      "unit": 8,
+      "stage": "8-boss",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "API(Application Programming Interface)란 무엇인가요?",
+      "choices": ["A. 파이썬 코드를 실행하는 프로그램", "B. 서로 다른 프로그램이 데이터를 주고받을 수 있게 해주는 연결 창구", "C. 에러를 자동으로 고쳐주는 도구", "D. 화면에 그림을 그리는 라이브러리"],
+      "answer": "B",
+      "hint": "API는 프로그램과 프로그램 사이의 '약속된 대화 방식'이에요.",
+      "feedback": {
+        "correct": "맞아요! API는 두 프로그램이 서로 통신할 수 있도록 정해진 규칙과 방법을 제공해요.",
+        "wrong": "API는 Application Programming Interface의 약자로, 서로 다른 소프트웨어가 정해진 방법으로 데이터를 주고받는 연결 창구예요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_fib_8_001",
+      "unit": 8,
+      "stage": "8-boss",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "빈칸을 채워 requests 라이브러리를 불러오세요.\n\n___ requests\n\nresponse = requests.get('https://api.example.com')",
+      "choices": [],
+      "answer": "import",
+      "hint": "외부 라이브러리를 코드에서 사용하려면 먼저 불러와야 해요.",
+      "feedback": {
+        "correct": "맞아요! import 키워드로 라이브러리를 불러와 사용할 수 있어요.",
+        "wrong": "외부 라이브러리를 사용하려면 import 키워드로 먼저 불러와야 해요. import requests 형태예요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_mc_8_002",
+      "unit": 8,
+      "stage": "8-boss",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "파이썬 라이브러리를 사용하는 이유로 가장 적절한 것은 무엇인가요?",
+      "choices": ["A. 코드를 영어로 번역해주기 때문에", "B. 이미 만들어진 기능을 가져다 써서 개발 속도를 높이기 때문에", "C. 오류를 자동으로 수정해주기 때문에", "D. 코드 파일 크기를 줄여주기 때문에"],
+      "answer": "B",
+      "hint": "라이브러리는 다른 사람이 만들어놓은 코드 모음이에요.",
+      "feedback": {
+        "correct": "맞아요! 라이브러리는 이미 검증된 기능을 가져다 쓸 수 있어서 처음부터 다 짜지 않아도 돼요.",
+        "wrong": "라이브러리는 자주 쓰이는 기능을 미리 만들어 놓은 코드 모음이에요. 가져다 쓰면 개발 시간을 크게 줄일 수 있어요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_fib_8_002",
+      "unit": 8,
+      "stage": "8-boss",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "빈칸을 채워 AI에게 질문을 보내는 함수를 완성하세요.\n\n___ ask_ai(question):\n    response = call_api(question)\n    return response\n\nanswer = ask_ai('파이썬이 뭐야?')\nprint(answer)",
+      "choices": [],
+      "answer": "def",
+      "hint": "파이썬에서 함수를 정의할 때 쓰는 키워드예요.",
+      "feedback": {
+        "correct": "맞아요! def 키워드로 함수를 정의해요. AI 에이전트도 함수 단위로 기능을 나눠요.",
+        "wrong": "함수 정의는 def 키워드로 시작해요. def ask_ai(question): 형태로 써요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_mc_8_003",
+      "unit": 8,
+      "stage": "8-boss",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "AI 에이전트가 작동하는 기본 흐름으로 가장 적절한 것은 무엇인가요?",
+      "choices": ["A. 코드 작성 → 저장 → 실행", "B. 입력 받기 → AI에게 전달 → 응답 받기 → 결과 출력", "C. 라이브러리 설치 → import → 출력", "D. 변수 선언 → 조건문 → 반복문"],
+      "answer": "B",
+      "hint": "에이전트는 사용자 입력을 받아 AI와 대화하고 결과를 돌려줘요.",
+      "feedback": {
+        "correct": "맞아요! AI 에이전트의 기본 흐름은 입력 → API 전달 → 응답 처리 → 출력이에요.",
+        "wrong": "AI 에이전트는 사용자의 입력을 받아 AI API에 전달하고, 받은 응답을 처리해서 출력하는 흐름으로 동작해요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_os_8_001",
+      "unit": 8,
+      "stage": "8-boss",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\ndef get_reply(msg):\n    if msg == '안녕':\n        return '안녕하세요!'\n    else:\n        return '잘 모르겠어요.'\n\nprint(get_reply('안녕'))\nprint(get_reply('날씨'))",
+      "choices": ["A. 안녕 / 날씨", "B. 안녕하세요! / 안녕하세요!", "C. 안녕하세요! / 잘 모르겠어요.", "D. 잘 모르겠어요. / 잘 모르겠어요."],
+      "answer": "C",
+      "hint": "첫 번째 호출은 '안녕', 두 번째는 '날씨'를 전달해요.",
+      "feedback": {
+        "correct": "맞아요! '안녕'이면 '안녕하세요!', 그 외엔 '잘 모르겠어요.'가 반환돼요.",
+        "wrong": "get_reply('안녕')은 if 조건이 True라서 '안녕하세요!'를 반환하고, get_reply('날씨')는 else로 '잘 모르겠어요.'를 반환해요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_mc_8_004",
+      "unit": 8,
+      "stage": "8-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "AI에게 좋은 결과를 얻기 위해 질문(프롬프트)을 작성할 때 가장 중요한 것은 무엇인가요?",
+      "choices": ["A. 최대한 짧고 단어만 나열하기", "B. 원하는 역할, 상황, 출력 형태를 구체적으로 설명하기", "C. 영어로만 작성하기", "D. 이모티콘을 많이 넣기"],
+      "answer": "B",
+      "hint": "AI는 맥락이 명확할수록 더 정확한 답변을 줘요.",
+      "feedback": {
+        "correct": "맞아요! AI 에이전트에게는 역할, 상황, 원하는 출력 형태를 구체적으로 알려줄수록 좋은 결과가 나와요.",
+        "wrong": "프롬프트는 구체적일수록 좋아요. AI에게 역할(예: 파이썬 선생님), 상황, 원하는 출력 형식을 명확히 알려줘야 해요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_fib_8_003",
+      "unit": 8,
+      "stage": "8-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "빈칸을 채워 에이전트가 'quit' 입력 전까지 계속 대화하게 하세요.\n\nwhile ___:\n    user_input = input('질문: ')\n    if user_input == 'quit':\n        break\n    reply = get_reply(user_input)\n    print('에이몬:', reply)",
+      "choices": [],
+      "answer": "True",
+      "hint": "조건이 항상 참인 무한 반복이 필요해요. break로 나올 거예요.",
+      "feedback": {
+        "correct": "맞아요! while True:로 무한 반복하고 'quit' 입력 시 break로 탈출하는 전형적인 에이전트 대화 루프예요.",
+        "wrong": "while True:로 무한 반복을 만들고, 특정 조건에서 break로 나오는 패턴이 에이전트 대화 루프의 기본이에요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_os_8_002",
+      "unit": 8,
+      "stage": "8-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드의 출력값을 고르세요.\n\nhistory = []\n\ndef chat(msg):\n    history.append(msg)\n    return f'[대화 {len(history)}] {msg}'\n\nprint(chat('안녕'))\nprint(chat('파이썬 알려줘'))",
+      "choices": ["A. [대화 1] 안녕 / [대화 1] 파이썬 알려줘", "B. [대화 1] 안녕 / [대화 2] 파이썬 알려줘", "C. [대화 0] 안녕 / [대화 1] 파이썬 알려줘", "D. 오류 발생"],
+      "answer": "B",
+      "hint": "history에 메시지가 쌓일수록 len(history)가 커져요.",
+      "feedback": {
+        "correct": "맞아요! 첫 번째 chat() 후 history에 1개, 두 번째 후 2개가 쌓여서 순서대로 1, 2가 출력돼요.",
+        "wrong": "chat('안녕') 호출 후 history = ['안녕']이라 len = 1, 두 번째 호출 후 len = 2가 돼요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_fib_8_004",
+      "unit": 8,
+      "stage": "8-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "빈칸을 채워 API 응답에서 텍스트만 꺼내게 하세요.\n\nresponse = {\n    'status': 'ok',\n    'message': '파이썬은 배우기 쉬워요!'\n}\n\ntext = response[___]\nprint(text)",
+      "choices": [],
+      "answer": "'message'",
+      "hint": "딕셔너리에서 값을 꺼낼 때는 키 이름을 사용해요.",
+      "feedback": {
+        "correct": "맞아요! response['message']로 딕셔너리에서 'message' 키의 값을 꺼낼 수 있어요.",
+        "wrong": "딕셔너리에서 값을 꺼내려면 response['키이름'] 형태를 써요. response['message']가 필요해요."
+      }
+    }
+  ]
+}

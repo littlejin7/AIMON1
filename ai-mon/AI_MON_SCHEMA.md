@@ -160,12 +160,12 @@ backend/data/questions/
 | `stage`            | string  | -                                                            | ✅   | 스테이지 번호 (`"1-1"` ~ `"1-7"`: 스테이지, `"1-boss"`: 유닛 보스, `"final-boss"`: 파이널 보스) |
 | `course_level`     | string  | beginner / intermediate / advanced                           | ✅   | 수강 레벨                                                                                       |
 | `difficulty`       | string  | easy / medium / hard                                         | ✅   | 문제 난이도                                                                                     |
-| `type`             | string  | multiple_choice / output_select / fill_in_blank / code_input | ✅   | 문제 형식 (출력 방식)                                                                           |
+| `type`             | string  | multiple_choice / output_select / fill_in_blank / code_input / error_find | ✅   | 문제 형식 (출력 방식)                                                                           |
 | `quiz_category`    | string  | stage_quiz / miniboss / unit_boss / final_boss               | ✅   | 문제 세트 유형 (흐름상 위치)                                                                    |
 | `quiz_set`         | string  | A / B                                                        | ❌   | stage_quiz 전용. Set A(1회차) / Set B(2회차) / 없으면 3회차 혼합                                |
 | `is_boss`          | boolean | true / false                                                 | ✅   | 유닛 보스 / 파이널 보스 여부 (`stage: "1-boss"` 와 함께 사용)                                   |
 | `question`         | string  | -                                                            | ✅   | 문제 텍스트                                                                                     |
-| `choices`          | array   | -                                                            | ❌   | 선택지 (multiple_choice / output_select만 해당, fill_in_blank는 빈 배열)                        |
+| `choices`          | array   | -                                                            | ❌   | 선택지 (multiple_choice / output_select / error_find 해당, fill_in_blank는 빈 배열)             |
 | `answer`           | string  | -                                                            | ✅   | 정답                                                                                            |
 | `hint`             | string  | -                                                            | ✅   | 힌트 텍스트                                                                                     |
 | `feedback.correct` | string  | -                                                            | ✅   | 정답 시 출력 텍스트 (API 호출 없음)                                                             |
@@ -345,6 +345,9 @@ backend/data/questions/
 
 ## 5. BossAnswerRequest (유닛 보스 배틀)
 
+> 유닛별 문제 커버 범위 및 유형 분포 상세: `AI_MON_UNITBOSS_QUESTIONS.md` 참고.
+> 유닛 보스는 `error_find` 유형 포함 (beginner 1~7). 유닛 8은 `multiple_choice` 중심.
+
 보스 전투 중 답안 제출 시 프론트에서 백엔드로 전달하는 필드.
 
 | 필드          | 타입   | 기본값 | 설명               |
@@ -387,7 +390,7 @@ backend/data/questions/
 | `wrong_answers[].unit`           | number  | 1~8                                                          | ✅   | 유닛 번호                                 |
 | `wrong_answers[].stage`          | string  | -                                                            | ✅   | 스테이지 번호                             |
 | `wrong_answers[].course_level`   | string  | beginner / intermediate / advanced                           | ✅   | 수강 레벨                                 |
-| `wrong_answers[].type`           | string  | multiple_choice / output_select / fill_in_blank / code_input | ✅   | 문제 유형                                 |
+| `wrong_answers[].type`           | string  | multiple_choice / output_select / fill_in_blank / code_input / error_find | ✅   | 문제 유형                                 |
 | `wrong_answers[].question`       | string  | -                                                            | ✅   | 문제 텍스트                               |
 | `wrong_answers[].choices`        | array   | -                                                            | ❌   | 선택지                                    |
 | `wrong_answers[].user_answer`    | string  | -                                                            | ✅   | 유저 답안                                 |
