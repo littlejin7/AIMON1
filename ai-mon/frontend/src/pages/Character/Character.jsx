@@ -3,7 +3,7 @@ import { userApi, progressApi } from '../../api/index'
 import { useState, useEffect } from 'react'
 import CharacterDisplay from '../../components/CharacterDisplay/CharacterDisplay'
 import './Character.css'
-
+import Title from '../../components/titles/title'
 const CHARACTERS = [
   { id: 'slime',         icon: '/src/assets/character_slime.png', name: '에이몬 슬라임', desc: '기본 캐릭터', unlockUnits: 0 },
   { id: 'robot',         icon: '/src/assets/character_robot.png', name: '에이몬 로봇', desc: 'Unit 3 완료 시 해금', unlockUnits: 3 },
@@ -97,6 +97,9 @@ export default function Character() {
         >
           {saved ? '✅ 저장 완료!' : saving ? '저장 중...' : '캐릭터 저장하기'}
         </button>
+                        {/* ✅ 여기 추가 */}
+                <Title />
+
       </div>
     </div>
   )
