@@ -155,7 +155,30 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
   "hint": "틀렸을 경우 정답에 도달할 수 있는 핵심 힌트 (맞았으면 빈 문자열)"
 }}
 """
-    ai_result = await ask_claude_json(prompt)
+    q_type = question.get("type", "")
+    correct_answer = str(question.get("answer", "")).strip()
+    user_ans = req.user_answer.strip()
+
+    def is_direct_match(user_ans: str, correct: str) -> bool:
+        # 완전 일치
+        if user_ans == correct:
+            return True
+        # 선택지 전체 텍스트로 답한 경우 (예: "B. 10 / 끝" → 앞 글자 "B"만 비교)
+        if len(user_ans) >= 1 and user_ans[0].upper() == correct.upper():
+            return True
+        return False
+
+    if q_type in ("multiple_choice", "output_select", "fill_in_blank"):
+        matched = is_direct_match(user_ans, correct_answer)
+        ai_result = {
+            "is_correct": matched,
+            "score": 100 if matched else 0,
+            "feedback": question["feedback"]["correct"] if matched else question["feedback"]["wrong"],
+            "hint": "" if matched else question.get("hint", ""),
+        }
+    else:
+        # code_input 타입만 Claude 채점
+        ai_result = await ask_claude_json(prompt)
 
     # 채점 후 HP 계산 로직 추가
     if ai_result.get("is_correct"):
