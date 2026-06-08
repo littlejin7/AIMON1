@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { bossApi, userApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
@@ -8,6 +8,7 @@ import bossClearIcon from '../../assets/boss_finalclear.png'
 import bossQnaIcon from '../../assets/boss_finalqna.png'
 import bossFailIcon from '../../assets/boss_finalfail.png'
 import myCharIcon from '../../assets/character_slime.png'
+
 
 export default function Boss() {
   const { lessonId } = useParams()
@@ -32,7 +33,11 @@ export default function Boss() {
   const [wrongCount, setWrongCount] = useState(0)
   const [bossShake, setBossShake] = useState(false)
   const [myShake, setMyShake] = useState(false)
-
+const [bossHit, setBossHit] = useState(false)
+const [screenShake, setScreenShake] = useState(false)
+const [attackAnim, setAttackAnim] = useState(false)
+const [dmgPopup, setDmgPopup] = useState(null)
+const quizCardRef = useRef(null)
   const [initialLevel, setInitialLevel] = useState(1)
   const [levelUpMessage, setLevelUpMessage] = useState('')
 
@@ -51,6 +56,30 @@ export default function Boss() {
       setLoading(false)
     })
   }, [lessonId])
+
+const playAttackEffect = (damage) => {
+  setAttackAnim(true)
+  setTimeout(() => {
+    setBossHit(true)
+    setBossShake(true)
+    setDmgPopup(damage)
+    setTimeout(() => {
+      setBossHit(false)
+      setBossShake(false)
+      setDmgPopup(null)
+      setAttackAnim(false)
+    }, 600)
+  }, 500)
+}
+
+const playHitEffect = () => {
+  setMyShake(true)
+  setScreenShake(true)
+  setTimeout(() => {
+    setMyShake(false)
+    setScreenShake(false)
+  }, 600)
+}
 
   const handleStart = async () => {
     setMyHp(1000)
@@ -100,9 +129,9 @@ export default function Boss() {
       setBossHp(nextBossHp)
       setWrongCount(nextWrongCount)
       
-      if (isCorrect) {
-        setBossShake(true)
-        setTimeout(() => setBossShake(false), 500)
+const damage = bossHp - nextBossHp
+if (isCorrect) {
+  playAttackEffect(damage > 0 ? damage : 150)
         
         if (isClear) {
           // 승리!
@@ -137,10 +166,9 @@ export default function Boss() {
             }
           }, 1500)
         }
-      } else {
-        setMyShake(true)
-        setTimeout(() => setMyShake(false), 500)
-      }
+} else {
+  playHitEffect()
+}
     } catch (err) {
       console.error(err)
     } finally {
@@ -177,7 +205,7 @@ export default function Boss() {
   }
 
   return (
-    <div className="boss-page">
+    <div className={`boss-page ${screenShake ? 'screen-shake' : ''}`}>
       <div className="boss-header">
         <button className="btn btn-ghost btn-sm" onClick={() => navigate(`/lesson/${lessonId}`)}>
           도망가기 🏃
@@ -244,15 +272,17 @@ export default function Boss() {
             </div>
 
             {/* Boss Avatar */}
-            <div style={{ display: 'flex', justifyContent: 'center', margin: '16px 0' }}>
-              <img 
-                src={bossQnaIcon} 
-                alt="보스" 
-                className={`battle-boss-icon ${bossShake ? 'shake' : ''}`} 
-                style={{ width: '100px', height: '100px', objectFit: 'contain' }}
-              />
-            </div>
+<div style={{ position: 'relative', display: 'flex', justifyContent: 'center', margin: '16px 0' }}>
+  <img
+    src={bossQnaIcon}
+    alt="보스"
+    className={`battle-boss-icon ${bossShake ? 'boss-shake' : ''}`}
+    style={{ width: '120px', height: '120px', objectFit: 'contain' }}
+  />
+  {dmgPopup && <div className="dmg-popup">-{dmgPopup}</div>}
+</div>
 
+<div ref={quizCardRef} className={`quiz-attack-wrap ${attackAnim ? 'attack-fly' : ''}`}>
             <h2 className="battle-q-title" style={{ whiteSpace: 'pre-line', fontSize: '1.1rem', marginBottom: '8px' }}>{currentQuestion.question}</h2>
 
             {/* AI Grading result or Choices */}
@@ -337,13 +367,13 @@ export default function Boss() {
                 </button>
               </>
             )}
-
+          </div>
             {/* My HP Bar */}
             <div className="my-hp-bar" style={{ marginTop: '20px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '16px', display: 'flex', alignItems: 'center', gap: '16px' }}>
               <img 
                 src={myCharIcon} 
                 alt="내 캐릭터" 
-                className={`my-avatar ${myShake ? 'shake' : ''}`}
+                className={`my-avatar ${myShake ? 'my-shake' : ''}`}
                 style={{ width: '40px', height: '40px', objectFit: 'contain' }}
               />
               <div style={{ flex: 1 }}>
