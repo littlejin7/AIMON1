@@ -2135,6 +2135,1230 @@
       },
       "quiz_category": "stage_quiz",
       "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_1_016",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 중 아무것도 출력하지 않는 코드는?",
+      "choices": [
+        "A. print()",
+        "B. print('')",
+        "C. # print('안녕')",
+        "D. print(' ')"
+      ],
+      "answer": "C",
+      "hint": "# 이 붙은 줄은 Python이 실행하지 않아요.",
+      "feedback": {
+        "correct": "맞아요! # 주석 처리된 줄은 실행되지 않아요.",
+        "wrong": "# 이 붙은 줄은 완전히 무시돼요. print()와 print('')는 빈 줄, print(' ')는 공백을 출력해요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_1_017",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "`print('AI' + 'MON')`과 `print('AI', 'MON')`의 차이로 올바른 것은?",
+      "choices": [
+        "A. 둘 다 AIMON 출력",
+        "B. 둘 다 AI MON 출력",
+        "C. +는 AIMON, 쉼표는 AI MON 출력",
+        "D. +는 AI MON, 쉼표는 AIMON 출력"
+      ],
+      "answer": "C",
+      "hint": "+ 는 공백 없이 붙이고, 쉼표는 자동 공백을 넣어요.",
+      "feedback": {
+        "correct": "정확해요! + 연산자는 공백 없이 이어붙이고, 쉼표는 값 사이에 공백을 자동으로 추가해요.",
+        "wrong": "+ 는 문자열을 그대로 이어붙여 AIMON, 쉼표는 자동 공백으로 AI MON이 돼요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_1_018",
+      "unit": 1,
+      "stage": "1-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력 줄 수는?\n\nprint('A')  # 첫째\nprint('B')\n# print('C')\nprint('D')",
+      "choices": [
+        "A. 4줄",
+        "B. 3줄",
+        "C. 2줄",
+        "D. 1줄"
+      ],
+      "answer": "B",
+      "hint": "# 이 붙은 전체 줄은 무시되고, 줄 끝 # 뒤는 무시돼도 print()는 실행돼요.",
+      "feedback": {
+        "correct": "맞아요! print('A')의 인라인 주석은 무시되지만 print 자체는 실행돼요. # print('C')만 전체 주석. A, B, D 3줄 출력.",
+        "wrong": "인라인 주석(줄 끝 #)과 전체 주석(줄 앞 #)을 구분하세요. print('A'), print('B'), print('D')는 모두 실행돼요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_2_011",
+      "unit": 1,
+      "stage": "1-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "변수에 값을 다시 저장하면 어떻게 되나요?\n\ncolor = '빨강'\ncolor = '파랑'\nprint(color)",
+      "choices": [
+        "A. 빨강",
+        "B. 파랑",
+        "C. 빨강 파랑",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "변수는 마지막으로 저장된 값을 가져요.",
+      "feedback": {
+        "correct": "맞아요! 변수에 새 값을 저장하면 이전 값은 사라지고 새 값으로 바뀌어요.",
+        "wrong": "변수는 마지막으로 저장된 값을 기억해요. '파랑'이 나중에 저장됐으므로 '파랑'이 출력돼요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_2_012",
+      "unit": 1,
+      "stage": "1-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 중 변수 이름으로 올바른 것은?",
+      "choices": [
+        "A. 1score",
+        "B. my-score",
+        "C. my_score",
+        "D. class"
+      ],
+      "answer": "C",
+      "hint": "숫자로 시작 불가, 하이픈(-) 불가, 예약어 불가예요.",
+      "feedback": {
+        "correct": "정확해요! 밑줄(_)은 변수 이름에 사용 가능해요.",
+        "wrong": "1score: 숫자 시작 불가 / my-score: 하이픈 불가 / class: 예약어. my_score만 올바른 변수 이름이에요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_2_013",
+      "unit": 1,
+      "stage": "1-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\na = 5\nb = a\na = 10\nprint(a)\nprint(b)",
+      "choices": [
+        "A. 10\n10",
+        "B. 5\n5",
+        "C. 10\n5",
+        "D. 5\n10"
+      ],
+      "answer": "C",
+      "hint": "b = a를 실행할 때 a의 값(5)이 b에 복사돼요. 이후 a가 바뀌어도 b는 그대로예요.",
+      "feedback": {
+        "correct": "맞아요! b = a 실행 시 a의 값 5가 b에 복사돼요. 이후 a = 10으로 바꿔도 b는 여전히 5예요.",
+        "wrong": "b = a는 a의 현재 값(5)을 b에 복사해요. 이후 a가 10으로 바뀌어도 b는 5 그대로예요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_2_014",
+      "unit": 1,
+      "stage": "1-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "변수란 무엇인가요?",
+      "choices": [
+        "A. 값을 출력하는 함수",
+        "B. 값을 저장하는 공간",
+        "C. 주석을 다는 기호",
+        "D. 코드를 실행하는 명령"
+      ],
+      "answer": "B",
+      "hint": "변수는 데이터를 담아두는 이름 붙은 상자예요.",
+      "feedback": {
+        "correct": "맞아요! 변수는 값을 저장하는 이름 붙은 공간이에요.",
+        "wrong": "변수는 값을 저장하는 공간이에요. print()는 출력 함수, #는 주석 기호예요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_2_015",
+      "unit": 1,
+      "stage": "1-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\nname = '에이몬'\nprint(name)",
+      "choices": [
+        "A. name",
+        "B. '에이몬'",
+        "C. 에이몬",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "print()로 변수를 출력하면 변수에 저장된 값이 출력돼요.",
+      "feedback": {
+        "correct": "맞아요! 변수를 print()에 넣으면 저장된 값이 출력돼요.",
+        "wrong": "print(name)은 변수 name에 저장된 값인 에이몬을 출력해요. 따옴표는 표시되지 않아요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_2_016",
+      "unit": 1,
+      "stage": "1-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드에서 result의 값은?\n\nx = 3\ny = 7\nresult = x + y",
+      "choices": [
+        "A. 'x + y'",
+        "B. 37",
+        "C. 10",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "숫자 변수끼리 + 하면 더하기 연산이 돼요.",
+      "feedback": {
+        "correct": "정확해요! x=3, y=7이므로 x + y = 10이에요.",
+        "wrong": "x=3, y=7이고 숫자끼리 + 는 덧셈이에요. 3+7=10이에요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_2_017",
+      "unit": 1,
+      "stage": "1-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드에서 오류가 발생하는 이유는?\n\nprint(score)",
+      "choices": [
+        "A. print() 철자가 틀렸다",
+        "B. score가 정의되지 않았다",
+        "C. 괄호를 쓰면 안 된다",
+        "D. 오류가 발생하지 않는다"
+      ],
+      "answer": "B",
+      "hint": "변수는 사용하기 전에 반드시 만들어야 해요.",
+      "feedback": {
+        "correct": "맞아요! score 변수가 정의되지 않아 NameError가 발생해요.",
+        "wrong": "변수는 사용 전에 먼저 정의해야 해요. score = 100 같이 만들지 않고 print(score)를 쓰면 NameError가 발생해요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_2_018",
+      "unit": 1,
+      "stage": "1-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\nitem = '사과'\ncount = 3\nprint(item, count)\ncount = count + 1\nprint(item, count)",
+      "choices": [
+        "A. 사과 3\n사과 3",
+        "B. 사과 3\n사과 4",
+        "C. 사과3\n사과4",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "count = count + 1은 count에 1을 더해서 다시 저장해요.",
+      "feedback": {
+        "correct": "완벽해요! 첫 print: 사과 3. count = count + 1로 count가 4가 된 후 두 번째 print: 사과 4.",
+        "wrong": "count = count + 1은 현재 count(3)에 1을 더해 4로 업데이트해요. 결과: 사과 3, 사과 4."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_3_011",
+      "unit": 1,
+      "stage": "1-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "`print(2 + 3 * 4)`의 출력값은?",
+      "choices": [
+        "A. 20",
+        "B. 14",
+        "C. 24",
+        "D. 10"
+      ],
+      "answer": "B",
+      "hint": "곱셈이 덧셈보다 먼저 계산돼요.",
+      "feedback": {
+        "correct": "맞아요! 3 * 4 = 12 먼저, 그 다음 2 + 12 = 14예요.",
+        "wrong": "곱셈(*)이 덧셈(+)보다 먼저 계산돼요. 3*4=12, 2+12=14예요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_3_012",
+      "unit": 1,
+      "stage": "1-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "/ 와 // 의 차이로 올바른 것은?",
+      "choices": [
+        "A. 둘 다 동일한 결과",
+        "B. /는 나머지, //는 몫",
+        "C. /는 실수 나눗셈, //는 정수 나눗셈(버림)",
+        "D. //는 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "/ 는 항상 소수점 포함 결과, // 는 소수점 이하를 버린 정수 결과예요.",
+      "feedback": {
+        "correct": "정확해요! 7/2=3.5(실수), 7//2=3(소수점 버림)이에요.",
+        "wrong": "/ 는 실수 나눗셈(7/2=3.5), // 는 바닥 나눗셈으로 소수점을 버려요(7//2=3)예요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_3_013",
+      "unit": 1,
+      "stage": "1-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\nx = 17\nprint(x // 5)\nprint(x % 5)",
+      "choices": [
+        "A. 3\n2",
+        "B. 3.4\n2",
+        "C. 3\n3.4",
+        "D. 2\n3"
+      ],
+      "answer": "A",
+      "hint": "17 나누기 5: 몫=3, 나머지=2",
+      "feedback": {
+        "correct": "맞아요! 17//5 = 3(몫), 17%5 = 2(나머지)예요.",
+        "wrong": "17 나누기 5: 몫은 3(17//5), 나머지는 2(17%5)예요. 검증: 3x5+2=17."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_3_014",
+      "unit": 1,
+      "stage": "1-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "`print(10 + 3)`의 출력값은?",
+      "choices": [
+        "A. 10 + 3",
+        "B. '13'",
+        "C. 13",
+        "D. 103"
+      ],
+      "answer": "C",
+      "hint": "숫자끼리 + 는 덧셈이에요.",
+      "feedback": {
+        "correct": "맞아요! 숫자끼리 + 는 덧셈이라 10+3=13이 출력돼요.",
+        "wrong": "숫자끼리 + 는 덧셈 연산이에요. 10+3=13이 출력돼요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_3_015",
+      "unit": 1,
+      "stage": "1-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "`print(10 / 4)`의 출력값은?",
+      "choices": [
+        "A. 2",
+        "B. 2.5",
+        "C. 2.0",
+        "D. 3"
+      ],
+      "answer": "B",
+      "hint": "/ 는 항상 소수점을 포함한 실수 결과를 반환해요.",
+      "feedback": {
+        "correct": "정확해요! / 는 실수 나눗셈이라 10/4=2.5예요.",
+        "wrong": "/ 는 실수 나눗셈이에요. 10/4=2.5. 정수 결과를 원하면 //를 쓰세요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_3_016",
+      "unit": 1,
+      "stage": "1-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "`2 ** 10`의 결과값은?",
+      "choices": [
+        "A. 20",
+        "B. 210",
+        "C. 100",
+        "D. 1024"
+      ],
+      "answer": "D",
+      "hint": "** 는 거듭제곱 연산자예요. 2의 10제곱이에요.",
+      "feedback": {
+        "correct": "맞아요! 2**10 = 2의 10제곱 = 1024예요.",
+        "wrong": "** 는 거듭제곱이에요. 2**10 = 2x2x...x2(10번) = 1024예요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_3_017",
+      "unit": 1,
+      "stage": "1-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 중 결과가 float(실수) 타입인 것은?",
+      "choices": [
+        "A. 10 + 3",
+        "B. 10 // 3",
+        "C. 10 / 3",
+        "D. 10 % 3"
+      ],
+      "answer": "C",
+      "hint": "/ 나눗셈은 항상 실수를 반환해요.",
+      "feedback": {
+        "correct": "맞아요! / 연산은 항상 float를 반환해요.",
+        "wrong": "정수끼리 +, //, %는 int 결과. / 는 항상 float 결과를 반환해요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_3_018",
+      "unit": 1,
+      "stage": "1-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\na = 10\nb = 3\nprint(a % b)\nprint(a ** b)",
+      "choices": [
+        "A. 3\n30",
+        "B. 1\n1000",
+        "C. 3\n1000",
+        "D. 1\n30"
+      ],
+      "answer": "B",
+      "hint": "% 는 나머지, ** 는 거듭제곱이에요.",
+      "feedback": {
+        "correct": "완벽해요! 10%3=1(나머지), 10**3=1000이에요.",
+        "wrong": "10%3: 10 나누기 3의 나머지=1. 10**3: 10의 3제곱=1000. 결과: 1과 1000이에요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_4_011",
+      "unit": 1,
+      "stage": "1-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "`'Python'[1:4]`의 결과는?",
+      "choices": [
+        "A. Pyt",
+        "B. yth",
+        "C. ytho",
+        "D. ython"
+      ],
+      "answer": "B",
+      "hint": "슬라이싱 [1:4]은 인덱스 1, 2, 3 (4는 미포함)이에요.",
+      "feedback": {
+        "correct": "맞아요! P=0, y=1, t=2, h=3이므로 [1:4]는 'yth'예요.",
+        "wrong": "[1:4]는 인덱스 1부터 3까지(4 미포함)예요. y=1, t=2, h=3 → 'yth'예요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_4_012",
+      "unit": 1,
+      "stage": "1-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "`'hello'.upper()`의 결과는?",
+      "choices": [
+        "A. hello",
+        "B. Hello",
+        "C. HELLO",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "upper()는 모든 문자를 대문자로 바꿔요.",
+      "feedback": {
+        "correct": "맞아요! .upper()는 문자열의 모든 소문자를 대문자로 변환해요.",
+        "wrong": "upper()는 모든 문자를 대문자로 바꿔요. 'hello' → 'HELLO'예요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_4_013",
+      "unit": 1,
+      "stage": "1-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\nword = 'banana'\nprint(len(word))\nprint(word[0])\nprint(word[-1])",
+      "choices": [
+        "A. 6\nb\na",
+        "B. 6\nB\nA",
+        "C. 5\nb\na",
+        "D. 6\nb\nn"
+      ],
+      "answer": "A",
+      "hint": "len()은 길이, [0]은 첫 번째, [-1]은 마지막 문자예요.",
+      "feedback": {
+        "correct": "완벽해요! len('banana')=6, [0]='b', [-1]='a'예요.",
+        "wrong": "len('banana')=6, word[0]='b'(첫번째), word[-1]='a'(마지막)예요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_4_014",
+      "unit": 1,
+      "stage": "1-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 중 문자열을 만드는 올바른 방법이 아닌 것은?",
+      "choices": [
+        "A. '안녕'",
+        "B. \"안녕\"",
+        "C. 안녕",
+        "D. '안녕하세요'"
+      ],
+      "answer": "C",
+      "hint": "문자열은 반드시 따옴표로 감싸야 해요.",
+      "feedback": {
+        "correct": "맞아요! 따옴표 없이 쓰면 변수 이름으로 인식해요.",
+        "wrong": "문자열은 반드시 따옴표('')나 큰따옴표(\"\")로 감싸야 해요. 따옴표 없는 안녕은 변수로 인식돼요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_4_015",
+      "unit": 1,
+      "stage": "1-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "`'coding'[3]`의 결과는?",
+      "choices": [
+        "A. c",
+        "B. o",
+        "C. i",
+        "D. d"
+      ],
+      "answer": "C",
+      "hint": "인덱스는 0부터 시작해요. c=0, o=1, d=2, i=3",
+      "feedback": {
+        "correct": "맞아요! c(0), o(1), d(2), i(3)이므로 [3]은 'i'예요.",
+        "wrong": "인덱스는 0부터 시작해요. c=0, o=1, d=2, i=3. [3]은 'i'예요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_4_016",
+      "unit": 1,
+      "stage": "1-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "`len('AI MON')`의 결과는?",
+      "choices": [
+        "A. 5",
+        "B. 6",
+        "C. 7",
+        "D. 4"
+      ],
+      "answer": "B",
+      "hint": "공백도 문자 하나로 셀 수 있어요.",
+      "feedback": {
+        "correct": "맞아요! A, I, 공백, M, O, N = 6글자예요. 공백도 하나의 문자예요.",
+        "wrong": "공백도 문자 하나로 카운트해요. A-I-(공백)-M-O-N = 6자예요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_4_017",
+      "unit": 1,
+      "stage": "1-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "`print('ha' * 3)`의 출력값은?",
+      "choices": [
+        "A. ha 3",
+        "B. ha ha ha",
+        "C. hahaha",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "문자열 * 정수는 해당 문자열을 반복해요.",
+      "feedback": {
+        "correct": "맞아요! 'ha' * 3 = 'ha'+'ha'+'ha' = 'hahaha'예요.",
+        "wrong": "문자열 * 정수는 반복 이어붙이기예요. 'ha' * 3 = 'hahaha'예요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_4_018",
+      "unit": 1,
+      "stage": "1-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\ntext = 'Python'\nprint(text[0] + text[-1])\nprint(len(text) * 2)",
+      "choices": [
+        "A. Pn\n12",
+        "B. P n\n12",
+        "C. Pn\n6",
+        "D. P\n12"
+      ],
+      "answer": "A",
+      "hint": "text[0]='P', text[-1]='n', len('Python')=6",
+      "feedback": {
+        "correct": "완벽해요! text[0]='P', text[-1]='n' → 'Pn'. len('Python')=6, 6*2=12.",
+        "wrong": "text[0]='P', text[-1]='n', 'P'+'n'='Pn'. len('Python')=6, 6*2=12. 출력: Pn / 12"
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_5_011",
+      "unit": 1,
+      "stage": "1-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "`True and False`의 결과는?",
+      "choices": [
+        "A. True",
+        "B. False",
+        "C. None",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "and는 둘 다 True일 때만 True예요.",
+      "feedback": {
+        "correct": "맞아요! and는 양쪽이 모두 True일 때만 True예요.",
+        "wrong": "and는 둘 다 True여야 True예요. True and False = False예요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_5_012",
+      "unit": 1,
+      "stage": "1-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "`not True`의 결과는?",
+      "choices": [
+        "A. True",
+        "B. False",
+        "C. None",
+        "D. 1"
+      ],
+      "answer": "B",
+      "hint": "not은 True를 False로, False를 True로 뒤집어요.",
+      "feedback": {
+        "correct": "맞아요! not 연산자는 bool 값을 반전시켜요. not True = False예요.",
+        "wrong": "not은 반전 연산자예요. not True = False, not False = True예요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_5_013",
+      "unit": 1,
+      "stage": "1-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\nx = 8\nprint(x > 5 and x < 10)\nprint(x > 5 or x > 20)",
+      "choices": [
+        "A. True\nTrue",
+        "B. True\nFalse",
+        "C. False\nTrue",
+        "D. False\nFalse"
+      ],
+      "answer": "A",
+      "hint": "x=8: 8>5(True), 8<10(True), 8>20(False)",
+      "feedback": {
+        "correct": "완벽해요! (8>5=True) and (8<10=True)→True. (8>5=True) or (8>20=False)→True.",
+        "wrong": "x=8: 8>5=True, 8<10=True → True and True=True. 8>5=True, 8>20=False → True or False=True."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_5_014",
+      "unit": 1,
+      "stage": "1-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "Python에서 bool 자료형이 가질 수 있는 값은?",
+      "choices": [
+        "A. 0과 1",
+        "B. 참과 거짓",
+        "C. True와 False",
+        "D. Yes와 No"
+      ],
+      "answer": "C",
+      "hint": "Python bool은 True, False 두 값만 가져요. 대소문자 주의!",
+      "feedback": {
+        "correct": "맞아요! Python의 bool은 True와 False만 가져요. 대문자 T, F로 써야 해요.",
+        "wrong": "Python bool은 True와 False예요. true/false(소문자)는 오류, 0/1은 숫자예요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_5_015",
+      "unit": 1,
+      "stage": "1-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "`3 >= 3`의 결과는?",
+      "choices": [
+        "A. False",
+        "B. True",
+        "C. 3",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": ">= 는 크거나 같다는 뜻이에요.",
+      "feedback": {
+        "correct": "맞아요! >= 는 크거나 같다예요. 3은 3과 같으므로 True예요.",
+        "wrong": ">= 는 크거나 같다예요. 3은 3과 같으므로 True예요. > 였다면 False가 돼요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_5_016",
+      "unit": 1,
+      "stage": "1-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "`False or True`의 결과는?",
+      "choices": [
+        "A. False",
+        "B. True",
+        "C. None",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "or는 둘 중 하나라도 True이면 True예요.",
+      "feedback": {
+        "correct": "맞아요! or는 하나라도 True면 True예요.",
+        "wrong": "or는 하나라도 True면 True예요. False or True → True가 있으므로 True예요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_5_017",
+      "unit": 1,
+      "stage": "1-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\nprint(10 != 20)",
+      "choices": [
+        "A. True",
+        "B. False",
+        "C. 10",
+        "D. 20"
+      ],
+      "answer": "A",
+      "hint": "!= 는 같지 않다는 뜻이에요.",
+      "feedback": {
+        "correct": "맞아요! != 는 같지 않다예요. 10과 20은 다르므로 True예요.",
+        "wrong": "!= 는 같지 않다예요. 10 != 20에서 10과 20은 다르므로 True예요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_5_018",
+      "unit": 1,
+      "stage": "1-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\na = 5\nb = 10\nprint(a < b and b < 20)\nprint(not (a == b))",
+      "choices": [
+        "A. True\nTrue",
+        "B. True\nFalse",
+        "C. False\nTrue",
+        "D. False\nFalse"
+      ],
+      "answer": "A",
+      "hint": "a=5, b=10: 5<10(True), 10<20(True), a==b(False)",
+      "feedback": {
+        "correct": "완벽해요! (5<10=True) and (10<20=True)→True. a==b: 5==10=False, not False=True.",
+        "wrong": "5<10=True, 10<20=True → True and True=True. a==b: 5==10=False, not False=True. 결과: True, True."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_6_011",
+      "unit": 1,
+      "stage": "1-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "사용자가 숫자를 입력받아 2를 곱해 출력하려면?",
+      "choices": [
+        "A. n = input() / print(n * 2)",
+        "B. n = int(input()) / print(n * 2)",
+        "C. n = input() / print(int(n * 2))",
+        "D. n = float(input()) / print(n * 2)"
+      ],
+      "answer": "B",
+      "hint": "input()은 문자열을 반환하므로 int()로 변환 후 곱해야 해요.",
+      "feedback": {
+        "correct": "맞아요! input()은 str이라 int()로 변환 후 곱셈해야 숫자 연산이 돼요.",
+        "wrong": "input()은 항상 str을 반환해요. 숫자 연산을 하려면 int(input())으로 변환해야 해요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_6_012",
+      "unit": 1,
+      "stage": "1-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "사용자가 '3'을 입력했을 때, 다음 코드의 출력값은?\n\nn = input('숫자: ')\nprint(n + n)",
+      "choices": [
+        "A. 6",
+        "B. 33",
+        "C. 3 3",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "input()은 문자열을 반환해요. 문자열끼리 + 는 이어붙이기예요.",
+      "feedback": {
+        "correct": "맞아요! n='3'(문자열). '3' + '3' = '33'이에요. 숫자 6을 원하면 int()로 변환해야 해요.",
+        "wrong": "input()은 항상 str을 반환해요. n='3'. '3'+'3'='33'(이어붙이기)이에요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_6_013",
+      "unit": 1,
+      "stage": "1-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 중 두 정수를 입력받아 합계를 출력하는 올바른 코드는?",
+      "choices": [
+        "A. a=input() / b=input() / print(a+b)",
+        "B. a=int(input()) / b=int(input()) / print(a+b)",
+        "C. a=input() / b=input() / print(int(a+b))",
+        "D. a,b=input() / print(a+b)"
+      ],
+      "answer": "B",
+      "hint": "각 input()을 int()로 변환한 후 더해야 해요.",
+      "feedback": {
+        "correct": "맞아요! 각 input()을 int()로 바로 변환해서 저장한 후 더해야 숫자 덧셈이 돼요.",
+        "wrong": "input()은 str이므로 바로 더하면 문자열 이어붙이기가 돼요. 각 값을 int()로 변환 후 더해야 해요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_6_014",
+      "unit": 1,
+      "stage": "1-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "input() 함수가 반환하는 자료형은?",
+      "choices": [
+        "A. int",
+        "B. float",
+        "C. str",
+        "D. bool"
+      ],
+      "answer": "C",
+      "hint": "input()은 항상 문자열(str)로 받아요.",
+      "feedback": {
+        "correct": "맞아요! input()은 숫자를 입력해도 항상 str(문자열)로 반환해요.",
+        "wrong": "input()은 항상 str을 반환해요. 숫자로 쓰려면 int() 또는 float()로 변환해야 해요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_6_015",
+      "unit": 1,
+      "stage": "1-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드에서 사용자가 '20'을 입력했을 때 출력값은?\n\nage = int(input('나이: '))\nprint(age + 1)",
+      "choices": [
+        "A. 201",
+        "B. '21'",
+        "C. 21",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "int()로 변환하면 숫자 연산이 가능해요.",
+      "feedback": {
+        "correct": "맞아요! int('20')=20(정수), 20+1=21이 출력돼요.",
+        "wrong": "int(input())으로 '20'이 20(정수)으로 변환돼요. 20+1=21이 출력돼요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_6_016",
+      "unit": 1,
+      "stage": "1-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "소수점이 있는 값을 입력받으려면 어떤 변환 함수를 써야 하나요?",
+      "choices": [
+        "A. int()",
+        "B. str()",
+        "C. bool()",
+        "D. float()"
+      ],
+      "answer": "D",
+      "hint": "float()은 소수점 있는 실수로 변환해요.",
+      "feedback": {
+        "correct": "맞아요! float()를 쓰면 소수점 있는 입력을 실수로 변환할 수 있어요.",
+        "wrong": "int()는 정수만 변환 가능해요. 소수점이 있는 값은 float()를 써야 해요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_6_017",
+      "unit": 1,
+      "stage": "1-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드에서 오류가 발생하는 이유는?\n\nn = input('숫자: ')\nprint(n + 10)",
+      "choices": [
+        "A. input()을 써서",
+        "B. print()를 써서",
+        "C. str에 int를 더해서",
+        "D. 오류가 없다"
+      ],
+      "answer": "C",
+      "hint": "문자열과 정수는 + 로 합칠 수 없어요.",
+      "feedback": {
+        "correct": "맞아요! n은 str, 10은 int. 다른 타입끼리 + 를 쓰면 TypeError가 발생해요.",
+        "wrong": "input()은 str을 반환해요. str인 n과 int인 10을 + 하면 TypeError가 발생해요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_6_018",
+      "unit": 1,
+      "stage": "1-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "사용자가 첫 번째로 '4', 두 번째로 '5'를 입력했을 때 출력값은?\n\na = int(input())\nb = int(input())\nprint(a * b)\nprint(a + b)",
+      "choices": [
+        "A. 20\n9",
+        "B. 45\n9",
+        "C. 20\n45",
+        "D. 9\n20"
+      ],
+      "answer": "A",
+      "hint": "4*5=20, 4+5=9",
+      "feedback": {
+        "correct": "완벽해요! a=4, b=5. 4*5=20, 4+5=9.",
+        "wrong": "a=4, b=5(int 변환). a*b=4*5=20, a+b=4+5=9. 출력 순서대로 20, 9예요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_7_011",
+      "unit": 1,
+      "stage": "1-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\nx = 4\nprint(f'{x}의 제곱은 {x**2}입니다')",
+      "choices": [
+        "A. x의 제곱은 x**2입니다",
+        "B. 4의 제곱은 x**2입니다",
+        "C. 4의 제곱은 16입니다",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "f-string {} 안에는 변수뿐 아니라 계산식도 넣을 수 있어요.",
+      "feedback": {
+        "correct": "맞아요! f-string {} 안에 x**2 같은 계산식도 쓸 수 있어요. x=4이므로 4**2=16.",
+        "wrong": "f-string의 {} 안에는 변수와 계산식 모두 가능해요. x=4, x**2=16 → '4의 제곱은 16입니다'"
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_7_012",
+      "unit": 1,
+      "stage": "1-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 중 f-string의 올바른 사용법은?",
+      "choices": [
+        "A. f'안녕 (name)'",
+        "B. f'안녕 {name}'",
+        "C. 'f안녕 {name}'",
+        "D. f('안녕 {name}')"
+      ],
+      "answer": "B",
+      "hint": "f는 따옴표 바로 앞에, 변수는 {} 안에 넣어요.",
+      "feedback": {
+        "correct": "맞아요! f'...' 형식으로 쓰고, 변수나 식은 {} 안에 넣어요.",
+        "wrong": "f는 따옴표 앞에 붙이고, 삽입할 변수는 {}로 감싸야 해요. f'안녕 {name}'이 올바른 형식이에요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_7_013",
+      "unit": 1,
+      "stage": "1-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\nitem = '사과'\nprice = 1200\ncount = 3\nprint(f'{item} {count}개: {price * count}원')",
+      "choices": [
+        "A. item count개: price * count원",
+        "B. 사과 3개: 3600원",
+        "C. 사과 3개: price * count원",
+        "D. 사과count개: 3600원"
+      ],
+      "answer": "B",
+      "hint": "f-string {} 안은 계산되어 삽입돼요.",
+      "feedback": {
+        "correct": "완벽해요! item='사과', count=3, price*count=3600. f-string이 모두 계산해서 삽입해요.",
+        "wrong": "f-string의 {} 안은 변수값이나 계산 결과로 교체돼요. '사과 3개: 3600원'이 출력돼요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_1_7_014",
+      "unit": 1,
+      "stage": "1-7",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "f-string을 만들 때 따옴표 앞에 붙이는 기호는?",
+      "choices": [
+        "A. s",
+        "B. r",
+        "C. b",
+        "D. f"
+      ],
+      "answer": "D",
+      "hint": "f-string = formatted string의 f예요.",
+      "feedback": {
+        "correct": "맞아요! f'...' 형식이 f-string이에요.",
+        "wrong": "f-string은 f'...' 형식이에요. f를 붙이면 {} 안에 변수를 삽입할 수 있어요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_7_015",
+      "unit": 1,
+      "stage": "1-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\nname = '에이몬'\nprint(f'이름: {name}')",
+      "choices": [
+        "A. 이름: {name}",
+        "B. 이름: name",
+        "C. 이름: 에이몬",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "f-string의 {} 안 변수는 그 값으로 교체돼요.",
+      "feedback": {
+        "correct": "맞아요! f-string에서 {name}은 변수 name의 값 에이몬으로 교체돼요.",
+        "wrong": "f-string에서 {} 안의 변수는 그 값으로 바뀌어 출력돼요. {name} → 에이몬."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_7_016",
+      "unit": 1,
+      "stage": "1-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "f-string 없이 같은 결과를 내려면?\n\nscore = 95\nprint(f'점수: {score}')",
+      "choices": [
+        "A. print('점수:', score)",
+        "B. print('점수: ' + score)",
+        "C. print('점수: ' score)",
+        "D. print(점수: score)"
+      ],
+      "answer": "A",
+      "hint": "쉼표로 연결하면 공백이 자동으로 들어가요.",
+      "feedback": {
+        "correct": "맞아요! print('점수:', score)는 '점수: 95'를 출력해서 f-string과 동일해요.",
+        "wrong": "'점수: ' + score는 TypeError(str+int). print('점수:', score)가 '점수: 95'로 f-string과 같은 결과예요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_7_017",
+      "unit": 1,
+      "stage": "1-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\na = 10\nb = 3\nprint(f'{a} + {b} = {a+b}')",
+      "choices": [
+        "A. a + b = a+b",
+        "B. 10 + 3 = 13",
+        "C. {a} + {b} = {a+b}",
+        "D. 10 + 3 = a+b"
+      ],
+      "answer": "B",
+      "hint": "f-string {} 안 변수와 계산식 모두 실제 값으로 바뀌어요.",
+      "feedback": {
+        "correct": "맞아요! {a}=10, {b}=3, {a+b}=13. 결과: '10 + 3 = 13'이에요.",
+        "wrong": "f-string의 모든 {} 안 내용은 실제 값으로 교체돼요. {a}=10, {b}=3, {a+b}=13 → '10 + 3 = 13'"
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_1_7_018",
+      "unit": 1,
+      "stage": "1-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "is_boss": false,
+      "question": "다음 코드의 출력값은?\n\nlv = 5\nxp = 1500\nprint(f'레벨 {lv} | 경험치 {xp}XP | 다음까지 {lv*1000 - xp}XP')",
+      "choices": [
+        "A. 레벨 5 | 경험치 1500XP | 다음까지 3500XP",
+        "B. 레벨 lv | 경험치 xp XP | 다음까지 lv*1000-xpXP",
+        "C. 레벨 5 | 경험치 1500XP | 다음까지 lv*1000 - xpXP",
+        "D. 오류 발생"
+      ],
+      "answer": "A",
+      "hint": "lv*1000 - xp = 5*1000 - 1500 = 3500",
+      "feedback": {
+        "correct": "완벽해요! {lv}=5, {xp}=1500, {lv*1000-xp}=3500. 모두 계산되어 삽입돼요.",
+        "wrong": "lv=5, xp=1500. lv*1000=5000, 5000-1500=3500. f-string이 모두 계산해서 삽입해요."
+      },
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B"
     }
   ]
 }
