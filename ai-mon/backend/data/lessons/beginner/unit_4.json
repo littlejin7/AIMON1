@@ -1,0 +1,574 @@
+[
+  {
+    "lesson_id": "4-1-beginner",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "beginner",
+    "title": "for문과 range",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "`range(n)`은 0부터 n-1까지의 숫자를 생성해요.\nfor문과 함께 n번 반복할 때 사용해요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "for i in range(5):",
+            "    print(i)"
+          ],
+          "output": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        "tip": "`range(5)`는 0, 1, 2, 3, 4 — 5개의 숫자를 만들어요. 5는 포함되지 않아요."
+      },
+      {
+        "order": 2,
+        "text": "`range(시작, 끝)`으로 특정 범위를 반복할 수 있어요.\n끝 값은 포함되지 않아요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "for i in range(1, 6):",
+            "    print(i)"
+          ],
+          "output": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ]
+        },
+        "tip": "`range(1, 6)`은 1부터 5까지예요. 슬라이싱처럼 끝 값은 포함 안 돼요."
+      },
+      {
+        "order": 3,
+        "text": "`range(시작, 끝, 간격)`으로 간격을 지정할 수 있어요.\n음수 간격을 쓰면 역순으로 반복해요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "for i in range(0, 10, 2):",
+            "    print(i)"
+          ],
+          "output": [
+            "0",
+            "2",
+            "4",
+            "6",
+            "8"
+          ]
+        },
+        "tip": "세 번째 인자가 간격(step)이에요. `range(10, 0, -1)`처럼 음수면 역순이에요."
+      },
+      {
+        "order": 4,
+        "text": "range()와 for문으로 1부터 n까지의 합계를 구할 수 있어요.\n누적 변수를 0으로 초기화하고 반복마다 더해요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "total = 0",
+            "for i in range(1, 11):",
+            "    total += i",
+            "print(f'1부터 10까지의 합: {total}')"
+          ],
+          "output": [
+            "1부터 10까지의 합: 55"
+          ]
+        },
+        "tip": "누적 변수를 0으로 초기화하고 반복마다 더하는 패턴이 기본이에요."
+      },
+      {
+        "order": 5,
+        "text": "`range(len(리스트))`로 리스트의 인덱스를 순회할 수 있어요.\n인덱스로 값을 꺼내거나 수정할 때 유용해요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "scores = [85, 90, 78, 92]",
+            "for i in range(len(scores)):",
+            "    print(f'인덱스 {i}: {scores[i]}점')"
+          ],
+          "output": [
+            "인덱스 0: 85점",
+            "인덱스 1: 90점",
+            "인덱스 2: 78점",
+            "인덱스 3: 92점"
+          ]
+        },
+        "tip": "`range(len(리스트))`는 인덱스가 필요할 때, `for x in 리스트`는 값만 필요할 때 써요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "4-2-beginner",
+    "unit": 4,
+    "stage": "4-2",
+    "course_level": "beginner",
+    "title": "while문",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "while문은 조건이 True인 동안 계속 반복해요.\n`while 조건:` 형태로 쓰고, 조건이 False가 되면 반복을 멈춰요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "count = 0",
+            "while count < 3:",
+            "    print(count)",
+            "    count += 1"
+          ],
+          "output": [
+            "0",
+            "1",
+            "2"
+          ]
+        },
+        "tip": "while문은 반복 횟수를 모를 때 유용해요. 조건이 False가 되면 자동으로 멈춰요."
+      },
+      {
+        "order": 2,
+        "text": "while 조건이 항상 True면 무한히 반복돼요.\n반복 안에서 반드시 조건을 변화시켜야 해요.",
+        "terminal": {
+          "code": [
+            "# 코드 (올바른 예시)",
+            "n = 10",
+            "while n > 0:",
+            "    print(n)",
+            "    n -= 2   # 반드시 n을 변화시켜야 해요!"
+          ],
+          "output": [
+            "10",
+            "8",
+            "6",
+            "4",
+            "2"
+          ]
+        },
+        "tip": "while 루프 안에서 조건 변수를 반드시 변화시켜요. 안 하면 무한 루프가 돼요."
+      },
+      {
+        "order": 3,
+        "text": "반복 횟수를 알면 for, 조건에 따라 반복하면 while을 써요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "# for 방식",
+            "for i in range(5):",
+            "    print(i)",
+            "",
+            "# while 방식",
+            "i = 0",
+            "while i < 5:",
+            "    print(i)",
+            "    i += 1"
+          ],
+          "output": [
+            "0 1 2 3 4  (for)",
+            "0 1 2 3 4  (while)"
+          ]
+        },
+        "tip": "반복 횟수가 정해져 있으면 for, 조건 기반이면 while이 더 적합해요."
+      },
+      {
+        "order": 4,
+        "text": "while문으로도 합계를 구할 수 있어요.\n조건이 False가 될 때까지 값을 누적해요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "total = 0",
+            "n = 1",
+            "while n <= 10:",
+            "    total += n",
+            "    n += 1",
+            "print(f'합계: {total}')"
+          ],
+          "output": [
+            "합계: 55"
+          ]
+        },
+        "tip": "n을 증가시키는 걸 잊으면 무한 루프가 돼요. 항상 반복 안에서 조건 변수를 변화시켜요."
+      },
+      {
+        "order": 5,
+        "text": "`while True`는 무한 루프지만 `break`로 탈출할 수 있어요.\n조건을 내부에서 검사하는 패턴이에요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "count = 0",
+            "while True:",
+            "    count += 1",
+            "    if count >= 3:",
+            "        break",
+            "print(f'{count}번 반복 후 종료')"
+          ],
+          "output": [
+            "3번 반복 후 종료"
+          ]
+        },
+        "tip": "while True + break 패턴은 종료 조건이 복잡할 때 유용해요. break는 다음 단원에서 더 자세히 배워요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "4-3-beginner",
+    "unit": 4,
+    "stage": "4-3",
+    "course_level": "beginner",
+    "title": "break와 continue",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "`break`는 반복문을 즉시 종료해요.\n조건을 만족하면 반복을 더 이상 하지 않아요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "for i in range(10):",
+            "    if i == 5:",
+            "        break",
+            "    print(i)"
+          ],
+          "output": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        "tip": "break는 반복문을 즉시 탈출해요. i=5가 되자마자 for문을 빠져나가요."
+      },
+      {
+        "order": 2,
+        "text": "`continue`는 현재 반복의 나머지를 건너뛰고 다음 반복으로 넘어가요.\n반복 자체는 계속돼요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "for i in range(6):",
+            "    if i % 2 == 0:",
+            "        continue",
+            "    print(i)"
+          ],
+          "output": [
+            "1",
+            "3",
+            "5"
+          ]
+        },
+        "tip": "continue는 현재 반복만 건너뛰어요. 반복 자체는 계속 돼요."
+      },
+      {
+        "order": 3,
+        "text": "break는 반복문 전체를 종료하고, continue는 현재 반복만 건너뛰어요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "print('break:')",
+            "for i in range(5):",
+            "    if i == 3:",
+            "        break",
+            "    print(i)",
+            "",
+            "print('continue:')",
+            "for i in range(5):",
+            "    if i == 3:",
+            "        continue",
+            "    print(i)"
+          ],
+          "output": [
+            "break:",
+            "0",
+            "1",
+            "2",
+            "continue:",
+            "0",
+            "1",
+            "2",
+            "4"
+          ]
+        },
+        "tip": "break → 루프 탈출. continue → 현재 회차 건너뜀, 루프는 계속이에요."
+      },
+      {
+        "order": 4,
+        "text": "`while True`는 무한 루프지만 `break`로 탈출할 수 있어요.\n종료 조건이 복잡할 때 유용한 패턴이에요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "count = 0",
+            "while True:",
+            "    count += 1",
+            "    if count >= 3:",
+            "        break",
+            "print(f'{count}번 반복 후 종료')"
+          ],
+          "output": [
+            "3번 반복 후 종료"
+          ]
+        },
+        "tip": "while True + break 패턴은 종료 조건을 내부에서 유연하게 제어할 때 써요."
+      },
+      {
+        "order": 5,
+        "text": "리스트에서 원하는 값을 찾으면 break로 즉시 종료해요.\n불필요한 반복을 줄일 수 있어요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "numbers = [3, 7, 1, 9, 4, 6]",
+            "target = 9",
+            "for i, num in enumerate(numbers):",
+            "    if num == target:",
+            "        print(f'{target}를 인덱스 {i}에서 발견')",
+            "        break"
+          ],
+          "output": [
+            "9를 인덱스 3에서 발견"
+          ]
+        },
+        "tip": "값을 찾으면 break로 탈출하면 불필요한 반복을 줄일 수 있어요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "4-4-beginner",
+    "unit": 4,
+    "stage": "4-4",
+    "course_level": "beginner",
+    "title": "중첩 for문",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "for문 안에 또 다른 for문을 넣을 수 있어요.\n바깥 루프가 1번 돌 때 안쪽 루프는 전체를 돌아요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "for i in range(3):",
+            "    for j in range(2):",
+            "        print(f'i={i}, j={j}')"
+          ],
+          "output": [
+            "i=0, j=0",
+            "i=0, j=1",
+            "i=1, j=0",
+            "i=1, j=1",
+            "i=2, j=0",
+            "i=2, j=1"
+          ]
+        },
+        "tip": "바깥 루프 1번 + 안쪽 루프 2번 = 총 3×2=6번 실행돼요."
+      },
+      {
+        "order": 2,
+        "text": "중첩 for문으로 구구단을 만들 수 있어요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "for i in range(2, 4):",
+            "    for j in range(1, 4):",
+            "        print(f'{i} × {j} = {i*j}')",
+            "    print()"
+          ],
+          "output": [
+            "2 × 1 = 2",
+            "2 × 2 = 4",
+            "2 × 3 = 6",
+            "",
+            "3 × 1 = 3",
+            "3 × 2 = 6",
+            "3 × 3 = 9"
+          ]
+        },
+        "tip": "바깥 루프는 단(2,3), 안쪽 루프는 곱하는 수(1~3)예요."
+      },
+      {
+        "order": 3,
+        "text": "리스트 안에 리스트가 있는 2차원 구조를 중첩 for문으로 순회해요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "matrix = [",
+            "    [1, 2, 3],",
+            "    [4, 5, 6],",
+            "    [7, 8, 9]",
+            "]",
+            "for row in matrix:",
+            "    for val in row:",
+            "        print(val, end=' ')",
+            "    print()"
+          ],
+          "output": [
+            "1 2 3",
+            "4 5 6",
+            "7 8 9"
+          ]
+        },
+        "tip": "바깥 루프로 행(row)을, 안쪽 루프로 각 행의 값을 꺼내요."
+      },
+      {
+        "order": 4,
+        "text": "중첩 for문 안에서 if문으로 특정 값만 처리할 수 있어요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "for i in range(1, 4):",
+            "    for j in range(1, 4):",
+            "        if i == j:",
+            "            print(f'{i}×{j}={i*j}')"
+          ],
+          "output": [
+            "1×1=1",
+            "2×2=4",
+            "3×3=9"
+          ]
+        },
+        "tip": "i==j인 경우만 출력해요. 대각선 요소를 뽑는 패턴이에요."
+      },
+      {
+        "order": 5,
+        "text": "중첩 for문의 총 반복 횟수는 바깥 × 안쪽이에요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "count = 0",
+            "for i in range(4):",
+            "    for j in range(3):",
+            "        count += 1",
+            "print(f'총 반복 횟수: {count}')"
+          ],
+          "output": [
+            "총 반복 횟수: 12"
+          ]
+        },
+        "tip": "range(4) × range(3) = 4 × 3 = 12번이에요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "4-5-beginner",
+    "unit": 4,
+    "stage": "4-5",
+    "course_level": "beginner",
+    "title": "for + 리스트/딕셔너리 종합",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "for문으로 리스트를 순회하면서 조건 처리, 누적, 새 리스트 생성을 조합해요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "scores = [72, 85, 60, 91, 78, 95]",
+            "passed = []",
+            "for s in scores:",
+            "    if s >= 80:",
+            "        passed.append(s)",
+            "print(f'합격: {passed}')",
+            "print(f'합격 인원: {len(passed)}명')"
+          ],
+          "output": [
+            "합격: [85, 91, 95]",
+            "합격 인원: 3명"
+          ]
+        },
+        "tip": "for + if + append 조합은 조건에 맞는 값만 골라낼 때 가장 자주 쓰는 패턴이에요."
+      },
+      {
+        "order": 2,
+        "text": "`items()`로 key-value를 동시에 꺼내 조건 처리와 누적을 함께해요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "scores = {'국어': 85, '수학': 92, '영어': 68, '과학': 77}",
+            "total = 0",
+            "count = 0",
+            "for subject, score in scores.items():",
+            "    if score >= 80:",
+            "        total += score",
+            "        count += 1",
+            "        print(f'{subject}: {score}점 ✓')",
+            "print(f'평균: {total // count}점')"
+          ],
+          "output": [
+            "국어: 85점 ✓",
+            "수학: 92점 ✓",
+            "평균: 88점"
+          ]
+        },
+        "tip": "items()와 if를 함께 쓰면 조건에 맞는 항목만 골라 처리할 수 있어요."
+      },
+      {
+        "order": 3,
+        "text": "딕셔너리 리스트를 for문으로 순회해 집계나 필터링을 해요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "students = [",
+            "    {'name': '김철수', 'score': 85},",
+            "    {'name': '이영희', 'score': 72},",
+            "    {'name': '박민준', 'score': 91},",
+            "    {'name': '최지수', 'score': 68}",
+            "]",
+            "for s in students:",
+            "    grade = 'A' if s['score'] >= 90 else 'B' if s['score'] >= 80 else 'C'",
+            "    print(f\"{s['name']}: {grade}\")"
+          ],
+          "output": [
+            "김철수: B",
+            "이영희: C",
+            "박민준: A",
+            "최지수: C"
+          ]
+        },
+        "tip": "한 줄 if-else(삼항 연산자)로 간결하게 등급을 매길 수 있어요."
+      },
+      {
+        "order": 4,
+        "text": "while문도 리스트/딕셔너리와 함께 쓸 수 있어요.\n인덱스로 순회하거나 조건이 만족될 때까지 처리해요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "queue = ['작업1', '작업2', '작업3']",
+            "while queue:",
+            "    task = queue.pop(0)",
+            "    print(f'처리 중: {task}')",
+            "print('모든 작업 완료')"
+          ],
+          "output": [
+            "처리 중: 작업1",
+            "처리 중: 작업2",
+            "처리 중: 작업3",
+            "모든 작업 완료"
+          ]
+        },
+        "tip": "`while 리스트:`는 리스트가 비어 있지 않으면 True예요. 큐 처리 패턴이에요."
+      },
+      {
+        "order": 5,
+        "text": "for, while, break, continue, 리스트, 딕셔너리를 모두 조합해서 실용적인 코드를 만들어요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "inventory = {'사과': 5, '바나나': 0, '포도': 3, '딸기': 8}",
+            "available = []",
+            "for item, qty in inventory.items():",
+            "    if qty == 0:",
+            "        continue",
+            "    available.append(f'{item}({qty}개)')",
+            "    if len(available) == 2:",
+            "        break",
+            "print('추천 상품:', ', '.join(available))"
+          ],
+          "output": [
+            "추천 상품: 사과(5개), 포도(3개)"
+          ]
+        },
+        "tip": "for + continue + break + 딕셔너리를 조합하면 실용적인 필터링 코드를 만들 수 있어요."
+      }
+    ]
+  }
+]

@@ -1,0 +1,2884 @@
+{
+  "questions": [
+    {
+      "question_id": "cc_7_1_001",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "파일을 쓰기 모드로 열 때 사용하는 모드 문자는?",
+      "choices": [
+        "A. 'w'",
+        "B. 'r'",
+        "C. 'a'",
+        "D. 'x'"
+      ],
+      "answer": "A",
+      "hint": "파일 모드: 'r'=읽기, 'w'=쓰기, 'a'=추가예요. 쓰기는 'w'예요.",
+      "feedback": {
+        "correct": "맞아요! `'w'`는 쓰기 모드예요. 파일이 없으면 새로 만들고, 있으면 덮어써요.",
+        "wrong": "파일 모드: 'r'=읽기, 'w'=쓰기, 'a'=추가예요. 쓰기는 'w'예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_1_003",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`'a'` 모드의 동작은?",
+      "choices": [
+        "A. 파일 전체를 덮어쓴다",
+        "B. 파일을 읽기 전용으로 연다",
+        "C. 기존 내용 끝에 추가한다",
+        "D. 파일을 삭제한다"
+      ],
+      "answer": "C",
+      "hint": "'w'는 덮어쓰기, 'a'는 추가예요. 기존 내용을 유지하려면 'a'를 써야 해요.",
+      "feedback": {
+        "correct": "맞아요! `'a'`(append) 모드는 기존 내용을 유지하고 뒤에 추가해요.",
+        "wrong": "'w'는 덮어쓰기, 'a'는 추가예요. 기존 내용을 유지하려면 'a'를 써야 해요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_1_005",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "한글 파일을 안전하게 다루려면?",
+      "choices": [
+        "A. encoding='utf-8' 지정",
+        "B. mode='korean' 지정",
+        "C. open() 대신 read() 사용",
+        "D. 파일명을 영어로 바꾼다"
+      ],
+      "answer": "A",
+      "hint": "encoding='utf-8'을 지정하지 않으면 한글이 깨질 수 있어요.",
+      "feedback": {
+        "correct": "맞아요! 한글이 포함된 파일은 `encoding='utf-8'`을 지정해야 해요.",
+        "wrong": "encoding='utf-8'을 지정하지 않으면 한글이 깨질 수 있어요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_1_007",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nwith open('test.txt', 'w') as f:\n    f.write('hello')\n\nwith open('test.txt', 'r') as f:\n    print(f.read())\n```",
+      "choices": [
+        "A. - B. hello",
+        "B. hello",
+        "C. hello",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "write()는 자동으로 줄바꿈을 추가하지 않아요. '\\n'을 직접 넣어야 해요.",
+      "feedback": {
+        "correct": "맞아요! `write()`는 줄바꿈 없이 그대로 저장해요. `\\n` 없이 'hello'만 출력돼요.",
+        "wrong": "write()는 자동으로 줄바꿈을 추가하지 않아요. '\\n'을 직접 넣어야 해요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_1_009",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nwith open('log.txt', 'w') as f:\n    f.write('first\\n')\n\nwith open('log.txt', 'w') as f:\n    f.write('second\\n')\n\nwith open('log.txt', 'r') as f:\n    print(f.read())\n```",
+      "choices": [
+        "A. second",
+        "B. first",
+        "C. first",
+        "D. 오류 발생"
+      ],
+      "answer": "A",
+      "hint": "'w' 모드는 파일을 덮어써요. 두 번째 write 후에는 'second\\n'만 남아요.",
+      "feedback": {
+        "correct": "맞아요! 두 번째 `'w'` 모드가 파일을 덮어써요. 'first'는 사라지고 'second'만 남아요.",
+        "wrong": "'w' 모드는 파일을 덮어써요. 두 번째 write 후에는 'second\\n'만 남아요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_1_011",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nwith open('scores.txt', 'w') as f:\n    f.write('90\\n85\\n92\\n')\n\nwith open('scores.txt', 'r') as f:\n    lines = f.readlines()\n    print(lines[0].strip())\n```",
+      "choices": [
+        "A. 90\\n",
+        "B. 85",
+        "C. 90",
+        "D. 92"
+      ],
+      "answer": "C",
+      "hint": "readlines()는 각 줄을 '\\n' 포함으로 반환해요. strip()으로 제거해야 해요.",
+      "feedback": {
+        "correct": "맞아요! readlines()[0]은 '90\\n'이고 strip()으로 '\\n'을 제거하면 '90'이에요.",
+        "wrong": "readlines()는 각 줄을 '\\n' 포함으로 반환해요. strip()으로 제거해야 해요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_1_013",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nwith open('test.txt', 'w', encoding='utf-8') as f:\n    f.write('연구 결과\\n')\n\nwith open('test.txt', 'r', encoding='utf-8') as f:\n    data = f.read()\n    print(len(data))\n```",
+      "choices": [
+        "A. 5",
+        "B. 4",
+        "C. 6",
+        "D. 3"
+      ],
+      "answer": "A",
+      "hint": "'연구 결과\\n': 연(1)+구(2)+공백(3)+결(4)+과(5)+\\n(6)=6자예요.",
+      "feedback": {
+        "correct": "맞아요! '연구 결과\\n'은 '연','구',' ','결','과','\\n' 6글자인데, 한글 문자도 len()에서 1로 계산돼요. '연구 결과\\n'=6자예요.",
+        "wrong": "'연구 결과\\n': 연(1)+구(2)+공백(3)+결(4)+과(5)+\\n(6)=6자예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_1_015",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nwith open('nums.txt', 'w') as f:\n    f.write('10\\n20\\n30\\n')\n\nwith open('nums.txt', 'r') as f:\n    numbers = [int(line.strip()) for line in f]\n\nprint(sum(numbers))\n```",
+      "choices": [
+        "A. 30",
+        "B. 10",
+        "C. 60",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "readlines로 읽고 strip()으로 '\\n' 제거 후 int 변환→[10,20,30]. sum=60이에요.",
+      "feedback": {
+        "correct": "맞아요! 각 줄을 int로 변환하면 [10, 20, 30]이 되고 합은 60이에요.",
+        "wrong": "readlines로 읽고 strip()으로 '\\n' 제거 후 int 변환→[10,20,30]. sum=60이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_1_017",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nwith open('counter.txt', 'w') as f:\n    f.write('0')\n\nfor _ in range(3):\n    with open('counter.txt', 'r') as f:\n        val = int(f.read())\n    with open('counter.txt', 'w') as f:\n        f.write(str(val + 1))\n\nwith open('counter.txt', 'r') as f:\n    print(f.read())\n```",
+      "choices": [
+        "A. 3",
+        "B. 1",
+        "C. 2",
+        "D. 0"
+      ],
+      "answer": "A",
+      "hint": "0→1→2→3. 매 반복에서 읽고 +1해서 다시 써요. 최종값은 3이에요.",
+      "feedback": {
+        "correct": "맞아요! 0에서 시작해 3번 +1하면 최종값은 3이에요.",
+        "wrong": "0→1→2→3. 매 반복에서 읽고 +1해서 다시 써요. 최종값은 3이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_1_019",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport os\n\nwith open('temp.txt', 'w') as f:\n    f.write('test')\n\nprint(os.path.exists('temp.txt'))\n\nos.remove('temp.txt')\n\nprint(os.path.exists('temp.txt'))\n```",
+      "choices": [
+        "A. True / True",
+        "B. False / False",
+        "C. True / False",
+        "D. False / True"
+      ],
+      "answer": "C",
+      "hint": "파일 생성 후 os.path.exists=True, os.remove로 삭제 후 False예요.",
+      "feedback": {
+        "correct": "맞아요! 파일 생성 후 exists=True, remove 후 exists=False예요.",
+        "wrong": "파일 생성 후 os.path.exists=True, os.remove로 삭제 후 False예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_1_002",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`with open() as f:` 구문의 장점은?",
+      "choices": [
+        "A. 파일을 더 빠르게 읽는다",
+        "B. 블록이 끝나면 자동으로 파일을 닫아준다",
+        "C. 파일 크기를 줄여준다",
+        "D. 오류를 자동으로 수정한다"
+      ],
+      "answer": "B",
+      "hint": "with문은 자동으로 파일을 닫아줘요. close()를 잊어버리는 실수를 방지해요.",
+      "feedback": {
+        "correct": "맞아요! `with`문은 블록이 끝나면 자동으로 `close()`를 호출해요.",
+        "wrong": "with문은 자동으로 파일을 닫아줘요. close()를 잊어버리는 실수를 방지해요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_1_004",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`f.readlines()`의 반환 타입은?",
+      "choices": [
+        "A. 문자열",
+        "B. 딕셔너리",
+        "C. 튜플",
+        "D. 리스트"
+      ],
+      "answer": "D",
+      "hint": "readlines()는 파일의 각 줄을 리스트 항목으로 반환해요.",
+      "feedback": {
+        "correct": "맞아요! `readlines()`는 각 줄을 요소로 하는 리스트를 반환해요.",
+        "wrong": "readlines()는 파일의 각 줄을 리스트 항목으로 반환해요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_1_006",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "파일을 열고 `close()`를 호출하지 않으면?",
+      "choices": [
+        "A. 오류가 즉시 발생한다",
+        "B. 데이터가 저장되지 않을 수 있다",
+        "C. 파일이 자동으로 삭제된다",
+        "D. 아무 문제 없다"
+      ],
+      "answer": "B",
+      "hint": "파일은 반드시 닫아야 해요. with문을 쓰면 자동으로 닫혀요.",
+      "feedback": {
+        "correct": "맞아요! `close()`를 호출하지 않으면 버퍼의 데이터가 파일에 저장되지 않을 수 있어요.",
+        "wrong": "파일은 반드시 닫아야 해요. with문을 쓰면 자동으로 닫혀요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_1_008",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nwith open('data.txt', 'w') as f:\n    f.write('line1\\n')\n    f.write('line2\\n')\n\nwith open('data.txt', 'r') as f:\n    lines = f.readlines()\n    print(len(lines))\n```",
+      "choices": [
+        "A. 1",
+        "B. 4",
+        "C. 3",
+        "D. 2"
+      ],
+      "answer": "D",
+      "hint": "'line1\\n'과 'line2\\n' 두 줄이 저장되므로 readlines()의 결과는 2개예요.",
+      "feedback": {
+        "correct": "맞아요! 두 줄을 썼으므로 readlines()는 2개 요소의 리스트를 반환해요.",
+        "wrong": "'line1\\n'과 'line2\\n' 두 줄이 저장되므로 readlines()의 결과는 2개예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_1_010",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nwith open('note.txt', 'w') as f:\n    f.write('A\\n')\n\nwith open('note.txt', 'a') as f:\n    f.write('B\\n')\n\nwith open('note.txt', 'r') as f:\n    print(f.read())\n```",
+      "choices": [
+        "A. B",
+        "B. A",
+        "C. A",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "'a' 모드는 기존 내용을 유지해요. 'A\\n' 뒤에 'B\\n'이 추가돼요.",
+      "feedback": {
+        "correct": "맞아요! 'w'로 'A'를 쓴 후 'a' 모드로 'B'를 추가해요. 두 줄 모두 남아요.",
+        "wrong": "'a' 모드는 기존 내용을 유지해요. 'A\\n' 뒤에 'B\\n'이 추가돼요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_1_012",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nwith open('sample.txt', 'w') as f:\n    for i in range(1, 4):\n        f.write(f'item{i}\\n')\n\nwith open('sample.txt', 'r') as f:\n    content = f.read()\n    print(content.count('item'))\n```",
+      "choices": [
+        "A. 1",
+        "B. 2",
+        "C. 4",
+        "D. 3"
+      ],
+      "answer": "D",
+      "hint": "range(1,4)=1,2,3으로 3번 write해요. 'item'은 3번 포함돼요.",
+      "feedback": {
+        "correct": "맞아요! 'item1', 'item2', 'item3' 세 줄이 저장되고, 'item'은 3번 나와요.",
+        "wrong": "range(1,4)=1,2,3으로 3번 write해요. 'item'은 3번 포함돼요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_1_014",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nwith open('data.txt', 'w') as f:\n    f.write('alpha\\nbeta\\ngamma\\n')\n\ncount = 0\nwith open('data.txt', 'r') as f:\n    for line in f:\n        count += 1\nprint(count)\n```",
+      "choices": [
+        "A. 1",
+        "B. 3",
+        "C. 4",
+        "D. 2"
+      ],
+      "answer": "B",
+      "hint": "파일을 for문으로 순회하면 한 줄씩 읽어요. '\\n'으로 구분된 3줄이므로 count=3이에요.",
+      "feedback": {
+        "correct": "맞아요! for문으로 파일을 순회하면 줄 단위로 읽어요. 3줄이므로 count=3이에요.",
+        "wrong": "파일을 for문으로 순회하면 한 줄씩 읽어요. '\\n'으로 구분된 3줄이므로 count=3이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_1_016",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\ndata = ['Alice,95', 'Bob,87', 'Carol,92']\n\nwith open('results.txt', 'w') as f:\n    for item in data:\n        f.write(item + '\\n')\n\nwith open('results.txt', 'r') as f:\n    lines = f.readlines()\n\nhigh = [l.strip() for l in lines if int(l.split(',')[1].strip()) >= 90]\nprint(len(high))\n```",
+      "choices": [
+        "A. 1",
+        "B. 0",
+        "C. 3",
+        "D. 2"
+      ],
+      "answer": "D",
+      "hint": "95>=90(Alice), 87<90(Bob 제외), 92>=90(Carol). 통과 2명이에요.",
+      "feedback": {
+        "correct": "맞아요! 90점 이상은 Alice(95), Carol(92) 2명이에요.",
+        "wrong": "95>=90(Alice), 87<90(Bob 제외), 92>=90(Carol). 통과 2명이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_1_018",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nlines = ['apple\\n', 'banana\\n', 'cherry\\n']\n\nwith open('fruits.txt', 'w') as f:\n    f.writelines(lines)\n\nwith open('fruits.txt', 'r') as f:\n    content = f.read()\n    print(content.split('\\n')[1])\n```",
+      "choices": [
+        "A. apple",
+        "B. banana",
+        "C. - D. cherry",
+        "D. cherry"
+      ],
+      "answer": "B",
+      "hint": "'apple\\nbanana\\ncherry\\n'.split('\\n')=['apple','banana','cherry',''] → [1]='banana'예요.",
+      "feedback": {
+        "correct": "맞아요! content는 'apple\\nbanana\\ncherry\\n'이고 split('\\n')[1]은 'banana'예요.",
+        "wrong": "'apple\\nbanana\\ncherry\\n'.split('\\n')=['apple','banana','cherry',''] → [1]='banana'예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_1_020",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nwith open('log.txt', 'w') as f:\n    f.write('start\\n')\n\ntry:\n    with open('log.txt', 'a') as f:\n        f.write('middle\\n')\n    raise ValueError('테스트')\nexcept ValueError:\n    pass\n\nwith open('log.txt', 'a') as f:\n    f.write('end\\n')\n\nwith open('log.txt', 'r') as f:\n    print(f.read().count('\\n'))\n```",
+      "choices": [
+        "A. 1",
+        "B. 2",
+        "C. 4",
+        "D. 3"
+      ],
+      "answer": "D",
+      "hint": "start\\n + middle\\n(예외 전 작성 완료) + end\\n = 3줄. '\\n' 개수=3이에요.",
+      "feedback": {
+        "correct": "훌륭해요! start, middle, end 세 줄이 저장돼요. '\\n' 개수는 3이에요.",
+        "wrong": "start\\n + middle\\n(예외 전 작성 완료) + end\\n = 3줄. '\\n' 개수=3이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_2_001",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "JSON에서 키는 어떤 따옴표를 사용하나요?",
+      "choices": [
+        "A. 큰따옴표(\"...\")만 사용",
+        "B. 작은따옴표('...') 또는 큰따옴표(\"...\")",
+        "C. 작은따옴표('...')만 사용",
+        "D. 따옴표 없이 사용"
+      ],
+      "answer": "A",
+      "hint": "JSON 표준은 큰따옴표만 허용해요. Python 딕셔너리는 작은따옴표도 가능하지만 JSON은 아니에요.",
+      "feedback": {
+        "correct": "맞아요! JSON은 반드시 큰따옴표만 사용해요. 작은따옴표는 유효한 JSON이 아니에요.",
+        "wrong": "JSON 표준은 큰따옴표만 허용해요. Python 딕셔너리는 작은따옴표도 가능하지만 JSON은 아니에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_2_003",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`json.dumps()`의 역할은?",
+      "choices": [
+        "A. JSON 문자열을 딕셔너리로 변환",
+        "B. 파일에서 JSON을 읽기",
+        "C. Python 객체를 JSON 문자열로 변환",
+        "D. JSON 파일을 삭제"
+      ],
+      "answer": "C",
+      "hint": "dumps=Python 객체→JSON 문자열, loads=JSON 문자열→Python 객체예요.",
+      "feedback": {
+        "correct": "맞아요! `dumps`는 Python 객체→JSON 문자열 변환이에요.",
+        "wrong": "dumps=Python 객체→JSON 문자열, loads=JSON 문자열→Python 객체예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_2_005",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`json.dump()`와 `json.dumps()`의 차이는?",
+      "choices": [
+        "A. dump는 딕셔너리, dumps는 리스트",
+        "B. dump는 파일에 저장, dumps는 문자열로 변환",
+        "C. dump는 빠르고 dumps는 느리다",
+        "D. 둘 다 동일하다"
+      ],
+      "answer": "A",
+      "hint": "dump(파일저장)/load(파일읽기), dumps(문자열변환)/loads(문자열파싱)이에요.",
+      "feedback": {
+        "correct": "맞아요! dump는 파일 객체에 저장, dumps는 문자열로 반환이에요. 's'가 string이에요.",
+        "wrong": "dump(파일저장)/load(파일읽기), dumps(문자열변환)/loads(문자열파싱)이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_2_007",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport json\n\ndata = json.loads('{\"name\": \"Lee\", \"score\": 88}')\nprint(type(data))\n```",
+      "choices": [
+        "A. <class 'str'>",
+        "B. <class 'list'>",
+        "C. <class 'dict'>",
+        "D. <class 'tuple'>"
+      ],
+      "answer": "C",
+      "hint": "loads()의 결과는 dict예요. JSON 객체{}는 Python dict로 변환돼요.",
+      "feedback": {
+        "correct": "맞아요! `json.loads()`는 JSON 문자열을 Python 딕셔너리로 변환해요.",
+        "wrong": "loads()의 결과는 dict예요. JSON 객체{}는 Python dict로 변환돼요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_2_009",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport json\n\njson_str = '[1, 2, 3, 4, 5]'\ndata = json.loads(json_str)\nprint(data[2])\n```",
+      "choices": [
+        "A. 3",
+        "B. 2",
+        "C. 1",
+        "D. 4"
+      ],
+      "answer": "A",
+      "hint": "JSON 배열[]은 Python 리스트로 변환돼요. 인덱스 2는 세 번째 요소 3이에요.",
+      "feedback": {
+        "correct": "맞아요! JSON 배열 '[1,2,3,4,5]'를 loads()하면 Python 리스트가 돼요. [2]는 3이에요.",
+        "wrong": "JSON 배열[]은 Python 리스트로 변환돼요. 인덱스 2는 세 번째 요소 3이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_2_011",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport json\n\nwith open('config.json', 'w') as f:\n    json.dump({'version': 2}, f)\n\nwith open('config.json', 'r') as f:\n    data = json.load(f)\n\nprint(data['version'])\n```",
+      "choices": [
+        "A. '2'",
+        "B. {'version': 2}",
+        "C. 2",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "json.dump/load는 파일에 JSON을 저장하고 읽어요. 정수 2가 그대로 복원돼요.",
+      "feedback": {
+        "correct": "맞아요! json.dump()로 저장하고 json.load()로 읽으면 딕셔너리가 복원돼요. version=2예요.",
+        "wrong": "json.dump/load는 파일에 JSON을 저장하고 읽어요. 정수 2가 그대로 복원돼요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_2_013",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport json\n\noriginal = [{'id': 1, 'val': 'A'}, {'id': 2, 'val': 'B'}]\njson_str = json.dumps(original)\nrestored = json.loads(json_str)\nprint(len(restored))\n```",
+      "choices": [
+        "A. 2",
+        "B. 1",
+        "C. 4",
+        "D. 오류 발생"
+      ],
+      "answer": "A",
+      "hint": "dumps→loads 후 원본 리스트 복원. 리스트 길이는 2예요.",
+      "feedback": {
+        "correct": "맞아요! JSON 배열로 변환 후 복원해도 원본 리스트 길이 2가 유지돼요.",
+        "wrong": "dumps→loads 후 원본 리스트 복원. 리스트 길이는 2예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_2_015",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport json\n\nrecords = [\n    {'name': 'Kim', 'score': 90},\n    {'name': 'Lee', 'score': 75},\n    {'name': 'Park', 'score': 88}\n]\n\njson_str = json.dumps(records)\ndata = json.loads(json_str)\nhigh = [r['name'] for r in data if r['score'] >= 85]\nprint(high)\n```",
+      "choices": [
+        "A. ['Kim']",
+        "B. ['Kim', 'Lee', 'Park']",
+        "C. ['Kim', 'Park']",
+        "D. ['Lee']"
+      ],
+      "answer": "C",
+      "hint": "90>=85(Kim), 75<85(Lee 제외), 88>=85(Park). 결과는 ['Kim', 'Park']이에요.",
+      "feedback": {
+        "correct": "맞아요! 85점 이상은 Kim(90), Park(88)이에요.",
+        "wrong": "90>=85(Kim), 75<85(Lee 제외), 88>=85(Park). 결과는 ['Kim', 'Park']이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_2_017",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport json\n\ndata = {'pi': 3.14, 'flag': False, 'empty': None}\njson_str = json.dumps(data)\nprint(json_str)\n```",
+      "choices": [
+        "A. {\"pi\": 3.14, \"flag\": false, \"empty\": null}",
+        "B. {\"pi\": 3.14, \"flag\": False, \"empty\": None}",
+        "C. {\"pi\": 3.14, \"flag\": false, \"empty\": undefined}",
+        "D. 오류 발생"
+      ],
+      "answer": "A",
+      "hint": "json.dumps(): Python False→JSON false, Python None→JSON null, 키는 큰따옴표예요.",
+      "feedback": {
+        "correct": "맞아요! False→false, None→null로 변환돼요. 큰따옴표를 사용해요.",
+        "wrong": "json.dumps(): Python False→JSON false, Python None→JSON null, 키는 큰따옴표예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_2_019",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport json\n\nraw = '{\"a\": 1}'\ntry:\n    data = json.loads(raw)\n    print('성공:', data['a'])\nexcept json.JSONDecodeError:\n    print('파싱 오류')\n```",
+      "choices": [
+        "A. 파싱 오류",
+        "B. 성공: '1'",
+        "C. 성공: 1",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "'{\"a\": 1}'은 유효한 JSON이에요. loads 성공 후 a=1(정수)이에요.",
+      "feedback": {
+        "correct": "맞아요! 유효한 JSON이므로 정상 파싱돼요. data['a']=1(정수)이에요.",
+        "wrong": "'{\"a\": 1}'은 유효한 JSON이에요. loads 성공 후 a=1(정수)이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_2_002",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`json.loads()`의 역할은?",
+      "choices": [
+        "A. 딕셔너리를 JSON 문자열로 변환",
+        "B. JSON 문자열을 Python 객체로 변환",
+        "C. 파일에서 JSON을 읽기",
+        "D. JSON 파일을 저장"
+      ],
+      "answer": "B",
+      "hint": "loads=JSON 문자열→Python 객체, dumps=Python 객체→JSON 문자열이에요.",
+      "feedback": {
+        "correct": "맞아요! `loads`는 JSON 문자열→Python 객체 변환이에요. 's'는 string이에요.",
+        "wrong": "loads=JSON 문자열→Python 객체, dumps=Python 객체→JSON 문자열이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_2_004",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "Python의 `True`는 JSON에서 어떻게 표현되나요?",
+      "choices": [
+        "A. True",
+        "B. true",
+        "C. TRUE",
+        "D. 'true'"
+      ],
+      "answer": "D",
+      "hint": "Python: True/False/None → JSON: true/false/null로 변환돼요.",
+      "feedback": {
+        "correct": "맞아요! Python `True`는 JSON에서 소문자 `true`로 변환돼요.",
+        "wrong": "Python: True/False/None → JSON: true/false/null로 변환돼요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_2_006",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "JSON에서 Python의 `None`은 어떻게 표현되나요?",
+      "choices": [
+        "A. None",
+        "B. undefined",
+        "C. null",
+        "D. 0"
+      ],
+      "answer": "B",
+      "hint": "Python→JSON 타입 변환: True→true, False→false, None→null이에요.",
+      "feedback": {
+        "correct": "맞아요! Python None → JSON null로 변환돼요.",
+        "wrong": "Python→JSON 타입 변환: True→true, False→false, None→null이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_2_008",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport json\n\ndata = {'x': 1, 'y': True, 'z': None}\nresult = json.dumps(data)\nprint(result)\n```",
+      "choices": [
+        "A. {\"x\": 1, \"y\": True, \"z\": None}",
+        "B. 오류 발생",
+        "C. {\"x\": 1, \"y\": false, \"z\": None}",
+        "D. {\"x\": 1, \"y\": true, \"z\": null}"
+      ],
+      "answer": "D",
+      "hint": "json.dumps()는 Python 타입을 JSON 규칙으로 변환해요. True→true, None→null이에요.",
+      "feedback": {
+        "correct": "맞아요! Python True→JSON true, Python None→JSON null로 변환돼요.",
+        "wrong": "json.dumps()는 Python 타입을 JSON 규칙으로 변환해요. True→true, None→null이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_2_010",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport json\n\ndata = {'model': 'A', 'scores': [90, 85, 92]}\njson_str = json.dumps(data)\nloaded = json.loads(json_str)\nprint(loaded['scores'][1])\n```",
+      "choices": [
+        "A. 90",
+        "B. 85",
+        "C. 92",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "dumps()로 문자열 변환 후 loads()로 복원해요. scores[1]=85예요.",
+      "feedback": {
+        "correct": "맞아요! dumps→loads 후 딕셔너리 복원. ['scores'][1]=85예요.",
+        "wrong": "dumps()로 문자열 변환 후 loads()로 복원해요. scores[1]=85예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_2_012",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport json\n\ndata = {'a': 1, 'b': [2, 3], 'c': {'d': 4}}\nresult = json.dumps(data, indent=2)\nprint(type(result))\n```",
+      "choices": [
+        "A. <class 'dict'>",
+        "B. <class 'list'>",
+        "C. <class 'int'>",
+        "D. <class 'str'>"
+      ],
+      "answer": "D",
+      "hint": "dumps()의 반환값은 항상 문자열이에요. indent 파라미터는 보기 좋게 줄바꿈을 추가해요.",
+      "feedback": {
+        "correct": "맞아요! json.dumps()는 항상 문자열(str)을 반환해요. indent는 출력 형식만 바꿔요.",
+        "wrong": "dumps()의 반환값은 항상 문자열이에요. indent 파라미터는 보기 좋게 줄바꿈을 추가해요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_2_014",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport json\n\ndata = json.loads('{\"items\": [\"apple\", \"banana\"]}')\ndata['items'].append('cherry')\nprint(len(data['items']))\n```",
+      "choices": [
+        "A. 2",
+        "B. 3",
+        "C. 4",
+        "D. 1"
+      ],
+      "answer": "B",
+      "hint": "json.loads()로 파싱 후 Python 딕셔너리처럼 수정할 수 있어요. 3개가 돼요.",
+      "feedback": {
+        "correct": "맞아요! loads()로 파싱 후 일반 Python 딕셔너리처럼 사용해요. append 후 길이=3이에요.",
+        "wrong": "json.loads()로 파싱 후 Python 딕셔너리처럼 수정할 수 있어요. 3개가 돼요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_2_016",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport json\n\nnested = {'outer': {'inner': {'value': 42}}}\njson_str = json.dumps(nested)\ndata = json.loads(json_str)\nprint(data['outer']['inner']['value'])\n```",
+      "choices": [
+        "A. {'value': 42}",
+        "B. {'inner': {'value': 42}}",
+        "C. 오류 발생",
+        "D. 42"
+      ],
+      "answer": "D",
+      "hint": "json.dumps/loads 후에도 중첩 구조가 유지돼요. ['outer']['inner']['value']=42예요.",
+      "feedback": {
+        "correct": "맞아요! 중첩 딕셔너리는 JSON으로 변환 후 복원해도 동일하게 접근할 수 있어요.",
+        "wrong": "json.dumps/loads 후에도 중첩 구조가 유지돼요. ['outer']['inner']['value']=42예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_2_018",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport json\n\nwith open('data.json', 'w') as f:\n    json.dump([1, 2, 3], f)\n\nwith open('data.json', 'r') as f:\n    data = json.load(f)\n\ndata.append(4)\nprint(sum(data))\n```",
+      "choices": [
+        "A. 6",
+        "B. 10",
+        "C. 4",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "JSON 파일에서 리스트 로드 후 append(4)→[1,2,3,4]. sum=1+2+3+4=10이에요.",
+      "feedback": {
+        "correct": "맞아요! [1,2,3]을 저장 후 로드, append(4)→[1,2,3,4]. sum=10이에요.",
+        "wrong": "JSON 파일에서 리스트 로드 후 append(4)→[1,2,3,4]. sum=1+2+3+4=10이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_2_020",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport json\n\nraw = \"{'a': 1}\"\ntry:\n    data = json.loads(raw)\n    print('성공')\nexcept json.JSONDecodeError:\n    print('파싱 오류')\n```",
+      "choices": [
+        "A. 성공",
+        "B. 성공: {'a': 1}",
+        "C. 파싱 오류",
+        "D. 오류 발생"
+      ],
+      "answer": "D",
+      "hint": "JSON은 큰따옴표만 허용해요. 작은따옴표 딕셔너리 문자열은 JSONDecodeError를 발생시켜요.",
+      "feedback": {
+        "correct": "훌륭해요! 작은따옴표는 유효한 JSON이 아니에요. JSONDecodeError가 발생해요.",
+        "wrong": "JSON은 큰따옴표만 허용해요. 작은따옴표 딕셔너리 문자열은 JSONDecodeError를 발생시켜요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_3_001",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "API에서 GET 메서드의 용도는?",
+      "choices": [
+        "A. 데이터 조회",
+        "B. 데이터 수정",
+        "C. 데이터 삭제",
+        "D. 데이터 생성"
+      ],
+      "answer": "A",
+      "hint": "GET=조회, POST=생성, PUT=수정, DELETE=삭제예요.",
+      "feedback": {
+        "correct": "맞아요! GET은 서버에서 데이터를 조회(읽기)할 때 사용해요.",
+        "wrong": "GET=조회, POST=생성, PUT=수정, DELETE=삭제예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_3_003",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "HTTP 상태코드 404의 의미는?",
+      "choices": [
+        "A. 요청 성공",
+        "B. 서버 오류",
+        "C. 찾을 수 없음",
+        "D. 인증 필요"
+      ],
+      "answer": "C",
+      "hint": "404 Not Found는 URL이 잘못됐거나 리소스가 없을 때 발생해요.",
+      "feedback": {
+        "correct": "맞아요! 404는 요청한 리소스를 서버에서 찾을 수 없다는 의미예요.",
+        "wrong": "404 Not Found는 URL이 잘못됐거나 리소스가 없을 때 발생해요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_3_005",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "API에서 헤더(Header)의 역할은?",
+      "choices": [
+        "A. 요청/응답의 부가 정보(인증, 형식 등)를 담는 곳",
+        "B. 실제 데이터를 담는 곳",
+        "C. URL을 지정하는 곳",
+        "D. 상태코드를 담는 곳"
+      ],
+      "answer": "A",
+      "hint": "Header는 메타정보, Body는 실제 데이터예요.",
+      "feedback": {
+        "correct": "맞아요! 헤더에는 API 키, 데이터 형식, 언어 등 부가 정보가 담겨요.",
+        "wrong": "Header는 메타정보, Body는 실제 데이터예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_3_007",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "API를 식당에 비유할 때 올바른 것은?",
+      "choices": [
+        "A. API 키 = 음식",
+        "B. 메뉴판 = 데이터",
+        "C. 주문(요청) = Request, 음식(응답) = Response",
+        "D. 서버 = 손님"
+      ],
+      "answer": "C",
+      "hint": "메뉴판=API 문서, 주문=Request, 음식=Response, 주방=서버예요.",
+      "feedback": {
+        "correct": "맞아요! API 요청은 주문, 응답은 음식에 해당해요.",
+        "wrong": "메뉴판=API 문서, 주문=Request, 음식=Response, 주방=서버예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_3_009",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "REST API에서 데이터는 주로 어떤 형식으로 주고받나요?",
+      "choices": [
+        "A. CSV",
+        "B. XML",
+        "C. JSON",
+        "D. HTML"
+      ],
+      "answer": "A",
+      "hint": "JSON은 가볍고 읽기 쉬워서 API의 표준 데이터 형식이에요.",
+      "feedback": {
+        "correct": "맞아요! 현대 REST API는 대부분 JSON 형식으로 데이터를 주고받아요.",
+        "wrong": "JSON은 가볍고 읽기 쉬워서 API의 표준 데이터 형식이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_3_011",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "HTTP 상태코드 401의 의미는?",
+      "choices": [
+        "A. 요청 성공",
+        "B. 찾을 수 없음",
+        "C. 인증이 필요함",
+        "D. 서버 오류"
+      ],
+      "answer": "C",
+      "hint": "401=인증 필요, 403=권한 없음, 404=찾을 수 없음이에요.",
+      "feedback": {
+        "correct": "맞아요! 401 Unauthorized는 인증이 필요하거나 API 키가 잘못됐을 때 발생해요.",
+        "wrong": "401=인증 필요, 403=권한 없음, 404=찾을 수 없음이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_3_013",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "API 응답에서 가장 먼저 확인해야 할 것은?",
+      "choices": [
+        "A. 응답 헤더",
+        "B. 응답 Body",
+        "C. 상태 코드",
+        "D. 응답 URL"
+      ],
+      "answer": "A",
+      "hint": "status_code를 먼저 확인해요. 200이 아니면 에러 처리가 필요해요.",
+      "feedback": {
+        "correct": "맞아요! 상태 코드로 요청 성공 여부를 먼저 확인하고, 그다음 데이터를 처리해요.",
+        "wrong": "status_code를 먼저 확인해요. 200이 아니면 에러 처리가 필요해요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_3_015",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 API 응답에서 올바른 해석은?**\n\n```\nStatus: 201\nBody: {\"id\": 42, \"message\": \"created\"}\n```",
+      "choices": [
+        "A. 요청 실패, 오류 코드 42",
+        "B. 인증 필요",
+        "C. 요청 성공, 새 리소스(id=42) 생성됨",
+        "D. 서버 오류"
+      ],
+      "answer": "C",
+      "hint": "201 Created: POST 요청 성공 후 새 리소스가 생성됐음을 나타내요.",
+      "feedback": {
+        "correct": "맞아요! 201 Created는 성공적으로 새 리소스가 생성됐다는 의미예요.",
+        "wrong": "201 Created: POST 요청 성공 후 새 리소스가 생성됐음을 나타내요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_3_017",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 중 GET 요청에 적합한 상황은?",
+      "choices": [
+        "A. 날씨 데이터 조회",
+        "B. 게시글 작성",
+        "C. 회원 탈퇴",
+        "D. 사용자 로그인"
+      ],
+      "answer": "A",
+      "hint": "로그인=POST, 글작성=POST, 탈퇴=DELETE, 조회=GET이에요.",
+      "feedback": {
+        "correct": "맞아요! 데이터를 읽기만 하는 조회 작업에 GET을 사용해요.",
+        "wrong": "로그인=POST, 글작성=POST, 탈퇴=DELETE, 조회=GET이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_3_019",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "HTTP 요청에서 Content-Type 헤더의 역할은?",
+      "choices": [
+        "A. 요청자의 신원 인증",
+        "B. 서버 주소 지정",
+        "C. 전송하는 데이터의 형식을 알려줌",
+        "D. 응답 속도 제어"
+      ],
+      "answer": "C",
+      "hint": "예: Content-Type: application/json은 JSON 데이터를 보낸다는 의미예요.",
+      "feedback": {
+        "correct": "맞아요! Content-Type은 요청/응답 Body의 데이터 형식을 알려줘요.",
+        "wrong": "예: Content-Type: application/json은 JSON 데이터를 보낸다는 의미예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_3_002",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "HTTP 상태코드 200의 의미는?",
+      "choices": [
+        "A. 인증 필요",
+        "B. 요청 성공",
+        "C. 서버 오류",
+        "D. 찾을 수 없음"
+      ],
+      "answer": "B",
+      "hint": "2xx=성공, 4xx=클라이언트 오류, 5xx=서버 오류예요. 200은 가장 기본적인 성공 코드예요.",
+      "feedback": {
+        "correct": "맞아요! 200은 요청이 성공적으로 처리됐다는 의미예요.",
+        "wrong": "2xx=성공, 4xx=클라이언트 오류, 5xx=서버 오류예요. 200은 가장 기본적인 성공 코드예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_3_004",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "POST 메서드의 주요 용도는?",
+      "choices": [
+        "A. 데이터 조회",
+        "B. 데이터 삭제",
+        "C. 데이터 조회 + 수정",
+        "D. 데이터 생성 또는 전송"
+      ],
+      "answer": "D",
+      "hint": "로그인, 글 작성, 파일 업로드 등에 POST를 사용해요.",
+      "feedback": {
+        "correct": "맞아요! POST는 서버에 데이터를 생성하거나 전송할 때 사용해요.",
+        "wrong": "로그인, 글 작성, 파일 업로드 등에 POST를 사용해요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_3_006",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "HTTP 상태코드 500의 의미는?",
+      "choices": [
+        "A. 요청 성공",
+        "B. 서버 내부 오류",
+        "C. 클라이언트 오류",
+        "D. 인증 필요"
+      ],
+      "answer": "B",
+      "hint": "5xx는 서버 오류예요. 내 코드가 아닌 서버 측 문제예요.",
+      "feedback": {
+        "correct": "맞아요! 500 Internal Server Error는 서버 측에서 오류가 발생했다는 의미예요.",
+        "wrong": "5xx는 서버 오류예요. 내 코드가 아닌 서버 측 문제예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_3_008",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 상태코드 중 클라이언트 오류(내 코드 문제)에 해당하는 것은?",
+      "choices": [
+        "A. 200",
+        "B. 201",
+        "C. 500",
+        "D. 404"
+      ],
+      "answer": "D",
+      "hint": "4xx=클라이언트 오류(내 실수), 5xx=서버 오류(서버 측 문제)예요.",
+      "feedback": {
+        "correct": "맞아요! 4xx는 클라이언트(내 코드) 오류예요. 404는 잘못된 URL로 요청한 경우예요.",
+        "wrong": "4xx=클라이언트 오류(내 실수), 5xx=서버 오류(서버 측 문제)예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_3_010",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "URL에서 쿼리 파라미터는 어떻게 표시되나요?",
+      "choices": [
+        "A. URL/파라미터=값",
+        "B. URL?파라미터=값",
+        "C. URL#파라미터=값",
+        "D. URL&파라미터=값"
+      ],
+      "answer": "B",
+      "hint": "예: `https://api.com/data?city=Seoul&units=metric` — `?` 이후가 쿼리 파라미터예요.",
+      "feedback": {
+        "correct": "맞아요! 쿼리 파라미터는 URL 뒤에 `?키=값` 형태로 붙어요.",
+        "wrong": "예: `https://api.com/data?city=Seoul&units=metric` — `?` 이후가 쿼리 파라미터예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_3_012",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "GET 요청과 POST 요청의 주요 차이는?",
+      "choices": [
+        "A. GET은 빠르고 POST는 느리다",
+        "B. 둘 다 동일하다",
+        "C. GET은 보안이 높고 POST는 낮다",
+        "D. GET은 URL에 데이터를 포함, POST는 Body에 데이터를 포함"
+      ],
+      "answer": "D",
+      "hint": "GET 파라미터는 URL에 노출돼요. 민감한 데이터는 POST Body에 담는 게 좋아요.",
+      "feedback": {
+        "correct": "맞아요! GET은 URL 파라미터로, POST는 요청 Body에 데이터를 담아요.",
+        "wrong": "GET 파라미터는 URL에 노출돼요. 민감한 데이터는 POST Body에 담는 게 좋아요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_3_014",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 중 올바른 REST API 설계 원칙은?",
+      "choices": [
+        "A. GET으로 데이터를 삭제한다",
+        "B. DELETE로 데이터를 삭제한다",
+        "C. POST로 데이터를 조회한다",
+        "D. PUT으로 데이터를 생성한다"
+      ],
+      "answer": "B",
+      "hint": "GET=조회, POST=생성, PUT=수정, DELETE=삭제. 각 메서드의 의미를 지켜야 해요.",
+      "feedback": {
+        "correct": "맞아요! REST API는 HTTP 메서드를 목적에 맞게 사용해요. DELETE는 삭제예요.",
+        "wrong": "GET=조회, POST=생성, PUT=수정, DELETE=삭제. 각 메서드의 의미를 지켜야 해요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_3_016",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "API 키가 잘못됐을 때 예상되는 상태코드는?",
+      "choices": [
+        "A. 200",
+        "B. 201",
+        "C. 500",
+        "D. 401"
+      ],
+      "answer": "D",
+      "hint": "API 키 오류=401, URL 없음=404, 서버 오류=500이에요.",
+      "feedback": {
+        "correct": "맞아요! 잘못된 API 키는 인증 실패로 401 Unauthorized가 반환돼요.",
+        "wrong": "API 키 오류=401, URL 없음=404, 서버 오류=500이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_3_018",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "REST API에서 엔드포인트(Endpoint)란?",
+      "choices": [
+        "A. API 서버의 IP 주소",
+        "B. API 키를 저장하는 파일",
+        "C. 특정 기능을 수행하는 URL 경로",
+        "D. 응답 데이터의 형식"
+      ],
+      "answer": "B",
+      "hint": "https://api.example.com/users는 사용자 관련 엔드포인트예요.",
+      "feedback": {
+        "correct": "맞아요! 엔드포인트는 API의 특정 기능에 접근하는 URL이에요.",
+        "wrong": "https://api.example.com/users는 사용자 관련 엔드포인트예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_3_020",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 중 API 호출 흐름으로 올바른 것은?",
+      "choices": [
+        "A. 응답 수신 → 요청 생성 → 서버 처리",
+        "B. 서버 처리 → 요청 생성 → 응답 수신",
+        "C. 응답 수신 → 서버 처리 → 요청 생성",
+        "D. 요청 생성 → 서버 처리 → 응답 수신"
+      ],
+      "answer": "D",
+      "hint": "클라이언트가 요청을 생성해 보내면, 서버가 처리한 후 응답을 돌려줘요.",
+      "feedback": {
+        "correct": "훌륭해요! API 호출은 항상 요청→처리→응답 순서로 진행돼요.",
+        "wrong": "클라이언트가 요청을 생성해 보내면, 서버가 처리한 후 응답을 돌려줘요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_4_001",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`requests.get(url)`의 반환값은?",
+      "choices": [
+        "A. Response 객체",
+        "B. 딕셔너리",
+        "C. 문자열",
+        "D. 정수"
+      ],
+      "answer": "A",
+      "hint": "Response 객체에서 .status_code, .json(), .text 등으로 데이터를 꺼낼 수 있어요.",
+      "feedback": {
+        "correct": "맞아요! `requests.get()`은 Response 객체를 반환해요. 상태코드, JSON 등을 꺼낼 수 있어요.",
+        "wrong": "Response 객체에서 .status_code, .json(), .text 등으로 데이터를 꺼낼 수 있어요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_4_003",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "GET 요청에 파라미터를 전달하는 올바른 방법은?",
+      "choices": [
+        "A. requests.get(url, body={'key': 'val'})",
+        "B. requests.get(url, header={'key': 'val'})",
+        "C. requests.get(url, params={'key': 'val'})",
+        "D. requests.get(url + '?key=val')만 가능"
+      ],
+      "answer": "C",
+      "hint": "params={} 또는 URL에 직접 붙이는 방법 둘 다 가능하지만 params가 더 깔끔해요.",
+      "feedback": {
+        "correct": "맞아요! `params` 딕셔너리를 전달하면 requests가 자동으로 URL 쿼리 문자열로 변환해줘요.",
+        "wrong": "params={} 또는 URL에 직접 붙이는 방법 둘 다 가능하지만 params가 더 깔끔해요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_4_005",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "requests를 사용하기 전 필요한 것은?",
+      "choices": [
+        "A. import os",
+        "B. import json",
+        "C. pip install requests 후 import requests",
+        "D. import urllib"
+      ],
+      "answer": "A",
+      "hint": "pip install requests → import requests 순서로 사용해요.",
+      "feedback": {
+        "correct": "맞아요! requests는 외부 라이브러리라 pip install 후 import해야 해요.",
+        "wrong": "pip install requests → import requests 순서로 사용해요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_4_007",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드에서 `params`를 사용했을 때 실제 요청 URL로 올바른 것은?**\n\n```python\nimport requests\n\nparams = {'q': 'python', 'lang': 'ko'}\nresponse = requests.get('https://api.example.com/search', params=params)\n```",
+      "choices": [
+        "A. https://api.example.com/search/python/ko",
+        "B. https://api.example.com/search#q=python&lang=ko",
+        "C. https://api.example.com/search?q=python&lang=ko",
+        "D. https://api.example.com/search&q=python&lang=ko"
+      ],
+      "answer": "C",
+      "hint": "params={'q':'python','lang':'ko'}는 URL 뒤에 ?q=python&lang=ko로 붙어요.",
+      "feedback": {
+        "correct": "맞아요! params 딕셔너리는 `?키=값&키=값` 형태의 쿼리 문자열로 변환돼요.",
+        "wrong": "params={'q':'python','lang':'ko'}는 URL 뒤에 ?q=python&lang=ko로 붙어요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_4_009",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport requests\n\nresponse = requests.get('https://httpbin.org/status/404')\nprint(response.status_code)\n```",
+      "choices": [
+        "A. 404",
+        "B. 201",
+        "C. 200",
+        "D. 오류 발생"
+      ],
+      "answer": "A",
+      "hint": "status_code가 4xx/5xx여도 예외가 발생하지 않아요. raise_for_status()를 써야 예외가 발생해요.",
+      "feedback": {
+        "correct": "맞아요! httpbin.org/status/404는 404 상태코드를 반환해요. 예외는 발생하지 않아요.",
+        "wrong": "status_code가 4xx/5xx여도 예외가 발생하지 않아요. raise_for_status()를 써야 예외가 발생해요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_4_011",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`response.raise_for_status()`의 역할은?",
+      "choices": [
+        "A. 응답 데이터를 문자열로 변환",
+        "B. JSON을 딕셔너리로 변환",
+        "C. 상태코드가 4xx/5xx면 예외를 발생시킴",
+        "D. 응답을 다시 요청"
+      ],
+      "answer": "C",
+      "hint": "raise_for_status()를 쓰면 오류 응답을 자동으로 예외로 변환할 수 있어요.",
+      "feedback": {
+        "correct": "맞아요! raise_for_status()는 4xx/5xx 상태코드일 때 HTTPError 예외를 발생시켜요.",
+        "wrong": "raise_for_status()를 쓰면 오류 응답을 자동으로 예외로 변환할 수 있어요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_4_013",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`response.text`와 `response.json()`의 차이는?",
+      "choices": [
+        "A. text는 느리고 json()은 빠르다",
+        "B. text는 원본 문자열, json()은 파싱된 Python 객체",
+        "C. text는 헤더, json()은 Body",
+        "D. 둘 다 동일하다"
+      ],
+      "answer": "A",
+      "hint": "text=문자열, json()=파싱된 딕셔너리/리스트예요.",
+      "feedback": {
+        "correct": "맞아요! text는 응답 본문 문자열 그대로, json()은 JSON을 파싱해 Python 객체로 반환해요.",
+        "wrong": "text=문자열, json()=파싱된 딕셔너리/리스트예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_4_015",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport requests\n\ndef safe_get(url):\n    try:\n        r = requests.get(url, timeout=5)\n        r.raise_for_status()\n        return r.json()\n    except requests.exceptions.Timeout:\n        return {'error': 'timeout'}\n    except requests.exceptions.HTTPError:\n        return {'error': 'http_error'}\n\nresult = safe_get('https://httpbin.org/status/200')\nprint('error' in result)\n```",
+      "choices": [
+        "A. True",
+        "B. None",
+        "C. False",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "httpbin.org/status/200은 200 반환 → raise_for_status() 통과 → json() 반환. 'error' 키 없음=False예요.",
+      "feedback": {
+        "correct": "맞아요! /status/200은 성공이므로 예외 없이 json()을 반환해요. 'error' 키가 없어요.",
+        "wrong": "httpbin.org/status/200은 200 반환 → raise_for_status() 통과 → json() 반환. 'error' 키 없음=False예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_4_017",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "API 응답이 중첩 JSON일 때 올바른 접근법은?**\n\n```python\ndata = {\n  'status': 'ok',\n  'results': [\n    {'id': 1, 'value': 42}\n  ]\n}\n```\n\n`value`를 꺼내려면?",
+      "choices": [
+        "A. data['results'][0]['value']",
+        "B. data['results']['value']",
+        "C. data['value']",
+        "D. data[0]['value']"
+      ],
+      "answer": "A",
+      "hint": "data['results']는 리스트예요. [0]으로 첫 번째 항목에 접근 후 ['value']예요.",
+      "feedback": {
+        "correct": "맞아요! results는 리스트이므로 [0]으로 첫 번째 항목에 접근한 후 ['value']를 꺼내요.",
+        "wrong": "data['results']는 리스트예요. [0]으로 첫 번째 항목에 접근 후 ['value']예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_4_019",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport requests\n\nurls = [\n    'https://httpbin.org/status/200',\n    'https://httpbin.org/status/404',\n    'https://httpbin.org/status/200'\n]\n\nresults = [requests.get(u).status_code for u in urls]\nprint(results.count(200))\n```",
+      "choices": [
+        "A. 1",
+        "B. 3",
+        "C. 2",
+        "D. 0"
+      ],
+      "answer": "C",
+      "hint": "urls 3개 중 200을 반환하는 게 2개, 404가 1개예요.",
+      "feedback": {
+        "correct": "맞아요! 200이 두 번, 404가 한 번이에요. count(200)=2예요.",
+        "wrong": "urls 3개 중 200을 반환하는 게 2개, 404가 1개예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_4_002",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`response.json()`의 결과로 올바른 것은?",
+      "choices": [
+        "A. JSON 문자열",
+        "B. Python 딕셔너리 또는 리스트",
+        "C. 정수",
+        "D. Response 객체"
+      ],
+      "answer": "B",
+      "hint": "json() 메서드는 JSON 파싱까지 자동으로 해줘요.",
+      "feedback": {
+        "correct": "맞아요! `response.json()`은 JSON 응답을 Python 딕셔너리/리스트로 변환해요.",
+        "wrong": "json() 메서드는 JSON 파싱까지 자동으로 해줘요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_4_004",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`timeout=5`를 설정하는 이유는?",
+      "choices": [
+        "A. 5번까지 재시도",
+        "B. 5MB 이하 데이터만 수신",
+        "C. 응답을 5초간 캐시",
+        "D. 5초 내 응답이 없으면 오류 발생"
+      ],
+      "answer": "D",
+      "hint": "timeout=5는 5초 안에 응답이 없으면 Timeout 예외를 발생시켜요.",
+      "feedback": {
+        "correct": "맞아요! timeout을 설정하지 않으면 서버가 응답하지 않을 때 무한정 기다려요.",
+        "wrong": "timeout=5는 5초 안에 응답이 없으면 Timeout 예외를 발생시켜요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_4_006",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`response.status_code == 200`이 의미하는 것은?",
+      "choices": [
+        "A. 응답이 비어 있음",
+        "B. 요청이 성공했음",
+        "C. 인증이 필요함",
+        "D. 서버 오류"
+      ],
+      "answer": "B",
+      "hint": "status_code를 확인해서 성공(200)과 실패를 구분해요.",
+      "feedback": {
+        "correct": "맞아요! status_code 200은 요청이 성공적으로 처리됐다는 의미예요.",
+        "wrong": "status_code를 확인해서 성공(200)과 실패를 구분해요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_4_008",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드에서 발생할 수 있는 예외는?**\n\n```python\nimport requests\nresponse = requests.get('https://api.example.com', timeout=3)\n```",
+      "choices": [
+        "A. ValueError",
+        "B. IndexError",
+        "C. requests.exceptions.Timeout",
+        "D. json.JSONDecodeError"
+      ],
+      "answer": "D",
+      "hint": "timeout 초과 시 requests.exceptions.Timeout이, 연결 실패 시 ConnectionError가 발생해요.",
+      "feedback": {
+        "correct": "맞아요! 3초 내 응답이 없으면 `requests.exceptions.Timeout` 예외가 발생해요.",
+        "wrong": "timeout 초과 시 requests.exceptions.Timeout이, 연결 실패 시 ConnectionError가 발생해요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_4_010",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport requests\n\ndef fetch(url):\n    r = requests.get(url, timeout=5)\n    if r.status_code == 200:\n        return 'success'\n    return 'fail'\n\nprint(fetch('https://httpbin.org/status/200'))\nprint(fetch('https://httpbin.org/status/500'))\n```",
+      "choices": [
+        "A. success / success",
+        "B. success / fail",
+        "C. fail / fail",
+        "D. fail / success"
+      ],
+      "answer": "B",
+      "hint": "200이면 'success', 그 외면 'fail'. 두 URL이 각각 200, 500을 반환해요.",
+      "feedback": {
+        "correct": "맞아요! /status/200은 200, /status/500은 500 반환. 조건 분기에 따라 결과가 달라요.",
+        "wrong": "200이면 'success', 그 외면 'fail'. 두 URL이 각각 200, 500을 반환해요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_4_012",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드에서 `headers`를 사용하는 이유로 올바른 것은?**\n\n```python\nimport requests\n\nheaders = {'Authorization': 'Bearer my_api_key'}\nresponse = requests.get('https://api.example.com/data', headers=headers)\n```",
+      "choices": [
+        "A. 응답 속도를 높이기 위해",
+        "B. 파라미터를 전달하기 위해",
+        "C. JSON 파싱을 자동화하기 위해",
+        "D. API 키로 인증하기 위해"
+      ],
+      "answer": "D",
+      "hint": "Authorization 헤더는 가장 일반적인 API 인증 방식이에요.",
+      "feedback": {
+        "correct": "맞아요! 헤더에 API 키를 담아 서버에 인증 정보를 전달해요.",
+        "wrong": "Authorization 헤더는 가장 일반적인 API 인증 방식이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_4_014",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "API 호출 시 예외처리를 해야 하는 이유는?",
+      "choices": [
+        "A. API 호출은 항상 성공하므로 필요 없다",
+        "B. 네트워크 오류, 타임아웃 등 예상치 못한 오류가 발생할 수 있다",
+        "C. 오류가 발생하면 자동으로 재시도하기 위해",
+        "D. JSON 파싱을 빠르게 하기 위해"
+      ],
+      "answer": "B",
+      "hint": "인터넷 연결 끊김, 서버 다운, 타임아웃 등 다양한 오류가 발생할 수 있어요.",
+      "feedback": {
+        "correct": "맞아요! 네트워크는 항상 불안정할 수 있어요. 예외처리로 프로그램이 멈추지 않게 해요.",
+        "wrong": "인터넷 연결 끊김, 서버 다운, 타임아웃 등 다양한 오류가 발생할 수 있어요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_4_016",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport requests\n\nparams = {'key1': 'val1', 'key2': 'val2'}\nr = requests.get('https://httpbin.org/get', params=params)\ndata = r.json()\nprint(data['args']['key1'])\n```",
+      "choices": [
+        "A. val2",
+        "B. {'key1': 'val1'}",
+        "C. params",
+        "D. val1"
+      ],
+      "answer": "D",
+      "hint": "httpbin.org/get은 args 필드에 쿼리 파라미터를 그대로 돌려줘요.",
+      "feedback": {
+        "correct": "맞아요! httpbin.org/get은 전달된 파라미터를 그대로 반환해요. args['key1']='val1'이에요.",
+        "wrong": "httpbin.org/get은 args 필드에 쿼리 파라미터를 그대로 돌려줘요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_4_018",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드에서 `response.json()`이 실패하는 경우는?",
+      "choices": [
+        "A. status_code가 200일 때",
+        "B. 응답 Body가 유효한 JSON이 아닐 때",
+        "C. params를 전달했을 때",
+        "D. timeout을 설정했을 때"
+      ],
+      "answer": "B",
+      "hint": "HTML이나 빈 응답을 json()으로 파싱하면 JSONDecodeError가 발생해요.",
+      "feedback": {
+        "correct": "맞아요! 응답 Body가 JSON 형식이 아니면 json.JSONDecodeError가 발생해요.",
+        "wrong": "HTML이나 빈 응답을 json()으로 파싱하면 JSONDecodeError가 발생해요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_4_020",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "POST 요청을 보내는 올바른 코드는?",
+      "choices": [
+        "A. requests.get(url, data={})",
+        "B. requests.send(url, method='POST')",
+        "C. requests.put(url, params={})",
+        "D. requests.post(url, json={'key': 'val'})"
+      ],
+      "answer": "D",
+      "hint": "requests.post(url, json={})으로 POST 요청과 함께 JSON 데이터를 전송해요.",
+      "feedback": {
+        "correct": "훌륭해요! POST 요청은 `requests.post()`를 사용하고, JSON Body는 `json=` 파라미터로 전달해요.",
+        "wrong": "requests.post(url, json={})으로 POST 요청과 함께 JSON 데이터를 전송해요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_5_001",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "API 키를 코드에 직접 작성하면 안 되는 이유는?",
+      "choices": [
+        "A. GitHub에 올라가면 다른 사람이 사용할 수 있기 때문",
+        "B. 코드가 길어지기 때문",
+        "C. API가 느려지기 때문",
+        "D. Python이 인식하지 못하기 때문"
+      ],
+      "answer": "A",
+      "hint": "API 키 노출 → 다른 사람이 내 계정으로 API 사용 → 과금 및 보안 문제 발생이에요.",
+      "feedback": {
+        "correct": "맞아요! 코드에 직접 쓴 API 키가 GitHub에 올라가면 누구나 볼 수 있고 악용될 수 있어요.",
+        "wrong": "API 키 노출 → 다른 사람이 내 계정으로 API 사용 → 과금 및 보안 문제 발생이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_5_003",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": ".gitignore 파일의 역할은?",
+      "choices": [
+        "A. Git이 추적하지 않을 파일을 지정",
+        "B. 파일을 암호화",
+        "C. 코드 오류를 자동 수정",
+        "D. API 키를 자동 생성"
+      ],
+      "answer": "C",
+      "hint": "git add를 해도 .gitignore에 있는 파일은 커밋에 포함되지 않아요.",
+      "feedback": {
+        "correct": "맞아요! .gitignore에 .env를 추가하면 Git이 해당 파일을 추적하지 않아요.",
+        "wrong": "git add를 해도 .gitignore에 있는 파일은 커밋에 포함되지 않아요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_5_005",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "`os.environ.get('API_KEY')`의 역할은?",
+      "choices": [
+        "A. API_KEY 파일을 생성",
+        "B. 환경변수 API_KEY 값을 읽어옴",
+        "C. API 키를 자동 생성",
+        "D. 환경변수를 삭제"
+      ],
+      "answer": "A",
+      "hint": "os.environ.get('KEY')는 환경변수 KEY의 값을 반환해요. 없으면 None을 반환해요.",
+      "feedback": {
+        "correct": "맞아요! os.environ.get()으로 환경변수에 저장된 값을 읽어요.",
+        "wrong": "os.environ.get('KEY')는 환경변수 KEY의 값을 반환해요. 없으면 None을 반환해요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_5_007",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 중 올바른 API 키 사용 방법은?",
+      "choices": [
+        "A. API_KEY = 'sk-abc123'",
+        "B. print(API_KEY)로 확인",
+        "C. headers = {'Authorization': f'Bearer {os.environ.get(\"API_KEY\")}'}",
+        "D. requirements.txt에 키 저장"
+      ],
+      "answer": "C",
+      "hint": "API 키는 환경변수로 관리하고 헤더에 담아 전달해요.",
+      "feedback": {
+        "correct": "맞아요! os.environ.get()으로 환경변수에서 키를 읽고 헤더에 담아요.",
+        "wrong": "API 키는 환경변수로 관리하고 헤더에 담아 전달해요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_5_009",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "Bearer 토큰 인증 방식에서 헤더의 올바른 형태는?",
+      "choices": [
+        "A. {'Authorization': 'Bearer 토큰값'}",
+        "B. {'API-Key': '토큰값'}",
+        "C. {'Token': '토큰값'}",
+        "D. {'Auth': 'Bearer=토큰값'}"
+      ],
+      "answer": "A",
+      "hint": "Bearer 인증은 Authorization 헤더에 'Bearer 토큰' 형태로 설정해요.",
+      "feedback": {
+        "correct": "맞아요! `Authorization: Bearer 토큰값`이 표준 Bearer 토큰 인증 헤더 형식이에요.",
+        "wrong": "Bearer 인증은 Authorization 헤더에 'Bearer 토큰' 형태로 설정해요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_5_011",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 중 .env 파일의 올바른 작성 형태는?",
+      "choices": [
+        "A. API_KEY == 'secret'",
+        "B. export API_KEY = 'secret'",
+        "C. API_KEY=secret",
+        "D. set API_KEY='secret'"
+      ],
+      "answer": "C",
+      "hint": ".env 파일 형식: `KEY=value` 또는 `KEY='value'`예요.",
+      "feedback": {
+        "correct": "맞아요! .env 파일은 `키=값` 형태로 작성해요. 따옴표는 선택 사항이에요.",
+        "wrong": ".env 파일 형식: `KEY=value` 또는 `KEY='value'`예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_5_013",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport os\n\nkey = os.environ.get('NOT_EXIST_KEY')\nprint(key is None)\n```",
+      "choices": [
+        "A. True",
+        "B. NOT_EXIST_KEY",
+        "C. 오류 발생",
+        "D. False"
+      ],
+      "answer": "A",
+      "hint": "os.environ.get('없는키')는 None을 반환해요. KeyError가 발생하지 않아요.",
+      "feedback": {
+        "correct": "맞아요! 존재하지 않는 환경변수를 get()으로 읽으면 None을 반환해요.",
+        "wrong": "os.environ.get('없는키')는 None을 반환해요. KeyError가 발생하지 않아요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_5_015",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport os\n\ndef get_key(name, default='없음'):\n    return os.environ.get(name, default)\n\nprint(get_key('REAL_KEY_XYZ'))\nprint(get_key('REAL_KEY_XYZ', 'default_val'))\n```",
+      "choices": [
+        "A. None / None",
+        "B. None / default_val",
+        "C. 없음 / default_val",
+        "D. 없음 / 없음"
+      ],
+      "answer": "C",
+      "hint": "os.environ.get(name, default)는 없을 때 default를 반환해요.",
+      "feedback": {
+        "correct": "맞아요! get()의 두 번째 인수는 기본값이에요. 없으면 '없음', 두 번째 호출은 'default_val'이에요.",
+        "wrong": "os.environ.get(name, default)는 없을 때 default를 반환해요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_5_017",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport os\n\nos.environ['MY_KEY'] = 'abc123'\n\nkey = os.environ.get('MY_KEY')\nif not key:\n    raise ValueError('키 없음')\nprint(f'길이: {len(key)}')\n```",
+      "choices": [
+        "A. 길이: 6",
+        "B. 오류 발생",
+        "C. 길이: 0",
+        "D. 키 없음"
+      ],
+      "answer": "A",
+      "hint": "os.environ['MY_KEY']='abc123' 설정 → get으로 읽음 → if not key=False → len('abc123')=6이에요.",
+      "feedback": {
+        "correct": "맞아요! 'abc123'은 6글자예요. key가 있으므로 if not key는 False, len=6이에요.",
+        "wrong": "os.environ['MY_KEY']='abc123' 설정 → get으로 읽음 → if not key=False → len('abc123')=6이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_5_019",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드에서 API 키가 None일 때의 처리로 올바른 것은?**\n\n```python\nimport os\n\nAPI_KEY = os.environ.get('API_KEY')\n# 여기서 키가 없을 때 처리\n```",
+      "choices": [
+        "A. API_KEY = ''",
+        "B. if API_KEY is None: API_KEY = 'default'",
+        "C. if not API_KEY: raise ValueError('API 키가 설정되지 않았어요')",
+        "D. pass"
+      ],
+      "answer": "C",
+      "hint": "키가 없을 때 빈 문자열이나 기본값을 사용하면 나중에 인증 오류가 발생해요.",
+      "feedback": {
+        "correct": "맞아요! 키가 없으면 의미 있는 오류 메시지와 함께 즉시 중단하는 게 좋아요.",
+        "wrong": "키가 없을 때 빈 문자열이나 기본값을 사용하면 나중에 인증 오류가 발생해요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_5_002",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "API 키를 안전하게 관리하는 올바른 방법은?",
+      "choices": [
+        "A. 코드 파일에 직접 저장",
+        "B. .env 파일에 저장 후 .gitignore에 추가",
+        "C. GitHub README에 기록",
+        "D. 팀 채팅방에 공유"
+      ],
+      "answer": "B",
+      "hint": ".env + .gitignore가 API 키 관리의 기본이에요.",
+      "feedback": {
+        "correct": "맞아요! .env 파일에 저장하고 .gitignore에 추가해 GitHub에 올라가지 않게 해야 해요.",
+        "wrong": ".env + .gitignore가 API 키 관리의 기본이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_5_004",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "API 키가 노출됐을 때 가장 먼저 해야 할 일은?",
+      "choices": [
+        "A. API 사용을 중단한다",
+        "B. 아무것도 하지 않는다",
+        "C. GitHub를 삭제한다",
+        "D. 키를 즉시 재발급(rotate)한다"
+      ],
+      "answer": "D",
+      "hint": "노출된 키는 즉시 재발급(rotate)해요. 몇 초 만에 악용될 수 있어요.",
+      "feedback": {
+        "correct": "맞아요! 키가 노출되면 즉시 기존 키를 비활성화하고 새 키를 발급받아야 해요.",
+        "wrong": "노출된 키는 즉시 재발급(rotate)해요. 몇 초 만에 악용될 수 있어요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_5_006",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "python-dotenv 라이브러리의 역할은?",
+      "choices": [
+        "A. API 키를 자동 발급",
+        "B. requests 라이브러리를 설치",
+        "C. .env 파일을 읽어 환경변수로 로드",
+        "D. JSON을 파싱"
+      ],
+      "answer": "B",
+      "hint": "from dotenv import load_dotenv; load_dotenv()로 .env 파일을 로드해요.",
+      "feedback": {
+        "correct": "맞아요! `load_dotenv()`로 .env 파일을 읽어 환경변수로 설정해줘요.",
+        "wrong": "from dotenv import load_dotenv; load_dotenv()로 .env 파일을 로드해요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_5_008",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것은?**\n\n```python\nimport os\nos.environ['TEST_KEY'] = 'secret123'\nkey = os.environ.get('TEST_KEY')\nprint(key is not None)\n```",
+      "choices": [
+        "A. False",
+        "B. None",
+        "C. secret123",
+        "D. True"
+      ],
+      "answer": "D",
+      "hint": "os.environ['KEY']='val'로 설정 후 get('KEY')는 'val'을 반환해요. None이 아니므로 True예요.",
+      "feedback": {
+        "correct": "맞아요! os.environ에 값을 설정 후 get()으로 읽으면 None이 아니에요. True를 출력해요.",
+        "wrong": "os.environ['KEY']='val'로 설정 후 get('KEY')는 'val'을 반환해요. None이 아니므로 True예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_5_010",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드의 문제점은?**\n\n```python\nAPI_KEY = 'sk-1234567890abcdef'\nresponse = requests.get(url, headers={'Authorization': f'Bearer {API_KEY}'})\n```",
+      "choices": [
+        "A. headers 형식이 잘못됨",
+        "B. API_KEY를 코드에 직접 작성해 보안 위험",
+        "C. requests 사용법이 잘못됨",
+        "D. f-string 형식 오류"
+      ],
+      "answer": "B",
+      "hint": "API_KEY는 os.environ.get()으로 환경변수에서 읽어야 해요.",
+      "feedback": {
+        "correct": "맞아요! API_KEY를 코드에 하드코딩하면 GitHub에 노출될 수 있어요.",
+        "wrong": "API_KEY는 os.environ.get()으로 환경변수에서 읽어야 해요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_5_012",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "API 키가 노출됐을 때 발생할 수 있는 문제는?",
+      "choices": [
+        "A. 코드가 느려진다",
+        "B. 데이터가 삭제된다",
+        "C. Python이 오류를 발생시킨다",
+        "D. 타인이 내 API 키로 요청해 과금이 발생한다"
+      ],
+      "answer": "D",
+      "hint": "API 키 노출의 가장 큰 위험은 무단 사용으로 인한 요금 청구예요.",
+      "feedback": {
+        "correct": "맞아요! 노출된 API 키로 타인이 요청하면 내 계정에 과금이 발생할 수 있어요.",
+        "wrong": "API 키 노출의 가장 큰 위험은 무단 사용으로 인한 요금 청구예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_5_014",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "API 키를 팀원에게 공유할 때 올바른 방법은?",
+      "choices": [
+        "A. GitHub 커밋에 포함",
+        "B. Slack DM 등 보안 채널로 전달",
+        "C. README.md에 기록",
+        "D. 요청 URL에 포함"
+      ],
+      "answer": "B",
+      "hint": "공개된 채널에 API 키를 올리지 않아요.",
+      "feedback": {
+        "correct": "맞아요! API 키는 보안 채널(개인 메시지, 비밀번호 관리 도구 등)을 통해 공유해요.",
+        "wrong": "공개된 채널에 API 키를 올리지 않아요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_5_016",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 코드에서 API 키를 안전하게 사용하도록 수정한 것은?**\n\n```python\n# 원본 (위험)\nAPI_KEY = 'sk-abcdefg'\n```",
+      "choices": [
+        "A. API_KEY = '***'",
+        "B. API_KEY = 'sk-abcdefg'  # 숨김",
+        "C. API_KEY = hash('sk-abcdefg')",
+        "D. API_KEY = os.environ.get('API_KEY')"
+      ],
+      "answer": "D",
+      "hint": "환경변수에서 읽는 것이 가장 안전한 방법이에요.",
+      "feedback": {
+        "correct": "맞아요! os.environ.get()으로 환경변수에서 읽으면 코드에 키가 노출되지 않아요.",
+        "wrong": "환경변수에서 읽는 것이 가장 안전한 방법이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_5_018",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 중 .gitignore에 반드시 추가해야 할 파일은?",
+      "choices": [
+        "A. requirements.txt",
+        "B. .env",
+        "C. README.md",
+        "D. main.py"
+      ],
+      "answer": "B",
+      "hint": ".env는 절대 GitHub에 올라가면 안 돼요. .gitignore에 반드시 추가해요.",
+      "feedback": {
+        "correct": "맞아요! .env 파일에는 API 키 등 민감한 정보가 있어서 반드시 .gitignore에 추가해야 해요.",
+        "wrong": ".env는 절대 GitHub에 올라가면 안 돼요. .gitignore에 반드시 추가해요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_5_020",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "API 인증 방식 중 가장 일반적인 Bearer 토큰 방식으로 올바른 헤더 구성은?",
+      "choices": [
+        "A. {'key': API_KEY}",
+        "B. {'X-API-Key': API_KEY}",
+        "C. {'token': API_KEY}",
+        "D. {'Authorization': f'Bearer {API_KEY}'}"
+      ],
+      "answer": "D",
+      "hint": "Claude API, OpenAI 등 대부분의 AI API가 이 방식을 사용해요.",
+      "feedback": {
+        "correct": "훌륭해요! Bearer 토큰 인증의 표준 형식은 `Authorization: Bearer 토큰값`이에요.",
+        "wrong": "Claude API, OpenAI 등 대부분의 AI API가 이 방식을 사용해요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_6_001",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "AI API에서 system 메시지의 역할은?",
+      "choices": [
+        "A. AI의 성격·역할·제약을 설정하는 곳",
+        "B. 실제 질문을 담는 곳",
+        "C. API 키를 담는 곳",
+        "D. 응답을 저장하는 곳"
+      ],
+      "answer": "A",
+      "hint": "system=AI의 성격/역할 설정, user=실제 질문이에요.",
+      "feedback": {
+        "correct": "맞아요! system 메시지는 AI가 어떻게 동작할지 기본 설정을 해요.",
+        "wrong": "system=AI의 성격/역할 설정, user=실제 질문이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_6_003",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 중 더 좋은 프롬프트는?",
+      "choices": [
+        "A. 설명해줘",
+        "B. 도와줘",
+        "C. Python에서 리스트와 튜플의 차이를 초보자가 이해할 수 있게 비유로 설명해줘",
+        "D. 코드 짜줘"
+      ],
+      "answer": "C",
+      "hint": "좋은 프롬프트 = 대상 + 목적 + 형식 + 제약이에요.",
+      "feedback": {
+        "correct": "맞아요! 구체적인 주제, 대상 수준, 원하는 형식이 포함된 프롬프트가 좋아요.",
+        "wrong": "좋은 프롬프트 = 대상 + 목적 + 형식 + 제약이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_6_005",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "에이몬에서 오답 시 레벨별로 다른 설명을 제공하는 것은 무엇 덕분인가요?",
+      "choices": [
+        "A. 레벨별로 다른 system 프롬프트 설정",
+        "B. 더 많은 메모리",
+        "C. 더 빠른 서버",
+        "D. 더 큰 AI 모델"
+      ],
+      "answer": "A",
+      "hint": "beginner/intermediate/advanced마다 다른 system 프롬프트를 사용해요.",
+      "feedback": {
+        "correct": "맞아요! 레벨별로 다른 system 프롬프트를 설정해서 맞춤형 설명을 제공해요.",
+        "wrong": "beginner/intermediate/advanced마다 다른 system 프롬프트를 사용해요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_6_007",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 중 system 메시지로 적합한 것은?",
+      "choices": [
+        "A. 오늘 날씨 알려줘",
+        "B. 파이썬 코드 고쳐줘",
+        "C. 당신은 친절한 Python 튜터예요. 항상 코드 예시를 포함해 설명해요.",
+        "D. 1+1은 얼마야?"
+      ],
+      "answer": "C",
+      "hint": "system 메시지는 AI의 '기본 성격'을 설정해요. 질문은 user 메시지에 담아요.",
+      "feedback": {
+        "correct": "맞아요! system 메시지는 AI의 역할, 말투, 형식을 설정하는 지시문이에요.",
+        "wrong": "system 메시지는 AI의 '기본 성격'을 설정해요. 질문은 user 메시지에 담아요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_6_009",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 messages 구성에서 잘못된 것은?**\n\n```python\nmessages = [\n    {'role': 'system', 'content': '당신은 요리사예요.'},\n    {'role': 'user', 'content': '파스타 레시피 알려줘'}\n]\n```",
+      "choices": [
+        "A. 이 구성은 올바름",
+        "B. system이 user보다 앞에 있어야 함",
+        "C. content 키가 없음",
+        "D. role 키가 잘못됨"
+      ],
+      "answer": "A",
+      "hint": "messages 배열에서 system은 첫 번째, user는 그 뒤에 와요.",
+      "feedback": {
+        "correct": "맞아요! system 메시지가 먼저, user 메시지가 뒤에 오는 올바른 구성이에요.",
+        "wrong": "messages 배열에서 system은 첫 번째, user는 그 뒤에 와요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_6_011",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 중 프롬프트 개선이 가장 필요한 것은?",
+      "choices": [
+        "A. Python의 리스트 컴프리헨션을 중급자 수준으로 설명해줘",
+        "B. 틀린 이유를 비유로 설명해줘",
+        "C. for문을 설명해줘",
+        "D. 아래 코드의 IndexError 원인과 수정 방법을 알려줘"
+      ],
+      "answer": "C",
+      "hint": "'for문을 설명해줘'에 대상(초보자?), 형식(코드 예시?), 수준을 추가하면 좋아요.",
+      "feedback": {
+        "correct": "맞아요! '설명해줘'만으로는 대상, 수준, 형식이 없어 모호해요.",
+        "wrong": "'for문을 설명해줘'에 대상(초보자?), 형식(코드 예시?), 수준을 추가하면 좋아요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_6_013",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 중 '역할 부여(Role Prompting)'의 올바른 예시는?",
+      "choices": [
+        "A. 당신은 10년 경력의 보안 전문가예요. 코드 취약점을 분석해줘.",
+        "B. 1+1이 뭐야?",
+        "C. 파이썬 설치 방법",
+        "D. 오류 고쳐줘"
+      ],
+      "answer": "A",
+      "hint": "역할 부여는 system 메시지에 하는 게 가장 효과적이에요.",
+      "feedback": {
+        "correct": "맞아요! '당신은 ~예요'처럼 역할을 명시하면 AI가 그 관점에서 답변해요.",
+        "wrong": "역할 부여는 system 메시지에 하는 게 가장 효과적이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_6_015",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 중 AI가 일관된 JSON 형식으로 응답하게 만드는 좋은 프롬프트는?",
+      "choices": [
+        "A. JSON 줘",
+        "B. 결과 줘",
+        "C. 다음 텍스트를 분석해서 반드시 {\"sentiment\": \"긍정/부정\", \"score\": 0~1} 형식의 JSON으로만 응답해줘",
+        "D. 감정 분석해줘"
+      ],
+      "answer": "C",
+      "hint": "출력 형식을 예시와 함께 명시하면 AI가 그 형식을 따르게 돼요.",
+      "feedback": {
+        "correct": "맞아요! 정확한 JSON 스키마를 프롬프트에 포함하면 파싱 가능한 응답을 얻을 수 있어요.",
+        "wrong": "출력 형식을 예시와 함께 명시하면 AI가 그 형식을 따르게 돼요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_6_017",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 messages에서 user 역할로 올바른 것은?**\n\n```python\nmessages = [\n    {'role': 'system', 'content': '당신은 Python 튜터예요.'},\n    {'role': _____, 'content': 'for문이 뭐예요?'}\n]\n```",
+      "choices": [
+        "A. user",
+        "B. assistant",
+        "C. admin",
+        "D. system"
+      ],
+      "answer": "A",
+      "hint": "messages의 role은 system(설정), user(질문), assistant(AI응답) 세 가지예요.",
+      "feedback": {
+        "correct": "맞아요! 실제 질문은 'user' 역할로 담아요.",
+        "wrong": "messages의 role은 system(설정), user(질문), assistant(AI응답) 세 가지예요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_6_019",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "Few-shot 프롬프팅이란?",
+      "choices": [
+        "A. API를 적게 호출하는 것",
+        "B. 프롬프트를 짧게 쓰는 것",
+        "C. 원하는 입력-출력 예시를 몇 개 제공해 AI가 패턴을 학습하게 하는 것",
+        "D. 비용을 줄이는 방법"
+      ],
+      "answer": "C",
+      "hint": "예: '입력: 기쁨 → 출력: 긍정, 입력: 슬픔 → 출력: 부정'처럼 예시를 제공하는 방식이에요.",
+      "feedback": {
+        "correct": "맞아요! 예시를 몇 개 제공하면 AI가 그 패턴을 따라 답변해요.",
+        "wrong": "예: '입력: 기쁨 → 출력: 긍정, 입력: 슬픔 → 출력: 부정'처럼 예시를 제공하는 방식이에요."
+      },
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "cc_7_6_002",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "프롬프트 엔지니어링이란?",
+      "choices": [
+        "A. Python 코드를 자동 생성하는 것",
+        "B. AI에게 더 좋은 답변을 얻기 위해 지시문을 잘 작성하는 것",
+        "C. API 키를 관리하는 것",
+        "D. JSON 데이터를 파싱하는 것"
+      ],
+      "answer": "B",
+      "hint": "같은 AI라도 프롬프트에 따라 결과가 크게 달라요. 잘 쓰는 것이 핵심이에요.",
+      "feedback": {
+        "correct": "맞아요! 프롬프트를 어떻게 작성하느냐에 따라 AI 답변의 품질이 크게 달라져요.",
+        "wrong": "같은 AI라도 프롬프트에 따라 결과가 크게 달라요. 잘 쓰는 것이 핵심이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_6_004",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "AI에게 역할을 부여하면 어떤 효과가 있나요?",
+      "choices": [
+        "A. 응답 속도가 빨라진다",
+        "B. 그 역할에 맞는 스타일과 관점으로 답변한다",
+        "C. API 비용이 줄어든다",
+        "D. 오류가 없어진다"
+      ],
+      "answer": "D",
+      "hint": "역할 부여(Role Prompting)는 일관된 스타일과 전문성 있는 답변을 얻는 데 효과적이에요.",
+      "feedback": {
+        "correct": "맞아요! '당신은 X예요'처럼 역할을 부여하면 AI가 그 역할에 맞게 답변해요.",
+        "wrong": "역할 부여(Role Prompting)는 일관된 스타일과 전문성 있는 답변을 얻는 데 효과적이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_6_006",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "좋은 프롬프트에 포함되어야 할 요소로 올바른 것은?",
+      "choices": [
+        "A. API 키",
+        "B. 대상·목적·형식·제약",
+        "C. 파일 경로",
+        "D. 서버 주소"
+      ],
+      "answer": "B",
+      "hint": "구체적인 요소들을 포함할수록 AI가 원하는 답변을 더 잘 제공해요.",
+      "feedback": {
+        "correct": "맞아요! 좋은 프롬프트는 대상, 목적, 원하는 형식, 제약 조건이 포함돼요.",
+        "wrong": "구체적인 요소들을 포함할수록 AI가 원하는 답변을 더 잘 제공해요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_6_008",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 중 나쁜 프롬프트의 특징은?",
+      "choices": [
+        "A. 구체적인 요구사항이 있다",
+        "B. 대상 수준을 명시했다",
+        "C. 원하는 형식을 지정했다",
+        "D. 너무 모호하고 맥락이 없다"
+      ],
+      "answer": "D",
+      "hint": "모호한 프롬프트 → 일반적인 답변. 구체적인 프롬프트 → 정확한 답변이에요.",
+      "feedback": {
+        "correct": "맞아요! '도와줘', '설명해줘' 같은 모호한 프롬프트는 AI가 원하는 방향으로 답변하기 어려워요.",
+        "wrong": "모호한 프롬프트 → 일반적인 답변. 구체적인 프롬프트 → 정확한 답변이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_6_010",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "프롬프트에서 '출력 형식'을 지정하면 어떤 이점이 있나요?",
+      "choices": [
+        "A. API 비용 절감",
+        "B. 원하는 형태(JSON, 목록 등)로 응답을 받을 수 있다",
+        "C. 응답 속도 향상",
+        "D. 오류가 없어진다"
+      ],
+      "answer": "B",
+      "hint": "출력 형식 지정은 AI 응답을 코드로 처리할 때 매우 유용해요.",
+      "feedback": {
+        "correct": "맞아요! '결과를 JSON 형식으로 반환해줘' 같이 형식을 지정하면 파싱하기 쉬운 응답을 받아요.",
+        "wrong": "출력 형식 지정은 AI 응답을 코드로 처리할 때 매우 유용해요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_6_012",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "에이몬의 beginner 레벨 AI 피드백 스타일은?",
+      "choices": [
+        "A. 원리 + 엣지 케이스 + 최적 해법",
+        "B. 개념 + 코드 예시 + 오류 원인 분석",
+        "C. 전문 용어 위주의 설명",
+        "D. 비유 + 일상 예시 + 왜 틀렸는지 설명"
+      ],
+      "answer": "D",
+      "hint": "beginner=비유/일상예시, intermediate=개념/코드예시, advanced=원리/엣지케이스예요.",
+      "feedback": {
+        "correct": "맞아요! beginner는 비유와 일상 예시로 쉽게 설명하고, 왜 틀렸는지 친절하게 알려줘요.",
+        "wrong": "beginner=비유/일상예시, intermediate=개념/코드예시, advanced=원리/엣지케이스예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_6_014",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 프롬프트에서 개선할 점이 없는 것은?",
+      "choices": [
+        "A. 버그 찾아줘",
+        "B. 다음 Python 코드에서 발생하는 ValueError의 원인을 설명하고 수정 방법을 제시해줘",
+        "C. 코드 설명해줘",
+        "D. 빠르게 답해줘"
+      ],
+      "answer": "B",
+      "hint": "구체적인 언어, 오류 종류, 원하는 출력 형식을 포함한 좋은 프롬프트예요.",
+      "feedback": {
+        "correct": "맞아요! 언어(Python), 오류 종류(ValueError), 요청 내용(원인 설명 + 수정 방법)이 구체적이에요.",
+        "wrong": "구체적인 언어, 오류 종류, 원하는 출력 형식을 포함한 좋은 프롬프트예요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_6_016",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "다음 system 프롬프트에서 개선이 필요한 부분은?**\n\n```\n'당신은 AI예요.'\n```",
+      "choices": [
+        "A. 역할이 너무 구체적이다",
+        "B. 말투 지정이 없다",
+        "C. content가 없다",
+        "D. 역할이 너무 모호하고 행동 지침이 없다"
+      ],
+      "answer": "D",
+      "hint": "좋은 system 프롬프트: 역할 + 말투 + 형식 + 제약 + 예시를 포함해요.",
+      "feedback": {
+        "correct": "맞아요! '당신은 AI예요'는 너무 모호해요. 도메인, 말투, 형식, 제약을 명시해야 해요.",
+        "wrong": "좋은 system 프롬프트: 역할 + 말투 + 형식 + 제약 + 예시를 포함해요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_6_018",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "Chain-of-Thought 프롬프팅이란?",
+      "choices": [
+        "A. API를 여러 번 호출하는 방법",
+        "B. AI에게 단계별로 생각하도록 유도하는 방법",
+        "C. 여러 AI를 연결하는 방법",
+        "D. 프롬프트를 자동 생성하는 방법"
+      ],
+      "answer": "B",
+      "hint": "'Let's think step by step' 같은 지시가 Chain-of-Thought 프롬프팅이에요.",
+      "feedback": {
+        "correct": "맞아요! '단계별로 생각해줘' 같은 지시로 AI가 논리적으로 추론하게 유도해요.",
+        "wrong": "'Let's think step by step' 같은 지시가 Chain-of-Thought 프롬프팅이에요."
+      },
+      "quiz_set": "B"
+    },
+    {
+      "question_id": "cc_7_6_020",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "is_boss": false,
+      "question": "에이몬에서 오답 피드백 시 Claude API에 전달되는 정보로 올바른 것은?",
+      "choices": [
+        "A. API 키만",
+        "B. 문제 텍스트만",
+        "C. 유저 닉네임만",
+        "D. system 프롬프트(레벨) + 문제 + 유저 답 + 정답"
+      ],
+      "answer": "D",
+      "hint": "맥락이 풍부할수록 AI가 더 정확한 피드백을 줄 수 있어요.",
+      "feedback": {
+        "correct": "훌륭해요! 레벨별 system 프롬프트와 함께 문제, 유저 답, 정답을 모두 전달해야 맥락에 맞는 피드백을 받아요.",
+        "wrong": "맥락이 풍부할수록 AI가 더 정확한 피드백을 줄 수 있어요."
+      },
+      "quiz_set": "B"
+    }
+  ]
+}

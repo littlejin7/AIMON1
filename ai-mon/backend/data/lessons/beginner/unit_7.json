@@ -1,0 +1,513 @@
+[
+  {
+    "lesson_id": "7-1-beginner",
+    "unit": 7,
+    "stage": "7-1",
+    "course_level": "beginner",
+    "title": "파일 읽기/쓰기",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "`open(파일명, 모드)`로 파일을 열어요.\n모드에 따라 읽기, 쓰기, 추가 등 다른 작업을 할 수 있어요.\n\n| 모드 | 의미 |\n|------|------|\n| `'r'` | 읽기 (기본값) |\n| `'w'` | 쓰기 (파일 덮어쓰기) |\n| `'a'` | 추가 (기존 내용 유지하고 뒤에 추가) |",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "f = open('data.txt', 'w')",
+            "f.write('Hello, Python!')",
+            "f.close()",
+            "",
+            "f = open('data.txt', 'r')",
+            "print(f.read())",
+            "f.close()"
+          ],
+          "output": [
+            "Hello, Python!"
+          ]
+        },
+        "tip": "파일을 열면 반드시 `close()`로 닫아야 해요. 닫지 않으면 데이터가 저장되지 않을 수 있어요."
+      },
+      {
+        "order": 2,
+        "text": "`with open() as f:` 형태를 사용하면 블록이 끝날 때 자동으로 파일이 닫혀요.\n`close()`를 직접 호출할 필요가 없어서 더 안전해요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "with open('research.txt', 'w') as f:",
+            "    f.write('데이터 분석 결과\\n')",
+            "    f.write('샘플 수: 100\\n')",
+            "",
+            "with open('research.txt', 'r') as f:",
+            "    content = f.read()",
+            "    print(content)"
+          ],
+          "output": [
+            "데이터 분석 결과",
+            "샘플 수: 100"
+          ]
+        },
+        "tip": "실무에서는 `with`문을 항상 사용해요. `close()`를 잊어버리는 실수를 방지할 수 있어요."
+      },
+      {
+        "order": 3,
+        "text": "`readlines()`는 파일 전체를 줄 단위 리스트로 반환해요.\nfor문으로 파일을 순회하면 줄 단위로 읽을 수 있어요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "with open('scores.txt', 'w') as f:",
+            "    f.write('Alice 95\\nBob 87\\nCarol 92\\n')",
+            "",
+            "with open('scores.txt', 'r') as f:",
+            "    lines = f.readlines()",
+            "    for line in lines:",
+            "        print(line.strip())"
+          ],
+          "output": [
+            "Alice 95",
+            "Bob 87",
+            "Carol 92"
+          ]
+        },
+        "tip": "`readlines()`로 읽으면 각 줄 끝에 `\\n`이 포함돼요. `.strip()`으로 제거할 수 있어요."
+      },
+      {
+        "order": 4,
+        "text": "`'a'` 모드는 기존 파일 내용을 유지하고 뒤에 추가해요.\n한글 파일을 다룰 때는 `encoding='utf-8'`을 지정하는 게 안전해요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "with open('log.txt', 'w', encoding='utf-8') as f:",
+            "    f.write('1번 실험: 성공\\n')",
+            "",
+            "with open('log.txt', 'a', encoding='utf-8') as f:",
+            "    f.write('2번 실험: 실패\\n')",
+            "",
+            "with open('log.txt', 'r', encoding='utf-8') as f:",
+            "    print(f.read())"
+          ],
+          "output": [
+            "1번 실험: 성공",
+            "2번 실험: 실패"
+          ]
+        },
+        "tip": "`'w'` 모드는 파일 전체를 덮어써요. 기존 내용을 유지하려면 반드시 `'a'` 모드를 사용해요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "7-2-beginner",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "beginner",
+    "title": "JSON 기초",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "JSON(JavaScript Object Notation)은 데이터를 저장하고 전달하는 표준 형식이에요.\nPython 딕셔너리와 생김새가 비슷하지만 문자열 형태예요.\nAPI 응답, 설정 파일 등에서 매우 많이 사용해요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "import json",
+            "",
+            "# JSON은 문자열이에요",
+            "json_str = '{\"name\": \"Alice\", \"score\": 95}'",
+            "print(type(json_str))",
+            "",
+            "# Python 딕셔너리는 객체예요",
+            "py_dict = {\"name\": \"Alice\", \"score\": 95}",
+            "print(type(py_dict))"
+          ],
+          "output": [
+            "<class 'str'>",
+            "<class 'dict'>"
+          ]
+        },
+        "tip": "JSON은 항상 큰따옴표(`\"`)를 사용해요. Python 딕셔너리는 작은따옴표도 가능하지만 JSON은 큰따옴표만 허용해요."
+      },
+      {
+        "order": 2,
+        "text": "`json.loads(문자열)`은 JSON 문자열을 Python 딕셔너리/리스트로 변환해요.\nAPI에서 받은 JSON 응답을 Python에서 사용할 수 있게 해줘요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "import json",
+            "",
+            "json_str = '{\"researcher\": \"Kim\", \"samples\": 50, \"success\": true}'",
+            "data = json.loads(json_str)",
+            "",
+            "print(type(data))",
+            "print(data['researcher'])",
+            "print(data['samples'])"
+          ],
+          "output": [
+            "<class 'dict'>",
+            "Kim",
+            "50"
+          ]
+        },
+        "tip": "`loads`의 s는 string(문자열)이에요. 문자열을 Python 객체로 변환해요."
+      },
+      {
+        "order": 3,
+        "text": "`json.dumps(딕셔너리)`는 Python 딕셔너리를 JSON 문자열로 변환해요.\nAPI에 데이터를 보내거나 파일에 저장할 때 사용해요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "import json",
+            "",
+            "data = {",
+            "    \"experiment\": \"A-01\",",
+            "    \"results\": [85, 92, 78],",
+            "    \"passed\": True",
+            "}",
+            "",
+            "json_str = json.dumps(data, indent=2)",
+            "print(json_str)",
+            "print(type(json_str))"
+          ],
+          "output": [
+            "{",
+            "  \"experiment\": \"A-01\",",
+            "  \"results\": [85, 92, 78],",
+            "  \"passed\": true",
+            "}",
+            "<class 'str'>"
+          ]
+        },
+        "tip": "`indent=2`로 들여쓰기를 지정하면 읽기 좋게 출력돼요. Python의 `True`는 JSON에서 `true`로 변환돼요."
+      },
+      {
+        "order": 4,
+        "text": "`json.dump()`와 `json.load()`로 JSON 파일을 직접 읽고 쓸 수 있어요.\n`dumps/loads`는 문자열 변환, `dump/load`는 파일 입출력이에요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "import json",
+            "",
+            "data = {\"model\": \"GPT\", \"version\": 4, \"available\": True}",
+            "",
+            "# 파일에 저장",
+            "with open('config.json', 'w') as f:",
+            "    json.dump(data, f, indent=2)",
+            "",
+            "# 파일에서 읽기",
+            "with open('config.json', 'r') as f:",
+            "    loaded = json.load(f)",
+            "",
+            "print(loaded['model'])",
+            "print(loaded['version'])"
+          ],
+          "output": [
+            "GPT",
+            "4"
+          ]
+        },
+        "tip": "`dump`/`load`는 파일 객체를 인수로 받아요. `dumps`/`loads`는 문자열을 인수로 받아요. 's'가 있으면 문자열이에요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "7-3-beginner",
+    "unit": 7,
+    "stage": "7-3",
+    "course_level": "beginner",
+    "title": "HTTP & API 개념",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "API(Application Programming Interface)는 서비스와 서비스가 대화하는 창구예요.\n날씨 앱이 기상청 서버에서 데이터를 가져오거나, 지도 앱이 카카오 API를 쓰는 것처럼요.\n우리가 코드로 외부 서비스를 사용할 수 있게 해주는 약속된 방법이에요.",
+        "tip": "API는 식당의 메뉴판 같아요. 메뉴(기능 목록)를 보고 주문(요청)하면 음식(데이터)을 받아요."
+      },
+      {
+        "order": 2,
+        "text": "HTTP는 웹에서 데이터를 주고받는 규칙이에요.\n용도에 따라 다른 메서드(방식)를 사용해요.\n\n| 메서드 | 용도 | 예시 |\n|--------|------|------|\n| `GET` | 데이터 조회 | 날씨 데이터 가져오기 |\n| `POST` | 데이터 생성/전송 | 로그인, 글 작성 |\n| `PUT` | 데이터 수정 | 프로필 업데이트 |\n| `DELETE` | 데이터 삭제 | 게시글 삭제 |",
+        "tip": "입문 단계에서는 `GET`과 `POST`만 알아도 대부분의 API를 사용할 수 있어요."
+      },
+      {
+        "order": 3,
+        "text": "서버는 응답과 함께 숫자 코드를 보내줘요.\n이 코드로 요청이 성공했는지 실패했는지 알 수 있어요.\n\n| 코드 | 의미 |\n|------|------|\n| `200` | 성공 (OK) |\n| `201` | 생성 성공 (Created) |\n| `400` | 잘못된 요청 (Bad Request) |\n| `401` | 인증 필요 (Unauthorized) |\n| `404` | 찾을 수 없음 (Not Found) |\n| `500` | 서버 오류 (Internal Server Error) |",
+        "tip": "2xx는 성공, 4xx는 클라이언트 오류, 5xx는 서버 오류예요. 200과 404는 꼭 기억해두세요."
+      },
+      {
+        "order": 4,
+        "text": "HTTP 요청에는 URL, 헤더, 바디가 포함돼요.\n응답에는 상태 코드, 헤더, 바디(실제 데이터)가 포함돼요.",
+        "tip": "헤더(Header)는 요청/응답의 부가 정보예요. API 키 인증, 데이터 형식 등을 헤더에 담아요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "7-4-beginner",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "beginner",
+    "title": "requests로 API 호출",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "`requests.get(url)`로 서버에 GET 요청을 보낼 수 있어요.\n응답 객체에서 상태 코드와 데이터를 꺼낼 수 있어요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "import requests",
+            "",
+            "response = requests.get('https://httpbin.org/get')",
+            "",
+            "print(response.status_code)   # 상태 코드",
+            "print(type(response.json()))  # 응답 데이터 타입"
+          ],
+          "output": [
+            "200",
+            "<class 'dict'>"
+          ]
+        },
+        "tip": "`httpbin.org`는 테스트용 API 서버예요. 실제 요청/응답을 연습할 때 사용해요."
+      },
+      {
+        "order": 2,
+        "text": "GET 요청에 `params`로 쿼리 파라미터를 전달할 수 있어요.\nURL에 직접 붙이는 것과 동일하지만 코드가 더 깔끔해요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "import requests",
+            "",
+            "params = {",
+            "    'city': 'Seoul',",
+            "    'units': 'metric'",
+            "}",
+            "",
+            "response = requests.get('https://api.example.com/weather', params=params)",
+            "",
+            "# 실제 요청 URL 확인",
+            "print(response.url)",
+            "# https://api.example.com/weather?city=Seoul&units=metric"
+          ],
+          "output": []
+        },
+        "tip": "`params` 딕셔너리를 전달하면 requests가 자동으로 URL 쿼리 문자열로 변환해줘요."
+      },
+      {
+        "order": 3,
+        "text": "`response.json()`으로 JSON 응답을 딕셔너리로 변환해요.\n필요한 데이터를 딕셔너리 키로 꺼낼 수 있어요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "import requests",
+            "",
+            "response = requests.get('https://httpbin.org/json')",
+            "data = response.json()",
+            "",
+            "# 중첩 딕셔너리 접근",
+            "print(data['slideshow']['title'])",
+            "print(data['slideshow']['author'])"
+          ],
+          "output": [
+            "Sample Slide Show",
+            "Yours Truly"
+          ]
+        },
+        "tip": "API 응답이 중첩 딕셔너리인 경우가 많아요. `data['key1']['key2']` 형태로 접근해요."
+      },
+      {
+        "order": 4,
+        "text": "API 호출은 네트워크 오류, 서버 오류 등이 발생할 수 있어요.\n`try/except`와 상태 코드 확인을 함께 사용하는 게 좋아요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "import requests",
+            "",
+            "def get_data(url):",
+            "    try:",
+            "        response = requests.get(url, timeout=5)",
+            "        if response.status_code == 200:",
+            "            return response.json()",
+            "        else:",
+            "            print(f'오류 코드: {response.status_code}')",
+            "            return None",
+            "    except requests.exceptions.Timeout:",
+            "        print('요청 시간 초과')",
+            "        return None",
+            "    except requests.exceptions.ConnectionError:",
+            "        print('연결 오류')",
+            "        return None"
+          ],
+          "output": []
+        },
+        "tip": "실제 프로젝트에서는 이 패턴을 거의 항상 사용해요. timeout을 설정하지 않으면 응답을 무한정 기다릴 수 있어요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "7-5-beginner",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "beginner",
+    "title": "API 키 & 인증",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "API 키는 서비스가 누가 요청하는지 확인하는 고유한 비밀번호예요.\n무단 사용을 막고 사용량을 추적하기 위해 사용해요.\nAPI 키는 절대 코드에 직접 넣거나 GitHub에 올리면 안 돼요.",
+        "terminal": {
+          "code": [
+            "# ❌ 절대 이렇게 하면 안 돼요",
+            "API_KEY = 'sk-abc123xyz456...'   # 코드에 직접 작성 금지!",
+            "",
+            "# ✅ 환경변수에서 불러와야 해요",
+            "import os",
+            "API_KEY = os.environ.get('API_KEY')"
+          ],
+          "output": []
+        },
+        "tip": "API 키가 GitHub에 노출되면 다른 사람이 내 계정으로 API를 무제한으로 사용할 수 있어요. 큰 요금이 청구될 수 있어요!"
+      },
+      {
+        "order": 2,
+        "text": "대부분의 API는 요청 헤더에 API 키를 담아 인증해요.\n`headers` 딕셔너리를 requests에 전달해요.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "import requests",
+            "import os",
+            "",
+            "API_KEY = os.environ.get('MY_API_KEY')",
+            "",
+            "headers = {",
+            "    'Authorization': f'Bearer {API_KEY}',",
+            "    'Content-Type': 'application/json'",
+            "}",
+            "",
+            "response = requests.get(",
+            "    'https://api.example.com/data',",
+            "    headers=headers",
+            ")",
+            "print(response.status_code)"
+          ],
+          "output": []
+        },
+        "tip": "`Bearer 토큰값` 형태가 가장 일반적인 인증 방식이에요. API 문서에서 어떤 방식을 사용하는지 확인해요."
+      },
+      {
+        "order": 3,
+        "text": "`.env` 파일에 API 키를 저장하고 `.gitignore`에 추가해요.\n`python-dotenv` 라이브러리로 `.env` 파일을 불러올 수 있어요.",
+        "terminal": {
+          "code": [
+            "# .env 파일 내용 (절대 GitHub에 올리지 않음)",
+            "# MY_API_KEY=sk-abc123xyz456",
+            "# DB_PASSWORD=mypassword123",
+            "",
+            "# 코드에서 불러오기",
+            "from dotenv import load_dotenv",
+            "import os",
+            "",
+            "load_dotenv()   # .env 파일 로드",
+            "API_KEY = os.environ.get('MY_API_KEY')",
+            "print(API_KEY is not None)   # True"
+          ],
+          "output": []
+        },
+        "tip": "`.gitignore`에 `.env`를 추가하면 Git이 해당 파일을 추적하지 않아요. 팀원들도 각자의 `.env`를 만들어요."
+      },
+      {
+        "order": 4,
+        "text": "API 키를 안전하게 관리하는 습관은 개발자의 기본 소양이에요.\n\n| 항목 | 올바른 방법 |\n|------|-------------|\n| 저장 위치 | `.env` 파일 또는 환경변수 |\n| GitHub | `.gitignore`에 `.env` 추가 필수 |\n| 코드 내 직접 작성 | ❌ 절대 금지 |\n| 팀원 공유 | 별도 채널(Slack DM 등)로 전달 |\n| 키 노출 시 | 즉시 재발급(rotate) |",
+        "terminal": {
+          "code": [
+            "# ✅ 올바른 패턴",
+            "import os",
+            "from dotenv import load_dotenv",
+            "",
+            "load_dotenv()",
+            "API_KEY = os.environ.get('CLAUDE_API_KEY')",
+            "",
+            "if not API_KEY:",
+            "    raise ValueError('API 키가 설정되지 않았어요')"
+          ],
+          "output": []
+        },
+        "tip": "에이몬 프로젝트에서도 Claude API 키를 `.env`로 관리해요. 이 패턴을 꼭 기억해두세요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "7-6-beginner",
+    "unit": 7,
+    "stage": "7-6",
+    "course_level": "beginner",
+    "title": "프롬프트 엔지니어링 기초",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "프롬프트(Prompt)는 AI에게 보내는 지시문이에요.\n같은 AI라도 프롬프트를 어떻게 쓰느냐에 따라 결과가 크게 달라져요.\nClaude, GPT 같은 AI는 메시지를 `system`과 `user` 역할로 구분해요.\n\n| 역할 | 의미 |\n|------|------|\n| `system` | AI의 성격·역할·제약을 설정 |\n| `user` | 실제 질문이나 요청 |",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "messages = [",
+            "    {\"role\": \"system\", \"content\": \"당신은 친절한 Python 튜터예요.\"},",
+            "    {\"role\": \"user\",   \"content\": \"리스트란 무엇인가요?\"}",
+            "]"
+          ],
+          "output": []
+        },
+        "tip": "`system` 메시지는 AI의 '기본 성격'을 설정해요. 잘 작성된 system 프롬프트가 좋은 AI 서비스의 핵심이에요."
+      },
+      {
+        "order": 2,
+        "text": "구체적이고 맥락이 풍부한 프롬프트일수록 더 좋은 답변을 얻어요.\n\n| 나쁜 프롬프트 | 좋은 프롬프트 |\n|--------------|--------------|\n| \"코드 짜줘\" | \"Python으로 리스트에서 중복을 제거하는 함수를 작성해줘\" |\n| \"설명해줘\" | \"초등학생도 이해할 수 있게 for문을 비유로 설명해줘\" |\n| \"고쳐줘\" | \"다음 코드에서 IndexError가 발생하는 이유와 수정 방법을 알려줘\" |",
+        "tip": "좋은 프롬프트에는 **대상**, **목적**, **형식**, **제약**이 포함돼요."
+      },
+      {
+        "order": 3,
+        "text": "AI에게 특정 역할을 부여하면 그 역할에 맞는 답변을 해요.\nsystem 메시지에서 역할을 설정하는 것이 가장 효과적이에요.",
+        "terminal": {
+          "code": [
+            "# 코드 (예시)",
+            "messages = [",
+            "    {",
+            "        \"role\": \"system\",",
+            "        \"content\": (",
+            "            \"당신은 10년 경력의 데이터 과학자예요. \"",
+            "            \"답변은 항상 코드 예시를 포함하고, \"",
+            "            \"초보자도 이해할 수 있게 설명해요.\"",
+            "        )",
+            "    },",
+            "    {",
+            "        \"role\": \"user\",",
+            "        \"content\": \"판다스로 결측값을 처리하는 방법을 알려줘\"",
+            "    }",
+            "]"
+          ],
+          "output": []
+        },
+        "tip": "역할 + 말투 + 형식을 함께 설정하면 일관된 품질의 답변을 얻을 수 있어요."
+      },
+      {
+        "order": 4,
+        "text": "에이몬에서 오답 시 Claude가 레벨에 맞게 설명하는 것도 프롬프트 엔지니어링이에요.\n레벨에 따라 system 메시지를 다르게 설정해요.",
+        "terminal": {
+          "code": [
+            "# 코드 (에이몬 실제 패턴)",
+            "def get_system_prompt(level):",
+            "    if level == 'beginner':",
+            "        return (",
+            "            \"당신은 친절한 Python 선생님이에요. \"",
+            "            \"비유와 일상 예시로 설명하고, \"",
+            "            \"왜 틀렸는지 쉽게 알려주세요.\"",
+            "        )",
+            "    elif level == 'intermediate':",
+            "        return (",
+            "            \"당신은 Python 멘토예요. \"",
+            "            \"개념 설명과 코드 예시를 포함하고, \"",
+            "            \"오류 원인을 분석해주세요.\"",
+            "        )"
+          ],
+          "output": []
+        },
+        "tip": "에이몬이 오답 피드백을 잘 주는 것도 프롬프트 엔지니어링 덕분이에요. 좋은 프롬프트 = 좋은 AI 서비스예요."
+      }
+    ]
+  }
+]

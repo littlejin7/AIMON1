@@ -1,0 +1,1444 @@
+{
+  "questions": [
+    {
+      "question_id": "miniboss_7_1_mc_001",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "파일 쓰기 모드는?",
+      "choices": [
+        "A. 'w'",
+        "B. 'r'",
+        "C. 'a'",
+        "D. 'x'"
+      ],
+      "answer": "A",
+      "hint": "'r'=읽기, 'w'=쓰기, 'a'=추가예요.",
+      "feedback": {
+        "correct": "맞아요! 'w'는 쓰기 모드예요.",
+        "wrong": "'r'=읽기, 'w'=쓰기, 'a'=추가예요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_1_mc_002",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "with문의 장점은?",
+      "choices": [
+        "A. 파일을 빠르게 읽는다",
+        "B. 블록 끝에 자동으로 파일을 닫는다",
+        "C. 파일 크기를 줄인다",
+        "D. 오류를 수정한다"
+      ],
+      "answer": "B",
+      "hint": "with문은 블록이 끝나면 자동으로 close()를 호출해요.",
+      "feedback": {
+        "correct": "맞아요! with문은 close()를 자동으로 호출해요.",
+        "wrong": "with문은 블록이 끝나면 자동으로 close()를 호출해요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_1_mc_003",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "기존 내용 유지하고 추가하는 모드는?",
+      "choices": [
+        "A. 'r'",
+        "B. 'w'",
+        "C. 'a'",
+        "D. 'rb'"
+      ],
+      "answer": "C",
+      "hint": "'w'는 덮어쓰기, 'a'는 추가예요.",
+      "feedback": {
+        "correct": "맞아요! 'a' (append) 모드는 기존 내용 뒤에 추가해요.",
+        "wrong": "'w'는 덮어쓰기, 'a'는 추가예요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_1_mc_004",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드에서 최종 파일 내용은?**\n\n```python\nwith open('f.txt', 'w') as f:\n    f.write('A')\nwith open('f.txt', 'w') as f:\n    f.write('B')\n```",
+      "choices": [
+        "A. B",
+        "B. A",
+        "C. AB",
+        "D. 오류"
+      ],
+      "answer": "A",
+      "hint": "'w' 모드는 파일을 덮어써요.",
+      "feedback": {
+        "correct": "맞아요! 두 번째 'w' 모드가 덮어써요. 최종 내용은 'B'예요.",
+        "wrong": "'w' 모드는 파일을 덮어써요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_1_mc_005",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "`readlines()`의 반환 타입은?",
+      "choices": [
+        "A. 문자열",
+        "B. 리스트",
+        "C. 딕셔너리",
+        "D. 튜플"
+      ],
+      "answer": "B",
+      "hint": "readlines()는 ['줄1\\n', '줄2\\n'] 형태의 리스트를 반환해요.",
+      "feedback": {
+        "correct": "맞아요! readlines()는 각 줄을 요소로 하는 리스트를 반환해요.",
+        "wrong": "readlines()는 ['줄1\\n', '줄2\\n'] 형태의 리스트를 반환해요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_1_os_006",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.**\n\n```python\nwith open('t.txt', 'w') as f:\n    f.write('hello')\nwith open('t.txt', 'r') as f:\n    print(f.read())\n```",
+      "choices": [
+        "A. hello\\n",
+        "B. ''",
+        "C. hello",
+        "D. 오류"
+      ],
+      "answer": "C",
+      "hint": "write()는 \\n을 자동 추가하지 않아요.",
+      "feedback": {
+        "correct": "맞아요! write('hello')는 줄바꿈 없이 저장해요. read()는 'hello'를 반환해요.",
+        "wrong": "write()는 \\n을 자동 추가하지 않아요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_1_os_007",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.**\n\n```python\nwith open('t.txt', 'w') as f:\n    f.write('A\\nB\\nC\\n')\nwith open('t.txt', 'r') as f:\n    print(len(f.readlines()))\n```",
+      "choices": [
+        "A. 3",
+        "B. 2",
+        "C. 1",
+        "D. 4"
+      ],
+      "answer": "A",
+      "hint": "'A\\nB\\nC\\n'은 3줄이에요.",
+      "feedback": {
+        "correct": "맞아요! A, B, C 세 줄이 저장되므로 readlines()의 길이는 3이에요.",
+        "wrong": "'A\\nB\\nC\\n'은 3줄이에요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_1_os_008",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.**\n\n```python\nwith open('n.txt', 'w') as f:\n    f.write('10\\n20\\n30\\n')\nwith open('n.txt', 'r') as f:\n    nums = [int(l.strip()) for l in f]\nprint(max(nums))\n```",
+      "choices": [
+        "A. 10",
+        "B. 20",
+        "C. 60",
+        "D. 30"
+      ],
+      "answer": "D",
+      "hint": "각 줄을 int로 변환하면 [10,20,30]. max=30이에요.",
+      "feedback": {
+        "correct": "맞아요! [10,20,30] 중 max=30이에요.",
+        "wrong": "각 줄을 int로 변환하면 [10,20,30]. max=30이에요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_1_os_009",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.**\n\n```python\nwith open('f.txt', 'w') as f:\n    f.write('first\\n')\nwith open('f.txt', 'a') as f:\n    f.write('second\\n')\nwith open('f.txt', 'r') as f:\n    lines = f.readlines()\nprint(lines[1].strip())\n```",
+      "choices": [
+        "A. first",
+        "B. second",
+        "C. second\\n",
+        "D. 오류"
+      ],
+      "answer": "B",
+      "hint": "'a' 모드로 추가 후 두 번째 줄은 'second'예요.",
+      "feedback": {
+        "correct": "맞아요! 'a' 모드로 추가 후 lines[1]='second\\n', strip()→'second'예요.",
+        "wrong": "'a' 모드로 추가 후 두 번째 줄은 'second'예요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_1_os_010",
+      "unit": 7,
+      "stage": "7-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.**\n\n```python\ndata = ['x\\n', 'y\\n', 'z\\n']\nwith open('f.txt', 'w') as f:\n    f.writelines(data)\nwith open('f.txt', 'r') as f:\n    content = f.read()\nprint(content.count('\\n'))\n```",
+      "choices": [
+        "A. 1",
+        "B. 2",
+        "C. 0",
+        "D. 3"
+      ],
+      "answer": "D",
+      "hint": "x\\n, y\\n, z\\n 세 줄이므로 '\\n' 개수=3이에요.",
+      "feedback": {
+        "correct": "훌륭해요! writelines로 3줄 저장, '\\n'은 3개예요.",
+        "wrong": "x\\n, y\\n, z\\n 세 줄이므로 '\\n' 개수=3이에요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_2_mc_001",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "JSON에서 사용하는 따옴표는?",
+      "choices": [
+        "A. 큰따옴표",
+        "B. 작은따옴표",
+        "C. 둘 다 가능",
+        "D. 따옴표 없음"
+      ],
+      "answer": "A",
+      "hint": "JSON 표준은 반드시 큰따옴표를 사용해요.",
+      "feedback": {
+        "correct": "맞아요! JSON은 큰따옴표만 사용해요.",
+        "wrong": "JSON 표준은 반드시 큰따옴표를 사용해요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_2_mc_002",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "`json.loads()`의 역할은?",
+      "choices": [
+        "A. dict→JSON",
+        "B. JSON 문자열→Python 객체",
+        "C. 파일에서 JSON 읽기",
+        "D. JSON 파일 저장"
+      ],
+      "answer": "B",
+      "hint": "loads=문자열→Python 객체예요.",
+      "feedback": {
+        "correct": "맞아요! loads는 JSON 문자열을 Python 객체로 변환해요.",
+        "wrong": "loads=문자열→Python 객체예요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_2_mc_003",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "Python `True`는 JSON에서?",
+      "choices": [
+        "A. True",
+        "B. TRUE",
+        "C. true",
+        "D. 'true'"
+      ],
+      "answer": "C",
+      "hint": "Python True/False/None → JSON true/false/null이에요.",
+      "feedback": {
+        "correct": "맞아요! Python True → JSON true로 변환돼요.",
+        "wrong": "Python True/False/None → JSON true/false/null이에요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_2_mc_004",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 결과 타입은?**\n\n```python\nimport json\nresult = json.dumps({'a': 1})\n```",
+      "choices": [
+        "A. str",
+        "B. list",
+        "C. dict",
+        "D. int"
+      ],
+      "answer": "A",
+      "hint": "dumps()의 반환값은 항상 str이에요.",
+      "feedback": {
+        "correct": "맞아요! json.dumps()는 항상 문자열(str)을 반환해요.",
+        "wrong": "dumps()의 반환값은 항상 str이에요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_2_mc_005",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "`json.dump()`와 `json.dumps()`의 차이는?",
+      "choices": [
+        "A. dump=빠름, dumps=느림",
+        "B. dump=파일저장, dumps=문자열변환",
+        "C. dump=리스트, dumps=딕셔너리",
+        "D. 둘 다 동일"
+      ],
+      "answer": "B",
+      "hint": "'s'가 string이에요.",
+      "feedback": {
+        "correct": "맞아요! dump는 파일에, dumps는 문자열로 변환이에요.",
+        "wrong": "'s'가 string이에요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_2_os_006",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.**\n\n```python\nimport json\ndata = json.loads('{\"score\": 95}')\nprint(data['score'])\n```",
+      "choices": [
+        "A. '95'",
+        "B. score",
+        "C. 95",
+        "D. 오류"
+      ],
+      "answer": "C",
+      "hint": "JSON 숫자는 Python 정수로 변환돼요.",
+      "feedback": {
+        "correct": "맞아요! json.loads()로 파싱 후 dict로 접근해요. score=95(정수)예요.",
+        "wrong": "JSON 숫자는 Python 정수로 변환돼요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_2_os_007",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.**\n\n```python\nimport json\ndata = {'flag': True, 'val': None}\nprint(json.dumps(data))\n```",
+      "choices": [
+        "A. {\"flag\": true, \"val\": null}",
+        "B. {\"flag\": True, \"val\": None}",
+        "C. {\"flag\": false, \"val\": null}",
+        "D. 오류"
+      ],
+      "answer": "A",
+      "hint": "json.dumps()는 Python 타입을 JSON 규칙으로 변환해요.",
+      "feedback": {
+        "correct": "맞아요! True→true, None→null, 키는 큰따옴표로 변환돼요.",
+        "wrong": "json.dumps()는 Python 타입을 JSON 규칙으로 변환해요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_2_os_008",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.**\n\n```python\nimport json\nrecords = '[{\"name\": \"Kim\", \"val\": 90}, {\"name\": \"Lee\", \"val\": 80}]'\ndata = json.loads(records)\nprint(data[0]['name'])\n```",
+      "choices": [
+        "A. Lee",
+        "B. 오류",
+        "C. 90",
+        "D. Kim"
+      ],
+      "answer": "D",
+      "hint": "JSON 배열은 Python 리스트로 변환돼요.",
+      "feedback": {
+        "correct": "맞아요! JSON 배열→리스트. [0]은 첫 번째 항목, ['name']='Kim'이에요.",
+        "wrong": "JSON 배열은 Python 리스트로 변환돼요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_2_os_009",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.**\n\n```python\nimport json\ndata = {'a': 1, 'b': [2, 3]}\njson_str = json.dumps(data)\nloaded = json.loads(json_str)\nprint(loaded['b'][1])\n```",
+      "choices": [
+        "A. 2",
+        "B. 3",
+        "C. [2,3]",
+        "D. 오류"
+      ],
+      "answer": "B",
+      "hint": "json.dumps/loads 후에도 중첩 구조가 유지돼요.",
+      "feedback": {
+        "correct": "맞아요! dumps→loads 후 원본 복원. b=[2,3], [1]=3이에요.",
+        "wrong": "json.dumps/loads 후에도 중첩 구조가 유지돼요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_2_os_010",
+      "unit": 7,
+      "stage": "7-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.**\n\n```python\nimport json\nraw = \"{'a': 1}\"\ntry:\n    json.loads(raw)\n    print('성공')\nexcept json.JSONDecodeError:\n    print('실패')\n```",
+      "choices": [
+        "A. 성공",
+        "B. {'a':1}",
+        "C. 1",
+        "D. 실패"
+      ],
+      "answer": "D",
+      "hint": "JSON은 큰따옴표만 허용해요. 작은따옴표 사용 시 JSONDecodeError예요.",
+      "feedback": {
+        "correct": "훌륭해요! 작은따옴표는 유효한 JSON이 아니에요. JSONDecodeError가 발생해요.",
+        "wrong": "JSON은 큰따옴표만 허용해요. 작은따옴표 사용 시 JSONDecodeError예요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_3_mc_001",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "데이터 조회에 사용하는 HTTP 메서드는?",
+      "choices": [
+        "A. GET",
+        "B. POST",
+        "C. DELETE",
+        "D. PUT"
+      ],
+      "answer": "A",
+      "hint": "GET=조회, POST=생성, PUT=수정, DELETE=삭제예요.",
+      "feedback": {
+        "correct": "맞아요! GET은 데이터를 조회(읽기)할 때 사용해요.",
+        "wrong": "GET=조회, POST=생성, PUT=수정, DELETE=삭제예요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_3_mc_002",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "HTTP 상태코드 200의 의미는?",
+      "choices": [
+        "A. 서버 오류",
+        "B. 요청 성공",
+        "C. 찾을 수 없음",
+        "D. 인증 필요"
+      ],
+      "answer": "B",
+      "hint": "2xx=성공, 4xx=클라이언트오류, 5xx=서버오류예요.",
+      "feedback": {
+        "correct": "맞아요! 200은 요청 성공이에요.",
+        "wrong": "2xx=성공, 4xx=클라이언트오류, 5xx=서버오류예요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_3_mc_003",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "HTTP 상태코드 404의 의미는?",
+      "choices": [
+        "A. 요청 성공",
+        "B. 서버 오류",
+        "C. 찾을 수 없음",
+        "D. 인증 필요"
+      ],
+      "answer": "C",
+      "hint": "잘못된 URL 또는 삭제된 리소스에 접근 시 404가 반환돼요.",
+      "feedback": {
+        "correct": "맞아요! 404 Not Found는 리소스를 찾을 수 없다는 의미예요.",
+        "wrong": "잘못된 URL 또는 삭제된 리소스에 접근 시 404가 반환돼요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_3_mc_004",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "API 응답에서 가장 먼저 확인해야 할 것은?",
+      "choices": [
+        "A. 상태코드",
+        "B. URL",
+        "C. Body 데이터",
+        "D. 헤더"
+      ],
+      "answer": "A",
+      "hint": "status_code를 먼저 확인 후 데이터를 처리해요.",
+      "feedback": {
+        "correct": "맞아요! 상태코드로 성공/실패를 먼저 확인해요.",
+        "wrong": "status_code를 먼저 확인 후 데이터를 처리해요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_3_mc_005",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "현대 REST API에서 주로 사용하는 데이터 형식은?",
+      "choices": [
+        "A. XML",
+        "B. JSON",
+        "C. HTML",
+        "D. CSV"
+      ],
+      "answer": "B",
+      "hint": "JSON은 가볍고 읽기 쉬워서 API 표준 형식이에요.",
+      "feedback": {
+        "correct": "맞아요! 현대 REST API는 대부분 JSON 형식을 사용해요.",
+        "wrong": "JSON은 가볍고 읽기 쉬워서 API 표준 형식이에요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_3_os_006",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 상태코드 중 성공을 나타내는 것은?",
+      "choices": [
+        "A. 404",
+        "B. 500",
+        "C. 201",
+        "D. 401"
+      ],
+      "answer": "C",
+      "hint": "2xx는 모두 성공이에요. 201은 POST 성공 시 주로 사용해요.",
+      "feedback": {
+        "correct": "맞아요! 201 Created는 새 리소스 생성 성공을 나타내요.",
+        "wrong": "2xx는 모두 성공이에요. 201은 POST 성공 시 주로 사용해요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_3_os_007",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 중 GET 요청에 적합한 상황은?",
+      "choices": [
+        "A. 사용자 정보 조회",
+        "B. 게시글 작성",
+        "C. 사용자 로그인",
+        "D. 파일 삭제"
+      ],
+      "answer": "A",
+      "hint": "GET=조회(읽기 전용)이에요.",
+      "feedback": {
+        "correct": "맞아요! 데이터를 읽기만 하는 조회에 GET을 사용해요.",
+        "wrong": "GET=조회(읽기 전용)이에요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_3_os_008",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 URL에서 쿼리 파라미터로 올바른 것은?**\n\n```\nhttps://api.example.com/search?q=python&page=2\n```",
+      "choices": [
+        "A. https://api.example.com",
+        "B. search",
+        "C. api.example.com",
+        "D. q=python&page=2"
+      ],
+      "answer": "D",
+      "hint": "URL에서 `?` 이후가 쿼리 파라미터예요.",
+      "feedback": {
+        "correct": "맞아요! `?` 이후의 `q=python&page=2`가 쿼리 파라미터예요.",
+        "wrong": "URL에서 `?` 이후가 쿼리 파라미터예요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_3_os_009",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "API 키가 잘못됐을 때 예상 상태코드는?",
+      "choices": [
+        "A. 200",
+        "B. 401",
+        "C. 404",
+        "D. 500"
+      ],
+      "answer": "B",
+      "hint": "401=인증 실패예요.",
+      "feedback": {
+        "correct": "맞아요! 잘못된 API 키는 인증 실패로 401 Unauthorized가 반환돼요.",
+        "wrong": "401=인증 실패예요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_3_os_010",
+      "unit": 7,
+      "stage": "7-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 API 응답의 올바른 해석은?**\n\n```\nStatus: 201\nBody: {\"id\": 5, \"created\": true}\n```",
+      "choices": [
+        "A. 요청 실패",
+        "B. 서버 오류",
+        "C. 인증 필요",
+        "D. 새 리소스가 성공적으로 생성됨"
+      ],
+      "answer": "D",
+      "hint": "201=새 리소스 생성 성공이에요.",
+      "feedback": {
+        "correct": "훌륭해요! 201 Created는 새 리소스 생성 성공이에요.",
+        "wrong": "201=새 리소스 생성 성공이에요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_4_mc_001",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "requests.get()의 반환값은?",
+      "choices": [
+        "A. Response 객체",
+        "B. 딕셔너리",
+        "C. 문자열",
+        "D. 정수"
+      ],
+      "answer": "A",
+      "hint": "Response 객체에서 .status_code, .json() 등을 꺼낼 수 있어요.",
+      "feedback": {
+        "correct": "맞아요! requests.get()은 Response 객체를 반환해요.",
+        "wrong": "Response 객체에서 .status_code, .json() 등을 꺼낼 수 있어요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_4_mc_002",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "response.json()의 결과는?",
+      "choices": [
+        "A. JSON 문자열",
+        "B. Python dict 또는 list",
+        "C. Response 객체",
+        "D. 정수"
+      ],
+      "answer": "B",
+      "hint": "json()은 JSON 파싱까지 자동으로 해줘요.",
+      "feedback": {
+        "correct": "맞아요! response.json()은 JSON을 Python 딕셔너리/리스트로 변환해요.",
+        "wrong": "json()은 JSON 파싱까지 자동으로 해줘요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_4_mc_003",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "GET 파라미터 전달 방법은?",
+      "choices": [
+        "A. requests.get(url, body={})",
+        "B. requests.get(url, header={})",
+        "C. requests.get(url, params={})",
+        "D. requests.get(url + params)"
+      ],
+      "answer": "C",
+      "hint": "params={}를 전달하면 requests가 URL에 자동으로 붙여줘요.",
+      "feedback": {
+        "correct": "맞아요! params 딕셔너리를 전달하면 자동으로 쿼리 문자열로 변환돼요.",
+        "wrong": "params={}를 전달하면 requests가 URL에 자동으로 붙여줘요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_4_mc_004",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "timeout=5 설정의 의미는?",
+      "choices": [
+        "A. 5초 내 응답 없으면 예외 발생",
+        "B. 5번까지 재시도",
+        "C. 5MB 이하 수신",
+        "D. 응답 5초 캐시"
+      ],
+      "answer": "A",
+      "hint": "timeout 없이 응답을 무한정 기다리는 것을 방지해요.",
+      "feedback": {
+        "correct": "맞아요! 5초 내 응답이 없으면 Timeout 예외가 발생해요.",
+        "wrong": "timeout 없이 응답을 무한정 기다리는 것을 방지해요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_4_mc_005",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "status_code가 4xx일 때 의미는?",
+      "choices": [
+        "A. 성공",
+        "B. 클라이언트 오류",
+        "C. 서버 오류",
+        "D. 리다이렉트"
+      ],
+      "answer": "B",
+      "hint": "4xx=클라이언트오류, 5xx=서버오류예요.",
+      "feedback": {
+        "correct": "맞아요! 4xx는 클라이언트(내 코드) 오류예요.",
+        "wrong": "4xx=클라이언트오류, 5xx=서버오류예요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_4_os_006",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.**\n\n```python\nimport requests\nr = requests.get('https://httpbin.org/status/200')\nprint(r.status_code)\n```",
+      "choices": [
+        "A. 404",
+        "B. 201",
+        "C. 200",
+        "D. 500"
+      ],
+      "answer": "C",
+      "hint": "httpbin.org/status/N은 N 상태코드를 반환하는 테스트 API예요.",
+      "feedback": {
+        "correct": "맞아요! /status/200은 200을 반환해요.",
+        "wrong": "httpbin.org/status/N은 N 상태코드를 반환하는 테스트 API예요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_4_os_007",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드에서 실제 요청 URL은?**\n\n```python\nimport requests\nparams = {'q': 'ai', 'n': 5}\nr = requests.get('https://api.com/search', params=params)\nprint(r.url)\n```",
+      "choices": [
+        "A. https://api.com/search?q=ai&n=5",
+        "B. https://api.com/search#q=ai&n=5",
+        "C. https://api.com/search/ai/5",
+        "D. https://api.com/search&q=ai&n=5"
+      ],
+      "answer": "A",
+      "hint": "params는 ?q=ai&n=5 형태로 URL 뒤에 붙어요.",
+      "feedback": {
+        "correct": "맞아요! params 딕셔너리는 ?키=값&키=값 형태로 URL에 붙어요.",
+        "wrong": "params는 ?q=ai&n=5 형태로 URL 뒤에 붙어요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_4_os_008",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.**\n\n```python\nimport requests\n\ndef fetch(url):\n    try:\n        r = requests.get(url, timeout=5)\n        return r.status_code\n    except requests.exceptions.Timeout:\n        return 'timeout'\n\nprint(fetch('https://httpbin.org/status/404'))\n```",
+      "choices": [
+        "A. timeout",
+        "B. 오류 발생",
+        "C. 200",
+        "D. 404"
+      ],
+      "answer": "D",
+      "hint": "404 응답은 예외가 아니에요. status_code=404가 반환돼요.",
+      "feedback": {
+        "correct": "맞아요! timeout이 아닌 정상 응답이므로 status_code=404가 반환돼요.",
+        "wrong": "404 응답은 예외가 아니에요. status_code=404가 반환돼요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_4_os_009",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 중첩 JSON에서 value를 꺼내는 올바른 코드는?**\n\n```python\ndata = {'result': {'items': [{'value': 42}]}}\n```",
+      "choices": [
+        "A. data['value']",
+        "B. data['result']['items'][0]['value']",
+        "C. data['items'][0]",
+        "D. data['result']['value']"
+      ],
+      "answer": "B",
+      "hint": "중첩 딕셔너리/리스트는 단계별로 접근해요.",
+      "feedback": {
+        "correct": "맞아요! result→items→[0]→value 순으로 접근해요.",
+        "wrong": "중첩 딕셔너리/리스트는 단계별로 접근해요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_4_os_010",
+      "unit": 7,
+      "stage": "7-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.**\n\n```python\nimport requests\n\nurls = ['https://httpbin.org/status/200', 'https://httpbin.org/status/404']\nresults = [requests.get(u).status_code for u in urls]\nprint(sum(results))\n```",
+      "choices": [
+        "A. 200",
+        "B. 404",
+        "C. 200",
+        "D. 604"
+      ],
+      "answer": "D",
+      "hint": "status_code는 정수예요. 200+404=604예요.",
+      "feedback": {
+        "correct": "훌륭해요! 200+404=604예요.",
+        "wrong": "status_code는 정수예요. 200+404=604예요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_5_mc_001",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "API 키를 코드에 직접 쓰면 안 되는 이유는?",
+      "choices": [
+        "A. GitHub 노출 시 악용 위험",
+        "B. 코드가 길어짐",
+        "C. API가 느려짐",
+        "D. Python 오류 발생"
+      ],
+      "answer": "A",
+      "hint": "API 키 노출 → 타인 사용 → 과금 및 보안 문제예요.",
+      "feedback": {
+        "correct": "맞아요! 코드에 직접 쓴 키가 GitHub에 올라가면 누구나 볼 수 있어요.",
+        "wrong": "API 키 노출 → 타인 사용 → 과금 및 보안 문제예요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_5_mc_002",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "API 키 안전 관리 방법은?",
+      "choices": [
+        "A. 코드에 직접 저장",
+        "B. .env 파일에 저장 후 .gitignore 추가",
+        "C. README에 기록",
+        "D. 팀 채팅방 공유"
+      ],
+      "answer": "B",
+      "hint": ".env 파일에 저장하고 .gitignore에 추가해요.",
+      "feedback": {
+        "correct": "맞아요! .env + .gitignore가 API 키 관리의 기본이에요.",
+        "wrong": ".env 파일에 저장하고 .gitignore에 추가해요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_5_mc_003",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "API 키 노출 시 가장 먼저 해야 할 일은?",
+      "choices": [
+        "A. 아무것도 안 한다",
+        "B. GitHub 삭제",
+        "C. 키를 즉시 재발급",
+        "D. API 사용 중단"
+      ],
+      "answer": "C",
+      "hint": "노출된 키는 즉시 재발급(rotate)이 필수예요.",
+      "feedback": {
+        "correct": "맞아요! 노출된 키는 즉시 비활성화하고 새 키를 발급받아요.",
+        "wrong": "노출된 키는 즉시 재발급(rotate)이 필수예요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_5_mc_004",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "Bearer 토큰 인증 헤더의 올바른 형태는?",
+      "choices": [
+        "A. {'Authorization': f'Bearer {API_KEY}'}",
+        "B. {'Token': API_KEY}",
+        "C. {'key': API_KEY}",
+        "D. {'Auth': API_KEY}"
+      ],
+      "answer": "A",
+      "hint": "Bearer 인증은 가장 일반적인 API 인증 방식이에요.",
+      "feedback": {
+        "correct": "맞아요! Authorization: Bearer 토큰값이 표준 형식이에요.",
+        "wrong": "Bearer 인증은 가장 일반적인 API 인증 방식이에요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_5_mc_005",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "os.environ.get('KEY')에서 KEY가 없을 때 반환값은?",
+      "choices": [
+        "A. ''",
+        "B. None",
+        "C. 0",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "KeyError 없이 None을 반환해요.",
+      "feedback": {
+        "correct": "맞아요! os.environ.get()은 없는 키에 None을 반환해요.",
+        "wrong": "KeyError 없이 None을 반환해요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_5_os_006",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.**\n\n```python\nimport os\nos.environ['K'] = 'abc'\nprint(os.environ.get('K') is not None)\n```",
+      "choices": [
+        "A. abc",
+        "B. False",
+        "C. True",
+        "D. None"
+      ],
+      "answer": "C",
+      "hint": "os.environ.get()은 있으면 값을, 없으면 None을 반환해요.",
+      "feedback": {
+        "correct": "맞아요! 'abc'가 설정되어 있으므로 get('K')='abc', None이 아니므로 True예요.",
+        "wrong": "os.environ.get()은 있으면 값을, 없으면 None을 반환해요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_5_os_007",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.**\n\n```python\nimport os\nval = os.environ.get('NOT_EXIST')\nprint(val is None)\n```",
+      "choices": [
+        "A. True",
+        "B. NOT_EXIST",
+        "C. 오류",
+        "D. False"
+      ],
+      "answer": "A",
+      "hint": "get()은 없는 키에도 None을 반환해요.",
+      "feedback": {
+        "correct": "맞아요! 없는 환경변수를 get()으로 읽으면 None을 반환해요.",
+        "wrong": "get()은 없는 키에도 None을 반환해요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_5_os_008",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.**\n\n```python\nimport os\nos.environ['API_KEY'] = 'secret123'\nkey = os.environ.get('API_KEY', 'default')\nprint(len(key))\n```",
+      "choices": [
+        "A. 7",
+        "B. 6",
+        "C. 5",
+        "D. 9"
+      ],
+      "answer": "D",
+      "hint": "os.environ.get()은 키가 있으면 해당 값을 반환해요. len('secret123')=9예요.",
+      "feedback": {
+        "correct": "맞아요! 'secret123'은 9글자예요.",
+        "wrong": "os.environ.get()은 키가 있으면 해당 값을 반환해요. len('secret123')=9예요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_5_os_009",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.**\n\n```python\nimport os\n\ndef get_key():\n    key = os.environ.get('MY_KEY')\n    if not key:\n        raise ValueError('키 없음')\n    return key\n\ntry:\n    result = get_key()\nexcept ValueError as e:\n    print(str(e))\n```",
+      "choices": [
+        "A. None",
+        "B. 키 없음",
+        "C. 오류",
+        "D. MY_KEY"
+      ],
+      "answer": "B",
+      "hint": "환경변수가 없으면 ValueError를 raise하고 except에서 잡아요.",
+      "feedback": {
+        "correct": "맞아요! MY_KEY가 없으므로 ValueError 발생 → '키 없음' 출력이에요.",
+        "wrong": "환경변수가 없으면 ValueError를 raise하고 except에서 잡아요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_5_os_010",
+      "unit": 7,
+      "stage": "7-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 중 .gitignore에 반드시 추가해야 하는 파일은?",
+      "choices": [
+        "A. main.py",
+        "B. requirements.txt",
+        "C. README.md",
+        "D. .env"
+      ],
+      "answer": "D",
+      "hint": ".env는 절대 GitHub에 올라가면 안 돼요.",
+      "feedback": {
+        "correct": "훌륭해요! .env에는 API 키 등 민감한 정보가 있으므로 .gitignore에 추가해야 해요.",
+        "wrong": ".env는 절대 GitHub에 올라가면 안 돼요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_6_mc_001",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "system 메시지의 역할은?",
+      "choices": [
+        "A. AI 성격·역할·제약 설정",
+        "B. 실제 질문",
+        "C. API 키 담기",
+        "D. 응답 저장"
+      ],
+      "answer": "A",
+      "hint": "system=AI 설정, user=질문이에요.",
+      "feedback": {
+        "correct": "맞아요! system 메시지는 AI가 어떻게 동작할지 기본 설정을 해요.",
+        "wrong": "system=AI 설정, user=질문이에요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_6_mc_002",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "더 좋은 프롬프트의 특징은?",
+      "choices": [
+        "A. 짧을수록 좋다",
+        "B. 구체적이고 맥락이 풍부하다",
+        "C. 모호하다",
+        "D. 영어로 써야 한다"
+      ],
+      "answer": "B",
+      "hint": "대상+목적+형식+제약이 포함된 프롬프트가 좋아요.",
+      "feedback": {
+        "correct": "맞아요! 구체적이고 맥락이 풍부한 프롬프트일수록 좋은 답변을 받아요.",
+        "wrong": "대상+목적+형식+제약이 포함된 프롬프트가 좋아요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_6_mc_003",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "AI에게 역할을 부여하는 올바른 예시는?",
+      "choices": [
+        "A. 1+1이 뭐야?",
+        "B. 코드 고쳐줘",
+        "C. 당신은 10년 경력 파이썬 개발자예요.",
+        "D. 빠르게 대답해"
+      ],
+      "answer": "C",
+      "hint": "역할 부여(Role Prompting)는 system 메시지에 설정하는 게 효과적이에요.",
+      "feedback": {
+        "correct": "맞아요! '당신은 ~예요'로 역할을 부여하면 그에 맞는 답변을 해요.",
+        "wrong": "역할 부여(Role Prompting)는 system 메시지에 설정하는 게 효과적이에요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_6_mc_004",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "에이몬의 beginner 레벨 피드백 스타일은?",
+      "choices": [
+        "A. 비유+일상예시+왜 틀렸는지",
+        "B. 개념+코드예시",
+        "C. 원리+엣지케이스",
+        "D. 전문 용어 위주"
+      ],
+      "answer": "A",
+      "hint": "beginner=비유/일상예시, intermediate=개념/코드예시예요.",
+      "feedback": {
+        "correct": "맞아요! beginner는 비유와 일상 예시로 친절하게 설명해요.",
+        "wrong": "beginner=비유/일상예시, intermediate=개념/코드예시예요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_6_mc_005",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "messages 배열에서 user 역할로 올바른 것은?",
+      "choices": [
+        "A. system",
+        "B. user",
+        "C. admin",
+        "D. assistant"
+      ],
+      "answer": "B",
+      "hint": "role: system/user/assistant 세 가지예요.",
+      "feedback": {
+        "correct": "맞아요! 실제 질문은 'user' 역할로 담아요.",
+        "wrong": "role: system/user/assistant 세 가지예요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_6_os_006",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 중 system 메시지로 적합한 것은?",
+      "choices": [
+        "A. 파이썬 설치 방법",
+        "B. 1+1은 얼마야?",
+        "C. 당신은 친절한 Python 튜터예요. 항상 코드 예시를 포함해요.",
+        "D. 코드 빠르게 고쳐줘"
+      ],
+      "answer": "C",
+      "hint": "system=AI 성격 설정이에요.",
+      "feedback": {
+        "correct": "맞아요! system 메시지는 AI의 역할, 말투, 형식을 설정해요.",
+        "wrong": "system=AI 성격 설정이에요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_6_os_007",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 중 더 좋은 프롬프트는?",
+      "choices": [
+        "A. Python for문을 초보자가 이해할 수 있게 비유로 설명해줘",
+        "B. 도와줘",
+        "C. 설명해줘",
+        "D. 빠르게 답해줘"
+      ],
+      "answer": "A",
+      "hint": "좋은 프롬프트=대상+목적+형식+제약이에요.",
+      "feedback": {
+        "correct": "맞아요! 주제+대상+형식이 명시된 구체적인 프롬프트가 좋아요.",
+        "wrong": "좋은 프롬프트=대상+목적+형식+제약이에요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_6_os_008",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 messages 구성에서 잘못된 것은?**\n\n```python\nmessages = [\n    {'role': 'user', 'content': '파이썬 알려줘'},\n    {'role': 'system', 'content': '당신은 튜터예요'}\n]\n```",
+      "choices": [
+        "A. content 키가 없음",
+        "B. role이 잘못됨",
+        "C. messages 형식이 잘못됨",
+        "D. system이 user 뒤에 있어 순서 오류"
+      ],
+      "answer": "D",
+      "hint": "system → user 순서가 올바른 구성이에요.",
+      "feedback": {
+        "correct": "맞아요! system 메시지는 항상 messages 배열의 첫 번째에 와야 해요.",
+        "wrong": "system → user 순서가 올바른 구성이에요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_6_os_009",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "AI가 JSON 형식으로 응답하게 만드는 좋은 프롬프트는?",
+      "choices": [
+        "A. JSON 줘",
+        "B. 반드시 {\"result\": \"값\"} 형식의 JSON으로만 응답해줘",
+        "C. 결과만 줘",
+        "D. 구조화해줘"
+      ],
+      "answer": "B",
+      "hint": "출력 형식을 명시하면 AI가 그 형식을 따라요.",
+      "feedback": {
+        "correct": "맞아요! 정확한 JSON 스키마를 예시로 제공하면 파싱 가능한 응답을 받아요.",
+        "wrong": "출력 형식을 명시하면 AI가 그 형식을 따라요."
+      },
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_7_6_os_010",
+      "unit": 7,
+      "stage": "7-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "에이몬 오답 피드백 시 Claude API에 전달하는 올바른 구성은?",
+      "choices": [
+        "A. API 키만",
+        "B. 문제 텍스트만",
+        "C. 유저 닉네임만",
+        "D. 레벨별 system 프롬프트 + 문제 + 유저 답 + 정답"
+      ],
+      "answer": "D",
+      "hint": "맥락이 풍부할수록 AI가 더 정확한 피드백을 줄 수 있어요.",
+      "feedback": {
+        "correct": "훌륭해요! 레벨별 system 프롬프트와 문제 맥락을 함께 전달해야 좋은 피드백을 받아요.",
+        "wrong": "맥락이 풍부할수록 AI가 더 정확한 피드백을 줄 수 있어요."
+      },
+      "villain": "interferencemon"
+    }
+  ]
+}
