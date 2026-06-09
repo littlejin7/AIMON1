@@ -57,7 +57,7 @@ class BossAnswerRequest(BaseModel):
 
 
 @router.get("/info")
-def get_boss_info(unit: str = 1, authorization: str = Header(...)):
+def get_boss_info(unit: str = "1", authorization: str = Header(...)):
     user_id = verify_token(authorization)
     users = load_users()
     user = next((u for u in users if u["id"] == user_id), None)
@@ -82,7 +82,7 @@ def get_boss_info(unit: str = 1, authorization: str = Header(...)):
     }
 
 @router.post("/start")
-def start_boss_battle(unit: str = 1, authorization: str = Header(...)):
+def start_boss_battle(unit: str = "1", authorization: str = Header(...)):
     user_id = verify_token(authorization)
     users = load_users()
     user = next((u for u in users if u["id"] == user_id), None)
@@ -100,36 +100,27 @@ def start_boss_battle(unit: str = 1, authorization: str = Header(...)):
             raise HTTPException(status_code=400, detail="왕관이 부족합니다.")
         user["crowns"] -= 1
         
+    course_level = user.get("course_level", "beginner")
+    boss_qs = load_questions_by_category("unitboss", course_level=course_level, unit=unit)
+    if not boss_qs:
+        raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
+    import random
+    
+    user["boss_seen_questions"] = []
+    seen = user.get("boss_seen_questions", [])
+    unseen = [q for q in boss_qs if q["question_id"] not in seen]
+
+    if not unseen:  # 전부 소진하면 리셋
+        user["boss_seen_questions"] = []
+        unseen = boss_qs
+
+    chosen = random.choice(unseen)
+    user["boss_seen_questions"] = user.get("boss_seen_questions", []) + [chosen["question_id"]]
     save_users(users)
-
-    course_level = user.get("course_level", "beginner")
-    boss_qs = load_questions_by_category("unitboss", course_level=course_level, unit=unit)
-    if not boss_qs:
-        raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
-    import random
-    return random.choice(boss_qs)
+    return chosen
     
 @router.post("/next")
-def get_next_question(unit: int = 1, authorization: str = Header(...)):
-    user_id = verify_token(authorization)
-    users = load_users()
-    user = next((u for u in users if u["id"] == user_id), None)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
-    course_level = user.get("course_level", "beginner")
-    boss_qs = load_questions_by_category("unitboss", course_level=course_level, unit=unit)
-
-
-    category = "finalboss" if unit == "final" else "unitboss"
-    unit_num = None if unit == "final" else int(unit)
-    boss_qs = load_questions_by_category(category, course_level=course_level, unit=unit_num)
-    if not boss_qs:
-        raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
-    import random
-    return random.choice(boss_qs)
-
-@router.post("/next")
-def get_next_question(unit: str = 1, authorization: str = Header(...)):
+def get_next_question(unit: str = "1", authorization: str = Header(...)):
     user_id = verify_token(authorization)
     users = load_users()
     user = next((u for u in users if u["id"] == user_id), None)
@@ -140,17 +131,31 @@ def get_next_question(unit: str = 1, authorization: str = Header(...)):
     unit_num = None if unit == "final" else int(unit)
     boss_qs = load_questions_by_category(category, course_level=course_level, unit=unit_num)
     
-    
     if not boss_qs:
         raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
     import random
-    return random.choice(boss_qs)
+
+    seen = user.get("boss_seen_questions", [])
+    unseen = [q for q in boss_qs if q["question_id"] not in seen]
+
+    if not unseen:  # 전부 소진하면 리셋
+        user["boss_seen_questions"] = []
+        unseen = boss_qs
+
+    chosen = random.choice(unseen)
+    user["boss_seen_questions"] = user.get("boss_seen_questions", []) + [chosen["question_id"]]
+    save_users(users)
+    return chosen
 
 
 @router.post("/answer")
 async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header(...)):
     user_id = verify_token(authorization)
-    questions = load_questions_by_category("unitboss") + load_questions_by_category("finalboss")
+    users = load_users()
+    user = next((u for u in users if u["id"] == user_id), None)
+    course_level = user.get("course_level", "beginner") if user else "beginner"
+
+    questions = load_questions_by_category("unitboss", course_level) + load_questions_by_category("finalboss", course_level)
     # 우리 스키마는 "question_id" 필드 사용 ("id" 필드 없음)
     question = next(
         (q for q in questions if q.get("question_id") == req.question_id or q.get("id") == req.question_id),
@@ -160,10 +165,6 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
         raise HTTPException(status_code=404, detail="문제를 찾을 수 없습니다.")
 
     is_unit_boss = question.get("quiz_category") == "unit_boss"
-
-    users = load_users()
-    user = next((u for u in users if u["id"] == user_id), None)
-    course_level = user.get("course_level", "beginner") if user else "beginner"
     
     level_instruction = "비유와 일상 예시를 들어 왜 틀렸는지 친절하게 설명해주세요."
     if course_level == "intermediate":
@@ -287,7 +288,21 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
                     if is_unit_boss:
                         u["completed_units"] = u.get("completed_units", 0) + 1
                     
-                    lv = u.get("lv", 1)
+                    def calc_level(xp):
+                        lv = 1
+                        accumulated = 0
+                        while lv < 30:
+                            needed = lv * 1000
+                            if xp < accumulated + needed:
+                                break
+                            accumulated += needed
+                            lv += 1
+                        return lv
+
+                    new_lv = calc_level(u["xp"])
+                    u["lv"] = max(new_lv, u.get("lv", 1))
+                    
+                    lv = u["lv"]
                     if lv >= 10 and u.get("character") == "slime":
                         u["character"] = "robot"
                     elif lv >= 20 and u.get("character") == "robot":

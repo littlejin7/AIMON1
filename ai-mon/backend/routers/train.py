@@ -49,10 +49,8 @@ def get_train_review(
     priority_ids = set()
     if user_id:
         for entry in wrong_answers:
-            if entry.get("user_id") == user_id:
-                for wa in entry.get("wrong_answers", []):
-                    if not wa.get("reviewed", False):
-                        priority_ids.add(wa.get("question_id"))
+            if entry.get("user_id") == user_id and not entry.get("reviewed", False):
+                priority_ids.add(entry.get("question_id"))
 
     priority_qs = [q for q in unit_pool if q.get("question_id") in priority_ids]
     normal_qs = [q for q in unit_pool if q.get("question_id") not in priority_ids]
