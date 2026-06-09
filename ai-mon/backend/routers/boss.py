@@ -106,7 +106,6 @@ def start_boss_battle(unit: str = "1", authorization: str = Header(...)):
         raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
     import random
     
-    user["boss_seen_questions"] = []
     seen = user.get("boss_seen_questions", [])
     unseen = [q for q in boss_qs if q["question_id"] not in seen]
 
@@ -282,6 +281,7 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
         # XP 및 보스 클리어 카운트 (진화 조건) 추가
         if award_xp:
             users = load_users()
+            ai_result["newly_earned_titles"] = []
             for u in users:
                 if u["id"] == user_id:
                     u["xp"] = u.get("xp", 0) + 3000  # 유닛 보스 클리어 XP
@@ -309,11 +309,11 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
                         u["character"] = "speech_bubble"
                     elif lv >= 30 and u.get("character") == "speech_bubble":
                         u["character"] = "final_ghost"
+                    
+                    context = {"boss_cleared": True}
+                    newly_earned = check_and_award_titles(u, context)
+                    ai_result["newly_earned_titles"] = newly_earned
                     break
-
-            context = {"boss_cleared": True}
-            newly_earned = check_and_award_titles(u, context)
-            ai_result["newly_earned_titles"] = newly_earned
 
             save_users(users)
             ai_result["xp_awarded"] = 3000

@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import auth, quiz, boss, progress, user, code, train
+from routers import auth, quiz, boss, progress, user, code, train, titles
 from dotenv import load_dotenv
 import os
 
@@ -11,7 +11,7 @@ app = FastAPI(title="AI MON API - MVP", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://your-domain.com"],
+    allow_origins=["http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -24,6 +24,7 @@ app.include_router(progress.router, prefix="/progress", tags=["Progress"])
 app.include_router(boss.router, prefix="/boss", tags=["Boss"])
 app.include_router(code.router, prefix="/code", tags=["Code"])
 app.include_router(train.router, prefix="/train", tags=["Train"])
+app.include_router(titles.router, prefix="/titles", tags=["Titles"])
 
 @app.get("/")
 def health_check():

@@ -70,13 +70,18 @@ backend/data/lessons/
 
 ### 레벨별 교육 전략
 
-| `course_level` | 교육 전략                         | Stage 1-1 기준 핵심 개념                             |
-| -------------- | --------------------------------- | ---------------------------------------------------- |
-| `beginner`     | 비유 중심, 개념 하나씩, 쉬운 언어 | print() = 스피커 비유, 따옴표 역할, 주석 기초(`#`)   |
-| `intermediate` | 실용적 비교, 차이 중심            | `,` vs `+` 공백 차이, `str()` 타입 변환, 인라인 주석 |
-| `advanced`     | 파라미터 깊이, Pythonic 패턴      | `sep`/`end` 파라미터, f-string 포맷, `*` 언패킹      |
+> ⚠️ **커리큘럼 개편 안내 (2026-06-09):** beginner / intermediate / advanced는 더 이상 동일 주제를 다른 난이도로 가르치지 않습니다. **레벨마다 커리큘럼 주제가 완전히 다릅니다.**
+> - beginner: 파이썬 입문 (변수·자료구조·제어문·함수·미니 프로젝트)
+> - intermediate: 고급 자료구조·파일·예외·OOP·컴프리헨션·모듈
+> - advanced: API·정규표현식·비동기·Claude API·AI 에이전트·자동화
 
-> 같은 `stage` 내에서 `course_level`만 달라지고, `title`·`villain`은 동일해요.
+아래 표는 **beginner 레벨 내부**에서의 슬라이드 설명 방식 차이를 나타냅니다. (Unit 1 Stage 1-1 기준 예시)
+
+| `course_level` | 교육 전략                         | beginner Unit 1 Stage 1-1 기준 핵심 개념              |
+| -------------- | --------------------------------- | ----------------------------------------------------- |
+| `beginner`     | 비유 중심, 개념 하나씩, 쉬운 언어 | print() = 스피커 비유, 따옴표 역할, 주석 기초(`#`)    |
+
+> 각 레벨은 독립적인 유닛 구성을 가지므로, `lesson_id`의 `course_level` 필드로 레벨을 구분합니다.
 
 ---
 
@@ -135,7 +140,7 @@ backend/data/lessons/
 
 ## 2. questions/ 폴더
 
-> 현황 (2026-06-07): stage_quiz 118개 / miniboss 101개 / unit_boss 11개 / 총 230개
+> 현황 (2026-06-09): 커리큘럼 전면 개편으로 재제작 중. beginner Unit 1 데이터 완료 (stage_quiz 140개 / miniboss 70개 / unit_boss 10개). Unit 2~8 및 intermediate/advanced 제작 예정.
 
 퀴즈 문제 데이터 — 레벨별, 유닛별로 분리 관리
 
