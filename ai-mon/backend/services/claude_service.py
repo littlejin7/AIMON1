@@ -4,11 +4,11 @@ import os
 _client = None
 
 
-def get_client() -> anthropic.Anthropic:
+def get_client() -> anthropic.AsyncAnthropic:
     global _client
     if _client is None:
         api_key = os.getenv("ANTHROPIC_API_KEY") or os.getenv("CLAUDE_API_KEY", "")
-        _client = anthropic.Anthropic(api_key=api_key)
+        _client = anthropic.AsyncAnthropic(api_key=api_key)
     return _client
 
 
@@ -31,7 +31,7 @@ async def ask_claude(prompt: str, level: str = "beginner") -> dict:
 
     client = get_client()
     try:
-        message = client.messages.create(
+        message = await client.messages.create(
             model="claude-haiku-4-5-20251001",
             max_tokens=512,
             system=system_prompt,
@@ -55,7 +55,7 @@ async def ask_claude_json(prompt: str) -> dict:
     """
     client = get_client()
     try:
-        message = client.messages.create(
+        message = await client.messages.create(
             model="claude-haiku-4-5-20251001",
             max_tokens=512,
             messages=[{"role": "user", "content": prompt}],

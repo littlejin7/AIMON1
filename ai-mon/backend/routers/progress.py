@@ -112,14 +112,28 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
     else:
         xp_gain = 2000   # 스테이지 퀴즈 클리어
 
-    if award_xp:
-        # XP 부여 로직 (user.py와 유사하게 users.json 로드)
-        users = load_users()
-        for u in users:
-            if u["id"] == user_id:
+    # 유닛 완료 체크 → 왕관 지급
+    progress_data = load_progress()
+    user_unit_stages = [
+        p for p in progress_data
+        if p.get("user_id") == user_id
+        and p.get("unit") == req.unit
+        and p.get("is_completed") == True
+    ]
+    completed_stage_ids = {p.get("stage") for p in user_unit_stages}
+    required_stages = {f"{req.unit}-{i}" for i in range(1, 8)}
+    unit_just_completed = required_stages.issubset(completed_stage_ids) and req.stage in required_stages
+
+    crowns_awarded = 0
+    newly_earned = []
+    
+    users = load_users()
+    for u in users:
+        if u["id"] == user_id:
+            # 1. XP 및 진화
+            if award_xp:
                 u["xp"] = u.get("xp", 0) + xp_gain
                 
-                # 2. 레벨업 로직: 필요 XP = 현재 레벨 × 1,000
                 def calc_level(xp):
                     lv = 1
                     accumulated = 0
@@ -134,7 +148,6 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
                 new_lv = calc_level(u["xp"])
                 u["lv"] = max(new_lv, u.get("lv", 1))
 
-                # 진화 체크 (레벨 기준)
                 if u["lv"] >= 10 and u.get("character") == "slime":
                     u["character"] = "robot"
                 elif u["lv"] >= 20 and u.get("character") == "robot":
@@ -142,49 +155,23 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
                 elif u["lv"] >= 30 and u.get("character") == "speech_bubble":
                     u["character"] = "final_ghost"
 
-                break
-        save_users(users)
-
-    # 유닛 완료 체크 → 왕관 지급
-    progress_data = load_progress()
-    user_unit_stages = [
-        p for p in progress_data
-        if p.get("user_id") == user_id
-        and p.get("unit") == req.unit
-        and p.get("is_completed") == True
-    ]
-    completed_stage_ids = {p.get("stage") for p in user_unit_stages}
-
-    # 해당 유닛의 스테이지 1~7이 전부 완료됐는지 확인
-    required_stages = {f"{req.unit}-{i}" for i in range(1, 8)}
-    unit_just_completed = required_stages.issubset(completed_stage_ids) and req.stage in required_stages
-
-    crowns_awarded = 0
-    if unit_just_completed:
-        # 유닛 번호만큼 왕관 지급 (Unit 1 → 1개, Unit 2 → 2개, ...)
-        users = load_users()
-        for u in users:
-            if u.get("id") == user_id:
-                # 이미 지급된 유닛인지 체크 (중복 지급 방지)
+            # 2. 왕관 지급
+            if unit_just_completed:
                 awarded_units = u.get("awarded_crown_units", [])
                 if req.unit not in awarded_units:
                     crowns_awarded = req.unit
                     u["crowns"] = u.get("crowns", 0) + crowns_awarded
                     awarded_units.append(req.unit)
                     u["awarded_crown_units"] = awarded_units
-                break
-        save_users(users)
 
-    # 칭호 체크
-    users = load_users()
-    for u in users:
-        if u.get("id") == user_id:
+            # 3. 칭호 부여
             context = {
                 "stage_completed": award_xp,
                 "unit_fully_done": unit_just_completed,
             }
             newly_earned = check_and_award_titles(u, context)
             break
+
     save_users(users)
 
     # return 할 때 현재 유저 상태를 조회하여 안전하게 반환

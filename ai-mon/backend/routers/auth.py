@@ -102,6 +102,8 @@ def login(req: LoginRequest):
 
     if last == today:
         pass
+    elif last == "":
+        pass  # 아예 첫 로그인인 경우 streak 1로 올리지 않음
     elif last == (datetime.utcnow() - timedelta(days=1)).strftime("%Y-%m-%d"):
         user["streak"] = user.get("streak", 0) + 1
     else:

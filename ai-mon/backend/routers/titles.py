@@ -1,3 +1,7 @@
+from fastapi import APIRouter
+
+router = APIRouter()
+
 TITLE_DEFINITIONS = {
     "first_step":   "🌱 첫 발걸음",
     "streak_7":     "🔥 연속학습자",
