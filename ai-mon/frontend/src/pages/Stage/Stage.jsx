@@ -41,6 +41,23 @@ export default function Stage({ _lessonId, _stage }) {
   const [evoModal, setEvoModal] = useState(null)
   const [minibossStartIndex, setMinibossStartIndex] = useState(null)
   const [stageQuizCorrect, setStageQuizCorrect] = useState(0)
+  const [retryTick, setRetryTick] = useState(0)
+  
+  const resetStageState = () => {
+    setAttempt(1)
+    setCurrent(0)
+    setScore(0)
+    setCorrect(0)
+    setFinished(false)
+    setShowBriefing(true)
+    setBriefingIndex(0)
+    setCorrectQuestions([])
+    setMinibossStartIndex(null)
+    setStageQuizCorrect(0)
+    setLoading(true)
+    setShowMinibossAlert(false)
+    setRetryTick(t => t + 1)
+  }
   
   // 비로그인 선체험 완료 후 회원가입/로그인 모달
   const [showAuthModal, setShowAuthModal] = useState(false)
@@ -108,7 +125,7 @@ export default function Stage({ _lessonId, _stage }) {
         setShowMinibossAlert(true)
       }
     })
-  }, [lessonId, stageNum, courseLevel, attempt, token])
+  }, [lessonId, stageNum, courseLevel, attempt, token, retryTick])
 
   const handleStageQuizFailure = (newCorrectQuestions) => {
     setAttempt(prev => prev + 1)
@@ -327,7 +344,7 @@ export default function Stage({ _lessonId, _stage }) {
                 if (stageNum < unitInfo.stages) {
                   // 다음 일반 스테이지로 이동
                   navigate(`/stage/${lessonId}/${stageNum + 1}`);
-                  window.location.reload(); // 상태 초기화를 위해 새로고침 (간편 라우팅)
+                  resetStageState();
                 } else {
                   // 보스 스테이지로 이동
                   navigate(`/stage/${lessonId}/boss`);
@@ -346,7 +363,7 @@ export default function Stage({ _lessonId, _stage }) {
                 미니보스 다시 도전 ⚔️
               </button>
             ) : (
-              <button className="btn btn-primary" onClick={() => window.location.reload()}>
+              <button className="btn btn-primary" onClick={resetStageState}>
                 다시 도전 🔄
               </button>
             )
