@@ -57,7 +57,7 @@ class BossAnswerRequest(BaseModel):
 
 
 @router.get("/info")
-def get_boss_info(unit: int = 1, authorization: str = Header(...)):
+def get_boss_info(unit: str = 1, authorization: str = Header(...)):
     user_id = verify_token(authorization)
     users = load_users()
     user = next((u for u in users if u["id"] == user_id), None)
@@ -82,7 +82,7 @@ def get_boss_info(unit: int = 1, authorization: str = Header(...)):
     }
 
 @router.post("/start")
-def start_boss_battle(unit: int = 1, authorization: str = Header(...)):
+def start_boss_battle(unit: str = 1, authorization: str = Header(...)):
     user_id = verify_token(authorization)
     users = load_users()
     user = next((u for u in users if u["id"] == user_id), None)
@@ -118,6 +118,29 @@ def get_next_question(unit: int = 1, authorization: str = Header(...)):
         raise HTTPException(status_code=401, detail="User not found")
     course_level = user.get("course_level", "beginner")
     boss_qs = load_questions_by_category("unitboss", course_level=course_level, unit=unit)
+
+
+    category = "finalboss" if unit == "final" else "unitboss"
+    unit_num = None if unit == "final" else int(unit)
+    boss_qs = load_questions_by_category(category, course_level=course_level, unit=unit_num)
+    if not boss_qs:
+        raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
+    import random
+    return random.choice(boss_qs)
+
+@router.post("/next")
+def get_next_question(unit: str = 1, authorization: str = Header(...)):
+    user_id = verify_token(authorization)
+    users = load_users()
+    user = next((u for u in users if u["id"] == user_id), None)
+    if not user:
+        raise HTTPException(status_code=401, detail="User not found")
+    course_level = user.get("course_level", "beginner")
+    category = "finalboss" if unit == "final" else "unitboss"
+    unit_num = None if unit == "final" else int(unit)
+    boss_qs = load_questions_by_category(category, course_level=course_level, unit=unit_num)
+    
+    
     if not boss_qs:
         raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
     import random
