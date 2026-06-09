@@ -181,7 +181,7 @@ export default function Stage({ _lessonId, _stage }) {
     const nextCategory = questions[current + 1]?.quiz_category
 
     // 1. stage_quiz를 다 풀고 miniboss로 넘어갈 때 (미니보스 등장 조건)
-    if (currentCategory === 'stage_quiz' && nextCategory === 'miniboss') {
+    if ((currentCategory === 'stage_quiz' && nextCategory === 'miniboss') || current === 9) {
       const stageQuizCount = current + 1
       const stageQuizScore = Math.round((correct / stageQuizCount) * 100)
 
@@ -393,8 +393,8 @@ export default function Stage({ _lessonId, _stage }) {
           <button className="btn btn-ghost btn-sm" onClick={() => navigate(`/lesson/${lessonId}`)}>✕</button>
           <div className="stage-progress-section">
             <div className="stage-progress-label">
-              <span>📖 브리핑</span>
-              <span>{briefingIndex + 1} / {briefings.length}</span>
+              <span>UNIT {lessonId} · Stage {stageNum} · 슬라이드 {slide.order}</span>
+              <span>슬라이드 {briefingIndex + 1} / {briefings.length}</span>
             </div>
             <div className="progress-bar">
               <div className="progress-bar-fill" style={{ width: `${((briefingIndex + 1) / briefings.length) * 100}%` }} />
@@ -409,16 +409,6 @@ export default function Stage({ _lessonId, _stage }) {
             key={slide.order}
             style={{ padding: '2rem', textAlign: 'left' }}
           >
-            {/* 슬라이드 번호 배지 */}
-            <div style={{ marginBottom: '1rem' }}>
-              <span style={{
-                background: 'var(--grad-primary)', color: '#fff',
-                fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.1em',
-                padding: '3px 12px', borderRadius: '999px'
-              }}>
-                SLIDE {slide.order}
-              </span>
-            </div>
 
             {/* 개념 설명 텍스트 */}
             <p style={{
@@ -542,11 +532,20 @@ if (showMinibossAlert) {
         </button>
         <div className="stage-progress-section">
           <div className="stage-progress-label">
-            <span>Stage {stageNum}</span>
-            <span>{current + 1} / {questions.length}</span>
+            <span>UNIT {lessonId} · Stage {stageNum}</span>
+            <span>
+              {minibossStartIndex !== null
+                ? `문제 ${current - minibossStartIndex + 1} / ${questions.length - minibossStartIndex}`
+                : `문제 ${current + 1} / ${Math.min(10, questions.length)}`
+              }
+            </span>
           </div>
           <div className="progress-bar">
-            <div className="progress-bar-fill" style={{ width: `${progressPct}%` }} />
+            <div className="progress-bar-fill" style={{ width: `${
+              minibossStartIndex !== null
+                ? ((current - minibossStartIndex + 1) / (questions.length - minibossStartIndex)) * 100
+                : ((current + 1) / Math.min(10, questions.length)) * 100
+              }%` }} />
           </div>
         </div>
         <div className="stage-score-badge">
