@@ -171,14 +171,22 @@ def get_questions(
             pool = [q for q in quiz_questions if q.get("quiz_set") == "B"]
         else:
             pool = quiz_questions
+            
+        if not pool: # quiz_set이 없어 빈 경우 폴백
+            pool = quiz_questions
+            
         quiz_pool = pool[:limit]
 
-        # miniboss 문제 로드 (quiz_set 필터 없이 항상 포함)
+        # miniboss 문제 로드 (quiz_set 필터 적용)
         miniboss_questions = load_questions_by_category("miniboss", course_level, unit)
         if stage:
             miniboss_questions = [q for q in miniboss_questions if q.get("stage") == stage]
 
-        return quiz_pool + miniboss_questions
+        miniboss_pool = [q for q in miniboss_questions if q.get("quiz_set") == ("A" if attempt == 1 else "B")]
+        if not miniboss_pool: # quiz_set이 없는 경우 폴백
+            miniboss_pool = miniboss_questions
+        random.shuffle(miniboss_pool)
+        return quiz_pool + miniboss_pool[:5]
 
     return quiz_questions[:limit]
 

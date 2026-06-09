@@ -3,6 +3,7 @@ from pydantic import BaseModel
 import json, os, hashlib, uuid
 from datetime import datetime, timedelta
 from jose import jwt
+from passlib.context import CryptContext
 
 router = APIRouter()
 
@@ -25,8 +26,16 @@ def save_users(users):
         json.dump(users, f, ensure_ascii=False, indent=2)
 
 
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 def hash_password(password: str) -> str:
-    return hashlib.sha256(password.encode()).hexdigest()
+    return pwd_context.hash(password)
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    # 하위 호환: 만약 기존의 SHA-256 해시값이라면 기존 방식 적용
+    if hashed_password.startswith("$2b$") or hashed_password.startswith("$2a$"):
+        return pwd_context.verify(plain_password, hashed_password)
+    return hashlib.sha256(plain_password.encode()).hexdigest() == hashed_password
 
 
 def create_token(data: dict) -> str:
@@ -85,7 +94,7 @@ def register(req: RegisterRequest):
 def login(req: LoginRequest):
     users = load_users()
     user = next((u for u in users if u["username"] == req.username), None)
-    if not user or user["password"] != hash_password(req.password):
+    if not user or not verify_password(req.password, user["password"]):
         raise HTTPException(status_code=401, detail="아이디 또는 비밀번호가 올바르지 않습니다.")
 
     today = datetime.utcnow().strftime("%Y-%m-%d")
