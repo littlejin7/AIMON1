@@ -7,7 +7,10 @@ import bossIcon from '../../assets/boss_finalorg.png'
 import bossClearIcon from '../../assets/boss_finalclear.png'
 import bossQnaIcon from '../../assets/boss_finalqna.png'
 import bossFailIcon from '../../assets/boss_finalfail.png'
-import myCharIcon from '../../assets/character_slime.png'
+import charSlimeIcon from '../../assets/character_slime.png'
+import charRobotIcon from '../../assets/character_robot.png'
+import charBubbleIcon from '../../assets/character_bubble.png'
+import charGhostIcon from '../../assets/character_final_ghost.png'
 import endbossIcon from '../../assets/endboss_finalorg.png'
 import endbossClearIcon from '../../assets/endboss_finalvic.png'
 import endbossQnaIcon from '../../assets/endboss_finalqna.png'
@@ -383,7 +386,12 @@ if (isCorrect) {
             {/* My HP Bar */}
             <div className="my-hp-bar" style={{ marginTop: '20px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '16px', display: 'flex', alignItems: 'center', gap: '16px' }}>
               <img 
-                src={myCharIcon} 
+                src={
+                  user?.character === 'robot' ? charRobotIcon :
+                  user?.character === 'speech_bubble' ? charBubbleIcon :
+                  user?.character === 'final_ghost' ? charGhostIcon :
+                  charSlimeIcon
+                } 
                 alt="내 캐릭터" 
                 className={`my-avatar ${myShake ? 'my-shake' : ''}`}
                 style={{ width: '40px', height: '40px', objectFit: 'contain' }}
@@ -438,7 +446,7 @@ if (isCorrect) {
         {phase === 'failed' && (
           <div className="boss-card result-card card-glass animate-fade-in-up">
             <div className="result-crown">
-              <img src={isFinalBoss ? endbossfailIcon : bossfailIcon} alt="실패" />
+              <img src={isFinalBoss ? endbossfailIcon : bossFailIcon} alt="실패" />
             </div>
             <h1 className="result-title" style={{ color: '#f38ba8' }}>보스 처치 실패...</h1>
             <p className="result-desc">
