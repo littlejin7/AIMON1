@@ -8,10 +8,14 @@ import bossClearIcon from '../../assets/boss_finalclear.png'
 import bossQnaIcon from '../../assets/boss_finalqna.png'
 import bossFailIcon from '../../assets/boss_finalfail.png'
 import myCharIcon from '../../assets/character_slime.png'
-
+import endbossIcon from '../../assets/endboss_finalorg.png'
+import endbossClearIcon from '../../assets/endboss_finalvic.png'
+import endbossQnaIcon from '../../assets/endboss_finalqna.png'
+import endbossfailIcon from '../../assets/endboss_finalqna.png'
 
 export default function Boss() {
   const { lessonId } = useParams()
+  const isFinalBoss = lessonId === 'final'
   const navigate = useNavigate()
 
   const user = useAuthStore(s => s.user)
@@ -218,7 +222,7 @@ if (isCorrect) {
         {phase === 'intro' && (
           <div className="boss-card intro-card card-glass animate-fade-in-up">
             <div className="boss-avatar animate-float">
-              <img src={bossIcon} alt="보스" />
+              <img src={isFinalBoss ? endbossIcon : bossIcon} alt="보스" />
             </div>
             <h1 className="boss-title">{bossData?.boss_name} 출현!</h1>
             <p className="boss-desc">
@@ -274,7 +278,7 @@ if (isCorrect) {
             {/* Boss Avatar */}
 <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', margin: '16px 0' }}>
   <img
-    src={bossQnaIcon}
+    src={isFinalBoss ? endbossQnaIcon : bossQnaIcon}
     alt="보스"
     className={`battle-boss-icon ${bossShake ? 'boss-shake' : ''}`}
     style={{ width: '120px', height: '120px', objectFit: 'contain' }}
@@ -324,7 +328,7 @@ if (isCorrect) {
               </div>
             ) : (
               <>
-                {currentQuestion.type === 'multiple_choice' || currentQuestion.type === 'output_select' ? (
+                {currentQuestion.type === 'multiple_choice' || currentQuestion.type === 'output_select' || currentQuestion.type === 'error_find' ? (
                   <div className="battle-choices" style={{ display: 'flex', flexDirection: 'column', gap: '8px', margin: '16px 0' }}>
                     {currentQuestion.choices?.map((opt, idx) => {
                       const optionKey = opt.substring(0, 1)
@@ -393,7 +397,7 @@ if (isCorrect) {
         {phase === 'cleared' && (
           <div className="boss-card result-card card-glass animate-fade-in-up">
             <div className="result-crown animate-float">
-              <img src={bossClearIcon} alt="클리어" />
+              <img src={isFinalBoss ? endbossClearIcon : bossClearIcon} alt="클리어" />
             </div>
             <h1 className="result-title" style={{ color: '#f59e0b' }}>보스 처치 완료!</h1>
             <p className="result-desc">
@@ -407,7 +411,7 @@ if (isCorrect) {
               </div>
               <div className="reward-item" style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
                 <span className="reward-icon">💳</span>
-                <span style={{ fontWeight: 700, color: '#f9e2af', marginLeft: '8px' }}>Unit {lessonId} 클리어 인증카드</span>
+                <span style={{ fontWeight: 700, color: '#f9e2af', marginLeft: '8px' }}>{isFinalBoss ? 'Level' : `Unit ${lessonId}`} 클리어 인증카드</span>
               </div>
               {levelUpMessage && (
                 <div className="reward-item" style={{ fontSize: '1.1rem', marginTop: '12px', padding: '8px', background: 'rgba(166,227,161,0.15)', borderRadius: '8px', border: '1px dashed #a6e3a1' }}>
@@ -426,7 +430,7 @@ if (isCorrect) {
         {phase === 'failed' && (
           <div className="boss-card result-card card-glass animate-fade-in-up">
             <div className="result-crown">
-              <img src={bossFailIcon} alt="실패" />
+              <img src={isFinalBoss ? endbossfailIcon : bossfailIcon} alt="실패" />
             </div>
             <h1 className="result-title" style={{ color: '#f38ba8' }}>보스 처치 실패...</h1>
             <p className="result-desc">
