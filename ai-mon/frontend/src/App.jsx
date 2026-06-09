@@ -14,7 +14,7 @@ import LevelTestInfo from './pages/LevelTestInfo/LevelTestInfo'
 import { useAuthStore } from './hooks/useAuthStore'
 import SplashLoading from './components/loading/SplashLoading'
 import TopBar from './components/TopBar/TopBar'
-
+import Game from './pages/Game/Game'
 
 // 앱 시작 시 Pyodide를 백그라운드에서 미리 로드 (code_input 문제 대비)
 // App.jsx 내의 useEffect에서 처리하도록 이동되었습니다.
@@ -196,20 +196,18 @@ export default function App() {
           }
         />
 
-        {/* 미니게임 (준비중) */}
+        {/* 미니게임 */}
         <Route
           path="/game"
           element={
             <ProtectedRoute>
               <AppLayout>
-                <div style={{ padding: '4rem 2rem', textAlign: 'center', color: 'var(--clr-text-muted)' }}>
-                  <h2>🎮 미니게임 탭</h2>
-                  <p>곧 재미있는 미니게임이 추가될 예정입니다!</p>
-                </div>
+                <Game />
               </AppLayout>
             </ProtectedRoute>
           }
         />
+
 
         {/* 그 외 경로 → 레슨 홈 */}
         <Route path="*" element={<Navigate to="/lesson" replace />} />
