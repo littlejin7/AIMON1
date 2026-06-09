@@ -176,6 +176,11 @@ if (isCorrect) {
         }
 } else {
   playHitEffect()
+  if (isFail) {
+    setTimeout(() => {
+      setPhase('failed')
+    }, 2500) // 피드백을 짧게 읽을 시간을 주고 자동 전환
+  }
 }
     } catch (err) {
       console.error(err)
