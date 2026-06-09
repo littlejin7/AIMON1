@@ -131,20 +131,6 @@ export default function App() {
           }
         />
 
-        {/* 파이널 보스 (준비중) */}
-        <Route
-          path="/boss/final"
-          element={
-            <ProtectedRoute>
-              <AppLayout>
-                <div style={{ padding: '4rem 2rem', textAlign: 'center', color: 'var(--clr-text-muted)' }}>
-                  <h2>👿 파이널 보스</h2>
-                  <p>Unit 8까지 모두 완료하면 해금됩니다!</p>
-                </div>
-              </AppLayout>
-            </ProtectedRoute>
-          }
-        />
 
         {/* 보스 전투 */}
         <Route
