@@ -54,11 +54,10 @@ export default function NavBar() {
   const location = useLocation()
   const token = useAuthStore((s) => s.token)
   const user = useAuthStore((s) => s.user)
+  const cacheKey = `is_train_unlocked_${user?.id}`
+
   const [isTrainUnlocked, setIsTrainUnlocked] = useState(() => {
-    if (user) {
-      return localStorage.getItem(`is_train_unlocked_${user.id}`) === 'true'
-    }
-    return false
+    return localStorage.getItem(cacheKey) === 'true'
   })
 
   useEffect(() => {
@@ -66,8 +65,6 @@ export default function NavBar() {
       setIsTrainUnlocked(false)
       return
     }
-
-    const cacheKey = `is_train_unlocked_${user.id}`
 
     // If already unlocked in cache, no need to query again
     if (localStorage.getItem(cacheKey) === 'true') {
@@ -94,7 +91,7 @@ export default function NavBar() {
     }
 
     checkTrainUnlocked()
-  }, [token, user, location.pathname]) // Refresh on path changes to pick up progress changes
+  }, [token, location.pathname, user?.id]) // Refresh on path changes to pick up progress changes
 
   // 스테이지/보스 화면 등 서브 경로에서 어느 탭이 활성인지 계산
   const isLessonActive =

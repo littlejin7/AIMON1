@@ -165,6 +165,7 @@ if (isCorrect) {
               setAnswerInput('')
             } catch (err) {
               console.error(err)
+              setAiResult(prev => ({ ...prev, autoAdvanceFailed: true }))
             } finally {
               setLoading(false)
             }
@@ -295,6 +296,13 @@ if (isCorrect) {
                 {aiResult.is_correct ? (
                   <div style={{ padding: '16px', background: 'rgba(166,227,161,0.15)', border: '1px solid #a6e3a1', borderRadius: '12px', color: '#a6e3a1', fontWeight: 600, textAlign: 'center' }}>
                     🎉 정답입니다! 보스에게 150 데미지를 입혔습니다!
+                    {!aiResult.is_clear && (
+                      <div style={{ marginTop: '16px' }}>
+                        <button className="btn btn-primary btn-full" onClick={handleNextQuestion}>
+                          다음 문제 도전 ➔
+                        </button>
+                      </div>
+                    )}
                   </div>
                 ) : (
                   <div style={{ textAlign: 'left', background: 'rgba(17, 24, 39, 0.8)', padding: '16px', borderRadius: '12px', border: '1px solid rgba(243, 139, 168, 0.4)' }}>
