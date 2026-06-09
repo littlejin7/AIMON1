@@ -277,7 +277,31 @@ export default function LessonHome() {
             </button>
           )
         })}
+{token && lessons.length >= 8 && lessons.every((l) => {
+  const prog = getUnitProgress(l.unit_id)
+  return prog.completed >= l.stages && l.stages > 0
+}) && (
+  <button className="lh-unit-card lh-finalboss animate-fade-in-up" onClick={() => navigate('/boss/final')}>
+    <div className="lh-unit-badge" style={{ background: '#ef444430', borderColor: '#ef4444' }}>
+      <span style={{ color: '#ef4444', fontWeight: 800 }}>👿</span>
+    </div>
+    <div className="lh-unit-body">
+      <div className="lh-unit-row">
+        <span className="lh-unit-icon">💀</span>
+        <div className="lh-unit-text">
+          <span className="lh-unit-title">FINAL BOSS</span>
+          <div className="lh-unit-keywords">
+            <span className="lh-keyword">최종 보스</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </button>
+)}
 
+
+
+        
         {/* 비로그인 안내 배너 */}
         {!token && (
           <div className="lh-trial-banner card-glass">
