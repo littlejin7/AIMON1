@@ -518,7 +518,9 @@ if (showMinibossAlert) {
           className="btn btn-danger btn-lg"
           onClick={() => {
             setShowMinibossAlert(false)
-            setCurrent(current + 1)
+            if (minibossStartIndex !== null) {
+              setCurrent(minibossStartIndex)
+            }
           }}
         >
           ⚔️ 맞서 싸우기!

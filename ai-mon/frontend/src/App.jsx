@@ -17,11 +17,7 @@ import TopBar from './components/TopBar/TopBar'
 
 
 // 앱 시작 시 Pyodide를 백그라운드에서 미리 로드 (code_input 문제 대비)
-if (typeof window !== 'undefined' && window.loadPyodide) {
-  window.__pyodidePreload = window.loadPyodide({
-    indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.25.1/full/',
-  })
-}
+// App.jsx 내의 useEffect에서 처리하도록 이동되었습니다.
 
 /** 로그인 필수 경로 */
 function ProtectedRoute({ children }) {
@@ -53,6 +49,26 @@ export default function App() {
   useEffect(() => {
     const timer = setTimeout(() => setReady(true), 3500)
     return () => clearTimeout(timer)
+  }, [])
+
+  useEffect(() => {
+    const checkAndLoad = () => {
+      if (typeof window !== 'undefined' && window.loadPyodide && !window.__pyodidePreload) {
+        window.__pyodidePreload = window.loadPyodide({
+          indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.25.1/full/',
+        })
+      }
+    }
+    checkAndLoad()
+    if (typeof window !== 'undefined' && !window.loadPyodide) {
+      const interval = setInterval(() => {
+        if (window.loadPyodide) {
+          checkAndLoad()
+          clearInterval(interval)
+        }
+      }, 500)
+      return () => clearInterval(interval)
+    }
   }, [])
 
   if (!ready) return <SplashLoading />
