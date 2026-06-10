@@ -105,16 +105,23 @@ Stage 입장 → 브리핑 슬라이드 넘기기 → 퀴즈 → 다음 스테�
 | Unit 2 | 문자열 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
 | Unit 3 | 리스트 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
 | Unit 4 | 딕셔너리 & 세트 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
-| Unit 5 | 조건문 | `output_select` ×6, `fill_in_blank` ×2, `multiple_choice` ×2 |
-| Unit 6 | 반복문 | `output_select` ×6, `fill_in_blank` ×3, `multiple_choice` ×1 |
-| Unit 7 | 함수 | `output_select` ×5, `fill_in_blank` ×3, `multiple_choice` ×2 |
-| Unit 8 | 미니 프로젝트 | `output_select` ×5, `fill_in_blank` ×3, `multiple_choice` ×2 |
+**beginner (초급) 유닛 보스 — 10문제 구성**
 
-- 난이도: easy×2 + medium×4 + hard×4 (공통)
-- beginner 유닛 보스에서 `code_input`은 사용하지 않음
-- 앞 4문제: 시나리오 설계 (multiple_choice + output_select) — "이런 앱 `만들려면 어떤 코드가 맞을까?" 형식
-- 뒤 4문제: Unit 1~7 핵심 복습 (multiple_choice + fill_in_blank) — 각 유닛에서 1개씩 랜덤하게
-- code_input / error_find 없음 (초급 원칙 유지)
+| 유닛 | 주제 | 문제 유형 구성 |
+|---|---|---|
+| Unit 1 | 파이썬 첫걸음 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
+| Unit 2 | 문자열 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
+| Unit 3 | 리스트 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
+| Unit 4 | 딕셔너리 & 세트 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
+| Unit 5 | 조건문 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
+| Unit 6 | 반복문 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
+| Unit 7 | 함수 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
+| Unit 8 | 미니 프로젝트 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
+
+- 앞 5문제 (PHASE 1): TODO 리스트 미니 앱 순차 조립 (변수 선언 ➔ 사용자 입력 ➔ 조건 선택 메뉴 ➔ 리스트 누적)
+- 뒤 5문제 (PHASE 2): 완성된 앱에 기능을 확장하며 Unit 1~7 문법 종합 복습 및 디버깅
+- 초급 원칙에 따라 직접 타이핑하는 `code_input`은 배제하고, `error_find`를 통해 코드 분석력 검증
+- 총 10문제 고정 구성 (내 HP 1000 / 보스 HP 1000 배틀 밸런스 유지)
 - 총 8문제 (다른 스테이지와 동일)
 
 **intermediate / advanced 유닛 보스**
@@ -555,11 +562,11 @@ ai-mon/
 | 스테이지 레슨 | multiple_choice | multiple_choice + output_select | output_select + fill_in_blank |
 | 스테이지 퀴즈 | multiple_choice + output_select | fill_in_blank + output_select | fill_in_blank + output_select |
 | 스테이지 미니보스 | multiple_choice + output_select | output_select + fill_in_blank | fill_in_blank + code_input |
-| 유닛 보스 | output_select + fill_in_blank (+ error_find Unit 1~4) | fill_in_blank + output_select + code_input | code_input 위주 |
+| 유닛 보스 | output_select + fill_in_blank + error_find  | fill_in_blank + output_select + code_input | code_input 위주 |
 | 파이널 보스 | output_select + fill_in_blank (심화) | fill_in_blank + code_input (심화) | code_input 위주 (심화) |
 | 복습(훈련) | multiple_choice + output_select | fill_in_blank + output_select | fill_in_blank + code_input |
 
-> beginner는 `code_input` 없음. intermediate부터 `code_input` 도입. `error_find`는 beginner Unit 1~4에서만 사용.
+> beginner는 `code_input` 없음. intermediate부터 `code_input` 도입. `error_find`는 beginner 유닛 보스(Unit 1~8) 전체에서 디버깅 역량 검증용으로 사용.
 
 **복습(훈련) 구성**
 - 오답 우선: wrong_answers.json 기반 reviewed: false 문제 우선 출제
