@@ -1,28 +1,6 @@
 {
   "questions": [
     {
-      "question_id": "unitboss_beg_mc_8_001",
-      "unit": 8,
-      "stage": "8-boss",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "API(Application Programming Interface)란 무엇인가요?",
-      "choices": [
-        "A. 파이썬 코드를 실행하는 프로그램",
-        "B. 서로 다른 프로그램이 데이터를 주고받을 수 있게 해주는 연결 창구",
-        "C. 에러를 자동으로 고쳐주는 도구",
-        "D. 화면에 그림을 그리는 라이브러리"
-      ],
-      "answer": "B",
-      "hint": "API는 프로그램과 프로그램 사이의 '약속된 대화 방식'이에요.",
-      "feedback": {
-        "correct": "맞아요! API는 두 프로그램이 서로 통신할 수 있도록 정해진 규칙과 방법을 제공해요."
-      }
-    },
-    {
       "question_id": "unitboss_beg_fib_8_001",
       "unit": 8,
       "stage": "8-boss",
@@ -31,134 +9,12 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "빈칸을 채워 requests 라이브러리를 불러오세요.\n\n___ requests\n\nresponse = requests.get('https://api.example.com')",
+      "question": "할 일 항목들을 순서대로 저장할 비어있는 todo_list 리스트 상자를 만들려고 합니다. 빈칸에 들어갈 올바른 리스트 기호는 무엇인가요?\n\ntodo_list = ____",
       "choices": [],
-      "answer": "import",
-      "hint": "외부 라이브러리를 코드에서 사용하려면 먼저 불러와야 해요.",
+      "answer": "[]",
+      "hint": "파이썬에서 비어있는 대열(리스트)을 개설할 때 쓰는 대괄호 쌍을 입력하세요.",
       "feedback": {
-        "correct": "맞아요! import 키워드로 라이브러리를 불러와 사용할 수 있어요."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_mc_8_002",
-      "unit": 8,
-      "stage": "8-boss",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "파이썬 라이브러리를 사용하는 이유로 가장 적절한 것은 무엇인가요?",
-      "choices": [
-        "A. 코드를 영어로 번역해주기 때문에",
-        "B. 이미 만들어진 기능을 가져다 써서 개발 속도를 높이기 때문에",
-        "C. 오류를 자동으로 수정해주기 때문에",
-        "D. 코드 파일 크기를 줄여주기 때문에"
-      ],
-      "answer": "B",
-      "hint": "라이브러리는 다른 사람이 만들어놓은 코드 모음이에요.",
-      "feedback": {
-        "correct": "맞아요! 라이브러리는 이미 검증된 기능을 가져다 쓸 수 있어서 처음부터 다 짜지 않아도 돼요."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_fib_8_002",
-      "unit": 8,
-      "stage": "8-boss",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "fill_in_blank",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "빈칸을 채워 AI에게 질문을 보내는 함수를 완성하세요.\n\n___ ask_ai(question):\n    response = call_api(question)\n    return response\n\nanswer = ask_ai('파이썬이 뭐야?')\nprint(answer)",
-      "choices": [],
-      "answer": "def",
-      "hint": "파이썬에서 함수를 정의할 때 쓰는 키워드예요.",
-      "feedback": {
-        "correct": "맞아요! def 키워드로 함수를 정의해요. AI 에이전트도 함수 단위로 기능을 나눠요."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_mc_8_003",
-      "unit": 8,
-      "stage": "8-boss",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "AI 에이전트가 작동하는 기본 흐름으로 가장 적절한 것은 무엇인가요?",
-      "choices": [
-        "A. 코드 작성 → 저장 → 실행",
-        "B. 입력 받기 → AI에게 전달 → 응답 받기 → 결과 출력",
-        "C. 라이브러리 설치 → import → 출력",
-        "D. 변수 선언 → 조건문 → 반복문"
-      ],
-      "answer": "B",
-      "hint": "에이전트는 사용자 입력을 받아 AI와 대화하고 결과를 돌려줘요.",
-      "feedback": {
-        "correct": "맞아요! AI 에이전트의 기본 흐름은 입력 → API 전달 → 응답 처리 → 출력이에요."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_os_8_001",
-      "unit": 8,
-      "stage": "8-boss",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "output_select",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\ndef get_reply(msg):\n    if msg == '안녕':\n        return '안녕하세요!'\n    else:\n        return '잘 모르겠어요.'\n\nprint(get_reply('안녕'))\nprint(get_reply('날씨'))",
-      "choices": [
-        "A. 안녕 / 날씨",
-        "B. 안녕하세요! / 안녕하세요!",
-        "C. 안녕하세요! / 잘 모르겠어요.",
-        "D. 잘 모르겠어요. / 잘 모르겠어요."
-      ],
-      "answer": "C",
-      "hint": "첫 번째 호출은 '안녕', 두 번째는 '날씨'를 전달해요.",
-      "feedback": {
-        "correct": "맞아요! '안녕'이면 '안녕하세요!', 그 외엔 '잘 모르겠어요.'가 반환돼요."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_mc_8_004",
-      "unit": 8,
-      "stage": "8-boss",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "multiple_choice",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "AI에게 좋은 결과를 얻기 위해 질문(프롬프트)을 작성할 때 가장 중요한 것은 무엇인가요?",
-      "choices": [
-        "A. 최대한 짧고 단어만 나열하기",
-        "B. 원하는 역할, 상황, 출력 형태를 구체적으로 설명하기",
-        "C. 영어로만 작성하기",
-        "D. 이모티콘을 많이 넣기"
-      ],
-      "answer": "B",
-      "hint": "AI는 맥락이 명확할수록 더 정확한 답변을 줘요.",
-      "feedback": {
-        "correct": "맞아요! AI 에이전트에게는 역할, 상황, 원하는 출력 형태를 구체적으로 알려줄수록 좋은 결과가 나와요."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_fib_8_003",
-      "unit": 8,
-      "stage": "8-boss",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "fill_in_blank",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "빈칸을 채워 에이전트가 'quit' 입력 전까지 계속 대화하게 하세요.\n\nwhile ___:\n    user_input = input('질문: ')\n    if user_input == 'quit':\n        break\n    reply = get_reply(user_input)\n    print('에이몬:', reply)",
-      "choices": [],
-      "answer": "True",
-      "hint": "조건이 항상 참인 무한 반복이 필요해요. break로 나올 거예요.",
-      "feedback": {
-        "correct": "맞아요! while True:로 무한 반복하고 'quit' 입력 시 break로 탈출하는 전형적인 에이전트 대화 루프예요."
+        "correct": "정답! 파이썬에서 새 리스트 주머니를 처음 개설할 때는 대괄호 기호인 []를 사용해야 합니다."
       }
     },
     {
@@ -166,25 +22,124 @@
       "unit": 8,
       "stage": "8-boss",
       "course_level": "beginner",
-      "difficulty": "hard",
+      "difficulty": "easy",
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\nhistory = []\n\ndef chat(msg):\n    history.append(msg)\n    return f'[대화 {len(history)}] {msg}'\n\nprint(chat('안녕'))\nprint(chat('파이썬 알려줘'))",
+      "question": "기존 목록에 append() 메서드를 사용해 새로운 할 일인 \"운동하기\"를 추가했습니다. 최종 출력되는 리스트의 모습은?\n\ntodo_list = [\"파이썬 공부\"]\nnew_task = \"운동하기\"\ntodo_list.append(new_task)\nprint(todo_list)",
       "choices": [
-        "A. [대화 1] 안녕 / [대화 1] 파이썬 알려줘",
-        "B. [대화 1] 안녕 / [대화 2] 파이썬 알려줘",
-        "C. [대화 0] 안녕 / [대화 1] 파이썬 알려줘",
-        "D. 오류 발생"
+        "A. [\"운동하기\"]",
+        "B. [\"파이썬 공부\"]",
+        "C. [\"파이썬 공부\", \"운동하기\"]",
+        "D. [\"운동하기\", \"파이썬 공부\"]"
       ],
-      "answer": "B",
-      "hint": "history에 메시지가 쌓일수록 len(history)가 커져요.",
+      "answer": "C",
+      "hint": ".append() 연산 함수가 데이터의 어느 꼬리 칸 위치에 이식되는지 파악하세요.",
       "feedback": {
-        "correct": "맞아요! 첫 번째 chat() 후 history에 1개, 두 번째 후 2개가 쌓여서 순서대로 1, 2가 출력돼요."
+        "correct": "정답! .append() 메서드는 지정 리스트 장부의 가장 맨 뒤(마지막) 인덱스 자리에 타겟 요소를 연결 적재해 줍니다."
       }
     },
     {
-      "question_id": "unitboss_beg_fib_8_004",
+      "question_id": "unitboss_beg_fib_8_003",
+      "unit": 8,
+      "stage": "8-boss",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "리스트에 담긴 할 일 항목들을 첫 번째부터 하나씩 꺼내서 화면에 차례대로 출력하려고 합니다. 빈칸에 들어갈 올바른 반복문 키워드를 적어주세요.\n\ntodo_list = [\"공부\", \"운동\"]\n____ task in todo_list:\n    print(task)",
+      "choices": [],
+      "answer": "for",
+      "hint": "정해진 배열이나 리스트 인프라를 순차 순회 탐색할 때 기용하는 소문자 3글자 반복 예약어입니다.",
+      "feedback": {
+        "correct": "정답! 대열 상자(리스트)에 보관된 요소를 첫 칸부터 막차 칸까지 하나씩 치환 인출하여 루프를 돌릴 때는 for문을 가동합니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_os_8_004",
+      "unit": 8,
+      "stage": "8-boss",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "유저가 메뉴창에서 선택한 번호(choice)에 따라 다르게 작동하는 조건문입니다. 다음 코드의 실행 결과로 화면에 출력되는 값은 무엇인가요?\n\nchoice = \"2\"\n\nif choice == \"1\":\n    print(\"할 일 추가\")\nelse:\n    print(\"프로그램 종료\")",
+      "choices": [
+        "A. 할 일 추가",
+        "B. 프로그램 종료",
+        "C. choice",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "choice 변수 알맹이인 \"2\" 수치가 if문 연산 조건식과 부합하는지, 불부합하여 대타 방으로 튕겨 나가는지 보세요.",
+      "feedback": {
+        "correct": "정답! if문 비교 연산 결과식(\"2\" == \"1\")이 거짓(False) 판정을 받기 때문에, 탈락 처리되어 백업 영역인 else 블록 내부 코드가 실행됩니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_fib_8_005",
+      "unit": 8,
+      "stage": "8-boss",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "TODO 리스트 프로그램을 종료 메뉴를 선택하기 전까지 무한히 계속 실행 상태로 유지시키기 위해 빈칸에 들어갈 반복문 키워드는?\n\n____ True:\n    print(\"1. 추가 | 2. 종료\")",
+      "choices": [],
+      "answer": "while",
+      "hint": "별도 한계 횟수 규격 없이 조건 상태가 무조건 참인 내내 상시 무한 루프를 기동시키는 지시어입니다.",
+      "feedback": {
+        "correct": "정답! 정해진 범위가 따로 존재하지 않는 모바일/PC 프로그램의 메인 대기 화면 루프 전선을 구축할 때는 while True: 문법을 설계 세팅합니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_os_8_006",
+      "unit": 8,
+      "stage": "8-boss",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "할 일 내용을 더 보기 좋게 꾸며서 출력하기 위해 f-string 문법을 사용했습니다. 다음 코드의 실행 결과는 무엇인가요?\n\ntask = \"방청소\"\nprint(f\"오늘의 할 일: {task}\")",
+      "choices": [
+        "A. 오늘의 할 일: task",
+        "B. 오늘의 할 일: 방청소",
+        "C. f\"오늘의 할 일: {task}\"",
+        "D. 오늘의 할 일: {방청소}"
+      ],
+      "answer": "B",
+      "hint": "f-string 접두사 전개 시 중괄호 {} 내부의 변수명이 리얼 문자열로 나오는지, 저장소 실체 데이터로 리셋 각인되는지 판별하세요.",
+      "feedback": {
+        "correct": "정답! f-string 인프라 하에서 격리된 중괄호 {} 영역은 껍데기가 해체 탈거되면서 그 자리에 변수가 머금고 있던 진짜 실체 값인 '방청소'를 투입 결합해 줍니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_ef_8_007",
+      "unit": 8,
+      "stage": "8-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "error_find",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "작성한 할 일 목록을 텍스트 파일로 안전하게 저장하려는데 문법 오류(SyntaxError)가 터졌습니다. 콜론 기호(:)를 빼먹어서 에러를 일으킨 줄은 몇 줄인가요?\n\n1줄: tasks = [\"공부\", \"독서\"]\n2줄: with open(\"todo.txt\", \"w\") as file\n3줄:     file.write(\"할 일 저장 완료\")",
+      "choices": [
+        "A. 1줄",
+        "B. 2줄",
+        "C. 3줄"
+      ],
+      "answer": "B",
+      "hint": "with open() as 제어 구문을 완성 통보하고 하위 블록 영역으로 입장을 개시할 때 빠지면 안 되는 특수 기호 위치를 진단하세요.",
+      "feedback": {
+        "correct": "정답! 파이썬 컴파일 규칙에 의거하여, with open(...) as 변수 구조식 헤더를 종결 수립할 때도 꼬리단에 무조건 콜론 기호(:) 선언을 박아야 영역 구동이 승인됩니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_fib_8_008",
       "unit": 8,
       "stage": "8-boss",
       "course_level": "beginner",
@@ -192,12 +147,55 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "빈칸을 채워 API 응답에서 텍스트만 꺼내게 하세요.\n\nresponse = {\n    'status': 'ok',\n    'message': '파이썬은 배우기 쉬워요!'\n}\n\ntext = response[___]\nprint(text)",
+      "question": "언제든 필요할 때마다 할 일 목록을 화면에 깔끔하게 보여줄 수 있도록 show_tasks()라는 이름의 함수(부품)를 만들려고 합니다. 빈칸에 들어갈 함수 정의 키워드를 적어주세요.\n\n____ show_tasks():\n    print(\"--- 할 일 목록 ---\")",
       "choices": [],
-      "answer": "'message'",
-      "hint": "딕셔너리에서 값을 꺼낼 때는 키 이름을 사용해요.",
+      "answer": "def",
+      "hint": "함수를 새로 개설 설계할 때 최전방 스타팅 기호로 기용하는 3글자 소문자 표식입니다.",
       "feedback": {
-        "correct": "맞아요! response['message']로 딕셔너리에서 'message' 키의 값을 꺼낼 수 있어요."
+        "correct": "정답! 파이썬 플랫폼 환경에서 독립 실행 연산 모듈 부품(함수)을 독자 창설 개시할 때는 예약어 def 기호를 전면 배치 선언해야 합니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_os_8_009",
+      "unit": 8,
+      "stage": "8-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "할 일 항목별로 '마감 시간' 정보까지 매칭하여 관리하기 위해 딕셔너리(Key-Value) 자료구조를 도입했습니다. 다음 코드가 실행되었을 때 최종 출력값은?\n\ntodo_dict = {\"파이썬 공부\": \"14시\", \"운동하기\": \"20시\"}\nprint(todo_dict[\"파이썬 공부\"])",
+      "choices": [
+        "A. 파이썬 공부",
+        "B. 14시",
+        "C. 20시",
+        "D. KeyError 발생"
+      ],
+      "answer": "B",
+      "hint": "대괄호 인풋으로 투척한 명칭 식별자(Key)가 딕셔너리 장부 속에서 어떤 데이터 밸류를 유출 소환해 오는지 보세요.",
+      "feedback": {
+        "correct": "정답! 딕셔너리 정보 구조망은 대괄호 내부에 특정 키 명칭('파이썬 공부')을 매칭 주입 호출하면, 우측에 연동 저장 중이던 실제 타겟 값인 '14시'를 명확하게 산출 반환합니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_ef_8_010",
+      "unit": 8,
+      "stage": "8-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "error_find",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "리스트에 존재하지 않는 엉뚱한 할 일 항목을 억지로 삭제(remove)하려고 시도하여 실행 시 값 오류(ValueError)가 터지는 줄은 몇 줄인가요?\n\n1줄: todo_list = [\"공부\", \"운동\"]\n2줄: todo_list.append(\"독서\")\n3줄: todo_list.remove(\"잠자기\")",
+      "choices": [
+        "A. 1줄",
+        "B. 2줄",
+        "C. 3줄"
+      ],
+      "answer": "C",
+      "hint": "todo_list 인벤토리 리스트 장부가 실시간 수집 보유하고 있는 팩트 요소 중, 실존 부재하는 유령 텍스트를 강제 청산하려 진상 부린 라인을 검거하세요.",
+      "feedback": {
+        "correct": "정답! .remove('아이템') 소거 문법은 배열 공간 내부에 타겟 원소가 절대 존재하지 않는 황당 상황일 때, 추적 불능 판정을 내리며 ValueError 파괴 예외를 작동시킵니다."
       }
     }
   ]

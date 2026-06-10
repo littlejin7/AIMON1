@@ -1,28 +1,6 @@
 {
   "questions": [
     {
-      "question_id": "unitboss_beg_os_2_001",
-      "unit": 2,
-      "stage": "2-boss",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "type": "output_select",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\nitems = [10, 20, 30]\nprint(items[0])\nprint(items[-1])",
-      "choices": [
-        "A. 10 / 30",
-        "B. 10 / 20",
-        "C. 20 / 30",
-        "D. 오류 발생"
-      ],
-      "answer": "A",
-      "hint": "인덱스 0은 첫 번째, -1은 마지막 요소예요.",
-      "feedback": {
-        "correct": "맞아요! items[0]은 첫 번째 요소 10, items[-1]은 마지막 요소 30이에요."
-      }
-    },
-    {
       "question_id": "unitboss_beg_fib_2_001",
       "unit": 2,
       "stage": "2-boss",
@@ -31,12 +9,12 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "빈칸을 채워 리스트를 올바르게 만드세요.\n\nmonsters = ___'슬라임', '코드몬', '에이몬'___",
+      "question": "문자열 \"에이몬\"의 글자 수(길이)를 구하는 올바른 함수 이름을 적어주세요.\n\ntext = \"에이몬\"\nprint(_________(text))",
       "choices": [],
-      "answer": "[",
-      "hint": "리스트는 대괄호로 만들어요.",
+      "answer": "len",
+      "hint": "길이를 뜻하는 영어 단어 length에서 파생된 내장 함수입니다.",
       "feedback": {
-        "correct": "맞아요! 리스트는 [ ] 대괄호로 감싸서 만들어요."
+        "correct": "정답! 파이썬에서 문자열이나 자료구조의 길이를 측정할 때는 len() 함수를 사용합니다."
       }
     },
     {
@@ -44,25 +22,25 @@
       "unit": 2,
       "stage": "2-boss",
       "course_level": "beginner",
-      "difficulty": "medium",
+      "difficulty": "easy",
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\nplayer = {'name': '에이몬', 'lv': 5}\nprint(player['name'])\nprint(player['lv'] + 1)",
+      "question": "다음 코드가 실행되었을 때, 화면에 나타날 최종 출력값은?\n\nword = \"Python\"\nprint(word[0])",
       "choices": [
-        "A. 에이몬 / 5",
-        "B. 에이몬 / 6",
-        "C. name / 6",
-        "D. 오류 발생"
+        "A. P",
+        "B. y",
+        "C. n",
+        "D. Python"
       ],
-      "answer": "B",
-      "hint": "딕셔너리는 키로 값을 가져와요.",
+      "answer": "A",
+      "hint": "파이썬은 숫자를 셀 때 몇 번부터 시작하는지 기억해 보세요.",
       "feedback": {
-        "correct": "맞아요! player['name']은 '에이몬', player['lv'] + 1은 5 + 1 = 6이에요."
+        "correct": "정답! 파이썬은 숫자를 0부터 세기 때문에 [0] 인덱스는 가장 첫 번째 글자인 'P'를 가리킵니다."
       }
     },
     {
-      "question_id": "unitboss_beg_ef_2_001",
+      "question_id": "unitboss_beg_ef_2_003",
       "unit": 2,
       "stage": "2-boss",
       "course_level": "beginner",
@@ -70,117 +48,17 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "아래 코드에서 오류가 발생하는 줄은 어디일까요?\n\n1: nums = [1, 2, 3]\n2: print(nums[0])\n3: print(nums[5])\n4: print(nums[-1])",
+      "question": "파이썬의 문자열 문법 규칙을 위반하여 실행 시 오류가 발생하는 줄은 몇 줄인가요?\n\n1줄: text1 = \"에이몬\"\n2줄: text2 = '로봇몬'\n3줄: text3 = \"고스트몬'\n4줄: text4 = \"라스트\"",
       "choices": [
-        "A. 1번 줄",
-        "B. 2번 줄",
-        "C. 3번 줄",
-        "D. 4번 줄"
+        "A. 1줄",
+        "B. 2줄",
+        "C. 3줄",
+        "D. 4줄"
       ],
       "answer": "C",
-      "hint": "리스트 길이보다 큰 인덱스는 접근할 수 없어요.",
+      "hint": "문자열을 감싸는 양쪽 따옴표의 종류가 서로 일치하는지 확인해 보세요.",
       "feedback": {
-        "correct": "맞아요! 리스트 길이가 3인데 인덱스 5를 접근하면 IndexError가 발생해요."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_fib_2_002",
-      "unit": 2,
-      "stage": "2-boss",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "fill_in_blank",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "빈칸을 채워 리스트에 '에이몬'을 추가하세요.\n\nteam = ['슬라임', '코드몬']\nteam.___('에이몬')\nprint(team)",
-      "choices": [],
-      "answer": "append",
-      "hint": "리스트에 요소를 추가하는 메서드예요.",
-      "feedback": {
-        "correct": "맞아요! append()는 리스트 맨 뒤에 요소를 추가해요."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_os_2_003",
-      "unit": 2,
-      "stage": "2-boss",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "output_select",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\nscores = [80, 90, 70, 85]\nprint(len(scores))\nprint(90 in scores)",
-      "choices": [
-        "A. 4 / True",
-        "B. 3 / True",
-        "C. 4 / False",
-        "D. 오류 발생"
-      ],
-      "answer": "A",
-      "hint": "len()은 요소 개수, in은 포함 여부를 확인해요.",
-      "feedback": {
-        "correct": "맞아요! 리스트에 4개 요소가 있고, 90이 포함되어 있으므로 True예요."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_ef_2_002",
-      "unit": 2,
-      "stage": "2-boss",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "error_find",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "아래 코드에서 오류가 발생하는 줄은 어디일까요?\n\n1: info = {'name': '에이몬', 'lv': 5}\n2: print(info['name'])\n3: print(info['hp'])\n4: print(info.get('lv', 0))",
-      "choices": [
-        "A. 1번 줄",
-        "B. 2번 줄",
-        "C. 3번 줄",
-        "D. 4번 줄"
-      ],
-      "answer": "C",
-      "hint": "딕셔너리에 없는 키를 대괄호로 접근하면 KeyError가 나요.",
-      "feedback": {
-        "correct": "맞아요! 'hp' 키가 없는데 대괄호로 접근하면 KeyError가 발생해요."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_fib_2_003",
-      "unit": 2,
-      "stage": "2-boss",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "fill_in_blank",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "빈칸을 채워 키가 없을 때 0을 반환하게 하세요.\n\nstats = {'atk': 50, 'def': 30}\nprint(stats.___('hp', 0))",
-      "choices": [],
-      "answer": "get",
-      "hint": "키가 없을 때 기본값을 반환하는 딕셔너리 메서드예요.",
-      "feedback": {
-        "correct": "맞아요! .get(키, 기본값)은 키가 없을 때 기본값을 반환해요."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_os_2_004",
-      "unit": 2,
-      "stage": "2-boss",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "output_select",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\nnums = [10, 20, 30, 40, 50]\nprint(nums[1:3])\nprint(nums[:2])",
-      "choices": [
-        "A. [20, 30] / [10, 20]",
-        "B. [20, 30, 40] / [10, 20]",
-        "C. [10, 20] / [10, 20]",
-        "D. [20, 30] / [20, 30]"
-      ],
-      "answer": "A",
-      "hint": "슬라이싱 [a:b]는 인덱스 a부터 b-1까지예요.",
-      "feedback": {
-        "correct": "맞아요! nums[1:3]은 인덱스 1,2인 [20, 30], nums[:2]는 인덱스 0,1인 [10, 20]이에요."
+        "correct": "정답! 문자열을 선언할 때는 시작하는 따옴표와 끝나는 따옴표의 종류(큰따옴표/작은따옴표)가 서로 동일해야 문법 에러가 나지 않습니다."
       }
     },
     {
@@ -188,16 +66,138 @@
       "unit": 2,
       "stage": "2-boss",
       "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "문자열 두 개를 그대로 이어 붙여 \"파이어볼\" 기술을 완성하려고 합니다. 빈칸에 들어갈 올바른 연산 기호를 적어주세요.\n\nskill1 = \"파이어\"\nskill2 = \"볼\"\nprint(skill1 ____ skill2)",
+      "choices": [],
+      "answer": "+",
+      "hint": "두 글자를 기차처럼 공백 없이 연결해 주는 사칙연산 기호입니다.",
+      "feedback": {
+        "correct": "정답! 파이썬에서는 문자열 데이터 사이에 더하기(+) 연산자를 사용하여 공백 없이 두 문자열을 결합할 수 있습니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_os_2_005",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드가 실행되었을 때 화면에 나타날 최종 출력값은?\n\nmonster = \"코드몬\"\nprint(monster * 2)",
+      "choices": [
+        "A. monster2",
+        "B. 코드몬2",
+        "C. 코드몬코드몬",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "문자열에 곱하기(*) 연산자를 적용하면 글자가 어떻게 변하는지 확인해 보세요.",
+      "feedback": {
+        "correct": "정답! 문자열에 곱하기(*) 연산자를 사용하면 해당 문자열을 지정된 횟수만큼 그대로 복제하여 이어 붙여줍니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_os_2_006",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "문자열 슬라이싱 코드입니다. 다음 코드가 실행되었을 때 화면에 나타날 최종 출력값은?\n\nitem = \"체력포션\"\nprint(item[0:2])",
+      "choices": [
+        "A. 체",
+        "B. 체력",
+        "C. 체력포",
+        "D. 체력포션"
+      ],
+      "answer": "B",
+      "hint": "슬라이싱 기호 [시작:끝]은 끝 인덱스의 직전 위치까지만 잘라냅니다.",
+      "feedback": {
+        "correct": "정답! 슬라이싱 [0:2]는 0번 인덱스부터 2번 인덱스의 바로 앞(1번)까지만 잘라오므로 0번인 '체', 1번인 '력'이 합쳐져 '체력'이 출력됩니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_ef_2_007",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "error_find",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "문자열의 글자 수를 초과한 인덱스에 무리하게 접근하여 실행 시 범위 오류(IndexError)가 발생하는 줄은 몇 줄인가요?\n\n1줄: name = \"AI\"\n2줄: print(name[0])\n3줄: print(name[1])\n4줄: print(name[2])",
+      "choices": [
+        "A. 1줄",
+        "B. 2줄",
+        "C. 3줄",
+        "D. 4줄"
+      ],
+      "answer": "D",
+      "hint": "\"AI\"는 딱 2글자입니다. 사용 가능한 인덱스 번호가 어디까지인지 계산해 보세요.",
+      "feedback": {
+        "correct": "정답! 2글자 짜리 문자열은 0번과 1번 인덱스만 존재하므로 존재하지 않는 2번 인덱스에 접근한 4줄에서 IndexError가 발생합니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_os_2_008",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "문자열의 일부분을 교체하는 메서드입니다. 다음 코드의 실행 결과는?\n\ntext = \"파이어볼 공격!\"\nprint(text.replace(\"파이어볼\", \"아이스크래시\"))",
+      "choices": [
+        "A. 파이어볼 공격!",
+        "B. 아이스크래시 공격!",
+        "C. 아이스크래시",
+        "D. replace 공격!"
+      ],
+      "answer": "B",
+      "hint": ".replace() 메서드가 타겟 문장을 어떻게 변경하는지 매칭해 보세요.",
+      "feedback": {
+        "correct": "정답! .replace(\"A\", \"B\")는 지정한 문장 내에서 A라는 글자를 찾아 전부 B로 변환한 결과를 출력해 줍니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_fib_2_009",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "beginner",
       "difficulty": "hard",
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "빈칸을 채워 딕셔너리 값을 수정하세요.\n\nplayer = {'name': '에이몬', 'lv': 5}\nplayer___= 10\nprint(player['lv'])",
+      "question": "문자열 \"에이몬\"에서 딱 한 글자, \"몬\"만 쏙 뽑아서 출력하려고 합니다. 빈칸에 들어갈 올바른 인덱스 번호(숫자)를 적어주세요.\n\ntext = \"에이몬\"\n# 인덱스 순서: 에(0), 이(1), 몬(2)\nprint(text[_____])",
       "choices": [],
-      "answer": "['lv']",
-      "hint": "딕셔너리 값을 바꾸려면 키로 접근 후 대입해요.",
+      "answer": "2",
+      "hint": "0부터 순서를 세었을 때 세 번째 위치에 해당하는 인덱스 번호를 적어주세요.",
       "feedback": {
-        "correct": "맞아요! player['lv'] = 10 으로 기존 값을 덮어쓸 수 있어요."
+        "correct": "정답! 세 번째 자리 글자인 '몬'을 가리키는 파이썬의 표준 인덱스 번호는 2입니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_fib_2_010",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "문자열 내부에 특정 글자가 포함되어 있는지 확인하여 참(True) 또는 거짓(False)을 얻으려고 합니다. 빈칸에 들어갈 올바른 연산자는?\n\nresult = \"몬\" ____ \"에이몬\"\nprint(result) # 출력 결과: True",
+      "choices": [],
+      "answer": "in",
+      "hint": "특정 데이터가 어떤 범위나 글자 안에 속해있는지 판별해 주는 영어 단어 키워드입니다.",
+      "feedback": {
+        "correct": "정답! 파이썬에서 특정 문자열이 타겟 문자열 내에 포함되어 있는지를 검증할 때는 in 연산자를 활용합니다."
       }
     }
   ]

@@ -1,28 +1,6 @@
 {
   "questions": [
     {
-      "question_id": "unitboss_beg_os_3_001",
-      "unit": 3,
-      "stage": "3-boss",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "type": "output_select",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\nx = 15\nif x > 10:\n    print('통과')\nelse:\n    print('실패')",
-      "choices": [
-        "A. 통과",
-        "B. 실패",
-        "C. 통과 / 실패",
-        "D. 오류 발생"
-      ],
-      "answer": "A",
-      "hint": "15 > 10이 참인지 거짓인지 확인해봐요.",
-      "feedback": {
-        "correct": "맞아요! 15 > 10은 True이므로 if 블록이 실행돼 '통과'가 출력돼요."
-      }
-    },
-    {
       "question_id": "unitboss_beg_fib_3_001",
       "unit": 3,
       "stage": "3-boss",
@@ -31,12 +9,12 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "빈칸을 채워 조건 분기를 완성하세요.\n\nscore = 75\nif score >= 90:\n    print('A')\n___ score >= 70:\n    print('B')\nelse:\n    print('C')",
+      "question": "파이썬 조건문에서 \"만약 ~라면\"을 뜻하는 가장 기본 제어문 키워드를 빈칸에 적어주세요.\n\nhp = 100\n____ hp == 100:\n    print(\"만땅!\")",
       "choices": [],
-      "answer": "elif",
-      "hint": "if 다음에 추가 조건을 붙일 때 쓰는 키워드예요.",
+      "answer": "if",
+      "hint": "영어로 만약을 뜻하는 두 글자 키워드입니다.",
       "feedback": {
-        "correct": "맞아요! elif는 if 조건이 False일 때 추가로 확인하는 조건이에요."
+        "correct": "정답! 파이썬의 조건 제어 흐름을 열어주는 최초의 키워드는 언제나 if문입니다."
       }
     },
     {
@@ -44,104 +22,21 @@
       "unit": 3,
       "stage": "3-boss",
       "course_level": "beginner",
-      "difficulty": "medium",
+      "difficulty": "easy",
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\nhp = 80\nmp = 20\nprint(hp > 50 and mp > 30)\nprint(hp > 50 or mp > 30)",
+      "question": "다음 코드가 완전히 실행되었을 때, 화면에 최종적으로 출력되는 값은 무엇인가요?\n\nhp = 40\nif hp < 50:\n    print(\"위험!\")\nelse:\n    print(\"안전!\")",
       "choices": [
-        "A. False / True",
-        "B. True / True",
-        "C. False / False",
-        "D. True / False"
+        "A. 위험!",
+        "B. 안전!",
+        "C. hp < 50",
+        "D. 아무것도 출력되지 않는다."
       ],
       "answer": "A",
-      "hint": "and는 둘 다 True여야 True, or는 하나만 True여도 True예요.",
+      "hint": "현재 hp 변수의 값이 50보다 작은지 비교 연산 결과를 계산해 보세요.",
       "feedback": {
-        "correct": "맞아요! hp > 50은 True, mp > 30은 False. and → False, or → True예요."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_ef_3_001",
-      "unit": 3,
-      "stage": "3-boss",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "error_find",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "아래 코드에서 오류가 발생하는 줄은 어디일까요?\n\n1: lv = 10\n2: if lv >= 5\n3:     print('중급 이상')\n4: else:\n5:     print('초급')",
-      "choices": [
-        "A. 1번 줄",
-        "B. 2번 줄",
-        "C. 3번 줄",
-        "D. 4번 줄"
-      ],
-      "answer": "B",
-      "hint": "if 조건문 끝에 꼭 필요한 기호가 있어요.",
-      "feedback": {
-        "correct": "맞아요! if 조건식 뒤에는 반드시 콜론(:)이 있어야 해요."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_fib_3_002",
-      "unit": 3,
-      "stage": "3-boss",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "fill_in_blank",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "빈칸을 채워 두 값이 같은지 확인하세요.\n\npassword = '1234'\nguess = '1234'\nif password ___ guess:\n    print('정답!')",
-      "choices": [],
-      "answer": "==",
-      "hint": "값이 같은지 비교하는 연산자예요. 대입(=)과 달라요.",
-      "feedback": {
-        "correct": "맞아요! == 는 두 값이 같은지 비교해요. 대입 연산자 = 와 다르게 주의하세요."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_os_3_003",
-      "unit": 3,
-      "stage": "3-boss",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "output_select",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\nalive = False\nprint(not alive)\nprint(not True)",
-      "choices": [
-        "A. True / False",
-        "B. False / True",
-        "C. True / True",
-        "D. False / False"
-      ],
-      "answer": "A",
-      "hint": "not은 True를 False로, False를 True로 바꿔요.",
-      "feedback": {
-        "correct": "맞아요! not False = True, not True = False예요."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_ef_3_002",
-      "unit": 3,
-      "stage": "3-boss",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "error_find",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "아래 코드에서 오류가 발생하는 줄은 어디일까요?\n\n1: hp = 50\n2: if hp > 0:\n3: print('생존')\n4: else:\n5:     print('사망')",
-      "choices": [
-        "A. 1번 줄",
-        "B. 2번 줄",
-        "C. 3번 줄",
-        "D. 5번 줄"
-      ],
-      "answer": "C",
-      "hint": "if 블록 안의 코드는 반드시 들여쓰기가 필요해요.",
-      "feedback": {
-        "correct": "맞아요! 3번 줄 print('생존')에 들여쓰기(4칸 또는 탭)가 없어서 오류가 발생해요."
+        "correct": "정답! hp가 40이므로 40 < 50 조건식이 참(True)이 되어 if 구문 내부의 문장이 실행됩니다."
       }
     },
     {
@@ -149,16 +44,16 @@
       "unit": 3,
       "stage": "3-boss",
       "course_level": "beginner",
-      "difficulty": "hard",
+      "difficulty": "medium",
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "빈칸을 채워 두 조건을 모두 만족할 때만 출력되게 하세요.\n\nlv = 10\nhp = 80\nif lv >= 5 ___ hp >= 50:\n    print('보스 입장 가능')",
+      "question": "변수 score가 정확히 100과 동일한지 동등 비교를 하여 True를 얻으려고 합니다. 빈칸에 들어갈 올바른 비교 연산자는?\n\nscore = 100\nprint(score ____ 100) # 출력 결과: True",
       "choices": [],
-      "answer": "and",
-      "hint": "두 조건이 모두 참이어야 할 때 쓰는 논리 연산자예요.",
+      "answer": "==",
+      "hint": "대입 연산자인 등호(=)와 구별하기 위해 비교 연산자는 기호를 몇 개 연속으로 써야 할까요?",
       "feedback": {
-        "correct": "맞아요! and는 두 조건이 모두 True일 때만 전체가 True가 돼요."
+        "correct": "정답! 두 값이 서로 같은지 비교하는 동등 연산자는 등호 두 개(==)를 붙여서 작성합니다."
       }
     },
     {
@@ -166,25 +61,113 @@
       "unit": 3,
       "stage": "3-boss",
       "course_level": "beginner",
-      "difficulty": "hard",
+      "difficulty": "medium",
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\nscore = 75\nif score >= 90:\n    print('A')\nelif score >= 70:\n    print('B')\nelif score >= 60:\n    print('C')\nelse:\n    print('D')",
+      "question": "여러 개의 조건을 순서대로 판별하는 분기문 코드입니다. 최종 출력 결과는?\n\nlevel = 15\nif level >= 20:\n    print(\"고수\")\nelif level >= 10:\n    print(\"중수\")\nelse:\n    print(\"초보\")",
       "choices": [
-        "A. A",
-        "B. B",
-        "C. C",
-        "D. B / C"
+        "A. 고수",
+        "B. 중수",
+        "C. 초보",
+        "D. 중수와 초보가 동시에 출력"
       ],
       "answer": "B",
-      "hint": "조건을 위에서부터 순서대로 확인해요. 처음 참인 조건만 실행돼요.",
+      "hint": "위에서부터 조건을 순서대로 검사하다가 최초로 만족하는 조건 블록의 문장을 고르세요.",
       "feedback": {
-        "correct": "맞아요! score >= 90은 False, score >= 70은 True라 'B'가 출력돼요."
+        "correct": "정답! 첫 if 조건은 거짓이므로 건너뛰고, 다음 elif 조건인 15 >= 10 조건이 참이 되므로 '중수'를 실행하고 탈출합니다."
       }
     },
     {
-      "question_id": "unitboss_beg_fib_3_004",
+      "question_id": "unitboss_beg_os_3_005",
+      "unit": 3,
+      "stage": "3-boss",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 논리 연산 복합 조건식의 결과로 화면에 최종 출력되는 문장은?\n\nhas_key = True\nhas_shield = False\n\nif has_key and has_shield:\n    print(\"보스방 입장!\")\nelse:\n    print(\"입장 불가!\")",
+      "choices": [
+        "A. 보스방 입장!",
+        "B. 입장 불가!",
+        "C. has_key and has_shield",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "and 연산자는 양쪽의 조건이 전부 참(True)이어야 만족합니다.",
+      "feedback": {
+        "correct": "정답! and 조건은 둘 다 True일 때만 성립합니다. 한쪽 조건이 False이므로 else 블록의 문장이 수행됩니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_os_3_006",
+      "unit": 3,
+      "stage": "3-boss",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "두 조건문 중 어느 하나라도 참이면 참을 반환하는 or 연산자 코드입니다. 최종 출력값은?\n\nhas_potion = True\nhas_gold = False\n\nif has_potion or has_gold:\n    print(\"모험 계속\")\nelse:\n    print(\"마을 귀환\")",
+      "choices": [
+        "A. 모험 계속",
+        "B. 마을 귀환",
+        "C. True",
+        "D. 오류 발생"
+      ],
+      "answer": "A",
+      "hint": "or 연산자는 좌우 조건식 중 한 군데만 만족해도 참이 됩니다.",
+      "feedback": {
+        "correct": "정답! or 연산자는 여러 조건 중 최소 한 가지만 성립해도 if 영역의 코드를 바로 실행시킵니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_ef_3_007",
+      "unit": 3,
+      "stage": "3-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "error_find",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "파이썬의 조건문 문법 규칙(콜론 기호)을 위반하여 실행 시 문법 오류(SyntaxError)가 발생하는 줄은 몇 줄인가요?\n\ncrystal = 5\n1줄: if crystal >= 3:\n2줄:     print(\"워프 가동\")\n3줄: else\n4줄:     print(\"에너지 부족\")",
+      "choices": [
+        "A. 1줄",
+        "B. 2줄",
+        "C. 3줄",
+        "D. 4줄"
+      ],
+      "answer": "C",
+      "hint": "if나 else 뒤에 구문이 끝났음을 파이썬 엔진에게 알리는 문장 부호가 잘 붙어있나 보세요.",
+      "feedback": {
+        "correct": "정답! 파이썬에서 if, elif, else 구문을 선언하는 영역 맨 끝자리에는 무조건 콜론 기호(:)를 명시해 주어야 합니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_ef_3_008",
+      "unit": 3,
+      "stage": "3-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "error_find",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "들여쓰기(코드 정렬) 규칙이 어긋나서 실행 전부터 에러(IndentationError)를 유발시키는 줄을 찾으세요.\n\n1줄: potion = 0\n2줄: if potion == 0:\n3줄: print(\"포션이 없습니다.\")\n4줄:     print(\"마을로 가세요.\")",
+      "choices": [
+        "A. 1줄",
+        "B. 2줄",
+        "C. 3줄",
+        "D. 4줄"
+      ],
+      "answer": "C",
+      "hint": "if 조건식 밑에 종속되어 구동될 내부 코드들은 안쪽으로 밀려 들어가 있어야 합니다.",
+      "feedback": {
+        "correct": "정답! 조건문이나 반복문 바로 다음 하위 영역에 귀속되는 코드는 무조건 표준 들여쓰기(띄어쓰기 4칸) 정렬을 맞춰야 에러가 안 납니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_fib_3_009",
       "unit": 3,
       "stage": "3-boss",
       "course_level": "beginner",
@@ -192,12 +175,29 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "빈칸을 채워 레벨이 1이거나 hp가 0이면 '게임오버'를 출력하세요.\n\nlv = 1\nhp = 50\nif lv == 1 ___ hp == 0:\n    print('게임오버')",
+      "question": "결과 상태를 정반대로 뒤집어주는 not 연산자입니다. 하단 코드의 출력값이 \"전투 준비!\"가 되도록 빈칸에 대입할 알맞은 불리언(True/False) 값을 명시하세요.\n\nis_frozen = _________\nif not is_frozen:\n    print(\"전투 준비!\")\nelse:\n    print(\"행동 불가!\")",
       "choices": [],
-      "answer": "or",
-      "hint": "둘 중 하나만 참이어도 실행되게 하는 논리 연산자예요.",
+      "answer": "False",
+      "hint": "not 뒤에 어떤 상태값이 와야 전체 조건이 참(True)으로 바뀔지 유추해 보세요. (첫 글자는 대문자입니다.)",
       "feedback": {
-        "correct": "맞아요! or는 둘 중 하나만 True여도 전체가 True가 돼요."
+        "correct": "정답! not False는 True를 뜻하므로, is_frozen의 변수 상태가 False여야만 if문 내부 코드가 트리거됩니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_fib_3_010",
+      "unit": 3,
+      "stage": "3-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "특정 데이터의 포함 관계를 판별하는 조건문입니다. 최종적으로 \"약점 포착!\"이 구동되어 출력되도록 빈칸의 조건식 시작 키워드를 넣으세요.\n\nboss_property = \"화염, 드래곤, 비행\"\n____ \"드래곤\" in boss_property:\n    print(\"약점 포착!\")",
+      "choices": [],
+      "answer": "if",
+      "hint": "조건식을 최초로 성립시키는 제어 흐름 선언어입니다.",
+      "feedback": {
+        "correct": "정답! '드래곤'이라는 키워드가 boss_property 문자열 리스트 내부에 물리적으로 존재하므로 if 조건문이 온전하게 활성화됩니다."
       }
     }
   ]

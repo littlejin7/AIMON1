@@ -9,78 +9,17 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\nfor i in range(3):\n    print('에이몬')",
+      "question": "다음 코드가 실행되었을 때, 화면에 나타날 최종 출력 형태는 무엇인가요?\n\nfor i in range(3):\n    print(\"공격\")",
       "choices": [
-        "A. 에이몬",
-        "B. 에이몬 / 에이몬",
-        "C. 에이몬 / 에이몬 / 에이몬",
-        "D. 0 / 1 / 2"
+        "A. 공격 (단 한 번만 출력)",
+        "B. 줄바꿈 없이 연속으로 공격공격공격 출력",
+        "C. 줄바꿈이 적용되어 각 한 줄씩 총 3번 공격 출력",
+        "D. 문법 에러 발생"
       ],
       "answer": "C",
-      "hint": "range(3)은 0, 1, 2 총 3번 반복해요.",
+      "hint": "range(3)이 유도하는 총 반복 구동 횟수와 print() 함수의 기본 성질을 연동해 보세요.",
       "feedback": {
-        "correct": "맞아요! range(3)은 3번 반복하니까 '에이몬'이 세 줄 출력돼요."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_fib_4_001",
-      "unit": 4,
-      "stage": "4-boss",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "type": "fill_in_blank",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "빈칸을 채워 0부터 4까지 출력되게 하세요.\n\n___ i in range(5):\n    print(i)",
-      "choices": [],
-      "answer": "for",
-      "hint": "파이썬에서 반복문을 시작하는 키워드예요.",
-      "feedback": {
-        "correct": "맞아요! for 키워드로 반복문을 시작해요."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_os_4_002",
-      "unit": 4,
-      "stage": "4-boss",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "output_select",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\ncount = 0\nwhile count < 3:\n    print(count)\n    count += 1",
-      "choices": [
-        "A. 0 / 1 / 2 / 3",
-        "B. 0 / 1 / 2",
-        "C. 1 / 2 / 3",
-        "D. 무한 반복"
-      ],
-      "answer": "B",
-      "hint": "while은 조건이 True일 때만 실행돼요. count < 3 이 언제 False가 되는지 생각해봐요.",
-      "feedback": {
-        "correct": "맞아요! count가 0, 1, 2일 때만 출력하고 3이 되면 조건이 False가 되어 반복이 끝나요."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_ef_4_001",
-      "unit": 4,
-      "stage": "4-boss",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "error_find",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "아래 코드에서 무한루프가 발생하는 원인은 어디일까요?\n\n1: count = 0\n2: while count < 5:\n3:     print(count)\n4:     count -= 1",
-      "choices": [
-        "A. 1번 줄: count 초기값 오류",
-        "B. 2번 줄: 조건식 오류",
-        "C. 4번 줄: count가 증가하지 않고 감소함",
-        "D. 오류 없음"
-      ],
-      "answer": "C",
-      "hint": "count가 계속 작아지면 count < 5 는 항상 True가 돼요.",
-      "feedback": {
-        "correct": "맞아요! count -= 1 로 계속 감소하니까 count < 5 조건이 항상 True가 되어 무한루프가 발생해요."
+        "correct": "정답! range(3)은 0, 1, 2 총 3회 루프를 수행하며, print() 함수는 호출될 때마다 자동으로 줄바꿈을 처리해 줍니다."
       }
     },
     {
@@ -88,16 +27,16 @@
       "unit": 4,
       "stage": "4-boss",
       "course_level": "beginner",
-      "difficulty": "medium",
+      "difficulty": "easy",
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "빈칸을 채워 i가 3일 때 반복을 즉시 멈추게 하세요.\n\nfor i in range(5):\n    if i == 3:\n        ___\n    print(i)",
+      "question": "설정한 조건식을 지속적으로 체크하여, 만족하는 동안 내부 코드를 상시 무한 반복 구동시키는 제어문 키워드를 적으세요.\n\ncount = 0\n____ count < 5:\n    count = count + 1",
       "choices": [],
-      "answer": "break",
-      "hint": "반복문을 즉시 종료하는 키워드예요.",
+      "answer": "while",
+      "hint": "~하는 동안을 뜻하는 영어 5글자 소문자 단어입니다.",
       "feedback": {
-        "correct": "맞아요! break는 반복문을 즉시 빠져나와요."
+        "correct": "정답! 특정한 연산 조건식이 성립하는 한 지속적으로 루프를 순회하게 만드는 반복문은 while문입니다."
       }
     },
     {
@@ -109,78 +48,17 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\ntotal = 0\nfor i in range(1, 5):\n    total += i\nprint(total)",
+      "question": "다음 코드를 실행했을 때, 변수 i의 흐름에 따라 화면에 누적 출력되는 범위는?\n\nfor i in range(1, 4):\n    print(i)",
       "choices": [
-        "A. 4",
-        "B. 10",
-        "C. 15",
-        "D. 6"
+        "A. 1부터 4까지 줄바꿈 정렬로 전부 출력",
+        "B. 1부터 3까지 줄바꿈 정렬로 전부 출력",
+        "C. 0부터 3까지 줄바꿈 정렬로 전부 출력",
+        "D. 4만 단독으로 한 번 출력"
       ],
       "answer": "B",
-      "hint": "range(1, 5)는 1, 2, 3, 4예요. 이를 모두 더해보세요.",
+      "hint": "range(시작, 끝) 함수에서 끝으로 지정한 숫자의 직전까지만 유효 범위가 생성됨을 기억해 보세요.",
       "feedback": {
-        "correct": "맞아요! 1 + 2 + 3 + 4 = 10이에요."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_ef_4_002",
-      "unit": 4,
-      "stage": "4-boss",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "error_find",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "아래 코드에서 오류가 발생하는 줄은 어디일까요?\n\n1: for i in range(5, 1):\n2:     print(i)\n3: print('완료')",
-      "choices": [
-        "A. 1번 줄: range 인자 순서 오류로 반복이 아예 안 됨",
-        "B. 2번 줄: print 들여쓰기 오류",
-        "C. 3번 줄: 오류 발생",
-        "D. 오류 없음, 정상 실행됨"
-      ],
-      "answer": "A",
-      "hint": "range(start, stop)에서 start가 stop보다 크면 어떻게 될까요?",
-      "feedback": {
-        "correct": "맞아요! range(5, 1)은 5 >= 1이라서 빈 범위가 되어 반복이 한 번도 실행되지 않아요. 내림차순으로 하려면 range(5, 1, -1)이 필요해요."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_fib_4_003",
-      "unit": 4,
-      "stage": "4-boss",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "fill_in_blank",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "빈칸을 채워 짝수(2, 4)만 출력되게 하세요.\n\nfor i in range(1, 6):\n    if i % 2 != 0:\n        ___\n    print(i)",
-      "choices": [],
-      "answer": "continue",
-      "hint": "현재 반복 순서를 건너뛰고 다음으로 넘어가는 키워드예요.",
-      "feedback": {
-        "correct": "맞아요! continue는 현재 순서를 건너뛰고 다음 반복으로 넘어가요. 홀수일 때 continue하면 짝수만 출력돼요."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_os_4_004",
-      "unit": 4,
-      "stage": "4-boss",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "output_select",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\nfor i in range(1, 3):\n    for j in range(1, 3):\n        print(i, j)",
-      "choices": [
-        "A. 1 1 / 2 2",
-        "B. 1 1 / 1 2 / 2 1 / 2 2",
-        "C. 1 2 / 2 1",
-        "D. 1 / 2 / 1 / 2"
-      ],
-      "answer": "B",
-      "hint": "바깥 for가 한 번 돌 때마다 안쪽 for가 처음부터 다시 돌아요.",
-      "feedback": {
-        "correct": "맞아요! i=1일 때 j=1,2 / i=2일 때 j=1,2 순서로 총 4번 출력돼요."
+        "correct": "정답! range(1, 4) 문법은 1부터 시작하여 종료 인덱스 직전인 3까지만 연속된 정수 배열을 리턴해 줍니다."
       }
     },
     {
@@ -188,16 +66,136 @@
       "unit": 4,
       "stage": "4-boss",
       "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "반복 제어문이 구동되는 중간에, 특정 상태를 저격하여 해당 루프 구문을 즉시 파괴하고 외부로 탈출시키는 키워드를 명시하세요.\n\nwhile True:\n    print(\"공격\")\n    ____ ",
+      "choices": [],
+      "answer": "break",
+      "hint": "깨부수다, 멈추다라는 의미를 가진 소문자 5글자 영어 단어입니다.",
+      "feedback": {
+        "correct": "정답! 무한 루프나 일반 반복 수행 구문 내부에서 break 명령어를 호출하면 그 즉시 루프가 완전 강제 종료됩니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_os_4_005",
+      "unit": 4,
+      "stage": "4-boss",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 while 반복 제어문이 연산을 끝마친 후, 최종적으로 출력단에 찍히는 정수값은?\n\ncount = 0\nwhile count < 3:\n    count = count + 1\nprint(count)",
+      "choices": [
+        "A. 0",
+        "B. 2",
+        "C. 3",
+        "D. 4"
+      ],
+      "answer": "C",
+      "hint": "count 변수가 몇이 되는 순간 while count < 3 비교식 조건이 무너져 루프가 종료되는지 계산해 보세요.",
+      "feedback": {
+        "correct": "정답! count가 1, 2를 거쳐 3이 되는 연산 줄 직후, while 조건식(3 < 3)이 False가 되어 탈출하므로 최종 변숫값은 3입니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_fib_4_006",
+      "unit": 4,
+      "stage": "4-boss",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "지정한 리스트 내부의 데이터를 순차적으로 자동 인덱싱 추출하여 순회하기 위한 매개 키워드를 빈칸에 정의하세요.\n\nweapons = [\"검\", \"활\", \"지팡이\"]\nfor item _________ weapons:\n    print(item)",
+      "choices": [],
+      "answer": "in",
+      "hint": "for 변수 [____] 리스트 구조에 들어갈 2글자 단어입니다.",
+      "feedback": {
+        "correct": "정답! for item in 리스트 구조를 명시하면 배열 인벤토리 내의 요소를 자동으로 맨 앞부터 끝까지 변수에 담아 루프를 돌아줍니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_ef_4_007",
+      "unit": 4,
+      "stage": "4-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "error_find",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "조건식 상태를 변환하는 로직 누락으로 인하여 시스템이 영원히 멈추지 않는 '무한 루프' 하자가 터지는 시작 라인 줄은?\n\n1줄: hp = 10\n2줄: while hp > 0:\n3줄:     print(\"전투 중...\")\n4줄:     # hp의 수치를 하향 가감시키는 연산이 누락됨",
+      "choices": [
+        "A. 1줄",
+        "B. 2줄",
+        "C. 3줄",
+        "D. 4줄"
+      ],
+      "answer": "B",
+      "hint": "어떤 제어 구문 선언문 때문에 무한으로 반복 실행 코드가 맞물리게 되는지 근본적 위치를 찾으세요.",
+      "feedback": {
+        "correct": "정답! while hp > 0 선언 영역 내부에서 내부 데이터 조건 인자를 변화(감소)시키지 않아 조건식이 영구 불변 참이 되어 2줄에서 무한 루프가 고착됩니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_os_4_008",
+      "unit": 4,
+      "stage": "4-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "특정 차례의 구문을 생략하는 특수 제어어가 포함되어 있습니다. 실행 완료 후 최종 화면단 출력 결과는?\n\nfor i in range(1, 4):\n    if i == 2:\n        continue\n    print(i)",
+      "choices": [
+        "A. 1과 3이 각 줄에 출력된다.",
+        "B. 1과 2가 각 줄에 출력된다.",
+        "C. 1만 단발성 출력 후 강제 완전 종료된다.",
+        "D. 2와 3이 각 줄에 출력된다."
+      ],
+      "answer": "A",
+      "hint": "continue 명령어를 만나면 하단의 코드를 읽지 않고 어느 위치로 즉시 점프 복귀하는지 판별해 보세요.",
+      "feedback": {
+        "correct": "정답! continue 기호를 영접하면 하부의 실행 구문(print)을 전면 무시하고 다음 반복 차례 루프로 패스 정렬하기 때문에 2가 제외됩니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_ef_4_009",
+      "unit": 4,
+      "stage": "4-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "error_find",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "파이썬 반복 규칙 부호를 유실하여 컴파일 에러(SyntaxError)를 내뿜는 줄의 번호는?\n\n1줄: for i in range(5)\n2줄:     print(\"체력 회복!\")",
+      "choices": [
+        "A. 1줄",
+        "B. 2줄"
+      ],
+      "answer": "A",
+      "hint": "for 또는 while 제어문 선언 영역을 완료할 때 생략하면 안 되는 기호를 찾아보세요.",
+      "feedback": {
+        "correct": "정답! 파이썬 반복 제어식 선언부 꼬리칸에는 영역의 블록 시작을 통보하기 위한 콜론 기호(:) 작성이 강제됩니다."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_fib_4_010",
+      "unit": 4,
+      "stage": "4-boss",
+      "course_level": "beginner",
       "difficulty": "hard",
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "빈칸을 채워 2, 4, 6, 8이 출력되게 하세요.\n\nfor i in range(2, 10, ___):\n    print(i)",
+      "question": "무한 반복문을 타격 제어하여 딱 \"독 데미지 1\" 문장 한 줄만 찍히게 만들고 즉시 완전 폭파 이탈시키는 소문자 키워드를 입력하세요.\n\nwhile True:\n    print(\"독 데미지 1\")\n    ________________",
       "choices": [],
-      "answer": "2",
-      "hint": "range(start, stop, step)에서 step은 몇 씩 건너뛸지를 결정해요.",
+      "answer": "break",
+      "hint": "while True의 전방위 무한 동력을 깨트리는 영문자 단어입니다.",
       "feedback": {
-        "correct": "맞아요! range(2, 10, 2)는 2부터 10 전까지 2씩 증가해서 2, 4, 6, 8을 만들어요."
+        "correct": "정답! break 명령을 출력문 직후 배치하여, 단 1회 연산만 정상 작동한 뒤 무한 루프 껍데기를 깨부수고 빠져나오게 만들 수 있습니다."
       }
     }
   ]
