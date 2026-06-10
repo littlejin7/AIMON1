@@ -88,6 +88,8 @@ def start_boss_battle(unit: str = "1", authorization: str = Header(...)):
     user_id = verify_token(authorization)
     users = load_users()
     user = next((u for u in users if u["id"] == user_id), None)
+    if not user:
+        raise HTTPException(status_code=401, detail="User not found")
     
     # 왕관/무료 횟수 차감
     today = datetime.utcnow().strftime("%Y-%m-%d")
@@ -208,7 +210,7 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
             return True
         return False
 
-    if q_type in ("multiple_choice", "output_select", "fill_in_blank"):
+    if q_type in ("multiple_choice", "output_select", "fill_in_blank", "error_find"):
         matched = is_direct_match(user_ans, correct_answer)
         if matched:
             ai_result = {
