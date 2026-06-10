@@ -63,12 +63,16 @@ export default function LessonHome() {
 
   useEffect(() => {
     const calls = [quizApi.getUnits()]
-    if (token) calls.push(progressApi.getProgress())
+    if (token) {
+      calls.push(progressApi.getProgress().catch(err => { console.error(err); return null; }))
+      calls.push(userApi.getMe().catch(err => { console.error(err); return null; }))
+    }
 
     Promise.all(calls)
-      .then(([l, p]) => {
+      .then(([l, p, u]) => {
         setLessons(l.data)
-        if (p) setProgress(p.data)
+        if (p && p.data) setProgress(p.data)
+        if (u && u.data) updateUser(u.data)
       })
       .catch(() => {})
       .finally(() => setLoading(false))
@@ -181,7 +185,8 @@ export default function LessonHome() {
 
         {lessons.map((lesson, idx) => {
           const meta     = UNIT_META[idx] || { icon: '📖', color: '#7c3aed', keywords: [] }
-          const unlocked = isUnitUnlocked(idx)
+          const maxUnlocked = user?.max_unlocked_unit !== undefined ? user.max_unlocked_unit : 1
+          const unlocked = isUnitUnlocked(idx) && (lesson.unit_id <= maxUnlocked)
           const prog     = getUnitProgress(lesson.unit_id)
           const pct      = lesson.stages > 0 ? (prog.completed / lesson.stages) * 100 : 0
           const done     = prog.completed >= lesson.stages && lesson.stages > 0

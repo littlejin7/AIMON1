@@ -74,17 +74,11 @@ export default function NavBar() {
 
     const checkTrainUnlocked = async () => {
       try {
-        const [progressRes, unitRes] = await Promise.all([
-          progressApi.getProgress(),
-          quizApi.getUnit(1)
-        ])
+        const progressRes = await progressApi.getProgress()
         const progress = progressRes.data || []
-        const unit1Data = unitRes.data
-        const unit1Progress = progress.filter(p => p.unit === 1 && p.is_completed).length
-        const unit1TotalStages = unit1Data?.stages || 1
-        const unlocked = unit1Progress >= unit1TotalStages
-        setIsTrainUnlocked(unlocked)
-        localStorage.setItem(cacheKey, unlocked ? 'true' : 'false')
+        const isUnit1BossCleared = progress.some(p => p.unit === 1 && p.stage === "1-boss" && p.is_completed)
+        setIsTrainUnlocked(isUnit1BossCleared)
+        localStorage.setItem(cacheKey, isUnit1BossCleared ? 'true' : 'false')
       } catch (err) {
         console.error('Failed to check training lock status in NavBar:', err)
       }

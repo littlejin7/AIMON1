@@ -26,19 +26,14 @@ export default function Train() {
 
     const checkLockState = async () => {
       try {
-        const [progressRes, unitRes] = await Promise.all([
-          progressApi.getProgress(),
-          quizApi.getUnit(1)
-        ])
+        const progressRes = await progressApi.getProgress()
         const progress = progressRes.data || []
-        const unit1Data = unitRes.data
-        const unit1Progress = progress.filter(p => p.unit === 1 && p.is_completed).length
-        const unit1TotalStages = unit1Data?.stages || 1
-        const isUnit1Done = unit1Progress >= unit1TotalStages
-        setIsLocked(!isUnit1Done)
+        const isUnit1BossCleared = progress.some(p => p.unit === 1 && p.stage === "1-boss" && p.is_completed)
+        setIsLocked(!isUnit1BossCleared)
         
         // Cache to localStorage for NavBar visual representation
-        localStorage.setItem('is_train_unlocked', isUnit1Done ? 'true' : 'false')
+        const cacheKey = user?.id ? `is_train_unlocked_${user.id}` : 'is_train_unlocked'
+        localStorage.setItem(cacheKey, isUnit1BossCleared ? 'true' : 'false')
       } catch (err) {
         console.error('Failed to verify training lock state:', err)
       } finally {

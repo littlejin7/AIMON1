@@ -98,14 +98,53 @@ def login(req: LoginRequest):
         raise HTTPException(status_code=401, detail="아이디 또는 비밀번호가 올바르지 않습니다.")
 
     today = datetime.utcnow().strftime("%Y-%m-%d")
+    yesterday = (datetime.utcnow() - timedelta(days=1)).strftime("%Y-%m-%d")
     last = user.get("last_login", "")
 
+    streak_reward = None
     if last == today:
         pass
-    elif last == "":
-        pass  # 아예 첫 로그인인 경우 streak 1로 올리지 않음
-    elif last == (datetime.utcnow() - timedelta(days=1)).strftime("%Y-%m-%d"):
+    elif last == yesterday:
         user["streak"] = user.get("streak", 0) + 1
+        streak = user["streak"]
+        if streak == 3:
+            user["xp"] = user.get("xp", 0) + 500
+            streak_reward = {"days": 3, "xp": 500, "crowns": 0}
+        elif streak == 7:
+            user["xp"] = user.get("xp", 0) + 2000
+            user["crowns"] = user.get("crowns", 0) + 1
+            streak_reward = {"days": 7, "xp": 2000, "crowns": 1}
+        elif streak == 14:
+            user["xp"] = user.get("xp", 0) + 5000
+            user["crowns"] = user.get("crowns", 0) + 2
+            streak_reward = {"days": 14, "xp": 5000, "crowns": 2}
+        elif streak == 30:
+            user["xp"] = user.get("xp", 0) + 10000
+            user["crowns"] = user.get("crowns", 0) + 5
+            streak_reward = {"days": 30, "xp": 10000, "crowns": 5}
+
+        # Level up and evolution check
+        if streak_reward:
+            def calc_level(xp):
+                lv = 1
+                accumulated = 0
+                while lv < 30:
+                    needed = lv * 1000
+                    if xp < accumulated + needed:
+                        break
+                    accumulated += needed
+                    lv += 1
+                return lv
+
+            new_lv = calc_level(user.get("xp", 0))
+            user["lv"] = max(new_lv, user.get("lv", 1))
+
+            if user["lv"] >= 10 and user.get("character") == "slime":
+                user["character"] = "robot"
+            elif user["lv"] >= 20 and user.get("character") == "robot":
+                user["character"] = "speech_bubble"
+            elif user["lv"] >= 30 and user.get("character") == "speech_bubble":
+                user["character"] = "final_ghost"
     else:
         user["streak"] = 1
 
@@ -113,7 +152,15 @@ def login(req: LoginRequest):
     save_users(users)
 
     token = create_token({"sub": user["id"], "username": user["username"]})
-    return {"access_token": token, "token_type": "bearer", "user": {k: v for k, v in user.items() if k != "password"}}
+    res_data = {
+        "access_token": token,
+        "token_type": "bearer",
+        "user": {k: v for k, v in user.items() if k != "password"},
+        "streak": user["streak"]
+    }
+    if streak_reward:
+        res_data["streak_reward"] = streak_reward
+    return res_data
 
 
 @router.get("/check-id")
