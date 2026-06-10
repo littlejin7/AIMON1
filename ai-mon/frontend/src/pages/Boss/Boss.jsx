@@ -14,7 +14,7 @@ import charGhostIcon from '../../assets/character_final_ghost.png'
 import endbossIcon from '../../assets/endboss_finalorg.png'
 import endbossClearIcon from '../../assets/endboss_finalvic.png'
 import endbossQnaIcon from '../../assets/endboss_finalqna.png'
-import endbossfailIcon from '../../assets/endboss_finalqna.png'
+import endbossfailIcon from '../../assets/boss_finalfail.png'
 
 export default function Boss() {
   const { lessonId } = useParams()
