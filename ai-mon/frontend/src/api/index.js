@@ -16,7 +16,7 @@ export const quizApi = {
   // 퀴즈 문제
   getQuestions:    (params)     => api.get('/quiz/questions', { params }),
   getQuestion:     (id)         => api.get(`/quiz/questions/${id}`),
-  getAiFeedback:   (data)       => api.post('/quiz/ai-feedback', data),
+  getAiFeedback:   (data, config) => api.post('/quiz/ai-feedback', data, config),
 }
 
 export const progressApi = {

@@ -1,0 +1,204 @@
+{
+  "questions": [
+    {
+      "question_id": "unitboss_mid_os_4_001",
+      "unit": 4,
+      "stage": "4-boss",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\nclass Hero:\n    def __init__(self, name):\n        self.name = name\n\nhero = Hero(\"에이몬\")\nprint(hero.name)",
+      "choices": [
+        "A. Hero",
+        "B. name",
+        "C. 에이몬",
+        "D. self.name"
+      ],
+      "answer": "C",
+      "hint": "__init__의 self.name에 생성자 인자로 넘긴 값이 저장돼요.",
+      "feedback": {
+        "correct": "정답! Hero(\"에이몬\")을 호출하면 __init__이 실행되어 self.name에 \"에이몬\"이 저장됩니다. hero.name으로 접근하면 \"에이몬\"이 출력돼요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_fib_4_002",
+      "unit": 4,
+      "stage": "4-boss",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "인스턴스 메서드의 첫 번째 매개변수로 인스턴스 자신을 가리키는 관례적인 이름을 빈칸에 적어주세요.\n\nclass Monster:\n    def __init__(_____, name, hp):\n        _____.name = name\n        _____.hp = hp",
+      "choices": [],
+      "answer": "self",
+      "hint": "파이썬에서 인스턴스 자신을 가리키는 관례적인 이름은 네 글자예요.",
+      "feedback": {
+        "correct": "정답! 인스턴스 메서드의 첫 번째 매개변수는 관례적으로 self라고 씁니다. self는 메서드를 호출한 인스턴스 자신을 가리키며, 인스턴스 속성에 접근할 때 사용해요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_os_4_003",
+      "unit": 4,
+      "stage": "4-boss",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\nclass Warrior:\n    guild = \"모험가 길드\"\n\n    def __init__(self, name):\n        self.name = name\n\nw1 = Warrior(\"에이몬\")\nw2 = Warrior(\"슬라임\")\nWarrior.guild = \"전사 길드\"\nprint(w1.guild)\nprint(w2.guild)",
+      "choices": [
+        "A. 모험가 길드 / 모험가 길드",
+        "B. 전사 길드 / 전사 길드",
+        "C. 모험가 길드 / 전사 길드",
+        "D. 전사 길드 / 모험가 길드"
+      ],
+      "answer": "B",
+      "hint": "클래스 변수를 클래스에서 직접 수정하면 모든 인스턴스에 영향을 줘요.",
+      "feedback": {
+        "correct": "정답! guild는 클래스 변수입니다. Warrior.guild = \"전사 길드\"로 클래스 변수를 수정하면 인스턴스 변수로 따로 지정하지 않은 모든 인스턴스에 영향을 줍니다. w1.guild, w2.guild 모두 \"전사 길드\"가 나와요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_fib_4_004",
+      "unit": 4,
+      "stage": "4-boss",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "부모 클래스의 __init__을 자식 클래스에서 호출하려고 합니다. 빈칸에 들어갈 코드는?\n\nclass Character:\n    def __init__(self, name):\n        self.name = name\n\nclass Mage(Character):\n    def __init__(self, name, mana):\n        _________.__init__(name)\n        self.mana = mana",
+      "choices": [],
+      "answer": "super()",
+      "hint": "부모 클래스를 참조하는 내장 함수예요.",
+      "feedback": {
+        "correct": "정답! super()는 부모 클래스를 참조하는 함수입니다. super().__init__(name)으로 부모의 생성자를 호출하면 부모에서 정의한 속성(self.name)도 초기화할 수 있어요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_ef_4_005",
+      "unit": 4,
+      "stage": "4-boss",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "error_find",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드에서 TypeError가 발생하는 줄은?\n\n1줄: class Dragon:\n2줄:     element = \"불\"\n3줄:     def breathe(self):\n4줄:         print(f\"{self.element} 브레스!\")\n5줄:\n6줄: d = Dragon()\n7줄: print(Dragon.element)\n8줄: print(d.element)\n9줄: print(Dragon.breathe())",
+      "choices": [
+        "A. 7줄",
+        "B. 8줄",
+        "C. 9줄",
+        "D. 오류 없음"
+      ],
+      "answer": "C",
+      "hint": "인스턴스 메서드를 클래스에서 직접 호출할 때 self 인자 문제를 생각해 보세요.",
+      "feedback": {
+        "correct": "정답! breathe(self)는 인스턴스 메서드입니다. Dragon.breathe()처럼 클래스에서 직접 호출하면 self에 해당하는 인자가 없어 TypeError: breathe() missing 1 required positional argument: 'self'가 발생해요. d.breathe() 또는 Dragon.breathe(d)로 호출해야 합니다."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_os_4_006",
+      "unit": 4,
+      "stage": "4-boss",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\nclass Animal:\n    def speak(self):\n        return \"...\"\n\nclass Dog(Animal):\n    def speak(self):\n        return \"왈왈!\"\n\nclass Cat(Animal):\n    pass\n\nprint(Dog().speak())\nprint(Cat().speak())",
+      "choices": [
+        "A. 왈왈! / 왈왈!",
+        "B. ... / ...",
+        "C. 왈왈! / ...",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "Dog는 speak()를 오버라이딩했고, Cat는 오버라이딩하지 않아 부모 메서드를 그대로 써요.",
+      "feedback": {
+        "correct": "정답! Dog는 speak()를 오버라이딩했으므로 \"왈왈!\"을 반환합니다. Cat은 speak()를 정의하지 않았으므로 부모 Animal의 speak()를 상속받아 \"...\"를 반환해요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_fib_4_007",
+      "unit": 4,
+      "stage": "4-boss",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "인스턴스를 print()로 출력할 때 \"[에이몬] HP: 100\"이 나오도록 특수 메서드를 완성해 주세요. 빈칸에 들어갈 메서드 이름은?\n\nclass Hero:\n    def __init__(self, name, hp):\n        self.name = name\n        self.hp = hp\n    def _________(self):\n        return f\"[{self.name}] HP: {self.hp}\"",
+      "choices": [],
+      "answer": "__str__",
+      "hint": "print() 또는 str()로 인스턴스를 변환할 때 자동으로 호출되는 특수 메서드예요.",
+      "feedback": {
+        "correct": "정답! __str__ 메서드를 정의하면 print(인스턴스) 또는 str(인스턴스) 호출 시 반환값이 출력됩니다. 언더바 두 개로 시작하고 끝나는 특수 메서드(dunder method)예요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_os_4_008",
+      "unit": 4,
+      "stage": "4-boss",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\nclass Base:\n    count = 0\n    def __init__(self):\n        Base.count += 1\n\nclass Child(Base):\n    pass\n\na = Base()\nb = Base()\nc = Child()\nprint(Base.count)\nprint(Child.count)",
+      "choices": [
+        "A. 2 / 1",
+        "B. 3 / 1",
+        "C. 3 / 3",
+        "D. 2 / 3"
+      ],
+      "answer": "C",
+      "hint": "Child는 Base를 상속받아 __init__도 공유해요. Base.count는 클래스 변수라 Child.count와 같은 곳을 가리켜요.",
+      "feedback": {
+        "correct": "정답! Child는 __init__을 따로 정의하지 않아 Base의 __init__을 상속받습니다. c = Child() 호출 시에도 Base.count += 1이 실행됩니다. count는 Base의 클래스 변수이므로 Child.count도 같은 값(3)을 참조해요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_ef_4_009",
+      "unit": 4,
+      "stage": "4-boss",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "error_find",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드에서 AttributeError가 발생하는 줄은?\n\n1줄: class BankAccount:\n2줄:     def __init__(self, balance):\n3줄:         self.__balance = balance\n4줄:     def get_balance(self):\n5줄:         return self.__balance\n6줄:\n7줄: acc = BankAccount(1000)\n8줄: print(acc.get_balance())\n9줄: print(acc.__balance)",
+      "choices": [
+        "A. 3줄",
+        "B. 5줄",
+        "C. 8줄",
+        "D. 9줄"
+      ],
+      "answer": "D",
+      "hint": "__로 시작하는 속성은 이름 맹글링(name mangling)이 적용돼 외부에서 직접 접근할 수 없어요.",
+      "feedback": {
+        "correct": "정답! __balance처럼 언더바 두 개로 시작하는 속성은 name mangling이 적용되어 _BankAccount__balance로 변환됩니다. 외부에서 acc.__balance로 접근하면 AttributeError가 발생해요. get_balance() 메서드로만 접근 가능합니다."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_fib_4_010",
+      "unit": 4,
+      "stage": "4-boss",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "클래스 메서드를 정의하려고 합니다. 빈칸에 들어갈 데코레이터 이름은?\n\nclass Monster:\n    total = 0\n\n    _________\n    def create(cls, count):\n        cls.total += count\n        return cls.total\n\nprint(Monster.create(3))  # 3",
+      "choices": [],
+      "answer": "@classmethod",
+      "hint": "클래스 자신(cls)을 첫 번째 인자로 받는 메서드를 정의할 때 사용하는 데코레이터예요.",
+      "feedback": {
+        "correct": "정답! @classmethod 데코레이터를 사용하면 첫 번째 인자로 인스턴스(self) 대신 클래스(cls)를 받는 클래스 메서드를 정의할 수 있습니다. 인스턴스 없이 클래스에서 직접 호출할 수 있어요."
+      }
+    }
+  ]
+}
