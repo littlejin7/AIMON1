@@ -112,6 +112,10 @@ Stage 입장 → 브리핑 슬라이드 넘기기 → 퀴즈 → 다음 스테�
 
 - 난이도: easy×2 + medium×4 + hard×4 (공통)
 - beginner 유닛 보스에서 `code_input`은 사용하지 않음
+- 앞 4문제: 시나리오 설계 (multiple_choice + output_select) — "이런 앱 `만들려면 어떤 코드가 맞을까?" 형식
+- 뒤 4문제: Unit 1~7 핵심 복습 (multiple_choice + fill_in_blank) — 각 유닛에서 1개씩 랜덤하게
+- code_input / error_find 없음 (초급 원칙 유지)
+- 총 8문제 (다른 스테이지와 동일)
 
 **intermediate / advanced 유닛 보스**
 
