@@ -210,12 +210,17 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
 
     if q_type in ("multiple_choice", "output_select", "fill_in_blank"):
         matched = is_direct_match(user_ans, correct_answer)
-        ai_result = {
-            "is_correct": matched,
-            "score": 100 if matched else 0,
-            "feedback": question.get("feedback", {}).get("correct", "") if matched else question.get("feedback", {}).get("wrong", "정답을 다시 확인해 보세요!"),
-            "hint": "" if matched else question.get("hint", ""),
-        }
+        if matched:
+            ai_result = {
+                "is_correct": True,
+                "score": 100,
+                "feedback": question.get("feedback", {}).get("correct", "정답입니다! 잘하셨어요."),
+                "hint": "",
+            }
+        else:
+            ai_result = await ask_claude_json(prompt)
+            ai_result["is_correct"] = False
+            ai_result["score"] = 0
     else:
         # code_input 타입만 Claude 채점
         ai_result = await ask_claude_json(prompt)
