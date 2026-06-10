@@ -5,6 +5,7 @@ from services.claude_service import ask_claude_json
 import json, os, uuid
 from datetime import datetime
 from routers.titles import check_and_award_titles
+from typing import Optional
 
 router = APIRouter()
 
@@ -54,6 +55,7 @@ class BossAnswerRequest(BaseModel):
     wrong_count: int = 0
     my_hp: int = 1000
     boss_hp: int = 1000
+    unit: Optional[int] = None
 
 
 @router.get("/info")
@@ -148,7 +150,7 @@ def get_next_question(unit: str = "1", authorization: str = Header(...)):
 
 
 @router.post("/answer")
-async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header(...)):
+async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header(...), unit: Optional[str] = None):
     user_id = verify_token(authorization)
     users = load_users()
     user = next((u for u in users if u["id"] == user_id), None)
@@ -279,6 +281,13 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
         save_progress(progress)
         
         # XP 및 보스 클리어 카운트 (진화 조건) 추가
+        try:
+            cleared_unit = int(unit) if unit is not None else (int(req.unit) if getattr(req, "unit", None) is not None else (int(question.get("unit")) if question and question.get("unit") is not None else 1))
+        except (ValueError, TypeError):
+            cleared_unit = 1
+
+        next_unit = cleared_unit + 1
+
         if award_xp:
             users = load_users()
             ai_result["newly_earned_titles"] = []
@@ -313,15 +322,26 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
                     context = {"boss_cleared": True}
                     newly_earned = check_and_award_titles(u, context)
                     ai_result["newly_earned_titles"] = newly_earned
+
+                    # 2. Find the user and increment user["crowns"] by the next unit number (crown count = next_unit_number)
+                    u["crowns"] = u.get("crowns", 0) + next_unit
+                    # 3. Set user["max_unlocked_unit"] to max(current value, cleared_unit + 1)
+                    u["max_unlocked_unit"] = max(u.get("max_unlocked_unit", 1), next_unit)
                     break
 
             save_users(users)
             ai_result["xp_awarded"] = 3000
+            ai_result["crowns_awarded"] = next_unit
+            ai_result["unlocked_unit"] = next_unit
         else:
             ai_result["xp_awarded"] = 0
             ai_result["newly_earned_titles"] = []
+            ai_result["crowns_awarded"] = 0
+            ai_result["unlocked_unit"] = next_unit
     else:
         ai_result["xp_awarded"] = 0
         ai_result["newly_earned_titles"] = []
+        ai_result["crowns_awarded"] = 0
+        ai_result["unlocked_unit"] = 1
 
     return ai_result

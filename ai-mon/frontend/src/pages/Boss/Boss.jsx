@@ -122,14 +122,11 @@ const playHitEffect = () => {
         is_code_question: isCodeType,
         wrong_count: wrongCount,
         my_hp: myHp,
-        boss_hp: bossHp
+        boss_hp: bossHp,
+        unit: isFinalBoss ? 0 : parseInt(lessonId) || 1
       })
       
-      const isCorrect = res.data.is_correct
-      const nextMyHp = res.data.my_hp
-      const nextBossHp = res.data.boss_hp
-      const nextWrongCount = res.data.wrong_count
-      const isClear = res.data.is_clear
+      const { is_correct: isCorrect, my_hp: nextMyHp, boss_hp: nextBossHp, wrong_count: nextWrongCount, is_clear: isClear, is_fail: isFail } = res.data
       
       setAiResult(res.data)
       setMyHp(nextMyHp)
@@ -434,6 +431,18 @@ if (isCorrect) {
                 <span className="reward-icon">💳</span>
                 <span style={{ fontWeight: 700, color: '#f9e2af', marginLeft: '8px' }}>{isFinalBoss ? 'Level' : `Unit ${lessonId}`} 클리어 인증카드</span>
               </div>
+              {aiResult?.crowns_awarded !== undefined && aiResult.crowns_awarded > 0 && (
+                <div className="reward-item" style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
+                  <span className="reward-icon">👑</span>
+                  <span style={{ fontWeight: 700, color: '#f59e0b', marginLeft: '8px' }}>+{aiResult.crowns_awarded} 왕관 획득!</span>
+                </div>
+              )}
+              {aiResult?.unlocked_unit !== undefined && aiResult.unlocked_unit <= 8 && (
+                <div className="reward-item" style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
+                  <span className="reward-icon">🔓</span>
+                  <span style={{ fontWeight: 700, color: '#60a5fa', marginLeft: '8px' }}>Unit {aiResult.unlocked_unit} 해제!</span>
+                </div>
+              )}
               {levelUpMessage && (
                 <div className="reward-item" style={{ fontSize: '1.1rem', marginTop: '12px', padding: '8px', background: 'rgba(166,227,161,0.15)', borderRadius: '8px', border: '1px dashed #a6e3a1' }}>
                   <span style={{ fontWeight: 700, color: '#a6e3a1' }}>{levelUpMessage}</span>

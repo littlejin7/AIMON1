@@ -112,6 +112,10 @@ export default function Auth() {
       const payload = mode === 'login' ? trimmedForm : { ...trimmedForm, is_level_tested: isLevelTested }
       const res = await fn(payload)
       setAuth(res.data.access_token, res.data.user)
+      if (res.data.streak_reward) {
+        const reward = res.data.streak_reward
+        alert(`🔥 ${reward.days}일 연속 로그인 달성!!\n\n⭐ +${reward.xp} XP${reward.crowns > 0 ? `\n👑 +${reward.crowns} 왕관` : ''} 보상을 획득했습니다!`)
+      }
       navigate('/lesson')
     } catch (err) {
       setError(err.response?.data?.detail || '오류가 발생했습니다. 다시 시도해주세요.')
