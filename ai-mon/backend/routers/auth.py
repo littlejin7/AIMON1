@@ -86,6 +86,7 @@ def register(req: RegisterRequest):
         "max_unlocked_unit": 1,
         "completed_units": 0,
         "awarded_crown_units": [],
+        "earned_streak_milestones": [],
         "created_at": datetime.utcnow().isoformat(),
     }
     users.append(new_user)
@@ -111,20 +112,25 @@ def login(req: LoginRequest):
     elif last == yesterday:
         user["streak"] = user.get("streak", 0) + 1
         streak = user["streak"]
-        if streak == 3:
+        earned_milestones = user.get("earned_streak_milestones", [])
+        if streak == 3 and 3 not in earned_milestones:
             user["xp"] = user.get("xp", 0) + 500
+            user.setdefault("earned_streak_milestones", []).append(3)
             streak_reward = {"days": 3, "xp": 500, "crowns": 0}
-        elif streak == 7:
+        elif streak == 7 and 7 not in earned_milestones:
             user["xp"] = user.get("xp", 0) + 2000
             user["crowns"] = user.get("crowns", 0) + 1
+            user.setdefault("earned_streak_milestones", []).append(7)
             streak_reward = {"days": 7, "xp": 2000, "crowns": 1}
-        elif streak == 14:
+        elif streak == 14 and 14 not in earned_milestones:
             user["xp"] = user.get("xp", 0) + 5000
             user["crowns"] = user.get("crowns", 0) + 2
+            user.setdefault("earned_streak_milestones", []).append(14)
             streak_reward = {"days": 14, "xp": 5000, "crowns": 2}
-        elif streak == 30:
+        elif streak == 30 and 30 not in earned_milestones:
             user["xp"] = user.get("xp", 0) + 10000
             user["crowns"] = user.get("crowns", 0) + 5
+            user.setdefault("earned_streak_milestones", []).append(30)
             streak_reward = {"days": 30, "xp": 10000, "crowns": 5}
 
         # Level up and evolution check

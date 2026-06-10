@@ -121,7 +121,17 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
         and p.get("is_completed") == True
     ]
     completed_stage_ids = {p.get("stage") for p in user_unit_stages}
-    required_stages = {f"{req.unit}-{i}" for i in range(1, 8)}
+    
+    lessons_file = os.path.join(os.path.dirname(__file__), "../data/lessons.json")
+    try:
+        with open(lessons_file, "r", encoding="utf-8") as f:
+            lessons_data = json.load(f)
+        lesson = next((l for l in lessons_data if l.get("unit_id") == req.unit), None)
+        total_stages = lesson.get("stages", 7) if lesson else 7
+    except Exception:
+        total_stages = 7
+
+    required_stages = {f"{req.unit}-{i}" for i in range(1, total_stages + 1)}
     unit_just_completed = required_stages.issubset(completed_stage_ids) and req.stage in required_stages
 
     crowns_awarded = 0
