@@ -82,6 +82,7 @@ def register(req: RegisterRequest):
         "last_login": "",
         "titles": [],
         "ai_feedback_count": 0,
+        "max_unlocked_unit": 1,
         "created_at": datetime.utcnow().isoformat(),
     }
     users.append(new_user)
