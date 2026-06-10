@@ -75,6 +75,7 @@ def register(req: RegisterRequest):
         "is_level_tested": req.is_level_tested,
         "character": "slime",
         "lv": 1,
+        "xp": 0,
         "crowns": 5,
         "daily_free_attempts": 2,
         "last_free_attempt_date": "",
@@ -83,6 +84,8 @@ def register(req: RegisterRequest):
         "titles": [],
         "ai_feedback_count": 0,
         "max_unlocked_unit": 1,
+        "completed_units": 0,
+        "awarded_crown_units": [],
         "created_at": datetime.utcnow().isoformat(),
     }
     users.append(new_user)
