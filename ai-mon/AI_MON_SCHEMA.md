@@ -174,7 +174,7 @@ backend/data/questions/
 | `answer`           | string  | -                                                            | ✅   | 정답                                                                                            |
 | `hint`             | string  | -                                                            | ✅   | 힌트 텍스트                                                                                     |
 | `feedback.correct` | string  | -                                                            | ✅   | 정답 시 출력 텍스트 (API 호출 없음)                                                             |
-| `feedback.wrong`   | string  | -                                                            | ✅   | 오답 시 기본 텍스트 → Claude API로 대체                                                         |
+                                                     |
 
 > `stage: "1-boss"` + `is_boss: true` 조합으로 보스 문제 구분.
 
@@ -224,7 +224,6 @@ backend/data/questions/
       "hint": "화면에 무언가를 보여줄 때 쓰는 함수예요.",
       "feedback": {
         "correct": "맞아요! print()는 화면에 값을 출력합니다.",
-        "wrong": "print()는 화면에 글자나 숫자를 보여주기 위해 사용해요."
       }
     },
     {
@@ -246,8 +245,7 @@ backend/data/questions/
       "answer": "B",
       "hint": "줄 맨 앞에 # 이 붙으면 어떻게 될까요?",
       "feedback": {
-        "correct": "정답! 줄 맨 앞에 # 이 붙으면 그 줄 전체가 주석이에요.",
-        "wrong": "줄 맨 앞에 # 이 붙으면 그 줄 전체가 주석이에요."
+        "correct": "정답! 줄 맨 앞에 # 이 붙으면 그 줄 전체가 주석이에요."
       }
     }
   ]
