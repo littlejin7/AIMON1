@@ -17,7 +17,7 @@ title: AI MON PIPELINE
 | 스테이지 내 문제 | 퀴즈 |
 | 스테이지 마지막 관문 | 스테이지 미니보스 |
 | 유닛 마지막 관문 | 유닛 보스 |
-| 레벨 마지막 관문 | 파이널 보스 (검정 캐릭터) |
+| 레벨 마지막 관문 | 엔드보스 (유닛 보스 왕관 착용 최종형) |
 | 유닛 완료 후 열리는 복습 | 훈련 |
 
 ---
@@ -39,7 +39,7 @@ title: AI MON PIPELINE
     └ 유닛 보스 (Stage 1-1~1-7 전부 완료 후)
     └ 훈련 (유닛 보스 클리어 후 열림)
 └ Unit 2~8 (동일 구조)
-└ 파이널 보스 (레벨 전체 완료 시)
+└ 엔드보스 (레벨 전체 완료 시, 3페이즈 배틀)
 ```
 
 Stage 입장 → 브리핑 슬라이드 넘기기 → 퀴즈 → 다음 스테이지 잠금 해제
@@ -193,8 +193,8 @@ Claude API 호출
 - 스테이지 퀴즈: `hint` 필드 있음 (JSON 데이터에 포함)
 - 스테이지 미니보스: `hint` 필드 없음
 - 유닛 보스: `hint` 필드 없음 / UI 힌트코인 2회 사용 가능 (`hints_used` 0~2로 관리)
-- 파이널 보스: `hint` 필드 없음, UI 힌트 없음
-- 파이널 보스: Unit 8 보스 클리어 후 해금
+- 엔드보스: `hint` 필드 없음, UI 힌트 없음
+- 엔드보스: Unit 8 보스 클리어 후 해금 / 재도전 왕관 3개 소모 (무료 없음)
 
 ---
 
@@ -213,7 +213,7 @@ Claude API 호출
 
 ```
 유닛 보스 클리어    → +1 레벨 (Lv.1~8 / 11~18 / 21~28)
-파이널 보스 클리어  → +2 레벨 (두 단계 순차 표시)
+엔드보스 클리어     → +2 레벨 (두 단계 순차 표시)
 Lv.10 / 20 / 30 달성 → 다음 캐릭터로 진화
 ```
 
@@ -224,9 +224,9 @@ Lv.10 / 20 / 30 달성 → 다음 캐릭터로 진화
 | 스테이지 퀴즈 클리어 (10문제 세트) | 2,000 XP |
 | 스테이지 미니보스 클리어 | 2,500 XP |
 | 유닛 보스 클리어 | 3,000 XP |
-| 파이널 보스 클리어 | 5,000 XP |
+| 엔드보스 클리어 | 15,000 XP |
 
-> 초급 자연 플레이 총 획득 XP: 약 60,500 XP / Lv.10 달성 필요 XP: 55,000 XP
+> 초급 자연 플레이 총 획득 XP: 약 70,500 XP / Lv.10 달성 필요 XP: 55,000 XP
 
 ### 레벨업 필요 XP
 
@@ -238,7 +238,7 @@ Lv.10 / 20 / 30 달성 → 다음 캐릭터로 진화
 ### 리미트 해제 (Lv.30+)
 
 ```
-고급 파이널 보스 클리어 → final_ghost 진화 → Lv.30 달성
+고급 엔드보스 클리어 → final_ghost 진화 → Lv.30 달성
 → 레벨 상한 해제 → XP 무한 누적 → 랭킹 시스템 연동 (MVP 이후)
 ```
 
@@ -255,6 +255,7 @@ Lv.10 / 20 / 30 달성 → 다음 캐릭터로 진화
 **획득**
 - 유닛 오픈 시: 유닛 번호만큼 지급 (Unit 2 오픈 = 왕관 2개)
 - 훈련 하루치 완료 시: 1개
+- 엔드보스 클리어 시: 15개
 
 **소모**
 - 보스 3번째 도전부터: 1개씩 소모
@@ -420,7 +421,7 @@ Lv.30+:   리미트 해제, 30,000 XP/레벨 유지
 - AI 설명 레벨 설정 — `/settings` (beginner / intermediate / advanced)
 
 **준비중 (플레이스홀더)**
-- 파이널 보스 — `/boss/final` (Unit 8 완료 시 해금 예정)
+- 엔드보스 — `/boss/endboss` (Unit 8 완료 시 해금 예정)
 - 미니게임 — `/game` (MVP 이후 오픈 예정)
 
 ---
@@ -562,7 +563,7 @@ ai-mon/
 | 스테이지 퀴즈 | multiple_choice + output_select | fill_in_blank + output_select | fill_in_blank + output_select |
 | 스테이지 미니보스 | multiple_choice + output_select | output_select + fill_in_blank | fill_in_blank + code_input |
 | 유닛 보스 | output_select + fill_in_blank + error_find  | fill_in_blank + output_select + code_input | code_input 위주 |
-| 파이널 보스 | output_select + fill_in_blank (심화) | fill_in_blank + code_input (심화) | code_input 위주 (심화) |
+| 엔드보스 | P1: output_select/mc → P2: error_find → P3: fill_in_blank | P1: output_select/fib → P2: error_find → P3: code_input(함수) | P1: fib/error_find → P2: code_input → P3: code_input(설계) |
 | 복습(훈련) | multiple_choice + output_select | fill_in_blank + output_select | fill_in_blank + code_input |
 
 > beginner는 `code_input` 없음. intermediate부터 `code_input` 도입. `error_find`는 beginner 유닛 보스(Unit 1~8) 전체에서 디버깅 역량 검증용으로 사용.
@@ -606,6 +607,6 @@ ai-mon/
 ## 19. 별도 논의 필요 (기준 미확정)
 
 - [x] **XP 레벨업 로직** — 확정. 레벨 × 1,000 XP 구조.
-- [x] **캐릭터 진화 디테일** — 확정. 초급/중급/고급 파이널 보스 클리어 시 진화, Lv.10/20/30 기준.
+- [x] **캐릭터 진화 디테일** — 확정. 초급/중급/고급 엔드보스 클리어 시 진화, Lv.10/20/30 기준.
 - [x] **유닛 보스 전투 구조** — 확정. HP 1000, 문제 맞추면 보스 -150, 틀리면 내 HP -350, 3번 틀리면 실패.
 - [x] **개념퀴즈 재시도 시스템** — 확정. Set A/B 7문제씩, 60% 통과 기준, 3회차부터 혼합.

@@ -177,16 +177,13 @@ def get_questions(
             
         quiz_pool = pool[:limit]
 
-        # miniboss 문제 로드 (quiz_set 필터 적용)
+        # miniboss 문제 로드 (quiz_set 없음 — 전체 풀에서 랜덤 5개)
         miniboss_questions = load_questions_by_category("miniboss", course_level, unit)
         if stage:
             miniboss_questions = [q for q in miniboss_questions if q.get("stage") == stage]
 
-        miniboss_pool = [q for q in miniboss_questions if q.get("quiz_set") == ("A" if attempt == 1 else "B")]
-        if not miniboss_pool: # quiz_set이 없는 경우 폴백
-            miniboss_pool = miniboss_questions
-        random.shuffle(miniboss_pool)
-        return quiz_pool + miniboss_pool[:5]
+        random.shuffle(miniboss_questions)
+        return quiz_pool + miniboss_questions[:5]
 
     return quiz_questions[:limit]
 

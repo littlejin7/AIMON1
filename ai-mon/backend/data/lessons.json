@@ -9,30 +9,38 @@
   },
   {
     "unit_id": 2,
-    "title": "데이터 묶기 — 리스트 & 딕셔너리",
-    "icon": "📋",
-    "description": "리스트와 딕셔너리로 데이터를 다뤄요",
+    "title": "글자 다루기 — 문자열",
+    "icon": "📝",
+    "description": "문자열 생성, 인덱싱, 슬라이싱, 메서드를 익혀요",
     "difficulty": "beginner",
-    "stages": 7
+    "stages": 6
   },
   {
     "unit_id": 3,
-    "title": "갈림길 — 조건문 & 논리 연산",
+    "title": "갈림길 — 조건문",
     "icon": "🔀",
-    "description": "if/else와 논리 연산으로 분기를 만들어요",
+    "description": "if/elif/else와 논리 연산으로 분기를 만들어요",
     "difficulty": "beginner",
-    "stages": 5
+    "stages": 6
   },
   {
     "unit_id": 4,
     "title": "반복의 힘 — for & while",
     "icon": "🔁",
-    "description": "for, while, break로 반복을 제어해요",
+    "description": "for, while, break, continue로 반복을 제어해요",
     "difficulty": "beginner",
-    "stages": 5
+    "stages": 7
   },
   {
     "unit_id": 5,
+    "title": "데이터 묶기 — 리스트 & 파일처리",
+    "icon": "📋",
+    "description": "리스트 조작과 파일 읽기/쓰기를 익혀요",
+    "difficulty": "beginner",
+    "stages": 7
+  },
+  {
+    "unit_id": 6,
     "title": "나만의 기능 — 함수",
     "icon": "⚙️",
     "description": "def, return, 스코프로 함수를 만들어요",
@@ -40,26 +48,18 @@
     "stages": 6
   },
   {
-    "unit_id": 6,
-    "title": "글자 다루기 — 문자열 & 라이브러리",
-    "icon": "📝",
-    "description": "문자열 메서드와 표준 라이브러리를 활용해요",
-    "difficulty": "beginner",
-    "stages": 6
-  },
-  {
     "unit_id": 7,
-    "title": "세상과 연결 — 파일 & JSON & API",
-    "icon": "🌐",
-    "description": "파일 읽기/쓰기, JSON, 외부 API를 다뤄요",
+    "title": "데이터 저장 — 딕셔너리 & set",
+    "icon": "🗂️",
+    "description": "딕셔너리와 집합으로 데이터를 효율적으로 관리해요",
     "difficulty": "beginner",
     "stages": 6
   },
   {
     "unit_id": 8,
-    "title": "AI 에이전트 만들기",
-    "icon": "🤖",
-    "description": "AI API를 활용해 나만의 에이전트를 구현해요",
+    "title": "미니 프로젝트",
+    "icon": "🚀",
+    "description": "지금까지 배운 것을 활용해 나만의 프로그램을 만들어요",
     "difficulty": "beginner",
     "stages": 9
   }

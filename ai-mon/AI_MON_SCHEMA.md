@@ -168,13 +168,14 @@ backend/data/
 | ------------------ | ------- | ------------------------------------------------------------ | ---- | ----------------------------------------------------------------------------------------------- |
 | `question_id`      | string  | -                                                            | ✅   | 문제 ID. 스테이지: `q{번호}` / 보스: `boss_{level}_{type}_{unit}_{번호}`                        |
 | `unit`             | number  | 1~8                                                          | ✅   | 유닛 번호                                                                                       |
-| `stage`            | string  | -                                                            | ✅   | 스테이지 번호 (`"1-1"` ~ `"1-7"`: 스테이지, `"1-boss"`: 유닛 보스, `"final-boss"`: 파이널 보스) |
+| `stage`            | string  | -                                                            | ✅   | 스테이지 번호 (`"1-1"` ~ `"1-7"`: 스테이지, `"1-boss"`: 유닛 보스, `"final"`: 엔드보스) |
 | `course_level`     | string  | beginner / intermediate / advanced                           | ✅   | 수강 레벨                                                                                       |
 | `difficulty`       | string  | easy / medium / hard                                         | ✅   | 문제 난이도                                                                                     |
 | `type`             | string  | multiple_choice / output_select / fill_in_blank / code_input / error_find | ✅   | 문제 형식 (출력 방식)                                                                           |
 | `quiz_category`    | string  | stage_quiz / miniboss / unit_boss / final_boss               | ✅   | 문제 세트 유형 (흐름상 위치)                                                                    |
 | `quiz_set`         | string  | A / B                                                        | ❌   | stage_quiz 전용. Set A(1회차) / Set B(2회차) / 없으면 3회차 혼합                                |
-| `is_boss`          | boolean | true / false                                                 | ✅   | 유닛 보스 / 파이널 보스 여부 (`stage: "1-boss"` 와 함께 사용)                                   |
+| `is_boss`          | boolean | true / false                                                 | ✅   | 유닛 보스 / 엔드보스 여부 (`stage: "1-boss"` 또는 `stage: "final"` 과 함께 사용)               |
+| `phase`            | number  | 1 / 2 / 3                                                    | ❌   | 엔드보스 전용. 페이즈 번호 (1=분석전, 2=역전, 3=결정타)                                         |
 | `question`         | string  | -                                                            | ✅   | 문제 텍스트                                                                                     |
 | `choices`          | array   | -                                                            | ❌   | 선택지 (multiple_choice / output_select / error_find 해당, fill_in_blank는 빈 배열)             |
 | `answer`           | string  | -                                                            | ✅   | 정답                                                                                            |
@@ -204,7 +205,7 @@ backend/data/
 | 스테이지 advanced     | `q{2로 시작 세자리}`                            | `q201`, `q202`, `q203`    |
 | 스테이지 미니보스     | `miniboss_{level}_{type}_{unit}_{stage}_{번호}` | `miniboss_beg_mc_1_1_001` |
 | 유닛 보스             | `unitboss_{level}_{type}_{unit}_{번호}`         | `unitboss_beg_os_1_001`   |
-| 파이널 보스           | `finalboss_{level}_{type}_{번호}`               | `finalboss_beg_fib_001`   |
+| 엔드보스              | `finalboss_{level}_{type}_p{phase}_{번호}`      | `finalboss_beg_fib_p3_001` |
 
 ```json
 {
@@ -281,6 +282,8 @@ backend/data/
 | `last_login`             | string  | YYYY-MM-DD                                  | ✅   | 마지막 접속일 (streak 리셋 기준)                                 |
 | `titles`                 | array   | string[]                                    | ✅   | 획득한 칭호 ID 목록 (기본값: `[]`)                               |
 | `ai_feedback_count`      | number  | 0~                                          | ✅   | 오답 AI 피드백 누적 확인 횟수                                    |
+| `endboss_cleared_levels` | array   | string[]                                    | ✅   | 클리어한 엔드보스 레벨 목록 — 중복 보상 방지. 예: `["beginner"]` |
+| `endboss_seen_questions` | array   | string[]                                    | ✅   | 엔드보스 출제된 question_id — seen 문제 제외. 소진 시 리셋.      |
 | `created_at`             | string  | ISO 8601                                    | ✅   | 가입 시각                                                        |
 
 ```json
@@ -301,6 +304,8 @@ backend/data/
   "last_login": "2026-06-06",
   "titles": ["first_step", "boss_slayer"],
   "ai_feedback_count": 12,
+  "endboss_cleared_levels": [],
+  "endboss_seen_questions": [],
   "created_at": "2026-06-01T10:00:00"
 }
 ```
@@ -797,6 +802,8 @@ backend/data/
 
 ### 칭호 목록
 
+#### 일반 칭호
+
 | 칭호 ID        | 이름             | 조건                     | 체크 시점                                                       |
 | -------------- | ---------------- | ------------------------ | --------------------------------------------------------------- |
 | `first_step`   | 🌱 첫 발걸음     | 첫 스테이지 클리어       | `POST /progress/` — 첫 `is_completed: true` 저장 시             |
@@ -805,6 +812,28 @@ backend/data/
 | `ai_explorer`  | 🧠 AI 탐구자     | 오답 AI 피드백 10회 확인 | `POST /quiz/ai-feedback` — `ai_feedback_count >= 10` 도달 시    |
 | `unit_master`  | 👑 유닛 마스터   | 유닛 1개 100% 완료       | `POST /progress/` — 유닛 내 스테이지 1~7 + 보스 전부 완료 시    |
 | `aimon_master` | 💎 에이몬 마스터 | Lv.30 달성               | `POST /progress/` 또는 `POST /boss/answer` — `lv >= 30` 확인 시 |
+
+#### 엔드보스 클리어 칭호
+
+| 칭호 ID            | 이름          | 조건                        | 체크 시점                                        |
+| ------------------ | ------------- | --------------------------- | ------------------------------------------------ |
+| `rookie_coder`     | 코드 ROOKIE   | beginner 엔드보스 클리어    | `POST /boss/endboss/clear` — beginner 최초 클리어 |
+| `ace_coder`        | ACE 코더      | intermediate 엔드보스 클리어 | `POST /boss/endboss/clear` — intermediate 최초   |
+| `ai_master`        | AI 마스터     | advanced 엔드보스 클리어    | `POST /boss/endboss/clear` — advanced 최초       |
+
+#### 히든 칭호
+
+조건 달성 시 자동 지급. 칭호 목록 UI에는 잠금 상태로만 표시 (조건 미노출).
+
+| 칭호 ID          | 이름           | 조건                                                                    | 구현 위치        |
+| ---------------- | -------------- | ----------------------------------------------------------------------- | ---------------- |
+| `solo_player`    | Solo Player    | AI 힌트/가이드 한 번도 클릭 안 하고 문제 맞춤                           | 프론트엔드 추적 → 백엔드 플래그 |
+| `early_bird`     | Early Bird     | 새벽 5~7시 접속 + 스테이지 퀴즈 완료                                   | 백엔드 (login 시각 + progress 타임스탬프 비교) |
+| `weekend_warrior`| Weekend Warrior | 금~일 3일 연속 매일 3개 이상 스테이지 클리어                           | 백엔드 (progress 타임스탬프 분석) |
+| `time_traveler`  | Time Traveler  | 한 문제 창 켜둔 채 2시간 이상 고민 후 성공                              | 프론트엔드 추적 (페이지 체류 타이머) |
+| `unstoppable`    | Unstoppable    | 하루 안에 유닛 1개 전체 클리어                                          | 백엔드 (progress created_at 날짜 비교) |
+| `phoenix`        | Phoenix        | 동일 문제에서 20회 이상 오답 후 성공                                    | 프론트엔드 추적 (오답 카운터) |
+| `furious_typer`  | Furious Typer  | 백스페이스 고속 연타로 코드를 갈아엎는 행위 감지                        | 프론트엔드 추적 (키보드 이벤트) |
 
 ### 칭호 획득 응답 형식
 
@@ -824,12 +853,25 @@ backend/data/
 
 ```python
 TITLE_DEFINITIONS = {
-    "first_step":   "🌱 첫 발걸음",
-    "streak_7":     "🔥 연속학습자",
-    "boss_slayer":  "⚔️ 보스슬레이어",
-    "ai_explorer":  "🧠 AI 탐구자",
-    "unit_master":  "👑 유닛 마스터",
-    "aimon_master": "💎 에이몬 마스터",
+    # 일반
+    "first_step":       "🌱 첫 발걸음",
+    "streak_7":         "🔥 연속학습자",
+    "boss_slayer":      "⚔️ 보스슬레이어",
+    "ai_explorer":      "🧠 AI 탐구자",
+    "unit_master":      "👑 유닛 마스터",
+    "aimon_master":     "💎 에이몬 마스터",
+    # 엔드보스
+    "rookie_coder":     "코드 ROOKIE",
+    "ace_coder":        "ACE 코더",
+    "ai_master":        "AI 마스터",
+    # 히든
+    "solo_player":      "Solo Player",
+    "early_bird":       "Early Bird",
+    "weekend_warrior":  "Weekend Warrior",
+    "time_traveler":    "Time Traveler",
+    "unstoppable":      "Unstoppable",
+    "phoenix":          "Phoenix",
+    "furious_typer":    "Furious Typer",
 }
 
 def check_and_award_titles(user: dict, context: dict) -> list[dict]:
