@@ -1,0 +1,469 @@
+[
+  {
+    "question_id": "q751",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "파이썬에서 함수 내부에 또 다른 함수를 정의하여 사용하는 것을 무엇이라고 하나요?",
+    "choices": [
+      "A. 외중 함수",
+      "B. 중첩 함수 (Nested Function)",
+      "C. 반복 함수 (Loop Function)",
+      "D. 연쇄 함수 (Chained Function)"
+    ],
+    "answer": "B",
+    "hint": "함수 안에 다른 함수가 '겹쳐져서' 들어가 있는 형태를 뜻하는 단어예요.",
+    "feedback": {
+      "correct": "정답입니다! 함수 내부에 정의된 또 다른 함수를 '중첩 함수' 혹은 '내부 함수'라고 부릅니다."
+    }
+  },
+  {
+    "question_id": "q752",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "중첩 함수(내부 함수)의 스코프(유효 범위)적 특징으로 올바른 것은 무엇인가요?",
+    "choices": [
+      "A. 프로그램 어디서나 자유롭게 호출할 수 있는 전역 함수가 된다.",
+      "B. 자신을 감싸고 있는 바깥쪽 함수 내부에서만 존재하며 외부에서는 호출할 수 없다.",
+      "C. 한 번 호출되면 컴퓨터가 꺼질 때까지 메모리에서 사라지지 않는다.",
+      "D. 내부 함수 안에서는 바깥쪽 함수의 변수를 읽을 수 없다."
+    ],
+    "answer": "B",
+    "hint": "내부 함수는 바깥쪽 함수의 '지역 변수'와 같은 취급을 받아서 꽁꽁 숨겨져 있어요.",
+    "feedback": {
+      "correct": "정답입니다! 내부 함수는 자신을 정의한 감싸고 있는 바깥 함수 안에서만 유효 범위를 가집니다."
+    }
+  },
+  {
+    "question_id": "q753",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\ndef outer():\n    def inner():\n        print('내부 호출!')\n    inner()\n\nouter()",
+    "choices": [
+      "A. 내부 호출!",
+      "B. inner()",
+      "C. 아무것도 출력되지 않는다",
+      "D. NameError 발생"
+    ],
+    "answer": "A",
+    "hint": "outer()가 호출되면 그 안에서 inner() 함수가 정의되고 바로 이어서 실행(호출)까지 일어납니다.",
+    "feedback": {
+      "correct": "정답입니다! outer() 함수 내부 흐름에 따라 inner()가 정상 호출되어 문장이 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q754",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 중 중첩 함수를 포함한 아래 코드를 실행했을 때의 결과로 올바른 것은 무엇인가요?\n\ndef main_game():\n    def spawn_monster():\n        print('몬스터 등장')\n\nmain_game()\nspawn_monster()",
+    "choices": [
+      "A. 몬스터 등장",
+      "B. 아무런 출력 없이 프로그램이 정상 종료된다.",
+      "C. NameError(이름 오류)가 발생한다.",
+      "D. None이 출력된다."
+    ],
+    "answer": "C",
+    "hint": "spawn_monster는 main_game 함수 안에서만 존재하는 내부 함수입니다. 바깥 영역인 맨 밑줄에서 단독 호출할 수 있을까요?",
+    "feedback": {
+      "correct": "정답입니다! spawn_monster는 외부 영역에서 보이지 않는 내부 스코프에 갇혀있으므로 바깥에서 호출하면 NameError가 발생합니다."
+    }
+  },
+  {
+    "question_id": "q755",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때의 출력 결과를 예측해 보세요.\n\ndef robot_factory():\n    def assemble():\n        print('부품 조립')\n    print('공장 가동')\n\nrobot_factory()",
+    "choices": [
+      "A. 부품 조립\n공장 가동",
+      "B. 공장 가동\n부품 조립",
+      "C. 공장 가동",
+      "D. 오류 발생"
+    ],
+    "answer": "C",
+    "hint": "assemble 함수는 '정의(def)'만 되었을 뿐, robot_factory 내부 그 어디에서도 실행 명령을 내리지 않았습니다.",
+    "feedback": {
+      "correct": "정답입니다! 내부 함수가 정의만 되고 호출되지 않았으므로 '공장 가동'만 화면에 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q756",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "중첩 함수(내부 함수)를 사용하는 주된 프로그래밍적 장점이나 목적이 아닌 것은 무엇인가요?",
+    "choices": [
+      "A. 바깥 함수에서만 쓰는 특수한 기능을 안에 숨겨두어 코드를 깔끔하게 묶을 수 있다 (캡슐화).",
+      "B. 외부 영역으로부터 해당 내부 함수의 무분별한 접근 및 충돌을 원천 차단할 수 있다.",
+      "C. 내부 함수를 사용하면 무조건 전체 프로그램 코드 실행 속도가 10배 이상 빨라진다.",
+      "D. 내부 함수 안에서 바깥 함수 공간의 데이터를 활용할 수 있어 논리적 연결이 편리하다."
+    ],
+    "answer": "C",
+    "hint": "중첩 함수는 코드의 구조화, 보안(숨김), 가독성을 위한 설계 문법 장치이지 실행 속도 튜닝과는 무관합니다.",
+    "feedback": {
+      "correct": "정답입니다! 중첩 함수 구조를 쓴다고 해서 비약적인 속도 향상이 일어나는 것은 아닙니다."
+    }
+  },
+  {
+    "question_id": "q757",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 화면에 최종 출력되는 문구를 고르세요.\n\ndef outer_func(x):\n    def inner_func():\n        print('값:' + x)\n    inner_func()\n\nouter_func('에이몬')",
+    "choices": [
+      "A. 값:x",
+      "B. 값:에이몬",
+      "C. 값:",
+      "D. NameError 발생"
+    ],
+    "answer": "B",
+    "hint": "내부 함수(inner_func)는 자신을 둘러싼 바깥 함수(outer_func)의 매개변수나 지역 변수를 자유롭게 가져다 쓸 수 있습니다.",
+    "feedback": {
+      "correct": "정답입니다! 내부 함수는 상위 바깥 함수의 변수 x에 할당된 '에이몬'이라는 값을 정상적으로 공유받아 출력합니다."
+    }
+  },
+  {
+    "question_id": "q758",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 연산 구조를 지닌 중첩 함수 코드의 최종 출력 정수를 선택하세요.\n\ndef calculator(a, b):\n    def multiply():\n        return a * b\n    result = multiply() + 10\n    return result\n\nprint(calculator(3, 5))",
+    "choices": [
+      "A. 15",
+      "B. 25",
+      "C. 35",
+      "D. 오류 발생"
+    ],
+    "answer": "B",
+    "hint": "multiply()가 수행되면 바깥에서 받아온 `3 * 5 = 15`를 리턴하고, 거기에 10이 더해집니다.",
+    "feedback": {
+      "correct": "정답입니다! 15에 10이 더해진 25가 최종 반환되어 출력창에 찍히게 됩니다."
+    }
+  },
+  {
+    "question_id": "q759",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 코드가 실행되는 흐름과 순서를 정밀하게 추적했을 때, 화면에 도출되는 최종 라인 조합은 무엇인가요?\n\ndef step_1():\n    print('A')\n    def step_2():\n        print('B')\n    print('C')\n    step_2()\n\nstep_1()",
+    "choices": [
+      "A. A\nB\nC",
+      "B. A\nC\nB",
+      "C. B\nA\nC",
+      "D. A\nC"
+    ],
+    "answer": "B",
+    "hint": "코드는 위에서 아래로 흐릅니다. `def step_2():` 문장을 만났을 때는 정의만 하고 지나친다는 점을 유념하세요.",
+    "feedback": {
+      "correct": "정답입니다! 'A'가 찍히고 step_2는 우회한 뒤 'C'가 찍힙니다. 그 이후에 `step_2()`를 호출했으므로 'B'가 마지막에 나타납니다."
+    }
+  },
+  {
+    "question_id": "q760",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "함수 안의 함수(중첩 함수) 문법과 제약 사항에 관한 설명 중 가장 올바르지 않은 명제는 무엇인가요?",
+    "choices": [
+      "A. 내부 함수도 일반 함수와 마찬가지로 인수를 전달받기 위한 독자적인 매개변수를 가질 수 "
+    ],
+    "choices": [
+      "A. 내부 함수도 일반 함수와 마찬가지로 인수를 전달받기 위한 독자적인 매개변수를 가질 수 있다.",
+      "B. 바깥 함수 내부에서는 여러 개의 내부 함수를 동시에 쪼개어 정의할 수 있다.",
+      "C. 내부 함수 내에서 바깥 함수의 지역 변수 값을 단순 읽기 조회하는 것은 가능하지만, 예약 키워드 선언 없이 다짜고짜 값을 대입해 수정하면 바깥 변수가 아닌 동명의 새로운 내부 지역 변수가 생길 뿐이다.",
+      "D. 파이썬에서는 딱 한 단계의 중첩만 허용하므로, 함수 안의 함수 안에 또 다른 함수를 정의하는 3단계 중첩은 문법상 원천 불가능하다."
+    ],
+    "answer": "D",
+    "hint": "파이썬은 중첩 횟수에 논리적 제한을 두지 않습니다. 함수 안에 함수 안에 함수를 넣는 것도 문법적으로 구현할 수 있어요.",
+    "feedback": {
+      "correct": "정답입니다! 파이썬은 다중 중첩 구조(함수 안의 함수 안의 함수 등)를 정상 지원하므로 D번 주장은 거짓입니다."
+    }
+  },
+  {
+    "question_id": "q761",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 중 중첩 함수를 품고 있는 가장 바깥쪽의 함수를 지칭하는 올바른 대응 용어는 무엇인가요?",
+    "choices": [
+      "A. 외부 함수 (Outer Function)",
+      "B. 상위 클래스 (Super Class)",
+      "C. 메인 루프 (Main Loop)",
+      "D. 전역 공간 (Global Space)"
+    ],
+    "answer": "A",
+    "hint": "내부(Inner)의 반대말에 해당하는 컴퓨터 과학 단어예요.",
+    "feedback": {
+      "correct": "정답입니다! 중첩 함수를 감싸고 있는 바깥층의 함수를 '외부 함수' 또는 '바깥쪽 함수'라고 칭합니다."
+    }
+  },
+  {
+    "question_id": "q762",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 중 중첩 함수(내부 함수)를 사용하기에 가장 적절하지 못한 비효율적인 상황은 언제인가요?",
+    "choices": [
+      "A. 특정 함수 안에서만 임시로 돌릴 보조 계산 기능이 필요할 때",
+      "B. 외부 파일들이나 다른 프로그램 영역 전반에서 수시로 불러다 써야 하는 공용 유틸리티 기능을 만들 때",
+      "C. 특정 함수 내부 코드가 너무 길어져서 내부에서만 쓰이는 단락을 가독성 있게 쪼개고 싶을 때",
+      "D. 함수 외부 공간의 오염으로부터 원천 격리된 보안성 높은 도구를 구현하고 싶을 때"
+    ],
+    "answer": "B",
+    "hint": "중첩 함수는 외부에서 부를 수 없다는 치명적인 격리 장벽이 존재합니다. 다 함께 널리 쓰는 공용 도구라면 굳이 가둘 필요가 없겠죠.",
+    "feedback": {
+      "correct": "정답입니다! 다른 여러 파일이나 공간에서 공유하여 광범위하게 쓰일 대중적인 기능은 전역 공간에 독립된 일반 함수로 만드는 것이 옳습니다."
+    }
+  },
+  {
+    "question_id": "q763",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 최종 도출되는 결과값을 선택하세요.\n\ndef intro_pack():\n    def show_name():\n        print('에이몬')\n    show_name()\n    show_name()\n\nintro_pack()",
+    "choices": [
+      "A. 에이몬",
+      "B. 에이몬\n에이몬",
+      "C. 아무것도 출력되지 않는다.",
+      "D. NameError 발생"
+    ],
+    "answer": "B",
+    "hint": "바깥 함수 안에서 내부 함수 `show_name()`을 연속으로 두 번 호출하고 있는 배치입니다.",
+    "feedback": {
+      "correct": "정답입니다! 내부 함수 역시 바깥 함수 영역 안에서 선언된 횟수만큼 정직하게 실행되므로 두 번 찍히게 됩니다."
+    }
+  },
+  {
+    "question_id": "q764",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 발생하는 콘솔창 현상으로 알맞은 것은 무엇인가요?\n\ndef check_secure():\n    def get_password():\n        return '1234'\n\nprint(get_password())",
+    "choices": [
+      "A. 1234",
+      "B. None",
+      "C. NameError(이름 오류)가 발생한다.",
+      "D. 프로그램이 멈추지 않고 무한 대기 상태에 빠진다."
+    ],
+    "answer": "C",
+    "hint": "get_password는 check_secure의 울타리 내부에 격리되어 설계되었습니다. 외부(print)에서는 그 존재 유무를 알 수 없습니다.",
+    "feedback": {
+      "correct": "정답입니다! 은닉된 내부 함수를 바깥에서 임의로 꺼내 호출하려 했으므로 식별 불가능하다는 NameError가 발생합니다."
+    }
+  },
+  {
+    "question_id": "q765",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드의 연산과 조건 흐름을 분석하여 출력 결과를 고르세요.\n\ndef process_data(status):\n    def alert():\n        print('경고!')\n    \n    if status == 'danger':\n        alert()\n\nprocess_data('safe')",
+    "choices": [
+      "A. 경고!",
+      "B. 아무런 출력문 없이 정상 종료된다.",
+      "C. safe",
+      "D. 오류 발생"
+    ],
+    "answer": "B",
+    "hint": "인수로 'safe'가 들어왔습니다. `status == 'danger'` 조건식이 충족되는지 검토해보세요.",
+    "feedback": {
+      "correct": "정답입니다! if 조건문이 성립하지 않아 내부 함수 alert() 호출문까지 도달하지 못하므로 아무것도 출력되지 않고 종료됩니다."
+    }
+  },
+  {
+    "question_id": "q766",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "파이썬에서 중첩 함수를 작성할 때 지켜야 하는 가장 기초적인 소스코드 정렬(포맷) 규칙은 무엇인가요?",
+    "choices": [
+      "A. 내부 함수는 반드시 바깥 함수보다 코드 윗줄에 배치해야 한다.",
+      "B. 내부 함수의 def 선언문과 내부 본문 코드는 바깥 함수 내부 블록에 소속되도록 한 단계 더 들여쓰기(Indentation)해야 한다.",
+      "C. 내부 함수 이름 앞에는 무조건 언더바 두 개(`__`)를 강제로 붙여야 한다.",
+      "D. 내부 함수 안에서는 print() 함수를 사용하는 것이 문법적으로 불가능하다."
+    ],
+    "answer": "B",
+    "hint": "파이썬의 소속 관계 구분 방식은 언제나 '들여쓰기'의 깊이로 결정됩니다.",
+    "feedback": {
+      "correct": "정답입니다! 바깥 함수 본문 안에 종속되어야 하므로 한 단계 더 깊은 들여쓰기를 적용해 코드를 짜야 합니다."
+    }
+  },
+  {
+    "question_id": "q767",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드를 구동했을 때 모니터 창에 찍히는 최종 결합 텍스트는 무엇인가요?\n\ndef welcome(title):\n    def formal_greet():\n        print('대장님 ' + title)\n    formal_greet()\n\nwelcome('안녕하세요!')",
+    "choices": [
+      "A. 대장님 title",
+      "B. 대장님 안녕하세요!",
+      "C. 안녕하세요! 대장님",
+      "D. TypeError 발생"
+    ],
+    "answer": "B",
+    "hint": "바깥 함수가 가리키는 변수 title의 문자열 데이터를 내부 함수가 그대로 공유하여 연산에 결합합니다.",
+    "feedback": {
+      "correct": "정답입니다! title에 매칭된 '안녕하세요!'를 내부 스코프가 완벽히 이어받아 '대장님 안녕하세요!'가 완성됩니다."
+    }
+  },
+  {
+    "question_id": "q768",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 수학적 가중치 계산이 덧붙여진 중첩 함수의 최종 반환 결과를 고르세요.\n\ndef score_booster(score):\n    def multiply(n):\n        return n * 2\n    final_score = multiply(score) + score\n    return final_score\n\nprint(score_booster(10))",
+    "choices": [
+      "A. 20",
+      "B. 30",
+      "C. 40",
+      "D. 10"
+    ],
+    "answer": "B",
+    "hint": "multiply(10)은 `10 * 2 = 20`을 돌려줍니다. 거기에 원래 score인 10을 한번 더 더해주는 구도입니다.",
+    "feedback": {
+      "correct": "정답입니다! `20 + 10 = 30`이 연산되어 최종 결과값은 30이 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q769",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드의 특이한 실행 전개와 호출 위치를 고려했을 때, 도출되는 최종 정답은 무엇인가요?\n\ndef level_1():\n    def level_2():\n        print('인사 완료')\n    print('준비 단계')\n    level_2()\n\nlevel_1()",
+    "choices": [
+      "A. 인사 완료\n준비 단계",
+      "B. 준비 단계\n인사 완료",
+      "C. 준비 단계",
+      "D. NameError 발생"
+    ],
+    "answer": "B",
+    "hint": "level_1() 내부에서 `def level_2():` 정의 구역을 지나쳐 아랫줄의 `print('준비 단계')`를 먼저 대면하게 됩니다.",
+    "feedback": {
+      "correct": "정답입니다! '준비 단계' 가 먼저 정직하게 찍힌 이후, 바로 아랫줄에서 장전된 `level_2()`를 쏘아 올려 실행하므로 '인사 완료'가 다음에 나옵니다."
+    }
+  },
+  {
+    "question_id": "q770",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 중 함수 내부에서 또 다른 함수를 부려 쓰는 '중첩 함수'의 동작 기저 규칙으로 올바른 진술을 고르세요.",
+    "choices": [
+      "A. 내부 함수 블록에서는 외부 함수의 매개변수나 지역 변수를 자유롭게 가져와 사용할 수 있다.",
+      "B. 외부 함수는 자신이 거느린 내부 함수의 가슴 안쪽 지역 변수를 global 선언 없이 자유롭게 꺼내 쓸 수 "
+    ],
+    "choices": [
+      "A. 내부 함수 블록에서는 외부 함수의 매개변수나 지역 변수를 자유롭게 가져와 사용할 수 있다.",
+      "B. 외부 함수는 자신이 거느린 내부 함수의 가슴 안쪽 지역 변수를 global 선언 없이 자유롭게 꺼내 쓸 수 있다.",
+      "C. 내부 함수와 외부 함수의 매개변수 이름은 무슨 일이 있어도 서로 겹쳐서 지으면 문법 에러가 난다.",
+      "D. 내부 함수 안에서는 반복문(for)이나 조건문(if)을 섞어 쓰는 행위가 금지된다."
+    ],
+    "answer": "A",
+    "hint": "스코프의 기본 지배 논리에 따라 하위 공간(내부)은 상위 공간(외부)의 변수를 들여다볼 수 있는 프리패스 권한이 주어집니다.",
+    "feedback": {
+      "correct": "정답입니다! 상위 스코프에 등록된 자원은 하위 내부 함수 스코프에서 온전히 공유 및 인지할 수 있으므로 A번이 유일한 참입니다."
+    }
+  }
+]
