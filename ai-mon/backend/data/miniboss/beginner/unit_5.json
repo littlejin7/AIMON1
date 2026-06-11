@@ -1,1384 +1,1684 @@
 {
   "questions": [
     {
-      "question_id": "miniboss_5_1_mc_001",
+      "question_id": "miniboss_beg_mc_5_1_001",
       "unit": 5,
       "stage": "5-1",
       "course_level": "beginner",
       "difficulty": "easy",
       "type": "multiple_choice",
       "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "Python에서 함수를 정의하는 키워드는?",
+      "is_boss": false,
+      "question": "다음 중 리스트를 올바르게 만든 코드는?",
       "choices": [
-        "A. def",
-        "B. func",
-        "C. define",
-        "D. function"
+        "A. fruits = [\"사과\", \"바나나\", \"포도\"]",
+        "B. fruits = (\"사과\", \"바나나\", \"포도\")",
+        "C. fruits = {\"사과\": 1, \"바나나\": 2}",
+        "D. fruits = <\"사과\", \"바나나\">"
       ],
-      "answer": "A. def",
-      "hint": "",
+      "answer": "A",
+      "hint": "리스트는 대괄호 []로 만들어요. 소괄호 ()는 튜플, 중괄호 {}는 딕셔너리 또는 세트예요.",
       "feedback": {
-        "correct": "맞아요! `def` 키워드로 함수를 정의해요."
+        "correct": "정답! 리스트는 대괄호 []를 사용해요. 여러 값을 순서대로 담을 수 있어요."
       },
+      "villain": "speechbubble_king",
       "quiz_set": "A"
     },
     {
-      "question_id": "miniboss_5_1_mc_002",
+      "question_id": "miniboss_beg_os_5_1_002",
       "unit": 5,
       "stage": "5-1",
       "course_level": "beginner",
       "difficulty": "easy",
-      "type": "multiple_choice",
+      "type": "output_select",
       "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "함수를 호출하는 올바른 방법은?",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nitems = [\"몬스터볼\", \"포션\", \"에테르\"]\nprint(items[1])",
       "choices": [
-        "A. `call greet`",
-        "B. `run greet()`",
-        "C. `greet()`",
-        "D. `execute greet`"
+        "A. 몬스터볼",
+        "B. 포션",
+        "C. 에테르",
+        "D. 오류 발생"
       ],
-      "answer": "C. `greet()`",
-      "hint": "",
+      "answer": "B",
+      "hint": "리스트 인덱스는 0부터 시작해요. items[0]=몬스터볼, items[1]=포션, items[2]=에테르예요.",
       "feedback": {
-        "correct": "맞아요! 함수 이름 뒤에 괄호 `()`를 붙여서 호출해요."
+        "correct": "정답! 인덱스는 0부터 시작해요. items[1]은 두 번째 값인 포션이에요."
       },
+      "villain": "speechbubble_king",
       "quiz_set": "A"
     },
     {
-      "question_id": "miniboss_5_1_mc_003",
-      "unit": 5,
-      "stage": "5-1",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 중 올바른 함수 정의 형태는?",
-      "choices": [
-        "A. `def show_result():`",
-        "B. `def show_result()`",
-        "C. `show_result() def:`",
-        "D. `def: show_result()`"
-      ],
-      "answer": "A. `def show_result():`",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! `def 함수이름():` 형태가 올바른 Python 함수 정의예요."
-      },
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "miniboss_5_1_mc_004",
+      "question_id": "miniboss_beg_os_5_1_003",
       "unit": 5,
       "stage": "5-1",
       "course_level": "beginner",
       "difficulty": "medium",
-      "type": "multiple_choice",
+      "type": "output_select",
       "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드에서 함수가 실행되는 횟수는?\n\n```python\ndef greet():\n    print('안녕하세요')\n\ngreet()\ngreet()\ngreet()\n```",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nscores = [10, 20, 30, 40, 50]\nprint(scores[-1])",
       "choices": [
-        "A. 1번",
-        "B. 2번",
-        "C. 3번",
-        "D. 0번"
+        "A. 10",
+        "B. 40",
+        "C. 50",
+        "D. 오류 발생"
       ],
-      "answer": "C. 3번",
-      "hint": "",
+      "answer": "C",
+      "hint": "음수 인덱스는 뒤에서부터 세요. -1은 마지막, -2는 뒤에서 두 번째예요.",
       "feedback": {
-        "correct": "맞아요! `greet()`를 3번 호출했으므로 함수가 3번 실행돼요."
+        "correct": "정답! -1 인덱스는 리스트의 마지막 값을 가져와요. scores[-1]은 50이에요."
       },
+      "villain": "speechbubble_king",
       "quiz_set": "A"
     },
     {
-      "question_id": "miniboss_5_1_mc_005",
+      "question_id": "miniboss_beg_os_5_1_004",
       "unit": 5,
       "stage": "5-1",
       "course_level": "beginner",
       "difficulty": "medium",
-      "type": "multiple_choice",
+      "type": "output_select",
       "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "함수를 사용하는 주된 이유로 올바른 것은?",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nteam = [\"에이몬\", \"코드몬\", \"말풍선킹\"]\nprint(team[1:3])",
       "choices": [
-        "A. 코드를 더 길게 만들기 위해",
-        "B. 같은 코드를 반복하지 않고 재사용하기 위해",
-        "C. 변수를 자동으로 삭제하기 위해",
-        "D. 실행 속도를 높이기 위해"
+        "A. [\"에이몬\", \"코드몬\"]",
+        "B. [\"에이몬\", \"코드몬\", \"말풍선킹\"]",
+        "C. [\"코드몬\"]",
+        "D. [\"코드몬\", \"말풍선킹\"]"
       ],
-      "answer": "B. 같은 코드를 반복하지 않고 재사용하기 위해",
-      "hint": "",
+      "answer": "D",
+      "hint": "슬라이싱 [1:3]은 인덱스 1부터 2까지(3 미포함)예요. 끝값은 항상 포함되지 않아요.",
       "feedback": {
-        "correct": "맞아요! 함수의 핵심 장점은 코드 재사용이에요. 한 번 정의하고 여러 번 호출할 수 있어요."
+        "correct": "정답! [1:3]은 인덱스 1, 2의 값이에요. 코드몬과 말풍선킹이 출력돼요."
       },
+      "villain": "speechbubble_king",
       "quiz_set": "A"
     },
     {
-      "question_id": "miniboss_5_1_os_006",
+      "question_id": "miniboss_beg_os_5_1_005",
       "unit": 5,
       "stage": "5-1",
       "course_level": "beginner",
       "difficulty": "medium",
-      "type": "multiple_choice",
+      "type": "output_select",
       "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef show():\n    print('Python')\n\nshow()\n```",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\ndata = [5, 3, 8, 1]\nprint(data[0])",
       "choices": [
-        "A. Python",
-        "B. show",
-        "C. def show()",
-        "D. 아무것도 출력 안 됨"
-      ],
-      "answer": "A. Python",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! `show()`를 호출하면 함수 안의 `print('Python')`이 실행돼요."
-      },
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "miniboss_5_1_os_007",
-      "unit": 5,
-      "stage": "5-1",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef display():\n    print('1번')\n    print('2번')\n\nprint('시작')\ndisplay()\n```",
-      "choices": [
-        "A. 시작",
-        "B. 1번 / 2번 / 시작",
-        "C. 시작 / 1번 / 2번",
-        "D. 1번 / 2번"
-      ],
-      "answer": "C. 시작 / 1번 / 2번",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! '시작' 출력 후 display()를 호출하면 '1번', '2번'이 순서대로 출력돼요."
-      },
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "miniboss_5_1_os_008",
-      "unit": 5,
-      "stage": "5-1",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef repeat():\n    print('반복')\n\nrepeat()\nrepeat()\nprint('종료')\n```",
-      "choices": [
-        "A. 반복 / 종료",
-        "B. 반복 / 반복 / 종료",
-        "C. 종료 / 반복 / 반복",
-        "D. 반복 / 반복"
-      ],
-      "answer": "B. 반복 / 반복 / 종료",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! repeat()를 2번 호출해 '반복'이 2번 출력되고, 마지막에 '종료'가 출력돼요."
-      },
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "miniboss_5_1_os_009",
-      "unit": 5,
-      "stage": "5-1",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef calculate():\n    x = 5 + 3\n    print(x)\n\ncalculate()\ncalculate()\n```",
-      "choices": [
-        "A. 5 / 3 / 5 / 3",
-        "B. 16",
+        "A. 5",
+        "B. 3",
         "C. 8",
-        "D. 8 / 8"
+        "D. 1"
       ],
-      "answer": "D. 8 / 8",
-      "hint": "",
+      "answer": "A",
+      "hint": "인덱스 0은 항상 첫 번째 원소예요. data[0]은 5예요.",
       "feedback": {
-        "correct": "맞아요! 5+3=8이고, 함수를 2번 호출했으므로 8이 두 번 출력돼요."
+        "correct": "정답! data[0]은 리스트의 첫 번째 값인 5예요."
       },
-      "quiz_set": "B"
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
     },
     {
-      "question_id": "miniboss_5_1_os_010",
+      "question_id": "miniboss_beg_os_5_1_006",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nnums = [1, 2, 3, 4, 5]\nprint(nums[1:4])",
+      "choices": [
+        "A. [1, 2, 3]",
+        "B. [2, 3, 4]",
+        "C. [1, 2, 3, 4]",
+        "D. [2, 3, 4, 5]"
+      ],
+      "answer": "B",
+      "hint": "[1:4]는 인덱스 1, 2, 3번 값이에요. nums[1]=2, nums[2]=3, nums[3]=4예요. 끝값 4는 포함되지 않아요.",
+      "feedback": {
+        "correct": "정답! [1:4]는 인덱스 1(2), 2(3), 3(4)이에요. 끝값 4는 포함하지 않아요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_1_007",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nitems = [\"A\", \"B\", \"C\", \"D\", \"E\"]\nprint(items[::2])",
+      "choices": [
+        "A. [\"A\", \"B\", \"C\"]",
+        "B. [\"B\", \"D\"]",
+        "C. [\"A\", \"C\", \"E\"]",
+        "D. [\"A\", \"B\", \"C\", \"D\", \"E\"]"
+      ],
+      "answer": "C",
+      "hint": "[::2]는 처음부터 끝까지 2칸씩 건너뛰며 가져와요. 인덱스 0, 2, 4 → A, C, E예요.",
+      "feedback": {
+        "correct": "정답! [::2]는 2칸씩 건너뛰는 슬라이싱이에요. 인덱스 0, 2, 4의 값인 A, C, E를 가져와요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_1_008",
       "unit": 5,
       "stage": "5-1",
       "course_level": "beginner",
       "difficulty": "hard",
       "type": "multiple_choice",
       "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef inner():\n    print('내부')\n\ndef outer():\n    print('외부 시작')\n    inner()\n    print('외부 끝')\n\nouter()\n```",
+      "is_boss": false,
+      "question": "리스트 a = [1, 2, 3]에서 범위를 벗어난 a[5]에 접근하면 어떻게 되나요?",
       "choices": [
-        "A. 외부 시작 / 외부 끝 / 내부",
-        "B. 내부 / 외부 시작 / 외부 끝",
-        "C. 외부 시작 / 내부 / 외부 끝",
+        "A. None이 반환된다",
+        "B. 0이 반환된다",
+        "C. 자동으로 마지막 값이 반환된다",
+        "D. IndexError 오류가 발생한다"
+      ],
+      "answer": "D",
+      "hint": "리스트 범위를 벗어난 인덱스에 접근하면 IndexError가 발생해요. a = [1, 2, 3]은 인덱스 0, 1, 2만 유효해요.",
+      "feedback": {
+        "correct": "정답! 범위를 벗어난 인덱스 접근은 IndexError를 발생시켜요. 항상 인덱스 범위를 확인해야 해요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_1_009",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nheroes = [\"전사\", \"마법사\", \"궁수\", \"로그\"]\nprint(heroes[-2])",
+      "choices": [
+        "A. 궁수",
+        "B. 마법사",
+        "C. 전사",
+        "D. 로그"
+      ],
+      "answer": "A",
+      "hint": "-1이 마지막(로그), -2는 뒤에서 두 번째(궁수)예요.",
+      "feedback": {
+        "correct": "정답! -2는 뒤에서 두 번째 값이에요. [-1]=로그, [-2]=궁수예요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_1_010",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "data = [\"x\", \"y\", \"z\"]일 때 len(data)의 값은?",
+      "choices": [
+        "A. 0",
+        "B. 3",
+        "C. 2",
         "D. 오류 발생"
       ],
-      "answer": "C. 외부 시작 / 내부 / 외부 끝",
-      "hint": "",
+      "answer": "B",
+      "hint": "len()은 리스트에 들어있는 원소의 개수를 반환해요. \"x\", \"y\", \"z\" 세 개이므로 3이에요.",
       "feedback": {
-        "correct": "훌륭해요! outer() 안에서 inner()를 호출해요. '외부 시작' → inner() 실행('내부') → '외부 끝' 순이에요."
+        "correct": "정답! len(data)는 리스트 원소 개수를 반환해요. 원소가 3개이므로 3이에요."
       },
-      "quiz_set": "B"
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
     },
     {
-      "question_id": "miniboss_5_2_mc_001",
+      "question_id": "miniboss_beg_os_5_2_001",
       "unit": 5,
       "stage": "5-2",
       "course_level": "beginner",
       "difficulty": "easy",
-      "type": "multiple_choice",
+      "type": "output_select",
       "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "함수 호출 시 전달하는 실제 값을 무엇이라고 하나요?",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nbag = [\"포션\", \"에테르\"]\nbag.append(\"만병통치약\")\nprint(bag)",
       "choices": [
-        "A. 반환값",
-        "B. 인수 (argument)",
-        "C. 매개변수",
-        "D. 지역변수"
-      ],
-      "answer": "B. 인수 (argument)",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! 함수 호출 시 전달하는 실제 값을 인수(argument)라고 해요."
-      },
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "miniboss_5_2_mc_002",
-      "unit": 5,
-      "stage": "5-2",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "매개변수 기본값 설정으로 올바른 것은?",
-      "choices": [
-        "A. `def f(x == 0):`",
-        "B. `def f(x: 0):`",
-        "C. `def f(x=0):`",
-        "D. `def f(x; 0):`"
-      ],
-      "answer": "C. `def f(x=0):`",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! 기본값은 `매개변수=값` 형태로 설정해요."
-      },
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "miniboss_5_2_mc_003",
-      "unit": 5,
-      "stage": "5-2",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드에서 a, b에 들어가는 값은?\n\n```python\ndef sub(a, b):\n    print(a - b)\n\nsub(8, 3)\n```",
-      "choices": [
-        "A. a=3, b=8",
-        "B. a=8, b=8",
-        "C. a=8, b=3",
-        "D. a=3, b=3"
-      ],
-      "answer": "C. a=8, b=3",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! 인수는 순서대로 전달돼요. 첫 번째 8이 a, 두 번째 3이 b가 돼요."
-      },
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "miniboss_5_2_mc_004",
-      "unit": 5,
-      "stage": "5-2",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드에서 오류가 발생하는 이유는?\n\n```python\ndef show(a, b):\n    print(a, b)\n\nshow(1)\n```",
-      "choices": [
-        "A. 함수 이름이 잘못되었기 때문",
-        "B. 매개변수가 2개인데 인수를 1개만 전달했기 때문",
-        "C. print() 사용이 잘못되었기 때문",
-        "D. 들여쓰기가 잘못되었기 때문"
-      ],
-      "answer": "B. 매개변수가 2개인데 인수를 1개만 전달했기 때문",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! 매개변수가 2개(a, b)인데 인수를 1개(1)만 전달해서 오류가 발생해요."
-      },
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "miniboss_5_2_mc_005",
-      "unit": 5,
-      "stage": "5-2",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "키워드 인수의 장점으로 올바른 것은?",
-      "choices": [
-        "A. 함수 실행 속도가 빨라진다",
-        "B. 매개변수 이름을 명시해 순서와 상관없이 전달할 수 있다",
-        "C. 기본값을 자동으로 설정해 준다",
-        "D. 매개변수 수를 줄일 수 있다"
-      ],
-      "answer": "B. 매개변수 이름을 명시해 순서와 상관없이 전달할 수 있다",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! 키워드 인수는 `매개변수이름=값` 형태로 순서와 무관하게 전달할 수 있어요."
-      },
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "miniboss_5_2_os_006",
-      "unit": 5,
-      "stage": "5-2",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef greet(name):\n    print('Hi,', name)\n\ngreet('Alice')\ngreet('Bob')\n```",
-      "choices": [
-        "A. Hi, greet / Hi, greet",
-        "B. Hi, name / Hi, name",
-        "C. Hi, Alice / Hi, Bob",
+        "A. [\"포션\", \"에테르\", \"만병통치약\"]",
+        "B. [\"만병통치약\", \"포션\", \"에테르\"]",
+        "C. [\"포션\", \"만병통치약\"]",
         "D. 오류 발생"
       ],
-      "answer": "C. Hi, Alice / Hi, Bob",
-      "hint": "",
+      "answer": "A",
+      "hint": "append()는 리스트의 맨 끝에 값을 추가해요. 기존 원소는 그대로 유지되고 새 값이 뒤에 붙어요.",
       "feedback": {
-        "correct": "맞아요! 첫 번째 호출에서 name='Alice', 두 번째에서 name='Bob'이 전달돼요."
+        "correct": "정답! append()는 항상 리스트의 마지막에 값을 붙여요."
       },
-      "quiz_set": "B"
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
     },
     {
-      "question_id": "miniboss_5_2_os_007",
+      "question_id": "miniboss_beg_os_5_2_002",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nmonsters = [\"슬라임\", \"고블린\", \"오크\"]\nmonsters.remove(\"고블린\")\nprint(monsters)",
+      "choices": [
+        "A. [\"고블린\"]",
+        "B. [\"슬라임\", \"오크\"]",
+        "C. [\"슬라임\", \"고블린\"]",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "remove()는 괄호 안의 값을 찾아서 리스트에서 삭제해요. 슬라임과 오크가 남아요.",
+      "feedback": {
+        "correct": "정답! remove(\"고블린\")은 값 \"고블린\"을 찾아서 제거해요. 나머지 슬라임, 오크가 남아요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_2_003",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nskills = [\"파이어볼\", \"아이스볼\", \"썬더\"]\npopped = skills.pop()\nprint(popped)",
+      "choices": [
+        "A. 파이어볼",
+        "B. 아이스볼",
+        "C. 썬더",
+        "D. [\"파이어볼\", \"아이스볼\"]"
+      ],
+      "answer": "C",
+      "hint": "인자 없이 pop()을 쓰면 리스트 맨 마지막 값을 꺼내서 반환해요. 꺼낸 값은 변수에 저장되고 리스트에서는 삭제돼요.",
+      "feedback": {
+        "correct": "정답! pop()은 마지막 값을 꺼내서 반환해요. skills의 마지막 원소는 썬더예요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_2_004",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nitems = [\"A\", \"B\", \"D\"]\nitems.insert(2, \"C\")\nprint(items)",
+      "choices": [
+        "A. [\"C\", \"A\", \"B\", \"D\"]",
+        "B. [\"A\", \"B\", \"D\", \"C\"]",
+        "C. [\"A\", \"C\", \"B\", \"D\"]",
+        "D. [\"A\", \"B\", \"C\", \"D\"]"
+      ],
+      "answer": "D",
+      "hint": "insert(2, \"C\")는 인덱스 2 위치에 \"C\"를 끼워 넣어요. 기존 \"D\"는 인덱스 3으로 밀려요.",
+      "feedback": {
+        "correct": "정답! insert(인덱스, 값)은 지정한 위치에 값을 삽입해요. 기존 값들은 뒤로 밀려요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_2_005",
       "unit": 5,
       "stage": "5-2",
       "course_level": "beginner",
       "difficulty": "medium",
       "type": "multiple_choice",
       "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef power(base, exp=2):\n    print(base ** exp)\n\npower(3)\npower(2, 3)\n```",
+      "is_boss": false,
+      "question": "pop(0)은 어떤 값을 꺼내나요?",
       "choices": [
-        "A. 3 / 8",
-        "B. 9 / 6",
-        "C. 9 / 8",
-        "D. 6 / 8"
+        "A. 리스트의 첫 번째 값",
+        "B. 리스트의 마지막 값",
+        "C. 인덱스 1번 값",
+        "D. 아무 값도 꺼내지 않는다"
       ],
-      "answer": "C. 9 / 8",
-      "hint": "",
+      "answer": "A",
+      "hint": "pop(인덱스)는 해당 인덱스의 값을 꺼내요. pop(0)이면 인덱스 0, 즉 첫 번째 값을 꺼내요.",
       "feedback": {
-        "correct": "맞아요! `power(3)`은 exp=2(기본값)라 3²=9, `power(2, 3)`은 exp=3이라 2³=8이에요."
+        "correct": "정답! pop(0)은 인덱스 0, 즉 첫 번째 값을 꺼내요."
       },
-      "quiz_set": "B"
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
     },
     {
-      "question_id": "miniboss_5_2_os_008",
+      "question_id": "miniboss_beg_os_5_2_006",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nnums = [10, 20, 30, 40]\nnums.pop(1)\nprint(nums)",
+      "choices": [
+        "A. [20, 30, 40]",
+        "B. [10, 30, 40]",
+        "C. [10, 20, 30]",
+        "D. [10, 20, 40]"
+      ],
+      "answer": "B",
+      "hint": "pop(1)은 인덱스 1의 값(20)을 꺼내고 삭제해요. 나머지 10, 30, 40이 남아요.",
+      "feedback": {
+        "correct": "정답! pop(1)은 인덱스 1(값: 20)을 꺼내요. 나머지 10, 30, 40이 남아요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_2_007",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\ndata = [1, 2, 3, 2, 4]\ndata.remove(2)\nprint(data)",
+      "choices": [
+        "A. [1, 3, 4]",
+        "B. [1, 2, 3, 4]",
+        "C. [1, 3, 2, 4]",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "remove()는 리스트에서 해당 값을 처음 찾은 위치 하나만 삭제해요. 같은 값이 여러 개여도 첫 번째만 지워져요.",
+      "feedback": {
+        "correct": "정답! remove(2)는 처음 발견된 2만 삭제해요. 두 번째 2는 그대로 남아요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_2_008",
       "unit": 5,
       "stage": "5-2",
       "course_level": "beginner",
       "difficulty": "hard",
       "type": "multiple_choice",
       "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef label(text, mark='*'):\n    print(mark + text + mark)\n\nlabel('Python')\nlabel('Java', '#')\n```",
+      "is_boss": false,
+      "question": "remove()와 pop()의 차이로 올바른 것은?",
       "choices": [
-        "A. Python / Java",
-        "B. *Python* / #Java#",
-        "C. *Python / #Java",
-        "D. Python* / Java#"
+        "A. 둘 다 인덱스로 삭제한다",
+        "B. 둘 다 값을 찾아서 삭제한다",
+        "C. remove()는 삭제 후 값을 반환하고, pop()은 반환하지 않는다",
+        "D. remove()는 값으로 삭제, pop()은 인덱스로 꺼내며 반환한다"
       ],
-      "answer": "B. *Python* / #Java#",
-      "hint": "",
+      "answer": "D",
+      "hint": "remove(값)은 해당 값을 찾아 삭제하고 반환값은 없어요. pop(인덱스)는 해당 위치 값을 꺼내서 반환해요.",
       "feedback": {
-        "correct": "맞아요! 첫 번째는 mark='*'(기본값), 두 번째는 mark='#'이 전달돼요."
+        "correct": "정답! remove()는 값으로 삭제, pop()은 인덱스로 꺼내면서 반환해요."
       },
-      "quiz_set": "B"
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
     },
     {
-      "question_id": "miniboss_5_2_os_009",
+      "question_id": "miniboss_beg_os_5_2_009",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nheroes = [\"전사\", \"마법사\"]\nheroes.insert(1, \"궁수\")\nprint(heroes)",
+      "choices": [
+        "A. [\"전사\", \"궁수\", \"마법사\"]",
+        "B. [\"궁수\", \"전사\", \"마법사\"]",
+        "C. [\"전사\", \"마법사\", \"궁수\"]",
+        "D. 오류 발생"
+      ],
+      "answer": "A",
+      "hint": "insert(1, \"궁수\")는 인덱스 1 위치에 궁수를 삽입해요. 기존 마법사는 인덱스 2로 밀려요.",
+      "feedback": {
+        "correct": "정답! insert(1, \"궁수\")는 인덱스 1에 궁수를 끼워 넣어요. 마법사는 뒤로 밀려요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_2_010",
       "unit": 5,
       "stage": "5-2",
       "course_level": "beginner",
       "difficulty": "hard",
       "type": "multiple_choice",
       "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef describe(item, count, unit='개'):\n    print(f'{item} {count}{unit}')\n\ndescribe('사과', 3)\ndescribe('우유', 2, '리터')\n```",
+      "is_boss": false,
+      "question": "리스트에 없는 값을 remove()로 삭제하려 하면 어떻게 되나요?",
       "choices": [
-        "A. 사과 3개 / 우유 2개",
-        "B. 사과 3리터 / 우유 2리터",
-        "C. 사과 3 / 우유 2",
-        "D. 사과 3개 / 우유 2리터"
+        "A. 아무 일도 일어나지 않는다",
+        "B. ValueError 오류가 발생한다",
+        "C. None을 반환한다",
+        "D. 리스트가 비워진다"
       ],
-      "answer": "D. 사과 3개 / 우유 2리터",
-      "hint": "",
+      "answer": "B",
+      "hint": "remove()는 값을 찾지 못하면 ValueError를 발생시켜요. 삭제 전에 in 연산자로 존재 여부를 확인하는 게 안전해요.",
       "feedback": {
-        "correct": "맞아요! 첫 번째는 unit='개'(기본값), 두 번째는 unit='리터'가 전달돼요."
+        "correct": "정답! 없는 값을 remove()로 삭제하면 ValueError가 발생해요."
       },
-      "quiz_set": "B"
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
     },
     {
-      "question_id": "miniboss_5_2_os_010",
-      "unit": 5,
-      "stage": "5-2",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef calc(x, y, op='+'):\n    if op == '+':\n        print(x + y)\n    elif op == '*':\n        print(x * y)\n\ncalc(y=4, x=3)\ncalc(3, 4, '*')\n```",
-      "choices": [
-        "A. 7 / 12",
-        "B. 12 / 7",
-        "C. 7 / 7",
-        "D. 12 / 12"
-      ],
-      "answer": "A. 7 / 12",
-      "hint": "",
-      "feedback": {
-        "correct": "훌륭해요! 첫 번째는 키워드 인수로 x=3, y=4, op='+'(기본값)이라 7. 두 번째는 op='*'이라 3*4=12예요."
-      },
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "miniboss_5_3_mc_001",
+      "question_id": "miniboss_beg_os_5_3_001",
       "unit": 5,
       "stage": "5-3",
       "course_level": "beginner",
       "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nnums = [3, 1, 4, 1, 5]\nprint(len(nums))",
+      "choices": [
+        "A. 5",
+        "B. 4",
+        "C. 3",
+        "D. 오류 발생"
+      ],
+      "answer": "A",
+      "hint": "len()은 리스트에 들어있는 항목의 개수를 반환해요. 원소가 5개이므로 5가 출력돼요.",
+      "feedback": {
+        "correct": "정답! len()은 리스트 원소 개수를 세요. 1이 두 번 있어도 각각 1개씩 세어 총 5개예요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_3_002",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nscores = [50, 30, 80, 10]\nscores.sort()\nprint(scores)",
+      "choices": [
+        "A. [80, 50, 30, 10]",
+        "B. [10, 30, 50, 80]",
+        "C. [50, 30, 80, 10]",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "sort()는 리스트를 오름차순(작은 값부터)으로 정렬해요.",
+      "feedback": {
+        "correct": "정답! sort()는 리스트를 오름차순(작은 숫자에서 큰 숫자 순)으로 정렬해 주므로 [10, 30, 50, 80]이 돼요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_3_003",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nitems = [\"C\", \"A\", \"B\"]\nitems.reverse()\nprint(items)",
+      "choices": [
+        "A. [\"A\", \"B\", \"C\"]",
+        "B. [\"C\", \"A\", \"B\"]",
+        "C. [\"B\", \"A\", \"C\"]",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "reverse()는 리스트의 순서를 뒤집어요. 알파벳 정렬이 아닌 현재 순서의 역순이에요. [\"C\",\"A\",\"B\"] → [\"B\",\"A\",\"C\"]예요.",
+      "feedback": {
+        "correct": "정답! reverse()는 현재 순서의 반대로 뒤집어요. 정렬이 아니에요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_3_004",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nmonsters = [\"슬라임\", \"오크\", \"슬라임\", \"드래곤\", \"슬라임\"]\nprint(monsters.count(\"슬라임\"))",
+      "choices": [
+        "A. 1",
+        "B. 2",
+        "C. 4",
+        "D. 3"
+      ],
+      "answer": "D",
+      "hint": "count(값)은 그 값이 리스트 안에 몇 개 있는지 세어줘요. 슬라임이 3번 등장하므로 3이에요.",
+      "feedback": {
+        "correct": "정답! count(\"슬라임\")은 슬라임이 몇 개인지 세요. 3번 등장하므로 3이에요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_3_005",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
       "type": "multiple_choice",
       "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "`return`이 없는 함수가 반환하는 값은?",
+      "is_boss": false,
+      "question": "sort()와 sorted()의 차이로 올바른 것은?",
       "choices": [
-        "A. None",
+        "A. sort()는 원본을 바꾸고, sorted()는 새 리스트를 반환한다",
+        "B. 둘 다 원본을 바꾼다",
+        "C. 둘 다 새 리스트를 반환한다",
+        "D. sort()는 내림차순, sorted()는 오름차순이다"
+      ],
+      "answer": "A",
+      "hint": "sort()는 원본 리스트 자체를 정렬하고 None을 반환해요. sorted()는 원본은 유지하고 정렬된 새 리스트를 반환해요.",
+      "feedback": {
+        "correct": "정답! sort()는 원본 변경, sorted()는 원본 유지하면서 새 리스트 반환이에요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_3_006",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nletters = [\"Z\", \"A\", \"M\"]\nletters.sort()\nprint(letters)",
+      "choices": [
+        "A. [\"Z\", \"M\", \"A\"]",
+        "B. [\"Z\", \"A\", \"M\"]",
+        "C. [\"M\", \"A\", \"Z\"]",
+        "D. [\"A\", \"M\", \"Z\"]"
+      ],
+      "answer": "D",
+      "hint": "문자열 리스트도 sort()로 알파벳 오름차순 정렬이 돼요.",
+      "feedback": {
+        "correct": "정답! 문자열 리스트를 sort()하면 알파벳 사전 순서대로 정렬되므로 [\"A\", \"M\", \"Z\"]가 돼요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_3_007",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\na = [3, 1, 2]\nb = sorted(a)\nprint(a)\nprint(b)",
+      "choices": [
+        "A. [3, 1, 2]\\n[1, 2, 3]",
+        "B. [1, 2, 3]\\n[1, 2, 3]",
+        "C. [1, 2, 3]\\n[3, 1, 2]",
+        "D. [3, 1, 2]\\n[3, 1, 2]"
+      ],
+      "answer": "A",
+      "hint": "sorted()는 원본 a를 건드리지 않고 정렬된 새 리스트를 b에 담아요.",
+      "feedback": {
+        "correct": "정답! sorted()는 원본 리스트를 변경하지 않아요. a는 그대로, b만 정렬돼요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_3_008",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nnums = [5, 3, 1, 4, 2]\nnums.reverse()\nprint(nums)",
+      "choices": [
+        "A. [1, 2, 3, 4, 5]",
+        "B. [5, 4, 3, 2, 1]",
+        "C. [2, 4, 1, 3, 5]",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "reverse()는 현재 순서의 역순이에요. [5,3,1,4,2] → [2,4,1,3,5]예요. 정렬 후 역순이 아니에요.",
+      "feedback": {
+        "correct": "정답! reverse()는 정렬이 아니라 현재 순서를 그대로 뒤집어요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_3_009",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\ndata = [1, 2, 3, 2, 1]\nprint(data.count(2))",
+      "choices": [
+        "A. 1",
+        "B. 2",
+        "C. 3",
+        "D. 0"
+      ],
+      "answer": "B",
+      "hint": "count(2)는 값 2가 리스트에 몇 개 있는지 세요. data = [1, 2, 3, 2, 1]에서 2는 두 번 등장해요.",
+      "feedback": {
+        "correct": "정답! count(2)는 2가 몇 개인지 세요. 인덱스 1과 3에 있으므로 2개예요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_3_010",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "리스트를 내림차순으로 정렬하는 올바른 방법은?",
+      "choices": [
+        "A. my_list.sort(order=\"desc\")",
+        "B. my_list.sort(reverse=True)",
+        "C. my_list.sort_desc()",
+        "D. my_list.reverse_sort()"
+      ],
+      "answer": "B",
+      "hint": "sort(reverse=True)를 쓰면 내림차순(큰 값부터) 정렬이에요. reverse=False가 기본값이며 오름차순이에요.",
+      "feedback": {
+        "correct": "정답! sort(reverse=True)가 내림차순 정렬이에요. 기본값인 sort()는 오름차순이에요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_4_001",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nfruits = [\"사과\", \"바나나\", \"포도\"]\nfor i, fruit in enumerate(fruits):\n    print(i, fruit)",
+      "choices": [
+        "A. 0 사과\\n1 바나나\\n2 포도",
+        "B. 1 사과\\n2 바나나\\n3 포도",
+        "C. 사과 0\\n바나나 1\\n포도 2",
+        "D. 오류 발생"
+      ],
+      "answer": "A",
+      "hint": "enumerate()는 (인덱스, 값) 쌍을 반환해요. 인덱스는 기본적으로 0부터 시작해요.",
+      "feedback": {
+        "correct": "정답! enumerate()는 인덱스(0부터)와 값을 함께 반환해요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_4_002",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "\"바나나\" in fruits의 결과가 True라면, 이것이 의미하는 것은?",
+      "choices": [
+        "A. fruits 리스트의 인덱스가 바나나이다",
+        "B. fruits 리스트 안에 \"바나나\"가 있다",
+        "C. fruits 리스트가 비어있다",
+        "D. fruits에서 바나나를 삭제한다"
+      ],
+      "answer": "B",
+      "hint": "in 연산자는 리스트 안에 해당 값이 있으면 True, 없으면 False를 반환해요.",
+      "feedback": {
+        "correct": "정답! 값 in 리스트는 리스트 안에 그 값이 있는지 확인하는 연산이에요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_4_003",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nnums = [10, 20, 30]\nfor i, v in enumerate(nums, start=1):\n    print(i, v)",
+      "choices": [
+        "A. 0 10\\n1 20\\n2 30",
+        "B. 10 1\\n20 2\\n30 3",
+        "C. 1 10\\n2 20\\n3 30",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "enumerate(리스트, start=1)은 인덱스를 1부터 시작하게 해요.",
+      "feedback": {
+        "correct": "정답! start=1 옵션으로 인덱스가 1부터 시작해요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_4_004",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nskills = [\"파이어볼\", \"아이스볼\", \"썬더\"]\nprint(\"힐\" in skills)",
+      "choices": [
+        "A. True",
+        "B. \"힐\"",
+        "C. 0",
+        "D. False"
+      ],
+      "answer": "D",
+      "hint": "\"힐\"은 skills 리스트에 없으므로 False예요.",
+      "feedback": {
+        "correct": "정답! in 연산자는 값이 있으면 True, 없으면 False를 반환해요. \"힐\"은 리스트에 없어요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_4_005",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nitems = [\"검\", \"방패\", \"갑옷\"]\nfor i, item in enumerate(items):\n    if item == \"방패\":\n        print(i)",
+      "choices": [
+        "A. 1",
         "B. 0",
+        "C. 2",
+        "D. 방패"
+      ],
+      "answer": "A",
+      "hint": "\"방패\"는 인덱스 1이에요. enumerate()에서 i는 값이 아닌 인덱스예요.",
+      "feedback": {
+        "correct": "정답! enumerate()에서 i는 인덱스예요. \"방패\"는 두 번째 항목이라 인덱스가 1이에요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_4_006",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\ndata = [5, 10, 15]\nprint(10 in data)",
+      "choices": [
+        "A. 10",
+        "B. 1",
         "C. False",
-        "D. ''"
+        "D. True"
       ],
-      "answer": "A. None",
-      "hint": "",
+      "answer": "D",
+      "hint": "10이 리스트 안에 있으므로 True예요.",
       "feedback": {
-        "correct": "맞아요! `return`이 없으면 함수는 자동으로 `None`을 반환해요."
+        "correct": "정답! in 연산자는 True 또는 False를 반환해요. 10이 리스트에 있으니 True예요."
       },
+      "villain": "speechbubble_king",
       "quiz_set": "A"
     },
     {
-      "question_id": "miniboss_5_3_mc_002",
+      "question_id": "miniboss_beg_os_5_4_007",
       "unit": 5,
-      "stage": "5-3",
+      "stage": "5-4",
       "course_level": "beginner",
-      "difficulty": "easy",
-      "type": "multiple_choice",
+      "difficulty": "hard",
+      "type": "output_select",
       "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "`return`을 만나면 함수는 어떻게 되나요?",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nnames = [\"에이몬\", \"코드몬\"]\nfor idx, name in enumerate(names):\n    print(f\"{idx}: {name}\")",
       "choices": [
-        "A. 처음부터 다시 실행된다",
-        "B. 잠시 멈췄다 재개된다",
-        "C. 즉시 종료되고 값을 반환한다",
-        "D. 다음 줄만 건너뛴다"
-      ],
-      "answer": "C. 즉시 종료되고 값을 반환한다",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! `return`을 만나면 함수가 즉시 종료되고 값을 반환해요."
-      },
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "miniboss_5_3_mc_003",
-      "unit": 5,
-      "stage": "5-3",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "`print()`와 `return`의 차이로 올바른 것은?",
-      "choices": [
-        "A. 둘 다 값을 반환한다",
-        "B. 둘 다 화면에 출력한다",
-        "C. `print()`는 화면 출력, `return`은 값 반환이다",
-        "D. `print()`는 값 반환, `return`은 화면 출력이다"
-      ],
-      "answer": "C. `print()`는 화면 출력, `return`은 값 반환이다",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! `print()`는 화면에 보여주기만 하고, `return`은 값을 돌려줘요."
-      },
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "miniboss_5_3_mc_004",
-      "unit": 5,
-      "stage": "5-3",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드에서 result에 저장되는 값은?\n\n```python\ndef add(a, b):\n    return a + b\n\nresult = add(5, 7)\n```",
-      "choices": [
-        "A. None",
-        "B. 57",
-        "C. a + b",
-        "D. 12"
-      ],
-      "answer": "D. 12",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! a=5, b=7이 전달되어 5+7=12가 반환되고 result에 저장돼요."
-      },
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "miniboss_5_3_mc_005",
-      "unit": 5,
-      "stage": "5-3",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드에서 x에 저장되는 값은?\n\n```python\ndef show(n):\n    print(n * 2)\n\nx = show(5)\n```",
-      "choices": [
-        "A. 5",
-        "B. 10",
-        "C. None",
+        "A. 0: 에이몬\\n1: 코드몬",
+        "B. 1: 에이몬\\n2: 코드몬",
+        "C. 에이몬: 0\\n코드몬: 1",
         "D. 오류 발생"
       ],
-      "answer": "C. None",
-      "hint": "",
+      "answer": "A",
+      "hint": "enumerate()의 첫 번째 반환값이 인덱스(0부터), 두 번째가 값이에요. f-string으로 idx: name 형태로 출력돼요.",
       "feedback": {
-        "correct": "맞아요! `show()`는 print만 하고 return이 없어요. None이 반환되어 x=None이 돼요."
+        "correct": "정답! enumerate()는 (0, \"에이몬\"), (1, \"코드몬\") 순으로 반환해요."
       },
+      "villain": "speechbubble_king",
       "quiz_set": "A"
     },
     {
-      "question_id": "miniboss_5_3_os_006",
-      "unit": 5,
-      "stage": "5-3",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef get_square(n):\n    return n * n\n\nprint(get_square(4))\n```",
-      "choices": [
-        "A. n * n",
-        "B. get_square(4)",
-        "C. None",
-        "D. 16"
-      ],
-      "answer": "D. 16",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! n=4가 전달되어 4*4=16이 반환되고, print()가 16을 출력해요."
-      },
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "miniboss_5_3_os_007",
-      "unit": 5,
-      "stage": "5-3",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef greet(name):\n    print('Hello,', name)\n\nresult = greet('Python')\nprint(result)\n```",
-      "choices": [
-        "A. Hello, Python / Hello, Python",
-        "B. Hello, Python / None",
-        "C. None / Hello, Python",
-        "D. None / None"
-      ],
-      "answer": "B. Hello, Python / None",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! greet()는 print만 하고 return이 없어요. 화면엔 'Hello, Python'이 출력되고 result=None이에요."
-      },
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "miniboss_5_3_os_008",
-      "unit": 5,
-      "stage": "5-3",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef add(a, b):\n    return a + b\n\nprint(add(add(1, 2), 3))\n```",
-      "choices": [
-        "A. 1 2 3",
-        "B. 3 3",
-        "C. 9",
-        "D. 6"
-      ],
-      "answer": "D. 6",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! 안쪽 add(1, 2)=3이 먼저 실행되고, add(3, 3)=6이 출력돼요."
-      },
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "miniboss_5_3_os_009",
-      "unit": 5,
-      "stage": "5-3",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef check(n):\n    if n % 2 == 0:\n        return '짝수'\n    return '홀수'\n\nresults = []\nfor i in range(1, 4):\n    results.append(check(i))\nprint(results)\n```",
-      "choices": [
-        "A. ['짝수', '홀수', '짝수']",
-        "B. ['홀수', '홀수', '홀수']",
-        "C. ['홀수', '짝수', '홀수']",
-        "D. ['짝수', '짝수', '홀수']"
-      ],
-      "answer": "C. ['홀수', '짝수', '홀수']",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! check(1)='홀수', check(2)='짝수', check(3)='홀수'가 리스트에 담겨요."
-      },
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "miniboss_5_3_os_010",
-      "unit": 5,
-      "stage": "5-3",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef clamp(value, minimum, maximum):\n    if value < minimum:\n        return minimum\n    if value > maximum:\n        return maximum\n    return value\n\nprint(clamp(5, 1, 10))\nprint(clamp(-3, 1, 10))\nprint(clamp(15, 1, 10))\n```",
-      "choices": [
-        "A. 5 / 1 / 10",
-        "B. 5 / -3 / 15",
-        "C. 1 / 1 / 10",
-        "D. 5 / 0 / 10"
-      ],
-      "answer": "A. 5 / 1 / 10",
-      "hint": "",
-      "feedback": {
-        "correct": "훌륭해요! 5는 범위 안이라 5 반환, -3은 최솟값 미만이라 1 반환, 15는 최댓값 초과라 10 반환이에요."
-      },
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "miniboss_5_4_mc_001",
-      "unit": 5,
-      "stage": "5-4",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "함수 안에서 만든 변수는?",
-      "choices": [
-        "A. 전역변수",
-        "B. 매개변수",
-        "C. 지역변수",
-        "D. 상수"
-      ],
-      "answer": "C. 지역변수",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! 함수 안에서 만든 변수는 지역변수예요. 함수 밖에서는 사용할 수 없어요."
-      },
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "miniboss_5_4_mc_002",
-      "unit": 5,
-      "stage": "5-4",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "함수 안에서 전역변수를 수정할 때 필요한 키워드는?",
-      "choices": [
-        "A. local",
-        "B. var",
-        "C. global",
-        "D. public"
-      ],
-      "answer": "C. global",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! `global 변수이름`을 선언하면 함수 안에서 전역변수를 수정할 수 있어요."
-      },
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "miniboss_5_4_mc_003",
-      "unit": 5,
-      "stage": "5-4",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "지역변수의 유효 범위는?",
-      "choices": [
-        "A. 프로그램 전체",
-        "B. 선언한 함수 안에서만",
-        "C. 같은 파일 안에서",
-        "D. 모든 함수에서"
-      ],
-      "answer": "B. 선언한 함수 안에서만",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! 지역변수는 선언한 함수 안에서만 유효하고 함수가 끝나면 사라져요."
-      },
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "miniboss_5_4_mc_004",
-      "unit": 5,
-      "stage": "5-4",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드에서 오류가 발생하는 이유는?\n\n```python\ndef make():\n    data = [1, 2, 3]\n\nmake()\nprint(data)\n```",
-      "choices": [
-        "A. 리스트를 잘못 만들었기 때문",
-        "B. make()를 호출하지 않았기 때문",
-        "C. data가 지역변수라 함수 밖에서 접근할 수 없기 때문",
-        "D. print() 사용이 잘못되었기 때문"
-      ],
-      "answer": "C. data가 지역변수라 함수 밖에서 접근할 수 없기 때문",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! data는 make() 안의 지역변수예요. 함수 밖에서 접근하면 NameError가 발생해요."
-      },
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "miniboss_5_4_mc_005",
-      "unit": 5,
-      "stage": "5-4",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드에서 전역변수 x에 저장된 최종 값은?\n\n```python\nx = 5\n\ndef change():\n    x = 100\n\nchange()\n```",
-      "choices": [
-        "A. 5",
-        "B. 100",
-        "C. None",
-        "D. 오류 발생"
-      ],
-      "answer": "A. 5",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! change() 안의 x=100은 지역변수예요. 전역변수 x=5는 변하지 않아요."
-      },
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "miniboss_5_4_os_006",
-      "unit": 5,
-      "stage": "5-4",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nval = 10\n\ndef show():\n    print(val)\n\nshow()\nprint(val)\n```",
-      "choices": [
-        "A. 오류 발생 / 10",
-        "B. 10 / 10",
-        "C. 10 / 오류 발생",
-        "D. None / 10"
-      ],
-      "answer": "B. 10 / 10",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! 전역변수 val=10은 함수 안에서도 읽을 수 있어요. 두 번 모두 10이 출력돼요."
-      },
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "miniboss_5_4_os_007",
-      "unit": 5,
-      "stage": "5-4",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nmsg = '전역'\n\ndef update():\n    msg = '지역'\n    print(msg)\n\nupdate()\nprint(msg)\n```",
-      "choices": [
-        "A. 전역 / 전역",
-        "B. 지역 / 지역",
-        "C. 전역 / 지역",
-        "D. 지역 / 전역"
-      ],
-      "answer": "D. 지역 / 전역",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! 함수 안의 msg='지역'은 지역변수예요. 전역변수 msg='전역'은 영향받지 않아요."
-      },
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "miniboss_5_4_os_008",
+      "question_id": "miniboss_beg_mc_5_4_008",
       "unit": 5,
       "stage": "5-4",
       "course_level": "beginner",
       "difficulty": "hard",
       "type": "multiple_choice",
       "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nn = 1\n\ndef double():\n    global n\n    n = n * 2\n\ndouble()\ndouble()\ndouble()\nprint(n)\n```",
+      "is_boss": false,
+      "question": "\"드래곤\" not in monsters의 결과가 True라면 의미하는 것은?",
+      "choices": [
+        "A. monsters에 드래곤이 있다",
+        "B. monsters에 드래곤이 없다",
+        "C. monsters가 비어있다",
+        "D. 드래곤을 삭제한다"
+      ],
+      "answer": "B",
+      "hint": "not in은 in의 반대예요. 값이 리스트에 없을 때 True, 있으면 False예요.",
+      "feedback": {
+        "correct": "정답! not in은 값이 없으면 True, 있으면 False예요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_4_009",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nscores = [70, 85, 90, 60]\ncount = 0\nfor score in scores:\n    if score >= 80:\n        count += 1\nprint(count)",
       "choices": [
         "A. 1",
         "B. 4",
-        "C. 6",
-        "D. 8"
+        "C. 2",
+        "D. 3"
       ],
-      "answer": "D. 8",
-      "hint": "",
+      "answer": "C",
+      "hint": "80점 이상인 값은 85, 90 두 개예요. 70과 60은 조건을 통과하지 못해요.",
       "feedback": {
-        "correct": "맞아요! 1*2=2 → 2*2=4 → 4*2=8. 세 번 호출 후 n=8이에요."
+        "correct": "정답! 80 이상은 85, 90으로 2개예요. count는 2가 돼요."
       },
-      "quiz_set": "B"
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
     },
     {
-      "question_id": "miniboss_5_4_os_009",
+      "question_id": "miniboss_beg_mc_5_4_010",
       "unit": 5,
       "stage": "5-4",
       "course_level": "beginner",
       "difficulty": "hard",
       "type": "multiple_choice",
       "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ntotal = 100\n\ndef subtract(n):\n    global total\n    total = total - n\n    return total\n\na = subtract(30)\nb = subtract(20)\nprint(a, b)\n```",
+      "is_boss": false,
+      "question": "enumerate() 함수를 사용하는 주된 이유는?",
       "choices": [
-        "A. 70 50",
-        "B. 30 20",
-        "C. 100 100",
-        "D. 70 70"
+        "A. 리스트를 정렬하기 위해",
+        "B. 반복 시 인덱스와 값을 동시에 사용하기 위해",
+        "C. 리스트에서 값을 제거하기 위해",
+        "D. 리스트 길이를 구하기 위해"
       ],
-      "answer": "A. 70 50",
-      "hint": "",
+      "answer": "B",
+      "hint": "enumerate()는 for 루프에서 인덱스와 값을 동시에 쓸 때 편리해요.",
       "feedback": {
-        "correct": "맞아요! subtract(30): total=70, a=70. subtract(20): total=50, b=50. 70 50이 출력돼요."
+        "correct": "정답! enumerate()는 반복할 때 (인덱스, 값) 쌍을 함께 제공해줘요."
       },
-      "quiz_set": "B"
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
     },
     {
-      "question_id": "miniboss_5_4_os_010",
+      "question_id": "miniboss_beg_mc_5_5_001",
       "unit": 5,
-      "stage": "5-4",
+      "stage": "5-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "파일을 읽기 모드로 열 때 사용하는 코드는?",
+      "choices": [
+        "A. open(\"파일명.txt\", \"r\")",
+        "B. open(\"파일명.txt\", \"w\")",
+        "C. open(\"파일명.txt\", \"a\")",
+        "D. open(\"파일명.txt\", \"x\")"
+      ],
+      "answer": "A",
+      "hint": "\"r\"은 read(읽기) 모드예요. \"w\"는 쓰기, \"a\"는 추가, \"x\"는 새 파일 생성이에요.",
+      "feedback": {
+        "correct": "정답! \"r\"은 읽기(read) 모드예요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_5_002",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "with open(...) as f: 구문을 사용하는 주된 이유는?",
+      "choices": [
+        "A. 파일을 더 빠르게 읽기 위해",
+        "B. 파일 사용 후 자동으로 닫아주기 위해",
+        "C. 파일 이름을 바꾸기 위해",
+        "D. 파일을 암호화하기 위해"
+      ],
+      "answer": "B",
+      "hint": "with 구문은 블록이 끝나면 자동으로 f.close()를 호출해줘요. close()를 깜빡해도 안전하게 처리돼요.",
+      "feedback": {
+        "correct": "정답! with 구문의 핵심은 자동 파일 닫기예요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_5_003",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "f.read()와 f.readlines()의 차이로 올바른 것은?",
+      "choices": [
+        "A. read()는 한 줄씩, readlines()는 전체 읽기",
+        "B. 둘 다 동일하게 동작한다",
+        "C. read()는 전체를 문자열로, readlines()는 줄 단위 리스트로 반환",
+        "D. readlines()는 파일을 삭제한다"
+      ],
+      "answer": "C",
+      "hint": "read()는 파일 전체를 하나의 문자열로, readlines()는 각 줄을 원소로 하는 리스트로 반환해요.",
+      "feedback": {
+        "correct": "정답! read()는 문자열 반환, readlines()는 줄 단위 리스트 반환이에요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_5_004",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "with 블록 안에서 파일 내용을 한 줄씩 읽는 올바른 방법은?",
+      "choices": [
+        "A. f.readline_all()",
+        "B. f.readall()",
+        "C. f.read_line()",
+        "D. for line in f:"
+      ],
+      "answer": "D",
+      "hint": "파일 객체를 직접 for 루프에 넣으면 한 줄씩 순회할 수 있어요. readline_all(), readall(), read_line()은 존재하지 않는 메서드예요.",
+      "feedback": {
+        "correct": "정답! for line in f:처럼 파일 객체를 for 루프로 반복하면 한 줄씩 읽어요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_5_005",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드에서 lines의 타입은?\nwith open(\"data.txt\", \"r\") as f:\n    lines = f.readlines()",
+      "choices": [
+        "A. 리스트(list)",
+        "B. 문자열(str)",
+        "C. 정수(int)",
+        "D. 딕셔너리(dict)"
+      ],
+      "answer": "A",
+      "hint": "readlines()는 각 줄을 원소로 하는 리스트를 반환해요.",
+      "feedback": {
+        "correct": "정답! readlines()의 반환값은 리스트예요. 각 줄이 문자열 원소로 담겨있어요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_5_006",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "encoding=\"utf-8\" 옵션을 open()에 추가하는 이유는?",
+      "choices": [
+        "A. 파일 크기를 줄이기 위해",
+        "B. 한글 등 비ASCII 문자를 올바르게 읽기 위해",
+        "C. 파일을 암호화하기 위해",
+        "D. 파일을 더 빠르게 열기 위해"
+      ],
+      "answer": "B",
+      "hint": "한글이 포함된 파일은 encoding=\"utf-8\"을 지정해야 글자가 깨지지 않아요.",
+      "feedback": {
+        "correct": "정답! encoding은 파일의 문자 인코딩 방식을 지정해요. 한글 파일은 보통 \"utf-8\"이 필요해요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_5_007",
+      "unit": 5,
+      "stage": "5-5",
       "course_level": "beginner",
       "difficulty": "hard",
       "type": "multiple_choice",
       "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nx = 10\ny = 20\n\ndef swap():\n    global x, y\n    x, y = y, x\n\nswap()\nprint(x, y)\n```",
+      "is_boss": false,
+      "question": "readlines()로 읽은 각 줄 끝에 \\n이 붙는 이유는?",
       "choices": [
-        "A. 10 20",
-        "B. 20 10",
-        "C. 20 20",
-        "D. 10 10"
+        "A. Python 버그이다",
+        "B. 파일이 손상됐기 때문이다",
+        "C. 줄바꿈 문자가 줄의 일부로 포함되기 때문이다",
+        "D. open()의 모드가 잘못됐기 때문이다"
       ],
-      "answer": "B. 20 10",
-      "hint": "",
+      "answer": "C",
+      "hint": "텍스트 파일에서 줄 끝에는 \\n(줄바꿈)이 있어요. readlines()는 이 \\n까지 포함해서 읽어요. strip()으로 제거할 수 있어요.",
       "feedback": {
-        "correct": "훌륭해요! `global x, y`로 두 전역변수를 동시에 선언해요. x, y = y, x로 값이 바뀌어 20 10이 출력돼요."
+        "correct": "정답! 파일 각 줄은 \\n으로 끝나요. readlines()가 이걸 포함해서 가져와요. .strip()으로 제거할 수 있어요."
       },
-      "quiz_set": "B"
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
     },
     {
-      "question_id": "miniboss_5_5_mc_001",
+      "question_id": "miniboss_beg_mc_5_5_008",
       "unit": 5,
       "stage": "5-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "with 구문 없이 파일을 열었을 때 발생할 수 있는 문제는?",
+      "choices": [
+        "A. 파일 내용이 자동 삭제된다",
+        "B. 읽기 속도가 느려진다",
+        "C. 파일이 자동으로 잠긴다",
+        "D. close()를 안 하면 파일이 열린 채 메모리를 낭비할 수 있다"
+      ],
+      "answer": "D",
+      "hint": "close()를 빠뜨리면 파일이 계속 열려있어 리소스 낭비나 오류가 생길 수 있어요. with 구문이 이 문제를 자동으로 해결해줘요.",
+      "feedback": {
+        "correct": "정답! close()를 안 하면 파일 핸들이 계속 열린 상태로 남아요. with 구문이 자동으로 닫아줘요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_5_009",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드에서 content의 타입은?\nwith open(\"data.txt\", \"r\") as f:\n    content = f.read()",
+      "choices": [
+        "A. 문자열(str)",
+        "B. 리스트(list)",
+        "C. 정수(int)",
+        "D. 바이트(bytes)"
+      ],
+      "answer": "A",
+      "hint": "read()는 파일 전체 내용을 하나의 문자열로 반환해요. readlines()는 리스트를 반환해요.",
+      "feedback": {
+        "correct": "정답! read()의 반환값은 문자열이에요. readlines()는 리스트를 반환해요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_5_010",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "존재하지 않는 파일을 \"r\" 모드로 열면 어떻게 되나요?",
+      "choices": [
+        "A. 빈 파일이 자동으로 생성된다",
+        "B. FileNotFoundError 오류가 발생한다",
+        "C. 아무 일도 일어나지 않는다",
+        "D. None이 반환된다"
+      ],
+      "answer": "B",
+      "hint": "\"r\" 모드는 파일이 없으면 FileNotFoundError를 발생시켜요. \"w\"나 \"a\" 모드는 없으면 새로 만들어요.",
+      "feedback": {
+        "correct": "정답! 없는 파일을 읽으려 하면 FileNotFoundError가 발생해요. \"w\"나 \"a\"는 없으면 새로 만들어요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_6_001",
+      "unit": 5,
+      "stage": "5-6",
       "course_level": "beginner",
       "difficulty": "easy",
       "type": "multiple_choice",
       "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "`*args`로 받은 인수들은 어떤 자료형으로 저장되나요?",
+      "is_boss": false,
+      "question": "파일에 텍스트를 쓰는 올바른 코드는?",
       "choices": [
-        "A. 리스트",
-        "B. 딕셔너리",
-        "C. 튜플",
-        "D. 집합(set)"
+        "A. f.write(\"안녕하세요\")",
+        "B. f.print(\"안녕하세요\")",
+        "C. f.save(\"안녕하세요\")",
+        "D. f.output(\"안녕하세요\")"
       ],
-      "answer": "C. 튜플",
-      "hint": "",
+      "answer": "A",
+      "hint": "파일 객체의 write() 메서드로 내용을 파일에 써요. print(), save(), output()은 파일 쓰기 메서드가 아니에요.",
       "feedback": {
-        "correct": "맞아요! `*args`는 전달된 인수들을 튜플로 묶어요."
+        "correct": "정답! 파일에 내용을 쓸 때는 write()를 써요."
       },
+      "villain": "speechbubble_king",
       "quiz_set": "A"
     },
     {
-      "question_id": "miniboss_5_5_mc_002",
+      "question_id": "miniboss_beg_mc_5_6_002",
       "unit": 5,
-      "stage": "5-5",
+      "stage": "5-6",
       "course_level": "beginner",
       "difficulty": "easy",
       "type": "multiple_choice",
       "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "`",
+      "is_boss": false,
+      "question": "\"w\" 모드와 \"a\" 모드의 차이로 올바른 것은?",
       "choices": [
-        "A. 값만 전달 (예: `f(1, 2)`)",
-        "B. 키=값 형태 (예: `f(x=1, y=2)`)",
-        "C. 리스트로 전달 (예: `f([1, 2])`)",
-        "D. 튜플로 전달 (예: `f((1, 2))`)"
+        "A. 둘 다 기존 내용을 지운다",
+        "B. \"w\"는 덮어쓰고, \"a\"는 기존 내용 뒤에 추가한다",
+        "C. \"a\"는 덮어쓰고, \"w\"는 기존 내용 뒤에 추가한다",
+        "D. 둘 다 기존 내용을 유지한다"
       ],
-      "answer": "B. 키=값 형태 (예: `f(x=1, y=2)`)",
-      "hint": "",
+      "answer": "B",
+      "hint": "\"w\"는 파일 내용을 처음부터 새로 쓰고, \"a\"는 append(추가) 모드로 기존 내용 뒤에 붙여요.",
       "feedback": {
-        "correct": "맞아요! `**kwargs`는 `키=값` 형태의 키워드 인수를 받아요."
+        "correct": "정답! \"w\"는 덮어쓰기, \"a\"는 이어쓰기(append)예요."
       },
+      "villain": "speechbubble_king",
       "quiz_set": "A"
     },
     {
-      "question_id": "miniboss_5_5_mc_003",
+      "question_id": "miniboss_beg_mc_5_6_003",
       "unit": 5,
-      "stage": "5-5",
+      "stage": "5-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "여러 줄을 한 번에 파일에 쓰는 메서드는?",
+      "choices": [
+        "A. write_all()",
+        "B. writeline()",
+        "C. writelines()",
+        "D. write_list()"
+      ],
+      "answer": "C",
+      "hint": "writelines()는 리스트의 각 항목을 파일에 한꺼번에 써요. 줄바꿈은 직접 \\n으로 포함해야 해요.",
+      "feedback": {
+        "correct": "정답! 리스트나 여러 문자열을 한 번에 쓸 때는 writelines()를 써요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_6_004",
+      "unit": 5,
+      "stage": "5-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "f.write(\"줄1\\n줄2\")를 실행하면 파일에는 어떻게 저장되나요?",
+      "choices": [
+        "A. 줄1\\n줄2라는 텍스트 그대로 저장된다",
+        "B. 두 줄이 하나로 합쳐져 줄1줄2가 된다",
+        "C. 줄1만 저장된다",
+        "D. 줄1과 줄2가 줄바꿈으로 분리되어 2줄로 저장된다"
+      ],
+      "answer": "D",
+      "hint": "\\n은 줄바꿈 문자예요. 파일에서도 실제 줄바꿈으로 표시돼요.",
+      "feedback": {
+        "correct": "정답! \\n은 줄바꿈(개행) 문자예요. 파일에 저장되면 실제 줄바꿈으로 표시돼요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_6_005",
+      "unit": 5,
+      "stage": "5-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드 실행 후 output.txt 파일에 남는 내용은?\nwith open(\"output.txt\", \"w\") as f:\n    f.write(\"첫 번째\\n\")\nwith open(\"output.txt\", \"w\") as f:\n    f.write(\"두 번째\\n\")",
+      "choices": [
+        "A. 두 번째",
+        "B. 첫 번째\\n두 번째",
+        "C. 첫 번째",
+        "D. 파일이 비어있다"
+      ],
+      "answer": "A",
+      "hint": "\"w\" 모드로 두 번 열면 두 번째가 첫 번째를 덮어써요. 최종적으로 두 번째만 남아요.",
+      "feedback": {
+        "correct": "정답! \"w\" 모드는 파일을 열 때마다 기존 내용을 지워요. 두 번째 open(\"w\")가 첫 번째 내용을 덮어써요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_6_006",
+      "unit": 5,
+      "stage": "5-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드 실행 후 log.txt에 저장되는 내용은?\nlines = [\"사과\\n\", \"바나나\\n\", \"포도\\n\"]\nwith open(\"log.txt\", \"w\") as f:\n    f.writelines(lines)",
+      "choices": [
+        "A. [\"사과\\n\", \"바나나\\n\", \"포도\\n\"]",
+        "B. 사과\\n바나나\\n포도 (3줄)",
+        "C. 사과바나나포도 (1줄)",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "\\n이 포함된 문자열 리스트를 writelines()로 쓰면 각 항목이 새 줄로 저장돼요.",
+      "feedback": {
+        "correct": "정답! writelines()는 리스트의 각 항목을 순서대로 써요. \\n이 있으면 줄이 나뉘어요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_6_007",
+      "unit": 5,
+      "stage": "5-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "존재하지 않는 파일을 \"w\" 모드로 열면?",
+      "choices": [
+        "A. FileNotFoundError가 발생한다",
+        "B. None이 반환된다",
+        "C. 새 파일이 자동으로 생성된다",
+        "D. 기존 파일을 찾을 때까지 기다린다"
+      ],
+      "answer": "C",
+      "hint": "\"w\" 모드는 파일이 없으면 새로 만들고, 있으면 내용을 지우고 다시 써요.",
+      "feedback": {
+        "correct": "정답! \"w\"와 \"a\" 모드는 파일이 없을 때 자동으로 새 파일을 만들어요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_6_008",
+      "unit": 5,
+      "stage": "5-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "writelines()를 사용할 때 줄바꿈이 자동으로 추가되지 않는 이유는?",
+      "choices": [
+        "A. Python 버그이다",
+        "B. writelines()는 읽기 전용이다",
+        "C. 파일 모드가 틀렸기 때문이다",
+        "D. writelines()는 각 항목을 그대로 이어 쓰기 때문에 \\n을 직접 포함해야 한다"
+      ],
+      "answer": "D",
+      "hint": "writelines()는 리스트 항목을 그대로 연결해서 쓰기 때문에 줄바꿈 \\n을 직접 포함해야 해요.",
+      "feedback": {
+        "correct": "정답! writelines()는 write()를 여러 번 호출하는 것과 같아요. 줄바꿈을 자동으로 넣어주지 않아요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_6_009",
+      "unit": 5,
+      "stage": "5-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "기존 파일 내용을 보존하면서 새 내용을 뒤에 추가하는 올바른 모드는?",
+      "choices": [
+        "A. open(\"data.txt\", \"a\")",
+        "B. open(\"data.txt\", \"w\")",
+        "C. open(\"data.txt\", \"r\")",
+        "D. open(\"data.txt\", \"x\")"
+      ],
+      "answer": "A",
+      "hint": "\"a\"는 append 모드로, 기존 내용은 그대로 두고 뒤에 이어써요.",
+      "feedback": {
+        "correct": "정답! 기존 내용을 유지하면서 추가하려면 \"a\"(append) 모드를 사용해야 해요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_6_010",
+      "unit": 5,
+      "stage": "5-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "리스트의 내용을 파일에 한 줄씩 저장하는 가장 올바른 방법은?",
+      "choices": [
+        "A. f.write(my_list)",
+        "B. f.writelines([item + \"\\n\" for item in my_list])",
+        "C. f.writelines(my_list) (줄바꿈 없이)",
+        "D. print(my_list, file=f)"
+      ],
+      "answer": "B",
+      "hint": "각 항목에 \\n을 붙인 리스트를 writelines()로 쓰면 한 줄씩 저장돼요. write()는 문자열만 받아요.",
+      "feedback": {
+        "correct": "정답! 각 항목에 \\n을 포함시켜 writelines()로 쓰는 게 정확해요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_7_001",
+      "unit": 5,
+      "stage": "5-7",
       "course_level": "beginner",
       "difficulty": "easy",
-      "type": "multiple_choice",
+      "type": "output_select",
       "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "`*args`와 `",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nscores = [90, 75, 88, 92, 65]\nscores.sort(reverse=True)\nprint(scores[0])",
       "choices": [
-        "A. `**kwargs` → `*args` → 일반 매개변수",
-        "B. 일반 매개변수 → `**kwargs` → `*args`",
-        "C. `*args` → `**kwargs` → 일반 매개변수",
-        "D. 일반 매개변수 → `*args` → `**kwargs`"
+        "A. 92",
+        "B. 90",
+        "C. 65",
+        "D. 오류 발생"
       ],
-      "answer": "D. 일반 매개변수 → `*args` → `**kwargs`",
-      "hint": "",
+      "answer": "A",
+      "hint": "sort(reverse=True)는 내림차순 정렬이에요. 가장 큰 값 92가 [0]에 와요.",
       "feedback": {
-        "correct": "맞아요! 일반 → `*args` → `**kwargs` 순서를 반드시 지켜야 해요."
+        "correct": "정답! reverse=True 옵션은 내림차순(큰 값부터) 정렬이에요. 정렬 후 첫 번째 값이 가장 커요."
       },
+      "villain": "speechbubble_king",
       "quiz_set": "A"
     },
     {
-      "question_id": "miniboss_5_5_mc_004",
+      "question_id": "miniboss_beg_os_5_7_002",
       "unit": 5,
-      "stage": "5-5",
+      "stage": "5-7",
       "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
+      "difficulty": "easy",
+      "type": "output_select",
       "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드에서 args에 저장되는 값은?\n\n```python\ndef show(*args):\n    print(args)\n\nshow(10, 20, 30)\n```",
-      "choices": [
-        "A. [10, 20, 30]",
-        "B. {10, 20, 30}",
-        "C. (10, 20, 30)",
-        "D. 10 20 30"
-      ],
-      "answer": "C. (10, 20, 30)",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! `*args`는 인수들을 튜플로 묶어요. `(10, 20, 30)`이 저장돼요."
-      },
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "miniboss_5_5_mc_005",
-      "unit": 5,
-      "stage": "5-5",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드에서 kwargs에 저장되는 값은?\n\n```python\ndef show(**kwargs):\n    print(kwargs)\n\nshow(name='Alice', score=90)\n```",
-      "choices": [
-        "A. ('Alice', 90)",
-        "B. {'name': 'Alice', 'score': 90}",
-        "C. ['Alice', 90]",
-        "D. name score"
-      ],
-      "answer": "B. {'name': 'Alice', 'score': 90}",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! `**kwargs`는 키워드 인수를 딕셔너리로 묶어요."
-      },
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "miniboss_5_5_os_006",
-      "unit": 5,
-      "stage": "5-5",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef total(*args):\n    print(sum(args))\n\ntotal(1, 2, 3, 4, 5)\n```",
-      "choices": [
-        "A. (1, 2, 3, 4, 5)",
-        "B. 5",
-        "C. 1 2 3 4 5",
-        "D. 15"
-      ],
-      "answer": "D. 15",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! `sum((1, 2, 3, 4, 5))`=1+2+3+4+5=15예요."
-      },
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "miniboss_5_5_os_007",
-      "unit": 5,
-      "stage": "5-5",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef show(**kwargs):\n    print(list(kwargs.keys()))\n\nshow(a=1, b=2, c=3)\n```",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\ndata = []\nfor i in range(1, 4):\n    data.append(i * 10)\nprint(data)",
       "choices": [
         "A. [1, 2, 3]",
-        "B. ['a', 'b', 'c']",
-        "C. {'a': 1, 'b': 2, 'c': 3}",
-        "D. a b c"
+        "B. [10, 20, 30]",
+        "C. [10, 20, 30, 40]",
+        "D. 오류 발생"
       ],
-      "answer": "B. ['a', 'b', 'c']",
-      "hint": "",
+      "answer": "B",
+      "hint": "range(1, 4)는 1, 2, 3이고, 각각 ×10을 해서 append해요. 결과는 [10, 20, 30]이에요.",
       "feedback": {
-        "correct": "맞아요! `kwargs.keys()`는 키만 반환하고 list()로 변환하면 `['a', 'b', 'c']`예요."
+        "correct": "정답! range(1, 4)는 1, 2, 3을 생성해요. 각 값에 10을 곱해 append하면 [10, 20, 30]이에요."
       },
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "miniboss_5_5_os_008",
-      "unit": 5,
-      "stage": "5-5",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef info(label, *values):\n    print(f'{label}: {len(values)}개')\n\ninfo('점수', 80, 90, 70, 85)\n```",
-      "choices": [
-        "A. 점수: 4개",
-        "B. 점수: (80, 90, 70, 85)",
-        "C. label: 4",
-        "D. 80 90 70 85"
-      ],
-      "answer": "A. 점수: 4개",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! label='점수', values=(80, 90, 70, 85)→len=4예요. f-string으로 '점수: 4개'가 출력돼요."
-      },
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "miniboss_5_5_os_009",
-      "unit": 5,
-      "stage": "5-5",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef describe(**kwargs):\n    for k, v in kwargs.items():\n        if v > 80:\n            print(k)\n\ndescribe(math=75, english=92, science=88)\n```",
-      "choices": [
-        "A. math / english / science",
-        "B. 75 / 92 / 88",
-        "C. english / science",
-        "D. math"
-      ],
-      "answer": "C. english / science",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! math=75(75<=80 통과), english=92(>80 출력), science=88(>80 출력)이에요."
-      },
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "miniboss_5_5_os_010",
-      "unit": 5,
-      "stage": "5-5",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef combine(sep, *words):\n    return sep.join(words)\n\nprint(combine('-', 'a', 'b', 'c'))\nprint(combine(' ', 'hello', 'world'))\n```",
-      "choices": [
-        "A. a-b-c / hello world",
-        "B. a b c / hello-world",
-        "C. -a-b-c / hello world",
-        "D. abc / helloworld"
-      ],
-      "answer": "A. a-b-c / hello world",
-      "hint": "",
-      "feedback": {
-        "correct": "훌륭해요! `'-'.join(('a','b','c'))`='a-b-c', `' '.join(('hello','world'))`='hello world'예요."
-      },
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "miniboss_5_6_mc_001",
-      "unit": 5,
-      "stage": "5-6",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "람다 함수의 올바른 형태는?",
-      "choices": [
-        "A. `lambda x: x * 2`",
-        "B. `def lambda x: x * 2`",
-        "C. `lambda x => x * 2`",
-        "D. `lambda(x): x * 2`"
-      ],
-      "answer": "A. `lambda x: x * 2`",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! `lambda 매개변수: 표현식` 형태가 올바른 람다 함수예요."
-      },
+      "villain": "speechbubble_king",
       "quiz_set": "A"
     },
     {
-      "question_id": "miniboss_5_6_mc_002",
+      "question_id": "miniboss_beg_os_5_7_003",
       "unit": 5,
-      "stage": "5-6",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "람다 함수의 특징으로 올바른 것은?",
-      "choices": [
-        "A. 반드시 이름이 있어야 한다",
-        "B. 여러 줄 코드를 작성할 수 있다",
-        "C. 한 줄 표현식만 가능하고 표현식의 결과가 자동 반환된다",
-        "D. return 키워드가 필요하다"
-      ],
-      "answer": "C. 한 줄 표현식만 가능하고 표현식의 결과가 자동 반환된다",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! 람다는 한 줄 표현식만 가능하고, 표현식 결과가 자동으로 반환돼요."
-      },
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "miniboss_5_6_mc_003",
-      "unit": 5,
-      "stage": "5-6",
-      "course_level": "beginner",
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "`filter()`의 역할로 올바른 것은?",
-      "choices": [
-        "A. 리스트 각 항목에 함수를 적용한 결과를 반환한다",
-        "B. 리스트를 정렬한다",
-        "C. 조건 함수가 True인 항목만 걸러낸다",
-        "D. 리스트 항목을 합산한다"
-      ],
-      "answer": "C. 조건 함수가 True인 항목만 걸러낸다",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! `filter(함수, 리스트)`는 함수가 True를 반환하는 항목만 남겨요."
-      },
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "miniboss_5_6_mc_004",
-      "unit": 5,
-      "stage": "5-6",
+      "stage": "5-7",
       "course_level": "beginner",
       "difficulty": "medium",
-      "type": "multiple_choice",
+      "type": "output_select",
       "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 람다 함수가 반환하는 값은?\n\n```python\nf = lambda x, y: x * y\nf(4, 5)\n```",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nwords = [\"Python\", \"은\", \"재미있다\"]\nwith open(\"test.txt\", \"w\") as f:\n    f.writelines(words)\nwith open(\"test.txt\", \"r\") as f:\n    print(f.read())",
       "choices": [
-        "A. 9",
-        "B. 20",
-        "C. x * y",
-        "D. 45"
+        "A. [\"Python\", \"은\", \"재미있다\"]",
+        "B. Python\\n은\\n재미있다",
+        "C. Python은재미있다",
+        "D. 오류 발생"
       ],
-      "answer": "B. 20",
-      "hint": "",
+      "answer": "C",
+      "hint": "writelines()는 줄바꿈 없이 이어 붙이므로 Python은재미있다가 한 줄로 저장돼요.",
       "feedback": {
-        "correct": "맞아요! x=4, y=5가 전달되어 4*5=20이 반환돼요."
+        "correct": "정답! writelines()는 줄바꿈 문자를 자동으로 넣어주지 않기 때문에 리스트 요소들이 공백 없이 그대로 이어 붙어 출력돼요."
       },
+      "villain": "speechbubble_king",
       "quiz_set": "A"
     },
     {
-      "question_id": "miniboss_5_6_mc_005",
+      "question_id": "miniboss_beg_os_5_7_004",
       "unit": 5,
-      "stage": "5-6",
+      "stage": "5-7",
       "course_level": "beginner",
       "difficulty": "medium",
-      "type": "multiple_choice",
+      "type": "output_select",
       "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "`map()`의 결과를 리스트로 변환하려면?",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nnums = [3, 1, 4, 1, 5, 9, 2, 6]\nresult = []\nfor n in nums:\n    if n > 4:\n        result.append(n)\nprint(len(result))",
       "choices": [
-        "A. `list(map(...))`",
-        "B. `map(...).tolist()`",
-        "C. `[map(...)]`",
-        "D. `convert(map(...))`"
-      ],
-      "answer": "A. `list(map(...))`",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! `map()`의 결과를 리스트로 변환하려면 `list()`로 감싸야 해요."
-      },
-      "quiz_set": "A"
-    },
-    {
-      "question_id": "miniboss_5_6_os_006",
-      "unit": 5,
-      "stage": "5-6",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ntriple = lambda x: x * 3\nprint(triple(7))\n```",
-      "choices": [
-        "A. x * 3",
-        "B. 10",
-        "C. 7",
-        "D. 21"
-      ],
-      "answer": "D. 21",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! x=7이 전달되어 7*3=21이 반환돼요."
-      },
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "miniboss_5_6_os_007",
-      "unit": 5,
-      "stage": "5-6",
-      "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nresult = list(map(lambda x: x + 10, [5, 10, 15]))\nprint(result)\n```",
-      "choices": [
-        "A. [5, 10, 15]",
-        "B. [15, 20, 25]",
-        "C. [50, 100, 150]",
-        "D. [10, 10, 10]"
-      ],
-      "answer": "B. [15, 20, 25]",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! 각 항목에 +10을 적용해요. [5+10, 10+10, 15+10]=[15, 20, 25]예요."
-      },
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "miniboss_5_6_os_008",
-      "unit": 5,
-      "stage": "5-6",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nresult = list(filter(lambda x: len(x) > 4, ['hi', 'hello', 'python', 'ok']))\nprint(result)\n```",
-      "choices": [
-        "A. ['hi', 'ok']",
-        "B. ['hello', 'python']",
-        "C. ['python']",
-        "D. ['hi', 'hello', 'python', 'ok']"
-      ],
-      "answer": "B. ['hello', 'python']",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! len>4인 항목은 'hello'(5), 'python'(6)이에요. 'hi'(2), 'ok'(2)는 제외돼요."
-      },
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "miniboss_5_6_os_009",
-      "unit": 5,
-      "stage": "5-6",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nnums = [3, 1, 4, 1, 5, 9, 2]\nresult = list(filter(lambda x: x % 2 != 0 and x > 3, nums))\nprint(result)\n```",
-      "choices": [
-        "A. [3, 1, 5, 9, 1]",
-        "B. [4, 2]",
-        "C. [5, 9]",
-        "D. [1, 1, 3]"
-      ],
-      "answer": "C. [5, 9]",
-      "hint": "",
-      "feedback": {
-        "correct": "맞아요! 홀수이면서 3 초과인 항목은 5, 9예요."
-      },
-      "quiz_set": "B"
-    },
-    {
-      "question_id": "miniboss_5_6_os_010",
-      "unit": 5,
-      "stage": "5-6",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "multiple_choice",
-      "quiz_category": "miniboss",
-      "is_boss": true,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nops = [lambda x: x + 2, lambda x: x * 3]\nvalue = 4\nfor op in ops:\n    value = op(value)\nprint(value)\n```",
-      "choices": [
-        "A. 14",
-        "B. 12",
+        "A. 2",
+        "B. 4",
         "C. 8",
-        "D. 18"
+        "D. 3"
       ],
-      "answer": "D. 18",
-      "hint": "",
+      "answer": "D",
+      "hint": "4보다 큰 값은 5, 9, 6으로 총 3개예요. len(result)는 3이에요.",
       "feedback": {
-        "correct": "훌륭해요! 4+2=6 → 6*3=18 순으로 처리돼요."
+        "correct": "정답! n > 4를 통과하는 값은 5, 9, 6 → 3개예요."
       },
-      "quiz_set": "B"
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_7_005",
+      "unit": 5,
+      "stage": "5-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "리스트의 내용을 파일에 한 줄씩 저장하는 올바른 방법은?",
+      "choices": [
+        "A. f.writelines([item + \"\\n\" for item in my_list])",
+        "B. f.write(my_list)",
+        "C. f.writelines(my_list)",
+        "D. print(my_list, file=f)"
+      ],
+      "answer": "A",
+      "hint": "각 항목에 \\n을 붙인 리스트를 writelines()로 쓰면 한 줄씩 저장돼요. write()는 문자열만 받아요.",
+      "feedback": {
+        "correct": "정답! 각 항목에 \\n을 포함시켜 writelines()로 쓰는 게 가장 정확한 방법이에요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_7_006",
+      "unit": 5,
+      "stage": "5-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nitems = [\"사과\", \"바나나\", \"포도\", \"딸기\"]\nitems.remove(\"바나나\")\nitems.append(\"키위\")\nprint(len(items))",
+      "choices": [
+        "A. 3",
+        "B. 5",
+        "C. 4",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "원래 4개에서 remove로 1개 빠지고(3개), append로 1개 추가되어(4개) 최종 len()은 4예요.",
+      "feedback": {
+        "correct": "정답! remove로 1개 빠지고 append로 1개 추가돼서 최종 4개예요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_7_007",
+      "unit": 5,
+      "stage": "5-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nscores = [80, 90, 70, 85]\ntotal = 0\nfor s in scores:\n    total += s\nprint(total // len(scores))",
+      "choices": [
+        "A. 81",
+        "B. 325",
+        "C. 85",
+        "D. 오류 발생"
+      ],
+      "answer": "A",
+      "hint": "합계 80+90+70+85 = 325, 개수 4. 325 // 4 = 81 (소수점 버림)이에요.",
+      "feedback": {
+        "correct": "정답! 합계 325를 개수 4로 나누면 81.25, 정수 나눗셈(//)으로 81이에요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_7_008",
+      "unit": 5,
+      "stage": "5-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드에서 파일에 저장된 줄 수는?\ndata = [\"1번\\n\", \"2번\\n\", \"3번\\n\", \"4번\\n\", \"5번\\n\"]\nwith open(\"list.txt\", \"w\") as f:\n    f.writelines(data)",
+      "choices": [
+        "A. 1줄",
+        "B. 5줄",
+        "C. 0줄 (빈 파일)",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "각 항목에 \\n이 있으므로 5개 항목이 5줄로 저장돼요.",
+      "feedback": {
+        "correct": "정답! \\n이 각 항목에 포함되어 있으므로 5줄로 나뉘어 저장돼요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_mc_5_7_009",
+      "unit": 5,
+      "stage": "5-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "파일에서 읽어온 줄 끝의 \\n을 제거하는 가장 적절한 방법은?",
+      "choices": [
+        "A. line.remove(\"\\n\")",
+        "B. line.strip()",
+        "C. line.delete(\"\\n\")",
+        "D. line[:-2]"
+      ],
+      "answer": "B",
+      "hint": "strip()은 문자열 양쪽 공백과 줄바꿈 문자를 제거해요. rstrip()으로 오른쪽만 제거할 수도 있어요.",
+      "feedback": {
+        "correct": "정답! strip() 또는 rstrip('\\n')으로 줄바꿈을 제거해요. remove()는 리스트 메서드예요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
+    },
+    {
+      "question_id": "miniboss_beg_os_5_7_010",
+      "unit": 5,
+      "stage": "5-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과는?\nnums = [1, 2, 3, 4, 5]\nresult = nums[1:-1]\nresult.reverse()\nprint(result)",
+      "choices": [
+        "A. [5, 4, 3, 2, 1]",
+        "B. [1, 2, 3, 4, 5]",
+        "C. [2, 3, 4]",
+        "D. [4, 3, 2]"
+      ],
+      "answer": "D",
+      "hint": "nums[1:-1]은 인덱스 1부터 마지막 바로 앞까지 = [2, 3, 4]. 이걸 reverse()하면 [4, 3, 2]예요.",
+      "feedback": {
+        "correct": "정답! [1:-1]은 [2, 3, 4]이고, reverse() 하면 [4, 3, 2]예요."
+      },
+      "villain": "speechbubble_king",
+      "quiz_set": "A"
     }
   ]
 }
