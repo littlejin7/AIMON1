@@ -17,7 +17,6 @@
         "D. 아무것도 출력 안 됨"
       ],
       "answer": "A. 크다",
-      "hint": "",
       "feedback": {
         "correct": "정답! 10 > 5는 True예요. 조건이 참이면 if 블록이 실행돼요."
       }
@@ -39,7 +38,6 @@
         "D. 오류 발생"
       ],
       "answer": "B. 불합격",
-      "hint": "",
       "feedback": {
         "correct": "정답! 40 >= 60은 False예요. 조건이 거짓이면 else 블록이 실행돼요."
       }
@@ -61,7 +59,6 @@
         "D. 선선하다\\n오늘 날씨 확인 완료"
       ],
       "answer": "C. 덥다\\n오늘 날씨 확인 완료",
-      "hint": "",
       "feedback": {
         "correct": "정답! 조건이 True이므로 \"덥다\" 출력, 그 다음 줄은 if/else 밖이라 항상 실행돼요."
       }
@@ -83,7 +80,6 @@
         "D. IndentationError가 발생한다"
       ],
       "answer": "D. IndentationError가 발생한다",
-      "hint": "",
       "feedback": {
         "correct": "정답! 파이썬은 들여쓰기가 문법의 일부예요. 잘못되면 IndentationError가 발생해요."
       }
@@ -105,7 +101,6 @@
         "D. 오류 발생"
       ],
       "answer": "B. 거짓",
-      "hint": "",
       "feedback": {
         "correct": "정답! 파이썬에서 숫자 0은 False예요. 조건이 거짓이므로 \"거짓\"이 출력돼요."
       }
@@ -127,7 +122,6 @@
         "D. 프로그램이 종료된다"
       ],
       "answer": "C. if 블록을 건너뛰고 다음 코드가 실행된다",
-      "hint": "",
       "feedback": {
         "correct": "정답! else가 없을 때 조건이 False이면 if 블록을 그냥 건너뛰어요."
       }
@@ -149,7 +143,6 @@
         "D. 오류 발생"
       ],
       "answer": "B. 양수 아님",
-      "hint": "",
       "feedback": {
         "correct": "정답! -5 > 0은 False예요. else 블록에서 result = \"양수 아님\"이 저장되고 출력돼요."
       }
@@ -171,7 +164,6 @@
         "D. 우산 챙기기\\n그냥 나가기"
       ],
       "answer": "B. 그냥 나가기",
-      "hint": "",
       "feedback": {
         "correct": "정답! is_raining은 False예요. 조건이 거짓이므로 else 블록이 실행돼요."
       }
@@ -193,7 +185,6 @@
         "D. 오류 발생"
       ],
       "answer": "C. 짝수",
-      "hint": "",
       "feedback": {
         "correct": "정답! 10 % 2 = 0이에요. 0 == 0은 True이므로 \"짝수\"가 출력돼요."
       }
@@ -215,7 +206,6 @@
         "D. 미성년자\\n확인 완료"
       ],
       "answer": "D. 미성년자\\n확인 완료",
-      "hint": "",
       "feedback": {
         "correct": "정답! 17 >= 18은 False → \"미성년자\". if/else 블록 밖의 코드는 항상 실행돼요."
       }
@@ -237,7 +227,6 @@
         "D. A\\nB"
       ],
       "answer": "B. B",
-      "hint": "",
       "feedback": {
         "correct": "정답! 85 >= 90은 False, 85 >= 80은 True예요. 첫 번째로 True인 elif 블록이 실행돼요."
       }
@@ -259,7 +248,6 @@
         "D. 반복을 멈추는 키워드다"
       ],
       "answer": "B. 앞 조건이 거짓일 때 새로운 조건을 검사한다",
-      "hint": "",
       "feedback": {
         "correct": "정답! elif는 앞 조건이 거짓일 때 다음 조건을 검사해요. 여러 분기를 만들 때 사용해요."
       }
@@ -281,7 +269,6 @@
         "D. 양수\\n음수\\n0"
       ],
       "answer": "C. 0",
-      "hint": "",
       "feedback": {
         "correct": "정답! x가 0이라 두 조건 모두 False예요. if/elif 모두 건너뛰고 else가 실행돼요."
       }
@@ -303,7 +290,6 @@
         "D. A"
       ],
       "answer": "D. A",
-      "hint": "",
       "feedback": {
         "correct": "정답! 95 >= 90은 True예요. 첫 번째로 True인 블록이 실행되면 나머지 elif/else는 건너뛰어요."
       }
@@ -325,7 +311,6 @@
         "D. else 없이는 사용 불가"
       ],
       "answer": "C. 제한 없이 여러 개",
-      "hint": "",
       "feedback": {
         "correct": "정답! elif는 개수 제한이 없어요. 필요한 분기 수만큼 자유롭게 추가할 수 있어요."
       }
@@ -347,7 +332,6 @@
         "D. 보통"
       ],
       "answer": "D. 보통",
-      "hint": "",
       "feedback": {
         "correct": "정답! 첫 번째로 True인 elif에서 \"보통\"이 출력되면 그 이후 elif는 실행되지 않아요."
       }
@@ -369,7 +353,6 @@
         "D. 3의 배수"
       ],
       "answer": "D. 3의 배수",
-      "hint": "",
       "feedback": {
         "correct": "정답! 15 % 3 = 0이라 첫 if가 True예요. elif는 앞 조건이 True이면 검사하지 않아요."
       }
@@ -391,7 +374,6 @@
         "D. 봄"
       ],
       "answer": "D. 봄",
-      "hint": "",
       "feedback": {
         "correct": "정답! month가 4이고 3 <= 4 <= 5이므로 elif 조건이 True예요. \"봄\"이 출력돼요."
       }
@@ -413,7 +395,6 @@
         "D. 50 이하"
       ],
       "answer": "C. 정확히 100",
-      "hint": "",
       "feedback": {
         "correct": "정답! 100 > 100은 False, 100 == 100은 True예요. 첫 번째로 True인 elif가 실행돼요."
       }
@@ -435,7 +416,6 @@
         "D. 첫 번째 if가 다시 실행된다"
       ],
       "answer": "C. 아무 블록도 실행되지 않는다",
-      "hint": "",
       "feedback": {
         "correct": "정답! else가 없으면 모든 조건이 False일 때 아무것도 실행되지 않고 다음 코드로 넘어가요."
       }
@@ -457,7 +437,6 @@
         "D. 오류 발생"
       ],
       "answer": "A. True",
-      "hint": "",
       "feedback": {
         "correct": "정답! ==는 같음을 비교하는 연산자예요. 5 == 5는 True예요."
       }
@@ -479,7 +458,6 @@
         "D. None"
       ],
       "answer": "B. False",
-      "hint": "",
       "feedback": {
         "correct": "정답! !=는 같지 않음을 비교해요. x가 10이므로 10 != 10은 False예요."
       }
@@ -501,7 +479,6 @@
         "D. 10"
       ],
       "answer": "C. False",
-      "hint": "",
       "feedback": {
         "correct": "정답! 7 >= 10은 False예요. >=는 왼쪽이 오른쪽보다 크거나 같아야 True예요."
       }
@@ -523,7 +500,6 @@
         "D. C"
       ],
       "answer": "C. A\\nC",
-      "hint": "",
       "feedback": {
         "correct": "정답! elif가 아닌 독립 if 3개예요. 5 > 3 → A, 5 > 7 → 건너뜀, 5 == 5 → C. 두 줄 출력돼요."
       }
@@ -545,7 +521,6 @@
         "D. 차이가 없다"
       ],
       "answer": "B. =는 값을 할당하고, ==는 같음을 비교한다",
-      "hint": "",
       "feedback": {
         "correct": "정답! =는 할당, ==는 비교예요. if문에서 할당 연산자 =를 쓰면 오류가 발생해요."
       }
@@ -567,7 +542,6 @@
         "D. False\\nTrue"
       ],
       "answer": "C. True\\nFalse",
-      "hint": "",
       "feedback": {
         "correct": "정답! 3 < 5는 True, 5 < 3은 False예요. 두 줄이 각각 출력돼요."
       }
@@ -589,7 +563,6 @@
         "D. True"
       ],
       "answer": "D. True",
-      "hint": "",
       "feedback": {
         "correct": "정답! 파이썬은 1 < x < 10처럼 연속 비교가 가능해요. 두 조건 모두 True이므로 True예요."
       }
@@ -611,7 +584,6 @@
         "D. 오류 발생"
       ],
       "answer": "A. True",
-      "hint": "",
       "feedback": {
         "correct": "정답! 문자열은 알파벳 순서로 비교돼요. 'a'는 'b'보다 앞이므로 \"apple\" < \"banana\"는 True예요."
       }
@@ -633,7 +605,6 @@
         "D. 10"
       ],
       "answer": "C. True",
-      "hint": "",
       "feedback": {
         "correct": "정답! 파이썬에서 int 10과 float 10.0은 값이 같으므로 == 비교 시 True예요."
       }
@@ -655,7 +626,6 @@
         "D. 합격"
       ],
       "answer": "D. 합격",
-      "hint": "",
       "feedback": {
         "correct": "정답! 75 >= 60은 True이므로 grade에 \"합격\"이 저장돼요. 한 줄 조건 표현식이에요."
       }
@@ -677,7 +647,6 @@
         "D. 오류 발생"
       ],
       "answer": "A. True",
-      "hint": "",
       "feedback": {
         "correct": "정답! and는 양쪽이 모두 True여야 True예요. True and True는 True예요."
       }
@@ -699,7 +668,6 @@
         "D. 오류 발생"
       ],
       "answer": "B. True",
-      "hint": "",
       "feedback": {
         "correct": "정답! or는 하나라도 True이면 True예요. True or False는 True예요."
       }
@@ -721,7 +689,6 @@
         "D. True"
       ],
       "answer": "C. 범위 안",
-      "hint": "",
       "feedback": {
         "correct": "정답! 8 > 5도 True, 8 < 10도 True예요. and 조건이 True이므로 \"범위 안\"이 출력돼요."
       }
@@ -743,7 +710,6 @@
         "D. 범위 안"
       ],
       "answer": "D. 범위 안",
-      "hint": "",
       "feedback": {
         "correct": "정답! 3 < 0도 False, 3 > 10도 False예요. or 조건이 False이므로 else 블록이 실행돼요."
       }
@@ -765,7 +731,6 @@
         "D. 오류 발생"
       ],
       "answer": "A. False",
-      "hint": "",
       "feedback": {
         "correct": "정답! not은 논리값을 반전시켜요. not True는 False예요."
       }
@@ -787,7 +752,6 @@
         "D. 오류 발생"
       ],
       "answer": "B. 10 이상",
-      "hint": "",
       "feedback": {
         "correct": "정답! 15 < 10은 False, not False는 True예요. if 블록이 실행돼 \"10 이상\"이 출력돼요."
       }
@@ -809,7 +773,6 @@
         "D. 오류 발생"
       ],
       "answer": "C. True",
-      "hint": "",
       "feedback": {
         "correct": "정답! not False는 True, True and True는 True예요. 연산 순서는 not → and → or 순이에요."
       }
@@ -831,7 +794,6 @@
         "D. 통과"
       ],
       "answer": "D. 통과",
-      "hint": "",
       "feedback": {
         "correct": "정답! 세 조건 모두 True예요. and는 모두 True여야 True이므로 \"통과\"가 출력돼요."
       }
@@ -853,7 +815,6 @@
         "D. 오류 발생"
       ],
       "answer": "A. 입장 불가",
-      "hint": "",
       "feedback": {
         "correct": "정답! and는 하나라도 False이면 False예요. has_ticket이 False이므로 \"입장 불가\"가 출력돼요."
       }
@@ -875,7 +836,6 @@
         "D. 오류 발생"
       ],
       "answer": "B. B",
-      "hint": "",
       "feedback": {
         "correct": "정답! 괄호 안이 True이고 not True는 False예요. else 블록이 실행돼 \"B\"가 출력돼요."
       }
@@ -897,7 +857,6 @@
         "D. 오류 발생"
       ],
       "answer": "A. 5 초과",
-      "hint": "",
       "feedback": {
         "correct": "정답! 바깥 if(True) → 안쪽 if(True) → \"5 초과\" 출력이에요."
       }
@@ -919,7 +878,6 @@
         "D. 아무것도 출력 안 됨"
       ],
       "answer": "B. 음수",
-      "hint": "",
       "feedback": {
         "correct": "정답! 바깥 if가 False → else 진입 → 안쪽 if도 False → 안쪽 else \"음수\" 출력이에요."
       }
@@ -941,7 +899,6 @@
         "D. B"
       ],
       "answer": "C. C",
-      "hint": "",
       "feedback": {
         "correct": "정답! 바깥 if(True) → 안쪽 if(False) → elif(False) → else \"C\" 출력이에요."
       }
@@ -963,7 +920,6 @@
         "D. 둘 다 통과"
       ],
       "answer": "D. 둘 다 통과",
-      "hint": "",
       "feedback": {
         "correct": "정답! 바깥 if(True) → 안쪽 if(True) → \"둘 다 통과\" 출력이에요."
       }
@@ -985,7 +941,6 @@
         "D. 들여쓰기는 가독성을 위한 것일 뿐 기능에 영향 없다"
       ],
       "answer": "A. 들여쓰기 깊이로 어느 if에 속한 블록인지 구분하기 때문이다",
-      "hint": "",
       "feedback": {
         "correct": "정답! 파이썬은 들여쓰기가 문법이에요. 중첩 if에서는 깊이마다 4칸씩 추가로 들여써야 해요."
       }
@@ -1007,7 +962,6 @@
         "D. 아무것도 출력 안 됨"
       ],
       "answer": "B. 끝",
-      "hint": "",
       "feedback": {
         "correct": "정답! 안쪽 if가 False라 \"크다\"는 건너뛰고, if 밖의 \"끝\"은 항상 실행돼요."
       }
@@ -1029,7 +983,6 @@
         "D. 오류 발생"
       ],
       "answer": "C. 입장 가능",
-      "hint": "",
       "feedback": {
         "correct": "정답! 바깥 if(True) → 안쪽 if(True) → \"입장 가능\" 출력이에요."
       }
@@ -1051,7 +1004,6 @@
         "D. B"
       ],
       "answer": "D. B",
-      "hint": "",
       "feedback": {
         "correct": "정답! 바깥 if(True) → 안쪽 if(False) → elif(True) → \"B\" 출력이에요."
       }
@@ -1073,7 +1025,6 @@
         "D. 아무것도 출력 안 됨"
       ],
       "answer": "A. 영",
-      "hint": "",
       "feedback": {
         "correct": "정답! 바깥 if(True) → 안쪽 if(True) → \"영\" 출력이에요."
       }
@@ -1095,7 +1046,6 @@
         "D. 바깥 if만 남기고 안쪽 if는 삭제해야 한다"
       ],
       "answer": "B. 안쪽 if가 독립적인 조건일 때 and로 합칠 수 있다",
-      "hint": "",
       "feedback": {
         "correct": "정답! 두 조건을 and로 묶으면 중첩 없이 같은 동작을 만들 수 있어요. 코드가 더 간결해져요."
       }
@@ -1117,7 +1067,6 @@
         "D. 오류 발생"
       ],
       "answer": "A. 홀수",
-      "hint": "",
       "feedback": {
         "correct": "정답! 7 % 2 = 1이에요. 1 == 0은 False이므로 \"홀수\"가 출력돼요."
       }
@@ -1139,7 +1088,6 @@
         "D. 오류 발생"
       ],
       "answer": "B. 긴 이름",
-      "hint": "",
       "feedback": {
         "correct": "정답! \"aimon\"의 길이는 5예요. 5 > 3은 True이므로 \"긴 이름\"이 출력돼요."
       }
@@ -1161,7 +1109,6 @@
         "D. C"
       ],
       "answer": "C. B",
-      "hint": "",
       "feedback": {
         "correct": "정답! 88 >= 90은 False, 88 >= 80은 True예요. grade에 \"B\"가 저장되고 출력돼요."
       }
@@ -1183,7 +1130,6 @@
         "D. 보통"
       ],
       "answer": "D. 보통",
-      "hint": "",
       "feedback": {
         "correct": "정답! \"abc123\"의 길이는 6이에요. 6 >= 8은 False, 6 >= 6은 True → \"보통\" 출력."
       }
@@ -1205,7 +1151,6 @@
         "D. 오류 발생"
       ],
       "answer": "A. 3과 4의 공배수",
-      "hint": "",
       "feedback": {
         "correct": "정답! 12 % 3 = 0이고 12 % 4 = 0이에요. and 조건이 True이므로 \"3과 4의 공배수\" 출력."
       }
@@ -1227,7 +1172,6 @@
         "D. 판별 완료"
       ],
       "answer": "B. 음수\\n판별 완료",
-      "hint": "",
       "feedback": {
         "correct": "정답! -7 < 0은 True → \"음수\" 출력. if/elif/else 밖의 print는 항상 실행돼요."
       }
@@ -1249,7 +1193,6 @@
         "D. 같지만 5 아님"
       ],
       "answer": "C. 둘 다 5",
-      "hint": "",
       "feedback": {
         "correct": "정답! x와 y가 같으므로 else 진입. 안쪽 if(x == 5, True) → \"둘 다 5\" 출력."
       }
@@ -1271,7 +1214,6 @@
         "D. 보호자 동반 입장"
       ],
       "answer": "D. 보호자 동반 입장",
-      "hint": "",
       "feedback": {
         "correct": "정답! 첫 if(False) → elif 조건 검사. 16 >= 14이고 has_parent가 True이므로 \"보호자 동반 입장\" 출력."
       }
@@ -1293,7 +1235,6 @@
         "D. A\\nB"
       ],
       "answer": "A. A",
-      "hint": "",
       "feedback": {
         "correct": "정답! 바깥 if(True) → 안쪽 if(True) → \"A\" 출력이에요."
       }
@@ -1315,7 +1256,6 @@
         "D. 불합격"
       ],
       "answer": "B. 재시험",
-      "hint": "",
       "feedback": {
         "correct": "정답! 바깥 else 진입(55 < 60) → 안쪽 if(55 >= 50, True) → \"재시험\" 출력."
       }

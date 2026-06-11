@@ -103,19 +103,11 @@ Stage 입장 → 브리핑 슬라이드 넘기기 → 퀴즈 → 다음 스테�
 |---|---|---|
 | Unit 1 | 파이썬 첫걸음 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
 | Unit 2 | 문자열 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
-| Unit 3 | 리스트 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
-| Unit 4 | 딕셔너리 & 세트 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
-**beginner (초급) 유닛 보스 — 10문제 구성**
-
-| 유닛 | 주제 | 문제 유형 구성 |
-|---|---|---|
-| Unit 1 | 파이썬 첫걸음 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
-| Unit 2 | 문자열 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
-| Unit 3 | 리스트 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
-| Unit 4 | 딕셔너리 & 세트 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
-| Unit 5 | 조건문 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
-| Unit 6 | 반복문 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
-| Unit 7 | 함수 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
+| Unit 3 | 조건문 (if/elif/else) | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
+| Unit 4 | 반복문 (for/while) | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
+| Unit 5 | 리스트 & 파일처리 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
+| Unit 6 | 함수 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
+| Unit 7 | 딕셔너리 & set | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
 | Unit 8 | 미니 프로젝트 | `output_select` ×4, `fill_in_blank` ×4, `error_find` ×2 |
 
 - 앞 5문제 (PHASE 1): TODO 리스트 미니 앱 순차 조립 (변수 선언 ➔ 사용자 입력 ➔ 조건 선택 메뉴 ➔ 리스트 누적)
@@ -198,9 +190,10 @@ Claude API 호출
 - **상세 필드 정의 및 예시 →** 📋 AI MON 데이터 스키마 페이지 참고
 
 **힌트 규칙**
-- 스테이지: 힌트 없음
-- 보스: 힌트 2개 (`hints_used` 0~2로 관리)
-- 파이널 보스: 힌트 없음 (필드 없음)
+- 스테이지 퀴즈: `hint` 필드 있음 (JSON 데이터에 포함)
+- 스테이지 미니보스: `hint` 필드 없음
+- 유닛 보스: `hint` 필드 없음 / UI 힌트코인 2회 사용 가능 (`hints_used` 0~2로 관리)
+- 파이널 보스: `hint` 필드 없음, UI 힌트 없음
 - 파이널 보스: Unit 8 보스 클리어 후 해금
 
 ---
@@ -530,11 +523,17 @@ ai-mon/
 │       │   │   ├── unit_1.json
 │       │   │   └── ...
 │       │   └── intermediate/, advanced/
-│       ├── questions/        ← 레벨/유닛별 문제 데이터
+│       ├── quiz/             ← 스테이지 퀴즈 (stage_quiz, hint 필드 포함)
 │       │   ├── beginner/
 │       │   │   ├── unit_1.json
 │       │   │   └── ...
 │       │   └── intermediate/, advanced/
+│       ├── miniboss/         ← 스테이지 미니보스 (hint 필드 없음)
+│       │   ├── beginner/
+│       │   └── ...
+│       ├── unitboss/         ← 유닛 보스 (hint 필드 없음)
+│       │   ├── beginner/
+│       │   └── ...
 │       ├── users.json        ← 자동 생성 (회원가입 시)
 │       ├── progress.json     ← 자동 생성 (진도 저장 시)
 │       └── wrong_answers.json ← 자동 생성 (오답 시)
@@ -576,7 +575,7 @@ ai-mon/
 
 ---
 
-## 17. 문제 데이터 현황 (2026-06-09 기준)
+## 17. 문제 데이터 현황 (2026-06-11 기준)
 
 > ⚠️ 커리큘럼 전면 개편으로 인해 문제 데이터 재제작 진행 중.
 > 구 커리큘럼(Unit 1 = 출력&변수, Unit 8 = AI 에이전트) 기반 기존 데이터는 신 커리큘럼에 맞게 업데이트 예정.
@@ -586,12 +585,12 @@ ai-mon/
 | 유닛 | stage_quiz | miniboss | unit_boss | 상태 |
 |---|---|---|---|---|
 | Unit 1 — 파이썬 첫걸음 | 140개 (Set A/B × 7스테이지) | 70개 | 10개 | ✅ 완료 |
-| Unit 2 — 문자열 | - | - | - | 🚧 제작 예정 |
-| Unit 3 — 리스트 | - | - | - | 🚧 제작 예정 |
-| Unit 4 — 딕셔너리 & 세트 | - | - | - | 🚧 제작 예정 |
-| Unit 5 — 조건문 | - | - | - | 🚧 제작 예정 |
-| Unit 6 — 반복문 | - | - | - | 🚧 제작 예정 |
-| Unit 7 — 함수 | - | - | - | 🚧 제작 예정 |
+| Unit 2 — 문자열 | 140개 (Set A/B × 7스테이지) | 70개 | 10개 | ✅ 완료 |
+| Unit 3 — 조건문 | 120개 (Set A/B × 6스테이지) | 60개 | - | ✅ 퀴즈·미니보스 완료 |
+| Unit 4 — 반복문 | 140개 (Set A/B × 7스테이지) | 70개 | - | ✅ 퀴즈·미니보스 완료 |
+| Unit 5 — 리스트 & 파일처리 | 140개 (Set A/B × 7스테이지) | - | - | ✅ 퀴즈 완료 |
+| Unit 6 — 함수 | - | - | - | 🚧 제작 예정 |
+| Unit 7 — 딕셔너리 & set | - | - | - | 🚧 제작 예정 |
 | Unit 8 — 미니 프로젝트 | - | - | - | 🚧 제작 예정 |
 
 - intermediate · advanced 전 유닛: 🚧 제작 예정

@@ -138,25 +138,31 @@ backend/data/lessons/
 
 ---
 
-## 2. questions/ 폴더
+## 2. quiz / miniboss / unitboss 폴더
 
-> 현황 (2026-06-09): 커리큘럼 전면 개편으로 재제작 중. beginner Unit 1 데이터 완료 (stage_quiz 140개 / miniboss 70개 / unit_boss 10개). Unit 2~8 및 intermediate/advanced 제작 예정.
+> 현황 (2026-06-11): beginner Unit 1~5 데이터 완료. Unit 6~8 및 intermediate/advanced 제작 예정.
 
-퀴즈 문제 데이터 — 레벨별, 유닛별로 분리 관리
+퀴즈 문제 데이터 — 카테고리별 + 레벨별 + 유닛별로 분리 관리
 
 ### 📁 파일 관리 구조
 
 ```
-backend/data/questions/
-├── beginner/
-│   ├── unit_1.json   ← 초급 Unit 1의 모든 문제
-│   ├── unit_2.json
+backend/data/
+├── quiz/            ← 스테이지 퀴즈 (stage_quiz)
+│   ├── beginner/
+│   │   ├── unit_1.json
+│   │   └── ...
+│   ├── intermediate/
+│   └── advanced/
+├── miniboss/        ← 스테이지 미니보스
+│   ├── beginner/
 │   └── ...
-├── intermediate/
-└── advanced/
+└── unitboss/        ← 유닛 보스
+    ├── beginner/
+    └── ...
 ```
 
-각 파일은 `{"questions": [...]}` 형태 또는 `[...]` 배열 형태를 가지며, 백엔드에서 `load_questions` 호출 시 `course_level` 파라미터를 이용해 해당 폴더의 파일들을 취합합니다.
+각 파일은 `{"questions": [...]}` 형태이며, 백엔드에서 `course_level` 파라미터를 이용해 해당 폴더의 파일들을 취합합니다.
 
 | 필드               | 타입    | 허용값                                                       | 필수 | 설명                                                                                            |
 | ------------------ | ------- | ------------------------------------------------------------ | ---- | ----------------------------------------------------------------------------------------------- |
@@ -172,20 +178,19 @@ backend/data/questions/
 | `question`         | string  | -                                                            | ✅   | 문제 텍스트                                                                                     |
 | `choices`          | array   | -                                                            | ❌   | 선택지 (multiple_choice / output_select / error_find 해당, fill_in_blank는 빈 배열)             |
 | `answer`           | string  | -                                                            | ✅   | 정답                                                                                            |
-| `hint`             | string  | -                                                            | ✅   | 힌트 텍스트                                                                                     |
+| `hint`             | string  | -                                                            | ❌   | 힌트 텍스트 — **stage_quiz 전용**. miniboss / unitboss 에는 필드 자체 없음                      |
 | `feedback.correct` | string  | -                                                            | ✅   | 정답 시 출력 텍스트 (API 호출 없음)                                                             |
-                                                     |
 
 > `stage: "1-boss"` + `is_boss: true` 조합으로 보스 문제 구분.
 
 ### quiz_set 규칙
 
-| quiz_category | quiz_set 필요 | 값                               |
-| ------------- | ------------- | -------------------------------- |
-| stage_quiz    | ✅            | `"A"` (1회차) 또는 `"B"` (2회차) |
-| miniboss      | ❌            | 없음                             |
-| unit_boss     | ❌            | 없음                             |
-| final_boss    | ❌            | 없음                             |
+| quiz_category | quiz_set 필요 | 값                                | hint 필드 |
+| ------------- | ------------- | --------------------------------- | --------- |
+| stage_quiz    | ✅            | `"A"` (1회차) 또는 `"B"` (2회차) | ✅ 있음    |
+| miniboss      | ❌            | 없음 (필드 자체 제거)             | ❌ 없음    |
+| unit_boss     | ❌            | 없음 (필드 자체 제거)             | ❌ 없음    |
+| final_boss    | ❌            | 없음 (필드 자체 제거)             | ❌ 없음    |
 
 - 스테이지별 stage_quiz는 총 20문제 → Set A 10개 / Set B 10개로 분리
 - `attempt=1` → Set A만 / `attempt=2` → Set B만 / `attempt=3+` → A+B 혼합 랜덤
