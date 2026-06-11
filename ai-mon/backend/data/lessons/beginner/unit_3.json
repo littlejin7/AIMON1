@@ -9,86 +9,71 @@
     "slides": [
       {
         "order": 1,
-        "text": "if문은 조건이 참(True)일 때만 특정 코드를 실행하는 구조예요.\n`if 조건:` 형태로 쓰고, 실행할 코드는 들여쓰기(4칸)로 구분해요.\n조건이 거짓(False)이면 if 블록은 건너뛰어요.",
+        "text": "파이썬에서 '조건에 따라 다르게 행동'하게 만들 때 if를 써요.\n마치 게임 캐릭터가 HP가 0이면 죽고, 아니면 계속 싸우는 것처럼요!",
         "terminal": {
-          "code": [
-            "score = 85",
-            "if score >= 80:",
-            "    print('합격!')"
-          ],
-          "output": [
-            "합격!"
-          ]
+          "code": ["hp = 80", "if hp > 0:", "    print('아직 살아있어요!')"],
+          "output": ["아직 살아있어요!"]
         },
-        "tip": "if문은 조건이 True일 때만 들여쓴 코드를 실행해요. 들여쓰기가 없으면 오류가 발생해요."
+        "tip": "if 다음에는 반드시 콜론(:)을 붙여요. 잊으면 오류가 나요!"
       },
       {
         "order": 2,
-        "text": "else는 if 조건이 거짓(False)일 때 실행되는 블록이에요.\nif와 else는 항상 쌍으로 쓰고, 둘 중 하나만 실행돼요.",
+        "text": "if 블록 안의 코드는 들여쓰기(4칸)로 묶어요.\n파이썬은 들여쓰기로 '이 코드가 if에 속해 있다'는 걸 인식해요.",
         "terminal": {
           "code": [
-            "score = 60",
+            "score = 90",
             "if score >= 80:",
-            "    print('합격!')",
-            "else:",
-            "    print('불합격')"
+            "    print('합격!')      # 들여쓰기 4칸",
+            "    print('축하해요!')  # 이것도 if 안에 있어요"
           ],
-          "output": [
-            "불합격"
-          ]
+          "output": ["합격!", "축하해요!"]
         },
-        "tip": "if-else는 두 선택지 중 하나를 고르는 구조예요. if가 True면 if 블록, False면 else 블록이 실행돼요."
+        "tip": "들여쓰기는 스페이스 4칸 또는 Tab 1번이에요. 섞어 쓰면 오류가 나요."
       },
       {
         "order": 3,
-        "text": "조건식은 True 또는 False를 반환하는 식이에요.\n`>=`, `<=`, `>`, `<`, `==`, `!=` 같은 비교 연산자로 만들어요.",
+        "text": "조건이 거짓일 때 다른 행동을 하려면 else를 쓰면 돼요.\nif-else는 '이것 아니면 저것' — 둘 중 하나만 실행돼요.",
         "terminal": {
           "code": [
-            "temperature = 35",
-            "if temperature > 30:",
-            "    print('더운 날씨예요')",
+            "hp = 0",
+            "if hp > 0:",
+            "    print('전투 계속!')",
             "else:",
-            "    print('쾌적한 날씨예요')"
+            "    print('게임 오버...')"
           ],
-          "output": [
-            "더운 날씨예요"
-          ]
+          "output": ["게임 오버..."]
         },
-        "tip": "`=`는 저장, `==`는 비교예요. if 조건에는 `==`를 써야 해요."
+        "tip": "else는 if와 같은 들여쓰기 위치에 써요. else: 다음도 콜론 필수!"
       },
       {
         "order": 4,
-        "text": "변수의 값을 조건으로 사용할 수 있어요.\n조건이 참인지 거짓인지에 따라 다른 코드가 실행돼요.",
+        "text": "조건식은 True 또는 False로 결과가 나오는 표현이에요.\n예를 들어 10 > 5는 True, 10 < 5는 False예요.",
         "terminal": {
           "code": [
-            "age = 18",
-            "if age >= 19:",
-            "    print('성인입니다')",
+            "lv = 5",
+            "if lv >= 10:",
+            "    print('보스 도전 가능!')",
             "else:",
-            "    print('미성년자입니다')"
+            "    print(f'레벨 {10 - lv}가 더 필요해요.')"
           ],
-          "output": [
-            "미성년자입니다"
-          ]
+          "output": ["레벨 5가 더 필요해요."]
         },
-        "tip": "조건식은 항상 True 또는 False 중 하나의 값을 가져요."
+        "tip": "f-string 안에 계산식도 넣을 수 있어요. {10 - lv}처럼요."
       },
       {
         "order": 5,
-        "text": "if-else로 실용적인 판단 로직을 만들 수 있어요.\n변수에 따라 다른 메시지를 출력하거나 다른 동작을 수행해요.",
+        "text": "정리: if는 조건이 참일 때만 실행, else는 조건이 거짓일 때 실행이에요.\n이 둘이 합쳐지면 '갈림길'처럼 코드 흐름이 나뉘어요.",
         "terminal": {
           "code": [
-            "rainfall = 5",
-            "if rainfall > 0:",
-            "    print('우산을 챙기세요')",
+            "xp = 1500",
+            "if xp >= 2000:",
+            "    print('레벨업!')",
             "else:",
-            "    print('맑은 날씨예요')"
+            "    print(f'XP {2000 - xp}개 더 모으면 레벨업!')"
           ],
-          "output": [
-            "우산을 챙기세요"
-          ]
+          "output": ["XP 500개 더 모으면 레벨업!"]
         },
-        "tip": "if-else는 두 가지 상황 중 하나를 처리할 때 써요. 세 가지 이상은 elif를 사용해요."
+        "tip": "if와 else는 항상 짝으로 쓰지 않아도 돼요. if만 써도 괜찮아요!"
       }
     ]
   },
@@ -102,105 +87,94 @@
     "slides": [
       {
         "order": 1,
-        "text": "세 가지 이상의 경우를 처리할 때 elif를 사용해요.\nif-elif-else 구조는 위에서 아래로 조건을 검사하고 처음으로 True인 블록 하나만 실행해요.",
+        "text": "조건이 세 개 이상일 때는 elif를 써요.\n'else if'의 줄임말로, '앞 조건이 아닌데, 혹시 이건?'이라는 뜻이에요.",
         "terminal": {
           "code": [
-            "score = 75",
-            "if score >= 90:",
+            "grade = 75",
+            "if grade >= 90:",
             "    print('A')",
-            "elif score >= 80:",
+            "elif grade >= 80:",
             "    print('B')",
-            "elif score >= 70:",
+            "elif grade >= 70:",
             "    print('C')",
             "else:",
-            "    print('F')"
+            "    print('D')"
           ],
-          "output": [
-            "C"
-          ]
+          "output": ["C"]
         },
-        "tip": "elif는 else if의 줄임말이에요. 위 조건이 False일 때만 검사해요."
+        "tip": "elif는 if와 else 사이에만 쓸 수 있어요."
       },
       {
         "order": 2,
-        "text": "if-elif-else는 위에서 아래로 순서대로 조건을 검사해요.\n처음으로 True인 블록만 실행되고 나머지는 건너뛰어요.",
+        "text": "파이썬은 위에서 아래로 조건을 하나씩 확인해요.\n처음으로 True가 되는 블록만 실행하고, 나머지는 무시해요.",
         "terminal": {
           "code": [
-            "hour = 14",
-            "if hour < 12:",
-            "    print('오전')",
-            "elif hour < 18:",
-            "    print('오후')",
-            "else:",
-            "    print('저녁')"
+            "lv = 15",
+            "if lv >= 20:",
+            "    print('고급 스테이지 해금!')",
+            "elif lv >= 10:",
+            "    print('중급 스테이지 해금!')  # 여기서 멈춰요",
+            "elif lv >= 1:",
+            "    print('초급 스테이지 해금!')"
           ],
-          "output": [
-            "오후"
-          ]
+          "output": ["중급 스테이지 해금!"]
         },
-        "tip": "먼저 True가 된 블록이 실행되면 나머지 elif, else는 건너뛰어요."
+        "tip": "조건 순서가 중요해요! 넓은 범위를 위에 두면 아래 조건이 실행 안 될 수 있어요."
       },
       {
         "order": 3,
-        "text": "elif는 여러 개를 연속으로 사용할 수 있어요.\n더 많은 경우의 수를 처리할 수 있어요.",
+        "text": "elif는 몇 개든 이어 붙일 수 있어요.\n게임의 난이도 설정처럼, 여러 단계를 구분할 때 유용해요.",
         "terminal": {
           "code": [
-            "month = 7",
-            "if month in [3, 4, 5]:",
-            "    print('봄')",
-            "elif month in [6, 7, 8]:",
-            "    print('여름')",
-            "elif month in [9, 10, 11]:",
-            "    print('가을')",
+            "boss_hp = 600",
+            "if boss_hp >= 800:",
+            "    print('보스: 건재하다!')",
+            "elif boss_hp >= 500:",
+            "    print('보스: 조금 흔들렸다!')",
+            "elif boss_hp >= 200:",
+            "    print('보스: 위험하다!')",
             "else:",
-            "    print('겨울')"
+            "    print('보스: 쓰러졌다!')"
           ],
-          "output": [
-            "여름"
-          ]
+          "output": ["보스: 조금 흔들렸다!"]
         },
-        "tip": "elif 개수 제한은 없어요. 필요한 만큼 사용할 수 있어요."
+        "tip": "else는 선택 사항이에요. else 없이 elif로 끝내도 돼요."
       },
       {
         "order": 4,
-        "text": "elif는 조건 순서가 중요해요. 넓은 범위를 먼저 쓰면 의도대로 동작하지 않아요.\n좁은 범위(더 엄격한 조건)를 먼저 쓰는 게 좋아요.",
+        "text": "if → elif → else 구조를 '다중 분기'라고 해요.\n딱 하나의 경우만 실행된다는 점을 기억하세요.",
         "terminal": {
           "code": [
-            "score = 95",
-            "# 올바른 순서 (좁은 범위 먼저)",
-            "if score >= 90:",
-            "    print('A')",
-            "elif score >= 80:",
-            "    print('B')",
+            "crown = 3",
+            "if crown >= 10:",
+            "    print('골드 왕관!')",
+            "elif crown >= 5:",
+            "    print('실버 왕관!')",
+            "elif crown >= 1:",
+            "    print('브론즈 왕관!')",
             "else:",
-            "    print('C 이하')"
+            "    print('왕관 없음')"
           ],
-          "output": [
-            "A"
-          ]
+          "output": ["브론즈 왕관!"]
         },
-        "tip": "조건을 위에서 아래로 검사하므로 더 엄격한(좁은) 조건을 먼저 써야 해요."
+        "tip": "crown이 3이라 >= 10도, >= 5도 아니지만 >= 1은 True라서 브론즈가 나와요."
       },
       {
         "order": 5,
-        "text": "else 없이 if-elif만 사용할 수 있어요.\n모든 조건이 False면 아무것도 실행되지 않아요.",
+        "text": "정리: elif는 앞의 if가 False일 때만 확인해요.\nif / elif / else는 순서대로 위에서 한 번씩만 체크해요.",
         "terminal": {
           "code": [
-            "score = 50",
-            "if score >= 90:",
-            "    print('A')",
-            "elif score >= 80:",
-            "    print('B')",
-            "elif score >= 70:",
-            "    print('C')",
-            "# 50점은 어느 조건도 해당 안 됨",
-            "print('채점 완료')"
+            "time = 14",
+            "if time < 12:",
+            "    print('오전이에요')",
+            "elif time < 18:",
+            "    print('오후예요')  # 12 <= 14 < 18 이므로 실행",
+            "else:",
+            "    print('저녁이에요')"
           ],
-          "output": [
-            "채점 완료"
-          ]
+          "output": ["오후예요"]
         },
-        "tip": "else가 없으면 모든 조건이 False일 때 아무것도 실행되지 않아요."
+        "tip": "elif 없이 if를 여러 개 쓰면 모든 조건을 각각 독립적으로 확인해요. 다른 동작이에요!"
       }
     ]
   },
@@ -214,100 +188,77 @@
     "slides": [
       {
         "order": 1,
-        "text": "비교 연산자는 두 값을 비교해서 True 또는 False를 반환해요.\nif문의 조건식에 가장 많이 사용돼요.",
+        "text": "비교 연산자는 두 값을 비교해서 True 또는 False를 돌려줘요.\nif 안의 조건식은 주로 비교 연산자로 만들어요.",
         "terminal": {
           "code": [
-            "x = 10",
-            "print(x > 5)",
-            "print(x < 5)",
-            "print(x == 10)"
+            "print(10 > 5)   # True",
+            "print(10 < 5)   # False",
+            "print(10 == 10) # True"
           ],
-          "output": [
-            "True",
-            "False",
-            "True"
-          ]
+          "output": ["True", "False", "True"]
         },
-        "tip": "비교 연산자의 결과는 항상 True 또는 False예요."
+        "tip": "== 는 '같다', = 는 '저장'이에요. 헷갈리기 쉬우니 주의!"
       },
       {
         "order": 2,
-        "text": "`==`는 두 값이 같으면 True, 다르면 False를 반환해요.\n`!=`는 두 값이 다르면 True, 같으면 False를 반환해요.",
+        "text": "자주 쓰는 비교 연산자 6가지를 정리할게요.\n== (같다) / != (다르다) / > (크다) / < (작다) / >= (크거나 같다) / <= (작거나 같다)",
         "terminal": {
           "code": [
-            "name = '김철수'",
-            "print(name == '김철수')",
-            "print(name == '이영희')",
-            "print(name != '이영희')"
+            "hp = 100",
+            "print(hp == 100)  # True: 정확히 100",
+            "print(hp != 50)   # True: 50이 아님",
+            "print(hp >= 100)  # True: 100 이상"
           ],
-          "output": [
-            "True",
-            "False",
-            "True"
-          ]
+          "output": ["True", "True", "True"]
         },
-        "tip": "`!=`는 not equal의 줄임말이에요. `==`의 반대예요."
+        "tip": ">= 와 <= 에서 = 는 항상 > 또는 < 뒤에 와요. => 라고 쓰면 오류!"
       },
       {
         "order": 3,
-        "text": "`>`는 왼쪽이 크면 True, `<`는 왼쪽이 작으면 True예요.\n두 값이 같으면 `>`, `<` 모두 False예요.",
+        "text": "문자열도 비교할 수 있어요.\n== 으로 같은지 확인하고, != 으로 다른지 확인해요.",
         "terminal": {
           "code": [
-            "a = 5",
-            "b = 10",
-            "print(a > b)",
-            "print(a < b)",
-            "print(a > a)"
+            "level = 'beginner'",
+            "if level == 'beginner':",
+            "    print('초급 커리큘럼 시작!')",
+            "else:",
+            "    print('상급 커리큘럼 시작!')"
           ],
-          "output": [
-            "False",
-            "True",
-            "False"
-          ]
+          "output": ["초급 커리큘럼 시작!"]
         },
-        "tip": "`>`와 `<`는 같을 때 False예요. 같을 때도 포함하려면 `>=`, `<=`를 써요."
+        "tip": "문자열 비교는 대소문자를 구분해요. 'Beginner' != 'beginner'"
       },
       {
         "order": 4,
-        "text": "`>=`는 왼쪽이 크거나 같으면 True예요.\n`<=`는 왼쪽이 작거나 같으면 True예요.",
+        "text": "비교 결과를 변수에 저장해서 쓸 수도 있어요.\nTrue/False를 담는 변수를 '불리언 변수'라고 해요.",
         "terminal": {
           "code": [
-            "score = 80",
-            "print(score >= 80)",
-            "print(score <= 79)",
-            "print(score >= 81)"
+            "score = 85",
+            "passed = score >= 80",
+            "print(passed)     # True",
+            "if passed:",
+            "    print('통과!')"
           ],
-          "output": [
-            "True",
-            "False",
-            "False"
-          ]
+          "output": ["True", "통과!"]
         },
-        "tip": "경계값 포함 여부가 중요해요. 80 이상이면 `>= 80`, 80 초과이면 `> 80`이에요."
+        "tip": "if passed: 처럼 불리언 변수를 직접 조건으로 쓸 수 있어요."
       },
       {
         "order": 5,
-        "text": "6가지 비교 연산자를 정리해요.\n조건에 따라 올바른 연산자를 선택하는 게 중요해요.",
+        "text": "정리: 비교 연산자는 항상 True 또는 False를 반환해요.\nif 조건 자리에 어떤 비교 표현이든 쓸 수 있어요.",
         "terminal": {
           "code": [
-            "x = 5",
-            "print(x == 5)   # 같다",
-            "print(x != 3)   # 같지 않다",
-            "print(x > 3)    # 크다",
-            "print(x < 10)   # 작다",
-            "print(x >= 5)   # 크거나 같다",
-            "print(x <= 5)   # 작거나 같다"
+            "attempts = 3",
+            "if attempts == 0:",
+            "    print('도전 횟수가 없어요')",
+            "elif attempts <= 2:",
+            "    print('도전 가능!')",
+            "else:",
+            "    print(f'오늘 {attempts}번 도전했어요')"
           ],
-          "output": [
-            "True",
-            "True",
-            "True",
-            "True",
-            "True",
-            "True"
-          ]
+          "output": ["오늘 3번 도전했어요"]
         },
-        "tip": "6가지 비교 연산자: == != > < >= <=. 조건에 맞는 연산자를 선택해요."
+        "tip": "== 0 대신 not attempts 라고도 쓸 수 있어요. (0은 False로 처리되거든요)"
       }
     ]
   },
@@ -321,94 +272,81 @@
     "slides": [
       {
         "order": 1,
-        "text": "`and`는 두 조건이 모두 True일 때만 True를 반환해요.\n하나라도 False면 결과는 False예요.",
+        "text": "조건 두 개를 동시에 확인하려면 논리 연산자를 써요.\nand(그리고) / or(또는) / not(아니다) 세 가지예요.",
         "terminal": {
           "code": [
-            "age = 20",
-            "score = 85",
-            "if age >= 19 and score >= 80:",
-            "    print('성인이고 우수 성적')",
-            "else:",
-            "    print('조건 미달')"
+            "hp = 80",
+            "mp = 30",
+            "if hp > 50 and mp > 20:",
+            "    print('마법 공격 가능!')"
           ],
-          "output": [
-            "성인이고 우수 성적"
-          ]
+          "output": ["마법 공격 가능!"]
         },
-        "tip": "`and`는 두 조건이 모두 참일 때만 True예요. 하나라도 거짓이면 False예요."
+        "tip": "and는 두 조건 모두 True일 때만 True예요."
       },
       {
         "order": 2,
-        "text": "`or`는 두 조건 중 하나라도 True면 True를 반환해요.\n둘 다 False일 때만 False예요.",
+        "text": "and는 '그리고' — 두 조건이 모두 True여야 실행돼요.\nor는 '또는' — 하나라도 True면 실행돼요.",
         "terminal": {
           "code": [
-            "subject = '수학'",
-            "if subject == '국어' or subject == '수학':",
-            "    print('주요 과목')",
-            "else:",
-            "    print('기타 과목')"
+            "crown = 0",
+            "streak = 8",
+            "# 왕관이 있거나 스트릭 7일 이상이면 보스 도전 가능",
+            "if crown > 0 or streak >= 7:",
+            "    print('보스 도전 가능!')"
           ],
-          "output": [
-            "주요 과목"
-          ]
+          "output": ["보스 도전 가능!"]
         },
-        "tip": "`or`는 하나라도 참이면 True예요. 둘 다 거짓이어야 False예요."
+        "tip": "crown이 0이라 첫 조건은 False지만, streak >= 7이 True라서 or는 True예요."
       },
       {
         "order": 3,
-        "text": "`not`은 True를 False로, False를 True로 뒤집어요.\n하나의 조건에 사용해요.",
+        "text": "not은 True를 False로, False를 True로 뒤집어요.\n'~가 아니라면'이라는 조건을 만들 때 써요.",
         "terminal": {
           "code": [
-            "logged_in = False",
-            "if not logged_in:",
-            "    print('로그인이 필요해요')",
+            "is_logged_in = False",
+            "if not is_logged_in:",
+            "    print('로그인이 필요해요!')",
             "else:",
-            "    print('환영해요!')"
+            "    print('환영합니다!')"
           ],
-          "output": [
-            "로그인이 필요해요"
-          ]
+          "output": ["로그인이 필요해요!"]
         },
-        "tip": "`not True`→False, `not False`→True예요. 조건을 반대로 만들 때 사용해요."
+        "tip": "not is_logged_in 은 is_logged_in == False 와 같은 의미예요."
       },
       {
         "order": 4,
-        "text": "and와 or의 결과를 정리해요.",
+        "text": "논리 연산자를 여러 개 섞어 쓸 수도 있어요.\n괄호로 묶으면 어느 부분이 먼저 계산되는지 명확해져요.",
         "terminal": {
           "code": [
-            "print(True and True)",
-            "print(True and False)",
-            "print(False and False)",
-            "print(True or False)",
-            "print(False or False)"
+            "lv = 12",
+            "boss_cleared = True",
+            "if lv >= 10 and boss_cleared:",
+            "    print('중급 해금!')",
+            "if lv < 5 or not boss_cleared:",
+            "    print('아직 초급이에요')"
           ],
-          "output": [
-            "True",
-            "False",
-            "False",
-            "True",
-            "False"
-          ]
+          "output": ["중급 해금!"]
         },
-        "tip": "and는 모두 True일 때만 True. or은 하나라도 True면 True예요."
+        "tip": "두 번째 if(lv < 5 or not boss_cleared)는 False라서 아무것도 출력 안 해요. and가 or보다 먼저 계산돼요. 헷갈리면 괄호로 명확하게 써주세요."
       },
       {
         "order": 5,
-        "text": "and, or, not을 함께 사용해 복잡한 조건을 만들 수 있어요.",
+        "text": "정리: and는 둘 다 True, or는 하나라도 True, not은 반전이에요.\n복잡한 현실 조건을 코드로 표현할 때 꼭 필요해요.",
         "terminal": {
           "code": [
-            "age = 25",
-            "has_ticket = True",
-            "if age >= 19 and has_ticket:",
-            "    print('입장 가능')",
-            "elif age < 19 or not has_ticket:",
-            "    print('입장 불가')"
+            "xp = 3000",
+            "lv = 3",
+            "has_crown = False",
+            "# 레벨 5 이상이고, (XP 2000 이상이거나 왕관 있음)",
+            "if lv >= 5 and (xp >= 2000 or has_crown):",
+            "    print('특별 이벤트 참여 가능!')",
+            "else:",
+            "    print('조건 미충족')"
           ],
-          "output": [
-            "입장 가능"
-          ]
+          "output": ["조건 미충족"]
         },
-        "tip": "복잡한 조건을 괄호로 묶으면 우선순위를 명확히 할 수 있어요."
+        "tip": "lv >= 5가 False라서 and 뒤는 아예 확인 안 해요. 이걸 '단락 평가(short-circuit)'라고 해요."
       }
     ]
   },
@@ -422,112 +360,205 @@
     "slides": [
       {
         "order": 1,
-        "text": "if 블록 안에 또 다른 if문을 넣을 수 있어요.\n이를 중첩 if(nested if)라고 해요.\n들여쓰기 레벨로 구분해요.",
+        "text": "if 안에 또 if를 넣는 걸 '중첩 조건문'이라고 해요.\n마치 문을 열면 또 다른 문이 나오는 구조예요.",
         "terminal": {
           "code": [
-            "age = 20",
-            "score = 85",
-            "if age >= 19:",
-            "    if score >= 80:",
-            "        print('성인이고 우수')",
+            "lv = 8",
+            "if lv >= 5:",
+            "    print('중간 이상 레벨!')",
+            "    if lv >= 10:",
+            "        print('보스 도전 가능!')",
             "    else:",
-            "        print('성인이지만 보통')",
-            "else:",
-            "    print('미성년')"
+            "        print('조금 더 키워요.')"
           ],
-          "output": [
-            "성인이고 우수"
-          ]
+          "output": ["중간 이상 레벨!", "조금 더 키워요."]
         },
-        "tip": "중첩 if는 들여쓰기 레벨이 달라요. 바깥 if는 4칸, 안쪽 if는 8칸이에요."
+        "tip": "안쪽 if는 바깥 if보다 들여쓰기를 4칸 더 해야 해요."
       },
       {
         "order": 2,
-        "text": "바깥 if가 True일 때만 안쪽 if가 실행돼요.\n바깥 if가 False이면 안쪽 if 전체를 건너뛰어요.",
+        "text": "중첩 조건문은 '큰 기준'을 먼저 확인하고, '세부 기준'은 안에서 확인할 때 써요.\n예: 먼저 로그인 여부 확인 → 로그인했으면 레벨 확인",
         "terminal": {
           "code": [
             "is_member = True",
-            "discount = 0",
+            "crown = 5",
             "if is_member:",
-            "    if discount > 0:",
-            "        print('회원 할인 적용')",
+            "    if crown >= 3:",
+            "        print('보스 재도전 가능!')",
             "    else:",
-            "        print('기본 회원 가격')",
+            "        print('왕관이 부족해요')",
             "else:",
-            "    print('비회원 가격')"
+            "    print('로그인이 필요해요')"
           ],
-          "output": [
-            "기본 회원 가격"
-          ]
+          "output": ["보스 재도전 가능!"]
         },
-        "tip": "바깥 if가 True여야 안쪽 if를 검사해요. 바깥이 False면 안쪽 전체를 건너뛰어요."
+        "tip": "is_member가 False면 안쪽 if는 아예 실행되지 않아요."
       },
       {
         "order": 3,
-        "text": "중첩 if는 and를 사용해 하나의 if로 합칠 수 있어요.\n코드가 더 간결해져요.",
+        "text": "중첩이 깊어질수록 들여쓰기가 많아져요.\n보통 2단계(중첩 1번)까지가 읽기 편한 한계예요.",
         "terminal": {
           "code": [
-            "age = 20",
-            "score = 85",
-            "# 중첩 if",
-            "if age >= 19:",
+            "stage = '3-5'",
+            "score = 90",
+            "if stage == '3-5':",
             "    if score >= 80:",
-            "        print('조건 충족')",
-            "# and로 합치기",
-            "if age >= 19 and score >= 80:",
-            "    print('조건 충족')"
+            "        if score == 100:",
+            "            print('퍼펙트!')",
+            "        else:",
+            "            print('통과!')",
+            "    else:",
+            "        print('재도전')"
           ],
-          "output": [
-            "조건 충족",
-            "조건 충족"
-          ]
+          "output": ["통과!"]
         },
-        "tip": "두 조건이 모두 True여야 할 때는 중첩 if보다 and가 더 간결해요."
+        "tip": "3단계 이상 중첩은 and로 합칠 수 있는지 먼저 고민해봐요."
       },
       {
         "order": 4,
-        "text": "if를 여러 단계로 중첩할 수 있어요.\n하지만 너무 깊은 중첩은 코드를 읽기 어렵게 해요.",
+        "text": "중첩 대신 and로 합치면 코드가 더 깔끔해질 수 있어요.\n가독성이 좋은 쪽을 선택하는 게 중요해요.",
         "terminal": {
           "code": [
-            "country = '한국'",
-            "city = '서울'",
-            "district = '강남'",
-            "if country == '한국':",
-            "    if city == '서울':",
-            "        if district == '강남':",
-            "            print('강남구')",
-            "        else:",
-            "            print('서울 다른 구')",
-            "    else:",
-            "        print('한국 다른 도시')"
+            "# 중첩 버전",
+            "lv = 7",
+            "if lv >= 5:",
+            "    if lv < 10:",
+            "        print('중간 구간')",
+            "",
+            "# and 버전 (더 간결)",
+            "if lv >= 5 and lv < 10:",
+            "    print('중간 구간')"
           ],
-          "output": [
-            "강남구"
-          ]
+          "output": ["중간 구간", "중간 구간"]
         },
-        "tip": "중첩이 깊어지면 and를 활용하거나 함수로 분리하는 게 좋아요."
+        "tip": "두 조건이 모두 True여야 할 때는 and가 중첩보다 읽기 쉬워요."
       },
       {
         "order": 5,
-        "text": "중첩 if는 내부 조건에 따라 다른 처리가 필요할 때 유용해요.\nand는 단순히 두 조건이 모두 True여야 할 때 더 간결해요.",
+        "text": "정리: 중첩 조건문은 단계별로 조건을 확인할 때 써요.\n들여쓰기 깊이로 어느 if에 속하는지 결정되니 꼭 주의하세요.",
         "terminal": {
           "code": [
-            "age = 25",
-            "score = 65",
-            "# 중첩 if: 내부에서 다른 처리",
-            "if age >= 19:",
-            "    if score >= 80:",
-            "        print('성인 우수')",
-            "    else:",
-            "        print('성인 보통')",
+            "user_type = 'vip'",
+            "daily_attempts = 1",
+            "if user_type == 'vip':",
+            "    print('VIP 유저')",
+            "    if daily_attempts < 3:",
+            "        print('오늘 더 도전할 수 있어요!')",
             "else:",
-            "    print('미성년')"
+            "    print('일반 유저: 하루 2번 무료')"
           ],
-          "output": [
-            "성인 보통"
-          ]
+          "output": ["VIP 유저", "오늘 더 도전할 수 있어요!"]
         },
-        "tip": "안쪽 조건에 따라 처리가 다를 때는 중첩 if, 단순히 모두 True일 때는 and를 써요."
+        "tip": "else는 자신과 들여쓰기 레벨이 같은 if와 짝이에요. 짝이 다른 if와 연결되지 않아요!"
+      }
+    ]
+  },
+  {
+    "lesson_id": "3-6-beginner",
+    "unit": 3,
+    "stage": "3-6",
+    "course_level": "beginner",
+    "title": "조건문 종합실습",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "이번 스테이지는 if / elif / else / 비교 연산자 / 논리 연산자를 함께 써요.\n실제로 게임에서 쓸 법한 조건 로직을 짜볼 거예요.",
+        "terminal": {
+          "code": [
+            "xp = 4500",
+            "lv = 4",
+            "if xp >= lv * 1000:",
+            "    lv += 1",
+            "    print(f'레벨업! 현재 레벨: {lv}')",
+            "else:",
+            "    print(f'XP {lv * 1000 - xp}개 더 필요해요')"
+          ],
+          "output": ["레벨업! 현재 레벨: 5"]
+        },
+        "tip": "lv * 1000은 레벨업에 필요한 XP예요. lv가 4면 4000 XP 필요!"
+      },
+      {
+        "order": 2,
+        "text": "여러 조건을 결합해서 게임 상태를 판단해봐요.\n실제 에이몬의 보스 도전 조건과 비슷한 구조예요.",
+        "terminal": {
+          "code": [
+            "stage_clear = True",
+            "daily_free = 2",
+            "crown = 0",
+            "if not stage_clear:",
+            "    print('스테이지를 먼저 클리어하세요')",
+            "elif daily_free > 0:",
+            "    print(f'무료 도전 {daily_free}회 남음. 보스 도전!')",
+            "elif crown > 0:",
+            "    print('왕관 1개 사용. 보스 도전!')",
+            "else:",
+            "    print('왕관이 부족합니다')"
+          ],
+          "output": ["무료 도전 2회 남음. 보스 도전!"]
+        },
+        "tip": "not stage_clear가 False라서 첫 elif로 넘어가요."
+      },
+      {
+        "order": 3,
+        "text": "점수에 따라 등급을 매기는 로직도 조건문으로 만들 수 있어요.\nUnit 8 성적 계산기 미니 프로젝트의 핵심이에요!",
+        "terminal": {
+          "code": [
+            "scores = [95, 72, 88, 55, 100]",
+            "for s in scores:",
+            "    if s >= 90:",
+            "        grade = 'A'",
+            "    elif s >= 80:",
+            "        grade = 'B'",
+            "    elif s >= 70:",
+            "        grade = 'C'",
+            "    else:",
+            "        grade = 'F'",
+            "    print(f'{s}점 → {grade}등급')"
+          ],
+          "output": ["95점 → A등급", "72점 → C등급", "88점 → B등급", "55점 → F등급", "100점 → A등급"]
+        },
+        "tip": "for 반복문과 조건문을 함께 쓰면 여러 값을 한 번에 처리할 수 있어요. (반복문은 Unit 4에서 배워요!)"
+      },
+      {
+        "order": 4,
+        "text": "중첩 조건문 + 논리 연산자를 같이 쓰면 복잡한 규칙도 표현할 수 있어요.",
+        "terminal": {
+          "code": [
+            "lv = 9",
+            "boss_cleared = False",
+            "if lv >= 10:",
+            "    if boss_cleared:",
+            "        print('다음 유닛 해금!')",
+            "    else:",
+            "        print('보스를 먼저 클리어하세요!')",
+            "else:",
+            "    remain = 10 - lv",
+            "    print(f'레벨 {remain} 더 올리세요')"
+          ],
+          "output": ["레벨 1 더 올리세요"]
+        },
+        "tip": "lv가 9라서 바깥 else 블록이 실행돼요. 안쪽 if는 아예 확인하지 않아요."
+      },
+      {
+        "order": 5,
+        "text": "Unit 3 전체 정리! 조건문은 프로그램에 '판단력'을 줘요.\n다음 유닛(반복문)에서는 같은 코드를 여러 번 실행하는 법을 배울 거예요.",
+        "terminal": {
+          "code": [
+            "# 에이몬 상태 종합 체크",
+            "lv = 7",
+            "xp = 3200",
+            "crown = 2",
+            "if lv >= 10 and crown >= 1:",
+            "    print('보스 도전 완전 준비!')",
+            "elif lv >= 5 and xp >= 3000:",
+            "    print('성장 중! 조금만 더!')",
+            "else:",
+            "    print('계속 학습이 필요해요')"
+          ],
+          "output": ["성장 중! 조금만 더!"]
+        },
+        "tip": "조건문 실력이 늘수록 더 정교한 게임 로직을 짤 수 있어요. 잘 했어요!"
       }
     ]
   }
