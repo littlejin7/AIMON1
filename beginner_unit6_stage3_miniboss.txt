@@ -1,0 +1,177 @@
+type: miniboss
+level: beginner
+unit: 6
+stage: 6-3
+stage_title: return 반환값
+villain: interferencemon
+pass_score: 70
+
+--- Q01 | easy | multiple_choice ---
+question_id: miniboss_beg_mc_6_3_001
+question: 함수의 결과를 함수 밖으로 돌려주고 전달하여 외부 코드에서 재사용할 수 있도록 만들어주는 키워드는 무엇인가요?
+choices:
+  A. return
+  B. save
+  C. print
+  D. output
+answer: A
+explanation: `return` 키워드는 함수의 결과값을 함수 바깥으로 반환하고 넘겨주는 역할을 수행합니다.
+feedback.correct: 정답입니다! 함수 자판기에 돈을 넣었을 때 음료수가 나오는 것처럼 최종 산출물을 뱉어주는 키워드예요.
+
+--- Q02 | easy | multiple_choice ---
+question_id: miniboss_beg_mc_6_3_002
+question: 함수 내부에서 `return` 문이 작동할 때 일어나는 현상으로 옳지 않은 것은 무엇인가요?
+choices:
+  A. 지정된 값이 함수 외부로 전달된다.
+  B. 함수가 종료되지 않고 다음 줄의 코드를 계속 실행한다.
+  C. 함수는 그 즉시 마침표를 찍고 끝난다.
+  D. 조건문과 결합하면 한 함수 내에 여러 개의 return문을 배치할 수 있다.
+answer: B
+explanation: `return`을 만나면 함수는 자신의 사명을 다한 것이므로 그 즉시 강제 종료되어 밖으로 튕겨 나갑니다. 다음 줄이 있어도 실행하지 않습니다.
+feedback.correct: 정답입니다! return은 값을 반환하는 기능뿐 아니라 함수를 즉시 끝내는 탈출구 역할도 겸하고 있어요.
+
+--- Q03 | medium | output_select ---
+question_id: miniboss_beg_os_6_3_003
+question: 다음 코드를 실행했을 때 변수 ans에 담기는 최종 데이터는 무엇인가요?
+code: |
+  def multiply(a, b):
+      return a * b
+
+  ans = multiply(3, 5)
+choices:
+  A. multiply(3, 5)
+  B. 3
+  C. 15
+  D. 5
+answer: C
+explanation: `multiply(3, 5)`를 실행하면 `3 * 5`의 결과인 15가 `return`됩니다. 이 반환된 값 15가 대입 연산자(=)를 통해 `ans`에 저장됩니다.
+feedback.correct: 정답입니다! return으로 돌려준 값이 변수에 아름답게 안착했습니다.
+
+--- Q04 | medium | output_select ---
+question_id: miniboss_beg_os_6_3_004
+question: 다음 코드의 실행 화면에 출력되는 텍스트를 골라보세요.
+code: |
+  def get_message():
+      return "진화 완료!"
+      print("축하합니다!")
+
+  print(get_message())
+choices:
+  A. 진화 완료!\n축하합니다!
+  B. 축하합니다!\n진화 완료!
+  C. 축하합니다!
+  D. 진화 완료!
+answer: D
+explanation: `return "진화 완료!"`가 실행되는 순간 함수가 완벽히 종료되므로 아래에 있는 `print("축하합니다!")` 구문은 영원히 닿을 수 없는 유령 코드(Dead Code)가 됩니다. 따라서 반환된 값인 "진화 완료!"만 맨 밑의 print에 의해 출력됩니다.
+feedback.correct: 정답입니다! return 아래에 있는 코드는 절대 건드려지지 않고 함수가 닫힙니다.
+
+--- Q05 | medium | output_select ---
+question_id: miniboss_beg_os_6_3_005
+question: 다음 코드를 실행했을 때 최종적으로 출력되는 값은 무엇인가요?
+code: |
+  def test():
+      print("출력")
+
+  result = test()
+  print(result)
+choices:
+  A. 출력\nNone
+  B. 출력
+  C. None
+  D. 에러 발생
+answer: A
+explanation: `test()`를 실행하는 과정에서 함수 내부의 `print("출력")`이 먼저 찍힙니다. 그러나 함수에 `return`이 명시되어 있지 않으므로 `result` 변수에는 파이썬의 기본 빈 값인 `None`이 들어옵니다. 그 후 `print(result)`에 의해 `None`이 출력됩니다.
+feedback.correct: 정답입니다! return이 없으면 함수는 일을 다 하고 돌아올 때 빈손(`None`)으로 돌아와요.
+
+--- Q06 | medium | output_select ---
+question_id: miniboss_beg_os_6_3_006
+question: 다음 코드의 출력 결과를 알맞게 고르세요.
+code: |
+  def is_positive(num):
+      if num > 0:
+          return "양수"
+      else:
+          return "음수 또는 0"
+
+  print(is_positive(-5))
+choices:
+  A. 양수
+  B. 음수 또는 0
+  C. 양수\n음수 또는 0
+  D. -5
+answer: B
+explanation: `-5`는 0보다 크지 않으므로 `else` 분기로 진입하여 `"음수 또는 0"`을 리턴하게 됩니다.
+feedback.correct: 정답입니다! 조건에 따라 함수 내에서 서로 다른 return문이 작동하도록 분기 처리를 구현할 수 있습니다.
+
+--- Q07 | hard | multiple_choice ---
+question_id: miniboss_beg_mc_6_3_007
+question: 파이썬에서 하나의 함수가 실행을 마칠 때 동시에 보낼 수 있는 '실제 return 값의 개수'에 대한 진실은 무엇인가요?
+choices:
+  A. 콤마로 여러 값을 나열하면 에러가 나서 절대 실행할 수 없다.
+  B. return 1, 2, 3처럼 쓰면 물리적으로 완벽히 분리된 3개의 값을 따로 반환한다.
+  C. 파이썬 함수는 한 번에 언제나 무조건 단 1개의 객체(값)만 반환한다.
+  D. return은 값을 보낼 수 없고 오직 함수를 끝내는 일만 수행한다.
+answer: C
+explanation: 파이썬에서 `return 1, 2, 3`과 같이 콤마로 여러 값을 엮어 반환하면, 파이썬은 내부적으로 이를 하나의 '튜플(Tuple)' 자료형 패킹으로 묶어서 결국 하나의 객체로 리턴합니다. 원칙적으로 리턴값은 늘 1개입니다.
+feedback.correct: 정답입니다! 여러 개를 돌려주는 것처럼 보여도 실상은 튜플이라는 상자 하나에 담아서 보내는 것이랍니다.
+
+--- Q08 | hard | output_select ---
+question_id: miniboss_beg_os_6_3_008
+question: 다음 코드를 실행했을 때 변수 data의 자료형(type)은 무엇이 될까요?
+code: |
+  def get_coords():
+      return 10, 20
+
+  data = get_coords()
+choices:
+  A. int
+  B. list
+  C. str
+  D. tuple
+answer: D
+explanation: `return 10, 20`과 같이 값을 나열하면 괄호가 생략된 형태의 튜플 `(10, 20)`이 반환되므로 자료형은 `tuple`이 됩니다.
+feedback.correct: 정답입니다! 파이썬의 비밀 중 하나로, 콤마로 나열된 반환값은 튜플 상자로 포장되어 나갑니다.
+
+--- Q09 | hard | output_select ---
+question_id: miniboss_beg_os_6_3_009
+question: 다음 코드를 실행했을 때 화면에 출력되는 숫자는 무엇인가요?
+code: |
+  def weight_check(w):
+      if w > 100:
+          return 50
+      if w > 50:
+          return 20
+      return 0
+
+  print(weight_check(120))
+choices:
+  A. 50
+  B. 20
+  C. 0
+  D. 70
+answer: A
+explanation: 인수 `120`은 첫 번째 조건인 `120 > 100`을 즉시 만족합니다. 따라서 그 자리에서 바로 `50`을 리턴하며 함수가 끝납니다. 아래에 있는 조건문은 검사조차 하지 않습니다.
+feedback.correct: 정답입니다! 첫 번째 관문을 통과해 return이 발동하는 순간 함수는 미련 없이 짐을 싸서 종료됩니다.
+
+--- Q10 | hard | output_select ---
+question_id: miniboss_beg_os_6_3_010
+question: 다음 코드의 출력 결과를 명확하게 맞추어 보세요.
+code: |
+  def calc(mode, a, b):
+      if mode == "add":
+          return a + b
+      if mode == "mul":
+          return a * b
+
+  print(calc("sub", 4, 2))
+choices:
+  A. 2
+  B. None
+  C. 8
+  D. 6
+answer: B
+explanation: `mode`가 `"sub"`인 상황에 매칭되는 if 조건문이 함수 내부에 전혀 존재하지 않습니다. 모든 조건을 비껴갔고 함수 끝에 도달할 때까지 아무런 return문을 만나지 못했으므로 기본값인 `None`이 리턴됩니다.
+feedback.correct: 정답입니다! 조건에 맞는 return을 하나도 건져 올리지 못하면 결국 빈손(`None`) 처리가 됩니다.
+
+난이도 분포: easy×2 / medium×4 / hard×4
+정답 시퀀스: A B C D A B C D A B

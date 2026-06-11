@@ -1,0 +1,206 @@
+type: miniboss
+level: beginner
+unit: 6
+stage: 6-7
+stage_title: 함수 종합실습
+villain: interferencemon
+pass_score: 70
+
+--- Q01 | easy | multiple_choice ---
+question_id: miniboss_beg_mc_6_7_001
+question: 파이썬 함수에 대하여 수집한 정보 중 절대 진실이 아닌 거짓 명제는 무엇인가요?
+choices:
+  A. 함수 이름을 지을 때는 띄어쓰기 공백을 마음껏 포함해도 된다.
+  B. 함수 내부에 또 다른 함수를 심는 중첩 구조 설계가 가능하다.
+  C. 함수 매개변수에 미리 기본값을 저장하여 유연함을 부여할 수 있다.
+  D. 함수가 일을 끝내고 밖으로 던지는 반환값은 오직 한 개의 객체이다.
+answer: A
+explanation: 함수의 이름은 공백을 가질 수 없습니다. 단어와 단어 사이를 분리하고 싶다면 보통 언더바(_)를 활용하는 스네이크 표기법을 사용합니다.
+feedback.correct: 정답입니다! 함수명 중간에 띄어쓰기 칸을 비워두면 문법 해석 에러가 작렬하게 됩니다.
+
+--- Q02 | easy | multiple_choice ---
+question_id: miniboss_beg_mc_6_7_002
+question: 다음 중 내장 함수가 아닌, 사용자가 `def` 키워드로 직접 개척하여 만든 함수를 통칭하는 이름은 무엇인가요?
+choices:
+  A. 내장 함수 (Built-in Function)
+  B. 사용자 정의 함수 (User-defined Function)
+  C. 시스템 함수 (System Function)
+  D. 자동화 함수 (Automated Function)
+answer: B
+explanation: 개발자가 본인의 목적에 맞게 직접 문법 코드를 짜서 정의한 함수를 사용자 정의 함수라고 일컫습니다.
+feedback.correct: 정답입니다! 우리가 계속 `def`로 제작하고 있는 함수들이 전부 사용자 정의 함수 군단에 속합니다.
+
+--- Q03 | medium | output_select ---
+question_id: miniboss_beg_os_6_7_003
+question: 그동안 배운 지식을 활용하여 다음 복합 연산 코드를 실행했을 때 드러나는 출력 숫자는 무엇일까요?
+code: |
+  def calc_magic(a, b):
+      return (a + b) * 2
+
+  x = calc_magic(3, 4)
+  y = calc_magic(1, 2)
+  print(x - y)
+choices:
+  A. 5
+  B. 14
+  C. 8
+  D. 4
+answer: C
+explanation: `calc_magic(3, 4)`는 `(3 + 4) * 2 = 14`이므로 `x = 14`입니다. `calc_magic(1, 2)`는 `(1 + 2) * 2 = 6`이므로 `y = 6`입니다. 결과적으로 `14 - 6 = 8`이 최하단에서 출력됩니다.
+feedback.correct: 정답입니다! 수식 계산에 함수 호출 결과를 각각 적용하여 대입 연산을 순차적으로 해결했습니다.
+
+--- Q04 | medium | output_select ---
+question_id: miniboss_beg_os_6_7_004
+question: 다음은 문자열의 길이 정보를 변형하여 활용하는 복합 함수입니다. 출력 결과는 무엇인가요?
+code: |
+  def get_size(word):
+      return len(word)
+
+  def multiply_words(text, repeat):
+      length = get_size(text)
+      print(length * repeat)
+
+  multiply_words("Python", 3)
+choices:
+  A. 3
+  B. PythonPythonPython
+  C. 6
+  D. 18
+answer: D
+explanation: `"Python"`의 글자 길이는 6이므로 `get_size("Python")`은 6을 반환하여 `length` 변수에 6이 적립됩니다. 다음 구문에서 `6 * 3`을 출력하게 되므로 정답은 18이 됩니다.
+feedback.correct: 정답입니다! `len()` 내장 함수와 사용자 함수가 서로 얽혀서 최종 숫자 18을 계산해 냈습니다.
+
+--- Q05 | medium | output_select ---
+question_id: miniboss_beg_os_6_7_005
+question: 다음 코드를 수행했을 때 화면에 출력되는 최종 텍스트 라인은 무엇인가요?
+code: |
+  def process_text(item):
+      return item.strip().upper()
+
+  result = process_text("  aimon  ")
+  print(result)
+choices:
+  A. AIMON
+  B.   aimon  
+  C.   AIMON  
+  D. aimon
+answer: A
+explanation: `.strip()` 메서드에 의해 좌우 공백 여백이 완전히 날아가 `"aimon"`이 되고, 연이어 체이닝된 `.upper()`에 의해 대문자로 극적 전환되어 최종적으로 `"AIMON"`이 리턴되어 출력됩니다.
+feedback.correct: 정답입니다! 기존 유닛 2에서 습득한 문자열 처리 메서드 기능도 함수 내부에 심어 하나의 패키지처럼 가동할 수 있습니다.
+
+--- Q06 | medium | output_select ---
+question_id: miniboss_beg_os_6_7_006
+question: 다음 코드의 출력 결과를 틀리지 않고 올바르게 지정해 보세요.
+code: |
+  def check_level(lv):
+      if lv >= 20:
+          return "고수"
+      elif lv >= 10:
+          return "중수"
+      else:
+          return "초보"
+
+  print(check_level(15))
+choices:
+  A. 고수
+  B. 중수
+  C. 초보
+  D. 15
+answer: B
+explanation: 인수 `15`는 첫 번째 조건(15 >= 20)은 거짓이므로 건너뛰고, `elif 15 >= 10` 수렁을 참으로 통과합니다. 따라서 `"중수"`를 즉시 리턴하며 실행이 끝납니다.
+feedback.correct: 정답입니다! 다중 분기 조건 제어 구조문이 함수 본체 스크립트와 아름답게 융합되었습니다.
+
+--- Q07 | hard | output_select ---
+question_id: miniboss_beg_os_6_7_007
+question: 리스트 자료구조 내부 원소들의 총합을 구하는 복합 함수형 제어 코드입니다. 출력 결과를 골라보세요.
+code: |
+  def sum_all_elements(numbers):
+      total = 0
+      for num in numbers:
+          total += num
+      return total
+
+  items = [10, 20, 30]
+  print(sum_all_elements(items))
+choices:
+  A. 10
+  B. 30
+  C. 60
+  D. [10, 20, 30]
+answer: C
+explanation: `sum_all_elements`에 리스트 `[10, 20, 30]`을 넘겨주면, 내부의 `for`문이 돌며 `10 + 20 + 30`을 차근차근 누적 합산하여 `total`에 60을 완성해 밖으로 리턴해줍니다.
+feedback.correct: 정답입니다! 유닛 4, 5에서 핵심적으로 다루었던 리스트 누적 순회 순환 알고리즘이 함수 제어식으로 멋지게 마감되었습니다.
+
+--- Q08 | hard | output_select ---
+question_id: miniboss_beg_os_6_7_008
+question: 다음 코드를 돌렸을 때 반환되어 나오는 최종 출력물은 무엇인가요?
+code: |
+  def filtering_list(words):
+      selected = []
+      for w in words:
+          if len(w) >= 4:
+              selected.append(w)
+      return selected
+
+  sample = ["cat", "tiger", "lion", "dog"]
+  print(filtering_list(sample))
+choices:
+  A. ["cat", "dog"]
+  B. 4
+  C. ["tiger"]
+  D. ["tiger", "lion"]
+answer: D
+explanation: 리스트 원소 중 글자 크기(`len`)가 4글자 이상인 데이터만 걸러내어 새로운 리스트에 적재하는 필터링 기법 함수입니다. `"tiger"`(5글자), `"lion"`(4글자) 두 개만 선별되므로 `['tiger', 'lion']` 리스트가 출력됩니다.
+feedback.correct: 정답입니다! 함수를 활용하면 특정 조건으로 데이터를 감별하여 걸러내는 맞춤형 가공 기계 장치를 직접 설계할 수 있습니다.
+
+--- Q09 | hard | output_select ---
+question_id: miniboss_beg_os_6_7_009
+question: 다음 코드의 최종 결과를 예측하여 보세요.
+code: |
+  def transform(n):
+      if n % 2 == 0:
+          return n * 10
+      return n + 100
+
+  def multi_process(data_list):
+      result = []
+      for item in data_list:
+          result.append(transform(item))
+      return result
+
+  print(multi_process([2, 3]))
+choices:
+  A. [20, 103]
+  B. [2, 103]
+  C. [20, 3]
+  D. [22, 103]
+answer: A
+explanation: `multi_process` 함수는 받은 리스트 요소를 하나씩 꺼내어 다시 다른 전용 함수인 `transform`으로 통과시킵니다. 2는 짝수이므로 `2 * 10 = 20`이 되고, 3은 홀수이므로 `3 + 100 = 103`이 됩니다. 이 가공된 데이터가 모여 `[20, 103]` 리스트 형태로 리턴됩니다.
+feedback.correct: 정답입니다! 하나의 커다란 함수가 자신의 일을 완수하기 위해 세부 전용 함수에게 처리를 위임 배스하는 유기적 협업 실무 코드 패턴입니다.
+
+--- Q10 | hard | output_select ---
+question_id: miniboss_beg_os_6_7_010
+question: 다음 고난이도 종합 실습용 파이썬 구문의 실행 결과는 무엇인가요?
+code: |
+  def add_deco(word):
+      return "***" + word + "***"
+
+  def print_report(title, check=True):
+      if check:
+          final_title = add_deco(title)
+      else:
+          final_title = title
+      print(final_title)
+
+  print_report("에이몬 보스", check=True)
+choices:
+  A. 에이몬 보스
+  B. ***에이몬 보스***
+  C. ***title***
+  D. 에러 발생
+answer: B
+explanation: `print_report` 함수에 `"에이몬 보스"`와 `check=True`를 전달했습니다. `if check:` 조건 관문이 참이 되므로 `add_deco("에이몬 보스")`가 작동하여 양옆에 별표가 붙은 `"***에이몬 보스***"` 문자열이 `final_title`에 이식되어 깨끗하게 출력됩니다.
+feedback.correct: 정답입니다! 함수의 기본값 활용, 분기문, 문자열 가공 기능이 총집대성된 문제였습니다. 유닛 6 코스를 마침내 완벽히 독파하셨습니다!
+
+난이도 분포: easy×2 / medium×4 / hard×4
+정답 시퀀스: A B C D A B C D A B
