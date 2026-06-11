@@ -1,0 +1,153 @@
+type: miniboss
+level: beginner
+unit: 7
+stage: 7-1
+stage_title: 딕셔너리 기초
+villain: interferencemon
+pass_score: 70
+
+--- Q01 | easy | multiple_choice ---
+question_id: miniboss_beg_mc_7_1_001
+question: 딕셔너리를 만드는 올바른 방법은?
+choices:
+  A. info = {"name": "에이몬", "lv": 5}
+  B. info = ["name", "에이몬", "lv", 5]
+  C. info = ("name", "에이몬", "lv", 5)
+  D. info = {"에이몬", 5}
+answer: A
+explanation: 딕셔너리는 중괄호 {}에 키: 값 쌍으로 만들어요. 콜론(:)으로 키와 값을 연결하는 것이 핵심이에요.
+feedback.correct: 정답! 딕셔너리는 {키: 값} 형태로 만들어요. []는 리스트, ()는 튜플, 콜론 없이 {}만 쓰면 세트예요.
+
+--- Q02 | easy | output_select ---
+question_id: miniboss_beg_os_7_1_002
+question: 다음 코드의 출력 결과는?
+code:
+  pet = {"name": "에이몬", "type": "slime", "lv": 3}
+  print(pet["type"])
+choices:
+  A. 에이몬
+  B. slime
+  C. 3
+  D. {"type": "slime"}
+answer: B
+explanation: pet["type"]은 키 "type"에 저장된 값을 꺼내요. 문자열 값은 따옴표 없이 출력돼요.
+feedback.correct: 정답! pet["type"]은 "type" 키의 값 slime을 출력해요. 따옴표 없이 문자열 자체만 출력돼요.
+
+--- Q03 | medium | multiple_choice ---
+question_id: miniboss_beg_mc_7_1_003
+question: 다음 딕셔너리에서 "Python"을 꺼내는 코드는?
+code:
+  lang = {"name": "Python", "version": 3}
+choices:
+  A. lang[0]
+  B. lang.name
+  C. lang["name"]
+  D. lang{"name"}
+answer: C
+explanation: 딕셔너리는 인덱스 번호가 아닌 키 이름으로 값에 접근해요. lang["name"]처럼 대괄호 안에 키를 넣어요.
+feedback.correct: 정답! 딕셔너리는 딕셔너리[키]로 값을 꺼내요. 리스트처럼 숫자 인덱스를 쓰면 KeyError가 발생해요.
+
+--- Q04 | medium | multiple_choice ---
+question_id: miniboss_beg_mc_7_1_004
+question: 존재하지 않는 키로 접근하면 어떻게 될까요?
+code:
+  user = {"name": "Amy"}
+  print(user["age"])
+choices:
+  A. None을 출력한다
+  B. 0을 출력한다
+  C. 아무것도 출력하지 않는다
+  D. KeyError가 발생한다
+answer: D
+explanation: 딕셔너리에 없는 키를 []로 접근하면 KeyError가 발생해요. 안전하게 꺼내려면 .get()을 쓰면 돼요.
+feedback.correct: 정답! 없는 키에 []로 접근하면 KeyError예요. None을 받고 싶다면 user.get("age")를 쓰세요.
+
+--- Q05 | medium | output_select ---
+question_id: miniboss_beg_os_7_1_005
+question: 다음 코드의 출력 결과는?
+code:
+  user = {"name": "Amy", "age": 20}
+  print(user.get("email", "없음"))
+choices:
+  A. 없음
+  B. None
+  C. email
+  D. KeyError
+answer: A
+explanation: .get(키, 기본값)은 키가 없을 때 기본값을 반환해요. "email" 키가 없으므로 "없음"이 반환돼요.
+feedback.correct: 정답! .get("email", "없음")은 "email" 키가 없으므로 기본값 "없음"을 반환해요. []로 접근했다면 KeyError가 났겠지만 .get()은 안전해요.
+
+--- Q06 | medium | output_select ---
+question_id: miniboss_beg_os_7_1_006
+question: 다음 코드의 출력 결과는?
+code:
+  d = {"x": 10, "y": 20}
+  print(len(d))
+choices:
+  A. 10
+  B. 2
+  C. 20
+  D. 30
+answer: B
+explanation: len(딕셔너리)는 키-값 쌍의 수를 반환해요. d에는 "x"와 "y" 두 쌍이 있으므로 2예요.
+feedback.correct: 정답! len(d)는 키-값 쌍의 수 2를 반환해요. 값의 합이나 값 자체를 반환하는 게 아니에요.
+
+--- Q07 | hard | multiple_choice ---
+question_id: miniboss_beg_mc_7_1_007
+question: 딕셔너리 키로 사용할 수 없는 것은?
+choices:
+  A. "name"
+  B. 42
+  C. [1, 2, 3]
+  D. True
+answer: C
+explanation: 딕셔너리 키는 변경 불가능한(immutable) 타입이어야 해요. 리스트는 변경 가능(mutable)해서 키로 쓸 수 없어요.
+feedback.correct: 정답! 리스트는 변경 가능해서 딕셔너리 키로 쓰면 TypeError가 발생해요. 문자열, 숫자, 불리언, 튜플은 모두 키로 사용 가능해요.
+
+--- Q08 | hard | output_select ---
+question_id: miniboss_beg_os_7_1_008
+question: 다음 코드의 출력 결과는?
+code:
+  score = {"Amy": 90, "Bob": 75}
+  print(score["Bob"])
+choices:
+  A. Amy
+  B. Bob
+  C. 90
+  D. 75
+answer: D
+explanation: score["Bob"]은 키 "Bob"에 해당하는 값 75를 반환해요. 키("Bob")가 아닌 값(75)이 출력돼요.
+feedback.correct: 정답! score["Bob"]은 "Bob"의 값 75를 출력해요. 키와 값을 혼동하지 않도록 주의해요.
+
+--- Q09 | hard | output_select ---
+question_id: miniboss_beg_os_7_1_009
+question: 다음 코드의 출력 결과는?
+code:
+  nums = {"one": 1, "two": 2, "three": 3}
+  print(nums.get("four", "없음"))
+choices:
+  A. 없음
+  B. 0
+  C. None
+  D. KeyError
+answer: A
+explanation: "four" 키가 딕셔너리에 없어요. .get(키, 기본값)은 키가 없을 때 기본값을 반환하므로 "없음"이 출력돼요.
+feedback.correct: 정답! "four" 키가 없으므로 .get("four", "없음")은 기본값 "없음"을 반환해요. []로 접근했다면 KeyError가 났겠지만 .get()은 안전해요.
+
+--- Q10 | hard | multiple_choice ---
+question_id: miniboss_beg_mc_7_1_010
+question: 다음 코드의 실행 결과는?
+code:
+  data = {"a": 1, "b": 2}
+  print("c" in data)
+choices:
+  A. 1
+  B. False
+  C. True
+  D. KeyError
+answer: B
+explanation: in 연산자는 딕셔너리에서 키의 존재 여부를 확인해요. "c"는 키 목록에 없으므로 False예요.
+feedback.correct: 정답! in은 딕셔너리에서 키를 탐색해요. "c"는 없으므로 False가 출력돼요. 값이 아닌 키를 검색한다는 것을 기억하세요.
+
+난이도 분포: easy×2 / medium×4 / hard×4 ✅
+정답 시퀀스: A B C D A B C D A B ✅

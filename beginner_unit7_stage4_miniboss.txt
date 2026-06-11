@@ -1,0 +1,145 @@
+type: miniboss
+level: beginner
+unit: 7
+stage: 7-4
+stage_title: 세트 기초
+villain: interferencemon
+pass_score: 70
+
+--- Q01 | easy | multiple_choice ---
+question_id: miniboss_beg_mc_7_4_001
+question: 세트의 특징으로 올바른 것은?
+choices:
+  A. 중복을 허용하지 않는다
+  B. 순서가 있고 인덱싱이 가능하다
+  C. 키-값 쌍으로 이루어져 있다
+  D. 변경할 수 없다
+answer: A
+explanation: 세트의 핵심 특징은 중복 없음이에요. {1, 2, 2, 3}을 만들면 자동으로 {1, 2, 3}이 돼요.
+feedback.correct: 정답! 세트는 중복 없음, 순서 없음, 인덱싱 불가, 변경 가능이에요.
+
+--- Q02 | easy | output_select ---
+question_id: miniboss_beg_os_7_4_002
+question: 다음 코드의 출력 결과는?
+code:
+  s = {1, 2, 2, 3, 3, 3}
+  print(len(s))
+choices:
+  A. 6
+  B. 3
+  C. {1, 2, 3}
+  D. 1
+answer: B
+explanation: 세트는 중복을 자동으로 제거해요. 1, 2, 3 각각 고유값 3개만 남으므로 len(s) = 3이에요.
+feedback.correct: 정답! 중복을 제거하면 {1, 2, 3} 3개만 남아요.
+
+--- Q03 | medium | multiple_choice ---
+question_id: miniboss_beg_mc_7_4_003
+question: 빈 세트를 만드는 올바른 방법은?
+choices:
+  A. s = {}
+  B. s = ()
+  C. s = set()
+  D. s = []
+answer: C
+explanation: s = {}는 빈 딕셔너리를 만들어요. 빈 세트는 반드시 set()으로 만들어야 해요.
+feedback.correct: 정답! {}는 빈 딕셔너리예요. 빈 세트를 만들려면 set()을 사용해야 해요.
+
+--- Q04 | medium | output_select ---
+question_id: miniboss_beg_os_7_4_004
+question: 다음 코드의 출력 결과는?
+code:
+  names = ["Amy", "Bob", "Amy", "Cam", "Bob"]
+  unique = set(names)
+  print(len(unique))
+choices:
+  A. 5
+  B. 2
+  C. 4
+  D. 3
+answer: D
+explanation: 리스트를 set()으로 변환하면 중복이 제거돼요. Amy, Bob이 중복 제거되어 Amy, Bob, Cam 3개만 남아요.
+feedback.correct: 정답! 리스트를 세트로 변환하면 중복이 자동 제거돼요. Amy(2번)와 Bob(2번)이 각 1개로 줄어 총 3개예요.
+
+--- Q05 | medium | multiple_choice ---
+question_id: miniboss_beg_mc_7_4_005
+question: 세트에 원소를 추가하는 메서드는?
+choices:
+  A. .add()
+  B. .append()
+  C. .insert()
+  D. .push()
+answer: A
+explanation: 세트에 원소를 추가할 땐 .add()를 써요. 리스트의 .append()와 다르게 순서 없이 중복 없이 추가돼요.
+feedback.correct: 정답! 세트는 .add()를 사용해요. .append()는 리스트 전용, .insert()도 리스트용, .push()는 Python에 없는 메서드예요.
+
+--- Q06 | medium | output_select ---
+question_id: miniboss_beg_os_7_4_006
+question: 다음 코드의 출력 결과는?
+code:
+  s = {1, 2, 3}
+  s.add(2)
+  s.add(4)
+  print(len(s))
+choices:
+  A. 5
+  B. 4
+  C. 3
+  D. 2
+answer: B
+explanation: 2는 이미 있어서 add(2)는 무시되고, 4만 새로 추가돼요. 결과: {1, 2, 3, 4} -> len = 4예요.
+feedback.correct: 정답! 세트는 중복을 허용하지 않아요. add(2)는 무시, add(4)는 추가되어 총 4개예요.
+
+--- Q07 | hard | multiple_choice ---
+question_id: miniboss_beg_mc_7_4_007
+question: 세트에서 원소를 삭제하는 메서드 두 가지는?
+choices:
+  A. .delete()와 .pop()
+  B. .remove()와 .delete()
+  C. .remove()와 .discard()
+  D. .pop()과 .clear()
+answer: C
+explanation: .remove()는 없는 원소 삭제 시 KeyError, .discard()는 에러 없이 조용히 무시해요. 상황에 따라 골라 쓰세요.
+feedback.correct: 정답! 세트 삭제 메서드는 .remove()와 .discard()예요. 없는 원소일 때 에러가 나느냐 아니냐가 차이예요.
+
+--- Q08 | hard | output_select ---
+question_id: miniboss_beg_os_7_4_008
+question: 다음 코드의 실행 결과는?
+code:
+  s = {3, 1, 2}
+  print(s[0])
+choices:
+  A. 1
+  B. 3
+  C. 2
+  D. TypeError가 발생한다
+answer: D
+explanation: 세트는 순서가 없어서 인덱스로 접근할 수 없어요. s[0]은 TypeError: 'set' object is not subscriptable 에러가 발생해요.
+feedback.correct: 정답! 세트는 순서가 없는 자료구조라 s[0]처럼 인덱스로 접근하면 TypeError가 나요.
+
+--- Q09 | hard | multiple_choice ---
+question_id: miniboss_beg_mc_7_4_009
+question: "banana"가 세트 fruits에 있는지 확인하는 코드는?
+choices:
+  A. "banana" in fruits
+  B. fruits.contains("banana")
+  C. fruits.find("banana")
+  D. fruits.has("banana")
+answer: A
+explanation: in 연산자로 세트 안에 원소가 있는지 확인해요. 세트는 해시 기반이라 리스트보다 훨씬 빠르게 탐색해요.
+feedback.correct: 정답! in 연산자를 써요. .contains(), .find(), .has()는 Python 세트에 없는 메서드예요.
+
+--- Q10 | hard | multiple_choice ---
+question_id: miniboss_beg_mc_7_4_010
+question: 리스트와 세트의 차이로 올바른 것은?
+choices:
+  A. 세트가 리스트보다 항상 메모리를 더 적게 쓴다
+  B. 세트는 중복이 없고 순서가 없으며, 리스트는 중복과 순서가 있다
+  C. 리스트는 중복을 허용하지 않는다
+  D. 세트는 값을 변경할 수 없다
+answer: B
+explanation: 세트: 중복 없음 + 순서 없음. 리스트: 중복 가능 + 순서 있음 + 인덱싱 가능. 각자 쓰임새가 달라요.
+feedback.correct: 정답! 세트의 핵심은 중복 제거와 순서 없음이에요. 리스트는 반대로 중복 허용, 순서 있음이에요.
+
+난이도 분포: easy×2 / medium×4 / hard×4 ✅
+정답 시퀀스: A B C D A B C D A B ✅

@@ -1,0 +1,164 @@
+type: miniboss
+level: beginner
+unit: 7
+stage: 7-5
+stage_title: 세트 연산
+villain: interferencemon
+pass_score: 70
+
+--- Q01 | easy | multiple_choice ---
+question_id: miniboss_beg_mc_7_5_001
+question: 두 세트의 합집합 연산 기호는?
+choices:
+  A. |
+  B. &
+  C. -
+  D. ^
+answer: A
+explanation: |는 합집합(union)이에요. &는 교집합, -는 차집합, ^는 대칭 차집합이에요.
+feedback.correct: 정답! |가 합집합이에요. 기호를 기억해두면 편해요: |합집합, &교집합, -차집합, ^대칭차집합.
+
+--- Q02 | easy | output_select ---
+question_id: miniboss_beg_os_7_5_002
+question: 다음 코드의 출력 결과는?
+code:
+  a = {1, 2, 3}
+  b = {2, 3, 4}
+  print(a & b)
+choices:
+  A. {1, 2, 3, 4}
+  B. {2, 3}
+  C. {1, 4}
+  D. {1, 2, 3, 2, 3, 4}
+answer: B
+explanation: &는 교집합이에요. a와 b 모두에 있는 원소는 2와 3이에요.
+feedback.correct: 정답! a & b는 교집합이에요. a에도 있고 b에도 있는 원소 2, 3만 결과에 포함돼요.
+
+--- Q03 | medium | output_select ---
+question_id: miniboss_beg_os_7_5_003
+question: 다음 코드의 출력 결과는?
+code:
+  a = {1, 2, 3}
+  b = {3, 4, 5}
+  print(a | b)
+choices:
+  A. {3}
+  B. {1, 2, 4, 5}
+  C. {1, 2, 3, 4, 5}
+  D. {1, 2, 3, 3, 4, 5}
+answer: C
+explanation: |는 합집합이에요. 두 세트 모두의 원소를 포함해요. 중복인 3은 한 번만 포함돼요.
+feedback.correct: 정답! 합집합은 두 세트 모두의 원소를 합쳐요. 중복 3은 한 번만 포함돼요.
+
+--- Q04 | medium | output_select ---
+question_id: miniboss_beg_os_7_5_004
+question: 다음 코드의 출력 결과는?
+code:
+  a = {1, 2, 3, 4}
+  b = {3, 4, 5}
+  print(a - b)
+choices:
+  A. {5}
+  B. {3, 4}
+  C. {1, 2, 3, 4, 5}
+  D. {1, 2}
+answer: D
+explanation: a - b는 차집합이에요. a에서 b와 겹치는 3, 4를 제거하면 1, 2만 남아요.
+feedback.correct: 정답! a - b는 a에서 b와 겹치는 원소를 제거한 나머지예요. 3, 4가 제거되어 {1, 2}가 남아요.
+
+--- Q05 | medium | output_select ---
+question_id: miniboss_beg_os_7_5_005
+question: 다음 코드의 출력 결과는?
+code:
+  a = {1, 2, 3}
+  b = {1, 2, 3, 4, 5}
+  print(a.issubset(b))
+choices:
+  A. True
+  B. False
+  C. {1, 2, 3}
+  D. {4, 5}
+answer: A
+explanation: issubset()은 a의 모든 원소가 b에 포함되면 True를 반환해요. a의 1, 2, 3이 모두 b에 있으므로 True예요.
+feedback.correct: 정답! a.issubset(b)는 a가 b의 부분집합인지 확인해요. a의 원소가 모두 b에 있으므로 True예요.
+
+--- Q06 | medium | output_select ---
+question_id: miniboss_beg_os_7_5_006
+question: 다음 코드의 출력 결과는?
+code:
+  a = {1, 2}
+  b = {3, 4}
+  print(a.isdisjoint(b))
+choices:
+  A. False
+  B. True
+  C. {}
+  D. KeyError
+answer: B
+explanation: isdisjoint()는 공통 원소가 없으면 True를 반환해요. 
+   a와 b는 겹치는 원소가 없으므로 True예요.
+feedback.correct: 정답! a.isdisjoint(b)는 공통 원소가 없을 때 True예요. 두 세트가 서로소 관계예요.
+
+--- Q07 | hard | multiple_choice ---
+question_id: miniboss_beg_mc_7_5_007
+question: a ^ b 결과로 올바른 것은?
+code:
+  a = {1, 2, 3}
+  b = {2, 3, 4}
+choices:
+  A. {2, 3}
+  B. {1, 2, 3, 4}
+  C. {1, 4}
+  D. {}
+answer: C
+explanation: ^는 대칭 차집합이에요. 양쪽 모두에 있는 2, 3은 제외되고, 한쪽에만 있는 1(a만)과 4(b만)만 남아요.
+feedback.correct: 정답! ^는 한쪽에만 있는 원소예요. 2, 3은 양쪽 다 있어 제외, 1과 4가 결과예요.
+
+--- Q08 | hard | output_select ---
+question_id: miniboss_beg_os_7_5_008
+question: 다음 코드의 출력 결과는?
+code:
+  a = {1, 2, 3}
+  b = {2, 3, 4}
+  c = a.intersection(b)
+  print(len(c))
+choices:
+  A. 3
+  B. 4
+  C. 1
+  D. 2
+answer: D
+explanation: .intersection()은 &와 동일해요. a와 b의 공통 원소는 2, 3이므로 len(c) = 2예요.
+feedback.correct: 정답! a.intersection(b)는 a & b와 동일해요. 공통 원소는 2, 3으로 2개예요.
+
+--- Q09 | hard | output_select ---
+question_id: miniboss_beg_os_7_5_009
+question: 다음 코드의 출력 결과는?
+code:
+  group_a = {"Alice", "Bob", "Carol"}
+  group_b = {"Bob", "David", "Eve"}
+  only_a = group_a - group_b
+  print(len(only_a))
+choices:
+  A. 2
+  B. 5
+  C. 1
+  D. 3
+answer: A
+explanation: group_a - group_b는 a에서 b와 겹치는 Bob을 빼요. Alice, Carol이 남아 len = 2예요.
+feedback.correct: 정답! group_a에서 Bob을 제외하면 Alice, Carol 2명이 남아요.
+
+--- Q10 | hard | multiple_choice ---
+question_id: miniboss_beg_mc_7_5_010
+question: 세트 연산 메서드와 기호의 연결이 올바른 것은?
+choices:
+  A. union() = -
+  B. intersection() = &
+  C. difference() = ^
+  D. symmetric_difference() = |
+answer: B
+explanation: 올바른 쌍: union()|, intersection()&, difference()-, symmetric_difference()^이에요.
+feedback.correct: 정답! intersection() = &예요. 전체 정리: union()|, difference()-, intersection()&, symmetric_difference()^.
+
+난이도 분포: easy×2 / medium×4 / hard×4 ✅
+정답 시퀀스: A B C D A B C D A B ✅
