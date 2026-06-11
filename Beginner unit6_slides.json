@@ -1,0 +1,714 @@
+[
+  {
+    "lesson_id": "6-1-beginner",
+    "unit": 6,
+    "stage": "6-1",
+    "course_level": "beginner",
+    "title": "함수 기초",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "지금까지 코드를 작성할 때 같은 내용을 여러 번 반복해서 쓴 적 있나요?\n함수(function)는 그 반복을 없애주는 마법 상자예요.\n한 번 만들어두면 이름만 불러서 언제든 다시 쓸 수 있어요.",
+        "terminal": null,
+        "tip": "함수 = 재사용 가능한 코드 묶음. '이름 붙인 레시피'라고 생각하세요!"
+      },
+      {
+        "order": 2,
+        "text": "함수를 만들 때는 def 키워드를 사용해요.\n'def 함수이름():' 형식으로 선언하고, 아래에 들여쓰기(4칸)로 실행할 코드를 작성해요.\n함수를 만든다 → '정의한다(define)'고 표현해요. def는 define의 줄임말이에요.",
+        "terminal": {
+          "code": [
+            "def say_hello():",
+            "    print('안녕하세요!')",
+            "    print('에이몬에 오신 걸 환영해요!')"
+          ],
+          "output": []
+        },
+        "tip": "함수를 정의만 하면 아무 일도 일어나지 않아요. '레시피를 쓴 것'일 뿐이에요."
+      },
+      {
+        "order": 3,
+        "text": "함수를 실제로 실행하려면 함수 이름 뒤에 ()를 붙여서 호출해요.\n'호출한다(call)'는 표현을 기억하세요.\n함수를 여러 번 호출하면 그 내용이 여러 번 실행돼요!",
+        "terminal": {
+          "code": [
+            "def say_hello():",
+            "    print('안녕하세요!')",
+            "",
+            "say_hello()   # 1번째 호출",
+            "say_hello()   # 2번째 호출",
+            "say_hello()   # 3번째 호출"
+          ],
+          "output": [
+            "안녕하세요!",
+            "안녕하세요!",
+            "안녕하세요!"
+          ]
+        },
+        "tip": "같은 코드를 3번 쓰는 대신 함수 호출 한 줄로 끝! 이게 함수의 힘이에요."
+      },
+      {
+        "order": 4,
+        "text": "함수 이름을 지을 때는 규칙이 있어요.\n소문자와 밑줄(_)을 사용하고, 동사로 시작하면 읽기 편해요.\n예: say_hello, calculate_score, print_result\n숫자로 시작하거나 공백은 사용할 수 없어요.",
+        "terminal": {
+          "code": [
+            "# 좋은 함수 이름 예시",
+            "def greet_user():      # 동사_명사 형태",
+            "    print('반가워요!')",
+            "",
+            "def show_score():      # 동사_명사 형태",
+            "    print('점수: 100점')",
+            "",
+            "greet_user()",
+            "show_score()"
+          ],
+          "output": [
+            "반가워요!",
+            "점수: 100점"
+          ]
+        },
+        "tip": "함수 이름만 봐도 '이 함수가 뭘 하는지' 알 수 있어야 좋은 이름이에요."
+      },
+      {
+        "order": 5,
+        "text": "함수의 진짜 장점은 '코드 재사용'과 '유지보수'예요.\n나중에 내용을 바꿔야 할 때, 함수 안만 수정하면 모든 호출 결과가 한 번에 바뀌어요.\n마치 레시피를 수정하면 그 레시피로 만드는 모든 요리가 바뀌는 것처럼요!",
+        "terminal": {
+          "code": [
+            "def greet():",
+            "    print('에이몬 학습을 시작합니다!')  # 여기만 바꾸면",
+            "",
+            "greet()  # 모든 호출이 바뀐 내용으로 실행돼요",
+            "greet()",
+            "greet()"
+          ],
+          "output": [
+            "에이몬 학습을 시작합니다!",
+            "에이몬 학습을 시작합니다!",
+            "에이몬 학습을 시작합니다!"
+          ]
+        },
+        "tip": "함수는 def로 정의 → 이름()으로 호출. 이 두 가지가 함수의 전부예요!"
+      }
+    ]
+  },
+
+  {
+    "lesson_id": "6-2-beginner",
+    "unit": 6,
+    "stage": "6-2",
+    "course_level": "beginner",
+    "title": "매개변수 & 인수",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "앞에서 만든 함수는 항상 똑같은 결과만 내보냈어요.\n하지만 함수에 재료를 넣을 수 있다면 어떨까요?\n매개변수(parameter)는 함수가 받을 '재료 자리'예요.",
+        "terminal": null,
+        "tip": "커피 머신에 원두를 넣어야 커피가 나오듯, 함수에도 재료(매개변수)를 넣을 수 있어요."
+      },
+      {
+        "order": 2,
+        "text": "함수 이름 옆 괄호 안에 매개변수 이름을 쓰면 돼요.\n그러면 함수를 호출할 때 그 자리에 값을 넣어 줄 수 있어요.\n함수를 호출할 때 실제로 넣는 값을 인수(argument)라고 불러요.",
+        "terminal": {
+          "code": [
+            "def greet(name):         # name = 매개변수",
+            "    print(f'안녕, {name}!')",
+            "",
+            "greet('에이몬')           # '에이몬' = 인수",
+            "greet('지니')             # '지니' = 인수"
+          ],
+          "output": [
+            "안녕, 에이몬!",
+            "안녕, 지니!"
+          ]
+        },
+        "tip": "매개변수는 함수 정의에서 쓰는 이름, 인수는 호출할 때 실제로 넣는 값이에요."
+      },
+      {
+        "order": 3,
+        "text": "매개변수는 여러 개 쓸 수 있어요. 쉼표로 구분하면 돼요.\n호출할 때도 같은 순서로 값을 넣어줘야 해요.\n이렇게 순서대로 넣는 방식을 '위치 인수'라고 해요.",
+        "terminal": {
+          "code": [
+            "def introduce(name, age):   # 매개변수 2개",
+            "    print(f'이름: {name}')",
+            "    print(f'나이: {age}세')",
+            "",
+            "introduce('지니', 20)       # 순서 중요!",
+            "introduce('에이몬', 5)"
+          ],
+          "output": [
+            "이름: 지니",
+            "나이: 20세",
+            "이름: 에이몬",
+            "나이: 5세"
+          ]
+        },
+        "tip": "위치 인수는 순서가 생명! 'introduce(20, 지니)'처럼 순서가 바뀌면 이름에 20이 들어가요."
+      },
+      {
+        "order": 4,
+        "text": "순서 대신 매개변수 이름을 직접 써서 값을 넣는 방법도 있어요.\n이걸 '키워드 인수'라고 해요.\n키워드 인수는 순서가 바뀌어도 괜찮아요!",
+        "terminal": {
+          "code": [
+            "def introduce(name, age):",
+            "    print(f'{name} 님의 나이는 {age}세입니다.')",
+            "",
+            "# 키워드 인수 사용 — 순서 바꿔도 OK",
+            "introduce(age=20, name='지니')",
+            "introduce(name='에이몬', age=5)"
+          ],
+          "output": [
+            "지니 님의 나이는 20세입니다.",
+            "에이몬 님의 나이는 5세입니다."
+          ]
+        },
+        "tip": "키워드 인수는 코드를 읽을 때 '어떤 값인지' 바로 알 수 있어서 더 명확해요."
+      },
+      {
+        "order": 5,
+        "text": "위치 인수와 키워드 인수를 함께 쓸 때는 위치 인수가 먼저 와야 해요.\n'name='지니', 20' 처럼 키워드 뒤에 위치 인수를 쓰면 오류가 나요.",
+        "terminal": {
+          "code": [
+            "def order_food(food, count, size):",
+            "    print(f'{size} {food} {count}개 주문!')",
+            "",
+            "# 올바른 혼합 사용",
+            "order_food('피자', count=2, size='라지')",
+            "",
+            "# 잘못된 혼합 — 오류 발생!",
+            "# order_food(food='피자', 2, size='라지')  # SyntaxError"
+          ],
+          "output": [
+            "라지 피자 2개 주문!"
+          ]
+        },
+        "tip": "규칙 기억: 위치 인수 먼저 → 그다음 키워드 인수. 섞으면 키워드가 뒤에 와야 해요!"
+      }
+    ]
+  },
+
+  {
+    "lesson_id": "6-3-beginner",
+    "unit": 6,
+    "stage": "6-3",
+    "course_level": "beginner",
+    "title": "return 반환값",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "지금까지 함수는 print()로 결과를 출력만 했어요.\n그런데 함수가 결과를 '돌려줄' 수도 있어요.\nreturn은 함수가 결과값을 바깥으로 내보내는 명령이에요.",
+        "terminal": null,
+        "tip": "자판기에 돈을 넣으면 음료가 나오죠? return은 자판기가 음료를 내보내는 것과 같아요."
+      },
+      {
+        "order": 2,
+        "text": "return 뒤에 돌려줄 값을 써요.\n함수를 호출한 곳에서 그 값을 변수에 저장하거나 바로 사용할 수 있어요.\nprint는 화면에 보여주기만 하지만, return은 값 자체를 넘겨줘요.",
+        "terminal": {
+          "code": [
+            "def add(a, b):",
+            "    return a + b      # 더한 결과를 반환",
+            "",
+            "result = add(3, 5)   # 반환값을 result에 저장",
+            "print(result)         # 8",
+            "",
+            "print(add(10, 20))    # 반환값을 바로 출력"
+          ],
+          "output": [
+            "8",
+            "30"
+          ]
+        },
+        "tip": "return은 함수를 '즉시 종료'해요. return 아래 코드는 실행되지 않아요."
+      },
+      {
+        "order": 3,
+        "text": "return의 진짜 힘은 반환값을 다른 연산에 이어서 쓸 수 있다는 거예요.\nprint()는 화면에 보여주기만 해서 이어서 쓸 수 없지만,\nreturn으로 받은 값은 변수에 담아 계속 활용할 수 있어요.",
+        "terminal": {
+          "code": [
+            "def get_score(correct, total):",
+            "    return correct / total * 100",
+            "",
+            "score = get_score(8, 10)   # 80.0 반환",
+            "",
+            "if score >= 60:",
+            "    print(f'{score}점 — 통과!')",
+            "else:",
+            "    print(f'{score}점 — 재도전!')"
+          ],
+          "output": [
+            "80.0점 — 통과!"
+          ]
+        },
+        "tip": "return이 있어야 함수의 결과값을 다음 계산에 활용할 수 있어요."
+      },
+      {
+        "order": 4,
+        "text": "return을 아무 값 없이 쓰거나, 아예 return을 쓰지 않으면 함수는 None을 반환해요.\nNone은 '아무것도 없음'을 뜻하는 Python의 특별한 값이에요.\nprint()도 사실 None을 반환하는 함수예요.",
+        "terminal": {
+          "code": [
+            "def say_hi():",
+            "    print('안녕!')  # return 없음",
+            "",
+            "result = say_hi()",
+            "print(result)        # None 출력",
+            "",
+            "print(type(result))  # <class 'NoneType'>"
+          ],
+          "output": [
+            "안녕!",
+            "None",
+            "<class 'NoneType'>"
+          ]
+        },
+        "tip": "반환값이 필요한 함수라면 return을 꼭 써줘야 해요. 안 쓰면 None이 돌아와요."
+      },
+      {
+        "order": 5,
+        "text": "return을 쓰면 그 즉시 함수가 끝나요.\n조건문과 함께 쓰면 상황에 따라 다른 값을 반환할 수 있어요.\n이런 패턴이 함수를 더욱 똑똑하게 만들어줘요!",
+        "terminal": {
+          "code": [
+            "def pass_or_fail(score):",
+            "    if score >= 60:",
+            "        return '통과'   # 여기서 함수 종료",
+            "    return '재도전'    # 위 조건 아닐 때 실행",
+            "",
+            "print(pass_or_fail(80))   # 통과",
+            "print(pass_or_fail(40))   # 재도전"
+          ],
+          "output": [
+            "통과",
+            "재도전"
+          ]
+        },
+        "tip": "return이 실행되면 함수가 즉시 종료돼요. 그래서 else 없이도 깔끔하게 작성할 수 있어요!"
+      }
+    ]
+  },
+
+  {
+    "lesson_id": "6-4-beginner",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "beginner",
+    "title": "기본값 매개변수",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "함수를 호출할 때 매번 같은 값을 넣어야 한다면 불편하겠죠?\n기본값 매개변수(default parameter)는 인수를 생략했을 때 자동으로 쓰이는 값을 미리 정해두는 기능이에요.",
+        "terminal": null,
+        "tip": "카페에서 '아메리카노'라고만 해도 보통 '따뜻하게, 샷 1개'로 나오는 것처럼 기본값이 있는 거예요!"
+      },
+      {
+        "order": 2,
+        "text": "매개변수 이름 뒤에 = 기본값을 써주면 돼요.\n호출할 때 그 인수를 생략하면 기본값이 사용되고,\n값을 직접 넣으면 그 값으로 덮어써져요.",
+        "terminal": {
+          "code": [
+            "def greet(name, lang='한국어'):   # lang 기본값 = '한국어'",
+            "    if lang == '한국어':",
+            "        print(f'안녕, {name}!')",
+            "    else:",
+            "        print(f'Hello, {name}!')",
+            "",
+            "greet('지니')            # lang 생략 → 기본값 '한국어' 사용",
+            "greet('Amy', '영어')     # lang에 '영어' 전달"
+          ],
+          "output": [
+            "안녕, 지니!",
+            "Hello, Amy!"
+          ]
+        },
+        "tip": "기본값 덕분에 자주 쓰는 옵션은 생략해도 함수가 알아서 처리해줘요."
+      },
+      {
+        "order": 3,
+        "text": "기본값 매개변수는 기본값 없는 매개변수 뒤에 와야 해요.\n기본값 있는 것이 앞에 오면 Python이 '이 인수가 기본값 있는 것에 해당하는지' 구별할 수 없어서 오류가 나요.",
+        "terminal": {
+          "code": [
+            "# 올바른 순서: 기본값 없는 것 먼저",
+            "def order(food, count=1):   # OK",
+            "    print(f'{food} {count}개')",
+            "",
+            "order('피자')       # count 생략 → 1개",
+            "order('피자', 3)    # count = 3",
+            "",
+            "# 잘못된 순서 — 오류!",
+            "# def order(count=1, food):  # SyntaxError: non-default argument follows default argument"
+          ],
+          "output": [
+            "피자 1개",
+            "피자 3개"
+          ]
+        },
+        "tip": "순서 규칙: 기본값 없음 → 기본값 있음. 항상 기본값 있는 것이 뒤쪽으로!"
+      },
+      {
+        "order": 4,
+        "text": "기본값 매개변수가 여러 개일 때, 일부만 생략하고 일부는 값을 넣고 싶다면 키워드 인수를 사용해요.\n넣고 싶은 것만 이름을 지정해서 전달하면 돼요.",
+        "terminal": {
+          "code": [
+            "def make_coffee(base, size='미디엄', ice=True):",
+            "    temp = '아이스' if ice else '따뜻'",
+            "    print(f'{temp} {size} {base}')",
+            "",
+            "make_coffee('아메리카노')                    # 기본값 전부 사용",
+            "make_coffee('라떼', ice=False)              # size는 기본값, ice만 변경",
+            "make_coffee('카푸치노', size='라지', ice=False)"
+          ],
+          "output": [
+            "아이스 미디엄 아메리카노",
+            "따뜻 미디엄 라떼",
+            "따뜻 라지 카푸치노"
+          ]
+        },
+        "tip": "기본값 매개변수 + 키워드 인수 조합이면 선택적으로 옵션을 조절하는 함수를 쉽게 만들 수 있어요."
+      },
+      {
+        "order": 5,
+        "text": "기본값 매개변수는 실제 코드에서 아주 자주 사용돼요.\n특히 '선택 옵션'이 있는 기능을 만들 때 유용해요.\n예를 들어 print() 함수도 end='\\n', sep=' ' 같은 기본값 매개변수를 가지고 있어요!",
+        "terminal": {
+          "code": [
+            "# print()의 기본값 매개변수 활용",
+            "print('에이몬', end=' ')    # end 기본값은 줄바꿈('\\n')",
+            "print('파이팅!')             # 이어서 출력",
+            "",
+            "print('A', 'B', 'C', sep='-')  # sep 기본값은 공백(' ')"
+          ],
+          "output": [
+            "에이몬 파이팅!",
+            "A-B-C"
+          ]
+        },
+        "tip": "print()도 함수예요! 우리가 배운 기본값 매개변수 개념이 print()에도 똑같이 적용돼 있어요."
+      }
+    ]
+  },
+
+  {
+    "lesson_id": "6-5-beginner",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "beginner",
+    "title": "스코프",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "변수는 어디서 만들었느냐에 따라 '사용할 수 있는 범위'가 달라요.\n이 범위를 스코프(scope)라고 해요.\n크게 두 가지로 나뉘어요: 함수 안에서만 살아있는 지역 변수, 어디서든 쓸 수 있는 전역 변수.",
+        "terminal": null,
+        "tip": "스코프 = 변수의 '활동 반경'. 학교 안에서만 쓰는 물건 vs 집에서도 쓰는 물건처럼요."
+      },
+      {
+        "order": 2,
+        "text": "함수 안에서 만든 변수는 지역 변수(local variable)예요.\n함수가 실행되는 동안에만 존재하고, 함수 밖에서는 접근할 수 없어요.\n함수가 끝나면 사라져요.",
+        "terminal": {
+          "code": [
+            "def calculate():",
+            "    result = 100    # 지역 변수 (함수 안에서만 존재)",
+            "    print(result)   # 함수 안에서는 OK",
+            "",
+            "calculate()         # 100 출력",
+            "",
+            "# print(result)     # 오류! 함수 밖에서는 result가 없어요",
+            "# NameError: name 'result' is not defined"
+          ],
+          "output": [
+            "100"
+          ]
+        },
+        "tip": "지역 변수는 함수 안에서만 사용 가능. 함수 밖에서 부르면 NameError가 나요."
+      },
+      {
+        "order": 3,
+        "text": "함수 밖, 즉 프로그램 최상단에서 만든 변수는 전역 변수(global variable)예요.\n전역 변수는 함수 안에서도 읽을 수 있어요.\n하지만 함수 안에서 전역 변수를 수정하려면 global 키워드가 필요해요.",
+        "terminal": {
+          "code": [
+            "score = 0    # 전역 변수",
+            "",
+            "def check():",
+            "    print(score)   # 전역 변수 읽기 — OK",
+            "",
+            "check()     # 0 출력",
+            "print(score)  # 0"
+          ],
+          "output": [
+            "0",
+            "0"
+          ]
+        },
+        "tip": "전역 변수는 어디서든 읽을 수 있지만, 함수 안에서 변경하려면 global 선언이 필요해요."
+      },
+      {
+        "order": 4,
+        "text": "함수 안에서 전역 변수의 값을 바꾸고 싶을 때는 global 키워드를 써요.\nglobal 변수명을 함수 첫 줄에 선언하면 그 변수를 전역 변수로 인식해요.\nglobal 없이 그냥 대입하면 전역 변수를 바꾸는 게 아니라 새로운 지역 변수가 만들어져요.",
+        "terminal": {
+          "code": [
+            "count = 0    # 전역 변수",
+            "",
+            "def add_count():",
+            "    global count    # '이 count는 전역 변수야!'",
+            "    count += 1",
+            "",
+            "add_count()",
+            "add_count()",
+            "add_count()",
+            "print(count)   # 3"
+          ],
+          "output": [
+            "3"
+          ]
+        },
+        "tip": "global을 쓰지 않고 함수 안에서 count = count + 1을 하면 UnboundLocalError가 나요!"
+      },
+      {
+        "order": 5,
+        "text": "실제 코드에서는 global을 최대한 피하는 게 좋아요.\nglobal 변수를 여기저기서 바꾸면 버그를 찾기 어려워지거든요.\n대신 함수가 값을 return하고, 그 값을 변수에 저장하는 방식이 훨씬 안전해요.",
+        "terminal": {
+          "code": [
+            "# 권장 방식: return 사용",
+            "def add_count(count):",
+            "    return count + 1    # 새 값을 반환",
+            "",
+            "count = 0",
+            "count = add_count(count)   # 반환값을 다시 저장",
+            "count = add_count(count)",
+            "count = add_count(count)",
+            "print(count)   # 3"
+          ],
+          "output": [
+            "3"
+          ]
+        },
+        "tip": "global은 꼭 필요할 때만 사용하고, 보통은 return으로 값을 주고받는 방식이 더 안전해요."
+      }
+    ]
+  },
+
+  {
+    "lesson_id": "6-6-beginner",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "beginner",
+    "title": "함수 안의 함수",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "함수 안에서 또 다른 함수를 정의할 수 있어요.\n이렇게 만들어진 함수를 내부 함수(inner function) 또는 중첩 함수라고 해요.\n내부 함수는 그것을 감싸고 있는 함수 안에서만 사용할 수 있어요.",
+        "terminal": null,
+        "tip": "러시아 인형(마트료시카)처럼, 큰 함수 안에 작은 함수가 들어있는 구조예요."
+      },
+      {
+        "order": 2,
+        "text": "외부 함수 안에서 내부 함수를 정의하고 호출하는 기본 패턴을 살펴볼게요.\n내부 함수는 외부 함수가 실행될 때만 만들어지고 사용할 수 있어요.",
+        "terminal": {
+          "code": [
+            "def outer():              # 외부 함수",
+            "    print('외부 함수 실행')",
+            "",
+            "    def inner():          # 내부 함수",
+            "        print('내부 함수 실행')",
+            "",
+            "    inner()               # 외부 함수 안에서 내부 함수 호출",
+            "",
+            "outer()",
+            "# inner()  # 오류! 외부 함수 밖에서는 inner를 모름"
+          ],
+          "output": [
+            "외부 함수 실행",
+            "내부 함수 실행"
+          ]
+        },
+        "tip": "내부 함수는 외부 함수 안에서만 살아있어요. 밖에서 호출하면 NameError가 나요."
+      },
+      {
+        "order": 3,
+        "text": "내부 함수는 외부 함수의 변수를 자유롭게 사용할 수 있어요.\n이렇게 내부 함수가 외부 함수의 변수를 기억하는 것을 클로저(closure)라고 해요.\n지금은 '내부 함수는 바깥 변수를 쓸 수 있다'는 것만 기억하세요!",
+        "terminal": {
+          "code": [
+            "def make_greeting(lang):",
+            "    def greet(name):          # 내부 함수",
+            "        if lang == '한국어':",
+            "            print(f'안녕, {name}!')",
+            "        else:",
+            "            print(f'Hello, {name}!')",
+            "    return greet              # 내부 함수 자체를 반환",
+            "",
+            "korean = make_greeting('한국어')",
+            "korean('지니')",
+            "english = make_greeting('영어')",
+            "english('Amy')"
+          ],
+          "output": [
+            "안녕, 지니!",
+            "Hello, Amy!"
+          ]
+        },
+        "tip": "내부 함수가 외부 함수의 변수(lang)를 기억하고 있어요. 이게 클로저의 핵심이에요."
+      },
+      {
+        "order": 4,
+        "text": "함수 안의 함수 패턴은 '도우미 함수'를 만들 때 자주 사용해요.\n외부에서는 필요 없는 복잡한 내부 로직을 안으로 숨겨서 코드를 깔끔하게 만들어요.",
+        "terminal": {
+          "code": [
+            "def calculate_grade(scores):",
+            "    def average(nums):        # 평균 계산 도우미",
+            "        return sum(nums) / len(nums)",
+            "",
+            "    avg = average(scores)",
+            "",
+            "    if avg >= 90:",
+            "        return 'A'",
+            "    elif avg >= 80:",
+            "        return 'B'",
+            "    else:",
+            "        return 'C'",
+            "",
+            "print(calculate_grade([85, 90, 95]))  # A"
+          ],
+          "output": [
+            "A"
+          ]
+        },
+        "tip": "average() 함수를 밖에 만들 수도 있지만, 안에 두면 '이 함수만을 위한 도우미'라는 의도가 명확해요."
+      },
+      {
+        "order": 5,
+        "text": "함수를 변수에 저장하거나, 다른 함수의 인수로 전달하거나, return으로 반환할 수 있어요.\nPython에서 함수는 값처럼 다룰 수 있는 '1급 객체(first-class object)'예요.\n이게 Python 함수의 강력한 특징이에요!",
+        "terminal": {
+          "code": [
+            "def add(a, b):",
+            "    return a + b",
+            "",
+            "# 함수를 변수에 저장",
+            "my_func = add",
+            "print(my_func(3, 4))   # 7",
+            "",
+            "# 함수를 다른 함수에 전달",
+            "def apply(func, x, y):",
+            "    return func(x, y)",
+            "",
+            "print(apply(add, 10, 20))  # 30"
+          ],
+          "output": [
+            "7",
+            "30"
+          ]
+        },
+        "tip": "함수가 값처럼 다뤄진다는 개념은 처음엔 낯설지만, 중급에서 더 많이 활용해요. 지금은 '그렇구나~' 정도로 OK!"
+      }
+    ]
+  },
+
+  {
+    "lesson_id": "6-7-beginner",
+    "unit": 6,
+    "stage": "6-7",
+    "course_level": "beginner",
+    "title": "함수 종합실습",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "Unit 6에서 배운 것들을 정리해볼게요!\ndef로 함수 정의 → 매개변수로 입력 받기 → return으로 결과 반환 → 기본값 매개변수 → 스코프 → 내부 함수\n이 모든 것을 조합하면 실제로 쓸 수 있는 프로그램을 만들 수 있어요.",
+        "terminal": null,
+        "tip": "함수는 '하나의 기능, 하나의 함수' 원칙이 중요해요. 너무 많은 걸 한 함수에 넣지 말고 쪼개서 만들어요."
+      },
+      {
+        "order": 2,
+        "text": "성적 계산 프로그램을 함수로 구성해볼게요.\n각 역할을 별도 함수로 만들면 코드가 훨씬 읽기 쉽고 수정하기도 편해요.\n이렇게 기능별로 함수를 나누는 것을 '함수 분리'라고 해요.",
+        "terminal": {
+          "code": [
+            "def get_average(scores):",
+            "    return sum(scores) / len(scores)",
+            "",
+            "def get_grade(avg):",
+            "    if avg >= 90: return 'A'",
+            "    elif avg >= 80: return 'B'",
+            "    elif avg >= 70: return 'C'",
+            "    else: return 'F'",
+            "",
+            "scores = [85, 92, 78, 90]",
+            "avg = get_average(scores)",
+            "grade = get_grade(avg)",
+            "print(f'평균: {avg:.1f}점, 등급: {grade}')"
+          ],
+          "output": [
+            "평균: 86.2점, 등급: B"
+          ]
+        },
+        "tip": "get_average()와 get_grade()는 각각 한 가지 일만 해요. 이게 좋은 함수 설계예요."
+      },
+      {
+        "order": 3,
+        "text": "함수에 기본값 매개변수를 추가해서 더 유연하게 만들어볼게요.\n기본값 덕분에 간단한 경우는 짧게 호출하고, 필요할 때는 옵션을 넣어서 호출할 수 있어요.",
+        "terminal": {
+          "code": [
+            "def introduce(name, role='학습자', level='초급'):",
+            "    print(f'[{level}] {name} ({role})')",
+            "",
+            "introduce('지니')                         # 기본값 사용",
+            "introduce('에이몬', role='AI 캐릭터')      # role만 변경",
+            "introduce('방해몬', role='악당', level='전설')"
+          ],
+          "output": [
+            "[초급] 지니 (학습자)",
+            "[초급] 에이몬 (AI 캐릭터)",
+            "[전설] 방해몬 (악당)"
+          ]
+        },
+        "tip": "기본값 매개변수로 '자주 쓰는 설정'을 미리 정해두면 호출할 때 편해요."
+      },
+      {
+        "order": 4,
+        "text": "여러 함수를 조합해서 하나의 미니 프로그램을 만들어볼게요.\n각 함수가 return으로 결과를 넘겨주고, 다음 함수가 그 결과를 받아 처리해요.\n이런 흐름이 실제 프로그램에서도 똑같이 쓰여요.",
+        "terminal": {
+          "code": [
+            "def get_discount(price, is_member=False):",
+            "    if is_member:",
+            "        return price * 0.9    # 회원 10% 할인",
+            "    return price",
+            "",
+            "def format_price(price):",
+            "    return f'{int(price):,}원'",
+            "",
+            "original = 50000",
+            "member_price = get_discount(original, is_member=True)",
+            "print(f'정가: {format_price(original)}')",
+            "print(f'회원가: {format_price(member_price)}')"
+          ],
+          "output": [
+            "정가: 50,000원",
+            "회원가: 45,000원"
+          ]
+        },
+        "tip": "get_discount()가 숫자를 반환하고, format_price()가 그 숫자를 꾸며서 반환하는 파이프라인 구조예요."
+      },
+      {
+        "order": 5,
+        "text": "Unit 6 핵심 정리!\n• def 함수명(): 으로 정의, 이름()으로 호출\n• 매개변수로 입력, return으로 출력\n• 기본값 매개변수로 선택적 옵션 구현\n• 지역 변수는 함수 안에서만, 전역 변수는 어디서든 (수정은 global 필요)\n• 내부 함수로 복잡한 로직을 캡슐화\n다음은 이 지식을 활용해 방해몬과 싸울 시간이에요!",
+        "terminal": {
+          "code": [
+            "# Unit 6 핵심 한눈에 보기",
+            "def calc(a, b, op='+'):   # def + 기본값 매개변수",
+            "    if op == '+': return a + b   # return",
+            "    if op == '-': return a - b",
+            "    if op == '*': return a * b",
+            "    if op == '/': return a / b if b != 0 else '0으로 나눌 수 없습니다'",
+            "    return '지원하지 않는 연산자'",
+            "",
+            "print(calc(10, 5))         # 기본값 사용 → 15",
+            "print(calc(10, 5, '-'))    # op 전달 → 5",
+            "print(calc(10, 0, '/'))    # 0으로 나누기 예외 처리 테스트"
+          ],
+        "output": [
+          "15",
+          "5",
+          "0으로 나눌 수 없습니다"
+          ]
+        },
+        "tip": "함수를 잘 쪼개고 조합하는 것이 실력 있는 파이썬 개발자의 특징이에요. 앞으로 더 많이 연습해봐요!"
+      }
+    ]
+  }
+]

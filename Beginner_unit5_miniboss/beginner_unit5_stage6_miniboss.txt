@@ -1,0 +1,139 @@
+type: miniboss
+level: beginner
+unit: 5
+stage: 5-6
+stage_title: 파일 쓰기
+villain: speechbubble_king
+pass_score: 70
+
+--- Q01 | easy | multiple_choice ---
+question_id: miniboss_beg_mc_5_6_001
+question: 파일에 텍스트를 쓰는 올바른 코드는?
+choices:
+  A. f.write("안녕하세요")
+  B. f.print("안녕하세요")
+  C. f.save("안녕하세요")
+  D. f.output("안녕하세요")
+answer: A
+explanation: 파일 객체의 write() 메서드로 내용을 파일에 써요. print(), save(), output()은 파일 쓰기 메서드가 아니에요.
+feedback.correct: 정답! 파일에 내용을 쓸 때는 write()를 써요.
+
+--- Q02 | easy | multiple_choice ---
+question_id: miniboss_beg_mc_5_6_002
+question: "w" 모드와 "a" 모드의 차이로 올바른 것은?
+choices:
+  A. 둘 다 기존 내용을 지운다
+  B. "w"는 덮어쓰고, "a"는 기존 내용 뒤에 추가한다
+  C. "a"는 덮어쓰고, "w"는 기존 내용 뒤에 추가한다
+  D. 둘 다 기존 내용을 유지한다
+answer: B
+explanation: "w"는 파일 내용을 처음부터 새로 쓰고, "a"는 append(추가) 모드로 기존 내용 뒤에 붙여요.
+feedback.correct: 정답! "w"는 덮어쓰기, "a"는 이어쓰기(append)예요.
+
+--- Q03 | medium | multiple_choice ---
+question_id: miniboss_beg_mc_5_6_003
+question: 여러 줄을 한 번에 파일에 쓰는 메서드는?
+choices:
+  A. write_all()
+  B. writeline()
+  C. writelines()
+  D. write_list()
+answer: C
+explanation: writelines()는 리스트의 각 항목을 파일에 한꺼번에 써요. 줄바꿈은 직접 \n으로 포함해야 해요.
+feedback.correct: 정답! 리스트나 여러 문자열을 한 번에 쓸 때는 writelines()를 써요.
+
+--- Q04 | medium | multiple_choice ---
+question_id: miniboss_beg_mc_5_6_004
+question: f.write("줄1\n줄2")를 실행하면 파일에는 어떻게 저장되나요?
+choices:
+  A. 줄1\n줄2라는 텍스트 그대로 저장된다
+  B. 두 줄이 하나로 합쳐져 줄1줄2가 된다
+  C. 줄1만 저장된다
+  D. 줄1과 줄2가 줄바꿈으로 분리되어 2줄로 저장된다
+answer: D
+explanation: \n은 줄바꿈 문자예요. 파일에서도 실제 줄바꿈으로 표시돼요.
+feedback.correct: 정답! \n은 줄바꿈(개행) 문자예요. 파일에 저장되면 실제 줄바꿈으로 표시돼요.
+
+--- Q05 | medium | output_select ---
+question_id: miniboss_beg_os_5_6_005
+question: 다음 코드 실행 후 output.txt 파일에 남는 내용은?
+code:
+  with open("output.txt", "w") as f:
+      f.write("첫 번째\n")
+  with open("output.txt", "w") as f:
+      f.write("두 번째\n")
+choices:
+  A. 두 번째
+  B. 첫 번째\n두 번째
+  C. 첫 번째
+  D. 파일이 비어있다
+answer: A
+explanation: "w" 모드로 두 번 열면 두 번째가 첫 번째를 덮어써요. 최종적으로 두 번째만 남아요.
+feedback.correct: 정답! "w" 모드는 파일을 열 때마다 기존 내용을 지워요. 두 번째 open("w")가 첫 번째 내용을 덮어써요.
+
+--- Q06 | medium | output_select ---
+question_id: miniboss_beg_os_5_6_006
+question: 다음 코드 실행 후 log.txt에 저장되는 내용은?
+code:
+  lines = ["사과\n", "바나나\n", "포도\n"]
+  with open("log.txt", "w") as f:
+      f.writelines(lines)
+choices:
+  A. ["사과\n", "바나나\n", "포도\n"]
+  B. 사과\n바나나\n포도 (3줄)
+  C. 사과바나나포도 (1줄)
+  D. 오류 발생
+answer: B
+explanation: \n이 포함된 문자열 리스트를 writelines()로 쓰면 각 항목이 새 줄로 저장돼요.
+feedback.correct: 정답! writelines()는 리스트의 각 항목을 순서대로 써요. \n이 있으면 줄이 나뉘어요.
+
+--- Q07 | hard | multiple_choice ---
+question_id: miniboss_beg_mc_5_6_007
+question: 존재하지 않는 파일을 "w" 모드로 열면?
+choices:
+  A. FileNotFoundError가 발생한다
+  B. None이 반환된다
+  C. 새 파일이 자동으로 생성된다
+  D. 기존 파일을 찾을 때까지 기다린다
+answer: C
+explanation: "w" 모드는 파일이 없으면 새로 만들고, 있으면 내용을 지우고 다시 써요.
+feedback.correct: 정답! "w"와 "a" 모드는 파일이 없을 때 자동으로 새 파일을 만들어요.
+
+--- Q08 | hard | multiple_choice ---
+question_id: miniboss_beg_mc_5_6_008
+question: writelines()를 사용할 때 줄바꿈이 자동으로 추가되지 않는 이유는?
+choices:
+  A. Python 버그이다
+  B. writelines()는 읽기 전용이다
+  C. 파일 모드가 틀렸기 때문이다
+  D. writelines()는 각 항목을 그대로 이어 쓰기 때문에 \n을 직접 포함해야 한다
+answer: D
+explanation: writelines()는 리스트 항목을 그대로 연결해서 쓰기 때문에 줄바꿈 \n을 직접 포함해야 해요.
+feedback.correct: 정답! writelines()는 write()를 여러 번 호출하는 것과 같아요. 줄바꿈을 자동으로 넣어주지 않아요.
+
+--- Q09 | hard | multiple_choice ---
+question_id: miniboss_beg_mc_5_6_009
+question: 기존 파일 내용을 보존하면서 새 내용을 뒤에 추가하는 올바른 모드는?
+choices:
+  A. open("data.txt", "a")
+  B. open("data.txt", "w")
+  C. open("data.txt", "r")
+  D. open("data.txt", "x")
+answer: A
+explanation: "a"는 append 모드로, 기존 내용은 그대로 두고 뒤에 이어써요.
+feedback.correct: 정답! 기존 내용을 유지하면서 추가하려면 "a"(append) 모드를 사용해야 해요.
+
+--- Q10 | hard | multiple_choice ---
+question_id: miniboss_beg_mc_5_6_010
+question: 리스트의 내용을 파일에 한 줄씩 저장하는 가장 올바른 방법은?
+choices:
+  A. f.write(my_list)
+  B. f.writelines([item + "\n" for item in my_list])
+  C. f.writelines(my_list) (줄바꿈 없이)
+  D. print(my_list, file=f)
+answer: B
+explanation: 각 항목에 \n을 붙인 리스트를 writelines()로 쓰면 한 줄씩 저장돼요. write()는 문자열만 받아요.
+feedback.correct: 정답! 각 항목에 \n을 포함시켜 writelines()로 쓰는 게 정확해요.
+
+난이도 분포: easy×2 / medium×4 / hard×4 ✅
+정답 시퀀스: A B C D A B C D A B ✅

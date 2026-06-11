@@ -1,0 +1,463 @@
+[
+  {
+    "question_id": "q721",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "함수 내부에서 선언되어 해당 함수 안에서만 사용할 수 있고, 함수가 종료되면 사라지는 변수를 무엇이라고 하나요?",
+    "choices": [
+      "A. 전역 변수 (Global Variable)",
+      "B. 지역 변수 (Local Variable)",
+      "C. 매개 변수 (Parameter)",
+      "D. 고정 변수 (Constant Variable)"
+    ],
+    "answer": "B",
+    "hint": "특정 '지역(함수 내부)'으로 사용 범위가 한정된 변수예요.",
+    "feedback": {
+      "correct": "정답입니다! 함수 내부에서 만들어져 그 안에서만 유효한 변수를 '지역 변수'라고 부릅니다."
+    }
+  },
+  {
+    "question_id": "q722",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "함수 바깥에 선언되어 프로그램 전체에서 자유롭게 접근하여 사용할 수 있는 변수를 무엇이라고 하나요?",
+    "choices": [
+      "A. 지역 변수 (Local Variable)",
+      "B. 전역 변수 (Global Variable)",
+      "C. 내부 변수 (Internal Variable)",
+      "D. 임시 변수 (Temporary Variable)"
+    ],
+    "answer": "B",
+    "hint": "전체 영역(Global)에서 다 통하는 변수를 뜻해요.",
+    "feedback": {
+      "correct": "정답입니다! 특정 함수에 속하지 않고 바깥 공용 공간에 선언된 변수를 '전역 변수'라고 합니다."
+    }
+  },
+  {
+    "question_id": "q723",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\ndef test_scope():\n    local_val = 10\n    print(local_val)\n\ntest_scope()",
+    "choices": [
+      "A. local_val",
+      "B. 10",
+      "C. 아무것도 출력되지 않는다",
+      "D. NameError 발생"
+    ],
+    "answer": "B",
+    "hint": "local_val은 함수 내부에서 선언되었고, 출력문(print) 역시 함수 내부에서 정상 실행되고 있습니다.",
+    "feedback": {
+      "correct": "정답입니다! test_scope 함수가 호출되면서 함수 안에서 지역 변수 10이 올바르게 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q724",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 발생하는 결과로 올바른 것을 고르세요.\n\ndef set_item():\n    my_weapon = '검'\n\nset_item()\nprint(my_weapon)",
+    "choices": [
+      "A. 검",
+      "B. my_weapon",
+      "C. NameError(이름 오류)가 발생한다.",
+      "D. None이 출력된다."
+    ],
+    "answer": "C",
+    "hint": "my_weapon은 set_item 함수 '내부'에서만 살아있는 변수입니다. 바깥 공간(print)에서 꺼내 쓰려고 하면 어떻게 될까요?",
+    "feedback": {
+      "correct": "정답입니다! 함수 내부에서 만들어진 지역 변수는 함수 바깥 영역에서 알 수 없기 때문에 NameError가 발생합니다."
+    }
+  },
+  {
+    "question_id": "q725",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 전역 변수가 포함된 코드를 실행했을 때 최종 출력값을 고르세요.\n\nglobal_msg = '에이몬'\n\ndef show_msg():\n    print(global_msg)\n\nshow_msg()",
+    "choices": [
+      "A. global_msg",
+      "B. 에이몬",
+      "C. NameError 발생",
+      "D. 아무것도 출력되지 않는다."
+    ],
+    "answer": "B",
+    "hint": "함수 바깥에 정의된 전역 변수는 함수 내부에서 읽어오는(참조하는) 것이 자유롭게 가능합니다.",
+    "feedback": {
+      "correct": "정답입니다! 전역 공간에 선언된 global_msg의 값 '에이몬'을 함수 내부에서 정상적으로 읽어와 출력합니다."
+    }
+  },
+  {
+    "question_id": "q726",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "함수 내부에서 전역 변수의 값을 단순 조회(읽기)하는 것을 넘어, 전역 변수 자체의 데이터를 수정하거나 새로운 값을 대입하고자 할 때 선언해야 하는 키워드는 무엇인가요?",
+    "choices": [
+      "A. local",
+      "B. change",
+      "C. global",
+      "D. extern"
+    ],
+    "answer": "C",
+    "hint": "파이썬에게 '이 변수는 내부에 새로 만드는 게 아니라 바깥에 있는 녀석이야!'라고 선언해주는 단어예요.",
+    "feedback": {
+      "correct": "정답입니다! 함수 안에서 전역 변수를 수정하려면 반드시 `global 변수명` 형태로 키워드를 선언해주어야 합니다."
+    }
+  },
+  {
+    "question_id": "q727",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 화면에 출력되는 최종 숫자를 고르세요.\n\nx = 100\n\ndef change_x():\n    x = 50\n\nchange_x()\nprint(x)",
+    "choices": [
+      "A. 100",
+      "B. 50",
+      "C. 150",
+      "D. NameError 발생"
+    ],
+    "answer": "A",
+    "hint": "change_x 함수 내부에서 키워드 선언 없이 `x = 50`을 하면, 전역 변수가 바뀌는 걸까요 아니면 동명의 새로운 지역 변수가 생기는 걸까요?",
+    "feedback": {
+      "correct": "정답입니다! 함수 내부에서 global 선언 없이 변수에 값을 대입하면 동명의 새로운 '지역 변수'가 만들어질 뿐이므로, 바깥의 전역 변수 x는 그대로 100을 유지합니다."
+    }
+  },
+  {
+    "question_id": "q728",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 global 키워드가 포함된 코드를 실행했을 때 화면에 나타나는 출력값을 고르세요.\n\nscore = 10\n\ndef increase_score():\n    global score\n    score = 30\n\nincrease_score()\nprint(score)",
+    "choices": [
+      "A. 10",
+      "B. 30",
+      "C. 40",
+      "D. 오류 발생"
+    ],
+    "answer": "B",
+    "hint": "global score 선언을 했기 때문에, 함수 안에서의 변경 사항이 바깥 전역 변수까지 직접 영향을 미치게 됩니다.",
+    "feedback": {
+      "correct": "정답입니다! global 키워드를 명시했으므로 전역 변수 score가 30으로 직접 갱신되어 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q729",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 코드가 실행되는 순서를 따져보았을 때, 출력되는 결과물로 알맞은 것은 무엇인가요?\n\nval = 'A'\n\ndef process():\n    val = 'B'\n    print('내부:' + val)\n\nprocess()\nprint('외부:' + val)",
+    "choices": [
+      "A. 내부:A\n외부:B",
+      "B. 내부:B\n외부:A",
+      "C. 내부:B\n외부:B",
+      "D. 내부:A\n외부:A"
+    ],
+    "answer": "B",
+    "hint": "함수 안에서는 지역 변수 val이 우선권을 갖고, 함수 밖에서는 전역 변수 val이 고유 영역을 가집니다.",
+    "feedback": {
+      "correct": "정답입니다! 함수 안에서는 새로 선언된 지역 변수 'B'가 찍히고, 바깥의 전역 변수는 훼손되지 않았으므로 'A'가 찍히게 됩니다."
+    }
+  },
+  {
+    "question_id": "q730",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "변수의 생명 주기(Life Cycle)와 사용 범위(Scope)에 대한 설명 중 문법적으로 틀린 주장을 고르세요.",
+    "choices": [
+      "A. 함수 호출 시 넘겨받는 '매개변수' 역시 함수 내부에서만 작동하는 지역 변수의 성격을 가진다.",
+      "B. 전역 변수는 프로그램이 실행을 시작해서 완전히 끝날 때까지 메모리에 유지된다.",
+      "C. 지역 변수는 함수 호출이 끝나고 리턴을 완료하는 순간 메모리에서 지워져 사라진다.",
+      "D. 파이썬에서는 안전을 위해 함수 내부에서 바깥의 전역 변수 값을 단순 조회(읽기)하는 것도 원천 금지하고 있다."
+    ],
+    "answer": "D",
+    "hint": "우리는 앞선 문제에서 global 키워드가 없어도 전역 변수의 글자를 print()로 읽어올 수 있음을 확인했습니다.",
+    "feedback": {
+      "correct": "정답입니다! 전역 변수의 값을 함수 안에서 읽어오는(참조하는) 것은 자유롭게 허용되므로 D번 설명이 잘못되었습니다."
+    }
+  },
+  {
+    "question_id": "q731",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "파이썬 코딩에서 변수가 선언되어 컴퓨터가 그 변수를 식별하고 사용할 수 있는 '유효 범위' 혹은 '활동 영역'을 뜻하는 올바른 IT 용어는 무엇인가요?",
+    "choices": [
+      "A. 스코프 (Scope)",
+      "B. 루프 (Loop)",
+      "C. 디버그 (Debug)",
+      "D. 도메인 (Domain)"
+    ],
+    "answer": "A",
+    "hint": "변수의 사용 범위나 영역을 뜻하는 영어 단어예요.",
+    "feedback": {
+      "correct": "정답입니다! 변수가 영향력을 미칠 수 있는 코드상의 유효 범위를 '스코프(Scope)'라고 부릅니다."
+    }
+  },
+  {
+    "question_id": "q732",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 중 전역 변수(Global Variable)의 무분별한 사용을 권장하지 않는 프로그래밍적인 이유로 가장 타당한 것은 무엇인가요?",
+    "choices": [
+      "A. 전역 변수를 쓰면 프로그램의 가독성이 무조건 올라가기 때문에",
+      "B. 여러 함수가 동시에 값을 변경하다가 엉뚱한 오류를 발생시킬 수 있고 코드가 복잡해지기 때문에",
+      "C. 전역 변수는 정수형 숫자 데이터만 저장할 수 있기 때문에",
+      "D. 함수 내부에서는 전역 변수 이름의 글자 수를 인식하지 못하기 때문에"
+    ],
+    "answer": "B",
+    "hint": "누구나 접근해서 고칠 수 있는 공용 공간의 물건은 관리와 통제가 어려워지는 단점이 있어요.",
+    "feedback": {
+      "correct": "정답입니다! 프로그램 전체가 변수를 공유하면 예상치 못한 변경이 누적되어 스파게티 코드가 되기 쉽습니다."
+    }
+  },
+  {
+    "question_id": "q733",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드를 가동했을 때 콘솔 창에 출력되는 결과물을 고르세요.\n\ndef calculate():\n    result_val = 5 * 5\n\ncalculate()\nprint(result_val)",
+    "choices": [
+      "A. 25",
+      "B. result_val",
+      "C. 아무것도 출력되지 않는다.",
+      "D. NameError 발생"
+    ],
+    "answer": "D",
+    "hint": "result_val은 calculate 함수 안에 갇혀있는 지역 변수인데, 함수 밖 맨 밑줄에서 출력 명령을 내렸습니다.",
+    "feedback": {
+      "correct": "정답입니다! 지역 변수는 소속된 함수를 벗어나는 순간 소멸하므로, 바깥 영역에서는 인식하지 못해 NameError가 납니다."
+    }
+  },
+  {
+    "question_id": "q734",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\nuser_id = 'slime'\n\ndef print_user():\n    print(user_id)\n\nprint_user()",
+    "choices": [
+      "A. user_id",
+      "B. slime",
+      "C. NameError 발생",
+      "D. None"
+    ],
+    "answer": "B",
+    "hint": "user_id는 전역 변수이므로 하위 배치된 print_user 함수 내부에서도 정상적으로 인지할 수 있습니다.",
+    "feedback": {
+      "correct": "정답입니다! 전역 공간에 할당된 'slime' 값을 함수 스코프 내에서도 정상적으로 가리키게 됩니다."
+    }
+  },
+  {
+    "question_id": "q735",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드의 출력 결과로 올바른 것을 고르세요.\n\ndef create_name():\n    nick = '로봇'\n    return nick\n\nmy_pet = create_name()\nprint(my_pet)",
+    "choices": [
+      "A. nick",
+      "B. 로봇",
+      "C. NameError 발생",
+      "D. create_name"
+    ],
+    "answer": "B",
+    "hint": "지역 변수 nick 자체는 밖으로 못 나오지만, `return`을 통해 알맹이(값)를 바깥의 my_pet에 안전하게 패스해주었습니다.",
+    "feedback": {
+      "correct": "정답입니다! 함수 내부의 지역 변수 데이터를 return문으로 탈출시켜 바깥 변(my_pet)에 정상적으로 보관 및 출력했습니다."
+    }
+  },
+  {
+    "question_id": "q736",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "함수 안에서 `global ` 키워드를 사용할 때 따르는 특징으로 잘못 설명된 항목은 무엇인가요?",
+    "choices": [
+      "A. global 키워드 옆에는 반드시 전역에 연동시킬 변수 이름을 적어야 한다.",
+      "B. `global x = 100` 처럼 키워드 선언과 동시에 값을 대입하는 문법적 한 줄 쓰기가 완벽히 허용된다.",
+      "C. global 키워드를 명시하면 함수 안의 변수 수정이 실제 함수 바깥의 전역 공간 변수를 영구적으로 변경한다.",
+      "D. global 선언은 함수 내부 공식 안에서 상단에 선언해야 작동한다."
+    ],
+    "answer": "B",
+    "hint": "파이썬에서는 `global x`를 먼저 선언해 장소를 지정하고, 그 아랫줄에 `x = 100` 대입을 분리해서 적어야 오류가 안 납니다.",
+    "feedback": {
+      "correct": "정답입니다! global 선언줄에는 값 대입을 동시에 진행할 수 없도록 문법으로 못박아 두었기에 B번이 틀린 항목입니다."
+    }
+  },
+  {
+    "question_id": "q737",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드의 최종 수행 결과로 모니터에 출력되는 정수는 무엇인가요?\n\nnumber = 7\n\ndef modify_number():\n    number = 99\n\nmodify_number()\nprint(number)",
+    "choices": [
+      "A. 7",
+      "B. 99",
+      "C. 106",
+      "D. 오류 발생"
+    ],
+    "answer": "A",
+    "hint": "함수 안에 작성된 `number = 99`는 global 영토 주권 선언이 빠졌으므로 바깥의 number와는 완전 별개의 독립된 변수입니다.",
+    "feedback": {
+      "correct": "정답입니다! 함수 내부의 대입식은 별도의 로컬 변수를 양산할 뿐이므로, 본래 전역 변수 7의 상태는 변함이 없습니다."
+    }
+  },
+  {
+    "question_id": "q738",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 최종으로 모니터링되는 텍스트 결과는 무엇인가요?\n\nlevel = 1\n\ndef force_up():\n    global level\n    level = level + 9\n\nforce_up()\nprint(level)",
+    "choices": [
+      "A. 1",
+      "B. 9",
+      "C. 10",
+      "D. level + 9"
+    ],
+    "answer": "C",
+    "hint": "global을 선언했기에 `level + 9` 부분은 기존 전역 변수인 1에 9를 더하게 되는 온전한 연산으로 흘러갑니다.",
+    "feedback": {
+      "correct": "정답입니다! 전역 변수의 통제권을 확보한 뒤 연산을 덧붙여 대입했으므로 1+9의 가치인 10이 마침내 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q739",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음과 같이 동일한 명칭의 변수가 공간을 달리하여 배치되었을 때, 순차 출력 결과로 올바른 조합은 무엇인가요?\n\ncharacter = '보라 슬라임'\n\ndef transformation():\n    character = '보라 로봇'\n    print('1번:' + character)\n\ntransformation()\nprint('2번:' + character)",
+    "choices": [
+      "A. 1번:보라 슬라임\n2번:보라 로봇",
+      "B. 1번:보라 로봇\n2번:보라 슬라임",
+      "C. 1번:보라 로봇\n2번:보라 로봇",
+      "D. 1번:보라 슬라임\n2번:보라 슬라임"
+    ],
+    "answer": "B",
+    "hint": "우선순위 스코프 법칙에 따라 함수 안에서는 내부 방 변수가, 바깥 영토에서는 외부 기지 전역 변수가 힘을 씁니다.",
+    "feedback": {
+      "correct": "정답입니다! 지역 스코프는 자기 내부의 '보라 로봇'을 먼저 꺼내 찍고, 전역 스코프는 오염되지 않은 본래의 '보라 슬라임'을 온전히 유지하여 출력합니다."
+    }
+  },
+  {
+    "question_id": "q740",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "전역 변수(Global)와 지역 변수(Local)의 충돌 관계에 관한 설명 중 가장 올바른 팩트는 무엇인가요?",
+    "choices": [
+      "A. 이름이 완벽히 똑같은 변수는 한 파일에 절대 공존할 수 없다.",
+      "B. 함수 내부에서 전역 변수와 완전히 똑같은 이름으로 지역 변수를 새로 정의하면, 함수 안에서는 해당 이름 호출 시 '지역 변수'가 전역 변수보다 우선순위를 가진다.",
+      "C. 지역 변수는 함수 바깥 영역에서도 얼마든지 마음대로 호출해서 데이터 조작이 가능하다.",
+      "D. global 키워드는 함수가 아닌 일반 if 조건문 내부에서 변수를 바꿀 때도 매번 필수로 써야만 한다."
+    ],
+    "answer": "B",
+    "hint": "이름이 겹칠 경우 더 좁고 구체적인 공간(함수 내부)에 소속된 변수가 우선권을 쥐고 동작하게 됩니다.",
+    "feedback": {
+      "correct": "정답입니다! 스코프 중첩 시 더 좁은 범위인 지역 변수가 일시적으로 전역 변수를 가리며(Shadowing) 우선 배치권을 가지게 됩니다."
+    }
+  }
+]
+

@@ -1,0 +1,462 @@
+[
+  {
+    "question_id": "q691",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "함수를 정의할 때 매개변수에 미리 지정해두는 기본값을 무엇이라고 하나요?",
+    "choices": [
+      "A. 초기 인수 (Initial Argument)",
+      "B. 기본값 매개변수 (Default Parameter)",
+      "C. 고정 반환값 (Fixed Return)",
+      "D. 전역 할당 (Global Assignment)"
+    ],
+    "answer": "B",
+    "hint": "영단어 'Default(디폴트)'의 의미를 생각해보세요.",
+    "feedback": {
+      "correct": "정답입니다! 함수 정의 시 소괄호 안에서 `변수명 = 값` 형태로 미리 지정하는 값을 기본값 매개변수라고 합니다."
+    }
+  },
+  {
+    "question_id": "q692",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "기본값 매개변수가 지정된 함수를 호출할 때, 해당 인수를 비워두고 호출하면 어떤 현상이 발생하나요?",
+    "choices": [
+      "A. 에러가 발생하며 프로그램이 멈춘다.",
+      "B. 미리 지정해둔 기본값이 자동으로 적용되어 실행된다.",
+      "C. None 값이 강제로 대입된다.",
+      "D. 함수 내부 코드가 모두 무시된다."
+    ],
+    "answer": "B",
+    "hint": "값이 주어지지 않았을 때 대안으로 쓰기 위해 미리 설정해둔 값이에요.",
+    "feedback": {
+      "correct": "정답입니다! 인수가 전달되지 않으면 함수는 선언할 때 지정해둔 기본값을 사용합니다."
+    }
+  },
+  {
+    "question_id": "q693",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\ndef heal(monster, power=50):\n    print(f'{monster}의 HP가 {power}만큼 회복!')\n\nheal('슬라임')",
+    "choices": [
+      "A. 슬라임의 HP가 power만큼 회복!",
+      "B. 슬라임의 HP가 0만큼 회복!",
+      "C. 슬라임의 HP가 50만큼 회복!",
+      "D. TypeError 발생"
+    ],
+    "answer": "C",
+    "hint": "power 인수를 전달하지 않았으므로 기본값으로 설정된 숫자가 적용됩니다.",
+    "feedback": {
+      "correct": "정답입니다! power의 기본값인 50이 적용되어 '슬라임의 HP가 50만큼 회복!'이 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q694",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\ndef heal(monster, power=50):\n    print(f'{monster}의 HP가 {power}만큼 회복!')\n\nheal('로봇', 100)",
+    "choices": [
+      "A. 로봇의 HP가 50만큼 회복!",
+      "B. 로봇의 HP가 100만큼 회복!",
+      "C. 로봇의 HP가 150만큼 회복!",
+      "D. 오류 발생"
+    ],
+    "answer": "B",
+    "hint": "인수를 명시적으로 던져주면, 기존에 설정된 기본값은 어떻게 될까요?",
+    "feedback": {
+      "correct": "정답입니다! 호출 시 인수를 직접 전달하면 기본값은 무시되고 새로 전달된 값(100)이 사용됩니다."
+    }
+  },
+  {
+    "question_id": "q695",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "파이썬에서 기본값이 있는 매개변수와 기본값이 없는 매개변수를 섞어서 선언할 때 반드시 지켜야 하는 문법 규칙은 무엇인가요?",
+    "choices": [
+      "A. 기본값이 있는 매개변수를 항상 뒤쪽에 배치해야 한다.",
+      "B. 기본값이 있는 매개변수를 항상 앞쪽에 배치해야 한다.",
+      "C. 매개변수들의 알파벳 순서대로 배치해야 한다.",
+      "D. 두 종류를 섞어서 선언하는 것은 절대 불가능하다."
+    ],
+    "answer": "A",
+    "hint": "컴퓨터가 위치 인수를 채워나갈 때 혼동이 없으려면 생략 가능한 방들이 오른쪽에 몰려있어야 해요.",
+    "feedback": {
+      "correct": "정답입니다! 기본값이 없는 필수 매개변수를 먼저 쓰고, 기본값이 있는 선택적 매개변수는 반드시 뒤쪽에 두어야 합니다."
+    }
+  },
+  {
+    "question_id": "q696",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 코드의 출력 결과로 올바른 값을 고르세요.\n\ndef set_theme(bg='white', font='sans'):\n    print(f'배경:{bg}, 폰트:{font}')\n\nset_theme(font='serif')",
+    "choices": [
+      "A. 배경:white, 폰트:sans",
+      "B. 배경:white, 폰트:serif",
+      "C. 배경:serif, 폰트:sans",
+      "D. TypeError 발생"
+    ],
+    "answer": "B",
+    "hint": "font 인수는 키워드로 지정해서 전달했고, bg 인수는 생략되었습니다.",
+    "feedback": {
+      "correct": "정답입니다! bg는 생략되어 기본값 'white'가 되고 font는 지정된 'serif'가 적용됩니다."
+    }
+  },
+  {
+    "question_id": "q697",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 함수 선언문 중 파이썬에서 문법 오류(SyntaxError)를 발생시키는 구문은 무엇인가요?",
+    "choices": [
+      "A. def build_avatar(name, color='purple', items=None):",
+      "B. def build_avatar(color='purple', name):",
+      "C. def build_avatar(name='slime', color='blue'):",
+      "D. def build_avatar(name, color):"
+    ],
+    "answer": "B",
+    "hint": "기본값이 없는 필수 매개변수보다 기본값 매개변수가 먼저 앞에 나오면 안 됩니다.",
+    "feedback": {
+      "correct": "정답입니다! `color='purple'`이라는 기본값 매개변수가 일반 매개변수 `name`보다 앞에 위치했기 때문에 SyntaxError가 발생합니다."
+    }
+  },
+  {
+    "question_id": "q698",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 코드를 수행했을 때 콘솔 창에 출력되는 결과는 무엇인가요?\n\ndef score_board(player, high_score=1000, current=0):\n    print(f'{player}:{high_score}/{current}')\n\nscore_board('지니', current=500)",
+    "choices": [
+      "A. 지니:1000/0",
+      "B. 지니:1000/500",
+      "C. 지니:500/0",
+      "D. TypeError 발생"
+    ],
+    "answer": "B",
+    "hint": "player는 위치 인수로 전달되었고, current는 키워드 인수로 명시되었습니다. 가운데 high_score는 어떻게 될까요?",
+    "feedback": {
+      "correct": "정답입니다! high_score는 생략되어 기본값 1000을 유지하고, current는 전달받은 500으로 변경되어 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q699",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 코드의 최종 실행 결과로 올바른 것을 고르세요.\n\ndef calc_exp(base, bonus=1.2):\n    return int(base * bonus)\n\nprint(calc_exp(2000) + calc_exp(1000, 1.5))",
+    "choices": [
+      "A. 3600",
+      "B. 3900",
+      "C. 4200",
+      "D. 4500"
+    ],
+    "answer": "B",
+    "hint": "`calc_exp(2000)`은 기본 보너스 1.2가 적용되고, `calc_exp(1000, 1.5)`는 보너스 1.5가 새로 적용됩니다.",
+    "feedback": {
+      "correct": "정답입니다! 앞 연산은 `2000 * 1.2 = 2400`, 뒤 연산은 `1000 * 1.5 = 1500`이 되므로 합산하면 3900이 됩니다."
+    }
+  },
+  {
+    "question_id": "q700",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "파이썬 내장 함수인 `print('Hello', end='\\n')` 구조에서 `end='\\n'`이 뜻하는 바를 기본값 매개변수 개념과 연결하여 올바르게 설명한 것은 무엇인가요?",
+    "choices": [
+      "A. end 매개변수의 기본값이 '\\n'이므로 원래 평소에 값을 주지 않아도 줄바꿈이 일어났던 것이다.",
+      "B. end는 무조건 '\\n'만 받아야 하므로 다른 문자열로 변경하는 것이 금지되어 있다.",
+      "C. end를 생략하면 함수 실행이 아예 되지 않는 필수 매개변수이다.",
+      "D. 파이썬 버전에 따라 end 기본값은 매번 무작위로 바뀐다."
+    ],
+    "answer": "A",
+    "hint": "우리가 print()를 쓸 때 end를 매번 적지 않았음에도 다음 줄로 넘어갔던 이유를 생각해보세요.",
+    "feedback": {
+      "correct": "정답입니다! print() 함수 설계 시 end의 기본값이 줄바꿈('\\n')으로 선언되어 있기 때문에 인수를 생략해도 줄바꿈이 작동한 것입니다."
+    }
+  },
+  {
+    "question_id": "q701",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 중 기본값 매개변수(Default Parameter)를 사용하는 가장 주요한 원인은 무엇인가요?",
+    "choices": [
+      "A. 모든 매개변수의 값을 필수적으로 입력받기 위해",
+      "B. 인수의 입력을 선택적으로 만들어 함수의 사용 편의성을 높이기 위해",
+      "C. 함수가 항상 일정한 값만 반환하도록 고정하기 위해",
+      "D. 변수들의 자료형을 검사하기 위해"
+    ],
+    "answer": "B",
+    "hint": "매번 자주 쓰는 인수가 정해져 있다면, 호출할 때마다 매번 적는 수고를 덜 수 있어요.",
+    "feedback": {
+      "correct": "정답입니다! 자주 쓰이는 값을 기본값으로 지정해두면 인수를 생략할 수 있어 호출이 편리해집니다."
+    }
+  },
+  {
+    "question_id": "q702",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "기본값 매개변수 선언 형식으로 올바른 문법을 고르세요.",
+    "choices": [
+      "A. def test(a: 10):",
+      "B. def test(a == 10):",
+      "C. def test(a = 10):",
+      "D. def test(a <- 10):"
+    ],
+    "answer": "C",
+    "hint": "변수에 값을 할당할 때와 마찬가지로 대입 연산자 기호를 하나 사용합니다.",
+    "feedback": {
+      "correct": "정답입니다! 매개변수명 뒤에 `=` 기호와 기본값을 나열하면 문법이 성립합니다."
+    }
+  },
+  {
+    "question_id": "q703",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\ndef make_team(name='에이짱'):\n    print('팀명:' + name)\n\nmake_team()",
+    "choices": [
+      "A. 팀명:",
+      "B. 팀명:name",
+      "C. 팀명:에이짱",
+      "D. 오류 발생"
+    ],
+    "answer": "C",
+    "hint": "인수를 주지 않고 비워두었으므로 설계 단계의 기본 텍스트가 적용됩니다.",
+    "feedback": {
+      "correct": "정답입니다! name에 기본값 '에이짱'이 대입되어 정상 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q704",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\ndef make_team(name='에이짱'):\n    print('팀명:' + name)\n\nmake_team('FC파이썬')",
+    "choices": [
+      "A. 팀명:에이짱",
+      "B. 팀명:FC파이썬",
+      "C. 팀명:에이짱FC파이썬",
+      "D. 오류 발생"
+    ],
+    "answer": "B",
+    "hint": "전달된 인수 'FC파이썬'이 기존의 기본값을 대체(덮어쓰기)합니다.",
+    "feedback": {
+      "correct": "정답입니다! 인수가 명시되면 기본값은 무시되므로 '팀명:FC파이썬'이 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q705",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "함수 정의 구문 `def info(age, name='손님', vip=False):`에 대한 설명으로 올바르지 않은 것은 무엇인가요?",
+    "choices": [
+      "A. age 매개변수는 호출 시 반드시 인수를 넘겨주어야 한다.",
+      "B. name과 vip 매개변수는 호출 시 인수를 생략할 수 있다.",
+      "C. `info(20)` 형태로 호출하면 name='손님', vip=False가 대입된다.",
+      "D. 이 함수는 기본값 배치가 틀렸으므로 무조건 선언 에러가 난다."
+    ],
+    "answer": "D",
+    "hint": "기본값이 없는 age가 맨 왼쪽에 처음에 잘 위치해 있는지 검토해보세요.",
+    "feedback": {
+      "correct": "정답입니다! 기본값이 없는 필수 매개변수(age)가 맨 앞에 정상이 배치되었으므로 문법상 올바른 식입니다. 따라서 D번이 오답입니다."
+    }
+  },
+  {
+    "question_id": "q706",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 최종 출력되는 텍스트를 고르세요.\n\ndef draw_line(length=5, shape='-'):\n    print(shape * length)\n\ndraw_line(3, '*')",
+    "choices": [
+      "A. -----",
+      "B. ***",
+      "C. ***\n-----",
+      "D. 오류 발생"
+    ],
+    "answer": "B",
+    "hint": "length에는 3이 들어가고 shape에는 '*'이 들어가서 곱하기 연산이 수행됩니다.",
+    "feedback": {
+      "correct": "정답입니다! 두 인수가 모두 새 값으로 갱신되어 `3 * '*'`이 실행되므로 '***'이 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q707",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드의 배치와 호출 상태를 보고, 예상되는 결과를 고르세요.\n\ndef setup_player(lv=1, weapon):\n    print(lv, weapon)\n\nsetup_player( weapon='지팡이' )",
+    "choices": [
+      "A. 1 지팡이",
+      "B. weapon 지팡이",
+      "C. 아무것도 출력되지 않는다.",
+      "D. SyntaxError(문법 오류)가 발생한다."
+    ],
+    "answer": "D",
+    "hint": "함수 정의문 `def setup_player(lv=1, weapon):` 부분에서 매개변수의 나열 순서를 엄격히 확인해보세요.",
+    "feedback": {
+      "correct": "정답입니다! 파이썬 문법상 기본값을 지닌 매개변수 뒤에 일반 매개변수를 배치할 수 없기 때문에 정의 시점에서 바로 SyntaxError가 터집니다."
+    }
+  },
+  {
+    "question_id": "q708",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드를 구동했을 때 최종 출력되는 결과물은 무엇인가요?\n\ndef select_item(user, slot='A', count=1):\n    print(f'{user}:{slot}/{count}')\n\nselect_item('지혜원', count=3)",
+    "choices": [
+      "A. 지혜원:A/1",
+      "B. 지혜원:A/3",
+      "C. 지혜원:slot/3",
+      "D. TypeError 발생"
+    ],
+    "answer": "B",
+    "hint": "user와 count의 값은 명시적으로 전달받았으나, slot은 아예 언급되지 않았습니다.",
+    "feedback": {
+      "correct": "정답입니다! 언급되지 않은 slot 매개변수만 기본값 'A'로 유지되어 '지혜원:A/3'이 완성됩니다."
+    }
+  },
+  {
+    "question_id": "q709",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드의 리턴 연산 결과로 최종 출력되는 값을 고르세요.\n\ndef discount(price, rate=0.1):\n    return int(price * (1 - rate))\n\nprint(discount(10000) + discount(20000, 0.2))",
+    "choices": [
+      "A. 23000",
+      "B. 25000",
+      "C. 27000",
+      "D. 29000"
+    ],
+    "answer": "B",
+    "hint": "첫 번째는 10% 할인(rate=0.1), 두 번째는 20% 할인(rate=0.2)이 들어갑니다.",
+    "feedback": {
+      "correct": "정답입니다! `10000 * 0.9 = 9000`이고 `20000 * 0.8 = 16000`이므로 두 값을 더하면 25000이 됩니다."
+    }
+  },
+  {
+    "question_id": "q710",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 중 기본값 매개변수(Default Parameter)에 대한 설명으로 옳은 것을 모두 고른 것은?\n\nㄱ. 함수 호출 시 인수를 생략하면 무조건 None이 대입되는 현상을 방지할 수 있다.\nㄴ. 여러 개의 기본값 매개변수가 있을 때 특정 매개변수만 값을 바꾸고 싶다면 키워드 인수를 활용하면 된다.\nㄷ. 함수 정의부의 매개변수 순서는 아무렇게나 배치해도 파이썬이 알아서 순서를 교정해준다.",
+    "choices": [
+      "A. ㄱ, ㄴ",
+      "B. ㄴ, ㄷ",
+      "C. ㄱ, ㄷ",
+      "D. ㄱ, ㄴ, ㄷ"
+    ],
+    "answer": "A",
+    "hint": "ㄷ 지문의 경우, 매개변수 순서(필수 매개변수와 선택 매개변수 배치)에 파이썬이 관대한지 아니면 에러를 내는지 판단해보세요.",
+    "feedback": {
+      "correct": "정답입니다! 순서는 엄격한 규칙이 존재하므로 자동으로 정렬되지 않아 ㄷ은 거짓이며, ㄱ과 ㄴ은 완벽한 진실입니다."
+    }
+  }
+]
