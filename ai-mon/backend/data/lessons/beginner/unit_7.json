@@ -4,93 +4,82 @@
     "unit": 7,
     "stage": "7-1",
     "course_level": "beginner",
-    "title": "파일 읽기/쓰기",
+    "title": "딕셔너리 기초",
     "villain": "interferencemon",
     "slides": [
       {
         "order": 1,
-        "text": "`open(파일명, 모드)`로 파일을 열어요.\n모드에 따라 읽기, 쓰기, 추가 등 다른 작업을 할 수 있어요.\n\n| 모드 | 의미 |\n|------|------|\n| `'r'` | 읽기 (기본값) |\n| `'w'` | 쓰기 (파일 덮어쓰기) |\n| `'a'` | 추가 (기존 내용 유지하고 뒤에 추가) |",
+        "text": "딕셔너리는 '키(Key)'와 '값(Value)'을 한 쌍으로 묶어서 저장하는 자료형이에요.\n마치 사전에서 단어(키)를 찾으면 뜻(값)이 나오는 것처럼요.\n리스트와 달리 숫자가 아닌, 우리가 원하는 이름의 키로 데이터를 관리할 수 있어요.",
         "terminal": {
           "code": [
-            "# 코드",
-            "f = open('data.txt', 'w')",
-            "f.write('Hello, Python!')",
-            "f.close()",
-            "",
-            "f = open('data.txt', 'r')",
-            "print(f.read())",
-            "f.close()"
+            "user = {\"name\": \"에이몬\", \"lv\": 1}",
+            "print(user)"
           ],
           "output": [
-            "Hello, Python!"
+            "{'name': '에이몬', 'lv': 1}"
           ]
         },
-        "tip": "파일을 열면 반드시 `close()`로 닫아야 해요. 닫지 않으면 데이터가 저장되지 않을 수 있어요."
+        "tip": "딕셔너리는 중괄호 {}를 사용하고, 키와 값 사이는 콜론(:)으로 구분해요."
       },
       {
         "order": 2,
-        "text": "`with open() as f:` 형태를 사용하면 블록이 끝날 때 자동으로 파일이 닫혀요.\n`close()`를 직접 호출할 필요가 없어서 더 안전해요.",
+        "text": "딕셔너리에서 특정 값을 가져올 때는 대괄호 [] 안에 키 이름을 적어줘요.\n리스트에서 숫자를 써서 위치(인덱스)를 지정했던 것과 비슷하지만,\n딕셔너리는 'name'이나 'lv' 같은 이름을 직접 지정해서 더 직관적이에요.",
         "terminal": {
           "code": [
-            "# 코드",
-            "with open('research.txt', 'w') as f:",
-            "    f.write('데이터 분석 결과\\n')",
-            "    f.write('샘플 수: 100\\n')",
-            "",
-            "with open('research.txt', 'r') as f:",
-            "    content = f.read()",
-            "    print(content)"
+            "user = {\"name\": \"에이몬\", \"lv\": 1}",
+            "print(user[\"name\"])"
           ],
           "output": [
-            "데이터 분석 결과",
-            "샘플 수: 100"
+            "에이몬"
           ]
         },
-        "tip": "실무에서는 `with`문을 항상 사용해요. `close()`를 잊어버리는 실수를 방지할 수 있어요."
+        "tip": "딕셔너리 이름[키] 구조를 꼭 기억하세요. 문자열 키라면 따옴표를 빼먹으면 안 돼요!"
       },
       {
         "order": 3,
-        "text": "`readlines()`는 파일 전체를 줄 단위 리스트로 반환해요.\nfor문으로 파일을 순회하면 줄 단위로 읽을 수 있어요.",
+        "text": "만약 딕셔너리에 존재하지 않는 키를 대괄호로 찾으려고 하면 어떻게 될까요?\n파이썬은 즉시 KeyError라는 에러를 발생시키며 프로그램을 멈춰버려요.\n방해몬이 없는 키를 물어보며 꼼수를 부릴 때 아주 자주 겪게 되는 에러예요.",
         "terminal": {
           "code": [
-            "# 코드",
-            "with open('scores.txt', 'w') as f:",
-            "    f.write('Alice 95\\nBob 87\\nCarol 92\\n')",
-            "",
-            "with open('scores.txt', 'r') as f:",
-            "    lines = f.readlines()",
-            "    for line in lines:",
-            "        print(line.strip())"
+            "user = {\"name\": \"에이몬\"}",
+            "try:",
+            "    print(user[\"hp\"])",
+            "except KeyError as e:",
+            "    print(f\"KeyError: {e}\")"
           ],
           "output": [
-            "Alice 95",
-            "Bob 87",
-            "Carol 92"
-          ]
+            "KeyError: 'hp'"
+          ],
+          "is_error": true
         },
-        "tip": "`readlines()`로 읽으면 각 줄 끝에 `\\n`이 포함돼요. `.strip()`으로 제거할 수 있어요."
+        "tip": "에러 메시지에 나오는 'hp'는 딕셔너리 안에 'hp'라는 키가 존재하지 않는다는 뜻이에요."
       },
       {
         "order": 4,
-        "text": "`'a'` 모드는 기존 파일 내용을 유지하고 뒤에 추가해요.\n한글 파일을 다룰 때는 `encoding='utf-8'`을 지정하는 게 안전해요.",
+        "text": "존재하지 않는 키를 찾을 때 에러 없이 안전하게 값을 꺼내려면 .get()을 사용해요.\n.get() 메서드는 딕셔너리에 없는 키를 요청하더라도 에러를 내지 않고,\n대신 아무것도 없다는 의미인 None을 돌려주기 때문에 프로그램이 멈추지 않아요.",
         "terminal": {
           "code": [
-            "# 코드",
-            "with open('log.txt', 'w', encoding='utf-8') as f:",
-            "    f.write('1번 실험: 성공\\n')",
-            "",
-            "with open('log.txt', 'a', encoding='utf-8') as f:",
-            "    f.write('2번 실험: 실패\\n')",
-            "",
-            "with open('log.txt', 'r', encoding='utf-8') as f:",
-            "    print(f.read())"
+            "user = {\"name\": \"에이몬\"}",
+            "print(user.get(\"hp\"))"
           ],
           "output": [
-            "1번 실험: 성공",
-            "2번 실험: 실패"
+            "None"
           ]
         },
-        "tip": "`'w'` 모드는 파일 전체를 덮어써요. 기존 내용을 유지하려면 반드시 `'a'` 모드를 사용해요."
+        "tip": "딕셔너리.get(키)는 안전하게 데이터를 조회할 때 필수로 쓰이는 실전 패턴이에요!"
+      },
+      {
+        "order": 5,
+        "text": ".get()의 진짜 강력한 점은 키가 없을 때의 '기본값'을 지정할 수 있다는 거예요.\n.get(키, 기본값) 형태로 쓰면, 키가 없을 때 None 대신 우리가 지정한 값을 채워줘요.\n초기 능력치나 기본 재고를 설정할 때 무척 유용해요.",
+        "terminal": {
+          "code": [
+            "user = {\"name\": \"에이몬\"}",
+            "print(user.get(\"hp\", 100))"
+          ],
+          "output": [
+            "100"
+          ]
+        },
+        "tip": "원래 딕셔너리에 'hp' 키가 없었기 때문에, 기본값으로 적어둔 100이 출력된 거예요."
       }
     ]
   },
@@ -99,111 +88,84 @@
     "unit": 7,
     "stage": "7-2",
     "course_level": "beginner",
-    "title": "JSON 기초",
+    "title": "딕셔너리 수정",
     "villain": "interferencemon",
     "slides": [
       {
         "order": 1,
-        "text": "JSON(JavaScript Object Notation)은 데이터를 저장하고 전달하는 표준 형식이에요.\nPython 딕셔너리와 생김새가 비슷하지만 문자열 형태예요.\nAPI 응답, 설정 파일 등에서 매우 많이 사용해요.",
+        "text": "딕셔너리에 새로운 데이터를 추가하거나 기존 데이터를 수정하는 법을 알아볼게요.\n딕셔너리[키] = 값 형태로 작성하면 파이썬이 알아서 처리해 주는데,\n만약 딕셔너리에 이미 존재하는 키라면 새로운 값으로 덮어써요.",
         "terminal": {
           "code": [
-            "# 코드",
-            "import json",
-            "",
-            "# JSON은 문자열이에요",
-            "json_str = '{\"name\": \"Alice\", \"score\": 95}'",
-            "print(type(json_str))",
-            "",
-            "# Python 딕셔너리는 객체예요",
-            "py_dict = {\"name\": \"Alice\", \"score\": 95}",
-            "print(type(py_dict))"
+            "user = {\"name\": \"에이몬\", \"lv\": 1}",
+            "user[\"lv\"] = 2",
+            "print(user)"
           ],
           "output": [
-            "<class 'str'>",
-            "<class 'dict'>"
+            "{'name': '에이몬', 'lv': 2}"
           ]
         },
-        "tip": "JSON은 항상 큰따옴표(`\"`)를 사용해요. Python 딕셔너리는 작은따옴표도 가능하지만 JSON은 큰따옴표만 허용해요."
+        "tip": "기존에 있던 'lv'의 값인 1이 새로운 값 2로 깔끔하게 수정되었어요."
       },
       {
         "order": 2,
-        "text": "`json.loads(문자열)`은 JSON 문자열을 Python 딕셔너리/리스트로 변환해요.\nAPI에서 받은 JSON 응답을 Python에서 사용할 수 있게 해줘요.",
+        "text": "새로운 키와 값을 추가하고 싶을 때도 똑같은 형식을 사용해요.\n딕셔너리[새로운_키] = 값 이라고 적으면,\n파이썬이 딕셔너리의 맨 뒤에 해당 키와 값을 새로운 쌍으로 등록해 줘요.",
         "terminal": {
           "code": [
-            "# 코드",
-            "import json",
-            "",
-            "json_str = '{\"researcher\": \"Kim\", \"samples\": 50, \"success\": true}'",
-            "data = json.loads(json_str)",
-            "",
-            "print(type(data))",
-            "print(data['researcher'])",
-            "print(data['samples'])"
+            "user = {\"name\": \"에이몬\"}",
+            "user[\"hp\"] = 50",
+            "print(user)"
           ],
           "output": [
-            "<class 'dict'>",
-            "Kim",
-            "50"
+            "{'name': '에이몬', 'hp': 50}"
           ]
         },
-        "tip": "`loads`의 s는 string(문자열)이에요. 문자열을 Python 객체로 변환해요."
+        "tip": "없던 키를 지정하면 추가, 있던 키를 지정하면 수정! 하나의 문법으로 두 작업이 다 돼요."
       },
       {
         "order": 3,
-        "text": "`json.dumps(딕셔너리)`는 Python 딕셔너리를 JSON 문자열로 변환해요.\nAPI에 데이터를 보내거나 파일에 저장할 때 사용해요.",
+        "text": "딕셔너리에서 특정 키와 값을 통째로 지우고 싶을 때는 del 키워드를 써요.\ndel 딕셔너리[지울_키] 라고 명령하면 해당 키와 값이 완전히 사라져요.\n방해몬이 이상한 쓰레기 데이터를 심어두었을 때 도려내기 딱 좋겠죠?",
         "terminal": {
           "code": [
-            "# 코드",
-            "import json",
-            "",
-            "data = {",
-            "    \"experiment\": \"A-01\",",
-            "    \"results\": [85, 92, 78],",
-            "    \"passed\": True",
-            "}",
-            "",
-            "json_str = json.dumps(data, indent=2)",
-            "print(json_str)",
-            "print(type(json_str))"
+            "user = {\"name\": \"에이몬\", \"poison\": True}",
+            "del user[\"poison\"]",
+            "print(user)"
           ],
           "output": [
-            "{",
-            "  \"experiment\": \"A-01\",",
-            "  \"results\": [85, 92, 78],",
-            "  \"passed\": true",
-            "}",
-            "<class 'str'>"
+            "{'name': '에이몬'}"
           ]
         },
-        "tip": "`indent=2`로 들여쓰기를 지정하면 읽기 좋게 출력돼요. Python의 `True`는 JSON에서 `true`로 변환돼요."
+        "tip": "del을 쓸 때 존재하지 않는 키를 지우려고 하면 KeyError가 발생하니 주의해요."
       },
       {
         "order": 4,
-        "text": "`json.dump()`와 `json.load()`로 JSON 파일을 직접 읽고 쓸 수 있어요.\n`dumps/loads`는 문자열 변환, `dump/load`는 파일 입출력이에요.",
+        "text": "딕셔너리의 모든 내용을 전부 비우고 리셋하고 싶다면 .clear()를 사용해요.\n리스트의 clear()처럼 내부의 키-값 쌍을 남김없이 전부 삭제해서\n처음 선언했던 상태의 빈 딕셔너리 {}로 만들어 줘요.",
         "terminal": {
           "code": [
-            "# 코드",
-            "import json",
-            "",
-            "data = {\"model\": \"GPT\", \"version\": 4, \"available\": True}",
-            "",
-            "# 파일에 저장",
-            "with open('config.json', 'w') as f:",
-            "    json.dump(data, f, indent=2)",
-            "",
-            "# 파일에서 읽기",
-            "with open('config.json', 'r') as f:",
-            "    loaded = json.load(f)",
-            "",
-            "print(loaded['model'])",
-            "print(loaded['version'])"
+            "user = {\"name\": \"에이몬\", \"lv\": 10}",
+            "user.clear()",
+            "print(user)"
           ],
           "output": [
-            "GPT",
-            "4"
+            "{}"
           ]
         },
-        "tip": "`dump`/`load`는 파일 객체를 인수로 받아요. `dumps`/`loads`는 문자열을 인수로 받아요. 's'가 있으면 문자열이에요."
+        "tip": "clear()는 딕셔너리 자체를 삭제하는 게 아니라, 알맹이만 쏙 비우는 기능이에요."
+      },
+      {
+        "order": 5,
+        "text": "딕셔너리 안에 어떤 키가 들어있는지 검사할 때는 in 연산자를 활용해요.\n'키 in 딕셔너리' 형태로 물어보면 참(True) 또는 거짓(False)을 알려줘요.\n수정이나 삭제를 하기 전에 안전장치로 쓰기 아주 좋은 패턴이에요.",
+        "terminal": {
+          "code": [
+            "user = {\"name\": \"에이몬\", \"lv\": 1}",
+            "print(\"name\" in user)",
+            "print(\"hp\" in user)"
+          ],
+          "output": [
+            "True",
+            "False"
+          ]
+        },
+        "tip": "in 연산자는 '값'이 아니라 오직 '키(Key)'가 존재하는지만 검사한다는 점을 명심하세요!"
       }
     ]
   },
@@ -212,28 +174,89 @@
     "unit": 7,
     "stage": "7-3",
     "course_level": "beginner",
-    "title": "HTTP & API 개념",
+    "title": "딕셔너리 순회",
     "villain": "interferencemon",
     "slides": [
       {
         "order": 1,
-        "text": "API(Application Programming Interface)는 서비스와 서비스가 대화하는 창구예요.\n날씨 앱이 기상청 서버에서 데이터를 가져오거나, 지도 앱이 카카오 API를 쓰는 것처럼요.\n우리가 코드로 외부 서비스를 사용할 수 있게 해주는 약속된 방법이에요.",
-        "tip": "API는 식당의 메뉴판 같아요. 메뉴(기능 목록)를 보고 주문(요청)하면 음식(데이터)을 받아요."
+        "text": "Unit 4에서 리스트를 순회했던 것처럼, 딕셔너리도 for문으로 하나씩 꺼낼 수 있어요.\n기본적으로 for key in 딕셔너리: 라고 쓰면,\n딕셔너리가 가진 키(Key)들을 처음부터 끝까지 차례대로 변수에 담아 반복해요.",
+        "terminal": {
+          "code": [
+            "inventory = {\"물약\": 3, \"방패\": 1}",
+            "for item in inventory:",
+            "    print(item)"
+          ],
+          "output": [
+            "물약",
+            "방패"
+          ]
+        },
+        "tip": "딕셔너리를 그냥 순회하면 값(Value)이 아니라 키(Key)가 나온다는 사실을 꼭 기억하세요!"
       },
       {
         "order": 2,
-        "text": "HTTP는 웹에서 데이터를 주고받는 규칙이에요.\n용도에 따라 다른 메서드(방식)를 사용해요.\n\n| 메서드 | 용도 | 예시 |\n|--------|------|------|\n| `GET` | 데이터 조회 | 날씨 데이터 가져오기 |\n| `POST` | 데이터 생성/전송 | 로그인, 글 작성 |\n| `PUT` | 데이터 수정 | 프로필 업데이트 |\n| `DELETE` | 데이터 삭제 | 게시글 삭제 |",
-        "tip": "입문 단계에서는 `GET`과 `POST`만 알아도 대부분의 API를 사용할 수 있어요."
+        "text": "키를 꺼낼 수 있다면, 딕셔너리[키] 구조를 조합해 값도 함께 출력할 수 있어요.\n반복문이 돌면서 변수에 담기는 키를 대괄호 안에 대입하면,\n매 반복마다 키와 쌍을 이루는 값들을 하나씩 매칭해서 보여줄 수 있답니다.",
+        "terminal": {
+          "code": [
+            "inventory = {\"물약\": 3, \"방패\": 1}",
+            "for item in inventory:",
+            "    print(item, \"개수:\", inventory[item])"
+          ],
+          "output": [
+            "물약 개수: 3",
+            "방패 개수: 1"
+          ]
+        },
+        "tip": "inventory[item]이 각각 inventory[\"물약\"], inventory[\"방패\"]로 변환되는 원리예요."
       },
       {
         "order": 3,
-        "text": "서버는 응답과 함께 숫자 코드를 보내줘요.\n이 코드로 요청이 성공했는지 실패했는지 알 수 있어요.\n\n| 코드 | 의미 |\n|------|------|\n| `200` | 성공 (OK) |\n| `201` | 생성 성공 (Created) |\n| `400` | 잘못된 요청 (Bad Request) |\n| `401` | 인증 필요 (Unauthorized) |\n| `404` | 찾을 수 없음 (Not Found) |\n| `500` | 서버 오류 (Internal Server Error) |",
-        "tip": "2xx는 성공, 4xx는 클라이언트 오류, 5xx는 서버 오류예요. 200과 404는 꼭 기억해두세요."
+        "text": "키와 값을 동시에 우아하게 꺼내고 싶을 때는 .items() 메서드를 사용해요.\nfor key, value in 딕셔너리.items(): 패턴을 쓰면,\n변수 두 개에 키와 값이 한꺼번에 담겨서 코드가 훨씬 읽기 편하고 깔끔해져요.",
+        "terminal": {
+          "code": [
+            "inventory = {\"물약\": 3, \"방패\": 1}",
+            "for item, count in inventory.items():",
+            "    print(f\"{item}: {count}개\")"
+          ],
+          "output": [
+            "물약: 3개",
+            "방패: 1개"
+          ]
+        },
+        "tip": ".items()는 실전 파이썬 데이터 처리에서 가장 많이 쓰이는 표준 반복 패턴이에요."
       },
       {
         "order": 4,
-        "text": "HTTP 요청에는 URL, 헤더, 바디가 포함돼요.\n응답에는 상태 코드, 헤더, 바디(실제 데이터)가 포함돼요.",
-        "tip": "헤더(Header)는 요청/응답의 부가 정보예요. API 키 인증, 데이터 형식 등을 헤더에 담아요."
+        "text": "때로는 키 이름은 완전히 무시하고 오직 데이터 값들의 합계나 통계만 필요할 때가 있죠.\n이럴 때는 .values() 메서드를 사용해 값들만 모아서 순회할 수 있어요.\n인벤토리의 총 아이템 개수를 세거나 평균 점수를 낼 때 아주 요긴해요.",
+        "terminal": {
+          "code": [
+            "inventory = {\"물약\": 3, \"방패\": 1, \"깃털\": 5}",
+            "total = 0",
+            "for count in inventory.values():",
+            "    total += count",
+            "print(\"총 아이템:\", total)"
+          ],
+          "output": [
+            "총 아이템: 9"
+          ]
+        },
+        "tip": "Unit 4에서 배웠던 누적 변수 패턴(total += count)이 여기서도 똑같이 사용돼요!"
+      },
+      {
+        "order": 5,
+        "text": "딕셔너리를 순회하면서 특정 조건에 맞는 항목만 필터링하는 것도 가능해요.\nfor문 내부에 if 조건을 걸어서 데이터의 값을 체크하면 되는데,\n방해몬이 숨겨둔 유해한 데이터나 기준치 미만의 항목을 골라낼 때 필수적입니다.",
+        "terminal": {
+          "code": [
+            "scores = {\"국어\": 85, \"수학\": 40, \"영어\": 90}",
+            "for subject, score in scores.items():",
+            "    if score < 60:",
+            "        print(subject, \"과목 과락!\")"
+          ],
+          "output": [
+            "수학 과목 과락!"
+          ]
+        },
+        "tip": "순회 + 조건 조합은 어떤 자료형이든 똑같이 통하는 파이썬 핵심 논리 구조예요."
       }
     ]
   },
@@ -242,100 +265,89 @@
     "unit": 7,
     "stage": "7-4",
     "course_level": "beginner",
-    "title": "requests로 API 호출",
+    "title": "세트 기초",
     "villain": "interferencemon",
     "slides": [
       {
         "order": 1,
-        "text": "`requests.get(url)`로 서버에 GET 요청을 보낼 수 있어요.\n응답 객체에서 상태 코드와 데이터를 꺼낼 수 있어요.",
+        "text": "세트(set)는 중복을 절대 허용하지 않고, 요소들의 순서가 없는 특별한 자료형이에요.\n딕셔너리처럼 중괄호 {}를 사용하지만, 콜론(:) 없이 값들만 외롭게 나열해요.\n똑같은 값을 여러 번 집어넣어도 세트 안에는 단 하나만 남게 돼요.",
         "terminal": {
           "code": [
-            "# 코드",
-            "import requests",
-            "",
-            "response = requests.get('https://httpbin.org/get')",
-            "",
-            "print(response.status_code)   # 상태 코드",
-            "print(type(response.json()))  # 응답 데이터 타입"
+            "my_set = {1, 2, 2, 3, 3, 3}",
+            "print(my_set)"
           ],
           "output": [
-            "200",
-            "<class 'dict'>"
-          ]
+            "{1, 2, 3}"
+          ],
+          "output_note": "set은 순서 비보장 — 표시 순서는 환경마다 다를 수 있음"
         },
-        "tip": "`httpbin.org`는 테스트용 API 서버예요. 실제 요청/응답을 연습할 때 사용해요."
+        "tip": "방해몬이 아무리 중복 데이터를 밀어 넣으며 방해해도 세트는 고유한 값만 지켜내요."
       },
       {
         "order": 2,
-        "text": "GET 요청에 `params`로 쿼리 파라미터를 전달할 수 있어요.\nURL에 직접 붙이는 것과 동일하지만 코드가 더 깔끔해요.",
+        "text": "세트는 순서가 없기 때문에(Unordered), 리스트처럼 인덱스 번호 [0]으로 조회할 수 없어요.\n인덱싱을 시도하면 즉시 TypeError가 발생하게 되니 조심해야 해요.\n순서가 상관없는 고유한 데이터 더미를 관리할 때 주로 사용돼요.",
         "terminal": {
           "code": [
-            "# 코드",
-            "import requests",
-            "",
-            "params = {",
-            "    'city': 'Seoul',",
-            "    'units': 'metric'",
-            "}",
-            "",
-            "response = requests.get('https://api.example.com/weather', params=params)",
-            "",
-            "# 실제 요청 URL 확인",
-            "print(response.url)",
-            "# https://api.example.com/weather?city=Seoul&units=metric"
+            "my_set = {\"사과\", \"바나나\"}",
+            "try:",
+            "    print(my_set[0])",
+            "except TypeError as e:",
+            "    print(f\"TypeError: {e}\")"
           ],
-          "output": []
+          "output": [
+            "TypeError: 'set' object is not subscriptable"
+          ],
+          "is_error": true
         },
-        "tip": "`params` 딕셔너리를 전달하면 requests가 자동으로 URL 쿼리 문자열로 변환해줘요."
+        "tip": "subscriptable 에러는 대괄호 []를 써서 위치로 값을 꺼낼 수 없다는 의미예요."
       },
       {
         "order": 3,
-        "text": "`response.json()`으로 JSON 응답을 딕셔너리로 변환해요.\n필요한 데이터를 딕셔너리 키로 꺼낼 수 있어요.",
+        "text": "방해몬이 똑같은 아이템을 여러 번 복사해서 숨겨두었네요!\n세트에 집어넣으면 중복된 값은 알아서 단 하나만 남기고 전부 사라집니다.\n가짜 아이템들이 세트 속에서 어떻게 걸러지는지 직접 확인해 봐요.",
         "terminal": {
           "code": [
-            "# 코드",
-            "import requests",
-            "",
-            "response = requests.get('https://httpbin.org/json')",
-            "data = response.json()",
-            "",
-            "# 중첩 딕셔너리 접근",
-            "print(data['slideshow']['title'])",
-            "print(data['slideshow']['author'])"
+            "items = {\"아이스\", \"파이어\", \"아이스\"}",
+            "print(items)"
           ],
           "output": [
-            "Sample Slide Show",
-            "Yours Truly"
-          ]
+            "{'아이스', '파이어'}"
+          ],
+          "output_note": "set은 순서 비보장 — 표시 순서는 환경마다 다를 수 있음"
         },
-        "tip": "API 응답이 중첩 딕셔너리인 경우가 많아요. `data['key1']['key2']` 형태로 접근해요."
+        "tip": "세트는 순서가 없기 때문에 컴퓨터 화면에 출력될 때마다 글자들의 순서가 바뀔 수 있어요! 순서가 달라도 알맹이만 같으면 정답이답니다."
       },
       {
         "order": 4,
-        "text": "API 호출은 네트워크 오류, 서버 오류 등이 발생할 수 있어요.\n`try/except`와 상태 코드 확인을 함께 사용하는 게 좋아요.",
+        "text": "비어있는 세트를 만들 때는 set()을 사용해요. (주의: {}만 쓰면 딕셔너리가 돼요!)\n여기에 .add()를 사용하면 세트에 새로운 요소를 추가할 수 있습니다.",
         "terminal": {
           "code": [
-            "# 코드",
-            "import requests",
-            "",
-            "def get_data(url):",
-            "    try:",
-            "        response = requests.get(url, timeout=5)",
-            "        if response.status_code == 200:",
-            "            return response.json()",
-            "        else:",
-            "            print(f'오류 코드: {response.status_code}')",
-            "            return None",
-            "    except requests.exceptions.Timeout:",
-            "        print('요청 시간 초과')",
-            "        return None",
-            "    except requests.exceptions.ConnectionError:",
-            "        print('연결 오류')",
-            "        return None"
+            "bag = set()",
+            "bag.add(\"포션\")",
+            "bag.add(\"방패\")",
+            "print(bag)"
           ],
-          "output": []
+          "output": [
+            "{'방패', '포션'}"
+          ],
+          "output_note": "set은 순서 비보장 — 표시 순서는 환경마다 다를 수 있음"
         },
-        "tip": "실제 프로젝트에서는 이 패턴을 거의 항상 사용해요. timeout을 설정하지 않으면 응답을 무한정 기다릴 수 있어요."
+        "tip": "방패를 나중에 넣었어도 '포션'보다 먼저 출력될 수 있어요. 세트는 순서가 없기 때문에 출력 순서가 달라도 알맹이만 같으면 정답이에요!"
+      },
+      {
+        "order": 5,
+        "text": "세트는 인덱싱은 안 되지만 어떤 데이터가 포함되어 있는지 찾아내는 속도가 엄청나게 빨라요.\nin 연산자를 사용해 데이터가 있는지 없는지 물어보면 컴퓨터가 순식간에 대답하죠.\n수만 개의 회원 아이디 중 특정 아이디가 있는지 체크할 때 리스트보다 세트가 압도적으로 유리해요.",
+        "terminal": {
+          "code": [
+            "vips = {\"에이몬\", \"진화몬\"}",
+            "print(\"에이몬\" in vips)",
+            "print(\"방해몬\" in vips)"
+          ],
+          "output": [
+            "True",
+            "False"
+          ]
+        },
+        "tip": "포함 여부를 빠르게 스캔해 필터링하는 것, 그것이 세트의 가장 강력한 무기예요."
       }
     ]
   },
@@ -344,90 +356,88 @@
     "unit": 7,
     "stage": "7-5",
     "course_level": "beginner",
-    "title": "API 키 & 인증",
+    "title": "세트 연산",
     "villain": "interferencemon",
     "slides": [
       {
         "order": 1,
-        "text": "API 키는 서비스가 누가 요청하는지 확인하는 고유한 비밀번호예요.\n무단 사용을 막고 사용량을 추적하기 위해 사용해요.\nAPI 키는 절대 코드에 직접 넣거나 GitHub에 올리면 안 돼요.",
+        "text": "세트를 사용하면 수학 시간에 배운 집합 연산을 코드 한 줄로 해결할 수 있어요.\n먼저 두 세트의 공통된 요소만 깔끔하게 뽑아내는 교집합 연산이에요.\n기호로는 앰퍼샌드(&)를 사용하며, 양쪽 집합에 둘 다 있는 원소만 골라내 줍니다.",
         "terminal": {
           "code": [
-            "# ❌ 절대 이렇게 하면 안 돼요",
-            "API_KEY = 'sk-abc123xyz456...'   # 코드에 직접 작성 금지!",
-            "",
-            "# ✅ 환경변수에서 불러와야 해요",
-            "import os",
-            "API_KEY = os.environ.get('API_KEY')"
+            "team_a = {\"철수\", \"영희\", \"민수\"}",
+            "team_b = {\"영희\", \"진우\", \"민수\"}",
+            "print(team_a & team_b)"
           ],
-          "output": []
+          "output": [
+            "{'민수', '영희'}"
+          ],
+          "output_note": "set은 순서 비보장 — 표시 순서는 환경마다 다를 수 있음"
         },
-        "tip": "API 키가 GitHub에 노출되면 다른 사람이 내 계정으로 API를 무제한으로 사용할 수 있어요. 큰 요금이 청구될 수 있어요!"
+        "tip": "기호 대신 team_a.intersection(team_b) 라는 메서드를 사용해도 결과는 같아요."
       },
       {
         "order": 2,
-        "text": "대부분의 API는 요청 헤더에 API 키를 담아 인증해요.\n`headers` 딕셔너리를 requests에 전달해요.",
+        "text": "두 세트의 데이터를 하나로 빠짐없이 합치고 싶다면 합집합 연산을 써요.\n기호는 버티컬 바(|)를 사용하는데, 키보드 Enter키 근처의 ₩를 Shift와 함께 누르면 돼요.\n합집합은 데이터를 전부 모아주되, 세트의 특성상 중복은 알아서 싹 지워줍니다.",
         "terminal": {
           "code": [
-            "# 코드",
-            "import requests",
-            "import os",
-            "",
-            "API_KEY = os.environ.get('MY_API_KEY')",
-            "",
-            "headers = {",
-            "    'Authorization': f'Bearer {API_KEY}',",
-            "    'Content-Type': 'application/json'",
-            "}",
-            "",
-            "response = requests.get(",
-            "    'https://api.example.com/data',",
-            "    headers=headers",
-            ")",
-            "print(response.status_code)"
+            "team_a = {\"철수\", \"영희\"}",
+            "team_b = {\"영희\", \"진우\"}",
+            "print(team_a | team_b)"
           ],
-          "output": []
+          "output": [
+            "{'철수', '영희', '진우'}"
+          ],
+          "output_note": "set은 순서 비보장 — 표시 순서는 환경마다 다를 수 있음"
         },
-        "tip": "`Bearer 토큰값` 형태가 가장 일반적인 인증 방식이에요. API 문서에서 어떤 방식을 사용하는지 확인해요."
+        "tip": "중복된 '영희'는 하나만 남았죠? team_a.union(team_b) 메서드로도 쓸 수 있어요."
       },
       {
         "order": 3,
-        "text": "`.env` 파일에 API 키를 저장하고 `.gitignore`에 추가해요.\n`python-dotenv` 라이브러리로 `.env` 파일을 불러올 수 있어요.",
+        "text": "A 세트에서 B 세트와 겹치는 부분을 도려내고 남은 알짜배기만 남기는 차집합 연산이에요.\n우리가 잘 아는 마이너스(-) 기호를 사용하면 간단하게 구현돼요.\nA 집합에서 B 집합 소속 멤버들을 전부 제외하고 남은 순수 A 멤버만 구해줍니다.",
         "terminal": {
           "code": [
-            "# .env 파일 내용 (절대 GitHub에 올리지 않음)",
-            "# MY_API_KEY=sk-abc123xyz456",
-            "# DB_PASSWORD=mypassword123",
-            "",
-            "# 코드에서 불러오기",
-            "from dotenv import load_dotenv",
-            "import os",
-            "",
-            "load_dotenv()   # .env 파일 로드",
-            "API_KEY = os.environ.get('MY_API_KEY')",
-            "print(API_KEY is not None)   # True"
+            "team_a = {\"철수\", \"영희\", \"민수\"}",
+            "team_b = {\"영희\", \"진우\"}",
+            "print(team_a - team_b)"
           ],
-          "output": []
+          "output": [
+            "{'민수', '철수'}"
+          ],
+          "output_note": "set은 순서 비보장 — 표시 순서는 환경마다 다를 수 있음"
         },
-        "tip": "`.gitignore`에 `.env`를 추가하면 Git이 해당 파일을 추적하지 않아요. 팀원들도 각자의 `.env`를 만들어요."
+        "tip": "순서가 중요해요! team_b - team_a를 계산하면 결과는 전혀 다른 {'진우'}가 돼요."
       },
       {
         "order": 4,
-        "text": "API 키를 안전하게 관리하는 습관은 개발자의 기본 소양이에요.\n\n| 항목 | 올바른 방법 |\n|------|-------------|\n| 저장 위치 | `.env` 파일 또는 환경변수 |\n| GitHub | `.gitignore`에 `.env` 추가 필수 |\n| 코드 내 직접 작성 | ❌ 절대 금지 |\n| 팀원 공유 | 별도 채널(Slack DM 등)로 전달 |\n| 키 노출 시 | 즉시 재발급(rotate) |",
+        "text": "교집합의 정반대로, 서로 겹치지 않는 순수한 영역들만 모아주는 대칭차집합 연산이에요.\n기호는 꺾쇠 모양의 캐럿(^)을 사용하는데, 키보드 숫자 6번을 Shift와 함께 누르면 돼요.\n양쪽 팀에서 오직 한 팀에만 소속되어 있는 독립적인 원소들만 모아줍니다.",
         "terminal": {
           "code": [
-            "# ✅ 올바른 패턴",
-            "import os",
-            "from dotenv import load_dotenv",
-            "",
-            "load_dotenv()",
-            "API_KEY = os.environ.get('CLAUDE_API_KEY')",
-            "",
-            "if not API_KEY:",
-            "    raise ValueError('API 키가 설정되지 않았어요')"
+            "team_a = {\"철수\", \"영희\"}",
+            "team_b = {\"영희\", \"진우\"}",
+            "print(team_a ^ team_b)"
           ],
-          "output": []
+          "output": [
+            "{'진우', '철수'}"
+          ],
+          "output_note": "set은 순서 비보장 — 표시 순서는 환경마다 다를 수 있음"
         },
-        "tip": "에이몬 프로젝트에서도 Claude API 키를 `.env`로 관리해요. 이 패턴을 꼭 기억해두세요."
+        "tip": "공통 분모인 '영희'만 쏙 빠지고 철수와 진우만 합쳐진 것을 확인할 수 있어요."
+      },
+      {
+        "order": 5,
+        "text": "세트 연산은 대량의 고유 식별값이나 로그 데이터를 교차 검증할 때 빛을 발해요.\n예를 들어 '어제 방문한 유저 세트'와 '오늘 방문한 유저 세트'가 있다면\n차집합(-) 연산 한 번으로 '오늘 새로 찾아온 순수 신규 유저'를 뽑아낼 수 있는 것이죠.",
+        "terminal": {
+          "code": [
+            "yesterday = {\"user1\", \"user2\"}",
+            "today = {\"user2\", \"user3\"}",
+            "print(\"신규 방문자:\", today - yesterday)"
+          ],
+          "output": [
+            "신규 방문자: {'user3'}"
+          ],
+          "output_note": "set은 순서 비보장 — 표시 순서는 환경마다 다를 수 있음"
+        },
+        "tip": "복잡한 반복문과 if문 없이 기호 한 줄로 해결되니 아주 우아하고 강력하죠!"
       }
     ]
   },
@@ -436,77 +446,90 @@
     "unit": 7,
     "stage": "7-6",
     "course_level": "beginner",
-    "title": "프롬프트 엔지니어링 기초",
+    "title": "딕셔너리&세트 종합실습",
     "villain": "interferencemon",
     "slides": [
       {
         "order": 1,
-        "text": "프롬프트(Prompt)는 AI에게 보내는 지시문이에요.\n같은 AI라도 프롬프트를 어떻게 쓰느냐에 따라 결과가 크게 달라져요.\nClaude, GPT 같은 AI는 메시지를 `system`과 `user` 역할로 구분해요.\n\n| 역할 | 의미 |\n|------|------|\n| `system` | AI의 성격·역할·제약을 설정 |\n| `user` | 실제 질문이나 요청 |",
+        "text": "실전에서는 딕셔너리 내부에 리스트나 또 다른 세트를 집어넣는 중첩 구조를 정말 많이 써요.\n예를 들어 유저 정보 딕셔너리를 만들고, 그 안에 'skills'라는 키의 값으로\n리스트나 세트를 할당하면 한 명의 유저가 가진 여러 데이터 묶음을 구조화할 수 있어요.",
         "terminal": {
           "code": [
-            "# 코드",
-            "messages = [",
-            "    {\"role\": \"system\", \"content\": \"당신은 친절한 Python 튜터예요.\"},",
-            "    {\"role\": \"user\",   \"content\": \"리스트란 무엇인가요?\"}",
-            "]"
+            "user = {",
+            "    \"name\": \"에이몬\",",
+            "    \"skills\": [\"물기\", \"몸통박치기\"]",
+            "}",
+            "print(user[\"skills\"][0])"
           ],
-          "output": []
+          "output": [
+            "물기"
+          ]
         },
-        "tip": "`system` 메시지는 AI의 '기본 성격'을 설정해요. 잘 작성된 system 프롬프트가 좋은 AI 서비스의 핵심이에요."
+        "tip": "user[\"skills\"]로 먼저 리스트를 꺼내고, 그 뒤에 [0]을 붙여 리스트의 첫 요소를 꺼낸 구조예요."
       },
       {
         "order": 2,
-        "text": "구체적이고 맥락이 풍부한 프롬프트일수록 더 좋은 답변을 얻어요.\n\n| 나쁜 프롬프트 | 좋은 프롬프트 |\n|--------------|--------------|\n| \"코드 짜줘\" | \"Python으로 리스트에서 중복을 제거하는 함수를 작성해줘\" |\n| \"설명해줘\" | \"초등학생도 이해할 수 있게 for문을 비유로 설명해줘\" |\n| \"고쳐줘\" | \"다음 코드에서 IndexError가 발생하는 이유와 수정 방법을 알려줘\" |",
-        "tip": "좋은 프롬프트에는 **대상**, **목적**, **형식**, **제약**이 포함돼요."
+        "text": "방해몬이 데이터 사이에 똑같은 몬스터 이름을 잔뜩 끼워 넣어 두었네요!\n이럴 때는 리스트를 잠시 세트(set)로 바꿨다가 다시 리스트로 돌려놓으면 중복만 쏙 제거할 수 있어요.",
+        "terminal": {
+          "code": [
+            "dirty_list = [\"슬라임\", \"로봇\", \"슬라임\", \"고스트\", \"로봇\"]",
+            "clean_list = list(set(dirty_list))",
+            "print(clean_list)"
+          ],
+          "output": [
+            "['고스트', '로봇', '슬라임']"
+          ],
+          "output_note": "list(set()) 결과 순서는 환경마다 다를 수 있음"
+        },
+        "tip": "세트를 거치면서 중복은 사라지지만 원래 리스트의 순서는 뒤죽박죽 섞이게 돼요! 화면과 순서가 다르게 나와도 당황하지 마세요."
       },
       {
         "order": 3,
-        "text": "AI에게 특정 역할을 부여하면 그 역할에 맞는 답변을 해요.\nsystem 메시지에서 역할을 설정하는 것이 가장 효과적이에요.",
+        "text": "이번에는 복잡한 반복 조건과 딕셔너리를 조합해 조건부 카운팅 시스템을 구현해 볼게요.\n반복문을 돌면서 데이터가 이미 딕셔너리 키에 존재하면 값을 1 올리고,\n없다면 새로운 키로 등록하며 1을 세어주는 구조는 데이터 분석의 핵심 기초예요.",
         "terminal": {
           "code": [
-            "# 코드 (예시)",
-            "messages = [",
-            "    {",
-            "        \"role\": \"system\",",
-            "        \"content\": (",
-            "            \"당신은 10년 경력의 데이터 과학자예요. \"",
-            "            \"답변은 항상 코드 예시를 포함하고, \"",
-            "            \"초보자도 이해할 수 있게 설명해요.\"",
-            "        )",
-            "    },",
-            "    {",
-            "        \"role\": \"user\",",
-            "        \"content\": \"판다스로 결측값을 처리하는 방법을 알려줘\"",
-            "    }",
-            "]"
+            "monsters = [\"포자몬\", \"방해몬\", \"포자몬\"]",
+            "counts = {}",
+            "for m in monsters:",
+            "    counts[m] = counts.get(m, 0) + 1",
+            "print(counts)"
           ],
-          "output": []
+          "output": [
+            "{'포자몬': 2, '방해몬': 1}"
+          ]
         },
-        "tip": "역할 + 말투 + 형식을 함께 설정하면 일관된 품질의 답변을 얻을 수 있어요."
+        "tip": "counts.get(m, 0) 덕분에 처음에 키가 없을 때도 에러 없이 0에 1을 더해 추가할 수 있어요!"
       },
       {
         "order": 4,
-        "text": "에이몬에서 오답 시 Claude가 레벨에 맞게 설명하는 것도 프롬프트 엔지니어링이에요.\n레벨에 따라 system 메시지를 다르게 설정해요.",
+        "text": "자료구조가 복잡하게 얽혀 있어도 차근차근 접근하면 방해몬의 함정을 다 파헤칠 수 있어요.\n딕셔너리 안에 저장된 값(Value)이 세트(set) 자료형일 때,\n딕셔너리 키로 세트를 먼저 꺼내온 후, 교집합(&) 같은 세트 연산을 곧바로 이어붙일 수 있습니다.",
         "terminal": {
           "code": [
-            "# 코드 (에이몬 실제 패턴)",
-            "def get_system_prompt(level):",
-            "    if level == 'beginner':",
-            "        return (",
-            "            \"당신은 친절한 Python 선생님이에요. \"",
-            "            \"비유와 일상 예시로 설명하고, \"",
-            "            \"왜 틀렸는지 쉽게 알려주세요.\"",
-            "        )",
-            "    elif level == 'intermediate':",
-            "        return (",
-            "            \"당신은 Python 멘토예요. \"",
-            "            \"개념 설명과 코드 예시를 포함하고, \"",
-            "            \"오류 원인을 분석해주세요.\"",
-            "        )"
+            "party = {",
+            "    \"A\": {\"물약\", \"깃털\"},",
+            "    \"B\": {\"깃털\", \"방패\"}",
+            "}",
+            "print(party[\"A\"] & party[\"B\"])"
           ],
-          "output": []
+          "output": [
+            "{'깃털'}"
+          ],
+          "output_note": "set은 순서 비보장 — 표시 순서는 환경마다 다를 수 있음"
         },
-        "tip": "에이몬이 오답 피드백을 잘 주는 것도 프롬프트 엔지니어링 덕분이에요. 좋은 프롬프트 = 좋은 AI 서비스예요."
+        "tip": "party[\"A\"]가 {'물약', '깃털'} 세트 그 자체이기 때문에 곧바로 뒤에 & 연산이 가능한 원리예요."
+      },
+      {
+        "order": 5,
+        "text": "마지막으로 Unit 7에서 배운 강력한 무기 두 가지를 완벽하게 요약 정리해 드릴게요!\n1. 딕셔너리: 중괄호 {} 속 키-값(Key-Value) 쌍 구조로, 이름을 이용해 데이터를 초고속 조회해요.\n2. 세트: 중괄호 {} 속 값만 나열하며 중복을 자동 박멸하고, 강력한 집합 연산(&, |, -)을 지원해요.\n두 도구를 마스터하셨으니 이제 데이터를 아주 입체적으로 요리하실 수 있어요!",
+        "terminal": {
+          "code": [
+            "summary = \"딕셔너리와 세트 마스터 완료!\"",
+            "print(summary)"
+          ],
+          "output": [
+            "딕셔너리와 세트 마스터 완료!"
+          ]
+        },
+        "tip": "축하합니다! 방해몬의 방해를 이겨내고 초급 레벨의 가장 중요한 고비를 멋지게 넘기셨어요!"
       }
     ]
   }
