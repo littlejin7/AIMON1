@@ -4,76 +4,129 @@
     "unit": 8,
     "stage": "8-1",
     "course_level": "beginner",
-    "title": "AI 에이전트란?",
+    "title": "show_menu() : 가방 열기 화면 만들기",
     "villain": "interferencemon",
     "slides": [
       {
         "order": 1,
-        "text": "AI 에이전트는 단순히 질문에 답하는 챗봇을 넘어, 스스로 목표를 정하고 행동하는 AI예요.\n주어진 목표를 달성하기 위해 도구를 사용하고, 결과를 보고 다음 행동을 결정해요.\n에이몬이 Unit 8을 마치면 최종 진화하는 것처럼, AI도 에이전트가 되면 진짜 일을 할 수 있어요.\n\n| 구분 | 챗봇 | 에이전트 |\n|------|------|---------|\n| 동작 | 질문→답변 (1회) | 목표→계획→행동→확인→반복 |\n| 도구 사용 | ❌ | ✅ (검색, 계산, API 등) |\n| 자율성 | 낮음 | 높음 |",
-        "tip": "챗봇은 질문에만 답해요. 에이전트는 '파이썬 코드 작성 후 실행해서 결과 확인'처럼 여러 단계를 스스로 처리해요."
+        "text": "Unit 8에서는 지금까지 배운 모든 개념을 하나로 합쳐 진짜 동작하는 프로그램을 만들어요.\n만들 것은 바로 RPG 게임의 가방(인벤토리) 시스템이에요.\n프로그램을 켜면 가장 먼저 보이는 화면, 메뉴 UI를 출력하는 show_menu() 함수부터 시작해요.",
+        "terminal": {
+          "code": [
+            "def show_menu():",
+            "    print(\"=== 에이몬의 가방 ===\")",
+            "    print(\"1. 아이템 넣기\")",
+            "    print(\"2. 가방 보기\")",
+            "    print(\"3. 아이템 버리기\")",
+            "    print(\"4. 가방 닫기\")",
+            "",
+            "show_menu()"
+          ],
+          "output": [
+            "=== 에이몬의 가방 ===",
+            "1. 아이템 넣기",
+            "2. 가방 보기",
+            "3. 아이템 버리기",
+            "4. 가방 닫기"
+          ]
+        },
+        "tip": "함수로 만들면 필요할 때마다 show_menu()만 호출해서 메뉴를 다시 출력할 수 있어요."
       },
       {
         "order": 2,
-        "text": "에이전트는 세 단계를 반복하며 목표를 달성해요.\n이 반복 구조를 **에이전트 루프(Agent Loop)**라고 해요.",
+        "text": "print()를 여러 번 쓰는 대신, 삼중 따옴표(\"\"\" \"\"\")를 사용하면 한 번에 여러 줄을 출력할 수 있어요.\n코드가 훨씬 간결해지고, 실제 메뉴처럼 보여요.\n삼중 따옴표 안의 내용은 줄바꿈과 공백까지 그대로 출력된다는 점을 기억하세요.",
         "terminal": {
           "code": [
-            "# 에이전트 루프 개념 코드",
-            "def agent_loop(goal):",
-            "    while True:",
-            "        # 1. Think: 다음에 할 행동 결정",
-            "        action = think(goal, memory)",
+            "def show_menu():",
+            "    print(\"\"\"",
+            "=== 에이몬의 가방 ===",
+            "1. 아이템 넣기",
+            "2. 가방 보기",
+            "3. 아이템 버리기",
+            "4. 가방 닫기",
+            "\"\"\")",
             "",
-            "        # 2. Act: 행동 실행 (도구 사용)",
-            "        result = act(action)",
-            "",
-            "        # 3. Observe: 결과 확인",
-            "        if is_goal_achieved(result):",
-            "            return result",
-            "",
-            "        # 결과를 기억에 저장하고 반복",
-            "        memory.append(result)"
+            "show_menu()"
           ],
-          "output": []
+          "output": [
+            "",
+            "=== 에이몬의 가방 ===",
+            "1. 아이템 넣기",
+            "2. 가방 보기",
+            "3. 아이템 버리기",
+            "4. 가방 닫기",
+            ""
+          ]
         },
-        "tip": "Think(생각) → Act(행동) → Observe(관찰) → 반복이에요. 이 루프가 에이전트의 핵심이에요."
+        "tip": "삼중 따옴표는 '\"\"\"' 또는 \"'''\" 모두 사용할 수 있어요. 긴 텍스트를 한 번에 쓸 때 편리해요."
       },
       {
         "order": 3,
-        "text": "에이전트는 외부 도구(Tool)를 호출해서 AI만으로는 할 수 없는 작업을 처리해요.\n도구는 Python 함수로 정의하고, AI가 필요할 때 직접 호출해요.\n\n| 도구 예시 | 기능 |\n|-----------|------|\n| `search(query)` | 웹 검색 |\n| `calculator(expr)` | 수식 계산 |\n| `get_weather(city)` | 날씨 조회 |\n| `send_email(to, msg)` | 이메일 전송 |\n| `read_file(path)` | 파일 읽기 |",
+        "text": "메뉴를 보여줬으면 사용자의 선택을 받아야 해요.\ninput()으로 입력을 받으면 항상 문자열(str)로 저장된다는 것, 기억하죠?\n숫자 1을 입력해도 \"1\"이라는 문자열로 받아요.",
         "terminal": {
           "code": [
-            "# 도구 정의 예시",
-            "def calculator(expression: str) -> str:",
-            "    result = eval(expression)",
-            "    return str(result)",
+            "def show_menu():",
+            "    print(\"1. 아이템 넣기  4. 가방 닫기\")",
+            "    choice = input(\"선택: \")",
+            "    print(type(choice))",
+            "    print(choice)",
             "",
-            "# 에이전트가 \"100 * 200 / 5를 계산해줘\" 요청 받으면",
-            "# AI가 calculator(\"100 * 200 / 5\") 호출 → \"4000.0\" 반환"
+            "show_menu()"
           ],
-          "output": []
+          "output": [
+            "1. 아이템 넣기  4. 가방 닫기",
+            "선택: 1",
+            "<class 'str'>",
+            "1"
+          ]
         },
-        "tip": "도구는 함수예요. AI가 언제 어떤 함수를 호출할지 스스로 판단해요."
+        "tip": "input()은 항상 문자열을 반환해요. 나중에 if choice == \"1\":처럼 따옴표로 비교해야 해요."
       },
       {
         "order": 4,
-        "text": "에이전트가 실제로 어떻게 동작하는지 예시로 살펴봐요.\n사용자가 \"서울 날씨 알려줘\"라고 하면 에이전트는 도구를 호출해요.",
+        "text": "함수가 선택값을 그냥 갖고 있으면 바깥에서 사용할 수 없어요.\nreturn으로 선택값을 돌려줘야 다른 곳에서 받아 쓸 수 있어요.\nreturn은 함수의 결과물을 바깥으로 전달하는 역할이에요.",
         "terminal": {
           "code": [
-            "# 사용자: \"서울 오늘 날씨 어때?\"",
+            "def show_menu():",
+            "    print(\"1. 아이템 넣기  4. 가방 닫기\")",
+            "    choice = input(\"선택: \")",
+            "    return choice",
             "",
-            "# 에이전트 내부 동작:",
-            "# 1. Think: 날씨 정보가 필요하다 → get_weather 도구를 호출하자",
-            "# 2. Act: get_weather('서울') 호출",
-            "# 3. Observe: {'temp': 24, 'condition': '맑음'} 반환",
-            "# 4. Think: 결과를 사람이 읽기 좋게 답변하자",
-            "# 최종 답변: \"서울 오늘 날씨는 24도이고 맑아요!\"",
-            "",
-            "# 챗봇은 날씨 API를 호출할 수 없어요.",
-            "# 에이전트는 도구를 써서 실시간 정보를 가져올 수 있어요."
+            "result = show_menu()",
+            "print(f\"선택한 번호: {result}\")"
           ],
-          "output": []
+          "output": [
+            "1. 아이템 넣기  4. 가방 닫기",
+            "선택: 1",
+            "선택한 번호: 1"
+          ]
         },
-        "tip": "에이몬의 AI 피드백도 일종의 에이전트예요. 틀린 문제를 받아서 레벨을 파악하고 맞춤 설명을 생성해요."
+        "tip": "return이 없으면 함수 바깥에서 choice 값을 알 수 없어요. 계산기에서 결과를 return했던 것과 같은 원리예요."
+      },
+      {
+        "order": 5,
+        "text": "show_menu()가 돌려준 값으로 어떤 기능을 실행할지 결정해요.\n계산기에서 +, -, *, /를 선택했을 때처럼, if/elif로 분기해서 기능을 연결해요.\n이것이 인벤토리 시스템의 기본 뼈대가 돼요.",
+        "terminal": {
+          "code": [
+            "def show_menu():",
+            "    print(\"1. 아이템 넣기  4. 가방 닫기\")",
+            "    return input(\"선택: \")",
+            "",
+            "choice = show_menu()",
+            "",
+            "if choice == \"1\":",
+            "    print(\"아이템 넣기 실행!\")",
+            "elif choice == \"4\":",
+            "    print(\"가방을 닫아요.\")",
+            "else:",
+            "    print(\"잘못된 입력이에요.\")"
+          ],
+          "output": [
+            "1. 아이템 넣기  4. 가방 닫기",
+            "선택: 1",
+            "아이템 넣기 실행!"
+          ]
+        },
+        "tip": "return input(\"선택: \")처럼 한 줄로 줄일 수도 있어요. input() 결과를 바로 return하는 패턴이에요."
       }
     ]
   },
@@ -82,117 +135,129 @@
     "unit": 8,
     "stage": "8-2",
     "course_level": "beginner",
-    "title": "Tool Use (함수 호출)",
+    "title": "add_item() : 아이템 드롭 및 가방에 넣기",
     "villain": "interferencemon",
     "slides": [
       {
         "order": 1,
-        "text": "Tool Use(함수 호출)는 AI가 직접 Python 함수를 호출할 수 있게 하는 기능이에요.\nAI가 스스로 어떤 함수를 언제 호출할지 결정해요.\nClaude, GPT 등 현대 AI API가 지원하는 핵심 기능이에요.",
+        "text": "가방에 아이템을 넣는 기능을 만들어요.\n아이템 목록을 담을 빈 리스트 bag을 먼저 준비하고,\n.append() 메서드로 새 아이템을 뒤에 추가해요.",
         "terminal": {
           "code": [
-            "# 일반 API 호출 (Tool Use 없음)",
-            "# 사용자: \"서울 날씨는?\"",
-            "# AI: \"죄송해요, 저는 실시간 정보에 접근할 수 없어요.\"",
+            "bag = []",
             "",
-            "# Tool Use 사용 시",
-            "# 사용자: \"서울 날씨는?\"",
-            "# AI: get_weather(\"서울\") 함수 호출 → 결과를 보고 답변",
-            "# AI: \"서울 오늘 날씨는 24도이고 맑아요!\""
+            "def add_item(item):",
+            "    bag.append(item)",
+            "    print(f\"{item}을(를) 가방에 넣었어요!\")",
+            "",
+            "add_item(\"체력 포션\")",
+            "add_item(\"마법 검\")",
+            "print(bag)"
           ],
-          "output": []
+          "output": [
+            "체력 포션을(를) 가방에 넣었어요!",
+            "마법 검을(를) 가방에 넣었어요!",
+            "['체력 포션', '마법 검']"
+          ]
         },
-        "tip": "Tool Use 덕분에 AI가 검색, 계산, API 호출 등 실제 행동을 할 수 있게 돼요."
+        "tip": "bag = []는 함수 밖에 선언해요. 함수 안에 선언하면 호출할 때마다 초기화돼서 아이템이 사라져요."
       },
       {
         "order": 2,
-        "text": "Claude API에서 Tool은 함수 이름, 설명, 파라미터를 딕셔너리로 정의해요.\nAI는 이 설명을 보고 언제 이 함수를 호출할지 판단해요.",
+        "text": "직접 입력하는 대신, 몬스터 사냥 성공 시 드롭 테이블에서 무작위로 아이템이 나오게 해볼게요.\nrandom 모듈을 import하면 random.choice()로 리스트에서 무작위 항목을 뽑을 수 있어요.",
         "terminal": {
           "code": [
-            "# Tool 정의",
-            "tools = [",
-            "    {",
-            "        \"name\": \"get_weather\",",
-            "        \"description\": \"특정 도시의 현재 날씨를 조회합니다.\",",
-            "        \"input_schema\": {",
-            "            \"type\": \"object\",",
-            "            \"properties\": {",
-            "                \"city\": {",
-            "                    \"type\": \"string\",",
-            "                    \"description\": \"날씨를 조회할 도시 이름\"",
-            "                }",
-            "            },",
-            "            \"required\": [\"city\"]",
-            "        }",
-            "    }",
-            "]"
+            "import random",
+            "",
+            "drop_table = [\"체력 포션\", \"마법 검\", \"방패\", \"금화\"]",
+            "",
+            "item = random.choice(drop_table)",
+            "print(f\"드롭된 아이템: {item}\")"
           ],
-          "output": []
+          "output": [
+            "드롭된 아이템: 마법 검"
+          ]
         },
-        "tip": "description이 중요해요. AI는 이 설명을 읽고 언제 이 도구를 쓸지 결정해요. 설명이 명확할수록 AI가 잘 사용해요."
+        "tip": "random.choice(리스트)는 리스트에서 무작위로 하나를 골라줘요. 실행할 때마다 다른 결과가 나와요."
       },
       {
         "order": 3,
-        "text": "Tool Use의 전체 흐름은 5단계예요.",
+        "text": "import는 파이썬이 미리 만들어둔 도구 상자를 가져오는 명령이에요.\nrandom은 무작위 관련 기능이 들어있는 모듈이에요.\n파일 맨 위에 한 번만 적으면 이후 어디서든 사용할 수 있어요.",
         "terminal": {
           "code": [
-            "# 1. 사용자 메시지 + 도구 목록을 AI에 전달",
-            "response = client.messages.create(",
-            "    model=\"claude-opus-4-6\",",
-            "    tools=tools,",
-            "    messages=[{\"role\": \"user\", \"content\": \"서울 날씨 알려줘\"}]",
-            ")",
+            "import random",
             "",
-            "# 2. AI가 tool_use 블록으로 함수 호출 요청",
-            "# response.content = [ToolUseBlock(name=\"get_weather\", input={\"city\": \"서울\"})]",
-            "",
-            "# 3. 실제 함수 실행",
-            "result = get_weather(\"서울\")",
-            "",
-            "# 4. 결과를 AI에 다시 전달",
-            "# 5. AI가 결과를 보고 최종 답변 생성"
+            "numbers = [1, 2, 3, 4, 5]",
+            "print(random.choice(numbers))",
+            "print(random.choice(numbers))",
+            "print(random.choice(numbers))"
           ],
-          "output": []
+          "output": [
+            "3",
+            "1",
+            "5"
+          ]
         },
-        "tip": "AI는 함수를 직접 실행하지 않아요. '이 함수를 이 인수로 호출해줘'라고 요청하면, 우리 코드가 실행하고 결과를 다시 AI에 전달해요."
+        "tip": "import는 파일 맨 위에 한 번만 써요. random 말고도 파이썬에는 다양한 모듈이 있어요."
       },
       {
         "order": 4,
-        "text": "하나의 에이전트에 여러 Tool을 등록할 수 있어요.\nAI가 상황에 맞게 적절한 도구를 선택해 사용해요.",
+        "text": "드롭 시스템과 리스트 추가를 하나로 합쳐 add_item() 함수를 완성해요.\n몬스터를 잡으면 드롭 테이블에서 무작위 아이템이 결정되고 가방에 자동으로 들어가요.",
         "terminal": {
           "code": [
-            "# 여러 도구를 tools 리스트에 추가",
-            "tools = [",
-            "    {",
-            "        \"name\": \"search_web\",",
-            "        \"description\": \"인터넷에서 정보를 검색합니다.\",",
-            "        \"input_schema\": {",
-            "            \"type\": \"object\",",
-            "            \"properties\": {",
-            "                \"query\": {\"type\": \"string\", \"description\": \"검색어\"}",
-            "            },",
-            "            \"required\": [\"query\"]",
-            "        }",
-            "    },",
-            "    {",
-            "        \"name\": \"calculator\",",
-            "        \"description\": \"수학 계산을 수행합니다.\",",
-            "        \"input_schema\": {",
-            "            \"type\": \"object\",",
-            "            \"properties\": {",
-            "                \"expression\": {\"type\": \"string\", \"description\": \"계산할 수식\"}",
-            "            },",
-            "            \"required\": [\"expression\"]",
-            "        }",
-            "    }",
-            "]",
-            "# \"2023년 인구와 2022년 인구의 차이를 계산해줘\"",
-            "# → AI: search_web(\"2023년 세계 인구\") 호출",
-            "# → AI: search_web(\"2022년 세계 인구\") 호출",
-            "# → AI: calculator(\"8045000000 - 7975000000\") 호출"
+            "import random",
+            "",
+            "bag = []",
+            "drop_table = [\"체력 포션\", \"마법 검\", \"방패\", \"금화\", \"독 해독제\"]",
+            "",
+            "def add_item():",
+            "    item = random.choice(drop_table)",
+            "    bag.append(item)",
+            "    print(f\"[드롭] {item}을(를) 획득했어요!\")",
+            "",
+            "add_item()",
+            "add_item()",
+            "print(bag)"
           ],
-          "output": []
+          "output": [
+            "[드롭] 금화을(를) 획득했어요!",
+            "[드롭] 체력 포션을(를) 획득했어요!",
+            "['금화', '체력 포션']"
+          ]
         },
-        "tip": "도구가 많을수록 에이전트가 더 많은 일을 할 수 있어요. 하지만 설명이 모호하면 AI가 잘못된 도구를 선택할 수 있어요."
+        "tip": ".append()는 리스트 맨 뒤에 항목을 추가해요. 호출할 때마다 bag이 하나씩 늘어나요."
+      },
+      {
+        "order": 5,
+        "text": "bag이 꽉 찼을 때는 더 이상 넣지 못하도록 최대 용량을 확인할 수 있어요.\nlen()으로 현재 가방 크기를 확인하고, if문으로 제한을 걸어요.",
+        "terminal": {
+          "code": [
+            "import random",
+            "",
+            "bag = []",
+            "drop_table = [\"체력 포션\", \"마법 검\", \"방패\"]",
+            "MAX_SIZE = 3",
+            "",
+            "def add_item():",
+            "    if len(bag) >= MAX_SIZE:",
+            "        print(\"가방이 가득 찼어요!\")",
+            "        return",
+            "    item = random.choice(drop_table)",
+            "    bag.append(item)",
+            "    print(f\"[드롭] {item} 획득!\")",
+            "",
+            "add_item()",
+            "add_item()",
+            "add_item()",
+            "add_item()"
+          ],
+          "output": [
+            "[드롭] 방패 획득!",
+            "[드롭] 체력 포션 획득!",
+            "[드롭] 마법 검 획득!",
+            "가방이 가득 찼어요!"
+          ]
+        },
+        "tip": "return만 단독으로 쓰면 함수를 즉시 종료해요. 가방이 꽉 찬 경우 더 이상 진행하지 않고 빠져나와요."
       }
     ]
   },
@@ -201,129 +266,123 @@
     "unit": 8,
     "stage": "8-3",
     "course_level": "beginner",
-    "title": "에이전트 루프 구현",
+    "title": "show_inventory() : 가방 내용 출력과 통계",
     "villain": "interferencemon",
     "slides": [
       {
         "order": 1,
-        "text": "에이전트 루프는 while True 안에서 AI 호출 → 도구 실행 → 결과 전달을 반복해요.\nAI가 최종 답변을 내놓을 때 루프를 종료해요.",
+        "text": "가방 안의 아이템을 번호와 함께 보여주는 show_inventory() 함수를 만들어요.\nfor 반복문으로 리스트를 순회하면서 아이템을 하나씩 출력해요.",
         "terminal": {
           "code": [
-            "def run_agent(user_message):",
-            "    messages = [{\"role\": \"user\", \"content\": user_message}]",
+            "bag = [\"체력 포션\", \"마법 검\", \"방패\"]",
             "",
-            "    while True:",
-            "        # AI 호출",
-            "        response = client.messages.create(",
-            "            model=\"claude-opus-4-6\",",
-            "            tools=tools,",
-            "            messages=messages",
-            "        )",
+            "def show_inventory():",
+            "    for item in bag:",
+            "        print(item)",
             "",
-            "        # 종료 조건: AI가 도구 없이 최종 답변",
-            "        if response.stop_reason == \"end_turn\":",
-            "            return response.content[0].text",
-            "",
-            "        # 도구 호출이 있으면 처리하고 계속",
-            "        # (다음 슬라이드에서 자세히)"
+            "show_inventory()"
           ],
-          "output": []
+          "output": [
+            "체력 포션",
+            "마법 검",
+            "방패"
+          ]
         },
-        "tip": "`stop_reason == \"end_turn\"`이면 AI가 최종 답변을 완성한 거예요. `\"tool_use\"`면 아직 도구가 필요한 거예요."
+        "tip": "for item in bag:은 bag 리스트의 항목을 하나씩 꺼내 item에 담아요. 리스트가 끝날 때까지 반복해요."
       },
       {
         "order": 2,
-        "text": "AI가 tool_use를 요청하면 해당 함수를 실행하고 결과를 messages에 추가해요.",
+        "text": "단순히 이름만 출력하면 몇 번 항목인지 알기 어려워요.\nenumerate()를 사용하면 순서 번호와 항목을 함께 꺼낼 수 있어요.\n성적 계산기에서 학생 번호와 점수를 함께 관리했던 것과 같은 방식이에요.",
         "terminal": {
           "code": [
-            "# response.content에서 tool_use 블록 찾기",
-            "for block in response.content:",
-            "    if block.type == \"tool_use\":",
-            "        tool_name = block.name",
-            "        tool_input = block.input",
+            "bag = [\"체력 포션\", \"마법 검\", \"방패\"]",
             "",
-            "        # 실제 함수 실행",
-            "        if tool_name == \"get_weather\":",
-            "            result = get_weather(**tool_input)",
-            "        elif tool_name == \"calculator\":",
-            "            result = calculator(**tool_input)",
+            "def show_inventory():",
+            "    for i, item in enumerate(bag, 1):",
+            "        print(f\"{i}. {item}\")",
             "",
-            "        # AI 메시지 + 도구 결과를 messages에 추가",
-            "        messages.append({\"role\": \"assistant\", \"content\": response.content})",
-            "        messages.append({",
-            "            \"role\": \"user\",",
-            "            \"content\": [{\"type\": \"tool_result\", \"tool_use_id\": block.id, \"content\": result}]",
-            "        })"
+            "show_inventory()"
           ],
-          "output": []
+          "output": [
+            "1. 체력 포션",
+            "2. 마법 검",
+            "3. 방패"
+          ]
         },
-        "tip": "도구 결과를 messages에 추가해야 AI가 다음 단계에서 결과를 볼 수 있어요."
+        "tip": "enumerate(bag, 1)의 두 번째 인자 1은 번호를 1부터 시작한다는 뜻이에요. 기본값은 0이에요."
       },
       {
         "order": 3,
-        "text": "앞서 배운 내용을 합쳐서 완성된 에이전트 루프를 만들어요.",
+        "text": "가방이 비어있을 때 아무것도 출력하지 않으면 사용자가 혼란스러울 수 있어요.\nif len(bag) == 0으로 빈 경우를 먼저 확인하고 안내 메시지를 출력해요.",
         "terminal": {
           "code": [
-            "def run_agent(user_message, tools, tool_functions):",
-            "    messages = [{\"role\": \"user\", \"content\": user_message}]",
+            "bag = []",
             "",
-            "    while True:",
-            "        response = client.messages.create(",
-            "            model=\"claude-opus-4-6\",",
-            "            tools=tools,",
-            "            messages=messages",
-            "        )",
+            "def show_inventory():",
+            "    if len(bag) == 0:",
+            "        print(\"가방이 비어있어요.\")",
+            "        return",
+            "    for i, item in enumerate(bag, 1):",
+            "        print(f\"{i}. {item}\")",
             "",
-            "        if response.stop_reason == \"end_turn\":",
-            "            return response.content[0].text",
-            "",
-            "        # tool_use 처리",
-            "        messages.append({\"role\": \"assistant\", \"content\": response.content})",
-            "        tool_results = []",
-            "",
-            "        for block in response.content:",
-            "            if block.type == \"tool_use\":",
-            "                fn = tool_functions[block.name]",
-            "                result = fn(**block.input)",
-            "                tool_results.append({",
-            "                    \"type\": \"tool_result\",",
-            "                    \"tool_use_id\": block.id,",
-            "                    \"content\": str(result)",
-            "                })",
-            "",
-            "        messages.append({\"role\": \"user\", \"content\": tool_results})"
+            "show_inventory()"
           ],
-          "output": []
+          "output": [
+            "가방이 비어있어요."
+          ]
         },
-        "tip": "tool_functions는 함수 이름→실제 함수를 매핑하는 딕셔너리예요. `{\"get_weather\": get_weather}` 형태로 전달해요."
+        "tip": "빈 리스트 확인은 len(bag) == 0 또는 not bag 두 가지 방법이 있어요."
       },
       {
         "order": 4,
-        "text": "에이전트 루프가 멈추지 않을 수 있어요.\n최대 반복 횟수를 설정해서 안전하게 종료해요.",
+        "text": "각 아이템에 무게 정보가 있다면, 가방의 총 무게와 평균 무게를 계산할 수 있어요.\nsum()으로 합계를, len()으로 개수를 구해서 평균을 계산해요.\n성적 계산기에서 총점과 평균을 구했던 것과 똑같은 패턴이에요.",
         "terminal": {
           "code": [
-            "def run_agent(user_message, max_steps=10):",
-            "    messages = [{\"role\": \"user\", \"content\": user_message}]",
-            "    steps = 0",
+            "weights = [1.5, 3.0, 2.0]",
             "",
-            "    while steps < max_steps:",
-            "        steps += 1",
-            "        response = client.messages.create(",
-            "            model=\"claude-opus-4-6\",",
-            "            tools=tools,",
-            "            messages=messages",
-            "        )",
+            "total = sum(weights)",
+            "average = sum(weights) / len(weights)",
             "",
-            "        if response.stop_reason == \"end_turn\":",
-            "            return response.content[0].text",
-            "",
-            "        # ... 도구 처리 ...",
-            "",
-            "    return \"최대 단계 초과: 작업을 완료하지 못했어요.\""
+            "print(f\"총 무게: {total}kg\")",
+            "print(f\"평균 무게: {average:.1f}kg\")"
           ],
-          "output": []
+          "output": [
+            "총 무게: 6.5kg",
+            "평균 무게: 2.2kg"
+          ]
         },
-        "tip": "max_steps를 설정하지 않으면 에이전트가 무한히 실행될 수 있어요. API 비용도 계속 나가니 꼭 제한을 걸어요."
+        "tip": ":.1f는 소수점 첫째 자리까지 출력하는 f-string 포맷이에요. :.2f는 둘째 자리까지예요."
+      },
+      {
+        "order": 5,
+        "text": "아이템 목록 출력과 무게 통계를 합쳐서 show_inventory()를 완성해요.\n목록을 보여주고, 아래에 총 무게와 아이템 수를 함께 출력해요.",
+        "terminal": {
+          "code": [
+            "bag = [\"체력 포션\", \"마법 검\", \"방패\"]",
+            "weights = {\"체력 포션\": 0.5, \"마법 검\": 3.0, \"방패\": 5.0}",
+            "",
+            "def show_inventory():",
+            "    if len(bag) == 0:",
+            "        print(\"가방이 비어있어요.\")",
+            "        return",
+            "    print(\"--- 가방 목록 ---\")",
+            "    for i, item in enumerate(bag, 1):",
+            "        w = weights.get(item, 0)",
+            "        print(f\"{i}. {item} ({w}kg)\")",
+            "    total = sum(weights.get(i, 0) for i in bag)",
+            "    print(f\"총 {len(bag)}개 | 총 무게: {total}kg\")",
+            "",
+            "show_inventory()"
+          ],
+          "output": [
+            "--- 가방 목록 ---",
+            "1. 체력 포션 (0.5kg)",
+            "2. 마법 검 (3.0kg)",
+            "3. 방패 (5.0kg)",
+            "총 3개 | 총 무게: 8.5kg"
+          ]
+        },
+        "tip": "weights.get(item, 0)은 아이템 무게 정보가 없으면 0으로 처리해요. 안전하게 값을 꺼내는 패턴이에요."
       }
     ]
   },
@@ -332,113 +391,127 @@
     "unit": 8,
     "stage": "8-4",
     "course_level": "beginner",
-    "title": "메모리 & 상태 관리",
+    "title": "drop_item() : 아이템 도감 조회 및 버리기",
     "villain": "interferencemon",
     "slides": [
       {
         "order": 1,
-        "text": "AI API는 기본적으로 이전 대화를 기억하지 않아요.\n매번 요청할 때 이전 대화 내용을 messages에 담아서 전달해야 해요.\n이것이 에이전트의 \"기억\" 구현 방법이에요.",
+        "text": "가방에서 아이템을 버리는 drop_item() 함수를 만들어요.\n유저가 입력한 번호로 해당 아이템을 리스트에서 삭제해요.\n.pop(인덱스)는 지정한 위치의 항목을 꺼내고 리스트에서 제거해요.",
         "terminal": {
           "code": [
-            "# 기억 없이 호출 (매번 새로 시작)",
-            "response1 = client.messages.create(messages=[{\"role\": \"user\", \"content\": \"내 이름은 에이몬이야\"}])",
-            "response2 = client.messages.create(messages=[{\"role\": \"user\", \"content\": \"내 이름이 뭐야?\"}])",
-            "# AI: \"죄송해요, 당신의 이름을 모르겠어요.\"",
+            "bag = [\"체력 포션\", \"마법 검\", \"방패\"]",
             "",
-            "# 기억 있는 호출 (이전 대화 포함)",
-            "history = [",
-            "    {\"role\": \"user\", \"content\": \"내 이름은 에이몬이야\"},",
-            "    {\"role\": \"assistant\", \"content\": \"안녕하세요, 에이몬님!\"},",
-            "    {\"role\": \"user\", \"content\": \"내 이름이 뭐야?\"}",
-            "]",
-            "response2 = client.messages.create(messages=history)",
-            "# AI: \"에이몬이에요!\""
+            "removed = bag.pop(1)",
+            "print(f\"제거된 아이템: {removed}\")",
+            "print(bag)"
           ],
-          "output": []
+          "output": [
+            "제거된 아이템: 마법 검",
+            "['체력 포션', '방패']"
+          ]
         },
-        "tip": "messages 리스트에 이전 대화를 모두 담아서 전달하는 게 AI의 \"기억\" 방식이에요."
+        "tip": ".pop(인덱스)는 해당 항목을 리스트에서 꺼내면서 반환해요. 꺼낸 값을 변수에 저장하면 나중에 사용할 수 있어요."
       },
       {
         "order": 2,
-        "text": "대화가 이어질수록 messages 리스트가 길어져요.\n매 턴마다 user와 assistant 메시지를 번갈아 추가해요.",
+        "text": "화면에 보이는 번호(1, 2, 3)와 리스트 인덱스(0, 1, 2)는 1 차이가 나요.\n유저가 '2번 버리기'를 입력하면 실제로는 인덱스 1번을 pop해야 해요.\n입력값에서 1을 빼는 인덱스 보정이 필요해요.",
         "terminal": {
           "code": [
-            "# 대화 히스토리 관리 패턴",
-            "class ChatAgent:",
-            "    def __init__(self):",
-            "        self.history = []",
+            "bag = [\"체력 포션\", \"마법 검\", \"방패\"]",
             "",
-            "    def chat(self, user_message):",
-            "        # 사용자 메시지 추가",
-            "        self.history.append({\"role\": \"user\", \"content\": user_message})",
-            "",
-            "        # AI 호출",
-            "        response = client.messages.create(",
-            "            model=\"claude-opus-4-6\",",
-            "            messages=self.history",
-            "        )",
-            "        ai_reply = response.content[0].text",
-            "",
-            "        # AI 답변도 히스토리에 추가",
-            "        self.history.append({\"role\": \"assistant\", \"content\": ai_reply})",
-            "        return ai_reply",
-            "",
-            "agent = ChatAgent()",
-            "print(agent.chat(\"안녕! 나는 Python 배우는 중이야\"))",
-            "print(agent.chat(\"좀 전에 내가 뭘 배운다고 했지?\"))"
+            "num = int(input(\"버릴 아이템 번호: \"))",
+            "index = num - 1",
+            "removed = bag.pop(index)",
+            "print(f\"{removed}을(를) 버렸어요.\")"
           ],
-          "output": []
+          "output": [
+            "버릴 아이템 번호: 2",
+            "마법 검을(를) 버렸어요."
+          ]
         },
-        "tip": "history를 계속 쌓으면 점점 AI에 전달하는 토큰이 많아져요. 실제 서비스에서는 최근 N개만 유지하는 패턴을 써요."
+        "tip": "화면 번호 = 인덱스 + 1 이에요. 그래서 인덱스 = 화면 번호 - 1로 변환해요."
       },
       {
         "order": 3,
-        "text": "에이전트의 상태(완료한 작업, 중간 결과 등)를 JSON으로 저장하면 재시작 후에도 이어서 진행할 수 있어요.",
+        "text": "단어장 앱에서 단어의 뜻을 딕셔너리로 찾았던 것처럼,\n아이템 도감 딕셔너리에서 버리기 전 아이템 효과를 미리 보여줄 수 있어요.\n.get()으로 안전하게 정보를 꺼내요.",
         "terminal": {
           "code": [
-            "import json",
+            "item_info = {",
+            "    \"체력 포션\": \"HP 50 회복\",",
+            "    \"마법 검\": \"공격력 +20\",",
+            "    \"방패\": \"방어력 +15\"",
+            "}",
             "",
-            "# 상태를 파일에 저장",
-            "def save_state(state, filename='agent_state.json'):",
-            "    with open(filename, 'w', encoding='utf-8') as f:",
-            "        json.dump(state, f, ensure_ascii=False, indent=2)",
-            "",
-            "# 상태 불러오기",
-            "def load_state(filename='agent_state.json'):",
-            "    try:",
-            "        with open(filename, 'r', encoding='utf-8') as f:",
-            "            return json.load(f)",
-            "    except FileNotFoundError:",
-            "        return {\"history\": [], \"completed_tasks\": [], \"current_step\": 0}",
-            "",
-            "# 사용 예시",
-            "state = load_state()",
-            "state['current_step'] += 1",
-            "save_state(state)"
+            "item = \"마법 검\"",
+            "info = item_info.get(item, \"정보 없음\")",
+            "print(f\"[{item}] 효과: {info}\")",
+            "print(\"정말 버리겠어요? (y/n)\")"
           ],
-          "output": []
+          "output": [
+            "[마법 검] 효과: 공격력 +20",
+            "정말 버리겠어요? (y/n)"
+          ]
         },
-        "tip": "상태를 저장하면 프로그램이 중단되어도 이어서 실행할 수 있어요. 장기 작업에서 필수적이에요."
+        "tip": "item_info.get(item, \"정보 없음\")은 도감에 없는 아이템도 에러 없이 처리해요."
       },
       {
         "order": 4,
-        "text": "AI에 전달할 수 있는 텍스트 양에 한계가 있어요. 이를 컨텍스트 윈도우라고 해요.\n대화가 길어지면 오래된 내용을 요약하거나 잘라내는 전략이 필요해요.",
+        "text": "범위를 벗어난 번호를 입력하면 IndexError가 발생해요.\n유효한 번호인지 미리 확인하는 조건문을 추가해야 해요.",
         "terminal": {
           "code": [
-            "# 최근 N개 메시지만 유지하는 패턴",
-            "def trim_history(history, max_messages=10):",
-            "    if len(history) > max_messages:",
-            "        # 첫 번째 system 메시지는 유지, 나머지는 최근 것만",
-            "        return history[-max_messages:]",
-            "    return history",
+            "bag = [\"체력 포션\", \"마법 검\"]",
             "",
-            "# 사용 예시",
-            "history = trim_history(history, max_messages=10)",
-            "response = client.messages.create(messages=history)"
+            "num = int(input(\"버릴 번호: \"))",
+            "index = num - 1",
+            "",
+            "if 0 <= index < len(bag):",
+            "    removed = bag.pop(index)",
+            "    print(f\"{removed} 버림 완료.\")",
+            "else:",
+            "    print(\"잘못된 번호예요.\")"
           ],
-          "output": []
+          "output": [
+            "버릴 번호: 5",
+            "잘못된 번호예요."
+          ]
         },
-        "tip": "컨텍스트가 너무 길면 API 비용도 올라가고 AI가 앞부분을 놓칠 수 있어요. 적절히 관리하는 게 중요해요."
+        "tip": "0 <= index < len(bag) 조건으로 유효한 인덱스 범위를 한 번에 검사할 수 있어요."
+      },
+      {
+        "order": 5,
+        "text": "지금까지 만든 요소들을 합쳐서 drop_item() 함수를 완성해요.\n번호 확인 → 도감 조회 → 확인 질문 → 삭제까지 한 흐름으로 연결해요.",
+        "terminal": {
+          "code": [
+            "bag = [\"체력 포션\", \"마법 검\", \"방패\"]",
+            "item_info = {\"체력 포션\": \"HP 50 회복\", \"마법 검\": \"공격력 +20\"}",
+            "",
+            "def drop_item():",
+            "    if len(bag) == 0:",
+            "        print(\"가방이 비어있어요.\")",
+            "        return",
+            "    num = int(input(\"버릴 번호: \"))",
+            "    index = num - 1",
+            "    if not (0 <= index < len(bag)):",
+            "        print(\"잘못된 번호예요.\")",
+            "        return",
+            "    item = bag[index]",
+            "    info = item_info.get(item, \"정보 없음\")",
+            "    print(f\"[{item}] {info}\")",
+            "    confirm = input(\"버리겠어요? (y/n): \")",
+            "    if confirm == \"y\":",
+            "        bag.pop(index)",
+            "        print(f\"{item} 버림 완료.\")",
+            "",
+            "drop_item()"
+          ],
+          "output": [
+            "버릴 번호: 2",
+            "[마법 검] 공격력 +20",
+            "버리겠어요? (y/n): y",
+            "마법 검 버림 완료."
+          ]
+        },
+        "tip": "not (0 <= index < len(bag))으로 유효하지 않은 경우를 걸러내고 return으로 바로 종료해요."
       }
     ]
   },
@@ -447,112 +520,117 @@
     "unit": 8,
     "stage": "8-5",
     "course_level": "beginner",
-    "title": "멀티스텝 태스크",
+    "title": "find_item() : 아이템 검색하기",
     "villain": "interferencemon",
     "slides": [
       {
         "order": 1,
-        "text": "멀티스텝 태스크는 여러 단계를 순서대로 자동 실행하는 작업이에요.\n에이전트가 단계별로 진행하면서 각 결과를 다음 단계에 활용해요.",
+        "text": "가방 안에 원하는 아이템이 있는지 검색하는 find_item() 함수를 만들어요.\nin 연산자를 사용하면 리스트 안에 특정 값이 있는지 바로 확인할 수 있어요.",
         "terminal": {
           "code": [
-            "# 예시: \"최신 Python 뉴스 요약해서 파일로 저장해줘\"",
-            "# 에이전트가 자동으로 처리하는 단계:",
-            "# 1단계: search_web(\"Python 최신 뉴스\") 호출",
-            "# 2단계: 검색 결과에서 주요 내용 추출",
-            "# 3단계: 내용 요약",
-            "# 4단계: write_file(\"news_summary.txt\", 요약내용) 호출",
-            "# 5단계: \"파일 저장 완료!\" 답변",
+            "bag = [\"체력 포션\", \"마법 검\", \"방패\"]",
             "",
-            "# 사람이 중간에 개입 없이 자동으로 처리!"
+            "print(\"마법 검\" in bag)",
+            "print(\"금화\" in bag)"
           ],
-          "output": []
+          "output": [
+            "True",
+            "False"
+          ]
         },
-        "tip": "사람은 최초 요청만 하면 에이전트가 나머지를 자동으로 처리해요. 이게 AI 자동화의 핵심이에요."
+        "tip": "in 연산자는 리스트뿐 아니라 문자열에서도 쓸 수 있어요. \"마\" in \"마법 검\"도 True예요."
       },
       {
         "order": 2,
-        "text": "멀티스텝 실행 중 오류가 발생할 수 있어요.\n각 단계에서 예외처리를 하면 오류가 생겨도 계속 진행할 수 있어요.",
+        "text": "검색할 때 대소문자가 달라서 못 찾는 경우가 생겨요.\n.lower()로 입력값과 아이템 이름을 모두 소문자로 바꾸면 대소문자 상관없이 찾을 수 있어요.\n단어장 앱에서 단어 검색할 때도 같은 방식을 썼어요.",
         "terminal": {
           "code": [
-            "def safe_tool_call(tool_name, tool_fn, **kwargs):",
-            "    \"\"\"안전하게 도구를 호출하고 결과를 반환\"\"\"",
-            "    try:",
-            "        result = tool_fn(**kwargs)",
-            "        return {\"success\": True, \"result\": result}",
-            "    except Exception as e:",
-            "        return {\"success\": False, \"error\": str(e)}",
+            "bag = [\"Health Potion\", \"Magic Sword\"]",
             "",
-            "# 사용 예시",
-            "result = safe_tool_call(\"search_web\", search_web, query=\"Python 뉴스\")",
+            "keyword = input(\"검색: \")",
             "",
-            "if result[\"success\"]:",
-            "    data = result[\"result\"]",
-            "else:",
-            "    # 에러를 AI에 전달해서 다른 방법을 시도하게 함",
-            "    data = f\"검색 실패: {result['error']}\""
+            "for item in bag:",
+            "    if keyword.lower() in item.lower():",
+            "        print(f\"찾았어요: {item}\")"
           ],
-          "output": []
+          "output": [
+            "검색: magic",
+            "찾았어요: Magic Sword"
+          ]
         },
-        "tip": "오류 결과도 AI에게 전달하면 AI가 다른 방법을 시도하거나 실패 원인을 설명할 수 있어요."
+        "tip": ".lower()는 문자열을 모두 소문자로 바꿔요. 원본 문자열은 변하지 않아요."
       },
       {
         "order": 3,
-        "text": "멀티스텝 작업에서 어느 단계까지 완료했는지 추적하면 디버깅이 쉬워요.",
+        "text": "한글 아이템에서는 부분 검색이 유용해요.\n'포션'을 검색하면 '체력 포션', '마나 포션' 등 포션이 들어간 아이템을 모두 찾을 수 있어요.",
         "terminal": {
           "code": [
-            "def run_agent_with_log(user_message):",
-            "    messages = [{\"role\": \"user\", \"content\": user_message}]",
-            "    step = 0",
+            "bag = [\"체력 포션\", \"마나 포션\", \"마법 검\", \"방패\"]",
             "",
-            "    while step < 10:",
-            "        step += 1",
-            "        print(f\"\\n[단계 {step}] AI 호출 중...\")",
+            "keyword = \"포션\"",
+            "results = []",
             "",
-            "        response = client.messages.create(",
-            "            model=\"claude-opus-4-6\",",
-            "            tools=tools,",
-            "            messages=messages",
-            "        )",
+            "for item in bag:",
+            "    if keyword in item:",
+            "        results.append(item)",
             "",
-            "        if response.stop_reason == \"end_turn\":",
-            "            print(f\"[완료] {step}단계에서 작업 완료\")",
-            "            return response.content[0].text",
-            "",
-            "        for block in response.content:",
-            "            if block.type == \"tool_use\":",
-            "                print(f\"  → 도구 호출: {block.name}({block.input})\")"
+            "print(f\"'{keyword}' 검색 결과: {results}\")"
           ],
-          "output": []
+          "output": [
+            "'포션' 검색 결과: ['체력 포션', '마나 포션']"
+          ]
         },
-        "tip": "로그를 출력하면 에이전트가 무엇을 하는지 실시간으로 확인할 수 있어요. 개발 중에는 항상 로그를 남겨요."
+        "tip": "keyword in item은 item 문자열 안에 keyword가 포함되어 있는지 확인해요. 부분 일치 검색이에요."
       },
       {
         "order": 4,
-        "text": "Claude는 여러 도구를 한 번에 호출할 수 있어요.\n독립적인 정보를 동시에 가져올 때 효율적이에요.",
+        "text": "검색 결과가 없을 때도 안내 메시지를 출력해야 해요.\nresults 리스트가 비어있으면 '찾지 못했다'는 메시지를 보여줘요.",
         "terminal": {
           "code": [
-            "# AI가 한 번에 여러 도구를 호출하는 경우",
-            "# \"서울과 부산의 날씨를 비교해줘\"",
-            "# → AI가 한 번에 두 도구를 동시 요청:",
-            "# response.content = [",
-            "#     ToolUseBlock(name=\"get_weather\", input={\"city\": \"서울\"}),",
-            "#     ToolUseBlock(name=\"get_weather\", input={\"city\": \"부산\"})",
-            "# ]",
+            "bag = [\"체력 포션\", \"마법 검\"]",
             "",
-            "tool_results = []",
-            "for block in response.content:",
-            "    if block.type == \"tool_use\":",
-            "        result = execute_tool(block.name, block.input)",
-            "        tool_results.append({",
-            "            \"type\": \"tool_result\",",
-            "            \"tool_use_id\": block.id,",
-            "            \"content\": str(result)",
-            "        })",
-            "# 두 결과를 한 번에 AI에 전달"
+            "def find_item(keyword):",
+            "    results = []",
+            "    for item in bag:",
+            "        if keyword in item:",
+            "            results.append(item)",
+            "    if len(results) == 0:",
+            "        print(f\"'{keyword}'을(를) 찾지 못했어요.\")",
+            "    else:",
+            "        print(f\"검색 결과: {results}\")",
+            "",
+            "find_item(\"금화\")"
           ],
-          "output": []
+          "output": [
+            "'금화'을(를) 찾지 못했어요."
+          ]
         },
-        "tip": "AI가 독립적인 도구를 병렬로 호출하면 순차 호출보다 더 빠르게 결과를 얻을 수 있어요."
+        "tip": "검색 결과가 있을 때와 없을 때를 if/else로 구분해서 사용자에게 명확하게 알려줘요."
+      },
+      {
+        "order": 5,
+        "text": "찾은 아이템의 번호(인덱스)까지 함께 출력하면 더 유용해요.\nenumerate()로 인덱스와 아이템을 함께 꺼내고, 화면 번호는 인덱스+1로 변환해요.",
+        "terminal": {
+          "code": [
+            "bag = [\"체력 포션\", \"마나 포션\", \"마법 검\"]",
+            "",
+            "def find_item(keyword):",
+            "    found = False",
+            "    for i, item in enumerate(bag, 1):",
+            "        if keyword in item:",
+            "            print(f\"{i}번: {item}\")",
+            "            found = True",
+            "    if not found:",
+            "        print(f\"'{keyword}' 검색 결과 없음\")",
+            "",
+            "find_item(\"포션\")"
+          ],
+          "output": [
+            "1번: 체력 포션",
+            "2번: 마나 포션"
+          ]
+        },
+        "tip": "found 변수를 False로 시작해서 찾으면 True로 바꾸는 패턴은 '아무것도 못 찾은 경우' 처리에 자주 써요."
       }
     ]
   },
@@ -561,90 +639,127 @@
     "unit": 8,
     "stage": "8-6",
     "course_level": "beginner",
-    "title": "자동화 시나리오 설계",
+    "title": "save_load_bag() : 가방 저장하고 불러오기",
     "villain": "interferencemon",
     "slides": [
       {
         "order": 1,
-        "text": "자동화 시나리오는 \"어떤 입력이 들어오면 어떤 도구를 써서 어떤 출력을 내야 하는가\"를 미리 설계하는 것이에요.\n좋은 설계가 좋은 에이전트를 만들어요.",
-        "tip": "시나리오를 그림으로 먼저 그려보면 어떤 도구가 필요한지 명확해져요."
+        "text": "지금까지 만든 인벤토리는 프로그램을 끄면 사라져요.\n파일에 저장하면 다음에 다시 실행해도 아이템이 그대로 남아있어요.\nwith open()으로 파일을 열고 write()로 내용을 저장해요.",
+        "terminal": {
+          "code": [
+            "bag = [\"체력 포션\", \"마법 검\", \"방패\"]",
+            "",
+            "with open(\"bag.txt\", \"w\", encoding=\"utf-8\") as f:",
+            "    for item in bag:",
+            "        f.write(item + \"\\n\")",
+            "",
+            "print(\"저장 완료!\")"
+          ],
+          "output": [
+            "저장 완료!"
+          ]
+        },
+        "tip": "\"w\" 모드는 파일을 새로 쓰는(write) 모드예요. 기존 내용이 있으면 덮어써요. encoding=\"utf-8\"은 한글이 깨지지 않게 해요."
       },
       {
         "order": 2,
-        "text": "분류봇은 텍스트가 어떤 카테고리에 속하는지 분류하는 에이전트예요.\n스팸 필터, 감정 분류, 주제 분류 등에 활용해요.",
+        "text": "저장한 파일을 다시 불러올 때는 \"r\" 모드로 열고 readlines()로 읽어요.\n각 줄 끝에 줄바꿈 문자(\\n)가 붙어있으니 .strip()으로 제거해야 해요.",
         "terminal": {
           "code": [
-            "def classify_text(text: str) -> dict:",
-            "    \"\"\"텍스트를 카테고리로 분류\"\"\"",
-            "    response = client.messages.create(",
-            "        model=\"claude-opus-4-6\",",
-            "        system=(",
-            "            \"당신은 텍스트 분류 전문가예요. \"",
-            "            \"반드시 다음 JSON 형식으로만 응답하세요: \"",
-            "            '{\"category\": \"긍정/부정/중립\", \"confidence\": 0~1}'",
-            "        ),",
-            "        messages=[{\"role\": \"user\", \"content\": f\"다음 텍스트를 분류해줘: {text}\"}]",
-            "    )",
-            "    import json",
-            "    return json.loads(response.content[0].text)",
+            "with open(\"bag.txt\", \"r\", encoding=\"utf-8\") as f:",
+            "    lines = f.readlines()",
             "",
-            "# 사용 예시",
-            "result = classify_text(\"이 제품 정말 마음에 들어요!\")",
-            "print(result)  # {\"category\": \"긍정\", \"confidence\": 0.95}"
+            "bag = [line.strip() for line in lines if line.strip()]",
+            "print(bag)"
           ],
-          "output": []
+          "output": [
+            "['체력 포션', '마법 검', '방패']"
+          ]
         },
-        "tip": "system 메시지에서 출력 형식(JSON)을 엄격하게 지정하면 코드로 쉽게 파싱할 수 있어요."
+        "tip": ".strip()은 문자열 양 끝의 공백과 줄바꿈(\\n)을 제거해요. 파일에서 읽은 데이터를 정리할 때 꼭 써요."
       },
       {
         "order": 3,
-        "text": "요약봇은 긴 텍스트를 핵심 내용만 추려내는 에이전트예요.\n보고서 요약, 뉴스 요약, 회의록 요약 등에 활용해요.",
+        "text": "저장 함수와 불러오기 함수를 각각 만들어요.\nsave_bag()은 bag을 파일로 저장하고, load_bag()은 파일에서 bag을 복원해요.",
         "terminal": {
           "code": [
-            "def summarize(text: str, max_sentences: int = 3) -> str:",
-            "    \"\"\"텍스트를 N문장으로 요약\"\"\"",
-            "    response = client.messages.create(",
-            "        model=\"claude-opus-4-6\",",
-            "        system=(",
-            "            f\"당신은 전문 요약가예요. \"",
-            "            f\"핵심 내용만 {max_sentences}문장 이내로 요약해요. \"",
-            "            \"불필요한 설명 없이 요약문만 출력해요.\"",
-            "        ),",
-            "        messages=[{\"role\": \"user\", \"content\": text}]",
-            "    )",
-            "    return response.content[0].text",
+            "bag = []",
             "",
-            "# 파이프라인: 파일 읽기 → 요약 → 파일 저장",
-            "with open(\"report.txt\", \"r\", encoding=\"utf-8\") as f:",
-            "    original = f.read()",
+            "def save_bag():",
+            "    with open(\"bag.txt\", \"w\", encoding=\"utf-8\") as f:",
+            "        for item in bag:",
+            "            f.write(item + \"\\n\")",
+            "    print(\"가방을 저장했어요.\")",
             "",
-            "summary = summarize(original, max_sentences=3)",
-            "",
-            "with open(\"summary.txt\", \"w\", encoding=\"utf-8\") as f:",
-            "    f.write(summary)"
+            "def load_bag():",
+            "    with open(\"bag.txt\", \"r\", encoding=\"utf-8\") as f:",
+            "        lines = f.readlines()",
+            "    for line in lines:",
+            "        item = line.strip()",
+            "        if item:",
+            "            bag.append(item)",
+            "    print(f\"{len(bag)}개 아이템을 불러왔어요.\")"
           ],
           "output": []
         },
-        "tip": "max_sentences 같은 파라미터로 요약 길이를 조절할 수 있어요. 프롬프트에 구체적인 숫자를 넣으면 AI가 잘 따라요."
+        "tip": "save_bag()과 load_bag()을 분리하면 저장과 불러오기를 각각 필요한 시점에 호출할 수 있어요."
       },
       {
         "order": 4,
-        "text": "좋은 에이전트를 설계하기 위한 체크리스트예요.\n\n| 항목 | 확인 사항 |\n|------|-----------|\n| 입력/출력 | 무엇을 받아서 무엇을 반환하는가? |\n| 필요한 도구 | 어떤 외부 기능이 필요한가? |\n| 실패 처리 | 도구 호출이 실패하면? |\n| 루프 종료 | 언제 작업이 완료된 건가? |\n| 비용/속도 | API 호출이 너무 많지 않은가? |",
+        "text": "파일이 없는 상태에서 load_bag()을 호출하면 FileNotFoundError가 발생해요.\ntry/except로 파일이 없는 경우를 처리하면 프로그램이 멈추지 않아요.",
         "terminal": {
           "code": [
-            "# 에이전트 설계 템플릿",
-            "AGENT_DESIGN = {",
-            "    \"name\": \"문서 요약 에이전트\",",
-            "    \"input\": \"긴 문서 텍스트\",",
-            "    \"output\": \"3문장 요약 + 핵심 키워드 5개\",",
-            "    \"tools\": [\"read_file\", \"summarize\", \"write_file\"],",
-            "    \"error_handling\": \"실패 시 원본 반환\",",
-            "    \"max_steps\": 5",
-            "}"
+            "bag = []",
+            "",
+            "def load_bag():",
+            "    try:",
+            "        with open(\"bag.txt\", \"r\", encoding=\"utf-8\") as f:",
+            "            lines = f.readlines()",
+            "        for line in lines:",
+            "            item = line.strip()",
+            "            if item:",
+            "                bag.append(item)",
+            "        print(f\"{len(bag)}개 아이템을 불러왔어요.\")",
+            "    except FileNotFoundError:",
+            "        print(\"저장된 가방이 없어요. 새로 시작해요.\")"
           ],
-          "output": []
+          "output": [
+            "저장된 가방이 없어요. 새로 시작해요."
+          ]
         },
-        "tip": "에이전트를 만들기 전에 설계를 문서로 작성하면 나중에 디버깅이 쉬워요."
+        "tip": "try/except는 에러가 발생해도 프로그램을 멈추지 않게 해요. FileNotFoundError는 파일이 없을 때 발생하는 에러예요."
+      },
+      {
+        "order": 5,
+        "text": "프로그램 시작 시 load_bag()으로 저장 데이터를 불러오고,\n종료 시 save_bag()으로 현재 가방을 파일에 저장하면 데이터가 영구적으로 유지돼요.",
+        "terminal": {
+          "code": [
+            "bag = []",
+            "",
+            "def save_bag():",
+            "    with open(\"bag.txt\", \"w\", encoding=\"utf-8\") as f:",
+            "        for item in bag:",
+            "            f.write(item + \"\\n\")",
+            "    print(\"저장 완료.\")",
+            "",
+            "def load_bag():",
+            "    try:",
+            "        with open(\"bag.txt\", \"r\", encoding=\"utf-8\") as f:",
+            "            for line in f.readlines():",
+            "                if line.strip():",
+            "                    bag.append(line.strip())",
+            "    except FileNotFoundError:",
+            "        pass",
+            "",
+            "load_bag()",
+            "bag.append(\"금화\")",
+            "save_bag()"
+          ],
+          "output": [
+            "저장 완료."
+          ]
+        },
+        "tip": "except FileNotFoundError: pass는 에러를 무시하고 넘어가요. 처음 실행 시 파일이 없는 건 정상이라 조용히 넘겨도 돼요."
       }
     ]
   },
@@ -653,357 +768,141 @@
     "unit": 8,
     "stage": "8-7",
     "course_level": "beginner",
-    "title": "LangChain 기초",
+    "title": "run_bag_sys() : 인벤토리 시스템 완성",
     "villain": "interferencemon",
     "slides": [
       {
         "order": 1,
-        "text": "LangChain은 AI 에이전트와 파이프라인을 쉽게 만들 수 있는 Python 라이브러리예요.\n반복되는 에이전트 코드를 간결하게 줄여줘요.\n업계에서 가장 많이 사용하는 AI 개발 프레임워크 중 하나예요.",
+        "text": "지금까지 만든 모든 함수를 하나로 연결하는 run_bag_sys()를 만들어요.\nwhile True로 무한 루프를 만들어 프로그램이 계속 실행되게 해요.\n사용자가 '종료'를 선택하기 전까지는 메뉴가 계속 나타나요.",
         "terminal": {
           "code": [
-            "# LangChain 없이 직접 구현 (복잡)",
-            "messages = [...]",
             "while True:",
-            "    response = client.messages.create(...)",
-            "    if response.stop_reason == \"end_turn\":",
+            "    print(\"1. 아이템 넣기  4. 종료\")",
+            "    choice = input(\"선택: \")",
+            "    if choice == \"4\":",
+            "        print(\"가방을 닫아요.\")",
             "        break",
-            "    # 도구 처리 로직...",
-            "",
-            "# LangChain 사용 (간결)",
-            "from langchain.agents import create_tool_calling_agent, AgentExecutor",
-            "",
-            "agent = create_tool_calling_agent(llm, tools, prompt)",
-            "executor = AgentExecutor(agent=agent, tools=tools)",
-            "result = executor.invoke({\"input\": \"서울 날씨 알려줘\"})"
+            "    else:",
+            "        print(f\"{choice}번 선택됨\")"
           ],
-          "output": []
+          "output": [
+            "1. 아이템 넣기  4. 종료",
+            "선택: 1",
+            "1번 선택됨",
+            "1. 아이템 넣기  4. 종료",
+            "선택: 4",
+            "가방을 닫아요."
+          ]
         },
-        "tip": "LangChain은 설치 필요해요. `pip install langchain langchain-anthropic`으로 설치해요."
+        "tip": "while True는 조건 없이 무한 반복해요. break를 만나야만 루프를 빠져나올 수 있어요."
       },
       {
         "order": 2,
-        "text": "Chain은 여러 처리 단계를 연결하는 파이프라인이에요.\n입력 → 처리1 → 처리2 → 출력 형태로 연결해요.",
+        "text": "각 번호에 맞는 함수를 if/elif로 연결해요.\n메뉴 번호와 함수가 1:1로 매핑되는 구조예요.",
         "terminal": {
           "code": [
-            "from langchain_anthropic import ChatAnthropic",
-            "from langchain_core.prompts import ChatPromptTemplate",
-            "from langchain_core.output_parsers import StrOutputParser",
-            "",
-            "# LLM 설정",
-            "llm = ChatAnthropic(model=\"claude-opus-4-6\")",
-            "",
-            "# 프롬프트 템플릿",
-            "prompt = ChatPromptTemplate.from_messages([",
-            "    (\"system\", \"당신은 친절한 Python 튜터예요.\"),",
-            "    (\"user\", \"{question}\")",
-            "])",
-            "",
-            "# Chain 구성: prompt → llm → parser",
-            "chain = prompt | llm | StrOutputParser()",
-            "",
-            "# 실행",
-            "answer = chain.invoke({\"question\": \"리스트 컴프리헨션이 뭐예요?\"})",
-            "print(answer)"
+            "while True:",
+            "    choice = show_menu()",
+            "    if choice == \"1\":",
+            "        add_item()",
+            "    elif choice == \"2\":",
+            "        show_inventory()",
+            "    elif choice == \"3\":",
+            "        drop_item()",
+            "    elif choice == \"4\":",
+            "        print(\"종료합니다.\")",
+            "        break",
+            "    else:",
+            "        print(\"1~4 중에서 선택해요.\")"
           ],
           "output": []
         },
-        "tip": "`|` 연산자로 단계를 연결해요. UNIX 파이프라인처럼 앞 단계의 출력이 다음 단계의 입력이 돼요."
+        "tip": "else로 잘못된 입력을 처리하면 1~4 외의 숫자나 문자를 입력해도 프로그램이 멈추지 않아요."
       },
       {
         "order": 3,
-        "text": "LangChain에서는 `@tool` 데코레이터로 도구를 쉽게 정의해요.",
+        "text": "시작 시 저장 데이터를 불러오고 종료 시 저장하는 로직을 추가해요.\nload_bag()은 루프 시작 전, save_bag()은 break 직전에 호출해요.",
         "terminal": {
           "code": [
-            "from langchain.tools import tool",
+            "load_bag()",
+            "print(\"인벤토리 시스템 시작!\")",
             "",
-            "@tool",
-            "def get_weather(city: str) -> str:",
-            "    \"\"\"특정 도시의 현재 날씨를 반환합니다.",
-            "",
-            "    Args:",
-            "        city: 날씨를 조회할 도시 이름",
-            "    \"\"\"",
-            "    # 실제로는 날씨 API를 호출하지만 예시로 고정값 반환",
-            "    weather_data = {\"서울\": \"24도, 맑음\", \"부산\": \"27도, 흐림\"}",
-            "    return weather_data.get(city, \"정보 없음\")",
-            "",
-            "@tool",
-            "def calculator(expression: str) -> str:",
-            "    \"\"\"수학 계산을 수행합니다.\"\"\"",
-            "    return str(eval(expression))",
-            "",
-            "tools = [get_weather, calculator]"
+            "while True:",
+            "    choice = show_menu()",
+            "    if choice == \"1\":",
+            "        add_item()",
+            "    elif choice == \"2\":",
+            "        show_inventory()",
+            "    elif choice == \"3\":",
+            "        drop_item()",
+            "    elif choice == \"4\":",
+            "        save_bag()",
+            "        print(\"저장 후 종료합니다.\")",
+            "        break",
+            "    else:",
+            "        print(\"1~4 중에서 선택해요.\")"
           ],
-          "output": []
+          "output": [
+            "저장된 가방이 없어요. 새로 시작해요.",
+            "인벤토리 시스템 시작!"
+          ]
         },
-        "tip": "docstring의 첫 줄이 도구 설명이 돼요. 잘 쓴 docstring이 AI가 도구를 잘 쓰게 해요."
+        "tip": "load_bag()은 프로그램 시작 시 딱 한 번, save_bag()은 종료 직전에 딱 한 번 호출해요."
       },
       {
         "order": 4,
-        "text": "LangChain과 직접 구현 방식의 차이를 비교해요.\n\n| 항목 | 직접 구현 | LangChain |\n|------|-----------|-----------|\n| 코드 길이 | 길다 | 짧다 |\n| 유연성 | 높다 | 중간 |\n| 학습 곡선 | 낮다 | 중간 |\n| 디버깅 | 쉽다 | 중간 |\n| 프로덕션 | 복잡 | 편리 |",
+        "text": "find_item() 기능도 메뉴에 추가해요.\n메뉴 항목이 늘어나면 show_menu() 출력도 함께 업데이트해야 해요.",
         "terminal": {
           "code": [
-            "# 결론: 어떤 걸 써야 할까?",
-            "# - 학습 목적: 직접 구현으로 원리 이해",
-            "# - 빠른 프로토타입: LangChain 활용",
-            "# - 세밀한 제어: 직접 구현",
-            "# - 팀 프로젝트: LangChain (표준화된 구조)"
+            "def show_menu():",
+            "    print(\"\"\"",
+            "=== 에이몬의 가방 ===",
+            "1. 아이템 넣기",
+            "2. 가방 보기",
+            "3. 아이템 버리기",
+            "4. 아이템 검색",
+            "5. 가방 닫기",
+            "\"\"\")",
+            "    return input(\"선택: \")"
           ],
           "output": []
         },
-        "tip": "에이몬 Unit 8의 목표는 원리 이해예요. 직접 구현으로 에이전트를 만들어본 후 LangChain을 쓰면 훨씬 잘 이해돼요."
-      }
-    ]
-  },
-  {
-    "lesson_id": "8-8-beginner",
-    "unit": 8,
-    "stage": "8-8",
-    "course_level": "beginner",
-    "title": "자동화 시나리오 실습",
-    "villain": "interferencemon",
-    "slides": [
-      {
-        "order": 1,
-        "text": "실제 자동화 시나리오를 단계별로 구현해봐요.\n이메일 텍스트를 받아 분류하고 자동으로 처리하는 에이전트예요.",
-        "terminal": {
-          "code": [
-            "# 시나리오: 고객 이메일 자동 분류 처리",
-            "# 도구 목록",
-            "tools = {",
-            "    \"classify_email\": classify_email,   # 이메일 분류",
-            "    \"get_template\": get_template,        # 답장 템플릿 조회",
-            "    \"send_reply\": send_reply             # 답장 발송",
-            "}",
-            "",
-            "# 에이전트 실행",
-            "email = \"주문한 상품이 아직 도착하지 않았어요. 빨리 확인해주세요.\"",
-            "result = run_agent(",
-            "    f\"다음 이메일을 처리해줘: {email}\",",
-            "    tools=tool_definitions,",
-            "    tool_functions=tools",
-            ")",
-            "# 에이전트가 자동으로:",
-            "# 1. classify_email(email) → \"배송 문의\"",
-            "# 2. get_template(\"배송 문의\") → 템플릿 텍스트",
-            "# 3. send_reply(email, template) → 발송 완료"
-          ],
-          "output": []
-        },
-        "tip": "실제 서비스에서는 하루 수백 통의 이메일을 이런 에이전트로 자동 처리해요."
+        "tip": "기능이 추가될 때마다 show_menu()와 if/elif 분기를 함께 업데이트해야 해요. 한 곳만 바꾸면 오류가 생겨요."
       },
       {
-        "order": 2,
-        "text": "여러 소스에서 데이터를 모아서 정리하는 에이전트예요.",
+        "order": 5,
+        "text": "모든 함수를 합친 완성된 인벤토리 시스템이에요.\nUnit 1~7에서 배운 print, input, list, dict, for, while, def, file을 전부 활용해요.",
         "terminal": {
           "code": [
-            "# 시나리오: 경쟁사 가격 모니터링",
-            "# 흐름: 검색 → 데이터 추출 → 비교 → 보고서 저장",
+            "# 완성된 run_bag_sys()",
+            "def run_bag_sys():",
+            "    load_bag()",
+            "    print(\"인벤토리 시스템 시작!\")",
+            "    while True:",
+            "        choice = show_menu()",
+            "        if choice == \"1\":",
+            "            add_item()",
+            "        elif choice == \"2\":",
+            "            show_inventory()",
+            "        elif choice == \"3\":",
+            "            drop_item()",
+            "        elif choice == \"4\":",
+            "            keyword = input(\"검색어: \")",
+            "            find_item(keyword)",
+            "        elif choice == \"5\":",
+            "            save_bag()",
+            "            print(\"안녕히 가세요!\")",
+            "            break",
+            "        else:",
+            "            print(\"1~5 중에서 선택해요.\")",
             "",
-            "def price_monitor_agent(products):",
-            "    \"\"\"여러 제품의 가격을 수집하고 비교\"\"\"",
-            "    results = []",
-            "",
-            "    for product in products:",
-            "        # 1단계: 가격 검색",
-            "        search_result = search_price(product)",
-            "",
-            "        # 2단계: 데이터 추출",
-            "        prices = extract_prices(search_result)",
-            "",
-            "        # 3단계: 분석",
-            "        analysis = {",
-            "            \"product\": product,",
-            "            \"min_price\": min(prices),",
-            "            \"max_price\": max(prices),",
-            "            \"avg_price\": sum(prices) / len(prices)",
-            "        }",
-            "        results.append(analysis)",
-            "",
-            "    # 4단계: 보고서 저장",
-            "    save_report(results, \"price_report.json\")",
-            "    return f\"{len(results)}개 제품 가격 수집 완료\""
+            "run_bag_sys()"
           ],
-          "output": []
+          "output": [
+            "인벤토리 시스템 시작!"
+          ]
         },
-        "tip": "에이전트가 반복적인 데이터 수집 작업을 자동화하면 사람이 할 일이 분석과 의사결정만 남아요."
-      },
-      {
-        "order": 3,
-        "text": "Python 코드를 받아서 오류를 찾고 개선점을 제안하는 에이전트예요.",
-        "terminal": {
-          "code": [
-            "def code_review_agent(code: str) -> dict:",
-            "    \"\"\"코드를 검토하고 개선점을 제안\"\"\"",
-            "    response = client.messages.create(",
-            "        model=\"claude-opus-4-6\",",
-            "        system=(",
-            "            \"당신은 시니어 Python 개발자예요. \"",
-            "            \"코드를 검토하고 다음 형식의 JSON으로만 응답해요:\\n\"",
-            "            '{\"bugs\": [...], \"improvements\": [...], \"score\": 1-10}'",
-            "        ),",
-            "        messages=[{",
-            "            \"role\": \"user\",",
-            "            \"content\": f\"다음 코드를 검토해줘:\\n"
-          ],
-          "output": []
-        },
-        "tip": "에이몬도 이런 패턴으로 오답 피드백을 제공해요. AI가 코드를 분석하고 구체적인 개선점을 제안해요."
-      },
-      {
-        "order": 4,
-        "text": "에이전트를 만들면 반드시 다양한 입력으로 테스트해야 해요.",
-        "terminal": {
-          "code": [
-            "def test_agent():",
-            "    test_cases = [",
-            "        {",
-            "            \"input\": \"서울 날씨 알려줘\",",
-            "            \"expected_tools\": [\"get_weather\"],",
-            "            \"check\": lambda r: \"도\" in r  # '도(℃)'가 포함되어야 함",
-            "        },",
-            "        {",
-            "            \"input\": \"100 * 200을 계산해줘\",",
-            "            \"expected_tools\": [\"calculator\"],",
-            "            \"check\": lambda r: \"20000\" in r",
-            "        },",
-            "        {",
-            "            \"input\": \"안녕!\",",
-            "            \"expected_tools\": [],  # 도구 없이 답변",
-            "            \"check\": lambda r: len(r) > 0",
-            "        }",
-            "    ]",
-            "",
-            "    for case in test_cases:",
-            "        result = run_agent(case[\"input\"])",
-            "        passed = case[\"check\"](result)",
-            "        print(f\"{'✅' if passed else '❌'} {case['input'][:20]}\")"
-          ],
-          "output": []
-        },
-        "tip": "에이전트를 배포하기 전에 항상 엣지 케이스(빈 입력, 이상한 요청 등)도 테스트해요."
-      }
-    ]
-  },
-  {
-    "lesson_id": "8-9-beginner",
-    "unit": 8,
-    "stage": "8-9",
-    "course_level": "beginner",
-    "title": "에이전트 디버깅 & 최적화",
-    "villain": "interferencemon",
-    "slides": [
-      {
-        "order": 1,
-        "text": "에이전트가 예상대로 동작하지 않을 때 로그를 보면 원인을 찾을 수 있어요.\n어떤 도구를 어떤 인수로 호출했는지, 결과가 무엇인지 기록해요.",
-        "terminal": {
-          "code": [
-            "import logging",
-            "",
-            "logging.basicConfig(level=logging.INFO)",
-            "logger = logging.getLogger(\"agent\")",
-            "",
-            "def run_agent_debug(user_message):",
-            "    messages = [{\"role\": \"user\", \"content\": user_message}]",
-            "    step = 0",
-            "",
-            "    while step < 10:",
-            "        step += 1",
-            "        response = client.messages.create(",
-            "            model=\"claude-opus-4-6\",",
-            "            tools=tools,",
-            "            messages=messages",
-            "        )",
-            "",
-            "        logger.info(f\"[Step {step}] stop_reason={response.stop_reason}\")",
-            "",
-            "        if response.stop_reason == \"end_turn\":",
-            "            final = response.content[0].text",
-            "            logger.info(f\"[완료] 답변: {final[:50]}...\")",
-            "            return final",
-            "",
-            "        for block in response.content:",
-            "            if block.type == \"tool_use\":",
-            "                logger.info(f\"  도구: {block.name} | 입력: {block.input}\")"
-          ],
-          "output": []
-        },
-        "tip": "`logging.basicConfig(level=logging.DEBUG)`로 더 자세한 로그를 볼 수 있어요."
-      },
-      {
-        "order": 2,
-        "text": "에이전트 개발 시 자주 만나는 오류와 해결 방법이에요.\n\n| 오류 | 원인 | 해결 |\n|------|------|------|\n| 도구를 엉뚱하게 호출 | 도구 설명이 모호 | description 구체화 |\n| 무한 루프 | 종료 조건 없음 | max_steps 설정 |\n| JSON 파싱 오류 | 출력 형식 미준수 | system 프롬프트에 형식 명시 |\n| 컨텍스트 초과 | 대화 너무 김 | history trimming |\n| 도구 미호출 | 도구가 필요 없다고 판단 | 프롬프트에 도구 사용 유도 |",
-        "terminal": {
-          "code": [
-            "# 도구 설명 개선 예시",
-            "# 나쁜 예: \"정보를 검색합니다\"",
-            "# 좋은 예: \"인터넷에서 최신 정보를 검색합니다. 날씨, 뉴스, 가격 등 실시간 정보가 필요할 때 사용하세요.\""
-          ],
-          "output": []
-        },
-        "tip": "에이전트가 도구를 안 쓴다면 description을 더 구체적으로 쓰거나, 프롬프트에 \"도구를 활용해서 답해줘\"를 추가해보세요."
-      },
-      {
-        "order": 3,
-        "text": "AI API는 호출 횟수와 토큰 수에 따라 비용이 발생해요.\n불필요한 호출을 줄이면 비용을 크게 절감할 수 있어요.",
-        "terminal": {
-          "code": [
-            "# 비용 절감 전략",
-            "",
-            "# 1. 캐싱: 같은 입력은 결과 재사용",
-            "cache = {}",
-            "",
-            "def cached_call(prompt):",
-            "    if prompt in cache:",
-            "        return cache[prompt]",
-            "    result = call_api(prompt)",
-            "    cache[prompt] = result",
-            "    return result",
-            "",
-            "# 2. 모델 선택: 간단한 작업은 작은 모델 사용",
-            "# 분류, 요약 → claude-haiku-4-5 (저렴)",
-            "# 복잡한 추론 → claude-opus-4-6 (고성능)",
-            "",
-            "# 3. 토큰 절감: 불필요한 컨텍스트 제거",
-            "def trim_old_messages(messages, keep_last=6):",
-            "    return messages[-keep_last:]"
-          ],
-          "output": []
-        },
-        "tip": "개발 중에는 `claude-haiku-4-5`로 테스트하고, 완성 후 필요한 부분만 `claude-opus-4-6`으로 바꾸면 비용을 줄일 수 있어요."
-      },
-      {
-        "order": 4,
-        "text": "Unit 8까지 완주한 것을 축하해요! 🎉\n에이몬을 통해 Python 기초부터 AI 에이전트 구축까지 마스터했어요.",
-        "terminal": {
-          "code": [
-            "# 여러분이 배운 것들",
-            "journey = {",
-            "    \"Unit 1\": \"print(), 변수, 자료형\",",
-            "    \"Unit 2\": \"리스트, 딕셔너리\",",
-            "    \"Unit 3\": \"조건문, 논리 연산\",",
-            "    \"Unit 4\": \"반복문\",",
-            "    \"Unit 5\": \"함수, 람다\",",
-            "    \"Unit 6\": \"문자열, 라이브러리\",",
-            "    \"Unit 7\": \"파일, JSON, API\",",
-            "    \"Unit 8\": \"AI 에이전트 구축\"",
-            "}",
-            "",
-            "# 여러분이 할 수 있는 것들",
-            "abilities = [",
-            "    \"Python 기초 코드 작성\",",
-            "    \"외부 API 호출\",",
-            "    \"AI에게 도구 연결\",",
-            "    \"자동화 파이프라인 설계\",",
-            "    \"AI 에이전트 구축 및 배포\"",
-            "]",
-            "",
-            "print(\"🎉 에이몬 최종 진화 완료!\")",
-            "print(f\"총 {len(journey)}개 유닛, {len(abilities)}가지 능력 획득!\")"
-          ],
-          "output": []
-        },
-        "tip": "지금까지 배운 내용으로 실제 프로젝트를 만들어보세요. 포트폴리오의 첫 AI 프로젝트가 될 거예요!"
+        "tip": "run_bag_sys()는 인벤토리 시스템의 진입점이에요. 이 함수 하나만 호출하면 전체 프로그램이 실행돼요."
       }
     ]
   }
