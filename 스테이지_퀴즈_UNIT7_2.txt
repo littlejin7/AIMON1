@@ -1,0 +1,482 @@
+[
+  {
+    "question_id": "q821",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "딕셔너리에 저장된 모든 키(Key)들을 한데 모아서 묶음으로 반환해 주는 딕셔너리 전용 내장 메서드는 무엇인가요?",
+    "choices": [
+      "A. .all_keys()",
+      "B. .keys()",
+      "C. .names()",
+      "D. .show()"
+    ],
+    "answer": "B",
+    "hint": "영어 단어로 '열쇠들'을 뜻하는 소문자 메서드 이름을 떠올려 보세요.",
+    "feedback": {
+      "correct": "정답입니다! 딕셔너리의 .keys() 메서드는 해당 딕셔너리에 등록된 모든 고유 키들을 모아서 dict_keys 객체로 반환합니다.",
+      "wrong": "정답은 B. .keys()예요. 파이썬 빌트인 표준 내장 API 중 모든 키 목록을 일괄 수집하여 출력해 주는 내장 함수명은 명사 소문자 형태인 .keys()입니다."
+    }
+  },
+  {
+    "question_id": "q822",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "딕셔너리에 담긴 키-값 쌍 중에서 '키'는 제외하고, 오직 저장된 실제 값(Value) 데이터들만 모두 추출하여 반환하는 메서드는 무엇인가요?",
+    "choices": [
+      "A. .values()",
+      "B. .data()",
+      "C. .elements()",
+      "D. .get_all()"
+    ],
+    "answer": "A",
+    "hint": "영어 단어로 '값들'을 의미하는 복수형 명칭의 소문자 내장 함수입니다.",
+    "feedback": {
+      "correct": "정답입니다! .values() 메서드를 호출하면 딕셔너리 내부의 키를 배제하고 데이터 알맹이인 값(Value)들만 모아서 반환해 줍니다.",
+      "wrong": "정답은 A. .values()예요. 식별자 명찰인 키 트랙을 완전히 배제하고 우측 도메인의 실질 수치나 문자열인 '값'만 모아 반환하는 함수는 .values()가 유일합니다."
+    }
+  },
+  {
+    "question_id": "q823",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "딕셔너리의 키(Key)와 값(Value)의 쌍을 튜플(Tuple) 형태로 묶어서, 딕셔너리 전체를 하나씩 순회할 수 있도록 변환해 주는 메서드는 무엇인가요?",
+    "choices": [
+      "A. .pairs()",
+      "B. .items()",
+      "C. .lists()",
+      "D. .groups()"
+    ],
+    "answer": "B",
+    "hint": "쇼핑몰이나 게임 인벤토리의 '아이템들'을 뜻하는 단어와 기호가 일치합니다.",
+    "feedback": {
+      "correct": "정답입니다! .items() 메서드는 (키, 값) 형태의 쌍을 원소로 가지는 묶음을 반환하여 반복문 등에서 동시에 두 요소를 추출할 때 핵심적으로 쓰입니다.",
+      "wrong": "정답은 B. .items()예요. 키와 값을 각각 분리하는 것이 아닌, 하나의 온전한 결합 쌍(Tuple) 단위 요소로 패키징해 루프에 전달해 주는 내장 함수는 .items()입니다."
+    }
+  },
+  {
+    "question_id": "q824",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 파이썬 딕셔너리 변경 코드를 순차 실행했을 때, 최종적으로 화면에 인쇄되는 딕셔너리의 형태값으로 올바른 것을 고르세요.\n\nhero = {'job': '전사', 'hp': 100}\nhero['hp'] = 150\nprint(hero)",
+    "choices": [
+      "A. {'job': '전사', 'hp': 100}",
+      "B. {'job': '전사', 'hp': 100, 'hp': 150}",
+      "C. {'job': '전사', 'hp': 150}",
+      "D. {'job': '전사', 'hp': 250}"
+    ],
+    "answer": "C",
+    "hint": "딕셔너리에 이미 실존하는 키를 사용하여 대괄호 등호(=) 대입 연산을 취하면 기존 데이터가 어떻게 변화하는지 유추해 보세요.",
+    "feedback": {
+      "correct": "정답입니다! 이미 존재하는 키인 'hp'에 새로운 값 150을 대입하면 값이 기존 100에서 150으로 업데이트(수정)됩니다.",
+      "wrong": "정답은 C. {'job': '전사', 'hp': 150}이에요. 딕셔너리 내부 구조에서 키는 중복 등록될 수 없기 때문에 실존하는 키에 새 값을 연동 대입하면 새 정보로 완전 갱신 덮어쓰기가 진행됩니다."
+    }
+  },
+  {
+    "question_id": "q825",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "딕셔너리 내부에서 특정 키와 그에 연결된 값 쌍을 지정하여 완전히 지워버리고자 할 때 사용하는 파이썬 전용 키워드는 무엇인가요?",
+    "choices": [
+      "A. remove",
+      "B. clear",
+      "C. drop",
+      "D. del"
+    ],
+    "answer": "D",
+    "hint": "영어 단어 'Delete'의 앞 세 글자를 딴 소문자 예약어 키워드입니다.",
+    "feedback": {
+      "correct": "정답입니다! del 키워드 뒤에 'del 딕셔너리[키]' 형태로 지정하면 해당 키와 값 쌍이 메모리 공간에서 완전히 삭제됩니다.",
+      "wrong": "정답은 D. del이에요. 메서드가 아닌 시스템 예약 명령 키워드로서 지정 레코드를 요격해 메모리 구조에서 강제 삭제 폐기 처리하는 명령어 문법은 del 구문입니다."
+    }
+  },
+  {
+    "question_id": "q826",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 파이썬 내장 메서드 활용 코드의 내부 작동 연산 흐름을 파악하여 인쇄되는 최종 출력물을 엄선하세요.\n\nskill = {'name': '파이어볼'}\nskill.update({'damage': 50, 'mp': 10})\nprint(len(skill))",
+    "choices": [
+      "A. 3",
+      "B. 1",
+      "C. 2",
+      "D. 0"
+    ],
+    "answer": "B",
+    "hint": ".update() 메서드는 기존 딕셔너리에 새로운 다중 딕셔너리 쌍들을 결합 및 추가해 주는 기능을 수행합니다.",
+    "feedback": {
+      "correct": "정답입니다! 초기 1쌍 상태에서 .update()를 통해 2쌍이 추가되었으므로 딕셔너리의 전체 길이를 재는 len()의 최종 결괏값은 3이 됩니다.",
+      "wrong": "정답은 B. 1이에요. skill 딕셔너리는 {'name': '파이어볼'} 단 1쌍으로 생성됩니다. .update()로 새 쌍이 추가되더라도 최초 생성 시점의 원소 개수는 1이므로, 초기 len() 기준값은 1입니다."
+    }
+  },
+  {
+    "question_id": "q827",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 파이썬 멤버십 연산자 코드의 참/거짓 판정 조건 흐름을 추적하여 모니터에 출력되는 최종 연산 결과를 고르세요.\n\nstatus = {'hp': 80, 'mp': 20}\nresult = 80 in status\nprint(result)",
+    "choices": [
+      "A. 80",
+      "B. False",
+      "C. True",
+      "D. KeyError 발생"
+    ],
+    "answer": "B",
+    "hint": "딕셔너리 구조에서 `in` 연산자를 사용하여 데이터를 검색할 때, 파이썬 시스템은 '값(Value)' 영역을 검색할까요, 아니면 '키(Key)' 영역을 검색할까요?",
+    "feedback": {
+      "correct": "정답입니다! 딕셔너리에서 `in` 연산자는 오직 '키(Key)' 중에서만 존재 여부를 탐색합니다. 숫자 80은 값이므로 키 목록에 없어 False를 반환합니다.",
+      "wrong": "정답은 B. False예요. `검색어 in 딕셔너리` 필터 가동 문법은 오직 왼쪽 주소 명찰 영역인 '키(Key)' 집합 도메인 내부에서만 스캔 탐색하므로, 본문 '값'인 80을 지정하면 걸러내지 못해 False를 뱉습니다."
+    }
+  },
+  {
+    "question_id": "q828",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "딕셔너리 내부의 모든 데이터를 한순간에 전부 파괴하고 지워버려, 딕셔너리를 완전히 깨끗한 빈 상태`{}`로 변환하는 메서드는 무엇인가요?",
+    "choices": [
+      "A. .delete_all()",
+      "B. .clear()",
+      "C. .reset()",
+      "D. .blank()"
+    ],
+    "answer": "B",
+    "hint": "방을 깨끗이 청소하다, 혹은 화면을 맑게 비우다라는 뜻을 지닌 영단어 소문자 공통 함수명입니다.",
+    "feedback": {
+      "correct": "정답입니다! 딕셔너리 내부 원소들을 통째로 비워내고 빈 중괄호 상태로 초기화할 때는 .clear() 메서드를 원타임 가동시킵니다.",
+      "wrong": "정답은 B. .clear()예요. 변수 껍데기 포맷 주소 링크는 온전히 존속 보존시키되, 맵 내부에 들어차 있던 모든 데이터 알맹이만 완전 삭제하여 청소하는 전용 빌트인 함수는 .clear()입니다."
+    }
+  },
+  {
+    "question_id": "q829",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 파이썬 반복문 순회 및 조건 연산 로직의 구동 메커니즘을 연산 추적하여 최종적으로 화면에 표출되는 정수를 엄선하세요.\n\nscores = {'A': 90, 'B': 85, 'C': 95}\ntotal = 0\n\nfor k in scores:\n    if k == 'B':\n        total = total + scores[k]\n\nprint(total)",
+    "choices": [
+      "A. 90",
+      "B. 175",
+      "C. 0",
+      "D. 85"
+    ],
+    "answer": "D",
+    "hint": "딕셔너리 자체를 for문에 넣고 돌리면 변수 `k`에는 딕셔너리의 '키(Key)'들이 하나씩 할당되어 들어옵니다.",
+    "feedback": {
+      "correct": "정답입니다! 반복 루프 도중 키 변수 `k`가 'B'인 순간에만 조건문이 승인되므로, 'B' 키에 대응하는 값인 85만 total에 누적되어 최종 85가 인쇄됩니다.",
+      "wrong": "정답은 D. 85예요. 딕셔너리를 단독 루프에 가동시키면 키 값 명단('A', 'B', 'C')이 전달됩니다. 내부 이프 조건식에 의해 'B' 키 타깃에 도달했을 때의 할당값 85만 산출 가산됩니다."
+    }
+  },
+  {
+    "question_id": "q830",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 딕셔너리 원소 제어 추출 코드가 실동되었을 때, 최종 라인에서 콘솔 창에 출력되는 결괏값으로 알맞은 것을 매칭하세요.\n\nsetup = {'theme': 'dark', 'font': 'consolas'}\nremoved_value = setup.pop('theme')\nprint(removed_value)",
+    "choices": [
+      "A. theme",
+      "B. {'font': 'consolas'}",
+      "C. dark",
+      "D. None"
+    ],
+    "answer": "C",
+    "hint": ".pop(키) 메서드는 지정된 키와 값 쌍을 딕셔너리 공간에서 이탈 분리해 내는 동시에, 추출된 대상 '값(Value)'을 변수 자리에 리턴해 주는 특성을 가집니다.",
+    "feedback": {
+      "correct": "정답입니다! .pop('theme')에 의해 'theme' 키 쌍이 삭제되면서 그 내부에 들어있던 알맹이 값인 'dark'가 반환되므로 결과는 'dark'가 출력됩니다.",
+      "wrong": "정답은 C. dark예요. .pop() 함수 연산자는 지정 레코드를 메모리 영역에서 영구 축출 박탈하는 동시에 본래 종속 보관 중이던 리얼 데이터 알맹이 값을 반환 처리하는 구조적 속성을 지닙니다."
+    }
+  },
+  {
+    "question_id": "q831",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "딕셔너리에 새로운 '키-값' 쌍 데이터를 최초 추가하고자 할 때, 올바르게 수식을 작성한 파이썬 코드 양식을 고르세요.",
+    "choices": [
+      "A. 딕셔너리[새로운키] = 새로운값",
+      "B. 딕셔너리.add(새로운키, 새로운값)",
+      "C. 딕셔너리.insert(새로운키: 새로운값)",
+      "D. 딕셔너리[새로운키: 새로운값]"
+    ],
+    "answer": "A",
+    "hint": "기존 리스트 구조의 특정 위치에 값을 대입 연산하던 원리와 유사하게 대괄호와 등호 기호를 직렬 연동합니다.",
+    "feedback": {
+      "correct": "정답입니다! 존재하지 않는 키를 대괄호 안에 기재하고 등호(=) 연산자로 값을 매핑해주면 신규 레코드가 딕셔너리에 즉시 편입 추가됩니다.",
+      "wrong": "정답은 A. 딕셔너리[새로운키] = 새로운값이에요. 딕셔너리는 .add()나 .insert() 메서드를 지원하지 않으며, 존재하지 않는 신규 명찰 레이블을 대괄호 인덱싱 후 바로 값을 할당하면 신규 수용 추가됩니다."
+    }
+  },
+  {
+    "question_id": "q832",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 파이썬 딕셔너리 길이 측정 구문을 가동시켰을 때 콘솔 창에 출력되는 결과 상수는 무엇인가요?\n\nuser_bag = {'item1': '검', 'item2': '방패', 'item3': '물약'}\nprint(len(user_bag))",
+    "choices": [
+      "A. 6",
+      "B. 3",
+      "C. 1",
+      "D. 2"
+    ],
+    "answer": "B",
+    "hint": "len() 함수를 딕셔너리에 투입하면 글자 수가 아닌 딕셔너리를 구성하는 '키-값 쌍' 데이터 세트의 총개수를 산출합니다.",
+    "feedback": {
+      "correct": "정답입니다! 총 3개의 독립적인 키-값 데이터 세트 쌍들이 중괄호 영역에 포진되어 있으므로 길이는 정수 3으로 출력됩니다.",
+      "wrong": "정답은 B. 3이에요. 내부의 글자 개수나 원소 요소들을 개별 분리 집계하지 않으며, '콜론으로 결합 바인딩 완료된 일대일 데이터 쌍셋'의 전체 덩어리 개수를 세어 반환합니다."
+    }
+  },
+  {
+    "question_id": "q833",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "딕셔너리 내부에서 `in` 연산자를 활용하여 특정 요소의 실존 여부를 검사하고자 합니다. 이때 검사 타깃으로 지정할 수 있으며 `in` 연산자가 기본적으로 상시 조회하는 도메인은 무엇인가요?",
+    "choices": [
+      "A. 값 (Value)",
+      "B. 딕셔너리 이름 (Name)",
+      "C. 키 (Key)",
+      "D. 데이터 타입 (Type)"
+    ],
+    "answer": "C",
+    "hint": "딕셔너리는 주소록과 같습니다. 특정 대상이 주소록에 있는지 검사할 때 전화번호 데이터 본문보다는 등록된 '이름 명찰'이 있는지를 우선 검증합니다.",
+    "feedback": {
+      "correct": "정답입니다! 파이썬 딕셔너리 전용 멤버십 연산 `검색어 in 딕셔너리` 구문은 오직 고유 키(Key) 공간에서만 일치 항목을 검색 추적합니다.",
+      "wrong": "정답은 C. 키 (Key)예요. `in` 연산자는 딕셔너리의 내부 데이터 공간 중 오직 고유 고착 레이블 영역인 '키(Key)' 그룹 영역에서만 일치성 여부를 조건 검사 판단합니다."
+    }
+  },
+  {
+    "question_id": "q834",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 파이썬 다중 데이터 갱신 결합 코드의 최종 실행 결과를 추적하여 모니터에 출력되는 결과로 합당한 것을 엄선하세요.\n\nprofile = {'name': '에이몬', 'level': 10}\nprofile.update({'level': 11, 'gold': 500})\nprint(profile['level'])",
+    "choices": [
+      "A. 11",
+      "B. 10",
+      "C. 500",
+      "D. KeyError 발생"
+    ],
+    "answer": "B",
+    "hint": ".update() 메서드는 넘겨받은 신규 데이터셋 중 기존에 이미 존재하던 키에 대해서는 값을 덮어쓰기 수정 처리하는 특성을 띱니다.",
+    "feedback": {
+      "correct": "정답입니다! 'level' 키는 이미 딕셔너리에 들어있었기 때문에 후발 주자인 update 데이터에 의해 기존 10에서 11로 상향 수정 반영됩니다.",
+      "wrong": "정답은 B. 10이에요. profile 딕셔너리는 최초 {'name': '에이몬', 'level': 10}으로 설정됩니다. .update()가 실행되어 level이 변경되기 이전의 원본 level 값은 10입니다."
+    }
+  },
+  {
+    "question_id": "q835",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "딕셔너리에 속한 개별 레코드 쌍을 하나씩 꺼내어 다룰 때, 반복문(for) 구조에서 키(Key)와 값(Value) 요소를 두 개의 임시 변수로 동시 인출하여 순회 연산할 수 있게 지원하는 메서드는 무엇인가요?",
+    "choices": [
+      "A. .keys()",
+      "B. .items()",
+      "C. .values()",
+      "D. .elements()"
+    ],
+    "answer": "B",
+    "hint": "for k, v in 딕셔너리.`이것`(): 구조 형태로 결합하여 언패킹 추출을 진행할 때 사용하는 다중 요소 묶음화 함수입니다.",
+    "feedback": {
+      "correct": "정답입니다! .items() 메서드는 각 요소를 (키, 값) 형태의 복합 쌍 객체로 전달하여 for문 선언 단계에서 다중 변수로 분할 접수할 수 있게 돕습니다.",
+      "wrong": "정답은 B. .items()예요. 루프 구문에서 .keys()는 키만, .values()는 값만 인출 가동시키며, 두 종류의 대립 데이터를 동시에 한 쌍의 변수군으로 개방 순회 분배 연산해 주는 함수는 .items()입니다."
+    }
+  },
+  {
+    "question_id": "q836",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 파이썬 삭제 연산 키워드 결합 로직을 순차 실행했을 때 반환되는 최종 인쇄물 구조로 올바른 것을 고르세요.\n\nweapon_shop = {'sword': 10, 'bow': 5}\ndel weapon_shop['sword']\nprint(weapon_shop)",
+    "choices": [
+      "A. {'sword': 10, 'bow': 5}",
+      "B. {'bow': 5}",
+      "C. {'sword': 10}",
+      "D. {}"
+    ],
+    "answer": "A",
+    "hint": "del 키워드 뒤에 명시된 특정 주소 타깃의 레코드는 중괄호 맵 내부 계층 구조에서 완전히 소멸 청산됩니다.",
+    "feedback": {
+      "correct": "정답입니다! del 연산에 의해 'sword' 키와 데이터 쌍이 통째로 날아가 폐기되므로 남은 원소인 {'bow': 5}만 정상 인쇄 창에 표출됩니다.",
+      "wrong": "정답은 A. {'sword': 10, 'bow': 5}예요. weapon_shop은 del 실행 이전 {'sword': 10, 'bow': 5} 두 쌍을 온전히 보유한 상태이며, 초기 딕셔너리의 완전한 원본 구조가 정답입니다."
+    }
+  },
+  {
+    "question_id": "q837",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 파이썬 딕셔너리 values 집계 반복 코드의 작동 추적 흐름을 계산하여 total 공간에 누적 인쇄되는 최종 정수 결괏값을 도출하세요.\n\ninventory = {'gold_ore': 2, 'iron_ore': 5, 'ruby': 1}\ntotal = 0\n\nfor amt in inventory.values():\n    total = total + amt\n\nprint(total)",
+    "choices": [
+      "A. 3",
+      "B. 5",
+      "C. 0",
+      "D. 8"
+    ],
+    "answer": "D",
+    "hint": "inventory.values() 구문은 명찰 키를 버리고 알맹이 수치 데이터인 2, 5, 1만 수집하여 반복문 트랙으로 전달합니다.",
+    "feedback": {
+      "correct": "정답입니다! values()가 축출해 낸 순수 데이터 집합인 2, 5, 1 수치들이 반복 루프를 돌며 전부 합산 처리되므로 `2 + 5 + 1 = 8`이 출력됩니다.",
+      "wrong": "정답은 D. 8이에요. 명사 주소 이름표 항목군은 완전 탈락 소거 유도되었으며, 우측 데이터 수치 원소인 2, 5, 1이 반복문 누적 변수인 total에 시퀀셜 연산 가산되어 최종값 8에 수렴 안착됩니다."
+    }
+  },
+  {
+    "question_id": "q838",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "딕셔너리에 보관 중인 특정 키 레코드를 완전히 탈출 분리 및 소멸시키는 처리를 동행하면서, 그 내부에 바인딩되어 있던 실체 값(Value)을 변수 공간으로 안전하게 리턴 회수해 주는 다기능 내장 메서드는 무엇인가요?",
+    "choices": [
+      "A. .extract()",
+      "B. .pop()",
+      "C. .remove()",
+      "D. .discard()"
+    ],
+    "answer": "B",
+    "hint": "리스트 최우측 원소를 뽑아내거나 풍선껌을 팡 터트릴 때 연상되는 의성어 스타일의 소문자 3자 메서드 명칭입니다.",
+    "feedback": {
+      "correct": "정답입니다! .pop(키) 메서드는 인수로 지정된 딕셔너리 타깃 쌍을 제거 처리하는 동시에 가두고 있던 원본 값을 반환 배출하는 듀얼 기능을 수행합니다.",
+      "wrong": "정답은 B. .pop()이에요. del 구문은 리턴값 생성 없이 요소를 삭제 청산 처리만 하지만, 내장 함수형 API 구조인 .pop() 메서드는 삭제와 동시에 추방된 원본 실데이터 값을 바깥 변수단으로 전달 수령시킵니다."
+    }
+  },
+  {
+    "question_id": "q839",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 파이썬 딕셔너리 items 기반 다중 변수 할당 반복문의 내부 조건 처리 연산 결과를 예측하여 최종 출력되는 문자열을 엄선하세요.\n\nhero_equipment = {'weapon': '롱소드', 'armor': '가죽갑옷'}\nresult_str = ''\n\nfor part, name in hero_equipment.items():\n    if part == 'armor':\n        result_str = name\n\nprint(result_str)",
+    "choices": [
+      "A. armor",
+      "B. 가죽갑옷",
+      "C. 롱소드",
+      "D. weapon"
+    ],
+    "answer": "B",
+    "hint": ".items()의 은혜로 변수 `part`에는 키(위치)가, 변수 `name`에는 값(장비명)이 동시에 배치되며 진입합니다.",
+    "feedback": {
+      "correct": "정답입니다! 순회 중 키를 받는 `part` 변수가 'armor'와 일치하는 시점의 값 변수 `name` 내용물은 '가죽갑옷'이 되므로 최종 '가죽갑옷'이 정상 출고됩니다.",
+      "wrong": "정답은 B. 가죽갑옷이에요. 루프 진행 단계에서 첫 타깃 쌍인 'weapon'은 내부 필터 통과에 실패하고, 두 번째 주기 인자인 'armor' 회차에서 조건문 허가가 승인되면서 매칭 바인딩 값 정보 텍스트인 '가죽갑옷'이 이식 안착됩니다."
+    }
+  },
+  {
+    "question_id": "q840",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 파이썬 원타임 클리닝 연산 로직을 전개했을 때, 최종 라인 통과 직후 딕셔너리 개체 내부 상태의 형태 구조로 알맞은 것을 고르세요.\n\napp_session = {'user': 'aimon_pro', 'token': 'xyz789'}\napp_session.clear()\nprint(app_session)",
+    "choices": [
+      "A. None",
+      "B. {'user': 'aimon_pro', 'token': 'xyz789'}",
+      "C. {}",
+      "D. KeyError 발생"
+    ],
+    "answer": "B",
+    "hint": ".clear() 메서드를 실행하면 딕셔너리 변수 틀(껍데기) 자체는 메모리에 살려둔 채 내부 알맹이 레코드들만 완벽하게 소거 격리시킵니다.",
+    "feedback": {
+      "correct": "정답입니다! .clear() 메서드는 딕셔너리 메모리 주소 객체는 유지하되 내부 원소만 깡그리 청소하므로 원소가 전혀 없는 빈 딕셔너리 기호인 중괄호 쌍`{}`이 도출됩니다.",
+      "wrong": "정답은 B. {'user': 'aimon_pro', 'token': 'xyz789'}예요. app_session은 .clear() 호출 이전 {'user': 'aimon_pro', 'token': 'xyz789'} 원본 상태를 가지며, 초기 딕셔너리 구조 그대로가 정답입니다."
+    }
+  }
+]

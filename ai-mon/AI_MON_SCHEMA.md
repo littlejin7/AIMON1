@@ -832,8 +832,9 @@ backend/data/
 | `weekend_warrior`| Weekend Warrior | 금~일 3일 연속 매일 3개 이상 스테이지 클리어                           | 백엔드 (progress 타임스탬프 분석) |
 | `time_traveler`  | Time Traveler  | 한 문제 창 켜둔 채 2시간 이상 고민 후 성공                              | 프론트엔드 추적 (페이지 체류 타이머) |
 | `unstoppable`    | Unstoppable    | 하루 안에 유닛 1개 전체 클리어                                          | 백엔드 (progress created_at 날짜 비교) |
-| `phoenix`        | Phoenix        | 동일 문제에서 20회 이상 오답 후 성공                                    | 프론트엔드 추적 (오답 카운터) |
-| `furious_typer`  | Furious Typer  | 백스페이스 고속 연타로 코드를 갈아엎는 행위 감지                        | 프론트엔드 추적 (키보드 이벤트) |
+| `phoenix`           | Phoenix           | 동일 문제에서 20회 이상 오답 후 성공                             | 프론트엔드 추적 (오답 카운터) |
+| `furious_typer`     | Furious Typer     | 백스페이스 고속 연타로 코드를 갈아엎는 행위 감지                  | 프론트엔드 추적 (키보드 이벤트) |
+| `whitespace_phobia` | Whitespace Phobia | IndentationError 5회 이상 연속 후 성공                          | 프론트엔드 추적 (Pyodide 에러 타입) |
 
 ### 칭호 획득 응답 형식
 
@@ -870,8 +871,9 @@ TITLE_DEFINITIONS = {
     "weekend_warrior":  "Weekend Warrior",
     "time_traveler":    "Time Traveler",
     "unstoppable":      "Unstoppable",
-    "phoenix":          "Phoenix",
-    "furious_typer":    "Furious Typer",
+    "phoenix":             "Phoenix",
+    "furious_typer":       "Furious Typer",
+    "whitespace_phobia":   "Whitespace Phobia",
 }
 
 def check_and_award_titles(user: dict, context: dict) -> list[dict]:

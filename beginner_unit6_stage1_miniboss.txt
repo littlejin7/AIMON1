@@ -1,0 +1,164 @@
+type: miniboss
+level: beginner
+unit: 6
+stage: 6-1
+stage_title: 함수 기초
+villain: interferencemon
+pass_score: 70
+
+--- Q01 | easy | multiple_choice ---
+question_id: miniboss_beg_mc_6_1_001
+question: 파이썬에서 함수(Function)를 사용하는 가장 주된 목적은 무엇인가요?
+choices:
+  A. 똑같은 코드를 반복해서 쓰지 않고 재사용하기 위해
+  B. 프로그램의 실행 속도를 무조건 2배 이상 올리기 위해
+  C. 변수에 저장된 값을 모두 강제로 삭제하기 위해
+  D. 파이썬 프로그램을 스마트폰 앱으로 자동 변환하기 위해
+answer: A
+explanation: 함수는 반복되는 코드 블록에 이름을 붙여두고 필요할 때마다 재사용하기 위해 사용해요.
+feedback.correct: 정답입니다! 함수를 사용하면 중복 코드가 줄어들어 코드가 깔끔해집니다.
+
+--- Q02 | easy | multiple_choice ---
+question_id: miniboss_beg_mc_6_1_002
+question: 파이썬에서 함수를 정의(생성)할 때 사용하는 키워드로 옳은 것은 무엇인가요?
+choices:
+  A. function
+  B. def
+  C. func
+  D. define
+answer: B
+explanation: 파이썬에서는 정의하다(define)의 줄임말인 `def` 키워드를 사용하여 함수를 만듭니다.
+feedback.correct: 정답입니다! `def` 키워드 뒤에 함수 이름과 괄호를 붙여서 정의합니다.
+
+--- Q03 | medium | multiple_choice ---
+question_id: miniboss_beg_mc_6_1_003
+question: 파이썬 함수에 대한 설명 중 문법적으로 올바르지 않은 것은 무엇인가요?
+choices:
+  A. 함수 이름 뒤에는 반드시 소괄호()와 콜론(:)을 붙여야 한다.
+  B. 함수 내부에 들어갈 코드 블록은 들여쓰기(4칸)를 해야 한다.
+  C. 이미 정의된 함수는 프로그램 내에서 딱 한 번만 호출할 수 있다.
+  D. 함수를 만들기만 하고 호출하지 않으면 함수 안의 코드는 실행되지 않는다.
+answer: C
+explanation: 한 번 정의해 둔 함수는 몇 번이고 원할 때마다 호출해서 실행할 수 있습니다.
+feedback.correct: 정답입니다! 함수의 가장 큰 장점은 필요할 때마다 무한히 반복해서 호출할 수 있다는 점입니다.
+
+--- Q04 | medium | output_select ---
+question_id: miniboss_beg_os_6_1_004
+question: 다음 코드를 실행했을 때 화면에 출력되는 결과는 무엇인가요?
+code: |
+  def say_hello():
+      print("안녕하세요!")
+choices:
+  A. 안녕하세요!
+  B. def say_hello():
+  C. say_hello
+  D. 아무것도 출력되지 않는다.
+answer: D
+explanation: `def` 구문은 함수를 정의만 한 단계입니다. 함수를 실제로 실행하려면 `say_hello()`와 같이 호출해야 합니다.
+feedback.correct: 정답입니다! 함수를 만들기만 하고 부르지(호출하지) 않으면 내부 코드는 실행되지 않아요.
+
+--- Q05 | medium | output_select ---
+question_id: miniboss_beg_os_6_1_005
+question: 다음 코드의 최종 출력 결과는 무엇인가요?
+code: |
+  def cheers():
+      print("파이팅!")
+
+  cheers()
+  cheers()
+choices:
+  A. 파이팅!\n파이팅!
+  B. 파이팅!
+  C. cheers()\ncheers()
+  D. 에러 발생
+answer: A
+explanation: 함수를 정의한 후 `cheers()` 코드로 두 번 호출했으므로 "파이팅!" 문장이 두 줄에 걸쳐 출력됩니다.
+feedback.correct: 정답입니다! 함수를 호출한 횟수만큼 내부 코드가 정직하게 실행됩니다.
+
+--- Q06 | medium | output_select ---
+question_id: miniboss_beg_os_6_1_006
+question: 다음 코드의 출력 결과를 올바르게 예측한 것을 고르세요.
+code: |
+  print("시작")
+  def monster():
+      print("방해몬 등장!")
+  print("끝")
+choices:
+  A. 시작\n방해몬 등장!\n끝
+  B. 시작\n끝
+  C. 방해몬 등장!
+  D. 에러 발생
+answer: B
+explanation: 프로그램은 위에서 아래로 실행되지만 `monster` 함수는 호출되지 않았기 때문에 함수 내부의 "방해몬 등장!"은 출력되지 않고 "시작"과 "끝"만 출력됩니다.
+feedback.correct: 정답입니다! 함수 정의부 내부 코드는 호출 신호가 떨어지기 전까지 건너뛰고 진행됩니다.
+
+--- Q07 | hard | multiple_choice ---
+question_id: miniboss_beg_mc_6_1_007
+question: 다음 중 함수의 이름을 지을 때 규칙(식별자 명명 규칙)에 어긋나 에러가 발생하는 것은 무엇인가요?
+choices:
+  A. def my_function():
+  B. def start123():
+  C. def 3rd_step():
+  D. def _test_func():
+answer: C
+explanation: 파이썬에서 변수나 함수의 이름은 숫자로 시작할 수 없습니다. 숫자가 뒤에 오는 것은 괜찮지만 맨 앞에는 올 수 없습니다.
+feedback.correct: 정답입니다! 변수 명명 규칙과 마찬가지로 함수 이름도 숫자로 시작하면 문법 에러가 발생해요.
+
+--- Q08 | hard | output_select ---
+question_id: miniboss_beg_os_6_1_008
+question: 다음 코드를 실행했을 때 발생하는 결과로 옳은 것은 무엇인가요?
+code: |
+  sing()
+
+  def sing():
+      print("랄랄라~")
+choices:
+  A. 랄랄라~가 정상 출력된다.
+  B. 화면에 sing() 문자열이 출력된다.
+  C. 아무 일도 일어나지 않고 넘어간다.
+  D. NameError 에러가 발생한다.
+answer: D
+explanation: 파이썬은 코드를 위에서부터 읽어 내려갑니다. 함수가 `def`로 정의되기도 전에 위에서 호출하면 파이썬이 해당 이름을 알 수 없어 `NameError`를 일으킵니다.
+feedback.correct: 정답입니다! 함수를 호출하려면 반드시 호출하는 코드보다 윗줄에 함수가 먼저 정의되어 있어야 합니다.
+
+--- Q09 | hard | output_select ---
+question_id: miniboss_beg_os_6_1_009
+question: 다음 코드의 출력 결과를 골라보세요.
+code: |
+  def stage_1():
+      print("하나")
+
+  def stage_2():
+      stage_1()
+      print("둘")
+
+  stage_2()
+choices:
+  A. 하나\n둘
+  B. 둘\n하나
+  C. 둘
+  D. 에러 발생
+answer: A
+explanation: `stage_2()`를 호출하면 내부적으로 `stage_1()`이 먼저 실행되어 "하나"가 출력된 후, 이어서 "둘"이 출력됩니다.
+feedback.correct: 정답입니다! 함수 내부에서 이미 만들어진 다른 함수를 호출하는 것도 완전히 가능합니다.
+
+--- Q10 | hard | output_select ---
+question_id: miniboss_beg_os_6_1_010
+question: 다음 코드에서 "에이몬"이라는 글자가 출력되는 횟수는 총 몇 번인가요?
+code: |
+  def print_monster():
+      print("에이몬")
+
+  for i in range(3):
+      print_monster()
+choices:
+  A. 1번
+  B. 3번
+  C. 2번
+  D. 0번
+answer: B
+explanation: `for i in range(3):` 루프에 의해 내부의 `print_monster()` 함수 호출이 총 3번 반복 실행됩니다.
+feedback.correct: 정답입니다! 반복문 속에 함수 호출을 넣으면 함수 내부의 기능을 손쉽게 여러 번 가동할 수 있습니다.
+
+난이도 분포: easy×2 / medium×4 / hard×4
+정답 시퀀스: A B C D A B C D A B

@@ -1,0 +1,462 @@
+[
+  {
+    "question_id": "q881",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "파이썬에서 여러 개의 딕셔너리 객체들을 순서대로 나열하여 하나의 묶음으로 관리하고자 할 때 가장 대중적으로 사용하는 자료 결합 구조는 무엇인가요?",
+    "choices": [
+      "A. 튜플을 활용한 딕셔너리 (dict of tuples)",
+      "B. 리스트 내부의 딕셔너리 (list of dictionaries)",
+      "C. 세트 내부의 딕셔너리 (set of dictionaries)",
+      "D. 단일 딕셔너리 구조 (single dictionary)"
+    ],
+    "answer": "B",
+    "hint": "가장 외곽은 대괄호 `[]` 기호로 시작하며, 그 내부 원소 아이템 단위로 중괄호 `{}` 딕셔너리들이 쉼표로 나열되는 구조입니다.",
+    "feedback": {
+      "correct": "정답입니다! 여러 회원의 정보나 아이템 정보를 순차 나열할 때는 리스트 내부에 딕셔너리를 원소로 넣는 구조(list of dicts)가 널리 쓰입니다."
+    }
+  },
+  {
+    "question_id": "q882",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "리스트 내부에 여러 개의 딕셔너리가 들어있는 구조(`members = [{}, {}, {}]`)에서, 첫 번째 자리에 위치한 딕셔너리 요소 전체를 가리키기 위해 사용하는 올바른 색인 방법은 무엇인가요?",
+    "choices": [
+      "A. members[0]",
+      "B. members['first']",
+      "C. members{0}",
+      "D. members.get(1)"
+    ],
+    "answer": "A",
+    "hint": "가장 바깥쪽 구조가 리스트(List)이므로, 순서 방 번호 인덱스를 사용해 가장 첫 칸의 원소를 지정해야 합니다.",
+    "feedback": {
+      "correct": "정답입니다! 전체를 감싸는 틀이 리스트이므로, 딕셔너리 접근 이전에 리스트의 인덱스 번호 `0`을 통해 첫 번째 딕셔너리 원소에 도달합니다."
+    }
+  },
+  {
+    "question_id": "q883",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 파이썬 복합 자료구조 코드의 처리 연산 흐름을 추적하여 최종 출력되는 문자열 데이터를 고르세요.\n\nitems = [\n    {'name': '물약', 'price': 50},\n    {'name': '방패', 'price': 150}\n]\nprint(items[1]['name'])",
+    "choices": [
+      "A. 물약",
+      "B. 방패",
+      "C. name",
+      "D. 150"
+    ],
+    "answer": "B",
+    "hint": "items[1]을 통해 리스트의 두 번째 칸인 두 번째 딕셔너리를 먼저 호출한 후, 그 딕셔너리 내부의 'name' 키를 찾아 들어갑니다.",
+    "feedback": {
+      "correct": "정답입니다! `items[1]`은 두 번째 딕셔너리인 `{'name': '방패', 'price': 150}`을 뜻하며, 이 안에서 `'name'` 키의 값은 `'방패'`가 됩니다."
+    }
+  },
+  {
+    "question_id": "q884",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음과 같이 회원 딕셔너리들의 리스트가 주어졌을 때, 반복문을 순회하며 각 회원의 나이를 누적 합산하는 코드의 최종 화면 출력 정수는 무엇인가요?\n\nusers = [\n    {'name': '지니', 'age': 20},\n    {'name': '왕이', 'age': 25}\n]\ntotal_age = 0\nfor u in users:\n    total_age = total_age + u['age']\nprint(total_age)",
+    "choices": [
+      "A. 20",
+      "B. 45",
+      "C. 25",
+      "D. 0"
+    ],
+    "answer": "B",
+    "hint": "반복문이 돌 때 임시 변수 `u`에는 각 회원의 딕셔너리가 하나씩 들어옵니다. 각 루프마다 `u['age']`인 20과 25가 순서대로 더해집니다.",
+    "feedback": {
+      "correct": "정답입니다! 첫 번째 딕셔너리의 나이 20과 두 번째 딕셔너리의 나이 25가 변수에 차례로 누적 합산되므로 `20 + 25 = 45`가 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q885",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "딕셔너리 목록 리스트 구조(`data = [{}, {}]`)에 완전히 새로운 신규 딕셔너리 데이터 한 쌍(`{'name': '해량', 'age': 30}`)을 리스트의 맨 마지막 칸 원소로 이어 붙여 추가하고자 할 때 사용하는 리스트 메서드는 무엇인가요?",
+    "choices": [
+      "A. .add()",
+      "B. .update()",
+      "C. .insert()",
+      "D. .append()"
+    ],
+    "answer": "D",
+    "hint": "가장 바깥쪽 틀이 '리스트(List)'이므로, 딕셔너리 전용 함수가 아닌 리스트 최우측 끝에 원소를 밀어 넣는 범용 함수를 써야 합니다.",
+    "feedback": {
+      "correct": "정답입니다! 데이터의 외부 정체성이 리스트이므로, 새로운 원소(여기서는 딕셔너리 객체)를 끝에 추가할 때는 리스트의 .append() 메서드를 적용합니다."
+    }
+  },
+  {
+    "question_id": "q886",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 파이썬 복합 제어 코드의 실행 흐름을 분석하여, 최종 라인에서 콘솔 화면에 인쇄되는 정수로 알맞은 것을 고르세요.\n\nstore = [\n    {'fruit': '사과', 'stock': 10},\n    {'fruit': '바나나', 'stock': 0},\n    {'fruit': '포도', 'stock': 5}\n]\nempty_count = 0\nfor item in store:\n    if item['stock'] == 0:\n        empty_count = empty_count + 1\nprint(empty_count)",
+    "choices": [
+      "A. 1",
+      "B. 0",
+      "C. 2",
+      "D. 3"
+    ],
+    "answer": "A",
+    "hint": "리스트 내부의 딕셔너리들을 순회하면서 각 과일의 'stock' 수치가 정수 0과 일치하는 딕셔너리가 총 몇 개인지 카운트하는 로직입니다.",
+    "feedback": {
+      "correct": "정답입니다! 'stock'이 0인 과일은 '바나나' 단 1개뿐이므로 카운팅 변수 합산 결과 조건에 부합하여 정수 1이 도출됩니다."
+    }
+  },
+  {
+    "question_id": "q887",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 파이썬 딕셔너리 내부 리스트 제어 코드의 계층적 연산 흐름을 추적하여 최종 출력되는 결과물로 올바른 것을 고르세요.\n\nplayer = {\n    'username': 'aimon_pro',\n    'skills': ['파이어볼', '아이스볼']\n}\nplayer['skills'].append('라이트닝')\nprint(player['skills'][2])",
+    "choices": [
+      "A. 아이스볼",
+      "B. 라이트닝",
+      "C. 파이어볼",
+      "D. IndexError 발생"
+    ],
+    "answer": "B",
+    "hint": "player['skills']를 통해 추출된 값은 파이썬 '리스트'입니다. 여기에 append로 원소가 추가된 후의 2번 인덱스 방 요소를 묻고 있습니다.",
+    "feedback": {
+      "correct": "정답입니다! 'skills' 리스트에 '라이트닝'이 추가되어 ['파이어볼', '아이스볼', '라이트닝']이 되며, 이 리스트의 2번 인덱스(세 번째) 원소는 '라이트닝'입니다."
+    }
+  },
+  {
+    "question_id": "q888",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "파이썬에서 리스트 내부의 딕셔너리 구조 혹은 딕셔너리 내부의 리스트 구조와 같은 복합형 구조를 다룰 때, 개발자가 범하기 쉬운 문법적 오류와 설명 중 가장 '올바르지 않은' 진술은 무엇인가요?",
+    "choices": [
+      "A. 리스트 내의 딕셔너리에서 특정 값에 도달하려면 인덱스 번호와 키 이름을 연쇄 대괄호 형태로 붙여서(`list[0]['key']`) 참조해야 한다.",
+      "B. 딕셔너리 내부의 리스트 구조에서 존재하지 않는 키를 대괄호로 먼저 부르면 그 즉시 KeyError 예외 에러가 터진다.",
+      "C. 리스트 내부의 딕셔너리 구조에서는 가장 외곽 틀이 리스트이므로 딕셔너리 전용 메서드인 `.get()`을 리스트 변수명에 직접 대고 `list.get(0)`처럼 사용할 수 있다.",
+      "D. 딕셔너리 내부 리스트의 원소를 추가할 때는 키로 리스트 객체를 먼저 가져온 뒤 뒤이어 `.append()`를 연동 적용해야 한다."
+    ],
+    "answer": "C",
+    "hint": "변수의 가장 바깥쪽 정체성이 '리스트'라면, 딕셔너리에만 존재하는 전용 방어 함수인 `.get()`을 리스트 최상단 레이어에 직접 호출할 수 있는지 유념해 보세요.",
+    "feedback": {
+      "correct": "정답입니다! 가장 바깥쪽이 리스트 객체인 경우 리스트에는 `.get()` 메서드가 없기 때문에 `list.get(0)`과 같이 코드를 짜면 AttributeError가 터집니다. 따라서 C번은 잘못된 진술입니다."
+    }
+  },
+  {
+    "question_id": "q889",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 파이썬 복합 제어 코드의 실행 결과를 정밀 연산 추적하여, 최종 라인 통과 시 모니터 화면에 인쇄되는 정수 결과값을 고르세요.\n\ncourse = [\n    {'level': '초급', 'students': 50},\n    {'level': '중급', 'students': 43},\n    {'level': '고급', 'students': 43}\n]\ntotal_students = 0\nfor sub in course:\n    if sub['level'] != '초급':\n        total_students = total_students + sub['students']\nprint(total_students)",
+    "choices": [
+      "A. 50",
+      "B. 136",
+      "C. 86",
+      "D. 43"
+    ],
+    "answer": "C",
+    "hint": "비교 연산자 `!=`는 '같지 않다'를 뜻합니다. 즉, 'level' 키의 값이 '초급'이 아닌 중급과 고급 딕셔너리의 'students' 수치만 골라내어 합산하는 로직입니다.",
+    "feedback": {
+      "correct": "정답입니다! 조건에 부합하는 중급 학생 수 43과 고급 학생 수 43이 필터링되어 누적 더해지므로 `43 + 43 = 86`이 최종 성립 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q890",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 파이썬 딕셔너리 내부 리스트 누적 원소 탐색 소스코드의 연산 흐름을 파악하여 최종적으로 도출되는 출력 정수를 엄선하세요.\n\nportfolio = {\n    'project_A': [100, 95],\n    'project_B': [80, 85, 90]\n}\nprint(len(portfolio['project_B']))",
+    "choices": [
+      "A. 2",
+      "B. 3",
+      "C. 5",
+      "D. KeyError 발생"
+    ],
+    "answer": "B",
+    "hint": "portfolio 딕셔너리에서 'project_B'라는 키로 색인하여 꺼내온 실체 원본 객체는 정수형 리스트입니다. 이 리스트 객체의 순수 총길이(len)를 재고 있습니다.",
+    "feedback": {
+      "correct": "정답입니다! `'project_B'` 키에 바인딩된 리스트 객체는 `[80, 85, 90]`으로 총 3개의 원소를 가지고 있으므로 원소 수 집계 내장 함수 결과 3이 도출됩니다."
+    }
+  },
+  {
+    "question_id": "q891",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "파이썬에서 하나의 대표 딕셔너리 객체를 생성하고, 그 내부의 특정 핵심 키 영역에 할당되는 데이터 값(Value) 형태로 다중 문자열이나 정수들을 순서대로 담은 '리스트(List)'를 배치하여 관리하는 구조를 뜻하는 명칭은 무엇인가요?",
+    "choices": [
+      "A. 딕셔너리 내부의 리스트 구조 (dictionary of lists)",
+      "B. 리스트 내부의 딕셔너리 구조 (list of dictionaries)",
+      "C. 단일 튜플 구조 (single tuple)",
+      "D. 세트 결합형 구조 (set mapping)"
+    ],
+    "answer": "A",
+    "hint": "가장 바깥쪽 틀은 중괄호 `{}` 딕셔너리이며, 특정 키의 콜론 `:` 우측 편 값의 자리에 대괄호 `[]` 리스트 객체가 벨류로 종속되어 배치되는 구조입니다.",
+    "feedback": {
+      "correct": "정답입니다! 하나의 개체에 여러 속성 목록을 리스트 배열로 매핑하여 종속 보관할 때 쓰는 아키텍처는 딕셔너리 내 리스트 구조(dict of lists)입니다."
+    }
+  },
+  {
+    "question_id": "q892",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 파이썬 복합 데이터 구조 가동 테스트 코드를 실행했을 때, 콘솔 터미널 레이아웃에 최종 표출되는 결과 문자열은 무엇인가요?\n\nteam = {\n    'crews': ['지훈', '혜원']\n}\nprint(team['crews'][1])",
+    "choices": [
+      "A. crews",
+      "B. 지훈",
+      "C. 혜원",
+      "D. KeyError 발생"
+    ],
+    "answer": "C",
+    "hint": "team['crews'] 문법으로 딕셔너리의 키를 먼저 명시하여 내부의 리스트 객체를 확보한 후, 뒤이은 대괄호 방 번호 [1]을 통해 리스트의 두 번째 원소를 지시합니다.",
+    "feedback": {
+      "correct": "정답입니다! `team['crews']` 연산에 의해 `['지훈', '혜원']` 리스트가 타깃팅되며, 이 배열의 인덱스 1번(두 번째) 알맹이 원소는 `'혜원'`이 확정됩니다."
+    }
+  },
+  {
+    "question_id": "q893",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 파이썬 딕셔너리 목록 리스트 제어 코드의 연산 라인을 추적하여, 최종 출력 문장에 찍혀 도출되는 문자열을 고르세요.\n\nmonsters = [\n    {'id': 'm1', 'type': '코드몬'},\n    {'id': 'm2', 'type': '방해몬'}\n]\nprint(monsters[0]['type'])",
+    "choices": [
+      "A. m1",
+      "B. 코드몬",
+      "C. 방해몬",
+      "D. type"
+    ],
+    "answer": "B",
+    "hint": "monsters[0] 지시어를 통해 리스트의 가장 첫 번째 칸 원소 딕셔너리를 추출한 뒤, 부착된 내부 명찰 키인 'type'을 인덱싱 호출하는 메커니즘입니다.",
+    "feedback": {
+      "correct": "정답입니다! `monsters[0]`은 첫 번째 요소인 `{'id': 'm1', 'type': '코드몬'}` 딕셔너리이며, 이 내부 구조에서 `'type'` 키의 배치 데이터는 `'코드몬'`입니다."
+    }
+  },
+  {
+    "question_id": "q894",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 파이썬 복합 리스트 데이터 객체 변경 소스코드를 전개했을 때, 최종적으로 모니터에 출력되는 결과물 형태로 알맞은 것을 고르세요.\n\napp_data = [\n    {'name': '메인홈', 'status': 'open'}\n]\napp_data[0]['status'] = 'close'\nprint(app_data)",
+    "choices": [
+      "A. [{'name': '메인홈', 'status': 'open'}]",
+      "B. [{'name': '메인홈', 'status': 'close'}]",
+      "C. [{'name': '메인홈', 'status': 'open', 'status': 'close'}]",
+      "D. IndexError 발생"
+    ],
+    "answer": "B",
+    "hint": "app_data[0]을 통해 첫 번째 딕셔너리에 실동 접근한 뒤, 이미 기재되어 포진 중이던 'status' 키 명찰 자리에 등호(=) 연산으로 데이터 갱신을 명령했습니다.",
+    "feedback": {
+      "correct": "정답입니다! 기존 첫 번째 딕셔너리의 'status' 값이 원래 세팅된 'open'에서 'close' 문자열로 업데이트 수정 처리되므로 B번 형태가 최종 성립됩니다."
+    }
+  },
+  {
+    "question_id": "q895",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "딕셔너리 내부의 리스트 주소 공간(`user = {'inventory': ['검', '방패']}`)에서, 특정 키에 세팅되어 있는 기존 리스트의 맨 마지막 끝 방 원소 위치에 새로운 문자열 아이템 데이터(`'물약'`)를 안전하게 증설 밀어 넣기 하고자 할 때 호출해야 하는 결합 메서드는 무엇인가요?",
+    "choices": [
+      "A. user['inventory'].append('물약')",
+      "B. user['inventory'].update('물약')",
+      "C. user.append('inventory': '물약')",
+      "D. user['inventory'].add('물약')"
+    ],
+    "answer": "A",
+    "hint": "user['inventory'] 수식을 통해 먼저 명찰 키를 조회해 내면 복원되는 원본 실체는 '리스트'형 자료구조입니다. 이 리스트의 끝방에 원소를 증설하는 함수를 이어서 호출해야 합니다.",
+    "feedback": {
+      "correct": "정답입니다! 키를 통해 스캔된 결과물의 물리 성질이 리스트형 객체이므로, 리스트 전용 꼬리 가산 함수인 `.append()`를 연쇄 결합한 A번 수식이 올바릅니다."
+    }
+  },
+  {
+    "question_id": "q896",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 파이썬 다중 복합 데이터 순회 코드를 가동시켰을 때, 루프 연산 최종 완료 단계에서 인쇄되는 변수 `high_score_count` 내부의 최종 정수는 무엇인가요?\n\nquiz_results = [\n    {'id': 'q1', 'score': 100},\n    {'id': 'q2', 'score': 55},\n    {'id': 'q3', 'score': 85}\n]\nhigh_score_count = 0\nfor q in quiz_results:\n    if q['score'] >= 80:\n        high_score_count = high_score_count + 1\nprint(high_score_count)",
+    "choices": [
+      "A. 1",
+      "B. 3",
+      "C. 2",
+      "D. 0"
+    ],
+    "answer": "C",
+    "hint": "리스트 속 딕셔너리들을 순차 훑으며 각 'score' 영역 정수값이 80점 이상을 마크하는 우수 레코드의 총개수를 세는 조건부 카운팅 알고리즘입니다.",
+    "feedback": {
+      "correct": "정답입니다! 80점 이상인 레코드는 'q1'(100) 객체와 'q3'(85) 객체로 총 2개가 조건 필터를 통과하므로 누적 합산 상수는 정수 2가 도출됩니다."
+    }
+  },
+  {
+    "question_id": "q897",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 파이썬 리스트 가산 및 딕셔너리 다중 결합 소스의 내부 메모리 누적 변동 흐름을 추적하여 최종 프린트되는 정수를 도출하세요.\n\nmembers = []\nmembers.append({'username': 'jinny', 'crowns': 5})\nmembers.append({'username': 'robot', 'crowns': 10})\nprint(len(members))",
+    "choices": [
+      "A. 1",
+      "B. 5",
+      "C. 2",
+      "D. 15"
+    ],
+    "answer": "C",
+    "hint": "초기 선언된 빈 리스트 `members`에 .append() 함수를 총 두 번 차례대로 연사 호출했습니다. 이때 리스트에 들어간 개별 원소 알맹이들의 총 수량을 재고 있습니다.",
+    "feedback": {
+      "correct": "정답입니다! 딕셔너리 객체 2개가 리스트의 원소 아이템으로 각각 순차 가산되어 적재되었으므로 리스트의 최종 길이는 정수 2가 성립됩니다."
+    }
+  },
+  {
+    "question_id": "q898",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 파이썬 복합 딕셔너리 내부 원소 삭제 연산 코드를 구동시켰을 때 최종 라인 통과 직후 도출 인쇄되는 결과 구조 상태로 알맞은 것을 고르세요.\n\ncharacter = {\n    'status': 'slime',\n    'items': ['나무검', '초급왕관']\n}\ndel character['items'][0]\nprint(character['items'])",
+    "choices": [
+      "A. ['나무검', '초급왕관']",
+      "B. KeyError 발생",
+      "C. ['초급왕관']",
+      "D. []"
+    ],
+    "answer": "C",
+    "hint": "del 명령 뒤에 위치한 `character['items'][0]` 수식은 'items' 키로 연결된 내장 리스트 객체의 '0번 인덱스 첫 칸 원소(나무검)'를 정밀 조준 소멸시키는 문법입니다.",
+    "feedback": {
+      "correct": "정답입니다! 내부 리스트의 0번 칸 요소인 '나무검'이 파괴 청산되어 공제되므로 남은 원소 배열 목록인 ['초급왕관']만 최종 출력 창에 배출됩니다."
+    }
+  },
+  {
+    "question_id": "q899",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 파이썬 중첩 계층형 자료구조 순회 및 누적 산술 연산 로직을 분석하여 최종 결과물로 모니터 창에 출력되는 정수를 엄선하세요.\n\ncompany_data = {\n    'marketing': [200, 300],\n    'development': [500, 100, 400]\n}\ntotal_pay = 0\nfor dept in company_data:\n    if dept == 'marketing':\n        for cost in company_data[dept]:\n            total_pay = total_pay + cost\nprint(total_pay)",
+    "choices": [
+      "A. 500",
+      "B. 1000",
+      "C. 1500",
+      "D. 0"
+    ],
+    "answer": "A",
+    "hint": "상위 루프가 딕셔너리 키를 순회할 때 명찰 키가 정확히 'marketing'으로 매칭 성립되는 순간에만 내부 2중 반복문이 진입 가동되어 수치들을 합산합니다.",
+    "feedback": {
+      "correct": "정답입니다! 'marketing' 키에 속한 하위 리스트 수치 원소인 200과 300만 내부 루프 필터에 포착되어 합산되므로 `200 + 300 = 500`이 인쇄됩니다."
+    }
+  },
+  {
+    "question_id": "q900",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 파이썬 딕셔너리 리스트 기반 타깃 텍스트 조건 검색 스캔 알고리즘의 최후 반환 결과 문자열을 정밀 유추하여 고르세요.\n\nsession_pool = [\n    {'user': 'code_king', 'role': 'admin'},\n    {'user': 'inter_mon', 'role': 'villain'},\n    {'user': 'unknown_guest', 'role': 'guest'}\n]\ntarget_user = '없음'\nfor session in session_pool:\n    if session['role'] == 'villain':\n        target_user = session['user']\nprint(target_user)",
+    "choices": [
+      "A. code_king",
+      "B. 없음",
+      "C. inter_mon",
+      "D. unknown_guest"
+    ],
+    "answer": "C",
+    "hint": "리스트 내부를 순차 탐색 중에 'role' 키의 본문 값이 악당 캐릭터 레이블인 'villain'과 일치 판정되는 타깃 딕셔너리의 'user' 정보를 가로채어 백업하는 구조입니다.",
+    "feedback": {
+      "correct": "정답입니다! 두 번째 원소 딕셔너리가 'role' == 'villain' 매칭 조건을 클리어 충족하므로, 해당 객체의 'user' 내용물인 'inter_mon'이 치환 인쇄됩니다."
+    }
+  }
+]

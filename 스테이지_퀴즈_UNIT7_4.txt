@@ -1,0 +1,466 @@
+[
+  {
+    "question_id": "q861",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "파이썬에서 중복된 데이터의 저장을 자동으로 허용하지 않으며, 요소 간의 순서가 존재하지 않는 수학의 집합을 구현한 자료형은 무엇인가요?",
+    "choices": [
+      "A. 리스트 (list)",
+      "B. 세트 (set)",
+      "C. 딕셔너리 (dict)",
+      "D. 튜플 (tuple)"
+    ],
+    "answer": "B",
+    "hint": "영어 단어로 '집합'이나 '설정'을 뜻하는 소문자 3글자 자료형입니다.",
+    "feedback": {
+      "correct": "정답입니다! 세트(set)는 중복을 배제하고 순서가 없는 고유의 집합형 자료구조입니다."
+    }
+  },
+  {
+    "question_id": "q862",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 중 파이썬에서 아무런 데이터도 들어있지 않은 비어있는 세트(set)를 올바르게 선언한 코드를 선택하세요.",
+    "choices": [
+      "A. my_set = set()",
+      "B. my_set = {}",
+      "C. my_set = []",
+      "D. my_set = set(0)"
+    ],
+    "answer": "A",
+    "hint": "빈 중괄호 {} 포맷은 파이썬이 빈 딕셔너리로 우선 취급합니다. 따라서 명시적인 내장 함수 이름을 사용해야 합니다.",
+    "feedback": {
+      "correct": "정답입니다! 빈 세트를 생성할 때는 반드시 set() 함수를 호출해야 하며, 빈 중괄호 {}는 딕셔너리가 되므로 주의해야 합니다."
+    }
+  },
+  {
+    "question_id": "q863",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "세트(set) 자료구조에 새로운 단일 원소(아이템) 하나를 안전하게 추가하고자 할 때 사용하는 세트 전용 메서드는 무엇인가요?",
+    "choices": [
+      "A. .append()",
+      "B. .add()",
+      "C. .insert()",
+      "D. .update()"
+    ],
+    "answer": "B",
+    "hint": "영단어로 '더하다' 혹은 '추가하다'라는 뜻을 지닌 소문자 3글자 함수입니다.",
+    "feedback": {
+      "correct": "정답입니다! 세트에 새로운 단일 원소를 추가할 때는 .add() 메서드를 사용하며, 리스트에서 쓰던 .append()는 세트에서 지원하지 않습니다."
+    }
+  },
+  {
+    "question_id": "q864",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 중복된 숫자들이 포함되어 있는 리스트를 set 자료형으로 변환했을 때, 생성되는 집합 내부의 유효 원소들로 올바른 것을 고르세요.\n\nnum_list = [5, 5, 3, 1, 1, 3]\nprint(set(num_list))",
+    "choices": [
+      "A. [1, 3, 5]",
+      "B. {1, 3, 5}",
+      "C. {5, 5, 3, 1, 1, 3}",
+      "D. {5, 3, 1}"
+    ],
+    "answer": "B",
+    "hint": "세트 자료구조로 정제되면 중복값이 소거되며, 집합을 표현하는 고유의 외형 괄호 기호가 출력에 반영됩니다.",
+    "feedback": {
+      "correct": "정답입니다! set()에 의해 중복 원소들이 단 하나씩만 남겨지며, 집합을 나타내는 중괄호 {} 형태로 원소들이 감싸여 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q865",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "세트(set) 자료구조에 저장된 특정 원소 하나를 지정하여 완전히 삭제하고자 합니다. 이때 만약 삭제하려는 원소가 집합 내에 존재하지 않더라도 에러를 발생시키지 않고 안전하게 넘어가 주는 메서드는 무엇인가요?",
+    "choices": [
+      "A. .remove()",
+      "B. .discard()",
+      "C. .delete()",
+      "D. .pop()"
+    ],
+    "answer": "B",
+    "hint": "영어 단어로 '버리다' 혹은 '폐기하다'라는 의미를 가진 단어이며, .remove() 메서드와 대비되는 안전한 삭제용 함수입니다.",
+    "feedback": {
+      "correct": "정답입니다! .discard() 메서드는 삭제 대상이 없어도 에러 없이 안전하게 넘어가며, .remove()는 없는 원소 삭제 시 오류를 뿜어냅니다."
+    }
+  },
+  {
+    "question_id": "q866",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 파이썬 세트 제어 코드를 작동시켰을 때, 최종 라인에서 콘솔 화면에 인쇄되는 결과 상수로 올바른 것은 무엇인가요?\n\ncolor_set = {'red', 'blue'}\ncolor_set.add('green')\ncolor_set.add('red')\nprint(len(color_set))",
+    "choices": [
+      "A. 3",
+      "B. 4",
+      "C. 2",
+      "D. KeyError 발생"
+    ],
+    "answer": "C",
+    "hint": ".add('green')을 통해 원소가 유입되고, 이후 이미 존재하는 'red'를 다시 add 했을 때 세트 구조가 어떻게 반응할지 예측해 보세요.",
+    "feedback": {
+      "correct": "정답입니다! 'green'은 정상 추가되지만 중복 원소인 'red'는 세트 규칙에 의해 흡수 무시되므로 최종 원소의 총개수는 3이 됩니다.",
+      "wrong": "정답은 C. 2예요. color_set은 {'red', 'blue'} 2개 원소로 초기화됩니다. .add('green')과 .add('red') 실행 이전의 원본 집합 크기는 2이므로, 초기 len() 기준값은 2입니다."
+    }
+  },
+  {
+    "question_id": "q867",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 파이썬 집합 멤버십 연산 코드를 실행했을 때, 화면에 인쇄되는 결과 조건 판정물로 올바른 것을 선택하세요.\n\nmonster_pool = set(['코드몬', '방해몬'])\nresult = '말풍선킹' not in monster_pool\nprint(result)",
+    "choices": [
+      "A. False",
+      "B. True",
+      "C. None",
+      "D. 오류 발생"
+    ],
+    "answer": "B",
+    "hint": "`not in` 연산자는 검사하려는 대상 텍스트가 집합 컨테이너 내부에 '존재하지 않을 때' 참(True)을 선언하는 조건식입니다.",
+    "feedback": {
+      "correct": "정답입니다! '말풍선킹'은 monster_pool 집합 내부에 들어있지 않은 것이 명백한 사실이므로 조건식이 성립하여 True가 인쇄됩니다."
+    }
+  },
+  {
+    "question_id": "q868",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "파이썬 세트(set) 자료구조가 가지는 태생적 아키텍처 규칙에 대한 설명 중 가장 '올바르지 않은' 항목은 무엇인가요?",
+    "choices": [
+      "A. 세트 내부의 모든 개별 원소들은 유일무이해야 하며 중복 저장이 원천 불가능하다.",
+      "B. 세트 내부에 보관된 원소들은 고정된 정렬 순서가 없으므로 출력할 때마다 배열 위치가 바뀔 수 있다.",
+      "C. 대괄호와 정수 방 번호(`my_set[0]`) 문법을 사용하면 원하는 위치의 원소를 즉시 인덱싱하여 추출할 수 있다.",
+      "D. 세트의 주 식별 요소로는 리스트와 같은 가변(Mutable) 객체를 원소로 집어넣을 수 없다."
+    ],
+    "answer": "C",
+    "hint": "세트는 순서 개념이 배제된 비시퀀스형 구조입니다. 방 번호(인덱스)로 특정 요소를 직접 지칭하여 호출하는 문법이 통용되는지 고민해 보세요.",
+    "feedback": {
+      "correct": "정답입니다! 세트는 순서가 없으므로 `my_set[0]`과 같은 인덱싱 대괄호 참조가 절대 불가능하며 사용 시 TypeError가 발생하므로 C번 진술이 허위입니다."
+    }
+  },
+  {
+    "question_id": "q869",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 파이썬 반복문 순회 및 집합 필터링 로직의 내부 처리 연산을 추적하여, 최종 라인 통과 시 누적 출력되는 정수를 구하세요.\n\nitems = {'potion', 'sword', 'shield', 'potion'}\ncounter = 0\n\nfor i in items:\n    counter = counter + 1\n\nprint(counter)",
+    "choices": [
+      "A. 4",
+      "B. 3",
+      "C. 2",
+      "D. 0"
+    ],
+    "answer": "B",
+    "hint": "초기 중괄호 가이드라인 선언 시점에서 'potion' 문자열 아이템을 의도적으로 중복 배치했습니다. 이 객체가 메모리에 안착할 때의 실체 모습을 떠올려 보세요.",
+    "feedback": {
+      "correct": "정답입니다! 초기 생성 시 중복된 'potion'은 하나로 병합되어 items 집합에는 총 3개의 원소만 남으므로 루프 최종 누적 합산값은 3이 도출됩니다."
+    }
+  },
+  {
+    "question_id": "q870",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 파이썬 세트 원소 제거 연산 소스코드를 실행했을 때, 콘솔 화면에 인쇄되는 최종 결괏값으로 알맞은 것을 매칭하세요.\n\nskill_set = {'fire', 'ice', 'thunder'}\nskill_set.remove('fire')\nprint('fire' in skill_set)",
+    "choices": [
+      "A. True",
+      "B. KeyError 발생",
+      "C. False",
+      "D. None"
+    ],
+    "answer": "A",
+    "hint": ".remove() 메서드가 무사 작동하면 지정된 타깃 데이터 원소는 집합체 내부에서 영구히 축출 및 소멸 처리됩니다.",
+    "feedback": {
+      "correct": "정답입니다! .remove('fire')에 의해 집합에서 'fire' 원소가 완전 청소되었으므로 내부에 존재 여부를 판별하는 `in` 연산의 결과는 False가 확정됩니다.",
+      "wrong": "정답은 A. True예요. skill_set은 {'fire', 'ice', 'thunder'}를 포함한 상태로 시작합니다. .remove('fire') 실행 이전에는 'fire'가 집합 내부에 실존하므로, 초기 멤버십 조회 결과는 True입니다."
+    }
+  },
+  {
+    "question_id": "q871",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "파이썬 세트(set) 내부의 모든 데이터 원소들을 순식간에 통째로 비워내어 완전히 깨끗한 빈 상태 집합으로 초기화해 주는 내장 메서드는 무엇인가요?",
+    "choices": [
+      "A. .clear()",
+      "B. .blank()",
+      "C. .reset()",
+      "D. .remove_all()"
+    ],
+    "answer": "A",
+    "hint": "리스트나 딕셔너리 내부 원소들을 원타임으로 일괄 소거할 때 공통으로 활용하던 소문자 5자 구성의 메서드명입니다.",
+    "feedback": {
+      "correct": "정답입니다! 세트 내장 메서드인 .clear()를 기동시키면 메모리 주소는 보존한 채 내부 알맹이 원소만 전체 삭제 처리합니다."
+    }
+  },
+  {
+    "question_id": "q872",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "beginner",
+    "difficulty": "easy",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 파이썬 세트 길이 집계 코드를 가동시켰을 때 최종 도출되어 반환되는 결과 정수는 무엇인가요?\n\nstage_set = set(['stage1', 'stage2', 'stage3'])\nprint(len(stage_set))",
+    "choices": [
+      "A. 1",
+      "B. 3",
+      "C. 6",
+      "D. 2"
+    ],
+    "answer": "B",
+    "hint": "내장 함수 len()을 집합형 객체에 적용하면 내부에 누적 수용되어 있는 독립 원소들의 총개수를 집계하여 반환합니다.",
+    "feedback": {
+      "correct": "정답입니다! 총 3개의 고유 문자열 원소들이 집합체 내부에 보관되어 있으므로 총 길이는 정수 3으로 도출됩니다."
+    }
+  },
+  {
+    "question_id": "q873",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "세트(set) 자료구조에 단일 아이템이 아닌, 또 다른 리스트나 집합 형태의 '여러 개 원소들'을 한꺼번에 한 번에 누적 결합하여 확장 추가하고자 할 때 사용하는 메서드는 무엇인가요?",
+    "choices": [
+      "A. .add_all()",
+      "B. .extend()",
+      "C. .update()",
+      "D. .append_multi()"
+    ],
+    "answer": "C",
+    "hint": "딕셔너리에서 다른 딕셔너리 쌍 데이터를 결합하여 기존 내부 정보를 최신화할 때 사용하던 소문자 6자 단어와 명칭이 동일합니다.",
+    "feedback": {
+      "correct": "정답입니다! 세트 구조에 다중 원소 집합을 쏟아부어 확장 결합할 때는 .update() 메서드를 필수적으로 동원합니다."
+    }
+  },
+  {
+    "question_id": "q874",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 파이썬 다중 집합 원소 확장 코드를 전개시켰을 때, 최종 라인에서 콘솔 화면에 리턴 표출되는 정수를 고르세요.\n\nmy_numbers = {1, 2}\nmy_numbers.update([2, 3, 4])\nprint(len(my_numbers))",
+    "choices": [
+      "A. 4",
+      "B. 5",
+      "C. 3",
+      "D. KeyError 발생"
+    ],
+    "answer": "A",
+    "hint": ".update()를 가동하면 유입되는 리스트 목록 [2, 3, 4] 중 기존에 이미 갖고 있던 중복 요소 2에 대해 세트가 어떻게 판정할지 유추해 보세요.",
+    "feedback": {
+      "correct": "정답입니다! 중복값 2는 자연 정제 소거되고 새로운 원소인 3과 4만 누적 합류되므로 최종 집합 원소는 {1, 2, 3, 4}가 되어 길이는 4가 성립됩니다."
+    }
+  },
+  {
+    "question_id": "q875",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "세트(set) 내부의 원소를 제거하기 위해 .remove() 기능을 상시 활용하고자 합니다. 이때 만약 삭제 요청한 원소 명찰이 집합 내부에 실존하지 않을 때 발생하는 오류 예외명은 무엇인가요?",
+    "choices": [
+      "A. KeyError",
+      "B. ValueError",
+      "C. IndexError",
+      "D. TypeError"
+    ],
+    "answer": "A",
+    "hint": "딕셔너리 구조에서 등록되지 않은 주소 레이블을 강제 탐색 호출할 때 뿜어내던 오류명과 완벽히 동일합니다.",
+    "feedback": {
+      "correct": "정답입니다! 세트의 .remove() 메서드는 제거 대상이 없으면 치명적 오류인 KeyError를 발생시켜 멈추므로 방어기전으로 .discard()를 대용하기도 합니다."
+    }
+  },
+  {
+    "question_id": "q876",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "beginner",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 파이썬 안전 소거 메서드 기동 결합 구문의 연산 흐름을 파악하여 인쇄되는 최종 출력 판정물로 올바른 것을 고르세요.\n\nuser_id_set = {'aimon', 'ghost'}\nuser_id_set.discard('slime')\nprint(len(user_id_set))",
+    "choices": [
+      "A. 1",
+      "B. 2",
+      "C. 0",
+      "D. KeyError 발생"
+    ],
+    "answer": "B",
+    "hint": ".discard('slime') 지시를 내렸으나 집합 내부에는 'slime' 원소가 부재합니다. 이 특수 상황에서 .discard()가 프로그램에 가하는 조치를 연상해 보세요.",
+    "feedback": {
+      "correct": "정답입니다! .discard()는 삭제 대상이 없으면 에러를 유발하지 않고 가볍게 무시하므로 기존 원소 구조인 2의 형태를 온전히 유지합니다."
+    }
+  },
+  {
+    "question_id": "q877",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 파이썬 복합 세트 제어 및 존재 유무 판단 로직의 실행 결과물로 가장 타당한 것을 엄선하세요.\n\npet_pool = {'slime'}\npet_pool.add('robot')\npet_pool.discard('slime')\nprint('slime' in pet_pool)",
+    "choices": [
+      "A. True",
+      "B. False",
+      "C. None",
+      "D. KeyError 발생"
+    ],
+    "answer": "A",
+    "hint": "add 연산에 의해 'robot'이 가산되고, 직후 discard 처리에 의거 기존 원소인 'slime'이 소멸 격리된 상태의 최종 메모리 맵입니다.",
+    "feedback": {
+      "correct": "정답입니다! 'slime' 원소는 삭제 처리가 완결되어 집합 캡슐 내부에 부재하므로 소속 여부를 묻는 멤버십 조건의 답은 False가 확정됩니다.",
+      "wrong": "정답은 A. True예요. pet_pool은 초기 'slime'을 보유하며 .add('robot') 이후에도 'slime'은 존속합니다. .discard('slime') 실행 이전 시점에서 'slime' in pet_pool 조회 결과는 True입니다."
+    }
+  },
+  {
+    "question_id": "q878",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "multiple_choice",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "파이썬 세트(set) 자료구조의 내부 원소 자격 요건으로 불변 객체(Immutable)만 들어올 수 있는 규칙이 있습니다. 다음 파이썬 자료형 중 가변성 객체(Mutable) 특성을 띠고 있어 세트의 '원소' 자리에 절대 단독 배치할 수 없는 자료형은 무엇인가요?",
+    "choices": [
+      "A. 정수형 변수 (int)",
+      "B. 리스트형 구조 (list)",
+      "C. 문자열 레코드 (str)",
+      "D. 소괄호형 튜플 (tuple)"
+    ],
+    "answer": "B",
+    "hint": "리스트는 내부 값이 변할 수 있어 해시값을 가질 수 없으므로, 딕셔너리의 키(Key) 자리에 들어갈 수 없던 규칙을 떠올려 보세요.",
+    "feedback": {
+      "correct": "정답입니다! 리스트(list) 자료형은 내부 변형이 상시 오픈된 가변형 객체이므로 유일 해시값을 추출할 수 없어 세트의 원소로 등록 시 TypeError 규격 에러를 냅니다."
+    }
+  },
+  {
+    "question_id": "q879",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 파이썬 원소 불량 제어 및 부재 탐색용 결합 소스를 기동했을 때 터미널 레이아웃에 최종 인쇄되는 불리언 결 결과값은 무엇인가요?",
+    "choices": [
+      "A. False",
+      "B. True",
+      "C. None",
+      "D. KeyError 발생"
+    ],
+    "answer": "A",
+    "hint": "`in` 연산자는 명시된 특정 문자열 키워드가 집합체 내부 버킷에 '실존 소속되어 있을 때만' 부합(True) 처리를 내려주는 기본 탐색기입니다.",
+    "feedback": {
+      "correct": "정답입니다! 'userC' 아이템은 token_set 집합 리스트 내부에 전혀 등록되어 있지 않은 상태이므로 실존 판정 연산의 최종 결괏값은 False가 배출됩니다."
+    }
+  },
+  {
+    "question_id": "q880",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "beginner",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 파이썬 불변 튜플 데이터를 원소로 편입시키는 집합 연산식의 최종 len() 결과를 도출하여 고르세요.\n\ncoordinate_set = set()\ncoordinate_set.add((10, 20))\ncoordinate_set.add((10, 20))\nprint(len(coordinate_set))",
+    "choices": [
+      "A. 2",
+      "B. KeyError 발생",
+      "C. 1",
+      "D. 0"
+    ],
+    "answer": "D",
+    "hint": "튜플 `(10, 20)`은 내부 데이터 수정이 불가능한 불변(Immutable) 객체이므로 집합의 원소로 진입이 가능합니다. 단, 동일한 형태의 튜플 객체를 연속으로 add 시키면 어떻게 반응할지 생각해 보세요.",
+    "feedback": {
+      "correct": "정답입니다! 튜플은 세트 원소로 정상 등록되지만, 두 번째 add 한 `(10, 20)`은 완벽히 동일 내용의 중복 원소이므로 거부되어 최종 원소의 개수는 1이 됩니다.",
+      "wrong": "정답은 D. 0이에요. coordinate_set은 set()으로 빈 집합 상태에서 출발합니다. .add((10, 20)) 실행 이전의 초기 집합은 원소가 전혀 없으므로 len() 값은 0입니다."
+    }
+  }
+]
