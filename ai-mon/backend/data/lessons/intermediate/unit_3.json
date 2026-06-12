@@ -93,7 +93,7 @@
             "print(sorted(names, key=lambda x: x[-1]))"
           ],
           "output": [
-            "['Charlie', 'Alice', 'Bob']"
+            "['Bob', 'Alice', 'Charlie']"
           ]
         },
         "tip": "디버깅 시 lambda 함수는 추적 장치(Traceback)에 <lambda>로만 표시되어 에러 위치를 찾기 어려울 수 있으니 주의하세요!"
@@ -258,10 +258,10 @@
             "def infinite_recurs(n):",
             "    return infinite_recurs(n + 1)",
             "",
-            "# infinite_recurs(1)"
+            "infinite_recurs(1)"
           ],
           "output": [
-            "RecursionError: maximum recursion depth exceeded in comparison"
+            "RecursionError: maximum recursion depth exceeded"
           ]
         },
         "tip": "파이썬은 무한 재귀로 인한 메모리 파괴를 막기 위해 기본적으로 재귀 호출 횟수를 제한(기본 약 1,000회)해 두었습니다."

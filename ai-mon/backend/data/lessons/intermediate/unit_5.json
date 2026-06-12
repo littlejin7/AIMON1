@@ -1,0 +1,519 @@
+[
+  {
+    "lesson_id": "5-1-intermediate",
+    "unit": 5,
+    "stage": "5-1",
+    "course_level": "intermediate",
+    "title": "리스트 컴프리헨션",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "리스트 컴프리헨션(List Comprehension)은 기존 리스트를 기반으로 새로운 리스트를 만들 때 사용하는 파이썬의 독특하고 간결한 문법이에요.\nfor문과 append()를 여러 줄 쓰는 대신, 한 줄로 직관적이고 깔끔하게 리스트를 생성할 수 있어요.",
+        "tip": "컴프리헨션은 '한 줄로 압축한 리스트 생성기'라고 생각하면 이해하기 쉬워요."
+      },
+      {
+        "order": 2,
+        "text": "리스트 컴프리헨션은 [표현식 for 변수 in 반복가능객체] 형태로 대괄호 안에 작성해요.\n반복문이 돌면서 나오는 각 데이터가 표현식을 거쳐 새 리스트의 요소로 하나씩 차곡차곡 담기게 돼요.",
+        "terminal": {
+          "code": [
+            "numbers = [1, 2, 3, 4, 5]",
+            "squares = [n * n for n in numbers]",
+            "print(squares)"
+          ],
+          "output": [
+            "[1, 4, 9, 16, 25]"
+          ]
+        },
+        "tip": "for n in numbers가 먼저 실행되고, 나온 n을 n * n으로 가공해서 리스트에 넣는 흐름이에요."
+      },
+      {
+        "order": 3,
+        "text": "리스트 컴프리헨션 내부 뒤쪽에 if 조건을 붙이면 특정 데이터만 골라내는 '필터링'이 가능해요.\n조건문이 참(True)인 데이터만 골라서 새 리스트에 포함시켜요.",
+        "terminal": {
+          "code": [
+            "numbers = [1, 2, 3, 4, 5, 6]",
+            "evens = [n for n in numbers if n % 2 == 0]",
+            "print(evens)"
+          ],
+          "output": [
+            "[2, 4, 6]"
+          ]
+        },
+        "tip": "if n % 2 == 0 조건을 만족하는 n만 통과하여 리스트의 최종 멤버가 돼요."
+      },
+      {
+        "order": 4,
+        "text": "동일한 작업을 일반적인 for문과 append()로 구현하면 여러 줄의 코드가 필요해요.\n리스트 컴프리헨션을 사용하면 줄 수도 줄어들고 코드의 본래 의도가 명확해져 가독성이 훨씬 올라가요.",
+        "terminal": {
+          "code": [
+            "# 일반 for문 방식",
+            "evens_for = []",
+            "for n in range(1, 6):",
+            "    if n % 2 == 0:",
+            "        evens_for.append(n)",
+            "",
+            "print(evens_for)"
+          ],
+          "output": [
+            "[2, 4]"
+          ]
+        },
+        "tip": "파이썬에서는 리스트 컴프리헨션이 내부적으로 최적화되어 있어 일반 append()보다 속도가 조금 더 빨라요."
+      },
+      {
+        "order": 5,
+        "text": "조건에 따라 다른 값을 넣고 싶다면 if-else 문을 컴프리헨션 '앞쪽'에 배치할 수 있어요.\n이때는 [참일때값 if 조건 else 거짓일때값 for 변수 in 객체] 형태로 순서가 바뀌니 유의해야 해요.",
+        "terminal": {
+          "code": [
+            "numbers = [1, 2, 3, 4, 5]",
+            "results = [\"짝수\" if n % 2 == 0 else \"홀수\" for n in numbers]",
+            "print(results)"
+          ],
+          "output": [
+            "['홀수', '짝수', '홀수', '짝수', '홀수']"
+          ]
+        },
+        "tip": "필터링 if는 맨 뒤에, 삼항 연산자 구조의 if-else는 맨 앞에 온다는 위치 차이를 꼭 기억해요."
+      },
+      {
+        "order": 6,
+        "text": "문자열 리스트 가공이나 데이터 정제 작업에서 리스트 컴프리헨션은 강력한 힘을 발휘해요.\n여러 단어의 공백을 한 번에 지우거나 대문자로 바꾸는 등의 전처리를 깔끔하게 끝낼 수 있어요.",
+        "terminal": {
+          "code": [
+            "words = [\"  apple \", \" banana\", \"CHERRY  \"]",
+            "clean_words = [w.strip().lower() for w in words]",
+            "print(clean_words)"
+          ],
+          "output": [
+            "['apple', 'banana', 'cherry']"
+          ]
+        },
+        "tip": "데이터 과학이나 백엔드 개발에서 공백 제거, 소문자 변환 등 전처리 파이프라인의 필수 문법이에요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "5-2-intermediate",
+    "unit": 5,
+    "stage": "5-2",
+    "course_level": "intermediate",
+    "title": "딕셔너리·세트 컴프리헨션",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "컴프리헨션은 리스트뿐만 아니라 중괄호({})를 사용하는 딕셔너리와 세트 자료형에서도 똑같이 사용할 수 있어요.\n구조화된 딕셔너리 데이터를 한 번에 생성하거나, 중복 없는 고유값 집합을 만들 때 유용해요.",
+        "tip": "대괄호([])를 쓰면 리스트, 중괄호({})안에 키:값을 쓰면 딕셔너리가 돼요."
+      },
+      {
+        "order": 2,
+        "text": "딕셔너리 컴프리헨션은 {키_표현식: 값_표현식 for 변수 in 객체} 형태로 선언해요.\n매 루프마다 생성되는 키와 값의 쌍이 하나의 딕셔너리 아이템으로 매핑돼요.",
+        "terminal": {
+          "code": [
+            "users = [\"에이몬\", \"전사\", \"마법사\"]",
+            "user_lengths = {name: len(name) for name in users}",
+            "print(user_lengths)"
+          ],
+          "output": [
+            "{'에이몬': 3, '전사': 2, '마법사': 3}"
+          ]
+        },
+        "tip": "이름을 Key로, 이름의 글자 수를 Value로 가지는 딕셔너리가 한 줄로 뚝딱 만들어졌어요."
+      },
+      {
+        "order": 3,
+        "text": "기존에 있던 딕셔너리에서 특정 조건에 맞는 데이터만 골라 새 딕셔너리로 가공할 때도 컴프리헨션이 최적의 선택이에요.",
+        "terminal": {
+          "code": [
+            "scores = {\"에이몬\": 90, \"말풍선킹\": 50, \"코드몬\": 85}",
+            "high_scores = {k: v for k, v in scores.items() if v >= 80}",
+            "print(high_scores)"
+          ],
+          "output": [
+            "{'에이몬': 90, '코드몬': 85}"
+          ]
+        },
+        "tip": "scores.items()로 키와 값을 분리해 꺼낸 뒤, 조건 필터링을 거쳐 다시 조합하는 구조예요."
+      },
+      {
+        "order": 4,
+        "text": "세트 컴프리헨션은 {표현식 for 변수 in 객체} 형태로 작성하며, 중복을 절대 허용하지 않는 set의 특징이 그대로 반영돼요.\n여러 원소 중 중복된 계산 결과를 제거하고 고유값만 남길 때 사용해요.",
+        "terminal": {
+          "code": [
+            "numbers = [1, -2, 2, -3, 3, 3, -1]",
+            "absolute_set = {abs(n) for n in numbers}",
+            "print(absolute_set)"
+          ],
+          "output": [
+            "{1, 2, 3}"
+          ]
+        },
+        "tip": "abs()로 절댓값을 구하면 중복되는 숫자들이 생기지만, 세트 특성상 고유값만 남게 돼요."
+      },
+      {
+        "order": 5,
+        "text": "인덱스 번호와 원소를 동시에 묶어주는 enumerate() 함수를 컴프리헨션과 결합하면 각 데이터에 순차적인 ID나 랭킹 번호를 매겨 딕셔너리로 구조화하기 매우 쉬워집니다.",
+        "terminal": {
+          "code": [
+            "ranks = [\"Gold\", \"Silver\", \"Bronze\"]",
+            "rank_dict = {rank: i + 1 for i, rank in enumerate(ranks)}",
+            "print(rank_dict)"
+          ],
+          "output": [
+            "{'Gold': 1, 'Silver': 2, 'Bronze': 3}"
+          ]
+        },
+        "tip": "데이터를 순회하며 유일한 순번이나 인덱스 매핑 테이블을 만들 때 자주 쓰이는 패턴이에요."
+      },
+      {
+        "order": 6,
+        "text": "복잡해 보이는 중첩 리스트 구조나 행렬 데이터도 컴프리헨션을 이용하면 효율적으로 가공할 수 있어요.\n다만 지나치게 중첩하면 오히려 가독성을 해치므로 최대 2단계 내외로만 사용하는 게 좋아요.",
+        "terminal": {
+          "code": [
+            "matrix = [[1, 2], [3, 4]]",
+            "flat = [num for row in matrix for num in row]",
+            "print(flat)"
+          ],
+          "output": [
+            "[1, 2, 3, 4]"
+          ]
+        },
+        "tip": "for 행 in 행렬을 먼저 돌고, 그 안에서 다시 for 요소를 도는 이중 구조가 한 줄에 녹아있어요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "5-3-intermediate",
+    "unit": 5,
+    "stage": "5-3",
+    "course_level": "intermediate",
+    "title": "JSON 파일 처리",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "JSON(JavaScript Object Notation)은 웹 공간이나 프로그램 간에 데이터를 주고받을 때 표준으로 사용되는 가벼운 텍스트 형식이에요.\n구조가 파이썬의 딕셔너리 및 리스트와 완전히 닮아 있어서 호환성이 아주 훌륭해요.",
+        "tip": "JSON은 네트워크 통신과 설정 파일 저장용으로 가장 인기 있는 텍스트 포맷이에요."
+      },
+      {
+        "order": 2,
+        "text": "파이썬에서 JSON 데이터를 다루려면 기본 내장 라이브러리인 json 모듈을 import 해야 해요.\njson.dumps()는 파이썬 딕셔너리를 하나의 긴 JSON 텍스트 문자열로 변환(직렬화)해주는 함수예요.",
+        "terminal": {
+          "code": [
+            "import json",
+            "",
+            "user_info = {\"name\": \"에이몬\", \"level\": 15, \"skills\": [\"파이어\", \"아이스\"]}",
+            "json_string = json.dumps(user_info)",
+            "print(type(json_string))",
+            "print(json_string)"
+          ],
+          "output": [
+            "<class 'str'>",
+            "{\"name\": \"\\uc5d0\\uc774\\ubaac\", \"level\": 15, \"skills\": [\"\\ud30c\\uc774\\uc5b4\", \"\\uc544\\uc774\\uc2a4\"]}"
+          ]
+        },
+        "tip": "한글이 깨진 것처럼 보이는 이유는 기본적으로 ASCII 문자로 인코딩되기 때문이에요. 해결법은 다음 슬라이드에 나와요."
+      },
+      {
+        "order": 3,
+        "text": "json.dumps() 함수를 쓸 때 ensure_ascii=False 옵션을 주면 한글이 유니코드 기호로 바뀌지 않고 사람이 읽을 수 있는 정상적인 한글로 깔끔하게 출력돼요.\nindent 옵션을 주면 들여쓰기가 적용되어 가독성이 높아져요.",
+        "terminal": {
+          "code": [
+            "pretty_json = json.dumps(user_info, ensure_ascii=False, indent=2)",
+            "print(pretty_json)"
+          ],
+          "output": [
+            "{",
+            "  \"name\": \"에이몬\",",
+            "  \"level\": 15,",
+            "  \"skills\": [",
+            "    \"파이어\",",
+            "    \"아이스\"",
+            "  ]",
+            "}"
+          ]
+        },
+        "tip": "ensure_ascii=False와 indent는 디버깅이나 로그 출력 시 필수 세팅이에요."
+      },
+      {
+        "order": 4,
+        "text": "반대로 JSON 형식의 텍스트 문자열을 다시 파이썬의 딕셔너리 객체로 되돌릴(역직렬화) 때는 json.loads() 함수를 사용해요.\ns가 붙은 dumps와 loads는 파일이 아닌 '문자열(String)'을 대상으로 작동한다는 뜻이에요.",
+        "terminal": {
+          "code": [
+            "json_data = '{\"name\": \"말풍선킹\", \"hp\": 500}'",
+            "parsed_dict = json.loads(json_data)",
+            "print(type(parsed_dict))",
+            "print(parsed_dict[\"name\"])"
+          ],
+          "output": [
+            "<class 'dict'>",
+            "말풍선킹"
+          ]
+        },
+        "tip": "loads()를 거치면 문자열이 실제 딕셔너리로 변해서 대괄호 키 접근이 가능해져요."
+      },
+      {
+        "order": 5,
+        "text": "데이터를 단순 문자열로 다루지 않고 실제 하드디스크에 .json 파일로 직접 저장하거나 읽어올 때는 s가 빠진 json.dump()와 json.load() 함수를 open() 구문과 결합하여 사용해요.",
+        "terminal": {
+          "code": [
+            "data = {\"boss\": \"말풍선킹\", \"weakness\": \"공백\"}",
+            "",
+            "# 파일 저장하기 (dump)",
+            "with open(\"enemy.json\", \"w\", encoding=\"utf-8\") as f:",
+            "    json.dump(data, f, ensure_ascii=False, indent=4)"
+          ],
+          "output": [
+            "# enemy.json 파일이 로컬 디스크에 생성됨"
+          ]
+        },
+        "tip": "파일을 열 때는 인코딩 충돌을 방지하기 위해 encoding='utf-8'을 지정하는 습관이 중요해요."
+      },
+      {
+        "order": 6,
+        "text": "저장된 .json 파일을 읽어와 파이썬 프로그램 내부에서 로드할 때는 json.load(파일객체)를 실행해요.\n정확하게 데이터를 복원하여 원본 딕셔너리 구조 그대로 사용할 수 있도록 도와줘요.",
+        "terminal": {
+          "code": [
+            "# 파일 읽어오기 (load)",
+            "with open(\"enemy.json\", \"r\", encoding=\"utf-8\") as f:",
+            "    loaded_data = json.load(f)",
+            "",
+            "print(loaded_data)",
+            "print(loaded_data[\"boss\"])"
+          ],
+          "output": [
+            "{'boss': '말풍선킹', 'weakness': '공백'}",
+            "말풍선킹"
+          ]
+        },
+        "tip": "네트워크, 설정 데이터 관리 등 백엔드 아키텍처의 기본이 되는 중요한 파일 제어 스킬이에요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "5-4-intermediate",
+    "unit": 5,
+    "stage": "5-4",
+    "course_level": "intermediate",
+    "title": "CSV 파일 처리",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "CSV(Comma-Separated Values)는 각 표의 데이터 항목을 쉼표(,)로 구분하여 표현하는 텍스트 파일 표준이에요.\n엑셀이나 데이터베이스 테이블 구조와 직관적으로 연동되기 때문에 데이터 분석 영역에서 핵심 축을 담당하고 있어요.",
+        "tip": "CSV는 복잡한 서식 없이 텍스트와 쉼표만으로 구성되어 있어 용량이 작고 교환하기 쉬워요."
+      },
+      {
+        "order": 2,
+        "text": "파이썬 표준 내장 모듈인 csv를 사용하면 손쉽게 행 단위 처리가 가능해요.\n가장 기본형인 csv.reader()는 각 줄을 문자열 리스트(list) 형태로 차례차례 꺼내어 줍니다.",
+        "terminal": {
+          "code": [
+            "import csv",
+            "",
+            "# 예시용 CSV 텍스트 작성 후 읽기 시뮬레이션",
+            "csv_content = \"이름,직업,레벨\\n에이몬,마법사,15\\n용사,전사,20\"",
+            "lines = csv_content.strip().split('\\n')",
+            "reader = csv.reader(lines)",
+            "for row in reader:",
+            "    print(row)"
+          ],
+          "output": [
+            "['이름', '직업', '레벨']",
+            "['에이몬', '마법사', '15']",
+            "['용사', '전사', '20']"
+          ]
+        },
+        "tip": "csv.reader의 결과는 행마다 단순 리스트 형태이므로, 각 항목에 접근할 때 숫자로 인덱싱(row[0])해야 해요."
+      },
+      {
+        "order": 3,
+        "text": "숫자 인덱스 대신 첫 줄의 헤더(컬럼명)를 Key로 삼아 편리하게 매핑해주는 csv.DictReader()를 사용하면 코딩 실수를 대폭 줄일 수 있어요.\n각 행을 파이썬의 사전(Dictionary)처럼 접근할 수 있게 빌드해줍니다.",
+        "terminal": {
+          "code": [
+            "csv_content = \"이름,직업\\n에이몬,마법사\\n방해몬,도적\"",
+            "lines = csv_content.strip().split('\\n')",
+            "dict_reader = csv.DictReader(lines)",
+            "for row in dict_reader:",
+            "    print(f\"{row['이름']}의 직업은 {row['직업']}입니다.\")"
+          ],
+          "output": [
+            "에이몬의 직업은 마법사입니다.",
+            "방해몬의 직업은 도적입니다."
+          ]
+        },
+        "tip": "컬럼명이 키가 되므로 데이터 순서가 바뀌거나 항목이 추가되어도 코드에 영향이 가지 않아 안전해요."
+      },
+      {
+        "order": 4,
+        "text": "파이썬의 데이터를 실제 CSV 파일로 새로 저장하고 내보낼 때는 csv.writer() 객체를 활용해요.\n한 행을 입력할 때는 writerow() 메서드를, 여러 행을 통째로 보낼 때는 writerows() 메서드를 호출해요.",
+        "terminal": {
+          "code": [
+            "data = [[\"이름\", \"점수\"], [\"에이몬\", \"100\"], [\"코드몬\", \"88\"]]",
+            "with open(\"output.csv\", \"w\", newline=\"\", encoding=\"utf-8\") as f:",
+            "    writer = csv.writer(f)",
+            "    writer.writerows(data)"
+          ],
+          "output": [
+            "# 로컬 디스크에 output.csv 파일 쓰기 완료"
+          ]
+        },
+        "tip": "open 구문에 newline='' 옵션을 누락하면 운영체제 특성에 따라 줄바꿈이 두 번씩 들어가는 오작동이 날 수 있어요."
+      },
+      {
+        "order": 5,
+        "text": "딕셔너리 구조의 데이터를 고스란히 CSV 파일로 출력해 저장할 때는 csv.DictWriter()를 적용하면 편리해요.\n객체를 생성할 때 열 타이틀 배열인 fieldnames 리스트를 명시적으로 넘겨주어야 구조가 잡혀요.",
+        "terminal": {
+          "code": [
+            "fields = [\"id\", \"item\"]",
+            "rows = [{\"id\": \"1\", \"item\": \"물약\"}, {\"id\": \"2\", \"item\": \"방패\"}]",
+            "with open(\"shop.csv\", \"w\", newline=\"\", encoding=\"utf-8\") as f:",
+            "    writer = csv.DictWriter(f, fieldnames=fields)",
+            "    writer.writeheader()  # 첫 줄 컬럼명 작성",
+            "    writer.writerows(rows)"
+          ],
+          "output": [
+            "# 헤더가 포함된 shop.csv 파일 저장 성공"
+          ]
+        },
+        "tip": "writeheader() 메서드를 명시적으로 먼저 호출해주어야 파일 첫 행에 컬럼 이름들이 올바르게 인쇄돼요."
+      },
+      {
+        "order": 6,
+        "text": "CSV 파일을 다룰 때 가장 빈번하게 발생하는 에러 상황은 인코딩 불일치 문제예요.\n일반 텍스트 편집기나 파이썬은 주로 'utf-8'을 표준으로 쓰지만, 엑셀(Excel) 프로그램은 윈도우 한글 환경에서 'cp949' 또는 'euc-kr' 인코딩을 기준으로 작동할 때가 많아 맞춰주어야 깨지지 않아요.",
+        "terminal": {
+          "code": [
+            "# 엑셀 호환용으로 저장할 때의 예시 안전 장치",
+            "with open(\"excel_data.csv\", \"w\", newline=\"\", encoding=\"utf-8-sig\") as f:",
+            "    # utf-8-sig로 저장하면 엑셀에서 한글 글자 깨짐 현상을 원천 방지할 수 있어요.",
+            "    pass"
+          ],
+          "output": [
+            "# 인코딩 호환 세팅 가이드 완료"
+          ]
+        },
+        "tip": "utf-8-sig 인코딩은 파일 맨 앞에 BOM이라는 눈에 안 보이는 마크를 붙여 엑셀이 한글을 인식하게 만들어 줘요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "5-5-intermediate",
+    "unit": 5,
+    "stage": "5-5",
+    "course_level": "intermediate",
+    "title": "자료형 심화 종합실습",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "Unit 5에서 정복한 핵심 데이터 처리 무기들을 하나로 통합해 보는 시간이에요.\n리스트/딕셔너리 컴프리헨션의 압축 제어문과 CSV, JSON의 파일 입출력을 조합하여 실무 레벨의 '데이터 변환 엔진 파이프라인'을 완전하게 구축해볼 거예요.",
+        "tip": "종합 실습 목적은 외부 원본 파일 로딩부터 정제 필터링을 거쳐 새 데이터 파일 타겟 포맷으로 출력하는 전체 데이터 흐름의 장악이에요."
+      },
+      {
+        "order": 2,
+        "text": "시나리오: 로컬 상점의 판매 원본 기록이 담긴 raw_sales.csv 데이터를 읽어온 뒤, 판매 수량이 5개 이상인 핵심 우수 거래만 선별 필터링하고 이를 정리해 웹 서버로 즉시 전송 가능한 정제형 json 파일 포맷으로 전환하는 내보내기 자동화 코드를 작성합니다.",
+        "terminal": {
+          "code": [
+            "# 1단계: 원본 가상 데이터 작성",
+            "csv_raw = \"ID,상품명,수량\\n101,빨간물약,3\\n102,초록물약,8\\n103,마법지팡이,12\\n104,녹슨칼,2\"",
+            "print(\"파이프라인 소스 로드 준비 완료\")"
+          ],
+          "output": [
+            "파이프라인 소스 로드 준비 완료"
+          ]
+        },
+        "tip": "실제 대용량 빅데이터 처리 시스템도 이와 완전히 똑같은 구조적 흐름 순서로 파이프라인이 전개돼요."
+      },
+      {
+        "order": 3,
+        "text": "우선 csv.DictReader를 통해 텍스트 소스 스트림을 딕셔너리 리스트 구조로 안전하게 수집해요.\n이후 파이썬의 강력한 무기인 리스트 컴프리헨션 필터링 구문을 연계하여 판매 '수량' 값을 정수형 변환 처리(int)한 뒤 기준 조건인 5개 이상 데이터만 한 줄로 깔끔하게 정합 추출합니다.",
+        "terminal": {
+          "code": [
+            "import csv",
+            "lines = csv_raw.strip().split('\\n')",
+            "reader = csv.DictReader(lines)",
+            "",
+            "# 2단계: 컴프리헨션 문법으로 수량이 5개 이상인 데이터만 필터링 및 구조 가공",
+            "filtered_sales = [",
+            "    {\"item_id\": row[\"ID\"], \"name\": row[\"상품명\"], \"quantity\": int(row[\"수량\"])}",
+            "    for row in reader",
+            "    if int(row[\"수량\"]) >= 5",
+            "]",
+            "print(filtered_sales)"
+          ],
+          "output": [
+            "[{'item_id': '102', 'name': '초록물약', 'quantity': 8}, {'item_id': '103', 'name': '마법지팡이', 'quantity': 12}]"
+          ]
+        },
+        "tip": "수량 데이터인 row['수량']은 파일에서 읽었을 때 처음에 문자열 형태이므로 연산 비교를 위해 반드시 int() 형변환을 감싸주어야 해요."
+      },
+      {
+        "order": 4,
+        "text": "마지막 3단계는 정제 완료된 파이썬 자료형 데이터를 json.dump()를 이용하여 외부 정형 리포트 파일 리소스로 저장하는 단계예요.\n웹 대시보드나 클라이언트 API 시스템이 즉시 임포트할 수 있도록 마감 처리를 완료합니다.",
+        "terminal": {
+          "code": [
+            "import json",
+            "",
+            "pipeline_result = {",
+            "    \"status\": \"SUCCESS\",",
+            "    \"total_processed\": len(filtered_sales),",
+            "    \"data\": filtered_sales",
+            "}",
+            "",
+            "# 3단계: 최종 결과물 JSON 영구 저장",
+            "with open(\"refined_sales.json\", \"w\", encoding=\"utf-8\") as f:",
+            "    json.dump(pipeline_result, f, ensure_ascii=False, indent=4)"
+          ],
+          "output": [
+            "# refined_sales.json 파일 내보내기 자동화 파이프라인 연동 완료"
+          ]
+        },
+        "tip": "최종 랩핑 딕셔너리에 status나 전체 개수(total_processed) 같은 메타데이터를 함께 묶어 저장하면 활용성이 극대화돼요."
+      },
+      {
+        "order": 5,
+        "text": "실제로 내보내기 연동이 완벽하게 완료되었는지 확인을 위해, 저장된 refined_sales.json 파일을 다시 역으로 open하여 콘솔 로그 창에 사람이 읽기 좋은 포맷으로 최종 출력해 봅니다.",
+        "terminal": {
+          "code": [
+            "with open(\"refined_sales.json\", \"r\", encoding=\"utf-8\") as f:",
+            "    final_check = json.load(f)",
+            "",
+            "print(json.dumps(final_check, ensure_ascii=False, indent=2))"
+          ],
+          "output": [
+            "{",
+            "  \"status\": \"SUCCESS\",",
+            "  \"total_processed\": 2,",
+            "  \"data\": [",
+            "    {",
+            "      \"item_id\": \"102\",",
+            "      \"name\": \"초록물약\",",
+            "      \"quantity\": 8",
+            "    },",
+            "    {",
+            "      \"item_id\": \"103\",",
+            "      \"name\": \"마법지팡이\",",
+            "      \"quantity\": 12",
+            "    }",
+            "  ]",
+            "}"
+          ]
+        },
+        "tip": "한 번 생성된 변환 파이프라인 스크립트는 원본 CSV가 수만 행으로 늘어나도 단 1초 만에 자동 정제 처리를 완수할 수 있어요."
+      },
+      {
+        "order": 6,
+        "text": "축하합니다! 이로써 여러분은 리스트 가공 최적화 기법부터 이종 파이프라인 연계 능력까지 모두 확보한 숙련된 파이썬 개발자로 진화하셨습니다.\n수많은 로우 데이터를 정밀하게 가공 처리할 수 있는 핵심 역량을 마음껏 펼쳐보세요!",
+        "terminal": {
+          "code": [
+            "print(\"Unit 5 파이프라인 마스터! 다음 여정은 Unit 6 가상환경 venv 시스템입니다!\")"
+          ],
+          "output": [
+            "Unit 5 파이프라인 마스터! 다음 여정은 Unit 6 가상환경 venv 시스템입니다!"
+          ]
+        },
+        "tip": "데이터를 다루는 백엔드 엔진의 탄탄한 기본기가 마침내 완성되었습니다. 고생하셨어요!"
+      }
+    ]
+  }
+]

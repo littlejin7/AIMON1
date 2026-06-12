@@ -140,7 +140,7 @@ backend/data/lessons/
 
 ## 2. quiz / miniboss / unitboss 폴더
 
-> 현황 (2026-06-11): beginner Unit 1~5 데이터 완료. Unit 6~8 및 intermediate/advanced 제작 예정.
+> 현황 (2026-06-12): beginner Unit 1~8 quiz/miniboss/unitboss 완료. finalboss beginner account 완료. 나머지 3개 프로젝트 및 intermediate/advanced 제작 예정.
 
 퀴즈 문제 데이터 — 카테고리별 + 레벨별 + 유닛별로 분리 관리
 
@@ -176,11 +176,13 @@ backend/data/
 | `quiz_set`         | string  | A / B                                                        | ❌   | stage_quiz 전용. Set A(1회차) / Set B(2회차) / 없으면 3회차 혼합                                |
 | `is_boss`          | boolean | true / false                                                 | ✅   | 유닛 보스 / 엔드보스 여부 (`stage: "1-boss"` 또는 `stage: "final"` 과 함께 사용)               |
 | `phase`            | number  | 1 / 2 / 3                                                    | ❌   | 엔드보스 전용. 페이즈 번호 (1=분석전, 2=역전, 3=결정타)                                         |
+| `project`          | string  | account / wordchain / grade / gpa                            | ❌   | 엔드보스 전용. 선택한 프로젝트 (beginner 기준 4개)                                              |
 | `question`         | string  | -                                                            | ✅   | 문제 텍스트                                                                                     |
 | `choices`          | array   | -                                                            | ❌   | 선택지 (multiple_choice / output_select / error_find 해당, fill_in_blank는 빈 배열)             |
 | `answer`           | string  | -                                                            | ✅   | 정답                                                                                            |
 | `hint`             | string  | -                                                            | ❌   | 힌트 텍스트 — **stage_quiz 전용**. miniboss / unitboss 에는 필드 자체 없음                      |
-| `feedback.correct` | string  | -                                                            | ✅   | 정답 시 출력 텍스트 (API 호출 없음)                                                             |
+| `feedback.correct`   | string  | -                                                          | ✅   | 정답 시 출력 텍스트 (API 호출 없음)                                                             |
+| `feedback.incorrect` | string  | -                                                          | ❌   | 오답 시 출력 텍스트. miniboss / unitboss / finalboss에 사용. stage_quiz는 Claude AI 피드백으로 대체. |
 
 > `stage: "1-boss"` + `is_boss: true` 조합으로 보스 문제 구분.
 
@@ -205,7 +207,7 @@ backend/data/
 | 스테이지 advanced     | `q{2로 시작 세자리}`                            | `q201`, `q202`, `q203`    |
 | 스테이지 미니보스     | `miniboss_{level}_{type}_{unit}_{stage}_{번호}` | `miniboss_beg_mc_1_1_001` |
 | 유닛 보스             | `unitboss_{level}_{type}_{unit}_{번호}`         | `unitboss_beg_os_1_001`   |
-| 엔드보스              | `finalboss_{level}_{type}_p{phase}_{번호}`      | `finalboss_beg_fib_p3_001` |
+| 엔드보스              | `finalboss_{level}_{project}_p{phase}_{번호}`   | `finalboss_beg_account_p3_001` |
 
 ```json
 {
@@ -582,40 +584,51 @@ backend/data/
 }
 ```
 
-**final_boss — output_select + fill_in_blank (hints_allowed: 0)**
+**final_boss — Phase 1(output_select/multiple_choice) + Phase 2(error_find) + Phase 3(fill_in_blank)**
 
 ```json
-{
-  "type": "final_boss",
-  "level": "beginner",
-  "boss_name": "파이널 보스 — 검정 에이몬",
-  "unlock_condition": "Unit 8 보스 클리어 후 해금",
-  "hints_allowed": 0,
-  "xp_reward": 5000,
-  "questions": [
-    {
-      "question_id": "fb_beg_os_001",
-      "type": "output_select",
-      "question": "다음 코드의 출력값을 고르세요.\n\nname = '에이몬'\nlevel = 8\nprint(f'{name}이 Lv.{level}로 최종 진화했습니다!')\n# print('슬라임 시절이 그립다')\nprint('축하합니다!')",
-      "choices": [
-        "A. 에이몬이 Lv.8로 최종 진화했습니다! / 슬라임 시절이 그립다 / 축하합니다!",
-        "B. 에이몬이 Lv.8로 최종 진화했습니다! / 축하합니다!",
-        "C. {name}이 Lv.{level}로 최종 진화했습니다! / 축하합니다!",
-        "D. 오류 발생"
-      ],
-      "answer": "B",
-      "explanation": "f-string은 {} 안의 변수를 값으로 치환해요. # 주석은 무시됩니다."
-    },
-    {
-      "question_id": "fb_beg_fib_001",
-      "type": "fill_in_blank",
-      "question": "빈칸을 채워 '에이몬 최종 진화 완료!' 를 출력하세요.\n\n_____('에이몬 최종 진화 완료!')",
-      "answer": "print",
-      "explanation": "print() 함수를 사용하면 괄호 안의 내용을 화면에 출력할 수 있어요."
+[
+  {
+    "question_id": "finalboss_beg_account_p1_001",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "account",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "difficulty": "easy",
+    "type": "output_select",
+    "question": "다음 코드의 출력 결과는?\n\n```python\nrecords = [8000, 12000, 5000]\nprint(sum(records))\n```",
+    "choices": ["A. 25000", "B. 8000", "C. [8000, 12000, 5000]", "D. None"],
+    "answer": "A",
+    "explanation": "sum()은 숫자 리스트의 합계를 반환합니다. 8000 + 12000 + 5000 = 25000입니다.",
+    "feedback": {
+      "correct": "정확합니다! sum()으로 리스트의 합계를 구할 수 있어요.",
+      "incorrect": "sum()은 리스트 안의 숫자를 모두 더한 값을 반환합니다. 8000+12000+5000=25000이에요."
     }
-  ]
-}
+  },
+  {
+    "question_id": "finalboss_beg_account_p3_001",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "account",
+    "phase": 3,
+    "stage": "final",
+    "unit": 9,
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "question": "가계부 파일을 안전하게 불러오는 함수입니다.\n빈칸에 알맞은 코드를 입력하세요.\n\n```python\ndef load_records():\n    try:\n        with open('account.json', 'r') as f:\n            return json._____(f)\n    except FileNotFoundError:\n        return []\n```",
+    "answer": "load",
+    "explanation": "json.load(f)는 파일 객체로부터 JSON 데이터를 읽어 Python 객체로 반환합니다.",
+    "feedback": {
+      "correct": "완벽합니다! json.load(f)로 파일에서 JSON을 읽어옵니다.",
+      "incorrect": "파일에서 JSON을 읽을 때는 json.load(f)를 사용합니다. 저장은 json.dump(), 읽기는 json.load()예요."
+    }
+  }
+]
 ```
+
+> `unit: 9`는 엔드보스 전용 컨벤션 (실제 유닛 9 없음). `project` 필드로 4개 프로젝트 풀 분리. 실제 데이터: `backend/data/finalboss/beginner.json`
 
 ---
 
