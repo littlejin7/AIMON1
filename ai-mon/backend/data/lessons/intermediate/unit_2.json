@@ -1,0 +1,131 @@
+[
+  {
+    "lesson_id": "2-1-intermediate",
+    "unit": 2,
+    "stage": "2-1",
+    "course_level": "intermediate",
+    "title": "튜플 기초",
+    "villain": "codemmon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "튜플(tuple)은 리스트와 비슷하지만, 한 번 만들면 값을 바꿀 수 없는 불변(immutable) 자료구조입니다.\n소괄호 `()`로 만들며, 여러 타입의 값을 함께 담을 수 있습니다.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "point = (10, 20)",
+            "info = ('Alice', 30, True)",
+            "",
+            "print(point)",
+            "print(info)"
+          ],
+          "output": [
+            "(10, 20)",
+            "('Alice', 30, True)"
+          ]
+        },
+        "tip": "소괄호 없이 쉼표만으로도 튜플을 만들 수 있어요. `x = 1, 2, 3`도 튜플입니다."
+      },
+      {
+        "order": 2,
+        "text": "튜플의 각 요소는 인덱스로 접근합니다. 리스트와 동일하게 0부터 시작하며, 음수 인덱스도 사용 가능합니다.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "color = ('red', 'green', 'blue')",
+            "",
+            "print(color[0])",
+            "print(color[-1])",
+            "print(color[1:3])"
+          ],
+          "output": [
+            "red",
+            "blue",
+            "('green', 'blue')"
+          ]
+        },
+        "tip": "슬라이싱 결과도 튜플로 반환됩니다."
+      },
+      {
+        "order": 3,
+        "text": "튜플은 불변(immutable)이기 때문에 생성 후 값을 수정하거나 추가·삭제할 수 없습니다.\n수정을 시도하면 `TypeError`가 발생합니다.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "point = (10, 20)",
+            "point[0] = 99  # 수정 시도"
+          ],
+          "output": [
+            "TypeError: 'tuple' object does not support item assignment"
+          ]
+        },
+        "tip": "불변성 덕분에 튜플은 딕셔너리의 키(key)로 사용할 수 있습니다. 리스트는 불가능해요."
+      },
+      {
+        "order": 4,
+        "text": "튜플 언패킹(unpacking)을 사용하면 튜플의 각 값을 여러 변수에 한 번에 할당할 수 있습니다.\n변수 개수와 튜플 요소 수가 일치해야 합니다.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "point = (10, 20)",
+            "x, y = point",
+            "",
+            "name, age, city = ('Alice', 30, 'Seoul')",
+            "",
+            "print(x, y)",
+            "print(name, age, city)"
+          ],
+          "output": [
+            "10 20",
+            "Alice 30 Seoul"
+          ]
+        },
+        "tip": "언패킹은 변수 교환에도 활용돼요. `a, b = b, a` — 임시 변수 없이 두 값을 바꿀 수 있습니다."
+      },
+      {
+        "order": 5,
+        "text": "튜플은 요소가 하나일 때 반드시 쉼표를 붙여야 합니다.\n쉼표 없이 소괄호만 사용하면 튜플이 아니라 단순 괄호 표현식으로 처리됩니다.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "a = (5)       # int — 튜플 아님",
+            "b = (5,)      # tuple — 올바른 1요소 튜플",
+            "c = 5,        # tuple — 쉼표만으로도 가능",
+            "",
+            "print(type(a), a)",
+            "print(type(b), b)",
+            "print(type(c), c)"
+          ],
+          "output": [
+            "<class 'int'> 5",
+            "<class 'tuple'> (5,)",
+            "<class 'tuple'> (5,)"
+          ]
+        },
+        "tip": "1요소 튜플을 만들 때 쉼표를 빠뜨리는 실수가 흔합니다. `type()`으로 꼭 확인하세요."
+      },
+      {
+        "order": 6,
+        "text": "튜플은 `len()`, `count()`, `index()` 등 조회 관련 메서드를 지원합니다.\n값을 변경하지 않는 읽기 전용 연산만 허용됩니다.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "scores = (85, 90, 78, 90, 95)",
+            "",
+            "print(len(scores))          # 요소 수",
+            "print(scores.count(90))     # 90의 개수",
+            "print(scores.index(78))     # 78의 인덱스",
+            "print(max(scores))          # 최댓값"
+          ],
+          "output": [
+            "5",
+            "2",
+            "2",
+            "95"
+          ]
+        },
+        "tip": "튜플은 리스트보다 메모리 효율이 좋고 속도가 빠릅니다. 변경이 필요 없는 데이터는 튜플로 관리하세요."
+      }
+    ]
+  }
+]
