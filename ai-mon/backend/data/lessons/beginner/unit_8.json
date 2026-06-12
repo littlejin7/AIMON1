@@ -4,129 +4,79 @@
     "unit": 8,
     "stage": "8-1",
     "course_level": "beginner",
-    "title": "show_menu() : 가방 열기 화면 만들기",
+    "title": "인벤토리 메뉴 만들기",
     "villain": "interferencemon",
     "slides": [
       {
         "order": 1,
-        "text": "Unit 8에서는 지금까지 배운 모든 개념을 하나로 합쳐 진짜 동작하는 프로그램을 만들어요.\n만들 것은 바로 RPG 게임의 가방(인벤토리) 시스템이에요.\n프로그램을 켜면 가장 먼저 보이는 화면, 메뉴 UI를 출력하는 show_menu() 함수부터 시작해요.",
+        "text": "인벤토리(Inventory) 시스템의 시작입니다!\n먼저 print()를 사용해 유저가 선택할 수 있는 시스템 메뉴 UI를 깔끔하게 화면에 띄워줍니다.",
         "terminal": {
           "code": [
-            "def show_menu():",
-            "    print(\"=== 에이몬의 가방 ===\")",
-            "    print(\"1. 아이템 넣기\")",
-            "    print(\"2. 가방 보기\")",
-            "    print(\"3. 아이템 버리기\")",
-            "    print(\"4. 가방 닫기\")",
-            "",
-            "show_menu()"
+            "print('=== 에이몬 인벤토리 시스템 ===')",
+            "print('1. 아이템 획득')",
+            "print('2. 인벤토리 확인')"
           ],
           "output": [
-            "=== 에이몬의 가방 ===",
-            "1. 아이템 넣기",
-            "2. 가방 보기",
-            "3. 아이템 버리기",
-            "4. 가방 닫기"
+            "=== 에이몬 인벤토리 시스템 ===",
+            "1. 아이템 획득",
+            "2. 인벤토리 확인"
           ]
         },
-        "tip": "함수로 만들면 필요할 때마다 show_menu()만 호출해서 메뉴를 다시 출력할 수 있어요."
+        "tip": "유저가 어떤 기능을 사용할 수 있는지 직관적으로 안내하는 역할을 해요."
       },
       {
         "order": 2,
-        "text": "print()를 여러 번 쓰는 대신, 삼중 따옴표(\"\"\" \"\"\")를 사용하면 한 번에 여러 줄을 출력할 수 있어요.\n코드가 훨씬 간결해지고, 실제 메뉴처럼 보여요.\n삼중 따옴표 안의 내용은 줄바꿈과 공백까지 그대로 출력된다는 점을 기억하세요.",
+        "text": "메뉴판만 보여주면 안 되겠죠?\ninput() 함수를 사용하여 유저가 어떤 메뉴 번호를 선택했는지 키보드로 입력받아 변수에 담아줍니다.",
         "terminal": {
           "code": [
-            "def show_menu():",
-            "    print(\"\"\"",
-            "=== 에이몬의 가방 ===",
-            "1. 아이템 넣기",
-            "2. 가방 보기",
-            "3. 아이템 버리기",
-            "4. 가방 닫기",
-            "\"\"\")",
-            "",
-            "show_menu()"
+            "choice = input('메뉴 번호를 입력하세요: ')",
+            "print(f'입력된 데이터: {choice}')"
           ],
           "output": [
-            "",
-            "=== 에이몬의 가방 ===",
-            "1. 아이템 넣기",
-            "2. 가방 보기",
-            "3. 아이템 버리기",
-            "4. 가방 닫기",
-            ""
+            "메뉴 번호를 입력하세요: 1",
+            "입력된 데이터: 1"
           ]
         },
-        "tip": "삼중 따옴표는 '\"\"\"' 또는 \"'''\" 모두 사용할 수 있어요. 긴 텍스트를 한 번에 쓸 때 편리해요."
+        "tip": "input()으로 입력받은 데이터는 언제나 문자열(str) 형태로 보관된다는 점을 기억하세요!"
       },
       {
         "order": 3,
-        "text": "메뉴를 보여줬으면 사용자의 선택을 받아야 해요.\ninput()으로 입력을 받으면 항상 문자열(str)로 저장된다는 것, 기억하죠?\n숫자 1을 입력해도 \"1\"이라는 문자열로 받아요.",
+        "text": "함수 안에서 입력받은 유저의 선택값을 메인 시스템 엔진으로 넘겨주어야 합니다.\n이때 함수 내부의 데이터를 바깥으로 반환하는 return 키워드를 사용합니다.",
         "terminal": {
           "code": [
-            "def show_menu():",
-            "    print(\"1. 아이템 넣기  4. 가방 닫기\")",
-            "    choice = input(\"선택: \")",
-            "    print(type(choice))",
-            "    print(choice)",
+            "def get_input():",
+            "    ans = '1'",
+            "    return ans",
             "",
-            "show_menu()"
+            "result = get_input()",
+            "print(result)"
           ],
           "output": [
-            "1. 아이템 넣기  4. 가방 닫기",
-            "선택: 1",
-            "<class 'str'>",
             "1"
           ]
         },
-        "tip": "input()은 항상 문자열을 반환해요. 나중에 if choice == \"1\":처럼 따옴표로 비교해야 해요."
+        "tip": "return이 실행되면 함수는 그 즉시 결과값을 반환하고 완전히 종료돼요."
       },
       {
         "order": 4,
-        "text": "함수가 선택값을 그냥 갖고 있으면 바깥에서 사용할 수 없어요.\nreturn으로 선택값을 돌려줘야 다른 곳에서 받아 쓸 수 있어요.\nreturn은 함수의 결과물을 바깥으로 전달하는 역할이에요.",
+        "text": "지금까지 배운 세 가지 개념(print, input, return)을 하나로 조립하여\n인벤토리 시스템의 진입을 담당할 show_menu() 함수를 멋지게 완성해 봅시다!",
         "terminal": {
           "code": [
             "def show_menu():",
-            "    print(\"1. 아이템 넣기  4. 가방 닫기\")",
-            "    choice = input(\"선택: \")",
+            "    print('1. 아이템 획득  2. 인벤토리 확인')",
+            "    choice = input('메뉴 선택: ')",
             "    return choice",
             "",
-            "result = show_menu()",
-            "print(f\"선택한 번호: {result}\")"
+            "menu_num = show_menu()",
+            "print(f'반환된 메뉴 번호: {menu_num}')"
           ],
           "output": [
-            "1. 아이템 넣기  4. 가방 닫기",
-            "선택: 1",
-            "선택한 번호: 1"
+            "1. 아이템 획득  2. 인벤토리 확인",
+            "메뉴 선택: 2",
+            "반환된 메뉴 번호: 2"
           ]
         },
-        "tip": "return이 없으면 함수 바깥에서 choice 값을 알 수 없어요. 계산기에서 결과를 return했던 것과 같은 원리예요."
-      },
-      {
-        "order": 5,
-        "text": "show_menu()가 돌려준 값으로 어떤 기능을 실행할지 결정해요.\n계산기에서 +, -, *, /를 선택했을 때처럼, if/elif로 분기해서 기능을 연결해요.\n이것이 인벤토리 시스템의 기본 뼈대가 돼요.",
-        "terminal": {
-          "code": [
-            "def show_menu():",
-            "    print(\"1. 아이템 넣기  4. 가방 닫기\")",
-            "    return input(\"선택: \")",
-            "",
-            "choice = show_menu()",
-            "",
-            "if choice == \"1\":",
-            "    print(\"아이템 넣기 실행!\")",
-            "elif choice == \"4\":",
-            "    print(\"가방을 닫아요.\")",
-            "else:",
-            "    print(\"잘못된 입력이에요.\")"
-          ],
-          "output": [
-            "1. 아이템 넣기  4. 가방 닫기",
-            "선택: 1",
-            "아이템 넣기 실행!"
-          ]
-        },
-        "tip": "return input(\"선택: \")처럼 한 줄로 줄일 수도 있어요. input() 결과를 바로 return하는 패턴이에요."
+        "tip": "이제 유저의 선택 명령을 시스템으로 전달할 수 있는 근사한 함수가 생겼습니다!"
       }
     ]
   },
@@ -135,129 +85,77 @@
     "unit": 8,
     "stage": "8-2",
     "course_level": "beginner",
-    "title": "add_item() : 아이템 드롭 및 가방에 넣기",
+    "title": "아이템 획득하기",
     "villain": "interferencemon",
     "slides": [
       {
         "order": 1,
-        "text": "가방에 아이템을 넣는 기능을 만들어요.\n아이템 목록을 담을 빈 리스트 bag을 먼저 준비하고,\n.append() 메서드로 새 아이템을 뒤에 추가해요.",
+        "text": "모험을 하며 어떤 아이템을 획득할지는 무작위 확률로 결정됩니다.\n파이썬에서 확률이나 난수를 다루기 위해 import random으로 내장 모듈을 불러옵니다.",
         "terminal": {
           "code": [
-            "bag = []",
-            "",
-            "def add_item(item):",
-            "    bag.append(item)",
-            "    print(f\"{item}을(를) 가방에 넣었어요!\")",
-            "",
-            "add_item(\"체력 포션\")",
-            "add_item(\"마법 검\")",
-            "print(bag)"
+            "import random",
+            "print('random 모듈 로드 완료!')"
           ],
           "output": [
-            "체력 포션을(를) 가방에 넣었어요!",
-            "마법 검을(를) 가방에 넣었어요!",
-            "['체력 포션', '마법 검']"
+            "random 모듈 로드 완료!"
           ]
         },
-        "tip": "bag = []는 함수 밖에 선언해요. 함수 안에 선언하면 호출할 때마다 초기화돼서 아이템이 사라져요."
+        "tip": "import는 파이썬에 기본으로 내장된 기능이나 외부 라이브러리를 내 코드로 가져오는 키워드예요."
       },
       {
         "order": 2,
-        "text": "직접 입력하는 대신, 몬스터 사냥 성공 시 드롭 테이블에서 무작위로 아이템이 나오게 해볼게요.\nrandom 모듈을 import하면 random.choice()로 리스트에서 무작위 항목을 뽑을 수 있어요.",
+        "text": "불러온 모듈 안의 random.choice() 함수를 사용하면\n리스트 형태의 아이템 데이터베이스에서 요소 한 개를 무작위로 추출해 줍니다.",
         "terminal": {
           "code": [
             "import random",
-            "",
-            "drop_table = [\"체력 포션\", \"마법 검\", \"방패\", \"금화\"]",
-            "",
-            "item = random.choice(drop_table)",
-            "print(f\"드롭된 아이템: {item}\")"
+            "item_db = ['HP포션', '마나포션', '철검', '낡은방패']",
+            "lucky_item = random.choice(item_db)",
+            "print(f'추출된 아이템: {lucky_item}')"
           ],
           "output": [
-            "드롭된 아이템: 마법 검"
+            "추출된 아이템: 철검"
           ]
         },
-        "tip": "random.choice(리스트)는 리스트에서 무작위로 하나를 골라줘요. 실행할 때마다 다른 결과가 나와요."
+        "tip": "코드 실행 시마다 리스트 안에서 서로 다른 데이터가 확률적으로 뽑히는 걸 볼 수 있어요."
       },
       {
         "order": 3,
-        "text": "import는 파이썬이 미리 만들어둔 도구 상자를 가져오는 명령이에요.\nrandom은 무작위 관련 기능이 들어있는 모듈이에요.\n파일 맨 위에 한 번만 적으면 이후 어디서든 사용할 수 있어요.",
+        "text": "무작위로 아이템을 획득했다면, 내 인벤토리 리스트에 데이터를 적재해야 합니다.\n리스트 구조에 새로운 요소를 추가해 주는 .append() 메서드를 사용합니다.",
         "terminal": {
           "code": [
-            "import random",
-            "",
-            "numbers = [1, 2, 3, 4, 5]",
-            "print(random.choice(numbers))",
-            "print(random.choice(numbers))",
-            "print(random.choice(numbers))"
+            "inventory = ['지도']",
+            "inventory.append('HP포션')",
+            "print(inventory)"
           ],
           "output": [
-            "3",
-            "1",
-            "5"
+            "['지도', 'HP포션']"
           ]
         },
-        "tip": "import는 파일 맨 위에 한 번만 써요. random 말고도 파이썬에는 다양한 모듈이 있어요."
+        "tip": "append()는 언제나 리스트 배열의 가장 마지막(끝부분)에 데이터를 이어 붙입니다."
       },
       {
         "order": 4,
-        "text": "드롭 시스템과 리스트 추가를 하나로 합쳐 add_item() 함수를 완성해요.\n몬스터를 잡으면 드롭 테이블에서 무작위 아이템이 결정되고 가방에 자동으로 들어가요.",
+        "text": "개념들을 모아, 탐험 도중 새로운 아이템을 발견했을 때\n인벤토리에 데이터를 추가하고 시스템 알림을 띄워주는 add_item() 함수를 조립합니다!",
         "terminal": {
           "code": [
             "import random",
-            "",
-            "bag = []",
-            "drop_table = [\"체력 포션\", \"마법 검\", \"방패\", \"금화\", \"독 해독제\"]",
+            "inventory = []",
             "",
             "def add_item():",
-            "    item = random.choice(drop_table)",
-            "    bag.append(item)",
-            "    print(f\"[드롭] {item}을(를) 획득했어요!\")",
+            "    item_db = ['HP포션', '마나포션', '철검', '사과']",
+            "    new_item = random.choice(item_db)",
+            "    inventory.append(new_item)",
+            "    print(f'▶ 시스템: [{new_item}]을(를) 인벤토리에 추가했습니다.')",
             "",
             "add_item()",
-            "add_item()",
-            "print(bag)"
+            "print(f'현재 인벤토리 상태: {inventory}')"
           ],
           "output": [
-            "[드롭] 금화을(를) 획득했어요!",
-            "[드롭] 체력 포션을(를) 획득했어요!",
-            "['금화', '체력 포션']"
+            "▶ 시스템: [마나포션]을(를) 인벤토리에 추가했습니다.",
+            "현재 인벤토리 상태: ['마나포션']"
           ]
         },
-        "tip": ".append()는 리스트 맨 뒤에 항목을 추가해요. 호출할 때마다 bag이 하나씩 늘어나요."
-      },
-      {
-        "order": 5,
-        "text": "bag이 꽉 찼을 때는 더 이상 넣지 못하도록 최대 용량을 확인할 수 있어요.\nlen()으로 현재 가방 크기를 확인하고, if문으로 제한을 걸어요.",
-        "terminal": {
-          "code": [
-            "import random",
-            "",
-            "bag = []",
-            "drop_table = [\"체력 포션\", \"마법 검\", \"방패\"]",
-            "MAX_SIZE = 3",
-            "",
-            "def add_item():",
-            "    if len(bag) >= MAX_SIZE:",
-            "        print(\"가방이 가득 찼어요!\")",
-            "        return",
-            "    item = random.choice(drop_table)",
-            "    bag.append(item)",
-            "    print(f\"[드롭] {item} 획득!\")",
-            "",
-            "add_item()",
-            "add_item()",
-            "add_item()",
-            "add_item()"
-          ],
-          "output": [
-            "[드롭] 방패 획득!",
-            "[드롭] 체력 포션 획득!",
-            "[드롭] 마법 검 획득!",
-            "가방이 가득 찼어요!"
-          ]
-        },
-        "tip": "return만 단독으로 쓰면 함수를 즉시 종료해요. 가방이 꽉 찬 경우 더 이상 진행하지 않고 빠져나와요."
+        "tip": "add_item()을 실행할 때마다 비어있던 리스트 데이터가 든든하게 적재되기 시작합니다."
       }
     ]
   },
@@ -266,123 +164,80 @@
     "unit": 8,
     "stage": "8-3",
     "course_level": "beginner",
-    "title": "show_inventory() : 가방 내용 출력과 통계",
+    "title": "인벤토리 상태 확인하기",
     "villain": "interferencemon",
     "slides": [
       {
         "order": 1,
-        "text": "가방 안의 아이템을 번호와 함께 보여주는 show_inventory() 함수를 만들어요.\nfor 반복문으로 리스트를 순회하면서 아이템을 하나씩 출력해요.",
+        "text": "인벤토리에 아이템이 얼마나 들어있는지 데이터를 파악해 봅시다.\n리스트에 담긴 데이터의 전체 개수(길이)를 구하는 len() 함수를 사용합니다.",
         "terminal": {
           "code": [
-            "bag = [\"체력 포션\", \"마법 검\", \"방패\"]",
-            "",
-            "def show_inventory():",
-            "    for item in bag:",
-            "        print(item)",
-            "",
-            "show_inventory()"
+            "inventory = ['철검', '사과', 'HP포션']",
+            "item_count = len(inventory)",
+            "print(f'인벤토리 내 아이템 개수: {item_count}개')"
           ],
           "output": [
-            "체력 포션",
-            "마법 검",
-            "방패"
+            "인벤토리 내 아이템 개수: 3개"
           ]
         },
-        "tip": "for item in bag:은 bag 리스트의 항목을 하나씩 꺼내 item에 담아요. 리스트가 끝날 때까지 반복해요."
+        "tip": "len은 length(길이)의 줄임말로 리스트, 문자열 등 자료구조의 크기를 알려주는 필수 함수예요."
       },
       {
         "order": 2,
-        "text": "단순히 이름만 출력하면 몇 번 항목인지 알기 어려워요.\nenumerate()를 사용하면 순서 번호와 항목을 함께 꺼낼 수 있어요.\n성적 계산기에서 학생 번호와 점수를 함께 관리했던 것과 같은 방식이에요.",
+        "text": "아이템 목록을 한 줄씩 정렬하여 출력하려면 for 반복문이 제격입니다.\n여기에 enumerate()를 결합하면 데이터의 순서 번호(인덱스)와 아이템 이름을 동시에 꺼낼 수 있습니다.",
         "terminal": {
           "code": [
-            "bag = [\"체력 포션\", \"마법 검\", \"방패\"]",
-            "",
-            "def show_inventory():",
-            "    for i, item in enumerate(bag, 1):",
-            "        print(f\"{i}. {item}\")",
-            "",
-            "show_inventory()"
+            "inventory = ['철검', '사과']",
+            "for i, item in enumerate(inventory):",
+            "    print(i, item)"
           ],
           "output": [
-            "1. 체력 포션",
-            "2. 마법 검",
-            "3. 방패"
+            "0 철검",
+            "1 사과"
           ]
         },
-        "tip": "enumerate(bag, 1)의 두 번째 인자 1은 번호를 1부터 시작한다는 뜻이에요. 기본값은 0이에요."
+        "tip": "enumerate를 쓰면 첫 번째 변수(i)에는 인덱스 번호가, 두 번째 변수(item)에는 실제 데이터가 담겨요."
       },
       {
         "order": 3,
-        "text": "가방이 비어있을 때 아무것도 출력하지 않으면 사용자가 혼란스러울 수 있어요.\nif len(bag) == 0으로 빈 경우를 먼저 확인하고 안내 메시지를 출력해요.",
+        "text": "파이썬의 인덱스는 0번부터 시작하지만, 게임 UI에서 인벤토리 슬롯은 1번부터 보여주는 것이 유저에게 자연스럽습니다.\nf-string 문자열 포매팅 안에서 인덱스 변수 i에 1을 더해 출력값을 가공해 줍니다.",
         "terminal": {
           "code": [
-            "bag = []",
-            "",
-            "def show_inventory():",
-            "    if len(bag) == 0:",
-            "        print(\"가방이 비어있어요.\")",
-            "        return",
-            "    for i, item in enumerate(bag, 1):",
-            "        print(f\"{i}. {item}\")",
-            "",
-            "show_inventory()"
+            "inventory = ['철검', '사과']",
+            "for i, item in enumerate(inventory):",
+            "    print(f'[슬롯 {i+1}] {item}')"
           ],
           "output": [
-            "가방이 비어있어요."
+            "[슬롯 1] 철검",
+            "[슬롯 2] 사과"
           ]
         },
-        "tip": "빈 리스트 확인은 len(bag) == 0 또는 not bag 두 가지 방법이 있어요."
+        "tip": "f-string의 중괄호 {} 안에서는 즉석 연산이 가능해서 내부 데이터를 유저 친화적인 형태로 변환하기 좋아요."
       },
       {
         "order": 4,
-        "text": "각 아이템에 무게 정보가 있다면, 가방의 총 무게와 평균 무게를 계산할 수 있어요.\nsum()으로 합계를, len()으로 개수를 구해서 평균을 계산해요.\n성적 계산기에서 총점과 평균을 구했던 것과 똑같은 패턴이에요.",
+        "text": "배운 개념들을 조합하여 인벤토리 내부 데이터를 스캔하고,\n유저가 한눈에 볼 수 있는 UI 형태로 출력하는 show_inventory() 함수를 완성해 봅시다!",
         "terminal": {
           "code": [
-            "weights = [1.5, 3.0, 2.0]",
-            "",
-            "total = sum(weights)",
-            "average = sum(weights) / len(weights)",
-            "",
-            "print(f\"총 무게: {total}kg\")",
-            "print(f\"평균 무게: {average:.1f}kg\")"
-          ],
-          "output": [
-            "총 무게: 6.5kg",
-            "평균 무게: 2.2kg"
-          ]
-        },
-        "tip": ":.1f는 소수점 첫째 자리까지 출력하는 f-string 포맷이에요. :.2f는 둘째 자리까지예요."
-      },
-      {
-        "order": 5,
-        "text": "아이템 목록 출력과 무게 통계를 합쳐서 show_inventory()를 완성해요.\n목록을 보여주고, 아래에 총 무게와 아이템 수를 함께 출력해요.",
-        "terminal": {
-          "code": [
-            "bag = [\"체력 포션\", \"마법 검\", \"방패\"]",
-            "weights = {\"체력 포션\": 0.5, \"마법 검\": 3.0, \"방패\": 5.0}",
+            "inventory = ['철검', '사과', 'HP포션']",
             "",
             "def show_inventory():",
-            "    if len(bag) == 0:",
-            "        print(\"가방이 비어있어요.\")",
-            "        return",
-            "    print(\"--- 가방 목록 ---\")",
-            "    for i, item in enumerate(bag, 1):",
-            "        w = weights.get(item, 0)",
-            "        print(f\"{i}. {item} ({w}kg)\")",
-            "    total = sum(weights.get(i, 0) for i in bag)",
-            "    print(f\"총 {len(bag)}개 | 총 무게: {total}kg\")",
+            "    print(f'=== 인벤토리 상태 (총 {len(inventory)}개) ===')",
+            "    for i, item in enumerate(inventory):",
+            "        print(f'  [{i+1}] {item}')",
+            "    print('========================')",
             "",
             "show_inventory()"
           ],
           "output": [
-            "--- 가방 목록 ---",
-            "1. 체력 포션 (0.5kg)",
-            "2. 마법 검 (3.0kg)",
-            "3. 방패 (5.0kg)",
-            "총 3개 | 총 무게: 8.5kg"
+            "=== 인벤토리 상태 (총 3개) ===",
+            "  [1] 철검",
+            "  [2] 사과",
+            "  [3] HP포션",
+            "========================"
           ]
         },
-        "tip": "weights.get(item, 0)은 아이템 무게 정보가 없으면 0으로 처리해요. 안전하게 값을 꺼내는 패턴이에요."
+        "tip": "단순히 데이터를 저장하는 것을 넘어, 유저가 보기 편한 형태로 가공하여 보여주는 것도 개발자의 중요한 역할입니다."
       }
     ]
   },
@@ -391,127 +246,81 @@
     "unit": 8,
     "stage": "8-4",
     "course_level": "beginner",
-    "title": "drop_item() : 아이템 도감 조회 및 버리기",
+    "title": "아이템 버리기",
     "villain": "interferencemon",
     "slides": [
       {
         "order": 1,
-        "text": "가방에서 아이템을 버리는 drop_item() 함수를 만들어요.\n유저가 입력한 번호로 해당 아이템을 리스트에서 삭제해요.\n.pop(인덱스)는 지정한 위치의 항목을 꺼내고 리스트에서 제거해요.",
+        "text": "인벤토리가 꽉 차면 불필요한 데이터를 삭제해야 합니다.\n유저가 화면에 보이는 '1번' 슬롯을 비우겠다고 입력하면, 코드 내부에서는 0번 인덱스를 지워야 하므로 입력값에서 1을 빼주는 '인덱스 보정'이 필요합니다.",
         "terminal": {
           "code": [
-            "bag = [\"체력 포션\", \"마법 검\", \"방패\"]",
-            "",
-            "removed = bag.pop(1)",
-            "print(f\"제거된 아이템: {removed}\")",
-            "print(bag)"
+            "user_input = int(input('삭제할 슬롯 번호: ')) # 유저가 1 입력",
+            "target_idx = user_input - 1",
+            "print(f'실제 메모리 접근 인덱스: {target_idx}')"
           ],
           "output": [
-            "제거된 아이템: 마법 검",
-            "['체력 포션', '방패']"
+            "삭제할 슬롯 번호: 1",
+            "실제 메모리 접근 인덱스: 0"
           ]
         },
-        "tip": ".pop(인덱스)는 해당 항목을 리스트에서 꺼내면서 반환해요. 꺼낸 값을 변수에 저장하면 나중에 사용할 수 있어요."
+        "tip": "사람이 세는 숫자와 컴퓨터의 제로 인덱스(0부터 시작) 시스템의 간격을 좁혀주는 필수 연산입니다."
       },
       {
         "order": 2,
-        "text": "화면에 보이는 번호(1, 2, 3)와 리스트 인덱스(0, 1, 2)는 1 차이가 나요.\n유저가 '2번 버리기'를 입력하면 실제로는 인덱스 1번을 pop해야 해요.\n입력값에서 1을 빼는 인덱스 보정이 필요해요.",
+        "text": "인덱스 보정을 거친 타겟 숫자를 사용해 리스트에서 데이터를 완전히 삭제해 볼까요?\n리스트의 .pop(인덱스) 메서드를 쓰면 해당 위치의 요소를 반환함과 동시에 리스트에서 제거할 수 있습니다.",
         "terminal": {
           "code": [
-            "bag = [\"체력 포션\", \"마법 검\", \"방패\"]",
-            "",
-            "num = int(input(\"버릴 아이템 번호: \"))",
-            "index = num - 1",
-            "removed = bag.pop(index)",
-            "print(f\"{removed}을(를) 버렸어요.\")"
+            "inventory = ['철검', '사과']",
+            "dropped_item = inventory.pop(0)",
+            "print(f'삭제된 데이터: {dropped_item}')",
+            "print(f'남은 인벤토리: {inventory}')"
           ],
           "output": [
-            "버릴 아이템 번호: 2",
-            "마법 검을(를) 버렸어요."
+            "삭제된 데이터: 철검",
+            "남은 인벤토리: ['사과']"
           ]
         },
-        "tip": "화면 번호 = 인덱스 + 1 이에요. 그래서 인덱스 = 화면 번호 - 1로 변환해요."
+        "tip": "pop()은 단순히 데이터를 지우고 끝나는 게 아니라 삭제된 값이 무엇이었는지 프로그램에 다시 알려주는 성질을 가졌어요."
       },
       {
         "order": 3,
-        "text": "단어장 앱에서 단어의 뜻을 딕셔너리로 찾았던 것처럼,\n아이템 도감 딕셔너리에서 버리기 전 아이템 효과를 미리 보여줄 수 있어요.\n.get()으로 안전하게 정보를 꺼내요.",
+        "text": "보너스! 만약 삭제한 아이템의 상점 판매가를 딕셔너리에서 안전하게 조회해 유저에게 골드를 지급하고 싶다면 dict.get()을 사용합니다.",
         "terminal": {
           "code": [
-            "item_info = {",
-            "    \"체력 포션\": \"HP 50 회복\",",
-            "    \"마법 검\": \"공격력 +20\",",
-            "    \"방패\": \"방어력 +15\"",
-            "}",
-            "",
-            "item = \"마법 검\"",
-            "info = item_info.get(item, \"정보 없음\")",
-            "print(f\"[{item}] 효과: {info}\")",
-            "print(\"정말 버리겠어요? (y/n)\")"
+            "item_prices = {'사과': 10, '철검': 150}",
+            "gold = item_prices.get('사과', 0)",
+            "unknown_gold = item_prices.get('이상한돌멩이', 0)",
+            "print(f'사과 판매가: {gold}G / 미등록 아이템: {unknown_gold}G')"
           ],
           "output": [
-            "[마법 검] 효과: 공격력 +20",
-            "정말 버리겠어요? (y/n)"
+            "사과 판매가: 10G / 미등록 아이템: 0G"
           ]
         },
-        "tip": "item_info.get(item, \"정보 없음\")은 도감에 없는 아이템도 에러 없이 처리해요."
+        "tip": "get(키, 기본값)은 딕셔너리에 매칭되는 데이터가 없어도 에러(KeyError)를 내지 않고 기본값을 반환하여 시스템 다운을 막아줍니다."
       },
       {
         "order": 4,
-        "text": "범위를 벗어난 번호를 입력하면 IndexError가 발생해요.\n유효한 번호인지 미리 확인하는 조건문을 추가해야 해요.",
+        "text": "인덱스 보정 처리와 .pop() 메서드를 정교하게 조합하여,\n지정된 인덱스의 데이터를 인벤토리에서 깔끔하게 제거하는 drop_item() 함수를 완성합니다!",
         "terminal": {
           "code": [
-            "bag = [\"체력 포션\", \"마법 검\"]",
-            "",
-            "num = int(input(\"버릴 번호: \"))",
-            "index = num - 1",
-            "",
-            "if 0 <= index < len(bag):",
-            "    removed = bag.pop(index)",
-            "    print(f\"{removed} 버림 완료.\")",
-            "else:",
-            "    print(\"잘못된 번호예요.\")"
-          ],
-          "output": [
-            "버릴 번호: 5",
-            "잘못된 번호예요."
-          ]
-        },
-        "tip": "0 <= index < len(bag) 조건으로 유효한 인덱스 범위를 한 번에 검사할 수 있어요."
-      },
-      {
-        "order": 5,
-        "text": "지금까지 만든 요소들을 합쳐서 drop_item() 함수를 완성해요.\n번호 확인 → 도감 조회 → 확인 질문 → 삭제까지 한 흐름으로 연결해요.",
-        "terminal": {
-          "code": [
-            "bag = [\"체력 포션\", \"마법 검\", \"방패\"]",
-            "item_info = {\"체력 포션\": \"HP 50 회복\", \"마법 검\": \"공격력 +20\"}",
+            "inventory = ['철검', '사과', 'HP포션']",
             "",
             "def drop_item():",
-            "    if len(bag) == 0:",
-            "        print(\"가방이 비어있어요.\")",
-            "        return",
-            "    num = int(input(\"버릴 번호: \"))",
-            "    index = num - 1",
-            "    if not (0 <= index < len(bag)):",
-            "        print(\"잘못된 번호예요.\")",
-            "        return",
-            "    item = bag[index]",
-            "    info = item_info.get(item, \"정보 없음\")",
-            "    print(f\"[{item}] {info}\")",
-            "    confirm = input(\"버리겠어요? (y/n): \")",
-            "    if confirm == \"y\":",
-            "        bag.pop(index)",
-            "        print(f\"{item} 버림 완료.\")",
+            "    num = int(input('삭제할 슬롯 번호를 입력하세요: '))",
+            "    idx = num - 1",
+            "    dropped = inventory.pop(idx)",
+            "    print(f'▶ 시스템: [{dropped}] 데이터가 삭제되었습니다.')",
             "",
-            "drop_item()"
+            "drop_item()",
+            "print(f'최종 인벤토리: {inventory}')"
           ],
           "output": [
-            "버릴 번호: 2",
-            "[마법 검] 공격력 +20",
-            "버리겠어요? (y/n): y",
-            "마법 검 버림 완료."
+            "삭제할 슬롯 번호를 입력하세요: 2",
+            "▶ 시스템: [사과] 데이터가 삭제되었습니다.",
+            "최종 인벤토리: ['철검', 'HP포션']"
           ]
         },
-        "tip": "not (0 <= index < len(bag))으로 유효하지 않은 경우를 걸러내고 return으로 바로 종료해요."
+        "tip": "데이터 구조에서 요소를 안전하게 제거하는 로직을 성공적으로 구현했습니다. 실제 서비스에서는 유저가 인벤토리 범위를 벗어난 번호를 입력할 경우 IndexError가 발생할 수 있으므로, 입력값이 유효한지 먼저 검증하는 코드도 함께 고려해보세요!"
       }
     ]
   },
@@ -520,117 +329,89 @@
     "unit": 8,
     "stage": "8-5",
     "course_level": "beginner",
-    "title": "find_item() : 아이템 검색하기",
+    "title": "아이템 검색하기",
     "villain": "interferencemon",
     "slides": [
       {
         "order": 1,
-        "text": "가방 안에 원하는 아이템이 있는지 검색하는 find_item() 함수를 만들어요.\nin 연산자를 사용하면 리스트 안에 특정 값이 있는지 바로 확인할 수 있어요.",
+        "text": "인벤토리 데이터가 방대해지면 검색 기능 구현이 필수적입니다.\n유저가 대문자 'HP'나 소문자 'hp'를 섞어 쓰더라도 일관되게 검색되도록, 문자열을 모두 소문자로 정규화하는 str.lower() 메서드를 도입합니다.",
         "terminal": {
           "code": [
-            "bag = [\"체력 포션\", \"마법 검\", \"방패\"]",
-            "",
-            "print(\"마법 검\" in bag)",
-            "print(\"금화\" in bag)"
+            "search_query = 'HP_Potion'",
+            "normalized = search_query.lower()",
+            "print(f'정규화된 검색어: {normalized}')"
+          ],
+          "output": [
+            "정규화된 검색어: hp_potion"
+          ]
+        },
+        "tip": "대소문자 불일치로 인해 검색에 실패하는 버그를 완벽하게 차단해 주는 데이터 정제 도구예요."
+      },
+      {
+        "order": 2,
+        "text": "문자열 내부에 특정 단어가 포함되어 있는지 검사하기 위해 파이썬의 in 연산자를 활용합니다.\n단어가 완전히 똑같은지 비교(==)하는 대신, '부분적으로 포함되는가?'를 효율적으로 판별합니다.",
+        "terminal": {
+          "code": [
+            "db_item = '마나포션'",
+            "print('포션' in db_item)",
+            "print('철검' in db_item)"
           ],
           "output": [
             "True",
             "False"
           ]
         },
-        "tip": "in 연산자는 리스트뿐 아니라 문자열에서도 쓸 수 있어요. \"마\" in \"마법 검\"도 True예요."
-      },
-      {
-        "order": 2,
-        "text": "검색할 때 대소문자가 달라서 못 찾는 경우가 생겨요.\n.lower()로 입력값과 아이템 이름을 모두 소문자로 바꾸면 대소문자 상관없이 찾을 수 있어요.\n단어장 앱에서 단어 검색할 때도 같은 방식을 썼어요.",
-        "terminal": {
-          "code": [
-            "bag = [\"Health Potion\", \"Magic Sword\"]",
-            "",
-            "keyword = input(\"검색: \")",
-            "",
-            "for item in bag:",
-            "    if keyword.lower() in item.lower():",
-            "        print(f\"찾았어요: {item}\")"
-          ],
-          "output": [
-            "검색: magic",
-            "찾았어요: Magic Sword"
-          ]
-        },
-        "tip": ".lower()는 문자열을 모두 소문자로 바꿔요. 원본 문자열은 변하지 않아요."
+        "tip": "우측 문자열 데이터 안에 좌측 검색어가 조각처럼 포함되어 있으면 True를 반환합니다."
       },
       {
         "order": 3,
-        "text": "한글 아이템에서는 부분 검색이 유용해요.\n'포션'을 검색하면 '체력 포션', '마나 포션' 등 포션이 들어간 아이템을 모두 찾을 수 있어요.",
+        "text": "데이터 정규화(lower)와 포함 확인 연산자(in)를 활용한 검색 로직을 장착해,\n배열 내의 수많은 텍스트 데이터를 스캔하는 find_item() 검색 함수를 빌드해 봅시다!",
         "terminal": {
           "code": [
-            "bag = [\"체력 포션\", \"마나 포션\", \"마법 검\", \"방패\"]",
+            "inventory = ['강철검', 'HP포션', '마나포션', '빛나는방패']",
             "",
-            "keyword = \"포션\"",
-            "results = []",
+            "def find_item():",
+            "    target = input('검색어 입력: ') # 유저가 'hp' 입력",
+            "    print(f'=== \"{target}\" 검색 결과 ===')",
+            "    for item in inventory:",
+            "        if target.lower() in item.lower():",
+            "            print(f' - 일치하는 데이터: {item}')",
             "",
-            "for item in bag:",
-            "    if keyword in item:",
-            "        results.append(item)",
-            "",
-            "print(f\"'{keyword}' 검색 결과: {results}\")"
+            "find_item()"
           ],
           "output": [
-            "'포션' 검색 결과: ['체력 포션', '마나 포션']"
+            "검색어 입력: hp",
+            "=== \"hp\" 검색 결과 ===",
+            " - 일치하는 데이터: HP포션"
           ]
         },
-        "tip": "keyword in item은 item 문자열 안에 keyword가 포함되어 있는지 확인해요. 부분 일치 검색이에요."
+        "tip": "문자열 처리를 통한 검색 엔진의 기초적인 형태를 직접 구현해 냈습니다!"
       },
       {
         "order": 4,
-        "text": "검색 결과가 없을 때도 안내 메시지를 출력해야 해요.\nresults 리스트가 비어있으면 '찾지 못했다'는 메시지를 보여줘요.",
+        "text": "검색 결과가 하나도 없을 때 '결과 없음' 메시지를 띄우고 싶다면?\n발견 여부를 추적하는 found 플래그 변수를 활용하면 됩니다!",
         "terminal": {
           "code": [
-            "bag = [\"체력 포션\", \"마법 검\"]",
+            "inventory = ['강철검', 'HP포션']",
             "",
-            "def find_item(keyword):",
-            "    results = []",
-            "    for item in bag:",
-            "        if keyword in item:",
-            "            results.append(item)",
-            "    if len(results) == 0:",
-            "        print(f\"'{keyword}'을(를) 찾지 못했어요.\")",
-            "    else:",
-            "        print(f\"검색 결과: {results}\")",
-            "",
-            "find_item(\"금화\")"
-          ],
-          "output": [
-            "'금화'을(를) 찾지 못했어요."
-          ]
-        },
-        "tip": "검색 결과가 있을 때와 없을 때를 if/else로 구분해서 사용자에게 명확하게 알려줘요."
-      },
-      {
-        "order": 5,
-        "text": "찾은 아이템의 번호(인덱스)까지 함께 출력하면 더 유용해요.\nenumerate()로 인덱스와 아이템을 함께 꺼내고, 화면 번호는 인덱스+1로 변환해요.",
-        "terminal": {
-          "code": [
-            "bag = [\"체력 포션\", \"마나 포션\", \"마법 검\"]",
-            "",
-            "def find_item(keyword):",
+            "def find_item():",
+            "    target = input('검색어: ') # '사과' 입력",
             "    found = False",
-            "    for i, item in enumerate(bag, 1):",
-            "        if keyword in item:",
-            "            print(f\"{i}번: {item}\")",
+            "    for item in inventory:",
+            "        if target.lower() in item.lower():",
+            "            print(f' - {item}')",
             "            found = True",
             "    if not found:",
-            "        print(f\"'{keyword}' 검색 결과 없음\")",
+            "        print('검색 결과가 없습니다.')",
             "",
-            "find_item(\"포션\")"
+            "find_item()"
           ],
           "output": [
-            "1번: 체력 포션",
-            "2번: 마나 포션"
+            "검색어: 사과",
+            "검색 결과가 없습니다."
           ]
         },
-        "tip": "found 변수를 False로 시작해서 찾으면 True로 바꾸는 패턴은 '아무것도 못 찾은 경우' 처리에 자주 써요."
+        "tip": "found = False로 시작해 결과가 하나라도 나오면 True로 바꾸는 플래그 패턴은 다양한 검색/탐색 로직에 두루 쓰이는 필수 테크닉이에요!"
       }
     ]
   },
@@ -639,127 +420,74 @@
     "unit": 8,
     "stage": "8-6",
     "course_level": "beginner",
-    "title": "save_load_bag() : 가방 저장하고 불러오기",
+    "title": "데이터 저장하고 불러오기",
     "villain": "interferencemon",
     "slides": [
       {
         "order": 1,
-        "text": "지금까지 만든 인벤토리는 프로그램을 끄면 사라져요.\n파일에 저장하면 다음에 다시 실행해도 아이템이 그대로 남아있어요.\nwith open()으로 파일을 열고 write()로 내용을 저장해요.",
+        "text": "프로그램이 종료되어도 유저의 진행 상태(세이브 파일)가 영구적으로 보존되어야 합니다.\n파일 제어를 가장 안전하게 처리하는 with open() 문법을 활용해 텍스트 쓰기 모드('w') 환경을 엽니다.",
         "terminal": {
           "code": [
-            "bag = [\"체력 포션\", \"마법 검\", \"방패\"]",
-            "",
-            "with open(\"bag.txt\", \"w\", encoding=\"utf-8\") as f:",
-            "    for item in bag:",
-            "        f.write(item + \"\\n\")",
-            "",
-            "print(\"저장 완료!\")"
+            "with open('save_data.txt', 'w', encoding='utf-8') as f:",
+            "    print('데이터베이스 파일이 안전하게 개방되었습니다.')"
           ],
           "output": [
-            "저장 완료!"
+            "데이터베이스 파일이 안전하게 개방되었습니다."
           ]
         },
-        "tip": "\"w\" 모드는 파일을 새로 쓰는(write) 모드예요. 기존 내용이 있으면 덮어써요. encoding=\"utf-8\"은 한글이 깨지지 않게 해요."
+        "tip": "with 구문을 쓰면 쓰기 작업 도중 에러가 발생해도 시스템이 파일을 자동으로 닫아주어 데이터 손상을 막아줍니다."
       },
       {
         "order": 2,
-        "text": "저장한 파일을 다시 불러올 때는 \"r\" 모드로 열고 readlines()로 읽어요.\n각 줄 끝에 줄바꿈 문자(\\n)가 붙어있으니 .strip()으로 제거해야 해요.",
+        "text": "개방된 파일 스트림에 인벤토리 배열 요소들을 한 땀 한 땀 기록해 줍니다.\n파일 객체 내부의 .write() 함수를 호출하여 문자열 데이터와 줄바꿈 문자(\\n)를 파일 내부에 밀어 넣습니다.",
         "terminal": {
           "code": [
-            "with open(\"bag.txt\", \"r\", encoding=\"utf-8\") as f:",
-            "    lines = f.readlines()",
-            "",
-            "bag = [line.strip() for line in lines if line.strip()]",
-            "print(bag)"
-          ],
-          "output": [
-            "['체력 포션', '마법 검', '방패']"
-          ]
-        },
-        "tip": ".strip()은 문자열 양 끝의 공백과 줄바꿈(\\n)을 제거해요. 파일에서 읽은 데이터를 정리할 때 꼭 써요."
-      },
-      {
-        "order": 3,
-        "text": "저장 함수와 불러오기 함수를 각각 만들어요.\nsave_bag()은 bag을 파일로 저장하고, load_bag()은 파일에서 bag을 복원해요.",
-        "terminal": {
-          "code": [
-            "bag = []",
-            "",
-            "def save_bag():",
-            "    with open(\"bag.txt\", \"w\", encoding=\"utf-8\") as f:",
-            "        for item in bag:",
-            "            f.write(item + \"\\n\")",
-            "    print(\"가방을 저장했어요.\")",
-            "",
-            "def load_bag():",
-            "    with open(\"bag.txt\", \"r\", encoding=\"utf-8\") as f:",
-            "        lines = f.readlines()",
-            "    for line in lines:",
-            "        item = line.strip()",
-            "        if item:",
-            "            bag.append(item)",
-            "    print(f\"{len(bag)}개 아이템을 불러왔어요.\")"
+            "inventory = ['강철검', '사과']",
+            "with open('save_data.txt', 'w', encoding='utf-8') as f:",
+            "    for item in inventory:",
+            "        f.write(item + '\\n')"
           ],
           "output": []
         },
-        "tip": "save_bag()과 load_bag()을 분리하면 저장과 불러오기를 각각 필요한 시점에 호출할 수 있어요."
+        "tip": "write()는 자동으로 줄바꿈을 해주지 않기 때문에 뒤에 '\\n'을 수동으로 결합해야 레코드가 한 줄씩 분리되어 저장됩니다. 이 코드는 콘솔에 아무것도 출력하지 않지만, 실행 후 save_data.txt 파일에 데이터가 기록됩니다."
+      },
+      {
+        "order": 3,
+        "text": "파일에 박제된 상태 데이터를 다시 프로그램 메모리로 불러와 복구할 수 있습니다.\n파일 스트림을 읽기 모드('r')로 개방한 후 .read()를 사용해 텍스트 전체를 로드합니다.",
+        "terminal": {
+          "code": [
+            "with open('save_data.txt', 'r', encoding='utf-8') as f:",
+            "    loaded_data = f.read()",
+            "    print('=== 로드된 세이브 데이터 ===')",
+            "    print(loaded_data)"
+          ],
+          "output": [
+            "=== 로드된 세이브 데이터 ===",
+            "강철검",
+            "사과"
+          ]
+        },
+        "tip": "불러온 문자열 덩어리를 .strip()과 .split() 등으로 가공해 다시 리스트로 변환하면 완벽한 로드(Load) 기능이 성립됩니다."
       },
       {
         "order": 4,
-        "text": "파일이 없는 상태에서 load_bag()을 호출하면 FileNotFoundError가 발생해요.\ntry/except로 파일이 없는 경우를 처리하면 프로그램이 멈추지 않아요.",
+        "text": "안전한 파일 개폐 방식(with open)과 쓰기/읽기 기법을 총체적으로 융합해,\n데이터 유실을 방지하고 영속성을 부여하는 save_load_bag() 세이브 시스템을 구축해 봅시다!",
         "terminal": {
           "code": [
-            "bag = []",
+            "def save_inventory(inv_data):",
+            "    with open('inventory_save.txt', 'w', encoding='utf-8') as f:",
+            "        for item in inv_data:",
+            "            f.write(item + '\\n')",
+            "    print('▶ 시스템: 인벤토리 데이터가 로컬 스토리지에 저장되었습니다.')",
             "",
-            "def load_bag():",
-            "    try:",
-            "        with open(\"bag.txt\", \"r\", encoding=\"utf-8\") as f:",
-            "            lines = f.readlines()",
-            "        for line in lines:",
-            "            item = line.strip()",
-            "            if item:",
-            "                bag.append(item)",
-            "        print(f\"{len(bag)}개 아이템을 불러왔어요.\")",
-            "    except FileNotFoundError:",
-            "        print(\"저장된 가방이 없어요. 새로 시작해요.\")"
+            "current_inv = ['철검', '마나포션']",
+            "save_inventory(current_inv)"
           ],
           "output": [
-            "저장된 가방이 없어요. 새로 시작해요."
+            "▶ 시스템: 인벤토리 데이터가 로컬 스토리지에 저장되었습니다."
           ]
         },
-        "tip": "try/except는 에러가 발생해도 프로그램을 멈추지 않게 해요. FileNotFoundError는 파일이 없을 때 발생하는 에러예요."
-      },
-      {
-        "order": 5,
-        "text": "프로그램 시작 시 load_bag()으로 저장 데이터를 불러오고,\n종료 시 save_bag()으로 현재 가방을 파일에 저장하면 데이터가 영구적으로 유지돼요.",
-        "terminal": {
-          "code": [
-            "bag = []",
-            "",
-            "def save_bag():",
-            "    with open(\"bag.txt\", \"w\", encoding=\"utf-8\") as f:",
-            "        for item in bag:",
-            "            f.write(item + \"\\n\")",
-            "    print(\"저장 완료.\")",
-            "",
-            "def load_bag():",
-            "    try:",
-            "        with open(\"bag.txt\", \"r\", encoding=\"utf-8\") as f:",
-            "            for line in f.readlines():",
-            "                if line.strip():",
-            "                    bag.append(line.strip())",
-            "    except FileNotFoundError:",
-            "        pass",
-            "",
-            "load_bag()",
-            "bag.append(\"금화\")",
-            "save_bag()"
-          ],
-          "output": [
-            "저장 완료."
-          ]
-        },
-        "tip": "except FileNotFoundError: pass는 에러를 무시하고 넘어가요. 처음 실행 시 파일이 없는 건 정상이라 조용히 넘겨도 돼요."
+        "tip": "단순한 메모리 연산을 넘어, 물리적 디스크에 파일을 읽고 쓰는 I/O(Input/Output) 제어 능력을 갖추게 되었습니다!"
       }
     ]
   },
@@ -768,141 +496,87 @@
     "unit": 8,
     "stage": "8-7",
     "course_level": "beginner",
-    "title": "run_bag_sys() : 인벤토리 시스템 완성",
+    "title": "시스템 구동 엔진 만들기",
     "villain": "interferencemon",
     "slides": [
       {
         "order": 1,
-        "text": "지금까지 만든 모든 함수를 하나로 연결하는 run_bag_sys()를 만들어요.\nwhile True로 무한 루프를 만들어 프로그램이 계속 실행되게 해요.\n사용자가 '종료'를 선택하기 전까지는 메뉴가 계속 나타나요.",
+        "text": "대망의 피날레입니다! 지금까지 개별적으로 개발해온 훌륭한 함수 모듈들을 하나로 묶어줄 메인 루프가 필요합니다.\n프로그램이 유저의 명시적인 종료 명령 전까지 영원히 백그라운드에서 구동되도록 while True 무한 루프를 켜줍니다.",
         "terminal": {
           "code": [
+            "cycle = 0",
             "while True:",
-            "    print(\"1. 아이템 넣기  4. 종료\")",
-            "    choice = input(\"선택: \")",
-            "    if choice == \"4\":",
-            "        print(\"가방을 닫아요.\")",
-            "        break",
-            "    else:",
-            "        print(f\"{choice}번 선택됨\")"
+            "    cycle += 1",
+            "    if cycle >= 3:",
+            "        print('시스템 루프 테스트 완료!')",
+            "        break"
           ],
           "output": [
-            "1. 아이템 넣기  4. 종료",
-            "선택: 1",
-            "1번 선택됨",
-            "1. 아이템 넣기  4. 종료",
-            "선택: 4",
-            "가방을 닫아요."
+            "시스템 루프 테스트 완료!"
           ]
         },
-        "tip": "while True는 조건 없이 무한 반복해요. break를 만나야만 루프를 빠져나올 수 있어요."
+        "tip": "while True 루프는 유저의 실시간 I/O 조작을 대기하는 모든 인터랙티브 애플리케이션의 뼈대입니다."
       },
       {
         "order": 2,
-        "text": "각 번호에 맞는 함수를 if/elif로 연결해요.\n메뉴 번호와 함수가 1:1로 매핑되는 구조예요.",
+        "text": "무한 루프 안에서 진입로인 show_menu()를 먼저 실행해 유저의 명령 코드를 취득한 뒤,\nif / elif / else 분기문을 통해 명령 코드에 매핑된 함수 로직을 적재적소에 호출합니다.",
         "terminal": {
           "code": [
-            "while True:",
-            "    choice = show_menu()",
-            "    if choice == \"1\":",
-            "        add_item()",
-            "    elif choice == \"2\":",
-            "        show_inventory()",
-            "    elif choice == \"3\":",
-            "        drop_item()",
-            "    elif choice == \"4\":",
-            "        print(\"종료합니다.\")",
-            "        break",
-            "    else:",
-            "        print(\"1~4 중에서 선택해요.\")"
+            "cmd_code = '1'",
+            "if cmd_code == '1':",
+            "    print('→ add_item() 로직을 호출합니다.')",
+            "elif cmd_code == '2':",
+            "    print('→ show_inventory() 로직을 호출합니다.')"
           ],
-          "output": []
+          "output": [
+            "→ add_item() 로직을 호출합니다."
+          ]
         },
-        "tip": "else로 잘못된 입력을 처리하면 1~4 외의 숫자나 문자를 입력해도 프로그램이 멈추지 않아요."
+        "tip": "조건 분기(if-elif) 아키텍처는 유저가 보낸 입력 신호를 내부 백엔드 로직과 연결해주는 라우터(Router) 역할을 수행합니다."
       },
       {
         "order": 3,
-        "text": "시작 시 저장 데이터를 불러오고 종료 시 저장하는 로직을 추가해요.\nload_bag()은 루프 시작 전, save_bag()은 break 직전에 호출해요.",
+        "text": "유저가 시스템 종료(Exiting)를 요청할 때는 실행 중인 거대한 메인 루프의 프로세스를 안전하게 종료해야 합니다.\n이때 반복문을 강제로 해제하고 탈출하는 break 제어 키워드를 배치합니다.",
         "terminal": {
           "code": [
-            "load_bag()",
-            "print(\"인벤토리 시스템 시작!\")",
-            "",
             "while True:",
-            "    choice = show_menu()",
-            "    if choice == \"1\":",
-            "        add_item()",
-            "    elif choice == \"2\":",
-            "        show_inventory()",
-            "    elif choice == \"3\":",
-            "        drop_item()",
-            "    elif choice == \"4\":",
-            "        save_bag()",
-            "        print(\"저장 후 종료합니다.\")",
-            "        break",
-            "    else:",
-            "        print(\"1~4 중에서 선택해요.\")"
+            "    print('입력 대기 중...')",
+            "    break",
+            "    print('이 라인은 절대 실행되지 않습니다.')"
           ],
           "output": [
-            "저장된 가방이 없어요. 새로 시작해요.",
-            "인벤토리 시스템 시작!"
+            "입력 대기 중..."
           ]
         },
-        "tip": "load_bag()은 프로그램 시작 시 딱 한 번, save_bag()은 종료 직전에 딱 한 번 호출해요."
+        "tip": "break 명령이 떨어지는 즉시 인터프리터는 루프 블록 내의 남은 코드를 전부 폐기하고 바깥 스코프로 빠져나옵니다."
       },
       {
         "order": 4,
-        "text": "find_item() 기능도 메뉴에 추가해요.\n메뉴 항목이 늘어나면 show_menu() 출력도 함께 업데이트해야 해요.",
+        "text": "축하합니다! 메인 루프(while True), 명령 라우팅(if/elif), 강제 종료 제어(break) 모듈을 결합하여,\n모든 인벤토리 트랜잭션을 총괄하는 run_inventory_sys() 메인 애플리케이션 엔진을 가동합니다!\n(메뉴 번호는 1~6번이 각 기능에 배정되고, 7번은 시스템 종료 명령으로 설계합니다.)",
         "terminal": {
           "code": [
-            "def show_menu():",
-            "    print(\"\"\"",
-            "=== 에이몬의 가방 ===",
-            "1. 아이템 넣기",
-            "2. 가방 보기",
-            "3. 아이템 버리기",
-            "4. 아이템 검색",
-            "5. 가방 닫기",
-            "\"\"\")",
-            "    return input(\"선택: \")"
-          ],
-          "output": []
-        },
-        "tip": "기능이 추가될 때마다 show_menu()와 if/elif 분기를 함께 업데이트해야 해요. 한 곳만 바꾸면 오류가 생겨요."
-      },
-      {
-        "order": 5,
-        "text": "모든 함수를 합친 완성된 인벤토리 시스템이에요.\nUnit 1~7에서 배운 print, input, list, dict, for, while, def, file을 전부 활용해요.",
-        "terminal": {
-          "code": [
-            "# 완성된 run_bag_sys()",
-            "def run_bag_sys():",
-            "    load_bag()",
-            "    print(\"인벤토리 시스템 시작!\")",
+            "def run_inventory_sys():",
             "    while True:",
-            "        choice = show_menu()",
-            "        if choice == \"1\":",
-            "            add_item()",
-            "        elif choice == \"2\":",
-            "            show_inventory()",
-            "        elif choice == \"3\":",
-            "            drop_item()",
-            "        elif choice == \"4\":",
-            "            keyword = input(\"검색어: \")",
-            "            find_item(keyword)",
-            "        elif choice == \"5\":",
-            "            save_bag()",
-            "            print(\"안녕히 가세요!\")",
+            "        # show_menu()가 UI를 담당한다고 가정",
+            "        cmd = input('1.아이템 획득  7.시스템 종료 -> 명령: ')",
+            "        if cmd == '1':",
+            "            print('-> 성공: 아이템이 데이터베이스에 적재되었습니다.')",
+            "        elif cmd == '7':",
+            "            print('=================================')",
+            "            print('인벤토리 시스템 프로세스를 안전하게 종료합니다.')",
             "            break",
-            "        else:",
-            "            print(\"1~5 중에서 선택해요.\")",
             "",
-            "run_bag_sys()"
+            "run_inventory_sys()"
           ],
           "output": [
-            "인벤토리 시스템 시작!"
+            "1.아이템 획득  7.시스템 종료 -> 명령: 1",
+            "-> 성공: 아이템이 데이터베이스에 적재되었습니다.",
+            "1.아이템 획득  7.시스템 종료 -> 명령: 7",
+            "=================================",
+            "인벤토리 시스템 프로세스를 안전하게 종료합니다."
           ]
         },
-        "tip": "run_bag_sys()는 인벤토리 시스템의 진입점이에요. 이 함수 하나만 호출하면 전체 프로그램이 실행돼요."
+        "tip": "마침내 변수, 리스트, 제어문, 함수, 로컬 스토리지 I/O를 완벽하게 아우르는 파이썬 기반 백엔드 시스템이 완성되었습니다!"
       }
     ]
   }

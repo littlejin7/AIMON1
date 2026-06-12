@@ -9,12 +9,12 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "할 일 항목들을 순서대로 저장할 비어있는 todo_list 리스트 상자를 만들려고 합니다. 대괄호 기호([])를 사용하여 빈칸에 들어갈 올바른 리스트 리터럴을 입력하세요.\n\ntodo_list = ____",
+      "question": "방해문이 show_menu()의 입력 수신 부품을 지워버렸습니다! 유저가 메뉴 번호를 입력할 수 있도록 빈칸을 복구하세요.\n\ndef show_menu():\n    print('1. 아이템 획득')\n    print('2. 인벤토리 확인')\n    print('7. 시스템 종료')\n    choice = ____('선택: ')\n    return choice",
       "choices": [],
-      "answer": "[]",
-      "hint": "파이썬에서 빈 리스트를 만드는 리터럴 표기법은 여는 대괄호([)와 닫는 대괄호(])를 붙여 쓰는 것입니다.",
+      "answer": "input",
+      "hint": "키보드 입력을 받아 문자열로 반환하는 파이썬 내장 함수예요.",
       "feedback": {
-        "correct": "정답! []는 빈 리스트를 나타내는 리터럴 표기입니다. 이후 .append()로 항목을 추가할 수 있습니다."
+        "correct": "복구 성공! input()은 괄호 안의 문자열을 프롬프트로 표시하고 유저 입력을 문자열로 받아요."
       }
     },
     {
@@ -26,17 +26,17 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "기존 목록에 append() 메서드를 사용해 새로운 할 일인 \"운동하기\"를 추가했습니다. 최종 출력되는 리스트의 모습은?\n\ntodo_list = [\"파이썬 공부\"]\nnew_task = \"운동하기\"\ntodo_list.append(new_task)\nprint(todo_list)",
+      "question": "방해문이 add_item()을 건드렸습니다. 아래 코드를 실행했을 때 출력 결과는?\n\nimport random\ninventory = ['검']\npool = ['방패', '물약', '지팡이']\nnew_item = random.choice(pool)\ninventory.append(new_item)\nprint(len(inventory))",
       "choices": [
-        "A. [\"운동하기\"]",
-        "B. [\"파이썬 공부\"]",
-        "C. [\"파이썬 공부\", \"운동하기\"]",
-        "D. [\"운동하기\", \"파이썬 공부\"]"
+        "A. 0",
+        "B. 1",
+        "C. 2",
+        "D. 3"
       ],
       "answer": "C",
-      "hint": ".append() 연산 함수가 데이터의 어느 꼬리 칸 위치에 이식되는지 파악하세요.",
+      "hint": "기존 1개에 1개를 추가하면 몇 개가 될까요?",
       "feedback": {
-        "correct": "정답! .append() 메서드는 지정 리스트 장부의 가장 맨 뒤(마지막) 인덱스 자리에 타겟 요소를 연결 적재해 줍니다."
+        "correct": "정확히 분석했어요! '검' 1개가 있는 상태에서 random.choice로 1개를 추가하므로 len은 2예요."
       }
     },
     {
@@ -48,12 +48,12 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "리스트에 담긴 할 일 항목들을 첫 번째부터 하나씩 꺼내서 화면에 차례대로 출력하려고 합니다. 빈칸에 들어갈 올바른 반복문 키워드를 적어주세요.\n\ntodo_list = [\"공부\", \"운동\"]\n____ task in todo_list:\n    print(task)",
+      "question": "방해문이 show_inventory()의 번호 부여 장치를 파괴했습니다! 각 아이템에 0이 아닌 1번부터 번호를 붙이도록 빈칸을 복구하세요.\n\ndef show_inventory(inventory):\n    print(f'[인벤토리 — {len(inventory)}개]')\n    for i, item in enumerate(inventory):\n        print(f'{____}. {item}')",
       "choices": [],
-      "answer": "for",
-      "hint": "정해진 배열이나 리스트 인프라를 순차 순회 탐색할 때 기용하는 소문자 3글자 반복 예약어입니다.",
+      "answer": "i+1",
+      "hint": "enumerate의 i는 0부터 시작해요. 유저에게 1번부터 보이려면?",
       "feedback": {
-        "correct": "정답! 대열 상자(리스트)에 보관된 요소를 첫 칸부터 막차 칸까지 하나씩 치환 인출하여 루프를 돌릴 때는 for문을 가동합니다."
+        "correct": "복구 성공! i+1로 0 기반 인덱스를 1 기반 번호로 변환해요."
       }
     },
     {
@@ -65,17 +65,17 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "유저가 메뉴창에서 선택한 번호(choice)에 따라 다르게 작동하는 조건문입니다. 다음 코드의 실행 결과로 화면에 출력되는 값은 무엇인가요?\n\nchoice = \"2\"\n\nif choice == \"1\":\n    print(\"할 일 추가\")\nelse:\n    print(\"프로그램 종료\")",
+      "question": "방해문이 show_inventory() 출력을 조작했습니다. 다음 코드의 실제 출력 결과는?\n\ndef show_inventory(inventory):\n    print(f'[인벤토리 — {len(inventory)}개]')\n    for i, item in enumerate(inventory):\n        print(f'{i+1}. {item}')\n\nshow_inventory(['검', '방패', '물약'])",
       "choices": [
-        "A. 할 일 추가",
-        "B. 프로그램 종료",
-        "C. choice",
-        "D. 오류 발생"
+        "A. [인벤토리 — 3개]\n0. 검\n1. 방패\n2. 물약",
+        "B. [인벤토리 — 3개]\n1. 검\n2. 방패\n3. 물약",
+        "C. 1. 검\n2. 방패\n3. 물약",
+        "D. [인벤토리 — ['검', '방패', '물약']개]"
       ],
       "answer": "B",
-      "hint": "choice 변수 알맹이인 \"2\" 수치가 if문 연산 조건식과 부합하는지, 불부합하여 대타 방으로 튕겨 나가는지 보세요.",
+      "hint": "헤더에 len(), 목록에 i+1을 사용해요.",
       "feedback": {
-        "correct": "정답! if문 비교 연산 결과식(\"2\" == \"1\")이 거짓(False) 판정을 받기 때문에, 탈락 처리되어 백업 영역인 else 블록 내부 코드가 실행됩니다."
+        "correct": "정확히 분석했어요! len(['검','방패','물약'])=3, i+1 덕분에 1번부터 번호가 붙어요."
       }
     },
     {
@@ -87,12 +87,12 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "TODO 리스트 프로그램을 종료 메뉴를 선택하기 전까지 무한히 계속 실행 상태로 유지시키기 위해 빈칸에 들어갈 반복문 키워드는?\n\n____ True:\n    print(\"1. 추가 | 2. 종료\")",
+      "question": "방해문이 drop_item()의 인덱스 변환 공식을 지워버렸습니다! 유저가 '2번'을 입력하면 파이썬 인덱스 1로 변환되도록 빈칸을 복구하세요.\n\ndef drop_item(inventory):\n    user_input = int(input('버릴 번호: '))\n    idx = ____\n    dropped = inventory.pop(idx)\n    print(f'{dropped} 버림!')",
       "choices": [],
-      "answer": "while",
-      "hint": "별도 한계 횟수 규격 없이 조건 상태가 무조건 참인 내내 상시 무한 루프를 기동시키는 지시어입니다.",
+      "answer": "user_input - 1",
+      "hint": "사용자 번호와 파이썬 인덱스의 차이는 1이에요.",
       "feedback": {
-        "correct": "정답! 정해진 범위가 따로 존재하지 않는 모바일/PC 프로그램의 메인 대기 화면 루프 전선을 구축할 때는 while True: 문법을 설계 세팅합니다."
+        "correct": "복구 성공! user_input - 1로 1 기반 사용자 번호를 0 기반 파이썬 인덱스로 변환해요."
       }
     },
     {
@@ -104,42 +104,21 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "할 일 내용을 더 보기 좋게 꾸며서 출력하기 위해 f-string 문법을 사용했습니다. 다음 코드의 실행 결과는 무엇인가요?\n\ntask = \"방청소\"\nprint(f\"오늘의 할 일: {task}\")",
+      "question": "방해문이 find_item()을 분석 중입니다. 코드를 꼼꼼히 읽고, 키워드 '물약'으로 검색했을 때 실제 출력 결과는?\n\ndef find_item(inventory, keyword):\n    found = False\n    for item in inventory:\n        if keyword.lower() in item.lower():\n            found = True\n            print(f'발견: {item}')\n    if not found:\n        print('아이템을 찾을 수 없습니다.')\n\nfind_item(['검', '물약', '방패'], '물약')",
       "choices": [
-        "A. 오늘의 할 일: task",
-        "B. 오늘의 할 일: 방청소",
-        "C. f\"오늘의 할 일: {task}\"",
-        "D. 오늘의 할 일: {방청소}"
+        "A. 아이템을 찾을 수 없습니다.",
+        "B. 발견: 물약",
+        "C. 발견: 검\n발견: 물약\n발견: 방패",
+        "D. 오류 발생"
       ],
       "answer": "B",
-      "hint": "f-string 접두사 전개 시 중괄호 {} 내부의 변수명이 리얼 문자열로 나오는지, 저장소 실체 데이터로 리셋 각인되는지 판별하세요.",
+      "hint": "'물약'은 리스트에 있고, found 패턴이 올바르게 동작해요.",
       "feedback": {
-        "correct": "정답! f-string 인프라 하에서 격리된 중괄호 {} 영역은 껍데기가 해체 탈거되면서 그 자리에 변수가 머금고 있던 진짜 실체 값인 '방청소'를 투입 결합해 줍니다."
+        "correct": "정확히 분석했어요! '물약' keyword가 inventory의 '물약'과 일치하므로 '발견: 물약'이 출력돼요."
       }
     },
     {
-      "question_id": "unitboss_beg_ef_8_007",
-      "unit": 8,
-      "stage": "8-boss",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "error_find",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "작성한 할 일 목록을 텍스트 파일로 안전하게 저장하려는데 문법 오류(SyntaxError)가 터졌습니다. 콜론 기호(:)를 빼먹어서 에러를 일으킨 줄은 몇 줄인가요?\n\n1줄: tasks = [\"공부\", \"독서\"]\n2줄: with open(\"todo.txt\", \"w\") as file\n3줄:     file.write(\"할 일 저장 완료\")",
-      "choices": [
-        "A. 1줄",
-        "B. 2줄",
-        "C. 3줄"
-      ],
-      "answer": "B",
-      "hint": "with open() as 제어 구문을 완성 통보하고 하위 블록 영역으로 입장을 개시할 때 빠지면 안 되는 특수 기호 위치를 진단하세요.",
-      "feedback": {
-        "correct": "정답! 파이썬 컴파일 규칙에 의거하여, with open(...) as 변수 구조식 헤더를 종결 수립할 때도 꼬리단에 무조건 콜론 기호(:) 선언을 박아야 영역 구동이 승인됩니다."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_fib_8_008",
+      "question_id": "unitboss_beg_fib_8_007",
       "unit": 8,
       "stage": "8-boss",
       "course_level": "beginner",
@@ -147,16 +126,16 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "언제든 필요할 때마다 할 일 목록을 화면에 깔끔하게 보여줄 수 있도록 show_tasks()라는 이름의 함수(부품)를 만들려고 합니다. 빈칸에 들어갈 함수 정의 키워드를 적어주세요.\n\n____ show_tasks():\n    print(\"--- 할 일 목록 ---\")",
+      "question": "방해문이 save_inventory()의 파일 모드를 삭제했습니다! 인벤토리를 파일에 저장(쓰기)할 수 있도록 빈칸을 복구하세요.\n\ndef save_inventory(inventory, filename):\n    with open(filename, ____) as f:\n        for item in inventory:\n            f.write(item + '\\n')\n    print('저장 완료!')",
       "choices": [],
-      "answer": "def",
-      "hint": "함수를 새로 개설 설계할 때 최전방 스타팅 기호로 기용하는 3글자 소문자 표식입니다.",
+      "answer": "'w'",
+      "hint": "파일에 내용을 쓰는 모드를 나타내는 한 글자예요.",
       "feedback": {
-        "correct": "정답! 파이썬 플랫폼 환경에서 독립 실행 연산 모듈 부품(함수)을 독자 창설 개시할 때는 예약어 def 기호를 전면 배치 선언해야 합니다."
+        "correct": "복구 성공! 'w' 모드는 파일을 쓰기 모드로 열어요. 없으면 새로 만들고, 있으면 덮어써요."
       }
     },
     {
-      "question_id": "unitboss_beg_os_8_009",
+      "question_id": "unitboss_beg_os_8_008",
       "unit": 8,
       "stage": "8-boss",
       "course_level": "beginner",
@@ -164,17 +143,38 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "할 일 항목별로 '마감 시간' 정보까지 매칭하여 관리하기 위해 딕셔너리(Key-Value) 자료구조를 도입했습니다. 다음 코드가 실행되었을 때 최종 출력값은?\n\ntodo_dict = {\"파이썬 공부\": \"14시\", \"운동하기\": \"20시\"}\nprint(todo_dict[\"파이썬 공부\"])",
+      "question": "방해문이 run_inventory_sys()의 라우팅을 분석하고 있습니다. cmd = '3'일 때 아래 코드의 출력은?\n\ncmd = '3'\nif cmd == '1':\n    print('아이템 획득')\nelif cmd == '2':\n    print('인벤토리 확인')\nelif cmd == '3':\n    print('아이템 버리기')\nelif cmd == '7':\n    print('시스템 종료')\nelse:\n    print('잘못된 입력')",
       "choices": [
-        "A. 파이썬 공부",
-        "B. 14시",
-        "C. 20시",
-        "D. KeyError 발생"
+        "A. 아이템 획득",
+        "B. 인벤토리 확인",
+        "C. 아이템 버리기",
+        "D. 잘못된 입력"
+      ],
+      "answer": "C",
+      "hint": "cmd == '3'인 elif 블록이 참이 돼요.",
+      "feedback": {
+        "correct": "정확히 분석했어요! cmd = '3'이므로 세 번째 elif 조건이 참이 되어 '아이템 버리기'가 출력돼요."
+      }
+    },
+    {
+      "question_id": "unitboss_beg_ef_8_009",
+      "unit": 8,
+      "stage": "8-boss",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "error_find",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "방해문이 drop_item()에 교묘한 버그를 심었습니다! 유저가 '1'을 입력했는데 엉뚱한 아이템이 삭제됩니다. 오류 라인은?\n\n1줄: user_input = int(input('버릴 번호: '))\n2줄: idx = user_input\n3줄: dropped = inventory.pop(idx)",
+      "choices": [
+        "A. 1줄",
+        "B. 2줄",
+        "C. 3줄"
       ],
       "answer": "B",
-      "hint": "대괄호 인풋으로 투척한 명칭 식별자(Key)가 딕셔너리 장부 속에서 어떤 데이터 밸류를 유출 소환해 오는지 보세요.",
+      "hint": "사용자가 '1'을 입력하면 어떤 인덱스를 pop하게 될까요?",
       "feedback": {
-        "correct": "정답! 딕셔너리 정보 구조망은 대괄호 내부에 특정 키 명칭('파이썬 공부')을 매칭 주입 호출하면, 우측에 연동 저장 중이던 실제 타겟 값인 '14시'를 명확하게 산출 반환합니다."
+        "correct": "버그 적발! 2줄에서 idx = user_input 그대로 쓰면 사용자가 '1' 입력 시 인덱스 1(두 번째 아이템)이 삭제돼요. idx = user_input - 1로 수정해야 해요."
       }
     },
     {
@@ -186,16 +186,16 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "리스트에 존재하지 않는 엉뚱한 할 일 항목을 억지로 삭제(remove)하려고 시도하여 실행 시 값 오류(ValueError)가 터지는 줄은 몇 줄인가요?\n\n1줄: todo_list = [\"공부\", \"운동\"]\n2줄: todo_list.append(\"독서\")\n3줄: todo_list.remove(\"잠자기\")",
+      "question": "방해문이 save_inventory()의 파일 모드를 바꿔치기해서 저장 시 UnsupportedOperation 오류를 일으켰습니다. 오류 라인은?\n\n1줄: with open('inventory.txt', 'r') as f:\n2줄:     for item in inventory:\n3줄:         f.write(item + '\\n')",
       "choices": [
         "A. 1줄",
         "B. 2줄",
         "C. 3줄"
       ],
-      "answer": "C",
-      "hint": "todo_list 인벤토리 리스트 장부가 실시간 수집 보유하고 있는 팩트 요소 중, 실존 부재하는 유령 텍스트를 강제 청산하려 진상 부린 라인을 검거하세요.",
+      "answer": "A",
+      "hint": "파일에 쓰려면 어떤 모드로 열어야 할까요?",
       "feedback": {
-        "correct": "정답! .remove('아이템') 소거 문법은 배열 공간 내부에 타겟 원소가 절대 존재하지 않는 황당 상황일 때, 추적 불능 판정을 내리며 ValueError 파괴 예외를 작동시킵니다."
+        "correct": "버그 적발! 1줄에서 'r'(읽기) 모드로 파일을 열었는데, 3줄에서 f.write()를 호출했어요. 쓰기 위해서는 'w' 모드로 열어야 해요."
       }
     }
   ]
