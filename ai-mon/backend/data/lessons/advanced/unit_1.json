@@ -1,0 +1,898 @@
+[
+  {
+    "lesson_id": "1-1-advanced",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "advanced",
+    "title": "데코레이터 기초",
+    "villain": "codemmon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "데코레이터(decorator)는 기존 함수를 수정하지 않고 기능을 추가하거나 감싸는 고차 함수 패턴입니다.\n함수를 인자로 받아 새로운 함수를 반환하며, @ 문법으로 적용합니다.",
+        "tip": "데코레이터는 코드 재사용과 관심사 분리를 위한 핵심 패턴입니다."
+      },
+      {
+        "order": 2,
+        "text": "Python에서 함수는 일급 객체(first-class object)입니다.\n변수에 할당하거나 다른 함수의 인자로 전달하고 반환값으로 돌려줄 수 있습니다.",
+        "terminal": {
+          "code": [
+            "def greet():",
+            "    return \"안녕하세요!\"",
+            "",
+            "say_hello = greet       # 변수에 할당",
+            "print(say_hello())      # 함수처럼 호출 가능"
+          ],
+          "output": [
+            "안녕하세요!"
+          ]
+        },
+        "tip": "say_hello = greet 는 함수 객체 자체를 복사합니다. greet() 처럼 괄호를 붙이지 않아야 합니다."
+      },
+      {
+        "order": 3,
+        "text": "데코레이터의 기본 구조는 외부 함수가 내부 함수(wrapper)를 정의하고 반환하는 형태입니다.\nwrapper 안에서 원본 함수 실행 전후에 원하는 코드를 추가합니다.",
+        "terminal": {
+          "code": [
+            "def my_decorator(func):",
+            "    def wrapper():",
+            "        print(\"함수 실행 전\")",
+            "        func()",
+            "        print(\"함수 실행 후\")",
+            "    return wrapper",
+            "",
+            "def calculate():",
+            "    print(\"계산 중...\")",
+            "",
+            "decorated = my_decorator(calculate)",
+            "decorated()"
+          ],
+          "output": [
+            "함수 실행 전",
+            "계산 중...",
+            "함수 실행 후"
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "@decorator 문법은 func = decorator(func) 를 줄여 쓴 것입니다.\n함수 정의 바로 위에 작성하며, 정의 시점에 즉시 적용됩니다.",
+        "terminal": {
+          "code": [
+            "@my_decorator",
+            "def validate():",
+            "    print(\"유효성 검사 실행\")",
+            "",
+            "validate()"
+          ],
+          "output": [
+            "함수 실행 전",
+            "유효성 검사 실행",
+            "함수 실행 후"
+          ]
+        },
+        "tip": "@my_decorator 는 validate = my_decorator(validate) 와 완전히 동일합니다."
+      },
+      {
+        "order": 5,
+        "text": "데코레이터는 함수가 정의될 때 적용되고, wrapper는 호출될 때 실행됩니다.\n이 두 시점의 차이를 이해하는 것이 핵심입니다.",
+        "terminal": {
+          "code": [
+            "def order_check(func):",
+            "    print(\"데코레이터 적용됨\")   # 정의 시점",
+            "    def wrapper():",
+            "        print(\"wrapper 호출됨\")  # 호출 시점",
+            "        func()",
+            "    return wrapper",
+            "",
+            "@order_check          # ← 이 시점에 '데코레이터 적용됨' 출력",
+            "def process():",
+            "    print(\"데이터 처리 중\")",
+            "",
+            "print(\"--- 함수 호출 ---\")",
+            "process()"
+          ],
+          "output": [
+            "데코레이터 적용됨",
+            "--- 함수 호출 ---",
+            "wrapper 호출됨",
+            "데이터 처리 중"
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "데코레이터를 적용하면 원본 함수의 __name__, __doc__ 같은 메타데이터가 wrapper로 덮어써집니다.\nfunctools.wraps(func) 를 wrapper에 적용해 원본 정보를 보존해야 합니다.",
+        "terminal": {
+          "code": [
+            "import functools",
+            "",
+            "def bad_decorator(func):",
+            "    def wrapper():        # __name__이 'wrapper'로 바뀜",
+            "        func()",
+            "    return wrapper",
+            "",
+            "def good_decorator(func):",
+            "    @functools.wraps(func)",
+            "    def wrapper():        # __name__이 원본 함수명으로 유지됨",
+            "        func()",
+            "    return wrapper",
+            "",
+            "@bad_decorator",
+            "def my_func(): pass",
+            "",
+            "@good_decorator",
+            "def my_func2(): pass",
+            "",
+            "print(my_func.__name__)   # wrapper",
+            "print(my_func2.__name__)  # my_func2"
+          ],
+          "output": [
+            "wrapper",
+            "my_func2"
+          ]
+        },
+        "tip": "실무에서는 항상 @functools.wraps(func) 를 붙이는 것이 관례입니다."
+      },
+      {
+        "order": 7,
+        "text": "실전 활용: 함수 실행 시간을 측정하는 타이머 데코레이터입니다.\n*args, **kwargs 를 전달해 어떤 함수에도 범용으로 적용할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "import time, functools",
+            "",
+            "def timer(func):",
+            "    @functools.wraps(func)",
+            "    def wrapper(*args, **kwargs):",
+            "        start = time.time()",
+            "        result = func(*args, **kwargs)",
+            "        end = time.time()",
+            "        print(f\"{func.__name__} 실행 시간: {end - start:.4f}초\")",
+            "        return result",
+            "    return wrapper",
+            "",
+            "@timer",
+            "def load_data():",
+            "    total = sum(range(100000))",
+            "    return total",
+            "",
+            "load_data()"
+          ],
+          "output": [
+            "load_data 실행 시간: X.XXXX초  # 실행 환경마다 다름"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "lesson_id": "1-2-advanced",
+    "unit": 1,
+    "stage": "1-2",
+    "course_level": "advanced",
+    "title": "데코레이터 심화",
+    "villain": "codemmon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "인자를 받는 데코레이터는 3중 중첩 구조를 사용합니다.\n가장 바깥 함수가 데코레이터 인자를 받고, 그 안에서 실제 데코레이터와 wrapper를 정의합니다.\n\n구조: outer(인자) → decorator(func) → wrapper(*args, **kwargs)",
+        "tip": "함수를 3번 중첩하는 구조가 처음엔 낯설지만, 각 층의 역할을 분리해서 읽으면 명확해집니다."
+      },
+      {
+        "order": 2,
+        "text": "wrapper에서 *args, **kwargs 를 사용하면 원본 함수의 모든 인자를 그대로 전달할 수 있습니다.\n반환값도 반드시 return 해야 원본 함수의 결과가 보존됩니다.",
+        "terminal": {
+          "code": [
+            "import functools",
+            "",
+            "def logger(func):",
+            "    @functools.wraps(func)",
+            "    def wrapper(*args, **kwargs):",
+            "        print(f\"{func.__name__} 호출: args={args}, kwargs={kwargs}\")",
+            "        return func(*args, **kwargs)",
+            "    return wrapper",
+            "",
+            "@logger",
+            "def add(a, b):",
+            "    return a + b",
+            "",
+            "print(add(3, 5))"
+          ],
+          "output": [
+            "add 호출: args=(3, 5), kwargs={}",
+            "8"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "인자를 받는 데코레이터의 전체 구조입니다.\n@repeat(3) 은 repeat(3) 을 먼저 호출해 decorator를 얻고, 그 decorator를 함수에 적용합니다.",
+        "terminal": {
+          "code": [
+            "import functools",
+            "",
+            "def repeat(n):",
+            "    def decorator(func):",
+            "        @functools.wraps(func)",
+            "        def wrapper(*args, **kwargs):",
+            "            for _ in range(n):",
+            "                result = func(*args, **kwargs)",
+            "            return result",
+            "        return wrapper",
+            "    return decorator",
+            "",
+            "@repeat(3)",
+            "def print_grade(subject):",
+            "    print(f\"{subject} 점수를 출력합니다.\")",
+            "",
+            "print_grade(\"수학\")"
+          ],
+          "output": [
+            "수학 점수를 출력합니다.",
+            "수학 점수를 출력합니다.",
+            "수학 점수를 출력합니다."
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "데코레이터를 여러 개 중첩하면 아래에서 위로 순서대로 적용됩니다.\n실행 순서는 바깥 데코레이터 전처리 → 안쪽 전처리 → 원본 함수 → 안쪽 후처리 → 바깥 후처리입니다.",
+        "terminal": {
+          "code": [
+            "import functools",
+            "",
+            "def deco_a(func):",
+            "    @functools.wraps(func)",
+            "    def wrapper(*args, **kwargs):",
+            "        print(\"A 전\")",
+            "        func(*args, **kwargs)",
+            "        print(\"A 후\")",
+            "    return wrapper",
+            "",
+            "def deco_b(func):",
+            "    @functools.wraps(func)",
+            "    def wrapper(*args, **kwargs):",
+            "        print(\"B 전\")",
+            "        func(*args, **kwargs)",
+            "        print(\"B 후\")",
+            "    return wrapper",
+            "",
+            "@deco_a",
+            "@deco_b",
+            "def run():",
+            "    print(\"실행!\")",
+            "",
+            "run()"
+          ],
+          "output": [
+            "A 전",
+            "B 전",
+            "실행!",
+            "B 후",
+            "A 후"
+          ]
+        },
+        "tip": "적용 순서: run = deco_a(deco_b(run)). 실행 순서는 감싸인 순서대로입니다."
+      },
+      {
+        "order": 5,
+        "text": "클래스로도 데코레이터를 구현할 수 있습니다.\n__init__ 에서 함수를 받고, __call__ 에서 호출 로직을 정의합니다.\n인스턴스 변수로 상태를 관리할 때 유용합니다.",
+        "terminal": {
+          "code": [
+            "import functools",
+            "",
+            "class Counter:",
+            "    def __init__(self, func):",
+            "        functools.update_wrapper(self, func)",
+            "        self.func = func",
+            "        self.count = 0",
+            "",
+            "    def __call__(self, *args, **kwargs):",
+            "        self.count += 1",
+            "        print(f\"호출 횟수: {self.count}\")",
+            "        return self.func(*args, **kwargs)",
+            "",
+            "@Counter",
+            "def fetch_data():",
+            "    print(\"데이터 조회 완료\")",
+            "",
+            "fetch_data()",
+            "fetch_data()"
+          ],
+          "output": [
+            "호출 횟수: 1",
+            "데이터 조회 완료",
+            "호출 횟수: 2",
+            "데이터 조회 완료"
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "실전 패턴: 인증 체크 데코레이터입니다.\n반복되는 공통 처리를 데코레이터로 분리하면 핵심 비즈니스 로직이 깔끔해집니다.",
+        "terminal": {
+          "code": [
+            "import functools",
+            "",
+            "def require_auth(func):",
+            "    @functools.wraps(func)",
+            "    def wrapper(user, *args, **kwargs):",
+            "        if not user.get(\"authenticated\"):",
+            "            print(\"인증이 필요합니다.\")",
+            "            return None",
+            "        return func(user, *args, **kwargs)",
+            "    return wrapper",
+            "",
+            "@require_auth",
+            "def show_report(user):",
+            "    print(f\"{user['name']}의 학습 리포트\")",
+            "",
+            "show_report({\"name\": \"김철수\", \"authenticated\": False})",
+            "show_report({\"name\": \"김철수\", \"authenticated\": True})"
+          ],
+          "output": [
+            "인증이 필요합니다.",
+            "김철수의 학습 리포트"
+          ]
+        }
+      },
+      {
+        "order": 7,
+        "text": "⚠️ 엣지 케이스: wrapper에서 return 을 빠뜨리면 원본 함수의 반환값이 사라집니다.\n반환값이 있는 함수에 데코레이터를 적용할 때 반드시 확인해야 하는 실수입니다.",
+        "terminal": {
+          "code": [
+            "def broken_decorator(func):",
+            "    def wrapper(*args, **kwargs):",
+            "        func(*args, **kwargs)   # return 누락!",
+            "    return wrapper",
+            "",
+            "def correct_decorator(func):",
+            "    def wrapper(*args, **kwargs):",
+            "        return func(*args, **kwargs)  # return 있음",
+            "    return wrapper",
+            "",
+            "@broken_decorator",
+            "def get_score():",
+            "    return 100",
+            "",
+            "@correct_decorator",
+            "def get_score2():",
+            "    return 100",
+            "",
+            "print(get_score())    # None",
+            "print(get_score2())   # 100"
+          ],
+          "output": [
+            "None",
+            "100"
+          ]
+        },
+        "tip": "wrapper 안에서는 항상 return func(*args, **kwargs) 를 작성하는 습관을 들이세요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "1-3-advanced",
+    "unit": 1,
+    "stage": "1-3",
+    "course_level": "advanced",
+    "title": "제너레이터",
+    "villain": "codemmon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "제너레이터(generator)는 yield 키워드를 사용해 값을 하나씩 생산하는 함수입니다.\n일반 함수와 달리 호출 시 즉시 실행되지 않고, next() 를 호출할 때마다 다음 값까지 실행합니다.\n모든 값을 메모리에 올려두지 않아 대용량 데이터 처리에 효율적입니다.",
+        "tip": "제너레이터 함수를 호출하면 제너레이터 객체가 반환됩니다. 이 시점에는 코드가 실행되지 않습니다."
+      },
+      {
+        "order": 2,
+        "text": "yield 는 값을 반환하면서 함수 실행을 일시 정지합니다. 다음 next() 호출 시 그 지점부터 재개됩니다.\nreturn 은 함수를 완전히 종료하지만, yield 는 상태를 유지한 채 멈춥니다.",
+        "terminal": {
+          "code": [
+            "def gen_scores():",
+            "    yield 85",
+            "    yield 90",
+            "    yield 78",
+            "",
+            "g = gen_scores()",
+            "print(next(g))  # yield 85에서 멈춤",
+            "print(next(g))  # yield 90에서 멈춤",
+            "print(next(g))  # yield 78에서 멈춤"
+          ],
+          "output": [
+            "85",
+            "90",
+            "78"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "제너레이터의 모든 값이 소진되면 StopIteration 예외가 발생합니다.\nfor 루프는 이 예외를 자동으로 처리하지만, next() 를 직접 사용할 때는 명시적으로 처리해야 합니다.",
+        "terminal": {
+          "code": [
+            "g = gen_scores()",
+            "for _ in range(3):",
+            "    print(next(g))",
+            "",
+            "try:",
+            "    next(g)          # 이미 소진된 제너레이터",
+            "except StopIteration:",
+            "    print(\"StopIteration 발생!\")"
+          ],
+          "output": [
+            "85",
+            "90",
+            "78",
+            "StopIteration 발생!"
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "for 루프는 내부적으로 iter() 와 next() 를 반복 호출하며, StopIteration 이 발생하면 자동으로 종료합니다.\n제너레이터 객체는 이미 이터레이터이므로 바로 for 루프에 사용할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "for score in gen_scores():",
+            "    print(score)"
+          ],
+          "output": [
+            "85",
+            "90",
+            "78"
+          ]
+        },
+        "tip": "for score in gen_scores() 는 매번 새로운 제너레이터 객체를 생성합니다."
+      },
+      {
+        "order": 5,
+        "text": "제너레이터 표현식은 리스트 컴프리헨션과 문법이 같지만 [] 대신 () 를 사용합니다.\n리스트는 전체 값을 즉시 메모리에 올리지만, 제너레이터는 요청 시마다 값을 생산합니다.",
+        "terminal": {
+          "code": [
+            "import sys",
+            "",
+            "list_comp = [x * 2 for x in range(1000)]",
+            "gen_expr  = (x * 2 for x in range(1000))",
+            "",
+            "print(f\"리스트:     {sys.getsizeof(list_comp)} bytes\")",
+            "print(f\"제너레이터: {sys.getsizeof(gen_expr)} bytes\")"
+          ],
+          "output": [
+            "리스트:     8856 bytes",
+            "제너레이터: 200 bytes"
+          ]
+        },
+        "tip": "리스트 크기는 CPython 버전·플랫폼에 따라 다릅니다(예시는 CPython 3.x 64bit 기준). 제너레이터는 요청 시마다 값을 생산하므로 크기가 고정됩니다. CPython 3.x 64bit 기준. 환경마다 다를 수 있음"
+      },
+      {
+        "order": 6,
+        "text": "yield from 은 다른 이터러블의 값을 현재 제너레이터로 위임합니다.\n중첩 제너레이터를 단순하게 표현하고, 서브 제너레이터의 StopIteration 을 자동 처리합니다.",
+        "terminal": {
+          "code": [
+            "def mid_scores():",
+            "    yield 82",
+            "    yield 88",
+            "",
+            "def all_scores():",
+            "    yield from mid_scores()   # mid_scores의 값을 위임",
+            "    yield 95",
+            "",
+            "print(list(all_scores()))"
+          ],
+          "output": [
+            "[82, 88, 95]"
+          ]
+        }
+      },
+      {
+        "order": 7,
+        "text": "실전 활용: 대용량 로그 파일을 라인별로 읽거나 무한 ID 시퀀스를 생성할 때 제너레이터를 사용합니다.\n메모리에 전체 데이터를 올리지 않고 필요한 만큼만 처리할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "# 대용량 파일 라인별 읽기",
+            "def read_lines(filepath):",
+            "    with open(filepath, 'r') as f:",
+            "        for line in f:",
+            "            yield line.strip()",
+            "",
+            "# 무한 ID 시퀀스 생성",
+            "def id_generator(start=1):",
+            "    n = start",
+            "    while True:",
+            "        yield n",
+            "        n += 1",
+            "",
+            "gen = id_generator()",
+            "print([next(gen) for _ in range(5)])"
+          ],
+          "output": [
+            "[1, 2, 3, 4, 5]"
+          ]
+        },
+        "tip": "무한 제너레이터는 next() 나 itertools.islice() 로 필요한 만큼만 꺼내야 무한 루프를 방지할 수 있습니다."
+      }
+    ]
+  },
+  {
+    "lesson_id": "1-4-advanced",
+    "unit": 1,
+    "stage": "1-4",
+    "course_level": "advanced",
+    "title": "컨텍스트 매니저",
+    "villain": "codemmon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "컨텍스트 매니저(context manager)는 with 블록의 진입과 탈출 시 자동으로 리소스를 열고 닫아주는 패턴입니다.\n예외가 발생하더라도 정리 코드가 반드시 실행되도록 보장합니다.",
+        "tip": "with open(...) 이 바로 컨텍스트 매니저의 대표 사례입니다. 파일을 명시적으로 .close() 하지 않아도 됩니다."
+      },
+      {
+        "order": 2,
+        "text": "클래스 기반 컨텍스트 매니저는 __enter__ 와 __exit__ 두 메서드를 구현합니다.\n__enter__ 는 with 블록 진입 시 실행되고, as 뒤 변수에 반환값이 바인딩됩니다.",
+        "terminal": {
+          "code": [
+            "class FileManager:",
+            "    def __init__(self, filename):",
+            "        self.filename = filename",
+            "        self.file = None",
+            "",
+            "    def __enter__(self):",
+            "        print(f\"{self.filename} 열기\")",
+            "        self.file = open(self.filename, 'w')",
+            "        return self.file",
+            "",
+            "    def __exit__(self, exc_type, exc_val, exc_tb):",
+            "        print(f\"{self.filename} 닫기\")",
+            "        self.file.close()",
+            "        return False",
+            "",
+            "with FileManager(\"result.txt\") as f:",
+            "    f.write(\"분석 결과\")",
+            "    print(\"파일 쓰기 완료\")"
+          ],
+          "output": [
+            "result.txt 열기",
+            "파일 쓰기 완료",
+            "result.txt 닫기"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "__exit__ 는 예외 정보를 세 인자로 받습니다: exc_type (예외 타입), exc_val (예외 값), exc_tb (트레이스백).\n예외가 없으면 세 값 모두 None 으로 전달됩니다.",
+        "terminal": {
+          "code": [
+            "class SafeDiv:",
+            "    def __enter__(self):",
+            "        return self",
+            "",
+            "    def __exit__(self, exc_type, exc_val, exc_tb):",
+            "        if exc_type is ZeroDivisionError:",
+            "            print(f\"예외 처리: {exc_val}\")",
+            "            return True     # 예외 억제",
+            "        return False        # 예외 전파",
+            "",
+            "with SafeDiv():",
+            "    result = 10 / 0",
+            "",
+            "print(\"예외 억제 후 계속 실행됨\")"
+          ],
+          "output": [
+            "예외 처리: division by zero",
+            "예외 억제 후 계속 실행됨"
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "contextlib.contextmanager 데코레이터를 사용하면 제너레이터 함수로 컨텍스트 매니저를 간결하게 만들 수 있습니다.\nyield 이전이 __enter__, 이후가 __exit__ 에 해당합니다.",
+        "terminal": {
+          "code": [
+            "from contextlib import contextmanager",
+            "import time",
+            "",
+            "@contextmanager",
+            "def timer_ctx(label):",
+            "    start = time.time()",
+            "    yield                     # with 블록 실행 지점",
+            "    end = time.time()",
+            "    print(f\"{label}: {end - start:.4f}초\")",
+            "",
+            "with timer_ctx(\"데이터 처리\"):",
+            "    total = sum(range(100000))"
+          ],
+          "output": [
+            "데이터 처리: X.XXXX초  # 실행 환경마다 다름"
+          ]
+        }
+      },
+      {
+        "order": 5,
+        "text": "with 문에서 여러 컨텍스트 매니저를 한 줄에 작성할 수 있습니다.\nPython 3.10부터는 괄호로 감싸 여러 줄에 나눠 쓸 수도 있습니다.",
+        "terminal": {
+          "code": [
+            "# 한 줄에 다중 컨텍스트 작성",
+            "with open(\"input.txt\", \"w\") as src, open(\"output.txt\", \"w\") as dst:",
+            "    src.write(\"원본 데이터\")",
+            "    dst.write(\"변환 결과\")",
+            "    print(\"두 파일 동시 작업 완료\")",
+            "",
+            "# Python 3.10+ — 괄호로 여러 줄 작성",
+            "# with (",
+            "#     open(\"input.txt\", \"w\") as src,",
+            "#     open(\"output.txt\", \"w\") as dst,",
+            "# ):",
+            "#     ..."
+          ],
+          "output": [
+            "두 파일 동시 작업 완료"
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "실전 활용: DB 커넥션 관리, 임시 작업 디렉토리 생성, 트랜잭션 관리 등 다양한 리소스 관리에 사용됩니다.",
+        "terminal": {
+          "code": [
+            "from contextlib import contextmanager",
+            "",
+            "@contextmanager",
+            "def db_connection(db_name):",
+            "    print(f\"[DB] {db_name} 연결\")",
+            "    conn = {\"db\": db_name, \"open\": True}",
+            "    try:",
+            "        yield conn",
+            "    finally:",
+            "        conn[\"open\"] = False",
+            "        print(f\"[DB] {db_name} 연결 종료\")",
+            "",
+            "with db_connection(\"students\") as conn:",
+            "    print(f\"쿼리 실행 중... (연결 상태: {conn['open']})\")"
+          ],
+          "output": [
+            "[DB] students 연결",
+            "쿼리 실행 중... (연결 상태: True)",
+            "[DB] students 연결 종료"
+          ]
+        }
+      },
+      {
+        "order": 7,
+        "text": "⚠️ 엣지 케이스: __exit__ 의 반환값이 True 이면 예외를 억제하고, False (또는 None) 이면 예외를 상위로 전파합니다.\n의도치 않게 예외를 억제하지 않도록 반환값을 명확히 설정해야 합니다.",
+        "terminal": {
+          "code": [
+            "class SuppressAll:",
+            "    def __enter__(self): return self",
+            "    def __exit__(self, *args): return True   # 모든 예외 억제",
+            "",
+            "class PassThrough:",
+            "    def __enter__(self): return self",
+            "    def __exit__(self, *args): return False  # 예외 전파",
+            "",
+            "with SuppressAll():",
+            "    raise ValueError(\"억제됨!\")",
+            "print(\"True 반환: 예외 억제, 계속 실행\")",
+            "",
+            "try:",
+            "    with PassThrough():",
+            "        raise ValueError(\"전파됨!\")",
+            "except ValueError as e:",
+            "    print(f\"False 반환: 예외 전파 → {e}\")"
+          ],
+          "output": [
+            "True 반환: 예외 억제, 계속 실행",
+            "False 반환: 예외 전파 → 전파됨!"
+          ]
+        },
+        "tip": "특정 예외만 억제하고 나머지는 전파하려면 __exit__ 에서 예외 타입을 검사해 조건부로 True 를 반환하세요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "1-5-advanced",
+    "unit": 1,
+    "stage": "1-5",
+    "course_level": "advanced",
+    "title": "고급 문법 종합실습",
+    "villain": "codemmon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "Unit 1에서 학습한 세 가지 패턴을 연결해 복습합니다.\n\n- 데코레이터: 함수 기능을 감싸 전/후처리 추가\n- 제너레이터: yield 로 값을 하나씩 생산, 메모리 효율 처리\n- 컨텍스트 매니저: with 블록으로 리소스 진입/정리 자동화\n\n세 패턴은 독립적으로도 강력하지만, 조합하면 실무 수준의 구조를 만들 수 있습니다."
+      },
+      {
+        "order": 2,
+        "text": "데코레이터와 제너레이터 결합: 제너레이터 함수에도 데코레이터를 그대로 적용할 수 있습니다.\n단, wrapper 내 func()는 제너레이터 객체를 반환합니다. 따라서 [LOG] 종료는 iteration 완료가 아닌 제너레이터 생성 시점에 출력됩니다.",
+        "terminal": {
+          "code": [
+            "import functools",
+            "",
+            "def log_calls(func):",
+            "    @functools.wraps(func)",
+            "    def wrapper(*args, **kwargs):",
+            "        print(f\"[LOG] {func.__name__} 시작\")",
+            "        result = func(*args, **kwargs)",
+            "        print(f\"[LOG] {func.__name__} 종료\")",
+            "        return result",
+            "    return wrapper",
+            "",
+            "@log_calls",
+            "def score_gen(scores):",
+            "    for s in scores:",
+            "        yield s",
+            "",
+            "gen = score_gen([85, 90, 78])",
+            "for v in gen:",
+            "    print(v)"
+          ],
+          "output": [
+            "[LOG] score_gen 시작",
+            "[LOG] score_gen 종료",
+            "85",
+            "90",
+            "78"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "@contextmanager 는 제너레이터 기반으로 컨텍스트 매니저를 구현합니다.\nyield 전후로 진입/정리 로직을 나누고, try/finally 로 예외 발생 시에도 정리를 보장합니다.",
+        "terminal": {
+          "code": [
+            "from contextlib import contextmanager",
+            "",
+            "@contextmanager",
+            "def managed_pipeline(name):",
+            "    print(f\"[열기] {name}\")",
+            "    resource = {\"name\": name, \"records\": []}",
+            "    try:",
+            "        yield resource",
+            "    finally:",
+            "        print(f\"[닫기] {name}, 처리 건수: {len(resource['records'])}건\")",
+            "",
+            "with managed_pipeline(\"성적 처리\") as r:",
+            "    r[\"records\"].extend([85, 90, 78])",
+            "    print(f\"처리 중: {r['records']}\")"
+          ],
+          "output": [
+            "[열기] 성적 처리",
+            "처리 중: [85, 90, 78]",
+            "[닫기] 성적 처리, 처리 건수: 3건"
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "실전 미니 프로젝트 ①: 함수 호출 로그 시스템\n데코레이터를 활용해 여러 함수의 호출 이력을 자동으로 기록합니다.",
+        "terminal": {
+          "code": [
+            "import functools",
+            "",
+            "call_log = []",
+            "",
+            "def record(func):",
+            "    @functools.wraps(func)",
+            "    def wrapper(*args, **kwargs):",
+            "        call_log.append(func.__name__)",
+            "        return func(*args, **kwargs)",
+            "    return wrapper",
+            "",
+            "@record",
+            "def load_csv(): return \"CSV 로드 완료\"",
+            "",
+            "@record",
+            "def clean_data(): return \"데이터 정제 완료\"",
+            "",
+            "load_csv(); clean_data(); load_csv()",
+            "print(\"호출 기록:\", call_log)"
+          ],
+          "output": [
+            "호출 기록: ['load_csv', 'clean_data', 'load_csv']"
+          ]
+        }
+      },
+      {
+        "order": 5,
+        "text": "실전 미니 프로젝트 ②: 데이터 처리 파이프라인\n제너레이터를 체이닝해 데이터를 단계별로 처리합니다. 각 단계는 게으르게(lazily) 실행됩니다.",
+        "terminal": {
+          "code": [
+            "def source(data):",
+            "    for item in data:",
+            "        yield item",
+            "",
+            "def filter_passing(gen, threshold=60):",
+            "    for score in gen:",
+            "        if score >= threshold:",
+            "            yield score",
+            "",
+            "def normalize(gen, total=100):",
+            "    for score in gen:",
+            "        yield round(score / total, 2)",
+            "",
+            "scores = [45, 72, 58, 88, 91]",
+            "pipeline = normalize(filter_passing(source(scores)))",
+            "print(list(pipeline))"
+          ],
+          "output": [
+            "[0.72, 0.88, 0.91]"
+          ]
+        },
+        "tip": "파이프라인의 각 제너레이터는 값이 요청될 때만 실행됩니다. 중간 결과를 메모리에 쌓지 않습니다."
+      },
+      {
+        "order": 6,
+        "text": "실전 미니 프로젝트 ③: 안전한 파일 처리기\n@contextmanager 로 파일 오류를 자동으로 처리하는 커스텀 컨텍스트 매니저를 구현합니다.",
+        "terminal": {
+          "code": [
+            "from contextlib import contextmanager",
+            "",
+            "@contextmanager",
+            "def safe_file(path, mode=\"r\"):",
+            "    f = None",
+            "    try:",
+            "        f = open(path, mode)",
+            "        yield f",
+            "    except FileNotFoundError:",
+            "        print(f\"[오류] 파일 없음: {path}\")",
+            "        yield None  # ⚠️ with 블록 내 추가 예외 발생 시 RuntimeError 가능",
+            "    finally:",
+            "        if f:",
+            "            f.close()",
+            "            print(\"[닫기] 파일 정상 종료\")",
+            "",
+            "with safe_file(\"missing.csv\") as f:",
+            "    if f:",
+            "        print(f.read())"
+          ],
+          "output": [
+            "[오류] 파일 없음: missing.csv"
+          ]
+        }
+      },
+      {
+        "order": 7,
+        "text": "세 가지 패턴을 모두 활용한 종합 예제입니다.\n데코레이터로 실행 시간을 측정하고, 컨텍스트 매니저로 배치를 관리하며, 제너레이터로 데이터를 스트리밍 처리합니다.",
+        "terminal": {
+          "code": [
+            "import time, functools",
+            "from contextlib import contextmanager",
+            "",
+            "def timed(func):",
+            "    @functools.wraps(func)",
+            "    def wrapper(*args, **kwargs):",
+            "        start = time.time()",
+            "        result = func(*args, **kwargs)",
+            "        print(f\"{func.__name__}: {time.time()-start:.4f}초\")",
+            "        return result",
+            "    return wrapper",
+            "",
+            "@contextmanager",
+            "def batch_context(label):",
+            "    print(f\"[배치 시작] {label}\")",
+            "    yield",
+            "    print(f\"[배치 완료] {label}\")",
+            "",
+            "def square_stream(n):",
+            "    for i in range(n):",
+            "        yield i * i",
+            "",
+            "@timed",
+            "def run_pipeline(gen):",
+            "    return list(gen)",
+            "",
+            "with batch_context(\"제곱 연산\"):",
+            "    result = run_pipeline(square_stream(5))",
+            "    print(\"결과:\", result)"
+          ],
+          "output": [
+            "[배치 시작] 제곱 연산",
+            "run_pipeline: X.XXXX초  # 실행 환경마다 다름",
+            "결과: [0, 1, 4, 9, 16]",
+            "[배치 완료] 제곱 연산"
+          ]
+        },
+        "tip": "주요 함정 — ① wrapper에서 return 누락 ② __exit__ 반환값 실수로 True 설정 ③ 소진된 제너레이터 재사용 시도"
+      }
+    ]
+  }
+]
