@@ -1,0 +1,2154 @@
+{
+  "questions": [
+    {
+      "question_id": "sl_mid_os_5_1_001",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\ndef square(x):\n    return x * x\n\nnumbers = [1, 2, 3, 4]\nresult = [square(n) for n in numbers]\nprint(result)",
+      "choices": [
+        "A) [1, 4, 9, 16]",
+        "B) [1, 2, 3, 4]",
+        "C) (1, 4, 9, 16)",
+        "D) [square(n) for n in numbers]"
+      ],
+      "answer": "A) [1, 4, 9, 16]",
+      "hint": "함수를 리스트 컴프리헨션 안에서 사용할 때는 각 원소마다 함수가 실행돼요.",
+      "feedback": {
+        "correct": "정답입니다! 컴프리헨션은 각 원소마다 square() 함수를 호출하고, 그 결과들을 모아 새로운 리스트를 만들어요.",
+        "wrong": "정답은 A) [1, 4, 9, 16]입니다. square(1)=1, square(2)=4, square(3)=9, square(4)=16 계산 결과를 모은 리스트예요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_1_002",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 10 이상의 수만 필터링하는 컴프리헨션을 완성하세요.\n\nnums = [5, 12, 8, 15, 3, 20]\nfiltered = [n ________]\nprint(filtered)  # [12, 15, 20]",
+      "choices": [],
+      "answer": "for n in nums if n >= 10",
+      "hint": "조건이 있는 컴프리헨션은 [표현식 for 변수 in 시퀀스 if 조건]이에요.",
+      "feedback": {
+        "correct": "정답입니다! if n >= 10 조건으로 10 이상의 수들만 필터링했어요.",
+        "wrong": "정답은 for n in nums if n >= 10입니다. 대상 컬렉션을 지정하고 필터링 조건절인 if 구조를 배치해야 합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_1_003",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 1부터 5까지의 제곱을 구하는 컴프리헨션을 완성하세요.\n\nresult = [x**2 ________]\nprint(result)\n# 출력: [1, 4, 9, 16, 25]",
+      "choices": [],
+      "answer": "for x in range(1, 6)",
+      "hint": "컴프리헨션의 기본 형태는 [표현식 for 변수 in 시퀀스]예요.",
+      "feedback": {
+        "correct": "정답입니다! range(1, 6)은 1부터 5까지의 수를 생성하고, 각 x에 대해 x**2을 계산해요.",
+        "wrong": "정답은 for x in range(1, 6)입니다. 1부터 5까지 범위를 지정하는 반복 구문이 와야 해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_1_004",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\ndef is_even(n):\n    return n % 2 == 0\n\nnums = [1, 2, 3, 4, 5, 6]\nresult = [n for n in nums if is_even(n)]\nprint(result)",
+      "choices": [
+        "A) [2, 4, 6]",
+        "B) [1, 3, 5]",
+        "C) [True, True, True, True, True, True]",
+        "D) [2, 4, 6, 1, 3, 5]"
+      ],
+      "answer": "A) [2, 4, 6]",
+      "hint": "조건문(if)이 있는 컴프리헨션은 조건을 만족하는 원소들만 모아요.",
+      "feedback": {
+        "correct": "정답입니다! is_even() 함수로 짝수를 판단하고, 짝수만 필터링해서 새로운 리스트를 만들어요.",
+        "wrong": "정답은 A) [2, 4, 6]입니다. if 조건이 True를 반환하는 짝수 데이터만 필터링되어 리스트에 담깁니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_1_005",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\ndef add_prefix(word):\n    return 'py_' + word\n\nwords = ['thon', 'game', 'data']\nresult = [add_prefix(w) for w in words]\nprint(result)",
+      "choices": [
+        "A) ['py_thon', 'py_game', 'py_data']",
+        "B) ['pythonpygamepydata']",
+        "C) ['thon', 'game', 'data']",
+        "D) ['py_', 'py_', 'py_']"
+      ],
+      "answer": "A) ['py_thon', 'py_game', 'py_data']",
+      "hint": "컴프리헨션은 각 원소마다 함수를 실행한 결과들을 모아서 새로운 리스트를 만들어요.",
+      "feedback": {
+        "correct": "정답입니다! add_prefix() 함수가 각 단어에 'py_' 접두사를 붙여서 변환했어요.",
+        "wrong": "정답은 A) ['py_thon', 'py_game', 'py_data']입니다. 루프를 돌며 개별 요소 문자열에 접두사가 연산되어 담깁니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_1_006",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 리스트 컴프리헨션으로 변환했을 때, 빈칸을 채우세요.\n\n# 원래 코드:\ndef double(x):\n    return x * 2\n\noriginal = []\nfor num in [1, 2, 3, 4]:\n    original.append(double(num))\n\n# 컴프리헨션:\ncompressed = ________\n\nprint(compressed)  # [2, 4, 6, 8]",
+      "choices": [],
+      "answer": "[double(num) for num in [1, 2, 3, 4]]",
+      "hint": "컴프리헨션은 반복문과 append()를 한 줄로 압축한 형태예요.",
+      "feedback": {
+        "correct": "정답입니다! double() 함수를 각 원소에 적용하는 컴프리헨션을 완성했어요.",
+        "wrong": "정답은 [double(num) for num in [1, 2, 3, 4]]입니다. 표현식 컴프리헨션의 틀에 맞추어 작성해야 합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_1_007",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 중첩 리스트의 모든 원소를 1씩 증가시키는 컴프리헨션을 완성하세요.\n\nmatrix = [[1, 2], [3, 4], [5, 6]]\nresult = ________\nprint(result)  \n# [[2, 3], [4, 5], [6, 7]]",
+      "choices": [],
+      "answer": "[[x + 1 for x in row] for row in matrix]",
+      "hint": "중첩 컴프리헨션은 두 개의 for문이 중첩되는 형태예요.",
+      "feedback": {
+        "correct": "정답입니다! 바깥쪽 for로 각 행을 순회하고, 안쪽 for로 각 원소를 처리했어요.",
+        "wrong": "정답은 [[x + 1 for x in row] for row in matrix]입니다. 바깥 2차원 공간을 돌며 내부 1차원 리스트를 다시 컴프리헨션 구문으로 열어야 해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_1_008",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\ndef process(x):\n    if x % 2 == 0:\n        return x * 2\n    else:\n        return x * 3\n\nnums = [1, 2, 3, 4, 5]\nresult = [process(n) for n in nums]\nprint(result)",
+      "choices": [
+        "A) [3, 4, 9, 8, 15]",
+        "B) [2, 4, 6, 8, 10]",
+        "C) [3, 2, 9, 4, 15]",
+        "D) [1, 2, 3, 4, 5]"
+      ],
+      "answer": "A) [3, 4, 9, 8, 15]",
+      "hint": "함수 내 조건문 결과가 컴프리헨션에 반영돼요. 1(홀수)→1*3=3, 2(짝수)→2*2=4 같이요.",
+      "feedback": {
+        "correct": "정답입니다! 함수 내의 조건문에 따라 다른 계산이 실행되고, 그 결과들이 리스트로 모아졌어요.",
+        "wrong": "정답은 A) [3, 4, 9, 8, 15]입니다. 조건분기에 맞춰 홀수는 3배, 짝수는 2배 연산된 결과들이 저장돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_1_009",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\ndef is_valid(x):\n    return x > 5 and x < 15\n\ndata = [3, 7, 10, 20, 8, 2, 12]\nresult = [x * 2 for x in data if is_valid(x)]\nprint(result)",
+      "choices": [
+        "A) [14, 20, 16, 24]",
+        "B) [6, 14, 20, 40, 16, 4, 24]",
+        "C) [7, 10, 8, 12]",
+        "D) [14, 20, 24]"
+      ],
+      "answer": "A) [14, 20, 16, 24]",
+      "hint": "is_valid() 함수가 5 < x < 15를 만족하는 원소만 필터링하고, 그 원소들을 2배로 만들어요.",
+      "feedback": {
+        "correct": "정답입니다! 조건을 만족하는 7, 10, 8, 12만 선택되어 각각 2배가 되었어요.",
+        "wrong": "정답은 A) [14, 20, 16, 24]입니다. 필터 조건식인 5 초과 15 미만 데이터만 식별해 내어 2배 연산을 가해야 합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_1_010",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 문자열의 길이에 따라 대문자 또는 소문자로 변환하는 컴프리헨션을 완성하세요.\n\ndef convert(word):\n    if len(word) > 3:\n        return word.upper()\n    else:\n        return word.lower()\n\nwords = ['Hi', 'Hello', 'Py', 'Python']\nresult = ________\nprint(result)  # ['hi', 'HELLO', 'py', 'PYTHON']",
+      "choices": [],
+      "answer": "[convert(w) for w in words]",
+      "hint": "컴프리헨션으로 함수를 각 원소에 적용하면 돼요.",
+      "feedback": {
+        "correct": "정답입니다! convert() 함수가 각 단어의 길이에 따라 다르게 변환했어요.",
+        "wrong": "정답은 [convert(w) for w in words]입니다. 순회 변수 w를 수신하는 가공 함수를 표현식 영역에 두고 전체를 루프 처리해야 합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_1_011",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\ndef triple(x):\n    return x * 3\n\nvalues = [2, 3, 4]\nresult = [triple(v) for v in values]\nprint(result)",
+      "choices": [
+        "A) [6, 9, 12]",
+        "B) [2, 3, 4]",
+        "C) [3, 3, 3]",
+        "D) triple(2), triple(3), triple(4)"
+      ],
+      "answer": "A) [6, 9, 12]",
+      "hint": "각 원소가 함수에 전달되고, 함수의 반환값들이 새로운 리스트를 만들어요.",
+      "feedback": {
+        "correct": "정답입니다! triple() 함수가 각 값을 3배로 변환했어요.",
+        "wrong": "정답은 A) [6, 9, 12]입니다. 컴프리헨션 내부에서 각 요소 원본 값에 3배 일괄 수행한 대상을 추출합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_1_012",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 3의 배수인 수들만 모으는 컴프리헨션을 완성하세요.\n\nnums = [1, 3, 6, 9, 10, 12]\nresult = ________\nprint(result)  # [3, 6, 9, 12]",
+      "choices": [],
+      "answer": "[n for n in nums if n % 3 == 0]",
+      "hint": "n % 3 == 0이면 3의 배수예요.",
+      "feedback": {
+        "correct": "정답입니다! 3의 배수인 3, 6, 9, 12를 필터링하는 컴프리헨션을 완성했어요.",
+        "wrong": "정답은 [n for n in nums if n % 3 == 0]입니다. 3으로 나눈 나머지가 0인 조건을 만족하는 식을 작성해야 합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_1_013",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 홀수만 모으는 컴프리헨션을 완성하세요.\n\nnums = [1, 2, 3, 4, 5, 6, 7]\nodds = ________\nprint(odds)  # [1, 3, 5, 7]",
+      "choices": [],
+      "answer": "[n for n in nums if n % 2 != 0]",
+      "hint": "n % 2 != 0이면 홀수예요.",
+      "feedback": {
+        "correct": "정답입니다! 홀수 조건으로 필터링해서 새로운 리스트를 만들어요.",
+        "wrong": "정답은 [n for n in nums if n % 2 != 0]입니다. if절의 연산자를 활용하여 홀수를 걸러내는 조건문을 표현해야 합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_1_014",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\ndef get_length(s):\n    return len(s)\n\nwords = ['cat', 'elephant', 'dog', 'lion']\nresult = [get_length(w) for w in words]\nprint(result)",
+      "choices": [
+        "A) [3, 8, 3, 4]",
+        "B) ['cat', 'elephant', 'dog', 'lion']",
+        "C) [1, 1, 1, 1]",
+        "D) ['c', 'e', 'd', 'l']"
+      ],
+      "answer": "A) [3, 8, 3, 4]",
+      "hint": "get_length()는 각 단어의 글자 개수를 반환해요.",
+      "feedback": {
+        "correct": "정답입니다! 각 단어의 길이를 구하는 함수를 컴프리헨션으로 적용했어요.",
+        "wrong": "정답은 A) [3, 8, 3, 4]입니다. 리스트 내부 시퀀스 개별 단어 요소를 매개변수로 하여 len() 함수 결과를 출력형태로 변형합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_1_015",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\ndef check_range(n):\n    return 10 <= n <= 20\n\nnums = [5, 10, 15, 20, 25, 30]\nresult = [n for n in nums if check_range(n)]\nprint(result)",
+      "choices": [
+        "A) [10, 15, 20]",
+        "B) [5, 10, 15, 20, 25, 30]",
+        "C) [True, True, True]",
+        "D) [10, 15, 20, 25]"
+      ],
+      "answer": "A) [10, 15, 20]",
+      "hint": "check_range()는 10 <= n <= 20 범위를 확인하고, 맞는 것들만 필터링돼요.",
+      "feedback": {
+        "correct": "정답입니다! 범위 조건을 만족하는 10, 15, 20만 선택되었어요.",
+        "wrong": "정답은 A) [10, 15, 20]입니다. 리스트 요소 데이터 중 10 이상 20 이하인 데이터 구간만 걸러내어 저장하게 됩니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_1_016",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 리스트 컴프리헨션으로 변환했을 때, 빈칸을 채우세요.\n\n# 원래 코드:\ndef add_ten(x):\n    return x + 10\n\noriginal = []\nfor item in [5, 15, 25]:\n    original.append(add_ten(item))\n\n# 컴프리헨션:\ncompressed = ________\n\nprint(compressed)  # [15, 25, 35]",
+      "choices": [],
+      "answer": "[add_ten(item) for item in [5, 15, 25]]",
+      "hint": "반복문과 append()를 한 줄의 컴프리헨션으로 만들면 돼요.",
+      "feedback": {
+        "correct": "정답입니다! add_ten() 함수를 각 원소에 적용하는 컴프리헨션을 완성했어요.",
+        "wrong": "정답은 [add_ten(item) for item in [5, 15, 25]]입니다. 타겟 데이터를 가공 함수 인자로 넘겨 순회하는 한 줄 구조체 양식을 지정해야 합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_1_017",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 2차원 리스트를 평탄화하는 컴프리헨션을 완성하세요.\n\nmatrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\nflat = ________\nprint(flat)  \n# [1, 2, 3, 4, 5, 6, 7, 8, 9]",
+      "choices": [],
+      "answer": "[x for row in matrix for x in row]",
+      "hint": "중첩 컴프리헨션에서 바깥쪽 for로 행을 순회하고, 안쪽 for로 각 원소를 순회해요.",
+      "feedback": {
+        "correct": "정답입니다! 2차원 리스트를 1차원으로 평탄화했어요.",
+        "wrong": "정답은 [x for row in matrix for x in row]입니다. 외부 루프 선언부가 먼저 기술되고 뒤이어 내부 개별 인자를 순회하는 문법적 순서를 지켜야 합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_1_018",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\ndef classify(x):\n    if x < 0:\n        return 'negative'\n    elif x == 0:\n        return 'zero'\n    else:\n        return 'positive'\n\nnums = [-2, 0, 3, -5, 7]\nresult = [classify(n) for n in nums]\nprint(result)",
+      "choices": [
+        "A) ['negative', 'zero', 'positive', 'negative', 'positive']",
+        "B) [-2, 0, 3, -5, 7]",
+        "C) ['negative', 'negative', 'positive', 'negative', 'positive']",
+        "D) [True, True, True, True, True]"
+      ],
+      "answer": "A) ['negative', 'zero', 'positive', 'negative', 'positive']",
+      "hint": "classify() 함수의 조건문을 따라가면서 각 수를 분류해봐요.",
+      "feedback": {
+        "correct": "정답입니다! 함수 내 if-elif-else에 따라 각 수가 분류되었어요.",
+        "wrong": "정답은 A) ['negative', 'zero', 'positive', 'negative', 'positive']입니다. 조건 분기문을 타고 각 요소가 음수, 영, 양수에 해당되는 반환 문자열로 치환됩니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_1_019",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\ndef is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, n):\n        if n % i == 0:\n            return False\n    return True\n\nnums = [1, 2, 3, 4, 5, 6, 7]\nresult = [n for n in nums if is_prime(n)]\nprint(result)",
+      "choices": [
+        "A) [2, 3, 5, 7]",
+        "B) [1, 2, 3, 4, 5, 6, 7]",
+        "C) [3, 5, 7]",
+        "D) [2, 3, 5]"
+      ],
+      "answer": "A) [2, 3, 5, 7]",
+      "hint": "is_prime()는 소수를 판별해요. 2, 3, 5, 7이 소수예요.",
+      "feedback": {
+        "correct": "정답입니다! 소수 판별 함수로 필터링해서 소수만 모았어요.",
+        "wrong": "정답은 A) [2, 3, 5, 7]입니다. 1은 소수가 아니며, 소수 판별식 조건 만족 결과에 따라 2, 3, 5, 7이 반환됩니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_1_020",
+      "unit": 5,
+      "stage": "5-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 각 단어를 대문자로 변환하되 길이가 3 이상인 것만 선택하는 컴프리헨션을 완성하세요.\n\ndef process_word(w):\n    return w.upper()\n\nwords = ['hi', 'hello', 'a', 'world', 'py']\nresult = ________\nprint(result)  # ['HELLO', 'WORLD']",
+      "choices": [],
+      "answer": "[process_word(w) for w in words if len(w) >= 3]",
+      "hint": "조건을 만족하는 단어들만 process_word() 함수로 변환해야 해요.",
+      "feedback": {
+        "correct": "정답입니다! 길이 3 이상인 단어들을 필터링해서 대문자로 변환했어요.",
+        "wrong": "정답은 [process_word(w) for w in words if len(w) >= 3]입니다. if 필터 제어문을 구문 우측 최외각에 수반해야 정상 기능합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_2_001",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\ndef square(x):\n    return x ** 2\n\nnums = [1, 2, 3, 4]\nresult = {n: square(n) for n in nums}\nprint(result)",
+      "choices": [
+        "A) {1: 1, 2: 4, 3: 9, 4: 16}",
+        "B) {1, 2, 3, 4}",
+        "C) [1, 4, 9, 16]",
+        "D) {'1': 1, '2': 4, '3': 9, '4': 16}"
+      ],
+      "answer": "A) {1: 1, 2: 4, 3: 9, 4: 16}",
+      "hint": "딕셔너리 컴프리헨션은 {키: 값 for ... } 형태로 키-값 쌍을 만들어요.",
+      "feedback": {
+        "correct": "정답입니다! 딕셔너리 컴프리헨션으로 각 수를 키로, 제곱값을 값으로 하는 딕셔너리를 만들었어요.",
+        "wrong": "정답은 A) {1: 1, 2: 4, 3: 9, 4: 16}입니다. 중괄호({}) 기호 쌍 내부에 콜론(:) 지시자로 맵 형식을 선언해 줘야 합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_2_002",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 문자열 길이별로 분류하는 딕셔너리를 만드는 컴프리헨션을 완성하세요. 단, 동일 키 발생 시 마지막 단어가 할당됩니다. (※ 빈칸에는 다른 가공 없이 루프 인스턴스 변수명 한 글자만 기입하세요.)\n\nwords = ['hi', 'hello', 'a', 'world', 'py', 'code']\nresult = {len(w): _________ for w in words}\nprint(result)\n# 출력: {2: 'py', 5: 'world', 1: 'a', 4: 'code'}",
+      "choices": [],
+      "answer": "w",
+      "hint": "길이를 키로, 단어를 값으로 하면 마지막 단어만 저장돼요.",
+      "feedback": {
+        "correct": "정답입니다! 길이별로 분류했을 때, 같은 길이의 마지막 단어가 덮어쓰기되어 최종 저장돼요.",
+        "wrong": "정답은 w입니다. 컴프리헨션 밸류(Value) 추출 자리에 루프 변수인 w를 정확히 기입해야 합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_2_003",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 단어를 키로, 단어 길이를 값으로 하는 딕셔너리를 만드는 컴프리헨션을 완성하세요.\n\nwords = ['hi', 'hello', 'python', 'ai']\nresult = ________\nprint(result)\n# 출력: {'hi': 2, 'hello': 5, 'python': 6, 'ai': 2}",
+      "choices": [],
+      "answer": "{word: len(word) for word in words}",
+      "hint": "딕셔너리 컴프리헨션에서 키는 word, 값은 len(word)예요.",
+      "feedback": {
+        "correct": "정답입니다! 각 단어를 키로, 그 길이를 값으로 하는 딕셔너리를 만들었어요.",
+        "wrong": "정답은 {word: len(word) for word in words}입니다. 중괄호 안에 {키_표현식: 값_표현식 for ...} 형태로 선언해야 딕셔너리가 올바르게 정의됩니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_2_004",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nletters = ['a', 'b', 'c', 'a', 'b']\nresult = {letter for letter in letters}\nprint(result)",
+      "choices": [
+        "A) {'a', 'b', 'c'}",
+        "B) ['a', 'b', 'c', 'a', 'b']",
+        "C) {'a': 1, 'b': 2, 'c': 1}",
+        "D) {0, 1, 2, 3, 4}"
+      ],
+      "answer": "A) {'a', 'b', 'c'}",
+      "hint": "세트는 중복을 자동으로 제거해요.",
+      "feedback": {
+        "correct": "정답입니다! 세트 컴프리헨션으로 중복된 'a', 'b'가 제거되었어요.",
+        "wrong": "정답은 A) {'a', 'b', 'c'}입니다. 파이썬의 Set(세트) 개체형은 중복 인자를 허용하지 않는 유니크 컬렉션입니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_2_005",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과로 올바른 원소 구성을 가진 집합을 골라주세요.\n\ndef double_if_even(x):\n    return x * 2 if x % 2 == 0 else x\n\nnums = [1, 2, 3, 4, 5]\nresult = {double_if_even(n) for n in nums}\nprint(result)",
+      "choices": [
+        "A) {1, 3, 4, 5, 8}",
+        "B) {1, 2, 3, 4, 5}",
+        "C) {2, 4, 6, 8, 10}",
+        "D) {1, 2, 4, 6, 8}"
+      ],
+      "answer": "A) {1, 3, 4, 5, 8}",
+      "hint": "함수가 짝수를 2배로 만들고, 홀수는 그대로 유지해요. 결과적으로 1, 4, 3, 8, 5가 세트 내부에 포함됩니다.",
+      "feedback": {
+        "correct": "정답입니다! 짝수만 2배(2→4, 4→8)되고, 홀수(1, 3, 5)는 그대로 유지되어 데이터셋 {1, 3, 4, 5, 8}이 생성됩니다.",
+        "wrong": "정답은 A) {1, 3, 4, 5, 8}입니다. 파이썬의 세트(set)는 순서가 없는(unordered) 자료형이므로 출력 시 내부 요소들의 위치 순서는 달라질 수 있으나, 구성 원소는 중복이 제거된 {1, 3, 4, 5, 8}이 됩니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_2_006",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 값 기준으로 정렬된 딕셔너리를 만드는 컴프리헨션을 완성하세요.\n\nscores = {'alice': 85, 'bob': 92, 'charlie': 78}\nresult = ________\nprint(result)\n# 출력: {'charlie': 78, 'alice': 85, 'bob': 92}",
+      "choices": [],
+      "answer": "{k: scores[k] for k in sorted(scores, key=lambda x: scores[x])}",
+      "hint": "sorted()로 키를 값 기준으로 정렬한 후, 딕셔너리 컴프리헨션을 만들면 돼요.",
+      "feedback": {
+        "correct": "정답입니다! 점수 기준으로 오름차순 정렬된 딕셔너리를 만들었어요.",
+        "wrong": "정답은 {k: scores[k] for k in sorted(scores, key=lambda x: scores[x])}입니다. 정렬 키 데이터셋 기준 정렬 루프식을 가공 연산부에 편입해야 합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_2_007",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nnums = [1, 2, 3, 4, 5]\nresult = {n for n in nums if n % 2 == 0}\nprint(result)",
+      "choices": [
+        "A) {2, 4}",
+        "B) [2, 4]",
+        "C) (2, 4)",
+        "D) {'2', '4'}"
+      ],
+      "answer": "A) {2, 4}",
+      "hint": "세트 컴프리헨션은 {표현식 for ...} 형태로, 중복을 제거한 집합을 만들어요.",
+      "feedback": {
+        "correct": "정답입니다! 세트 컴프리헨션으로 짝수만 필터링해서 세트를 만들었어요.",
+        "wrong": "정답은 A) {2, 4}입니다. 중괄호({}) 구조 내부에 단일 인자 루프가 위치하므로 리스트나 튜플이 아닌 세트 형태로 리턴됩니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_2_008",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 딕셔너리의 '홀수' 키와 '짝수' 키에 각각 대응되도록 빈칸을 쉼표(,)로 구분하여 두 개의 세트 컴프리헨션을 순서대로 채우세요.\n\nnums = [1, 2, 3, 4, 5, 6]\nresult = {'홀수': 빈칸1, '짝수': 빈칸2}\nprint(result)\n# 출력: {'홀수': {1, 3, 5}, '짝수': {2, 4, 6}}",
+      "choices": [],
+      "answer": "{n for n in nums if n % 2 != 0}, {n for n in nums if n % 2 == 0}",
+      "hint": "세트 컴프리헨션 2개를 쉼표(,)로 구분하여 각각 만들면 돼요.",
+      "feedback": {
+        "correct": "정답입니다! 두 개의 세트 컴프리헨션으로 홀수와 짝수를 분류하여 값(Value) 자리에 정상적으로 할당했습니다.",
+        "wrong": "정답은 {n for n in nums if n % 2 != 0}, {n for n in nums if n % 2 == 0}입니다. 지정된 요구사항에 따라 쉼표(,)를 누락하지 말고 두 개의 독립된 세트 컴프리헨션을 순서대로 대입해야 합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_2_009",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\ndef get_category(x):\n    if x < 0:\n        return 'negative'\n    elif x == 0:\n        return 'zero'\n    else:\n        return 'positive'\n\nnums = [-2, 0, 1, 2, -1, 3]\nresult = {get_category(n): n for n in nums}\nprint(result)",
+      "choices": [
+        "A) {'negative': -1, 'zero': 0, 'positive': 3}",
+        "B) {'negative': -2, 'zero': 0, 'positive': 1}",
+        "C) {'-2': -2, '0': 0, '1': 1}",
+        "D) [-2, 0, 1, 2, -1, 3]"
+      ],
+      "answer": "A) {'negative': -1, 'zero': 0, 'positive': 3}",
+      "hint": "딕셔너리 컴프리헨션에서 같은 키가 나타나면 마지막 값으로 덮어씌워져요.",
+      "feedback": {
+        "correct": "정답입니다! 같은 키('negative')가 여러 번 나타나면 마지막 값 -1로 덮어씌워졌어요.",
+        "wrong": "정답은 A) {'negative': -1, 'zero': 0, 'positive': 3}입니다. 딕셔너리 내부 키 공간은 고유해야 하므로 중복 키 발생 시 최후단 연산값으로 덮어써집니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_2_010",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 단어별 문자 개수 딕셔너리를 만드는 중첩 컴프리헨션을 완성하세요.\n\nwords = ['apple', 'banana', 'cherry']\nresult = ________\nprint(result)\n# 출력: {'apple': {'a': 1, 'p': 2, 'l': 1, 'e': 1}, 'banana': {'b': 1, 'a': 3, 'n': 2}, 'cherry': {'c': 1, 'h': 1, 'e': 1, 'r': 2, 'y': 1}}",
+      "choices": [],
+      "answer": "{word: {ch: word.count(ch) for ch in set(word)} for word in words}",
+      "hint": "중첩된 딕셔너리 컴프리헨션을 만들되, 바깥쪽은 단어별로, 안쪽은 문자 개수로 만들어요.",
+      "feedback": {
+        "correct": "정답입니다! 각 단어마다 문자 개수를 기록하는 중첩 딕셔너리를 유실 없이 정밀하게 구축했습니다.",
+        "wrong": "정답은 {word: {ch: word.count(ch) for ch in set(word)} for word in words}입니다. 중복 기입 문자열 필터인 set(word)과 빈도 계산 함수를 내포하는 내부 구조와 외부 단어 루프를 정확히 중첩시켜야 합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_2_011",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\ndef triple(x):\n    return x * 3\n\nnums = [1, 2, 3]\nresult = {n: triple(n) for n in nums}\nprint(result)",
+      "choices": [
+        "A) {1: 3, 2: 6, 3: 9}",
+        "B) {1, 2, 3}",
+        "C) [3, 6, 9]",
+        "D) {'1': 3, '2': 6, '3': 9}"
+      ],
+      "answer": "A) {1: 3, 2: 6, 3: 9}",
+      "hint": "딕셔너리 컴프리헨션은 각 수를 키로, 함수 결과를 값으로 만들어요.",
+      "feedback": {
+        "correct": "정답입니다! 각 수의 3배값을 딕셔너리로 매핑했어요.",
+        "wrong": "정답은 A) {1: 3, 2: 6, 3: 9}입니다. 맵 컴프리헨션 구조상 정수 형태의 Key값과 3배 연산 밸류값이 중괄호 구조 내 배치됩니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_2_012",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nfruits = ['apple', 'banana', 'apple', 'cherry', 'banana']\nresult = {fruit: len(fruit) for fruit in fruits}\nprint(result)",
+      "choices": [
+        "A) {'apple': 5, 'banana': 6, 'cherry': 6}",
+        "B) {'apple': 2, 'banana': 2, 'cherry': 1}",
+        "C) ['apple', 'banana', 'cherry']",
+        "D) {5, 6, 6}"
+      ],
+      "answer": "A) {'apple': 5, 'banana': 6, 'cherry': 6}",
+      "hint": "딕셔너리 컴프리헨션에서 중복되는 과일도 하나의 키로 저장돼요.",
+      "feedback": {
+        "correct": "정답입니다! 각 과일의 글자 수를 딕셔너리로 매핑했으며 키 중복은 제거되었습니다.",
+        "wrong": "정답은 A) {'apple': 5, 'banana': 6, 'cherry': 6}입니다. 동일 키 전달 시 중복 병합이 일어나는 특성을 이해해야 합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_2_013",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 소문자만 필터링하는 세트 컴프리헨션을 완성하세요.\n\nletters = ['a', 'B', 'c', 'D', 'e']\nresult = ________\nprint(result)\n# 출력: {'a', 'c', 'e'}",
+      "choices": [],
+      "answer": "{ch for ch in letters if ch.islower()}",
+      "hint": "islower() 메서드로 소문자인지 확인할 수 있어요.",
+      "feedback": {
+        "correct": "정답입니다! 소문자만 필터링하는 세트 컴프리헨션을 만들었어요.",
+        "wrong": "정답은 {ch for ch in letters if ch.islower()}입니다. 문자열 검증 소문자 필터 내장 메서드를 if 구문부에 체이닝해야 합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_2_014",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\ndata = {'a': 10, 'b': 20, 'c': 15}\nresult = {k: v * 2 for k, v in data.items()}\nprint(result)",
+      "choices": [
+        "A) {'a': 20, 'b': 40, 'c': 30}",
+        "B) {'a': 10, 'b': 20, 'c': 15}",
+        "C) {20, 40, 30}",
+        "D) {'a', 'b', 'c'}"
+      ],
+      "answer": "A) {'a': 20, 'b': 40, 'c': 30}",
+      "hint": "items()로 키-값을 동시에 순회하면서 값을 2배로 만들어요.",
+      "feedback": {
+        "correct": "정답입니다! 기존 딕셔너리의 모든 값을 2배로 만들었어요.",
+        "wrong": "정답은 A) {'a': 20, 'b': 40, 'c': 30}입니다. 딕셔너리 언팩킹 함수인 .items()를 사용했으므로 구조는 맵 상태로 반환되며 데이터가 2배 가공됩니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_2_015",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 숫자를 영문으로 변환하는 딕셔너리를 만드는 컴프리헨션을 완성하세요.\n\nnumbers = [1, 2, 3]\nenglish = ['one', 'two', 'three']\nresult = ________\nprint(result)\n# 출력: {1: 'one', 2: 'two', 3: 'three'}",
+      "choices": [],
+      "answer": "{num: eng for num, eng in zip(numbers, english)}",
+      "hint": "zip()으로 두 리스트를 병렬로 순회하면서 키-값을 만들어요.",
+      "feedback": {
+        "correct": "정답입니다! zip()으로 두 리스트를 매핑해서 딕셔너리를 만들었어요.",
+        "wrong": "정답은 {num: eng for num, eng in zip(numbers, english)}입니다. 두 시퀀스를 병렬 맵 구조로 엮어내기 위해 zip 함수를 배치한 딕셔너리 표현식을 세워야 합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_2_016",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 짝수만 세제곱하는 세트 컴프리헨션을 완성하세요.\n\nnums = [1, 2, 3, 4, 5, 6]\nresult = ________\nprint(result)\n# 출력: {8, 64, 216}",
+      "choices": [],
+      "answer": "{n**3 for n in nums if n % 2 == 0}",
+      "hint": "짝수를 필터링한 후, 각 수를 세제곱하면 돼요.",
+      "feedback": {
+        "correct": "정답입니다! 짝수 2, 4, 6을 세제곱(8, 64, 216)해서 세트를 만들었어요.",
+        "wrong": "정답은 {n**3 for n in nums if n % 2 == 0}입니다. 데이터 타겟 가공방식인 거듭제곱 연산 표기 및 짝수 판별 if문을 세트 기호 안에 바르게 조합해야 합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_2_017",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 중첩 리스트를 평탄화한 세트를 만드는 컴프리헨션을 완성하세요.\n\nmatrix = [[1, 2, 2], [3, 3, 3], [4, 5, 5]]\nresult = ________\nprint(result)\n# 출력: {1, 2, 3, 4, 5}",
+      "choices": [],
+      "answer": "{x for row in matrix for x in row}",
+      "hint": "중첩 세트 컴프리헨션으로 모든 원소를 추출하고 중복을 제거해요.",
+      "feedback": {
+        "correct": "정답입니다! 중첩 리스트를 평탄화하면서 동시에 중복을 제거했어요.",
+        "wrong": "정답은 {x for row in matrix for x in row}입니다. 세트 표기 중괄호 안쪽에 외부 for, 내부 for 문맥 순으로 선언 구조를 잡아야 합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_2_018",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\ndef classify(x):\n    if x < 10:\n        return 'small'\n    else:\n        return 'large'\n\nnums = [5, 15, 8, 20, 3, 25]\nresult = {classify(n): n for n in nums}\nprint(result)",
+      "choices": [
+        "A) {'small': 3, 'large': 25}",
+        "B) {'small': 5, 'large': 15}",
+        "C) {5, 15, 8, 20, 3, 25}",
+        "D) {'small', 'large'}"
+      ],
+      "answer": "A) {'small': 3, 'large': 25}",
+      "hint": "같은 키에 여러 값이 나타나면 마지막 값이 저장돼요.",
+      "feedback": {
+        "correct": "정답입니다! 'small'에는 마지막 값 3이, 'large'에는 마지막 값 25가 저장돼요.",
+        "wrong": "정답은 A) {'small': 3, 'large': 25}입니다. 컴프리헨션 연산 흐름상 키가 겹치는 영역의 벨류 데이터는 최하단 최종 축적 인자로 수렴합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_2_019",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\ntext = 'hello'\nresult = {ch: text.count(ch) for ch in set(text)}\nprint(result)",
+      "choices": [
+        "A) {'h': 1, 'e': 1, 'l': 2, 'o': 1}",
+        "B) {'h': 1, 'e': 1, 'l': 1, 'o': 1}",
+        "C) {1, 2}",
+        "D) {'hello'}"
+      ],
+      "answer": "A) {'h': 1, 'e': 1, 'l': 2, 'o': 1}",
+      "hint": "각 문자가 텍스트에서 몇 번 나타나는지 count()로 세요.",
+      "feedback": {
+        "correct": "정답입니다! 각 문자의 개수를 딕셔너리로 만들었어요. 'l'은 2번 나타나요.",
+        "wrong": "정답은 A) {'h': 1, 'e': 1, 'l': 2, 'o': 1}입니다. 중복 문자열 기준 셋(Set) 연산자를 거쳤으나 밸류 할당부의 count 기능으로 유일문자당 고유 빈도수가 기록됩니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_2_020",
+      "unit": 5,
+      "stage": "5-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 3의 배수만 모으는 세트 컴프리헨션을 완성하세요.\n\nnums = [1, 3, 6, 9, 10, 12]\nresult = ________\nprint(result)  # 출력: {3, 6, 9, 12}",
+      "choices": [],
+      "answer": "{n for n in nums if n % 3 == 0}",
+      "hint": "세트 컴프리헨션에 조건을 추가하면 필터링돼요.",
+      "feedback": {
+        "correct": "정답입니다! 3의 배수를 필터링하는 세트 컴프리헨션을 만들었어요.",
+        "wrong": "정답은 {n for n in nums if n % 3 == 0}입니다. 중괄호 연산틀 내부 구조에 조건 필터링 논리식을 수반해야 합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_3_001",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport json\n\ndata = {'name': 'Alice', 'age': 25}\njson_str = json.dumps(data)\nprint(json_str)",
+      "choices": [
+        "A) {\"name\": \"Alice\", \"age\": 25}",
+        "B) {'name': 'Alice', 'age': 25}",
+        "C) [\"Alice\", 25]",
+        "D) name=Alice&age=25"
+      ],
+      "answer": "A) {\"name\": \"Alice\", \"age\": 25}",
+      "hint": "json.dumps()는 Python 딕셔너리를 JSON 문자열로 변환해요.",
+      "feedback": {
+        "correct": "정답입니다! 딕셔너리가 JSON 형식 문자열로 변환되었어요.",
+        "wrong": "json.dumps()는 Python 딕셔너리를 JSON 형식 문자열로 변환합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_3_002",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 JSON 문자열을 Python 딕셔너리로 변환하세요.\n\nimport json\n\njson_str = '{\"name\": \"Bob\", \"score\": 90}'\ndata = ________\nprint(data['name'])",
+      "choices": [],
+      "answer": "json.loads(json_str)",
+      "hint": "json.loads()는 JSON 문자열을 Python 객체로 변환해요.",
+      "feedback": {
+        "correct": "정답입니다! json.loads()로 JSON 문자열을 딕셔너리로 변환했어요.",
+        "wrong": "정답은 json.loads(json_str). json.loads()를 사용해서 JSON 문자열을 Python 객체로 변환하세요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_3_003",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport json\n\njson_str = '{\"items\": [1, 2, 3], \"total\": 6}'\ndata = json.loads(json_str)\nprint(data['items'])",
+      "choices": [
+        "A) [1, 2, 3]",
+        "B) {'items': [1, 2, 3]}",
+        "C) \"[1, 2, 3]\"",
+        "D) (1, 2, 3)"
+      ],
+      "answer": "A) [1, 2, 3]",
+      "hint": "json.loads()로 변환한 딕셔너리에서 'items' 키의 값은 리스트예요.",
+      "feedback": {
+        "correct": "정답입니다! JSON 배열은 Python 리스트로 변환됩니다.",
+        "wrong": "JSON 배열은 Python 리스트 형태로 변환돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_3_004",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 리스트의 딕셔너리 객체들을 JSON 파일로 저장하세요.\n\nimport json\n\nstudents = [{'name': 'Alice', 'score': 90}, {'name': 'Bob', 'score': 85}]\nwith open('students.json', 'w') as f:\n    ________",
+      "choices": [],
+      "answer": "json.dump(students, f)",
+      "hint": "json.dump()는 Python 객체를 JSON 파일로 직접 저장해요.",
+      "feedback": {
+        "correct": "정답입니다! json.dump()로 객체를 파일에 직접 저장했어요.",
+        "wrong": "정답은 json.dump(students, f). json.dump(객체, 파일)로 Python 객체를 JSON 파일로 저장하세요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_3_005",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport json\n\ndef create_profile(name, age):\n    return {'name': name, 'age': age, 'active': True}\n\nprofile = create_profile('Charlie', 30)\njson_output = json.dumps(profile)\nprint(json_output)",
+      "choices": [
+        "A) {\"name\": \"Charlie\", \"age\": 30, \"active\": true}",
+        "B) {'name': 'Charlie', 'age': 30, 'active': True}",
+        "C) [\"Charlie\", 30, true]",
+        "D) name=Charlie age=30 active=true"
+      ],
+      "answer": "A) {\"name\": \"Charlie\", \"age\": 30, \"active\": true}",
+      "hint": "json.dumps()는 Python 불린 True를 JSON 형식의 true로 변환해요.",
+      "feedback": {
+        "correct": "정답입니다! Python True는 JSON에서 true(소문자)로 변환됩니다.",
+        "wrong": "json.dumps()에서 Python 불린값은 JSON 형식(true/false)으로 변환돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_3_006",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport json\n\nconfig = {'db': 'localhost', 'port': 5432, 'user': 'admin'}\njson_str = json.dumps(config, indent=2)\nprint(json_str)",
+      "choices": [
+        "A) {\n  \"db\": \"localhost\",\n  \"port\": 5432,\n  \"user\": \"admin\"\n}",
+        "B) {\"db\": \"localhost\", \"port\": 5432, \"user\": \"admin\"}",
+        "C) ['localhost', 5432, 'admin']",
+        "D) db=localhost port=5432 user=admin"
+      ],
+      "answer": "A) {\n  \"db\": \"localhost\",\n  \"port\": 5432,\n  \"user\": \"admin\"\n}",
+      "hint": "indent=2는 JSON을 읽기 좋게 2칸 들여쓰기로 포맷해요.",
+      "feedback": {
+        "correct": "정답입니다! indent 옵션으로 JSON이 보기 좋게 포맷되었어요.",
+        "wrong": "indent 매개변수를 사용하면 JSON이 들여쓰기로 포맷돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_3_007",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 함수에서 JSON 데이터를 생성하세요.\n\nimport json\n\ndef create_user_json(name, age):\n    data = {'name': name, 'age': age}\n    return ________\n\nresult = create_user_json('Diana', 28)\nprint(result)  # {\"name\": \"Diana\", \"age\": 28}",
+      "choices": [],
+      "answer": "json.dumps(data)",
+      "hint": "생성한 딕셔너리를 json.dumps()로 JSON 문자열로 변환해서 반환합니다.",
+      "feedback": {
+        "correct": "정답입니다! json.dumps()로 Python 딕셔너리를 JSON 문자열로 직렬화했습니다.",
+        "wrong": "정답은 json.dumps(data). json.dumps()를 사용해 Python 딕셔너리를 JSON 문자열로 변환하세요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_3_008",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport json\n\ndef filter_adults(people, min_age):\n    return [p for p in people if p['age'] >= min_age]\n\npeople_json = '[{\"name\": \"Alice\", \"age\": 25}, {\"name\": \"Bob\", \"age\": 17}]'\npeople = json.loads(people_json)\nadults = filter_adults(people, 18)\nprint(json.dumps(adults))",
+      "choices": [
+        "A) [{\"name\": \"Alice\", \"age\": 25}]",
+        "B) [{\"name\": \"Alice\", \"age\": 25}, {\"name\": \"Bob\", \"age\": 17}]",
+        "C) [\"Alice\"]",
+        "D) {\"name\": \"Alice\", \"age\": 25}"
+      ],
+      "answer": "A) [{\"name\": \"Alice\", \"age\": 25}]",
+      "hint": "필터 함수로 18세 이상만 선택되고, 결과를 JSON으로 변환합니다.",
+      "feedback": {
+        "correct": "정답입니다! 18세 이상의 Alice만 필터링되어 JSON 배열로 변환됐어요.",
+        "wrong": "filter_adults() 함수로 나이 조건을 확인한 후 JSON 형식으로 변환하세요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_3_009",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 여러 딕셔너리를 JSON 형식으로 변환하세요.\n\nimport json\n\nitems = [{'id': 1, 'name': 'apple'}, {'id': 2, 'name': 'banana'}]\njson_str = ________\nprint(json_str)",
+      "choices": [],
+      "answer": "json.dumps(items)",
+      "hint": "리스트의 딕셔너리 객체들을 JSON 문자열로 변환하면 돼요.",
+      "feedback": {
+        "correct": "정답입니다! 리스트가 JSON 배열 형태로 변환되었어요.",
+        "wrong": "정답은 json.dumps(items). json.dumps()를 사용해 Python 리스트를 JSON 문자열로 변환하세요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_3_010",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 필터링된 데이터를 JSON 파일에 저장하세요.\n\nimport json\n\ndef save_high_scores(json_str, output_file, min_score):\n    data = json.loads(json_str)\n    high_scores = [s for s in data if s['score'] >= min_score]\n    with open(output_file, 'w') as f:\n        ________\n\njson_input = '[{\"name\": \"Alice\", \"score\": 90}, {\"name\": \"Bob\", \"score\": 70}]'\nsave_high_scores(json_input, 'high.json', 80)",
+      "choices": [],
+      "answer": "json.dump(high_scores, f)",
+      "hint": "필터링된 리스트를 json.dump()로 파일에 저장합니다.",
+      "feedback": {
+        "correct": "정답입니다! 필터링된 데이터를 JSON 파일로 저장했어요.",
+        "wrong": "정답은 json.dump(high_scores, f). json.dump(객체, 파일)을 사용해 파일에 저장하세요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_3_011",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport json\n\nuser = {'username': 'john', 'email': 'john@example.com'}\njson_data = json.dumps(user)\nprint(json_data)",
+      "choices": [
+        "A) {\"username\": \"john\", \"email\": \"john@example.com\"}",
+        "B) {'username': 'john', 'email': 'john@example.com'}",
+        "C) [\"john\", \"john@example.com\"]",
+        "D) username=john&email=john@example.com"
+      ],
+      "answer": "A) {\"username\": \"john\", \"email\": \"john@example.com\"}",
+      "hint": "json.dumps()는 딕셔너리를 JSON 문자열로 변환합니다.",
+      "feedback": {
+        "correct": "정답입니다! 딕셔너리가 JSON 형식 문자열로 변환되었어요.",
+        "wrong": "json.dumps()로 변환된 결과는 JSON 형식 문자열입니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_3_012",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 JSON 파일을 읽고 데이터를 처리하세요.\n\nimport json\n\nwith open('config.json', 'r') as f:\n    config = ________\n\nprint(config['port'])",
+      "choices": [],
+      "answer": "json.load(f)",
+      "hint": "json.load()는 JSON 파일을 읽어 Python 객체로 변환해요.",
+      "feedback": {
+        "correct": "정답입니다! JSON 파일이 딕셔너리로 로드됐어요.",
+        "wrong": "정답은 json.load(f). json.load(파일)을 사용해 JSON 파일을 읽고 변환하세요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_3_013",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport json\n\njson_str = '{\"status\": \"success\", \"codes\": [200, 201, 202]}'\nresponse = json.loads(json_str)\nprint(response['codes'])",
+      "choices": [
+        "A) [200, 201, 202]",
+        "B) {'codes': [200, 201, 202]}",
+        "C) \"[200, 201, 202]\"",
+        "D) (200, 201, 202)"
+      ],
+      "answer": "A) [200, 201, 202]",
+      "hint": "JSON 배열은 Python 리스트로 변환돼요.",
+      "feedback": {
+        "correct": "정답입니다! JSON 배열이 Python 리스트로 변환됩니다.",
+        "wrong": "json.loads()에서 JSON 배열은 Python 리스트로 변환됩니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_3_014",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 복잡한 구조의 JSON 데이터를 파일에 저장하세요.\n\nimport json\n\ndata = {\n    'users': [{'id': 1, 'name': 'Eve'}, {'id': 2, 'name': 'Frank'}],\n    'total': 2\n}\nwith open('users.json', 'w') as f:\n    ________",
+      "choices": [],
+      "answer": "json.dump(data, f)",
+      "hint": "json.dump()로 복잡한 데이터 구조를 파일에 저장해요.",
+      "feedback": {
+        "correct": "정답입니다! 중첩된 데이터를 JSON 파일로 저장했어요.",
+        "wrong": "정답은 json.dump(data, f). json.dump(객체, 파일)을 사용해 JSON 파일로 저장하세요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_3_015",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport json\n\ndef get_average_score(json_str):\n    data = json.loads(json_str)\n    scores = [s['score'] for s in data]\n    return sum(scores) / len(scores)\n\nstudent_data = '[{\"name\": \"Alice\", \"score\": 90}, {\"name\": \"Bob\", \"score\": 80}]'\naverage = get_average_score(student_data)\nprint(average)",
+      "choices": [
+        "A) 85.0",
+        "B) 85",
+        "C) 170",
+        "D) [90, 80]"
+      ],
+      "answer": "A) 85.0",
+      "hint": "JSON 배열을 파싱해 점수를 추출한 후 평균을 계산합니다.",
+      "feedback": {
+        "correct": "정답입니다! (90 + 80) / 2 = 85.0이에요.",
+        "wrong": "JSON 데이터에서 score 값들을 추출해 평균을 계산하세요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_3_016",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport json\n\nsettings = {'theme': 'dark', 'notifications': True}\njson_output = json.dumps(settings)\nprint(json_output)",
+      "choices": [
+        "A) {\"theme\": \"dark\", \"notifications\": true}",
+        "B) {'theme': 'dark', 'notifications': True}",
+        "C) [\"dark\", \"true\"]",
+        "D) theme=dark notifications=True"
+      ],
+      "answer": "A) {\"theme\": \"dark\", \"notifications\": true}",
+      "hint": "json.dumps()로 딕셔너리를 JSON으로 변환하면, True는 true가 됩니다.",
+      "feedback": {
+        "correct": "정답입니다! Python True는 JSON에서 소문자 true로 변환돼요.",
+        "wrong": "json.dumps()는 Python 불린값을 JSON 형식(true/false)으로 변환합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_3_017",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 JSON 배열에서 첫 번째 사용자 객체를 추출하여 JSON 문자열로 반환하세요.\n\nimport json\n\ndef get_first_user_json(json_str):\n    users = json.loads(json_str)\n    return ________\n\njson_input = '[{\"name\": \"Grace\", \"id\": 1}, {\"name\": \"Henry\", \"id\": 2}]'\nresult = get_first_user_json(json_input)\nprint(result)",
+      "choices": [],
+      "answer": "json.dumps(users[0])",
+      "hint": "파싱된 리스트에서 첫 번째 인덱스(0)의 값을 가져온 뒤, 다시 json.dumps()를 사용해 변환해야 합니다.",
+      "feedback": {
+        "correct": "정답입니다! 리스트의 첫 번째 요소를 명확히 특정하여 json.dumps()로 문자열 변환해 반환했습니다.",
+        "wrong": "정답은 json.dumps(users[0]). users[0]을 통해 첫 번째 딕셔너리를 가져온 뒤 json.dumps()로 감싸세요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_3_018",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport json\n\ndef merge_data(json1, json2):\n    data1 = json.loads(json1)\n    data2 = json.loads(json2)\n    data1.update(data2)\n    return json.dumps(data1)\n\nj1 = '{\"name\": \"Alice\", \"age\": 25}'\nj2 = '{\"age\": 26, \"city\": \"Seoul\"}'\nresult = merge_data(j1, j2)\nprint(result)",
+      "choices": [
+        "A) {\"name\": \"Alice\", \"age\": 26, \"city\": \"Seoul\"}",
+        "B) {\"name\": \"Alice\", \"age\": 25, \"city\": \"Seoul\"}",
+        "C) {\"age\": 26, \"city\": \"Seoul\"}",
+        "D) [{\"name\": \"Alice\"}, {\"age\": 26, \"city\": \"Seoul\"}]"
+      ],
+      "answer": "A) {\"name\": \"Alice\", \"age\": 26, \"city\": \"Seoul\"}",
+      "hint": "update()로 두 딕셔너리를 병합하면, 같은 키는 덮어씌워집니다.",
+      "feedback": {
+        "correct": "정답입니다! 'age' 키가 26으로 업데이트되고 'city'가 추가됐어요.",
+        "wrong": "update()는 다른 딕셔너리의 항목으로 현재 딕셔너리를 업데이트합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_3_019",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 JSON 형식으로 데이터를 변환해서 출력하세요.\n\nimport json\n\nrecords = [{'id': 1, 'status': 'active'}, {'id': 2, 'status': 'inactive'}]\noutput = ________\nprint(output)",
+      "choices": [],
+      "answer": "json.dumps(records)",
+      "hint": "Python 리스트를 JSON 문자열로 변환하면 돼요.",
+      "feedback": {
+        "correct": "정답입니다! 리스트가 JSON 형식으로 변환되었어요.",
+        "wrong": "정답은 json.dumps(records). json.dumps()를 사용해 Python 리스트를 JSON으로 변환하세요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_3_020",
+      "unit": 5,
+      "stage": "5-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 필터링된 데이터를 JSON 형식으로 변환하세요.\n\nimport json\n\ndef format_premium_users(input_file):\n    with open(input_file, 'r') as f:\n        users = json.load(f)\n    premium = [u for u in users if u.get('premium', False)]\n    return ________\n\ndata = format_premium_users('users.json')\nprint(data)",
+      "choices": [],
+      "answer": "json.dumps(premium)",
+      "hint": "필터링된 리스트를 JSON 문자열로 변환해서 반환합니다.",
+      "feedback": {
+        "correct": "정답입니다! json.load()로 파일에서 직접 데이터를 로드하고 필터링한 리스트를 변환했습니다.",
+        "wrong": "정답은 json.dumps(premium). json.dumps()를 사용하여 필터링된 리스트 객체를 JSON 문자열로 변환하고 반환하세요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_4_001",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport csv\n\ndata = [['name', 'age'], ['Alice', '25'], ['Bob', '30']]\nwith open('test.csv', 'w', newline='') as f:\n    writer = csv.writer(f)\n    writer.writerows(data)\n\nprint('저장 완료!')",
+      "choices": [
+        "A) 저장 완료!",
+        "B) [['name', 'age'], ['Alice', '25'], ['Bob', '30']]",
+        "C) test.csv",
+        "D) csv.writer 객체"
+      ],
+      "answer": "A) 저장 완료!",
+      "hint": "writerows()는 여러 행을 CSV 파일에 쓰고, print()로 메시지를 출력해요.",
+      "feedback": {
+        "correct": "정답입니다! CSV 파일이 저장되고 메시지가 출력돼요.",
+        "wrong": "print() 함수가 실행되는 결과를 생각해봐요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_4_002",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 CSV 파일의 모든 행을 읽으세요.\n\nimport csv\n\nwith open('names.csv', 'r') as f:\n    reader = ________\n    for row in reader:\n        print(row)",
+      "choices": [],
+      "answer": "csv.reader(f)",
+      "hint": "csv.reader(파일 객체)는 CSV 파일을 읽기 위한 reader 객체를 반환해요.",
+      "feedback": {
+        "correct": "정답입니다! csv.reader()로 파일을 읽는 객체를 만들었어요.",
+        "wrong": "정답은 csv.reader(f). csv.reader(파일)을 사용해 CSV 파일을 읽으세요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_4_003",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport csv\n\ndata = [['id', 'product', 'price'],\n        ['1', 'apple', '5000'],\n        ['2', 'banana', '3000']]\n        \nwith open('items.csv', 'w', newline='') as f:\n    writer = csv.writer(f)\n    writer.writerows(data)\n\nwith open('items.csv', 'r') as f:\n    reader = csv.reader(f)\n    rows = list(reader)\n    print(len(rows))",
+      "choices": [
+        "A) 3",
+        "B) 2",
+        "C) items.csv",
+        "D) [[...], [...], [...]]"
+      ],
+      "answer": "A) 3",
+      "hint": "CSV 파일에 저장된 행의 개수는 3개예요 (헤더 포함).",
+      "feedback": {
+        "correct": "정답입니다! 3개의 행이 저장되어 있어요 (헤더 1개 + 데이터 2개).",
+        "wrong": "CSV 파일의 전체 행 개수를 세어봐요. 헤더도 포함돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_4_004",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 CSV 파일을 딕셔너리 형태로 읽으세요.\n\nimport csv\n\nwith open('users.csv', 'r') as f:\n    reader = ________\n    for row in reader:\n        print(row['name'])",
+      "choices": [],
+      "answer": "csv.DictReader(f)",
+      "hint": "csv.DictReader()는 각 행을 딕셔너리로 반환해요.",
+      "feedback": {
+        "correct": "정답입니다! csv.DictReader()로 딕셔너리 형태로 읽을 수 있어요.",
+        "wrong": "정답은 csv.DictReader(f). csv.DictReader(파일)을 사용해 딕셔너리 형태로 읽어야 해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_4_005",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport csv\n\ndata = [{'name': 'Alice', 'score': '90'},\n        {'name': 'Bob', 'score': '85'}]\n        \nwith open('scores.csv', 'w', newline='') as f:\n    fieldnames = ['name', 'score']\n    writer = csv.DictWriter(f, fieldnames=fieldnames)\n    writer.writeheader()\n    writer.writerows(data)\n\nwith open('scores.csv', 'r') as f:\n    reader = csv.reader(f)\n    print(next(reader))",
+      "choices": [
+        "A) ['name', 'score']",
+        "B) ['Alice', '90']",
+        "C) {'name': 'Alice', 'score': '90'}",
+        "D) [['name', 'score'], ['Alice', '90']]"
+      ],
+      "answer": "A) ['name', 'score']",
+      "hint": "next(reader)는 CSV 파일의 첫 번째 행을 반환해요.",
+      "feedback": {
+        "correct": "정답입니다! 첫 번째 행은 헤더 행이에요.",
+        "wrong": "next()는 reader의 첫 번째 행을 가져와요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_4_006",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport csv\n\nwith open('data.csv', 'w', newline='') as f:\n    writer = csv.writer(f)\n    writer.writerow(['x', 'y', 'z'])\n    writer.writerow([1, 2, 3])\n\nwith open('data.csv', 'r') as f:\n    reader = csv.reader(f)\n    for row in reader:\n        print(row)",
+      "choices": [
+        "A) ['x', 'y', 'z']\n['1', '2', '3']",
+        "B) {'x': 1, 'y': 2, 'z': 3}",
+        "C) [['x', 'y', 'z'], [1, 2, 3]]",
+        "D) x,y,z"
+      ],
+      "answer": "A) ['x', 'y', 'z']\n['1', '2', '3']",
+      "hint": "csv.reader()는 각 행을 리스트 형태로 반환해요. 숫자도 문자열로 읽혀요.",
+      "feedback": {
+        "correct": "정답입니다! 각 행이 리스트로 출력되고, 값들이 문자열이에요.",
+        "wrong": "CSV 파일의 모든 값은 문자열 형태로 읽혀요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_4_007",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 CSV 파일에 한 행을 추가하세요.\n\nimport csv\n\nwith open('records.csv', 'a', newline='') as f:\n    writer = csv.writer(f)\n    ________",
+      "choices": [],
+      "answer": "writer.writerow(['Charlie', '28'])",
+      "hint": "writerow()는 한 행을 CSV 파일에 씁니다. 'a' 모드는 추가 모드예요.",
+      "feedback": {
+        "correct": "정답입니다! writerow()로 한 행을 추가했어요.",
+        "wrong": "정답은 writer.writerow(['Charlie', '28']). writerow(리스트)를 사용해 한 행을 파일에 추가하세요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_4_008",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport csv\n\ndef count_csv_rows(filename):\n    with open(filename, 'r') as f:\n        reader = csv.reader(f)\n        rows = list(reader)\n        return len(rows) - 1\n\nwith open('sample.csv', 'w', newline='') as f:\n    writer = csv.writer(f)\n    writer.writerows([['id', 'name'], ['1', 'alice'], ['2', 'bob']])\n\nprint(count_csv_rows('sample.csv'))",
+      "choices": [
+        "A) 2",
+        "B) 3",
+        "C) 1",
+        "D) 0"
+      ],
+      "answer": "A) 2",
+      "hint": "CSV 파일은 헤더 1개 + 데이터 2개 = 3행이므로, -1하면 2예요.",
+      "feedback": {
+        "correct": "정답입니다! 헤더를 제외한 데이터 행의 개수는 2개예요.",
+        "wrong": "CSV 파일의 전체 행에서 헤더 1개를 빼야 해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_4_009",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 CSV 파일의 모든 행을 리스트로 변환하세요.\n\nimport csv\n\nwith open('info.csv', 'r') as f:\n    reader = csv.reader(f)\n    all_rows = ________\n\nprint(all_rows)",
+      "choices": [],
+      "answer": "list(reader)",
+      "hint": "csv.reader 객체를 list()로 변환하면 모든 행의 리스트를 만들어요.",
+      "feedback": {
+        "correct": "정답입니다! reader를 리스트로 변환했어요.",
+        "wrong": "정답은 list(reader). csv.reader 객체를 list()로 변환하세요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_4_010",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 CSV 파일에서 특정 열의 값들을 추출하세요.\n\nimport csv\n\ndef get_column(filename, column_name):\n    with open(filename, 'r') as f:\n        reader = csv.DictReader(f)\n        return ________\n\nprices = get_column('items.csv', 'price')\nprint(prices)",
+      "choices": [],
+      "answer": "[row[column_name] for row in reader]",
+      "hint": "DictReader를 사용하면 컬럼 이름으로 접근할 수 있어요.",
+      "feedback": {
+        "correct": "정답입니다! 리스트 컴프리헨션으로 특정 열의 모든 값을 추출했어요.",
+        "wrong": "정답은 [row[column_name] for row in reader]. 리스트 컴프리헨션을 사용해 컬럼 값을 모두 추출해야 해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_4_011",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport csv\n\nwith open('test.csv', 'w', newline='') as f:\n    writer = csv.writer(f)\n    writer.writerow(['product', 'quantity'])\n    writer.writerow(['pen', '100'])\n\nprint('CSV 파일 생성 완료!')",
+      "choices": [
+        "A) CSV 파일 생성 완료!",
+        "B) [['product', 'quantity'], ['pen', '100']]",
+        "C) test.csv",
+        "D) csv.writer 객체"
+      ],
+      "answer": "A) CSV 파일 생성 완료!",
+      "hint": "print() 함수의 결과를 보세요.",
+      "feedback": {
+        "correct": "정답입니다! print() 함수가 메시지를 출력해요.",
+        "wrong": "코드의 마지막 print() 함수의 실행 결과를 생각해봐요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_4_012",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 CSV 파일에 여러 행을 한 번에 쓰세요.\n\nimport csv\n\nrows = [['name', 'city'], ['David', 'Seoul'], ['Emma', 'Busan']]\nwith open('people.csv', 'w', newline='') as f:\n    writer = csv.writer(f)\n    ________",
+      "choices": [],
+      "answer": "writer.writerows(rows)",
+      "hint": "writerows()는 여러 행을 한 번에 쓸 수 있어요.",
+      "feedback": {
+        "correct": "정답입니다! writerows()로 모든 행을 파일에 썼어요.",
+        "wrong": "정답은 writer.writerows(rows). csv.writer.writerows(행들)을 사용하세요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_4_013",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport csv\n\nwith open('test.csv', 'w', newline='') as f:\n    fieldnames = ['a', 'b']\n    writer = csv.DictWriter(f, fieldnames=fieldnames)\n    writer.writeheader()\n    writer.writerow({'a': '1', 'b': '2'})\n\nwith open('test.csv', 'r') as f:\n    reader = csv.DictReader(f)\n    rows = list(reader)\n    print(len(rows))",
+      "choices": [
+        "A) 1",
+        "B) 2",
+        "C) 3",
+        "D) 0"
+      ],
+      "answer": "A) 1",
+      "hint": "DictReader는 헤더를 제외하고 데이터 행만 반환해요.",
+      "feedback": {
+        "correct": "정답입니다! 헤더는 제외되고 데이터 행 1개만 세어져요.",
+        "wrong": "정답은 A) 1. DictReader는 헤더를 제외한 데이터 행만 카운트해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_4_014",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 CSV 파일에 딕셔너리 형태의 데이터를 쓰세요.\n\nimport csv\n\ndata = [{'id': '1', 'name': 'Alice'}, {'id': '2', 'name': 'Bob'}]\nfieldnames = ['id', 'name']\nwith open('output.csv', 'w', newline='') as f:\n    writer = ________\n    writer.writeheader()\n    writer.writerows(data)",
+      "choices": [],
+      "answer": "csv.DictWriter(f, fieldnames=fieldnames)",
+      "hint": "딕셔너리 형태의 데이터를 CSV 파일로 다루려면 csv.DictWriter()를 사용해야 해요.",
+      "feedback": {
+        "correct": "정답입니다! csv.DictWriter()를 생성하여 딕셔너리 객체 데이터를 파일에 기록할 수 있어요.",
+        "wrong": "정답은 csv.DictWriter(f, fieldnames=fieldnames). 파일 객체와 fieldnames를 지정하여 DictWriter 객체를 생성하세요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_4_015",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport csv\n\nwith open('marks.csv', 'w', newline='') as f:\n    writer = csv.DictWriter(f, fieldnames=['name', 'score'])\n    writer.writeheader()\n    writer.writerow({'name': 'Tom', 'score': '95'})\n\nwith open('marks.csv', 'r') as f:\n    reader = csv.DictReader(f)\n    high = sum(1 for row in reader if int(row['score']) >= 90)\n    print(high)",
+      "choices": [
+        "A) 1",
+        "B) 2",
+        "C) 0",
+        "D) 3"
+      ],
+      "answer": "A) 1",
+      "hint": "95점은 90점 이상이므로 1개예요.",
+      "feedback": {
+        "correct": "정답입니다! 90점 이상인 학생이 1명이에요.",
+        "wrong": "90점 이상의 학생 개수를 세어봐요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_4_016",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport csv\n\nwith open('output.csv', 'w', newline='') as f:\n    writer = csv.writer(f)\n    writer.writerow(['a', 'b', 'c'])\n\nwith open('output.csv', 'r') as f:\n    reader = csv.reader(f)\n    first_row = next(reader)\n    print(first_row)",
+      "choices": [
+        "A) ['a', 'b', 'c']",
+        "B) 'a'",
+        "C) 'a,b,c'",
+        "D) {'a': 1, 'b': 2, 'c': 3}"
+      ],
+      "answer": "A) ['a', 'b', 'c']",
+      "hint": "next(reader)는 CSV의 첫 번째 행을 리스트로 반환해요.",
+      "feedback": {
+        "correct": "정답입니다! 첫 번째 행이 리스트 형태로 반환돼요.",
+        "wrong": "csv.reader는 각 행을 리스트로 반환합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_4_017",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 CSV 파일의 특정 행을 건너뛰고 읽으세요.\n\nimport csv\n\nwith open('data.csv', 'r') as f:\n    reader = csv.reader(f)\n    next(reader)\n    for row in ________:\n        print(row)",
+      "choices": [],
+      "answer": "reader",
+      "hint": "건너뛴 후 나머지 행들을 순회하면 돼요.",
+      "feedback": {
+        "correct": "정답입니다! next()로 헤더를 건너뛰고 나머지 행들을 순회해요.",
+        "wrong": "정답은 reader. for 루프에서 reader를 순회하세요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_4_018",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport csv\n\nwith open('data.csv', 'w', newline='') as f:\n    writer = csv.writer(f)\n    writer.writerow(['h1', 'h2'])\n    for i in range(3):\n        writer.writerow([i, i*2])\n\nwith open('data.csv', 'r') as f:\n    lines = f.readlines()\n    print(len(lines))",
+      "choices": [
+        "A) 4",
+        "B) 3",
+        "C) 1",
+        "D) 2"
+      ],
+      "answer": "A) 4",
+      "hint": "range(3) 반복문이 0, 1, 2로 총 3회 실행되어 데이터 3줄을 씁니다. 헤더 1줄을 더하면 총 4줄이에요.",
+      "feedback": {
+        "correct": "정답입니다! 헤더 1줄 + 데이터 3줄 = 총 4줄이에요.",
+        "wrong": "파일의 모든 줄을 세어봐요. 헤더도 줄 개수에 포함돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_4_019",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 CSV 파일의 모든 값을 정수로 변환해서 처리하세요.\n\nimport csv\n\nwith open('numbers.csv', 'r') as f:\n    reader = csv.reader(f)\n    for row in reader:\n        nums = ________\n        print(sum(nums))",
+      "choices": [],
+      "answer": "[int(x) for x in row]",
+      "hint": "CSV의 모든 값은 문자열이므로 정수로 변환해야 해요.",
+      "feedback": {
+        "correct": "정답입니다! 리스트 컴프리헨션으로 각 값을 정수로 변환했어요.",
+        "wrong": "정답은 [int(x) for x in row]. 각 값을 int()로 변환하는 리스트 컴프리헨션을 사용하세요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_4_020",
+      "unit": 5,
+      "stage": "5-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 CSV 파일을 필터링해 새로운 파일로 저장하세요.\n\nimport csv\n\nwith open('input.csv', 'w', newline='') as f:\n    writer = csv.writer(f)\n    writer.writerows([['score', 'name'], ['90', 'John'], ['70', 'Jane'], ['85', 'Jack']])\n\nwith open('input.csv', 'r') as f_in:\n    reader = csv.reader(f_in)\n    header = next(reader)\n    filtered = [row for row in reader if int(row[0]) >= 80]\n\nwith open('output.csv', 'w', newline='') as f_out:\n    writer = ________\n    writer.writerow(header)\n    writer.writerows(filtered)",
+      "choices": [],
+      "answer": "csv.writer(f_out)",
+      "hint": "필터링된 데이터를 CSV 파일로 저장하기 위해 writer를 만들어요.",
+      "feedback": {
+        "correct": "정답입니다! csv.writer()로 새 파일에 쓸 writer를 만들었어요.",
+        "wrong": "정답은 csv.writer(f_out). csv.writer(파일)을 사용해 파일에 쓸 writer를 만드세요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_5_001",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport json\nimport csv\n\nwith open('data.txt', 'w') as f:\n    f.write('Hello World')\n\nwith open('data.txt', 'r') as f:\n    content = f.read()\n    print(content)",
+      "choices": [
+        "A) Hello World",
+        "B) ['Hello World']",
+        "C) {'content': 'Hello World'}",
+        "D) data.txt"
+      ],
+      "answer": "A) Hello World",
+      "hint": "텍스트 파일을 read()로 읽으면 문자열이 반환돼요.",
+      "feedback": {
+        "correct": "정답입니다! 파일의 내용이 문자열로 읽혀요.",
+        "wrong": "정답은 A) Hello World. read() 메서드는 파일 내용을 문자열로 반환해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_5_002",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport csv\n\nwith open('test.csv', 'w', newline='') as f:\n    writer = csv.writer(f)\n    writer.writerows([['name', 'age'], ['Alice', '25']])\n\nwith open('test.csv', 'r') as f:\n    lines = f.readlines()\n    print(len(lines))",
+      "choices": [
+        "A) 2",
+        "B) 1",
+        "C) ['name', 'age']",
+        "D) 3"
+      ],
+      "answer": "A) 2",
+      "hint": "CSV 파일에는 헤더 1줄 + 데이터 1줄 = 2줄이에요.",
+      "feedback": {
+        "correct": "정답입니다! 파일에 2개의 줄이 저장돼요.",
+        "wrong": "정답은 A) 2. 헤더 행과 데이터 행이 각각 한 줄씩 저장되므로 총 줄 수는 2개예요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_5_003",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 JSON 파일에서 데이터를 읽으세요.\n\nimport json\n\nwith open('config.json', 'r') as f:\n    config = ________\n\nprint(config['port'])",
+      "choices": [],
+      "answer": "json.load(f)",
+      "hint": "json.load()는 JSON 파일을 Python 객체로 변환해요.",
+      "feedback": {
+        "correct": "정답입니다! json.load()로 JSON 파일을 읽었어요.",
+        "wrong": "정답은 json.load(f). json.load(파일 객체)를 사용해 JSON 파일 데이터를 파이썬 객체로 읽어올 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_5_004",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 JSON 문자열을 파싱하는 함수를 완성하세요.\n\nimport json\n\ndef parse_json_msg(json_str):\n    data = ________\n    return data['status']\n\nprint(parse_json_msg('{\"status\": \"success\"}'))",
+      "choices": [],
+      "answer": "json.loads(json_str)",
+      "hint": "JSON 문자열을 파이썬 객체로 변환하세요.",
+      "feedback": {
+        "correct": "정답입니다! json.loads()로 JSON 문자열을 파이썬 객체로 잘 변환했습니다.",
+        "wrong": "정답은 json.loads(json_str). JSON 형식의 문자열을 파싱할 때는 json.loads()를 사용해야 해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_5_005",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nwith open('lines.txt', 'w') as f:\n    f.write('line1\\nline2\\nline3')\n\nwith open('lines.txt', 'r') as f:\n    lines = f.readlines()\n    print(len(lines))",
+      "choices": [
+        "A) 3",
+        "B) 1",
+        "C) 17",
+        "D) 2"
+      ],
+      "answer": "A) 3",
+      "hint": "readlines()는 각 줄을 리스트의 요소로 반환해요.",
+      "feedback": {
+        "correct": "정답입니다! 3개의 줄이 있어요.",
+        "wrong": "정답은 A) 3. readlines()는 줄바꿈 기호를 기준으로 파일의 모든 줄을 읽어 리스트로 만들므로 요소 개수는 3개예요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_5_006",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 텍스트 파일에 여러 줄을 쓰세요.\n\nlines = ['apple', 'banana', 'cherry']\nwith open('fruits.txt', 'w') as f:\n    for line in lines:\n        ________",
+      "choices": [],
+      "answer": "f.write(line + '\\n')",
+      "hint": "각 줄 끝에 줄바꿈 문자를 추가해야 해요.",
+      "feedback": {
+        "correct": "정답입니다! 각 줄을 파일에 썼어요.",
+        "wrong": "정답은 f.write(line + '\\n'). f.write()를 활용하여 문자열 끝에 줄바꿈 문자(\\n)를 더해 파일에 작성해야 해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_5_007",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport json\n\ndata = {'users': [{'name': 'Bob', 'score': 90}]}\njson_str = json.dumps(data)\n\nwith open('output.json', 'w') as f:\n    f.write(json_str)\n\nwith open('output.json', 'r') as f:\n    restored = json.load(f)\n    print(len(restored['users']))",
+      "choices": [
+        "A) 1",
+        "B) 0",
+        "C) 2",
+        "D) ['Bob', 90]"
+      ],
+      "answer": "A) 1",
+      "hint": "JSON으로 저장했다가 다시 읽으면 원본 데이터가 복원돼요.",
+      "feedback": {
+        "correct": "정답입니다! users 리스트에 1개의 사용자가 있어요.",
+        "wrong": "정답은 A) 1. 원본 데이터의 users 리스트 안에 딕셔너리 요소가 1개 존재하므로 길이는 1이에요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_5_008",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport csv\nimport json\n\ncsv_data = [['id', 'name'], ['1', 'Charlie'], ['2', 'Diana']]\njson_data = {'version': '1.0'}\n\nwith open('data.csv', 'w', newline='') as f:\n    writer = csv.writer(f)\n    writer.writerows(csv_data)\n\nwith open('meta.json', 'w') as f:\n    json.dump(json_data, f)\n\nprint('Files saved')",
+      "choices": [
+        "A) Files saved",
+        "B) [['id', 'name'], ['1', 'Charlie']]",
+        "C) {'version': '1.0'}",
+        "D) None"
+      ],
+      "answer": "A) Files saved",
+      "hint": "print() 함수의 결과를 보세요.",
+      "feedback": {
+        "correct": "정답입니다! 파일이 저장되고 메시지가 출력돼요.",
+        "wrong": "정답은 A) Files saved. 앞선 파일 쓰기 작업들이 완료된 후 마지막 print() 문에 의해 'Files saved'가 출력돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_5_009",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 CSV 파일을 읽어 각 행을 딕셔너리로 처리하세요.\n\nimport csv\n\n# products.csv 내용: product,price\\n# apple,1000\\nwith open('products.csv', 'r') as f:\n    reader = ________\n    for row in reader:\n        print(row['product'])",
+      "choices": [],
+      "answer": "csv.DictReader(f)",
+      "hint": "csv.DictReader()는 각 행을 딕셔너리로 반환해요.",
+      "feedback": {
+        "correct": "정답입니다! DictReader로 딕셔너리 형태로 읽었어요.",
+        "wrong": "정답은 csv.DictReader(f). 각 행을 키-값 형태의 딕셔너리로 매핑하여 읽으려면 csv.DictReader(파일 객체)를 사용해야 해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_5_010",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 여러 파일 형식의 데이터를 저장하는 함수를 완성하세요.\n\nimport json\nimport csv\n\ndef save_all_formats(text, json_obj, csv_rows, names):\n    with open(names['txt'], 'w') as f:\n        f.write(text)\n    \n    with open(names['json'], 'w') as f:\n        json.dump(json_obj, f)\n    \n    with open(names['csv'], 'w', newline='') as f:\n        writer = ________\n        writer.writerows(csv_rows)\n\nsave_all_formats('hello', {'a': 1}, [['id'], ['1']], {'txt': 't.txt', 'json': 'j.json', 'csv': 'c.csv'})",
+      "choices": [],
+      "answer": "csv.writer(f)",
+      "hint": "csv.writer()로 CSV 파일에 쓸 writer 객체를 만드세요.",
+      "feedback": {
+        "correct": "정답입니다! csv.writer()로 writer를 만들었어요.",
+        "wrong": "정답은 csv.writer(f). 오픈된 CSV 파일 객체에 행 데이터를 쓰기 위해서는 먼저 csv.writer(파일 객체)를 생성해야 해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_5_011",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nwith open('test.txt', 'w') as f:\n    f.write('data')\n\nwith open('test.txt', 'r') as f:\n    content = f.read()\n    print(type(content))",
+      "choices": [
+        "A) <class 'str'>",
+        "B) <class 'list'>",
+        "C) <class 'dict'>",
+        "D) <class 'bytes'>"
+      ],
+      "answer": "A) <class 'str'>",
+      "hint": "read()는 파일 내용을 문자열로 반환해요.",
+      "feedback": {
+        "correct": "정답입니다! 파일 내용은 문자열 타입이에요.",
+        "wrong": "정답은 A) <class 'str'>. 텍스트 모드로 열린 파일에서 read() 메서드를 호출하면 전체 텍스트 내용이 str(문자열) 객체로 반환돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_5_012",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport csv\n\nwith open('pair.csv', 'w', newline='') as f:\n    writer = csv.writer(f)\n    writer.writerows([['col1', 'col2'], ['a', 'b']])\n\nwith open('pair.csv', 'r') as f:\n    reader = csv.reader(f)\n    all_rows = list(reader)\n    print(len(all_rows))",
+      "choices": [
+        "A) 1",
+        "B) 3",
+        "C) 2",
+        "D) 0"
+      ],
+      "answer": "C) 2",
+      "hint": "CSV 파일에는 헤더 1줄 + 데이터 1줄 = 2줄이에요.",
+      "feedback": {
+        "correct": "정답입니다! 2개의 행이 있어요.",
+        "wrong": "정답은 C) 2. writerows() 메서드를 통해 2차원 리스트 안의 내부 리스트 2개가 행 단위로 입력되었으므로 리스트 변환 결과의 길이도 2예요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_5_013",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 JSON 파일 구조에서 리스트 데이터를 파싱하세요.\n\nimport json\n\n# items.json 내용: [10, 20, 30]\nwith open('items.json', 'r') as f:\n    item_list = ________\n\nprint(item_list[0])",
+      "choices": [],
+      "answer": "json.load(f)",
+      "hint": "json.load()는 파일 객체로부터 JSON 데이터를 읽어 파이썬 객체로 변환해요.",
+      "feedback": {
+        "correct": "정답입니다! 파일 객체로부터 역직렬화를 수행했습니다.",
+        "wrong": "정답은 json.load(f). 파일 객체 자체를 인자로 받아 파이썬 데이터 타입으로 파싱할 때는 json.load()를 활용합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_5_014",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 메모리 상의 JSON 문자열을 역직렬화하세요.\n\nimport json\n\njson_str = '{\"items\": [1, 2, 3]}'\ndata = ________\nprint(data['items'])",
+      "choices": [],
+      "answer": "json.loads(json_str)",
+      "hint": "json.loads()는 JSON 문자열을 Python 객체로 변환해요.",
+      "feedback": {
+        "correct": "정답입니다! JSON 문자열을 파싱했어요.",
+        "wrong": "정답은 json.loads(json_str). 파일이 아닌 메모리 상의 JSON 문자열(string)을 파이썬 객체로 역직렬화할 때는 json.loads()를 사용해야 해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_5_015",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 텍스트 파일의 모든 줄을 한 번에 읽으세요.\n\nwith open('multi.txt', 'w') as f:\n    f.write('line1\\nline2\\nline3')\n\nwith open('multi.txt', 'r') as f:\n    all_lines = ________\n    print(len(all_lines))",
+      "choices": [],
+      "answer": "f.readlines()",
+      "hint": "readlines()는 모든 줄을 리스트로 반환해요.",
+      "feedback": {
+        "correct": "정답입니다! readlines()로 모든 줄을 읽었어요.",
+        "wrong": "정답은 f.readlines(). 파일 내의 모든 행을 개별 문자열 요소로 묶어 파이썬 리스트 형태로 받아오기 위해서는 f.readlines()가 적합해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_5_016",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 리스트 안의 데이터를 문자열 변환 후 파일에 기록하세요.\n\nimport json\n\nobjects = [{'id': 1}, {'id': 2}, {'id': 3}]\njson_str = ________\n\nwith open('objects.json', 'w') as f:\n    f.write(json_str)",
+      "choices": [],
+      "answer": "json.dumps(objects)",
+      "hint": "json.dumps()로 Python 객체를 JSON 문자열로 변환하세요.",
+      "feedback": {
+        "correct": "정답입니다! JSON 문자열로 변환했어요.",
+        "wrong": "정답은 json.dumps(objects). 파이썬 객체를 파일에 바로 적지 않고 문자열 변수로 반환받기 위해서는 json.dumps() 메서드를 이용해야 해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_5_017",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport json\n\nempty_data = {'records': []}\n\nwith open('empty.json', 'w') as f:\n    json.dump(empty_data, f)\n\nwith open('empty.json', 'r') as f:\n    loaded = json.load(f)\n    print(len(loaded['records']))",
+      "choices": [
+        "A) 1",
+        "B) 0",
+        "C) 2",
+        "D) 3"
+      ],
+      "answer": "B) 0",
+      "hint": "records 배열이 비어있어요.",
+      "feedback": {
+        "correct": "정답입니다! records 배열이 비어있어서 길이가 0이에요.",
+        "wrong": "정답은 B) 0. 불러온 딕셔너리의 'records' 키가 가리키는 파이썬 리스트가 비어 있는 상태([])이므로 len()의 결과는 0이 돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_5_018",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport json\n\ndata = {'name': 'Eve', 'age': 30}\nwith open('person.json', 'w') as f:\n    json.dump(data, f)\n\nprint('JSON saved')",
+      "choices": [
+        "A) JSON saved",
+        "B) {'name': 'Eve', 'age': 30}",
+        "C) person.json",
+        "D) None"
+      ],
+      "answer": "A) JSON saved",
+      "hint": "print() 함수의 실행 결과를 보세요.",
+      "feedback": {
+        "correct": "정답입니다! 메시지가 출력돼요.",
+        "wrong": "정답은 A) JSON saved. 파일 저장 작업이 끝난 뒤 순차적으로 실행되는 마지막 print() 문의 문자열 출력을 확인해보세요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_5_019",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택해주세요.\n\nimport csv\n\nwith open('single.csv', 'w', newline='') as f:\n    fieldnames = ['a', 'b']\n    writer = csv.DictWriter(f, fieldnames=fieldnames)\n    writer.writeheader()\n\nwith open('single.csv', 'r') as f:\n    lines = f.readlines()\n    print(len(lines))",
+      "choices": [
+        "A) 2",
+        "B) 1",
+        "C) 3",
+        "D) 0"
+      ],
+      "answer": "B) 1",
+      "hint": "헤더만 있고 데이터가 없어요.",
+      "feedback": {
+        "correct": "정답입니다! 헤더 줄만 있어서 1줄이에요.",
+        "wrong": "정답은 B) 1. writeheader()로 필드명(헤더)만 작성하고 추가적인 행 데이터를 적지 않았으므로 총 줄 수는 1줄이에요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_5_020",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 빈칸을 채워 파일 형식을 변환하는 함수를 완성하세요.\n\nimport json\nimport csv\n\ndef convert_json_to_csv(json_file, csv_file):\n    with open(json_file, 'r') as f:\n        data = json.load(f)\n    \n    fieldnames = list(data[0].keys()) if data else []\n    \n    with open(csv_file, 'w', newline='') as f:\n        writer = ________\n        writer.writeheader()\n        writer.writerows(data)\n\nconvert_json_to_csv('input.json', 'output.csv')",
+      "choices": [],
+      "answer": "csv.DictWriter(f, fieldnames=fieldnames)",
+      "hint": "csv.DictWriter()로 딕셔너리 형태로 쓸 writer를 만드세요.",
+      "feedback": {
+        "correct": "정답입니다! DictWriter로 딕셔너리 형태로 작성했어요.",
+        "wrong": "정답은 csv.DictWriter(f, fieldnames=fieldnames). 딕셔너리 리스트 구조를 다룰 때 헤더 매핑 및 데이터 쓰기를 자동화해주는 객체는 csv.DictWriter(파일 객체, fieldnames=필드 리스트)예요."
+      }
+    }
+  ]
+}
