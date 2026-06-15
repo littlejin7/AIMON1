@@ -1,0 +1,3009 @@
+{
+  "questions": [
+    {
+      "question_id": "sl_mid_os_8_1_001",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "API를 사용하려면 먼저 requests 라이브러리를 가져와야 해요. 빈 칸을 채우세요.\n\n_____ requests\nresponse = requests.get('https://api.example.com/data')",
+      "choices": [],
+      "answer": "import",
+      "hint": "파이썬 라이브러리를 사용하려면 import 키워드가 필요해요.",
+      "feedback": {
+        "correct": "정확해요! import requests로 requests 라이브러리를 가져와요.",
+        "wrong": "정답은 import. 파이썬 라이브러리를 사용하려면 import 키워드가 필요해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_1_002",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 API 서버로부터 데이터를 받을 때 사용하는 메서드는 무엇인가요?\n\nimport requests\nurl = 'https://api.example.com/users'\nresponse = requests.get(url)\nprint(response.status_code)",
+      "choices": [
+        "A. get",
+        "B. post",
+        "C. fetch",
+        "D. request"
+      ],
+      "answer": "A. get",
+      "hint": "GET 메서드는 서버에서 데이터를 받을 때 사용해요.",
+      "feedback": {
+        "correct": "정답이에요! requests.get()은 HTTP GET 요청을 보내요.",
+        "wrong": "정답은 A. get. HTTP GET 요청으로 서버에서 데이터를 받을 때는 requests.get()을 사용해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_1_003",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "API 응답은 보통 JSON 형식이에요. 응답을 파이썬 딕셔너리로 변환합니다.\n\nimport requests\nresponse = requests.get('https://api.example.com/user/1')\ndata = response._____( )\nprint(data['name'])",
+      "choices": [],
+      "answer": "json",
+      "hint": ".json() 메서드는 JSON 형식의 응답을 파이썬 딕셔너리로 변환해요.",
+      "feedback": {
+        "correct": "정확해요! .json()으로 JSON 응답을 파이썬 딕셔너리로 변환할 수 있어요.",
+        "wrong": "정답은 json. JSON 형식의 응답을 파이썬 딕셔너리로 변환하려면 .json() 메서드를 사용해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_1_004",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "API 요청이 성공했는지 상태 코드로 확인합니다. 다음 중 성공을 의미하는 상태 코드는?\n\nimport requests\nresponse = requests.get('https://api.example.com/data')\nif response.status_code == _____:\n    print('요청 성공!')",
+      "choices": [
+        "A. 500",
+        "B. 404",
+        "C. 200",
+        "D. 403"
+      ],
+      "answer": "C. 200",
+      "hint": "상태 코드 200은 OK를 의미하며, 요청이 성공했다는 뜻이에요.",
+      "feedback": {
+        "correct": "정답이에요! HTTP 상태 코드 200은 성공을 의미합니다.",
+        "wrong": "정답은 C. 200. HTTP 상태 코드 200은 요청이 성공했음을 의미해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_1_005",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "초급의 딕셔너리처럼 API에 데이터를 보낼 수 있어요. POST 요청으로 새로운 데이터를 생성합니다.\n\nimport requests\ndata = {'name': 'John', 'age': 30}\nresponse = requests.post('https://api.example.com/users', json=_____)\nprint(response.status_code)",
+      "choices": [],
+      "answer": "data",
+      "hint": "json 파라미터에 딕셔너리를 전달하면 자동으로 JSON 형식으로 변환돼요.",
+      "feedback": {
+        "correct": "정확해요! POST 요청으로 데이터를 서버에 전송할 수 있어요.",
+        "wrong": "정답은 data. POST 요청으로 데이터를 보낼 때 json 파라미터에 딕셔너리를 전달해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_1_006",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "API 응답 중 특정 필드에 접근합니다. 다음 코드의 결과는?\n\nimport requests\nresponse_data = {'user': {'name': 'Alice', 'id': 123}, 'status': 'active'}\nprint(response_data['user']['name'])",
+      "choices": [
+        "A. (에러 발생)",
+        "B. {'name': 'Alice', 'id': 123}",
+        "C. user",
+        "D. Alice"
+      ],
+      "answer": "D. Alice",
+      "hint": "['user']['name']은 중첩된 딕셔너리에서 'user' → 'name' 순서로 접근해요.",
+      "feedback": {
+        "correct": "정답이에요! 중첩된 딕셔너리도 연속으로 접근할 수 있어요.",
+        "wrong": "정답은 D. Alice. 중첩된 딕셔너리에서 연속으로 키를 사용해 접근할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_1_007",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "초급의 for 루프를 사용해서 여러 사용자 정보를 처리합니다.\n\nimport requests\nusers_data = {'users': [{'name': 'John'}, {'name': 'Alice'}, {'name': 'Bob'}]}\nfor user in users_data_____:\n    print(user['name'])",
+      "choices": [],
+      "answer": "['users']",
+      "hint": "['users']로 users 리스트를 가져온 후, for 루프로 각 사용자를 처리해요.",
+      "feedback": {
+        "correct": "정확해요! 딕셔너리에서 리스트를 꺼내서 반복 처리할 수 있어요.",
+        "wrong": "정답은 ['users']. 딕셔너리에서 리스트를 꺼낸 후 for 루프로 각 요소를 순회해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_1_008",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport requests\nusers = [{'name': 'John', 'age': 25}, {'name': 'Alice', 'age': 30}, {'name': 'Bob', 'age': 28}]\nfor user in users:\n    if user['age'] >= 30:\n        print(user['name'])",
+      "choices": [
+        "A. John\\nAlice\\nBob",
+        "B. John",
+        "C. Alice",
+        "D. (아무것도 출력 안 됨)"
+      ],
+      "answer": "C. Alice",
+      "hint": "초급의 if 조건으로 나이가 30 이상인 사람만 출력해요.",
+      "feedback": {
+        "correct": "정답이에요! Alice만 나이가 30 이상이에요.",
+        "wrong": "정답은 C. Alice. if 조건으로 age >= 30인 사람만 필터링하면 Alice만 해당돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_1_009",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "초급의 함수를 사용해서 API 데이터를 처리합니다.\n\nimport requests\ndef process_user_data(data):\n    for user in data['users']:\n        if user.get('active', False):\n            print(user['name'])\n\nusers_data = {'users': [{'name': 'John', 'active': True}, {'name': 'Alice', 'active': False}]}\nprocess_user_data_____",
+      "choices": [],
+      "answer": "(users_data)",
+      "hint": "함수를 호출할 때는 괄호 안에 인자를 전달해요.",
+      "feedback": {
+        "correct": "정확해요! 함수를 호출해서 데이터를 처리할 수 있어요.",
+        "wrong": "정답은 (users_data). 함수를 호출할 때는 함수명 뒤에 괄호를 사용해서 인자를 전달해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_1_010",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport requests\nresponse_text = {'data': [1, 2, 3, 4, 5]}\ntotal = sum(response_text['data'])\nfor num in response_text['data']:\n    if num > total / 2:\n        print(num, end=' ')",
+      "choices": [
+        "A. 1 2 3 4 5",
+        "B. 4 5",
+        "C. 3 4 5",
+        "D. (아무것도 출력 안 됨)"
+      ],
+      "answer": "D. (아무것도 출력 안 됨)",
+      "hint": "total은 15이고, total/2는 7.5예요. 7.5보다 큰 수는 없어요.",
+      "feedback": {
+        "correct": "total/2 = 7.5이므로 조건을 만족하는 수가 없습니다.",
+        "wrong": "정답은 D. (아무것도 출력 안 됨). total/2 = 7.5이므로 7.5보다 큰 수가 없어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_1_011",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "API 응답이 성공했을 때만 데이터를 처리합니다. 빈 칸을 채우세요.\n\nimport requests\nresponse = requests.get('https://api.example.com/posts')\nif response._____ == 200:\n    posts = response.json()\n    print(f'수신한 게시물: {len(posts)}')",
+      "choices": [],
+      "answer": "status_code",
+      "hint": "response.status_code는 HTTP 상태 코드를 담고 있어요.",
+      "feedback": {
+        "correct": "정확해요! 상태 코드로 요청의 성공/실패를 확인할 수 있어요.",
+        "wrong": "정답은 status_code. response.status_code는 HTTP 요청의 상태 코드를 저장해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_1_012",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "API 요청을 보낼 때 추가 정보를 헤더로 전달합니다. 다음 중 맞는 설명은?\n\nimport requests\nheaders = {'Authorization': 'Bearer token123'}\nresponse = requests.get('https://api.example.com/private', headers=headers)",
+      "choices": [
+        "A. 헤더는 API 서버에 인증 정보를 전달할 때 사용해요",
+        "B. 헤더는 응답 데이터의 형식을 결정해요",
+        "C. 헤더는 URL의 일부예요",
+        "D. 헤더는 선택사항이에요"
+      ],
+      "answer": "A. 헤더는 API 서버에 인증 정보를 전달할 때 사용해요",
+      "hint": "Authorization 헤더는 API 키나 토큰 같은 인증 정보를 전달해요.",
+      "feedback": {
+        "correct": "정답이에요! 헤더로 인증, 콘텐츠 타입 등 추가 정보를 보낼 수 있어요.",
+        "wrong": "정답은 A. 헤더는 API 서버에 인증 정보를 전달할 때 사용해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_1_013",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "API에 조건을 전달해서 원하는 데이터만 받을 수 있어요. query 파라미터를 사용합니다.\n\nimport requests\nparams = {'page': 1, 'limit': 10}\nresponse = requests.get('https://api.example.com/posts', _____=params)\nposts = response.json()\nprint(f'받은 게시물: {len(posts)}')",
+      "choices": [],
+      "answer": "params",
+      "hint": "params 파라미터로 쿼리 문자열을 URL에 추가할 수 있어요.",
+      "feedback": {
+        "correct": "정확해요! params로 필터링, 페이징 등의 조건을 전달할 수 있어요.",
+        "wrong": "정답은 params. params 파라미터로 쿼리 조건(페이징, 필터링 등)을 URL에 추가해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_1_014",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport requests\napi_response = {\n    'status': 200,\n    'data': {\n        'posts': [\n            {'id': 1, 'title': 'Post 1'},\n            {'id': 2, 'title': 'Post 2'},\n            {'id': 3, 'title': 'Post 3'}\n        ]\n    }\n}\n\nfor post in api_response['data']['posts']:\n    if post['id'] <= 2:\n        print(post['title'])",
+      "choices": [
+        "A. Post 1\\nPost 2\\nPost 3",
+        "B. Post 3",
+        "C. Post 1\\nPost 2",
+        "D. (아무것도 출력 안 됨)"
+      ],
+      "answer": "C. Post 1\\nPost 2",
+      "hint": "초급의 if 조건으로 id가 2 이하인 게시물만 출력해요.",
+      "feedback": {
+        "correct": "정답이에요! Post 1과 Post 2만 조건을 만족합니다.",
+        "wrong": "정답은 C. Post 1\\nPost 2. id <= 2 조건을 만족하는 게시물은 두 개예요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_1_015",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "API 응답에 특정 키가 있는지 확인할 수 있어요. .get() 메서드를 사용합니다.\n\nimport requests\nuser_data = {'name': 'John', 'age': 30}\nemail = user_data._____('email', 'not available')\nprint(email)  # not available",
+      "choices": [],
+      "answer": "get",
+      "hint": ".get(키, 기본값)은 키가 없으면 기본값을 반환해요.",
+      "feedback": {
+        "correct": "정확해요! .get()으로 안전하게 딕셔너리에 접근할 수 있어요.",
+        "wrong": "정답은 get. .get(키, 기본값)은 키가 없으면 안전하게 기본값을 반환해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_1_016",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport requests\nresponse_data = {\n    'users': [\n        {'name': 'Alice', 'role': 'admin'},\n        {'name': 'Bob', 'role': 'user'},\n        {'name': 'Charlie', 'role': 'user'}\n    ]\n}\n\nadmins = [u['name'] for u in response_data['users'] if u['role'] == 'admin']\nprint(admins)",
+      "choices": [
+        "A. ['Alice', 'Bob', 'Charlie']",
+        "B. ['Alice']",
+        "C. ['Bob', 'Charlie']",
+        "D. []"
+      ],
+      "answer": "B. ['Alice']",
+      "hint": "리스트 컴프리헨션으로 role이 'admin'인 사용자만 필터링해요.",
+      "feedback": {
+        "correct": "정답이에요! 초급의 리스트 컴프리헨션으로 데이터를 필터링할 수 있어요.",
+        "wrong": "정답은 B. ['Alice']. 리스트 컴프리헨션으로 role이 'admin'인 사용자만 필터링해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_1_017",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "초급의 for 루프로 API 응답 데이터를 새로운 형식으로 변환합니다.\n\nimport requests\nraw_data = {'items': [{'id': 1, 'price': 100}, {'id': 2, 'price': 200}]}\nformatted = []\nfor item in raw_data_____:\n    formatted.append({'product_id': item['id'], 'cost': item['price']})\nprint(formatted)",
+      "choices": [],
+      "answer": "['items']",
+      "hint": "['items']로 items 리스트를 가져온 후, for 루프로 변환해요.",
+      "feedback": {
+        "correct": "정확해요! API 데이터를 다른 형식으로 변환할 수 있어요.",
+        "wrong": "정답은 ['items']. items 리스트를 꺼낸 후 for 루프로 각 항목을 변환해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_1_018",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport requests\ndef get_active_users(data):\n    active = []\n    for user in data['users']:\n        if user.get('active', False):\n            active.append(user['name'])\n    return active\n\napi_data = {\n    'users': [\n        {'name': 'John', 'active': True},\n        {'name': 'Alice', 'active': False},\n        {'name': 'Bob', 'active': True}\n    ]\n}\n\nresult = get_active_users(api_data)\nprint(result)",
+      "choices": [
+        "A. ['John', 'Alice', 'Bob']",
+        "B. ['John', 'Bob']",
+        "C. ['Alice']",
+        "D. []"
+      ],
+      "answer": "B. ['John', 'Bob']",
+      "hint": "active가 True인 사용자만 리스트에 추가해요.",
+      "feedback": {
+        "correct": "정답이에요! 초급의 함수, for 루프, if 조건을 모두 활용했어요.",
+        "wrong": "정답은 B. ['John', 'Bob']. active가 True인 사용자만 리스트에 추가돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_1_019",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "초급의 딕셔너리와 for 루프를 사용해서 API 데이터를 요약합니다.\n\nimport requests\ndata = {'products': [{'name': 'A', 'price': 100}, {'name': 'B', 'price': 200}, {'name': 'C', 'price': 150}]}\ntotal = 0\nfor product in data_____:\n    total += product['price']\nprint(f'총합: {total}')  # 총합: 450",
+      "choices": [],
+      "answer": "['products']",
+      "hint": "['products']로 상품 리스트를 가져온 후, for 루프로 가격을 합산해요.",
+      "feedback": {
+        "correct": "정확해요! 초급의 변수 누적과 for 루프로 합계를 구할 수 있어요.",
+        "wrong": "정답은 ['products']. products 리스트를 꺼낸 후 for 루프로 가격을 누적 합산해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_1_020",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport requests\napi_response = {\n    'transactions': [\n        {'type': 'income', 'amount': 1000},\n        {'type': 'expense', 'amount': 300},\n        {'type': 'income', 'amount': 500},\n        {'type': 'expense', 'amount': 200}\n    ]\n}\n\nincome_total = sum(t['amount'] for t in api_response['transactions'] if t['type'] == 'income')\nprint(income_total)",
+      "choices": [
+        "A. 500",
+        "B. 1500",
+        "C. 1000",
+        "D. 2000"
+      ],
+      "answer": "B. 1500",
+      "hint": "type이 'income'인 거래들의 amount를 합산해요. 1000 + 500 = 1500",
+      "feedback": {
+        "correct": "정답이에요! 리스트 컴프리헨션과 sum()으로 조건부 합계를 구할 수 있어요.",
+        "wrong": "정답은 B. 1500. 리스트 컴프리헨션과 sum()으로 type이 'income'인 거래들의 합을 구해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_2_001",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "API로부터 받은 데이터에서 필수 필드가 있는지 확인합니다. 초급의 if 문으로 검증해요.\n\napi_data = {'name': 'John', 'age': 25}\nif '_____' in api_data:\n    print('name이 있어요')",
+      "choices": [],
+      "answer": "'name'",
+      "hint": "딕셔너리에서 키의 존재를 확인하려면 'key' in dict를 사용해요.",
+      "feedback": {
+        "correct": "정확해요! 딕셔너리의 키 존재 여부를 확인할 수 있어요.",
+        "wrong": "정답은 'name'. 딕셔너리에서 키의 존재를 확인할 때 'key' in dict 형태를 사용해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_2_002",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\napi_response = [\n    {'name': 'Product A', 'price': 100, 'in_stock': True},\n    {'name': 'Product B', 'price': 50, 'in_stock': False},\n    {'name': 'Product C', 'price': 150, 'in_stock': True}\n]\n\navailable = [p['name'] for p in api_response if p['in_stock']]\nprint(available)",
+      "choices": [
+        "A. ['Product A', 'Product C']",
+        "B. ['Product A', 'Product B', 'Product C']",
+        "C. ['Product B']",
+        "D. []"
+      ],
+      "answer": "A. ['Product A', 'Product C']",
+      "hint": "리스트 컴프리헨션으로 in_stock이 True인 상품만 필터링해요.",
+      "feedback": {
+        "correct": "정답이에요! 리스트 컴프리헨션으로 조건에 맞는 데이터를 필터링할 수 있어요.",
+        "wrong": "정답은 A. ['Product A', 'Product C']. 리스트 컴프리헨션으로 in_stock이 True인 상품만 필터링해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_2_003",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "API로 받은 판매 데이터를 분석해서 총 판매액을 계산합니다.\n\nsales_data = [{'amount': 1000}, {'amount': 2000}, {'amount': 1500}]\ntotal_sales = _____([s['amount'] for s in sales_data])\nprint(total_sales)  # 4500",
+      "choices": [],
+      "answer": "sum",
+      "hint": "sum() 함수는 리스트의 모든 값을 더해요.",
+      "feedback": {
+        "correct": "정확해요! sum()으로 데이터의 합계를 쉽게 구할 수 있어요.",
+        "wrong": "정답은 sum. sum() 함수는 리스트의 모든 숫자 값을 더해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_2_004",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nusers = [\n    {'name': 'Alice', 'score': 85},\n    {'name': 'Bob', 'score': 90},\n    {'name': 'Charlie', 'score': 78},\n    {'name': 'David', 'score': 92}\n]\n\nhigh_scorers = [u for u in users if u['score'] >= 85]\nprint(len(high_scorers))",
+      "choices": [
+        "A. 4",
+        "B. 3",
+        "C. 2",
+        "D. 1"
+      ],
+      "answer": "B. 3",
+      "hint": "점수가 85 이상인 사람은 Alice(85), Bob(90), David(92)예요.",
+      "feedback": {
+        "correct": "정답이에요! 조건을 만족하는 데이터를 필터링하고 개수를 셀 수 있어요.",
+        "wrong": "정답은 B. 3. 점수가 85 이상인 사람은 Alice, Bob, David로 3명이에요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_2_005",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "API로 받은 데이터를 가장 높은 점수 순으로 정렬하고 싶어요. sorted() 함수를 사용합니다.\n\nstudents = [{'name': 'John', 'score': 85}, {'name': 'Alice', 'score': 92}, {'name': 'Bob', 'score': 78}]\nsorted_students = sorted(students, key=lambda s: s['score']_____)\nprint(sorted_students[0]['name'])  # Alice",
+      "choices": [],
+      "answer": ", reverse=True",
+      "hint": "reverse=True는 내림차순으로 정렬해요.",
+      "feedback": {
+        "correct": "정확해요! reverse=True로 내림차순 정렬을 할 수 있어요.",
+        "wrong": "정답은 , reverse=True. reverse=True는 정렬 결과를 내림차순으로 만들어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_2_006",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ntemperatures = [22.5, 23.0, 21.8, 24.2, 22.8]\naverage_temp = sum(temperatures) / len(temperatures)\nprint(f'평균: {average_temp:.1f}')",
+      "choices": [
+        "A. 평균: 22.9",
+        "B. 평균: 23.0",
+        "C. 평균: 22.8",
+        "D. 평균: 114.3"
+      ],
+      "answer": "A. 평균: 22.9",
+      "hint": "(22.5+23.0+21.8+24.2+22.8)/5 = 114.3/5 = 22.86, 소수점 첫째 자리까지 올림하면 22.9",
+      "feedback": {
+        "correct": "정답이에요! 평균을 계산하고 포맷팅할 수 있어요.",
+        "wrong": "정답은 A. 평균: 22.9. (22.5+23.0+21.8+24.2+22.8)/5 = 22.86을 소수점 첫째 자리까지 표기하면 22.9예요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_2_007",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "여러 조건으로 API 데이터를 필터링합니다. 초급의 and 연산자를 사용해요.\n\nproducts = [{'name': 'A', 'price': 100, 'stock': 10}, {'name': 'B', 'price': 50, 'stock': 0}, {'name': 'C', 'price': 150, 'stock': 5}]\navailable = [p for p in products if p['stock'] > 0 _____ p['price'] < 120]\nprint(available)  # [{'name': 'A', 'price': 100, 'stock': 10}]",
+      "choices": [],
+      "answer": "and",
+      "hint": "and는 두 조건을 모두 만족할 때만 True예요.",
+      "feedback": {
+        "correct": "정확해요! 여러 조건으로 데이터를 필터링할 수 있어요.",
+        "wrong": "정답은 and. and는 두 조건을 모두 만족할 때만 True를 반환해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_2_008",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\napi_users = [\n    {'name': 'Alice', 'age': 25, 'city': 'Seoul'},\n    {'name': 'Bob', 'age': 30, 'city': 'Busan'},\n    {'name': 'Charlie', 'age': 25, 'city': 'Seoul'},\n    {'name': 'David', 'age': 28, 'city': 'Seoul'}\n]\n\nseoul_users = [u['name'] for u in api_users if u['city'] == 'Seoul']\nprint(seoul_users)",
+      "choices": [
+        "A. ['Alice', 'Bob', 'Charlie']",
+        "B. ['Alice', 'Charlie', 'David']",
+        "C. ['Alice', 'Charlie']",
+        "D. ['Bob']"
+      ],
+      "answer": "B. ['Alice', 'Charlie', 'David']",
+      "hint": "city가 'Seoul'인 사용자는 Alice, Charlie, David예요.",
+      "feedback": {
+        "correct": "정답이에요! 조건에 맞는 여러 데이터를 필터링할 수 있어요.",
+        "wrong": "정답은 B. ['Alice', 'Charlie', 'David']. city가 'Seoul'인 사용자는 세 명이에요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_2_009",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "초급의 함수를 사용해서 API 데이터를 분석합니다.\n\nimport json\n\ndef analyze_data(api_response):\n    total = sum([item['value'] for item in api_response])\n    average = total / len(api_response)\n    return average\n\ndata = [{'id': 1, 'value': 10}, {'id': 2, 'value': 20}, {'id': 3, 'value': 30}]\nresult = analyze_data_____\nprint(result)  # 20.0",
+      "choices": [],
+      "answer": "(data)",
+      "hint": "함수를 호출할 때는 괄호 안에 인자를 전달해요.",
+      "feedback": {
+        "correct": "정확해요! 함수로 API 데이터를 분석할 수 있어요.",
+        "wrong": "정답은 (data). 함수를 호출할 때는 함수명 뒤에 괄호를 붙여서 인자를 전달해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_2_010",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\napi_data = {\n    'sales': [\n        {'date': '2026-01', 'amount': 1000, 'category': 'A'},\n        {'date': '2026-01', 'amount': 1500, 'category': 'B'},\n        {'date': '2026-02', 'amount': 800, 'category': 'A'},\n        {'date': '2026-02', 'amount': 2000, 'category': 'B'}\n    ]\n}\n\ncategory_a = sum([s['amount'] for s in api_data['sales'] if s['category'] == 'A'])\nprint(category_a)",
+      "choices": [
+        "A. {'product': 'Phone', 'price': 500, 'sold': 15}",
+        "B. {'product': 'Tablet', 'price': 300, 'sold': 8}",
+        "C. {'product': 'Laptop', 'price': 1000, 'sold': 5}",
+        "D. {'product': 'Laptop', 'price': 1000, 'sold': 5}"
+      ],
+      "answer": "D. {'product': 'Laptop', 'price': 1000, 'sold': 5}",
+      "hint": "category가 'A'인 판매량: 1000 + 800 = 1800",
+      "feedback": {
+        "correct": "정답이에요! 조건부 합계로 카테고리별 집계를 할 수 있어요.",
+        "wrong": "정답은 D. 1800. category가 'A'인 거래는 1000 + 800 = 1800이에요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_2_011",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "API 응답이 완전한지 확인합니다. 필수 필드를 모두 확인해요.\n\napi_user = {'name': 'John', 'email': 'john@test.com'}\nrequired_fields = ['name', 'email', 'age']\nis_valid = all(field _____ api_user for field in required_fields)\nprint(is_valid)  # False",
+      "choices": [],
+      "answer": "in",
+      "hint": "all()은 모든 조건이 True일 때만 True를 반환해요.",
+      "feedback": {
+        "correct": "정확해요! all()로 모든 필수 필드 존재 여부를 확인할 수 있어요.",
+        "wrong": "정답은 in. all()은 모든 조건이 True일 때만 True를 반환해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_2_012",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nitems = [\n    {'name': 'Apple', 'quantity': 5},\n    {'name': 'Banana', 'quantity': 3},\n    {'name': 'Orange', 'quantity': 8},\n    {'name': 'Grape', 'quantity': 2}\n]\n\nmax_item = max(items, key=lambda x: x['quantity'])\nprint(max_item['name'])",
+      "choices": [
+        "A. Apple",
+        "B. Banana",
+        "C. Orange",
+        "D. Grape"
+      ],
+      "answer": "C. Orange",
+      "hint": "quantity가 가장 큰 것은 Orange(8)예요.",
+      "feedback": {
+        "correct": "정답이에요! max()로 가장 큰 값을 찾을 수 있어요.",
+        "wrong": "정답은 C. Orange. max()로 quantity가 가장 큰 항목(Orange, 8)을 찾아요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_2_013",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "API 데이터를 새로운 형식으로 변환합니다. 초급의 for 루프로 변환해요.\n\noriginal = [{'id': 1, 'name': 'A'}, {'id': 2, 'name': 'B'}]\ntransformed = []\nfor item in original:\n    transformed._____({'product_id': item['id'], 'title': item['name']})\nprint(transformed)  # [{'product_id': 1, 'title': 'A'}, ...]",
+      "choices": [],
+      "answer": "append",
+      "hint": ".append()는 리스트에 새로운 요소를 추가해요.",
+      "feedback": {
+        "correct": "정확해요! 데이터를 변환해서 새로운 형식으로 만들 수 있어요.",
+        "wrong": "정답은 append. .append()는 리스트에 새로운 요소를 추가해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_2_014",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nscores = [\n    {'student': 'Alice', 'math': 85, 'english': 90},\n    {'student': 'Bob', 'math': 78, 'english': 88},\n    {'student': 'Charlie', 'math': 92, 'english': 85}\n]\n\navg_math = sum([s['math'] for s in scores]) / len(scores)\nprint(f'{avg_math:.0f}')",
+      "choices": [
+        "A. 87",
+        "B. 86",
+        "C. 85",
+        "D. 88"
+      ],
+      "answer": "C. 85",
+      "hint": "(85+78+92)/3 = 255/3 = 85",
+      "feedback": {
+        "correct": "정답이에요! 리스트 컴프리헨션으로 특정 필드의 평균을 계산할 수 있어요.",
+        "wrong": "정답은 C. 85. (85+78+92)/3 = 255/3 = 85예요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_2_015",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "API 응답에서 특정 필드만 추출해서 새로운 리스트를 만듭니다.\n\napi_response = [{'id': 1, 'name': 'A', 'price': 100}, {'id': 2, 'name': 'B', 'price': 200}]\nnames = [item_____for item in api_response]\nprint(names)  # ['A', 'B']",
+      "choices": [],
+      "answer": "['name']",
+      "hint": "['name']으로 name 필드를 추출해요.",
+      "feedback": {
+        "correct": "정확해요! 딕셔너리 리스트에서 특정 필드만 추출할 수 있어요.",
+        "wrong": "정답은 ['name']. 리스트 컴프리헨션으로 item['name']을 추출해 새 리스트를 만들어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_2_016",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndata = [\n    {'category': 'fruit', 'items': ['apple', 'banana']},\n    {'category': 'vegetable', 'items': ['carrot', 'lettuce', 'tomato']}\n]\n\nall_items = []\nfor group in data:\n    all_items.extend(group['items'])\nprint(all_items)",
+      "choices": [
+        "A. ['apple', 'banana', 'carrot', 'lettuce', 'tomato']",
+        "B. [['apple', 'banana'], ['carrot', 'lettuce', 'tomato']]",
+        "C. ['fruit', 'vegetable']",
+        "D. ['apple', 'carrot']"
+      ],
+      "answer": "A. ['apple', 'banana', 'carrot', 'lettuce', 'tomato']",
+      "hint": ".extend()는 리스트를 합쳐요. [[]]를 제거하고 모든 아이템을 하나의 리스트로 만들어요.",
+      "feedback": {
+        "correct": "정답이에요! .extend()로 중첩된 리스트를 평탄화할 수 있어요.",
+        "wrong": "정답은 A. ['apple', 'banana', 'carrot', 'lettuce', 'tomato']. .extend()는 중첩된 리스트를 합쳐서 평탄화해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_2_017",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "API 데이터를 딕셔너리로 재구성합니다. 초급의 for 루프를 사용해요.\n\nusers = [{'id': 1, 'name': 'Alice'}, {'id': 2, 'name': 'Bob'}]\nuser_dict = {}\nfor user in users:\n    user_dict_____= user['name']\nprint(user_dict)  # {1: 'Alice', 2: 'Bob'}",
+      "choices": [],
+      "answer": "[user['id']]",
+      "hint": "[user['id']]로 id를 키로 사용해요.",
+      "feedback": {
+        "correct": "정확해요! 리스트를 딕셔너리로 변환할 수 있어요.",
+        "wrong": "정답은 [user['id']]. 딕셔너리의 키로 user['id']를 사용해서 리스트를 딕셔너리로 변환해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_2_018",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\napi_stats = {\n    'monthly_sales': [\n        {'month': 'Jan', 'amount': 1000},\n        {'month': 'Feb', 'amount': 1500},\n        {'month': 'Mar', 'amount': 900},\n        {'month': 'Apr', 'amount': 2000}\n    ]\n}\n\nbest_month = max(api_stats['monthly_sales'], key=lambda x: x['amount'])\nprint(best_month['month'])",
+      "choices": [
+        "A. Jan",
+        "B. Feb",
+        "C. Mar",
+        "D. Apr"
+      ],
+      "answer": "D. Apr",
+      "hint": "가장 높은 판매량은 Apr(2000)이에요.",
+      "feedback": {
+        "correct": "정답이에요! 최대값을 찾아서 해당 데이터를 얻을 수 있어요.",
+        "wrong": "정답은 D. Apr. max()로 amount가 가장 큰 달(Apr, 2000)을 찾아요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_2_019",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "여러 API 응답을 합칩니다. 초급의 + 연산자로 리스트를 합쳐요.\n\npage1_data = [{'id': 1, 'name': 'A'}, {'id': 2, 'name': 'B'}]\npage2_data = [{'id': 3, 'name': 'C'}]\nall_data = page1_data _____ page2_data\nprint(all_data)  # [{...}, {...}, {...}]",
+      "choices": [],
+      "answer": "+",
+      "hint": "+ 연산자로 두 리스트를 합칠 수 있어요.",
+      "feedback": {
+        "correct": "정확해요! 리스트를 더하기로 합칠 수 있어요.",
+        "wrong": "정답은 +. + 연산자로 두 리스트를 합쳐요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_2_020",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\napi_data = [\n    {'product': 'Laptop', 'price': 1000, 'sold': 5},\n    {'product': 'Phone', 'price': 500, 'sold': 15},\n    {'product': 'Tablet', 'price': 300, 'sold': 8}\n]\n\nrevenue = sum([item['price'] * item['sold'] for item in api_data])\nprint(revenue)",
+      "choices": [
+        "A. 9500",
+        "B. 12000",
+        "C. 14900",
+        "D. 28000"
+      ],
+      "answer": "C. 14900",
+      "hint": "(1000×5) + (500×15) + (300×8) = 5000 + 7500 + 2400 = 14900",
+      "feedback": {
+        "correct": "정답이에요! 각 상품의 매출액(가격×판매량)을 계산해서 총합을 구할 수 있어요.",
+        "wrong": "정답은 C. 14900. (1000×5) + (500×15) + (300×8) = 5000 + 7500 + 2400 = 14900이에요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_3_001",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "API로 받은 데이터를 파일에 저장하고 싶어요. 파일을 쓰기 모드로 열어야 해요.\n\nwith open('data.txt', _____) as f:\n    f.write('Hello')",
+      "choices": [],
+      "answer": "w",
+      "hint": "'w' 모드는 쓰기(write) 모드예요. 파일이 없으면 만들고, 있으면 덮어써요.",
+      "feedback": {
+        "correct": "정확해요! 'w' 모드로 파일에 데이터를 저장할 수 있어요.",
+        "wrong": "정답은 w. 파일을 쓰기 모드로 열어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_3_002",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 data.txt 파일에 무엇이 저장될까요?\n\ndata = 'API Response: Success'\nwith open('data.txt', 'w') as f:\n    f.write(data)",
+      "choices": [
+        "A. API Response: Success",
+        "B. data = 'API Response: Success'",
+        "C. 아무것도 저장 안 됨",
+        "D. ['A', 'P', 'I']"
+      ],
+      "answer": "A. API Response: Success",
+      "hint": ".write()는 전달받은 문자열을 그대로 파일에 저장해요.",
+      "feedback": {
+        "correct": "정답이에요! 문자열이 그대로 파일에 저장됩니다.",
+        "wrong": "정답이 아니에요. 정답은 A. API Response: Success예요. .write()는 문자열을 그대로 저장합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_3_003",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "API로 받은 딕셔너리/리스트를 JSON 파일로 저장합니다. json 모듈을 사용해요.\n\nimport json\ndata = {'name': 'John', 'age': 30}\nwith open('data.json', 'w') as f:\n    json._____( data, f )",
+      "choices": [],
+      "answer": "dump",
+      "hint": "json.dump()는 파이썬 객체를 JSON 파일로 저장해요.",
+      "feedback": {
+        "correct": "정확해요! json.dump()로 딕셔너리를 JSON 파일로 저장할 수 있어요.",
+        "wrong": "정답은 dump. json.dump()로 파이썬 객체를 JSON 파일로 저장해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_3_004",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "저장된 파일에서 데이터를 읽어요. 다음 코드의 결과는?\n\nimport json\nwith open('data.json', 'r') as f:\n    data = json.load(f)\nprint(data['name'])\n\n# data.json 파일에는 {\"name\": \"Alice\", \"age\": 25}가 저장되어 있음",
+      "choices": [
+        "A. Alice",
+        "B. {'name': 'Alice', 'age': 25}",
+        "C. name",
+        "D. (에러 발생)"
+      ],
+      "answer": "A. Alice",
+      "hint": "json.load()는 JSON 파일을 파이썬 딕셔너리로 변환해요.",
+      "feedback": {
+        "correct": "정답이에요! json.load()로 저장된 JSON을 읽을 수 있어요.",
+        "wrong": "정답이 아니에요. 정답은 A. Alice예요. json.load()는 파일을 딕셔너리로 변환합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_3_005",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "API 데이터를 CSV 형식으로 저장하고 싶어요. 초급의 for 루프를 사용해요.\n\nusers = [{'name': 'John', 'age': 30}, {'name': 'Alice', 'age': 25}]\nwith open('users.csv', 'w') as f:\n    f.write('name,age\\n')\n    for user in users:\n        f.write(f\"{user['name']},_____\\n\")",
+      "choices": [],
+      "answer": "user['age']",
+      "hint": "f-string에서 딕셔너리 값을 중괄호로 감싸서 표현해요.",
+      "feedback": {
+        "correct": "정확해요! CSV 형식으로 데이터를 저장할 수 있어요.",
+        "wrong": "정답은 user['age']. f-string에 딕셔너리 값을 넣어서 CSV 형식을 만들어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_3_006",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "저장된 JSON 파일을 읽고 처리해요. 다음 코드의 결과는?\n\nimport json\nwith open('products.json', 'r') as f:\n    products = json.load(f)\n\n# products.json: [{\"name\": \"A\", \"price\": 100}, {\"name\": \"B\", \"price\": 200}]\nprint(len(products))",
+      "choices": [
+        "A. 2",
+        "B. 4",
+        "C. {'name': 'A', 'price': 100}",
+        "D. (에러 발생)"
+      ],
+      "answer": "A. 2",
+      "hint": "products는 2개의 딕셔너리를 가진 리스트예요.",
+      "feedback": {
+        "correct": "정답이에요! 저장된 데이터를 읽어서 처리할 수 있어요.",
+        "wrong": "정답이 아니에요. 정답은 A. 2예요. 리스트에는 2개의 딕셔너리가 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_3_007",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "특정 조건을 만족하는 데이터만 파일에 저장해요. 초급의 if 문을 사용합니다.\n\nimport json\nall_users = [{'name': 'John', 'age': 30}, {'name': 'Bob', 'age': 20}, {'name': 'Alice', 'age': 28}]\nadults = [u for u in all_users if u_____]\nwith open('adults.json', 'w') as f:\n    json.dump(adults, f)",
+      "choices": [],
+      "answer": "u['age'] >= 21",
+      "hint": "u['age'] >= 21로 21세 이상의 사용자만 필터링해요.",
+      "feedback": {
+        "correct": "정확해요! 조건을 만족하는 데이터만 저장할 수 있어요.",
+        "wrong": "정답은 u['age'] >= 21. 21세 이상의 사용자만 필터링해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_3_008",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport json\ndata = [{'id': 1, 'value': 10}, {'id': 2, 'value': 20}]\njson_str = json.dumps(data)\nprint(type(json_str))",
+      "choices": [
+        "A. <class 'str'>",
+        "B. <class 'list'>",
+        "C. <class 'dict'>",
+        "D. <class 'json'>"
+      ],
+      "answer": "A. <class 'str'>",
+      "hint": "json.dumps()는 파이썬 객체를 JSON 문자열로 변환해요.",
+      "feedback": {
+        "correct": "정답이에요! json.dumps()의 결과는 문자열(str)이에요.",
+        "wrong": "정답이 아니에요. 정답은 A. <class 'str'>예요. json.dumps()는 문자열을 반환합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_3_009",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "여러 API 응답을 수집해서 하나의 파일에 저장해요. 초급의 for 루프를 사용합니다.\n\nimport json\nall_data = []\nfor i in range(1, 4):  # API를 3번 호출한다고 가정\n    api_data = {'id': i, 'value': i * 100}\n    all_data._____( api_data )\nwith open('collection.json', 'w') as f:\n    json.dump(all_data, f)",
+      "choices": [],
+      "answer": "append",
+      "hint": ".append()로 각 API 응답을 리스트에 추가해요.",
+      "feedback": {
+        "correct": "정확해요! 여러 데이터를 수집해서 저장할 수 있어요.",
+        "wrong": "정답은 append. .append()로 리스트에 데이터를 추가해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_3_010",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport json\nwith open('data.json', 'r') as f:\n    data = json.load(f)\n\ntotal = sum([item['amount'] for item in data['transactions']])\nprint(total)\n\n# data.json: {\"transactions\": [{\"amount\": 1000}, {\"amount\": 2000}]}",
+      "choices": [
+        "A. 3000",
+        "B. 2",
+        "C. 1000",
+        "D. {'amount': 1000}"
+      ],
+      "answer": "A. 3000",
+      "hint": "transactions 리스트에서 amount를 추출해서 합산해요.",
+      "feedback": {
+        "correct": "정답이에요! 저장된 데이터를 읽어서 분석할 수 있어요.",
+        "wrong": "정답이 아니에요. 정답은 A. 3000이에요. 1000 + 2000 = 3000입니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_3_011",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "파일에 데이터를 추가하고 싶어요 (기존 내용 유지). 파일을 추가 모드로 열어요.\n\nwith open('log.txt', _____) as f:\n    f.write('New log entry\\n')",
+      "choices": [],
+      "answer": "'a'",
+      "hint": "'a' 모드는 추가(append) 모드예요. 기존 내용 뒤에 추가해요.",
+      "feedback": {
+        "correct": "정확해요! 'a' 모드로 파일 끝에 데이터를 추가할 수 있어요.",
+        "wrong": "정답은 'a'. 'a' 모드로 파일 끝에 데이터를 추가합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_3_012",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nwith open('message.txt', 'r') as f:\n    lines = f.readlines()\nprint(lines[0])\n\n# message.txt 파일 내용:\n# Hello\n# World",
+      "choices": [
+        "A. Hello",
+        "B. Hello\\nWorld",
+        "C. Hello\\n",
+        "D. World"
+      ],
+      "answer": "C. Hello\\n",
+      "hint": ".readlines()는 각 라인을 개별 문자열로 하는 리스트를 반환해요. 줄바꿈 문자(\\n)도 포함돼요.",
+      "feedback": {
+        "correct": "정답이에요! readlines()는 줄바꿈 문자를 포함한 리스트를 반환합니다.",
+        "wrong": "정답이 아니에요. 정답은 C. Hello\\n이에요. readlines()는 줄바꿈 문자를 포함한 문자열 리스트를 반환해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_3_013",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "파일의 모든 내용을 한 번에 문자열로 읽어요.\n\nwith open('config.txt', 'r') as f:\n    content = f._____( )\nprint(content)",
+      "choices": [],
+      "answer": "read",
+      "hint": ".read()는 파일의 전체 내용을 하나의 문자열로 반환해요.",
+      "feedback": {
+        "correct": "정확해요! .read()로 파일 전체를 문자열로 읽을 수 있어요.",
+        "wrong": "정답은 read. .read()는 파일 전체를 문자열로 반환해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_3_014",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport json\njson_string = '{\"users\": [{\"name\": \"John\"}, {\"name\": \"Alice\"}]}'\ndata = json.loads(json_string)\nprint(len(data['users']))",
+      "choices": [
+        "A. 2",
+        "B. 1",
+        "C. '{\"users\"...'",
+        "D. (에러 발생)"
+      ],
+      "answer": "A. 2",
+      "hint": "json.loads()는 JSON 문자열을 파이썬 딕셔너리로 변환해요.",
+      "feedback": {
+        "correct": "정답이에요! json.loads()로 JSON 문자열을 파이썬 객체로 변환할 수 있어요.",
+        "wrong": "정답이 아니에요. 정답은 A. 2예요. json.loads()로 JSON 문자열을 변환하면 users 리스트에 2개 요소가 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_3_015",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "초급의 for 루프로 파일의 각 라인을 처리해요.\n\nwith open('numbers.txt', 'r') as f:\n    for line in _____:\n        num = int(line.strip())\n        print(num * 2)",
+      "choices": [],
+      "answer": "f",
+      "hint": "파일 객체를 for 루프에 직접 사용하면 각 라인을 순회해요.",
+      "feedback": {
+        "correct": "정확해요! 파일을 for 루프로 라인 단위로 처리할 수 있어요.",
+        "wrong": "정답은 f. 파일 객체를 for 루프에 직접 사용하면 각 라인을 순회합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_3_016",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport json\ndata = {'name': 'John', 'age': 30, 'city': 'Seoul'}\njson_str = json.dumps(data, indent=2)\nprint(json_str)",
+      "choices": [
+        "A. {\"name\": \"John\", \"age\": 30, \"city\": \"Seoul\"}",
+        "B. {\\n  \"name\": \"John\",\\n  \"age\": 30,\\n  \"city\": \"Seoul\"\\n}",
+        "C. ['name', 'John', 'age', '30']",
+        "D. <class 'dict'>"
+      ],
+      "answer": "B. {\\n  \"name\": \"John\",\\n  \"age\": 30,\\n  \"city\": \"Seoul\"\\n}",
+      "hint": "indent=2는 JSON을 보기 좋게 2칸 들여쓰기로 포맷해요.",
+      "feedback": {
+        "correct": "정답이에요! indent 파라미터로 JSON을 읽기 쉽게 포맷할 수 있어요.",
+        "wrong": "정답이 아니에요. 정답은 B예요. indent=2는 JSON을 2칸 들여쓰기로 포맷하는데, 출력에는 \\n이 실제 줄바꿈으로 표시됩니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_3_017",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "초급의 함수를 사용해서 데이터 저장을 자동화해요.\n\nimport json\ndef save_api_data(filename, data):\n    with open(filename, 'w') as f:\n        json._____( data, f )\n\napi_response = {'id': 1, 'name': 'Product'}\nsave_api_data('product.json', api_response)",
+      "choices": [],
+      "answer": "dump",
+      "hint": "json.dump()는 파이썬 객체를 파일에 JSON으로 저장해요.",
+      "feedback": {
+        "correct": "정확해요! 함수로 데이터 저장 로직을 재사용할 수 있어요.",
+        "wrong": "정답은 dump. json.dump()는 파이썬 객체를 파일에 JSON으로 저장해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_3_018",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport json\nwith open('sales.json', 'r') as f:\n    sales_data = json.load(f)\n\ntop_sellers = [s for s in sales_data if s['amount'] > 1000]\nprint(len(top_sellers))\n\n# sales.json: [{\"seller\": \"A\", \"amount\": 800}, {\"seller\": \"B\", \"amount\": 1200}, {\"seller\": \"C\", \"amount\": 1500}]",
+      "choices": [
+        "A. 3",
+        "B. 2",
+        "C. 1",
+        "D. 0"
+      ],
+      "answer": "B. 2",
+      "hint": "amount > 1000인 판매자는 B(1200)과 C(1500)예요.",
+      "feedback": {
+        "correct": "정답이에요! 저장된 데이터를 조건으로 필터링할 수 있어요.",
+        "wrong": "정답이 아니에요. 정답은 B. 2예요. amount > 1000인 판매자는 B(1200)과 C(1500)이에요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_3_019",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "여러 소스에서 받은 데이터를 합쳐서 저장해요. 초급의 + 연산자를 사용합니다.\n\nimport json\nwith open('file1.json', 'r') as f:\n    data1 = json.load(f)\nwith open('file2.json', 'r') as f:\n    data2 = json.load(f)\n\ncombined = data1 _____ data2\nwith open('combined.json', 'w') as f:\n    json.dump(combined, f)",
+      "choices": [],
+      "answer": "+",
+      "hint": "+ 연산자로 두 리스트를 합칠 수 있어요.",
+      "feedback": {
+        "correct": "정확해요! 여러 파일의 데이터를 합쳐서 저장할 수 있어요.",
+        "wrong": "정답은 +. + 연산자로 두 리스트를 합칠 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_3_020",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport json\nwith open('inventory.json', 'r') as f:\n    inventory = json.load(f)\n\ntotal_value = sum([item['price'] * item['quantity'] for item in inventory])\nwith open('summary.json', 'w') as f:\n    json.dump({'total_value': total_value}, f)\n\nprint('저장 완료')\n\n# inventory.json: [{\"name\": \"A\", \"price\": 100, \"quantity\": 5}, {\"name\": \"B\", \"price\": 200, \"quantity\": 3}]",
+      "choices": [
+        "A. 저장 완료",
+        "B. 1100",
+        "C. 1600",
+        "D. (에러 발생)"
+      ],
+      "answer": "A. 저장 완료",
+      "hint": "코드는 total_value를 계산해서 summary.json에 저장하고 '저장 완료'를 출력해요.",
+      "feedback": {
+        "correct": "정답이에요! 데이터 분석 결과를 새로운 파일로 저장할 수 있어요.",
+        "wrong": "정답이 아니에요. 정답은 A. 저장 완료예요. print() 함수가 마지막에 실행돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_4_001",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "API 요청이 실패할 수 있으니 에러를 처리합니다. try-except 블록을 사용해요.\n\n_____:\n    with open('api_data.json', 'r') as f:\n        data = json.load(f)\nexcept FileNotFoundError:\n    print('파일을 찾을 수 없어요')",
+      "choices": [],
+      "answer": "try",
+      "hint": "try 블록에는 에러가 발생할 수 있는 코드를 작성해요.",
+      "feedback": {
+        "correct": "정확해요! try-except로 예상 가능한 에러를 처리할 수 있어요.",
+        "wrong": "정답은 try. try 블록에 에러가 발생할 수 있는 코드를 작성합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_4_002",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ntry:\n    data = {'name': 'John'}\n    print(data['age'])\nexcept KeyError:\n    print('키가 없어요')",
+      "choices": [
+        "A. John",
+        "B. 키가 없어요",
+        "C. (에러 발생)",
+        "D. age"
+      ],
+      "answer": "B. 키가 없어요",
+      "hint": "딕셔너리에 'age' 키가 없으면 KeyError가 발생해요.",
+      "feedback": {
+        "correct": "정답이에요! KeyError를 잡아서 처리했어요.",
+        "wrong": "정답이 아니에요. 정답은 B. 키가 없어요예요. 딕셔너리에 'age' 키가 없으면 KeyError가 발생해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_4_003",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "API 응답의 상태 코드를 확인하고 에러를 처리합니다.\n\ntry:\n    if response.status_code != 200:\n        _____(f'Error: {response.status_code}')\nexcept Exception as e:\n    print(f'요청 실패: {e}')",
+      "choices": [],
+      "answer": "raise ValueError",
+      "hint": "raise는 의도적으로 예외를 발생시킬 수 있어요.",
+      "feedback": {
+        "correct": "정확해요! raise로 에러를 만들어서 처리할 수 있어요.",
+        "wrong": "정답은 raise ValueError. raise로 의도적으로 예외를 발생시킬 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_4_004",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ntry:\n    nums = [1, 2, 3]\n    result = nums[5]\nexcept IndexError as e:\n    print(f'에러: {e}')",
+      "choices": [
+        "A. 3",
+        "B. 에러: list index out of range",
+        "C. (실행 멈춤)",
+        "D. 5"
+      ],
+      "answer": "B. 에러: list index out of range",
+      "hint": "인덱스가 범위를 벗어나면 IndexError가 발생해요.",
+      "feedback": {
+        "correct": "정답이에요! 에러 메시지를 출력할 수 있어요.",
+        "wrong": "정답이 아니에요. 정답은 B. 에러: list index out of range예요. IndexError가 발생하면 에러 메시지를 출력합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_4_005",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "초급의 변수처럼 에러 처리 후 항상 실행할 코드가 있어요. finally 블록을 사용합니다.\n\ntry:\n    f = open('data.txt', 'r')\n    content = f.read()\nexcept FileNotFoundError:\n    print('파일을 찾을 수 없어요')\n_____:\n    if 'f' in locals():\n        f.close()",
+      "choices": [],
+      "answer": "finally",
+      "hint": "finally는 에러 발생 여부와 관계없이 항상 실행돼요.",
+      "feedback": {
+        "correct": "정확해요! finally로 자원 정리를 보장할 수 있어요.",
+        "wrong": "정답은 finally. finally는 에러 여부와 관계없이 항상 실행됩니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_4_006",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ntry:\n    num = int('abc')\nexcept ValueError:\n    num = 0\n    print('기본값 사용')\nexcept TypeError:\n    print('타입 에러')\nprint(num)",
+      "choices": [
+        "A. 기본값 사용\\n0",
+        "B. 타입 에러\\n0",
+        "C. 0",
+        "D. (에러 발생)"
+      ],
+      "answer": "A. 기본값 사용\\n0",
+      "hint": "문자열을 정수로 변환하면 ValueError가 발생해요.",
+      "feedback": {
+        "correct": "정답이에요! 여러 except로 다양한 에러를 처리할 수 있어요.",
+        "wrong": "정답이 아니에요. 정답은 A. 기본값 사용\\n0이에요. 문자열을 정수로 변환하면 ValueError가 발생해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_4_007",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "API 데이터가 없을 때 초급의 if 문으로 에러를 처리해요.\n\ntry:\n    api_response = {}\n    if _____ not in api_response:\n        raise KeyError('필수 필드 누락')\nexcept KeyError as e:\n    print(f'에러: {e}')",
+      "choices": [],
+      "answer": "'data'",
+      "hint": "'data' 키가 없으면 에러를 발생시켜요.",
+      "feedback": {
+        "correct": "정확해요! 조건을 확인해서 의도적으로 에러를 만들 수 있어요.",
+        "wrong": "정답은 'data'. 딕셔너리에 'data' 키가 없으면 KeyError를 발생시킵니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_4_008",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nretries = 0\nmax_retries = 3\n\nwhile retries < max_retries:\n    try:\n        data = {'valid': True}\n        result = data['missing']\n        break\n    except KeyError:\n        retries += 1\n        if retries == max_retries:\n            print('재시도 실패')\n            break",
+      "choices": [
+        "A. 재시도 실패",
+        "B. (에러 발생)",
+        "C. (아무것도 출력 안 됨)",
+        "D. missing"
+      ],
+      "answer": "A. 재시도 실패",
+      "hint": "초급의 while 루프로 재시도 로직을 구현할 수 있어요.",
+      "feedback": {
+        "correct": "정답이에요! 에러 발생 시 재시도할 수 있어요.",
+        "wrong": "정답이 아니에요. 정답은 A. 재시도 실패예요. while 루프로 재시도 로직을 구현할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_4_009",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "초급의 함수를 사용해서 안전한 데이터 접근을 구현합니다.\n\ndef safe_get(data, key, default=None):\n    try:\n        return data_____\n    except (KeyError, TypeError):\n        return default\n\nresult = safe_get({'name': 'John'}, 'age')\nprint(result)  # None",
+      "choices": [],
+      "answer": "[key]",
+      "hint": "[key]로 딕셔너리에서 값을 가져와요.",
+      "feedback": {
+        "correct": "정확해요! 함수로 에러 처리를 캡슐화할 수 있어요.",
+        "wrong": "정답은 [key]. [key]로 딕셔너리에서 값을 가져와요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_4_010",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndef process_data(items):\n    results = []\n    for item in items:\n        try:\n            value = int(item)\n            results.append(value * 2)\n        except ValueError:\n            results.append(None)\n    return results\n\noutput = process_data(['10', 'abc', '20', 'def'])\nprint(output)",
+      "choices": [
+        "A. [20, None, 40, None]",
+        "B. [10, 20]",
+        "C. (에러 발생)",
+        "D. [None, None, None, None]"
+      ],
+      "answer": "A. [20, None, 40, None]",
+      "hint": "에러가 발생한 항목은 None으로 처리돼요.",
+      "feedback": {
+        "correct": "정답이에요! for 루프 안에서 에러를 처리할 수 있어요.",
+        "wrong": "정답이 아니에요. 정답은 A. [20, None, 40, None]이에요. 에러가 발생한 항목은 None으로 처리됩니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_4_011",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "JSON 파싱 에러를 처리합니다.\n\ntry:\n    data = json.loads('{invalid json}')\nexcept _____:\n    print('JSON 파싱 실패')",
+      "choices": [],
+      "answer": "json.JSONDecodeError",
+      "hint": "json.JSONDecodeError는 JSON 형식이 잘못되었을 때 발생해요.",
+      "feedback": {
+        "correct": "정확해요! JSON 에러를 구체적으로 처리할 수 있어요.",
+        "wrong": "정답은 json.JSONDecodeError. JSON 형식이 잘못되었을 때 발생해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_4_012",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ntry:\n    a = 10\n    b = 0\n    result = a / b\nexcept ZeroDivisionError:\n    result = 0\n    print('0으로 나눌 수 없어요')\nprint(result)",
+      "choices": [
+        "A. 0으로 나눌 수 없어요\\n0",
+        "B. 1",
+        "C. 0",
+        "D. (에러 발생)"
+      ],
+      "answer": "A. 0으로 나눌 수 없어요\\n0",
+      "hint": "0으로 나누면 ZeroDivisionError가 발생해요.",
+      "feedback": {
+        "correct": "정답이에요! ZeroDivisionError를 처리할 수 있어요.",
+        "wrong": "정답이 아니에요. 정답은 A. 0으로 나눌 수 없어요\\n0이에요. 0으로 나누면 ZeroDivisionError가 발생합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_4_013",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "일반 예외(Exception)로 모든 에러를 처리할 수 있어요.\n\ntry:\n    data = api_call()\nexcept _____ as e:\n    print(f'예상치 못한 에러: {e}')",
+      "choices": [],
+      "answer": "Exception",
+      "hint": "Exception은 대부분의 에러를 캐치해요.",
+      "feedback": {
+        "correct": "정확해요! 일반 예외로 광범위하게 에러를 처리할 수 있어요.",
+        "wrong": "정답은 Exception. Exception은 대부분의 에러를 캐치해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_4_014",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ntry:\n    text = '123abc'\n    num = int(text)\n    print('변환 성공')\nexcept ValueError:\n    print('정수 변환 실패')\nelse:\n    print('추가 처리')",
+      "choices": [
+        "A. 변환 성공\\n추가 처리",
+        "B. 정수 변환 실패",
+        "C. 정수 변환 실패\\n추가 처리",
+        "D. (에러 발생)"
+      ],
+      "answer": "B. 정수 변환 실패",
+      "hint": "else는 에러가 발생하지 않았을 때만 실행돼요.",
+      "feedback": {
+        "correct": "정답이에요! try-except-else로 성공/실패를 구분할 수 있어요.",
+        "wrong": "정답이 아니에요. 정답은 B. 정수 변환 실패예요. else는 에러가 발생하지 않았을 때만 실행됩니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_4_015",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "타입 에러를 처리합니다. 초급의 type() 함수와 함께 사용해요.\n\ntry:\n    data = None\n    length = len(data)\nexcept _____:\n    print('길이를 측정할 수 없어요')",
+      "choices": [],
+      "answer": "TypeError",
+      "hint": "None 타입은 len()을 지원하지 않아서 TypeError가 발생해요.",
+      "feedback": {
+        "correct": "정확해요! TypeError로 타입 관련 에러를 처리할 수 있어요.",
+        "wrong": "정답은 TypeError. None 타입은 len()을 지원하지 않습니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_4_016",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndata = [10, 20, 30]\ntry:\n    for i in range(5):\n        print(data[i])\nexcept IndexError:\n    print('인덱스 범위 초과')",
+      "choices": [
+        "A. 10\\n20\\n30",
+        "B. 10\\n20\\n30\\n인덱스 범위 초과",
+        "C. 인덱스 범위 초과",
+        "D. (에러 발생)"
+      ],
+      "answer": "B. 10\\n20\\n30\\n인덱스 범위 초과",
+      "hint": "처음 3개는 출력되고, 4번째 인덱스에서 에러가 발생해요.",
+      "feedback": {
+        "correct": "정답이에요! 에러 발생 전까지의 결과는 출력돼요.",
+        "wrong": "정답이 아니에요. 정답은 B. 10\\n20\\n30\\n인덱스 범위 초과예요. 처음 3개는 출력되고, 4번째 인덱스에서 에러가 발생해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_4_017",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "여러 가지 에러를 한 번에 처리할 수 있어요.\n\ntry:\n    value = {'key': 'value'}['missing']\nexcept (KeyError, ValueError, _____) as e:\n    print(f'에러 처리: {type(e).__name__}')",
+      "choices": [],
+      "answer": "TypeError",
+      "hint": "여러 예외를 튜플 안에 나열해서 한 번에 처리할 수 있어요.",
+      "feedback": {
+        "correct": "정확해요! 여러 예외를 함께 처리할 수 있어요.",
+        "wrong": "정답은 TypeError. 여러 예외를 튜플로 묶어서 한 번에 처리할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_4_018",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nstatus = 'unknown'\ntry:\n    if status == 'error':\n        raise Exception('에러 발생')\n    elif status == 'processing':\n        raise ValueError('처리 중')\nexcept Exception as e:\n    print(f'처리됨: {e}')\nelse:\n    print('성공')",
+      "choices": [
+        "A. 성공",
+        "B. 처리됨: 에러 발생",
+        "C. 처리됨: 처리 중",
+        "D. (에러 발생)"
+      ],
+      "answer": "A. 성공",
+      "hint": "status가 'unknown'이므로 조건을 만족하지 않아 에러가 발생하지 않아요.",
+      "feedback": {
+        "correct": "정답이에요! else 블록이 실행됐어요.",
+        "wrong": "정답이 아니에요. 정답은 A. 성공이에요. status가 'unknown'이므로 조건을 만족하지 않아 에러가 발생하지 않아요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_4_019",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "여러 가지 에러를 처리하며 배치 작업을 해요. 초급의 for 루프와 함께 사용합니다.\n\nitems = [1, 2, 'invalid', 4]\nresults = []\nfor item in items:\n    try:\n        results._____( int(item) * 2 )\n    except ValueError:\n        results.append(0)\nprint(results)",
+      "choices": [],
+      "answer": "append",
+      "hint": ".append()로 결과를 리스트에 추가해요.",
+      "feedback": {
+        "correct": "정확해요! 배치 처리에서 일부 실패해도 계속 진행할 수 있어요.",
+        "wrong": "정답은 append. .append()로 리스트에 데이터를 추가합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_4_020",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "여러 가지 에러를 처리하며 배치 작업을 해요.\n\nitems = [1, 2, 'invalid', 4]\nresults = []\nfor item in items:\n    try:\n        results.append( int(item) * 2 )\n    except _____:\n        results.append(0)\nprint(results)",
+      "choices": [],
+      "answer": "ValueError",
+      "hint": "ValueError는 타입 변환 실패 시 발생해요.",
+      "feedback": {
+        "correct": "정확해요! 문자열을 정수로 변환할 수 없으면 ValueError가 발생합니다.",
+        "wrong": "정답은 ValueError. 타입 변환 실패 시 발생합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_5_001",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "API를 계속 호출해서 실시간 데이터를 받아요. 초급의 while 루프를 사용합니다.\n\ncount = 0\n_____ count < 5:\n    response = requests.get('https://api.example.com/data')\n    data = response.json()\n    count += 1",
+      "choices": [],
+      "answer": "while",
+      "hint": "while 루프로 일정 횟수만큼 반복할 수 있어요.",
+      "feedback": {
+        "correct": "정확해요! while 루프로 실시간 데이터를 반복으로 수집할 수 있어요.",
+        "wrong": "정답은 while. while 루프로 조건을 확인하며 반복 실행할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_5_002",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nstock_price = 100\ncalls = 0\nwhile calls < 3:\n    stock_price += 10\n    calls += 1\n    print(stock_price)",
+      "choices": [
+        "A. 100\n110\n120\n130",
+        "B. 110\n120\n130",
+        "C. 110\n120",
+        "D. 100"
+      ],
+      "answer": "B. 110\n120\n130",
+      "hint": "초급의 while 루프로 3번 반복하면서 값이 증가해요.",
+      "feedback": {
+        "correct": "정답이에요! 계속 변하는 데이터를 추적할 수 있어요.",
+        "wrong": "정답은 B. stock_price는 100에서 시작하고 루프 안에서 증가하므로 처음 출력은 110이에요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_5_003",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "실시간 데이터를 일정 간격으로 받기 위해 대기 시간을 설정합니다.\n\nimport time\nfor i in range(3):\n    data = requests.get('https://api.example.com/data').json()\n    print(f'수신: {data}')\n    time._____( 2 )  # 2초 대기",
+      "choices": [],
+      "answer": "sleep",
+      "hint": "time.sleep()는 프로그램을 일시 중지해요.",
+      "feedback": {
+        "correct": "정확해요! time.sleep()으로 API 호출 간격을 조절할 수 있어요.",
+        "wrong": "정답은 sleep. time.sleep(초)로 프로그램을 일시 중지할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_5_004",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nprevious_data = {'price': 100}\ncurrent_data = {'price': 100}\n\nif previous_data == current_data:\n    print('변화 없음')\nelse:\n    print('데이터 변경됨')",
+      "choices": [
+        "A. 변화 없음",
+        "B. 데이터 변경됨",
+        "C. True",
+        "D. False"
+      ],
+      "answer": "A. 변화 없음",
+      "hint": "두 딕셔너리의 값이 같으면 초급의 if 조건이 True예요.",
+      "feedback": {
+        "correct": "정답이에요! 데이터 변화를 감지할 수 있어요.",
+        "wrong": "정답은 A. 두 딕셔너리의 값이 같으므로 == 조건이 True가 되어 \"변화 없음\"이 출력돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_5_005",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "이전 데이터와 현재 데이터를 비교합니다. 초급의 변수를 사용해요.\n\nprevious_value = 0\nfor i in range(3):\n    current_value = i * 100\n    if current_value != previous_value:\n        print(f'변경: {previous_value} -> {current_value}')\n    previous_value = _____",
+      "choices": [],
+      "answer": "current_value",
+      "hint": "다음 반복에서 비교하기 위해 현재 값을 저장해요.",
+      "feedback": {
+        "correct": "정확해요! 변수에 값을 저장해서 추적할 수 있어요.",
+        "wrong": "정답은 current_value. 다음 반복에서 비교하기 위해 현재 값을 저장해야 해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_5_006",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndata_cache = None\nnew_data = {'status': 'active'}\n\nif data_cache != new_data:\n    print('캐시 업데이트')\n    data_cache = new_data\n\nif data_cache == new_data:\n    print('캐시가 최신')",
+      "choices": [
+        "A. 캐시 업데이트\n캐시가 최신",
+        "B. 캐시 업데이트",
+        "C. 캐시가 최신",
+        "D. (아무것도 출력 안 됨)"
+      ],
+      "answer": "A. 캐시 업데이트\n캐시가 최신",
+      "hint": "첫 번째 if에서 캐시를 업데이트하고, 두 번째 if에서 검증해요.",
+      "feedback": {
+        "correct": "정답이에요! 캐싱으로 중복 요청을 줄일 수 있어요.",
+        "wrong": "정답은 A. data_cache는 None에서 시작하고 첫 번째 if에서 new_data로 업데이트되므로, 두 번째 if에서도 같아서 둘 다 출력돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_5_007",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "실시간 데이터 중 특정 조건을 만족하는 것만 처리합니다.\n\nupdates = []\nfor item in api_stream:\n    if item['value'] > 100 _____ item['status'] == 'active':\n        updates.append(item)\nprint(len(updates))",
+      "choices": [],
+      "answer": "and",
+      "hint": "두 조건을 모두 만족해야 updates에 추가돼요.",
+      "feedback": {
+        "correct": "정확해요! and로 여러 조건을 확인할 수 있어요.",
+        "wrong": "정답은 and. 두 조건을 모두 만족할 때만 True가 돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_5_008",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ncached_data = {}\nnew_items = [{'id': 1, 'value': 100}, {'id': 1, 'value': 150}]\n\nfor item in new_items:\n    item_id = item['id']\n    if item_id not in cached_data:\n        print('신규')\n    else:\n        print('업데이트')\n    cached_data[item_id] = item",
+      "choices": [
+        "A. 신규\n신규",
+        "B. 신규\n업데이트",
+        "C. 업데이트\n업데이트",
+        "D. (에러 발생)"
+      ],
+      "answer": "B. 신규\n업데이트",
+      "hint": "첫 번째는 id 1이 없어서 '신규', 두 번째는 이미 있어서 '업데이트'예요.",
+      "feedback": {
+        "correct": "정답이에요! 캐시에서 중복을 감지할 수 있어요.",
+        "wrong": "정답은 B. id 1은 처음에 cached_data에 없으므로 \"신규\"이고, 두 번째는 이미 있으므로 \"업데이트\"가 출력돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_5_009",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "변경된 항목만 수집해서 증분으로 처리합니다. 초급의 리스트 컴프리헨션을 사용해요.\n\nold_prices = {'A': 100, 'B': 200}\nnew_prices = {'A': 100, 'B': 250, 'C': 150}\n\nchanged = [k for k in new_prices if k not in old_prices _____  new_prices[k] != old_prices.get(k)]\nprint(changed)  # ['B', 'C']",
+      "choices": [],
+      "answer": "or",
+      "hint": "신규이거나 값이 다르면 changed에 추가돼요.",
+      "feedback": {
+        "correct": "정확해요! 증분 업데이트를 효율적으로 처리할 수 있어요.",
+        "wrong": "정답은 or. 신규이거나 값이 변경되었을 때 둘 중 하나라도 만족하면 True예요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_5_010",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndef process_stream(items, last_id=0):\n    new_items = []\n    for item in items:\n        if item['id'] > last_id:\n            new_items.append(item)\n    return new_items\n\nall_items = [{'id': 1}, {'id': 2}, {'id': 3}]\nnew = process_stream(all_items, last_id=1)\nprint(len(new))",
+      "choices": [
+        "A. 3",
+        "B. 2",
+        "C. 1",
+        "D. 0"
+      ],
+      "answer": "B. 2",
+      "hint": "id가 1보다 큰 항목은 id 2, 3이므로 2개예요.",
+      "feedback": {
+        "correct": "정답이에요! 마지막 ID부터 증분으로 새로운 항목만 처리할 수 있어요.",
+        "wrong": "정답은 B. last_id=1이므로 id > 1인 항목은 id 2와 3이어서 총 2개예요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_5_011",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "실시간으로 데이터가 들어올 때 수집합니다. 초급의 for 루프와 리스트를 사용해요.\n\nreal_time_data = []\nfor chunk in api_stream:\n    real_time_data._____( chunk )\n    if len(real_time_data) > 100:\n        process_batch(real_time_data)\n        real_time_data = []",
+      "choices": [],
+      "answer": "append",
+      "hint": ".append()로 실시간 데이터를 수집해요.",
+      "feedback": {
+        "correct": "정확해요! 스트림 데이터를 배치로 수집할 수 있어요.",
+        "wrong": "정답은 append. .append()로 리스트 끝에 새로운 요소를 추가해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_5_012",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nstatus = 'idle'\ncycles = 0\nwhile status == 'idle' and cycles < 3:\n    cycles += 1\n    if cycles == 2:\n        status = 'active'\nprint(cycles)",
+      "choices": [
+        "A. 1",
+        "B. 2",
+        "C. 3",
+        "D. 0"
+      ],
+      "answer": "B. 2",
+      "hint": "cycles가 2가 되면 status가 'active'로 바뀌어서 루프가 종료돼요.",
+      "feedback": {
+        "correct": "정답이에요! 조건 변화에 따라 루프를 제어할 수 있어요.",
+        "wrong": "정답은 B. cycles가 2가 되면 status가 \"active\"로 변경되어 while 조건이 False가 되므로 루프가 종료돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_5_013",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "실시간 데이터 스트림에서 중복을 제거합니다.\n\nseen_ids = _____\nfor item in stream:\n    if item['id'] not in seen_ids:\n        process(item)\n        seen_ids.add(item['id'])",
+      "choices": [],
+      "answer": "set()",
+      "hint": "set()은 중복을 자동으로 제거해서 조회가 빠르게 돼요.",
+      "feedback": {
+        "correct": "정확해요! set으로 효율적으로 중복을 관리할 수 있어요.",
+        "wrong": "정답은 set(). set()은 중복을 자동으로 제거해서 조회 속도가 빨라요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_5_014",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ntimestamps = []\nfor i in range(3):\n    timestamp = i * 1000\n    if not timestamps or timestamp > timestamps[-1]:\n        timestamps.append(timestamp)\n        print('추가')\nprint(len(timestamps))",
+      "choices": [
+        "A. 추가\n추가\n추가\n3",
+        "B. 추가\n추가\n2",
+        "C. 3",
+        "D. 추가\n1"
+      ],
+      "answer": "A. 추가\n추가\n추가\n3",
+      "hint": "모든 값이 이전 값보다 크므로 모두 추가돼요.",
+      "feedback": {
+        "correct": "정답이에요! 시간 순서대로 데이터를 필터링할 수 있어요.",
+        "wrong": "정답은 A. 세 번 모두 조건을 만족하므로 \"추가\"가 3번 출력되고, timestamps 길이는 3이에요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_5_015",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "초급의 딕셔너리로 상태를 추적하면서 실시간 업데이트를 처리합니다.\n\nstate = {'count': 0, 'last_update': None}\nfor item in stream:\n    state['count'] _____  1\n    state['last_update'] = item['timestamp']",
+      "choices": [],
+      "answer": "+=",
+      "hint": "+= 연산자로 카운트를 증가시켜요.",
+      "feedback": {
+        "correct": "정확해요! 상태를 계속 업데이트할 수 있어요.",
+        "wrong": "정답은 +=. += 연산자로 기존 값에 더해서 업데이트할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_5_016",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nwindow = []\nfor i in range(5):\n    window.append(i)\n    if len(window) > 3:\n        window.pop(0)\n    print(f'{window}')",
+      "choices": [
+        "A. [0]\n[0, 1]\n[0, 1, 2]\n[1, 2, 3]\n[2, 3, 4]",
+        "B. [0]\n[0, 1]\n[0, 1, 2]\n[0, 1, 2, 3]\n[1, 2, 3, 4]",
+        "C. [2,3,4]",
+        "D. (에러 발생)"
+      ],
+      "answer": "A. [0]\n[0, 1]\n[0, 1, 2]\n[1, 2, 3]\n[2, 3, 4]",
+      "hint": "슬라이딩 윈도우로 최근 3개 항목만 유지해요.",
+      "feedback": {
+        "correct": "정답이에요! 슬라이딩 윈도우로 메모리를 절약할 수 있어요.",
+        "wrong": "정답은 A. 슬라이딩 윈도우로 최근 3개 항목만 유지하면서 각 단계마다 window의 상태가 변해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_5_017",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "실시간 데이터에서 특정 이벤트를 감지하면 알림을 보냅니다.\n\nalerts = []\nfor event in stream:\n    if event['severity'] == 'critical':\n        alerts._____( event )\n        notify_user(event)\n\nreturn alerts",
+      "choices": [],
+      "answer": "append",
+      "hint": ".append()로 알림을 기록해요.",
+      "feedback": {
+        "correct": "정확해요! 중요한 이벤트를 추적할 수 있어요.",
+        "wrong": "정답은 append. .append()로 리스트에 새로운 요소를 추가해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_5_018",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nmetrics = {'requests': 0, 'errors': 0}\n# stream은 API 응답 리스트 가정 (예: requests의 응답 객체 리스트)\nfor response in stream:\n    metrics['requests'] += 1\n    if response.status_code >= 400:\n        metrics['errors'] += 1\n\nerror_rate = metrics['errors'] / metrics['requests'] if metrics['requests'] > 0 else 0\nprint(f'{error_rate:.2f}')\n\n# 10개 요청 중 2개가 에러",
+      "choices": [
+        "A. 0.20",
+        "B. 0.10",
+        "C. 0.25",
+        "D. 1.00"
+      ],
+      "answer": "A. 0.20",
+      "hint": "2 / 10 = 0.2 = 20%예요.",
+      "feedback": {
+        "correct": "정답이에요! 실시간 메트릭을 계산할 수 있어요.",
+        "wrong": "정답은 A. 2 / 10 = 0.2이고, :.2f 포맷으로 표시하면 0.20이에요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_5_019",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "실시간 데이터를 초급의 함수로 처리하면 코드를 정리할 수 있어요.\n\ndef handle_update(previous, current):\n    changes = {k: v for k, v in current.items() if k not in previous _____ current[k] != previous.get(k)}\n    return changes\n\nold = {'a': 1, 'b': 2}\nnew = {'a': 1, 'b': 3, 'c': 4}\nresult = handle_update(old, new)",
+      "choices": [],
+      "answer": "or",
+      "hint": "신규이거나 변경된 항목만 반환해요.",
+      "feedback": {
+        "correct": "정확해요! 함수로 실시간 업데이트를 체계적으로 처리할 수 있어요.",
+        "wrong": "정답은 or. 신규 키이거나 기존 값과 다를 때 둘 중 하나라도 만족하면 True예요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_5_020",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nhistory = []\nmax_history = 3\n\nfor i in range(5):\n    history.append(i)\n    if len(history) > max_history:\n        history.pop(0)\n\nprint(f'최종: {history}')",
+      "choices": [
+        "A. 최종: [0, 1, 2, 3, 4]",
+        "B. 최종: [2, 3, 4]",
+        "C. 최종: [1, 2, 3]",
+        "D. 최종: [3, 4]"
+      ],
+      "answer": "B. 최종: [2, 3, 4]",
+      "hint": "슬라이딩 윈도우로 최근 3개만 유지돼요.",
+      "feedback": {
+        "correct": "정답이에요! 메모리 효율적인 히스토리 관리를 할 수 있어요.",
+        "wrong": "정답은 B. max_history=3이므로 슬라이딩 윈도우로 최근 3개 항목 [2, 3, 4]만 남아요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_6_001",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "API에서 데이터가 많을 때 페이지 단위로 나누어 받아요. 페이지네이션을 사용합니다.\n\npage = 1\nwhile page <= 3:\n    url = f'https://api.example.com/items?page={_____}'\n    response = requests.get(url)\n    data = response.json()\n    page += 1",
+      "choices": [],
+      "answer": "page",
+      "hint": "f-string에서 page 변수를 사용해요.",
+      "feedback": {
+        "correct": "정확해요! 페이지네이션으로 대량 데이터를 효율적으로 처리할 수 있어요.",
+        "wrong": "정답은 page. f-string에 page 변수를 넣어서 동적으로 URL을 만들어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_6_002",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nall_items = []\nfor page in [1, 2, 3]:\n    # API 응답을 가정\n    items = [{'id': (page-1)*2+1}, {'id': (page-1)*2+2}]\n    all_items.extend(items)\n\nprint(len(all_items))",
+      "choices": [
+        "A. 3",
+        "B. 6",
+        "C. 2",
+        "D. 9"
+      ],
+      "answer": "B. 6",
+      "hint": "각 페이지마다 2개의 항목이 있으므로 3 × 2 = 6개예요.",
+      "feedback": {
+        "correct": "정답이에요! .extend()로 모든 페이지의 데이터를 합칠 수 있어요.",
+        "wrong": "정답은 B. 각 페이지에서 2개씩 나오므로 3 페이지 × 2 = 6개예요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_6_003",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "API 응답을 특정 필드로 정렬해서 받을 수 있어요.\n\nparams = {\n    'page': 1,\n    'sort': '_____',\n    'order': 'asc'\n}\nresponse = requests.get('https://api.example.com/data', params=params)",
+      "choices": [],
+      "answer": "'price'",
+      "hint": "정렬할 필드 이름을 문자열로 지정해요.",
+      "feedback": {
+        "correct": "정확해요! sort 파라미터로 데이터를 정렬할 수 있어요.",
+        "wrong": "정답은 'price'. sort 파라미터에 정렬할 필드 이름을 문자열로 지정해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_6_004",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndata = [\n    {'name': 'Product A', 'category': 'electronics', 'price': 100},\n    {'name': 'Product B', 'category': 'clothing', 'price': 50},\n    {'name': 'Product C', 'category': 'electronics', 'price': 200}\n]\n\nelectronics = [item for item in data if item['category'] == 'electronics']\nprint(len(electronics))",
+      "choices": [
+        "A. 1",
+        "B. 2",
+        "C. 3",
+        "D. 0"
+      ],
+      "answer": "B. 2",
+      "hint": "category가 'electronics'인 항목은 Product A와 C예요.",
+      "feedback": {
+        "correct": "정답이에요! 리스트 컴프리헨션으로 필터링할 수 있어요.",
+        "wrong": "정답은 B. category가 \"electronics\"인 항목은 Product A와 C 2개예요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_6_005",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "API 응답 데이터를 검증합니다. 필수 필드를 확인해요.\n\nrequired_fields = ['id', 'name', 'price']\nfor item in api_response:\n    if not all(field in item _____ item[field] is not None for field in required_fields):\n        print('데이터 검증 실패')",
+      "choices": [],
+      "answer": "and",
+      "hint": "필드가 존재하고 None이 아닌지 확인해요.",
+      "feedback": {
+        "correct": "정확해요! 데이터 검증으로 품질을 보장할 수 있어요.",
+        "wrong": "정답은 and. 필드가 존재하고 None이 아닌지 둘 다 확인해야 해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_6_006",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "여러 API의 응답을 조합합니다. 다음 코드의 결과는?\n\nuser_api = {'id': 1, 'name': 'John'}\nprofile_api = {'bio': 'Developer', 'location': 'Seoul'}\n\ncombined = {**user_api, **profile_api}\nprint(combined['name'])",
+      "choices": [
+        "A. John",
+        "B. Developer",
+        "C. Seoul",
+        "D. (에러 발생)"
+      ],
+      "answer": "A. John",
+      "hint": "{**dict1, **dict2}로 두 딕셔너리를 합칠 수 있어요.",
+      "feedback": {
+        "correct": "정답이에요! 여러 API의 응답을 하나의 딕셔너리로 통합할 수 있어요.",
+        "wrong": "정답은 A. {**dict1, **dict2}로 합친 딕셔너리에서 \"name\" 키의 값은 \"John\"이에요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_6_007",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "복잡한 중첩 API 응답을 파싱합니다.\n\nresponse = {\n    'data': {\n        'users': [\n            {'id': 1, 'profile': {'name': 'John', 'age': 30}}\n        ]\n    }\n}\n\nname = response_____\nprint(name)  # John",
+      "choices": [],
+      "answer": "['data']['users'][0]['profile']['name']",
+      "hint": "중첩된 구조를 연속으로 접근해요.",
+      "feedback": {
+        "correct": "정확해요! 깊게 중첩된 API 응답을 처리할 수 있어요.",
+        "wrong": "정답은 ['data']['users'][0]['profile']['name']. 중첩된 구조를 연속으로 접근해야 해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_6_008",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport time\nrequests_made = 0\nmax_requests_per_minute = 10\nlast_reset = time.time()\n\nfor i in range(15):\n    current_time = time.time()\n    if current_time - last_reset > 60:\n        requests_made = 0\n        last_reset = current_time\n    \n    if requests_made >= max_requests_per_minute:\n        print('Rate limit 초과')\n        break\n    \n    requests_made += 1\n\nprint(f'요청 완료: {requests_made}')",
+      "choices": [
+        "A. 요청 완료: 15",
+        "B. Rate limit 초과\\n요청 완료: 10",
+        "C. Rate limit 초과\\n요청 완료: 0",
+        "D. 요청 완료: 10"
+      ],
+      "answer": "B. Rate limit 초과\\n요청 완료: 10",
+      "hint": "10개 요청 후 11번째에서 제한이 걸려요.",
+      "feedback": {
+        "correct": "정답이에요! Rate limiting으로 API 사용량을 제어할 수 있어요.",
+        "wrong": "정답은 B. requests_made가 10에 도달하면 다음 요청에서 조건이 True가 되어 \"Rate limit 초과\"가 출력되고 루프가 종료돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_6_009",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "API 응답 데이터를 정규화합니다. 초급의 함수를 사용해요.\n\ndef normalize_price(item):\n    if isinstance(item.get('price'), str):\n        return float(item['price'].replace('$', ''))\n    return item.get('price', 0)\n\nraw_data = [{'price': '$100'}, {'price': 200}, {'price': None}]\nnormalized = [_____ for item in raw_data]\nprint(normalized)  # [100.0, 200, 0]",
+      "choices": [],
+      "answer": "normalize_price(item)",
+      "hint": "함수를 리스트 컴프리헨션에 적용해요.",
+      "feedback": {
+        "correct": "정확해요! 함수로 데이터를 정규화할 수 있어요.",
+        "wrong": "정답은 normalize_price(item). 리스트 컴프리헨션 안에서 함수를 호출해서 데이터를 변환해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_6_010",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nall_data = []\nfor page in range(1, 4):\n    # API 응답을 가정\n    page_data = [{'id': i, 'value': i*10} for i in range((page-1)*3+1, page*3+1)]\n    all_data.extend(page_data)\n\nfiltered = [item for item in all_data if item['value'] > 30]\nprint(len(filtered))",
+      "choices": [
+        "A. 3",
+        "B. 4",
+        "C. 5",
+        "D. 6"
+      ],
+      "answer": "D. 6",
+      "hint": "value > 30인 항목: 40, 50, 60, 70, 80, 90 → 6개예요.",
+      "feedback": {
+        "correct": "정답이에요! 페이지네이션과 필터링을 함께 사용할 수 있어요.",
+        "wrong": "정답은 D. value > 30인 항목은 4부터 9까지 6개예요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_6_011",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "복잡한 검색 조건으로 API를 호출합니다.\n\nsearch_params = {\n    'q': 'laptop',\n    'category': 'electronics',\n    'min_price': 500,\n    'max_price': 2000,\n    'sort': 'price',\n    'order': 'asc',\n    'page': 1\n}\n\nresponse = requests.get('https://api.example.com/search', _____=search_params)",
+      "choices": [],
+      "answer": "params",
+      "hint": "params를 사용하면 복잡한 쿼리를 쉽게 전달할 수 있어요.",
+      "feedback": {
+        "correct": "정확해요! params로 복잡한 검색 조건을 API에 전달할 수 있어요.",
+        "wrong": "정답은 params. params 딕셔너리로 복잡한 쿼리 파라미터를 쉽게 전달할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_6_012",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nusers = [\n    {'id': 1, 'role': 'admin', 'status': 'active'},\n    {'id': 2, 'role': 'user', 'status': 'active'},\n    {'id': 3, 'role': 'user', 'status': 'inactive'}\n]\n\nactive_users = [u for u in users if u['status'] == 'active']\nprint(len(active_users))",
+      "choices": [
+        "A. 1",
+        "B. 2",
+        "C. 3",
+        "D. 0"
+      ],
+      "answer": "B. 2",
+      "hint": "status가 'active'인 사용자는 id 1, 2예요.",
+      "feedback": {
+        "correct": "정답이에요! 복합 조건으로 필터링할 수 있어요.",
+        "wrong": "정답은 B. status가 \"active\"인 사용자는 id 1과 2 2명이에요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_6_013",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "API 응답에서 빠진 필드를 기본값으로 채워요.\n\nraw_items = [{'id': 1, 'name': 'A'}, {'id': 2}]\ncleaned = [{\n    'id': item.get('id'),\n    'name': item.get('name', '_____'),\n    'price': item.get('price', 0)\n} for item in raw_items]",
+      "choices": [],
+      "answer": "'Unknown'",
+      "hint": "name이 없을 때의 기본값을 설정해요.",
+      "feedback": {
+        "correct": "정확해요! .get()과 기본값으로 안전하게 처리할 수 있어요.",
+        "wrong": "정답은 'Unknown'. name이 없을 때의 기본값으로 \"Unknown\"을 설정해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_6_014",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndata = {\n    'products': [\n        {'id': 1, 'name': 'A', 'stock': 10},\n        {'id': 2, 'name': 'B', 'stock': 0},\n        {'id': 3, 'name': 'C', 'stock': 5}\n    ]\n}\n\nin_stock = [p['name'] for p in data['products'] if p['stock'] > 0]\nprint(in_stock)",
+      "choices": [
+        "A. ['A', 'C']",
+        "B. ['A', 'B', 'C']",
+        "C. ['B']",
+        "D. []"
+      ],
+      "answer": "A. ['A', 'C']",
+      "hint": "stock이 0보다 큰 제품은 A와 C예요.",
+      "feedback": {
+        "correct": "정답이에요! 중첩된 배열에서 필터링할 수 있어요.",
+        "wrong": "정답은 A. stock > 0인 제품의 name은 \"A\"와 \"C\"예요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_6_015",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "API 응답을 그룹화해서 처리합니다. 초급의 딕셔너리를 사용해요.\n\nfrom collections import defaultdict\n\nitems = [{'category': 'A', 'value': 10}, {'category': 'B', 'value': 20}, {'category': 'A', 'value': 30}]\ngrouped = defaultdict(list)\nfor item in items:\n    grouped[item['category']]._____( item )\n\nprint(len(grouped['A']))  # 2",
+      "choices": [],
+      "answer": "append",
+      "hint": ".append()로 카테고리별로 항목을 모아요.",
+      "feedback": {
+        "correct": "정확해요! defaultdict로 쉽게 그룹화할 수 있어요.",
+        "wrong": "정답은 append. .append()로 카테고리별로 항목을 리스트에 모아요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_6_016",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nrecords = [\n    {'date': '2026-01', 'amount': 1000, 'category': 'income'},\n    {'date': '2026-01', 'amount': 200, 'category': 'expense'},\n    {'date': '2026-02', 'amount': 500, 'category': 'expense'}\n]\n\nincome = sum(r['amount'] for r in records if r['category'] == 'income')\nexpense = sum(r['amount'] for r in records if r['category'] == 'expense')\nprint(f'순이익: {income - expense}')",
+      "choices": [
+        "A. 순이익: 300",
+        "B. 순이익: 500",
+        "C. 순이익: 700",
+        "D. 순이익: 1700"
+      ],
+      "answer": "A. 순이익: 300",
+      "hint": "income: 1000, expense: 200+500=700, 순이익: 1000-700=300",
+      "feedback": {
+        "correct": "정답이에요! 조건부 합계로 재무 데이터를 분석할 수 있어요.",
+        "wrong": "정답은 A. income은 1000, expense는 700이므로 순이익은 300이에요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_6_017",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "페이지네이션과 필터링을 함께 처리합니다. 초급의 for 루프를 사용해요.\n\ndef fetch_all_filtered(base_url, filter_condition, max_pages=None):\n    all_items = []\n    page = 1\n    while True:\n        response = requests.get(f'{base_url}?page={page}')\n        data = response.json()\n        if not data['items']:\n            break\n        filtered = [item for item in data['items'] if filter_condition_____]\n        all_items.extend(filtered)\n        page += 1\n        if max_pages and page > max_pages:\n            break\n    return all_items",
+      "choices": [],
+      "answer": "(item)",
+      "hint": "filter_condition이 함수이면 (item)을 호출해야 해요.",
+      "feedback": {
+        "correct": "정확해요! 복잡한 API 처리를 함수로 캡슐화할 수 있어요.",
+        "wrong": "정답은 (item). filter_condition이 함수이면 (item)을 호출해서 실행해야 해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_6_018",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\napi_responses = [\n    [{'id': 1, 'score': 85}, {'id': 2, 'score': 90}],\n    [{'id': 3, 'score': 78}],\n    [{'id': 4, 'score': 92}]\n]\n\nall_records = []\nfor response in api_responses:\n    all_records.extend(response)\n\ntop_scores = [r for r in all_records if r['score'] >= 90]\nprint(len(top_scores))",
+      "choices": [
+        "A. 1",
+        "B. 2",
+        "C. 3",
+        "D. 4"
+      ],
+      "answer": "B. 2",
+      "hint": "점수가 90 이상인 record는 id 2(90)와 id 4(92)예요.",
+      "feedback": {
+        "correct": "정답이에요! 여러 API 응답을 통합해서 분석할 수 있어요.",
+        "wrong": "정답은 B. 점수가 90 이상인 record는 id 2(90)와 id 4(92) 2개예요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_6_019",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "복잡한 API 데이터를 변환해서 저장합니다.\n\ndef transform_user_data(api_response):\n    return {\n        'user_id': api_response['id'],\n        'display_name': api_response.get('first_name', '') + ' ' + api_response.get('last_name', ''),\n        'email': api_response.get('email', '_____'),\n        'created_at': api_response.get('created_timestamp')\n    }\n\ntransformed = [transform_user_data(u) for u in api_users]",
+      "choices": [],
+      "answer": "'unknown@example.com'",
+      "hint": "email이 없을 때의 기본 이메일값이에요.",
+      "feedback": {
+        "correct": "정확해요! 함수로 복잡한 데이터 변환을 관리할 수 있어요.",
+        "wrong": "정답은 'unknown@example.com'. email이 없을 때의 기본 이메일값이에요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_6_020",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "import requests\n\n다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndef fetch_paginated_data(api_url, key_field, max_pages=2):\n    all_data = []\n    seen_ids = set()\n    for page in range(1, max_pages + 1):\n        response = requests.get(f'{api_url}?page={page}')\n        data = response.json()['data']\n        for item in data:\n            if item[key_field] not in seen_ids:\n                all_data.append(item)\n                seen_ids.add(item[key_field])\n    return all_data\n\n# 각 페이지에 id 1,2와 id 3,4가 있고, 중복 제거됨\nresult = fetch_paginated_data('https://api.test', 'id', 2)\nprint(len(result))  # 4개 항목",
+      "choices": [
+        "A. 2",
+        "B. 4",
+        "C. 6",
+        "D. 8"
+      ],
+      "answer": "B. 4",
+      "hint": "각 페이지마다 4개 항목이 있고, 중복을 제거하면 4개예요.",
+      "feedback": {
+        "correct": "정답이에요! 복잡한 API 처리를 함수로 체계적으로 관리할 수 있어요.",
+        "wrong": "정답은 B. max_pages=2이고 각 페이지에 4개씩 있으면 총 4개, 중복 제거 후 4개예요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_7_001",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "실전 프로젝트에서 API 데이터를 가져와서 변환하고 저장해요. 기본 워크플로우를 만들어봅시다.\n\n# 1단계: API에서 데이터 가져오기\nresponse = requests.get(api_url)\ndata = response._____( )\n\n# 2단계: 데이터 변환\ncleaned_data = [transform(item) for item in data]\n\n# 3단계: 파일에 저장\nwith open('output.json', 'w') as f:\n    json.dump(cleaned_data, f)",
+      "choices": [],
+      "answer": "json",
+      "hint": ".json()으로 API 응답을 딕셔너리로 변환해요.",
+      "feedback": {
+        "correct": "정확해요! API 데이터 처리의 기본 흐름을 이해했어요.",
+        "wrong": "정답은 json. .json()으로 응답을 딕셔너리로 변환합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_7_002",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음은 API 연동 프로젝트의 흐름입니다. 올바른 순서는?\n\nA. 데이터 변환 → API 호출 → 저장 → 검증\nB. API 호출 → 검증 → 데이터 변환 → 저장\nC. API 호출 → 데이터 변환 → 검증 → 저장\nD. 저장 → API 호출 → 검증 → 데이터 변환",
+      "choices": [
+        "A. 데이터 변환 → API 호출 → 저장 → 검증",
+        "B. API 호출 → 검증 → 데이터 변환 → 저장",
+        "C. API 호출 → 데이터 변환 → 검증 → 저장",
+        "D. 저장 → API 호출 → 검증 → 데이터 변환"
+      ],
+      "answer": "C. API 호출 → 데이터 변환 → 검증 → 저장",
+      "hint": "논리적인 순서: 먼저 데이터를 받고, 변환하고, 검증한 후 저장해요.",
+      "feedback": {
+        "correct": "정답이에요! 올바른 워크플로우 순서를 이해했어요.",
+        "wrong": "정답은 C번이에요. 먼저 데이터를 받고, 변환하고, 검증한 후 저장해야 합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_7_003",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "여러 API의 데이터를 합쳐서 하나의 프로젝트를 구성해요.\n\ntry:\n    users = requests.get(user_api).json()\n    posts = requests.get(posts_api).json()\n    combined = {**{'users': users}, **{'posts': posts}}\n    \n    with open('project.json', 'w') as f:\n        json.dump(combined, f)\n    print('프로젝트 데이터 저장 완료')\nexcept _____:\n    print('API 요청 실패')",
+      "choices": [],
+      "answer": "Exception",
+      "hint": "모든 종류의 에러를 처리할 수 있는 일반 예외를 사용해요.",
+      "feedback": {
+        "correct": "정확해요! 실전에서는 예상 가능한 모든 에러를 처리해야 해요.",
+        "wrong": "정답은 Exception. 모든 종류의 에러를 처리할 수 있는 일반 예외를 사용합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_7_004",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndef process_project(api_data):\n    cleaned = []\n    for item in api_data:\n        try:\n            # 데이터 검증\n            if not item.get('id') or not item.get('name'):\n                continue\n            cleaned.append({\n                'id': item['id'],\n                'name': item['name'].upper()\n            })\n        except Exception:\n            pass\n    return cleaned\n\nraw_data = [{'id': 1, 'name': 'alice'}, {'id': 2}, {'id': 3, 'name': 'bob'}]\nresult = process_project(raw_data)\nprint(len(result))",
+      "choices": [
+        "A. 3",
+        "B. 2",
+        "C. 1",
+        "D. 0"
+      ],
+      "answer": "B. 2",
+      "hint": "필드가 불완전한 {'id': 2}는 건너뛰므로 2개만 남아요.",
+      "feedback": {
+        "correct": "정답이에요! 데이터 검증으로 품질을 보장할 수 있어요.",
+        "wrong": "정답은 B번이에요. 불완전한 데이터는 건너뜁니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_7_005",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "실전 프로젝트에서는 실패해도 계속 진행해야 하는 경우가 있어요. 재시도 로직을 만들어봅시다.\n\ndef fetch_with_retry(url, max_retries=3):\n    for attempt in range(1, max_retries + 1):\n        try:\n            response = requests.get(url)\n            if response.status_code == 200:\n                return response.json()\n        except _____:\n            if attempt == max_retries:\n                print('최대 재시도 횟수 초과')\n            continue",
+      "choices": [],
+      "answer": "Exception",
+      "hint": "네트워크 에러 등 예상 가능한 모든 에러를 처리해요.",
+      "feedback": {
+        "correct": "정확해요! 재시도 로직으로 안정성을 높일 수 있어요.",
+        "wrong": "정답은 Exception. 네트워크 에러 등 예상 가능한 모든 에러를 처리해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_7_006",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "캐싱을 사용해서 불필요한 API 호출을 줄일 수 있어요. 다음 코드의 결과는?\n\ncache = {}\ndef get_user(user_id):\n    if user_id in cache:\n        print(f'캐시에서 반환: {user_id}')\n        return cache[user_id]\n    \n    # API 호출\n    user = {'id': user_id, 'name': f'User{user_id}'}\n    cache[user_id] = user\n    print(f'API에서 가져옴: {user_id}')\n    return user\n\nget_user(1)\nget_user(1)\nget_user(2)",
+      "choices": [
+        "A. API에서 가져옴: 1\nAPI에서 가져옴: 1\nAPI에서 가져옴: 2",
+        "B. API에서 가져옴: 1\n캐시에서 반환: 1\nAPI에서 가져옴: 2",
+        "C. 캐시에서 반환: 1\n캐시에서 반환: 1\n캐시에서 반환: 2",
+        "D. API에서 가져옴: 1\nAPI에서 가져옴: 2"
+      ],
+      "answer": "B. API에서 가져옴: 1\n캐시에서 반환: 1\nAPI에서 가져옴: 2",
+      "hint": "첫 호출은 API에서 가져오고, 두 번째는 캐시에서 반환해요.",
+      "feedback": {
+        "correct": "정답이에요! 캐싱으로 성능을 크게 향상시킬 수 있어요.",
+        "wrong": "정답은 B번이에요. 캐싱으로 불필요한 API 호출을 줄일 수 있습니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_7_007",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "실전 프로젝트: 여러 API에서 데이터를 가져와서 통합하고 저장하는 전체 워크플로우\n\nimport json, requests\n\ndef run_project():\n    try:\n        # 단계 1: API 호출\n        products = requests.get('products_api').json()\n        inventory = requests.get('inventory_api').json()\n        \n        # 단계 2: 데이터 통합\n        enriched = []\n        for p in products:\n            inv = next((i for i in inventory if i['id'] == p['id']), {})\n            enriched._____( {**p, **inv} )\n        \n        # 단계 3: 저장\n        with open('enriched.json', 'w') as f:\n            json.dump(enriched, f)\n        return True\n    except Exception as e:\n        print(f'프로젝트 실패: {e}')\n        return False",
+      "choices": [],
+      "answer": "append",
+      "hint": ".append()로 통합된 데이터를 리스트에 추가해요.",
+      "feedback": {
+        "correct": "정확해요! 실전 프로젝트의 전체 흐름을 완성했어요.",
+        "wrong": "정답은 append. .append()로 통합된 데이터를 리스트에 추가합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_7_008",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndef aggregate_metrics(api_responses):\n    metrics = {'total': 0, 'errors': 0, 'success': 0}\n    for response in api_responses:\n        metrics['total'] += 1\n        if response.get('status') == 'error':\n            metrics['errors'] += 1\n        else:\n            metrics['success'] += 1\n    \n    success_rate = metrics['success'] / metrics['total'] if metrics['total'] > 0 else 0\n    return success_rate\n\nresponses = [\n    {'status': 'ok'},\n    {'status': 'error'},\n    {'status': 'ok'},\n    {'status': 'ok'}\n]\n\nrate = aggregate_metrics(responses)\nprint(f'{rate:.2f}')",
+      "choices": [
+        "A. 0.50",
+        "B. 0.75",
+        "C. 0.25",
+        "D. 1.00"
+      ],
+      "answer": "B. 0.75",
+      "hint": "성공이 3개, 전체 4개이므로 3/4 = 0.75예요.",
+      "feedback": {
+        "correct": "정답이에요! 프로젝트 성과를 측정할 수 있어요.",
+        "wrong": "정답은 B번이에요. 모든 항목에 함수를 정확히 적용합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_7_009",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "데이터 검증은 프로젝트의 핵심입니다. 초급의 함수로 검증 로직을 만들어봅시다.\n\ndef validate_record(record):\n    required_fields = ['id', 'name', 'email']\n    return all(_____[field] for field in required_fields)\n\ndef process_records(api_data):\n    valid_records = [r for r in api_data if validate_record(r)]\n    return valid_records\n\ndata = [\n    {'id': 1, 'name': 'Alice', 'email': 'alice@test.com'},\n    {'id': 2, 'name': 'Bob', 'email': None},\n    {'id': 3, 'name': 'Charlie', 'email': 'charlie@test.com'}\n]\n\nresult = process_records(data)\nprint(len(result))  # 2",
+      "choices": [],
+      "answer": "record.get",
+      "hint": "record.get(field)로 각 필드의 값을 확인해요.",
+      "feedback": {
+        "correct": "정확해요! 데이터 검증으로 품질을 보장할 수 있어요.",
+        "wrong": "정답은 record.get. .get() 메서드로 키를 안전하게 조회합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_7_010",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음은 완전한 API 프로젝트입니다. 실행 결과는?\n\nimport json\nfrom datetime import datetime\n\ndef create_report(api_data):\n    report = {\n        'timestamp': datetime.now().isoformat(),\n        'total_items': len(api_data),\n        'valid_items': len([i for i in api_data if i.get('id') and i.get('status')]),\n        'failed_items': len([i for i in api_data if not i.get('id') or not i.get('status')])\n    }\n    return report\n\ndata = [\n    {'id': 1, 'status': 'active'},\n    {'id': 2},\n    {'id': 3, 'status': 'inactive'},\n    {'status': 'pending'}\n]\n\nreport = create_report(data)\nprint(f\"총 {report['total_items']}개 중 {report['valid_items']}개 유효\")",
+      "choices": [
+        "A. 총 4개 중 4개 유효",
+        "B. 총 4개 중 3개 유효",
+        "C. 총 4개 중 2개 유효",
+        "D. 총 4개 중 1개 유효"
+      ],
+      "answer": "C. 총 4개 중 2개 유효",
+      "hint": "id와 status가 모두 있는 항목은 #1과 #3이므로 2개예요.",
+      "feedback": {
+        "correct": "정답이에요! 완전한 프로젝트 보고서를 생성할 수 있어요.",
+        "wrong": "정답은 C번이에요. 모든 단계가 정확히 완료되면 성공입니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_7_011",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "API 프로젝트의 기본은 데이터를 안전하게 처리하는 것입니다.\n\ndef safe_project(api_url):\n    try:\n        response = requests.get(api_url, timeout=5)\n        response._____()  # HTTP 에러 확인\n        data = response.json()\n        return data\n    except requests.RequestException as e:\n        print(f'API 호출 실패: {e}')\n        return None",
+      "choices": [],
+      "answer": "raise_for_status",
+      "hint": ".raise_for_status()는 HTTP 에러를 예외로 변환해요.",
+      "feedback": {
+        "correct": "정확해요! 안전한 API 호출을 위해 필수적이에요.",
+        "wrong": "정답은 raise_for_status. HTTP 오류 상태 코드일 때 예외를 발생시킵니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_7_012",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드는 API 프로젝트에서 흔한 패턴입니다. 결과는?\n\nresults = []\nfor page in range(1, 4):\n    # API 페이지별 호출\n    items = [{'page': page, 'id': i} for i in range(1, 3)]\n    results.extend(items)\n\nprint(f'총 {len(results)}개 항목 수집')",
+      "choices": [
+        "A. 총 2개 항목 수집",
+        "B. 총 3개 항목 수집",
+        "C. 총 6개 항목 수집",
+        "D. 총 8개 항목 수집"
+      ],
+      "answer": "C. 총 6개 항목 수집",
+      "hint": "3개 페이지에서 각각 2개씩 가져오므로 3 × 2 = 6개예요.",
+      "feedback": {
+        "correct": "정답이에요! 페이지네이션은 프로젝트의 필수 기술이에요.",
+        "wrong": "정답은 C번이에요. 배치 처리로 대량 데이터를 효율적으로 처리합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_7_013",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "API 프로젝트에서 데이터를 변환할 때 함수를 사용하면 코드가 깔끔해집니다.\n\ndef normalize_item(raw_item):\n    return {\n        'id': raw_item.get('item_id'),\n        'title': raw_item.get('item_name', 'Untitled').upper(),\n        'price': float(raw_item.get('cost', 0))\n    }\n\nraw_data = [{'item_id': 1, 'item_name': 'laptop'}, {'item_id': 2}]\nnormalized = _____  # 모든 항목을 변환\nprint(normalized[0]['title'])  # LAPTOP",
+      "choices": [],
+      "answer": "[normalize_item(item) for item in raw_data]",
+      "hint": "리스트 컴프리헨션으로 모든 항목에 함수를 적용해요.",
+      "feedback": {
+        "correct": "정확해요! 함수로 데이터 변환을 체계화할 수 있어요.",
+        "wrong": "정답은 [normalize_item(item) for item in raw_data]. 리스트 컴프리헨션으로 모든 항목에 함수를 적용합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_7_014",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndef batch_process(items, batch_size=2):\n    batches = []\n    for i in range(0, len(items), batch_size):\n        batch = items[i:i+batch_size]\n        batches.append({\n            'batch_num': len(batches) + 1,\n            'count': len(batch)\n        })\n    return batches\n\nitems = list(range(1, 6))  # [1, 2, 3, 4, 5]\nresult = batch_process(items)\nprint(len(result))",
+      "choices": [
+        "A. 2",
+        "B. 3",
+        "C. 4",
+        "D. 5"
+      ],
+      "answer": "B. 3",
+      "hint": "5개 항목을 2개씩 묶으면 [1,2], [3,4], [5]로 3개 배치가 됩니다.",
+      "feedback": {
+        "correct": "정답이에요! 배치 처리로 대량 데이터를 효율적으로 처리할 수 있어요.",
+        "wrong": "정답은 B번이에요. 5개 항목을 2개씩 묶으면 3개 배치가 됩니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_7_015",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "로깅은 프로젝트의 안정성을 위해 매우 중요합니다.\n\ndef fetch_data_with_logging(url):\n    log = []\n    try:\n        log._____(f'API 호출 시작: {url}')\n        response = requests.get(url)\n        response.raise_for_status()\n        data = response.json()\n        log.append(f'데이터 수신 완료: {len(data)}개')\n        return data, log\n    except Exception as e:\n        log.append(f'에러 발생: {e}')\n        return None, log",
+      "choices": [],
+      "answer": "append",
+      "hint": ".append()로 로그 메시지를 기록해요.",
+      "feedback": {
+        "correct": "정확해요! 로깅으로 문제를 추적하고 디버깅할 수 있어요.",
+        "wrong": "정답은 append. .append()로 로그 메시지를 기록합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_7_016",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndef dedup_and_sort(api_data):\n    # 중복 제거\n    unique = list({item['id']: item for item in api_data}.values())\n    # 정렬\n    sorted_data = sorted(unique, key=lambda x: x['id'])\n    return sorted_data\n\ndata = [\n    {'id': 3, 'name': 'C'},\n    {'id': 1, 'name': 'A'},\n    {'id': 3, 'name': 'C_dup'},\n    {'id': 2, 'name': 'B'}\n]\n\nresult = dedup_and_sort(data)\nprint(f'{len(result)}개, 첫 번째 ID: {result[0][\"id\"]}')",
+      "choices": [
+        "A. 4개, 첫 번째 ID: 1",
+        "B. 3개, 첫 번째 ID: 1",
+        "C. 3개, 첫 번째 ID: 3",
+        "D. 4개, 첫 번째 ID: 3"
+      ],
+      "answer": "B. 3개, 첫 번째 ID: 1",
+      "hint": "id 3이 중복되어 제거되므로 3개 남고, 정렬 후 id 1이 첫 번째예요.",
+      "feedback": {
+        "correct": "정답이에요! 중복 제거와 정렬은 데이터 정제의 핵심이에요.",
+        "wrong": "정답은 B번이에요. 3개로 중복 제거되고, id 1이 첫 번째입니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_7_017",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "실전 프로젝트: 완전한 ETL(Extract-Transform-Load) 파이프라인\n\ndef etl_pipeline(source_url, target_file):\n    try:\n        # Extract\n        raw_data = requests.get(source_url).json()\n        \n        # Transform\n        transformed = [\n            {\n                'id': item['id'],\n                'processed_value': float(item.get('value', 0)) * 1.1\n            }\n            for item in raw_data\n            if item.get('id')\n        ]\n        \n        # Load\n        with open(target_file, 'w') as f:\n            json._____( transformed, f )\n        \n        return {'status': 'success', 'count': len(transformed)}\n    except Exception as e:\n        return {'status': 'failed', 'error': str(e)}",
+      "choices": [],
+      "answer": "dump",
+      "hint": "json.dump()로 파일에 저장해요.",
+      "feedback": {
+        "correct": "정확해요! ETL 파이프라인은 데이터 처리의 표준입니다.",
+        "wrong": "정답은 dump. json.dump()로 파일에 저장합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_7_018",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndef comprehensive_project(api_urls):\n    all_data = []\n    stats = {'total': 0, 'valid': 0, 'invalid': 0}\n    \n    for url in api_urls:\n        try:\n            response = requests.get(url, timeout=2)\n            data = response.json() if response.status_code == 200 else []\n            \n            for item in data:\n                stats['total'] += 1\n                if item.get('id') and item.get('value'):\n                    all_data.append(item)\n                    stats['valid'] += 1\n                else:\n                    stats['invalid'] += 1\n        except Exception:\n            pass\n    \n    return {\n        'items': len(all_data),\n        'valid_ratio': stats['valid'] / stats['total'] if stats['total'] > 0 else 0\n    }\n\n# API 1에서 [{id:1, value:10}, {id:2}] 반환\n# API 2에서 [{id:3, value:30}] 반환\nresult = comprehensive_project(['api1', 'api2'])\nprint(f'{result[\"items\"]}개 유효, 성공률 {result[\"valid_ratio\"]:.0%}')",
+      "choices": [
+        "A. 3개 유효, 성공률 100%",
+        "B. 2개 유효, 성공률 67%",
+        "C. 1개 유효, 성공률 50%",
+        "D. 3개 유효, 성공률 67%"
+      ],
+      "answer": "B. 2개 유효, 성공률 67%",
+      "hint": "API 1: 1개 유효 + API 2: 1개 유효 = 2개, (2/3) = 67%",
+      "feedback": {
+        "correct": "정답이에요! 복합적인 프로젝트도 단계별로 처리할 수 있어요.",
+        "wrong": "정답은 B번이에요. 2개 유효, 성공률은 67%입니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_7_019",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "프로젝트 완성도를 높이려면 모든 것을 테스트해야 합니다.\n\ndef validate_project_output(output_file):\n    try:\n        with open(output_file, 'r') as f:\n            data = json.load(f)\n        \n        # 구조 검증\n        if not isinstance(data, list):\n            return {'valid': False, 'error': 'Not a list'}\n        \n        # 내용 검증\n        required = ['id', 'name']\n        for item in data:\n            if not all(field in item _____ item[field] for field in required):\n                return {'valid': False, 'error': 'Missing required fields'}\n        \n        return {'valid': True, 'count': len(data)}\n    except Exception as e:\n        return {'valid': False, 'error': str(e)}",
+      "choices": [],
+      "answer": "and",
+      "hint": "필드가 존재하고 None이 아닌지 확인해요.",
+      "feedback": {
+        "correct": "정확해요! 완전한 검증으로 프로젝트 품질을 보장할 수 있어요.",
+        "wrong": "정답은 and. 필드가 존재하고 None이 아닌지 확인해야 합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_8_7_020",
+      "unit": 8,
+      "stage": "8-7",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음은 Unit 8 전체를 종합한 최종 프로젝트입니다. 완성도는?\n\nimport json, requests, time\nfrom datetime import datetime\n\ndef final_project():\n    config = {\n        'api_url': 'https://api.example.com/data',\n        'output_file': 'final_output.json',\n        'cache': {}\n    }\n    \n    try:\n        # Step 1: API 호출 (캐싱 적용)\n        if 'data' not in config['cache']:\n            response = requests.get(config['api_url'], timeout=5)\n            response.raise_for_status()\n            config['cache']['data'] = response.json()\n        \n        data = config['cache']['data']\n        \n        # Step 2: 데이터 검증 및 변환\n        processed = []\n        for item in data:\n            if item.get('id') and item.get('status') == 'active':\n                processed.append({\n                    'id': item['id'],\n                    'name': item.get('name', 'Unknown'),\n                    'timestamp': datetime.now().isoformat()\n                })\n        \n        # Step 3: 저장\n        with open(config['output_file'], 'w') as f:\n            json.dump(processed, f)\n        \n        return {\n            'status': 'complete',\n            'processed_count': len(processed),\n            'output_file': config['output_file']\n        }\n    except Exception as e:\n        return {\n            'status': 'failed',\n            'error': str(e)\n        }\n\nresult = final_project()\nprint(f\"프로젝트 {result['status']}\")",
+      "choices": [
+        "A. 프로젝트 complete",
+        "B. 프로젝트 failed",
+        "C. 프로젝트 pending",
+        "D. 프로젝트 unknown"
+      ],
+      "answer": "A. 프로젝트 complete",
+      "hint": "모든 단계가 에러 없이 완료되면 'complete' 상태를 반환해요.",
+      "feedback": {
+        "correct": "정답이에요! Unit 8의 모든 개념을 종합한 완전한 프로젝트입니다! 🎉",
+        "wrong": "정답은 B번이에요. API 호출 실패 시 failed 상태를 반환합니다."
+      }
+    }
+  ]
+}
