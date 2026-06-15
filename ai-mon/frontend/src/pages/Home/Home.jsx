@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { progressApi, userApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
+import useHomeSound from '../../hooks/useHomeSound'
 import LevelTestModal from '../../components/LevelTestModal/LevelTestModal'
 import HomeLanding   from './HomeLanding'
 import HomeDashboard from './HomeDashboard'
@@ -12,6 +13,7 @@ export default function Home() {
   const token      = useAuthStore((s) => s.token)
   const updateUser = useAuthStore((s) => s.updateUser)
   const navigate   = useNavigate()
+  const { playBGM, stopBGM } = useHomeSound()
 
   const [stats,         setStats]         = useState(null)
   const [loading,       setLoading]       = useState(!!token)
@@ -33,6 +35,11 @@ export default function Home() {
     }
   }
 
+  useEffect(() => {
+    playBGM('lounge')
+    return () => stopBGM()
+  }, [])
+  
   useEffect(() => {
     if (!token) { setLoading(false); return }
     Promise.all([progressApi.getStats(), userApi.getMe()])
