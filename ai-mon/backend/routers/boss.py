@@ -105,7 +105,9 @@ def start_boss_battle(unit: str = "1", authorization: str = Header(...)):
         user["crowns"] -= 1
         
     course_level = user.get("course_level", "beginner")
-    boss_qs = load_questions_by_category("unitboss", course_level=course_level, unit=unit)
+    category = "finalboss" if unit == "final" else "unitboss"
+    unit_num = None if unit == "final" else int(unit)
+    boss_qs = load_questions_by_category(category, course_level=course_level, unit=unit_num)
     if not boss_qs:
         raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
     import random
