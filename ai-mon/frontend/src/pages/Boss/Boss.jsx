@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { bossApi, userApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import BossIntro  from './BossIntro'
+import useBossSound from '../../hooks/useBossSound'
 import BossBattle from './BossBattle'
 import BossResult from './BossResult'
 import './Boss.css'
@@ -14,7 +15,9 @@ export default function Boss() {
 
   const user       = useAuthStore(s => s.user)
   const updateUser = useAuthStore(s => s.updateUser)
-
+  
+  const { playBGM, stopBGM, playSFX } = useBossSound()
+  
   const [loading,       setLoading]       = useState(true)
   // 'intro' | 'battle' | 'cleared' | 'failed'
   const [phase,         setPhase]         = useState('intro')
@@ -62,6 +65,7 @@ export default function Boss() {
     setTimeout(() => {
       setBossHit(true)
       setBossShake(true)
+      playSFX('attack')
       setDmgPopup(damage)
       setTimeout(() => {
         setBossHit(false)
@@ -74,6 +78,7 @@ export default function Boss() {
 
   // ── 피격 이펙트 ──
   const playHitEffect = () => {
+    playSFX('hit')
     setMyShake(true)
     setScreenShake(true)
     setTimeout(() => {
@@ -94,6 +99,8 @@ export default function Boss() {
     try {
       const res = await bossApi.startBattle(lessonId)
       setCurrentQuestion(res.data)
+      const bgmType = isFinalBoss ? 'finalboss_intro' : 'unitboss_intro'
+      playBGM(bgmType)
       setPhase('battle')
       setErrorMsg('')
     } catch (err) {
@@ -146,6 +153,7 @@ export default function Boss() {
             } catch (e) {
               console.error('Failed to update user profile:', e)
             }
+            playBGM('clear')
             setPhase('cleared')
           }, 1500)
         } else {
@@ -168,7 +176,7 @@ export default function Boss() {
       } else {
         playHitEffect()
         if (isFail) {
-          setTimeout(() => setPhase('failed'), 2500)
+          setTimeout(() => { playBGM('fail'); setPhase('failed') }, 2500)
         }
       }
     } catch (err) {
@@ -208,7 +216,7 @@ export default function Boss() {
       <div className="boss-header">
         <button
           className="btn btn-ghost btn-sm"
-          onClick={() => navigate(isFinalBoss ? '/lesson' : `/lesson/${lessonId}`)}
+          onClick={() => { stopBGM(); navigate(isFinalBoss ? '/lesson' : `/lesson/${lessonId}`) }}
         >
           도망가기 🏃
         </button>
