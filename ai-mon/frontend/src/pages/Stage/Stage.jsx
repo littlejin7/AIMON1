@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { quizApi, progressApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
+import useBossSound from '../../hooks/useBossSound'
 import StageBriefing from './StageBriefing'
 import MiniBossAlert from './MiniBossAlert'
 import StageQuiz from './StageQuiz'
@@ -42,7 +43,8 @@ export default function Stage({ _lessonId, _stage }) {
   const user       = useAuthStore((s) => s.user)
   const updateUser = useAuthStore((s) => s.updateUser)
   const courseLevel = user?.course_level || 'beginner'
-
+  const { playBGM, stopBGM, playSFX } = useBossSound()
+  
   // ── 퀴즈 진행 상태 ──
   const [questions,        setQuestions]        = useState([])
   const [current,          setCurrent]          = useState(0)
@@ -141,7 +143,10 @@ export default function Stage({ _lessonId, _stage }) {
         setQuestions(questionsData.map(q => shuffleChoices(q)))
         setLoading(false)
 
-        if (startMini) setShowMinibossAlert(true)
+        if (startMini) {
+          setShowMinibossAlert(true)
+          playBGM('miniboss_intro')
+        }
       })
   }, [lessonId, stageNum, courseLevel, attempt, token, retryTick])
 
@@ -212,6 +217,7 @@ export default function Stage({ _lessonId, _stage }) {
           checkpoint: 'miniboss_ready',
         }).catch(err => console.error(err))
       }
+      playBGM('miniboss_intro')
       setShowMinibossAlert(true)
       return
     }
@@ -229,6 +235,8 @@ export default function Stage({ _lessonId, _stage }) {
       // 비로그인 체험 (1-1)
       const isFreeTrial = String(lessonId) === '1' && stageNum === 1
       if (isFreeTrial && !token) {
+        stopBGM()
+        playBGM('clear')
         setFinished(true)
         setShowAuthModal(true)
         return
@@ -273,6 +281,9 @@ export default function Stage({ _lessonId, _stage }) {
         }
       }
 
+      stopBGM()
+      if (totalScore >= 80) playBGM('clear')
+      else                  playBGM('fail')
       setFinished(true)
     } else {
       setCurrent(prev => prev + 1)
@@ -341,6 +352,7 @@ export default function Stage({ _lessonId, _stage }) {
         onFight={() => {
           setShowMinibossAlert(false)
           if (minibossStartIndex !== null) setCurrent(minibossStartIndex)
+          playBGM('battle')
         }}
       />
     )
