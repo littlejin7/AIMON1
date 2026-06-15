@@ -1,0 +1,775 @@
+[
+  {
+    "lesson_id": "8-1-intermediate",
+    "unit": 8,
+    "stage": "8-1",
+    "course_level": "intermediate",
+    "title": "requests 라이브러리",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "requests는 Python에서 HTTP 요청을 보낼 때 사용하는 외부 라이브러리입니다.\n웹에서 데이터를 가져오거나, 서버에 데이터를 보낼 때 활용합니다.",
+        "terminal": {
+          "code": [
+            "import requests",
+            "response = requests.get('https://api.example.com/data')"
+          ],
+          "output": []
+        },
+        "tip": "requests는 표준 라이브러리가 아니므로 pip install requests로 먼저 설치해야 합니다."
+      },
+      {
+        "order": 2,
+        "text": "requests.get()은 서버에 데이터를 요청하는 GET 메서드입니다.\n응답 객체에는 상태 코드, 헤더, 본문이 담겨 있습니다.",
+        "terminal": {
+          "code": [
+            "response = requests.get('https://httpbin.org/get')",
+            "print(response.status_code)",
+            "print(response.text)"
+          ],
+          "output": [
+            "200",
+            "{\"args\": {}, \"headers\": {...}, ...}"
+          ]
+        },
+        "tip": "status_code 200은 요청 성공을 의미합니다."
+      },
+      {
+        "order": 3,
+        "text": "requests.post()는 서버에 데이터를 전송하는 POST 메서드입니다.\ndata= 또는 json= 파라미터로 전송할 내용을 지정합니다.",
+        "terminal": {
+          "code": [
+            "payload = {\"name\": \"aimon\", \"level\": 5}",
+            "response = requests.post('https://httpbin.org/post', json=payload)",
+            "print(response.status_code)"
+          ],
+          "output": [
+            "200"
+          ]
+        },
+        "tip": "json= 파라미터를 쓰면 Content-Type 헤더가 자동으로 application/json으로 설정됩니다."
+      },
+      {
+        "order": 4,
+        "text": "응답 객체의 주요 속성과 메서드를 알아 두면 API 작업이 편해집니다.\nstatus_code, text, json(), headers 등이 자주 쓰입니다.",
+        "terminal": {
+          "code": [
+            "r = requests.get('https://httpbin.org/get')",
+            "print(r.status_code)",
+            "print(r.headers['Content-Type'])",
+            "print(r.json())"
+          ],
+          "output": [
+            "200",
+            "application/json",
+            "{'args': {}, 'headers': {...}, ...}"
+          ]
+        },
+        "tip": "r.json()은 응답 본문을 파이썬 딕셔너리로 바로 변환해줍니다."
+      },
+      {
+        "order": 5,
+        "text": "params=를 사용하면 GET 요청에 쿼리스트링을 간편하게 추가할 수 있습니다.\nURL을 직접 조립하지 않아도 됩니다.",
+        "terminal": {
+          "code": [
+            "params = {\"q\": \"python\", \"page\": 1}",
+            "r = requests.get('https://httpbin.org/get', params=params)",
+            "print(r.url)"
+          ],
+          "output": [
+            "https://httpbin.org/get?q=python&page=1"
+          ]
+        },
+        "tip": "params 딕셔너리는 requests가 URL 인코딩을 자동으로 처리합니다."
+      },
+      {
+        "order": 6,
+        "text": "timeout= 파라미터로 응답 대기 시간을 제한할 수 있습니다.\n네트워크가 불안정하거나 서버가 느릴 때 프로그램이 무한 대기하는 것을 방지합니다.",
+        "terminal": {
+          "code": [
+            "try:",
+            "    r = requests.get('https://httpbin.org/delay/10', timeout=3)",
+            "except requests.exceptions.Timeout:",
+            "    print(\"요청 시간 초과\")"
+          ],
+          "output": [
+            "요청 시간 초과"
+          ]
+        },
+        "tip": "timeout은 (연결 대기, 읽기 대기) 튜플로도 지정할 수 있습니다: timeout=(2, 5)"
+      }
+    ]
+  },
+  {
+    "lesson_id": "8-2-intermediate",
+    "unit": 8,
+    "stage": "8-2",
+    "course_level": "intermediate",
+    "title": "API 인증",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "API 인증(Authentication)이란 서버가 요청자를 식별하는 과정입니다.\n인증 없이 접근하면 401 Unauthorized 오류가 반환됩니다.",
+        "terminal": {
+          "code": [
+            "r = requests.get('https://api.example.com/private')",
+            "print(r.status_code)"
+          ],
+          "output": [
+            "401"
+          ]
+        },
+        "tip": "401은 인증 실패, 403은 인증은 됐지만 권한 없음을 의미합니다."
+      },
+      {
+        "order": 2,
+        "text": "API Key 인증은 가장 단순한 방식으로, 요청 헤더나 쿼리 파라미터에 키를 포함시킵니다.\n많은 공개 API가 이 방식을 사용합니다.",
+        "terminal": {
+          "code": [
+            "headers = {\"Authorization\": \"Bearer MY_API_KEY\"}",
+            "r = requests.get('https://api.example.com/data', headers=headers)",
+            "print(r.status_code)"
+          ],
+          "output": [
+            "200"
+          ]
+        },
+        "tip": "API 키는 절대 코드에 직접 하드코딩하지 마세요. 환경변수로 관리합니다."
+      },
+      {
+        "order": 3,
+        "text": "환경변수로 API 키를 안전하게 관리하려면 os.environ을 사용합니다.\n.env 파일과 python-dotenv 라이브러리를 함께 쓰는 것이 일반적입니다.",
+        "terminal": {
+          "code": [
+            "import os",
+            "api_key = os.environ.get(\"MY_API_KEY\")",
+            "headers = {\"Authorization\": f\"Bearer {api_key}\"}",
+            "r = requests.get('https://api.example.com/data', headers=headers)"
+          ],
+          "output": []
+        },
+        "tip": ".env 파일은 반드시 .gitignore에 추가해 Git에 올라가지 않도록 합니다."
+      },
+      {
+        "order": 4,
+        "text": "Basic 인증은 사용자명과 비밀번호를 Base64로 인코딩해 전송하는 방식입니다.\nrequests는 auth= 파라미터로 이를 지원합니다.",
+        "terminal": {
+          "code": [
+            "from requests.auth import HTTPBasicAuth",
+            "r = requests.get('https://httpbin.org/basic-auth/user/pass',",
+            "               auth=HTTPBasicAuth('user', 'pass'))",
+            "print(r.status_code)"
+          ],
+          "output": [
+            "200"
+          ]
+        },
+        "tip": "현대 API에서는 Basic 인증보다 Bearer 토큰 방식을 더 많이 사용합니다."
+      },
+      {
+        "order": 5,
+        "text": "OAuth 2.0에서는 액세스 토큰을 발급받아 이후 요청에 사용합니다.\n토큰 발급 → 토큰으로 API 호출의 2단계 구조입니다.",
+        "terminal": {
+          "code": [
+            "token_resp = requests.post('https://api.example.com/oauth/token',",
+            "    data={\"grant_type\": \"client_credentials\",",
+            "          \"client_id\": \"ID\", \"client_secret\": \"SECRET\"})",
+            "token = token_resp.json()[\"access_token\"]"
+          ],
+          "output": []
+        },
+        "tip": "액세스 토큰에는 만료 시간(expires_in)이 있으므로 갱신 로직을 고려해야 합니다."
+      },
+      {
+        "order": 6,
+        "text": "API 키가 유효한지 확인하는 방법은 테스트용 엔드포인트에 요청해보는 것입니다.\n상태 코드와 응답 메시지로 인증 성공 여부를 확인합니다.",
+        "terminal": {
+          "code": [
+            "def check_api_key(api_key):",
+            "    headers = {\"Authorization\": f\"Bearer {api_key}\"}",
+            "    r = requests.get('https://api.example.com/me', headers=headers)",
+            "    return r.status_code == 200",
+            "print(check_api_key(\"MY_KEY\"))"
+          ],
+          "output": [
+            "True"
+          ]
+        },
+        "tip": "인증 확인 함수를 만들어 두면 디버깅 시간을 절약할 수 있습니다. 키가 유효하지 않으면 False가 반환됩니다."
+      }
+    ]
+  },
+  {
+    "lesson_id": "8-3-intermediate",
+    "unit": 8,
+    "stage": "8-3",
+    "course_level": "intermediate",
+    "title": "API 응답 파싱",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "대부분의 API는 JSON 형식으로 응답을 돌려줍니다.\nresponse.json()을 호출하면 파이썬 딕셔너리 또는 리스트로 변환됩니다.",
+        "terminal": {
+          "code": [
+            "r = requests.get('https://httpbin.org/json')",
+            "data = r.json()",
+            "print(type(data))",
+            "print(data)"
+          ],
+          "output": [
+            "<class 'dict'>",
+            "{\"slideshow\": {\"author\": \"Yours Truly\", ...}}"
+          ]
+        },
+        "tip": "r.json()은 내부적으로 json.loads(r.text)와 동일합니다."
+      },
+      {
+        "order": 2,
+        "text": "응답 JSON에서 원하는 값을 추출하려면 딕셔너리 키 접근과 리스트 인덱싱을 조합합니다.\n중첩 구조일수록 단계별로 접근합니다.",
+        "terminal": {
+          "code": [
+            "data = {\"user\": {\"name\": \"aimon\", \"level\": 5, \"items\": [\"sword\", \"shield\"]}}",
+            "print(data[\"user\"][\"name\"])",
+            "print(data[\"user\"][\"items\"][0])"
+          ],
+          "output": [
+            "aimon",
+            "sword"
+          ]
+        },
+        "tip": "키가 없을 때 KeyError를 방지하려면 data.get(\"key\", 기본값)을 사용하세요."
+      },
+      {
+        "order": 3,
+        "text": "실전 API 응답은 리스트 안에 딕셔너리가 중첩된 구조가 많습니다.\n반복문으로 각 항목을 순회하며 원하는 필드를 추출합니다.",
+        "terminal": {
+          "code": [
+            "users = [{\"name\": \"aimon\", \"lv\": 5}, {\"name\": \"slime\", \"lv\": 2}]",
+            "for user in users:",
+            "    print(f'{user[\"name\"]} - Lv.{user[\"lv\"]}')"
+          ],
+          "output": [
+            "aimon - Lv.5",
+            "slime - Lv.2"
+          ]
+        },
+        "tip": "리스트 컴프리헨션을 쓰면 더 간결하게: [u[\"name\"] for u in users]"
+      },
+      {
+        "order": 4,
+        "text": "API 응답이 항상 유효한 JSON이 아닐 수 있습니다.\nresponse.json() 호출 전 상태 코드와 Content-Type 헤더를 확인하는 것이 안전합니다.",
+        "terminal": {
+          "code": [
+            "r = requests.get('https://api.example.com/data')",
+            "if r.status_code == 200 and 'application/json' in r.headers.get('Content-Type', ''):",
+            "    data = r.json()",
+            "else:",
+            "    print(f\"파싱 불가: {r.status_code}\")"
+          ],
+          "output": []
+        },
+        "tip": "일부 API는 오류 시 HTML 페이지를 반환하기도 합니다."
+      },
+      {
+        "order": 5,
+        "text": "페이지네이션(pagination)은 많은 데이터를 여러 페이지로 나눠 반환하는 방식입니다.\n응답에 포함된 next URL이나 페이지 번호를 따라 반복 요청합니다.",
+        "terminal": {
+          "code": [
+            "page = 1",
+            "while True:",
+            "    r = requests.get(f'https://api.example.com/items?page={page}')",
+            "    data = r.json()",
+            "    if not data[\"items\"]:",
+            "        break",
+            "    page += 1"
+          ],
+          "output": []
+        },
+        "tip": "페이지가 많을 때는 rate limit에 주의하며 요청 사이에 time.sleep()을 넣습니다."
+      },
+      {
+        "order": 6,
+        "text": "JSONDecodeError 예외를 처리하면 응답 파싱 실패 시 프로그램이 중단되지 않습니다.\n항상 예외 처리를 포함한 파싱 함수를 만드는 습관을 가지세요.",
+        "terminal": {
+          "code": [
+            "import json",
+            "def safe_parse(response):",
+            "    try:",
+            "        return response.json()",
+            "    except json.JSONDecodeError:",
+            "        print(\"JSON 파싱 실패:\", response.text[:100])",
+            "        return None"
+          ],
+          "output": []
+        },
+        "tip": "requests.exceptions.JSONDecodeError도 동일하게 사용 가능합니다."
+      }
+    ]
+  },
+  {
+    "lesson_id": "8-4-intermediate",
+    "unit": 8,
+    "stage": "8-4",
+    "course_level": "intermediate",
+    "title": "에러 처리 & 재시도",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "HTTP 상태 코드는 요청 결과를 숫자로 나타냅니다.\n2xx는 성공, 4xx는 클라이언트 오류, 5xx는 서버 오류입니다.",
+        "terminal": {
+          "code": [
+            "r = requests.get('https://httpbin.org/status/404')",
+            "print(r.status_code)",
+            "r2 = requests.get('https://httpbin.org/status/500')",
+            "print(r2.status_code)"
+          ],
+          "output": [
+            "404",
+            "500"
+          ]
+        },
+        "tip": "404 = 리소스 없음, 429 = 요청 횟수 초과(Rate Limit), 500 = 서버 내부 오류"
+      },
+      {
+        "order": 2,
+        "text": "raise_for_status()는 4xx/5xx 상태 코드일 때 자동으로 예외를 발생시킵니다.\n매번 status_code를 직접 확인하는 코드를 줄일 수 있습니다.",
+        "terminal": {
+          "code": [
+            "try:",
+            "    r = requests.get('https://httpbin.org/status/404')",
+            "    r.raise_for_status()",
+            "except requests.exceptions.HTTPError as e:",
+            "    print(f\"HTTP 오류: {e}\")"
+          ],
+          "output": [
+            "HTTP 오류: 404 Client Error: NOT FOUND for url: https://httpbin.org/status/404"
+          ]
+        },
+        "tip": "raise_for_status()는 2xx 응답에서는 아무것도 하지 않고 통과합니다."
+      },
+      {
+        "order": 3,
+        "text": "네트워크 오류, 연결 실패 등 요청 자체가 실패할 수 있습니다.\nrequests.exceptions.RequestException으로 모든 요청 관련 예외를 한 번에 잡을 수 있습니다.",
+        "terminal": {
+          "code": [
+            "try:",
+            "    r = requests.get('https://nonexistent.example.com', timeout=3)",
+            "except requests.exceptions.ConnectionError:",
+            "    print(\"연결 실패\")",
+            "except requests.exceptions.Timeout:",
+            "    print(\"시간 초과\")"
+          ],
+          "output": [
+            "연결 실패"
+          ]
+        },
+        "tip": "RequestException은 모든 requests 예외의 부모 클래스입니다."
+      },
+      {
+        "order": 4,
+        "text": "재시도(retry) 로직은 일시적인 서버 오류(5xx)나 네트워크 불안정 시 자동으로 다시 요청합니다.\n직접 반복문으로 구현할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "import time",
+            "def get_with_retry(url, max_retries=3):",
+            "    for attempt in range(max_retries):",
+            "        try:",
+            "            r = requests.get(url, timeout=5)",
+            "            r.raise_for_status()",
+            "            return r",
+            "        except requests.exceptions.RequestException:",
+            "            if attempt < max_retries - 1:",
+            "                time.sleep(2 ** attempt)",
+            "    return None"
+          ],
+          "output": []
+        },
+        "tip": "2 ** attempt는 지수 백오프(exponential backoff): 1초, 2초, 4초 간격으로 대기합니다."
+      },
+      {
+        "order": 5,
+        "text": "urllib3의 Retry 클래스를 Session에 마운트하면 자동 재시도를 간결하게 설정할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "from requests.adapters import HTTPAdapter",
+            "from urllib3.util.retry import Retry",
+            "session = requests.Session()",
+            "retry = Retry(total=3, backoff_factor=1, status_forcelist=[500, 502, 503])",
+            "session.mount('https://', HTTPAdapter(max_retries=retry))"
+          ],
+          "output": []
+        },
+        "tip": "status_forcelist에 재시도할 상태 코드를 지정합니다. 429(Rate Limit)도 추가하면 유용합니다."
+      },
+      {
+        "order": 6,
+        "text": "에러 처리와 재시도를 포함한 API 요청 래퍼 함수를 만들면 코드 재사용성이 높아집니다.\n모든 에러 상황을 한 곳에서 관리할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "def safe_request(url, headers=None, retries=3):",
+            "    for i in range(retries):",
+            "        try:",
+            "            r = requests.get(url, headers=headers, timeout=5)",
+            "            r.raise_for_status()",
+            "            return r.json()",
+            "        except Exception as e:",
+            "            if i == retries - 1:",
+            "                raise",
+            "    return None"
+          ],
+          "output": []
+        },
+        "tip": "마지막 재시도에서도 실패하면 raise로 예외를 상위로 전달합니다."
+      }
+    ]
+  },
+  {
+    "lesson_id": "8-5-intermediate",
+    "unit": 8,
+    "stage": "8-5",
+    "course_level": "intermediate",
+    "title": "실전 API 연동 1",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "OpenWeatherMap API로 현재 날씨 데이터를 가져오는 실습입니다.\n무료 API 키를 발급받아 실제 데이터를 다뤄봅니다.",
+        "terminal": {
+          "code": [
+            "API_KEY = \"your_api_key\"",
+            "city = \"Seoul\"",
+            "url = f\"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric\"",
+            "r = requests.get(url)",
+            "data = r.json()"
+          ],
+          "output": []
+        },
+        "tip": "units=metric을 추가하면 온도가 섭씨(Celsius) 기준으로 반환됩니다. 실제 사용 시에는 os.environ으로 API 키를 관리하세요."
+      },
+      {
+        "order": 2,
+        "text": "응답 JSON을 파싱해 필요한 날씨 정보를 추출합니다.\n중첩된 딕셔너리 구조를 단계별로 접근합니다.",
+        "terminal": {
+          "code": [
+            "print(data[\"name\"])",
+            "print(data[\"main\"][\"temp\"])",
+            "print(data[\"weather\"][0][\"description\"])"
+          ],
+          "output": [
+            "Seoul",
+            "22.5",
+            "clear sky"
+          ]
+        },
+        "tip": "data[\"weather\"]는 리스트이므로 [0]으로 첫 번째 항목에 접근합니다."
+      },
+      {
+        "order": 3,
+        "text": "날씨 조회 기능을 함수로 정리하면 도시명만 바꿔 재사용할 수 있습니다.\n반환값을 딕셔너리로 구성하면 사용하기 편합니다.",
+        "terminal": {
+          "code": [
+            "def get_weather(city, api_key):",
+            "    url = \"https://api.openweathermap.org/data/2.5/weather\"",
+            "    params = {\"q\": city, \"appid\": api_key, \"units\": \"metric\"}",
+            "    r = requests.get(url, params=params, timeout=5)",
+            "    r.raise_for_status()",
+            "    d = r.json()",
+            "    return {\"city\": d[\"name\"], \"temp\": d[\"main\"][\"temp\"]}"
+          ],
+          "output": []
+        },
+        "tip": "params=를 쓰면 URL이 자동으로 인코딩되어 가독성이 좋아집니다."
+      },
+      {
+        "order": 4,
+        "text": "JSONPlaceholder는 테스트용 가짜 REST API를 제공합니다.\n실제 API 키 없이 GET/POST/PUT/DELETE를 모두 연습할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "r = requests.get('https://jsonplaceholder.typicode.com/posts/1')",
+            "post = r.json()",
+            "print(post[\"title\"])",
+            "print(post[\"body\"][:50])"
+          ],
+          "output": [
+            "sunt aut facere repellat provident occaecati except...",
+            "quia et suscipit\nsuscipit recusandae consequ..."
+          ]
+        },
+        "tip": "jsonplaceholder.typicode.com은 개발 연습용으로 자주 쓰이는 무료 목(mock) API입니다."
+      },
+      {
+        "order": 5,
+        "text": "POST 요청으로 새 데이터를 생성하는 실습입니다.\njson= 파라미터로 전송 데이터를 딕셔너리로 전달합니다.",
+        "terminal": {
+          "code": [
+            "new_post = {\"title\": \"AI MON\", \"body\": \"파이썬 학습 게임\", \"userId\": 1}",
+            "r = requests.post('https://jsonplaceholder.typicode.com/posts', json=new_post)",
+            "print(r.status_code)",
+            "print(r.json()[\"id\"])"
+          ],
+          "output": [
+            "201",
+            "101"
+          ]
+        },
+        "tip": "201 Created는 새 리소스가 성공적으로 생성됩니다."
+      },
+      {
+        "order": 6,
+        "text": "여러 API 호출 결과를 리스트에 수집하는 패턴은 실전에서 자주 사용됩니다.\n반복문 + requests 조합으로 일괄 데이터 수집이 가능합니다.",
+        "terminal": {
+          "code": [
+            "results = []",
+            "for post_id in range(1, 4):",
+            "    r = requests.get(f'https://jsonplaceholder.typicode.com/posts/{post_id}')",
+            "    results.append(r.json()[\"title\"])",
+            "print(results)"
+          ],
+          "output": [
+            "['sunt aut facere...', 'qui est esse', 'ea molestias quasi']"
+          ]
+        },
+        "tip": "요청 수가 많을 때는 time.sleep(0.5)로 서버 부하를 줄여주세요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "8-6-intermediate",
+    "unit": 8,
+    "stage": "8-6",
+    "course_level": "intermediate",
+    "title": "실전 API 연동 2",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "PUT 요청은 기존 리소스를 전체 교체(업데이트)할 때 사용합니다.\nPATCH는 일부 필드만 수정, PUT은 전체 교체가 원칙입니다.",
+        "terminal": {
+          "code": [
+            "update_data = {\"id\": 1, \"title\": \"수정된 제목\", \"body\": \"새 내용\", \"userId\": 1}",
+            "r = requests.put('https://jsonplaceholder.typicode.com/posts/1', json=update_data)",
+            "print(r.status_code)",
+            "print(r.json()[\"title\"])"
+          ],
+          "output": [
+            "200",
+            "수정된 제목"
+          ]
+        },
+        "tip": "REST API에서 PUT은 멱등(idempotent): 같은 요청을 여러 번 해도 결과가 동일합니다."
+      },
+      {
+        "order": 2,
+        "text": "DELETE 요청은 서버의 리소스를 삭제합니다.\n성공 시 보통 200 또는 204 No Content를 반환합니다.",
+        "terminal": {
+          "code": [
+            "r = requests.delete('https://jsonplaceholder.typicode.com/posts/1')",
+            "print(r.status_code)"
+          ],
+          "output": [
+            "200"
+          ]
+        },
+        "tip": "204는 응답 본문 없이 성공했다는 의미입니다. r.text는 빈 문자열입니다."
+      },
+      {
+        "order": 3,
+        "text": "requests.Session()은 여러 요청에 걸쳐 헤더, 쿠키 등을 유지합니다.\n매 요청마다 인증 헤더를 반복하지 않아도 됩니다.",
+        "terminal": {
+          "code": [
+            "session = requests.Session()",
+            "session.headers.update({\"Authorization\": \"Bearer MY_TOKEN\"})",
+            "r1 = session.get('https://api.example.com/users')",
+            "r2 = session.get('https://api.example.com/posts')",
+            "print(r1.status_code, r2.status_code)"
+          ],
+          "output": [
+            "200 200"
+          ]
+        },
+        "tip": "Session은 내부적으로 HTTP 연결을 재사용(Connection Pooling)하여 성능도 향상됩니다."
+      },
+      {
+        "order": 4,
+        "text": "Rate Limit(요청 횟수 제한)에 걸리면 429 Too Many Requests 응답이 반환됩니다.\n응답 헤더의 Retry-After 값만큼 대기 후 재시도합니다.",
+        "terminal": {
+          "code": [
+            "headers = {\"Authorization\": \"Bearer MY_TOKEN\"}",
+            "r = requests.get('https://api.example.com/data', headers=headers)",
+            "if r.status_code == 429:",
+            "    wait = int(r.headers.get(\"Retry-After\", 5))",
+            "    print(f\"{wait}초 후 재시도\")",
+            "    time.sleep(wait)"
+          ],
+          "output": []
+        },
+        "tip": "Retry-After 헤더가 없는 경우를 대비해 기본값(예: 5초)을 지정합니다."
+      },
+      {
+        "order": 5,
+        "text": "응답 데이터를 JSON 파일로 저장하면 로컬 캐시처럼 활용할 수 있습니다.\n네트워크 없이도 이전 응답 데이터를 재사용합니다.",
+        "terminal": {
+          "code": [
+            "import json",
+            "r = requests.get('https://jsonplaceholder.typicode.com/posts')",
+            "data = r.json()",
+            "with open('posts.json', 'w', encoding='utf-8') as f:",
+            "    json.dump(data, f, ensure_ascii=False, indent=2)",
+            "print(\"저장 완료\")"
+          ],
+          "output": [
+            "저장 완료"
+          ]
+        },
+        "tip": "ensure_ascii=False로 지정해야 한글이 유니코드 이스케이프 없이 저장됩니다."
+      },
+      {
+        "order": 6,
+        "text": "저장한 JSON 파일을 불러와 로컬 데이터로 처리합니다.\nAPI 호출 없이도 동일한 파싱 로직을 테스트할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "with open('posts.json', 'r', encoding='utf-8') as f:",
+            "    posts = json.load(f)",
+            "print(f\"총 {len(posts)}개 게시글\")",
+            "for post in posts[:3]:",
+            "    print(post[\"id\"], post[\"title\"][:20])"
+          ],
+          "output": [
+            "총 100개 게시글",
+            "1 sunt aut facere rep",
+            "2 qui est esse",
+            "3 ea molestias quasi"
+          ]
+        },
+        "tip": "json.load()는 파일에서, json.loads()는 문자열에서 JSON을 파싱합니다."
+      }
+    ]
+  },
+  {
+    "lesson_id": "8-7-intermediate",
+    "unit": 8,
+    "stage": "8-7",
+    "course_level": "intermediate",
+    "title": "API 종합 프로젝트",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "종합 프로젝트는 지금까지 배운 API 연동 기술을 하나의 프로그램으로 합치는 과정입니다.\n인증 → 요청 → 파싱 → 에러 처리 → 저장의 전체 흐름을 구현합니다.",
+        "terminal": {
+          "code": [
+            "def api_client(base_url, api_key): ...",
+            "def collect_all(client, endpoint): ...",
+            "def extract_fields(data, fields): ...",
+            "def save_csv(data, filename, fields): ...",
+            "def main(): ..."
+          ],
+          "output": []
+        },
+        "tip": "기능별로 함수를 나눠 작성하면 유지보수와 디버깅이 쉽습니다."
+      },
+      {
+        "order": 2,
+        "text": "API 클라이언트를 클래스로 구현하면 인증 정보와 세션을 한곳에 관리할 수 있습니다.\n메서드로 각 엔드포인트를 래핑합니다.",
+        "terminal": {
+          "code": [
+            "class APIClient:",
+            "    def __init__(self, base_url, api_key):",
+            "        self.base_url = base_url",
+            "        self.session = requests.Session()",
+            "        self.session.headers.update({\"Authorization\": f\"Bearer {api_key}\"})",
+            "    def get(self, endpoint, params=None):",
+            "        r = self.session.get(f\"{self.base_url}{endpoint}\", params=params, timeout=5)",
+            "        r.raise_for_status()",
+            "        return r.json()"
+          ],
+          "output": []
+        },
+        "tip": "base_url을 클래스 속성으로 두면 엔드포인트만 바꿔가며 재사용할 수 있습니다."
+      },
+      {
+        "order": 3,
+        "text": "데이터 수집 함수는 여러 페이지에 걸친 응답을 모두 모아 하나의 리스트로 반환합니다.\n페이지네이션 처리를 포함합니다.",
+        "terminal": {
+          "code": [
+            "def collect_all(client, endpoint):",
+            "    all_data = []",
+            "    page = 1",
+            "    while True:",
+            "        data = client.get(endpoint, params={\"page\": page, \"_limit\": 10})",
+            "        if not data:",
+            "            break",
+            "        all_data.extend(data)",
+            "        page += 1",
+            "    return all_data"
+          ],
+          "output": []
+        },
+        "tip": "extend()는 리스트에 다른 리스트의 요소를 이어붙입니다. append()와 구분하세요."
+      },
+      {
+        "order": 4,
+        "text": "수집한 데이터에서 필요한 필드만 추출해 정제합니다.\n리스트 컴프리헨션으로 간결하게 작성합니다.",
+        "terminal": {
+          "code": [
+            "def extract_fields(data, fields):",
+            "    return [{k: item.get(k) for k in fields} for item in data]",
+            "",
+            "posts = collect_all(client, \"/posts\")",
+            "clean = extract_fields(posts, [\"id\", \"title\", \"userId\"])",
+            "print(clean[:2])"
+          ],
+          "output": [
+            "[{'id': 1, 'title': 'sunt aut...', 'userId': 1}, {'id': 2, ...}]"
+          ]
+        },
+        "tip": "dict.get(key)은 키가 없을 때 None을 반환해 KeyError를 방지합니다. 이전 슬라이드에서 정의한 client를 사용합니다."
+      },
+      {
+        "order": 5,
+        "text": "처리한 데이터를 CSV로 저장하면 엑셀 등에서 바로 열 수 있습니다.\ncsv 모듈의 DictWriter를 활용합니다.",
+        "terminal": {
+          "code": [
+            "import csv",
+            "def save_csv(data, filename, fields):",
+            "    with open(filename, 'w', newline='', encoding='utf-8-sig') as f:",
+            "        writer = csv.DictWriter(f, fieldnames=fields)",
+            "        writer.writeheader()",
+            "        writer.writerows(data)",
+            "save_csv(clean, \"posts.csv\", [\"id\", \"title\", \"userId\"])"
+          ],
+          "output": []
+        },
+        "tip": "encoding='utf-8-sig'는 엑셀에서 한글이 깨지지 않도록 BOM을 포함한 인코딩입니다."
+      },
+      {
+        "order": 6,
+        "text": "전체 프로그램을 main() 함수로 묶어 실행 흐름을 명확히 합니다.\n각 단계를 출력하면 디버깅이 쉽습니다.",
+        "terminal": {
+          "code": [
+            "def main():",
+            "    client = APIClient(\"https://jsonplaceholder.typicode.com\", api_key=\"\")",
+            "    print(\"데이터 수집 중...\")",
+            "    posts = collect_all(client, \"/posts\")",
+            "    print(f\"{len(posts)}개 수집 완료\")",
+            "    clean = extract_fields(posts, [\"id\", \"title\"])",
+            "    save_csv(clean, \"output.csv\", [\"id\", \"title\"])",
+            "    print(\"저장 완료: output.csv\")",
+            "if __name__ == \"__main__\":",
+            "    main()"
+          ],
+          "output": [
+            "데이터 수집 중...",
+            "100개 수집 완료",
+            "저장 완료: output.csv"
+          ]
+        },
+        "tip": "if __name__ == \"__main__\": 블록은 이 파일이 직접 실행될 때만 main()이 호출되도록 합니다."
+      }
+    ]
+  }
+]
