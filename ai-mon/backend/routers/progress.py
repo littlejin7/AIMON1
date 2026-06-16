@@ -4,6 +4,7 @@ from jose import jwt, JWTError
 import json, os, uuid
 from datetime import datetime
 from routers.titles import check_and_award_titles
+from routers.utils import serialize_user
 
 router = APIRouter()
 
@@ -58,21 +59,30 @@ class ProgressUpdateRequest(BaseModel):
 @router.get("/")
 def get_progress(authorization: str = Header(...)):
     user_id = verify_token(authorization)
+    users = load_users()
+    user = next((u for u in users if u["id"] == user_id), None)
+    course_level = user.get("course_level", "beginner") if user else "beginner"
+    
     progress = load_progress()
-    user_progress = [p for p in progress if p["user_id"] == user_id]
+    user_progress = [p for p in progress if p["user_id"] == user_id and p.get("course_level", "beginner") == course_level]
     return user_progress
 
 
 @router.post("/")
 def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)):
     user_id = verify_token(authorization)
+    users = load_users()
+    user = next((u for u in users if u["id"] == user_id), None)
+    course_level = user.get("course_level", "beginner") if user else "beginner"
+    
     progress = load_progress()
     newly_earned = []
 
     existing = next(
         (p for p in progress if p["user_id"] == user_id
          and p["unit"] == req.unit
-         and p["stage"] == req.stage),
+         and p["stage"] == req.stage
+         and p.get("course_level", "beginner") == course_level),
         None,
     )
 
@@ -99,6 +109,7 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
             "score": req.score,
             "is_completed": req.is_completed,
             "checkpoint": req.checkpoint,
+            "course_level": course_level,
             "created_at": datetime.utcnow().isoformat(),
             "updated_at": datetime.utcnow().isoformat(),
         })
@@ -119,6 +130,7 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
         if p.get("user_id") == user_id
         and p.get("unit") == req.unit
         and p.get("is_completed") == True
+        and p.get("course_level", "beginner") == course_level
     ]
     completed_stage_ids = {p.get("stage") for p in user_unit_stages}
     
@@ -168,10 +180,11 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
             # 2. 왕관 지급
             if unit_just_completed:
                 awarded_units = u.get("awarded_crown_units", [])
-                if req.unit not in awarded_units:
+                val = f"{course_level}-{req.unit}"
+                if val not in awarded_units:
                     crowns_awarded = req.unit
                     u["crowns"] = u.get("crowns", 0) + crowns_awarded
-                    awarded_units.append(req.unit)
+                    awarded_units.append(val)
                     u["awarded_crown_units"] = awarded_units
 
             # 3. 칭호 부여
@@ -186,13 +199,14 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
 
     # return 할 때 현재 유저 상태를 조회하여 안전하게 반환
     current_u = next((usr for usr in load_users() if usr.get("id") == user_id), {})
+    serialized = serialize_user(current_u)
 
     return {
         "message": "진행상황이 저장되었습니다.",
         "xp_awarded": xp_gain if award_xp else 0,
         "crowns_awarded": crowns_awarded,
-        "character": current_u.get("character", "slime"),
-        "lv": current_u.get("lv", 1),
+        "character": serialized.get("character", "slime"),
+        "lv": serialized.get("lv", 1),
         "newly_earned_titles": newly_earned,
     }
 
@@ -200,8 +214,12 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
 @router.get("/stats")
 def get_stats(authorization: str = Header(...)):
     user_id = verify_token(authorization)
+    users = load_users()
+    user = next((u for u in users if u["id"] == user_id), None)
+    course_level = user.get("course_level", "beginner") if user else "beginner"
+
     progress = load_progress()
-    user_progress = [p for p in progress if p["user_id"] == user_id]
+    user_progress = [p for p in progress if p["user_id"] == user_id and p.get("course_level", "beginner") == course_level]
 
     completed = [p for p in user_progress if p.get("is_completed")]
     total_score = sum(p["score"] for p in user_progress)

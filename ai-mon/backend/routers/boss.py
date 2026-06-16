@@ -304,9 +304,12 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
                 if u["id"] == user_id:
                     u["xp"] = u.get("xp", 0) + 3000  # 유닛 보스 클리어 XP
                     if is_unit_boss:
-                        u["completed_units"] = u.get("completed_units", 0) + 1
+                        if not isinstance(u.get("completed_units"), dict):
+                            u["completed_units"] = {course_level: u.get("completed_units", 0)}
+                        u["completed_units"][course_level] = u["completed_units"].get(course_level, 0) + 1
                     
                     def calc_level(xp):
+                        # ...
                         lv = 1
                         accumulated = 0
                         while lv < 30:
@@ -335,7 +338,9 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
                     # 2. Find the user and increment user["crowns"] by the next unit number (crown count = next_unit_number)
                     u["crowns"] = u.get("crowns", 0) + next_unit
                     # 3. Set user["max_unlocked_unit"] to max(current value, cleared_unit + 1)
-                    u["max_unlocked_unit"] = max(u.get("max_unlocked_unit", 1), next_unit)
+                    if not isinstance(u.get("max_unlocked_unit"), dict):
+                        u["max_unlocked_unit"] = {course_level: u.get("max_unlocked_unit", 1)}
+                    u["max_unlocked_unit"][course_level] = max(u["max_unlocked_unit"].get(course_level, 1), next_unit)
                     break
 
             save_users(users)

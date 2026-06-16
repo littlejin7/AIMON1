@@ -46,10 +46,12 @@ class UpdateProfileRequest(BaseModel):
     is_level_tested: Optional[bool] = None
 
 
+from routers.utils import serialize_user
+
 @router.get("/me")
 def get_me(authorization: str = Header(...)):
     user = get_current_user(authorization)
-    return {k: v for k, v in user.items() if k != "password"}
+    return serialize_user(user)
 
 
 @router.patch("/me")
@@ -69,5 +71,5 @@ def update_me(req: UpdateProfileRequest, authorization: str = Header(...)):
                 u["is_level_tested"] = req.is_level_tested
             save_users(users)
             print("PATCH /user/me successfully saved user:", u)
-            return {k: v for k, v in u.items() if k != "password"}
+            return serialize_user(u)
     raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")
