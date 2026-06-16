@@ -91,7 +91,7 @@ export default function Stage({ _lessonId, _stage }) {
 
   // ── 데이터 로드 ──
   useEffect(() => {
-    const fetchUnit = quizApi.getUnit(lessonId).then(r => r.data).catch(() => null)
+    const fetchUnit = quizApi.getUnit(lessonId, courseLevel).then(r => r.data).catch(() => null)
 
     const formattedLessonId = `${lessonId}-${stageNum}-${courseLevel}`
     const fetchSlides = quizApi.getLesson(formattedLessonId, courseLevel).then(r => r.data).catch(() => null)
