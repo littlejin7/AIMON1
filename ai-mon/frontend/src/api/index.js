@@ -8,8 +8,8 @@ export const authApi = {
 
 export const quizApi = {
   // 유닛 목록 (lessons.json)
-  getUnits:        ()           => api.get('/quiz/units'),
-  getUnit:         (unitId)     => api.get(`/quiz/units/${unitId}`),
+  getUnits:        (courseLevel)         => api.get('/quiz/units', { params: { course_level: courseLevel } }),
+  getUnit:         (unitId, courseLevel) => api.get(`/quiz/units/${unitId}`, { params: { course_level: courseLevel } }),
   // 브리핑 슬라이드 (lessons/ 폴더)
   getLessons:      ()           => api.get('/quiz/lessons'),
   getLesson: (lessonId, courseLevel) => api.get(`/quiz/lessons/${lessonId}`, { params: { course_level: courseLevel } }),
