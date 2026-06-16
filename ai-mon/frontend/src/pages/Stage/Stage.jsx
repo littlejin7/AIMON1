@@ -94,7 +94,7 @@ export default function Stage({ _lessonId, _stage }) {
     const fetchUnit = quizApi.getUnit(lessonId).then(r => r.data).catch(() => null)
 
     const formattedLessonId = `${lessonId}-${stageNum}-${courseLevel}`
-    const fetchSlides = quizApi.getLesson(formattedLessonId).then(r => r.data).catch(() => null)
+    const fetchSlides = quizApi.getLesson(formattedLessonId, courseLevel).then(r => r.data).catch(() => null)
 
     const fetchQuestions = quizApi.getQuestions({
       unit: lessonId,
