@@ -93,8 +93,16 @@ def load_lessons(course_level: str = None, unit: int = None):
     return result
 
 
-def load_units():
-    """유닛 목록: lessons.json 로드."""
+def load_units(course_level: str = None):
+    """유닛 목록: course_level별 파일 우선, 없으면 lessons.json(beginner) 폴백."""
+    # 레벨별 파일 우선 (예: lessons_intermediate.json)
+    if course_level and course_level != "beginner":
+        base_dir = os.path.dirname(UNITS_FILE)
+        level_file = os.path.join(base_dir, f"lessons_{course_level}.json")
+        if os.path.exists(level_file):
+            with open(level_file, "r", encoding="utf-8") as f:
+                return json.load(f)
+    # 폴백: 기본 lessons.json
     if not os.path.exists(UNITS_FILE):
         return []
     with open(UNITS_FILE, "r", encoding="utf-8") as f:
@@ -113,15 +121,15 @@ def verify_token(authorization: str) -> str:
 # ── 유닛 목록 (lessons.json) ────────────────────────────────────
 
 @router.get("/units")
-def get_units():
-    """유닛 목록 조회 (lessons.json 기반)."""
-    return load_units()
+def get_units(course_level: str = Query(None)):
+    """유닛 목록 조회 (course_level별)."""
+    return load_units(course_level)
 
 
 @router.get("/units/{unit_id}")
-def get_unit(unit_id: int):
-    """특정 유닛 조회."""
-    units = load_units()
+def get_unit(unit_id: int, course_level: str = Query(None)):
+    """특정 유닛 조회 (course_level별)."""
+    units = load_units(course_level)
     unit = next((u for u in units if u.get("unit_id") == unit_id), None)
     if not unit:
         raise HTTPException(status_code=404, detail="유닛을 찾을 수 없습니다.")
