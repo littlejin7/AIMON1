@@ -9,6 +9,7 @@ const STAGE_ICONS = ['⚡', '🔥', '💎', '👑']
 export default function Lesson() {
   const { id } = useParams()
   const user = useAuthStore((s) => s.user)
+  const courseLevel = user?.course_level || 'beginner'
   const isUnitAwarded = (user?.awarded_crown_units || []).includes(Number(id))
   const navigate = useNavigate()
   const [lesson, setLesson]     = useState(null)
@@ -17,7 +18,7 @@ export default function Lesson() {
 
   useEffect(() => {
     Promise.all([
-      quizApi.getUnit(id),
+      quizApi.getUnit(id, courseLevel),
       progressApi.getProgress(),
     ]).then(([l, p]) => {
       setLesson(l.data)
