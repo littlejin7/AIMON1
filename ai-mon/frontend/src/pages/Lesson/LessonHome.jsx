@@ -34,7 +34,7 @@ export default function LessonHome() {
   const courseLevel = user?.course_level || 'beginner'
 
   useEffect(() => {
-    const calls = [quizApi.getUnits()]
+    const calls = [quizApi.getUnits(courseLevel)]
     if (token) {
       calls.push(progressApi.getProgress().catch(err => { console.error(err); return null }))
       calls.push(userApi.getMe().catch(err => { console.error(err); return null }))
