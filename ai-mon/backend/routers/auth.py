@@ -4,6 +4,7 @@ import json, os, hashlib, uuid
 from datetime import datetime, timedelta
 from jose import jwt
 from passlib.context import CryptContext
+from routers.utils import serialize_user
 
 router = APIRouter()
 
@@ -92,7 +93,7 @@ def register(req: RegisterRequest):
     users.append(new_user)
     save_users(users)
     token = create_token({"sub": new_user["id"], "username": new_user["username"]})
-    return {"access_token": token, "token_type": "bearer", "user": {k: v for k, v in new_user.items() if k != "password"}}
+    return {"access_token": token, "token_type": "bearer", "user": serialize_user(new_user)}
 
 
 @router.post("/login")
@@ -165,7 +166,7 @@ def login(req: LoginRequest):
     res_data = {
         "access_token": token,
         "token_type": "bearer",
-        "user": {k: v for k, v in user.items() if k != "password"},
+        "user": serialize_user(user),
         "streak": user["streak"]
     }
     if streak_reward:
