@@ -138,12 +138,19 @@ def get_lessons(course_level: str = Query(None), unit: int = Query(None)):
 
 @router.get("/lessons/{lesson_id}")
 def get_lesson(lesson_id: str, course_level: str = Query(None)):
-    """브리핑 슬라이드 조회. lesson_id 예: '1-1-beginner'"""
     lessons = load_lessons(course_level)
     lesson = next(
         (l for l in lessons if l.get("lesson_id") == lesson_id),
         None,
     )
+    # intermediate 버전 없으면 beginner로 폴백
+    if not lesson and course_level and course_level != "beginner":
+        fallback_id = lesson_id.rsplit(f"-{course_level}", 1)[0] + "-beginner"
+        beginner_lessons = load_lessons("beginner")
+        lesson = next(
+            (l for l in beginner_lessons if l.get("lesson_id") == fallback_id),
+            None,
+        )
     if not lesson:
         raise HTTPException(status_code=404, detail="레슨을 찾을 수 없습니다.")
     return lesson
@@ -254,6 +261,6 @@ async def get_ai_feedback(req: AiFeedbackRequest, authorization: str = Header(No
 
     if result["success"]:
         return {"feedback": result["feedback"], "is_ai_fallback": False}
-    # Claude 실패 → 프론트의 questions.json fallback을 쓰도록 빈 feedback 반환
     return {"feedback": "", "is_ai_fallback": True}
+
 
