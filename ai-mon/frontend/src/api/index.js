@@ -12,7 +12,7 @@ export const quizApi = {
   getUnit:         (unitId)     => api.get(`/quiz/units/${unitId}`),
   // 브리핑 슬라이드 (lessons/ 폴더)
   getLessons:      ()           => api.get('/quiz/lessons'),
-  getLesson:       (lessonId)   => api.get(`/quiz/lessons/${lessonId}`),
+  getLesson: (lessonId, courseLevel) => api.get(`/quiz/lessons/${lessonId}`, { params: { course_level: courseLevel } }),
   // 퀴즈 문제
   getQuestions:    (params)     => api.get('/quiz/questions', { params }),
   getQuestion:     (id)         => api.get(`/quiz/questions/${id}`),
