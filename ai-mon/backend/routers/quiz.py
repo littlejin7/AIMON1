@@ -176,7 +176,6 @@ def get_questions(
     quiz_questions = load_questions_by_category(category, course_level, unit)
     if stage:
         quiz_questions = [q for q in quiz_questions if q.get("stage") == stage]
-    random.shuffle(quiz_questions)
 
     if category == "quiz":
         # attempt별 quiz_set 필터 (quiz 문제에만 적용)
@@ -185,10 +184,12 @@ def get_questions(
         elif attempt == 2:
             pool = [q for q in quiz_questions if q.get("quiz_set") == "B"]
         else:
-            pool = quiz_questions
+            pool = list(quiz_questions)
+            random.shuffle(pool)
             
         if not pool: # quiz_set이 없어 빈 경우 폴백
-            pool = quiz_questions
+            pool = list(quiz_questions)
+            random.shuffle(pool)
             
         quiz_pool = pool[:limit]
 
@@ -200,6 +201,8 @@ def get_questions(
         random.shuffle(miniboss_questions)
         return quiz_pool + miniboss_questions[:5]
 
+    # quiz가 아닌 다른 카테고리는 기존 방식대로 셔플 후 반환
+    random.shuffle(quiz_questions)
     return quiz_questions[:limit]
 
 
