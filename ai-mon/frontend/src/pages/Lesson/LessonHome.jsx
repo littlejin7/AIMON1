@@ -176,7 +176,7 @@ export default function LessonHome() {
 
         {/* 파이널 보스 */}
         {isAllDone && (
-          <button className="lh-unit-card lh-finalboss animate-fade-in-up" onClick={() => navigate('/boss/final')}>
+          <button className="lh-unit-card lh-endboss animate-fade-in-up" onClick={() => navigate('/boss/final')}>
             <div className="lh-unit-badge" style={{ background: '#ef444430', borderColor: '#ef4444' }}>
               <span style={{ color: '#ef4444', fontWeight: 800 }}>👿</span>
             </div>
