@@ -6,6 +6,7 @@ import LessonHome from './pages/Lesson/LessonHome'
 import Lesson from './pages/Lesson/Lesson'
 import Stage from './pages/Stage/Stage'
 import Boss from './pages/Boss/Boss'
+import BossSelect from './pages/Boss/BossSelect'
 import Character from './pages/Character/Character'
 import Settings from './pages/Settings/Settings'
 import Train from './pages/Train/Train'
@@ -153,6 +154,18 @@ export default function App() {
           }
         />
 
+
+        {/* 보스 선택 화면 */}
+        <Route
+          path="/boss"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <BossSelect />
+              </AppLayout>
+            </ProtectedRoute>
+          }
+        />
 
         {/* 보스 전투 */}
         <Route
