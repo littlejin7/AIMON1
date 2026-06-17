@@ -36,7 +36,8 @@ def load_questions_by_category(category: str, course_level: str = None, unit: in
             tried_paths.add(fpath)
             with open(fpath, "r", encoding="utf-8") as f:
                 data = json.load(f)
-                result.extend(data.get("questions", []))
+            qs = data if isinstance(data, list) else data.get("questions", [])
+            result.extend(qs)
             break  # endboss는 첫 번째 존재하는 레벨만 사용
         else:
             folder = os.path.join(base, level)
@@ -53,7 +54,8 @@ def load_questions_by_category(category: str, course_level: str = None, unit: in
                     tried_paths.add(fpath)
                     with open(fpath, "r", encoding="utf-8") as f:
                         data = json.load(f)
-                        result.extend(data.get("questions", []))
+                    qs = data if isinstance(data, list) else data.get("questions", [])
+                    result.extend(qs)
                     loaded_any = True
 
             if loaded_any:
