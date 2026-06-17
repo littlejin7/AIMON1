@@ -9,12 +9,12 @@
     "slides": [
       {
         "order": 1,
-        "text": "데코레이터(decorator)는 기존 함수를 수정하지 않고 기능을 추가하거나 감싸는 고차 함수 패턴입니다.\n함수를 인자로 받아 새로운 함수를 반환하며, @ 문법으로 적용합니다.",
-        "tip": "데코레이터는 코드 재사용과 관심사 분리를 위한 핵심 패턴입니다."
+        "text": "데코레이터(decorator)는 기존 함수를 수정하지 않고 앞뒤에 기능을 덧붙일 수 있는 패턴입니다.\n다른 함수를 인자로 받아 새로운 함수를 반환하며, @ 문법으로 간편하게 적용합니다.",
+        "tip": "데코레이터를 쓰면 '로그 남기기', '실행 시간 측정' 같은 공통 기능을 함수마다 반복 작성하지 않아도 됩니다."
       },
       {
         "order": 2,
-        "text": "Python에서 함수는 일급 객체(first-class object)입니다.\n변수에 할당하거나 다른 함수의 인자로 전달하고 반환값으로 돌려줄 수 있습니다.",
+        "text": "Python에서 함수는 변수에 저장하거나 다른 함수에 인자로 넘길 수 있습니다.\n이런 성질 덕분에 데코레이터처럼 '함수를 받아 함수를 반환하는' 구조가 가능합니다.",
         "terminal": {
           "code": [
             "def greet():",
@@ -75,7 +75,7 @@
       },
       {
         "order": 5,
-        "text": "데코레이터는 함수가 정의될 때 적용되고, wrapper는 호출될 때 실행됩니다.\n이 두 시점의 차이를 이해하는 것이 핵심입니다.",
+        "text": "데코레이터는 @ 를 붙인 순간(정의 시점)에 적용되고, wrapper 는 함수를 실제로 호출할 때 실행됩니다.\n아래 코드를 보면서 어느 줄이 언제 출력되는지 순서를 확인해보세요.",
         "terminal": {
           "code": [
             "def order_check(func):",
@@ -102,7 +102,7 @@
       },
       {
         "order": 6,
-        "text": "데코레이터를 적용하면 원본 함수의 __name__, __doc__ 같은 메타데이터가 wrapper로 덮어써집니다.\nfunctools.wraps(func) 를 wrapper에 적용해 원본 정보를 보존해야 합니다.",
+        "text": "데코레이터를 적용하면 원본 함수의 이름(__name__)과 설명(__doc__)이 wrapper 의 것으로 바뀝니다.\nfunctools.wraps(func) 를 wrapper 에 붙이면 원본 함수의 이름과 정보가 그대로 유지됩니다.",
         "terminal": {
           "code": [
             "import functools",
@@ -136,32 +136,41 @@
       },
       {
         "order": 7,
-        "text": "실전 활용: 함수 실행 시간을 측정하는 타이머 데코레이터입니다.\n*args, **kwargs 를 전달해 어떤 함수에도 범용으로 적용할 수 있습니다.",
+        "text": "실전 활용: 함수 호출 횟수를 자동으로 세는 카운터 데코레이터입니다.\n외부 리스트에 기록을 쌓아 여러 함수의 호출 이력을 추적할 수 있습니다.",
         "terminal": {
           "code": [
-            "import time, functools",
+            "import functools",
             "",
-            "def timer(func):",
+            "call_log = []",
+            "",
+            "def count_calls(func):",
             "    @functools.wraps(func)",
-            "    def wrapper(*args, **kwargs):",
-            "        start = time.time()",
-            "        result = func(*args, **kwargs)",
-            "        end = time.time()",
-            "        print(f\"{func.__name__} 실행 시간: {end - start:.4f}초\")",
-            "        return result",
+            "    def wrapper():",
+            "        call_log.append(func.__name__)",
+            "        return func()",
             "    return wrapper",
             "",
-            "@timer",
+            "@count_calls",
             "def load_data():",
-            "    total = sum(range(100000))",
-            "    return total",
+            "    print(\"데이터 로드 완료\")",
             "",
-            "load_data()"
+            "@count_calls",
+            "def save_data():",
+            "    print(\"데이터 저장 완료\")",
+            "",
+            "load_data()",
+            "save_data()",
+            "load_data()",
+            "print(\"호출 기록:\", call_log)"
           ],
           "output": [
-            "load_data 실행 시간: X.XXXX초  # 실행 환경마다 다름"
+            "데이터 로드 완료",
+            "데이터 저장 완료",
+            "데이터 로드 완료",
+            "호출 기록: ['load_data', 'save_data', 'load_data']"
           ]
-        }
+        },
+        "tip": "인자를 받는 함수에도 데코레이터를 적용하려면 *args, **kwargs 가 필요합니다. 이 문법은 1-2 스테이지에서 배웁니다."
       }
     ]
   },
@@ -175,8 +184,8 @@
     "slides": [
       {
         "order": 1,
-        "text": "인자를 받는 데코레이터는 3중 중첩 구조를 사용합니다.\n가장 바깥 함수가 데코레이터 인자를 받고, 그 안에서 실제 데코레이터와 wrapper를 정의합니다.\n\n구조: outer(인자) → decorator(func) → wrapper(*args, **kwargs)",
-        "tip": "함수를 3번 중첩하는 구조가 처음엔 낯설지만, 각 층의 역할을 분리해서 읽으면 명확해집니다."
+        "text": "인자를 받는 데코레이터는 함수가 3단계로 중첩됩니다.\n① 가장 바깥 함수: 데코레이터에 넘길 인자를 받음\n② 중간 함수(decorator): 꾸밀 함수를 인자로 받음\n③ 가장 안쪽 wrapper: 실제 호출마다 실행될 코드",
+        "tip": "각 단계의 역할을 분리해서 읽으면 구조가 명확해집니다. 코드 예시를 보며 단계별로 따라가 보세요."
       },
       {
         "order": 2,
@@ -236,7 +245,7 @@
       },
       {
         "order": 4,
-        "text": "데코레이터를 여러 개 중첩하면 아래에서 위로 순서대로 적용됩니다.\n실행 순서는 바깥 데코레이터 전처리 → 안쪽 전처리 → 원본 함수 → 안쪽 후처리 → 바깥 후처리입니다.",
+        "text": "데코레이터를 여러 개 쌓으면 아래 것이 먼저 적용됩니다.\n실행할 때는 바깥 wrapper가 먼저 시작하고, 원본 함수 실행 후 다시 바깥 wrapper가 마무리합니다.",
         "terminal": {
           "code": [
             "import functools",
@@ -276,7 +285,7 @@
       },
       {
         "order": 5,
-        "text": "클래스로도 데코레이터를 구현할 수 있습니다.\n__init__ 에서 함수를 받고, __call__ 에서 호출 로직을 정의합니다.\n인스턴스 변수로 상태를 관리할 때 유용합니다.",
+        "text": "클래스로도 데코레이터를 만들 수 있습니다.\n__init__ 에서 함수를 저장하고, __call__ 에서 실제 호출 로직을 작성합니다.\n함수 기반 데코레이터와 달리 호출 횟수처럼 상태를 인스턴스 변수에 저장할 수 있다는 게 장점입니다.",
         "terminal": {
           "code": [
             "import functools",
@@ -381,7 +390,7 @@
     "slides": [
       {
         "order": 1,
-        "text": "제너레이터(generator)는 yield 키워드를 사용해 값을 하나씩 생산하는 함수입니다.\n일반 함수와 달리 호출 시 즉시 실행되지 않고, next() 를 호출할 때마다 다음 값까지 실행합니다.\n모든 값을 메모리에 올려두지 않아 대용량 데이터 처리에 효율적입니다.",
+        "text": "제너레이터(generator)는 yield 키워드로 값을 하나씩 꺼낼 수 있는 특별한 함수입니다.\nnext() 를 호출할 때마다 yield 지점까지 실행하고 멈추며, 다음 next() 때 그 자리부터 재개합니다.\n리스트처럼 전체를 한꺼번에 만들지 않아서, 데이터가 많을 때 메모리를 아낄 수 있습니다.",
         "tip": "제너레이터 함수를 호출하면 제너레이터 객체가 반환됩니다. 이 시점에는 코드가 실행되지 않습니다."
       },
       {
@@ -430,7 +439,7 @@
       },
       {
         "order": 4,
-        "text": "for 루프는 내부적으로 iter() 와 next() 를 반복 호출하며, StopIteration 이 발생하면 자동으로 종료합니다.\n제너레이터 객체는 이미 이터레이터이므로 바로 for 루프에 사용할 수 있습니다.",
+        "text": "for 루프는 내부적으로 next() 를 반복 호출하고, 값이 떨어지면 자동으로 멈춥니다.\n제너레이터는 이 규칙을 따르기 때문에 for 루프에 그냥 넣어 사용할 수 있습니다.",
         "terminal": {
           "code": [
             "for score in gen_scores():",
@@ -466,7 +475,7 @@
       },
       {
         "order": 6,
-        "text": "yield from 은 다른 이터러블의 값을 현재 제너레이터로 위임합니다.\n중첩 제너레이터를 단순하게 표현하고, 서브 제너레이터의 StopIteration 을 자동 처리합니다.",
+        "text": "yield from 은 다른 제너레이터(또는 리스트 등)의 값을 현재 제너레이터 안으로 그대로 흘려줍니다.\n여러 제너레이터를 이어붙이거나 중첩된 구조를 단순하게 표현할 때 편리합니다.",
         "terminal": {
           "code": [
             "def mid_scores():",
@@ -523,7 +532,7 @@
     "slides": [
       {
         "order": 1,
-        "text": "컨텍스트 매니저(context manager)는 with 블록의 진입과 탈출 시 자동으로 리소스를 열고 닫아주는 패턴입니다.\n예외가 발생하더라도 정리 코드가 반드시 실행되도록 보장합니다.",
+        "text": "컨텍스트 매니저(context manager)는 with 블록의 시작과 끝에 자동으로 준비/정리 코드를 실행해주는 패턴입니다.\n예외가 발생해도 정리 코드가 반드시 실행된다는 점이 핵심입니다.",
         "tip": "with open(...) 이 바로 컨텍스트 매니저의 대표 사례입니다. 파일을 명시적으로 .close() 하지 않아도 됩니다."
       },
       {
@@ -531,35 +540,34 @@
         "text": "클래스 기반 컨텍스트 매니저는 __enter__ 와 __exit__ 두 메서드를 구현합니다.\n__enter__ 는 with 블록 진입 시 실행되고, as 뒤 변수에 반환값이 바인딩됩니다.",
         "terminal": {
           "code": [
-            "class FileManager:",
-            "    def __init__(self, filename):",
-            "        self.filename = filename",
-            "        self.file = None",
+            "class ManagedTask:",
+            "    def __init__(self, name):",
+            "        self.name = name",
             "",
             "    def __enter__(self):",
-            "        print(f\"{self.filename} 열기\")",
-            "        self.file = open(self.filename, 'w')",
-            "        return self.file",
+            "        print(f\"[시작] {self.name}\")",
+            "        return self",
             "",
             "    def __exit__(self, exc_type, exc_val, exc_tb):",
-            "        print(f\"{self.filename} 닫기\")",
-            "        self.file.close()",
+            "        print(f\"[종료] {self.name}\")",
             "        return False",
             "",
-            "with FileManager(\"result.txt\") as f:",
-            "    f.write(\"분석 결과\")",
-            "    print(\"파일 쓰기 완료\")"
+            "with ManagedTask(\"데이터 분석\") as task:",
+            "    print(f\"  {task.name} 처리 중...\")",
+            "    print(\"  처리 완료!\")"
           ],
           "output": [
-            "result.txt 열기",
-            "파일 쓰기 완료",
-            "result.txt 닫기"
+            "[시작] 데이터 분석",
+            "  데이터 분석 처리 중...",
+            "  처리 완료!",
+            "[종료] 데이터 분석"
           ]
-        }
+        },
+        "tip": "__enter__ 의 return self 는 as task 에 자기 자신을 바인딩합니다. 자원을 직접 반환할 필요가 없을 때 자주 쓰는 패턴입니다."
       },
       {
         "order": 3,
-        "text": "__exit__ 는 예외 정보를 세 인자로 받습니다: exc_type (예외 타입), exc_val (예외 값), exc_tb (트레이스백).\n예외가 없으면 세 값 모두 None 으로 전달됩니다.",
+        "text": "__exit__ 는 with 블록이 끝날 때 예외 정보를 세 인자로 받습니다: exc_type (예외 종류), exc_val (예외 메시지), exc_tb (발생 위치 정보).\n예외 없이 정상 종료되면 세 값 모두 None 으로 전달됩니다.",
         "terminal": {
           "code": [
             "class SafeDiv:",
@@ -608,53 +616,59 @@
       },
       {
         "order": 5,
-        "text": "with 문에서 여러 컨텍스트 매니저를 한 줄에 작성할 수 있습니다.\nPython 3.10부터는 괄호로 감싸 여러 줄에 나눠 쓸 수도 있습니다.",
-        "terminal": {
-          "code": [
-            "# 한 줄에 다중 컨텍스트 작성",
-            "with open(\"input.txt\", \"w\") as src, open(\"output.txt\", \"w\") as dst:",
-            "    src.write(\"원본 데이터\")",
-            "    dst.write(\"변환 결과\")",
-            "    print(\"두 파일 동시 작업 완료\")",
-            "",
-            "# Python 3.10+ — 괄호로 여러 줄 작성",
-            "# with (",
-            "#     open(\"input.txt\", \"w\") as src,",
-            "#     open(\"output.txt\", \"w\") as dst,",
-            "# ):",
-            "#     ..."
-          ],
-          "output": [
-            "두 파일 동시 작업 완료"
-          ]
-        }
-      },
-      {
-        "order": 6,
-        "text": "실전 활용: DB 커넥션 관리, 임시 작업 디렉토리 생성, 트랜잭션 관리 등 다양한 리소스 관리에 사용됩니다.",
+        "text": "with 문에서 여러 컨텍스트 매니저를 한 줄에 , 로 구분해 동시에 사용할 수 있습니다.\n두 리소스가 모두 열린 상태에서 블록이 실행되고, 블록이 끝나면 역순으로 닫힙니다.",
         "terminal": {
           "code": [
             "from contextlib import contextmanager",
             "",
             "@contextmanager",
-            "def db_connection(db_name):",
-            "    print(f\"[DB] {db_name} 연결\")",
-            "    conn = {\"db\": db_name, \"open\": True}",
-            "    try:",
-            "        yield conn",
-            "    finally:",
-            "        conn[\"open\"] = False",
-            "        print(f\"[DB] {db_name} 연결 종료\")",
+            "def resource(name):",
+            "    print(f\"[열기] {name}\")",
+            "    yield name",
+            "    print(f\"[닫기] {name}\")",
             "",
-            "with db_connection(\"students\") as conn:",
-            "    print(f\"쿼리 실행 중... (연결 상태: {conn['open']})\")"
+            "with resource(\"읽기 버퍼\") as r, resource(\"쓰기 버퍼\") as w:",
+            "    print(f\"  {r} → {w} 데이터 이동 중...\")"
           ],
           "output": [
-            "[DB] students 연결",
-            "쿼리 실행 중... (연결 상태: True)",
-            "[DB] students 연결 종료"
+            "[열기] 읽기 버퍼",
+            "[열기] 쓰기 버퍼",
+            "  읽기 버퍼 → 쓰기 버퍼 데이터 이동 중...",
+            "[닫기] 쓰기 버퍼",
+            "[닫기] 읽기 버퍼"
           ]
-        }
+        },
+        "tip": "닫히는 순서가 열린 순서의 역순임에 주목하세요. 의존 관계가 있는 리소스를 다룰 때 이 순서가 중요합니다."
+      },
+      {
+        "order": 6,
+        "text": "실전 활용: API 요청처럼 연결을 열고 닫는 작업을 컨텍스트 매니저로 관리하면 예외가 발생해도 연결이 항상 정리됩니다.",
+        "terminal": {
+          "code": [
+            "from contextlib import contextmanager",
+            "",
+            "@contextmanager",
+            "def api_session(endpoint):",
+            "    print(f\"[연결] API: {endpoint}\")",
+            "    session = {\"endpoint\": endpoint, \"active\": True}",
+            "    try:",
+            "        yield session",
+            "    finally:",
+            "        session[\"active\"] = False",
+            "        print(f\"[종료] API: {endpoint} 연결 해제\")",
+            "",
+            "with api_session(\"/scores\") as s:",
+            "    print(f\"요청 전송 중... (활성: {s['active']})\")",
+            "    print(\"응답 수신 완료\")"
+          ],
+          "output": [
+            "[연결] API: /scores",
+            "요청 전송 중... (활성: True)",
+            "응답 수신 완료",
+            "[종료] API: /scores 연결 해제"
+          ]
+        },
+        "tip": "try/finally 구조 덕분에 with 블록 안에서 예외가 발생해도 finally 의 연결 해제 코드는 반드시 실행됩니다."
       },
       {
         "order": 7,
@@ -698,11 +712,11 @@
     "slides": [
       {
         "order": 1,
-        "text": "Unit 1에서 학습한 세 가지 패턴을 연결해 복습합니다.\n\n- 데코레이터: 함수 기능을 감싸 전/후처리 추가\n- 제너레이터: yield 로 값을 하나씩 생산, 메모리 효율 처리\n- 컨텍스트 매니저: with 블록으로 리소스 진입/정리 자동화\n\n세 패턴은 독립적으로도 강력하지만, 조합하면 실무 수준의 구조를 만들 수 있습니다."
+        "text": "Unit 1에서 배운 세 가지 패턴을 연결해 복습합니다.\n\n- 데코레이터: 함수 앞뒤에 공통 기능을 덧붙임\n- 제너레이터: yield 로 값을 하나씩 꺼냄, 메모리 효율\n- 컨텍스트 매니저: with 블록으로 준비/정리를 자동화\n\n세 패턴은 각각으로도 강력하지만, 조합하면 실무에서 쓰는 수준의 코드를 만들 수 있습니다."
       },
       {
         "order": 2,
-        "text": "데코레이터와 제너레이터 결합: 제너레이터 함수에도 데코레이터를 그대로 적용할 수 있습니다.\n단, wrapper 내 func()는 제너레이터 객체를 반환합니다. 따라서 [LOG] 종료는 iteration 완료가 아닌 제너레이터 생성 시점에 출력됩니다.",
+        "text": "데코레이터는 제너레이터 함수에도 그대로 적용됩니다.\n단, wrapper 안에서 func() 를 호출하면 즉시 실행되지 않고 제너레이터 객체가 반환됩니다.\n따라서 [LOG] 종료는 for 루프가 끝난 뒤가 아니라, 제너레이터 객체가 만들어진 직후에 출력됩니다.",
         "terminal": {
           "code": [
             "import functools",
