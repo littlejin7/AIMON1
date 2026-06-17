@@ -42,15 +42,7 @@ def find_question(question_id: str) -> Optional[dict]:
                 return q
     return None
 
-def calc_level(xp: int) -> int:
-    lv, acc = 1, 0
-    while lv < 30:
-        needed = lv * 1000
-        if xp < acc + needed:
-            break
-        acc += needed
-        lv += 1
-    return lv
+from routers.utils import calc_level
 
 
 class SubmitRequest(BaseModel):

@@ -44,3 +44,16 @@ def serialize_user(user: dict) -> dict:
             
     res.pop("password", None)
     return res
+
+
+def calc_level(xp: int) -> int:
+    """XP 기준 레벨 계산 (최대 30레벨)"""
+    lv = 1
+    accumulated = 0
+    while lv < 30:
+        needed = lv * 1000
+        if xp < accumulated + needed:
+            break
+        accumulated += needed
+        lv += 1
+    return lv

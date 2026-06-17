@@ -4,7 +4,7 @@ import json, os, hashlib, uuid
 from datetime import datetime, timedelta
 from jose import jwt
 from passlib.context import CryptContext
-from routers.utils import serialize_user
+from routers.utils import serialize_user, calc_level
 
 router = APIRouter()
 
@@ -136,16 +136,6 @@ def login(req: LoginRequest):
 
         # Level up and evolution check
         if streak_reward:
-            def calc_level(xp):
-                lv = 1
-                accumulated = 0
-                while lv < 30:
-                    needed = lv * 1000
-                    if xp < accumulated + needed:
-                        break
-                    accumulated += needed
-                    lv += 1
-                return lv
 
             new_lv = calc_level(user.get("xp", 0))
             user["lv"] = max(new_lv, user.get("lv", 1))
@@ -302,16 +292,6 @@ def social_google(req: SocialLoginRequest):
             streak_reward = {"days": 30, "xp": 10000, "crowns": 5}
 
         if streak_reward:
-            def calc_level(xp):
-                lv = 1
-                accumulated = 0
-                while lv < 30:
-                    needed = lv * 1000
-                    if xp < accumulated + needed:
-                        break
-                    accumulated += needed
-                    lv += 1
-                return lv
 
             new_lv = calc_level(user.get("xp", 0))
             user["lv"] = max(new_lv, user.get("lv", 1))
@@ -474,16 +454,6 @@ def social_naver(req: SocialLoginRequest):
             streak_reward = {"days": 30, "xp": 10000, "crowns": 5}
 
         if streak_reward:
-            def calc_level(xp):
-                lv = 1
-                accumulated = 0
-                while lv < 30:
-                    needed = lv * 1000
-                    if xp < accumulated + needed:
-                        break
-                    accumulated += needed
-                    lv += 1
-                return lv
 
             new_lv = calc_level(user.get("xp", 0))
             user["lv"] = max(new_lv, user.get("lv", 1))
@@ -643,16 +613,6 @@ def social_kakao(req: SocialLoginRequest):
             streak_reward = {"days": 30, "xp": 10000, "crowns": 5}
 
         if streak_reward:
-            def calc_level(xp):
-                lv = 1
-                accumulated = 0
-                while lv < 30:
-                    needed = lv * 1000
-                    if xp < accumulated + needed:
-                        break
-                    accumulated += needed
-                    lv += 1
-                return lv
 
             new_lv = calc_level(user.get("xp", 0))
             user["lv"] = max(new_lv, user.get("lv", 1))

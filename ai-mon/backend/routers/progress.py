@@ -4,7 +4,7 @@ from jose import jwt, JWTError
 import json, os, uuid
 from datetime import datetime
 from routers.titles import check_and_award_titles
-from routers.utils import serialize_user
+from routers.utils import serialize_user, calc_level
 
 router = APIRouter()
 
@@ -155,16 +155,6 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
             if award_xp:
                 u["xp"] = u.get("xp", 0) + xp_gain
                 
-                def calc_level(xp):
-                    lv = 1
-                    accumulated = 0
-                    while lv < 30:
-                        needed = lv * 1000
-                        if xp < accumulated + needed:
-                            break
-                        accumulated += needed
-                        lv += 1
-                    return lv
 
                 new_lv = calc_level(u["xp"])
                 u["lv"] = max(new_lv, u.get("lv", 1))
