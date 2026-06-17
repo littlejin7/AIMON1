@@ -60,8 +60,16 @@ export default function Train() {
   }
 
   const handleAnswer = async ({ correct }) => {
+    const q = questions[current]
     if (correct) {
       setCorrectCount(c => c + 1)
+      if (q && q.question_id) {
+        try {
+          await trainApi.updateReviewed({ question_id: q.question_id })
+        } catch (err) {
+          console.error('Failed to update reviewed status:', err)
+        }
+      }
     }
     setTimeout(() => {
       if (current + 1 < questions.length) {
