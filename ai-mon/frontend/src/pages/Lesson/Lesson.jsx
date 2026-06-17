@@ -111,10 +111,11 @@ export default function Lesson() {
             className={`stage-item boss-stage animate-fade-in-up ${
               progress.filter((p) => p.is_completed).length >= lesson.stages || isUnitAwarded ? '' : 'locked-item'
             }`}
-            onClick={() =>
-              progress.filter((p) => p.is_completed).length >= lesson.stages || isUnitAwarded &&
-              navigate(`/boss/${id}`)
-            }
+            onClick={() => {
+              if (progress.filter((p) => p.is_completed).length >= lesson.stages || isUnitAwarded) {
+                navigate(`/boss/${id}`)
+              }
+            }}
             disabled={progress.filter((p) => p.is_completed).length < lesson.stages && !isUnitAwarded}
           >
             <div className="stage-number-wrap">
