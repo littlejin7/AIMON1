@@ -1,202 +1,213 @@
 {
   "questions": [
     {
-      "question_id": "unitboss_beg_fib_6_001",
+      "question_id": "unitboss_beg_mc_6_001",
       "unit": 6,
-      "stage": "6-boss",
       "course_level": "beginner",
       "difficulty": "easy",
-      "type": "fill_in_blank",
+      "type": "multiple_choice",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "파이썬 시스템 내부에서 유저 고유의 재사용 커스텀 함수(부품) 기능을 정의 선언하려 할 때 사용하는 빈칸의 예약어를 적으세요.\n\n____ attack():\n    print(\"공격!\")",
-      "choices": [],
-      "answer": "def",
-      "hint": "정의하다라는 뜻의 영어 단어 define의 앞 세 글자를 소문자로 명시하세요.",
+      "question": "파이썬에서 함수를 정의할 때 사용하는 키워드와, 함수의 코드 블록을 구분하는 문법 규칙을 올바르게 짝지은 것은 무엇인가요?",
+      "choices": [
+        "A. function 키워드 / 세미콜론(;)",
+        "B. def 키워드 / 들여쓰기(Indentation)",
+        "C. define 키워드 / 중괄호({})",
+        "D. func 키워드 / 대괄호([])"
+      ],
+      "answer": "B",
+      "hint": "파이썬 함수 정의의 두 가지 핵심 요소를 기억해보세요.",
       "feedback": {
-        "correct": "정답! 커스텀 동작 알고리즘 모듈을 생성하는 함수의 문을 열 때는 def 기호를 접두사로 사용해야 합니다."
+        "correct": "정답! 파이썬은 def 키워드로 함수를 정의하고, 콜론(:) 이후 들여쓰기로 함수 본문 블록을 구분합니다. 다른 언어의 function이나 중괄호 방식과 다른 파이썬만의 특징이에요. 클리어!"
       }
     },
     {
-      "question_id": "unitboss_beg_os_6_002",
+      "question_id": "unitboss_beg_mc_6_002",
       "unit": 6,
-      "stage": "6-boss",
       "course_level": "beginner",
       "difficulty": "easy",
-      "type": "output_select",
+      "type": "multiple_choice",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 기재된 독립 커스텀 기능 함수를 빌드하여 정식 호출했을 때, 화면단에 각인될 데이터 결과는?\n\ndef welcome():\n    print(\"에이몬 등장!\")\n\nwelcome()",
+      "question": "함수를 정의할 때 괄호 안에 선언해두는 '매개변수(Parameter)'와 함수를 호출할 때 실제로 전달하는 '인수(Argument)'의 관계로 옳은 것은?",
       "choices": [
-        "A. welcome()",
-        "B. def welcome():",
-        "C. 에이몬 등장!",
-        "D. 에러를 뿜으며 아무것도 안 찍힌다."
+        "A. 매개변수는 호출 시 전달되는 실제 값이고, 인수는 함수 정의부의 변수다.",
+        "B. 매개변수와 인수는 완전히 같은 의미로 혼용해도 아무 문제없다.",
+        "C. 매개변수는 함수 정의부의 변수이고, 인수는 호출 시 전달되는 실제 값이다.",
+        "D. 매개변수는 반환값이고, 인수는 함수 이름이다."
       ],
       "answer": "C",
-      "hint": "welcome() 명칭을 선언 호출했을 때, def 내부 영역에 보관되어 있던 실행 구문이 연동 가동되는 메커니즘을 따르세요.",
+      "hint": "정의할 때 받아두는 통로 vs 호출할 때 실제로 넣는 값을 구분해보세요.",
       "feedback": {
-        "correct": "정답! def 로직으로 연산 명세서를 구성한 뒤, 함수 이름에 괄호()를 붙여 호출하면 내부 바인딩 코드가 실제로 구동 완료됩니다."
+        "correct": "정답! 매개변수(Parameter)는 def greet(name):에서 name처럼 함수 정의 시 선언한 변수이고, 인수(Argument)는 greet(\"에이몬\")처럼 호출 시 실제로 넘기는 값입니다. 클리어!"
       }
     },
     {
       "question_id": "unitboss_beg_os_6_003",
       "unit": 6,
-      "stage": "6-boss",
       "course_level": "beginner",
-      "difficulty": "medium",
+      "difficulty": "easy",
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "외부 아키텍처 데이터를 인자로 수신하는 매개변수 탑재형 함수 코드입니다. 구동 시 화면단 출력 결과는?\n\ndef attack(monster):\n    print(monster + \"에게 공격!\")\n\nattack(\"코드몬\")",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 결과는 무엇인가요?\n\ndef greet(name, title=\"용사\"):\n    print(f\"{title} {name}!\")\n\ngreet(\"에이몬\")",
       "choices": [
-        "A. monster에게 공격!",
-        "B. monster",
-        "C. 코드몬에게 공격!",
-        "D. TypeError형 에러 발생"
+        "A. name title!",
+        "B. 에이몬 용사!",
+        "C. 용사 에이몬!",
+        "D. 오류 발생"
       ],
       "answer": "C",
-      "hint": "함수 호출 칸 괄호 속에 투척한 '코드몬'이라는 소스 텍스트가 내부 monster 인자 명칭에 어떻게 대입 전달되는지 보세요.",
+      "hint": "f-string에서 title과 name의 순서, 그리고 기본값 매개변수를 확인하세요.",
       "feedback": {
-        "correct": "정답! 함수 호출단 인수로 할당한 '코드몬' 리얼 데이터는 함수의 내부 매개변수(monster)에 복사 이식되어 한 몸으로 구동됩니다."
+        "correct": "정답! title의 기본값 \"용사\"가 사용되고, f-string은 {title} {name} 순서이므로 \"용사 에이몬!\"이 출력됩니다. 인수를 넘기지 않으면 기본값이 자동으로 채워져요. 클리어!"
       }
     },
     {
-      "question_id": "unitboss_beg_os_6_004",
+      "question_id": "unitboss_beg_mc_6_004",
       "unit": 6,
-      "stage": "6-boss",
       "course_level": "beginner",
-      "difficulty": "medium",
-      "type": "output_select",
+      "difficulty": "easy",
+      "type": "multiple_choice",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "함수 내부 연산 처리를 거친 후, 결괏값을 바깥 세상으로 던져 방출 분출하는 반환 코드 제어 흐름입니다. 최종 출력 정수는?\n\ndef get_double(hp):\n    return hp * 2\n\nresult = get_double(50)\nprint(result)",
+      "question": "다음 중 스코프(Scope)에 대한 설명으로 올바른 것은 무엇인가요?",
       "choices": [
-        "A. hp * 2",
-        "B. 50",
-        "C. 100",
-        "D. 아무 데이터도 할당받지 못해 빈칸으로 나온다."
+        "A. 함수 내부에서 만든 지역 변수는 함수 밖에서도 자유롭게 참조할 수 있다.",
+        "B. 전역 변수는 함수 내부에서 읽을 수 있지만, 함수 내부의 지역 변수는 외부에서 접근할 수 없다.",
+        "C. 지역 변수와 전역 변수는 이름이 같아도 항상 동일한 변수를 가리킨다.",
+        "D. 파이썬에서는 스코프 개념이 없으므로 모든 변수를 어디서든 사용할 수 있다."
       ],
-      "answer": "C",
-      "hint": "get_double(50) 연산으로 치환 도출된 hp * 2 내부 계산 최종 상수가 바깥 result 변수에 어떻게 치환 보관되는지 매칭하세요.",
+      "answer": "B",
+      "hint": "전역은 안에서 보이지만, 지역은 밖에서 못 보는 규칙을 떠올려보세요.",
       "feedback": {
-        "correct": "정답! return 연산자는 함수 몸체에서 수확 계산된 상숫값(100)을 바깥의 호출부 공간으로 내던져 다른 변수에 적재 이식시킵니다."
+        "correct": "정답! 전역 변수는 함수 내부에서 읽기 접근이 가능하지만, 함수 안에서 만든 지역 변수는 함수 실행이 끝나면 사라지므로 외부에서는 NameError가 발생합니다. 클리어!"
       }
     },
     {
       "question_id": "unitboss_beg_os_6_005",
       "unit": 6,
-      "stage": "6-boss",
       "course_level": "beginner",
       "difficulty": "medium",
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "두 개의 연동 입력 인자를 다중으로 정렬 수신하는 다중 파라미터 로직입니다. 순서 대입 완료 시 최종 스크린 출력 포맷은?\n\ndef make_team(p1, p2):\n    print(f\"{p1}와 {p2}\")\n\nmake_team(\"슬라임\", \"로봇\")",
+      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\ndef add(a, b):\n    return a + b\n\nresult = add(3, 4) + add(1, 2)\nprint(result)",
       "choices": [
-        "A. p1와 p2",
-        "B. 슬라임와 로봇",
-        "C. 로봇와 슬라임",
-        "D. 인자 개수 불일치 오류 발생"
+        "A. 7",
+        "B. 34",
+        "C. 10",
+        "D. None"
       ],
-      "answer": "B",
-      "hint": "p1 매개 슬롯 and p2 매개 슬롯에 각각 콤마 순서 규격대로 매칭되어 흘러들어오는 텍스트 쌍을 찾아보세요.",
+      "answer": "C",
+      "hint": "각 함수 호출의 반환값을 먼저 계산한 다음 더해보세요.",
       "feedback": {
-        "correct": "정답! 함수 호출 시 기술한 인자 순서 규칙에 상응하여, 첫 타자인 '슬라임'은 p1에, 뒤따르는 '로봇'은 p2 자리에 순차 저격 이식됩니다."
+        "correct": "정답! add(3, 4)는 7을 반환하고, add(1, 2)는 3을 반환합니다. 7 + 3 = 10이 result에 저장되어 출력됩니다. 클리어!"
       }
     },
     {
-      "question_id": "unitboss_beg_fib_6_006",
+      "question_id": "unitboss_beg_os_6_006",
       "unit": 6,
-      "stage": "6-boss",
       "course_level": "beginner",
       "difficulty": "medium",
-      "type": "fill_in_blank",
+      "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "함수 내부 영역의 로직 수행 결과 데이터를 함수 바깥쪽 세계로 정식 반환 컴백 투척시켜 주는 전용 소문자 명령어를 명시하세요.\n\ndef get_hp():\n    ____ 100",
-      "choices": [],
-      "answer": "return",
-      "hint": "되돌려주다라는 의미를 품고 있는 6글자 소문자 파이썬 특수 키워드입니다.",
-      "feedback": {
-        "correct": "정답! 함수의 생명 주기 종료 선언과 동시에 호출단에 결과 산출물 상수를 토스해 넘기는 일은 return 제어어의 고유 권한입니다."
-      }
-    },
-    {
-      "question_id": "unitboss_beg_ef_6_007",
-      "unit": 6,
-      "stage": "6-boss",
-      "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "error_find",
-      "quiz_category": "unit_boss",
-      "is_boss": true,
-      "question": "함수 컴포넌트 선언 헤더 규격 기호를 빼먹어서 가동되기도 전에 문법 에러(SyntaxError)를 작렬시키는 라인 번호는?\n\n1줄: def heal()\n2줄:     print(\"체력 회복!\")\n3줄: heal()",
+      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\ndef check_score(score):\n    if score >= 90:\n        return \"S등급\"\n    elif score >= 70:\n        return \"A등급\"\n    return \"재도전\"\n\nprint(check_score(85))\nprint(check_score(50))",
       "choices": [
-        "A. 1줄",
-        "B. 2줄",
-        "C. 3줄"
+        "A. S등급\n재도전",
+        "B. A등급\nA등급",
+        "C. A등급\n재도전",
+        "D. 재도전\n재도전"
       ],
-      "answer": "A",
-      "hint": "def 함수명() 구문을 정상 기재 완결하고 하위 바디 영역으로 넘어가기 전 꼬리에 채워야 할 기호를 서치하세요.",
+      "answer": "C",
+      "hint": "85와 50이 각각 어느 조건 분기에 해당하는지 확인하세요.",
       "feedback": {
-        "correct": "정답! 조건문, 반복문 체계와 궤를 같이하여, 파이썬 함수 생성 선언문 끝자락에도 무조건 콜론 기호(:) 삽입이 원칙입니다."
+        "correct": "정답! 85는 90 미만이므로 elif(score >= 70)에 해당하여 \"A등급\"을 반환합니다. 50은 두 조건 모두 불만족하므로 마지막 return \"재도전\"이 실행됩니다. 클리어!"
       }
     },
     {
-      "question_id": "unitboss_beg_ef_6_008",
+      "question_id": "unitboss_beg_os_6_007",
       "unit": 6,
-      "stage": "6-boss",
       "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "error_find",
+      "difficulty": "medium",
+      "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "함수 가두리 내부에서 탄생한 보안 변수를 바깥에서 불법 무단 호출하여 변수 미등록 에러(NameError)를 내뿜는 라인을 색출하세요.\n\n1줄: def craft():\n2줄:     item = \"전설의 검\"\n3줄: craft()\n4줄: print(item)",
+      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\ndef outer():\n    msg = \"바깥\"\n    def inner():\n        print(msg)\n    inner()\n\nouter()",
       "choices": [
-        "A. 1줄",
-        "B. 2줄",
-        "C. 3줄",
-        "D. 4줄"
+        "A. 오류 발생",
+        "B. None",
+        "C. inner",
+        "D. 바깥"
       ],
       "answer": "D",
-      "hint": "craft() 함수 내부 로컬 영역 바깥쪽 스코프 공간에서 소속이 부재한 변수를 강제 프린트 도출하려 억지 부리는 줄을 찾으세요.",
+      "hint": "내부 함수는 바깥 함수의 변수를 참조할 수 있어요.",
       "feedback": {
-        "correct": "정답! 함수 블록 내측에서 피어난 변수는 '지역 변수' 스코프 권한을 획득하므로 함수 외부 영역인 4줄 공간에서는 식별이 불가능하여 에러가 납니다."
+        "correct": "정답! inner 함수는 outer 함수의 지역 변수 msg를 클로저(Closure) 원리로 참조할 수 있습니다. outer()를 호출하면 inner()가 실행되어 \"바깥\"이 출력됩니다. 클리어!"
       }
     },
     {
-      "question_id": "unitboss_beg_fib_6_009",
+      "question_id": "unitboss_beg_mc_6_008",
       "unit": 6,
-      "stage": "6-boss",
       "course_level": "beginner",
-      "difficulty": "hard",
-      "type": "fill_in_blank",
+      "difficulty": "medium",
+      "type": "multiple_choice",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "함수 호출 파트에서 인자 인풋 데이터를 공백 누락시켜 패스하더라도, 디폴트로 타겟 상숫값을 매칭 자동 기용케 만드는 '기본값 파라미터' 수치(정수)를 기입하세요.\n\ndef skill(damage = _____):\n    print(f\"적에게 {damage} 데미지!\")\n\nskill() # 출력 결과: 적에게 10 데미지!",
-      "choices": [],
-      "answer": "10",
-      "hint": "출력 결과 안내창 문구에 명시되어 있는 디폴트 대미지 정수 수치를 확인하여 대입하세요.",
+      "question": "다음 코드에서 발생하는 문제로 올바른 것은 무엇인가요?\n\ndef process(x, y=5, z):\n    return x + y + z",
+      "choices": [
+        "A. 함수 이름 process가 예약어라서 SyntaxError가 발생한다.",
+        "B. 기본값이 있는 매개변수(y) 뒤에 기본값 없는 매개변수(z)를 쓸 수 없어 SyntaxError가 발생한다.",
+        "C. return이 아니라 print를 써야 하므로 TypeError가 발생한다.",
+        "D. 매개변수가 3개이므로 자동으로 TypeError가 발생한다."
+      ],
+      "answer": "B",
+      "hint": "기본값이 있는 매개변수는 항상 기본값이 없는 매개변수의 뒤에 와야 해요.",
       "feedback": {
-        "correct": "정답! 함수 매개인자 설계창에 등호 기호와 정수(damage = 10)를 세팅하면 인자 주입 누락 시 디폴트 보정 상수로 10이 자동 인출됩니다."
+        "correct": "정답! 파이썬에서 기본값이 있는 매개변수(y=5)는 반드시 기본값이 없는 매개변수보다 뒤에 위치해야 합니다. y=5 뒤에 기본값 없는 z가 오면 SyntaxError가 발생합니다. 클리어!"
       }
     },
     {
-      "question_id": "unitboss_beg_fib_6_010",
+      "question_id": "unitboss_beg_os_6_009",
       "unit": 6,
-      "stage": "6-boss",
       "course_level": "beginner",
       "difficulty": "hard",
-      "type": "fill_in_blank",
+      "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "return 반환 메커니즘 함수 연동입니다. 바깥쪽 final_gold 변수 주머니 속에 최종 결괏값 정수 700이 산출 도출되어 연산 대입되게끔 만드는 올바른 산술 연산 부호를 입력하세요.\n\ndef add_gold(current):\n    return current _____ 200\n\nfinal_gold = add_gold(500)",
-      "choices": [],
-      "answer": "+",
-      "hint": "인자로 배달 들어온 정수 500 수치에다가 200을 어떻게 계산해야 700이라는 명분이 생길지 유추하세요.",
+      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\ndef make_greeting(prefix=\"안녕\"):\n    def build(name):\n        return prefix + \", \" + name + \"!\"\n    return build\n\nhello = make_greeting()\nprint(hello(\"에이몬\"))",
+      "choices": [
+        "A. 오류 발생",
+        "B. 안녕, 에이몬!",
+        "C. build",
+        "D. prefix, 에이몬!"
+      ],
+      "answer": "B",
+      "hint": "make_greeting()이 반환하는 것이 무엇인지, hello에 무엇이 담기는지 생각해보세요.",
       "feedback": {
-        "correct": "정답! current 파라미터로 안착한 500에 더하기 연산자(+)를 접목 연산 연동하여 내보내야 700이라는 데이터가 상위 결산 이식됩니다."
+        "correct": "정답! make_greeting()은 내부 함수 build 자체를 반환합니다. hello에는 build 함수가 담기고, hello(\"에이몬\")을 호출하면 prefix 기본값 \"안녕\"과 결합하여 \"안녕, 에이몬!\"이 출력됩니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "unitboss_beg_os_6_010",
+      "unit": 6,
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\ndef apply(func, value):\n    return func(value)\n\ndef double(n):\n    return n * 2\n\ndef square(n):\n    return n * n\n\nprint(apply(double, 3))\nprint(apply(square, apply(double, 2)))",
+      "choices": [
+        "A. 6\n8",
+        "B. 6\n16",
+        "C. 3\n16",
+        "D. 6\n4"
+      ],
+      "answer": "B",
+      "hint": "안쪽 함수 호출 결과부터 계산한 다음 바깥 함수에 넘겨보세요.",
+      "feedback": {
+        "correct": "정답! apply(double, 3)은 double(3) = 6입니다. 두 번째 줄: apply(double, 2)는 double(2) = 4, 그 결과를 apply(square, 4)에 넘기면 square(4) = 16이 됩니다. 함수를 인수로 전달하는 고차 함수 패턴이에요. 클리어!"
       }
     }
   ]

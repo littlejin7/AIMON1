@@ -762,6 +762,259 @@
       "correct": "완벽합니다! sum() / len() 패턴으로 평균을 계산합니다.",
       "incorrect": "리스트 원소의 합을 구하는 함수는 sum()입니다. sum(scores) / len(scores)가 평균입니다."
     }
+  },
+
+  /* Phase 1 — gpa (학점 계산) — 5문제 (output_select / multiple_choice) */
+
+  {
+    "question_id": "endboss_beg_gpa_p1_001",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "gpa",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "difficulty": "medium",
+    "type": "output_select",
+    "question": "다음 코드의 출력 결과는?\n\n```python\ngrade_map = {\"A\": 4.0, \"B\": 3.0, \"C\": 2.0, \"D\": 1.0}\ngrades = [\"A\", \"B\", \"A\", \"C\"]\ntotal = sum(grade_map[g] for g in grades)\nprint(total / len(grades))\n```",
+    "choices": ["A. 3.25", "B. 3.5", "C. 13.0", "D. 3.0"],
+    "answer": "A",
+    "explanation": "grade_map[\"A\"]=4.0, grade_map[\"B\"]=3.0, grade_map[\"A\"]=4.0, grade_map[\"C\"]=2.0이므로 total=13.0, len(grades)=4, 13.0/4=3.25입니다.",
+    "feedback": {
+      "correct": "정확해요! 딕셔너리로 등급을 점수로 변환하고 sum() / len()으로 평균을 구합니다.",
+      "incorrect": "4.0+3.0+4.0+2.0=13.0이고 4개 과목이므로 13.0/4=3.25입니다."
+    }
+  },
+
+  {
+    "question_id": "endboss_beg_gpa_p1_002",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "gpa",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "difficulty": "medium",
+    "type": "multiple_choice",
+    "question": "다음 데이터에서 학점(credit) 가중 평균 GPA를 올바르게 계산하는 코드는?\n\n```python\ncourses = [\n    {\"과목\": \"수학\", \"학점\": 3, \"등급\": \"A\"},\n    {\"과목\": \"영어\", \"학점\": 2, \"등급\": \"B\"},\n]\ngrade_map = {\"A\": 4.0, \"B\": 3.0, \"C\": 2.0, \"D\": 1.0}\n```",
+    "choices": [
+      "A. sum(c[\"학점\"] * grade_map[c[\"등급\"]] for c in courses) / sum(c[\"학점\"] for c in courses)",
+      "B. sum(grade_map[c[\"등급\"]] for c in courses) / len(courses)",
+      "C. sum(c[\"학점\"] for c in courses) / sum(grade_map[c[\"등급\"]] for c in courses)",
+      "D. sum(c[\"학점\"] * grade_map[c[\"등급\"]] for c in courses) / len(courses)"
+    ],
+    "answer": "A",
+    "explanation": "가중 평균 GPA = Σ(학점×등급점수) / Σ학점입니다. A는 (3×4.0+2×3.0)/(3+2)=18/5=3.6으로 올바릅니다. B는 학점 가중치를 무시한 단순 평균(3.5), C는 분자·분모가 반대(0.71), D는 총 학점이 아닌 과목 수(2)로 나눕니다.",
+    "feedback": {
+      "correct": "맞아요! Σ(학점×점수)/Σ학점이 가중 평균 공식입니다. 과목 수가 아닌 총 학점으로 나눠야 합니다.",
+      "incorrect": "A가 올바릅니다. 가중 평균은 Σ(학점×등급점수)/Σ학점으로 계산합니다. 과목 수(len)가 아닌 총 이수 학점으로 나눠야 해요."
+    }
+  },
+
+  {
+    "question_id": "endboss_beg_gpa_p1_003",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "gpa",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "difficulty": "medium",
+    "type": "output_select",
+    "question": "다음 코드의 출력 결과는?\n\n```python\ngpa = 3.6666666\nprint(f\"GPA: {gpa:.2f}\")\n```",
+    "choices": ["A. GPA: 3.67", "B. GPA: 3.66", "C. GPA: 3.7", "D. GPA: 3.6666666"],
+    "answer": "A",
+    "explanation": ":.2f는 소수점 2자리까지 반올림해 출력합니다. 3.6666666의 세 번째 소수 자리가 6이므로 올림되어 3.67이 됩니다.",
+    "feedback": {
+      "correct": "정확해요! :.2f 포맷 지정자가 소수점 두 자리로 반올림해 출력합니다.",
+      "incorrect": ":.2f는 세 번째 소수 자리에서 반올림합니다. 3.666...의 세 번째 자리가 6이므로 올림 → 3.67입니다."
+    }
+  },
+
+  {
+    "question_id": "endboss_beg_gpa_p1_004",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "gpa",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "difficulty": "hard",
+    "type": "output_select",
+    "question": "다음 코드의 출력 결과는?\n\n```python\ngrade_map = {\"A\": 4.0, \"B\": 3.0, \"C\": 2.0, \"D\": 1.0, \"F\": 0.0}\nscores = {\"수학\": \"A\", \"영어\": \"B\", \"과학\": \"F\"}\npoints = {k: grade_map[v] for k, v in scores.items()}\nprint(points[\"과학\"])\n```",
+    "choices": ["A. 0.0", "B. \"F\"", "C. 0", "D. 오류 발생"],
+    "answer": "A",
+    "explanation": "딕셔너리 컴프리헨션으로 {\"수학\": 4.0, \"영어\": 3.0, \"과학\": 0.0}을 생성합니다. points[\"과학\"]은 grade_map[\"F\"]=0.0입니다.",
+    "feedback": {
+      "correct": "맞아요! 딕셔너리 컴프리헨션 {k: grade_map[v] for k, v in scores.items()}로 과목별 점수를 변환합니다.",
+      "incorrect": "scores.items()로 (과목, 등급) 쌍을 순회해 grade_map으로 점수를 변환합니다. \"과학\"의 등급은 \"F\"이므로 grade_map[\"F\"]=0.0입니다."
+    }
+  },
+
+  {
+    "question_id": "endboss_beg_gpa_p1_005",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "gpa",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "difficulty": "hard",
+    "type": "multiple_choice",
+    "question": "다음 데이터에서 GPA가 가장 높은 학생 이름을 찾는 올바른 코드는?\n\n```python\nstudents = [\n    {\"이름\": \"김철수\", \"gpa\": 3.5},\n    {\"이름\": \"이영희\", \"gpa\": 4.0},\n    {\"이름\": \"박민준\", \"gpa\": 2.8}\n]\n```",
+    "choices": [
+      "A. max(students, key=lambda s: s[\"gpa\"])[\"이름\"]",
+      "B. students.max(key=lambda s: s[\"gpa\"])",
+      "C. sorted(students, key=\"gpa\")[-1][\"이름\"]",
+      "D. max(students[\"gpa\"])"
+    ],
+    "answer": "A",
+    "explanation": "max(iterable, key=함수)는 key 함수 반환값 기준으로 최대 원소를 반환합니다. [\"이름\"]으로 이름을 꺼내면 \"이영희\"가 출력됩니다. B는 list에 .max() 메서드가 없고, C는 key에 문자열을 직접 전달할 수 없으며, D는 리스트를 딕셔너리처럼 subscript할 수 없습니다.",
+    "feedback": {
+      "correct": "정확해요! max(list, key=lambda ...)로 원하는 기준의 최대 딕셔너리를 찾고, 키로 값을 꺼냅니다.",
+      "incorrect": "A가 올바릅니다. list에는 .max() 메서드가 없고, sorted()의 key에는 함수를 전달해야 합니다. max(iterable, key=lambda s: s[\"gpa\"])를 사용하세요."
+    }
+  },
+
+  /* Phase 2 — gpa — 4문제 (error_find) */
+
+  {
+    "question_id": "endboss_beg_gpa_p2_001",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "gpa",
+    "phase": 2,
+    "stage": "final",
+    "unit": 9,
+    "difficulty": "medium",
+    "type": "error_find",
+    "question": "다음 코드는 실행되지만 GPA가 잘못 계산됩니다. 논리 오류가 있는 줄 번호는?\n\n```python\n1: courses = [\n2:     {\"과목\": \"수학\", \"학점\": 3, \"등급\": \"A\"},\n3:     {\"과목\": \"영어\", \"학점\": 2, \"등급\": \"B\"}\n4: ]\n5: grade_map = {\"A\": 4.0, \"B\": 3.0, \"C\": 2.0, \"D\": 1.0}\n6: total = sum(c[\"학점\"] * grade_map[c[\"등급\"]] for c in courses)\n7: gpa = total / len(courses)\n8: print(f\"GPA: {gpa}\")\n```\n\n(의도한 출력: `GPA: 3.6`, 실제 출력: `GPA: 9.0`)",
+    "choices": ["A. 5번째 줄", "B. 6번째 줄", "C. 7번째 줄", "D. 8번째 줄"],
+    "answer": "C",
+    "explanation": "7번째 줄에서 논리 오류가 있습니다. 가중 평균 GPA는 총 학점(3+2=5)으로 나눠야 합니다. len(courses)=2로 나누면 18.0/2=9.0이 됩니다. sum(c[\"학점\"] for c in courses)로 수정해야 합니다.",
+    "feedback": {
+      "correct": "날카롭습니다! 가중 평균은 과목 수가 아닌 총 이수 학점으로 나눠야 합니다.",
+      "incorrect": "7번째 줄이 문제입니다. len(courses)=2가 아닌 총 학점 sum(c[\"학점\"] for c in courses)=5로 나눠야 올바른 가중 평균이 됩니다."
+    }
+  },
+
+  {
+    "question_id": "endboss_beg_gpa_p2_002",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "gpa",
+    "phase": 2,
+    "stage": "final",
+    "unit": 9,
+    "difficulty": "medium",
+    "type": "error_find",
+    "question": "다음 코드에서 KeyError가 발생하는 줄 번호는?\n\n```python\n1: grade_map = {\"A\": 4.0, \"B\": 3.0, \"C\": 2.0, \"D\": 1.0}\n2: courses = [\n3:     {\"과목\": \"수학\", \"등급\": \"A\"},\n4:     {\"과목\": \"영어\", \"등급\": \"F\"}\n5: ]\n6: for c in courses:\n7:     print(f\"{c['과목']}: {grade_map[c['등급']]}\")\n```",
+    "choices": ["A. 1번째 줄", "B. 4번째 줄", "C. 6번째 줄", "D. 7번째 줄"],
+    "answer": "D",
+    "explanation": "7번째 줄에서 KeyError가 발생합니다. grade_map에는 \"F\" 키가 없으므로 영어 과목 처리 시 grade_map[\"F\"]에서 오류가 납니다. grade_map.get(c[\"등급\"], 0.0)으로 수정하거나 grade_map에 \"F\": 0.0을 추가해야 합니다.",
+    "feedback": {
+      "correct": "정확해요! grade_map에 없는 키를 직접 조회하면 KeyError가 발생합니다.",
+      "incorrect": "7번째 줄이 문제입니다. grade_map에 \"F\"가 없으므로 영어 과목 처리 시 KeyError가 납니다. .get(키, 기본값)으로 방어하세요."
+    }
+  },
+
+  {
+    "question_id": "endboss_beg_gpa_p2_003",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "gpa",
+    "phase": 2,
+    "stage": "final",
+    "unit": 9,
+    "difficulty": "hard",
+    "type": "error_find",
+    "question": "등급(평점)이 가장 높은 과목을 찾으려는 코드입니다. 논리 오류가 있는 줄 번호는?\n\n```python\n1: courses = [\n2:     {\"과목\": \"수학\", \"학점\": 3, \"등급\": \"B\"},\n3:     {\"과목\": \"영어\", \"학점\": 2, \"등급\": \"A\"},\n4:     {\"과목\": \"과학\", \"학점\": 1, \"등급\": \"A\"}\n5: ]\n6: grade_map = {\"A\": 4.0, \"B\": 3.0, \"C\": 2.0}\n7: best = max(courses, key=lambda c: c[\"학점\"])\n8: print(best[\"과목\"])\n```\n\n(의도한 출력: 등급이 A인 과목, 실제 출력: `수학`)",
+    "choices": ["A. 2번째 줄", "B. 6번째 줄", "C. 7번째 줄", "D. 오류 없음"],
+    "answer": "C",
+    "explanation": "7번째 줄에서 논리 오류가 있습니다. c[\"학점\"]은 이수 학점(credit) 수이지 등급 점수가 아닙니다. 학점이 3으로 가장 많은 수학이 선택됩니다. 등급이 가장 높은 과목을 찾으려면 key=lambda c: grade_map[c[\"등급\"]]으로 수정해야 합니다.",
+    "feedback": {
+      "correct": "날카롭습니다! c[\"학점\"]은 이수 학점(credit)이고 grade_map[c[\"등급\"]]이 등급 점수입니다. 혼동하지 마세요.",
+      "incorrect": "7번째 줄이 문제입니다. c[\"학점\"]은 이수 학점 수(3, 2, 1)로 등급 점수가 아닙니다. key=lambda c: grade_map[c[\"등급\"]]으로 수정해야 등급 기준으로 최댓값을 찾습니다."
+    }
+  },
+
+  {
+    "question_id": "endboss_beg_gpa_p2_004",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "gpa",
+    "phase": 2,
+    "stage": "final",
+    "unit": 9,
+    "difficulty": "hard",
+    "type": "error_find",
+    "question": "다음 코드에서 ZeroDivisionError가 발생하는 줄 번호는?\n\n```python\n1: courses = []\n2: grade_map = {\"A\": 4.0, \"B\": 3.0, \"C\": 2.0, \"D\": 1.0}\n3: total_weight = sum(c[\"학점\"] * grade_map[c[\"등급\"]] for c in courses)\n4: total_credits = sum(c[\"학점\"] for c in courses)\n5: gpa = total_weight / total_credits\n6: print(f\"GPA: {gpa:.2f}\")\n```",
+    "choices": ["A. 3번째 줄", "B. 4번째 줄", "C. 5번째 줄", "D. 6번째 줄"],
+    "answer": "C",
+    "explanation": "5번째 줄에서 ZeroDivisionError가 발생합니다. courses가 빈 리스트이므로 3번째 줄과 4번째 줄의 sum()은 각각 0을 반환합니다. 5번째 줄에서 0/0이 되어 오류가 납니다. if courses: 조건으로 방어해야 합니다.",
+    "feedback": {
+      "correct": "맞아요! 빈 리스트에서 sum()은 0을 반환하므로 total_credits=0이 되어 나누기 오류가 납니다.",
+      "incorrect": "3, 4번째 줄의 sum()은 빈 제너레이터에서 0을 반환하므로 오류가 없습니다. 5번째 줄 0/0에서 ZeroDivisionError가 발생합니다."
+    }
+  },
+
+  /* Phase 3 결정타 — gpa — 3문제 (fill_in_blank) */
+
+  {
+    "question_id": "endboss_beg_gpa_p3_001",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "gpa",
+    "phase": 3,
+    "stage": "final",
+    "unit": 9,
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "question": "학점 가중 합산을 계산하는 코드입니다.\n빈칸에 알맞은 함수를 입력하세요.\n\n```python\ncourses = [\n    {\"과목\": \"수학\", \"학점\": 3, \"등급\": \"A\"},\n    {\"과목\": \"영어\", \"학점\": 2, \"등급\": \"B\"},\n    {\"과목\": \"과학\", \"학점\": 1, \"등급\": \"C\"}\n]\ngrade_map = {\"A\": 4.0, \"B\": 3.0, \"C\": 2.0, \"D\": 1.0}\ntotal_weight = _____(c[\"학점\"] * grade_map[c[\"등급\"]] for c in courses)\nprint(total_weight)  # 20.0\n```",
+    "answer": "sum",
+    "explanation": "sum()은 제너레이터 표현식을 받아 전체 합산을 반환합니다. 3×4.0 + 2×3.0 + 1×2.0 = 12.0 + 6.0 + 2.0 = 20.0입니다.",
+    "feedback": {
+      "correct": "완벽합니다! sum(제너레이터 표현식) 패턴으로 가중 합산을 한 줄로 처리합니다.",
+      "incorrect": "제너레이터 표현식의 합을 구하는 함수는 sum()입니다. sum(c[\"학점\"] * grade_map[c[\"등급\"]] for c in courses)로 가중 합산합니다."
+    }
+  },
+
+  {
+    "question_id": "endboss_beg_gpa_p3_002",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "gpa",
+    "phase": 3,
+    "stage": "final",
+    "unit": 9,
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "question": "grade_map에 없는 등급(예: 'F')을 조회할 때 0.0을 반환하도록 하는 코드입니다.\n빈칸에 알맞은 메서드를 입력하세요.\n\n```python\ngrade_map = {\"A\": 4.0, \"B\": 3.0, \"C\": 2.0, \"D\": 1.0}\nmy_grade = \"F\"\npoint = grade_map._____(my_grade, 0.0)\nprint(point)  # 0.0\n```",
+    "answer": "get",
+    "explanation": "dict.get(key, default)는 키가 없을 때 KeyError 대신 default 값을 반환합니다. grade_map에 \"F\"가 없으므로 0.0이 반환됩니다.",
+    "feedback": {
+      "correct": "완벽합니다! .get(key, default)로 KeyError 없이 안전하게 딕셔너리 값을 조회합니다.",
+      "incorrect": "키가 없을 때 기본값을 반환하는 메서드는 .get(key, default)입니다. grade_map.get(\"F\", 0.0)은 0.0을 반환합니다."
+    }
+  },
+
+  {
+    "question_id": "endboss_beg_gpa_p3_003",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "gpa",
+    "phase": 3,
+    "stage": "final",
+    "unit": 9,
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "question": "GPA 기준 내림차순으로 학생을 정렬하는 코드입니다.\n빈칸에 알맞은 함수를 입력하세요.\n\n```python\nstudents = [\n    {\"이름\": \"김철수\", \"gpa\": 3.5},\n    {\"이름\": \"이영희\", \"gpa\": 4.0},\n    {\"이름\": \"박민준\", \"gpa\": 2.8}\n]\nranking = _____(students, key=lambda s: s[\"gpa\"], reverse=True)\nprint(ranking[0][\"이름\"])  # 이영희\n```",
+    "answer": "sorted",
+    "explanation": "sorted(iterable, key=함수, reverse=True)는 원본을 변경하지 않고 정렬된 새 리스트를 반환합니다. GPA 내림차순 첫 번째는 4.0인 이영희입니다.",
+    "feedback": {
+      "correct": "완벽합니다! sorted()로 원본을 유지하며 정렬된 새 리스트를 만듭니다.",
+      "incorrect": "key와 reverse 파라미터를 받아 새 리스트를 반환하는 함수는 sorted()입니다. sort()는 원본 리스트를 직접 정렬하고 None을 반환합니다."
+    }
   }
 
 ]

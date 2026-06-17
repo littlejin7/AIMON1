@@ -134,10 +134,9 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
     ]
     completed_stage_ids = {p.get("stage") for p in user_unit_stages}
     
-    lessons_file = os.path.join(os.path.dirname(__file__), "../data/lessons.json")
     try:
-        with open(lessons_file, "r", encoding="utf-8") as f:
-            lessons_data = json.load(f)
+        from routers.quiz import load_units
+        lessons_data = load_units(course_level)
         lesson = next((l for l in lessons_data if l.get("unit_id") == req.unit), None)
         total_stages = lesson.get("stages", 7) if lesson else 7
     except Exception:

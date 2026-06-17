@@ -285,6 +285,7 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
                 "stage": question.get("stage", "1-boss"),
                 "score": ai_result.get("score", 100),
                 "is_completed": True,
+                "course_level": course_level,
                 "created_at": datetime.utcnow().isoformat(),
                 "updated_at": datetime.utcnow().isoformat(),
             })

@@ -31,7 +31,7 @@ BOSS_HP_DELTA = 100   # 정답 시 보스 HP 감소
 MY_HP_DELTA   = 300   # 오답 시 내 HP 감소
 
 # ── 보상 ─────────────────────────────────────────────────────────────────────
-CLEAR_XP = 500
+CLEAR_XP = 2500
 
 
 # ── 유틸 ──────────────────────────────────────────────────────────────────────
@@ -265,6 +265,7 @@ def miniboss_clear(req: ClearRequest, authorization: str = Header(...)):
             existing["is_completed"] = True
             existing["updated_at"]   = datetime.utcnow().isoformat()
         else:
+            course_level = user.get("course_level", "beginner")
             progress.append({
                 "id":           str(uuid.uuid4()),
                 "user_id":      user_id,
@@ -272,6 +273,7 @@ def miniboss_clear(req: ClearRequest, authorization: str = Header(...)):
                 "stage":        req.stage,
                 "score":        100,
                 "is_completed": True,
+                "course_level": course_level,
                 "created_at":   datetime.utcnow().isoformat(),
                 "updated_at":   datetime.utcnow().isoformat(),
             })
