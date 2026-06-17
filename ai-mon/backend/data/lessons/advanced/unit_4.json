@@ -1,0 +1,879 @@
+[
+  {
+    "lesson_id": "4-1-advanced",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "advanced",
+    "title": "Streamlit 기초",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "Streamlit은 Python 코드만으로 웹 앱을 만들 수 있는 프레임워크입니다.\nHTML·CSS·JavaScript 없이도 데이터 시각화, 챗봇, 대시보드를 빠르게 구성할 수 있습니다.",
+        "tip": "pip install streamlit 으로 설치하고, streamlit run app.py 로 실행합니다."
+      },
+      {
+        "order": 2,
+        "text": "가장 기본적인 Streamlit 앱은 st.title(), st.write() 만으로 완성됩니다.\n파일을 저장하면 브라우저가 자동으로 리로드되어 결과를 즉시 확인할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "import streamlit as st",
+            "",
+            "st.title('에이몬 앱')",
+            "st.write('안녕하세요! 첫 번째 Streamlit 앱입니다.')"
+          ],
+          "output": [
+            "# 브라우저 화면:",
+            "에이몬 앱               ← 큰 제목",
+            "안녕하세요! 첫 번째 Streamlit 앱입니다."
+          ]
+        },
+        "tip": "st.write()는 텍스트·데이터프레임·차트 등 다양한 타입을 자동 감지해 렌더링합니다."
+      },
+      {
+        "order": 3,
+        "text": "st.text_input()으로 사용자 입력을 받을 수 있습니다.\n반환값은 문자열이며, 입력이 없으면 빈 문자열이 반환됩니다.",
+        "terminal": {
+          "code": [
+            "import streamlit as st",
+            "",
+            "name = st.text_input('이름을 입력하세요')",
+            "if name:",
+            "    st.write(f'안녕하세요, {name}님!')"
+          ],
+          "output": [
+            "# 사용자가 '에이몬' 입력 후:",
+            "안녕하세요, 에이몬님!"
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "st.button()은 클릭 이벤트를 처리합니다.\n버튼이 눌리면 True를 반환하고 앱 전체가 위에서부터 다시 실행됩니다.",
+        "terminal": {
+          "code": [
+            "import streamlit as st",
+            "",
+            "if st.button('클릭하세요'):",
+            "    st.write('버튼이 눌렸습니다!')",
+            "else:",
+            "    st.write('버튼을 눌러보세요.')"
+          ],
+          "output": [
+            "# 클릭 전: 버튼을 눌러보세요.",
+            "# 클릭 후: 버튼이 눌렸습니다!"
+          ]
+        },
+        "tip": "Streamlit은 이벤트마다 스크립트 전체를 재실행합니다. 이 특성이 상태 관리의 핵심입니다."
+      },
+      {
+        "order": 5,
+        "text": "st.sidebar를 사용하면 사이드바에 위젯을 배치할 수 있습니다.\nst.sidebar.xxx() 형태로 동일한 위젯을 사이드바 영역에 렌더링합니다.",
+        "terminal": {
+          "code": [
+            "import streamlit as st",
+            "",
+            "level = st.sidebar.selectbox(",
+            "    '난이도 선택',",
+            "    ['초급', '중급', '고급']",
+            ")",
+            "st.write(f'선택된 난이도: {level}')"
+          ],
+          "output": [
+            "# 사이드바에 드롭다운 표시",
+            "# 메인 화면: 선택된 난이도: 초급"
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "st.columns()로 화면을 열 단위로 분할할 수 있습니다.\n각 열은 독립적인 컨텍스트로, with 구문으로 해당 열에 컴포넌트를 배치합니다.",
+        "terminal": {
+          "code": [
+            "import streamlit as st",
+            "",
+            "col1, col2 = st.columns(2)",
+            "",
+            "with col1:",
+            "    st.metric('정답', '7개')",
+            "",
+            "with col2:",
+            "    st.metric('오답', '3개')"
+          ],
+          "output": [
+            "# 화면 좌우 분할:",
+            "[ 정답  7개 ] [ 오답  3개 ]"
+          ]
+        },
+        "tip": "st.columns([2, 1])처럼 리스트로 넘기면 비율을 지정할 수 있습니다."
+      },
+      {
+        "order": 7,
+        "text": "Streamlit 앱의 기본 구조를 정리하면, import → 제목/설명 → 사용자 입력 → 로직 → 출력 순서로 작성합니다.\n이 흐름은 챗봇을 포함한 모든 Streamlit 앱의 뼈대가 됩니다.",
+        "terminal": {
+          "code": [
+            "import streamlit as st",
+            "",
+            "# 1) 제목",
+            "st.title('나의 AI 앱')",
+            "",
+            "# 2) 사용자 입력",
+            "query = st.text_input('질문을 입력하세요')",
+            "",
+            "# 3) 로직 & 출력",
+            "if query:",
+            "    st.success(f'입력 받음: {query}')"
+          ],
+          "output": [
+            "# 'Python이란?' 입력 후:",
+            "입력 받음: Python이란?"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "lesson_id": "4-2-advanced",
+    "unit": 4,
+    "stage": "4-2",
+    "course_level": "advanced",
+    "title": "Streamlit 상태 관리",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "Streamlit은 이벤트가 발생할 때마다 스크립트를 처음부터 다시 실행합니다.\n이 때문에 일반 변수는 매 실행마다 초기화됩니다. 상태를 유지하려면 st.session_state를 사용합니다.",
+        "tip": "st.session_state는 딕셔너리처럼 동작하며, 앱이 살아 있는 동안 데이터를 보존합니다."
+      },
+      {
+        "order": 2,
+        "text": "st.session_state에 키를 등록하면 리로드 후에도 값이 유지됩니다.\n초기화 시에는 키 존재 여부를 먼저 확인하는 패턴을 사용합니다.",
+        "terminal": {
+          "code": [
+            "import streamlit as st",
+            "",
+            "if 'count' not in st.session_state:",
+            "    st.session_state.count = 0",
+            "",
+            "if st.button('카운트 증가'):",
+            "    st.session_state.count += 1",
+            "",
+            "st.write(f'현재 카운트: {st.session_state.count}')"
+          ],
+          "output": [
+            "# 버튼 3회 클릭 후:",
+            "현재 카운트: 3"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "챗봇에서는 대화 이력을 messages 리스트로 session_state에 저장합니다.\n각 메시지는 role(사용자/어시스턴트)과 content를 포함하는 딕셔너리입니다.",
+        "terminal": {
+          "code": [
+            "import streamlit as st",
+            "",
+            "if 'messages' not in st.session_state:",
+            "    st.session_state.messages = []",
+            "",
+            "# 메시지 추가 예시",
+            "st.session_state.messages.append({",
+            "    'role': 'user',",
+            "    'content': '안녕하세요!'",
+            "})",
+            "",
+            "print(len(st.session_state.messages))"
+          ],
+          "output": [
+            "1"
+          ]
+        },
+        "tip": "이 구조는 Claude API의 messages 형식과 동일하여, 그대로 API에 전달할 수 있습니다."
+      },
+      {
+        "order": 4,
+        "text": "st.chat_message()는 역할별 말풍선 UI를 렌더링합니다.\n'user'는 오른쪽, 'assistant'는 왼쪽에 아바타와 함께 표시됩니다.",
+        "terminal": {
+          "code": [
+            "import streamlit as st",
+            "",
+            "with st.chat_message('user'):",
+            "    st.write('Python 어떻게 배워요?')",
+            "",
+            "with st.chat_message('assistant'):",
+            "    st.write('공식 튜토리얼과 실습을 병행하면 효과적입니다!')"
+          ],
+          "output": [
+            "# 브라우저:",
+            "👤 Python 어떻게 배워요?          (우측)",
+            "🤖 공식 튜토리얼과 실습을 병행하면 효과적입니다! (좌측)"
+          ]
+        }
+      },
+      {
+        "order": 5,
+        "text": "st.chat_input()은 하단 고정 입력창을 생성합니다.\n사용자가 Enter를 누르면 입력값을 반환하고 입력창은 자동으로 초기화됩니다.",
+        "terminal": {
+          "code": [
+            "import streamlit as st",
+            "",
+            "prompt = st.chat_input('메시지를 입력하세요...')",
+            "",
+            "if prompt:",
+            "    st.write(f'입력됨: {prompt}')"
+          ],
+          "output": [
+            "# '안녕' 입력 후 Enter:",
+            "입력됨: 안녕"
+          ]
+        },
+        "tip": "st.chat_input()은 페이지 하단에 고정되어 항상 접근 가능합니다."
+      },
+      {
+        "order": 6,
+        "text": "대화 이력 렌더링 패턴: session_state.messages를 순회하며 chat_message()로 출력합니다.\n새 메시지를 추가한 뒤 앱이 재실행되어도 이전 대화가 그대로 유지됩니다.",
+        "terminal": {
+          "code": [
+            "import streamlit as st",
+            "",
+            "if 'messages' not in st.session_state:",
+            "    st.session_state.messages = []",
+            "",
+            "# 이전 메시지 렌더링",
+            "for msg in st.session_state.messages:",
+            "    with st.chat_message(msg['role']):",
+            "        st.write(msg['content'])"
+          ],
+          "output": [
+            "# session_state.messages에 저장된",
+            "# 모든 이전 대화가 순서대로 렌더링됨"
+          ]
+        }
+      },
+      {
+        "order": 7,
+        "text": "session_state 초기화 → 이전 메시지 렌더링 → 입력 수신 → 메시지 추가 순서가\nStreamlit 챗봇의 표준 상태 관리 패턴입니다. 이 구조를 기억해 두세요.",
+        "terminal": {
+          "code": [
+            "import streamlit as st",
+            "",
+            "# 1) 초기화",
+            "if 'messages' not in st.session_state:",
+            "    st.session_state.messages = []",
+            "",
+            "# 2) 이전 메시지 렌더링",
+            "for msg in st.session_state.messages:",
+            "    with st.chat_message(msg['role']):",
+            "        st.write(msg['content'])",
+            "",
+            "# 3) 입력 수신 & 저장",
+            "if prompt := st.chat_input('입력...'):",
+            "    st.session_state.messages.append(",
+            "        {'role': 'user', 'content': prompt}",
+            "    )"
+          ],
+          "output": [
+            "# 완성된 상태 관리 기본 골격"
+          ]
+        },
+        "tip": "if prompt := st.chat_input() 는 walrus operator(:=)를 활용한 관용 패턴입니다."
+      }
+    ]
+  },
+  {
+    "lesson_id": "4-3-advanced",
+    "unit": 4,
+    "stage": "4-3",
+    "course_level": "advanced",
+    "title": "챗봇 UI 구성",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "챗봇 UI의 핵심은 '이전 대화 렌더링 → 입력 수신 → 응답 표시' 루프를 자연스럽게 구성하는 것입니다.\n이번 스테이지에서는 Claude API 없이도 동작하는 에코 챗봇으로 UI를 완성합니다.",
+        "tip": "에코 챗봇이란 사용자 입력을 그대로 돌려주는 챗봇입니다. API 없이 UI 흐름을 검증할 때 유용합니다."
+      },
+      {
+        "order": 2,
+        "text": "st.title()과 st.caption()으로 챗봇 헤더를 구성합니다.\nst.divider()는 가로 구분선을 그려 헤더와 대화 영역을 시각적으로 분리합니다.",
+        "terminal": {
+          "code": [
+            "import streamlit as st",
+            "",
+            "st.title('🤖 에이몬 챗봇')",
+            "st.caption('Claude API 기반 AI 어시스턴트')",
+            "st.divider()"
+          ],
+          "output": [
+            "# 브라우저 상단:",
+            "🤖 에이몬 챗봇",
+            "Claude API 기반 AI 어시스턴트",
+            "─────────────────────────────"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "with st.chat_message()의 중괄호 안에 여러 컴포넌트를 넣을 수 있습니다.\nst.code()로 코드 블록을 말풍선 내에 렌더링하는 방식을 활용하면 기술 챗봇에 유용합니다.",
+        "terminal": {
+          "code": [
+            "import streamlit as st",
+            "",
+            "with st.chat_message('assistant'):",
+            "    st.write('리스트 컴프리헨션 예시입니다:')",
+            "    st.code(",
+            "        'squares = [x**2 for x in range(5)]',",
+            "        language='python'",
+            "    )"
+          ],
+          "output": [
+            "🤖 리스트 컴프리헨션 예시입니다:",
+            "   squares = [x**2 for x in range(5)]  (코드 블록)"
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "st.spinner()는 처리 중임을 나타내는 로딩 애니메이션을 표시합니다.\nAPI 응답 대기처럼 시간이 걸리는 작업 앞에 with st.spinner() 블록을 감쌉니다.",
+        "terminal": {
+          "code": [
+            "import streamlit as st",
+            "import time",
+            "",
+            "if st.button('응답 받기'):",
+            "    with st.spinner('AI가 생각 중...'):",
+            "        time.sleep(2)   # API 호출 대기 시뮬레이션",
+            "    st.write('응답 완료!')"
+          ],
+          "output": [
+            "# 2초 동안: AI가 생각 중... (스피너 표시)",
+            "# 완료 후: 응답 완료!"
+          ]
+        },
+        "tip": "실제 API 호출 시 st.spinner() 안에 requests 또는 anthropic 호출을 넣습니다."
+      },
+      {
+        "order": 5,
+        "text": "st.write_stream()을 사용하면 스트리밍 텍스트를 글자 단위로 실시간 렌더링할 수 있습니다.\n제너레이터를 넘기면 yield되는 문자열 조각을 순서대로 화면에 이어 붙입니다.",
+        "terminal": {
+          "code": [
+            "import streamlit as st",
+            "",
+            "def fake_stream():",
+            "    for word in ['안녕', '하세요', ', ', '에이몬', '입니다!']:",
+            "        yield word",
+            "",
+            "with st.chat_message('assistant'):",
+            "    st.write_stream(fake_stream())"
+          ],
+          "output": [
+            "# 단어가 순서대로 이어붙여지며 출력:",
+            "안녕하세요, 에이몬입니다!"
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "에코 챗봇 완성본입니다. 사용자 입력을 그대로 반환하며,\nsession_state로 대화 이력을 유지하고 chat_message()로 말풍선을 렌더링합니다.",
+        "terminal": {
+          "code": [
+            "import streamlit as st",
+            "",
+            "st.title('에코 챗봇')",
+            "",
+            "if 'messages' not in st.session_state:",
+            "    st.session_state.messages = []",
+            "",
+            "for msg in st.session_state.messages:",
+            "    with st.chat_message(msg['role']):",
+            "        st.write(msg['content'])",
+            "",
+            "if prompt := st.chat_input('입력하세요...'):",
+            "    st.session_state.messages.append({'role': 'user', 'content': prompt})",
+            "    with st.chat_message('user'):",
+            "        st.write(prompt)",
+            "    reply = f'에코: {prompt}'",
+            "    st.session_state.messages.append({'role': 'assistant', 'content': reply})",
+            "    with st.chat_message('assistant'):",
+            "        st.write(reply)"
+          ],
+          "output": [
+            "# '안녕' 입력 →",
+            "👤 안녕",
+            "🤖 에코: 안녕"
+          ]
+        }
+      },
+      {
+        "order": 7,
+        "text": "사이드바에 대화 초기화 버튼을 추가하면 UX가 완성됩니다.\n버튼 클릭 시 session_state.messages를 빈 리스트로 재설정합니다.",
+        "terminal": {
+          "code": [
+            "import streamlit as st",
+            "",
+            "with st.sidebar:",
+            "    st.header('설정')",
+            "    if st.button('대화 초기화'):",
+            "        st.session_state.messages = []",
+            "        st.rerun()"
+          ],
+          "output": [
+            "# 사이드바에 [대화 초기화] 버튼 표시",
+            "# 클릭 시 대화 이력 전체 삭제 후 앱 재실행"
+          ]
+        },
+        "tip": "st.rerun()은 현재 실행을 즉시 중단하고 스크립트를 처음부터 재실행합니다."
+      }
+    ]
+  },
+  {
+    "lesson_id": "4-4-advanced",
+    "unit": 4,
+    "stage": "4-4",
+    "course_level": "advanced",
+    "title": "Claude API 연결",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "이번 스테이지에서는 에코 챗봇에 Claude API를 연결해 실제 AI 응답을 받습니다.\nanthopic 라이브러리 설치 → 클라이언트 생성 → messages 전달 → 응답 파싱 순으로 진행합니다.",
+        "tip": "pip install anthropic 으로 설치합니다. API 키는 코드에 직접 쓰지 않고 환경 변수로 관리합니다."
+      },
+      {
+        "order": 2,
+        "text": "Anthropic 클라이언트는 api_key를 받아 생성합니다.\nos.environ에서 API 키를 읽는 것이 기본 패턴이며, .env 파일과 python-dotenv를 함께 사용합니다.",
+        "terminal": {
+          "code": [
+            "import os",
+            "import anthropic",
+            "",
+            "client = anthropic.Anthropic(",
+            "    api_key=os.environ.get('ANTHROPIC_API_KEY')",
+            ")"
+          ],
+          "output": [
+            "# 환경 변수 ANTHROPIC_API_KEY가 설정되어 있으면",
+            "# 클라이언트 객체가 정상 생성됨 (출력 없음)"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "Streamlit에서는 st.secrets를 사용해 API 키를 안전하게 관리합니다.\n.streamlit/secrets.toml 파일에 키를 저장하면 st.secrets['ANTHROPIC_API_KEY']로 접근합니다.",
+        "terminal": {
+          "code": [
+            "# .streamlit/secrets.toml 내용:",
+            "# ANTHROPIC_API_KEY = 'sk-ant-...'",
+            "",
+            "import streamlit as st",
+            "import anthropic",
+            "",
+            "client = anthropic.Anthropic(",
+            "    api_key=st.secrets['ANTHROPIC_API_KEY']",
+            ")"
+          ],
+          "output": [
+            "# secrets.toml이 올바르면 클라이언트 생성 성공",
+            "# 배포 환경에서는 Streamlit Cloud의 Secrets 설정을 사용"
+          ]
+        },
+        "tip": "secrets.toml은 절대 Git에 커밋하지 않습니다. .gitignore에 .streamlit/secrets.toml을 추가하세요."
+      },
+      {
+        "order": 4,
+        "text": "client.messages.create()로 Claude에 메시지를 전송합니다.\nmodel, max_tokens, messages 세 가지가 필수 파라미터입니다.",
+        "terminal": {
+          "code": [
+            "message = client.messages.create(",
+            "    model='claude-sonnet-4-6',",
+            "    max_tokens=1024,",
+            "    messages=[",
+            "        {'role': 'user', 'content': 'Python이란 무엇인가요?'}",
+            "    ]",
+            ")",
+            "",
+            "print(message.content[0].text)"
+          ],
+          "output": [
+            "Python은 1991년 귀도 반 로섬이 만든 고수준 프로그래밍 언어로..."
+          ]
+        }
+      },
+      {
+        "order": 5,
+        "text": "session_state.messages를 그대로 Claude API의 messages에 전달할 수 있습니다.\n이렇게 하면 이전 대화 문맥이 모두 포함된 멀티턴 대화가 자동으로 구성됩니다.",
+        "terminal": {
+          "code": [
+            "def get_claude_response(messages):",
+            "    response = client.messages.create(",
+            "        model='claude-sonnet-4-6',",
+            "        max_tokens=1024,",
+            "        messages=messages",
+            "    )",
+            "    return response.content[0].text",
+            "",
+            "# 사용 예:",
+            "reply = get_claude_response(st.session_state.messages)"
+          ],
+          "output": [
+            "# Claude API가 messages 전체 맥락을 바탕으로 응답 반환"
+          ]
+        },
+        "tip": "messages에 system 역할은 포함하지 않습니다. system 프롬프트는 별도 system 파라미터로 전달합니다."
+      },
+      {
+        "order": 6,
+        "text": "에코 챗봇에 Claude API를 연결한 완성 코드입니다.\n사용자 메시지를 session_state에 추가한 뒤 Claude API를 호출하고, 응답을 session_state에 저장합니다.",
+        "terminal": {
+          "code": [
+            "import streamlit as st",
+            "import anthropic",
+            "",
+            "client = anthropic.Anthropic(",
+            "    api_key=st.secrets['ANTHROPIC_API_KEY']",
+            ")",
+            "",
+            "st.title('AI 챗봇')",
+            "if 'messages' not in st.session_state:",
+            "    st.session_state.messages = []",
+            "",
+            "for msg in st.session_state.messages:",
+            "    with st.chat_message(msg['role']):",
+            "        st.write(msg['content'])",
+            "",
+            "if prompt := st.chat_input('질문하세요...'):",
+            "    st.session_state.messages.append({'role': 'user', 'content': prompt})",
+            "    with st.chat_message('user'):",
+            "        st.write(prompt)",
+            "    with st.spinner('생각 중...'):",
+            "        resp = client.messages.create(",
+            "            model='claude-sonnet-4-6',",
+            "            max_tokens=1024,",
+            "            messages=st.session_state.messages",
+            "        )",
+            "        reply = resp.content[0].text",
+            "    st.session_state.messages.append({'role': 'assistant', 'content': reply})",
+            "    with st.chat_message('assistant'):",
+            "        st.write(reply)"
+          ],
+          "output": [
+            "# Claude가 실제 응답을 반환하는 완성형 챗봇"
+          ]
+        }
+      },
+      {
+        "order": 7,
+        "text": "API 호출 실패에 대비해 try/except를 추가합니다.\nanthropicAPIError를 잡아 사용자에게 오류 메시지를 표시하면 앱이 중단되지 않습니다.",
+        "terminal": {
+          "code": [
+            "try:",
+            "    resp = client.messages.create(",
+            "        model='claude-sonnet-4-6',",
+            "        max_tokens=1024,",
+            "        messages=st.session_state.messages",
+            "    )",
+            "    reply = resp.content[0].text",
+            "except anthropic.APIError as e:",
+            "    reply = f'API 오류가 발생했습니다: {e}'",
+            "",
+            "st.session_state.messages.append(",
+            "    {'role': 'assistant', 'content': reply}",
+            ")"
+          ],
+          "output": [
+            "# 정상: Claude 응답 텍스트 저장",
+            "# 오류: 'API 오류가 발생했습니다: ...' 메시지 저장"
+          ]
+        },
+        "tip": "anthropic.RateLimitError, anthropic.AuthenticationError 등을 구분해 처리하면 더 정확한 안내가 가능합니다."
+      }
+    ]
+  },
+  {
+    "lesson_id": "4-5-advanced",
+    "unit": 4,
+    "stage": "4-5",
+    "course_level": "advanced",
+    "title": "챗봇 기능 확장",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "기본 챗봇이 완성되면 system 프롬프트, 스트리밍, 토큰 제한 등 실전 기능을 추가합니다.\n이번 스테이지에서는 세 가지 확장 기능을 단계별로 적용합니다.",
+        "tip": "기능을 하나씩 추가하면서 각 단계에서 앱을 실행해 검증하는 것이 좋습니다."
+      },
+      {
+        "order": 2,
+        "text": "system 파라미터로 챗봇의 역할과 응답 방식을 고정할 수 있습니다.\nsystem은 messages 배열 밖에 별도 파라미터로 전달합니다.",
+        "terminal": {
+          "code": [
+            "SYSTEM_PROMPT = '당신은 Python 전문 튜터입니다. 친절하고 간결하게 답변하세요.'",
+            "",
+            "resp = client.messages.create(",
+            "    model='claude-sonnet-4-6',",
+            "    max_tokens=1024,",
+            "    system=SYSTEM_PROMPT,",
+            "    messages=st.session_state.messages",
+            ")"
+          ],
+          "output": [
+            "# Claude가 Python 튜터 역할로 응답"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "스트리밍 응답은 client.messages.stream() 컨텍스트 매니저로 구현합니다.\nst.write_stream()에 텍스트 청크를 yield하는 제너레이터를 넘기면 실시간 렌더링됩니다.",
+        "terminal": {
+          "code": [
+            "def stream_response(messages):",
+            "    with client.messages.stream(",
+            "        model='claude-sonnet-4-6',",
+            "        max_tokens=1024,",
+            "        messages=messages",
+            "    ) as stream:",
+            "        for text in stream.text_stream:",
+            "            yield text",
+            "",
+            "with st.chat_message('assistant'):",
+            "    reply = st.write_stream(stream_response(st.session_state.messages))"
+          ],
+          "output": [
+            "# 응답 텍스트가 글자 단위로 실시간 렌더링됨"
+          ]
+        },
+        "tip": "st.write_stream()은 제너레이터가 완료되면 완성된 전체 문자열을 반환합니다. 이를 session_state에 저장합니다."
+      },
+      {
+        "order": 4,
+        "text": "대화 이력이 길어지면 토큰 비용이 증가합니다.\n최근 N개 메시지만 유지하는 슬라이딩 윈도우 전략으로 토큰을 제한합니다.",
+        "terminal": {
+          "code": [
+            "MAX_HISTORY = 10  # 최근 10개 메시지만 유지",
+            "",
+            "def get_context(messages):",
+            "    return messages[-MAX_HISTORY:]",
+            "",
+            "resp = client.messages.create(",
+            "    model='claude-sonnet-4-6',",
+            "    max_tokens=1024,",
+            "    messages=get_context(st.session_state.messages)",
+            ")"
+          ],
+          "output": [
+            "# messages가 15개여도 최근 10개만 API에 전달"
+          ]
+        }
+      },
+      {
+        "order": 5,
+        "text": "st.sidebar에 temperature 슬라이더를 추가하면 응답 다양성을 실시간으로 조절할 수 있습니다.\ntemperature는 0.0(결정적)~1.0(창의적) 범위이며, 챗봇은 보통 0.7 전후를 사용합니다.",
+        "terminal": {
+          "code": [
+            "with st.sidebar:",
+            "    temperature = st.slider(",
+            "        'Temperature', 0.0, 1.0, 0.7, step=0.1",
+            "    )",
+            "",
+            "resp = client.messages.create(",
+            "    model='claude-sonnet-4-6',",
+            "    max_tokens=1024,",
+            "    temperature=temperature,",
+            "    messages=st.session_state.messages",
+            ")"
+          ],
+          "output": [
+            "# 사이드바에 슬라이더 표시",
+            "# 슬라이더 값이 API 호출에 실시간 반영"
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "사이드바에 모델 선택 드롭다운을 추가하면 같은 UI에서 다양한 Claude 모델을 비교할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "with st.sidebar:",
+            "    model = st.selectbox(",
+            "        '모델 선택',",
+            "        ['claude-sonnet-4-6', 'claude-haiku-4-5-20251001']",
+            "    )",
+            "",
+            "resp = client.messages.create(",
+            "    model=model,",
+            "    max_tokens=1024,",
+            "    messages=st.session_state.messages",
+            ")"
+          ],
+          "output": [
+            "# 사이드바 드롭다운에서 모델 선택",
+            "# 선택된 모델로 API 호출"
+          ]
+        },
+        "tip": "Haiku는 응답이 빠르고 비용이 낮으며, Sonnet은 품질과 속도의 균형이 좋습니다."
+      },
+      {
+        "order": 7,
+        "text": "확장 기능을 모두 통합한 챗봇의 사이드바 구성입니다.\n초기화 버튼 + 모델 선택 + temperature 슬라이더가 한 곳에 모여 설정 패널 역할을 합니다.",
+        "terminal": {
+          "code": [
+            "with st.sidebar:",
+            "    st.header('⚙️ 설정')",
+            "    model = st.selectbox('모델', ['claude-sonnet-4-6', 'claude-haiku-4-5-20251001'])",
+            "    temperature = st.slider('Temperature', 0.0, 1.0, 0.7, 0.1)",
+            "    st.divider()",
+            "    if st.button('대화 초기화'):",
+            "        st.session_state.messages = []",
+            "        st.rerun()"
+          ],
+          "output": [
+            "# 사이드바:",
+            "⚙️ 설정",
+            "[모델 드롭다운]",
+            "[Temperature 슬라이더]",
+            "─────────────",
+            "[대화 초기화 버튼]"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "lesson_id": "4-6-advanced",
+    "unit": 4,
+    "stage": "4-6",
+    "course_level": "advanced",
+    "title": "Streamlit 앱 배포",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "Streamlit Community Cloud는 GitHub 리포지토리를 연결하면 무료로 Streamlit 앱을 배포할 수 있는 플랫폼입니다.\n코드를 push하면 자동으로 재배포되어 CI/CD 없이도 최신 버전이 반영됩니다.",
+        "tip": "배포 전 requirements.txt와 .streamlit/secrets.toml 설정이 완료되어야 합니다."
+      },
+      {
+        "order": 2,
+        "text": "requirements.txt에 필요한 패키지와 버전을 명시합니다.\n배포 환경에서 이 파일을 기반으로 패키지가 설치됩니다.",
+        "terminal": {
+          "code": [
+            "# requirements.txt",
+            "streamlit>=1.35.0",
+            "anthropic>=0.25.0",
+            "python-dotenv>=1.0.0"
+          ],
+          "output": [
+            "# 배포 시 위 패키지들이 자동 설치됨"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "배포 전 리포지토리 구조를 정리합니다.\napp.py가 진입점이고, .streamlit/secrets.toml은 Git에 포함하지 않습니다.",
+        "terminal": {
+          "code": [
+            "# 권장 프로젝트 구조",
+            "my_chatbot/",
+            "├── app.py               # 메인 앱",
+            "├── requirements.txt     # 의존성",
+            "├── .gitignore           # secrets.toml 제외",
+            "└── .streamlit/",
+            "    └── secrets.toml     # API 키 (Git 제외)"
+          ],
+          "output": [
+            "# .gitignore에 반드시 포함:",
+            ".streamlit/secrets.toml"
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "Streamlit Community Cloud에서 API 키를 설정하는 방법입니다.\n앱 설정 → Secrets 탭에 TOML 형식으로 입력하며, 이 값은 st.secrets로 접근합니다.",
+        "terminal": {
+          "code": [
+            "# Streamlit Cloud Secrets 설정창에 입력:",
+            "ANTHROPIC_API_KEY = 'sk-ant-api03-...'",
+            "",
+            "# app.py에서 접근:",
+            "import streamlit as st",
+            "import anthropic",
+            "",
+            "client = anthropic.Anthropic(",
+            "    api_key=st.secrets['ANTHROPIC_API_KEY']",
+            ")"
+          ],
+          "output": [
+            "# 로컬: .streamlit/secrets.toml 에서 읽음",
+            "# 배포: Streamlit Cloud Secrets에서 읽음",
+            "# 코드는 동일하게 st.secrets['ANTHROPIC_API_KEY'] 사용"
+          ]
+        },
+        "tip": "st.secrets는 로컬에서는 secrets.toml을, 클라우드에서는 Cloud Secrets를 자동으로 읽습니다."
+      },
+      {
+        "order": 5,
+        "text": "배포 후 앱 성능을 개선하려면 @st.cache_resource로 클라이언트 생성을 캐싱합니다.\n이 데코레이터는 앱 시작 시 한 번만 실행되고, 이후 재실행 시 캐시된 객체를 재사용합니다.",
+        "terminal": {
+          "code": [
+            "import streamlit as st",
+            "import anthropic",
+            "",
+            "@st.cache_resource",
+            "def get_client():",
+            "    return anthropic.Anthropic(",
+            "        api_key=st.secrets['ANTHROPIC_API_KEY']",
+            "    )",
+            "",
+            "client = get_client()"
+          ],
+          "output": [
+            "# 앱 첫 실행 시: Anthropic 클라이언트 생성",
+            "# 이후 재실행 시: 캐시된 클라이언트 재사용"
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "st.cache_data는 함수 반환값을 캐싱합니다. API 호출 결과 같은 데이터를 재사용할 때 유용합니다.\nttl(Time To Live) 파라미터로 캐시 유효 시간을 설정할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "import streamlit as st",
+            "",
+            "@st.cache_data(ttl=3600)  # 1시간 캐시",
+            "def get_system_prompt():",
+            "    # 파일이나 DB에서 프롬프트 로드하는 로직",
+            "    return '당신은 친절한 Python 튜터입니다.'",
+            "",
+            "system = get_system_prompt()"
+          ],
+          "output": [
+            "# 1시간 내 재호출 시 캐시된 프롬프트 반환"
+          ]
+        },
+        "tip": "@st.cache_resource는 DB 연결·클라이언트처럼 공유 객체에, @st.cache_data는 데이터/결과값 캐싱에 사용합니다."
+      },
+      {
+        "order": 7,
+        "text": "Unit 4를 마치며: Streamlit 기초부터 Claude API 연결, 기능 확장, 배포까지 완성했습니다.\n이 챗봇은 Unit 5(LangChain)와 Unit 6(AI 에이전트)의 기반이 됩니다.",
+        "terminal": {
+          "code": [
+            "# Unit 4 완성 앱 요약",
+            "# app.py 핵심 구조:",
+            "",
+            "# @st.cache_resource → 클라이언트 생성",
+            "# session_state.messages → 대화 이력",
+            "# st.chat_input() → 사용자 입력",
+            "# client.messages.stream() → 스트리밍 응답",
+            "# st.write_stream() → 실시간 렌더링",
+            "# sidebar → 모델/temperature/초기화 설정",
+            "",
+            "print('챗봇 완성!')"
+          ],
+          "output": [
+            "챗봇 완성!"
+          ]
+        },
+        "tip": "완성된 앱을 GitHub에 올리고 Streamlit Community Cloud에 배포해 보세요. URL을 공유하면 누구나 사용할 수 있습니다."
+      }
+    ]
+  }
+]

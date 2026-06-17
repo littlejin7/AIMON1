@@ -1,0 +1,831 @@
+[
+  {
+    "lesson_id": "3-1-advanced",
+    "unit": 3,
+    "stage": "3-1",
+    "course_level": "advanced",
+    "title": "API 키 & 보안",
+    "villain": "codemmon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "API 키(API Key)는 외부 서비스(Claude API 등)에 접근할 때 사용자를 인증하는 비밀 값입니다.\n키가 유출되면 타인이 내 계정으로 무제한 요청을 보낼 수 있어 과금 피해가 발생합니다.\n절대 코드에 직접 넣지 말고 환경 변수로 관리해야 합니다.",
+        "tip": "API 키는 비밀번호와 같습니다. GitHub에 업로드하는 순간 자동 크롤러가 탐지해 악용할 수 있습니다."
+      },
+      {
+        "order": 2,
+        "text": "코드에 API 키를 직접 작성하는 것은 가장 위험한 방법입니다.\ngit에 커밋되는 순간 공개 저장소에 노출될 수 있습니다.",
+        "terminal": {
+          "code": [
+            "# ❌ 절대 이렇게 하지 마세요",
+            "api_key = \"sk-ant-api03-abc123xyz...\"",
+            "print(\"경고: 키가 코드에 직접 노출됨\")",
+            "print(f\"키 시작: {api_key[:10]}...\")"
+          ],
+          "output": [
+            "경고: 키가 코드에 직접 노출됨",
+            "키 시작: sk-ant-api..."
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": ".env 파일은 API 키 같은 민감한 값을 코드와 분리해 저장하는 방법입니다.\npython-dotenv 라이브러리로 .env 파일을 로드하면 os.getenv()로 값을 읽을 수 있습니다.\n.env 파일은 반드시 .gitignore에 추가해 git 추적에서 제외해야 합니다.",
+        "terminal": {
+          "code": [
+            "# .env 파일 내용 (예시)",
+            "# ANTHROPIC_API_KEY=sk-ant-api03-...",
+            "",
+            "# pip install python-dotenv",
+            "from dotenv import load_dotenv",
+            "import os",
+            "",
+            "load_dotenv()  # .env 파일 로드",
+            "api_key = os.getenv(\"ANTHROPIC_API_KEY\")",
+            "print(\"키 로드 성공:\", api_key is not None)",
+            "print(\"키 앞 10자:\", api_key[:10] + \"...\" if api_key else \"없음\")"
+          ],
+          "output": [
+            "키 로드 성공: True",
+            "키 앞 10자: sk-ant-api..."
+          ]
+        },
+        "tip": "load_dotenv()는 .env 파일이 없어도 오류 없이 실행됩니다. 환경 변수가 이미 설정된 경우엔 .env 값이 덮어쓰지 않습니다."
+      },
+      {
+        "order": 4,
+        "text": "프로그램 시작 시점에 키 유무를 검사하면 런타임 중간에 발생하는 오류를 방지할 수 있습니다.\nos.environ.get()으로 키를 읽고, 없으면 ValueError를 발생시켜 명확한 오류 메시지를 전달합니다.",
+        "terminal": {
+          "code": [
+            "import os",
+            "",
+            "def get_api_key():",
+            "    key = os.environ.get(\"ANTHROPIC_API_KEY\")",
+            "    if not key:",
+            "        raise ValueError(\"ANTHROPIC_API_KEY 환경 변수가 설정되지 않았습니다.\")",
+            "    return key",
+            "",
+            "try:",
+            "    api_key = get_api_key()",
+            "    print(\"API 키 확인 완료\")",
+            "    print(f\"키 길이: {len(api_key)}자\")",
+            "except ValueError as e:",
+            "    print(f\"[오류] {e}\")"
+          ],
+          "output": [
+            "API 키 확인 완료",
+            "키 길이: 108자"
+          ]
+        }
+      },
+      {
+        "order": 5,
+        "text": ".gitignore 파일에 .env 를 추가하면 git이 해당 파일을 추적하지 않습니다.\n실수로 커밋되는 것을 방지하는 가장 중요한 보안 조치입니다.",
+        "terminal": {
+          "code": [
+            "# .gitignore 파일에 .env 포함 여부 확인",
+            "with open(\".gitignore\", \"r\") as f:",
+            "    lines = f.readlines()",
+            "",
+            "if any(\".env\" in line for line in lines):",
+            "    print(\".env가 .gitignore에 포함됨 — 안전합니다\")",
+            "else:",
+            "    print(\"⚠️  .env를 .gitignore에 추가하세요!\")"
+          ],
+          "output": [
+            ".env가 .gitignore에 포함됨 — 안전합니다"
+          ]
+        },
+        "tip": "이미 git에 커밋된 .env가 있다면 git rm --cached .env 로 추적을 즉시 중단하고, API 키를 재발급받으세요."
+      },
+      {
+        "order": 6,
+        "text": "보안 관리 패턴 요약: .env 파일에 키 저장 → .gitignore 등록 → os.getenv()로 읽기 → 코드에서 키 직접 노출 금지.\n이 네 단계가 실무에서 API 키를 안전하게 다루는 표준 방법입니다.",
+        "terminal": {
+          "code": [
+            "from dotenv import load_dotenv",
+            "import os",
+            "",
+            "load_dotenv()",
+            "",
+            "ANTHROPIC_API_KEY = os.getenv(\"ANTHROPIC_API_KEY\")",
+            "if not ANTHROPIC_API_KEY:",
+            "    raise EnvironmentError(\"ANTHROPIC_API_KEY not set\")",
+            "",
+            "print(\"✅ 보안 설정 완료\")",
+            "print(f\"키 확인: {'*' * 10}{ANTHROPIC_API_KEY[-4:]}\")"
+          ],
+          "output": [
+            "✅ 보안 설정 완료",
+            "키 확인: **********xyz1"
+          ]
+        }
+      },
+      {
+        "order": 7,
+        "text": "실전 검증: 설정이 올바른지 확인하는 가장 확실한 방법은 실제로 간단한 API 호출을 시도해보는 것입니다.\nAuthenticationError 없이 응답이 오면 키와 환경 변수 설정이 정상입니다.",
+        "terminal": {
+          "code": [
+            "from dotenv import load_dotenv",
+            "import anthropic",
+            "",
+            "load_dotenv()",
+            "client = anthropic.Anthropic()",
+            "",
+            "try:",
+            "    msg = client.messages.create(",
+            "        model=\"claude-opus-4-5\",",
+            "        max_tokens=5,",
+            "        messages=[{\"role\": \"user\", \"content\": \"1+1=\"}]",
+            "    )",
+            "    print(\"✅ API 연결 성공\")",
+            "    print(f\"응답: {msg.content[0].text}\")",
+            "except anthropic.AuthenticationError:",
+            "    print(\"❌ API 키 오류 — .env 파일을 확인하세요.\")"
+          ],
+          "output": [
+            "✅ API 연결 성공",
+            "응답: 2"
+          ]
+        },
+        "tip": "개발 시작 전 이 코드를 한 번 실행해 환경 설정을 검증하는 것이 좋습니다."
+      }
+    ]
+  },
+  {
+    "lesson_id": "3-2-advanced",
+    "unit": 3,
+    "stage": "3-2",
+    "course_level": "advanced",
+    "title": "Claude API 기초",
+    "villain": "codemmon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "Anthropic Python SDK를 사용하면 Claude API를 간편하게 호출할 수 있습니다.\npip install anthropic 으로 설치하고, anthropic.Anthropic() 클라이언트 객체를 생성해 사용합니다.\nclient.messages.create() 가 핵심 메서드이며, model · max_tokens · messages 세 가지가 필수 파라미터입니다.",
+        "tip": "SDK는 requests 직접 호출보다 인증·재시도·에러 파싱을 자동으로 처리합니다. 실무에서는 항상 SDK를 사용하세요."
+      },
+      {
+        "order": 2,
+        "text": "클라이언트를 생성할 때 api_key를 직접 넘기거나 환경 변수 ANTHROPIC_API_KEY를 자동으로 읽습니다.\napi_key를 생략하면 SDK가 ANTHROPIC_API_KEY 환경 변수를 자동으로 탐색합니다.",
+        "terminal": {
+          "code": [
+            "import anthropic",
+            "from dotenv import load_dotenv",
+            "",
+            "load_dotenv()",
+            "",
+            "# 환경 변수 자동 탐색 (권장)",
+            "client = anthropic.Anthropic()",
+            "",
+            "print(type(client))",
+            "print(\"클라이언트 생성 완료\")"
+          ],
+          "output": [
+            "<class 'anthropic.Anthropic'>",
+            "클라이언트 생성 완료"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "messages.create()의 messages 파라미터는 role과 content를 가진 딕셔너리의 리스트입니다.\nrole은 \"user\" 또는 \"assistant\" 만 허용되며, 첫 메시지는 반드시 \"user\" 여야 합니다.\n응답 텍스트는 message.content[0].text 로 접근합니다.",
+        "terminal": {
+          "code": [
+            "message = client.messages.create(",
+            "    model=\"claude-opus-4-5\",",
+            "    max_tokens=1024,",
+            "    messages=[",
+            "        {\"role\": \"user\", \"content\": \"안녕하세요! 한 문장으로 자기소개해주세요.\"}",
+            "    ]",
+            ")",
+            "",
+            " print(message.content[0].text)"
+          ],
+          "output": [
+            "안녕하세요! 저는 Claude, Anthropic이 만든 AI 어시스턴트입니다."
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "API 응답 객체(Message)에는 content, model, stop_reason, usage 등의 속성이 있습니다.\nusage 속성으로 입력·출력 토큰 수를 확인할 수 있으며, 이는 API 비용 계산에 사용됩니다.",
+        "terminal": {
+          "code": [
+            "print(\"응답 타입:\", type(message).__name__)",
+            "print(\"모델:\", message.model)",
+            "print(\"응답 유형:\", message.content[0].type)",
+            "print(\"stop_reason:\", message.stop_reason)",
+            "print(\"입력 토큰:\", message.usage.input_tokens)",
+            "print(\"출력 토큰:\", message.usage.output_tokens)"
+          ],
+          "output": [
+            "응답 타입: Message",
+            "모델: claude-opus-4-5",
+            "응답 유형: text",
+            "stop_reason: end_turn",
+            "입력 토큰: 28",
+            "출력 토큰: 22"
+          ]
+        },
+        "tip": "message.content는 리스트입니다. 텍스트 응답은 항상 message.content[0].text 로 접근합니다."
+      },
+      {
+        "order": 5,
+        "text": "max_tokens는 응답의 최대 토큰 수를 제한합니다. 너무 작으면 응답이 잘리고 stop_reason이 \"max_tokens\"가 됩니다.\n1 토큰은 대략 영어 4글자, 한국어 1~2글자에 해당합니다.",
+        "terminal": {
+          "code": [
+            "# max_tokens가 너무 작으면 응답이 잘림",
+            "short = client.messages.create(",
+            "    model=\"claude-opus-4-5\",",
+            "    max_tokens=10,",
+            "    messages=[{\"role\": \"user\", \"content\": \"파이썬 역사를 설명해줘\"}]",
+            ")",
+            "print(\"응답:\", short.content[0].text)",
+            "print(\"stop_reason:\", short.stop_reason)"
+          ],
+          "output": [
+            "응답: 파이썬은 1991년 귀도 반",
+            "stop_reason: max_tokens"
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "실용 패턴: 응답 텍스트를 추출하는 헬퍼 함수를 만들면 반복 코드를 줄일 수 있습니다.\nmodel 이름도 상수로 분리하면 나중에 한 곳만 수정해도 전체에 반영됩니다.",
+        "terminal": {
+          "code": [
+            "MODEL = \"claude-opus-4-5\"",
+            "",
+            "def ask(question, max_tokens=512):",
+            "    response = client.messages.create(",
+            "        model=MODEL,",
+            "        max_tokens=max_tokens,",
+            "        messages=[{\"role\": \"user\", \"content\": question}]",
+            "    )",
+            "    return response.content[0].text",
+            "",
+            "answer = ask(\"파이썬 리스트와 튜플의 차이는?\")",
+            "print(answer)"
+          ],
+          "output": [
+            "리스트는 변경 가능(mutable), 튜플은 변경 불가(immutable)입니다.\n예: 리스트 [1, 2, 3], 튜플 (1, 2, 3)"
+          ]
+        },
+        "tip": "MODEL = \"claude-opus-4-5\" 처럼 상수를 파일 상단에 정의하면 모델 교체 시 한 줄만 수정하면 됩니다."
+      },
+      {
+        "order": 7,
+        "text": "API 호출 시 발생하는 주요 예외를 미리 알아두면 디버깅이 쉬워집니다.\nAuthenticationError(401) · RateLimitError(429) · APIConnectionError(네트워크) 세 가지가 가장 흔합니다.",
+        "terminal": {
+          "code": [
+            "import anthropic",
+            "",
+            "# 잘못된 키로 오류 유형 확인",
+            "bad_client = anthropic.Anthropic(api_key=\"sk-invalid\")",
+            "",
+            "try:",
+            "    bad_client.messages.create(",
+            "        model=\"claude-opus-4-5\",",
+            "        max_tokens=10,",
+            "        messages=[{\"role\": \"user\", \"content\": \"안녕\"}]",
+            "    )",
+            "except anthropic.AuthenticationError as e:",
+            "    print(f\"AuthenticationError 발생 (HTTP {e.status_code})\")",
+            "    print(\"원인: API 키가 잘못되었거나 만료됨\")"
+          ],
+          "output": [
+            "AuthenticationError 발생 (HTTP 401)",
+            "원인: API 키가 잘못되었거나 만료됨"
+          ]
+        },
+        "tip": "RateLimitError(429)는 짧은 시간에 너무 많은 요청을 보낼 때 발생합니다. time.sleep()으로 대기 후 재시도하세요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "3-3-advanced",
+    "unit": 3,
+    "stage": "3-3",
+    "course_level": "advanced",
+    "title": "시스템 프롬프트 & 멀티턴",
+    "villain": "speechbubble_king",
+    "slides": [
+      {
+        "order": 1,
+        "text": "시스템 프롬프트(system prompt)는 AI의 역할·말투·행동 규칙을 사전에 설정하는 지시문입니다.\nmessages 리스트와 별도로 system 파라미터로 전달하며, 대화 전체에 지속적으로 적용됩니다.\n역할 부여, 응답 언어 지정, 출력 형식 규정 등에 사용합니다.",
+        "tip": "시스템 프롬프트는 대화 길이와 관계없이 항상 Claude가 참조합니다. 역할·제약·형식을 명확히 작성할수록 일관된 응답을 얻습니다."
+      },
+      {
+        "order": 2,
+        "text": "system 파라미터를 추가하면 Claude가 지정한 역할에 맞게 응답합니다.\n같은 질문도 시스템 프롬프트에 따라 응답 스타일이 달라집니다.",
+        "terminal": {
+          "code": [
+            "response = client.messages.create(",
+            "    model=\"claude-opus-4-5\",",
+            "    max_tokens=200,",
+            "    system=\"당신은 파이썬 전문 튜터입니다. 항상 코드 예시를 포함해 한국어로 간결하게 답하세요.\",",
+            "    messages=[",
+            "        {\"role\": \"user\", \"content\": \"리스트 컴프리헨션이 뭔가요?\"}",
+            "    ]",
+            ")",
+            "",
+            " print(response.content[0].text)"
+          ],
+          "output": [
+            "리스트 컴프리헨션은 리스트를 한 줄로 생성하는 간결한 문법입니다.\n예: [x*2 for x in range(5)] → [0, 2, 4, 6, 8]"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "멀티턴(multi-turn) 대화는 이전 대화 내용을 messages 리스트에 누적해 전달하는 방식입니다.\nClaude API는 자체적으로 대화 기록을 저장하지 않으므로, 매 요청마다 전체 대화 이력을 전달해야 합니다.",
+        "terminal": {
+          "code": [
+            "messages = [",
+            "    {\"role\": \"user\",      \"content\": \"내 이름은 에이몬이야.\"},",
+            "    {\"role\": \"assistant\", \"content\": \"안녕하세요, 에이몬님! 무엇을 도와드릴까요?\"},",
+            "    {\"role\": \"user\",      \"content\": \"내 이름이 뭐야?\"}",
+            "]",
+            "",
+            "response = client.messages.create(",
+            "    model=\"claude-opus-4-5\",",
+            "    max_tokens=100,",
+            "    messages=messages",
+            ")",
+            "",
+            " print(response.content[0].text)"
+          ],
+          "output": [
+            "에이몬님이라고 하셨습니다!"
+          ]
+        },
+        "tip": "메시지 리스트는 user → assistant → user → assistant 순서로 번갈아야 합니다. 연속된 user 메시지는 API 오류를 유발합니다."
+      },
+      {
+        "order": 4,
+        "text": "대화 기록을 누적하는 chat() 함수를 만들면 멀티턴 대화를 쉽게 관리할 수 있습니다.\nhistory 리스트에 user/assistant 메시지를 번갈아 추가합니다.",
+        "terminal": {
+          "code": [
+            "SYSTEM = \"당신은 AI MON 파이썬 튜터입니다. 짧고 명확하게 답하세요.\"",
+            "history = []",
+            "",
+            "def chat(user_input):",
+            "    history.append({\"role\": \"user\", \"content\": user_input})",
+            "    res = client.messages.create(",
+            "        model=\"claude-opus-4-5\",",
+            "        max_tokens=200,",
+            "        system=SYSTEM,",
+            "        messages=history",
+            "    )",
+            "    reply = res.content[0].text",
+            "    history.append({\"role\": \"assistant\", \"content\": reply})",
+            "    return reply",
+            "",
+            "print(chat(\"함수가 뭐야?\"))",
+            "print(f\"\\n대화 기록: {len(history)}개 메시지\")"
+          ],
+          "output": [
+            "함수는 특정 작업을 수행하는 재사용 가능한 코드 블록입니다.",
+            "",
+            "대화 기록: 2개 메시지"
+          ]
+        }
+      },
+      {
+        "order": 5,
+        "text": "멀티턴의 핵심은 이전 대화가 이후 응답에 영향을 준다는 점입니다.\n첫 번째 질문의 맥락이 두 번째 질문의 응답에 자연스럽게 연결됩니다.",
+        "terminal": {
+          "code": [
+            "r1 = chat(\"함수를 언제 사용하나요?\")",
+            "r2 = chat(\"방금 예시 코드를 보여줘\")",
+            "",
+            "print(\"Q1:\", r1)",
+            "print(\"Q2:\", r2)"
+          ],
+          "output": [
+            "Q1: 코드가 반복될 때, 또는 기능을 분리하고 싶을 때 사용하세요.",
+            "Q2: def greet(name):",
+            "    print(f'안녕, {name}!')"
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "대화 기록이 길어지면 토큰 비용이 증가합니다.\n최근 N개 메시지만 API에 전달해 비용을 절약하는 것이 실무 패턴입니다.\nhistory에는 계속 누적하되, API 호출 시에만 슬라이싱합니다.",
+        "terminal": {
+          "code": [
+            "MAX_HISTORY = 10  # API에 전달할 최대 메시지 수",
+            "",
+            "def chat_with_limit(user_input):",
+            "    history.append({\"role\": \"user\", \"content\": user_input})",
+            "    recent = history[-MAX_HISTORY:]  # 최근 N개만 전달",
+            "    res = client.messages.create(",
+            "        model=\"claude-opus-4-5\",",
+            "        max_tokens=200,",
+            "        system=SYSTEM,",
+            "        messages=recent",
+            "    )",
+            "    reply = res.content[0].text",
+            "    history.append({\"role\": \"assistant\", \"content\": reply})",
+            "    return reply",
+            "",
+            "print(f\"전체 기록: {len(history)}개, 전달: {min(len(history), MAX_HISTORY)}개\")"
+          ],
+          "output": [
+            "전체 기록: 4개, 전달: 4개"
+          ]
+        },
+        "tip": "history에는 전체 대화가 쌓이지만 API에는 최근 N개만 보냅니다. 대화 문맥과 비용을 동시에 관리하는 현실적인 방법입니다."
+      },
+      {
+        "order": 7,
+        "text": "대화를 새로 시작할 때는 history를 초기화합니다.\n주제가 완전히 바뀌거나 히스토리가 지나치게 쌓였을 때 초기화하면 비용 절약과 문맥 정리를 동시에 할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "def reset_chat(history):",
+            "    history.clear()",
+            "    print(f\"대화 기록 초기화 완료 (현재: {len(history)}개)\")",
+            "",
+            "history = [\"msg1\", \"msg2\", \"msg3\", \"msg4\"]",
+            "print(f\"초기화 전: {len(history)}개 메시지\")",
+            "reset_chat(history)",
+            "",
+            "# 길이 초과 시 자동 초기화",
+            "history2 = list(range(22))",
+            "if len(history2) > 20:",
+            "    history2.clear()",
+            "    print(\"자동 초기화: 대화 기록이 20개를 초과했습니다.\")",
+            "print(f\"초기화 후: {len(history2)}개\")"
+          ],
+          "output": [
+            "초기화 전: 4개 메시지",
+            "대화 기록 초기화 완료 (현재: 0개)",
+            "자동 초기화: 대화 기록이 20개를 초과했습니다.",
+            "초기화 후: 0개"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "lesson_id": "3-4-advanced",
+    "unit": 3,
+    "stage": "3-4",
+    "course_level": "advanced",
+    "title": "스트리밍 응답",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "스트리밍(streaming)은 API 응답이 완성되기 전에, 생성되는 순서대로 조각(청크)을 실시간으로 받는 방식입니다.\n일반 호출은 전체 응답이 완성된 뒤 한꺼번에 반환하지만, 스트리밍은 첫 글자부터 즉시 출력합니다.\nChatGPT나 Claude.ai의 타이핑 효과가 바로 스트리밍으로 구현된 것입니다.",
+        "tip": "긴 응답일수록 스트리밍의 체감 속도 향상이 큽니다. 짧은 응답에는 일반 호출로도 충분합니다."
+      },
+      {
+        "order": 2,
+        "text": "client.messages.stream()을 with 구문과 함께 사용하면 스트리밍을 시작합니다.\nstream.text_stream은 텍스트 청크를 하나씩 yield하는 제너레이터입니다.\nprint(text, end=\"\", flush=True) 로 청크를 줄바꿈 없이 즉시 출력합니다.",
+        "terminal": {
+          "code": [
+            "with client.messages.stream(",
+            "    model=\"claude-opus-4-5\",",
+            "    max_tokens=100,",
+            "    messages=[{\"role\": \"user\", \"content\": \"1부터 5까지 세어줘\"}]",
+            ") as stream:",
+            "    for text in stream.text_stream:",
+            "        print(text, end=\"\", flush=True)",
+            "    print()  # 마지막 줄바꿈"
+          ],
+          "output": [
+            "1, 2, 3, 4, 5"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "스트리밍 중 청크를 리스트에 모으면 응답 완료 후 전체 텍스트를 조합할 수 있습니다.\n출력과 저장을 동시에 처리하는 패턴입니다.",
+        "terminal": {
+          "code": [
+            "collected = []",
+            "",
+            "with client.messages.stream(",
+            "    model=\"claude-opus-4-5\",",
+            "    max_tokens=200,",
+            "    messages=[{\"role\": \"user\", \"content\": \"파이썬 장점 3가지를 한 줄씩\"}]",
+            ") as stream:",
+            "    for text in stream.text_stream:",
+            "        collected.append(text)",
+            "        print(text, end=\"\", flush=True)",
+            "    print()",
+            "",
+            "full_text = \"\".join(collected)",
+            "print(f\"수집 완료, 전체 응답 길이: {len(full_text)}자\")"
+          ],
+          "output": [
+            "1. 문법이 간결하다",
+            "2. 라이브러리가 풍부하다",
+            "3. AI/데이터 분야에 강하다",
+            "수집 완료, 전체 응답 길이: 44자"
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "stream.get_final_message()는 스트리밍이 끝난 후 완전한 Message 객체를 반환합니다.\n청크를 직접 조합하지 않고도 완성된 응답과 토큰 사용량을 한번에 얻을 수 있습니다.",
+        "terminal": {
+          "code": [
+            "with client.messages.stream(",
+            "    model=\"claude-opus-4-5\",",
+            "    max_tokens=100,",
+            "    messages=[{\"role\": \"user\", \"content\": \"안녕!\"}]",
+            ") as stream:",
+            "    for text in stream.text_stream:",
+            "        print(text, end=\"\", flush=True)",
+            "    print()",
+            "    final = stream.get_final_message()",
+            "",
+            "print(\"입력 토큰:\", final.usage.input_tokens)",
+            "print(\"출력 토큰:\", final.usage.output_tokens)"
+          ],
+          "output": [
+            "안녕하세요! 무엇을 도와드릴까요?",
+            "입력 토큰: 7",
+            "출력 토큰: 12"
+          ]
+        },
+        "tip": "get_final_message()는 with 블록 안에서만 호출할 수 있습니다. 블록을 벗어나면 스트림이 닫혀 접근할 수 없습니다."
+      },
+      {
+        "order": 5,
+        "text": "스트리밍에도 시스템 프롬프트와 멀티턴 히스토리를 그대로 적용할 수 있습니다.\n3-3에서 만든 chat() 함수를 스트리밍 버전으로 업그레이드합니다.",
+        "terminal": {
+          "code": [
+            "SYSTEM = \"당신은 AI MON 파이썬 튜터입니다. 간결하게 답하세요.\"",
+            "history = []",
+            "",
+            "def stream_chat(user_input):",
+            "    history.append({\"role\": \"user\", \"content\": user_input})",
+            "    collected = []",
+            "    print(\"AI: \", end=\"\", flush=True)",
+            "    with client.messages.stream(",
+            "        model=\"claude-opus-4-5\",",
+            "        max_tokens=300,",
+            "        system=SYSTEM,",
+            "        messages=history",
+            "    ) as stream:",
+            "        for text in stream.text_stream:",
+            "            print(text, end=\"\", flush=True)",
+            "            collected.append(text)",
+            "        print()",
+            "    reply = \"\".join(collected)",
+            "    history.append({\"role\": \"assistant\", \"content\": reply})",
+            "    return reply",
+            "",
+            "stream_chat(\"제너레이터를 한 줄로 설명해줘\")"
+          ],
+          "output": [
+            "AI: 제너레이터는 yield로 값을 하나씩 생성하는 함수로, 메모리를 절약합니다."
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "⚠️ 엣지 케이스: 스트리밍 도중 예외가 발생해도 with 블록이 안전하게 정리됩니다.\ntry/except를 with 블록 밖에 배치해 연결 오류, 인증 오류 등을 처리합니다.",
+        "terminal": {
+          "code": [
+            "import anthropic",
+            "",
+            "def safe_stream(user_input):",
+            "    try:",
+            "        with client.messages.stream(",
+            "            model=\"claude-opus-4-5\",",
+            "            max_tokens=200,",
+            "            messages=[{\"role\": \"user\", \"content\": user_input}]",
+            "        ) as stream:",
+            "            for text in stream.text_stream:",
+            "                print(text, end=\"\", flush=True)",
+            "            print()",
+            "    except anthropic.AuthenticationError:",
+            "        print(\"[오류] API 키가 유효하지 않습니다.\")",
+            "    except anthropic.APIConnectionError:",
+            "        print(\"[오류] 네트워크 연결을 확인하세요.\")",
+            "",
+            "safe_stream(\"반갑습니다!\")"
+          ],
+          "output": [
+            "안녕하세요! 만나서 반갑습니다!"
+          ]
+        },
+        "tip": "스트리밍 중 연결이 끊기면 APIConnectionError가 발생합니다. 재시도 로직을 추가할 때는 collected 리스트를 초기화하고 처음부터 다시 스트리밍해야 합니다."
+      },
+      {
+        "order": 7,
+        "text": "실전 활용: sys.stdout.write()를 사용하면 청크 출력과 함께 수신 글자 수를 실시간으로 집계할 수 있습니다.\n진행 상태를 표시하거나 응답 길이를 로깅할 때 유용합니다.",
+        "terminal": {
+          "code": [
+            "import sys",
+            "",
+            "def stream_with_counter(user_input):",
+            "    char_count = 0",
+            "    print(\"AI: \", end=\"\", flush=True)",
+            "    with client.messages.stream(",
+            "        model=\"claude-opus-4-5\",",
+            "        max_tokens=100,",
+            "        messages=[{\"role\": \"user\", \"content\": user_input}]",
+            "    ) as stream:",
+            "        for text in stream.text_stream:",
+            "            sys.stdout.write(text)",
+            "            sys.stdout.flush()",
+            "            char_count += len(text)",
+            "    print()",
+            "    print(f\"[수신 완료: 약 {char_count}자]\")",
+            "",
+            "stream_with_counter(\"안녕!\")"
+          ],
+          "output": [
+            "AI: 안녕하세요! 무엇을 도와드릴까요?",
+            "[수신 완료: 약 18자]"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "lesson_id": "3-5-advanced",
+    "unit": 3,
+    "stage": "3-5",
+    "course_level": "advanced",
+    "title": "AI API 종합실습",
+    "villain": "codemmon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "Unit 3에서 배운 네 가지 핵심을 복습합니다.\n\n① API 키 보안: .env + python-dotenv + .gitignore\n② Claude API 기초: client.messages.create() + 응답 파싱\n③ 시스템 프롬프트 & 멀티턴: system 파라미터 + 대화 기록 누적\n④ 스트리밍: client.messages.stream() + text_stream\n\n이번 스테이지에서는 네 가지를 조합해 실전 CLI 챗봇을 완성합니다."
+      },
+      {
+        "order": 2,
+        "text": "미니 프로젝트 구조를 설계합니다.\n역할별로 함수를 분리하면 코드가 읽기 쉽고 수정이 쉬워집니다.",
+        "terminal": {
+          "code": [
+            "# 모듈 구성",
+            "# config.py  — 환경 변수 로드, 상수 정의",
+            "# chat.py    — 대화 로직 (stream_chat)",
+            "# main.py    — CLI 진입점 (루프)",
+            "",
+            "# config.py 핵심 내용",
+            "from dotenv import load_dotenv",
+            "import os, anthropic",
+            "",
+            "load_dotenv()",
+            "MODEL = \"claude-opus-4-5\"",
+            "MAX_TOKENS = 512",
+            "SYSTEM = \"당신은 AI MON 파이썬 튜터입니다. 짧고 정확하게 한국어로 답하세요.\"",
+            "client = anthropic.Anthropic()",
+            "",
+            "print(\"설정 로드 완료:\", MODEL)"
+          ],
+          "output": [
+            "설정 로드 완료: claude-opus-4-5"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "스트리밍 + 멀티턴을 결합한 stream_chat() 완성 버전입니다.\nhistory를 외부에서 주입받아 여러 세션에서 재사용할 수 있도록 설계합니다.",
+        "terminal": {
+          "code": [
+            "def stream_chat(client, history, user_input, system, model, max_tokens):",
+            "    history.append({\"role\": \"user\", \"content\": user_input})",
+            "    collected = []",
+            "    print(\"AI: \", end=\"\", flush=True)",
+            "    with client.messages.stream(",
+            "        model=model,",
+            "        max_tokens=max_tokens,",
+            "        system=system,",
+            "        messages=history[-20:]  # 최근 20개만 전달",
+            "    ) as stream:",
+            "        for text in stream.text_stream:",
+            "            print(text, end=\"\", flush=True)",
+            "            collected.append(text)",
+            "        print()",
+            "    reply = \"\".join(collected)",
+            "    history.append({\"role\": \"assistant\", \"content\": reply})",
+            "    return reply",
+            "",
+            "history = []",
+            "stream_chat(client, history, \"오늘 배운 내용 한 줄 요약\", SYSTEM, MODEL, MAX_TOKENS)"
+          ],
+          "output": [
+            "AI: API 키 보안, Claude API 호출, 시스템 프롬프트, 멀티턴, 스트리밍을 배웠습니다."
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "에러 처리를 추가해 실전에서 발생하는 주요 예외를 모두 커버합니다.\nAuthenticationError · RateLimitError · APIConnectionError 세 가지가 가장 흔합니다.",
+        "terminal": {
+          "code": [
+            "import anthropic",
+            "",
+            "def safe_stream_chat(client, history, user_input, system, model, max_tokens):",
+            "    try:",
+            "        return stream_chat(client, history, user_input, system, model, max_tokens)",
+            "    except anthropic.AuthenticationError:",
+            "        return \"[오류] API 키가 유효하지 않습니다. .env 파일을 확인하세요.\"",
+            "    except anthropic.RateLimitError:",
+            "        return \"[오류] 요청 한도 초과. 잠시 후 다시 시도하세요.\"",
+            "    except anthropic.APIConnectionError:",
+            "        return \"[오류] 네트워크 연결을 확인하세요.\"",
+            "    except anthropic.APIError as e:",
+            "        return f\"[오류] API 오류: {e}\"",
+            "",
+            "reply = safe_stream_chat(client, [], \"안녕\", SYSTEM, MODEL, MAX_TOKENS)",
+            "print(\"최종 응답:\", reply[:30] + \"...\")"
+          ],
+          "output": [
+            "AI: 안녕하세요! 파이썬 관련 질문이 있으신가요?",
+            "최종 응답: 안녕하세요! 파이썬 관련 질문이..."
+          ]
+        }
+      },
+      {
+        "order": 5,
+        "text": "CLI 루프를 추가해 대화형 챗봇을 완성합니다.\n'exit' 입력 시 종료하고, 빈 입력은 건너뜁니다.",
+        "terminal": {
+          "code": [
+            "def run_chatbot():",
+            "    print(\"=\" * 40)",
+            "    print(\"AI MON 파이썬 튜터 챗봇\")",
+            "    print(\"종료하려면 'exit' 입력\")",
+            "    print(\"=\" * 40)",
+            "    history = []",
+            "    while True:",
+            "        user = input(\"나: \").strip()",
+            "        if not user:",
+            "            continue",
+            "        if user.lower() == \"exit\":",
+            "            print(\"챗봇을 종료합니다.\")",
+            "            break",
+            "        safe_stream_chat(client, history, user, SYSTEM, MODEL, MAX_TOKENS)",
+            "",
+            "# run_chatbot()  # 실행 시 주석 해제",
+            "print(\"챗봇 정의 완료 — run_chatbot() 으로 시작\")"
+          ],
+          "output": [
+            "챗봇 정의 완료 — run_chatbot() 으로 시작"
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "Unit 3 완성 — 전체 챗봇 구현 흐름을 정리합니다.\n.env 로드 → 클라이언트 생성 → 루프 → 스트리밍 응답 → 히스토리 업데이트의 5단계가 핵심 뼈대입니다.",
+        "terminal": {
+          "code": [
+            "steps = [",
+            "    \"1. API 키 보안 (.env + .gitignore)\",",
+            "    \"2. SDK 클라이언트 생성\",",
+            "    \"3. 시스템 프롬프트 설정\",",
+            "    \"4. 스트리밍 응답 처리\",",
+            "    \"5. 멀티턴 히스토리 관리\"",
+            "]",
+            "for step in steps:",
+            "    print(\"✅\", step)"
+          ],
+          "output": [
+            "✅ 1. API 키 보안 (.env + .gitignore)",
+            "✅ 2. SDK 클라이언트 생성",
+            "✅ 3. 시스템 프롬프트 설정",
+            "✅ 4. 스트리밍 응답 처리",
+            "✅ 5. 멀티턴 히스토리 관리"
+          ]
+        },
+        "tip": "Unit 4에서는 이 챗봇에 Streamlit UI를 연결해 웹 앱으로 발전시킵니다."
+      },
+      {
+        "order": 7,
+        "text": "통합 테스트: 완성된 챗봇이 멀티턴 문맥을 올바르게 유지하는지 확인합니다.\n두 번째 질문이 첫 번째 대화를 참조하면 멀티턴이 정상 작동하는 것입니다.",
+        "terminal": {
+          "code": [
+            "print(\"=== 통합 테스트 시작 ===\")",
+            "test_history = []",
+            "",
+            "reply1 = safe_stream_chat(client, test_history, \"파이썬 변수란?\", SYSTEM, MODEL, 100)",
+            "print(f\"테스트 1 완료 (히스토리: {len(test_history)}개)\")",
+            "",
+            "reply2 = safe_stream_chat(client, test_history, \"예시 코드를 한 줄로 보여줘\", SYSTEM, MODEL, 100)",
+            "print(f\"테스트 2 완료 (히스토리: {len(test_history)}개)\")",
+            "",
+            "print(\"=== 테스트 종료 ===\")"
+          ],
+          "output": [
+            "=== 통합 테스트 시작 ===",
+            "AI: 파이썬 변수는 데이터를 저장하는 이름표입니다.",
+            "테스트 1 완료 (히스토리: 2개)",
+            "AI: x = 5는 정수 변수, name = '에이몬'은 문자열 변수입니다.",
+            "테스트 2 완료 (히스토리: 4개)",
+            "=== 테스트 종료 ==="
+          ]
+        }
+      }
+    ]
+  }
+]

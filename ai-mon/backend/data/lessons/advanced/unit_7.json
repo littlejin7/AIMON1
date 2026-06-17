@@ -1,0 +1,990 @@
+[
+  {
+    "lesson_id": "7-1-advanced",
+    "unit": 7,
+    "stage": "7-1",
+    "course_level": "advanced",
+    "title": "FastAPI 기초",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "FastAPI는 Python 기반의 고성능 웹 프레임워크로, type hint와 Pydantic을 활용해 요청/응답을 자동으로 검증하고 API 문서를 자동 생성합니다.\nFlask보다 빠르고 Django보다 경량이며, 비동기(asyncio)를 기본으로 지원합니다.",
+        "tip": "FastAPI는 OpenAPI 기반 자동 문서를 /docs(Swagger UI)와 /redoc 경로로 즉시 제공합니다. 별도 설정 없이 바로 사용할 수 있습니다."
+      },
+      {
+        "order": 2,
+        "text": "FastAPI 앱은 FastAPI() 인스턴스 하나로 시작합니다.\n@app.get() 데코레이터로 GET 엔드포인트를 등록하고, 함수의 return 값이 자동으로 JSON 응답이 됩니다.",
+        "terminal": {
+          "code": [
+            "from fastapi import FastAPI",
+            "",
+            "app = FastAPI()",
+            "",
+            "@app.get(\"/\")",
+            "def root():",
+            "    return {\"message\": \"에이몬 API 서버 가동!\"}",
+            "",
+            "# uvicorn main:app --reload 실행 후",
+            "# GET http://localhost:8000/ 요청 시:"
+          ],
+          "output": [
+            "{\"message\": \"에이몬 API 서버 가동!\"}"
+          ]
+        },
+        "tip": "uvicorn main:app --reload 에서 main 은 파일명(main.py), app 은 FastAPI() 인스턴스 변수명입니다."
+      },
+      {
+        "order": 3,
+        "text": "경로 매개변수(path parameter)는 URL 경로 안에 {} 로 선언합니다.\n함수 인자의 타입 힌트를 붙이면 FastAPI가 자동으로 형변환하고, 타입이 맞지 않으면 422 오류를 반환합니다.",
+        "terminal": {
+          "code": [
+            "from fastapi import FastAPI",
+            "",
+            "app = FastAPI()",
+            "",
+            "@app.get(\"/units/{unit_id}\")",
+            "def get_unit(unit_id: int):",
+            "    return {\"unit_id\": unit_id, \"name\": f\"Unit {unit_id}\"}",
+            "",
+            "# GET /units/7 요청 시:"
+          ],
+          "output": [
+            "{\"unit_id\": 7, \"name\": \"Unit 7\"}"
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "쿼리 매개변수(query parameter)는 함수 인자 중 경로에 포함되지 않은 것이 자동으로 지정됩니다.\n기본값을 설정하면 선택적 파라미터가 되고, 기본값 없이 선언하면 필수 파라미터가 됩니다.",
+        "terminal": {
+          "code": [
+            "from fastapi import FastAPI",
+            "",
+            "app = FastAPI()",
+            "",
+            "@app.get(\"/search\")",
+            "def search(keyword: str, limit: int = 10):",
+            "    return {\"keyword\": keyword, \"limit\": limit, \"results\": []}",
+            "",
+            "# GET /search?keyword=에이몬&limit=5 요청 시:"
+          ],
+          "output": [
+            "{\"keyword\": \"에이몬\", \"limit\": 5, \"results\": []}"
+          ]
+        },
+        "tip": "keyword 는 기본값 없는 필수 파라미터, limit 는 기본값 10인 선택 파라미터입니다."
+      },
+      {
+        "order": 5,
+        "text": "POST 요청의 본문(body)은 Pydantic BaseModel 클래스로 정의합니다.\nFastAPI가 JSON 본문을 자동으로 파싱하고 타입을 검증해 함수 인자로 주입합니다.",
+        "terminal": {
+          "code": [
+            "from fastapi import FastAPI",
+            "from pydantic import BaseModel",
+            "",
+            "app = FastAPI()",
+            "",
+            "class MessageRequest(BaseModel):",
+            "    text: str",
+            "    user: str = \"anonymous\"",
+            "",
+            "@app.post(\"/messages\")",
+            "def create_message(req: MessageRequest):",
+            "    return {\"received\": req.text, \"from\": req.user}",
+            "",
+            "# POST /messages  Body: {\"text\": \"안녕!\", \"user\": \"Amy\"} 요청 시:"
+          ],
+          "output": [
+            "{\"received\": \"안녕!\", \"from\": \"Amy\"}"
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "HTTPException 을 raise 하면 원하는 상태 코드와 오류 메시지를 응답으로 보낼 수 있습니다.\n리소스가 없으면 404, 잘못된 요청이면 400, 서버 오류면 500을 사용하는 것이 REST 관례입니다.",
+        "terminal": {
+          "code": [
+            "from fastapi import FastAPI, HTTPException",
+            "",
+            "app = FastAPI()",
+            "units = {7: \"웹기술 연동\", 8: \"자동화 설계\"}",
+            "",
+            "@app.get(\"/units/{unit_id}\")",
+            "def get_unit(unit_id: int):",
+            "    if unit_id not in units:",
+            "        raise HTTPException(status_code=404, detail=\"유닛을 찾을 수 없습니다\")",
+            "    return {\"name\": units[unit_id]}",
+            "",
+            "# GET /units/99 요청 시:"
+          ],
+          "output": [
+            "{\"detail\": \"유닛을 찾을 수 없습니다\"}"
+          ]
+        }
+      },
+      {
+        "order": 7,
+        "text": "실전 패턴: 메모 CRUD API — GET(목록 조회)와 POST(생성)를 조합한 간단한 REST API입니다.\nstatus_code=201 은 '리소스가 새로 생성됨'을 의미하는 HTTP 표준 코드입니다.",
+        "terminal": {
+          "code": [
+            "from fastapi import FastAPI",
+            "from pydantic import BaseModel",
+            "",
+            "app = FastAPI()",
+            "memos = []",
+            "",
+            "class Memo(BaseModel):",
+            "    title: str",
+            "    content: str",
+            "",
+            "@app.get(\"/memos\")",
+            "def list_memos():",
+            "    return {\"total\": len(memos), \"memos\": memos}",
+            "",
+            "@app.post(\"/memos\", status_code=201)",
+            "def add_memo(memo: Memo):",
+            "    memos.append(memo.dict())",
+            "    return {\"message\": \"메모 저장 완료\", \"memo\": memo}",
+            "",
+            "# POST 후 GET /memos 요청 시:"
+          ],
+          "output": [
+            "{\"total\": 1, \"memos\": [{\"title\": \"학습\", \"content\": \"FastAPI 기초\"}]}"
+          ]
+        },
+        "tip": "memos 리스트는 서버 재시작 시 초기화됩니다. 영구 저장이 필요하면 Stage 7-4에서 배우는 DB 연동이 필요합니다."
+      }
+    ]
+  },
+  {
+    "lesson_id": "7-2-advanced",
+    "unit": 7,
+    "stage": "7-2",
+    "course_level": "advanced",
+    "title": "FastAPI + AI 연동",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "FastAPI 엔드포인트 안에서 Claude API를 호출하면 프론트에서 /ask 경로로 POST 요청을 보내고, 백엔드가 Claude 응답을 JSON으로 반환하는 AI 백엔드 서비스를 만들 수 있습니다.\n이 패턴이 AI MON 자체 서비스 백엔드의 핵심 구조입니다.",
+        "tip": "anthropic SDK는 동기(Anthropic)와 비동기(AsyncAnthropic) 클라이언트를 모두 제공합니다. 기본 def 엔드포인트에는 Anthropic, async def 엔드포인트에는 AsyncAnthropic을 사용하세요."
+      },
+      {
+        "order": 2,
+        "text": ".env 파일에 API 키를 저장하고 python-dotenv 로 불러옵니다.\nAnthropic() 클라이언트는 ANTHROPIC_API_KEY 환경변수를 자동으로 읽으므로, load_dotenv() 호출 후 인자 없이 생성할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "# .env 파일 내용:",
+            "# ANTHROPIC_API_KEY=sk-ant-...",
+            "",
+            "import os",
+            "from dotenv import load_dotenv",
+            "from anthropic import Anthropic",
+            "",
+            "load_dotenv()",
+            "client = Anthropic()  # ANTHROPIC_API_KEY 자동 참조",
+            "",
+            "key = os.environ.get(\"ANTHROPIC_API_KEY\", \"\")",
+            "print(\"클라이언트 초기화 완료\")",
+            "print(f\"키 앞 10자리: {key[:10]}...\")"
+          ],
+          "output": [
+            "클라이언트 초기화 완료",
+            "키 앞 10자리: sk-ant-api..."
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "POST 엔드포인트 안에서 claude API를 호출하고 응답 텍스트를 JSON으로 반환합니다.\nresponse.content[0].text 가 Claude의 실제 답변 텍스트입니다.",
+        "terminal": {
+          "code": [
+            "from fastapi import FastAPI",
+            "from pydantic import BaseModel",
+            "from anthropic import Anthropic",
+            "",
+            "app = FastAPI()",
+            "client = Anthropic()",
+            "",
+            "class AskRequest(BaseModel):",
+            "    question: str",
+            "",
+            "@app.post(\"/ask\")",
+            "def ask_claude(req: AskRequest):",
+            "    response = client.messages.create(",
+            "        model=\"claude-haiku-4-5-20251001\",",
+            "        max_tokens=256,",
+            "        messages=[{\"role\": \"user\", \"content\": req.question}]",
+            "    )",
+            "    return {\"answer\": response.content[0].text}",
+            "",
+            "# POST /ask  Body: {\"question\": \"FastAPI란 무엇인가요?\"} 요청 시:"
+          ],
+          "output": [
+            "{\"answer\": \"FastAPI는 Python 기반의 고성능 웹 프레임워크입니다...\"}"
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "비동기 엔드포인트(async def)에서는 AsyncAnthropic 클라이언트와 await 를 사용합니다.\n비동기 처리는 Claude API 응답을 기다리는 동안 다른 요청을 처리할 수 있어 고트래픽 환경에서 성능이 유리합니다.",
+        "terminal": {
+          "code": [
+            "from fastapi import FastAPI",
+            "from pydantic import BaseModel",
+            "from anthropic import AsyncAnthropic",
+            "",
+            "app = FastAPI()",
+            "client = AsyncAnthropic()",
+            "",
+            "class AskRequest(BaseModel):",
+            "    question: str",
+            "    system: str = \"당신은 친절한 Python 코딩 튜터입니다.\"",
+            "",
+            "@app.post(\"/ask/async\")",
+            "async def ask_claude_async(req: AskRequest):",
+            "    response = await client.messages.create(",
+            "        model=\"claude-haiku-4-5-20251001\",",
+            "        max_tokens=256,",
+            "        system=req.system,",
+            "        messages=[{\"role\": \"user\", \"content\": req.question}]",
+            "    )",
+            "    return {\"answer\": response.content[0].text}",
+            "",
+            "# POST /ask/async  Body: {\"question\": \"리스트 컴프리헨션이 뭔가요?\"} 요청 시:"
+          ],
+          "output": [
+            "{\"answer\": \"리스트 컴프리헨션은 기존 반복문을 한 줄로 줄여 새 리스트를 만드는 문법입니다...\"}"
+          ]
+        },
+        "tip": "FastAPI 자체가 비동기 기반이므로 async def 엔드포인트에서 await 없이 동기 코드를 오래 실행하면 이벤트 루프가 블로킹됩니다."
+      },
+      {
+        "order": 5,
+        "text": "Claude API 호출 실패 시 HTTPException 으로 적절한 오류를 반환합니다.\n빈 질문 체크(400)와 API 오류 catch(502)를 분리하면 클라이언트가 오류 원인을 파악하기 쉽습니다.",
+        "terminal": {
+          "code": [
+            "from fastapi import FastAPI, HTTPException",
+            "from pydantic import BaseModel",
+            "from anthropic import Anthropic, APIError",
+            "",
+            "app = FastAPI()",
+            "client = Anthropic()",
+            "",
+            "class AskRequest(BaseModel):",
+            "    question: str",
+            "",
+            "@app.post(\"/ask\")",
+            "def ask_claude(req: AskRequest):",
+            "    if not req.question.strip():",
+            "        raise HTTPException(status_code=400, detail=\"질문이 비어있습니다.\")",
+            "    try:",
+            "        response = client.messages.create(",
+            "            model=\"claude-haiku-4-5-20251001\",",
+            "            max_tokens=256,",
+            "            messages=[{\"role\": \"user\", \"content\": req.question}]",
+            "        )",
+            "        return {\"answer\": response.content[0].text}",
+            "    except APIError as e:",
+            "        raise HTTPException(status_code=502, detail=f\"Claude API 오류: {e}\")",
+            "",
+            "# POST /ask  Body: {\"question\": \"\"} 요청 시:"
+          ],
+          "output": [
+            "{\"detail\": \"질문이 비어있습니다.\"}"
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "멀티턴 대화는 messages 배열에 이전 대화를 누적해서 넘기는 방식으로 구현합니다.\n프론트에서 대화 이력을 배열로 관리하고, 매 요청마다 전체 이력을 함께 전송하면 Claude가 문맥을 이어갑니다.",
+        "terminal": {
+          "code": [
+            "from fastapi import FastAPI",
+            "from pydantic import BaseModel",
+            "from anthropic import Anthropic",
+            "from typing import List",
+            "",
+            "app = FastAPI()",
+            "client = Anthropic()",
+            "",
+            "class Turn(BaseModel):",
+            "    role: str   # \"user\" 또는 \"assistant\"",
+            "    content: str",
+            "",
+            "class ChatRequest(BaseModel):",
+            "    messages: List[Turn]",
+            "",
+            "@app.post(\"/chat/multi\")",
+            "def multi_turn(req: ChatRequest):",
+            "    response = client.messages.create(",
+            "        model=\"claude-haiku-4-5-20251001\",",
+            "        max_tokens=256,",
+            "        messages=[m.dict() for m in req.messages]",
+            "    )",
+            "    return {\"answer\": response.content[0].text}",
+            "",
+            "# 두 번째 질문 시 Body:",
+            "# {\"messages\": [{\"role\":\"user\",\"content\":\"안녕!\"},",
+            "#   {\"role\":\"assistant\",\"content\":\"안녕하세요!\"},",
+            "#   {\"role\":\"user\",\"content\":\"방금 뭐라고 했어?\"}]}"
+          ],
+          "output": [
+            "{\"answer\": \"저는 방금 '안녕하세요!'라고 인사했습니다.\"}"
+          ]
+        },
+        "tip": "Claude는 messages 배열의 전체 내용을 보고 응답합니다. 이력이 길어지면 max_tokens 와 비용을 고려해 최근 N 턴만 유지하는 슬라이딩 윈도우 전략을 사용하세요."
+      },
+      {
+        "order": 7,
+        "text": "종합실습: 시스템 프롬프트 + 멀티턴 + 에러 처리를 결합한 실전 AI 채팅 엔드포인트입니다.\nUnit 2~3에서 배운 asyncio, Claude API 패턴이 FastAPI 백엔드 안에서 통합됩니다.",
+        "terminal": {
+          "code": [
+            "from fastapi import FastAPI, HTTPException",
+            "from pydantic import BaseModel",
+            "from anthropic import Anthropic, APIError",
+            "from typing import List",
+            "",
+            "app = FastAPI()",
+            "client = Anthropic()",
+            "",
+            "class Turn(BaseModel):",
+            "    role: str",
+            "    content: str",
+            "",
+            "class ChatRequest(BaseModel):",
+            "    system: str = \"당신은 친절한 Python 코딩 튜터입니다.\"",
+            "    messages: List[Turn]",
+            "",
+            "@app.post(\"/chat\")",
+            "def chat(req: ChatRequest):",
+            "    if not req.messages:",
+            "        raise HTTPException(status_code=400, detail=\"메시지가 없습니다.\")",
+            "    try:",
+            "        res = client.messages.create(",
+            "            model=\"claude-haiku-4-5-20251001\",",
+            "            max_tokens=512,",
+            "            system=req.system,",
+            "            messages=[m.dict() for m in req.messages]",
+            "        )",
+            "        return {\"answer\": res.content[0].text}",
+            "    except APIError as e:",
+            "        raise HTTPException(status_code=502, detail=str(e))",
+            "",
+            "# POST /chat  Body: {\"messages\":[{\"role\":\"user\",\"content\":\"리스트란?\"}]} 요청 시:"
+          ],
+          "output": [
+            "{\"answer\": \"리스트는 여러 값을 순서대로 저장하는 Python 자료구조입니다...\"}"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "lesson_id": "7-3-advanced",
+    "unit": 7,
+    "stage": "7-3",
+    "course_level": "advanced",
+    "title": "프론트엔드 연결",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "브라우저는 보안상 다른 출처(origin)의 서버에 직접 요청을 차단합니다.\nReact 개발 서버(localhost:5173)에서 FastAPI(localhost:8000)로 요청할 때 CORS 오류가 발생하는 이유입니다.\nFastAPI의 CORSMiddleware로 허용할 출처를 명시적으로 설정합니다.",
+        "tip": "운영 환경에서는 allow_origins=[\"https://your-domain.com\"] 처럼 정확한 도메인만 허용하세요. \"*\" 는 개발 환경 전용입니다."
+      },
+      {
+        "order": 2,
+        "text": "app.add_middleware(CORSMiddleware, ...) 로 CORS 정책을 등록합니다.\nallow_origins 에 React 개발 서버 주소를 추가하면 브라우저의 CORS 오류가 사라집니다.",
+        "terminal": {
+          "code": [
+            "from fastapi import FastAPI",
+            "from fastapi.middleware.cors import CORSMiddleware",
+            "",
+            "app = FastAPI()",
+            "",
+            "app.add_middleware(",
+            "    CORSMiddleware,",
+            "    allow_origins=[\"http://localhost:5173\"],  # React 개발 서버",
+            "    allow_credentials=True,",
+            "    allow_methods=[\"*\"],",
+            "    allow_headers=[\"*\"],",
+            ")",
+            "",
+            "@app.get(\"/ping\")",
+            "def ping():",
+            "    return {\"status\": \"ok\"}",
+            "",
+            "# GET /ping 요청 시:"
+          ],
+          "output": [
+            "{\"status\": \"ok\"}"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "브라우저(React 등)에서 fetch API 로 FastAPI에 GET 요청을 보냅니다.\nawait response.json() 이 JSON 응답을 JavaScript 객체로 파싱합니다.",
+        "terminal": {
+          "code": [
+            "// React 또는 브라우저 JavaScript",
+            "async function loadMemos() {",
+            "  const response = await fetch(\"http://localhost:8000/memos\");",
+            "",
+            "  if (!response.ok) {",
+            "    throw new Error(`서버 오류: ${response.status}`);",
+            "  }",
+            "",
+            "  const data = await response.json();",
+            "  console.log(\"메모 목록:\", data);",
+            "}",
+            "",
+            "loadMemos();"
+          ],
+          "output": [
+            "메모 목록: {total: 1, memos: [{title: \"학습\", content: \"FastAPI 기초\"}]}"
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "POST 요청은 method, headers, body 를 fetch 옵션에 명시합니다.\nContent-Type: application/json 헤더와 JSON.stringify(body) 가 세트로 사용됩니다.",
+        "terminal": {
+          "code": [
+            "// POST 요청으로 메모 저장",
+            "async function addMemo(title, content) {",
+            "  const response = await fetch(\"http://localhost:8000/memos\", {",
+            "    method: \"POST\",",
+            "    headers: { \"Content-Type\": \"application/json\" },",
+            "    body: JSON.stringify({ title, content }),",
+            "  });",
+            "",
+            "  const data = await response.json();",
+            "  console.log(\"저장 결과:\", data);",
+            "}",
+            "",
+            "addMemo(\"FastAPI 학습\", \"오늘 배운 내용 정리\");"
+          ],
+          "output": [
+            "저장 결과: {message: \"메모 저장 완료\", memo: {title: \"FastAPI 학습\", content: \"오늘 배운 내용 정리\"}}"
+          ]
+        },
+        "tip": "Content-Type 헤더를 빠뜨리면 FastAPI가 요청 본문을 JSON으로 인식하지 못해 422 오류가 발생합니다."
+      },
+      {
+        "order": 5,
+        "text": "실전 패턴: React에서 FastAPI의 /ask 엔드포인트를 호출해 Claude AI 답변을 받아 화면에 표시합니다.\n이 패턴이 AI MON의 오답 피드백 기능과 동일한 구조입니다.",
+        "terminal": {
+          "code": [
+            "// Claude AI에 질문하고 답변 표시",
+            "async function askAI(question) {",
+            "  const res = await fetch(\"http://localhost:8000/ask\", {",
+            "    method: \"POST\",",
+            "    headers: { \"Content-Type\": \"application/json\" },",
+            "    body: JSON.stringify({ question }),",
+            "  });",
+            "",
+            "  const { answer } = await res.json();",
+            "  console.log(\"AI 답변:\", answer);",
+            "}",
+            "",
+            "askAI(\"파이썬 리스트 컴프리헨션이 뭔가요?\");"
+          ],
+          "output": [
+            "AI 답변: 리스트 컴프리헨션은 기존 리스트를 바탕으로 새 리스트를 간결하게 만드는 문법입니다..."
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "React에서 useState 로 데이터를 상태로 관리하고, useEffect 로 컴포넌트 마운트 시 API를 호출합니다.\n이 패턴이 React + FastAPI 연동의 가장 기본적인 조합입니다.",
+        "terminal": {
+          "code": [
+            "// React 컴포넌트 — 메모 목록 표시",
+            "import { useState, useEffect } from \"react\";",
+            "",
+            "function MemoList() {",
+            "  const [memos, setMemos] = useState([]);",
+            "  const [loading, setLoading] = useState(true);",
+            "",
+            "  useEffect(() => {",
+            "    fetch(\"http://localhost:8000/memos\")",
+            "      .then((res) => res.json())",
+            "      .then((data) => {",
+            "        setMemos(data.memos);",
+            "        setLoading(false);",
+            "      });",
+            "  }, []);  // [] : 마운트 시 1회만 실행",
+            "",
+            "  if (loading) return <p>로딩 중...</p>;",
+            "  return <ul>{memos.map((m) => <li key={m.id}>{m.title}</li>)}</ul>;",
+            "}",
+            "",
+            "// 렌더링 결과 (memos: [{id:1, title:\"FastAPI 학습\"}]):"
+          ],
+          "output": [
+            "• FastAPI 학습"
+          ]
+        },
+        "tip": "useEffect 의 두 번째 인자 [] 는 의존성 배열입니다. 빈 배열이면 마운트 1회, 값이 있으면 해당 값 변경 시마다 실행됩니다."
+      },
+      {
+        "order": 7,
+        "text": "API 호출 중 발생할 수 있는 네트워크 오류와 서버 오류를 구분해 처리합니다.\ntry/catch 로 네트워크 오류를, response.ok 로 HTTP 오류 상태(4xx·5xx)를 각각 잡습니다.",
+        "terminal": {
+          "code": [
+            "// 에러 핸들링 + 로딩 상태 관리",
+            "async function safeFetch(url, options = {}) {",
+            "  try {",
+            "    const res = await fetch(url, options);",
+            "",
+            "    if (!res.ok) {",
+            "      const err = await res.json();",
+            "      throw new Error(err.detail ?? `HTTP ${res.status}`);",
+            "    }",
+            "",
+            "    return await res.json();",
+            "  } catch (e) {",
+            "    console.error(\"API 오류:\", e.message);",
+            "    throw e;",
+            "  }",
+            "}",
+            "",
+            "// 존재하지 않는 메모 요청",
+            "safeFetch(\"http://localhost:8000/memos/999\").catch((e) =>",
+            "  console.log(\"처리된 오류:\", e.message)",
+            ");"
+          ],
+          "output": [
+            "API 오류: 메모 없음",
+            "처리된 오류: 메모 없음"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "lesson_id": "7-4-advanced",
+    "unit": 7,
+    "stage": "7-4",
+    "course_level": "advanced",
+    "title": "데이터베이스 연동",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "SQLAlchemy는 Python에서 데이터베이스를 객체처럼 다룰 수 있게 해주는 ORM(Object Relational Mapper)입니다.\nSQL을 직접 작성하는 대신 Python 클래스로 테이블을 정의하고, 메서드로 CRUD를 처리합니다.\nSQLite는 파일 하나로 동작하는 경량 DB로 개발·프로토타입 단계에 적합합니다.",
+        "tip": "ORM을 쓰면 SQLite → PostgreSQL 전환 시 DATABASE_URL 한 줄만 바꾸면 됩니다. AI MON도 SQLite → PostgreSQL 마이그레이션 경로를 채택했습니다."
+      },
+      {
+        "order": 2,
+        "text": "Base 클래스를 상속받은 Python 클래스가 DB 테이블이 됩니다.\nColumn(타입, 옵션) 으로 각 컬럼을 정의하고, Base.metadata.create_all() 로 테이블을 생성합니다.",
+        "terminal": {
+          "code": [
+            "from sqlalchemy import create_engine, Column, Integer, String",
+            "from sqlalchemy.ext.declarative import declarative_base",
+            "",
+            "DATABASE_URL = \"sqlite:///./aimon.db\"",
+            "engine = create_engine(DATABASE_URL, connect_args={\"check_same_thread\": False})",
+            "Base = declarative_base()",
+            "",
+            "class Memo(Base):",
+            "    __tablename__ = \"memos\"",
+            "    id = Column(Integer, primary_key=True, index=True)",
+            "    title = Column(String, nullable=False)",
+            "    content = Column(String, default=\"\")",
+            "",
+            "Base.metadata.create_all(bind=engine)",
+            "print(\"DB 테이블 생성 완료 — memos\")"
+          ],
+          "output": [
+            "DB 테이블 생성 완료 — memos"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "SessionLocal 로 세션을 열고, add/commit/refresh 패턴으로 데이터를 저장합니다.\ncommit() 은 트랜잭션을 DB에 확정하고, refresh() 는 DB에서 최신 데이터(자동 생성된 id 등)를 다시 읽어옵니다.",
+        "terminal": {
+          "code": [
+            "from sqlalchemy.orm import sessionmaker",
+            "",
+            "SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)",
+            "db = SessionLocal()",
+            "",
+            "# INSERT",
+            "new_memo = Memo(title=\"SQLAlchemy 학습\", content=\"ORM으로 DB 다루기\")",
+            "db.add(new_memo)",
+            "db.commit()",
+            "db.refresh(new_memo)",
+            "print(f\"저장 완료 — id: {new_memo.id}, title: {new_memo.title}\")",
+            "",
+            "# SELECT",
+            "memos = db.query(Memo).all()",
+            "print(f\"총 메모 수: {len(memos)}\")",
+            "db.close()"
+          ],
+          "output": [
+            "저장 완료 — id: 1, title: SQLAlchemy 학습",
+            "총 메모 수: 1"
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "FastAPI의 Depends() 를 사용하면 요청마다 DB 세션을 자동으로 생성하고 응답 후 반드시 닫을 수 있습니다.\nyield 기반 제너레이터 함수로 세션 생명주기를 관리하는 것이 FastAPI 공식 패턴입니다.",
+        "terminal": {
+          "code": [
+            "from fastapi import FastAPI, Depends",
+            "from sqlalchemy.orm import Session",
+            "",
+            "app = FastAPI()",
+            "",
+            "def get_db():",
+            "    db = SessionLocal()",
+            "    try:",
+            "        yield db        # 요청 처리 중 세션 사용",
+            "    finally:",
+            "        db.close()      # 응답 후 반드시 닫힘",
+            "",
+            "@app.get(\"/memos\")",
+            "def list_memos(db: Session = Depends(get_db)):",
+            "    memos = db.query(Memo).all()",
+            "    return [{\"id\": m.id, \"title\": m.title} for m in memos]",
+            "",
+            "# GET /memos 요청 시:"
+          ],
+          "output": [
+            "[{\"id\": 1, \"title\": \"SQLAlchemy 학습\"}]"
+          ]
+        },
+        "tip": "Depends(get_db) 는 함수를 호출해 세션을 주입합니다. yield 덕분에 예외가 발생해도 finally 의 db.close() 가 반드시 실행됩니다."
+      },
+      {
+        "order": 5,
+        "text": "POST(생성)와 DELETE(삭제) 엔드포인트를 추가해 완전한 CRUD API를 완성합니다.\nfilter().first() 는 조건에 맞는 첫 레코드를 반환하고, 없으면 None 을 반환합니다.",
+        "terminal": {
+          "code": [
+            "from fastapi import FastAPI, Depends, HTTPException",
+            "from pydantic import BaseModel",
+            "from sqlalchemy.orm import Session",
+            "",
+            "app = FastAPI()",
+            "",
+            "class MemoCreate(BaseModel):",
+            "    title: str",
+            "    content: str = \"\"",
+            "",
+            "@app.post(\"/memos\", status_code=201)",
+            "def create_memo(memo: MemoCreate, db: Session = Depends(get_db)):",
+            "    new = Memo(title=memo.title, content=memo.content)",
+            "    db.add(new)",
+            "    db.commit()",
+            "    db.refresh(new)",
+            "    return {\"id\": new.id, \"title\": new.title}",
+            "",
+            "@app.delete(\"/memos/{memo_id}\")",
+            "def delete_memo(memo_id: int, db: Session = Depends(get_db)):",
+            "    memo = db.query(Memo).filter(Memo.id == memo_id).first()",
+            "    if not memo:",
+            "        raise HTTPException(status_code=404, detail=\"메모 없음\")",
+            "    db.delete(memo)",
+            "    db.commit()",
+            "    return {\"deleted\": memo_id}",
+            "",
+            "# POST /memos  Body: {\"title\": \"DB 연동\"} 요청 시:"
+          ],
+          "output": [
+            "{\"id\": 1, \"title\": \"DB 연동\"}"
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "PUT 엔드포인트로 기존 레코드를 수정합니다.\nfilter().first() 로 대상을 찾고 필드를 직접 변경한 뒤 commit() 으로 저장합니다.",
+        "terminal": {
+          "code": [
+            "from fastapi import FastAPI, Depends, HTTPException",
+            "from pydantic import BaseModel",
+            "from sqlalchemy.orm import Session",
+            "from typing import Optional",
+            "",
+            "app = FastAPI()",
+            "",
+            "class MemoUpdate(BaseModel):",
+            "    title: Optional[str] = None",
+            "    content: Optional[str] = None",
+            "",
+            "@app.put(\"/memos/{memo_id}\")",
+            "def update_memo(memo_id: int, update: MemoUpdate,",
+            "                db: Session = Depends(get_db)):",
+            "    memo = db.query(Memo).filter(Memo.id == memo_id).first()",
+            "    if not memo:",
+            "        raise HTTPException(status_code=404, detail=\"메모 없음\")",
+            "    if update.title is not None:",
+            "        memo.title = update.title",
+            "    if update.content is not None:",
+            "        memo.content = update.content",
+            "    db.commit()",
+            "    db.refresh(memo)",
+            "    return {\"id\": memo.id, \"title\": memo.title}",
+            "",
+            "# PUT /memos/1  Body: {\"title\": \"수정된 제목\"} 요청 시:"
+          ],
+          "output": [
+            "{\"id\": 1, \"title\": \"수정된 제목\"}"
+          ]
+        },
+        "tip": "Optional 필드를 사용하면 전달된 필드만 수정하는 부분 업데이트(PATCH 패턴)를 구현할 수 있습니다."
+      },
+      {
+        "order": 7,
+        "text": "filter() 로 조건 검색을, order_by() 로 정렬을, offset/limit 으로 페이지네이션을 구현합니다.\n대용량 데이터를 다룰 때 전체를 한 번에 반환하면 성능이 떨어지므로 페이지네이션은 필수입니다.",
+        "terminal": {
+          "code": [
+            "from fastapi import FastAPI, Depends",
+            "from sqlalchemy.orm import Session",
+            "",
+            "app = FastAPI()",
+            "",
+            "@app.get(\"/memos/search\")",
+            "def search_memos(",
+            "    keyword: str = \"\",",
+            "    skip: int = 0,",
+            "    limit: int = 10,",
+            "    db: Session = Depends(get_db)",
+            "):",
+            "    query = db.query(Memo)",
+            "    if keyword:",
+            "        query = query.filter(Memo.title.contains(keyword))",
+            "    total = query.count()",
+            "    memos = query.order_by(Memo.id.desc()).offset(skip).limit(limit).all()",
+            "    return {",
+            "        \"total\": total,",
+            "        \"page\": skip // limit + 1,",
+            "        \"memos\": [{\"id\": m.id, \"title\": m.title} for m in memos]",
+            "    }",
+            "",
+            "# GET /memos/search?keyword=FastAPI&skip=0&limit=5 요청 시:"
+          ],
+          "output": [
+            "{\"total\": 2, \"page\": 1, \"memos\": [{\"id\": 2, \"title\": \"FastAPI + AI 연동\"}, {\"id\": 1, \"title\": \"FastAPI 학습\"}]}"
+          ]
+        },
+        "tip": "order_by(Memo.id.desc()) 는 최신 항목을 먼저 반환합니다. .asc() 는 오름차순입니다."
+      }
+    ]
+  },
+  {
+    "lesson_id": "7-5-advanced",
+    "unit": 7,
+    "stage": "7-5",
+    "course_level": "advanced",
+    "title": "웹 프로젝트 종합",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "지금까지 배운 모든 요소를 연결하면 완전한 풀스택 AI 웹 서비스가 됩니다.\n① React(프론트) → fetch → ② FastAPI(백엔드) → Claude API + SQLite(DB)\n이 아키텍처는 AI MON 자체 서비스와 동일한 구조입니다.",
+        "tip": "백엔드 코드가 커지면 routers/ 폴더로 엔드포인트를 분리하고, services/ 폴더에 비즈니스 로직을 두는 계층 구조가 유지보수에 유리합니다."
+      },
+      {
+        "order": 2,
+        "text": "APIRouter 로 엔드포인트를 기능별로 분리한 뒤 app.include_router() 로 등록합니다.\nprefix 로 공통 경로를 지정하고, tags 로 자동 문서(/docs)의 그룹명을 설정합니다.",
+        "terminal": {
+          "code": [
+            "# routers/memos.py",
+            "from fastapi import APIRouter, Depends",
+            "from sqlalchemy.orm import Session",
+            "",
+            "router = APIRouter(prefix=\"/memos\", tags=[\"memos\"])",
+            "",
+            "@router.get(\"/\")",
+            "def list_memos(db: Session = Depends(get_db)):",
+            "    return db.query(Memo).all()",
+            "",
+            "# main.py",
+            "from fastapi import FastAPI",
+            "from routers import memos",
+            "",
+            "app = FastAPI()",
+            "app.include_router(memos.router)",
+            "print(\"라우터 등록 완료 — /memos 경로 사용 가능\")"
+          ],
+          "output": [
+            "라우터 등록 완료 — /memos 경로 사용 가능"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "@app.exception_handler(예외타입) 으로 특정 예외를 전역에서 처리할 수 있습니다.\n개별 엔드포인트마다 try/except 를 반복하지 않고 공통 오류 응답 형식을 일관되게 유지할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "from fastapi import FastAPI, Request",
+            "from fastapi.responses import JSONResponse",
+            "",
+            "app = FastAPI()",
+            "",
+            "@app.exception_handler(Exception)",
+            "async def global_exception_handler(request: Request, exc: Exception):",
+            "    return JSONResponse(",
+            "        status_code=500,",
+            "        content={\"error\": \"서버 내부 오류\", \"detail\": str(exc)}",
+            "    )",
+            "",
+            "@app.get(\"/test-error\")",
+            "def trigger_error():",
+            "    raise ValueError(\"의도적 오류 발생!\")",
+            "",
+            "# GET /test-error 요청 시:"
+          ],
+          "output": [
+            "{\"error\": \"서버 내부 오류\", \"detail\": \"의도적 오류 발생!\"}"
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "lifespan 컨텍스트 매니저로 서버 시작/종료 시 실행할 코드를 등록합니다.\nyield 이전이 시작(startup) 로직, 이후가 종료(shutdown) 로직입니다. FastAPI 0.93+ 권장 방식입니다.",
+        "terminal": {
+          "code": [
+            "from contextlib import asynccontextmanager",
+            "from fastapi import FastAPI",
+            "",
+            "@asynccontextmanager",
+            "async def lifespan(app: FastAPI):",
+            "    print(\"[시작] DB 초기화...\")",
+            "    Base.metadata.create_all(bind=engine)",
+            "    yield                          # 서버 실행 중",
+            "    print(\"[종료] 서버 종료 정리...\")",
+            "",
+            "app = FastAPI(lifespan=lifespan)",
+            "",
+            "# 서버 시작 → 요청 처리 → 서버 종료 시 출력 순서:"
+          ],
+          "output": [
+            "[시작] DB 초기화...",
+            "[종료] 서버 종료 정리..."
+          ]
+        },
+        "tip": "@app.on_event(\"startup\") 은 deprecated 되었습니다. lifespan 방식을 사용하세요."
+      },
+      {
+        "order": 5,
+        "text": "종합 실전: 질문을 Claude API로 처리하고 DB에 기록하는 /chat 엔드포인트입니다.\nFastAPI + Pydantic + SQLAlchemy + Claude API 가 한 엔드포인트에서 협력하는 풀스택 AI 서비스의 완성 형태입니다.",
+        "terminal": {
+          "code": [
+            "from fastapi import FastAPI, Depends",
+            "from pydantic import BaseModel",
+            "from sqlalchemy import Column, Integer, String",
+            "from sqlalchemy.orm import Session",
+            "from anthropic import Anthropic",
+            "",
+            "app = FastAPI()",
+            "client = Anthropic()",
+            "",
+            "class QnA(Base):",
+            "    __tablename__ = \"qna\"",
+            "    id = Column(Integer, primary_key=True)",
+            "    question = Column(String)",
+            "    answer = Column(String)",
+            "",
+            "class ChatRequest(BaseModel):",
+            "    question: str",
+            "",
+            "@app.post(\"/chat\")",
+            "def chat(req: ChatRequest, db: Session = Depends(get_db)):",
+            "    response = client.messages.create(",
+            "        model=\"claude-haiku-4-5-20251001\",",
+            "        max_tokens=256,",
+            "        messages=[{\"role\": \"user\", \"content\": req.question}]",
+            "    )",
+            "    answer = response.content[0].text",
+            "    db.add(QnA(question=req.question, answer=answer))",
+            "    db.commit()",
+            "    return {\"question\": req.question, \"answer\": answer}",
+            "",
+            "# POST /chat  Body: {\"question\": \"FastAPI 핵심 장점은?\"} 요청 시:"
+          ],
+          "output": [
+            "{\"question\": \"FastAPI 핵심 장점은?\", \"answer\": \"FastAPI의 핵심 장점은 자동 문서화, 타입 검증, 비동기 지원입니다...\"}"
+          ]
+        },
+        "tip": "Unit 7 전체를 통해 FastAPI 기초 → AI 연동 → 프론트 연결 → DB 연동 → 종합 통합의 흐름을 경험했습니다. 이 구조가 실무 AI 웹 서비스의 기본 뼈대입니다."
+      },
+      {
+        "order": 6,
+        "text": "배포 전 환경변수 관리와 requirements.txt 정리가 필수입니다.\n.env 파일은 절대 Git에 올리지 않고, .gitignore 에 반드시 추가합니다.",
+        "terminal": {
+          "code": [
+            "# .env (Git 제외 — .gitignore에 추가)",
+            "# ANTHROPIC_API_KEY=sk-ant-...",
+            "# DATABASE_URL=sqlite:///./aimon.db",
+            "",
+            "# requirements.txt 생성",
+            "# pip freeze > requirements.txt",
+            "",
+            "# requirements.txt 내용 예시:",
+            "# fastapi==0.111.0",
+            "# uvicorn==0.29.0",
+            "# anthropic==0.28.0",
+            "# sqlalchemy==2.0.30",
+            "# python-dotenv==1.0.1",
+            "# httpx==0.27.0",
+            "",
+            "import os",
+            "from dotenv import load_dotenv",
+            "",
+            "load_dotenv()",
+            "db_url = os.environ.get(\"DATABASE_URL\", \"sqlite:///./default.db\")",
+            "print(f\"DB 연결: {db_url}\")",
+            "print(f\"API 키 설정 여부: {'ANTHROPIC_API_KEY' in os.environ}\")"
+          ],
+          "output": [
+            "DB 연결: sqlite:///./aimon.db",
+            "API 키 설정 여부: True"
+          ]
+        },
+        "tip": "Replit 배포 시 환경변수는 Replit Secrets 탭에서 관리합니다. os.environ[\"KEY\"] 로 동일하게 접근할 수 있습니다."
+      },
+      {
+        "order": 7,
+        "text": "Unit 7 종합: FastAPI + Claude API + SQLAlchemy + React fetch 가 결합된 풀스택 AI 웹 서비스의 전체 흐름을 확인합니다.\nuvicorn main:app --reload 명령 하나로 서버를 실행하고 /docs 에서 전체 API를 즉시 테스트할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "# 최종 서버 구조 확인",
+            "from fastapi import FastAPI",
+            "from fastapi.middleware.cors import CORSMiddleware",
+            "from contextlib import asynccontextmanager",
+            "",
+            "@asynccontextmanager",
+            "async def lifespan(app: FastAPI):",
+            "    Base.metadata.create_all(bind=engine)",
+            "    print(\"[시작] 풀스택 AI 서버 가동\")",
+            "    yield",
+            "    print(\"[종료] 서버 정리 완료\")",
+            "",
+            "app = FastAPI(title=\"에이몬 AI 서비스\", lifespan=lifespan)",
+            "app.add_middleware(CORSMiddleware,",
+            "    allow_origins=[\"http://localhost:5173\"],",
+            "    allow_methods=[\"*\"], allow_headers=[\"*\"])",
+            "",
+            "from routers import memos, chat",
+            "app.include_router(memos.router)",
+            "app.include_router(chat.router)",
+            "",
+            "# uvicorn main:app --reload 실행 시:"
+          ],
+          "output": [
+            "[시작] 풀스택 AI 서버 가동",
+            "INFO:     Application startup complete.",
+            "INFO:     Uvicorn running on http://127.0.0.1:8000"
+          ]
+        },
+        "tip": "Unit 7을 완료하면 FastAPI 백엔드 → Claude AI → SQLite DB → React 프론트를 잇는 완전한 AI 웹 서비스를 직접 구축할 수 있습니다."
+      }
+    ]
+  }
+]

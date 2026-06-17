@@ -28,8 +28,10 @@ def get_train_review(
     limit: int = 15,
     authorization: str = Header(None)
 ):
-    questions = load_questions_by_category("quiz", course_level=course_level, unit=unit) + \
-                load_questions_by_category("miniboss", course_level=course_level, unit=unit)
+    questions = load_questions_by_category("train", course_level=course_level, unit=unit)
+    if not questions:
+        questions = load_questions_by_category("quiz", course_level=course_level, unit=unit) + \
+                    load_questions_by_category("miniboss", course_level=course_level, unit=unit)
     wrong_answers = load_wrong_answers()
 
     # 유저 ID 추출 (JWT 토큰 파싱)
