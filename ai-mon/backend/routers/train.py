@@ -1,6 +1,7 @@
 import json, os, random
 from fastapi import APIRouter, Header, HTTPException
 from jose import jwt, JWTError
+from pydantic import BaseModel
 
 SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
@@ -61,3 +62,37 @@ def get_train_review(
     random.shuffle(normal_qs)
     result = priority_qs + normal_qs
     return result[:limit]
+
+class ReviewedRequest(BaseModel):
+    question_id: str
+
+def save_wrong_answers(data):
+    with open(WRONG_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+@router.post("/reviewed")
+def mark_question_reviewed(req: ReviewedRequest, authorization: str = Header(None)):
+    user_id = None
+    if authorization and authorization.startswith("Bearer "):
+        token = authorization.split(" ")[1]
+        try:
+            payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+            user_id = payload.get("sub")
+        except JWTError:
+            pass
+
+    if not user_id:
+        raise HTTPException(status_code=401, detail="토큰이 유효하지 않습니다.")
+
+    wrong_answers = load_wrong_answers()
+    updated = False
+    for entry in wrong_answers:
+        if entry.get("user_id") == user_id and entry.get("question_id") == req.question_id:
+            entry["reviewed"] = True
+            updated = True
+
+    if updated:
+        save_wrong_answers(wrong_answers)
+
+    return {"success": True}
+

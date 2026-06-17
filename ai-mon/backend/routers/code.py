@@ -162,7 +162,11 @@ async def submit_code(req: SubmitRequest, authorization: str = Header(...)):
 
 @router.post("/hint")
 async def get_code_hint(req: HintRequest, authorization: str = Header(...)):
-    verify_token(authorization)
+    user_id = verify_token(authorization)
+    users = load_users()
+    user = next((u for u in users if u["id"] == user_id), None)
+    if not user:
+        raise HTTPException(status_code=401, detail="User not found")
 
     question = find_question(req.question_id)
     if not question:
@@ -182,7 +186,14 @@ async def get_code_hint(req: HintRequest, authorization: str = Header(...)):
     )
     result = await ask_claude(prompt, level=req.course_level)
 
+    # Increment AI feedback count & award titles
+    user["ai_feedback_count"] = user.get("ai_feedback_count", 0) + 1
+    from routers.titles import check_and_award_titles
+    newly_earned = check_and_award_titles(user, {})
+    save_users(users)
+
     return {
         "hint":           result.get("feedback", ""),
         "is_ai_fallback": not result.get("success", False),
+        "newly_earned_titles": newly_earned
     }

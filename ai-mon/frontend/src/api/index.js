@@ -46,4 +46,5 @@ export const userApi = {
 
 export const trainApi = {
   getReview: (params) => api.get('/train/review', { params }),
+  updateReviewed: (data) => api.post('/train/reviewed', data),
 }
