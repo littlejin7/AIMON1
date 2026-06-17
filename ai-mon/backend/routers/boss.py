@@ -112,18 +112,19 @@ def start_boss_battle(unit: str = "1", authorization: str = Header(...)):
         raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
     import random
     
-    seen = user.get("boss_seen_questions", [])
+    # unitboss_seen_questions: 유닛보스 전용 (endboss_seen_questions와 분리)
+    seen = user.get("unitboss_seen_questions", user.get("boss_seen_questions", []))
     unseen = [q for q in boss_qs if q["question_id"] not in seen]
 
     if not unseen:  # 전부 소진하면 리셋
-        user["boss_seen_questions"] = []
+        user["unitboss_seen_questions"] = []
         unseen = boss_qs
 
     chosen = random.choice(unseen)
-    user["boss_seen_questions"] = user.get("boss_seen_questions", []) + [chosen["question_id"]]
+    user["unitboss_seen_questions"] = seen + [chosen["question_id"]]
     save_users(users)
     return chosen
-    
+
 @router.post("/next")
 def get_next_question(unit: str = "1", authorization: str = Header(...)):
     user_id = verify_token(authorization)
@@ -135,20 +136,20 @@ def get_next_question(unit: str = "1", authorization: str = Header(...)):
     category = "endboss" if unit == "final" else "unitboss"
     unit_num = None if unit == "final" else int(unit)
     boss_qs = load_questions_by_category(category, course_level=course_level, unit=unit_num)
-    
+
     if not boss_qs:
         raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
     import random
 
-    seen = user.get("boss_seen_questions", [])
+    seen = user.get("unitboss_seen_questions", user.get("boss_seen_questions", []))
     unseen = [q for q in boss_qs if q["question_id"] not in seen]
 
     if not unseen:  # 전부 소진하면 리셋
-        user["boss_seen_questions"] = []
+        user["unitboss_seen_questions"] = []
         unseen = boss_qs
 
     chosen = random.choice(unseen)
-    user["boss_seen_questions"] = user.get("boss_seen_questions", []) + [chosen["question_id"]]
+    user["unitboss_seen_questions"] = seen + [chosen["question_id"]]
     save_users(users)
     return chosen
 

@@ -405,7 +405,7 @@
     {
       "question_id": "miniboss_int_fib_8_2_010",
       "type": "fill_in_blank",
-      "question": "빈칸을 채워 상태 코드에 따라 재시도 여부를 반환하세요. (401·403은 재시도 불필요, 429·5xx는 재시도)\n\n```python\ndef should_retry(status_code):\n    no_retry = {401, 403}\n    return status_code not in no_retry and (status_code == 429 or status_code >= _____) # 기대 동작: should_retry(400) == False, should_retry(500) == True \n```"
+      "question": "빈칸을 채워 상태 코드에 따라 재시도 여부를 반환하세요. (401·403은 재시도 불필요, 429·5xx는 재시도)\n\n```python\ndef should_retry(status_code):\n    no_retry = {401, 403}\n    return status_code not in no_retry and (status_code == 429 or status_code >= _____) # 기대 동작: should_retry(400) == False, should_retry(500) == True \n```",
       "answer": "500",
       "difficulty": "hard",
       "explanation": "401(인증 실패), 403(권한 없음)은 재시도해도 동일 결과이므로 제외해요. 429(Rate Limit)와 5xx(서버 오류)는 일시적 문제이므로 재시도가 의미 있습니다.",
