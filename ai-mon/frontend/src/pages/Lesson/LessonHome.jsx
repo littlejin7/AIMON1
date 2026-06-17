@@ -174,6 +174,34 @@ export default function LessonHome() {
           )
         })}
 
+        {/* 유닛보스 도전 */}
+        {token && (
+          <button 
+            className="lh-unit-card lh-unitboss-nav animate-fade-in-up" 
+            onClick={() => navigate('/boss')}
+            style={{ 
+              background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%)', 
+              borderColor: 'rgba(168, 85, 247, 0.3)' 
+            }}
+          >
+            <div className="lh-unit-badge" style={{ background: 'rgba(168, 85, 247, 0.2)', borderColor: '#a855f7' }}>
+              <span style={{ color: '#a855f7', fontWeight: 800 }}>⚔️</span>
+            </div>
+            <div className="lh-unit-body">
+              <div className="lh-unit-row">
+                <span className="lh-unit-icon">👾</span>
+                <div className="lh-unit-text">
+                  <span className="lh-unit-title">유닛보스 도전</span>
+                  <div className="lh-unit-keywords">
+                    <span className="lh-keyword">보스 선택 및 도전</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span className="lh-arrow">›</span>
+          </button>
+        )}
+
         {/* 파이널 보스 */}
         {isAllDone && (
           <button className="lh-unit-card lh-endboss animate-fade-in-up" onClick={() => navigate('/boss/final')}>
