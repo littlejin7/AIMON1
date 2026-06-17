@@ -5,7 +5,7 @@ import { useRef, useEffect, useCallback } from 'react'
  *
  * Web Audio API로 모든 사운드를 코드로 생성합니다 (외부 파일 없음).
  *
- * BGM 종류: 'miniboss_intro' | 'unitboss_intro' | 'finalboss_intro'
+ * BGM 종류: 'miniboss_intro' | 'unitboss_intro' | 'endboss_intro'
  *           | 'battle' | 'clear' | 'fail'
  * SFX 종류: 'attack' | 'hit'
  *
@@ -327,7 +327,7 @@ export default function useBossSound() {
       switch (type) {
         case 'miniboss_intro':   nodes = _playMiniBossIntro(ac);  break
         case 'unitboss_intro':   nodes = _playUnitBossIntro(ac);  break
-        case 'finalboss_intro':  nodes = _playFinalBossIntro(ac); break
+        case 'endboss_intro':  nodes = _playFinalBossIntro(ac); break
         case 'battle':           nodes = _playBattle(ac);         break
         case 'clear':            nodes = _playClear(ac);          break
         case 'fail':             nodes = _playFail(ac);           break

@@ -29,7 +29,7 @@ def load_questions_by_category(category: str, course_level: str = None, unit: in
     tried_paths = set()
 
     for level in levels_to_try:
-        if category == "finalboss":
+        if category == "endboss":
             fpath = os.path.join(base, f"{level}.json")
             if fpath in tried_paths or not os.path.exists(fpath):
                 continue
@@ -37,7 +37,7 @@ def load_questions_by_category(category: str, course_level: str = None, unit: in
             with open(fpath, "r", encoding="utf-8") as f:
                 data = json.load(f)
                 result.extend(data.get("questions", []))
-            break  # finalboss는 첫 번째 존재하는 레벨만 사용
+            break  # endboss는 첫 번째 존재하는 레벨만 사용
         else:
             folder = os.path.join(base, level)
             if not os.path.exists(folder):
@@ -221,7 +221,7 @@ def get_questions(
 def get_question(question_id: str):
     # This might need to search all categories if category is unknown.
     # For now, we search 'quiz' and 'miniboss'.
-    questions = load_questions_by_category("quiz") + load_questions_by_category("miniboss") + load_questions_by_category("unitboss") + load_questions_by_category("finalboss")
+    questions = load_questions_by_category("quiz") + load_questions_by_category("miniboss") + load_questions_by_category("unitboss") + load_questions_by_category("endboss")
     # 새 스키마는 "question_id" 키 사용
     q = next(
         (q for q in questions if q.get("question_id") == question_id or q.get("id") == question_id),

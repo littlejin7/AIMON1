@@ -99,7 +99,7 @@ export default function Boss() {
     try {
       const res = await bossApi.startBattle(lessonId)
       setCurrentQuestion(res.data)
-      const bgmType = isFinalBoss ? 'finalboss_intro' : 'unitboss_intro'
+      const bgmType = isFinalBoss ? 'endboss_intro' : 'unitboss_intro'
       playBGM(bgmType)
       setPhase('battle')
       setErrorMsg('')

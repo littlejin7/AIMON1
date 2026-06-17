@@ -105,7 +105,7 @@ def start_boss_battle(unit: str = "1", authorization: str = Header(...)):
         user["crowns"] -= 1
         
     course_level = user.get("course_level", "beginner")
-    category = "finalboss" if unit == "final" else "unitboss"
+    category = "endboss" if unit == "final" else "unitboss"
     unit_num = None if unit == "final" else int(unit)
     boss_qs = load_questions_by_category(category, course_level=course_level, unit=unit_num)
     if not boss_qs:
@@ -132,7 +132,7 @@ def get_next_question(unit: str = "1", authorization: str = Header(...)):
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
     course_level = user.get("course_level", "beginner")
-    category = "finalboss" if unit == "final" else "unitboss"
+    category = "endboss" if unit == "final" else "unitboss"
     unit_num = None if unit == "final" else int(unit)
     boss_qs = load_questions_by_category(category, course_level=course_level, unit=unit_num)
     
@@ -160,7 +160,7 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
     user = next((u for u in users if u["id"] == user_id), None)
     course_level = user.get("course_level", "beginner") if user else "beginner"
 
-    questions = load_questions_by_category("unitboss", course_level) + load_questions_by_category("finalboss", course_level)
+    questions = load_questions_by_category("unitboss", course_level) + load_questions_by_category("endboss", course_level)
     # 우리 스키마는 "question_id" 필드 사용 ("id" 필드 없음)
     question = next(
         (q for q in questions if q.get("question_id") == req.question_id or q.get("id") == req.question_id),
