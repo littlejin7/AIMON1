@@ -16,6 +16,8 @@ import json, os, random, uuid
 from datetime import datetime
 from typing import Optional
 
+from routers.utils import calc_level
+
 router = APIRouter()
 
 SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
@@ -238,15 +240,6 @@ def miniboss_clear(req: ClearRequest, authorization: str = Header(...)):
         xp_awarded = CLEAR_XP
 
         # 레벨 재계산
-        def calc_level(xp):
-            lv, acc = 1, 0
-            while lv < 30:
-                needed = lv * 1000
-                if xp < acc + needed:
-                    break
-                acc += needed
-                lv += 1
-            return lv
 
         user["lv"] = max(calc_level(user["xp"]), user.get("lv", 1))
         cleared.append(stage_key)

@@ -17,6 +17,8 @@ from routers.titles import check_and_award_titles
 import json, os, random
 from typing import Optional
 
+from routers.utils import calc_level
+
 router = APIRouter()
 
 SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
@@ -365,15 +367,6 @@ def endboss_clear(req: ClearRequest, authorization: str = Header(...)):
         user["xp"] = user.get("xp", 0) + CLEAR_XP
 
         # 레벨 재계산
-        def calc_level(xp):
-            lv, acc = 1, 0
-            while lv < 30:
-                needed = lv * 1000
-                if xp < acc + needed:
-                    break
-                acc += needed
-                lv += 1
-            return lv
 
         user["lv"] = max(calc_level(user["xp"]), user.get("lv", 1))
 

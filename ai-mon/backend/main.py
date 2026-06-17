@@ -8,9 +8,12 @@ load_dotenv(os.path.join(os.path.dirname(__file__), "../.env"))
 
 app = FastAPI(title="AI MON API - MVP", version="1.0.0")
 
+raw_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000")
+origins = [origin.strip() for origin in raw_origins.split(",") if origin.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

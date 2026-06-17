@@ -321,16 +321,7 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
                     }
                 u["completed_units"][course_level] = u["completed_units"].get(course_level, 0) + 1
             
-            def calc_level(xp):
-                lv = 1
-                accumulated = 0
-                while lv < 30:
-                    needed = lv * 1000
-                    if xp < accumulated + needed:
-                        break
-                    accumulated += needed
-                    lv += 1
-                return lv
+            from routers.utils import calc_level
 
             new_lv = calc_level(u["xp"])
             u["lv"] = max(new_lv, u.get("lv", 1))
