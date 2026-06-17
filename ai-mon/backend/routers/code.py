@@ -138,6 +138,7 @@ async def submit_code(req: SubmitRequest, authorization: str = Header(...)):
                 "stage":        req.stage,
                 "score":        result.get("score", 100),
                 "is_completed": True,
+                "course_level": course_level,
                 "created_at":   datetime.utcnow().isoformat(),
                 "updated_at":   datetime.utcnow().isoformat(),
             })
