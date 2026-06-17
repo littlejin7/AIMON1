@@ -64,7 +64,9 @@ def load_miniboss_questions(course_level: str, unit: int) -> list:
         if not os.path.exists(path):
             return []
     with open(path, "r", encoding="utf-8") as f:
-        return json.load(f).get("questions", [])
+        data = json.load(f)
+    # beginner: {"questions": [...]} / intermediate·advanced: [...]
+    return data if isinstance(data, list) else data.get("questions", [])
 
 def direct_grade(user_answer: str, correct_answer: str) -> bool:
     """선택형 문제 직접 채점."""
@@ -278,6 +280,6 @@ def miniboss_clear(req: ClearRequest, authorization: str = Header(...)):
     return {
         "already_cleared":  already_cleared,
         "xp_awarded":       xp_awarded,
-        "lv":               user.get("lv", 1),
+         "lv":               user.get("lv", 1),
         "cleared_stages":   user.get("miniboss_cleared_stages", []),
     }
