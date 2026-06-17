@@ -1,0 +1,382 @@
+[
+  {
+    "question_id": "sl_mid_fib_1_1_001",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "파이썬에서 프로그램 실행 중 발생할 수 있는 오류(예외)를 감싸서 안전하게 제어 흐름을 시작할 때 사용하는 키워드를 빈칸에 입력해 주세요.\n\n_____:\n    num = int('에이몬')\nexcept ValueError:\n    print('숫자 변환 오류가 발생했어요.')",
+    "answer": "try",
+    "feedback": {
+      "correct": "올바른 정답입니다! try 블록 내부의 코드를 먼저 실행하다가 에러가 발생하면 파이썬은 즉시 연결된 except 블록으로 핸들을 넘겨줍니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_1_1_002",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 콘솔 화면에 출력되는 최종 결과로 가장 적절한 것을 골라주세요.\n\ntry:\n    print('정상 진행 1')\n    print('정상 진행 2')\nexcept:\n    print('예외 차단 시스템 가동')",
+    "choices": [
+      "A. 정상 진행 1\n정상 진행 2",
+      "B. 예외 차단 시스템 가동",
+      "C. 정상 진행 1\n예외 차단 시스템 가동",
+      "D. 정상 진행 1\n정상 진행 2\n예외 차단 시스템 가동"
+    ],
+    "answer": "A. 정상 진행 1\n정상 진행 2",
+    "feedback": {
+      "correct": "정답입니다! try 블록 안의 코드에 에러가 전혀 없기 때문에 except 영역은 실행되지 않고 무사히 넘어갑니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_fib_1_1_003",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "try 블록 내에서 예외가 유발되었을 때, 특정 에러(예: ZeroDivisionError)를 콕 집어서 잡아내기 위해 선언하는 키워드를 빈칸에 채워주세요.\n\ntry:\n    result = 10 / 0\n_____ ZeroDivisionError:\n    print('0으로 나누는 에러를 방어했습니다.')",
+    "answer": "except",
+    "feedback": {
+      "correct": "훌륭합니다! except 키워드 뒤에 특정한 예외 클래스 이름을 선언해 두면 해당 종류의 에러만 정밀하게 가로챌 수 있습니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_1_1_004",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 예외 코드 스니펫을 구동했을 때 최종 출력창의 상태를 정확하게 골라주세요.\n\ntry:\n    print('루틴 시작')\n    calc = 5 / 0\n    print('루틴 성공')\nexcept ZeroDivisionError:\n    print('나눗셈 오류 발견')",
+    "choices": [
+      "A. 루틴 시작\n루틴 성공",
+      "B. 루틴 시작\n나눗셈 오류 발견",
+      "C. 루틴 시작\n루틴 성공\n나눗셈 오류 발견",
+      "D. 나눗셈 오류 발견"
+    ],
+    "answer": "B. 루틴 시작\n나눗셈 오류 발견",
+    "feedback": {
+      "correct": "정확합니다! `5 / 0` 수식이 수행되는 순간 ZeroDivisionError가 발생하므로, 그 아래의 `print('루틴 성공')`은 건너뛰고 즉시 except 절로 분기하게 됩니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_fib_1_1_005",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "초급 과정에서 다룬 리스트(list)의 순서 접근 규칙과 결합된 문제입니다. 존재하지 않는 방 번호(인덱스)를 호출할 때 일어나는 파이썬 고유의 예외 클래스명을 빈칸에 입력해 주세요.\n\ntry:\n    my_team = ['slime', 'robot']\n    print(my_team[5])\nexcept _______________:\n    print('팀원 리스트 범위를 이탈했습니다.')",
+    "answer": "IndexError",
+    "feedback": {
+      "correct": "정답입니다! 리스트의 가용 범위를 벗어난 공간에 강제 인덱싱 접근을 시도하면 파이썬은 IndexError를 발생시킵니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_1_1_006",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음과 같이 문자열 글자와 정수를 직접 결합하려는 연산 에러 상황이 대기 중일 때 최종 도출될 문구를 골라주세요.\n\ntry:\n    announcement = '올해 연도: ' + 2026\n    print(announcement)\nexcept TypeError:\n    print('자료형 타입 미스매치 감지')",
+    "choices": [
+      "A. 올해 연도: 2026",
+      "B. 자료형 타입 미스매치 감지",
+      "C. 올해 연도: ",
+      "D. 오류 메시지와 함께 프로그램 강제 다운"
+    ],
+    "answer": "B. 자료형 타입 미스매치 감지",
+    "feedback": {
+      "correct": "정답입니다! 파이썬에서 문자열(str)과 정수(int)는 `+` 연산자로 호환 병합할 수 없으므로 TypeError가 유발되고, except 블록이 이를 안전하게 낚아챕니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_fib_1_1_007",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "시스템이 내뿜는 실제 에러 정보 객체를 변수에 대입하여 에러 메시지를 가로채 출력해 주고자 합니다. 빈칸에 들어갈 알맞은 파이썬 키워드를 채워주세요.\n\ntry:\n    convert = int('abc')\nexcept ValueError _____ e:\n    print('원인 메시지:', e)",
+    "answer": "as",
+    "feedback": {
+      "correct": "정확합니다! `except 예외명 as 변수명:` 기믹을 배치하면 내부 에러 상세 문구를 고스란히 텍스트 객체 변수로 할당받아 추적용으로 사용할 수 있습니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_1_1_008",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "초급 과정의 딕셔너리(dict) 데이터 추출과 관련된 예외 흐름 분석 문제입니다. 다음 프로그램을 가동했을 때 최종적으로 얻게 되는 출력은 무엇일까요?\n\ncharacter = {'name': '슬라임', 'lv': 10}\ntry:\n    print(character['hp'])\nexcept KeyError:\n    print('키 정보 누락 발견')\nexcept:\n    print('기타 포괄 에러 처리')",
+    "choices": [
+      "A. None",
+      "B. 키 정보 누락 발견",
+      "C. 기타 포괄 에러 처리",
+      "D. 슬라임"
+    ],
+    "answer": "B. 키 정보 누락 발견",
+    "feedback": {
+      "correct": "완벽합니다! 딕셔너리에 기재되지 않은 'hp'라는 키 이름으로 매핑 값을 불러오려 시도하면 KeyError가 터지고, 수직 배치된 그물망 중 매칭되는 첫 번째 상단 블록이 이를 수거합니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_fib_1_1_009",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "만약 여러 개의 예외 종류를 하나의 except 문에서 일괄 묶어 처리하고자 할 때, 예외명들을 열거하는 올바른 소괄호 구문을 빈칸에 완성해 주세요.\n\ntry:\n    # 에러 위험 구간\n    pass\nexcept _______________:\n    print('지정된 에러 집합 수거')",
+    "answer": "(ValueError, IndexError)",
+    "feedback": {
+      "correct": "정답입니다! 다중의 예외 에러 클래스를 단 하나의 except 행에서 감싸 처리하려면 튜플(tuple) 문법인 소괄호 기호 `()` 안에 쉼표로 나열해야 합니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_1_1_010",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "초급 제어문인 `if` 조건문의 분기 상황과 예외 연산이 연동된 복합 분석 문제입니다. 다음 문맥이 가동될 때 도출되는 출력을 선택해 주세요.\n\ntry:\n    score = 150\n    if score >= 100:\n        result = score / 0\n    print('체크포인트 통과')\nexcept ZeroDivisionError:\n    print('제로 나누기 차단')",
+    "choices": [
+      "A. 체크포인트 통과",
+      "B. 제로 나누기 차단",
+      "C. 체크포인트 통과\n제로 나누기 차단",
+      "D. 아무 내용도 표시되지 않음"
+    ],
+    "answer": "B. 제로 나누기 차단",
+    "feedback": {
+      "correct": "정밀한 분석입니다! score가 150이므로 if문 기준선이 참(True)이 되어 내부의 `score / 0` 명령을 건드리고, 그에 의해 유발된 ZeroDivisionError가 '체크포인트' 인쇄 명령문을 잠가버린 채 곧장 except 영역을 트리거합니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_fib_1_1_011",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "파이썬에서 구체적인 특정 에러명을 지목하지 않고 어떤 종류의 모든 런타임 예외든 포괄적으로 잡아내기 위해 except 키워드 바로 뒤에 콜론을 단독 배치하는 기본 구문을 완성해 주세요.\n\ntry:\n    calc = 1 / 0\n_____:\n    print('어떤 종류든 에러가 터져 방어막을 켰습니다.')",
+    "answer": "except",
+    "feedback": {
+      "correct": "맞습니다! 세부 이름을 특정하지 않고 `except:` 기호 형태로 단독 선언하면 발생하는 모종의 예외 현상들을 유연하게 가두어 줍니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_1_1_012",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음과 같이 정상 변환을 시도하는 대입 연산형 에러 제어 코드를 수행시킬 때 최종 산출될 텍스트 결과는 무엇일까요?\n\ntry:\n    number = int('700')\n    print('코드 실행 성공')\nexcept ValueError:\n    print('코드 실행 실패')",
+    "choices": [
+      "A. 코드 실행 성공",
+      "B. 코드 실행 실패",
+      "C. 코드 실행 성공\n코드 실행 실패",
+      "D. 700"
+    ],
+    "answer": "A. 코드 실행 성공",
+    "feedback": {
+      "correct": "정답입니다! 온전한 숫자 형태를 띤 문자열 '700'은 무리 없이 정수로 파싱되므로 예외 오류의 징후가 없어 try 잔여문이 고스란히 노출됩니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_fib_1_1_013",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "프로그램 내에서 식별되거나 정의된 적이 없는 미지수 형태의 가짜 변수명을 함부로 호출해 조회하려고 할 때 가동되는 파이썬 예외 타입을 기입해 주세요.\n\ntry:\n    print(unknown_target)\nexcept _______________:\n    print('정의되지 않은 식별자 에러입니다.')",
+    "answer": "NameError",
+    "feedback": {
+      "correct": "참 잘하셨습니다! 선언이나 대입 연산 절차를 밟은 바 없는 변수 문자열을 컴파일 시도하면 NameError 경보가 내려집니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_1_1_014",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 다중 예외 처리 장치가 배치된 코드를 실행했을 때 최종적으로 화면에 출력되는 문구 조합을 선택해 주세요.\n\ntry:\n    print(target_name)\n    team = ['AI', 'Bot']\n    print(team[10])\nexcept NameError:\n    print('존재하지 않는 식별자 발견')\nexcept IndexError:\n    print('인덱스 허용 범위 초과')",
+    "choices": [
+      "A. 존재하지 않는 식별자 발견",
+      "B. 인덱스 허용 범위 초과",
+      "C. 존재하지 않는 식별자 발견\n인덱스 허용 범위 초과",
+      "D. 프로그램 에러 중단"
+    ],
+    "answer": "A. 존재하지 않는 식별자 발견",
+    "feedback": {
+      "correct": "정답입니다! 리스트 접근 명령줄에 도달하기 전 상단의 `print(target_name)`에서 정의되지 않은 변수로 인해 NameError가 먼저 발생하므로 첫 번째 except 블록만 실행됩니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_fib_1_1_015",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "순수한 글자 형태의 문자열을 정수 변환기인 int() 내부에 무리하게 밀어 넣었을 때 직면하게 되는 값의 오류 유형 예외 명칭을 빈칸에 기입해 주세요.\n\ntry:\n    user_age = int('스물두살')\nexcept _______________:\n    print('숫자 계열 포맷 글자만 강제 수용 가능합니다.')",
+    "answer": "ValueError",
+    "feedback": {
+      "correct": "정답입니다! 타입 양식은 부합하나 알맹이 값 구조가 변환 불가능에 가까운 부적절함 형식을 띨 때 파이썬은 ValueError 예외망으로 가둡니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_1_1_016",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다중 구조의 예외 그물망 장치들이 배치 순서대로 대기하고 있을 때 어떠한 안내 텍스트 가방이 낙점받아 최종 실행될지 골라내 보세요.\n\ntry:\n    calc_block = 100 / 0\nexcept ValueError:\n    print('1번 값 오류 수거')\nexcept ZeroDivisionError:\n    print('2번 나누기 오류 수거')",
+    "choices": [
+      "A. 1번 값 오류 수거",
+      "B. 2번 나누기 오류 수거",
+      "C. 1번 값 오류 수거\n2번 나누기 오류 수거",
+      "D. 프로그램 전체 정지 및 셧다운"
+    ],
+    "answer": "B. 2번 나누기 오류 수거",
+    "feedback": {
+      "correct": "정답입니다! 나누기 0 행위는 ZeroDivisionError 흐름을 방출하므로 상단에서 하단으로 차례로 서칭을 진행하다가 매치 포인트가 성립되는 2번 가방이 열리게 됩니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_fib_1_1_017",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "초급 과정의 사용자 정의 함수(def) 매개변수 인수 대입 규칙을 가미한 문항입니다. 함수가 약속한 요구 인자 개수를 충족하지 않은 채 헐겁게 호출하여 규격 문제가 터졌을 때 매칭시켜야 할 예외 타입을 적어주세요.\n\ndef announce_score(nickname):\n    print(nickname, '님 합격!')\n\ntry:\n    announce_score() # 인자를 생략하고 보냈어요\nexcept _______________:\n    print('함수 호출 규격이 망가졌습니다.')",
+    "answer": "TypeError",
+    "feedback": {
+      "correct": "정답입니다! 함수 호출 구문 간 정의된 인수 규격을 위반하여 개수가 비거나 융합될 수 없는 불일치가 나타나는 패턴은 TypeError 범주에 편입됩니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_1_1_018",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 다중식 예외 포착 진영 코드가 작동할 때 유저가 목격하게 될 최종 아웃풋 멘트를 찾아내 주세요.\n\ntry:\n    word_list = 'python'\n    call_target = word_list[20]\nexcept IndexError as err_log:\n    print('스파이 발견:', err_log)\nexcept:\n    print('일반 백업 작동')",
+    "choices": [
+      "A. 스파이 발견: string index out of range",
+      "B. 일반 백업 작동",
+      "C. 스파이 발견: IndexError",
+      "D. python"
+    ],
+    "answer": "A. 스파이 발견: string index out of range",
+    "feedback": {
+      "correct": "정답입니다! 문자열 인덱스 범위를 초과 타격하여 IndexError 예외가 발발하고, `as err_log`로 연결된 덕에 가벼운 에러 꼬리표 상세 이유 메시지가 스트링 양식으로 가동 인쇄됩니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_fib_1_1_019",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "초급 반복문(`for`)의 시퀀스 제어 흐름과 연동된 응용 연산 문항입니다. 루프를 순회하는 과정에서 걸려든 예외는 pass 장치로 숨 고르기를 유도합니다. 전체 순환이 완전히 완료된 후 콘솔창에 찍히는 '합격' 문구는 누적해서 총 몇 번 출력되었을지 최종 카운트 숫자를 적어주세요.\n\nscores = [10, 2, 0, 5]\nfor item in scores:\n    try:\n        calc = 20 / item\n        print('합격')\n    except ZeroDivisionError:\n        pass",
+    "answer": "3",
+    "feedback": {
+      "correct": "정답입니다! scores 리스트 내 배치된 10, 2, 5는 나눗셈 연산자가 수월히 통과하여 각 회차마다 '합격'을 고스란히 적립(총 3회)하지만, 중간의 0인 요소 회차는 ZeroDivisionError 트랩에 빠져 pass로 도망가 프린트 문이 스킵됩니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_1_1_020",
+    "unit": 1,
+    "stage": "1-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "모든 에러 클래스의 시조새이자 부모 클래스인 상위 계열 `Exception`을 세부 하위 클래스인 `ValueError`보다 상단에 가로막아 전면 배치한 비정상 안티 패턴 예제입니다. 이 코드가 실행될 때 반환될 값을 찾아내 보세요.\n\ntry:\n    convert_data = int('에이몬')\nexcept Exception:\n    print('상층부 만능 가방 작동')\nexcept ValueError:\n    print('하층부 정밀 가방 작동')",
+    "choices": [
+      "A. 하층부 정밀 가방 작동",
+      "B. 상층부 만능 가방 작동",
+      "C. 파이썬 문법 상 컴파일 거부 오류 발생",
+      "D. 에이몬"
+    ],
+    "answer": "B. 상층부 만능 가방 작동",
+    "feedback": {
+      "correct": "정밀한 간파입니다! 파이썬의 예외 포착 로직은 기재된 수직적 순서(위에서 아래)대로 비교하며 일치점을 매칭하므로, 광범위한 흡수력을 지닌 만능 조상 Exception 가방이 맨 앞에 길목을 지키고 서 있으면 하위의 전용 ValueError 블록까지 도달할 기회를 원천 박탈당합니다."
+    }
+  }
+]

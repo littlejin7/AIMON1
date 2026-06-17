@@ -1,0 +1,402 @@
+[
+  {
+    "question_id": "sl_mid_os_8_1_001",
+    "unit": 8,
+    "stage": "8-1",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "API를 사용하려면 먼저 requests 라이브러리를 가져와야 해요. 빈 칸을 채우세요.\n\n_____ requests\nresponse = requests.get('https://api.example.com/data')",
+    "answer": "import",
+    "hint": "파이썬 라이브러리를 사용하려면 import 키워드가 필요해요.",
+    "feedback": {
+      "correct": "정확해요! import requests로 requests 라이브러리를 가져와요."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_8_1_002",
+    "unit": 8,
+    "stage": "8-1",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 코드에서 API 서버로부터 데이터를 받을 때 사용하는 메서드는 무엇인가요?\n\nimport requests\nurl = 'https://api.example.com/users'\nresponse = requests.get(url)\nprint(response.status_code)",
+    "choices": [
+      "A. get",
+      "B. post",
+      "C. fetch",
+      "D. request"
+    ],
+    "answer": "A. get",
+    "hint": "GET 메서드는 서버에서 데이터를 받을 때 사용해요.",
+    "feedback": {
+      "correct": "정답이에요! requests.get()은 HTTP GET 요청을 보내요."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_8_1_003",
+    "unit": 8,
+    "stage": "8-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "API 응답은 보통 JSON 형식이에요. 응답을 파이썬 딕셔너리로 변환합니다.\n\nimport requests\nresponse = requests.get('https://api.example.com/user/1')\ndata = response._____( )\nprint(data['name'])",
+    "answer": "json",
+    "hint": ".json() 메서드는 JSON 형식의 응답을 파이썬 딕셔너리로 변환해요.",
+    "feedback": {
+      "correct": "정확해요! .json()으로 JSON 응답을 파이썬 딕셔너리로 변환할 수 있어요."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_8_1_004",
+    "unit": 8,
+    "stage": "8-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "API 요청이 성공했는지 상태 코드로 확인합니다. 다음 중 성공을 의미하는 상태 코드는?\n\nimport requests\nresponse = requests.get('https://api.example.com/data')\nif response.status_code == _____:\n    print('요청 성공!')",
+    "choices": [
+      "A. 500",
+      "B. 404",
+      "C. 200",
+      "D. 403"
+    ],
+    "answer": "C. 200",
+    "hint": "상태 코드 200은 OK를 의미하며, 요청이 성공했다는 뜻이에요.",
+    "feedback": {
+      "correct": "정답이에요! HTTP 상태 코드 200은 성공을 의미합니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_8_1_005",
+    "unit": 8,
+    "stage": "8-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "초급의 딕셔너리처럼 API에 데이터를 보낼 수 있어요. POST 요청으로 새로운 데이터를 생성합니다.\n\nimport requests\ndata = {'name': 'John', 'age': 30}\nresponse = requests.post('https://api.example.com/users', json=_____)\nprint(response.status_code)",
+    "answer": "data",
+    "hint": "json 파라미터에 딕셔너리를 전달하면 자동으로 JSON 형식으로 변환돼요.",
+    "feedback": {
+      "correct": "정확해요! POST 요청으로 데이터를 서버에 전송할 수 있어요."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_8_1_006",
+    "unit": 8,
+    "stage": "8-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "API 응답 중 특정 필드에 접근합니다. 다음 코드의 결과는?\n\nimport requests\nresponse_data = {'user': {'name': 'Alice', 'id': 123}, 'status': 'active'}\nprint(response_data['user']['name'])",
+    "choices": [
+      "A. (에러 발생)",
+      "B. {'name': 'Alice', 'id': 123}",
+      "C. user",
+      "D. Alice"
+    ],
+    "answer": "D. Alice",
+    "hint": "['user']['name']은 중첩된 딕셔너리에서 'user' → 'name' 순서로 접근해요.",
+    "feedback": {
+      "correct": "정답이에요! 중첩된 딕셔너리도 연속으로 접근할 수 있어요."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_8_1_007",
+    "unit": 8,
+    "stage": "8-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "초급의 for 루프를 사용해서 여러 사용자 정보를 처리합니다.\n\nimport requests\nusers_data = {'users': [{'name': 'John'}, {'name': 'Alice'}, {'name': 'Bob'}]}\nfor user in users_data_____:\n    print(user['name'])",
+    "answer": "['users']",
+    "hint": "['users']로 users 리스트를 가져온 후, for 루프로 각 사용자를 처리해요.",
+    "feedback": {
+      "correct": "정확해요! 딕셔너리에서 리스트를 꺼내서 반복 처리할 수 있어요."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_8_1_008",
+    "unit": 8,
+    "stage": "8-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport requests\nusers = [{'name': 'John', 'age': 25}, {'name': 'Alice', 'age': 30}, {'name': 'Bob', 'age': 28}]\nfor user in users:\n    if user['age'] >= 30:\n        print(user['name'])",
+    "choices": [
+      "A. John\\nAlice\\nBob",
+      "B. John",
+      "C. Alice",
+      "D. (아무것도 출력 안 됨)"
+    ],
+    "answer": "C. Alice",
+    "hint": "초급의 if 조건으로 나이가 30 이상인 사람만 출력해요.",
+    "feedback": {
+      "correct": "정답이에요! Alice만 나이가 30 이상이에요."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_8_1_009",
+    "unit": 8,
+    "stage": "8-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "초급의 함수를 사용해서 API 데이터를 처리합니다.\n\nimport requests\ndef process_user_data(data):\n    for user in data['users']:\n        if user.get('active', False):\n            print(user['name'])\n\nusers_data = {'users': [{'name': 'John', 'active': True}, {'name': 'Alice', 'active': False}]}\nprocess_user_data_____",
+    "answer": "(users_data)",
+    "hint": "함수를 호출할 때는 괄호 안에 인자를 전달해요.",
+    "feedback": {
+      "correct": "정확해요! 함수를 호출해서 데이터를 처리할 수 있어요."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_8_1_010",
+    "unit": 8,
+    "stage": "8-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nresponse_data = {'data': [10, 20, 30, 40, 50]}\nfor num in response_data['data']:\n    if num > 25:\n        print(num, end=' ')",
+    "choices": [
+      "A. 10 20",
+      "B. 30 40 50",
+      "C. 10 20 30 40 50",
+      "D. (아무것도 출력 안 됨)"
+    ],
+    "answer": "B. 30 40 50",
+    "hint": "25보다 큰 수는 30, 40, 50이에요.",
+    "feedback": {
+      "correct": "정답이에요! 조건을 만족하는 30, 40, 50만 출력됩니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_8_1_011",
+    "unit": 8,
+    "stage": "8-1",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "API 응답이 성공했을 때만 데이터를 처리합니다. 빈 칸을 채우세요.\n\nimport requests\nresponse = requests.get('https://api.example.com/posts')\nif response._____ == 200:\n    posts = response.json()\n    print(f'수신한 게시물: {len(posts)}')",
+    "answer": "status_code",
+    "hint": "response.status_code는 HTTP 상태 코드를 담고 있어요.",
+    "feedback": {
+      "correct": "정확해요! 상태 코드로 요청의 성공/실패를 확인할 수 있어요."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_8_1_012",
+    "unit": 8,
+    "stage": "8-1",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "API 요청을 보낼 때 추가 정보를 헤더로 전달합니다. 다음 중 맞는 설명은?\n\nimport requests\nheaders = {'Authorization': 'Bearer token123'}\nresponse = requests.get('https://api.example.com/private', headers=headers)",
+    "choices": [
+      "A. 헤더는 API 서버에 인증 정보를 전달할 때 사용해요",
+      "B. 헤더는 응답 데이터의 형식을 결정해요",
+      "C. 헤더는 URL의 일부예요",
+      "D. 헤더는 선택사항이에요"
+    ],
+    "answer": "A. 헤더는 API 서버에 인증 정보를 전달할 때 사용해요",
+    "hint": "Authorization 헤더는 API 키나 토큰 같은 인증 정보를 전달해요.",
+    "feedback": {
+      "correct": "정답이에요! 헤더로 인증, 콘텐츠 타입 등 추가 정보를 보낼 수 있어요."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_8_1_013",
+    "unit": 8,
+    "stage": "8-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "API에 조건을 전달해서 원하는 데이터만 받을 수 있어요. query 파라미터를 사용합니다.\n\nimport requests\nparams = {'page': 1, 'limit': 10}\nresponse = requests.get('https://api.example.com/posts', _____=params)\nposts = response.json()\nprint(f'받은 게시물: {len(posts)}')",
+    "answer": "params",
+    "hint": "params 파라미터로 쿼리 문자열을 URL에 추가할 수 있어요.",
+    "feedback": {
+      "correct": "정확해요! params로 필터링, 페이징 등의 조건을 전달할 수 있어요."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_8_1_014",
+    "unit": 8,
+    "stage": "8-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport requests\napi_response = {\n    'status': 200,\n    'data': {\n        'posts': [\n            {'id': 1, 'title': 'Post 1'},\n            {'id': 2, 'title': 'Post 2'},\n            {'id': 3, 'title': 'Post 3'}\n        ]\n    }\n}\n\nfor post in api_response['data']['posts']:\n    if post['id'] <= 2:\n        print(post['title'])",
+    "choices": [
+      "A. Post 1\\nPost 2\\nPost 3",
+      "B. Post 3",
+      "C. Post 1\\nPost 2",
+      "D. (아무것도 출력 안 됨)"
+    ],
+    "answer": "C. Post 1\\nPost 2",
+    "hint": "초급의 if 조건으로 id가 2 이하인 게시물만 출력해요.",
+    "feedback": {
+      "correct": "정답이에요! Post 1과 Post 2만 조건을 만족합니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_8_1_015",
+    "unit": 8,
+    "stage": "8-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "API 응답에 특정 키가 있는지 확인할 수 있어요. .get() 메서드를 사용합니다.\n\nimport requests\nuser_data = {'name': 'John', 'age': 30}\nemail = user_data._____('email', 'not available')\nprint(email)  # not available",
+    "answer": "get",
+    "hint": ".get(키, 기본값)은 키가 없으면 기본값을 반환해요.",
+    "feedback": {
+      "correct": "정확해요! .get()으로 안전하게 딕셔너리에 접근할 수 있어요."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_8_1_016",
+    "unit": 8,
+    "stage": "8-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport requests\nresponse_data = {\n    'users': [\n        {'name': 'Alice', 'role': 'admin'},\n        {'name': 'Bob', 'role': 'user'},\n        {'name': 'Charlie', 'role': 'user'}\n    ]\n}\n\nadmins = [u['name'] for u in response_data['users'] if u['role'] == 'admin']\nprint(admins)",
+    "choices": [
+      "A. ['Alice', 'Bob', 'Charlie']",
+      "B. ['Alice']",
+      "C. ['Bob', 'Charlie']",
+      "D. []"
+    ],
+    "answer": "B. ['Alice']",
+    "hint": "리스트 컴프리헨션으로 role이 'admin'인 사용자만 필터링해요.",
+    "feedback": {
+      "correct": "정답이에요! 초급의 리스트 컴프리헨션으로 데이터를 필터링할 수 있어요."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_8_1_017",
+    "unit": 8,
+    "stage": "8-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "초급의 for 루프로 API 응답 데이터를 새로운 형식으로 변환합니다.\n\nimport requests\nraw_data = {'items': [{'id': 1, 'price': 100}, {'id': 2, 'price': 200}]}\nformatted = []\nfor item in raw_data_____:\n    formatted.append({'product_id': item['id'], 'cost': item['price']})\nprint(formatted)",
+    "answer": "['items']",
+    "hint": "['items']로 items 리스트를 가져온 후, for 루프로 변환해요.",
+    "feedback": {
+      "correct": "정확해요! API 데이터를 다른 형식으로 변환할 수 있어요."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_8_1_018",
+    "unit": 8,
+    "stage": "8-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport requests\ndef get_active_users(data):\n    active = []\n    for user in data['users']:\n        if user.get('active', False):\n            active.append(user['name'])\n    return active\n\napi_data = {\n    'users': [\n        {'name': 'John', 'active': True},\n        {'name': 'Alice', 'active': False},\n        {'name': 'Bob', 'active': True}\n    ]\n}\n\nresult = get_active_users(api_data)\nprint(result)",
+    "choices": [
+      "A. ['John', 'Alice', 'Bob']",
+      "B. ['John', 'Bob']",
+      "C. ['Alice']",
+      "D. []"
+    ],
+    "answer": "B. ['John', 'Bob']",
+    "hint": "active가 True인 사용자만 리스트에 추가해요.",
+    "feedback": {
+      "correct": "정답이에요! 초급의 함수, for 루프, if 조건을 모두 활용했어요."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_8_1_019",
+    "unit": 8,
+    "stage": "8-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "초급의 딕셔너리와 for 루프를 사용해서 API 데이터를 요약합니다.\n\nimport requests\ndata = {'products': [{'name': 'A', 'price': 100}, {'name': 'B', 'price': 200}, {'name': 'C', 'price': 150}]}\ntotal = 0\nfor product in data_____:\n    total += product['price']\nprint(f'총합: {total}')  # 총합: 450",
+    "answer": "['products']",
+    "hint": "['products']로 상품 리스트를 가져온 후, for 루프로 가격을 합산해요.",
+    "feedback": {
+      "correct": "정확해요! 초급의 변수 누적과 for 루프로 합계를 구할 수 있어요."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_8_1_020",
+    "unit": 8,
+    "stage": "8-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport requests\napi_response = {\n    'transactions': [\n        {'type': 'income', 'amount': 1000},\n        {'type': 'expense', 'amount': 300},\n        {'type': 'income', 'amount': 500},\n        {'type': 'expense', 'amount': 200}\n    ]\n}\n\nincome_total = sum(t['amount'] for t in api_response['transactions'] if t['type'] == 'income')\nprint(income_total)",
+    "choices": [
+      "A. 500",
+      "B. 1500",
+      "C. 1000",
+      "D. 2000"
+    ],
+    "answer": "B. 1500",
+    "hint": "type이 'income'인 거래들의 amount를 합산해요. 1000 + 500 = 1500",
+    "feedback": {
+      "correct": "정답이에요! 리스트 컴프리헨션과 sum()으로 조건부 합계를 구할 수 있어요."
+    }
+  }
+]
