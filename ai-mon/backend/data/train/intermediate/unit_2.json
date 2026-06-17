@@ -1,0 +1,402 @@
+[
+  {
+    "question_id": "sl_mid_fib_2_1_001",
+    "unit": 2,
+    "stage": "2-1",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "파이썬에서 한 번 생성하면 요소를 변경할 수 없는 불변(Immutable)의 특징을 가진 자료형을 무엇이라고 할까요? 빈칸에 영어 소문자로 적어주세요.\n\nmy_data = (1, 2, 3)\nprint(type(my_data)) # <class '______'>",
+    "answer": "tuple",
+    "hint": "리스트는 대괄호 `[]`를 사용하지만, 이 자료형은 소괄호 `()`를 주로 사용해요.",
+    "feedback": {
+      "correct": "올바른 정답입니다! 튜플은 한 번 값을 정하면 수정할 수 없는 불변의 자료형이에요."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_2_1_002",
+    "unit": 2,
+    "stage": "2-1",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 화면에 출력되는 결과는 무엇일까요?\n\nhero_tuple = ('에이몬', '슬라임', '로봇')\nprint(hero_tuple[1])",
+    "choices": [
+      "A. 에이몬",
+      "B. 슬라임",
+      "C. 로봇",
+      "D. 오류 발생"
+    ],
+    "answer": "B. 슬라임",
+    "hint": "파이썬 인덱싱은 1이 아니라 0부터 시작한다는 점을 기억해주세요.",
+    "feedback": {
+      "correct": "정답입니다! `[1]`은 두 번째 요소인 '슬라임'을 가리킵니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_fib_2_1_003",
+    "unit": 2,
+    "stage": "2-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "튜플의 요소를 변수 여러 개에 한 번에 나누어 담는 것을 '언패킹(Unpacking)'이라고 합니다. 아래 코드의 빈칸에 들어갈 올바른 기호를 적어주세요.\n\nname, level = ('로봇에이몬', 15)\nprint(name, level, ______=' | ')",
+    "answer": "sep",
+    "hint": "여러 값을 하나의 문자열로 연결할 때 쓰는 구분자 옵션이에요.",
+    "feedback": {
+      "correct": "정답입니다! `sep` 옵션은 print()에 전달된 여러 인수 사이에 구분자를 넣어줍니다. `name`과 `level` 사이에 ' | '가 삽입되어 `로봇에이몬 | 15`처럼 출력됩니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_2_1_004",
+    "unit": 2,
+    "stage": "2-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "초급에서 배웠던 슬라이싱 기억하시나요? 다음 튜플 데이터를 슬라이싱한 코드의 출력 결과로 가장 적절한 것을 골라주세요.\n\nnum_tuple = (10, 20, 30, 40, 50)\nprint(num_tuple[1:4])",
+    "choices": [
+      "A. (20, 30, 40)",
+      "B. (10, 20, 30)",
+      "C. (20, 30, 40, 50)",
+      "D. [20, 30, 40]"
+    ],
+    "answer": "A. (20, 30, 40)",
+    "hint": "`[시작:끝]` 패턴에서 끝 인덱스는 포함되지 않으며, 결과물은 원래 자료형을 유지해요.",
+    "feedback": {
+      "correct": "잘하셨습니다! 인덱스 1부터 3까지 추출되며 튜플 형태인 `(20, 30, 40)`이 출력됩니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_fib_2_1_005",
+    "unit": 2,
+    "stage": "2-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "아래 코드의 빈칸을 채워 `skill_tuple` 안에 '썬더'라는 문자열이 포함되어 있는지 확인하여 True를 출력하도록 만들어주세요.\n\nskill_tuple = ('파이어', '아이스', '썬더')\nprint('썬더' ______ skill_tuple)",
+    "answer": "in",
+    "hint": "특정 요소가 시퀀스 자료형 안에 존재하는지 검사하는 멤버십 연산자(영어 소문자 2글자)입니다.",
+    "feedback": {
+      "correct": "정답입니다! `in` 연산자를 사용해 튜플 내부의 값 존재 여부를 간결하게 확인할 수 있어요."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_2_1_006",
+    "unit": 2,
+    "stage": "2-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 나오는 출력값은 무엇일까요?\n\nitem_tuple = ('검', '방패', '포션', '방패')\nprint(item_tuple.count('방패'))",
+    "choices": [
+      "A. 1",
+      "B. 2",
+      "C. 4",
+      "D. 오류 발생"
+    ],
+    "answer": "B. 2",
+    "hint": "`.count()` 메서드는 특정 값이 튜플 내부에 몇 개 존재하는지 세어주는 역할을 해요.",
+    "feedback": {
+      "correct": "정답입니다! 튜플 내에 '방패'는 총 2개 존재하므로 2가 출력됩니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_fib_2_1_007",
+    "unit": 2,
+    "stage": "2-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "튜플은 불변(Immutable) 객체입니다. 다음 코드에서 에러를 일으키는 줄 번호를 빈칸에 입력하세요.\n\n1: my_tuple = (1, 2, 3)\n2: total = sum(my_tuple)\n3: my_tuple[0] = 9\n4: print(total)\n\n에러가 발생하는 줄 번호: ___",
+    "answer": "3",
+    "hint": "튜플은 한 번 만들어지면 인덱스를 통해 직접 내부의 값을 수정하거나 대입할 수 없어요.",
+    "feedback": {
+      "correct": "정답입니다! 3번 줄에서 튜플의 요소를 변경하려고 시도했기 때문에 TypeError가 발생합니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_2_1_008",
+    "unit": 2,
+    "stage": "2-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 중 파이썬에서 문법적으로 에러를 발생시키지 않고 정상적으로 작동하는 코드는 무엇일까요?",
+    "choices": [
+      "A. t = (1, 2, 3); del t[0]",
+      "B. t = (1, 2, 3); t.append(4)",
+      "C. t = (); t[0]  # 빈 튜플 인덱스 접근",
+      "D. t = (10,); print(type(t))  # 요소가 1개인 튜플 생성"
+    ],
+    "answer": "D. t = (10,); print(type(t))  # 요소가 1개인 튜플 생성",
+    "hint": "요소가 하나만 있는 튜플을 만들 때는 반드시 값 뒤에 콤마(,)를 붙여야 자료형이 유지돼요.",
+    "feedback": {
+      "correct": "정답입니다! `(10,)`와 같이 콤마를 붙여야 파이썬이 이를 연산자 괄호가 아닌 튜플로 인식합니다. A·B는 불변 튜플 수정 시도, C는 빈 튜플에 인덱스 접근 시 IndexError가 발생합니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_fib_2_1_009",
+    "unit": 2,
+    "stage": "2-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "튜플에서 가장 큰 값을 구하는 내장함수를 사용해봅시다. 빈칸에 알맞은 함수 이름을 영문 소문자로 적어주세요.\n\nnum_tuple = (3, 1, 5, 2)\nprint(______(num_tuple))  # 5 출력",
+    "answer": "max",
+    "hint": "Maximum의 약자를 사용하는 파이썬 내장 함수입니다.",
+    "feedback": {
+      "correct": "정답입니다! `max()` 함수는 튜플 안에서 가장 큰 값인 5를 반환합니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_2_1_010",
+    "unit": 2,
+    "stage": "2-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇일까요?\n\nmy_tuple = ('A', 'B', 'C')\nprint(my_tuple[-1])",
+    "choices": [
+      "A. A",
+      "B. B",
+      "C. C",
+      "D. 오류 발생"
+    ],
+    "answer": "C. C",
+    "hint": "음수 인덱스 `-1`은 튜플의 맨 마지막 요소를 가리킵니다.",
+    "feedback": {
+      "correct": "정답입니다! 음수 인덱스 `[-1]`은 튜플의 마지막 요소인 'C'를 가리킵니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_fib_2_1_011",
+    "unit": 2,
+    "stage": "2-1",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "초급 과정에서 시퀀스 데이터의 길이를 구하는 함수를 배웠습니다. 다음 튜플에 저장된 요소의 총 개수(3)를 구하기 위해 빈칸에 채야 할 내장함수 이름을 영문 소문자로 적어주세요.\n\nstage_tuple = ('Stage1', 'Stage2', 'Stage3')\nprint(______(stage_tuple))",
+    "answer": "len",
+    "hint": "Length의 약자를 사용하는 함수입니다.",
+    "feedback": {
+      "correct": "맞아요! `len()` 함수는 리스트뿐만 아니라 튜플의 총 길이도 계산해줍니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_2_1_012",
+    "unit": 2,
+    "stage": "2-1",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 화면에 나타나는 출력값은 무엇인지 선택해주세요.\n\nmon_tuple = ('slime', 'robot')\nprint(mon_tuple * 2)",
+    "choices": [
+      "A. ('slime', 'robot', 'slime', 'robot')",
+      "B. ('slime', 'slime', 'robot', 'robot')",
+      "C. ('slimeslime', 'robotrobot')",
+      "D. 오류 발생"
+    ],
+    "answer": "A. ('slime', 'robot', 'slime', 'robot')",
+    "hint": "시퀀스 자료형에 정수를 곱하면 해당 전체 패턴이 지정된 횟수만큼 반복되어 늘어납니다.",
+    "feedback": {
+      "correct": "훌륭합니다! 원래 패턴 그대로 두 번 연속 반복 결합된 새로운 튜플이 생성됩니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_fib_2_1_013",
+    "unit": 2,
+    "stage": "2-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "튜플 내에서 특정 값의 인덱스(위치) 번호를 찾아주는 메서드가 있습니다. 아래 코드의 결과로 1이 출력되도록 빈칸에 알맞은 단어를 소문자로 적어주세요.\n\nboss_tuple = ('Gorgon', 'Manticore', 'Hydra')\nprint(boss_tuple.______( 'Manticore' ))",
+    "answer": "index",
+    "hint": "값의 위치를 뜻하는 단어 그대로의 이름을 가진 메서드입니다.",
+    "feedback": {
+      "correct": "정답입니다! `.index()` 메서드는 인자로 전달된 값이 처음 등장하는 위치를 반환합니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_2_1_014",
+    "unit": 2,
+    "stage": "2-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 파이썬 코드를 수행했을 때 도출되는 최종 결과물을 정확히 골라주세요.\n\nscore_tuple = (90, 80, 100)\na, b, c = score_tuple\nprint(b)",
+    "choices": [
+      "A. 90",
+      "B. 80",
+      "C. 100",
+      "D. (90, 80, 100)"
+    ],
+    "answer": "B. 80",
+    "hint": "튜플의 개수와 좌변의 변수 개수가 일치하면 순서대로 매칭되어 대입됩니다.",
+    "feedback": {
+      "correct": "맞았습니다! 순서대로 `a=90`, `b=80`, `c=100`이 할당되므로 `b`를 출력하면 80이 나옵니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_fib_2_1_015",
+    "unit": 2,
+    "stage": "2-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "초급에서 다룬 반복문을 활용한 문제입니다. 튜플의 각 요소를 차례대로 꺼내어 출력할 때 빈칸에 공통으로 들어갈 제어문 키워드를 영어 소문자로 입력해주세요.\n\nrank_tuple = ('Gold', 'Silver', 'Bronze')\n______ medal in rank_tuple:\n    print(medal)",
+    "answer": "for",
+    "hint": "정해진 범위를 순회할 때 가장 자주 사용하는 반복문 키워드(3글자)입니다.",
+    "feedback": {
+      "correct": "정답입니다! 튜플도 리스트처럼 `for` 루프에 대입하여 요소를 하나씩 순회할 수 있습니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_2_1_016",
+    "unit": 2,
+    "stage": "2-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 발생하는 출력 상태로 가장 알맞은 것을 고르세요.\n\nlevel_tuple = (1, 2, 3, 4, 5)\nprint(level_tuple[-2:])",
+    "choices": [
+      "A. (4,)",
+      "B. (3, 4)",
+      "C. (4, 5)",
+      "D. (3, 4, 5)"
+    ],
+    "answer": "C. (4, 5)",
+    "hint": "음수 인덱스 `-2`는 뒤에서 두 번째 요소를 뜻하며, 콜론 뒤가 비어있으면 끝까지 추출하라는 신호입니다.",
+    "feedback": {
+      "correct": "정답입니다! 뒤에서 두 번째 요소인 4부터 끝까지 슬라이싱되어 `(4, 5)`가 출력됩니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_fib_2_1_017",
+    "unit": 2,
+    "stage": "2-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "튜플을 변경하고 싶을 때는 리스트로 잠시 바꾸었다가 수정한 뒤 다시 튜플로 돌려놓는 우회 방법을 사용해야 합니다. 빈칸에 들어갈 알맞은 자료형 변환 함수명을 적어주세요.\n\ndata = (10, 20)\ntmp_list = list(data)\ntmp_list.append(30)\ndata = ______(tmp_list)\nprint(data) # (10, 20, 30) 출력",
+    "answer": "tuple",
+    "hint": "리스트 객체를 불변성을 가진 원래 자료형인 튜플로 변환시키는 내장 함수 이름입니다.",
+    "feedback": {
+      "correct": "정답입니다! `tuple()` 형변환 함수를 활용하여 리스트를 다시 원래의 튜플 상태로 재포장할 수 있습니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_2_1_018",
+    "unit": 2,
+    "stage": "2-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 터미널에 반환되는 최종 결과값은 무엇일까요?\n\ndef make_t(): return (1, 2)\nx = make_t()\ny = make_t()\nprint(x is y, x == y)",
+    "choices": [
+      "A. False True",
+      "B. False False",
+      "C. True False",
+      "D. True True"
+    ],
+    "answer": "D. True True",
+    "hint": "CPython 최적화 메커니즘은 함수 내부의 변경 불가능한 상수 튜플 리터럴을 컴파일 시점에 한 번만 생성하여 재사용합니다.",
+    "feedback": {
+      "correct": "정답입니다! CPython은 함수 코드 객체의 상수를 저장하는 `co_consts`에 `(1, 2)` 튜플을 한 번만 저장하고 매 호출마다 동일한 객체를 반환하므로 `x is y`와 `x == y` 모두 True가 됩니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_fib_2_1_019",
+    "unit": 2,
+    "stage": "2-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "튜플에서 가장 작은 값을 구하는 내장함수를 사용해봅시다. 빈칸에 알맞은 함수 이름을 영문 소문자로 적어주세요.\n\nnum_tuple = (50, 10, 30)\nprint(______(num_tuple))  # 10 출력",
+    "answer": "min",
+    "hint": "Minimum의 약자를 사용하는 파이썬 내장 함수입니다.",
+    "feedback": {
+      "correct": "정답입니다! `min()` 함수는 튜플 안에서 가장 작은 값인 10을 반환합니다."
+    }
+  },
+  {
+    "question_id": "sl_mid_os_2_1_020",
+    "unit": 2,
+    "stage": "2-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇일까요?\n\nitems = ('검', '방패', '포션')\nprint(items[0])",
+    "choices": [
+      "A. 검",
+      "B. 방패",
+      "C. 포션",
+      "D. 오류 발생"
+    ],
+    "answer": "A. 검",
+    "hint": "파이썬 인덱싱은 0부터 시작합니다. `[0]`은 첫 번째 요소를 가리켜요.",
+    "feedback": {
+      "correct": "정답입니다! 인덱스 `[0]`은 첫 번째 요소인 '검'을 가리킵니다."
+    }
+  }
+]
