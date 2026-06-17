@@ -454,11 +454,11 @@
     "is_boss": true,
     "villain": "interferencemon",
     "pass_score": 70,
-    "question": "빈칸을 채워 항상 실행되는 블록을 완성하세요.\n\n```python\ntry:\n    x = 10 / 2\nexcept ZeroDivisionError:\n    print('0 나눗셈')\n_____:\n    print('파일 닫기 완료')\n# 출력 목표: 파일 닫기 완료\n```",
+    "question": "빈칸을 채워 예외가 발생해도 항상 실행되는 블록을 완성하세요.\n\n```python\ntry:\n    x = 10 / 0\nexcept ZeroDivisionError:\n    print('0 나눗셈')\n_____:\n    print('연결 해제 완료')\n# 출력 목표: 0 나눗셈 / 연결 해제 완료\n```",
     "answer": "finally",
     "explanation": "finally는 try 블록 실행 후 항상 수행되는 정리 블록이에요.",
     "feedback": {
-      "correct": "정답! finally 블록은 예외 발생 여부와 무관하게 항상 실행돼요. 파일 닫기·연결 해제 등 정리 작업에 사용합니다. 클리어!"
+      "correct": "정답! finally 블록은 예외 발생 여부와 무관하게 항상 실행돼요. ZeroDivisionError 발생 후 except가 실행되고, 그 뒤에도 finally가 반드시 실행됩니다. 클리어!"
     }
   },
   {
@@ -496,11 +496,11 @@
     "is_boss": true,
     "villain": "interferencemon",
     "pass_score": 70,
-    "question": "빈칸을 채워 예외가 없을 때만 실행되는 블록을 완성하세요.\n\n```python\ntry:\n    x = int('42')\n    print('변환 성공')\nexcept ValueError:\n    print('변환 실패')\n_____:\n    print('예외 없음')\n# 출력 목표: 변환 성공 / 예외 없음\n```",
+    "question": "빈칸을 채워 예외가 없을 때만 실행되는 블록을 완성하세요.\n\n```python\ntry:\n    x = int('에러!')\n    print('변환 성공')\nexcept ValueError:\n    print('변환 실패')\n_____:\n    print('예외 없음')\n# 출력 목표: 변환 실패\n```",
     "answer": "else",
-    "explanation": "else는 try가 예외 없이 완료됐을 때 실행돼요.",
+    "explanation": "else는 try가 예외 없이 완료됐을 때만 실행돼요. 예외가 발생하면 건너뜁니다.",
     "feedback": {
-      "correct": "정답! else 블록은 try 블록에서 예외가 발생하지 않았을 때만 실행돼요. 클리어!"
+      "correct": "정답! else 블록은 try에서 예외가 발생하지 않았을 때만 실행돼요. int('에러!')는 ValueError를 발생시키므로 else는 실행되지 않아 '변환 실패'만 출력됩니다. 클리어!"
     }
   },
   {
