@@ -1,948 +1,1334 @@
-{
-  "title": "INTERMEDIATE Unit 4 — 클래스 & OOP",
-  "total_stages": 6,
-  "stages": [
-    {
-      "unit": "Unit 4 — 클래스 & OOP",
-      "stage": "Stage 4-1: 클래스 기초",
-      "villain": "speechbubble_king",
-      "questions": [
-        {
-          "question_number": 1,
-          "question_id": "miniboss_mid_os_4_1_001",
-          "type": "output_select",
-          "difficulty": "easy",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Dog:\n    def __init__(self, name):\n        self.name = name\n    def bark(self):\n        print(self.name + '가 짖는다!')\n\nd = Dog('진돗개')\nd.bark()",
-          "answer": "A",
-          "feedback": {
-            "correct": "정답! __init__에서 self.name = '진돗개'으로 저장되고, bark()에서 self.name을 가져와 '진돗개가 짖는다!'를 출력합니다.",
-            "incorrect": "정답은 A. 진돗개가 짖는다!예요. self.name은 인스턴스를 생성할 때 전달한 '진돗개'를 가리킵니다. 클리어!"
-          },
-          "choices": {
-            "A": "진돗개가 짖는다!",
-            "B": "Dog가 짖는다!",
-            "C": "name가 짖는다!",
-            "D": "오류 발생"
-          }
-        },
-        {
-          "question_number": 2,
-          "question_id": "miniboss_mid_os_4_1_002",
-          "type": "output_select",
-          "difficulty": "medium",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Counter:\n    def __init__(self):\n        self.count = 0\n    def up(self):\n        self.count += 1\n\nc = Counter()\nc.up()\nc.up()\nc.up()\nprint(c.count)",
-          "answer": "B",
-          "feedback": {
-            "correct": "정답! up()을 3번 호출했으므로 self.count가 0 → 1 → 2 → 3으로 누적됩니다. 인스턴스 변수는 메서드 호출 사이에도 값이 유지돼요.",
-            "incorrect": "정답은 B. 3이에요. up()을 호출할 때마다 self.count가 1씩 증가하고, 인스턴스 변수이므로 호출 간 값이 유지됩니다. 클리어!"
-          },
-          "choices": {
-            "A": "0",
-            "B": "3",
-            "C": "1",
-            "D": "오류 발생"
-          }
-        },
-        {
-          "question_number": 3,
-          "question_id": "miniboss_mid_os_4_1_003",
-          "type": "output_select",
-          "difficulty": "medium",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Box:\n    def __init__(self, w, h):\n        self.w = w\n        self.h = h\n    def area(self):\n        return self.w * self.h\n\nb = Box(3, 4)\nprint(b.area())",
-          "answer": "C",
-          "feedback": {
-            "correct": "정답! self.w = 3, self.h = 4이고, area()는 3 * 4 = 12를 반환합니다.",
-            "incorrect": "정답은 C. 12예요. area()는 self.w * self.h를 반환하므로 3 * 4 = 12입니다. 클리어!"
-          },
-          "choices": {
-            "A": "7",
-            "B": "34",
-            "C": "12",
-            "D": "오류 발생"
-          }
-        },
-        {
-          "question_number": 4,
-          "question_id": "miniboss_mid_os_4_1_004",
-          "type": "output_select",
-          "difficulty": "hard",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Player:\n    def __init__(self, name, hp=100):\n        self.name = name\n        self.hp = hp\n    def status(self):\n        print(f'{self.name}: HP {self.hp}')\n\np = Player('에이몬')\np.status()",
-          "answer": "D",
-          "feedback": {
-            "correct": "정답! hp 인수를 전달하지 않았으므로 기본값 100이 사용됩니다. f-string이 self.name='에이몬', self.hp=100을 각각 삽입해 '에이몬: HP 100'을 출력해요.",
-            "incorrect": "정답은 D. 에이몬: HP 100이에요. hp 매개변수에 기본값 100이 설정되어 있어 인수를 생략하면 100이 적용됩니다. 클리어!"
-          },
-          "choices": {
-            "A": "에이몬: HP 0",
-            "B": "에이몬: HP hp",
-            "C": "Player: HP 100",
-            "D": "에이몬: HP 100"
-          }
-        },
-        {
-          "question_number": 5,
-          "question_id": "miniboss_mid_os_4_1_005",
-          "type": "output_select",
-          "difficulty": "hard",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Calc:\n    def add(self, a, b):\n        return a + b\n    def mul(self, a, b):\n        return a * b\n\nc = Calc()\nprint(c.add(3, 4))\nprint(c.mul(3, 4))",
-          "answer": "A",
-          "feedback": {
-            "correct": "정답! add(3, 4)는 3+4=7, mul(3, 4)는 3*4=12를 반환해 순서대로 출력합니다. __init__이 없어도 클래스는 인스턴스 생성이 가능해요.",
-            "incorrect": "정답은 A. 7 / 12예요. c.add(3, 4) → 7, c.mul(3, 4) → 12 순으로 출력됩니다. 클리어!"
-          },
-          "choices": {
-            "A": "7\\n12",
-            "B": "12\\n7",
-            "C": "7\\n7",
-            "D": "오류 발생"
-          }
-        },
-        {
-          "question_number": 6,
-          "question_id": "miniboss_mid_fib_4_1_001",
-          "type": "fill_in_blank",
-          "difficulty": "easy",
-          "question": "아래 코드에서 클래스 인스턴스를 생성할 때 자동으로 호출되는\n초기화 메서드의 이름을 빈칸에 채우세요.\n\nclass Cat:\n    def _____(self, name):\n        self.name = name\n\nc = Cat('냐옹')\nprint(c.name)  # 냐옹",
-          "answer": "__init__",
-          "feedback": {
-            "correct": "정답! __init__은 인스턴스 생성 시 자동으로 호출되는 초기화 메서드로, 양쪽에 밑줄 2개씩(__) 붙은 이름입니다.",
-            "incorrect": "정답은 __init__이에요. 클래스에서 인스턴스 초기화를 담당하며, Cat('냐옹') 호출 시 자동 실행됩니다. 클리어!"
-          }
-        },
-        {
-          "question_number": 7,
-          "question_id": "miniboss_mid_fib_4_1_002",
-          "type": "fill_in_blank",
-          "difficulty": "medium",
-          "question": "아래 코드의 빈칸을 채워 info() 메서드가 인스턴스 변수 model에\n접근하도록 완성하세요.\n\nclass Robot:\n    def __init__(self, model):\n        self.model = model\n    def info(self):\n        print(_____.model)\n\nr = Robot('R2D2')\nr.info()  # R2D2",
-          "answer": "self",
-          "feedback": {
-            "correct": "정답! 메서드 안에서 인스턴스 변수에 접근할 때는 self를 사용합니다. self.model이 __init__에서 저장된 'R2D2'를 가리켜요.",
-            "incorrect": "정답은 self예요. 인스턴스 메서드 내부에서 인스턴스 변수에 접근하려면 반드시 self.변수명 형태를 써야 합니다. 클리어!"
-          }
-        },
-        {
-          "question_number": 8,
-          "question_id": "miniboss_mid_fib_4_1_003",
-          "type": "fill_in_blank",
-          "difficulty": "medium",
-          "question": "아래 코드의 빈칸에 들어갈 클래스 이름을 채워\n인스턴스를 올바르게 생성하세요.\n\nclass Dog:\n    def __init__(self, name):\n        self.name = name\n\nd = _____('바둑이')\nprint(d.name)  # 바둑이",
-          "answer": "Dog",
-          "feedback": {
-            "correct": "정답! 인스턴스 생성은 클래스이름()으로 합니다. Dog('바둑이')를 호출하면 __init__이 실행되어 self.name = '바둑이'가 저장돼요.",
-            "incorrect": "정답은 Dog예요. 클래스 이름을 함수처럼 호출하면 인스턴스가 생성됩니다. 클리어!"
-          }
-        },
-        {
-          "question_number": 9,
-          "question_id": "miniboss_mid_fib_4_1_004",
-          "type": "fill_in_blank",
-          "difficulty": "hard",
-          "question": "아래 코드의 빈칸을 채워 speak() 메서드가 정상 실행되도록\n클래스를 완성하세요.\n\nclass Animal:\n    def __init__(self, sound):\n        self.sound = sound\n    def _____(self):\n        print(self.sound)\n\na = Animal('멍멍')\na.speak()  # 멍멍",
-          "answer": "speak",
-          "feedback": {
-            "correct": "정답! 메서드 이름 speak를 정의해야 a.speak() 호출이 가능합니다. 메서드도 def로 정의하며, 첫 번째 매개변수는 항상 self예요.",
-            "incorrect": "정답은 speak예요. a.speak()가 호출하는 메서드 이름과 def 뒤 이름이 일치해야 합니다. 클리어!"
-          }
-        },
-        {
-          "question_number": 10,
-          "question_id": "miniboss_mid_fib_4_1_005",
-          "type": "fill_in_blank",
-          "difficulty": "hard",
-          "question": "아래 코드의 빈칸을 채워 f-string이 인스턴스 변수 speed를\n올바르게 출력하도록 완성하세요.\n\nclass Car:\n    def __init__(self, speed):\n        self.speed = speed\n    def info(self):\n        print(f'속도: {_____}')\n\nc = Car(120)\nc.info()  # 속도: 120",
-          "answer": "self.speed",
-          "feedback": {
-            "correct": "정답! f-string의 {} 안에서 인스턴스 변수에 접근할 때도 self.speed처럼 self를 붙여야 합니다. speed만 쓰면 NameError가 발생해요.",
-            "incorrect": "정답은 self.speed예요. 메서드 내부에서 인스턴스 변수는 반드시 self.변수명으로 접근해야 합니다. speed만 쓰면 지역 변수를 찾아 NameError가 발생해요. 클리어!"
-          }
-        }
-      ]
-    },
-    {
-      "unit": "Unit 4 — 클래스 & OOP",
-      "stage": "Stage 4-2: 인스턴스 메서드 & 속성",
-      "villain": "speechbubble_king",
-      "questions": [
-        {
-          "question_number": 1,
-          "question_id": "miniboss_mid_os_4_2_001",
-          "type": "output_select",
-          "difficulty": "easy",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Hero:\n    def __init__(self, name):\n        self.name = name\n        self.hp = 100\n    def damage(self, amount):\n        self.hp -= amount\n\nh = Hero('에이몬')\nh.damage(30)\nprint(h.hp)",
-          "answer": "A",
-          "feedback": {
-            "correct": "정답! damage(30) 호출 시 self.hp -= 30이 실행되어 100 - 30 = 70이 저장됩니다. 인스턴스 변수 hp는 메서드 호출 후에도 유지돼요.",
-            "incorrect": "정답은 A. 70이에요. damage(30)이 self.hp -= 30을 실행하므로 초기값 100에서 30을 뺀 70이 출력됩니다. 클리어!"
-          },
-          "choices": {
-            "A": "70",
-            "B": "100",
-            "C": "30",
-            "D": "오류 발생"
-          }
-        },
-        {
-          "question_number": 2,
-          "question_id": "miniboss_mid_os_4_2_002",
-          "type": "output_select",
-          "difficulty": "medium",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Tank:\n    def __init__(self):\n        self.fuel = 50\n    def refuel(self, amount):\n        self.fuel += amount\n\nt = Tank()\nt.refuel(20)\nt.refuel(10)\nprint(t.fuel)",
-          "answer": "B",
-          "feedback": {
-            "correct": "정답! refuel()을 두 번 호출해 self.fuel이 50 → 70 → 80으로 누적됩니다. 인스턴스 변수는 메서드 호출 간에도 값이 유지돼요.",
-            "incorrect": "정답은 B. 80이에요. refuel(20) → 50+20=70, refuel(10) → 70+10=80으로 누적됩니다. 클리어!"
-          },
-          "choices": {
-            "A": "50",
-            "B": "80",
-            "C": "30",
-            "D": "오류 발생"
-          }
-        },
-        {
-          "question_number": 3,
-          "question_id": "miniboss_mid_os_4_2_003",
-          "type": "output_select",
-          "difficulty": "medium",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Score:\n    def __init__(self):\n        self.point = 0\n    def add(self, n):\n        self.point += n\n    def show(self):\n        print(f'점수: {self.point}')\n\ns = Score()\ns.add(10)\ns.add(5)\ns.show()",
-          "answer": "C",
-          "feedback": {
-            "correct": "정답! add(10) → self.point=10, add(5) → self.point=15로 누적되고, show()에서 f'점수: {self.point}'가 '점수: 15'를 출력합니다.",
-            "incorrect": "정답은 C. 점수: 15예요. add()를 두 번 호출하면 self.point가 0 → 10 → 15로 누적되고, show()가 그 값을 출력합니다. 클리어!"
-          },
-          "choices": {
-            "A": "점수: 10",
-            "B": "점수: 5",
-            "C": "점수: 15",
-            "D": "오류 발생"
-          }
-        },
-        {
-          "question_number": 4,
-          "question_id": "miniboss_mid_os_4_2_004",
-          "type": "output_select",
-          "difficulty": "hard",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Lamp:\n    def __init__(self, color):\n        self.color = color\n    def info(self):\n        print(self.color)\n\na = Lamp('red')\nb = Lamp('blue')\na.color = 'green'\nb.info()",
-          "answer": "D",
-          "feedback": {
-            "correct": "정답! a.color를 'green'으로 바꿔도 b.color는 독립적으로 'blue'를 유지합니다. 인스턴스 변수는 각 인스턴스마다 별도로 저장돼요.",
-            "incorrect": "정답은 D. blue예요. a와 b는 별개의 인스턴스이므로 a.color를 변경해도 b.color에는 영향을 주지 않습니다. 클리어!"
-          },
-          "choices": {
-            "A": "green",
-            "B": "red",
-            "C": "red, blue",
-            "D": "blue"
-          }
-        },
-        {
-          "question_number": 5,
-          "question_id": "miniboss_mid_os_4_2_005",
-          "type": "output_select",
-          "difficulty": "hard",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Rect:\n    def __init__(self, w, h):\n        self.w = w\n        self.h = h\n    def perimeter(self):\n        return 2 * (self.w + self.h)\n\nr = Rect(4, 3)\nresult = r.perimeter()\nprint(result)",
-          "answer": "A",
-          "feedback": {
-            "correct": "정답! perimeter()는 2 * (self.w + self.h) = 2 * (4 + 3) = 14를 반환하고, result에 저장된 뒤 출력됩니다.",
-            "incorrect": "정답은 A. 14예요. perimeter()의 반환값은 2 * (4 + 3) = 14입니다. 클리어!"
-          },
-          "choices": {
-            "A": "14",
-            "B": "12",
-            "C": "7",
-            "D": "24"
-          }
-        },
-        {
-          "question_number": 6,
-          "question_id": "miniboss_mid_fib_4_2_001",
-          "type": "fill_in_blank",
-          "difficulty": "easy",
-          "question": "아래 코드의 빈칸을 채워 sing() 메서드가 인스턴스 변수 name을\n출력하도록 완성하세요.\n\nclass Bird:\n    def __init__(self, name):\n        self.name = name\n    def sing(self):\n        print(_____ + '가 노래해요')\n\nb = Bird('참새')\nb.sing()  # 참새가 노래해요",
-          "answer": "self.name",
-          "feedback": {
-            "correct": "정답! 메서드 안에서 인스턴스 변수에 접근할 때는 self.변수명 형태를 사용합니다. self.name이 __init__에서 저장된 '참새'를 가리켜요.",
-            "incorrect": "정답은 self.name이에요. 인스턴스 메서드 내부에서 인스턴스 변수에 접근하려면 self.변수명으로 써야 합니다. 클리어!"
-          }
-        },
-        {
-          "question_number": 7,
-          "question_id": "miniboss_mid_fib_4_2_002",
-          "type": "fill_in_blank",
-          "difficulty": "medium",
-          "question": "아래 코드의 빈칸을 채워 show() 메서드가 인스턴스 변수 speed를\nf-string으로 출력하도록 완성하세요.\n\nclass Car:\n    def __init__(self, speed):\n        self.speed = speed\n    def show(self):\n        print(f'현재 속도: {_____}km/h')\n\nc = Car(80)\nc.show()  # 현재 속도: 80km/h",
-          "answer": "self.speed",
-          "feedback": {
-            "correct": "정답! f-string의 {} 안에서도 인스턴스 변수는 self.speed로 참조합니다. speed만 쓰면 지역 변수가 없어 NameError가 발생해요.",
-            "incorrect": "정답은 self.speed예요. 메서드 내부에서 인스턴스 변수를 f-string에 삽입할 때도 반드시 self.변수명 형태를 써야 합니다. 클리어!"
-          }
-        },
-        {
-          "question_number": 8,
-          "question_id": "miniboss_mid_fib_4_2_003",
-          "type": "fill_in_blank",
-          "difficulty": "medium",
-          "question": "아래 코드의 빈칸을 채워 p.show() 호출이 정상 실행되도록 메서드 이름을 완성하세요.\nclass Player:\n    def __init__(self, name):\n        self.name = name\n    def _____(self):\n        print(self.name)\n\np = Player('에이몬')\np.show()  # 에이몬",
-          "answer": "show",
-          "feedback": {
-            "correct": "정답! 메서드 이름은 def 키워드 뒤에 정의하며, p.show() 호출과 def show(self) 선언의 이름이 일치해야 합니다.",
-            "incorrect": "정답은 show예요. p.show()가 호출하는 메서드 이름이 show이므로, def 뒤의 이름도 show로 맞춰야 합니다. 클리어!"
-          }
-        },
-        {
-          "question_number": 9,
-          "question_id": "miniboss_mid_fib_4_2_004",
-          "type": "fill_in_blank",
-          "difficulty": "hard",
-          "question": "아래 코드의 빈칸에 알맞은 복합 대입 연산자를 채워\nhit() 메서드가 hp를 감소시키도록 완성하세요.\n\nclass Robot:\n    def __init__(self):\n        self.hp = 200\n    def hit(self, amount):\n        self.hp _____ amount\n\nr = Robot()\nr.hit(50)\nprint(r.hp)  # 150",
-          "answer": "-=",
-          "feedback": {
-            "correct": "정답! self.hp -= amount는 self.hp = self.hp - amount와 같습니다. 피격 시 hp를 감소시키는 전형적인 패턴이에요.",
-            "incorrect": "정답은 -=이에요. self.hp -= amount를 실행하면 200 - 50 = 150이 저장됩니다. += 는 증가, *= 은 곱셈이에요. 클리어!"
-          }
-        },
-        {
-          "question_number": 10,
-          "question_id": "miniboss_mid_fib_4_2_005",
-          "type": "fill_in_blank",
-          "difficulty": "hard",
-          "question": "아래 코드의 빈칸에 인스턴스 메서드의 첫 번째 매개변수로\nPython에서 관례적으로 사용하는 이름을 채우세요.\n\nclass Clock:\n    def __init__(self, hour):\n        self.hour = hour\n    def ring(_____):\n        print(f'{self.hour}시입니다')\n\nc = Clock(9)\nc.ring()  # 9시입니다",
-          "answer": "self",
-          "feedback": {
-            "correct": "정답! Python 인스턴스 메서드의 첫 번째 매개변수는 관례적으로 self라고 씁니다. self를 통해 인스턴스 변수 self.hour에 접근할 수 있어요.",
-            "incorrect": "정답은 self예요. 인스턴스 메서드의 첫 번째 매개변수는 관례적으로 self로 이름 짓습니다. self를 통해 self.hour 같은 인스턴스 변수에 접근할 수 있습니다. 클리어!"
-          }
-        }
-      ]
-    },
-    {
-      "unit": "Unit 4 — 클래스 & OOP",
-      "stage": "Stage 4-3: 클래스 변수 vs 인스턴스 변수",
-      "villain": "speechbubble_king",
-      "questions": [
-        {
-          "question_number": 1,
-          "question_id": "miniboss_mid_os_4_3_001",
-          "type": "output_select",
-          "difficulty": "easy",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Dog:\n    species = 'mammal'\n\nprint(Dog.species)",
-          "answer": "A",
-          "feedback": {
-            "correct": "정답! species는 클래스 변수로, 인스턴스를 만들지 않아도 Dog.species처럼 클래스명으로 직접 접근할 수 있습니다.",
-            "incorrect": "정답은 A. mammal이에요. 클래스 변수는 인스턴스 없이도 클래스명.변수명으로 접근할 수 있습니다. 클리어!"
-          },
-          "choices": {
-            "A": "mammal",
-            "B": "Dog",
-            "C": "species",
-            "D": "오류 발생"
-          }
-        },
-        {
-          "question_number": 2,
-          "question_id": "miniboss_mid_os_4_3_002",
-          "type": "output_select",
-          "difficulty": "medium",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Dog:\n    species = 'mammal'\n\na = Dog()\nb = Dog()\nprint(a.species)\nprint(b.species)",
-          "answer": "B",
-          "feedback": {
-            "correct": "정답! 클래스 변수 species는 모든 인스턴스가 공유합니다. a와 b 모두 Dog.species를 참조하므로 똑같이 'mammal'이 출력됩니다.",
-            "incorrect": "정답은 B. mammal / mammal이에요. 클래스 변수는 인스턴스마다 별도로 저장되지 않고, 모든 인스턴스가 하나의 값을 공유합니다. 클리어!"
-          },
-          "choices": {
-            "A": "mammal / dog",
-            "B": "mammal / mammal",
-            "C": "오류 발생",
-            "D": "mammal / None"
-          }
-        },
-        {
-          "question_number": 3,
-          "question_id": "miniboss_mid_os_4_3_003",
-          "type": "output_select",
-          "difficulty": "medium",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Counter:\n    count = 0\n\n    def __init__(self):\n        Counter.count += 1\n\nCounter()\nCounter()\nCounter()\nprint(Counter.count)",
-          "answer": "C",
-          "feedback": {
-            "correct": "정답! Counter()를 호출할 때마다 __init__ 안에서 Counter.count += 1이 실행됩니다. 클래스 변수 count는 인스턴스 전체가 공유하므로 3번 호출 후 3이 됩니다.",
-            "incorrect": "정답은 C. 3이에요. __init__에서 Counter.count += 1로 클래스 변수를 직접 수정하므로, 3번 생성 후 Counter.count는 3이 됩니다. 클리어!"
-          },
-          "choices": {
-            "A": "0",
-            "B": "1",
-            "C": "3",
-            "D": "오류 발생"
-          }
-        },
-        {
-          "question_number": 4,
-          "question_id": "miniboss_mid_os_4_3_004",
-          "type": "output_select",
-          "difficulty": "hard",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Cat:\n    sound = 'meow'\n\n    def __init__(self, sound):\n        self.sound = sound\n\nc = Cat('야옹')\nprint(c.sound)\nprint(Cat.sound)",
-          "answer": "D",
-          "feedback": {
-            "correct": "정답! self.sound = '야옹'은 인스턴스 변수를 생성해 클래스 변수 sound를 가립니다. c.sound는 인스턴스 변수 '야옹'을, Cat.sound는 클래스 변수 원본 'meow'를 그대로 반환해요.",
-            "incorrect": "정답은 D. 야옹 / meow예요. __init__에서 self.sound로 인스턴스 변수를 만들면 클래스 변수를 가립니다(shadowing). Cat.sound는 클래스 변수 원본 'meow'를 유지합니다. 클리어!"
-          },
-          "choices": {
-            "A": "meow / meow",
-            "B": "야옹 / 야옹",
-            "C": "오류 발생",
-            "D": "야옹 / meow"
-          }
-        },
-        {
-          "question_number": 5,
-          "question_id": "miniboss_mid_os_4_3_005",
-          "type": "output_select",
-          "difficulty": "hard",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Player:\n    team = 'red'\n\n    def __init__(self, name):\n        self.name = name\n\np1 = Player('에이몬')\np2 = Player('로봇')\nPlayer.team = 'blue'\nprint(p1.team)\nprint(p2.name)",
-          "answer": "A",
-          "feedback": {
-            "correct": "정답! Player.team = 'blue'로 클래스 변수를 변경하면 모든 인스턴스에 즉시 반영됩니다. p1.team은 'blue'이고, p2.name은 인스턴스 변수 '로봇'입니다.",
-            "incorrect": "정답은 A. blue / 로봇이에요. 클래스 변수를 변경하면 기존 인스턴스 포함 모두에 반영됩니다. p2.name은 인스턴스 변수이므로 독립적으로 '로봇'을 유지합니다. 클리어!"
-          },
-          "choices": {
-            "A": "blue / 로봇",
-            "B": "red / 로봇",
-            "C": "blue / 에이몬",
-            "D": "red / 에이몬"
-          }
-        },
-        {
-          "question_number": 6,
-          "question_id": "miniboss_mid_fib_4_3_001",
-          "type": "fill_in_blank",
-          "difficulty": "easy",
-          "question": "아래 코드의 빈칸을 채워 클래스 변수 wings에 접근하도록\n완성하세요.\n\nclass Bird:\n    wings = 2\n\nprint(_____)  # 2",
-          "answer": "Bird.wings",
-          "feedback": {
-            "correct": "정답! 클래스 변수는 인스턴스 없이도 클래스명.변수명 형태로 접근합니다. Bird.wings처럼 클래스명을 직접 사용하면 돼요.",
-            "incorrect": "정답은 Bird.wings예요. 클래스 변수는 클래스명.변수명으로 접근합니다. 인스턴스가 없을 때는 self를 쓸 수 없어요. 클리어!"
-          }
-        },
-        {
-          "question_number": 7,
-          "question_id": "miniboss_mid_fib_4_3_002",
-          "type": "fill_in_blank",
-          "difficulty": "medium",
-          "question": "아래 코드의 빈칸을 채워 인스턴스가 생성될 때마다\n클래스 변수 count가 1씩 증가하도록 완성하세요.\n\nclass Counter:\n    count = 0\n\n    def __init__(self):\n        _____ += 1\n\nCounter()\nCounter()\nprint(Counter.count)  # 2",
-          "answer": "Counter.count",
-          "feedback": {
-            "correct": "정답! 클래스 변수를 메서드 안에서 수정할 때는 Counter.count += 1처럼 클래스명을 명시해야 합니다. self.count += 1은 인스턴스 변수를 새로 만들어 클래스 변수를 건드리지 않아요.",
-            "incorrect": "정답은 Counter.count예요. 메서드 안에서 클래스 변수를 수정하려면 self 대신 클래스명.변수명으로 써야 합니다. self.count += 1은 인스턴스 변수를 생성할 뿐입니다. 클리어!"
-          }
-        },
-        {
-          "question_number": 8,
-          "question_id": "miniboss_mid_fib_4_3_003",
-          "type": "fill_in_blank",
-          "difficulty": "medium",
-          "question": "아래 코드의 빈칸을 채워 name을 인스턴스 변수로 저장하도록\n완성하세요.\n\nclass Robot:\n    kind = 'AI'\n\n    def __init__(self, name):\n        _____ = name\n\nr1 = Robot('에이몬')\nr2 = Robot('로봇')\nprint(r1.name)   # 에이몬\nprint(r1.kind)   # AI",
-          "answer": "self.name",
-          "feedback": {
-            "correct": "정답! self.name = name으로 선언하면 인스턴스마다 독립적인 name 변수가 저장됩니다. 클래스 변수 kind는 모든 인스턴스가 공유해요.",
-            "incorrect": "정답은 self.name이에요. 인스턴스 변수는 self.변수명 = 값 형태로 선언합니다. Robot.name으로 저장하면 클래스 변수가 되어 인스턴스마다 다른 값을 가질 수 없어요. 클리어!"
-          }
-        },
-        {
-          "question_number": 9,
-          "question_id": "miniboss_mid_fib_4_3_004",
-          "type": "fill_in_blank",
-          "difficulty": "hard",
-          "question": "아래 코드의 빈칸을 채워 클래스 변수 sound를\n'purr'로 변경하도록 완성하세요.\n\nclass Cat:\n    sound = 'meow'\n\n_____ = 'purr'\nc = Cat()\nprint(c.sound)  # purr",
-          "answer": "Cat.sound",
-          "feedback": {
-            "correct": "정답! 클래스 변수를 변경할 때는 Cat.sound = 'purr'처럼 클래스명으로 접근합니다. 이렇게 하면 기존 인스턴스 포함 모든 인스턴스에 변경이 반영돼요.",
-            "incorrect": "정답은 Cat.sound예요. 클래스 외부에서 클래스 변수를 수정할 때는 클래스명.변수명으로 접근합니다. 클리어!"
-          }
-        },
-        {
-          "question_number": 10,
-          "question_id": "miniboss_mid_fib_4_3_005",
-          "type": "fill_in_blank",
-          "difficulty": "hard",
-          "question": "아래 코드의 빈칸을 채워 hp를 인스턴스 변수로 저장하도록\n완성하세요.\n\nclass Warrior:\n    max_hp = 500\n\n    def __init__(self, hp):\n        _____ = hp\n\nw1 = Warrior(300)\nw2 = Warrior(400)\nprint(w1.hp)     # 300\nprint(w1.max_hp) # 500",
-          "answer": "self.hp",
-          "feedback": {
-            "correct": "정답! self.hp = hp로 선언하면 인스턴스마다 독립적인 hp 값이 저장됩니다. 클래스 변수 max_hp는 모든 인스턴스가 공유하는 상한값이에요.",
-            "incorrect": "정답은 self.hp예요. 인스턴스 변수는 self.변수명 = 값으로 저장합니다. Warrior.hp로 저장하면 w1, w2가 하나의 hp를 공유해 독립적으로 다른 값을 가질 수 없어요. 클리어!"
-          }
-        }
-      ]
-    },
-    {
-      "unit": "Unit 4 — 클래스 & OOP",
-      "stage": "Stage 4-4: 상속",
-      "villain": "speechbubble_king",
-      "questions": [
-        {
-          "question_number": 1,
-          "question_id": "miniboss_mid_os_4_4_001",
-          "type": "output_select",
-          "difficulty": "easy",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Animal:\n    def speak(self):\n        print('...')\n\nclass Dog(Animal):\n    pass\n\nd = Dog()\nd.speak()",
-          "answer": "A",
-          "feedback": {
-            "correct": "정답! Dog는 Animal을 상속받으므로 별도로 speak()를 정의하지 않아도 부모 클래스의 speak()를 그대로 사용할 수 있습니다.",
-            "incorrect": "정답은 A. ...이에요. 자식 클래스는 부모 클래스의 메서드를 자동으로 물려받습니다. Dog에 speak()가 없어도 Animal.speak()가 호출됩니다. 클리어!"
-          },
-          "choices": {
-            "A": "...",
-            "B": "오류 발생",
-            "C": "None",
-            "D": "Animal"
-          }
-        },
-        {
-          "question_number": 2,
-          "question_id": "miniboss_mid_os_4_4_002",
-          "type": "output_select",
-          "difficulty": "medium",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Animal:\n    def speak(self):\n        print('...')\n\nclass Cat(Animal):\n    def speak(self):\n        print('야옹')\n\nc = Cat()\nc.speak()",
-          "answer": "B",
-          "feedback": {
-            "correct": "정답! Cat이 speak()를 직접 정의하면 부모 Animal의 speak()를 덮어씁니다(오버라이딩). c.speak()는 Cat의 speak()를 호출해 '야옹'을 출력합니다.",
-            "incorrect": "정답은 B. 야옹이에요. 자식 클래스에서 같은 이름의 메서드를 정의하면 부모 메서드를 오버라이딩합니다. Cat.speak()가 우선 호출돼요. 클리어!"
-          },
-          "choices": {
-            "A": "...",
-            "B": "야옹",
-            "C": "... / 야옹",
-            "D": "오류 발생"
-          }
-        },
-        {
-          "question_number": 3,
-          "question_id": "miniboss_mid_os_4_4_003",
-          "type": "output_select",
-          "difficulty": "medium",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Unit:\n    def __init__(self, name):\n        self.name = name\n\nclass Hero(Unit):\n    def __init__(self, name, hp):\n        super().__init__(name)\n        self.hp = hp\n\nh = Hero('에이몬', 200)\nprint(h.name)\nprint(h.hp)",
-          "answer": "C",
-          "feedback": {
-            "correct": "정답! super().__init__(name)이 부모 Unit의 __init__을 호출해 self.name = '에이몬'을 저장합니다. 그 뒤 self.hp = 200도 저장되어 둘 다 정상 출력됩니다.",
-            "incorrect": "정답은 C. 에이몬 / 200이에요. super().__init__(name)으로 부모의 __init__을 호출해 self.name을 초기화하고, 자식에서 self.hp를 추가합니다. 클리어!"
-          },
-          "choices": {
-            "A": "에이몬 / 오류 발생",
-            "B": "오류 발생",
-            "C": "에이몬 / 200",
-            "D": "None / 200"
-          }
-        },
-        {
-          "question_number": 4,
-          "question_id": "miniboss_mid_os_4_4_004",
-          "type": "output_select",
-          "difficulty": "hard",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Vehicle:\n    def info(self):\n        print('탈것')\n\nclass Car(Vehicle):\n    def info(self):\n        super().info()\n        print('자동차')\n\nc = Car()\nc.info()",
-          "answer": "D",
-          "feedback": {
-            "correct": "정답! Car.info()에서 super().info()가 먼저 실행돼 Vehicle.info()의 '탈것'이 출력되고, 그 다음 줄에서 '자동차'가 출력됩니다. super()는 부모 메서드를 명시적으로 호출해요.",
-            "incorrect": "정답은 D. 탈것 / 자동차예요. super().info()가 먼저 Vehicle.info()를 호출하므로 '탈것'이 먼저 출력되고, 이후 '자동차'가 출력됩니다. 클리어!"
-          },
-          "choices": {
-            "A": "자동차",
-            "B": "자동차 / 탈것",
-            "C": "탈것",
-            "D": "탈것 / 자동차"
-          }
-        },
-        {
-          "question_number": 5,
-          "question_id": "miniboss_mid_os_4_4_005",
-          "type": "output_select",
-          "difficulty": "hard",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Animal:\n    pass\n\nclass Dog(Animal):\n    pass\n\nclass Cat(Animal):\n    pass\n\nd = Dog()\nprint(isinstance(d, Animal))\nprint(isinstance(d, Cat))",
-          "answer": "A",
-          "feedback": {
-            "correct": "정답! Dog는 Animal을 상속받으므로 isinstance(d, Animal)은 True입니다. 하지만 d는 Cat의 인스턴스가 아니므로 isinstance(d, Cat)은 False입니다.",
-            "incorrect": "정답은 A. True / False예요. isinstance()는 상속 관계도 인식합니다. Dog의 인스턴스는 Animal의 인스턴스이기도 하지만, Cat과는 무관합니다. 클리어!"
-          },
-          "choices": {
-            "A": "True / False",
-            "B": "False / True",
-            "C": "True / True",
-            "D": "False / False"
-          }
-        },
-        {
-          "question_number": 6,
-          "question_id": "miniboss_mid_fib_4_4_001",
-          "type": "fill_in_blank",
-          "difficulty": "easy",
-          "question": "아래 코드의 빈칸을 채워 Dog가 Animal을 상속받도록\n완성하세요.\n\nclass Animal:\n    def speak(self):\n        print('동물 소리')\n\nclass Dog(_____):\n    pass\n\nd = Dog()\nd.speak()  # 동물 소리",
-          "answer": "Animal",
-          "feedback": {
-            "correct": "정답! class Dog(Animal):처럼 클래스 정의 괄호 안에 부모 클래스 이름을 넣으면 상속이 선언됩니다. Dog는 Animal의 speak()를 물려받아요.",
-            "incorrect": "정답은 Animal이에요. 상속은 class 자식클래스(부모클래스): 형태로 선언합니다. 괄호 안에 부모 클래스 이름을 넣어야 해요. 클리어!"
-          }
-        },
-        {
-          "question_number": 7,
-          "question_id": "miniboss_mid_fib_4_4_002",
-          "type": "fill_in_blank",
-          "difficulty": "medium",
-          "question": "아래 코드의 빈칸을 채워 부모 클래스 Unit의 __init__을\n올바르게 호출하도록 완성하세요.\n\nclass Unit:\n    def __init__(self, name):\n        self.name = name\n\nclass Warrior(Unit):\n    def __init__(self, name, hp):\n        _____().__init__(name)\n        self.hp = hp\n\nw = Warrior('에이몬', 300)\nprint(w.name)   # 에이몬\nprint(w.hp)     # 300",
-          "answer": "super",
-          "feedback": {
-            "correct": "정답! super()는 부모 클래스를 참조하는 내장 함수입니다. super().__init__(name)으로 Unit의 __init__을 호출해 self.name을 초기화할 수 있어요.",
-            "incorrect": "정답은 super예요. 자식 클래스에서 부모의 __init__을 호출할 때 super().__init__()을 사용합니다. 클리어!"
-          }
-        },
-        {
-          "question_number": 8,
-          "question_id": "miniboss_mid_fib_4_4_003",
-          "type": "fill_in_blank",
-          "difficulty": "medium",
-          "question": "아래 코드의 빈칸을 채워 Dog가 Animal의 speak()를\n오버라이딩하도록 완성하세요.\n\nclass Animal:\n    def speak(self):\n        print('...')\n\nclass Dog(Animal):\n    def _____(self):\n        print('멍멍')\n\nd = Dog()\nd.speak()  # 멍멍",
-          "answer": "speak",
-          "feedback": {
-            "correct": "정답! 부모와 같은 이름 speak로 메서드를 정의하면 오버라이딩이 됩니다. d.speak() 호출 시 Animal.speak() 대신 Dog.speak()가 실행돼요.",
-            "incorrect": "정답은 speak예요. 오버라이딩은 부모 메서드와 동일한 이름으로 자식 클래스에서 메서드를 재정의하는 것입니다. d.speak()가 호출하는 메서드명과 일치해야 해요. 클리어!"
-          }
-        },
-        {
-          "question_number": 9,
-          "question_id": "miniboss_mid_fib_4_4_004",
-          "type": "fill_in_blank",
-          "difficulty": "hard",
-          "question": "아래 코드의 빈칸을 채워 부모 클래스 Shape의 __init__을\n올바르게 호출하도록 완성하세요.\n\nclass Shape:\n    def __init__(self, color):\n        self.color = color\n\nclass Circle(Shape):\n    def __init__(self, color, radius):\n        _____().__init__(color)\n        self.radius = radius\n\nc = Circle('red', 5)\nprint(c.color)    # red\nprint(c.radius)   # 5",
-          "answer": "super",
-          "feedback": {
-            "correct": "정답! super().__init__(color)로 부모 Shape의 __init__을 호출해 self.color를 저장합니다. 자식 __init__에서 부모 속성을 초기화할 때 반드시 super()를 활용해요.",
-            "incorrect": "정답은 super예요. super().__init__(color)를 호출해야 부모의 __init__이 실행되어 self.color가 저장됩니다. 빈칸 없이 self.color = color를 쓰면 부모 초기화 로직을 건너뛸 수 있어요. 클리어!"
-          }
-        },
-        {
-          "question_number": 10,
-          "question_id": "miniboss_mid_fib_4_4_005",
-          "type": "fill_in_blank",
-          "difficulty": "hard",
-          "question": "아래 코드의 빈칸을 채워 isinstance()의 두 번째 인수로\n올바른 클래스를 넣어 출력이 True / False가 되도록 완성하세요.\n\nclass Animal:\n    pass\n\nclass Dog(Animal):\n    pass\n\nclass Cat(Animal):\n    pass\n\nd = Dog()\nprint(isinstance(d, _____))   # True\nprint(isinstance(d, Cat))     # False",
-          "answer": "Animal",
-          "feedback": {
-            "correct": "정답! Dog는 Animal을 상속받으므로 isinstance(d, Animal)은 True입니다. isinstance()는 상속 관계를 포함해 인스턴스 여부를 검사해요.",
-            "incorrect": "정답은 Animal이에요. isinstance(d, Animal)은 d가 Animal 또는 그 자식 클래스의 인스턴스인지 확인합니다. Dog가 Animal을 상속받으므로 True가 반환됩니다. 클리어!"
-          }
-        }
-      ]
-    },
-    {
-      "unit": "Unit 4 — 클래스 & OOP",
-      "stage": "Stage 4-5: 캡슐화 & 특수 메서드",
-      "villain": "speechbubble_king",
-      "questions": [
-        {
-          "question_number": 1,
-          "question_id": "miniboss_mid_os_4_5_001",
-          "type": "output_select",
-          "difficulty": "easy",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Item:\n    def __init__(self, name):\n        self.name = name\n    def __str__(self):\n        return f'아이템: {self.name}'\n\ni = Item('검')\nprint(i)",
-          "answer": "A",
-          "feedback": {
-            "correct": "정답! print()로 인스턴스를 출력하면 __str__이 자동으로 호출됩니다. f'아이템: {self.name}'이 '아이템: 검'을 반환해요.",
-            "incorrect": "정답은 A. 아이템: 검이에요. __str__을 정의하면 print() 호출 시 해당 반환값이 출력됩니다. 클리어!"
-          },
-          "choices": {
-            "A": "아이템: 검",
-            "B": "검",
-            "C": "Item",
-            "D": "<Item object>"
-          }
-        },
-        {
-          "question_number": 2,
-          "question_id": "miniboss_mid_os_4_5_002",
-          "type": "output_select",
-          "difficulty": "medium",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Safe:\n    def __init__(self):\n        self._secret = 42\n\ns = Safe()\nprint(s._secret)",
-          "answer": "B",
-          "feedback": {
-            "correct": "정답! 단일 밑줄(_)로 시작하는 속성은 외부 접근을 금지하지 않습니다. 관례상 '내부용'임을 표시할 뿐이며 s._secret으로 직접 접근할 수 있어요.",
-            "incorrect": "정답은 B. 42예요. 단일 밑줄(_) 속성은 Python이 접근을 막지 않습니다. 외부에서 접근 가능하지만 관례상 직접 쓰지 않도록 약속한 것입니다. 클리어!"
-          },
-          "choices": {
-            "A": "오류 발생",
-            "B": "42",
-            "C": "None",
-            "D": "_secret"
-          }
-        },
-        {
-          "question_number": 3,
-          "question_id": "miniboss_mid_os_4_5_003",
-          "type": "output_select",
-          "difficulty": "medium",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Hero:\n    def __init__(self, name, hp):\n        self.name = name\n        self.hp = hp\n    def __str__(self):\n        return f'{self.name} (HP: {self.hp})'\n\nh = Hero('에이몬', 100)\nprint(str(h))",
-          "answer": "C",
-          "feedback": {
-            "correct": "정답! str(h)는 h.__str__()을 호출합니다. f'{self.name} (HP: {self.hp})'가 '에이몬 (HP: 100)'을 반환해요.",
-            "incorrect": "정답은 C. 에이몬 (HP: 100)이에요. str()은 __str__을 호출하고, f-string이 name과 hp를 포맷에 맞게 삽입합니다. 클리어!"
-          },
-          "choices": {
-            "A": "에이몬",
-            "B": "에이몬 100",
-            "C": "에이몬 (HP: 100)",
-            "D": "Hero"
-          }
-        },
-        {
-          "question_number": 4,
-          "question_id": "miniboss_mid_os_4_5_004",
-          "type": "output_select",
-          "difficulty": "hard",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Point:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n    def __str__(self):\n        return f'({self.x}, {self.y})'\n    def __repr__(self):\n        return f'Point({self.x}, {self.y})'\n\np = Point(3, 4)\nprint(p)\nprint(repr(p))",
-          "answer": "D",
-          "feedback": {
-            "correct": "정답! print(p)는 __str__을 호출해 '(3, 4)'를 출력하고, repr(p)는 __repr__을 호출해 'Point(3, 4)'를 출력합니다. __str__은 사람이 읽기 편한 형태, __repr__은 객체를 재현 가능한 형태로 반환해요.",
-            "incorrect": "정답은 D. (3, 4) / Point(3, 4)예요. print()는 __str__을, repr()는 __repr__을 각각 호출합니다. 두 메서드는 다른 목적으로 사용돼요. 클리어!"
-          },
-          "choices": {
-            "A": "Point(3, 4) / Point(3, 4)",
-            "B": "(3, 4) / (3, 4)",
-            "C": "Point(3, 4) / (3, 4)",
-            "D": "(3, 4) / Point(3, 4)"
-          }
-        },
-        {
-          "question_number": 5,
-          "question_id": "miniboss_mid_os_4_5_005",
-          "type": "output_select",
-          "difficulty": "hard",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Vault:\n    def __init__(self):\n        self.__code = 999\n    def get_code(self):\n        return self.__code\n\nv = Vault()\nprint(v.get_code())",
-          "answer": "A",
-          "feedback": {
-            "correct": "정답! 이중 밑줄(__) 속성은 외부에서 v.__code로 직접 접근하면 AttributeError가 발생하지만, 클래스 내부 메서드인 get_code()를 통해서는 정상적으로 반환됩니다.",
-            "incorrect": "정답은 A. 999예요. __code는 name mangling으로 외부 직접 접근이 막히지만, 클래스 내부 메서드 get_code()에서는 self.__code로 접근할 수 있습니다. 클리어!"
-          },
-          "choices": {
-            "A": "999",
-            "B": "오류 발생",
-            "C": "None",
-            "D": "__code"
-          }
-        },
-        {
-          "question_number": 6,
-          "question_id": "miniboss_mid_fib_4_5_001",
-          "type": "fill_in_blank",
-          "difficulty": "easy",
-          "question": "아래 코드의 빈칸을 채워 print(d) 호출 시 '강아지: 에이몬'이\n출력되도록 특수 메서드를 완성하세요.\n\nclass Dog:\n    def __init__(self, name):\n        self.name = name\n    def _____(self):\n        return f'강아지: {self.name}'\n    def __repr__(self):\n        return f'Dog({self.name!r})'\n\nd = Dog('에이몬')\nprint(d)  # 강아지: 에이몬",
-          "answer": "__str__",
-          "feedback": {
-            "correct": "정답! print() 호출 시 __str__이 우선 사용됩니다. __repr__도 정의되어 있지만 print()는 __str__을 먼저 찾아 호출해요.",
-            "incorrect": "정답은 __str__이에요. print()로 인스턴스를 출력할 때 Python은 __str__을 먼저 찾습니다. __repr__을 넣으면 'Dog(\\"
-          }
-        },
-        {
-          "question_number": 7,
-          "question_id": "miniboss_mid_fib_4_5_002",
-          "type": "fill_in_blank",
-          "difficulty": "medium",
-          "question": "아래 코드의 빈칸을 채워 show() 메서드가 잔액을 올바르게\n출력하도록 완성하세요.\n\nclass BankAccount:\n    def __init__(self, amount):\n        self._____ = amount\n    def show(self):\n        print(f'잔액: {self._balance}원')\n\na = BankAccount(5000)\na.show()  # 잔액: 5000원",
-          "answer": "_balance",
-          "feedback": {
-            "correct": "정답! _balance처럼 단일 밑줄로 시작하는 이름은 '내부용 속성'임을 나타내는 관례입니다. show() 메서드가 self._balance를 참조하므로 초기화 시도 동일한 이름으로 저장해야 해요.",
-            "incorrect": "정답은 _balance예요. show()에서 self._balance를 참조하므로 __init__에서도 self._balance로 저장해야 합니다. balance(밑줄 없음)로 저장하면 AttributeError가 발생해요. 클리어!"
-          }
-        },
-        {
-          "question_number": 8,
-          "question_id": "miniboss_mid_fib_4_5_003",
-          "type": "fill_in_blank",
-          "difficulty": "medium",
-          "question": "아래 코드의 빈칸을 채워 print(c)가 '하트 7'을 출력하도록\n__str__을 완성하세요.\n\nclass Card:\n    def __init__(self, suit, num):\n        self.suit = suit\n        self.num = num\n    def __str__(self):\n        return f'{self._____} {self.num}'\n\nc = Card('하트', 7)\nprint(c)  # 하트 7",
-          "answer": "suit",
-          "feedback": {
-            "correct": "정답! self.suit는 '하트', self.num은 7이므로 f'{self.suit} {self.num}'이 '하트 7'을 반환합니다.",
-            "incorrect": "정답은 suit예요. f'{self.suit} {self.num}'이 '하트 7'을 만듭니다. self.num을 넣으면 '7 7'이 출력되어 정답과 달라져요. 클리어!"
-          }
-        },
-        {
-          "question_number": 9,
-          "question_id": "miniboss_mid_fib_4_5_004",
-          "type": "fill_in_blank",
-          "difficulty": "hard",
-          "question": "아래 코드의 빈칸을 채워 이중 밑줄 속성을 선언하고\ncheck() 메서드로만 접근할 수 있도록 완성하세요.\n\nclass User:\n    def __init__(self, pw):\n        self._____ = pw\n    def check(self):\n        return self.__password\n\nu = User('abc123')\nprint(u.check())  # abc123",
-          "answer": "__password",
-          "feedback": {
-            "correct": "정답! self.__password로 저장하면 name mangling이 적용되어 클래스 외부에서 u.__password로 직접 접근할 수 없습니다. check() 같은 내부 메서드를 통해서만 값을 반환할 수 있어요.",
-            "incorrect": "정답은 __password예요. check()에서 self.__password를 참조하므로 __init__에서도 self.__password로 저장해야 합니다. _password(단일 밑줄)로 저장하면 AttributeError가 발생해요. 클리어!"
-          }
-        },
-        {
-          "question_number": 10,
-          "question_id": "miniboss_mid_fib_4_5_005",
-          "type": "fill_in_blank",
-          "difficulty": "hard",
-          "question": "아래 코드의 빈칸을 채워 Point(1, 2)가 출력되도록\n올바른 내장 함수를 완성하세요.\n\nclass Point:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n    def __str__(self):\n        return f'({self.x}, {self.y})'\n    def __repr__(self):\n        return f'Point({self.x}, {self.y})'\n\np = Point(1, 2)\nprint(_____(p))  # Point(1, 2)",
-          "answer": "repr",
-          "feedback": {
-            "correct": "정답! repr(p)는 __repr__을 호출해 'Point(1, 2)'를 반환합니다. str(p)를 쓰면 __str__이 호출되어 '(1, 2)'가 출력되어 정답과 달라져요.",
-            "incorrect": "정답은 repr이에요. repr()은 __repr__을 호출합니다. str()은 __str__을 호출하므로 '(1, 2)'가 출력되어 'Point(1, 2)'와 달라집니다. 클리어!"
-          }
-        }
-      ]
-    },
-    {
-      "unit": "Unit 4 — 클래스 & OOP",
-      "stage": "Stage 4-6: OOP 종합실습",
-      "villain": "speechbubble_king",
-      "questions": [
-        {
-          "question_number": 1,
-          "question_id": "miniboss_mid_os_4_6_001",
-          "type": "output_select",
-          "difficulty": "easy",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Character:\n    def __init__(self, name, hp):\n        self.name = name\n        self.hp = hp\n    def __str__(self):\n        return f'{self.name}: {self.hp}HP'\n\nc = Character('에이몬', 150)\nprint(c)",
-          "answer": "A",
-          "feedback": {
-            "correct": "정답! print(c)는 __str__을 자동으로 호출합니다. f'{self.name}: {self.hp}HP'가 '에이몬: 150HP'를 반환해요.",
-            "incorrect": "정답은 A. 에이몬: 150HP예요. __str__이 정의된 클래스에서 print()를 호출하면 __str__의 반환값이 출력됩니다. 클리어!"
-          },
-          "choices": {
-            "A": "에이몬: 150HP",
-            "B": "에이몬",
-            "C": "150",
-            "D": "Character"
-          }
-        },
-        {
-          "question_number": 2,
-          "question_id": "miniboss_mid_os_4_6_002",
-          "type": "output_select",
-          "difficulty": "medium",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Item:\n    def describe(self):\n        return '아이템'\n\nclass Weapon(Item):\n    def describe(self):\n        return '무기'\n\nw = Weapon()\nprint(w.describe())",
-          "answer": "B",
-          "feedback": {
-            "correct": "정답! Weapon이 describe()를 오버라이딩했으므로 w.describe()는 Item.describe() 대신 Weapon.describe()를 호출해 '무기'를 반환합니다.",
-            "incorrect": "정답은 B. 무기예요. 자식 클래스에서 같은 이름의 메서드를 정의하면 부모 메서드를 오버라이딩합니다. w.describe()는 Weapon의 메서드를 호출해요. 클리어!"
-          },
-          "choices": {
-            "A": "아이템",
-            "B": "무기",
-            "C": "아이템 / 무기",
-            "D": "오류 발생"
-          }
-        },
-        {
-          "question_number": 3,
-          "question_id": "miniboss_mid_os_4_6_003",
-          "type": "output_select",
-          "difficulty": "medium",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Shop:\n    discount = 10\n\n    def __init__(self, name, price):\n        self.name = name\n        self.price = price\n\n    def final_price(self):\n        return self.price - Shop.discount\n\ns = Shop('포션', 100)\nprint(s.final_price())",
-          "answer": "C",
-          "feedback": {
-            "correct": "정답! final_price()는 self.price - Shop.discount = 100 - 10 = 90을 반환합니다. Shop.discount는 클래스 변수로 모든 인스턴스가 공유해요.",
-            "incorrect": "정답은 C. 90이에요. self.price는 인스턴스 변수 100이고, Shop.discount는 클래스 변수 10입니다. 100 - 10 = 90이 반환됩니다. 클리어!"
-          },
-          "choices": {
-            "A": "100",
-            "B": "10",
-            "C": "90",
-            "D": "110"
-          }
-        },
-        {
-          "question_number": 4,
-          "question_id": "miniboss_mid_os_4_6_004",
-          "type": "output_select",
-          "difficulty": "hard",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Unit:\n    def __init__(self, name):\n        self.name = name\n        self.alive = True\n\nclass Mage(Unit):\n    def __init__(self, name, mp):\n        super().__init__(name)\n        self.mp = mp\n\n    def cast(self):\n        self.mp -= 30\n        return f'{self.name} 마법 시전! MP: {self.mp}'\n\nm = Mage('에이몬', 100)\nprint(m.cast())",
-          "answer": "D",
-          "feedback": {
-            "correct": "정답! super().__init__(name)으로 self.name='에이몬'이 초기화됩니다. cast()에서 self.mp -= 30으로 100 - 30 = 70이 되고, f-string이 '에이몬 마법 시전! MP: 70'을 반환해요.",
-            "incorrect": "정답은 D. 에이몬 마법 시전! MP: 70이에요. cast()에서 self.mp -= 30이 실행되어 100 - 30 = 70이 됩니다. self.name은 super().__init__()으로 초기화되어 정상 접근돼요. 클리어!"
-          },
-          "choices": {
-            "A": "에이몬 마법 시전! MP: 100",
-            "B": "에이몬 마법 시전! MP: 30",
-            "C": "오류 발생",
-            "D": "에이몬 마법 시전! MP: 70"
-          }
-        },
-        {
-          "question_number": 5,
-          "question_id": "miniboss_mid_os_4_6_005",
-          "type": "output_select",
-          "difficulty": "hard",
-          "question": "다음 코드의 출력 결과를 고르세요.\n\nclass Cart:\n    def __init__(self):\n        self._items = []\n\n    def add(self, item):\n        self._items.append(item)\n\n    def __str__(self):\n        return f'장바구니: {self._items}'\n\ncart = Cart()\ncart.add('사과')\ncart.add('우유')\nprint(cart)",
-          "answer": "A",
-          "feedback": {
-            "correct": "정답! add()가 self._items.append()로 '사과', '우유'를 순서대로 추가합니다. __str__이 f'장바구니: {self._items}'를 반환해 리스트 형태로 출력돼요.",
-            "incorrect": "정답은 A. 장바구니: ['사과', '우유']예요. add()로 두 항목이 추가된 후 print(cart)가 __str__을 호출하고, self._items가 ['사과', '우유']를 출력합니다. 클리어!"
-          },
-          "choices": {
-            "A": "장바구니: ['사과', '우유']",
-            "B": "장바구니: ()",
-            "C": "장바구니: []",
-            "D": "오류 발생"
-          }
-        },
-        {
-          "question_number": 6,
-          "question_id": "miniboss_mid_fib_4_6_001",
-          "type": "fill_in_blank",
-          "difficulty": "easy",
-          "question": "아래 코드의 빈칸을 채워 __str__이 '플레이어: 에이몬'을\n반환하도록 완성하세요.\n\nclass Player:\n    def __init__(self, name):\n        self.name = name\n    def __str__(self):\n        return f'플레이어: {_____}'\n\np = Player('에이몬')\nprint(p)  # 플레이어: 에이몬",
-          "answer": "self.name",
-          "feedback": {
-            "correct": "정답! f-string 안에서 인스턴스 변수에 접근할 때는 self.name처럼 self를 붙여야 합니다. __init__에서 저장된 '에이몬'을 가져와 출력해요.",
-            "incorrect": "정답은 self.name이에요. 메서드 내부에서 인스턴스 변수는 반드시 self.변수명으로 접근합니다. name만 쓰면 NameError가 발생해요. 클리어!"
-          }
-        },
-        {
-          "question_number": 7,
-          "question_id": "miniboss_mid_fib_4_6_002",
-          "type": "fill_in_blank",
-          "difficulty": "medium",
-          "question": "아래 코드의 빈칸을 채워 부모 클래스 Unit의 __init__을\n올바르게 호출하도록 완성하세요.\n\nclass Unit:\n    def __init__(self, name):\n        self.name = name\n\nclass Archer(Unit):\n    def __init__(self, name, arrows):\n        _____().__init__(name)\n        self.arrows = arrows\n\na = Archer('에이몬', 20)\nprint(a.name)    # 에이몬\nprint(a.arrows)  # 20",
-          "answer": "super",
-          "feedback": {
-            "correct": "정답! super().__init__(name)으로 부모 Unit의 __init__을 호출해 self.name을 초기화합니다. 자식 클래스에서 부모 속성을 설정할 때 반드시 super()를 활용해요.",
-            "incorrect": "정답은 super예요. super().__init__(name)이 부모 Unit의 __init__을 호출합니다. Unit().__init__(name)처럼 쓰면 TypeError가 발생해요. 클리어!"
-          }
-        },
-        {
-          "question_number": 8,
-          "question_id": "miniboss_mid_fib_4_6_003",
-          "type": "fill_in_blank",
-          "difficulty": "medium",
-          "question": "아래 코드의 빈칸을 채워 sale_price()가 클래스 변수를\n올바르게 참조하도록 완성하세요.\n\nclass Shop:\n    discount = 10\n\n    def __init__(self, price):\n        self.price = price\n\n    def sale_price(self):\n        return self.price - Shop._____\n\ns = Shop(200)\nprint(s.sale_price())  # 190",
-          "answer": "discount",
-          "feedback": {
-            "correct": "정답! Shop.discount는 클래스 변수로, 모든 인스턴스가 공유하는 할인율 10을 가리킵니다. self.price - Shop.discount = 200 - 10 = 190이에요.",
-            "incorrect": "정답은 discount예요. Shop.discount가 클래스 변수 10을 참조합니다. Shop.price를 쓰면 클래스에 price 속성이 없어 AttributeError가 발생해요. 클리어!"
-          }
-        },
-        {
-          "question_number": 9,
-          "question_id": "miniboss_mid_fib_4_6_004",
-          "type": "fill_in_blank",
-          "difficulty": "hard",
-          "question": "아래 코드의 빈칸을 채워 add() 메서드가 _items 리스트에\n항목을 추가하도록 완성하세요.\n\nclass Cart:\n    def __init__(self):\n        self._items = []\n\n    def add(self, item):\n        self._items._____(item)\n\n    def total(self):\n        return len(self._items)\n\ncart = Cart()\ncart.add('사과')\ncart.add('우유')\nprint(cart.total())  # 2",
-          "answer": "append",
-          "feedback": {
-            "correct": "정답! append(item)은 리스트 끝에 항목을 하나씩 추가합니다. 두 번 호출 후 self._items는 ['사과', '우유']가 되어 len()이 2를 반환해요.",
-            "incorrect": "정답은 append예요. append()는 리스트에 원소 하나를 추가합니다. extend()를 쓰면 문자열이 문자 단위로 분해되어 total()이 2가 아닌 4를 반환해요. 클리어!"
-          }
-        },
-        {
-          "question_number": 10,
-          "question_id": "miniboss_mid_fib_4_6_005",
-          "type": "fill_in_blank",
-          "difficulty": "hard",
-          "question": "아래 코드의 빈칸을 채워 die() 호출 후 상속받은 속성의\n값이 False임을 확인하도록 완성하세요.\n\nclass Unit:\n    def __init__(self, name):\n        self.name = name\n        self.alive = True\n\nclass Warrior(Unit):\n    def __init__(self, name, hp):\n        super().__init__(name)\n        self.hp = hp\n\n    def die(self):\n        self.hp = 0\n        self.alive = False\n\nw = Warrior('에이몬', 200)\nw.die()\nprint(w._____)  # False",
-          "answer": "alive",
-          "feedback": {
-            "correct": "정답! alive는 부모 Unit의 __init__에서 True로 초기화된 상속 속성입니다. die()가 self.alive = False로 변경하므로 w.alive는 False가 돼요.",
-            "incorrect": "정답은 alive예요. die()에서 self.alive = False로 설정됩니다. w.hp를 쓰면 0이 출력되어 False와 달라지고, w.name을 쓰면 '에이몬'이 출력돼요. 클리어!"
-          }
-        }
-      ]
+[
+  {
+    "question_id": "miniboss_int_os_4_1_001",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Dog:\n    def bark(self):\n        print('왈왈!')\n\nd = Dog()\nd.bark()\n```",
+    "choices": [
+      "A. 왈왈!",
+      "B. Dog()",
+      "C. bark()",
+      "D. 오류 발생"
+    ],
+    "answer": "A",
+    "hint": "",
+    "explanation": "Dog 클래스 인스턴스 d를 생성하고 bark()를 호출하면 '왈왈!'이 출력돼요. self는 호출한 인스턴스 자신을 가리킵니다.",
+    "feedback": {
+      "correct": "정답! d.bark()를 호출하면 '왈왈!'이 출력됩니다. self는 메서드를 호출한 인스턴스(d) 자신을 나타내요."
     }
-  ]
-}
+  },
+  {
+    "question_id": "miniboss_int_fib_4_1_002",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 클래스를 정의하세요.\n\n```python\n_____ Cat:\n    def meow(self):\n        print('야옹!')\nanswer: class\nexplanation: class 키워드로 클래스를 정의해요. 클래스 이름은 PascalCase(첫 글자 대문자)를 사용하는 것이 관례입니다.\nfeedback.correct: 정답! class 키워드로 클래스를 정의해요. Cat처럼 클래스 이름은 대문자로 시작하는 PascalCase를 씁니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_1_003",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Score:\n    def __init__(self, val):\n        self.val = val\n\n    def double(self):\n        return self.val * 2\n\ns = Score(7)\nprint(s.double())\n```",
+    "choices": [
+      "A. 7",
+      "B. 14",
+      "C. 49",
+      "D. 오류 발생"
+    ],
+    "answer": "B",
+    "hint": "",
+    "explanation": "self.val = 7이므로 double()은 7 * 2 = 14를 반환해요. self.val은 __init__에서 저장한 인스턴스 속성입니다.",
+    "feedback": {
+      "correct": "정답! self.val = 7, double()은 7 * 2 = 14를 반환해요. 인스턴스 속성을 메서드 안에서 self를 통해 자유롭게 사용할 수 있습니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_1_004",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 __init__ 메서드에서 이름을 초기화하세요.\n\n```python\nclass Hero:\n    def _____(self, name):\n        self.name = name\n\nh = Hero('에이몬')\nprint(h.name)\n# 출력 목표: 에이몬\nanswer: __init__\nexplanation: __init__은 인스턴스 생성 시 자동으로 호출되는 초기화 메서드예요. Hero('에이몬')을 호출하면 name 인수가 이 메서드로 전달됩니다.\nfeedback.correct: 정답! __init__은 인스턴스 생성 시 자동 호출되는 생성자예요. Hero('에이몬')을 쓰면 name에 '에이몬'이 들어옵니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_1_005",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Tank:\n    def __init__(self, hp):\n        self.hp = hp\n\n    def is_alive(self):\n        return self.hp > 0\n\nt = Tank(0)\nprint(t.is_alive())\n```",
+    "choices": [
+      "A. True",
+      "B. 0",
+      "C. False",
+      "D. 오류 발생"
+    ],
+    "answer": "C",
+    "hint": "",
+    "explanation": "self.hp = 0이므로 0 > 0은 False예요. is_alive()는 hp가 0보다 클 때만 True를 반환합니다.",
+    "feedback": {
+      "correct": "정답! hp=0이므로 0 > 0은 False예요. 메서드에서 비교 연산 결과를 바로 return할 수 있습니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_1_006",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 인스턴스의 속성에 접근하세요.\n\n```python\nclass Player:\n    def __init__(self, hp):\n        self.hp = hp\n\np = Player(100)\nprint(p._____)\n# 출력 목표: 100\nanswer: hp\nexplanation: 인스턴스 속성은 인스턴스.속성명으로 접근해요. p.hp는 Player 인스턴스 p에 저장된 hp 값 100을 반환합니다.\nfeedback.correct: 정답! p.hp처럼 인스턴스.속성명으로 접근해요. 인스턴스 속성은 클래스 외부에서도 이 방식으로 읽을 수 있습니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_1_007",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Wallet:\n    def __init__(self, amount):\n        self.amount = amount\n\n    def spend(self, cost):\n        self.amount -= cost\n        return self.amount\n\nw = Wallet(1000)\nr1 = w.spend(300)\nr2 = w.spend(200)\nprint(r1, r2)\n```",
+    "choices": [
+      "A. 1000 700",
+      "B. 700 700",
+      "C. 300 200",
+      "D. 700 500"
+    ],
+    "answer": "D",
+    "hint": "",
+    "explanation": "첫 spend(300) → amount = 1000-300 = 700 반환. 두 번째 spend(200) → amount = 700-200 = 500 반환. r1=700, r2=500이므로 '700 500'이 출력됩니다.",
+    "feedback": {
+      "correct": "정답! r1 = 700, r2 = 500이에요. self.amount는 호출마다 누적 변경되므로 두 번째 spend는 이미 700으로 줄어든 amount에서 200을 뺍니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_1_008",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 두 번째 인스턴스를 생성하세요.\n\n```python\nclass Slime:\n    def __init__(self, color):\n        self.color = color\n\ns1 = Slime('초록')\ns2 = _____('파랑')\nprint(s1.color, s2.color)\n# 출력 목표: 초록 파랑\nanswer: Slime\nexplanation: 클래스 이름을 함수처럼 호출해 인스턴스를 생성해요. Slime('파랑')은 color='파랑'으로 초기화된 새 인스턴스를 만듭니다.\nfeedback.correct: 정답! Slime('파랑')으로 새 인스턴스를 만들어요. s1과 s2는 각각 독립된 인스턴스로 서로 다른 color 값을 가집니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_1_009",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Counter:\n    def __init__(self):\n        self.count = 0\n\n    def increment(self):\n        self.count += 1\n\nc = Counter()\nc.increment()\nc.increment()\nc.increment()\nprint(c.count)\n```",
+    "choices": [
+      "A. 3",
+      "B. 0",
+      "C. 1",
+      "D. 오류 발생"
+    ],
+    "answer": "A",
+    "hint": "",
+    "explanation": "increment()를 3번 호출하면 count는 0 → 1 → 2 → 3이 돼요. self.count는 인스턴스에 바인딩된 속성으로, 호출마다 누적됩니다.",
+    "feedback": {
+      "correct": "정답! increment()를 3번 호출해 count = 3이에요. 인스턴스 속성은 메서드 호출에 걸쳐 상태가 유지됩니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_os_4_1_010",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Box:\n    def __init__(self, w, h):\n        self.w = w\n        self.h = h\n\n    def area(self):\n        return self.w * self.h\n\n    def perimeter(self):\n        return (self.w + self.h) * 2\n\nb = Box(3, 4)\nprint(b.area())\nprint(b.perimeter())\n```",
+    "choices": [
+      "A. 7 / 14",
+      "B. 12 / 14",
+      "C. 7 / 24",
+      "D. 12 / 24"
+    ],
+    "answer": "B",
+    "hint": "",
+    "explanation": "area()는 3 * 4 = 12, perimeter()는 (3 + 4) * 2 = 14예요. 각 메서드는 self.w와 self.h를 활용해 서로 다른 연산을 수행합니다.",
+    "feedback": {
+      "correct": "정답! area() = 3 * 4 = 12, perimeter() = (3 + 4) * 2 = 14예요. 하나의 인스턴스에서 여러 메서드를 독립적으로 호출할 수 있습니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_os_4_2_001",
+    "unit": 4,
+    "stage": "4-2",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Car:\n    def __init__(self, speed):\n        self.speed = speed\n\n    def accelerate(self, amount):\n        self.speed += amount\n\nc = Car(50)\nc.accelerate(30)\nprint(c.speed)\n```",
+    "choices": [
+      "A. 80",
+      "B. 50",
+      "C. 30",
+      "D. 오류 발생"
+    ],
+    "answer": "A",
+    "hint": "",
+    "explanation": "self.speed = 50에서 accelerate(30)을 호출하면 self.speed += 30이 실행돼 50 + 30 = 80이 됩니다.",
+    "feedback": {
+      "correct": "정답! accelerate(30) 호출로 speed가 50 + 30 = 80이 돼요. 인스턴스 메서드는 self.속성을 직접 수정할 수 있습니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_2_002",
+    "unit": 4,
+    "stage": "4-2",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 인스턴스 메서드를 정의하세요.\n\n```python\nclass Greeter:\n    def greet(_____, name):\n        print(f'안녕, {name}!')\n\ng = Greeter()\ng.greet('에이몬')\n# 출력 목표: 안녕, 에이몬!\nanswer: self\nexplanation: 인스턴스 메서드의 첫 번째 매개변수는 반드시 self예요. self는 메서드를 호출한 인스턴스를 자동으로 받습니다.\nfeedback.correct: 정답! 인스턴스 메서드의 첫 번째 매개변수는 self예요. Python이 자동으로 인스턴스를 self에 전달합니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_2_003",
+    "unit": 4,
+    "stage": "4-2",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass BankAccount:\n    def __init__(self, balance):\n        self.balance = balance\n\n    def deposit(self, amount):\n        self.balance += amount\n\n    def withdraw(self, amount):\n        self.balance -= amount\n\nacc = BankAccount(1000)\nacc.deposit(500)\nacc.withdraw(200)\nprint(acc.balance)\n```",
+    "choices": [
+      "A. 1000",
+      "B. 1300",
+      "C. 1500",
+      "D. 오류 발생"
+    ],
+    "answer": "B",
+    "hint": "",
+    "explanation": "1000 → deposit(500) → 1500 → withdraw(200) → 1300이에요. 여러 메서드를 순서대로 호출하면 인스턴스 속성이 누적 변경됩니다.",
+    "feedback": {
+      "correct": "정답! 1000 + 500 - 200 = 1300이에요. 메서드 호출 순서에 따라 인스턴스 속성이 단계적으로 변경됩니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_2_004",
+    "unit": 4,
+    "stage": "4-2",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 메서드 안에서 다른 메서드를 호출하세요.\n\n```python\nclass Fighter:\n    def __init__(self, hp):\n        self.hp = hp\n\n    def take_damage(self, dmg):\n        self.hp -= dmg\n\n    def is_dead(self):\n        return self.hp <= 0\n\n    def attack(self, other, dmg):\n        other.take_damage(dmg)\n        return _____.is_dead()\n\nf1 = Fighter(100)\nf2 = Fighter(50)\nprint(f1.attack(f2, 60))\n# 출력 목표: True\nanswer: other\nexplanation: other.take_damage(dmg)로 상대의 hp를 줄이고, other.is_dead()로 상대의 생존 여부를 반환해요. other는 attack()의 매개변수로 전달된 상대 인스턴스입니다.\nfeedback.correct: 정답! other.take_damage(60)으로 f2의 hp = 50-60 = -10이 돼요. other.is_dead()는 -10 <= 0이므로 True를 반환합니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_2_005",
+    "unit": 4,
+    "stage": "4-2",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Inventory:\n    def __init__(self):\n        self.items = []\n\n    def add(self, item):\n        self.items.append(item)\n\n    def count(self):\n        return len(self.items)\n\ninv = Inventory()\ninv.add('검')\ninv.add('방패')\ninv.add('포션')\nprint(inv.count())\n```",
+    "choices": [
+      "A. 1",
+      "B. 2",
+      "C. 3",
+      "D. ['검', '방패', '포션']"
+    ],
+    "answer": "C",
+    "hint": "",
+    "explanation": "add()를 3번 호출해 items 리스트에 3개 아이템이 추가돼요. count()는 len(self.items) = 3을 반환합니다.",
+    "feedback": {
+      "correct": "정답! add()를 3번 호출해 items = ['검', '방패', '포션'], count()는 len = 3을 반환해요. __init__에서 빈 리스트로 초기화하는 패턴은 자주 쓰입니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_2_006",
+    "unit": 4,
+    "stage": "4-2",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 속성값을 반환하는 메서드(getter)를 완성하세요.\n\n```python\nclass Monster:\n    def __init__(self, name, hp):\n        self.name = name\n        self.hp = hp\n\n    def get_info(self):\n        return f'{_____}: HP {self.hp}'\n\nm = Monster('고블린', 80)\nprint(m.get_info())\n# 출력 목표: 고블린: HP 80\nanswer: self.name\nexplanation: f-string 안에서 self.name으로 인스턴스 속성에 접근해요. self.를 빠뜨리면 name이 undefined로 오류가 발생합니다.\nfeedback.correct: 정답! f-string 안에서 self.name으로 인스턴스 속성에 접근해요. self 없이 name만 쓰면 NameError가 발생합니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_2_007",
+    "unit": 4,
+    "stage": "4-2",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Stack:\n    def __init__(self):\n        self.data = []\n\n    def push(self, val):\n        self.data.append(val)\n\n    def pop(self):\n        return self.data.pop()\n\ns = Stack()\ns.push(1)\ns.push(2)\ns.push(3)\nprint(s.pop())\nprint(s.pop())\n```",
+    "choices": [
+      "A. 1 / 2",
+      "B. 2 / 3",
+      "C. 3 / 1",
+      "D. 3 / 2"
+    ],
+    "answer": "D",
+    "hint": "",
+    "explanation": "Stack은 LIFO(후입선출) 구조예요. push로 1, 2, 3을 추가한 뒤, pop()을 두 번 호출하면 3, 2 순서로 꺼내집니다.",
+    "feedback": {
+      "correct": "정답! Stack은 LIFO라 마지막에 넣은 것부터 꺼내요. push(1, 2, 3) 후 pop() → 3, pop() → 2입니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_2_008",
+    "unit": 4,
+    "stage": "4-2",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 메서드가 자기 자신을 반환하도록 하세요. (메서드 체이닝 패턴)\n\n```python\nclass Builder:\n    def __init__(self):\n        self.parts = []\n\n    def add(self, part):\n        self.parts.append(part)\n        return _____\n\nb = Builder()\nb.add('A').add('B').add('C')\nprint(b.parts)\n# 출력 목표: ['A', 'B', 'C']\nanswer: self\nexplanation: return self를 쓰면 메서드가 인스턴스 자신을 반환해서 .add().add()처럼 메서드 체이닝이 가능해요.\nfeedback.correct: 정답! return self로 인스턴스 자신을 반환하면 .add('A').add('B').add('C')처럼 연속 호출(메서드 체이닝)이 가능해요.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_2_009",
+    "unit": 4,
+    "stage": "4-2",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Timer:\n    def __init__(self, seconds):\n        self.seconds = seconds\n\n    def tick(self):\n        if self.seconds > 0:\n            self.seconds -= 1\n\n    def is_done(self):\n        return self.seconds == 0\n\nt = Timer(2)\nt.tick()\nt.tick()\nt.tick()\nprint(t.is_done())\n```",
+    "choices": [
+      "A. True",
+      "B. False",
+      "C. 0",
+      "D. -1"
+    ],
+    "answer": "A",
+    "hint": "",
+    "explanation": "seconds=2에서 tick()을 3번 호출해도, if seconds > 0 조건으로 0 미만으로 내려가지 않아요. seconds = 2 → 1 → 0 → 0(변화 없음). is_done()은 0 == 0이므로 True를 반환합니다.",
+    "feedback": {
+      "correct": "정답! tick()에 if 조건이 있어 seconds가 0 미만으로 내려가지 않아요. 3번 호출 후 seconds = 0, is_done() = True입니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_os_4_2_010",
+    "unit": 4,
+    "stage": "4-2",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Point:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n\n    def move(self, dx, dy):\n        self.x += dx\n        self.y += dy\n\n    def position(self):\n        return (self.x, self.y)\n\np = Point(0, 0)\np.move(3, 4)\np.move(-1, 2)\nprint(p.position())\n```",
+    "choices": [
+      "A. (3, 4)",
+      "B. (2, 6)",
+      "C. (4, 6)",
+      "D. (-1, 2)"
+    ],
+    "answer": "B",
+    "hint": "",
+    "explanation": "(0,0) → move(3,4) → (3,4) → move(-1,2) → (3-1, 4+2) = (2,6)이에요. move()를 연속 호출하면 위치가 누적 변경됩니다.",
+    "feedback": {
+      "correct": "정답! (0,0) + (3,4) = (3,4), (3,4) + (-1,2) = (2,6)이에요. 인스턴스 속성이 메서드 호출마다 누적 변경되는 패턴입니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_os_4_3_001",
+    "unit": 4,
+    "stage": "4-3",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Cat:\n    species = '고양이'\n\nc1 = Cat()\nc2 = Cat()\nprint(c1.species)\nprint(c2.species)\n```",
+    "choices": [
+      "A. 고양이 / 고양이",
+      "B. 고양이 / None",
+      "C. None / None",
+      "D. 오류 발생"
+    ],
+    "answer": "A",
+    "hint": "",
+    "explanation": "species는 클래스 변수예요. 모든 인스턴스가 동일한 클래스 변수를 공유하므로 c1과 c2 모두 '고양이'를 출력합니다.",
+    "feedback": {
+      "correct": "정답! species는 클래스 변수로 모든 인스턴스가 공유해요. c1.species와 c2.species 모두 '고양이'입니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_3_002",
+    "unit": 4,
+    "stage": "4-3",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 클래스 변수에 접근하세요.\n\n```python\nclass Robot:\n    model = 'AI-1000'\n\nprint(_____.model)\n# 출력 목표: AI-1000\nanswer: Robot\nexplanation: 클래스 변수는 클래스이름.변수명으로 직접 접근할 수 있어요. 인스턴스 없이도 클래스에서 바로 읽을 수 있습니다.\nfeedback.correct: 정답! 클래스 변수는 Robot.model처럼 클래스이름.변수명으로 접근해요. 인스턴스 생성 없이도 바로 접근 가능합니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_3_003",
+    "unit": 4,
+    "stage": "4-3",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Player:\n    count = 0\n\n    def __init__(self, name):\n        self.name = name\n        Player.count += 1\n\np1 = Player('Amy')\np2 = Player('Ben')\nprint(Player.count)\n```",
+    "choices": [
+      "A. 0",
+      "B. 2",
+      "C. 1",
+      "D. 오류 발생"
+    ],
+    "answer": "B",
+    "hint": "",
+    "explanation": "Player.count는 클래스 변수예요. 인스턴스 생성마다 __init__에서 Player.count += 1이 실행돼 2가 됩니다.",
+    "feedback": {
+      "correct": "정답! Player.count는 클래스 변수로 인스턴스 생성마다 1씩 증가해요. 2개 생성했으므로 count = 2입니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_3_004",
+    "unit": 4,
+    "stage": "4-3",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 클래스 변수를 올바르게 수정하세요.\n\n```python\nclass Enemy:\n    total = 0\n\n    def __init__(self):\n        _____.total += 1\n\nEnemy()\nEnemy()\nprint(Enemy.total)\n# 출력 목표: 2\nanswer: Enemy\nexplanation: 클래스 변수 수정은 클래스이름.변수명 형식을 써야 해요. self.total += 1은 인스턴스 변수를 새로 만들어버려 클래스 변수가 변경되지 않습니다.\nfeedback.correct: 정답! 클래스 변수 수정은 Enemy.total += 1처럼 클래스이름.변수명을 써야 해요. self.total은 인스턴스 변수를 만들어 클래스 변수와 별개가 됩니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_3_005",
+    "unit": 4,
+    "stage": "4-3",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Config:\n    debug = False\n\nc = Config()\nc.debug = True\nprint(c.debug)\nprint(Config.debug)\n```",
+    "choices": [
+      "A. True / True",
+      "B. False / True",
+      "C. True / False",
+      "D. False / False"
+    ],
+    "answer": "C",
+    "hint": "",
+    "explanation": "c.debug = True는 인스턴스 c에 새 인스턴스 변수 debug를 만들어요. 클래스 변수 Config.debug는 변경되지 않아 False 그대로입니다.",
+    "feedback": {
+      "correct": "정답! c.debug = True는 클래스 변수를 수정하는 게 아니라 인스턴스 c에 새 변수를 만들어요. Config.debug는 여전히 False입니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_3_006",
+    "unit": 4,
+    "stage": "4-3",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 클래스 변수와 인스턴스 변수를 구분하세요.\n\n```python\nclass Wizard:\n    magic_type = '불꽃'  # 클래스 변수\n\n    def __init__(self, name):\n        _____.name = name  # 인스턴스 변수\n\nw = Wizard('멀린')\nprint(w.name, w.magic_type)\n# 출력 목표: 멀린 불꽃\nanswer: self\nexplanation: 인스턴스 변수는 __init__ 안에서 self.변수명 = 값으로 정의해요. self 없이 name = name으로 쓰면 지역 변수가 돼 인스턴스에 저장되지 않습니다.\nfeedback.correct: 정답! self.name = name으로 인스턴스 변수를 저장해요. w.magic_type은 클래스 변수 '불꽃'을, w.name은 인스턴스 변수 '멀린'을 반환합니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_3_007",
+    "unit": 4,
+    "stage": "4-3",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Gem:\n    rarity = 'common'\n\n    def __init__(self, name):\n        self.name = name\n\ng1 = Gem('루비')\ng2 = Gem('사파이어')\nGem.rarity = 'rare'\nprint(g1.rarity)\nprint(g2.rarity)\n```",
+    "choices": [
+      "A. common / common",
+      "B. rare / common",
+      "C. common / rare",
+      "D. rare / rare"
+    ],
+    "answer": "D",
+    "hint": "",
+    "explanation": "Gem.rarity = 'rare'로 클래스 변수를 변경하면 모든 인스턴스에 반영돼요. g1과 g2 모두 클래스 변수를 공유하므로 둘 다 'rare'가 됩니다.",
+    "feedback": {
+      "correct": "정답! 클래스 변수는 모든 인스턴스가 공유해요. Gem.rarity = 'rare'로 바꾸면 기존에 만든 g1, g2도 모두 'rare'를 반환합니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_3_008",
+    "unit": 4,
+    "stage": "4-3",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 메서드 안에서 클래스 변수에 접근하세요.\n\n```python\nclass Ship:\n    base_speed = 10\n\n    def __init__(self, name):\n        self.name = name\n\n    def info(self):\n        return f'{self.name} (속도: {_____.base_speed})'\n\ns = Ship('타이타닉')\nprint(s.info())\n# 출력 목표: 타이타닉 (속도: 10)\nanswer: self\nexplanation: 메서드 안에서 클래스 변수에 접근할 때 self.클래스변수명으로 접근할 수 있어요. 인스턴스 변수가 없으면 클래스 변수를 찾아 반환합니다.\nfeedback.correct: 정답! self.base_speed처럼 self를 통해 클래스 변수에도 접근할 수 있어요. 인스턴스에 같은 이름의 변수가 없으면 클래스 변수를 반환합니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_3_009",
+    "unit": 4,
+    "stage": "4-3",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Sword:\n    damage = 10\n\ns1 = Sword()\ns2 = Sword()\ns1.damage = 50\nprint(s1.damage)\nprint(s2.damage)\n```",
+    "choices": [
+      "A. 50 / 10",
+      "B. 10 / 50",
+      "C. 50 / 50",
+      "D. 10 / 10"
+    ],
+    "answer": "A",
+    "hint": "",
+    "explanation": "s1.damage = 50은 s1 인스턴스에만 새 변수를 만들어요. s2는 클래스 변수 10 그대로이므로 50 / 10이 출력됩니다.",
+    "feedback": {
+      "correct": "정답! s1.damage = 50은 s1에만 인스턴스 변수를 만들어요. s2.damage는 클래스 변수 10 그대로입니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_os_4_3_010",
+    "unit": 4,
+    "stage": "4-3",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Team:\n    members = []\n\n    def add(self, name):\n        self.members.append(name)\n\nt1 = Team()\nt2 = Team()\nt1.add('Amy')\nt2.add('Ben')\nprint(len(t1.members))\n```",
+    "choices": [
+      "A. 0",
+      "B. 2",
+      "C. 1",
+      "D. 오류 발생"
+    ],
+    "answer": "B",
+    "hint": "",
+    "explanation": "members는 클래스 변수(리스트)예요. t1과 t2가 같은 리스트를 공유해 두 add() 호출이 모두 반영됩니다. 결과적으로 len = 2입니다.",
+    "feedback": {
+      "correct": "정답! 리스트 클래스 변수는 함정이에요! t1과 t2가 같은 members를 공유해 둘 다 추가되어 len = 2입니다. 독립 리스트가 필요하면 __init__에서 self.members = []로 초기화해야 합니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_os_4_4_001",
+    "unit": 4,
+    "stage": "4-4",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Animal:\n    def breathe(self):\n        print('호흡 중')\n\nclass Dog(Animal):\n    def bark(self):\n        print('왈왈!')\n\nd = Dog()\nd.breathe()\n```",
+    "choices": [
+      "A. 호흡 중",
+      "B. 왈왈!",
+      "C. 호흡 중 / 왈왈!",
+      "D. 오류 발생"
+    ],
+    "answer": "A",
+    "hint": "",
+    "explanation": "Dog은 Animal을 상속받으므로 부모 클래스의 breathe() 메서드를 사용할 수 있어요. d.breathe()는 Animal의 메서드를 호출합니다.",
+    "feedback": {
+      "correct": "정답! 자식 클래스 Dog는 부모 Animal의 breathe()를 상속받아요. 별도 정의 없이도 d.breathe()를 호출할 수 있습니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_4_002",
+    "unit": 4,
+    "stage": "4-4",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 자식 클래스에서 부모 클래스의 __init__을 호출하세요.\n\n```python\nclass Animal:\n    def __init__(self, name):\n        self.name = name\n\nclass Dog(Animal):\n    def __init__(self, name, breed):\n        _____(Animal, self).__init__(name)\n        self.breed = breed\n\nd = Dog('바둑이', '진돗개')\nprint(d.name, d.breed)\n# 출력 목표: 바둑이 진돗개\nanswer: super\nexplanation: super()는 부모 클래스를 참조해요. super().__init__(name)으로 부모의 __init__을 호출해 name 속성을 초기화할 수 있습니다.\nfeedback.correct: 정답! super(Animal, self).__init__(name)에서 super가 부모 클래스를 참조해요. 현대 Python에서는 super().__init__(name)처럼 더 간결하게 씁니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_4_003",
+    "unit": 4,
+    "stage": "4-4",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Vehicle:\n    def __init__(self, speed):\n        self.speed = speed\n\n    def move(self):\n        print(f'속도 {self.speed}로 이동')\n\nclass Car(Vehicle):\n    def honk(self):\n        print('빵빵!')\n\nc = Car(100)\nc.move()\nc.honk()\n```",
+    "choices": [
+      "A. 빵빵! / 속도 100로 이동",
+      "B. 속도 100로 이동 / 빵빵!",
+      "C. 속도 100로 이동",
+      "D. 오류 발생"
+    ],
+    "answer": "B",
+    "hint": "",
+    "explanation": "Car는 Vehicle을 상속받아 __init__과 move()를 물려받아요. c.move()가 먼저, c.honk()가 다음 순서로 호출됩니다.",
+    "feedback": {
+      "correct": "정답! Car는 Vehicle의 __init__과 move()를 상속받아요. c.move()→'속도 100로 이동', c.honk()→'빵빵!' 순으로 출력됩니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_4_004",
+    "unit": 4,
+    "stage": "4-4",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 부모 메서드를 오버라이딩(재정의)하세요.\n\n```python\nclass Shape:\n    def area(self):\n        return 0\n\nclass Square(Shape):\n    def __init__(self, side):\n        self.side = side\n\n    def _____(self):\n        return self.side ** 2\n\nsq = Square(5)\nprint(sq.area())\n# 출력 목표: 25\nanswer: area\nexplanation: 자식 클래스에서 부모와 같은 이름의 메서드를 정의하면 오버라이딩(재정의)이 돼요. sq.area()는 부모의 area() 대신 Square의 area()를 호출합니다.\nfeedback.correct: 정답! 자식 클래스에서 area()를 재정의하면 오버라이딩이에요. sq.area()는 Square의 area()를 호출해 5 ** 2 = 25를 반환합니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_4_005",
+    "unit": 4,
+    "stage": "4-4",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Person:\n    def __init__(self, name):\n        self.name = name\n\n    def introduce(self):\n        return f'저는 {self.name}입니다.'\n\nclass Student(Person):\n    def __init__(self, name, grade):\n        super().__init__(name)\n        self.grade = grade\n\n    def introduce(self):\n        return f'저는 {self.grade}학년 {self.name}입니다.'\n\ns = Student('에이몬', 3)\nprint(s.introduce())\n```",
+    "choices": [
+      "A. 저는 에이몬입니다.",
+      "B. 저는 3학년입니다.",
+      "C. 저는 3학년 에이몬입니다.",
+      "D. 오류 발생"
+    ],
+    "answer": "C",
+    "hint": "",
+    "explanation": "Student가 Person의 introduce()를 오버라이딩했어요. s.introduce()는 Student의 introduce()를 호출해 grade와 name을 모두 포함한 문자열을 반환합니다.",
+    "feedback": {
+      "correct": "정답! Student가 introduce()를 오버라이딩해 '저는 3학년 에이몬입니다.'를 반환해요. super().__init__(name)으로 부모의 name 속성도 올바르게 초기화됩니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_4_006",
+    "unit": 4,
+    "stage": "4-4",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 super()로 부모의 메서드를 확장하세요.\n\n```python\nclass Logger:\n    def log(self, msg):\n        print(f'[LOG] {msg}')\n\nclass TimedLogger(Logger):\n    def log(self, msg):\n        _____.log(msg)\n        print('[시간 기록 완료]')\n\ntl = TimedLogger()\ntl.log('저장 완료')\n# 출력 목표:\n# [LOG] 저장 완료\n# [시간 기록 완료]\nanswer: super()\nexplanation: super().log(msg)로 부모 Logger의 log()를 먼저 호출한 뒤 추가 동작을 수행해요. 부모 메서드를 완전히 교체하는 대신 확장하는 패턴입니다.\nfeedback.correct: 정답! super().log(msg)로 부모 Logger의 log()를 먼저 호출해요. 오버라이딩하면서 부모 기능도 유지하는 확장 패턴입니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_4_007",
+    "unit": 4,
+    "stage": "4-4",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass A:\n    def greet(self):\n        return '안녕 A'\n\nclass B(A):\n    def greet(self):\n        return super().greet() + ' + B'\n\nclass C(B):\n    def greet(self):\n        return super().greet() + ' + C'\n\nc = C()\nprint(c.greet())\n```",
+    "choices": [
+      "A. 안녕 A",
+      "B. 안녕 A + B",
+      "C. 안녕 A + C",
+      "D. 안녕 A + B + C"
+    ],
+    "answer": "D",
+    "hint": "",
+    "explanation": "C.greet()는 B.greet()를 호출하고, B.greet()는 A.greet()를 호출해요. 결과적으로 '안녕 A' + ' + B' + ' + C' = '안녕 A + B + C'가 됩니다.",
+    "feedback": {
+      "correct": "정답! C → B → A 순서로 super()가 연쇄 호출되어 '안녕 A + B + C'가 돼요. 이것이 다층 상속에서 super()를 쓰는 이유입니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_4_008",
+    "unit": 4,
+    "stage": "4-4",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 isinstance()로 상속 관계를 확인하세요.\n\n```python\nclass Animal:\n    pass\n\nclass Dog(Animal):\n    pass\n\nd = Dog()\nprint(isinstance(d, _____ ))\n# 출력 목표: True\nanswer: Animal\nexplanation: isinstance(d, Animal)은 d가 Animal의 인스턴스인지 확인해요. Dog가 Animal을 상속받으므로 Dog 인스턴스는 Animal의 인스턴스이기도 합니다.\nfeedback.correct: 정답! isinstance(d, Animal)은 True예요. 자식 클래스의 인스턴스는 부모 클래스의 인스턴스로도 인정됩니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_4_009",
+    "unit": 4,
+    "stage": "4-4",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Weapon:\n    def __init__(self, name, damage):\n        self.name = name\n        self.damage = damage\n\nclass MagicWeapon(Weapon):\n    def __init__(self, name, damage, element):\n        super().__init__(name, damage)\n        self.element = element\n\n    def describe(self):\n        return f'{self.name}({self.element}): {self.damage * 2}'\n\nmw = MagicWeapon('마법봉', 30, '불꽃')\nprint(mw.describe())\n```",
+    "choices": [
+      "A. 마법봉(불꽃): 60",
+      "B. 마법봉(불꽃): 30",
+      "C. 마법봉: 30",
+      "D. 오류 발생"
+    ],
+    "answer": "A",
+    "hint": "",
+    "explanation": "super().__init__(name, damage)로 name='마법봉', damage=30이 초기화되고, element='불꽃'도 저장돼요. describe()는 damage * 2 = 60을 반환합니다.",
+    "feedback": {
+      "correct": "정답! super().__init__으로 부모 속성을 초기화하고, 자식에서 element를 추가해요. damage * 2 = 30 * 2 = 60이 출력됩니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_os_4_4_010",
+    "unit": 4,
+    "stage": "4-4",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Base:\n    def method(self):\n        return 'Base'\n\nclass Child(Base):\n    pass\n\nclass GrandChild(Child):\n    pass\n\ngc = GrandChild()\nprint(gc.method())\n```",
+    "choices": [
+      "A. GrandChild",
+      "B. Base",
+      "C. Child",
+      "D. 오류 발생"
+    ],
+    "answer": "B",
+    "hint": "",
+    "explanation": "GrandChild와 Child 모두 method()를 오버라이딩하지 않았으므로, Python은 MRO(메서드 해석 순서)에 따라 Base의 method()를 찾아 실행해요.",
+    "feedback": {
+      "correct": "정답! Child와 GrandChild 모두 method()가 없으므로 Python은 상속 체인을 따라 올라가 Base의 method()를 실행해요. 결과는 'Base'입니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_os_4_5_001",
+    "unit": 4,
+    "stage": "4-5",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Item:\n    def __init__(self, name):\n        self.name = name\n\n    def __str__(self):\n        return f'아이템: {self.name}'\n\ni = Item('마법검')\nprint(i)\n```",
+    "choices": [
+      "A. 아이템: 마법검",
+      "B. Item object",
+      "C. 마법검",
+      "D. 오류 발생"
+    ],
+    "answer": "A",
+    "hint": "",
+    "explanation": "__str__은 print()나 str()로 객체를 출력할 때 호출되는 특수 메서드예요. 정의한 대로 '아이템: 마법검'이 출력됩니다.",
+    "feedback": {
+      "correct": "정답! __str__은 print(i)처럼 객체를 문자열로 변환할 때 자동 호출돼요. 정의하지 않으면 <Item object at 0x...> 형태가 출력됩니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_5_002",
+    "unit": 4,
+    "stage": "4-5",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 속성을 private으로 만드세요.\n\n```python\nclass Account:\n    def __init__(self, password):\n        self._____password = password  # private 속성\nanswer: __\nexplanation: Python에서 속성 앞에 __(언더스코어 2개)를 붙이면 private 속성이 돼요. 이름 맹글링으로 클래스 외부에서 직접 접근이 어려워집니다.\nfeedback.correct: 정답! self.__password처럼 __ 접두사를 쓰면 private 속성이에요. 클래스 외부에서 acc.__password로 접근하면 AttributeError가 발생합니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_5_003",
+    "unit": 4,
+    "stage": "4-5",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Vector:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n\n    def __add__(self, other):\n        return Vector(self.x + other.x, self.y + other.y)\n\n    def __str__(self):\n        return f'({self.x}, {self.y})'\n\nv1 = Vector(1, 2)\nv2 = Vector(3, 4)\nprint(v1 + v2)\n```",
+    "choices": [
+      "A. (1, 2) + (3, 4)",
+      "B. (4, 6)",
+      "C. Vector(4, 6)",
+      "D. 오류 발생"
+    ],
+    "answer": "B",
+    "hint": "",
+    "explanation": "v1 + v2는 __add__를 호출해 Vector(1+3, 2+4) = Vector(4, 6)을 만들어요. print()는 __str__을 호출해 '(4, 6)'을 출력합니다.",
+    "feedback": {
+      "correct": "정답! __add__가 v1 + v2를 처리해 Vector(4, 6)을 만들고, __str__이 '(4, 6)'으로 출력해요. 연산자 오버로딩의 대표적인 패턴입니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_5_004",
+    "unit": 4,
+    "stage": "4-5",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 getter 메서드로 private 속성을 안전하게 반환하세요.\n\n```python\nclass Safe:\n    def __init__(self, secret):\n        self.__secret = secret\n\n    def _____(self):\n        return self.__secret\n\ns = Safe('비밀코드123')\nprint(s.get_secret())\n# 출력 목표: 비밀코드123\nanswer: get_secret\nexplanation: private 속성 __secret은 클래스 외부에서 직접 접근할 수 없어요. get_secret() 같은 getter 메서드로 안전하게 반환하는 패턴이 캡슐화입니다.\nfeedback.correct: 정답! get_secret()을 통해 __secret에 간접 접근해요. 이처럼 getter 메서드로 private 속성을 제공하는 것이 캡슐화의 핵심입니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_5_005",
+    "unit": 4,
+    "stage": "4-5",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Bag:\n    def __init__(self):\n        self.__items = []\n\n    def add(self, item):\n        self.__items.append(item)\n\n    def __len__(self):\n        return len(self.__items)\n\nb = Bag()\nb.add('사과')\nb.add('바나나')\nprint(len(b))\n```",
+    "choices": [
+      "A. 0",
+      "B. 1",
+      "C. 2",
+      "D. 오류 발생"
+    ],
+    "answer": "C",
+    "hint": "",
+    "explanation": "__len__은 len() 함수를 객체에 사용할 때 호출돼요. __items에 2개가 추가됐으므로 len(b)는 2를 반환합니다.",
+    "feedback": {
+      "correct": "정답! __len__을 정의하면 len(b) 호출 시 자동 실행돼요. __items에 2개가 있으므로 2를 반환합니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_5_006",
+    "unit": 4,
+    "stage": "4-5",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 두 객체를 비교하는 특수 메서드를 완성하세요.\n\n```python\nclass HP:\n    def __init__(self, val):\n        self.val = val\n\n    def _____(self, other):\n        return self.val == other.val\n\nh1 = HP(100)\nh2 = HP(100)\nprint(h1 == h2)\n# 출력 목표: True\nanswer: __eq__\nexplanation: __eq__는 == 연산자를 정의하는 특수 메서드예요. h1 == h2를 쓸 때 Python이 __eq__를 호출해 두 객체의 val을 비교합니다.\nfeedback.correct: 정답! __eq__를 정의하면 == 연산자가 이 메서드를 호출해요. 100 == 100이므로 True가 반환됩니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_5_007",
+    "unit": 4,
+    "stage": "4-5",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Counter:\n    def __init__(self, start):\n        self.__count = start\n\n    def increment(self):\n        self.__count += 1\n\n    def value(self):\n        return self.__count\n\nc = Counter(5)\nc.increment()\nc.increment()\nprint(c.value())\n```",
+    "choices": [
+      "A. 5",
+      "B. 6",
+      "C. 1",
+      "D. 7"
+    ],
+    "answer": "D",
+    "hint": "",
+    "explanation": "__count = 5에서 increment()를 2번 호출하면 5 → 6 → 7이 돼요. value()는 private 속성 __count의 현재 값 7을 반환합니다.",
+    "feedback": {
+      "correct": "정답! increment()를 2번 호출해 __count = 5 + 2 = 7이에요. private 속성도 클래스 내부 메서드로는 자유롭게 접근하고 수정할 수 있습니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_5_008",
+    "unit": 4,
+    "stage": "4-5",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 __repr__을 정의하세요.\n\n```python\nclass Potion:\n    def __init__(self, heal):\n        self.heal = heal\n\n    def _____(self):\n        return f'Potion(heal={self.heal})'\n\np = Potion(50)\nprint(repr(p))\n# 출력 목표: Potion(heal=50)\nanswer: __repr__\nexplanation: __repr__은 repr() 함수 호출 시 사용되는 특수 메서드예요. 보통 클래스 이름과 속성을 포함한 개발자용 표현을 반환하며 디버깅에 유용합니다.\nfeedback.correct: 정답! __repr__을 정의하면 repr(p)가 'Potion(heal=50)'을 반환해요. 개발자 도구나 REPL에서 객체를 확인할 때 이 표현이 출력됩니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_5_009",
+    "unit": 4,
+    "stage": "4-5",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Password:\n    def __init__(self, pw):\n        self.__pw = pw\n\n    def check(self, input_pw):\n        return self.__pw == input_pw\n\np = Password('abc123')\nprint(p.check('abc123'))\nprint(p.check('wrong'))\n```",
+    "choices": [
+      "A. True / False",
+      "B. False / True",
+      "C. False / False",
+      "D. True / True"
+    ],
+    "answer": "A",
+    "hint": "",
+    "explanation": "첫 check('abc123')는 'abc123' == 'abc123'이므로 True, 두 번째 check('wrong')는 'abc123' == 'wrong'이므로 False예요. private 속성은 클래스 내부에서 정상 접근됩니다.",
+    "feedback": {
+      "correct": "정답! __pw는 private이지만 클래스 내부 메서드 check()에서 자유롭게 사용할 수 있어요. 올바른 패스워드 → True, 잘못된 패스워드 → False입니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_os_4_5_010",
+    "unit": 4,
+    "stage": "4-5",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Box:\n    def __init__(self, size):\n        self.size = size\n\n    def __eq__(self, other):\n        return self.size == other.size\n\n    def __str__(self):\n        return f'Box({self.size})'\n\nb1 = Box(5)\nb2 = Box(5)\nb3 = Box(3)\nprint(b1 == b2)\nprint(b1 == b3)\n```",
+    "choices": [
+      "A. True / True",
+      "B. True / False",
+      "C. False / True",
+      "D. False / False"
+    ],
+    "answer": "B",
+    "hint": "",
+    "explanation": "b1.size == b2.size는 5 == 5 = True, b1.size == b3.size는 5 == 3 = False예요. __eq__가 == 연산자를 처리합니다.",
+    "feedback": {
+      "correct": "정답! __eq__를 정의하면 == 연산자가 크기를 비교해요. b1 == b2는 True, b1 == b3는 False입니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_os_4_6_001",
+    "unit": 4,
+    "stage": "4-6",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Animal:\n    def sound(self):\n        return '...'\n\nclass Dog(Animal):\n    def sound(self):\n        return '왈왈'\n\nclass Cat(Animal):\n    def sound(self):\n        return '야옹'\n\nanimals = [Dog(), Cat(), Dog()]\nfor a in animals:\n    print(a.sound())\n```",
+    "choices": [
+      "A. 왈왈 / 야옹 / 왈왈",
+      "B. ... / ... / ...",
+      "C. 왈왈 / 왈왈 / 야옹",
+      "D. 오류 발생"
+    ],
+    "answer": "A",
+    "hint": "",
+    "explanation": "각 인스턴스의 sound()를 호출하면 오버라이딩된 메서드가 실행돼요. Dog→왈왈, Cat→야옹, Dog→왈왈 순으로 출력됩니다. 이것이 다형성이에요.",
+    "feedback": {
+      "correct": "정답! 같은 sound() 메서드를 호출해도 인스턴스 타입에 따라 다른 결과가 나와요. 이처럼 같은 인터페이스로 다른 동작을 하는 것이 다형성(Polymorphism)입니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_6_002",
+    "unit": 4,
+    "stage": "4-6",
+    "course_level": "intermediate",
+    "difficulty": "easy",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 클래스 간 관계를 확인하세요.\n\n```python\nclass Shape:\n    pass\n\nclass Circle(Shape):\n    pass\n\nprint(issubclass(Circle, _____))\n# 출력 목표: True\nanswer: Shape\nexplanation: issubclass(자식, 부모)는 자식 클래스가 부모 클래스를 상속하는지 확인해요. Circle이 Shape를 상속하므로 True를 반환합니다.\nfeedback.correct: 정답! issubclass(Circle, Shape)는 Circle이 Shape의 서브클래스인지 확인해 True를 반환해요.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_6_003",
+    "unit": 4,
+    "stage": "4-6",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass RPGCharacter:\n    def __init__(self, name, hp):\n        self.name = name\n        self.hp = hp\n\n    def take_hit(self, dmg):\n        self.hp -= dmg\n\nclass Warrior(RPGCharacter):\n    def shield_block(self, dmg):\n        self.take_hit(dmg // 2)\n\nw = Warrior('기사', 100)\nw.shield_block(60)\nprint(w.hp)\n```",
+    "choices": [
+      "A. 100",
+      "B. 70",
+      "C. 40",
+      "D. 오류 발생"
+    ],
+    "answer": "B",
+    "hint": "",
+    "explanation": "shield_block(60)은 take_hit(60 // 2) = take_hit(30)을 호출해요. hp = 100 - 30 = 70이 됩니다.",
+    "feedback": {
+      "correct": "정답! 60 // 2 = 30, 100 - 30 = 70이에요. 자식 클래스에서 부모 메서드를 활용해 기능을 확장하는 OOP 패턴입니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_6_004",
+    "unit": 4,
+    "stage": "4-6",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 추상 인터페이스처럼 동작하는 기반 클래스를 완성하세요.\n\n```python\nclass Payment:\n    def pay(self, amount):\n        raise _____('pay() 메서드를 구현해야 합니다.')\n\nclass Card(Payment):\n    def pay(self, amount):\n        print(f'카드로 {amount}원 결제')\n\nc = Card()\nc.pay(5000)\n# 출력 목표: 카드로 5000원 결제\nanswer: NotImplementedError\nexplanation: raise NotImplementedError()로 서브클래스가 반드시 메서드를 구현하도록 강제해요. 자식 클래스 Card가 pay()를 오버라이딩했으므로 정상 실행됩니다.\nfeedback.correct: 정답! raise NotImplementedError()는 서브클래스가 이 메서드를 반드시 구현하도록 강제하는 패턴이에요. Card.pay()가 오버라이딩해 5000원 결제가 출력됩니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_6_005",
+    "unit": 4,
+    "stage": "4-6",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Library:\n    _count = 0\n\n    def __init__(self, title):\n        self.title = title\n        Library._count += 1\n\n    @classmethod\n    def book_count(cls):\n        return cls._count\n\nLibrary('파이썬')\nLibrary('자바')\nLibrary('C++')\nprint(Library.book_count())\n```",
+    "choices": [
+      "A. 0",
+      "B. 1",
+      "C. 3",
+      "D. 2"
+    ],
+    "answer": "C",
+    "hint": "",
+    "explanation": "인스턴스를 3번 생성할 때마다 Library._count += 1이 실행돼요. book_count()는 cls._count = 3을 반환합니다. 선택지 C가 3이므로 정답은 C예요.",
+    "feedback": {
+      "correct": "정답! 클래스 변수 _count가 인스턴스 생성마다 증가해요. @classmethod는 cls(클래스 자체)를 첫 번째 인수로 받는 클래스 메서드입니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_6_006",
+    "unit": 4,
+    "stage": "4-6",
+    "course_level": "intermediate",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 OOP 구조를 완성하세요.\n\n```python\nclass Vehicle:\n    def __init__(self, speed):\n        self.speed = speed\n\nclass Airplane(Vehicle):\n    def __init__(self, speed, altitude):\n        _____().__init__(speed)\n        self.altitude = altitude\n\na = Airplane(900, 10000)\nprint(a.speed, a.altitude)\n# 출력 목표: 900 10000\nanswer: super\nexplanation: super().__init__(speed)로 부모 Vehicle의 __init__을 호출해 self.speed를 초기화해요. 자식 클래스에서 추가 속성 altitude를 정의합니다.\nfeedback.correct: 정답! super().__init__(speed)로 부모 속성을 초기화하고, self.altitude = altitude로 자식 속성을 추가해요. OOP 상속의 기본 패턴입니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_6_007",
+    "unit": 4,
+    "stage": "4-6",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Account:\n    def __init__(self, owner, balance):\n        self.owner = owner\n        self.__balance = balance\n\n    def deposit(self, amount):\n        if amount > 0:\n            self.__balance += amount\n\n    def get_balance(self):\n        return self.__balance\n\na = Account('Amy', 1000)\na.deposit(500)\na.deposit(-100)\nprint(a.get_balance())\n```",
+    "choices": [
+      "A. 900",
+      "B. 1400",
+      "C. 1000",
+      "D. 1500"
+    ],
+    "answer": "D",
+    "hint": "",
+    "explanation": "deposit(-100)은 amount > 0 조건을 통과하지 못해 실행 안 돼요. deposit(500)만 실행되어 __balance = 1000 + 500 = 1500이 됩니다.",
+    "feedback": {
+      "correct": "정답! amount > 0 조건으로 음수 입금은 차단돼요. 유효한 deposit(500)만 실행되어 1000 + 500 = 1500이 됩니다. 이처럼 setter/메서드에 유효성 검사를 넣는 것이 캡슐화의 장점입니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_fib_4_6_008",
+    "unit": 4,
+    "stage": "4-6",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "빈칸을 채워 __str__로 객체 정보를 출력하세요.\n\n```python\nclass Monster:\n    def __init__(self, name, hp):\n        self.name = name\n        self.hp = hp\n\n    def _____(self):\n        return f'[{self.name}] HP: {self.hp}'\n\nm = Monster('드래곤', 500)\nprint(m)\n# 출력 목표: [드래곤] HP: 500\nanswer: __str__\nexplanation: __str__을 정의하면 print(m)이나 str(m)을 호출할 때 이 메서드의 반환값이 출력돼요. 객체를 사람이 읽기 좋은 형태로 표현합니다.\nfeedback.correct: 정답! __str__을 정의하면 print(m)이 '[드래곤] HP: 500'을 출력해요. 클래스에 __str__이 없으면 <Monster object at 0x...> 같은 형태가 출력됩니다.\n```",
+    "choices": [],
+    "answer": "",
+    "hint": "",
+    "explanation": "",
+    "feedback": {}
+  },
+  {
+    "question_id": "miniboss_int_os_4_6_009",
+    "unit": 4,
+    "stage": "4-6",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Quest:\n    total_quests = 0\n\n    def __init__(self, name, reward):\n        self.name = name\n        self.reward = reward\n        Quest.total_quests += 1\n\n    def __str__(self):\n        return f'{self.name}: {self.reward}골드'\n\nq1 = Quest('슬라임 처치', 100)\nq2 = Quest('보스 도전', 500)\nprint(q1)\nprint(Quest.total_quests)\n```",
+    "choices": [
+      "A. 슬라임 처치: 100골드 / 2",
+      "B. 슬라임 처치: 100골드 / 1",
+      "C. Quest object / 2",
+      "D. 오류 발생"
+    ],
+    "answer": "A",
+    "hint": "",
+    "explanation": "print(q1)은 __str__을 호출해 '슬라임 처치: 100골드'를 출력해요. Quest.total_quests는 q1, q2 두 번 증가해 2가 됩니다.",
+    "feedback": {
+      "correct": "정답! print(q1)은 __str__으로 '슬라임 처치: 100골드'를, Quest.total_quests는 두 번 생성해 2를 출력해요. 클래스 변수와 __str__을 함께 활용하는 OOP 패턴입니다."
+    }
+  },
+  {
+    "question_id": "miniboss_int_os_4_6_010",
+    "unit": 4,
+    "stage": "4-6",
+    "course_level": "intermediate",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "miniboss",
+    "is_boss": true,
+    "villain": "speechbubble_king",
+    "pass_score": 70,
+    "question": "다음 코드의 출력 결과는?\n\n```python\nclass Stack:\n    def __init__(self):\n        self.__data = []\n\n    def push(self, val):\n        self.__data.append(val)\n\n    def pop(self):\n        if self.__data:\n            return self.__data.pop()\n        return None\n\n    def __len__(self):\n        return len(self.__data)\n\ns = Stack()\ns.push(10)\ns.push(20)\ns.push(30)\ns.pop()\nprint(len(s))\n```",
+    "choices": [
+      "A. 3",
+      "B. 2",
+      "C. 1",
+      "D. 0"
+    ],
+    "answer": "B",
+    "hint": "",
+    "explanation": "push를 3번, pop을 1번 실행하면 __data = [10, 20]이 돼요. __len__은 len(__data) = 2를 반환합니다.",
+    "feedback": {
+      "correct": "정답! push(10, 20, 30) 후 pop() 한 번으로 30이 제거돼 [10, 20]이 남아요. __len__이 len(s) = 2를 반환합니다."
+    }
+  }
+]
