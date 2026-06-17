@@ -4,6 +4,9 @@ export const authApi = {
   login:    (data) => api.post('/auth/login', data),
   register: (data) => api.post('/auth/register', data),
   checkId: (username) => api.get(`/auth/check-id?username=${encodeURIComponent(username)}`),
+  socialLoginGoogle: (data) => api.post('/auth/social/google', data),
+  socialLoginNaver: (data) => api.post('/auth/social/naver', data),
+  socialLoginKakao: (data) => api.post('/auth/social/kakao', data),
 }
 
 export const quizApi = {

@@ -1,0 +1,968 @@
+[
+  {
+    "lesson_id": "5-1-advanced",
+    "unit": 5,
+    "stage": "5-1",
+    "course_level": "advanced",
+    "title": "LangChain 개요 & 설치",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "LangChain은 LLM(Large Language Model)을 활용한 애플리케이션 개발을 단순화하는 오픈소스 프레임워크입니다.\n프롬프트 관리, 메모리, 체인(Chain), 에이전트 등 LLM 앱에 공통으로 필요한 구성 요소를 모듈 형태로 제공합니다.\nClaude API를 직접 호출하는 것보다 LangChain을 쓰면 메모리·검색·도구 연동이 훨씬 간결해집니다.",
+        "tip": "LangChain은 Claude, GPT, Gemini 등 다양한 LLM 프로바이더를 같은 인터페이스로 교체해 사용할 수 있어, 모델 변경 시 코드 수정이 최소화됩니다."
+      },
+      {
+        "order": 2,
+        "text": "LangChain의 핵심 컴포넌트는 아래 6가지입니다.\n\n- Models: LLM/채팅 모델 래퍼 (ChatAnthropic, ChatOpenAI 등)\n- Prompts: 프롬프트 템플릿 (PromptTemplate, ChatPromptTemplate)\n- Chains: 컴포넌트를 연결하는 LCEL 파이프라인 (| 연산자)\n- Memory: 대화 이력 저장 및 관리\n- Retrievers: 외부 문서 검색 (RAG의 핵심)\n- Agents: 도구를 동적으로 선택·호출하는 LLM\n\nUnit 5에서는 Models → Prompts → Chains → Memory → Retrievers(RAG) 순서로 학습합니다."
+      },
+      {
+        "order": 3,
+        "text": "설치 명령어와 핵심 클래스 임포트를 확인합니다.\n`pip install langchain langchain-anthropic python-dotenv`\n임포트 후 input_variables와 messages 수를 출력해 환경이 정상인지 검증합니다.",
+        "terminal": {
+          "code": [
+            "# pip install langchain langchain-anthropic python-dotenv",
+            "",
+            "from langchain_core.prompts import ChatPromptTemplate",
+            "",
+            "# 환경 구성 확인: 프롬프트 템플릿 생성 테스트",
+            "prompt = ChatPromptTemplate.from_messages([",
+            "    (\"system\", \"당신은 AI 어시스턴트입니다.\"),",
+            "    (\"human\", \"{input}\")",
+            "])",
+            "",
+            "print(\"입력 변수:\", prompt.input_variables)",
+            "print(\"메시지 수:\", len(prompt.messages))",
+            "print(\"설치 및 임포트 성공!\")"
+          ],
+          "output": [
+            "입력 변수: ['input']",
+            "메시지 수: 2",
+            "설치 및 임포트 성공!"
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "ChatAnthropic은 Claude 모델을 LangChain 인터페이스로 감싼 래퍼 클래스입니다.\n`.invoke()`에 HumanMessage 리스트를 전달하면 AIMessage 객체가 반환되고, `.content`로 텍스트를 꺼냅니다.",
+        "terminal": {
+          "code": [
+            "from dotenv import load_dotenv",
+            "from langchain_anthropic import ChatAnthropic",
+            "from langchain_core.messages import HumanMessage",
+            "",
+            "load_dotenv()  # .env 에서 ANTHROPIC_API_KEY 로드",
+            "llm = ChatAnthropic(model=\"claude-3-5-haiku-20241022\")",
+            "",
+            "response = llm.invoke([HumanMessage(content=\"파이썬이란 무엇인지 한 문장으로 설명해줘\")])",
+            "print(type(response).__name__)",
+            "print(response.content)"
+          ],
+          "output": [
+            "AIMessage",
+            "파이썬(Python)은 간결하고 읽기 쉬운 문법을 가진 고수준 범용 프로그래밍 언어입니다."
+          ]
+        },
+        "tip": "llm.invoke()는 메시지 리스트를 받아 AIMessage 한 개를 반환합니다. 체인 안에서는 StrOutputParser()로 감싸 문자열로 바로 꺼냅니다."
+      },
+      {
+        "order": 5,
+        "text": "PromptTemplate은 중괄호 {} 변수를 갖는 문자열 템플릿입니다.\n`.format()`으로 변수를 채우면 최종 프롬프트 문자열을 얻을 수 있습니다.\n이 동작은 LLM 없이 완전히 확인할 수 있어 디버깅에 유용합니다.",
+        "terminal": {
+          "code": [
+            "from langchain_core.prompts import PromptTemplate",
+            "",
+            "template = PromptTemplate.from_template(",
+            "    \"{language} 언어의 특징을 {count}가지로 요약해줘.\"",
+            ")",
+            "",
+            "# format()으로 변수를 채워 최종 문자열 생성 (LLM 호출 없음)",
+            "result = template.format(language=\"Python\", count=\"3\")",
+            "print(result)",
+            "",
+            "# 등록된 입력 변수 확인",
+            "print(\"입력 변수:\", template.input_variables)"
+          ],
+          "output": [
+            "Python 언어의 특징을 3가지로 요약해줘.",
+            "입력 변수: ['count', 'language']"
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "LCEL(LangChain Expression Language)은 | 연산자로 컴포넌트를 연결해 파이프라인을 만드는 방식입니다.\n`prompt | llm | parser` 형태로 작성하며, `.invoke()`로 전체 파이프라인을 실행합니다.\n각 컴포넌트는 이전 컴포넌트의 출력을 입력으로 받습니다.",
+        "terminal": {
+          "code": [
+            "from langchain_core.prompts import ChatPromptTemplate",
+            "from langchain_core.output_parsers import StrOutputParser",
+            "from langchain_anthropic import ChatAnthropic",
+            "",
+            "llm = ChatAnthropic(model=\"claude-3-5-haiku-20241022\")",
+            "",
+            "# LCEL: prompt | llm | parser",
+            "prompt = ChatPromptTemplate.from_messages([",
+            "    (\"system\", \"한 문장으로만 답변하세요.\"),",
+            "    (\"human\", \"{question}\")",
+            "])",
+            "chain = prompt | llm | StrOutputParser()",
+            "",
+            "result = chain.invoke({\"question\": \"LangChain이 왜 유용한가요?\"})",
+            "print(result)"
+          ],
+          "output": [
+            "LangChain은 프롬프트·메모리·체인 등 LLM 앱 공통 기능을 모듈화해 복잡한 AI 서비스를 빠르게 개발할 수 있게 해줍니다."
+          ]
+        },
+        "tip": "LCEL 체인은 .invoke() 외에 .stream() (실시간 토큰 출력), .batch() (여러 입력 병렬 처리)를 동일한 인터페이스로 지원합니다."
+      },
+      {
+        "order": 7,
+        "text": "실전 활용: 변수 두 개를 받아 동작하는 번역 체인입니다.\n`target_lang`과 `text`를 invoke()에 딕셔너리로 전달하면 체인이 프롬프트를 완성하고 LLM을 호출한 뒤 문자열을 반환합니다.",
+        "terminal": {
+          "code": [
+            "from langchain_core.prompts import ChatPromptTemplate",
+            "from langchain_core.output_parsers import StrOutputParser",
+            "from langchain_anthropic import ChatAnthropic",
+            "",
+            "llm = ChatAnthropic(model=\"claude-3-5-haiku-20241022\")",
+            "",
+            "translate_prompt = ChatPromptTemplate.from_messages([",
+            "    (\"system\", \"입력된 텍스트를 {target_lang}로 번역하세요. 번역 결과만 출력하세요.\"),",
+            "    (\"human\", \"{text}\")",
+            "])",
+            "translate_chain = translate_prompt | llm | StrOutputParser()",
+            "",
+            "result = translate_chain.invoke({",
+            "    \"target_lang\": \"영어\",",
+            "    \"text\": \"안녕하세요, 저는 파이썬을 배우고 있습니다.\"",
+            "})",
+            "print(result)"
+          ],
+          "output": [
+            "Hello, I am learning Python."
+          ]
+        },
+        "tip": "chain.invoke()에 전달하는 딕셔너리의 키가 ChatPromptTemplate의 입력 변수와 정확히 일치해야 합니다. 불일치 시 KeyError가 발생합니다."
+      }
+    ]
+  },
+  {
+    "lesson_id": "5-2-advanced",
+    "unit": 5,
+    "stage": "5-2",
+    "course_level": "advanced",
+    "title": "LLM 체인 구성",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "ChatPromptTemplate은 시스템·사용자·AI 역할이 구분된 채팅 형식의 프롬프트를 정의합니다.\n`from_messages()`에 `(role, content)` 튜플 리스트를 전달하며, 중괄호 {} 안에 변수명을 넣어 동적 내용을 주입합니다.\n역할(role) 값: `\"system\"` / `\"human\"` / `\"ai\"`",
+        "tip": "ChatPromptTemplate은 멀티턴 대화 구조를 표현할 수 있어, 단순 PromptTemplate보다 채팅 LLM에 더 적합합니다. 시스템 프롬프트로 AI 페르소나를 설정할 때 특히 유용합니다."
+      },
+      {
+        "order": 2,
+        "text": "`format_messages()`는 변수를 채운 최종 Message 객체 리스트를 반환합니다.\nLLM 호출 없이 프롬프트가 올바르게 완성되는지 먼저 확인하는 디버깅 습관이 중요합니다.",
+        "terminal": {
+          "code": [
+            "from langchain_core.prompts import ChatPromptTemplate",
+            "",
+            "prompt = ChatPromptTemplate.from_messages([",
+            "    (\"system\", \"당신은 {role} 전문가입니다. 명확하고 간결하게 답변하세요.\"),",
+            "    (\"human\", \"{question}\")",
+            "])",
+            "",
+            "# format_messages()로 실제 메시지 리스트 생성 (LLM 호출 없음)",
+            "messages = prompt.format_messages(",
+            "    role=\"Python 프로그래밍\",",
+            "    question=\"리스트 컴프리헨션이란 무엇인가요?\"",
+            ")",
+            "",
+            "for msg in messages:",
+            "    print(f\"[{msg.type}] {msg.content}\")"
+          ],
+          "output": [
+            "[system] 당신은 Python 프로그래밍 전문가입니다. 명확하고 간결하게 답변하세요.",
+            "[human] 리스트 컴프리헨션이란 무엇인가요?"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "LCEL 체인에 `.invoke()`를 호출하면 prompt → llm → parser 세 단계가 순서대로 실행됩니다.\nStrOutputParser()는 AIMessage 객체에서 `.content` 문자열만 추출해 반환합니다.",
+        "terminal": {
+          "code": [
+            "from langchain_core.prompts import ChatPromptTemplate",
+            "from langchain_core.output_parsers import StrOutputParser",
+            "from langchain_anthropic import ChatAnthropic",
+            "",
+            "llm = ChatAnthropic(model=\"claude-3-5-haiku-20241022\")",
+            "",
+            "prompt = ChatPromptTemplate.from_messages([",
+            "    (\"system\", \"당신은 {role} 전문가입니다.\"),",
+            "    (\"human\", \"{question}\")",
+            "])",
+            "chain = prompt | llm | StrOutputParser()",
+            "",
+            "answer = chain.invoke({",
+            "    \"role\": \"Python\",",
+            "    \"question\": \"리스트 컴프리헨션이란?\"",
+            "})",
+            "print(answer)"
+          ],
+          "output": [
+            "리스트 컴프리헨션은 기존 리스트를 변환하거나 필터링하여 새로운 리스트를 한 줄로 생성하는 Python의 간결한 문법입니다."
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "`.batch()`는 입력 딕셔너리 리스트를 한 번에 받아 병렬로 처리한 뒤 결과 리스트를 반환합니다.\n여러 건을 순서대로 invoke()하는 것보다 훨씬 빠릅니다.",
+        "terminal": {
+          "code": [
+            "from langchain_core.prompts import ChatPromptTemplate",
+            "from langchain_core.output_parsers import StrOutputParser",
+            "from langchain_anthropic import ChatAnthropic",
+            "",
+            "llm = ChatAnthropic(model=\"claude-3-5-haiku-20241022\")",
+            "prompt = ChatPromptTemplate.from_messages([",
+            "    (\"system\", \"다음 단어의 반의어를 한 단어로만 답하세요.\"),",
+            "    (\"human\", \"{word}\")",
+            "])",
+            "chain = prompt | llm | StrOutputParser()",
+            "",
+            "# batch()로 여러 입력 병렬 처리",
+            "words = [\"빠르다\", \"크다\", \"밝다\"]",
+            "results = chain.batch([{\"word\": w} for w in words])",
+            "",
+            "for word, result in zip(words, results):",
+            "    print(f\"{word} → {result}\")"
+          ],
+          "output": [
+            "빠르다 → 느리다",
+            "크다 → 작다",
+            "밝다 → 어둡다"
+          ]
+        },
+        "tip": "batch()는 내부적으로 asyncio를 사용해 병렬 실행합니다. max_concurrency 파라미터로 동시 요청 수를 제한할 수 있습니다."
+      },
+      {
+        "order": 5,
+        "text": "파서를 사용하지 않으면 AIMessage 객체가 반환되고, StrOutputParser()를 붙이면 문자열로 바로 받을 수 있습니다.\n두 방식의 차이를 type()으로 직접 확인합니다.",
+        "terminal": {
+          "code": [
+            "from langchain_core.prompts import ChatPromptTemplate",
+            "from langchain_core.output_parsers import StrOutputParser",
+            "from langchain_anthropic import ChatAnthropic",
+            "",
+            "llm = ChatAnthropic(model=\"claude-3-5-haiku-20241022\")",
+            "prompt = ChatPromptTemplate.from_template(\"1 + 1 = ?\")",
+            "",
+            "# 파서 없이 호출 → AIMessage 반환",
+            "raw = (prompt | llm).invoke({})",
+            "print(type(raw).__name__)   # AIMessage",
+            "print(raw.content)          # 2",
+            "",
+            "# StrOutputParser로 문자열 추출",
+            "chain = prompt | llm | StrOutputParser()",
+            "text = chain.invoke({})",
+            "print(type(text).__name__)  # str",
+            "print(text)                 # 2"
+          ],
+          "output": [
+            "AIMessage",
+            "2",
+            "str",
+            "2"
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "RunnableParallel을 사용하면 같은 입력으로 여러 체인을 동시에 실행하고 결과를 딕셔너리로 받을 수 있습니다.\n요약과 번역을 동시에 처리하는 예시입니다.",
+        "terminal": {
+          "code": [
+            "from langchain_core.prompts import ChatPromptTemplate",
+            "from langchain_core.output_parsers import StrOutputParser",
+            "from langchain_core.runnables import RunnableParallel",
+            "from langchain_anthropic import ChatAnthropic",
+            "",
+            "llm = ChatAnthropic(model=\"claude-3-5-haiku-20241022\")",
+            "parser = StrOutputParser()",
+            "",
+            "summary_chain = (",
+            "    ChatPromptTemplate.from_template(\"{text}를 한 줄로 요약하세요.\")",
+            "    | llm | parser",
+            ")",
+            "translate_chain = (",
+            "    ChatPromptTemplate.from_template(\"{text}를 영어로 번역하세요.\")",
+            "    | llm | parser",
+            ")",
+            "",
+            "parallel = RunnableParallel(summary=summary_chain, translation=translate_chain)",
+            "result = parallel.invoke({\"text\": \"파이썬은 데이터 과학에 널리 쓰이는 프로그래밍 언어입니다.\"})",
+            "print(\"요약:\", result[\"summary\"])",
+            "print(\"번역:\", result[\"translation\"])"
+          ],
+          "output": [
+            "요약: 파이썬은 데이터 과학에 인기 있는 프로그래밍 언어입니다.",
+            "번역: Python is a widely used programming language in data science."
+          ]
+        }
+      },
+      {
+        "order": 7,
+        "text": "실전 활용: 텍스트 감정을 '긍정·부정·중립' 세 가지로 분류하는 감정 분석 체인입니다.\n시스템 프롬프트로 출력 형식을 강제해 파싱 없이 바로 사용할 수 있는 구조입니다.",
+        "terminal": {
+          "code": [
+            "from langchain_core.prompts import ChatPromptTemplate",
+            "from langchain_core.output_parsers import StrOutputParser",
+            "from langchain_anthropic import ChatAnthropic",
+            "",
+            "llm = ChatAnthropic(model=\"claude-3-5-haiku-20241022\")",
+            "sentiment_prompt = ChatPromptTemplate.from_messages([",
+            "    (\"system\", \"텍스트의 감정을 '긍정', '부정', '중립' 중 하나의 단어로만 출력하세요.\"),",
+            "    (\"human\", \"{text}\")",
+            "])",
+            "chain = sentiment_prompt | llm | StrOutputParser()",
+            "",
+            "reviews = [",
+            "    \"이 제품 정말 마음에 들어요!\",",
+            "    \"배송이 너무 늦었고 포장도 불량이었습니다.\",",
+            "    \"그냥 보통이에요.\"",
+            "]",
+            "for review in reviews:",
+            "    label = chain.invoke({\"text\": review})",
+            "    print(f\"'{review[:12]}...' → {label}\")"
+          ],
+          "output": [
+            "'이 제품 정말 마음...' → 긍정",
+            "'배송이 너무 늦었고...' → 부정",
+            "'그냥 보통이에요....' → 중립"
+          ]
+        },
+        "tip": "시스템 프롬프트로 출력 형식을 엄격하게 제한하면 파싱 로직 없이도 정형화된 결과를 얻을 수 있습니다. 더 복잡한 구조화 출력이 필요하면 PydanticOutputParser를 사용하세요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "5-3-advanced",
+    "unit": 5,
+    "stage": "5-3",
+    "course_level": "advanced",
+    "title": "메모리",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "LLM은 기본적으로 각 호출을 독립적으로 처리해 이전 대화 내용을 기억하지 못합니다.\n'내 이름은 Amy야' → '내 이름이 뭐야?' 라고 물어봐도 기억하지 못하는 이유가 이 때문입니다.\nLangChain의 Memory 모듈은 대화 이력을 저장하고, 다음 호출 시 컨텍스트로 자동 주입해 멀티턴 대화를 가능하게 합니다.",
+        "tip": "메모리는 LLM 자체 기능이 아닌 애플리케이션 레이어에서 구현됩니다. LangChain은 이 패턴을 표준화된 인터페이스로 제공합니다."
+      },
+      {
+        "order": 2,
+        "text": "ConversationBufferMemory는 모든 대화 이력을 그대로 버퍼에 저장합니다.\n`save_context()`로 한 턴을 저장하고, `load_memory_variables()`로 저장된 이력을 불러옵니다.",
+        "terminal": {
+          "code": [
+            "from langchain.memory import ConversationBufferMemory",
+            "",
+            "memory = ConversationBufferMemory()",
+            "",
+            "# 대화 저장",
+            "memory.save_context(",
+            "    {\"input\": \"내 이름은 Amy야\"},",
+            "    {\"output\": \"안녕하세요, Amy님! 반갑습니다.\"}",
+            ")",
+            "memory.save_context(",
+            "    {\"input\": \"내가 뭘 배우고 싶다고 했지?\"},",
+            "    {\"output\": \"아직 말씀하지 않으셨어요. 무엇을 배우고 싶으신가요?\"}",
+            ")",
+            "",
+            "# 메모리 내용 조회",
+            "history = memory.load_memory_variables({}) [\"history\"]",
+            "print(history)"
+          ],
+          "output": [
+            "Human: 내 이름은 Amy야",
+            "AI: 안녕하세요, Amy님! 반갑습니다.",
+            "Human: 내가 뭘 배우고 싶다고 했지?",
+            "AI: 아직 말씀하지 않으셨어요. 무엇을 배우고 싶으신가요?"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "`return_messages=True`로 생성하면 history가 문자열 대신 Message 객체 리스트로 반환됩니다.\nChatPromptTemplate의 `(\"placeholder\", \"{history}\")` 슬롯에 이 리스트를 직접 주입할 수 있어 LCEL 체인 연동에 더 편리합니다.",
+        "terminal": {
+          "code": [
+            "from langchain.memory import ConversationBufferMemory",
+            "",
+            "# return_messages=True → Message 객체 리스트 반환",
+            "memory = ConversationBufferMemory(return_messages=True)",
+            "memory.save_context(",
+            "    {\"input\": \"파이썬 배우고 싶어\"},",
+            "    {\"output\": \"좋아요! 먼저 print()부터 시작해볼까요?\"}",
+            ")",
+            "",
+            "messages = memory.load_memory_variables({}) [\"history\"]",
+            "for msg in messages:",
+            "    print(f\"[{type(msg).__name__}] {msg.content}\")"
+          ],
+          "output": [
+            "[HumanMessage] 파이썬 배우고 싶어",
+            "[AIMessage] 좋아요! 먼저 print()부터 시작해볼까요?"
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "ConversationChain은 LLM과 Memory를 자동으로 연결해주는 고수준 체인입니다.\n`.predict(input=...)`로 호출하면 메모리 로드 → 프롬프트 구성 → LLM 호출 → 메모리 저장이 한 번에 처리됩니다.",
+        "terminal": {
+          "code": [
+            "from langchain.chains import ConversationChain",
+            "from langchain.memory import ConversationBufferMemory",
+            "from langchain_anthropic import ChatAnthropic",
+            "",
+            "llm = ChatAnthropic(model=\"claude-3-5-haiku-20241022\")",
+            "memory = ConversationBufferMemory()",
+            "conv_chain = ConversationChain(llm=llm, memory=memory, verbose=False)",
+            "",
+            "# 첫 번째 대화",
+            "resp1 = conv_chain.predict(input=\"안녕! 나는 Amy야\")",
+            "print(f\"AI: {resp1}\")",
+            "",
+            "# 두 번째 대화 — 메모리 덕분에 이름을 기억함",
+            "resp2 = conv_chain.predict(input=\"내 이름이 뭐야?\")",
+            "print(f\"AI: {resp2}\")"
+          ],
+          "output": [
+            "AI: 안녕하세요, Amy님! 반갑습니다. 무엇을 도와드릴까요?",
+            "AI: 방금 말씀해주신 대로 Amy라고 하셨어요!"
+          ]
+        },
+        "tip": "ConversationChain은 매 호출 시 `memory.load_memory_variables()`로 이력을 불러와 프롬프트에 자동 삽입하고, 응답을 받으면 `memory.save_context()`로 저장합니다."
+      },
+      {
+        "order": 5,
+        "text": "대화 후 메모리에 저장된 내용을 직접 꺼내어 검증하는 방법입니다.\n`memory.chat_memory.messages`는 저장된 모든 Message 객체 리스트를 반환합니다.",
+        "terminal": {
+          "code": [
+            "from langchain.memory import ConversationBufferMemory",
+            "",
+            "memory = ConversationBufferMemory(return_messages=True)",
+            "",
+            "exchanges = [",
+            "    (\"LangChain이란 무엇인가요?\", \"LangChain은 LLM 앱 개발 프레임워크입니다.\"),",
+            "    (\"LCEL은 뭔가요?\", \"LCEL은 | 연산자로 컴포넌트를 연결하는 표현 언어입니다.\"),",
+            "    (\"메모리는 어떻게 작동하나요?\", \"대화 이력을 저장하고 다음 호출 시 컨텍스트로 제공합니다.\")",
+            "]",
+            "for inp, out in exchanges:",
+            "    memory.save_context({\"input\": inp}, {\"output\": out})",
+            "",
+            "msgs = memory.load_memory_variables({}) [\"history\"]",
+            "print(f\"저장된 메시지: {len(msgs)}개\")",
+            "print(f\"첫 질문: {msgs[0].content}\")",
+            "print(f\"마지막 답변: {msgs[-1].content}\")"
+          ],
+          "output": [
+            "저장된 메시지: 6개",
+            "첫 질문: LangChain이란 무엇인가요?",
+            "마지막 답변: 대화 이력을 저장하고 다음 호출 시 컨텍스트로 제공합니다."
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "ConversationBufferWindowMemory(k=N)은 최근 N턴만 메모리에 유지합니다.\n대화가 길어질수록 토큰을 절약할 수 있어 실무에서 많이 사용됩니다.",
+        "terminal": {
+          "code": [
+            "from langchain.memory import ConversationBufferWindowMemory",
+            "",
+            "# k=2: 최근 2턴(Human-AI 쌍)만 유지",
+            "memory = ConversationBufferWindowMemory(k=2)",
+            "",
+            "for i in range(4):",
+            "    memory.save_context(",
+            "        {\"input\": f\"질문 {i + 1}\"},",
+            "        {\"output\": f\"답변 {i + 1}\"}",
+            "    )",
+            "",
+            "print(\"윈도우 메모리 (k=2):\")",
+            "print(memory.load_memory_variables({}) [\"history\"])"
+          ],
+          "output": [
+            "윈도우 메모리 (k=2):",
+            "Human: 질문 3",
+            "AI: 답변 3",
+            "Human: 질문 4",
+            "AI: 답변 4"
+          ]
+        },
+        "tip": "k=2이므로 4턴 저장 후 가장 오래된 1·2번 대화는 삭제되고 3·4번만 남습니다. 토큰 비용과 맥락 범위를 균형 있게 설계하세요."
+      },
+      {
+        "order": 7,
+        "text": "실전 활용: 커스텀 시스템 프롬프트와 WindowMemory를 결합한 개인화 학습 어시스턴트입니다.\nPromptTemplate에 {history}와 {input}을 명시해 ConversationChain에 연결합니다.",
+        "terminal": {
+          "code": [
+            "from langchain.chains import ConversationChain",
+            "from langchain.memory import ConversationBufferWindowMemory",
+            "from langchain_anthropic import ChatAnthropic",
+            "from langchain_core.prompts import PromptTemplate",
+            "",
+            "llm = ChatAnthropic(model=\"claude-3-5-haiku-20241022\")",
+            "memory = ConversationBufferWindowMemory(k=5)",
+            "",
+            "prompt = PromptTemplate(",
+            "    input_variables=[\"history\", \"input\"],",
+            "    template=(",
+            "        \"당신은 파이썬 학습 도우미입니다. 초보자에게 친절하게 설명하세요.\\n\"",
+            "        \"이전 대화:\\n{history}\\n\"",
+            "        \"학습자: {input}\\n\"",
+            "        \"도우미:\"",
+            "    )",
+            ")",
+            "chain = ConversationChain(llm=llm, memory=memory, prompt=prompt, verbose=False)",
+            "",
+            "print(chain.predict(input=\"for 루프를 처음 배우고 싶어요\"))"
+          ],
+          "output": [
+            "물론이죠! for 루프는 반복 작업을 자동화하는 Python의 핵심 문법입니다. 예를 들어 for i in range(3): print(i) 라고 쓰면 0, 1, 2가 차례로 출력됩니다."
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "lesson_id": "5-4-advanced",
+    "unit": 5,
+    "stage": "5-4",
+    "course_level": "advanced",
+    "title": "RAG 기초",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "RAG(Retrieval-Augmented Generation)는 LLM이 알지 못하는 최신 정보나 비공개 문서를 검색해 컨텍스트로 제공함으로써 정확한 답변을 생성하게 하는 기법입니다.\n처리 흐름: 질문 → 관련 문서 검색(Retrieval) → 검색 결과를 프롬프트에 삽입(Augmentation) → LLM이 답변 생성(Generation)",
+        "tip": "RAG는 LLM을 재학습(Fine-tuning)하지 않고도 최신 정보·사내 문서·도메인 지식을 LLM에 제공할 수 있어 실무에서 매우 널리 사용됩니다."
+      },
+      {
+        "order": 2,
+        "text": "LangChain에서 문서는 `Document` 객체로 표현됩니다.\n`page_content`에 텍스트 내용, `metadata`에 출처·페이지 등 부가 정보를 담습니다.",
+        "terminal": {
+          "code": [
+            "from langchain_core.documents import Document",
+            "",
+            "# 문서 객체 직접 생성",
+            "docs = [",
+            "    Document(",
+            "        page_content=\"LangChain은 LLM 앱 개발 프레임워크입니다.\",",
+            "        metadata={\"source\": \"intro.txt\", \"page\": 1}",
+            "    ),",
+            "    Document(",
+            "        page_content=\"RAG는 검색 증강 생성 기법입니다.\",",
+            "        metadata={\"source\": \"intro.txt\", \"page\": 2}",
+            "    )",
+            "]",
+            "",
+            "for i, doc in enumerate(docs):",
+            "    print(f\"문서 {i + 1}: {doc.page_content}\")",
+            "    print(f\"  메타데이터: {doc.metadata}\")"
+          ],
+          "output": [
+            "문서 1: LangChain은 LLM 앱 개발 프레임워크입니다.",
+            "  메타데이터: {'source': 'intro.txt', 'page': 1}",
+            "문서 2: RAG는 검색 증강 생성 기법입니다.",
+            "  메타데이터: {'source': 'intro.txt', 'page': 2}"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "긴 문서를 그대로 LLM에 넣으면 컨텍스트 한도를 초과하거나 비용이 급증합니다.\nTextSplitter로 문서를 작은 청크로 나눈 뒤 임베딩하면 관련 청크만 선택적으로 검색할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "from langchain_text_splitters import CharacterTextSplitter",
+            "from langchain_core.documents import Document",
+            "",
+            "doc = Document(",
+            "    page_content=\"파이썬은 범용 프로그래밍 언어입니다.\\n\\n데이터 과학, 웹 개발, AI 등 다양한 분야에 사용됩니다.\\n\\nLangChain은 파이썬으로 LLM 앱을 만들 수 있게 해줍니다.\",",
+            "    metadata={\"source\": \"python.txt\"}",
+            ")",
+            "",
+            "splitter = CharacterTextSplitter(separator=\"\\n\\n\", chunk_size=50, chunk_overlap=0)",
+            "chunks = splitter.split_documents([doc])",
+            "",
+            "print(f\"분할 전: 1개 문서\")",
+            "print(f\"분할 후: {len(chunks)}개 청크\")",
+            "for i, chunk in enumerate(chunks):",
+            "    print(f\"\\n청크 {i + 1} ({len(chunk.page_content)}자): {chunk.page_content}\")"
+          ],
+          "output": [
+            "분할 전: 1개 문서",
+            "분할 후: 3개 청크",
+            "",
+            "청크 1 (20자): 파이썬은 범용 프로그래밍 언어입니다.",
+            "",
+            "청크 2 (33자): 데이터 과학, 웹 개발, AI 등 다양한 분야에 사용됩니다.",
+            "",
+            "청크 3 (37자): LangChain은 파이썬으로 LLM 앱을 만들 수 있게 해줍니다."
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "임베딩(Embedding)은 텍스트를 고차원 숫자 벡터로 변환하는 과정입니다.\n의미가 유사한 텍스트는 벡터 공간에서 가깝게 위치하므로, 코사인 유사도로 관련 문서를 빠르게 검색할 수 있습니다.\n벡터 스토어(Vector Store)는 이 임베딩 벡터들을 저장하고 유사도 검색을 수행하는 데이터베이스입니다.\n대표 선택지: FAISS(Meta, 로컬), Chroma(오픈소스, 로컬), Pinecone(클라우드)",
+        "tip": "임베딩 모델 선택이 RAG 품질에 가장 큰 영향을 미칩니다. 한국어가 포함된 경우 다국어 임베딩 모델(예: paraphrase-multilingual-MiniLM-L12-v2)을 사용하세요."
+      },
+      {
+        "order": 5,
+        "text": "FAISS(Facebook AI Similarity Search)로 벡터 스토어를 구성하고 유사도 검색을 실행합니다.\n`from_texts()`에 텍스트 리스트와 임베딩 객체를 전달하면 자동으로 임베딩 후 인덱스를 생성합니다.",
+        "terminal": {
+          "code": [
+            "# pip install faiss-cpu langchain-community sentence-transformers",
+            "from langchain_community.vectorstores import FAISS",
+            "from langchain_community.embeddings import HuggingFaceEmbeddings",
+            "",
+            "# 로컬 무료 임베딩 모델 (API 키 불필요)",
+            "embeddings = HuggingFaceEmbeddings(",
+            "    model_name=\"sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2\"",
+            ")",
+            "",
+            "texts = [",
+            "    \"LangChain은 LLM 앱 개발 프레임워크입니다.\",",
+            "    \"RAG는 외부 문서를 검색해 LLM에 제공하는 기법입니다.\",",
+            "    \"벡터 스토어는 임베딩 벡터를 저장합니다.\",",
+            "    \"파이썬은 AI 개발에 많이 사용됩니다.\"",
+            "]",
+            "store = FAISS.from_texts(texts, embeddings)",
+            "",
+            "# 유사도 검색",
+            "results = store.similarity_search(\"LLM 앱 개발 방법\", k=2)",
+            "for i, doc in enumerate(results):",
+            "    print(f\"결과 {i + 1}: {doc.page_content}\")"
+          ],
+          "output": [
+            "결과 1: LangChain은 LLM 앱 개발 프레임워크입니다.",
+            "결과 2: RAG는 외부 문서를 검색해 LLM에 제공하는 기법입니다."
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "RetrievalQA 체인은 벡터 스토어 검색과 LLM 답변 생성을 자동으로 연결해줍니다.\n`as_retriever()`로 벡터 스토어를 Retriever 인터페이스로 변환해 체인에 연결합니다.",
+        "terminal": {
+          "code": [
+            "from langchain.chains import RetrievalQA",
+            "from langchain_anthropic import ChatAnthropic",
+            "from langchain_community.vectorstores import FAISS",
+            "from langchain_community.embeddings import HuggingFaceEmbeddings",
+            "",
+            "llm = ChatAnthropic(model=\"claude-3-5-haiku-20241022\")",
+            "embeddings = HuggingFaceEmbeddings(",
+            "    model_name=\"sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2\"",
+            ")",
+            "",
+            "# 지식 베이스 구성",
+            "knowledge = [",
+            "    \"AI MON은 파이썬 코딩을 게임처럼 배우는 학습 플랫폼입니다.\",",
+            "    \"AI MON에서 XP를 모으면 캐릭터가 진화합니다.\",",
+            "    \"AI MON의 보스를 클리어하면 인증카드가 자동 생성됩니다.\"",
+            "]",
+            "store = FAISS.from_texts(knowledge, embeddings)",
+            "",
+            "# RAG 체인 구성: 검색 → LLM 답변",
+            "qa_chain = RetrievalQA.from_chain_type(",
+            "    llm=llm,",
+            "    retriever=store.as_retriever(search_kwargs={\"k\": 2})",
+            ")",
+            "answer = qa_chain.invoke({\"query\": \"AI MON이 뭔가요?\"})",
+            "print(answer[\"result\"])"
+          ],
+          "output": [
+            "AI MON은 파이썬 코딩을 게임처럼 배우는 학습 플랫폼으로, XP를 모아 캐릭터를 진화시키고 보스를 클리어하면 인증카드가 자동으로 생성됩니다."
+          ]
+        }
+      },
+      {
+        "order": 7,
+        "text": "실전 활용: 검색된 문서를 LCEL 파이프라인에 직접 통합하는 커스텀 RAG Q&A 시스템입니다.\n`RunnablePassthrough`로 질문을 그대로 전달하면서 retriever와 병렬로 묶습니다.",
+        "terminal": {
+          "code": [
+            "from langchain_core.prompts import ChatPromptTemplate",
+            "from langchain_core.output_parsers import StrOutputParser",
+            "from langchain_core.runnables import RunnablePassthrough",
+            "from langchain_anthropic import ChatAnthropic",
+            "from langchain_community.vectorstores import FAISS",
+            "from langchain_community.embeddings import HuggingFaceEmbeddings",
+            "",
+            "llm = ChatAnthropic(model=\"claude-3-5-haiku-20241022\")",
+            "embeddings = HuggingFaceEmbeddings(",
+            "    model_name=\"sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2\"",
+            ")",
+            "docs_text = [",
+            "    \"LCEL은 | 연산자로 LangChain 컴포넌트를 연결하는 방식입니다.\",",
+            "    \"RAG는 Retrieval-Augmented Generation의 약자입니다.\",",
+            "    \"ConversationBufferMemory는 전체 대화 이력을 저장합니다.\"",
+            "]",
+            "store = FAISS.from_texts(docs_text, embeddings)",
+            "retriever = store.as_retriever(search_kwargs={\"k\": 1})",
+            "",
+            "prompt = ChatPromptTemplate.from_template(",
+            "    \"컨텍스트: {context}\\n\\n질문: {question}\\n\\n답변:\"",
+            ")",
+            "rag_chain = (",
+            "    {\"context\": retriever, \"question\": RunnablePassthrough()}",
+            "    | prompt | llm | StrOutputParser()",
+            ")",
+            "print(rag_chain.invoke(\"LCEL이 무엇인가요?\"))"
+          ],
+          "output": [
+            "LCEL(LangChain Expression Language)은 | 연산자를 사용해 LangChain의 컴포넌트들을 파이프라인으로 연결하는 방식입니다."
+          ]
+        },
+        "tip": "RunnablePassthrough()는 입력을 변환 없이 그대로 통과시킵니다. 딕셔너리 안에서 retriever와 함께 쓰면 질문을 검색에도, 프롬프트 변수에도 동시에 전달할 수 있습니다."
+      }
+    ]
+  },
+  {
+    "lesson_id": "5-5-advanced",
+    "unit": 5,
+    "stage": "5-5",
+    "course_level": "advanced",
+    "title": "LangChain 종합실습",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "Unit 5에서 배운 핵심 내용을 연결해 복습합니다.\n\n- LangChain 개요: LLM 앱을 위한 모듈화된 컴포넌트 (Models, Prompts, Chains, Memory, Retrievers)\n- LLM 체인 구성: ChatPromptTemplate + LLM + StrOutputParser를 LCEL | 연산자로 연결\n- 메모리: ConversationBufferMemory로 대화 이력을 저장하고 자동 주입 (Buffer / Window 방식)\n- RAG: 문서 → 텍스트 분할 → 임베딩 → 벡터 스토어 → 유사도 검색 → LLM 답변\n\n종합실습에서는 세 패턴을 조합한 실전 챗봇을 단계별로 완성합니다."
+      },
+      {
+        "order": 2,
+        "text": "LCEL 체인에 메모리를 수동으로 연동하는 패턴입니다.\nChatPromptTemplate의 `(\"placeholder\", \"{history}\")`에 Message 객체 리스트를 주입하고, 응답 후 메모리에 저장합니다.",
+        "terminal": {
+          "code": [
+            "from langchain_core.prompts import ChatPromptTemplate",
+            "from langchain_core.output_parsers import StrOutputParser",
+            "from langchain.memory import ConversationBufferMemory",
+            "from langchain_anthropic import ChatAnthropic",
+            "",
+            "llm = ChatAnthropic(model=\"claude-3-5-haiku-20241022\")",
+            "memory = ConversationBufferMemory(return_messages=True)",
+            "",
+            "prompt = ChatPromptTemplate.from_messages([",
+            "    (\"system\", \"당신은 도움이 되는 AI 어시스턴트입니다.\"),",
+            "    (\"placeholder\", \"{history}\"),",
+            "    (\"human\", \"{question}\")",
+            "])",
+            "chain = prompt | llm | StrOutputParser()",
+            "",
+            "def chat(question):",
+            "    history = memory.load_memory_variables({}) [\"history\"]",
+            "    answer = chain.invoke({\"history\": history, \"question\": question})",
+            "    memory.save_context({\"input\": question}, {\"output\": answer})",
+            "    return answer",
+            "",
+            "print(chat(\"내 이름은 Amy야\"))",
+            "print(chat(\"내 이름이 뭐야?\"))"
+          ],
+          "output": [
+            "안녕하세요, Amy님! 반갑습니다. 무엇을 도와드릴까요?",
+            "Amy라고 말씀하셨어요!"
+          ]
+        },
+        "tip": "placeholder 타입은 Message 객체 리스트를 채팅 프롬프트 중간에 그대로 삽입합니다. return_messages=True 메모리와 조합할 때 가장 깔끔한 패턴입니다."
+      },
+      {
+        "order": 3,
+        "text": "메모리 내부 상태를 직접 확인해 패턴을 검증합니다.\nsave_context()를 N번 호출하면 HumanMessage와 AIMessage가 각각 N개씩, 총 2N개 저장됩니다.",
+        "terminal": {
+          "code": [
+            "from langchain.memory import ConversationBufferMemory",
+            "",
+            "memory = ConversationBufferMemory(return_messages=True)",
+            "",
+            "exchanges = [",
+            "    (\"LangChain이란 무엇인가요?\", \"LangChain은 LLM 앱 개발 프레임워크입니다.\"),",
+            "    (\"LCEL은 뭔가요?\", \"LCEL은 | 연산자로 컴포넌트를 연결하는 표현 언어입니다.\"),",
+            "    (\"메모리는 어떻게 작동하나요?\", \"대화 이력을 저장하고 다음 호출 시 컨텍스트로 제공합니다.\")",
+            "]",
+            "for inp, out in exchanges:",
+            "    memory.save_context({\"input\": inp}, {\"output\": out})",
+            "",
+            "msgs = memory.load_memory_variables({}) [\"history\"]",
+            "print(f\"저장된 메시지: {len(msgs)}개\")",
+            "print(f\"첫 질문: {msgs[0].content}\")",
+            "print(f\"마지막 답변: {msgs[-1].content}\")"
+          ],
+          "output": [
+            "저장된 메시지: 6개",
+            "첫 질문: LangChain이란 무엇인가요?",
+            "마지막 답변: 대화 이력을 저장하고 다음 호출 시 컨텍스트로 제공합니다."
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "LCEL로 RAG 파이프라인을 구성하는 표준 패턴입니다.\n딕셔너리 안에서 `retriever`와 `RunnablePassthrough()`를 묶어 context와 question을 동시에 준비한 뒤 프롬프트에 전달합니다.",
+        "terminal": {
+          "code": [
+            "from langchain_core.prompts import ChatPromptTemplate",
+            "from langchain_core.output_parsers import StrOutputParser",
+            "from langchain_core.runnables import RunnablePassthrough",
+            "from langchain_anthropic import ChatAnthropic",
+            "from langchain_community.vectorstores import FAISS",
+            "from langchain_community.embeddings import HuggingFaceEmbeddings",
+            "",
+            "llm = ChatAnthropic(model=\"claude-3-5-haiku-20241022\")",
+            "embeddings = HuggingFaceEmbeddings(",
+            "    model_name=\"sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2\"",
+            ")",
+            "knowledge = [",
+            "    \"LangChain 체인은 LCEL | 연산자로 구성합니다.\",",
+            "    \"RAG는 검색 후 생성하는 방식입니다.\"",
+            "]",
+            "store = FAISS.from_texts(knowledge, embeddings)",
+            "retriever = store.as_retriever(search_kwargs={\"k\": 1})",
+            "",
+            "prompt = ChatPromptTemplate.from_template(",
+            "    \"컨텍스트: {context}\\n\\n질문: {question}\\n\\n답변:\"",
+            ")",
+            "rag_chain = (",
+            "    {\"context\": retriever, \"question\": RunnablePassthrough()}",
+            "    | prompt | llm | StrOutputParser()",
+            ")",
+            "print(rag_chain.invoke(\"LCEL이 무엇인가요?\"))"
+          ],
+          "output": [
+            "LCEL(LangChain Expression Language)은 | 연산자로 LangChain 컴포넌트들을 파이프라인으로 연결하는 방식입니다."
+          ]
+        },
+        "tip": "RunnablePassthrough()는 입력 문자열을 변환 없이 통과시킵니다. retriever는 입력 문자열을 받아 Document 리스트를 반환하고, 두 결과가 딕셔너리로 합쳐져 프롬프트에 전달됩니다."
+      },
+      {
+        "order": 5,
+        "text": "미니 프로젝트: 메모리와 RAG를 결합한 대화형 문서 Q&A 챗봇입니다.\n이전 대화 맥락을 기억하면서 벡터 스토어에서 관련 문서를 검색해 답변을 생성합니다.",
+        "terminal": {
+          "code": [
+            "from langchain_anthropic import ChatAnthropic",
+            "from langchain_core.prompts import ChatPromptTemplate",
+            "from langchain_core.output_parsers import StrOutputParser",
+            "from langchain.memory import ConversationBufferWindowMemory",
+            "from langchain_community.vectorstores import FAISS",
+            "from langchain_community.embeddings import HuggingFaceEmbeddings",
+            "",
+            "llm = ChatAnthropic(model=\"claude-3-5-haiku-20241022\")",
+            "memory = ConversationBufferWindowMemory(k=3, return_messages=True)",
+            "embeddings = HuggingFaceEmbeddings(",
+            "    model_name=\"sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2\"",
+            ")",
+            "knowledge = [",
+            "    \"AI MON은 파이썬 학습 게임 플랫폼입니다.\",",
+            "    \"AI MON에서 XP를 모으면 캐릭터가 진화합니다.\"",
+            "]",
+            "store = FAISS.from_texts(knowledge, embeddings)",
+            "",
+            "prompt = ChatPromptTemplate.from_messages([",
+            "    (\"system\", \"참고 문서를 바탕으로 답변하세요.\\n문서: {context}\"),",
+            "    (\"placeholder\", \"{history}\"),",
+            "    (\"human\", \"{question}\")",
+            "])",
+            "chain = prompt | llm | StrOutputParser()",
+            "",
+            "def rag_chat(question):",
+            "    docs = store.similarity_search(question, k=1)",
+            "    context = docs[0].page_content if docs else \"\"",
+            "    history = memory.load_memory_variables({}) [\"history\"]",
+            "    answer = chain.invoke({\"context\": context, \"history\": history, \"question\": question})",
+            "    memory.save_context({\"input\": question}, {\"output\": answer})",
+            "    return answer",
+            "",
+            "print(rag_chat(\"AI MON이 뭔가요?\"))",
+            "print(rag_chat(\"XP는 어떻게 사용하나요?\"))"
+          ],
+          "output": [
+            "AI MON은 파이썬 학습을 게임처럼 즐길 수 있는 플랫폼입니다.",
+            "AI MON에서 XP를 모으면 캐릭터를 진화시킬 수 있습니다."
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "⚠️ 엣지 케이스: 메모리 관련 흔한 실수 두 가지입니다.\n① 메모리 인스턴스를 요청마다 재생성하면 이력이 초기화됩니다.\n② 여러 사용자가 하나의 메모리 인스턴스를 공유하면 대화가 섞입니다.",
+        "terminal": {
+          "code": [
+            "from langchain.memory import ConversationBufferMemory",
+            "",
+            "# 정상: 메모리를 1회 생성하고 계속 사용",
+            "memory = ConversationBufferMemory()",
+            "memory.save_context({\"input\": \"안녕\"}, {\"output\": \"안녕하세요!\"})",
+            "print(\"메시지 수:\", len(memory.chat_memory.messages))",
+            "",
+            "# 메모리 초기화",
+            "memory.clear()",
+            "print(\"초기화 후 메시지 수:\", len(memory.chat_memory.messages))",
+            "",
+            "# ⚠️ 잘못된 패턴 (요청마다 새 메모리 — 이력 없음)",
+            "def bad_chat(q):",
+            "    m = ConversationBufferMemory()  # 매번 초기화됨!",
+            "    return len(m.chat_memory.messages)",
+            "",
+            "print(\"bad_chat 메시지 수:\", bad_chat(\"테스트\"))"
+          ],
+          "output": [
+            "메시지 수: 2",
+            "초기화 후 메시지 수: 0",
+            "bad_chat 메시지 수: 0"
+          ]
+        },
+        "tip": "실제 서비스에서는 사용자 ID별로 메모리를 딕셔너리에 저장하거나, RunnableWithMessageHistory를 사용해 세션 단위로 메모리를 관리하세요."
+      },
+      {
+        "order": 7,
+        "text": "종합 예제: LCEL 체인, WindowMemory, 커스텀 시스템 프롬프트를 결합한 LangChain 전문 튜터 챗봇입니다.\n두 번의 대화 후 메모리에 메시지 4개가 저장되는지 확인합니다.",
+        "terminal": {
+          "code": [
+            "from langchain_anthropic import ChatAnthropic",
+            "from langchain_core.prompts import ChatPromptTemplate",
+            "from langchain_core.output_parsers import StrOutputParser",
+            "from langchain.memory import ConversationBufferWindowMemory",
+            "",
+            "llm = ChatAnthropic(model=\"claude-3-5-haiku-20241022\")",
+            "memory = ConversationBufferWindowMemory(k=5, return_messages=True)",
+            "",
+            "prompt = ChatPromptTemplate.from_messages([",
+            "    (\"system\",",
+            "     \"당신은 LangChain 전문 튜터입니다.\\n\"",
+            "     \"학습자 수준에 맞게 단계적으로 설명하고 코드 예시를 제공하세요.\"),",
+            "    (\"placeholder\", \"{history}\"),",
+            "    (\"human\", \"{question}\")",
+            "])",
+            "chain = prompt | llm | StrOutputParser()",
+            "",
+            "def tutor(question):",
+            "    history = memory.load_memory_variables({}) [\"history\"]",
+            "    answer = chain.invoke({\"history\": history, \"question\": question})",
+            "    memory.save_context({\"input\": question}, {\"output\": answer})",
+            "    print(f\"Q: {question}\")",
+            "    print(f\"A: {answer[:60]}...\\n\")",
+            "",
+            "tutor(\"LCEL의 | 연산자가 뭔가요?\")",
+            "tutor(\"방금 말한 연산자로 간단한 예제를 보여줘\")",
+            "",
+            "print(f\"대화 이력 메시지 수: {len(memory.chat_memory.messages)}\")"
+          ],
+          "output": [
+            "Q: LCEL의 | 연산자가 뭔가요?",
+            "A: LCEL(LangChain Expression Language)의 | 연산자는 두 Runnable...",
+            "",
+            "Q: 방금 말한 연산자로 간단한 예제를 보여줘",
+            "A: 네! 예를 들어 chain = prompt | llm | StrOutputParser() 처럼...",
+            "",
+            "대화 이력 메시지 수: 4"
+          ]
+        },
+        "tip": "주요 함정 — ① 메모리 인스턴스를 요청마다 재생성하면 이력이 사라짐 ② RAG에서 임베딩 모델과 질의 언어가 불일치하면 검색 품질이 급락 ③ 체인 변수명이 프롬프트 입력 변수와 불일치하면 KeyError 발생"
+      }
+    ]
+  }
+]

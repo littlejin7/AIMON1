@@ -89,6 +89,30 @@ export default function Auth() {
   }
 
   const handleSocial = (provider) => {
+    if (provider.id === 'google') {
+      const clientId = '351430087231-s44028ntujf7a2r39svls4ol5v37ftte.apps.googleusercontent.com'
+      const redirectUri = `${window.location.origin}/auth/callback/google`
+      const scope = 'openid email profile'
+      const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${encodeURIComponent(scope)}&state=google`
+      window.location.href = authUrl
+      return
+    }
+    if (provider.id === 'naver') {
+      // Vite 환경변수 또는 백엔드에 설정된 동일한 NAVER_CLIENT_ID를 아래에 입력하거나 환경변수로 연동합니다.
+      const clientId = import.meta.env.VITE_NAVER_CLIENT_ID || '0LAXJWCUUDT5GXPmWzi4'
+      const redirectUri = `${window.location.origin}/auth/callback/naver`
+      const state = 'naver_state'
+      const authUrl = `https://nid.naver.com/oauth2.0/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&state=${state}`
+      window.location.href = authUrl
+      return
+    }
+    if (provider.id === 'kakao') {
+      const clientId = import.meta.env.VITE_KAKAO_CLIENT_ID || '7300172418d9267abc7889f60b1602fe'
+      const redirectUri = `${window.location.origin}/auth/callback/kakao`
+      const authUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code`
+      window.location.href = authUrl
+      return
+    }
     setSocialMsg(`${provider.label.split('로')[0]} 로그인은 곧 지원될 예정이에요! 🛠️`)
     setTimeout(() => setSocialMsg(''), 3000)
   }

@@ -1,0 +1,1179 @@
+[
+  {
+    "lesson_id": "6-1-advanced",
+    "unit": 6,
+    "stage": "6-1",
+    "course_level": "advanced",
+    "title": "Tool Use 개념",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "Claude의 Tool Use는 AI가 직접 외부 함수를 호출할 수 있게 해주는 기능입니다.\nClaude는 사용자 요청을 분석해 어떤 도구를 어떤 인자로 호출할지 스스로 결정하고, 실행 결과를 받아 최종 답변을 만듭니다.\n이 구조가 단순 챗봇과 AI 에이전트를 구분하는 핵심 차이입니다.",
+        "tip": "Tool Use를 쓰면 Claude가 날씨 조회, 계산, 데이터 검색 같은 실제 동작을 수행하는 에이전트가 됩니다."
+      },
+      {
+        "order": 2,
+        "text": "에이전트 루프는 4단계로 반복됩니다.\n① 유저 메시지 → Claude에 전달\n② Claude가 도구 필요 시 stop_reason: \"tool_use\" 반환\n③ 코드가 실제 함수 실행 → 결과를 tool_result로 Claude에 전달\n④ Claude가 결과를 받아 최종 답변 생성 (stop_reason: \"end_turn\")\nstop_reason이 \"end_turn\"이 될 때까지 ②~③을 반복합니다."
+      },
+      {
+        "order": 3,
+        "text": "tools 파라미터는 도구 목록을 JSON 배열로 받습니다.\n각 도구는 name(도구명), description(설명), input_schema(인자 스키마) 세 필드로 구성됩니다.",
+        "terminal": {
+          "code": [
+            "tools = [",
+            "    {",
+            "        \"name\": \"get_weather\",",
+            "        \"description\": \"특정 도시의 현재 날씨를 조회합니다.\",",
+            "        \"input_schema\": {",
+            "            \"type\": \"object\",",
+            "            \"properties\": {",
+            "                \"city\": {",
+            "                    \"type\": \"string\",",
+            "                    \"description\": \"날씨를 조회할 도시 이름\"",
+            "                }",
+            "            },",
+            "            \"required\": [\"city\"]",
+            "        }",
+            "    }",
+            "]",
+            "print(\"도구 이름:\", tools[0][\"name\"])",
+            "print(\"필수 인자:\", tools[0][\"input_schema\"][\"required\"])"
+          ],
+          "output": [
+            "도구 이름: get_weather",
+            "필수 인자: ['city']"
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "anthropic SDK의 messages.create()에 tools 파라미터를 추가하면 Claude가 도구를 사용할 수 있습니다.\nClaude가 도구 호출이 필요하다고 판단하면 stop_reason이 \"tool_use\"로 반환됩니다.",
+        "terminal": {
+          "code": [
+            "import anthropic",
+            "",
+            "client = anthropic.Anthropic()",
+            "response = client.messages.create(",
+            "    model=\"claude-opus-4-5\",",
+            "    max_tokens=1024,",
+            "    tools=tools,",
+            "    messages=[{\"role\": \"user\", \"content\": \"서울 날씨 알려줘\"}]",
+            ")",
+            "print(\"stop_reason:\", response.stop_reason)",
+            "print(\"content 블록 수:\", len(response.content))"
+          ],
+          "output": [
+            "stop_reason: tool_use",
+            "content 블록 수: 2"
+          ]
+        },
+        "tip": "API 키는 .env 파일에 ANTHROPIC_API_KEY로 저장하고, anthropic.Anthropic()이 자동으로 읽어옵니다."
+      },
+      {
+        "order": 5,
+        "text": "Claude가 도구를 호출할 때 response.content 안에 tool_use 타입 블록이 포함됩니다.\nblock.name으로 어떤 도구를, block.input으로 어떤 인자를 사용하는지 확인합니다.",
+        "terminal": {
+          "code": [
+            "for block in response.content:",
+            "    if block.type == \"tool_use\":",
+            "        print(\"호출 도구:\", block.name)",
+            "        print(\"전달 인자:\", block.input)",
+            "        print(\"도구 ID:\",  block.id)"
+          ],
+          "output": [
+            "호출 도구: get_weather",
+            "전달 인자: {'city': '서울'}",
+            "도구 ID: toolu_01XYZ..."
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "input_schema의 enum 필드로 허용 값 목록을 제한할 수 있습니다.\nClaude는 enum에 있는 값 중 하나만 인자로 전달하므로, 잘못된 값이 함수에 전달되는 것을 방지할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "tool_with_enum = {",
+            "    \"name\": \"get_forecast\",",
+            "    \"description\": \"날씨 예보 조회\",",
+            "    \"input_schema\": {",
+            "        \"type\": \"object\",",
+            "        \"properties\": {",
+            "            \"city\": {\"type\": \"string\"},",
+            "            \"unit\": {",
+            "                \"type\": \"string\",",
+            "                \"enum\": [\"celsius\", \"fahrenheit\"],",
+            "                \"description\": \"온도 단위\"",
+            "            }",
+            "        },",
+            "        \"required\": [\"city\"]",
+            "    }",
+            "}",
+            "props = tool_with_enum[\"input_schema\"][\"properties\"]",
+            "print(\"city 타입:\", props[\"city\"][\"type\"])",
+            "print(\"unit 허용값:\", props[\"unit\"][\"enum\"])"
+          ],
+          "output": [
+            "city 타입: string",
+            "unit 허용값: ['celsius', 'fahrenheit']"
+          ]
+        },
+        "tip": "description이 좋은 도구 = Claude가 잘 쓰는 도구. 스키마 정의만큼 description 작성에 공을 들이세요."
+      },
+      {
+        "order": 7,
+        "text": "response.content에는 text 블록과 tool_use 블록이 함께 포함될 수 있습니다.\n두 타입을 구분해 처리하는 것이 에이전트 루프의 핵심 분기입니다.",
+        "terminal": {
+          "code": [
+            "content = [",
+            "    {\"type\": \"text\",     \"text\": \"날씨를 조회해드리겠습니다.\"},",
+            "    {\"type\": \"tool_use\", \"id\": \"id_01\",",
+            "     \"name\": \"get_weather\", \"input\": {\"city\": \"서울\"}}",
+            "]",
+            "",
+            "for block in content:",
+            "    print(f\"블록 타입: {block['type']}\", end=\" → \")",
+            "    if block[\"type\"] == \"text\":",
+            "        print(block[\"text\"])",
+            "    elif block[\"type\"] == \"tool_use\":",
+            "        print(f\"{block['name']}({block['input']})\")"
+          ],
+          "output": [
+            "블록 타입: text → 날씨를 조회해드리겠습니다.",
+            "블록 타입: tool_use → get_weather({'city': '서울'})"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "lesson_id": "6-2-advanced",
+    "unit": 6,
+    "stage": "6-2",
+    "course_level": "advanced",
+    "title": "도구 정의 & 등록",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "Python 함수를 Claude 도구로 변환하는 패턴은 두 단계로 나뉩니다.\n① 실제 로직을 수행하는 Python 함수 작성\n② 그 함수를 설명하는 JSON 스키마(input_schema) 별도 정의\n두 가지를 딕셔너리로 연결하면 에이전트의 도구 실행기(tool executor) 역할을 합니다.",
+        "tip": "함수와 스키마를 분리 관리하면 함수는 그대로 두고 스키마만 수정하거나, 스키마는 그대로 두고 구현만 바꿀 수 있습니다."
+      },
+      {
+        "order": 2,
+        "text": "실제 함수와 그에 맞는 JSON 스키마를 함께 정의합니다.\n스키마의 properties 키 이름은 함수의 매개변수 이름과 반드시 일치해야 합니다.",
+        "terminal": {
+          "code": [
+            "def calculate(expression: str):",
+            "    \"\"\"수학 수식을 계산합니다.\"\"\"",
+            "    return eval(expression)",
+            "",
+            "calculate_schema = {",
+            "    \"name\": \"calculate\",",
+            "    \"description\": \"수학 수식을 계산합니다. 예: '3 * (4 + 2)'\",",
+            "    \"input_schema\": {",
+            "        \"type\": \"object\",",
+            "        \"properties\": {",
+            "            \"expression\": {",
+            "                \"type\": \"string\",",
+            "                \"description\": \"계산할 수식 문자열\"",
+            "            }",
+            "        },",
+            "        \"required\": [\"expression\"]",
+            "    }",
+            "}",
+            "print(calculate(\"3 * (4 + 2)\"))",
+            "print(calculate(\"100 / 4\"))"
+          ],
+          "output": [
+            "18",
+            "25.0"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "여러 도구를 관리할 때는 딕셔너리로 도구명 → 실행 함수를 매핑하는 레지스트리 패턴을 사용합니다.\ntool_use 블록의 name 값으로 해당 함수를 즉시 조회해 실행할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "def get_weather(city: str) -> str:",
+            "    db = {\"서울\": \"맑음 20°C\", \"부산\": \"흐림 18°C\"}",
+            "    return db.get(city, \"정보 없음\")",
+            "",
+            "def calculate(expression: str):",
+            "    return eval(expression)",
+            "",
+            "TOOL_REGISTRY = {",
+            "    \"get_weather\": get_weather,",
+            "    \"calculate\":   calculate,",
+            "}",
+            "",
+            "# tool_use 블록 시뮬레이션",
+            "tool_name  = \"get_weather\"",
+            "tool_input = {\"city\": \"서울\"}",
+            "result = TOOL_REGISTRY[tool_name](**tool_input)",
+            "print(f\"도구: {tool_name} → 결과: {result}\")"
+          ],
+          "output": [
+            "도구: get_weather → 결과: 맑음 20°C"
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "ToolRegistry 클래스로 스키마 목록과 실행 함수를 한 곳에서 관리합니다.\nregister()로 도구를 등록하고, run()으로 이름 + 인자만 넘기면 실행됩니다.",
+        "terminal": {
+          "code": [
+            "class ToolRegistry:",
+            "    def __init__(self):",
+            "        self._funcs   = {}",
+            "        self._schemas = []",
+            "",
+            "    def register(self, schema: dict, func):",
+            "        self._funcs[schema[\"name\"]] = func",
+            "        self._schemas.append(schema)",
+            "",
+            "    @property",
+            "    def schemas(self):",
+            "        return self._schemas",
+            "",
+            "    def run(self, name: str, inputs: dict):",
+            "        if name not in self._funcs:",
+            "            raise KeyError(f\"미등록 도구: {name}\")",
+            "        return self._funcs[name](**inputs)",
+            "",
+            "registry = ToolRegistry()",
+            "registry.register(calculate_schema, calculate)",
+            "print(\"등록된 도구:\", [s[\"name\"] for s in registry.schemas])",
+            "print(\"결과:\", registry.run(\"calculate\", {\"expression\": \"7 ** 2\"}))"
+          ],
+          "output": [
+            "등록된 도구: ['calculate']",
+            "결과: 49"
+          ]
+        }
+      },
+      {
+        "order": 5,
+        "text": "도구 실행 결과는 tool_result 타입 딕셔너리로 만들어 Claude에 전달합니다.\ncontent는 반드시 문자열(str)이어야 하며, tool_use_id로 어떤 호출에 대한 결과인지 연결합니다.",
+        "terminal": {
+          "code": [
+            "def build_tool_result(tool_use_id: str, result) -> dict:",
+            "    return {",
+            "        \"type\":        \"tool_result\",",
+            "        \"tool_use_id\": tool_use_id,",
+            "        \"content\":     str(result)",
+            "    }",
+            "",
+            "raw = get_weather(\"부산\")",
+            "tr  = build_tool_result(\"toolu_abc123\", raw)",
+            "print(\"결과 타입:\", tr[\"type\"])",
+            "print(\"연결 ID:\",  tr[\"tool_use_id\"])",
+            "print(\"콘텐츠:\",   tr[\"content\"])"
+          ],
+          "output": [
+            "결과 타입: tool_result",
+            "연결 ID: toolu_abc123",
+            "콘텐츠: 흐림 18°C"
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "⚠️ 엣지 케이스: 등록되지 않은 도구를 호출하면 KeyError가 발생합니다.\n에이전트 루프를 멈추지 않으려면 이 오류를 잡아 tool_result content에 에러 메시지를 담아 Claude에 전달하세요.",
+        "terminal": {
+          "code": [
+            "try:",
+            "    registry.run(\"send_email\", {\"to\": \"test@example.com\"})",
+            "except KeyError as e:",
+            "    print(f\"오류 발생: {e}\")",
+            "",
+            "# 루프를 유지하며 Claude에 에러 상황을 알리는 방법",
+            "error_result = build_tool_result(",
+            "    \"toolu_xyz\",",
+            "    \"오류: 미등록 도구 send_email\"",
+            ")",
+            "print(\"에러 결과:\", error_result[\"content\"])"
+          ],
+          "output": [
+            "오류 발생: '미등록 도구: send_email'",
+            "에러 결과: 오류: 미등록 도구 send_email"
+          ]
+        },
+        "tip": "Claude는 tool_result content에 오류 메시지가 담겨 있어도 읽고 이해할 수 있습니다. 루프를 강제 종료하는 것보다 오류를 전달하는 것이 더 안전합니다."
+      },
+      {
+        "order": 7,
+        "text": "inspect 모듈로 함수 매개변수와 스키마 properties가 일치하는지 자동 검증할 수 있습니다.\n등록 시점에 미스매치를 잡으면 런타임 오류를 예방할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "import inspect",
+            "",
+            "def validate_schema_match(func, schema) -> dict:",
+            "    func_params  = set(inspect.signature(func).parameters.keys())",
+            "    schema_props = set(schema[\"input_schema\"][\"properties\"].keys())",
+            "    missing = func_params  - schema_props  # 스키마에 없는 파라미터",
+            "    extra   = schema_props - func_params   # 함수에 없는 스키마 키",
+            "    return {\"missing_in_schema\": list(missing),",
+            "            \"extra_in_schema\":   list(extra)}",
+            "",
+            "def calculate(expression: str):",
+            "    return eval(expression)",
+            "",
+            "calc_schema = {",
+            "    \"name\": \"calculate\",",
+            "    \"input_schema\": {",
+            "        \"properties\": {\"expression\": {\"type\": \"string\"}},",
+            "        \"required\":   [\"expression\"]",
+            "    }",
+            "}",
+            "",
+            "result = validate_schema_match(calculate, calc_schema)",
+            "print(\"스키마 누락:\", result[\"missing_in_schema\"])",
+            "print(\"스키마 초과:\", result[\"extra_in_schema\"])",
+            "print(\"검증 통과:\",   result == {\"missing_in_schema\": [],",
+            "                                  \"extra_in_schema\":   []})"
+          ],
+          "output": [
+            "스키마 누락: []",
+            "스키마 초과: []",
+            "검증 통과: True"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "lesson_id": "6-3-advanced",
+    "unit": 6,
+    "stage": "6-3",
+    "course_level": "advanced",
+    "title": "에이전트 루프 기초",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "에이전트 루프는 Claude가 stop_reason: \"end_turn\"을 반환할 때까지 도구 호출 → 결과 전달을 반복하는 while 루프입니다.\n루프 안에서 stop_reason을 체크해 도구 처리(tool_use)와 종료(end_turn) 두 경로로 분기합니다.",
+        "tip": "max_iterations 제한을 반드시 설정하세요. 버그가 있으면 루프가 무한히 돌 수 있습니다."
+      },
+      {
+        "order": 2,
+        "text": "stop_reason에 따라 두 가지 경로로 분기합니다.\n\"end_turn\"이면 텍스트 블록에서 최종 답변을 꺼내 반환하고, \"tool_use\"이면 도구를 실행해 결과를 messages에 추가합니다.",
+        "terminal": {
+          "code": [
+            "class Block:",
+            "    def __init__(self, **kw): self.__dict__.update(kw)",
+            "",
+            "class Resp:",
+            "    def __init__(self, stop_reason, content):",
+            "        self.stop_reason = stop_reason",
+            "        self.content = content",
+            "",
+            "# end_turn: 도구 불필요, 바로 답변",
+            "r1 = Resp(\"end_turn\", [Block(type=\"text\", text=\"안녕하세요!\")])",
+            "print(\"stop_reason:\", r1.stop_reason)",
+            "if r1.stop_reason == \"end_turn\":",
+            "    print(\"최종 답변:\", r1.content[0].text)",
+            "",
+            "# tool_use: 도구 처리 필요",
+            "r2 = Resp(\"tool_use\", [Block(type=\"tool_use\", id=\"id_01\",",
+            "                              name=\"get_weather\",",
+            "                              input={\"city\": \"서울\"})])",
+            "print(\"stop_reason:\", r2.stop_reason)",
+            "if r2.stop_reason == \"tool_use\":",
+            "    print(\"도구 처리 필요\")"
+          ],
+          "output": [
+            "stop_reason: end_turn",
+            "최종 답변: 안녕하세요!",
+            "stop_reason: tool_use",
+            "도구 처리 필요"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "messages 리스트는 루프를 돌며 누적됩니다.\nClaude 응답은 assistant 역할로, 도구 결과는 user 역할로 추가해야 합니다.",
+        "terminal": {
+          "code": [
+            "messages = [{\"role\": \"user\", \"content\": \"서울 날씨는?\"}]",
+            "print(f\"[초기] 메시지 수: {len(messages)}\")",
+            "",
+            "# Claude 응답(tool_use)을 assistant로 추가",
+            "assistant_blocks = [",
+            "    {\"type\": \"text\",     \"text\": \"날씨를 조회하겠습니다.\"},",
+            "    {\"type\": \"tool_use\", \"id\": \"id_01\",",
+            "     \"name\": \"get_weather\", \"input\": {\"city\": \"서울\"}}",
+            "]",
+            "messages.append({\"role\": \"assistant\", \"content\": assistant_blocks})",
+            "print(f\"[응답 추가] 메시지 수: {len(messages)}\")",
+            "",
+            "# 도구 결과를 user로 추가",
+            "tool_results = [{\"type\": \"tool_result\", \"tool_use_id\": \"id_01\",",
+            "                 \"content\": \"맑음 20°C\"}]",
+            "messages.append({\"role\": \"user\", \"content\": tool_results})",
+            "print(f\"[결과 추가] 메시지 수: {len(messages)}\")",
+            "print(f\"마지막 role: {messages[-1]['role']}\")"
+          ],
+          "output": [
+            "[초기] 메시지 수: 1",
+            "[응답 추가] 메시지 수: 2",
+            "[결과 추가] 메시지 수: 3",
+            "마지막 role: user"
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "도구 실행부터 메시지 누적까지의 한 사이클 전체 흐름을 시뮬레이션합니다.\n실제 에이전트에서는 Step 1이 Claude API 호출로 대체됩니다.",
+        "terminal": {
+          "code": [
+            "def get_weather(city): return f\"{city}: 맑음 20°C\"",
+            "TOOLS = {\"get_weather\": get_weather}",
+            "",
+            "def mock_agent_loop(user_query):",
+            "    messages = [{\"role\": \"user\", \"content\": user_query}]",
+            "",
+            "    # Step 1: Claude → tool_use (시뮬레이션)",
+            "    tool_name  = \"get_weather\"",
+            "    tool_input = {\"city\": \"서울\"}",
+            "    tool_id    = \"id_01\"",
+            "    print(f\"[Step 1] tool_use: {tool_name}({tool_input})\")",
+            "",
+            "    # Step 2: 도구 실행 + 메시지 추가",
+            "    result = TOOLS[tool_name](**tool_input)",
+            "    print(f\"[Step 2] 도구 실행: {result}\")",
+            "    messages.append({\"role\": \"assistant\",",
+            "                     \"content\": [{\"type\": \"tool_use\", \"id\": tool_id}]})",
+            "    messages.append({\"role\": \"user\",",
+            "                     \"content\": [{\"type\": \"tool_result\",",
+            "                                  \"tool_use_id\": tool_id,",
+            "                                  \"content\": result}]})",
+            "",
+            "    # Step 3: Claude → end_turn (시뮬레이션)",
+            "    weather = result.split(\": \")[1]",
+            "    final = f\"서울은 현재 {weather}입니다.\"",
+            "    print(f\"[Step 3] 최종 답변: {final}\")",
+            "    print(f\"총 메시지 수: {len(messages)}\")",
+            "",
+            "mock_agent_loop(\"서울 날씨 알려줘\")"
+          ],
+          "output": [
+            "[Step 1] tool_use: get_weather({'city': '서울'})",
+            "[Step 2] 도구 실행: 서울: 맑음 20°C",
+            "[Step 3] 최종 답변: 서울은 현재 맑음 20°C입니다.",
+            "총 메시지 수: 3"
+          ]
+        }
+      },
+      {
+        "order": 5,
+        "text": "max_iterations로 루프 횟수를 제한합니다.\n제한 내에 end_turn에 도달하면 정상 완료, 초과하면 강제 종료합니다.",
+        "terminal": {
+          "code": [
+            "def run_with_limit(steps_needed, max_iter):",
+            "    for i in range(1, max_iter + 1):",
+            "        print(f\"  [Iter {i}] 처리 중...\")",
+            "        if i >= steps_needed:",
+            "            print(\"  → 완료\")",
+            "            return True",
+            "    print(f\"⚠️ 최대 반복 {max_iter}회 초과 — 강제 종료\")",
+            "    return False",
+            "",
+            "print(\"▶ 정상 케이스 (3스텝 필요, 한도 5)\")",
+            "run_with_limit(steps_needed=3, max_iter=5)",
+            "print()",
+            "print(\"▶ 무한루프 케이스 (100스텝 필요, 한도 3)\")",
+            "run_with_limit(steps_needed=100, max_iter=3)"
+          ],
+          "output": [
+            "▶ 정상 케이스 (3스텝 필요, 한도 5)",
+            "  [Iter 1] 처리 중...",
+            "  [Iter 2] 처리 중...",
+            "  [Iter 3] 처리 중...",
+            "  → 완료",
+            "",
+            "▶ 무한루프 케이스 (100스텝 필요, 한도 3)",
+            "  [Iter 1] 처리 중...",
+            "  [Iter 2] 처리 중...",
+            "  [Iter 3] 처리 중...",
+            "⚠️ 최대 반복 3회 초과 — 강제 종료"
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "response.content에서 텍스트 블록과 tool_use 블록을 추출하는 헬퍼 함수를 만들면 루프 코드가 깔끔해집니다.",
+        "terminal": {
+          "code": [
+            "def extract_text(blocks):",
+            "    for b in blocks:",
+            "        if isinstance(b, dict) and b.get(\"type\") == \"text\":",
+            "            return b[\"text\"]",
+            "    return \"\"",
+            "",
+            "def extract_tool_calls(blocks):",
+            "    return [b for b in blocks",
+            "            if isinstance(b, dict) and b.get(\"type\") == \"tool_use\"]",
+            "",
+            "response_blocks = [",
+            "    {\"type\": \"text\",     \"text\": \"날씨를 조회하겠습니다.\"},",
+            "    {\"type\": \"tool_use\", \"id\": \"id_01\",",
+            "     \"name\": \"get_weather\", \"input\": {\"city\": \"부산\"}}",
+            "]",
+            "",
+            "print(\"텍스트:\",      extract_text(response_blocks))",
+            "calls = extract_tool_calls(response_blocks)",
+            "print(\"도구 호출 수:\", len(calls))",
+            "print(\"도구 이름:\",    calls[0][\"name\"])",
+            "print(\"도구 인자:\",    calls[0][\"input\"])"
+          ],
+          "output": [
+            "텍스트: 날씨를 조회하겠습니다.",
+            "도구 호출 수: 1",
+            "도구 이름: get_weather",
+            "도구 인자: {'city': '부산'}"
+          ]
+        }
+      },
+      {
+        "order": 7,
+        "text": "도구 호출 횟수에 따라 messages 리스트가 어떻게 늘어나는지 공식으로 확인합니다.\n초기 유저 메시지 1개 + 도구 호출 1회마다 assistant 1개 + user 1개 = 2개씩 누적됩니다.",
+        "terminal": {
+          "code": [
+            "def count_messages(n_tool_calls: int) -> int:",
+            "    # 초기 user 메시지 1개 + 도구 호출마다 (assistant + user) 2개",
+            "    return 1 + n_tool_calls * 2",
+            "",
+            "for n in [0, 1, 2, 3]:",
+            "    count = count_messages(n)",
+            "    print(f\"도구 호출 {n}회 → 메시지 {count}개\")"
+          ],
+          "output": [
+            "도구 호출 0회 → 메시지 1개",
+            "도구 호출 1회 → 메시지 3개",
+            "도구 호출 2회 → 메시지 5개",
+            "도구 호출 3회 → 메시지 7개"
+          ]
+        },
+        "tip": "메시지가 너무 많이 쌓이면 컨텍스트 길이 한도에 걸릴 수 있습니다. max_tokens와 max_iterations를 적절히 설정하세요."
+      }
+    ]
+  },
+  {
+    "lesson_id": "6-4-advanced",
+    "unit": 6,
+    "stage": "6-4",
+    "course_level": "advanced",
+    "title": "멀티 도구 에이전트",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "Claude는 한 번의 응답에서 여러 도구를 동시에 호출할 수 있습니다.\nresponse.content 안에 tool_use 블록이 여러 개 포함되며, 코드는 이를 모두 처리해 tool_result 목록으로 만들어 한 번에 Claude에 전달합니다.",
+        "tip": "Claude가 두 도구를 동시에 호출하면 두 결과를 하나의 user 메시지(리스트)로 묶어 전달해야 합니다."
+      },
+      {
+        "order": 2,
+        "text": "멀티 도구 에이전트에 필요한 함수들을 정의하고 레지스트리에 등록합니다.",
+        "terminal": {
+          "code": [
+            "def get_weather(city: str) -> str:",
+            "    db = {\"서울\": \"맑음 20°C\", \"부산\": \"흐림 18°C\", \"제주\": \"바람 22°C\"}",
+            "    return db.get(city, \"정보 없음\")",
+            "",
+            "def calculate(expression: str):",
+            "    return eval(expression)",
+            "",
+            "def get_info(topic: str) -> str:",
+            "    db = {",
+            "        \"Python\": \"파이썬은 범용 프로그래밍 언어입니다.\",",
+            "        \"AI\":     \"AI는 인공지능(Artificial Intelligence)의 약자입니다.\"",
+            "    }",
+            "    return db.get(topic, \"정보 없음\")",
+            "",
+            "TOOLS = {",
+            "    \"get_weather\": get_weather,",
+            "    \"calculate\":   calculate,",
+            "    \"get_info\":    get_info,",
+            "}",
+            "print(\"등록 도구:\", list(TOOLS.keys()))",
+            "print(\"도구 수:\",   len(TOOLS))"
+          ],
+          "output": [
+            "등록 도구: ['get_weather', 'calculate', 'get_info']",
+            "도구 수: 3"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "tool_use 블록 목록을 받아 각 도구를 실행하고 tool_result 리스트를 반환하는 처리기를 작성합니다.",
+        "terminal": {
+          "code": [
+            "def process_tool_calls(calls: list, registry: dict) -> list:",
+            "    results = []",
+            "    for call in calls:",
+            "        name, inputs, tool_id = call[\"name\"], call[\"input\"], call[\"id\"]",
+            "        try:",
+            "            result = registry[name](**inputs)",
+            "            status = \"success\"",
+            "        except Exception as e:",
+            "            result = str(e)",
+            "            status = \"error\"",
+            "        results.append({",
+            "            \"type\": \"tool_result\",",
+            "            \"tool_use_id\": tool_id,",
+            "            \"content\": str(result)",
+            "        })",
+            "        print(f\"  [{status}] {name} → {result}\")",
+            "    return results",
+            "",
+            "calls = [",
+            "    {\"id\": \"id_01\", \"name\": \"get_weather\", \"input\": {\"city\": \"서울\"}},",
+            "    {\"id\": \"id_02\", \"name\": \"calculate\",   \"input\": {\"expression\": \"3 ** 3\"}},",
+            "]",
+            "results = process_tool_calls(calls, TOOLS)",
+            "print(f\"결과 블록 수: {len(results)}\")"
+          ],
+          "output": [
+            "  [success] get_weather → 맑음 20°C",
+            "  [success] calculate → 27",
+            "결과 블록 수: 2"
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "여러 도구를 순서대로 실행하는 멀티 도구 루프 흐름을 시뮬레이션합니다.\n각 도구의 결과가 쌓이며 최종 요약 메시지를 구성합니다.",
+        "terminal": {
+          "code": [
+            "def run_multi_tool(query, planned_calls):",
+            "    print(f\"[질문] {query}\")",
+            "    all_results = []",
+            "    for i, call in enumerate(planned_calls, 1):",
+            "        name, inputs = call[\"name\"], call[\"inputs\"]",
+            "        result = TOOLS[name](**inputs)",
+            "        summary = f\"{name}({list(inputs.values())[0]}) → {result}\"",
+            "        all_results.append(summary)",
+            "        print(f\"[Step {i}] {summary}\")",
+            "    print(f\"[완료] 도구 {len(all_results)}개 실행\")",
+            "",
+            "run_multi_tool(",
+            "    query=\"서울 날씨, Python 정보, 7의 제곱을 알려줘\",",
+            "    planned_calls=[",
+            "        {\"name\": \"get_weather\", \"inputs\": {\"city\": \"서울\"}},",
+            "        {\"name\": \"get_info\",    \"inputs\": {\"topic\": \"Python\"}},",
+            "        {\"name\": \"calculate\",   \"inputs\": {\"expression\": \"7 ** 2\"}},",
+            "    ]",
+            ")"
+          ],
+          "output": [
+            "[질문] 서울 날씨, Python 정보, 7의 제곱을 알려줘",
+            "[Step 1] get_weather(서울) → 맑음 20°C",
+            "[Step 2] get_info(Python) → 파이썬은 범용 프로그래밍 언어입니다.",
+            "[Step 3] calculate(7 ** 2) → 49",
+            "[완료] 도구 3개 실행"
+          ]
+        }
+      },
+      {
+        "order": 5,
+        "text": "여러 tool_result를 하나의 user 메시지로 묶어 Claude에 전달하면, Claude는 모든 결과를 한 번에 참고해 최종 답변을 작성합니다.",
+        "terminal": {
+          "code": [
+            "# 두 도구 결과를 단일 user 메시지로 패키징",
+            "tool_results = [",
+            "    {\"type\": \"tool_result\", \"tool_use_id\": \"id_01\",",
+            "     \"content\": \"맑음 20°C\"},",
+            "    {\"type\": \"tool_result\", \"tool_use_id\": \"id_02\",",
+            "     \"content\": \"49\"},",
+            "]",
+            "",
+            "user_message = {\"role\": \"user\", \"content\": tool_results}",
+            "print(\"role:\",          user_message[\"role\"])",
+            "print(\"결과 개수:\",     len(user_message[\"content\"]))",
+            "print(\"첫 번째 결과:\", user_message[\"content\"][0][\"content\"])",
+            "print(\"두 번째 결과:\", user_message[\"content\"][1][\"content\"])"
+          ],
+          "output": [
+            "role: user",
+            "결과 개수: 2",
+            "첫 번째 결과: 맑음 20°C",
+            "두 번째 결과: 49"
+          ]
+        },
+        "tip": "tool_result 블록을 개별 메시지로 나눠 보내지 마세요. 하나의 tool_use 응답에서 나온 결과는 반드시 리스트로 묶어 하나의 user 메시지로 전달해야 합니다."
+      },
+      {
+        "order": 6,
+        "text": "Claude가 같은 도구를 다른 인자로 여러 번 호출하는 것도 가능합니다.\n각 tool_use 블록의 id가 다르므로 결과를 id로 정확히 연결해야 합니다.",
+        "terminal": {
+          "code": [
+            "# Claude가 같은 도구를 두 도시에 대해 동시 호출하는 시나리오",
+            "calls = [",
+            "    {\"id\": \"id_01\", \"name\": \"get_weather\", \"input\": {\"city\": \"서울\"}},",
+            "    {\"id\": \"id_02\", \"name\": \"get_weather\", \"input\": {\"city\": \"부산\"}},",
+            "]",
+            "",
+            "def get_weather(city):",
+            "    db = {\"서울\": \"맑음 20°C\", \"부산\": \"흐림 18°C\"}",
+            "    return db.get(city, \"정보 없음\")",
+            "",
+            "results = []",
+            "for call in calls:",
+            "    r = get_weather(**call[\"input\"])",
+            "    results.append({\"type\": \"tool_result\",",
+            "                    \"tool_use_id\": call[\"id\"], \"content\": r})",
+            "    print(f\"{call['input']['city']}: {r}\")",
+            "",
+            "print(f\"\\n결과 {len(results)}개를 하나의 user 메시지로 전달\")"
+          ],
+          "output": [
+            "서울: 맑음 20°C",
+            "부산: 흐림 18°C",
+            "",
+            "결과 2개를 하나의 user 메시지로 전달"
+          ]
+        }
+      },
+      {
+        "order": 7,
+        "text": "에이전트 실행 로그를 보기 좋게 포매팅하면 디버깅이 쉬워집니다.\n어떤 도구가 어떤 순서로 어떤 결과를 냈는지 한눈에 파악할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "def format_agent_log(log: list) -> str:",
+            "    lines = [\"=== 에이전트 실행 로그 ===\"]",
+            "    for i, r in enumerate(log, 1):",
+            "        lines.append(f\"  [{i}] {r['name']}({r['arg']}) → {r['result']}\")",
+            "    return \"\\n\".join(lines)",
+            "",
+            "log = [",
+            "    {\"name\": \"get_weather\", \"arg\": \"서울\",   \"result\": \"맑음 20°C\"},",
+            "    {\"name\": \"get_weather\", \"arg\": \"부산\",   \"result\": \"흐림 18°C\"},",
+            "    {\"name\": \"get_info\",    \"arg\": \"Python\", \"result\": \"범용 프로그래밍 언어\"},",
+            "    {\"name\": \"calculate\",   \"arg\": \"7**2\",   \"result\": \"49\"},",
+            "]",
+            "print(format_agent_log(log))",
+            "print(f\"\\n총 {len(log)}개 도구 호출 완료\")"
+          ],
+          "output": [
+            "=== 에이전트 실행 로그 ===",
+            "  [1] get_weather(서울) → 맑음 20°C",
+            "  [2] get_weather(부산) → 흐림 18°C",
+            "  [3] get_info(Python) → 범용 프로그래밍 언어",
+            "  [4] calculate(7**2) → 49",
+            "",
+            "총 4개 도구 호출 완료"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "lesson_id": "6-5-advanced",
+    "unit": 6,
+    "stage": "6-5",
+    "course_level": "advanced",
+    "title": "에러 처리 & 안전장치",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "에이전트 루프에서 발생할 수 있는 주요 위험 세 가지입니다.\n① 도구 실행 오류 — 잘못된 인자, 네트워크 장애, 예외 발생\n② 무한 루프 — Claude가 계속 도구를 호출해 루프가 끝나지 않음\n③ 잘못된 인자 — 필수 필드 누락 또는 타입 불일치\n세 가지 모두 에이전트가 멈추거나 과금이 폭증하는 원인입니다.",
+        "tip": "실무 에이전트에는 max_iterations, try/except, 입력값 검증 세 가지를 항상 함께 적용하세요."
+      },
+      {
+        "order": 2,
+        "text": "도구 실행기를 try/except로 감싸면 어떤 예외가 발생해도 루프가 죽지 않고 에러를 Claude에 전달할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "def safe_execute(name: str, inputs: dict, registry: dict) -> dict:",
+            "    try:",
+            "        result = registry[name](**inputs)",
+            "        return {\"ok\": True,  \"content\": str(result)}",
+            "    except KeyError:",
+            "        return {\"ok\": False, \"content\": f\"미등록 도구: {name}\"}",
+            "    except Exception as e:",
+            "        return {\"ok\": False,",
+            "                \"content\": f\"{type(e).__name__}: {e}\"}",
+            "",
+            "def bad_tool(x): return 1 / x",
+            "reg = {\"bad_tool\": bad_tool}",
+            "",
+            "print(safe_execute(\"bad_tool\", {\"x\": 5},  reg))",
+            "print(safe_execute(\"bad_tool\", {\"x\": 0},  reg))",
+            "print(safe_execute(\"unknown\",  {},         reg))"
+          ],
+          "output": [
+            "{'ok': True, 'content': '0.2'}",
+            "{'ok': False, 'content': 'ZeroDivisionError: division by zero'}",
+            "{'ok': False, 'content': '미등록 도구: unknown'}"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "max_iterations로 루프 횟수를 제한합니다.\n제한 내에 end_turn에 도달하면 정상 완료, 초과하면 강제 종료합니다.",
+        "terminal": {
+          "code": [
+            "def agent_with_limit(steps_needed: int, max_iter: int = 5):",
+            "    for i in range(1, max_iter + 1):",
+            "        print(f\"  [Iter {i}] 처리 중...\")",
+            "        if i >= steps_needed:",
+            "            print(\"  → end_turn: 완료\")",
+            "            return True",
+            "    print(f\"⚠️ 최대 {max_iter}회 초과 — 강제 종료\")",
+            "    return False",
+            "",
+            "print(\"=== 정상 케이스 ===\")",
+            "agent_with_limit(steps_needed=2, max_iter=5)",
+            "print()",
+            "print(\"=== 초과 케이스 ===\")",
+            "agent_with_limit(steps_needed=10, max_iter=3)"
+          ],
+          "output": [
+            "=== 정상 케이스 ===",
+            "  [Iter 1] 처리 중...",
+            "  [Iter 2] 처리 중...",
+            "  → end_turn: 완료",
+            "",
+            "=== 초과 케이스 ===",
+            "  [Iter 1] 처리 중...",
+            "  [Iter 2] 처리 중...",
+            "  [Iter 3] 처리 중...",
+            "⚠️ 최대 3회 초과 — 강제 종료"
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "도구 실행 오류는 루프를 멈추지 말고 tool_result content에 오류 내용을 담아 Claude에 전달합니다.\nClaude가 오류를 인식하고 다른 방법으로 답변하거나 사용자에게 상황을 설명합니다.",
+        "terminal": {
+          "code": [
+            "def execute_to_result(tool_use_id, name, inputs, registry):",
+            "    try:",
+            "        result  = registry[name](**inputs)",
+            "        content = str(result)",
+            "        is_err  = False",
+            "    except Exception as e:",
+            "        content = f\"[오류] {type(e).__name__}: {e}\"",
+            "        is_err  = True",
+            "    return {\"type\": \"tool_result\",",
+            "            \"tool_use_id\": tool_use_id,",
+            "            \"content\": content, \"is_error\": is_err}",
+            "",
+            "def divide(a, b): return a / b",
+            "reg = {\"divide\": divide}",
+            "",
+            "r1 = execute_to_result(\"id_01\", \"divide\", {\"a\": 10, \"b\": 2}, reg)",
+            "r2 = execute_to_result(\"id_02\", \"divide\", {\"a\": 10, \"b\": 0}, reg)",
+            "print(\"정상:\", r1[\"content\"], \"| 오류?\", r1[\"is_error\"])",
+            "print(\"오류:\", r2[\"content\"], \"| 오류?\", r2[\"is_error\"])"
+          ],
+          "output": [
+            "정상: 5.0 | 오류? False",
+            "오류: [오류] ZeroDivisionError: division by zero | 오류? True"
+          ]
+        }
+      },
+      {
+        "order": 5,
+        "text": "인자를 도구에 전달하기 전에 required 필드가 모두 있는지 검증하면 불필요한 오류를 미리 방지할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "def validate_inputs(inputs: dict, schema: dict) -> list:",
+            "    required = schema.get(\"input_schema\", {}).get(\"required\", [])",
+            "    return [f for f in required if f not in inputs]",
+            "",
+            "calc_schema = {",
+            "    \"name\": \"calculate\",",
+            "    \"input_schema\": {",
+            "        \"properties\": {\"expression\": {\"type\": \"string\"}},",
+            "        \"required\": [\"expression\"]",
+            "    }",
+            "}",
+            "",
+            "missing_ok  = validate_inputs({\"expression\": \"1+1\"}, calc_schema)",
+            "missing_bad = validate_inputs({}, calc_schema)",
+            "print(\"누락 필드(정상):\", missing_ok)",
+            "print(\"누락 필드(오류):\", missing_bad)",
+            "if missing_bad:",
+            "    print(f\"⚠️ 필수 인자 누락: {missing_bad}\")"
+          ],
+          "output": [
+            "누락 필드(정상): []",
+            "누락 필드(오류): ['expression']",
+            "⚠️ 필수 인자 누락: ['expression']"
+          ]
+        },
+        "tip": "Claude가 잘못된 인자를 보내는 일은 드물지만, 입력 검증을 넣으면 디버깅 시간을 크게 줄일 수 있습니다."
+      },
+      {
+        "order": 6,
+        "text": "일시적 네트워크 오류처럼 재시도하면 성공할 수 있는 경우를 위해 재시도 로직을 추가합니다.",
+        "terminal": {
+          "code": [
+            "def run_with_retry(name, inputs, registry, max_retry=3):",
+            "    for attempt in range(1, max_retry + 1):",
+            "        try:",
+            "            result = registry[name](**inputs)",
+            "            print(f\"  [시도 {attempt}] 성공: {result}\")",
+            "            return str(result)",
+            "        except Exception as e:",
+            "            print(f\"  [시도 {attempt}] 실패: {type(e).__name__}: {e}\")",
+            "    return f\"[최대 재시도 {max_retry}회 초과]\"",
+            "",
+            "call_count = [0]",
+            "",
+            "def flaky_tool():",
+            "    call_count[0] += 1",
+            "    if call_count[0] < 3:",
+            "        raise ConnectionError(\"일시적 네트워크 오류\")",
+            "    return \"데이터 수신 성공\"",
+            "",
+            "reg = {\"flaky\": flaky_tool}",
+            "result = run_with_retry(\"flaky\", {}, reg)",
+            "print(\"최종 결과:\", result)"
+          ],
+          "output": [
+            "  [시도 1] 실패: ConnectionError: 일시적 네트워크 오류",
+            "  [시도 2] 실패: ConnectionError: 일시적 네트워크 오류",
+            "  [시도 3] 성공: 데이터 수신 성공",
+            "최종 결과: 데이터 수신 성공"
+          ]
+        }
+      },
+      {
+        "order": 7,
+        "text": "세 가지 안전장치(입력 검증 → 재시도 실행 → 오류 결과 반환)를 하나의 함수로 조합하면 어떤 상황에서도 루프가 안전하게 유지됩니다.",
+        "terminal": {
+          "code": [
+            "def safe_agent_step(name, inputs, registry,",
+            "                    schema=None, max_retry=2):",
+            "    # ① 입력 검증",
+            "    if schema:",
+            "        required = schema.get(\"input_schema\", {}).get(\"required\", [])",
+            "        missing  = [f for f in required if f not in inputs]",
+            "        if missing:",
+            "            return f\"[검증 실패] 누락 인자: {missing}\"",
+            "    # ② 재시도 포함 실행",
+            "    for attempt in range(1, max_retry + 1):",
+            "        try:",
+            "            return str(registry[name](**inputs))",
+            "        except Exception as e:",
+            "            if attempt == max_retry:",
+            "                return f\"[실행 오류] {type(e).__name__}: {e}\"",
+            "    return \"[알 수 없는 오류]\"",
+            "",
+            "def get_weather(city): return f\"{city}: 맑음 20°C\"",
+            "reg    = {\"get_weather\": get_weather}",
+            "schema = {\"input_schema\": {\"required\": [\"city\"]}}",
+            "",
+            "print(safe_agent_step(\"get_weather\", {\"city\": \"서울\"}, reg, schema))",
+            "print(safe_agent_step(\"get_weather\", {},              reg, schema))"
+          ],
+          "output": [
+            "서울: 맑음 20°C",
+            "[검증 실패] 누락 인자: ['city']"
+          ]
+        },
+        "tip": "safe_agent_step 하나로 검증 → 재시도 → 오류 반환을 모두 처리하면, 에이전트 루프 본체는 이 함수만 호출하면 됩니다."
+      }
+    ]
+  },
+  {
+    "lesson_id": "6-6-advanced",
+    "unit": 6,
+    "stage": "6-6",
+    "course_level": "advanced",
+    "title": "AI 에이전트 종합실습",
+    "villain": "interferencemon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "Unit 6에서 배운 네 가지 요소를 처음부터 조립해 실전 에이전트를 완성합니다.\n① 도구 함수 정의 — Python 함수 작성\n② JSON 스키마 등록 — input_schema 구성\n③ 안전한 실행기 — try/except + 입력 검증\n④ 에이전트 루프 — while + stop_reason 분기\n이 네 가지가 갖춰지면 Claude API에 연결하는 것만으로 실제 에이전트가 동작합니다."
+      },
+      {
+        "order": 2,
+        "text": "에이전트에 등록할 세 가지 도구 함수를 정의합니다.\ncalculate는 허용 문자 집합으로 코드 인젝션을 방어합니다.",
+        "terminal": {
+          "code": [
+            "def get_weather(city: str) -> str:",
+            "    db = {\"서울\": \"맑음 22°C\", \"부산\": \"흐림 19°C\", \"제주\": \"바람 21°C\"}",
+            "    return db.get(city, \"데이터 없음\")",
+            "",
+            "def calculate(expression: str):",
+            "    allowed = set(\"0123456789+-*/().**% \")",
+            "    if not all(c in allowed for c in expression):",
+            "        raise ValueError(\"허용되지 않은 문자\")",
+            "    return eval(expression)",
+            "",
+            "def get_info(topic: str) -> str:",
+            "    db = {",
+            "        \"Python\": \"파이썬은 범용 프로그래밍 언어입니다.\",",
+            "        \"AI\":     \"AI는 인공지능의 약자입니다.\"",
+            "    }",
+            "    return db.get(topic, \"정보 없음\")",
+            "",
+            "TOOL_FUNCS = {\"get_weather\": get_weather,",
+            "              \"calculate\":   calculate,",
+            "              \"get_info\":    get_info}",
+            "print(\"도구 등록 완료:\", list(TOOL_FUNCS.keys()))"
+          ],
+          "output": [
+            "도구 등록 완료: ['get_weather', 'calculate', 'get_info']"
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "text": "각 도구의 JSON 스키마를 정의하고 required 필드와 properties 키가 일치하는지 검증합니다.",
+        "terminal": {
+          "code": [
+            "TOOL_SCHEMAS = [",
+            "    {\"name\": \"get_weather\", \"description\": \"도시의 현재 날씨 조회\",",
+            "     \"input_schema\": {\"type\": \"object\",",
+            "         \"properties\": {\"city\": {\"type\": \"string\", \"description\": \"도시명\"}},",
+            "         \"required\": [\"city\"]}},",
+            "    {\"name\": \"calculate\", \"description\": \"수학 수식 계산\",",
+            "     \"input_schema\": {\"type\": \"object\",",
+            "         \"properties\": {\"expression\": {\"type\": \"string\", \"description\": \"수식\"}},",
+            "         \"required\": [\"expression\"]}},",
+            "    {\"name\": \"get_info\", \"description\": \"주제별 정보 반환\",",
+            "     \"input_schema\": {\"type\": \"object\",",
+            "         \"properties\": {\"topic\": {\"type\": \"string\", \"description\": \"조회 주제\"}},",
+            "         \"required\": [\"topic\"]}}",
+            "]",
+            "for s in TOOL_SCHEMAS:",
+            "    req = s[\"input_schema\"][\"required\"]",
+            "    print(f\"  {s['name']}: 필수인자={req}\")"
+          ],
+          "output": [
+            "  get_weather: 필수인자=['city']",
+            "  calculate: 필수인자=['expression']",
+            "  get_info: 필수인자=['topic']"
+          ]
+        }
+      },
+      {
+        "order": 4,
+        "text": "안전한 도구 실행기를 작성하고 네 가지 시나리오로 테스트합니다.",
+        "terminal": {
+          "code": [
+            "def safe_run(name, inputs, registry):",
+            "    if name not in registry:",
+            "        return {\"ok\": False, \"result\": f\"미등록 도구: {name}\"}",
+            "    try:",
+            "        result = registry[name](**inputs)",
+            "        return {\"ok\": True,  \"result\": str(result)}",
+            "    except Exception as e:",
+            "        return {\"ok\": False, \"result\": f\"{type(e).__name__}: {e}\"}",
+            "",
+            "tests = [",
+            "    (\"get_weather\", {\"city\": \"서울\"}),",
+            "    (\"calculate\",   {\"expression\": \"2 ** 8\"}),",
+            "    (\"get_info\",    {\"topic\": \"Python\"}),",
+            "    (\"unknown\",     {}),",
+            "]",
+            "for name, inputs in tests:",
+            "    r    = safe_run(name, inputs, TOOL_FUNCS)",
+            "    mark = \"✓\" if r[\"ok\"] else \"✗\"",
+            "    print(f\"  {mark} {name}: {r['result']}\")"
+          ],
+          "output": [
+            "  ✓ get_weather: 맑음 22°C",
+            "  ✓ calculate: 256",
+            "  ✓ get_info: 파이썬은 범용 프로그래밍 언어입니다.",
+            "  ✗ unknown: 미등록 도구: unknown"
+          ]
+        }
+      },
+      {
+        "order": 5,
+        "text": "모든 구성 요소를 조합한 완전한 에이전트 루프 시뮬레이션입니다.\n실제 환경에서는 Claude API 호출 결과가 planned_calls 자리를 대신합니다.",
+        "terminal": {
+          "code": [
+            "def run_agent_sim(query, planned_calls, max_iter=5):",
+            "    messages = [{\"role\": \"user\", \"content\": query}]",
+            "    print(f\"[질문] {query}\")",
+            "    for step, call in enumerate(planned_calls[:max_iter], 1):",
+            "        name, inputs = call[\"name\"], call[\"inputs\"]",
+            "        r = safe_run(name, inputs, TOOL_FUNCS)",
+            "        print(f\"[Step {step}] {name}({inputs}) → {r['result']}\")",
+            "        messages.append({\"role\": \"assistant\",",
+            "                         \"content\": [{\"type\": \"tool_use\",",
+            "                                       \"id\": f\"id_{step:02d}\",",
+            "                                       \"name\": name, \"input\": inputs}]})",
+            "        messages.append({\"role\": \"user\",",
+            "                         \"content\": [{\"type\": \"tool_result\",",
+            "                                       \"tool_use_id\": f\"id_{step:02d}\",",
+            "                                       \"content\": r['result']}]})",
+            "    print(f\"[완료] {len(planned_calls)}개 도구, 메시지 {len(messages)}개\")",
+            "",
+            "run_agent_sim(",
+            "    \"서울 날씨와 25 곱하기 4를 알려줘\",",
+            "    [{\"name\": \"get_weather\", \"inputs\": {\"city\": \"서울\"}},",
+            "     {\"name\": \"calculate\",   \"inputs\": {\"expression\": \"25 * 4\"}}]",
+            ")"
+          ],
+          "output": [
+            "[질문] 서울 날씨와 25 곱하기 4를 알려줘",
+            "[Step 1] get_weather({'city': '서울'}) → 맑음 22°C",
+            "[Step 2] calculate({'expression': '25 * 4'}) → 100",
+            "[완료] 2개 도구, 메시지 5개"
+          ]
+        }
+      },
+      {
+        "order": 6,
+        "text": "실전 연결 버전 — build_agent()는 Claude API를 감싸는 클로저를 반환합니다.\n루프·오류 처리·메시지 관리는 내부에 캡슐화되고, 호출 측은 run(query)만 사용합니다.",
+        "terminal": {
+          "code": [
+            "import anthropic",
+            "",
+            "def build_agent(tool_schemas, tool_funcs, max_iter=10):",
+            "    client = anthropic.Anthropic()",
+            "",
+            "    def run(query: str) -> str:",
+            "        messages = [{\"role\": \"user\", \"content\": query}]",
+            "        for _ in range(max_iter):",
+            "            resp = client.messages.create(",
+            "                model=\"claude-opus-4-5\", max_tokens=1024,",
+            "                tools=tool_schemas, messages=messages",
+            "            )",
+            "            if resp.stop_reason == \"end_turn\":",
+            "                for b in resp.content:",
+            "                    if hasattr(b, \"text\"): return b.text",
+            "                return \"\"",
+            "            messages.append({\"role\": \"assistant\",",
+            "                             \"content\": resp.content})",
+            "            results = []",
+            "            for b in resp.content:",
+            "                if b.type == \"tool_use\":",
+            "                    r = safe_run(b.name, b.input, tool_funcs)",
+            "                    results.append({\"type\": \"tool_result\",",
+            "                                    \"tool_use_id\": b.id,",
+            "                                    \"content\": r[\"result\"]})",
+            "            messages.append({\"role\": \"user\", \"content\": results})",
+            "        return \"최대 반복 초과\"",
+            "",
+            "    return run",
+            "",
+            "agent = build_agent(TOOL_SCHEMAS, TOOL_FUNCS)",
+            "print(agent(\"서울 날씨와 2의 10제곱을 알려줘\"))"
+          ],
+          "output": [
+            "서울은 현재 맑고 22°C입니다. 그리고 2의 10제곱은 1024입니다."
+          ]
+        },
+        "tip": "build_agent()처럼 팩토리 함수로 에이전트를 만들면 tool_schemas와 tool_funcs만 바꿔도 전혀 다른 에이전트를 손쉽게 생성할 수 있습니다."
+      },
+      {
+        "order": 7,
+        "text": "AI 에이전트 조립 체크리스트 — Unit 6 전체 정리\n① 도구 함수 — 명확한 반환값, 단일 책임 원칙\n② JSON 스키마 — description 구체적으로, required 필드 정확히\n③ 도구 레지스트리 — 이름 → 함수 딕셔너리 매핑\n④ 안전한 실행기 — try/except + 입력 검증 + 재시도\n⑤ 에이전트 루프 — max_iterations + stop_reason 분기\n이 다섯 가지가 갖춰지면 어떤 도구도 에이전트에 안전하게 붙일 수 있습니다.",
+        "tip": "Unit 7에서는 이 에이전트를 FastAPI로 서빙하고 React 프론트엔드와 연결합니다."
+      }
+    ]
+  }
+]
