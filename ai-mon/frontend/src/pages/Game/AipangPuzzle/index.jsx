@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './AipangPuzzle.css';
 import { useGameLogic } from './hooks/useGameLogic';
 import { GAME_W, GAME_H } from './constants/gameConstants';
@@ -21,6 +22,7 @@ export default function AipangPuzzle() {
   const pCanvasRef  = useRef(null); // 파티클 캔버스
   const lCanvasRef  = useRef(null); // 번개 캔버스
   const gameRootRef = useRef(null); // 게임 루트 (스케일 대상)
+  const navigate    = useNavigate(); 
 
   // 게임 화면에서만 body 스타일 적용
   useEffect(() => {
@@ -130,8 +132,8 @@ export default function AipangPuzzle() {
       <BossIntro visible={popups.bossIntro} onOk={handleBossIntroOk} />
       <PopupTitle visible={popups.title}    onStart={handleStart}    />
       <PopupClear visible={popups.clear}    onNext={handleNext}      />
-      <PopupOver  visible={popups.over}     onRetry={handleRetry}    />
-      <PopupFinal visible={popups.final}   onRestart={handleRestart} />
+      <PopupOver  visible={popups.over}   onRetry={handleRetry}    onHome={() => navigate('/')} />
+      <PopupFinal visible={popups.final}  onRestart={handleRestart} onHome={() => navigate('/')} />
     </>
   );
 }
