@@ -158,7 +158,6 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
     crowns_awarded = 0
     newly_earned = []
     
-    users = load_users()
     for u in users:
         if u["id"] == user_id:
             # 1. XP 및 진화
