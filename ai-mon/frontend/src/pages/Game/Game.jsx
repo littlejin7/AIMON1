@@ -1,13 +1,14 @@
 import { useNavigate } from 'react-router-dom'
 import './Game.css'
-import airunIconUrl from './AIrun/assets/AIRUNicon.png'
+import aipangIconUrl from './AipangPuzzle/assets/aipangicon.png'
+import airunIconUrl  from './AIrun/assets/AIRUNicon.png'
 import aibombIconUrl from './AIbomb/assets/AIbombicon.png'
+import aipairIconUrl from './AIPair/assets/aipairicon.png'
 
 const GAMES = [
   {
     id: 'aipang',
-    icon: <img src="/src/pages/Game/AipangPuzzle/assets/aipangicon.png" 
-           style={{ width: 200, height: 200, display: 'block', margin: '0 auto' }} />,
+    icon: icon: <img src={aipangIconUrl} alt="AIPang" style={{ width: 200, height: 200, ... }} />,
     title: 'AI팡 퍼즐',
     desc: '우주 속 AI 친구들과 떠나는 퍼즐 모험!',
     reward: '왕관 획득',
@@ -17,13 +18,14 @@ const GAMES = [
   },
   {
     id: 'pairs',
-    icon: '🤖',
+    icon:   icon: <img src={aipairIconUrl} alt="AIPair"                    
+         style={{ width: 200, height: 200, ... }} />,
     title: 'AI Pair',
     desc: '같은 카드 맞추기!',
     reward: 'XP 100~300',
     rewardIcon: '⚡',
-    route: null,
-    available: false,
+    route: '/game/pairs',  
+    available: true,         
   },
   {
     id: 'runner',
