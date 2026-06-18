@@ -18,8 +18,8 @@ const GAMES = [
   {
     id: 'knowledge',
     icon: '🤖',
-    title: 'AI 지식 게임',
-    desc: '우주 속 AI 친구들과 떠나는 퍼즐 모험!',
+    title: 'AI Pair',
+    desc: '같은 카드 맞추기!',
     reward: 'XP 100~300',
     rewardIcon: '⚡',
     route: null,
@@ -45,7 +45,16 @@ const GAMES = [
     route: '/game/aibomb',
     available: true,
   },
-
+  {
+    id: 'defense',
+    icon: '🤖',
+    title: 'AIfense',
+    desc: '에이몬을 방어하라!',
+    reward: 'XP 100~300',
+    rewardIcon: '⚡',
+    route: null,
+    available: false,
+  },
   
 ]
 
