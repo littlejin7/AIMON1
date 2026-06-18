@@ -1,0 +1,412 @@
+[
+  {
+    "question_id": "q401",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "advanced",
+    "difficulty": "easy",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "Streamlit을 가져올 때 관례적으로 사용하는 별칭(alias)으로 빈칸을 채워 코드를 완성해 보세요.\n\n```python\nimport streamlit as _____\n\nst.title('에이몬 AI 챗봇')\nst.write('안녕하세요!')\n```",
+    "choices": [],
+    "answer": "st",
+    "hint": "Streamlit 공식 문서와 거의 모든 예제에서 사용하는 두 글자 별칭이에요.",
+    "feedback": {
+      "correct": "정답! import streamlit as st는 Streamlit의 표준 import 관례입니다. 이후 st.title(), st.write() 등 모든 Streamlit 함수를 st. 접두사로 호출하게 됩니다. np, pd처럼 다른 별칭을 써도 동작하지만, st가 Streamlit 생태계 전체의 표준이에요."
+    }
+  },
+  {
+    "question_id": "q402",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "advanced",
+    "difficulty": "easy",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 Streamlit 코드에서 앱이 처음 실행될 때, 아무것도 선택하지 않은 초기 상태의 menu 값은 무엇일까요?\n\n```python\nimport streamlit as st\n\nmenu = st.selectbox('메뉴를 선택하세요', ['홈', '소개', '설정'])\n```",
+    "choices": [
+      "A. None",
+      "B. '홈'",
+      "C. '소개'",
+      "D. '설정'"
+    ],
+    "answer": "B",
+    "hint": "st.selectbox()의 기본 index 파라미터 값을 떠올려 보세요.",
+    "feedback": {
+      "correct": "정답! st.selectbox()의 기본값은 index=0이므로 리스트의 첫 번째 항목인 '홈'이 초기 선택값으로 반환됩니다. index 파라미터로 기본 선택 항목을 바꿀 수 있고, None을 반환하지는 않아요."
+    }
+  },
+  {
+    "question_id": "q403",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "advanced",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "화면에 H1 수준(가장 큰) 제목을 표시하도록 빈칸을 채워 코드를 완성해 보세요.\n\n```python\nimport streamlit as st\n\nst._____('에이몬 챗봇 대시보드')\nst.write('오늘도 함께 공부해요!')\n```",
+    "choices": [],
+    "answer": "title",
+    "hint": "st.header()는 H2, st.subheader()는 H3에 해당해요. 그보다 더 큰 H1 수준의 제목 함수를 떠올려 보세요.",
+    "feedback": {
+      "correct": "정답! st.title()은 앱에서 가장 크게 표시되는 H1 수준의 제목을 렌더링합니다. Streamlit 제목 계층은 st.title() > st.header() > st.subheader() 순으로 크기가 작아집니다."
+    }
+  },
+  {
+    "question_id": "q404",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "advanced",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 Streamlit 코드에서 슬라이더를 조작하지 않은 초기 상태의 slider_val 값은 무엇일까요?\n\n```python\nimport streamlit as st\n\nslider_val = st.slider('밝기 조절', min_value=0, max_value=100, value=60)\nst.write(f'현재 밝기: {slider_val}')\n```",
+    "choices": [
+      "A. 0",
+      "B. 100",
+      "C. 60",
+      "D. None"
+    ],
+    "answer": "C",
+    "hint": "st.slider()의 value 파라미터가 초기값을 결정해요.",
+    "feedback": {
+      "correct": "정답! st.slider()의 value 파라미터는 슬라이더의 초기값을 설정합니다. value=60이므로 앱이 처음 실행되거나 슬라이더를 건드리지 않았을 때 slider_val은 60을 반환합니다. min_value=0이 기본값이 아닌 점에 주의하세요."
+    }
+  },
+  {
+    "question_id": "q405",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "advanced",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "사용자로부터 텍스트를 직접 입력받는 위젯을 추가하도록 빈칸을 채워 코드를 완성해 보세요.\n\n```python\nimport streamlit as st\n\nuser_msg = st.___________('메시지를 입력해 주세요')\nif user_msg:\n    st.write(f'입력하신 내용: {user_msg}')\n```",
+    "choices": [],
+    "answer": "text_input",
+    "hint": "텍스트(text)를 입력(input)받는다는 이름 그대로인 Streamlit 위젯이에요.",
+    "feedback": {
+      "correct": "정답! st.text_input()은 사용자로부터 텍스트를 입력받는 위젯입니다. 항상 str 타입을 반환하며 초기값은 빈 문자열('')입니다. st.number_input()은 숫자 전용, st.slider()는 드래그 방식이므로 이 용도와 구별하세요."
+    }
+  },
+  {
+    "question_id": "q406",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "advanced",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 Streamlit 코드에서 체크박스를 선택하지 않은 초기 상태의 agree 값은 무엇일까요?\n\n```python\nimport streamlit as st\n\nagree = st.checkbox('이용약관에 동의합니다')\nif agree:\n    st.write('동의하셨습니다!')\n```",
+    "choices": [
+      "A. True",
+      "B. None",
+      "C. 'False'",
+      "D. False"
+    ],
+    "answer": "D",
+    "hint": "체크박스는 선택 여부를 나타내는 bool 타입을 반환해요. 선택되지 않은 상태를 생각해 보세요.",
+    "feedback": {
+      "correct": "정답! st.checkbox()는 bool 타입을 반환합니다. 체크박스가 선택되지 않은 기본 상태에서는 False를 반환하고, 체크된 순간(해당 리런)에만 True를 반환합니다. 'False'(문자열)나 None이 아닌 점에 주의하세요."
+    }
+  },
+  {
+    "question_id": "q407",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 코드에서 버튼을 3번 클릭했을 때 화면에 표시되는 내용으로 올바른 것을 고르세요. (st.session_state 미사용)\n\n```python\nimport streamlit as st\n\ncount = 0\nif st.button('카운트 증가'):\n    count += 1\nst.write(f'현재 카운트: {count}')\n```",
+    "choices": [
+      "A. 현재 카운트: 3",
+      "B. 현재 카운트: 0",
+      "C. 현재 카운트: 1",
+      "D. 현재 카운트: 4"
+    ],
+    "answer": "C",
+    "hint": "Streamlit은 사용자가 위젯과 상호작용할 때마다 스크립트를 처음부터 다시 실행(rerun)해요. count = 0 초기화가 매 리런마다 일어난다는 점에 주목하세요.",
+    "feedback": {
+      "correct": "정답! Streamlit은 매 상호작용 시 스크립트를 처음부터 재실행합니다. count = 0 초기화가 매 리런마다 실행되므로, 버튼 클릭 리런에서는 count가 0→1이 되어 '현재 카운트: 1'이 표시됩니다. 몇 번을 클릭해도 누적되지 않아요. 클릭 횟수를 누적하려면 st.session_state를 사용해야 합니다."
+    }
+  },
+  {
+    "question_id": "q408",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "리런 간에 카운트 값이 유지되도록 세션 상태를 활용하는 코드입니다. 빈칸을 채워 코드를 완성해 보세요.\n\n```python\nimport streamlit as st\n\nif 'count' not in st._________:\n    st.session_state['count'] = 0\n\nif st.button('증가'):\n    st.session_state['count'] += 1\n\nst.write(st.session_state['count'])\n```",
+    "choices": [],
+    "answer": "session_state",
+    "hint": "Streamlit에서 리런 간에 데이터를 유지하는 딕셔너리형 저장소 이름이에요.",
+    "feedback": {
+      "correct": "정답! st.session_state는 Streamlit에서 리런(rerun) 간에 데이터를 유지하는 딕셔너리형 저장소입니다. 'count' not in st.session_state 패턴으로 최초 1회만 초기화하고, 이후 리런에서는 누적된 값을 그대로 사용합니다."
+    }
+  },
+  {
+    "question_id": "q409",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "다음 Streamlit 코드를 실행했을 때 발생하는 결과로 올바른 것을 고르세요.\n\n```python\nimport streamlit as st\n\nage_text = st.text_input('나이를 입력하세요', value='25')\nresult = age_text + 10\nst.write(result)\n```",
+    "choices": [
+      "A. 35",
+      "B. '2510'",
+      "C. TypeError 발생",
+      "D. 25"
+    ],
+    "answer": "C",
+    "hint": "st.text_input()이 반환하는 타입을 확인해 보세요. value='25'처럼 숫자처럼 보여도 어떤 타입일까요?",
+    "feedback": {
+      "correct": "정답! st.text_input()은 value='25'를 설정해도 항상 str 타입을 반환합니다. age_text는 문자열 '25'이므로 '25' + 10은 str과 int의 연산이 되어 TypeError가 발생합니다. 숫자 연산이 필요하다면 int(age_text)로 형 변환해야 해요."
+    }
+  },
+  {
+    "question_id": "q410",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "A",
+    "is_boss": false,
+    "question": "폼(Form) 컨텍스트를 만들어 내부 위젯의 변경이 제출 버튼 클릭 시에만 처리되도록 빈칸을 채워 코드를 완성해 보세요.\n\n```python\nimport streamlit as st\n\nwith st.___('login_form'):\n    username = st.text_input('사용자 이름')\n    password = st.text_input('비밀번호', type='password')\n    submit = st.form_submit_button('로그인')\n\nif submit:\n    st.write(f'{username}님, 환영합니다!')\n```",
+    "choices": [],
+    "answer": "form",
+    "hint": "st.form_submit_button()은 특정 컨텍스트 매니저 내부에서만 사용할 수 있어요. 이 컨텍스트 매니저의 이름을 떠올려 보세요.",
+    "feedback": {
+      "correct": "정답! st.form('키값')은 폼 컨텍스트를 생성합니다. 폼 내부의 위젯들은 st.form_submit_button()을 클릭할 때까지 앱에 반영되지 않아 불필요한 리런을 방지합니다. st.container()는 접기·폼 기능이 없으므로 여기서는 form만 유효합니다."
+    }
+  },
+  {
+    "question_id": "q411",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "advanced",
+    "difficulty": "easy",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "화면에 H2 수준의 제목(헤더)을 표시하도록 빈칸을 채워 코드를 완성해 보세요.\n\n```python\nimport streamlit as st\n\nst.title('에이몬 AI 챗봇')\nst._____('챗봇 사용 방법')\nst.write('아래 단계를 따라 시작해 보세요.')\n```",
+    "choices": [],
+    "answer": "header",
+    "hint": "st.title()보다 한 단계 작은 제목이에요. H2 수준에 해당하는 함수 이름을 떠올려 보세요.",
+    "feedback": {
+      "correct": "정답! st.header()는 H2 수준의 제목을 표시합니다. Streamlit 제목 계층은 st.title() > st.header() > st.subheader() 순으로 크기가 작아집니다. 섹션 구분에 자주 활용돼요."
+    }
+  },
+  {
+    "question_id": "q412",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "advanced",
+    "difficulty": "easy",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 Streamlit 코드에서 버튼을 클릭하지 않은 초기 상태의 btn 값은 무엇일까요?\n\n```python\nimport streamlit as st\n\nbtn = st.button('전송')\nst.write(btn)\n```",
+    "choices": [
+      "A. True",
+      "B. '전송'",
+      "C. None",
+      "D. False"
+    ],
+    "answer": "D",
+    "hint": "버튼은 눌렸는지 안 눌렸는지 두 가지 상태만 가질 수 있어요. 클릭 전 상태를 생각해 보세요.",
+    "feedback": {
+      "correct": "정답! st.button()은 bool 타입을 반환합니다. 버튼이 클릭된 리런에서는 True, 클릭되지 않은 상태(초기 포함)에서는 False를 반환합니다. '전송' 문자열이나 None은 반환하지 않아요."
+    }
+  },
+  {
+    "question_id": "q413",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "advanced",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "키보드로 직접 숫자를 입력받는 위젯을 추가하도록 빈칸을 채워 코드를 완성해 보세요.\n\n```python\nimport streamlit as st\n\ntemperature = st.___________('온도 (°C)', min_value=-50, max_value=50, value=20)\nst.write(f'입력된 온도: {temperature}°C')\n```",
+    "choices": [],
+    "answer": "number_input",
+    "hint": "st.slider()는 드래그 방식이에요. 키보드로 직접 숫자를 입력받는 위젯의 이름을 떠올려 보세요.",
+    "feedback": {
+      "correct": "정답! st.number_input()은 사용자가 키보드로 직접 숫자를 입력하거나 화살표로 조절하는 위젯입니다. min_value, max_value, value 파라미터를 지원하며 int 또는 float을 반환합니다. 드래그 방식의 st.slider()와 구별하세요."
+    }
+  },
+  {
+    "question_id": "q414",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "advanced",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 Streamlit 코드에서 사용자가 아무것도 변경하지 않은 초기 상태의 lang 값은 무엇일까요?\n\n```python\nimport streamlit as st\n\nlang = st.selectbox('언어 선택', ['Python', 'JavaScript', 'Go', 'Rust'])\nst.write(f'선택된 언어: {lang}')\n```",
+    "choices": [
+      "A. None",
+      "B. 'JavaScript'",
+      "C. 'Python'",
+      "D. 'Rust'"
+    ],
+    "answer": "C",
+    "hint": "st.selectbox()의 기본 index는 0이에요. 리스트에서 index 0에 해당하는 항목을 고르세요.",
+    "feedback": {
+      "correct": "정답! st.selectbox()는 기본적으로 index=0, 즉 리스트의 첫 번째 항목을 초기 선택값으로 사용합니다. ['Python', 'JavaScript', 'Go', 'Rust']에서 index 0은 'Python'이므로 lang의 초기값은 'Python'이에요."
+    }
+  },
+  {
+    "question_id": "q415",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "advanced",
+    "difficulty": "medium",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "메인 영역이 아닌 사이드바에 슬라이더를 배치하도록 빈칸을 채워 코드를 완성해 보세요.\n\n```python\nimport streamlit as st\n\nmax_tokens = st._________.slider('최대 토큰 수', 100, 4000, 1000)\nst.write(f'설정된 최대 토큰: {max_tokens}')\n```",
+    "choices": [],
+    "answer": "sidebar",
+    "hint": "Streamlit에서 위젯을 화면 왼쪽 사이드 패널에 배치할 때 사용하는 속성 이름이에요.",
+    "feedback": {
+      "correct": "정답! st.sidebar를 사용하면 모든 Streamlit 위젯을 사이드바 패널에 배치할 수 있습니다. st.sidebar.slider(), st.sidebar.button() 등 기존 함수 앞에 st.sidebar.를 붙이면 돼요. 챗봇 앱에서 모델 설정을 사이드바에 모아두는 패턴이 자주 쓰입니다."
+    }
+  },
+  {
+    "question_id": "q416",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "advanced",
+    "difficulty": "medium",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 Streamlit 코드에서 화면에 표시되는 값은 무엇일까요?\n\n```python\nimport streamlit as st\n\ncols = st.columns(3)\nst.write(len(cols))\n```",
+    "choices": [
+      "A. 1",
+      "B. 2",
+      "C. 3",
+      "D. 오류 발생"
+    ],
+    "answer": "C",
+    "hint": "st.columns(n)은 n개의 컬럼 객체를 리스트로 반환해요. len()으로 리스트의 길이를 구해 보세요.",
+    "feedback": {
+      "correct": "정답! st.columns(3)은 3개의 컬럼 객체를 담은 리스트를 반환합니다. len(cols)는 그 리스트의 길이인 3을 반환하고, st.write(3)이 화면에 3을 표시합니다. c1, c2, c3 = st.columns(3) 형태로 언패킹해 with 블록과 함께 사용하는 것이 일반적이에요."
+    }
+  },
+  {
+    "question_id": "q417",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 코드에서 버튼을 3번 클릭했을 때 화면에 표시되는 내용으로 올바른 것을 고르세요.\n\n```python\nimport streamlit as st\n\nif 'count' not in st.session_state:\n    st.session_state.count = 0\n\nif st.button('증가'):\n    st.session_state.count += 1\n\nst.write(f'카운트: {st.session_state.count}')\n```",
+    "choices": [
+      "A. 카운트: 0",
+      "B. 카운트: 1",
+      "C. 카운트: 2",
+      "D. 카운트: 3"
+    ],
+    "answer": "D",
+    "hint": "st.session_state를 사용하면 리런 간에 값이 유지돼요. q507(session_state 미사용)과 비교하며 차이를 확인해 보세요.",
+    "feedback": {
+      "correct": "정답! st.session_state를 사용하면 리런이 발생해도 값이 초기화되지 않고 유지됩니다. 'count' not in st.session_state 조건 덕분에 초기화는 처음 한 번만 실행되고, 버튼을 클릭할 때마다 count가 1씩 누적되어 3번 클릭 후 '카운트: 3'이 표시됩니다."
+    }
+  },
+  {
+    "question_id": "q418",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "클릭하면 내용이 펼쳐지는 접을 수 있는 섹션을 만들도록 빈칸을 채워 코드를 완성해 보세요.\n\n```python\nimport streamlit as st\n\nwith st._________('사용 방법 자세히 보기'):\n    st.write('1. pip install streamlit')\n    st.write('2. app.py 파일을 작성합니다.')\n    st.write('3. streamlit run app.py를 실행합니다.')\n```",
+    "choices": [],
+    "answer": "expander",
+    "hint": "접고 펼칠 수 있는(expand) 섹션을 만드는 Streamlit 컴포넌트 이름이에요.",
+    "feedback": {
+      "correct": "정답! st.expander()는 클릭하면 내용이 펼쳐지는 접을 수 있는 섹션을 만드는 컴포넌트입니다. st.container()는 접기 기능이 없고, st.popover()는 팝업 방식이므로 '접고 펼치기' 요건에는 expander만 해당돼요."
+    }
+  },
+  {
+    "question_id": "q419",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "output_select",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "다음 Streamlit 코드에서 초기 기본값 상태로 실행할 때 화면에 표시되는 값은 무엇일까요?\n\n```python\nimport streamlit as st\n\nname = st.text_input('이름', value='에이몬')\nage = st.number_input('나이', min_value=1, max_value=100, value=20)\nresult = name + str(age)\nst.write(result)\n```",
+    "choices": [
+      "A. 에이몬20",
+      "B. 에이몬 20",
+      "C. '에이몬' + 20",
+      "D. TypeError 발생"
+    ],
+    "answer": "A",
+    "hint": "st.text_input()과 st.number_input()이 각각 반환하는 타입을 확인한 뒤, str(age)로 변환한 결과를 이어붙여 보세요.",
+    "feedback": {
+      "correct": "정답! st.text_input()은 항상 str을 반환하므로 name='에이몬'(str)이고, st.number_input()은 value=20이므로 int 20을 반환합니다. str(age)='20'으로 변환 후 name + str(age) = '에이몬' + '20' = '에이몬20'이 화면에 표시됩니다. str() 변환 없이 name + age로 쓰면 TypeError가 발생해요."
+    }
+  },
+  {
+    "question_id": "q420",
+    "unit": 4,
+    "stage": "4-1",
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "quiz_category": "stage_quiz",
+    "quiz_set": "B",
+    "is_boss": false,
+    "question": "st.form() 블록 내부에 제출 버튼을 배치하도록 빈칸을 채워 코드를 완성해 보세요.\n\n```python\nimport streamlit as st\n\nwith st.form('chat_form'):\n    user_input = st.text_input('메시지 입력')\n    submitted = st.___________('전송')\n\nif submitted:\n    st.write(f'전송됨: {user_input}')\n```",
+    "choices": [],
+    "answer": "form_submit_button",
+    "hint": "st.form() 블록 내부에서만 사용할 수 있는 제출 전용 버튼 함수예요. st.button()과는 다르답니다.",
+    "feedback": {
+      "correct": "정답! st.form_submit_button()은 st.form() 블록 내부에서만 사용할 수 있는 제출 버튼입니다. 이 버튼을 클릭할 때만 폼 내부 위젯의 값이 앱에 반영되어 리런이 발생하므로, 챗봇의 메시지 전송 UI처럼 입력 완료 전까지 처리를 미뤄야 할 때 매우 유용해요."
+    }
+  }
+]
