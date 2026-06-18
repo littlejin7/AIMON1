@@ -27,7 +27,7 @@ export function useGameLogic(pCanvasRef, lCanvasRef) {
   const [unitBossName, setUnitBossName] = useState('UNIT BOSS Lv.1');
   const [stageDisplay, setStageDisplay] = useState('1/5');
   const [selected, setSelected] = useState(null);
-  const [bgmMuted, setBgmMuted] = useState(false);
+  const [bgmVolume, setBgmVolume] = useState(0.3);
   const [cellAnims, setCellAnims] = useState({}); // { 'r,c': 'pop'|'drop'|'shake' }
   const [bossUI, setBossUI] = useState({
     unitActive: true,
@@ -56,7 +56,7 @@ export function useGameLogic(pCanvasRef, lCanvasRef) {
   const finalHpRef        = useRef(30000);
   const finalHpMaxRef     = useRef(30000);
   const finalUnlockedRef  = useRef(false);
-  const bgmMutedRef       = useRef(false);
+ const bgmVolumeRef      = useRef(0.3);
 
   // ── 오디오 Refs ──
   const bgmRef    = useRef(null);
@@ -498,16 +498,16 @@ useEffect(() => {
     setPopups(prev => ({ ...prev, bossIntro: false }));
   }, []);
 
-  const handleBgmToggle = useCallback(() => {
-    bgmMutedRef.current = !bgmMutedRef.current;
-    setBgmMuted(bgmMutedRef.current);
-    if (bgmMutedRef.current) {
-      bgmRef.current?.pause();
-    } else {
-      bgmRef.current?.play().catch(() => {});
+  const handleBgmVolume = useCallback((v) => {
+    bgmVolumeRef.current = v;
+    setBgmVolume(v);
+    if (bgmRef.current) {
+      bgmRef.current.volume = v;
+      if (v === 0) bgmRef.current.pause();
+      else if (bgmRef.current.paused) bgmRef.current.play().catch(() => {});
     }
   }, []);
-
+  
   const handleRefresh = useCallback(() => {
     if (busyRef.current) return;
     setPopups({ title: false, clear: false, over: false, final: false, bossIntro: false });
@@ -529,7 +529,7 @@ useEffect(() => {
     unitBossName,
     stageDisplay,
     selected,
-    bgmMuted,
+    bgmVolume,
     cellAnims,
     bossUI,
     popups,
@@ -540,7 +540,7 @@ useEffect(() => {
     handleRetry,
     handleRestart,
     handleBossIntroOk,
-    handleBgmToggle,
+    handleBgmgmVolume,
     handleRefresh,
   };
 }
