@@ -244,8 +244,16 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
             ai_result["is_correct"] = False
             ai_result["score"] = 0
     else:
-        # fill_in_blank, code_input: 정확한 텍스트 입력이므로 Claude 채점
-        ai_result = await ask_claude_json(prompt)
+        # fill_in_blank, code_input
+        if user_ans == correct_answer or is_direct_match(user_ans, correct_answer):
+            ai_result = {
+                "is_correct": True,
+                "score": 100,
+                "feedback": question.get("feedback", {}).get("correct", "정답입니다! 잘하셨어요."),
+                "hint": "",
+            }
+        else:
+            ai_result = await ask_claude_json(prompt)
 
     # HP 계산: 클라이언트 HP 값을 유효 범위로 클램프 후 고정 delta 적용 (HP 조작 방지)
     safe_boss_hp = max(0, min(req.boss_hp, BOSS_HP_INIT))
