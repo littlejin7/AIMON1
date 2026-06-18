@@ -1,15 +1,31 @@
 import { useState } from 'react'
 import endbossIcon from '../../assets/endboss_finalorg.png'
 
-const ENDBOSS_PROJECTS = [
-  { id: 'account',   label: '가계부 시스템', icon: '💰' },
-  { id: 'wordchain', label: '끝말잇기 봇',   icon: '🗣️' },
-  { id: 'grade',     label: '성적 관리기',   icon: '📊' },
-  { id: 'gpa',       label: '학점 계산기',   icon: '🎓' },
-]
+const PROJECTS_BY_LEVEL = {
+  beginner: [
+    { id: 'account',   label: '가계부 시스템', icon: '💰' },
+    { id: 'wordchain', label: '끝말잇기 봇',   icon: '🗣️' },
+    { id: 'grade',     label: '성적 관리기',   icon: '📊' },
+    { id: 'gpa',       label: '학점 계산기',   icon: '🎓' },
+  ],
+  intermediate: [
+    { id: 'todo',       label: 'TODO 매니저',        icon: '✅' },
+    { id: 'contact',    label: '연락처 앱',           icon: '📇' },
+    { id: 'log_parser', label: '로그 파서',           icon: '🔍' },
+    { id: 'weather',    label: '날씨 API 클라이언트', icon: '☁️' },
+  ],
+  advanced: [
+    { id: 'ai_agent',       label: 'AI 에이전트',          icon: '🤖' },
+    { id: 'async_api',      label: '비동기 API 클라이언트', icon: '⚡' },
+    { id: 'fastapi_server', label: 'FastAPI AI 서버',       icon: '🚀' },
+    { id: 'langchain_bot',  label: 'LangChain RAG 봇',      icon: '🔗' },
+  ],
+}
 
 export default function EndBossIntro({ bossData, errorMsg, onStart }) {
-  const [selectedProject, setSelectedProject] = useState('account')
+  const level = bossData?.course_level || 'beginner'
+  const ENDBOSS_PROJECTS = PROJECTS_BY_LEVEL[level] ?? PROJECTS_BY_LEVEL.beginner
+  const [selectedProject, setSelectedProject] = useState(ENDBOSS_PROJECTS[0].id)
 
   return (
     <div className="boss-card intro-card card-glass animate-fade-in-up">

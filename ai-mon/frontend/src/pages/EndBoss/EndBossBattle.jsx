@@ -139,14 +139,36 @@ export default function EndBossBattle({
             {/* 단답/코드 입력 */}
             {isCodeType && (
               <div style={{ margin: '16px 0' }}>
-                <input
-                  type="text"
-                  value={answerInput}
-                  onChange={(e) => setAnswerInput(e.target.value)}
-                  className="input"
-                  placeholder="정답을 입력하세요"
-                  style={{ width: '100%', background: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.3)' }}
-                />
+                {currentQuestion.type === 'code_input' ? (
+                  <textarea
+                    value={answerInput}
+                    onChange={(e) => setAnswerInput(e.target.value)}
+                    className="input"
+                    placeholder="코드를 입력하세요"
+                    rows={10}
+                    style={{
+                      width: '100%',
+                      background: 'rgba(255,255,255,0.05)',
+                      color: '#cdd6f4',
+                      border: '1px solid rgba(255,255,255,0.3)',
+                      fontFamily: 'monospace',
+                      fontSize: '0.85rem',
+                      resize: 'vertical',
+                      lineHeight: 1.6,
+                      padding: '10px 12px',
+                      borderRadius: '8px',
+                    }}
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    value={answerInput}
+                    onChange={(e) => setAnswerInput(e.target.value)}
+                    className="input"
+                    placeholder="정답을 입력하세요"
+                    style={{ width: '100%', background: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.3)' }}
+                  />
+                )}
               </div>
             )}
 

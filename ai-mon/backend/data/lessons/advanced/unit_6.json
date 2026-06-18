@@ -1156,23 +1156,14 @@
             "                                    \"tool_use_id\": b.id,",
             "                                    \"content\": r[\"result\"]})",
             "            messages.append({\"role\": \"user\", \"content\": results})",
-            "        return \"최대 반복 초과\"",
-            "",
-            "    return run",
-            "",
-            "agent = build_agent(TOOL_SCHEMAS, TOOL_FUNCS)",
-            "print(agent(\"서울 날씨와 2의 10제곱을 알려줘\"))"
+          "        return \"최대 반복 횟수 초과\""
           ],
           "output": [
-            "서울은 현재 맑고 22°C입니다. 그리고 2의 10제곱은 1024입니다."
+            "서울은 현재 맑음 22°C 입니다.",
+            "15 * 37 = 555"
           ]
         },
-        "tip": "build_agent()처럼 팩토리 함수로 에이전트를 만들면 tool_schemas와 tool_funcs만 바꿔도 전혀 다른 에이전트를 손쉽게 생성할 수 있습니다."
-      },
-      {
-        "order": 7,
-        "text": "AI 에이전트 조립 체크리스트 — Unit 6 전체 정리\n① 도구 함수 — 명확한 반환값, 단일 책임 원칙\n② JSON 스키마 — description 구체적으로, required 필드 정확히\n③ 도구 레지스트리 — 이름 → 함수 딕셔너리 매핑\n④ 안전한 실행기 — try/except + 입력 검증 + 재시도\n⑤ 에이전트 루프 — max_iterations + stop_reason 분기\n이 다섯 가지가 갖춰지면 어떤 도구도 에이전트에 안전하게 붙일 수 있습니다.",
-        "tip": "Unit 7에서는 이 에이전트를 FastAPI로 서빙하고 React 프론트엔드와 연결합니다."
+        "tip": "build_agent()는 클로저 패턴으로 Claude API 호출 루프를 캡슐화합니다.\n호출 측은 agent(query) 한 줄만 사용하면 되므로 에이전트 재사용이 쉬워집니다."
       }
     ]
   }
