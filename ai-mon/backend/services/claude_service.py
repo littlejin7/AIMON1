@@ -1,5 +1,6 @@
 import anthropic
 import os
+import json
 
 _client = None
 
@@ -33,7 +34,7 @@ async def ask_claude(prompt: str, level: str = "beginner") -> dict:
         client = get_client()
         message = await client.messages.create(
             model="claude-3-5-haiku-latest",
-            max_tokens=512,
+            max_tokens=1024,
             system=system_prompt,
             messages=[{"role": "user", "content": prompt}],
         )
@@ -47,7 +48,68 @@ async def ask_claude(prompt: str, level: str = "beginner") -> dict:
             "feedback": f"AI 피드백을 불러오지 못했습니다: {str(e)}",
         }
 
-import json
+def extract_json(text: str) -> str:
+    text_clean = text.strip()
+    
+    # 1. Try to extract from ```json ... ```
+    if "```json" in text_clean:
+        try:
+            parts = text_clean.split("```json")
+            for part in parts[1:]:
+                candidate = part.split("```")[0].strip()
+                if "{" in candidate and "}" in candidate:
+                    sub_candidate = candidate[candidate.find("{"):candidate.rfind("}")+1]
+                    json.loads(sub_candidate)
+                    return sub_candidate
+        except Exception:
+            pass
+
+    # 2. Try to extract from ``` ... ```
+    if "```" in text_clean:
+        try:
+            parts = text_clean.split("```")
+            for i in range(1, len(parts), 2):
+                candidate = parts[i].strip()
+                if "{" in candidate and "}" in candidate:
+                    sub_candidate = candidate[candidate.find("{"):candidate.rfind("}")+1]
+                    json.loads(sub_candidate)
+                    return sub_candidate
+        except Exception:
+            pass
+
+    # 3. Try to extract using the outermost braces
+    first_brace = text_clean.find("{")
+    last_brace = text_clean.rfind("}")
+    if first_brace != -1 and last_brace != -1 and last_brace > first_brace:
+        candidate = text_clean[first_brace:last_brace + 1]
+        try:
+            json.loads(candidate)
+            return candidate
+        except Exception:
+            pass
+
+    # 4. Scanning fallback for nested braces/junk text
+    try:
+        idx = 0
+        while True:
+            first_brace = text_clean.find("{", idx)
+            if first_brace == -1:
+                break
+            last_brace = text_clean.rfind("}")
+            while last_brace != -1 and last_brace > first_brace:
+                candidate = text_clean[first_brace:last_brace + 1]
+                try:
+                    json.loads(candidate)
+                    return candidate
+                except Exception:
+                    pass
+                last_brace = text_clean.rfind("}", first_brace, last_brace)
+            idx = first_brace + 1
+    except Exception:
+        pass
+
+    return text_clean
+
 
 async def ask_claude_json(prompt: str) -> dict:
     """
@@ -57,17 +119,12 @@ async def ask_claude_json(prompt: str) -> dict:
         client = get_client()
         message = await client.messages.create(
             model="claude-3-5-haiku-latest",
-            max_tokens=512,
+            max_tokens=2048,
             messages=[{"role": "user", "content": prompt}],
         )
         text = message.content[0].text.strip()
-        
-        if "```json" in text:
-            text = text.split("```json")[1].split("```")[0].strip()
-        elif "```" in text:
-            text = text.split("```")[1].split("```")[0].strip()
-
-        return json.loads(text)
+        parsed_json_str = extract_json(text)
+        return json.loads(parsed_json_str)
     except json.JSONDecodeError:
         return {
             "is_correct": False,
@@ -82,3 +139,4 @@ async def ask_claude_json(prompt: str) -> dict:
             "feedback": f"AI 서비스 오류: {str(e)}",
             "hint": "",
         }
+
