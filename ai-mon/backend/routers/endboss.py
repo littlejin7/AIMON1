@@ -186,7 +186,8 @@ def endboss_start(req: StartRequest, authorization: str = Header(...)):
     """
     배틀 시작.
     - 왕관 3개 차감
-    - 선택한 프로젝트의 Phase 1 문제 5개 순서대로 반환
+    - 선택한 프로젝트의 Phase 1 문제 5개 + Phase 2 문제 4개 순서대로 반환
+    - Phase 3 첫 문제도 함께 반환 (phase3_first_question)
     """
     user_id = verify_token(authorization)
     users   = load_users()
@@ -206,29 +207,37 @@ def endboss_start(req: StartRequest, authorization: str = Header(...)):
         raise HTTPException(status_code=404, detail="엔드보스 문제 데이터가 없습니다.")
 
     phase1_pool = get_phase_questions(all_qs, phase=1, project=req.project)
+    phase2_pool = get_phase_questions(all_qs, phase=2, project=req.project)
+    phase3_pool = get_phase_questions(all_qs, phase=3, project=req.project)
+
     if not phase1_pool:
         raise HTTPException(status_code=404, detail=f"프로젝트 '{req.project}'의 Phase 1 문제가 없습니다.")
 
-    # 왕관 차감 + seen 리셋 (매 배틀마다 새로 시작)
+    # 왕관 차감
     user["crowns"] = user.get("crowns", 0) - RETRY_CROWN_COST
-    user["endboss_seen_questions"] = []
+
+    # Phase 1, 2 문제 확정
+    p1_questions = phase1_pool[:5]
+    p2_questions = phase2_pool[:4]
+
+    # Phase 3 첫 문제 확정 + seen 기록
+    p3_first = phase3_pool[0] if phase3_pool else None
+    seen_ids  = [q["question_id"] for q in p1_questions + p2_questions]
+    if p3_first:
+        seen_ids.append(p3_first["question_id"])
+
+    user["endboss_seen_questions"] = seen_ids
     save_users(users)
 
-    # Phase 1 문제 5개 순서대로 반환 (seen 초기화 후라 전부 unseen)
-    questions = phase1_pool[:5]
-    seen = [q["question_id"] for q in questions]
-    users2 = load_users()
-    user2  = next((u for u in users2 if u["id"] == user_id), None)
-    user2["endboss_seen_questions"] = seen
-    save_users(users2)
-
     return {
-        "phase":      1,
-        "project":    req.project,
-        "questions":  questions,
-        "my_hp":      MY_HP_INIT,
-        "boss_hp":    BOSS_HP_INIT,
-        "crowns_left": user["crowns"],
+        "phase":               1,
+        "project":             req.project,
+        "phase1_questions":    p1_questions,
+        "phase2_questions":    p2_questions,
+        "phase3_first_question": p3_first,
+        "my_hp":               MY_HP_INIT,
+        "boss_hp":             BOSS_HP_INIT,
+        "crowns_left":         user["crowns"],
     }
 
 
@@ -281,7 +290,7 @@ JSON 외 텍스트는 출력하지 마세요.
         is_correct = result.get("is_correct", False)
     else:
         is_correct = direct_grade(req.user_answer, question.get("answer", ""), q_type)
-        fb_key  = "correct" if is_correct else "wrong"
+        fb_key  = "correct" if is_correct else "incorrect"
         fb_text = question.get("feedback", {}).get(fb_key, "")
         result  = {
             "is_correct": is_correct,

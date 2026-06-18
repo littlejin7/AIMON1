@@ -35,6 +35,13 @@ export const bossApi = {
   submitAnswer:  (data) => api.post('/boss/answer', data),
 }
 
+export const endbossApi = {
+  getInfo:       ()         => api.get('/boss/endboss/info'),
+  startBattle:   (project)  => api.post('/boss/endboss/start', { project }),
+  submitAnswer:  (data)     => api.post('/boss/endboss/answer', data),
+  clearBoss:     (project)  => api.post('/boss/endboss/clear', { project }),
+}
+
 export const codeApi = {
   runCode: (data) => api.post('/code/run', data),
 }

@@ -28,9 +28,11 @@ export default function Boss() {
   const [aiResult,        setAiResult]        = useState(null)
   const [errorMsg,        setErrorMsg]        = useState('')
 
-  // HP & 전투 상태
-  const [myHp,       setMyHp]       = useState(1000)
-  const [bossHp,     setBossHp]     = useState(1000)
+  // HP & 전투 상태 (엔드보스: 1200/1800, 유닛보스: 1000/1000)
+  const BOSS_HP_INIT = isFinalBoss ? 1800 : 1000
+  const MY_HP_INIT   = isFinalBoss ? 1200 : 1000
+  const [myHp,       setMyHp]       = useState(MY_HP_INIT)
+  const [bossHp,     setBossHp]     = useState(BOSS_HP_INIT)
   const [wrongCount, setWrongCount] = useState(0)
 
   // 애니메이션 상태
@@ -89,8 +91,8 @@ export default function Boss() {
 
   // ── 전투 시작 ──
   const handleStart = async () => {
-    setMyHp(1000)
-    setBossHp(1000)
+    setMyHp(MY_HP_INIT)
+    setBossHp(BOSS_HP_INIT)
     setWrongCount(0)
     setAiResult(null)
     setSelectedOption(null)
