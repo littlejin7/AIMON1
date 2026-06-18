@@ -30,6 +30,9 @@ export default function BossBattle({
 }) {
   const quizCardRef = useRef(null)
 
+  const BOSS_HP_MAX = isFinalBoss ? 1800 : 1000
+  const MY_HP_MAX   = isFinalBoss ? 1200 : 1000
+
   const characterIcon =
     user?.character === 'robot'        ? charRobotIcon  :
     user?.character === 'speech_bubble'? charBubbleIcon :
@@ -45,10 +48,10 @@ export default function BossBattle({
       <div className="boss-hp-bar">
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '0.85rem' }}>
           <span style={{ fontWeight: 'bold', color: '#f38ba8' }}>😈 {bossData?.boss_name}</span>
-          <span>{bossHp} / 1000 HP</span>
+          <span>{bossHp} / {BOSS_HP_MAX} HP</span>
         </div>
         <div className="hp-bar" style={{ background: '#313244', height: '10px', borderRadius: '5px', overflow: 'hidden' }}>
-          <div className="hp-fill" style={{ width: `${(bossHp / 1000) * 100}%`, background: '#f38ba8', transition: 'width 0.3s ease', height: '100%' }} />
+          <div className="hp-fill" style={{ width: `${(bossHp / BOSS_HP_MAX) * 100}%`, background: '#f38ba8', transition: 'width 0.3s ease', height: '100%' }} />
         </div>
       </div>
 
@@ -176,10 +179,10 @@ export default function BossBattle({
         <div style={{ flex: 1 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '0.85rem' }}>
             <span style={{ fontWeight: 'bold', color: '#a6e3a1' }}>🟢 내 에이몬</span>
-            <span>{myHp} / 1000 HP (오답 {wrongCount}/3)</span>
+            <span>{myHp} / {MY_HP_MAX} HP{!isFinalBoss && ` (오답 ${wrongCount}/3)`}</span>
           </div>
           <div className="hp-bar" style={{ background: '#313244', height: '10px', borderRadius: '5px', overflow: 'hidden' }}>
-            <div className="hp-fill" style={{ width: `${(myHp / 1000) * 100}%`, background: '#a6e3a1', transition: 'width 0.3s ease', height: '100%' }} />
+            <div className="hp-fill" style={{ width: `${(myHp / MY_HP_MAX) * 100}%`, background: '#a6e3a1', transition: 'width 0.3s ease', height: '100%' }} />
           </div>
         </div>
       </div>

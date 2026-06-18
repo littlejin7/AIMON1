@@ -34,8 +34,13 @@ def load_questions_by_category(category: str, course_level: str = None, unit: in
             if fpath in tried_paths or not os.path.exists(fpath):
                 continue
             tried_paths.add(fpath)
+            import re as _re
             with open(fpath, "r", encoding="utf-8") as f:
-                data = json.load(f)
+                raw = f.read()
+            # JS 스타일 주석 제거 (beginner.json 등에 주석 포함 가능)
+            raw = _re.sub(r"/\*.*?\*/", "", raw, flags=_re.DOTALL)
+            raw = _re.sub(r"(?<!https?:)//[^\n]*", "", raw)
+            data = json.loads(raw)
             qs = data if isinstance(data, list) else data.get("questions", [])
             result.extend(qs)
             break  # endboss는 첫 번째 존재하는 레벨만 사용
