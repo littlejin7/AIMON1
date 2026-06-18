@@ -23,7 +23,7 @@ export default function LevelTestInfo() {
             에이몬 레벨 테스트는 <span style={{ color: 'var(--clr-primary-lt)' }}>회원만 이용 가능</span>합니다.
           </p>
           <p style={{ color: 'var(--clr-text-muted)', fontSize: '0.92rem', lineHeight: 1.8, marginBottom: '2rem', textAlign: 'center' }}>
-            회원가입 후 단 3문항의 간단한 진단 테스트를 거치면,<br />
+            회원가입 후 단 10문항의 간단한 진단 테스트를 거치면,<br />
             나의 수준에 딱 맞춘 <strong style={{ color: 'var(--clr-text)' }}>학습 커리큘럼</strong>과 귀여운 <strong style={{ color: 'var(--clr-text)' }}>첫 에이몬 캐릭터</strong>가 지급됩니다! 🎮
           </p>
 
@@ -33,7 +33,7 @@ export default function LevelTestInfo() {
               <span className="benefit-icon">📊</span>
               <div>
                 <h3 className="benefit-title">1분 만에 끝나는 파이썬 진단</h3>
-                <p className="benefit-desc">기초부터 입출력, f-string 등 내 핵심 개념 지식을 확인해요.</p>
+                <p className="benefit-desc">초급·중급·고급 문제를 골고루 풀며 내 Python 수준을 정확하게 측정해요.</p>
               </div>
             </div>
             <div className="benefit-item">

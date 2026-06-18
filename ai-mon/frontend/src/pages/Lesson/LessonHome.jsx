@@ -47,7 +47,7 @@ export default function LessonHome() {
       })
       .catch(() => {})
       .finally(() => setLoading(false))
-  }, [token])
+  }, [token, courseLevel])
 
   const handleLevelTestFinish = async (levelKey) => {
     try {

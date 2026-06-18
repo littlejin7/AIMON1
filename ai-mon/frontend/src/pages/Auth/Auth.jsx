@@ -73,7 +73,9 @@ export default function Auth() {
       const fn           = mode === 'login' ? authApi.login : authApi.register
       const isLevelTested = !!searchParams.get('level')
       const trimmedForm  = { ...form, username: form.username.trim() }
-      const payload      = mode === 'login' ? trimmedForm : { ...trimmedForm, is_level_tested: isLevelTested }
+      const payload      = mode === 'login'
+        ? { username: trimmedForm.username, password: trimmedForm.password }
+        : { ...trimmedForm, is_level_tested: isLevelTested }
       const res          = await fn(payload)
       setAuth(res.data.access_token, res.data.user)
       if (res.data.streak_reward) {
