@@ -277,6 +277,7 @@ async def get_ai_feedback(req: AiFeedbackRequest, authorization: str = Header(No
             user_id = payload.get("sub")
             users = load_users()
             for u in users:
+                if u.get("id") == user_id:
                     u["ai_feedback_count"] = u.get("ai_feedback_count", 0) + 1
                     earned = set(u.get("titles", []))
                     if u["ai_feedback_count"] >= 10 and "ai_explorer" not in earned:

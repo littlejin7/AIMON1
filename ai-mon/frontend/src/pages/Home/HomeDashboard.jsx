@@ -30,7 +30,7 @@ export default function HomeDashboard({ user, stats, onOpenLevelTest }) {
 
   const courseLevel   = user?.course_level || 'beginner'
   const levelBadge    = LEVEL_COLOR_MAP[courseLevel] || LEVEL_COLOR_MAP.beginner
-  const equippedTitle = TITLES[localStorage.getItem('equipped_title')]
+  const equippedTitle = TITLES[localStorage.getItem(`equipped_title_${user?.id || 'guest'}`)]
 
   return (
     <div className="home-page">

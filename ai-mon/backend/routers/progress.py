@@ -123,10 +123,9 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
     else:
         xp_gain = 2000   # 스테이지 퀴즈 클리어
 
-    # 유닛 완료 체크 → 왕관 지급
-    progress_data = load_progress()
+    # 유닛 완료 체크 → 왕관 지급 (방금 저장한 progress 변수를 그대로 사용 - 이중 I/O 방지)
     user_unit_stages = [
-        p for p in progress_data
+        p for p in progress
         if p.get("user_id") == user_id
         and p.get("unit") == req.unit
         and p.get("is_completed") == True
@@ -171,7 +170,7 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
                 awarded_units = u.get("awarded_crown_units", [])
                 val = f"{course_level}-{req.unit}"
                 if val not in awarded_units:
-                    crowns_awarded = req.unit
+                    crowns_awarded = 1  # 유닛 번호가 아닌 고정 1개 지급
                     u["crowns"] = u.get("crowns", 0) + crowns_awarded
                     awarded_units.append(val)
                     u["awarded_crown_units"] = awarded_units
