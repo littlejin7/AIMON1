@@ -574,7 +574,7 @@ useEffect(() => {
     handleRetry,
     handleRestart,
     handleBossIntroOk,
-    handleBgmgmVolume,
+    handleBgmVolume,
     handleRefresh,
   };
 }
