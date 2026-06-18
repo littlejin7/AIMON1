@@ -5,26 +5,29 @@ import LevelTestQuestion from './LevelTestQuestion'
 import LevelTestResult   from './LevelTestResult'
 
 export default function LevelTestModal({ onClose, onFinish, isLoggedIn }) {
-  const [step,       setStep]       = useState(0)
-  const [wrongCount, setWrongCount] = useState(0)
-  const [selected,   setSelected]   = useState(null)
-  const [answered,   setAnswered]   = useState(false)
-  const [levelKey,   setLevelKey]   = useState(null)
+  const [step,           setStep]           = useState(0)
+  const [correctByLevel, setCorrectByLevel] = useState({ beginner: 0, intermediate: 0, advanced: 0 })
+  const [selected,       setSelected]       = useState(null)
+  const [answered,       setAnswered]       = useState(false)
+  const [levelKey,       setLevelKey]       = useState(null)
 
   const handleSelect = (idx) => {
     if (answered) return
     const q = LEVEL_TEST_QUESTIONS[step - 1]
     setSelected(idx)
     setAnswered(true)
-    const newWrongCount = wrongCount + (idx !== q.answer ? 1 : 0)
+    const isCorrect = idx === q.answer
+    const newCorrectByLevel = isCorrect
+      ? { ...correctByLevel, [q.level]: correctByLevel[q.level] + 1 }
+      : correctByLevel
     setTimeout(() => {
       const nextStep = step + 1
       if (nextStep > LEVEL_TEST_QUESTIONS.length) {
-        setLevelKey(calcLevelResult(newWrongCount))
-        setWrongCount(newWrongCount)
+        setLevelKey(calcLevelResult(newCorrectByLevel))
+        setCorrectByLevel(newCorrectByLevel)
         setStep(LEVEL_TEST_QUESTIONS.length + 1)
       } else {
-        setWrongCount(newWrongCount)
+        setCorrectByLevel(newCorrectByLevel)
         setStep(nextStep)
         setSelected(null)
         setAnswered(false)

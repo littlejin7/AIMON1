@@ -31,6 +31,7 @@ export default function Home() {
         setShowLevelTest(false)
       }
     } else {
+      setShowLevelTest(false)
       navigate(`/auth?level=${levelKey}&mode=register`)
     }
   }

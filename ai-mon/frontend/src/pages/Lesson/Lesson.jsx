@@ -24,7 +24,7 @@ export default function Lesson() {
       setLesson(l.data)
       setProgress(p.data.filter((x) => x.unit === Number(id)))
     }).finally(() => setLoading(false))
-  }, [id])
+  }, [id, courseLevel])
 
   if (loading) return <div className="lesson-loading"><div className="spinner" /></div>
   if (!lesson) return <div className="lesson-loading"><p>레슨을 찾을 수 없습니다.</p></div>
