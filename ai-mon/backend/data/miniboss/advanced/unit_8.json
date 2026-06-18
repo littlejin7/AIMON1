@@ -1,0 +1,1054 @@
+{
+  "questions": [
+    {
+      "question_id": "miniboss_adv_fib_8_1_001",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "advanced",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "아래 파이프라인 코드에서 빈칸을 채워 각 단계를 순서대로 실행하세요.\n출력 목표: LANGCHAIN NEWS\n\ndef fetch(state):\n    state['raw'] = 'langchain news'\n    return state\n\ndef process(state):\n    state['clean'] = state['raw'].upper()\n    return state\n\npipeline = [fetch, process]\nstate = {}\nfor step in pipeline:\n    state = _____(state)\n\nprint(state['clean'])",
+      "answer": "step",
+      "feedback": {
+        "correct": "정답! for step in pipeline에서 step은 현재 반복 중인 함수를 참조합니다. state = step(state)로 각 단계가 state를 받아 처리 후 다음 단계로 넘기는 파이프라인의 핵심 패턴이에요. pipeline(state)는 리스트라 호출 불가, fetch(state)는 항상 첫 단계만 실행하므로 오답입니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_1_002",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "advanced",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\ndef count_words(state):\n    state['count'] = len(state.get('text', '').split())\n    return state\n\ndef format_result(state):\n    state['output'] = '단어 수: ' + str(state['count']) + '개'\n    return state\n\npipeline = [count_words, format_result]\nstate = {'text': 'AI 에이전트 파이프라인'}\nfor step in pipeline:\n    state = step(state)\nprint(state['output'])",
+      "choices": [
+        "A. 단어 수: 3개",
+        "B. 단어 수: 2개",
+        "C. ['AI', '에이전트', '파이프라인']",
+        "D. 오류 발생"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! 'AI 에이전트 파이프라인'.split()은 공백 기준으로 ['AI', '에이전트', '파이프라인'] 3개로 분리됩니다. count_words 단계에서 count=3이 state에 저장되고, format_result 단계에서 '단어 수: 3개'로 포맷됩니다. 파이프라인 각 단계가 state를 순서대로 변환하는 흐름을 확인하세요. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_1_003",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "Pipeline 클래스에서 add_step이 메서드 체이닝을 지원하려면 빈칸을 채우세요.\n출력 목표: 합계: 6\n\nclass Pipeline:\n    def __init__(self):\n        self.steps = []\n\n    def add_step(self, func):\n        self.steps.append(func)\n        return _____\n\n    def run(self, state=None):\n        state = state or {}\n        for step in self.steps:\n            state = step(state)\n        return state\n\ndef collect(state):\n    state['items'] = [1, 2, 3]\n    return state\n\ndef total(state):\n    state['sum'] = sum(state['items'])\n    return state\n\ndef report(state):\n    print('합계: ' + str(state['sum']))\n    return state\n\nPipeline().add_step(collect).add_step(total).add_step(report).run()",
+      "answer": "self",
+      "feedback": {
+        "correct": "정답! add_step이 return self를 반환해야 Pipeline 인스턴스가 유지되어 .add_step(total).add_step(report) 형태의 메서드 체이닝이 가능합니다. return None이면 다음 .add_step() 호출 시 AttributeError가 발생하고, return func이면 함수 객체에 add_step 메서드가 없어 실패합니다. 이를 빌더(Builder) 패턴이라 해요. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_1_004",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\ndef classify(state):\n    state['label'] = '우수' if state['score'] >= 80 else '보통'\n    return state\n\ndef handle_excellent(state):\n    state['action'] = 'bonus'\n    print('보너스 지급')\n    return state\n\ndef handle_normal(state):\n    state['action'] = 'review'\n    print('복습 추천')\n    return state\n\nstate = {'score': 75}\nstate = classify(state)\nif state['label'] == '우수':\n    state = handle_excellent(state)\nelse:\n    state = handle_normal(state)\nprint(state['action'])",
+      "choices": [
+        "A. 복습 추천\nreview",
+        "B. 보너스 지급\nbonus",
+        "C. 복습 추천\nbonus",
+        "D. 보너스 지급\nreview"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! score=75는 80 미만이므로 classify에서 label='보통'이 저장됩니다. state['label'] == '우수'가 False이므로 else 분기의 handle_normal이 실행되어 '복습 추천'을 출력하고 action='review'를 저장합니다. C와 D는 두 분기가 동시에 실행돼야 가능해 실제 코드 흐름상 불가능합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_1_005",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "safe_step 래퍼는 예외를 잡아 state에 오류 메시지 텍스트만(타입 정보 제외) 저장합니다.\n빈칸을 채워 코드를 완성하세요.\n\ndef safe_step(step, state):\n    try:\n        return step(state)\n    except Exception as e:\n        state['error'] = _____(e)  # 예: '파싱 실패'\n        print('[오류] ' + step.__name__ + ': ' + str(e))\n        return state",
+      "answer": "str",
+      "feedback": {
+        "correct": "정답! str(e)는 예외 객체를 메시지 텍스트만 포함한 문자열로 변환합니다. 예를 들어 ValueError('파싱 실패')에 str()을 적용하면 '파싱 실패'가 됩니다. repr(e)는 \"ValueError('파싱 실패')\"처럼 타입 정보까지 포함하므로 메시지만 저장하려면 str(e)가 적합합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_1_006",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\ndef make_pipeline(*steps):\n    def run(state):\n        for step in steps:\n            state = step(state)\n        return state\n    return run\n\ndef step_a(state):\n    state['count'] = len(state.get('items', []))\n    return state\n\ndef step_b(state):\n    state['label'] = '많음' if state['count'] >= 3 else '적음'\n    return state\n\ndata_pipeline = make_pipeline(step_a, step_b)\nresult = data_pipeline({'items': ['AI', 'ML', 'DL', 'LLM']})\nprint(result['label'])",
+      "choices": [
+        "A. 많음",
+        "B. 적음",
+        "C. 4",
+        "D. 오류 발생"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! step_a에서 ['AI', 'ML', 'DL', 'LLM']의 len()인 4가 count에 저장됩니다. step_b에서 4 >= 3이 True이므로 label='많음'이 됩니다. make_pipeline은 steps를 클로저로 캡처해 run 함수를 반환하고, data_pipeline({...}) 호출 시 두 단계가 순서대로 실행됩니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_1_007",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "safe_step에서 오류 메시지 출력 시 실패한 단계 함수의 이름을 가져오려면 빈칸을 채우세요.\n출력 목표:\n[오류] broken: 데이터 없음\n데이터 없음\n\ndef safe_step(step, state):\n    try:\n        return step(state)\n    except Exception as e:\n        state['error'] = str(e)\n        print('[오류] ' + step._____ + ': ' + str(e))\n        return state\n\ndef broken(state):\n    raise ValueError('데이터 없음')\n\nresult = safe_step(broken, {})\nprint(result['error'])",
+      "answer": "__name__",
+      "feedback": {
+        "correct": "정답! 모든 파이썬 함수는 __name__ 속성에 함수 이름 문자열을 가지고 있습니다. step.__name__은 실패한 단계의 이름을 반환해 '[오류] broken: ...' 형태의 명확한 오류 메시지를 만들 수 있어요. __doc__은 독스트링, __class__는 타입 정보를 반환하므로 함수 이름을 얻으려면 __name__이 적합합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_1_008",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\ndef safe_step(step, state):\n    try:\n        return step(state)\n    except Exception as e:\n        state['error'] = str(e)\n        print('[오류] ' + step.__name__ + ': ' + str(e))\n        return state\n\ndef fetch(state):\n    state['data'] = 'AI 뉴스'\n    return state\n\ndef process(state):\n    raise ValueError('파싱 실패')\n\ndef save(state):\n    print('저장: ' + state.get('data', '없음'))\n    return state\n\npipeline = [fetch, process, save]\nstate = {}\nfor step in pipeline:\n    state = safe_step(step, state)\nprint('오류 있음' if 'error' in state else '정상')",
+      "choices": [
+        "A. [오류] process: 파싱 실패\n저장: AI 뉴스\n오류 있음",
+        "B. [오류] process: 파싱 실패\n저장: 없음\n오류 있음",
+        "C. [오류] process: 파싱 실패\n오류 있음",
+        "D. 저장: AI 뉴스\n오류 있음"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! safe_step의 핵심은 오류 격리입니다. fetch가 먼저 state['data']='AI 뉴스'를 저장한 뒤, process에서 ValueError가 발생해도 state는 그대로 유지됩니다. safe_step이 오류를 잡고 state를 반환하므로 save 단계는 정상 실행되어 'AI 뉴스'를 출력합니다. B처럼 '없음'이 되려면 fetch도 실패해야 하므로 오답입니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_1_009",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "make_pipeline 함수는 여러 단계를 묶어 하나의 실행 함수로 반환합니다.\n빈칸을 채워 코드를 완성하세요.\n출력 목표: [AI] LANGCHAIN\n\ndef make_pipeline(*steps):\n    def run(state):\n        for step in steps:\n            state = step(state)\n        return state\n    return _____\n\ndef add_prefix(state):\n    state['text'] = '[AI] ' + state.get('text', '')\n    return state\n\ndef uppercase(state):\n    state['text'] = state['text'].upper()\n    return state\n\ntext_pipeline = make_pipeline(add_prefix, uppercase)\nresult = text_pipeline({'text': 'langchain'})\nprint(result['text'])",
+      "answer": "run",
+      "feedback": {
+        "correct": "정답! return run은 내부 함수 run을 값으로 반환합니다. return run()은 run을 즉시 호출해버려 인자가 없어 오류가 발생하고, return steps는 튜플을 반환해 호출 불가합니다. make_pipeline은 고차 함수 패턴으로, run이 steps를 클로저로 기억한 채 반환됩니다. text_pipeline = run이 되어 text_pipeline({'text': 'langchain'}) 호출이 가능해요. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_ci_8_1_010",
+      "unit": 8,
+      "stage": "8-1",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "code_input",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "아래 조건에 맞게 파이프라인 코드를 작성하세요.\n조건:\n- make_pipeline(*steps): steps를 순서대로 실행하는 run 함수를 반환\n- step_add(state): state['val']에 5를 더해 반환\n- step_double(state): state['val']을 2배로 만들어 반환\n- make_pipeline(step_add, step_double)로 파이프라인 생성\n- {'val': 3}으로 실행하여 result['val'] 출력\n\n출력 목표:\n16",
+      "answer": "def make_pipeline(*steps):\n    def run(state):\n        for step in steps:\n            state = step(state)\n        return state\n    return run\n\ndef step_add(state):\n    state['val'] = state['val'] + 5\n    return state\n\ndef step_double(state):\n    state['val'] = state['val'] * 2\n    return state\n\npipeline = make_pipeline(step_add, step_double)\nresult = pipeline({'val': 3})\nprint(result['val'])",
+      "pyodide_eval": true,
+      "feedback": {
+        "correct": "정답! make_pipeline은 팩토리 함수 → def run(state) → for step in steps 3단계 구조입니다. val=3에 step_add(+5)를 적용하면 8, step_double(×2)를 적용하면 16이 됩니다. return run(함수 객체 반환)과 return run()(즉시 호출)의 차이에 주의하세요. 각 step 함수는 state를 받아 수정 후 반환하는 파이프라인 단계 패턴을 따릅니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_2_001",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "advanced",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "아래 코드에서 빈칸을 채워 get_length를 LangChain 도구로 등록하세요.\n출력 목표: get_length\n\nfrom langchain_core.tools import tool\n\n_____\ndef get_length(text: str) -> str:\n    '''텍스트의 글자 수를 반환합니다.'''\n    return str(len(text)) + '자'\n\nprint(get_length.name)",
+      "answer": "@tool",
+      "feedback": {
+        "correct": "정답! @tool 데코레이터를 함수 위에 붙이면 LangChain이 함수를 도구로 등록합니다. 함수 이름이 tool.name이 되고, 독스트링(''' ''')이 tool.description이 됩니다. @tool 없이 함수를 정의하면 get_length.name 접근 시 AttributeError가 발생합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_2_002",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "advanced",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nfrom langchain_core.tools import tool\n\n@tool\ndef calculate(expression: str) -> str:\n    '''수식을 계산합니다. 예: 3 + 5 * 2'''\n    return str(eval(expression))\n\nprint(calculate.name)\nprint(calculate.description)",
+      "choices": [
+        "A. calculate\n수식을 계산합니다. 예: 3 + 5 * 2",
+        "B. calculate\ndef calculate(expression: str) -> str",
+        "C. calculate\nNone",
+        "D. expression\n수식을 계산합니다."
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! @tool 데코레이터는 함수 이름을 tool.name에, 독스트링 첫 줄을 tool.description에 자동 저장합니다. calculate.name은 함수명 'calculate', calculate.description은 독스트링 '수식을 계산합니다. 예: 3 + 5 * 2'입니다. B처럼 함수 시그니처가 아니라 독스트링이 description이 되는 점에 주의하세요. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_2_003",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "LangChain 도구를 직접 호출할 때 빈칸을 채우세요.\n출력 목표: 인사: 에이몬\n\nfrom langchain_core.tools import tool\n\n@tool\ndef greet(name: str) -> str:\n    '''인사를 반환합니다.'''\n    return '인사: ' + name\n\nresult = greet._____({'name': '에이몬'})\nprint(result)",
+      "answer": "invoke",
+      "feedback": {
+        "correct": "정답! LangChain 도구는 tool.invoke({'인자명': 값}) 형태로 호출합니다. greet('에이몬')처럼 직접 호출하면 LangChain 내부 처리가 생략되어 오류가 발생합니다. invoke는 입력 검증, 오류 처리, 로깅 등 LangChain 파이프라인의 표준 실행 경로를 거칩니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_2_004",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\ndef simulate_agent(user_input, tools_dict):\n    print('[입력] ' + user_input)\n    for tool_name, tool_func in tools_dict.items():\n        if tool_name in user_input:\n            print('[선택] 도구: ' + tool_name)\n            result = tool_func(user_input)\n            print('[결과] ' + result)\n            print('[출력] ' + result + '를 바탕으로 답변 완료')\n            return\n    print('[출력] 도구 없이 직접 답변')\n\ntools_dict = {\n    'search': lambda q: 'LangChain은 LLM 프레임워크입니다',\n    'calculate': lambda q: '42',\n}\nsimulate_agent('search: LangChain이란?', tools_dict)",
+      "choices": [
+        "A. [입력] search: LangChain이란?\n[선택] 도구: search\n[결과] LangChain은 LLM 프레임워크입니다\n[출력] LangChain은 LLM 프레임워크입니다를 바탕으로 답변 완료",
+        "B. [입력] search: LangChain이란?\n[선택] 도구: calculate\n[결과] 42\n[출력] 42를 바탕으로 답변 완료",
+        "C. [입력] search: LangChain이란?\n[출력] 도구 없이 직접 답변",
+        "D. [입력] search: LangChain이란?\n[선택] 도구: search\n[결과] LangChain은 LLM 프레임워크입니다"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! tools_dict를 순회할 때 'search'가 user_input에 포함되므로 search 도구가 선택됩니다. tool_func(user_input)이 'LangChain은 LLM 프레임워크입니다'를 반환하고, [결과]와 [출력] 두 줄이 모두 출력된 후 return으로 함수가 종료됩니다. D처럼 [출력] 줄이 없으면 return 전에 print가 누락된 것입니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_2_005",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "도구 함수에서 문자열을 정수로 변환할 때 발생하는 예외를 처리하려면 빈칸을 채우세요.\n출력 목표: -1\n\ndef safe_convert(value):\n    try:\n        return int(value)\n    except _____:\n        return -1\n\nprint(safe_convert('abc'))",
+      "answer": "ValueError",
+      "feedback": {
+        "correct": "정답! int('abc')처럼 숫자로 변환할 수 없는 문자열을 전달하면 ValueError가 발생합니다. ZeroDivisionError는 나눗셈 시 0으로 나눌 때, TypeError는 타입이 아예 잘못된 경우입니다. LangChain @tool 함수에서도 외부 입력을 int()로 변환할 때 ValueError를 except로 잡아 안전한 오류 메시지를 반환하는 패턴이 표준입니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_2_006",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nclass Tool:\n    def __init__(self, name, desc):\n        self.name = name\n        self.description = desc\n\ntools = [\n    Tool('search', '정보를 검색합니다.'),\n    Tool('save', '데이터를 저장합니다.')\n]\nprint('등록된 도구 수: ' + str(len(tools)))\nfor t in tools:\n    print(t.name + ': ' + t.description)",
+      "choices": [
+        "A. 등록된 도구 수: 2\nsearch: 정보를 검색합니다.\nsave: 데이터를 저장합니다.",
+        "B. 등록된 도구 수: 2\n정보를 검색합니다.\n데이터를 저장합니다.",
+        "C. 등록된 도구 수: 2\nsearch\nsave",
+        "D. 등록된 도구 수: 1\nsearch: 정보를 검색합니다."
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! len(tools)는 2이고, for 루프에서 t.name + ': ' + t.description 형태로 각 도구의 이름과 설명을 콜론으로 연결해 출력합니다. B는 t.description만, C는 t.name만 출력하는 오답입니다. LangChain에서 AgentExecutor에 tools 리스트를 넘기면 에이전트는 이 정보를 바탕으로 어떤 도구를 사용할지 결정합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_2_007",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "AgentExecutor가 에이전트의 중간 추론 과정(도구 호출 기록)을 프롬프트에 삽입하려면 빈칸을 채우세요.\n\nfrom langchain_core.prompts import ChatPromptTemplate\n\nprompt = ChatPromptTemplate.from_messages([\n    ('system', '당신은 AI 에이전트입니다.'),\n    ('human', '{input}'),\n    ('placeholder', '{_____}'),\n])",
+      "answer": "agent_scratchpad",
+      "feedback": {
+        "correct": "정답! {agent_scratchpad}는 AgentExecutor가 에이전트의 추론 단계(Tool 호출 요청 → Tool 결과 수신)를 순서대로 프롬프트에 주입하는 예약 플레이스홀더입니다. 이 자리가 없으면 에이전트는 이전 단계 결과를 기억하지 못해 루프가 올바로 동작하지 않습니다. {input}은 사용자 질문, {agent_scratchpad}는 에이전트 내부 메모장 역할입니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_2_008",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nfrom langchain_core.tools import tool\n\n@tool\ndef divide(a: str, b: str) -> str:\n    '''두 수를 나눕니다. a / b'''\n    try:\n        return '결과: ' + str(int(a) / int(b))\n    except ZeroDivisionError:\n        return '오류: 0으로 나눌 수 없습니다'\n    except ValueError:\n        return '오류: 숫자를 입력하세요'\n\nprint(divide.invoke({'a': '10', 'b': '2'}))\nprint(divide.invoke({'a': '10', 'b': '0'}))\nprint(divide.invoke({'a': '10', 'b': 'abc'}))",
+      "choices": [
+        "A. 결과: 5.0\n오류: 0으로 나눌 수 없습니다\n오류: 숫자를 입력하세요",
+        "B. 결과: 5\n오류: 0으로 나눌 수 없습니다\n오류: 숫자를 입력하세요",
+        "C. 결과: 5.0\n결과: 0.0\n오류: 숫자를 입력하세요",
+        "D. 결과: 5.0\n오류: 0으로 나눌 수 없습니다\n결과: 0.0"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! int(10) / int(2)는 파이썬에서 float 나눗셈으로 5.0이 됩니다. int 나눗셈(5)을 원하면 //를 사용해야 합니다. int('0')은 0이 되어 ZeroDivisionError를 발생시키고, int('abc')는 ValueError를 발생시킵니다. except 순서가 ZeroDivisionError → ValueError로 올바르게 매핑됩니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_2_009",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "AgentExecutor에 사용할 도구 목록을 전달하려면 빈칸을 채우세요.\n\nfrom langchain.agents import AgentExecutor\n\nagent_executor = AgentExecutor(\n    agent=agent,\n    _____=tools,\n    verbose=False\n)",
+      "answer": "tools",
+      "feedback": {
+        "correct": "정답! AgentExecutor(agent=agent, tools=tools)는 에이전트와 도구를 결합한 실행기를 생성합니다. agent는 어떤 도구를 언제 호출할지 결정하는 LLM 기반 로직이고, tools는 실제로 실행할 수 있는 함수 목록입니다. tool_list, functions 등은 AgentExecutor의 실제 파라미터명이 아니므로 오답입니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_ci_8_2_010",
+      "unit": 8,
+      "stage": "8-2",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "code_input",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "아래 조건에 맞게 simulate_agent 코드를 작성하세요.\n조건:\n- simulate_agent(user_input, tools_dict) 함수 정의\n- '[입력] ' + user_input 출력\n- tools_dict의 tool_name이 user_input에 포함되면 해당 도구 실행\n- '[선택] 도구: ' + tool_name 출력\n- '[결과] ' + result 출력\n- '[출력] ' + result + '를 바탕으로 답변 완료' 출력 후 return\n- 해당 도구 없으면 '[출력] 도구 없이 직접 답변' 출력\n- search 함수: 'AI 뉴스' 반환\n- simulate_agent('search: 오늘 뉴스', {'search': search}) 호출\n\n출력 목표:\n[입력] search: 오늘 뉴스\n[선택] 도구: search\n[결과] AI 뉴스\n[출력] AI 뉴스를 바탕으로 답변 완료",
+      "answer": "def simulate_agent(user_input, tools_dict):\n    print('[입력] ' + user_input)\n    for tool_name, tool_func in tools_dict.items():\n        if tool_name in user_input:\n            print('[선택] 도구: ' + tool_name)\n            result = tool_func(user_input)\n            print('[결과] ' + result)\n            print('[출력] ' + result + '를 바탕으로 답변 완료')\n            return\n    print('[출력] 도구 없이 직접 답변')\n\ndef search(query):\n    return 'AI 뉴스'\n\nsimulate_agent('search: 오늘 뉴스', {'search': search})",
+      "pyodide_eval": true,
+      "feedback": {
+        "correct": "정답! simulate_agent는 AgentExecutor의 핵심 동작을 모사합니다. tools_dict를 순회해 tool_name in user_input으로 도구를 선택하고, tool_func(user_input)으로 실행한 뒤 결과를 출력하고 return합니다. [출력] 줄은 에이전트가 최종 답변을 생성하는 단계를 표현합니다. 실제 AgentExecutor도 이 흐름(입력 → 도구 선택 → 도구 실행 → 최종 답변)으로 동작합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_3_001",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "advanced",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "Job 클래스의 __str__에서 함수 이름을 가져오려면 빈칸을 채우세요.\n출력 목표: 매 1일마다 morning_report 실행\n\nclass Job:\n    def __init__(self, interval, unit, func):\n        self.interval = interval\n        self.unit = unit\n        self.func = func\n\n    def __str__(self):\n        return '매 ' + str(self.interval) + self.unit + '마다 ' + self.func._____ + ' 실행'\n\ndef morning_report(): pass\n\njob = Job(1, '일', morning_report)\nprint(str(job))",
+      "answer": "__name__",
+      "feedback": {
+        "correct": "정답! 파이썬의 모든 함수는 __name__ 속성에 함수 이름 문자열을 저장합니다. morning_report.__name__은 'morning_report'를 반환합니다. __doc__은 독스트링, __class__는 타입 정보를 반환하므로 함수 이름을 동적으로 출력할 때는 __name__을 사용합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_3_002",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "advanced",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nclass Monitor:\n    def __init__(self, threshold):\n        self.threshold = threshold\n        self.alerts = []\n\n    def check(self, value, label):\n        if value > self.threshold:\n            msg = '[경고] ' + label + ': ' + str(value) + ' > ' + str(self.threshold)\n            self.alerts.append(msg)\n            print(msg)\n        else:\n            print('[정상] ' + label + ': ' + str(value))\n\n    def summary(self):\n        print('총 ' + str(len(self.alerts)) + '건 경고 발생')\n\nmonitor = Monitor(threshold=80)\nmonitor.check(65, 'CPU')\nmonitor.check(92, '메모리')\nmonitor.summary()",
+      "choices": [
+        "A. [정상] CPU: 65\n[경고] 메모리: 92 > 80\n총 1건 경고 발생",
+        "B. [경고] CPU: 65 > 80\n[경고] 메모리: 92 > 80\n총 2건 경고 발생",
+        "C. [정상] CPU: 65\n[경고] 메모리: 92 > 80\n총 2건 경고 발생",
+        "D. [정상] CPU: 65\n[정상] 메모리: 92\n총 0건 경고 발생"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! 65는 threshold 80 이하이므로 [정상], 92는 80 초과이므로 [경고]가 출력됩니다. alerts 리스트에는 경고 메시지만 추가되어 len이 1이므로 summary에서 '총 1건 경고 발생'이 출력됩니다. C처럼 2건이 되려면 CPU도 경고였어야 합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_3_003",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "Scheduler 클래스에서 메서드 체이닝으로 여러 작업을 등록하려면 빈칸을 채우세요.\n출력 목표: 총 2개 작업 등록\n\nclass Scheduler:\n    def __init__(self):\n        self.jobs = []\n\n    def add(self, interval, unit, func):\n        self.jobs.append((interval, unit, func))\n        return _____\n\n    def show(self):\n        print('총 ' + str(len(self.jobs)) + '개 작업 등록')\n\ndef check(): pass\n\nScheduler().add(1, '일', check).add(30, '분', check).show()",
+      "answer": "self",
+      "feedback": {
+        "correct": "정답! return self는 현재 Scheduler 인스턴스를 반환해 .add().add().show() 형태의 메서드 체이닝을 가능하게 합니다. return None이면 두 번째 .add() 호출 시 AttributeError가 발생합니다. 이 패턴을 빌더(Builder) 패턴이라 하며, Pipeline.add_step(self)과 동일한 원리입니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_3_004",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nclass EventBus:\n    def __init__(self):\n        self.handlers = {}\n\n    def on(self, event, handler):\n        self.handlers.setdefault(event, []).append(handler)\n\n    def emit(self, event, data=None):\n        print('[이벤트] ' + event + ' 발생')\n        for handler in self.handlers.get(event, []):\n            handler(data)\n\nbus = EventBus()\n\ndef on_new_data(data):\n    print('  → 데이터 수신: ' + str(data))\n\ndef on_new_data_log(data):\n    print('  → 로그 기록: ' + str(data))\n\nbus.on('new_data', on_new_data)\nbus.on('new_data', on_new_data_log)\nbus.emit('new_data', 'AI 뉴스 업데이트')",
+      "choices": [
+        "A. [이벤트] new_data 발생\n  → 데이터 수신: AI 뉴스 업데이트\n  → 로그 기록: AI 뉴스 업데이트",
+        "B. [이벤트] new_data 발생\n  → 데이터 수신: AI 뉴스 업데이트",
+        "C. [이벤트] new_data 발생\n  → 로그 기록: AI 뉴스 업데이트",
+        "D. [이벤트] new_data 발생"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! bus.on('new_data', ...)을 두 번 호출하면 setdefault로 같은 이벤트 키에 두 핸들러가 모두 등록됩니다. emit에서 handlers['new_data'] 리스트를 순서대로 순회하므로 on_new_data → on_new_data_log 순으로 둘 다 실행됩니다. B와 C처럼 하나만 실행되려면 on()을 한 번만 호출해야 합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_3_005",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "EventBus.on에서 이벤트 키가 없을 때 빈 리스트를 생성하고 핸들러를 등록하려면 빈칸을 채우세요.\n\nclass EventBus:\n    def __init__(self):\n        self.handlers = {}\n\n    def on(self, event, handler):\n        self.handlers.setdefault(event, [])._____（handler)",
+      "answer": "append",
+      "feedback": {
+        "correct": "정답! setdefault(event, [])는 키가 없으면 빈 리스트를 생성해 반환하고, 있으면 기존 리스트를 반환합니다. 이어서 .append(handler)로 핸들러를 추가합니다. extend는 리스트를 이어 붙이고, add는 리스트 메서드가 아니므로 오답입니다. 이 패턴으로 하나의 이벤트에 여러 핸들러를 등록할 수 있습니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_3_006",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nclass Workflow:\n    def __init__(self):\n        self.schedule = []\n        self.events = {}\n        self.log = []\n\n    def every(self, label, func):\n        self.schedule.append((label, func))\n        return self\n\n    def on(self, event, handler):\n        self.events.setdefault(event, []).append(handler)\n        return self\n\n    def trigger(self, event, data=None):\n        for handler in self.events.get(event, []):\n            handler(data)\n\n    def run_schedule(self):\n        for label, func in self.schedule:\n            result = func()\n            self.log.append(label + ': 실행')\n            if result:\n                self.trigger(result)\n\ndef collect_news():\n    print('[수집] AI 뉴스 3건 수집')\n    return 'news_ready'\n\ndef analyze(data):\n    print('[분석] 수집 완료 → 분석 시작')\n\ndef notify(data):\n    print('[알림] 분석 완료 알림 발송')\n\nwf = Workflow()\nwf.every('매일 수집', collect_news).on('news_ready', analyze).on('news_ready', notify)\nwf.run_schedule()\nprint('로그: ' + str(wf.log))",
+      "choices": [
+        "A. [수집] AI 뉴스 3건 수집\n[분석] 수집 완료 → 분석 시작\n[알림] 분석 완료 알림 발송\n로그: ['매일 수집: 실행']",
+        "B. [수집] AI 뉴스 3건 수집\n로그: ['매일 수집: 실행']",
+        "C. [수집] AI 뉴스 3건 수집\n[분석] 수집 완료 → 분석 시작\n로그: ['매일 수집: 실행']",
+        "D. [수집] AI 뉴스 3건 수집\n[분석] 수집 완료 → 분석 시작\n[알림] 분석 완료 알림 발송\n로그: []"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! run_schedule에서 collect_news()가 'news_ready'를 반환하므로 if result가 True가 되어 trigger('news_ready')가 호출됩니다. events['news_ready']에 analyze와 notify가 등록되어 있으므로 둘 다 실행됩니다. log.append는 trigger 이전에 실행되므로 로그는 ['매일 수집: 실행']이 됩니다. D처럼 로그가 빈 리스트가 되려면 append가 없어야 합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_3_007",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "retry 데코레이터에서 최대 시도 횟수를 모두 소진한 뒤에도 실패하면 빈칸을 채워 반환하세요.\n출력 목표:\n[시도 1/2] 실패: 연결 실패\n[시도 2/2] 실패: 연결 실패\n결과: None\n\ndef retry(max_attempts=3):\n    def decorator(func):\n        def wrapper(*args, **kwargs):\n            for attempt in range(1, max_attempts + 1):\n                try:\n                    return func(*args, **kwargs)\n                except Exception as e:\n                    print('[시도 ' + str(attempt) + '/' + str(max_attempts) + '] 실패: ' + str(e))\n            return _____\n        return wrapper\n    return decorator\n\n@retry(max_attempts=2)\ndef always_fail():\n    raise ValueError('연결 실패')\n\nresult = always_fail()\nprint('결과: ' + str(result))",
+      "answer": "None",
+      "feedback": {
+        "correct": "정답! retry 데코레이터는 for 루프가 끝날 때까지 성공하지 못하면 return None으로 실패를 조용히 알립니다. 예외를 다시 raise하면 호출부에서 별도로 처리해야 하지만, None을 반환하면 호출부가 결과를 확인해 후속 처리를 결정할 수 있습니다. 일시적 네트워크 오류에 대한 안전한 자동화 패턴입니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_3_008",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nimport time\n\ndef retry(max_attempts=3, delay=0):\n    def decorator(func):\n        def wrapper(*args, **kwargs):\n            for attempt in range(1, max_attempts + 1):\n                try:\n                    return func(*args, **kwargs)\n                except Exception as e:\n                    print('[시도 ' + str(attempt) + '/' + str(max_attempts) + '] 실패: ' + str(e))\n                    if attempt < max_attempts:\n                        time.sleep(delay)\n            return None\n        return wrapper\n    return decorator\n\ncall_count = 0\n\n@retry(max_attempts=3, delay=0)\ndef unstable_api():\n    global call_count\n    call_count += 1\n    if call_count < 3:\n        raise ConnectionError('API 타임아웃')\n    return 'API 응답 성공'\n\nresult = unstable_api()\nprint('결과: ' + str(result))",
+      "choices": [
+        "A. [시도 1/3] 실패: API 타임아웃\n[시도 2/3] 실패: API 타임아웃\n결과: API 응답 성공",
+        "B. [시도 1/3] 실패: API 타임아웃\n[시도 2/3] 실패: API 타임아웃\n[시도 3/3] 실패: API 타임아웃\n결과: None",
+        "C. [시도 1/3] 실패: API 타임아웃\n결과: API 응답 성공",
+        "D. 결과: API 응답 성공"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! call_count는 호출될 때마다 1씩 증가합니다. 1회차: call_count=1 < 3이므로 예외 발생 → [시도 1/3] 출력. 2회차: call_count=2 < 3 → [시도 2/3] 출력. 3회차: call_count=3이므로 조건 불만족 → 'API 응답 성공' 반환. 세 번째 시도에서 성공하므로 [시도 3/3]은 출력되지 않습니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_3_009",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "retry 데코레이터에서 시도 횟수를 1부터 최대 횟수까지 순회하려면 빈칸을 채우세요.\n\ndef retry(max_attempts=3):\n    def decorator(func):\n        def wrapper(*args, **kwargs):\n            for attempt in range(1, _____ + 1):\n                try:\n                    return func(*args, **kwargs)\n                except Exception as e:\n                    print('[시도 ' + str(attempt) + '/' + str(max_attempts) + '] 실패: ' + str(e))\n            return None\n        return wrapper\n    return decorator",
+      "answer": "max_attempts",
+      "feedback": {
+        "correct": "정답! range(1, max_attempts + 1)은 1부터 max_attempts까지의 정수를 생성합니다. range(1, max_attempts)는 max_attempts-1까지만 순회해 마지막 시도가 누락됩니다. range(max_attempts)는 0부터 시작해 시도 번호가 0, 1, 2...가 됩니다. +1이 필요한 이유는 range의 끝값이 제외되기 때문입니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_ci_8_3_010",
+      "unit": 8,
+      "stage": "8-3",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "code_input",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "아래 조건에 맞게 Monitor 클래스를 작성하세요.\n조건:\n- Monitor(threshold): 임계치 저장, alerts 빈 리스트 초기화\n- check(value, label): value > threshold면 '[경고] {label}: {value} > {threshold}' 출력 후 alerts에 추가, 아니면 '[정상] {label}: {value}' 출력\n- summary(): '총 {len(alerts)}건 경고 발생' 출력\n- Monitor(threshold=80)으로 생성, check 4회 호출 후 summary 실행\n\n출력 목표:\n[정상] CPU 사용률(%): 65\n[경고] 메모리 사용률(%): 92 > 80\n[정상] 디스크 사용률(%): 78\n[경고] API 응답시간(ms): 95 > 80\n총 2건 경고 발생",
+      "answer": "class Monitor:\n    def __init__(self, threshold):\n        self.threshold = threshold\n        self.alerts = []\n\n    def check(self, value, label):\n        if value > self.threshold:\n            msg = '[경고] ' + label + ': ' + str(value) + ' > ' + str(self.threshold)\n            self.alerts.append(msg)\n            print(msg)\n        else:\n            print('[정상] ' + label + ': ' + str(value))\n\n    def summary(self):\n        print('총 ' + str(len(self.alerts)) + '건 경고 발생')\n\nm = Monitor(threshold=80)\nm.check(65, 'CPU 사용률(%)')\nm.check(92, '메모리 사용률(%)')\nm.check(78, '디스크 사용률(%)')\nm.check(95, 'API 응답시간(ms)')\nm.summary()",
+      "pyodide_eval": true,
+      "feedback": {
+        "correct": "정답! Monitor는 조건 기반 자동화의 핵심 패턴입니다. check에서 value > threshold 비교로 경고 여부를 결정하고, msg를 alerts 리스트에 누적합니다. summary에서 len(self.alerts)로 총 경고 건수를 출력합니다. 80 초과인 92와 95만 경고이므로 총 2건이 됩니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_4_001",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "advanced",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "@tool 데코레이터로 등록된 도구의 함수명을 출력하려면 빈칸을 채우세요.\n출력 목표: call_api\n\nfrom langchain_core.tools import tool\n\n@tool\ndef call_api(url: str, method: str = 'GET') -> str:\n    '''HTTP API를 호출합니다. method는 GET 또는 POST.'''\n    return method + ' ' + url + ' → 상태: 200 OK'\n\nprint(call_api._____)",
+      "answer": "name",
+      "feedback": {
+        "correct": "정답! @tool 데코레이터는 함수 이름을 tool.name에 자동 저장합니다. call_api.name은 'call_api'를 반환합니다. tool.description은 독스트링을 반환하고, tool.invoke()는 도구를 실행합니다. name은 에이전트가 어떤 도구를 선택했는지 로깅할 때 활용됩니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_4_002",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "advanced",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nfrom langchain_core.tools import tool\n\n@tool\ndef lookup(query: str) -> str:\n    '''키워드로 정보를 조회합니다.'''\n    db = {'Python': 'AI 개발 언어', 'Java': '엔터프라이즈 언어'}\n    for key, value in db.items():\n        if key.lower() in query.lower():\n            return '[결과] ' + key + ': ' + value\n    return '[결과] 정보 없음'\n\nprint(lookup.invoke({'query': 'Python 배우기'}))\nprint(lookup.invoke({'query': '모르는 주제'}))",
+      "choices": [
+        "A. [결과] Python: AI 개발 언어\n[결과] 정보 없음",
+        "B. [결과] Python: AI 개발 언어\n[결과] Java: 엔터프라이즈 언어",
+        "C. [결과] python 배우기: AI 개발 언어\n[결과] 정보 없음",
+        "D. [결과] 정보 없음\n[결과] 정보 없음"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! key.lower() in query.lower()로 대소문자 무관 검색을 합니다. 'python 배우기'.lower()에 'python'이 포함되어 Python 항목이 반환됩니다. '모르는 주제'는 어떤 key와도 일치하지 않으므로 '[결과] 정보 없음'이 반환됩니다. B처럼 두 항목이 모두 반환되려면 두 키가 동시에 매칭되어야 합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_4_003",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "save_json 도구에서 잘못된 JSON 입력을 처리하려면 빈칸을 채우세요.\n출력 목표: 오류: 올바른 JSON 형식이 아닙니다\n\nimport json\nfrom langchain_core.tools import tool\n\n@tool\ndef save_json(filename: str, data: str) -> str:\n    '''데이터를 JSON 파일로 저장합니다.'''\n    try:\n        parsed = json.loads(data)\n        return filename + ' 저장 완료'\n    except json._____:\n        return '오류: 올바른 JSON 형식이 아닙니다'\n\nprint(save_json.invoke({'filename': 'test.json', 'data': 'not json'}))",
+      "answer": "JSONDecodeError",
+      "feedback": {
+        "correct": "정답! json.loads()가 올바르지 않은 JSON 문자열을 파싱할 때 json.JSONDecodeError가 발생합니다. ValueError는 JSONDecodeError의 부모 클래스라 잡을 수 있지만, 더 구체적인 json.JSONDecodeError를 사용하는 것이 의도를 명확히 합니다. 외부 에이전트가 잘못된 JSON을 보낼 경우 이 패턴으로 안전하게 처리할 수 있습니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_4_004",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nclass ToolRegistry:\n    def __init__(self):\n        self._tools = {}\n\n    def register(self, name):\n        def decorator(func):\n            self._tools[name] = func\n            return func\n        return decorator\n\n    def call(self, name, **kwargs):\n        if name not in self._tools:\n            return \"오류: '\" + name + \"' 도구 없음\"\n        return self._tools[name](**kwargs)\n\n    def list_tools(self):\n        return list(self._tools.keys())\n\nregistry = ToolRegistry()\n\n@registry.register('search')\ndef search(query):\n    return \"'\" + query + \"' 검색 결과: 관련 문서 3건\"\n\n@registry.register('summarize')\ndef summarize(text):\n    return '요약: ' + text[:10] + '...'\n\nprint('등록된 도구:', registry.list_tools())\nprint(registry.call('search', query='LangChain'))\nprint(registry.call('summarize', text='LangChain은 LLM 애플리케이션 프레임워크입니다'))",
+      "choices": [
+        "A. 등록된 도구: ['search', 'summarize']\n'LangChain' 검색 결과: 관련 문서 3건\n요약: LangChain은...",
+        "B. 등록된 도구: ['search', 'summarize']\n'LangChain' 검색 결과: 관련 문서 3건\n요약: LangChain은 LLM 애플리케이션...",
+        "C. 등록된 도구: ['search', 'summarize']\nLangChain 검색 결과: 관련 문서 3건\n요약: LangChain은...",
+        "D. 등록된 도구: []\n오류: 'search' 도구 없음\n오류: 'summarize' 도구 없음"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! @registry.register('search') 데코레이터가 search 함수를 _tools['search']에 등록합니다. list_tools()는 ['search', 'summarize']를 반환합니다. search('LangChain')은 따옴표를 포함한 문자열을 반환하고, text[:10]은 'LangChain은'(10자)이므로 '요약: LangChain은...'이 됩니다. B처럼 더 긴 텍스트가 되려면 슬라이스 범위를 늘려야 합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_4_005",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "ToolRegistry의 register 데코레이터가 원래 함수를 그대로 유지하려면 빈칸을 채우세요.\n출력 목표: 안녕, 에이몬\n\nclass ToolRegistry:\n    def __init__(self):\n        self._tools = {}\n\n    def register(self, name):\n        def decorator(func):\n            self._tools[name] = func\n            return _____\n        return decorator\n\n    def call(self, name, **kwargs):\n        return self._tools[name](**kwargs)\n\nregistry = ToolRegistry()\n\n@registry.register('greet')\ndef greet(name): return '안녕, ' + name\n\nprint(registry.call('greet', name='에이몬'))",
+      "answer": "func",
+      "feedback": {
+        "correct": "정답! 데코레이터의 decorator 함수는 func(원본 함수)를 _tools에 저장한 뒤 func를 그대로 반환합니다. return None이면 greet 변수가 None이 되어 직접 호출이 불가능해집니다. return name이면 문자열이 반환됩니다. func를 반환함으로써 데코레이터 적용 후에도 greet('에이몬')처럼 직접 호출할 수 있습니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_4_006",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nfrom langchain_core.tools import tool\n\n@tool\ndef safe_fetch(url: str) -> str:\n    '''URL에서 데이터를 가져옵니다. 미허가 도메인은 차단됩니다.'''\n    allowed = ['api.example.com', 'data.mysite.com']\n    domain = url.split('/')[2] if '//' in url else url\n    if any(a in domain for a in allowed):\n        return '[성공] ' + url + ': 데이터 200건 수신'\n    return '[차단] ' + url + ': 허가되지 않은 도메인'\n\nprint(safe_fetch.invoke({'url': 'https://api.example.com/news'}))\nprint(safe_fetch.invoke({'url': 'https://blocked.site.com/data'}))\nprint(safe_fetch.invoke({'url': 'https://data.mysite.com/feed'}))",
+      "choices": [
+        "A. [성공] https://api.example.com/news: 데이터 200건 수신\n[차단] https://blocked.site.com/data: 허가되지 않은 도메인\n[성공] https://data.mysite.com/feed: 데이터 200건 수신",
+        "B. [성공] https://api.example.com/news: 데이터 200건 수신\n[성공] https://blocked.site.com/data: 데이터 200건 수신\n[성공] https://data.mysite.com/feed: 데이터 200건 수신",
+        "C. [차단] https://api.example.com/news: 허가되지 않은 도메인\n[차단] https://blocked.site.com/data: 허가되지 않은 도메인\n[차단] https://data.mysite.com/feed: 허가되지 않은 도메인",
+        "D. [성공] https://api.example.com/news: 데이터 200건 수신\n[차단] https://blocked.site.com/data: 허가되지 않은 도메인\n[차단] https://data.mysite.com/feed: 허가되지 않은 도메인"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! domain 추출 후 any(a in domain for a in allowed)로 허용 도메인 포함 여부를 확인합니다. 'api.example.com'과 'data.mysite.com'은 allowed에 정확히 일치하므로 [성공], 'blocked.site.com'은 allowed에 없으므로 [차단]입니다. D처럼 data.mysite.com이 차단되려면 allowed 리스트에서 제거해야 합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_4_007",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "safe_fetch에서 URL에서 도메인 부분을 추출하려면 빈칸을 채우세요.\n출력 목표: api.example.com\n\nurl = 'https://api.example.com/news'\nparts = url.split('/')\nprint(parts)\n# ['https:', '', 'api.example.com', 'news']\n\ndomain = url.split('/')[_____]\nprint(domain)",
+      "answer": "2",
+      "feedback": {
+        "correct": "정답! 'https://api.example.com/news'.split('/')는 ['https:', '', 'api.example.com', 'news']를 반환합니다. 인덱스 0은 'https:', 1은 '' (빈 문자열), 2는 'api.example.com'입니다. URL이 '//'를 포함하는 경우 도메인은 항상 인덱스 2에 위치합니다. safe_fetch에서 '//' in url 조건으로 이 패턴이 적용 가능한지 먼저 확인합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_4_008",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nfrom langchain_core.tools import tool\n\n@tool\ndef search(query: str) -> str:\n    '''정보를 검색합니다.'''\n    db = {'LangChain': 'LLM 프레임워크', 'asyncio': '비동기 라이브러리'}\n    for k, v in db.items():\n        if k.lower() in query.lower():\n            return k + ': ' + v\n    return '결과 없음'\n\n@tool\ndef summarize(text: str) -> str:\n    '''텍스트를 한 줄로 요약합니다.'''\n    return '요약: ' + text[:15] + ('...' if len(text) > 15 else '')\n\ndef tool_chain(query: str):\n    print('[1단계] 검색: ' + query)\n    search_result = search.invoke({'query': query})\n    print('  → ' + search_result)\n    print('[2단계] 요약')\n    summary = summarize.invoke({'text': search_result})\n    print('  → ' + summary)\n    return summary\n\ntool_chain('LangChain이란?')",
+      "choices": [
+        "A. [1단계] 검색: LangChain이란?\n  → LangChain: LLM 프레임워크\n[2단계] 요약\n  → 요약: LangChain: LLM ...",
+        "B. [1단계] 검색: LangChain이란?\n  → LangChain: LLM 프레임워크\n[2단계] 요약\n  → 요약: LangChain: LLM 프레임워크",
+        "C. [1단계] 검색: LangChain이란?\n  → 결과 없음\n[2단계] 요약\n  → 요약: 결과 없음",
+        "D. [1단계] 검색: LangChain이란?\n  → LangChain: LLM 프레임워크"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! search 결과인 'LangChain: LLM 프레임워크'(20자)는 15자를 초과하므로 text[:15]='LangChain: LLM '에 '...'가 붙어 '요약: LangChain: LLM ...'이 됩니다. B처럼 전체 텍스트가 나오려면 슬라이스가 없어야 합니다. D처럼 요약 단계가 생략되려면 tool_chain 함수에서 summarize 호출이 없어야 합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_4_009",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "ToolRegistry에서 등록된 도구 이름 목록을 반환하려면 빈칸을 채우세요.\n출력 목표: ['search', 'save']\n\nclass ToolRegistry:\n    def __init__(self):\n        self._tools = {}\n\n    def register(self, name, func):\n        self._tools[name] = func\n\n    def list_tools(self):\n        return list(self._tools._____)\n\nregistry = ToolRegistry()\nregistry.register('search', lambda q: q)\nregistry.register('save', lambda d: d)\nprint(registry.list_tools())",
+      "answer": "keys()",
+      "feedback": {
+        "correct": "정답! dict.keys()는 딕셔너리의 모든 키를 dict_keys 뷰로 반환합니다. list()로 감싸면 ['search', 'save'] 리스트가 됩니다. values()는 값(함수 객체)을 반환하고, items()는 (키, 값) 튜플을 반환합니다. ToolRegistry에서 list_tools()는 에이전트에게 어떤 도구가 사용 가능한지 알려주는 역할을 합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_ci_8_4_010",
+      "unit": 8,
+      "stage": "8-4",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "code_input",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "아래 조건에 맞게 safe_fetch 함수를 작성하세요.\n조건:\n- safe_fetch(url: str) -> str 함수 정의\n- allowed = ['api.example.com', 'data.mysite.com']\n- '//' 포함 시 url.split('/')[2]로 domain 추출, 아니면 url 그대로 사용\n- any()로 allowed 중 하나라도 domain에 포함되면 '[성공] {url}: 데이터 200건 수신' 반환\n- 아니면 '[차단] {url}: 허가되지 않은 도메인' 반환\n- safe_fetch 2회 호출\n\n출력 목표:\n[성공] https://api.example.com/news: 데이터 200건 수신\n[차단] https://blocked.site.com/data: 허가되지 않은 도메인",
+      "answer": "def safe_fetch(url):\n    allowed = ['api.example.com', 'data.mysite.com']\n    domain = url.split('/')[2] if '//' in url else url\n    if any(a in domain for a in allowed):\n        return '[성공] ' + url + ': 데이터 200건 수신'\n    return '[차단] ' + url + ': 허가되지 않은 도메인'\n\nprint(safe_fetch('https://api.example.com/news'))\nprint(safe_fetch('https://blocked.site.com/data'))",
+      "pyodide_eval": true,
+      "feedback": {
+        "correct": "정답! 핵심은 url.split('/')[2]로 도메인을 추출하고 any(a in domain for a in allowed)로 화이트리스트를 확인하는 것입니다. '//' in url 조건으로 일반 URL과 도메인만 있는 경우를 구분합니다. any()는 allowed 리스트를 순회해 하나라도 domain에 포함되면 True를 반환합니다. 이 패턴으로 에이전트가 승인된 API만 호출하도록 제한할 수 있습니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_5_001",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "advanced",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "Agent.can_handle 메서드에서 키워드가 작업에 포함되는지 확인하려면 빈칸을 채우세요.\n출력 목표:\nTrue\nFalse\n\nclass Agent:\n    def __init__(self, name, keyword):\n        self.name = name\n        self.keyword = keyword\n\n    def can_handle(self, task):\n        return self.keyword in _____\n\nagent = Agent('검색봇', '검색')\nprint(agent.can_handle('뉴스 검색 실행'))\nprint(agent.can_handle('번역 요청'))",
+      "answer": "task",
+      "feedback": {
+        "correct": "정답! self.keyword in task는 self.keyword 문자열이 task 문자열 안에 포함되어 있는지 확인합니다. '검색' in '뉴스 검색 실행'은 True, '검색' in '번역 요청'은 False입니다. 오케스트레이터는 이 메서드로 각 에이전트의 처리 가능 여부를 판단해 작업을 라우팅합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_5_002",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "advanced",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nclass Agent:\n    def __init__(self, name, keyword):\n        self.name = name\n        self.keyword = keyword\n    def can_handle(self, task):\n        return self.keyword in task\n    def run(self, task):\n        return '[' + self.name + '] 완료'\n\nclass Orchestrator:\n    def __init__(self, agents):\n        self.agents = agents\n    def dispatch(self, task):\n        print('[작업] ' + task)\n        for agent in self.agents:\n            if agent.can_handle(task):\n                result = agent.run(task)\n                print('  → ' + result)\n                return result\n        print('  → 처리 가능한 에이전트 없음')\n        return None\n\nagents = [Agent('검색봇', '검색'), Agent('분석봇', '분석'), Agent('저장봇', '저장')]\norch = Orchestrator(agents)\norch.dispatch('뉴스 검색 실행')\norch.dispatch('데이터 분석 요청')\norch.dispatch('번역 요청')",
+      "choices": [
+        "A. [작업] 뉴스 검색 실행\n  → [검색봇] 완료\n[작업] 데이터 분석 요청\n  → [분석봇] 완료\n[작업] 번역 요청\n  → 처리 가능한 에이전트 없음",
+        "B. [작업] 뉴스 검색 실행\n  → [검색봇] 완료\n[작업] 데이터 분석 요청\n  → [검색봇] 완료\n[작업] 번역 요청\n  → 처리 가능한 에이전트 없음",
+        "C. [작업] 뉴스 검색 실행\n  → [검색봇] 완료\n  → [분석봇] 완료\n  → [저장봇] 완료",
+        "D. [작업] 번역 요청\n  → 처리 가능한 에이전트 없음"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! dispatch는 agents를 순서대로 순회해 can_handle이 True인 첫 번째 에이전트를 찾아 실행 후 즉시 return합니다. '검색'이 포함된 작업은 검색봇이, '분석'이 포함된 작업은 분석봇이 처리합니다. '번역'은 어느 에이전트의 keyword와도 일치하지 않으므로 '처리 가능한 에이전트 없음'이 출력됩니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_5_003",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "MessageQueue에서 메시지를 큐에 추가하려면 빈칸을 채우세요.\n\nfrom collections import deque\n\nclass MessageQueue:\n    def __init__(self):\n        self.queue = deque()\n\n    def send(self, sender, receiver, content):\n        msg = {'from': sender, 'to': receiver, 'content': content}\n        self.queue._____(msg)",
+      "answer": "append",
+      "feedback": {
+        "correct": "정답! deque.append(item)는 덱의 오른쪽 끝에 항목을 추가합니다. deque는 양방향 큐로, append로 오른쪽에 추가하고 popleft로 왼쪽에서 꺼내는 FIFO 구조를 구현합니다. add는 deque 메서드가 아니고, insert는 인덱스가 필요합니다. 에이전트 간 메시지 큐의 핵심 연산입니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_5_004",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nfrom collections import deque\n\nclass MessageQueue:\n    def __init__(self):\n        self.queue = deque()\n    def send(self, sender, receiver, content):\n        self.queue.append({'from': sender, 'to': receiver, 'content': content})\n    def receive(self, receiver):\n        return [m for m in self.queue if m['to'] == receiver]\n\nmq = MessageQueue()\nmq.send('검색봇', '분석봇', '뉴스 10건')\nmq.send('분석봇', '저장봇', '분석 완료')\nmq.send('저장봇', '오케스트레이터', '저장 완료')\n\nmsgs = mq.receive('저장봇')\nprint('수신 건수: ' + str(len(msgs)))\nprint('내용: ' + msgs[0]['content'])",
+      "choices": [
+        "A. 수신 건수: 1\n내용: 분석 완료",
+        "B. 수신 건수: 1\n내용: 저장 완료",
+        "C. 수신 건수: 2\n내용: 분석 완료",
+        "D. 수신 건수: 0"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! receive('저장봇')은 m['to'] == '저장봇'인 메시지를 필터링합니다. 저장봇에게 온 메시지는 분석봇이 보낸 '분석 완료' 1건뿐입니다. B처럼 '저장 완료'가 나오려면 receive('오케스트레이터')를 호출해야 합니다. 메시지 큐는 발신자(from)와 수신자(to)를 명시해 에이전트 간 통신을 구조화합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_5_005",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "MultiAgentSystem에서 에이전트를 체이닝으로 등록하려면 빈칸을 채우세요.\n\nclass MultiAgentSystem:\n    def __init__(self):\n        self.agents = {}\n\n    def register(self, name, func):\n        self.agents[name] = func\n        return _____\n\nmas = MultiAgentSystem()\nmas.register('수집', lambda s: s).register('분석', lambda s: s)\nprint(len(mas.agents))",
+      "answer": "self",
+      "feedback": {
+        "correct": "정답! return self로 인스턴스를 반환해 .register().register() 메서드 체이닝이 가능합니다. 이 빌더 패턴은 Pipeline.add_step, Scheduler.add, Workflow.every와 동일한 원리입니다. return None이면 두 번째 .register() 호출 시 AttributeError가 발생합니다. 멀티 에이전트 시스템에서 에이전트를 간결하게 등록하는 핵심 패턴입니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_5_006",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nimport asyncio\n\nasync def search_agent(query: str) -> dict:\n    await asyncio.sleep(0)\n    return {'agent': 'search', 'result': query + ' 검색 완료'}\n\nasync def analyze_agent(text: str) -> dict:\n    await asyncio.sleep(0)\n    return {'agent': 'analyze', 'result': text + ' 분석 완료'}\n\nasync def translate_agent(text: str) -> dict:\n    await asyncio.sleep(0)\n    return {'agent': 'translate', 'result': text + ' 번역 완료'}\n\nasync def run_parallel():\n    tasks = [\n        search_agent('AI 동향'),\n        analyze_agent('긍정/부정'),\n        translate_agent('Hello'),\n    ]\n    results = await asyncio.gather(*tasks)\n    for r in results:\n        print('[' + r['agent'] + '] ' + r['result'])\n\nasyncio.run(run_parallel())",
+      "choices": [
+        "A. [search] AI 동향 검색 완료\n[analyze] 긍정/부정 분석 완료\n[translate] Hello 번역 완료",
+        "B. [translate] Hello 번역 완료\n[analyze] 긍정/부정 분석 완료\n[search] AI 동향 검색 완료",
+        "C. [search] AI 동향 검색 완료",
+        "D. 오류 발생"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! asyncio.gather(*tasks)는 세 코루틴을 병렬로 실행하고 tasks 리스트 순서대로 결과를 반환합니다. 실행 완료 순서와 무관하게 입력 순서(search → analyze → translate)로 results가 정렬됩니다. B처럼 역순이 되려면 tasks 리스트 순서를 바꿔야 합니다. gather의 결과 순서 보장은 멀티 에이전트 시스템에서 중요한 특성입니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_5_007",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "PriorityOrchestrator에서 우선순위 높은 에이전트가 먼저 선택되도록 정렬하려면 빈칸을 채우세요.\n\nclass PriorityOrchestrator:\n    def __init__(self):\n        self.agents = []\n\n    def register(self, name, keyword, priority=0):\n        self.agents.append({'name': name, 'keyword': keyword, 'priority': priority})\n        self.agents.sort(key=lambda x: x['priority'], reverse=_____)\n        return self",
+      "answer": "True",
+      "feedback": {
+        "correct": "정답! sort(reverse=True)는 내림차순(큰 값 먼저) 정렬입니다. priority=5인 에이전트가 priority=1보다 앞에 위치해 dispatch 시 우선 선택됩니다. reverse=False는 오름차순으로 낮은 우선순위가 먼저 선택됩니다. 우선순위 기반 라우팅은 중요 작업을 고급 에이전트에 배정하는 실전 패턴입니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_5_008",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nclass MultiAgentSystem:\n    def __init__(self):\n        self.agents = {}\n        self.log = []\n    def register(self, name, func):\n        self.agents[name] = func\n        return self\n    def execute(self, plan):\n        state = {}\n        for step in plan:\n            name = step['agent']\n            args = step.get('args', {})\n            print('[실행] ' + name)\n            result = self.agents[name](state, **args)\n            if result:\n                state.update(result)\n            self.log.append(name + ': 완료')\n        return state\n\ndef collect(state, topic='AI'):\n    state['news'] = [topic + ' 뉴스 1', topic + ' 뉴스 2']\n    return state\ndef summarize(state):\n    state['summary'] = '총 ' + str(len(state['news'])) + '건 수집'\n    return state\ndef notify(state, channel='이메일'):\n    print('  → ' + channel + '로 발송: ' + state['summary'])\n    return state\n\nmas = MultiAgentSystem()\nmas.register('수집', collect).register('요약', summarize).register('발송', notify)\nplan = [{'agent': '수집', 'args': {'topic': 'LangChain'}}, {'agent': '요약'}, {'agent': '발송'}]\nfinal = mas.execute(plan)\nprint('완료 로그: ' + str(mas.log))",
+      "choices": [
+        "A. [실행] 수집\n[실행] 요약\n[실행] 발송\n  → 이메일로 발송: 총 2건 수집\n완료 로그: ['수집: 완료', '요약: 완료', '발송: 완료']",
+        "B. [실행] 수집\n[실행] 요약\n[실행] 발송\n  → 이메일로 발송: 총 2건 수집\n완료 로그: []",
+        "C. [실행] 수집\n[실행] 발송\n  → 이메일로 발송: 총 0건 수집\n완료 로그: ['수집: 완료', '발송: 완료']",
+        "D. [실행] 수집\n[실행] 요약\n[실행] 발송\n  → 이메일로 발송: 총 3건 수집\n완료 로그: ['수집: 완료', '요약: 완료', '발송: 완료']"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! collect에서 LangChain 뉴스 2건이 state['news']에 저장되고, summarize에서 '총 2건 수집'이 state['summary']에 저장됩니다. notify는 기본값 channel='이메일'로 실행됩니다. log.append는 매 단계마다 실행되어 3개 항목이 쌓입니다. B처럼 로그가 빈 리스트면 append 호출이 없어야 하고, D처럼 3건이 되려면 뉴스가 3건이어야 합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_5_009",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "MultiAgentSystem.execute에서 에이전트 결과를 공유 state에 병합하려면 빈칸을 채우세요.\n\ndef execute(self, plan):\n    state = {}\n    for step in plan:\n        name = step['agent']\n        args = step.get('args', {})\n        result = self.agents[name](state, **args)\n        if result:\n            state._____(result)\n    return state",
+      "answer": "update",
+      "feedback": {
+        "correct": "정답! dict.update(other)는 other 딕셔너리의 키-값 쌍을 현재 딕셔너리에 병합합니다. 기존 키는 덮어쓰고 새 키는 추가됩니다. state = state + result는 딕셔너리에 + 연산이 없어 TypeError가 발생합니다. state.append(result)는 리스트 메서드입니다. update로 각 에이전트 결과가 누적되어 다음 에이전트에서 참조할 수 있습니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_ci_8_5_010",
+      "unit": 8,
+      "stage": "8-5",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "code_input",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "아래 조건에 맞게 Agent와 Orchestrator 클래스를 작성하세요.\n조건:\n- Agent(name, keyword): can_handle(task)는 keyword in task 반환, run(task)는 '[{name}] 완료' 반환\n- Orchestrator(agents): dispatch(task)는 '[작업] {task}' 출력 후 can_handle이 True인 첫 에이전트 run 결과를 '  → {result}' 출력, 없으면 '  → 처리 가능한 에이전트 없음' 출력\n- agents = [Agent('검색봇','검색'), Agent('분석봇','분석')]\n- dispatch 2회 호출\n\n출력 목표:\n[작업] 뉴스 검색 실행\n  → [검색봇] 완료\n[작업] 번역 요청\n  → 처리 가능한 에이전트 없음",
+      "answer": "class Agent:\n    def __init__(self, name, keyword):\n        self.name = name\n        self.keyword = keyword\n    def can_handle(self, task):\n        return self.keyword in task\n    def run(self, task):\n        return '[' + self.name + '] 완료'\n\nclass Orchestrator:\n    def __init__(self, agents):\n        self.agents = agents\n    def dispatch(self, task):\n        print('[작업] ' + task)\n        for agent in self.agents:\n            if agent.can_handle(task):\n                result = agent.run(task)\n                print('  → ' + result)\n                return result\n        print('  → 처리 가능한 에이전트 없음')\n        return None\n\nagents = [Agent('검색봇', '검색'), Agent('분석봇', '분석')]\norch = Orchestrator(agents)\norch.dispatch('뉴스 검색 실행')\norch.dispatch('번역 요청')",
+      "pyodide_eval": true,
+      "feedback": {
+        "correct": "정답! 오케스트레이터-워커 패턴의 핵심입니다. dispatch에서 agents를 for 루프로 순회해 can_handle이 True인 첫 에이전트를 찾으면 run을 호출하고 즉시 return합니다. 루프가 끝날 때까지 처리 가능한 에이전트가 없으면 '처리 가능한 에이전트 없음'을 출력합니다. 이 패턴으로 전문화된 에이전트들이 각자 담당 작업만 처리하는 멀티 에이전트 시스템을 구축합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_6_001",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "advanced",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "generate_report에서 리스트의 각 줄을 줄바꿈으로 연결하려면 빈칸을 채우세요.\n출력 목표:\n=== AI 일일 동향 리포트 ===\n수집 기사: 6건\n========================\n\nlines = [\n    '=== AI 일일 동향 리포트 ===',\n    '수집 기사: 6건',\n    '========================',\n]\nreport = '\\n'.join(_____)\nprint(report)",
+      "answer": "lines",
+      "feedback": {
+        "correct": "정답! '\\n'.join(lines)는 lines 리스트의 각 문자열 사이에 줄바꿈('\\n')을 삽입해 하나의 문자열로 합칩니다. ''.join(lines)는 구분자 없이, ', '.join(lines)는 쉼표로 연결됩니다. 보고서처럼 여러 줄 텍스트를 만들 때 join이 + 연산보다 효율적이고 가독성이 높습니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_6_002",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "advanced",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nimport asyncio\n\nclass NewsCollector:\n    def __init__(self):\n        self.sources = ['tech_news', 'ai_blog', 'research_feed']\n\n    async def fetch_source(self, source):\n        await asyncio.sleep(0)\n        return [\n            {'title': '[' + source + '] AI 최신 동향'},\n            {'title': '[' + source + '] LangChain 업데이트'},\n        ]\n\n    async def collect_all(self):\n        tasks = [self.fetch_source(s) for s in self.sources]\n        results = await asyncio.gather(*tasks)\n        return [a for batch in results for a in batch]\n\nasync def main():\n    collector = NewsCollector()\n    articles = await collector.collect_all()\n    print('수집 완료: 총 ' + str(len(articles)) + '건')\n    for a in articles[:2]:\n        print('  - ' + a['title'])\n\nasyncio.run(main())",
+      "choices": [
+        "A. 수집 완료: 총 6건\n  - [tech_news] AI 최신 동향\n  - [tech_news] LangChain 업데이트",
+        "B. 수집 완료: 총 3건\n  - [tech_news] AI 최신 동향\n  - [ai_blog] AI 최신 동향",
+        "C. 수집 완료: 총 6건\n  - [tech_news] AI 최신 동향\n  - [ai_blog] AI 최신 동향",
+        "D. 수집 완료: 총 2건\n  - [tech_news] AI 최신 동향\n  - [tech_news] LangChain 업데이트"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! sources 3개 × 기사 2건 = 총 6건이 수집됩니다. [a for batch in results for a in batch]로 중첩 리스트를 평탄화하면 tech_news → ai_blog → research_feed 순으로 정렬됩니다. articles[:2]는 tech_news의 두 기사를 출력합니다. C처럼 소스별 첫 번째 기사만 나오려면 평탄화 방식이 달라야 합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_6_003",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "collect_all에서 여러 소스를 병렬로 수집하려면 빈칸을 채우세요.\n\nasync def collect_all(self):\n    tasks = [self.fetch_source(s) for s in self.sources]\n    results = await asyncio.gather(_____tasks)\n    return [a for batch in results for a in batch]",
+      "answer": "*",
+      "feedback": {
+        "correct": "정답! asyncio.gather(*tasks)에서 *는 리스트를 개별 인자로 언패킹합니다. tasks = [coro1, coro2, coro3]일 때 *tasks는 gather(coro1, coro2, coro3)와 동일합니다. asyncio.gather(tasks)처럼 리스트를 그대로 넘기면 TypeError가 발생합니다. *언패킹은 여러 코루틴을 병렬 실행할 때 핵심 패턴입니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_6_004",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\ndef generate_report(analysis):\n    lines = [\n        '=== AI 일일 동향 리포트 ===',\n        '수집 기사: ' + str(analysis['total']) + '건',\n        '핵심 키워드: ' + ', '.join(analysis['top_keywords']),\n        '요약: ' + analysis['summary'],\n        '========================',\n    ]\n    return '\\n'.join(lines)\n\nanalysis = {\n    'total': 6,\n    'top_keywords': ['인공지능', '에이전트', 'LangChain'],\n    'summary': '총 6건 분석 — 핵심 주제: 인공지능'\n}\nprint(generate_report(analysis))",
+      "choices": [
+        "A. === AI 일일 동향 리포트 ===\n수집 기사: 6건\n핵심 키워드: 인공지능, 에이전트, LangChain\n요약: 총 6건 분석 — 핵심 주제: 인공지능\n========================",
+        "B. === AI 일일 동향 리포트 ===\n수집 기사: 6건\n핵심 키워드: ['인공지능', '에이전트', 'LangChain']\n요약: 총 6건 분석 — 핵심 주제: 인공지능\n========================",
+        "C. ['=== AI 일일 동향 리포트 ===', '수집 기사: 6건', '핵심 키워드: 인공지능, 에이전트, LangChain', '요약: 총 6건 분석 — 핵심 주제: 인공지능', '========================']",
+        "D. === AI 일일 동향 리포트 ===수집 기사: 6건핵심 키워드: 인공지능, 에이전트, LangChain요약: 총 6건 분석 — 핵심 주제: 인공지능========================"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! ', '.join(analysis['top_keywords'])로 리스트를 쉼표 구분 문자열로 변환하고, '\\n'.join(lines)로 각 줄을 줄바꿈으로 연결합니다. B처럼 리스트 repr이 출력되려면 join 없이 str(list)를 사용해야 합니다. C처럼 리스트 자체가 출력되려면 return lines를 반환해야 합니다. D처럼 한 줄로 나오려면 ''.join을 사용해야 합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_6_005",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "analyze_articles에서 단어 빈도를 딕셔너리에 누적할 때 기존 값이 없으면 0을 기본값으로 사용하려면 빈칸을 채우세요.\n\ndef analyze_articles(articles):\n    keywords = {}\n    for article in articles:\n        words = article['title'].split()\n        for word in words:\n            if len(word) > 3:\n                keywords[word] = keywords._____(word, 0) + 1\n    ...",
+      "answer": "get",
+      "feedback": {
+        "correct": "정답! dict.get(key, default)는 key가 존재하면 그 값을, 없으면 default를 반환합니다. keywords.get(word, 0)은 처음 등장하는 단어는 0을 반환해 0+1=1로 초기화되고, 이미 있는 단어는 기존 값+1이 됩니다. keywords[word]만 사용하면 키가 없을 때 KeyError가 발생합니다. 카운터 패턴의 핵심 관용구입니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_6_006",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nclass AIAutomationSystem:\n    def __init__(self):\n        self.pipeline = []\n        self.state = {}\n    def add_agent(self, name, func):\n        self.pipeline.append((name, func))\n        return self\n    def run(self, initial=None):\n        self.state = initial or {}\n        for name, func in self.pipeline:\n            print('[' + name + '] 실행 중...')\n            result = func(self.state)\n            if result:\n                self.state.update(result)\n        print('[시스템] 전체 파이프라인 완료')\n        return self.state\n\ndef collect(state):\n    state['articles'] = [{'title': 'AI 뉴스'}, {'title': 'LangChain 업데이트'}]\n    return {'articles': state['articles']}\ndef analyze(state):\n    return {'analysis': '총 ' + str(len(state['articles'])) + '건 분석'}\ndef report(state):\n    print('  리포트: ' + state['analysis'])\n    return {'report': '생성 완료'}\n\nsystem = (AIAutomationSystem()\n          .add_agent('수집 에이전트', collect)\n          .add_agent('분석 에이전트', analyze)\n          .add_agent('보고서 에이전트', report))\nfinal = system.run()\nprint('최종 상태: ' + str(final.get('report')))",
+      "choices": [
+        "A. [수집 에이전트] 실행 중...\n[분석 에이전트] 실행 중...\n[보고서 에이전트] 실행 중...\n  리포트: 총 2건 분석\n[시스템] 전체 파이프라인 완료\n최종 상태: 생성 완료",
+        "B. [수집 에이전트] 실행 중...\n[분석 에이전트] 실행 중...\n[보고서 에이전트] 실행 중...\n[시스템] 전체 파이프라인 완료\n최종 상태: 생성 완료",
+        "C. [수집 에이전트] 실행 중...\n[분석 에이전트] 실행 중...\n[보고서 에이전트] 실행 중...\n  리포트: 총 2건 분석\n[시스템] 전체 파이프라인 완료\n최종 상태: None",
+        "D. [시스템] 전체 파이프라인 완료\n최종 상태: 생성 완료"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! 파이프라인이 순서대로 실행됩니다. collect → analyze → report 순으로 각 에이전트명과 '실행 중...'이 출력됩니다. report 내부에서 '  리포트: 총 2건 분석'이 추가로 출력되고, 마지막에 '[시스템] 전체 파이프라인 완료'가 출력됩니다. final.get('report')는 'report' 키가 있으므로 '생성 완료'를 반환합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_6_007",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "DailyScheduler.run에서 실행 횟수만큼 반복하려면 빈칸을 채우세요.\n출력 목표: 1, 2 (순서대로 출력)\n\nclass DailyScheduler:\n    def __init__(self):\n        self.run_count = 0\n\n    def run(self, times=1):\n        for i in range(1, _____ + 1):\n            self.run_count += 1\n            print(self.run_count)",
+      "answer": "times",
+      "feedback": {
+        "correct": "정답! range(1, times + 1)은 1부터 times까지의 정수를 생성합니다. times=2이면 range(1, 3) → 1, 2가 순회됩니다. range(times)는 0부터 시작해 run_count가 0, 1, ...이 됩니다. +1이 필요한 이유는 range의 끝값이 제외되기 때문입니다. 스케줄러에서 실행 횟수를 정확히 제어하는 핵심 패턴입니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_os_8_6_008",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "다음 코드의 출력값을 고르세요.\n\nclass DailyScheduler:\n    def __init__(self):\n        self.task = None\n        self.run_count = 0\n    def set_task(self, func):\n        self.task = func\n        return self\n    def run(self, times=1):\n        for i in range(1, times + 1):\n            self.run_count += 1\n            print('[스케줄] 실행 #' + str(self.run_count))\n            result = self.task()\n            print('  → ' + result)\n\ndef daily_ai_report():\n    articles = ['AI 뉴스', 'LangChain 업데이트']\n    keywords = {'AI': 1, 'LangChain': 1}\n    top = max(keywords, key=keywords.get)\n    return '리포트 생성 완료: ' + str(len(articles)) + '건 수집, 핵심 키워드=' + top\n\nscheduler = DailyScheduler()\nscheduler.set_task(daily_ai_report)\nscheduler.run(times=2)\nprint('총 실행 횟수: ' + str(scheduler.run_count) + '회')",
+      "choices": [
+        "A. [스케줄] 실행 #1\n  → 리포트 생성 완료: 2건 수집, 핵심 키워드=AI\n[스케줄] 실행 #2\n  → 리포트 생성 완료: 2건 수집, 핵심 키워드=AI\n총 실행 횟수: 2회",
+        "B. [스케줄] 실행 #1\n  → 리포트 생성 완료: 2건 수집, 핵심 키워드=AI\n총 실행 횟수: 1회",
+        "C. [스케줄] 실행 #1\n  → 리포트 생성 완료: 2건 수집, 핵심 키워드=LangChain\n[스케줄] 실행 #2\n  → 리포트 생성 완료: 2건 수집, 핵심 키워드=LangChain\n총 실행 횟수: 2회",
+        "D. [스케줄] 실행 #1\n[스케줄] 실행 #2\n총 실행 횟수: 2회"
+      ],
+      "answer": "A",
+      "feedback": {
+        "correct": "정답! run(times=2)이므로 range(1, 3) → i=1, 2로 두 번 실행됩니다. run_count가 1씩 증가해 실행 #1, #2가 출력됩니다. max(keywords, key=keywords.get)은 값이 같을 때 딕셔너리 삽입 순서상 먼저 나오는 'AI'를 반환합니다. C처럼 'LangChain'이 top이 되려면 LangChain의 카운트가 더 높아야 합니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_fib_8_6_009",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "analyze_articles에서 키워드 빈도를 내림차순으로 정렬하려면 빈칸을 채우세요.\n\nkeywords = {'인공지능': 2, '에이전트': 2, '파이프라인': 1}\ntop = sorted(keywords.items(), key=lambda x: x[_____], reverse=True)[:3]\nprint([k for k, v in top])",
+      "answer": "1",
+      "feedback": {
+        "correct": "정답! keywords.items()는 ('인공지능', 2), ('에이전트', 2), ('파이프라인', 1) 형태의 튜플 리스트를 반환합니다. 인덱스 0은 키(단어), 인덱스 1은 값(빈도수)입니다. key=lambda x: x[1]로 빈도수 기준 정렬하고 reverse=True로 내림차순합니다. x[0]으로 정렬하면 알파벳/가나다 순, x[1]로 정렬하면 빈도 순이 됩니다. 클리어!"
+      }
+    },
+    {
+      "question_id": "miniboss_adv_ci_8_6_010",
+      "unit": 8,
+      "stage": "8-6",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "code_input",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "question": "아래 조건에 맞게 analyze_articles 함수를 작성하세요.\n조건:\n- analyze_articles(articles: list) -> dict\n- keywords 딕셔너리에 4글자 초과(len > 3) 단어의 빈도 집계\n- sorted(keywords.items(), key=lambda x: x[1], reverse=True)[:3]으로 상위 3개 추출\n- 반환: {'total': len(articles), 'top_keywords': [k for k,v in top], 'summary': '총 N건 분석 — 핵심 주제: 상위키워드'}\n- 3개 기사로 테스트 후 요약과 상위 키워드 출력\n\n출력 목표:\n요약: 총 3건 분석 — 핵심 주제: 인공지능\n상위 키워드: ['인공지능', '에이전트', '파이프라인']",
+      "answer": "def analyze_articles(articles):\n    keywords = {}\n    for article in articles:\n        words = article['title'].split()\n        for word in words:\n            if len(word) > 3:\n                keywords[word] = keywords.get(word, 0) + 1\n    top = sorted(keywords.items(), key=lambda x: x[1], reverse=True)[:3]\n    return {\n        'total': len(articles),\n        'top_keywords': [k for k, v in top],\n        'summary': '총 ' + str(len(articles)) + '건 분석 — 핵심 주제: ' + top[0][0]\n    }\n\nsample = [\n    {'title': '인공지능 에이전트 동향과 트렌드'},\n    {'title': '인공지능 파이프라인 설계 패턴'},\n    {'title': 'LangChain 에이전트 프레임워크 업데이트'},\n]\nresult = analyze_articles(sample)\nprint('요약: ' + result['summary'])\nprint('상위 키워드: ' + str(result['top_keywords']))",
+      "pyodide_eval": true,
+      "feedback": {
+        "correct": "정답! analyze_articles의 핵심은 3단계입니다: ① len(word) > 3 조건으로 의미 있는 단어만 집계, ② keywords.get(word, 0) + 1로 빈도 누적, ③ sorted(items, key=lambda x: x[1], reverse=True)[:3]으로 상위 키워드 추출. '인공지능'과 '에이전트'는 각각 2회 등장해 공동 1위이고, Python의 stable sort로 먼저 삽입된 '인공지능'이 앞섭니다. 클리어!"
+      }
+    }
+  ]
+}
