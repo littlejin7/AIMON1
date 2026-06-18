@@ -88,7 +88,7 @@ useEffect(() => {
   // ── 블록 이미지 사전 로드 ──
   useEffect(() => {
     const imgs = [];
-    for (let i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 4; i++) {
       const img = new Image();
       img.src = AP_IMGS[i];
       imgs.push(img);
