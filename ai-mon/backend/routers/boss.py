@@ -177,7 +177,7 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
     user = next((u for u in users if u["id"] == user_id), None)
     course_level = user.get("course_level", "beginner") if user else "beginner"
 
-    questions = load_questions_by_category("unitboss", course_level) + load_questions_by_category("endboss", course_level)
+    questions = load_questions_by_category("unitboss", course_level)
     # 우리 스키마는 "question_id" 필드 사용 ("id" 필드 없음)
     question = next(
         (q for q in questions if q.get("question_id") == req.question_id or q.get("id") == req.question_id),
@@ -343,8 +343,13 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
         else:
             # ── 유닛 보스 클리어 보상 ────────────────────────────────────
             try:
-                cleared_unit = int(req.unit) if req.unit is not None else (int(question.get("unit")) if question and question.get("unit") is not None else 1)
-            except (ValueError, TypeError):
+                if req.unit is not None:
+                    cleared_unit = int(req.unit)
+                elif question and question.get("unit") is not None:
+                    cleared_unit = int(question.get("unit"))
+                else:
+                    cleared_unit = 1
+            except Exception:
                 cleared_unit = 1
 
             next_unit = cleared_unit + 1
@@ -380,7 +385,7 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
                     if t["id"] not in title_ids:
                         newly_earned_titles.append(t)
 
-                u["crowns"] = u.get("crowns", 0) + next_unit
+                u["crowns"] = u.get("crowns", 0) + 1
 
                 if not isinstance(u.get("max_unlocked_unit"), dict):
                     old_val = u.get("max_unlocked_unit", 1)
@@ -392,7 +397,7 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
                 u["max_unlocked_unit"][course_level] = max(u["max_unlocked_unit"].get(course_level, 1), next_unit)
 
                 ai_result["xp_awarded"]     = 3000
-                ai_result["crowns_awarded"] = next_unit
+                ai_result["crowns_awarded"] = 1
                 ai_result["unlocked_unit"]  = next_unit
             else:
                 ai_result["xp_awarded"]     = 0
