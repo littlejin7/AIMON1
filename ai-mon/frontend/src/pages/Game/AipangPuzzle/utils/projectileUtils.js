@@ -1,5 +1,5 @@
 // ── 발사체 애니메이션 유틸리티 ──
-import { PROJ_STONE } from '../assetPaths';
+import { PROJ_STONE, FIREBALL } from '../assetPaths';
 
 /** 보스 카드의 화면 중심 좌표 반환 */
 function getBossCardCenter(isFinal) {
@@ -179,6 +179,71 @@ function launchWaveProj(fx, fy, tx, ty) {
     requestAnimationFrame(tick);
   });
 }
+
+// ── 파이어볼 발사체 (콤보 게이지 100% 발동) ──
+export function launchFireballAsync(fx, fy, isFinal) {
+  const tgt = getBossCardCenter(isFinal);
+  const tx = tgt.x, ty = tgt.y;
+  return new Promise(resolve => {
+    const el = document.createElement('div');
+    el.style.cssText = `
+      position:fixed; left:${fx}px; top:${fy}px;
+      width:160px; height:160px;
+      background:url(${FIREBALL}) center/contain no-repeat;
+      pointer-events:none; z-index:600;
+      transform:translate(-50%,-50%);
+      filter:drop-shadow(0 0 40px rgba(255,120,0,1)) drop-shadow(0 0 20px rgba(255,50,0,0.9));
+    `;
+    document.body.appendChild(el);
+
+    // 충격파 원 (히트 시)
+    const shockwave = document.createElement('div');
+    shockwave.style.cssText = `
+      position:fixed; left:${tx}px; top:${ty}px;
+      width:0px; height:0px;
+      border-radius:50%;
+      pointer-events:none; z-index:599;
+      transform:translate(-50%,-50%);
+      background:radial-gradient(circle, rgba(255,180,0,0.6), rgba(255,80,0,0.3), transparent);
+    `;
+    document.body.appendChild(shockwave);
+
+    const dur = 600;
+    const t0 = performance.now();
+    let hit = false;
+
+    function tick(now) {
+      const t = Math.min((now - t0) / dur, 1);
+      const e = 1 - Math.pow(1 - t, 2.8);
+      const x = fx + (tx - fx) * e;
+      const arc = Math.sin(t * Math.PI) * -160;
+      const y = fy + (ty - fy) * e + arc;
+      const sc = 1.2 + Math.sin(t * Math.PI) * 1.0; // 크게 커졌다가
+      const rot = t * 720;
+      el.style.left = x + 'px';
+      el.style.top  = y + 'px';
+      el.style.transform = `translate(-50%,-50%) rotate(${rot}deg) scale(${sc})`;
+
+      // 히트 시 충격파 연출
+      if (t > 0.85 && !hit) {
+        hit = true;
+        let sw = 0;
+        const swTimer = setInterval(() => {
+          sw += 18;
+          shockwave.style.width  = sw + 'px';
+          shockwave.style.height = sw + 'px';
+          shockwave.style.opacity = String(1 - sw / 280);
+          if (sw >= 280) { clearInterval(swTimer); shockwave.remove(); }
+        }, 16);
+      }
+
+      if (t < 1) requestAnimationFrame(tick);
+      else { el.remove(); resolve(); }
+    }
+    requestAnimationFrame(tick);
+  });
+}
+
 
 // ── 에너지 구체 발사체 (일반 line 매치) ──
 function launchOrbProj(fx, fy, tx, ty) {
