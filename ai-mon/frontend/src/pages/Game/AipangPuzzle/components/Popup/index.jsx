@@ -17,7 +17,7 @@ export function PopupTitle({ visible, onStart }) {
         </div>
         <div className="popup-sub">블록을 매치해서 보스를 공격하세요!</div>
         <div className="char-row">
-          {[1, 2, 3, 4, 5, 6].map(i => (
+          {[1, 2, 3, 4].map(i => (
             <img key={i} src={AP_IMGS[i]} alt={`char-${i}`} />
           ))}
         </div>
@@ -49,7 +49,7 @@ export function PopupClear({ visible, onNext }) {
 /**
  * 게임 오버 팝업
  */
-export function PopupOver({ visible, onRetry }) {
+export function PopupOver({ visible, onRetry, onHome }) {
   if (!visible) return null;
   return (
     <div className="popup" id="popup-over">
@@ -61,7 +61,10 @@ export function PopupOver({ visible, onRetry }) {
             <img key={i} src={AP_IMGS[i]} alt={`char-${i}`} />
           ))}
         </div>
-        <button className="btn btn-red" onClick={onRetry}>다시 도전!</button>
+        <div className="popup-btn-row">
+          <button className="btn btn-red" onClick={onRetry}>다시 도전!</button>
+          <button className="btn btn-gray" onClick={onHome}>홈으로</button>
+        </div>
       </div>
     </div>
   );
@@ -70,7 +73,7 @@ export function PopupOver({ visible, onRetry }) {
 /**
  * 최종 클리어 팝업
  */
-export function PopupFinal({ visible, onRestart }) {
+export function PopupFinal({ visible, onRestart, onHome }) {
   if (!visible) return null;
   return (
     <div className="popup" id="popup-final">
@@ -81,7 +84,10 @@ export function PopupFinal({ visible, onRestart }) {
           <img src={BOSS_FINAL} alt="Final Boss" />
         </div>
         <div className="popup-sub">모든 보스를 물리쳤다!</div>
-        <button className="btn" onClick={onRestart}>처음부터</button>
+        <div className="popup-btn-row">
+          <button className="btn" onClick={onRestart}>처음부터</button>
+          <button className="btn btn-gray" onClick={onHome}>홈으로</button>
+        </div>
       </div>
     </div>
   );

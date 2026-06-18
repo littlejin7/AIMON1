@@ -9,7 +9,7 @@ import {
   createFreshGrid,
 } from '../utils/gameUtils';
 import { beep, delay } from '../utils/audioUtils';
-import { launchProjectileAsync } from '../utils/projectileUtils';
+import { launchProjectileAsync, launchFireballAsync } from '../utils/projectileUtils';
 import { AP_IMGS, BGM_SRC, POP_SRC } from '../assetPaths';
 
 /**
@@ -28,6 +28,7 @@ export function useGameLogic(pCanvasRef, lCanvasRef) {
   const [stageDisplay, setStageDisplay] = useState('1/5');
   const [selected, setSelected] = useState(null);
   const [bgmVolume, setBgmVolume] = useState(0.3);
+  const [comboEnergy, setComboEnergy] = useState(0);
   const [cellAnims, setCellAnims] = useState({}); // { 'r,c': 'pop'|'drop'|'shake' }
   const [bossUI, setBossUI] = useState({
     unitActive: true,
@@ -56,7 +57,9 @@ export function useGameLogic(pCanvasRef, lCanvasRef) {
   const finalHpRef        = useRef(30000);
   const finalHpMaxRef     = useRef(30000);
   const finalUnlockedRef  = useRef(false);
- const bgmVolumeRef      = useRef(0.3);
+  const bgmVolumeRef      = useRef(0.3);
+  const comboEnergyRef = useRef(0);
+  const comboDecayTimer = useRef(null);
 
   // ── 오디오 Refs ──
   const bgmRef    = useRef(null);
@@ -85,7 +88,7 @@ useEffect(() => {
   // ── 블록 이미지 사전 로드 ──
   useEffect(() => {
     const imgs = [];
-    for (let i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 4; i++) {
       const img = new Image();
       img.src = AP_IMGS[i];
       imgs.push(img);
@@ -268,9 +271,31 @@ useEffect(() => {
     let comboCount = 0;
     let { groups, allCells } = findMatchGroups(gridRef.current);
 
+    // 콤보 시작 시 decay 타이머 취소
+    if (comboDecayTimer.current) {
+      clearInterval(comboDecayTimer.current);
+      comboDecayTimer.current = null;
+    }
+
     while (allCells.length > 0) {
       comboCount++;
       const comboMult = 1 + (comboCount - 1) * 0.7;
+
+      // 콤보 에너지 충전 (콤보마다 20% + 매치 크기 보너스, 최대 100)
+      const prevEnergy = comboEnergyRef.current;
+      comboEnergyRef.current = Math.min(100, comboEnergyRef.current + 35 + allCells.length * 2);
+      setComboEnergy(comboEnergyRef.current);
+
+      // 에너지 100% 도달 시 파이어볼 발사
+      if (prevEnergy < 100 && comboEnergyRef.current >= 100) {
+        const bc = getBoardScreenCenter();
+        const fireballDmg = Math.round(500 * sd.dmgMult);
+        launchFireballAsync(bc.x, bc.y, isFinal).then(() => {
+          dealDamageToBoss(fireballDmg, isFinal);
+        });
+        comboEnergyRef.current = 0;
+        setComboEnergy(0);
+      }
 
       const hasWave   = groups.some(g => g.type === 'wave');
       const hasCross  = groups.some(g => g.type === 'cross');
@@ -278,7 +303,7 @@ useEffect(() => {
       const matchType = hasWave ? 'wave' : hasCross ? 'cross' : hasSquare ? 'square' : 'line';
 
       const typeMult  = matchType === 'square' ? 1.5 : (matchType === 'cross' || matchType === 'wave') ? 2 : 1;
-      const baseDmg   = Math.round(allCells.length * 50 * sd.dmgMult * typeMult);
+      const baseDmg   = Math.round(allCells.length * 5024 * sd.dmgMult * typeMult);
       const totalDmg  = Math.round(baseDmg * comboMult);
 
       // 팝 애니메이션 + 파티클
@@ -324,7 +349,15 @@ useEffect(() => {
     }
 
     if (!hasMoves(gridRef.current)) await shuffleGrid();
-  }
+  comboDecayTimer.current = setInterval(() => {
+    comboEnergyRef.current = Math.max(0, comboEnergyRef.current - 8);
+    setComboEnergy(comboEnergyRef.current);
+    if (comboEnergyRef.current <= 0) {
+      clearInterval(comboDecayTimer.current);
+      comboDecayTimer.current = null;
+    }
+  }, 60);
+}
 
   // ── 게임 종료 체크 ──
   function checkEnd() {
@@ -530,6 +563,7 @@ useEffect(() => {
     stageDisplay,
     selected,
     bgmVolume,
+    comboEnergy,
     cellAnims,
     bossUI,
     popups,
