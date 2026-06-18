@@ -1,427 +1,199 @@
-[
-  {
-    "question_id": "q201",
-    "unit": 2,
-    "stage": "2-1",
-    "course_level": "advanced",
-    "difficulty": "easy",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "동기 방식에서 I/O 작업이 완료될 때까지 프로그램이 멈추는 현상을 _____ I/O라고 해요.",
-    "code_block": "N/A",
-    "choices": [],
-    "answer": "블로킹",
-    "hint": "영어로 'blocking'이에요. 무언가가 앞을 '막는다'는 뜻이에요.",
-    "feedback": {
-      "correct": "정답! 동기 방식에서 파일 읽기나 네트워크 요청처럼 I/O 작업이 완료될 때까지 프로그램 전체가 멈추는 현상을 블로킹 I/O라고 해요. 이 때문에 동기 방식은 대기 시간이 길어질수록 전체 성능이 저하돼요."
+{
+  "questions": [
+    {
+      "question_id": "adv_u2_q001",
+      "type": "fill_in_blank",
+      "difficulty": "easy",
+      "unit": "2",
+      "topic": "asyncio.run()을 통한 코루틴 실행",
+      "question": "코루틴을 이벤트 루프에서 실행하고 반환값을 받으려면 빈칸에 들어갈 asyncio 함수 이름을 채워보세요.",
+      "code": "import asyncio\n\nasync def greet():\n    return \"Hello, Async!\"\n\nresult = asyncio._____(greet())\nprint(result)",
+      "answer": "run",
+      "feedback": {
+        "correct": "정답! asyncio.run()은 코루틴을 이벤트 루프에서 실행하고 반환값을 돌려주는 가장 기본적인 진입점입니다. asyncio.run(greet())는 greet() 코루틴을 실행하여 \"Hello, Async!\"를 result에 저장합니다."
+      }
+    },
+    {
+      "question_id": "adv_u2_q002",
+      "type": "fill_in_blank",
+      "difficulty": "easy",
+      "unit": "2",
+      "topic": "async 키워드로 코루틴 함수 정의",
+      "question": "아래 함수를 코루틴(Coroutine)으로 정의하려면 def 앞에 넣어야 할 키워드를 빈칸에 채워보세요.",
+      "code": "import asyncio\n\n_____ def fetch_data():\n    await asyncio.sleep(1)\n    return \"data received\"",
+      "answer": "async",
+      "feedback": {
+        "correct": "정답! async 키워드를 def 앞에 붙이면 코루틴 함수가 됩니다. 코루틴 함수를 호출하면 즉시 실행되지 않고 코루틴 객체를 반환하며, await나 asyncio.run()으로 실행해야 합니다."
+      }
+    },
+    {
+      "question_id": "adv_u2_q003",
+      "type": "fill_in_blank",
+      "difficulty": "easy",
+      "unit": "2",
+      "topic": "await로 코루틴 결과 받기",
+      "question": "코루틴의 완료를 기다리고 반환값을 받아오려면 빈칸에 들어갈 키워드를 채워보세요.",
+      "code": "import asyncio\n\nasync def get_value():\n    return 42\n\nasync def main():\n    value = _____ get_value()\n    print(value)  # 42\n\nasyncio.run(main())",
+      "answer": "await",
+      "feedback": {
+        "correct": "정답! await 키워드는 코루틴이 완료될 때까지 현재 코루틴 실행을 일시 중단하고 결과를 받아옵니다. await get_value()는 get_value()가 반환하는 42를 value에 저장합니다."
+      }
+    },
+    {
+      "question_id": "adv_u2_q004",
+      "type": "code_input",
+      "difficulty": "easy",
+      "unit": "2",
+      "topic": "async/await 기본 코루틴 작성",
+      "question": "asyncio.sleep(2)로 2초 대기한 뒤 \"작업 완료\"를 출력하는 코루틴 함수 run_task를 작성해보세요. async def와 await를 사용해야 합니다.",
+      "code": "import asyncio\n\n# run_task 코루틴 함수를 작성하세요\n\nasyncio.run(run_task())",
+      "answer": "async def run_task():\n    await asyncio.sleep(2)\n    print(\"작업 완료\")",
+      "feedback": {
+        "correct": "정답! async def로 코루틴을 정의하고, await asyncio.sleep(2)로 2초간 비동기 대기 후 출력합니다. asyncio.sleep()은 블로킹 없이 이벤트 루프에 제어권을 넘겨 다른 코루틴이 실행될 수 있게 합니다."
+      }
+    },
+    {
+      "question_id": "adv_u2_q005",
+      "type": "fill_in_blank",
+      "difficulty": "easy",
+      "unit": "2",
+      "topic": "asyncio.gather()를 통한 동시 실행",
+      "question": "여러 코루틴을 동시에 실행하여 모든 결과를 리스트로 받으려면 빈칸에 들어갈 asyncio 함수 이름을 채워보세요.",
+      "code": "import asyncio\n\nasync def task_a():\n    await asyncio.sleep(1)\n    return \"A\"\n\nasync def task_b():\n    await asyncio.sleep(1)\n    return \"B\"\n\nasync def main():\n    results = await asyncio._____(task_a(), task_b())\n    print(results)  # ['A', 'B']\n\nasyncio.run(main())",
+      "answer": "gather",
+      "feedback": {
+        "correct": "정답! asyncio.gather()는 여러 코루틴을 동시에 실행하고 모든 결과를 입력 순서대로 리스트에 담아 반환합니다. task_a()와 task_b()가 병렬 실행되어 총 1초 후 ['A', 'B']가 출력됩니다."
+      }
+    },
+    {
+      "question_id": "adv_u2_q006",
+      "type": "fill_in_blank",
+      "difficulty": "medium",
+      "unit": "2",
+      "topic": "asyncio.create_task()로 Task 객체 생성",
+      "question": "코루틴을 이벤트 루프에 즉시 예약하여 Task 객체를 생성하는 함수 이름을 빈칸에 채워보세요. (두 빈칸 모두 같은 답입니다)",
+      "code": "import asyncio\n\nasync def worker(name):\n    await asyncio.sleep(0.5)\n    print(f\"{name} 완료\")\n\nasync def main():\n    task1 = asyncio._____(worker(\"Task-1\"))\n    task2 = asyncio._____(worker(\"Task-2\"))\n    await task1\n    await task2\n\nasyncio.run(main())",
+      "answer": "create_task",
+      "feedback": {
+        "correct": "정답! asyncio.create_task()는 코루틴을 즉시 이벤트 루프에 예약하고 Task 객체를 반환합니다. gather()와 달리 create_task()는 호출한 순간부터 백그라운드에서 실행이 시작되며, 이후 await로 결과를 기다릴 수 있습니다."
+      }
+    },
+    {
+      "question_id": "adv_u2_q007",
+      "type": "code_input",
+      "difficulty": "medium",
+      "unit": "2",
+      "topic": "asyncio.gather()를 통한 동시 실행",
+      "question": "asyncio.gather()를 사용하여 coroutine_1()과 coroutine_2()를 동시에 실행하고, 결과를 results 변수에 저장한 뒤 출력하는 main 코루틴을 작성해보세요.",
+      "code": "import asyncio\n\nasync def coroutine_1():\n    await asyncio.sleep(1)\n    return \"Result 1\"\n\nasync def coroutine_2():\n    await asyncio.sleep(2)\n    return \"Result 2\"\n\n# main 코루틴을 작성하세요\n\nasyncio.run(main())",
+      "answer": "async def main():\n    results = await asyncio.gather(coroutine_1(), coroutine_2())\n    print(results)",
+      "feedback": {
+        "correct": "정답! asyncio.gather(coroutine_1(), coroutine_2())는 두 코루틴을 병렬로 실행합니다. 순차 실행 시 3초가 걸리지만 gather() 덕분에 2초만에 ['Result 1', 'Result 2']가 출력됩니다."
+      }
+    },
+    {
+      "question_id": "adv_u2_q008",
+      "type": "fill_in_blank",
+      "difficulty": "medium",
+      "unit": "2",
+      "topic": "aiohttp.ClientSession을 통한 비동기 HTTP 요청",
+      "question": "aiohttp로 비동기 HTTP 요청을 보낼 때 세션을 생성하는 클래스 이름을 빈칸에 채워보세요.",
+      "code": "import aiohttp\nimport asyncio\n\nasync def fetch(url):\n    async with aiohttp._____() as session:\n        async with session.get(url) as response:\n            return await response.text()\n\nasyncio.run(fetch(\"https://example.com\"))",
+      "answer": "ClientSession",
+      "feedback": {
+        "correct": "정답! aiohttp.ClientSession()은 비동기 HTTP 클라이언트 세션을 생성합니다. async with 구문을 사용하면 블록이 끝날 때 세션이 자동으로 닫혀 리소스 누수를 방지할 수 있습니다."
+      }
+    },
+    {
+      "question_id": "adv_u2_q009",
+      "type": "fill_in_blank",
+      "difficulty": "medium",
+      "unit": "2",
+      "topic": "aiohttp 응답에서 JSON 비동기 파싱",
+      "question": "aiohttp 응답 객체에서 JSON 데이터를 비동기로 파싱하려면 빈칸에 들어갈 메서드 이름을 채워보세요.",
+      "code": "import aiohttp\nimport asyncio\n\nasync def get_json(url):\n    async with aiohttp.ClientSession() as session:\n        async with session.get(url) as response:\n            data = await response._____()\n            return data",
+      "answer": "json",
+      "feedback": {
+        "correct": "정답! response.json()은 HTTP 응답 본문을 JSON으로 파싱하여 Python 딕셔너리나 리스트를 반환합니다. await를 붙이는 이유는 응답 데이터를 네트워크에서 비동기적으로 읽어오기 때문입니다."
+      }
+    },
+    {
+      "question_id": "adv_u2_q010",
+      "type": "code_input",
+      "difficulty": "medium",
+      "unit": "2",
+      "topic": "aiohttp GET 요청과 상태 코드 처리",
+      "question": "aiohttp를 사용하여 주어진 url에 GET 요청을 보내고, HTTP 상태 코드(response.status)를 반환하는 코루틴 함수 check_status를 작성해보세요.",
+      "code": "import aiohttp\nimport asyncio\n\n# check_status(url) 코루틴 함수를 작성하세요\n\nasyncio.run(check_status(\"https://example.com\"))",
+      "answer": "async def check_status(url):\n    async with aiohttp.ClientSession() as session:\n        async with session.get(url) as response:\n            return response.status",
+      "feedback": {
+        "correct": "정답! async with aiohttp.ClientSession() as session으로 세션을 만들고, async with session.get(url) as response로 GET 요청을 보냅니다. response.status는 정수형 속성이므로 await 없이 바로 반환합니다."
+      }
+    },
+    {
+      "question_id": "adv_u2_q011",
+      "type": "fill_in_blank",
+      "difficulty": "hard",
+      "unit": "2",
+      "topic": "create_task()와 gather()의 결합 활용",
+      "question": "create_task()로 만든 두 Task 객체를 동시에 기다리고 결과를 리스트로 받으려면 빈칸에 들어갈 함수 이름을 채워보세요.",
+      "code": "import asyncio\n\nasync def compute(n):\n    await asyncio.sleep(n)\n    return n * 10\n\nasync def main():\n    t1 = asyncio.create_task(compute(1))\n    t2 = asyncio.create_task(compute(3))\n    results = await asyncio._____(t1, t2)\n    print(results)  # [10, 30]\n\nasyncio.run(main())",
+      "answer": "gather",
+      "feedback": {
+        "correct": "정답! asyncio.gather()는 코루틴뿐 아니라 Task 객체도 인자로 받을 수 있습니다. t1과 t2는 create_task()로 이미 스케줄링되어 있으므로 gather()가 두 Task 완료를 기다려 [10, 30]을 반환합니다."
+      }
+    },
+    {
+      "question_id": "adv_u2_q012",
+      "type": "fill_in_blank",
+      "difficulty": "hard",
+      "unit": "2",
+      "topic": "aiohttp POST 요청과 async with 컨텍스트 관리자",
+      "question": "aiohttp로 POST 요청을 비동기 컨텍스트 관리자로 처리하려면 async 뒤 빈칸에 들어갈 키워드를 채워보세요.",
+      "code": "import aiohttp\nimport asyncio\n\nasync def post_data(url, payload):\n    async with aiohttp.ClientSession() as session:\n        async _____ session.post(url, json=payload) as resp:\n            return await resp.text()\n\nasyncio.run(post_data(\"https://api.example.com/data\", {\"key\": \"value\"}))",
+      "answer": "with",
+      "feedback": {
+        "correct": "정답! async with는 비동기 컨텍스트 관리자를 사용하는 구문입니다. session.post()는 비동기 컨텍스트 매니저를 반환하므로 async with로 요청을 보내고, 응답 처리가 끝나면 연결이 자동으로 정리됩니다."
+      }
+    },
+    {
+      "question_id": "adv_u2_q013",
+      "type": "code_input",
+      "difficulty": "hard",
+      "unit": "2",
+      "topic": "create_task()와 gather()의 결합 활용",
+      "question": "asyncio.create_task()로 download(1)과 download(2)를 Task로 만들고, asyncio.gather()로 두 Task를 동시에 실행한 뒤 결과를 출력하는 main 코루틴을 작성해보세요.",
+      "code": "import asyncio\n\nasync def download(n):\n    await asyncio.sleep(n)\n    return f\"File {n} downloaded\"\n\n# main 코루틴을 작성하세요\n\nasyncio.run(main())",
+      "answer": "async def main():\n    t1 = asyncio.create_task(download(1))\n    t2 = asyncio.create_task(download(2))\n    results = await asyncio.gather(t1, t2)\n    print(results)",
+      "feedback": {
+        "correct": "정답! create_task()로 각 코루틴을 즉시 이벤트 루프에 예약한 뒤, gather()로 두 Task 완료를 기다립니다. 순차 실행 시 3초가 걸리지만 2초만에 ['File 1 downloaded', 'File 2 downloaded']가 출력됩니다."
+      }
+    },
+    {
+      "question_id": "adv_u2_q014",
+      "type": "fill_in_blank",
+      "difficulty": "hard",
+      "unit": "2",
+      "topic": "asyncio.sleep()을 통한 제어권 양보",
+      "question": "비동기 대기 중 이벤트 루프에 제어권을 넘겨 다른 코루틴이 실행될 수 있도록 하는 asyncio 함수 이름을 빈칸에 채워보세요. (두 빈칸 모두 같은 답입니다)",
+      "code": "import asyncio\n\nasync def task_one():\n    print(\"Task One 시작\")\n    await asyncio._____(2)\n    print(\"Task One 완료\")\n\nasync def task_two():\n    print(\"Task Two 시작\")\n    await asyncio._____(1)\n    print(\"Task Two 완료\")\n\nasync def main():\n    await asyncio.gather(task_one(), task_two())\n\nasyncio.run(main())",
+      "answer": "sleep",
+      "feedback": {
+        "correct": "정답! asyncio.sleep()은 지정한 시간 동안 이벤트 루프에 제어권을 넘겨 다른 코루틴이 실행될 수 있게 합니다. 동기의 time.sleep()과 달리 스레드를 블로킹하지 않아 비동기 병렬 처리의 핵심 역할을 합니다."
+      }
+    },
+    {
+      "question_id": "adv_u2_q015",
+      "type": "code_input",
+      "difficulty": "hard",
+      "unit": "2",
+      "topic": "aiohttp와 gather()를 결합한 다중 요청 처리",
+      "question": "aiohttp와 asyncio.gather()를 함께 사용하여 urls 리스트의 모든 URL에 동시에 GET 요청을 보내는 fetch_all(urls) 코루틴을 작성해보세요. 내부에 fetch_one(url) 헬퍼 코루틴을 정의하고, gather()로 각 URL의 상태 코드를 동시에 수집하여 반환하세요.",
+      "code": "import aiohttp\nimport asyncio\n\nurls = [\n    \"https://example.com\",\n    \"https://httpbin.org/get\",\n    \"https://python.org\"\n]\n\n# fetch_all(urls) 코루틴을 작성하세요\n\nasyncio.run(fetch_all(urls))",
+      "answer": "async def fetch_all(urls):\n    async with aiohttp.ClientSession() as session:\n        async def fetch_one(url):\n            async with session.get(url) as response:\n                return response.status\n        results = await asyncio.gather(*[fetch_one(url) for url in urls])\n        return results",
+      "feedback": {
+        "correct": "정답! ClientSession 하나를 공유하면서 내부 헬퍼 fetch_one()을 정의하고, gather()와 리스트 컴프리헨션으로 모든 URL에 동시 요청을 보냅니다. *[fetch_one(url) for url in urls]로 코루틴 리스트를 언패킹하여 gather()에 전달하는 패턴이 핵심입니다."
+      }
     }
-  },
-  {
-    "question_id": "q202",
-    "unit": 2,
-    "stage": "2-1",
-    "course_level": "advanced",
-    "difficulty": "easy",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "비동기 방식에서는 I/O 작업을 기다리는 동안에도 다른 작업을 처리할 수 있는데, 이러한 방식을 _____ I/O라고 해요.",
-    "code_block": "N/A",
-    "choices": [],
-    "answer": "논블로킹",
-    "hint": "블로킹의 반대 개념이에요. 영어 'Non-blocking'을 한국어로 옮긴 표현이에요.",
-    "feedback": {
-      "correct": "정답! 논블로킹(Non-blocking) I/O는 I/O 작업을 시작해 놓고 완료를 기다리지 않고 다른 코드를 실행할 수 있어요. 비동기 프로그래밍의 핵심 동작 방식이에요."
-    }
-  },
-  {
-    "question_id": "q203",
-    "unit": 2,
-    "stage": "2-1",
-    "course_level": "advanced",
-    "difficulty": "medium",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "아래 동기 방식 코드의 출력 결과를 올바르게 골라보세요.",
-    "code_block": "import time\n\nprint('작업 시작')\ntime.sleep(0)\nprint('작업 완료')\nprint('다음 작업')",
-    "choices": [
-      "A. 작업 완료 / 작업 시작 / 다음 작업",
-      "B. 작업 시작 / 다음 작업 / 작업 완료",
-      "C. 다음 작업 / 작업 시작 / 작업 완료",
-      "D. 작업 시작 / 작업 완료 / 다음 작업"
-    ],
-    "answer": "D",
-    "hint": "동기 코드는 time.sleep(0)이 있어도 위에서 아래로 순서대로 실행돼요.",
-    "feedback": {
-      "correct": "정답! 동기 방식에서는 time.sleep(0)처럼 대기 시간이 0이어도 코드가 위에서 아래로 순차적으로 실행돼요. A·B·C처럼 실행 순서가 뒤섞이는 것은 비동기 방식에서 가능한 동작이에요."
-    }
-  },
-  {
-    "question_id": "q204",
-    "unit": 2,
-    "stage": "2-1",
-    "course_level": "advanced",
-    "difficulty": "medium",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "동기(Sync) 프로그래밍과 달리, 작업이 완료되기를 기다리지 않고 다음 코드로 넘어갈 수 있는 프로그래밍 방식을 _____ 프로그래밍이라고 해요.",
-    "code_block": "N/A",
-    "choices": [],
-    "answer": "비동기",
-    "hint": "영어로 'Asynchronous' 또는 줄여서 'Async'라고 해요. 동기(Sync)의 반대 개념이에요.",
-    "feedback": {
-      "correct": "정답! 비동기(Asynchronous) 프로그래밍은 하나의 작업이 끝날 때까지 기다리지 않고 다른 작업을 먼저 실행할 수 있어요. Python에서는 asyncio 라이브러리로 구현해요."
-    }
-  },
-  {
-    "question_id": "q205",
-    "unit": 2,
-    "stage": "2-1",
-    "course_level": "advanced",
-    "difficulty": "medium",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "아래 동기 방식 코드를 실행하면 출력 순서는 어떻게 될까요?",
-    "code_block": "def download():\n    print('다운로드 중...')\n    print('다운로드 완료')\n\ndef process():\n    print('처리 중...')\n\ndownload()\nprocess()",
-    "choices": [
-      "A. 처리 중... / 다운로드 중... / 다운로드 완료",
-      "B. 다운로드 중... / 다운로드 완료 / 처리 중...",
-      "C. 다운로드 중... / 처리 중... / 다운로드 완료",
-      "D. 다운로드 완료 / 다운로드 중... / 처리 중..."
-    ],
-    "answer": "B",
-    "hint": "동기 방식에서 download() 함수가 완전히 끝나야 process() 함수가 시작돼요.",
-    "feedback": {
-      "correct": "정답! 동기 방식에서는 download()가 완전히 실행된 후에야 process()가 시작돼요. C처럼 두 함수가 번갈아 실행되는 것은 비동기 방식의 특징이에요."
-    }
-  },
-  {
-    "question_id": "q206",
-    "unit": 2,
-    "stage": "2-1",
-    "course_level": "advanced",
-    "difficulty": "medium",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "비동기 프로그래밍의 핵심 구성 요소로, 여러 코루틴의 실행을 스케줄링하고 관리하는 것을 _____ 루프라고 해요.",
-    "code_block": "N/A",
-    "choices": [],
-    "answer": "이벤트",
-    "hint": "영어로 'event loop'예요. 반복적으로 이벤트를 감지하고 처리해요.",
-    "feedback": {
-      "correct": "정답! 이벤트 루프(event loop)는 asyncio의 핵심 엔진이에요. 실행 가능한 코루틴을 찾아 실행하고, I/O 대기 중에는 다른 코루틴으로 전환해 CPU를 최대한 활용해요."
-    }
-  },
-  {
-    "question_id": "q207",
-    "unit": 2,
-    "stage": "2-1",
-    "course_level": "advanced",
-    "difficulty": "hard",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "아래 동기 방식 코드의 출력 결과를 올바르게 골라보세요. 동기 vs 비동기의 차이를 잘 떠올려 보세요.",
-    "code_block": "import time\n\ntasks = ['A', 'B', 'C']\nfor task in tasks:\n    print(f'{task} 시작')\n    time.sleep(0)\n    print(f'{task} 완료')",
-    "choices": [
-      "A. A 시작 / B 시작 / C 시작 / A 완료 / B 완료 / C 완료",
-      "B. A 시작 / B 시작 / A 완료 / C 시작 / B 완료 / C 완료",
-      "C. A 시작 / A 완료 / B 시작 / B 완료 / C 시작 / C 완료",
-      "D. A 완료 / B 완료 / C 완료 / A 시작 / B 시작 / C 시작"
-    ],
-    "answer": "C",
-    "hint": "동기 방식에서는 'A 시작 → A 완료' 까지 마친 뒤에야 다음 반복으로 넘어가요.",
-    "feedback": {
-      "correct": "정답! 동기 방식에서는 각 반복이 완전히 끝난 후 다음 반복이 시작돼요. A처럼 모든 '시작'이 먼저 출력되는 것은 비동기(asyncio.gather 등)로 동시에 실행할 때의 특징이에요."
-    }
-  },
-  {
-    "question_id": "q208",
-    "unit": 2,
-    "stage": "2-1",
-    "course_level": "advanced",
-    "difficulty": "hard",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "asyncio 이벤트 루프는 내부적으로 단일 _____에서 코루틴들을 번갈아 실행하기 때문에, CPU 집약적 작업이 끼어들면 이벤트 루프 전체가 멈출 수 있어요.",
-    "code_block": "N/A",
-    "choices": [],
-    "answer": "스레드",
-    "hint": "컴퓨터에서 동시에 처리하는 실행 단위예요. 영어로 'thread'라고 해요.",
-    "feedback": {
-      "correct": "정답! asyncio는 단일 스레드(single-thread) 기반이에요. 멀티스레드처럼 물리적으로 여러 작업을 동시 실행하는 것이 아니라, 하나의 스레드 안에서 I/O 대기 시간을 활용해 코루틴을 번갈아 실행하는 방식이에요."
-    }
-  },
-  {
-    "question_id": "q209",
-    "unit": 2,
-    "stage": "2-1",
-    "course_level": "advanced",
-    "difficulty": "hard",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "아래 동기 방식 코드의 출력 결과를 정확히 골라보세요.",
-    "code_block": "def send_email():\n    print('이메일 전송 중')\n    print('이메일 전송 완료')\n    return '성공'\n\ndef notify():\n    print('알림 발송')\n\nresult = send_email()\nprint(f'결과: {result}')\nnotify()",
-    "choices": [
-      "A. 이메일 전송 중 / 이메일 전송 완료 / 결과: 성공 / 알림 발송",
-      "B. 이메일 전송 중 / 알림 발송 / 이메일 전송 완료 / 결과: 성공",
-      "C. 알림 발송 / 이메일 전송 중 / 이메일 전송 완료 / 결과: 성공",
-      "D. 이메일 전송 중 / 이메일 전송 완료 / 알림 발송 / 결과: 성공"
-    ],
-    "answer": "A",
-    "hint": "send_email()이 return '성공'을 반환한 뒤, 그 값을 받아 print()를 실행하고, 마지막으로 notify()가 호출돼요.",
-    "feedback": {
-      "correct": "정답! send_email()은 두 줄을 출력하고 '성공'을 반환해요. 그 후 f-string으로 '결과: 성공'이 출력되고, 마지막으로 notify()가 실행돼요. D는 notify()와 결과 출력 순서가 바뀌어 있어 오답이에요."
-    }
-  },
-  {
-    "question_id": "q210",
-    "unit": 2,
-    "stage": "2-1",
-    "course_level": "advanced",
-    "difficulty": "hard",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "이벤트 루프는 코루틴이 I/O 대기 상태로 들어가면, 다른 실행 가능한 코루틴에게 제어권을 _____ 하는 방식으로 효율을 높여요.",
-    "code_block": "N/A",
-    "choices": [],
-    "answer": "전환",
-    "hint": "다른 작업으로 '바꾸다', '넘기다'와 같은 의미의 한 단어예요.",
-    "feedback": {
-      "correct": "정답! 이벤트 루프는 await 키워드를 만나 현재 코루틴이 I/O 대기 상태로 들어가면, 다른 실행 가능한 코루틴으로 제어권을 전환해요. 이 전환 덕분에 단일 스레드에서도 여러 작업이 동시에 진행되는 것처럼 보여요."
-    }
-  },
-  {
-    "question_id": "q211",
-    "unit": 2,
-    "stage": "2-1",
-    "course_level": "advanced",
-    "difficulty": "easy",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "아래 동기 방식 코드의 출력 결과를 골라보세요.",
-    "code_block": "def step1():\n    print('1단계')\n\ndef step2():\n    print('2단계')\n\ndef step3():\n    print('3단계')\n\nstep1()\nstep2()\nstep3()",
-    "choices": [
-      "A. 1단계 / 2단계 / 3단계",
-      "B. 3단계 / 2단계 / 1단계",
-      "C. 1단계 / 3단계 / 2단계",
-      "D. 2단계 / 1단계 / 3단계"
-    ],
-    "answer": "A",
-    "hint": "동기 방식에서는 함수 호출 순서대로 실행돼요.",
-    "feedback": {
-      "correct": "정답! 동기 방식에서는 step1() → step2() → step3() 순서 그대로 실행돼요. 호출 순서를 바꾸지 않는 한 출력 순서도 항상 동일해요."
-    }
-  },
-  {
-    "question_id": "q212",
-    "unit": 2,
-    "stage": "2-1",
-    "course_level": "advanced",
-    "difficulty": "easy",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "Python에서 비동기 프로그래밍을 지원하는 표준 라이브러리의 이름은 _____이에요.",
-    "code_block": "N/A",
-    "choices": [],
-    "answer": "asyncio",
-    "hint": "async + I/O를 합친 이름이에요. import 키워드로 불러와요.",
-    "feedback": {
-      "correct": "정답! asyncio는 Python 표준 라이브러리로, async def·await·이벤트 루프 등 비동기 프로그래밍의 핵심 기능을 제공해요. import asyncio 로 불러와 사용해요."
-    }
-  },
-  {
-    "question_id": "q213",
-    "unit": 2,
-    "stage": "2-1",
-    "course_level": "advanced",
-    "difficulty": "medium",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "아래 동기 방식 코드의 출력 결과를 올바르게 골라보세요.",
-    "code_block": "def cook_rice():\n    print('밥 짓기 시작')\n    print('밥 완성')\n\ndef boil_soup():\n    print('국 끓이기 시작')\n    print('국 완성')\n\ncook_rice()\nboil_soup()",
-    "choices": [
-      "A. 밥 짓기 시작 / 국 끓이기 시작 / 밥 완성 / 국 완성",
-      "B. 국 끓이기 시작 / 밥 짓기 시작 / 밥 완성 / 국 완성",
-      "C. 밥 짓기 시작 / 밥 완성 / 국 끓이기 시작 / 국 완성",
-      "D. 밥 완성 / 국 완성 / 밥 짓기 시작 / 국 끓이기 시작"
-    ],
-    "answer": "C",
-    "hint": "동기 방식에서는 cook_rice()가 완전히 끝난 뒤에야 boil_soup()이 시작돼요.",
-    "feedback": {
-      "correct": "정답! 동기 방식에서는 cook_rice()의 두 줄이 모두 출력된 뒤 boil_soup()이 실행돼요. A처럼 두 함수가 번갈아 출력되는 것은 비동기 방식에서 asyncio.gather() 등을 사용할 때의 동작이에요."
-    }
-  },
-  {
-    "question_id": "q214",
-    "unit": 2,
-    "stage": "2-1",
-    "course_level": "advanced",
-    "difficulty": "medium",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "동기 방식에서 함수가 실행되는 동안 다음 코드로 넘어가지 못하고 기다리는 것을 _____ 호출이라고 해요.",
-    "code_block": "N/A",
-    "choices": [],
-    "answer": "블로킹",
-    "hint": "I/O 앞에 붙이는 그 단어예요. 실행을 '막는다'는 뜻이에요.",
-    "feedback": {
-      "correct": "정답! 블로킹 호출은 함수가 완전히 종료될 때까지 호출한 쪽이 대기하는 방식이에요. 동기 프로그래밍의 모든 함수 호출이 이에 해당해요. 반대로 논블로킹 호출은 완료를 기다리지 않아요."
-    }
-  },
-  {
-    "question_id": "q215",
-    "unit": 2,
-    "stage": "2-1",
-    "course_level": "advanced",
-    "difficulty": "medium",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "아래 동기 방식 코드를 실행하면 결과로 무엇이 출력될까요?",
-    "code_block": "results = []\n\ndef fetch(name):\n    results.append(f'{name} 완료')\n\nfetch('API-1')\nfetch('API-2')\nfetch('API-3')\nprint(results)",
-    "choices": [
-      "A. ['API-3 완료', 'API-2 완료', 'API-1 완료']",
-      "B. ['API-1 완료', 'API-2 완료', 'API-3 완료']",
-      "C. ['API-1 완료', 'API-3 완료', 'API-2 완료']",
-      "D. []"
-    ],
-    "answer": "B",
-    "hint": "동기 방식에서 append()는 호출 순서대로 리스트에 추가해요.",
-    "feedback": {
-      "correct": "정답! 동기 방식에서는 fetch('API-1') → fetch('API-2') → fetch('API-3') 순서로 실행되어 리스트에 순서대로 추가돼요. A처럼 역순이 되거나 D처럼 빈 리스트가 될 이유가 없어요."
-    }
-  },
-  {
-    "question_id": "q216",
-    "unit": 2,
-    "stage": "2-1",
-    "course_level": "advanced",
-    "difficulty": "medium",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "비동기 방식이 특히 효과적인 작업 유형으로, 파일 읽기·네트워크 요청처럼 외부 입출력 대기 시간이 많은 작업을 _____ 바운드 작업이라고 해요.",
-    "code_block": "N/A",
-    "choices": [],
-    "answer": "I/O",
-    "hint": "Input/Output의 약자예요. 파일·네트워크·DB 접근처럼 외부 장치와 데이터를 주고받는 작업이에요.",
-    "feedback": {
-      "correct": "정답! I/O 바운드 작업은 CPU 연산보다 입출력 대기 시간이 병목인 작업이에요. 비동기 방식은 이 대기 시간을 다른 작업 실행에 활용할 수 있어서 I/O 바운드 작업에 특히 효과적이에요. 반대 개념은 CPU 바운드 작업이에요."
-    }
-  },
-  {
-    "question_id": "q217",
-    "unit": 2,
-    "stage": "2-1",
-    "course_level": "advanced",
-    "difficulty": "hard",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "아래 동기 방식 코드의 출력 결과를 정확히 골라보세요.",
-    "code_block": "import time\n\ndef task(name, duration):\n    print(f'{name}: 시작')\n    time.sleep(duration)\n    print(f'{name}: 완료')\n\ntask('API 요청', 0)\ntask('DB 조회', 0)\nprint('모든 작업 완료')",
-    "choices": [
-      "A. API 요청: 시작 / API 요청: 완료 / DB 조회: 시작 / DB 조회: 완료 / 모든 작업 완료",
-      "B. API 요청: 시작 / DB 조회: 시작 / API 요청: 완료 / DB 조회: 완료 / 모든 작업 완료",
-      "C. 모든 작업 완료 / API 요청: 시작 / API 요청: 완료 / DB 조회: 시작 / DB 조회: 완료",
-      "D. API 요청: 완료 / DB 조회: 완료 / 모든 작업 완료 / API 요청: 시작 / DB 조회: 시작"
-    ],
-    "answer": "A",
-    "hint": "동기 방식에서 task()는 한 번 호출되면 완전히 끝날 때까지 다음 호출이 기다려요.",
-    "feedback": {
-      "correct": "정답! 동기 방식에서는 task('API 요청', 0)이 시작부터 완료까지 모두 출력한 후에야 task('DB 조회', 0)이 시작돼요. B처럼 두 작업이 번갈아 실행되는 것은 비동기 방식의 특징이에요."
-    }
-  },
-  {
-    "question_id": "q218",
-    "unit": 2,
-    "stage": "2-1",
-    "course_level": "advanced",
-    "difficulty": "hard",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "비동기 프로그래밍은 코드를 _____처럼 순차적으로 작성하지만, 이면에서 이벤트 루프가 I/O 대기 시간을 활용해 다른 코루틴을 실행하는 방식이에요.",
-    "code_block": "N/A",
-    "choices": [],
-    "answer": "동기",
-    "hint": "비동기의 반대 개념이에요. 작업이 차례대로 완료되는 방식이에요.",
-    "feedback": {
-      "correct": "정답! 비동기 코드는 겉으로 보면 동기 코드처럼 위에서 아래로 순서대로 작성돼요. 하지만 await 키워드를 만나는 순간 이벤트 루프가 다른 코루틴으로 제어권을 전환해 실제로는 여러 작업이 동시에 진행돼요."
-    }
-  },
-  {
-    "question_id": "q219",
-    "unit": 2,
-    "stage": "2-1",
-    "course_level": "advanced",
-    "difficulty": "hard",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "아래 동기 방식 코드의 출력 결과를 정확히 골라보세요.",
-    "code_block": "def process_data(items):\n    result = []\n    for item in items:\n        print(f'처리: {item}')\n        result.append(item * 2)\n    return result\n\ndata = [1, 2, 3]\noutput = process_data(data)\nprint(f'결과: {output}')",
-    "choices": [
-      "A. 결과: [2, 4, 6] / 처리: 1 / 처리: 2 / 처리: 3",
-      "B. 처리: 1 / 처리: 2 / 처리: 3 / 결과: [1, 2, 3]",
-      "C. 처리: 1 / 결과: [2] / 처리: 2 / 결과: [2, 4] / 처리: 3 / 결과: [2, 4, 6]",
-      "D. 처리: 1 / 처리: 2 / 처리: 3 / 결과: [2, 4, 6]"
-    ],
-    "answer": "D",
-    "hint": "process_data()가 완전히 반환된 뒤에야 print(f'결과: {output}')이 실행돼요. item * 2 가 각 요소에 적용돼요.",
-    "feedback": {
-      "correct": "정답! for 루프 안에서 '처리: 1, 2, 3'이 순서대로 출력되고, 함수가 [2, 4, 6]을 반환한 뒤 '결과: [2, 4, 6]'이 출력돼요. A는 결과가 먼저 출력되고, B는 item * 2가 적용된 [2, 4, 6] 대신 원본 리스트 [1, 2, 3]이 출력되어 오답이에요."
-    }
-  },
-  {
-    "question_id": "q220",
-    "unit": 2,
-    "stage": "2-1",
-    "course_level": "advanced",
-    "difficulty": "hard",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "동기 방식으로 각각 2초씩 걸리는 API 호출을 3개 순서대로 실행하면 총 _____초가 걸려요. 비동기 방식으로 동시에 실행하면 약 2초로 줄어들어요.",
-    "code_block": "N/A",
-    "choices": [],
-    "answer": "6",
-    "hint": "각 API 호출이 2초이고, 동기 방식에서는 하나가 끝나야 다음이 시작되어 순서대로 3번 실행해요.",
-    "feedback": {
-      "correct": "정답! 동기 방식에서는 2초 + 2초 + 2초 = 6초가 걸려요. 반면 비동기 방식으로 asyncio.gather()를 사용하면 세 작업이 I/O 대기 시간을 공유해 약 2초로 줄어들어요. 이것이 비동기 방식의 핵심 장점이에요."
-    }
-  }
-]
+  ]
+}
