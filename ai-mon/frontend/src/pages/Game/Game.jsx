@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import './Game.css'
 import airunIconUrl from './AIrun/assets/AIRUNicon.png'
+import aibombIconUrl from './AIbomb/assets/AIbombicon.png'
 
 const GAMES = [
   {
@@ -18,7 +19,7 @@ const GAMES = [
     id: 'knowledge',
     icon: '🤖',
     title: 'AI 지식 게임',
-    desc: '카드배틀 / OX 퀴즈 2~3종',
+    desc: '우주 속 AI 친구들과 떠나는 퍼즐 모험!',
     reward: 'XP 100~300',
     rewardIcon: '⚡',
     route: null,
@@ -32,6 +33,16 @@ const GAMES = [
     reward: 'XP 200~500',
     rewardIcon: '⚡',
     route: '/game/runner',
+    available: true,
+  },
+  {
+    id: 'aibomb',
+    icon: <img src={aibombIconUrl} alt="AIbomb" style={{ width: 200, height: 200, display: 'block', margin: '0 auto' }} />,
+    title: 'AI 코딩 폭탄 해제',
+    desc: '코딩을 배우고,코드를 입력해 폭탄을 해제하라 !',
+    reward: 'XP 100',
+    rewardIcon: '⚡',
+    route: '/game/aibomb',
     available: true,
   },
 
