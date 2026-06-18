@@ -40,7 +40,7 @@ export default function StageBriefing({
           {/* 개념 설명 텍스트 */}
           <p style={{
             color: 'var(--clr-text)', lineHeight: 1.85, marginBottom: '1.5rem',
-            whiteSpace: 'pre-line', fontSize: '1rem'
+            whiteSpace: 'pre-line', fontSize: '2rem'
           }}>
             {slide.text}
           </p>
@@ -59,7 +59,7 @@ export default function StageBriefing({
               </div>
               <div style={{
                 background: '#1e1e2e', padding: '1rem 1.2rem',
-                fontFamily: 'monospace', fontSize: '0.9rem', color: '#cdd6f4',
+                fontFamily: 'monospace', fontSize: '1.2rem', color: '#cdd6f4',
                 whiteSpace: 'pre', overflowX: 'auto'
               }}>
                 {slide.terminal.code.map((line, i) => (
@@ -73,7 +73,7 @@ export default function StageBriefing({
                 <div style={{
                   background: '#181825', padding: '0.75rem 1.2rem',
                   borderTop: '1px solid #313244',
-                  fontFamily: 'monospace', fontSize: '0.9rem'
+                  fontFamily: 'monospace', fontSize: '1.2rem'
                 }}>
                   {slide.terminal.output.map((line, i) => (
                     <div key={i} style={{ color: '#a6e3a1' }}>{line}</div>
