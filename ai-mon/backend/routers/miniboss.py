@@ -33,7 +33,8 @@ BOSS_HP_DELTA = 100   # 정답 시 보스 HP 감소
 MY_HP_DELTA   = 300   # 오답 시 내 HP 감소
 
 # ── 보상 ─────────────────────────────────────────────────────────────────────
-CLEAR_XP = 2500
+CLEAR_XP = 500
+
 
 
 # ── 유틸 ──────────────────────────────────────────────────────────────────────
@@ -112,7 +113,7 @@ def miniboss_info(unit: int = 1, stage: str = "1-1", authorization: str = Header
         raise HTTPException(status_code=401, detail="User not found")
 
     cleared = user.get("miniboss_cleared_stages", [])
-    stage_key = f"{unit}-{stage}"
+    stage_key = stage if "-" in str(stage) else f"{unit}-{stage}"
 
     return {
         "boss_hp_init":    BOSS_HP_INIT,
@@ -233,7 +234,7 @@ def miniboss_clear(req: ClearRequest, authorization: str = Header(...)):
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
 
-    stage_key = f"{req.unit}-{req.stage}"
+    stage_key = req.stage if "-" in str(req.stage) else f"{req.unit}-{req.stage}"
     cleared   = user.get("miniboss_cleared_stages", [])
     already_cleared = stage_key in cleared
 
