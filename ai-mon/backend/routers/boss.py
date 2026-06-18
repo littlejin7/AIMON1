@@ -175,6 +175,7 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
         raise HTTPException(status_code=404, detail="문제를 찾을 수 없습니다.")
 
     is_unit_boss = question.get("quiz_category") == "unit_boss"
+    is_final_boss = question.get("quiz_category") == "final_boss"
     
     level_instruction = "비유와 일상 예시를 들어 왜 틀렸는지 친절하게 설명해주세요."
     if course_level == "intermediate":
@@ -306,67 +307,119 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
             })
         save_progress(progress)
         
-        try:
-            cleared_unit = int(unit) if unit is not None else (int(req.unit) if getattr(req, "unit", None) is not None else (int(question.get("unit")) if question and question.get("unit") is not None else 1))
-        except (ValueError, TypeError):
-            cleared_unit = 1
+        from routers.utils import calc_level
 
-        next_unit = cleared_unit + 1
+        if is_final_boss:
+            # ── 엔드보스 클리어 보상 ─────────────────────────────────────
+            ENDBOSS_XP      = 15000
+            ENDBOSS_CROWNS  = 15
+            ENDBOSS_TITLES  = {
+                "beginner":     ("rookie_coder",  "코드 ROOKIE"),
+                "intermediate": ("ace_coder",     "ACE 코더"),
+                "advanced":     ("ai_master",     "AI 마스터"),
+            }
+            ENDBOSS_CHAR = {
+                "beginner":     "robot",
+                "intermediate": "speech_bubble",
+                "advanced":     "final_ghost",
+            }
 
-        if award_xp and u:
-            u["xp"] = u.get("xp", 0) + 3000  # 유닛 보스 클리어 XP
-            if is_unit_boss:
-                if not isinstance(u.get("completed_units"), dict):
-                    old_val = u.get("completed_units", 0)
-                    u["completed_units"] = {
-                        "beginner": old_val if course_level == "beginner" else 0,
-                        "intermediate": old_val if course_level == "intermediate" else 0,
-                        "advanced": old_val if course_level == "advanced" else 0
-                    }
-                u["completed_units"][course_level] = u["completed_units"].get(course_level, 0) + 1
-            
-            from routers.utils import calc_level
+            cleared_levels = u.get("endboss_cleared_levels", []) if u else []
+            already_cleared = course_level in cleared_levels
 
-            new_lv = calc_level(u["xp"])
-            u["lv"] = max(new_lv, u.get("lv", 1))
-            
-            lv = u["lv"]
-            if lv >= 10 and u.get("character") == "slime":
-                u["character"] = "robot"
-            elif lv >= 20 and u.get("character") == "robot":
-                u["character"] = "speech_bubble"
-            elif lv >= 30 and u.get("character") == "speech_bubble":
-                u["character"] = "final_ghost"
-            
-            context = {"boss_cleared": True}
-            newly_earned_clear = check_and_award_titles(u, context)
-            
-            # Combine titles earned
-            title_ids = {t["id"] for t in newly_earned_titles}
-            for t in newly_earned_clear:
-                if t["id"] not in title_ids:
-                    newly_earned_titles.append(t)
+            if award_xp and u and not already_cleared:
+                u["xp"] = u.get("xp", 0) + ENDBOSS_XP
+                new_lv = calc_level(u["xp"])
+                u["lv"] = max(new_lv, u.get("lv", 1))
 
-            # Find the user and increment user["crowns"] by the next unit number (crown count = next_unit_number)
-            u["crowns"] = u.get("crowns", 0) + next_unit
-            
-            # Set user["max_unlocked_unit"] to max(current value, cleared_unit + 1)
-            if not isinstance(u.get("max_unlocked_unit"), dict):
-                old_val = u.get("max_unlocked_unit", 1)
-                u["max_unlocked_unit"] = {
-                    "beginner": old_val if course_level == "beginner" else 1,
-                    "intermediate": old_val if course_level == "intermediate" else 1,
-                    "advanced": old_val if course_level == "advanced" else 1
-                }
-            u["max_unlocked_unit"][course_level] = max(u["max_unlocked_unit"].get(course_level, 1), next_unit)
+                u["crowns"] = u.get("crowns", 0) + ENDBOSS_CROWNS
 
-            ai_result["xp_awarded"] = 3000
-            ai_result["crowns_awarded"] = next_unit
-            ai_result["unlocked_unit"] = next_unit
+                new_char = ENDBOSS_CHAR.get(course_level)
+                if new_char:
+                    u["character"] = new_char
+
+                title_id, title_name = ENDBOSS_TITLES.get(course_level, ("rookie_coder", "코드 ROOKIE"))
+                earned = set(u.get("titles", []))
+                if title_id not in earned:
+                    earned.add(title_id)
+                    u["titles"] = list(earned)
+                    newly_earned_titles.append({"id": title_id, "name": title_name})
+
+                cleared_levels.append(course_level)
+                u["endboss_cleared_levels"] = cleared_levels
+                u["endboss_seen_questions"] = []
+
+                context = {"boss_cleared": True}
+                for t in check_and_award_titles(u, context):
+                    if t["id"] not in {x["id"] for x in newly_earned_titles}:
+                        newly_earned_titles.append(t)
+
+                ai_result["xp_awarded"]     = ENDBOSS_XP
+                ai_result["crowns_awarded"] = ENDBOSS_CROWNS
+            else:
+                ai_result["xp_awarded"]     = 0
+                ai_result["crowns_awarded"] = 0
+
+            ai_result["unlocked_unit"] = 9  # 엔드보스 이후 유닛 없음
+
         else:
-            ai_result["xp_awarded"] = 0
-            ai_result["crowns_awarded"] = 0
-            ai_result["unlocked_unit"] = next_unit
+            # ── 유닛 보스 클리어 보상 ────────────────────────────────────
+            try:
+                cleared_unit = int(unit) if unit is not None else (int(req.unit) if getattr(req, "unit", None) is not None else (int(question.get("unit")) if question and question.get("unit") is not None else 1))
+            except (ValueError, TypeError):
+                cleared_unit = 1
+
+            next_unit = cleared_unit + 1
+
+            if award_xp and u:
+                u["xp"] = u.get("xp", 0) + 3000
+                if is_unit_boss:
+                    if not isinstance(u.get("completed_units"), dict):
+                        old_val = u.get("completed_units", 0)
+                        u["completed_units"] = {
+                            "beginner": old_val if course_level == "beginner" else 0,
+                            "intermediate": old_val if course_level == "intermediate" else 0,
+                            "advanced": old_val if course_level == "advanced" else 0
+                        }
+                    u["completed_units"][course_level] = u["completed_units"].get(course_level, 0) + 1
+
+                new_lv = calc_level(u["xp"])
+                u["lv"] = max(new_lv, u.get("lv", 1))
+
+                lv = u["lv"]
+                if lv >= 10 and u.get("character") == "slime":
+                    u["character"] = "robot"
+                elif lv >= 20 and u.get("character") == "robot":
+                    u["character"] = "speech_bubble"
+                elif lv >= 30 and u.get("character") == "speech_bubble":
+                    u["character"] = "final_ghost"
+
+                context = {"boss_cleared": True}
+                newly_earned_clear = check_and_award_titles(u, context)
+
+                title_ids = {t["id"] for t in newly_earned_titles}
+                for t in newly_earned_clear:
+                    if t["id"] not in title_ids:
+                        newly_earned_titles.append(t)
+
+                u["crowns"] = u.get("crowns", 0) + next_unit
+
+                if not isinstance(u.get("max_unlocked_unit"), dict):
+                    old_val = u.get("max_unlocked_unit", 1)
+                    u["max_unlocked_unit"] = {
+                        "beginner": old_val if course_level == "beginner" else 1,
+                        "intermediate": old_val if course_level == "intermediate" else 1,
+                        "advanced": old_val if course_level == "advanced" else 1
+                    }
+                u["max_unlocked_unit"][course_level] = max(u["max_unlocked_unit"].get(course_level, 1), next_unit)
+
+                ai_result["xp_awarded"]     = 3000
+                ai_result["crowns_awarded"] = next_unit
+                ai_result["unlocked_unit"]  = next_unit
+            else:
+                ai_result["xp_awarded"]     = 0
+                ai_result["crowns_awarded"] = 0
+                ai_result["unlocked_unit"]  = next_unit
     else:
         ai_result["xp_awarded"] = 0
         ai_result["crowns_awarded"] = 0
