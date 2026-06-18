@@ -1,0 +1,41 @@
+/* ── CtrlBar 컴포넌트 스타일 ── */
+#ctrl-bar {
+  position: absolute;
+  bottom: 38px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 18px;
+  z-index: 6;
+}
+
+.ctrl-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, rgba(30, 10, 80, 0.9), rgba(15, 5, 50, 0.9));
+  border: 2.5px solid rgba(120, 170, 255, 0.6);
+  box-shadow: 0 0 16px rgba(80, 140, 255, 0.5), inset 0 0 10px rgba(60, 100, 200, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.3rem;
+  color: #fff;
+  transition: transform 0.15s, box-shadow 0.15s;
+  user-select: none;
+}
+
+.ctrl-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 22px rgba(100, 180, 255, 0.7);
+}
+
+.ctrl-btn:active {
+  transform: scale(0.95);
+}
+
+.ctrl-btn.muted {
+  border-color: rgba(180, 100, 100, 0.6);
+  box-shadow: 0 0 16px rgba(200, 80, 80, 0.3);
+}

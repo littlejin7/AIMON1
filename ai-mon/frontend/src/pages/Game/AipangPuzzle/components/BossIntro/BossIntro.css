@@ -1,0 +1,39 @@
+/* ── BossIntro 컴포넌트 스타일 ── */
+#boss-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(40, 0, 60, 0.92);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+#boss-intro img {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  animation: boss-appear 0.6s cubic-bezier(0.2, 1.5, 0.4, 1);
+  filter: drop-shadow(0 0 30px rgba(200, 100, 255, 0.8));
+}
+
+@keyframes boss-appear {
+  from { transform: scale(0) rotate(-20deg); }
+  to   { transform: scale(1) rotate(0deg);   }
+}
+
+.boss-intro-name {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 0 20px rgba(200, 80, 255, 0.8);
+  letter-spacing: 3px;
+}
+
+.boss-intro-sub {
+  color: #c0a8ff;
+  font-size: 0.85rem;
+}
