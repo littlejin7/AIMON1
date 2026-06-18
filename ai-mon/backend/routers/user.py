@@ -44,6 +44,7 @@ class UpdateProfileRequest(BaseModel):
     character: Optional[str] = None
     course_level: Optional[str] = None
     is_level_tested: Optional[bool] = None
+    equipped_title: Optional[str] = None
 
 
 from routers.utils import serialize_user
@@ -69,6 +70,8 @@ def update_me(req: UpdateProfileRequest, authorization: str = Header(...)):
                 u["course_level"] = req.course_level
             if req.is_level_tested is not None:
                 u["is_level_tested"] = req.is_level_tested
+            if req.equipped_title is not None:
+                u["equipped_title"] = req.equipped_title
             save_users(users)
             print("PATCH /user/me successfully saved user:", u)
             return serialize_user(u)

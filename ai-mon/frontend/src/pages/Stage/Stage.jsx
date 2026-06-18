@@ -167,6 +167,7 @@ export default function Stage({ _lessonId, _stage }) {
   const handleMinibossRetry = () => {
     setCurrent(minibossStartIndex)
     setCorrect(stageQuizCorrect)
+    setScore(stageQuizCorrect * 20)
     setFinished(false)
   }
 
@@ -183,10 +184,12 @@ export default function Stage({ _lessonId, _stage }) {
   // ── 다음 문제 / 완료 처리 ──
   const handleNext = async () => {
     const currentCategory = questions[current]?.quiz_category
-    const nextCategory    = questions[current + 1]?.quiz_category
 
-    // 스테이지 퀴즈 → 미니보스 전환 시점
-    if ((currentCategory === 'stage_quiz' && nextCategory === 'miniboss') || current === 9) {
+    // 스테이지 퀴즈 → 미니보스 전환 시점 (동적으로 최초 미니보스 문제 직전 검출)
+    const firstMinibossIndex = questions.findIndex(q => q.quiz_category === 'miniboss')
+    const isTransitionToMiniboss = firstMinibossIndex !== -1 && (current + 1 === firstMinibossIndex)
+
+    if (isTransitionToMiniboss) {
       const stageQuizCount = current + 1
       const stageQuizScore = Math.round((correct / stageQuizCount) * 100)
       if (stageQuizScore < 60) {

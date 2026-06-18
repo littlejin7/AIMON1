@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useAuthStore } from '../../hooks/useAuthStore'
+import { userApi } from '../../api/index'
 import './title.css'
 
 // ── 레벨 계산 (Home.jsx와 동일)
@@ -28,7 +29,7 @@ function getRingTier(lv) {
 // ── 칭호 데이터
 const TITLES = [
   { id: 'first_step',    emoji: '🌱', name: '첫 발걸음',   desc: '첫 스테이지 클리어',       condition: (u) => (u?.completed_stages || 0) >= 1 },
-  { id: 'streak7',       emoji: '🔥', name: '연속학습자',  desc: '7일 스트릭 달성',          condition: (u) => (u?.streak || 0) >= 7 },
+  { id: 'streak_7',      emoji: '🔥', name: '연속학습자',  desc: '7일 스트릭 달성',          condition: (u) => (u?.streak || 0) >= 7 },
   { id: 'boss_slayer',   emoji: '⚔️', name: '보스슬레이어', desc: '첫 보스 클리어',           condition: (u) => (u?.boss_cleared || 0) >= 1 },
   { id: 'ai_explorer',   emoji: '🧠', name: 'AI 탐구자',   desc: 'AI 피드백 10회 확인',      condition: (u) => (u?.ai_feedback_count || 0) >= 10 },
   { id: 'unit_master',   emoji: '👑', name: '유닛 마스터',  desc: '유닛 1개 100% 완료',       condition: (u) => (u?.completed_units || 0) >= 1 },
@@ -59,6 +60,7 @@ const MOCK_USER = {
 
 export default function Profile() {
   const authUser = useAuthStore((s) => s.user)
+  const updateUser = useAuthStore((s) => s.updateUser)
 
   // 백엔드 연결 전엔 MOCK_USER, 연결 후엔 authUser로 교체
   const user = authUser || MOCK_USER
@@ -71,8 +73,14 @@ export default function Profile() {
   // 칭호: 보유 여부 판정 + 장착 상태 - 유저별 key 사용으로 계정 전환 시 칭호 오염 방지
   const storageKey = `equipped_title_${user?.id || 'guest'}`
   const [equippedTitle, setEquippedTitle] = useState(
-  localStorage.getItem(storageKey) || user?.equipped_title || 'first_step'
-)
+    user?.equipped_title || localStorage.getItem(storageKey) || 'first_step'
+  )
+
+  useEffect(() => {
+    if (user) {
+      setEquippedTitle(user.equipped_title || localStorage.getItem(storageKey) || 'first_step')
+    }
+  }, [user, storageKey])
 
   const titlesWithState = TITLES.map((t) => ({
     ...t,
@@ -110,11 +118,17 @@ export default function Profile() {
               <button
                 key={t.id}
                 className={`pf-title-row ${t.equipped ? 'equipped' : ''} ${!t.owned ? 'locked' : ''}`}
-                onClick={() => {
-  if (!t.owned) return
-  setEquippedTitle(t.id)
-  localStorage.setItem(storageKey, t.id)
-}}
+                onClick={async () => {
+                  if (!t.owned) return
+                  setEquippedTitle(t.id)
+                  localStorage.setItem(storageKey, t.id)
+                  try {
+                    const res = await userApi.updateMe({ equipped_title: t.id })
+                    updateUser(res.data)
+                  } catch (err) {
+                    console.error('Failed to sync equipped title to backend:', err)
+                  }
+                }}
                 disabled={!t.owned}
               >
                 <div className="pf-title-left">
