@@ -303,7 +303,7 @@ useEffect(() => {
       const matchType = hasWave ? 'wave' : hasCross ? 'cross' : hasSquare ? 'square' : 'line';
 
       const typeMult  = matchType === 'square' ? 1.5 : (matchType === 'cross' || matchType === 'wave') ? 2 : 1;
-      const baseDmg   = Math.round(allCells.length * 5024 * sd.dmgMult * typeMult);
+      const baseDmg   = Math.round(allCells.length * 3024 * sd.dmgMult * typeMult);
       const totalDmg  = Math.round(baseDmg * comboMult);
 
       // 팝 애니메이션 + 파티클
