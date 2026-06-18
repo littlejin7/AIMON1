@@ -57,6 +57,12 @@ class BossAnswerRequest(BaseModel):
     boss_hp: int = 1000
     unit: Optional[int] = None
 
+# 서버 측 HP 고정 상수 – 클라이언트 조작 무력화
+BOSS_HP_INIT  = 1000
+MY_HP_INIT    = 1000
+BOSS_HP_DELTA = 150   # 정답 시 보스 HP 감소
+MY_HP_DELTA   = 350   # 오답 시 내 HP 감소
+
 
 @router.get("/info")
 def get_boss_info(unit: str = "1", authorization: str = Header(...)):
@@ -235,25 +241,29 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
         # fill_in_blank, code_input: 정확한 텍스트 입력이므로 Claude 채점
         ai_result = await ask_claude_json(prompt)
 
-    # 채점 후 HP 계산 로직 추가
+    # HP 계산: 클라이언트 HP 값을 유효 범위로 클램프 후 고정 delta 적용 (HP 조작 방지)
+    safe_boss_hp = max(0, min(req.boss_hp, BOSS_HP_INIT))
+    safe_my_hp   = max(0, min(req.my_hp,   MY_HP_INIT))
+    safe_wrong   = max(0, min(req.wrong_count, 2))  # 0~2 사이로 클램프
+
     if ai_result.get("is_correct"):
-        new_boss_hp = req.boss_hp - 150
-        new_my_hp = req.my_hp
-        new_wrong_count = req.wrong_count
+        new_boss_hp    = safe_boss_hp - BOSS_HP_DELTA
+        new_my_hp      = safe_my_hp
+        new_wrong_count = safe_wrong
     else:
-        new_boss_hp = req.boss_hp
-        new_my_hp = req.my_hp - 350
-        new_wrong_count = req.wrong_count + 1
+        new_boss_hp    = safe_boss_hp
+        new_my_hp      = safe_my_hp - MY_HP_DELTA
+        new_wrong_count = safe_wrong + 1
 
     is_clear = new_boss_hp <= 0
-    is_fail = new_my_hp <= 0 or new_wrong_count >= 3
+    is_fail  = new_my_hp  <= 0 or new_wrong_count >= 3
 
     # 응답에 HP 정보 추가
-    ai_result["my_hp"] = new_my_hp
-    ai_result["boss_hp"] = new_boss_hp
+    ai_result["my_hp"]       = new_my_hp
+    ai_result["boss_hp"]     = new_boss_hp
     ai_result["wrong_count"] = new_wrong_count
-    ai_result["is_clear"] = is_clear
-    ai_result["is_fail"] = is_fail
+    ai_result["is_clear"]    = is_clear
+    ai_result["is_fail"]     = is_fail
 
     # 오답 기록
     if not ai_result.get("is_correct", False):
@@ -310,57 +320,11 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
         from routers.utils import calc_level
 
         if is_final_boss:
-            # ── 엔드보스 클리어 보상 ─────────────────────────────────────
-            ENDBOSS_XP      = 15000
-            ENDBOSS_CROWNS  = 15
-            ENDBOSS_TITLES  = {
-                "beginner":     ("rookie_coder",  "코드 ROOKIE"),
-                "intermediate": ("ace_coder",     "ACE 코더"),
-                "advanced":     ("ai_master",     "AI 마스터"),
-            }
-            ENDBOSS_CHAR = {
-                "beginner":     "robot",
-                "intermediate": "speech_bubble",
-                "advanced":     "final_ghost",
-            }
-
-            cleared_levels = u.get("endboss_cleared_levels", []) if u else []
-            already_cleared = course_level in cleared_levels
-
-            if award_xp and u and not already_cleared:
-                u["xp"] = u.get("xp", 0) + ENDBOSS_XP
-                new_lv = calc_level(u["xp"])
-                u["lv"] = max(new_lv, u.get("lv", 1))
-
-                u["crowns"] = u.get("crowns", 0) + ENDBOSS_CROWNS
-
-                new_char = ENDBOSS_CHAR.get(course_level)
-                if new_char:
-                    u["character"] = new_char
-
-                title_id, title_name = ENDBOSS_TITLES.get(course_level, ("rookie_coder", "코드 ROOKIE"))
-                earned = set(u.get("titles", []))
-                if title_id not in earned:
-                    earned.add(title_id)
-                    u["titles"] = list(earned)
-                    newly_earned_titles.append({"id": title_id, "name": title_name})
-
-                cleared_levels.append(course_level)
-                u["endboss_cleared_levels"] = cleared_levels
-                u["endboss_seen_questions"] = []
-
-                context = {"boss_cleared": True}
-                for t in check_and_award_titles(u, context):
-                    if t["id"] not in {x["id"] for x in newly_earned_titles}:
-                        newly_earned_titles.append(t)
-
-                ai_result["xp_awarded"]     = ENDBOSS_XP
-                ai_result["crowns_awarded"] = ENDBOSS_CROWNS
-            else:
-                ai_result["xp_awarded"]     = 0
-                ai_result["crowns_awarded"] = 0
-
-            ai_result["unlocked_unit"] = 9  # 엔드보스 이후 유닛 없음
+            # ── 엔드보스 클리어 보상은 endboss.py /boss/endboss/clear 에서 전담 처리 ──
+            # 여기서 보상을 지급하면 중복 지급이 발생하므로, xp/crowns는 0으로 반환
+            ai_result["xp_awarded"]     = 0
+            ai_result["crowns_awarded"] = 0
+            ai_result["unlocked_unit"]  = 9  # 엔드보스 이후 유닛 없음
 
         else:
             # ── 유닛 보스 클리어 보상 ────────────────────────────────────

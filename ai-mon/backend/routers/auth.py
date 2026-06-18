@@ -134,18 +134,16 @@ def login(req: LoginRequest):
             user.setdefault("earned_streak_milestones", []).append(30)
             streak_reward = {"days": 30, "xp": 10000, "crowns": 5}
 
-        # Level up and evolution check
-        if streak_reward:
+        # Level up and evolution check (streak 증가 시 항상 실행)
+        new_lv = calc_level(user.get("xp", 0))
+        user["lv"] = max(new_lv, user.get("lv", 1))
 
-            new_lv = calc_level(user.get("xp", 0))
-            user["lv"] = max(new_lv, user.get("lv", 1))
-
-            if user["lv"] >= 10 and user.get("character") == "slime":
-                user["character"] = "robot"
-            elif user["lv"] >= 20 and user.get("character") == "robot":
-                user["character"] = "speech_bubble"
-            elif user["lv"] >= 30 and user.get("character") == "speech_bubble":
-                user["character"] = "final_ghost"
+        if user["lv"] >= 10 and user.get("character") == "slime":
+            user["character"] = "robot"
+        elif user["lv"] >= 20 and user.get("character") == "robot":
+            user["character"] = "speech_bubble"
+        elif user["lv"] >= 30 and user.get("character") == "speech_bubble":
+            user["character"] = "final_ghost"
     else:
         user["streak"] = 1
 
@@ -291,17 +289,16 @@ def social_google(req: SocialLoginRequest):
             user.setdefault("earned_streak_milestones", []).append(30)
             streak_reward = {"days": 30, "xp": 10000, "crowns": 5}
 
-        if streak_reward:
+        # Level up and evolution check (streak 증가 시 항상 실행)
+        new_lv = calc_level(user.get("xp", 0))
+        user["lv"] = max(new_lv, user.get("lv", 1))
 
-            new_lv = calc_level(user.get("xp", 0))
-            user["lv"] = max(new_lv, user.get("lv", 1))
-
-            if user["lv"] >= 10 and user.get("character") == "slime":
-                user["character"] = "robot"
-            elif user["lv"] >= 20 and user.get("character") == "robot":
-                user["character"] = "speech_bubble"
-            elif user["lv"] >= 30 and user.get("character") == "speech_bubble":
-                user["character"] = "final_ghost"
+        if user["lv"] >= 10 and user.get("character") == "slime":
+            user["character"] = "robot"
+        elif user["lv"] >= 20 and user.get("character") == "robot":
+            user["character"] = "speech_bubble"
+        elif user["lv"] >= 30 and user.get("character") == "speech_bubble":
+            user["character"] = "final_ghost"
     else:
         user["streak"] = 1
 
@@ -453,17 +450,16 @@ def social_naver(req: SocialLoginRequest):
             user.setdefault("earned_streak_milestones", []).append(30)
             streak_reward = {"days": 30, "xp": 10000, "crowns": 5}
 
-        if streak_reward:
+        # Level up and evolution check (streak 증가 시 항상 실행)
+        new_lv = calc_level(user.get("xp", 0))
+        user["lv"] = max(new_lv, user.get("lv", 1))
 
-            new_lv = calc_level(user.get("xp", 0))
-            user["lv"] = max(new_lv, user.get("lv", 1))
-
-            if user["lv"] >= 10 and user.get("character") == "slime":
-                user["character"] = "robot"
-            elif user["lv"] >= 20 and user.get("character") == "robot":
-                user["character"] = "speech_bubble"
-            elif user["lv"] >= 30 and user.get("character") == "speech_bubble":
-                user["character"] = "final_ghost"
+        if user["lv"] >= 10 and user.get("character") == "slime":
+            user["character"] = "robot"
+        elif user["lv"] >= 20 and user.get("character") == "robot":
+            user["character"] = "speech_bubble"
+        elif user["lv"] >= 30 and user.get("character") == "speech_bubble":
+            user["character"] = "final_ghost"
     else:
         user["streak"] = 1
 
@@ -612,17 +608,16 @@ def social_kakao(req: SocialLoginRequest):
             user.setdefault("earned_streak_milestones", []).append(30)
             streak_reward = {"days": 30, "xp": 10000, "crowns": 5}
 
-        if streak_reward:
+        # Level up and evolution check (streak 증가 시 항상 실행)
+        new_lv = calc_level(user.get("xp", 0))
+        user["lv"] = max(new_lv, user.get("lv", 1))
 
-            new_lv = calc_level(user.get("xp", 0))
-            user["lv"] = max(new_lv, user.get("lv", 1))
-
-            if user["lv"] >= 10 and user.get("character") == "slime":
-                user["character"] = "robot"
-            elif user["lv"] >= 20 and user.get("character") == "robot":
-                user["character"] = "speech_bubble"
-            elif user["lv"] >= 30 and user.get("character") == "speech_bubble":
-                user["character"] = "final_ghost"
+        if user["lv"] >= 10 and user.get("character") == "slime":
+            user["character"] = "robot"
+        elif user["lv"] >= 20 and user.get("character") == "robot":
+            user["character"] = "speech_bubble"
+        elif user["lv"] >= 30 and user.get("character") == "speech_bubble":
+            user["character"] = "final_ghost"
     else:
         user["streak"] = 1
 

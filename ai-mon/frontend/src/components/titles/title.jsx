@@ -68,9 +68,10 @@ export default function Profile() {
   const ringTier = getRingTier(lv)
   const charEmoji = CHAR_EMOJI[user.character] || '🟣'
 
-  // 칭호: 보유 여부 판정 + 장착 상태
+  // 칭호: 보유 여부 판정 + 장착 상태 - 유저별 key 사용으로 계정 전환 시 칭호 오염 방지
+  const storageKey = `equipped_title_${user?.id || 'guest'}`
   const [equippedTitle, setEquippedTitle] = useState(
-  localStorage.getItem('equipped_title') || user?.equipped_title || 'first_step'
+  localStorage.getItem(storageKey) || user?.equipped_title || 'first_step'
 )
 
   const titlesWithState = TITLES.map((t) => ({
@@ -112,7 +113,7 @@ export default function Profile() {
                 onClick={() => {
   if (!t.owned) return
   setEquippedTitle(t.id)
-  localStorage.setItem('equipped_title', t.id)
+  localStorage.setItem(storageKey, t.id)
 }}
                 disabled={!t.owned}
               >
