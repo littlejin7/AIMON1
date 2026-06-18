@@ -1,402 +1,245 @@
 [
   {
-    "question_id": "sl_mid_os_5_1_001",
-    "unit": 5,
-    "stage": "5-1",
-    "course_level": "intermediate",
+    "question_id": "q001",
+    "type": "output_select",
     "difficulty": "easy",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "다음 코드의 실행 결과를 선택해주세요.\n\nresult = [x * 2 for x in [1, 2, 3, 4]]\nprint(result)",
+    "unit": 5,
+    "lesson": "5-1",
+    "question": "다음 코드를 실행했을 때 출력되는 값으로 알맞은 것을 고르세요.",
+    "code": "nums = [10, 20, 30, 40, 50]\nresult = [n // 10 for n in nums if n > 20]\nprint(result)",
     "choices": [
-      "A) [1, 4, 9, 16]",
-      "B) [1, 2, 3, 4]",
-      "C) [2, 4, 6, 8]",
-      "D) [2, 4, 6]"
+      "A. [3, 4, 5]",
+      "B. [2, 3, 4, 5]",
+      "C. [1, 2, 3, 4, 5]",
+      "D. [30, 40, 50]"
     ],
-    "answer": "C) [2, 4, 6, 8]",
-    "hint": "리스트 컴프리헨션은 각 원소에 표현식을 적용한 새 리스트를 만들어요.",
+    "answer": "A",
     "feedback": {
-      "correct": "정답! [x*2 for x in [1,2,3,4]]는 각 원소에 2를 곱해요. 1→2, 2→4, 3→6, 4→8이에요."
+      "correct": "정답! n > 20 조건을 만족하는 값은 30, 40, 50이고, 각각 // 10 정수 나눗셈을 적용하면 3, 4, 5가 됩니다. 결과는 [3, 4, 5]입니다."
     }
   },
   {
-    "question_id": "sl_mid_os_5_1_002",
-    "unit": 5,
-    "stage": "5-1",
-    "course_level": "intermediate",
+    "question_id": "q002",
+    "type": "fill_in_blank",
     "difficulty": "easy",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "다음 코드에서 빈칸을 채워 10 이상의 수만 필터링하는 컴프리헨션을 완성하세요.\n\nnums = [5, 12, 8, 15, 3, 20]\nfiltered = [n for n in nums ________]\nprint(filtered)  # [12, 15, 20]",
-    "answer": "if n >= 10",
-    "hint": "if 조건을 추가하면 조건을 만족하는 원소들만 선택돼요.",
+    "unit": 5,
+    "lesson": "5-1",
+    "question": "짝수만 추출해 중복 없이 모으는 세트 컴프리헨션을 완성하려고 합니다. 빈칸에 알맞은 연산자를 채워 코드를 완성하세요.",
+    "code": "numbers = [3, 1, 4, 1, 5, 9, 2, 6, 5]\nunique_evens = {n for n in numbers if n _____ 2 == 0}\nprint(unique_evens)",
+    "answer": "%",
     "feedback": {
-      "correct": "정답! if n >= 10 조건으로 10 이상의 수인 12, 15, 20만 필터링됐어요."
+      "correct": "정답! % 연산자는 나머지를 구합니다. n % 2 == 0 조건으로 짝수(2, 4, 6)를 필터링하고, 세트 컴프리헨션이 중복을 자동으로 제거합니다."
     }
   },
   {
-    "question_id": "sl_mid_os_5_1_003",
-    "unit": 5,
-    "stage": "5-1",
-    "course_level": "intermediate",
-    "difficulty": "medium",
+    "question_id": "q003",
     "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "다음 코드의 실행 결과를 선택해주세요.\n\nresult = [x ** 2 for x in range(1, 5)]\nprint(result)",
-    "choices": [
-      "A) [1, 2, 3, 4]",
-      "B) [1, 4, 9, 16]",
-      "C) [2, 4, 6, 8]",
-      "D) [0, 1, 4, 9]"
-    ],
-    "answer": "B) [1, 4, 9, 16]",
-    "hint": "range(1, 5)는 1, 2, 3, 4를 생성해요.",
-    "feedback": {
-      "correct": "정답! range(1,5)는 1,2,3,4이고, 각각 제곱하면 1→1, 2→4, 3→9, 4→16이에요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_5_1_004",
-    "unit": 5,
-    "stage": "5-1",
-    "course_level": "intermediate",
-    "difficulty": "medium",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "다음 코드에서 빈칸을 채워 짝수만 모으는 컴프리헨션을 완성하세요.\n\nnums = [1, 2, 3, 4, 5, 6]\nevens = [n for n in nums ________]\nprint(evens)  # [2, 4, 6]",
-    "answer": "if n % 2 == 0",
-    "hint": "n % 2 == 0이면 짝수예요.",
-    "feedback": {
-      "correct": "정답! if n % 2 == 0 조건으로 2, 4, 6을 필터링했어요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_5_1_005",
-    "unit": 5,
-    "stage": "5-1",
-    "course_level": "intermediate",
-    "difficulty": "medium",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "다음 코드의 실행 결과를 선택해주세요.\n\nwords = ['hi', 'hello', 'py']\nresult = [w.upper() for w in words]\nprint(result)",
-    "choices": [
-      "A) ['HI', 'HELLO', 'PY']",
-      "B) ['hi', 'hello', 'py']",
-      "C) 'HIHELLOPY'",
-      "D) ['HI', 'PY']"
-    ],
-    "answer": "A) ['HI', 'HELLO', 'PY']",
-    "hint": "upper()는 문자열을 대문자로 변환해요.",
-    "feedback": {
-      "correct": "정답! [w.upper() for w in words]는 각 단어를 대문자로 변환해요. 'hi'→'HI', 'hello'→'HELLO', 'py'→'PY'예요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_5_1_006",
-    "unit": 5,
-    "stage": "5-1",
-    "course_level": "intermediate",
-    "difficulty": "medium",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "다음 코드에서 빈칸을 채워 1부터 5까지의 제곱을 구하는 컴프리헨션을 완성하세요.\n\nresult = [x**2 ________]\nprint(result)\n# 출력: [1, 4, 9, 16, 25]",
-    "answer": "for x in range(1, 6)",
-    "hint": "range(1, 6)은 1부터 5까지 수를 만들어요.",
-    "feedback": {
-      "correct": "정답! for x in range(1,6)은 1,2,3,4,5를 순회해요. 각 x**2은 1,4,9,16,25예요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_5_1_007",
-    "unit": 5,
-    "stage": "5-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "다음 코드의 실행 결과를 선택해주세요.\n\nnums = [1, 2, 3, 4, 5]\nresult = [x * 2 if x % 2 == 0 else x for x in nums]\nprint(result)",
-    "choices": [
-      "A) [1, 4, 3, 8, 5]",
-      "B) [2, 4, 6, 8, 10]",
-      "C) [1, 2, 3, 4, 5]",
-      "D) [1, 4, 3, 8]"
-    ],
-    "answer": "A) [1, 4, 3, 8, 5]",
-    "hint": "짝수면 x*2, 홀수면 x 그대로예요. 1(홀)→1, 2(짝)→4, 3(홀)→3, 4(짝)→8, 5(홀)→5예요.",
-    "feedback": {
-      "correct": "정답! 조건 표현식 x*2 if x%2==0 else x는 짝수면 2배, 홀수면 그대로예요. 1→1, 2→4, 3→3, 4→8, 5→5예요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_5_1_008",
-    "unit": 5,
-    "stage": "5-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "다음 코드에서 빈칸을 채워 중첩 리스트의 모든 원소를 1씩 증가시키는 컴프리헨션을 완성하세요.\n\nmatrix = [[1, 2], [3, 4], [5, 6]]\nresult = ________\nprint(result)\n# [[2, 3], [4, 5], [6, 7]]",
-    "answer": "[[x + 1 for x in row] for row in matrix]",
-    "hint": "바깥쪽 for로 각 행을, 안쪽 for로 각 원소를 처리하는 중첩 컴프리헨션이에요.",
-    "feedback": {
-      "correct": "정답! [[x+1 for x in row] for row in matrix]는 각 행을 순회하며 행 안의 원소에 1을 더해요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_5_1_009",
-    "unit": 5,
-    "stage": "5-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "다음 코드의 실행 결과를 선택해주세요.\n\ndef process(x):\n    if x % 2 == 0:\n        return x * 2\n    else:\n        return x * 3\n\nnums = [1, 2, 3]\nresult = [process(n) for n in nums]\nprint(result)",
-    "choices": [
-      "A) [1, 2, 3]",
-      "B) [2, 4, 6]",
-      "C) [3, 2, 9]",
-      "D) [3, 4, 9]"
-    ],
-    "answer": "D) [3, 4, 9]",
-    "hint": "1(홀수)→1*3=3, 2(짝수)→2*2=4, 3(홀수)→3*3=9예요.",
-    "feedback": {
-      "correct": "정답! process(1)=3(홀수→*3), process(2)=4(짝수→*2), process(3)=9(홀수→*3)예요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_5_1_010",
-    "unit": 5,
-    "stage": "5-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "다음 코드에서 빈칸을 채워 2차원 리스트를 1차원으로 평탄화하는 컴프리헨션을 완성하세요.\n\nmatrix = [[1, 2, 3], [4, 5, 6]]\nflat = ________\nprint(flat)  # [1, 2, 3, 4, 5, 6]",
-    "answer": "[x for row in matrix for x in row]",
-    "hint": "바깥쪽 for로 행을, 안쪽 for로 각 원소를 순회해요.",
-    "feedback": {
-      "correct": "정답! [x for row in matrix for x in row]는 바깥 for로 각 행을, 안쪽 for로 행의 원소를 순회해요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_5_1_011",
-    "unit": 5,
-    "stage": "5-1",
-    "course_level": "intermediate",
     "difficulty": "easy",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "다음 코드의 실행 결과를 선택해주세요.\n\nresult = [x + 10 for x in [1, 2, 3]]\nprint(result)",
+    "unit": 5,
+    "lesson": "5-1",
+    "question": "다음 코드를 실행했을 때 출력되는 값으로 알맞은 것을 고르세요.",
+    "code": "keys = ['x', 'y', 'z']\nvalues = [10, 20, 30]\nresult = {k: v for k, v in zip(keys, values)}\nprint(result['y'])",
     "choices": [
-      "A) [11, 12, 13]",
-      "B) [10, 20, 30]",
-      "C) [1, 2, 3]",
-      "D) [10, 11, 12]"
+      "A. 10",
+      "B. 20",
+      "C. 30",
+      "D. {'y': 20}"
     ],
-    "answer": "A) [11, 12, 13]",
-    "hint": "리스트 컴프리헨션은 각 원소에 +10을 적용해요.",
+    "answer": "B",
     "feedback": {
-      "correct": "정답! [x+10 for x in [1,2,3]]은 1→11, 2→12, 3→13으로 변환해요."
+      "correct": "정답! zip()으로 keys와 values를 묶어 딕셔너리 컴프리헨션을 만들면 {'x': 10, 'y': 20, 'z': 30}이 됩니다. result['y']는 20입니다."
     }
   },
   {
-    "question_id": "sl_mid_os_5_1_012",
-    "unit": 5,
-    "stage": "5-1",
-    "course_level": "intermediate",
+    "question_id": "q004",
+    "type": "fill_in_blank",
     "difficulty": "easy",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "다음 코드에서 빈칸을 채워 홀수만 모으는 컴프리헨션을 완성하세요.\n\nnums = [1, 2, 3, 4, 5, 6, 7]\nodds = [n for n in nums ________]\nprint(odds)  # [1, 3, 5, 7]",
-    "answer": "if n % 2 != 0",
-    "hint": "n % 2 != 0이면 홀수예요.",
+    "unit": 5,
+    "lesson": "5-2",
+    "question": "JSON 문자열을 파이썬 리스트로 변환하려고 합니다. 빈칸에 알맞은 메서드 이름을 채워 코드를 완성하세요.",
+    "code": "import json\nraw = '[1, 2, 3, 4, 5]'\ndata = json._____(raw)\nprint(data[2])",
+    "answer": "loads",
     "feedback": {
-      "correct": "정답! if n % 2 != 0 조건으로 홀수인 1, 3, 5, 7을 필터링했어요."
+      "correct": "정답! json.loads()는 JSON 형식의 문자열을 파이썬 객체로 변환합니다. raw 문자열이 리스트로 변환된 후 data[2]는 3을 반환합니다."
     }
   },
   {
-    "question_id": "sl_mid_os_5_1_013",
-    "unit": 5,
-    "stage": "5-1",
-    "course_level": "intermediate",
-    "difficulty": "medium",
+    "question_id": "q005",
     "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "다음 코드의 실행 결과를 선택해주세요.\n\nwords = ['cat', 'elephant', 'dog', 'lion']\nresult = [len(w) for w in words]\nprint(result)",
+    "difficulty": "easy",
+    "unit": 5,
+    "lesson": "5-1",
+    "question": "다음 코드를 실행했을 때 출력되는 값으로 알맞은 것을 고르세요.",
+    "code": "words = ['Python', 'is', 'fun', 'and', 'easy']\nshort = [w for w in words if len(w) <= 3]\nprint(short)",
     "choices": [
-      "A) [3, 8, 3, 4]",
-      "B) [1, 1, 1, 1]",
-      "C) [3, 8, 4]",
-      "D) ['cat', 'elephant', 'dog', 'lion']"
+      "A. ['Python', 'easy']",
+      "B. ['is', 'fun', 'and']",
+      "C. ['is', 'fun']",
+      "D. ['Python', 'is', 'fun', 'and', 'easy']"
     ],
-    "answer": "A) [3, 8, 3, 4]",
-    "hint": "len()으로 각 단어의 글자 수를 구해요.",
+    "answer": "B",
     "feedback": {
-      "correct": "정답! len('cat')=3, len('elephant')=8, len('dog')=3, len('lion')=4예요."
+      "correct": "정답! len(w) <= 3 조건을 만족하는 단어는 'is'(2), 'fun'(3), 'and'(3)입니다. 'Python'(6)과 'easy'(4)는 조건을 만족하지 않아 제외됩니다."
     }
   },
   {
-    "question_id": "sl_mid_os_5_1_014",
-    "unit": 5,
-    "stage": "5-1",
-    "course_level": "intermediate",
-    "difficulty": "medium",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "다음 코드에서 빈칸을 채워 3의 배수인 수만 모으는 컴프리헨션을 완성하세요.\n\nnums = [1, 3, 6, 9, 10, 12]\nresult = ________\nprint(result)  # [3, 6, 9, 12]",
-    "answer": "[n for n in nums if n % 3 == 0]",
-    "hint": "n % 3 == 0이면 3의 배수예요.",
-    "feedback": {
-      "correct": "정답! [n for n in nums if n % 3 == 0]으로 3의 배수인 3, 6, 9, 12를 모았어요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_5_1_015",
-    "unit": 5,
-    "stage": "5-1",
-    "course_level": "intermediate",
-    "difficulty": "medium",
+    "question_id": "q006",
     "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "다음 코드의 실행 결과를 선택해주세요.\n\nnums = [1, 2, 3, 4, 5]\nresult = [n * 3 for n in nums if n > 2]\nprint(result)",
-    "choices": [
-      "A) [3, 6, 9, 12, 15]",
-      "B) [9, 12, 15]",
-      "C) [3, 4, 5]",
-      "D) [9, 12]"
-    ],
-    "answer": "B) [9, 12, 15]",
-    "hint": "먼저 n > 2인 수(3, 4, 5)를 필터링한 후 각각 3을 곱해요.",
-    "feedback": {
-      "correct": "정답! n > 2인 3, 4, 5가 선택되고, 각각 3배인 9, 12, 15가 결과예요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_5_1_016",
-    "unit": 5,
-    "stage": "5-1",
-    "course_level": "intermediate",
     "difficulty": "medium",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "다음 코드에서 빈칸을 채워 단어들을 모두 소문자로 변환하는 컴프리헨션을 완성하세요.\n\nwords = ['Hello', 'WORLD', 'Python']\nresult = ________\nprint(result)  # ['hello', 'world', 'python']",
-    "answer": "[w.lower() for w in words]",
-    "hint": "lower()는 문자열을 소문자로 변환해요.",
-    "feedback": {
-      "correct": "정답! [w.lower() for w in words]는 각 단어를 소문자로 변환해요. 'Hello'→'hello', 'WORLD'→'world', 'Python'→'python'이에요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_5_1_017",
     "unit": 5,
-    "stage": "5-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "다음 코드의 실행 결과를 선택해주세요.\n\ndef classify(x):\n    if x < 0:\n        return 'neg'\n    else:\n        return 'pos'\n\nnums = [-2, 0, 3, -5]\nresult = [classify(n) for n in nums]\nprint(result)",
+    "lesson": "5-2",
+    "question": "다음 코드를 실행했을 때 출력되는 값으로 알맞은 것을 고르세요.",
+    "code": "import json\ninfo = {\"active\": True, \"count\": 0}\nresult = json.dumps(info)\nprint(result)",
     "choices": [
-      "A) [-2, 0, 3, -5]",
-      "B) ['neg', 'neg', 'pos', 'neg']",
-      "C) ['neg', 'pos', 'pos', 'neg']",
-      "D) ['neg', 'zero', 'pos', 'neg']"
+      "A. {\"active\": True, \"count\": 0}",
+      "B. {\"active\": true, \"count\": 0}",
+      "C. {'active': true, 'count': 0}",
+      "D. {\"active\": \"true\", \"count\": 0}"
     ],
-    "answer": "C) ['neg', 'pos', 'pos', 'neg']",
-    "hint": "0은 x < 0이 False이므로 'pos'가 반환돼요.",
+    "answer": "B",
     "feedback": {
-      "correct": "정답! classify(-2)='neg', classify(0)='pos'(0 < 0은 False), classify(3)='pos', classify(-5)='neg'예요."
+      "correct": "정답! json.dumps()는 파이썬 True를 JSON의 true(소문자)로 변환하고, 문자열 구분자는 큰따옴표를 사용합니다. 결과는 {\"active\": true, \"count\": 0}입니다."
     }
   },
   {
-    "question_id": "sl_mid_os_5_1_018",
-    "unit": 5,
-    "stage": "5-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
+    "question_id": "q007",
     "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "다음 코드에서 빈칸을 채워 길이가 3 이상인 단어만 대문자로 변환하는 컴프리헨션을 완성하세요.\n\nwords = ['hi', 'hello', 'a', 'world']\nresult = ________\nprint(result)  # ['HELLO', 'WORLD']",
-    "answer": "[w.upper() for w in words if len(w) >= 3]",
-    "hint": "조건 필터링(if len(w) >= 3) 후 upper()로 변환해요.",
+    "difficulty": "medium",
+    "unit": 5,
+    "lesson": "5-1",
+    "question": "점수가 80점 이상인 학생만 딕셔너리에 담으려고 합니다. 빈칸에 알맞은 비교 연산자를 채워 코드를 완성하세요.",
+    "code": "students = [('Alice', 88), ('Bob', 80), ('Charlie', 95)]\ngrades = {name: score for name, score in students if score _____ 80}\nprint(grades)\n# 예상 출력: {'Alice': 88, 'Bob': 80, 'Charlie': 95}",
+    "answer": ">=",
     "feedback": {
-      "correct": "정답! len(w) >= 3인 'hello', 'world'가 선택되어 'HELLO', 'WORLD'로 변환됐어요."
+      "correct": "정답! >= 연산자는 '크거나 같다'를 의미합니다. score >= 80 조건으로 88점의 Alice, 정확히 80점인 Bob, 95점의 Charlie가 모두 선택됩니다. > 를 쓰면 80점인 Bob이 제외되어 결과가 달라집니다."
     }
   },
   {
-    "question_id": "sl_mid_os_5_1_019",
-    "unit": 5,
-    "stage": "5-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
+    "question_id": "q008",
     "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "다음 코드의 실행 결과를 선택해주세요.\n\nmatrix = [[1, 2], [3, 4]]\nresult = [[x * 2 for x in row] for row in matrix]\nprint(result)",
+    "difficulty": "medium",
+    "unit": 5,
+    "lesson": "5-2",
+    "question": "다음 코드를 실행했을 때 출력되는 값으로 알맞은 것을 고르세요.",
+    "code": "import json\ntext = '{\"products\": [{\"name\": \"pen\", \"price\": 1.5}, {\"name\": \"book\", \"price\": 12.0}]}'\ndata = json.loads(text)\nresult = [p['name'] for p in data['products'] if p['price'] > 5]\nprint(result)",
     "choices": [
-      "A) [[1, 4], [9, 16]]",
-      "B) [2, 4, 6, 8]",
-      "C) [[1, 2], [3, 4]]",
-      "D) [[2, 4], [6, 8]]"
+      "A. ['pen', 'book']",
+      "B. ['book']",
+      "C. ['pen']",
+      "D. {'name': 'book'}"
     ],
-    "answer": "D) [[2, 4], [6, 8]]",
-    "hint": "바깥 for로 각 행을 순회하고, 안쪽 컴프리헨션은 행 원소를 2배로 만들어요.",
+    "answer": "B",
     "feedback": {
-      "correct": "정답! [1,2] 행은 [2,4]로, [3,4] 행은 [6,8]로 변환돼요."
+      "correct": "정답! json.loads()로 파싱한 뒤, price > 5 조건을 만족하는 항목의 name만 리스트 컴프리헨션으로 추출합니다. 'pen'(1.5)은 제외되고 'book'(12.0)만 남아 ['book']이 됩니다."
     }
   },
   {
-    "question_id": "sl_mid_os_5_1_020",
-    "unit": 5,
-    "stage": "5-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
+    "question_id": "q009",
     "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "다음 코드에서 빈칸을 채워 숫자가 5보다 크면 그 값을, 아니면 0을 반환하는 컴프리헨션을 완성하세요.\n\nnums = [2, 7, 1, 9, 4]\nresult = ________\nprint(result)  # [0, 7, 0, 9, 0]",
-    "answer": "[n if n > 5 else 0 for n in nums]",
-    "hint": "조건 표현식 `n if n > 5 else 0`을 컴프리헨션에 사용해요.",
+    "difficulty": "medium",
+    "unit": 5,
+    "lesson": "5-3",
+    "question": "csv.DictReader로 읽은 각 행에서 도시 이름만 추출하려고 합니다. 빈칸에 알맞은 키값을 채워 코드를 완성하세요.",
+    "code": "import csv, io\ncsv_data = \"city,population\\nSeoul,9776000\\nBusan,3448000\"\nf = io.StringIO(csv_data)\nreader = csv.DictReader(f)\ncities = [row[_____] for row in reader]\nprint(cities)\n# 예상 출력: ['Seoul', 'Busan']",
+    "answer": "'city'",
     "feedback": {
-      "correct": "정답! [n if n > 5 else 0 for n in nums]는 2→0, 7→7, 1→0, 9→9, 4→0으로 변환해요."
+      "correct": "정답! csv.DictReader는 첫 번째 줄(헤더)의 값을 키로 사용합니다. 'city' 열의 값을 추출하려면 row['city']로 접근해야 합니다."
+    }
+  },
+  {
+    "question_id": "q010",
+    "type": "output_select",
+    "difficulty": "medium",
+    "unit": 5,
+    "lesson": "5-1",
+    "question": "다음 코드를 실행했을 때 출력되는 값으로 알맞은 것을 고르세요.",
+    "code": "data = [('a', 1), ('b', 2), ('a', 3), ('c', 1)]\nkeys = {item[0] for item in data}\nprint(sorted(keys))",
+    "choices": [
+      "A. {'a', 'b', 'c'}",
+      "B. ['a', 'b', 'c']",
+      "C. ['a', 'a', 'b', 'c']",
+      "D. ['c', 'b', 'a']"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정답! 세트 컴프리헨션 {item[0] for item in data}로 중복 없는 {'a', 'b', 'c'}를 만들고, sorted()가 이를 정렬된 리스트 ['a', 'b', 'c']로 반환합니다."
+    }
+  },
+  {
+    "question_id": "q011",
+    "type": "fill_in_blank",
+    "difficulty": "medium",
+    "unit": 5,
+    "lesson": "5-3",
+    "question": "csv.DictWriter를 생성할 때 열 이름 목록을 지정하려고 합니다. 빈칸에 알맞은 매개변수 이름을 채워 코드를 완성하세요.",
+    "code": "import csv, io\noutput = io.StringIO()\nwriter = csv.DictWriter(output, _____=['name', 'score'])\nwriter.writeheader()\nwriter.writerow({'name': 'Tom', 'score': 90})",
+    "answer": "fieldnames",
+    "feedback": {
+      "correct": "정답! csv.DictWriter()의 fieldnames 매개변수는 CSV 파일의 열 이름 목록을 지정합니다. writeheader()는 이 fieldnames를 첫 번째 행으로 씁니다."
+    }
+  },
+  {
+    "question_id": "q012",
+    "type": "output_select",
+    "difficulty": "hard",
+    "unit": 5,
+    "lesson": "5-4",
+    "question": "다음 코드를 실행했을 때 출력되는 값으로 알맞은 것을 고르세요.",
+    "code": "import json\nraw = '[{\"name\": \"Alice\", \"scores\": [80, 90, 100]}, {\"name\": \"Bob\", \"scores\": [60, 70, 80]}]'\ndata = json.loads(raw)\naverages = {d['name']: sum(d['scores']) // len(d['scores']) for d in data}\nprint(averages)",
+    "choices": [
+      "A. {'Alice': 90, 'Bob': 70}",
+      "B. {'Alice': 90.0, 'Bob': 70.0}",
+      "C. {'Alice': 270, 'Bob': 210}",
+      "D. {'Alice': 89, 'Bob': 70}"
+    ],
+    "answer": "A",
+    "feedback": {
+      "correct": "정답! Alice의 합계는 270이고 270 // 3 = 90, Bob의 합계는 210이고 210 // 3 = 70입니다. // 는 정수 나눗셈이므로 결과는 {'Alice': 90, 'Bob': 70}입니다."
+    }
+  },
+  {
+    "question_id": "q013",
+    "type": "fill_in_blank",
+    "difficulty": "hard",
+    "unit": 5,
+    "lesson": "5-4",
+    "question": "JSON 데이터에서 글자 수가 일정 길이보다 긴 항목만 대문자로 시작하게 추출하려고 합니다. 예상 출력에 맞도록 빈칸에 알맞은 숫자를 채워 코드를 완성하세요.",
+    "code": "import json\ntext = '{\"items\": [\"apple\", \"banana\", \"cherry\", \"date\", \"elderberry\"]}'\ndata = json.loads(text)\nlong_items = [item.capitalize() for item in data['items'] if len(item) > _____]\nprint(long_items)\n# 예상 출력: ['Banana', 'Cherry', 'Elderberry']",
+    "answer": "5",
+    "feedback": {
+      "correct": "정답! len(item) > 5 조건으로 길이 6 이상의 항목만 선택됩니다. 'banana'(6), 'cherry'(6), 'elderberry'(10)가 포함되고, capitalize()로 첫 글자를 대문자로 변환합니다."
+    }
+  },
+  {
+    "question_id": "q014",
+    "type": "output_select",
+    "difficulty": "hard",
+    "unit": 5,
+    "lesson": "5-5",
+    "question": "다음 코드를 실행했을 때 출력되는 값으로 알맞은 것을 고르세요.",
+    "code": "import csv, io, json\ncsv_data = \"name,score\\nAlice,85\\nBob,92\\nCharlie,78\"\nf = io.StringIO(csv_data)\nreader = csv.DictReader(f)\nresult = [row['name'] for row in reader if int(row['score']) >= 85]\nprint(json.dumps(result))",
+    "choices": [
+      "A. ['Alice', 'Bob']",
+      "B. [\"Alice\", \"Bob\"]",
+      "C. [\"Alice\", \"Bob\", \"Charlie\"]",
+      "D. \"Alice, Bob\""
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정답! csv.DictReader로 읽은 score는 문자열이므로 int()로 변환 후 비교합니다. 85점 이상인 Alice와 Bob이 선택되고, json.dumps()가 JSON 형식(큰따옴표)으로 직렬화해 [\"Alice\", \"Bob\"]을 출력합니다."
+    }
+  },
+  {
+    "question_id": "q015",
+    "type": "fill_in_blank",
+    "difficulty": "hard",
+    "unit": 5,
+    "lesson": "5-5",
+    "question": "CSV 데이터에서 가격이 1.0 초과인 항목 이름을 추출한 후 JSON 문자열로 출력하려고 합니다. 빈칸에 알맞은 메서드 이름을 채워 코드를 완성하세요.",
+    "code": "import csv, io, json\ncsv_text = \"name,price\\napple,1.5\\nbanana,0.8\\ncherry,3.2\"\nf = io.StringIO(csv_text)\nreader = csv.DictReader(f)\nexpensive = [row['name'] for row in reader if float(row['price']) > 1.0]\nprint(json._____(expensive))",
+    "answer": "dumps",
+    "feedback": {
+      "correct": "정답! json.dumps()는 파이썬 객체를 JSON 형식의 문자열로 직렬화합니다. apple(1.5)과 cherry(3.2)가 조건을 만족하고, 최종 출력은 [\"apple\", \"cherry\"]입니다."
     }
   }
 ]

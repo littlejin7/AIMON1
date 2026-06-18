@@ -316,21 +316,16 @@
       "stage": "3-1",
       "course_level": "advanced",
       "difficulty": "medium",
-      "type": "output_select",
+      "type": "fill_in_blank",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과를 골라보세요.\n\n```python\nimport os\n\nos.environ['DEBUG'] = ''\nresult = os.getenv('DEBUG') or '꺼짐'\nprint(result)\n```",
-      "choices": [
-        "A. ''",
-        "B. DEBUG",
-        "C. 꺼짐",
-        "D. None"
-      ],
-      "answer": "C",
-      "hint": "os.environ['DEBUG'] = ''로 빈 문자열이 설정됩니다. os.getenv('DEBUG')는 None이 아닌 빈 문자열을 반환해요. 빈 문자열은 falsy인가요?",
+      "question": "환경 변수가 없을 때 기본값을 등록하고 반환하도록 빈칸을 채워보세요.\n\n```python\nimport os\n\n# PORT가 없으면 '8080'을 환경 변수로 등록하고 반환\nport = os.environ.___('PORT', '8080')\nprint(port)  # PORT가 설정되지 않았다면: 8080\n```",
+      "choices": [],
+      "answer": "setdefault",
+      "hint": "딕셔너리에서 키가 없을 때 기본값을 설정하고 반환하는 메서드를 생각해보세요. os.getenv()는 반환만 하지만 이 메서드는 환경 변수를 실제로 등록까지 해요.",
       "feedback": {
-        "correct": "정답! os.environ['DEBUG'] = ''으로 DEBUG가 빈 문자열로 설정됩니다. os.getenv('DEBUG')는 ''(빈 문자열)을 반환해요. 빈 문자열은 falsy이므로 '' or '꺼짐'은 '꺼짐'을 반환합니다. 환경 변수가 설정되어 있어도 빈 값이면 이 패턴에서 기본값이 사용된다는 점을 주의하세요."
+        "correct": "정답! os.environ.setdefault('키', '기본값')은 해당 키가 없을 때 기본값을 환경 변수로 등록하고 반환합니다. os.getenv()와 달리 실제로 os.environ에 값을 추가한다는 차이가 있어요. 이미 설정된 키가 있으면 기존 값을 그대로 반환하고 변경하지 않습니다."
       }
     },
     {
