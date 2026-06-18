@@ -1,0 +1,419 @@
+{
+  "questions": [
+    {
+      "question_id": "q301",
+      "unit": 3,
+      "stage": "3-1",
+      "course_level": "advanced",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "환경 변수에서 API 키를 읽어오도록 빈칸을 채워보세요.\n\n```python\nimport os\n\napi_key = os.___('CLAUDE_API_KEY')\nprint(api_key)\n```",
+      "choices": [],
+      "answer": "getenv",
+      "hint": "os 모듈에서 환경 변수 값을 문자열로 읽어오는 함수 이름을 생각해보세요.",
+      "feedback": {
+        "correct": "정답! os.getenv('변수명')은 환경 변수의 값을 문자열로 반환합니다. 해당 환경 변수가 존재하지 않으면 기본적으로 None을 반환하고, 두 번째 인자로 기본값을 지정할 수도 있어요. os.environ['변수명']과 달리 키가 없어도 예외가 발생하지 않습니다."
+      }
+    },
+    {
+      "question_id": "q302",
+      "unit": 3,
+      "stage": "3-1",
+      "course_level": "advanced",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과를 골라보세요. (MISSING_KEY 환경 변수는 설정되지 않은 상태입니다.)\n\n```python\nimport os\n\nresult = os.getenv('MISSING_KEY')\nprint(result)\n```",
+      "choices": [
+        "A. ''",
+        "B. None",
+        "C. KeyError 발생",
+        "D. 0"
+      ],
+      "answer": "B",
+      "hint": "os.getenv()는 환경 변수가 없을 때 두 번째 인자를 지정하지 않으면 무엇을 반환할까요?",
+      "feedback": {
+        "correct": "정답! os.getenv()는 해당 환경 변수가 존재하지 않을 때 None을 반환합니다. 두 번째 인자로 기본값을 지정하지 않았기 때문이에요. os.environ['MISSING_KEY']처럼 대괄호로 접근했다면 KeyError가 발생했을 거예요."
+      }
+    },
+    {
+      "question_id": "q303",
+      "unit": 3,
+      "stage": "3-1",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": ".env 파일을 로드한 뒤 API 키를 읽어오도록 빈칸을 채워보세요.\n\n```python\nfrom dotenv import load_dotenv\nimport os\n\n_____()  # .env 파일의 환경 변수를 등록\napi_key = os.getenv('API_KEY')\nprint(api_key is not None)\n```",
+      "choices": [],
+      "answer": "load_dotenv",
+      "hint": "python-dotenv 라이브러리에서 .env 파일의 내용을 환경 변수로 등록하는 함수 이름을 쓰세요.",
+      "feedback": {
+        "correct": "정답! load_dotenv()를 호출하면 현재 디렉터리(또는 지정 경로)의 .env 파일을 읽어 내용을 환경 변수로 등록합니다. 이후 os.getenv()나 os.environ으로 해당 값에 접근할 수 있어요. 경로를 지정하려면 load_dotenv(dotenv_path='경로/.env')처럼 사용합니다."
+      }
+    },
+    {
+      "question_id": "q304",
+      "unit": 3,
+      "stage": "3-1",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과를 골라보세요. (API_KEY 환경 변수는 설정되지 않은 상태입니다.)\n\n```python\nimport os\n\nkey = os.getenv('API_KEY', 'fallback-key')\nprint(key)\n```",
+      "choices": [
+        "A. None",
+        "B. 'fallback-key'",
+        "C. fallback-key",
+        "D. KeyError 발생"
+      ],
+      "answer": "C",
+      "hint": "os.getenv()의 두 번째 인자는 환경 변수가 없을 때 반환할 기본값입니다. print()는 문자열 출력 시 따옴표를 표시하지 않아요.",
+      "feedback": {
+        "correct": "정답! API_KEY가 설정되지 않았으므로 os.getenv('API_KEY', 'fallback-key')는 두 번째 인자인 'fallback-key'를 반환합니다. print()는 문자열을 출력할 때 따옴표 없이 fallback-key를 출력해요."
+      }
+    },
+    {
+      "question_id": "q305",
+      "unit": 3,
+      "stage": "3-1",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "KeyError 없이 환경 변수를 안전하게 가져오도록 빈칸을 채워보세요.\n\n```python\nimport os\n\n# 키가 없어도 KeyError가 발생하지 않고 None을 반환\napi_key = os.environ.___('CLAUDE_API_KEY')\nprint(api_key)\n```",
+      "choices": [],
+      "answer": "get",
+      "hint": "딕셔너리에서 키가 없을 때 KeyError 대신 None을 반환하는 메서드 이름을 생각해보세요. os.environ은 딕셔너리처럼 동작해요.",
+      "feedback": {
+        "correct": "정답! os.environ.get('키이름')은 딕셔너리의 .get() 메서드처럼 동작합니다. 키가 없으면 None(또는 지정한 기본값)을 반환하고 KeyError를 발생시키지 않아요. os.environ['CLAUDE_API_KEY']처럼 대괄호로 접근하면 키가 없을 때 KeyError가 발생합니다."
+      }
+    },
+    {
+      "question_id": "q306",
+      "unit": 3,
+      "stage": "3-1",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과를 골라보세요. (UNSET_KEY 환경 변수는 설정되지 않은 상태입니다.)\n\n```python\nimport os\n\ntry:\n    key = os.environ['UNSET_KEY']\n    print(key)\nexcept KeyError:\n    print('없는 키')\n```",
+      "choices": [
+        "A. None",
+        "B. UNSET_KEY",
+        "C. 없는 키",
+        "D. ''"
+      ],
+      "answer": "C",
+      "hint": "os.environ['키']는 딕셔너리에서 없는 키를 대괄호로 조회하는 것과 같아요. 어떤 예외가 발생할까요?",
+      "feedback": {
+        "correct": "정답! os.environ['UNSET_KEY']는 UNSET_KEY가 환경 변수에 없으므로 KeyError를 발생시킵니다. except KeyError 블록이 실행되어 '없는 키'가 출력돼요. os.environ.get()이나 os.getenv()를 사용하면 이런 예외 없이 안전하게 접근할 수 있습니다."
+      }
+    },
+    {
+      "question_id": "q307",
+      "unit": 3,
+      "stage": "3-1",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과를 골라보세요. (SECRET 환경 변수는 설정되지 않은 상태입니다.)\n\n```python\nimport os\n\nresult = os.getenv('SECRET') or '기본값'\nprint(result)\n```",
+      "choices": [
+        "A. None",
+        "B. 기본값",
+        "C. None or 기본값",
+        "D. SECRET"
+      ],
+      "answer": "B",
+      "hint": "os.getenv()가 None을 반환할 때 or 연산자는 어떻게 동작할까요? None은 Python에서 falsy 값입니다.",
+      "feedback": {
+        "correct": "정답! SECRET이 없으므로 os.getenv('SECRET')은 None을 반환합니다. None은 falsy이기 때문에 or 연산자는 오른쪽 값인 '기본값'을 선택해 반환합니다. 이 패턴은 환경 변수가 없을 때 대체값을 간결하게 지정하는 방법이에요."
+      }
+    },
+    {
+      "question_id": "q308",
+      "unit": 3,
+      "stage": "3-1",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "API 키가 설정되지 않았을 때 즉시 예외를 발생시키도록 빈칸을 채워보세요.\n\n```python\nimport os\n\napi_key = os.getenv('CLAUDE_API_KEY')\nif api_key is _____:\n    raise ValueError('CLAUDE_API_KEY가 설정되지 않았어요')\nprint('API 키 확인 완료')\n```",
+      "choices": [],
+      "answer": "None",
+      "hint": "os.getenv()가 환경 변수를 찾지 못했을 때 반환하는 값은 무엇인가요?",
+      "feedback": {
+        "correct": "정답! os.getenv()는 환경 변수가 없을 때 None을 반환합니다. if api_key is None 조건으로 체크하면 API 키 없이 프로그램이 실행되는 상황을 막을 수 있어요. is None은 == None보다 명확하고 관례적인 표현입니다."
+      }
+    },
+    {
+      "question_id": "q309",
+      "unit": 3,
+      "stage": "3-1",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과를 골라보세요.\n\n```python\nimport os\n\nos.environ['API_KEY'] = 'sk-ant-test99'\nkey = os.getenv('API_KEY')\nmasked = key[:4] + '*' * (len(key) - 4)\nprint(masked)\n```",
+      "choices": [
+        "A. sk-a*********",
+        "B. sk-ant-test99",
+        "C. sk-a****",
+        "D. ****-test99"
+      ],
+      "answer": "A",
+      "hint": "'sk-ant-test99'의 길이는 13입니다. key[:4]로 앞 4글자를 얻고, 나머지 9글자를 별표로 대체해보세요.",
+      "feedback": {
+        "correct": "정답! 'sk-ant-test99'의 길이는 13입니다. key[:4] = 'sk-a', '*' * (13-4) = '*' * 9 = '*********'. 이어붙이면 'sk-a*********'가 출력됩니다. 이 패턴은 로그에 API 키 전체를 노출하지 않고 앞부분만 표시해 보안을 유지하는 마스킹 기법이에요."
+      }
+    },
+    {
+      "question_id": "q310",
+      "unit": 3,
+      "stage": "3-1",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": ".env 파일을 환경 변수로 등록하지 않고 딕셔너리로 직접 읽어오도록 빈칸을 채워보세요.\n\n```python\nfrom dotenv import _____\n\nconfig = _____('.env')\nprint(config.get('API_KEY'))\n```",
+      "choices": [],
+      "answer": "dotenv_values",
+      "hint": "python-dotenv에서 load_dotenv()와 달리 환경 변수를 등록하지 않고 .env 파일 내용을 딕셔너리로 반환하는 함수 이름을 쓰세요.",
+      "feedback": {
+        "correct": "정답! dotenv_values('.env')는 .env 파일의 내용을 딕셔너리처럼 반환합니다. load_dotenv()와 달리 실제 환경 변수(os.environ)를 변경하지 않아요. 환경 변수를 오염시키지 않고 값만 읽고 싶을 때 유용합니다. 두 빈칸 모두 dotenv_values가 들어갑니다."
+      }
+    },
+    {
+      "question_id": "q311",
+      "unit": 3,
+      "stage": "3-1",
+      "course_level": "advanced",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과를 골라보세요.\n\n```python\nimport os\n\nos.environ['MY_KEY'] = 'hello123'\nprint(os.getenv('MY_KEY'))\n```",
+      "choices": [
+        "A. None",
+        "B. 'hello123'",
+        "C. hello123",
+        "D. MY_KEY"
+      ],
+      "answer": "C",
+      "hint": "os.environ에 값을 직접 설정한 뒤 os.getenv()로 읽으면 어떤 값이 반환될까요? print()는 문자열 출력 시 따옴표를 표시하지 않아요.",
+      "feedback": {
+        "correct": "정답! os.environ['MY_KEY'] = 'hello123'으로 환경 변수를 설정하면 os.getenv('MY_KEY')로 'hello123'을 읽을 수 있습니다. print()는 문자열을 출력할 때 따옴표 없이 hello123을 출력해요."
+      }
+    },
+    {
+      "question_id": "q312",
+      "unit": 3,
+      "stage": "3-1",
+      "course_level": "advanced",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "API 키가 없거나 빈 문자열일 때 경고를 출력하도록 빈칸을 채워보세요.\n\n```python\nimport os\n\napi_key = os.getenv('API_KEY')\nif _____ api_key:\n    print('API 키가 없어요')\n```",
+      "choices": [],
+      "answer": "not",
+      "hint": "None과 빈 문자열('')을 모두 falsy로 처리하는 단항 연산자를 생각해보세요.",
+      "feedback": {
+        "correct": "정답! not api_key는 api_key가 None이거나 빈 문자열('')일 때 True를 반환합니다. os.getenv()가 None을 반환하면 not None → True가 되어 경고가 출력돼요. if api_key is None보다 None과 빈 문자열 두 경우를 동시에 처리할 수 있어 실용적입니다."
+      }
+    },
+    {
+      "question_id": "q313",
+      "unit": 3,
+      "stage": "3-1",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과를 골라보세요. (KEY_A, KEY_B 모두 설정되지 않은 상태입니다.)\n\n```python\nimport os\n\na = os.getenv('KEY_A')\nb = os.getenv('KEY_B', '기본')\nprint(a)\nprint(b)\n```",
+      "choices": [
+        "A. None\n기본",
+        "B. KEY_A\nKEY_B",
+        "C. None\nNone",
+        "D. ''\n기본"
+      ],
+      "answer": "A",
+      "hint": "첫 번째는 기본값을 지정하지 않았고, 두 번째는 기본값을 '기본'으로 지정했어요. 각각 무엇을 반환할까요?",
+      "feedback": {
+        "correct": "정답! KEY_A가 없으므로 a = os.getenv('KEY_A') → None, print(None)은 None을 출력합니다. KEY_B도 없지만 기본값 '기본'을 지정했으므로 b = '기본', print('기본')은 기본을 출력해요. 기본값 유무에 따라 반환값이 달라집니다."
+      }
+    },
+    {
+      "question_id": "q314",
+      "unit": 3,
+      "stage": "3-1",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "환경 변수에 특정 키가 존재하는지 확인하도록 빈칸을 채워보세요.\n\n```python\nimport os\n\nif 'CLAUDE_API_KEY' _____ os.environ:\n    print('키 있음')\nelse:\n    print('키 없음')\n```",
+      "choices": [],
+      "answer": "in",
+      "hint": "파이썬에서 컨테이너에 특정 요소가 포함되어 있는지 확인하는 키워드를 생각해보세요. os.environ은 딕셔너리처럼 동작해요.",
+      "feedback": {
+        "correct": "정답! in 연산자를 사용하면 'CLAUDE_API_KEY' in os.environ으로 해당 환경 변수가 설정되어 있는지 확인할 수 있습니다. os.environ은 딕셔너리처럼 동작하므로 'KEY' in os.environ은 딕셔너리 키 존재 여부를 확인하는 것과 같아요."
+      }
+    },
+    {
+      "question_id": "q315",
+      "unit": 3,
+      "stage": "3-1",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과를 골라보세요.\n\n```python\nimport os\n\nos.environ['MAX_TOKENS'] = '1000'\nvalue = os.getenv('MAX_TOKENS')\nprint(type(value).__name__)\n```",
+      "choices": [
+        "A. int",
+        "B. float",
+        "C. str",
+        "D. NoneType"
+      ],
+      "answer": "C",
+      "hint": "환경 변수는 항상 어떤 타입으로 저장될까요? os.environ에 숫자를 할당해도 내부 타입을 생각해보세요.",
+      "feedback": {
+        "correct": "정답! 환경 변수는 항상 문자열(str) 타입으로 저장됩니다. os.environ['MAX_TOKENS'] = '1000'처럼 숫자 문자열로 저장하든, os.getenv()로 읽어도 value는 str이에요. 정수나 실수로 사용하려면 int(os.getenv('MAX_TOKENS'))처럼 명시적으로 변환해야 합니다."
+      }
+    },
+    {
+      "question_id": "q316",
+      "unit": 3,
+      "stage": "3-1",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과를 골라보세요.\n\n```python\nimport os\n\nos.environ['DEBUG'] = ''\nresult = os.getenv('DEBUG') or '꺼짐'\nprint(result)\n```",
+      "choices": [
+        "A. ''",
+        "B. DEBUG",
+        "C. 꺼짐",
+        "D. None"
+      ],
+      "answer": "C",
+      "hint": "os.environ['DEBUG'] = ''로 빈 문자열이 설정됩니다. os.getenv('DEBUG')는 None이 아닌 빈 문자열을 반환해요. 빈 문자열은 falsy인가요?",
+      "feedback": {
+        "correct": "정답! os.environ['DEBUG'] = ''으로 DEBUG가 빈 문자열로 설정됩니다. os.getenv('DEBUG')는 ''(빈 문자열)을 반환해요. 빈 문자열은 falsy이므로 '' or '꺼짐'은 '꺼짐'을 반환합니다. 환경 변수가 설정되어 있어도 빈 값이면 이 패턴에서 기본값이 사용된다는 점을 주의하세요."
+      }
+    },
+    {
+      "question_id": "q317",
+      "unit": 3,
+      "stage": "3-1",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "환경 변수로 읽어온 숫자 문자열을 정수로 변환하여 연산하도록 빈칸을 채워보세요.\n\n```python\nimport os\n\nos.environ['MAX_RETRY'] = '3'\nretries = _____(os.getenv('MAX_RETRY'))\nprint(retries + 1)  # 출력: 4\n```",
+      "choices": [],
+      "answer": "int",
+      "hint": "환경 변수는 항상 문자열로 반환됩니다. '3'을 숫자 3으로 바꿔 +1 하면 4가 나와야 해요. float로 변환하면 4.0이 출력됩니다.",
+      "feedback": {
+        "correct": "정답! 환경 변수는 항상 문자열이므로 수치 연산을 하려면 형 변환이 필요합니다. int(os.getenv('MAX_RETRY'))로 '3'을 정수 3으로 변환하면 3 + 1 = 4가 출력됩니다. float()를 쓰면 4.0이 출력되어 주석과 다른 결과가 나와요."
+      }
+    },
+    {
+      "question_id": "q318",
+      "unit": 3,
+      "stage": "3-1",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과를 골라보세요.\n\n```python\nimport os\n\nos.environ['API_KEY'] = 'valid-key'\nkey = os.environ.get('API_KEY')\nstatus = 'OK' if key and len(key) > 5 else '오류'\nprint(status)\n```",
+      "choices": [
+        "A. 오류",
+        "B. OK",
+        "C. valid-key",
+        "D. True"
+      ],
+      "answer": "B",
+      "hint": "'valid-key'의 길이와 조건식을 순서대로 평가해보세요. key는 truthy인가요? len('valid-key') > 5는 참인가요?",
+      "feedback": {
+        "correct": "정답! key = 'valid-key'는 truthy이고, len('valid-key') = 9 > 5는 True입니다. key and len(key) > 5 → True and True → True이므로 status = 'OK'가 출력됩니다. 이 패턴은 API 키가 존재하면서 최소 길이 조건도 만족하는지 한 줄로 검사할 때 유용해요."
+      }
+    },
+    {
+      "question_id": "q319",
+      "unit": 3,
+      "stage": "3-1",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과를 골라보세요.\n\n```python\nimport os\n\nos.environ['PORT'] = '8080'\nos.environ['DEBUG'] = 'True'\n\nport = int(os.getenv('PORT'))\ndebug = os.getenv('DEBUG') == 'True'\n\nprint(port + 1)\nprint(debug)\n```",
+      "choices": [
+        "A. 8080\nTrue",
+        "B. 8081\nTrue",
+        "C. 8081\n'True'",
+        "D. 8081\nFalse"
+      ],
+      "answer": "B",
+      "hint": "port는 int()로 변환한 뒤 +1하고, debug는 문자열 비교 결과(bool)입니다. print(True)는 어떻게 출력될까요?",
+      "feedback": {
+        "correct": "정답! port = int('8080') = 8080, print(8080 + 1) → 8081. debug = 'True' == 'True' → True(bool), print(True) → True입니다. 환경 변수는 문자열이므로 수치는 int()로 변환하고, 불리언은 문자열 비교로 직접 추출하는 패턴을 자주 사용해요."
+      }
+    },
+    {
+      "question_id": "q320",
+      "unit": 3,
+      "stage": "3-1",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "임시로 설정한 환경 변수를 제거하도록 빈칸을 채워보세요.\n\n```python\nimport os\n\nos.environ['TEMP_KEY'] = 'test'\n_____ os.environ['TEMP_KEY']\nprint(os.getenv('TEMP_KEY'))  # 출력: None\n```",
+      "choices": [],
+      "answer": "del",
+      "hint": "파이썬에서 딕셔너리의 특정 키를 완전히 삭제하는 키워드를 생각해보세요.",
+      "feedback": {
+        "correct": "정답! del os.environ['TEMP_KEY']는 딕셔너리에서 키를 삭제하는 것처럼 환경 변수를 완전히 제거합니다. 이후 os.getenv('TEMP_KEY')는 None을 반환해요. 또 다른 방법으로 os.environ.pop('TEMP_KEY', None)을 사용하면 키가 없어도 오류 없이 제거할 수 있습니다."
+      }
+    }
+  ]
+}
