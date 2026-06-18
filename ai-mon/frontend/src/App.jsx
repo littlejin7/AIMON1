@@ -19,6 +19,8 @@ import { useAuthStore } from './hooks/useAuthStore'
 import SplashLoading from './components/loading/SplashLoading'
 import TopBar from './components/TopBar/TopBar'
 import Game from './pages/Game/Game'
+import Aipang from './pages/Game/Aipang/Aipang'
+
 
 // 앱 시작 시 Pyodide를 백그라운드에서 미리 로드 (code_input 문제 대비)
 // App.jsx 내의 useEffect에서 처리하도록 이동되었습니다.
@@ -227,6 +229,15 @@ export default function App() {
           }
         />
 
+        {/* 타임킬링 (AI팡 퍼즐) — 전체화면, NavBar 없음 */}
+        <Route
+          path="/game/aipang"
+          element={
+            <ProtectedRoute>
+              <Aipang />
+            </ProtectedRoute>
+          }
+        />
 
         {/* 그 외 경로 → 레슨 홈 */}
         <Route path="*" element={<Navigate to="/lesson" replace />} />
