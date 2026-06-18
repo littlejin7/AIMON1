@@ -210,8 +210,10 @@ def endboss_start(req: StartRequest, authorization: str = Header(...)):
     phase2_pool = get_phase_questions(all_qs, phase=2, project=req.project)
     phase3_pool = get_phase_questions(all_qs, phase=3, project=req.project)
 
-    if not phase1_pool:
-        raise HTTPException(status_code=404, detail=f"프로젝트 '{req.project}'의 Phase 1 문제가 없습니다.")
+    if len(phase1_pool) < 5:
+        raise HTTPException(status_code=404, detail=f"프로젝트 '{req.project}'의 Phase 1 문제가 부족합니다. (최소 5개 필요)")
+    if len(phase2_pool) < 4:
+        raise HTTPException(status_code=404, detail=f"프로젝트 '{req.project}'의 Phase 2 문제가 부족합니다. (최소 4개 필요)")
 
     # 왕관 차감
     user["crowns"] = user.get("crowns", 0) - RETRY_CROWN_COST
@@ -395,10 +397,13 @@ def endboss_clear(req: ClearRequest, authorization: str = Header(...)):
         # 왕관
         user["crowns"] = user.get("crowns", 0) + CLEAR_CROWNS
 
-        # 캐릭터 진화
+        # 캐릭터 진화 (현재 캐릭터보다 등급이 높은 경우에만 덮어씀)
         new_char = CLEAR_CHARACTER.get(level)
         if new_char:
-            user["character"] = new_char
+            char_rank = {"slime": 1, "robot": 2, "speech_bubble": 3, "final_ghost": 4}
+            current_char = user.get("character", "slime")
+            if char_rank.get(new_char, 1) > char_rank.get(current_char, 1):
+                user["character"] = new_char
 
         # 칭호
         title_id, title_name = CLEAR_TITLES.get(level, ("rookie_coder", "코드 ROOKIE"))
