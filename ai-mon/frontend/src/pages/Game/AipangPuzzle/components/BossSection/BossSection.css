@@ -1,0 +1,49 @@
+/* ── BossSection 컴포넌트 스타일 ── */
+#boss-section {
+  position: absolute;
+  top: 4px;
+  left: 5px;
+  right: 5px;
+  height: 158px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  z-index: 5;
+}
+
+.boss-cards-row {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ── 이동/스테이지 스트립 ── */
+.boss-info-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1px 12px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.info-chip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.info-label {
+  font-size: 0.36rem;
+  color: #99b0dd;
+  letter-spacing: 1.2px;
+}
+
+.info-value {
+  font-size: 0.9rem;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(160, 220, 255, 0.8);
+  line-height: 1;
+}

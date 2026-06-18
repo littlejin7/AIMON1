@@ -1,0 +1,37 @@
+/* ── 타임킬링 래퍼 ── */
+.aipang-wrap {
+  position: fixed;
+  inset: 0;
+  background: #06021a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+}
+
+/* 좌상단 뒤로가기 버튼 */
+.aipang-back {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 200;
+  background: rgba(30, 10, 80, 0.88);
+  border: 1.5px solid rgba(120, 170, 255, 0.5);
+  border-radius: 999px;
+  color: #c8d8ff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: background 0.15s, transform 0.12s;
+}
+
+.aipang-back:hover {
+  background: rgba(60, 20, 140, 0.92);
+  transform: translateY(-1px);
+}
+
+.aipang-back:active {
+  transform: scale(0.95);
+}
