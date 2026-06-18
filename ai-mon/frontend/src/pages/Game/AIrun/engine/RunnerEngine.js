@@ -119,7 +119,7 @@ export class RunnerEngine {
     this.overlay.innerHTML = `
       <div class="rg-panel">
         <img src="${airunIconUrl}" class="rg-icon" alt="AIrun" />
-        <div class="rg-title">파이썬 런너</div>
+        <div class="rg-title">AIrun</div>
         <div class="rg-subtitle">AIMON Python OX 퀴즈 달리기 게임</div>
         <div class="rg-controls">
           <div><kbd>◀ ▶</kbd> 레인 이동</div>
