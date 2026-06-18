@@ -200,24 +200,7 @@ def get_questions(
             
         quiz_pool = pool[:limit]
 
-        # miniboss 문제 로드 (quiz_set 필터 적용)
-        miniboss_questions = load_questions_by_category("miniboss", course_level, unit)
-        if stage:
-            miniboss_questions = [q for q in miniboss_questions if q.get("stage") == stage]
-
-        if attempt == 1:
-            miniboss_pool = [q for q in miniboss_questions if q.get("quiz_set") == "A"]
-        elif attempt == 2:
-            miniboss_pool = [q for q in miniboss_questions if q.get("quiz_set") == "B"]
-        else:
-            miniboss_pool = list(miniboss_questions)
-            random.shuffle(miniboss_pool)
-
-        if not miniboss_pool:  # quiz_set이 없는 경우 폴백 (셔플하여 반환)
-            miniboss_pool = list(miniboss_questions)
-            random.shuffle(miniboss_pool)
-
-        return quiz_pool + miniboss_pool[:5]
+        return quiz_pool
 
     # quiz가 아닌 다른 카테고리는 기존 방식대로 셔플 후 반환
     random.shuffle(quiz_questions)
