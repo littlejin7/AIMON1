@@ -16,7 +16,7 @@ const GAMES = [
     available: true,
   },
   {
-    id: 'knowledge',
+    id: 'pairs',
     icon: '🤖',
     title: 'AI Pair',
     desc: '같은 카드 맞추기!',
