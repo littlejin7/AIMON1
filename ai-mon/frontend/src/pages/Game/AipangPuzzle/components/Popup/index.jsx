@@ -17,7 +17,7 @@ export function PopupTitle({ visible, onStart }) {
         </div>
         <div className="popup-sub">블록을 매치해서 보스를 공격하세요!</div>
         <div className="char-row">
-          {[1, 2, 3, 4, 5, 6].map(i => (
+          {[1, 2, 3, 4].map(i => (
             <img key={i} src={AP_IMGS[i]} alt={`char-${i}`} />
           ))}
         </div>
