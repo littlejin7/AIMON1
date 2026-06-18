@@ -1,16 +1,15 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-import { bossApi, userApi } from '../../api/index'
+import { useNavigate } from 'react-router-dom'
+import { endbossApi, userApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
-import BossIntro  from './BossIntro'
+import EndBossIntro  from './EndBossIntro'
 import useBossSound from '../../hooks/useBossSound'
-import BossBattle from './BossBattle'
-import BossResult from './BossResult'
-import './Boss.css'
+import EndBossBattle from './EndBossBattle'
+import EndBossResult from './EndBossResult'
+import '../Boss/Boss.css' // 재사용
 
-export default function Boss() {
-  const { lessonId } = useParams()
-  const navigate     = useNavigate()
+export default function EndBoss() {
+  const navigate = useNavigate()
 
   const user       = useAuthStore(s => s.user)
   const updateUser = useAuthStore(s => s.updateUser)
@@ -27,12 +26,11 @@ export default function Boss() {
   const [aiResult,        setAiResult]        = useState(null)
   const [errorMsg,        setErrorMsg]        = useState('')
 
-  // HP & 전투 상태 (유닛보스: 1000/1000)
-  const BOSS_HP_INIT = 1000
-  const MY_HP_INIT   = 1000
+  // HP & 전투 상태 (엔드보스: 1200/1800)
+  const BOSS_HP_INIT = 1800
+  const MY_HP_INIT   = 1200
   const [myHp,       setMyHp]       = useState(MY_HP_INIT)
   const [bossHp,     setBossHp]     = useState(BOSS_HP_INIT)
-  const [wrongCount, setWrongCount] = useState(0)
 
   // 애니메이션 상태
   const [bossShake,    setBossShake]    = useState(false)
@@ -41,6 +39,19 @@ export default function Boss() {
   const [screenShake,  setScreenShake]  = useState(false)
   const [attackAnim,   setAttackAnim]   = useState(false)
   const [dmgPopup,     setDmgPopup]     = useState(null)
+
+  // 엔드보스 상태
+  const [endbossState, setEndbossState] = useState({
+    project: null,
+    phase: 1,
+    phase1Questions: [],
+    phase2Questions: [],
+    phase3FirstQuestion: null,
+    phase1Index: 0,
+    phase2Index: 0,
+    phase3Tries: 0,
+    nextPhase3Question: null
+  })
 
   // 레벨업 정보
   const [initialLevel,    setInitialLevel]    = useState(1)
@@ -51,14 +62,14 @@ export default function Boss() {
   }, [user])
 
   useEffect(() => {
-    bossApi.getInfo(lessonId).then(res => {
+    endbossApi.getInfo().then(res => {
       setBossData(res.data)
       setLoading(false)
     }).catch(err => {
       console.error(err)
       setLoading(false)
     })
-  }, [lessonId])
+  }, [])
 
   // ── 공격 이펙트 ──
   const playAttackEffect = (damage) => {
@@ -89,22 +100,36 @@ export default function Boss() {
   }
 
   // ── 전투 시작 ──
-  const handleStart = async () => {
+  const handleStart = async (project = null) => {
     setMyHp(MY_HP_INIT)
     setBossHp(BOSS_HP_INIT)
-    setWrongCount(0)
     setAiResult(null)
     setSelectedOption(null)
     setAnswerInput('')
     setLoading(true)
     try {
-      const res = await bossApi.startBattle(lessonId)
-      setCurrentQuestion(res.data)
-      playBGM('unitboss_intro')
+      if (!project) throw new Error("프로젝트를 선택해주세요.")
+      const res = await endbossApi.startBattle(project)
+      const d = res.data
+      setEndbossState({
+        project: d.project,
+        phase: d.phase,
+        phase1Questions: d.phase1_questions,
+        phase2Questions: d.phase2_questions,
+        phase3FirstQuestion: d.phase3_first_question,
+        phase1Index: 0,
+        phase2Index: 0,
+        phase3Tries: 0,
+        nextPhase3Question: null
+      })
+      setCurrentQuestion(d.phase1_questions[0])
+      setMyHp(d.my_hp)
+      setBossHp(d.boss_hp)
+      playBGM('endboss_intro')
       setPhase('battle')
       setErrorMsg('')
     } catch (err) {
-      setErrorMsg(err.response?.data?.detail || '도전 비용이 부족합니다!')
+      setErrorMsg(err.response?.data?.detail || err.message || '도전 비용이 부족합니다!')
     } finally {
       setLoading(false)
     }
@@ -119,28 +144,26 @@ export default function Boss() {
 
     setLoading(true)
     try {
-      const res = await bossApi.submitAnswer({
+      const res = await endbossApi.submitAnswer({
         question_id:     currentQuestion.question_id,
         user_answer:     userAnswer,
-        is_code_question: isCodeType,
-        wrong_count:     wrongCount,
+        phase:           endbossState.phase,
         my_hp:           myHp,
         boss_hp:         bossHp,
-        unit:            parseInt(lessonId) || 1,
+        phase3_tries:    endbossState.phase3Tries,
+        project:         endbossState.project
       })
 
       const d = res.data
       const isCorrect = d.is_correct
       const nextMyHp = d.my_hp
       const nextBossHp = d.boss_hp
-      const nextWrongCount = d.wrong_count || wrongCount
       const isClear = d.is_clear
       const isFail = d.is_fail
 
       setAiResult(d)
       setMyHp(nextMyHp)
       setBossHp(nextBossHp)
-      setWrongCount(nextWrongCount)
 
       const damage = bossHp - nextBossHp
 
@@ -149,6 +172,7 @@ export default function Boss() {
         if (isClear) {
           setTimeout(async () => {
             try {
+              await endbossApi.clearBoss(endbossState.project)
               const userRes     = await userApi.getMe()
               const updatedUser = userRes.data
               updateUser(updatedUser)
@@ -162,11 +186,20 @@ export default function Boss() {
             playBGM('clear')
             setPhase('cleared')
           }, 1500)
+        } else if (d.phase3_ready) {
+          setEndbossState(prev => ({ ...prev, phase: 3 }))
         }
       } else {
         playHitEffect()
         if (isFail) {
           setTimeout(() => { playBGM('fail'); setPhase('failed') }, 2500)
+        }
+        if (endbossState.phase === 3) {
+          setEndbossState(prev => ({
+            ...prev,
+            phase3Tries: d.phase3_tries,
+            nextPhase3Question: d.next_phase3_question
+          }))
         }
       }
     } catch (err) {
@@ -178,14 +211,34 @@ export default function Boss() {
 
   // ── 다음 문제 ──
   const handleNextQuestion = async () => {
-    if (myHp <= 0 || wrongCount >= 3) {
+    if (myHp <= 0 || endbossState.phase3Tries >= 3) {
       setPhase('failed')
       return
     }
     setLoading(true)
     try {
-      const nextRes = await bossApi.nextQuestion(lessonId)
-      setCurrentQuestion(nextRes.data)
+      if (endbossState.phase === 3) {
+        if (currentQuestion.phase !== 3) {
+          setCurrentQuestion(endbossState.phase3FirstQuestion)
+        } else {
+          setCurrentQuestion(endbossState.nextPhase3Question)
+        }
+      } else if (endbossState.phase === 1) {
+        const nextIdx = endbossState.phase1Index + 1
+        if (nextIdx < endbossState.phase1Questions.length) {
+          setEndbossState(prev => ({ ...prev, phase1Index: nextIdx }))
+          setCurrentQuestion(endbossState.phase1Questions[nextIdx])
+        } else {
+          setEndbossState(prev => ({ ...prev, phase: 2, phase2Index: 0 }))
+          setCurrentQuestion(endbossState.phase2Questions[0])
+        }
+      } else if (endbossState.phase === 2) {
+        const nextIdx = endbossState.phase2Index + 1
+        if (nextIdx < endbossState.phase2Questions.length) {
+          setEndbossState(prev => ({ ...prev, phase2Index: nextIdx }))
+          setCurrentQuestion(endbossState.phase2Questions[nextIdx])
+        }
+      }
       setAiResult(null)
       setSelectedOption(null)
       setAnswerInput('')
@@ -206,7 +259,7 @@ export default function Boss() {
       <div className="boss-header">
         <button
           className="btn btn-ghost btn-sm"
-          onClick={() => { stopBGM(); navigate(`/lesson/${lessonId}`) }}
+          onClick={() => { stopBGM(); navigate('/lesson') }}
         >
           도망가기 🏃
         </button>
@@ -214,7 +267,7 @@ export default function Boss() {
 
       <div className="boss-container container">
         {phase === 'intro' && (
-          <BossIntro
+          <EndBossIntro
             bossData={bossData}
             errorMsg={errorMsg}
             onStart={handleStart}
@@ -222,12 +275,13 @@ export default function Boss() {
         )}
 
         {phase === 'battle' && currentQuestion && (
-          <BossBattle
+          <EndBossBattle
             bossData={bossData}
             currentQuestion={currentQuestion}
             bossHp={bossHp}
             myHp={myHp}
-            wrongCount={wrongCount}
+            phase={endbossState.phase}
+            phase3Tries={endbossState.phase3Tries}
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
             answerInput={answerInput}
@@ -246,12 +300,11 @@ export default function Boss() {
         )}
 
         {(phase === 'cleared' || phase === 'failed') && (
-          <BossResult
+          <EndBossResult
             phase={phase}
             aiResult={aiResult}
             levelUpMessage={levelUpMessage}
-            lessonId={lessonId}
-            onRetry={handleStart}
+            onRetry={() => setPhase('intro')}
             onNavigateLesson={() => navigate('/lesson')}
           />
         )}

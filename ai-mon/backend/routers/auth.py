@@ -256,6 +256,7 @@ def social_google(req: SocialLoginRequest):
             "created_at": datetime.utcnow().isoformat(),
         }
         users.append(user)
+        save_users(users)
     
     # Update last login & streak (similar to normal login)
     today = datetime.utcnow().strftime("%Y-%m-%d")
@@ -417,6 +418,7 @@ def social_naver(req: SocialLoginRequest):
             "created_at": datetime.utcnow().isoformat(),
         }
         users.append(user)
+        save_users(users)
     
     # Update last login & streak (similar to normal login)
     today = datetime.utcnow().strftime("%Y-%m-%d")
@@ -575,6 +577,7 @@ def social_kakao(req: SocialLoginRequest):
             "created_at": datetime.utcnow().isoformat(),
         }
         users.append(user)
+        save_users(users)
     
     # Update last login & streak (similar to normal login)
     today = datetime.utcnow().strftime("%Y-%m-%d")

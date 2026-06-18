@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { quizApi, progressApi } from '../../api/index'
+import { quizApi, progressApi, minibossApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import useBossSound from '../../hooks/useBossSound'
 import StageBriefing from './StageBriefing'
@@ -171,8 +171,23 @@ export default function Stage({ _lessonId, _stage }) {
     setFinished(false)
   }
 
-  // ── 정답 처리 ──
-  const handleAnswer = ({ correct: isCorrect, retried }) => {
+  const handleAnswer = async ({ correct: isCorrect, retried }) => {
+    const isVillain = questions[current]?.quiz_category === 'miniboss'
+    
+    if (isVillain && !retried && token) {
+      try {
+        await minibossApi.submitAnswer({
+          question_id: questions[current].question_id,
+          user_answer: isCorrect ? questions[current].answer : 'wrong', // Simplified for client logic
+          unit: parseInt(lessonId, 10),
+          stage: `${lessonId}-${stageNum}`,
+          my_hp: 900, boss_hp: 700 // Server handles actual HP clamping and reduction
+        })
+      } catch (err) {
+        console.error('Failed to submit miniboss answer', err)
+      }
+    }
+
     const pts = (isCorrect && !retried) ? 20 : 0
     setScore(prev => prev + pts)
     setCorrect(prev => prev + ((isCorrect && !retried) ? 1 : 0))
@@ -185,35 +200,40 @@ export default function Stage({ _lessonId, _stage }) {
   const handleNext = async () => {
     const currentCategory = questions[current]?.quiz_category
 
-    // 스테이지 퀴즈 → 미니보스 전환 시점 (동적으로 최초 미니보스 문제 직전 검출)
-    const firstMinibossIndex = questions.findIndex(q => q.quiz_category === 'miniboss')
-    const isTransitionToMiniboss = firstMinibossIndex !== -1 && (current + 1 === firstMinibossIndex)
-
-    if (isTransitionToMiniboss) {
-      const stageQuizCount = current + 1
-      const stageQuizScore = Math.round((correct / stageQuizCount) * 100)
-      if (stageQuizScore < 60) {
-        handleStageQuizFailure()
-        return
-      }
-      setMinibossStartIndex(current + 1)
-      setStageQuizCorrect(correct)
-      if (token) {
-        progressApi.saveProgress({
-          unit: parseInt(lessonId, 10),
-          stage: `${lessonId}-${stageNum}`,
-          score: stageQuizScore,
-          is_completed: false,
-          checkpoint: 'miniboss_ready',
-        }).catch(err => console.error(err))
-      }
-      playBGM('miniboss_intro')
-      setShowMinibossAlert(true)
-      return
-    }
-
-    // 모든 문제 완료
+    // 모든 문제 완료 시도
     if (current + 1 >= questions.length) {
+      // 1. 스테이지 퀴즈 완료 -> 미니보스로 전환
+      if (currentCategory === 'stage_quiz' && minibossStartIndex === null) {
+        const stageQuizScore = Math.round((correct / questions.length) * 100)
+        if (stageQuizScore < 60) {
+          handleStageQuizFailure()
+          return
+        }
+        
+        // 미니보스 문제 로드
+        try {
+          const res = await minibossApi.startBattle(lessonId, `${lessonId}-${stageNum}`)
+          const miniQuestions = res.data.questions.map(q => shuffleChoices(q))
+          setQuestions(prev => [...prev, ...miniQuestions])
+          setMinibossStartIndex(current + 1)
+          setStageQuizCorrect(correct)
+          if (token) {
+            progressApi.saveProgress({
+              unit: parseInt(lessonId, 10),
+              stage: `${lessonId}-${stageNum}`,
+              score: stageQuizScore,
+              is_completed: false,
+              checkpoint: 'miniboss_ready',
+            }).catch(err => console.error(err))
+          }
+          playBGM('miniboss_intro')
+          setShowMinibossAlert(true)
+          return
+        } catch (err) {
+          console.error("미니보스 시작 실패", err)
+          // 미니보스가 없다면 그대로 스테이지 클리어로 진행
+        }
+      }
       if (currentCategory === 'stage_quiz') {
         const stageQuizScore = Math.round((correct / questions.length) * 100)
         if (stageQuizScore < 60) {
@@ -242,6 +262,18 @@ export default function Stage({ _lessonId, _stage }) {
 
       const prevLv   = user?.lv        || 1
       const prevChar = user?.character || 'slime'
+
+      // 미니보스 클리어 처리
+      if (minibossStartIndex !== null && token) {
+        try {
+          await minibossApi.clearBoss({
+            unit: parseInt(lessonId, 10),
+            stage: `${lessonId}-${stageNum}`
+          })
+        } catch (err) {
+          console.error("미니보스 클리어 API 실패", err)
+        }
+      }
 
       const res = await progressApi.saveProgress({
         unit: parseInt(lessonId, 10),

@@ -134,10 +134,21 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
     completed_stage_ids = {p.get("stage") for p in user_unit_stages}
     
     try:
-        from routers.quiz import load_units
+        from routers.quiz import load_units, load_questions_by_category
         lessons_data = load_units(course_level)
         lesson = next((l for l in lessons_data if l.get("unit_id") == req.unit), None)
-        total_stages = lesson.get("stages", 7) if lesson else 7
+        if lesson and "stages" in lesson:
+            total_stages = lesson["stages"]
+        else:
+            qs = load_questions_by_category("quiz", course_level, req.unit)
+            stages = set()
+            for q in qs:
+                if q.get("stage"):
+                    try:
+                        stages.add(int(str(q["stage"]).split("-")[1]))
+                    except:
+                        pass
+            total_stages = max(stages) if stages else 7
     except Exception:
         total_stages = 7
 

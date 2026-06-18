@@ -42,6 +42,13 @@ export const endbossApi = {
   clearBoss:     (project)  => api.post('/boss/endboss/clear', { project }),
 }
 
+export const minibossApi = {
+  getInfo:       () => api.get('/boss/miniboss/info'),
+  startBattle:   (unit, stage) => api.post(`/boss/miniboss/start?unit=${unit}&stage=${stage}`),
+  submitAnswer:  (data) => api.post('/boss/miniboss/answer', data),
+  clearBoss:     (data) => api.post('/boss/miniboss/clear', data),
+}
+
 export const codeApi = {
   runCode: (data) => api.post('/code/run', data),
 }

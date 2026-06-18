@@ -36,7 +36,7 @@ def verify_token(authorization: str) -> str:
 
 def find_question(question_id: str) -> Optional[dict]:
     from routers.quiz import load_questions_by_category
-    for category in ("quiz", "unitboss", "miniboss"):
+    for category in ("quiz", "unitboss", "miniboss", "endboss"):
         for q in load_questions_by_category(category):
             if q.get("question_id") == question_id or q.get("id") == question_id:
                 return q
