@@ -39,3 +39,15 @@
   border-color: rgba(180, 100, 100, 0.6);
   box-shadow: 0 0 16px rgba(200, 80, 80, 0.3);
 }
+
+#volume-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #fff;
+}
+
+#volume-wrap input[type="range"] {
+  width: 80px;
+  accent-color: #78aaff;
+}
