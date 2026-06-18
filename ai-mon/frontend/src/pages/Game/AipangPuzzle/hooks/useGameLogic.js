@@ -68,14 +68,19 @@ export function useGameLogic(pCanvasRef, lCanvasRef) {
   const particleAnimIdRef = useRef(null);
 
   // ── 오디오 초기화 ──
-  useEffect(() => {
-    bgmRef.current = new Audio(BGM_SRC);
-    bgmRef.current.loop = true;
-    bgmRef.current.volume = 0.3;
+useEffect(() => {
+  bgmRef.current = new Audio(BGM_SRC);
+  bgmRef.current.loop = true;
+  bgmRef.current.volume = 0.3;
 
-    popSfxRef.current = new Audio(POP_SRC);
-    popSfxRef.current.volume = 0.7;
-  }, []);
+  popSfxRef.current = new Audio(POP_SRC);
+  popSfxRef.current.volume = 0.7;
+
+  return () => {          // ← 추가
+    bgmRef.current?.pause();
+    bgmRef.current = null;
+  };
+}, []);
 
   // ── 블록 이미지 사전 로드 ──
   useEffect(() => {
