@@ -239,9 +239,16 @@ def miniboss_clear(req: ClearRequest, authorization: str = Header(...)):
         user["xp"] = user.get("xp", 0) + CLEAR_XP
         xp_awarded = CLEAR_XP
 
-        # 레벨 재계산
-
+        # 레벨 재계산 + 캐릭터 진화 체크
         user["lv"] = max(calc_level(user["xp"]), user.get("lv", 1))
+        lv = user["lv"]
+        if lv >= 10 and user.get("character") == "slime":
+            user["character"] = "robot"
+        elif lv >= 20 and user.get("character") == "robot":
+            user["character"] = "speech_bubble"
+        elif lv >= 30 and user.get("character") == "speech_bubble":
+            user["character"] = "final_ghost"
+
         cleared.append(stage_key)
         user["miniboss_cleared_stages"] = cleared
         save_users(users)

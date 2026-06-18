@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { bossApi, userApi } from '../../api/index'
+import { bossApi, endbossApi, userApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import BossIntro  from './BossIntro'
 import useBossSound from '../../hooks/useBossSound'
@@ -145,7 +145,11 @@ export default function Boss() {
         if (isClear) {
           setTimeout(async () => {
             try {
-              const userRes    = await userApi.getMe()
+              // 엔드보스 클리어 시 보상 지급 (XP/왕관/칭호/진화) → endboss.py /clear 호출
+              if (isFinalBoss) {
+                await endbossApi.clearBoss('default')
+              }
+              const userRes     = await userApi.getMe()
               const updatedUser = userRes.data
               updateUser(updatedUser)
               const newLevel = updatedUser.lv || 1

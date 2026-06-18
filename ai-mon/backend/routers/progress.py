@@ -141,7 +141,7 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
     except Exception:
         total_stages = 7
 
-    required_stages = {f"{req.unit}-{i}" for i in range(1, total_stages + 1)}
+    required_stages = {f"{req.unit}-{i}" for i in range(1, total_stages + 1)} | {f"{req.unit}-boss"}
     unit_just_completed = required_stages.issubset(completed_stage_ids) and req.stage in required_stages
 
     crowns_awarded = 0

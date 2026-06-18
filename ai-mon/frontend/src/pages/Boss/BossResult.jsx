@@ -34,7 +34,9 @@ export default function BossResult({
           <div className="result-rewards" style={{ margin: '24px 0', background: 'rgba(255,255,255,0.05)', padding: '16px', borderRadius: '12px' }}>
             <div className="reward-item" style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
               <span className="reward-icon">⭐</span>
-              <span style={{ fontWeight: 700, color: '#a6e3a1', marginLeft: '8px' }}>+3000 XP 획득!</span>
+              <span style={{ fontWeight: 700, color: '#a6e3a1', marginLeft: '8px' }}>
+                {isFinalBoss ? '+15000 XP 획득!' : '+3000 XP 획득!'}
+              </span>
             </div>
             <div className="reward-item" style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
               <span className="reward-icon">💳</span>
