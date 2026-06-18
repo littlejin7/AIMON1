@@ -39,7 +39,7 @@ def load_questions_by_category(category: str, course_level: str = None, unit: in
                 raw = f.read()
             # JS 스타일 주석 제거 (beginner.json 등에 주석 포함 가능)
             raw = _re.sub(r"/\*.*?\*/", "", raw, flags=_re.DOTALL)
-            raw = _re.sub(r"(?<!https?:)//[^\n]*", "", raw)
+            raw = _re.sub(r"(?<!:)//[^\n]*", "", raw)
             data = json.loads(raw)
             qs = data if isinstance(data, list) else data.get("questions", [])
             result.extend(qs)
@@ -277,7 +277,6 @@ async def get_ai_feedback(req: AiFeedbackRequest, authorization: str = Header(No
             user_id = payload.get("sub")
             users = load_users()
             for u in users:
-                if u["id"] == user_id:
                     u["ai_feedback_count"] = u.get("ai_feedback_count", 0) + 1
                     earned = set(u.get("titles", []))
                     if u["ai_feedback_count"] >= 10 and "ai_explorer" not in earned:
@@ -291,5 +290,3 @@ async def get_ai_feedback(req: AiFeedbackRequest, authorization: str = Header(No
     if result["success"]:
         return {"feedback": result["feedback"], "is_ai_fallback": False}
     return {"feedback": "", "is_ai_fallback": True}
-
-

@@ -152,8 +152,6 @@ export default function Stage({ _lessonId, _stage }) {
 
   // ── 스테이지 퀴즈 실패 (60% 미만) ──
   const handleStageQuizFailure = () => {
-    setAttempt(prev => prev + 1)
-    setLoading(true)
     setCorrectQuestions([])
     setCurrent(0)
     setScore(0)
@@ -161,19 +159,8 @@ export default function Stage({ _lessonId, _stage }) {
     setFinished(false)
     setShowBriefing(false)
     alert('개념 퀴즈를 60% 이상 맞춰야 미니보스에 도전할 수 있어요! 다시 도전해봐요 💪')
-    quizApi.getQuestions({
-      unit: lessonId,
-      stage: `${lessonId}-${stageNum}`,
-      course_level: courseLevel,
-      limit: 20,
-      attempt: attempt + 1,
-    }).then(r => {
-      setQuestions(r.data.map(q => shuffleChoices(q)))
-      setLoading(false)
-    }).catch(() => {
-      setQuestions([])
-      setLoading(false)
-    })
+    // setAttempt이 useEffect를 트리거해 자동으로 새 문제를 로드하므로 별도 fetch 불필요
+    setAttempt(prev => prev + 1)
   }
 
   // ── 미니보스 재도전 ──

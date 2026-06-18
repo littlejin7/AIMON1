@@ -104,7 +104,7 @@ def load_endboss_questions(course_level: str) -> list:
     with open(path, "r", encoding="utf-8") as f:
         raw = f.read()
     raw = re.sub(r"/\*.*?\*/", "", raw, flags=re.DOTALL)
-    raw = re.sub(r"//[^\n]*", "", raw)
+    raw = re.sub(r"(?<!:)//[^\n]*", "", raw)
     return json.loads(raw)
 
 def is_endboss_unlocked(user: dict) -> bool:
@@ -412,7 +412,6 @@ def endboss_clear(req: ClearRequest, authorization: str = Header(...)):
         "already_cleared":    already_cleared,
         "xp_awarded":         0 if already_cleared else CLEAR_XP,
         "crowns_awarded":     0 if already_cleared else CLEAR_CROWNS,
-        "character":          user.get("character"),
         "lv":                 user.get("lv", 1),
         "newly_earned_titles": newly_earned_titles,
         "cleared_levels":     user.get("endboss_cleared_levels", []),

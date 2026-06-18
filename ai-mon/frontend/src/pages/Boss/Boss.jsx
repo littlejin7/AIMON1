@@ -159,21 +159,8 @@ export default function Boss() {
             setPhase('cleared')
           }, 1500)
         } else {
-          // 다음 문제 자동 전환 (1.5초 후)
-          setTimeout(async () => {
-            try {
-              setLoading(true)
-              const nextRes = await bossApi.nextQuestion(lessonId)
-              setCurrentQuestion(nextRes.data)
-              setAiResult(null)
-              setSelectedOption(null)
-              setAnswerInput('')
-            } catch (err) {
-              console.error(err)
-            } finally {
-              setLoading(false)
-            }
-          }, 1500)
+          // 자동 전환 제거 — BossBattle의 "다음 문제 도전" 버튼으로만 진행
+          // (자동 setTimeout + 버튼 클릭 동시 실행으로 nextQuestion 이중 호출 방지)
         }
       } else {
         playHitEffect()

@@ -71,11 +71,13 @@ export default function Train() {
         }
       }
     }
+    // correctCount는 setState 비동기 업데이트로 stale할 수 있으므로 미리 계산
+    const finalCorrect = correct ? correctCount + 1 : correctCount
     setTimeout(() => {
       if (current + 1 < questions.length) {
         setCurrent(current + 1)
       } else {
-        finishTraining(correct ? correctCount + 1 : correctCount)
+        finishTraining(finalCorrect)
       }
     }, 1200)
   }
