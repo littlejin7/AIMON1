@@ -29,10 +29,10 @@ async def ask_claude(prompt: str, level: str = "beginner") -> dict:
         + level_instructions.get(level, level_instructions["beginner"])
     )
 
-    client = get_client()
     try:
+        client = get_client()
         message = await client.messages.create(
-            model="claude-haiku-4-5-20251001",
+            model="claude-3-5-haiku-latest",
             max_tokens=512,
             system=system_prompt,
             messages=[{"role": "user", "content": prompt}],
@@ -53,10 +53,10 @@ async def ask_claude_json(prompt: str) -> dict:
     """
     JSON 형식을 반환해야 하는 채점용
     """
-    client = get_client()
     try:
+        client = get_client()
         message = await client.messages.create(
-            model="claude-haiku-4-5-20251001",
+            model="claude-3-5-haiku-latest",
             max_tokens=512,
             messages=[{"role": "user", "content": prompt}],
         )
