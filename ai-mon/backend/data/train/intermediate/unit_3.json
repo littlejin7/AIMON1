@@ -1,402 +1,224 @@
 [
   {
-    "question_id": "sl_mid_fib_3_1_001",
-    "unit": 3,
-    "stage": "3-1",
-    "course_level": "intermediate",
+    "question_id": "q001",
+    "type": "fill_in_blank",
+    "topic": "lambda",
     "difficulty": "easy",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "람다(lambda) 함수는 이름 없이 한 줄로 간결하게 정의해서 사용하는 익명 함수입니다. 아래 코드에서 `lambda x:` 뒤에 x의 제곱을 계산하여 리턴하는 구문을 완성하려 합니다. 빈칸에 들어갈 알맞은 산술 연산 기호를 적어주세요.\n\nsquare = lambda x: x ______ 2\nprint(square(5)) # 25 출력",
-    "answer": "**",
-    "hint": "초급 과정에서 배웠던 거듭제곱(제곱)을 계산하는 연산자 기호입니다.",
+    "question": "다음 코드의 빈칸을 채워 lambda 함수를 완성해 보세요.",
+    "code": "triple = lambda x: x _____ 3\nprint(triple(7))",
+    "answer": "*",
     "feedback": {
-      "correct": "정답입니다! `**` 연산자를 사용해 람다 식 내부에서 제곱 연산을 간결하게 처리할 수 있습니다."
+      "correct": "정답! lambda x: x * 3 은 x에 3을 곱한 값을 반환하는 익명 함수입니다. triple(7)은 7 × 3 = 21을 출력합니다."
     }
   },
   {
-    "question_id": "sl_mid_os_3_1_002",
-    "unit": 3,
-    "stage": "3-1",
-    "course_level": "intermediate",
+    "question_id": "q002",
+    "type": "output_select",
+    "topic": "lambda",
     "difficulty": "easy",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "다음과 같이 정의된 람다 함수를 실행했을 때 콘솔창에 인쇄되는 최종 출력값은 무엇일까요?\n\nadd_numbers = lambda a, b: a + b\nprint(add_numbers(10, 20))",
+    "question": "다음 코드의 출력 결과로 알맞은 것을 고르세요.",
+    "code": "greet = lambda name: f\"Hello, {name}!\"\nprint(greet(\"Python\"))",
     "choices": [
-      "A. 10",
-      "B. 20",
-      "C. 30",
-      "D. 1020"
+      "A. Hello, Python!",
+      "B. Hello, name!",
+      "C. f\"Hello, Python!\"",
+      "D. Hello Python"
     ],
-    "answer": "C. 30",
-    "hint": "람다 함수는 콜론(`:`) 앞의 `a, b`를 매개변수로 받고, 콜론 뒤의 연산 식 결과를 자동으로 리턴합니다.",
+    "answer": "A",
     "feedback": {
-      "correct": "정답입니다! 매개변수 `a`에 10, `b`에 20이 대입되어 둘을 더한 값인 30이 출력됩니다."
+      "correct": "정답! f-string 안의 {name}에 \"Python\"이 대입되어 Hello, Python! 이 출력됩니다. A)가 정답입니다."
     }
   },
   {
-    "question_id": "sl_mid_fib_3_1_003",
-    "unit": 3,
-    "stage": "3-1",
-    "course_level": "intermediate",
-    "difficulty": "medium",
+    "question_id": "q003",
     "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "람다 함수는 일반적인 함수 정의 키워드인 `def` 대신 전용 키워드를 사용하여 선언합니다. 아래 코드의 빈칸에 알맞은 파이썬 키워드를 영문 소문자로 적어주세요.\n\nis_even = ______ x: x % 2 == 0\nprint(is_even(4)) # True 출력",
-    "answer": "lambda",
-    "hint": "익명 함수를 선언할 때 사용하는 단어 그대로를 적어주시면 됩니다.",
-    "feedback": {
-      "correct": "맞았습니다! `lambda` 키워드를 사용하면 `def`와 `return`문 없이도 축약된 함수를 정의할 수 있습니다."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_3_1_004",
-    "unit": 3,
-    "stage": "3-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "초급 과정의 문자열 슬라이싱과 람다 함수를 결합해 보았습니다. 다음 코드가 수행되었을 때 터미널 환경에 출력되는 최종 데이터는 무엇일까요?\n\nreverse_text = lambda s: s[::-1]\nprint(reverse_text(\"AIMON\"))",
-    "choices": [
-      "A. AIMON",
-      "B. NOMIA",
-      "C. A",
-      "D. N"
-    ],
-    "answer": "B. NOMIA",
-    "hint": "`[::-1]` 슬라이싱 옵션은 전달받은 문자열의 순서를 완전히 역순으로 뒤집어 변환하는 기법입니다.",
-    "feedback": {
-      "correct": "정답입니다! 문자열 \"AIMON\"이 람다 함수의 매개변수로 전달되어 역순으로 뒤집힌 \"NOMIA\"가 리턴됩니다."
-    }
-  },
-  {
-    "question_id": "sl_mid_fib_3_1_005",
-    "unit": 3,
-    "stage": "3-1",
-    "course_level": "intermediate",
-    "difficulty": "medium",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "람다 식 내부에서도 초급에서 배웠던 삼항 연산자 형태의 조건 분기문을 구현할 수 있습니다. 아래 코드의 빈칸을 채워 점수가 60점 이상이면 \"Pass\", 아니면 \"Fail\"을 리턴하도록 조건문 키워드를 채워주세요.\n\ncheck_score = lambda score: \"Pass\" ______ score >= 60 else \"Fail\"\nprint(check_score(75)) # Pass 출력",
-    "answer": "if",
-    "hint": "파이썬에서 한 줄 조건식을 작성할 때 `[참일 때 값] ______ [조건식] else [거짓일 때 값]` 형태로 매칭하는 키워드입니다.",
-    "feedback": {
-      "correct": "정답입니다! `if` 키워드를 삽입하여 람다 식 내부에서도 축약형 조건 제어 로직을 무리 없이 구현할 수 있습니다."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_3_1_006",
-    "unit": 3,
-    "stage": "3-1",
-    "course_level": "intermediate",
-    "difficulty": "medium",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "람다 함수는 매개변수를 전혀 받지 않는 형태로도 설계가 가능합니다. 다음 코드 라인을 가동했을 때 화면에 출력되는 최종 결과는 무엇일까요?\n\nget_status = lambda: \"에이몬 준비 완료\"\nprint(get_status())",
-    "choices": [
-      "A. 에이몬 준비 완료",
-      "B. lambda",
-      "C. None",
-      "D. 오류 발생"
-    ],
-    "answer": "A. 에이몬 준비 완료",
-    "hint": "콜론(`:`) 왼쪽에 아무런 인자명을 적지 않으면 매개변수가 없는 함수가 되며, 호출 시 빈 괄호 `()`를 붙여 실행합니다.",
-    "feedback": {
-      "correct": "정답입니다! 인자가 없는 람다 함수가 실행되면서 콜론 뒤의 고정 문자열 데이터가 그대로 반환됩니다."
-    }
-  },
-  {
-    "question_id": "sl_mid_fib_3_1_007",
-    "unit": 3,
-    "stage": "3-1",
-    "course_level": "intermediate",
-    "difficulty": "medium",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "람다 함수를 사용해 입력값에 3을 더하는 식을 완성하려 합니다. 결과가 8이 출력되도록 빈칸에 알맞은 숫자를 적어주세요.\n\nadd_three = lambda x: x + ______\nprint(add_three(5)) # 8 출력",
-    "answer": "3",
-    "hint": "5에 어떤 수를 더해야 8이 될까요?",
-    "feedback": {
-      "correct": "정답입니다! `lambda x: x + 3`은 x에 3을 더해 반환하는 람다 함수입니다. add_three(5)를 호출하면 5 + 3 = 8이 출력됩니다."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_3_1_008",
-    "unit": 3,
-    "stage": "3-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "다음 람다 함수를 실행하면 출력값은 무엇일까요?\n\ngreet = lambda name: '안녕, ' + name\nprint(greet('에이몬'))",
-    "choices": [
-      "A. 안녕, ",
-      "B. 안녕, 에이몬",
-      "C. 에이몬",
-      "D. 오류 발생"
-    ],
-    "answer": "B. 안녕, 에이몬",
-    "hint": "람다 함수의 콜론 뒤 식이 실행되어 문자열이 연결됩니다.",
-    "feedback": {
-      "correct": "정답입니다! 매개변수 name에 '에이몬'이 전달되어 '안녕, ' + '에이몬' = '안녕, 에이몬'이 출력됩니다."
-    }
-  },
-  {
-    "question_id": "sl_mid_fib_3_1_009",
-    "unit": 3,
-    "stage": "3-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "초급 리스트 정렬 시 배웠던 `sort()` 메서드와 람다를 결합한 고급 기술입니다. 리스트 내부 튜플의 원소 중 두 번째 항목(인덱스 1번 수치)을 기준으로 오름차순 정렬하려 합니다. 빈칸에 알맞은 람다 인덱싱 코드를 적어주세요.\n\npairs = [(1, 'one'), (2, 'two'), (3, 'three')]\npairs.sort(key=lambda x: x[______])\n# 정렬 기준을 문자열 요소로 설정하기 위해 인덱스 지정 필요",
-    "answer": "1",
-    "hint": "튜플 구조 `(숫자, 문자열)`에서 문자열 항목의 위치를 지정하는 인덱스 정수 번호입니다.",
-    "feedback": {
-      "correct": "정답입니다! `key=lambda x: x[1]`을 지정하면 각 튜플의 1번 인덱스 문자열 알파벳 순서대로 정렬이 수행됩니다."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_3_1_010",
-    "unit": 3,
-    "stage": "3-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "다음 함수 리턴 체계 코드를 해석해 보시고, 최종 구문 실행을 통해 터미널 화면에 나타나는 출력값을 정확히 골라보세요.\ndef make_multiplier(n):\n    return lambda x: x * n\n\ndouble = make_multiplier(2)\nprint(double(7))",
-    "choices": [
-      "A. 2",
-      "B. 7",
-      "C. 14",
-      "D. 오류 발생"
-    ],
-    "answer": "C. 14",
-    "hint": "`make_multiplier(2)` 함수를 호출하면 외부 변수 `n` 자리에 2가 고정된 `lambda x: x * 2` 함수 객체가 생성되어 반환됩니다.",
-    "feedback": {
-      "correct": "정답입니다! 반환된 람다 함수에 인자 7이 대입되어 `7 * 2`가 연산되므로 최종 14가 출력됩니다."
-    }
-  },
-  {
-    "question_id": "sl_mid_fib_3_1_011",
-    "unit": 3,
-    "stage": "3-1",
-    "course_level": "intermediate",
+    "topic": "args",
     "difficulty": "easy",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "람다 함수는 인자를 여러 개 받아 연산할 수 있습니다. 아래 코드의 람다 식을 이용해 인자 3개를 모두 곱한 값인 24가 출력되도록 빈칸에 알맞은 매개변수 구분을 위한 구분자(콤마 기호)를 적어주세요.\n\nmultiply = lambda x ______ y, z: x * y * z\nprint(multiply(2, 3, 4)) # 2 * 3 * 4 = 24 출력",
-    "answer": ",",
-    "hint": "일반 함수를 선언할 때와 마찬가지로 매개변수 사이를 나누어주는 기본 문장 기호입니다.",
+    "question": "다음 코드의 빈칸을 채워 전달된 인수의 개수를 반환하도록 완성해 보세요.",
+    "code": "def get_count(*args):\n    return _____\nprint(get_count(\"a\", \"b\", \"c\", \"d\"))",
+    "answer": "len(args)",
     "feedback": {
-      "correct": "정답입니다! 람다 함수에서도 여러 변수를 지정할 때는 기호 `,`를 사용해 인자 영역을 나열해 줍니다."
+      "correct": "정답! *args는 가변 인수를 튜플로 묶습니다. len(args)로 전달된 인수의 개수 4를 반환할 수 있습니다."
     }
   },
   {
-    "question_id": "sl_mid_os_3_1_012",
-    "unit": 3,
-    "stage": "3-1",
-    "course_level": "intermediate",
+    "question_id": "q004",
+    "type": "output_select",
+    "topic": "args",
     "difficulty": "easy",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "다음 파이썬 람다 함수 코드를 실행했을 때 최종 반환되는 데이터의 자료형 타입(Type)은 무엇일까요?\n\ncheck_func = lambda x: x > 10\nres = check_func(5)\nprint(type(res))",
+    "question": "다음 코드의 출력 결과로 알맞은 것을 고르세요.",
+    "code": "def show(*args):\n    print(type(args))\n\nshow(1, 2, 3)",
     "choices": [
-      "A. <class 'int'>",
-      "B. <class 'str'>",
-      "C. <class 'bool'>",
-      "D. <class 'function'>"
+      "A. <class 'list'>",
+      "B. <class 'tuple'>",
+      "C. <class 'dict'>",
+      "D. <class 'set'>"
     ],
-    "answer": "C. <class 'bool'>",
-    "hint": "함수 자체의 형식이 아닌, 함수가 실행되어 콜론 뒤의 비교 연산식(`5 > 10`)이 완료되어 나온 최종 결과물의 타입입니다.",
+    "answer": "B",
     "feedback": {
-      "correct": "정답입니다! 비교 연산의 결과는 참 혹은 거짓인 `False`가 되므로 참거짓을 다루는 `bool` 자료형으로 판정됩니다."
+      "correct": "정답! *args는 가변 인수를 튜플(tuple)로 묶어 전달합니다. type(args)는 B) <class 'tuple'>을 출력합니다."
     }
   },
   {
-    "question_id": "sl_mid_fib_3_1_013",
-    "unit": 3,
-    "stage": "3-1",
-    "course_level": "intermediate",
-    "difficulty": "medium",
+    "question_id": "q005",
     "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "람다 함수의 매개변수 영역에도 초급 함수 파트에서 배웠던 '디폴트 값(기본값)' 설정이 가능합니다. 인자가 들어오지 않을 때 100을 기본값으로 취급하게 하도록 빈칸에 알맞은 값을 대입하는 연산 기호를 채워주세요.\n\nget_hp = lambda hp ______ 100: hp\nprint(get_hp()) # 인자가 없으므로 100 출력",
-    "answer": "=",
-    "hint": "기본 매개변수를 지정할 때 변수명 오른쪽에 붙여서 초깃값을 지정하는 할당 기호입니다.",
-    "feedback": {
-      "correct": "정답입니다! `hp = 100`과 같이 대입 연산자를 부여하면 일반 함수처럼 디폴트 인자 기능이 원활하게 연동됩니다."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_3_1_014",
-    "unit": 3,
-    "stage": "3-1",
-    "course_level": "intermediate",
+    "topic": "kwargs",
     "difficulty": "medium",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "초급 과정의 리스트 결합 및 가공 기법이 융합된 문항입니다. 다음 람다 실행 구문을 구동했을 때 출력창에 나타나는 최종 형태를 정확히 선택해 주세요.\n\nadd_list = lambda lst: lst + [99]\nprint(add_list([1, 2]))",
-    "choices": [
-      "A. [1, 2, 99]",
-      "B. [1, 2, [99]]",
-      "C. [102]",
-      "D. 오류 발생"
-    ],
-    "answer": "A. [1, 2, 99]",
-    "hint": "리스트 객체끼리 `+` 연산을 수행하면 두 리스트 내부 원소들이 한데 결합된 단일의 새로운 리스트가 빌드됩니다.",
+    "question": "다음 코드의 빈칸을 채워 키-값 쌍을 순서대로 출력하도록 완성해 보세요.",
+    "code": "def profile(**kwargs):\n    for k, v in kwargs._____():\n        print(f\"{k}: {v}\")\n\nprofile(name=\"Alice\", age=25)",
+    "answer": "items",
     "feedback": {
-      "correct": "정답입니다! 인자로 전달된 `[1, 2]` 뒤에 `[99]`가 붙으면서 `[1, 2, 99]`라는 리스트 결과물이 도출됩니다."
+      "correct": "정답! kwargs.items()는 딕셔너리의 (키, 값) 쌍을 반환합니다. for k, v로 각 항목을 언팩하여 name: Alice, age: 25 순으로 출력합니다."
     }
   },
   {
-    "question_id": "sl_mid_fib_3_1_015",
-    "unit": 3,
-    "stage": "3-1",
-    "course_level": "intermediate",
+    "question_id": "q006",
+    "type": "output_select",
+    "topic": "kwargs",
     "difficulty": "medium",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "초급 단계에서 마스터했던 문자열 포맷팅 기술인 f-string을 람다 함수 내부에 접목한 예제입니다. 출력 양상이 'Lv.77' 이 되도록 빈칸에 알맞은 f-string 변수 치환용 괄호 기호 형태를 기입해 주세요.\n\nformat_lv = lambda lv: f\"Lv.______\"\nprint(format_lv(77)) # Lv.77 출력",
-    "answer": "{lv}",
-    "hint": "문자열 내부에 변수 `lv` 값을 녹여내기 위해 변수명을 감싸주는 특수 괄호 포맷입니다.",
-    "feedback": {
-      "correct": "정답입니다! f-string 규칙에 맞춰 `{lv}`를 명시해주면 매개변수로 넘어온 수치가 그 자리에 안전하게 표현됩니다."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_3_1_016",
-    "unit": 3,
-    "stage": "3-1",
-    "course_level": "intermediate",
-    "difficulty": "medium",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "다음 파이썬 람다 코드의 구동 상태를 분석해 보시고, 콘솔창에 나타나는 최종 반환 형태를 골라주세요.\n\nfunc_mix = lambda a, b: a if a > b else b\nprint(func_mix(45, 88))",
+    "question": "다음 코드의 출력 결과로 알맞은 것을 고르세요.",
+    "code": "def check(**kwargs):\n    print(len(kwargs))\n\ncheck(x=1, y=2, z=3)",
     "choices": [
-      "A. 45",
-      "B. 88",
-      "C. True",
-      "D. a if a > b else b"
-    ],
-    "answer": "B. 88",
-    "hint": "조건식 `a > b` (45 > 88)가 참이면 `if` 왼쪽의 `a`가 리턴되고, 거짓이면 `else` 오른쪽의 `b`가 최종 리턴되는 삼항식 메커니즘입니다.",
-    "feedback": {
-      "correct": "정답입니다! 조건식이 거짓(False) 판정을 받으므로 `else` 영역 뒤에 정의되어 있던 88이 반환 인쇄됩니다."
-    }
-  },
-  {
-    "question_id": "sl_mid_fib_3_1_017",
-    "unit": 3,
-    "stage": "3-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "람다 함수에서 두 수 중 더 큰 값을 반환하는 식을 완성하려 합니다. 빈칸에 알맞은 비교 연산자를 적어주세요.\n\nmax_val = lambda a, b: a if a ______ b else b\nprint(max_val(3, 7)) # 7 출력",
-    "answer": ">",
-    "hint": "a가 b보다 클 때 a를 반환하고, 그렇지 않으면 b를 반환합니다.",
-    "feedback": {
-      "correct": "정답입니다! `a > b`가 참이면 a를, 거짓이면 b를 반환합니다. max_val(3, 7)에서 3 > 7은 거짓이므로 b인 7이 반환됩니다."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_3_1_018",
-    "unit": 3,
-    "stage": "3-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "다음 람다 함수를 실행하면 출력값은 무엇일까요?\n\ndouble = lambda n: n * 2\nprint(double(6))",
-    "choices": [
-      "A. 2",
+      "A. 3",
       "B. 6",
-      "C. 12",
-      "D. 오류 발생"
+      "C. (1, 2, 3)",
+      "D. {'x': 1, 'y': 2, 'z': 3}"
     ],
-    "answer": "C. 12",
-    "hint": "람다 함수가 받은 n에 2를 곱한 값을 반환합니다.",
+    "answer": "A",
     "feedback": {
-      "correct": "정답입니다! double(6)을 호출하면 n에 6이 전달되어 6 * 2 = 12가 출력됩니다."
+      "correct": "정답! **kwargs는 키워드 인수를 딕셔너리로 묶습니다. x, y, z 세 개의 인수가 전달되었으므로 len(kwargs)는 A) 3을 출력합니다."
     }
   },
   {
-    "question_id": "sl_mid_fib_3_1_019",
-    "unit": 3,
-    "stage": "3-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
+    "question_id": "q007",
     "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "초급 문자열 파트에서 학습했던 내장 가공 함수와 람다를 믹스한 고난이도 문제입니다. 아래 빈칸을 완성하여 튜플 문자열 원소들의 실제 '글자 수(길이)' 크기를 기준으로 리스트가 안전하게 오름차순 정렬되도록 완성해 주세요.\n\nwords = ('robot', 'ai', 'ghost')\nsorted_result = sorted(words, key=lambda x: ______(x))\nprint(sorted_result) # ['ai', 'robot', 'ghost'] 출력",
-    "answer": "len",
-    "hint": "인자로 들어오는 각 단어 원소 객체의 글자 길이를 즉각 산출해주는 초급의 대표적인 3글자 내장 함수입니다.",
+    "topic": "recursive",
+    "difficulty": "medium",
+    "question": "다음 재귀 함수의 기저 조건 빈칸을 채워 코드를 완성해 보세요.",
+    "code": "def power(base, exp):\n    if exp == _____:\n        return 1\n    return base * power(base, exp - 1)\n\nprint(power(2, 5))",
+    "answer": "0",
     "feedback": {
-      "correct": "정답입니다! `key=lambda x: len(x)`를 부여하면 문자열 자체 순서가 아닌, 단어 글자 수(2, 5, 5) 기준으로 척도가 잡혀 정렬이 완수됩니다."
+      "correct": "정답! 어떤 수의 0제곱도 1이므로 기저 조건은 exp == 0입니다. power(2, 5)는 2를 5번 곱해 32를 출력합니다."
     }
   },
   {
-    "question_id": "sl_mid_os_3_1_020",
-    "unit": 3,
-    "stage": "3-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
+    "question_id": "q008",
     "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "다음과 같이 다중 중첩 구조 형태로 정립된 고차 람다 식 시스템이 있습니다. 전개 연산 과정을 추적해 보시고 최하단 콘솔에 표출될 최종 계산값을 정확하게 유추해 보세요.\n\ncalc_complex = lambda a: lambda b: a * 2 + b\nstage_one = calc_complex(3)\nprint(stage_one(5))",
+    "topic": "recursive",
+    "difficulty": "medium",
+    "question": "다음 코드의 출력 결과로 알맞은 것을 고르세요.",
+    "code": "def fib(n):\n    if n <= 1:\n        return n\n    return fib(n - 1) + fib(n - 2)\n\nprint(fib(7))",
     "choices": [
-      "A. 11",
-      "B. 16",
+      "A. 8",
+      "B. 21",
       "C. 13",
-      "D. 오류 발생"
+      "D. 5"
     ],
-    "answer": "A. 11",
-    "hint": "`calc_complex(3)`이 발동되는 순간 내부의 인자 `a` 부위에 3이 고정 할당된 상태의 새로운 단일 하위 람다 식(`lambda b: 3 * 2 + b`)이 복원되어 튀어나옵니다.",
+    "answer": "C",
     "feedback": {
-      "correct": "정답입니다! `stage_one` 함수 객체에 인자 `b=5`가 추가 공급 연산되므로 `3 * 2 + 5`의 결산치인 11이 정상 출력됩니다."
+      "correct": "정답! fib(7) = fib(6) + fib(5) = 8 + 5 = 13입니다. C) 13이 정답입니다."
+    }
+  },
+  {
+    "question_id": "q009",
+    "type": "fill_in_blank",
+    "topic": "map",
+    "difficulty": "medium",
+    "question": "다음 코드의 빈칸을 채워 각 숫자의 제곱값 리스트를 만들어 보세요.",
+    "code": "numbers = [1, 2, 3, 4, 5]\nresult = list(_____(lambda x: x ** 2, numbers))\nprint(result)",
+    "answer": "map",
+    "feedback": {
+      "correct": "정답! map(함수, 이터러블)은 각 요소에 함수를 적용한 결과를 반환합니다. map(lambda x: x**2, numbers)는 [1, 4, 9, 16, 25]를 만들어냅니다."
+    }
+  },
+  {
+    "question_id": "q010",
+    "type": "output_select",
+    "topic": "map",
+    "difficulty": "medium",
+    "question": "다음 코드의 출력 결과로 알맞은 것을 고르세요.",
+    "code": "words = [\"apple\", \"banana\", \"cherry\"]\nlengths = list(map(len, words))\nprint(lengths)",
+    "choices": [
+      "A. [5, 6, 6]",
+      "B. [5, 5, 6]",
+      "C. [6, 6, 5]",
+      "D. [5, 6, 7]"
+    ],
+    "answer": "A",
+    "feedback": {
+      "correct": "정답! len(\"apple\")=5, len(\"banana\")=6, len(\"cherry\")=6 이므로 A) [5, 6, 6]이 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q011",
+    "type": "fill_in_blank",
+    "topic": "filter",
+    "difficulty": "medium",
+    "question": "다음 코드의 빈칸을 채워 홀수만 필터링하도록 완성해 보세요.",
+    "code": "numbers = [1, 2, 3, 4, 5, 6, 7, 8]\nodds = list(filter(lambda x: x _____ 2 != 0, numbers))\nprint(odds)",
+    "answer": "%",
+    "feedback": {
+      "correct": "정답! x % 2 != 0은 x를 2로 나눈 나머지가 0이 아닌 경우, 즉 홀수를 의미합니다. 결과는 [1, 3, 5, 7]입니다."
+    }
+  },
+  {
+    "question_id": "q012",
+    "type": "fill_in_blank",
+    "topic": "sorted",
+    "difficulty": "medium",
+    "question": "다음 코드의 빈칸을 채워 문자열을 길이 순으로 정렬해 보세요.",
+    "code": "fruits = [\"kiwi\", \"strawberry\", \"fig\", \"mango\"]\nresult = sorted(fruits, _____=len)\nprint(result)",
+    "answer": "key",
+    "feedback": {
+      "correct": "정답! sorted()의 key 파라미터에 len을 전달하면 각 문자열의 길이를 기준으로 정렬합니다. 결과는 ['fig', 'kiwi', 'mango', 'strawberry']입니다."
+    }
+  },
+  {
+    "question_id": "q013",
+    "type": "output_select",
+    "topic": "sorted",
+    "difficulty": "hard",
+    "question": "다음 코드의 출력 결과로 알맞은 것을 고르세요.",
+    "code": "data = [(\"math\", 90), (\"science\", 75), (\"english\", 88), (\"history\", 92)]\ntop = sorted(data, key=lambda x: x[1], reverse=True)\nprint(top[0][0])",
+    "choices": [
+      "A. math",
+      "B. history",
+      "C. english",
+      "D. science"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정답! reverse=True로 점수 기준 내림차순 정렬하면 history(92)가 첫 번째가 됩니다. top[0][0]은 B) history를 출력합니다."
+    }
+  },
+  {
+    "question_id": "q014",
+    "type": "fill_in_blank",
+    "topic": "args_kwargs",
+    "difficulty": "hard",
+    "question": "다음 코드의 빈칸을 채워 키워드 전용 인수를 정의해 보세요.",
+    "code": "def info(*args, _____):\n    print(f\"Count: {len(args)}, Label: {label}\")\n\ninfo(10, 20, 30, label=\"score\")",
+    "answer": "label",
+    "feedback": {
+      "correct": "정답! *args 뒤에 오는 매개변수는 키워드 전용 인수가 됩니다. label이 빈칸에 들어가면 info(10, 20, 30, label=\"score\") 호출 시 Count: 3, Label: score가 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q015",
+    "type": "output_select",
+    "topic": "map_filter",
+    "difficulty": "hard",
+    "question": "다음 코드의 출력 결과로 알맞은 것을 고르세요.",
+    "code": "nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\nresult = list(filter(lambda x: x > 50, map(lambda x: x * 10, nums)))\nprint(len(result))",
+    "choices": [
+      "A. 4",
+      "B. 6",
+      "C. 5",
+      "D. 10"
+    ],
+    "answer": "C",
+    "feedback": {
+      "correct": "정답! map으로 각 수를 10배하면 [10~100], filter로 50 초과만 남기면 [60, 70, 80, 90, 100]으로 5개입니다. C) 5가 정답입니다."
     }
   }
 ]
