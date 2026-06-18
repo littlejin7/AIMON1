@@ -143,17 +143,17 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
             qs = load_questions_by_category("quiz", course_level, req.unit)
             stages = set()
             for q in qs:
-                if q.get("stage"):
-                    try:
-                        stages.add(int(str(q["stage"]).split("-")[1]))
-                    except:
-                        pass
+                stage_val = q.get("stage")
+                if stage_val:
+                    parts = str(stage_val).split("-")
+                    if len(parts) > 1 and parts[1].isdigit():
+                        stages.add(int(parts[1]))
             total_stages = max(stages) if stages else 7
     except Exception:
         total_stages = 7
 
     required_stages = {f"{req.unit}-{i}" for i in range(1, total_stages + 1)} | {f"{req.unit}-boss"}
-    unit_just_completed = required_stages.issubset(completed_stage_ids) and req.stage in required_stages
+    unit_just_completed = required_stages.issubset(completed_stage_ids)
 
     crowns_awarded = 0
     newly_earned = []
@@ -197,7 +197,7 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
     save_users(users)
 
     # return 할 때 현재 유저 상태를 조회하여 안전하게 반환
-    current_u = next((usr for usr in load_users() if usr.get("id") == user_id), {})
+    current_u = next((usr for usr in users if usr.get("id") == user_id), {})
     serialized = serialize_user(current_u)
 
     return {
