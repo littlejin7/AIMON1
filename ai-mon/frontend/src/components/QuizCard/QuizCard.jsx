@@ -35,12 +35,17 @@ export default function QuizCard({ question, onAnswer, onNext, disabled = false 
     setAiFeedback(staticFallback)
     setAiFeedbackLoading(true)
 
+    let fullQuestionText = question.question
+    if (isChoiceType && choicesList.length > 0) {
+      fullQuestionText += '\n\n[선택지]\n' + choicesList.join('\n')
+    }
+
     const controller = new AbortController()
     const timer = setTimeout(() => controller.abort(), 5000)
     try {
       const res = await quizApi.getAiFeedback(
         {
-          question:       question.question,
+          question:       fullQuestionText,
           correct_answer: question.answer,
           user_answer:    userAnswer,
           level:          courseLevel,
