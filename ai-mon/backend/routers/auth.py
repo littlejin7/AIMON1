@@ -10,7 +10,7 @@ router = APIRouter()
 
 SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
-EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 43200))
+EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 1440))
 
 USERS_FILE = os.path.join(os.path.dirname(__file__), "../data/users.json")
 
@@ -44,6 +44,55 @@ def create_token(data: dict) -> str:
     expire = datetime.utcnow() + timedelta(minutes=EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+
+def update_login_streak(user: dict) -> tuple[dict, dict | None]:
+    today = datetime.utcnow().strftime("%Y-%m-%d")
+    yesterday = (datetime.utcnow() - timedelta(days=1)).strftime("%Y-%m-%d")
+    last = user.get("last_login", "")
+
+    streak_reward = None
+    if last == today:
+        pass
+    elif last == yesterday:
+        user["streak"] = user.get("streak", 0) + 1
+        streak = user["streak"]
+        earned_milestones = user.get("earned_streak_milestones", [])
+        if streak == 3 and 3 not in earned_milestones:
+            user["xp"] = user.get("xp", 0) + 500
+            user.setdefault("earned_streak_milestones", []).append(3)
+            streak_reward = {"days": 3, "xp": 500, "crowns": 0}
+        elif streak == 7 and 7 not in earned_milestones:
+            user["xp"] = user.get("xp", 0) + 2000
+            user["crowns"] = user.get("crowns", 0) + 1
+            user.setdefault("earned_streak_milestones", []).append(7)
+            streak_reward = {"days": 7, "xp": 2000, "crowns": 1}
+        elif streak == 14 and 14 not in earned_milestones:
+            user["xp"] = user.get("xp", 0) + 5000
+            user["crowns"] = user.get("crowns", 0) + 2
+            user.setdefault("earned_streak_milestones", []).append(14)
+            streak_reward = {"days": 14, "xp": 5000, "crowns": 2}
+        elif streak == 30 and 30 not in earned_milestones:
+            user["xp"] = user.get("xp", 0) + 10000
+            user["crowns"] = user.get("crowns", 0) + 5
+            user.setdefault("earned_streak_milestones", []).append(30)
+            streak_reward = {"days": 30, "xp": 10000, "crowns": 5}
+
+        # Level up and evolution check (streak 증가 시 항상 실행)
+        new_lv = calc_level(user.get("xp", 0))
+        user["lv"] = max(new_lv, user.get("lv", 1))
+
+        if user["lv"] >= 10 and user.get("character") == "slime":
+            user["character"] = "robot"
+        elif user["lv"] >= 20 and user.get("character") == "robot":
+            user["character"] = "speech_bubble"
+        elif user["lv"] >= 30 and user.get("character") == "speech_bubble":
+            user["character"] = "final_ghost"
+    else:
+        user["streak"] = 1
+
+    user["last_login"] = today
+    return user, streak_reward
 
 
 class RegisterRequest(BaseModel):
@@ -103,51 +152,7 @@ def login(req: LoginRequest):
     if not user or not verify_password(req.password, user["password"]):
         raise HTTPException(status_code=401, detail="아이디 또는 비밀번호가 올바르지 않습니다.")
 
-    today = datetime.utcnow().strftime("%Y-%m-%d")
-    yesterday = (datetime.utcnow() - timedelta(days=1)).strftime("%Y-%m-%d")
-    last = user.get("last_login", "")
-
-    streak_reward = None
-    if last == today:
-        pass
-    elif last == yesterday:
-        user["streak"] = user.get("streak", 0) + 1
-        streak = user["streak"]
-        earned_milestones = user.get("earned_streak_milestones", [])
-        if streak == 3 and 3 not in earned_milestones:
-            user["xp"] = user.get("xp", 0) + 500
-            user.setdefault("earned_streak_milestones", []).append(3)
-            streak_reward = {"days": 3, "xp": 500, "crowns": 0}
-        elif streak == 7 and 7 not in earned_milestones:
-            user["xp"] = user.get("xp", 0) + 2000
-            user["crowns"] = user.get("crowns", 0) + 1
-            user.setdefault("earned_streak_milestones", []).append(7)
-            streak_reward = {"days": 7, "xp": 2000, "crowns": 1}
-        elif streak == 14 and 14 not in earned_milestones:
-            user["xp"] = user.get("xp", 0) + 5000
-            user["crowns"] = user.get("crowns", 0) + 2
-            user.setdefault("earned_streak_milestones", []).append(14)
-            streak_reward = {"days": 14, "xp": 5000, "crowns": 2}
-        elif streak == 30 and 30 not in earned_milestones:
-            user["xp"] = user.get("xp", 0) + 10000
-            user["crowns"] = user.get("crowns", 0) + 5
-            user.setdefault("earned_streak_milestones", []).append(30)
-            streak_reward = {"days": 30, "xp": 10000, "crowns": 5}
-
-        # Level up and evolution check (streak 증가 시 항상 실행)
-        new_lv = calc_level(user.get("xp", 0))
-        user["lv"] = max(new_lv, user.get("lv", 1))
-
-        if user["lv"] >= 10 and user.get("character") == "slime":
-            user["character"] = "robot"
-        elif user["lv"] >= 20 and user.get("character") == "robot":
-            user["character"] = "speech_bubble"
-        elif user["lv"] >= 30 and user.get("character") == "speech_bubble":
-            user["character"] = "final_ghost"
-    else:
-        user["streak"] = 1
-
-    user["last_login"] = today
+    user, streak_reward = update_login_streak(user)
     save_users(users)
 
     token = create_token({"sub": user["id"], "username": user["username"]})
@@ -256,54 +261,8 @@ def social_google(req: SocialLoginRequest):
             "created_at": datetime.utcnow().isoformat(),
         }
         users.append(user)
-        save_users(users)
-    
-    # Update last login & streak (similar to normal login)
-    today = datetime.utcnow().strftime("%Y-%m-%d")
-    yesterday = (datetime.utcnow() - timedelta(days=1)).strftime("%Y-%m-%d")
-    last = user.get("last_login", "")
 
-    streak_reward = None
-    if last == today:
-        pass
-    elif last == yesterday:
-        user["streak"] = user.get("streak", 0) + 1
-        streak = user["streak"]
-        earned_milestones = user.get("earned_streak_milestones", [])
-        if streak == 3 and 3 not in earned_milestones:
-            user["xp"] = user.get("xp", 0) + 500
-            user.setdefault("earned_streak_milestones", []).append(3)
-            streak_reward = {"days": 3, "xp": 500, "crowns": 0}
-        elif streak == 7 and 7 not in earned_milestones:
-            user["xp"] = user.get("xp", 0) + 2000
-            user["crowns"] = user.get("crowns", 0) + 1
-            user.setdefault("earned_streak_milestones", []).append(7)
-            streak_reward = {"days": 7, "xp": 2000, "crowns": 1}
-        elif streak == 14 and 14 not in earned_milestones:
-            user["xp"] = user.get("xp", 0) + 5000
-            user["crowns"] = user.get("crowns", 0) + 2
-            user.setdefault("earned_streak_milestones", []).append(14)
-            streak_reward = {"days": 14, "xp": 5000, "crowns": 2}
-        elif streak == 30 and 30 not in earned_milestones:
-            user["xp"] = user.get("xp", 0) + 10000
-            user["crowns"] = user.get("crowns", 0) + 5
-            user.setdefault("earned_streak_milestones", []).append(30)
-            streak_reward = {"days": 30, "xp": 10000, "crowns": 5}
-
-        # Level up and evolution check (streak 증가 시 항상 실행)
-        new_lv = calc_level(user.get("xp", 0))
-        user["lv"] = max(new_lv, user.get("lv", 1))
-
-        if user["lv"] >= 10 and user.get("character") == "slime":
-            user["character"] = "robot"
-        elif user["lv"] >= 20 and user.get("character") == "robot":
-            user["character"] = "speech_bubble"
-        elif user["lv"] >= 30 and user.get("character") == "speech_bubble":
-            user["character"] = "final_ghost"
-    else:
-        user["streak"] = 1
-
-    user["last_login"] = today
+    user, streak_reward = update_login_streak(user)
     save_users(users)
 
     token = create_token({"sub": user["id"], "username": user["username"]})
@@ -418,54 +377,8 @@ def social_naver(req: SocialLoginRequest):
             "created_at": datetime.utcnow().isoformat(),
         }
         users.append(user)
-        save_users(users)
-    
-    # Update last login & streak (similar to normal login)
-    today = datetime.utcnow().strftime("%Y-%m-%d")
-    yesterday = (datetime.utcnow() - timedelta(days=1)).strftime("%Y-%m-%d")
-    last = user.get("last_login", "")
 
-    streak_reward = None
-    if last == today:
-        pass
-    elif last == yesterday:
-        user["streak"] = user.get("streak", 0) + 1
-        streak = user["streak"]
-        earned_milestones = user.get("earned_streak_milestones", [])
-        if streak == 3 and 3 not in earned_milestones:
-            user["xp"] = user.get("xp", 0) + 500
-            user.setdefault("earned_streak_milestones", []).append(3)
-            streak_reward = {"days": 3, "xp": 500, "crowns": 0}
-        elif streak == 7 and 7 not in earned_milestones:
-            user["xp"] = user.get("xp", 0) + 2000
-            user["crowns"] = user.get("crowns", 0) + 1
-            user.setdefault("earned_streak_milestones", []).append(7)
-            streak_reward = {"days": 7, "xp": 2000, "crowns": 1}
-        elif streak == 14 and 14 not in earned_milestones:
-            user["xp"] = user.get("xp", 0) + 5000
-            user["crowns"] = user.get("crowns", 0) + 2
-            user.setdefault("earned_streak_milestones", []).append(14)
-            streak_reward = {"days": 14, "xp": 5000, "crowns": 2}
-        elif streak == 30 and 30 not in earned_milestones:
-            user["xp"] = user.get("xp", 0) + 10000
-            user["crowns"] = user.get("crowns", 0) + 5
-            user.setdefault("earned_streak_milestones", []).append(30)
-            streak_reward = {"days": 30, "xp": 10000, "crowns": 5}
-
-        # Level up and evolution check (streak 증가 시 항상 실행)
-        new_lv = calc_level(user.get("xp", 0))
-        user["lv"] = max(new_lv, user.get("lv", 1))
-
-        if user["lv"] >= 10 and user.get("character") == "slime":
-            user["character"] = "robot"
-        elif user["lv"] >= 20 and user.get("character") == "robot":
-            user["character"] = "speech_bubble"
-        elif user["lv"] >= 30 and user.get("character") == "speech_bubble":
-            user["character"] = "final_ghost"
-    else:
-        user["streak"] = 1
-
-    user["last_login"] = today
+    user, streak_reward = update_login_streak(user)
     save_users(users)
 
     token = create_token({"sub": user["id"], "username": user["username"]})
@@ -544,7 +457,7 @@ def social_kakao(req: SocialLoginRequest):
         username = f"kakao_{kakao_id}"
 
     profile = kakao_account.get("profile", {})
-    nickname = profile.get("nickname") or email.split("@")[0] if email else f"KakaoUser_{kakao_id}"
+    nickname = profile.get("nickname") or (email.split("@")[0] if email else f"KakaoUser_{kakao_id}")
 
     # 3. Find or create user
     users = load_users()
@@ -577,54 +490,8 @@ def social_kakao(req: SocialLoginRequest):
             "created_at": datetime.utcnow().isoformat(),
         }
         users.append(user)
-        save_users(users)
-    
-    # Update last login & streak (similar to normal login)
-    today = datetime.utcnow().strftime("%Y-%m-%d")
-    yesterday = (datetime.utcnow() - timedelta(days=1)).strftime("%Y-%m-%d")
-    last = user.get("last_login", "")
 
-    streak_reward = None
-    if last == today:
-        pass
-    elif last == yesterday:
-        user["streak"] = user.get("streak", 0) + 1
-        streak = user["streak"]
-        earned_milestones = user.get("earned_streak_milestones", [])
-        if streak == 3 and 3 not in earned_milestones:
-            user["xp"] = user.get("xp", 0) + 500
-            user.setdefault("earned_streak_milestones", []).append(3)
-            streak_reward = {"days": 3, "xp": 500, "crowns": 0}
-        elif streak == 7 and 7 not in earned_milestones:
-            user["xp"] = user.get("xp", 0) + 2000
-            user["crowns"] = user.get("crowns", 0) + 1
-            user.setdefault("earned_streak_milestones", []).append(7)
-            streak_reward = {"days": 7, "xp": 2000, "crowns": 1}
-        elif streak == 14 and 14 not in earned_milestones:
-            user["xp"] = user.get("xp", 0) + 5000
-            user["crowns"] = user.get("crowns", 0) + 2
-            user.setdefault("earned_streak_milestones", []).append(14)
-            streak_reward = {"days": 14, "xp": 5000, "crowns": 2}
-        elif streak == 30 and 30 not in earned_milestones:
-            user["xp"] = user.get("xp", 0) + 10000
-            user["crowns"] = user.get("crowns", 0) + 5
-            user.setdefault("earned_streak_milestones", []).append(30)
-            streak_reward = {"days": 30, "xp": 10000, "crowns": 5}
-
-        # Level up and evolution check (streak 증가 시 항상 실행)
-        new_lv = calc_level(user.get("xp", 0))
-        user["lv"] = max(new_lv, user.get("lv", 1))
-
-        if user["lv"] >= 10 and user.get("character") == "slime":
-            user["character"] = "robot"
-        elif user["lv"] >= 20 and user.get("character") == "robot":
-            user["character"] = "speech_bubble"
-        elif user["lv"] >= 30 and user.get("character") == "speech_bubble":
-            user["character"] = "final_ghost"
-    else:
-        user["streak"] = 1
-
-    user["last_login"] = today
+    user, streak_reward = update_login_streak(user)
     save_users(users)
 
     token = create_token({"sub": user["id"], "username": user["username"]})
