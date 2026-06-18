@@ -1,7 +1,7 @@
 // ── 게임 기본 상수 ──
 export const COLS = 5;
 export const ROWS = 8;
-export const TYPES = 6;
+export const TYPES = 5;
 
 // ── 보스 스테이지 데이터 ──
 export const BOSS_STAGES = [
