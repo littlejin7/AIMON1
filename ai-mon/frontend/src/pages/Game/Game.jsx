@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import './Game.css'
+import airunIconUrl from './AIrun/assets/AIRUNicon.png'
 
 const GAMES = [
   {
@@ -7,7 +8,7 @@ const GAMES = [
     icon: <img src="/src/pages/Game/AipangPuzzle/assets/aipangicon.png" 
            style={{ width: 200, height: 200, display: 'block', margin: '0 auto' }} />,
     title: 'AI팡 퍼즐',
-    desc: '애니팡 스타일 퍼즐 게임',
+    desc: '우주 속 AI 친구들과 떠나는 퍼즐 모험!',
     reward: '왕관 획득',
     rewardIcon: '👑',
     route: '/game/aipang',
@@ -23,6 +24,18 @@ const GAMES = [
     route: null,
     available: false,
   },
+  {
+    id: 'runner',
+    icon: <img src={airunIconUrl} alt="AIrun" style={{ width: 200, height: 200, display: 'block', margin: '0 auto' }} />,
+    title: 'AI런 OX퀴즈',
+    desc: '달리고! 피하고! 맞혀라!',
+    reward: 'XP 200~500',
+    rewardIcon: '⚡',
+    route: '/game/runner',
+    available: true,
+  },
+
+  
 ]
 
 export default function Game() {
