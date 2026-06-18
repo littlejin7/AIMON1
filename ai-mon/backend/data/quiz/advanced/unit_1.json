@@ -1748,17 +1748,17 @@
       "unit": 1,
       "stage": "1-5",
       "course_level": "advanced",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "type": "fill_in_blank",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "데코레이터가 함수를 컨텍스트 매니저 안에서 실행하도록 빈칸을 채우세요.\n\n```python\nfrom contextlib import contextmanager\nimport functools\n\n@contextmanager\ndef managed():\n    print(\"start\")\n    yield\n    print(\"end\")\n\ndef run_in_ctx(ctx_factory):\n    def decorator(func):\n        @functools.wraps(func)\n        def wrapper(*args, **kwargs):\n            with _____():\n                return func(*args, **kwargs)\n        return wrapper\n    return decorator\n\n@run_in_ctx(managed)\ndef work():\n    print(\"working\")\n\nwork()\n# 출력:\n# start\n# working\n# end\n```\n",
+      "question": "파라미터로 받은 컨텍스트 매니저 팩토리를 with 블록 안에서 호출하도록 빈칸을 채우세요.\n\n```python\nfrom contextlib import contextmanager\n\n@contextmanager\ndef timer(label):\n    print(f\"{label} 시작\")\n    yield\n    print(f\"{label} 종료\")\n\ndef run_timed(ctx_factory, label):\n    with _____(label):\n        print(\"작업 수행\")\n\nrun_timed(timer, \"작업\")\n# 출력:\n# 작업 시작\n# 작업 수행\n# 작업 종료\n```",
       "choices": [],
       "answer": "ctx_factory",
-      "hint": "run_in_ctx의 인수로 컨텍스트 매니저 팩토리가 전달됩니다. wrapper 안에서 그 팩토리를 호출해 with 문을 시작해야 합니다.",
+      "hint": "ctx_factory는 호출 가능한 함수입니다. with 문에서 컨텍스트 매니저를 얻으려면 이 함수를 직접 호출해야 해요.",
       "feedback": {
-        "correct": "정답! ctx_factory는 run_in_ctx의 인수로 전달된 managed 함수입니다. with ctx_factory()는 with managed()와 동일하게 동작합니다. 이 패턴은 어떤 컨텍스트 매니저든 주입받아 함수를 감쌀 수 있는 범용 데코레이터 팩토리입니다. managed 대신 다른 컨텍스트 매니저를 인수로 넘기면 동작을 교체할 수 있습니다."
+        "correct": "정답! ctx_factory는 @contextmanager로 만들어진 팩토리 함수입니다. with ctx_factory(label): 처럼 직접 호출해야 컨텍스트 매니저가 생성됩니다. 파라미터로 함수를 넘기고 내부에서 호출하는 패턴은 고차 함수(higher-order function)의 핵심 개념이에요."
       }
     },
     {
@@ -1835,7 +1835,7 @@
       "unit": 1,
       "stage": "1-5",
       "course_level": "advanced",
-      "difficulty": "medium",
+      "difficulty": "easy",
       "type": "fill_in_blank",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
@@ -1945,17 +1945,17 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과를 고르세요.\n\n```python\nclass Timer:\n    def __enter__(self):\n        print(\"타이머 시작\")\n        return self\n    def __exit__(self, *args):\n        print(\"타이머 종료\")\n        return False\n\ndef timed(func):\n    def wrapper(*args, **kwargs):\n        with Timer():\n            return func(*args, **kwargs)\n    return wrapper\n\n@timed\ndef compute():\n    print(\"계산 중\")\n    return 42\n\nr = compute()\nprint(r)\n```\n",
+      "question": "다음 코드의 출력 결과를 고르세요.\n\n```python\nclass Box:\n    def __enter__(self):\n        print(\"열림\")\n        return self\n    def __exit__(self, *args):\n        print(\"닫힘\")\n\ndef boxed(func):\n    def wrapper():\n        with Box():\n            func()\n    return wrapper\n\n@boxed\ndef greet():\n    print(\"안녕\")\n\ngreet()\n```",
       "choices": [
-        "A. 계산 중\n타이머 시작\n타이머 종료\n42",
-        "B. 타이머 시작\n타이머 종료\n계산 중\n42",
-        "C. 타이머 시작\n계산 중\n42\n타이머 종료",
-        "D. 타이머 시작\n계산 중\n타이머 종료\n42"
+        "A. 열림\n안녕\n닫힘",
+        "B. 안녕\n열림\n닫힘",
+        "C. 열림\n닫힘\n안녕",
+        "D. 안녕"
       ],
-      "answer": "D",
+      "answer": "A",
       "hint": "@timed 데코레이터의 wrapper는 Timer() with 블록 안에서 func()를 호출합니다. with 문의 실행 순서와 return 이후 __exit__ 호출 시점을 확인하세요.",
       "feedback": {
-        "correct": "정답! wrapper() 실행 시 with Timer()로 진입 → Timer.__enter__() → \"타이머 시작\". 블록 안에서 func() = compute 본체 실행 → \"계산 중\", return 42. with 블록 종료 → Timer.__exit__() → \"타이머 종료\". 마지막으로 wrapper 바깥에서 print(r) → \"42\" 출력. return은 with 블록 안에서 발생해도 __exit__가 먼저 호출된 뒤 값이 반환됩니다."
+        "correct": "정답! boxed 데코레이터가 greet()를 Box 컨텍스트 매니저 안에서 실행합니다. __enter__ → func() → __exit__ 순서로 실행되므로 열림 → 안녕 → 닫힘 순으로 출력됩니다."
       }
     },
     {

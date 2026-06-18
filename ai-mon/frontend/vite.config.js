@@ -7,6 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      '@aipang': path.resolve(__dirname, './src/pages/Game/AipangPuzzle/assets'),
     },
   },
   server: {
