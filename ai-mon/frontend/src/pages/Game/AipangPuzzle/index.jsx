@@ -18,10 +18,12 @@ import {
  * 모든 서브 컴포넌트와 게임 로직 훅을 조합하는 진입점
  */
 export default function AipangPuzzle() {
-  const pCanvasRef  = useRef(null);
-  const lCanvasRef  = useRef(null);
-  const gameRootRef = useRef(null);
-   useEffect(() => {
+  const pCanvasRef  = useRef(null); // 파티클 캔버스
+  const lCanvasRef  = useRef(null); // 번개 캔버스
+  const gameRootRef = useRef(null); // 게임 루트 (스케일 대상)
+
+  // 게임 화면에서만 body 스타일 적용
+  useEffect(() => {
     document.body.classList.add('aipang-active');
     return () => document.body.classList.remove('aipang-active');
   }, []);
