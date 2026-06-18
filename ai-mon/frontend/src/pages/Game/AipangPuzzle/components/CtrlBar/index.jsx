@@ -4,17 +4,16 @@ import './CtrlBar.css';
 /**
  * 하단 컨트롤 버튼 바 (BGM 토글 + 새로고침)
  */
-export default function CtrlBar({ bgmMuted, onBgmToggle, onRefresh }) {
+export default function CtrlBar({ bgmVolume, onBgmVolume, onRefresh }) {
   return (
     <div id="ctrl-bar">
-      <div
-        className={`ctrl-btn${bgmMuted ? ' muted' : ''}`}
-        id="btn-bgm"
-        onClick={onBgmToggle}
-        role="button"
-        aria-label={bgmMuted ? '음악 켜기' : '음악 끄기'}
-      >
-        {bgmMuted ? '🔇' : '🎵'}
+      <div id="volume-wrap">
+        <span>{bgmVolume === 0 ? '🔇' : '🎵'}</span>
+        <input
+          type="range" min="0" max="1" step="0.05"
+          value={bgmVolume}
+          onChange={(e) => onBgmVolume(parseFloat(e.target.value))}
+        />
       </div>
       <div
         className="ctrl-btn"
