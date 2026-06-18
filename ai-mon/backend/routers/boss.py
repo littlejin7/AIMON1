@@ -110,9 +110,12 @@ def start_boss_battle(unit: str = "1", authorization: str = Header(...)):
             raise HTTPException(status_code=400, detail="왕관이 부족합니다.")
         user["crowns"] -= 1
         
+    if unit == "final":
+        raise HTTPException(status_code=400, detail="엔드보스는 /boss/endboss/start 를 사용해야 합니다.")
+    
     course_level = user.get("course_level", "beginner")
-    category = "endboss" if unit == "final" else "unitboss"
-    unit_num = None if unit == "final" else int(unit)
+    category = "unitboss"
+    unit_num = int(unit)
     boss_qs = load_questions_by_category(category, course_level=course_level, unit=unit_num)
     if not boss_qs:
         raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
@@ -140,9 +143,12 @@ def get_next_question(unit: str = "1", authorization: str = Header(...)):
     user = next((u for u in users if u["id"] == user_id), None)
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
+    if unit == "final":
+        raise HTTPException(status_code=400, detail="엔드보스는 /boss/endboss/next 플로우(phase3)를 사용해야 합니다.")
+        
     course_level = user.get("course_level", "beginner")
-    category = "endboss" if unit == "final" else "unitboss"
-    unit_num = None if unit == "final" else int(unit)
+    category = "unitboss"
+    unit_num = int(unit)
     boss_qs = load_questions_by_category(category, course_level=course_level, unit=unit_num)
 
     if not boss_qs:
@@ -165,7 +171,7 @@ def get_next_question(unit: str = "1", authorization: str = Header(...)):
 
 
 @router.post("/answer")
-async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header(...), unit: Optional[str] = None):
+async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header(...)):
     user_id = verify_token(authorization)
     users = load_users()
     user = next((u for u in users if u["id"] == user_id), None)
@@ -329,7 +335,7 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
         else:
             # ── 유닛 보스 클리어 보상 ────────────────────────────────────
             try:
-                cleared_unit = int(unit) if unit is not None else (int(req.unit) if getattr(req, "unit", None) is not None else (int(question.get("unit")) if question and question.get("unit") is not None else 1))
+                cleared_unit = int(req.unit) if req.unit is not None else (int(question.get("unit")) if question and question.get("unit") is not None else 1)
             except (ValueError, TypeError):
                 cleared_unit = 1
 

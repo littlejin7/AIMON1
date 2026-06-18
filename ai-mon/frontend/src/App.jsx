@@ -6,6 +6,7 @@ import LessonHome from './pages/Lesson/LessonHome'
 import Lesson from './pages/Lesson/Lesson'
 import Stage from './pages/Stage/Stage'
 import Boss from './pages/Boss/Boss'
+import EndBoss from './pages/EndBoss/EndBoss'
 import BossSelect from './pages/Boss/BossSelect'
 import Character from './pages/Character/Character'
 import Settings from './pages/Settings/Settings'
@@ -169,7 +170,19 @@ export default function App() {
           }
         />
 
-        {/* 보스 전투 */}
+        {/* 엔드보스 전투 */}
+        <Route
+          path="/boss/endboss"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <EndBoss />
+              </AppLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* 유닛보스 전투 */}
         <Route
           path="/boss/:lessonId"
           element={

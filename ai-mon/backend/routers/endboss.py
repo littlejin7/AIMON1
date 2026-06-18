@@ -301,12 +301,15 @@ JSON 외 텍스트는 출력하지 마세요.
 
     # ── Phase 1 / 2 HP 계산 ───────────────────────────────────────────────────
     if req.phase in (1, 2):
+        safe_boss_hp = max(0, min(req.boss_hp, BOSS_HP_INIT))
+        safe_my_hp   = max(0, min(req.my_hp, MY_HP_INIT))
+
         if is_correct:
-            new_boss_hp = req.boss_hp - BOSS_HP_DELTA
-            new_my_hp   = req.my_hp
+            new_boss_hp = safe_boss_hp - BOSS_HP_DELTA
+            new_my_hp   = safe_my_hp
         else:
-            new_boss_hp = req.boss_hp
-            new_my_hp   = req.my_hp - MY_HP_DELTA
+            new_boss_hp = safe_boss_hp
+            new_my_hp   = safe_my_hp - MY_HP_DELTA
 
         is_fail       = new_my_hp <= 0
         phase3_ready  = (not is_fail) and (new_boss_hp <= 0)

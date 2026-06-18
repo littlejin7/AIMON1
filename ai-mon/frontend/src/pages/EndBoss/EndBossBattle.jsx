@@ -1,16 +1,17 @@
 import { useRef } from 'react'
-import bossQnaIcon    from '../../assets/boss_finalqna.png'
+import endbossQnaIcon from '../../assets/endboss_finalqna.png'
 import charSlimeIcon  from '../../assets/character_slime.png'
 import charRobotIcon  from '../../assets/character_robot.png'
 import charBubbleIcon from '../../assets/character_bubble.png'
 import charGhostIcon  from '../../assets/character_final_ghost.png'
 
-export default function BossBattle({
+export default function EndBossBattle({
   bossData,
   currentQuestion,
   bossHp,
   myHp,
-  wrongCount,
+  phase,
+  phase3Tries,
   selectedOption,
   setSelectedOption,
   answerInput,
@@ -28,8 +29,8 @@ export default function BossBattle({
 }) {
   const quizCardRef = useRef(null)
 
-  const BOSS_HP_MAX = 1000
-  const MY_HP_MAX   = 1000
+  const BOSS_HP_MAX = 1800
+  const MY_HP_MAX   = 1200
 
   const characterIcon =
     user?.character === 'robot'        ? charRobotIcon  :
@@ -45,7 +46,7 @@ export default function BossBattle({
       {/* 보스 HP 바 */}
       <div className="boss-hp-bar">
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '0.85rem' }}>
-          <span style={{ fontWeight: 'bold', color: '#f38ba8' }}>😈 {bossData?.boss_name}</span>
+          <span style={{ fontWeight: 'bold', color: '#f38ba8' }}>😈 {bossData?.boss_name || '엔드보스'} (Phase {phase})</span>
           <span>{bossHp} / {BOSS_HP_MAX} HP</span>
         </div>
         <div className="hp-bar" style={{ background: '#313244', height: '10px', borderRadius: '5px', overflow: 'hidden' }}>
@@ -56,8 +57,8 @@ export default function BossBattle({
       {/* 보스 아바타 */}
       <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', margin: '16px 0' }}>
         <img
-          src={bossQnaIcon}
-          alt="보스"
+          src={endbossQnaIcon}
+          alt="엔드보스"
           className={`battle-boss-icon ${bossShake ? 'boss-shake' : ''} ${bossHit ? 'boss-hit' : ''}`}
           style={{ width: '120px', height: '120px', objectFit: 'contain' }}
         />
@@ -75,7 +76,7 @@ export default function BossBattle({
           <div style={{ margin: '16px 0' }}>
             {aiResult.is_correct ? (
               <div style={{ padding: '16px', background: 'rgba(166,227,161,0.15)', border: '1px solid #a6e3a1', borderRadius: '12px', color: '#a6e3a1', fontWeight: 600, textAlign: 'center' }}>
-                🎉 정답입니다! 보스에게 150 데미지를 입혔습니다!
+                🎉 정답입니다! 보스에게 강력한 데미지를 입혔습니다!
                 {!aiResult.is_clear && (
                   <div style={{ marginTop: '16px' }}>
                     <button className="btn btn-primary btn-full" onClick={onNextQuestion}>
@@ -93,14 +94,8 @@ export default function BossBattle({
                 <p style={{ color: '#cdd6f4', lineHeight: 1.5, fontSize: '0.9rem', margin: 0 }}>
                   {aiResult.feedback}
                 </p>
-                {aiResult.hint && (
-                  <div style={{ marginTop: '12px', padding: '8px 12px', background: 'rgba(255,255,255,0.05)', borderRadius: '6px', borderLeft: '3px solid #f9e2af' }}>
-                    <span style={{ color: '#f9e2af', fontWeight: 600, display: 'block', marginBottom: '2px', fontSize: '0.8rem' }}>💡 힌트</span>
-                    <span style={{ color: '#a0a0b0', fontSize: '0.85rem' }}>{aiResult.hint}</span>
-                  </div>
-                )}
                 <div style={{ marginTop: '16px' }}>
-                  {myHp <= 0 || wrongCount >= 3 ? (
+                  {myHp <= 0 || phase3Tries >= 3 ? (
                     <button className="btn btn-danger btn-full" onClick={onNextQuestion}>
                       결과 보기 (패배) ➔
                     </button>
@@ -177,7 +172,7 @@ export default function BossBattle({
         <div style={{ flex: 1 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '0.85rem' }}>
             <span style={{ fontWeight: 'bold', color: '#a6e3a1' }}>🟢 내 에이몬</span>
-            <span>{myHp} / {MY_HP_MAX} HP (오답 {wrongCount}/3)</span>
+            <span>{myHp} / {MY_HP_MAX} HP{phase === 3 && ` (Phase 3 오답 ${phase3Tries}/3)`}</span>
           </div>
           <div className="hp-bar" style={{ background: '#313244', height: '10px', borderRadius: '5px', overflow: 'hidden' }}>
             <div className="hp-fill" style={{ width: `${(myHp / MY_HP_MAX) * 100}%`, background: '#a6e3a1', transition: 'width 0.3s ease', height: '100%' }} />

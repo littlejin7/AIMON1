@@ -195,12 +195,15 @@ def miniboss_answer(req: AnswerRequest, authorization: str = Header(...)):
     fb_key  = "correct" if is_correct else "wrong"
     feedback = question.get("feedback", {}).get(fb_key, "")
 
+    safe_boss_hp = max(0, min(req.boss_hp, BOSS_HP_INIT))
+    safe_my_hp   = max(0, min(req.my_hp, MY_HP_INIT))
+
     if is_correct:
-        new_boss_hp = req.boss_hp - BOSS_HP_DELTA
-        new_my_hp   = req.my_hp
+        new_boss_hp = safe_boss_hp - BOSS_HP_DELTA
+        new_my_hp   = safe_my_hp
     else:
-        new_boss_hp = req.boss_hp
-        new_my_hp   = req.my_hp - MY_HP_DELTA
+        new_boss_hp = safe_boss_hp
+        new_my_hp   = safe_my_hp - MY_HP_DELTA
 
     is_clear = new_boss_hp <= 0
     is_fail  = new_my_hp <= 0
