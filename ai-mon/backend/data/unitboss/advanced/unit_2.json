@@ -1,0 +1,199 @@
+{
+  "questions": [
+    {
+      "question_id": "unitboss_adv_os_2_001",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "async 함수를 asyncio.run() 없이 직접 호출했을 때 출력되는 타입명은?\n\nimport asyncio\n\nasync def greet():\n    return \"안녕!\"\n\nresult = greet()\nprint(type(result).__name__)",
+      "choices": [
+        "A. str",
+        "B. NoneType",
+        "C. coroutine",
+        "D. function"
+      ],
+      "answer": "C",
+      "hint": "async 함수를 호출하면 실행되지 않고 무엇이 반환되나요?",
+      "feedback": {
+        "correct": "정답! async 함수를 직접 호출하면 코루틴 객체가 반환될 뿐 실행되지 않습니다. 실행하려면 await 또는 asyncio.run()이 필요합니다."
+      }
+    },
+    {
+      "question_id": "unitboss_adv_fib_2_002",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "비동기 함수를 정의하는 빈칸의 키워드는?\n\n_____ def fetch_data():\n    await asyncio.sleep(0)\n    return \"데이터\"\n\nimport asyncio\nprint(asyncio.run(fetch_data()))  # 데이터",
+      "choices": [],
+      "answer": "async",
+      "hint": "코루틴 함수를 정의할 때 def 앞에 붙이는 키워드입니다.",
+      "feedback": {
+        "correct": "정답! async def로 정의된 함수는 코루틴 함수입니다. 내부에서 await를 사용할 수 있으며, asyncio.run()으로 실행합니다."
+      }
+    },
+    {
+      "question_id": "unitboss_adv_fib_2_003",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "코루틴을 이벤트 루프에서 실행하는 빈칸의 함수 이름은?\n\nimport asyncio\n\nasync def hello():\n    print(\"안녕!\")\n\nasyncio._____(hello())",
+      "choices": [],
+      "answer": "run",
+      "hint": "asyncio 모듈에서 코루틴을 최상위에서 실행할 때 쓰는 함수입니다.",
+      "feedback": {
+        "correct": "정답! asyncio.run()은 새 이벤트 루프를 생성하고 코루틴을 실행한 뒤 루프를 닫습니다. 비동기 프로그램의 진입점에서 사용합니다."
+      }
+    },
+    {
+      "question_id": "unitboss_adv_os_2_004",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "순차적 await를 사용했을 때 출력 순서는?\n\nimport asyncio\n\nasync def task(name):\n    print(f\"{name} 시작\")\n    await asyncio.sleep(0)\n    print(f\"{name} 완료\")\n\nasync def main():\n    await task(\"A\")\n    await task(\"B\")\n\nasyncio.run(main())",
+      "choices": [
+        "A. A 시작\nB 시작\nA 완료\nB 완료",
+        "B. A 시작\nA 완료\nB 시작\nB 완료",
+        "C. B 시작\nA 시작\nB 완료\nA 완료",
+        "D. A 시작\nB 시작\nB 완료\nA 완료"
+      ],
+      "answer": "B",
+      "hint": "await task(\"A\")는 A가 완전히 끝날 때까지 기다립니다. gather를 쓰지 않으면 동시 실행이 아닙니다.",
+      "feedback": {
+        "correct": "정답! await task(\"A\")는 task(\"A\")가 완전히 끝난 뒤에야 task(\"B\")를 시작합니다. 순차 실행이므로 A 시작 → A 완료 → B 시작 → B 완료 순입니다."
+      }
+    },
+    {
+      "question_id": "unitboss_adv_ef_2_005",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "error_find",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "코루틴 함수 자체를 전달해 ValueError가 발생하는 줄은?\n\n1줄: import asyncio\n2줄: \n3줄: async def main():\n4줄:     print(\"실행!\")\n5줄: \n6줄: asyncio.run(main)",
+      "choices": [
+        "A. 3줄",
+        "B. 4줄",
+        "C. 6줄",
+        "D. 오류 없음"
+      ],
+      "answer": "C",
+      "hint": "asyncio.run()은 코루틴 객체를 기대합니다. main과 main()은 다릅니다.",
+      "feedback": {
+        "correct": "정답! asyncio.run()에는 코루틴 객체(main())를 전달해야 합니다. 함수 자체(main)를 전달하면 6줄에서 ValueError가 발생합니다."
+      }
+    },
+    {
+      "question_id": "unitboss_adv_os_2_006",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "asyncio.gather로 여러 코루틴을 실행했을 때 results의 타입명과 값은?\n\nimport asyncio\n\nasync def get_num(n):\n    return n * 10\n\nasync def main():\n    results = await asyncio.gather(\n        get_num(1),\n        get_num(2),\n        get_num(3)\n    )\n    print(type(results).__name__, results)\n\nasyncio.run(main())",
+      "choices": [
+        "A. tuple (10, 20, 30)",
+        "B. list [10, 20, 30]",
+        "C. set {10, 20, 30}",
+        "D. list [1, 2, 3]"
+      ],
+      "answer": "B",
+      "hint": "asyncio.gather()는 결과를 어떤 컨테이너로 반환하나요?",
+      "feedback": {
+        "correct": "정답! asyncio.gather()는 전달한 코루틴들의 반환값을 순서대로 담은 리스트를 반환합니다. get_num(1)=10, get_num(2)=20, get_num(3)=30이므로 [10, 20, 30]입니다."
+      }
+    },
+    {
+      "question_id": "unitboss_adv_fib_2_007",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "리스트에 담긴 코루틴들을 gather에 한 번에 넘기려고 합니다. 빈칸을 완성하세요.\n\nimport asyncio\n\nasync def fetch(name):\n    return f\"{name} 완료\"\n\nasync def main():\n    tasks = [fetch(\"A\"), fetch(\"B\"), fetch(\"C\")]\n    results = await asyncio.gather(_____)\n    print(results)  # ['A 완료', 'B 완료', 'C 완료']\n\nasyncio.run(main())",
+      "choices": [],
+      "answer": "*tasks",
+      "hint": "리스트를 함수의 개별 인자로 언패킹하는 연산자를 사용하세요.",
+      "feedback": {
+        "correct": "정답! asyncio.gather()는 코루틴을 개별 인자로 받습니다. *tasks로 리스트를 언패킹하면 gather(fetch('A'), fetch('B'), fetch('C'))와 동일하게 동작합니다."
+      }
+    },
+    {
+      "question_id": "unitboss_adv_ef_2_008",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "error_find",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "일반 함수 안에서 await를 사용해 SyntaxError가 발생하는 줄은?\n\n1줄: import asyncio\n2줄: \n3줄: async def fetch():\n4줄:     await asyncio.sleep(0)\n5줄:     return \"완료\"\n6줄: \n7줄: def sync_run():\n8줄:     result = await fetch()\n9줄:     print(result)\n10줄: \n11줄: sync_run()",
+      "choices": [
+        "A. 4줄",
+        "B. 7줄",
+        "C. 8줄",
+        "D. 11줄"
+      ],
+      "answer": "C",
+      "hint": "await는 async def 안에서만 사용할 수 있습니다.",
+      "feedback": {
+        "correct": "정답! await는 async def로 정의된 코루틴 함수 안에서만 사용할 수 있습니다. sync_run()은 일반 함수이므로 8줄의 await에서 SyntaxError가 발생합니다."
+      }
+    },
+    {
+      "question_id": "unitboss_adv_ci_2_009",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "code_input",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "아래 코루틴을 이벤트 루프에서 실행하는 코드를 한 줄로 완성하세요.\n\nimport asyncio\n\nasync def main():\n    print(\"비동기 실행!\")\n\n_______\n# 출력: 비동기 실행!",
+      "choices": [],
+      "answer": "asyncio.run(main())",
+      "hint": "asyncio 모듈의 진입점 함수를 사용하세요.",
+      "feedback": {
+        "correct": "정답! asyncio.run(main())은 이벤트 루프를 생성하고 main() 코루틴을 실행한 뒤 루프를 종료합니다. 비동기 프로그램의 표준 진입점 패턴입니다."
+      }
+    },
+    {
+      "question_id": "unitboss_adv_ci_2_010",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "code_input",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "1초 대기 후 '완료'를 반환하는 비동기 함수의 본문을 두 줄로 완성하세요.\n\nimport asyncio\n\nasync def run():\n    _______\n    return \"완료\"\n\nprint(asyncio.run(run()))  # 완료",
+      "choices": [],
+      "answer": "await asyncio.sleep(1)",
+      "hint": "비동기 대기에는 time.sleep이 아니라 asyncio의 sleep을 사용합니다.",
+      "feedback": {
+        "correct": "정답! await asyncio.sleep(1)은 이벤트 루프를 블로킹하지 않고 1초 대기합니다. time.sleep(1)은 동기 대기라 이벤트 루프 전체를 멈추므로 async 함수에서는 사용하지 않습니다."
+      }
+    }
+  ]
+}

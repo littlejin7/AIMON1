@@ -276,10 +276,20 @@ async def endboss_answer(req: AnswerRequest, authorization: str = Header(...)):
 
     # ── 채점 ──────────────────────────────────────────────────────────────────
     if needs_claude:
+        # advanced 레벨은 설계 수준 채점 기준 추가
+        advanced_note = ""
+        if level == "advanced":
+            advanced_note = (
+                "\n채점 기준 (advanced 레벨):\n"
+                "- 기능 정확성 (50%): 요구 사항을 모두 충족하는가\n"
+                "- 코드 구조 (30%): 비동기/에이전트 루프/LangChain 체인 구조를 올바르게 사용했는가\n"
+                "- 예외 처리 (20%): try/except, 반복 제한, 엣지케이스 처리 여부\n"
+                "score 70 이상이면 is_correct=true로 처리하세요.\n"
+            )
         prompt = f"""
 당신은 파이썬을 가르치는 AI 튜터 '에이몬'입니다. 다음 문제에 대한 사용자 코드를 채점해주세요.
 JSON 외 텍스트는 출력하지 마세요.
-
+{advanced_note}
 문제: {question['question']}
 정답 예시: {question.get('answer', '')}
 사용자 답변: {req.user_answer}
