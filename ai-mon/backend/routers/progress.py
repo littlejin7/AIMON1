@@ -1,51 +1,19 @@
 from fastapi import APIRouter, HTTPException, Header
 from pydantic import BaseModel
-from jose import jwt, JWTError
-import json, os, uuid
+import uuid
 from datetime import datetime
 from routers.titles import check_and_award_titles
-from routers.utils import serialize_user, calc_level
+from routers.utils import (
+    serialize_user,
+    calc_level,
+    load_users,
+    save_users,
+    load_progress,
+    save_progress,
+    verify_token,
+)
 
 router = APIRouter()
-
-SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
-ALGORITHM = os.getenv("ALGORITHM", "HS256")
-
-PROGRESS_FILE = os.path.join(os.path.dirname(__file__), "../data/progress.json")
-USERS_FILE = os.path.join(os.path.dirname(__file__), "../data/users.json")
-
-
-def verify_token(authorization: str) -> str:
-    try:
-        token = authorization.replace("Bearer ", "")
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        return payload.get("sub")
-    except JWTError:
-        raise HTTPException(status_code=401, detail="토큰이 유효하지 않습니다.")
-
-
-def load_progress():
-    if not os.path.exists(PROGRESS_FILE):
-        return []
-    with open(PROGRESS_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
-
-
-def save_progress(data):
-    with open(PROGRESS_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-
-
-def load_users():
-    if not os.path.exists(USERS_FILE):
-        return []
-    with open(USERS_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
-
-
-def save_users(users):
-    with open(USERS_FILE, "w", encoding="utf-8") as f:
-        json.dump(users, f, ensure_ascii=False, indent=2)
 
 
 class ProgressUpdateRequest(BaseModel):

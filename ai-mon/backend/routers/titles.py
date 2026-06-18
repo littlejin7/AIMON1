@@ -11,6 +11,11 @@ TITLE_DEFINITIONS = {
     "aimon_master": "💎 에이몬 마스터",
 }
 
+@router.get("")
+@router.get("/")
+def get_titles():
+    return TITLE_DEFINITIONS
+
 def check_and_award_titles(user: dict, context: dict) -> list[dict]:
     earned = set(user.get("titles", []))
     newly = []

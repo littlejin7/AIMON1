@@ -1,51 +1,20 @@
 from fastapi import APIRouter, HTTPException, Header
 from pydantic import BaseModel
-from jose import jwt, JWTError
 from services.claude_service import ask_claude_json
-import json, os, uuid
+import os, uuid
 from datetime import datetime
 from routers.titles import check_and_award_titles
 from typing import Optional
-
-router = APIRouter()
-
-SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
-ALGORITHM = os.getenv("ALGORITHM", "HS256")
-
+from routers.utils import (
+    load_users,
+    save_users,
+    verify_token,
+    load_wrong_answers,
+    save_wrong_answers,
+)
 from routers.quiz import load_questions_by_category
 
-WRONG_ANSWERS_FILE = os.path.join(os.path.dirname(__file__), "../data/wrong_answers.json")
-USERS_FILE = os.path.join(os.path.dirname(__file__), "../data/users.json")
-
-def load_users():
-    if not os.path.exists(USERS_FILE):
-        return []
-    with open(USERS_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
-
-def save_users(users):
-    with open(USERS_FILE, "w", encoding="utf-8") as f:
-        json.dump(users, f, ensure_ascii=False, indent=2)
-
-
-def verify_token(authorization: str) -> str:
-    try:
-        token = authorization.replace("Bearer ", "")
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        return payload.get("sub")
-    except JWTError:
-        raise HTTPException(status_code=401, detail="토큰이 유효하지 않습니다.")
-
-
-def load_wrong_answers():
-    if not os.path.exists(WRONG_ANSWERS_FILE):
-        return []
-    with open(WRONG_ANSWERS_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
-
-def save_wrong_answers(data):
-    with open(WRONG_ANSWERS_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+router = APIRouter()
 
 
 class BossAnswerRequest(BaseModel):
