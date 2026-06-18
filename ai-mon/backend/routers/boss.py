@@ -112,16 +112,18 @@ def start_boss_battle(unit: str = "1", authorization: str = Header(...)):
         raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
     import random
     
-    # unitboss_seen_questions: 유닛보스 전용 (endboss_seen_questions와 분리)
-    seen = user.get("unitboss_seen_questions", user.get("boss_seen_questions", []))
+    # unitboss_seen_questions: 유닛별 분리 (endboss_seen_questions와도 분리)
+    seen_key = f"unitboss_seen_{unit_num}" if unit_num is not None else "unitboss_seen_final"
+    seen = user.get(seen_key, [])
     unseen = [q for q in boss_qs if q["question_id"] not in seen]
 
     if not unseen:  # 전부 소진하면 리셋
-        user["unitboss_seen_questions"] = []
+        user[seen_key] = []
+        seen = []
         unseen = boss_qs
 
     chosen = random.choice(unseen)
-    user["unitboss_seen_questions"] = seen + [chosen["question_id"]]
+    user[seen_key] = seen + [chosen["question_id"]]
     save_users(users)
     return chosen
 
@@ -141,15 +143,17 @@ def get_next_question(unit: str = "1", authorization: str = Header(...)):
         raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
     import random
 
-    seen = user.get("unitboss_seen_questions", user.get("boss_seen_questions", []))
+    seen_key = f"unitboss_seen_{unit_num}" if unit_num is not None else "unitboss_seen_final"
+    seen = user.get(seen_key, [])
     unseen = [q for q in boss_qs if q["question_id"] not in seen]
 
     if not unseen:  # 전부 소진하면 리셋
-        user["unitboss_seen_questions"] = []
+        user[seen_key] = []
+        seen = []
         unseen = boss_qs
 
     chosen = random.choice(unseen)
-    user["unitboss_seen_questions"] = seen + [chosen["question_id"]]
+    user[seen_key] = seen + [chosen["question_id"]]
     save_users(users)
     return chosen
 
@@ -213,7 +217,7 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
             return True
         return False
 
-    if q_type in ("multiple_choice", "output_select", "fill_in_blank", "error_find"):
+    if q_type in ("multiple_choice", "output_select", "error_find"):
         matched = is_direct_match(user_ans, correct_answer)
         if matched:
             ai_result = {
@@ -227,7 +231,7 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
             ai_result["is_correct"] = False
             ai_result["score"] = 0
     else:
-        # code_input 타입만 Claude 채점
+        # fill_in_blank, code_input: 정확한 텍스트 입력이므로 Claude 채점
         ai_result = await ask_claude_json(prompt)
 
     # 채점 후 HP 계산 로직 추가
