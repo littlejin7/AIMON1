@@ -37,25 +37,6 @@
     }
   },
   {
-    "question_id": "u2_q003",
-    "unit": 2,
-    "type": "output_select",
-    "difficulty": "hard",
-    "concept": "문자열 슬라이싱",
-    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
-    "code": "s = \"abcdefg\"\nprint(s[1:5:2])",
-    "choices": [
-      "A. abcd",
-      "B. bdf",
-      "C. bd",
-      "D. ace"
-    ],
-    "answer": "C",
-    "feedback": {
-      "correct": "정답! s[1:5:2]는 인덱스 1부터 4까지 2칸씩 건너뛰며 슬라이싱해요. 1('b') → 1+2=3('d') → 3+2=5는 범위를 벗어나 종료, 결과는 'bd'입니다."
-    }
-  },
-  {
     "question_id": "u2_q004",
     "unit": 2,
     "type": "multiple_choice",
@@ -89,6 +70,62 @@
     "answer": "C",
     "feedback": {
       "correct": "정답! .strip()은 문자열 양쪽 끝의 공백을 제거해요. 예: '  hello  '.strip() → 'hello'"
+    }
+  },
+  {
+    "question_id": "u2_q009",
+    "unit": 2,
+    "type": "output_select",
+    "difficulty": "easy",
+    "concept": "str.count",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "text = \"banana\"\nprint(text.count(\"a\"))",
+    "choices": [
+      "A. 2",
+      "B. 3",
+      "C. 4",
+      "D. 1"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정답! count()는 특정 문자(열)가 몇 번 나타나는지 세어줘요. 'banana'에서 'a'는 인덱스 1, 3, 5에 총 3번 등장해요."
+    }
+  },
+  {
+    "question_id": "u2_q011",
+    "unit": 2,
+    "type": "output_select",
+    "difficulty": "easy",
+    "concept": "f-string",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "name = \"Alice\"\nage = 25\nprint(f\"My name is {name} and I am {age} years old.\")",
+    "choices": [
+      "A. My name is Alice and I am 25 years old.",
+      "B. My name is {name} and I am {age} years old.",
+      "C. My name is name and I am age years old.",
+      "D. My name is Alice and I am 25.0 years old."
+    ],
+    "answer": "A",
+    "feedback": {
+      "correct": "정답! f-string은 {} 안의 변수를 실제 값으로 자동 대체해요. {name}은 'Alice'로, {age}는 정수 25로 출력됩니다."
+    }
+  },
+  {
+    "question_id": "u2_q014",
+    "unit": 2,
+    "type": "multiple_choice",
+    "difficulty": "easy",
+    "concept": "in 연산자",
+    "question": "파이썬에서 in 연산자를 문자열에 사용할 때 반환되는 값의 타입은 무엇인가요?",
+    "choices": [
+      "A. int (정수)",
+      "B. str (문자열)",
+      "C. bool (불리언)",
+      "D. list (리스트)"
+    ],
+    "answer": "C",
+    "feedback": {
+      "correct": "정답! in 연산자는 True 또는 False인 bool(불리언) 값을 반환해요. 예: 'py' in 'python' → True"
     }
   },
   {
@@ -149,25 +186,6 @@
     }
   },
   {
-    "question_id": "u2_q009",
-    "unit": 2,
-    "type": "output_select",
-    "difficulty": "easy",
-    "concept": "str.count",
-    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
-    "code": "text = \"banana\"\nprint(text.count(\"a\"))",
-    "choices": [
-      "A. 2",
-      "B. 3",
-      "C. 4",
-      "D. 1"
-    ],
-    "answer": "B",
-    "feedback": {
-      "correct": "정답! count()는 특정 문자(열)가 몇 번 나타나는지 세어줘요. 'banana'에서 'a'는 인덱스 1, 3, 5에 총 3번 등장해요."
-    }
-  },
-  {
     "question_id": "u2_q010",
     "unit": 2,
     "type": "multiple_choice",
@@ -183,25 +201,6 @@
     "answer": "B",
     "feedback": {
       "correct": "정답! find()는 찾는 문자열이 처음 나타나는 위치의 인덱스를 반환해요. 찾지 못하면 오류 없이 -1을 반환한다는 점도 기억해 두세요."
-    }
-  },
-  {
-    "question_id": "u2_q011",
-    "unit": 2,
-    "type": "output_select",
-    "difficulty": "easy",
-    "concept": "f-string",
-    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
-    "code": "name = \"Alice\"\nage = 25\nprint(f\"My name is {name} and I am {age} years old.\")",
-    "choices": [
-      "A. My name is Alice and I am 25 years old.",
-      "B. My name is {name} and I am {age} years old.",
-      "C. My name is name and I am age years old.",
-      "D. My name is Alice and I am 25.0 years old."
-    ],
-    "answer": "A",
-    "feedback": {
-      "correct": "정답! f-string은 {} 안의 변수를 실제 값으로 자동 대체해요. {name}은 'Alice'로, {age}는 정수 25로 출력됩니다."
     }
   },
   {
@@ -224,6 +223,25 @@
     }
   },
   {
+    "question_id": "u2_q003",
+    "unit": 2,
+    "type": "output_select",
+    "difficulty": "hard",
+    "concept": "문자열 슬라이싱",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "s = \"abcdefg\"\nprint(s[1:5:2])",
+    "choices": [
+      "A. abcd",
+      "B. bdf",
+      "C. bd",
+      "D. ace"
+    ],
+    "answer": "C",
+    "feedback": {
+      "correct": "정답! s[1:5:2]는 인덱스 1부터 4까지 2칸씩 건너뛰며 슬라이싱해요. 1('b') → 1+2=3('d') → 3+2=5는 범위를 벗어나 종료, 결과는 'bd'입니다."
+    }
+  },
+  {
     "question_id": "u2_q013",
     "unit": 2,
     "type": "output_select",
@@ -240,24 +258,6 @@
     "answer": "B",
     "feedback": {
       "correct": "정답! {x/y:.1f}는 10 ÷ 3 ≈ 3.333...을 계산한 뒤 소수점 1자리로 포맷해요. 결과는 3.3이에요."
-    }
-  },
-  {
-    "question_id": "u2_q014",
-    "unit": 2,
-    "type": "multiple_choice",
-    "difficulty": "easy",
-    "concept": "in 연산자",
-    "question": "파이썬에서 in 연산자를 문자열에 사용할 때 반환되는 값의 타입은 무엇인가요?",
-    "choices": [
-      "A. int (정수)",
-      "B. str (문자열)",
-      "C. bool (불리언)",
-      "D. list (리스트)"
-    ],
-    "answer": "C",
-    "feedback": {
-      "correct": "정답! in 연산자는 True 또는 False인 bool(불리언) 값을 반환해요. 예: 'py' in 'python' → True"
     }
   },
   {

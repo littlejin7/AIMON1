@@ -56,25 +56,6 @@
     }
   },
   {
-    "question_id": "u1_q004",
-    "unit": 1,
-    "type": "output_select",
-    "difficulty": "medium",
-    "concept": "변수",
-    "question": "다음 코드를 실행하면 어떤 결과가 출력될까요?",
-    "code": "x = 10\nx = 20\nx = x + 5\nprint(x)",
-    "choices": [
-      "A. 10",
-      "B. 20",
-      "C. 35",
-      "D. 25"
-    ],
-    "answer": "D",
-    "feedback": {
-      "correct": "정답! x는 10 → 20으로 재할당된 뒤, x = x + 5로 20 + 5 = 25가 됩니다. 변수는 마지막으로 할당된 값만 유효해요."
-    }
-  },
-  {
     "question_id": "u1_q005",
     "unit": 1,
     "type": "multiple_choice",
@@ -109,6 +90,43 @@
     "answer": "B",
     "feedback": {
       "correct": "정답! 문자열끼리 + 연산자를 사용하면 두 문자열이 공백 없이 이어 붙여집니다. \"파이\" + \"썬\" = 파이썬 이에요."
+    }
+  },
+  {
+    "question_id": "u1_q009",
+    "unit": 1,
+    "type": "multiple_choice",
+    "difficulty": "easy",
+    "concept": "f-string",
+    "question": "변수 age = 25 일 때, 화면에 나는 25살입니다 를 출력하는 올바른 코드는 무엇인가요?",
+    "choices": [
+      "A. print(\"나는 \" + age + \"살입니다\")",
+      "B. print(f\"나는 {age}살입니다\")",
+      "C. print(\"나는 {age}살입니다\")",
+      "D. print(f\"나는 age살입니다\")"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정답! f-string은 문자열 앞에 f를 붙이고 변수를 {} 중괄호로 감싸면 변수값이 자동으로 삽입됩니다. B) f\"나는 {age}살입니다\" 가 올바른 사용법이에요."
+    }
+  },
+  {
+    "question_id": "u1_q004",
+    "unit": 1,
+    "type": "output_select",
+    "difficulty": "medium",
+    "concept": "변수",
+    "question": "다음 코드를 실행하면 어떤 결과가 출력될까요?",
+    "code": "x = 10\nx = 20\nx = x + 5\nprint(x)",
+    "choices": [
+      "A. 10",
+      "B. 20",
+      "C. 35",
+      "D. 25"
+    ],
+    "answer": "D",
+    "feedback": {
+      "correct": "정답! x는 10 → 20으로 재할당된 뒤, x = x + 5로 20 + 5 = 25가 됩니다. 변수는 마지막으로 할당된 값만 유효해요."
     }
   },
   {
@@ -150,24 +168,6 @@
     }
   },
   {
-    "question_id": "u1_q009",
-    "unit": 1,
-    "type": "multiple_choice",
-    "difficulty": "easy",
-    "concept": "f-string",
-    "question": "변수 age = 25 일 때, 화면에 나는 25살입니다 를 출력하는 올바른 코드는 무엇인가요?",
-    "choices": [
-      "A. print(\"나는 \" + age + \"살입니다\")",
-      "B. print(f\"나는 {age}살입니다\")",
-      "C. print(\"나는 {age}살입니다\")",
-      "D. print(f\"나는 age살입니다\")"
-    ],
-    "answer": "B",
-    "feedback": {
-      "correct": "정답! f-string은 문자열 앞에 f를 붙이고 변수를 {} 중괄호로 감싸면 변수값이 자동으로 삽입됩니다. B) f\"나는 {age}살입니다\" 가 올바른 사용법이에요."
-    }
-  },
-  {
     "question_id": "u1_q010",
     "unit": 1,
     "type": "output_select",
@@ -184,25 +184,6 @@
     "answer": "A",
     "feedback": {
       "correct": "정답! f-string의 {} 안 표현식은 실제 값으로 계산됩니다. {a}=3, {b}=4, {a * b}=12가 되어 A) 3 곱하기 4는 12입니다 가 출력됩니다."
-    }
-  },
-  {
-    "question_id": "u1_q011",
-    "unit": 1,
-    "type": "output_select",
-    "difficulty": "hard",
-    "concept": "f-string",
-    "question": "다음 코드를 실행하면 어떤 결과가 출력될까요?",
-    "code": "price = 1000\ncount = 3\nprint(f\"총 금액은 {price * count}원입니다\")",
-    "choices": [
-      "A. 총 금액은 1000 * 3원입니다",
-      "B. 총 금액은 price * count원입니다",
-      "C. 총 금액은 3000원입니다",
-      "D. 총 금액은 {price * count}원입니다"
-    ],
-    "answer": "C",
-    "feedback": {
-      "correct": "정답! f-string의 {price * count}는 1000 * 3 = 3000으로 계산되어 삽입됩니다. 결과적으로 C) 총 금액은 3000원입니다 가 출력됩니다."
     }
   },
   {
@@ -240,6 +221,25 @@
     "answer": "B",
     "feedback": {
       "correct": "정답! num은 5이므로 num + 10은 5 + 10 = 15가 됩니다. B) 15 가 출력됩니다."
+    }
+  },
+  {
+    "question_id": "u1_q011",
+    "unit": 1,
+    "type": "output_select",
+    "difficulty": "hard",
+    "concept": "f-string",
+    "question": "다음 코드를 실행하면 어떤 결과가 출력될까요?",
+    "code": "price = 1000\ncount = 3\nprint(f\"총 금액은 {price * count}원입니다\")",
+    "choices": [
+      "A. 총 금액은 1000 * 3원입니다",
+      "B. 총 금액은 price * count원입니다",
+      "C. 총 금액은 3000원입니다",
+      "D. 총 금액은 {price * count}원입니다"
+    ],
+    "answer": "C",
+    "feedback": {
+      "correct": "정답! f-string의 {price * count}는 1000 * 3 = 3000으로 계산되어 삽입됩니다. 결과적으로 C) 총 금액은 3000원입니다 가 출력됩니다."
     }
   },
   {
