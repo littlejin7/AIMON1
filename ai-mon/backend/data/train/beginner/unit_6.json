@@ -76,6 +76,25 @@
     }
   },
   {
+    "question_id": "u6_q013",
+    "unit": 6,
+    "type": "multiple_choice",
+    "difficulty": "easy",
+    "concept": "return 문",
+    "question": "함수에서 return 문의 역할로 가장 알맞은 설명은 무엇인가요?",
+    "code": null,
+    "choices": [
+      "A. 함수를 정의한다",
+      "B. 함수 내부에서 값을 입력받는다",
+      "C. 함수의 실행 결과를 호출한 곳으로 돌려준다",
+      "D. 함수를 반복 실행한다"
+    ],
+    "answer": "C",
+    "feedback": {
+      "correct": "정답! return 문은 함수의 실행 결과를 호출한 곳으로 돌려주는 역할을 합니다. return이 실행되는 순간 함수는 즉시 종료되고, 지정한 값이 반환됩니다."
+    }
+  },
+  {
     "question_id": "u6_q005",
     "unit": 6,
     "type": "output_select",
@@ -171,25 +190,6 @@
     }
   },
   {
-    "question_id": "u6_q010",
-    "unit": 6,
-    "type": "output_select",
-    "difficulty": "hard",
-    "concept": "지역 변수(local variable)",
-    "question": "다음 코드를 실행하면 어떤 결과가 순서대로 출력될까요?",
-    "code": "x = 10\n\ndef foo():\n    x = 20\n    print(x)\n\nfoo()\nprint(x)",
-    "choices": [
-      "A. 20\n20",
-      "B. 10\n10",
-      "C. 20\n10",
-      "D. 10\n20"
-    ],
-    "answer": "C",
-    "feedback": {
-      "correct": "정답! foo() 안의 x = 20은 전역 변수와 이름만 같은 별개의 지역 변수(local variable)입니다. foo() 실행 중에는 지역 x = 20이 출력되고, 함수 밖에서 print(x)는 변경되지 않은 전역 x = 10을 출력합니다."
-    }
-  },
-  {
     "question_id": "u6_q011",
     "unit": 6,
     "type": "multiple_choice",
@@ -209,44 +209,6 @@
     }
   },
   {
-    "question_id": "u6_q012",
-    "unit": 6,
-    "type": "output_select",
-    "difficulty": "hard",
-    "concept": "return 반환값",
-    "question": "다음 코드를 실행하면 어떤 결과가 출력될까요?",
-    "code": "def add_tax(price):\n    return price * 1.1\n\ntotal = add_tax(1000) + add_tax(500)\nprint(total)",
-    "choices": [
-      "A. 1500",
-      "B. 1650",
-      "C. 1650.0",
-      "D. 1500.0"
-    ],
-    "answer": "C",
-    "feedback": {
-      "correct": "정답! add_tax(1000)은 1000 * 1.1 = 1100.0을, add_tax(500)은 500 * 1.1 = 550.0을 반환합니다. 두 float 값을 더하면 1650.0이 되고, print(1650.0)은 1650.0을 출력합니다."
-    }
-  },
-  {
-    "question_id": "u6_q013",
-    "unit": 6,
-    "type": "multiple_choice",
-    "difficulty": "easy",
-    "concept": "return 문",
-    "question": "함수에서 return 문의 역할로 가장 알맞은 설명은 무엇인가요?",
-    "code": null,
-    "choices": [
-      "A. 함수를 정의한다",
-      "B. 함수 내부에서 값을 입력받는다",
-      "C. 함수의 실행 결과를 호출한 곳으로 돌려준다",
-      "D. 함수를 반복 실행한다"
-    ],
-    "answer": "C",
-    "feedback": {
-      "correct": "정답! return 문은 함수의 실행 결과를 호출한 곳으로 돌려주는 역할을 합니다. return이 실행되는 순간 함수는 즉시 종료되고, 지정한 값이 반환됩니다."
-    }
-  },
-  {
     "question_id": "u6_q014",
     "unit": 6,
     "type": "output_select",
@@ -263,6 +225,44 @@
     "answer": "A",
     "feedback": {
       "correct": "정답! describe(\"강아지\")는 sound 기본값 \"멍멍\"을 사용해 '강아지: 멍멍!'을 출력하고, describe(\"고양이\", \"야옹\")은 sound에 \"야옹\"을 전달해 '고양이: 야옹!'을 출력합니다."
+    }
+  },
+  {
+    "question_id": "u6_q010",
+    "unit": 6,
+    "type": "output_select",
+    "difficulty": "hard",
+    "concept": "지역 변수(local variable)",
+    "question": "다음 코드를 실행하면 어떤 결과가 순서대로 출력될까요?",
+    "code": "x = 10\n\ndef foo():\n    x = 20\n    print(x)\n\nfoo()\nprint(x)",
+    "choices": [
+      "A. 20\n20",
+      "B. 10\n10",
+      "C. 20\n10",
+      "D. 10\n20"
+    ],
+    "answer": "C",
+    "feedback": {
+      "correct": "정답! foo() 안의 x = 20은 전역 변수와 이름만 같은 별개의 지역 변수(local variable)입니다. foo() 실행 중에는 지역 x = 20이 출력되고, 함수 밖에서 print(x)는 변경되지 않은 전역 x = 10을 출력합니다."
+    }
+  },
+  {
+    "question_id": "u6_q012",
+    "unit": 6,
+    "type": "output_select",
+    "difficulty": "hard",
+    "concept": "return 반환값",
+    "question": "다음 코드를 실행하면 어떤 결과가 출력될까요?",
+    "code": "def add_tax(price):\n    return price * 1.1\n\ntotal = add_tax(1000) + add_tax(500)\nprint(total)",
+    "choices": [
+      "A. 1500",
+      "B. 1650",
+      "C. 1650.0",
+      "D. 1500.0"
+    ],
+    "answer": "C",
+    "feedback": {
+      "correct": "정답! add_tax(1000)은 1000 * 1.1 = 1100.0을, add_tax(500)은 500 * 1.1 = 550.0을 반환합니다. 두 float 값을 더하면 1650.0이 되고, print(1650.0)은 1650.0을 출력합니다."
     }
   },
   {

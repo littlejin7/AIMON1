@@ -955,8 +955,8 @@
       "is_boss": false,
       "question": "다음 코드에서 클라이언트가 WebSocket으로 \"안녕\"을 전송하면 서버가 돌려보내는 메시지는 무엇일까요?\n\n```python\nfrom fastapi import FastAPI, WebSocket\n\napp = FastAPI()\n\n@app.websocket(\"/ws\")\nasync def websocket_endpoint(websocket: WebSocket):\n    await websocket.accept()\n    data = await websocket.receive_text()\n    await websocket.send_text(f\"메시지 수신: {data}\")\n```",
       "choices": [
-        "A. \"안녕\"",
-        "B. \"메시지 수신: 안녕\"",
+        "A. 안녕",
+        "B. 메시지 수신: 안녕",
         "C. {\"message\": \"안녕\"}",
         "D. None"
       ],
@@ -1160,9 +1160,9 @@
       "is_boss": false,
       "question": "다음 WebSocket 코드에서 클라이언트가 순서대로 \"첫번째\", \"두번째\" 메시지를 보내면 두 번째 메시지에 대한 서버의 응답은 무엇일까요?\n\n```python\nfrom fastapi import FastAPI, WebSocket, WebSocketDisconnect\n\napp = FastAPI()\nmessages = []\n\n@app.websocket(\"/chat\")\nasync def chat(websocket: WebSocket):\n    await websocket.accept()\n    try:\n        while True:\n            msg = await websocket.receive_text()\n            messages.append(msg)\n            await websocket.send_text(f\"저장됨: {len(messages)}번째\")\n    except WebSocketDisconnect:\n        pass\n```",
       "choices": [
-        "A. \"저장됨: 1번째\"",
-        "B. \"저장됨: 2번째\"",
-        "C. \"저장됨: 0번째\"",
+        "A. 저장됨: 1번째",
+        "B. 저장됨: 2번째",
+        "C. 저장됨: 0번째",
         "D. None"
       ],
       "answer": "B",
@@ -1957,9 +1957,9 @@
       "is_boss": false,
       "question": "다음 코드에서 WebSocket으로 `room_id=5` 방에 접속한 후 클라이언트가 \"안녕\"을 전송하면 두 번째로 받는 메시지는 무엇일까요?\n\n```python\n@app.websocket(\"/ws/chat/{room_id}\")\nasync def websocket_chat(room_id: int, websocket: WebSocket):\n    await websocket.accept()\n    await websocket.send_text(f\"방 {room_id}에 입장했습니다.\")\n    msg = await websocket.receive_text()\n    await websocket.send_text(f\"[방{room_id}] {msg}\")\n```",
       "choices": [
-        "A. \"방 5에 입장했습니다.\"",
-        "B. \"[방5] 안녕\"",
-        "C. \"안녕\"",
+        "A. 방 5에 입장했습니다.",
+        "B. [방5] 안녕",
+        "C. 안녕",
         "D. {\"room_id\": 5, \"message\": \"안녕\"}"
       ],
       "answer": "B",

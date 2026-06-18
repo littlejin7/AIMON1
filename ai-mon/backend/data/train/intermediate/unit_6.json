@@ -1,402 +1,194 @@
 [
   {
-    "question_id": "sl_mid_os_6_1_001",
-    "unit": 6,
-    "stage": "6-1",
-    "course_level": "intermediate",
+    "question_id": "q001",
+    "type": "fill_in_blank",
     "difficulty": "easy",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "Python에서 가상환경을 만드는 명령어는 무엇인가요?",
-    "choices": [
-      "A) python -m venv 환경명",
-      "B) python --create-venv 환경명",
-      "C) venv create 환경명",
-      "D) pip create-env 환경명"
-    ],
-    "answer": "A) python -m venv 환경명",
-    "hint": "Python 표준 라이브러리의 venv 모듈을 '-m' 옵션으로 실행해요.",
-    "feedback": {
-      "correct": "정답! 'python -m venv 환경명'으로 가상환경을 생성해요. venv는 Python 3.3부터 표준 라이브러리에 포함된 가상환경 모듈이에요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_6_1_002",
-    "unit": 6,
-    "stage": "6-1",
-    "course_level": "intermediate",
-    "difficulty": "medium",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "Linux/Mac에서 가상환경을 활성화하는 명령어를 완성하세요.\n\n________ venv/bin/activate",
-    "answer": "source",
-    "hint": "bash에서 스크립트를 현재 셸 세션에 적용할 때 쓰는 명령어예요.",
-    "feedback": {
-      "correct": "정답! 'source venv/bin/activate'로 가상환경을 활성화해요. source 없이 실행하면 새 셸에서 실행되어 현재 세션에 반영되지 않아요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_6_1_003",
-    "unit": 6,
-    "stage": "6-1",
-    "course_level": "intermediate",
-    "difficulty": "medium",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "가상환경에서 패키지를 설치하는 명령어는?",
-    "choices": [
-      "A) python install 패키지명",
-      "B) pip install 패키지명",
-      "C) apt-get install 패키지명",
-      "D) install-package 패키지명"
-    ],
-    "answer": "B) pip install 패키지명",
-    "hint": "pip는 Python의 공식 패키지 설치 도구예요.",
-    "feedback": {
-      "correct": "정답! 'pip install 패키지명'으로 패키지를 설치해요. 가상환경이 활성화된 상태에서 실행하면 가상환경 안에만 설치돼요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_6_1_004",
-    "unit": 6,
-    "stage": "6-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "현재 가상환경에 설치된 패키지 목록을 파일로 저장하는 명령어를 완성하세요.\n\npip freeze > ________",
-    "answer": "requirements.txt",
-    "hint": "패키지 목록을 저장하는 관례적인 파일 이름이에요.",
-    "feedback": {
-      "correct": "정답! 'pip freeze > requirements.txt'로 현재 환경의 모든 패키지와 버전을 파일에 저장해요. 이 파일로 다른 환경에서 동일한 패키지를 설치할 수 있어요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_6_1_005",
-    "unit": 6,
-    "stage": "6-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "requirements.txt 파일에 있는 패키지를 한 번에 설치하는 명령어는?",
-    "choices": [
-      "A) python requirements.txt",
-      "B) pip import requirements.txt",
-      "C) pip install -r requirements.txt",
-      "D) pip load requirements.txt"
-    ],
-    "answer": "C) pip install -r requirements.txt",
-    "hint": "'-r' 옵션은 파일을 읽어서(read) 설치한다는 의미예요.",
-    "feedback": {
-      "correct": "정답! 'pip install -r requirements.txt'로 파일에 명시된 모든 패키지를 한 번에 설치해요. 팀 프로젝트에서 환경을 맞출 때 필수 명령어예요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_6_1_006",
-    "unit": 6,
-    "stage": "6-1",
-    "course_level": "intermediate",
-    "difficulty": "medium",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "가상환경에 설치된 패키지 목록을 확인하는 명령어는?",
-    "choices": [
-      "A) pip info",
-      "B) pip show",
-      "C) pip check",
-      "D) pip list"
-    ],
-    "answer": "D) pip list",
-    "hint": "현재 환경에 설치된 모든 패키지와 버전을 보여줘요.",
-    "feedback": {
-      "correct": "정답! 'pip list'로 설치된 모든 패키지와 버전을 확인해요. 'pip show 패키지명'은 특정 패키지의 상세 정보를 보여줘요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_6_1_007",
-    "unit": 6,
-    "stage": "6-1",
-    "course_level": "intermediate",
-    "difficulty": "easy",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "활성화된 가상환경을 비활성화하는 명령어를 완성하세요.\n\n________",
-    "answer": "deactivate",
-    "hint": "가상환경을 '비활성화(deactivate)'한다는 단어 자체가 명령어예요.",
-    "feedback": {
-      "correct": "정답! 'deactivate'를 실행하면 가상환경이 비활성화되고 시스템 Python 환경으로 돌아가요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_6_1_008",
-    "unit": 6,
-    "stage": "6-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "numpy 버전 1.23.0을 정확히 지정해서 설치하는 명령어는?",
-    "choices": [
-      "A) pip install numpy==1.23.0",
-      "B) pip install numpy:1.23.0",
-      "C) pip install numpy@1.23.0",
-      "D) pip install numpy-1.23.0"
-    ],
-    "answer": "A) pip install numpy==1.23.0",
-    "hint": "버전을 정확히 지정할 때는 '같다' 기호를 두 개 연속으로 써요.",
-    "feedback": {
-      "correct": "정답! 'pip install 패키지명==버전'으로 특정 버전을 설치해요. '==' 연산자는 '정확히 이 버전'을 의미해요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_6_1_009",
-    "unit": 6,
-    "stage": "6-1",
-    "course_level": "intermediate",
-    "difficulty": "medium",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "Windows 명령 프롬프트(cmd)에서 가상환경을 활성화하는 명령어를 완성하세요.\n\nvenv\\Scripts\\________",
-    "answer": "activate.bat",
-    "hint": "Windows cmd에서는 '.bat' 확장자의 배치 파일을 실행해요.",
-    "feedback": {
-      "correct": "정답! Windows cmd에서는 'venv\\Scripts\\activate.bat'로 가상환경을 활성화해요. PowerShell에서는 'Activate.ps1'을 사용해요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_6_1_010",
-    "unit": 6,
-    "stage": "6-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "A",
-    "is_boss": false,
-    "question": "가상환경에서 설치된 패키지 간의 의존성 충돌을 검사하는 명령어를 완성하세요.\n\npip ________",
-    "answer": "check",
-    "hint": "문제가 없으면 'No broken requirements found.'가 출력돼요.",
-    "feedback": {
-      "correct": "정답! 'pip check'는 설치된 패키지 간의 의존성 충돌을 확인해요. 배포 전에 실행해 호환성 문제를 미리 발견할 수 있어요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_6_1_011",
-    "unit": 6,
-    "stage": "6-1",
-    "course_level": "intermediate",
-    "difficulty": "easy",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "가상환경을 사용하는 주된 목적은 무엇인가요?",
-    "choices": [
-      "A) 프로젝트마다 독립적인 패키지 환경을 제공",
-      "B) 컴퓨터 전체의 패키지를 일괄 관리",
-      "C) 시스템 파일을 보호",
-      "D) 인터넷 연결 속도 향상"
-    ],
-    "answer": "A) 프로젝트마다 독립적인 패키지 환경을 제공",
-    "hint": "프로젝트마다 필요한 패키지 버전이 다를 수 있어요.",
-    "feedback": {
-      "correct": "정답! 가상환경은 프로젝트별로 독립적인 패키지 환경을 제공해요. 서로 다른 버전이 필요한 프로젝트도 충돌 없이 관리할 수 있어요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_6_1_012",
-    "unit": 6,
-    "stage": "6-1",
-    "course_level": "intermediate",
-    "difficulty": "medium",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "가상환경 생성 후 폴더 내용을 확인하는 Linux/Mac 명령어를 완성하세요.\n\nls ________",
+    "question": "파이썬 내장 모듈을 이용해 'myenv'라는 가상환경을 생성할 때, 빈칸에 들어갈 모듈 이름을 채워 명령어를 완성해 보세요.\n\npython -m _____ myenv",
     "answer": "venv",
-    "hint": "생성된 가상환경 폴더 이름을 입력해요.",
     "feedback": {
-      "correct": "정답! 'ls venv'로 가상환경 폴더 안의 구조를 확인할 수 있어요. bin/, lib/, include/ 등의 하위 폴더를 볼 수 있어요."
+      "correct": "정답! `python -m venv myenv` 명령으로 가상환경을 생성합니다. `venv`는 파이썬 3.3+에 내장된 가상환경 모듈이며, `-m` 옵션은 해당 모듈을 스크립트처럼 실행합니다."
     }
   },
   {
-    "question_id": "sl_mid_os_6_1_013",
-    "unit": 6,
-    "stage": "6-1",
-    "course_level": "intermediate",
-    "difficulty": "medium",
+    "question_id": "q002",
     "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "설치된 패키지를 제거하는 명령어는?",
-    "choices": [
-      "A) pip remove 패키지명",
-      "B) pip uninstall 패키지명",
-      "C) pip delete 패키지명",
-      "D) pip drop 패키지명"
-    ],
-    "answer": "B) pip uninstall 패키지명",
-    "hint": "설치(install)의 반대 개념이에요.",
-    "feedback": {
-      "correct": "정답! 'pip uninstall 패키지명'으로 패키지를 제거해요. 실행 시 확인 메시지가 표시되며 'y'를 입력해야 삭제돼요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_6_1_014",
-    "unit": 6,
-    "stage": "6-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "Linux/Mac에서 가상환경 폴더를 강제로 삭제하는 명령어를 완성하세요.\n\n________ -rf venv",
-    "answer": "rm",
-    "hint": "Linux에서 파일/폴더를 삭제하는 명령어예요. '-rf'는 재귀 강제 삭제 옵션이에요.",
-    "feedback": {
-      "correct": "정답! 'rm -rf venv'로 가상환경 폴더를 완전히 삭제해요. '-r'은 폴더 안까지 재귀 삭제, '-f'는 확인 없이 강제 삭제를 의미해요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_6_1_015",
-    "unit": 6,
-    "stage": "6-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "가상환경이 활성화되었는지 확인하는 가장 쉬운 방법은?",
-    "choices": [
-      "A) 파일 탐색기에서 venv 폴더 확인",
-      "B) 'pip version' 명령어로 확인",
-      "C) 터미널 프롬프트 앞에 (venv)처럼 환경 이름이 표시됨",
-      "D) 'echo $PYTHON' 명령어로 확인"
-    ],
-    "answer": "C) 터미널 프롬프트 앞에 (venv)처럼 환경 이름이 표시됨",
-    "hint": "활성화되면 터미널 앞에 괄호로 감싼 환경 이름이 표시돼요.",
-    "feedback": {
-      "correct": "정답! 가상환경이 활성화되면 '(venv) $'처럼 프롬프트 앞에 환경 이름이 표시돼요. 이것으로 현재 어떤 가상환경이 활성화되어 있는지 바로 알 수 있어요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_6_1_016",
-    "unit": 6,
-    "stage": "6-1",
-    "course_level": "intermediate",
-    "difficulty": "medium",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "pip의 역할은 무엇인가요?",
-    "choices": [
-      "A) Python 코드를 실행",
-      "B) Python 파일을 컴파일",
-      "C) 가상환경을 생성",
-      "D) Python 패키지를 설치하고 관리"
-    ],
-    "answer": "D) Python 패키지를 설치하고 관리",
-    "hint": "pip는 'Package Installer for Python'의 약자예요.",
-    "feedback": {
-      "correct": "정답! pip는 Python 패키지를 설치·제거·관리하는 도구예요. PyPI(Python Package Index)에서 패키지를 다운로드해 설치해요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_6_1_017",
-    "unit": 6,
-    "stage": "6-1",
-    "course_level": "intermediate",
     "difficulty": "easy",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "pip 자체를 최신 버전으로 업그레이드하는 명령어를 완성하세요.\n\npip install --upgrade ________",
-    "answer": "pip",
-    "hint": "업그레이드 대상이 pip 자신이에요.",
-    "feedback": {
-      "correct": "정답! 'pip install --upgrade pip'로 pip를 최신 버전으로 업그레이드해요. '--upgrade' 옵션은 이미 설치된 패키지를 최신 버전으로 갱신해요."
-    }
-  },
-  {
-    "question_id": "sl_mid_os_6_1_018",
-    "unit": 6,
-    "stage": "6-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
-    "type": "output_select",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "requirements.txt 파일의 올바른 작성 형식은?",
+    "question": "Windows 환경에서 'myenv'라는 가상환경을 활성화할 때 올바른 명령어를 골라 보세요.",
     "choices": [
-      "A) requests==2.28.0\nnumpy==1.23.0",
-      "B) requests:2.28.0, numpy:1.23.0",
-      "C) [requests==2.28.0, numpy==1.23.0]",
-      "D) {requests: 2.28.0, numpy: 1.23.0}"
+      "A. myenv\\Scripts\\activate",
+      "B. source myenv/bin/activate",
+      "C. myenv\\activate.bat",
+      "D. python -m myenv activate"
     ],
-    "answer": "A) requests==2.28.0\nnumpy==1.23.0",
-    "hint": "각 패키지를 한 줄씩 작성하고 '=='로 버전을 지정해요.",
+    "answer": "A",
     "feedback": {
-      "correct": "정답! requirements.txt는 '패키지명==버전'을 한 줄씩 작성해요. 'pip freeze > requirements.txt'로 자동 생성할 수 있어요."
+      "correct": "정답! Windows에서 가상환경을 활성화하려면 A) `myenv\\Scripts\\activate`를 사용합니다. B)는 macOS/Linux 전용 명령어이며, C)와 D)는 존재하지 않는 형식입니다."
     }
   },
   {
-    "question_id": "sl_mid_os_6_1_019",
-    "unit": 6,
-    "stage": "6-1",
-    "course_level": "intermediate",
+    "question_id": "q003",
+    "type": "fill_in_blank",
+    "difficulty": "easy",
+    "question": "현재 활성화된 가상환경을 종료할 때 사용하는 명령어를 빈칸에 채워 보세요.\n\n(myenv) $ _____",
+    "answer": "deactivate",
+    "feedback": {
+      "correct": "정답! `deactivate` 명령어는 현재 활성화된 가상환경을 비활성화합니다. Windows와 macOS/Linux 모두 동일하게 사용할 수 있습니다."
+    }
+  },
+  {
+    "question_id": "q004",
+    "type": "output_select",
+    "difficulty": "easy",
+    "question": "`requests` 라이브러리의 정확히 2.28.0 버전을 설치할 때 올바른 pip 명령어를 골라 보세요.",
+    "choices": [
+      "A. pip install requests==2.28.0",
+      "B. pip install requests=2.28.0",
+      "C. pip install requests@2.28.0",
+      "D. pip install requests-2.28.0"
+    ],
+    "answer": "A",
+    "feedback": {
+      "correct": "정답! pip에서 특정 버전을 지정할 때는 `==` 연산자를 사용합니다. A) `pip install requests==2.28.0`이 올바른 형식이며, B)의 `=` 하나는 문법 오류입니다."
+    }
+  },
+  {
+    "question_id": "q005",
+    "type": "fill_in_blank",
     "difficulty": "medium",
-    "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "설치된 특정 패키지의 상세 정보(버전, 위치, 의존성 등)를 확인하는 명령어를 완성하세요.\n\npip show ________",
-    "answer": "requests",
-    "hint": "확인하고 싶은 패키지 이름을 입력해요. 예: requests",
+    "question": "`requirements.txt` 파일에 명시된 모든 패키지를 한 번에 설치할 때, 빈칸에 들어갈 옵션을 채워 명령어를 완성해 보세요.\n\npip install _____ requirements.txt",
+    "answer": "-r",
     "feedback": {
-      "correct": "정답! 'pip show 패키지명'으로 버전, 설치 위치, 의존 패키지 등 상세 정보를 확인해요."
+      "correct": "정답! `pip install -r requirements.txt` 명령으로 requirements.txt에 기록된 패키지들을 일괄 설치할 수 있습니다. `-r`은 파일에서 패키지 목록을 읽어오는 옵션입니다."
     }
   },
   {
-    "question_id": "sl_mid_os_6_1_020",
-    "unit": 6,
-    "stage": "6-1",
-    "course_level": "intermediate",
-    "difficulty": "hard",
+    "question_id": "q006",
     "type": "fill_in_blank",
-    "quiz_category": "stage_quiz",
-    "quiz_set": "B",
-    "is_boss": false,
-    "question": "여러 패키지를 확인 없이 한 번에 제거하는 명령어를 완성하세요.\n\npip uninstall ________ numpy pandas",
-    "answer": "-y",
-    "hint": "확인 과정(yes/no)을 건너뛰는 옵션이에요.",
+    "difficulty": "medium",
+    "question": "현재 가상환경에 설치된 패키지와 버전 정보를 `requirements.txt` 파일로 저장하려고 합니다. 빈칸에 들어갈 pip 하위 명령어를 채워 보세요.\n\npip _____ > requirements.txt",
+    "answer": "freeze",
     "feedback": {
-      "correct": "정답! '-y' 옵션을 사용하면 삭제 확인 없이 바로 제거해요. 'pip uninstall -y numpy pandas'로 두 패키지를 한 번에 삭제할 수 있어요."
+      "correct": "정답! `pip freeze`는 현재 환경에 설치된 패키지를 `패키지명==버전` 형식으로 출력합니다. `> requirements.txt`와 조합하면 의존성 목록을 파일로 저장할 수 있습니다."
+    }
+  },
+  {
+    "question_id": "q007",
+    "type": "output_select",
+    "difficulty": "medium",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?\n\nimport os\n\nos.environ['MY_VAR'] = 'hello'\nresult = os.environ.get('MY_VAR', 'default')\nprint(result)",
+    "choices": [
+      "A. hello",
+      "B. default",
+      "C. MY_VAR",
+      "D. None"
+    ],
+    "answer": "A",
+    "feedback": {
+      "correct": "정답! `os.environ['MY_VAR'] = 'hello'`로 환경 변수를 설정한 직후 `os.environ.get('MY_VAR', 'default')`를 호출하면 이미 설정된 값인 `hello`가 반환됩니다. A)가 정답입니다."
+    }
+  },
+  {
+    "question_id": "q008",
+    "type": "fill_in_blank",
+    "difficulty": "medium",
+    "question": "`os.path` 모듈에서 여러 경로 요소를 운영체제에 맞는 구분자로 결합할 때 사용하는 함수명을 빈칸에 채워 코드를 완성해 보세요.\n\nimport os\n\npath = os.path._____('home', 'user', 'documents')",
+    "answer": "join",
+    "feedback": {
+      "correct": "정답! `os.path.join()`은 경로 요소들을 OS에 맞는 구분자(`\\` 또는 `/`)로 결합합니다. 하드코딩 대신 이 함수를 사용하면 OS 간 이식성 높은 경로를 만들 수 있습니다."
+    }
+  },
+  {
+    "question_id": "q009",
+    "type": "output_select",
+    "difficulty": "medium",
+    "question": "`python script.py apple banana` 명령으로 실행했을 때, 다음 코드의 출력값은 무엇일까요?\n\nimport sys\n\nprint(len(sys.argv))",
+    "choices": [
+      "A. 2",
+      "B. 3",
+      "C. 1",
+      "D. 4"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정답! `sys.argv`는 스크립트 이름을 포함해 `['script.py', 'apple', 'banana']`로 구성됩니다. 요소가 총 3개이므로 `len(sys.argv)`는 B) 3을 출력합니다."
+    }
+  },
+  {
+    "question_id": "q010",
+    "type": "fill_in_blank",
+    "difficulty": "medium",
+    "question": "`pathlib.Path` 객체에서 파일명의 확장자를 제외한 이름만 반환하는 속성명을 빈칸에 채워 코드를 완성해 보세요.\n\nfrom pathlib import Path\n\np = Path('/home/user/report.pdf')\nprint(p._____)\n# 출력: report",
+    "answer": "stem",
+    "feedback": {
+      "correct": "정답! `Path.stem`은 파일명에서 확장자를 제외한 이름만 반환합니다. `Path('/home/user/report.pdf').stem`은 `report`를 반환하며, `.name`은 확장자를 포함한 `report.pdf`를 반환합니다."
+    }
+  },
+  {
+    "question_id": "q011",
+    "type": "output_select",
+    "difficulty": "medium",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?\n\nfrom datetime import datetime, timedelta\n\nd = datetime(2024, 3, 1)\nresult = d + timedelta(days=30)\nprint(result.month)",
+    "choices": [
+      "A. 3",
+      "B. 4",
+      "C. 30",
+      "D. 31"
+    ],
+    "answer": "A",
+    "feedback": {
+      "correct": "정답! 3월은 31일까지 있으므로, 2024년 3월 1일에 30일을 더하면 3월 31일이 됩니다. `result.month`는 월(month) 값인 A) 3을 반환합니다."
+    }
+  },
+  {
+    "question_id": "q012",
+    "type": "fill_in_blank",
+    "difficulty": "hard",
+    "question": "`pathlib.Path` 객체에서 파일의 마지막 확장자만 반환하는 속성명을 빈칸에 채워 코드를 완성해 보세요.\n\nfrom pathlib import Path\n\np = Path('report.final.pdf')\nprint(p._____)\n# 출력: .pdf",
+    "answer": "suffix",
+    "feedback": {
+      "correct": "정답! `Path.suffix`는 파일의 마지막 확장자를 반환합니다. `'report.final.pdf'`에서 `suffix`는 `.pdf`를 반환합니다. 모든 확장자 목록이 필요하다면 `Path.suffixes`를 사용하면 `['.final', '.pdf']`가 반환됩니다."
+    }
+  },
+  {
+    "question_id": "q013",
+    "type": "output_select",
+    "difficulty": "hard",
+    "question": "`requirements.txt`에서 `flask` 패키지를 버전 2.0 이상, 3.0 미만으로 설치 범위를 지정하는 올바른 표기법을 골라 보세요.",
+    "choices": [
+      "A. flask>=2.0,<3.0",
+      "B. flask>2.0,<=3.0",
+      "C. flask==2.0~3.0",
+      "D. flask^2.0"
+    ],
+    "answer": "A",
+    "feedback": {
+      "correct": "정답! pip 버전 지정자에서 `>=`는 이상, `<`는 미만을 나타냅니다. A) `flask>=2.0,<3.0`이 올바른 표기법이며, 쉼표로 여러 조건을 결합할 수 있습니다. B)는 2.0 초과 3.0 이하이므로 조건이 다릅니다."
+    }
+  },
+  {
+    "question_id": "q014",
+    "type": "fill_in_blank",
+    "difficulty": "hard",
+    "question": "`requirements.txt`에서 `numpy` 패키지를 정확히 1.24.0 버전으로 고정(pin)할 때 사용하는 연산자를 빈칸에 채워 보세요.\n\nnumpy_____1.24.0",
+    "answer": "==",
+    "feedback": {
+      "correct": "정답! `==` 연산자는 패키지 버전을 정확히 고정합니다. `numpy==1.24.0`으로 작성하면 해당 버전만 설치되며, 이를 버전 고정(pinning)이라 합니다. 재현 가능한 환경을 보장하는 핵심 의존성 관리 전략입니다."
+    }
+  },
+  {
+    "question_id": "q015",
+    "type": "output_select",
+    "difficulty": "hard",
+    "question": "설치된 패키지의 버전, 설치 위치, 의존 패키지(`Requires`) 정보를 확인할 때 사용하는 올바른 pip 명령어를 골라 보세요.",
+    "choices": [
+      "A. pip show requests",
+      "B. pip info requests",
+      "C. pip detail requests",
+      "D. pip describe requests"
+    ],
+    "answer": "A",
+    "feedback": {
+      "correct": "정답! `pip show 패키지명` 명령은 해당 패키지의 버전, 설치 경로, 의존 패키지(`Requires`) 등의 상세 정보를 출력합니다. A) `pip show requests`가 올바른 명령어입니다."
     }
   }
 ]
