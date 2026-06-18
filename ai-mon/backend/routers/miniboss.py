@@ -11,19 +11,19 @@
 
 from fastapi import APIRouter, HTTPException, Header
 from pydantic import BaseModel
-from jose import jwt, JWTError
 import json, os, random, uuid
 from datetime import datetime
 from typing import Optional
 
-from routers.utils import calc_level
+from routers.utils import (
+    calc_level,
+    load_users,
+    save_users,
+    verify_token,
+)
 
 router = APIRouter()
 
-SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
-ALGORITHM  = os.getenv("ALGORITHM", "HS256")
-
-USERS_FILE    = os.path.join(os.path.dirname(__file__), "../data/users.json")
 MINIBOSS_DIR  = os.path.join(os.path.dirname(__file__), "../data/miniboss")
 
 # ── HP 설정 ───────────────────────────────────────────────────────────────────
@@ -38,24 +38,6 @@ CLEAR_XP = 500
 
 
 # ── 유틸 ──────────────────────────────────────────────────────────────────────
-
-def load_users():
-    if not os.path.exists(USERS_FILE):
-        return []
-    with open(USERS_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
-
-def save_users(users):
-    with open(USERS_FILE, "w", encoding="utf-8") as f:
-        json.dump(users, f, ensure_ascii=False, indent=2)
-
-def verify_token(authorization: str) -> str:
-    try:
-        token = authorization.replace("Bearer ", "")
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        return payload.get("sub")
-    except JWTError:
-        raise HTTPException(status_code=401, detail="토큰이 유효하지 않습니다.")
 
 def load_miniboss_questions(course_level: str, unit: int) -> list:
     """data/miniboss/{course_level}/unit_{unit}.json 로드."""

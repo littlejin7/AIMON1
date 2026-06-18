@@ -1,3 +1,145 @@
+from fastapi import HTTPException
+from jose import jwt, JWTError
+import json
+import os
+import time
+import tempfile
+from contextlib import contextmanager
+
+SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
+
+DATA_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../data"))
+USERS_FILE = os.path.join(DATA_DIR, "users.json")
+PROGRESS_FILE = os.path.join(DATA_DIR, "progress.json")
+WRONG_ANSWERS_FILE = os.path.join(DATA_DIR, "wrong_answers.json")
+
+
+@contextmanager
+def file_lock(file_path: str):
+    """
+    Cross-platform file locking context manager.
+    Creates a lock file (e.g., file_path + ".lock") and locks it.
+    """
+    lock_path = file_path + ".lock"
+    os.makedirs(os.path.dirname(lock_path), exist_ok=True)
+    lock_file = open(lock_path, "w")
+    try:
+        if fcntl := globals().get("fcntl", None) or _import_fcntl():
+            fcntl.flock(lock_file.fileno(), fcntl.LOCK_EX)
+        elif msvcrt := globals().get("msvcrt", None) or _import_msvcrt():
+            locked = False
+            while not locked:
+                try:
+                    lock_file.seek(0)
+                    msvcrt.locking(lock_file.fileno(), msvcrt.LK_LOCK, 1)
+                    locked = True
+                except (IOError, PermissionError):
+                    time.sleep(0.05)
+        yield
+    finally:
+        try:
+            if fcntl := globals().get("fcntl", None):
+                fcntl.flock(lock_file.fileno(), fcntl.LOCK_UN)
+            elif msvcrt := globals().get("msvcrt", None):
+                lock_file.seek(0)
+                msvcrt.locking(lock_file.fileno(), msvcrt.LK_UNLCK, 1)
+        except Exception:
+            pass
+        lock_file.close()
+
+
+def _import_fcntl():
+    try:
+        import fcntl
+        globals()["fcntl"] = fcntl
+        return fcntl
+    except ImportError:
+        return None
+
+
+def _import_msvcrt():
+    try:
+        import msvcrt
+        globals()["msvcrt"] = msvcrt
+        return msvcrt
+    except ImportError:
+        return None
+
+
+def _load_json_locked(file_path: str, default_val):
+    if not os.path.exists(file_path):
+        return default_val
+    with file_lock(file_path):
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except (json.JSONDecodeError, FileNotFoundError):
+            return default_val
+
+
+def _save_json_locked(file_path: str, data):
+    dir_name = os.path.dirname(file_path)
+    os.makedirs(dir_name, exist_ok=True)
+    with file_lock(file_path):
+        temp_fd, temp_path = tempfile.mkstemp(dir=dir_name)
+        try:
+            with os.fdopen(temp_fd, "w", encoding="utf-8") as tmp:
+                json.dump(data, tmp, ensure_ascii=False, indent=2)
+            os.replace(temp_path, file_path)
+        except Exception:
+            if os.path.exists(temp_path):
+                os.remove(temp_path)
+            raise
+
+
+def load_users():
+    return _load_json_locked(USERS_FILE, [])
+
+
+def save_users(users):
+    _save_json_locked(USERS_FILE, users)
+
+
+def load_progress():
+    return _load_json_locked(PROGRESS_FILE, [])
+
+
+def save_progress(progress):
+    _save_json_locked(PROGRESS_FILE, progress)
+
+
+def load_wrong_answers():
+    return _load_json_locked(WRONG_ANSWERS_FILE, [])
+
+
+def save_wrong_answers(data):
+    _save_json_locked(WRONG_ANSWERS_FILE, data)
+
+
+def verify_token(authorization: str) -> str:
+    try:
+        token = authorization.replace("Bearer ", "")
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload.get("sub")
+    except JWTError:
+        raise HTTPException(status_code=401, detail="토큰이 유효하지 않습니다.")
+
+
+def get_current_user(authorization: str) -> dict:
+    try:
+        token = authorization.replace("Bearer ", "")
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id = payload.get("sub")
+        users = load_users()
+        user = next((u for u in users if u["id"] == user_id), None)
+        if not user:
+            raise HTTPException(status_code=401, detail="인증 실패")
+        return user
+    except JWTError:
+        raise HTTPException(status_code=401, detail="토큰이 유효하지 않습니다.")
+
+
 def serialize_user(user: dict) -> dict:
     # 1. Make a copy of user
     res = user.copy()
@@ -57,3 +199,4 @@ def calc_level(xp: int) -> int:
         accumulated += needed
         lv += 1
     return lv
+

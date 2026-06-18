@@ -1,40 +1,14 @@
 from fastapi import APIRouter, HTTPException, Header
 from pydantic import BaseModel
-import json, os
-from jose import jwt, JWTError
+import os
+from routers.utils import (
+    serialize_user,
+    load_users,
+    save_users,
+    get_current_user,
+)
 
 router = APIRouter()
-
-SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
-ALGORITHM = os.getenv("ALGORITHM", "HS256")
-
-USERS_FILE = os.path.join(os.path.dirname(__file__), "../data/users.json")
-
-
-def load_users():
-    if not os.path.exists(USERS_FILE):
-        return []
-    with open(USERS_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
-
-
-def save_users(users):
-    with open(USERS_FILE, "w", encoding="utf-8") as f:
-        json.dump(users, f, ensure_ascii=False, indent=2)
-
-
-def get_current_user(authorization: str):
-    try:
-        token = authorization.replace("Bearer ", "")
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        user_id = payload.get("sub")
-        users = load_users()
-        user = next((u for u in users if u["id"] == user_id), None)
-        if not user:
-            raise HTTPException(status_code=401, detail="인증 실패")
-        return user
-    except JWTError:
-        raise HTTPException(status_code=401, detail="토큰이 유효하지 않습니다.")
 
 
 from typing import Optional
@@ -47,7 +21,6 @@ class UpdateProfileRequest(BaseModel):
     equipped_title: Optional[str] = None
 
 
-from routers.utils import serialize_user
 
 @router.get("/me")
 def get_me(authorization: str = Header(...)):

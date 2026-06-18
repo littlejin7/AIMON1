@@ -11,20 +11,20 @@
 
 from fastapi import APIRouter, HTTPException, Header
 from pydantic import BaseModel
-from jose import jwt, JWTError
 from services.claude_service import ask_claude_json
 from routers.titles import check_and_award_titles
 import json, os, random
 from typing import Optional
 
-from routers.utils import calc_level
+from routers.utils import (
+    calc_level,
+    load_users,
+    save_users,
+    verify_token,
+)
 
 router = APIRouter()
 
-SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
-ALGORITHM  = os.getenv("ALGORITHM", "HS256")
-
-USERS_FILE     = os.path.join(os.path.dirname(__file__), "../data/users.json")
 ENDBOSS_DIR    = os.path.join(os.path.dirname(__file__), "../data/endboss")
 
 # ── 재도전 비용 ──────────────────────────────────────────────────────────────
@@ -76,24 +76,6 @@ PHASE_TYPES = {
 
 
 # ── 유틸 ──────────────────────────────────────────────────────────────────────
-
-def load_users():
-    if not os.path.exists(USERS_FILE):
-        return []
-    with open(USERS_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
-
-def save_users(users):
-    with open(USERS_FILE, "w", encoding="utf-8") as f:
-        json.dump(users, f, ensure_ascii=False, indent=2)
-
-def verify_token(authorization: str) -> str:
-    try:
-        token = authorization.replace("Bearer ", "")
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        return payload.get("sub")
-    except JWTError:
-        raise HTTPException(status_code=401, detail="토큰이 유효하지 않습니다.")
 
 def load_endboss_questions(course_level: str) -> list:
     """data/endboss/{course_level}.json 로드. JS 스타일 주석 허용."""

@@ -1,13 +1,10 @@
 from fastapi import APIRouter, HTTPException, Header, Query
 from pydantic import BaseModel
-from jose import jwt, JWTError
 from services.claude_service import ask_claude
 import json, os, random
+from routers.utils import verify_token
 
 router = APIRouter()
-
-SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
-ALGORITHM = os.getenv("ALGORITHM", "HS256")
 
 QUESTIONS_FILE = os.path.join(os.path.dirname(__file__), "../data/questions.json")
 LESSONS_DIR    = os.path.join(os.path.dirname(__file__), "../data/lessons")  # 브리핑 슬라이드 폴더
@@ -114,15 +111,6 @@ def load_units(course_level: str = None):
         return []
     with open(UNITS_FILE, "r", encoding="utf-8") as f:
         return json.load(f)
-
-
-def verify_token(authorization: str) -> str:
-    try:
-        token = authorization.replace("Bearer ", "")
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        return payload.get("sub")
-    except JWTError:
-        raise HTTPException(status_code=401, detail="토큰이 유효하지 않습니다.")
 
 
 # ── 유닛 목록 (lessons.json) ────────────────────────────────────
