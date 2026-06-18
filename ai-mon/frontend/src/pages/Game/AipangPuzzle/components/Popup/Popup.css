@@ -112,3 +112,14 @@
 .btn-red {
   background: linear-gradient(135deg, #e01040, #f05080);
 }
+
+.btn-gray {
+  background: linear-gradient(135deg, #444, #666);
+}
+
+.popup-btn-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
