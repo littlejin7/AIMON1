@@ -114,8 +114,8 @@ export default function AipangPuzzle() {
 
           {/* 하단: BGM / 새로고침 버튼 */}
           <CtrlBar
-            bgmMuted={bgmMuted}
-            onBgmToggle={handleBgmToggle}
+            bgmVolume={bgmVolume}
+            onBgmVolume={handleBgmVolume}
             onRefresh={handleRefresh}
           />
 
