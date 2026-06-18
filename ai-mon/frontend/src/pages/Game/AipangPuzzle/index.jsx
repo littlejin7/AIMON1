@@ -7,6 +7,7 @@ import BossSection from './components/BossSection';
 import Board      from './components/Board';
 import CtrlBar    from './components/CtrlBar';
 import BossIntro  from './components/BossIntro';
+import ComboGauge from './components/ComboGauge';
 import {
   PopupTitle,
   PopupClear,
@@ -40,7 +41,8 @@ export default function AipangPuzzle() {
     unitBossName,
     stageDisplay,
     selected,
-    bgmMuted,
+    bgmVolume,
+    comboEnergy,
     cellAnims,
     bossUI,
     popups,
@@ -50,7 +52,7 @@ export default function AipangPuzzle() {
     handleRetry,
     handleRestart,
     handleBossIntroOk,
-    handleBgmToggle,
+    handleBgmVolume,
     handleRefresh,
   } = useGameLogic(pCanvasRef, lCanvasRef);
 
@@ -117,6 +119,11 @@ export default function AipangPuzzle() {
             onRefresh={handleRefresh}
           />
 
+
+          {/* 콤보 에너지 게이지 */}
+          <ComboGauge energy={comboEnergy} />
+          
+          
           {/* 퍼즐 보드 */}
           <Board
             grid={grid}
