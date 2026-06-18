@@ -23,6 +23,7 @@ import Game from './pages/Game/Game'
 import Aipang from './pages/Game/Aipang/Aipang'
 import RunnerGame from './pages/Game/AIrun/index'
 import AIbomb from './pages/Game/AIbomb/AIbomb'
+import AIPair from './pages/Game/AIPair/AIPair'
 // 앱 시작 시 Pyodide를 백그라운드에서 미리 로드 (code_input 문제 대비)
 // App.jsx 내의 useEffect에서 처리하도록 이동되었습니다.
 
@@ -273,6 +274,14 @@ export default function App() {
           }
         />
 
+        <Route
+          path="/game/pairs"
+          element={
+            <ProtectedRoute>
+              <AIPair />
+            </ProtectedRoute>
+          }
+        />
 
 
         
