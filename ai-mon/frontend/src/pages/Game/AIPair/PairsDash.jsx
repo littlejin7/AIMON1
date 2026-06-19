@@ -27,6 +27,19 @@ export default function PairsDash({ score, timeStr, matchedCount, onRestart }) {
 
         <div className="mp-dash-sep" />
 
+        <div className="mp-dash-item">
+          <div className="mp-dash-icon" style={{ fontSize: '1rem' }}>🃏</div>
+          <div className="mp-dash-info">
+            <span className="mp-dash-label">짝</span>
+            <span className="mp-dash-val">{matchedCount} / {TOTAL_PAIRS}</span>
+          </div>
+        </div>
+
+
+        
+
+        <div className="mp-dash-sep" />
+
         <button className="mp-btn-restart" onClick={onRestart}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
                strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
