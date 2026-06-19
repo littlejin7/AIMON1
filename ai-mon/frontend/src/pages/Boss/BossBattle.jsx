@@ -5,6 +5,48 @@ import charRobotIcon  from '../../assets/character_robot.png'
 import charBubbleIcon from '../../assets/character_bubble.png'
 import charGhostIcon  from '../../assets/character_final_ghost.png'
 
+function parseQuestionCode(raw) {
+  const match = raw.match(/^([\s\S]*?)```(?:python)?\n([\s\S]*?)```([\s\S]*)$/m)
+  if (!match) return { questionText: raw.trim(), codeLines: null }
+  const before = match[1].trim()
+  const after  = match[3].trim()
+  const code   = match[2].trimEnd()
+  const questionText = [before, after].filter(Boolean).join('\n').trim()
+  const codeLines    = code.split('\n')
+  return { questionText, codeLines }
+}
+
+/** 슬라이드와 동일한 터미널 스타일 코드 블록 */
+function TerminalBlock({ lines }) {
+  return (
+    <div style={{ marginBottom: '12px', borderRadius: '10px', overflow: 'hidden', border: '1px solid #313244' }}>
+      {/* 터미널 헤더 */}
+      <div style={{
+        background: '#181825', padding: '6px 12px',
+        display: 'flex', alignItems: 'center', gap: '6px',
+      }}>
+        <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#ff5f57', display: 'inline-block' }} />
+        <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#febc2e', display: 'inline-block' }} />
+        <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#28c840', display: 'inline-block' }} />
+        <span style={{ color: '#585b70', fontSize: '0.72rem', marginLeft: 8 }}>Python</span>
+      </div>
+      {/* 코드 라인 */}
+      <div style={{
+        background: '#1e1e2e', padding: '0.85rem 1rem',
+        fontFamily: 'monospace', fontSize: '1.4rem', color: '#cdd6f4',
+        whiteSpace: 'pre', overflowX: 'auto',
+      }}>
+        {lines.map((line, i) => (
+          <div key={i} style={{ color: line.trim().startsWith('#') ? '#6c7086' : '#cdd6f4' }}>
+            <span style={{ color: '#585b70', userSelect: 'none', marginRight: 10 }}>&gt;&gt;&gt;</span>
+            {line}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function BossBattle({
   bossData,
   currentQuestion,
@@ -38,7 +80,8 @@ export default function BossBattle({
     charSlimeIcon
 
   const isCodeType = currentQuestion.type === 'code_input' || currentQuestion.type === 'fill_in_blank'
-
+  const { questionText, codeLines } = parseQuestionCode(currentQuestion.question)
+  
   return (
     <div className="boss-card battle-card card-glass animate-fade-in-up">
 
@@ -86,6 +129,10 @@ export default function BossBattle({
 
       {/* 퀴즈 카드 (공격 애니메이션 래퍼) */}
       <div ref={quizCardRef} className={`quiz-attack-wrap ${attackAnim ? 'attack-fly' : ''}`}>
+        <h2 className="battle-q-title" style={{ whiteSpace: 'pre-line', fontSize: '1.3rem', marginBottom: codeLines ? '10px' : '8px' }}>
+          {questionText}
+        </h2>
+        {codeLines && <TerminalBlock lines={codeLines} />}
         <h2 style={{ whiteSpace: 'pre-line', fontSize: '1.3rem', marginBottom: codeLines ? '10px' : '8px' }}>
           {questionText}
         </h2>
@@ -148,6 +195,7 @@ export default function BossBattle({
                       style={{
                         textAlign: 'left',
                         padding: '12px 16px',
+                        fontSize: '1.15rem',
                         justifyContent: 'flex-start',
                         border: selectedOption === optionKey
                           ? '1px solid var(--clr-primary)'
