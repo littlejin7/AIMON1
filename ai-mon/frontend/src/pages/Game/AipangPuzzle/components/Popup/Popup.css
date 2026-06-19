@@ -56,6 +56,11 @@
   animation-delay: 0.4s;
 }
 
+.popup-boss-row--large img {
+  width: 130px;
+  height: 130px;
+}
+
 @keyframes float-boss {
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(-12px); }
