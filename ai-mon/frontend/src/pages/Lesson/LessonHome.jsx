@@ -9,14 +9,86 @@ import LevelBadge from './LevelBadge'
 import './LessonHome.css'
 
 const UNIT_META = [
-  { icon: '🖨️', color: '#7c3aed', keywords: ['print', '변수', '자료형'] },
-  { icon: '📋', color: '#06b6d4', keywords: ['리스트', '딕셔너리'] },
-  { icon: '🔀', color: '#10b981', keywords: ['조건문', '논리 연산'] },
-  { icon: '🔁', color: '#f59e0b', keywords: ['for', 'while', 'break'] },
-  { icon: '⚙️', color: '#ef4444', keywords: ['함수', 'return', '스코프'] },
-  { icon: '📝', color: '#8b5cf6', keywords: ['문자열', '라이브러리'] },
-  { icon: '🌐', color: '#0ea5e9', keywords: ['파일', 'JSON', 'API'] },
-  { icon: '🤖', color: '#f59e0b', keywords: ['AI 에이전트'] },
+  {
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="4 17 10 11 4 5"></polyline>
+        <line x1="12" y1="19" x2="20" y2="19"></line>
+      </svg>
+    ),
+    color: '#7c3aed', keywords: ['print', '변수', '자료형']
+  },
+  {
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="4 7 4 4 20 4 20 7"></polyline>
+        <line x1="9" y1="20" x2="15" y2="20"></line>
+        <line x1="12" y1="4" x2="12" y2="20"></line>
+      </svg>
+    ),
+    color: '#06b6d4', keywords: ['리스트', '딕셔너리']
+  },
+  {
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#34D399" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="6" y1="3" x2="6" y2="15"></line>
+        <circle cx="18" cy="6" r="3"></circle>
+        <circle cx="6" cy="18" r="3"></circle>
+        <path d="M18 9a9 9 0 0 1-9 9"></path>
+      </svg>
+    ),
+    color: '#10b981', keywords: ['조건문', '논리 연산']
+  },
+  {
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="17 1 21 5 17 9"></polyline>
+        <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+        <polyline points="7 23 3 19 7 15"></polyline>
+        <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+      </svg>
+    ),
+    color: '#f59e0b', keywords: ['for', 'while', 'break']
+  },
+  {
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F472B6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+        <polyline points="2 17 12 22 22 17"></polyline>
+        <polyline points="2 12 12 17 22 12"></polyline>
+      </svg>
+    ),
+    color: '#ef4444', keywords: ['함수', 'return', '스코프']
+  },
+  {
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C084FC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5a2 2 0 0 0 2 2h1"></path>
+        <path d="M16 3h1a2 2 0 0 1 2 2v5a2 2 0 0 0 2 2 2 2 0 0 0-2 2v5a2 2 0 0 1-2 2h-1"></path>
+      </svg>
+    ),
+    color: '#8b5cf6', keywords: ['문자열', '라이브러리']
+  },
+  {
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+        <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"></path>
+      </svg>
+    ),
+    color: '#0ea5e9', keywords: ['파일', 'JSON', 'API']
+  },
+  {
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FB923C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
+        <path d="m5 3 1 2.5L8.5 6 6 7 5 9.5 4 7 1.5 6 4 5.5z"></path>
+        <path d="m19 17 1 2.5 2.5.5-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1z"></path>
+      </svg>
+    ),
+    color: '#f59e0b', keywords: ['AI 에이전트']
+  },
 ]
 
 export default function LessonHome() {
@@ -189,7 +261,7 @@ export default function LessonHome() {
             </div>
             <div className="lh-unit-body">
               <div className="lh-unit-row">
-                <span className="lh-unit-icon">👾</span>
+                <span className="lh-unit-icon" style={{ fontWeight: 900, fontSize: '1.2rem', letterSpacing: '0.15em', background: 'var(--grad-boss)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>BOSS</span>
                 <div className="lh-unit-text">
                   <span className="lh-unit-title">유닛보스 도전</span>
                   <div className="lh-unit-keywords">
