@@ -1,10 +1,4 @@
 [
-  // ============================================================
-  // PROJECT: ai_agent — AI 에이전트 (Tool Use)
-  // ============================================================
-
-  // ── Phase 1: fill_in_blank / error_find ──────────────────────
-
   {
     "question_id": "endboss_adv_ai_agent_p1_001",
     "quiz_category": "final_boss",
@@ -107,9 +101,6 @@
       "incorrect": "`return`문의 들여쓰기를 확인하세요. while 루프 내부에 있어 tool_use인 경우에도 첫 번째 순회 후 즉시 반환됩니다. `else: return` 구조로 바꿔야 합니다."
     }
   },
-
-  // ── Phase 2: code_input ────────────────────────────────────────
-
   {
     "question_id": "endboss_adv_ai_agent_p2_001",
     "quiz_category": "final_boss",
@@ -182,9 +173,6 @@
       "incorrect": "for _ in range(max_iterations)로 반복을 제한하고, stop_reason에 따라 분기하며 messages 순서(assistant → user)를 지켜야 합니다."
     }
   },
-
-  // ── Phase 3: code_input (설계 수준) ───────────────────────────
-
   {
     "question_id": "endboss_adv_ai_agent_p3_001",
     "quiz_category": "final_boss",
@@ -239,13 +227,6 @@
       "incorrect": "__init__에서 messages=[]로 초기화, chat에서 user 메시지 추가 → 에이전트 실행 → assistant 응답 추가, reset에서 messages=[] 재설정해야 합니다."
     }
   },
-
-  // ============================================================
-  // PROJECT: async_api — 비동기 API 클라이언트
-  // ============================================================
-
-  // ── Phase 1 ───────────────────────────────────────────────────
-
   {
     "question_id": "endboss_adv_async_api_p1_001",
     "quiz_category": "final_boss",
@@ -348,9 +329,6 @@
       "incorrect": "비동기 코드에서 `time.sleep()`은 이벤트 루프를 막아 다른 코루틴이 실행되지 않습니다. `await asyncio.sleep(1)`로 대체해야 합니다."
     }
   },
-
-  // ── Phase 2 ───────────────────────────────────────────────────
-
   {
     "question_id": "endboss_adv_async_api_p2_001",
     "quiz_category": "final_boss",
@@ -423,9 +401,6 @@
       "incorrect": "anthropic.AsyncAnthropic은 await client.messages.create()로 호출합니다. 각 프롬프트를 코루틴으로 만들어 asyncio.gather()로 병렬 실행하고 content[0].text를 반환합니다."
     }
   },
-
-  // ── Phase 3 ───────────────────────────────────────────────────
-
   {
     "question_id": "endboss_adv_async_api_p3_001",
     "quiz_category": "final_boss",
@@ -480,13 +455,6 @@
       "incorrect": "asyncio.as_completed()는 태스크가 완료되는 순서대로 이터레이션합니다. async def 함수에 yield를 써서 비동기 제너레이터로 만들고, 각 future를 await해 결과를 받습니다."
     }
   },
-
-  // ============================================================
-  // PROJECT: fastapi_server — FastAPI AI 서버
-  // ============================================================
-
-  // ── Phase 1 ───────────────────────────────────────────────────
-
   {
     "question_id": "endboss_adv_fastapi_server_p1_001",
     "quiz_category": "final_boss",
@@ -589,9 +557,6 @@
       "incorrect": "`cursor.execute()` 후 `conn.commit()`이 없으면 변경 사항이 DB에 반영되지 않습니다. `cursor.execute()` 다음 줄에 `conn.commit()`을 추가해야 합니다."
     }
   },
-
-  // ── Phase 2 ───────────────────────────────────────────────────
-
   {
     "question_id": "endboss_adv_fastapi_server_p2_001",
     "quiz_category": "final_boss",
@@ -664,9 +629,6 @@
       "incorrect": "HTTPBearer()로 토큰을 추출하고, jwt.decode()로 검증하며, 실패 시 HTTPException(401)을 raise합니다. `Depends(security)`로 의존성 주입합니다."
     }
   },
-
-  // ── Phase 3 ───────────────────────────────────────────────────
-
   {
     "question_id": "endboss_adv_fastapi_server_p3_001",
     "quiz_category": "final_boss",
@@ -721,13 +683,6 @@
       "incorrect": "await file.read()로 바이트를 읽고, len(content) > 10*1024로 크기를 확인합니다. content.decode('utf-8')로 문자열로 변환 후 Claude에 요약을 요청합니다."
     }
   },
-
-  // ============================================================
-  // PROJECT: langchain_bot — LangChain RAG 봇
-  // ============================================================
-
-  // ── Phase 1 ───────────────────────────────────────────────────
-
   {
     "question_id": "endboss_adv_langchain_bot_p1_001",
     "quiz_category": "final_boss",
@@ -830,9 +785,6 @@
       "incorrect": "`FAISS.load()`는 디스크에 저장된 인덱스를 로드할 때 씁니다. 문서 리스트로 새 벡터스토어를 만들려면 `FAISS.from_documents(docs, embeddings)`를 사용해야 합니다."
     }
   },
-
-  // ── Phase 2 ───────────────────────────────────────────────────
-
   {
     "question_id": "endboss_adv_langchain_bot_p2_001",
     "quiz_category": "final_boss",
@@ -905,9 +857,6 @@
       "incorrect": "파일을 read()로 읽고, RecursiveCharacterTextSplitter로 분할, Document 리스트로 변환, FAISS.from_documents()로 벡터스토어를 만듭니다."
     }
   },
-
-  // ── Phase 3 ───────────────────────────────────────────────────
-
   {
     "question_id": "endboss_adv_langchain_bot_p3_001",
     "quiz_category": "final_boss",
