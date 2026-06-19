@@ -144,7 +144,7 @@ export default function HomeDashboard({ user, stats, onOpenLevelTest }) {
             </span>
           )}
         </div>
-
+      </div>
       {/* 스탯 카드 */}
       {stats && (
         <div className="home-stats stagger container">
