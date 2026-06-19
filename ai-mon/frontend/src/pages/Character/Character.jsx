@@ -1,6 +1,7 @@
 import { useAuthStore } from '../../hooks/useAuthStore'
 import { userApi, progressApi } from '../../api/index'
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import CharacterDisplay from '../../components/CharacterDisplay/CharacterDisplay'
 import './Character.css'
 import Title from '../../components/titles/title'
@@ -14,6 +15,7 @@ const CHARACTERS = [
 export default function Character() {
   const user = useAuthStore((s) => s.user)
   const updateUser = useAuthStore((s) => s.updateUser)
+  const navigate = useNavigate()
   const [selected, setSelected] = useState(user?.character || 'slime')
   const [saving, setSaving]     = useState(false)
   const [saved, setSaved]       = useState(false)
@@ -48,7 +50,20 @@ export default function Character() {
   return (
     <div className="character-page">
       <div className="page-header">
-        <h1 className="page-title">🤖 내 캐릭터</h1>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <h1 className="page-title">🤖 내 캐릭터</h1>
+          <button
+            className="btn btn-ghost btn-sm"
+            onClick={() => navigate('/')}
+            style={{ display: 'flex', alignItems: 'center', gap: 4 }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            홈으로
+          </button>
+        </div>
         <p className="text-muted text-sm">캐릭터를 선택하고 커스터마이즈하세요</p>
       </div>
 
