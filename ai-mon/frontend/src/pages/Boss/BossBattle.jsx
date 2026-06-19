@@ -43,23 +43,43 @@ export default function BossBattle({
     <div className="boss-card battle-card card-glass animate-fade-in-up">
 
       {/* 보스 HP 바 */}
-      <div className="boss-hp-bar">
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '0.85rem' }}>
-          <span style={{ fontWeight: 'bold', color: '#f38ba8' }}>😈 {bossData?.boss_name}</span>
-          <span>{bossHp} / {BOSS_HP_MAX} HP</span>
-        </div>
-        <div className="hp-bar" style={{ background: '#313244', height: '10px', borderRadius: '5px', overflow: 'hidden' }}>
-          <div className="hp-fill" style={{ width: `${(bossHp / BOSS_HP_MAX) * 100}%`, background: '#f38ba8', transition: 'width 0.3s ease', height: '100%' }} />
-        </div>
+     <div style={{ width: '100%' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px', fontSize: '0.85rem', gap: '8px' }}>
+        <span style={{ fontWeight: 'bold', color: '#f38ba8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1, minWidth: 0 }}>
+          😈 {bossData?.boss_name}
+        </span>
+        <span style={{ whiteSpace: 'nowrap', flexShrink: 0, color: '#cdd6f4' }}>
+          {bossHp} / {BOSS_HP_MAX} HP
+        </span>
       </div>
-
+      <div style={{ width: '100%', height: '12px', background: '#313244', borderRadius: '6px', overflow: 'hidden' }}>
+        <div style={{
+          width: `${Math.max(0, (bossHp / BOSS_HP_MAX) * 100)}%`,
+          height: '100%',
+          background: 'linear-gradient(90deg, #f38ba8, #e64d6d)',
+          borderRadius: '6px',
+          transition: 'width 0.4s ease',
+        }} />
+      </div>
+    </div>
       {/* 보스 아바타 */}
-      <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', margin: '16px 0' }}>
+      <div
+        className={bossShake ? 'boss-shake' : ''}
+        style={{ position: 'relative', display: 'flex', justifyContent: 'center', margin: '8px 0' }}
+      >
         <img
           src={bossQnaIcon}
           alt="보스"
-          className={`battle-boss-icon ${bossShake ? 'boss-shake' : ''} ${bossHit ? 'boss-hit' : ''}`}
-          style={{ width: '120px', height: '120px', objectFit: 'contain' }}
+          className={`battle-boss-icon ${bossHit ? 'boss-hit' : ''}`}
+          style={{
+            width: '300px',
+            height: '300px',
+            objectFit: 'contain',
+            transform: `scale(${bossScale})`,
+            transition: 'transform 0.6s ease',
+            transformOrigin: 'center bottom',
+            display: 'block',
+          }}
         />
         {dmgPopup && <div className="dmg-popup">-{dmgPopup}</div>}
       </div>
