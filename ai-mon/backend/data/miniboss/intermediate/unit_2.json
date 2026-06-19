@@ -369,7 +369,7 @@
     {
       "question_id": "miniboss_int_fib_2_2_008",
       "type": "fill_in_blank",
-      "question": "빈칸을 채워 세 값이 각각 한 줄씩 출력되도록 하세요.\n\n```python\ndef show(*args):\n    for item in args:\n        print(item)\n```",
+      "question": "빈칸을 채워 세 값이 각각 한 줄씩 출력되도록 하세요.\n\n```python\ndef show(*args):\n    for item in args:\n        print(item)\n\nshow(_____)\n```",
       "answer": "'에이몬', '로봇', '고스트'",
       "difficulty": "hard",
       "explanation": "*args는 전달된 인수들을 튜플로 묶어 받아요. 몇 개를 넘겨도 모두 args 안에 담기며, for문으로 하나씩 꺼내 출력할 수 있습니다.",
@@ -387,7 +387,7 @@
     {
       "question_id": "miniboss_int_os_2_2_009",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef get_info():\n    return '에이몬', 15, 800\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef get_info():\n    return '에이몬', 15, 800\n\nname, level, hp = get_info()\nprint(f'{name} Lv.{level} HP:{hp}')\n```",
       "answer": "A",
       "difficulty": "hard",
       "explanation": "함수가 여러 값을 반환하면 자동으로 튜플로 패킹돼요. name, level, hp =로 언패킹하면 각 변수에 분리 할당됩니다.",
