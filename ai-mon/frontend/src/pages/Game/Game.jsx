@@ -9,7 +9,7 @@ const GAMES = [
   {
     id: 'aipang',
     icon: icon: <img src={aipangIconUrl} alt="AIPang" style={{ width: 200, height: 200, ... }} />,
-    title: 'AI팡 퍼즐',
+    title: '에이팡',
     desc: '우주 속 AI 친구들과 떠나는 퍼즐 모험!',
     reward: '왕관 획득',
     rewardIcon: '👑',
@@ -20,7 +20,7 @@ const GAMES = [
     id: 'pairs',
     icon:   icon: <img src={aipairIconUrl} alt="AIPair"                    
          style={{ width: 200, height: 200, ... }} />,
-    title: 'AI Pair',
+    title: '에이짝',
     desc: '같은 카드 맞추기!',
     reward: 'XP 100~300',
     rewardIcon: '⚡',
@@ -30,7 +30,7 @@ const GAMES = [
   {
     id: 'runner',
     icon: <img src={airunIconUrl} alt="AIrun" style={{ width: 200, height: 200, display: 'block', margin: '0 auto' }} />,
-    title: 'AI런 OX퀴즈',
+    title: '에이런',
     desc: '달리고! 피하고! 맞혀라!',
     reward: 'XP 200~500',
     rewardIcon: '⚡',
@@ -40,7 +40,7 @@ const GAMES = [
   {
     id: 'aibomb',
     icon: <img src={aibombIconUrl} alt="AIbomb" style={{ width: 200, height: 200, display: 'block', margin: '0 auto' }} />,
-    title: 'AI 코딩 폭탄 해제',
+    title: '에이밤',
     desc: '코딩을 배우고,코드를 입력해 폭탄을 해제하라 !',
     reward: 'XP 100',
     rewardIcon: '⚡',
