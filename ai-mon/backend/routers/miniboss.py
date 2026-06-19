@@ -244,7 +244,8 @@ def miniboss_clear(req: ClearRequest, authorization: str = Header(...)):
         progress = load_progress()
         existing = next(
             (p for p in progress if p["user_id"] == user_id
-             and p["unit"] == req.unit and p["stage"] == req.stage),
+             and p["unit"] == req.unit and p["stage"] == req.stage
+             and p.get("course_level", "beginner") == course_level),
             None,
         )
         if existing:

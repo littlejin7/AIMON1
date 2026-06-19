@@ -105,7 +105,7 @@ export default function Stage({ _lessonId, _stage }) {
     }).then(r => r.data).catch(() => [])
 
     const fetchProgress = token
-      ? progressApi.getProgress().then(r => r.data).catch(() => [])
+      ? progressApi.getProgress(courseLevel).then(r => r.data).catch(() => [])
       : Promise.resolve([])
 
     Promise.all([fetchUnit, fetchSlides, fetchQuestions, fetchProgress])

@@ -276,7 +276,9 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
     if is_clear:
         from routers.progress import load_progress, save_progress
         progress = load_progress()
-        existing = next((p for p in progress if p["user_id"] == user_id and p["unit"] == question.get("unit") and p["stage"] == question.get("stage")), None)
+        unit_val = int(req.unit) if req.unit is not None else int(question.get("unit", 1))
+        stage_val = question.get("stage", f"{unit_val}-boss")
+        existing = next((p for p in progress if p["user_id"] == user_id and p["unit"] == unit_val and p["stage"] == stage_val and p.get("course_level", "beginner") == course_level), None)
         
         award_xp = False
         if existing:
@@ -290,8 +292,8 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
             progress.append({
                 "id": str(uuid.uuid4()),
                 "user_id": user_id,
-                "unit": question.get("unit", 1),
-                "stage": question.get("stage", "1-boss"),
+                "unit": unit_val,
+                "stage": stage_val,
                 "score": ai_result.get("score", 100),
                 "is_completed": True,
                 "course_level": course_level,
