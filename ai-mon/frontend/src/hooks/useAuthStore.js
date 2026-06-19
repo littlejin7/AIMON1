@@ -27,6 +27,10 @@ export const useAuthStore = create(
         document.documentElement.setAttribute('data-theme', theme)
         set({ theme })
       },
+      bgmVolume: 0.5,
+      sfxVolume: 0.8,
+      setBgmVolume: (v) => set({ bgmVolume: v }),
+      setSfxVolume: (v) => set({ sfxVolume: v }),
     }),
     {
       name: 'aimon-auth',
