@@ -1,5 +1,5 @@
 import { useRef, useEffect, useCallback } from 'react'
-
+import { useSoundStore } from './useSoundStore'
 /**
  * useHomeSound
  * lookahead scheduler 방식으로 BGM을 안정적으로 루프 재생합니다.
@@ -13,7 +13,7 @@ export default function useHomeSound() {
   const isPlayingRef   = useRef(false)
   const schedulerRef   = useRef(null)
   const nextBarTimeRef = useRef(0)
-  const volumeRef      = useRef(0.55)
+  const _bgmVol = () => useSoundStore.getState().bgmVolume
 
   const currentTypeRef = useRef('lounge')
 
@@ -53,7 +53,7 @@ export default function useHomeSound() {
     o.type = type
     o.frequency.value = freq
     const g = ac.createGain()
-    g.gain.setValueAtTime(vol * volumeRef.current, Math.max(start, ac.currentTime))
+    g.gain.setValueAtTime(vol * _bgmVol(), Math.max(start, ac.currentTime))
     g.gain.linearRampToValueAtTime(0, start + dur)
     o.connect(g)
     g.connect(ac.destination)
@@ -73,14 +73,13 @@ export default function useHomeSound() {
     const src = ac.createBufferSource()
     src.buffer = buf
     const g = ac.createGain()
-    g.gain.value = vol * volumeRef.current
+    g.gain.value = vol * _bgmVol()
     src.connect(g)
     g.connect(ac.destination)
     src.start(start)
   }
 
   // ─── Lounge BGM 1바 예약 (2.0s / 루프) ─────────────────────
-
   function _scheduleLoungeBar(ac, t) {
     const pad  = [196, 247, 294, 330]
     const beat = 0.5
@@ -95,8 +94,8 @@ export default function useHomeSound() {
       const g = ac.createGain()
       const s = Math.max(st, ac.currentTime)
       g.gain.setValueAtTime(0, s)
-      g.gain.linearRampToValueAtTime(0.10 * volumeRef.current, s + 0.25)
-      g.gain.linearRampToValueAtTime(0.07 * volumeRef.current, st + beat * 0.85)
+      g.gain.linearRampToValueAtTime(0.10 * _bgmVol(), s + 0.25)
+      g.gain.linearRampToValueAtTime(0.07 * _bgmVol(), st + beat * 0.85)
       g.gain.linearRampToValueAtTime(0, st + beat * 1.05)
       o.connect(g); g.connect(ac.destination)
       o.start(s); o.stop(st + beat * 1.1)
@@ -107,11 +106,12 @@ export default function useHomeSound() {
       o2.frequency.value = f * 2
       const g2 = ac.createGain()
       g2.gain.setValueAtTime(0, s)
-      g2.gain.linearRampToValueAtTime(0.04 * volumeRef.current, s + 0.25)
+      g2.gain.linearRampToValueAtTime(0.04 * _bgmVol(), s + 0.25)
       g2.gain.linearRampToValueAtTime(0, st + beat)
       o2.connect(g2); g2.connect(ac.destination)
       o2.start(s); o2.stop(st + beat + 0.01)
     })
+
 
     // 저음 베이스 (2박마다)
     ;[98, 110].forEach((f, i) => {
@@ -194,9 +194,6 @@ export default function useHomeSound() {
     _stop()
   }, [])
 
-  const setVolume = useCallback((v) => {
-    volumeRef.current = Math.max(0, Math.min(1, v))
-  }, [])
 
-  return { playBGM, stopBGM, setVolume }
+  return { playBGM, stopBGM }
 }
