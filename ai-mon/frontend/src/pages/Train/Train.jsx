@@ -115,7 +115,13 @@ export default function Train() {
             실력을 복습하고 성장시킬 수 있는 훈련장이 해금됩니다!
           </p>
           <button className="btn btn-primary btn-lg btn-full" onClick={() => navigate('/lesson')}>
-            📚 레슨으로 가기
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              </svg>
+              레슨으로 가기
+            </span>
           </button>
         </div>
       </div>
@@ -125,12 +131,25 @@ export default function Train() {
   if (mode === 'idle') {
     return (
       <div className="train-page container">
-        <h1 className="train-title">⚔️ 훈련장</h1>
+        <h1 className="train-title" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/>
+            <line x1="13" y1="19" x2="19" y2="13"/>
+            <line x1="16" y1="16" x2="20" y2="20"/>
+            <line x1="19" y1="21" x2="21" y2="19"/>
+          </svg>
+          훈련장
+        </h1>
         <p className="train-desc">
           오답 노트와 부족한 개념을 복습하고, 추가 <strong>XP</strong>와 <strong>왕관</strong>을 획득하세요!
         </p>
-        <div className="train-card card-glass animate-fade-in-up">
-          <div className="train-icon">📚</div>
+        <div className="train-card card-glass animate-fade-in-up" style={{ textAlign: 'center' }}>
+          <div className="train-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+          </div>
           <h2>오늘의 복습 훈련</h2>
           <p>내 레벨({user?.course_level})에 맞는 복습 문제 15개가 준비되어 있습니다.</p>
           
