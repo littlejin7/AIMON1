@@ -116,7 +116,16 @@ export default function AuthForm({
       >
         {loading ? (
           <><span className="spinner" style={{ width: 20, height: 20, borderWidth: 2 }} /> 처리 중...</>
-        ) : mode === 'login' ? '🚀 로그인' : (
+        ) : mode === 'login' ? (
+          <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+              <polyline points="10 17 15 12 10 7" />
+              <line x1="15" y1="12" x2="3" y2="12" />
+            </svg>
+            로그인
+          </span>
+        ) : (
           <><img src={beginnerHappyIcon} alt="에이몬" style={{ width: '50px', height: '50px', objectFit: 'contain', verticalAlign: 'middle' }} /><span> 에이몬 시작하기</span></>
         )}
       </button>
