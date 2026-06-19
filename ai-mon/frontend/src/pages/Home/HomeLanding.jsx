@@ -33,16 +33,25 @@ export default function HomeLanding({ onOpenLevelTest }) {
             id="btn-free-trial"
             className="btn btn-primary btn-lg"
             onClick={() => navigate('/stage/1/1')}
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}
           >
-            🚀 바로 체험하기
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7" />
+              <polyline points="7 7 17 7 17 17" />
+            </svg>
+            바로 체험하기
           </button>
           <button
             id="btn-level-test"
             className="btn btn-ghost btn-lg"
             onClick={() => navigate('/level-test-info')}
-            style={{ border: '1px solid rgba(124,58,237,0.45)', color: 'var(--clr-primary-lt)' }}
+           style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, border: '1px solid rgba(124,58,237,0.45)', color: 'var(--clr-primary-lt)' }}
           >
-            🔍 내 에이몬 찾기 (레벨 테스트)
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            내 에이몬 찾기 (레벨 테스트)
           </button>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '12px', marginTop: '8px', fontSize: '0.88rem' }}>
             <button
