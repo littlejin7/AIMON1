@@ -1,5 +1,5 @@
 import { useRef, useEffect, useCallback } from 'react'
-
+import { useSoundStore } from './useSoundStore'
 /**
  * useBossSound
  *
@@ -15,7 +15,8 @@ import { useRef, useEffect, useCallback } from 'react'
 export default function useBossSound() {
   const ctxRef          = useRef(null)
   const bgmNodesRef     = useRef([])
-  const volumeRef       = useRef(0.6)
+  const _bgmVol = () => useSoundStore.getState().bgmVolume
+  const _sfxVol = () => useSoundStore.getState().sfxVolume
   // battle BGM lookahead scheduler
   const battlePlayRef   = useRef(false)
   const battleTimerRef  = useRef(null)
@@ -56,7 +57,7 @@ export default function useBossSound() {
   }
 
   /** 오실레이터 하나 생성 후 재생 */
-  function _note(ac, type, freq, start, dur, vol, freqEnd) {
+  function _note(ac, type, freq, start, dur, vol, freqEnd, volMult = _bgmVol()) {
     const o = ac.createOscillator()
     o.type = type
     o.frequency.setValueAtTime(freq, start)
@@ -64,7 +65,7 @@ export default function useBossSound() {
       o.frequency.linearRampToValueAtTime(freqEnd, start + dur)
     }
     const g = ac.createGain()
-    g.gain.setValueAtTime(vol * volumeRef.current, start)
+    g.gain.setValueAtTime(vol * volMult, start)
     g.gain.linearRampToValueAtTime(0, start + dur)
     o.connect(g)
     g.connect(ac.destination)
@@ -74,7 +75,7 @@ export default function useBossSound() {
   }
 
   /** 화이트노이즈 버퍼 생성 후 재생 */
-  function _noise(ac, start, dur, vol, decay) {
+  function _noise(ac, start, dur, vol, decay, volMult = _bgmVol()) {
     const sr  = ac.sampleRate
     const buf = ac.createBuffer(1, Math.ceil(sr * dur), sr)
     const d   = buf.getChannelData(0)
@@ -84,7 +85,7 @@ export default function useBossSound() {
     const src = ac.createBufferSource()
     src.buffer = buf
     const g = ac.createGain()
-    g.gain.value = vol * volumeRef.current
+    g.gain.value = vol * volMult
     src.connect(g)
     g.connect(ac.destination)
     src.start(start)
@@ -136,7 +137,7 @@ export default function useBossSound() {
     o.frequency.setValueAtTime(55, t)
     o.frequency.linearRampToValueAtTime(41, t + 2.8)
     const g = ac.createGain()
-    g.gain.setValueAtTime(0.30 * volumeRef.current, t)
+    g.gain.setValueAtTime(0.30 * _bgmVol(), t)
     g.gain.linearRampToValueAtTime(0, t + 2.8)
     o.connect(g)
     g.connect(ac.destination)
@@ -157,8 +158,9 @@ export default function useBossSound() {
     o0.frequency.setValueAtTime(40, t)
     const g0 = ac.createGain()
     g0.gain.setValueAtTime(0,                    t)
-    g0.gain.linearRampToValueAtTime(0.45 * volumeRef.current, t + 1.0)
-    g0.gain.linearRampToValueAtTime(0.35 * volumeRef.current, t + 4.0)
+    g0.gain.setValueAtTime(0,                    t)
+    g0.gain.linearRampToValueAtTime(0.45 * _bgmVol(), t + 1.0)
+    g0.gain.linearRampToValueAtTime(0.35 * _bgmVol(), t + 4.0)
     g0.gain.linearRampToValueAtTime(0,            t + 5.0)
     o0.connect(g0)
     g0.connect(ac.destination)
@@ -202,7 +204,7 @@ export default function useBossSound() {
     sweep.frequency.setValueAtTime(800, t + 3.5)
     sweep.frequency.linearRampToValueAtTime(60,  t + 5.0)
     const sg = ac.createGain()
-    sg.gain.setValueAtTime(0.12 * volumeRef.current, t + 3.5)
+    sg.gain.setValueAtTime(0.12 * _bgmVol(), t + 3.5)
     sg.gain.linearRampToValueAtTime(0, t + 5.0)
     sweep.connect(sg)
     sg.connect(ac.destination)
@@ -231,7 +233,7 @@ export default function useBossSound() {
       o.type = 'sawtooth'
       o.frequency.value = f
       const g = ac.createGain()
-      g.gain.setValueAtTime(0.18 * volumeRef.current, Math.max(st, ac.currentTime))
+      g.gain.setValueAtTime(0.18 * _bgmVol(), Math.max(st, ac.currentTime))
       g.gain.linearRampToValueAtTime(0, st + noteLen * 0.8)
       o.connect(g); g.connect(ac.destination)
       o.start(Math.max(st, ac.currentTime)); o.stop(st + noteLen)
@@ -244,7 +246,7 @@ export default function useBossSound() {
       o.type = 'square'
       o.frequency.value = f
       const g = ac.createGain()
-      g.gain.setValueAtTime(0.10 * volumeRef.current, Math.max(st, ac.currentTime))
+      g.gain.setValueAtTime(0.10 * _bgmVol(), Math.max(st, ac.currentTime)))
       g.gain.linearRampToValueAtTime(0, st + noteLen * 0.8)
       o.connect(g); g.connect(ac.destination)
       o.start(Math.max(st, ac.currentTime)); o.stop(st + noteLen)
@@ -302,17 +304,19 @@ export default function useBossSound() {
 
   function _playAttack(ac) {
     const t = ac.currentTime
-    _note(ac, 'square', 440,  t,        0.05, 0.30)
-    _note(ac, 'square', 660,  t + 0.05, 0.05, 0.30)
-    _note(ac, 'square', 880,  t + 0.10, 0.10, 0.40)
-    _note(ac, 'sine',   1320, t + 0.15, 0.20, 0.25, 880)
+    const sv = _sfxVol()
+    _note(ac, 'square', 440,  t,        0.05, 0.30, undefined, sv)
+    _note(ac, 'square', 660,  t + 0.05, 0.05, 0.30, undefined, sv)
+    _note(ac, 'square', 880,  t + 0.10, 0.10, 0.40, undefined, sv)
+    _note(ac, 'sine',   1320, t + 0.15, 0.20, 0.25, 880,       sv)
   }
 
   function _playHit(ac) {
     const t = ac.currentTime
-    _noise(ac, t, 0.3, 0.6, 0.08)
-    _note(ac, 'sawtooth', 150, t,        0.05, 0.30, 60)
-    _note(ac, 'sawtooth', 80,  t + 0.05, 0.20, 0.25, 30)
+    const sv = _sfxVol()
+    _noise(ac, t, 0.3, 0.6, 0.08, sv)
+    _note(ac, 'sawtooth', 150, t,        0.05, 0.30, 60,  sv)
+    _note(ac, 'sawtooth', 80,  t + 0.05, 0.20, 0.25, 30,  sv)
   }
 
   // ─── 공개 API ────────────────────────────────────────────────
@@ -368,10 +372,5 @@ export default function useBossSound() {
     }
   }, [])
 
-  /** 볼륨 설정 (0.0 ~ 1.0) */
-  const setVolume = useCallback((v) => {
-    volumeRef.current = Math.max(0, Math.min(1, v))
-  }, [])
-
-  return { playBGM, stopBGM, playSFX, setVolume }
+  return { playBGM, stopBGM, playSFX }
 }
