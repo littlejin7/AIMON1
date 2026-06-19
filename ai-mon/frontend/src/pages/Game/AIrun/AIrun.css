@@ -378,3 +378,27 @@
 .rg-btn-danger:hover {
   box-shadow: 0 6px 24px rgba(183,28,28,0.6);
 }
+
+/* ── 카운트다운 ─────────────────────────────── */
+.rg-countdown {
+  font-size: 140px;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 0 40px rgba(255,255,255,0.6), 0 4px 20px rgba(0,0,0,0.8);
+  animation: rg-countdown-pop 0.9s ease-out forwards;
+  letter-spacing: -4px;
+}
+
+.rg-countdown-go {
+  font-size: 100px;
+  color: #69f0ae;
+  text-shadow: 0 0 40px rgba(105,240,174,0.8), 0 4px 20px rgba(0,0,0,0.8);
+  letter-spacing: 4px;
+}
+
+@keyframes rg-countdown-pop {
+  0%   { transform: scale(1.6); opacity: 0; }
+  30%  { transform: scale(0.95); opacity: 1; }
+  70%  { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.7); opacity: 0; }
+}
