@@ -61,6 +61,38 @@
   100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
 }
 
+
+/* Boss HP bar 명시적 스타일 */
+.boss-hp-bar {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.boss-hp-bar .hp-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+  font-size: 0.85rem;
+  gap: 8px;
+}
+
+.boss-hp-bar .boss-name-label {
+  font-weight: bold;
+  color: #f38ba8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  flex: 1;
+}
+
+.boss-hp-bar .boss-hp-label {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+
 /* Battle */
 .battle-header {
   display: flex;
@@ -190,9 +222,8 @@
 }
 
 .battle-boss-icon {
-  width: 200px;
-  height: 200px;
   object-fit: contain;
+  display: block;
 }
 
 @keyframes shake {
