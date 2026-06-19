@@ -246,7 +246,7 @@ export default function useBossSound() {
       o.type = 'square'
       o.frequency.value = f
       const g = ac.createGain()
-      g.gain.setValueAtTime(0.10 * _bgmVol(), Math.max(st, ac.currentTime)))
+      g.gain.setValueAtTime(0.10 * _bgmVol(), Math.max(st, ac.currentTime))
       g.gain.linearRampToValueAtTime(0, st + noteLen * 0.8)
       o.connect(g); g.connect(ac.destination)
       o.start(Math.max(st, ac.currentTime)); o.stop(st + noteLen)
