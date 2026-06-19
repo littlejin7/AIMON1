@@ -66,9 +66,10 @@ export default function BossBattle({
 
       {/* 퀴즈 카드 (공격 애니메이션 래퍼) */}
       <div ref={quizCardRef} className={`quiz-attack-wrap ${attackAnim ? 'attack-fly' : ''}`}>
-        <h2 className="battle-q-title" style={{ whiteSpace: 'pre-line', fontSize: '1.1rem', marginBottom: '8px' }}>
-          {currentQuestion.question}
+        <h2 style={{ whiteSpace: 'pre-line', fontSize: '1.3rem', marginBottom: codeLines ? '10px' : '8px' }}>
+          {questionText}
         </h2>
+        {codeLines && <TerminalBlock lines={codeLines} />}
 
         {/* AI 채점 결과 or 문제 입력 */}
         {aiResult ? (
