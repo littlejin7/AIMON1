@@ -37,7 +37,11 @@ export function spawnObstacle(game) {
 }
 
 export function spawnQuizGate(game) {
-  const quiz = game.quizPool[game.quizIndex++ % game.quizPool.length];
+  if (game.quizIndex >= game.quizPool.length) {
+    game.quizPool = [...game.quizPool].sort(() => Math.random() - 0.5);
+    game.quizIndex = 0;
+  }
+  const quiz = game.quizPool[game.quizIndex++];
   const group = new THREE.Group();
   group.position.z = game.nextQuizZ;
 
