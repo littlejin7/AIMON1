@@ -133,16 +133,36 @@ export class RunnerEngine {
   }
 
   _startGame() {
-    this.overlay.style.display = 'none';
-    this.state = 'running';
     this.score = 0;
     this.hp = 3;
     this.distance = 0;
     this.speed = 0.5;
     this._updateHUD();
-    this.sound.startBGM();
+    this._showCountdown();
   }
 
+  _showCountdown() {
+    this.state = 'countdown';
+    let count = 5;
+    const show = () => {
+      this.overlay.style.display = 'flex';
+      this.overlay.innerHTML = `
+        <div class="rg-countdown">${count}</div>
+      `;
+      count--;
+      if (count >= 0) {
+        setTimeout(show, 1000);
+      } else {
+        this.overlay.innerHTML = `<div class="rg-countdown rg-countdown-go">GO!</div>`;
+        setTimeout(() => {
+          this.overlay.style.display = 'none';
+          this.state = 'running';
+          this.sound.startBGM();
+        }, 700);
+      }
+    };
+    show();
+  }
   _showQuizPanel(quiz) {
     this.state = 'quiz';
     this.currentQuiz = quiz;
