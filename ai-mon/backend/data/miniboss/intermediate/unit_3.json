@@ -219,7 +219,7 @@
     {
       "question_id": "miniboss_int_os_3_2_001",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef greet(*args):\n    for name in args:\n        print(f'안녕, {name}!')\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef greet(*args):\n    for name in args:\n        print(f'안녕, {name}!')\n\ngreet('Amy', 'Ben')\n```",
       "answer": "B",
       "difficulty": "easy",
       "explanation": "*args는 여러 인수를 튜플로 받아요. for 루프로 하나씩 꺼내 출력하면 각 이름이 한 줄씩 출력됩니다.",
@@ -261,7 +261,7 @@
     {
       "question_id": "miniboss_int_os_3_2_003",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef total(*args):\n    return sum(args)\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef total(*args):\n    return sum(args)\n\nprint(total(1, 2, 3))\nprint(total(10, 20))\n```",
       "answer": "A",
       "difficulty": "medium",
       "explanation": "sum(args)는 *args로 받은 튜플의 합계를 반환해요. total(1, 2, 3) = 6, total(10, 20) = 30입니다.",
@@ -285,7 +285,7 @@
     {
       "question_id": "miniboss_int_fib_3_2_004",
       "type": "fill_in_blank",
-      "question": "빈칸을 채워 리스트를 언패킹해 함수에 전달하세요.\n\n```python\ndef add(a, b, c):\n    return a + b + c\n```",
+      "question": "빈칸을 채워 리스트를 언패킹해 함수에 전달하세요.\n\n```python\ndef add(a, b, c):\n    return a + b + c\n\nnums = [1, 2, 3]\nprint(add(_____nums))\n# 출력 목표: 6\n```",
       "answer": "*",
       "difficulty": "medium",
       "explanation": "*리스트를 함수 호출 시 사용하면 리스트 요소들이 개별 인수로 언패킹돼요. add(*[1, 2, 3])은 add(1, 2, 3)과 동일합니다.",
@@ -303,7 +303,7 @@
     {
       "question_id": "miniboss_int_os_3_2_005",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef profile(name, **kwargs):\n    print(name)\n    print(kwargs)\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef profile(name, **kwargs):\n    print(name)\n    print(kwargs)\n\nprofile('Amy', age=20, city='Busan')\n```",
       "answer": "A",
       "difficulty": "medium",
       "explanation": "name은 위치 인수로 'Amy'를 받고, **kwargs는 나머지 키워드 인수를 딕셔너리로 받아요. kwargs = {'age': 20, 'city': 'Busan'}이 됩니다.",
@@ -327,7 +327,7 @@
     {
       "question_id": "miniboss_int_fib_3_2_006",
       "type": "fill_in_blank",
-      "question": "빈칸을 채워 딕셔너리를 언패킹해 함수에 전달하세요.\n\n```python\ndef greet(name, age):\n    print(f'{name}은 {age}살')\n```",
+      "question": "빈칸을 채워 딕셔너리를 언패킹해 함수에 전달하세요.\n\n```python\ndef greet(name, age):\n    print(f'{name}은 {age}살')\n\ninfo = {'name': '에이몬', 'age': 10}\ngreet(_____info)\n# 출력 목표: 에이몬은 10살\n```",
       "answer": "**",
       "difficulty": "medium",
       "explanation": "**딕셔너리를 함수 호출 시 사용하면 딕셔너리 키-값이 키워드 인수로 언패킹돼요. greet(**info)는 greet(name='에이몬', age=10)과 동일합니다.",
@@ -345,7 +345,7 @@
     {
       "question_id": "miniboss_int_os_3_2_007",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef func(a, b, *args, **kwargs):\n    print(a, b)\n    print(args)\n    print(kwargs)\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef func(a, b, *args, **kwargs):\n    print(a, b)\n    print(args)\n    print(kwargs)\n\nfunc(1, 2, 3, 4, x=5, y=6)\n```",
       "answer": "C",
       "difficulty": "hard",
       "explanation": "a=1, b=2는 위치 인수, args=(3, 4)는 남은 위치 인수 튜플, kwargs={'x': 5, 'y': 6}은 키워드 인수 딕셔너리예요. *args는 튜플이므로 A의 리스트 형태는 틀립니다.",
@@ -369,7 +369,7 @@
     {
       "question_id": "miniboss_int_fib_3_2_008",
       "type": "fill_in_blank",
-      "question": "빈칸을 채워 *args의 타입을 출력하세요.\n\n```python\ndef check(*args):\n    print(_____(args))\n```",
+      "question": "빈칸을 채워 *args의 타입을 출력하세요.\n\n```python\ndef check(*args):\n    print(_____(args))\n\ncheck(1, 2, 3)\n```",
       "answer": "type",
       "difficulty": "hard",
       "explanation": "type()은 객체의 타입을 반환하는 내장 함수예요. *args는 전달된 인수들을 튜플(tuple)로 묶어 저장하므로 type(args)는 <class 'tuple'>을 출력합니다.",
@@ -387,7 +387,7 @@
     {
       "question_id": "miniboss_int_os_3_2_009",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef wrapper(*args, **kwargs):\n    print('호출됨')\n    return sum(args) + sum(kwargs.values())\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef wrapper(*args, **kwargs):\n    print('호출됨')\n    return sum(args) + sum(kwargs.values())\n\nprint(wrapper(1, 2, 3, a=4, b=5))\n```",
       "answer": "B",
       "difficulty": "hard",
       "explanation": "sum(args) = 1+2+3 = 6, sum(kwargs.values()) = 4+5 = 9, 합계는 6+9 = 15예요. *args와 **kwargs를 동시에 활용하는 패턴입니다.",
@@ -411,7 +411,7 @@
     {
       "question_id": "miniboss_int_os_3_2_010",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef func(a, *, b):\n    print(a, b)\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef func(a, *, b):\n    print(a, b)\n\nfunc(1, b=2)\nfunc(1, 2)\n```",
       "answer": "D",
       "difficulty": "hard",
       "explanation": "* 뒤에 오는 매개변수 b는 반드시 키워드 인수로만 전달할 수 있어요. func(1, b=2)는 정상(1 2 출력), func(1, 2)는 b를 위치 인수로 전달했으므로 TypeError가 발생합니다.",
@@ -435,7 +435,7 @@
     {
       "question_id": "miniboss_int_os_3_3_001",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef countdown(n):\n    if n == 0:\n        print('발사!')\n        return\n    print(n)\n    countdown(n - 1)\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef countdown(n):\n    if n == 0:\n        print('발사!')\n        return\n    print(n)\n    countdown(n - 1)\n\ncountdown(3)\n```",
       "answer": "A",
       "difficulty": "easy",
       "explanation": "countdown(3) → 3 출력 → countdown(2) → 2 출력 → countdown(1) → 1 출력 → countdown(0) → '발사!' 출력 순서로 실행돼요.",
@@ -459,7 +459,7 @@
     {
       "question_id": "miniboss_int_fib_3_3_002",
       "type": "fill_in_blank",
-      "question": "빈칸을 채워 재귀 함수의 기저 사례(base case)를 완성하세요.\n\n```python\ndef factorial(n):\n    if n == _____:\n        return 1\n    return n * factorial(n - 1)\n```",
+      "question": "빈칸을 채워 재귀 함수의 기저 사례(base case)를 완성하세요.\n\n```python\ndef factorial(n):\n    if n == _____:\n        return 1\n    return n * factorial(n - 1)\n\nprint(factorial(5))\n# 출력 목표: 120\n```",
       "answer": "0",
       "difficulty": "easy",
       "explanation": "팩토리얼의 기저 사례는 n == 0 (또는 n == 1)일 때 1을 반환하는 거예요. 기저 사례가 없으면 무한 재귀가 발생합니다.",
@@ -477,7 +477,7 @@
     {
       "question_id": "miniboss_int_os_3_3_003",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef fib(n):\n    if n <= 1:\n        return n\n    return fib(n - 1) + fib(n - 2)\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef fib(n):\n    if n <= 1:\n        return n\n    return fib(n - 1) + fib(n - 2)\n\nprint(fib(6))\n```",
       "answer": "B",
       "difficulty": "medium",
       "explanation": "피보나치 수열은 0, 1, 1, 2, 3, 5, 8, 13... 이에요. fib(6) = fib(5) + fib(4) = 5 + 3 = 8입니다.",
@@ -501,7 +501,7 @@
     {
       "question_id": "miniboss_int_fib_3_3_004",
       "type": "fill_in_blank",
-      "question": "빈칸을 채워 리스트 합계를 구하는 재귀 함수를 완성하세요.\n\n```python\ndef list_sum(lst):\n    if not lst:\n        return 0\n    return lst[0] + list_sum(_____)\n```",
+      "question": "빈칸을 채워 리스트 합계를 구하는 재귀 함수를 완성하세요.\n\n```python\ndef list_sum(lst):\n    if not lst:\n        return 0\n    return lst[0] + list_sum(_____)\n\nprint(list_sum([1, 2, 3, 4, 5]))\n# 출력 목표: 15\n```",
       "answer": "lst[1:]",
       "difficulty": "medium",
       "explanation": "lst[1:]은 첫 번째 요소를 제외한 나머지 리스트예요. 첫 요소를 더하고 나머지 리스트에 대해 재귀 호출하며 빈 리스트가 되면 0을 반환합니다.",
@@ -519,7 +519,7 @@
     {
       "question_id": "miniboss_int_os_3_3_005",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef power(base, exp):\n    if exp == 0:\n        return 1\n    return base * power(base, exp - 1)\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef power(base, exp):\n    if exp == 0:\n        return 1\n    return base * power(base, exp - 1)\n\nprint(power(2, 4))\n```",
       "answer": "B",
       "difficulty": "medium",
       "explanation": "power(2, 4) = 2 * power(2, 3) = 2 * 2 * power(2, 2) = ... = 2 * 2 * 2 * 2 * 1 = 16이에요.",
@@ -543,7 +543,7 @@
     {
       "question_id": "miniboss_int_fib_3_3_006",
       "type": "fill_in_blank",
-      "question": "빈칸을 채워 문자열을 뒤집는 재귀 함수를 완성하세요.\n\n```python\ndef reverse(s):\n    if len(s) <= 1:\n        return s\n    return reverse(s[1:]) + _____\n```",
+      "question": "빈칸을 채워 문자열을 뒤집는 재귀 함수를 완성하세요.\n\n```python\ndef reverse(s):\n    if len(s) <= 1:\n        return s\n    return reverse(s[1:]) + _____\n\nprint(reverse('hello'))\n# 출력 목표: olleh\n```",
       "answer": "s[0]",
       "difficulty": "medium",
       "explanation": "s[0]은 문자열의 첫 번째 글자예요. reverse('hello') = reverse('ello') + 'h' = ... = 'olleh'입니다.",
@@ -561,7 +561,7 @@
     {
       "question_id": "miniboss_int_os_3_3_007",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef func(n):\n    if n <= 0:\n        return 0\n    return func(n - 1) + func(n - 2) + n\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef func(n):\n    if n <= 0:\n        return 0\n    return func(n - 1) + func(n - 2) + n\n\nprint(func(4))\n```",
       "answer": "C",
       "difficulty": "hard",
       "explanation": "func(4) = func(3)+func(2)+4, func(3) = func(2)+func(1)+3, func(2) = func(1)+func(0)+2 = 1+0+2 = 3, func(1) = func(0)+func(-1)+1 = 0+0+1 = 1. func(3) = 3+1+3 = 7, func(4) = 7+3+4 = 14.",
@@ -585,7 +585,7 @@
     {
       "question_id": "miniboss_int_fib_3_3_008",
       "type": "fill_in_blank",
-      "question": "빈칸을 채워 중첩 리스트를 평탄화(flatten)하는 재귀 함수를 완성하세요.\n\n```python\ndef flatten(lst):\n    result = []\n    for item in lst:\n        if isinstance(item, list):\n            result += _____(item)\n        else:\n            result.append(item)\n    return result\n```",
+      "question": "빈칸을 채워 중첩 리스트를 평탄화(flatten)하는 재귀 함수를 완성하세요.\n\n```python\ndef flatten(lst):\n    result = []\n    for item in lst:\n        if isinstance(item, list):\n            result += _____(item)\n        else:\n            result.append(item)\n    return result\n\nprint(flatten([1, [2, 3], [[4, 5], 6]]))\n# 출력 목표: [1, 2, 3, 4, 5, 6]\n```",
       "answer": "flatten",
       "difficulty": "hard",
       "explanation": "요소가 리스트이면 자기 자신(flatten)을 재귀 호출해 평탄화해요. 이처럼 데이터 구조를 탐색할 때 재귀가 자연스럽게 쓰입니다.",
@@ -603,7 +603,7 @@
     {
       "question_id": "miniboss_int_os_3_3_009",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef gcd(a, b):\n    if b == 0:\n        return a\n    return gcd(b, a % b)\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef gcd(a, b):\n    if b == 0:\n        return a\n    return gcd(b, a % b)\n\nprint(gcd(48, 18))\n```",
       "answer": "C",
       "difficulty": "hard",
       "explanation": "유클리드 알고리즘이에요. gcd(48,18) → gcd(18,12) → gcd(12,6) → gcd(6,0) → 6. 48과 18의 최대공약수는 6입니다.",
@@ -627,7 +627,7 @@
     {
       "question_id": "miniboss_int_os_3_3_010",
       "type": "output_select",
-      "question": "다음 코드가 실행될 때 어떤 일이 발생하는가?\n\n```python\nimport sys\nsys.setrecursionlimit(5)\n```",
+      "question": "다음 코드가 실행될 때 어떤 일이 발생하는가?\n\n```python\nimport sys\nsys.setrecursionlimit(5)\n\ndef test():\n    test()\n\ntest()\n```",
       "answer": "D",
       "difficulty": "hard",
       "explanation": "기저 사례가 없는 재귀는 호출 스택이 쌓이다가 recursionlimit에 도달하면 RecursionError가 발생해요. 파이썬의 기본 재귀 한도는 약 1000입니다.",
@@ -651,7 +651,7 @@
     {
       "question_id": "miniboss_int_os_3_4_001",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef apply(func, value):\n    return func(value)\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef apply(func, value):\n    return func(value)\n\nprint(apply(str.upper, 'hello'))\n```",
       "answer": "B",
       "difficulty": "easy",
       "explanation": "apply()는 함수를 인수로 받아 value에 적용하는 고차 함수예요. str.upper를 전달하면 'hello'.upper() = 'HELLO'가 반환됩니다.",
@@ -675,7 +675,7 @@
     {
       "question_id": "miniboss_int_fib_3_4_002",
       "type": "fill_in_blank",
-      "question": "빈칸을 채워 함수를 반환하는 고차 함수를 완성하세요.\n\n```python\ndef multiplier(n):\n    return lambda x: x * _____\n```",
+      "question": "빈칸을 채워 함수를 반환하는 고차 함수를 완성하세요.\n\n```python\ndef multiplier(n):\n    return lambda x: x * _____\n\ntriple = multiplier(3)\nprint(triple(5))\n# 출력 목표: 15\n```",
       "answer": "n",
       "difficulty": "easy",
       "explanation": "lambda x: x * n은 n을 클로저로 캡처해요. multiplier(3)은 x를 받아 x * 3을 반환하는 함수를 반환하므로 triple(5) = 15입니다.",
@@ -693,7 +693,7 @@
     {
       "question_id": "miniboss_int_os_3_4_003",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef make_adder(n):\n    def adder(x):\n        return x + n\n    return adder\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef make_adder(n):\n    def adder(x):\n        return x + n\n    return adder\n\nadd5 = make_adder(5)\nadd10 = make_adder(10)\nprint(add5(3))\nprint(add10(3))\n```",
       "answer": "A",
       "difficulty": "medium",
       "explanation": "make_adder(5)는 x + 5를 반환하는 adder 함수를 반환해요. add5(3) = 3+5 = 8, add10(3) = 3+10 = 13입니다.",
@@ -717,7 +717,7 @@
     {
       "question_id": "miniboss_int_fib_3_4_004",
       "type": "fill_in_blank",
-      "question": "빈칸을 채워 두 함수를 합성하는 compose 함수를 완성하세요.\n\n```python\ndef compose(f, g):\n    return lambda x: f(_____(x))\n```",
+      "question": "빈칸을 채워 두 함수를 합성하는 compose 함수를 완성하세요.\n\n```python\ndef compose(f, g):\n    return lambda x: f(_____(x))\n\ninc = lambda x: x + 1\ndouble = lambda x: x * 2\ndouble_then_inc = compose(inc, double)\nprint(double_then_inc(4))\n# 출력 목표: 9\n```",
       "answer": "g",
       "difficulty": "medium",
       "explanation": "compose(f, g)는 g를 먼저 적용하고 그 결과에 f를 적용하는 합성 함수를 반환해요. double_then_inc(4) = inc(double(4)) = inc(8) = 9입니다.",
@@ -735,7 +735,7 @@
     {
       "question_id": "miniboss_int_os_3_4_005",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef counter():\n    count = 0\n    def increment():\n        nonlocal count\n        count += 1\n        return count\n    return increment\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef counter():\n    count = 0\n    def increment():\n        nonlocal count\n        count += 1\n        return count\n    return increment\n\nc = counter()\nprint(c())\nprint(c())\nprint(c())\n```",
       "answer": "C",
       "difficulty": "medium",
       "explanation": "nonlocal count로 외부 변수 count를 참조해 증가시켜요. c()를 호출할 때마다 count가 1씩 증가해 1, 2, 3이 출력됩니다.",
@@ -777,7 +777,7 @@
     {
       "question_id": "miniboss_int_os_3_4_007",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef decorator(func):\n    def wrapper(*args):\n        print('전처리')\n        result = func(*args)\n        print('후처리')\n        return result\n    return wrapper\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef decorator(func):\n    def wrapper(*args):\n        print('전처리')\n        result = func(*args)\n        print('후처리')\n        return result\n    return wrapper\n\ndecorated_add = decorator(lambda a, b: a + b)\nprint(decorated_add(2, 3))\n```",
       "answer": "A",
       "difficulty": "hard",
       "explanation": "wrapper가 '전처리' → func 실행 → '후처리' → result 반환 순서로 실행돼요. print(decorated_add(2, 3))은 wrapper의 반환값 5를 마지막에 출력합니다.",
@@ -819,7 +819,7 @@
     {
       "question_id": "miniboss_int_os_3_4_009",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef once(func):\n    called = [False]\n    def wrapper(*args, **kwargs):\n        if not called[0]:\n            called[0] = True\n            return func(*args, **kwargs)\n    return wrapper\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef once(func):\n    called = [False]\n    def wrapper(*args, **kwargs):\n        if not called[0]:\n            called[0] = True\n            return func(*args, **kwargs)\n    return wrapper\n\n@once\ndef greet(name):\n    return f'안녕, {name}!'\n\nprint(greet('Amy'))\nprint(greet('Ben'))\n```",
       "answer": "B",
       "difficulty": "hard",
       "explanation": "once 데코레이터는 함수가 처음 한 번만 실행되도록 해요. 첫 호출(Amy)은 결과를 반환하고, 두 번째 호출(Ben)은 wrapper가 아무것도 반환하지 않아 None이 됩니다.",
@@ -843,7 +843,7 @@
     {
       "question_id": "miniboss_int_os_3_4_010",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef logger(prefix):\n    def decorator(func):\n        def wrapper(*args):\n            print(f'[{prefix}] {func.__name__} 호출')\n            return func(*args)\n        return wrapper\n    return decorator\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef logger(prefix):\n    def decorator(func):\n        def wrapper(*args):\n            print(f'[{prefix}] {func.__name__} 호출')\n            return func(*args)\n        return wrapper\n    return decorator\n\n@logger('INFO')\ndef process(s):\n    return s.upper()\n\nprint(process('hello'))\n```",
       "answer": "D",
       "difficulty": "hard",
       "explanation": "logger('INFO')는 decorator를 반환하고, 이 decorator가 process를 감싸요. process('hello') 호출 시 '[INFO] process 호출'이 먼저 출력되고, 'hello'.upper() = 'HELLO'가 반환·출력됩니다.",
@@ -891,7 +891,7 @@
     {
       "question_id": "miniboss_int_fib_3_5_002",
       "type": "fill_in_blank",
-      "question": "빈칸을 채워 재귀로 리스트 최댓값을 구하세요.\n\n```python\ndef max_val(lst):\n    if len(lst) == 1:\n        return lst[0]\n    rest_max = max_val(lst[1:])\n    return lst[0] if lst[0] > _____ else rest_max\n```",
+      "question": "빈칸을 채워 재귀로 리스트 최댓값을 구하세요.\n\n```python\ndef max_val(lst):\n    if len(lst) == 1:\n        return lst[0]\n    rest_max = max_val(lst[1:])\n    return lst[0] if lst[0] > _____ else rest_max\n\nprint(max_val([3, 7, 1, 9, 4]))\n# 출력 목표: 9\n```",
       "answer": "rest_max",
       "difficulty": "easy",
       "explanation": "lst[0]과 나머지 리스트의 최댓값(rest_max)을 비교해 더 큰 값을 반환해요. 이 패턴이 재귀로 최댓값을 찾는 핵심입니다.",
@@ -909,7 +909,7 @@
     {
       "question_id": "miniboss_int_os_3_5_003",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef make_counter(start=0):\n    count = [start]\n    def inc(step=1):\n        count[0] += step\n        return count[0]\n    return inc\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef make_counter(start=0):\n    count = [start]\n    def inc(step=1):\n        count[0] += step\n        return count[0]\n    return inc\n\nc = make_counter(10)\nprint(c())\nprint(c(5))\nprint(c())\n```",
       "answer": "B",
       "difficulty": "medium",
       "explanation": "c()는 step=1(기본값)이므로 10+1=11, c(5)는 11+5=16, c()는 16+1=17이에요. count를 리스트로 만든 이유는 클로저에서 수정 가능하게 하기 위해서입니다.",
@@ -933,7 +933,7 @@
     {
       "question_id": "miniboss_int_fib_3_5_004",
       "type": "fill_in_blank",
-      "question": "빈칸을 채워 *args와 **kwargs를 함께 쓰는 함수를 완성하세요.\n\n```python\ndef report(*args, **kwargs):\n    print('점수:', args)\n    print('정보:', kwargs)\n```",
+      "question": "빈칸을 채워 *args와 **kwargs를 함께 쓰는 함수를 완성하세요.\n\n```python\ndef report(*args, **kwargs):\n    print('점수:', args)\n    print('정보:', kwargs)\n\nreport(80, 90, 95, name='Amy', _____)\n# 출력 목표:\n# 점수: (80, 90, 95)\n# 정보: {'name': 'Amy', 'grade': 'A'}\n```",
       "answer": "grade='A'",
       "difficulty": "medium",
       "explanation": "*args는 위치 인수 (80, 90, 95)를 튜플로, **kwargs는 키워드 인수 {'name': 'Amy', 'grade': 'A'}를 딕셔너리로 받아요.",
@@ -951,7 +951,7 @@
     {
       "question_id": "miniboss_int_os_3_5_005",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\nfrom functools import reduce\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nfrom functools import reduce\n\nadd1 = lambda x: x + 1\nmul2 = lambda x: x * 2\nsub3 = lambda x: x - 3\n\npipeline = [add1, mul2, sub3]\nresult = reduce(lambda val, f: f(val), pipeline, 5)\nprint(result)\n```",
       "answer": "A",
       "difficulty": "medium",
       "explanation": "reduce로 함수들을 순서대로 적용해요. 5 → +1 → 6 → *2 → 12 → -3 → 9가 됩니다.",
@@ -975,7 +975,7 @@
     {
       "question_id": "miniboss_int_fib_3_5_006",
       "type": "fill_in_blank",
-      "question": "빈칸을 채워 재귀로 문자열에서 특정 문자 개수를 세세요.\n\n```python\ndef count_char(s, ch):\n    if not s:\n        return 0\n    return (1 if s[0] == ch else 0) + count_char(_____, ch)\n```",
+      "question": "빈칸을 채워 재귀로 문자열에서 특정 문자 개수를 세세요.\n\n```python\ndef count_char(s, ch):\n    if not s:\n        return 0\n    return (1 if s[0] == ch else 0) + count_char(_____, ch)\n\nprint(count_char('banana', 'a'))\n# 출력 목표: 3\n```",
       "answer": "s[1:]",
       "difficulty": "medium",
       "explanation": "s[1:]은 첫 글자를 제외한 나머지 문자열이에요. 첫 글자가 ch이면 1을 더하고 나머지에 대해 재귀 호출해 'banana'에서 'a'가 3개임을 계산합니다.",
@@ -993,7 +993,7 @@
     {
       "question_id": "miniboss_int_os_3_5_007",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef apply_twice(func):\n    return lambda x: func(func(x))\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef apply_twice(func):\n    return lambda x: func(func(x))\n\ninc = lambda x: x + 1\ndouble = lambda x: x * 2\nprint(apply_twice(inc)(5))\nprint(apply_twice(double)(3))\n```",
       "answer": "A",
       "difficulty": "hard",
       "explanation": "apply_twice(inc)(5) = inc(inc(5)) = inc(6) = 7, apply_twice(double)(3) = double(double(3)) = double(6) = 12예요.",
@@ -1017,7 +1017,7 @@
     {
       "question_id": "miniboss_int_fib_3_5_008",
       "type": "fill_in_blank",
-      "question": "빈칸을 채워 메모이제이션으로 재귀 피보나치를 최적화하세요.\n\n```python\ndef make_fib():\n    cache = {}\n    def fib(n):\n        if n in cache:\n            return cache[n]\n        if n <= 1:\n            return n\n        cache[n] = fib(n - 1) + fib(n - 2)\n        return _____[n]\n    return fib\n```",
+      "question": "빈칸을 채워 메모이제이션으로 재귀 피보나치를 최적화하세요.\n\n```python\ndef make_fib():\n    cache = {}\n    def fib(n):\n        if n in cache:\n            return cache[n]\n        if n <= 1:\n            return n\n        cache[n] = fib(n - 1) + fib(n - 2)\n        return _____[n]\n    return fib\n\nfib_func = make_fib()\nprint(fib_func(10))\n# 출력 목표: 55\n```",
       "answer": "cache",
       "difficulty": "hard",
       "explanation": "한 번 계산한 값을 cache[n]에 저장하고 이후 호출 시 재사용해요. return cache[n]으로 저장된 값을 반환합니다. fib(10) = 55입니다.",
@@ -1035,7 +1035,7 @@
     {
       "question_id": "miniboss_int_os_3_5_009",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef partial(func, *partial_args):\n    return lambda *args: func(*partial_args, *args)\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef partial(func, *partial_args):\n    return lambda *args: func(*partial_args, *args)\n\npower = lambda base, exp: base ** exp\nsquare = partial(power, 2)\ncube = partial(power, 3)\n\nprint(square(8))\nprint(cube(3))\n```",
       "answer": "D",
       "difficulty": "hard",
       "explanation": "square = partial(power, 2)는 base=2가 고정된 함수예요. square(8) = power(2, 8) = 2**8 = 256. cube = partial(power, 3), cube(3) = power(3, 3) = 27입니다.",
@@ -1059,7 +1059,7 @@
     {
       "question_id": "miniboss_int_os_3_5_010",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef validator(*checks):\n    def validate(value):\n        return all(check(value) for check in checks)\n    return validate\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef validator(*checks):\n    def validate(value):\n        return all(check(value) for check in checks)\n    return validate\n\nis_even = lambda x: x % 2 == 0\nis_positive = lambda x: x > 0\nis_under_100 = lambda x: x < 100\n\nis_valid = validator(is_positive, is_under_100, is_even)\nprint(is_valid(50))\nprint(is_valid(101))\nprint(is_valid(51))\n```",
       "answer": "C",
       "difficulty": "hard",
       "explanation": "is_valid(50): 50>0 ✓, 50<100 ✓, 50%2==0 ✓ → True. is_valid(101): 101<100 ✗ → False. is_valid(51): 51%2==0 ✗ → False.",
