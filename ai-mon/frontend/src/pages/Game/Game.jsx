@@ -8,7 +8,7 @@ import aipairIconUrl from './AIPair/assets/aipairicon.png'
 const GAMES = [
   {
     id: 'aipang',
-    icon: icon: <img src={aipangIconUrl} alt="AIPang" style={{ width: 200, height: 200, ... }} />,
+    icon: <img src={aipangIconUrl} alt="AIPang" style={{ width: 200, height: 200, ... }} />,
     title: '에이팡',
     desc: '우주 속 AI 친구들과 떠나는 퍼즐 모험!',
     reward: '왕관 획득',
@@ -18,8 +18,7 @@ const GAMES = [
   },
   {
     id: 'pairs',
-    icon:   icon: <img src={aipairIconUrl} alt="AIPair"                    
-         style={{ width: 200, height: 200, ... }} />,
+    icon: <img src={aipairIconUrl} alt="AIPair" style={{ width: 200, height: 200, display: 'block', margin: '0 auto' }} />, 
     title: '에이짝',
     desc: '같은 카드 맞추기!',
     reward: 'XP 100~300',
@@ -56,8 +55,7 @@ const GAMES = [
     rewardIcon: '⚡',
     route: null,
     available: false,
-  },
-  
+  },  
 ]
 
 export default function Game() {
