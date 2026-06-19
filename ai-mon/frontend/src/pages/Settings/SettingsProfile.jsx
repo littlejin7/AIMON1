@@ -45,7 +45,6 @@ export default function SettingsProfile() {
               style={{ width: 56, height: 56, objectFit: 'contain' }}
             /> 
           </div>
-          </div>
           <div>
             <div className="settings-username">@{user?.username}</div>
             <div className="settings-joined">아이디</div>
