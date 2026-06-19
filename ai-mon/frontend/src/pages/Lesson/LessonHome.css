@@ -195,11 +195,12 @@
 
 .lh-unit-row {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--sp-3);
 }
 
-.lh-unit-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+.lh-unit-icon { font-size: 1.4rem; flex-shrink: 0; display: flex; align-items: center; }
+
 
 .lh-unit-text {
   display: flex;
