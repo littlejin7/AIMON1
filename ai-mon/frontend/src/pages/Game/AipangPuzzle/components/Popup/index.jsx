@@ -35,7 +35,7 @@ export function PopupClear({ visible, onNext }) {
   return (
     <div className="popup" id="popup-clear">
       <div className="popup-card">
-        <div className="popup-title-text">🎉 클리어!</div>
+        <div className="popup-title-text">클리어!</div>
         <div className="popup-boss-row">
           <img src={BOSS_UNIT} alt="Unit Boss" />
         </div>
@@ -78,7 +78,7 @@ export function PopupFinal({ visible, onRestart, onHome }) {
   return (
     <div className="popup" id="popup-final">
       <div className="popup-card">
-        <div className="popup-title-text" style={{ fontSize: '1.4rem' }}>👑 최종 클리어!</div>
+        <div className="popup-title-text" style={{ fontSize: '1.4rem' }}>최종 클리어!</div>
         <div className="popup-boss-row">
           <img src={BOSS_UNIT}  alt="Unit Boss"  />
           <img src={BOSS_FINAL} alt="Final Boss" />
