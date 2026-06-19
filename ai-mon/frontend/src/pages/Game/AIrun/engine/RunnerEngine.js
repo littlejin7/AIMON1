@@ -192,7 +192,7 @@ export class RunnerEngine {
         <div class="rg-title" style="color:#ff4422;text-shadow:0 0 20px #ff4422">GAME OVER</div>
         <div class="rg-score-final">최종 점수: <strong>${this.score.toLocaleString()}</strong></div>
         <div class="rg-score-final">달린 거리: <strong>${Math.floor(this.distance)}m</strong></div>
-        <button class="rg-btn" id="rg-retry-btn">🔄 다시하기</button>
+        <button class="rg-btn" id="rg-retry-btn">다시하기</button>
         <button class="rg-btn rg-btn-danger" id="rg-list-btn">↩ 목록으로 가기</button>
       </div>
     `;
