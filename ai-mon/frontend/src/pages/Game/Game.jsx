@@ -45,7 +45,7 @@ const GAMES = [
     reward: 'XP 100',
     rewardIcon: '⚡',
     route: '/game/aibomb',
-    available: true,
+    available: false,
   },
   {
     id: 'defense',
