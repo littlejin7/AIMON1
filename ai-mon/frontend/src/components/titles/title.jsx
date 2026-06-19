@@ -171,7 +171,7 @@ export default function Profile() {
                 disabled={!t.owned}
               >
                 <div className="pf-title-left">
-                  <span <span className="pf-badge-emoji"><t.icon /></span>
+                  <span className="pf-badge-emoji"><t.icon /></span>
                   <div>
                     <div className="pf-title-name">{t.name}</div>
                     <div className="pf-title-desc">{t.desc}</div>
