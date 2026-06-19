@@ -23,7 +23,7 @@ export const quizApi = {
 }
 
 export const progressApi = {
-  getProgress: ()     => api.get('/progress/'),
+  getProgress: (courseLevel) => api.get('/progress/', { params: { course_level: courseLevel } }),
   getStats:    ()     => api.get('/progress/stats'),
   saveProgress:(data) => api.post('/progress/', data),
 }

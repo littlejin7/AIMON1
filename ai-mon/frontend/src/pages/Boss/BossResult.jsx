@@ -26,12 +26,14 @@ export default function BossResult({
           <p className="result-desc">훌륭합니다! 보스를 쓰러뜨리고 전리품을 획득했습니다.</p>
 
           <div className="result-rewards" style={{ margin: '24px 0', background: 'rgba(255,255,255,0.05)', padding: '16px', borderRadius: '12px' }}>
-            <div className="reward-item" style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
-              <span className="reward-icon">⭐</span>
-              <span style={{ fontWeight: 700, color: '#a6e3a1', marginLeft: '8px' }}>
-                +3000 XP 획득!
-              </span>
-            </div>
+            {aiResult?.xp_awarded > 0 && (
+              <div className="reward-item" style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
+                <span className="reward-icon">⭐</span>
+                <span style={{ fontWeight: 700, color: '#a6e3a1', marginLeft: '8px' }}>
+                  +{aiResult.xp_awarded} XP 획득!
+                </span>
+              </div>
+            )}
             <div className="reward-item" style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
               <span className="reward-icon">💳</span>
               <span style={{ fontWeight: 700, color: '#f9e2af', marginLeft: '8px' }}>

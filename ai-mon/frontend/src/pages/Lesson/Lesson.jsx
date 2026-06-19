@@ -19,7 +19,7 @@ export default function Lesson() {
   useEffect(() => {
     Promise.all([
       quizApi.getUnit(id, courseLevel),
-      progressApi.getProgress(),
+      progressApi.getProgress(courseLevel),
     ]).then(([l, p]) => {
       setLesson(l.data)
       setProgress(p.data.filter((x) => x.unit === Number(id)))

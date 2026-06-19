@@ -25,15 +25,10 @@ class ProgressUpdateRequest(BaseModel):
 
 
 @router.get("/")
-def get_progress(authorization: str = Header(...)):
+def get_progress(course_level: str = Query("beginner"), authorization: str = Header(...)):
     user_id = verify_token(authorization)
-    users = load_users()
-    user = next((u for u in users if u["id"] == user_id), None)
-    course_level = user.get("course_level", "beginner") if user else "beginner"
-    
     progress = load_progress()
-    user_progress = [p for p in progress if p["user_id"] == user_id and p.get("course_level", "beginner") == course_level]
-    return user_progress
+    return [p for p in progress if p["user_id"] == user_id and p.get("course_level", "beginner") == course_level]
 
 
 @router.post("/")
