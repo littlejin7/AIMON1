@@ -58,6 +58,7 @@ export function useGameLogic(pCanvasRef, lCanvasRef) {
   const finalHpMaxRef     = useRef(30000);
   const finalUnlockedRef  = useRef(false);
   const bgmVolumeRef      = useRef(0.3);
+  const bgmMutedRef       = useRef(false)
   const comboEnergyRef = useRef(0);
   const comboDecayTimer = useRef(null);
 
@@ -533,6 +534,7 @@ useEffect(() => {
 
   const handleBgmVolume = useCallback((v) => {
     bgmVolumeRef.current = v;
+    bgmMutedRef.current = v === 0; 
     setBgmVolume(v);
     if (bgmRef.current) {
       bgmRef.current.volume = v;
