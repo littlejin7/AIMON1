@@ -8,6 +8,44 @@ import CodeInput from './CodeInput'
 import AiFeedback from './AiFeedback'
 import './QuizCard.css'
 
+function parseQuestionCode(raw) {
+  const match = raw.match(/^([\s\S]*?)```(?:python)?\n([\s\S]*?)```([\s\S]*)$/m)
+  if (!match) return { questionText: raw.trim(), codeLines: null }
+  const before = match[1].trim()
+  const after  = match[3].trim()
+  const code   = match[2].trimEnd()
+  const questionText = [before, after].filter(Boolean).join('\n').trim()
+  return { questionText, codeLines: code.split('\n') }
+}
+
+function TerminalBlock({ lines }) {
+  return (
+    <div style={{ margin: '10px 0 12px', borderRadius: '10px', overflow: 'hidden', border: '1px solid #313244' }}>
+      <div style={{
+        background: '#181825', padding: '6px 12px',
+        display: 'flex', alignItems: 'center', gap: '6px',
+      }}>
+        <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#ff5f57', display: 'inline-block' }} />
+        <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#febc2e', display: 'inline-block' }} />
+        <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#28c840', display: 'inline-block' }} />
+        <span style={{ color: '#585b70', fontSize: '0.72rem', marginLeft: 8 }}>Python</span>
+      </div>
+      <div style={{
+        background: '#1e1e2e', padding: '0.85rem 1rem',
+        fontFamily: 'monospace', fontSize: '1.4rem', color: '#cdd6f4',
+        whiteSpace: 'pre', overflowX: 'auto',
+      }}>
+        {lines.map((line, i) => (
+          <div key={i} style={{ color: line.trim().startsWith('#') ? '#6c7086' : '#cdd6f4' }}>
+            <span style={{ color: '#585b70', userSelect: 'none', marginRight: 10 }}>&gt;&gt;&gt;</span>
+            {line}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function QuizCard({ question, onAnswer, onNext, disabled = false }) {
   const [selected,          setSelected]          = useState(null)
   const [input,             setInput]             = useState('')
@@ -23,7 +61,8 @@ export default function QuizCard({ question, onAnswer, onNext, disabled = false 
   const courseLevel = user?.course_level || 'beginner'
 
   if (!question) return null
-
+  const { questionText, codeLines } = parseQuestionCode(question.question || '') 
+  
   const type          = question.quiz_type || question.type
   const isChoiceType  = type === 'multiple_choice' || type === 'output_select' || type === 'error_find'
   const isCodeInput   = type === 'code_input'
@@ -114,8 +153,9 @@ export default function QuizCard({ question, onAnswer, onNext, disabled = false 
       {/* 문제 */}
       <div className="quiz-question">
         <span className="quiz-q-icon">❓</span>
-        <p>{question.question}</p>
+        <p style={{ fontSize: '1.4rem' }}>{questionText}</p>
       </div>
+      {codeLines && <TerminalBlock lines={codeLines} />}
 
       {/* 입력 영역 */}
       {isChoiceType && (
