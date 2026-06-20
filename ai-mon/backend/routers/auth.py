@@ -136,6 +136,7 @@ def register(req: RegisterRequest):
         "completed_units": {"beginner": 0, "intermediate": 0, "advanced": 0},
         "awarded_crown_units": [],
         "earned_streak_milestones": [],
+        "game_rewards": {},
         "created_at": datetime.utcnow().isoformat(),
     }
     users.append(new_user)
@@ -262,6 +263,7 @@ def social_google(req: SocialLoginRequest):
             "completed_units": {"beginner": 0, "intermediate": 0, "advanced": 0},
             "awarded_crown_units": [],
             "earned_streak_milestones": [],
+            "game_rewards": {},
             "created_at": datetime.utcnow().isoformat(),
         }
         users.append(user)
@@ -391,6 +393,7 @@ def social_naver(req: SocialLoginRequest):
             "completed_units": {"beginner": 0, "intermediate": 0, "advanced": 0},
             "awarded_crown_units": [],
             "earned_streak_milestones": [],
+            "game_rewards": {},
             "created_at": datetime.utcnow().isoformat(),
         }
         users.append(user)
@@ -509,6 +512,7 @@ def social_kakao(req: SocialLoginRequest):
             "completed_units": {"beginner": 0, "intermediate": 0, "advanced": 0},
             "awarded_crown_units": [],
             "earned_streak_milestones": [],
+            "game_rewards": {},
             "created_at": datetime.utcnow().isoformat(),
         }
         users.append(user)
