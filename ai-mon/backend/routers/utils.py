@@ -184,6 +184,32 @@ def serialize_user(user: dict) -> dict:
         else:
             res["completed_units"] = 0
             
+    # 6. boss_cleared, completed_stages 기본값 0 보장 및 progress.json 기반 동적 보정
+    uid = res.get("id")
+    db_completed_stages = 0
+    db_boss_cleared = 0
+    if uid:
+        try:
+            progress_list = load_progress()
+            user_stages = [
+                p for p in progress_list
+                if p.get("user_id") == uid
+                and p.get("is_completed") is True
+                and p.get("course_level", "beginner") == course_level
+            ]
+            db_completed_stages = len(user_stages)
+            db_boss_cleared = sum(1 for p in user_stages if "boss" in str(p.get("stage", "")))
+            
+            # endboss 클리어 레벨이 있으면 추가
+            cleared_levels = res.get("endboss_cleared_levels", [])
+            if course_level in cleared_levels:
+                db_boss_cleared += 1
+        except Exception:
+            pass
+
+    res["boss_cleared"] = max(res.get("boss_cleared") or 0, db_boss_cleared)
+    res["completed_stages"] = max(res.get("completed_stages") or 0, db_completed_stages)
+
     res.pop("password", None)
     return res
 

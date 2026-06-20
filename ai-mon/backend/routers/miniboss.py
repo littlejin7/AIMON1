@@ -237,6 +237,7 @@ def miniboss_clear(req: ClearRequest, authorization: str = Header(...)):
 
         cleared.append(stage_key)
         user["miniboss_cleared_stages"] = cleared
+        user["completed_stages"] = user.get("completed_stages", 0) + 1
         save_users(users)
 
         # 진행도 저장

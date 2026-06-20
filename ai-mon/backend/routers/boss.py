@@ -350,6 +350,10 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
                 elif lv >= 30 and u.get("character") == "speech_bubble":
                     u["character"] = "final_ghost"
 
+                # boss_cleared 및 completed_stages 카운트 user에 저장
+                u["boss_cleared"] = u.get("boss_cleared", 0) + 1
+                u["completed_stages"] = u.get("completed_stages", 0) + 1
+
                 context = {"boss_cleared": True}
                 newly_earned_clear = check_and_award_titles(u, context)
 
