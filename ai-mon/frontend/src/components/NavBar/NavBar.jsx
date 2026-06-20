@@ -62,7 +62,7 @@ export default function NavBar() {
 
   useEffect(() => {
     if (!token || !user) {
-      setIsTrainUnlocked(false)
+      setIsTrainUnlocked(true)
       return
     }
 

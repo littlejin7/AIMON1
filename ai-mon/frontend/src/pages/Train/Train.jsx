@@ -20,7 +20,8 @@ export default function Train() {
 
   useEffect(() => {
     if (!token) {
-      navigate('/auth?mode=login')
+      setCheckingLock(false)
+      setIsLocked(false)
       return
     }
 
@@ -42,9 +43,14 @@ export default function Train() {
     }
 
     checkLockState()
-  }, [token, navigate])
+  }, [token, navigate, user])
 
   const startTraining = async () => {
+    if (!token) {
+      alert('로그인이 필요한 기능입니다.')
+      navigate('/auth?mode=login')
+      return
+    }
     setLoading(true)
     try {
       const res = await trainApi.getReview({ unit: currentUnit, limit: 15, course_level: user?.course_level || 'beginner' })
