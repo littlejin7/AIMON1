@@ -1,13 +1,14 @@
 from fastapi import APIRouter, HTTPException, Header
 from pydantic import BaseModel
 from typing import Optional
-from datetime import date
+from datetime import datetime, timedelta
 from routers.utils import get_current_user, load_users, save_users
 
 router = APIRouter()
 
 class GameClearRequest(BaseModel):
     game_id: str
+    distance: Optional[int] = None
     score: Optional[int] = None
 
 @router.post("/clear")
@@ -26,66 +27,60 @@ def game_clear(req: GameClearRequest, authorization: str = Header(None)):
     else:
         raise HTTPException(status_code=404, detail="User not found")
         
-    today = date.today().isoformat()
+    # KST 기준 날짜 구하기 (UTC + 9)
+    kst_now = datetime.utcnow() + timedelta(hours=9)
+    today_kst = kst_now.date().isoformat()
+    
     crowns_awarded = 0
     xp_awarded = 0
+    already_claimed = False
     
     # game_rewards 딕셔너리 초기화
     game_rewards = user_ref.get("game_rewards", {})
     if not isinstance(game_rewards, dict):
         game_rewards = {}
         
-    # [하위 호환성] 기존 레거시 필드 마이그레이션 및 삭제
+    # [하위 호환성 및 마이그레이션]
+    # 1단계: 레거시 필드 (awarded_game_crowns, runner_plays) 이관
     legacy_crowns = user_ref.pop("awarded_game_crowns", None)
-    legacy_plays = user_ref.pop("runner_plays", None)
+    user_ref.pop("runner_plays", None)
     
     if legacy_crowns and isinstance(legacy_crowns, dict):
         aipang_date = legacy_crowns.get("aipang")
         if aipang_date:
-            game_rewards["aipang"] = {"last_reward_date": aipang_date}
+            game_rewards["aipang_last_date"] = aipang_date
             
-    if legacy_plays and isinstance(legacy_plays, dict):
-        game_rewards["runner"] = {"plays": legacy_plays}
+    # 2단계: 이전 game_rewards["aipang"]["last_reward_date"] 형태 마이그레이션
+    if "aipang" in game_rewards and isinstance(game_rewards["aipang"], dict):
+        old_aipang = game_rewards.pop("aipang", {})
+        old_date = old_aipang.get("last_reward_date")
+        if old_date:
+            game_rewards["aipang_last_date"] = old_date
+            
+    # 필요하지 않은 runner 객체 정보 정리
+    game_rewards.pop("runner", None)
     
     # 게임 종류에 따른 보상 처리
     if req.game_id == "aipang":
-        aipang_rewards = game_rewards.get("aipang", {})
-        if not isinstance(aipang_rewards, dict):
-            aipang_rewards = {}
-            
-        if aipang_rewards.get("last_reward_date") == today:
-            pass
+        if game_rewards.get("aipang_last_date") == today_kst:
+            already_claimed = True
         else:
-            aipang_rewards["last_reward_date"] = today
-            game_rewards["aipang"] = aipang_rewards
+            game_rewards["aipang_last_date"] = today_kst
             crowns_awarded = 1
             user_ref["crowns"] = user_ref.get("crowns", 0) + crowns_awarded
             
     elif req.game_id == "runner":
-        runner_rewards = game_rewards.get("runner", {})
-        if not isinstance(runner_rewards, dict):
-            runner_rewards = {}
-            
-        plays = runner_rewards.get("plays", {})
-        if not isinstance(plays, dict):
-            plays = {}
-            
-        played_today = plays.get(today, 0)
-        if played_today >= 5:
-            xp_awarded = 0
+        # distance가 주어지지 않은 경우 score나 0을 fallback으로 활용
+        distance_val = req.distance if req.distance is not None else (req.score or 0)
+        
+        if distance_val < 500:
+            xp_awarded = 200
+        elif distance_val <= 1000:
+            xp_awarded = 350
         else:
-            plays[today] = played_today + 1
-            runner_rewards["plays"] = plays
-            game_rewards["runner"] = runner_rewards
+            xp_awarded = 500
             
-            score = req.score or 0
-            if score < 1000:
-                xp_awarded = 200
-            elif score < 3000:
-                xp_awarded = 350
-            else:
-                xp_awarded = 500
-            user_ref["xp"] = user_ref.get("xp", 0) + xp_awarded
+        user_ref["xp"] = user_ref.get("xp", 0) + xp_awarded
     else:
         raise HTTPException(status_code=400, detail="Invalid game_id")
         
@@ -97,5 +92,6 @@ def game_clear(req: GameClearRequest, authorization: str = Header(None)):
         "crowns_awarded": crowns_awarded,
         "xp_awarded": xp_awarded,
         "total_crowns": user_ref.get("crowns", 0),
-        "total_xp": user_ref.get("xp", 0)
+        "total_xp": user_ref.get("xp", 0),
+        "already_claimed": already_claimed
     }
