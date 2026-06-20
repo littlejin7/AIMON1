@@ -43,14 +43,14 @@ export default function StageResult({
             <button
               className="btn btn-primary"
               style={{ width: '100%', marginBottom: '0.5rem' }}
-              onClick={() => navigate('/auth?mode=register')}
+              onClick={() => navigate('/register')}
             >
               회원가입하기
             </button>
             <button
               className="btn btn-secondary"
               style={{ width: '100%', marginBottom: '0.5rem' }}
-              onClick={() => navigate('/auth?mode=login')}
+              onClick={() => navigate('/auth')}
             >
               이미 계정이 있어요
             </button>

@@ -32,7 +32,7 @@ export default function Home() {
       }
     } else {
       setShowLevelTest(false)
-      navigate(`/auth?level=${levelKey}&mode=register`)
+      navigate(`/register?level=${levelKey}`)
     }
   }
 

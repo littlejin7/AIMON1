@@ -58,7 +58,7 @@ export default function LevelTestInfo() {
           <button
             id="btn-register-from-info"
             className="btn btn-primary btn-lg btn-full"
-            onClick={() => navigate('/auth?mode=register')}
+            onClick={() => navigate('/register')}
           >
             ✨ 회원가입하고 시작하기
           </button>
@@ -66,7 +66,7 @@ export default function LevelTestInfo() {
           <button
             id="btn-login-from-info"
             className="btn btn-ghost btn-lg btn-full"
-            onClick={() => navigate('/auth?mode=login')}
+            onClick={() => navigate('/auth')}
             style={{ border: '1px solid rgba(255,255,255,0.08)' }}
           >
             이미 계정이 있어요 (로그인)

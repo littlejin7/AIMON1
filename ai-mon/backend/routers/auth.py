@@ -90,8 +90,10 @@ class RegisterRequest(BaseModel):
     username: str
     password: str
     nickname: str = ""
+    email: str = ""
     course_level: str = "beginner"   # 레벨 테스트 결과 or 기본값
     is_level_tested: bool = False
+    marketing_agreed: bool = False
 
 
 class LoginRequest(BaseModel):
@@ -112,8 +114,12 @@ def register(req: RegisterRequest):
         "username": req.username,
         "password": hash_password(req.password),
         "nickname": req.nickname or req.username,
+        "email": req.email,
         "course_level": level,
         "is_level_tested": req.is_level_tested,
+        "marketing_agreed": req.marketing_agreed,
+        "group_id": None,
+        "role": "student",
         "character": "slime",
         "lv": 1,
         "xp": 0,
@@ -233,6 +239,9 @@ def social_google(req: SocialLoginRequest):
             "username": username,
             "password": "",  # 소셜 유저는 일반 패스워드 로그인 제한
             "nickname": nickname,
+            "email": email,
+            "group_id": None,
+            "role": "student",
             "course_level": "beginner",
             "is_level_tested": False,
             "character": "slime",
@@ -349,6 +358,9 @@ def social_naver(req: SocialLoginRequest):
             "username": username,
             "password": "",
             "nickname": nickname,
+            "email": email,
+            "group_id": None,
+            "role": "student",
             "course_level": "beginner",
             "is_level_tested": False,
             "character": "slime",
@@ -462,6 +474,9 @@ def social_kakao(req: SocialLoginRequest):
             "username": username,
             "password": "",
             "nickname": nickname,
+            "email": email or "",
+            "group_id": None,
+            "role": "student",
             "course_level": "beginner",
             "is_level_tested": False,
             "character": "slime",
@@ -496,6 +511,5 @@ def social_kakao(req: SocialLoginRequest):
     if streak_reward:
         res_data["streak_reward"] = streak_reward
     return res_data
-
 
 

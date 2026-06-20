@@ -48,7 +48,7 @@ export default function Train() {
   const startTraining = async () => {
     if (!token) {
       alert('로그인이 필요한 기능입니다.')
-      navigate('/auth?mode=login')
+      navigate('/auth')
       return
     }
     setLoading(true)
