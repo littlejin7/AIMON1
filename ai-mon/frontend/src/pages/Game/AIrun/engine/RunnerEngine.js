@@ -8,8 +8,9 @@ import { spawnObstacle, spawnQuizGate } from './spawner.js';
 import { SoundManager } from './sound.js';
 
 export class RunnerEngine {
-  constructor(container) {
+  constructor(container, onGameOver) {
     this.container = container;
+    this.onGameOverCallback = onGameOver;
     this.renderer = null;
     this.scene = null;
     this.camera = null;
@@ -192,12 +193,29 @@ export class RunnerEngine {
         <div class="rg-title" style="color:#ff4422;text-shadow:0 0 20px #ff4422">GAME OVER</div>
         <div class="rg-score-final">최종 점수: <strong>${this.score.toLocaleString()}</strong></div>
         <div class="rg-score-final">달린 거리: <strong>${Math.floor(this.distance)}m</strong></div>
+        <div id="rg-reward-info" style="margin-top:10px; color:#ffcc00; font-weight:bold;"></div>
         <button class="rg-btn" id="rg-retry-btn">다시하기</button>
         <button class="rg-btn rg-btn-danger" id="rg-list-btn">↩ 목록으로 가기</button>
       </div>
     `;
     document.getElementById('rg-retry-btn')?.addEventListener('click', () => this._resetGame());
     document.getElementById('rg-list-btn')?.addEventListener('click', () => window.history.back());
+    
+    if (this.onGameOverCallback) {
+        const el = document.getElementById('rg-reward-info');
+        if (el) el.innerHTML = `보상 정산 중...`;
+        this.onGameOverCallback(this.score, this.distance).then(res => {
+            if (el && res && res.data) {
+                if (res.data.xp_awarded > 0) {
+                    el.innerHTML = `✨ ${res.data.xp_awarded} XP 획득! (총 ${res.data.total_xp} XP)`;
+                } else {
+                    el.innerHTML = `오늘 획득 가능한 XP를 모두 받았습니다.`;
+                }
+            }
+        }).catch(err => {
+            if (el) el.innerHTML = `보상 정보를 불러오지 못했습니다.`;
+        });
+    }
   }
 
   // ── 이벤트 ─────────────────────────────────

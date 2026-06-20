@@ -30,7 +30,7 @@ export function PopupTitle({ visible, onStart }) {
 /**
  * 스테이지 클리어 팝업
  */
-export function PopupClear({ visible, onNext }) {
+export function PopupClear({ visible, onNext, clearData }) {
   if (!visible) return null;
   return (
     <div className="popup" id="popup-clear">
@@ -40,6 +40,11 @@ export function PopupClear({ visible, onNext }) {
           <img src={BOSS_UNIT} alt="Unit Boss" />
         </div>
         <div className="popup-sub">보스를 물리쳤다!</div>
+        {clearData && clearData.crowns_awarded > 0 && (
+          <div style={{color: '#ffcc00', fontWeight: 'bold', margin: '10px 0'}}>
+            👑 왕관 획득! (총 {clearData.total_crowns}개)
+          </div>
+        )}
         <button className="btn" onClick={onNext}>다음 스테이지 →</button>
       </div>
     </div>
@@ -73,7 +78,7 @@ export function PopupOver({ visible, onRetry, onHome }) {
 /**
  * 최종 클리어 팝업
  */
-export function PopupFinal({ visible, onRestart, onHome }) {
+export function PopupFinal({ visible, onRestart, onHome, clearData }) {
   if (!visible) return null;
   return (
     <div className="popup" id="popup-final">
@@ -84,6 +89,11 @@ export function PopupFinal({ visible, onRestart, onHome }) {
           <img src={BOSS_FINAL} alt="Final Boss" />
         </div>
         <div className="popup-sub">모든 보스를 물리쳤다!</div>
+        {clearData && clearData.crowns_awarded > 0 && (
+          <div style={{color: '#ffcc00', fontWeight: 'bold', margin: '10px 0'}}>
+            👑 왕관 획득! (총 {clearData.total_crowns}개)
+          </div>
+        )}
         <div className="popup-btn-row">
           <button className="btn" onClick={onRestart}>처음부터</button>
           <button className="btn btn-gray" onClick={onHome}>홈으로</button>
