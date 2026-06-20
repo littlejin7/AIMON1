@@ -63,3 +63,7 @@ export const trainApi = {
   getReview: (params) => api.get('/train/review', { params }),
   updateReviewed: (data) => api.post('/train/reviewed', data),
 }
+
+export const gameApi = {
+  clearGame: (data) => api.post('/game/clear', data),
+}

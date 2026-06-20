@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RunnerEngine } from './engine/RunnerEngine';
+import { gameApi } from '../../../api';
 import './AIrun.css';
 
 export default function AIrun() {
@@ -10,7 +11,17 @@ export default function AIrun() {
 
   useEffect(() => {
     if (!mountRef.current) return;
-    const engine = new RunnerEngine(mountRef.current);
+    
+    const handleGameOver = async (score, distance) => {
+      try {
+        return await gameApi.clearGame({ game_id: 'runner', score: Math.floor(score) });
+      } catch (e) {
+        console.error("Runner API error", e);
+        throw e;
+      }
+    };
+    
+    const engine = new RunnerEngine(mountRef.current, handleGameOver);
     engineRef.current = engine;
     engine.init();
     return () => { engine.destroy(); };

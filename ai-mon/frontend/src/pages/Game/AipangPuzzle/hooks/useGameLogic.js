@@ -1,5 +1,6 @@
 // ── 게임 핵심 로직 훅 ──
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { gameApi } from '../../../../api';
 import { COLS, ROWS, BOSS_STAGES } from '../constants/gameConstants';
 import {
   rndType,
@@ -44,6 +45,7 @@ export function useGameLogic(pCanvasRef, lCanvasRef) {
     over: false,
     final: false,
     bossIntro: false,
+    clearData: null,
   });
 
   // ── 가변 게임 상태 Refs (렌더 트리거 없이 변경) ──
@@ -374,13 +376,28 @@ useEffect(() => {
           setTimeout(() => beep(659, 0.1), 100);
           setTimeout(() => beep(784, 0.1), 200);
           setTimeout(() => beep(1046, 0.4), 300);
-          setPopups(prev => ({ ...prev, final: true }));
+          
+          gameApi.clearGame({ game_id: 'aipang' })
+            .then(res => {
+              setPopups(prev => ({ ...prev, final: true, clearData: res.data }));
+            })
+            .catch(() => {
+              setPopups(prev => ({ ...prev, final: true }));
+            });
+
         } else {
           beep(523, 0.15);
           setTimeout(() => beep(659, 0.15), 150);
           setTimeout(() => beep(784, 0.3), 300);
           setBossUI(prev => ({ ...prev, unitDefeated: true }));
-          setTimeout(() => setPopups(prev => ({ ...prev, clear: true })), 600);
+
+          gameApi.clearGame({ game_id: 'aipang' })
+            .then(res => {
+              setTimeout(() => setPopups(prev => ({ ...prev, clear: true, clearData: res.data })), 600);
+            })
+            .catch(() => {
+              setTimeout(() => setPopups(prev => ({ ...prev, clear: true })), 600);
+            });
         }
       }, 400);
       return;
@@ -545,7 +562,7 @@ useEffect(() => {
   
   const handleRefresh = useCallback(() => {
     if (busyRef.current) return;
-    setPopups({ title: false, clear: false, over: false, final: false, bossIntro: false });
+    setPopups({ title: false, clear: false, over: false, final: false, bossIntro: false, clearData: null });
     initStage();
     if (!bgmMutedRef.current && bgmRef.current) {
       bgmRef.current.currentTime = 0;
