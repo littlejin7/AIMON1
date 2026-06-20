@@ -43,22 +43,36 @@ def game_clear(req: GameClearRequest, authorization: str = Header(None)):
     # [하위 호환성 및 마이그레이션]
     # 1단계: 레거시 필드 (awarded_game_crowns, runner_plays) 이관
     legacy_crowns = user_ref.pop("awarded_game_crowns", None)
-    user_ref.pop("runner_plays", None)
+    legacy_plays = user_ref.pop("runner_plays", None)
     
     if legacy_crowns and isinstance(legacy_crowns, dict):
         aipang_date = legacy_crowns.get("aipang")
         if aipang_date:
             game_rewards["aipang_last_date"] = aipang_date
             
-    # 2단계: 이전 game_rewards["aipang"]["last_reward_date"] 형태 마이그레이션
+    if legacy_plays and isinstance(legacy_plays, dict):
+        sorted_dates = sorted(legacy_plays.keys())
+        if sorted_dates:
+            last_date = sorted_dates[-1]
+            game_rewards["runner_last_date"] = last_date
+            game_rewards["runner_today_count"] = legacy_plays[last_date]
+            
+    # 2단계: 이전 game_rewards["aipang"]["last_reward_date"] 및 game_rewards["runner"]["plays"] 형태 마이그레이션
     if "aipang" in game_rewards and isinstance(game_rewards["aipang"], dict):
         old_aipang = game_rewards.pop("aipang", {})
         old_date = old_aipang.get("last_reward_date")
         if old_date:
             game_rewards["aipang_last_date"] = old_date
             
-    # 필요하지 않은 runner 객체 정보 정리
-    game_rewards.pop("runner", None)
+    if "runner" in game_rewards and isinstance(game_rewards["runner"], dict):
+        old_runner = game_rewards.pop("runner", {})
+        old_plays = old_runner.get("plays", {})
+        if isinstance(old_plays, dict):
+            sorted_dates = sorted(old_plays.keys())
+            if sorted_dates:
+                last_date = sorted_dates[-1]
+                game_rewards["runner_last_date"] = last_date
+                game_rewards["runner_today_count"] = old_plays[last_date]
     
     # 게임 종류에 따른 보상 처리
     if req.game_id == "aipang":
@@ -70,17 +84,32 @@ def game_clear(req: GameClearRequest, authorization: str = Header(None)):
             user_ref["crowns"] = user_ref.get("crowns", 0) + crowns_awarded
             
     elif req.game_id == "runner":
-        # distance가 주어지지 않은 경우 score나 0을 fallback으로 활용
-        distance_val = req.distance if req.distance is not None else (req.score or 0)
+        runner_last = game_rewards.get("runner_last_date")
+        runner_count = game_rewards.get("runner_today_count", 0)
         
-        if distance_val < 500:
-            xp_awarded = 200
-        elif distance_val <= 1000:
-            xp_awarded = 350
-        else:
-            xp_awarded = 500
+        # 날짜가 바뀌었으면 카운트 초기화
+        if runner_last != today_kst:
+            runner_count = 0
+            runner_last = today_kst
             
-        user_ref["xp"] = user_ref.get("xp", 0) + xp_awarded
+        if runner_count >= 5:
+            already_claimed = True
+        else:
+            runner_count += 1
+            game_rewards["runner_today_count"] = runner_count
+            game_rewards["runner_last_date"] = today_kst
+            
+            # distance가 주어지지 않은 경우 score나 0을 fallback으로 활용
+            distance_val = req.distance if req.distance is not None else (req.score or 0)
+            
+            if distance_val < 500:
+                xp_awarded = 200
+            elif distance_val <= 1000:
+                xp_awarded = 350
+            else:
+                xp_awarded = 500
+                
+            user_ref["xp"] = user_ref.get("xp", 0) + xp_awarded
     else:
         raise HTTPException(status_code=400, detail="Invalid game_id")
         
