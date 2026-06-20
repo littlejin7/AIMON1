@@ -29,8 +29,10 @@ class BossAnswerRequest(BaseModel):
 # 서버 측 HP 고정 상수 – 클라이언트 조작 무력화
 BOSS_HP_INIT  = 1000
 MY_HP_INIT    = 1000
-BOSS_HP_DELTA = 150   # 정답 시 보스 HP 감소
+BOSS_HP_DELTA = 200   # 정답 시 보스 HP 감소 (5번 맞추면 클리어)
 MY_HP_DELTA   = 350   # 오답 시 내 HP 감소
+
+
 
 
 @router.get("/info")

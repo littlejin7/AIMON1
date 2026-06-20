@@ -27,7 +27,7 @@ router = APIRouter()
 MINIBOSS_DIR  = os.path.join(os.path.dirname(__file__), "../data/miniboss")
 
 # ── HP 설정 ───────────────────────────────────────────────────────────────────
-BOSS_HP_INIT  = 700   # 정답 7번이면 클리어
+BOSS_HP_INIT  = 500   # 정답 5번이면 클리어
 MY_HP_INIT    = 900   # 오답 3번이면 실패
 BOSS_HP_DELTA = 100   # 정답 시 보스 HP 감소
 MY_HP_DELTA   = 300   # 오답 시 내 HP 감소
@@ -139,7 +139,7 @@ def miniboss_start(unit: int = 1, stage: str = "1-1", authorization: str = Heade
 
     # 배틀 시작마다 seen 리셋 (매 배틀 새 문제 순서)
     random.shuffle(unseen)
-    chosen = unseen[:10]  # 최대 10문제
+    chosen = unseen[:5]  # 최대 5문제
     seen[stage] = [q["question_id"] for q in chosen]
     user[seen_key] = seen
     save_users(users)
