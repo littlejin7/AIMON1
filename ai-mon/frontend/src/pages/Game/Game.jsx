@@ -104,7 +104,7 @@ export default function Game() {
               if (g.available && g.route) {
                 if (!token) {
                   alert("로그인이 필요한 기능입니다.");
-                  navigate("/auth?mode=login");
+                  navigate("/auth");
                   return;
                 }
                 navigate(g.route);

@@ -12,6 +12,7 @@ import Character from "./pages/Character/Character";
 import Settings from "./pages/Settings/Settings";
 import Train from "./pages/Train/Train";
 import Auth from "./pages/Auth/Auth";
+import Register from "./pages/Auth/Register";
 import SocialCallback from "./pages/Auth/SocialCallback";
 import NaverCallback from "./pages/Auth/NaverCallback";
 import KakaoCallback from "./pages/Auth/KakaoCallback";
@@ -88,6 +89,7 @@ export default function App() {
       <Routes>
         {/* ── 인증 페이지 (NavBar 없음) ── */}
         <Route path="/auth" element={<Auth />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/auth/callback/google" element={<SocialCallback />} />
         <Route path="/auth/callback/naver" element={<NaverCallback />} />
         <Route path="/auth/callback/kakao" element={<KakaoCallback />} />

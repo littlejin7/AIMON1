@@ -57,7 +57,7 @@ export default function HomeLanding({ onOpenLevelTest }) {
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '12px', marginTop: '8px', fontSize: '0.88rem' }}>
             <button
               id="btn-register-home"
-              onClick={() => navigate('/auth?mode=register')}
+              onClick={() => navigate('/register')}
               style={{ background: 'none', border: 'none', padding: 0, color: 'var(--clr-primary-lt)', textDecoration: 'underline', cursor: 'pointer', fontWeight: 600 }}
             >
               회원가입
@@ -65,7 +65,7 @@ export default function HomeLanding({ onOpenLevelTest }) {
             <span style={{ color: 'var(--clr-text-faint)' }}>|</span>
             <button
               id="btn-login-home"
-              onClick={() => navigate('/auth?mode=login')}
+              onClick={() => navigate('/auth')}
               style={{ background: 'none', border: 'none', padding: 0, color: 'var(--clr-text-muted)', cursor: 'pointer' }}
             >
               이미 계정이 있어요 (로그인)
