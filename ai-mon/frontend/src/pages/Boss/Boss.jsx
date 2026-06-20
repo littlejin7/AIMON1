@@ -6,6 +6,7 @@ import BossIntro  from './BossIntro'
 import useBossSound from '../../hooks/useBossSound'
 import BossBattle from './BossBattle'
 import BossResult from './BossResult'
+import TitleEarnedModal from '../../components/TitleEarnedModal/TitleEarnedModal'
 import './Boss.css'
 
 export default function Boss() {
@@ -45,6 +46,7 @@ export default function Boss() {
   // 레벨업 정보
   const [initialLevel,    setInitialLevel]    = useState(1)
   const [levelUpMessage,  setLevelUpMessage]  = useState('')
+  const [newlyEarnedTitles, setNewlyEarnedTitles] = useState([])
 
   useEffect(() => {
     if (user) setInitialLevel(user.lv || 1)
@@ -147,6 +149,9 @@ export default function Boss() {
       if (isCorrect) {
         playAttackEffect(damage > 0 ? damage : 150)
         if (isClear) {
+          if (d.newly_earned_titles && d.newly_earned_titles.length > 0) {
+            setNewlyEarnedTitles(d.newly_earned_titles)
+          }
           setTimeout(async () => {
             try {
               const userRes     = await userApi.getMe()
@@ -256,6 +261,12 @@ export default function Boss() {
           />
         )}
       </div>
+      {newlyEarnedTitles.length > 0 && (
+        <TitleEarnedModal
+          titles={newlyEarnedTitles}
+          onClose={() => setNewlyEarnedTitles([])}
+        />
+      )}
     </div>
   )
 }

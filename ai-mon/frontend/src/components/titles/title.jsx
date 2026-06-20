@@ -73,6 +73,9 @@ const TITLES = [
   { id: 'ai_explorer',  icon: IconAiExplorer,  name: 'AI 탐구자',    desc: 'AI 피드백 10회 확인', condition: (u) => (u?.ai_feedback_count || 0) >= 10 },
   { id: 'unit_master',  icon: IconUnitMaster,  name: '유닛 마스터',  desc: '유닛 1개 100% 완료',  condition: (u) => (u?.completed_units || 0) >= 1 },
   { id: 'aimon_master', icon: IconAimonMaster, name: '에이몬 마스터', desc: 'Lv.30 달성',         condition: (u) => calcLevel(u?.xp || 0).lv >= 30 },
+  { id: 'rookie_coder',  icon: IconUnitMaster,  name: '코드 ROOKIE',   desc: '초급 엔드보스 클리어', condition: (u) => u?.titles?.includes('rookie_coder') },
+  { id: 'ace_coder',     icon: IconUnitMaster,  name: 'ACE 코더',      desc: '중급 엔드보스 클리어', condition: (u) => u?.titles?.includes('ace_coder') },
+  { id: 'ai_master',     icon: IconAimonMaster, name: 'AI 마스터',     desc: '고급 엔드보스 클리어', condition: (u) => u?.titles?.includes('ai_master') },
 ]
 
 // ── 캐릭터 이모지 (실제론 PNG지만 mock용)
