@@ -100,7 +100,7 @@ export default function Stage({ _lessonId, _stage }) {
       unit: lessonId,
       stage: `${lessonId}-${stageNum}`,
       course_level: courseLevel,
-      limit: 20,
+      limit: 10,
       attempt,
     }).then(r => r.data).catch(() => [])
 
@@ -181,7 +181,7 @@ export default function Stage({ _lessonId, _stage }) {
           user_answer: isCorrect ? questions[current].answer : 'wrong', // Simplified for client logic
           unit: parseInt(lessonId, 10),
           stage: `${lessonId}-${stageNum}`,
-          my_hp: 900, boss_hp: 700 // Server handles actual HP clamping and reduction
+          my_hp: 900, boss_hp: 500 // Server handles actual HP clamping and reduction
         })
       } catch (err) {
         console.error('Failed to submit miniboss answer', err)
