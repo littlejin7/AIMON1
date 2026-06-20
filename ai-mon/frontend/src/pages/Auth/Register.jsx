@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { authApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
+import SocialButtons from './SocialButtons'
 import RegisterForm from './RegisterForm'
 import beginnerHappyIcon from '../../assets/character_beginnerhappy.png'
 import slimeIcon         from '../../assets/character_slime.png'
@@ -29,16 +30,20 @@ export default function Register() {
   const [passwordConfirm, setPasswordConfirm] = useState('')
   const [idChecked,       setIdChecked]       = useState(false)
   const [idCheckMsg,      setIdCheckMsg]      = useState('')
-  const [terms, setTerms] = useState({ age: false, tos: false, privacy: false, marketing: false })
+  const [emailChecked,    setEmailChecked]    = useState(false)
+  const [emailCheckMsg,   setEmailCheckMsg]   = useState('')
+  const [terms, setTerms] = useState({ age: false, tos: false, privacy: false })
   const [loading, setLoading] = useState(false)
   const [error,   setError]   = useState('')
+  const [socialMsg, setSocialMsg] = useState('')
+  const [showEmailForm, setShowEmailForm] = useState(false) // 이메일 가입 폼 전환 상태
 
   const setAuth  = useAuthStore((s) => s.setAuth)
   const navigate = useNavigate()
 
   const levelInfo = LEVEL_INFO[initialLevel] || LEVEL_INFO.beginner
 
-  const canSubmit = idChecked && terms.age && terms.tos && terms.privacy
+  const canSubmit = idChecked && emailChecked && terms.age && terms.tos && terms.privacy
     && form.password.length >= 6 && form.password === passwordConfirm
     && form.email.trim() !== ''
 
@@ -46,6 +51,7 @@ export default function Register() {
     setForm({ ...form, [e.target.name]: e.target.value })
     setError('')
     if (e.target.name === 'username') { setIdChecked(false); setIdCheckMsg('') }
+    if (e.target.name === 'email') { setEmailChecked(false); setEmailCheckMsg('') }
   }
 
   const handleIdCheck = async () => {
@@ -62,13 +68,35 @@ export default function Register() {
     }
   }
 
+  const handleEmailCheck = async (fullEmail) => {
+    const email = fullEmail.trim()
+    if (!email || !email.includes('@') || email.split('@')[0].trim() === '' || email.split('@')[1].trim() === '') {
+      setEmailCheckMsg('error')
+      return
+    }
+    try {
+      await authApi.checkEmail(email)
+      setEmailCheckMsg('ok')
+      setEmailChecked(true)
+    } catch (err) {
+      setEmailChecked(false)
+      if (!err.response) {
+        // 서버가 꺼져 있거나 네트워크가 끊겨 응답(response) 자체가 없는 경우
+        setEmailCheckMsg('server_error')
+      } else {
+        const detail = err.response?.data?.detail || ''
+        setEmailCheckMsg(detail.includes('존재') ? 'dup' : 'error')
+      }
+    }
+  }
+
   const handleTermChange = (e) => {
     setTerms({ ...terms, [e.target.name]: e.target.checked })
   }
 
   const handleTermAll = (e) => {
     const all = e.target.checked
-    setTerms({ age: all, tos: all, privacy: all, marketing: all })
+    setTerms({ age: all, tos: all, privacy: all })
   }
 
   const handleSubmit = async (e) => {
@@ -89,7 +117,7 @@ export default function Register() {
         email:        form.email.trim(),
         course_level: form.course_level,
         is_level_tested: isLevelTested,
-        marketing_agreed: terms.marketing,
+        marketing_agreed: false,
       }
       const res = await authApi.register(payload)
       setAuth(res.data.access_token, res.data.user)
@@ -101,6 +129,33 @@ export default function Register() {
     }
   }
 
+  const handleSocial = (provider) => {
+    if (provider.id === 'google') {
+      const clientId = '351430087231-s44028ntujf7a2r39svls4ol5v37ftte.apps.googleusercontent.com'
+      const redirectUri = `${window.location.origin}/auth/callback/google`
+      const scope = 'openid email profile'
+      const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${encodeURIComponent(scope)}&state=google`
+      window.location.href = authUrl
+      return
+    }
+    if (provider.id === 'naver') {
+      const clientId = import.meta.env.VITE_NAVER_CLIENT_ID || '0LAXJWCUUDT5GXPmWzi4'
+      const redirectUri = `${window.location.origin}/auth/callback/naver`
+      const authUrl = `https://nid.naver.com/oauth2.0/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&state=naver_state`
+      window.location.href = authUrl
+      return
+    }
+    if (provider.id === 'kakao') {
+      const clientId = import.meta.env.VITE_KAKAO_CLIENT_ID || '7300172418d9267abc7889f60b1602fe'
+      const redirectUri = `${window.location.origin}/auth/callback/kakao`
+      const authUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code`
+      window.location.href = authUrl
+      return
+    }
+    setSocialMsg(`${provider.label.split('로')[0]} 로그인은 곧 지원될 예정이에요! 🛠️`)
+    setTimeout(() => setSocialMsg(''), 3000)
+  }
+
   return (
     <div className="auth-page">
       <div className="auth-bg-orb orb-1" />
@@ -109,7 +164,13 @@ export default function Register() {
       <div className="auth-container animate-fade-in-up" style={{ position: 'relative' }}>
         {/* 뒤로가기 */}
         <button
-          onClick={() => navigate(-1)}
+          onClick={() => {
+            if (showEmailForm) {
+              setShowEmailForm(false)
+            } else {
+              navigate(-1)
+            }
+          }}
           style={{ position: 'absolute', top: '20px', left: '20px', background: 'none', border: 'none', color: 'var(--clr-text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.95rem', fontWeight: 500 }}
           aria-label="이전 화면으로"
         >
@@ -132,22 +193,54 @@ export default function Register() {
           </div>
         )}
 
-        <RegisterForm
-          form={form}
-          onChange={handleChange}
-          passwordConfirm={passwordConfirm}
-          setPasswordConfirm={setPasswordConfirm}
-          idChecked={idChecked}
-          idCheckMsg={idCheckMsg}
-          onIdCheck={handleIdCheck}
-          terms={terms}
-          onTermChange={handleTermChange}
-          onTermAll={handleTermAll}
-          error={error}
-          loading={loading}
-          onSubmit={handleSubmit}
-          canSubmit={canSubmit}
-        />
+        {!showEmailForm ? (
+          <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', width: '100%' }}>
+            {/* 소셜 가입/로그인 */}
+            <SocialButtons onSocial={handleSocial} />
+
+            {socialMsg && (
+              <div className="auth-social-msg animate-fade-in" style={{ textAlign: 'center' }}>🛠️ {socialMsg}</div>
+            )}
+
+            {/* 구분선 */}
+            <div className="auth-divider">
+              <span>또는</span>
+            </div>
+
+            {/* 일반 이메일 회원가입으로 전환 버튼 */}
+            <button
+              type="button"
+              className="btn btn-outline btn-lg"
+              onClick={() => setShowEmailForm(true)}
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              이메일로 가입하기
+            </button>
+          </div>
+        ) : (
+          <div className="animate-fade-in">
+            <RegisterForm
+              form={form}
+              onChange={handleChange}
+              passwordConfirm={passwordConfirm}
+              setPasswordConfirm={setPasswordConfirm}
+              idChecked={idChecked}
+              idCheckMsg={idCheckMsg}
+              onIdCheck={handleIdCheck}
+              emailChecked={emailChecked}
+              emailCheckMsg={emailCheckMsg}
+              onEmailCheck={handleEmailCheck}
+              terms={terms}
+              onTermChange={handleTermChange}
+              onTermAll={handleTermAll}
+              error={error}
+              loading={loading}
+              onSubmit={handleSubmit}
+              canSubmit={canSubmit}
+            />
+          </div>
+        )}
 
         <p style={{ textAlign: 'center', marginTop: '1.25rem', fontSize: '0.875rem', color: 'var(--clr-text-muted)' }}>
           이미 계정이 있으신가요?{' '}
