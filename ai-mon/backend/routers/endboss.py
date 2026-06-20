@@ -395,6 +395,10 @@ def endboss_clear(req: ClearRequest, authorization: str = Header(...)):
             user["titles"] = list(earned)
             newly_earned_titles.append({"id": title_id, "name": title_name})
 
+        # boss_cleared 및 completed_stages 카운트 user에 저장
+        user["boss_cleared"] = user.get("boss_cleared", 0) + 1
+        user["completed_stages"] = user.get("completed_stages", 0) + 1
+
         # 기타 칭호 체크
         context_titles = check_and_award_titles(user, {"boss_cleared": True})
         newly_earned_titles.extend(context_titles)

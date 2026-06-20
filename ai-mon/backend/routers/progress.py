@@ -126,7 +126,9 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
             # 1. XP 및 진화
             if award_xp:
                 u["xp"] = u.get("xp", 0) + xp_gain
-                
+
+                # completed_stages user에 저장
+                u["completed_stages"] = u.get("completed_stages", 0) + 1
 
                 new_lv = calc_level(u["xp"])
                 u["lv"] = max(new_lv, u.get("lv", 1))
