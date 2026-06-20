@@ -36,7 +36,7 @@ export default function useHomeSound() {
   // ─── 내부 유틸 ───────────────────────────────────────────────
 
   function _getCtx() {
-    if (!ctxRef.current) {
+    if (!ctxRef.current || ctxRef.current.state === 'closed') {
       ctxRef.current = new (window.AudioContext || window.webkitAudioContext)()
     }
     return ctxRef.current
@@ -180,9 +180,10 @@ export default function useHomeSound() {
 
     // suspended → 첫 인터랙션까지 대기
     const onInteract = () => {
+      if (!ac || ac.state === 'closed') return
       ac.resume().then(() => {
         if (!isPlayingRef.current) _startScheduler(type)
-      })
+      }).catch(() => {})
     }
 
     document.addEventListener('click',      onInteract, { once: true })
