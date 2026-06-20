@@ -14,7 +14,7 @@ export default function AIrun() {
     
     const handleGameOver = async (score, distance) => {
       try {
-        return await gameApi.clearGame({ game_id: 'runner', score: Math.floor(score) });
+        return await gameApi.clearGame({ game_id: 'runner', distance: Math.floor(distance) });
       } catch (e) {
         console.error("Runner API error", e);
         throw e;
