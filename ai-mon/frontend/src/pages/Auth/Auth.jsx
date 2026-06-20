@@ -130,7 +130,17 @@ export default function Auth() {
       <div className="auth-bg-orb orb-1" />
       <div className="auth-bg-orb orb-2" />
 
-      <div className="auth-container animate-fade-in-up">
+      <div className="auth-container animate-fade-in-up" style={{ position: 'relative' }}>
+        {/* 뒤로가기 버튼 */}
+        <button 
+          onClick={() => window.history.length > 2 ? navigate(-1) : navigate('/')} 
+          style={{ position: 'absolute', top: '20px', left: '20px', background: 'none', border: 'none', color: 'var(--clr-text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.95rem', fontWeight: 500 }}
+          aria-label="이전 화면으로"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          뒤로
+        </button>
+
         {/* 로고 */}
         <div className="auth-logo">
           <img src={beginnerHappyIcon} alt="에이몬" className="auth-logo-emoji animate-float" />
