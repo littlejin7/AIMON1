@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException, Header, Query
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
-from services.claude_service import ask_claude
+from services.claude_service import ask_claude, stream_claude
 import json, os, random
 from routers.utils import verify_token
 
@@ -262,3 +263,35 @@ async def get_ai_feedback(req: AiFeedbackRequest, authorization: str = Header(No
     if result["success"]:
         return {"feedback": result["feedback"], "is_ai_fallback": False}
     return {"feedback": "", "is_ai_fallback": True}
+
+
+@router.post("/ai-feedback/stream")
+async def get_ai_feedback_stream(req: AiFeedbackRequest, authorization: str = Header(None)):
+    """
+    SSE 스트리밍 피드백. 청크마다 data: {"text": "..."} 형식으로 전송.
+    완료 시 data: [DONE] 전송.
+    """
+    prompt = (
+        f"[문제]\n{req.question}\n\n"
+        f"[정답]\n{req.correct_answer}\n\n"
+        f"[학생 답변]\n{req.user_answer}\n\n"
+        "학생이 왜 틀렸는지, 그리고 올바른 개념을 이해할 수 있도록 설명해주세요."
+    )
+
+    async def event_generator():
+        try:
+            async for chunk in stream_claude(prompt, req.level):
+                yield f"data: {json.dumps({'text': chunk}, ensure_ascii=False)}\n\n"
+        except Exception as e:
+            yield f"data: {json.dumps({'text': f'[오류: {str(e)}]'}, ensure_ascii=False)}\n\n"
+        finally:
+            yield "data: [DONE]\n\n"
+
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "X-Accel-Buffering": "no",
+        },
+    )

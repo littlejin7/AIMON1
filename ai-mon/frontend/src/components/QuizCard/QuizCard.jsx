@@ -68,7 +68,7 @@ export default function QuizCard({ question, onAnswer, onNext, disabled = false 
   const isCodeInput   = type === 'code_input'
   const choicesList   = question.choices || question.options || []
 
-  // ── AI 피드백 호출 ──
+  // ── AI 피드백 호출 (SSE 스트리밍) ──
   const fetchAiFeedback = async (userAnswer) => {
     const staticFallback = question.feedback?.wrong || '정답을 다시 확인해 보세요!'
     setAiFeedback(staticFallback)
@@ -79,25 +79,61 @@ export default function QuizCard({ question, onAnswer, onNext, disabled = false 
       fullQuestionText += '\n\n[선택지]\n' + choicesList.join('\n')
     }
 
-    const controller = new AbortController()
-    const timer = setTimeout(() => controller.abort(), 5000)
+    const body = JSON.stringify({
+      question:       fullQuestionText,
+      correct_answer: question.answer,
+      user_answer:    userAnswer,
+      level:          courseLevel,
+    })
+
+    const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+    const token   = (await import('../../hooks/useAuthStore')).useAuthStore.getState().token
+    const headers = { 'Content-Type': 'application/json' }
+    if (token) headers['Authorization'] = `Bearer ${token}`
+
     try {
-      const res = await quizApi.getAiFeedback(
-        {
-          question:       fullQuestionText,
-          correct_answer: question.answer,
-          user_answer:    userAnswer,
-          level:          courseLevel,
-        },
-        { signal: controller.signal }
-      )
-      if (res.data?.feedback && !res.data?.is_ai_fallback) {
-        setAiFeedback(res.data.feedback)
+      const res = await fetch(`${baseUrl}/quiz/ai-feedback/stream`, {
+        method:  'POST',
+        headers,
+        body,
+        signal: AbortSignal.timeout(30000),
+      })
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+
+      const reader  = res.body.getReader()
+      const decoder = new TextDecoder()
+      let accumulated = ''
+      let buffer = ''
+
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+
+        buffer += decoder.decode(value, { stream: true })
+        const lines = buffer.split('\n')
+        buffer = lines.pop() ?? ''
+
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue
+          const data = line.slice(6)
+          if (data === '[DONE]') break
+          try {
+            const parsed = JSON.parse(data)
+            if (parsed.text) {
+              accumulated += parsed.text
+              setAiFeedback(accumulated)
+            }
+          } catch { /* JSON 파싱 실패 무시 */ }
+        }
       }
-    } catch {
-      // 타임아웃/네트워크 오류 → staticFallback 유지
+    } catch (streamErr) {
+      // 스트리밍 실패 → 기존 단순 POST 폴백
+      try {
+        const res = await quizApi.getAiFeedback({ question: fullQuestionText, correct_answer: question.answer, user_answer: userAnswer, level: courseLevel })
+        if (res.data?.feedback && !res.data?.is_ai_fallback) setAiFeedback(res.data.feedback)
+      } catch { /* staticFallback 유지 */ }
     } finally {
-      clearTimeout(timer)
       setAiFeedbackLoading(false)
     }
   }
