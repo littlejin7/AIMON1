@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import auth, quiz, boss, endboss, miniboss, progress, user, code, train, titles
+from routers import auth, quiz, boss, endboss, miniboss, progress, user, code, train, titles, game
 from dotenv import load_dotenv
 import os
 
@@ -29,6 +29,7 @@ app.include_router(miniboss.router, prefix="/boss/miniboss", tags=["Miniboss"])
 app.include_router(code.router, prefix="/code", tags=["Code"])
 app.include_router(train.router, prefix="/train", tags=["Train"])
 app.include_router(titles.router, prefix="/titles", tags=["Titles"])
+app.include_router(game.router, prefix="/game", tags=["Game"])
 
 @app.get("/")
 def health_check():
