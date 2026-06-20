@@ -81,6 +81,9 @@ export default function BossBattle({
 
   const isCodeType = currentQuestion.type === 'code_input' || currentQuestion.type === 'fill_in_blank'
   const { questionText, codeLines } = parseQuestionCode(currentQuestion.question)
+
+  // 보스 HP에 따라 크기 감소 (0.7 ~ 1.0)
+  const bossScale = 0.7 + 0.3 * Math.max(0, bossHp / BOSS_HP_MAX)
   
   return (
     <div className="boss-card battle-card card-glass animate-fade-in-up">
