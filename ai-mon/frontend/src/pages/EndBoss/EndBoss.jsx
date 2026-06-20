@@ -6,6 +6,7 @@ import EndBossIntro  from './EndBossIntro'
 import useBossSound from '../../hooks/useBossSound'
 import EndBossBattle from './EndBossBattle'
 import EndBossResult from './EndBossResult'
+import TitleEarnedModal from '../../components/TitleEarnedModal/TitleEarnedModal'
 import '../Boss/Boss.css' // 재사용
 
 export default function EndBoss() {
@@ -56,6 +57,7 @@ export default function EndBoss() {
   // 레벨업 정보
   const [initialLevel,    setInitialLevel]    = useState(1)
   const [levelUpMessage,  setLevelUpMessage]  = useState('')
+  const [newlyEarnedTitles, setNewlyEarnedTitles] = useState([])
 
   useEffect(() => {
     if (user) setInitialLevel(user.lv || 1)
@@ -172,7 +174,10 @@ export default function EndBoss() {
         if (isClear) {
           setTimeout(async () => {
             try {
-              await endbossApi.clearBoss(endbossState.project)
+              const clearRes = await endbossApi.clearBoss(endbossState.project)
+              if (clearRes?.data?.newly_earned_titles?.length > 0) {
+                setNewlyEarnedTitles(clearRes.data.newly_earned_titles)
+              }
               const userRes     = await userApi.getMe()
               const updatedUser = userRes.data
               updateUser(updatedUser)
@@ -309,6 +314,12 @@ export default function EndBoss() {
           />
         )}
       </div>
+      {newlyEarnedTitles.length > 0 && (
+        <TitleEarnedModal
+          titles={newlyEarnedTitles}
+          onClose={() => setNewlyEarnedTitles([])}
+        />
+      )}
     </div>
   )
 }

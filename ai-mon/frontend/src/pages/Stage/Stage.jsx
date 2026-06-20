@@ -7,6 +7,7 @@ import StageBriefing from './StageBriefing'
 import MiniBossAlert from './MiniBossAlert'
 import StageQuiz from './StageQuiz'
 import StageResult from './StageResult'
+import TitleEarnedModal from '../../components/TitleEarnedModal/TitleEarnedModal'
 import './Stage.css'
 
 const EVOLUTION_MAP = {
@@ -61,6 +62,7 @@ export default function Stage({ _lessonId, _stage }) {
   const [unitInfo,      setUnitInfo]      = useState(null)
   const [evoModal,      setEvoModal]      = useState(null)
   const [showAuthModal, setShowAuthModal] = useState(false)
+  const [newlyEarnedTitles, setNewlyEarnedTitles] = useState([])
 
   // ── 미니보스 상태 ──
   const [showMinibossAlert,  setShowMinibossAlert]  = useState(false)
@@ -286,6 +288,10 @@ export default function Stage({ _lessonId, _stage }) {
       if (res?.data) {
         setXpAwarded(res.data.xp_awarded || 0)
 
+        if (res.data.newly_earned_titles && res.data.newly_earned_titles.length > 0) {
+          setNewlyEarnedTitles(res.data.newly_earned_titles)
+        }
+
         const newLv   = res.data.lv        || prevLv
         const newChar = res.data.character || prevChar
 
@@ -326,23 +332,31 @@ export default function Stage({ _lessonId, _stage }) {
 
   if (finished) {
     return (
-      <StageResult
-        passed={passed}
-        finalScore={finalScore}
-        evalTotalCount={evalTotalCount}
-        evalCorrectCount={evalCorrectCount}
-        isMinibossPlayed={isMinibossPlayed}
-        xpAwarded={xpAwarded}
-        unitInfo={unitInfo}
-        stageNum={stageNum}
-        lessonId={lessonId}
-        showAuthModal={showAuthModal}
-        setShowAuthModal={setShowAuthModal}
-        handleMinibossRetry={handleMinibossRetry}
-        resetStageState={resetStageState}
-        evoModal={evoModal}
-        setEvoModal={setEvoModal}
-      />
+      <>
+        <StageResult
+          passed={passed}
+          finalScore={finalScore}
+          evalTotalCount={evalTotalCount}
+          evalCorrectCount={evalCorrectCount}
+          isMinibossPlayed={isMinibossPlayed}
+          xpAwarded={xpAwarded}
+          unitInfo={unitInfo}
+          stageNum={stageNum}
+          lessonId={lessonId}
+          showAuthModal={showAuthModal}
+          setShowAuthModal={setShowAuthModal}
+          handleMinibossRetry={handleMinibossRetry}
+          resetStageState={resetStageState}
+          evoModal={evoModal}
+          setEvoModal={setEvoModal}
+        />
+        {newlyEarnedTitles.length > 0 && (
+          <TitleEarnedModal
+            titles={newlyEarnedTitles}
+            onClose={() => setNewlyEarnedTitles([])}
+          />
+        )}
+      </>
     )
   }
 
