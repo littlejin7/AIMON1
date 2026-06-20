@@ -286,6 +286,14 @@ def check_id(username: str):
     return {"ok": True}
 
 
+@router.get("/check-email")
+def check_email(email: str):
+    users = load_users()
+    if any(u.get("email", "").strip() == email.strip() for u in users if u.get("email")):
+        raise HTTPException(status_code=400, detail="이미 존재하는 이메일입니다.")
+    return {"ok": True}
+
+
 @router.post("/social/naver")
 def social_naver(req: SocialLoginRequest):
     import requests
