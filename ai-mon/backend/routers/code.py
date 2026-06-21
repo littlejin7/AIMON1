@@ -55,30 +55,49 @@ async def submit_code(req: SubmitRequest, authorization: str = Header(...)):
     course_level = user.get("course_level", req.course_level)
 
     level_instruction = {
-        "beginner":     "비유와 일상 예시를 들어 왜 틀렸는지 친절하게 설명해주세요.",
-        "intermediate": "핵심 개념과 코드 예시를 포함해 왜 틀렸는지 분석해주세요.",
-        "advanced":     "원리와 엣지 케이스까지 깊이 있게 틀린 이유를 설명해주세요.",
+        "beginner":     (
+            "단순 문법 오류가 없고 핵심 로직이 올바르다면 정답으로 인정하세요.\n"
+            "비유와 일상 예시를 들어 왜 틀렸는지 친절하게 설명해주세요."
+        ),
+        "intermediate": (
+            "리스트 컴프리헨션, 딕셔너리 등 파이썬스러운(Pythonic) 코드 작성 및 함수 모듈화에 가산점을 주세요.\n"
+            "핵심 개념과 코드 예시를 포함해 왜 틀렸는지, 어떻게 개선할지 분석해주세요."
+        ),
+        "advanced":     (
+            "알고리즘 효율성, 예외 처리, 비동기/고급 패턴 사용 여부를 엄격하게 채점하세요. (score 70점 이상 시 정답 인정)\n"
+            "원리와 엣지 케이스까지 깊이 있게 틀린 이유와 더 나은 접근법을 설명해주세요."
+        ),
     }.get(course_level, "비유와 일상 예시를 들어 왜 틀렸는지 친절하게 설명해주세요.")
 
-    error_section = f"\n실행 에러: {req.error}" if req.error else ""
+    error_section = f"\n[실행 에러]\n{req.error}" if req.error else ""
+    output_section = f"\n[사용자 코드 실행 결과]\n{req.output or '(출력 없음)'}" if req.output or req.error else ""
 
-    prompt = f"""당신은 파이썬을 가르치는 친절한 AI 튜터 '에이몬'입니다.
-다음 코딩 문제에 대한 사용자의 코드를 채점하고 피드백해주세요.
-틀렸을 경우, {level_instruction}
+    prompt = f"""당신은 파이썬을 가르치는 전문 AI 튜터 '에이몬'입니다.
+사용자의 코드를 분석하여 채점하고 피드백을 제공해주세요.
+
+[레벨별 채점 지침: {course_level.upper()}]
+{level_instruction}
 
 [중요 지시사항]
-- JSON 응답 외에 어떠한 부가 설명 텍스트도 출력하지 마세요. 오직 JSON만 출력해야 합니다.
-- 코드가 문제의 요구사항을 충족하면 is_correct: true로 채점하세요.
-- 실행 결과가 예시 정답과 완전히 일치하지 않더라도 로직이 올바르면 정답으로 인정하세요.
+- 코드가 문제의 핵심 요구사항을 충족하면 is_correct: true로 채점하세요.
+- 실행 결과 텍스트가 예시 정답과 완전히 일치하지 않더라도 로직이 올바르면 정답으로 인정하세요.
+- 오직 JSON 형식으로만 응답해야 하며, 그 외 어떠한 텍스트나 마크다운 기호도 포함하지 마세요.
 
-문제: {question.get('question', '')}
+[문제 정보]
+문제 설명: {question.get('question', '')}
 예시 정답 코드: {question.get('answer', '없음')}
-사용자 코드:
-{req.code}
-사용자 코드 실행 결과: {req.output or '(출력 없음)'}{error_section}
 
-채점 결과를 JSON으로 반환하세요:
-{{"is_correct": true/false, "score": 0~100, "feedback": "에이몬 튜터 피드백 (한국어, 2-3문장)", "hint": "틀렸을 때 힌트, 맞으면 빈 문자열"}}"""
+[사용자 제출 코드]
+{req.code}
+{output_section}{error_section}
+
+채점 결과를 다음 JSON 형식에 맞춰 반환하세요:
+{{
+  "is_correct": true/false,
+  "score": 0~100,
+  "feedback": "에이몬 튜터로서의 상세한 피드백 (한국어, 3-4문장)",
+  "hint": "틀렸을 때 힌트, 맞으면 빈 문자열"
+}}"""
 
     result = await ask_claude_json(prompt)
     is_correct = result.get("is_correct", False)
