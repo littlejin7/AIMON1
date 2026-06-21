@@ -8,6 +8,16 @@ load_dotenv(os.path.join(os.path.dirname(__file__), "../.env"))
 
 app = FastAPI(title="AI MON API - MVP", version="1.0.0")
 
+@app.on_event("startup")
+def startup_event():
+    from scheduler import scheduler
+    scheduler.start()
+
+@app.on_event("shutdown")
+def shutdown_event():
+    from scheduler import scheduler
+    scheduler.shutdown()
+
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 from routers.utils import limiter

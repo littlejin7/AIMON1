@@ -157,8 +157,9 @@ Claude API 호출
 - 설명 레벨: 최초 1회 설정 후 고정, 설정에서 언제든 변경 가능
 - API 출력 방식: MVP는 완성 후 출력 → 이후 스트리밍으로 전환
 - 정답 시: `explanation` 필드 텍스트 그대로 출력 (API 호출 없음)
-- 오답 시: Claude API 호출 → 레벨별 맞춤 설명 (매 스테이지 적용)
-- API 호출 제한 없음 (오답 시에만 호출이라 비용 미미)
+- 오답 시: Claude API 호출 → 레벨별 맞춤 설명 (매 스테이지 적용). 프롬프트 구조가 레벨별(beginner/intermediate/advanced) 평가 기준으로 고도화됨.
+- 캐싱: `wrong_answers.json`을 통해 오답 AI 피드백 캐싱 구현 및 연동 완료 (동일 오답에 대한 중복 호출 방지)
+- API 호출 제한: `slowapi`를 도입하여 Claude API 호출 엔드포인트들에 유저 ID 기준 Rate Limit 적용 (예: 분당 5회, 일당 100회 등 어뷰징 방지)
 
 **미확정**
 - [ ] FastAPI SSE Replit 환경 호환 확인 (스트리밍 전환 시)
@@ -190,7 +191,7 @@ Claude API 호출
 **힌트 규칙**
 - 스테이지 퀴즈: `hint` 필드 있음 (JSON 데이터에 포함)
 - 스테이지 미니보스: `hint` 필드 없음
-- 유닛 보스: `hint` 필드 없음 / UI 힌트코인 2회 사용 가능 (`hints_used` 0~2로 관리)
+- 유닛 보스: `hint` 필드 없음 / UI 힌트코인 2회 사용 가능 (`hints_used` 0~2로 관리, `POST /boss/hint` 엔드포인트 연동)
 - 엔드보스: `hint` 필드 없음, UI 힌트 없음
 - 엔드보스: Unit 8 보스 클리어 후 해금 / 재도전 왕관 3개 소모 (무료 없음)
 
@@ -263,10 +264,9 @@ Lv.10 / 20 / 30 달성 → 다음 캐릭터로 진화
 - MVP: 도전 막고 "왕관이 부족합니다" 안내
 - 2단계: 미니게임(게임 A / 게임 B) 연결 → 클리어 시 왕관 획득
 
-**미니게임 (MVP 이후)**
-- 게임 A: 타임킬링 (애니팡 스타일) → 왕관 획득
-- 게임 B: AI 지식 게임 (카드배틀 / OX 등 2~3종) → XP 100~300 획득 (난이도별 차등)
-- 카테고리: 레슨 / 훈련 / **미니게임** / 내 캐릭터 (MVP 이후 네비바 4탭으로 확장)
+**미니게임 (MVP 및 이후 확장)**
+- 에이팡 (Aipang), 에이런 (Airun), 에이짝 (Aijjak), 에이bomb 등 다수 추가 완료
+- 카테고리: 레슨 / 훈련 / **미니게임** / 내 캐릭터 (네비바 4탭으로 확장 완료)
 
 ---
 
@@ -302,7 +302,7 @@ Lv.10 / 20 / 30 달성 → 다음 캐릭터로 진화
 ### Auth 페이지 (/auth)
 
 - URL 파라미터: `?mode=login|register`
-- **소셜 로그인 (프레임)**: 구글 / 카카오 / 네이버 OAuth 버튼 UI (추후 구현)
+- **소셜 로그인**: 구글 / 카카오 / 네이버 OAuth 로그인 연동 완료 (JWT 토큰 발급 및 스트릭 처리 일원화)
 - 회원가입 완료 후 대시보드 이동 시 레벨 테스트를 유도
 
 ### RegisterRequest 스키마 (백엔드)
@@ -362,7 +362,7 @@ Lv.30+:   리미트 해제, 30,000 XP/레벨 유지
 
 - 매일 접속 시: streak +1
 - 하루 빠지면: streak 0 리셋
-- `last_login` 필드로 날짜 체크
+- `last_login` 필드로 날짜 체크 (스트릭 및 일일 도전 횟수 갱신 기준을 KST(UTC+9)로 수정하여 한국 자정 기준으로 정상 리셋되도록 보정)
 
 **스트릭 보상 (디폴트 구간, 자동 지급)**
 ```
@@ -418,9 +418,9 @@ Lv.30+:   리미트 해제, 30,000 XP/레벨 유지
 **설정**
 - AI 설명 레벨 설정 — `/settings` (beginner / intermediate / advanced)
 
-**준비중 (플레이스홀더)**
-- 엔드보스 — `/boss/endboss` (Unit 8 완료 시 해금 예정)
-- 미니게임 — `/game` (MVP 이후 오픈 예정)
+**엔드보스 및 미니게임**
+- 엔드보스 — `/boss/endboss` (Unit 8 완료 시 해금, 3페이즈 배틀 연동 완료)
+- 미니게임 — `/game` (에이팡, 에이런, 에이짝, 에이bomb 등 오픈)
 
 ---
 
@@ -428,13 +428,17 @@ Lv.30+:   리미트 해제, 30,000 XP/레벨 유지
 
 **인증**
 ```
-POST /auth/register     회원가입
-POST /auth/login        로그인 → JWT 발급
+POST /auth/register         회원가입
+POST /auth/login            로그인 → JWT 발급
+POST /auth/forgot-password  비밀번호 재설정 인증 코드 생성 및 이메일 발송
+POST /auth/reset-password   인증 코드 검증 및 비밀번호 변경
 ```
 
-**유저**
+
+**유저 및 칭호**
 ```
 GET  /user/me           내 정보 조회 (XP, 왕관, 레벨, 스트릭)
+GET  /titles            칭호 정보 조회 및 장착 (check_and_award_titles 연동)
 ```
 
 **브리핑 / 레슨**
@@ -443,11 +447,11 @@ GET  /lessons                      전체 레슨 목록
 GET  /lessons/{lesson_id}          특정 레슨 조회 (lesson_id: "1-1-beginner" 등)
 ```
 
-**퀴즈**
+**퀴즈 (Rate Limit 적용)**
 ```
 GET  /quiz/{level}/{unit}/{stage}   스테이지 문제 조회
 POST /quiz/submit                   답안 제출 → 정오답 판정
-POST /quiz/ai-feedback              오답 시 Claude API 호출
+POST /quiz/ai-feedback              오답 시 Claude API 호출 (slowapi Rate Limit 적용됨)
 ```
 
 **진도**
@@ -456,10 +460,12 @@ GET  /progress          전체 진도 조회
 POST /progress/update   스테이지/유닛 완료 처리
 ```
 
-**보스**
+**보스 (일부 Rate Limit 적용)**
 ```
 GET  /boss/{unit}       보스 정보 조회
+POST /boss/hint         보스 배틀 힌트 제공 (Claude API 활용, slowapi Rate Limit 적용됨)
 POST /boss/attempt      보스 도전 시작 (왕관 차감)
+POST /boss/answer       보스 문제 채점 (slowapi Rate Limit 적용됨)
 POST /boss/clear        보스 클리어 처리 (XP + 왕관 지급 + 진화 체크)
 POST /boss/fail         보스 실패 처리 (도전 횟수 업데이트)
 ```
@@ -475,6 +481,17 @@ POST /boss/fail         보스 실패 처리 (도전 횟수 업데이트)
 GET  /game/list         미니게임 목록
 POST /game/clear        게임 클리어 → 왕관/XP 지급
 ```
+
+---
+
+## 14-1. 백그라운드 스케줄러 (Batch Job)
+
+**스트릭 리마인더 이메일 발송**
+- **실행 시간**: 매일 18:00 KST (Asia/Seoul 기준)
+- **로직**:
+  - `last_login`이 어제(Yesterday) 날짜인 사용자 중 오늘(Today) 아직 로그인하지 않은 대상을 필터링.
+  - 이메일 주소가 등록되어 있고 비어있지 않은 사용자에게 스트릭 리셋 경고 및 로그인 독려 이메일 발송.
+  - SendGrid API(`sendgrid` 라이브러리) 및 APScheduler(`BackgroundScheduler`)를 통해 구동.
 
 ---
 
@@ -506,8 +523,9 @@ ai-mon/
 │
 ├── backend/                  # FastAPI
 │   ├── main.py
+│   ├── scheduler.py          # APScheduler (스트릭 리마인더 배치 작업)
 │   ├── routers/
-│   │   ├── auth.py           # POST /auth/register, /auth/login
+│   │   ├── auth.py           # POST /auth/register, /auth/login, /auth/forgot-password, /auth/reset-password
 │   │   ├── quiz.py           # GET /lessons, /lessons/{id}, /questions, /ai-feedback
 │   │   ├── boss.py
 │   │   ├── progress.py
@@ -515,7 +533,8 @@ ai-mon/
 │   │   └── code.py
 │   ├── services/
 │   │   ├── claude_service.py
-│   │   └── gemini_service.py
+│   │   ├── gemini_service.py
+│   │   └── email_service.py  # SendGrid 이메일 전송 서비스
 │   └── data/
 │       ├── lessons/          ← 레벨/유닛별 브리핑 슬라이드
 │       │   ├── beginner/
@@ -538,7 +557,8 @@ ai-mon/
 │       │   └── ...
 │       ├── users.json        ← 자동 생성 (회원가입 시)
 │       ├── progress.json     ← 자동 생성 (진도 저장 시)
-│       └── wrong_answers.json ← 자동 생성 (오답 시)
+│       ├── wrong_answers.json ← 자동 생성 (오답 시)
+│       └── reset_tokens.json ← 자동 생성 (비밀번호 재설정용 임시 토큰)
 │
 ├── .env
 └── .gitignore
@@ -577,34 +597,24 @@ ai-mon/
 
 ---
 
-## 17. 문제 데이터 현황 (2026-06-12 기준)
+## 17. 문제 데이터 현황 (2026-06-21 기준)
 
-> ⚠️ 커리큘럼 전면 개편으로 인해 문제 데이터 재제작 진행 중.
-> 구 커리큘럼(Unit 1 = 출력&변수, Unit 8 = AI 에이전트) 기반 기존 데이터는 신 커리큘럼에 맞게 업데이트 예정.
+> ⚠️ 신규 커리큘럼 기반으로 beginner뿐만 아니라 intermediate, advanced의 데이터들도 지속해서 추가/업데이트 되었습니다.
 
-**신 커리큘럼 기준 제작 현황 (beginner)**
+**신 커리큘럼 기준 제작 현황 (beginner / intermediate / advanced)**
 
 | 유닛 | stage_quiz | miniboss | unit_boss | 상태 |
 |---|---|---|---|---|
-| Unit 1 — 파이썬 첫걸음 | 140개 (Set A/B × 7스테이지) | 70개 | 10개 | ✅ 완료 |
-| Unit 2 — 문자열 | 140개 (Set A/B × 7스테이지) | 70개 | 10개 | ✅ 완료 |
-| Unit 3 — 조건문 | 120개 (Set A/B × 6스테이지) | 60개 | - | ✅ 퀴즈·미니보스 완료 |
-| Unit 4 — 반복문 | 140개 (Set A/B × 7스테이지) | 70개 | - | ✅ 퀴즈·미니보스 완료 |
-| Unit 5 — 리스트 & 파일처리 | 140개 (Set A/B × 7스테이지) | - | - | ✅ 퀴즈 완료 |
-| Unit 6 — 함수 | - | - | - | 🚧 제작 예정 |
-| Unit 7 — 딕셔너리 & set | - | - | - | 🚧 제작 예정 |
-| Unit 8 — 미니 프로젝트 | 140개 (Set A/B × 7스테이지) | 70개 | 10개 | ✅ 완료 |
+| Unit 1~5 | 140개 (Set A/B × 7스테이지) | 70개 | 10개 | ✅ 완료 |
+| Unit 6~8 | 140개 (Set A/B × 7스테이지) | 70개 | 10개 | ✅ 완료 |
 
-- intermediate · advanced 전 유닛: 🚧 제작 예정
+- **intermediate · advanced 데이터**: `train`, `unitboss`, `miniboss`, `endboss` 및 슬라이드(`lessons_intermediate.json`, `advanced` 폴더) 데이터가 대규모 병합 및 추가 완료되었습니다.
 
-**beginner 엔드보스 (finalboss)**
+**엔드보스 (finalboss)**
 
 | 프로젝트 | Phase 1 (5문제) | Phase 2 (4문제) | Phase 3 (3문제) | 상태 |
 |---|---|---|---|---|
-| account — 가계부 | ✅ | ✅ | ✅ | ✅ 완료 |
-| wordchain — 끝말잇기 | — | — | — | 🚧 제작 예정 |
-| grade — 성적관리 | — | — | — | 🚧 제작 예정 |
-| gpa — 학점계산기 | — | — | — | 🚧 제작 예정 |
+| beginner / intermediate / advanced | ✅ | ✅ | ✅ | ✅ 다수 추가 및 로직 고도화 완료 |
 
 ---
 

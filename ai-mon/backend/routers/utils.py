@@ -27,6 +27,7 @@ DATA_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../data"))
 USERS_FILE = os.path.join(DATA_DIR, "users.json")
 PROGRESS_FILE = os.path.join(DATA_DIR, "progress.json")
 WRONG_ANSWERS_FILE = os.path.join(DATA_DIR, "wrong_answers.json")
+RESET_TOKENS_FILE = os.path.join(DATA_DIR, "reset_tokens.json")
 
 
 @contextmanager
@@ -129,6 +130,14 @@ def load_wrong_answers():
 
 def save_wrong_answers(data):
     _save_json_locked(WRONG_ANSWERS_FILE, data)
+
+
+def load_reset_tokens():
+    return _load_json_locked(RESET_TOKENS_FILE, {})
+
+
+def save_reset_tokens(data):
+    _save_json_locked(RESET_TOKENS_FILE, data)
 
 
 def verify_token(authorization: str) -> str:
