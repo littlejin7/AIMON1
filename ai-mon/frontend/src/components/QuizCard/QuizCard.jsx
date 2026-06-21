@@ -80,6 +80,7 @@ export default function QuizCard({ question, onAnswer, onNext, disabled = false 
     }
 
     const body = JSON.stringify({
+      question_id:    question.question_id || question.id || '',
       question:       fullQuestionText,
       correct_answer: question.answer,
       user_answer:    userAnswer,
@@ -130,7 +131,13 @@ export default function QuizCard({ question, onAnswer, onNext, disabled = false 
     } catch (streamErr) {
       // 스트리밍 실패 → 기존 단순 POST 폴백
       try {
-        const res = await quizApi.getAiFeedback({ question: fullQuestionText, correct_answer: question.answer, user_answer: userAnswer, level: courseLevel })
+        const res = await quizApi.getAiFeedback({ 
+          question_id: question.question_id || question.id || '',
+          question: fullQuestionText, 
+          correct_answer: question.answer, 
+          user_answer: userAnswer, 
+          level: courseLevel 
+        })
         if (res.data?.feedback && !res.data?.is_ai_fallback) setAiFeedback(res.data.feedback)
       } catch { /* staticFallback 유지 */ }
     } finally {

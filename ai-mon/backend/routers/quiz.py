@@ -2,8 +2,9 @@ from fastapi import APIRouter, HTTPException, Header, Query
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from services.claude_service import ask_claude, stream_claude
-import json, os, random
-from routers.utils import verify_token
+import json, os, random, uuid
+from datetime import datetime
+from routers.utils import verify_token, load_wrong_answers, save_wrong_answers
 
 router = APIRouter()
 
@@ -214,6 +215,7 @@ def get_question(question_id: str):
 # ── AI 피드백 엔드포인트 ──────────────────────────────────────
 
 class AiFeedbackRequest(BaseModel):
+    question_id: str = ""
     question: str          # 문제 텍스트
     correct_answer: str    # 정답
     user_answer: str       # 유저 답
@@ -226,6 +228,14 @@ async def get_ai_feedback(req: AiFeedbackRequest, authorization: str = Header(No
     오답 제출 시 Claude API를 호출해 레벨별 맞춤 피드백을 반환합니다.
     Claude 실패/타임아웃 시 is_ai_fallback=True와 함께 200 반환 (프론트 crash 방지).
     """
+    wrong_answers = load_wrong_answers()
+    if req.question_id:
+        for entry in wrong_answers:
+            if entry.get("question_id") == req.question_id and entry.get("user_answer") == req.user_answer:
+                cached_feedback = entry.get("ai_explanation") or entry.get("feedback")
+                if cached_feedback:
+                    return {"feedback": cached_feedback, "is_ai_fallback": False, "cached": True}
+
     prompt = (
         f"[문제]\n{req.question}\n\n"
         f"[정답]\n{req.correct_answer}\n\n"
@@ -261,7 +271,34 @@ async def get_ai_feedback(req: AiFeedbackRequest, authorization: str = Header(No
             pass
 
     if result["success"]:
-        return {"feedback": result["feedback"], "is_ai_fallback": False}
+        feedback = result["feedback"]
+        
+        # Save to wrong_answers.json
+        user_id = None
+        if authorization:
+            try:
+                from jose import jwt
+                SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
+                ALGORITHM = os.getenv("ALGORITHM", "HS256")
+                token = authorization.replace("Bearer ", "")
+                payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+                user_id = payload.get("sub")
+            except Exception:
+                pass
+                
+        wrong_answers.append({
+            "id": str(uuid.uuid4()),
+            "user_id": user_id,
+            "question_id": req.question_id,
+            "user_answer": req.user_answer,
+            "feedback": feedback,
+            "ai_explanation": feedback,
+            "timestamp": datetime.utcnow().isoformat(),
+            "reviewed": False
+        })
+        save_wrong_answers(wrong_answers)
+        
+        return {"feedback": feedback, "is_ai_fallback": False}
     return {"feedback": "", "is_ai_fallback": True}
 
 
@@ -271,6 +308,21 @@ async def get_ai_feedback_stream(req: AiFeedbackRequest, authorization: str = He
     SSE 스트리밍 피드백. 청크마다 data: {"text": "..."} 형식으로 전송.
     완료 시 data: [DONE] 전송.
     """
+    wrong_answers = load_wrong_answers()
+    if req.question_id:
+        for entry in wrong_answers:
+            if entry.get("question_id") == req.question_id and entry.get("user_answer") == req.user_answer:
+                cached_feedback = entry.get("ai_explanation") or entry.get("feedback")
+                if cached_feedback:
+                    async def cached_generator():
+                        yield f"data: {json.dumps({'text': cached_feedback}, ensure_ascii=False)}\n\n"
+                        yield "data: [DONE]\n\n"
+                    return StreamingResponse(
+                        cached_generator(),
+                        media_type="text/event-stream",
+                        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+                    )
+
     prompt = (
         f"[문제]\n{req.question}\n\n"
         f"[정답]\n{req.correct_answer}\n\n"
@@ -279,9 +331,38 @@ async def get_ai_feedback_stream(req: AiFeedbackRequest, authorization: str = He
     )
 
     async def event_generator():
+        full_text = ""
         try:
             async for chunk in stream_claude(prompt, req.level):
+                full_text += chunk
                 yield f"data: {json.dumps({'text': chunk}, ensure_ascii=False)}\n\n"
+                
+            if full_text:
+                user_id = None
+                if authorization:
+                    try:
+                        from jose import jwt
+                        SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
+                        ALGORITHM = os.getenv("ALGORITHM", "HS256")
+                        token = authorization.replace("Bearer ", "")
+                        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+                        user_id = payload.get("sub")
+                    except Exception:
+                        pass
+                
+                wa = load_wrong_answers()
+                wa.append({
+                    "id": str(uuid.uuid4()),
+                    "user_id": user_id,
+                    "question_id": req.question_id,
+                    "user_answer": req.user_answer,
+                    "feedback": full_text,
+                    "ai_explanation": full_text,
+                    "timestamp": datetime.utcnow().isoformat(),
+                    "reviewed": False
+                })
+                save_wrong_answers(wa)
+                
         except Exception as e:
             yield f"data: {json.dumps({'text': f'[오류: {str(e)}]'}, ensure_ascii=False)}\n\n"
         finally:
