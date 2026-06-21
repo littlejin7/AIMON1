@@ -260,25 +260,47 @@ async def endboss_answer(req: AnswerRequest, authorization: str = Header(...)):
 
     # ── 채점 ──────────────────────────────────────────────────────────────────
     if needs_claude:
-        # advanced 레벨은 설계 수준 채점 기준 추가
         advanced_note = ""
         if level == "advanced":
             advanced_note = (
-                "\n채점 기준 (advanced 레벨):\n"
-                "- 기능 정확성 (50%): 요구 사항을 모두 충족하는가\n"
-                "- 코드 구조 (30%): 비동기/에이전트 루프/LangChain 체인 구조를 올바르게 사용했는가\n"
-                "- 예외 처리 (20%): try/except, 반복 제한, 엣지케이스 처리 여부\n"
-                "score 70 이상이면 is_correct=true로 처리하세요.\n"
+                "\n[Advanced 레벨 특별 채점 기준]\n"
+                "1. 기능 정확성 (50%): 주어진 요구 사항을 예외 없이 모두 충족하는가\n"
+                "2. 코드 아키텍처 및 품질 (30%): 비동기 프로그래밍, 데코레이터, 제너레이터 등 고급 파이썬 기능을 목적에 맞게 올바르게 사용했는가\n"
+                "3. 예외 처리 및 엣지 케이스 (20%): 발생 가능한 예외 상황(Network Error, Type Error 등)에 대한 대비가 되어있는가\n"
+                "총점(score)이 70점 이상일 경우에만 is_correct=true 로 처리하세요.\n"
+                "피드백 작성 시 감점된 부분과 개선 방향을 명확하게 제시해주세요.\n"
             )
-        prompt = f"""
-당신은 파이썬을 가르치는 AI 튜터 '에이몬'입니다. 다음 문제에 대한 사용자 코드를 채점해주세요.
-JSON 외 텍스트는 출력하지 마세요.
+        elif level == "intermediate":
+            advanced_note = (
+                "\n[Intermediate 레벨 특별 채점 기준]\n"
+                "1. 기능 정확성 (60%): 문제의 요구사항을 해결했는가\n"
+                "2. 코드 구조 및 효율성 (40%): 리스트 컴프리헨션, 적절한 자료구조(set, dict), 함수 모듈화를 잘 활용했는가\n"
+                "총점(score)이 60점 이상일 경우 is_correct=true 로 처리하세요.\n"
+            )
+        else:
+            advanced_note = (
+                "\n[Beginner 레벨 특별 채점 기준]\n"
+                "단순 문법 오류가 없고 핵심 로직이 올바르다면 is_correct=true 로 너그럽게 채점해주세요.\n"
+                "점수(score)는 0 혹은 100점으로만 부여하세요.\n"
+            )
+
+        prompt = f"""당신은 파이썬을 가르치는 전문 AI 튜터 '에이몬'입니다.
+다음 코딩 문제에 대한 사용자의 코드를 다각도에서 분석하고 채점해주세요.
 {advanced_note}
+[출력 형식 제한]
+반드시 아래 JSON 포맷으로만 응답하고, 마크다운 코드 블록(` ```json `)이나 추가 텍스트를 포함하지 마세요.
+
+[문제 정보]
 문제: {question['question']}
 정답 예시: {question.get('answer', '')}
 사용자 답변: {req.user_answer}
 
-{{"is_correct": true/false, "score": 0~100, "feedback": "한국어 피드백 2-3문장", "hint": "틀렸을 경우 힌트, 맞으면 빈 문자열"}}
+{{
+  "is_correct": true/false,
+  "score": 0~100,
+  "feedback": "코드의 잘된 점과 부족한 점, 개선 방향에 대한 구체적인 피드백 (한국어, 3-4문장)",
+  "hint": "틀렸을 경우 정답에 도달할 수 있는 핵심 힌트 (맞았으면 빈 문자열)"
+}}
 """
         result = await ask_claude_json(prompt)
         is_correct = result.get("is_correct", False)
