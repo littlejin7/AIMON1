@@ -38,8 +38,8 @@ def create_token(data: dict) -> str:
 
 
 def update_login_streak(user: dict) -> tuple[dict, dict | None]:
-    today = datetime.utcnow().strftime("%Y-%m-%d")
-    yesterday = (datetime.utcnow() - timedelta(days=1)).strftime("%Y-%m-%d")
+    today = (datetime.utcnow() + timedelta(hours=9)).strftime("%Y-%m-%d")
+    yesterday = (datetime.utcnow() + timedelta(hours=9) - timedelta(days=1)).strftime("%Y-%m-%d")
     last = user.get("last_login", "")
 
     streak_reward = None
