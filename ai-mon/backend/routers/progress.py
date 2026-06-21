@@ -28,7 +28,7 @@ class ProgressUpdateRequest(BaseModel):
 def get_progress(course_level: str = Query("beginner"), authorization: str = Header(...)):
     user_id = verify_token(authorization)
     progress = load_progress()
-    return [p for p in progress if p["user_id"] == user_id and p.get("course_level", "beginner") == course_level]
+    return [p for p in progress if p["user_id"] == user_id and p.get("course_level", course_level) == course_level]
 
 
 @router.post("/")
@@ -45,7 +45,7 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
         (p for p in progress if p["user_id"] == user_id
          and p["unit"] == req.unit
          and p["stage"] == req.stage
-         and p.get("course_level", "beginner") == course_level),
+         and p.get("course_level", course_level) == course_level),
         None,
     )
 
@@ -92,7 +92,7 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
         if p.get("user_id") == user_id
         and p.get("unit") == req.unit
         and p.get("is_completed") == True
-        and p.get("course_level", "beginner") == course_level
+        and p.get("course_level", course_level) == course_level
     ]
     completed_stage_ids = {p.get("stage") for p in user_unit_stages}
     
@@ -182,7 +182,7 @@ def get_stats(authorization: str = Header(...)):
     course_level = user.get("course_level", "beginner") if user else "beginner"
 
     progress = load_progress()
-    user_progress = [p for p in progress if p["user_id"] == user_id and p.get("course_level", "beginner") == course_level]
+    user_progress = [p for p in progress if p["user_id"] == user_id and p.get("course_level", course_level) == course_level]
 
     completed = [p for p in user_progress if p.get("is_completed")]
     total_score = sum(p["score"] for p in user_progress)
