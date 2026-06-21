@@ -195,7 +195,7 @@ def serialize_user(user: dict) -> dict:
                 p for p in progress_list
                 if p.get("user_id") == uid
                 and p.get("is_completed") is True
-                and p.get("course_level", "beginner") == course_level
+                and p.get("course_level", course_level) == course_level
             ]
             db_completed_stages = len(user_stages)
             db_boss_cleared = sum(1 for p in user_stages if "boss" in str(p.get("stage", "")))
