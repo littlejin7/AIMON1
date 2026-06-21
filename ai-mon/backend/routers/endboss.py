@@ -9,7 +9,7 @@
   POST /boss/endboss/clear     클리어 처리 (XP + 왕관 + 진화 + 칭호, 중복 방지)
 """
 
-from fastapi import APIRouter, HTTPException, Header
+from fastapi import APIRouter, HTTPException, Header, Request
 from pydantic import BaseModel
 from services.claude_service import ask_claude_json
 from routers.titles import check_and_award_titles
@@ -21,6 +21,7 @@ from routers.utils import (
     load_users,
     save_users,
     verify_token,
+    limiter,
 )
 
 router = APIRouter()
@@ -226,7 +227,8 @@ def endboss_start(req: StartRequest, authorization: str = Header(...)):
 
 
 @router.post("/answer")
-async def endboss_answer(req: AnswerRequest, authorization: str = Header(...)):
+@limiter.limit("5/minute;100/day")
+async def endboss_answer(request: Request, req: AnswerRequest, authorization: str = Header(...)):
     """
     답안 제출.
 

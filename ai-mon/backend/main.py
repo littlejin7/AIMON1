@@ -8,6 +8,21 @@ load_dotenv(os.path.join(os.path.dirname(__file__), "../.env"))
 
 app = FastAPI(title="AI MON API - MVP", version="1.0.0")
 
+from slowapi.errors import RateLimitExceeded
+from slowapi.middleware import SlowAPIMiddleware
+from routers.utils import limiter
+from fastapi.responses import JSONResponse
+
+app.state.limiter = limiter
+app.add_middleware(SlowAPIMiddleware)
+
+@app.exception_handler(RateLimitExceeded)
+async def custom_rate_limit_exceeded_handler(request, exc: RateLimitExceeded):
+    return JSONResponse(
+        status_code=429,
+        content={"detail": "요청이 너무 많습니다. 잠시 후 다시 시도해주세요."}
+    )
+
 raw_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000")
 origins = [origin.strip() for origin in raw_origins.split(",") if origin.strip()]
 

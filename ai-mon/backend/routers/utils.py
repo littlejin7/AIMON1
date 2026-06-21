@@ -5,6 +5,20 @@ import os
 import time
 import tempfile
 from contextlib import contextmanager
+from slowapi import Limiter
+from slowapi.util import get_remote_address
+from fastapi import Request
+
+def get_user_id_or_ip(request: Request) -> str:
+    auth = request.headers.get("Authorization")
+    if auth:
+        try:
+            return verify_token(auth)
+        except Exception:
+            pass
+    return get_remote_address(request)
+
+limiter = Limiter(key_func=get_user_id_or_ip)
 
 SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")

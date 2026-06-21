@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Header
+from fastapi import APIRouter, HTTPException, Header, Request
 from pydantic import BaseModel
 from services.claude_service import ask_claude_json
 import os, uuid
@@ -13,6 +13,7 @@ from routers.utils import (
     save_wrong_answers,
 )
 from routers.quiz import load_questions_by_category
+from routers.utils import limiter
 
 router = APIRouter()
 
@@ -146,7 +147,8 @@ def get_next_question(unit: str = "1", authorization: str = Header(...)):
 
 
 @router.post("/hint")
-async def get_boss_hint(req: BossHintRequest, authorization: str = Header(...)):
+@limiter.limit("5/minute;100/day")
+async def get_boss_hint(request: Request, req: BossHintRequest, authorization: str = Header(...)):
     user_id = verify_token(authorization)
     users = load_users()
     user = next((u for u in users if u["id"] == user_id), None)
@@ -176,7 +178,8 @@ JSON 포맷으로 아래와 같이 응답하세요:
     return {"hint": ai_result.get("hint", "힌트를 생성할 수 없습니다.")}
 
 @router.post("/answer")
-async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header(...)):
+@limiter.limit("5/minute;100/day")
+async def submit_boss_answer(request: Request, req: BossAnswerRequest, authorization: str = Header(...)):
     user_id = verify_token(authorization)
     users = load_users()
     user = next((u for u in users if u["id"] == user_id), None)
