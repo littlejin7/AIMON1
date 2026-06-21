@@ -9,6 +9,8 @@ from routers.utils import (
     calc_level,
     load_users,
     save_users,
+    load_reset_tokens,
+    save_reset_tokens,
     SECRET_KEY,
     ALGORITHM,
 )
@@ -101,6 +103,15 @@ class LoginRequest(BaseModel):
     password: str
 
 
+class ForgotPasswordRequest(BaseModel):
+    email: str
+
+
+class ResetPasswordRequest(BaseModel):
+    token: str
+    new_password: str
+
+
 @router.post("/register", status_code=status.HTTP_201_CREATED)
 def register(req: RegisterRequest):
     users = load_users()
@@ -165,6 +176,80 @@ def login(req: LoginRequest):
     if streak_reward:
         res_data["streak_reward"] = streak_reward
     return res_data
+
+
+@router.post("/forgot-password")
+def forgot_password(req: ForgotPasswordRequest):
+    users = load_users()
+    user = next((u for u in users if u.get("email") == req.email), None)
+    if not user:
+        # 보안상 유저 존재 여부를 노출하지 않음
+        return {"ok": True, "message": "If an account with that email exists, a reset code has been sent."}
+
+    # Generate 6-digit token
+    import random
+    token = f"{random.randint(0, 999999):06d}"
+    expires_at = (datetime.utcnow() + timedelta(minutes=10)).isoformat()
+    
+    tokens = load_reset_tokens()
+    tokens[req.email] = {
+        "token": token,
+        "expires_at": expires_at
+    }
+    save_reset_tokens(tokens)
+    
+    # Send email
+    subject = "[AI MON] 비밀번호 재설정 인증 코드"
+    html_content = f"""
+    <div style="font-family: sans-serif; padding: 20px;">
+        <h2>비밀번호 재설정</h2>
+        <p>요청하신 비밀번호 재설정 인증 코드입니다.</p>
+        <h1 style="color: #4CAF50; letter-spacing: 5px;">{token}</h1>
+        <p>이 코드는 10분 후 만료됩니다.</p>
+    </div>
+    """
+    from services.email_service import send_email
+    send_email(to_email=req.email, subject=subject, html_content=html_content)
+    
+    return {"ok": True, "message": "If an account with that email exists, a reset code has been sent."}
+
+
+@router.post("/reset-password")
+def reset_password(req: ResetPasswordRequest):
+    tokens = load_reset_tokens()
+    
+    # Find email by token
+    target_email = None
+    for email, data in tokens.items():
+        if data["token"] == req.token:
+            target_email = email
+            break
+            
+    if not target_email:
+        raise HTTPException(status_code=400, detail="유효하지 않거나 만료된 토큰입니다.")
+        
+    token_data = tokens[target_email]
+    expires_at = datetime.fromisoformat(token_data["expires_at"])
+    
+    if datetime.utcnow() > expires_at:
+        del tokens[target_email]
+        save_reset_tokens(tokens)
+        raise HTTPException(status_code=400, detail="유효하지 않거나 만료된 토큰입니다.")
+        
+    # Valid token, update password
+    users = load_users()
+    user_idx = next((i for i, u in enumerate(users) if u.get("email") == target_email), None)
+    if user_idx is None:
+        raise HTTPException(status_code=400, detail="유효하지 않거나 만료된 토큰입니다.")
+        
+    users[user_idx]["password"] = hash_password(req.new_password)
+    save_users(users)
+    
+    # Remove token
+    del tokens[target_email]
+    save_reset_tokens(tokens)
+    
+    return {"ok": True, "message": "비밀번호가 성공적으로 변경되었습니다."}
 
 
 from typing import Optional

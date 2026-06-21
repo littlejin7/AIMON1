@@ -278,10 +278,10 @@ backend/data/
 | `lv`                     | number  | 1~30+                                       | ✅   | 현재 레벨 (초급 1~10 / 중급 11~20 / 고급 21~30 / 리미트해제 30+) |
 | `crowns`                 | number  | 0~                                          | ✅   | 보유 왕관 수 (기본값: 5)                                         |
 | `daily_free_attempts`    | number  | 0~2                                         | ✅   | 오늘 남은 보스 무료 도전 횟수                                    |
-| `last_free_attempt_date` | string  | YYYY-MM-DD                                  | ✅   | 마지막 보스 도전일 (무료 횟수 리셋 기준)                         |
+| `last_free_attempt_date` | string  | YYYY-MM-DD                                  | ✅   | 마지막 보스 도전일 (무료 횟수 리셋 기준, KST 기준)               |
 | `completed_units`        | number  | 0~                                          | ✅   | 완료한 유닛 수 (캐릭터 진화 트리거)                              |
 | `streak`                 | number  | 0~                                          | ✅   | 연속 접속일 (로그인 시 갱신)                                     |
-| `last_login`             | string  | YYYY-MM-DD                                  | ✅   | 마지막 접속일 (streak 리셋 기준)                                 |
+| `last_login`             | string  | YYYY-MM-DD                                  | ✅   | 마지막 접속일 (streak 리셋 기준, KST 기준)                       |
 | `titles`                 | array   | string[]                                    | ✅   | 획득한 칭호 ID 목록 (기본값: `[]`)                               |
 | `ai_feedback_count`      | number  | 0~                                          | ✅   | 오답 AI 피드백 누적 확인 횟수                                    |
 | `endboss_cleared_levels` | array   | string[]                                    | ✅   | 클리어한 엔드보스 레벨 목록 — 중복 보상 방지. 예: `["beginner"]` |
@@ -324,6 +324,7 @@ backend/data/
 | `user_id`      | string  | UUID         | ✅   | 유저 ID                                          |
 | `unit`         | number  | 1~8          | ✅   | 유닛 번호                                        |
 | `stage`        | string  | -            | ✅   | 스테이지 번호 (`"1-1"` ~ `"1-7"`, `"1-boss"` 등) |
+| `course_level` | string  | beginner 등  | ❌   | 수강 레벨 (누락 시 유저의 현재 course_level로 처리) |
 | `score`        | number  | 0~100        | ✅   | 퀴즈 점수                                        |
 | `is_completed` | boolean | true / false | ✅   | 완료 여부                                        |
 | `checkpoint`   | string  | "miniboss_ready", "done" | ❌ | 스테이지 재진입(Resume)을 위한 중간 저장 지점 |
@@ -438,6 +439,27 @@ backend/data/
       "created_at": "2026-06-02"
     }
   ]
+}
+```
+
+---
+
+## 6-1. reset_tokens.json
+
+비밀번호 재설정을 위한 6자리 임시 인증 토큰 정보 (유효기간 10분).
+
+| 필드 | 타입 | 필수 | 설명 |
+| --- | --- | --- | --- |
+| `[email]` | object | ✅ | 유저 이메일을 Key로 사용 |
+| `[email].token` | string | ✅ | 6자리 임시 토큰 (예: `"123456"`) |
+| `[email].expires_at` | string | ✅ | 토큰 만료 일시 (ISO 8601 형식, UTC 기준) |
+
+```json
+{
+  "user@example.com": {
+    "token": "482910",
+    "expires_at": "2026-06-21T11:54:54.123456"
+  }
 }
 ```
 
