@@ -17,6 +17,10 @@ from routers.quiz import load_questions_by_category
 router = APIRouter()
 
 
+class BossHintRequest(BaseModel):
+    question_id: str
+    user_answer: str = ""
+
 class BossAnswerRequest(BaseModel):
     question_id: str
     user_answer: str
@@ -140,6 +144,36 @@ def get_next_question(unit: str = "1", authorization: str = Header(...)):
     save_users(users)
     return chosen
 
+
+@router.post("/hint")
+async def get_boss_hint(req: BossHintRequest, authorization: str = Header(...)):
+    user_id = verify_token(authorization)
+    users = load_users()
+    user = next((u for u in users if u["id"] == user_id), None)
+    course_level = user.get("course_level", "beginner") if user else "beginner"
+
+    questions = load_questions_by_category("unitboss", course_level)
+    question = next(
+        (q for q in questions if q.get("question_id") == req.question_id or q.get("id") == req.question_id),
+        None,
+    )
+    if not question:
+        raise HTTPException(status_code=404, detail="문제를 찾을 수 없습니다.")
+
+    prompt = f"""당신은 파이썬 튜터 '에이몬'입니다.
+다음 문제에 대해 사용자가 요청한 힌트를 제공해주세요.
+정답을 직접적으로 알려주지 말고, 어떤 방향으로 접근해야 할지 짧고 명확하게 가이드해주세요. (한국어, 1~2문장)
+
+문제: {question['question']}
+현재 사용자가 작성한 답안/코드: {req.user_answer}
+
+JSON 포맷으로 아래와 같이 응답하세요:
+{{
+  "hint": "힌트 내용"
+}}"""
+    
+    ai_result = await ask_claude_json(prompt)
+    return {"hint": ai_result.get("hint", "힌트를 생성할 수 없습니다.")}
 
 @router.post("/answer")
 async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header(...)):

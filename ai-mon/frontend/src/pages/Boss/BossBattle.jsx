@@ -4,6 +4,7 @@ import charSlimeIcon  from '../../assets/character_slime.png'
 import charRobotIcon  from '../../assets/character_robot.png'
 import charBubbleIcon from '../../assets/character_bubble.png'
 import charGhostIcon  from '../../assets/character_final_ghost.png'
+import { bossApi } from '../../api/index'
 
 function parseQuestionCode(raw) {
   const match = raw.match(/^([\s\S]*?)```(?:python)?\n([\s\S]*?)```([\s\S]*)$/m)
@@ -69,6 +70,34 @@ export default function BossBattle({
   onNextQuestion,
 }) {
   const quizCardRef = useRef(null)
+
+  const [usedHints, setUsedHints] = useState(0)
+  const [currentHint, setCurrentHint] = useState('')
+  const [hintLoading, setHintLoading] = useState(false)
+
+  useEffect(() => {
+    setUsedHints(0)
+    setCurrentHint('')
+  }, [currentQuestion?.question_id])
+
+  const handleGetHint = async () => {
+    if (usedHints >= 2 || !currentQuestion) return
+    setHintLoading(true)
+    try {
+      const isCodeType = currentQuestion.type === 'code_input' || currentQuestion.type === 'fill_in_blank'
+      const userAnswer = isCodeType ? answerInput : (selectedOption || '')
+      const res = await bossApi.getHint({
+        question_id: currentQuestion.question_id,
+        user_answer: userAnswer,
+      })
+      setCurrentHint(res.data.hint)
+      setUsedHints(prev => prev + 1)
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setHintLoading(false)
+    }
+  }
 
   const BOSS_HP_MAX = 1000
   const MY_HP_MAX   = 1000
@@ -223,13 +252,31 @@ export default function BossBattle({
               </div>
             )}
 
-            <button
-              className="btn btn-primary btn-lg btn-full"
-              onClick={onSubmit}
-              disabled={(!selectedOption && !answerInput.trim()) || loading}
-            >
-              공격하기 🚀
-            </button>
+            {currentHint && (
+              <div style={{ marginBottom: '16px', padding: '12px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px', borderLeft: '4px solid #f9e2af', textAlign: 'left' }}>
+                <span style={{ color: '#f9e2af', fontWeight: 'bold', display: 'block', marginBottom: '4px', fontSize: '0.9rem' }}>💡 에이몬의 힌트</span>
+                <span style={{ color: '#cdd6f4', fontSize: '0.95rem', lineHeight: 1.4 }}>{currentHint}</span>
+              </div>
+            )}
+
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <button
+                className="btn btn-secondary btn-lg"
+                onClick={handleGetHint}
+                disabled={usedHints >= 2 || hintLoading || loading}
+                style={{ flex: 1, background: 'rgba(255,255,255,0.1)', color: '#cdd6f4', border: 'none' }}
+              >
+                {hintLoading ? '생성 중...' : `💡 힌트 (${2 - usedHints}회)`}
+              </button>
+              <button
+                className="btn btn-primary btn-lg"
+                onClick={onSubmit}
+                disabled={(!selectedOption && !answerInput.trim()) || loading}
+                style={{ flex: 2 }}
+              >
+                공격하기 🚀
+              </button>
+            </div>
           </>
         )}
       </div>
