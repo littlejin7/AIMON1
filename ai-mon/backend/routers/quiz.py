@@ -1,10 +1,10 @@
-from fastapi import APIRouter, HTTPException, Header, Query
+from fastapi import APIRouter, HTTPException, Header, Query, Request
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from services.claude_service import ask_claude, stream_claude
 import json, os, random, uuid
 from datetime import datetime
-from routers.utils import verify_token, load_wrong_answers, save_wrong_answers
+from routers.utils import verify_token, load_wrong_answers, save_wrong_answers, limiter
 
 router = APIRouter()
 
@@ -223,7 +223,8 @@ class AiFeedbackRequest(BaseModel):
 
 
 @router.post("/ai-feedback")
-async def get_ai_feedback(req: AiFeedbackRequest, authorization: str = Header(None)):
+@limiter.limit("5/minute;100/day")
+async def get_ai_feedback(request: Request, req: AiFeedbackRequest, authorization: str = Header(None)):
     """
     오답 제출 시 Claude API를 호출해 레벨별 맞춤 피드백을 반환합니다.
     Claude 실패/타임아웃 시 is_ai_fallback=True와 함께 200 반환 (프론트 crash 방지).
