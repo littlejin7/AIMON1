@@ -476,11 +476,19 @@ POST /boss/fail         보스 실패 처리 (도전 횟수 업데이트)
 # code_input 채점은 프론트 Pyodide가 전담 (브라우저 내 실행)
 ```
 
+**엔드보스 (Rate Limit 적용)**
+```
+GET  /boss/endboss/info      엔드보스 해금 여부 및 왕관 수 조회
+POST /boss/endboss/start     엔드보스 배틀 시작 (왕관 3개 차감, Phase 1/2 문제 풀 및 Phase 3 첫 문제 반환)
+POST /boss/endboss/answer    답안 제출 → HP 계산 / 페이즈 전환 / Claude AI 채점 (slowapi Rate Limit 적용됨)
+POST /boss/endboss/clear     클리어 처리 (XP + 왕관 + 캐릭터 진화 + 칭호 지급, 중복 방지)
+```
+
 **미니게임 (MVP 이후)**
 ```
-GET  /game/list         미니게임 목록
-POST /game/clear        게임 클리어 → 왕관/XP 지급
+POST /game/clear             게임 클리어 → 왕관/XP 지급 (일일 제한 및 조건별 보상 처리)
 ```
+
 
 ---
 
