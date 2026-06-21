@@ -160,31 +160,46 @@ async def submit_boss_answer(req: BossAnswerRequest, authorization: str = Header
     is_unit_boss = question.get("quiz_category") == "unit_boss"
     is_final_boss = question.get("quiz_category") == "final_boss"
     
-    level_instruction = "비유와 일상 예시를 들어 왜 틀렸는지 친절하게 설명해주세요."
-    if course_level == "intermediate":
-        level_instruction = "핵심 개념과 코드 예시를 포함해 왜 틀렸는지 분석해주세요."
+    level_instruction = ""
+    if course_level == "beginner":
+        level_instruction = (
+            "초보자 수준에 맞춰 비유와 일상 예시를 들어 친절하게 설명해주세요.\n"
+            "단순 오타나 사소한 문법 오류보다는 로직의 큰 틀이 맞으면 정답 처리하세요."
+        )
+    elif course_level == "intermediate":
+        level_instruction = (
+            "핵심 개념과 짤막한 코드 예시를 포함해 왜 틀렸는지 분석해주세요.\n"
+            "파이썬다운(Pythonic) 코드 작성, 자료구조의 올바른 활용 여부를 우선적으로 평가하세요."
+        )
     elif course_level == "advanced":
-        level_instruction = "원리와 엣지 케이스까지 깊이 있게 틀린 이유를 설명해주세요."
+        level_instruction = (
+            "고급 개념(비동기, 데코레이터 등)의 정확한 이해와 엣지 케이스 처리, 예외 상황 방어 로직을 엄격하게 평가하세요.\n"
+            "원리와 더 나은 구조적 접근법에 대해 깊이 있게 설명해주세요."
+        )
 
     # AI 채점 요청
-    prompt = f"""
-당신은 파이썬을 가르치는 친절한 AI 튜터 '에이몬'입니다.
-다음 코딩 문제에 대한 사용자의 답변을 채점하고 피드백해주세요.
-틀렸을 경우, {level_instruction}
+    prompt = f"""당신은 파이썬을 가르치는 전문 AI 튜터 '에이몬'입니다.
+다음 문제에 대한 사용자의 답변을 다각도에서 채점하고 피드백해주세요.
+
+[레벨별 평가 기준: {course_level.upper()}]
+{level_instruction}
 
 [중요 지시사항]
 - 사용자의 답변이 예시 정답의 기호(예: A, B, C, D)만 입력했거나 내용이 일치한다면 반드시 "is_correct": true 로 채점하세요.
-- JSON 응답 외에 어떠한 부가 설명 텍스트도 출력하지 마세요. 오직 JSON만 출력해야 합니다.
+- 반드시 아래 JSON 포맷으로만 응답하고 추가 텍스트나 마크다운(```json)을 출력하지 마세요.
 
-문제: {question['question']}
+[문제 정보]
+문제 설명: {question['question']}
 예시 정답: {question.get('answer', '없음')}
-사용자 답변: {req.user_answer}
 
-채점 결과를 JSON으로 반환하세요:
+[사용자 답변]
+{req.user_answer}
+
+출력 포맷:
 {{
   "is_correct": true/false,
-  "score": 0~100,
-  "feedback": "에이몬 튜터로서의 친절한 피드백 (한국어, 2-3문장)",
+  "score": 0~100 (정수),
+  "feedback": "에이몬 튜터로서의 상세한 피드백 (한국어, 3-4문장)",
   "hint": "틀렸을 경우 정답에 도달할 수 있는 핵심 힌트 (맞았으면 빈 문자열)"
 }}
 """
