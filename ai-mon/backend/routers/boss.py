@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Header
 from pydantic import BaseModel
 from services.claude_service import ask_claude_json
 import os, uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 from routers.titles import check_and_award_titles
 from typing import Optional
 from routers.utils import (
@@ -48,7 +48,7 @@ def get_boss_info(unit: str = "1", authorization: str = Header(...)):
         raise HTTPException(status_code=401, detail="User not found")
         
     # 날짜 체크해서 무료 횟수 리셋
-    today = datetime.utcnow().strftime("%Y-%m-%d")
+    today = (datetime.utcnow() + timedelta(hours=9)).strftime("%Y-%m-%d")
     if user.get("last_free_attempt_date") != today:
         user["daily_free_attempts"] = 2
         user["last_free_attempt_date"] = today
@@ -73,7 +73,7 @@ def start_boss_battle(unit: str = "1", authorization: str = Header(...)):
         raise HTTPException(status_code=401, detail="User not found")
     
     # 왕관/무료 횟수 차감
-    today = datetime.utcnow().strftime("%Y-%m-%d")
+    today = (datetime.utcnow() + timedelta(hours=9)).strftime("%Y-%m-%d")
     if user.get("last_free_attempt_date") != today:
         user["daily_free_attempts"] = 2
         user["last_free_attempt_date"] = today
