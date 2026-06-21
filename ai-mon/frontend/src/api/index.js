@@ -34,6 +34,7 @@ export const bossApi = {
   startBattle:   (unit) => api.post(`/boss/start?unit=${unit}`),
   nextQuestion:  (unit) => api.post(`/boss/next?unit=${unit}`),
   submitAnswer:  (data) => api.post('/boss/answer', data),
+  getHint:       (data) => api.post('/boss/hint', data),
 }
 
 export const endbossApi = {
