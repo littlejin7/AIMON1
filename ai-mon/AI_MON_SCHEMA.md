@@ -286,7 +286,9 @@ backend/data/
 | `ai_feedback_count`      | number  | 0~                                          | ✅   | 오답 AI 피드백 누적 확인 횟수                                    |
 | `endboss_cleared_levels` | array   | string[]                                    | ✅   | 클리어한 엔드보스 레벨 목록 — 중복 보상 방지. 예: `["beginner"]` |
 | `endboss_seen_questions` | array   | string[]                                    | ✅   | 엔드보스 출제된 question_id — seen 문제 제외. 소진 시 리셋.      |
+| `game_rewards`           | object  | -                                           | ✅   | 미니게임별 보상 수령/이력 정보 (일일 카운트 및 제한 관리)        |
 | `created_at`             | string  | ISO 8601                                    | ✅   | 가입 시각                                                        |
+
 
 ```json
 {
@@ -308,6 +310,11 @@ backend/data/
   "ai_feedback_count": 12,
   "endboss_cleared_levels": [],
   "endboss_seen_questions": [],
+  "game_rewards": {
+    "aipang_last_date": "2026-06-21",
+    "runner_last_date": "2026-06-21",
+    "runner_today_count": 3
+  },
   "created_at": "2026-06-01T10:00:00"
 }
 ```
@@ -398,49 +405,34 @@ backend/data/
 
 ## 6. wrong_answers.json
 
-오답 노트 (MVP 이후 활성화)
+오답 노트 (사용자 오답 및 Claude AI 피드백 캐싱용 플랫 배열 구조)
 
-| 필드                             | 타입    | 허용값                                                       | 필수 | 설명                                      |
-| -------------------------------- | ------- | ------------------------------------------------------------ | ---- | ----------------------------------------- |
-| `user_id`                        | string  | -                                                            | ✅   | 유저 ID                                   |
-| `wrong_answers[].question_id`    | string  | -                                                            | ✅   | 문제 ID                                   |
-| `wrong_answers[].unit`           | number  | 1~8                                                          | ✅   | 유닛 번호                                 |
-| `wrong_answers[].stage`          | string  | -                                                            | ✅   | 스테이지 번호                             |
-| `wrong_answers[].course_level`   | string  | beginner / intermediate / advanced                           | ✅   | 수강 레벨                                 |
-| `wrong_answers[].type`           | string  | multiple_choice / output_select / fill_in_blank / code_input / error_find | ✅   | 문제 유형                                 |
-| `wrong_answers[].question`       | string  | -                                                            | ✅   | 문제 텍스트                               |
-| `wrong_answers[].choices`        | array   | -                                                            | ❌   | 선택지                                    |
-| `wrong_answers[].user_answer`    | string  | -                                                            | ✅   | 유저 답안                                 |
-| `wrong_answers[].correct_answer` | string  | -                                                            | ✅   | 정답                                      |
-| `wrong_answers[].ai_explanation` | string  | -                                                            | ❌   | Claude AI 설명 (저장해두면 재호출 불필요) |
-| `wrong_answers[].wrong_count`    | number  | 1~                                                           | ✅   | 틀린 횟수                                 |
-| `wrong_answers[].reviewed`       | boolean | true / false                                                 | ✅   | 오답노트 재풀이 여부                      |
-| `wrong_answers[].last_wrong_at`  | string  | YYYY-MM-DD                                                   | ✅   | 마지막으로 틀린 날짜                      |
-| `wrong_answers[].created_at`     | string  | YYYY-MM-DD                                                   | ✅   | 처음 틀린 날짜                            |
+| 필드 | 타입 | 필수 | 설명 |
+| --- | --- | --- | --- |
+| `id` | string | ✅ | 오답 기록 고유 ID (UUID) |
+| `user_id` | string | ✅ | 유저 ID (UUID) |
+| `question_id` | string | ✅ | 문제 ID |
+| `user_answer` | string | ✅ | 사용자가 제출한 답안 |
+| `feedback` | string | ✅ | Claude AI가 제공한 피드백 설명 (캐시용) |
+| `ai_explanation` | string | ✅ | Claude AI가 제공한 피드백 설명 (중복 필드) |
+| `timestamp` | string | ✅ | 오답 제출 시각 (ISO 8601, UTC 기준) |
+| `reviewed` | boolean | ✅ | 오답노트 재풀이 여부 (기본값: `false`, 재풀이 완료 시 `true`) |
 
 ```json
-{
-  "user_id": "u001",
-  "wrong_answers": [
-    {
-      "question_id": "q_1_1_easy",
-      "unit": 1,
-      "stage": "1-1",
-      "course_level": "beginner",
-      "type": "multiple_choice",
-      "question": "print('Hello')를 실행하면 무엇이 출력될까요?",
-      "choices": ["Hello", "'Hello'", "print(Hello)", "오류 발생"],
-      "user_answer": "'Hello'",
-      "correct_answer": "Hello",
-      "ai_explanation": "",
-      "wrong_count": 1,
-      "reviewed": false,
-      "last_wrong_at": "2026-06-02",
-      "created_at": "2026-06-02"
-    }
-  ]
-}
+[
+  {
+    "id": "c6a2b8e3-4f51-4d92-a16b-73e4b09fa5d6",
+    "user_id": "bb2fb53b-403d-4fbc-89b8-9bf4648f2f03",
+    "question_id": "sl_beg_mc_1_1_001",
+    "user_answer": "print()는 입력을 받는 함수이다.",
+    "feedback": "print() 함수는 괄호 안의 내용을 화면에 출력하는 역할을 합니다. 입력을 받는 함수는 input()입니다.",
+    "ai_explanation": "print() 함수는 괄호 안의 내용을 화면에 출력하는 역할을 합니다. 입력을 받는 함수는 input()입니다.",
+    "timestamp": "2026-06-21T11:44:54.123456",
+    "reviewed": false
+  }
+]
 ```
+
 
 ---
 
