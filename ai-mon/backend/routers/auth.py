@@ -1,6 +1,6 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Header
 from pydantic import BaseModel
-import json, os, hashlib, uuid
+import json, os, hashlib, uuid, secrets
 from datetime import datetime, timedelta
 from jose import jwt
 from passlib.context import CryptContext
@@ -11,13 +11,34 @@ from routers.utils import (
     save_users,
     load_reset_tokens,
     save_reset_tokens,
+    load_refresh_tokens,
+    save_refresh_token,
+    delete_refresh_token,
+    delete_user_refresh_tokens,
     SECRET_KEY,
     ALGORITHM,
 )
 
 router = APIRouter()
 
-EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 1440))
+EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 30))
+REFRESH_EXPIRE_DAYS = int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", 30))
+
+
+class RefreshRequest(BaseModel):
+    refresh_token: str
+
+
+def create_refresh_token(user_id: str) -> str:
+    token = secrets.token_hex(32)
+    expires_at = (datetime.utcnow() + timedelta(days=REFRESH_EXPIRE_DAYS)).isoformat()
+    refresh_item = {
+        "user_id": user_id,
+        "token": token,
+        "expires_at": expires_at
+    }
+    save_refresh_token(refresh_item)
+    return token
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -153,7 +174,13 @@ def register(req: RegisterRequest):
     users.append(new_user)
     save_users(users)
     token = create_token({"sub": new_user["id"], "username": new_user["username"]})
-    return {"access_token": token, "token_type": "bearer", "user": serialize_user(new_user)}
+    refresh_token = create_refresh_token(new_user["id"])
+    return {
+        "access_token": token,
+        "refresh_token": refresh_token,
+        "token_type": "bearer",
+        "user": serialize_user(new_user)
+    }
 
 
 @router.post("/login")
@@ -167,8 +194,10 @@ def login(req: LoginRequest):
     save_users(users)
 
     token = create_token({"sub": user["id"], "username": user["username"]})
+    refresh_token = create_refresh_token(user["id"])
     res_data = {
         "access_token": token,
+        "refresh_token": refresh_token,
         "token_type": "bearer",
         "user": serialize_user(user),
         "streak": user["streak"]
@@ -357,8 +386,10 @@ def social_google(req: SocialLoginRequest):
     save_users(users)
 
     token = create_token({"sub": user["id"], "username": user["username"]})
+    refresh_token = create_refresh_token(user["id"])
     res_data = {
         "access_token": token,
+        "refresh_token": refresh_token,
         "token_type": "bearer",
         "user": serialize_user(user),
         "streak": user["streak"],
@@ -487,8 +518,10 @@ def social_naver(req: SocialLoginRequest):
     save_users(users)
 
     token = create_token({"sub": user["id"], "username": user["username"]})
+    refresh_token = create_refresh_token(user["id"])
     res_data = {
         "access_token": token,
+        "refresh_token": refresh_token,
         "token_type": "bearer",
         "user": serialize_user(user),
         "streak": user["streak"],
@@ -606,8 +639,10 @@ def social_kakao(req: SocialLoginRequest):
     save_users(users)
 
     token = create_token({"sub": user["id"], "username": user["username"]})
+    refresh_token = create_refresh_token(user["id"])
     res_data = {
         "access_token": token,
+        "refresh_token": refresh_token,
         "token_type": "bearer",
         "user": serialize_user(user),
         "streak": user["streak"],
@@ -616,5 +651,59 @@ def social_kakao(req: SocialLoginRequest):
     if streak_reward:
         res_data["streak_reward"] = streak_reward
     return res_data
+
+
+@router.post("/refresh")
+def refresh(req: RefreshRequest):
+    tokens = load_refresh_tokens()
+    target = next((t for t in tokens if t["token"] == req.refresh_token), None)
+    if not target:
+        raise HTTPException(status_code=401, detail="유효하지 않거나 만료된 리프레시 토큰입니다.")
+    
+    expires_at_str = target["expires_at"].replace("Z", "+00:00")
+    try:
+        expires_at = datetime.fromisoformat(expires_at_str)
+    except Exception:
+        expires_at = datetime.utcnow()
+        
+    if expires_at.tzinfo is not None:
+        now_dt = datetime.now(expires_at.tzinfo)
+    else:
+        now_dt = datetime.utcnow()
+        
+    if now_dt > expires_at:
+        delete_refresh_token(req.refresh_token)
+        raise HTTPException(status_code=401, detail="만료된 리프레시 토큰입니다. 다시 로그인해주세요.")
+    
+    users = load_users()
+    user = next((u for u in users if u["id"] == target["user_id"]), None)
+    if not user:
+        raise HTTPException(status_code=401, detail="유저를 찾을 수 없습니다.")
+    
+    new_access_token = create_token({"sub": user["id"], "username": user["username"]})
+    new_refresh_token = create_refresh_token(user["id"])
+    
+    delete_refresh_token(req.refresh_token)
+    
+    return {
+        "access_token": new_access_token,
+        "refresh_token": new_refresh_token,
+        "token_type": "bearer"
+    }
+
+
+@router.post("/logout")
+def logout(authorization: str = Header(...)):
+    try:
+        token = authorization.replace("Bearer ", "")
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id = payload.get("sub")
+    except Exception:
+        raise HTTPException(status_code=401, detail="토큰이 유효하지 않습니다.")
+    
+    if user_id:
+        delete_user_refresh_tokens(user_id)
+        
+    return {"ok": True, "message": "로그아웃 되었습니다."}
 
 
