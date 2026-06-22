@@ -47,8 +47,13 @@ export default function TopBar() {
           }
         </div>
           <div className="profile-info">
-            <span className="profile-name">{user.nickname || user.username}</span>
-            <span className="profile-level">{user.course_level}</span>
+            <span className="profile-name">{user.nickname}</span>
+            {/* 변경: 텍스트 → 컬러 배지로 */}
+            <span className={`profile-level-badge difficulty-${user.course_level}`}>
+              {user.course_level === 'advanced' ? '고급'
+                : user.course_level === 'intermediate' ? '중급'
+                : '초급'}
+            </span>
           </div>
         </div>
 
