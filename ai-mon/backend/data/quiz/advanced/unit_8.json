@@ -763,7 +763,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과를 고르세요.\n\n```python\nclass ToolChain:\n    def __init__(self):\n        self.tools = {}\n        self.execution_log = []\n\n    def add_tool(self, name, func):\n        self.tools[name] = func\n        return self  # 메서드 체이닝\n\n    def execute(self, name, **kwargs):\n        if name not in self.tools:\n            self.execution_log.append(f\"ERROR:{name}\")\n            return None\n        result = self.tools[name](**kwargs)\n        self.execution_log.append(f\"OK:{name}\")\n        return result\n\nchain = ToolChain()\nchain.add_tool(\"a\", lambda x: x + 1)\\n     .add_tool(\"b\", lambda x: x * 3)\\n     .add_tool(\"c\", lambda x: x - 2)\n\nr1 = chain.execute(\"a\", x=5)\nr2 = chain.execute(\"b\", x=r1)\nr3 = chain.execute(\"d\", x=r2)  # 존재하지 않는 도구\nr4 = chain.execute(\"c\", x=10)\n\nprint(r1, r2, r3, r4)\nprint(len(chain.execution_log))\nprint(chain.execution_log[2])\n```",
+      "question": "다음 코드의 출력 결과를 고르세요.\n\n```python\nclass ToolChain:\n    def __init__(self):\n        self.tools = {}\n        self.execution_log = []\n\n    def add_tool(self, name, func):\n        self.tools[name] = func\n        return self  # 메서드 체이닝\n\n    def execute(self, name, **kwargs):\n        if name not in self.tools:\n            self.execution_log.append(f\"ERROR:{name}\")\n            return None\n        result = self.tools[name](**kwargs)\n        self.execution_log.append(f\"OK:{name}\")\n        return result\n\nchain = ToolChain()\nchain.add_tool(\"a\", lambda x: x + 1)\\\n     .add_tool(\"b\", lambda x: x * 3)\\\n     .add_tool(\"c\", lambda x: x - 2)\n\nr1 = chain.execute(\"a\", x=5)\nr2 = chain.execute(\"b\", x=r1)\nr3 = chain.execute(\"d\", x=r2)  # 존재하지 않는 도구\nr4 = chain.execute(\"c\", x=10)\n\nprint(r1, r2, r3, r4)\nprint(len(chain.execution_log))\nprint(chain.execution_log[2])\n```",
       "choices": [
         "A. 6 18 None 8\n4\nERROR:d",
         "B. 6 18 0 8\n4\nERROR:d",
@@ -1024,7 +1024,7 @@
       "answer": "event",
       "hint": "self._triggers는 이벤트 이름을 키로 콜백을 저장합니다. emit 시 어떤 키로 콜백을 조회해야 할까요?",
       "feedback": {
-        "correct": "정답! self._triggers[event](payload)로 해당 이벤트의 콜백을 호출합니다. file_created와 api_called는 등록되어 있어 실행되고, unknown은 등록되지 않아 건너뜁니다. len=2, results[0]=\"처리: report.csv\"입니다."
+        "correct": "정답! self._triggers[event](payload)로 해당 이벤트의 콜백을 호출합니다. file_created와 api_called는 등록되어 있어 실행되고, unknown은 등록되지 않아 건너뜅니다. len=2, results[0]=\"처리: report.csv\"입니다."
       }
     },
     {
@@ -1060,7 +1060,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "워크플로우 클래스에서 단계를 이름으로 등록하도록 빈칸을 채우세요.\n\n```python\nclass Workflow:\n    def __init__(self):\n        self.stages = {}\n\n    def register(self, stage_id, func):\n        self.stages[_____] = func\n        return self  # 메서드 체이닝\n\n    def run(self, stage_id, data):\n        return self.stages[stage_id](data)\n\nwf = Workflow()\nwf.register(\"double\", lambda x: x * 2)\\n  .register(\"square\", lambda x: x ** 2)\n\nprint(len(wf.stages))\nprint(wf.run(\"double\", 7))\n```",
+      "question": "워크플로우 클래스에서 단계를 이름으로 등록하도록 빈칸을 채우세요.\n\n```python\nclass Workflow:\n    def __init__(self):\n        self.stages = {}\n\n    def register(self, stage_id, func):\n        self.stages[_____] = func\n        return self  # 메서드 체이닝\n\n    def run(self, stage_id, data):\n        return self.stages[stage_id](data)\n\nwf = Workflow()\nwf.register(\"double\", lambda x: x * 2)\\\n  .register(\"square\", lambda x: x ** 2)\n\nprint(len(wf.stages))\nprint(wf.run(\"double\", 7))\n```",
       "choices": [],
       "answer": "stage_id",
       "hint": "stages 딕셔너리의 키로 무엇을 사용해야 wf.run(\"double\", 7)이 올바르게 동작할까요? 매개변수 이름을 확인하세요.",
