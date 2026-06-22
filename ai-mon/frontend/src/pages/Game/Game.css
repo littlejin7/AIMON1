@@ -1,0 +1,249 @@
+.game-page {
+  min-height: 100vh;
+  padding-bottom: 90px;
+}
+
+/* ── 헤더 ── */
+.game-header {
+  padding: 20px 16px 12px;
+}
+.game-header-label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--clr-primary);
+  letter-spacing: 0.08em;
+  margin: 0 0 4px;
+}
+.game-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--clr-text);
+  margin: 0;
+}
+
+/* ── 챌린지 히어로 ── */
+.game-challenge-hero {
+  margin: 0 16px 16px;
+  padding: 16px;
+  border-radius: var(--radius-lg);
+}
+
+.game-challenge-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.game-challenge-title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.game-challenge-trophy {
+  font-size: 1.6rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.game-challenge-title {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--clr-text);
+  margin: 0 0 2px;
+}
+.game-challenge-sub {
+  font-size: var(--font-size-xs);
+  color: var(--clr-text-muted);
+  margin: 0;
+}
+.game-challenge-sub strong {
+  color: var(--clr-primary-lt);
+}
+
+.game-challenge-done-badge {
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34d399;
+  border-radius: var(--radius-full);
+  padding: 3px 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* 게임별 진행 바 목록 */
+.game-challenge-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.game-challenge-item {}
+.game-challenge-item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.game-challenge-item-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.game-challenge-item-emoji {
+  font-size: 13px;
+}
+.game-challenge-item-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--clr-text);
+}
+.game-challenge-item-label {
+  font-size: 10px;
+  color: var(--clr-text-faint);
+}
+.game-challenge-item-count {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--clr-text-muted);
+}
+.game-challenge-item-count.completed {
+  color: #34d399;
+}
+
+.game-challenge-bar-bg {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  height: 5px;
+  overflow: hidden;
+}
+.game-challenge-bar-fill {
+  height: 100%;
+  background: var(--grad-primary);
+  border-radius: var(--radius-full);
+  transition: width 0.5s ease;
+}
+.game-challenge-bar-fill.completed {
+  background: linear-gradient(90deg, #10b981, #34d399);
+}
+
+/* 전체 달성률 */
+.game-challenge-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 0.5px solid var(--clr-border);
+  padding-top: 10px;
+}
+.game-challenge-footer-label {
+  font-size: 11px;
+  color: var(--clr-text-muted);
+}
+.game-challenge-footer-val {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--clr-text);
+}
+
+/* ── 게임 리스트 ── */
+.game-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 16px;
+}
+
+.game-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border-radius: var(--radius-lg);
+}
+.game-row--active {
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.game-row--active:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(125, 211, 252, 0.15);
+}
+.game-row--active:active {
+  transform: scale(0.98);
+}
+.game-row--locked {
+  opacity: 0.45;
+}
+
+.game-row-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,0.04);
+  border: 0.5px solid var(--clr-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.game-row-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.game-row-emoji {
+  font-size: 1.6rem;
+}
+
+.game-row-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.game-row-title {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--clr-text);
+  margin: 0;
+}
+.game-row-desc {
+  font-size: var(--font-size-xs);
+  color: var(--clr-text-muted);
+  margin: 0;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.game-row-reward {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--clr-primary);
+  background: rgba(125, 211, 252, 0.1);
+  border: 0.5px solid rgba(125, 211, 252, 0.2);
+  border-radius: var(--radius-full);
+  padding: 2px 8px;
+  width: fit-content;
+  margin-top: 2px;
+}
+
+.game-row-action {
+  flex-shrink: 0;
+}
+.game-row-play {
+  font-size: 1rem;
+  color: var(--clr-primary);
+}
+.game-row-lock {
+  font-size: 0.9rem;
+  color: var(--clr-text-faint);
+}
+.game-row-check {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #34d399;
+}
