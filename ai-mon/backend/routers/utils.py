@@ -126,6 +126,36 @@ def load_users():
     return _load_json_locked(USERS_FILE, [])
 
 
+def get_user_by_id(user_id: str) -> dict | None:
+    if USE_SUPABASE:
+        res = supabase.table("users").select("*").eq("id", user_id).execute()
+        if res.data:
+            return res.data[0]
+        return None
+    users = load_users()
+    return next((u for u in users if u["id"] == user_id), None)
+
+
+def get_user_by_username(username: str) -> dict | None:
+    if USE_SUPABASE:
+        res = supabase.table("users").select("*").eq("username", username).execute()
+        if res.data:
+            return res.data[0]
+        return None
+    users = load_users()
+    return next((u for u in users if u["username"] == username), None)
+
+
+def get_user_by_email(email: str) -> dict | None:
+    if USE_SUPABASE:
+        res = supabase.table("users").select("*").eq("email", email).execute()
+        if res.data:
+            return res.data[0]
+        return None
+    users = load_users()
+    return next((u for u in users if u.get("email") == email), None)
+
+
 def save_users(users):
     if USE_SUPABASE:
         for user in users:
@@ -153,6 +183,21 @@ def load_progress():
         res = supabase.table("progress").select("*").execute()
         return res.data
     return _load_json_locked(PROGRESS_FILE, [])
+
+
+def get_progress_by_user(user_id: str, course_level: str = None) -> list:
+    if USE_SUPABASE:
+        q = supabase.table("progress").select("*").eq("user_id", user_id)
+        if course_level:
+            q = q.eq("course_level", course_level)
+        res = q.execute()
+        return res.data
+    progress = load_progress()
+    return [
+        p for p in progress 
+        if p.get("user_id") == user_id 
+        and (course_level is None or p.get("course_level", "beginner") == course_level)
+    ]
 
 
 def save_progress(progress):
@@ -183,12 +228,33 @@ def load_wrong_answers():
     return _load_json_locked(WRONG_ANSWERS_FILE, [])
 
 
+def get_wrong_answers_by_user(user_id: str) -> list:
+    if USE_SUPABASE:
+        res = supabase.table("wrong_answers").select("*").eq("user_id", user_id).execute()
+        return res.data
+    wrong = load_wrong_answers()
+    return [wa for wa in wrong if wa.get("user_id") == user_id]
+
+
 def save_wrong_answers(data):
     if USE_SUPABASE:
         for item in data:
-            supabase.table("wrong_answers").upsert(item).execute()
+            save_wrong_answer_item(item)
     else:
         _save_json_locked(WRONG_ANSWERS_FILE, data)
+
+
+def save_wrong_answer_item(item: dict):
+    if USE_SUPABASE:
+        supabase.table("wrong_answers").upsert(item).execute()
+    else:
+        wrong = load_wrong_answers()
+        idx = next((i for i, wa in enumerate(wrong) if wa.get("id") == item.get("id")), None)
+        if idx is not None:
+            wrong[idx] = item
+        else:
+            wrong.append(item)
+        _save_json_locked(WRONG_ANSWERS_FILE, wrong)
 
 
 def load_reset_tokens():
@@ -237,8 +303,7 @@ def get_current_user(authorization: str) -> dict:
         token = authorization.replace("Bearer ", "")
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id = payload.get("sub")
-        users = load_users()
-        user = next((u for u in users if u["id"] == user_id), None)
+        user = get_user_by_id(user_id)
         if not user:
             raise HTTPException(status_code=401, detail="인증 실패")
         return user
@@ -296,12 +361,10 @@ def serialize_user(user: dict) -> dict:
     db_boss_cleared = 0
     if uid:
         try:
-            progress_list = load_progress()
+            progress_list = get_progress_by_user(uid, course_level)
             user_stages = [
                 p for p in progress_list
-                if p.get("user_id") == uid
-                and p.get("is_completed") is True
-                and p.get("course_level", course_level) == course_level
+                if p.get("is_completed") is True
             ]
             db_completed_stages = len(user_stages)
             db_boss_cleared = sum(1 for p in user_stages if "boss" in str(p.get("stage", "")))

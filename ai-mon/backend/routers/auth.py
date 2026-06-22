@@ -9,6 +9,10 @@ from routers.utils import (
     calc_level,
     load_users,
     save_users,
+    get_user_by_id,
+    get_user_by_username,
+    get_user_by_email,
+    save_user,
     load_reset_tokens,
     save_reset_tokens,
     load_refresh_tokens,
@@ -135,8 +139,7 @@ class ResetPasswordRequest(BaseModel):
 
 @router.post("/register", status_code=status.HTTP_201_CREATED)
 def register(req: RegisterRequest):
-    users = load_users()
-    if any(u["username"] == req.username for u in users):
+    if get_user_by_username(req.username):
         raise HTTPException(status_code=400, detail="이미 존재하는 아이디입니다.")
     # course_level 유효성 검증
     valid_levels = {"beginner", "intermediate", "advanced"}
@@ -171,8 +174,7 @@ def register(req: RegisterRequest):
         "game_rewards": {},
         "created_at": datetime.utcnow().isoformat(),
     }
-    users.append(new_user)
-    save_users(users)
+    save_user(new_user)
     token = create_token({"sub": new_user["id"], "username": new_user["username"]})
     refresh_token = create_refresh_token(new_user["id"])
     return {
@@ -185,13 +187,12 @@ def register(req: RegisterRequest):
 
 @router.post("/login")
 def login(req: LoginRequest):
-    users = load_users()
-    user = next((u for u in users if u["username"] == req.username), None)
+    user = get_user_by_username(req.username)
     if not user or not verify_password(req.password, user["password"]):
         raise HTTPException(status_code=401, detail="아이디 또는 비밀번호가 올바르지 않습니다.")
 
     user, streak_reward = update_login_streak(user)
-    save_users(users)
+    save_user(user)
 
     token = create_token({"sub": user["id"], "username": user["username"]})
     refresh_token = create_refresh_token(user["id"])
@@ -209,8 +210,7 @@ def login(req: LoginRequest):
 
 @router.post("/forgot-password")
 def forgot_password(req: ForgotPasswordRequest):
-    users = load_users()
-    user = next((u for u in users if u.get("email") == req.email), None)
+    user = get_user_by_email(req.email)
     if not user:
         # 보안상 유저 존재 여부를 노출하지 않음
         return {"ok": True, "message": "If an account with that email exists, a reset code has been sent."}
@@ -266,13 +266,12 @@ def reset_password(req: ResetPasswordRequest):
         raise HTTPException(status_code=400, detail="유효하지 않거나 만료된 토큰입니다.")
         
     # Valid token, update password
-    users = load_users()
-    user_idx = next((i for i, u in enumerate(users) if u.get("email") == target_email), None)
-    if user_idx is None:
+    user = get_user_by_email(target_email)
+    if user is None:
         raise HTTPException(status_code=400, detail="유효하지 않거나 만료된 토큰입니다.")
         
-    users[user_idx]["password"] = hash_password(req.new_password)
-    save_users(users)
+    user["password"] = hash_password(req.new_password)
+    save_user(user)
     
     # Remove token
     del tokens[target_email]
@@ -343,10 +342,9 @@ def social_google(req: SocialLoginRequest):
     nickname = user_info.get("name", email.split("@")[0])
 
     # 3. Find or create user
-    users = load_users()
     # 소셜 로그인은 username을 google_이메일 형식으로 저장해 고유성 유지
     username = f"google_{email}"
-    user = next((u for u in users if u["username"] == username), None)
+    user = get_user_by_username(username)
 
     is_new = False
     if not user:
@@ -380,10 +378,9 @@ def social_google(req: SocialLoginRequest):
             "game_rewards": {},
             "created_at": datetime.utcnow().isoformat(),
         }
-        users.append(user)
 
     user, streak_reward = update_login_streak(user)
-    save_users(users)
+    save_user(user)
 
     token = create_token({"sub": user["id"], "username": user["username"]})
     refresh_token = create_refresh_token(user["id"])
@@ -402,16 +399,14 @@ def social_google(req: SocialLoginRequest):
 
 @router.get("/check-id")
 def check_id(username: str):
-    users = load_users()
-    if any(u["username"] == username.strip() for u in users):
+    if get_user_by_username(username.strip()):
         raise HTTPException(status_code=400, detail="이미 존재하는 아이디입니다.")
     return {"ok": True}
 
 
 @router.get("/check-email")
 def check_email(email: str):
-    users = load_users()
-    if any(u.get("email", "").strip() == email.strip() for u in users if u.get("email")):
+    if get_user_by_email(email.strip()):
         raise HTTPException(status_code=400, detail="이미 존재하는 이메일입니다.")
     return {"ok": True}
 
@@ -476,9 +471,8 @@ def social_naver(req: SocialLoginRequest):
     nickname = naver_response.get("name") or naver_response.get("nickname") or email.split("@")[0]
 
     # 3. Find or create user
-    users = load_users()
     username = f"naver_{email}"
-    user = next((u for u in users if u["username"] == username), None)
+    user = get_user_by_username(username)
 
     is_new = False
     if not user:
@@ -512,10 +506,9 @@ def social_naver(req: SocialLoginRequest):
             "game_rewards": {},
             "created_at": datetime.utcnow().isoformat(),
         }
-        users.append(user)
 
     user, streak_reward = update_login_streak(user)
-    save_users(users)
+    save_user(user)
 
     token = create_token({"sub": user["id"], "username": user["username"]})
     refresh_token = create_refresh_token(user["id"])
@@ -598,8 +591,7 @@ def social_kakao(req: SocialLoginRequest):
     nickname = profile.get("nickname") or (email.split("@")[0] if email else f"KakaoUser_{kakao_id}")
 
     # 3. Find or create user
-    users = load_users()
-    user = next((u for u in users if u["username"] == username), None)
+    user = get_user_by_username(username)
 
     is_new = False
     if not user:
@@ -633,10 +625,9 @@ def social_kakao(req: SocialLoginRequest):
             "game_rewards": {},
             "created_at": datetime.utcnow().isoformat(),
         }
-        users.append(user)
 
     user, streak_reward = update_login_streak(user)
-    save_users(users)
+    save_user(user)
 
     token = create_token({"sub": user["id"], "username": user["username"]})
     refresh_token = create_refresh_token(user["id"])
@@ -675,8 +666,7 @@ def refresh(req: RefreshRequest):
         delete_refresh_token(req.refresh_token)
         raise HTTPException(status_code=401, detail="만료된 리프레시 토큰입니다. 다시 로그인해주세요.")
     
-    users = load_users()
-    user = next((u for u in users if u["id"] == target["user_id"]), None)
+    user = get_user_by_id(target["user_id"])
     if not user:
         raise HTTPException(status_code=401, detail="유저를 찾을 수 없습니다.")
     

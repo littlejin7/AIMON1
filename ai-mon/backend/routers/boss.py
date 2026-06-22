@@ -6,11 +6,12 @@ from datetime import datetime, timedelta
 from routers.titles import check_and_award_titles
 from typing import Optional
 from routers.utils import (
-    load_users,
-    save_users,
+    get_user_by_id,
+    save_user,
     verify_token,
-    load_wrong_answers,
-    save_wrong_answers,
+    get_progress_by_user,
+    save_progress_item,
+    save_wrong_answer_item,
 )
 from routers.quiz import load_questions_by_category
 from routers.utils import limiter
@@ -43,8 +44,7 @@ MY_HP_DELTA   = 350   # 오답 시 내 HP 감소
 @router.get("/info")
 def get_boss_info(unit: str = "1", authorization: str = Header(...)):
     user_id = verify_token(authorization)
-    users = load_users()
-    user = next((u for u in users if u["id"] == user_id), None)
+    user = get_user_by_id(user_id)
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
         
@@ -53,7 +53,7 @@ def get_boss_info(unit: str = "1", authorization: str = Header(...)):
     if user.get("last_free_attempt_date") != today:
         user["daily_free_attempts"] = 2
         user["last_free_attempt_date"] = today
-        save_users(users)
+        save_user(user)
         
     # 보스 메타데이터 (고정값으로 MVP 구현)
     return {
@@ -68,8 +68,7 @@ def get_boss_info(unit: str = "1", authorization: str = Header(...)):
 @router.post("/start")
 def start_boss_battle(unit: str = "1", authorization: str = Header(...)):
     user_id = verify_token(authorization)
-    users = load_users()
-    user = next((u for u in users if u["id"] == user_id), None)
+    user = get_user_by_id(user_id)
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
     
@@ -106,21 +105,20 @@ def start_boss_battle(unit: str = "1", authorization: str = Header(...)):
     unseen = [q for q in boss_qs if q["question_id"] not in seen]
 
     if not unseen:  # 전부 소진하면 리셋
-        seen_questions[seen_key] = []
-        seen = []
-        unseen = boss_qs
+         seen_questions[seen_key] = []
+         seen = []
+         unseen = boss_qs
 
     chosen = random.choice(unseen)
     seen_questions[seen_key] = seen + [chosen["question_id"]]
     user["seen_questions"] = seen_questions
-    save_users(users)
+    save_user(user)
     return chosen
 
 @router.post("/next")
 def get_next_question(unit: str = "1", authorization: str = Header(...)):
     user_id = verify_token(authorization)
-    users = load_users()
-    user = next((u for u in users if u["id"] == user_id), None)
+    user = get_user_by_id(user_id)
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
     if unit == "final":
@@ -150,7 +148,7 @@ def get_next_question(unit: str = "1", authorization: str = Header(...)):
     chosen = random.choice(unseen)
     seen_questions[seen_key] = seen + [chosen["question_id"]]
     user["seen_questions"] = seen_questions
-    save_users(users)
+    save_user(user)
     return chosen
 
 
@@ -158,8 +156,7 @@ def get_next_question(unit: str = "1", authorization: str = Header(...)):
 @limiter.limit("5/minute;100/day")
 async def get_boss_hint(request: Request, req: BossHintRequest, authorization: str = Header(...)):
     user_id = verify_token(authorization)
-    users = load_users()
-    user = next((u for u in users if u["id"] == user_id), None)
+    user = get_user_by_id(user_id)
     course_level = user.get("course_level", "beginner") if user else "beginner"
 
     questions = load_questions_by_category("unitboss", course_level)
@@ -189,8 +186,7 @@ JSON 포맷으로 아래와 같이 응답하세요:
 @limiter.limit("5/minute;100/day")
 async def submit_boss_answer(request: Request, req: BossAnswerRequest, authorization: str = Header(...)):
     user_id = verify_token(authorization)
-    users = load_users()
-    user = next((u for u in users if u["id"] == user_id), None)
+    user = get_user_by_id(user_id)
     course_level = user.get("course_level", "beginner") if user else "beginner"
 
     questions = load_questions_by_category("unitboss", course_level)
@@ -312,8 +308,7 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
 
     # 오답 기록
     if not ai_result.get("is_correct", False):
-        wrong_answers = load_wrong_answers()
-        wrong_answers.append({
+        save_wrong_answer_item({
             "id": str(uuid.uuid4()),
             "user_id": user_id,
             "question_id": req.question_id,
@@ -322,11 +317,9 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
             "timestamp": datetime.utcnow().isoformat(),
             "reviewed": False
         })
-        save_wrong_answers(wrong_answers)
 
     # 1. Load users to increment feedback count & handle rewards
-    users = load_users()
-    u = next((user_entry for user_entry in users if user_entry["id"] == user_id), None)
+    u = user
     
     newly_earned_titles = []
     if u:
@@ -336,11 +329,11 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
 
     # 2. is_clear일 때만 XP/진화 처리 및 진행도 완료 저장
     if is_clear:
-        from routers.progress import load_progress, save_progress
-        progress = load_progress()
         unit_val = int(req.unit) if req.unit is not None else int(question.get("unit", 1))
         stage_val = question.get("stage", f"{unit_val}-boss")
-        existing = next((p for p in progress if p["user_id"] == user_id and p["unit"] == unit_val and p["stage"] == stage_val and p.get("course_level", "beginner") == course_level), None)
+        
+        progress = get_progress_by_user(user_id, course_level)
+        existing = next((p for p in progress if p["unit"] == unit_val and p["stage"] == stage_val), None)
         
         award_xp = False
         if existing:
@@ -349,9 +342,10 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
             existing["score"] = max(existing.get("score", 0), ai_result.get("score", 100))
             existing["is_completed"] = True
             existing["updated_at"] = datetime.utcnow().isoformat()
+            save_progress_item(existing)
         else:
             award_xp = True
-            progress.append({
+            item = {
                 "id": str(uuid.uuid4()),
                 "user_id": user_id,
                 "unit": unit_val,
@@ -361,8 +355,8 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
                 "course_level": course_level,
                 "created_at": datetime.utcnow().isoformat(),
                 "updated_at": datetime.utcnow().isoformat(),
-            })
-        save_progress(progress)
+            }
+            save_progress_item(item)
         
         from routers.utils import calc_level
 
@@ -445,8 +439,9 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
         ai_result["crowns_awarded"] = 0
         ai_result["unlocked_unit"] = 1
 
-    # Save users
-    save_users(users)
+    # Save user
+    if u:
+        save_user(u)
     ai_result["newly_earned_titles"] = newly_earned_titles
 
     return ai_result

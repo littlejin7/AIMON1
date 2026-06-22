@@ -17,8 +17,10 @@ from typing import Optional
 
 from routers.utils import (
     calc_level,
-    load_users,
-    save_users,
+    get_user_by_id,
+    save_user,
+    get_progress_by_user,
+    save_progress_item,
     verify_token,
 )
 
@@ -89,8 +91,7 @@ class ClearRequest(BaseModel):
 def miniboss_info(unit: int = 1, stage: str = "1-1", authorization: str = Header(...)):
     """미니보스 정보 반환 (HP 설정, 이미 클리어 여부)."""
     user_id = verify_token(authorization)
-    users   = load_users()
-    user    = next((u for u in users if u["id"] == user_id), None)
+    user = get_user_by_id(user_id)
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
 
@@ -115,8 +116,7 @@ def miniboss_start(unit: int = 1, stage: str = "1-1", authorization: str = Heade
     - 모두 소진 시 리셋 후 재출제
     """
     user_id = verify_token(authorization)
-    users   = load_users()
-    user    = next((u for u in users if u["id"] == user_id), None)
+    user = get_user_by_id(user_id)
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
 
@@ -145,7 +145,7 @@ def miniboss_start(unit: int = 1, stage: str = "1-1", authorization: str = Heade
     miniboss_seen[stage] = [q["question_id"] for q in chosen]
     seen_questions["miniboss"] = miniboss_seen
     user["seen_questions"] = seen_questions
-    save_users(users)
+    save_user(user)
 
     return {
         "unit":      unit,
@@ -166,8 +166,7 @@ def miniboss_answer(req: AnswerRequest, authorization: str = Header(...)):
     - my_hp  <= 0 → is_fail  = True
     """
     user_id = verify_token(authorization)
-    users   = load_users()
-    user    = next((u for u in users if u["id"] == user_id), None)
+    user = get_user_by_id(user_id)
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
 
@@ -214,8 +213,7 @@ def miniboss_clear(req: ClearRequest, authorization: str = Header(...)):
     - 진행도 저장
     """
     user_id = verify_token(authorization)
-    users   = load_users()
-    user    = next((u for u in users if u["id"] == user_id), None)
+    user = get_user_by_id(user_id)
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
 
@@ -241,23 +239,22 @@ def miniboss_clear(req: ClearRequest, authorization: str = Header(...)):
         cleared.append(stage_key)
         user["miniboss_cleared_stages"] = cleared
         user["completed_stages"] = user.get("completed_stages", 0) + 1
-        save_users(users)
+        save_user(user)
 
         # 진행도 저장
-        from routers.progress import load_progress, save_progress
-        progress = load_progress()
         course_level = user.get("course_level", "beginner")
+        progress = get_progress_by_user(user_id, course_level)
         existing = next(
-            (p for p in progress if p["user_id"] == user_id
-             and p["unit"] == req.unit and p["stage"] == req.stage
-             and p.get("course_level", "beginner") == course_level),
+            (p for p in progress if p["unit"] == req.unit and p["stage"] == req.stage),
             None,
         )
+        target_item = None
         if existing:
             existing["is_completed"] = True
             existing["updated_at"]   = datetime.utcnow().isoformat()
+            target_item = existing
         else:
-            progress.append({
+            target_item = {
                 "id":           str(uuid.uuid4()),
                 "user_id":      user_id,
                 "unit":         req.unit,
@@ -267,8 +264,8 @@ def miniboss_clear(req: ClearRequest, authorization: str = Header(...)):
                 "course_level": course_level,
                 "created_at":   datetime.utcnow().isoformat(),
                 "updated_at":   datetime.utcnow().isoformat(),
-            })
-        save_progress(progress)
+            }
+        save_progress_item(target_item)
 
     return {
         "already_cleared":  already_cleared,

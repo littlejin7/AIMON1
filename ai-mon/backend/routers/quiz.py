@@ -4,7 +4,14 @@ from pydantic import BaseModel
 from services.claude_service import ask_claude, stream_claude
 import json, os, random, uuid
 from datetime import datetime
-from routers.utils import verify_token, load_wrong_answers, save_wrong_answers, limiter
+from routers.utils import (
+    verify_token,
+    get_wrong_answers_by_user,
+    save_wrong_answer_item,
+    get_user_by_id,
+    save_user,
+    limiter,
+)
 
 router = APIRouter()
 
@@ -229,7 +236,14 @@ async def get_ai_feedback(request: Request, req: AiFeedbackRequest, authorizatio
     오답 제출 시 Claude API를 호출해 레벨별 맞춤 피드백을 반환합니다.
     Claude 실패/타임아웃 시 is_ai_fallback=True와 함께 200 반환 (프론트 crash 방지).
     """
-    wrong_answers = load_wrong_answers()
+    user_id = None
+    if authorization:
+        try:
+            user_id = verify_token(authorization)
+        except Exception:
+            pass
+
+    wrong_answers = get_wrong_answers_by_user(user_id) if user_id else []
     if req.question_id:
         for entry in wrong_answers:
             if entry.get("question_id") == req.question_id and entry.get("user_answer") == req.user_answer:
@@ -245,49 +259,23 @@ async def get_ai_feedback(request: Request, req: AiFeedbackRequest, authorizatio
     )
     result = await ask_claude(prompt, level=req.level)
 
-    if authorization:
+    if user_id:
         try:
-            import os
-            from jose import jwt
-            from routers.user import load_users, save_users
-            from routers.titles import TITLE_DEFINITIONS
-
-            SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
-            ALGORITHM = os.getenv("ALGORITHM", "HS256")
-
-            token = authorization.replace("Bearer ", "")
-            payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-            user_id = payload.get("sub")
-            users = load_users()
-            for u in users:
-                if u.get("id") == user_id:
-                    u["ai_feedback_count"] = u.get("ai_feedback_count", 0) + 1
-                    earned = set(u.get("titles", []))
-                    if u["ai_feedback_count"] >= 10 and "ai_explorer" not in earned:
-                        earned.add("ai_explorer")
-                    u["titles"] = list(earned)
-                    break
-            save_users(users)
+            user = get_user_by_id(user_id)
+            if user:
+                user["ai_feedback_count"] = user.get("ai_feedback_count", 0) + 1
+                earned = set(user.get("titles", []))
+                if user["ai_feedback_count"] >= 10 and "ai_explorer" not in earned:
+                    earned.add("ai_explorer")
+                user["titles"] = list(earned)
+                save_user(user)
         except Exception:
             pass
 
     if result["success"]:
         feedback = result["feedback"]
         
-        # Save to wrong_answers.json
-        user_id = None
-        if authorization:
-            try:
-                from jose import jwt
-                SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
-                ALGORITHM = os.getenv("ALGORITHM", "HS256")
-                token = authorization.replace("Bearer ", "")
-                payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-                user_id = payload.get("sub")
-            except Exception:
-                pass
-                
-        wrong_answers.append({
+        new_wa = {
             "id": str(uuid.uuid4()),
             "user_id": user_id,
             "question_id": req.question_id,
@@ -296,8 +284,8 @@ async def get_ai_feedback(request: Request, req: AiFeedbackRequest, authorizatio
             "ai_explanation": feedback,
             "timestamp": datetime.utcnow().isoformat(),
             "reviewed": False
-        })
-        save_wrong_answers(wrong_answers)
+        }
+        save_wrong_answer_item(new_wa)
         
         return {"feedback": feedback, "is_ai_fallback": False}
     return {"feedback": "", "is_ai_fallback": True}
@@ -309,7 +297,14 @@ async def get_ai_feedback_stream(req: AiFeedbackRequest, authorization: str = He
     SSE 스트리밍 피드백. 청크마다 data: {"text": "..."} 형식으로 전송.
     완료 시 data: [DONE] 전송.
     """
-    wrong_answers = load_wrong_answers()
+    user_id = None
+    if authorization:
+        try:
+            user_id = verify_token(authorization)
+        except Exception:
+            pass
+
+    wrong_answers = get_wrong_answers_by_user(user_id) if user_id else []
     if req.question_id:
         for entry in wrong_answers:
             if entry.get("question_id") == req.question_id and entry.get("user_answer") == req.user_answer:
@@ -339,20 +334,7 @@ async def get_ai_feedback_stream(req: AiFeedbackRequest, authorization: str = He
                 yield f"data: {json.dumps({'text': chunk}, ensure_ascii=False)}\n\n"
                 
             if full_text:
-                user_id = None
-                if authorization:
-                    try:
-                        from jose import jwt
-                        SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
-                        ALGORITHM = os.getenv("ALGORITHM", "HS256")
-                        token = authorization.replace("Bearer ", "")
-                        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-                        user_id = payload.get("sub")
-                    except Exception:
-                        pass
-                
-                wa = load_wrong_answers()
-                wa.append({
+                new_wa = {
                     "id": str(uuid.uuid4()),
                     "user_id": user_id,
                     "question_id": req.question_id,
@@ -361,8 +343,8 @@ async def get_ai_feedback_stream(req: AiFeedbackRequest, authorization: str = He
                     "ai_explanation": full_text,
                     "timestamp": datetime.utcnow().isoformat(),
                     "reviewed": False
-                })
-                save_wrong_answers(wa)
+                }
+                save_wrong_answer_item(new_wa)
                 
         except Exception as e:
             yield f"data: {json.dumps({'text': f'[오류: {str(e)}]'}, ensure_ascii=False)}\n\n"

@@ -5,9 +5,11 @@ import os, uuid
 from datetime import datetime
 from typing import Optional
 from routers.utils import (
-    load_users,
-    save_users,
+    get_user_by_id,
+    save_user,
     verify_token,
+    get_progress_by_user,
+    save_progress_item,
 )
 
 router = APIRouter()
@@ -43,8 +45,7 @@ class HintRequest(BaseModel):
 @router.post("/submit")
 async def submit_code(req: SubmitRequest, authorization: str = Header(...)):
     user_id = verify_token(authorization)
-    users   = load_users()
-    user    = next((u for u in users if u["id"] == user_id), None)
+    user    = get_user_by_id(user_id)
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
 
@@ -104,12 +105,10 @@ async def submit_code(req: SubmitRequest, authorization: str = Header(...)):
 
     xp_awarded = 0
     if is_correct:
-        from routers.progress import load_progress, save_progress
-        progress = load_progress()
+        progress = get_progress_by_user(user_id, course_level)
         existing = next(
             (p for p in progress
-             if p["user_id"] == user_id
-             and p["unit"] == req.unit
+             if p["unit"] == req.unit
              and p["stage"] == req.stage),
             None,
         )
@@ -120,9 +119,10 @@ async def submit_code(req: SubmitRequest, authorization: str = Header(...)):
             existing["score"]        = max(existing.get("score", 0), result.get("score", 100))
             existing["is_completed"] = True
             existing["updated_at"]   = datetime.utcnow().isoformat()
+            save_progress_item(existing)
         else:
             award_xp = True
-            progress.append({
+            item = {
                 "id":           str(uuid.uuid4()),
                 "user_id":      user_id,
                 "unit":         req.unit,
@@ -132,19 +132,14 @@ async def submit_code(req: SubmitRequest, authorization: str = Header(...)):
                 "course_level": course_level,
                 "created_at":   datetime.utcnow().isoformat(),
                 "updated_at":   datetime.utcnow().isoformat(),
-            })
-        save_progress(progress)
+            }
+            save_progress_item(item)
 
         if award_xp:
-            users2 = load_users()
-            for u in users2:
-                if u["id"] == user_id:
-                    u["xp"]  = u.get("xp", 0) + CODE_CLEAR_XP
-                    u["lv"]  = max(calc_level(u["xp"]), u.get("lv", 1))
-                    xp_awarded = CODE_CLEAR_XP
-                    break
-            save_users(users2)
-            user = next((u for u in users2 if u["id"] == user_id), user)
+            user["xp"]  = user.get("xp", 0) + CODE_CLEAR_XP
+            user["lv"]  = max(calc_level(user["xp"]), user.get("lv", 1))
+            xp_awarded = CODE_CLEAR_XP
+            save_user(user)
 
     result["xp_awarded"] = xp_awarded
     result["lv"]         = user.get("lv", 1)
@@ -154,8 +149,7 @@ async def submit_code(req: SubmitRequest, authorization: str = Header(...)):
 @router.post("/hint")
 async def get_code_hint(req: HintRequest, authorization: str = Header(...)):
     user_id = verify_token(authorization)
-    users = load_users()
-    user = next((u for u in users if u["id"] == user_id), None)
+    user = get_user_by_id(user_id)
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
 
@@ -181,7 +175,7 @@ async def get_code_hint(req: HintRequest, authorization: str = Header(...)):
     user["ai_feedback_count"] = user.get("ai_feedback_count", 0) + 1
     from routers.titles import check_and_award_titles
     newly_earned = check_and_award_titles(user, {})
-    save_users(users)
+    save_user(user)
 
     return {
         "hint":           result.get("feedback", ""),
