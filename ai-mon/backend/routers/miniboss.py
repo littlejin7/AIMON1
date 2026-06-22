@@ -128,9 +128,11 @@ def miniboss_start(unit: int = 1, stage: str = "1-1", authorization: str = Heade
         raise HTTPException(status_code=404, detail=f"Unit {unit} / Stage {stage} 미니보스 문제가 없습니다.")
 
     # seen 관리 (stage별 독립)
-    seen_key = "miniboss_seen_questions"
-    seen = user.get(seen_key, {})
-    stage_seen = seen.get(stage, [])
+    if "seen_questions" not in user or user["seen_questions"] is None:
+        user["seen_questions"] = {}
+    seen_questions = user["seen_questions"]
+    miniboss_seen = seen_questions.setdefault("miniboss", {})
+    stage_seen = miniboss_seen.get(stage, [])
 
     unseen = [q for q in stage_qs if q["question_id"] not in stage_seen]
     if not unseen:
@@ -140,8 +142,9 @@ def miniboss_start(unit: int = 1, stage: str = "1-1", authorization: str = Heade
     # 배틀 시작마다 seen 리셋 (매 배틀 새 문제 순서)
     random.shuffle(unseen)
     chosen = unseen[:5]  # 최대 5문제
-    seen[stage] = [q["question_id"] for q in chosen]
-    user[seen_key] = seen
+    miniboss_seen[stage] = [q["question_id"] for q in chosen]
+    seen_questions["miniboss"] = miniboss_seen
+    user["seen_questions"] = seen_questions
     save_users(users)
 
     return {
@@ -243,6 +246,7 @@ def miniboss_clear(req: ClearRequest, authorization: str = Header(...)):
         # 진행도 저장
         from routers.progress import load_progress, save_progress
         progress = load_progress()
+        course_level = user.get("course_level", "beginner")
         existing = next(
             (p for p in progress if p["user_id"] == user_id
              and p["unit"] == req.unit and p["stage"] == req.stage
@@ -253,7 +257,6 @@ def miniboss_clear(req: ClearRequest, authorization: str = Header(...)):
             existing["is_completed"] = True
             existing["updated_at"]   = datetime.utcnow().isoformat()
         else:
-            course_level = user.get("course_level", "beginner")
             progress.append({
                 "id":           str(uuid.uuid4()),
                 "user_id":      user_id,

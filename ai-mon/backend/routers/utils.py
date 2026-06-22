@@ -8,6 +8,7 @@ from contextlib import contextmanager
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 from fastapi import Request
+from supabase import create_client
 
 def get_user_id_or_ip(request: Request) -> str:
     auth = request.headers.get("Authorization")
@@ -22,6 +23,16 @@ limiter = Limiter(key_func=get_user_id_or_ip)
 
 SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
+
+USE_SUPABASE = os.getenv("USE_SUPABASE", "false") == "true"
+
+if USE_SUPABASE:
+    supabase = create_client(
+        os.getenv("SUPABASE_URL", ""),
+        os.getenv("SUPABASE_KEY", "")
+    )
+else:
+    supabase = None
 
 DATA_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../data"))
 USERS_FILE = os.path.join(DATA_DIR, "users.json")
@@ -109,35 +120,107 @@ def _save_json_locked(file_path: str, data):
 
 
 def load_users():
+    if USE_SUPABASE:
+        res = supabase.table("users").select("*").execute()
+        return res.data
     return _load_json_locked(USERS_FILE, [])
 
 
 def save_users(users):
-    _save_json_locked(USERS_FILE, users)
+    if USE_SUPABASE:
+        for user in users:
+            save_user(user)
+    else:
+        _save_json_locked(USERS_FILE, users)
+
+
+def save_user(user: dict):
+    if USE_SUPABASE:
+        u_copy = user.copy()
+        supabase.table("users").upsert(u_copy).execute()
+    else:
+        users = load_users()
+        idx = next((i for i, u in enumerate(users) if u["id"] == user["id"]), None)
+        if idx is not None:
+            users[idx] = user
+        else:
+            users.append(user)
+        _save_json_locked(USERS_FILE, users)
 
 
 def load_progress():
+    if USE_SUPABASE:
+        res = supabase.table("progress").select("*").execute()
+        return res.data
     return _load_json_locked(PROGRESS_FILE, [])
 
 
 def save_progress(progress):
-    _save_json_locked(PROGRESS_FILE, progress)
+    if USE_SUPABASE:
+        for p in progress:
+            save_progress_item(p)
+    else:
+        _save_json_locked(PROGRESS_FILE, progress)
+
+
+def save_progress_item(item: dict):
+    if USE_SUPABASE:
+        supabase.table("progress").upsert(item).execute()
+    else:
+        progress = load_progress()
+        idx = next((i for i, p in enumerate(progress) if p.get("id") == item.get("id")), None)
+        if idx is not None:
+            progress[idx] = item
+        else:
+            progress.append(item)
+        _save_json_locked(PROGRESS_FILE, progress)
 
 
 def load_wrong_answers():
+    if USE_SUPABASE:
+        res = supabase.table("wrong_answers").select("*").execute()
+        return res.data
     return _load_json_locked(WRONG_ANSWERS_FILE, [])
 
 
 def save_wrong_answers(data):
-    _save_json_locked(WRONG_ANSWERS_FILE, data)
+    if USE_SUPABASE:
+        for item in data:
+            supabase.table("wrong_answers").upsert(item).execute()
+    else:
+        _save_json_locked(WRONG_ANSWERS_FILE, data)
 
 
 def load_reset_tokens():
+    if USE_SUPABASE:
+        res = supabase.table("reset_tokens").select("*").execute()
+        tokens_dict = {}
+        for item in res.data:
+            tokens_dict[item["email"]] = {
+                "token": item["token"],
+                "expires_at": item["expires_at"]
+            }
+        return tokens_dict
     return _load_json_locked(RESET_TOKENS_FILE, {})
 
 
 def save_reset_tokens(data):
-    _save_json_locked(RESET_TOKENS_FILE, data)
+    if USE_SUPABASE:
+        db_tokens = supabase.table("reset_tokens").select("email").execute().data
+        db_emails = {t["email"] for t in db_tokens}
+        
+        emails_to_delete = db_emails - set(data.keys())
+        if emails_to_delete:
+            supabase.table("reset_tokens").delete().in_("email", list(emails_to_delete)).execute()
+            
+        for email, token_info in data.items():
+            supabase.table("reset_tokens").upsert({
+                "email": email,
+                "token": token_info["token"],
+                "expires_at": token_info["expires_at"]
+            }).execute()
+    else:
+        _save_json_locked(RESET_TOKENS_FILE, data)
 
 
 def verify_token(authorization: str) -> str:
