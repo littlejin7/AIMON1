@@ -590,4 +590,89 @@ input, textarea, select { font: inherit; }
   25%       { transform: translateX(-6px); }
   75%       { transform: translateX(6px); }
 }
-@keyframes spin { to { transform: rotat
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes bob {
+  0%, 100% { transform: translateY(0px) rotate(-1deg); }
+  50%       { transform: translateY(-8px) rotate(1deg); }
+}
+@keyframes neon-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}
+@keyframes slide-in-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slide-in-down {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+@keyframes halo-spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* --- Animation Utility Classes --- */
+.animate-fade-in     { animation: fadeIn 0.4s ease forwards; }
+.animate-fade-in-up  { animation: fadeInUp 0.5s ease forwards; }
+.animate-slide-up    { animation: slide-in-up 0.45s ease forwards; }
+.animate-scale-in    { animation: scale-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.animate-bob         { animation: bob 3s ease-in-out infinite; }
+.animate-float       { animation: float 4s ease-in-out infinite; }
+.animate-spin        { animation: spin 1s linear infinite; }
+.animate-pulse-glow  { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-neon-pulse  { animation: neon-pulse 2s ease-in-out infinite; }
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: var(--clr-bg); }
+::-webkit-scrollbar-thumb { background: var(--clr-border); border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--clr-primary-dk); }
+
+/* --- Misc Utilities --- */
+.divider {
+  height: 1px;
+  background: var(--clr-border);
+  margin: var(--sp-4) 0;
+}
+.neon-line {
+  height: 2px;
+  background: var(--grad-neon-line);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 8px var(--clr-gold-glow);
+}
+.glass-panel {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-xl);
+}
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); border: 0;
+}
+
+/* =============================================
+   kawaii 테마
+   ============================================= */
+[data-theme="kawaii"] {
+  --clr-primary:          #ec4899;
+  --clr-primary-lt:       #f9a8d4;
+  --clr-primary-dk:       #db2777;
+  --clr-secondary:        #db2777;
+  --clr-accent:           #ec4899;
+  --clr-border:           rgba(236, 72, 153, 0.2);
+  --grad-primary:         linear-gradient(135deg, #ec4899 0%, #f472b6 100%);
+  --grad-bg:              radial-gradient(ellipse at top, #2e0f20 0%, #0f0f1a 70%);
+  --shadow-glow-primary:  0 0 24px rgba(236, 72, 153, 0.4);
+  --grad-neon-line:       linear-gradient(90deg, #f9a8d4 0%, #ec4899 50%, #db2777 100%);
+}
