@@ -1,0 +1,326 @@
+.aicross-wrap {
+  min-height: 100vh;
+  background: linear-gradient(160deg, #1a0f2e 0%, #2a1850 50%, #1a0f2e 100%);
+  color: #e8d8ff;
+  display: flex;
+  flex-direction: column;
+  outline: none;
+  padding-bottom: 90px;
+}
+
+/* ── Header ── */
+.aicross-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid rgba(180, 140, 255, 0.15);
+}
+
+.aicross-back {
+  background: rgba(180, 140, 255, 0.12);
+  border: 1px solid rgba(180, 140, 255, 0.3);
+  color: #c8aaff;
+  font-size: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.aicross-back:hover { background: rgba(180, 140, 255, 0.24); }
+
+.aicross-header-title-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.aicross-header-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #e0ccff;
+  line-height: 1.2;
+}
+
+.aicross-set-label {
+  font-size: 11px;
+  color: rgba(200, 170, 255, 0.5);
+  font-weight: 500;
+}
+
+.aicross-header-btns {
+  display: flex;
+  gap: 6px;
+}
+
+.acbtn {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  background: none;
+}
+.acbtn:hover { opacity: 0.82; }
+
+.acbtn--check  { background: rgba(160, 120, 255, 0.2); border-color: rgba(160, 120, 255, 0.5); color: #d0b8ff; }
+.acbtn--reveal { background: rgba(255, 200, 80, 0.12); border-color: rgba(255, 200, 80, 0.4); color: #ffd870; }
+.acbtn--reset  { background: rgba(255, 100, 100, 0.1); border-color: rgba(255, 100, 100, 0.35); color: #ffaaaa; }
+.acbtn--next   { background: rgba(80, 200, 120, 0.2); border-color: rgba(80, 200, 120, 0.5); color: #a8ffb8; margin-left: 12px; }
+
+/* ── Active clue banner ── */
+.aicross-active-clue {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: rgba(160, 120, 255, 0.1);
+  border-bottom: 1px solid rgba(160, 120, 255, 0.15);
+  min-height: 44px;
+}
+
+.aicross-clue-tag {
+  background: rgba(160, 120, 255, 0.3);
+  color: #e0ccff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.aicross-clue-text {
+  font-size: 14px;
+  color: #c8b0ee;
+  line-height: 1.4;
+}
+
+/* ── Win banner ── */
+.aicross-win-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 5, 25, 0.75);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  animation: winFade 0.3s ease;
+}
+
+.aicross-win-modal {
+  background: linear-gradient(145deg, #2a1850, #1a0f2e);
+  border: 1px solid rgba(168, 120, 255, 0.4);
+  border-radius: 20px;
+  padding: 40px 32px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-width: 280px;
+  animation: winPop 0.4s ease;
+}
+
+.aicross-win-emoji { font-size: 48px; }
+.aicross-win-title { font-size: 26px; font-weight: 800; color: #fff; }
+.aicross-win-sub   { font-size: 14px; color: #c8b0ef; margin-bottom: 4px; }
+
+.aicross-win-xp {
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffe066;
+  background: rgba(255, 220, 80, 0.12);
+  border: 1px solid rgba(255, 220, 80, 0.3);
+  border-radius: 12px;
+  padding: 10px 24px;
+}
+
+.aicross-win-xp--claimed {
+  font-size: 13px;
+  color: #a090c0;
+  background: rgba(120, 100, 180, 0.1);
+  border-color: rgba(120, 100, 180, 0.2);
+}
+
+.aicross-win-xp--loading {
+  font-size: 14px;
+  color: #c8b0ef;
+  background: none;
+  border: none;
+}
+
+@keyframes winFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes winPop {
+  0%   { transform: scale(0.88); opacity: 0; }
+  60%  { transform: scale(1.03); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ── Body layout ── */
+.aicross-body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+  padding: 16px;
+}
+
+/* ── Grid box wrapper ── */
+.aicross-grid-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(180, 140, 255, 0.18);
+  border-radius: 18px;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+/* ── Grid ── */
+.aicross-grid {
+  display: grid;
+  gap: 4px;
+}
+
+/* ── Cells ── */
+.ac-cell {
+  width: 42px;
+  height: 42px;
+  border-radius: 7px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.12s, transform 0.1s;
+}
+
+.ac-cell--void {
+  background: transparent;
+  cursor: default;
+  pointer-events: none;
+}
+
+.ac-cell:not(.ac-cell--void) {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(180, 140, 255, 0.25);
+}
+
+.ac-cell:not(.ac-cell--void):hover {
+  background: rgba(180, 140, 255, 0.14);
+}
+
+.ac-cell.is-selected {
+  background: rgba(160, 120, 255, 0.22);
+  border-color: rgba(180, 140, 255, 0.5);
+}
+
+.ac-cell.is-cursor {
+  background: rgba(200, 160, 255, 0.35);
+  border-color: #c8aaff;
+  transform: scale(1.06);
+  z-index: 1;
+}
+
+.ac-cell.is-correct {
+  background: rgba(80, 200, 120, 0.22);
+  border-color: rgba(80, 200, 120, 0.6);
+}
+
+.ac-cell.is-wrong {
+  background: rgba(255, 80, 80, 0.18);
+  border-color: rgba(255, 80, 80, 0.5);
+}
+
+.ac-num {
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(200, 170, 255, 0.8);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.ac-letter {
+  font-size: 18px;
+  font-weight: 700;
+  color: #f0e4ff;
+  font-family: 'Courier New', monospace;
+  line-height: 1;
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
+.ac-cell.is-correct .ac-letter { color: #80ffaa; }
+.ac-cell.is-wrong   .ac-letter { color: #ff8888; }
+
+/* ── Clues ── */
+.aicross-clues {
+  display: flex;
+  gap: 12px;
+}
+
+.aicross-clue-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.aicross-clue-heading {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(200, 170, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(180, 140, 255, 0.18);
+}
+
+.aicross-clue-item {
+  font-size: 12px;
+  color: #b8a0d8;
+  padding: 6px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  line-height: 1.4;
+  transition: background 0.12s, color 0.12s;
+  border: 1px solid transparent;
+}
+
+.aicross-clue-item b {
+  color: #d0b8ff;
+  margin-right: 4px;
+  font-family: 'Courier New', monospace;
+}
+
+.aicross-clue-item:hover {
+  background: rgba(160, 120, 255, 0.12);
+  color: #d8c0ff;
+}
+
+.aicross-clue-item.is-active {
+  background: rgba(160, 120, 255, 0.2);
+  border-color: rgba(160, 120, 255, 0.4);
+  color: #e8d8ff;
+}
+
+.aicross-clue-item.is-active b {
+  color: #f0e0ff;
+}
