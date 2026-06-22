@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Header
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime, timedelta
-from routers.utils import get_current_user, load_users, save_users
+from routers.utils import get_current_user, save_user
 
 router = APIRouter()
 
@@ -16,16 +16,7 @@ def game_clear(req: GameClearRequest, authorization: str = Header(None)):
     if not authorization:
         raise HTTPException(status_code=401, detail="Authorization header missing")
     
-    user = get_current_user(authorization)
-    users = load_users()
-    
-    # Find user in the list
-    for u in users:
-        if u["id"] == user["id"]:
-            user_ref = u
-            break
-    else:
-        raise HTTPException(status_code=404, detail="User not found")
+    user_ref = get_current_user(authorization)
         
     # KST 기준 날짜 구하기 (UTC + 9)
     kst_now = datetime.utcnow() + timedelta(hours=9)
@@ -115,7 +106,7 @@ def game_clear(req: GameClearRequest, authorization: str = Header(None)):
         
     user_ref["game_rewards"] = game_rewards
         
-    save_users(users)
+    save_user(user_ref)
     
     return {
         "crowns_awarded": crowns_awarded,

@@ -6,10 +6,10 @@ from routers.titles import check_and_award_titles
 from routers.utils import (
     serialize_user,
     calc_level,
-    load_users,
-    save_users,
-    load_progress,
-    save_progress,
+    get_user_by_id,
+    save_user,
+    get_progress_by_user,
+    save_progress_item,
     verify_token,
 )
 
@@ -27,29 +27,26 @@ class ProgressUpdateRequest(BaseModel):
 @router.get("/")
 def get_progress(course_level: str = Query("beginner"), authorization: str = Header(...)):
     user_id = verify_token(authorization)
-    progress = load_progress()
-    return [p for p in progress if p["user_id"] == user_id and p.get("course_level", course_level) == course_level]
+    return get_progress_by_user(user_id, course_level)
 
 
 @router.post("/")
 def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)):
     user_id = verify_token(authorization)
-    users = load_users()
-    user = next((u for u in users if u["id"] == user_id), None)
+    user = get_user_by_id(user_id)
     course_level = user.get("course_level", "beginner") if user else "beginner"
     
-    progress = load_progress()
+    progress = get_progress_by_user(user_id, course_level)
     newly_earned = []
 
     existing = next(
-        (p for p in progress if p["user_id"] == user_id
-         and p["unit"] == req.unit
-         and p["stage"] == req.stage
-         and p.get("course_level", course_level) == course_level),
+        (p for p in progress if p["unit"] == req.unit
+         and p["stage"] == req.stage),
         None,
     )
 
     award_xp = False
+    target_item = None
     if existing:
         if not existing.get("is_completed", False) and req.is_completed:
             award_xp = True
@@ -62,9 +59,10 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
                 existing["checkpoint"] = req.checkpoint
                 
         existing["updated_at"] = datetime.utcnow().isoformat()
+        target_item = existing
     else:
         award_xp = req.is_completed
-        progress.append({
+        target_item = {
             "id": str(uuid.uuid4()),
             "user_id": user_id,
             "unit": req.unit,
@@ -75,9 +73,10 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
             "course_level": course_level,
             "created_at": datetime.utcnow().isoformat(),
             "updated_at": datetime.utcnow().isoformat(),
-        })
+        }
+        progress.append(target_item)
 
-    save_progress(progress)
+    save_progress_item(target_item)
 
     # 1. XP 획득량을 stage 종류별로 구분
     stage = req.stage
@@ -89,10 +88,8 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
     # 유닛 완료 체크 → 왕관 지급 (방금 저장한 progress 변수를 그대로 사용 - 이중 I/O 방지)
     user_unit_stages = [
         p for p in progress
-        if p.get("user_id") == user_id
-        and p.get("unit") == req.unit
+        if p.get("unit") == req.unit
         and p.get("is_completed") == True
-        and p.get("course_level", course_level) == course_level
     ]
     completed_stage_ids = {p.get("stage") for p in user_unit_stages}
     
@@ -121,48 +118,43 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
     crowns_awarded = 0
     newly_earned = []
     
-    for u in users:
-        if u["id"] == user_id:
-            # 1. XP 및 진화
-            if award_xp:
-                u["xp"] = u.get("xp", 0) + xp_gain
+    if user:
+        # 1. XP 및 진화
+        if award_xp:
+            user["xp"] = user.get("xp", 0) + xp_gain
 
-                # completed_stages user에 저장
-                u["completed_stages"] = u.get("completed_stages", 0) + 1
+            # completed_stages user에 저장
+            user["completed_stages"] = user.get("completed_stages", 0) + 1
 
-                new_lv = calc_level(u["xp"])
-                u["lv"] = max(new_lv, u.get("lv", 1))
+            new_lv = calc_level(user["xp"])
+            user["lv"] = max(new_lv, user.get("lv", 1))
 
-                if u["lv"] >= 10 and u.get("character") == "slime":
-                    u["character"] = "robot"
-                elif u["lv"] >= 20 and u.get("character") == "robot":
-                    u["character"] = "speech_bubble"
-                elif u["lv"] >= 30 and u.get("character") == "speech_bubble":
-                    u["character"] = "final_ghost"
+            if user["lv"] >= 10 and user.get("character") == "slime":
+                user["character"] = "robot"
+            elif user["lv"] >= 20 and user.get("character") == "robot":
+                user["character"] = "speech_bubble"
+            elif user["lv"] >= 30 and user.get("character") == "speech_bubble":
+                user["character"] = "final_ghost"
 
-            # 2. 왕관 지급
-            if unit_just_completed:
-                awarded_units = u.get("awarded_crown_units", [])
-                val = f"{course_level}-{req.unit}"
-                if val not in awarded_units:
-                    crowns_awarded = 1  # 유닛 번호가 아닌 고정 1개 지급
-                    u["crowns"] = u.get("crowns", 0) + crowns_awarded
-                    awarded_units.append(val)
-                    u["awarded_crown_units"] = awarded_units
+        # 2. 왕관 지급
+        if unit_just_completed:
+            awarded_units = user.get("awarded_crown_units", [])
+            val = f"{course_level}-{req.unit}"
+            if val not in awarded_units:
+                crowns_awarded = 1  # 유닛 번호가 아닌 고정 1개 지급
+                user["crowns"] = user.get("crowns", 0) + crowns_awarded
+                awarded_units.append(val)
+                user["awarded_crown_units"] = awarded_units
 
-            # 3. 칭호 부여
-            context = {
-                "stage_completed": award_xp,
-                "unit_fully_done": unit_just_completed,
-            }
-            newly_earned = check_and_award_titles(u, context)
-            break
+        # 3. 칭호 부여
+        context = {
+            "stage_completed": award_xp,
+            "unit_fully_done": unit_just_completed,
+        }
+        newly_earned = check_and_award_titles(user, context)
+        save_user(user)
 
-    save_users(users)
-
-    # return 할 때 현재 유저 상태를 조회하여 안전하게 반환
-    current_u = next((usr for usr in users if usr.get("id") == user_id), {})
-    serialized = serialize_user(current_u)
+    serialized = serialize_user(user) if user else {}
 
     return {
         "message": "진행상황이 저장되었습니다.",
@@ -177,12 +169,10 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
 @router.get("/stats")
 def get_stats(authorization: str = Header(...)):
     user_id = verify_token(authorization)
-    users = load_users()
-    user = next((u for u in users if u["id"] == user_id), None)
+    user = get_user_by_id(user_id)
     course_level = user.get("course_level", "beginner") if user else "beginner"
 
-    progress = load_progress()
-    user_progress = [p for p in progress if p["user_id"] == user_id and p.get("course_level", course_level) == course_level]
+    user_progress = get_progress_by_user(user_id, course_level)
 
     completed = [p for p in user_progress if p.get("is_completed")]
     total_score = sum(p["score"] for p in user_progress)

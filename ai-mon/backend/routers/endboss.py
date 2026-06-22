@@ -18,8 +18,8 @@ from typing import Optional
 
 from routers.utils import (
     calc_level,
-    load_users,
-    save_users,
+    get_user_by_id,
+    save_user,
     verify_token,
     limiter,
 )
@@ -148,8 +148,7 @@ class ClearRequest(BaseModel):
 def endboss_info(authorization: str = Header(...)):
     """해금 여부 + 왕관 수 + 이미 클리어한 레벨 반환."""
     user_id = verify_token(authorization)
-    users   = load_users()
-    user    = next((u for u in users if u["id"] == user_id), None)
+    user    = get_user_by_id(user_id)
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
 
@@ -173,8 +172,7 @@ def endboss_start(req: StartRequest, authorization: str = Header(...)):
     - Phase 3 첫 문제도 함께 반환 (phase3_first_question)
     """
     user_id = verify_token(authorization)
-    users   = load_users()
-    user    = next((u for u in users if u["id"] == user_id), None)
+    user    = get_user_by_id(user_id)
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
 
@@ -214,7 +212,7 @@ def endboss_start(req: StartRequest, authorization: str = Header(...)):
     if "seen_questions" not in user or user["seen_questions"] is None:
         user["seen_questions"] = {}
     user["seen_questions"]["endboss"] = seen_ids
-    save_users(users)
+    save_user(user)
 
     return {
         "phase":               1,
@@ -248,8 +246,7 @@ async def endboss_answer(request: Request, req: AnswerRequest, authorization: st
         - tries < 3  → next_phase3_question 반환
     """
     user_id = verify_token(authorization)
-    users   = load_users()
-    user    = next((u for u in users if u["id"] == user_id), None)
+    user    = get_user_by_id(user_id)
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
 
@@ -362,7 +359,7 @@ async def endboss_answer(request: Request, req: AnswerRequest, authorization: st
             if next_q:
                 seen_questions["endboss"] = seen + [next_q["question_id"]]
                 user["seen_questions"] = seen_questions
-                save_users(users)
+                save_user(user)
 
         result.update({
             "my_hp":        req.my_hp,
@@ -388,8 +385,7 @@ def endboss_clear(req: ClearRequest, authorization: str = Header(...)):
     - endboss_cleared_levels 기록
     """
     user_id = verify_token(authorization)
-    users   = load_users()
-    user    = next((u for u in users if u["id"] == user_id), None)
+    user    = get_user_by_id(user_id)
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
 
@@ -442,7 +438,7 @@ def endboss_clear(req: ClearRequest, authorization: str = Header(...)):
             user["seen_questions"] = {}
         user["seen_questions"]["endboss"] = []
 
-        save_users(users)
+        save_user(user)
 
     return {
         "already_cleared":    already_cleared,

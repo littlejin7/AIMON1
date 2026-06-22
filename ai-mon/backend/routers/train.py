@@ -2,7 +2,11 @@ import os, random
 from fastapi import APIRouter, Header, HTTPException
 from pydantic import BaseModel
 from routers.quiz import load_questions_by_category
-from routers.utils import verify_token, load_wrong_answers, save_wrong_answers
+from routers.utils import (
+    verify_token,
+    get_wrong_answers_by_user,
+    save_wrong_answer_item,
+)
 
 router = APIRouter()
 
@@ -14,12 +18,6 @@ def get_train_review(
     limit: int = 15,
     authorization: str = Header(None)
 ):
-    questions = load_questions_by_category("train", course_level=course_level, unit=unit)
-    if not questions:
-        questions = load_questions_by_category("quiz", course_level=course_level, unit=unit) + \
-                    load_questions_by_category("miniboss", course_level=course_level, unit=unit)
-    wrong_answers = load_wrong_answers()
-
     # 유저 ID 추출 (JWT 토큰 파싱)
     user_id = None
     if authorization:
@@ -28,6 +26,13 @@ def get_train_review(
         except HTTPException:
             pass
 
+    questions = load_questions_by_category("train", course_level=course_level, unit=unit)
+    if not questions:
+        questions = load_questions_by_category("quiz", course_level=course_level, unit=unit) + \
+                    load_questions_by_category("miniboss", course_level=course_level, unit=unit)
+    
+    wrong_answers = get_wrong_answers_by_user(user_id) if user_id else []
+
     # 해당 유닛 스테이지 퀴즈 + 미니보스 문제 풀
     unit_pool = questions
 
@@ -35,7 +40,7 @@ def get_train_review(
     priority_ids = set()
     if user_id:
         for entry in wrong_answers:
-            if entry.get("user_id") == user_id and not entry.get("reviewed", False):
+            if not entry.get("reviewed", False):
                 priority_ids.add(entry.get("question_id"))
 
     priority_qs = [q for q in unit_pool if q.get("question_id") in priority_ids]
@@ -58,15 +63,12 @@ def mark_question_reviewed(req: ReviewedRequest, authorization: str = Header(Non
 
     user_id = verify_token(authorization)
 
-    wrong_answers = load_wrong_answers()
-    updated = False
+    wrong_answers = get_wrong_answers_by_user(user_id)
+    
     for entry in wrong_answers:
-        if entry.get("user_id") == user_id and entry.get("question_id") == req.question_id:
+        if entry.get("question_id") == req.question_id:
             entry["reviewed"] = True
-            updated = True
-
-    if updated:
-        save_wrong_answers(wrong_answers)
+            save_wrong_answer_item(entry)
 
     return {"success": True}
 
