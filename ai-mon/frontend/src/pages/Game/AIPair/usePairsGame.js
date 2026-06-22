@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { PAIRS } from './data'
+import { incrementGamePlay } from '../Game'
 
 const PAIRS_PER_GAME = 8   // 8쌍 = 16장 = 4x4
 
@@ -80,7 +81,8 @@ export function usePairsGame() {
           s.add(a); s.add(b)
           if (s.size / 2 === PAIRS_PER_GAME) {
             setRunning(false)
-            setWon(true)
+            setWon(true
+            incrementGamePlay('pairs')
           }
           processingRef.current = false
           return s
