@@ -136,7 +136,7 @@
     "type": "multiple_choice",
     "difficulty": "medium",
     "concept": "중첩 for 루프",
-    "question": "아래 중첩 for 루프에서 print()는 총 몇 번 실행될까요?",
+    "question": "```python\n아래 중첩 for 루프에서 print()는 총 몇 번 실행될까요?\n```",
     "code": "for i in range(3):\n    for j in range(4):\n        print(i, j)",
     "choices": [
       "A. 7번",
@@ -174,7 +174,7 @@
     "type": "multiple_choice",
     "difficulty": "medium",
     "concept": "while 루프 / 누적",
-    "question": "아래 코드를 실행하면 print()는 총 몇 번 실행될까요?",
+    "question": "```python\n아래 코드를 실행하면 print()는 총 몇 번 실행될까요?\n```",
     "code": "count = 0\nwhile count < 5:\n    count += 2\n    print(count)",
     "choices": [
       "A. 3번",

@@ -23,7 +23,7 @@
     "type": "output_select",
     "difficulty": "easy",
     "concept": "random.choice",
-    "question": "다음 코드를 실행했을 때 나올 수 있는 출력으로 올바른 것은 무엇인가요?\n\nimport random\nitem_db = ['HP포션', '마나포션', '철검']\nresult = random.choice(item_db)\nprint(result)",
+    "question": "다음 코드를 실행했을 때 나올 수 있는 출력으로 올바른 것은 무엇인가요?\n\n```python\nimport random\nitem_db = ['HP포션', '마나포션', '철검']\nresult = random.choice(item_db)\nprint(result)\n```",
     "choices": [
       "A. ['HP포션', '마나포션', '철검']",
       "B. HP포션 (또는 마나포션, 또는 철검 중 하나)",
@@ -41,7 +41,7 @@
     "type": "output_select",
     "difficulty": "easy",
     "concept": "list.append",
-    "question": "다음 코드의 출력 결과는 무엇인가요?\n\ninventory = ['지도', '나침반']\ninventory.append('HP포션')\nprint(inventory)",
+    "question": "다음 코드의 출력 결과는 무엇인가요?\n\n```python\ninventory = ['지도', '나침반']\ninventory.append('HP포션')\nprint(inventory)\n```",
     "choices": [
       "A. ['HP포션']",
       "B. ['HP포션', '지도', '나침반']",
@@ -59,7 +59,7 @@
     "type": "output_select",
     "difficulty": "easy",
     "concept": "len 함수",
-    "question": "다음 코드의 출력 결과는 무엇인가요?\n\ninventory = ['철검', '사과', 'HP포션', '방패']\nprint(len(inventory))",
+    "question": "다음 코드의 출력 결과는 무엇인가요?\n\n```python\ninventory = ['철검', '사과', 'HP포션', '방패']\nprint(len(inventory))\n```",
     "choices": [
       "A. 3",
       "B. 4",
@@ -77,7 +77,7 @@
     "type": "output_select",
     "difficulty": "easy",
     "concept": "str.lower",
-    "question": "다음 코드의 출력 결과는 무엇인가요?\n\nsearch = 'HP_Potion'\nprint(search.lower())",
+    "question": "다음 코드의 출력 결과는 무엇인가요?\n\n```python\nsearch = 'HP_Potion'\nprint(search.lower())\n```",
     "choices": [
       "A. HP_POTION",
       "B. hp_potion",
@@ -95,7 +95,7 @@
     "type": "output_select",
     "difficulty": "medium",
     "concept": "enumerate 기본",
-    "question": "다음 코드의 출력 결과는 무엇인가요?\n\ninventory = ['철검', '사과']\nfor i, item in enumerate(inventory):\n    print(i, item)",
+    "question": "다음 코드의 출력 결과는 무엇인가요?\n\n```python\ninventory = ['철검', '사과']\nfor i, item in enumerate(inventory):\n    print(i, item)\n```",
     "choices": [
       "A. 1 철검\n2 사과",
       "B. 0 철검\n1 사과",
@@ -113,7 +113,7 @@
     "type": "output_select",
     "difficulty": "medium",
     "concept": "in 연산자 포함 검사",
-    "question": "다음 코드의 출력 결과는 무엇인가요?\n\nitem = 'HP포션'\nprint('포션' in item)\nprint('철검' in item)",
+    "question": "다음 코드의 출력 결과는 무엇인가요?\n\n```python\nitem = 'HP포션'\nprint('포션' in item)\nprint('철검' in item)\n```",
     "choices": [
       "A. False\nTrue",
       "B. True\nTrue",
@@ -131,7 +131,7 @@
     "type": "output_select",
     "difficulty": "medium",
     "concept": "list.pop 반환값",
-    "question": "다음 코드의 출력 결과는 무엇인가요?\n\ninventory = ['철검', '사과', 'HP포션']\ndropped = inventory.pop(1)\nprint(dropped)\nprint(inventory)",
+    "question": "다음 코드의 출력 결과는 무엇인가요?\n\n```python\ninventory = ['철검', '사과', 'HP포션']\ndropped = inventory.pop(1)\nprint(dropped)\nprint(inventory)\n```",
     "choices": [
       "A. 철검\n['사과', 'HP포션']",
       "B. 사과\n['철검', 'HP포션']",
@@ -185,7 +185,7 @@
     "type": "multiple_choice",
     "difficulty": "medium",
     "concept": "while True / break",
-    "question": "while True 무한 루프에서 반복을 멈추고 루프 바깥으로 나가는 키워드는 무엇인가요?",
+    "question": "```python\nwhile True 무한 루프에서 반복을 멈추고 루프 바깥으로 나가는 키워드는 무엇인가요?\n```",
     "choices": [
       "A. stop",
       "B. exit",
@@ -203,7 +203,7 @@
     "type": "output_select",
     "difficulty": "hard",
     "concept": "enumerate + f-string 인덱스 보정",
-    "question": "다음 코드의 출력 결과는 무엇인가요?\n\ninventory = ['철검', '사과', 'HP포션']\nfor i, item in enumerate(inventory):\n    print(f'[슬롯 {i+1}] {item}')",
+    "question": "다음 코드의 출력 결과는 무엇인가요?\n\n```python\ninventory = ['철검', '사과', 'HP포션']\nfor i, item in enumerate(inventory):\n    print(f'[슬롯 {i+1}] {item}')\n```",
     "choices": [
       "A. [슬롯 0] 철검\n[슬롯 1] 사과\n[슬롯 2] HP포션",
       "B. [슬롯 1] 철검\n[슬롯 2] 사과\n[슬롯 3] HP포션",
@@ -221,7 +221,7 @@
     "type": "output_select",
     "difficulty": "hard",
     "concept": "인덱스 보정 + pop",
-    "question": "다음 코드에서 유저가 '2'를 입력했을 때의 출력 결과는 무엇인가요?\n\ninventory = ['철검', '사과', 'HP포션']\nnum = 2  # 유저 입력 시뮬레이션\nidx = num - 1\ndropped = inventory.pop(idx)\nprint(f'삭제된 아이템: {dropped}')\nprint(f'남은 인벤토리: {inventory}')",
+    "question": "다음 코드에서 유저가 '2'를 입력했을 때의 출력 결과는 무엇인가요?\n\ninventory = ['철검', '사과', 'HP포션']\nnum = 2  # 유저 입력 시뮬레이션\n```python\nidx = num - 1\ndropped = inventory.pop(idx)\nprint(f'삭제된 아이템: {dropped}')\nprint(f'남은 인벤토리: {inventory}')\n```",
     "choices": [
       "A. 삭제된 아이템: 철검\n남은 인벤토리: ['사과', 'HP포션']",
       "B. 삭제된 아이템: 사과\n남은 인벤토리: ['철검', 'HP포션']",
@@ -239,7 +239,7 @@
     "type": "output_select",
     "difficulty": "hard",
     "concept": "found 플래그 패턴",
-    "question": "다음 코드에서 검색어를 '열쇠'로 입력했을 때의 출력 결과는 무엇인가요?\n\ninventory = ['강철검', 'HP포션', '마나포션']\ntarget = '열쇠'  # 유저 입력 시뮬레이션\nfound = False\nfor item in inventory:\n    if target.lower() in item.lower():\n        print(f' - {item}')\n        found = True\nif not found:\n    print('검색 결과가 없습니다.')",
+    "question": "다음 코드에서 검색어를 '열쇠'로 입력했을 때의 출력 결과는 무엇인가요?\n\n```python\ninventory = ['강철검', 'HP포션', '마나포션']\ntarget = '열쇠'  # 유저 입력 시뮬레이션\nfound = False\nfor item in inventory:\n    if target.lower() in item.lower():\n        print(f' - {item}')\n        found = True\nif not found:\n    print('검색 결과가 없습니다.')\n```",
     "choices": [
       "A.  - 열쇠",
       "B. True",
@@ -257,7 +257,7 @@
     "type": "output_select",
     "difficulty": "hard",
     "concept": "while True + if/elif 라우팅 + break",
-    "question": "다음 코드에서 명령 입력이 순서대로 '1', '7'일 때 최종 출력 결과는 무엇인가요?\n\ncmds = ['1', '7']  # 순서대로 입력 시뮬레이션\nidx = 0\nwhile True:\n    cmd = cmds[idx]\n    idx += 1\n    if cmd == '1':\n        print('아이템 획득!')\n    elif cmd == '7':\n        print('시스템 종료')\n        break\n    elif cmd == '2':\n        print('인벤토리 확인')",
+    "question": "다음 코드에서 명령 입력이 순서대로 '1', '7'일 때 최종 출력 결과는 무엇인가요?\n\n```python\ncmds = ['1', '7']  # 순서대로 입력 시뮬레이션\nidx = 0\nwhile True:\n    cmd = cmds[idx]\n    idx += 1\n    if cmd == '1':\n        print('아이템 획득!')\n    elif cmd == '7':\n        print('시스템 종료')\n```\n        break\n```python\n    elif cmd == '2':\n        print('인벤토리 확인')\n```",
     "choices": [
       "A. 시스템 종료",
       "B. 아이템 획득!\n인벤토리 확인\n시스템 종료",

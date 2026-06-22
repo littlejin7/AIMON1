@@ -239,7 +239,7 @@
       "type": "multiple_choice",
       "quiz_category": "stage_quiz",
       "is_boss": false,
-      "question": "파이썬에서 if 조건이 거짓(False)일 때 실행할 코드를 정의하기 위해 사용하는 키워드는 무엇인가요?",
+      "question": "```python\n파이썬에서 if 조건이 거짓(False)일 때 실행할 코드를 정의하기 위해 사용하는 키워드는 무엇인가요?\n```",
       "choices": [
         "A. then",
         "B. else",
@@ -630,7 +630,7 @@
       "type": "multiple_choice",
       "quiz_category": "stage_quiz",
       "is_boss": false,
-      "question": "if-elif-else 구조에서 elif 조건 두 개가 모두 참이 되는 상황이라면, 실제로는 몇 개의 코드 블록이 실행될까요?",
+      "question": "```python\nif-elif-else 구조에서 elif 조건 두 개가 모두 참이 되는 상황이라면, 실제로는 몇 개의 코드 블록이 실행될까요?\n```",
       "choices": [
         "A. 항상 1개만 실행된다 (먼저 참이 된 조건 하나)",
         "B. 참인 조건의 개수만큼 모두 실행된다",
@@ -699,7 +699,7 @@
       "type": "multiple_choice",
       "quiz_category": "stage_quiz",
       "is_boss": false,
-      "question": "elif 키워드를 사용할 때 반드시 함께 있어야 하는 조건문 키워드는 무엇인가요?",
+      "question": "```python\nelif 키워드를 사용할 때 반드시 함께 있어야 하는 조건문 키워드는 무엇인가요?\n```",
       "choices": [
         "A. if",
         "B. for",
@@ -745,7 +745,7 @@
       "type": "multiple_choice",
       "quiz_category": "stage_quiz",
       "is_boss": false,
-      "question": "if-elif 구조에서 else는 항상 작성해야 할까요?",
+      "question": "```python\nif-elif 구조에서 else는 항상 작성해야 할까요?\n```",
       "choices": [
         "A. 네, else 없이는 문법 오류가 발생한다",
         "B. 아니요, else는 선택 사항이라 생략할 수 있다",

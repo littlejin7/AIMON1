@@ -71,7 +71,7 @@
       "difficulty": "medium",
       "unit": "7",
       "topic": "Pydantic 모델 + FastAPI 엔드포인트 작성",
-      "question": "아래 조건에 맞는 Pydantic 모델과 FastAPI 엔드포인트를 작성하세요.\n조건:\n- Pydantic 모델 이름: AIRequest\n- 필드: prompt(str, 필수), max_tokens(int, 기본값 500)\n- 엔드포인트: POST /generate\n- AIRequest를 입력으로 받아 {\"result\": \"AI response placeholder\"} 반환\n- FastAPI 앱 인스턴스 이름: app",
+      "question": "아래 조건에 맞는 Pydantic 모델과 FastAPI 엔드포인트를 작성하세요.\n조건:\n```python\n- Pydantic 모델 이름: AIRequest\n- 필드: prompt(str, 필수), max_tokens(int, 기본값 500)\n- 엔드포인트: POST /generate\n- AIRequest를 입력으로 받아 {\"result\": \"AI response placeholder\"} 반환\n- FastAPI 앱 인스턴스 이름: app\n```",
       "code": null,
       "answer": "from pydantic import BaseModel\nfrom fastapi import FastAPI\n\napp = FastAPI()\n\nclass AIRequest(BaseModel):\n    prompt: str\n    max_tokens: int = 500\n\n@app.post(\"/generate\")\nasync def generate(request: AIRequest):\n    return {\"result\": \"AI response placeholder\"}",
       "feedback": {
@@ -97,7 +97,7 @@
       "difficulty": "medium",
       "unit": "7",
       "topic": "Streamlit에서 FastAPI 호출",
-      "question": "Streamlit 앱에서 FastAPI 서버(`http://localhost:8000/chat`)에 POST 요청을 보내는 함수 `call_api`를 작성하세요.\n조건:\n- 입력: user_message(str)\n- 반환: 응답 JSON의 \"reply\" 필드 문자열\n- 오류 발생 시: \"오류가 발생했습니다.\" 반환",
+      "question": "Streamlit 앱에서 FastAPI 서버(`http://localhost:8000/chat`)에 POST 요청을 보내는 함수 `call_api`를 작성하세요.\n조건:\n```python\n- 입력: user_message(str)\n- 반환: 응답 JSON의 \"reply\" 필드 문자열\n```\n- 오류 발생 시: \"오류가 발생했습니다.\" 반환",
       "code": null,
       "answer": "import requests\n\ndef call_api(user_message: str) -> str:\n    try:\n        response = requests.post(\n            \"http://localhost:8000/chat\",\n            json={\"message\": user_message}\n        )\n        return response.json()[\"reply\"]\n    except Exception:\n        return \"오류가 발생했습니다.\"",
       "feedback": {
@@ -136,7 +136,7 @@
       "difficulty": "hard",
       "unit": "7",
       "topic": "Motor 비동기 MongoDB 저장",
-      "question": "Motor(비동기 MongoDB 드라이버)를 사용해 대화 기록을 저장하는 비동기 함수를 작성하세요.\n조건:\n- 함수명: save_conversation\n- 파라미터: user_id(str), role(str), content(str)\n- 컬렉션: db.conversations (전역 변수로 존재)\n- 저장 문서: {\"user_id\": user_id, \"role\": role, \"content\": content}\n- 반환값: 삽입된 문서의 _id를 문자열로 변환하여 반환",
+      "question": "Motor(비동기 MongoDB 드라이버)를 사용해 대화 기록을 저장하는 비동기 함수를 작성하세요.\n조건:\n```python\n- 함수명: save_conversation\n- 파라미터: user_id(str), role(str), content(str)\n- 컬렉션: db.conversations (전역 변수로 존재)\n- 저장 문서: {\"user_id\": user_id, \"role\": role, \"content\": content}\n```\n- 반환값: 삽입된 문서의 _id를 문자열로 변환하여 반환",
       "code": null,
       "answer": "async def save_conversation(user_id: str, role: str, content: str) -> str:\n    result = await db.conversations.insert_one({\n        \"user_id\": user_id,\n        \"role\": role,\n        \"content\": content\n    })\n    return str(result.inserted_id)",
       "feedback": {
@@ -175,7 +175,7 @@
       "difficulty": "hard",
       "unit": "7",
       "topic": "FastAPI BackgroundTasks",
-      "question": "FastAPI의 `BackgroundTasks`를 활용해 채팅 응답을 즉시 반환하고, 백그라운드에서 DB에 저장하는 엔드포인트를 작성하세요.\n조건:\n- 경로: POST /chat\n- 파라미터: request(ChatRequest), background_tasks(BackgroundTasks)\n- AI 응답 생성: await get_ai_response(request.message) 호출 (이미 정의된 함수)\n- 백그라운드 작업으로 save_to_db(request.message, response) 등록\n- 반환: {\"response\": response}",
+      "question": "FastAPI의 `BackgroundTasks`를 활용해 채팅 응답을 즉시 반환하고, 백그라운드에서 DB에 저장하는 엔드포인트를 작성하세요.\n조건:\n```python\n- 경로: POST /chat\n- 파라미터: request(ChatRequest), background_tasks(BackgroundTasks)\n- AI 응답 생성: await get_ai_response(request.message) 호출 (이미 정의된 함수)\n- 백그라운드 작업으로 save_to_db(request.message, response) 등록\n- 반환: {\"response\": response}\n```",
       "code": null,
       "answer": "from fastapi import BackgroundTasks\n\n@app.post(\"/chat\")\nasync def chat(request: ChatRequest, background_tasks: BackgroundTasks):\n    response = await get_ai_response(request.message)\n    background_tasks.add_task(save_to_db, request.message, response)\n    return {\"response\": response}",
       "feedback": {

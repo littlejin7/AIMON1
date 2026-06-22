@@ -33,7 +33,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nitems = [\"몬스터볼\", \"포션\", \"에테르\"]\nprint(items[1])",
+      "question": "다음 코드의 출력 결과는?\n```python\nitems = [\"몬스터볼\", \"포션\", \"에테르\"]\nprint(items[1])\n```",
       "choices": [
         "A. 몬스터볼",
         "B. 포션",
@@ -57,7 +57,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nscores = [10, 20, 30, 40, 50]\nprint(scores[-1])",
+      "question": "다음 코드의 출력 결과는?\n```python\nscores = [10, 20, 30, 40, 50]\nprint(scores[-1])\n```",
       "choices": [
         "A. 10",
         "B. 40",
@@ -81,7 +81,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nteam = [\"에이몬\", \"코드몬\", \"말풍선킹\"]\nprint(team[1:3])",
+      "question": "다음 코드의 출력 결과는?\n```python\nteam = [\"에이몬\", \"코드몬\", \"말풍선킹\"]\nprint(team[1:3])\n```",
       "choices": [
         "A. [\"에이몬\", \"코드몬\"]",
         "B. [\"에이몬\", \"코드몬\", \"말풍선킹\"]",
@@ -105,7 +105,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\ndata = [5, 3, 8, 1]\nprint(data[0])",
+      "question": "다음 코드의 출력 결과는?\n```python\ndata = [5, 3, 8, 1]\nprint(data[0])\n```",
       "choices": [
         "A. 5",
         "B. 3",
@@ -129,7 +129,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nnums = [1, 2, 3, 4, 5]\nprint(nums[1:4])",
+      "question": "다음 코드의 출력 결과는?\n```python\nnums = [1, 2, 3, 4, 5]\nprint(nums[1:4])\n```",
       "choices": [
         "A. [1, 2, 3]",
         "B. [2, 3, 4]",
@@ -153,7 +153,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nitems = [\"A\", \"B\", \"C\", \"D\", \"E\"]\nprint(items[::2])",
+      "question": "다음 코드의 출력 결과는?\n```python\nitems = [\"A\", \"B\", \"C\", \"D\", \"E\"]\nprint(items[::2])\n```",
       "choices": [
         "A. [\"A\", \"B\", \"C\"]",
         "B. [\"B\", \"D\"]",
@@ -201,7 +201,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nheroes = [\"전사\", \"마법사\", \"궁수\", \"로그\"]\nprint(heroes[-2])",
+      "question": "다음 코드의 출력 결과는?\n```python\nheroes = [\"전사\", \"마법사\", \"궁수\", \"로그\"]\nprint(heroes[-2])\n```",
       "choices": [
         "A. 궁수",
         "B. 마법사",
@@ -225,7 +225,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "data = [\"x\", \"y\", \"z\"]일 때 len(data)의 값은?",
+      "question": "```python\ndata = [\"x\", \"y\", \"z\"]일 때 len(data)의 값은?\n```",
       "choices": [
         "A. 0",
         "B. 3",
@@ -249,7 +249,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nbag = [\"포션\", \"에테르\"]\nbag.append(\"만병통치약\")\nprint(bag)",
+      "question": "다음 코드의 출력 결과는?\n```python\nbag = [\"포션\", \"에테르\"]\nbag.append(\"만병통치약\")\nprint(bag)\n```",
       "choices": [
         "A. [\"포션\", \"에테르\", \"만병통치약\"]",
         "B. [\"만병통치약\", \"포션\", \"에테르\"]",
@@ -273,7 +273,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nmonsters = [\"슬라임\", \"고블린\", \"오크\"]\nmonsters.remove(\"고블린\")\nprint(monsters)",
+      "question": "다음 코드의 출력 결과는?\n```python\nmonsters = [\"슬라임\", \"고블린\", \"오크\"]\nmonsters.remove(\"고블린\")\nprint(monsters)\n```",
       "choices": [
         "A. [\"고블린\"]",
         "B. [\"슬라임\", \"오크\"]",
@@ -297,7 +297,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nskills = [\"파이어볼\", \"아이스볼\", \"썬더\"]\npopped = skills.pop()\nprint(popped)",
+      "question": "다음 코드의 출력 결과는?\n```python\nskills = [\"파이어볼\", \"아이스볼\", \"썬더\"]\npopped = skills.pop()\nprint(popped)\n```",
       "choices": [
         "A. 파이어볼",
         "B. 아이스볼",
@@ -321,7 +321,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nitems = [\"A\", \"B\", \"D\"]\nitems.insert(2, \"C\")\nprint(items)",
+      "question": "다음 코드의 출력 결과는?\n```python\nitems = [\"A\", \"B\", \"D\"]\nitems.insert(2, \"C\")\nprint(items)\n```",
       "choices": [
         "A. [\"C\", \"A\", \"B\", \"D\"]",
         "B. [\"A\", \"B\", \"D\", \"C\"]",
@@ -369,7 +369,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nnums = [10, 20, 30, 40]\nnums.pop(1)\nprint(nums)",
+      "question": "다음 코드의 출력 결과는?\n```python\nnums = [10, 20, 30, 40]\nnums.pop(1)\nprint(nums)\n```",
       "choices": [
         "A. [20, 30, 40]",
         "B. [10, 30, 40]",
@@ -393,7 +393,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\ndata = [1, 2, 3, 2, 4]\ndata.remove(2)\nprint(data)",
+      "question": "다음 코드의 출력 결과는?\n```python\ndata = [1, 2, 3, 2, 4]\ndata.remove(2)\nprint(data)\n```",
       "choices": [
         "A. [1, 3, 4]",
         "B. [1, 2, 3, 4]",
@@ -441,7 +441,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nheroes = [\"전사\", \"마법사\"]\nheroes.insert(1, \"궁수\")\nprint(heroes)",
+      "question": "다음 코드의 출력 결과는?\n```python\nheroes = [\"전사\", \"마법사\"]\nheroes.insert(1, \"궁수\")\nprint(heroes)\n```",
       "choices": [
         "A. [\"전사\", \"궁수\", \"마법사\"]",
         "B. [\"궁수\", \"전사\", \"마법사\"]",
@@ -489,7 +489,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nnums = [3, 1, 4, 1, 5]\nprint(len(nums))",
+      "question": "다음 코드의 출력 결과는?\n```python\nnums = [3, 1, 4, 1, 5]\nprint(len(nums))\n```",
       "choices": [
         "A. 5",
         "B. 4",
@@ -513,7 +513,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nscores = [50, 30, 80, 10]\nscores.sort()\nprint(scores)",
+      "question": "다음 코드의 출력 결과는?\n```python\nscores = [50, 30, 80, 10]\nscores.sort()\nprint(scores)\n```",
       "choices": [
         "A. [80, 50, 30, 10]",
         "B. [10, 30, 50, 80]",
@@ -537,7 +537,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nitems = [\"C\", \"A\", \"B\"]\nitems.reverse()\nprint(items)",
+      "question": "다음 코드의 출력 결과는?\n```python\nitems = [\"C\", \"A\", \"B\"]\nitems.reverse()\nprint(items)\n```",
       "choices": [
         "A. [\"A\", \"B\", \"C\"]",
         "B. [\"C\", \"A\", \"B\"]",
@@ -561,7 +561,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nmonsters = [\"슬라임\", \"오크\", \"슬라임\", \"드래곤\", \"슬라임\"]\nprint(monsters.count(\"슬라임\"))",
+      "question": "다음 코드의 출력 결과는?\n```python\nmonsters = [\"슬라임\", \"오크\", \"슬라임\", \"드래곤\", \"슬라임\"]\nprint(monsters.count(\"슬라임\"))\n```",
       "choices": [
         "A. 1",
         "B. 2",
@@ -609,7 +609,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nletters = [\"Z\", \"A\", \"M\"]\nletters.sort()\nprint(letters)",
+      "question": "다음 코드의 출력 결과는?\n```python\nletters = [\"Z\", \"A\", \"M\"]\nletters.sort()\nprint(letters)\n```",
       "choices": [
         "A. [\"Z\", \"M\", \"A\"]",
         "B. [\"Z\", \"A\", \"M\"]",
@@ -633,7 +633,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\na = [3, 1, 2]\nb = sorted(a)\nprint(a)\nprint(b)",
+      "question": "다음 코드의 출력 결과는?\n```python\na = [3, 1, 2]\nb = sorted(a)\nprint(a)\nprint(b)\n```",
       "choices": [
         "A. [3, 1, 2]\\n[1, 2, 3]",
         "B. [1, 2, 3]\\n[1, 2, 3]",
@@ -657,7 +657,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nnums = [5, 3, 1, 4, 2]\nnums.reverse()\nprint(nums)",
+      "question": "다음 코드의 출력 결과는?\n```python\nnums = [5, 3, 1, 4, 2]\nnums.reverse()\nprint(nums)\n```",
       "choices": [
         "A. [1, 2, 3, 4, 5]",
         "B. [5, 4, 3, 2, 1]",
@@ -681,7 +681,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\ndata = [1, 2, 3, 2, 1]\nprint(data.count(2))",
+      "question": "다음 코드의 출력 결과는?\n```python\ndata = [1, 2, 3, 2, 1]\nprint(data.count(2))\n```",
       "choices": [
         "A. 1",
         "B. 2",
@@ -729,7 +729,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nfruits = [\"사과\", \"바나나\", \"포도\"]\nfor i, fruit in enumerate(fruits):\n    print(i, fruit)",
+      "question": "다음 코드의 출력 결과는?\n```python\nfruits = [\"사과\", \"바나나\", \"포도\"]\nfor i, fruit in enumerate(fruits):\n    print(i, fruit)\n```",
       "choices": [
         "A. 0 사과\\n1 바나나\\n2 포도",
         "B. 1 사과\\n2 바나나\\n3 포도",
@@ -777,7 +777,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nnums = [10, 20, 30]\nfor i, v in enumerate(nums, start=1):\n    print(i, v)",
+      "question": "다음 코드의 출력 결과는?\n```python\nnums = [10, 20, 30]\nfor i, v in enumerate(nums, start=1):\n    print(i, v)\n```",
       "choices": [
         "A. 0 10\\n1 20\\n2 30",
         "B. 10 1\\n20 2\\n30 3",
@@ -801,7 +801,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nskills = [\"파이어볼\", \"아이스볼\", \"썬더\"]\nprint(\"힐\" in skills)",
+      "question": "다음 코드의 출력 결과는?\n```python\nskills = [\"파이어볼\", \"아이스볼\", \"썬더\"]\nprint(\"힐\" in skills)\n```",
       "choices": [
         "A. True",
         "B. \"힐\"",
@@ -825,7 +825,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nitems = [\"검\", \"방패\", \"갑옷\"]\nfor i, item in enumerate(items):\n    if item == \"방패\":\n        print(i)",
+      "question": "다음 코드의 출력 결과는?\n```python\nitems = [\"검\", \"방패\", \"갑옷\"]\nfor i, item in enumerate(items):\n    if item == \"방패\":\n        print(i)\n```",
       "choices": [
         "A. 1",
         "B. 0",
@@ -849,7 +849,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\ndata = [5, 10, 15]\nprint(10 in data)",
+      "question": "다음 코드의 출력 결과는?\n```python\ndata = [5, 10, 15]\nprint(10 in data)\n```",
       "choices": [
         "A. 10",
         "B. 1",
@@ -873,7 +873,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nnames = [\"에이몬\", \"코드몬\"]\nfor idx, name in enumerate(names):\n    print(f\"{idx}: {name}\")",
+      "question": "다음 코드의 출력 결과는?\n```python\nnames = [\"에이몬\", \"코드몬\"]\nfor idx, name in enumerate(names):\n    print(f\"{idx}: {name}\")\n```",
       "choices": [
         "A. 0: 에이몬\\n1: 코드몬",
         "B. 1: 에이몬\\n2: 코드몬",
@@ -921,7 +921,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nscores = [70, 85, 90, 60]\ncount = 0\nfor score in scores:\n    if score >= 80:\n        count += 1\nprint(count)",
+      "question": "다음 코드의 출력 결과는?\n```python\nscores = [70, 85, 90, 60]\ncount = 0\nfor score in scores:\n    if score >= 80:\n        count += 1\nprint(count)\n```",
       "choices": [
         "A. 1",
         "B. 4",
@@ -993,7 +993,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "with open(...) as f: 구문을 사용하는 주된 이유는?",
+      "question": "```python\nwith open(...) as f: 구문을 사용하는 주된 이유는?\n```",
       "choices": [
         "A. 파일을 더 빠르게 읽기 위해",
         "B. 파일 사용 후 자동으로 닫아주기 위해",
@@ -1065,7 +1065,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드에서 lines의 타입은?\nwith open(\"data.txt\", \"r\") as f:\n    lines = f.readlines()",
+      "question": "다음 코드에서 lines의 타입은?\n```python\nwith open(\"data.txt\", \"r\") as f:\n    lines = f.readlines()\n```",
       "choices": [
         "A. 리스트(list)",
         "B. 문자열(str)",
@@ -1089,7 +1089,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "encoding=\"utf-8\" 옵션을 open()에 추가하는 이유는?",
+      "question": "```python\nencoding=\"utf-8\" 옵션을 open()에 추가하는 이유는?\n```",
       "choices": [
         "A. 파일 크기를 줄이기 위해",
         "B. 한글 등 비ASCII 문자를 올바르게 읽기 위해",
@@ -1161,7 +1161,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드에서 content의 타입은?\nwith open(\"data.txt\", \"r\") as f:\n    content = f.read()",
+      "question": "다음 코드에서 content의 타입은?\n```python\nwith open(\"data.txt\", \"r\") as f:\n    content = f.read()\n```",
       "choices": [
         "A. 문자열(str)",
         "B. 리스트(list)",
@@ -1305,7 +1305,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드 실행 후 output.txt 파일에 남는 내용은?\nwith open(\"output.txt\", \"w\") as f:\n    f.write(\"첫 번째\\n\")\nwith open(\"output.txt\", \"w\") as f:\n    f.write(\"두 번째\\n\")",
+      "question": "다음 코드 실행 후 output.txt 파일에 남는 내용은?\n```python\nwith open(\"output.txt\", \"w\") as f:\n    f.write(\"첫 번째\\n\")\nwith open(\"output.txt\", \"w\") as f:\n    f.write(\"두 번째\\n\")\n```",
       "choices": [
         "A. 두 번째",
         "B. 첫 번째\\n두 번째",
@@ -1329,7 +1329,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드 실행 후 log.txt에 저장되는 내용은?\nlines = [\"사과\\n\", \"바나나\\n\", \"포도\\n\"]\nwith open(\"log.txt\", \"w\") as f:\n    f.writelines(lines)",
+      "question": "다음 코드 실행 후 log.txt에 저장되는 내용은?\n```python\nlines = [\"사과\\n\", \"바나나\\n\", \"포도\\n\"]\nwith open(\"log.txt\", \"w\") as f:\n    f.writelines(lines)\n```",
       "choices": [
         "A. [\"사과\\n\", \"바나나\\n\", \"포도\\n\"]",
         "B. 사과\\n바나나\\n포도 (3줄)",
@@ -1449,7 +1449,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nscores = [90, 75, 88, 92, 65]\nscores.sort(reverse=True)\nprint(scores[0])",
+      "question": "다음 코드의 출력 결과는?\n```python\nscores = [90, 75, 88, 92, 65]\nscores.sort(reverse=True)\nprint(scores[0])\n```",
       "choices": [
         "A. 92",
         "B. 90",
@@ -1473,7 +1473,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\ndata = []\nfor i in range(1, 4):\n    data.append(i * 10)\nprint(data)",
+      "question": "다음 코드의 출력 결과는?\n```python\ndata = []\nfor i in range(1, 4):\n    data.append(i * 10)\nprint(data)\n```",
       "choices": [
         "A. [1, 2, 3]",
         "B. [10, 20, 30]",
@@ -1497,7 +1497,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nwords = [\"Python\", \"은\", \"재미있다\"]\nwith open(\"test.txt\", \"w\") as f:\n    f.writelines(words)\nwith open(\"test.txt\", \"r\") as f:\n    print(f.read())",
+      "question": "다음 코드의 출력 결과는?\n```python\nwords = [\"Python\", \"은\", \"재미있다\"]\nwith open(\"test.txt\", \"w\") as f:\n    f.writelines(words)\nwith open(\"test.txt\", \"r\") as f:\n    print(f.read())\n```",
       "choices": [
         "A. [\"Python\", \"은\", \"재미있다\"]",
         "B. Python\\n은\\n재미있다",
@@ -1521,7 +1521,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nnums = [3, 1, 4, 1, 5, 9, 2, 6]\nresult = []\nfor n in nums:\n    if n > 4:\n        result.append(n)\nprint(len(result))",
+      "question": "다음 코드의 출력 결과는?\n```python\nnums = [3, 1, 4, 1, 5, 9, 2, 6]\nresult = []\nfor n in nums:\n    if n > 4:\n        result.append(n)\nprint(len(result))\n```",
       "choices": [
         "A. 2",
         "B. 4",
@@ -1569,7 +1569,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nitems = [\"사과\", \"바나나\", \"포도\", \"딸기\"]\nitems.remove(\"바나나\")\nitems.append(\"키위\")\nprint(len(items))",
+      "question": "다음 코드의 출력 결과는?\n```python\nitems = [\"사과\", \"바나나\", \"포도\", \"딸기\"]\nitems.remove(\"바나나\")\nitems.append(\"키위\")\nprint(len(items))\n```",
       "choices": [
         "A. 3",
         "B. 5",
@@ -1593,7 +1593,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nscores = [80, 90, 70, 85]\ntotal = 0\nfor s in scores:\n    total += s\nprint(total // len(scores))",
+      "question": "다음 코드의 출력 결과는?\n```python\nscores = [80, 90, 70, 85]\ntotal = 0\nfor s in scores:\n    total += s\nprint(total // len(scores))\n```",
       "choices": [
         "A. 81",
         "B. 325",
@@ -1617,7 +1617,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드에서 파일에 저장된 줄 수는?\ndata = [\"1번\\n\", \"2번\\n\", \"3번\\n\", \"4번\\n\", \"5번\\n\"]\nwith open(\"list.txt\", \"w\") as f:\n    f.writelines(data)",
+      "question": "다음 코드에서 파일에 저장된 줄 수는?\n```python\ndata = [\"1번\\n\", \"2번\\n\", \"3번\\n\", \"4번\\n\", \"5번\\n\"]\nwith open(\"list.txt\", \"w\") as f:\n    f.writelines(data)\n```",
       "choices": [
         "A. 1줄",
         "B. 5줄",
@@ -1665,7 +1665,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\nnums = [1, 2, 3, 4, 5]\nresult = nums[1:-1]\nresult.reverse()\nprint(result)",
+      "question": "다음 코드의 출력 결과는?\n```python\nnums = [1, 2, 3, 4, 5]\nresult = nums[1:-1]\nresult.reverse()\nprint(result)\n```",
       "choices": [
         "A. [5, 4, 3, 2, 1]",
         "B. [1, 2, 3, 4, 5]",

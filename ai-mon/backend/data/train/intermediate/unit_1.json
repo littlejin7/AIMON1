@@ -199,7 +199,7 @@
     "question_id": "q015",
     "type": "fill_in_blank",
     "difficulty": "hard",
-    "question": "다음 커스텀 예외 클래스에서 print(e)가 \"사과 재고 부족: 50개 필요\"를 출력할 수 있도록, 빈칸에 알맞은 메서드 이름을 채워 코드를 완성해 보세요.",
+    "question": "```python\n다음 커스텀 예외 클래스에서 print(e)가 \"사과 재고 부족: 50개 필요\"를 출력할 수 있도록, 빈칸에 알맞은 메서드 이름을 채워 코드를 완성해 보세요.\n```",
     "code": "class InventoryError(Exception):\n    def __init__(self, item, quantity):\n        self.item = item\n        self.quantity = quantity\n        super()._____(f\"{item} 재고 부족: {quantity}개 필요\")\n\ntry:\n    raise InventoryError(\"사과\", 50)\nexcept InventoryError as e:\n    print(e)",
     "answer": "__init__",
     "feedback": {
