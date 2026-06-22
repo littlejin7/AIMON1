@@ -99,16 +99,20 @@ def start_boss_battle(unit: str = "1", authorization: str = Header(...)):
     
     # unitboss_seen_questions: 유닛별 분리 (endboss_seen_questions와도 분리)
     seen_key = f"unitboss_seen_{unit_num}" if unit_num is not None else "unitboss_seen_final"
-    seen = user.get(seen_key, [])
+    if "seen_questions" not in user or user["seen_questions"] is None:
+        user["seen_questions"] = {}
+    seen_questions = user["seen_questions"]
+    seen = seen_questions.get(seen_key, [])
     unseen = [q for q in boss_qs if q["question_id"] not in seen]
 
     if not unseen:  # 전부 소진하면 리셋
-        user[seen_key] = []
+        seen_questions[seen_key] = []
         seen = []
         unseen = boss_qs
 
     chosen = random.choice(unseen)
-    user[seen_key] = seen + [chosen["question_id"]]
+    seen_questions[seen_key] = seen + [chosen["question_id"]]
+    user["seen_questions"] = seen_questions
     save_users(users)
     return chosen
 
@@ -132,16 +136,20 @@ def get_next_question(unit: str = "1", authorization: str = Header(...)):
     import random
 
     seen_key = f"unitboss_seen_{unit_num}" if unit_num is not None else "unitboss_seen_final"
-    seen = user.get(seen_key, [])
+    if "seen_questions" not in user or user["seen_questions"] is None:
+        user["seen_questions"] = {}
+    seen_questions = user["seen_questions"]
+    seen = seen_questions.get(seen_key, [])
     unseen = [q for q in boss_qs if q["question_id"] not in seen]
 
     if not unseen:  # 전부 소진하면 리셋
-        user[seen_key] = []
+        seen_questions[seen_key] = []
         seen = []
         unseen = boss_qs
 
     chosen = random.choice(unseen)
-    user[seen_key] = seen + [chosen["question_id"]]
+    seen_questions[seen_key] = seen + [chosen["question_id"]]
+    user["seen_questions"] = seen_questions
     save_users(users)
     return chosen
 

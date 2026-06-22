@@ -211,7 +211,9 @@ def endboss_start(req: StartRequest, authorization: str = Header(...)):
     if p3_first:
         seen_ids.append(p3_first["question_id"])
 
-    user["endboss_seen_questions"] = seen_ids
+    if "seen_questions" not in user or user["seen_questions"] is None:
+        user["seen_questions"] = {}
+    user["seen_questions"]["endboss"] = seen_ids
     save_users(users)
 
     return {
@@ -351,11 +353,15 @@ async def endboss_answer(request: Request, req: AnswerRequest, authorization: st
         next_q = None
         if not is_correct and not is_fail:
             # 다음 Phase 3 문제 출제 (중복 없음)
-            seen    = user.get("endboss_seen_questions", [])
+            if "seen_questions" not in user or user["seen_questions"] is None:
+                user["seen_questions"] = {}
+            seen_questions = user["seen_questions"]
+            seen = seen_questions.get("endboss", [])
             p3_pool = get_phase_questions(all_qs, phase=3, project=req.project)
             next_q  = pick_unseen(p3_pool, seen)
             if next_q:
-                user["endboss_seen_questions"] = seen + [next_q["question_id"]]
+                seen_questions["endboss"] = seen + [next_q["question_id"]]
+                user["seen_questions"] = seen_questions
                 save_users(users)
 
         result.update({
@@ -432,7 +438,9 @@ def endboss_clear(req: ClearRequest, authorization: str = Header(...)):
         user["endboss_cleared_levels"] = cleared_levels
 
         # seen 리셋
-        user["endboss_seen_questions"] = []
+        if "seen_questions" not in user or user["seen_questions"] is None:
+            user["seen_questions"] = {}
+        user["seen_questions"]["endboss"] = []
 
         save_users(users)
 
