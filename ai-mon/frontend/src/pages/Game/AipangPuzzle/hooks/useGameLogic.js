@@ -1,6 +1,7 @@
 // ── 게임 핵심 로직 훅 ──
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { gameApi } from '../../../../api';
+import { incrementGamePlay } from '../../Game';
 import { COLS, ROWS, BOSS_STAGES } from '../constants/gameConstants';
 import {
   rndType,
@@ -376,7 +377,9 @@ useEffect(() => {
           setTimeout(() => beep(659, 0.1), 100);
           setTimeout(() => beep(784, 0.1), 200);
           setTimeout(() => beep(1046, 0.4), 300);
-          
+
+
+          incrementGamePlay('aipang');
           gameApi.clearGame({ game_id: 'aipang' })
             .then(res => {
               setPopups(prev => ({ ...prev, final: true, clearData: res.data }));
