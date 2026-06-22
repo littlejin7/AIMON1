@@ -1,46 +1,39 @@
+import { useState } from 'react'
 import { useAuthStore } from '../../hooks/useAuthStore'
 
 const THEMES = [
-  { id: 'dark',     label: '🌑 다크',     color: '#7c3aed' },
-  { id: 'ocean',    label: '🌊 오션',     color: '#0ea5e9' },
-  { id: 'fire',     label: '🔥 파이어',   color: '#ef4444' },
-  { id: 'cyber',    label: '💚 사이버',   color: '#10b981' },
-  { id: 'cherry',   label: '🌸 체리',     color: '#ec4899' },
-  { id: 'midnight', label: '🌙 미드나잇', color: '#3b82f6' },
-  { id: 'sunset',   label: '🍊 선셋',     color: '#f97316' },
-  { id: 'gold',     label: '💛 골드',     color: '#f59e0b' },
-  { id: 'arctic',   label: '🤍 아크틱',   color: '#475569' },
-  { id: 'galaxy',   label: '🩵 갤럭시',   color: '#6366f1' },
+  { id: 'dark',     label: '🌑 다크',     color: '#7dd3fc', xpCost: 0    },
+  { id: 'ocean',    label: '🌊 오션',     color: '#0ea5e9', xpCost: 500  },
+  { id: 'fire',     label: '🔥 파이어',   color: '#f87171', xpCost: 500  },
+  { id: 'cyber',    label: '💚 사이버',   color: '#34d399', xpCost: 500  },
+  { id: 'cherry',   label: '🌸 체리',     color: '#f472b6', xpCost: 800  },
+  { id: 'midnight', label: '🌙 미드나잇', color: '#818cf8', xpCost: 800  },
+  { id: 'sunset',   label: '🍊 선셋',     color: '#fb923c', xpCost: 800  },
+  { id: 'gold',     label: '💛 골드',     color: '#fbbf24', xpCost: 1000 },
+  { id: 'arctic',   label: '🤍 아크틱',   color: '#94a3b8', xpCost: 1000 },
+  { id: 'galaxy',   label: '🩵 갤럭시',   color: '#a78bfa', xpCost: 1500 },
+  { id: 'sakura',   label: '🌸 사쿠라',   color: '#ec4899', xpCost: 2000 },
 ]
 
 export default function SettingsTheme() {
-  const theme    = useAuthStore((s) => s.theme)
-  const setTheme = useAuthStore((s) => s.setTheme)
+  const theme         = useAuthStore((s) => s.theme)
+  const setTheme      = useAuthStore((s) => s.setTheme)
+  const purchaseTheme = useAuthStore((s) => s.purchaseTheme)
+  const user          = useAuthStore((s) => s.user)
 
-  return (
-    <section className="settings-section">
-      <h2 className="settings-section-title">테마</h2>
-      <div className="settings-card card" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
-        {THEMES.map(({ id, label, color }) => (
-          <button
-            key={id}
-            onClick={() => setTheme(id)}
-            style={{
-              padding: '10px 14px',
-              borderRadius: '10px',
-              border: theme === id ? `2px solid ${color}` : '1px solid rgba(255,255,255,0.1)',
-              background: theme === id ? `${color}22` : 'rgba(255,255,255,0.04)',
-              color: theme === id ? color : 'var(--clr-text-muted)',
-              fontWeight: theme === id ? 700 : 400,
-              cursor: 'pointer',
-              fontSize: '0.9rem',
-              transition: 'all 0.2s',
-            }}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
-    </section>
-  )
-}
+  const [loading, setLoading]   = useState(null)   // 구매 중인 themeId
+  const [feedback, setFeedback] = useState(null)   // { type: 'success'|'error', msg }
+  const [confirm, setConfirm]   = useState(null)   // 구매 확인 중인 theme 객체
+
+  const currentXp      = user?.xp || 0
+  const purchasedThemes = user?.purchased_themes || ['dark']
+
+  const handleSelect = (t) => {
+    if (!purchasedThemes.includes(t.id)) return
+    setTheme(t.id)
+  }
+
+  const handleBuyClick = (t) => {
+    if (currentXp < t.xpCost) {
+      setFeedback({ type: 'error', msg: `XP가 부족해요. (보유: ${currentXp} XP)` })
+      setTimeout(() => set
