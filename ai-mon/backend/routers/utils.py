@@ -379,6 +379,12 @@ def serialize_user(user: dict) -> dict:
     res["boss_cleared"] = max(res.get("boss_cleared") or 0, db_boss_cleared)
     res["completed_stages"] = max(res.get("completed_stages") or 0, db_completed_stages)
 
+    # 기본값 보장 (dark는 항상 무료 보유)
+    pt = res.get("purchased_themes", [])
+    if "dark" not in pt:
+        pt = ["dark"] + pt
+    res["purchased_themes"] = pt
+    
     res.pop("password", None)
     return res
 
