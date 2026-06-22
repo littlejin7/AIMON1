@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { userApi } from '../api'
 
 export const useAuthStore = create(
   persist(
@@ -26,6 +27,16 @@ export const useAuthStore = create(
       setTheme: (theme) => {
         document.documentElement.setAttribute('data-theme', theme)
         set({ theme })
+      },
+      purchaseTheme: async (themeId) => {
+        try {
+          const res = await userApi.purchaseTheme(themeId)
+          set({ user: res.data.user })
+          return { success: true, xpSpent: res.data.xp_spent }
+        } catch (err) {
+          const msg = err.response?.data?.detail || '구매에 실패했습니다.'
+          return { success: false, error: msg }
+        }
       },
       bgmVolume: 0.5,
       sfxVolume: 0.8,
