@@ -56,7 +56,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\ndef say_hello():\n    print('안녕하세요!')\n\nsay_hello()",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef say_hello():\n    print('안녕하세요!')\n```\n\nsay_hello()",
       "choices": [
         "A. say_hello()",
         "B. 안녕하세요!",
@@ -102,7 +102,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\ndef monster_attack():\n    print('몬스터가 공격합니다!')\n\nprint('전투 시작!')",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef monster_attack():\n    print('몬스터가 공격합니다!')\n```\n\n```python\nprint('전투 시작!')\n```",
       "choices": [
         "A. 몬스터가 공격합니다!\n전투 시작!",
         "B. 몬스터가 공격합니다!",
@@ -148,7 +148,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 출력되는 결과로 올바른 것은 무엇인가요?\n\ndef play_sound():\n    print('효과음 재생')\n\nplay_sound\nprint('게임 진행')",
+      "question": "다음 코드를 실행했을 때 출력되는 결과로 올바른 것은 무엇인가요?\n\n```python\ndef play_sound():\n    print('효과음 재생')\n```\n\nplay_sound\n```python\nprint('게임 진행')\n```",
       "choices": [
         "A. 효과음 재생\n게임 진행",
         "B. 게임 진행",
@@ -171,7 +171,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 최종 결과는 무엇인가요?\n\ndef show_level():\n    print('현재 레벨: 5')\n\nprint('체크 1')\nshow_level()\nprint('체크 2')",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 최종 결과는 무엇인가요?\n\n```python\ndef show_level():\n    print('현재 레벨: 5')\n```\n\n```python\nprint('체크 1')\nshow_level()\nprint('체크 2')\n```",
       "choices": [
         "A. 현재 레벨: 5\n체크 1\n체크 2",
         "B. 체크 1\n체크 2\n현재 레벨: 5",
@@ -194,7 +194,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드의 실행 결과로 올바른 것을 고르세요.\n\ndef print_star():\n    print('*')\n\nfor i in range(3):\n    print_star()",
+      "question": "다음 코드의 실행 결과로 올바른 것을 고르세요.\n\n```python\ndef print_star():\n    print('*')\n```\n\n```python\nfor i in range(3):\n    print_star()\n```",
       "choices": [
         "A. *\n*\n*",
         "B. ***",
@@ -286,7 +286,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\ndef aimon_status():\n    print('에이몬 Lv.1')\n\naimon_status()\naimon_status()",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef aimon_status():\n    print('에이몬 Lv.1')\n```\n\n```python\naimon_status()\naimon_status()\n```",
       "choices": [
         "A. 에이몬 Lv.1",
         "B. 에이몬 Lv.1\n에이몬 Lv.1",
@@ -332,7 +332,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 나타나는 출력 결과는 무엇인가요?\n\nprint('준비')\n\ndef level_up():\n    print('레벨업 완료!')\n\nprint('끝')",
+      "question": "다음 코드를 실행했을 때 화면에 나타나는 출력 결과는 무엇인가요?\n\n```python\nprint('준비')\n```\n\n```python\ndef level_up():\n    print('레벨업 완료!')\n```\n\n```python\nprint('끝')\n```",
       "choices": [
         "A. 준비\n레벨업 완료!\n끝",
         "B. 준비\n끝",
@@ -378,7 +378,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 실행 순서와 흐름을 분석했을 때, 최종 출력 결과는 어떻게 될까요?\n\ndef login():\n    print('로그인 시도')\n\nprint('게임 실행')\nlogin()",
+      "question": "다음 코드의 실행 순서와 흐름을 분석했을 때, 최종 출력 결과는 어떻게 될까요?\n\n```python\ndef login():\n    print('로그인 시도')\n```\n\n```python\nprint('게임 실행')\nlogin()\n```",
       "choices": [
         "A. 로그인 시도\n게임 실행",
         "B. 게임 실행\n로그인 시도",
@@ -401,7 +401,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 발생하는 결과로 올바른 것을 고르세요.\n\nattack_boss()\n\ndef attack_boss():\n    print('보스에게 데미지 100!')",
+      "question": "다음 코드를 실행했을 때 발생하는 결과로 올바른 것을 고르세요.\n\nattack_boss()\n\n```python\ndef attack_boss():\n    print('보스에게 데미지 100!')\n```",
       "choices": [
         "A. 보스에게 데미지 100!",
         "B. 아무것도 출력되지 않고 정상 종료된다.",
@@ -424,7 +424,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과를 예측하여 고르세요.\n\ndef intro():\n    print('에이몬 세계에')\n    sub_intro()\n\ndef sub_intro():\n    print('오신 것을 환영합니다!')\n\nintro()",
+      "question": "다음 코드의 출력 결과를 예측하여 고르세요.\n\n```python\ndef intro():\n    print('에이몬 세계에')\n    sub_intro()\n```\n\n```python\ndef sub_intro():\n    print('오신 것을 환영합니다!')\n```\n\nintro()",
       "choices": [
         "A. 에이몬 세계에",
         "B. 에이몬 세계에\n오신 것을 환영합니다!",
@@ -516,7 +516,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\ndef greet(name):\n    print('안녕,' + name)\n\ngreet('에이몬')",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef greet(name):\n    print('안녕,' + name)\n```\n\ngreet('에이몬')",
       "choices": [
         "A. 안녕, name",
         "B. 안녕,에이몬",
@@ -539,7 +539,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\ndef double_num(x):\n    print(x * 2)\n\ndouble_num(5)",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef double_num(x):\n    print(x * 2)\n```\n\ndouble_num(5)",
       "choices": [
         "A. 5",
         "B. 10",
@@ -608,7 +608,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 발생하는 결과로 올바른 것은 무엇인가요?\n\ndef introduce(name, age):\n    print(name, age)\n\nintroduce('지니')",
+      "question": "다음 코드를 실행했을 때 발생하는 결과로 올바른 것은 무엇인가요?\n\n```python\ndef introduce(name, age):\n    print(name, age)\n```\n\nintroduce('지니')",
       "choices": [
         "A. 지니 None",
         "B. 지니",
@@ -631,7 +631,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드의 실행 결과로 올바른 출력값을 고르세요.\n\ndef make_profile(id, level):\n    print(f'{id}님은 Lv.{level}입니다.')\n\nmake_profile(level=10, id='robot')",
+      "question": "다음 코드의 실행 결과로 올바른 출력값을 고르세요.\n\n```python\ndef make_profile(id, level):\n    print(f'{id}님은 Lv.{level}입니다.')\n```\n\nmake_profile(level=10, id='robot')",
       "choices": [
         "A. robot님은 Lv.10입니다.",
         "B. level님은 Lv.id입니다.",
@@ -654,7 +654,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 최종 결과는 무엇인가요?\n\ndef attack(attacker, defender):\n    print(f'{attacker}가 {defender}를 공격!')\n\nattack('슬라임', '로봇')",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 최종 결과는 무엇인가요?\n\n```python\ndef attack(attacker, defender):\n    print(f'{attacker}가 {defender}를 공격!')\n```\n\nattack('슬라임', '로봇')",
       "choices": [
         "A. attacker가 defender를 공격!",
         "B. 로봇이 슬라임을 공격!",
@@ -700,7 +700,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "함수 정의문 `def get_info(a, b):` 에서 'a'와 'b'를 가리키는 정확한 명칭은 무엇인가요?",
+      "question": "```python\n함수 정의문 `def get_info(a, b):` 에서 'a'와 'b'를 가리키는 정확한 명칭은 무엇인가요?\n```",
       "choices": [
         "A. 인수",
         "B. 키워드",
@@ -746,7 +746,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 나타나는 출력값을 고르세요.\n\ndef print_sum(a, b):\n    print(a + b)\n\nprint_sum(15, 5)",
+      "question": "다음 코드를 실행했을 때 화면에 나타나는 출력값을 고르세요.\n\n```python\ndef print_sum(a, b):\n    print(a + b)\n```\n\nprint_sum(15, 5)",
       "choices": [
         "A. a + b",
         "B. 155",
@@ -769,7 +769,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때의 결과를 고르세요.\n\ndef welcome(user):\n    print(f'환영합니다, {user}님!')\n\nmy_name = '지훈'\nwelcome(my_name)",
+      "question": "다음 코드를 실행했을 때의 결과를 고르세요.\n\n```python\ndef welcome(user):\n    print(f'환영합니다, {user}님!')\n```\n\n```python\nmy_name = '지훈'\nwelcome(my_name)\n```",
       "choices": [
         "A. 환영합니다, user님!",
         "B. 환영합니다, my_name님!",
@@ -792,7 +792,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때의 출력 결과를 고르세요.\n\ndef repeat_msg(msg, count):\n    print(msg * count)\n\nrepeat_msg(3, 'A')",
+      "question": "다음 코드를 실행했을 때의 출력 결과를 고르세요.\n\n```python\ndef repeat_msg(msg, count):\n    print(msg * count)\n```\n\nrepeat_msg(3, 'A')",
       "choices": [
         "A. AAA",
         "B. 333",
@@ -838,7 +838,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 최종값은 무엇인가요?\n\ndef mix_match(first, second):\n    print(second + first)\n\nmix_match(second='World', first='Hello')",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 최종값은 무엇인가요?\n\n```python\ndef mix_match(first, second):\n    print(second + first)\n```\n\nmix_match(second='World', first='Hello')",
       "choices": [
         "A. HelloWorld",
         "B. WorldHello",
@@ -861,7 +861,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 발생하는 결과로 올바른 것은 무엇인가요?\n\ndef register(name, code):\n    print(name)\n\nregister('지혜원', 101, 'PM')",
+      "question": "다음 코드를 실행했을 때 발생하는 결과로 올바른 것은 무엇인가요?\n\n```python\ndef register(name, code):\n    print(name)\n```\n\nregister('지혜원', 101, 'PM')",
       "choices": [
         "A. 지혜원",
         "B. 지혜원 101 PM",
@@ -884,7 +884,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 나타나는 출력값을 고르세요.\n\ndef score_check(kor, eng):\n    print(kor - eng)\n\nscore_check(80, 90)",
+      "question": "다음 코드를 실행했을 때 화면에 나타나는 출력값을 고르세요.\n\n```python\ndef score_check(kor, eng):\n    print(kor - eng)\n```\n\nscore_check(80, 90)",
       "choices": [
         "A. 10",
         "B. -10",
@@ -976,7 +976,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\ndef get_number():\n    return 7\n\nresult = get_number()\nprint(result)",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef get_number():\n    return 7\n```\n\n```python\nresult = get_number()\nprint(result)\n```",
       "choices": [
         "A. get_number()",
         "B. 7",
@@ -999,7 +999,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\ndef add(a, b):\n    return a + b\n\nprint(add(3, 5))",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef add(a, b):\n    return a + b\n```\n\n```python\nprint(add(3, 5))\n```",
       "choices": [
         "A. 3",
         "B. 5",
@@ -1022,7 +1022,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 나타나는 출력 결과를 고르세요.\n\ndef check_luck():\n    return '당첨'\n    print('꽝')\n\nprint(check_luck())",
+      "question": "다음 코드를 실행했을 때 화면에 나타나는 출력 결과를 고르세요.\n\n```python\ndef check_luck():\n    return '당첨'\n    print('꽝')\n```\n\n```python\nprint(check_luck())\n```",
       "choices": [
         "A. 당첨\n꽝",
         "B. 꽝",
@@ -1045,7 +1045,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "함수 내부에서 값을 모니터 화면에 보여주는 `print()`와 값을 바깥으로 던져 변수에 담을 수 있게 하는 `return`의 차이점으로 올바르지 않은 것은?",
+      "question": "```python\n함수 내부에서 값을 모니터 화면에 보여주는 `print()`와 값을 바깥으로 던져 변수에 담을 수 있게 하는 `return`의 차이점으로 올바르지 않은 것은?\n```",
       "choices": [
         "A. print()는 단순히 콘솔 창에 시각적으로 출력만 해줄 뿐이다.",
         "B. return으로 반환된 값은 다른 변수에 저장하여 재가공할 수 있다.",
@@ -1068,7 +1068,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 변수 x에 담기는 최종 데이터 상태(값)는 무엇인가요?\n\ndef do_nothing():\n    print('아무것도 안 해요')\n\nx = do_nothing()",
+      "question": "다음 코드를 실행했을 때 변수 x에 담기는 최종 데이터 상태(값)는 무엇인가요?\n\n```python\ndef do_nothing():\n    print('아무것도 안 해요')\n```\n\nx = do_nothing()",
       "choices": [
         "A. '아무것도 안 해요'",
         "B. None",
@@ -1091,7 +1091,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 함수들이 중첩되어 작동할 때, 최종 출력되는 결과는 무엇인가요?\n\ndef step_one(n):\n    return n + 1\n\ndef step_two(n):\n    return n * 2\n\nprint(step_two(step_one(5)))",
+      "question": "다음과 같이 함수들이 중첩되어 작동할 때, 최종 출력되는 결과는 무엇인가요?\n\n```python\ndef step_one(n):\n    return n + 1\n```\n\n```python\ndef step_two(n):\n    return n * 2\n```\n\n```python\nprint(step_two(step_one(5)))\n```",
       "choices": [
         "A. 11",
         "B. 12",
@@ -1114,7 +1114,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드의 실행 결과로 올바른 것을 고르세요.\n\ndef is_even(num):\n    if num % 2 == 0:\n        return True\n    return False\n\nprint(is_even(3))",
+      "question": "다음 코드의 실행 결과로 올바른 것을 고르세요.\n\n```python\ndef is_even(num):\n    if num % 2 == 0:\n        return True\n    return False\n```\n\n```python\nprint(is_even(3))\n```",
       "choices": [
         "A. True",
         "B. False",
@@ -1206,7 +1206,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 결과를 고르세요.\n\ndef say_yes():\n    print('예스!')\n\nval = say_yes()\nprint(val)",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 결과를 고르세요.\n\n```python\ndef say_yes():\n    print('예스!')\n```\n\n```python\nval = say_yes()\nprint(val)\n```",
       "choices": [
         "A. 예스!\nNone",
         "B. 예스!",
@@ -1229,7 +1229,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 최종 실행 결과를 선택하세요.\n\ndef make_caps(text):\n    return text.upper()\n\nmsg = make_caps('aimon')\nprint(msg)",
+      "question": "다음 코드의 최종 실행 결과를 선택하세요.\n\n```python\ndef make_caps(text):\n    return text.upper()\n```\n\n```python\nmsg = make_caps('aimon')\nprint(msg)\n```",
       "choices": [
         "A. aimon",
         "B. text.upper()",
@@ -1252,7 +1252,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드에서 출력되는 최종 텍스트는 무엇일까요?\n\ndef test_flow():\n    print('시작')\n    return '완료'\n    print('종료')\n\nans = test_flow()",
+      "question": "다음 코드에서 출력되는 최종 텍스트는 무엇일까요?\n\n```python\ndef test_flow():\n    print('시작')\n    return '완료'\n    print('종료')\n```\n\nans = test_flow()",
       "choices": [
         "A. 시작\n완료\n종료",
         "B. 시작",
@@ -1298,7 +1298,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 구동했을 때 공식 화면에 최종으로 나타나는 숫자를 선택하세요.\n\ndef square(x):\n    return x * x\n\nprint(square(square(3)))",
+      "question": "다음 코드를 구동했을 때 공식 화면에 최종으로 나타나는 숫자를 선택하세요.\n\n```python\ndef square(x):\n    return x * x\n```\n\n```python\nprint(square(square(3)))\n```",
       "choices": [
         "A. 9",
         "B. 27",
@@ -1321,7 +1321,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 조건 제어 흐름이 포함된 함수의 실행 결과로 가장 알맞은 것은 무엇인가요?\n\ndef select_hero(hp):\n    if hp <= 0:\n        return '유령'\n    return '에이몬'\n\nprint(select_hero(0))",
+      "question": "다음 조건 제어 흐름이 포함된 함수의 실행 결과로 가장 알맞은 것은 무엇인가요?\n\n```python\ndef select_hero(hp):\n    if hp <= 0:\n        return '유령'\n    return '에이몬'\n```\n\n```python\nprint(select_hero(0))\n```",
       "choices": [
         "A. 유령",
         "B. 에이몬",
@@ -1344,7 +1344,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 출력값으로 올바른 것을 고르세요.\n\ndef get_greeting(hour):\n    if hour < 12:\n        return '좋은 아침!'\n    else:\n        return '좋은 오후!'\n\nprint(get_greeting(15))",
+      "question": "다음 코드의 출력값으로 올바른 것을 고르세요.\n\n```python\ndef get_greeting(hour):\n    if hour < 12:\n        return '좋은 아침!'\n    else:\n        return '좋은 오후!'\n```\n\n```python\nprint(get_greeting(15))\n```",
       "choices": [
         "A. 좋은 아침!",
         "B. 좋은 오후!",
@@ -1367,7 +1367,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 중 파이썬 함수의 return 값에 관한 설명으로 옳은 것을 모두 고른 것은?\n\nㄱ. return문 뒤에는 수식이나 연산식을 적을 수 있으며, 계산 완료된 최종 가치가 반환된다.\nㄴ. 문자열, 숫자형, 불리언형 등 파이썬의 모든 표준 자료형은 리턴값으로 활용 가능하다.\nㄷ. print()문 내부에서 어떤 함수를 바로 출력하려고 할 때, 그 함수에 return이 없으면 에러가 발생하며 멈춘다.",
+      "question": "다음 중 파이썬 함수의 return 값에 관한 설명으로 옳은 것을 모두 고른 것은?\n\nㄱ. return문 뒤에는 수식이나 연산식을 적을 수 있으며, 계산 완료된 최종 가치가 반환된다.\nㄴ. 문자열, 숫자형, 불리언형 등 파이썬의 모든 표준 자료형은 리턴값으로 활용 가능하다.\n```python\nㄷ. print()문 내부에서 어떤 함수를 바로 출력하려고 할 때, 그 함수에 return이 없으면 에러가 발생하며 멈춘다.\n```",
       "choices": [
         "A. ㄱ, ㄴ",
         "B. ㄴ, ㄷ",
@@ -1436,7 +1436,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\ndef heal(monster, power=50):\n    print(f'{monster}의 HP가 {power}만큼 회복!')\n\nheal('슬라임')",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef heal(monster, power=50):\n    print(f'{monster}의 HP가 {power}만큼 회복!')\n```\n\nheal('슬라임')",
       "choices": [
         "A. 슬라임의 HP가 power만큼 회복!",
         "B. 슬라임의 HP가 0만큼 회복!",
@@ -1459,7 +1459,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\ndef heal(monster, power=50):\n    print(f'{monster}의 HP가 {power}만큼 회복!')\n\nheal('로봇', 100)",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef heal(monster, power=50):\n    print(f'{monster}의 HP가 {power}만큼 회복!')\n```\n\nheal('로봇', 100)",
       "choices": [
         "A. 로봇의 HP가 50만큼 회복!",
         "B. 로봇의 HP가 100만큼 회복!",
@@ -1505,7 +1505,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과로 올바른 값을 고르세요.\n\ndef set_theme(bg='white', font='sans'):\n    print(f'배경:{bg}, 폰트:{font}')\n\nset_theme(font='serif')",
+      "question": "다음 코드의 출력 결과로 올바른 값을 고르세요.\n\n```python\ndef set_theme(bg='white', font='sans'):\n    print(f'배경:{bg}, 폰트:{font}')\n```\n\nset_theme(font='serif')",
       "choices": [
         "A. 배경:white, 폰트:sans",
         "B. 배경:white, 폰트:serif",
@@ -1551,7 +1551,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 수행했을 때 콘솔 창에 출력되는 결과는 무엇인가요?\n\ndef score_board(player, high_score=1000, current=0):\n    print(f'{player}:{high_score}/{current}')\n\nscore_board('지니', current=500)",
+      "question": "다음 코드를 수행했을 때 콘솔 창에 출력되는 결과는 무엇인가요?\n\n```python\ndef score_board(player, high_score=1000, current=0):\n    print(f'{player}:{high_score}/{current}')\n```\n\nscore_board('지니', current=500)",
       "choices": [
         "A. 지니:1000/0",
         "B. 지니:1000/500",
@@ -1574,7 +1574,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드의 최종 실행 결과로 올바른 것을 고르세요.\n\ndef calc_exp(base, bonus=1.2):\n    return int(base * bonus)\n\nprint(calc_exp(2000) + calc_exp(1000, 1.5))",
+      "question": "다음 코드의 최종 실행 결과로 올바른 것을 고르세요.\n\n```python\ndef calc_exp(base, bonus=1.2):\n    return int(base * bonus)\n```\n\n```python\nprint(calc_exp(2000) + calc_exp(1000, 1.5))\n```",
       "choices": [
         "A. 3600",
         "B. 3900",
@@ -1597,7 +1597,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "파이썬 내장 함수인 `print('Hello', end='\\n')` 구조에서 `end='\\n'`이 뜻하는 바를 기본값 매개변수 개념과 연결하여 올바르게 설명한 것은 무엇인가요?",
+      "question": "```python\n파이썬 내장 함수인 `print('Hello', end='\\n')` 구조에서 `end='\\n'`이 뜻하는 바를 기본값 매개변수 개념과 연결하여 올바르게 설명한 것은 무엇인가요?\n```",
       "choices": [
         "A. end 매개변수의 기본값이 '\\n'이므로 원래 평소에 값을 주지 않아도 줄바꿈이 일어났던 것이다.",
         "B. end는 무조건 '\\n'만 받아야 하므로 다른 문자열로 변경하는 것이 금지되어 있다.",
@@ -1666,7 +1666,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\ndef make_team(name='에이짱'):\n    print('팀명:' + name)\n\nmake_team()",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef make_team(name='에이짱'):\n    print('팀명:' + name)\n```\n\nmake_team()",
       "choices": [
         "A. 팀명:",
         "B. 팀명:name",
@@ -1689,7 +1689,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\ndef make_team(name='에이짱'):\n    print('팀명:' + name)\n\nmake_team('FC파이썬')",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef make_team(name='에이짱'):\n    print('팀명:' + name)\n```\n\nmake_team('FC파이썬')",
       "choices": [
         "A. 팀명:에이짱",
         "B. 팀명:FC파이썬",
@@ -1712,7 +1712,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "함수 정의 구문 `def info(age, name='손님', vip=False):`에 대한 설명으로 올바르지 않은 것은 무엇인가요?",
+      "question": "```python\n함수 정의 구문 `def info(age, name='손님', vip=False):`에 대한 설명으로 올바르지 않은 것은 무엇인가요?\n```",
       "choices": [
         "A. age 매개변수는 호출 시 반드시 인수를 넘겨주어야 한다.",
         "B. name과 vip 매개변수는 호출 시 인수를 생략할 수 있다.",
@@ -1735,7 +1735,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 최종 출력되는 텍스트를 고르세요.\n\ndef draw_line(length=5, shape='-'):\n    print(shape * length)\n\ndraw_line(3, '*')",
+      "question": "다음 코드를 실행했을 때 최종 출력되는 텍스트를 고르세요.\n\n```python\ndef draw_line(length=5, shape='-'):\n    print(shape * length)\n```\n\ndraw_line(3, '*')",
       "choices": [
         "A. -----",
         "B. ***",
@@ -1758,7 +1758,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 배치와 호출 상태를 보고, 예상되는 결과를 고르세요.\n\ndef setup_player(lv=1, weapon):\n    print(lv, weapon)\n\nsetup_player( weapon='지팡이' )",
+      "question": "다음 코드의 배치와 호출 상태를 보고, 예상되는 결과를 고르세요.\n\n```python\ndef setup_player(lv=1, weapon):\n    print(lv, weapon)\n```\n\nsetup_player( weapon='지팡이' )",
       "choices": [
         "A. 1 지팡이",
         "B. weapon 지팡이",
@@ -1781,7 +1781,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 구동했을 때 최종 출력되는 결과물은 무엇인가요?\n\ndef select_item(user, slot='A', count=1):\n    print(f'{user}:{slot}/{count}')\n\nselect_item('지혜원', count=3)",
+      "question": "다음 코드를 구동했을 때 최종 출력되는 결과물은 무엇인가요?\n\n```python\ndef select_item(user, slot='A', count=1):\n    print(f'{user}:{slot}/{count}')\n```\n\nselect_item('지혜원', count=3)",
       "choices": [
         "A. 지혜원:A/1",
         "B. 지혜원:A/3",
@@ -1804,7 +1804,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 리턴 연산 결과로 최종 출력되는 값을 고르세요.\n\ndef discount(price, rate=0.1):\n    return int(price * (1 - rate))\n\nprint(discount(10000) + discount(20000, 0.2))",
+      "question": "다음 코드의 리턴 연산 결과로 최종 출력되는 값을 고르세요.\n\n```python\ndef discount(price, rate=0.1):\n    return int(price * (1 - rate))\n```\n\n```python\nprint(discount(10000) + discount(20000, 0.2))\n```",
       "choices": [
         "A. 23000",
         "B. 25000",
@@ -1896,7 +1896,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\ndef test_scope():\n    local_val = 10\n    print(local_val)\n\ntest_scope()",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef test_scope():\n    local_val = 10\n    print(local_val)\n```\n\ntest_scope()",
       "choices": [
         "A. local_val",
         "B. 10",
@@ -1919,7 +1919,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 발생하는 결과로 올바른 것을 고르세요.\n\ndef set_item():\n    my_weapon = '검'\n\nset_item()\nprint(my_weapon)",
+      "question": "다음 코드를 실행했을 때 발생하는 결과로 올바른 것을 고르세요.\n\n```python\ndef set_item():\n    my_weapon = '검'\n```\n\n```python\nset_item()\nprint(my_weapon)\n```",
       "choices": [
         "A. 검",
         "B. my_weapon",
@@ -1942,7 +1942,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 전역 변수가 포함된 코드를 실행했을 때 최종 출력값을 고르세요.\n\nglobal_msg = '에이몬'\n\ndef show_msg():\n    print(global_msg)\n\nshow_msg()",
+      "question": "다음 전역 변수가 포함된 코드를 실행했을 때 최종 출력값을 고르세요.\n\nglobal_msg = '에이몬'\n\n```python\ndef show_msg():\n    print(global_msg)\n```\n\nshow_msg()",
       "choices": [
         "A. global_msg",
         "B. 에이몬",
@@ -1988,7 +1988,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 최종 숫자를 고르세요.\n\nx = 100\n\ndef change_x():\n    x = 50\n\nchange_x()\nprint(x)",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 최종 숫자를 고르세요.\n\nx = 100\n\n```python\ndef change_x():\n    x = 50\n```\n\n```python\nchange_x()\nprint(x)\n```",
       "choices": [
         "A. 100",
         "B. 50",
@@ -2011,7 +2011,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 global 키워드가 포함된 코드를 실행했을 때 화면에 나타나는 출력값을 고르세요.\n\nscore = 10\n\ndef increase_score():\n    global score\n    score = 30\n\nincrease_score()\nprint(score)",
+      "question": "다음 global 키워드가 포함된 코드를 실행했을 때 화면에 나타나는 출력값을 고르세요.\n\nscore = 10\n\ndef increase_score():\n    global score\n    score = 30\n\n```python\nincrease_score()\nprint(score)\n```",
       "choices": [
         "A. 10",
         "B. 30",
@@ -2034,7 +2034,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드가 실행되는 순서를 따져보았을 때, 출력되는 결과물로 알맞은 것은 무엇인가요?\n\nval = 'A'\n\ndef process():\n    val = 'B'\n    print('내부:' + val)\n\nprocess()\nprint('외부:' + val)",
+      "question": "다음 코드가 실행되는 순서를 따져보았을 때, 출력되는 결과물로 알맞은 것은 무엇인가요?\n\nval = 'A'\n\n```python\ndef process():\n    val = 'B'\n    print('내부:' + val)\n```\n\n```python\nprocess()\nprint('외부:' + val)\n```",
       "choices": [
         "A. 내부:A\n외부:B",
         "B. 내부:B\n외부:A",
@@ -2126,7 +2126,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 가동했을 때 콘솔 창에 출력되는 결과물을 고르세요.\n\ndef calculate():\n    result_val = 5 * 5\n\ncalculate()\nprint(result_val)",
+      "question": "다음 코드를 가동했을 때 콘솔 창에 출력되는 결과물을 고르세요.\n\n```python\ndef calculate():\n    result_val = 5 * 5\n```\n\n```python\ncalculate()\nprint(result_val)\n```",
       "choices": [
         "A. 25",
         "B. result_val",
@@ -2149,7 +2149,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\nuser_id = 'slime'\n\ndef print_user():\n    print(user_id)\n\nprint_user()",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\nuser_id = 'slime'\n\n```python\ndef print_user():\n    print(user_id)\n```\n\nprint_user()",
       "choices": [
         "A. user_id",
         "B. slime",
@@ -2172,7 +2172,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과로 올바른 것을 고르세요.\n\ndef create_name():\n    nick = '로봇'\n    return nick\n\nmy_pet = create_name()\nprint(my_pet)",
+      "question": "다음 코드의 출력 결과로 올바른 것을 고르세요.\n\n```python\ndef create_name():\n    nick = '로봇'\n    return nick\n```\n\n```python\nmy_pet = create_name()\nprint(my_pet)\n```",
       "choices": [
         "A. nick",
         "B. 로봇",
@@ -2218,7 +2218,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 최종 수행 결과로 모니터에 출력되는 정수는 무엇인가요?\n\nnumber = 7\n\ndef modify_number():\n    number = 99\n\nmodify_number()\nprint(number)",
+      "question": "다음 코드의 최종 수행 결과로 모니터에 출력되는 정수는 무엇인가요?\n\nnumber = 7\n\n```python\ndef modify_number():\n    number = 99\n```\n\n```python\nmodify_number()\nprint(number)\n```",
       "choices": [
         "A. 7",
         "B. 99",
@@ -2241,7 +2241,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 최종으로 모니터링되는 텍스트 결과는 무엇인가요?\n\nlevel = 1\n\ndef force_up():\n    global level\n    level = level + 9\n\nforce_up()\nprint(level)",
+      "question": "다음 코드를 실행했을 때 최종으로 모니터링되는 텍스트 결과는 무엇인가요?\n\nlevel = 1\n\ndef force_up():\n    global level\n    level = level + 9\n\n```python\nforce_up()\nprint(level)\n```",
       "choices": [
         "A. 1",
         "B. 9",
@@ -2264,7 +2264,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 동일한 명칭의 변수가 공간을 달리하여 배치되었을 때, 순차 출력 결과로 올바른 조합은 무엇인가요?\n\ncharacter = '보라 슬라임'\n\ndef transformation():\n    character = '보라 로봇'\n    print('1번:' + character)\n\ntransformation()\nprint('2번:' + character)",
+      "question": "다음과 같이 동일한 명칭의 변수가 공간을 달리하여 배치되었을 때, 순차 출력 결과로 올바른 조합은 무엇인가요?\n\ncharacter = '보라 슬라임'\n\n```python\ndef transformation():\n    character = '보라 로봇'\n    print('1번:' + character)\n```\n\n```python\ntransformation()\nprint('2번:' + character)\n```",
       "choices": [
         "A. 1번:보라 슬라임\n2번:보라 로봇",
         "B. 1번:보라 로봇\n2번:보라 슬라임",
@@ -2356,7 +2356,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\ndef outer():\n    def inner():\n        print('내부 호출!')\n    inner()\n\nouter()",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef outer():\n    def inner():\n        print('내부 호출!')\n    inner()\n```\n\nouter()",
       "choices": [
         "A. 내부 호출!",
         "B. inner()",
@@ -2379,7 +2379,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 중 중첩 함수를 포함한 아래 코드를 실행했을 때의 결과로 올바른 것은 무엇인가요?\n\ndef main_game():\n    def spawn_monster():\n        print('몬스터 등장')\n\nmain_game()\nspawn_monster()",
+      "question": "다음 중 중첩 함수를 포함한 아래 코드를 실행했을 때의 결과로 올바른 것은 무엇인가요?\n\n```python\ndef main_game():\n    def spawn_monster():\n        print('몬스터 등장')\n```\n\n```python\nmain_game()\nspawn_monster()\n```",
       "choices": [
         "A. 몬스터 등장",
         "B. 아무런 출력 없이 프로그램이 정상 종료된다.",
@@ -2402,7 +2402,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때의 출력 결과를 예측해 보세요.\n\ndef robot_factory():\n    def assemble():\n        print('부품 조립')\n    print('공장 가동')\n\nrobot_factory()",
+      "question": "다음 코드를 실행했을 때의 출력 결과를 예측해 보세요.\n\n```python\ndef robot_factory():\n    def assemble():\n        print('부품 조립')\n    print('공장 가동')\n```\n\nrobot_factory()",
       "choices": [
         "A. 부품 조립\n공장 가동",
         "B. 공장 가동\n부품 조립",
@@ -2448,7 +2448,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 최종 출력되는 문구를 고르세요.\n\ndef outer_func(x):\n    def inner_func():\n        print('값:' + x)\n    inner_func()\n\nouter_func('에이몬')",
+      "question": "다음 코드를 실행했을 때 화면에 최종 출력되는 문구를 고르세요.\n\n```python\ndef outer_func(x):\n    def inner_func():\n        print('값:' + x)\n    inner_func()\n```\n\nouter_func('에이몬')",
       "choices": [
         "A. 값:x",
         "B. 값:에이몬",
@@ -2471,7 +2471,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 연산 구조를 지닌 중첩 함수 코드의 최종 출력 정수를 선택하세요.\n\ndef calculator(a, b):\n    def multiply():\n        return a * b\n    result = multiply() + 10\n    return result\n\nprint(calculator(3, 5))",
+      "question": "다음 연산 구조를 지닌 중첩 함수 코드의 최종 출력 정수를 선택하세요.\n\n```python\ndef calculator(a, b):\n    def multiply():\n        return a * b\n    result = multiply() + 10\n    return result\n```\n\n```python\nprint(calculator(3, 5))\n```",
       "choices": [
         "A. 15",
         "B. 25",
@@ -2494,7 +2494,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드가 실행되는 흐름과 순서를 정밀하게 추적했을 때, 화면에 도출되는 최종 라인 조합은 무엇인가요?\n\ndef step_1():\n    print('A')\n    def step_2():\n        print('B')\n    print('C')\n    step_2()\n\nstep_1()",
+      "question": "다음 코드가 실행되는 흐름과 순서를 정밀하게 추적했을 때, 화면에 도출되는 최종 라인 조합은 무엇인가요?\n\n```python\ndef step_1():\n    print('A')\n    def step_2():\n        print('B')\n    print('C')\n    step_2()\n```\n\nstep_1()",
       "choices": [
         "A. A\nB\nC",
         "B. A\nC\nB",
@@ -2586,7 +2586,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 최종 도출되는 결과값을 선택하세요.\n\ndef intro_pack():\n    def show_name():\n        print('에이몬')\n    show_name()\n    show_name()\n\nintro_pack()",
+      "question": "다음 코드를 실행했을 때 최종 도출되는 결과값을 선택하세요.\n\n```python\ndef intro_pack():\n    def show_name():\n        print('에이몬')\n    show_name()\n    show_name()\n```\n\nintro_pack()",
       "choices": [
         "A. 에이몬",
         "B. 에이몬\n에이몬",
@@ -2609,7 +2609,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 발생하는 콘솔창 현상으로 알맞은 것은 무엇인가요?\n\ndef check_secure():\n    def get_password():\n        return '1234'\n\nprint(get_password())",
+      "question": "다음 코드를 실행했을 때 발생하는 콘솔창 현상으로 알맞은 것은 무엇인가요?\n\n```python\ndef check_secure():\n    def get_password():\n        return '1234'\n```\n\n```python\nprint(get_password())\n```",
       "choices": [
         "A. 1234",
         "B. None",
@@ -2632,7 +2632,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 연산과 조건 흐름을 분석하여 출력 결과를 고르세요.\n\ndef process_data(status):\n    def alert():\n        print('경고!')\n    \n    if status == 'danger':\n        alert()\n\nprocess_data('safe')",
+      "question": "다음 코드의 연산과 조건 흐름을 분석하여 출력 결과를 고르세요.\n\n```python\ndef process_data(status):\n    def alert():\n        print('경고!')\n```\n    \n```python\n    if status == 'danger':\n        alert()\n```\n\nprocess_data('safe')",
       "choices": [
         "A. 경고!",
         "B. 아무런 출력문 없이 정상 종료된다.",
@@ -2678,7 +2678,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 구동했을 때 모니터 창에 찍히는 최종 결합 텍스트는 무엇인가요?\n\ndef welcome(title):\n    def formal_greet():\n        print('대장님 ' + title)\n    formal_greet()\n\nwelcome('안녕하세요!')",
+      "question": "다음 코드를 구동했을 때 모니터 창에 찍히는 최종 결합 텍스트는 무엇인가요?\n\n```python\ndef welcome(title):\n    def formal_greet():\n        print('대장님 ' + title)\n    formal_greet()\n```\n\nwelcome('안녕하세요!')",
       "choices": [
         "A. 대장님 title",
         "B. 대장님 안녕하세요!",
@@ -2701,7 +2701,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 수학적 가중치 계산이 덧붙여진 중첩 함수의 최종 반환 결과를 고르세요.\n\ndef score_booster(score):\n    def multiply(n):\n        return n * 2\n    final_score = multiply(score) + score\n    return final_score\n\nprint(score_booster(10))",
+      "question": "다음 수학적 가중치 계산이 덧붙여진 중첩 함수의 최종 반환 결과를 고르세요.\n\n```python\ndef score_booster(score):\n    def multiply(n):\n        return n * 2\n    final_score = multiply(score) + score\n    return final_score\n```\n\n```python\nprint(score_booster(10))\n```",
       "choices": [
         "A. 20",
         "B. 30",
@@ -2724,7 +2724,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 특이한 실행 전개와 호출 위치를 고려했을 때, 도출되는 최종 정답은 무엇인가요?\n\ndef level_1():\n    def level_2():\n        print('인사 완료')\n    print('준비 단계')\n    level_2()\n\nlevel_1()",
+      "question": "다음 코드의 특이한 실행 전개와 호출 위치를 고려했을 때, 도출되는 최종 정답은 무엇인가요?\n\n```python\ndef level_1():\n    def level_2():\n        print('인사 완료')\n    print('준비 단계')\n    level_2()\n```\n\nlevel_1()",
       "choices": [
         "A. 인사 완료\n준비 단계",
         "B. 준비 단계\n인사 완료",
@@ -2816,7 +2816,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 최종 출력되는 값을 고르세요.\n\ndef greeting():\n    return '안녕'\n    print('에이몬')\n\nprint(greeting() + '하세요!')",
+      "question": "다음 코드를 실행했을 때 화면에 최종 출력되는 값을 고르세요.\n\n```python\ndef greeting():\n    return '안녕'\n    print('에이몬')\n```\n\n```python\nprint(greeting() + '하세요!')\n```",
       "choices": [
         "A. 안녕에이몬하세요!",
         "B. 안녕하세요!",
@@ -2839,7 +2839,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 결과를 고르세요.\n\ndef make_double(n):\n    print(n * 2)\n\nval = make_double(5)\nprint(val)",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 결과를 고르세요.\n\n```python\ndef make_double(n):\n    print(n * 2)\n```\n\n```python\nval = make_double(5)\nprint(val)\n```",
       "choices": [
         "A. 10\n10",
         "B. 10\nNone",
@@ -2862,7 +2862,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 조건 분기가 포함된 코드를 가동했을 때 콘솔창에 찍히는 텍스트를 고르세요.\n\ndef pass_fail(score):\n    if score >= 80:\n        return '합격'\n    return '재시험'\n\nprint(pass_fail(80))",
+      "question": "다음 조건 분기가 포함된 코드를 가동했을 때 콘솔창에 찍히는 텍스트를 고르세요.\n\n```python\ndef pass_fail(score):\n    if score >= 80:\n        return '합격'\n    return '재시험'\n```\n\n```python\nprint(pass_fail(80))\n```",
       "choices": [
         "A. 합격",
         "B. 재시험",
@@ -2885,7 +2885,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 기본값 매개변수가 혼합된 코드를 실행했을 때 화면에 출력되는 형태로 올바른 것은 무엇인가요?\n\ndef info(name, lv=1):\n    print(f'{name}:Lv.{lv}')\n\ninfo(lv=5, name='슬라임')",
+      "question": "다음 기본값 매개변수가 혼합된 코드를 실행했을 때 화면에 출력되는 형태로 올바른 것은 무엇인가요?\n\n```python\ndef info(name, lv=1):\n    print(f'{name}:Lv.{lv}')\n```\n\ninfo(lv=5, name='슬라임')",
       "choices": [
         "A. 슬라임:Lv.1",
         "B. 슬라임:Lv.5",
@@ -2908,7 +2908,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 두 개의 함수가 유기적으로 연동되어 실행될 때, 최종 출력되는 결과물은 무엇인가요?\n\ndef add_one(x):\n    return x + 1\n\ndef square(x):\n    return x * x\n\nprint(square(add_one(3)))",
+      "question": "다음과 같이 두 개의 함수가 유기적으로 연동되어 실행될 때, 최종 출력되는 결과물은 무엇인가요?\n\n```python\ndef add_one(x):\n    return x + 1\n```\n\n```python\ndef square(x):\n    return x * x\n```\n\n```python\nprint(square(add_one(3)))\n```",
       "choices": [
         "A. 10",
         "B. 16",
@@ -2931,7 +2931,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 스코프와 global 키워드가 포함된 종합 응용 코드를 실행했을 때 최종 출력되는 정수 조합은 무엇인가요?\n\npoints = 10\n\ndef bonus():\n    global points\n    points = 20\n\ndef penalty():\n    points = 0\n\nbonus()\npenalty()\nprint(points)",
+      "question": "다음 스코프와 global 키워드가 포함된 종합 응용 코드를 실행했을 때 최종 출력되는 정수 조합은 무엇인가요?\n\npoints = 10\n\ndef bonus():\n    global points\n    points = 20\n\n```python\ndef penalty():\n    points = 0\n```\n\n```python\nbonus()\npenalty()\nprint(points)\n```",
       "choices": [
         "A. 10",
         "B. 20",
@@ -2954,7 +2954,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 중첩 함수 구조의 코드 실행 순서를 추적했을 때, 화면에 나타나는 출력 라인으로 올바른 조합은 무엇인가요?\n\ndef outer_robot():\n    print('A')\n    def inner_stream():\n        print('B')\n    inner_stream()\n    print('C')\n\nouter_robot()",
+      "question": "다음 중첩 함수 구조의 코드 실행 순서를 추적했을 때, 화면에 나타나는 출력 라인으로 올바른 조합은 무엇인가요?\n\n```python\ndef outer_robot():\n    print('A')\n    def inner_stream():\n        print('B')\n    inner_stream()\n    print('C')\n```\n\nouter_robot()",
       "choices": [
         "A. A\nB\nC",
         "B. A\nC\nB",
@@ -2977,7 +2977,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 반복문 내부에서 함수 호출이 일어나는 코드의 실행 결과로 최종 도출되는 정수는 무엇인가요?\n\ntotal = 0\n\ndef accumulate(x):\n    return x + 2\n\nfor i in range(1, 4):\n    total = total + accumulate(i)\n\nprint(total)",
+      "question": "다음 반복문 내부에서 함수 호출이 일어나는 코드의 실행 결과로 최종 도출되는 정수는 무엇인가요?\n\ntotal = 0\n\n```python\ndef accumulate(x):\n    return x + 2\n```\n\n```python\nfor i in range(1, 4):\n    total = total + accumulate(i)\n```\n\n```python\nprint(total)\n```",
       "choices": [
         "A. 6",
         "B. 12",
@@ -3046,7 +3046,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 종합 연산 코드를 실행했을 때 화면에 최종 출력되는 정수값을 고르세요.\n\ndef calc_data(x, y):\n    return x * y\n\nresult = calc_data(5, 3) + calc_data(2, 4)\nprint(result)",
+      "question": "다음 종합 연산 코드를 실행했을 때 화면에 최종 출력되는 정수값을 고르세요.\n\n```python\ndef calc_data(x, y):\n    return x * y\n```\n\n```python\nresult = calc_data(5, 3) + calc_data(2, 4)\nprint(result)\n```",
       "choices": [
         "A. 15",
         "B. 8",
@@ -3069,7 +3069,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 미묘한 출력 결과를 예측하여 고르세요.\n\ndef print_msg(msg):\n    print('메시지:' + msg)\n\nprint(print_msg('테스트'))",
+      "question": "다음 코드의 미묘한 출력 결과를 예측하여 고르세요.\n\n```python\ndef print_msg(msg):\n    print('메시지:' + msg)\n```\n\n```python\nprint(print_msg('테스트'))\n```",
       "choices": [
         "A. 메시지:테스트",
         "B. 메시지:테스트\nNone",
@@ -3092,7 +3092,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 논리형(bool) 데이터를 핸들링하는 함수의 실행 결과로 가장 알맞은 것은 무엇인가요?\n\ndef check_premium(lv, crown):\n    if lv >= 10 and crown >= 5:\n        return True\n    return False\n\nprint(check_premium(12, 4))",
+      "question": "다음 논리형(bool) 데이터를 핸들링하는 함수의 실행 결과로 가장 알맞은 것은 무엇인가요?\n\n```python\ndef check_premium(lv, crown):\n    if lv >= 10 and crown >= 5:\n        return True\n    return False\n```\n\n```python\nprint(check_premium(12, 4))\n```",
       "choices": [
         "A. True",
         "B. False",
@@ -3115,7 +3115,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 기본값 매개변수 배치 규칙이 포함된 코드의 실행 결과를 고르세요.\n\ndef create_id(nickname, badge='🌱'):\n    return nickname + badge\n\nprint(create_id('지니'))",
+      "question": "다음 기본값 매개변수 배치 규칙이 포함된 코드의 실행 결과를 고르세요.\n\n```python\ndef create_id(nickname, badge='🌱'):\n    return nickname + badge\n```\n\n```python\nprint(create_id('지니'))\n```",
       "choices": [
         "A. 지니",
         "B. 지니🌱",
@@ -3138,7 +3138,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 함수 간의 연쇄 결합 흐름 코드의 출력 결과를 정확히 계산하여 고르세요.\n\ndef filter_num(x):\n    return x - 5\n\ndef multiply_num(x):\n    return x * 3\n\nprint(filter_num(multiply_num(10)))",
+      "question": "다음 함수 간의 연쇄 결합 흐름 코드의 출력 결과를 정확히 계산하여 고르세요.\n\n```python\ndef filter_num(x):\n    return x - 5\n```\n\n```python\ndef multiply_num(x):\n    return x * 3\n```\n\n```python\nprint(filter_num(multiply_num(10)))\n```",
       "choices": [
         "A. 15",
         "B. 25",
@@ -3161,7 +3161,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 전역 스코프 제어가 뒤섞인 종합 처리 코드의 최종 출력 텍스트 조합을 고르세요.\n\nstatus = '슬라임'\n\ndef evolution_1():\n    status = '로봇'\n\ndef evolution_2():\n    global status\n    status = '말풍선킹'\n\nevolution_1()\nevolution_2()\nprint(status)",
+      "question": "다음 전역 스코프 제어가 뒤섞인 종합 처리 코드의 최종 출력 텍스트 조합을 고르세요.\n\nstatus = '슬라임'\n\n```python\ndef evolution_1():\n    status = '로봇'\n```\n\ndef evolution_2():\n    global status\n    status = '말풍선킹'\n\n```python\nevolution_1()\nevolution_2()\nprint(status)\n```",
       "choices": [
         "A. 슬라임",
         "B. 로봇",
@@ -3184,7 +3184,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 중첩 함수 내에서 값의 흐름과 소속을 제어하는 코드의 최종 출력 결과물은 무엇인가요?\n\ndef outer_game():\n    score = 100\n    def inner_bonus():\n        score = 500\n        print('내부:' + str(score))\n    inner_bonus()\n    print('외부:' + str(score))\n\nouter_game()",
+      "question": "다음 중첩 함수 내에서 값의 흐름과 소속을 제어하는 코드의 최종 출력 결과물은 무엇인가요?\n\n```python\ndef outer_game():\n    score = 100\n    def inner_bonus():\n        score = 500\n        print('내부:' + str(score))\n    inner_bonus()\n    print('외부:' + str(score))\n```\n\nouter_game()",
       "choices": [
         "A. 내부:500\n외부:100",
         "B. 내부:500\n외부:500",
@@ -3207,7 +3207,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 함수 호출과 리스트 순회 결합 로직의 최종 연산 결과물로 모니터에 출력되는 정수는 무엇인가요?\n\nnums = [2, 4, 6]\nresult_sum = 0\n\ndef add_bonus(val):\n    if val > 3:\n        return val + 10\n    return val\n\nfor n in nums:\n    result_sum = result_sum + add_bonus(n)\n\nprint(result_sum)",
+      "question": "다음 함수 호출과 리스트 순회 결합 로직의 최종 연산 결과물로 모니터에 출력되는 정수는 무엇인가요?\n\n```python\nnums = [2, 4, 6]\nresult_sum = 0\n```\n\n```python\ndef add_bonus(val):\n    if val > 3:\n        return val + 10\n    return val\n```\n\n```python\nfor n in nums:\n    result_sum = result_sum + add_bonus(n)\n```\n\n```python\nprint(result_sum)\n```",
       "choices": [
         "A. 12",
         "B. 32",

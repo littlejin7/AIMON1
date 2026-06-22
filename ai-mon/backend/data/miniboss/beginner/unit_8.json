@@ -105,7 +105,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`show_menu()` 안에 `print()`가 있을 때, 함수를 호출하지 않으면 어떻게 될까요?",
+      "question": "```python\n`show_menu()` 안에 `print()`가 있을 때, 함수를 호출하지 않으면 어떻게 될까요?\n```",
       "choices": [
         "A. 자동으로 출력된다",
         "B. 오류가 발생한다",
@@ -129,7 +129,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\n\ndef show_menu():\n    print('1. 아이템 획득')\n    print('2. 인벤토리 확인')\n\nshow_menu()",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef show_menu():\n    print('1. 아이템 획득')\n    print('2. 인벤토리 확인')\n```\n\nshow_menu()",
       "choices": [
         "A. 1. 아이템 획득\n2. 인벤토리 확인",
         "B. show_menu()",
@@ -153,7 +153,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\n\ndef show_menu():\n    print('메뉴')\n    return '2'\n\nresult = show_menu()\nprint(result)",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef show_menu():\n    print('메뉴')\n    return '2'\n```\n\n```python\nresult = show_menu()\nprint(result)\n```",
       "choices": [
         "A. 메뉴",
         "B. 메뉴\n2",
@@ -177,7 +177,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\n\ndef show_menu():\n    return '3'\n\nx = show_menu()\nprint(f'선택: {x}')",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef show_menu():\n    return '3'\n```\n\n```python\nx = show_menu()\nprint(f'선택: {x}')\n```",
       "choices": [
         "A. 선택: x",
         "B. 선택: 3",
@@ -201,7 +201,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\n\ndef show_menu():\n    print('== 메뉴 ==')\n\nresult = show_menu()\nprint(result)",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef show_menu():\n    print('== 메뉴 ==')\n```\n\n```python\nresult = show_menu()\nprint(result)\n```",
       "choices": [
         "A. == 메뉴 ==",
         "B. == 메뉴 ==\nNone",
@@ -225,7 +225,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\n\ndef show_menu():\n    choice = input('선택: ')\n    return choice\n\n# 사용자가 '1'을 입력했다고 가정\nval = show_menu()\nprint(type(val).__name__)",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef show_menu():\n    choice = input('선택: ')\n    return choice\n```\n\n```python\n# 사용자가 '1'을 입력했다고 가정\nval = show_menu()\nprint(type(val).__name__)\n```",
       "choices": [
         "A. int",
         "B. str",
@@ -345,7 +345,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`import random` 없이 `random.choice()`를 호출하면 어떻게 될까요?",
+      "question": "```python\n`import random` 없이 `random.choice()`를 호출하면 어떻게 될까요?\n```",
       "choices": [
         "A. 기본값 None을 반환한다",
         "B. NameError가 발생한다",
@@ -369,7 +369,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드 실행 후 `inventory`의 상태는?\n\ninventory = ['검']\ninventory.append('물약')\nprint(inventory)",
+      "question": "다음 코드 실행 후 `inventory`의 상태는?\n\n```python\ninventory = ['검']\ninventory.append('물약')\nprint(inventory)\n```",
       "choices": [
         "A. ['검']",
         "B. ['물약']",
@@ -393,7 +393,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드 실행 후 `inventory` 길이는?\n\ninventory = []\nfor _ in range(3):\n    inventory.append('아이템')\nprint(len(inventory))",
+      "question": "다음 코드 실행 후 `inventory` 길이는?\n\n```python\ninventory = []\nfor _ in range(3):\n    inventory.append('아이템')\nprint(len(inventory))\n```",
       "choices": [
         "A. 0",
         "B. 1",
@@ -417,7 +417,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드에서 `item`에 저장될 수 없는 값은?\n\nimport random\npool = ['검', '방패', '물약']\nitem = random.choice(pool)",
+      "question": "다음 코드에서 `item`에 저장될 수 없는 값은?\n\n```python\nimport random\npool = ['검', '방패', '물약']\nitem = random.choice(pool)\n```",
       "choices": [
         "A. '검'",
         "B. '방패'",
@@ -441,7 +441,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드 실행 후 `inventory`에 들어올 수 있는 값은?\n\nimport random\ninventory = []\npool = ['A', 'B', 'C']\nnew_item = random.choice(pool)\ninventory.append(new_item)\nprint(inventory)",
+      "question": "다음 코드 실행 후 `inventory`에 들어올 수 있는 값은?\n\n```python\nimport random\ninventory = []\npool = ['A', 'B', 'C']\nnew_item = random.choice(pool)\ninventory.append(new_item)\nprint(inventory)\n```",
       "choices": [
         "A. ['A', 'B', 'C']",
         "B. ['A'] 또는 ['B'] 또는 ['C'] 중 하나",
@@ -465,7 +465,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과로 가능한 것은?\n\nimport random\npool = ['불꽃검', '얼음창', '번개활']\nfor _ in range(2):\n    print(random.choice(pool))",
+      "question": "다음 코드의 출력 결과로 가능한 것은?\n\n```python\nimport random\npool = ['불꽃검', '얼음창', '번개활']\nfor _ in range(2):\n    print(random.choice(pool))\n```",
       "choices": [
         "A. 항상 불꽃검\n불꽃검",
         "B. pool의 값 중 두 줄 출력 (중복 가능)",
@@ -513,7 +513,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`for i, item in enumerate(inventory):` 에서 `i`가 갖는 값의 범위는?",
+      "question": "```python\n`for i, item in enumerate(inventory):` 에서 `i`가 갖는 값의 범위는?\n```",
       "choices": [
         "A. 1부터 len(inventory)까지",
         "B. 0부터 len(inventory)-1까지",
@@ -609,7 +609,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\n\ninventory = ['검', '방패', '물약']\nprint(len(inventory))",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ninventory = ['검', '방패', '물약']\nprint(len(inventory))\n```",
       "choices": [
         "A. ['검', '방패', '물약']",
         "B. 3",
@@ -633,7 +633,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\n\nfor i, item in enumerate(['사과', '바나나']):\n    print(f'{i+1}. {item}')",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nfor i, item in enumerate(['사과', '바나나']):\n    print(f'{i+1}. {item}')\n```",
       "choices": [
         "A. 0. 사과\n1. 바나나",
         "B. 1. 사과\n2. 바나나",
@@ -657,7 +657,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\n\nname = '검'\ncount = 2\nprint(f'{name} x{count}')",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nname = '검'\ncount = 2\nprint(f'{name} x{count}')\n```",
       "choices": [
         "A. name xcount",
         "B. 검 x2",
@@ -681,7 +681,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\n\ninventory = []\nprint(f'아이템 수: {len(inventory)}개')",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ninventory = []\nprint(f'아이템 수: {len(inventory)}개')\n```",
       "choices": [
         "A. 아이템 수: None개",
         "B. 아이템 수: []개",
@@ -705,7 +705,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\n\niv = ['검', '방패']\nfor i, item in enumerate(iv):\n    print(f'[{i}] {item}')",
+      "question": "다음 코드의 출력 결과는?\n\n```python\niv = ['검', '방패']\nfor i, item in enumerate(iv):\n    print(f'[{i}] {item}')\n```",
       "choices": [
         "A. [1] 검\n[2] 방패",
         "B. [0] 검\n[1] 방패",
@@ -849,7 +849,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드 실행 후 `items`의 상태는?\n\nitems = ['검', '방패', '물약']\nitems.pop(1)\nprint(items)",
+      "question": "다음 코드 실행 후 `items`의 상태는?\n\n```python\nitems = ['검', '방패', '물약']\nitems.pop(1)\nprint(items)\n```",
       "choices": [
         "A. ['검', '방패', '물약']",
         "B. ['방패', '물약']",
@@ -873,7 +873,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\n\ninfo = {'name': '검', 'damage': 10}\nprint(info.get('damage', 0))\nprint(info.get('weight', 0))",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ninfo = {'name': '검', 'damage': 10}\nprint(info.get('damage', 0))\nprint(info.get('weight', 0))\n```",
       "choices": [
         "A. 10\n0",
         "B. 0\n0",
@@ -897,7 +897,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 최종 출력 결과는?\n\ninventory = ['검', '방패', '물약']\nuser_input = 3\nidx = user_input - 1\ndropped = inventory.pop(idx)\nprint(f'{dropped} 버림')",
+      "question": "다음 코드의 최종 출력 결과는?\n\n```python\ninventory = ['검', '방패', '물약']\nuser_input = 3\nidx = user_input - 1\ndropped = inventory.pop(idx)\nprint(f'{dropped} 버림')\n```",
       "choices": [
         "A. 검 버림",
         "B. 방패 버림",
@@ -921,7 +921,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\n\nd = {'hp': 100}\nprint(d.get('mp', 50))\nprint(d.get('hp', 999))",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nd = {'hp': 100}\nprint(d.get('mp', 50))\nprint(d.get('hp', 999))\n```",
       "choices": [
         "A. 50\n999",
         "B. 50\n100",
@@ -945,7 +945,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\n\ninv = ['검']\nremoved = inv.pop(0)\nprint(removed)\nprint(inv)",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ninv = ['검']\nremoved = inv.pop(0)\nprint(removed)\nprint(inv)\n```",
       "choices": [
         "A. ['검']\n[]",
         "B. 검\n[]",
@@ -1089,7 +1089,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\n\nprint('Hello'.lower())",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nprint('Hello'.lower())\n```",
       "choices": [
         "A. Hello",
         "B. HELLO",
@@ -1113,7 +1113,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\n\nkeyword = 'fire'\nitem = 'Fire Sword'\nif keyword in item.lower():\n    print('발견!')\nelse:\n    print('없음')",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nkeyword = 'fire'\nitem = 'Fire Sword'\nif keyword in item.lower():\n    print('발견!')\nelse:\n    print('없음')\n```",
       "choices": [
         "A. 없음",
         "B. 발견!",
@@ -1137,7 +1137,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\n\ninventory = ['검', '방패', '물약']\nkeyword = '지팡이'\nfound = False\nfor item in inventory:\n    if keyword in item:\n        found = True\nprint(found)",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ninventory = ['검', '방패', '물약']\nkeyword = '지팡이'\nfound = False\nfor item in inventory:\n    if keyword in item:\n        found = True\nprint(found)\n```",
       "choices": [
         "A. True",
         "B. False",
@@ -1161,7 +1161,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\n\ninventory = ['Ice Shield', 'Fire Sword']\nkeyword = 'ICE'\nfound = False\nfor item in inventory:\n    if keyword.lower() in item.lower():\n        found = True\n        print(f'발견: {item}')\nif not found:\n    print('없음')",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ninventory = ['Ice Shield', 'Fire Sword']\nkeyword = 'ICE'\nfound = False\nfor item in inventory:\n    if keyword.lower() in item.lower():\n        found = True\n        print(f'발견: {item}')\nif not found:\n    print('없음')\n```",
       "choices": [
         "A. 없음",
         "B. 발견: Ice Shield",
@@ -1185,7 +1185,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\n\nprint('cat' in 'concatenate')\nprint('dog' in 'concatenate')",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nprint('cat' in 'concatenate')\nprint('dog' in 'concatenate')\n```",
       "choices": [
         "A. True\nTrue",
         "B. False\nFalse",
@@ -1209,7 +1209,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`open('file.txt', 'w')`에서 `'w'` 모드의 의미는?",
+      "question": "```python\n`open('file.txt', 'w')`에서 `'w'` 모드의 의미는?\n```",
       "choices": [
         "A. 파일을 읽기 전용으로 연다",
         "B. 파일을 쓰기 모드로 열고, 없으면 새로 만든다",
@@ -1329,7 +1329,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드 실행 후 콘솔 출력은?\n\ninventory = ['검', '방패']\nwith open('inv.txt', 'w') as f:\n    for item in inventory:\n        f.write(item + '\\n')\nprint('저장 완료')",
+      "question": "다음 코드 실행 후 콘솔 출력은?\n\n```python\ninventory = ['검', '방패']\nwith open('inv.txt', 'w') as f:\n    for item in inventory:\n        f.write(item + '\\n')\nprint('저장 완료')\n```",
       "choices": [
         "A. 검\n방패\n저장 완료",
         "B. 저장 완료",
@@ -1353,7 +1353,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "파일에 '검\\n방패\\n'이 저장되어 있을 때, 다음 코드의 출력은?\n\nwith open('inv.txt', 'r') as f:\n    content = f.read()\nprint(content)",
+      "question": "파일에 '검\\n방패\\n'이 저장되어 있을 때, 다음 코드의 출력은?\n\n```python\nwith open('inv.txt', 'r') as f:\n    content = f.read()\nprint(content)\n```",
       "choices": [
         "A. ['검', '방패']",
         "B. 검\\n방패\\n (이스케이프 그대로)",
@@ -1377,7 +1377,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nwith open('data.txt', 'w') as f:\n    content = f.read()",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nwith open('data.txt', 'w') as f:\n    content = f.read()\n```",
       "choices": [
         "A. data.txt의 내용이 content에 저장된다",
         "B. UnsupportedOperation 오류가 발생한다",
@@ -1401,7 +1401,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드에서 파일에 저장되는 내용은?\n\nwith open('items.txt', 'w') as f:\n    f.write('검\\n')\n    f.write('방패\\n')",
+      "question": "다음 코드에서 파일에 저장되는 내용은?\n\n```python\nwith open('items.txt', 'w') as f:\n    f.write('검\\n')\n    f.write('방패\\n')\n```",
       "choices": [
         "A. 검방패",
         "B. ['검', '방패']",
@@ -1425,7 +1425,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드 실행 후 `result`의 자료형은?\n\nwith open('test.txt', 'w') as f:\n    f.write('hello')\nwith open('test.txt', 'r') as f:\n    result = f.read()\nprint(type(result).__name__)",
+      "question": "다음 코드 실행 후 `result`의 자료형은?\n\n```python\nwith open('test.txt', 'w') as f:\n    f.write('hello')\nwith open('test.txt', 'r') as f:\n    result = f.read()\nprint(type(result).__name__)\n```",
       "choices": [
         "A. list",
         "B. bytes",
@@ -1545,7 +1545,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`run_inventory_sys()`에서 `while True`, `if/elif/else`, `break` 세 요소의 역할을 올바르게 묶은 것은?",
+      "question": "```python\n`run_inventory_sys()`에서 `while True`, `if/elif/else`, `break` 세 요소의 역할을 올바르게 묶은 것은?\n```",
       "choices": [
         "A. while True — 한 번 실행 / if/elif/else — 파일 저장 / break — 에러 처리",
         "B. while True — 시스템 지속 실행 / if/elif/else — 메뉴 번호별 함수 라우팅 / break — 종료",
@@ -1569,7 +1569,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드에서 루프가 끝나는 시점과 출력 결과는?\n\ncount = 0\nwhile True:\n    count += 1\n    if count == 3:\n        break\nprint(f'총 {count}회')",
+      "question": "다음 코드에서 루프가 끝나는 시점과 출력 결과는?\n\n```python\ncount = 0\nwhile True:\n    count += 1\n    if count == 3:\n```\n        break\n```python\nprint(f'총 {count}회')\n```",
       "choices": [
         "A. 총 1회",
         "B. 총 2회",
@@ -1593,7 +1593,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "cmd = '2'일 때 다음 코드의 출력은?\n\ncmd = '2'\nif cmd == '1':\n    print('추가')\nelif cmd == '2':\n    print('확인')\nelse:\n    print('오류')",
+      "question": "cmd = '2'일 때 다음 코드의 출력은?\n\n```python\ncmd = '2'\nif cmd == '1':\n    print('추가')\nelif cmd == '2':\n    print('확인')\nelse:\n    print('오류')\n```",
       "choices": [
         "A. 추가",
         "B. 확인",
@@ -1617,7 +1617,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "cmd = '9'일 때 다음 코드의 출력은?\n\ncmd = '9'\nif cmd == '1':\n    print('추가')\nelif cmd == '7':\n    print('종료')\nelse:\n    print('잘못된 입력')",
+      "question": "cmd = '9'일 때 다음 코드의 출력은?\n\n```python\ncmd = '9'\nif cmd == '1':\n    print('추가')\nelif cmd == '7':\n    print('종료')\nelse:\n    print('잘못된 입력')\n```",
       "choices": [
         "A. 추가",
         "B. 종료",
@@ -1641,7 +1641,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "입력값이 '2', '7' 순서일 때 다음 코드의 출력은?\n\ncmds = ['2', '7']\nfor cmd in cmds:\n    if cmd == '1':\n        print('추가')\n    elif cmd == '2':\n        print('확인')\n    elif cmd == '7':\n        print('종료')\n        break",
+      "question": "입력값이 '2', '7' 순서일 때 다음 코드의 출력은?\n\n```python\ncmds = ['2', '7']\nfor cmd in cmds:\n    if cmd == '1':\n        print('추가')\n    elif cmd == '2':\n        print('확인')\n    elif cmd == '7':\n        print('종료')\n```\n        break",
       "choices": [
         "A. 종료",
         "B. 확인\n종료",
@@ -1665,7 +1665,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드에서 오류가 있는 줄은?\n\n① while True:\n②     cmd = input()\n③     if cmd == '7':\n④         print('종료')",
+      "question": "다음 코드에서 오류가 있는 줄은?\n\n① while True:\n```python\n②     cmd = input()\n③     if cmd == '7':\n④         print('종료')\n```",
       "choices": [
         "A. ① — while True 사용 오류",
         "B. ③ — 조건식 오류",

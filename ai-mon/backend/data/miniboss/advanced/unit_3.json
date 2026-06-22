@@ -9,7 +9,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "환경 변수가 없을 때 기본값을 반환하도록 빈칸을 채우세요.\n출력 목표: default_key\n\nimport os\n\nkey = os.getenv('API_KEY', '_____')\nprint(key)",
+      "question": "환경 변수가 없을 때 기본값을 반환하도록 빈칸을 채우세요.\n출력 목표: default_key\n\n```python\nimport os\n```\n\n```python\nkey = os.getenv('API_KEY', '_____')\nprint(key)\n```",
       "answer": "default_key",
       "feedback": {
         "correct": "정답! os.getenv(key, default)는 환경 변수가 없을 때 두 번째 인자를 반환합니다. os.environ['KEY']는 없을 때 KeyError를 발생시키지만, getenv는 안전하게 기본값을 반환해요. API 키 로딩에 필수 패턴입니다. 클리어!"
@@ -24,7 +24,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요. (환경 변수 'SECRET'은 설정되지 않은 상태입니다.)\n\nimport os\n\nval = os.environ.get('SECRET')\nprint(val)\nprint(type(val).__name__)",
+      "question": "다음 코드의 출력값을 고르세요. (환경 변수 'SECRET'은 설정되지 않은 상태입니다.)\n\n```python\nimport os\n```\n\n```python\nval = os.environ.get('SECRET')\nprint(val)\nprint(type(val).__name__)\n```",
       "choices": [
         "A. None\nNoneType",
         "B. ''\nstr",
@@ -45,7 +45,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": ".env 파일에서 환경 변수를 로드하는 라이브러리로 빈칸을 채우세요.\n\nfrom _____ import load_dotenv\nimport os\n\nload_dotenv()\napi_key = os.getenv('CLAUDE_API_KEY')",
+      "question": ".env 파일에서 환경 변수를 로드하는 라이브러리로 빈칸을 채우세요.\n\n```python\nfrom _____ import load_dotenv\nimport os\n```\n\n```python\nload_dotenv()\napi_key = os.getenv('CLAUDE_API_KEY')\n```",
       "answer": "dotenv",
       "feedback": {
         "correct": "정답! python-dotenv 라이브러리의 load_dotenv()는 .env 파일에 있는 KEY=VALUE 형태의 설정을 os.environ에 로드합니다. API 키를 코드에 직접 쓰지 않고 .env 파일에 관리하면 보안과 유지보수가 좋아져요. 클리어!"
@@ -60,7 +60,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\nimport os\n\nos.environ['MY_KEY'] = 'secret123'\nkey = os.environ['MY_KEY']\nmasked = key[:3] + '*' * (len(key) - 3)\nprint(masked)",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport os\n```\n\n```python\nos.environ['MY_KEY'] = 'secret123'\nkey = os.environ['MY_KEY']\nmasked = key[:3] + '*' * (len(key) - 3)\nprint(masked)\n```",
       "choices": [
         "A. sec******",
         "B. secret123",
@@ -81,7 +81,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "API 키가 없으면 예외를 발생시키는 코드의 빈칸을 채우세요.\n\nimport os\n\napi_key = os.getenv('CLAUDE_API_KEY')\nif not api_key:\n    raise _____(\"API 키가 설정되지 않았습니다\")",
+      "question": "API 키가 없으면 예외를 발생시키는 코드의 빈칸을 채우세요.\n\n```python\nimport os\n```\n\n```python\napi_key = os.getenv('CLAUDE_API_KEY')\nif not api_key:\n    raise _____(\"API 키가 설정되지 않았습니다\")\n```",
       "answer": "ValueError",
       "feedback": {
         "correct": "정답! API 키 같은 필수 설정이 없을 때는 ValueError를 발생시켜 프로그램 시작 시점에 오류를 알리는 것이 좋습니다. EnvironmentError나 RuntimeError를 쓰는 경우도 있지만, '잘못된 값(없는 값)' 의미에서 ValueError가 적절해요. 클리어!"
@@ -96,7 +96,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\nimport os\n\nos.environ['KEY'] = 'abc'\nprint('KEY' in os.environ)\ndel os.environ['KEY']\nprint('KEY' in os.environ)",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport os\n```\n\n```python\nos.environ['KEY'] = 'abc'\nprint('KEY' in os.environ)\ndel os.environ['KEY']\nprint('KEY' in os.environ)\n```",
       "choices": [
         "A. True\nFalse",
         "B. False\nTrue",
@@ -117,7 +117,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "API 키 유효성 검사 함수를 작성하세요.\n조건:\n- validate_key(key): key가 None이거나 빈 문자열이면 '키 없음', 길이 10 미만이면 '키 짧음', 그 외 '유효' 출력\n- validate_key(None), validate_key('short'), validate_key('validkey123') 순서로 호출\n\n출력 목표:\n키 없음\n키 짧음\n유효",
+      "question": "API 키 유효성 검사 함수를 작성하세요.\n조건:\n```python\n- validate_key(key): key가 None이거나 빈 문자열이면 '키 없음', 길이 10 미만이면 '키 짧음', 그 외 '유효' 출력\n- validate_key(None), validate_key('short'), validate_key('validkey123') 순서로 호출\n```\n\n출력 목표:\n키 없음\n키 짧음\n유효",
       "answer": "def validate_key(key):\n    if not key:\n        print('키 없음')\n    elif len(key) < 10:\n        print('키 짧음')\n    else:\n        print('유효')\n\nvalidate_key(None)\nvalidate_key('short')\nvalidate_key('validkey123')",
       "pyodide_eval": true,
       "feedback": {
@@ -133,7 +133,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "os.environ에서 없는 키를 대괄호로 접근하면 발생하는 예외를 빈칸에 채우세요.\n\nimport os\n\ntry:\n    val = os.environ['NONEXISTENT']\nexcept _____:\n    print('환경 변수 없음')",
+      "question": "os.environ에서 없는 키를 대괄호로 접근하면 발생하는 예외를 빈칸에 채우세요.\n\n```python\nimport os\n```\n\n```python\ntry:\n    val = os.environ['NONEXISTENT']\nexcept _____:\n    print('환경 변수 없음')\n```",
       "answer": "KeyError",
       "feedback": {
         "correct": "정답! os.environ은 dict를 상속한 Mapping이므로 없는 키를 대괄호로 접근하면 KeyError가 발생합니다. 이를 피하려면 os.getenv() 또는 os.environ.get()을 사용하세요. 클리어!"
@@ -148,7 +148,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\nimport os\n\nkeys = {'KEY_A': 'val1', 'KEY_B': 'val2', 'OTHER': 'val3'}\nfor k, v in keys.items():\n    os.environ[k] = v\n\nclaude_keys = {k: v for k, v in os.environ.items() if k.startswith('KEY_')}\nprint(len(claude_keys))",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport os\n```\n\n```python\nkeys = {'KEY_A': 'val1', 'KEY_B': 'val2', 'OTHER': 'val3'}\nfor k, v in keys.items():\n    os.environ[k] = v\n```\n\n```python\nclaude_keys = {k: v for k, v in os.environ.items() if k.startswith('KEY_')}\nprint(len(claude_keys))\n```",
       "choices": [
         "A. 2",
         "B. 3",
@@ -169,7 +169,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "환경 변수 기반 설정 로더를 작성하세요.\n조건:\n- os.environ에 'MODEL'='claude-3', 'MAX_TOKENS'='1024' 설정\n- load_config(): 두 값을 읽어 {'model': ..., 'max_tokens': int(...)} 딕셔너리 반환\n- config를 출력\n\n출력 목표:\n{'model': 'claude-3', 'max_tokens': 1024}",
+      "question": "환경 변수 기반 설정 로더를 작성하세요.\n조건:\n```python\n- os.environ에 'MODEL'='claude-3', 'MAX_TOKENS'='1024' 설정\n- load_config(): 두 값을 읽어 {'model': ..., 'max_tokens': int(...)} 딕셔너리 반환\n- config를 출력\n```\n\n출력 목표:\n{'model': 'claude-3', 'max_tokens': 1024}",
       "answer": "import os\n\nos.environ['MODEL'] = 'claude-3'\nos.environ['MAX_TOKENS'] = '1024'\n\ndef load_config():\n    return {\n        'model': os.environ['MODEL'],\n        'max_tokens': int(os.environ['MAX_TOKENS'])\n    }\n\nconfig = load_config()\nprint(config)",
       "pyodide_eval": true,
       "feedback": {
@@ -185,7 +185,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Anthropic 클라이언트를 생성하는 클래스로 빈칸을 채우세요.\n\nimport anthropic\n\nclient = anthropic._____(api_key='test-key')",
+      "question": "Anthropic 클라이언트를 생성하는 클래스로 빈칸을 채우세요.\n\n```python\nimport anthropic\n```\n\nclient = anthropic._____(api_key='test-key')",
       "answer": "Anthropic",
       "feedback": {
         "correct": "정답! anthropic.Anthropic()으로 클라이언트 인스턴스를 생성합니다. api_key를 생략하면 ANTHROPIC_API_KEY 환경 변수에서 자동으로 읽어요. 이 클라이언트 객체가 모든 API 호출의 진입점입니다. 클리어!"
@@ -200,7 +200,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 messages 구조에서 마지막 메시지의 role 값을 고르세요.\n\nmessages = [\n    {\"role\": \"user\", \"content\": \"안녕\"},\n    {\"role\": \"assistant\", \"content\": \"안녕하세요!\"},\n    {\"role\": \"user\", \"content\": \"잘 지내?\"}\n]\nprint(messages[-1]['role'])",
+      "question": "다음 messages 구조에서 마지막 메시지의 role 값을 고르세요.\n\n```python\nmessages = [\n    {\"role\": \"user\", \"content\": \"안녕\"},\n    {\"role\": \"assistant\", \"content\": \"안녕하세요!\"},\n    {\"role\": \"user\", \"content\": \"잘 지내?\"}\n```\n]\n```python\nprint(messages[-1]['role'])\n```",
       "choices": [
         "A. user",
         "B. assistant",
@@ -221,7 +221,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Claude API 응답에서 텍스트 내용을 꺼내는 경로의 빈칸을 채우세요.\n\n# response = client.messages.create(...)\ntext = response.content[0]._____\nprint(text)",
+      "question": "Claude API 응답에서 텍스트 내용을 꺼내는 경로의 빈칸을 채우세요.\n\n```python\n# response = client.messages.create(...)\ntext = response.content[0]._____\nprint(text)\n```",
       "answer": "text",
       "feedback": {
         "correct": "정답! Claude API 응답의 content는 리스트이고, 첫 번째 항목의 .text 속성에 실제 텍스트가 담깁니다. response.content[0].text가 표준 접근 방법이에요. content 항목이 여러 개일 수 있으므로 [0]으로 첫 번째를 가져옵니다. 클리어!"
@@ -236,7 +236,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\nmessages = []\nmessages.append({'role': 'user', 'content': '질문1'})\nmessages.append({'role': 'assistant', 'content': '답변1'})\nmessages.append({'role': 'user', 'content': '질문2'})\n\nprint(len(messages))\nprint(messages[1]['role'])",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nmessages = []\nmessages.append({'role': 'user', 'content': '질문1'})\nmessages.append({'role': 'assistant', 'content': '답변1'})\nmessages.append({'role': 'user', 'content': '질문2'})\n```\n\n```python\nprint(len(messages))\nprint(messages[1]['role'])\n```",
       "choices": [
         "A. 3\nassistant",
         "B. 2\nuser",
@@ -257,7 +257,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Claude API 호출 시 응답 토큰 최대값을 지정하는 파라미터 이름으로 빈칸을 채우세요.\n\nresponse = client.messages.create(\n    model='claude-opus-4-8',\n    _____=1024,\n    messages=[{'role': 'user', 'content': '안녕'}]\n)",
+      "question": "Claude API 호출 시 응답 토큰 최대값을 지정하는 파라미터 이름으로 빈칸을 채우세요.\n\n```python\nresponse = client.messages.create(\n    model='claude-opus-4-8',\n    _____=1024,\n    messages=[{'role': 'user', 'content': '안녕'}]\n```\n)",
       "answer": "max_tokens",
       "feedback": {
         "correct": "정답! max_tokens는 Claude API의 필수 파라미터입니다. 응답이 이 값에 도달하면 stop_reason이 'max_tokens'가 되고 응답이 잘릴 수 있어요. 충분히 크게 설정하되, 비용을 고려해 필요 이상으로 크게 잡지 않는 것이 좋습니다. 클리어!"
@@ -272,7 +272,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\nparams = {\n    'model': 'claude-opus-4-8',\n    'max_tokens': 1024,\n    'messages': [{'role': 'user', 'content': 'hi'}],\n    'temperature': 0.7\n}\n\nrequired = ['model', 'max_tokens', 'messages']\nall_present = all(k in params for k in required)\nprint(all_present)",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nparams = {\n    'model': 'claude-opus-4-8',\n```\n    'max_tokens': 1024,\n    'messages': [{'role': 'user', 'content': 'hi'}],\n    'temperature': 0.7\n}\n\n```python\nrequired = ['model', 'max_tokens', 'messages']\nall_present = all(k in params for k in required)\nprint(all_present)\n```",
       "choices": [
         "A. True",
         "B. False",
@@ -293,7 +293,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Claude API 응답의 stop_reason이 'end_turn'인지 확인하는 코드에서 빈칸을 채우세요.\n\n# response = client.messages.create(...)\nif response._____ == 'end_turn':\n    print('정상 완료')\nelif response.stop_reason == 'max_tokens':\n    print('토큰 초과')",
+      "question": "Claude API 응답의 stop_reason이 'end_turn'인지 확인하는 코드에서 빈칸을 채우세요.\n\n```python\n# response = client.messages.create(...)\nif response._____ == 'end_turn':\n    print('정상 완료')\nelif response.stop_reason == 'max_tokens':\n    print('토큰 초과')\n```",
       "answer": "stop_reason",
       "feedback": {
         "correct": "정답! response.stop_reason은 'end_turn'(정상 완료), 'max_tokens'(토큰 한도 초과), 'stop_sequence'(정지 시퀀스 감지) 중 하나를 반환합니다. 'end_turn'이 아니면 응답이 잘렸을 수 있으므로 확인이 필요해요. 클리어!"
@@ -308,7 +308,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\nimport json\n\nresponse_mock = {\n    'id': 'msg_001',\n    'type': 'message',\n    'role': 'assistant',\n    'content': [{'type': 'text', 'text': '안녕하세요!'}],\n    'model': 'claude-opus-4-8',\n    'stop_reason': 'end_turn',\n    'usage': {'input_tokens': 10, 'output_tokens': 5}\n}\n\nprint(response_mock['usage']['input_tokens'] + response_mock['usage']['output_tokens'])",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport json\n```\n\nresponse_mock = {\n    'id': 'msg_001',\n    'type': 'message',\n    'role': 'assistant',\n```python\n    'content': [{'type': 'text', 'text': '안녕하세요!'}],\n    'model': 'claude-opus-4-8',\n```\n    'stop_reason': 'end_turn',\n    'usage': {'input_tokens': 10, 'output_tokens': 5}\n}\n\n```python\nprint(response_mock['usage']['input_tokens'] + response_mock['usage']['output_tokens'])\n```",
       "choices": [
         "A. 15",
         "B. 10",
@@ -329,7 +329,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "messages 리스트를 관리하는 헬퍼 함수를 작성하세요.\n조건:\n- add_message(messages, role, content): messages에 {'role': role, 'content': content} 추가\n- get_last_role(messages): 마지막 메시지의 role 반환\n- 빈 리스트 생성, user/assistant/user 순서로 추가, 마지막 role 출력\n\n출력 목표:\nuser",
+      "question": "messages 리스트를 관리하는 헬퍼 함수를 작성하세요.\n조건:\n```python\n- add_message(messages, role, content): messages에 {'role': role, 'content': content} 추가\n- get_last_role(messages): 마지막 메시지의 role 반환\n- 빈 리스트 생성, user/assistant/user 순서로 추가, 마지막 role 출력\n```\n\n출력 목표:\nuser",
       "answer": "def add_message(messages, role, content):\n    messages.append({'role': role, 'content': content})\n\ndef get_last_role(messages):\n    return messages[-1]['role']\n\nmsgs = []\nadd_message(msgs, 'user', '안녕')\nadd_message(msgs, 'assistant', '안녕하세요')\nadd_message(msgs, 'user', '잘 지내?')\nprint(get_last_role(msgs))",
       "pyodide_eval": true,
       "feedback": {
@@ -345,7 +345,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "토큰 사용량을 추적하는 클래스를 작성하세요.\n조건:\n- TokenTracker: total_input=0, total_output=0\n- add(input_tokens, output_tokens): 각 누적\n- report(): '입력: {total_input}, 출력: {total_output}, 합계: {합}' 출력\n- add(10, 5), add(20, 8) 후 report() 호출\n\n출력 목표:\n입력: 30, 출력: 13, 합계: 43",
+      "question": "토큰 사용량을 추적하는 클래스를 작성하세요.\n조건:\n```python\n- TokenTracker: total_input=0, total_output=0\n- add(input_tokens, output_tokens): 각 누적\n- report(): '입력: {total_input}, 출력: {total_output}, 합계: {합}' 출력\n- add(10, 5), add(20, 8) 후 report() 호출\n```\n\n출력 목표:\n입력: 30, 출력: 13, 합계: 43",
       "answer": "class TokenTracker:\n    def __init__(self):\n        self.total_input = 0\n        self.total_output = 0\n\n    def add(self, input_tokens, output_tokens):\n        self.total_input += input_tokens\n        self.total_output += output_tokens\n\n    def report(self):\n        total = self.total_input + self.total_output\n        print(f'입력: {self.total_input}, 출력: {self.total_output}, 합계: {total}')\n\ntracker = TokenTracker()\ntracker.add(10, 5)\ntracker.add(20, 8)\ntracker.report()",
       "pyodide_eval": true,
       "feedback": {
@@ -361,7 +361,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Claude API에서 시스템 프롬프트를 전달하는 파라미터 이름으로 빈칸을 채우세요.\n\nresponse = client.messages.create(\n    model='claude-opus-4-8',\n    max_tokens=512,\n    _____='당신은 친절한 AI 도우미입니다.',\n    messages=[{'role': 'user', 'content': '안녕'}]\n)",
+      "question": "Claude API에서 시스템 프롬프트를 전달하는 파라미터 이름으로 빈칸을 채우세요.\n\n```python\nresponse = client.messages.create(\n    model='claude-opus-4-8',\n    max_tokens=512,\n```\n    _____='당신은 친절한 AI 도우미입니다.',\n    messages=[{'role': 'user', 'content': '안녕'}]\n)",
       "answer": "system",
       "feedback": {
         "correct": "정답! system 파라미터로 Claude의 역할, 성격, 제약 등을 설정합니다. messages 리스트에 포함되지 않고 별도 파라미터로 전달되며, 대화 전체에 적용됩니다. 시스템 프롬프트는 Claude의 행동을 일관되게 유지하는 핵심 도구예요. 클리어!"
@@ -376,7 +376,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 멀티턴 대화 히스토리 코드의 출력값을 고르세요.\n\nhistory = []\nhistory.append({'role': 'user', 'content': '1+1은?'})\nhistory.append({'role': 'assistant', 'content': '2입니다.'})\nhistory.append({'role': 'user', 'content': '그럼 2+2는?'})\n\nprint(len(history))\nprint(history[0]['content'])",
+      "question": "다음 멀티턴 대화 히스토리 코드의 출력값을 고르세요.\n\n```python\nhistory = []\nhistory.append({'role': 'user', 'content': '1+1은?'})\nhistory.append({'role': 'assistant', 'content': '2입니다.'})\nhistory.append({'role': 'user', 'content': '그럼 2+2는?'})\n```\n\n```python\nprint(len(history))\nprint(history[0]['content'])\n```",
       "choices": [
         "A. 3\n1+1은?",
         "B. 2\n1+1은?",
@@ -397,7 +397,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "멀티턴 대화에서 어시스턴트 응답을 히스토리에 추가할 때 role로 채울 값을 쓰세요.\n\nhistory = [{'role': 'user', 'content': '안녕'}]\n# API 응답을 히스토리에 추가\nhistory.append({'role': '_____', 'content': '안녕하세요!'})",
+      "question": "멀티턴 대화에서 어시스턴트 응답을 히스토리에 추가할 때 role로 채울 값을 쓰세요.\n\n```python\nhistory = [{'role': 'user', 'content': '안녕'}]\n# API 응답을 히스토리에 추가\nhistory.append({'role': '_____', 'content': '안녕하세요!'})\n```",
       "answer": "assistant",
       "feedback": {
         "correct": "정답! Claude의 응답은 role이 'assistant'입니다. API 호출 후 response.content[0].text로 텍스트를 꺼내 {'role': 'assistant', 'content': text}로 history에 추가해야 다음 턴에서 대화 문맥이 유지됩니다. 클리어!"
@@ -412,7 +412,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\nhistory = [\n    {'role': 'user', 'content': 'A'},\n    {'role': 'assistant', 'content': 'B'},\n    {'role': 'user', 'content': 'C'},\n]\n\nuser_msgs = [m['content'] for m in history if m['role'] == 'user']\nprint(user_msgs)",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nhistory = [\n    {'role': 'user', 'content': 'A'},\n    {'role': 'assistant', 'content': 'B'},\n    {'role': 'user', 'content': 'C'},\n```\n]\n\n```python\nuser_msgs = [m['content'] for m in history if m['role'] == 'user']\nprint(user_msgs)\n```",
       "choices": [
         "A. ['A', 'C']",
         "B. ['A', 'B', 'C']",
@@ -433,7 +433,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "대화 히스토리의 최근 N개만 유지하는 코드에서 빈칸을 채우세요.\n\nhistory = list(range(10))  # 예시용 10개 히스토리\nmax_history = 6\nif len(history) > max_history:\n    history = history[_____:]\nprint(len(history))",
+      "question": "대화 히스토리의 최근 N개만 유지하는 코드에서 빈칸을 채우세요.\n\n```python\nhistory = list(range(10))  # 예시용 10개 히스토리\nmax_history = 6\nif len(history) > max_history:\n    history = history[_____:]\nprint(len(history))\n```",
       "answer": "-6",
       "feedback": {
         "correct": "정답! history[-6:]은 리스트의 마지막 6개를 슬라이싱합니다. 음수 인덱스를 사용해 '최근 N개' 유지 로직을 간결하게 구현할 수 있어요. 멀티턴 대화에서 토큰 비용을 줄이기 위해 오래된 히스토리를 제거할 때 쓰는 패턴입니다. 클리어!"
@@ -448,7 +448,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\nconversation = [\n    {'role': 'user', 'content': '파이썬 배우고 싶어'},\n    {'role': 'assistant', 'content': '좋아요! 어디서부터 시작할까요?'},\n    {'role': 'user', 'content': '기초부터'},\n]\n\nsystem = '당신은 파이썬 튜터입니다.'\napi_params = {\n    'system': system,\n    'messages': conversation,\n    'max_tokens': 512\n}\n\nprint(len(api_params['messages']))\nprint(api_params['system'][:4])",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nconversation = [\n    {'role': 'user', 'content': '파이썬 배우고 싶어'},\n    {'role': 'assistant', 'content': '좋아요! 어디서부터 시작할까요?'},\n    {'role': 'user', 'content': '기초부터'},\n```\n]\n\nsystem = '당신은 파이썬 튜터입니다.'\napi_params = {\n    'system': system,\n    'messages': conversation,\n    'max_tokens': 512\n}\n\n```python\nprint(len(api_params['messages']))\nprint(api_params['system'][:4])\n```",
       "choices": [
         "A. 3\n당신은",
         "B. 2\n당신은",
@@ -469,7 +469,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "멀티턴 대화 시뮬레이터를 작성하세요.\n조건:\n- ChatSession 클래스: system(str), history(list) 초기화\n- add_user(msg): user 메시지 추가\n- add_assistant(msg): assistant 메시지 추가\n- summary(): '턴 수: {len(history)//2}' 출력\n- user '안녕', assistant '안녕!', user '잘 지내?', assistant '잘 지내요!' 추가 후 summary()\n\n출력 목표:\n턴 수: 2",
+      "question": "멀티턴 대화 시뮬레이터를 작성하세요.\n조건:\n```python\n- ChatSession 클래스: system(str), history(list) 초기화\n- add_user(msg): user 메시지 추가\n- add_assistant(msg): assistant 메시지 추가\n- summary(): '턴 수: {len(history)//2}' 출력\n- user '안녕', assistant '안녕!', user '잘 지내?', assistant '잘 지내요!' 추가 후 summary()\n```\n\n출력 목표:\n턴 수: 2",
       "answer": "class ChatSession:\n    def __init__(self, system=''):\n        self.system = system\n        self.history = []\n\n    def add_user(self, msg):\n        self.history.append({'role': 'user', 'content': msg})\n\n    def add_assistant(self, msg):\n        self.history.append({'role': 'assistant', 'content': msg})\n\n    def summary(self):\n        print(f'턴 수: {len(self.history) // 2}')\n\nsession = ChatSession(system='AI 도우미')\nsession.add_user('안녕')\nsession.add_assistant('안녕!')\nsession.add_user('잘 지내?')\nsession.add_assistant('잘 지내요!')\nsession.summary()",
       "pyodide_eval": true,
       "feedback": {
@@ -485,7 +485,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "히스토리에서 assistant 응답만 모아 마지막 응답을 반환하는 함수에서 빈칸을 채우세요.\n\ndef get_last_reply(history):\n    replies = [m['content'] for m in history if m['_____'] == 'assistant']\n    return replies[-1] if replies else None\n\nhist = [\n    {'role': 'user', 'content': 'Q1'},\n    {'role': 'assistant', 'content': 'A1'},\n    {'role': 'user', 'content': 'Q2'},\n    {'role': 'assistant', 'content': 'A2'},\n]\nprint(get_last_reply(hist))",
+      "question": "히스토리에서 assistant 응답만 모아 마지막 응답을 반환하는 함수에서 빈칸을 채우세요.\n\n```python\ndef get_last_reply(history):\n    replies = [m['content'] for m in history if m['_____'] == 'assistant']\n    return replies[-1] if replies else None\n```\n\n```python\nhist = [\n    {'role': 'user', 'content': 'Q1'},\n    {'role': 'assistant', 'content': 'A1'},\n    {'role': 'user', 'content': 'Q2'},\n    {'role': 'assistant', 'content': 'A2'},\n```\n]\n```python\nprint(get_last_reply(hist))\n```",
       "answer": "role",
       "feedback": {
         "correct": "정답! m['role'] == 'assistant'로 어시스턴트 메시지를 필터링합니다. replies[-1]은 마지막 어시스턴트 응답인 'A2'이에요. replies가 빈 리스트면 None을 반환해 오류를 방지합니다. 클리어!"
@@ -500,7 +500,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\nMAX_TURNS = 2\nhistory = [\n    {'role': 'user', 'content': 'Q1'},\n    {'role': 'assistant', 'content': 'A1'},\n    {'role': 'user', 'content': 'Q2'},\n    {'role': 'assistant', 'content': 'A2'},\n    {'role': 'user', 'content': 'Q3'},\n    {'role': 'assistant', 'content': 'A3'},\n]\n\nif len(history) > MAX_TURNS * 2:\n    history = history[-(MAX_TURNS * 2):]\n\nprint(len(history))\nprint(history[0]['content'])",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nMAX_TURNS = 2\nhistory = [\n    {'role': 'user', 'content': 'Q1'},\n    {'role': 'assistant', 'content': 'A1'},\n    {'role': 'user', 'content': 'Q2'},\n    {'role': 'assistant', 'content': 'A2'},\n    {'role': 'user', 'content': 'Q3'},\n    {'role': 'assistant', 'content': 'A3'},\n```\n]\n\n```python\nif len(history) > MAX_TURNS * 2:\n    history = history[-(MAX_TURNS * 2):]\n```\n\n```python\nprint(len(history))\nprint(history[0]['content'])\n```",
       "choices": [
         "A. 4\nQ2",
         "B. 6\nQ1",
@@ -521,7 +521,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "히스토리 요약 함수를 작성하세요.\n조건:\n- summarize(history): user/assistant 메시지 수를 세어 '사용자: N, 어시스턴트: M' 출력\n- history에 user 3개, assistant 2개 추가 후 summarize 호출\n\n출력 목표:\n사용자: 3, 어시스턴트: 2",
+      "question": "히스토리 요약 함수를 작성하세요.\n조건:\n```python\n- summarize(history): user/assistant 메시지 수를 세어 '사용자: N, 어시스턴트: M' 출력\n- history에 user 3개, assistant 2개 추가 후 summarize 호출\n```\n\n출력 목표:\n사용자: 3, 어시스턴트: 2",
       "answer": "def summarize(history):\n    user_count = sum(1 for m in history if m['role'] == 'user')\n    asst_count = sum(1 for m in history if m['role'] == 'assistant')\n    print(f'사용자: {user_count}, 어시스턴트: {asst_count}')\n\nhistory = [\n    {'role': 'user', 'content': 'Q1'},\n    {'role': 'assistant', 'content': 'A1'},\n    {'role': 'user', 'content': 'Q2'},\n    {'role': 'assistant', 'content': 'A2'},\n    {'role': 'user', 'content': 'Q3'},\n]\nsummarize(history)",
       "pyodide_eval": true,
       "feedback": {
@@ -537,7 +537,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Claude API 스트리밍을 사용할 때 with문에 사용하는 메서드로 빈칸을 채우세요.\n\nwith client.messages._____(model='claude-opus-4-8',\n                          max_tokens=512,\n                          messages=[{'role': 'user', 'content': '안녕'}]) as stream:\n    text = stream.get_final_text()",
+      "question": "Claude API 스트리밍을 사용할 때 with문에 사용하는 메서드로 빈칸을 채우세요.\n\n```python\nwith client.messages._____(model='claude-opus-4-8',\n                          max_tokens=512,\n                          messages=[{'role': 'user', 'content': '안녕'}]) as stream:\n    text = stream.get_final_text()\n```",
       "answer": "stream",
       "feedback": {
         "correct": "정답! client.messages.stream()은 스트리밍 컨텍스트 매니저를 반환합니다. with문으로 사용하면 청크 단위로 응답을 받을 수 있어요. stream.text_stream으로 청크를 하나씩 이터레이트하거나, stream.get_final_text()로 전체 텍스트를 한 번에 받을 수 있습니다. 클리어!"
@@ -552,7 +552,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "스트리밍 없이 응답 청크를 직접 조합하는 코드의 출력값을 고르세요.\n\nchunks = ['안', '녕', '하', '세', '요']\nfull = ''\nfor chunk in chunks:\n    full += chunk\nprint(full)",
+      "question": "스트리밍 없이 응답 청크를 직접 조합하는 코드의 출력값을 고르세요.\n\n```python\nchunks = ['안', '녕', '하', '세', '요']\nfull = ''\nfor chunk in chunks:\n    full += chunk\nprint(full)\n```",
       "choices": [
         "A. 안녕하세요",
         "B. ['안', '녕', '하', '세', '요']",
@@ -573,7 +573,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "스트리밍 청크를 실시간으로 출력할 때 줄바꿈 없이 이어서 쓰는 print 인자로 빈칸을 채우세요.\n\nchunks = ['Hello', ', ', 'World', '!']\nfor chunk in chunks:\n    print(chunk, end=_____, flush=True)",
+      "question": "스트리밍 청크를 실시간으로 출력할 때 줄바꿈 없이 이어서 쓰는 print 인자로 빈칸을 채우세요.\n\n```python\nchunks = ['Hello', ', ', 'World', '!']\nfor chunk in chunks:\n    print(chunk, end=_____, flush=True)\n```",
       "answer": "''",
       "feedback": {
         "correct": "정답! print(chunk, end='')는 각 청크 출력 후 개행 없이 이어 씁니다. 기본값 end='\\n'을 end=''로 바꿔 청크들이 한 줄에 이어지게 해요. flush=True는 버퍼를 즉시 비워 실시간으로 화면에 표시되게 합니다. 클리어!"
@@ -588,7 +588,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\nchunks = ['py', 'tho', 'n']\nresult = ''.join(chunks)\nprint(result)\nprint(len(result))",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nchunks = ['py', 'tho', 'n']\nresult = ''.join(chunks)\nprint(result)\nprint(len(result))\n```",
       "choices": [
         "A. python\n6",
         "B. py tho n\n7",
@@ -609,7 +609,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "스트리밍 이벤트 중 텍스트 델타 이벤트의 타입으로 빈칸을 채우세요.\n\n# 스트리밍 이벤트 처리 예시\nevent_type = 'content_block_delta'\nif event_type == '_____':\n    # delta.text로 청크 텍스트 접근\n    pass",
+      "question": "스트리밍 이벤트 중 텍스트 델타 이벤트의 타입으로 빈칸을 채우세요.\n\n```python\n# 스트리밍 이벤트 처리 예시\nevent_type = 'content_block_delta'\nif event_type == '_____':\n    # delta.text로 청크 텍스트 접근\n```\n    pass",
       "answer": "content_block_delta",
       "feedback": {
         "correct": "정답! Claude API 스트리밍에서 텍스트 청크는 content_block_delta 이벤트로 전달됩니다. 이벤트 객체의 delta.text에 실제 텍스트 조각이 담겨요. message_start, content_block_start, content_block_delta, content_block_stop, message_stop 순으로 이벤트가 발생합니다. 클리어!"
@@ -624,7 +624,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 스트리밍 시뮬레이션 코드의 출력값을 고르세요.\n\nimport sys\n\nchunks = ['에', '이', '몬']\ncollected = []\nfor chunk in chunks:\n    collected.append(chunk)\n\nfull_text = ''.join(collected)\nprint(f'수신: {full_text}')\nprint(f'청크 수: {len(collected)}')",
+      "question": "다음 스트리밍 시뮬레이션 코드의 출력값을 고르세요.\n\n```python\nimport sys\n```\n\n```python\nchunks = ['에', '이', '몬']\ncollected = []\nfor chunk in chunks:\n    collected.append(chunk)\n```\n\n```python\nfull_text = ''.join(collected)\nprint(f'수신: {full_text}')\nprint(f'청크 수: {len(collected)}')\n```",
       "choices": [
         "A. 수신: 에이몬\n청크 수: 3",
         "B. 수신: ['에', '이', '몬']\n청크 수: 3",
@@ -645,7 +645,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "스트리밍 시뮬레이터를 구현하세요.\n조건:\n- stream_text(text, chunk_size=2): text를 chunk_size 단위로 나눠 리스트로 반환\n- stream_text('에이몬AI', 2)로 청크 리스트 생성\n- 각 청크를 print(chunk, end='', flush=True)로 출력\n- 마지막에 개행 출력\n\n출력 목표:\n에이몬AI",
+      "question": "스트리밍 시뮬레이터를 구현하세요.\n조건:\n```python\n- stream_text(text, chunk_size=2): text를 chunk_size 단위로 나눠 리스트로 반환\n- stream_text('에이몬AI', 2)로 청크 리스트 생성\n- 각 청크를 print(chunk, end='', flush=True)로 출력\n```\n- 마지막에 개행 출력\n\n출력 목표:\n에이몬AI",
       "answer": "def stream_text(text, chunk_size=2):\n    return [text[i:i+chunk_size] for i in range(0, len(text), chunk_size)]\n\nchunks = stream_text('에이몬AI', 2)\nfor chunk in chunks:\n    print(chunk, end='', flush=True)\nprint()",
       "pyodide_eval": true,
       "feedback": {
@@ -661,7 +661,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "스트리밍 중 특정 문자열이 등장하면 중단하는 로직에서 빈칸을 채우세요.\n\nchunks = ['안녕', '하세', '요', '[STOP]', '이후내용']\ncollected = []\nfor chunk in chunks:\n    if '[STOP]' in chunk:\n        _____\n    collected.append(chunk)\nprint(''.join(collected))",
+      "question": "스트리밍 중 특정 문자열이 등장하면 중단하는 로직에서 빈칸을 채우세요.\n\n```python\nchunks = ['안녕', '하세', '요', '[STOP]', '이후내용']\ncollected = []\nfor chunk in chunks:\n    if '[STOP]' in chunk:\n```\n        _____\n```python\n    collected.append(chunk)\nprint(''.join(collected))\n```",
       "answer": "break",
       "feedback": {
         "correct": "정답! break는 루프를 즉시 종료합니다. '[STOP]'을 만나면 break로 루프를 끊어 이후 청크를 무시합니다. ''.join(collected)는 '안녕하세요'가 돼요. stop_sequence 파라미터로 Claude가 특정 문자열에서 자동으로 멈추게 할 수도 있습니다. 클리어!"
@@ -676,7 +676,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\nchunks = ['He', 'llo', ' Wor', 'ld']\ntotal_chars = 0\nfor chunk in chunks:\n    total_chars += len(chunk)\n\nfull = ''.join(chunks)\nprint(total_chars == len(full))\nprint(full)",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nchunks = ['He', 'llo', ' Wor', 'ld']\ntotal_chars = 0\nfor chunk in chunks:\n    total_chars += len(chunk)\n```\n\n```python\nfull = ''.join(chunks)\nprint(total_chars == len(full))\nprint(full)\n```",
       "choices": [
         "A. True\nHello World",
         "B. False\nHello World",
@@ -697,7 +697,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "스트리밍 응답 처리기 클래스를 작성하세요.\n조건:\n- StreamCollector: chunks=[], char_count=0\n- add(chunk): chunks에 추가하고 char_count 누적\n- finish(): '완료: {char_count}자, {len(chunks)}청크' 출력\n- 청크 '에이', '몬 ', 'AI' 추가 후 finish()\n\n출력 목표:\n완료: 7자, 3청크",
+      "question": "스트리밍 응답 처리기 클래스를 작성하세요.\n조건:\n```python\n- StreamCollector: chunks=[], char_count=0\n- add(chunk): chunks에 추가하고 char_count 누적\n- finish(): '완료: {char_count}자, {len(chunks)}청크' 출력\n- 청크 '에이', '몬 ', 'AI' 추가 후 finish()\n```\n\n출력 목표:\n완료: 7자, 3청크",
       "answer": "class StreamCollector:\n    def __init__(self):\n        self.chunks = []\n        self.char_count = 0\n\n    def add(self, chunk):\n        self.chunks.append(chunk)\n        self.char_count += len(chunk)\n\n    def finish(self):\n        print(f'완료: {self.char_count}자, {len(self.chunks)}청크')\n\ncollector = StreamCollector()\ncollector.add('에이')\ncollector.add('몬 ')\ncollector.add('AI')\ncollector.finish()",
       "pyodide_eval": true,
       "feedback": {
@@ -713,7 +713,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\nconfig = {\n    'model': 'claude-opus-4-8',\n    'max_tokens': 2048,\n    'system': 'AI 도우미',\n    'temperature': 0.5\n}\n\nprint(config.get('temperature', 1.0))\nprint(config.get('top_p', 0.9))",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nconfig = {\n    'model': 'claude-opus-4-8',\n```\n    'max_tokens': 2048,\n    'system': 'AI 도우미',\n    'temperature': 0.5\n}\n\n```python\nprint(config.get('temperature', 1.0))\nprint(config.get('top_p', 0.9))\n```",
       "choices": [
         "A. 0.5\n0.9",
         "B. 1.0\n0.9",
@@ -734,7 +734,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "API 호출 실패 시 재시도하는 패턴에서 빈칸을 채우세요.\n\nimport time\n\ndef call_with_retry(func, max_retries=3):\n    for attempt in range(max_retries):\n        try:\n            return func()\n        except Exception as e:\n            if attempt == max_retries - 1:\n                _____\n            time.sleep(2 ** attempt)\n\ncall_with_retry(lambda: 1/0)",
+      "question": "API 호출 실패 시 재시도하는 패턴에서 빈칸을 채우세요.\n\n```python\nimport time\n```\n\n```python\ndef call_with_retry(func, max_retries=3):\n    for attempt in range(max_retries):\n        try:\n            return func()\n        except Exception as e:\n            if attempt == max_retries - 1:\n```\n                _____\n            time.sleep(2 ** attempt)\n\ncall_with_retry(lambda: 1/0)",
       "answer": "raise",
       "feedback": {
         "correct": "정답! raise는 현재 예외를 그대로 재발생시킵니다. 마지막 시도에서도 실패하면 예외를 상위로 전파해야 호출자가 오류를 알 수 있어요. time.sleep(2 ** attempt)는 지수 백오프 패턴으로 1초, 2초, 4초... 대기합니다. 클리어!"
@@ -749,7 +749,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "API 응답을 캐싱하는 딕셔너리 패턴에서 빈칸을 채우세요.\n\ncache = {}\n\ndef cached_call(prompt):\n    if prompt in cache:\n        return cache[prompt]\n    result = f'응답: {prompt}'\n    cache[_____] = result\n    return result\n\nprint(cached_call('안녕'))\nprint(cached_call('안녕'))  # 캐시에서 반환",
+      "question": "API 응답을 캐싱하는 딕셔너리 패턴에서 빈칸을 채우세요.\n\ncache = {}\n\n```python\ndef cached_call(prompt):\n    if prompt in cache:\n        return cache[prompt]\n    result = f'응답: {prompt}'\n    cache[_____] = result\n    return result\n```\n\n```python\nprint(cached_call('안녕'))\nprint(cached_call('안녕'))  # 캐시에서 반환\n```",
       "answer": "prompt",
       "feedback": {
         "correct": "정답! cache[prompt] = result로 응답을 딕셔너리에 저장합니다. 같은 prompt로 두 번째 호출 시 cache[prompt]에서 바로 반환돼요. 동일 질문에 반복 API 호출을 피해 비용을 절약하는 단순하지만 효과적인 패턴입니다. 클리어!"
@@ -764,7 +764,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 재시도 로직의 출력값을 고르세요.\n\ncall_count = 0\n\ndef flaky():\n    global call_count\n    call_count += 1\n    if call_count < 3:\n        raise RuntimeError('일시적 오류')\n    return '성공'\n\nfor attempt in range(5):\n    try:\n        result = flaky()\n        print(f'시도 {attempt+1}: {result}')\n        break\n    except RuntimeError:\n        print(f'시도 {attempt+1}: 실패')",
+      "question": "다음 재시도 로직의 출력값을 고르세요.\n\ncall_count = 0\n\ndef flaky():\n    global call_count\n```python\n    call_count += 1\n    if call_count < 3:\n        raise RuntimeError('일시적 오류')\n    return '성공'\n```\n\n```python\nfor attempt in range(5):\n    try:\n        result = flaky()\n        print(f'시도 {attempt+1}: {result}')\n```\n        break\n```python\n    except RuntimeError:\n        print(f'시도 {attempt+1}: 실패')\n```",
       "choices": [
         "A. 시도 1: 실패\n시도 2: 실패\n시도 3: 성공",
         "B. 시도 1: 성공",
@@ -785,7 +785,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "함수 실행 시간을 측정해 로깅하는 데코레이터에서 빈칸을 채우세요.\n\nimport time, functools\n\ndef timer(func):\n    @functools.wraps(func)\n    def wrapper(*args, **kwargs):\n        start = time.time()\n        result = func(*args, **kwargs)\n        elapsed = time._____ () - start\n        print(f'{func.__name__}: {elapsed:.3f}s')\n        return result\n    return wrapper",
+      "question": "함수 실행 시간을 측정해 로깅하는 데코레이터에서 빈칸을 채우세요.\n\n```python\nimport time, functools\n```\n\n```python\ndef timer(func):\n    @functools.wraps(func)\n    def wrapper(*args, **kwargs):\n        start = time.time()\n        result = func(*args, **kwargs)\n        elapsed = time._____ () - start\n        print(f'{func.__name__}: {elapsed:.3f}s')\n        return result\n    return wrapper\n```",
       "answer": "time",
       "feedback": {
         "correct": "정답! time.time()은 현재 시각을 Unix 타임스탬프(초 단위 float)로 반환합니다. 함수 실행 전후로 time.time()을 호출해 차이를 구하면 경과 시간이에요. API 호출 레이턴시 측정에 자주 쓰는 패턴입니다. 클리어!"
@@ -800,7 +800,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\ncache = {}\n\ndef cached(prompt):\n    if prompt not in cache:\n        cache[prompt] = prompt.upper()\n    return cache[prompt]\n\nprint(cached('hello'))\nprint(cached('hello'))\nprint(len(cache))",
+      "question": "다음 코드의 출력값을 고르세요.\n\ncache = {}\n\n```python\ndef cached(prompt):\n    if prompt not in cache:\n        cache[prompt] = prompt.upper()\n    return cache[prompt]\n```\n\n```python\nprint(cached('hello'))\nprint(cached('hello'))\nprint(len(cache))\n```",
       "choices": [
         "A. HELLO\nHELLO\n1",
         "B. HELLO\nhello\n2",
@@ -821,7 +821,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "API 클라이언트 래퍼 클래스를 작성하세요.\n조건:\n- AIClient: api_key(str), call_count=0\n- chat(message): call_count 증가, f'[응답] {message}' 반환\n- get_stats(): '호출 횟수: {call_count}' 출력\n- chat('안녕'), chat('잘 있어') 후 get_stats()\n\n출력 목표:\n호출 횟수: 2",
+      "question": "API 클라이언트 래퍼 클래스를 작성하세요.\n조건:\n```python\n- AIClient: api_key(str), call_count=0\n- chat(message): call_count 증가, f'[응답] {message}' 반환\n- get_stats(): '호출 횟수: {call_count}' 출력\n- chat('안녕'), chat('잘 있어') 후 get_stats()\n```\n\n출력 목표:\n호출 횟수: 2",
       "answer": "class AIClient:\n    def __init__(self, api_key):\n        self.api_key = api_key\n        self.call_count = 0\n\n    def chat(self, message):\n        self.call_count += 1\n        return f'[응답] {message}'\n\n    def get_stats(self):\n        print(f'호출 횟수: {self.call_count}')\n\nclient = AIClient(api_key='test-key')\nclient.chat('안녕')\nclient.chat('잘 있어')\nclient.get_stats()",
       "pyodide_eval": true,
       "feedback": {
@@ -837,7 +837,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "여러 메시지를 배치 처리하는 제너레이터에서 빈칸을 채우세요.\n\ndef batch_process(prompts):\n    for prompt in prompts:\n        result = f'응답: {prompt}'\n        _____ result\n\nfor r in batch_process(['A', 'B', 'C']):\n    print(r)",
+      "question": "여러 메시지를 배치 처리하는 제너레이터에서 빈칸을 채우세요.\n\n```python\ndef batch_process(prompts):\n    for prompt in prompts:\n        result = f'응답: {prompt}'\n```\n        _____ result\n\n```python\nfor r in batch_process(['A', 'B', 'C']):\n    print(r)\n```",
       "answer": "yield",
       "feedback": {
         "correct": "정답! yield를 사용하면 batch_process가 제너레이터 함수가 됩니다. 각 prompt를 처리할 때마다 결과를 하나씩 내보내므로, 모든 결과를 메모리에 모으지 않고 스트리밍처럼 처리할 수 있어요. 대량의 API 요청을 메모리 효율적으로 처리하는 패턴입니다. 클리어!"
@@ -852,7 +852,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\nclass RateLimiter:\n    def __init__(self, max_calls):\n        self.max_calls = max_calls\n        self.calls = 0\n\n    def can_call(self):\n        if self.calls < self.max_calls:\n            self.calls += 1\n            return True\n        return False\n\nlimiter = RateLimiter(3)\nresults = [limiter.can_call() for _ in range(5)]\nprint(results)",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass RateLimiter:\n    def __init__(self, max_calls):\n        self.max_calls = max_calls\n        self.calls = 0\n```\n\n```python\n    def can_call(self):\n        if self.calls < self.max_calls:\n            self.calls += 1\n            return True\n        return False\n```\n\n```python\nlimiter = RateLimiter(3)\nresults = [limiter.can_call() for _ in range(5)]\nprint(results)\n```",
       "choices": [
         "A. [True, True, True, False, False]",
         "B. [True, True, True, True, True]",
@@ -873,7 +873,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "지수 백오프 재시도 함수를 작성하세요.\n조건:\n- retry(func, max_retries=3): 성공 시 반환값, 실패 시 'attempt {n}' 출력\n- 3번 모두 실패하면 '최대 재시도 초과' 출력 후 None 반환\n- 항상 실패하는 lambda: (_ for _ in ()).throw(Exception())를 전달\n\n출력 목표:\nattempt 1\nattempt 2\nattempt 3\n최대 재시도 초과",
+      "question": "지수 백오프 재시도 함수를 작성하세요.\n조건:\n- retry(func, max_retries=3): 성공 시 반환값, 실패 시 'attempt {n}' 출력\n- 3번 모두 실패하면 '최대 재시도 초과' 출력 후 None 반환\n```python\n- 항상 실패하는 lambda: (_ for _ in ()).throw(Exception())를 전달\n```\n\n출력 목표:\nattempt 1\nattempt 2\nattempt 3\n최대 재시도 초과",
       "answer": "def retry(func, max_retries=3):\n    for n in range(1, max_retries + 1):\n        try:\n            return func()\n        except Exception:\n            print(f'attempt {n}')\n    print('최대 재시도 초과')\n    return None\n\nresult = retry(lambda: (_ for _ in ()).throw(Exception('실패')))\n",
       "pyodide_eval": true,
       "feedback": {

@@ -82,7 +82,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 데이터 조회 코드를 가동시켰을 때, 최종적으로 컴퓨터 화면에 찍히는 출력물로 올바른 것을 고르세요.\n\nmonster = {'name': '코드몬', 'hp': 120}\nprint(monster['name'])",
+      "question": "다음 파이썬 데이터 조회 코드를 가동시켰을 때, 최종적으로 컴퓨터 화면에 찍히는 출력물로 올바른 것을 고르세요.\n\n```python\nmonster = {'name': '코드몬', 'hp': 120}\nprint(monster['name'])\n```",
       "choices": [
         "A. name",
         "B. 120",
@@ -130,7 +130,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 데이터 제어 코드를 런타임에서 작동시켰을 때 반환되는 출력 결과 정수는 무엇인가요?\n\nuser_profile = {'nickname': '보라슬라임', 'lv': 1}\nprint(user_profile.get('point', 0))",
+      "question": "다음 파이썬 데이터 제어 코드를 런타임에서 작동시켰을 때 반환되는 출력 결과 정수는 무엇인가요?\n\n```python\nuser_profile = {'nickname': '보라슬라임', 'lv': 1}\nprint(user_profile.get('point', 0))\n```",
       "choices": [
         "A. 0",
         "B. None",
@@ -154,7 +154,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 내장 메서드 활용 코드의 내부 연산 흐름을 추적하여 최종 출력되는 정수 데이터를 고르세요.\n\nbackpack = {'gold': 500, 'potion': 3}\nprint(backpack.get('gold'))",
+      "question": "다음 파이썬 내장 메서드 활용 코드의 내부 연산 흐름을 추적하여 최종 출력되는 정수 데이터를 고르세요.\n\n```python\nbackpack = {'gold': 500, 'potion': 3}\nprint(backpack.get('gold'))\n```",
       "choices": [
         "A. gold",
         "B. 500",
@@ -202,7 +202,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 설정값 탐색 코드의 컴파일러 처리 결과를 예측하여 모니터 화면에 최종 인쇄되는 데이터 포맷을 고르세요.\n\nserver_config = {'port': 8080, 'status': 'active'}\nprint(server_config.get('version'))",
+      "question": "다음 파이썬 설정값 탐색 코드의 컴파일러 처리 결과를 예측하여 모니터 화면에 최종 인쇄되는 데이터 포맷을 고르세요.\n\n```python\nserver_config = {'port': 8080, 'status': 'active'}\nprint(server_config.get('version'))\n```",
       "choices": [
         "A. version",
         "B. 0",
@@ -226,7 +226,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 초기화 중괄호 선언문 내부에서 의도적으로 동일한 키 이름으로 데이터를 여러 번 가산 중복 선언했을 때, 최종적으로 모니터에 인쇄되는 정착 데이터는 무엇인가요?\n\nplayer_inventory = {'weapon': '나무검', 'weapon': '철검'}\nprint(player_inventory['weapon'])",
+      "question": "다음과 같이 초기화 중괄호 선언문 내부에서 의도적으로 동일한 키 이름으로 데이터를 여러 번 가산 중복 선언했을 때, 최종적으로 모니터에 인쇄되는 정착 데이터는 무엇인가요?\n\n```python\nplayer_inventory = {'weapon': '나무검', 'weapon': '철검'}\nprint(player_inventory['weapon'])\n```",
       "choices": [
         "A. 나무검",
         "B. ['나무검', '철검']",
@@ -274,7 +274,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 데이터 개체의 리얼 자료형 타입을 빌트인 판정기인 type() 함수로 조사했을 때 콘솔 터미널에 프린트되는 클래스명은 무엇인가요?\n\nhero_stat = {'job': '전사'}\nprint(type(hero_stat))",
+      "question": "다음 파이썬 데이터 개체의 리얼 자료형 타입을 빌트인 판정기인 type() 함수로 조사했을 때 콘솔 터미널에 프린트되는 클래스명은 무엇인가요?\n\n```python\nhero_stat = {'job': '전사'}\nprint(type(hero_stat))\n```",
       "choices": [
         "A. <class 'list'>",
         "B. <class 'dict'>",
@@ -322,7 +322,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 딕셔너리 메모리 접근 코드를 쉘 환경에서 작동시켰을 때 반환되는 결과 상수로 합당한 것을 고르세요.\n\nspell_book = {'name': '파이어볼', 'mana_cost': 35}\nprint(spell_book['mana_cost'])",
+      "question": "다음 파이썬 딕셔너리 메모리 접근 코드를 쉘 환경에서 작동시켰을 때 반환되는 결과 상수로 합당한 것을 고르세요.\n\n```python\nspell_book = {'name': '파이어볼', 'mana_cost': 35}\nprint(spell_book['mana_cost'])\n```",
       "choices": [
         "A. 35",
         "B. mana_cost",
@@ -370,7 +370,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 조건 검색 및 대체 텍스트 출력 유도 코드의 최종 런타임 결과물 문자열로 완벽하게 부합하는 것은 무엇인가요?\n\ngame_item = {'item_id': 101, 'name': '빨간물약'}\nprint(game_item.get('count', '보유량 없음'))",
+      "question": "다음 파이썬 조건 검색 및 대체 텍스트 출력 유도 코드의 최종 런타임 결과물 문자열로 완벽하게 부합하는 것은 무엇인가요?\n\n```python\ngame_item = {'item_id': 101, 'name': '빨간물약'}\nprint(game_item.get('count', '보유량 없음'))\n```",
       "choices": [
         "A. 101",
         "B. None",
@@ -394,7 +394,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 원시 탐색 코드를 실행 단계로 이끌었을 때 컴퓨터가 마주하게 되는 시스템적 최종 사건이나 반환값으로 매칭되는 것을 고르세요.\n\nteam_info = {'leader': '에이몬'}\nprint(team_info['crew'])",
+      "question": "다음 파이썬 원시 탐색 코드를 실행 단계로 이끌었을 때 컴퓨터가 마주하게 되는 시스템적 최종 사건이나 반환값으로 매칭되는 것을 고르세요.\n\n```python\nteam_info = {'leader': '에이몬'}\nprint(team_info['crew'])\n```",
       "choices": [
         "A. None 출력",
         "B. crew 출력",
@@ -442,7 +442,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 조건부 탐색 데이터 회수 코드의 작동 메커니즘을 연산 추적하여 최종 터미널에 반환되는 텍스트 결과물을 엄선하세요.\n\nstage_reward = {'type': '전설장비', 'gold': 7700}\nprint(stage_reward.get('type', '일반장비'))",
+      "question": "다음 파이썬 조건부 탐색 데이터 회수 코드의 작동 메커니즘을 연산 추적하여 최종 터미널에 반환되는 텍스트 결과물을 엄선하세요.\n\n```python\nstage_reward = {'type': '전설장비', 'gold': 7700}\nprint(stage_reward.get('type', '일반장비'))\n```",
       "choices": [
         "A. 전설장비",
         "B. 일반장비",
@@ -466,7 +466,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 리터럴 딕셔너리 생성 구문과 그에 따른 특정 참조 타깃 호출 코드가 실행되었을 때 도출되는 유효 결과물로 매칭되는 것은 무엇인가요?\n\nchannel_guide = {1: '초급레슨', 2: '중급훈련', 3: '고급보스'}\nprint(channel_guide[1])",
+      "question": "다음 파이썬 리터럴 딕셔너리 생성 구문과 그에 따른 특정 참조 타깃 호출 코드가 실행되었을 때 도출되는 유효 결과물로 매칭되는 것은 무엇인가요?\n\n```python\nchannel_guide = {1: '초급레슨', 2: '중급훈련', 3: '고급보스'}\nprint(channel_guide[1])\n```",
       "choices": [
         "A. 1",
         "B. KeyError 발생",
@@ -562,7 +562,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 딕셔너리 변경 코드를 순차 실행했을 때, 최종적으로 화면에 인쇄되는 딕셔너리의 형태값으로 올바른 것을 고르세요.\n\nhero = {'job': '전사', 'hp': 100}\nhero['hp'] = 150\nprint(hero)",
+      "question": "다음 파이썬 딕셔너리 변경 코드를 순차 실행했을 때, 최종적으로 화면에 인쇄되는 딕셔너리의 형태값으로 올바른 것을 고르세요.\n\n```python\nhero = {'job': '전사', 'hp': 100}\nhero['hp'] = 150\nprint(hero)\n```",
       "choices": [
         "A. {'job': '전사', 'hp': 100}",
         "B. {'job': '전사', 'hp': 100, 'hp': 150}",
@@ -610,7 +610,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 내장 메서드 활용 코드의 내부 작동 연산 흐름을 파악하여 인쇄되는 최종 출력물을 엄선하세요.\n\nskill = {'name': '파이어볼'}\nskill.update({'damage': 50, 'mp': 10})\nprint(len(skill))",
+      "question": "다음 파이썬 내장 메서드 활용 코드의 내부 작동 연산 흐름을 파악하여 인쇄되는 최종 출력물을 엄선하세요.\n\n```python\nskill = {'name': '파이어볼'}\nskill.update({'damage': 50, 'mp': 10})\nprint(len(skill))\n```",
       "choices": [
         "A. 3",
         "B. 1",
@@ -634,7 +634,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 멤버십 연산자 코드의 참/거짓 판정 조건 흐름을 추적하여 모니터에 출력되는 최종 연산 결과를 고르세요.\n\nstatus = {'hp': 80, 'mp': 20}\nresult = 80 in status\nprint(result)",
+      "question": "다음 파이썬 멤버십 연산자 코드의 참/거짓 판정 조건 흐름을 추적하여 모니터에 출력되는 최종 연산 결과를 고르세요.\n\n```python\nstatus = {'hp': 80, 'mp': 20}\nresult = 80 in status\nprint(result)\n```",
       "choices": [
         "A. 80",
         "B. False",
@@ -682,7 +682,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 반복문 순회 및 조건 연산 로직의 구동 메커니즘을 연산 추적하여 최종적으로 화면에 표출되는 정수를 엄선하세요.\n\nscores = {'A': 90, 'B': 85, 'C': 95}\ntotal = 0\n\nfor k in scores:\n    if k == 'B':\n        total = total + scores[k]\n\nprint(total)",
+      "question": "다음 파이썬 반복문 순회 및 조건 연산 로직의 구동 메커니즘을 연산 추적하여 최종적으로 화면에 표출되는 정수를 엄선하세요.\n\n```python\nscores = {'A': 90, 'B': 85, 'C': 95}\ntotal = 0\n```\n\n```python\nfor k in scores:\n    if k == 'B':\n        total = total + scores[k]\n```\n\n```python\nprint(total)\n```",
       "choices": [
         "A. 90",
         "B. 175",
@@ -706,7 +706,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 딕셔너리 원소 제어 추출 코드가 실동되었을 때, 최종 라인에서 콘솔 창에 출력되는 결괏값으로 알맞은 것을 매칭하세요.\n\nsetup = {'theme': 'dark', 'font': 'consolas'}\nremoved_value = setup.pop('theme')\nprint(removed_value)",
+      "question": "다음 딕셔너리 원소 제어 추출 코드가 실동되었을 때, 최종 라인에서 콘솔 창에 출력되는 결괏값으로 알맞은 것을 매칭하세요.\n\n```python\nsetup = {'theme': 'dark', 'font': 'consolas'}\nremoved_value = setup.pop('theme')\nprint(removed_value)\n```",
       "choices": [
         "A. theme",
         "B. {'font': 'consolas'}",
@@ -754,7 +754,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 딕셔너리 길이 측정 구문을 가동시켰을 때 콘솔 창에 출력되는 결과 상수는 무엇인가요?\n\nuser_bag = {'item1': '검', 'item2': '방패', 'item3': '물약'}\nprint(len(user_bag))",
+      "question": "다음 파이썬 딕셔너리 길이 측정 구문을 가동시켰을 때 콘솔 창에 출력되는 결과 상수는 무엇인가요?\n\n```python\nuser_bag = {'item1': '검', 'item2': '방패', 'item3': '물약'}\nprint(len(user_bag))\n```",
       "choices": [
         "A. 6",
         "B. 3",
@@ -802,7 +802,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 다중 데이터 갱신 결합 코드의 최종 실행 결과를 추적하여 모니터에 출력되는 결과로 합당한 것을 엄선하세요.\n\nprofile = {'name': '에이몬', 'level': 10}\nprofile.update({'level': 11, 'gold': 500})\nprint(profile['level'])",
+      "question": "다음 파이썬 다중 데이터 갱신 결합 코드의 최종 실행 결과를 추적하여 모니터에 출력되는 결과로 합당한 것을 엄선하세요.\n\n```python\nprofile = {'name': '에이몬', 'level': 10}\nprofile.update({'level': 11, 'gold': 500})\nprint(profile['level'])\n```",
       "choices": [
         "A. 11",
         "B. 10",
@@ -850,7 +850,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 삭제 연산 키워드 결합 로직을 순차 실행했을 때 반환되는 최종 인쇄물 구조로 올바른 것을 고르세요.\n\nweapon_shop = {'sword': 10, 'bow': 5}\ndel weapon_shop['sword']\nprint(weapon_shop)",
+      "question": "다음 파이썬 삭제 연산 키워드 결합 로직을 순차 실행했을 때 반환되는 최종 인쇄물 구조로 올바른 것을 고르세요.\n\n```python\nweapon_shop = {'sword': 10, 'bow': 5}\ndel weapon_shop['sword']\nprint(weapon_shop)\n```",
       "choices": [
         "A. {'sword': 10, 'bow': 5}",
         "B. {'bow': 5}",
@@ -874,7 +874,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 딕셔너리 values 집계 반복 코드의 작동 추적 흐름을 계산하여 total 공간에 누적 인쇄되는 최종 정수 결괏값을 도출하세요.\n\ninventory = {'gold_ore': 2, 'iron_ore': 5, 'ruby': 1}\ntotal = 0\n\nfor amt in inventory.values():\n    total = total + amt\n\nprint(total)",
+      "question": "다음 파이썬 딕셔너리 values 집계 반복 코드의 작동 추적 흐름을 계산하여 total 공간에 누적 인쇄되는 최종 정수 결괏값을 도출하세요.\n\n```python\ninventory = {'gold_ore': 2, 'iron_ore': 5, 'ruby': 1}\ntotal = 0\n```\n\n```python\nfor amt in inventory.values():\n    total = total + amt\n```\n\n```python\nprint(total)\n```",
       "choices": [
         "A. 3",
         "B. 5",
@@ -922,7 +922,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 딕셔너리 items 기반 다중 변수 할당 반복문의 내부 조건 처리 연산 결과를 예측하여 최종 출력되는 문자열을 엄선하세요.\n\nhero_equipment = {'weapon': '롱소드', 'armor': '가죽갑옷'}\nresult_str = ''\n\nfor part, name in hero_equipment.items():\n    if part == 'armor':\n        result_str = name\n\nprint(result_str)",
+      "question": "다음 파이썬 딕셔너리 items 기반 다중 변수 할당 반복문의 내부 조건 처리 연산 결과를 예측하여 최종 출력되는 문자열을 엄선하세요.\n\n```python\nhero_equipment = {'weapon': '롱소드', 'armor': '가죽갑옷'}\nresult_str = ''\n```\n\n```python\nfor part, name in hero_equipment.items():\n    if part == 'armor':\n        result_str = name\n```\n\n```python\nprint(result_str)\n```",
       "choices": [
         "A. armor",
         "B. 가죽갑옷",
@@ -946,7 +946,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 원타임 클리닝 연산 로직을 전개했을 때, 최종 라인 통과 직후 딕셔너리 개체 내부 상태의 형태 구조로 알맞은 것을 고르세요.\n\napp_session = {'user': 'aimon_pro', 'token': 'xyz789'}\napp_session.clear()\nprint(app_session)",
+      "question": "다음 파이썬 원타임 클리닝 연산 로직을 전개했을 때, 최종 라인 통과 직후 딕셔너리 개체 내부 상태의 형태 구조로 알맞은 것을 고르세요.\n\n```python\napp_session = {'user': 'aimon_pro', 'token': 'xyz789'}\napp_session.clear()\nprint(app_session)\n```",
       "choices": [
         "A. None",
         "B. {'user': 'aimon_pro', 'token': 'xyz789'}",
@@ -1016,7 +1016,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 중첩 자료구조 코드를 실행했을 때, 화면에 출력되는 결괏값으로 올바른 것을 고르세요.\n\nplayers = {\n    'p1': {'name': '에이몬', 'hp': 80},\n    'p2': {'name': '코드몬', 'hp': 50}\n}\nprint(players['p1']['hp'])",
+      "question": "다음 파이썬 중첩 자료구조 코드를 실행했을 때, 화면에 출력되는 결괏값으로 올바른 것을 고르세요.\n\n```python\nplayers = {\n    'p1': {'name': '에이몬', 'hp': 80},\n    'p2': {'name': '코드몬', 'hp': 50}\n```\n}\n```python\nprint(players['p1']['hp'])\n```",
       "choices": [
         "A. 50",
         "B. 80",
@@ -1039,7 +1039,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 중복 원소가 포함된 리스트를 set 자료형으로 변환한 뒤, 다시 변환된 집합의 원소 개수(len)를 출력하는 코드의 실행 결과 정수는 무엇인가요?\n\nmy_list = [1, 2, 2, 3, 3, 3]\nmy_set = set(my_list)\nprint(len(my_set))",
+      "question": "다음 중복 원소가 포함된 리스트를 set 자료형으로 변환한 뒤, 다시 변환된 집합의 원소 개수(len)를 출력하는 코드의 실행 결과 정수는 무엇인가요?\n\n```python\nmy_list = [1, 2, 2, 3, 3, 3]\nmy_set = set(my_list)\nprint(len(my_set))\n```",
       "choices": [
         "A. 6",
         "B. 3",
@@ -1085,7 +1085,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 딕셔너리와 반복문 결합 코드의 연산 흐름을 추적하여, 최종 라인 통과 시 화면에 표출되는 정수값을 고르세요.\n\nstore = {'apple': 5, 'banana': 2, 'orange': 8}\ntotal_items = 0\n\nfor key, val in store.items():\n    if val >= 5:\n        total_items = total_items + 1\n\nprint(total_items)",
+      "question": "다음 파이썬 딕셔너리와 반복문 결합 코드의 연산 흐름을 추적하여, 최종 라인 통과 시 화면에 표출되는 정수값을 고르세요.\n\n```python\nstore = {'apple': 5, 'banana': 2, 'orange': 8}\ntotal_items = 0\n```\n\n```python\nfor key, val in store.items():\n    if val >= 5:\n        total_items = total_items + 1\n```\n\n```python\nprint(total_items)\n```",
       "choices": [
         "A. 2",
         "B. 15",
@@ -1108,7 +1108,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 중첩 자료 제어 코드의 실행 결과를 예측하여, 최종적으로 도출되는 데이터의 형태를 고르세요.\n\nclassroom = {\n    'students': ['지민', '민수', '혜원'],\n    'info': {'room': 301, 'floor': 3}\n}\nclassroom['students'].append('지훈')\nprint(len(classroom['students']))",
+      "question": "다음 파이썬 중첩 자료 제어 코드의 실행 결과를 예측하여, 최종적으로 도출되는 데이터의 형태를 고르세요.\n\n```python\nclassroom = {\n    'students': ['지민', '민수', '혜원'],\n    'info': {'room': 301, 'floor': 3}\n```\n}\n```python\nclassroom['students'].append('지훈')\nprint(len(classroom['students']))\n```",
       "choices": [
         "A. 3",
         "B. 4",
@@ -1131,7 +1131,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 집합 교집합(&) 연산 코드를 구동했을 때 터미널 창에 최종적으로 도출되는 결과 객체의 원소들로 올바른 것은 무엇인가요?\n\nset_A = {1, 2, 3, 4}\nset_B = {3, 4, 5, 6}\nprint(set_A & set_B)",
+      "question": "다음 파이썬 집합 교집합(&) 연산 코드를 구동했을 때 터미널 창에 최종적으로 도출되는 결과 객체의 원소들로 올바른 것은 무엇인가요?\n\n```python\nset_A = {1, 2, 3, 4}\nset_B = {3, 4, 5, 6}\nprint(set_A & set_B)\n```",
       "choices": [
         "A. {1, 2, 5, 6}",
         "B. {1, 2, 3, 4, 5, 6}",
@@ -1154,7 +1154,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 딕셔너리 안전 기동 코드를 구동시켰을 때 반환되는 최종 터미널 출력 결과물로 알맞은 것을 고르세요.\n\nstock_data = {'A': 10}\ninner_dict = stock_data.get('B', {'price': 1000})\nprint(inner_dict.get('price', 0))",
+      "question": "다음 파이썬 딕셔너리 안전 기동 코드를 구동시켰을 때 반환되는 최종 터미널 출력 결과물로 알맞은 것을 고르세요.\n\n```python\nstock_data = {'A': 10}\ninner_dict = stock_data.get('B', {'price': 1000})\nprint(inner_dict.get('price', 0))\n```",
       "choices": [
         "A. 1000",
         "B. 0",
@@ -1177,7 +1177,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 데이터 유효성 검사 루프를 통과시켰을 때 최종 도출되어 인쇄되는 카운트 정수는 무엇인가요?\n\nwords = ['apple', 'bag', 'apple', 'camera', 'bag', 'apple']\nunique_count = 0\n\nfor w in set(words):\n    unique_count = unique_count + 1\n\nprint(unique_count)",
+      "question": "다음 파이썬 데이터 유효성 검사 루프를 통과시켰을 때 최종 도출되어 인쇄되는 카운트 정수는 무엇인가요?\n\n```python\nwords = ['apple', 'bag', 'apple', 'camera', 'bag', 'apple']\nunique_count = 0\n```\n\n```python\nfor w in set(words):\n    unique_count = unique_count + 1\n```\n\n```python\nprint(unique_count)\n```",
       "choices": [
         "A. 6",
         "B. 2",
@@ -1223,7 +1223,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 집합 생성 및 원소 소속 검사 코드의 참/거짓 최종 판정 정답을 고르세요.\n\nmy_friends = set(['지니', '왕이', '해량'])\nprint('지훈' not in my_friends)",
+      "question": "다음 파이썬 집합 생성 및 원소 소속 검사 코드의 참/거짓 최종 판정 정답을 고르세요.\n\n```python\nmy_friends = set(['지니', '왕이', '해량'])\nprint('지훈' not in my_friends)\n```",
       "choices": [
         "A. False",
         "B. True",
@@ -1246,7 +1246,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 중첩 딕셔너리 정보 구조에서 '지니' 유저의 보유 '왕관(crowns)' 개수 정수 데이터를 다이렉트 접근하여 인쇄하는 코드로 알맞은 결과물을 고르세요.\n\nserver_data = {\n    'jinny': {'crowns': 15, 'streak': 12},\n    'robot': {'crowns': 5, 'streak': 2}\n}\nprint(server_data['jinny']['crowns'])",
+      "question": "다음 파이썬 중첩 딕셔너리 정보 구조에서 '지니' 유저의 보유 '왕관(crowns)' 개수 정수 데이터를 다이렉트 접근하여 인쇄하는 코드로 알맞은 결과물을 고르세요.\n\n```python\nserver_data = {\n    'jinny': {'crowns': 15, 'streak': 12},\n    'robot': {'crowns': 5, 'streak': 2}\n```\n}\n```python\nprint(server_data['jinny']['crowns'])\n```",
       "choices": [
         "A. 12",
         "B. 5",
@@ -1292,7 +1292,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 집합 차집합(-) 연산 코드의 가동 원리를 유념하여 계산했을 때, 최종적으로 화면에 리턴 표출되는 데이터셋의 원소 구조로 합당한 것은 무엇인가요?\n\nset_X = {10, 20, 30, 40}\nset_Y = {30, 40, 50, 60}\nprint(set_X - set_Y)",
+      "question": "다음 파이썬 집합 차집합(-) 연산 코드의 가동 원리를 유념하여 계산했을 때, 최종적으로 화면에 리턴 표출되는 데이터셋의 원소 구조로 합당한 것은 무엇인가요?\n\n```python\nset_X = {10, 20, 30, 40}\nset_Y = {30, 40, 50, 60}\nprint(set_X - set_Y)\n```",
       "choices": [
         "A. {10, 20}",
         "B. {50, 60}",
@@ -1315,7 +1315,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 내장 메서드 연동 제어 코드의 처리 연산 흐름을 추적하여 최종 출력되는 정수 상수를 고르세요.\n\nuser_set = {1, 2, 3}\nuser_set.add(4)\nuser_set.add(2)\nprint(len(user_set))",
+      "question": "다음 파이썬 내장 메서드 연동 제어 코드의 처리 연산 흐름을 추적하여 최종 출력되는 정수 상수를 고르세요.\n\n```python\nuser_set = {1, 2, 3}\nuser_set.add(4)\nuser_set.add(2)\nprint(len(user_set))\n```",
       "choices": [
         "A. 5",
         "B. 3",
@@ -1339,7 +1339,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 딕셔너리 안전 색인 조회 및 내부 리스트 원소 제어 결합 소스의 최종 연산 출력값으로 알맞은 것을 고르세요.\n\nclient_db = {\n    'vip_zone': ['골드바', '다이아']\n}\ntarget_box = client_db.get('normal_zone', ['동전', '가죽'])\nprint(target_box[0])",
+      "question": "다음 파이썬 딕셔너리 안전 색인 조회 및 내부 리스트 원소 제어 결합 소스의 최종 연산 출력값으로 알맞은 것을 고르세요.\n\n```python\nclient_db = {\n    'vip_zone': ['골드바', '다이아']\n```\n}\n```python\ntarget_box = client_db.get('normal_zone', ['동전', '가죽'])\nprint(target_box[0])\n```",
       "choices": [
         "A. 골드바",
         "B. 동전",
@@ -1362,7 +1362,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 복합 제어 루프의 실행 메커니즘을 분석하여, 최종 라인 통과 직후 모니터 화면에 찍히는 정수 누적 데이터를 도출하세요.\n\nteam_scores = {\n    'A_team': [85, 90, 95],\n    'B_team': [70, 80, 85]\n}\nprint(team_scores['A_team'][1])",
+      "question": "다음 파이썬 복합 제어 루프의 실행 메커니즘을 분석하여, 최종 라인 통과 직후 모니터 화면에 찍히는 정수 누적 데이터를 도출하세요.\n\n```python\nteam_scores = {\n    'A_team': [85, 90, 95],\n    'B_team': [70, 80, 85]\n```\n}\n```python\nprint(team_scores['A_team'][1])\n```",
       "choices": [
         "A. 85",
         "B. 90",
@@ -1385,7 +1385,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 집합 전용 대칭차집합(^) 연산 코드를 쉘 환경에서 전개시켰을 때 반환 인쇄되는 결과 집합의 고유 원소 세트로 알맞은 것을 엄선하세요.\n\nset_1 = {1, 2, 3}\nset_2 = {3, 4, 5}\nprint(set_1 ^ set_2)",
+      "question": "다음 파이썬 집합 전용 대칭차집합(^) 연산 코드를 쉘 환경에서 전개시켰을 때 반환 인쇄되는 결과 집합의 고유 원소 세트로 알맞은 것을 엄선하세요.\n\n```python\nset_1 = {1, 2, 3}\nset_2 = {3, 4, 5}\nprint(set_1 ^ set_2)\n```",
       "choices": [
         "A. {1, 2, 4, 5}",
         "B. {3}",
@@ -1408,7 +1408,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 내장 메서드 소거 기동 결합 구문의 실동 결과를 정밀 유추하여 모니터 화면에 최종 복원되는 데이터 포맷을 엄선하세요.\n\npet_set = {'slime', 'robot', 'ghost'}\npet_set.remove('slime')\nprint('slime' in pet_set)",
+      "question": "다음 파이썬 내장 메서드 소거 기동 결합 구문의 실동 결과를 정밀 유추하여 모니터 화면에 최종 복원되는 데이터 포맷을 엄선하세요.\n\n```python\npet_set = {'slime', 'robot', 'ghost'}\npet_set.remove('slime')\nprint('slime' in pet_set)\n```",
       "choices": [
         "A. True",
         "B. None",
@@ -1501,7 +1501,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 중복된 숫자들이 포함되어 있는 리스트를 set 자료형으로 변환했을 때, 생성되는 집합 내부의 유효 원소들로 올바른 것을 고르세요.\n\nnum_list = [5, 5, 3, 1, 1, 3]\nprint(set(num_list))",
+      "question": "다음 중복된 숫자들이 포함되어 있는 리스트를 set 자료형으로 변환했을 때, 생성되는 집합 내부의 유효 원소들로 올바른 것을 고르세요.\n\n```python\nnum_list = [5, 5, 3, 1, 1, 3]\nprint(set(num_list))\n```",
       "choices": [
         "A. [1, 3, 5]",
         "B. {1, 3, 5}",
@@ -1547,7 +1547,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 세트 제어 코드를 작동시켰을 때, 최종 라인에서 콘솔 화면에 인쇄되는 결과 상수로 올바른 것은 무엇인가요?\n\ncolor_set = {'red', 'blue'}\ncolor_set.add('green')\ncolor_set.add('red')\nprint(len(color_set))",
+      "question": "다음 파이썬 세트 제어 코드를 작동시켰을 때, 최종 라인에서 콘솔 화면에 인쇄되는 결과 상수로 올바른 것은 무엇인가요?\n\n```python\ncolor_set = {'red', 'blue'}\ncolor_set.add('green')\ncolor_set.add('red')\nprint(len(color_set))\n```",
       "choices": [
         "A. 3",
         "B. 4",
@@ -1571,7 +1571,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 집합 멤버십 연산 코드를 실행했을 때, 화면에 인쇄되는 결과 조건 판정물로 올바른 것을 선택하세요.\n\nmonster_pool = set(['코드몬', '방해몬'])\nresult = '말풍선킹' not in monster_pool\nprint(result)",
+      "question": "다음 파이썬 집합 멤버십 연산 코드를 실행했을 때, 화면에 인쇄되는 결과 조건 판정물로 올바른 것을 선택하세요.\n\n```python\nmonster_pool = set(['코드몬', '방해몬'])\nresult = '말풍선킹' not in monster_pool\nprint(result)\n```",
       "choices": [
         "A. False",
         "B. True",
@@ -1617,7 +1617,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 반복문 순회 및 집합 필터링 로직의 내부 처리 연산을 추적하여, 최종 라인 통과 시 누적 출력되는 정수를 구하세요.\n\nitems = {'potion', 'sword', 'shield', 'potion'}\ncounter = 0\n\nfor i in items:\n    counter = counter + 1\n\nprint(counter)",
+      "question": "다음 파이썬 반복문 순회 및 집합 필터링 로직의 내부 처리 연산을 추적하여, 최종 라인 통과 시 누적 출력되는 정수를 구하세요.\n\n```python\nitems = {'potion', 'sword', 'shield', 'potion'}\ncounter = 0\n```\n\n```python\nfor i in items:\n    counter = counter + 1\n```\n\n```python\nprint(counter)\n```",
       "choices": [
         "A. 4",
         "B. 3",
@@ -1640,7 +1640,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 세트 원소 제거 연산 소스코드를 실행했을 때, 콘솔 화면에 인쇄되는 최종 결괏값으로 알맞은 것을 매칭하세요.\n\nskill_set = {'fire', 'ice', 'thunder'}\nskill_set.remove('fire')\nprint('fire' in skill_set)",
+      "question": "다음 파이썬 세트 원소 제거 연산 소스코드를 실행했을 때, 콘솔 화면에 인쇄되는 최종 결괏값으로 알맞은 것을 매칭하세요.\n\n```python\nskill_set = {'fire', 'ice', 'thunder'}\nskill_set.remove('fire')\nprint('fire' in skill_set)\n```",
       "choices": [
         "A. True",
         "B. KeyError 발생",
@@ -1687,7 +1687,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 세트 길이 집계 코드를 가동시켰을 때 최종 도출되어 반환되는 결과 정수는 무엇인가요?\n\nstage_set = set(['stage1', 'stage2', 'stage3'])\nprint(len(stage_set))",
+      "question": "다음 파이썬 세트 길이 집계 코드를 가동시켰을 때 최종 도출되어 반환되는 결과 정수는 무엇인가요?\n\n```python\nstage_set = set(['stage1', 'stage2', 'stage3'])\nprint(len(stage_set))\n```",
       "choices": [
         "A. 1",
         "B. 3",
@@ -1733,7 +1733,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 다중 집합 원소 확장 코드를 전개시켰을 때, 최종 라인에서 콘솔 화면에 리턴 표출되는 정수를 고르세요.\n\nmy_numbers = {1, 2}\nmy_numbers.update([2, 3, 4])\nprint(len(my_numbers))",
+      "question": "다음 파이썬 다중 집합 원소 확장 코드를 전개시켰을 때, 최종 라인에서 콘솔 화면에 리턴 표출되는 정수를 고르세요.\n\n```python\nmy_numbers = {1, 2}\nmy_numbers.update([2, 3, 4])\nprint(len(my_numbers))\n```",
       "choices": [
         "A. 4",
         "B. 5",
@@ -1779,7 +1779,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 안전 소거 메서드 기동 결합 구문의 연산 흐름을 파악하여 인쇄되는 최종 출력 판정물로 올바른 것을 고르세요.\n\nuser_id_set = {'aimon', 'ghost'}\nuser_id_set.discard('slime')\nprint(len(user_id_set))",
+      "question": "다음 파이썬 안전 소거 메서드 기동 결합 구문의 연산 흐름을 파악하여 인쇄되는 최종 출력 판정물로 올바른 것을 고르세요.\n\n```python\nuser_id_set = {'aimon', 'ghost'}\nuser_id_set.discard('slime')\nprint(len(user_id_set))\n```",
       "choices": [
         "A. 1",
         "B. 2",
@@ -1802,7 +1802,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 복합 세트 제어 및 존재 유무 판단 로직의 실행 결과물로 가장 타당한 것을 엄선하세요.\n\npet_pool = {'slime'}\npet_pool.add('robot')\npet_pool.discard('slime')\nprint('slime' in pet_pool)",
+      "question": "다음 파이썬 복합 세트 제어 및 존재 유무 판단 로직의 실행 결과물로 가장 타당한 것을 엄선하세요.\n\n```python\npet_pool = {'slime'}\npet_pool.add('robot')\npet_pool.discard('slime')\nprint('slime' in pet_pool)\n```",
       "choices": [
         "A. True",
         "B. False",
@@ -1872,7 +1872,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 불변 튜플 데이터를 원소로 편입시키는 집합 연산식의 최종 len() 결과를 도출하여 고르세요.\n\ncoordinate_set = set()\ncoordinate_set.add((10, 20))\ncoordinate_set.add((10, 20))\nprint(len(coordinate_set))",
+      "question": "다음 파이썬 불변 튜플 데이터를 원소로 편입시키는 집합 연산식의 최종 len() 결과를 도출하여 고르세요.\n\n```python\ncoordinate_set = set()\ncoordinate_set.add((10, 20))\ncoordinate_set.add((10, 20))\nprint(len(coordinate_set))\n```",
       "choices": [
         "A. 2",
         "B. KeyError 발생",
@@ -1942,7 +1942,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 복합 자료구조 코드의 처리 연산 흐름을 추적하여 최종 출력되는 문자열 데이터를 고르세요.\n\nitems = [\n    {'name': '물약', 'price': 50},\n    {'name': '방패', 'price': 150}\n]\nprint(items[1]['name'])",
+      "question": "다음 파이썬 복합 자료구조 코드의 처리 연산 흐름을 추적하여 최종 출력되는 문자열 데이터를 고르세요.\n\n```python\nitems = [\n    {'name': '물약', 'price': 50},\n    {'name': '방패', 'price': 150}\n```\n]\n```python\nprint(items[1]['name'])\n```",
       "choices": [
         "A. 물약",
         "B. 방패",
@@ -1965,7 +1965,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 회원 딕셔너리들의 리스트가 주어졌을 때, 반복문을 순회하며 각 회원의 나이를 누적 합산하는 코드의 최종 화면 출력 정수는 무엇인가요?\n\nusers = [\n    {'name': '지니', 'age': 20},\n    {'name': '왕이', 'age': 25}\n]\ntotal_age = 0\nfor u in users:\n    total_age = total_age + u['age']\nprint(total_age)",
+      "question": "다음과 같이 회원 딕셔너리들의 리스트가 주어졌을 때, 반복문을 순회하며 각 회원의 나이를 누적 합산하는 코드의 최종 화면 출력 정수는 무엇인가요?\n\n```python\nusers = [\n    {'name': '지니', 'age': 20},\n    {'name': '왕이', 'age': 25}\n```\n]\n```python\ntotal_age = 0\nfor u in users:\n    total_age = total_age + u['age']\nprint(total_age)\n```",
       "choices": [
         "A. 20",
         "B. 45",
@@ -2011,7 +2011,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 복합 제어 코드의 실행 흐름을 분석하여, 최종 라인에서 콘솔 화면에 인쇄되는 정수로 알맞은 것을 고르세요.\n\nstore = [\n    {'fruit': '사과', 'stock': 10},\n    {'fruit': '바나나', 'stock': 0},\n    {'fruit': '포도', 'stock': 5}\n]\nempty_count = 0\nfor item in store:\n    if item['stock'] == 0:\n        empty_count = empty_count + 1\nprint(empty_count)",
+      "question": "다음 파이썬 복합 제어 코드의 실행 흐름을 분석하여, 최종 라인에서 콘솔 화면에 인쇄되는 정수로 알맞은 것을 고르세요.\n\n```python\nstore = [\n    {'fruit': '사과', 'stock': 10},\n    {'fruit': '바나나', 'stock': 0},\n    {'fruit': '포도', 'stock': 5}\n```\n]\n```python\nempty_count = 0\nfor item in store:\n    if item['stock'] == 0:\n        empty_count = empty_count + 1\nprint(empty_count)\n```",
       "choices": [
         "A. 1",
         "B. 0",
@@ -2034,7 +2034,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 딕셔너리 내부 리스트 제어 코드의 계층적 연산 흐름을 추적하여 최종 출력되는 결과물로 올바른 것을 고르세요.\n\nplayer = {\n    'username': 'aimon_pro',\n    'skills': ['파이어볼', '아이스볼']\n}\nplayer['skills'].append('라이트닝')\nprint(player['skills'][2])",
+      "question": "다음 파이썬 딕셔너리 내부 리스트 제어 코드의 계층적 연산 흐름을 추적하여 최종 출력되는 결과물로 올바른 것을 고르세요.\n\nplayer = {\n    'username': 'aimon_pro',\n    'skills': ['파이어볼', '아이스볼']\n}\n```python\nplayer['skills'].append('라이트닝')\nprint(player['skills'][2])\n```",
       "choices": [
         "A. 아이스볼",
         "B. 라이트닝",
@@ -2080,7 +2080,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 복합 제어 코드의 실행 결과를 정밀 연산 추적하여, 최종 라인 통과 시 모니터 화면에 인쇄되는 정수 결과값을 고르세요.\n\ncourse = [\n    {'level': '초급', 'students': 50},\n    {'level': '중급', 'students': 43},\n    {'level': '고급', 'students': 43}\n]\ntotal_students = 0\nfor sub in course:\n    if sub['level'] != '초급':\n        total_students = total_students + sub['students']\nprint(total_students)",
+      "question": "다음 파이썬 복합 제어 코드의 실행 결과를 정밀 연산 추적하여, 최종 라인 통과 시 모니터 화면에 인쇄되는 정수 결과값을 고르세요.\n\n```python\ncourse = [\n    {'level': '초급', 'students': 50},\n    {'level': '중급', 'students': 43},\n    {'level': '고급', 'students': 43}\n```\n]\n```python\ntotal_students = 0\nfor sub in course:\n    if sub['level'] != '초급':\n        total_students = total_students + sub['students']\nprint(total_students)\n```",
       "choices": [
         "A. 50",
         "B. 136",
@@ -2103,7 +2103,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 딕셔너리 내부 리스트 누적 원소 탐색 소스코드의 연산 흐름을 파악하여 최종적으로 도출되는 출력 정수를 엄선하세요.\n\nportfolio = {\n    'project_A': [100, 95],\n    'project_B': [80, 85, 90]\n}\nprint(len(portfolio['project_B']))",
+      "question": "다음 파이썬 딕셔너리 내부 리스트 누적 원소 탐색 소스코드의 연산 흐름을 파악하여 최종적으로 도출되는 출력 정수를 엄선하세요.\n\n```python\nportfolio = {\n    'project_A': [100, 95],\n    'project_B': [80, 85, 90]\n```\n}\n```python\nprint(len(portfolio['project_B']))\n```",
       "choices": [
         "A. 2",
         "B. 3",
@@ -2149,7 +2149,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 복합 데이터 구조 가동 테스트 코드를 실행했을 때, 콘솔 터미널 레이아웃에 최종 표출되는 결과 문자열은 무엇인가요?\n\nteam = {\n    'crews': ['지훈', '혜원']\n}\nprint(team['crews'][1])",
+      "question": "다음 파이썬 복합 데이터 구조 가동 테스트 코드를 실행했을 때, 콘솔 터미널 레이아웃에 최종 표출되는 결과 문자열은 무엇인가요?\n\n```python\nteam = {\n    'crews': ['지훈', '혜원']\n```\n}\n```python\nprint(team['crews'][1])\n```",
       "choices": [
         "A. crews",
         "B. 지훈",
@@ -2172,7 +2172,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 딕셔너리 목록 리스트 제어 코드의 연산 라인을 추적하여, 최종 출력 문장에 찍혀 도출되는 문자열을 고르세요.\n\nmonsters = [\n    {'id': 'm1', 'type': '코드몬'},\n    {'id': 'm2', 'type': '방해몬'}\n]\nprint(monsters[0]['type'])",
+      "question": "다음 파이썬 딕셔너리 목록 리스트 제어 코드의 연산 라인을 추적하여, 최종 출력 문장에 찍혀 도출되는 문자열을 고르세요.\n\n```python\nmonsters = [\n    {'id': 'm1', 'type': '코드몬'},\n    {'id': 'm2', 'type': '방해몬'}\n```\n]\n```python\nprint(monsters[0]['type'])\n```",
       "choices": [
         "A. m1",
         "B. 코드몬",
@@ -2195,7 +2195,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 복합 리스트 데이터 객체 변경 소스코드를 전개했을 때, 최종적으로 모니터에 출력되는 결과물 형태로 알맞은 것을 고르세요.\n\napp_data = [\n    {'name': '메인홈', 'status': 'open'}\n]\napp_data[0]['status'] = 'close'\nprint(app_data)",
+      "question": "다음 파이썬 복합 리스트 데이터 객체 변경 소스코드를 전개했을 때, 최종적으로 모니터에 출력되는 결과물 형태로 알맞은 것을 고르세요.\n\n```python\napp_data = [\n    {'name': '메인홈', 'status': 'open'}\n```\n]\n```python\napp_data[0]['status'] = 'close'\nprint(app_data)\n```",
       "choices": [
         "A. [{'name': '메인홈', 'status': 'open'}]",
         "B. [{'name': '메인홈', 'status': 'close'}]",
@@ -2241,7 +2241,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 다중 복합 데이터 순회 코드를 가동시켰을 때, 루프 연산 최종 완료 단계에서 인쇄되는 변수 `high_score_count` 내부의 최종 정수는 무엇인가요?\n\nquiz_results = [\n    {'id': 'q1', 'score': 100},\n    {'id': 'q2', 'score': 55},\n    {'id': 'q3', 'score': 85}\n]\nhigh_score_count = 0\nfor q in quiz_results:\n    if q['score'] >= 80:\n        high_score_count = high_score_count + 1\nprint(high_score_count)",
+      "question": "다음 파이썬 다중 복합 데이터 순회 코드를 가동시켰을 때, 루프 연산 최종 완료 단계에서 인쇄되는 변수 `high_score_count` 내부의 최종 정수는 무엇인가요?\n\n```python\nquiz_results = [\n    {'id': 'q1', 'score': 100},\n    {'id': 'q2', 'score': 55},\n    {'id': 'q3', 'score': 85}\n```\n]\n```python\nhigh_score_count = 0\nfor q in quiz_results:\n    if q['score'] >= 80:\n        high_score_count = high_score_count + 1\nprint(high_score_count)\n```",
       "choices": [
         "A. 1",
         "B. 3",
@@ -2264,7 +2264,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 리스트 가산 및 딕셔너리 다중 결합 소스의 내부 메모리 누적 변동 흐름을 추적하여 최종 프린트되는 정수를 도출하세요.\n\nmembers = []\nmembers.append({'username': 'jinny', 'crowns': 5})\nmembers.append({'username': 'robot', 'crowns': 10})\nprint(len(members))",
+      "question": "다음 파이썬 리스트 가산 및 딕셔너리 다중 결합 소스의 내부 메모리 누적 변동 흐름을 추적하여 최종 프린트되는 정수를 도출하세요.\n\n```python\nmembers = []\nmembers.append({'username': 'jinny', 'crowns': 5})\nmembers.append({'username': 'robot', 'crowns': 10})\nprint(len(members))\n```",
       "choices": [
         "A. 1",
         "B. 5",
@@ -2287,7 +2287,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 복합 딕셔너리 내부 원소 삭제 연산 코드를 구동시켰을 때 최종 라인 통과 직후 도출 인쇄되는 결과 구조 상태로 알맞은 것을 고르세요.\n\ncharacter = {\n    'status': 'slime',\n    'items': ['나무검', '초급왕관']\n}\ndel character['items'][0]\nprint(character['items'])",
+      "question": "다음 파이썬 복합 딕셔너리 내부 원소 삭제 연산 코드를 구동시켰을 때 최종 라인 통과 직후 도출 인쇄되는 결과 구조 상태로 알맞은 것을 고르세요.\n\ncharacter = {\n    'status': 'slime',\n    'items': ['나무검', '초급왕관']\n}\n```python\ndel character['items'][0]\nprint(character['items'])\n```",
       "choices": [
         "A. ['나무검', '초급왕관']",
         "B. KeyError 발생",
@@ -2310,7 +2310,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 중첩 계층형 자료구조 순회 및 누적 산술 연산 로직을 분석하여 최종 결과물로 모니터 창에 출력되는 정수를 엄선하세요.\n\ncompany_data = {\n    'marketing': [200, 300],\n    'development': [500, 100, 400]\n}\ntotal_pay = 0\nfor dept in company_data:\n    if dept == 'marketing':\n        for cost in company_data[dept]:\n            total_pay = total_pay + cost\nprint(total_pay)",
+      "question": "다음 파이썬 중첩 계층형 자료구조 순회 및 누적 산술 연산 로직을 분석하여 최종 결과물로 모니터 창에 출력되는 정수를 엄선하세요.\n\n```python\ncompany_data = {\n    'marketing': [200, 300],\n    'development': [500, 100, 400]\n```\n}\n```python\ntotal_pay = 0\nfor dept in company_data:\n    if dept == 'marketing':\n        for cost in company_data[dept]:\n            total_pay = total_pay + cost\nprint(total_pay)\n```",
       "choices": [
         "A. 500",
         "B. 1000",
@@ -2333,7 +2333,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 딕셔너리 리스트 기반 타깃 텍스트 조건 검색 스캔 알고리즘의 최후 반환 결과 문자열을 정밀 유추하여 고르세요.\n\nsession_pool = [\n    {'user': 'code_king', 'role': 'admin'},\n    {'user': 'inter_mon', 'role': 'villain'},\n    {'user': 'unknown_guest', 'role': 'guest'}\n]\ntarget_user = '없음'\nfor session in session_pool:\n    if session['role'] == 'villain':\n        target_user = session['user']\nprint(target_user)",
+      "question": "다음 파이썬 딕셔너리 리스트 기반 타깃 텍스트 조건 검색 스캔 알고리즘의 최후 반환 결과 문자열을 정밀 유추하여 고르세요.\n\n```python\nsession_pool = [\n    {'user': 'code_king', 'role': 'admin'},\n    {'user': 'inter_mon', 'role': 'villain'},\n    {'user': 'unknown_guest', 'role': 'guest'}\n```\n]\n```python\ntarget_user = '없음'\nfor session in session_pool:\n    if session['role'] == 'villain':\n        target_user = session['user']\nprint(target_user)\n```",
       "choices": [
         "A. code_king",
         "B. 없음",
@@ -2402,7 +2402,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 보안 및 예외 방어 코드를 기동시켰을 때, 최종적으로 컴퓨터 화면에 인쇄되는 결과 상수로 올바른 것을 고르세요.\n\nuser_crowns = {'aimon': 5, 'ghost': 12}\nprint(user_crowns.get('slime', 0))",
+      "question": "다음 파이썬 보안 및 예외 방어 코드를 기동시켰을 때, 최종적으로 컴퓨터 화면에 인쇄되는 결과 상수로 올바른 것을 고르세요.\n\n```python\nuser_crowns = {'aimon': 5, 'ghost': 12}\nprint(user_crowns.get('slime', 0))\n```",
       "choices": [
         "A. 12",
         "B. 5",
@@ -2425,7 +2425,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 세트 예외 차단 코드를 순차 실행했을 때, 최종 라인 통과 직후 터미널 콘솔 창에 출력되는 결과로 알맞은 것을 고르세요.\n\nvisited_stages = {'1-1', '1-2'}\nvisited_stages.discard('1-3')\nprint(len(visited_stages))",
+      "question": "다음 파이썬 세트 예외 차단 코드를 순차 실행했을 때, 최종 라인 통과 직후 터미널 콘솔 창에 출력되는 결과로 알맞은 것을 고르세요.\n\n```python\nvisited_stages = {'1-1', '1-2'}\nvisited_stages.discard('1-3')\nprint(len(visited_stages))\n```",
       "choices": [
         "A. 3",
         "B. 2",
@@ -2471,7 +2471,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 딕셔너리 멤버십 연산자 코드의 참/거짓 조건 처리 흐름을 추적하여 최종 출력 창에 표시되는 결과를 엄선하세요.\n\nserver_status = {'port': 8000, 'state': 'running'}\nresult = 'running' in server_status\nprint(result)",
+      "question": "다음 파이썬 딕셔너리 멤버십 연산자 코드의 참/거짓 조건 처리 흐름을 추적하여 최종 출력 창에 표시되는 결과를 엄선하세요.\n\n```python\nserver_status = {'port': 8000, 'state': 'running'}\nresult = 'running' in server_status\nprint(result)\n```",
       "choices": [
         "A. False",
         "B. True",
@@ -2494,7 +2494,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬의 중첩 딕셔너리 안전 색인 조회 코드의 계층적 연산 흐름을 분석하여, 최종적으로 도출되는 출력 수치로 알맞은 것을 고르세요.\n\napp_settings = {\n    'display': {'theme': 'dark', 'brightness': 80}\n}\nsub_dict = app_settings.get('network', {'timeout': 30})\nprint(sub_dict.get('timeout', 10))",
+      "question": "다음 파이썬의 중첩 딕셔너리 안전 색인 조회 코드의 계층적 연산 흐름을 분석하여, 최종적으로 도출되는 출력 수치로 알맞은 것을 고르세요.\n\n```python\napp_settings = {\n    'display': {'theme': 'dark', 'brightness': 80}\n```\n}\n```python\nsub_dict = app_settings.get('network', {'timeout': 30})\nprint(sub_dict.get('timeout', 10))\n```",
       "choices": [
         "A. 30",
         "B. 10",
@@ -2540,7 +2540,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 복합 리스트 내 딕셔너리 안전 제어 및 조건 반복 소스코드를 분석하여 최종 도출 인쇄되는 결과 정수를 엄선하세요.\n\nitem_list = [\n    {'name': '나무검', 'rank': 'common'},\n    {'name': '철검'},\n    {'name': '전설의검', 'rank': 'legend'}\n]\nlegend_count = 0\nfor item in item_list:\n    if item.get('rank', 'common') == 'legend':\n        legend_count = legend_count + 1\nprint(legend_count)",
+      "question": "다음 파이썬 복합 리스트 내 딕셔너리 안전 제어 및 조건 반복 소스코드를 분석하여 최종 도출 인쇄되는 결과 정수를 엄선하세요.\n\n```python\nitem_list = [\n    {'name': '나무검', 'rank': 'common'},\n    {'name': '철검'},\n    {'name': '전설의검', 'rank': 'legend'}\n```\n]\n```python\nlegend_count = 0\nfor item in item_list:\n    if item.get('rank', 'common') == 'legend':\n        legend_count = legend_count + 1\nprint(legend_count)\n```",
       "choices": [
         "A. 1",
         "B. 2",
@@ -2563,7 +2563,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 집합 및 딕셔너리 동시 연동 예외 제어 루프를 가동시켰을 때, 최종적으로 집계 공간에 가산되는 결과 정수는 무엇인가요?\n\nblacklist = {'villain', 'bugmon'}\nuser_session = {'id': 'aimon_pro', 'role': 'villain'}\ntotal_alerts = 0\nif user_session.get('role') in blacklist:\n    total_alerts = total_alerts + 10\nprint(total_alerts)",
+      "question": "다음 파이썬 집합 및 딕셔너리 동시 연동 예외 제어 루프를 가동시켰을 때, 최종적으로 집계 공간에 가산되는 결과 정수는 무엇인가요?\n\n```python\nblacklist = {'villain', 'bugmon'}\nuser_session = {'id': 'aimon_pro', 'role': 'villain'}\ntotal_alerts = 0\nif user_session.get('role') in blacklist:\n    total_alerts = total_alerts + 10\nprint(total_alerts)\n```",
       "choices": [
         "A. 0",
         "B. KeyError 발생",
@@ -2609,7 +2609,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 데이터 소속 판별 연산 코드를 구동시켰을 때 콘솔 창에 출력되는 결과 불리언 상수로 올바른 것은 무엇인가요?\n\nvalid_tokens = {'token_A', 'token_B'}\nprint('token_C' not in valid_tokens)",
+      "question": "다음 파이썬 데이터 소속 판별 연산 코드를 구동시켰을 때 콘솔 창에 출력되는 결과 불리언 상수로 올바른 것은 무엇인가요?\n\n```python\nvalid_tokens = {'token_A', 'token_B'}\nprint('token_C' not in valid_tokens)\n```",
       "choices": [
         "A. False",
         "B. True",
@@ -2655,7 +2655,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 원시 딕셔너리 참조 수식을 실행 단계로 이끌었을 때 컴퓨터 터미널 창에 표출되는 최종 연산 결괏값이나 상태로 알맞은 것을 고르세요.\n\nitem_info = {'title': '초급용 지팡이', 'price': 300}\nprint(item_info['count'])",
+      "question": "다음 파이썬 원시 딕셔너리 참조 수식을 실행 단계로 이끌었을 때 컴퓨터 터미널 창에 표출되는 최종 연산 결괏값이나 상태로 알맞은 것을 고르세요.\n\n```python\nitem_info = {'title': '초급용 지팡이', 'price': 300}\nprint(item_info['count'])\n```",
       "choices": [
         "A. None 출력",
         "B. 0 출력",
@@ -2701,7 +2701,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 복합 안전 색인 코드를 런타임에서 작동시켰을 때, 최종 라인 통과 시 콘솔 창에 출력 인쇄되는 데이터는 무엇인가요?\n\nclient_profile = {'nickname': '바리스타2급'}\nprint(client_profile.get('crowns', '왕관 정보 없음'))",
+      "question": "다음 파이썬 복합 안전 색인 코드를 런타임에서 작동시켰을 때, 최종 라인 통과 시 콘솔 창에 출력 인쇄되는 데이터는 무엇인가요?\n\n```python\nclient_profile = {'nickname': '바리스타2급'}\nprint(client_profile.get('crowns', '왕관 정보 없음'))\n```",
       "choices": [
         "A. 0",
         "B. crowns",
@@ -2724,7 +2724,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 딕셔너리 안전 제어 기법 및 데이터 수치 인출 로직의 연산 흐름을 역추적하여 최종 프린트되는 정수를 엄선하세요.\n\nstage_score = {'1-1': 100, '1-2': 85}\ntarget_key = '1-3'\nfinal_result = stage_score.get(target_key, 60)\nprint(final_result)",
+      "question": "다음 파이썬 딕셔너리 안전 제어 기법 및 데이터 수치 인출 로직의 연산 흐름을 역추적하여 최종 프린트되는 정수를 엄선하세요.\n\n```python\nstage_score = {'1-1': 100, '1-2': 85}\ntarget_key = '1-3'\nfinal_result = stage_score.get(target_key, 60)\nprint(final_result)\n```",
       "choices": [
         "A. 100",
         "B. 85",
@@ -2747,7 +2747,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 복합 다중 구조 딕셔너리 내부의 세트 소속 판별 연산 소스의 구동 원리를 유념하여 최종 화면에 반환 출력되는 불리언 값을 도출하세요.\n\ngame_master = {\n    'ban_list': {'inter_mon', 'villain'}\n}\nuser_role = 'villain'\nprint(user_role in game_master.get('ban_list', set()))",
+      "question": "다음 파이썬 복합 다중 구조 딕셔너리 내부의 세트 소속 판별 연산 소스의 구동 원리를 유념하여 최종 화면에 반환 출력되는 불리언 값을 도출하세요.\n\n```python\ngame_master = {\n    'ban_list': {'inter_mon', 'villain'}\n```\n}\n```python\nuser_role = 'villain'\nprint(user_role in game_master.get('ban_list', set()))\n```",
       "choices": [
         "A. True",
         "B. False",
@@ -2770,7 +2770,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 복합 리스트 데이터 딕셔너리 루프 탐색 알고리즘의 최후 처리 연산을 정밀 유추하여 최종 변수 `total_crowns` 자리에 합산 인쇄되는 정수를 구하세요.\n\nuser_pool = [\n    {'id': 'user1', 'crowns': 5},\n    {'id': 'user2'},\n    {'id': 'user3', 'crowns': 3}\n]\ntotal_crowns = 0\nfor usr in user_pool:\n    total_crowns = total_crowns + usr.get('crowns', 1)\nprint(total_crowns)",
+      "question": "다음 파이썬 복합 리스트 데이터 딕셔너리 루프 탐색 알고리즘의 최후 처리 연산을 정밀 유추하여 최종 변수 `total_crowns` 자리에 합산 인쇄되는 정수를 구하세요.\n\n```python\nuser_pool = [\n    {'id': 'user1', 'crowns': 5},\n    {'id': 'user2'},\n    {'id': 'user3', 'crowns': 3}\n```\n]\n```python\ntotal_crowns = 0\nfor usr in user_pool:\n    total_crowns = total_crowns + usr.get('crowns', 1)\nprint(total_crowns)\n```",
       "choices": [
         "A. 8",
         "B. 9",
@@ -2793,7 +2793,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 세트 소거 기전 및 멤버십 부재 판단 연산 결합 구문의 실동 결과를 정밀 유추하여 모니터 화면에 최종 인쇄되는 결괏값을 고르세요.\n\nactive_users = {'지니', '왕이', '해량'}\nactive_users.discard('지훈')\nprint('지훈' not in active_users)",
+      "question": "다음 파이썬 세트 소거 기전 및 멤버십 부재 판단 연산 결합 구문의 실동 결과를 정밀 유추하여 모니터 화면에 최종 인쇄되는 결괏값을 고르세요.\n\n```python\nactive_users = {'지니', '왕이', '해량'}\nactive_users.discard('지훈')\nprint('지훈' not in active_users)\n```",
       "choices": [
         "A. False",
         "B. True",
