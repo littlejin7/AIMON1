@@ -56,8 +56,9 @@ export const codeApi = {
 }
 
 export const userApi = {
-  getMe:    ()     => api.get('/user/me'),
-  updateMe: (data) => api.patch('/user/me', data),
+  getMe:         ()        => api.get('/user/me'),
+  updateMe:      (data)    => api.patch('/user/me', data),
+  purchaseTheme: (themeId) => api.post('/user/purchase-theme', { theme_id: themeId }),
 }
 
 export const trainApi = {
