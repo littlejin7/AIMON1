@@ -10,7 +10,22 @@ from routers.utils import (
 router = APIRouter()
 
 
-from typing import Optional
+from typing import Optional, List
+
+# 테마별 XP 가격 (dark는 무료)
+THEME_PRICES = {
+    "dark":     0,
+    "ocean":    500,
+    "fire":     500,
+    "cyber":    500,
+    "cherry":   800,
+    "midnight": 800,
+    "sunset":   800,
+    "gold":     1000,
+    "arctic":   1000,
+    "galaxy":   1500,
+    "sakura":   2000,
+}
 
 class UpdateProfileRequest(BaseModel):
     nickname: Optional[str] = None
@@ -19,7 +34,8 @@ class UpdateProfileRequest(BaseModel):
     is_level_tested: Optional[bool] = None
     equipped_title: Optional[str] = None
 
-
+class PurchaseThemeRequest(BaseModel):
+    theme_id: str
 
 @router.get("/me")
 def get_me(authorization: str = Header(...)):
