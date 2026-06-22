@@ -651,7 +651,7 @@
     {
       "question_id": "miniboss_int_os_5_4_001",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\nimport csv, io\nraw = \"name,age\\nAmy,20\\nBob,25\"\nreader = csv.reader(io.StringIO(raw))\nrows = list(reader)\nprint(rows[0])\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nimport csv, io\nraw = \"name,age\nAmy,20\nBob,25\"\nreader = csv.reader(io.StringIO(raw))\nrows = list(reader)\nprint(rows[0])\n```",
       "answer": "A",
       "difficulty": "easy",
       "explanation": "csv.reader는 각 행을 리스트로 변환해요. rows[0]은 첫 번째 행인 헤더 ['name', 'age']입니다. CSV에서 모든 값은 기본적으로 문자열로 읽힙니다.",
@@ -675,7 +675,7 @@
     {
       "question_id": "miniboss_int_fib_5_4_002",
       "type": "fill_in_blank",
-      "question": "빈칸을 채워 CSV를 딕셔너리 형태로 읽으세요.\n\n```python\nimport csv, io\nraw = \"name,score\\nAmy,90\\nBob,75\"\nreader = csv._____(io.StringIO(raw))\nfor row in reader:\n    print(row['name'], row['score'])\n```",
+      "question": "빈칸을 채워 CSV를 딕셔너리 형태로 읽으세요.\n\n```python\nimport csv, io\nraw = \"name,score\nAmy,90\nBob,75\"\nreader = csv._____(io.StringIO(raw))\nfor row in reader:\n    print(row['name'], row['score'])\n```",
       "answer": "DictReader",
       "difficulty": "easy",
       "explanation": "csv.DictReader는 첫 번째 행을 키로 사용해 각 행을 딕셔너리로 읽어요. row['name']처럼 컬럼명으로 직접 접근할 수 있어 편리합니다.",
@@ -693,7 +693,7 @@
     {
       "question_id": "miniboss_int_os_5_4_003",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\nimport csv, io\nraw = \"city,temp\\nSeoul,25\\nBusan,28\\nJeju,30\"\nreader = csv.DictReader(io.StringIO(raw))\ntemps = [int(row['temp']) for row in reader]\nprint(max(temps))\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nimport csv, io\nraw = \"city,temp\nSeoul,25\nBusan,28\nJeju,30\"\nreader = csv.DictReader(io.StringIO(raw))\ntemps = [int(row['temp']) for row in reader]\nprint(max(temps))\n```",
       "answer": "D",
       "difficulty": "medium",
       "explanation": "CSV는 모든 값을 문자열로 읽으므로 int()로 변환해야 숫자 비교가 가능해요. temps = [25, 28, 30]이고 max = 30입니다.",
@@ -735,7 +735,7 @@
     {
       "question_id": "miniboss_int_os_5_4_005",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\nimport csv, io\nraw = \"a,b,c\\n1,2,3\\n4,5,6\"\nreader = csv.DictReader(io.StringIO(raw))\ntotal = sum(int(row['b']) for row in reader)\nprint(total)\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nimport csv, io\nraw = \"a,b,c\n1,2,3\n4,5,6\"\nreader = csv.DictReader(io.StringIO(raw))\ntotal = sum(int(row['b']) for row in reader)\nprint(total)\n```",
       "answer": "C",
       "difficulty": "medium",
       "explanation": "'b' 컬럼의 값은 '2'와 '5'예요. int 변환 후 합산하면 2 + 5 = 7입니다. 헤더 행은 키로 사용되므로 합산에서 제외됩니다.",
@@ -759,7 +759,7 @@
     {
       "question_id": "miniboss_int_fib_5_4_006",
       "type": "fill_in_blank",
-      "question": "빈칸을 채워 CSV 필드에 쉼표가 포함돼도 올바르게 파싱되도록 하세요.\n\n```python\nimport csv, io\nraw = 'name,desc\\nApple,\"red, round\"\\nBanana,\"yellow, long\"'\nreader = csv.reader(io.StringIO(raw), _____='\"')\nrows = list(reader)\nprint(rows[1][1])\n# 출력 목표: red, round\n```",
+      "question": "빈칸을 채워 CSV 필드에 쉼표가 포함돼도 올바르게 파싱되도록 하세요.\n\n```python\nimport csv, io\nraw = 'name,desc\nApple,\"red, round\"\nBanana,\"yellow, long\"'\nreader = csv.reader(io.StringIO(raw), _____='\"')\nrows = list(reader)\nprint(rows[1][1])\n# 출력 목표: red, round\n```",
       "answer": "quotechar",
       "difficulty": "medium",
       "explanation": "quotechar='\"'는 CSV에서 따옴표로 감싸진 필드 내의 쉼표를 구분자가 아닌 데이터로 처리해요. csv.reader의 기본 quotechar도 '\"'이지만 명시적으로 지정할 수 있습니다.",
@@ -777,7 +777,7 @@
     {
       "question_id": "miniboss_int_os_5_4_007",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\nimport csv, io\nraw = \"name,score\\nAmy,90\\nBob,55\\nCin,82\\nDan,45\"\nreader = csv.DictReader(io.StringIO(raw))\npassed = [r['name'] for r in reader if int(r['score']) >= 60]\nprint(', '.join(passed))\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nimport csv, io\nraw = \"name,score\nAmy,90\nBob,55\nCin,82\nDan,45\"\nreader = csv.DictReader(io.StringIO(raw))\npassed = [r['name'] for r in reader if int(r['score']) >= 60]\nprint(', '.join(passed))\n```",
       "answer": "B",
       "difficulty": "hard",
       "explanation": "60 이상인 학생은 Amy(90)와 Cin(82)이에요. Bob(55)과 Dan(45)은 제외됩니다. ', '.join()으로 리스트를 문자열로 연결합니다.",
@@ -801,7 +801,7 @@
     {
       "question_id": "miniboss_int_fib_5_4_008",
       "type": "fill_in_blank",
-      "question": "빈칸을 채워 탭으로 구분된 TSV 파일을 읽으세요.\n\n```python\nimport csv, io\ntsv = \"name\\tage\\nAmy\\t20\\nBob\\t25\"\nreader = csv.reader(io.StringIO(tsv), _____='\\t')\nrows = list(reader)\nprint(rows[1][0])\n# 출력 목표: Amy\n```",
+      "question": "빈칸을 채워 탭으로 구분된 TSV 파일을 읽으세요.\n\n```python\nimport csv, io\ntsv = \"name\\tage\nAmy\\t20\nBob\\t25\"\nreader = csv.reader(io.StringIO(tsv), _____='\\t')\nrows = list(reader)\nprint(rows[1][0])\n# 출력 목표: Amy\n```",
       "answer": "delimiter",
       "difficulty": "hard",
       "explanation": "csv.reader의 delimiter 매개변수로 구분자를 지정해요. 기본값은 ','지만 '\\t'(탭), ';'(세미콜론) 등으로 변경할 수 있습니다. TSV(Tab-Separated Values)는 탭으로 구분합니다.",
@@ -843,7 +843,7 @@
     {
       "question_id": "miniboss_int_os_5_4_010",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\nimport csv, io\nraw = \"id,value\\n1,10\\n2,20\\n1,30\\n2,40\"\nreader = csv.DictReader(io.StringIO(raw))\ntotals = {}\nfor row in reader:\n    key = row['id']\n    totals[key] = totals.get(key, 0) + int(row['value'])\nprint(totals['2'])\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nimport csv, io\nraw = \"id,value\n1,10\n2,20\n1,30\n2,40\"\nreader = csv.DictReader(io.StringIO(raw))\ntotals = {}\nfor row in reader:\n    key = row['id']\n    totals[key] = totals.get(key, 0) + int(row['value'])\nprint(totals['2'])\n```",
       "answer": "B",
       "difficulty": "hard",
       "explanation": "id='2'인 행은 value=20과 value=40이에요. totals['2'] = 20 + 40 = 60입니다. dict.get(key, 0)으로 누적 합산할 때 기본값 0 처리를 기억하세요.",
@@ -891,7 +891,7 @@
     {
       "question_id": "miniboss_int_fib_5_5_002",
       "type": "fill_in_blank",
-      "question": "빈칸을 채워 리스트 컴프리헨션으로 CSV 숫자 열을 정수 리스트로 변환하세요.\n\n```python\nimport csv, io\nraw = \"n\\n3\\n7\\n2\\n9\"\nreader = csv.DictReader(io.StringIO(raw))\nnums = [_____(row['n']) for row in reader]\nprint(sorted(nums))\n# 출력 목표: [2, 3, 7, 9]\n```",
+      "question": "빈칸을 채워 리스트 컴프리헨션으로 CSV 숫자 열을 정수 리스트로 변환하세요.\n\n```python\nimport csv, io\nraw = \"n\n3\n7\n2\n9\"\nreader = csv.DictReader(io.StringIO(raw))\nnums = [_____(row['n']) for row in reader]\nprint(sorted(nums))\n# 출력 목표: [2, 3, 7, 9]\n```",
       "answer": "int",
       "difficulty": "easy",
       "explanation": "csv.DictReader는 모든 값을 문자열로 읽어요. 숫자로 처리하려면 int() 혹은 float()로 형 변환해야 합니다. 컴프리헨션 안에서 바로 형 변환을 적용할 수 있습니다.",
@@ -993,7 +993,7 @@
     {
       "question_id": "miniboss_int_os_5_5_007",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\nimport csv, io\nraw = \"product,qty,price\\napple,3,1000\\nbanana,5,500\\nkiwi,2,1500\"\nreader = csv.DictReader(io.StringIO(raw))\ntotal_sales = sum(int(r['qty']) * int(r['price']) for r in reader)\nprint(total_sales)\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nimport csv, io\nraw = \"product,qty,price\napple,3,1000\nbanana,5,500\nkiwi,2,1500\"\nreader = csv.DictReader(io.StringIO(raw))\ntotal_sales = sum(int(r['qty']) * int(r['price']) for r in reader)\nprint(total_sales)\n```",
       "answer": "C",
       "difficulty": "hard",
       "explanation": "apple: 3*1000=3000, banana: 5*500=2500, kiwi: 2*1500=3000이에요. 합산 = 3000+2500+3000 = 8500입니다.",
@@ -1059,7 +1059,7 @@
     {
       "question_id": "miniboss_int_os_5_5_010",
       "type": "output_select",
-      "question": "다음 코드의 출력 결과는?\n\n```python\nimport csv, io, json\ncsv_raw = \"city,pop\\nSeoul,9700000\\nBusan,3400000\\nIncheon,2900000\"\nreader = csv.DictReader(io.StringIO(csv_raw))\ncities = [r['city'] for r in reader if int(r['pop']) > 3000000]\nprint(json.dumps(cities, ensure_ascii=False))\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nimport csv, io, json\ncsv_raw = \"city,pop\nSeoul,9700000\nBusan,3400000\nIncheon,2900000\"\nreader = csv.DictReader(io.StringIO(csv_raw))\ncities = [r['city'] for r in reader if int(r['pop']) > 3000000]\nprint(json.dumps(cities, ensure_ascii=False))\n```",
       "answer": "D",
       "difficulty": "hard",
       "explanation": "300만 초과는 Seoul(970만)과 Busan(340만)이에요. Incheon(290만)은 제외됩니다. json.dumps()는 리스트를 JSON 배열 문자열로 변환합니다.",

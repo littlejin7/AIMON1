@@ -763,7 +763,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과를 고르세요.\n\n```python\nclass ToolChain:\n    def __init__(self):\n        self.tools = {}\n        self.execution_log = []\n\n    def add_tool(self, name, func):\n        self.tools[name] = func\n        return self  # 메서드 체이닝\n\n    def execute(self, name, **kwargs):\n        if name not in self.tools:\n            self.execution_log.append(f\"ERROR:{name}\")\n            return None\n        result = self.tools[name](**kwargs)\n        self.execution_log.append(f\"OK:{name}\")\n        return result\n\nchain = ToolChain()\nchain.add_tool(\"a\", lambda x: x + 1)\\\n     .add_tool(\"b\", lambda x: x * 3)\\\n     .add_tool(\"c\", lambda x: x - 2)\n\nr1 = chain.execute(\"a\", x=5)\nr2 = chain.execute(\"b\", x=r1)\nr3 = chain.execute(\"d\", x=r2)  # 존재하지 않는 도구\nr4 = chain.execute(\"c\", x=10)\n\nprint(r1, r2, r3, r4)\nprint(len(chain.execution_log))\nprint(chain.execution_log[2])\n```",
+      "question": "다음 코드의 출력 결과를 고르세요.\n\n```python\nclass ToolChain:\n    def __init__(self):\n        self.tools = {}\n        self.execution_log = []\n\n    def add_tool(self, name, func):\n        self.tools[name] = func\n        return self  # 메서드 체이닝\n\n    def execute(self, name, **kwargs):\n        if name not in self.tools:\n            self.execution_log.append(f\"ERROR:{name}\")\n            return None\n        result = self.tools[name](**kwargs)\n        self.execution_log.append(f\"OK:{name}\")\n        return result\n\nchain = ToolChain()\nchain.add_tool(\"a\", lambda x: x + 1)\\n     .add_tool(\"b\", lambda x: x * 3)\\n     .add_tool(\"c\", lambda x: x - 2)\n\nr1 = chain.execute(\"a\", x=5)\nr2 = chain.execute(\"b\", x=r1)\nr3 = chain.execute(\"d\", x=r2)  # 존재하지 않는 도구\nr4 = chain.execute(\"c\", x=10)\n\nprint(r1, r2, r3, r4)\nprint(len(chain.execution_log))\nprint(chain.execution_log[2])\n```",
       "choices": [
         "A. 6 18 None 8\n4\nERROR:d",
         "B. 6 18 0 8\n4\nERROR:d",
@@ -1060,7 +1060,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "워크플로우 클래스에서 단계를 이름으로 등록하도록 빈칸을 채우세요.\n\n```python\nclass Workflow:\n    def __init__(self):\n        self.stages = {}\n\n    def register(self, stage_id, func):\n        self.stages[_____] = func\n        return self  # 메서드 체이닝\n\n    def run(self, stage_id, data):\n        return self.stages[stage_id](data)\n\nwf = Workflow()\nwf.register(\"double\", lambda x: x * 2)\\\n  .register(\"square\", lambda x: x ** 2)\n\nprint(len(wf.stages))\nprint(wf.run(\"double\", 7))\n```",
+      "question": "워크플로우 클래스에서 단계를 이름으로 등록하도록 빈칸을 채우세요.\n\n```python\nclass Workflow:\n    def __init__(self):\n        self.stages = {}\n\n    def register(self, stage_id, func):\n        self.stages[_____] = func\n        return self  # 메서드 체이닝\n\n    def run(self, stage_id, data):\n        return self.stages[stage_id](data)\n\nwf = Workflow()\nwf.register(\"double\", lambda x: x * 2)\\n  .register(\"square\", lambda x: x ** 2)\n\nprint(len(wf.stages))\nprint(wf.run(\"double\", 7))\n```",
       "choices": [],
       "answer": "stage_id",
       "hint": "stages 딕셔너리의 키로 무엇을 사용해야 wf.run(\"double\", 7)이 올바르게 동작할까요? 매개변수 이름을 확인하세요.",
@@ -1329,7 +1329,7 @@
       "quiz_category": "output",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "아래 코드의 출력 결과는 무엇일까요?\n\n```python\ndef process_log_lines(lines, keyword):\n    matched = []\n    for line in lines:\n        if keyword in line:\n            matched.append(line.strip())\n    return matched\n\nlog_lines = [\n    \"  2024-01-01 INFO: 서버 시작\\n\",\n    \"  2024-01-01 ERROR: 연결 실패\\n\",\n    \"  2024-01-01 INFO: 요청 처리\\n\",\n    \"  2024-01-01 ERROR: 타임아웃\\n\",\n    \"  2024-01-01 ERROR: 디스크 오류\\n\",\n]\nresult = process_log_lines(log_lines, \"ERROR\")\nprint(len(result))\nprint(result[0])\n```",
+      "question": "아래 코드의 출력 결과는 무엇일까요?\n\n```python\ndef process_log_lines(lines, keyword):\n    matched = []\n    for line in lines:\n        if keyword in line:\n            matched.append(line.strip())\n    return matched\n\nlog_lines = [\n    \"  2024-01-01 INFO: 서버 시작\n\",\n    \"  2024-01-01 ERROR: 연결 실패\n\",\n    \"  2024-01-01 INFO: 요청 처리\n\",\n    \"  2024-01-01 ERROR: 타임아웃\n\",\n    \"  2024-01-01 ERROR: 디스크 오류\n\",\n]\nresult = process_log_lines(log_lines, \"ERROR\")\nprint(len(result))\nprint(result[0])\n```",
       "choices": [
         "A. 2\n2024-01-01 ERROR: 연결 실패",
         "B. 3\n  2024-01-01 ERROR: 연결 실패",
@@ -1539,7 +1539,7 @@
       "quiz_category": "output",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "아래 코드의 출력 결과는 무엇일까요?\n\n```python\ndef parse_csv_lines(lines, delimiter=\",\"):\n    header = lines[0].strip().split(delimiter)\n    records = []\n    for line in lines[1:]:\n        values = line.strip().split(delimiter)\n        records.append(dict(zip(header, values)))\n    return records\n\ncsv_data = [\n    \"name,score,grade\\n\",\n    \"Alice,95,A\\n\",\n    \"Bob,72,B\\n\",\n    \"Carol,88,A\\n\",\n]\nrecords = parse_csv_lines(csv_data)\nprint(len(records))\nprint(records[0][\"name\"])\nprint(records[2][\"grade\"])\n```",
+      "question": "아래 코드의 출력 결과는 무엇일까요?\n\n```python\ndef parse_csv_lines(lines, delimiter=\",\"):\n    header = lines[0].strip().split(delimiter)\n    records = []\n    for line in lines[1:]:\n        values = line.strip().split(delimiter)\n        records.append(dict(zip(header, values)))\n    return records\n\ncsv_data = [\n    \"name,score,grade\n\",\n    \"Alice,95,A\n\",\n    \"Bob,72,B\n\",\n    \"Carol,88,A\n\",\n]\nrecords = parse_csv_lines(csv_data)\nprint(len(records))\nprint(records[0][\"name\"])\nprint(records[2][\"grade\"])\n```",
       "choices": [
         "A. 4\nname\nA",
         "B. 3\nAlice\nA",
@@ -1603,7 +1603,7 @@
       "quiz_category": "output",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "아래 코드의 출력 결과는 무엇일까요?\n\n```python\ndef file_pipeline(content, stages):\n    stats = {\"lines_in\": 0, \"lines_out\": 0}\n    lines = content.strip().split(\"\\n\")\n    stats[\"lines_in\"] = len(lines)\n    for stage_name, func in stages:\n        lines = func(lines)\n    stats[\"lines_out\"] = len(lines)\n    return lines, stats\n\ncontent = \"\"\"에러: 서버 오류\n정보: 시작됨\n에러: DB 연결 실패\n경고: 메모리 부족\n에러: 타임아웃\n정보: 완료\"\"\"\n\nstages = [\n    (\"filter_errors\",  lambda ls: [l for l in ls if \"에러\" in l]),\n    (\"strip_prefix\",   lambda ls: [l.split(\": \", 1)[1] for l in ls]),\n    (\"sort_alpha\",     lambda ls: sorted(ls)),\n]\nresult, stats = file_pipeline(content, stages)\nprint(stats[\"lines_in\"])\nprint(stats[\"lines_out\"])\nprint(result[0])\n```",
+      "question": "아래 코드의 출력 결과는 무엇일까요?\n\n```python\ndef file_pipeline(content, stages):\n    stats = {\"lines_in\": 0, \"lines_out\": 0}\n    lines = content.strip().split(\"\n\")\n    stats[\"lines_in\"] = len(lines)\n    for stage_name, func in stages:\n        lines = func(lines)\n    stats[\"lines_out\"] = len(lines)\n    return lines, stats\n\ncontent = \"\"\"에러: 서버 오류\n정보: 시작됨\n에러: DB 연결 실패\n경고: 메모리 부족\n에러: 타임아웃\n정보: 완료\"\"\"\n\nstages = [\n    (\"filter_errors\",  lambda ls: [l for l in ls if \"에러\" in l]),\n    (\"strip_prefix\",   lambda ls: [l.split(\": \", 1)[1] for l in ls]),\n    (\"sort_alpha\",     lambda ls: sorted(ls)),\n]\nresult, stats = file_pipeline(content, stages)\nprint(stats[\"lines_in\"])\nprint(stats[\"lines_out\"])\nprint(result[0])\n```",
       "choices": [
         "A. 6\n3\nDB 연결 실패",
         "B. 5\n3\n서버 오류",
