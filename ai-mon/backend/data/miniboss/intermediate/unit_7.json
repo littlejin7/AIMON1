@@ -909,7 +909,7 @@
     {
       "question_id": "miniboss_int_fib_7_5_004",
       "type": "fill_in_blank",
-      "question": "빈칸을 채워 여러 줄에서 각 줄 끝 숫자를 찾으세요.\n\n```python\nimport re\ntext = 'score: 95\\ngrade: A\\nrank: 3'\nresult = re.findall(r'\\d+$', text, re._____)\nprint(result)\n# 출력: ['95', '3']\n```",
+      "question": "빈칸을 채워 여러 줄에서 각 줄 끝 숫자를 찾으세요.\n\n```python\nimport re\ntext = 'score: 95\ngrade: A\nrank: 3'\nresult = re.findall(r'\\d+$', text, re._____)\nprint(result)\n# 출력: ['95', '3']\n```",
       "answer": "MULTILINE",
       "difficulty": "medium",
       "explanation": "re.MULTILINE (또는 re.M) 플래그를 사용하면 $가 전체 문자열 끝 외에 각 줄의 끝에도 매칭돼요. 여러 줄 텍스트 처리에 사용합니다.",
@@ -951,7 +951,7 @@
     {
       "question_id": "miniboss_int_fib_7_5_006",
       "type": "fill_in_blank",
-      "question": "빈칸을 채워 .이 줄바꿈 문자도 포함하도록 설정하세요.\n\n```python\nimport re\ntext = 'line1\\nline2'\nm = re.search(r'line1.line2', text, re._____)\nprint(bool(m))\n# 출력: True\n```",
+      "question": "빈칸을 채워 .이 줄바꿈 문자도 포함하도록 설정하세요.\n\n```python\nimport re\ntext = 'line1\nline2'\nm = re.search(r'line1.line2', text, re._____)\nprint(bool(m))\n# 출력: True\n```",
       "answer": "DOTALL",
       "difficulty": "medium",
       "explanation": "기본적으로 .은 줄바꿈(\\n)을 제외한 모든 문자를 매칭해요. re.DOTALL (또는 re.S) 플래그를 사용하면 .이 \\n도 매칭합니다.",
