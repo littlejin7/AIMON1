@@ -81,7 +81,7 @@ export function usePairsGame() {
           s.add(a); s.add(b)
           if (s.size / 2 === PAIRS_PER_GAME) {
             setRunning(false)
-            setWon(true
+            setWon(true)
             incrementGamePlay('pairs')
           }
           processingRef.current = false
