@@ -332,3 +332,44 @@ def calc_level(xp: int) -> int:
         lv += 1
     return lv
 
+
+REFRESH_TOKENS_FILE = os.path.join(DATA_DIR, "refresh_tokens.json")
+
+
+def load_refresh_tokens():
+    if USE_SUPABASE:
+        res = supabase.table("refresh_tokens").select("*").execute()
+        return res.data
+    return _load_json_locked(REFRESH_TOKENS_FILE, [])
+
+
+def save_refresh_token(item: dict):
+    if USE_SUPABASE:
+        supabase.table("refresh_tokens").upsert(item).execute()
+    else:
+        tokens = load_refresh_tokens()
+        idx = next((i for i, t in enumerate(tokens) if t.get("id") == item.get("id") or t.get("token") == item.get("token")), None)
+        if idx is not None:
+            tokens[idx] = item
+        else:
+            tokens.append(item)
+        _save_json_locked(REFRESH_TOKENS_FILE, tokens)
+
+
+def delete_refresh_token(token: str):
+    if USE_SUPABASE:
+        supabase.table("refresh_tokens").delete().eq("token", token).execute()
+    else:
+        tokens = load_refresh_tokens()
+        tokens = [t for t in tokens if t.get("token") != token]
+        _save_json_locked(REFRESH_TOKENS_FILE, tokens)
+
+
+def delete_user_refresh_tokens(user_id: str):
+    if USE_SUPABASE:
+        supabase.table("refresh_tokens").delete().eq("user_id", user_id).execute()
+    else:
+        tokens = load_refresh_tokens()
+        tokens = [t for t in tokens if t.get("user_id") != user_id]
+        _save_json_locked(REFRESH_TOKENS_FILE, tokens)
+
