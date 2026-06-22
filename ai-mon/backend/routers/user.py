@@ -62,3 +62,35 @@ def update_me(req: UpdateProfileRequest, authorization: str = Header(...)):
     save_user(user)
     print("PATCH /user/me successfully saved user:", user)
     return serialize_user(user)
+   raise HTTPException(status_code=404, detail="유저를 찾을 수 없습니다.")
+
+
+@router.post("/purchase-theme")
+def purchase_theme(req: PurchaseThemeRequest, authorization: str = Header(...)):
+    user = get_current_user(authorization)
+    if req.theme_id not in THEME_PRICES:
+        raise HTTPException(status_code=400, detail="존재하지 않는 테마입니다.")
+    cost = THEME_PRICES[req.theme_id]
+    users = load_users()
+    for u in users:
+        if u["id"] == user["id"]:
+            owned = u.get("purchased_themes", ["dark"])
+            if req.theme_id in owned:
+                raise HTTPException(status_code=400, detail="이미 보유한 테마입니다.")
+            current_xp = u.get("xp", 0)
+            if current_xp < cost:
+                raise HTTPException(status_code=400, detail=f"XP가 부족합니다. (필요: {cost}, 보유: {current_xp})")
+            u["xp"] = current_xp - cost
+            u["purchased_themes"] = owned + [req.theme_id]
+            save_users(users)
+            return {
+                "success": True,
+                "theme_id": req.theme_id,
+                "xp_spent": cost,
+                "xp_remaining": u["xp"],
+                "purchased_themes": u["purchased_themes"],
+                "user": serialize_user(u),
+            }
+    raise HTTPException(status_code=404, detail="유저를 찾을 수 없습니다.")
+
+
