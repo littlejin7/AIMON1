@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RunnerEngine } from './engine/RunnerEngine';
 import { gameApi } from '../../../api';
+import { incrementGamePlay } from '../Game';
 import './AIrun.css';
 
 export default function AIrun() {
@@ -14,6 +15,7 @@ export default function AIrun() {
     
     const handleGameOver = async (score, distance) => {
       try {
+        incrementGamePlay('runner');
         return await gameApi.clearGame({ game_id: 'runner', distance: Math.floor(distance) });
       } catch (e) {
         console.error("Runner API error", e);
