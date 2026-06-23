@@ -61,7 +61,13 @@ export default function QuizCard({ question, onAnswer, onNext, disabled = false 
   const courseLevel = user?.course_level || 'beginner'
 
   if (!question) return null
-  const { questionText, codeLines } = parseQuestionCode(question.question || '') 
+  
+  let rawQuestion = question.question || ''
+  if (question.code && !rawQuestion.includes('```')) {
+    rawQuestion += `\n\n\`\`\`python\n${question.code}\n\`\`\``
+  }
+  
+  const { questionText, codeLines } = parseQuestionCode(rawQuestion) 
   
   const type          = question.quiz_type || question.type
   const isChoiceType  = type === 'multiple_choice' || type === 'output_select' || type === 'error_find'
