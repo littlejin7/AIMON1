@@ -213,11 +213,9 @@ export default function App() {
         <Route
           path="/character"
           element={
-            <ProtectedRoute>
-              <AppLayout>
-                <Character />
-              </AppLayout>
-            </ProtectedRoute>
+            <AppLayout>
+              <Character />
+            </AppLayout>
           }
         />
 
@@ -237,11 +235,9 @@ export default function App() {
         <Route
           path="/game"
           element={
-            <ProtectedRoute>
-              <AppLayout>
-                <Game />
-              </AppLayout>
-            </ProtectedRoute>
+            <AppLayout>
+              <Game />
+            </AppLayout>
           }
         />
 
