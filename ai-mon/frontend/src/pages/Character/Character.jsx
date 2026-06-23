@@ -1,0 +1,449 @@
+import { useAuthStore } from '../../hooks/useAuthStore'
+import { userApi, progressApi } from '../../api/index'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import './Character.css'
+
+function calcLevel(xp) {
+  let lv = 1, accumulated = 0
+  while (lv < 30) {
+    const needed = lv * 1000
+    if (xp < accumulated + needed) return { lv, xpInLevel: xp - accumulated, xpForNext: needed }
+    accumulated += needed
+    lv++
+  }
+  const extraXp = xp - accumulated
+  const extraLv = Math.floor(extraXp / 30000)
+  return { lv: 30 + extraLv, xpInLevel: extraXp % 30000, xpForNext: 30000 }
+}
+
+const IconFirstStep  = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 20h10"/><path d="M12 20V10"/><path d="M12 10a4 4 0 0 1 4-4h2"/><path d="M12 14a4 4 0 0 0-4-4H6"/></svg>
+const IconStreak     = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FB923C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+const IconBossSlayer = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#818CF8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="9.5 17.5 21 6 21 3 18 3 6.5 14.5"/><line x1="11" y1="19" x2="5" y2="13"/><line x1="8" y1="16" x2="4" y2="20"/><line x1="5" y1="21" x2="3" y2="19"/></svg>
+const IconAiExplorer = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F472B6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M9 13h4"/><path d="M12 10v6"/><circle cx="12" cy="13" r="1" fill="#F472B6"/></svg>
+const IconUnitMaster = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7z"/><path d="M3 20h18"/></svg>
+const IconAimonMaster= () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M11 3 8 9l4 12 4-12-3-6"/><path d="M2 9h20"/></svg>
+
+const TITLES = [
+  { id: 'first_step',   Icon: IconFirstStep,   name: '첫 발걸음',    desc: '첫 스테이지 클리어',   condition: (u) => (u?.completed_stages || 0) >= 1 },
+  { id: 'streak_7',     Icon: IconStreak,       name: '연속학습자',   desc: '7일 스트릭 달성',      condition: (u) => (u?.streak || 0) >= 7 },
+  { id: 'boss_slayer',  Icon: IconBossSlayer,   name: '보스슬레이어', desc: '첫 보스 클리어',       condition: (u) => (u?.boss_cleared || 0) >= 1 },
+  { id: 'ai_explorer',  Icon: IconAiExplorer,   name: 'AI 탐구자',    desc: 'AI 피드백 10회 확인',  condition: (u) => (u?.ai_feedback_count || 0) >= 10 },
+  { id: 'unit_master',  Icon: IconUnitMaster,   name: '유닛 마스터',  desc: '유닛 1개 100% 완료',   condition: (u) => (u?.completed_units || 0) >= 1 },
+  { id: 'aimon_master', Icon: IconAimonMaster,  name: '에이몬 마스터',desc: 'Lv.30 달성',           condition: (u) => calcLevel(u?.xp || 0).lv >= 30 },
+  { id: 'rookie_coder', Icon: IconUnitMaster,   name: '코드 ROOKIE',  desc: '초급 엔드보스 클리어', condition: (u) => u?.titles?.includes('rookie_coder') },
+  { id: 'ace_coder',    Icon: IconUnitMaster,   name: 'ACE 코더',     desc: '중급 엔드보스 클리어', condition: (u) => u?.titles?.includes('ace_coder') },
+  { id: 'ai_master',    Icon: IconAimonMaster,  name: 'AI 마스터',    desc: '고급 엔드보스 클리어', condition: (u) => u?.titles?.includes('ai_master') },
+]
+
+const CHARACTERS = [
+  { id: 'slime',         icon: '/src/assets/character_slime.png',      name: '에이몬 슬라임', desc: '기본 캐릭터',         unlockUnits: 0 },
+  { id: 'robot',         icon: '/src/assets/character_robot.png',       name: '에이몬 로봇',   desc: 'Unit 3 완료 시 해금', unlockUnits: 3 },
+  { id: 'speech_bubble', icon: '/src/assets/character_bubble.png',      name: '에이몬 말풍선', desc: 'Unit 6 완료 시 해금', unlockUnits: 6 },
+  { id: 'final_ghost',   icon: '/src/assets/character_final_ghost.png', name: '파이널 에이몬', desc: 'Unit 8 완료 시 해금', unlockUnits: 8 },
+]
+
+const CHAR_ICONS = Object.fromEntries(CHARACTERS.map(c => [c.id, c.icon]))
+
+export default function Character() {
+  const navigate   = useNavigate()
+  const token      = useAuthStore((s) => s.token)
+  const user       = useAuthStore((s) => s.user)
+  const updateUser = useAuthStore((s) => s.updateUser)
+
+  const [selected,      setSelected]      = useState(user?.character || 'slime')
+  const [saving,        setSaving]        = useState(false)
+  const [saved,         setSaved]         = useState(false)
+  const [stats,         setStats]         = useState(null)
+  const [equippedTitle, setEquippedTitle] = useState(
+    user?.equipped_title || localStorage.getItem(`equipped_title_${user?.id || 'guest'}`) || 'first_step'
+  )
+
+  useEffect(() => {
+    if (token) {
+      progressApi.getStats().then(r => setStats(r.data)).catch(() => {})
+    }
+  }, [token])
+
+  useEffect(() => {
+    if (user) {
+      const key = `equipped_title_${user?.id || 'guest'}`
+      setEquippedTitle(user.equipped_title || localStorage.getItem(key) || 'first_step')
+    }
+  }, [user])
+
+  if (!token) {
+    return (
+      <div className="char-page" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '75vh' }}>
+        <div className="char-section-card card-glass animate-fade-in-up" style={{ width: '100%', maxWidth: '450px', padding: '3.5rem 2rem', textAlign: 'center', border: '1px solid rgba(255,255,255,0.08)', position: 'relative', margin: '2rem auto' }}>
+          
+          <button 
+            onClick={() => navigate('/')}
+            style={{ position: 'absolute', top: '20px', right: '20px', background: 'none', border: 'none', color: 'var(--clr-text-muted)', cursor: 'pointer', fontSize: '1.2rem' }}
+            aria-label="닫기"
+          >
+            ✕
+          </button>
+
+          <div style={{ fontSize: '3.5rem', marginBottom: '1.5rem', textShadow: '0 0 20px rgba(124,58,237,0.3)' }}>🔒</div>
+          
+          <h2 style={{ color: 'var(--clr-text-bright)', marginBottom: '0.8rem', fontSize: '1.75rem', fontWeight: 800 }}>
+            내 캐릭터 커스터마이징 잠김
+          </h2>
+          
+          <p style={{ color: 'var(--clr-text-muted)', lineHeight: '1.6', marginBottom: '2.5rem', fontSize: '0.95rem' }}>
+            로그인하시면 나만의 캐릭터와 칭호를 변경하고,<br />
+            학습 진행 상황에 따라 새로운 캐릭터를 해금할 수 있습니다!
+          </p>
+
+          <button className="btn btn-primary btn-lg btn-full" onClick={() => navigate('/auth')}>
+            로그인하러 가기
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const completedUnits = Math.floor((stats?.completed_stages || 0) / 7)
+  const { lv, xpInLevel, xpForNext } = calcLevel(user?.xp || 0)
+  const xpPct = Math.round((xpInLevel / xpForNext) * 100)
+
+  const latestUnlocked = [...CHARACTERS].reverse().find(c => completedUnits >= c.unlockUnits)
+  const selectedChar   = CHARACTERS.find(c => c.id === selected) || CHARACTERS[0]
+
+  const handleSelect = (id) => {
+    const char = CHARACTERS.find(c => c.id === id)
+    if (completedUnits < char.unlockUnits) return
+    setSelected(id)
+  }
+
+  const handleSave = async () => {
+    setSaving(true)
+    try {
+      const res = await userApi.updateMe({ character: selected })
+      updateUser(res.data)
+      setSaved(true)
+      setTimeout(() => setSaved(false), 2000)
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const handleEquipTitle = async (titleId) => {
+    const key = `equipped_title_${user?.id || 'guest'}`
+    setEquippedTitle(titleId)
+    localStorage.setItem(key, titleId)
+    try {
+      const res = await userApi.updateMe({ equipped_title: titleId })
+      updateUser(res.data)
+    } catch (err) {
+      console.error('칭호 저장 실패:', err)
+    }
+  }
+
+  const titlesWithState = TITLES.map(t => ({
+    ...t,
+    owned:    t.condition(user),
+    equipped: t.id === equippedTitle,
+  }))
+
+  // 인증카드 색상 테마
+  const CERT_THEMES = [
+    { grad: 'linear-gradient(135deg,#378ADD,#185FA5)', bodyBg: '#E6F1FB', footerBg: '#185FA5', label: 'Unit 1 보스' },
+    { grad: 'linear-gradient(135deg,#1D9E75,#085041)', bodyBg: '#E1F5EE', footerBg: '#085041', label: 'Unit 2 보스' },
+    { grad: 'linear-gradient(135deg,#7F77DD,#26215C)', bodyBg: '#EEEDFE', footerBg: '#26215C', label: 'Unit 3 보스' },
+    { grad: 'linear-gradient(135deg,#854F0B,#412402)', bodyBg: '#FAEEDA', footerBg: '#412402', label: 'Unit 4 보스' },
+  ]
+  const bossCleared = user?.boss_cleared || 0
+  const clearDates = ['2026.06.10', '2026.06.15', '2026.06.20', '2026.06.22']
+
+  // 칭호별 아이콘 배경색
+  const TITLE_ICON_BG = {
+    first_step:   { bg: 'rgba(255,255,255,0.06)', color: '#4ADE80' },
+    streak_7:     { bg: 'rgba(251,146,60,0.15)',  color: '#FB923C' },
+    boss_slayer:  { bg: 'rgba(129,140,248,0.15)', color: '#818CF8' },
+    ai_explorer:  { bg: 'rgba(127,119,221,0.2)',  color: '#9B94E8' },
+    unit_master:  { bg: 'rgba(251,191,36,0.15)',  color: '#FBBF24' },
+    aimon_master: { bg: 'rgba(56,189,248,0.15)',  color: '#38BDF8' },
+    rookie_coder: { bg: 'rgba(251,191,36,0.15)',  color: '#FBBF24' },
+    ace_coder:    { bg: 'rgba(251,191,36,0.15)',  color: '#FBBF24' },
+    ai_master:    { bg: 'rgba(56,189,248,0.15)',  color: '#38BDF8' },
+  }
+
+  // 장착 중인 칭호 이름
+  const equippedTitleName = titlesWithState.find(t => t.id === equippedTitle)?.name || ''
+
+  const logout = useAuthStore((s) => s.logout)
+  const handleLogout = () => {
+    logout?.()
+    navigate('/auth')
+  }
+
+  return (
+    <div className="char-page">
+
+      {/* ── 히어로 (보라 배경) ── */}
+      <div className="char-hero-bg">
+        <div className="char-hero-topbar">
+          <span className="char-hero-logo">AIMON</span>
+          <button className="char-hero-settings" onClick={() => navigate('/settings')} aria-label="설정">
+            ⚙️
+          </button>
+        </div>
+        <div className="char-hero-body">
+          {equippedTitleName && (
+            <div className="char-hero-title-badge">🎖 {equippedTitleName}</div>
+          )}
+          <p className="char-hero-username">{user?.username || user?.email?.split('@')[0] || '유저'}</p>
+          <div className="char-hero-glow">
+            <img
+              src={CHAR_ICONS[selected]}
+              alt={selectedChar.name}
+              className="char-visual-img animate-bob"
+            />
+          </div>
+          <div className="char-hero-xp">
+            <div className="char-hero-xp-row">
+              <span className="char-hero-xp-lv">Lv. {lv} · {selectedChar.name}</span>
+              <span className="char-hero-xp-num">{(user?.xp || 0).toLocaleString()} XP</span>
+            </div>
+            <div className="char-hero-xp-bar">
+              <div className="char-hero-xp-fill" style={{ width: `${xpPct}%` }} />
+            </div>
+            <p className="char-hero-xp-hint">다음 레벨까지 {xpForNext - xpInLevel} XP 남았어요</p>
+          </div>
+        </div>
+      </div>
+
+      {/* ── 보상 스트립 ── */}
+      <div className="char-reward-strip">
+        <div className="char-ri">
+          <span className="char-ri-val">👑 {user?.crown || 0}</span>
+          <span className="char-ri-label">보유 왕관</span>
+        </div>
+        <div className="char-ri">
+          <span className="char-ri-val">🔥 {user?.streak || 0}일</span>
+          <span className="char-ri-label">연속 학습</span>
+        </div>
+        <div className="char-ri">
+          <span className="char-ri-val">⚔️ {bossCleared}회</span>
+          <span className="char-ri-label">보스 클리어</span>
+        </div>
+      </div>
+
+      <div className="char-scroll">
+
+        {latestUnlocked && latestUnlocked.unlockUnits > 0 && (
+          <div className="char-level-banner">⭐ {latestUnlocked.name} 해금!</div>
+        )}
+
+        {/* ── 학습 스탯 ── */}
+        <p className="char-section-label">학습 스탯</p>
+        <div className="char-stats-grid">
+          <div className="char-stat-card">
+            <div className="char-stat-icon" style={{ background: 'rgba(83,74,183,0.18)' }}>⚡</div>
+            <div className="char-stat-val">{(user?.xp || 0).toLocaleString()}</div>
+            <div className="char-stat-label">누적 XP</div>
+          </div>
+          <div className="char-stat-card">
+            <div className="char-stat-icon" style={{ background: 'rgba(15,110,86,0.18)' }}>📈</div>
+            <div className="char-stat-val">{stats?.accuracy != null ? `${Math.round(stats.accuracy)}%` : '—'}</div>
+            <div className="char-stat-label">전체 정답률</div>
+          </div>
+          <div className="char-stat-card">
+            <div className="char-stat-icon" style={{ background: 'rgba(133,79,11,0.18)' }}>🔥</div>
+            <div className="char-stat-val">{user?.streak || 0}일</div>
+            <div className="char-stat-label">최장 스트릭</div>
+          </div>
+          <div className="char-stat-card">
+            <div className="char-stat-icon" style={{ background: 'rgba(163,45,45,0.15)' }}>🧠</div>
+            <div className="char-stat-val">{stats?.total_answers || user?.completed_stages || 0}개</div>
+            <div className="char-stat-label">총 푼 문제</div>
+          </div>
+        </div>
+
+        {/* ── 캐릭터 변경 ── */}
+        <p className="char-section-label">😺 캐릭터 변경</p>
+        <div className="char-section-card">
+          <div className="char-grid">
+            {CHARACTERS.map(char => {
+              const locked = completedUnits < char.unlockUnits
+              const active = selected === char.id
+              return (
+                <button
+                  key={char.id}
+                  className={`char-option ${active ? 'active' : ''} ${locked ? 'locked' : ''}`}
+                  onClick={() => handleSelect(char.id)}
+                  disabled={locked}
+                >
+                  {active && <div className="char-opt-check">✓</div>}
+                  {locked && <div className="char-opt-lock">🔒</div>}
+                  <span className="char-opt-img">
+                    {locked
+                      ? <span style={{ fontSize: '1.8rem', opacity: 0.4 }}>👾</span>
+                      : <img src={char.icon} alt={char.name} />
+                    }
+                  </span>
+                  <div className="char-opt-name">{locked ? <span style={{ color: 'var(--clr-text-faint)' }}>{char.name}</span> : char.name}</div>
+                  <div className="char-opt-desc">
+                    {locked ? `Unit ${char.unlockUnits} 완료 후 해금` : char.desc}
+                  </div>
+                </button>
+              )
+            })}
+          </div>
+          <button
+            className="char-save-btn"
+            onClick={handleSave}
+            disabled={saving || selected === user?.character}
+          >
+            {saved ? '✅ 저장 완료!' : saving ? '저장 중...' : '캐릭터 저장하기'}
+          </button>
+        </div>
+
+        {/* ── 칭호 선택 ── */}
+        <p className="char-section-label">🏅 칭호 선택</p>
+        <p className="char-section-hint">하나를 선택해 프로필에 표시하세요</p>
+        <div className="char-title-list">
+          {titlesWithState.map(({ id, Icon, name, desc, owned, equipped }) => {
+            const meta = TITLE_ICON_BG[id] || { bg: 'rgba(255,255,255,0.06)', color: '#aaa' }
+            return (
+              <button
+                key={id}
+                className={`char-title-row ${equipped ? 'equipped' : ''} ${!owned ? 'locked' : ''}`}
+                onClick={() => owned && handleEquipTitle(id)}
+                disabled={!owned}
+              >
+                <div className="char-title-icon" style={{ background: meta.bg }}>
+                  <Icon />
+                </div>
+                <div className="char-title-info">
+                  <div className="char-title-name-row">
+                    <span className="char-title-name" style={!owned ? { color: 'var(--clr-text-faint)' } : {}}>{name}</span>
+                    {equipped && <span className="char-title-equipped-badge">장착 중</span>}
+                  </div>
+                  <div className="char-title-desc">{desc}</div>
+                </div>
+                {!owned
+                  ? <span style={{ fontSize: '0.85rem', flexShrink: 0 }}>🔒</span>
+                  : equipped
+                  ? <div className="char-title-radio on"><div className="char-title-dot" /></div>
+                  : <div className="char-title-radio" />
+                }
+              </button>
+            )
+          })}
+        </div>
+
+        {/* ── 인증카드 ── */}
+        {bossCleared > 0 && (
+          <>
+            <p className="char-section-label">🎖 인증카드</p>
+            <div className="char-cert-scroll">
+              {Array.from({ length: Math.min(bossCleared, 4) }).map((_, i) => {
+                const theme = CERT_THEMES[i]
+                return (
+                  <div key={i} className="char-cert-card">
+                    <div className="char-cert-top" style={{ background: theme.grad }}>
+                      <div className="char-cert-badge">BOSS CLEAR</div>
+                      <div className="char-cert-name">{theme.label}</div>
+                    </div>
+                    <div className="char-cert-body" style={{ background: theme.bodyBg }}>
+                      <img src={CHAR_ICONS['slime']} alt="에이몬" className="char-cert-img" />
+                    </div>
+                    <div className="char-cert-footer" style={{ background: theme.footerBg }}>
+                      <span className="char-cert-date">{clearDates[i]}</span>
+                      <span className="char-cert-share">↗ 공유</span>
+                    </div>
+                  </div>
+                )
+              })}
+              {bossCleared < 4 && (
+                <div className="char-cert-card char-cert-locked">
+                  <div style={{ fontSize: '1.4rem', marginBottom: 6 }}>🔒</div>
+                  <div className="char-cert-locked-text">Unit {bossCleared + 1} 보스<br />클리어 후 해금</div>
+                </div>
+              )}
+            </div>
+          </>
+        )}
+
+        {/* ── 캐릭터 커스텀 ── */}
+        <p className="char-section-label">🎨 캐릭터 커스텀</p>
+        <div className="char-section-card">
+          <p className="char-custom-subtitle">색상 팔레트 · 왕관으로 구매</p>
+          <div className="char-palette-row">
+            {[
+              { color: '#7F77DD', unlocked: true  },
+              { color: '#378ADD', unlocked: true  },
+              { color: '#1D9E75', unlocked: true  },
+              { color: '#EF9F27', unlocked: false },
+              { color: '#D4537E', unlocked: false },
+              { color: '#26215C', unlocked: false },
+            ].map(({ color, unlocked }) => (
+              <div
+                key={color}
+                className={`char-swatch${!unlocked ? ' locked' : ''}`}
+                style={{ background: color }}
+                aria-label={color}
+              >
+                {!unlocked && <span className="char-swatch-lock">🔒</span>}
+              </div>
+            ))}
+          </div>
+          <div className="char-custom-divider" />
+          <p className="char-custom-subtitle" style={{ marginBottom: 8 }}>이펙트</p>
+          <div className="char-effect-row">
+            <div className="char-effect active">✨ 반짝이</div>
+            <div className="char-effect locked">🔥 불꽃 🔒</div>
+            <div className="char-effect locked">⚡ 전기 🔒</div>
+          </div>
+        </div>
+
+        {/* ── 터미널 테마 ── */}
+        <p className="char-section-label">💻 터미널 테마</p>
+        <div className="char-theme-card">
+          {[
+            {
+              bg: '#1a1a2e', lines: ['#7F77DD', '#AFA9EC', '#CECBF6'],
+              name: '에이몬 퍼플', sub: '기본 테마', active: true, locked: false,
+            },
+            {
+              bg: '#0d1117', lines: ['#58a6ff', '#79c0ff', '#d2a8ff'],
+              name: '깃허브 다크', sub: 'Unit 4 보스 클리어 후 해금', active: false, locked: true,
+            },
+            {
+              bg: '#001b00', lines: ['#00ff41', '#00cc33', '#008f11'],
+              name: '매트릭스', sub: '엔드보스 클리어 후 해금', active: false, locked: true,
+            },
+          ].map(({ bg, lines, name, sub, active, locked }) => (
+            <div key={name} className={`char-theme-row${locked ? ' locked' : ''}`}>
+              <div className="char-theme-preview" style={{ background: bg }}>
+                {lines.map((c, i) => (
+                  <div key={i} className="char-theme-line" style={{ background: c, width: ['70%','45%','55%'][i] }} />
+                ))}
+              </div>
+              <div className="char-theme-info">
+                <div className="char-theme-name" style={active ? { color: 'var(--clr-primary)' } : {}}>
+                  {name}{active ? ' ✓' : ''}
+                </div>
+                <div className="char-theme-sub">{sub}</div>
+              </div>
+              {active
+                ? <span className="char-theme-active-label">사용 중</span>
+                : <span style={{ fontSize: '0.85rem' }}>🔒</span>
+              }
+            </div>
+          ))}
+        </div>
+
+        {/* ── 로그아웃 ── */}
+        <button className="char-logout-btn" onClick={handleLogout}>
+          <span style={{ fontSize: '1rem' }}>↩</span>
+          <span>로그아웃</span>
+        </button>
+
+      </div>
+    </div>
+  )
+}
