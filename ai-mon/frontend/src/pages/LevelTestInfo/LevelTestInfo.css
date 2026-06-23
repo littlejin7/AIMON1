@@ -1,0 +1,114 @@
+.level-test-info-page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.5rem;
+}
+
+/* 은은한 네온 구체 백그라운드 */
+.level-test-info-bg-orb {
+  position: absolute;
+  border-radius: var(--radius-full);
+  filter: blur(100px);
+  z-index: 0;
+  opacity: 0.15;
+}
+.level-test-info-bg-orb.orb-1 {
+  width: 350px;
+  height: 350px;
+  background: var(--clr-primary);
+  top: -10%;
+  left: -10%;
+}
+.level-test-info-bg-orb.orb-2 {
+  width: 400px;
+  height: 400px;
+  background: #06b6d4;
+  bottom: -10%;
+  right: -10%;
+}
+
+.level-test-info-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 520px;
+}
+
+.level-test-info-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  color: var(--clr-text);
+  letter-spacing: -0.02em;
+}
+
+.level-test-info-badge {
+  display: inline-block;
+  background: rgba(124, 58, 237, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.35);
+  color: var(--clr-primary-lt);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+}
+
+.level-test-info-card {
+  padding: 2rem 1.75rem;
+  margin-bottom: 2rem;
+  border-radius: 20px;
+  background: rgba(30, 30, 46, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.level-test-info-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: left;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.benefit-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.03);
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.benefit-title {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--clr-text);
+  margin-bottom: 2px;
+}
+
+.benefit-desc {
+  font-size: 0.82rem;
+  color: var(--clr-text-muted);
+  line-height: 1.5;
+}
+
+.level-test-info-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+}
