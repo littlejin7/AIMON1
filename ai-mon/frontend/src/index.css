@@ -175,6 +175,36 @@
   --grad-neon-line:       linear-gradient(90deg, #34d399 0%, #10b981 50%, #059669 100%);
 }
 
+
+/* cyber — 해킹 시안 네온 (다크 네이비) */
+[data-theme="cyber"] {
+  /* 배경: 짙은 네이비 */
+  --clr-bg:               #040f28;
+  --clr-bg-2:             #061a3a;
+  --clr-bg-card:          #0a2148;
+  --grad-card:            linear-gradient(145deg, #0a2148 0%, #061a3a 100%);
+  --shadow-card:          0 0 28px rgba(34, 211, 238, 0.18);
+
+  /* 시안 네온 포인트 */
+  --clr-primary:          #22d3ee;
+  --clr-primary-lt:       #67e8f9;
+  --clr-primary-dk:       #06b6d4;
+  --clr-secondary:        #0ea5e9;
+  --clr-accent:           #22d3ee;
+  --clr-border:           rgba(34, 211, 238, 0.3);
+
+  /* 그라디언트 */
+  --grad-primary:         linear-gradient(135deg, #22d3ee 0%, #06b6d4 100%);
+  --grad-bg:              radial-gradient(ellipse at top, #0a2a5e 0%, #061a3a 45%, #040f28 100%);
+  --grad-neon-line:       linear-gradient(90deg, #67e8f9 0%, #22d3ee 50%, #06b6d4 100%);
+
+  /* 글로우 */
+  --shadow-glow-primary:  0 0 24px rgba(34, 211, 238, 0.55);
+  --clr-gold-glow:        rgba(34, 211, 238, 0.5);
+}
+
+
+
 /* cherry — 핑크 */
 [data-theme="cherry"] {
   --clr-bg:               #190a12;
@@ -492,6 +522,27 @@
   background: rgba(16, 185, 129, 0.12);
   color: #059669;
   border-color: rgba(16, 185, 129, 0.25);
+}
+
+/* cyber 테마: 해킹 HUD 배경 (회로 격자 + 스캔라인 + 스캔 빔) */
+[data-theme="cyber"] body::before {
+  background-image:
+    radial-gradient(ellipse 70% 50% at 38% 14%, rgba(34,211,238,0.12) 0%, transparent 60%),
+    linear-gradient(115deg, transparent 44%, rgba(103,232,249,0.10) 49%, transparent 56%),
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.16) 0 1px, transparent 1px 3px),
+    linear-gradient(rgba(34,211,238,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34,211,238,0.07) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+  opacity: 1;
+}
+
+/* cyber 테마: 지문·타겟·HUD 글자 오버레이 */
+[data-theme="cyber"] body::after {
+  background-image: url('/cyber-hud.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.5;
 }
 
 
