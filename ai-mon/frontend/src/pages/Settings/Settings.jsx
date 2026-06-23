@@ -1,0 +1,282 @@
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAuthStore } from '../../hooks/useAuthStore'
+import { useSoundStore } from '../../hooks/useSoundStore'
+import { userApi } from '../../api/index'
+import './Settings.css'
+
+const CHARACTER_ICON = {
+  slime:         '/src/assets/character_slime.png',
+  robot:         '/src/assets/character_robot.png',
+  speech_bubble: '/src/assets/character_bubble.png',
+  final_ghost:   '/src/assets/character_final_ghost.png',
+}
+
+const LEVELS = [
+  { key: 'beginner',     emoji: '🏹', label: 'beginner',     desc: 'Python 기초부터 차근차근' },
+  { key: 'intermediate', emoji: '⚡', label: 'intermediate', desc: '기초를 알고 심화로 도전' },
+  { key: 'advanced',     emoji: '🔥', label: 'advanced',     desc: 'f-string급 실력자 전용' },
+]
+
+export default function Settings() {
+  const navigate     = useNavigate()
+  const user         = useAuthStore((s) => s.user)
+  const updateUser   = useAuthStore((s) => s.updateUser)
+  const logout       = useAuthStore((s) => s.logout)
+  const bgmVolume    = useSoundStore((s) => s.bgmVolume)
+  const sfxVolume    = useSoundStore((s) => s.sfxVolume)
+  const setBgmVolume = useSoundStore((s) => s.setBgmVolume)
+  const setSfxVolume = useSoundStore((s) => s.setSfxVolume)
+
+  const [nickname,    setNickname]    = useState(user?.nickname || '')
+  const [nickSaving,  setNickSaving]  = useState(false)
+  const [nickSaved,   setNickSaved]   = useState(false)
+  const [courseLevel, setCourseLevel] = useState(user?.course_level || 'beginner')
+  const [levelSaving, setLevelSaving] = useState(false)
+
+  const [notifs, setNotifs] = useState({
+    streak:  true,
+    boss:    true,
+    daily:   true,
+    updates: false,
+  })
+
+  const handleNickSave = async (e) => {
+    e.preventDefault()
+    setNickSaving(true)
+    try {
+      const res = await userApi.updateMe({ nickname })
+      updateUser(res.data)
+      setNickSaved(true)
+      setTimeout(() => setNickSaved(false), 2000)
+    } finally {
+      setNickSaving(false)
+    }
+  }
+
+  const handleLevelChange = async (key) => {
+    if (key === courseLevel || levelSaving) return
+    setLevelSaving(true)
+    setCourseLevel(key)
+    try {
+      const res = await userApi.updateMe({ course_level: key })
+      updateUser(res.data)
+    } finally {
+      setLevelSaving(false)
+    }
+  }
+
+  const handleLogout = () => {
+    logout()
+    navigate('/auth')
+  }
+
+  const toggleNotif = (key) =>
+    setNotifs((prev) => ({ ...prev, [key]: !prev[key] }))
+
+  return (
+    <div className="st-page">
+
+      {/* 상단 바 */}
+      <div className="st-topbar">
+        <button className="st-back-btn" onClick={() => navigate(-1)} aria-label="뒤로">
+          ‹
+        </button>
+        <span className="st-topbar-title">설정</span>
+      </div>
+
+      <div className="st-scroll">
+
+        {/* ── 프로필 ── */}
+        <p className="st-section-label">프로필</p>
+        <div className="st-group">
+          <div className="st-profile-top">
+            <div className="st-avatar">
+              <img
+                src={CHARACTER_ICON[user?.character] || CHARACTER_ICON.slime}
+                alt="캐릭터"
+              />
+            </div>
+            <div>
+              <div className="st-p-id">@{user?.username || user?.email?.split('@')[0]}</div>
+              <div className="st-p-sub">아이디</div>
+            </div>
+          </div>
+          <form className="st-nickname-wrap" onSubmit={handleNickSave}>
+            <div className="st-nick-label">닉네임</div>
+            <input
+              className="st-nick-input"
+              type="text"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              placeholder="닉네임을 입력하세요"
+            />
+            <button
+              type="submit"
+              className="st-save-btn"
+              disabled={nickSaving || nickname === user?.nickname}
+            >
+              {nickSaved ? '✅ 저장 완료' : nickSaving ? '저장 중...' : '저장하기'}
+            </button>
+          </form>
+        </div>
+
+        {/* ── 계정 ── */}
+        <p className="st-section-label">계정</p>
+        <div className="st-group">
+          <div className="st-srow">
+            <div className="st-srow-icon" style={{ background: 'rgba(24,95,165,0.18)' }}>📧</div>
+            <div className="st-srow-text"><div className="st-srow-label">이메일 변경</div></div>
+            <span className="st-chevron">›</span>
+          </div>
+          <div className="st-srow">
+            <div className="st-srow-icon" style={{ background: 'rgba(15,110,86,0.18)' }}>🔒</div>
+            <div className="st-srow-text"><div className="st-srow-label">비밀번호 변경</div></div>
+            <span className="st-chevron">›</span>
+          </div>
+          <div className="st-srow">
+            <div className="st-srow-icon" style={{ background: 'rgba(95,94,90,0.12)' }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--clr-text-muted)' }}>G</span>
+            </div>
+            <div className="st-srow-text">
+              <div className="st-srow-label">소셜 계정 연결</div>
+              <div className="st-srow-sub">Google 연결됨</div>
+            </div>
+            <span className="st-chevron">›</span>
+          </div>
+        </div>
+
+        {/* ── 알림 ── */}
+        <p className="st-section-label">알림</p>
+        <div className="st-group">
+          {[
+            { key: 'streak',  icon: '🔥', bg: 'rgba(133,79,11,0.18)',  label: '스트릭 알림',     sub: '오늘 학습을 안 했을 때' },
+            { key: 'boss',    icon: '⚔️', bg: 'rgba(163,45,45,0.18)', label: '보스 도전 알림' },
+            { key: 'daily',   icon: '📅', bg: 'rgba(83,74,183,0.18)', label: '데일리 미션 알림' },
+            { key: 'updates', icon: '🔔', bg: 'rgba(95,94,90,0.12)',  label: '업데이트 및 공지' },
+          ].map(({ key, icon, bg, label, sub }) => (
+            <div
+              key={key}
+              className="st-srow"
+              onClick={() => toggleNotif(key)}
+              style={{ cursor: 'pointer' }}
+            >
+              <div className="st-srow-icon" style={{ background: bg }}>{icon}</div>
+              <div className="st-srow-text">
+                <div className="st-srow-label">{label}</div>
+                {sub && <div className="st-srow-sub">{sub}</div>}
+              </div>
+              <div className={`st-toggle ${notifs[key] ? 'on' : 'off'}`}>
+                <div className="st-toggle-knob" />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* ── 사운드 ── */}
+        <p className="st-section-label">사운드</p>
+        <div className="st-group">
+          <div className="st-sound-wrap">
+            <div className="st-sound-row">
+              <div className="st-sound-top">
+                <span className="st-sound-name">🎵 배경음악</span>
+                <span className="st-sound-pct">{Math.round(bgmVolume * 100)}%</span>
+              </div>
+              <div className="st-sound-controls">
+                <button className="st-mute-btn" onClick={() => setBgmVolume(0)} aria-label="음소거">🔇</button>
+                <input
+                  type="range" min={0} max={1} step={0.01}
+                  value={bgmVolume}
+                  onChange={(e) => setBgmVolume(Number(e.target.value))}
+                  className="st-slider"
+                />
+                <button className="st-vol-btn" onClick={() => setBgmVolume(Math.min(1, bgmVolume + 0.1))} aria-label="볼륨업">🔊</button>
+              </div>
+            </div>
+            <div className="st-divider" />
+            <div className="st-sound-row">
+              <div className="st-sound-top">
+                <span className="st-sound-name">📢 효과음</span>
+                <span className="st-sound-pct">{Math.round(sfxVolume * 100)}%</span>
+              </div>
+              <div className="st-sound-controls">
+                <button className="st-mute-btn" onClick={() => setSfxVolume(0)} aria-label="음소거">🔇</button>
+                <input
+                  type="range" min={0} max={1} step={0.01}
+                  value={sfxVolume}
+                  onChange={(e) => setSfxVolume(Number(e.target.value))}
+                  className="st-slider"
+                />
+                <button className="st-vol-btn" onClick={() => setSfxVolume(Math.min(1, sfxVolume + 0.1))} aria-label="볼륨업">🔊</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── 수강 레벨 ── */}
+        <p className="st-section-label">수강 레벨</p>
+        <div className="st-group">
+          <div className="st-level-hint">학습 난이도와 AI 설명 수준이 함께 바뀌어요.</div>
+          {LEVELS.map(({ key, emoji, label, desc }) => {
+            const isCurrent = courseLevel === key
+            const isLocked  = key !== 'beginner' && !isCurrent
+            return (
+              <div
+                key={key}
+                className={`st-level-row${isCurrent ? ' current' : ''}${isLocked ? ' locked' : ''}`}
+                onClick={() => !isLocked && handleLevelChange(key)}
+              >
+                <span className="st-level-icon">{emoji}</span>
+                <div className="st-level-info">
+                  <div className={`st-level-name${isCurrent ? ' current' : isLocked ? ' locked' : ''}`}>{label}</div>
+                  <div className="st-level-desc">{desc}</div>
+                </div>
+                {isCurrent
+                  ? <span className="st-current-tag">현재</span>
+                  : <span className="st-lock-tag">🔒 잠금</span>
+                }
+              </div>
+            )
+          })}
+        </div>
+
+        {/* ── 앱 정보 ── */}
+        <p className="st-section-label">앱 정보</p>
+        <div className="st-group">
+          <div className="st-info-row">
+            <span className="st-info-label">버전</span>
+            <span className="st-info-val accent">v1.0.0 MVP</span>
+          </div>
+          <div className="st-info-row">
+            <span className="st-info-label">개발</span>
+            <span className="st-info-val">AI MON Team</span>
+          </div>
+          <div className="st-info-row">
+            <span className="st-info-label">문의</span>
+            <span className="st-info-val" style={{ color: 'var(--clr-primary)' }}>support@aimon.app</span>
+          </div>
+          <div className="st-info-row" style={{ cursor: 'pointer' }}>
+            <span className="st-info-label">이용약관</span>
+            <span className="st-chevron">›</span>
+          </div>
+          <div className="st-info-row" style={{ cursor: 'pointer' }}>
+            <span className="st-info-label">개인정보처리방침</span>
+            <span className="st-chevron">›</span>
+          </div>
+        </div>
+
+        {/* ── 계정 관리 ── */}
+        <p className="st-section-label">계정 관리</p>
+        <button id="btn-logout" className="st-logout-btn" onClick={handleLogout}>
+          ↩ 로그아웃
+        </button>
+        <button className="st-delete-btn" onClick={() => window.confirm('정말 계정을 삭제할까요?')}>
+          🗑 계정 삭제
+        </button>
+
+        <p className="st-footer">AI MON · made with 💜</p>
+
+      </div>
+    </div>
+  )
+}
