@@ -1,6 +1,7 @@
 import { useAuthStore } from '../../hooks/useAuthStore'
 import { userApi, progressApi } from '../../api/index'
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './Character.css'
 
 function calcLevel(xp) {
@@ -45,6 +46,8 @@ const CHARACTERS = [
 const CHAR_ICONS = Object.fromEntries(CHARACTERS.map(c => [c.id, c.icon]))
 
 export default function Character() {
+  const navigate   = useNavigate()
+  const token      = useAuthStore((s) => s.token)
   const user       = useAuthStore((s) => s.user)
   const updateUser = useAuthStore((s) => s.updateUser)
 
@@ -57,8 +60,10 @@ export default function Character() {
   )
 
   useEffect(() => {
-    progressApi.getStats().then(r => setStats(r.data)).catch(() => {})
-  }, [])
+    if (token) {
+      progressApi.getStats().then(r => setStats(r.data)).catch(() => {})
+    }
+  }, [token])
 
   useEffect(() => {
     if (user) {
@@ -66,6 +71,38 @@ export default function Character() {
       setEquippedTitle(user.equipped_title || localStorage.getItem(key) || 'first_step')
     }
   }, [user])
+
+  if (!token) {
+    return (
+      <div className="char-page" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '75vh' }}>
+        <div className="char-section-card card-glass animate-fade-in-up" style={{ width: '100%', maxWidth: '450px', padding: '3.5rem 2rem', textAlign: 'center', border: '1px solid rgba(255,255,255,0.08)', position: 'relative', margin: '2rem auto' }}>
+          
+          <button 
+            onClick={() => navigate('/')}
+            style={{ position: 'absolute', top: '20px', right: '20px', background: 'none', border: 'none', color: 'var(--clr-text-muted)', cursor: 'pointer', fontSize: '1.2rem' }}
+            aria-label="닫기"
+          >
+            ✕
+          </button>
+
+          <div style={{ fontSize: '3.5rem', marginBottom: '1.5rem', textShadow: '0 0 20px rgba(124,58,237,0.3)' }}>🔒</div>
+          
+          <h2 style={{ color: 'var(--clr-text-bright)', marginBottom: '0.8rem', fontSize: '1.75rem', fontWeight: 800 }}>
+            내 캐릭터 커스터마이징 잠김
+          </h2>
+          
+          <p style={{ color: 'var(--clr-text-muted)', lineHeight: '1.6', marginBottom: '2.5rem', fontSize: '0.95rem' }}>
+            로그인하시면 나만의 캐릭터와 칭호를 변경하고,<br />
+            학습 진행 상황에 따라 새로운 캐릭터를 해금할 수 있습니다!
+          </p>
+
+          <button className="btn btn-primary btn-lg btn-full" onClick={() => navigate('/auth')}>
+            로그인하러 가기
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const completedUnits = Math.floor((stats?.completed_stages || 0) / 7)
   const { lv, xpInLevel, xpForNext } = calcLevel(user?.xp || 0)
