@@ -79,13 +79,26 @@ export default function Train() {
     }
     // correctCount는 setState 비동기 업데이트로 stale할 수 있으므로 미리 계산
     const finalCorrect = correct ? correctCount + 1 : correctCount
-    setTimeout(() => {
-      if (current + 1 < questions.length) {
-        setCurrent(current + 1)
-      } else {
-        finishTraining(finalCorrect)
-      }
-    }, 1200)
+    
+    // 정답인 경우에만 1.2초 후 자동으로 다음 문제로 넘어감.
+    // 오답인 경우 AI 피드백을 충분히 읽을 수 있도록 자동 전환을 하지 않음.
+    if (correct) {
+      setTimeout(() => {
+        if (current + 1 < questions.length) {
+          setCurrent(current + 1)
+        } else {
+          finishTraining(finalCorrect)
+        }
+      }, 1200)
+    }
+  }
+
+  const handleNext = () => {
+    if (current + 1 < questions.length) {
+      setCurrent(current + 1)
+    } else {
+      finishTraining(correctCount)
+    }
   }
 
   const finishTraining = async (finalCorrect) => {
@@ -195,7 +208,7 @@ export default function Train() {
           </div>
         </div>
         <div className="container">
-          <QuizCard key={current} question={q} onAnswer={handleAnswer} />
+          <QuizCard key={current} question={q} onAnswer={handleAnswer} onNext={handleNext} />
         </div>
       </div>
     )

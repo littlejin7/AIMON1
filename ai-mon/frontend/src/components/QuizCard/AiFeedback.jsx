@@ -2,6 +2,56 @@ export default function AiFeedback({ aiFeedback, aiFeedbackLoading, onRetry, onN
   // 스트리밍 중이면 커서 깜빡임, 완료 후 숨김
   const showCursor = aiFeedbackLoading && aiFeedback.length > 0
 
+  // Markdown parser helper for **bold** and `code`
+  const renderFormattedText = (text) => {
+    if (!text) return null;
+    const parts = text.split(/(\*\*.*?\*\*|`.*?`|\n)/g);
+    return parts.map((part, index) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        const cleanText = part.slice(2, -2);
+        return (
+          <strong
+            key={index}
+            style={{
+              color: '#c4b5fd', // Light violet
+              fontWeight: '800',
+              background: 'rgba(196, 181, 253, 0.15)',
+              padding: '2px 6px',
+              borderRadius: '4px',
+              border: '1px solid rgba(196, 181, 253, 0.3)',
+              margin: '0 2px',
+              display: 'inline-block',
+            }}
+          >
+            {cleanText}
+          </strong>
+        );
+      } else if (part.startsWith('`') && part.endsWith('`')) {
+        const cleanText = part.slice(1, -1);
+        return (
+          <code
+            key={index}
+            style={{
+              fontFamily: 'Consolas, Monaco, monospace',
+              backgroundColor: 'rgba(0, 0, 0, 0.35)',
+              color: '#fda4af', // Light rose
+              padding: '2px 6px',
+              borderRadius: '4px',
+              fontSize: '0.9em',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
+              margin: '0 4px',
+            }}
+          >
+            {cleanText}
+          </code>
+        );
+      } else if (part === '\n') {
+        return <br key={index} />;
+      }
+      return part;
+    });
+  };
+
   return (
     <div
       className="ai-feedback-box"
@@ -47,8 +97,8 @@ export default function AiFeedback({ aiFeedback, aiFeedbackLoading, onRetry, onN
       </strong>
 
       {/* 피드백 텍스트 + 타이핑 커서 */}
-      <p style={{ margin: 0, color: 'var(--clr-text-muted)', marginBottom: '12px', whiteSpace: 'pre-line', lineHeight: 1.7 }}>
-        {aiFeedback}
+      <p style={{ margin: 0, color: 'var(--clr-text-muted)', marginBottom: '12px', lineHeight: 1.7 }}>
+        {renderFormattedText(aiFeedback)}
         {showCursor && (
           <span style={{
             display: 'inline-block',

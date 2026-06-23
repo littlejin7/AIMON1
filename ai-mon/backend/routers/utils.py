@@ -9,6 +9,9 @@ from slowapi import Limiter
 from slowapi.util import get_remote_address
 from fastapi import Request
 from supabase import create_client
+from dotenv import load_dotenv
+
+load_dotenv(os.path.join(os.path.dirname(__file__), "../../.env"))
 
 def get_user_id_or_ip(request: Request) -> str:
     auth = request.headers.get("Authorization")
