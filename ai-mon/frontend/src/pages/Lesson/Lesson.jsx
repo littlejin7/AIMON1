@@ -49,8 +49,8 @@ export default function Lesson() {
   return (
     <div className="lesson-page">
       <div className="lesson-hero">
-        <button className="btn btn-ghost btn-sm" onClick={() => navigate('/')}>
-          ← 홈으로
+        <button className="btn btn-ghost btn-sm" onClick={() => navigate('/lesson')}>
+          ← 뒤로
         </button>
         <div className="lesson-hero-content">
           <span className="lesson-hero-icon">{lesson.icon}</span>
