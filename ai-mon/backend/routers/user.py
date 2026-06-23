@@ -64,7 +64,6 @@ def update_me(req: UpdateProfileRequest, authorization: str = Header(...)):
     save_user(user)
     print("PATCH /user/me successfully saved user:", user)
     return serialize_user(user)
-   raise HTTPException(status_code=404, detail="유저를 찾을 수 없습니다.")
 
 
 @router.post("/purchase-theme")

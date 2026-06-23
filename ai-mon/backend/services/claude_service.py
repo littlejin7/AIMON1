@@ -43,7 +43,7 @@ async def ask_claude(prompt: str, level: str = "beginner") -> dict:
     try:
         client = get_client()
         message = await client.messages.create(
-            model="claude-3-5-haiku-latest",
+            model="claude-haiku-4-5-20251001",
             max_tokens=1024,
             system=system_prompt,
             messages=[{"role": "user", "content": prompt}],
@@ -87,7 +87,7 @@ async def stream_claude(prompt: str, level: str = "beginner"):
     try:
         client = get_client()
         async with client.messages.stream(
-            model="claude-3-5-haiku-latest",
+            model="claude-haiku-4-5-20251001",
             max_tokens=1024,
             system=system_prompt,
             messages=[{"role": "user", "content": prompt}],
@@ -168,7 +168,7 @@ async def ask_claude_json(prompt: str) -> dict:
     try:
         client = get_client()
         message = await client.messages.create(
-            model="claude-3-5-haiku-latest",
+            model="claude-haiku-4-5-20251001",
             max_tokens=2048,
             messages=[{"role": "user", "content": prompt}],
         )

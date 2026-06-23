@@ -79,5 +79,9 @@ CREATE TABLE IF NOT EXISTS wrong_answers (
   user_answer text,
   correct_answer text,
   course_level text,
+  feedback text,
+  ai_explanation text,
+  reviewed boolean DEFAULT false,
+  timestamp text,
   created_at timestamptz DEFAULT now()
 );
