@@ -15,6 +15,7 @@ export default function Train() {
   const [loading, setLoading]     = useState(false)
   const [mode, setMode]           = useState('idle') // idle | playing | result
   const [correctCount, setCorrectCount] = useState(0)
+  const [answers, setAnswers]     = useState({})
   const [checkingLock, setCheckingLock] = useState(true)
   const [isLocked, setIsLocked] = useState(false)
 
@@ -56,6 +57,7 @@ export default function Train() {
       const res = await trainApi.getReview({ unit: currentUnit, limit: 15, course_level: user?.course_level || 'beginner' })
       setQuestions(res.data)
       setCurrent(0)
+      setAnswers({})
       setCorrectCount(0)
       setMode('playing')
     } catch (err) {
@@ -65,10 +67,29 @@ export default function Train() {
     }
   }
 
-  const handleAnswer = async ({ correct }) => {
+  const handleAnswer = async ({ correct, userAnswer, retried }) => {
     const q = questions[current]
-    if (correct) {
-      setCorrectCount(c => c + 1)
+    
+    // answers 상태 업데이트
+    setAnswers(prev => {
+      const existing = prev[current];
+      // 기존 제출 기록이 없으면 (첫 시도) correct 값을 첫 시도 결과로 기록
+      const isFirstAttemptCorrect = existing ? existing.isFirstAttemptCorrect : correct;
+      
+      return {
+        ...prev,
+        [current]: {
+          selected: userAnswer,
+          input: userAnswer,
+          revealed: true,
+          isCorrectResult: correct,
+          isFirstAttemptCorrect: isFirstAttemptCorrect,
+          aiFeedback: existing?.aiFeedback || ''
+        }
+      }
+    })
+
+    if (correct && !retried) {
       if (q && q.question_id) {
         try {
           await trainApi.updateReviewed({ question_id: q.question_id })
@@ -77,8 +98,6 @@ export default function Train() {
         }
       }
     }
-    // correctCount는 setState 비동기 업데이트로 stale할 수 있으므로 미리 계산
-    const finalCorrect = correct ? correctCount + 1 : correctCount
     
     // 정답인 경우에만 1.2초 후 자동으로 다음 문제로 넘어감.
     // 오답인 경우 AI 피드백을 충분히 읽을 수 있도록 자동 전환을 하지 않음.
@@ -87,7 +106,24 @@ export default function Train() {
         if (current + 1 < questions.length) {
           setCurrent(current + 1)
         } else {
-          finishTraining(finalCorrect)
+          setAnswers(prev => {
+            const currentObj = prev[current];
+            const isFirstAttemptCorrect = currentObj ? currentObj.isFirstAttemptCorrect : correct;
+            const tempAnswers = {
+              ...prev,
+              [current]: {
+                selected: userAnswer,
+                input: userAnswer,
+                revealed: true,
+                isCorrectResult: correct,
+                isFirstAttemptCorrect: isFirstAttemptCorrect,
+                aiFeedback: currentObj?.aiFeedback || ''
+              }
+            };
+            const finalCorrect = Object.values(tempAnswers).filter(ans => ans.isFirstAttemptCorrect).length;
+            setTimeout(() => finishTraining(finalCorrect), 0);
+            return tempAnswers;
+          });
         }
       }, 1200)
     }
@@ -97,11 +133,13 @@ export default function Train() {
     if (current + 1 < questions.length) {
       setCurrent(current + 1)
     } else {
-      finishTraining(correctCount)
+      const finalCorrect = Object.values(answers).filter(ans => ans.isFirstAttemptCorrect).length
+      finishTraining(finalCorrect)
     }
   }
 
   const finishTraining = async (finalCorrect) => {
+    setCorrectCount(finalCorrect)
     setMode('result')
     // 보상 지급 (예: 다 맞추면 왕관 +1, XP +100)
     if (finalCorrect === questions.length) {
@@ -201,14 +239,58 @@ export default function Train() {
     const q = questions[current]
     return (
       <div className="train-page">
-        <div className="train-header">
+        <div className="train-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
           <button className="btn btn-ghost btn-sm" onClick={() => setMode('idle')}>✕ 중단하기</button>
-          <div className="train-progress">
-            {current + 1} / {questions.length}
+          
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <button 
+              className="btn btn-outline btn-sm" 
+              onClick={() => setCurrent(prev => Math.max(0, prev - 1))}
+              disabled={current === 0}
+              style={{ padding: '6px 12px', borderRadius: '6px', fontSize: '0.85rem' }}
+            >
+              ◀ 이전
+            </button>
+            <div className="train-progress" style={{ minWidth: '60px', textAlign: 'center', fontWeight: 700, fontSize: '0.95rem' }}>
+              {current + 1} / {questions.length}
+            </div>
+            <button 
+              className="btn btn-outline btn-sm" 
+              onClick={() => {
+                if (current + 1 < questions.length) {
+                  setCurrent(current + 1)
+                } else {
+                  const finalCorrect = Object.values(answers).filter(ans => ans.isFirstAttemptCorrect).length
+                  finishTraining(finalCorrect)
+                }
+              }}
+              style={{ padding: '6px 12px', borderRadius: '6px', fontSize: '0.85rem' }}
+            >
+              {current === questions.length - 1 ? '완료 ▶' : '다음 ▶'}
+            </button>
           </div>
         </div>
         <div className="container">
-          <QuizCard key={current} question={q} onAnswer={handleAnswer} onNext={handleNext} />
+          <QuizCard 
+            key={current} 
+            question={q} 
+            onAnswer={handleAnswer} 
+            onNext={handleNext}
+            initialSelected={answers[current]?.selected}
+            initialInput={answers[current]?.input}
+            initialRevealed={answers[current]?.revealed}
+            initialAiFeedback={answers[current]?.aiFeedback}
+            initialIsCorrectResult={answers[current]?.isCorrectResult}
+            onFeedbackUpdate={(text) => {
+              setAnswers(prev => ({
+                ...prev,
+                [current]: {
+                  ...(prev[current] || {}),
+                  aiFeedback: text
+                }
+              }))
+            }}
+          />
         </div>
       </div>
     )
