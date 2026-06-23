@@ -132,49 +132,37 @@
   --clr-accent:           #0ea5e9;
   --clr-border:           rgba(14, 165, 233, 0.2);
   --grad-primary:         linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
-  --grad-bg:              radial-gradient(ellipse at top, #0c1a2e 0%, #0f0f1a 70%);
+  --grad-bg:              linear-gradient(180deg, #0b5a86 0%, #084a78 26%, #06365c 56%, #042a4d 100%);
   --shadow-glow-primary:  0 0 24px rgba(14, 165, 233, 0.4);
   --grad-neon-line:       linear-gradient(90deg, #38bdf8 0%, #0ea5e9 50%, #0284c7 100%);
 }
 
-/* fire — 레드/오렌지 */
+/* fire — 타오르는 불꽃 (숯 + 불씨) */
 [data-theme="fire"] {
-  --clr-bg:               #180a0a;
-  --clr-bg-2:             #251210;
-  --clr-bg-card:          #2c1614;
-  --grad-card:            linear-gradient(145deg, #2c1614 0%, #251210 100%);
-  --shadow-card:          0 8px 32px rgba(248, 113, 113, 0.18);
-  --clr-primary:          #f87171;
-  --clr-primary-lt:       #fca5a5;
-  --clr-primary-dk:       #ef4444;
-  --clr-secondary:        #dc2626;
-  --clr-accent:           #f87171;
-  --clr-border:           rgba(248, 113, 113, 0.2);
-  --grad-primary:         linear-gradient(135deg, #f87171 0%, #f97316 100%);
-  --grad-bg:              radial-gradient(ellipse at top, #2e1010 0%, #0f0f1a 70%);
-  --shadow-glow-primary:  0 0 24px rgba(248, 113, 113, 0.4);
-  --grad-neon-line:       linear-gradient(90deg, #f87171 0%, #f97316 50%, #ef4444 100%);
-}
+  /* 배경: 어두운 숯 */
+  --clr-bg:               #1a0a06;
+  --clr-bg-2:             #220b04;
+  --clr-bg-card:          #2c0f06;
+  --grad-card:            linear-gradient(145deg, #2c0f06 0%, #220b04 100%);
+  --shadow-card:          0 8px 28px rgba(249, 115, 22, 0.22);
 
-/* cyber — 에메랄드 그린 */
-[data-theme="cyber"] {
-  --clr-bg:               #07150f;
-  --clr-bg-2:             #0c2118;
-  --clr-bg-card:          #0e2a1e;
-  --grad-card:            linear-gradient(145deg, #0e2a1e 0%, #0c2118 100%);
-  --shadow-card:          0 8px 32px rgba(52, 211, 153, 0.18);
-  --clr-primary:          #34d399;
-  --clr-primary-lt:       #6ee7b7;
-  --clr-primary-dk:       #10b981;
-  --clr-secondary:        #059669;
-  --clr-accent:           #34d399;
-  --clr-border:           rgba(52, 211, 153, 0.2);
-  --grad-primary:         linear-gradient(135deg, #34d399 0%, #10b981 100%);
-  --grad-bg:              radial-gradient(ellipse at top, #0d2e1e 0%, #0f0f1a 70%);
-  --shadow-glow-primary:  0 0 24px rgba(52, 211, 153, 0.4);
-  --grad-neon-line:       linear-gradient(90deg, #34d399 0%, #10b981 50%, #059669 100%);
-}
+  /* 불꽃 포인트 (주황·노랑) */
+  --clr-primary:          #f97316;
+  --clr-primary-lt:       #fbbf24;
+  --clr-primary-dk:       #ea580c;
+  --clr-secondary:        #ef4444;
+  --clr-accent:           #f97316;
+  --clr-border:           rgba(249, 115, 22, 0.3);
 
+  /* 그라디언트 (위 어둠 → 아래 불길) */
+  --grad-primary:         linear-gradient(135deg, #ea580c 0%, #f97316 60%, #fbbf24 100%);
+  --grad-bg:              linear-gradient(180deg, #1a0a06 0%, #220b04 50%, #3e1305 78%, #7a2206 100%);
+  --grad-neon-line:       linear-gradient(90deg, #ef4444 0%, #f97316 50%, #fbbf24 100%);
+
+  /* 글로우 */
+  --shadow-glow-primary:  0 0 24px rgba(249, 115, 22, 0.55);
+  --clr-gold-glow:        rgba(249, 115, 22, 0.5);
+}
 
 /* cyber — 해킹 시안 네온 (다크 네이비) */
 [data-theme="cyber"] {
@@ -203,25 +191,46 @@
   --clr-gold-glow:        rgba(34, 211, 238, 0.5);
 }
 
-
-
-/* cherry — 핑크 */
+/* cherry — 코랄 블러시 (밝은 테마, 페인트 샘플 톤) */
 [data-theme="cherry"] {
-  --clr-bg:               #190a12;
-  --clr-bg-2:             #25101b;
-  --clr-bg-card:          #2c1422;
-  --grad-card:            linear-gradient(145deg, #2c1422 0%, #25101b 100%);
-  --shadow-card:          0 8px 32px rgba(244, 114, 182, 0.18);
-  --clr-primary:          #f472b6;
-  --clr-primary-lt:       #f9a8d4;
-  --clr-primary-dk:       #ec4899;
-  --clr-secondary:        #db2777;
-  --clr-accent:           #f472b6;
-  --clr-border:           rgba(244, 114, 182, 0.2);
-  --grad-primary:         linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
-  --grad-bg:              radial-gradient(ellipse at top, #2e0f1e 0%, #0f0f1a 70%);
-  --shadow-glow-primary:  0 0 24px rgba(244, 114, 182, 0.4);
-  --grad-neon-line:       linear-gradient(90deg, #f9a8d4 0%, #f472b6 50%, #ec4899 100%);
+  /* 배경: 부드러운 블러시 / 오프화이트 */
+  --clr-bg:               #fbeef0;
+  --clr-bg-2:             #f6e2e6;
+  --clr-bg-card:          #fffbfc;
+
+  /* 코랄·모브 포인트 */
+  --clr-primary:          #d98695;
+  --clr-primary-lt:       #e8a6b2;
+  --clr-primary-dk:       #a05b6a;
+  --clr-secondary:        #9f5e6c;
+  --clr-accent:           #d07f8f;
+
+  /* 다크 모브 텍스트 (밝은 배경이므로) */
+  --clr-text:             #5e2e38;
+  --clr-text-muted:       #9b6673;
+  --clr-text-faint:       #c39aa5;
+
+  /* 카드/테두리 */
+  --clr-border:           rgba(160, 91, 106, 0.25);
+  --grad-card:            linear-gradient(145deg, #fffbfc 0%, #fbeef0 100%);
+  --shadow-card:          0 8px 24px rgba(160, 91, 106, 0.14);
+
+  /* 그라디언트 */
+  --grad-primary:         linear-gradient(135deg, #e295a3 0%, #c97a8a 100%);
+  --grad-bg:              linear-gradient(180deg, #f4d3da 0%, #fbeef0 45%, #fdf6f4 100%);
+  --grad-neon-line:       linear-gradient(90deg, #e295a3 0%, #d07f8f 50%, #a05b6a 100%);
+
+  /* 그림자/글로우 */
+  --shadow-glow-primary:  0 0 20px rgba(217, 134, 149, 0.35);
+  --clr-gold-glow:        rgba(217, 134, 149, 0.45);
+
+  /* 글리프 패턴 (밝은 배경에 맞게) */
+  --clr-glyph:            rgba(160, 91, 106, 0.04);
+  --clr-glyph-soft:       rgba(217, 134, 149, 0.03);
+
+  /* 베벨 (밝은 UI용) */
+  --bevel-top:            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --bevel-bottom:         inset 0 -2px 6px rgba(0, 0, 0, 0.05);
 }
 
 /* midnight — 인디고 블루 */
@@ -238,7 +247,7 @@
   --clr-accent:           #818cf8;
   --clr-border:           rgba(129, 140, 248, 0.2);
   --grad-primary:         linear-gradient(135deg, #818cf8 0%, #6366f1 100%);
-  --grad-bg:              radial-gradient(ellipse at top, #0f0f2e 0%, #0f0f1a 70%);
+  --grad-bg:              linear-gradient(160deg, #1e1b4e 0%, #241a52 35%, #3a1f5e 70%, #46216a 100%);
   --shadow-glow-primary:  0 0 24px rgba(129, 140, 248, 0.4);
   --grad-neon-line:       linear-gradient(90deg, #a5b4fc 0%, #818cf8 50%, #6366f1 100%);
 }
@@ -286,22 +295,31 @@
 }
 
 /* gold — 앰버/골드 */
+/* gold — 메탈릭 골드 (브론즈 + 금빛 광택) */
 [data-theme="gold"] {
-  --clr-bg:               #161105;
-  --clr-bg-2:             #221b0a;
-  --clr-bg-card:          #29200d;
-  --grad-card:            linear-gradient(145deg, #29200d 0%, #221b0a 100%);
-  --shadow-card:          0 8px 32px rgba(251, 191, 36, 0.18);
-  --clr-primary:          #fbbf24;
-  --clr-primary-lt:       #fde68a;
-  --clr-primary-dk:       #f59e0b;
-  --clr-secondary:        #d97706;
-  --clr-accent:           #fbbf24;
-  --clr-border:           rgba(251, 191, 36, 0.2);
-  --grad-primary:         linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-  --grad-bg:              radial-gradient(ellipse at top, #2e200a 0%, #0f0f1a 70%);
-  --shadow-glow-primary:  0 0 24px rgba(251, 191, 36, 0.4);
-  --grad-neon-line:       linear-gradient(90deg, #fde68a 0%, #fbbf24 50%, #f59e0b 100%);
+  /* 배경: 깊은 브론즈 */
+  --clr-bg:               #241803;
+  --clr-bg-2:             #332406;
+  --clr-bg-card:          #3a2a08;
+  --grad-card:            linear-gradient(145deg, #3a2a08 0%, #2a1d05 100%);
+  --shadow-card:          0 8px 28px rgba(251, 191, 36, 0.2);
+
+  /* 금빛 포인트 */
+  --clr-primary:          #fcd34d;
+  --clr-primary-lt:       #fff2c0;
+  --clr-primary-dk:       #d4a017;
+  --clr-secondary:        #b8860b;
+  --clr-accent:           #fcd34d;
+  --clr-border:           rgba(251, 191, 36, 0.3);
+
+  /* 그라디언트 (금속 광택) */
+  --grad-primary:         linear-gradient(135deg, #d4a017 0%, #fcd34d 60%, #fff2c0 100%);
+  --grad-bg:              linear-gradient(150deg, #3a2606 0%, #5c3d08 30%, #4a3107 55%, #6e4a0a 80%, #2e1f05 100%);
+  --grad-neon-line:       linear-gradient(90deg, #b8860b 0%, #fcd34d 50%, #fff2c0 100%);
+
+  /* 글로우 */
+  --shadow-glow-primary:  0 0 24px rgba(251, 191, 36, 0.55);
+  --clr-gold-glow:        rgba(251, 191, 36, 0.55);
 }
 
 /* arctic — 화이트 + 남색 (밝은 테마) */
@@ -524,6 +542,111 @@
   border-color: rgba(16, 185, 129, 0.25);
 }
 
+/* gold 테마: 금속 광택 띠 + 하이라이트 */
+[data-theme="gold"] body::before {
+  background-image:
+    repeating-linear-gradient(122deg, transparent 0 28px, rgba(255,220,120,0.08) 30px 34px, rgba(255,240,190,0.13) 35px 38px, transparent 40px 70px),
+    radial-gradient(320px 200px at 30% 22%, rgba(255,236,160,0.28) 0%, transparent 65%),
+    radial-gradient(300px 190px at 78% 72%, rgba(255,215,110,0.22) 0%, transparent 65%);
+  opacity: 1;
+}
+[data-theme="gold"] body::after { opacity: 0; }
+
+/* fire 테마: 타오르는 불길 글로우 + 불씨 */
+[data-theme="fire"] body::before {
+  background-image:
+    radial-gradient(130% 65% at 50% 116%, rgba(255,180,40,0.55) 0%, rgba(255,90,10,0.32) 32%, rgba(180,30,5,0.14) 55%, transparent 72%),
+    radial-gradient(70% 40% at 22% 120%, rgba(255,120,20,0.38) 0%, transparent 60%),
+    radial-gradient(60% 38% at 80% 122%, rgba(255,140,30,0.36) 0%, transparent 60%),
+    radial-gradient(2px 2px at 30% 70%, rgba(255,200,80,0.9) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 55%, rgba(255,170,50,0.8) 0%, transparent 100%),
+    radial-gradient(2px 2px at 45% 82%, rgba(255,220,120,0.85) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 74%, rgba(255,160,40,0.8) 0%, transparent 100%),
+    radial-gradient(2px 2px at 88% 64%, rgba(255,180,60,0.75) 0%, transparent 100%);
+  opacity: 1;
+}
+[data-theme="fire"] body::after { opacity: 0; }
+
+/* cherry 테마: 별 배경 → 은은한 로즈 점으로 교체 */
+[data-theme="cherry"] body::before {
+  background-image:
+    radial-gradient(2px 2px at 16% 26%, rgba(217,134,149,0.22) 0%, transparent 100%),
+    radial-gradient(2px 2px at 58% 64%, rgba(160,91,106,0.14) 0%, transparent 100%),
+    radial-gradient(1px 1px at 76% 16%, rgba(217,134,149,0.18) 0%, transparent 100%),
+    radial-gradient(2px 2px at 36% 82%, rgba(226,149,163,0.16) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 52%, rgba(160,91,106,0.12) 0%, transparent 100%);
+  opacity: 1;
+}
+[data-theme="cherry"] body::after { opacity: 0; }
+
+/* cherry 테마: 버튼/배지 색상 보정 */
+[data-theme="cherry"] .btn-ghost {
+  background: rgba(217, 134, 149, 0.08);
+  color: var(--clr-text-muted);
+  border-color: rgba(160, 91, 106, 0.3);
+}
+[data-theme="cherry"] .btn-ghost:hover {
+  background: rgba(217, 134, 149, 0.16);
+  color: var(--clr-text);
+}
+[data-theme="cherry"] .btn-secondary:hover {
+  background: rgba(217, 134, 149, 0.12);
+}
+[data-theme="cherry"] .badge-primary {
+  background: rgba(217, 134, 149, 0.16);
+  color: #a05b6a;
+  border-color: rgba(160, 91, 106, 0.35);
+}
+[data-theme="cherry"] .badge-success {
+  background: rgba(16, 185, 129, 0.1);
+  color: #0f7a5a;
+  border-color: rgba(16, 185, 129, 0.22);
+}
+
+/* ocean 테마: 바닷속 물빛(caustic) 배경 */
+[data-theme="ocean"] body::before {
+  background-image:
+    linear-gradient(180deg, rgba(190,235,255,0.30) 0%, rgba(190,235,255,0) 14%),
+    radial-gradient(160px 70px at 22% 82%, rgba(190,240,255,0.30) 0%, transparent 70%),
+    radial-gradient(190px 80px at 62% 90%, rgba(160,225,255,0.26) 0%, transparent 70%),
+    radial-gradient(140px 62px at 86% 76%, rgba(200,245,255,0.24) 0%, transparent 70%),
+    radial-gradient(150px 66px at 10% 94%, rgba(170,230,255,0.22) 0%, transparent 70%),
+    radial-gradient(120px 54px at 44% 70%, rgba(190,240,255,0.16) 0%, transparent 70%);
+  opacity: 1;
+}
+[data-theme="ocean"] body::after { opacity: 0; }
+
+/* midnight 테마: 몽환 보케(빛망울) 배경 */
+[data-theme="midnight"] body::before {
+  background-image:
+    radial-gradient(70px 70px at 20% 24%, rgba(199,210,254,0.28) 0%, transparent 70%),
+    radial-gradient(54px 54px at 70% 16%, rgba(196,181,253,0.24) 0%, transparent 70%),
+    radial-gradient(90px 90px at 84% 58%, rgba(165,180,252,0.22) 0%, transparent 70%),
+    radial-gradient(44px 44px at 36% 70%, rgba(221,214,254,0.26) 0%, transparent 70%),
+    radial-gradient(64px 64px at 56% 88%, rgba(196,181,253,0.2) 0%, transparent 70%),
+    radial-gradient(1px 1px at 30% 40%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 62% 54%, rgba(255,255,255,0.45) 0%, transparent 100%),
+    radial-gradient(1px 1px at 46% 30%, rgba(255,255,255,0.4) 0%, transparent 100%);
+  opacity: 1;
+}
+[data-theme="midnight"] body::after { opacity: 0; }
+
+/* galaxy 테마: 성운 이미지 배경 */
+[data-theme="galaxy"] body::before {
+  background-image:
+    linear-gradient(180deg, rgba(10,7,38,0.55) 0%, rgba(10,7,38,0.32) 45%, rgba(10,7,38,0.6) 100%),
+    url('/galaxy-bg.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 1;
+}
+
+/* galaxy 테마: 그리드 패턴 제거 */
+[data-theme="galaxy"] body::after {
+  opacity: 0;
+}
+
 /* cyber 테마: 해킹 HUD 배경 (회로 격자 + 스캔라인 + 스캔 빔) */
 [data-theme="cyber"] body::before {
   background-image:
@@ -544,7 +667,6 @@
   background-size: cover;
   opacity: 0.5;
 }
-
 
 /* --- Reset & Base --- */
 *, *::before, *::after {
