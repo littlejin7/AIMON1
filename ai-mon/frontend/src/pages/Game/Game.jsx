@@ -110,6 +110,7 @@ export default function Game() {
   const navigate = useNavigate();
   const { token } = useAuthStore();
   const [counts, setCounts] = useState({});
+  const [lockedGame, setLockedGame] = useState(null);
 
   useEffect(() => {
     setCounts(loadCounts());
@@ -118,8 +119,7 @@ export default function Game() {
   const handleClick = (g) => {
     if (!g.available || !g.route) return;
     if (!token) {
-      alert("로그인이 필요한 기능입니다.");
-      navigate("/auth");
+      setLockedGame(g);
       return;
     }
     navigate(g.route);
@@ -132,6 +132,38 @@ export default function Game() {
     0
   );
   const allDone = totalDone >= totalTarget;
+
+  if (lockedGame) {
+    return (
+      <div className="game-page" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '75vh' }}>
+        <div className="game-card card-glass animate-fade-in-up" style={{ width: '100%', maxWidth: '450px', padding: '3.5rem 2rem', textAlign: 'center', border: '1px solid rgba(255,255,255,0.08)', position: 'relative', margin: '2rem auto' }}>
+          
+          <button 
+            onClick={() => setLockedGame(null)}
+            style={{ position: 'absolute', top: '20px', right: '20px', background: 'none', border: 'none', color: 'var(--clr-text-muted)', cursor: 'pointer', fontSize: '1.2rem' }}
+            aria-label="닫기"
+          >
+            ✕
+          </button>
+
+          <div className="game-icon" style={{ fontSize: '3.5rem', marginBottom: '1.5rem', textShadow: '0 0 20px rgba(124,58,237,0.3)' }}>🔒</div>
+          
+          <h2 style={{ color: 'var(--clr-text-bright)', marginBottom: '0.8rem', fontSize: '1.75rem', fontWeight: 800 }}>
+            {lockedGame.title} 잠김
+          </h2>
+          
+          <p style={{ color: 'var(--clr-text-muted)', lineHeight: '1.6', marginBottom: '2.5rem', fontSize: '0.95rem' }}>
+            로그인하시면 <strong>{lockedGame.title}</strong> 미니게임을 플레이하고<br />
+            다양한 코딩 학습 모험과 <strong>XP, 왕관</strong> 보상을 받을 수 있습니다!
+          </p>
+
+          <button className="btn btn-primary btn-lg btn-full" onClick={() => navigate('/auth')}>
+            로그인하러 가기
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="game-page">
