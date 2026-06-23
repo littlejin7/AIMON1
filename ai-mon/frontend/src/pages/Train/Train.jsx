@@ -244,10 +244,9 @@ export default function Train() {
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <button 
-              className="btn btn-outline btn-sm" 
+              className="btn btn-ghost btn-sm" 
               onClick={() => setCurrent(prev => Math.max(0, prev - 1))}
               disabled={current === 0}
-              style={{ padding: '6px 12px', borderRadius: '6px', fontSize: '0.85rem' }}
             >
               ◀ 이전
             </button>
@@ -255,7 +254,7 @@ export default function Train() {
               {current + 1} / {questions.length}
             </div>
             <button 
-              className="btn btn-outline btn-sm" 
+              className="btn btn-ghost btn-sm" 
               onClick={() => {
                 if (current + 1 < questions.length) {
                   setCurrent(current + 1)
@@ -264,7 +263,6 @@ export default function Train() {
                   finishTraining(finalCorrect)
                 }
               }}
-              style={{ padding: '6px 12px', borderRadius: '6px', fontSize: '0.85rem' }}
             >
               {current === questions.length - 1 ? '완료 ▶' : '다음 ▶'}
             </button>
