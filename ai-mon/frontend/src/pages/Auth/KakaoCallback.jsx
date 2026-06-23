@@ -29,8 +29,8 @@ export default function KakaoCallback() {
           redirect_uri: redirectUri
         })
 
-        const { access_token, user, streak_reward, is_new } = res.data
-        setAuth(access_token, user)
+        const { access_token, refresh_token, user, streak_reward, is_new } = res.data
+        setAuth(access_token, user, refresh_token)
 
         if (streak_reward) {
           alert(`🔥 ${streak_reward.days}일 연속 로그인 달성!!\n\n⭐ +${streak_reward.xp} XP${streak_reward.crowns > 0 ? `\n👑 +${streak_reward.crowns} 왕관` : ''} 보상을 획득했습니다!`)

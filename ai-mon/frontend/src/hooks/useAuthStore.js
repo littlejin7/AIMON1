@@ -6,14 +6,19 @@ export const useAuthStore = create(
   persist(
     (set, get) => ({
       token: null,
+      refreshToken: null,
       user: null,
       theme: 'dark',
-      setAuth: (token, user) => {
+      setAuth: (token, user, refreshToken = null) => {
         localStorage.removeItem('is_train_unlocked')
         if (user) {
           localStorage.removeItem(`is_train_unlocked_${user.id}`)
         }
-        set({ token, user })
+        set({ 
+          token, 
+          user, 
+          refreshToken: refreshToken !== null ? refreshToken : get().refreshToken 
+        })
       },
       updateUser: (user) => set({ user }),
       logout: () => {
@@ -22,7 +27,7 @@ export const useAuthStore = create(
           localStorage.removeItem(`is_train_unlocked_${currentUser.id}`)
         }
         localStorage.removeItem('is_train_unlocked')
-        set({ token: null, user: null })
+        set({ token: null, refreshToken: null, user: null })
       },
       setTheme: (theme) => {
         document.documentElement.setAttribute('data-theme', theme)
