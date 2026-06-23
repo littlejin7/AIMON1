@@ -120,7 +120,7 @@ export default function Register() {
         marketing_agreed: false,
       }
       const res = await authApi.register(payload)
-      setAuth(res.data.access_token, res.data.user)
+      setAuth(res.data.access_token, res.data.user, res.data.refresh_token)
       navigate('/lesson')
     } catch (err) {
       setError(err.response?.data?.detail || '오류가 발생했습니다. 다시 시도해주세요.')

@@ -28,7 +28,7 @@ export default function Auth() {
     setError('')
     try {
       const res = await authApi.login({ username: form.username.trim(), password: form.password })
-      setAuth(res.data.access_token, res.data.user)
+      setAuth(res.data.access_token, res.data.user, res.data.refresh_token)
       if (res.data.streak_reward) {
         const reward = res.data.streak_reward
         alert(`🔥 ${reward.days}일 연속 로그인 달성!!\n\n⭐ +${reward.xp} XP${reward.crowns > 0 ? `\n👑 +${reward.crowns} 왕관` : ''} 보상을 획득했습니다!`)
