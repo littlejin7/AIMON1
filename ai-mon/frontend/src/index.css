@@ -213,23 +213,46 @@
   --grad-neon-line:       linear-gradient(90deg, #a5b4fc 0%, #818cf8 50%, #6366f1 100%);
 }
 
-/* sunset — 오렌지 */
+/* sunset — 황금빛 일몰 (밝은 테마) */
 [data-theme="sunset"] {
-  --clr-bg:               #190f07;
-  --clr-bg-2:             #251910;
-  --clr-bg-card:          #2c1e13;
-  --grad-card:            linear-gradient(145deg, #2c1e13 0%, #251910 100%);
-  --shadow-card:          0 8px 32px rgba(251, 146, 60, 0.18);
-  --clr-primary:          #fb923c;
-  --clr-primary-lt:       #fdba74;
-  --clr-primary-dk:       #f97316;
-  --clr-secondary:        #ea580c;
-  --clr-accent:           #fb923c;
-  --clr-border:           rgba(251, 146, 60, 0.2);
-  --grad-primary:         linear-gradient(135deg, #fb923c 0%, #f59e0b 100%);
-  --grad-bg:              radial-gradient(ellipse at top, #2e1a0a 0%, #0f0f1a 70%);
-  --shadow-glow-primary:  0 0 24px rgba(251, 146, 60, 0.4);
-  --grad-neon-line:       linear-gradient(90deg, #fdba74 0%, #fb923c 50%, #f97316 100%);
+  /* 배경: 따뜻한 크림/골드 */
+  --clr-bg:               #fef3e2;
+  --clr-bg-2:             #fde8c8;
+  --clr-bg-card:          #fffaf2;
+
+  /* 주황 포인트 */
+  --clr-primary:          #f97316;
+  --clr-primary-lt:       #fb923c;
+  --clr-primary-dk:       #ea580c;
+  --clr-secondary:        #f59e0b;
+  --clr-accent:           #f97316;
+
+  /* 다크 텍스트 (밝은 배경이므로) */
+  --clr-text:             #5a2e0a;
+  --clr-text-muted:       #a85e16;
+  --clr-text-faint:       #c98a4a;
+
+  /* 카드/테두리 */
+  --clr-border:           rgba(180, 83, 9, 0.25);
+  --grad-card:            linear-gradient(145deg, #fffaf2 0%, #fef0db 100%);
+  --shadow-card:          0 8px 24px rgba(180, 83, 9, 0.15);
+
+  /* 그라디언트 (일몰 하늘) */
+  --grad-primary:         linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+  --grad-bg:              linear-gradient(180deg, #c9490a 0%, #e8731c 18%, #f59e0b 40%, #fbbf24 60%, #fde2a8 82%, #fff3d6 100%);
+  --grad-neon-line:       linear-gradient(90deg, #f97316 0%, #fb923c 50%, #f59e0b 100%);
+
+  /* 그림자/글로우 */
+  --shadow-glow-primary:  0 0 20px rgba(249, 115, 22, 0.4);
+  --clr-gold-glow:        rgba(249, 115, 22, 0.5);
+
+  /* 글리프 패턴 (밝은 배경에 맞게) */
+  --clr-glyph:            rgba(180, 83, 9, 0.04);
+  --clr-glyph-soft:       rgba(249, 115, 22, 0.03);
+
+  /* 베벨 (밝은 UI용) */
+  --bevel-top:            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --bevel-bottom:         inset 0 -2px 6px rgba(0, 0, 0, 0.06);
 }
 
 /* gold — 앰버/골드 */
@@ -432,6 +455,45 @@
   color: #059669;
   border-color: rgba(16, 185, 129, 0.25);
 }
+
+/* sunset 테마: 별 배경 → 태양 글로우로 교체 */
+[data-theme="sunset"] body::before {
+  background-image:
+    radial-gradient(420px 420px at 50% 0%, rgba(255,250,235,0.85) 0%, rgba(255,238,190,0.35) 32%, transparent 70%),
+    radial-gradient(2px 2px at 20% 30%, rgba(249,115,22,0.18) 0%, transparent 100%),
+    radial-gradient(2px 2px at 70% 20%, rgba(251,191,36,0.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 85% 45%, rgba(180,83,9,0.15) 0%, transparent 100%);
+}
+
+/* sunset 테마: 그리드 패턴 제거 */
+[data-theme="sunset"] body::after {
+  opacity: 0;
+}
+
+/* sunset 테마: 버튼/배지 하드코딩 색상 보정 */
+[data-theme="sunset"] .btn-ghost {
+  background: rgba(249, 115, 22, 0.07);
+  color: var(--clr-text-muted);
+  border-color: rgba(180, 83, 9, 0.3);
+}
+[data-theme="sunset"] .btn-ghost:hover {
+  background: rgba(249, 115, 22, 0.14);
+  color: var(--clr-text);
+}
+[data-theme="sunset"] .btn-secondary:hover {
+  background: rgba(249, 115, 22, 0.1);
+}
+[data-theme="sunset"] .badge-primary {
+  background: rgba(249, 115, 22, 0.15);
+  color: #c2410c;
+  border-color: rgba(180, 83, 9, 0.35);
+}
+[data-theme="sunset"] .badge-success {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
 
 /* --- Reset & Base --- */
 *, *::before, *::after {
