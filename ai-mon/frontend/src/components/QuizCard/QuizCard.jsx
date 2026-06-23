@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { quizApi } from '../../api/index'
 import { usePyodide } from '../../hooks/usePyodide'
 import { useAuthStore } from '../../hooks/useAuthStore'
@@ -46,19 +46,36 @@ function TerminalBlock({ lines }) {
   )
 }
 
-export default function QuizCard({ question, onAnswer, onNext, disabled = false }) {
-  const [selected,          setSelected]          = useState(null)
-  const [input,             setInput]             = useState('')
-  const [revealed,          setRevealed]          = useState(false)
+export default function QuizCard({
+  question,
+  onAnswer,
+  onNext,
+  disabled = false,
+  initialSelected = null,
+  initialInput = '',
+  initialRevealed = false,
+  initialAiFeedback = '',
+  initialIsCorrectResult = null,
+  onFeedbackUpdate,
+}) {
+  const [selected,          setSelected]          = useState(initialSelected)
+  const [input,             setInput]             = useState(initialInput)
+  const [revealed,          setRevealed]          = useState(initialRevealed)
   const [retried,           setRetried]           = useState(false)
-  const [aiFeedback,        setAiFeedback]        = useState('')
+  const [aiFeedback,        setAiFeedback]        = useState(initialAiFeedback)
   const [aiFeedbackLoading, setAiFeedbackLoading] = useState(false)
   const [codeRunResult,     setCodeRunResult]     = useState(null)
-  const [isCorrectResult,   setIsCorrectResult]   = useState(null)
+  const [isCorrectResult,   setIsCorrectResult]   = useState(initialIsCorrectResult)
 
   const { runPython, pyLoading } = usePyodide()
   const user        = useAuthStore((s) => s.user)
   const courseLevel = user?.course_level || 'beginner'
+
+  useEffect(() => {
+    if (aiFeedback) {
+      onFeedbackUpdate?.(aiFeedback)
+    }
+  }, [aiFeedback, onFeedbackUpdate])
 
   if (!question) return null
   
