@@ -1,0 +1,1324 @@
+{
+  "questions": [
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_1_001",
+      "choices": [
+        "A. info = {\"name\": \"에이몬\", \"lv\": 5}",
+        "B. info = ['name', \"에이몬\", \"lv\", 5]",
+        "C. info = (\"name\", \"에이몬\", \"lv\", 5)",
+        "D. info = {\"에이몬\", 5}"
+      ],
+      "answer": "A",
+      "hint": "딕셔너리는 중괄호 {}에 키: 값 쌍으로 만들어요. 콜론(:)으로 키와 값을 연결하는 것이 핵심이에요.",
+      "feedback": {
+        "correct": "정답! 딕셔너리는 {키: 값} 형태로 만들어요. []는 리스트, ()는 튜플, 콜론 없이 {}만 쓰면 세트예요."
+      },
+      "question": "딕셔너리를 만드는 올바른 방법은?",
+      "stage": 1
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "easy",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_1_002",
+      "choices": [
+        "A. 에이몬",
+        "B. slime",
+        "C. 3",
+        "D. {\"type\": \"slime\"}"
+      ],
+      "answer": "B",
+      "hint": "pet[\"type\"]은 키 \"type\"에 저장된 값을 꺼내요. 문자열 값은 따옴표 없이 출력돼요.",
+      "feedback": {
+        "correct": "정답! pet[\"type\"]은 \"type\" 키의 값 slime을 출력해요. 따옴표 없이 문자열 자체만 출력돼요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 1
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_1_003",
+      "choices": [
+        "A. lang[0]",
+        "B. lang.name",
+        "C. lang['name']",
+        "D. lang{\"name\"}"
+      ],
+      "answer": "C",
+      "hint": "딕셔너리는 인덱스 번호가 아닌 키 이름으로 값에 접근해요. lang[\"name\"]처럼 대괄호 안에 키를 넣어요.",
+      "feedback": {
+        "correct": "정답! 딕셔너리는 딕셔너리[키]로 값을 꺼내요. 리스트처럼 숫자 인덱스를 쓰면 KeyError가 발생해요."
+      },
+      "question": "다음 딕셔너리에서 \"Python\"을 꺼내는 코드는?",
+      "stage": 1
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_1_004",
+      "choices": [
+        "A. None을 출력한다",
+        "B. 0을 출력한다",
+        "C. 아무것도 출력하지 않는다",
+        "D. KeyError가 발생한다"
+      ],
+      "answer": "D",
+      "hint": "딕셔너리에 없는 키를 []로 접근하면 KeyError가 발생해요. 안전하게 꺼내려면 .get()을 쓰면 돼요.",
+      "feedback": {
+        "correct": "정답! 없는 키에 []로 접근하면 KeyError예요. None을 받고 싶다면 user.get(\"age\")를 쓰세요."
+      },
+      "question": "존재하지 않는 키로 접근하면 어떻게 될까요?",
+      "stage": 1
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_1_005",
+      "choices": [
+        "A. 없음",
+        "B. None",
+        "C. email",
+        "D. KeyError"
+      ],
+      "answer": "A",
+      "hint": ".get(키, 기본값)은 키가 없을 때 기본값을 반환해요. \"email\" 키가 없으므로 \"없음\"이 반환돼요.",
+      "feedback": {
+        "correct": "정답! .get(\"email\", \"없음\")은 \"email\" 키가 없으므로 기본값 \"없음\"을 반환해요. []로 접근했다면 KeyError가 났겠지만 .get()은 안전해요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 1
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_1_006",
+      "choices": [
+        "A. 10",
+        "B. 2",
+        "C. 20",
+        "D. 30"
+      ],
+      "answer": "B",
+      "hint": "len(딕셔너리)는 키-값 쌍의 수를 반환해요. d에는 \"x\"와 \"y\" 두 쌍이 있으므로 2예요.",
+      "feedback": {
+        "correct": "정답! len(d)는 키-값 쌍의 수 2를 반환해요. 값의 합이나 값 자체를 반환하는 게 아니에요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 1
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_1_007",
+      "choices": [
+        "A. \"name\"",
+        "B. 42",
+        "C. [1, 2, 3]",
+        "D. True"
+      ],
+      "answer": "C",
+      "hint": "딕셔너리 키는 변경 불가능한(immutable) 타입이어야 해요. 리스트는 변경 가능(mutable)해서 키로 쓸 수 없어요.",
+      "feedback": {
+        "correct": "정답! 리스트는 변경 가능해서 딕셔너리 키로 쓰면 TypeError가 발생해요. 문자열, 숫자, 불리언, 튜플은 모두 키로 사용 가능해요."
+      },
+      "question": "딕셔너리 키로 사용할 수 없는 것은?",
+      "stage": 1
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_1_008",
+      "choices": [
+        "A. Amy",
+        "B. Bob",
+        "C. 90",
+        "D. 75"
+      ],
+      "answer": "D",
+      "hint": "score[\"Bob\"]은 키 \"Bob\"에 해당하는 값 75를 반환해요. 키(\"Bob\")가 아닌 값(75)이 출력돼요.",
+      "feedback": {
+        "correct": "정답! score[\"Bob\"]은 \"Bob\"의 값 75를 출력해요. 키와 값을 혼동하지 않도록 주의해요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 1
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_1_009",
+      "choices": [
+        "A. 없음",
+        "B. 0",
+        "C. None",
+        "D. KeyError"
+      ],
+      "answer": "A",
+      "hint": "\"four\" 키가 딕셔너리에 없어요. .get(키, 기본값)은 키가 없을 때 기본값을 반환하므로 \"없음\"이 출력돼요.",
+      "feedback": {
+        "correct": "정답! \"four\" 키가 없으므로 .get(\"four\", \"없음\")은 기본값 \"없음\"을 반환해요. []로 접근했다면 KeyError가 났겠지만 .get()은 안전해요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 1
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_1_010",
+      "choices": [
+        "A. 1",
+        "B. False",
+        "C. True",
+        "D. KeyError"
+      ],
+      "answer": "B",
+      "hint": "in 연산자는 딕셔너리에서 키의 존재 여부를 확인해요. \"c\"는 키 목록에 없으므로 False예요.",
+      "feedback": {
+        "correct": "정답! in은 딕셔너리에서 키를 탐색해요. \"c\"는 없으므로 False가 출력돼요. 값이 아닌 키를 검색한다는 것을 기억하세요."
+      },
+      "question": "다음 코드의 실행 결과는?",
+      "stage": 1
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_2_001",
+      "choices": [
+        "A. user['age'] = 25",
+        "B. user.add(\"age\", 25)",
+        "C. user.append(\"age\", 25)",
+        "D. user.insert(\"age\", 25)"
+      ],
+      "answer": "A",
+      "hint": "딕셔너리에 새 키-값을 추가할 때는 딕셔너리[새키] = 값으로 직접 할당해요. .add(), .append(), .insert()는 딕셔너리에 없는 메서드예요.",
+      "feedback": {
+        "correct": "정답! 딕셔너리에 새 항목을 추가할 땐 딕셔너리[키] = 값으로 직접 할당해요."
+      },
+      "question": "딕셔너리에 새 키-값 쌍을 추가하는 방법은?",
+      "stage": 2
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "easy",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_2_002",
+      "choices": [
+        "A. 80",
+        "B. 95",
+        "C. {\"score\": 95}",
+        "D. {\"score\": 80, \"score\": 95}"
+      ],
+      "answer": "B",
+      "hint": "이미 있는 키에 새 값을 할당하면 기존 값이 덮어써져요. 80이 95로 교체돼요.",
+      "feedback": {
+        "correct": "정답! 기존 키에 새 값을 할당하면 값이 덮어써져요. 같은 키 두 개를 가질 수 없어요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 2
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_2_003",
+      "choices": [
+        "A. remove()와 pop()",
+        "B. delete()와 discard()",
+        "C. del dict[키]와 dict.pop(키)",
+        "D. clear()와 remove()"
+      ],
+      "answer": "C",
+      "hint": "del 딕셔너리[키]와 딕셔너리.pop(키) 두 가지 방법이 모두 작동해요. pop()은 삭제된 값도 반환해준다는 차이가 있어요.",
+      "feedback": {
+        "correct": "정답! del dict[키]와 dict.pop(키) 모두 항목을 삭제해요. pop()은 삭제된 값을 반환한다는 점이 달라요."
+      },
+      "question": "딕셔너리에서 특정 키-값 쌍을 삭제하는 방법 두 가지가 모두 올바른 것은?",
+      "stage": 2
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_2_004",
+      "choices": [
+        "A. 3",
+        "B. 1",
+        "C. {\"a\": 1, \"c\": 3}",
+        "D. 2"
+      ],
+      "answer": "D",
+      "hint": "del data[\"b\"]로 \"b\" 쌍을 삭제하면 \"a\"와 \"c\" 두 쌍이 남으므로 len(data)는 2예요.",
+      "feedback": {
+        "correct": "정답! \"b\"를 삭제하면 \"a\"와 \"c\"만 남아 len(data) = 2예요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 2
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_2_005",
+      "choices": [
+        "A. 10",
+        "B. 20",
+        "C. x",
+        "D. None"
+      ],
+      "answer": "A",
+      "hint": ".pop(키)는 해당 키를 삭제하면서 그 값을 반환해요. \"x\"의 값이 10이었으므로 val = 10이 돼요.",
+      "feedback": {
+        "correct": "정답! .pop(\"x\")는 키 \"x\"를 삭제하고 값 10을 반환해요. 삭제된 값을 활용할 때 유용한 메서드예요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 2
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_2_006",
+      "choices": [
+        "A. 2",
+        "B. 99",
+        "C. {\"y\":2,\"y\":99}",
+        "D. KeyError"
+      ],
+      "answer": "B",
+      "hint": ".update()는 전달된 딕셔너리로 원본을 수정해요. 겹치는 키 \"y\"는 b의 값 99로 덮어쓰여요.",
+      "feedback": {
+        "correct": "정답! .update()는 겹치는 키를 전달받은 딕셔너리의 값으로 덮어써요. \"y\"가 2에서 99로 교체됐어요."
+      },
+      "question": ".update() 메서드 실행 후 a[\"y\"]의 값은?",
+      "stage": 2
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_2_007",
+      "choices": [
+        "A. 2",
+        "B. 1",
+        "C. 3",
+        "D. 4"
+      ],
+      "answer": "C",
+      "hint": "처음에 2쌍이었는데 \"city\"가 추가되어 3쌍이 됐어요. len()은 총 키-값 쌍의 수를 반환해요.",
+      "feedback": {
+        "correct": "정답! \"name\", \"age\" 두 쌍에 \"city\"가 추가되어 3쌍이 됐어요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 2
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_2_008",
+      "choices": [
+        "A. 두 딕셔너리를 합쳐 새 딕셔너리를 반환한다",
+        "B. 기존 키는 유지하고 새 키만 추가한다",
+        "C. 에러가 발생한다",
+        "D. 겹치는 키는 덮어쓰고 없는 키는 추가하며, 원본을 직접 수정한다"
+      ],
+      "answer": "D",
+      "hint": ".update()는 원본 딕셔너리를 직접 수정해요. 겹치는 키는 새 값으로 덮어쓰고, 없는 키는 추가해요. 새 딕셔너리를 반환하지 않아요.",
+      "feedback": {
+        "correct": "정답! .update()는 원본 수정(in-place)이에요. 겹치는 키 덮어쓰기 + 새 키 추가, 반환값은 None이에요."
+      },
+      "question": ".update()에 대한 설명으로 올바른 것은?",
+      "stage": 2
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_2_009",
+      "choices": [
+        "A. 0",
+        "B. 2",
+        "C. None",
+        "D. KeyError"
+      ],
+      "answer": "A",
+      "hint": ".clear()는 딕셔너리의 모든 항목을 삭제하고 빈 딕셔너리 {}로 만들어요. len({}) = 0이에요.",
+      "feedback": {
+        "correct": "정답! .clear() 후 딕셔너리는 빈 {}가 되고, len({}) = 0이에요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 2
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_2_010",
+      "choices": [
+        "A. del dict",
+        "B. dict.clear()",
+        "C. dict.remove()",
+        "D. dict.reset()"
+      ],
+      "answer": "B",
+      "hint": ".clear()는 딕셔너리의 모든 항목을 삭제하고 빈 {}로 만들어요. del dict는 변수 자체를 삭제해버리므로 다르고, .remove()와 .reset()은 존재하지 않는 메서드예요.",
+      "feedback": {
+        "correct": "정답! 딕셔너리 내용을 비우는 방법은 .clear()예요. del dict는 변수 자체가 없어져 버려요."
+      },
+      "question": "딕셔너리의 모든 내용을 비우는 올바른 방법은?",
+      "stage": 2
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_3_001",
+      "choices": [
+        "A. .keys()",
+        "B. .values()",
+        "C. .items()",
+        "D. .list()"
+      ],
+      "answer": "A",
+      "hint": ".keys()는 키만, .values()는 값만, .items()는 키-값 쌍을 모두 반환해요. .list()는 존재하지 않는 메서드예요.",
+      "feedback": {
+        "correct": "정답! .keys()가 키를 반환해요. 세 메서드를 잘 구분해두세요."
+      },
+      "question": "딕셔너리의 키만 순서대로 꺼내는 메서드는?",
+      "stage": 3
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "easy",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_3_002",
+      "choices": [
+        "A. 90",
+        "B. Amy",
+        "C. Bob",
+        "D. {\"Amy\": 90}"
+      ],
+      "answer": "B",
+      "hint": ".keys()로 순회하면 키가 출력돼요. \"Amy\", \"Bob\", \"Cam\" 순으로 출력되고 첫 번째는 \"Amy\"예요.",
+      "feedback": {
+        "correct": "정답! .keys()는 키를 반환하므로 이름(\"Amy\", \"Bob\", \"Cam\")이 출력돼요. 값(90, 80, 70)이 아니에요."
+      },
+      "question": "다음 코드에서 첫 번째로 출력되는 값은?",
+      "stage": 3
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_3_003",
+      "choices": [
+        "A. abc",
+        "B. 3",
+        "C. 6",
+        "D. {\"a\": 1, \"b\": 2, \"c\": 3}"
+      ],
+      "answer": "C",
+      "hint": ".values()로 1, 2, 3을 꺼내 전부 더하면 총합 6이에요.",
+      "feedback": {
+        "correct": "정답! .values()는 값인 1, 2, 3을 반환해요. 1+2+3 = 6이에요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 3
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_3_004",
+      "choices": [
+        "A. 키 목록",
+        "B. 값 목록",
+        "C. 딕셔너리 복사본",
+        "D. (키, 값) 형태의 튜플 쌍 목록"
+      ],
+      "answer": "D",
+      "hint": ".items()는 (키, 값) 형태의 튜플 쌍들을 반환해요. 그래서 for k, v로 언패킹할 수 있어요.",
+      "feedback": {
+        "correct": "정답! .items()는 (키, 값) 튜플 쌍의 목록을 반환해요. for k, v in으로 언패킹해서 사용해요."
+      },
+      "question": "```python\nfor k, v in d.items():에서 d.items()가 반환하는 것은?\n```",
+      "stage": 3
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_3_005",
+      "choices": [
+        "A. apple",
+        "B. banana",
+        "C. cherry",
+        "D. 3"
+      ],
+      "answer": "A",
+      "hint": "v > 2인 항목의 키를 출력해요. apple(3>2)과 cherry(5>2)가 해당되고, 첫 번째로 출력되는 건 apple이에요.",
+      "feedback": {
+        "correct": "정답! 값이 2보다 큰 키를 출력해요. apple(3), cherry(5)가 해당돼요. 첫 번째는 apple이에요."
+      },
+      "question": "다음 코드에서 출력되는 첫 번째 값은?",
+      "stage": 3
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_3_006",
+      "choices": [
+        "A. \"에이몬\\n5\"",
+        "B. \"name\\nlv\"",
+        "C. \"{\"name\": \"에이몬\", \"lv\": 5}\"",
+        "D. \"name 에이몬\\nlv 5\""
+      ],
+      "answer": "B",
+      "hint": "for k in 딕셔너리:는 for k in d.keys():와 동일하게 작동하여 키를 줄바꿈하며 출력해요.",
+      "feedback": {
+        "correct": "정답! for k in 딕셔너리:는 기본적으로 키를 순회해요. 값까지 함께 순회하려면 .items()를 써야 해요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 3
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_3_007",
+      "choices": [
+        "A. for v in grade: print(v)",
+        "B. print(grade.values())",
+        "C. for v in grade.values(): print(v)",
+        "D. for v in grade.keys(): print(v)"
+      ],
+      "answer": "C",
+      "hint": "값만 출력하려면 .values()를 사용해요. .keys()나 for v in grade:는 키를 순회하고, print(grade.values())는 dict_values([...]) 형태로 출력돼요.",
+      "feedback": {
+        "correct": "정답! .values()로 값만 순회하면 90, 85가 출력돼요."
+      },
+      "question": "딕셔너리의 모든 값을 출력하는 올바른 코드는?",
+      "stage": 3
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_3_008",
+      "choices": [
+        "A. a=10",
+        "B. ['a=10', \"b=20\", 'c=30']",
+        "C. c=30",
+        "D. b=20"
+      ],
+      "answer": "D",
+      "hint": "result는 [\"a=10\", \"b=20\", \"c=30\"]이 되고, 인덱스 1은 두 번째 요소인 \"b=20\"이에요.",
+      "feedback": {
+        "correct": "정답! .items() 순회로 [\"a=10\", \"b=20\", \"c=30\"] 리스트가 만들어져요. result[1]은 \"b=20\"이에요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 3
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_3_009",
+      "choices": [
+        "A. 2",
+        "B. 3",
+        "C. 1",
+        "D. 0"
+      ],
+      "answer": "A",
+      "hint": "Amy(80>=80), Cam(90>=80)이 조건을 만족해요. Bob(70)은 해당 안 돼요. count = 2예요.",
+      "feedback": {
+        "correct": "정답! 80점 이상인 Amy와 Cam, 총 2명이에요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 3
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_3_010",
+      "choices": [
+        "A. for k, v in scores.items(): v = 90 (Amy일 때)",
+        "B. for k in scores: if k == \"Amy\": scores[k] = 90",
+        "C. 순회 중 값 변경은 불가능하다",
+        "D. for k, v in scores.items(): scores[v] = 90"
+      ],
+      "answer": "B",
+      "hint": "반복문 변수 v에 값을 대입하는 것은 원본을 바꾸지 못해요. 원본을 바꾸려면 키를 통해 scores[k] = 90으로 직접 접근해야 해요.",
+      "feedback": {
+        "correct": "정답! 변수에 새 값을 할당하는 것으로는 원본이 변경되지 않아요. 키를 통해 직접 scores[k]를 지정해 주어야 원본 딕셔너리가 수정돼요."
+      },
+      "question": "딕셔너리 순회 중 값을 변경하는 올바른 방법은?",
+      "stage": 3
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_4_001",
+      "choices": [
+        "A. 중복을 허용하지 않는다",
+        "B. 순서가 있고 인덱싱이 가능하다",
+        "C. 키-값 쌍으로 이루어져 있다",
+        "D. 변경할 수 없다"
+      ],
+      "answer": "A",
+      "hint": "세트의 핵심 특징은 중복 없음이에요. {1, 2, 2, 3}을 만들면 자동으로 {1, 2, 3}이 돼요.",
+      "feedback": {
+        "correct": "정답! 세트는 중복 없음, 순서 없음, 인덱싱 불가, 변경 가능이에요."
+      },
+      "question": "세트의 특징으로 올바른 것은?",
+      "stage": 4
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "easy",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_4_002",
+      "choices": [
+        "A. 6",
+        "B. 3",
+        "C. {1, 2, 3}",
+        "D. 1"
+      ],
+      "answer": "B",
+      "hint": "세트는 중복을 자동으로 제거해요. 1, 2, 3 각각 고유값 3개만 남으므로 len(s) = 3이에요.",
+      "feedback": {
+        "correct": "정답! 중복을 제거하면 {1, 2, 3} 3개만 남아요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 4
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_4_003",
+      "choices": [
+        "A. s = {}",
+        "B. s = ()",
+        "C. s = set()",
+        "D. s = []"
+      ],
+      "answer": "C",
+      "hint": "s = {}는 빈 딕셔너리를 만들어요. 빈 세트는 반드시 set()으로 만들어야 해요.",
+      "feedback": {
+        "correct": "정답! {}는 빈 딕셔너리예요. 빈 세트를 만들려면 set()을 사용해야 해요."
+      },
+      "question": "빈 세트를 만드는 올바른 방법은?",
+      "stage": 4
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_4_004",
+      "choices": [
+        "A. 5",
+        "B. 2",
+        "C. 4",
+        "D. 3"
+      ],
+      "answer": "D",
+      "hint": "리스트를 set()으로 변환하면 중복이 제거돼요. Amy, Bob이 중복 제거되어 Amy, Bob, Cam 3개만 남아요.",
+      "feedback": {
+        "correct": "정답! 리스트를 세트로 변환하면 중복이 자동 제거돼요. Amy(2번)와 Bob(2번)이 각 1개로 줄어 총 3개예요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 4
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_4_005",
+      "choices": [
+        "A. .add()",
+        "B. .append()",
+        "C. .insert()",
+        "D. .push()"
+      ],
+      "answer": "A",
+      "hint": "세트에 원소를 추가할 땐 .add()를 써요. 리스트의 .append()와 다르게 순서 없이 중복 없이 추가돼요.",
+      "feedback": {
+        "correct": "정답! 세트는 .add()를 사용해요. .append()는 리스트 전용, .insert()도 리스트용, .push()는 Python에 없는 메서드예요."
+      },
+      "question": "세트에 원소를 추가하는 메서드는?",
+      "stage": 4
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_4_006",
+      "choices": [
+        "A. 5",
+        "B. 4",
+        "C. 3",
+        "D. 2"
+      ],
+      "answer": "B",
+      "hint": "2는 이미 있어서 add(2)는 무시되고, 4만 새로 추가돼요. 결과: {1, 2, 3, 4} -> len = 4예요.",
+      "feedback": {
+        "correct": "정답! 세트는 중복을 허용하지 않아요. add(2)는 무시, add(4)는 추가되어 총 4개예요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 4
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_4_007",
+      "choices": [
+        "A. .delete()와 .pop()",
+        "B. .remove()와 .delete()",
+        "C. .remove()와 .discard()",
+        "D. .pop()과 .clear()"
+      ],
+      "answer": "C",
+      "hint": ".remove()는 없는 원소 삭제 시 KeyError, .discard()는 에러 없이 조용히 무시해요. 상황에 따라 골라 쓰세요.",
+      "feedback": {
+        "correct": "정답! 세트 삭제 메서드는 .remove()와 .discard()예요. 없는 원소일 때 에러가 나느냐 아니냐가 차이예요."
+      },
+      "question": "세트에서 원소를 삭제하는 메서드 두 가지는?",
+      "stage": 4
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_4_008",
+      "choices": [
+        "A. 1",
+        "B. 3",
+        "C. 2",
+        "D. TypeError가 발생한다"
+      ],
+      "answer": "D",
+      "hint": "세트는 순서가 없어서 인덱스로 접근할 수 없어요. s[0]은 TypeError: 'set' object is not subscriptable 에러가 발생해요.",
+      "feedback": {
+        "correct": "정답! 세트는 순서가 없는 자료구조라 s[0]처럼 인덱스로 접근하면 TypeError가 나요."
+      },
+      "question": "다음 코드의 실행 결과는?",
+      "stage": 4
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_4_009",
+      "choices": [
+        "A. \"banana\" in fruits",
+        "B. fruits.contains(\"banana\")",
+        "C. fruits.find(\"banana\")",
+        "D. fruits.has(\"banana\")"
+      ],
+      "answer": "A",
+      "hint": "in 연산자로 세트 안에 원소가 있는지 확인해요. 세트는 해시 기반이라 리스트보다 훨씬 빠르게 탐색해요.",
+      "feedback": {
+        "correct": "정답! in 연산자를 써요. .contains(), .find(), .has()는 Python 세트에 없는 메서드예요."
+      },
+      "question": "\"banana\"가 세트 fruits에 있는지 확인하는 코드는?",
+      "stage": 4
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_4_010",
+      "choices": [
+        "A. 세트가 리스트보다 항상 메모리를 더 적게 쓴다",
+        "B. 세트는 중복이 없고 순서가 없으며, 리스트는 중복과 순서가 있다",
+        "C. 리스트는 중복을 허용하지 않는다",
+        "D. 세트는 값을 변경할 수 없다"
+      ],
+      "answer": "B",
+      "hint": "세트: 중복 없음 + 순서 없음. 리스트: 중복 가능 + 순서 있음 + 인덱싱 가능. 각자 쓰임새가 달라요.",
+      "feedback": {
+        "correct": "정답! 세트의 핵심은 중복 제거와 순서 없음이에요. 리스트는 반대로 중복 허용, 순서 있음이에요."
+      },
+      "question": "리스트와 세트의 차이로 올바른 것은?",
+      "stage": 4
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_5_001",
+      "choices": [
+        "A. |",
+        "B. &",
+        "C. -",
+        "D. ^"
+      ],
+      "answer": "A",
+      "hint": "|는 합집합(union)이에요. &는 교집합, -는 차집합, ^는 대칭 차집합이에요.",
+      "feedback": {
+        "correct": "정답! |가 합집합이에요. 기호를 기억해두면 편해요: |합집합, &교집합, -차집합, ^대칭차집합."
+      },
+      "question": "두 세트의 합집합 연산 기호는?",
+      "stage": 5
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "easy",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_5_002",
+      "choices": [
+        "A. {1, 2, 3, 4}",
+        "B. {2, 3}",
+        "C. {1, 4}",
+        "D. {1, 2, 3, 2, 3, 4}"
+      ],
+      "answer": "B",
+      "hint": "&는 교집합이에요. a와 b 모두에 있는 원소는 2와 3이에요.",
+      "feedback": {
+        "correct": "정답! a & b는 교집합이에요. a에도 있고 b에도 있는 원소 2, 3만 결과에 포함돼요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 5
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_5_003",
+      "choices": [
+        "A. {3}",
+        "B. {1, 2, 4, 5}",
+        "C. {1, 2, 3, 4, 5}",
+        "D. {1, 2, 3, 3, 4, 5}"
+      ],
+      "answer": "C",
+      "hint": "|는 합집합이에요. 두 세트 모두의 원소를 포함해요. 중복인 3은 한 번만 포함돼요.",
+      "feedback": {
+        "correct": "정답! 합집합은 두 세트 모두의 원소를 합쳐요. 중복 3은 한 번만 포함돼요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 5
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_5_004",
+      "choices": [
+        "A. {5}",
+        "B. {3, 4}",
+        "C. {1, 2, 3, 4, 5}",
+        "D. {1, 2}"
+      ],
+      "answer": "D",
+      "hint": "a - b는 차집합이에요. a에서 b와 겹치는 3, 4를 제거하면 1, 2만 남아요.",
+      "feedback": {
+        "correct": "정답! a - b는 a에서 b와 겹치는 원소를 제거한 나머지예요. 3, 4가 제거되어 {1, 2}가 남아요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 5
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_5_005",
+      "choices": [
+        "A. True",
+        "B. False",
+        "C. {1, 2, 3}",
+        "D. {4, 5}"
+      ],
+      "answer": "A",
+      "hint": "issubset()은 a의 모든 원소가 b에 포함되면 True를 반환해요. a의 1, 2, 3이 모두 b에 있으므로 True예요.",
+      "feedback": {
+        "correct": "정답! a.issubset(b)는 a가 b의 부분집합인지 확인해요. a의 원소가 모두 b에 있으므로 True예요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 5
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_5_006",
+      "choices": [
+        "A. False",
+        "B. True",
+        "C. {}",
+        "D. KeyError"
+      ],
+      "answer": "B",
+      "hint": "isdisjoint()는 공통 원소가 없으면 True를 반환해요.",
+      "feedback": {
+        "correct": "정답! a.isdisjoint(b)는 공통 원소가 없을 때 True예요. 두 세트가 서로소 관계예요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 5
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_5_007",
+      "choices": [
+        "A. {2, 3}",
+        "B. {1, 2, 3, 4}",
+        "C. {1, 4}",
+        "D. {}"
+      ],
+      "answer": "C",
+      "hint": "^는 대칭 차집합이에요. 양쪽 모두에 있는 2, 3은 제외되고, 한쪽에만 있는 1(a만)과 4(b만)만 남아요.",
+      "feedback": {
+        "correct": "정답! ^는 한쪽에만 있는 원소예요. 2, 3은 양쪽 다 있어 제외, 1과 4가 결과예요."
+      },
+      "question": "a ^ b 결과로 올바른 것은?",
+      "stage": 5
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_5_008",
+      "choices": [
+        "A. 3",
+        "B. 4",
+        "C. 1",
+        "D. 2"
+      ],
+      "answer": "D",
+      "hint": ".intersection()은 &와 동일해요. a와 b의 공통 원소는 2, 3이므로 len(c) = 2예요.",
+      "feedback": {
+        "correct": "정답! a.intersection(b)는 a & b와 동일해요. 공통 원소는 2, 3으로 2개예요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 5
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_5_009",
+      "choices": [
+        "A. 2",
+        "B. 5",
+        "C. 1",
+        "D. 3"
+      ],
+      "answer": "A",
+      "hint": "group_a - group_b는 a에서 b와 겹치는 Bob을 빼요. Alice, Carol이 남아 len = 2예요.",
+      "feedback": {
+        "correct": "정답! group_a에서 Bob을 제외하면 Alice, Carol 2명이 남아요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 5
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_5_010",
+      "choices": [
+        "A. union() = -",
+        "B. intersection() = &",
+        "C. difference() = ^",
+        "D. symmetric_difference() = |"
+      ],
+      "answer": "B",
+      "hint": "올바른 쌍: union()|, intersection()&, difference()-, symmetric_difference()^이에요.",
+      "feedback": {
+        "correct": "정답! intersection() = &예요. 전체 정리: union()|, difference()-, intersection()&, symmetric_difference()^."
+      },
+      "question": "세트 연산 메서드와 기호의 연결이 올바른 것은?",
+      "stage": 5
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_6_001",
+      "choices": [
+        "A. 둘 다 중괄호 {}를 사용하고, 중복된 키/원소를 허용하지 않는다",
+        "B. 둘 다 인덱싱이 가능하다",
+        "C. 둘 다 순서가 보장된다",
+        "D. 둘 다 키-값 쌍으로 이루어져 있다"
+      ],
+      "answer": "A",
+      "hint": "두 자료형 모두 {}를 사용하고 중복을 허용하지 않아요. 딕셔너리는 키 중복 불가, 세트는 원소 중복 불가예요.",
+      "feedback": {
+        "correct": "정답! {}와 중복 불허가 공통점이에요. 인덱싱은 둘 다 안 되고, 세트는 순서가 없어요."
+      },
+      "question": "딕셔너리와 세트의 공통점은?",
+      "stage": 6
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "easy",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_6_002",
+      "choices": [
+        "A. 4",
+        "B. 3",
+        "C. 2",
+        "D. 1"
+      ],
+      "answer": "B",
+      "hint": "세트는 중복을 제거해요. \"python\"이 중복되어 제거되면 \"python\", \"AI\", \"coding\" 3개만 남아요.",
+      "feedback": {
+        "correct": "정답! 세트 tags에서 중복 \"python\"이 제거되어 3개 원소만 남아요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 6
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_6_003",
+      "choices": [
+        "A. len(visitors)",
+        "B. visitors.count()",
+        "C. len(set(visitors))",
+        "D. len(dict(visitors))"
+      ],
+      "answer": "C",
+      "hint": "set(리스트)로 중복이 자동 제거돼요. len(set(visitors))가 고유 항목 수를 구하는 파이썬 관용 표현이에요.",
+      "feedback": {
+        "correct": "정답! set(visitors)로 중복을 제거하면 {Amy, Bob, Cam} 3명이에요. len()으로 수를 세요."
+      },
+      "question": "리스트에서 중복을 제거하고 고유한 항목 수를 구하는 파이썬 관용 표현은?",
+      "stage": 6
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_6_004",
+      "choices": [
+        "A. ['apple', 'cherry']",
+        "B. [0]",
+        "C. {\"banana\": 0}",
+        "D. ['banana']"
+      ],
+      "answer": "D",
+      "hint": "v == 0인 항목의 키를 리스트에 담아요. banana(0)만 조건을 만족하므로 [\"banana\"]가 결과예요.",
+      "feedback": {
+        "correct": "정답! 값이 0인 키만 담아요. banana만 해당되어 [\"banana\"]가 출력돼요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 6
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_6_005",
+      "choices": [
+        "A. 2",
+        "B. 1",
+        "C. 0",
+        "D. KeyError"
+      ],
+      "answer": "A",
+      "hint": "\"hi\"는 두 번 등장해요. word_count[\"hi\"]는 2로 증가해요.",
+      "feedback": {
+        "correct": "정답! \"hi\"가 두 번 반복문을 통과해서 2로 집계돼요. 전형적인 빈도 카운팅 패턴이에요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 6
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_6_006",
+      "choices": [
+        "A. max(score)",
+        "B. max(score, key=score.get)",
+        "C. score.max()",
+        "D. max(score.values())"
+      ],
+      "answer": "B",
+      "hint": "max(score)는 키 알파벳 기준, max(score.values())는 최대 값(숫자)을 반환해요. 값 기준으로 키를 찾으려면 max(score, key=score.get)이에요.",
+      "feedback": {
+        "correct": "정답! max(score, key=score.get)은 값을 기준으로 키를 비교해서 가장 큰 값의 키 \"Amy\"를 반환해요."
+      },
+      "question": "딕셔너리에서 값이 가장 큰 키를 찾는 올바른 코드는?",
+      "stage": 6
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_6_007",
+      "choices": [
+        "A. 1",
+        "B. 3",
+        "C. 2",
+        "D. (\"b\", 2)"
+      ],
+      "answer": "C",
+      "hint": "dict()에 (키, 값) 튜플 리스트를 넣으면 딕셔너리로 변환돼요. d[\"b\"]는 키 \"b\"의 값 2를 반환해요.",
+      "feedback": {
+        "correct": "정답! dict([(\"a\",1),(\"b\",2),(\"c\",3)])은 {\"a\":1,\"b\":2,\"c\":3}이에요. d[\"b\"]는 2예요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 6
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_6_008",
+      "choices": [
+        "A. 3",
+        "B. 5",
+        "C. 1",
+        "D. 2"
+      ],
+      "answer": "D",
+      "hint": "a_tags & b_tags는 교집합이에요. 두 세트 모두에 있는 원소는 \"AI\"와 \"coding\"으로 2개예요.",
+      "feedback": {
+        "correct": "정답! 교집합은 양쪽 모두에 있는 \"AI\"와 \"coding\" 2개예요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 6
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "output_select",
+      "question_id": "miniboss_beg_os_7_6_009",
+      "choices": [
+        "A. 1",
+        "B. 3",
+        "C. 2",
+        "D. 0"
+      ],
+      "answer": "A",
+      "hint": "\"math\"를 수강하면서 Amy가 아닌 학생은 Bob뿐이에요. Cam은 \"english\", \"art\"만 있어서 해당 안 돼요.",
+      "feedback": {
+        "correct": "정답! 조건(math 수강 + Amy 제외)을 모두 만족하는 학생은 Bob 1명이에요."
+      },
+      "question": "다음 코드의 출력 결과는?",
+      "stage": 6
+    },
+    {
+      "unit": 7,
+      "course_level": "beginner",
+      "quiz_category": "miniboss",
+      "is_boss": false,
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "question_id": "miniboss_beg_mc_7_6_010",
+      "choices": [
+        "A. 세트는 키-값 쌍을 저장할 수 있다",
+        "B. 딕셔너리는 set()으로 변환하면 키만 남는다",
+        "C. 두 자료형 모두 인덱스로 원소에 접근할 수 있다",
+        "D. 세트는 중복을 허용하지 않고 딕셔너리는 키 중복을 허용한다"
+      ],
+      "answer": "B",
+      "hint": "dict를 set()으로 변환하면 키만 추출돼요. 세트는 키-값 구조가 없고, 두 자료형 모두 인덱스 접근 불가, 딕셔너리는 키 중복이 불가예요.",
+      "feedback": {
+        "correct": "정답! set(딕셔너리)는 키만 추출해요. 예: set({\"a\":1,\"b\":2}) = {\"a\",\"b\"}예요."
+      },
+      "question": "세트와 딕셔너리에 대한 설명 중 올바른 것은?",
+      "stage": 6
+    }
+  ]
+}

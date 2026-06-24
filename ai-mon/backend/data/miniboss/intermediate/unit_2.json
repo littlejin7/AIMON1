@@ -1,0 +1,1084 @@
+{
+  "questions": [
+    {
+      "question_id": "miniboss_int_os_2_1_001",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nt = (1, 2, 3)\nprint(t[0], t[-1])\n```",
+      "answer": "A",
+      "difficulty": "easy",
+      "explanation": "t[0]은 첫 번째 요소 1, t[-1]은 마지막 요소 3이에요. 음수 인덱스는 끝에서부터 셉니다.",
+      "feedback": {
+        "correct": "정답! t[0]은 첫 번째 요소 1, t[-1]은 마지막 요소 3이에요. 튜플도 리스트처럼 양수/음수 인덱싱이 모두 됩니다."
+      },
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. 1 3",
+        "B. 1 2",
+        "C. 0 3",
+        "D. 오류 발생"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_fib_2_1_002",
+      "type": "fill_in_blank",
+      "question": "빈칸을 채워 튜플의 요소 개수를 출력하세요.\n\n```python\nt = (10, 20, 30)\nprint(_____(t))\n# 출력 목표: 3\n```",
+      "answer": "len",
+      "difficulty": "easy",
+      "explanation": "len()은 튜플의 요소 개수를 반환해요. 리스트, 문자열, 딕셔너리 등 모든 시퀀스에 동일하게 사용됩니다.",
+      "feedback": {
+        "correct": "정답! len()은 튜플의 요소 개수를 반환해요. 리스트, 문자열, 딕셔너리 등 모든 시퀀스에 동일하게 사용됩니다."
+      },
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_int_os_2_1_003",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nt = (1, 2, 3, 1, 2, 1)\nprint(t.count(1))\nprint(t.index(2))\n```",
+      "answer": "C",
+      "difficulty": "medium",
+      "explanation": "count(1)은 1이 등장하는 횟수 3, index(2)는 2가 처음 등장하는 인덱스 1을 반환해요.",
+      "feedback": {
+        "correct": "정답! count(1)은 1이 등장하는 횟수 3을 반환하고, index(2)는 2가 처음 등장하는 인덱스 1을 반환해요. index()는 가장 먼저 나오는 위치만 반환합니다."
+      },
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. 2 / 2",
+        "B. 2 / 1",
+        "C. 3 / 1",
+        "D. 3 / 2"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_fib_2_1_004",
+      "type": "fill_in_blank",
+      "question": "빈칸을 채워 튜플에서 최댓값을 출력하세요.\n\n```python\nt = (5, 3, 8, 1)\nprint(_____(t))\n# 출력 목표: 8\n```",
+      "answer": "max",
+      "difficulty": "medium",
+      "explanation": "max()는 튜플을 포함한 모든 iterable에서 최댓값을 반환해요. min()으로 최솟값도 같은 방식으로 구할 수 있습니다.",
+      "feedback": {
+        "correct": "정답! max()는 튜플을 포함한 모든 iterable에서 최댓값을 반환해요. min()으로 최솟값도 같은 방식으로 구할 수 있습니다."
+      },
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_int_os_2_1_005",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nt = ('a', 'b', 'c', 'd')\nprint(t[1:3])\n```",
+      "answer": "D",
+      "difficulty": "medium",
+      "explanation": "슬라이싱 [1:3]은 인덱스 1 이상 3 미만을 반환해요. 인덱스 1인 'b'와 인덱스 2인 'c'만 선택됩니다.",
+      "feedback": {
+        "correct": "정답! 슬라이싱 [1:3]은 인덱스 1 이상 3 미만을 반환해요. 인덱스 1인 'b'와 인덱스 2인 'c'만 선택됩니다."
+      },
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. ('a', 'b')",
+        "B. ('a', 'b', 'c')",
+        "C. ('b', 'c', 'd')",
+        "D. ('b', 'c')"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_fib_2_1_006",
+      "type": "fill_in_blank",
+      "question": "빈칸을 채워 튜플을 2번 반복한 새 튜플을 출력하세요.\n\n```python\nt = (1, 2, 3)\nt2 = t _____ 2\nprint(t2)\n# 출력 목표: (1, 2, 3, 1, 2, 3)\n```",
+      "answer": "*",
+      "difficulty": "medium",
+      "explanation": "튜플에 * 연산자를 사용하면 해당 횟수만큼 반복된 새 튜플을 만들어요. 원본 튜플은 변경되지 않습니다.",
+      "feedback": {
+        "correct": "정답! 튜플에 * 연산자를 사용하면 해당 횟수만큼 반복된 새 튜플을 만들어요. 원본 튜플은 변경되지 않습니다."
+      },
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_int_os_2_1_007",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nt = (10, 20, 30, 40, 50)\nprint(t[::2])\n```",
+      "answer": "C",
+      "difficulty": "hard",
+      "explanation": "[::2]는 처음부터 끝까지 인덱스 2 간격으로 슬라이싱해요. 인덱스 0, 2, 4번째 요소인 10, 30, 50이 선택됩니다.",
+      "feedback": {
+        "correct": "정답! [::2]는 처음부터 끝까지 인덱스 2 간격으로 슬라이싱해요. 인덱스 0, 2, 4번째 요소인 10, 30, 50이 선택됩니다."
+      },
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. (20, 40)",
+        "B. (50, 30, 10)",
+        "C. (10, 30, 50)",
+        "D. (10, 20, 30)"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_fib_2_1_008",
+      "type": "fill_in_blank",
+      "question": "빈칸을 채워 튜플을 정렬된 리스트로 출력하세요.\n\n```python\nt = (3, 1, 4, 1, 5)\nresult = _____(t)\nprint(result)\n# 출력 목표: [1, 1, 3, 4, 5]\n```",
+      "answer": "sorted",
+      "difficulty": "hard",
+      "explanation": "sorted()는 튜플을 정렬된 리스트로 반환해요. 튜플은 불변(immutable)이라 직접 정렬이 안 되므로 정렬이 필요할 때는 sorted()를 사용하세요.",
+      "feedback": {
+        "correct": "정답! sorted()는 튜플을 정렬된 리스트로 반환해요. 튜플은 불변(immutable)이라 직접 정렬이 안 되므로 정렬이 필요할 때는 sorted()를 사용하세요."
+      },
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_int_os_2_1_009",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\na = (1, 2)\nb = (3, 4)\nc = a + b\nprint(c)\nprint(len(c))\n```",
+      "answer": "A",
+      "difficulty": "hard",
+      "explanation": "튜플 +는 두 튜플을 이어붙여 새 튜플을 만들어요. 값을 더하는 것이 아니라 연결(concatenation)이며 원본은 수정되지 않습니다.",
+      "feedback": {
+        "correct": "정답! 튜플 +는 두 튜플을 이어붙여 새 튜플을 만들어요. 값을 더하는 것이 아니라 연결(concatenation)이며 원본 a, b는 수정되지 않습니다."
+      },
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. (1, 2, 3, 4) / 4",
+        "B. (4, 6) / 2",
+        "C. ((1, 2), (3, 4)) / 2",
+        "D. 오류 발생"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_os_2_1_010",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nt = (1, [2, 3], 4)\nt[1].append(99)\nprint(t)\n```",
+      "answer": "B",
+      "difficulty": "hard",
+      "explanation": "튜플 자체는 불변이지만 내부 요소가 리스트라면 그 리스트는 수정 가능해요. 튜플이 리스트 객체의 참조(reference)를 담고 있기 때문입니다.",
+      "feedback": {
+        "correct": "정답! 튜플 자체는 불변이지만 내부 요소가 리스트라면 그 리스트는 수정 가능해요. t[1] = [...]처럼 요소를 교체하는 건 오류지만, t[1].append()처럼 리스트 내부를 수정하는 건 허용됩니다."
+      },
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. 오류 발생",
+        "B. (1, [2, 3, 99], 4)",
+        "C. (1, [2, 3], 4)",
+        "D. (1, 99, 4)"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_os_2_2_001",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\na, b, c = 10, 20, 30\nprint(a, b, c)\n```",
+      "answer": "A",
+      "difficulty": "easy",
+      "explanation": "10, 20, 30은 오른쪽에서 튜플로 패킹되고, a, b, c =로 각 변수에 언패킹되어 할당돼요.",
+      "feedback": {
+        "correct": "정답! 오른쪽 10, 20, 30이 튜플로 패킹된 뒤 a, b, c에 언패킹돼요. print()는 공백으로 구분해 출력합니다."
+      },
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. 10 20 30",
+        "B. (10, 20, 30)",
+        "C. 10, 20, 30",
+        "D. 오류 발생"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_fib_2_2_002",
+      "type": "fill_in_blank",
+      "question": "튜플 언패킹으로 경도 값을 꺼내도록 빈칸을 채우세요.\n\n```python\ncoords = (37.5, 127.0)\nlat, _____ = coords\nprint(lng)\n# 출력 목표: 127.0\n```",
+      "answer": "lng",
+      "difficulty": "easy",
+      "explanation": "튜플 언패킹은 왼쪽 변수 수와 튜플 원소 수가 일치해야 해요. lat, lng = coords로 각각 37.5와 127.0이 할당됩니다.",
+      "feedback": {
+        "correct": "정답! 튜플 언패킹은 왼쪽 변수 수와 튜플 원소 수가 일치해야 해요. lat, lng = coords로 각각 37.5와 127.0이 할당됩니다."
+      },
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_int_os_2_2_003",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nfirst, *rest = [10, 20, 30, 40, 50]\nprint(first)\nprint(rest)\n```",
+      "answer": "C",
+      "difficulty": "medium",
+      "explanation": "*rest는 나머지 요소를 리스트로 받아요. first는 정수 10, rest는 리스트 [20, 30, 40, 50]이 됩니다.",
+      "feedback": {
+        "correct": "정답! *rest는 나머지 요소를 리스트로 받아요. first는 정수 10, rest는 리스트 [20, 30, 40, 50]이 됩니다. *를 붙인 변수는 항상 리스트 타입으로 받습니다."
+      },
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. 10 / (20, 30, 40, 50)",
+        "B. [10] / [20, 30, 40, 50]",
+        "C. 10 / [20, 30, 40, 50]",
+        "D. 10 / [30, 40, 50]"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_fib_2_2_004",
+      "type": "fill_in_blank",
+      "question": "빈칸을 채워 두 변수의 값을 교환하세요.\n\n```python\na, b = 5, 10\na, b = _____, _____\nprint(a, b)\n# 출력 목표: 10 5\n```",
+      "answer": "b, a",
+      "difficulty": "medium",
+      "explanation": "a, b = b, a는 임시 변수 없이 두 값을 교환하는 파이썬 관용 표현이에요. 오른쪽이 먼저 튜플로 패킹된 후 좌변에 언패킹됩니다.",
+      "feedback": {
+        "correct": "정답! a, b = b, a는 임시 변수 없이 두 값을 교환하는 파이썬 관용 표현이에요. 오른쪽이 먼저 튜플 (b, a) = (10, 5)로 패킹된 후 좌변에 언패킹됩니다."
+      },
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_int_os_2_2_005",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\n*head, last = [1, 2, 3, 4, 5]\nprint(head)\nprint(last)\n```",
+      "answer": "A",
+      "difficulty": "medium",
+      "explanation": "*head는 마지막을 제외한 앞 요소들을 리스트로 받고, last는 마지막 요소 단일 값 5를 받아요.",
+      "feedback": {
+        "correct": "정답! *head는 마지막을 제외한 앞 요소들을 리스트로 받고, last는 마지막 요소 단일 값 5를 받아요. *를 붙인 변수는 항상 리스트로 담깁니다."
+      },
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. [1, 2, 3, 4] / 5",
+        "B. [1, 2, 3, 4] / [5]",
+        "C. (1, 2, 3, 4) / 5",
+        "D. 오류 발생"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_fib_2_2_006",
+      "type": "fill_in_blank",
+      "question": "출력 목표와 코드 하단의 출력을 참고하여 빈칸을 채우세요.\n\n```python\nnumbers = [1, 2, 3, 4, 5]\nfirst, *_____, last = numbers\nprint(middle)\n# 출력 목표: [2, 3, 4]\n```",
+      "answer": "middle",
+      "difficulty": "medium",
+      "explanation": "*middle은 첫 번째(first)와 마지막(last)을 제외한 나머지를 리스트로 받아요. *뒤의 변수명은 자유롭게 지정할 수 있습니다.",
+      "feedback": {
+        "correct": "정답! *middle은 첫 번째(first)와 마지막(last)을 제외한 나머지를 리스트로 받아요. *뒤의 변수명은 자유롭게 지정할 수 있습니다."
+      },
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_int_os_2_2_007",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ninfo = ('방해몬', 500, 120)\nname, *stats = info\nprint(name)\nprint(stats)\n```",
+      "answer": "C",
+      "difficulty": "hard",
+      "explanation": "튜플에서도 *확장 언패킹이 동작해요. *stats는 나머지 요소를 항상 리스트로 받습니다. 원본이 튜플이어도 *를 붙인 변수는 리스트 타입이에요.",
+      "feedback": {
+        "correct": "정답! 튜플에서도 *확장 언패킹이 동작해요. *stats는 나머지 요소를 항상 리스트로 받습니다. 원본이 튜플이어도 *를 붙인 변수는 리스트 타입이에요."
+      },
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. ('방해몬',) / [500, 120]",
+        "B. 방해몬 / (500, 120)",
+        "C. 방해몬 / [500, 120]",
+        "D. 오류 발생"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_fib_2_2_008",
+      "type": "fill_in_blank",
+      "question": "빈칸을 채워 세 값이 각각 한 줄씩 출력되도록 하세요.\n\n```python\ndef show(*args):\n    for item in args:\n        print(item)\n\nshow(_____)\n```",
+      "answer": "'에이몬', '로봇', '고스트'",
+      "difficulty": "hard",
+      "explanation": "*args는 전달된 인수들을 튜플로 묶어 받아요. 몇 개를 넘겨도 모두 args 안에 담기며, for문으로 하나씩 꺼내 출력할 수 있습니다.",
+      "feedback": {
+        "correct": "정답! *args는 전달된 인수들을 튜플로 묶어 받아요. 몇 개를 넘겨도 모두 args 안에 담기며, for문으로 하나씩 꺼내 출력할 수 있습니다."
+      },
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_int_os_2_2_009",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef get_info():\n    return '에이몬', 15, 800\n\nname, level, hp = get_info()\nprint(f'{name} Lv.{level} HP:{hp}')\n```",
+      "answer": "A",
+      "difficulty": "hard",
+      "explanation": "함수가 여러 값을 반환하면 자동으로 튜플로 패킹돼요. name, level, hp =로 언패킹하면 각 변수에 분리 할당됩니다.",
+      "feedback": {
+        "correct": "정답! 함수가 여러 값을 반환하면 자동으로 튜플로 패킹돼요. name, level, hp =로 언패킹하면 각 변수에 분리 할당됩니다. return 값이 여러 개일 때 이 패턴을 자주 사용해요."
+      },
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. 에이몬 Lv.15 HP:800",
+        "B. ('에이몬', 15, 800)",
+        "C. 에이몬, 15, 800",
+        "D. 오류 발생"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_os_2_2_010",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\na = [1, 2, 3]\nb = [4, 5, 6]\nmerged = [*a, *b]\nprint(merged)\nprint(type(merged))\n```",
+      "answer": "D",
+      "difficulty": "hard",
+      "explanation": "[*a, *b]는 두 리스트를 언패킹해서 하나의 새 리스트로 합치는 방법이에요. 결과는 중첩 리스트가 아니라 평탄화된 리스트입니다.",
+      "feedback": {
+        "correct": "정답! [*a, *b]는 두 리스트를 언패킹해서 하나의 새 리스트로 합치는 방법이에요. 결과는 중첩 리스트가 아니라 평탄화된 리스트입니다. 딕셔너리는 {**d1, **d2} 방식으로 동일하게 합칩니다."
+      },
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. [[1, 2, 3], [4, 5, 6]] / <class 'list'>",
+        "B. (1, 2, 3, 4, 5, 6) / <class 'tuple'>",
+        "C. 오류 발생",
+        "D. [1, 2, 3, 4, 5, 6] / <class 'list'>"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_os_2_3_001",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\na = [1, 2, 3]\nb = (1, 2, 3)\nprint(type(a) == type(b))\nprint(a == list(b))\n```",
+      "answer": "D",
+      "difficulty": "easy",
+      "explanation": "자료형 자체(type())는 list와 tuple로 달라 False예요. list(b)로 튜플을 리스트로 변환하면 값이 같아 True가 됩니다.",
+      "feedback": {
+        "correct": "정답! 자료형 자체(type())는 list와 tuple로 달라 False예요. list(b)로 튜플을 리스트로 변환하면 값이 같아 True가 됩니다."
+      },
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. True / False",
+        "B. True / True",
+        "C. False / False",
+        "D. False / True"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_fib_2_3_002",
+      "type": "fill_in_blank",
+      "question": "빈칸을 채워 튜플을 리스트로 변환해 출력하세요.\n\n```python\nt = (1, 2, 3)\nresult = _____(t)\nprint(result)\nprint(type(result))\n# 출력 목표:\n# [1, 2, 3]\n# <class 'list'>\n```",
+      "answer": "list",
+      "difficulty": "easy",
+      "explanation": "list()로 튜플을 리스트로 변환해요. 반대로 tuple()로 리스트를 튜플로 바꿀 수 있습니다.",
+      "feedback": {
+        "correct": "정답! list()로 튜플을 리스트로 변환해요. 반대로 tuple()로 리스트를 튜플로 바꿀 수 있습니다. 두 자료형은 값은 같아도 가변성(mutable/immutable)이 달라요."
+      },
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_int_os_2_3_003",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = {1, 2, 3}\nl = [1, 2, 3]\nt = (1, 2, 3)\nprint(1 in s)\nprint(4 in l)\nprint(4 in t)\n```",
+      "answer": "C",
+      "difficulty": "medium",
+      "explanation": "in 연산자는 세트, 리스트, 튜플 모두에서 사용 가능해요. 1은 세트에 있으니 True, 4는 리스트와 튜플 어디에도 없으니 모두 False입니다.",
+      "feedback": {
+        "correct": "정답! in 연산자는 세트, 리스트, 튜플 모두에서 사용 가능해요. 1은 세트에 있으니 True, 4는 리스트와 튜플 어디에도 없으니 모두 False입니다."
+      },
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. False / True / False",
+        "B. True / True / False",
+        "C. True / False / False",
+        "D. True / False / True"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_fib_2_3_004",
+      "type": "fill_in_blank",
+      "question": "set()을 사용해 리스트의 중복을 제거하고 고유 원소 개수를 출력하세요.\n\n```python\ndata = [3, 1, 2, 1, 3, 3]\nunique = list(_____(data))\nprint(len(unique))\n# 출력 목표: 3\n```",
+      "answer": "set",
+      "difficulty": "medium",
+      "explanation": "set()으로 변환하면 중복이 자동 제거돼요. list()로 감싸 리스트로 변환한 뒤 len()으로 개수를 셉니다. 3, 1, 2 세 가지만 남으므로 len()은 3을 반환합니다.",
+      "feedback": {
+        "correct": "정답! set()으로 변환하면 중복이 자동 제거돼요. list()로 감싸 리스트로 변환한 뒤 len()으로 개수를 셉니다. 3, 1, 2 세 가지만 남으므로 len()은 3입니다."
+      },
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_int_os_2_3_005",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nl = [1, 2, 3]\nt = tuple(l)\nl.append(4)\nprint(l)\nprint(t)\n```",
+      "answer": "A",
+      "difficulty": "medium",
+      "explanation": "tuple(l)은 변환 시점의 값을 복사해 새 튜플을 만들어요. 이후 l에 요소를 추가해도 t는 영향받지 않습니다.",
+      "feedback": {
+        "correct": "정답! tuple(l)은 변환 시점의 값을 복사해 새 튜플을 만들어요. 이후 l에 요소를 추가해도 t는 영향받지 않습니다. 튜플은 불변이므로 원본과 독립적으로 유지돼요."
+      },
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. [1, 2, 3, 4] / (1, 2, 3)",
+        "B. [1, 2, 3, 4] / (1, 2, 3, 4)",
+        "C. [1, 2, 3] / (1, 2, 3)",
+        "D. 오류 발생"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_fib_2_3_006",
+      "type": "fill_in_blank",
+      "question": "set()을 사용해 리스트의 중복을 제거한 뒤 고유 항목 수를 출력하세요.\n\n```python\nitems = ['바나나', '사과', '바나나', '포도', '사과']\nunique_items = list(_____(items))\nprint(len(unique_items))\n# 출력 목표: 3\n```",
+      "answer": "set",
+      "difficulty": "medium",
+      "explanation": "set(items)으로 중복을 제거한 뒤 list()로 다시 감싸면 고유 항목 리스트가 돼요. 고유 원소는 바나나, 사과, 포도 세 가지이므로 len()은 3입니다.",
+      "feedback": {
+        "correct": "정답! set(items)으로 중복을 제거한 뒤 list()로 다시 감싸면 고유 항목 리스트가 돼요. 고유 원소는 바나나, 사과, 포도 세 가지이므로 len()은 3입니다."
+      },
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_int_os_2_3_007",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\na = frozenset({1, 2, 3})\nb = {1, 2, 3}\nprint(a == b)\nprint(type(a) == type(b))\n```",
+      "answer": "C",
+      "difficulty": "hard",
+      "explanation": "frozenset과 set은 자료형(type)이 다르지만, 포함 원소가 같으면 값 비교(==)는 True를 반환해요. frozenset은 set의 불변 버전으로, 딕셔너리 키나 세트 원소로 사용할 수 있습니다.",
+      "feedback": {
+        "correct": "정답! frozenset과 set은 자료형(type)이 다르지만, 포함 원소가 같으면 값 비교(==)는 True를 반환해요. frozenset은 set의 불변 버전으로, 딕셔너리 키나 세트 원소로 사용할 수 있습니다."
+      },
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. False / False",
+        "B. True / True",
+        "C. True / False",
+        "D. 오류 발생"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_fib_2_3_008",
+      "type": "fill_in_blank",
+      "question": "빈칸을 채워 딕셔너리의 키만 리스트로 출력하세요.\n\n```python\nscores = {'Amy': 90, 'Bob': 75, 'Cin': 88}\nname_list = _____(scores)\nprint(name_list)\n# 출력 목표: ['Amy', 'Bob', 'Cin']\n```",
+      "answer": "list",
+      "difficulty": "hard",
+      "explanation": "딕셔너리에 list()를 바로 적용하면 키 목록만 리스트로 반환해요. 값이 필요하면 list(scores.values()), 키-값 쌍이 필요하면 list(scores.items())를 사용하세요.",
+      "feedback": {
+        "correct": "정답! 딕셔너리에 list()를 바로 적용하면 키 목록만 리스트로 반환해요. 값이 필요하면 list(scores.values()), 키-값 쌍이 필요하면 list(scores.items())를 사용하세요."
+      },
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_int_os_2_3_009",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nd = {'a': 1, 'b': 2, 'c': 3}\nkeys = list(d.keys())\nvalues = tuple(d.values())\nprint(type(keys))\nprint(type(values))\nprint(keys[1])\nprint(values[1])\n```",
+      "answer": "A",
+      "difficulty": "hard",
+      "explanation": "list(d.keys())는 키 뷰를 리스트로, tuple(d.values())는 값 뷰를 튜플로 변환해요. 변환하지 않으면 dict_keys, dict_values 타입이라 인덱싱이 안 됩니다.",
+      "feedback": {
+        "correct": "정답! list(d.keys())는 키 뷰를 리스트로, tuple(d.values())는 값 뷰를 튜플로 변환해요. 변환하지 않으면 dict_keys, dict_values 타입이라 인덱싱이 안 됩니다."
+      },
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. <class 'list'> / <class 'tuple'> / b / 2",
+        "B. <class 'dict_keys'> / <class 'tuple'> / b / 2",
+        "C. <class 'list'> / <class 'dict_values'> / b / 2",
+        "D. 오류 발생"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_os_2_3_010",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndata = [1, 2, 2, 3, 3, 3]\ns = set(data)\nt = tuple(s)\nprint(sorted(t))\nprint(type(t))\n```",
+      "answer": "B",
+      "difficulty": "hard",
+      "explanation": "set()으로 중복 제거 → tuple()로 변환 → sorted()로 정렬 시 sorted()의 반환값은 항상 리스트예요. type(t)는 sorted() 이전에 만들어진 t의 타입인 tuple을 출력합니다.",
+      "feedback": {
+        "correct": "정답! sorted()의 반환값은 항상 리스트예요. type(t)는 sorted() 호출과 무관하게 tuple을 출력합니다. set() → tuple() → sorted() 순서로 변환이 이루어집니다."
+      },
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. {1, 2, 3} / <class 'set'>",
+        "B. [1, 2, 3] / <class 'tuple'>",
+        "C. 오류 발생",
+        "D. [1, 2, 3] / <class 'list'>"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_os_2_4_001",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nmatrix = [[1, 2], [3, 4], [5, 6]]\nprint(matrix[1][0])\n```",
+      "answer": "D",
+      "difficulty": "easy",
+      "explanation": "matrix[1]은 두 번째 행 [3, 4]를 가리키고, [0]은 그 첫 번째 요소 3을 가져와요.",
+      "feedback": {
+        "correct": "정답! matrix[1]은 두 번째 행 [3, 4]를 가리키고, [0]은 그 첫 번째 요소 3을 가져와요. 중첩 리스트는 [행][열] 순서로 접근합니다."
+      },
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. 1",
+        "B. 2",
+        "C. 4",
+        "D. 3"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_fib_2_4_002",
+      "type": "fill_in_blank",
+      "question": "빈칸을 채워 Bob의 hp 값을 출력하세요.\n\n```python\nusers = {\n    'Amy': {'level': 15, 'hp': 800},\n    'Bob': {'level': 8, 'hp': 600}\n}\nprint(users['Bob'][_____])\n# 출력 목표: 600\n```",
+      "answer": "'hp'",
+      "difficulty": "easy",
+      "explanation": "중첩 딕셔너리는 dict['키1']['키2'] 순서로 접근해요. users['Bob']이 {'level': 8, 'hp': 600}이고, ['hp']로 600을 꺼냅니다.",
+      "feedback": {
+        "correct": "정답! 중첩 딕셔너리는 dict['키1']['키2'] 순서로 접근해요. users['Bob']이 {'level': 8, 'hp': 600}이고, ['hp']로 600을 꺼냅니다."
+      },
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_int_os_2_4_003",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndata = {'scores': [70, 85, 90], 'name': '에이몬'}\ndata['scores'].append(100)\nprint(data['scores'])\nprint(len(data['scores']))\n```",
+      "answer": "C",
+      "difficulty": "medium",
+      "explanation": "딕셔너리 값으로 있는 리스트는 직접 수정 가능해요. append(100) 후 리스트는 [70, 85, 90, 100]이 되고 len()은 4를 반환합니다.",
+      "feedback": {
+        "correct": "정답! 딕셔너리 값으로 있는 리스트는 직접 수정 가능해요. append(100) 후 리스트는 [70, 85, 90, 100]이 되고 len()은 4를 반환합니다."
+      },
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. [70, 85, 90] / 3",
+        "B. [70, 85, 90, 100] / 3",
+        "C. [70, 85, 90, 100] / 4",
+        "D. 오류 발생"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_fib_2_4_004",
+      "type": "fill_in_blank",
+      "question": "빈칸을 채워 2차원 리스트의 모든 숫자 합계를 출력하세요.\n\n```python\nnested = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\ntotal = 0\nfor row in nested:\n    total += _____(row)\nprint(total)\n# 출력 목표: 45\n```",
+      "answer": "sum",
+      "difficulty": "medium",
+      "explanation": "sum(row)로 각 행의 합을 구해 누적하면 전체 합산이 돼요. sum([1,2,3]) + sum([4,5,6]) + sum([7,8,9]) = 6 + 15 + 24 = 45입니다.",
+      "feedback": {
+        "correct": "정답! sum(row)로 각 행의 합을 구해 누적하면 전체 합산이 돼요. sum([1,2,3]) + sum([4,5,6]) + sum([7,8,9]) = 6 + 15 + 24 = 45입니다."
+      },
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_int_os_2_4_005",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nrecords = [\n    {'name': '에이몬', 'lv': 10},\n    {'name': '슬라임', 'lv': 3}\n]\nprint(records[0]['name'])\nprint(records[1]['lv'])\n```",
+      "answer": "A",
+      "difficulty": "medium",
+      "explanation": "records[0]은 첫 번째 딕셔너리, records[1]은 두 번째 딕셔너리예요. 리스트 인덱싱 후 딕셔너리 키 접근을 연속으로 사용합니다.",
+      "feedback": {
+        "correct": "정답! records[0]은 첫 번째 딕셔너리 {'name': '에이몬', 'lv': 10}, records[1]은 두 번째 딕셔너리예요. 리스트 인덱싱 후 딕셔너리 키 접근을 연속으로 사용합니다."
+      },
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. 에이몬 / 3",
+        "B. 슬라임 / 10",
+        "C. 에이몬 / 10",
+        "D. 오류 발생"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_fib_2_4_006",
+      "type": "fill_in_blank",
+      "question": "빈칸을 채워 팀 멤버에 'Dan'을 추가하세요.\n\n```python\nteam = {\n    'members': ['Amy', 'Bob', 'Cin'],\n    'score': 95\n}\nteam['members']._____('Dan')\nprint(team['members'])\n# 출력 목표: ['Amy', 'Bob', 'Cin', 'Dan']\n```",
+      "answer": "append",
+      "difficulty": "medium",
+      "explanation": "딕셔너리 안의 리스트는 .append()로 직접 요소를 추가할 수 있어요. team['members']로 리스트를 꺼낸 뒤 바로 메서드를 호출합니다.",
+      "feedback": {
+        "correct": "정답! 딕셔너리 안의 리스트는 .append()로 직접 요소를 추가할 수 있어요. team['members']로 리스트를 꺼낸 뒤 바로 메서드를 호출합니다."
+      },
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_int_os_2_4_007",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndata = {'a': {'b': {'c': 42}}}\nprint(data['a']['b']['c'])\nprint(type(data['a']))\n```",
+      "answer": "C",
+      "difficulty": "hard",
+      "explanation": "3단계 중첩 딕셔너리도 ['키']를 연속으로 붙여 접근해요. data['a']는 {'b': {'c': 42}} 딕셔너리이므로 type()은 dict를 출력합니다.",
+      "feedback": {
+        "correct": "정답! 3단계 중첩 딕셔너리도 ['키']를 연속으로 붙여 접근해요. data['a']는 {'b': {'c': 42}} 딕셔너리이므로 type()은 <class 'dict'>를 출력합니다."
+      },
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. 42 / <class 'int'>",
+        "B. {'c': 42} / <class 'dict'>",
+        "C. 42 / <class 'dict'>",
+        "D. 오류 발생"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_fib_2_4_008",
+      "type": "fill_in_blank",
+      "question": "빈칸을 채워 몬스터 이름만 순서대로 출력하세요.\n\n```python\nmonsters = [\n    {'name': '고블린', 'hp': 100},\n    {'name': '오크', 'hp': 300},\n    {'name': '드래곤', 'hp': 1000}\n]\nfor m in monsters:\n    print(m[_____])\n# 출력 목표:\n# 고블린\n# 오크\n# 드래곤\n```",
+      "answer": "'name'",
+      "difficulty": "hard",
+      "explanation": "리스트 안의 딕셔너리는 반복문에서 각 딕셔너리 m을 꺼낸 뒤 m['키']로 원하는 값에 접근해요.",
+      "feedback": {
+        "correct": "정답! 리스트 안의 딕셔너리는 반복문에서 각 딕셔너리 m을 꺼낸 뒤 m['키']로 원하는 값에 접근해요."
+      },
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_int_os_2_4_009",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ninventory = {\n    'sword': {'count': 2, 'power': 50},\n    'shield': {'count': 1, 'power': 30}\n}\ntotal_power = sum(v['power'] * v['count'] for v in inventory.values())\nprint(total_power)\n```",
+      "answer": "A",
+      "difficulty": "hard",
+      "explanation": "sword: 50 × 2 = 100, shield: 30 × 1 = 30 → 합계 130이에요. dict.values()로 각 내부 딕셔너리를 꺼내 power × count를 계산해 합산합니다.",
+      "feedback": {
+        "correct": "정답! sword: 50 × 2 = 100, shield: 30 × 1 = 30 → 합계 130이에요. dict.values()로 각 내부 딕셔너리를 꺼내 제너레이터 표현식으로 계산해 합산합니다."
+      },
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. 130",
+        "B. 80",
+        "C. 150",
+        "D. 160"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_os_2_4_010",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndata = {\n    'stage1': {'clear': True, 'score': 90},\n    'stage2': {'clear': False, 'score': 40},\n    'stage3': {'clear': True, 'score': 85}\n}\ncleared = [k for k, v in data.items() if v['clear']]\nprint(len(cleared))\nprint(cleared[0])\n```",
+      "answer": "B",
+      "difficulty": "hard",
+      "explanation": "clear: True인 스테이지는 stage1과 stage3 두 개예요. cleared[0]은 리스트 첫 번째 요소인 'stage1'을 반환합니다.",
+      "feedback": {
+        "correct": "정답! clear: True인 스테이지는 stage1과 stage3 두 개예요. 리스트 컴프리헨션으로 조건을 만족하는 키만 모으고, cleared[0]은 첫 번째 요소 'stage1'을 반환합니다."
+      },
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. 3 / stage1",
+        "B. 2 / stage1",
+        "C. 2 / stage2",
+        "D. 1 / stage3"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_os_2_5_001",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ninfo = ('에이몬', [100, 200, 300])\nname, scores = info\nprint(name)\nprint(sum(scores))\n```",
+      "answer": "A",
+      "difficulty": "easy",
+      "explanation": "튜플 언패킹으로 name과 scores를 분리하고, sum(scores)로 리스트 합산이 가능해요. 100 + 200 + 300 = 600입니다.",
+      "feedback": {
+        "correct": "정답! 튜플 언패킹으로 name과 scores를 분리하고, sum(scores)로 리스트 합산이 가능해요. 100 + 200 + 300 = 600입니다."
+      },
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. 에이몬 / 600",
+        "B. 에이몬 / [100, 200, 300]",
+        "C. ('에이몬',) / 600",
+        "D. 오류 발생"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_fib_2_5_002",
+      "type": "fill_in_blank",
+      "question": "빈칸을 채워 점수 기준 오름차순 정렬 후 최저 점수 플레이어를 출력하세요.\n\n```python\nplayers = [('Amy', 90), ('Bob', 75), ('Cin', 88)]\nplayers.sort(key=lambda x: x[_____])\nprint(players[0][0])\n# 출력 목표: Bob\n```",
+      "answer": "1",
+      "difficulty": "easy",
+      "explanation": "x[1]은 각 튜플의 두 번째 요소(점수)를 정렬 기준으로 사용해요. 오름차순 정렬 시 가장 낮은 점수 75인 Bob이 첫 번째가 됩니다.",
+      "feedback": {
+        "correct": "정답! x[1]은 각 튜플의 두 번째 요소(점수)를 정렬 기준으로 사용해요. 오름차순 정렬 시 가장 낮은 점수 75인 Bob이 첫 번째가 됩니다."
+      },
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_int_os_2_5_003",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nraw = [1, 2, 2, 3, 3, 3, 4]\ncounted = {}\nfor n in raw:\n    counted[n] = counted.get(n, 0) + 1\nprint(counted)\n```",
+      "answer": "C",
+      "difficulty": "medium",
+      "explanation": "dict.get(key, 0)는 키가 없으면 0을 반환해요. 반복마다 +1씩 누적되어 각 숫자의 등장 횟수를 셉니다.",
+      "feedback": {
+        "correct": "정답! dict.get(key, 0)는 키가 없으면 0을 반환해요. 반복마다 +1씩 누적되어 각 숫자의 등장 횟수를 셉니다. 1→1번, 2→2번, 3→3번, 4→1번이에요."
+      },
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. {1: 1, 2: 1, 3: 1, 4: 1}",
+        "B. {1: 1, 2: 2, 3: 2, 4: 1}",
+        "C. {1: 1, 2: 2, 3: 3, 4: 1}",
+        "D. 오류 발생"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_fib_2_5_004",
+      "type": "fill_in_blank",
+      "question": "빈칸을 채워 점수 상위 3개를 내림차순으로 출력하세요.\n\n```python\nscores = [85, 92, 78, 95, 88]\ntop3 = sorted(scores, _____)[:3]\nprint(top3)\n# 출력 목표: [95, 92, 88]\n```",
+      "answer": "reverse=True",
+      "difficulty": "medium",
+      "explanation": "sorted()의 reverse=True 옵션은 내림차순 정렬이에요. 슬라이싱 [:3]으로 정렬된 리스트의 앞 3개를 가져옵니다.",
+      "feedback": {
+        "correct": "정답! sorted()의 reverse=True 옵션은 내림차순 정렬이에요. 슬라이싱 [:3]으로 정렬된 리스트의 앞 3개를 가져옵니다."
+      },
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_int_os_2_5_005",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ngrades = {'Amy': [80, 90], 'Bob': [70, 60]}\nfor name, scores in grades.items():\n    avg = sum(scores) / len(scores)\n    print(f'{name}: {avg}')\n```",
+      "answer": "A",
+      "difficulty": "medium",
+      "explanation": "dict.items()로 키-값을 동시에 언패킹해요. Amy: (80+90)/2 = 85.0, Bob: (70+60)/2 = 65.0입니다.",
+      "feedback": {
+        "correct": "정답! dict.items()로 키-값을 동시에 언패킹해요. Amy: (80+90)/2 = 85.0, Bob: (70+60)/2 = 65.0입니다."
+      },
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. Amy: 85.0 / Bob: 65.0",
+        "B. Amy: 80 / Bob: 70",
+        "C. Amy: 85.0 / Bob: 60.0",
+        "D. 오류 발생"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_fib_2_5_006",
+      "type": "fill_in_blank",
+      "question": "빈칸을 채워 클리어한 레코드의 이름만 리스트로 출력하세요.\n\n```python\nrecords = [\n    {'name': '에이몬', 'clear': True},\n    {'name': '슬라임', 'clear': False},\n    {'name': '로봇', 'clear': True}\n]\ncleared_names = [r['name'] for r in records if r[_____]]\nprint(cleared_names)\n# 출력 목표: ['에이몬', '로봇']\n```",
+      "answer": "'clear'",
+      "difficulty": "medium",
+      "explanation": "r['clear']가 True인 항목만 필터링해요. 딕셔너리 키를 리스트 컴프리헨션 조건에 직접 사용할 수 있습니다.",
+      "feedback": {
+        "correct": "정답! r['clear']가 True인 항목만 필터링해요. 딕셔너리 키를 리스트 컴프리헨션 조건에 직접 사용할 수 있습니다."
+      },
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_int_os_2_5_007",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndata = [\n    ('Amy', 'sword', 50),\n    ('Bob', 'shield', 30),\n    ('Amy', 'bow', 45)\n]\namy_total = sum(power for name, _, power in data if name == 'Amy')\nprint(amy_total)\n```",
+      "answer": "C",
+      "difficulty": "hard",
+      "explanation": "Amy 항목은 ('Amy', 'sword', 50)과 ('Amy', 'bow', 45) 두 개예요. _는 사용하지 않는 변수 자리에 쓰는 관용 표현입니다. 50 + 45 = 95입니다.",
+      "feedback": {
+        "correct": "정답! Amy 항목은 ('Amy', 'sword', 50)과 ('Amy', 'bow', 45) 두 개예요. _는 사용하지 않는 변수 자리에 쓰는 관용 표현입니다. 50 + 45 = 95입니다."
+      },
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. 50",
+        "B. 80",
+        "C. 95",
+        "D. 125"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_fib_2_5_008",
+      "type": "fill_in_blank",
+      "question": "빈칸을 채워 튜플 리스트를 딕셔너리로 변환하세요.\n\n```python\ndata = [(1, 'a'), (2, 'b'), (3, 'c')]\nresult = _____(data)\nprint(result)\n# 출력 목표: {1: 'a', 2: 'b', 3: 'c'}\n```",
+      "answer": "dict",
+      "difficulty": "hard",
+      "explanation": "dict()에 (키, 값) 쌍의 리스트를 넣으면 딕셔너리로 변환돼요. zip()으로 두 리스트를 합칠 때도 dict(zip(keys, values)) 패턴을 자주 씁니다.",
+      "feedback": {
+        "correct": "정답! dict()에 (키, 값) 쌍의 리스트를 넣으면 딕셔너리로 변환돼요. zip()으로 두 리스트를 합칠 때도 dict(zip(keys, values)) 패턴을 자주 씁니다."
+      },
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon"
+    },
+    {
+      "question_id": "miniboss_int_os_2_5_009",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ninventory = {'포션': 3, '소드': 1, '방패': 2}\ninventory['포션'] += 2\ninventory['화살'] = 10\ndel inventory['소드']\nprint(len(inventory))\nprint('소드' in inventory)\n```",
+      "answer": "A",
+      "difficulty": "hard",
+      "explanation": "포션 수정(3→5) → 화살 추가 → 소드 삭제 순으로 처리돼요. 최종 키는 포션, 방패, 화살 3개이고, 소드는 삭제됐으니 in 결과는 False입니다.",
+      "feedback": {
+        "correct": "정답! 포션 수정(3→5) → 화살 추가 → 소드 삭제 순으로 처리돼요. 최종 키는 포션, 방패, 화살 3개이고, 소드는 삭제됐으니 in 결과는 False입니다."
+      },
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. 3 / False",
+        "B. 4 / False",
+        "C. 3 / True",
+        "D. 2 / False"
+      ]
+    },
+    {
+      "question_id": "miniboss_int_os_2_5_010",
+      "type": "output_select",
+      "question": "다음 코드의 출력 결과는?\n\n```python\nstudents = [\n    {'name': 'Amy', 'scores': [80, 90, 85]},\n    {'name': 'Bob', 'scores': [70, 65, 75]},\n]\nresult = max(students, key=lambda s: sum(s['scores']))\nprint(result['name'])\nprint(sum(result['scores']))\n```",
+      "answer": "D",
+      "difficulty": "hard",
+      "explanation": "Amy 총합: 80+90+85 = 255, Bob 총합: 70+65+75 = 210이에요. max()의 key 인수로 비교 기준 함수를 지정할 수 있습니다. 가장 높은 총합을 가진 Amy가 선택됩니다.",
+      "feedback": {
+        "correct": "정답! Amy 총합: 80+90+85 = 255, Bob 총합: 70+65+75 = 210이에요. max()의 key 인수로 비교 기준 함수를 지정할 수 있습니다. 가장 높은 총합을 가진 Amy가 선택됩니다."
+      },
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "intermediate",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "pass_score": 70,
+      "villain": "interferencemon",
+      "choices": [
+        "A. Bob / 210",
+        "B. Amy / 240",
+        "C. Bob / 255",
+        "D. Amy / 255"
+      ]
+    }
+  ]
+}

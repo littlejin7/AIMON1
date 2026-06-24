@@ -1,0 +1,1474 @@
+{
+  "questions": [
+    {
+      "question_id": "miniboss_beg_mc_4_1_001",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "for 반복문의 역할은?",
+      "choices": [
+        "A. 특정 코드를 여러 번 반복 실행한다",
+        "B. 변수에 값을 저장한다",
+        "C. 오류가 발생했을 때 처리한다",
+        "D. 조건이 참일 때만 한 번 실행한다"
+      ],
+      "answer": "A. 특정 코드를 여러 번 반복 실행한다",
+      "feedback": {
+        "correct": "정답! for는 반복을 위한 문법이에요. 같은 코드를 여러 번 실행할 때 써요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_4_1_002",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "range(5)가 만들어내는 숫자 범위는?",
+      "choices": [
+        "A. 1, 2, 3, 4, 5",
+        "B. 0, 1, 2, 3, 4",
+        "C. 0, 1, 2, 3, 4, 5",
+        "D. 1, 2, 3, 4"
+      ],
+      "answer": "B. 0, 1, 2, 3, 4",
+      "feedback": {
+        "correct": "정답! range(5)는 0, 1, 2, 3, 4예요. 파이썬은 항상 0부터 시작하고 끝값은 포함하지 않아요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_1_003",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nfor i in range(3):\n      print(i)\n```",
+      "choices": [
+        "A. 1 2 3",
+        "B. 0 1 2 3",
+        "C. 0\\n1\\n2",
+        "D. 1\\n2\\n3"
+      ],
+      "answer": "C. 0\\n1\\n2",
+      "feedback": {
+        "correct": "정답! range(3)은 0, 1, 2이고 print는 매번 줄바꿈을 하므로 세 줄에 나눠 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_4_1_004",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "range(2, 6)이 만드는 숫자 목록은?",
+      "choices": [
+        "A. 2, 3, 4, 5, 6",
+        "B. 2, 4, 6",
+        "C. 1, 2, 3, 4, 5",
+        "D. 2, 3, 4, 5"
+      ],
+      "answer": "D. 2, 3, 4, 5",
+      "feedback": {
+        "correct": "정답! range(2, 6)은 2, 3, 4, 5예요. 끝값 6은 포함되지 않아요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_1_005",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ntotal = 0\n  for i in range(4):\n      total += i\n  print(total)\n```",
+      "choices": [
+        "A. 6",
+        "B. 10",
+        "C. 4",
+        "D. 0"
+      ],
+      "answer": "A. 6",
+      "feedback": {
+        "correct": "정답! 0+1+2+3 = 6이에요. range(4)는 0부터 3까지예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_1_006",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nfor i in range(1, 4):\n      print(i * 2)\n```",
+      "choices": [
+        "A. 2\\n4\\n6\\n8",
+        "B. 2\\n4\\n6",
+        "C. 0\\n2\\n4\\n6",
+        "D. 1\\n2\\n3"
+      ],
+      "answer": "B. 2\\n4\\n6",
+      "feedback": {
+        "correct": "정답! 1×2=2, 2×2=4, 3×2=6이에요. range(1, 4)는 1, 2, 3이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_1_007",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nfor i in range(0, 10, 3):\n      print(i)\n```",
+      "choices": [
+        "A. 3\\n6\\n9",
+        "B. 0\\n3\\n6",
+        "C. 0\\n3\\n6\\n9",
+        "D. 0\\n2\\n4\\n6\\n8"
+      ],
+      "answer": "C. 0\\n3\\n6\\n9",
+      "feedback": {
+        "correct": "정답! range(시작, 끝, 증가폭)이에요. 0, 3, 6, 9이고 다음은 12로 10 이상이라 멈춰요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_1_008",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드에서 \"에이몬\"이 출력되는 횟수는?\n\n```python\nfor i in range(2, 10, 2):\n      print(\"에이몬\")\n```",
+      "choices": [
+        "A. 3번",
+        "B. 5번",
+        "C. 8번",
+        "D. 4번"
+      ],
+      "answer": "D. 4번",
+      "feedback": {
+        "correct": "정답! 2, 4, 6, 8로 4개예요. range(2, 10, 2)는 2씩 건너뛰며 10 미만까지예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_1_009",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nresult = 1\n  for i in range(1, 4):\n      result *= i\n  print(result)\n```",
+      "choices": [
+        "A. 6",
+        "B. 3",
+        "C. 9",
+        "D. 1"
+      ],
+      "answer": "A. 6",
+      "feedback": {
+        "correct": "정답! 1×2×3 = 6이에요. *=는 현재 값에 곱해서 다시 저장하는 연산자예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_4_1_010",
+      "unit": 4,
+      "stage": "4-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "range(5, 2)처럼 시작값이 끝값보다 크면 어떻게 되나요?",
+      "choices": [
+        "A. 5, 4, 3이 출력된다",
+        "B. 빈 range가 만들어져 반복이 실행되지 않는다",
+        "C. 오류가 발생한다",
+        "D. 2, 3, 4, 5가 역순으로 출력된다"
+      ],
+      "answer": "B. 빈 range가 만들어져 반복이 실행되지 않는다",
+      "feedback": {
+        "correct": "정답! 증가폭이 양수인데 시작값이 끝값 이상이면 빈 range예요. 반복이 실행되지 않아요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_4_2_001",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드에서 반복이 몇 번 실행되나요?\n\n```python\nfruits = [\"사과\", \"바나나\", \"포도\"]\n  for fruit in fruits:\n      print(fruit)\n```",
+      "choices": [
+        "A. 3번",
+        "B. 2번",
+        "C. 4번",
+        "D. 1번"
+      ],
+      "answer": "A. 3번",
+      "feedback": {
+        "correct": "정답! 리스트 원소 수만큼 반복돼요. fruits는 3개이므로 3번 실행돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_2_002",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nnums = [10, 20, 30]\n  for n in nums:\n      print(n)\n```",
+      "choices": [
+        "A. [10, 20, 30]",
+        "B. 10\\n20\\n30",
+        "C. 10 20 30",
+        "D. n n n"
+      ],
+      "answer": "B. 10\\n20\\n30",
+      "feedback": {
+        "correct": "정답! for문은 리스트 원소를 순서대로 꺼내고, print는 줄바꿈을 하며 출력해요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_2_003",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nanimals = [\"고양이\", \"강아지\", \"토끼\"]\n  for a in animals:\n      print(\"안녕, \" + a)\n```",
+      "choices": [
+        "A. 안녕, a\\n안녕, a\\n안녕, a",
+        "B. 고양이\\n강아지\\n토끼",
+        "C. 안녕, 고양이\\n안녕, 강아지\\n안녕, 토끼",
+        "D. 안녕, 고양이 안녕, 강아지 안녕, 토끼"
+      ],
+      "answer": "C. 안녕, 고양이\\n안녕, 강아지\\n안녕, 토끼",
+      "feedback": {
+        "correct": "정답! 반복마다 a에 고양이, 강아지, 토끼가 차례로 들어가고, 각각 \"안녕, \" + a가 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_2_004",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nnums = [1, 2, 3, 4]\n  total = 0\n  for n in nums:\n      total += n\n  print(total)\n```",
+      "choices": [
+        "A. 1\\n2\\n3\\n4",
+        "B. [1, 2, 3, 4]",
+        "C. 4",
+        "D. 10"
+      ],
+      "answer": "D. 10",
+      "feedback": {
+        "correct": "정답! 1+2+3+4 = 10이에요. total += n은 반복마다 n을 더해 누적하는 패턴이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_4_2_005",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "for item in my_list:에서 item의 역할은?",
+      "choices": [
+        "A. 반복마다 리스트에서 원소를 하나씩 꺼내는 변수",
+        "B. 리스트의 인덱스 번호를 저장하는 변수",
+        "C. 고정된 이름으로 반드시 item이라고 써야 한다",
+        "D. 리스트 전체를 가리키는 변수"
+      ],
+      "answer": "A. 반복마다 리스트에서 원소를 하나씩 꺼내는 변수",
+      "feedback": {
+        "correct": "정답! item은 반복 변수예요. 이름은 자유이고, 반복마다 리스트 원소가 차례로 들어가요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_2_006",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nscores = [80, 90, 70]\n  for s in scores:\n      if s >= 80:\n          print(\"합격\")\n```",
+      "choices": [
+        "A. 합격\\n합격\\n합격",
+        "B. 합격\\n합격",
+        "C. 합격",
+        "D. 80\\n90"
+      ],
+      "answer": "B. 합격\\n합격",
+      "feedback": {
+        "correct": "정답! 80과 90만 조건을 통과해요. \"합격\"이 두 번 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_2_007",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nwords = [\"hi\", \"hello\", \"hey\"]\n  for w in words:\n      print(w.upper())\n```",
+      "choices": [
+        "A. hi\\nhello\\nhey",
+        "B. HI HELLO HEY",
+        "C. HI\\nHELLO\\nHEY",
+        "D. [\"HI\", \"HELLO\", \"HEY\"]"
+      ],
+      "answer": "C. HI\\nHELLO\\nHEY",
+      "feedback": {
+        "correct": "정답! .upper()는 대문자로 변환이에요. print는 매번 줄바꿈을 하므로 세 줄이 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_4_2_008",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "빈 리스트에 for문을 사용하면 어떻게 되나요?\n\n```python\nempty = []\n  for x in empty:\n      print(x)\n```",
+      "choices": [
+        "A. 오류가 발생한다",
+        "B. None이 출력된다",
+        "C. 0이 출력된다",
+        "D. 아무것도 출력되지 않는다"
+      ],
+      "answer": "D. 아무것도 출력되지 않는다",
+      "feedback": {
+        "correct": "정답! 빈 리스트는 원소가 없으므로 for문 본체가 0번 실행돼요. 아무것도 출력되지 않아요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_2_009",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nnumbers = [3, 1, 4, 1, 5]\n  count = 0\n  for n in numbers:\n      if n > 2:\n          count += 1\n  print(count)\n```",
+      "choices": [
+        "A. 3",
+        "B. 5",
+        "C. 2",
+        "D. 4"
+      ],
+      "answer": "A. 3",
+      "feedback": {
+        "correct": "정답! 2보다 큰 수는 3, 4, 5로 3개예요. count가 3번 증가해서 3이 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_2_010",
+      "unit": 4,
+      "stage": "4-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nitems = [\"A\", \"B\", \"C\"]\n  result = \"\"\n  for item in items:\n      result += item\n  print(result)\n```",
+      "choices": [
+        "A. A B C",
+        "B. ABC",
+        "C. [\"A\", \"B\", \"C\"]",
+        "D. A\\nB\\nC"
+      ],
+      "answer": "B. ABC",
+      "feedback": {
+        "correct": "정답! +=로 문자열을 이어붙이면 \"ABC\"가 만들어져요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_4_3_001",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "딕셔너리를 for문으로 순회할 때 기본적으로 무엇이 반복 변수에 들어오나요?",
+      "choices": [
+        "A. 키(key)",
+        "B. 값(value)",
+        "C. 키-값 쌍 튜플",
+        "D. 인덱스 번호"
+      ],
+      "answer": "A. 키(key)",
+      "feedback": {
+        "correct": "정답! 딕셔너리를 for로 직접 순회하면 키(key)만 나와요. 값을 꺼내려면 dict[key]로 접근해요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_3_002",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ninfo = {\"name\": \"에이몬\", \"lv\": 5}\n  for key in info:\n      print(key)\n```",
+      "choices": [
+        "A. 에이몬\\n5",
+        "B. name\\nlv",
+        "C. name: 에이몬\\nlv: 5",
+        "D. {\"name\": \"에이몬\", \"lv\": 5}"
+      ],
+      "answer": "B. name\\nlv",
+      "feedback": {
+        "correct": "정답! for문으로 딕셔너리를 순회하면 키만 나와요. \"name\", \"lv\"가 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_3_003",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nscores = {\"수학\": 90, \"영어\": 80}\n  for subject, score in scores.items():\n      print(subject + \": \" + str(score))\n```",
+      "choices": [
+        "A. 수학\\n영어",
+        "B. 90\\n80",
+        "C. 수학: 90\\n영어: 80",
+        "D. subject: score\\nsubject: score"
+      ],
+      "answer": "C. 수학: 90\\n영어: 80",
+      "feedback": {
+        "correct": "정답! .items()로 키-값을 동시에 꺼낼 수 있어요. 두 개의 반복 변수가 각각 키, 값을 받아요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_4_3_004",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "딕셔너리의 값만 순서대로 꺼내려면 어떤 메서드를 쓰나요?",
+      "choices": [
+        "A. .keys()",
+        "B. .items()",
+        "C. .pairs()",
+        "D. .values()"
+      ],
+      "answer": "D. .values()",
+      "feedback": {
+        "correct": "정답! 값만 꺼내려면 .values(), 키만 꺼내려면 .keys(), 둘 다면 .items()예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_3_005",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ncart = {\"사과\": 3, \"우유\": 2, \"빵\": 1}\n  total = 0\n  for count in cart.values():\n      total += count\n  print(total)\n```",
+      "choices": [
+        "A. 6",
+        "B. 3",
+        "C. 사과 우유 빵",
+        "D. {'사과': 3, '우유': 2, '빵': 1}"
+      ],
+      "answer": "A. 6",
+      "feedback": {
+        "correct": "정답! 3+2+1 = 6이에요. .values()로 값만 꺼내서 합산했어요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_3_006",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndata = {\"x\": 10, \"y\": 20, \"z\": 30}\n  for k, v in data.items():\n      if v > 15:\n          print(k)\n```",
+      "choices": [
+        "A. x\\ny\\nz",
+        "B. y\\nz",
+        "C. 20\\n30",
+        "D. x"
+      ],
+      "answer": "B. y\\nz",
+      "feedback": {
+        "correct": "정답! 값이 15보다 큰 키는 y와 z예요. 두 키가 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_3_007",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nmenu = {\"아메리카노\": 4000, \"라떼\": 5000}\n  for item, price in menu.items():\n      print(f\"{item}{'은' if ... else '는'} {price}원\")\n```",
+      "choices": [
+        "A. item은 price원\\nitem은 price원",
+        "B. 아메리카노\\n라떼",
+        "C. 아메리카노는 4000원\\n라떼은 5000원",
+        "D. 4000\\n5000"
+      ],
+      "answer": "C. 아메리카노는 4000원\\n라떼은 5000원",
+      "feedback": {
+        "correct": "정답! f-string은 {} 안의 변수 값을 출력해요. 키-값이 순서대로 들어가 두 줄이 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_4_3_008",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 중 딕셔너리 순회에 대한 설명으로 옳은 것은?",
+      "choices": [
+        "A. .items()는 값만 꺼낸다",
+        "B. .keys()는 키-값 쌍을 꺼낸다",
+        "C. .values()를 쓰면 키도 함께 나온다",
+        "D. for k in dict:는 키만 순회한다"
+      ],
+      "answer": "D. for k in dict:는 키만 순회한다",
+      "feedback": {
+        "correct": "정답! 딕셔너리를 직접 for로 순회하면 키만 나와요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_3_009",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ngrades = {\"민준\": \"A\", \"서연\": \"B\", \"지호\": \"A\"}\n  count = 0\n  for name, grade in grades.items():\n      if grade == \"A\":\n          count += 1\n  print(count)\n```",
+      "choices": [
+        "A. 2",
+        "B. 3",
+        "C. 1",
+        "D. A"
+      ],
+      "answer": "A. 2",
+      "feedback": {
+        "correct": "정답! A 학점은 민준, 지호 2명이에요. count = 2가 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_3_010",
+      "unit": 4,
+      "stage": "4-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nprices = {\"사과\": 1000, \"포도\": 3000, \"귤\": 500}\n  expensive = []\n  for fruit, price in prices.items():\n      if price >= 1000:\n          expensive.append(fruit)\n  print(expensive)\n```",
+      "choices": [
+        "A. ['포도']",
+        "B. ['사과', '포도']",
+        "C. [1000, 3000]",
+        "D. ['사과', '포도', '귤']"
+      ],
+      "answer": "B. ['사과', '포도']",
+      "feedback": {
+        "correct": "정답! 1000원 이상인 과일은 사과, 포도예요. expensive = ['사과', '포도']가 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_4_4_001",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "while 반복문은 언제 실행을 멈추나요?",
+      "choices": [
+        "A. 조건이 False가 될 때",
+        "B. 코드를 5번 실행했을 때",
+        "C. 리스트의 끝에 도달했을 때",
+        "D. 변수 값이 0이 됐을 때"
+      ],
+      "answer": "A. 조건이 False가 될 때",
+      "feedback": {
+        "correct": "정답! while은 조건이 True인 동안 계속 실행되고, False가 되면 멈춰요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_4_002",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nn = 1\n  while n <= 3:\n      print(n)\n      n += 1\n```",
+      "choices": [
+        "A. 1 2 3",
+        "B. 1\\n2\\n3",
+        "C. 0\\n1\\n2\\n3",
+        "D. 1\\n2\\n3\\n4"
+      ],
+      "answer": "B. 1\\n2\\n3",
+      "feedback": {
+        "correct": "정답! n이 1, 2, 3 순서로 출력돼요. n이 4가 되면 4 <= 3이 False라서 멈춰요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_4_003",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ncount = 10\n  while count > 7:\n      print(count)\n      count -= 1\n```",
+      "choices": [
+        "A. 10\\n9\\n8\\n7",
+        "B. 7\\n8\\n9\\n10",
+        "C. 10\\n9\\n8",
+        "D. 10\\n9\\n8\\n7\\n6"
+      ],
+      "answer": "C. 10\\n9\\n8",
+      "feedback": {
+        "correct": "정답! 10, 9, 8에서만 True예요. 7이 되면 7 > 7은 False라서 멈춰요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_4_4_004",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드처럼 조건이 항상 True이면 어떻게 되나요?\n\n```python\nwhile True:\n      print(\"무한\")\n```",
+      "choices": [
+        "A. 한 번만 실행하고 멈춘다",
+        "B. 10번 반복 후 자동으로 멈춘다",
+        "C. 오류가 발생한다",
+        "D. 프로그램이 강제로 종료될 때까지 무한 반복된다"
+      ],
+      "answer": "D. 프로그램이 강제로 종료될 때까지 무한 반복된다",
+      "feedback": {
+        "correct": "정답! while True:는 무한루프예요. break가 없으면 프로그램이 멈출 때까지 계속 실행돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_4_005",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nx = 1\n  total = 0\n  while x <= 4:\n      total += x\n      x += 1\n  print(total)\n```",
+      "choices": [
+        "A. 10",
+        "B. 4",
+        "C. 5",
+        "D. 1"
+      ],
+      "answer": "A. 10",
+      "feedback": {
+        "correct": "정답! 1+2+3+4 = 10이에요. while로 누적 합산하는 패턴이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_4_006",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드에서 \"반복\"이 출력되는 횟수는?\n\n```python\ni = 0\n  while i < 5:\n      print(\"반복\")\n      i += 2\n```",
+      "choices": [
+        "A. 5번",
+        "B. 3번",
+        "C. 4번",
+        "D. 2번"
+      ],
+      "answer": "B. 3번",
+      "feedback": {
+        "correct": "정답! i = 0, 2, 4에서 True이고 6이 되면 멈춰요. 3번 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_4_007",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nn = 100\n  while n > 10:\n      n //= 2\n  print(n)\n```",
+      "choices": [
+        "A. 50",
+        "B. 10",
+        "C. 6",
+        "D. 0"
+      ],
+      "answer": "C. 6",
+      "feedback": {
+        "correct": "정답! 100 → 50 → 25 → 12 → 6이에요. 6 > 10은 False라서 멈추고 6이 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_4_4_008",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "while문에서 조건 갱신(예: n += 1)을 빠뜨리면 어떻게 되나요?",
+      "choices": [
+        "A. 자동으로 1씩 증가한다",
+        "B. 한 번 실행 후 멈춘다",
+        "C. 컴파일 오류가 발생한다",
+        "D. 조건이 변하지 않아 무한루프가 될 가능성이 높다"
+      ],
+      "answer": "D. 조건이 변하지 않아 무한루프가 될 가능성이 높다",
+      "feedback": {
+        "correct": "정답! while을 쓸 때는 반드시 조건 변수를 갱신해야 해요. 그렇지 않으면 무한루프가 돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_4_009",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nguess = \"0000\"\n  attempts = 0\n  while guess != \"1234\":\n      attempts += 1\n      guess = \"1234\"\n  print(attempts)\n```",
+      "choices": [
+        "A. 1",
+        "B. 0",
+        "C. 2",
+        "D. 무한루프"
+      ],
+      "answer": "A. 1",
+      "feedback": {
+        "correct": "정답! 첫 번째 반복에서 guess가 \"1234\"로 바뀌어요. 조건이 False가 되어 멈추고 attempts=1이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_4_010",
+      "unit": 4,
+      "stage": "4-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nnum = 1\n  while num < 20:\n      num *= 3\n  print(num)\n```",
+      "choices": [
+        "A. 9",
+        "B. 27",
+        "C. 18",
+        "D. 3"
+      ],
+      "answer": "B. 27",
+      "feedback": {
+        "correct": "정답! 1 → 3 → 9 → 27이에요. 27에서 조건이 False가 되어 멈추고 27이 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_4_5_001",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "break의 역할은?",
+      "choices": [
+        "A. 반복문을 즉시 종료하고 빠져나간다",
+        "B. 현재 반복만 건너뛰고 다음 반복을 계속한다",
+        "C. 반복을 처음부터 다시 시작한다",
+        "D. 오류를 무시하고 계속 실행한다"
+      ],
+      "answer": "A. 반복문을 즉시 종료하고 빠져나간다",
+      "feedback": {
+        "correct": "정답! break는 반복을 즉시 끝내요. 이후 코드는 실행되지 않고 반복문 밖으로 나가요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_4_5_002",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "continue의 역할은?",
+      "choices": [
+        "A. 반복문 전체를 종료한다",
+        "B. 현재 반복의 나머지를 건너뛰고 다음 반복으로 넘어간다",
+        "C. 반복문을 5번 건너뛴다",
+        "D. 함수를 종료하고 값을 반환한다"
+      ],
+      "answer": "B. 현재 반복의 나머지를 건너뛰고 다음 반복으로 넘어간다",
+      "feedback": {
+        "correct": "정답! continue는 현재 반복만 건너뛰어요. 반복은 계속되고 다음 반복으로 넘어가요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_5_003",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nfor i in range(5):\n      if i == 3:\n          break\n      print(i)\n```",
+      "choices": [
+        "A. 0\\n1\\n2\\n3\\n4",
+        "B. 0\\n1\\n2\\n3",
+        "C. 0\\n1\\n2",
+        "D. 3\\n4"
+      ],
+      "answer": "C. 0\\n1\\n2",
+      "feedback": {
+        "correct": "정답! i == 3일 때 break가 실행돼요. 3은 출력되지 않고 반복이 끝나요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_5_004",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nfor i in range(5):\n      if i == 2:\n          continue\n      print(i)\n```",
+      "choices": [
+        "A. 0\\n1\\n2\\n3\\n4",
+        "B. 0\\n1",
+        "C. 2",
+        "D. 0\\n1\\n3\\n4"
+      ],
+      "answer": "D. 0\\n1\\n3\\n4",
+      "feedback": {
+        "correct": "정답! i == 2일 때 continue로 해당 print만 건너뛰어요. 0, 1, 3, 4가 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_5_005",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nnumbers = [1, 2, 3, 4, 5]\n  for n in numbers:\n      if n == 4:\n          break\n      print(n)\n```",
+      "choices": [
+        "A. 1\\n2\\n3",
+        "B. 1\\n2\\n3\\n4",
+        "C. 4\\n5",
+        "D. 1\\n2"
+      ],
+      "answer": "A. 1\\n2\\n3",
+      "feedback": {
+        "correct": "정답! 4를 만나면 break예요. 4는 출력 안 하고 반복이 끝나요. 1, 2, 3이 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_5_006",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nfor i in range(1, 6):\n      if i % 2 == 0:\n          continue\n      print(i)\n```",
+      "choices": [
+        "A. 2\\n4",
+        "B. 1\\n3\\n5",
+        "C. 1\\n2\\n3\\n4\\n5",
+        "D. 짝수만 출력"
+      ],
+      "answer": "B. 1\\n3\\n5",
+      "feedback": {
+        "correct": "정답! 짝수를 continue로 건너뛰어요. 홀수인 1, 3, 5만 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_5_007",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nfound = False\n  targets = [5, 3, 8, 1, 7]\n  for t in targets:\n      if t == 8:\n          found = True\n          break\n  print(found)\n```",
+      "choices": [
+        "A. False",
+        "B. 8",
+        "C. True",
+        "D. 오류 발생"
+      ],
+      "answer": "C. True",
+      "feedback": {
+        "correct": "정답! 8을 찾으면 found = True로 바꾸고 break해요. True가 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_5_008",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ntotal = 0\n  for i in range(1, 11):\n      if i == 6:\n          break\n      total += i\n  print(total)\n```",
+      "choices": [
+        "A. 55",
+        "B. 21",
+        "C. 10",
+        "D. 15"
+      ],
+      "answer": "D. 15",
+      "feedback": {
+        "correct": "정답! i가 6이 되면 break예요. 1+2+3+4+5 = 15가 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_5_009",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ncount = 0\n  for i in range(10):\n      if i % 3 == 0:\n          continue\n      count += 1\n  print(count)\n```",
+      "choices": [
+        "A. 6",
+        "B. 3",
+        "C. 10",
+        "D. 4"
+      ],
+      "answer": "A. 6",
+      "feedback": {
+        "correct": "정답! 0~9에서 3의 배수 4개를 제외한 6개에서 count += 1이 실행돼요. 6이 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_4_5_010",
+      "unit": 4,
+      "stage": "4-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "중첩 for문에서 break를 사용하면 어떻게 되나요?",
+      "choices": [
+        "A. 모든 반복문이 한꺼번에 종료된다",
+        "B. break가 속한 가장 가까운 반복문만 종료된다",
+        "C. 프로그램 자체가 종료된다",
+        "D. 바깥쪽 반복문부터 차례로 종료된다"
+      ],
+      "answer": "B. break가 속한 가장 가까운 반복문만 종료된다",
+      "feedback": {
+        "correct": "정답! break는 가장 가까운(직접 속한) 반복문만 종료해요. 바깥 반복문은 계속 실행돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_4_6_001",
+      "unit": 4,
+      "stage": "4-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "중첩 for문이란?",
+      "choices": [
+        "A. for문 안에 또 다른 for문이 있는 구조",
+        "B. for문을 두 개 나란히 쓰는 것",
+        "C. for문과 while문을 함께 쓰는 것",
+        "D. 범위가 두 개인 for문"
+      ],
+      "answer": "A. for문 안에 또 다른 for문이 있는 구조",
+      "feedback": {
+        "correct": "정답! 중첩 for는 for 안의 for예요. 바깥 for가 1번 돌 때마다 안쪽 for 전체가 실행돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_6_002",
+      "unit": 4,
+      "stage": "4-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 중첩 for문에서 \"★\"이 출력되는 총 횟수는?\n\n```python\nfor i in range(2):\n      for j in range(3):\n          print(\"★\")\n```",
+      "choices": [
+        "A. 2번",
+        "B. 6번",
+        "C. 3번",
+        "D. 5번"
+      ],
+      "answer": "B. 6번",
+      "feedback": {
+        "correct": "정답! 바깥 2번 × 안쪽 3번 = 6번이에요. 중첩 for의 실행 횟수는 곱셈으로 계산해요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_6_003",
+      "unit": 4,
+      "stage": "4-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nfor i in range(1, 3):\n      for j in range(1, 3):\n          print(i, j)\n```",
+      "choices": [
+        "A. 1 2\\n2 1",
+        "B. 1\\n2\\n1\\n2",
+        "C. 1 1\\n1 2\\n2 1\\n2 2",
+        "D. 1 2\\n2 2"
+      ],
+      "answer": "C. 1 1\\n1 2\\n2 1\\n2 2",
+      "feedback": {
+        "correct": "정답! (1,1), (1,2), (2,1), (2,2) 순서로 출력돼요. 바깥 for가 한 번 돌 때마다 안쪽 전체가 실행돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_6_004",
+      "unit": 4,
+      "stage": "4-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nfor i in range(3):\n      for j in range(i):\n          print(\"*\", end=\"\")\n      print()\n```",
+      "choices": [
+        "A. *\\n**\\n***",
+        "B. ***",
+        "C. *\\n**",
+        "D. (빈 줄)\\n*\\n**"
+      ],
+      "answer": "D. (빈 줄)\\n*\\n**",
+      "feedback": {
+        "correct": "정답! i=0: 빈 줄 / i=1: * / i=2: ** 순서로 출력돼요. range(i)는 i개만큼 반복해요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_6_005",
+      "unit": 4,
+      "stage": "4-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nmatrix = [[1, 2], [3, 4]]\n  for row in matrix:\n      for val in row:\n          print(val, end=\" \")\n```",
+      "choices": [
+        "A. 1 2 3 4",
+        "B. [1, 2]\\n[3, 4]",
+        "C. 1\\n2\\n3\\n4",
+        "D. [[1, 2], [3, 4]]"
+      ],
+      "answer": "A. 1 2 3 4",
+      "feedback": {
+        "correct": "정답! 2중 리스트를 중첩 for로 순회하면 원소가 차례로 나와요. 1 2 3 4가 한 줄에 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_6_006",
+      "unit": 4,
+      "stage": "4-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드에서 \"짝\"이 출력되는 횟수는?\n\n```python\nfor i in range(1, 4):\n      for j in range(1, 4):\n          if (i + j) % 2 == 0:\n              print(\"짝\")\n```",
+      "choices": [
+        "A. 4번",
+        "B. 5번",
+        "C. 9번",
+        "D. 3번"
+      ],
+      "answer": "B. 5번",
+      "feedback": {
+        "correct": "정답! i+j가 짝수인 조합은 5가지예요. \"짝\"이 5번 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_6_007",
+      "unit": 4,
+      "stage": "4-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nfor i in range(1, 4):\n      print(i * \"★\")\n```",
+      "choices": [
+        "A. ★★★",
+        "B. 1\\n2\\n3",
+        "C. ★\\n★★\\n★★★",
+        "D. ★ ★★ ★★★"
+      ],
+      "answer": "C. ★\\n★★\\n★★★",
+      "feedback": {
+        "correct": "정답! 문자열 * 숫자로 반복 출력이 돼요. 1, 2, 3개씩 새 줄에 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_6_008",
+      "unit": 4,
+      "stage": "4-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ncount = 0\n  for i in range(3):\n      for j in range(3):\n          if i != j:\n              count += 1\n  print(count)\n```",
+      "choices": [
+        "A. 9",
+        "B. 3",
+        "C. 0",
+        "D. 6"
+      ],
+      "answer": "D. 6",
+      "feedback": {
+        "correct": "정답! i==j인 3번을 제외한 6번에서 count가 증가해요. 6이 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_6_009",
+      "unit": 4,
+      "stage": "4-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\npairs = []\n  for a in [1, 2]:\n      for b in [\"A\", \"B\"]:\n          pairs.append((a, b))\n  print(len(pairs))\n```",
+      "choices": [
+        "A. 4",
+        "B. 2",
+        "C. 3",
+        "D. 6"
+      ],
+      "answer": "A. 4",
+      "feedback": {
+        "correct": "정답! 2×2 = 4가지 쌍이에요. len(pairs) = 4가 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_4_6_010",
+      "unit": 4,
+      "stage": "4-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "중첩 for문에서 안쪽 for가 끝나면 어떻게 되나요?",
+      "choices": [
+        "A. 프로그램 전체가 종료된다",
+        "B. 바깥 for의 다음 반복으로 넘어가 안쪽 for를 처음부터 다시 실행한다",
+        "C. 안쪽 for를 그 자리에서 다시 반복한다",
+        "D. 바깥 for도 함께 종료된다"
+      ],
+      "answer": "B. 바깥 for의 다음 반복으로 넘어가 안쪽 for를 처음부터 다시 실행한다",
+      "feedback": {
+        "correct": "정답! 안쪽 for가 끝나면 바깥 for가 다음 값으로 넘어가요. 안쪽은 다시 처음부터 실행돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_4_7_001",
+      "unit": 4,
+      "stage": "4-7",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "리스트에서 특정 값을 찾을 때 가장 적합한 방법은?",
+      "choices": [
+        "A. for문으로 원소를 순회하며 조건으로 비교한다",
+        "B. while True만 사용한다",
+        "C. range()만 사용한다",
+        "D. break만 사용한다"
+      ],
+      "answer": "A. for문으로 원소를 순회하며 조건으로 비교한다",
+      "feedback": {
+        "correct": "정답! for문으로 원소를 순회하며 if로 비교하는 것이 가장 기본적인 탐색 방법이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_7_002",
+      "unit": 4,
+      "stage": "4-7",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nnums = [1, 2, 3, 4, 5]\n  even = []\n  for n in nums:\n      if n % 2 == 0:\n          even.append(n)\n  print(even)\n```",
+      "choices": [
+        "A. [1, 3, 5]",
+        "B. [2, 4]",
+        "C. [1, 2, 3, 4, 5]",
+        "D. []"
+      ],
+      "answer": "B. [2, 4]",
+      "feedback": {
+        "correct": "정답! 짝수인 2, 4만 even에 추가돼요. [2, 4]가 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_7_003",
+      "unit": 4,
+      "stage": "4-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nwords = [\"apple\", \"banana\", \"cat\", \"dog\"]\n  for w in words:\n      if len(w) > 4:\n          print(w)\n```",
+      "choices": [
+        "A. apple\\ncat",
+        "B. cat\\ndog",
+        "C. apple\\nbanana",
+        "D. banana"
+      ],
+      "answer": "C. apple\\nbanana",
+      "feedback": {
+        "correct": "정답! 5글자 apple과 6글자 banana만 조건을 통과해요. 두 단어가 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_7_004",
+      "unit": 4,
+      "stage": "4-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ni = 1\n  while i <= 100:\n      if i % 10 == 0:\n          print(i)\n      i += 1\n```",
+      "choices": [
+        "A. 10\\n20\\n30",
+        "B. 1\\n2\\n3...100",
+        "C. 100",
+        "D. 10\\n20\\n30\\n40\\n50\\n60\\n70\\n80\\n90\\n100"
+      ],
+      "answer": "D. 10\\n20\\n30\\n40\\n50\\n60\\n70\\n80\\n90\\n100",
+      "feedback": {
+        "correct": "정답! 10의 배수 10, 20, 30, ..., 100이 출력돼요. 총 10줄이 나와요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_7_005",
+      "unit": 4,
+      "stage": "4-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndata = [3, -1, 4, -2, 5]\n  total = 0\n  for n in data:\n      if n > 0:\n          total += n\n  print(total)\n```",
+      "choices": [
+        "A. 12",
+        "B. 9",
+        "C. 5",
+        "D. -3"
+      ],
+      "answer": "A. 12",
+      "feedback": {
+        "correct": "정답! 3+4+5 = 12예요. 양수만 걸러서 합산했어요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_7_006",
+      "unit": 4,
+      "stage": "4-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nsentence = \"I love Python\"\n  count = 0\n  for ch in sentence:\n      if ch == \" \":\n          count += 1\n  print(count)\n```",
+      "choices": [
+        "A. 3",
+        "B. 2",
+        "C. 13",
+        "D. 1"
+      ],
+      "answer": "B. 2",
+      "feedback": {
+        "correct": "정답! 공백이 2개예요. for로 문자 하나씩 순회하며 공백을 셀 수 있어요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_7_007",
+      "unit": 4,
+      "stage": "4-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nnumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\n  for n in numbers:\n      if n > 7:\n          break\n      if n % 2 == 0:\n          print(n)\n```",
+      "choices": [
+        "A. 2\\n4\\n6\\n8",
+        "B. 2\\n4\\n6\\n8\\n10",
+        "C. 2\\n4\\n6",
+        "D. 1\\n3\\n5\\n7"
+      ],
+      "answer": "C. 2\\n4\\n6",
+      "feedback": {
+        "correct": "정답! 8에서 break이므로 1~7 범위에서만 동작해요. 짝수 2, 4, 6이 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_7_008",
+      "unit": 4,
+      "stage": "4-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nresult = []\n  for i in range(1, 6):\n      for j in range(1, 6):\n          if i + j == 6:\n              result.append((i, j))\n  print(len(result))\n```",
+      "choices": [
+        "A. 6",
+        "B. 4",
+        "C. 25",
+        "D. 5"
+      ],
+      "answer": "D. 5",
+      "feedback": {
+        "correct": "정답! i+j = 6이 되는 쌍이 5가지예요. len(result) = 5가 출력돼요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_7_009",
+      "unit": 4,
+      "stage": "4-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ntext = \"hello world\"\n  vowels = \"aeiou\"\n  count = 0\n  for ch in text:\n      if ch in vowels:\n          count += 1\n  print(count)\n```",
+      "choices": [
+        "A. 3",
+        "B. 4",
+        "C. 2",
+        "D. 5"
+      ],
+      "answer": "A. 3",
+      "feedback": {
+        "correct": "정답! e, o, o = 3개예요. in 연산자로 문자가 모음 문자열에 포함되는지 확인했어요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_4_7_010",
+      "unit": 4,
+      "stage": "4-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nstack = []\n  for i in range(1, 6):\n      stack.append(i)\n      if len(stack) == 3:\n          stack.pop()\n  print(stack)\n```",
+      "choices": [
+        "A. [1, 2, 4, 5]",
+        "B. [1, 2]",
+        "C. [1, 2, 3, 4, 5]",
+        "D. [3]"
+      ],
+      "answer": "B. [1, 2]",
+      "feedback": {
+        "correct": "정답! 원소가 3개가 될 때마다 pop()으로 제거돼요. 최종 결과는 [1, 2]예요."
+      }
+    }
+  ]
+}
