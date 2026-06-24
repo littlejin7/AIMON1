@@ -94,23 +94,22 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
     completed_stage_ids = {p.get("stage") for p in user_unit_stages}
     
     try:
-        from routers.quiz import load_units, load_questions_by_category
+        from routers.quiz import load_units
         lessons_data = load_units(course_level)
         lesson = next((l for l in lessons_data if l.get("unit_id") == req.unit), None)
-        if lesson and "stages" in lesson:
-            total_stages = lesson["stages"]
-        else:
-            qs = load_questions_by_category("quiz", course_level, req.unit)
-            stages = set()
-            for q in qs:
-                stage_val = q.get("stage")
-                if stage_val:
-                    parts = str(stage_val).split("-")
-                    if len(parts) > 1 and parts[1].isdigit():
-                        stages.add(int(parts[1]))
-            total_stages = max(stages) if stages else 7
-    except Exception:
-        total_stages = 7
+        if not lesson:
+            raise ValueError(f"Unit metadata not found for unit_id={req.unit}")
+        if "stages" not in lesson:
+            raise ValueError(f"'stages' key not found in unit metadata for unit_id={req.unit}")
+        total_stages = lesson["stages"]
+    except Exception as e:
+        import logging
+        logger = logging.getLogger("uvicorn.error")
+        logger.error(f"[C-3] Failed to load unit stages: unit={req.unit}, level={course_level}, error={str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail="유닛 완료 판정 중 오류가 발생했습니다. (오류: 유닛 메타데이터 누락)"
+        )
 
     required_stages = {f"{req.unit}-{i}" for i in range(1, total_stages + 1)} | {f"{req.unit}-boss"}
     unit_just_completed = required_stages.issubset(completed_stage_ids)
@@ -122,9 +121,6 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
         # 1. XP 및 진화
         if award_xp:
             user["xp"] = (user.get("xp") or 0) + xp_gain
-
-            # completed_stages user에 저장
-            user["completed_stages"] = (user.get("completed_stages") or 0) + 1
 
             new_lv = calc_level(user["xp"])
             user["lv"] = max(new_lv, user.get("lv") or 1)

@@ -287,7 +287,13 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
     safe_my_hp   = max(0, min(req.my_hp,   MY_HP_INIT))
     safe_wrong   = max(0, min(req.wrong_count, 2))  # 0~2 사이로 클램프
 
-    if ai_result.get("is_correct"):
+    grading_failed = ai_result.get("grading_failed", False)
+
+    if grading_failed:
+        new_boss_hp     = safe_boss_hp
+        new_my_hp       = safe_my_hp
+        new_wrong_count = safe_wrong
+    elif ai_result.get("is_correct"):
         new_boss_hp    = safe_boss_hp - BOSS_HP_DELTA
         new_my_hp      = safe_my_hp
         new_wrong_count = safe_wrong
@@ -296,8 +302,8 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
         new_my_hp      = safe_my_hp - MY_HP_DELTA
         new_wrong_count = safe_wrong + 1
 
-    is_clear = new_boss_hp <= 0
-    is_fail  = new_my_hp  <= 0 or new_wrong_count >= 3
+    is_clear = (new_boss_hp <= 0) if not grading_failed else False
+    is_fail  = (new_my_hp  <= 0 or new_wrong_count >= 3) if not grading_failed else False
 
     # 응답에 HP 정보 추가
     ai_result["my_hp"]       = new_my_hp
@@ -306,8 +312,8 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
     ai_result["is_clear"]    = is_clear
     ai_result["is_fail"]     = is_fail
 
-    # 오답 기록
-    if not ai_result.get("is_correct", False):
+    # 오답 기록 (채점 실패가 아닐 때만)
+    if not ai_result.get("is_correct", False) and not grading_failed:
         save_wrong_answer_item({
             "id": str(uuid.uuid4()),
             "user_id": user_id,
@@ -322,13 +328,13 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
     u = user
     
     newly_earned_titles = []
-    if u:
+    if u and not grading_failed:
         # Increment AI feedback count
         u["ai_feedback_count"] = u.get("ai_feedback_count", 0) + 1
         newly_earned_titles = check_and_award_titles(u, {})
 
     # 2. is_clear일 때만 XP/진화 처리 및 진행도 완료 저장
-    if is_clear:
+    if is_clear and not grading_failed:
         unit_val = int(req.unit) if req.unit is not None else int(question.get("unit", 1))
         stage_val = question.get("stage", f"{unit_val}-boss")
         
@@ -403,10 +409,6 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
                     u["character"] = "speech_bubble"
                 elif lv >= 30 and u.get("character") == "speech_bubble":
                     u["character"] = "final_ghost"
-
-                # boss_cleared 및 completed_stages 카운트 user에 저장
-                u["boss_cleared"] = u.get("boss_cleared", 0) + 1
-                u["completed_stages"] = u.get("completed_stages", 0) + 1
 
                 context = {"boss_cleared": True}
                 newly_earned_clear = check_and_award_titles(u, context)
