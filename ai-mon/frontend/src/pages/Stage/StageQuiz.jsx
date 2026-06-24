@@ -15,12 +15,13 @@ const CHARACTER_MAP = {
   final_ghost:   finalGhostIcon,
 }
 
-const VILLAIN_TAUNTS = [
-  '"엉뚱한 코드로 널 괴롭혀주지! 코드몬 등장!"',
-  '"Python 기초도 모르면 통과 불가야!"',
-  '"빈칸을 채워야 살아남는다! 어디 해봐!"',
-  '"제법이군... 하지만 아직 멀었다! 💥"',
-]
+const VILLAIN_TAUNTS = {
+  fill_in_blank:   ['"빈칸을 채워야 살아남는다! 어디 해봐!"', '"빈칸이 두렵냐? 채워봐!"'],
+  multiple_choice: ['"엉뚱한 코드로 널 괴롭혀주지! 코드몬 등장!"', '"Python 기초도 모르면 통과 불가야!"'],
+  code_input:      ['"코드를 직접 입력해봐! 틀리면 끝이야!"', '"제법이군... 하지만 아직 멀었다! 💥"'],
+  error_find:      ['"버그를 찾아봐! 숨겨놨으니까 힘들걸?"', '"에러를 못 잡으면 여기서 끝이야!"'],
+  default:         ['"제법이군... 하지만 아직 멀었다! 💥"', '"넌 여기서 멈추게 될 거야!"'],
+}
 
 export default function StageQuiz({
   lessonId,
@@ -47,7 +48,8 @@ export default function StageQuiz({
     ? current - minibossStartIndex + 1
     : current + 1
   const progressPct = (currentNum / totalQ) * 100
-
+  
+  const tauntPool = VILLAIN_TAUNTS[currentQ?.type] || VILLAIN_TAUNTS.default
   const tauntText = VILLAIN_TAUNTS[(current || 0) % VILLAIN_TAUNTS.length]
   const levelLabel = (user?.lv || 1) <= 3 ? '초급' : (user?.lv || 1) <= 6 ? '중급' : '고급'
 
