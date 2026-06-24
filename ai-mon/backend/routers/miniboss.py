@@ -22,6 +22,8 @@ from routers.utils import (
     now_kst,
     get_current_user,
     apply_xp,
+    mutate_user_atomic,
+    UserNotFoundError,
 )
 
 router = APIRouter()
@@ -206,26 +208,39 @@ def miniboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
     user_id = user["id"]
 
     stage_key = req.stage if "-" in str(req.stage) else f"{req.unit}-{req.stage}"
-    cleared   = user.get("miniboss_cleared_stages") or []
-    already_cleared = stage_key in cleared
 
+    # 클리어 가드(miniboss_cleared_stages, list append) + XP + 미션(miniboss_clear)
+    # 훅을 fresh user 기준으로 원자 처리. apply_xp(event_type) 가 _ensure_period 로
+    # missions 객체를 건드리므로 save_user 가 아닌 mutate_user_atomic 필수. (M-1)
+    def mutator(u: dict) -> dict:
+        cleared = u.get("miniboss_cleared_stages") or []
+        already_cleared = stage_key in cleared
+        if not already_cleared:
+            apply_xp(u, CLEAR_XP, event_type="miniboss_clear")
+            cleared.append(stage_key)
+            u["miniboss_cleared_stages"] = cleared
+        return {
+            "already_cleared": already_cleared,
+            "cleared_stages": u.get("miniboss_cleared_stages", []),
+        }
+
+    try:
+        user, result = mutate_user_atomic(user_id, mutator)
+    except UserNotFoundError:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    already_cleared = result["already_cleared"]
     xp_awarded = 0
     if not already_cleared:
-        apply_xp(user, CLEAR_XP, event_type="miniboss_clear")
         xp_awarded = CLEAR_XP
 
-        cleared.append(stage_key)
-        user["miniboss_cleared_stages"] = cleared
-        save_user(user)
-
-        # 진행도 저장
+        # 진행도 저장(별도 스토리지) — 신규 클리어 시에만 락 밖에서 수행
         course_level = user.get("course_level", "beginner")
         progress = get_progress_by_user(user_id, course_level)
         existing = next(
             (p for p in progress if p["unit"] == req.unit and p["stage"] == req.stage),
             None,
         )
-        target_item = None
         if existing:
             existing["is_completed"] = True
             existing["updated_at"]   = now_kst().isoformat()
@@ -247,6 +262,6 @@ def miniboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
     return {
         "already_cleared":  already_cleared,
         "xp_awarded":       xp_awarded,
-         "lv":               user.get("lv", 1),
-        "cleared_stages":   user.get("miniboss_cleared_stages", []),
+        "lv":               user.get("lv", 1),
+        "cleared_stages":   result["cleared_stages"],
     }

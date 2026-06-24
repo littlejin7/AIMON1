@@ -20,6 +20,8 @@ from routers.utils import (
     limiter,
     get_current_user,
     apply_xp,
+    mutate_user_atomic,
+    UserNotFoundError,
 )
 
 router = APIRouter()
@@ -394,51 +396,64 @@ def endboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
     """
     user_id = user["id"]
 
-    level           = user.get("course_level", "beginner")
-    cleared_levels  = user.get("endboss_cleared_levels", [])
-    already_cleared = level in cleared_levels
-    newly_earned_titles = []
+    # 클리어 보상(중복 가드 + 진화 + 칭호 + XP + 미션 boss_clear + seen 리셋)을
+    # fresh user 기준으로 원자 처리. endboss_cleared_levels(list append) 와 missions 가
+    # save_user delta-merge 에서 last-writer-wins 되던 문제 해소. (M-1, C-1 deferred)
+    def mutator(u: dict) -> dict:
+        level           = u.get("course_level", "beginner")
+        cleared_levels  = u.get("endboss_cleared_levels", [])
+        already_cleared = level in cleared_levels
+        newly_earned_titles = []
 
-    if not already_cleared:
-        # 왕관
-        user["crowns"] = user.get("crowns", 0) + CLEAR_CROWNS
+        if not already_cleared:
+            # 왕관
+            u["crowns"] = u.get("crowns", 0) + CLEAR_CROWNS
 
-        # 캐릭터 진화 (현재 캐릭터보다 등급이 높은 경우에만 덮어씀)
-        new_char = CLEAR_CHARACTER.get(level)
-        if new_char:
-            char_rank = {"slime": 1, "robot": 2, "speech_bubble": 3, "final_ghost": 4}
-            current_char = user.get("character", "slime")
-            if char_rank.get(new_char, 1) > char_rank.get(current_char, 1):
-                user["character"] = new_char
+            # 캐릭터 진화 (현재 캐릭터보다 등급이 높은 경우에만 덮어씀)
+            new_char = CLEAR_CHARACTER.get(level)
+            if new_char:
+                char_rank = {"slime": 1, "robot": 2, "speech_bubble": 3, "final_ghost": 4}
+                current_char = u.get("character", "slime")
+                if char_rank.get(new_char, 1) > char_rank.get(current_char, 1):
+                    u["character"] = new_char
 
-        # 칭호
-        title_id, title_name = CLEAR_TITLES.get(level, ("rookie_coder", "코드 ROOKIE"))
-        earned = set(user.get("titles", []))
-        if title_id not in earned:
-            earned.add(title_id)
-            user["titles"] = list(earned)
-            newly_earned_titles.append({"id": title_id, "name": title_name})
+            # 칭호
+            title_id, title_name = CLEAR_TITLES.get(level, ("rookie_coder", "코드 ROOKIE"))
+            earned = set(u.get("titles", []))
+            if title_id not in earned:
+                earned.add(title_id)
+                u["titles"] = list(earned)
+                newly_earned_titles.append({"id": title_id, "name": title_name})
 
-        # XP 적용 및 기타 칭호 부여
-        events = apply_xp(user, CLEAR_XP, {"boss_cleared": True}, event_type="boss_clear")
-        newly_earned_titles.extend(events["newly_earned_titles"])
+            # XP 적용 및 기타 칭호 부여 (+ 미션 boss_clear 훅)
+            events = apply_xp(u, CLEAR_XP, {"boss_cleared": True}, event_type="boss_clear")
+            newly_earned_titles.extend(events["newly_earned_titles"])
 
-        # cleared_levels 기록
-        cleared_levels.append(level)
-        user["endboss_cleared_levels"] = cleared_levels
+            # cleared_levels 기록
+            cleared_levels.append(level)
+            u["endboss_cleared_levels"] = cleared_levels
 
-        # seen 리셋
-        if "seen_questions" not in user or user["seen_questions"] is None:
-            user["seen_questions"] = {}
-        user["seen_questions"]["endboss"] = []
+            # seen 리셋
+            if "seen_questions" not in u or u["seen_questions"] is None:
+                u["seen_questions"] = {}
+            u["seen_questions"]["endboss"] = []
 
-        save_user(user)
+        return {
+            "already_cleared": already_cleared,
+            "newly_earned_titles": newly_earned_titles,
+        }
 
+    try:
+        user, result = mutate_user_atomic(user_id, mutator)
+    except UserNotFoundError:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    already_cleared = result["already_cleared"]
     return {
         "already_cleared":    already_cleared,
         "xp_awarded":         0 if already_cleared else CLEAR_XP,
         "crowns_awarded":     0 if already_cleared else CLEAR_CROWNS,
         "lv":                 user.get("lv", 1),
-        "newly_earned_titles": newly_earned_titles,
+        "newly_earned_titles": result["newly_earned_titles"],
         "cleared_levels":     user.get("endboss_cleared_levels", []),
     }
