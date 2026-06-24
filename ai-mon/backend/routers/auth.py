@@ -103,6 +103,15 @@ def update_login_streak(user: dict) -> tuple[dict, dict | None]:
     else:
         user["streak"] = 1
 
+    # 출석 미션(예외 경로): XP 가 없고 day_key 가 필요하므로 bump_mission 직접 호출.
+    # 모든 로그인 분기에서 실행되며, 날짜 dedup 은 청크 2 본체(login_days)에서. 청크 1: no-op.
+    try:
+        from routers.missions_core import bump_mission
+        bump_mission(user, "login", day_key=today)
+    except Exception:
+        import logging
+        logging.getLogger("uvicorn.error").exception("login bump_mission failed")
+
     user["last_login"] = today
     return user, streak_reward
 

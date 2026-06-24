@@ -211,7 +211,7 @@ def miniboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
 
     xp_awarded = 0
     if not already_cleared:
-        apply_xp(user, CLEAR_XP)
+        apply_xp(user, CLEAR_XP, event_type="miniboss_clear")
         xp_awarded = CLEAR_XP
 
         cleared.append(stage_key)

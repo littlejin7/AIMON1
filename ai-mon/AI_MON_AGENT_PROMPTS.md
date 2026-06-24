@@ -80,6 +80,9 @@ note: 각 청크 앞에 "공통 프리픽스"를 붙여서 사용. 모델/플랜
 - routers/mission.py: GET /missions, POST /missions/claim.
 - missions_core.py: _ensure_period(lazy reset), bump_mission, find_def.
 - claim은 claimed 배열로 멱등성 보장. d_login은 auto_claim 자동지급.
+- [필수] 미션 진척/claim 등 미션을 쓰는 핸들러는 반드시 utils.mutate_user_atomic 경로로 저장할 것.
+  bump_mission 본체가 login_days/claimed/progress를 append 하므로, 기존 save_user delta-merge
+  경로로 저장하면 0-C의 리스트 머지 방어가 깨져 진척이 last-writer-wins 로 유실된다.
 완료 기준: 퀴즈 클리어 시 진척이 오르고, 완료 후 claim하면 보상이 1회만 지급됨.
 ```
 

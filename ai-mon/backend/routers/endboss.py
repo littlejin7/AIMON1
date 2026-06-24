@@ -420,7 +420,7 @@ def endboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
             newly_earned_titles.append({"id": title_id, "name": title_name})
 
         # XP 적용 및 기타 칭호 부여
-        events = apply_xp(user, CLEAR_XP, {"boss_cleared": True})
+        events = apply_xp(user, CLEAR_XP, {"boss_cleared": True}, event_type="boss_clear")
         newly_earned_titles.extend(events["newly_earned_titles"])
 
         # cleared_levels 기록
