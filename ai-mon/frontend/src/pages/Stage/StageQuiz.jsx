@@ -139,6 +139,19 @@ export default function StageQuiz({
         <div className="stage-score-badge">⭐ {score}</div>
       </div>
 
+      {/* 상단 진행 바 */}
+      <div className="stage-bottom-progress">
+        <div className="stage-progress-label">
+          <span>진행도</span>
+          <span>문제 {currentNum} / {totalQ}</span>
+        </div>
+        <div className="progress-bar">
+          <div className="progress-bar-fill" style={{ width: `${progressPct}%` }} />
+        </div>
+      </div>
+
+
+      
       {/* 캐릭터 영역 */}
       <div className="stage-char-area">
         <img src={charSrc} alt="캐릭터" className="stage-char-img animate-bob" />
@@ -154,16 +167,6 @@ export default function StageQuiz({
         />
       </div>
 
-      {/* 하단 진행 바 */}
-      <div className="stage-bottom-progress">
-        <div className="stage-progress-label">
-          <span>진행도</span>
-          <span>문제 {currentNum} / {totalQ}</span>
-        </div>
-        <div className="progress-bar">
-          <div className="progress-bar-fill" style={{ width: `${progressPct}%` }} />
-        </div>
-      </div>
 
     </div>
   )
