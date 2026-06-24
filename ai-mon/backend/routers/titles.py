@@ -9,6 +9,9 @@ TITLE_DEFINITIONS = {
     "ai_explorer":  "🧠 AI 탐구자",
     "unit_master":  "👑 유닛 마스터",
     "aimon_master": "💎 에이몬 마스터",
+    "rookie_coder": "코드 ROOKIE",
+    "ace_coder":    "ACE 코더",
+    "ai_master":    "AI 마스터",
 }
 
 @router.get("")

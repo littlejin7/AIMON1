@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 import os
+from contextlib import asynccontextmanager
 load_dotenv(os.path.join(os.path.dirname(__file__), "../.env"))
 
 from fastapi import FastAPI
@@ -7,18 +8,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from routers import auth, quiz, boss, endboss, miniboss, progress, user, code, train, titles, game
 
 
-
-app = FastAPI(title="AI MON API - MVP", version="1.0.0")
-
-@app.on_event("startup")
-def startup_event():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     from scheduler import scheduler
     scheduler.start()
-
-@app.on_event("shutdown")
-def shutdown_event():
-    from scheduler import scheduler
+    yield
     scheduler.shutdown()
+
+app = FastAPI(title="AI MON API - MVP", version="1.0.0", lifespan=lifespan)
 
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
