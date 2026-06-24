@@ -101,7 +101,7 @@ export default function AuthForm({
         type="submit"
         className={`auth-btn-main${error ? ' error-state' : ''}`}
         disabled={loading}
-        style={{ marginTop: '12px' }}
+        style={{ marginTop: '10px' }}
       >
         {loading ? (
           <><span className="spinner" style={{ width: 18, height: 18, borderWidth: 2 }} /> 처리 중...</>
