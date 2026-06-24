@@ -48,6 +48,7 @@ export function useGameLogic(pCanvasRef, lCanvasRef) {
     bossIntro: false,
     clearData: null,
   });
+  const [startError, setStartError] = useState(null);
 
   // ── 가변 게임 상태 Refs (렌더 트리거 없이 변경) ──
   const gridRef           = useRef([]);
@@ -64,6 +65,7 @@ export function useGameLogic(pCanvasRef, lCanvasRef) {
   const bgmMutedRef       = useRef(false)
   const comboEnergyRef = useRef(0);
   const comboDecayTimer = useRef(null);
+  const gameTokenRef    = useRef(null); // B-4 세션 토큰
 
   // ── 오디오 Refs ──
   const bgmRef    = useRef(null);
@@ -380,7 +382,7 @@ useEffect(() => {
 
 
           incrementGamePlay('aipang');
-          gameApi.clearGame({ game_id: 'aipang' })
+          gameApi.clearGame({ game_id: 'aipang', game_token: gameTokenRef.current })
             .then(res => {
               setPopups(prev => ({ ...prev, final: true, clearData: res.data }));
             })
@@ -394,7 +396,7 @@ useEffect(() => {
           setTimeout(() => beep(784, 0.3), 300);
           setBossUI(prev => ({ ...prev, unitDefeated: true }));
 
-          gameApi.clearGame({ game_id: 'aipang' })
+          gameApi.clearGame({ game_id: 'aipang', game_token: gameTokenRef.current })
             .then(res => {
               setTimeout(() => setPopups(prev => ({ ...prev, clear: true, clearData: res.data })), 600);
             })
@@ -513,7 +515,27 @@ useEffect(() => {
   }, []);
 
   // ── 팝업 버튼 핸들러 ──
-  const handleStart = useCallback(() => {
+  const handleStart = useCallback(async () => {
+    setStartError(null);
+    gameTokenRef.current = null;
+
+    // 게임 세션 토큰 취득 (실패 시 1회 재시도). 토큰 없이는 보상 못 받으므로 진입 차단.
+    let token = null;
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const res = await gameApi.startGame('aipang');
+        token = res.data.game_token;
+        break;
+      } catch {
+        if (attempt === 1) {
+          setStartError('네트워크 문제로 시작 실패. 다시 시도해주세요.');
+          return;
+        }
+        await new Promise(r => setTimeout(r, 1000));
+      }
+    }
+
+    gameTokenRef.current = token;
     stageRef.current = 0;
     finalUnlockedRef.current = false;
     finalHpRef.current = 30000;
@@ -537,7 +559,14 @@ useEffect(() => {
     if (!bgmMutedRef.current && bgmRef.current) { bgmRef.current.currentTime = 0; bgmRef.current.play().catch(() => {}); }
   }, [initStage]);
 
-  const handleRestart = useCallback(() => {
+  const handleRestart = useCallback(async () => {
+    // 재플레이용 토큰 — 당일 보상은 이미 지급됐으므로 실패해도 게임 차단하지 않음
+    gameTokenRef.current = null;
+    try {
+      const res = await gameApi.startGame('aipang');
+      gameTokenRef.current = res.data.game_token;
+    } catch { /* no-op */ }
+
     stageRef.current = 0;
     finalUnlockedRef.current = false;
     finalHpRef.current = 30000;
@@ -575,6 +604,7 @@ useEffect(() => {
 
   return {
     // 렌더링 State
+    startError,
     grid,
     moves,
     unitHp,

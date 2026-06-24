@@ -32,6 +32,7 @@ export default function AipangPuzzle() {
   }, []);
   
   const {
+    startError,
     grid,
     moves,
     unitHp,
@@ -137,7 +138,7 @@ export default function AipangPuzzle() {
 
       {/* 오버레이: 보스 등장 → 타이틀 → 클리어 → 오버 → 최종 */}
       <BossIntro visible={popups.bossIntro} onOk={handleBossIntroOk} />
-      <PopupTitle visible={popups.title}    onStart={handleStart}    />
+      <PopupTitle visible={popups.title}    onStart={handleStart}    errorMsg={startError} />
       <PopupClear visible={popups.clear}    onNext={handleNext}      clearData={popups.clearData} />
       <PopupOver  visible={popups.over}   onRetry={handleRetry}    onHome={() => navigate('/')} />
       <PopupFinal visible={popups.final}  onRestart={handleRestart} onHome={() => navigate('/')} clearData={popups.clearData} />

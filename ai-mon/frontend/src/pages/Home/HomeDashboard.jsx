@@ -4,6 +4,7 @@ import slimeIcon from '../../assets/character_slime.png'
 import robotIcon from '../../assets/character_robot.png'
 import speechBubbleIcon from '../../assets/character_bubble.png'
 import finalGhostIcon from '../../assets/character_final_ghost.png'
+import MissionWidget from '../../components/MissionWidget/MissionWidget'
 
 const CHARACTER_ICONS = {
   slime: slimeIcon,
@@ -46,29 +47,6 @@ function getWeekDots(streak) {
   })
 }
 
-// 데일리/위클리 미션은 추후 API 연동 예정 — 현재는 stats 기반 하드코드
-function buildDailyMissions(user, stats) {
-  const hasAttended = (user?.streak || 0) > 0
-  const quizDone = (stats?.completed_stages || 0) >= 10
-  return [
-    { id: 'attend', icon: '📅', name: '오늘 출석 체크',      reward: '+500 XP · 힌트코인 1개',  done: hasAttended },
-    { id: 'quiz10', icon: '🧠', name: '퀴즈 10문제 풀기',    reward: '+2,000 XP',               done: quizDone },
-    { id: 'stage1', icon: '🛡️', name: '스테이지 1개 완료',  reward: '+2,500 XP · 힌트코인 2개', done: false },
-  ]
-}
-
-function buildWeeklyMissions(user, stats) {
-  const streak = user?.streak || 0
-  const xp = user?.xp || 0
-  return [
-    { id: 'w1', name: '5일 연속 출석',           xp: '+5,000 XP',  done: streak >= 5 },
-    { id: 'w2', name: '누적 XP 10,000 달성',      xp: '+3,000 XP',  done: xp >= 10000 },
-    { id: 'w3', name: '유닛 보스 1마리 클리어',   xp: '+10,000 XP', done: false },
-    { id: 'w4', name: '힌트 없이 미니보스 클리어', xp: '+3,000 XP', done: false },
-    { id: 'w5', name: '퀴즈 총 50문제 풀기',      xp: '+2,000 XP',  done: false },
-  ]
-}
-
 export default function HomeDashboard({ user, stats, onOpenLevelTest }) {
   const navigate = useNavigate()
 
@@ -78,9 +56,6 @@ export default function HomeDashboard({ user, stats, onOpenLevelTest }) {
   const streak = user?.streak || 0
   const weekDots = getWeekDots(streak)
   const charImg = CHARACTER_ICONS[user?.character]
-  const dailyMissions = buildDailyMissions(user, stats)
-  const weeklyMissions = buildWeeklyMissions(user, stats)
-  const weeklyDone = weeklyMissions.filter(m => m.done).length
 
   const handleLearn = () => {
     if (!user?.is_level_tested) onOpenLevelTest()
@@ -181,49 +156,8 @@ export default function HomeDashboard({ user, stats, onOpenLevelTest }) {
         </button>
       </div>
 
-      {/* ── 데일리 미션 ── */}
-      <div className="hd-section-header">
-        <span className="hd-section-title">데일리 미션</span>
-        <span className="hd-section-more">전체 보기 →</span>
-      </div>
-      <div className="hd-card hd-mission-card">
-        {dailyMissions.map((m) => (
-          <div key={m.id} className="hd-mission-row">
-            <div className={`hd-mission-icon ${m.done ? 'done' : 'todo'}`}>
-              <span>{m.icon}</span>
-            </div>
-            <div className="hd-mission-text">
-              <div className="hd-mission-name">{m.name}</div>
-              <div className="hd-mission-reward">{m.reward}</div>
-            </div>
-            <div className={`hd-mission-check ${m.done ? 'done' : 'todo'}`}>
-              {m.done && <span>✓</span>}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* ── 위클리 미션 ── */}
-      <div className="hd-section-header">
-        <span className="hd-section-title">위클리 미션</span>
-        <span className="hd-section-more">전체 보기 →</span>
-      </div>
-      <div className="hd-card hd-weekly-card">
-        <div className="hd-weekly-header">
-          <span className="hd-weekly-label">이번 주 진행</span>
-          <span className="hd-weekly-val">{weeklyDone} / {weeklyMissions.length} 완료</span>
-        </div>
-        <div className="hd-weekly-bar">
-          <div className="hd-weekly-fill" style={{ width: `${(weeklyDone / weeklyMissions.length) * 100}%` }} />
-        </div>
-        {weeklyMissions.map((m) => (
-          <div key={m.id} className="hd-weekly-row">
-            <div className={`hd-weekly-dot ${m.done ? 'done' : 'todo'}`} />
-            <span className={`hd-weekly-name ${m.done ? 'done' : 'todo'}`}>{m.name}</span>
-            <span className="hd-weekly-xp">{m.xp}</span>
-          </div>
-        ))}
-      </div>
+      {/* ── 미션 위젯 (데일리 + 위클리 — GET /missions API 연동) ── */}
+      <MissionWidget />
 
     </div>
   )
