@@ -12,6 +12,7 @@ from routers.utils import (
     get_user_by_id,
     save_user,
     limiter,
+    now_kst,
 )
 
 logger = logging.getLogger("uvicorn.error")
@@ -285,7 +286,7 @@ async def get_ai_feedback(request: Request, req: AiFeedbackRequest, authorizatio
             "user_answer": req.user_answer,
             "feedback": feedback,
             "ai_explanation": feedback,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": now_kst().isoformat(),
             "reviewed": False
         }
         save_wrong_answer_item(new_wa)
@@ -344,7 +345,7 @@ async def get_ai_feedback_stream(req: AiFeedbackRequest, authorization: str = He
                     "user_answer": req.user_answer,
                     "feedback": full_text,
                     "ai_explanation": full_text,
-                    "timestamp": datetime.utcnow().isoformat(),
+                    "timestamp": now_kst().isoformat(),
                     "reviewed": False
                 }
                 save_wrong_answer_item(new_wa)

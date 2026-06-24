@@ -11,6 +11,7 @@ from routers.utils import (
     get_progress_by_user,
     save_progress_item,
     limiter,
+    now_kst,
 )
 
 router = APIRouter()
@@ -120,7 +121,7 @@ async def submit_code(request: Request, req: SubmitRequest, authorization: str =
                 award_xp = True
             existing["score"]        = max(existing.get("score", 0), result.get("score", 100))
             existing["is_completed"] = True
-            existing["updated_at"]   = datetime.utcnow().isoformat()
+            existing["updated_at"]   = now_kst().isoformat()
             save_progress_item(existing)
         else:
             award_xp = True
@@ -132,8 +133,8 @@ async def submit_code(request: Request, req: SubmitRequest, authorization: str =
                 "score":        result.get("score", 100),
                 "is_completed": True,
                 "course_level": course_level,
-                "created_at":   datetime.utcnow().isoformat(),
-                "updated_at":   datetime.utcnow().isoformat(),
+                "created_at":   now_kst().isoformat(),
+                "updated_at":   now_kst().isoformat(),
             }
             save_progress_item(item)
 

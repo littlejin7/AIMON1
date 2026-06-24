@@ -11,6 +11,7 @@ from routers.utils import (
     get_progress_by_user,
     save_progress_item,
     verify_token,
+    now_kst,
 )
 
 router = APIRouter()
@@ -58,7 +59,7 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
             if existing.get("checkpoint") != "done":
                 existing["checkpoint"] = req.checkpoint
                 
-        existing["updated_at"] = datetime.utcnow().isoformat()
+        existing["updated_at"] = now_kst().isoformat()
         target_item = existing
     else:
         award_xp = req.is_completed
@@ -71,8 +72,8 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
             "is_completed": req.is_completed,
             "checkpoint": req.checkpoint,
             "course_level": course_level,
-            "created_at": datetime.utcnow().isoformat(),
-            "updated_at": datetime.utcnow().isoformat(),
+            "created_at": now_kst().isoformat(),
+            "updated_at": now_kst().isoformat(),
         }
         progress.append(target_item)
 

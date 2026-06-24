@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Header
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime, timedelta
-from routers.utils import get_current_user, save_user
+from routers.utils import get_current_user, save_user, now_kst
 
 router = APIRouter()
 
@@ -19,7 +19,7 @@ def game_clear(req: GameClearRequest, authorization: str = Header(None)):
     user_ref = get_current_user(authorization)
         
     # KST 기준 날짜 구하기 (UTC + 9)
-    kst_now = datetime.utcnow() + timedelta(hours=9)
+    kst_now = now_kst()
     today_kst = kst_now.date().isoformat()
     
     crowns_awarded = 0
