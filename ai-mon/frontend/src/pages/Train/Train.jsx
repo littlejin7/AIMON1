@@ -64,7 +64,7 @@ export default function Train() {
     const init = async () => {
       try {
         const [progressRes, lessonsRes] = await Promise.all([
-          progressApi.getProgress(),
+          progressApi.getProgress(user?.course_level || 'beginner'),
           quizApi.getUnits(user?.course_level || 'beginner').catch(() => ({ data: [] })),
         ])
         const prog = progressRes.data || []

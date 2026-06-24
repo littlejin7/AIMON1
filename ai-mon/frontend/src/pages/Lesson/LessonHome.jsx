@@ -43,7 +43,7 @@ export default function LessonHome() {
   useEffect(() => {
     const calls = [quizApi.getUnits(courseLevel)]
     if (token) {
-      calls.push(progressApi.getProgress().catch(() => null))
+      calls.push(progressApi.getProgress(courseLevel).catch(() => null))
       calls.push(userApi.getMe().catch(() => null))
     }
     Promise.all(calls)
