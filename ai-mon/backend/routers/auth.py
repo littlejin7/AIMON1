@@ -140,7 +140,8 @@ class ResetPasswordRequest(BaseModel):
 
 
 @router.post("/register", status_code=status.HTTP_201_CREATED)
-def register(req: RegisterRequest):
+@limiter.limit("5/minute")
+def register(req: RegisterRequest, request: Request):
     if get_user_by_username(req.username):
         raise HTTPException(status_code=400, detail="이미 존재하는 아이디입니다.")
     # course_level 유효성 검증
@@ -188,7 +189,8 @@ def register(req: RegisterRequest):
 
 
 @router.post("/login")
-def login(req: LoginRequest):
+@limiter.limit("10/minute")
+def login(req: LoginRequest, request: Request):
     user = get_user_by_username(req.username)
     if not user or not verify_password(req.password, user["password"]):
         raise HTTPException(status_code=401, detail="아이디 또는 비밀번호가 올바르지 않습니다.")
@@ -217,6 +219,31 @@ def forgot_password(req: ForgotPasswordRequest, request: Request):
     if not user:
         # 보안상 유저 존재 여부를 노출하지 않음
         return {"ok": True, "message": "If an account with that email exists, a reset code has been sent."}
+
+    # B-5: 타인 이메일 무한 발송(이메일 폭탄) 방지를 위한 이메일 계정 단위 속도 제한
+    now = datetime.utcnow()
+    today_str = now.strftime("%Y-%m-%d")
+    
+    forgot_pwd_data = user.get("forgot_password_data", {})
+    if forgot_pwd_data.get("date") != today_str:
+        forgot_pwd_data = {"date": today_str, "count": 0, "last_sent": None}
+        
+    # 하루 최대 발송 횟수 제한 (예: 5회)
+    if forgot_pwd_data["count"] >= 5:
+        # 실제 발송은 생략하되 응답은 동일하게 하여 브루트포스 힌트를 주지 않음
+        return {"ok": True, "message": "If an account with that email exists, a reset code has been sent."}
+        
+    # 재발송 대기 시간 (예: 3분)
+    if forgot_pwd_data["last_sent"]:
+        last_sent = datetime.fromisoformat(forgot_pwd_data["last_sent"])
+        if (now - last_sent).total_seconds() < 180:
+            return {"ok": True, "message": "If an account with that email exists, a reset code has been sent."}
+            
+    # 발송 허가됨, 기록 업데이트
+    forgot_pwd_data["count"] += 1
+    forgot_pwd_data["last_sent"] = now.isoformat()
+    user["forgot_password_data"] = forgot_pwd_data
+    save_user(user)
 
     # Generate URL-safe 32-character token
     token = secrets.token_urlsafe(32)
@@ -297,7 +324,8 @@ class SocialLoginRequest(BaseModel):
 
 
 @router.post("/social/google")
-def social_google(req: SocialLoginRequest):
+@limiter.limit("5/minute")
+def social_google(req: SocialLoginRequest, request: Request):
     import requests
     # 1. Exchange code for credentials
     client_id = os.getenv("GOOGLE_CLIENT_ID")
@@ -420,7 +448,8 @@ def check_email(email: str):
 
 
 @router.post("/social/naver")
-def social_naver(req: SocialLoginRequest):
+@limiter.limit("5/minute")
+def social_naver(req: SocialLoginRequest, request: Request):
     import requests
     client_id = os.getenv("NAVER_CLIENT_ID")
     client_secret = os.getenv("NAVER_CLIENT_SECRET")
@@ -534,7 +563,8 @@ def social_naver(req: SocialLoginRequest):
 
 
 @router.post("/social/kakao")
-def social_kakao(req: SocialLoginRequest):
+@limiter.limit("5/minute")
+def social_kakao(req: SocialLoginRequest, request: Request):
     import requests
     client_id = os.getenv("KAKAO_CLIENT_ID")
     client_secret = os.getenv("KAKAO_CLIENT_SECRET")
