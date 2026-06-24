@@ -194,7 +194,12 @@ export default function Character() {
           {equippedTitleName && (
             <div className="char-hero-title-badge">🎖 {equippedTitleName}</div>
           )}
-          <p className="char-hero-username">{user?.username || user?.email?.split('@')[0] || '유저'}</p>
+          {user?.course_level && (
+            <div className="char-hero-level-badge">
+              {{ beginner: '🟢 초급', intermediate: '🔵 중급', advanced: '🟣 고급' }[user.course_level]}
+            </div>
+          )}
+          <p className="char-hero-username">{user?.nickname || user?.username || user?.email?.split('@')[0] || '유저'}</p>
           <div className="char-hero-glow">
             <img
               src={CHAR_ICONS[selected]}
