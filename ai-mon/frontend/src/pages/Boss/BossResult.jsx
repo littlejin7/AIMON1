@@ -22,7 +22,7 @@ export default function BossResult({
 
       {isCleared ? (
         <>
-          <h1 className="result-title" style={{ color: '#f59e0b' }}>보스 처치 완료!</h1>
+          <h1 className="result-title" style={{ color: '#7c3aed' }}>보스 처치 완료!</h1>
           <p className="result-desc">훌륭합니다! 보스를 쓰러뜨리고 전리품을 획득했습니다.</p>
 
           <div className="result-rewards" style={{ margin: '24px 0', background: 'rgba(255,255,255,0.05)', padding: '16px', borderRadius: '12px' }}>
@@ -43,7 +43,7 @@ export default function BossResult({
             {aiResult?.crowns_awarded > 0 && (
               <div className="reward-item" style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
                 <span className="reward-icon">👑</span>
-                <span style={{ fontWeight: 700, color: '#f59e0b', marginLeft: '8px' }}>+{aiResult.crowns_awarded} 왕관 획득!</span>
+                <span style={{ fontWeight: 700, color: '#c4b5fd', marginLeft: '8px' }}>+{aiResult.crowns_awarded} 왕관 획득!</span>
               </div>
             )}
             {aiResult?.unlocked_unit !== undefined && aiResult.unlocked_unit <= 8 && (
