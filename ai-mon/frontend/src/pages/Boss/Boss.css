@@ -1026,7 +1026,9 @@ body:has(.boss-page) { background: #F4F3FA; background-image: none; }
   cursor: pointer; transition: background .15s;
 }
 .eb-b-next-btn:hover { background: #3C3489; }
-ing: 12px 16px;
+
+.ep-hp-preview {
+  padding: 12px 16px;
   width: 100%;
   display: flex; align-items: center; gap: 12px;
 }
