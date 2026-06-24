@@ -61,3 +61,6 @@ coverage.xml
 *.tmp
 *.bak
 *.lock
+
+# Auto-generated daily backups (scheduler.py backup_to_json)
+backend/data/backup/
