@@ -10,15 +10,35 @@ from datetime import datetime
 from routers.utils import (
     get_wrong_answers_by_user,
     save_wrong_answer_item,
-    save_user,
     limiter,
     now_kst,
     get_current_user_optional,
+    apply_xp,
+    mutate_user_atomic,
 )
 
 logger = logging.getLogger("uvicorn.error")
 
 router = APIRouter()
+
+
+def _bump_ai_feedback(user_id: str) -> None:
+    """ai_feedback_count++ 와 w_ai5(ai_feedback) 미션 진척을 원자 경로로 기록.
+
+    스트리밍/비스트리밍 양쪽이 동일 호출 → 발생원 일원화(M-3).
+    apply_xp(event_type="ai_feedback") 가 _ensure_period 로 missions 를 변형하므로
+    delta-merge 경로가 아닌 mutate_user_atomic 필수(M-1).
+    AI 성공 시에만 호출(실패한 호출은 미션/칭호에 반영하지 않음).
+    """
+    def mutator(u: dict):
+        u["ai_feedback_count"] = u.get("ai_feedback_count", 0) + 1
+        apply_xp(u, 0, {}, event_type="ai_feedback")
+        return None
+
+    try:
+        mutate_user_atomic(user_id, mutator)
+    except Exception:
+        logger.exception("ai_feedback bump failed for user %s", user_id)
 
 QUESTIONS_FILE = os.path.join(os.path.dirname(__file__), "../data/questions.json")
 LESSONS_DIR    = os.path.join(os.path.dirname(__file__), "../data/lessons")  # 브리핑 슬라이드 폴더
@@ -262,17 +282,13 @@ async def get_ai_feedback(request: Request, req: AiFeedbackRequest, user: Option
     )
     result = await ask_claude(prompt, level=req.level)
 
-    if user:
-        try:
-            user["ai_feedback_count"] = user.get("ai_feedback_count", 0) + 1
-            apply_xp(user, 0, {}, event_type="ai_feedback")
-            save_user(user)
-        except Exception as e:
-            logger.exception(f"Failed to update user titles/feedback count for user {user_id}: {str(e)}")
-
     if result["success"]:
         feedback = result["feedback"]
-        
+
+        # AI 성공 시에만 ai_feedback 카운트/미션 진척 기록 (스트리밍과 동일 경로)
+        if user_id:
+            _bump_ai_feedback(user_id)
+
         new_wa = {
             "id": str(uuid.uuid4()),
             "user_id": user_id,
@@ -338,7 +354,11 @@ async def get_ai_feedback_stream(req: AiFeedbackRequest, user: Optional[dict] = 
                     "reviewed": False
                 }
                 save_wrong_answer_item(new_wa)
-                
+
+                # 스트리밍도 ai_feedback 진척 기록 (M-3 일원화) — 성공(full_text) 시에만
+                if user_id:
+                    _bump_ai_feedback(user_id)
+
         except Exception as e:
             yield f"data: {json.dumps({'text': f'[오류: {str(e)}]'}, ensure_ascii=False)}\n\n"
         finally:
