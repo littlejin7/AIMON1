@@ -79,7 +79,7 @@ export default function Auth() {
 
         {/* 뒤로가기 */}
         <button
-          onClick={() => navigate(-1)}
+          onClick={() => navigate('/')}
           style={{
             alignSelf: 'flex-start',
             margin: '14px 0 0 16px',
