@@ -1,16 +1,14 @@
-from fastapi import APIRouter, HTTPException, Header, Query
+from fastapi import APIRouter, HTTPException, Query, Depends
 from pydantic import BaseModel
 import uuid
 from datetime import datetime
-from routers.titles import check_and_award_titles
 from routers.utils import (
     serialize_user,
-    calc_level,
-    get_user_by_id,
     save_user,
     get_progress_by_user,
     save_progress_item,
-    verify_token,
+    get_current_user,
+    apply_xp,
     now_kst,
 )
 
@@ -26,16 +24,14 @@ class ProgressUpdateRequest(BaseModel):
 
 
 @router.get("/")
-def get_progress(course_level: str = Query("beginner"), authorization: str = Header(...)):
-    user_id = verify_token(authorization)
-    return get_progress_by_user(user_id, course_level)
+def get_progress(course_level: str = Query("beginner"), user: dict = Depends(get_current_user)):
+    return get_progress_by_user(user["id"], course_level)
 
 
 @router.post("/")
-def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)):
-    user_id = verify_token(authorization)
-    user = get_user_by_id(user_id)
-    course_level = user.get("course_level", "beginner") if user else "beginner"
+def update_progress(req: ProgressUpdateRequest, user: dict = Depends(get_current_user)):
+    user_id = user["id"]
+    course_level = user.get("course_level", "beginner")
     
     progress = get_progress_by_user(user_id, course_level)
     newly_earned = []
@@ -119,21 +115,7 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
     newly_earned = []
     
     if user:
-        # 1. XP 및 진화
-        if award_xp:
-            user["xp"] = (user.get("xp") or 0) + xp_gain
-
-            new_lv = calc_level(user["xp"])
-            user["lv"] = max(new_lv, user.get("lv") or 1)
-
-            if user["lv"] >= 10 and user.get("character") == "slime":
-                user["character"] = "robot"
-            elif user["lv"] >= 20 and user.get("character") == "robot":
-                user["character"] = "speech_bubble"
-            elif user["lv"] >= 30 and user.get("character") == "speech_bubble":
-                user["character"] = "final_ghost"
-
-        # 2. 왕관 지급
+        # 1. 왕관 지급
         if unit_just_completed:
             awarded_units = user.get("awarded_crown_units") or []
             val = f"{course_level}-{req.unit}"
@@ -143,12 +125,14 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
                 awarded_units.append(val)
                 user["awarded_crown_units"] = awarded_units
 
-        # 3. 칭호 부여
+        # 2. XP 및 진화, 칭호 부여
         context = {
             "stage_completed": award_xp,
             "unit_fully_done": unit_just_completed,
         }
-        newly_earned = check_and_award_titles(user, context)
+        events = apply_xp(user, xp_gain if award_xp else 0, context)
+        newly_earned = events["newly_earned_titles"]
+        
         save_user(user)
 
     serialized = serialize_user(user) if user else {}
@@ -164,10 +148,9 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
 
 
 @router.get("/stats")
-def get_stats(authorization: str = Header(...)):
-    user_id = verify_token(authorization)
-    user = get_user_by_id(user_id)
-    course_level = user.get("course_level", "beginner") if user else "beginner"
+def get_stats(user: dict = Depends(get_current_user)):
+    user_id = user["id"]
+    course_level = user.get("course_level", "beginner")
 
     user_progress = get_progress_by_user(user_id, course_level)
 

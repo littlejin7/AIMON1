@@ -1,12 +1,10 @@
 import logging
-from fastapi import APIRouter, HTTPException, Header
+from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 import os
 from routers.utils import (
     serialize_user,
     save_user,
-    save_users,   
-    load_users,  
     get_current_user,
 )
 
@@ -42,14 +40,12 @@ class PurchaseThemeRequest(BaseModel):
     theme_id: str
 
 @router.get("/me")
-def get_me(authorization: str = Header(...)):
-    user = get_current_user(authorization)
+def get_me(user: dict = Depends(get_current_user)):
     return serialize_user(user)
 
 
 @router.patch("/me")
-def update_me(req: UpdateProfileRequest, authorization: str = Header(...)):
-    user = get_current_user(authorization)
+def update_me(req: UpdateProfileRequest, user: dict = Depends(get_current_user)):
     # Log structural metadata (excluding PII like nickname, username, etc.)
     updated_fields = [k for k, v in req.dict().items() if v is not None]
     logger.info(f"PATCH /user/me request: user_id={user['id']}, updated_fields={updated_fields}")
@@ -71,31 +67,31 @@ def update_me(req: UpdateProfileRequest, authorization: str = Header(...)):
 
 
 @router.post("/purchase-theme")
-def purchase_theme(req: PurchaseThemeRequest, authorization: str = Header(...)):
-    user = get_current_user(authorization)
+def purchase_theme(req: PurchaseThemeRequest, user: dict = Depends(get_current_user)):
     if req.theme_id not in THEME_PRICES:
         raise HTTPException(status_code=400, detail="존재하지 않는 테마입니다.")
     cost = THEME_PRICES[req.theme_id]
-    users = load_users()
-    for u in users:
-        if u["id"] == user["id"]:
-            owned = u.get("purchased_themes") or ["dark"]
-            if req.theme_id in owned:
-                raise HTTPException(status_code=400, detail="이미 보유한 테마입니다.")
-            current_xp = u.get("xp") or 0
-            if current_xp < cost:
-                raise HTTPException(status_code=400, detail=f"XP가 부족합니다. (필요: {cost}, 보유: {current_xp})")
-            u["xp"] = current_xp - cost
-            u["purchased_themes"] = owned + [req.theme_id]
-            save_users(users)
-            return {
-                "success": True,
-                "theme_id": req.theme_id,
-                "xp_spent": cost,
-                "xp_remaining": u["xp"],
-                "purchased_themes": u["purchased_themes"],
-                "user": serialize_user(u),
-            }
-    raise HTTPException(status_code=404, detail="유저를 찾을 수 없습니다.")
+    owned = user.get("purchased_themes") or ["dark"]
+    if req.theme_id in owned:
+        raise HTTPException(status_code=400, detail="이미 보유한 테마입니다.")
+    current_xp = user.get("xp") or 0
+    if current_xp < cost:
+        raise HTTPException(status_code=400, detail=f"XP가 부족합니다. (필요: {cost}, 보유: {current_xp})")
+    
+    user["xp"] = current_xp - cost
+    user["purchased_themes"] = owned + [req.theme_id]
+    
+    from routers.utils import calc_level
+    user["lv"] = max(calc_level(user["xp"]), user.get("lv", 1))
+    
+    save_user(user)
+    return {
+        "success": True,
+        "theme_id": req.theme_id,
+        "xp_spent": cost,
+        "xp_remaining": user["xp"],
+        "purchased_themes": user["purchased_themes"],
+        "user": serialize_user(user),
+    }
 
 

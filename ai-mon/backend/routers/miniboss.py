@@ -9,20 +9,19 @@
   POST /boss/miniboss/clear     클리어 처리 (XP + 진행도, 중복 방지)
 """
 
-from fastapi import APIRouter, HTTPException, Header
+from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 import json, os, random, uuid
 from datetime import datetime
 from typing import Optional
 
 from routers.utils import (
-    calc_level,
-    get_user_by_id,
     save_user,
     get_progress_by_user,
     save_progress_item,
-    verify_token,
     now_kst,
+    get_current_user,
+    apply_xp,
 )
 
 router = APIRouter()
@@ -89,12 +88,9 @@ class ClearRequest(BaseModel):
 # ── 엔드포인트 ────────────────────────────────────────────────────────────────
 
 @router.get("/info")
-def miniboss_info(unit: int = 1, stage: str = "1-1", authorization: str = Header(...)):
+def miniboss_info(unit: int = 1, stage: str = "1-1", user: dict = Depends(get_current_user)):
     """미니보스 정보 반환 (HP 설정, 이미 클리어 여부)."""
-    user_id = verify_token(authorization)
-    user = get_user_by_id(user_id)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+    user_id = user["id"]
 
     cleared = user.get("miniboss_cleared_stages") or []
     stage_key = stage if "-" in str(stage) else f"{unit}-{stage}"
@@ -110,16 +106,13 @@ def miniboss_info(unit: int = 1, stage: str = "1-1", authorization: str = Header
 
 
 @router.post("/start")
-def miniboss_start(unit: int = 1, stage: str = "1-1", authorization: str = Header(...)):
+def miniboss_start(unit: int = 1, stage: str = "1-1", user: dict = Depends(get_current_user)):
     """
     미니보스 배틀 시작.
     - 해당 stage 문제 10개를 seen 관리하며 순서대로 반환
     - 모두 소진 시 리셋 후 재출제
     """
-    user_id = verify_token(authorization)
-    user = get_user_by_id(user_id)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+    user_id = user["id"]
 
     course_level = user.get("course_level", "beginner")
     all_qs = load_miniboss_questions(course_level, unit)
@@ -158,7 +151,7 @@ def miniboss_start(unit: int = 1, stage: str = "1-1", authorization: str = Heade
 
 
 @router.post("/answer")
-def miniboss_answer(req: AnswerRequest, authorization: str = Header(...)):
+def miniboss_answer(req: AnswerRequest, user: dict = Depends(get_current_user)):
     """
     답안 제출 → HP 계산.
     - 정답: boss_hp -= BOSS_HP_DELTA
@@ -166,10 +159,7 @@ def miniboss_answer(req: AnswerRequest, authorization: str = Header(...)):
     - boss_hp <= 0 → is_clear = True
     - my_hp  <= 0 → is_fail  = True
     """
-    user_id = verify_token(authorization)
-    user = get_user_by_id(user_id)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+    user_id = user["id"]
 
     course_level = user.get("course_level", "beginner")
     all_qs = load_miniboss_questions(course_level, req.unit)
@@ -206,17 +196,14 @@ def miniboss_answer(req: AnswerRequest, authorization: str = Header(...)):
 
 
 @router.post("/clear")
-def miniboss_clear(req: ClearRequest, authorization: str = Header(...)):
+def miniboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
     """
     클리어 처리 (중복 방지).
     - XP 500 지급 (최초 1회)
     - miniboss_cleared_stages 기록
     - 진행도 저장
     """
-    user_id = verify_token(authorization)
-    user = get_user_by_id(user_id)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+    user_id = user["id"]
 
     stage_key = req.stage if "-" in str(req.stage) else f"{req.unit}-{req.stage}"
     cleared   = user.get("miniboss_cleared_stages") or []
@@ -224,18 +211,8 @@ def miniboss_clear(req: ClearRequest, authorization: str = Header(...)):
 
     xp_awarded = 0
     if not already_cleared:
-        user["xp"] = (user.get("xp") or 0) + CLEAR_XP
+        apply_xp(user, CLEAR_XP)
         xp_awarded = CLEAR_XP
-
-        # 레벨 재계산 + 캐릭터 진화 체크
-        user["lv"] = max(calc_level(user["xp"]), user.get("lv") or 1)
-        lv = user["lv"]
-        if lv >= 10 and user.get("character") == "slime":
-            user["character"] = "robot"
-        elif lv >= 20 and user.get("character") == "robot":
-            user["character"] = "speech_bubble"
-        elif lv >= 30 and user.get("character") == "speech_bubble":
-            user["character"] = "final_ghost"
 
         cleared.append(stage_key)
         user["miniboss_cleared_stages"] = cleared

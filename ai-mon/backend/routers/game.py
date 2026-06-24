@@ -1,8 +1,8 @@
-from fastapi import APIRouter, HTTPException, Header
+from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime, timedelta
-from routers.utils import get_current_user, save_user, now_kst
+from routers.utils import get_current_user, save_user, now_kst, apply_xp
 
 router = APIRouter()
 
@@ -12,11 +12,7 @@ class GameClearRequest(BaseModel):
     score: Optional[int] = None
 
 @router.post("/clear")
-def game_clear(req: GameClearRequest, authorization: str = Header(None)):
-    if not authorization:
-        raise HTTPException(status_code=401, detail="Authorization header missing")
-    
-    user_ref = get_current_user(authorization)
+def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)):
         
     # KST 기준 날짜 구하기 (UTC + 9)
     kst_now = now_kst()
@@ -110,7 +106,7 @@ def game_clear(req: GameClearRequest, authorization: str = Header(None)):
                 xp_awarded = max(0, 2500 - daily_xp)
             
             game_rewards["daily_xp"] = daily_xp + xp_awarded
-            user_ref["xp"] = user_ref.get("xp", 0) + xp_awarded
+            apply_xp(user_ref, xp_awarded)
     else:
         raise HTTPException(status_code=400, detail="Invalid game_id")
         

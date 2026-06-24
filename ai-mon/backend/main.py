@@ -1,5 +1,7 @@
 from dotenv import load_dotenv
 import os
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning, module="passlib")
 from contextlib import asynccontextmanager
 load_dotenv(os.path.join(os.path.dirname(__file__), "../.env"))
 

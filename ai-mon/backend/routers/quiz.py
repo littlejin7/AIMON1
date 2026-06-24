@@ -1,18 +1,19 @@
 import logging
-from fastapi import APIRouter, HTTPException, Header, Query, Request
+from functools import lru_cache
+from fastapi import APIRouter, HTTPException, Header, Query, Request, Depends
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 from services.claude_service import ask_claude, stream_claude
+from typing import Optional
 import json, os, random, uuid
 from datetime import datetime
 from routers.utils import (
-    verify_token,
     get_wrong_answers_by_user,
     save_wrong_answer_item,
-    get_user_by_id,
     save_user,
     limiter,
     now_kst,
+    get_current_user_optional,
 )
 
 logger = logging.getLogger("uvicorn.error")
@@ -24,6 +25,7 @@ LESSONS_DIR    = os.path.join(os.path.dirname(__file__), "../data/lessons")  # �
 UNITS_FILE     = os.path.join(os.path.dirname(__file__), "../data/lessons.json")  # 유닛 목록
 
 
+@lru_cache(maxsize=128)
 def load_questions_by_category(category: str, course_level: str = None, unit: int = None):
     base = os.path.join(os.path.dirname(__file__), f"../data/{category}")
     result = []
@@ -79,6 +81,7 @@ def load_questions_by_category(category: str, course_level: str = None, unit: in
     return result
 
 
+@lru_cache(maxsize=128)
 def load_lessons(course_level: str = None, unit: int = None):
     base = os.path.join(os.path.dirname(__file__), "../data/lessons")
     result = []
@@ -110,6 +113,7 @@ def load_lessons(course_level: str = None, unit: int = None):
     return result
 
 
+@lru_cache(maxsize=128)
 def load_units(course_level: str = None):
     """유닛 목록: course_level별 파일 우선, 없으면 lessons.json(beginner) 폴백."""
     # 레벨별 파일 우선 (예: lessons_intermediate.json)
@@ -235,17 +239,12 @@ class AiFeedbackRequest(BaseModel):
 
 @router.post("/ai-feedback")
 @limiter.limit("5/minute;100/day")
-async def get_ai_feedback(request: Request, req: AiFeedbackRequest, authorization: str = Header(None)):
+async def get_ai_feedback(request: Request, req: AiFeedbackRequest, user: Optional[dict] = Depends(get_current_user_optional)):
     """
     오답 제출 시 Claude API를 호출해 레벨별 맞춤 피드백을 반환합니다.
     Claude 실패/타임아웃 시 is_ai_fallback=True와 함께 200 반환 (프론트 crash 방지).
     """
-    user_id = None
-    if authorization:
-        try:
-            user_id = verify_token(authorization)
-        except Exception:
-            pass
+    user_id = user["id"] if user else None
 
     wrong_answers = get_wrong_answers_by_user(user_id) if user_id else []
     if req.question_id:
@@ -263,16 +262,11 @@ async def get_ai_feedback(request: Request, req: AiFeedbackRequest, authorizatio
     )
     result = await ask_claude(prompt, level=req.level)
 
-    if user_id:
+    if user:
         try:
-            user = get_user_by_id(user_id)
-            if user:
-                user["ai_feedback_count"] = user.get("ai_feedback_count", 0) + 1
-                earned = set(user.get("titles", []))
-                if user["ai_feedback_count"] >= 10 and "ai_explorer" not in earned:
-                    earned.add("ai_explorer")
-                user["titles"] = list(earned)
-                save_user(user)
+            user["ai_feedback_count"] = user.get("ai_feedback_count", 0) + 1
+            apply_xp(user, 0, {})
+            save_user(user)
         except Exception as e:
             logger.exception(f"Failed to update user titles/feedback count for user {user_id}: {str(e)}")
 
@@ -296,17 +290,12 @@ async def get_ai_feedback(request: Request, req: AiFeedbackRequest, authorizatio
 
 
 @router.post("/ai-feedback/stream")
-async def get_ai_feedback_stream(req: AiFeedbackRequest, authorization: str = Header(None)):
+async def get_ai_feedback_stream(req: AiFeedbackRequest, user: Optional[dict] = Depends(get_current_user_optional)):
     """
     SSE 스트리밍 피드백. 청크마다 data: {"text": "..."} 형식으로 전송.
     완료 시 data: [DONE] 전송.
     """
-    user_id = None
-    if authorization:
-        try:
-            user_id = verify_token(authorization)
-        except Exception:
-            pass
+    user_id = user["id"] if user else None
 
     wrong_answers = get_wrong_answers_by_user(user_id) if user_id else []
     if req.question_id:
