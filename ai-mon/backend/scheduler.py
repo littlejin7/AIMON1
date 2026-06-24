@@ -18,7 +18,7 @@ from services.email_service import send_email
 scheduler = BackgroundScheduler(timezone=pytz.timezone('Asia/Seoul'))
 
 def send_streak_reminders():
-    print(f"[{datetime.now()}] Running streak reminder job...")
+    print(f"[{now_kst()}] Running streak reminder job...")
     
     # Calculate yesterday in KST (UTC+9)
     kst_now = now_kst()
@@ -30,7 +30,7 @@ def send_streak_reminders():
             res = supabase.table("users").select("email, nickname, username, last_login").eq("last_login", yesterday_str).execute()
             target_users = res.data or []
         except Exception as e:
-            print(f"[{datetime.now()}] Failed to query users from Supabase in send_streak_reminders: {e}")
+            print(f"[{now_kst()}] Failed to query users from Supabase in send_streak_reminders: {e}")
             target_users = []
     else:
         users = load_users()
@@ -62,11 +62,11 @@ def send_streak_reminders():
         if success:
             reminded_count += 1
                 
-    print(f"[{datetime.now()}] Streak reminder job finished. Reminders sent: {reminded_count}")
+    print(f"[{now_kst()}] Streak reminder job finished. Reminders sent: {reminded_count}")
 
 
 def backup_to_json():
-    print(f"[{datetime.now()}] Running database backup job...")
+    print(f"[{now_kst()}] Running database backup job...")
     try:
         kst_now = now_kst()
         today_str = kst_now.strftime("%Y-%m-%d")
@@ -96,7 +96,7 @@ def backup_to_json():
             with open(file_path, "w", encoding="utf-8") as f:
                 json.dump(data, f, ensure_ascii=False, indent=2)
                 
-        print(f"[{datetime.now()}] Backup files successfully created at: {backup_dir}")
+        print(f"[{now_kst()}] Backup files successfully created at: {backup_dir}")
         
         # 3. Retention policy: delete backups older than 7 days
         base_backup_dir = os.path.join(DATA_DIR, "backup")
@@ -109,13 +109,13 @@ def backup_to_json():
                         folder_date = datetime.strptime(folder_name, "%Y-%m-%d")
                         if folder_date.date() < retention_limit.date():
                             shutil.rmtree(folder_path)
-                            print(f"[{datetime.now()}] Removed expired backup directory: {folder_name}")
+                            print(f"[{now_kst()}] Removed expired backup directory: {folder_name}")
                     except ValueError:
                         # Skip folders that don't match YYYY-MM-DD
                         pass
                         
     except Exception as e:
-        print(f"[{datetime.now()}] Database backup job failed with error: {e}")
+        print(f"[{now_kst()}] Database backup job failed with error: {e}")
 
 
 # Schedule the job every day at 18:00 KST
