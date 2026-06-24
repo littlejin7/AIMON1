@@ -322,7 +322,7 @@ def serialize_user(user: dict) -> dict:
     course_level = res.get("course_level", "beginner")
     
     # 3. Handle awarded_crown_units
-    raw_crowns = res.get("awarded_crown_units", [])
+    raw_crowns = res.get("awarded_crown_units") or []
     filtered_crowns = []
     for item in raw_crowns:
         if isinstance(item, int):
@@ -339,7 +339,7 @@ def serialize_user(user: dict) -> dict:
     res["awarded_crown_units"] = filtered_crowns
     
     # 4. Handle max_unlocked_unit
-    raw_max = res.get("max_unlocked_unit", 1)
+    raw_max = res.get("max_unlocked_unit") or 1
     if isinstance(raw_max, dict):
         res["max_unlocked_unit"] = raw_max.get(course_level, 1)
     else:
@@ -349,7 +349,7 @@ def serialize_user(user: dict) -> dict:
             res["max_unlocked_unit"] = 1
             
     # 5. Handle completed_units
-    raw_completed = res.get("completed_units", 0)
+    raw_completed = res.get("completed_units") or 0
     if isinstance(raw_completed, dict):
         res["completed_units"] = raw_completed.get(course_level, 0)
     else:
@@ -373,7 +373,7 @@ def serialize_user(user: dict) -> dict:
             db_boss_cleared = sum(1 for p in user_stages if "boss" in str(p.get("stage", "")))
             
             # endboss 클리어 레벨이 있으면 추가
-            cleared_levels = res.get("endboss_cleared_levels", [])
+            cleared_levels = res.get("endboss_cleared_levels") or []
             if course_level in cleared_levels:
                 db_boss_cleared += 1
         except Exception:
@@ -383,7 +383,7 @@ def serialize_user(user: dict) -> dict:
     res["completed_stages"] = max(res.get("completed_stages") or 0, db_completed_stages)
 
     # 기본값 보장 (dark는 항상 무료 보유)
-    pt = res.get("purchased_themes", [])
+    pt = res.get("purchased_themes") or []
     if "dark" not in pt:
         pt = ["dark"] + pt
     res["purchased_themes"] = pt

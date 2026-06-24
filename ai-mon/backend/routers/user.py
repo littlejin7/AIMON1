@@ -75,10 +75,10 @@ def purchase_theme(req: PurchaseThemeRequest, authorization: str = Header(...)):
     users = load_users()
     for u in users:
         if u["id"] == user["id"]:
-            owned = u.get("purchased_themes", ["dark"])
+            owned = u.get("purchased_themes") or ["dark"]
             if req.theme_id in owned:
                 raise HTTPException(status_code=400, detail="이미 보유한 테마입니다.")
-            current_xp = u.get("xp", 0)
+            current_xp = u.get("xp") or 0
             if current_xp < cost:
                 raise HTTPException(status_code=400, detail=f"XP가 부족합니다. (필요: {cost}, 보유: {current_xp})")
             u["xp"] = current_xp - cost
