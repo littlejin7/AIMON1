@@ -92,8 +92,10 @@ def test_apply_xp_event_type_no_op_and_evolution_unchanged():
     assert ev_tagged["evolved"] == ev_base["evolved"] == "robot"
     assert ev_tagged["level_up"] == ev_base["level_up"] is True
 
-    # no-op bump_mission 은 미션 정의가 없으므로 user.missions 를 만들지 않는다(예외도 없음).
-    assert "missions" not in tagged
+    # bump_mission 이 실행되지만 "game_clear" 는 데일리 정의에 없으므로 d_quiz3 진척 없음.
+    # _ensure_period 는 missions 컨테이너를 초기화하므로 missions 키 자체는 생성됨.
+    daily_prog = tagged.get("missions", {}).get("daily", {}).get("progress", {})
+    assert daily_prog.get("d_quiz3", 0) == 0  # game_clear ≠ stage_clear → 진척 없음
 
     # 모든 이벤트 타입 호출이 예외 없이 동작
     for et in ("stage_clear", "miniboss_clear", "boss_clear", "ai_feedback", "login"):
@@ -134,7 +136,7 @@ def test_progress_rewards_endpoint():
         "titles": [],
         "awarded_crown_units": []
     }
-    
+
     mock_progress = [
         {"unit": 1, "stage": "1-1", "is_completed": True},
         {"unit": 1, "stage": "1-2", "is_completed": True},
@@ -143,27 +145,32 @@ def test_progress_rewards_endpoint():
         {"unit": 1, "stage": "1-5", "is_completed": True},
         {"unit": 1, "stage": "1-6", "is_completed": True},
         {"unit": 1, "stage": "1-7", "is_completed": True},
-        {"unit": 1, "stage": "1-boss", "is_completed": False}
+        {"unit": 1, "stage": "1-boss", "is_completed": False},
     ]
-    
+
+    # progress.py 가 mutate_user_atomic 으로 전환됐으므로
+    # mutator 를 mock_user 에 직접 실행하는 방식으로 모킹
+    def mock_mutate_user_atomic(user_id, mutator):
+        result = mutator(mock_user)
+        return mock_user, result
+
     app.dependency_overrides[get_current_user] = lambda: mock_user
     try:
         with patch('routers.progress.get_progress_by_user', return_value=mock_progress), \
              patch('routers.utils.get_progress_by_user', return_value=mock_progress), \
              patch('routers.progress.save_progress_item'), \
-             patch('routers.progress.save_user') as mock_save:
-             
-             with TestClient(app) as client:
-                 res = client.post(
-                     "/progress/",
-                     headers={"Authorization": "Bearer fake-token"},
-                     json={"unit": 1, "stage": "1-boss", "score": 100, "is_completed": True}
-                 )
-                 assert res.status_code == 200
-                 data = res.json()
-                 assert data["xp_awarded"] == 3000 # Unit boss clear XP is 3000
-                 assert data["crowns_awarded"] == 1 # Crown for unit completion
-                 assert mock_save.called
+             patch('routers.progress.mutate_user_atomic', side_effect=mock_mutate_user_atomic):
+
+            with TestClient(app) as client:
+                res = client.post(
+                    "/progress/",
+                    headers={"Authorization": "Bearer fake-token"},
+                    json={"unit": 1, "stage": "1-boss", "score": 100, "is_completed": True},
+                )
+                assert res.status_code == 200
+                data = res.json()
+                assert data["xp_awarded"] == 3000  # Unit boss clear XP is 3000
+                assert data["crowns_awarded"] == 1  # Crown for unit completion
     finally:
         del app.dependency_overrides[get_current_user]
 

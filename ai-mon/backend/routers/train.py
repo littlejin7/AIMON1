@@ -3,12 +3,16 @@ from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 from typing import Optional
 from routers.quiz import load_questions_by_category
+import logging
 from routers.utils import (
     get_wrong_answers_by_user,
     save_wrong_answer_item,
     get_current_user,
     get_current_user_optional,
+    mutate_user_atomic,
 )
+
+logger = logging.getLogger("uvicorn.error")
 
 router = APIRouter()
 
@@ -53,15 +57,25 @@ class ReviewedRequest(BaseModel):
 
 
 @router.post("/reviewed")
-def mark_question_reviewed(req: ReviewedRequest, user: dict = Depends(get_current_user)):
-    user_id = user["id"]
+def mark_question_reviewed(req: ReviewedRequest, user_ref: dict = Depends(get_current_user)):
+    user_id = user_ref["id"]
 
     wrong_answers = get_wrong_answers_by_user(user_id)
-    
     for entry in wrong_answers:
         if entry.get("question_id") == req.question_id:
             entry["reviewed"] = True
             save_wrong_answer_item(entry)
+
+    # d_review 미션 진척: missions.daily.progress 를 원자 쓰기 경로로 갱신. (C-1 [필수])
+    def mutator(user: dict) -> None:
+        from routers.missions_core import bump_mission
+        bump_mission(user, "review_done")
+        return None
+
+    try:
+        mutate_user_atomic(user_id, mutator)
+    except Exception:
+        logger.exception("review_done bump_mission failed for user %s", user_id)
 
     return {"success": True}
 

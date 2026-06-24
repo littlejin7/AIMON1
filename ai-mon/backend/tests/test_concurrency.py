@@ -46,7 +46,10 @@ def _read_user(path: str) -> dict:
 
 @pytest.fixture
 def temp_user(monkeypatch, tmp_path):
-    """실제 데이터 파일을 건드리지 않도록 USERS_FILE 을 임시 파일로 리디렉트."""
+    """실제 데이터 파일을 건드리지 않도록 USERS_FILE 을 임시 파일로 리디렉트.
+    다른 테스트 모듈이 먼저 utils 를 import 해 USE_SUPABASE=True 로 고정될 수 있으므로
+    명시적으로 False 패치.
+    """
     users_file = tmp_path / "users.json"
     users_file.write_text(
         json.dumps([{
@@ -56,6 +59,7 @@ def temp_user(monkeypatch, tmp_path):
         encoding="utf-8",
     )
     monkeypatch.setattr(U, "USERS_FILE", str(users_file))
+    monkeypatch.setattr(U, "USE_SUPABASE", False)
     return str(users_file)
 
 
