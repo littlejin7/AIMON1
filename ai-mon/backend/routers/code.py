@@ -1,5 +1,5 @@
-from fastapi import APIRouter, HTTPException, Header
-from pydantic import BaseModel
+from fastapi import APIRouter, HTTPException, Header, Request
+from pydantic import BaseModel, Field
 from services.claude_service import ask_claude_json, ask_claude
 import os, uuid
 from datetime import datetime
@@ -10,6 +10,7 @@ from routers.utils import (
     verify_token,
     get_progress_by_user,
     save_progress_item,
+    limiter,
 )
 
 router = APIRouter()
@@ -29,21 +30,22 @@ from routers.utils import calc_level
 
 class SubmitRequest(BaseModel):
     question_id:  str
-    code:         str
-    output:       str = ""
-    error:        str = ""
+    code:         str = Field(..., max_length=4000)
+    output:       str = Field("", max_length=4000)
+    error:        str = Field("", max_length=4000)
     unit:         int = 1
     stage:        str = ""
     course_level: str = "beginner"
 
 class HintRequest(BaseModel):
     question_id:  str
-    code:         str
+    code:         str = Field(..., max_length=4000)
     course_level: str = "beginner"
 
 
 @router.post("/submit")
-async def submit_code(req: SubmitRequest, authorization: str = Header(...)):
+@limiter.limit("10/minute")
+async def submit_code(request: Request, req: SubmitRequest, authorization: str = Header(...)):
     user_id = verify_token(authorization)
     user    = get_user_by_id(user_id)
     if not user:
@@ -147,7 +149,8 @@ async def submit_code(req: SubmitRequest, authorization: str = Header(...)):
 
 
 @router.post("/hint")
-async def get_code_hint(req: HintRequest, authorization: str = Header(...)):
+@limiter.limit("10/minute")
+async def get_code_hint(request: Request, req: HintRequest, authorization: str = Header(...)):
     user_id = verify_token(authorization)
     user = get_user_by_id(user_id)
     if not user:

@@ -10,7 +10,7 @@
 """
 
 from fastapi import APIRouter, HTTPException, Header, Request
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from services.claude_service import ask_claude_json
 from routers.titles import check_and_award_titles
 import json, os, random
@@ -131,7 +131,7 @@ class StartRequest(BaseModel):
 
 class AnswerRequest(BaseModel):
     question_id: str
-    user_answer:  str
+    user_answer:  str = Field(..., max_length=4000)
     phase:        int          # 1 | 2 | 3
     my_hp:        int = MY_HP_INIT
     boss_hp:      int = BOSS_HP_INIT

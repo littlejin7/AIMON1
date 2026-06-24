@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Header, Query, Request
 from fastapi.responses import StreamingResponse
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from services.claude_service import ask_claude, stream_claude
 import json, os, random, uuid
 from datetime import datetime
@@ -225,7 +225,7 @@ class AiFeedbackRequest(BaseModel):
     question_id: str = ""
     question: str          # 문제 텍스트
     correct_answer: str    # 정답
-    user_answer: str       # 유저 답
+    user_answer: str = Field(..., max_length=4000)      # 유저 답
     level: str = "beginner"  # beginner | intermediate | advanced
 
 

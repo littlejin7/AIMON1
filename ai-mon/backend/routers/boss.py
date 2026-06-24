@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Header, Request
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from services.claude_service import ask_claude_json
 import os, uuid
 from datetime import datetime, timedelta
@@ -21,11 +21,11 @@ router = APIRouter()
 
 class BossHintRequest(BaseModel):
     question_id: str
-    user_answer: str = ""
+    user_answer: str = Field("", max_length=4000)
 
 class BossAnswerRequest(BaseModel):
     question_id: str
-    user_answer: str
+    user_answer: str = Field(..., max_length=4000)
     is_code_question: bool = False
     wrong_count: int = 0
     my_hp: int = 1000
