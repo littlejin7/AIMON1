@@ -77,6 +77,27 @@ export default function Auth() {
     <div className="auth-page">
       <div className="auth-card animate-fade-in-up">
 
+        {/* 뒤로가기 */}
+        <button
+          onClick={() => navigate(-1)}
+          style={{
+            alignSelf: 'flex-start',
+            margin: '14px 0 0 16px',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: '13px',
+            color: '#7F77DD',
+            fontWeight: 600,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '4px',
+            padding: 0,
+          }}
+        >
+          ← 뒤로
+        </button>
+
         {/* 히어로 */}
         <div className="auth-hero">
           <div className="auth-brand-pill">🤖 AI MON</div>
