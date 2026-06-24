@@ -1,10 +1,10 @@
 [
-  { "unit_id": 1, "title": "예외처리 — try / except", "icon": "🛡️", "description": "try·except·finally로 에러를 다루고 커스텀 예외를 만들어요", "difficulty": "intermediate", "stages": 5 },
-  { "unit_id": 2, "title": "자료형 심화 — 튜플 & 언패킹", "icon": "📦", "description": "튜플·패킹·중첩 자료구조를 깊이 있게 다뤄요", "difficulty": "intermediate", "stages": 5 },
-  { "unit_id": 3, "title": "함수심화 — 람다 & 고차 함수", "icon": "🎯", "description": "lambda·*args·재귀·고차 함수로 함수를 자유자재로", "difficulty": "intermediate", "stages": 5 },
-  { "unit_id": 4, "title": "클래스 & OOP", "icon": "🏛️", "description": "class·상속·캡슐화로 객체지향을 익혀요", "difficulty": "intermediate", "stages": 6 },
-  { "unit_id": 5, "title": "리스트 & 파일처리 심화", "icon": "🗂️", "description": "컴프리헨션과 JSON·CSV 파일 처리를 실전으로", "difficulty": "intermediate", "stages": 5 },
-  { "unit_id": 6, "title": "가상환경 — venv & pip", "icon": "🧪", "description": "venv·pip·requirements.txt로 환경을 관리해요", "difficulty": "intermediate", "stages": 5 },
-  { "unit_id": 7, "title": "정규식 — re 모듈", "icon": "🔍", "description": "re 모듈로 패턴 매칭·추출·치환을 익혀요", "difficulty": "intermediate", "stages": 5 },
-  { "unit_id": 8, "title": "API 연동 실전 프로젝트", "icon": "🌐", "description": "requests로 API를 호출하고 실전 프로젝트를 완성해요", "difficulty": "intermediate", "stages": 7 }
+  { "unit_id": 1, "title": "예외처리 — try / except", "icon": "🛡️", "description": "try·except·finally로 에러를 다루고 커스텀 예외를 만들어요", "difficulty": "intermediate", "stages": 5, "boss_stage": 6 },
+  { "unit_id": 2, "title": "자료형 심화 — 튜플 & 언패킹", "icon": "📦", "description": "튜플·패킹·중첩 자료구조를 깊이 있게 다뤄요", "difficulty": "intermediate", "stages": 5, "boss_stage": 6 },
+  { "unit_id": 3, "title": "함수심화 — 람다 & 고차 함수", "icon": "🎯", "description": "lambda·*args·재귀·고차 함수로 함수를 자유자재로", "difficulty": "intermediate", "stages": 5, "boss_stage": 6 },
+  { "unit_id": 4, "title": "클래스 & OOP", "icon": "🏛️", "description": "class·상속·캡슐화로 객체지향을 익혀요", "difficulty": "intermediate", "stages": 6, "boss_stage": 7 },
+  { "unit_id": 5, "title": "리스트 & 파일처리 심화", "icon": "🗂️", "description": "컴프리헨션과 JSON·CSV 파일 처리를 실전으로", "difficulty": "intermediate", "stages": 5, "boss_stage": 6 },
+  { "unit_id": 6, "title": "가상환경 — venv & pip", "icon": "🧪", "description": "venv·pip·requirements.txt로 환경을 관리해요", "difficulty": "intermediate", "stages": 5, "boss_stage": 6 },
+  { "unit_id": 7, "title": "정규식 — re 모듈", "icon": "🔍", "description": "re 모듈로 패턴 매칭·추출·치환을 익혀요", "difficulty": "intermediate", "stages": 5, "boss_stage": 6 },
+  { "unit_id": 8, "title": "API 연동 실전 프로젝트", "icon": "🌐", "description": "requests로 API를 호출하고 실전 프로젝트를 완성해요", "difficulty": "intermediate", "stages": 7, "boss_stage": 8 }
 ]

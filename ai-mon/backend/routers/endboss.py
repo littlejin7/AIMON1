@@ -321,15 +321,23 @@ async def endboss_answer(request: Request, req: AnswerRequest, authorization: st
         safe_boss_hp = max(0, min(req.boss_hp, BOSS_HP_INIT))
         safe_my_hp   = max(0, min(req.my_hp, MY_HP_INIT))
 
-        if is_correct:
+        grading_failed = result.get("grading_failed", False)
+
+        if grading_failed:
+            new_boss_hp  = safe_boss_hp
+            new_my_hp    = safe_my_hp
+            is_fail      = False
+            phase3_ready = False
+        elif is_correct:
             new_boss_hp = safe_boss_hp - BOSS_HP_DELTA
             new_my_hp   = safe_my_hp
+            is_fail      = False
+            phase3_ready = (new_boss_hp <= 0)
         else:
             new_boss_hp = safe_boss_hp
             new_my_hp   = safe_my_hp - MY_HP_DELTA
-
-        is_fail       = new_my_hp <= 0
-        phase3_ready  = (not is_fail) and (new_boss_hp <= 0)
+            is_fail      = new_my_hp <= 0
+            phase3_ready = False
 
         result.update({
             "my_hp":        new_my_hp,
@@ -343,23 +351,31 @@ async def endboss_answer(request: Request, req: AnswerRequest, authorization: st
 
     # ── Phase 3 ───────────────────────────────────────────────────────────────
     else:
-        new_tries = req.phase3_tries + (0 if is_correct else 1)
-        is_clear  = is_correct
-        is_fail   = (not is_correct) and (new_tries >= PHASE3_MAX_TRIES)
+        grading_failed = result.get("grading_failed", False)
 
-        next_q = None
-        if not is_correct and not is_fail:
-            # 다음 Phase 3 문제 출제 (중복 없음)
-            if "seen_questions" not in user or user["seen_questions"] is None:
-                user["seen_questions"] = {}
-            seen_questions = user["seen_questions"]
-            seen = seen_questions.get("endboss", [])
-            p3_pool = get_phase_questions(all_qs, phase=3, project=req.project)
-            next_q  = pick_unseen(p3_pool, seen)
-            if next_q:
-                seen_questions["endboss"] = seen + [next_q["question_id"]]
-                user["seen_questions"] = seen_questions
-                save_user(user)
+        if grading_failed:
+            new_tries = req.phase3_tries
+            is_clear  = False
+            is_fail   = False
+            next_q    = None
+        else:
+            new_tries = req.phase3_tries + (0 if is_correct else 1)
+            is_clear  = is_correct
+            is_fail   = (not is_correct) and (new_tries >= PHASE3_MAX_TRIES)
+
+            next_q = None
+            if not is_correct and not is_fail:
+                # 다음 Phase 3 문제 출제 (중복 없음)
+                if "seen_questions" not in user or user["seen_questions"] is None:
+                    user["seen_questions"] = {}
+                seen_questions = user["seen_questions"]
+                seen = seen_questions.get("endboss", [])
+                p3_pool = get_phase_questions(all_qs, phase=3, project=req.project)
+                next_q  = pick_unseen(p3_pool, seen)
+                if next_q:
+                    seen_questions["endboss"] = seen + [next_q["question_id"]]
+                    user["seen_questions"] = seen_questions
+                    save_user(user)
 
         result.update({
             "my_hp":        req.my_hp,
@@ -420,10 +436,6 @@ def endboss_clear(req: ClearRequest, authorization: str = Header(...)):
             earned.add(title_id)
             user["titles"] = list(earned)
             newly_earned_titles.append({"id": title_id, "name": title_name})
-
-        # boss_cleared 및 completed_stages 카운트 user에 저장
-        user["boss_cleared"] = user.get("boss_cleared", 0) + 1
-        user["completed_stages"] = user.get("completed_stages", 0) + 1
 
         # 기타 칭호 체크
         context_titles = check_and_award_titles(user, {"boss_cleared": True})

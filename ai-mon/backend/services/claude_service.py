@@ -178,19 +178,26 @@ async def ask_claude_json(prompt: str) -> dict:
         )
         text = message.content[0].text.strip()
         parsed_json_str = extract_json(text)
-        return json.loads(parsed_json_str)
+        data = json.loads(parsed_json_str)
+        if isinstance(data, dict):
+            data["grading_failed"] = False
+            return data
+        else:
+            raise json.JSONDecodeError("Parsed JSON is not a dictionary", text, 0)
     except json.JSONDecodeError:
         return {
             "is_correct": False,
             "score": 0,
-            "feedback": "AI 응답을 파싱할 수 없었습니다.",
+            "feedback": "AI 응답을 파싱할 수 없었습니다. 패널티 없이 다시 제출할 수 있습니다.",
             "hint": "",
+            "grading_failed": True,
         }
     except Exception as e:
         return {
             "is_correct": False,
             "score": 0,
-            "feedback": f"AI 서비스 오류: {str(e)}",
+            "feedback": f"AI 서비스 오류: {str(e)}. 패널티 없이 다시 제출할 수 있습니다.",
             "hint": "",
+            "grading_failed": True,
         }
 

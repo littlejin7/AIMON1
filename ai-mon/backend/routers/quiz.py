@@ -1,3 +1,4 @@
+import logging
 from fastapi import APIRouter, HTTPException, Header, Query, Request
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
@@ -12,6 +13,8 @@ from routers.utils import (
     save_user,
     limiter,
 )
+
+logger = logging.getLogger("uvicorn.error")
 
 router = APIRouter()
 
@@ -269,8 +272,8 @@ async def get_ai_feedback(request: Request, req: AiFeedbackRequest, authorizatio
                     earned.add("ai_explorer")
                 user["titles"] = list(earned)
                 save_user(user)
-        except Exception:
-            pass
+        except Exception as e:
+            logger.exception(f"Failed to update user titles/feedback count for user {user_id}: {str(e)}")
 
     if result["success"]:
         feedback = result["feedback"]
