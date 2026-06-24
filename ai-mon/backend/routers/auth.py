@@ -425,8 +425,21 @@ async def social_google(req: SocialLoginRequest, request: Request):
             "created_at": now_kst().isoformat(),
         }
 
-    user, streak_reward = update_login_streak(user)
-    save_user(user)
+    # 신규 유저면 행을 먼저 생성해 mutate_user_atomic 대상 확보
+    if is_new:
+        save_user(user)
+
+    # 로그인 스트릭 + 출석 미션(d_login auto_claim·w_streak5·login_days)을
+    # 원자 경로로 기록. save_user delta-merge 는 missions 를 덮어써 동시성에서
+    # 왕관 이중 지급/진척 유실을 유발하므로 mutate_user_atomic 필수. (M-1/M-2)
+    def _login_mutator(u: dict):
+        _, sr = update_login_streak(u)
+        return sr
+
+    try:
+        user, streak_reward = mutate_user_atomic(user["id"], _login_mutator)
+    except UserNotFoundError:
+        raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")
 
     token = create_token({"sub": user["id"], "username": user["username"]}, user.get("token_version", 1))
     refresh_token = create_refresh_token(user["id"])
@@ -554,8 +567,21 @@ async def social_naver(req: SocialLoginRequest, request: Request):
             "created_at": now_kst().isoformat(),
         }
 
-    user, streak_reward = update_login_streak(user)
-    save_user(user)
+    # 신규 유저면 행을 먼저 생성해 mutate_user_atomic 대상 확보
+    if is_new:
+        save_user(user)
+
+    # 로그인 스트릭 + 출석 미션(d_login auto_claim·w_streak5·login_days)을
+    # 원자 경로로 기록. save_user delta-merge 는 missions 를 덮어써 동시성에서
+    # 왕관 이중 지급/진척 유실을 유발하므로 mutate_user_atomic 필수. (M-1/M-2)
+    def _login_mutator(u: dict):
+        _, sr = update_login_streak(u)
+        return sr
+
+    try:
+        user, streak_reward = mutate_user_atomic(user["id"], _login_mutator)
+    except UserNotFoundError:
+        raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")
 
     token = create_token({"sub": user["id"], "username": user["username"]}, user.get("token_version", 1))
     refresh_token = create_refresh_token(user["id"])
@@ -674,8 +700,21 @@ async def social_kakao(req: SocialLoginRequest, request: Request):
             "created_at": now_kst().isoformat(),
         }
 
-    user, streak_reward = update_login_streak(user)
-    save_user(user)
+    # 신규 유저면 행을 먼저 생성해 mutate_user_atomic 대상 확보
+    if is_new:
+        save_user(user)
+
+    # 로그인 스트릭 + 출석 미션(d_login auto_claim·w_streak5·login_days)을
+    # 원자 경로로 기록. save_user delta-merge 는 missions 를 덮어써 동시성에서
+    # 왕관 이중 지급/진척 유실을 유발하므로 mutate_user_atomic 필수. (M-1/M-2)
+    def _login_mutator(u: dict):
+        _, sr = update_login_streak(u)
+        return sr
+
+    try:
+        user, streak_reward = mutate_user_atomic(user["id"], _login_mutator)
+    except UserNotFoundError:
+        raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")
 
     token = create_token({"sub": user["id"], "username": user["username"]}, user.get("token_version", 1))
     refresh_token = create_refresh_token(user["id"])
