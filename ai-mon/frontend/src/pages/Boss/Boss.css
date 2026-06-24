@@ -11,19 +11,22 @@
 }
 
 .boss-page {
-  padding-bottom: var(--sp-16);
+  padding-bottom: 4rem;
   background: #EAE6F8;
   min-height: 100vh;
+  background: #F4F3FA;
 }
+body:has(.boss-page) { background: #F4F3FA; background-image: none; }
+
 
 .boss-header {
-  padding: var(--sp-4);
+  padding: 1rem;
 }
 
 .boss-container {
   display: flex;
   justify-content: center;
-  padding: var(--sp-4);
+  padding: 1rem;
 }
 
 .boss-container-battle {
@@ -36,11 +39,11 @@
 .boss-card {
   width: 100%;
   max-width: 500px;
-  padding: var(--sp-8) var(--sp-5);
+  padding: 2rem 1.25rem;
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: var(--sp-5);
+  gap: 1.25rem;
 }
 
 .boss-avatar {
@@ -54,21 +57,21 @@
 }
 
 .boss-title {
-  font-size: var(--font-size-2xl);
+  font-size: 1.5rem;
   font-weight: 800;
-  color: var(--clr-text);
+  color: #1A1A2E;
 }
 
 .boss-desc {
-  font-size: var(--font-size-sm);
-  color: var(--clr-text-muted);
+  font-size: 0.875rem;
+  color: #7A7A94;
   line-height: 1.6;
 }
 
 .pulse-btn {
   animation: pulse-red 2s infinite;
-  background: var(--clr-danger) !important;
-  border-color: var(--clr-danger) !important;
+  background: #ef4444 !important;
+  border-color: #ef4444 !important;
 }
 @keyframes pulse-red {
   0%   { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
@@ -79,16 +82,16 @@
 /* Result */
 .result-crown { display: flex; justify-content: center; }
 .result-crown img { width: 200px; height: 200px; object-fit: contain; }
-.result-rewards { display: flex; flex-direction: column; gap: var(--sp-2); margin: var(--sp-2) 0; }
+.result-rewards { display: flex; flex-direction: column; gap: 0.5rem; margin: 0.5rem 0; }
 .reward-item {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--sp-3);
+  gap: 0.75rem;
   background: rgba(255,255,255,0.05);
-  padding: var(--sp-3);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-md);
+  padding: 0.75rem;
+  border-radius: 10px;
+  font-size: 1rem;
   font-weight: 700;
 }
 
@@ -290,7 +293,7 @@
   position: relative;
 }
 .mb-speech {
-  background: #26215C;
+  background: #F4F3FA;
   border-radius: 12px;
   padding: 8px 14px;
   font-size: 12px;
