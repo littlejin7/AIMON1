@@ -100,6 +100,14 @@ note: 각 청크 앞에 "공통 프리픽스"를 붙여서 사용. 모델/플랜
 - GET /missions 결과로 진척바 + 수령 버튼 렌더.
 - 기존 game_rewards UI 패턴 재사용. 데일리/위클리 탭 또는 섹션 구분.
 완료 기준: 진척/수령 상태가 보이고, 수령 버튼이 POST /missions/claim를 호출.
+
+[추가 작업 — B-4 게임 세션 토큰 프론트 연동]
+- 청크 0-B에서 game.py에 POST /game/start(HMAC 토큰 발급) + /game/clear의 game_token 검증을
+  optional로 구현해 둠. 이번에 프론트를 연동하고 백엔드를 required로 전환한다.
+- AIrun(runner)·Aipang(aipang): 게임 시작 시 POST /game/start{game_id} 호출 → game_token 수령,
+  종료 시 gameApi.clearGame에 game_token을 함께 전송.
+- 백엔드 game.py: game_token이 없거나 검증 실패하면 보상 거부(required 전환). optional 분기 제거.
+- 완료 기준: 토큰 없이 /game/clear 직접 호출 시 보상 미지급. distance 위조·무플레이·리플레이 차단 확인.
 ```
 
 ## [Opus] 마지막 — 통합 리뷰
