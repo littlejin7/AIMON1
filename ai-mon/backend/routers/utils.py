@@ -21,6 +21,17 @@ def now_kst() -> datetime:
 
 logger = logging.getLogger("uvicorn.error")
 
+
+class UserNotFoundError(Exception):
+    """mutate_user_atomic: 대상 유저가 존재하지 않음."""
+    pass
+
+
+class UserSaveError(Exception):
+    """저장이 '조용한 덮어쓰기' 없이는 완료될 수 없음(lost-update 위험). 호출부로 거부 신호."""
+    pass
+
+
 _user_read_state = contextvars.ContextVar("_user_read_state", default=None)
 
 def _cache_original_user(user: dict | None) -> dict | None:
@@ -271,8 +282,13 @@ def save_user(user: dict):
                         "p_other_updates": other_updates
                     }).execute()
                 except Exception:
-                    u_copy = user.copy()
-                    supabase.table("users").upsert(u_copy).execute()
+                    # 무음 전체객체 upsert 폴백 금지: 카운터 보유 저장에서 lost update 유발.
+                    # 조용히 덮어쓰는 대신 로깅 후 거부 신호를 올린다. (C-1)
+                    logger.exception(
+                        "save_user: update_user_atomic RPC failed for user %s; "
+                        "refusing silent full-object upsert (lost-update risk)", user_id
+                    )
+                    raise UserSaveError(user_id)
         else:
             u_copy = user.copy()
             supabase.table("users").upsert(u_copy).execute()
@@ -321,6 +337,96 @@ def save_user(user: dict):
                 if os.path.exists(temp_path):
                     os.remove(temp_path)
                 raise
+
+
+# ---------------------------------------------------------------------------
+# 표준 원자 쓰기 경로 (C-1)
+# ---------------------------------------------------------------------------
+# check-then-act(가드 검사 → 변경 → 저장)를 "저장과 같은 임계구역" 안으로 모은다.
+# mutator 는 *영속 상태에서 새로 읽은* user 를 받아 그 자리에서 검사·변경하므로,
+# nonce 일회성/일일 캡/미션 claimed·login_days·진척 append 같은 가드가 항상 최신
+# 커밋 상태 기준으로 평가되어 동시 요청에서도 lost update / 이중 통과가 없다.
+#
+# 범용 시그니처: 특정 핸들러 전용이 아니라 apply_xp(청크 1)·미션(청크 2~3)이
+# 모두 이 경로로 쓰도록 설계됨.
+#
+#   mutator(user: dict) -> result
+#       user 를 제자리에서 변경하고 호출부에 돌려줄 result 를 반환.
+#       어떤 예외든 raise 하면 write 없이 중단(no-op).
+#   반환: (user, result)
+
+_MAX_CAS_RETRIES = 5
+
+
+def _read_users_unlocked() -> list:
+    if not os.path.exists(USERS_FILE):
+        return []
+    try:
+        with open(USERS_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return []
+
+
+def _write_users_unlocked(users: list):
+    dir_name = os.path.dirname(USERS_FILE)
+    os.makedirs(dir_name, exist_ok=True)
+    temp_fd, temp_path = tempfile.mkstemp(dir=dir_name)
+    try:
+        with os.fdopen(temp_fd, "w", encoding="utf-8") as tmp:
+            json.dump(users, tmp, ensure_ascii=False, indent=2)
+        os.replace(temp_path, USERS_FILE)
+    except Exception:
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+        raise
+
+
+def _mutate_user_atomic_json(user_id: str, mutator):
+    # 단일 프로세스: file_lock 한 임계구역 안에서 재읽기→검사·변경→원자적 write.
+    with file_lock(USERS_FILE):
+        users = _read_users_unlocked()
+        idx = next((i for i, u in enumerate(users) if u.get("id") == user_id), None)
+        if idx is None:
+            raise UserNotFoundError(user_id)
+        user = users[idx]
+        result = mutator(user)            # 예외 발생 시 아래 write 도달 못함 → no-op
+        users[idx] = user
+        _write_users_unlocked(users)
+        return user, result
+
+
+def _mutate_user_atomic_supabase(user_id: str, mutator):
+    # 다중 프로세스: 앱 단 락 불가 → version 기반 낙관적 동시성(CAS) + 재시도.
+    # 매 시도마다 fresh 재읽기 후 mutator 재평가 → 가드가 항상 최신 상태 기준.
+    for _ in range(_MAX_CAS_RETRIES):
+        res = supabase.table("users").select("*").eq("id", user_id).execute()
+        if not res.data:
+            raise UserNotFoundError(user_id)
+        user = res.data[0]
+        version = user.get("version", 0) or 0
+        result = mutator(user)            # 예외 발생 시 update 도달 못함 → no-op
+        update_obj = {k: v for k, v in user.items() if k != "id"}
+        update_obj["version"] = version + 1
+        upd = (
+            supabase.table("users")
+            .update(update_obj)
+            .eq("id", user_id)
+            .eq("version", version)       # 가드: 우리가 읽은 버전 그대로일 때만 커밋
+            .execute()
+        )
+        if upd.data:                      # 1행 갱신 → 성공
+            return user, result
+        # version 이 사이에 변경됨 → fresh 재읽기 후 mutator 재실행
+    logger.error("mutate_user_atomic: max CAS retries exceeded for user %s", user_id)
+    raise UserSaveError(f"write conflict for user {user_id}")
+
+
+def mutate_user_atomic(user_id: str, mutator):
+    """가드 검사·변경·저장을 한 임계구역에서 수행하는 표준 원자 쓰기 경로. 위 모듈 주석 참고."""
+    if USE_SUPABASE:
+        return _mutate_user_atomic_supabase(user_id, mutator)
+    return _mutate_user_atomic_json(user_id, mutator)
 
 
 def load_progress():
