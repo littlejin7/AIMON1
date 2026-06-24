@@ -100,7 +100,7 @@ class GameClearRequest(BaseModel):
     game_id: str
     distance: Optional[int] = None
     score: Optional[int] = None
-    game_token: Optional[str] = None
+    game_token: str  # B-4: 프론트 배선 완료 후 required 전환
 
 
 @router.post("/start")
@@ -121,24 +121,21 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
     # --- 상태 무관(stateless) 토큰 검증은 원자 경계 밖에서 미리 수행 ---
     # 서명·소유자·만료·최소경과시간 검증은 user 영속 상태와 무관하므로 락 밖에서 OK.
     # nonce '소비'(일회성)는 영속 상태 기준이어야 하므로 아래 mutator 안에서 수행.
-    token_payload = None
     distance_val = None
     if req.game_id == "aipang":
-        if req.game_token:
-            token_payload = _verify_game_token(
-                req.game_token, "aipang", user_id, MIN_PLAY_SECONDS["aipang"]
-            )
+        token_payload = _verify_game_token(
+            req.game_token, "aipang", user_id, MIN_PLAY_SECONDS["aipang"]
+        )
     elif req.game_id == "runner":
         # 클라이언트 조작 방지: 음수 floor + 상한 검증
         distance_val = max(0, req.distance if req.distance is not None else (req.score or 0))
         if distance_val > 10000:
             raise HTTPException(status_code=400, detail="Abnormal gameplay detected (distance too high)")
-        if req.game_token:
-            # 최소 경과시간을 distance 에 비례시켜 "높은 distance 즉시 제출" 위조를 차단
-            elapsed_floor = max(MIN_PLAY_SECONDS["runner"], distance_val // 60)
-            token_payload = _verify_game_token(
-                req.game_token, "runner", user_id, elapsed_floor
-            )
+        # 최소 경과시간을 distance 에 비례시켜 "높은 distance 즉시 제출" 위조를 차단
+        elapsed_floor = max(MIN_PLAY_SECONDS["runner"], distance_val // 60)
+        token_payload = _verify_game_token(
+            req.game_token, "runner", user_id, elapsed_floor
+        )
     else:
         raise HTTPException(status_code=400, detail="Invalid game_id")
 
@@ -193,8 +190,7 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
                 already_claimed = True
             else:
                 # nonce 소비를 보상 지급과 같은 임계구역에서 수행 → 동시 동일토큰 이중통과 차단
-                if token_payload:
-                    _consume_nonce(game_rewards, token_payload)
+                _consume_nonce(game_rewards, token_payload)
                 game_rewards["aipang_last_date"] = today_kst
                 crowns_awarded = 1
                 user["crowns"] = user.get("crowns", 0) + crowns_awarded
@@ -212,9 +208,7 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
                 already_claimed = True
             else:
                 # nonce 소비를 보상 지급과 같은 임계구역에서 수행
-                if token_payload:
-                    _consume_nonce(game_rewards, token_payload)
-
+                _consume_nonce(game_rewards, token_payload)
                 runner_count += 1
                 game_rewards["runner_today_count"] = runner_count
                 game_rewards["runner_last_date"] = today_kst
