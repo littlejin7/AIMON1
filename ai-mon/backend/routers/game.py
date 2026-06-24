@@ -82,16 +82,20 @@ def game_clear(req: GameClearRequest, authorization: str = Header(None)):
         if runner_last != today_kst:
             runner_count = 0
             runner_last = today_kst
+            game_rewards["daily_xp"] = 0
             
         if runner_count >= 5:
             already_claimed = True
         else:
+            distance_val = req.distance if req.distance is not None else (req.score or 0)
+            
+            # 클라이언트 조작 방지: distance 상한 검증
+            if distance_val > 10000:
+                raise HTTPException(status_code=400, detail="Abnormal gameplay detected (distance too high)")
+                
             runner_count += 1
             game_rewards["runner_today_count"] = runner_count
             game_rewards["runner_last_date"] = today_kst
-            
-            # distance가 주어지지 않은 경우 score나 0을 fallback으로 활용
-            distance_val = req.distance if req.distance is not None else (req.score or 0)
             
             if distance_val < 500:
                 xp_awarded = 200
@@ -100,6 +104,12 @@ def game_clear(req: GameClearRequest, authorization: str = Header(None)):
             else:
                 xp_awarded = 500
                 
+            # 일일 게임 XP 캡 확인 (최대 2500)
+            daily_xp = game_rewards.get("daily_xp", 0)
+            if daily_xp + xp_awarded > 2500:
+                xp_awarded = max(0, 2500 - daily_xp)
+            
+            game_rewards["daily_xp"] = daily_xp + xp_awarded
             user_ref["xp"] = user_ref.get("xp", 0) + xp_awarded
     else:
         raise HTTPException(status_code=400, detail="Invalid game_id")
