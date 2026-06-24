@@ -325,8 +325,8 @@ class SocialLoginRequest(BaseModel):
 
 @router.post("/social/google")
 @limiter.limit("5/minute")
-def social_google(req: SocialLoginRequest, request: Request):
-    import requests
+async def social_google(req: SocialLoginRequest, request: Request):
+    import httpx
     # 1. Exchange code for credentials
     client_id = os.getenv("GOOGLE_CLIENT_ID")
     client_secret = os.getenv("GOOGLE_CLIENT_SECRET")
@@ -347,8 +347,9 @@ def social_google(req: SocialLoginRequest, request: Request):
     }
 
     try:
-        token_res = requests.post(token_url, data=data)
-        token_json = token_res.json()
+        async with httpx.AsyncClient(timeout=httpx.Timeout(10.0, connect=3.0)) as client:
+            token_res = await client.post(token_url, data=data)
+            token_json = token_res.json()
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"구글 토큰 요청 실패: {str(e)}")
 
@@ -366,8 +367,9 @@ def social_google(req: SocialLoginRequest, request: Request):
     userinfo_url = "https://www.googleapis.com/oauth2/v3/userinfo"
     headers = {"Authorization": f"Bearer {access_token}"}
     try:
-        user_res = requests.get(userinfo_url, headers=headers)
-        user_info = user_res.json()
+        async with httpx.AsyncClient(timeout=httpx.Timeout(10.0, connect=3.0)) as client:
+            user_res = await client.get(userinfo_url, headers=headers)
+            user_info = user_res.json()
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"구글 사용자 정보 요청 실패: {str(e)}")
 
@@ -449,8 +451,8 @@ def check_email(email: str):
 
 @router.post("/social/naver")
 @limiter.limit("5/minute")
-def social_naver(req: SocialLoginRequest, request: Request):
-    import requests
+async def social_naver(req: SocialLoginRequest, request: Request):
+    import httpx
     client_id = os.getenv("NAVER_CLIENT_ID")
     client_secret = os.getenv("NAVER_CLIENT_SECRET")
     
@@ -470,8 +472,9 @@ def social_naver(req: SocialLoginRequest, request: Request):
     }
 
     try:
-        token_res = requests.post(token_url, data=params)
-        token_json = token_res.json()
+        async with httpx.AsyncClient(timeout=httpx.Timeout(10.0, connect=3.0)) as client:
+            token_res = await client.post(token_url, data=params)
+            token_json = token_res.json()
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"네이버 토큰 요청 실패: {str(e)}")
 
@@ -489,8 +492,9 @@ def social_naver(req: SocialLoginRequest, request: Request):
     userinfo_url = "https://openapi.naver.com/v1/nid/me"
     headers = {"Authorization": f"Bearer {access_token}"}
     try:
-        user_res = requests.get(userinfo_url, headers=headers)
-        user_info_res = user_res.json()
+        async with httpx.AsyncClient(timeout=httpx.Timeout(10.0, connect=3.0)) as client:
+            user_res = await client.get(userinfo_url, headers=headers)
+            user_info_res = user_res.json()
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"네이버 사용자 정보 요청 실패: {str(e)}")
 
@@ -564,8 +568,8 @@ def social_naver(req: SocialLoginRequest, request: Request):
 
 @router.post("/social/kakao")
 @limiter.limit("5/minute")
-def social_kakao(req: SocialLoginRequest, request: Request):
-    import requests
+async def social_kakao(req: SocialLoginRequest, request: Request):
+    import httpx
     client_id = os.getenv("KAKAO_CLIENT_ID")
     client_secret = os.getenv("KAKAO_CLIENT_SECRET")
     
@@ -586,8 +590,9 @@ def social_kakao(req: SocialLoginRequest, request: Request):
         data["client_secret"] = client_secret
 
     try:
-        token_res = requests.post(token_url, data=data)
-        token_json = token_res.json()
+        async with httpx.AsyncClient(timeout=httpx.Timeout(10.0, connect=3.0)) as client:
+            token_res = await client.post(token_url, data=data)
+            token_json = token_res.json()
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"카카오 토큰 요청 실패: {str(e)}")
 
@@ -608,8 +613,9 @@ def social_kakao(req: SocialLoginRequest, request: Request):
         "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
     }
     try:
-        user_res = requests.get(userinfo_url, headers=headers)
-        user_info_res = user_res.json()
+        async with httpx.AsyncClient(timeout=httpx.Timeout(10.0, connect=3.0)) as client:
+            user_res = await client.get(userinfo_url, headers=headers)
+            user_info_res = user_res.json()
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"카카오 사용자 정보 요청 실패: {str(e)}")
 

@@ -8,8 +8,12 @@ _client = None
 def get_client() -> anthropic.AsyncAnthropic:
     global _client
     if _client is None:
+        import httpx
         api_key = os.getenv("ANTHROPIC_API_KEY") or os.getenv("CLAUDE_API_KEY", "")
-        _client = anthropic.AsyncAnthropic(api_key=api_key)
+        _client = anthropic.AsyncAnthropic(
+            api_key=api_key,
+            timeout=httpx.Timeout(10.0, connect=3.0)
+        )
     return _client
 
 
