@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { quizApi, progressApi, minibossApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
@@ -45,6 +45,7 @@ export default function Stage({ _lessonId, _stage }) {
   const updateUser = useAuthStore((s) => s.updateUser)
   const courseLevel = user?.course_level || 'beginner'
   const { playBGM, stopBGM, playSFX } = useBossSound()
+  const loadedStageRef = useRef(null)
   
   // ── 퀴즈 진행 상태 ──
   const [questions,        setQuestions]        = useState([])
@@ -93,6 +94,16 @@ export default function Stage({ _lessonId, _stage }) {
 
   // ── 데이터 로드 ──
   useEffect(() => {
+    const stageKey = `${lessonId}-${stageNum}`
+    if (loadedStageRef.current !== null && loadedStageRef.current !== stageKey) {
+      loadedStageRef.current = stageKey
+      resetStageState()
+      return
+    }
+    loadedStageRef.current = stageKey
+
+    if (!loading) return
+
     const fetchUnit = quizApi.getUnit(lessonId, courseLevel).then(r => r.data).catch(() => null)
 
     const formattedLessonId = `${lessonId}-${stageNum}-${courseLevel}`
@@ -111,7 +122,7 @@ export default function Stage({ _lessonId, _stage }) {
       : Promise.resolve([])
 
     Promise.all([fetchUnit, fetchSlides, fetchQuestions, fetchProgress])
-      .then(([unitData, lessonData, questionsData, progressData]) => {
+      .then(async ([unitData, lessonData, questionsData, progressData]) => {
         setUnitInfo(unitData)
 
         let shouldShowBriefing = false
@@ -123,26 +134,31 @@ export default function Stage({ _lessonId, _stage }) {
         }
 
         // 미니보스 체크포인트 복원
-        const stageKey = `${lessonId}-${stageNum}`
         const existing = progressData.find(
           p => p.unit === parseInt(lessonId, 10) && p.stage === stageKey
         )
 
         let startMini = false
+        let finalQuestions = questionsData
+
         if (existing?.checkpoint === 'miniboss_ready' && !existing?.is_completed && questionsData.length > 0) {
-          const miniIndex = questionsData.findIndex(q => q.quiz_category === 'miniboss')
-          if (miniIndex !== -1) {
+          try {
+            const res = await minibossApi.startBattle(lessonId, stageKey)
+            const miniQuestions = res.data.questions
+            finalQuestions = [...questionsData, ...miniQuestions]
             shouldShowBriefing = false
             startMini = true
-            setCurrent(miniIndex)
-            setMinibossStartIndex(miniIndex)
+            setCurrent(questionsData.length)
+            setMinibossStartIndex(questionsData.length)
             setStageQuizCorrect(0)
             setCorrect(0)
+          } catch (err) {
+            console.error("체크포인트 미니보스 로드 실패", err)
           }
         }
 
         setShowBriefing(shouldShowBriefing)
-        setQuestions(questionsData.map(q => shuffleChoices(q)))
+        setQuestions(finalQuestions.map(q => shuffleChoices(q)))
         setLoading(false)
 
         if (startMini) {
@@ -150,7 +166,7 @@ export default function Stage({ _lessonId, _stage }) {
           playBGM('miniboss_intro')
         }
       })
-  }, [lessonId, stageNum, courseLevel, attempt, token, retryTick])
+  }, [lessonId, stageNum, courseLevel, attempt, token, retryTick, loading])
 
   // ── 스테이지 퀴즈 실패 (60% 미만) ──
   const handleStageQuizFailure = () => {
@@ -160,6 +176,7 @@ export default function Stage({ _lessonId, _stage }) {
     setCorrect(0)
     setFinished(false)
     setShowBriefing(false)
+    setLoading(true)
     alert('개념 퀴즈를 60% 이상 맞춰야 미니보스에 도전할 수 있어요! 다시 도전해봐요 💪')
     // setAttempt이 useEffect를 트리거해 자동으로 새 문제를 로드하므로 별도 fetch 불필요
     setAttempt(prev => prev + 1)
