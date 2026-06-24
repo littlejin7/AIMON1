@@ -1,127 +1,137 @@
-import { useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useState, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { authApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
-import SocialButtons from './SocialButtons'
-import RegisterForm from './RegisterForm'
 import beginnerHappyIcon from '../../assets/character_beginnerhappy.png'
 import slimeIcon         from '../../assets/character_slime.png'
-import robotIcon         from '../../assets/character_robot.png'
-import finalGhostIcon    from '../../assets/character_final_ghost.png'
 import './Auth.css'
+import './Register.css'
 
-const LEVEL_INFO = {
-  beginner:     { emoji: '🟣', label: '비기너',        color: '#7c3aed', desc: '처음부터 함께해요!',  icon: slimeIcon },
-  intermediate: { emoji: '🤖', label: '인터미디에이트', color: '#06b6d4', desc: '실력을 더 키워봐요!', icon: robotIcon },
-  advanced:     { emoji: '👻', label: '어드밴스드',    color: '#f59e0b', desc: '고수의 길로 출발!',   icon: finalGhostIcon },
+/* ── 상수 ── */
+const LEVEL_OPTIONS = [
+  { id: 'beginner',     icon: '🐣', title: '완전 처음이에요',  desc: '코딩이 처음이거나 Python을 한 번도 안 써봤어요' },
+  { id: 'elementary',   icon: '🌱', title: '조금 알아요',      desc: '변수, 반복문 정도는 써본 적 있어요' },
+  { id: 'intermediate', icon: '🌿', title: '기초는 알아요',    desc: '함수, 리스트, 딕셔너리까지 쓸 수 있어요' },
+  { id: 'advanced',     icon: '🌳', title: '중급 이상이에요',  desc: '클래스, 라이브러리, 프로젝트 경험이 있어요' },
+]
+
+const GOAL_OPTIONS = [
+  { id: 'job',     icon: '💼', label: '취업 · 이직' },
+  { id: 'exam',    icon: '🎓', label: '시험 · 자격증' },
+  { id: 'ai',      icon: '🤖', label: 'AI · 데이터 활용' },
+  { id: 'project', icon: '🏗️', label: '개인 프로젝트' },
+  { id: 'kids',    icon: '🧒', label: '자녀 교육' },
+  { id: 'fun',     icon: '✨', label: '그냥 재미로' },
+]
+
+const DAILY_TIMES = [5, 10, 20, 30]
+const NICK_SUGGESTIONS = ['코드마법사', '에이몬친구', '파이썬초보', '디버거킹']
+
+// 진행도 (step → %)
+const PROGRESS   = [0, 20, 40, 60, 80, 90, 95, 100]
+const STEP_CHIPS = [null, '1 / 5', '2 / 5', '3 / 5', '4 / 5', '5 / 5', '온보딩', null]
+
+function calcStrength(pw) {
+  let s = 0
+  if (pw.length >= 8)            s++
+  if (/[A-Za-z]/.test(pw))       s++
+  if (/[0-9]/.test(pw))          s++
+  if (/[^A-Za-z0-9]/.test(pw))   s++
+  return s
 }
 
-export default function Register() {
-  const [searchParams] = useSearchParams()
-  const initialLevel   = searchParams.get('level') || 'beginner'
+const STRENGTH_LABELS = ['', '약함', '보통', '강함', '매우 강함']
+const STRENGTH_COLORS = ['', '#EF4444', '#F59E0B', '#7F77DD', '#22C55E']
 
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+export default function Register() {
+  const [step, setStep] = useState(0)
   const [form, setForm] = useState({
-    username:     '',
-    password:     '',
-    nickname:     '',
-    email:        '',
-    course_level: initialLevel,
+    email: '', password: '', passwordConfirm: '',
+    nickname: '', level: 'elementary',
+    goals: [], dailyTime: 10,
   })
-  const [passwordConfirm, setPasswordConfirm] = useState('')
-  const [idChecked,       setIdChecked]       = useState(false)
-  const [idCheckMsg,      setIdCheckMsg]      = useState('')
-  const [emailChecked,    setEmailChecked]    = useState(false)
-  const [emailCheckMsg,   setEmailCheckMsg]   = useState('')
-  const [terms, setTerms] = useState({ age: false, tos: false, privacy: false })
-  const [loading, setLoading] = useState(false)
-  const [error,   setError]   = useState('')
-  const [socialMsg, setSocialMsg] = useState('')
-  const [showEmailForm, setShowEmailForm] = useState(false) // 이메일 가입 폼 전환 상태
+  const [terms, setTerms] = useState({ tos: false, privacy: false, marketing: false, thirdparty: false })
+  const [otp, setOtp] = useState(['', '', '', '', '', ''])
+  const [pwStrength, setPwStrength] = useState(0)
+  const [showPw, setShowPw]         = useState(false)
+  const [showPwC, setShowPwC]       = useState(false)
+  const [loading, setLoading]       = useState(false)
+  const [error, setError]           = useState('')
+  const otpRefs = useRef([])
 
   const setAuth  = useAuthStore((s) => s.setAuth)
   const navigate = useNavigate()
 
-  const levelInfo = LEVEL_INFO[initialLevel] || LEVEL_INFO.beginner
+  /* ── helpers ── */
+  const set = (field) => (e) => { setForm(f => ({ ...f, [field]: e.target.value })); setError('') }
 
-  const canSubmit = idChecked && emailChecked && terms.age && terms.tos && terms.privacy
-    && form.password.length >= 6 && form.password === passwordConfirm
-    && form.email.trim() !== ''
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
+  const handlePwChange = (e) => {
+    const pw = e.target.value
+    setForm(f => ({ ...f, password: pw }))
+    setPwStrength(calcStrength(pw))
     setError('')
-    if (e.target.name === 'username') { setIdChecked(false); setIdCheckMsg('') }
-    if (e.target.name === 'email') { setEmailChecked(false); setEmailCheckMsg('') }
   }
 
-  const handleIdCheck = async () => {
-    const id = form.username.trim()
-    if (!id) { setIdCheckMsg('error'); return }
-    try {
-      await authApi.checkId(id)
-      setIdCheckMsg('ok')
-      setIdChecked(true)
-    } catch (err) {
-      const detail = err.response?.data?.detail || ''
-      setIdCheckMsg(detail.includes('존재') ? 'dup' : 'error')
-      setIdChecked(false)
-    }
+  const toggleGoal = (id) =>
+    setForm(f => ({
+      ...f,
+      goals: f.goals.includes(id) ? f.goals.filter(g => g !== id) : [...f.goals, id],
+    }))
+
+  const toggleAllTerms = () => {
+    const allOn = Object.values(terms).every(Boolean)
+    setTerms({ tos: !allOn, privacy: !allOn, marketing: !allOn, thirdparty: !allOn })
   }
 
-  const handleEmailCheck = async (fullEmail) => {
-    const email = fullEmail.trim()
-    if (!email || !email.includes('@') || email.split('@')[0].trim() === '' || email.split('@')[1].trim() === '') {
-      setEmailCheckMsg('error')
+  const handleOtpChange = (i, val) => {
+    const v = val.replace(/\D/g, '').slice(-1)
+    const next = [...otp]; next[i] = v; setOtp(next)
+    if (v && i < 5) otpRefs.current[i + 1]?.focus()
+  }
+
+  const handleOtpKeyDown = (i, e) => {
+    if (e.key === 'Backspace' && !otp[i] && i > 0) otpRefs.current[i - 1]?.focus()
+  }
+
+  /* ── Social OAuth ── */
+  const handleSocial = (id) => {
+    if (id === 'google') {
+      const clientId   = '351430087231-s44028ntujf7a2r39svls4ol5v37ftte.apps.googleusercontent.com'
+      const redirectUri = `${window.location.origin}/auth/callback/google`
+      window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${encodeURIComponent('openid email profile')}&state=google`
       return
     }
-    try {
-      await authApi.checkEmail(email)
-      setEmailCheckMsg('ok')
-      setEmailChecked(true)
-    } catch (err) {
-      setEmailChecked(false)
-      if (!err.response) {
-        // 서버가 꺼져 있거나 네트워크가 끊겨 응답(response) 자체가 없는 경우
-        setEmailCheckMsg('server_error')
-      } else {
-        const detail = err.response?.data?.detail || ''
-        setEmailCheckMsg(detail.includes('존재') ? 'dup' : 'error')
-      }
+    if (id === 'kakao') {
+      const clientId   = import.meta.env.VITE_KAKAO_CLIENT_ID || '7300172418d9267abc7889f60b1602fe'
+      const redirectUri = `${window.location.origin}/auth/callback/kakao`
+      window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code`
+      return
+    }
+    if (id === 'naver') {
+      const clientId   = import.meta.env.VITE_NAVER_CLIENT_ID || '0LAXJWCUUDT5GXPmWzi4'
+      const redirectUri = `${window.location.origin}/auth/callback/naver`
+      window.location.href = `https://nid.naver.com/oauth2.0/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&state=naver_state`
+      return
     }
   }
 
-  const handleTermChange = (e) => {
-    setTerms({ ...terms, [e.target.name]: e.target.checked })
-  }
-
-  const handleTermAll = (e) => {
-    const all = e.target.checked
-    setTerms({ age: all, tos: all, privacy: all })
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!idChecked)                              { setError('아이디 중복 확인을 해주세요.'); return }
-    if (form.password.length < 6)               { setError('비밀번호는 6자 이상이어야 합니다.'); return }
-    if (form.password !== passwordConfirm)       { setError('비밀번호가 일치하지 않습니다.'); return }
-    if (!terms.age || !terms.tos || !terms.privacy) { setError('필수 약관에 모두 동의해주세요.'); return }
-
-    setLoading(true)
-    setError('')
+  /* ── 최종 제출 (Step 6 → Step 7) ── */
+  const handleSubmit = async () => {
+    setLoading(true); setError('')
     try {
-      const isLevelTested = !!searchParams.get('level')
       const payload = {
-        username:     form.username.trim(),
-        password:     form.password,
-        nickname:     form.nickname,
-        email:        form.email.trim(),
-        course_level: form.course_level,
-        is_level_tested: isLevelTested,
-        marketing_agreed: false,
+        username:        form.email.trim(),   // email을 username으로 사용
+        password:        form.password,
+        nickname:        form.nickname,
+        email:           form.email.trim(),
+        course_level:    form.level,
+        is_level_tested: false,
+        marketing_agreed: terms.marketing,
       }
       const res = await authApi.register(payload)
       setAuth(res.data.access_token, res.data.user, res.data.refresh_token)
-      navigate('/lesson')
+      setStep(7)
     } catch (err) {
       setError(err.response?.data?.detail || '오류가 발생했습니다. 다시 시도해주세요.')
     } finally {
@@ -129,130 +139,530 @@ export default function Register() {
     }
   }
 
-  const handleSocial = (provider) => {
-    if (provider.id === 'google') {
-      const clientId = '351430087231-s44028ntujf7a2r39svls4ol5v37ftte.apps.googleusercontent.com'
-      const redirectUri = `${window.location.origin}/auth/callback/google`
-      const scope = 'openid email profile'
-      const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${encodeURIComponent(scope)}&state=google`
-      window.location.href = authUrl
-      return
-    }
-    if (provider.id === 'naver') {
-      const clientId = import.meta.env.VITE_NAVER_CLIENT_ID || '0LAXJWCUUDT5GXPmWzi4'
-      const redirectUri = `${window.location.origin}/auth/callback/naver`
-      const authUrl = `https://nid.naver.com/oauth2.0/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&state=naver_state`
-      window.location.href = authUrl
-      return
-    }
-    if (provider.id === 'kakao') {
-      const clientId = import.meta.env.VITE_KAKAO_CLIENT_ID || '7300172418d9267abc7889f60b1602fe'
-      const redirectUri = `${window.location.origin}/auth/callback/kakao`
-      const authUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code`
-      window.location.href = authUrl
-      return
-    }
-    setSocialMsg(`${provider.label.split('로')[0]} 로그인은 곧 지원될 예정이에요! 🛠️`)
-    setTimeout(() => setSocialMsg(''), 3000)
-  }
+  const allTermsRequired = terms.tos && terms.privacy
+  const canGoStep2 = form.email.includes('@') && form.email.split('@')[1]?.length > 1
+    && form.password.length >= 8 && form.password === form.passwordConfirm
+  const otpFilled = otp.every(Boolean)
 
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     RENDER
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   return (
     <div className="auth-page">
-      <div className="auth-bg-orb orb-1" />
-      <div className="auth-bg-orb orb-2" />
+      <div className="reg-card animate-fade-in-up">
 
-      <div className="auth-container animate-fade-in-up" style={{ position: 'relative' }}>
-        {/* 뒤로가기 */}
-        <button
-          onClick={() => {
-            if (showEmailForm) {
-              setShowEmailForm(false)
-            } else {
-              navigate(-1)
-            }
-          }}
-          style={{ position: 'absolute', top: '20px', left: '20px', background: 'none', border: 'none', color: 'var(--clr-text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.95rem', fontWeight: 500 }}
-          aria-label="이전 화면으로"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-          뒤로
-        </button>
-
-        {/* 로고 */}
-        <div className="auth-logo" style={{ marginBottom: '1rem' }}>
-          <img src={beginnerHappyIcon} alt="에이몬" className="auth-logo-emoji animate-float" style={{ width: '70px', height: '70px' }} />
-          <h1 className="auth-title" style={{ fontSize: '1.6rem' }}>회원가입</h1>
-        </div>
-
-        {/* 레벨 배지 */}
-        {searchParams.get('level') && (
-          <div className="animate-fade-in" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '1.25rem', background: levelInfo.color + '18', border: `1px solid ${levelInfo.color}44`, borderRadius: '999px', padding: '8px 20px' }}>
-            <span style={{ fontSize: '1.2rem' }}>{levelInfo.emoji}</span>
-            <span style={{ color: levelInfo.color, fontWeight: 700, fontSize: '0.9rem' }}>{levelInfo.label} 에이몬</span>
-            <span style={{ color: 'var(--clr-text-muted)', fontSize: '0.82rem' }}>— {levelInfo.desc}</span>
-          </div>
+        {/* ── Step 헤더 (1~6) ── */}
+        {step >= 1 && step <= 6 && (
+          <>
+            <div className="reg-header">
+              <button className="reg-back-btn" onClick={() => setStep(s => s - 1)}>←</button>
+              <span className="reg-logo-sm">AI MON</span>
+              <span className="reg-step-chip">{STEP_CHIPS[step]}</span>
+            </div>
+            <div className="reg-prog-wrap">
+              <div className="reg-prog-track">
+                <div className="reg-prog-fill" style={{ width: `${PROGRESS[step]}%` }} />
+              </div>
+            </div>
+          </>
         )}
 
-        {!showEmailForm ? (
-          <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', width: '100%' }}>
-            {/* 소셜 가입/로그인 */}
-            <SocialButtons onSocial={handleSocial} />
-
-            {socialMsg && (
-              <div className="auth-social-msg animate-fade-in" style={{ textAlign: 'center' }}>🛠️ {socialMsg}</div>
-            )}
-
-            {/* 구분선 */}
-            <div className="auth-divider">
-              <span>또는</span>
+        {/* ━━━━━━━━━━━━━━━━━
+            Step 0 — 가입 선택
+        ━━━━━━━━━━━━━━━━━ */}
+        {step === 0 && (
+          <>
+            <div className="reg-mascot-hero">
+              <img src={beginnerHappyIcon} alt="에이몬" className="reg-mascot animate-float" />
+              <div>
+                <div className="reg-hero-title">에이몬과 함께<br />시작해볼까요?</div>
+                <div className="reg-hero-sub">가입하면 학습 기록이 저장되고<br />에이몬이 함께 성장해요 🌱</div>
+              </div>
             </div>
 
-            {/* 일반 이메일 회원가입으로 전환 버튼 */}
-            <button
-              type="button"
-              className="btn btn-outline btn-lg"
-              onClick={() => setShowEmailForm(true)}
-              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-              이메일로 가입하기
+            <div className="reg-body">
+              <div className="reg-social-list">
+                {[
+                  { id: 'kakao',  label: '카카오로 시작하기',  iconBg: '#FEE500', icon: <KakaoIcon /> },
+                  { id: 'google', label: '구글로 시작하기',    iconBg: '#F4F4F4', icon: <GoogleIcon /> },
+                  { id: 'naver',  label: '네이버로 시작하기',  iconBg: '#03C75A', icon: <NaverIcon /> },
+                ].map(p => (
+                  <button key={p.id} className="reg-social-btn" onClick={() => handleSocial(p.id)}>
+                    <div className="reg-social-icon" style={{ background: p.iconBg }}>{p.icon}</div>
+                    {p.label}
+                  </button>
+                ))}
+              </div>
+
+              <div className="reg-divider">
+                <div className="reg-divider-line" />
+                <span className="reg-divider-text">또는 이메일로 가입</span>
+                <div className="reg-divider-line" />
+              </div>
+
+              <button className="reg-btn-ghost" onClick={() => setStep(1)}>
+                📧 이메일로 가입하기
+              </button>
+
+              <div style={{ textAlign: 'center', fontSize: '12px', color: '#C4BFEE' }}>
+                이미 계정이 있어요?{' '}
+                <button type="button" onClick={() => navigate('/auth')}
+                  style={{ background: 'none', border: 'none', color: '#7F77DD', fontWeight: 500, cursor: 'pointer', fontSize: '12px', fontFamily: 'inherit' }}>
+                  로그인
+                </button>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* ━━━━━━━━━━━━━━━━━
+            Step 1 — 이메일 + 비밀번호
+        ━━━━━━━━━━━━━━━━━ */}
+        {step === 1 && (
+          <div className="reg-body">
+            <div>
+              <div className="reg-page-title">이메일로 시작해요</div>
+              <div className="reg-page-sub">가입에 사용할 이메일과<br />비밀번호를 입력해주세요.</div>
+            </div>
+
+            <div className="reg-fields">
+              {/* 이메일 */}
+              <div className="reg-field">
+                <div className="reg-field-label">이메일</div>
+                <div className={`reg-field-wrap${form.email.includes('@') ? ' ok' : ''}`}>
+                  <span className="reg-field-icon">✉️</span>
+                  <input className="reg-field-in" type="email" placeholder="example@email.com"
+                    value={form.email} onChange={set('email')} autoComplete="email" />
+                  {form.email.includes('@') && (
+                    <span style={{ padding: '0 14px', fontSize: '16px', color: '#4ADE80', flexShrink: 0 }}>✓</span>
+                  )}
+                </div>
+              </div>
+
+              {/* 비밀번호 */}
+              <div className="reg-field">
+                <div className="reg-field-label">비밀번호</div>
+                <div className="reg-field-wrap">
+                  <span className="reg-field-icon">🔒</span>
+                  <input className="reg-field-in" type={showPw ? 'text' : 'password'}
+                    placeholder="8자 이상" value={form.password} onChange={handlePwChange} autoComplete="new-password" />
+                  <button type="button" className="reg-field-suffix" onClick={() => setShowPw(v => !v)}>
+                    {showPw ? '숨기기' : '보기'}
+                  </button>
+                </div>
+                {form.password.length > 0 && form.password.length >= 8 && (
+                  <div className="reg-field-hint ok">✓ 영문, 숫자 포함 8자 이상</div>
+                )}
+                {form.password.length > 0 && form.password.length < 8 && (
+                  <div className="reg-field-hint err">⚠ 8자 이상 입력해주세요 ({form.password.length}/8)</div>
+                )}
+              </div>
+
+              {/* 비밀번호 확인 */}
+              <div className="reg-field">
+                <div className="reg-field-label">비밀번호 확인</div>
+                <div className={`reg-field-wrap${
+                  form.passwordConfirm
+                    ? form.password === form.passwordConfirm ? ' ok' : ' error'
+                    : ''
+                }`}>
+                  <span className="reg-field-icon">🔒</span>
+                  <input className="reg-field-in" type={showPwC ? 'text' : 'password'}
+                    placeholder="비밀번호 재입력" value={form.passwordConfirm} onChange={set('passwordConfirm')} autoComplete="new-password" />
+                  <button type="button" className="reg-field-suffix" onClick={() => setShowPwC(v => !v)}>
+                    {showPwC ? '숨기기' : '보기'}
+                  </button>
+                </div>
+                {form.passwordConfirm && form.password !== form.passwordConfirm && (
+                  <div className="reg-field-hint err">⚠ 비밀번호가 일치하지 않아요</div>
+                )}
+                {form.passwordConfirm && form.password === form.passwordConfirm && (
+                  <div className="reg-field-hint ok">✓ 비밀번호가 일치해요</div>
+                )}
+              </div>
+            </div>
+
+            {/* 비밀번호 강도 */}
+            {form.password.length > 0 && (
+              <div className="reg-strength-box">
+                <div style={{ fontSize: '11px', color: '#9B96D0', marginBottom: '7px' }}>비밀번호 강도</div>
+                <div style={{ display: 'flex', gap: '4px' }}>
+                  {[1, 2, 3, 4].map(i => (
+                    <div key={i} style={{
+                      flex: 1, height: '4px', borderRadius: '99px',
+                      background: i <= pwStrength ? STRENGTH_COLORS[pwStrength] : '#E5E2F8',
+                      transition: 'background 0.3s',
+                    }} />
+                  ))}
+                </div>
+                <div style={{ fontSize: '11px', color: STRENGTH_COLORS[pwStrength] || '#9B96D0', marginTop: '5px', fontWeight: 500 }}>
+                  {STRENGTH_LABELS[pwStrength]}
+                  {pwStrength < 4 && pwStrength > 0 && ' — 특수문자 추가 시 더 강해져요'}
+                </div>
+              </div>
+            )}
+
+            {error && <div className="reg-error">{error}</div>}
+
+            <button className="reg-btn-primary" disabled={!canGoStep2}
+              onClick={() => { setError(''); setStep(2) }}>
+              다음 →
             </button>
-          </div>
-        ) : (
-          <div className="animate-fade-in">
-            <RegisterForm
-              form={form}
-              onChange={handleChange}
-              passwordConfirm={passwordConfirm}
-              setPasswordConfirm={setPasswordConfirm}
-              idChecked={idChecked}
-              idCheckMsg={idCheckMsg}
-              onIdCheck={handleIdCheck}
-              emailChecked={emailChecked}
-              emailCheckMsg={emailCheckMsg}
-              onEmailCheck={handleEmailCheck}
-              terms={terms}
-              onTermChange={handleTermChange}
-              onTermAll={handleTermAll}
-              error={error}
-              loading={loading}
-              onSubmit={handleSubmit}
-              canSubmit={canSubmit}
-            />
+
+            <div style={{ textAlign: 'center', fontSize: '11px', color: '#C4BFEE', lineHeight: 1.6 }}>
+              가입 시{' '}
+              <span style={{ color: '#9B96D0', textDecoration: 'underline', cursor: 'pointer' }}>이용약관</span> 및{' '}
+              <span style={{ color: '#9B96D0', textDecoration: 'underline', cursor: 'pointer' }}>개인정보처리방침</span>에<br />
+              동의한 것으로 간주됩니다.
+            </div>
           </div>
         )}
 
-        <p style={{ textAlign: 'center', marginTop: '1.25rem', fontSize: '0.875rem', color: 'var(--clr-text-muted)' }}>
-          이미 계정이 있으신가요?{' '}
-          <button
-            type="button"
-            onClick={() => navigate('/auth')}
-            style={{ background: 'none', border: 'none', color: 'var(--clr-primary)', fontWeight: 600, cursor: 'pointer', fontSize: '0.875rem' }}
-          >
-            로그인
-          </button>
-        </p>
+        {/* ━━━━━━━━━━━━━━━━━
+            Step 2 — 이메일 인증
+        ━━━━━━━━━━━━━━━━━ */}
+        {step === 2 && (
+          <div className="reg-body">
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '10px', padding: '10px 0' }}>
+              <div className="reg-verify-icon">📬</div>
+              <div className="reg-page-title">이메일을 확인해주세요</div>
+              <div className="reg-page-sub">
+                <strong style={{ color: '#534AB7' }}>{form.email}</strong> 으로<br />
+                6자리 인증코드를 보냈어요.
+              </div>
+            </div>
+
+            <div className="reg-otp-wrap">
+              {otp.map((v, i) => (
+                <input
+                  key={i}
+                  ref={el => otpRefs.current[i] = el}
+                  className={`reg-otp-box${v ? ' filled' : ''}`}
+                  maxLength={1}
+                  value={v}
+                  placeholder="·"
+                  type="text"
+                  inputMode="numeric"
+                  onChange={e => handleOtpChange(i, e.target.value)}
+                  onKeyDown={e => handleOtpKeyDown(i, e)}
+                />
+              ))}
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+              <div style={{ fontSize: '13px', color: '#9B96D0' }}>코드 만료까지</div>
+              <div style={{ fontSize: '16px', fontWeight: 700, color: '#7F77DD', fontVariantNumeric: 'tabular-nums' }}>04:59</div>
+            </div>
+
+            {!otpFilled && (
+              <div className="reg-info-box" style={{ background: '#FFF9ED', border: '1px solid #FAC775', color: '#8A5500' }}>
+                <span style={{ fontSize: '16px', flexShrink: 0 }}>⌨️</span>
+                나머지 {6 - otp.filter(Boolean).length}자리를 입력하면 자동으로 확인해요.
+              </div>
+            )}
+
+            {otpFilled && (
+              <div className="reg-info-box" style={{ background: '#F0FDF4', border: '1px solid #86EFAC', color: '#15803D' }}>
+                <span style={{ fontSize: '16px', flexShrink: 0 }}>✅</span>
+                인증코드가 입력됐어요. 아래 버튼을 눌러 확인해주세요.
+              </div>
+            )}
+
+            <button className="reg-btn-primary" onClick={() => setStep(3)}>
+              인증 완료
+            </button>
+
+            <div style={{ textAlign: 'center' }}>
+              <span style={{ fontSize: '12px', color: '#C4BFEE' }}>코드를 못 받았나요?</span>
+              <button type="button"
+                style={{ fontSize: '12px', color: '#7F77DD', fontWeight: 500, cursor: 'pointer', marginLeft: '6px', background: 'none', border: 'none', fontFamily: 'inherit' }}>
+                재전송
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ━━━━━━━━━━━━━━━━━
+            Step 3 — 약관 동의
+        ━━━━━━━━━━━━━━━━━ */}
+        {step === 3 && (
+          <div className="reg-body">
+            <div>
+              <div className="reg-page-title">약관에 동의해주세요</div>
+              <div className="reg-page-sub">서비스 이용을 위해 필요한 항목이에요.</div>
+            </div>
+
+            <div className="reg-terms-wrap">
+              <div className="reg-terms-all" onClick={toggleAllTerms}>
+                <div className={`reg-terms-check${Object.values(terms).every(Boolean) ? ' on' : ''}`}>
+                  {Object.values(terms).every(Boolean) && '✓'}
+                </div>
+                <span style={{ fontSize: '14px', fontWeight: 600, color: '#26215C', marginLeft: '2px' }}>전체 동의하기</span>
+              </div>
+
+              <div className="reg-terms-divider" />
+
+              {[
+                { key: 'tos',        label: '[필수] 이용약관 동의',              sub: false },
+                { key: 'privacy',    label: '[필수] 개인정보 수집 · 이용 동의',  sub: false },
+                { key: 'marketing',  label: '[선택] 마케팅 · 이벤트 알림 수신', sub: true },
+                { key: 'thirdparty', label: '[선택] 개인정보 제3자 제공 동의',  sub: true },
+              ].map(t => (
+                <div key={t.key} className="reg-terms-row"
+                  onClick={() => setTerms(prev => ({ ...prev, [t.key]: !prev[t.key] }))}>
+                  <div className={`reg-terms-check${terms[t.key] ? ' on' : ''}`}>
+                    {terms[t.key] && '✓'}
+                  </div>
+                  <span className={`reg-terms-text${t.sub ? ' sub' : ''}`}>{t.label}</span>
+                  <span className="reg-terms-arrow">›</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="reg-info-box" style={{ background: '#F9F8FE', color: '#9B96D0' }}>
+              선택 항목에 동의하지 않아도 서비스를 이용하실 수 있어요. 마케팅 알림은 신규 콘텐츠, 이벤트 정보를 받아보실 수 있어요.
+            </div>
+
+            <button className="reg-btn-primary" disabled={!allTermsRequired} onClick={() => setStep(4)}>
+              동의하고 계속하기 →
+            </button>
+          </div>
+        )}
+
+        {/* ━━━━━━━━━━━━━━━━━
+            Step 4 — 닉네임
+        ━━━━━━━━━━━━━━━━━ */}
+        {step === 4 && (
+          <div className="reg-body">
+            <div>
+              <div className="reg-page-title">어떻게 불러드릴까요?</div>
+              <div className="reg-page-sub">에이몬이 항상 이 이름으로 불러줄 거예요.</div>
+            </div>
+
+            <div className="reg-char-preview">
+              <img src={slimeIcon} alt="에이몬" style={{ width: '58px', height: '58px', objectFit: 'contain' }} />
+              <div>
+                <div className="reg-char-name">{form.nickname || '내 에이몬'}</div>
+                <div className="reg-char-sub">내 에이몬 · Lv.1 슬라임</div>
+              </div>
+            </div>
+
+            <div className="reg-field">
+              <div className="reg-field-label">닉네임</div>
+              <div className={`reg-field-wrap${form.nickname.length >= 2 ? ' ok' : ''}`}>
+                <input className="reg-field-in" type="text"
+                  placeholder="2~10자, 한글·영문·숫자"
+                  value={form.nickname} onChange={set('nickname')} maxLength={10} />
+                {form.nickname.length >= 2 && (
+                  <span style={{ padding: '0 14px', fontSize: '16px', color: '#4ADE80', flexShrink: 0 }}>✓</span>
+                )}
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                {form.nickname.length >= 2
+                  ? <div className="reg-field-hint ok">✓ 사용 가능한 닉네임이에요</div>
+                  : <div className="reg-field-hint" style={{ color: '#C4BFEE' }}>2자 이상 입력해주세요</div>
+                }
+                <div style={{ fontSize: '11px', color: '#C4BFEE' }}>{form.nickname.length} / 10</div>
+              </div>
+            </div>
+
+            <div>
+              <div style={{ fontSize: '12px', color: '#9B96D0', marginBottom: '8px' }}>추천 닉네임</div>
+              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                {NICK_SUGGESTIONS.map(n => (
+                  <span key={n} className="reg-nick-tag"
+                    onClick={() => setForm(f => ({ ...f, nickname: n }))}>
+                    {n}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <button className="reg-btn-primary" disabled={form.nickname.length < 2} onClick={() => setStep(5)}>
+              다음 →
+            </button>
+          </div>
+        )}
+
+        {/* ━━━━━━━━━━━━━━━━━
+            Step 5 — 레벨 선택
+        ━━━━━━━━━━━━━━━━━ */}
+        {step === 5 && (
+          <div className="reg-body">
+            <div>
+              <div className="reg-page-title">Python 경험이<br />어느 정도예요?</div>
+              <div className="reg-page-sub">딱 맞는 레벨에서 시작할 수 있게<br />에이몬이 커리큘럼을 준비할게요.</div>
+            </div>
+
+            <div className="reg-select-grid">
+              {LEVEL_OPTIONS.map(l => (
+                <div key={l.id}
+                  className={`reg-sel-card${form.level === l.id ? ' active' : ''}`}
+                  onClick={() => setForm(f => ({ ...f, level: l.id }))}>
+                  <div className="reg-sel-icon">{l.icon}</div>
+                  <div style={{ flex: 1 }}>
+                    <div className="reg-sel-title">{l.title}</div>
+                    <div className="reg-sel-desc">{l.desc}</div>
+                  </div>
+                  <div className="reg-sel-radio" />
+                </div>
+              ))}
+            </div>
+
+            <div className="reg-level-test-banner" onClick={() => navigate('/level-test')}>
+              <span style={{ fontSize: '22px' }}>🎯</span>
+              <div>
+                <div style={{ fontSize: '13px', fontWeight: 600, color: '#5C3A00' }}>레벨 테스트로 정확히 찾기</div>
+                <div style={{ fontSize: '11px', color: '#8A5500', marginTop: '2px' }}>3분 테스트로 딱 맞는 시작점을 찾아드려요</div>
+              </div>
+              <span style={{ fontSize: '16px', color: '#FAC775', marginLeft: 'auto' }}>›</span>
+            </div>
+
+            <button className="reg-btn-primary" onClick={() => setStep(6)}>다음 →</button>
+          </div>
+        )}
+
+        {/* ━━━━━━━━━━━━━━━━━
+            Step 6 — 학습 목표
+        ━━━━━━━━━━━━━━━━━ */}
+        {step === 6 && (
+          <div className="reg-body">
+            <div>
+              <div className="reg-page-title">무엇을 목표로<br />공부하나요?</div>
+              <div className="reg-page-sub">여러 개 선택해도 괜찮아요 😊</div>
+            </div>
+
+            <div className="reg-goal-grid">
+              {GOAL_OPTIONS.map(g => (
+                <div key={g.id}
+                  className={`reg-goal-card${form.goals.includes(g.id) ? ' active' : ''}`}
+                  onClick={() => toggleGoal(g.id)}>
+                  <div className="reg-goal-icon">{g.icon}</div>
+                  <div className="reg-goal-label">{g.label}</div>
+                  <div className={`reg-goal-check${form.goals.includes(g.id) ? ' on' : ''}`}>
+                    {form.goals.includes(g.id) && '✓'}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <div style={{ fontSize: '13px', fontWeight: 500, color: '#26215C' }}>하루 학습 목표</div>
+              <div style={{ display: 'flex', gap: '6px' }}>
+                {DAILY_TIMES.map(t => (
+                  <div key={t}
+                    className={`reg-time-btn${form.dailyTime === t ? ' active' : ''}`}
+                    onClick={() => setForm(f => ({ ...f, dailyTime: t }))}>
+                    {t === 30 ? '30분+' : `${t}분`}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {error && <div className="reg-error">⚠️ {error}</div>}
+
+            <button className="reg-btn-primary" onClick={handleSubmit} disabled={loading}>
+              {loading
+                ? <><span className="spinner" style={{ width: 18, height: 18, borderWidth: 2 }} /> 처리 중...</>
+                : '에이몬 만나러 가기 🎉'
+              }
+            </button>
+          </div>
+        )}
+
+        {/* ━━━━━━━━━━━━━━━━━
+            Step 7 — 완료
+        ━━━━━━━━━━━━━━━━━ */}
+        {step === 7 && (
+          <>
+            <div className="reg-complete-hero">
+              <img src={beginnerHappyIcon} alt="에이몬" style={{ width: '120px', height: '120px', objectFit: 'contain' }} />
+              <div style={{ color: 'white', textAlign: 'center' }}>
+                <div style={{ fontSize: '13px', fontWeight: 500, opacity: 0.8, marginBottom: '6px' }}>
+                  {form.nickname}님,
+                </div>
+                <div style={{ fontSize: '24px', fontWeight: 700, lineHeight: 1.3 }}>
+                  에이몬이<br />준비됐어요! 🎉
+                </div>
+              </div>
+            </div>
+
+            <div className="reg-body">
+              <div>
+                <div style={{ fontSize: '13px', fontWeight: 600, color: '#26215C', marginBottom: '10px' }}>🎁 가입 보너스</div>
+                <div className="reg-reward-row">
+                  {[
+                    { icon: '⚡', val: '+1,000', label: '시작 XP' },
+                    { icon: '💡', val: '×5',     label: '힌트 코인' },
+                    { icon: '👑', val: '+500',   label: '왕관' },
+                  ].map(r => (
+                    <div key={r.label} className="reg-reward-card">
+                      <div className="reg-reward-icon">{r.icon}</div>
+                      <div className="reg-reward-val">{r.val}</div>
+                      <div className="reg-reward-label">{r.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="reg-summary-box">
+                <div className="reg-summary-row">
+                  <span className="reg-summary-label">닉네임</span>
+                  <span className="reg-summary-val">{form.nickname}</span>
+                </div>
+                <div className="reg-summary-divider" />
+                <div className="reg-summary-row">
+                  <span className="reg-summary-label">시작 레벨</span>
+                  <span className="reg-summary-val">
+                    {LEVEL_OPTIONS.find(l => l.id === form.level)?.icon}{' '}
+                    {LEVEL_OPTIONS.find(l => l.id === form.level)?.title}
+                  </span>
+                </div>
+                <div className="reg-summary-divider" />
+                <div className="reg-summary-row">
+                  <span className="reg-summary-label">학습 목표</span>
+                  <span className="reg-summary-val">
+                    하루 {form.dailyTime === 30 ? '30분+' : `${form.dailyTime}분`}
+                  </span>
+                </div>
+              </div>
+
+              <button className="reg-btn-primary" onClick={() => navigate('/lesson')}>
+                🚀 학습 시작하기
+              </button>
+            </div>
+          </>
+        )}
+
       </div>
     </div>
+  )
+}
+
+/* ── SVG 아이콘 ── */
+function KakaoIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18">
+      <path d="M9 1C4.58 1 1 3.9 1 7.5c0 2.3 1.5 4.3 3.8 5.5l-.96 3.5 4.1-2.7c.34.05.7.07 1.06.07 4.42 0 8-2.9 8-6.5S13.42 1 9 1z" fill="#3C1E1E"/>
+    </svg>
+  )
+}
+
+function GoogleIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18">
+      <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908C16.556 15.013 17.64 12.218 17.64 9.2z" fill="#4285F4"/>
+      <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/>
+      <path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+      <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
+    </svg>
+  )
+}
+
+function NaverIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24">
+      <path d="M16.273 12.845L7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727v12.845z" fill="white"/>
+    </svg>
   )
 }
