@@ -187,7 +187,7 @@ body:has(.lh-page) { background: #F4F3FA; }
   transition: transform 0.1s;
 }
 .lh-stage-node:active { transform: scale(0.92); }
-.lh-stage-node.done    { background: #1D9E75; color: #fff; font-size: 13px; }
+.lh-stage-node.done    { background: #7F77DD; color: #fff; font-size: 13px; }
 .lh-stage-node.current { background: #EEEDFE; border: 2px solid #7F77DD; color: #534AB7; }
 .lh-stage-node.todo    { background: #F0EFF8; border: 1.5px solid #DEDDE8; color: #9999B0; }
 
