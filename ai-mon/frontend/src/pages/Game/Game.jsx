@@ -172,10 +172,11 @@ export default function Game() {
 
   // 챌린지별 색상 및 아이콘
   const chalMeta = {
-    aipang:  { bg: "rgba(83,74,183,0.18)", color: "#9B94E8", icon: "🧩", rewardLabel: "👑 +2",  rewardColor: "#854F0B" },
-    pairs:   { bg: "rgba(24,95,165,0.15)", color: "#378ADD", icon: "🃏", rewardLabel: "⚡ +300", rewardColor: "#534AB7" },
-    runner:  { bg: "rgba(15,110,86,0.15)", color: "#1D9E75", icon: "🏃", rewardLabel: "⚡ +500", rewardColor: "#0F6E56" },
+    aipang:  { color: "#9B94E8", img: aipangIconUrl,  rewardLabel: "👑 +2",  rewardColor: "#854F0B" },
+    pairs:   { color: "#378ADD", img: aipairIconUrl,  rewardLabel: "⚡ +300", rewardColor: "#534AB7" },
+    runner:  { color: "#1D9E75", img: airunIconUrl,   rewardLabel: "⚡ +500", rewardColor: "#0F6E56" },
   };
+
 
   return (
     <div className="game-page">
@@ -247,8 +248,11 @@ export default function Game() {
             const meta = chalMeta[g.id] || {};
             return (
               <div key={g.id} className="game-challenge-item">
-                <div className="game-chal-icon" style={{ background: meta.bg }}>
-                  <span style={{ fontSize: 15 }}>{meta.icon || g.emoji}</span>
+                <div className="game-chal-icon">
+                  {meta.img
+                    ? <img src={meta.img} alt={g.title} style={{ width: 22, height: 22, objectFit: 'contain' }} />
+                    : <span style={{ fontSize: 15 }}>{g.emoji}</span>
+                  }
                 </div>
                 <div className="game-chal-info">
                   <div className="game-chal-name-row">
