@@ -147,7 +147,7 @@ def get_next_question(unit: str = "1", user: dict = Depends(get_current_user)):
 
 
 @router.post("/hint")
-@limiter.limit("5/minute;100/day")
+@limiter.limit("10/minute;100/day")
 async def get_boss_hint(request: Request, req: BossHintRequest, user: dict = Depends(get_current_user)):
     user_id = user["id"]
     course_level = user.get("course_level", "beginner")
@@ -176,7 +176,7 @@ JSON 포맷으로 아래와 같이 응답하세요:
     return {"hint": ai_result.get("hint", "힌트를 생성할 수 없습니다.")}
 
 @router.post("/answer")
-@limiter.limit("5/minute;100/day")
+@limiter.limit("30/minute;100/day")
 async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dict = Depends(get_current_user)):
     user_id = user["id"]
     course_level = user.get("course_level", "beginner")
