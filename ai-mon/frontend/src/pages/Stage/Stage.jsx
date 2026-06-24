@@ -190,6 +190,24 @@ export default function Stage({ _lessonId, _stage }) {
     setFinished(false)
   }
 
+  // ── 개념 퀴즈부터 다시 도전 (체크포인트 초기화) ──
+  const handleRestartFromBeginning = async () => {
+    if (token) {
+      try {
+        await progressApi.saveProgress({
+          unit: parseInt(lessonId, 10),
+          stage: `${lessonId}-${stageNum}`,
+          score: 0,
+          is_completed: false,
+          checkpoint: 'concept_quiz',
+        })
+      } catch (err) {
+        console.error("체크포인트 초기화 실패", err)
+      }
+    }
+    resetStageState()
+  }
+
   const handleAnswer = async ({ correct: isCorrect, retried }) => {
     const isVillain = questions[current]?.quiz_category === 'miniboss'
     
@@ -299,7 +317,7 @@ export default function Stage({ _lessonId, _stage }) {
         stage: `${lessonId}-${stageNum}`,
         score: totalScore,
         is_completed: totalScore >= 80,
-        checkpoint: 'done',
+        checkpoint: totalScore >= 80 ? 'done' : (minibossStartIndex !== null ? 'miniboss_ready' : 'concept_quiz'),
       })
 
       if (res?.data) {
@@ -363,6 +381,7 @@ export default function Stage({ _lessonId, _stage }) {
           showAuthModal={showAuthModal}
           setShowAuthModal={setShowAuthModal}
           handleMinibossRetry={handleMinibossRetry}
+          handleRestartFromBeginning={handleRestartFromBeginning}
           resetStageState={resetStageState}
           evoModal={evoModal}
           setEvoModal={setEvoModal}

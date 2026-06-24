@@ -16,6 +16,7 @@ export default function StageResult({
   showAuthModal,
   setShowAuthModal,
   handleMinibossRetry,
+  handleRestartFromBeginning,
   resetStageState,
   evoModal,
   setEvoModal,
@@ -119,9 +120,14 @@ export default function StageResult({
         </button>
         {!passed && (
           isMinibossPlayed ? (
-            <button className="btn btn-primary" onClick={handleMinibossRetry}>
-              미니보스 다시 도전 ⚔️
-            </button>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
+              <button className="btn btn-primary" onClick={handleMinibossRetry}>
+                미니보스 다시 도전 ⚔️
+              </button>
+              <button className="btn btn-secondary" onClick={handleRestartFromBeginning}>
+                개념 퀴즈부터 다시 도전 🔄
+              </button>
+            </div>
           ) : (
             <button className="btn btn-primary" onClick={resetStageState}>
               다시 도전 🔄
