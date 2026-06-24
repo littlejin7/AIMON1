@@ -121,13 +121,13 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
     if user:
         # 1. XP 및 진화
         if award_xp:
-            user["xp"] = user.get("xp", 0) + xp_gain
+            user["xp"] = (user.get("xp") or 0) + xp_gain
 
             # completed_stages user에 저장
-            user["completed_stages"] = user.get("completed_stages", 0) + 1
+            user["completed_stages"] = (user.get("completed_stages") or 0) + 1
 
             new_lv = calc_level(user["xp"])
-            user["lv"] = max(new_lv, user.get("lv", 1))
+            user["lv"] = max(new_lv, user.get("lv") or 1)
 
             if user["lv"] >= 10 and user.get("character") == "slime":
                 user["character"] = "robot"
@@ -138,11 +138,11 @@ def update_progress(req: ProgressUpdateRequest, authorization: str = Header(...)
 
         # 2. 왕관 지급
         if unit_just_completed:
-            awarded_units = user.get("awarded_crown_units", [])
+            awarded_units = user.get("awarded_crown_units") or []
             val = f"{course_level}-{req.unit}"
             if val not in awarded_units:
                 crowns_awarded = 1  # 유닛 번호가 아닌 고정 1개 지급
-                user["crowns"] = user.get("crowns", 0) + crowns_awarded
+                user["crowns"] = (user.get("crowns") or 0) + crowns_awarded
                 awarded_units.append(val)
                 user["awarded_crown_units"] = awarded_units
 

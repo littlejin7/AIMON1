@@ -95,7 +95,7 @@ def miniboss_info(unit: int = 1, stage: str = "1-1", authorization: str = Header
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
 
-    cleared = user.get("miniboss_cleared_stages", [])
+    cleared = user.get("miniboss_cleared_stages") or []
     stage_key = stage if "-" in str(stage) else f"{unit}-{stage}"
 
     return {
@@ -218,16 +218,16 @@ def miniboss_clear(req: ClearRequest, authorization: str = Header(...)):
         raise HTTPException(status_code=401, detail="User not found")
 
     stage_key = req.stage if "-" in str(req.stage) else f"{req.unit}-{req.stage}"
-    cleared   = user.get("miniboss_cleared_stages", [])
+    cleared   = user.get("miniboss_cleared_stages") or []
     already_cleared = stage_key in cleared
 
     xp_awarded = 0
     if not already_cleared:
-        user["xp"] = user.get("xp", 0) + CLEAR_XP
+        user["xp"] = (user.get("xp") or 0) + CLEAR_XP
         xp_awarded = CLEAR_XP
 
         # 레벨 재계산 + 캐릭터 진화 체크
-        user["lv"] = max(calc_level(user["xp"]), user.get("lv", 1))
+        user["lv"] = max(calc_level(user["xp"]), user.get("lv") or 1)
         lv = user["lv"]
         if lv >= 10 and user.get("character") == "slime":
             user["character"] = "robot"
@@ -238,7 +238,7 @@ def miniboss_clear(req: ClearRequest, authorization: str = Header(...)):
 
         cleared.append(stage_key)
         user["miniboss_cleared_stages"] = cleared
-        user["completed_stages"] = user.get("completed_stages", 0) + 1
+        user["completed_stages"] = (user.get("completed_stages") or 0) + 1
         save_user(user)
 
         # 진행도 저장
