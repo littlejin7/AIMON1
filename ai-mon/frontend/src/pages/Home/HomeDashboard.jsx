@@ -14,6 +14,27 @@ const CHARACTER_ICONS = {
 
 const DAY_LABELS = ['월', '화', '수', '목', '금', '토', '일']
 
+
+const TITLE_NAMES = {
+  first_step:   '🌱 첫 발걸음',
+  streak_7:     '🔥 연속학습자',
+  boss_slayer:  '⚔️ 보스슬레이어',
+  ai_explorer:  '🧠 AI 탐구자',
+  unit_master:  '👑 유닛 마스터',
+  aimon_master: '💎 에이몬 마스터',
+  rookie_coder: '코드 ROOKIE',
+  ace_coder:    'ACE 코더',
+  ai_master:    'AI 마스터',
+}
+
+const LEVEL_LABELS = {
+  beginner:     '🟢 초급',
+  intermediate: '🔵 중급',
+  advanced:     '🟣 고급',
+}
+
+
+
 function getWeekDots(streak) {
   // 오늘 요일 (0=일,1=월,...6=토) → 목업 기준 월~일 배열
   const todayJs = new Date().getDay()
@@ -96,7 +117,20 @@ export default function HomeDashboard({ user, stats, onOpenLevelTest }) {
           {stats?.current_unit ? `Unit ${stats.current_unit} · Stage ${stats.current_stage || 1}` : 'Unit 1 · Stage 1'}
         </div>
         <div className="hd-lv-badge">Lv. {lv}</div>
-
+        
+        {(() => {
+          const equippedTitle = user?.equipped_title
+            || (user?.id ? localStorage.getItem(`equipped_title_${user.id}`) : null)
+          const courseLevel = user?.course_level || 'beginner'
+          return (
+            <div className="hd-char-meta">
+              {equippedTitle && TITLE_NAMES[equippedTitle] && (
+                <span className="hd-char-title-badge">🎖 {TITLE_NAMES[equippedTitle]}</span>
+              )}
+              <span className="hd-char-level-badge">{LEVEL_LABELS[courseLevel]}</span>
+            </div>
+          )
+        })()}
         <div className="hd-char-area">
           {charImg
             ? <img src={charImg} alt="내 에이몬" className="hd-char-img" />
