@@ -22,6 +22,7 @@ from routers.utils import (
     get_progress_by_user,
     save_progress_item,
     verify_token,
+    now_kst,
 )
 
 router = APIRouter()
@@ -250,7 +251,7 @@ def miniboss_clear(req: ClearRequest, authorization: str = Header(...)):
         target_item = None
         if existing:
             existing["is_completed"] = True
-            existing["updated_at"]   = datetime.utcnow().isoformat()
+            existing["updated_at"]   = now_kst().isoformat()
             target_item = existing
         else:
             target_item = {
@@ -261,8 +262,8 @@ def miniboss_clear(req: ClearRequest, authorization: str = Header(...)):
                 "score":        100,
                 "is_completed": True,
                 "course_level": course_level,
-                "created_at":   datetime.utcnow().isoformat(),
-                "updated_at":   datetime.utcnow().isoformat(),
+                "created_at":   now_kst().isoformat(),
+                "updated_at":   now_kst().isoformat(),
             }
         save_progress_item(target_item)
 

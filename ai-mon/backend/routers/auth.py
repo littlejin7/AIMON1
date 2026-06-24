@@ -22,6 +22,7 @@ from routers.utils import (
     SECRET_KEY,
     ALGORITHM,
     limiter,
+    now_kst,
 )
 
 router = APIRouter()
@@ -36,7 +37,7 @@ class RefreshRequest(BaseModel):
 
 def create_refresh_token(user_id: str) -> str:
     token = secrets.token_hex(32)
-    expires_at = (datetime.utcnow() + timedelta(days=REFRESH_EXPIRE_DAYS)).isoformat()
+    expires_at = (now_kst() + timedelta(days=REFRESH_EXPIRE_DAYS)).isoformat()
     refresh_item = {
         "user_id": user_id,
         "token": token,
@@ -60,14 +61,14 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 def create_token(data: dict, token_version: int = 1) -> str:
     to_encode = data.copy()
-    expire = datetime.utcnow() + timedelta(minutes=EXPIRE_MINUTES)
+    expire = now_kst() + timedelta(minutes=EXPIRE_MINUTES)
     to_encode.update({"exp": expire, "ver": token_version})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 
 def update_login_streak(user: dict) -> tuple[dict, dict | None]:
-    today = (datetime.utcnow() + timedelta(hours=9)).strftime("%Y-%m-%d")
-    yesterday = (datetime.utcnow() + timedelta(hours=9) - timedelta(days=1)).strftime("%Y-%m-%d")
+    today = now_kst().strftime("%Y-%m-%d")
+    yesterday = (now_kst() - timedelta(days=1)).strftime("%Y-%m-%d")
     last = user.get("last_login", "")
 
     streak_reward = None
@@ -173,7 +174,7 @@ def register(req: RegisterRequest, request: Request):
         "awarded_crown_units": [],
         "earned_streak_milestones": [],
         "game_rewards": {},
-        "created_at": datetime.utcnow().isoformat(),
+        "created_at": now_kst().isoformat(),
     }
     save_user(new_user)
     token = create_token({"sub": new_user["id"], "username": new_user["username"]}, new_user.get("token_version", 1))
@@ -219,7 +220,7 @@ def forgot_password(req: ForgotPasswordRequest, request: Request):
         return {"ok": True, "message": "If an account with that email exists, a reset code has been sent."}
 
     # B-5: 타인 이메일 무한 발송(이메일 폭탄) 방지를 위한 이메일 계정 단위 속도 제한
-    now = datetime.utcnow()
+    now = now_kst()
     today_str = now.strftime("%Y-%m-%d")
     
     forgot_pwd_data = user.get("forgot_password_data", {})
@@ -245,7 +246,7 @@ def forgot_password(req: ForgotPasswordRequest, request: Request):
 
     # Generate URL-safe 32-character token
     token = secrets.token_urlsafe(32)
-    expires_at = (datetime.utcnow() + timedelta(minutes=10)).isoformat()
+    expires_at = (now_kst() + timedelta(minutes=10)).isoformat()
     
     tokens = load_reset_tokens()
     tokens[req.email] = {
@@ -282,7 +283,7 @@ def reset_password(req: ResetPasswordRequest, request: Request):
     token_data = tokens[req.email]
     expires_at = datetime.fromisoformat(token_data["expires_at"])
     
-    if datetime.utcnow() > expires_at:
+    if now_kst() > expires_at:
         del tokens[req.email]
         save_reset_tokens(tokens)
         raise HTTPException(status_code=400, detail="유효하지 않거나 만료된 토큰입니다.")
@@ -410,7 +411,7 @@ async def social_google(req: SocialLoginRequest, request: Request):
             "awarded_crown_units": [],
             "earned_streak_milestones": [],
             "game_rewards": {},
-            "created_at": datetime.utcnow().isoformat(),
+            "created_at": now_kst().isoformat(),
         }
 
     user, streak_reward = update_login_streak(user)
@@ -539,7 +540,7 @@ async def social_naver(req: SocialLoginRequest, request: Request):
             "awarded_crown_units": [],
             "earned_streak_milestones": [],
             "game_rewards": {},
-            "created_at": datetime.utcnow().isoformat(),
+            "created_at": now_kst().isoformat(),
         }
 
     user, streak_reward = update_login_streak(user)
@@ -659,7 +660,7 @@ async def social_kakao(req: SocialLoginRequest, request: Request):
             "awarded_crown_units": [],
             "earned_streak_milestones": [],
             "game_rewards": {},
-            "created_at": datetime.utcnow().isoformat(),
+            "created_at": now_kst().isoformat(),
         }
 
     user, streak_reward = update_login_streak(user)
@@ -691,12 +692,12 @@ def refresh(req: RefreshRequest):
     try:
         expires_at = datetime.fromisoformat(expires_at_str)
     except Exception:
-        expires_at = datetime.utcnow()
+        expires_at = now_kst()
         
     if expires_at.tzinfo is not None:
         now_dt = datetime.now(expires_at.tzinfo)
     else:
-        now_dt = datetime.utcnow()
+        now_dt = now_kst()
         
     if now_dt > expires_at:
         delete_refresh_token(req.refresh_token)

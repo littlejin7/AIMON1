@@ -12,6 +12,7 @@ from routers.utils import (
     get_progress_by_user,
     save_progress_item,
     save_wrong_answer_item,
+    now_kst,
 )
 from routers.quiz import load_questions_by_category
 from routers.utils import limiter
@@ -49,7 +50,7 @@ def get_boss_info(unit: str = "1", authorization: str = Header(...)):
         raise HTTPException(status_code=401, detail="User not found")
         
     # 날짜 체크해서 무료 횟수 리셋
-    today = (datetime.utcnow() + timedelta(hours=9)).strftime("%Y-%m-%d")
+    today = now_kst().strftime("%Y-%m-%d")
     if user.get("last_free_attempt_date") != today:
         user["daily_free_attempts"] = 2
         user["last_free_attempt_date"] = today
@@ -73,7 +74,7 @@ def start_boss_battle(unit: str = "1", authorization: str = Header(...)):
         raise HTTPException(status_code=401, detail="User not found")
     
     # 왕관/무료 횟수 차감
-    today = (datetime.utcnow() + timedelta(hours=9)).strftime("%Y-%m-%d")
+    today = now_kst().strftime("%Y-%m-%d")
     if user.get("last_free_attempt_date") != today:
         user["daily_free_attempts"] = 2
         user["last_free_attempt_date"] = today
@@ -320,7 +321,7 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
             "question_id": req.question_id,
             "user_answer": req.user_answer,
             "feedback": ai_result.get("feedback", ""),
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": now_kst().isoformat(),
             "reviewed": False
         })
 
@@ -347,7 +348,7 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
                 award_xp = True
             existing["score"] = max(existing.get("score", 0), ai_result.get("score", 100))
             existing["is_completed"] = True
-            existing["updated_at"] = datetime.utcnow().isoformat()
+            existing["updated_at"] = now_kst().isoformat()
             save_progress_item(existing)
         else:
             award_xp = True
@@ -359,8 +360,8 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
                 "score": ai_result.get("score", 100),
                 "is_completed": True,
                 "course_level": course_level,
-                "created_at": datetime.utcnow().isoformat(),
-                "updated_at": datetime.utcnow().isoformat(),
+                "created_at": now_kst().isoformat(),
+                "updated_at": now_kst().isoformat(),
             }
             save_progress_item(item)
         

@@ -8,11 +8,16 @@ import tempfile
 import contextvars
 import copy
 from contextlib import contextmanager
+from datetime import datetime, timedelta, timezone
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 from fastapi import Request
 from supabase import create_client
 from dotenv import load_dotenv
+
+def now_kst() -> datetime:
+    return datetime.now(timezone(timedelta(hours=9)))
+
 
 logger = logging.getLogger("uvicorn.error")
 

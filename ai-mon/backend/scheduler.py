@@ -11,6 +11,7 @@ from routers.utils import (
     load_users,
     load_progress,
     load_wrong_answers,
+    now_kst,
 )
 from services.email_service import send_email
 
@@ -20,7 +21,7 @@ def send_streak_reminders():
     print(f"[{datetime.now()}] Running streak reminder job...")
     
     # Calculate yesterday in KST (UTC+9)
-    kst_now = datetime.utcnow() + timedelta(hours=9)
+    kst_now = now_kst()
     yesterday_str = (kst_now - timedelta(days=1)).strftime("%Y-%m-%d")
     
     if USE_SUPABASE:
@@ -67,7 +68,7 @@ def send_streak_reminders():
 def backup_to_json():
     print(f"[{datetime.now()}] Running database backup job...")
     try:
-        kst_now = datetime.utcnow() + timedelta(hours=9)
+        kst_now = now_kst()
         today_str = kst_now.strftime("%Y-%m-%d")
         
         # Identify DATA_DIR from utils
