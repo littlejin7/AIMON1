@@ -387,9 +387,9 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
                     if not isinstance(u.get("completed_units"), dict):
                         old_val = u.get("completed_units", 0)
                         u["completed_units"] = {
-                            "beginner": old_val if course_level == "beginner" else 0,
-                            "intermediate": old_val if course_level == "intermediate" else 0,
-                            "advanced": old_val if course_level == "advanced" else 0
+                            "beginner": old_val,
+                            "intermediate": 0,
+                            "advanced": 0
                         }
                     u["completed_units"][course_level] = u["completed_units"].get(course_level, 0) + 1
 
@@ -421,9 +421,9 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
                 if not isinstance(u.get("max_unlocked_unit"), dict):
                     old_val = u.get("max_unlocked_unit", 1)
                     u["max_unlocked_unit"] = {
-                        "beginner": old_val if course_level == "beginner" else 1,
-                        "intermediate": old_val if course_level == "intermediate" else 1,
-                        "advanced": old_val if course_level == "advanced" else 1
+                        "beginner": old_val,
+                        "intermediate": 1,
+                        "advanced": 1
                     }
                 u["max_unlocked_unit"][course_level] = max(u["max_unlocked_unit"].get(course_level, 1), next_unit)
 
