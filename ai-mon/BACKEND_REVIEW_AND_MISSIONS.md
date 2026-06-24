@@ -71,6 +71,8 @@ rate limit 없어 타인 이메일로 무한 발송 가능(SendGrid 비용 + 스
 거의 모든 핸들러가 `get_user_by_id → 객체 수정 → save_user` 패턴. JSON 모드의 `file_lock`은 **파일 쓰기 순간만** 보호하고 read→modify→write 전체 트랜잭션은 보호하지 못함. Supabase 모드의 `upsert(전체 객체)`도 동일하게 **마지막 쓰기 승리**.
 - 시나리오: 보스 클리어 응답과 게임 보상이 거의 동시 도착 → 한쪽 XP/왕관 증가분 유실.
 - 조치(JSON): save_user를 "락 안에서 재로드→해당 필드만 갱신→저장"으로. (Supabase): 카운터성 컬럼은 upsert 대신 원자적 증가(RPC/`update ... set xp = xp + n`) 또는 낙관적 락(version 컬럼).
+- **진행(2026-06-24):** 표준 원자 쓰기 경로 `mutate_user_atomic()` 도입(JSON=file_lock 단일 임계구역 재읽기→검사→write / Supabase=version 낙관적 락 CAS+재시도). 게임 보상 nonce 소비·일일 캡을 이 경로로 원자화(B-4 동시 동일토큰 이중 통과 차단). Supabase RPC 실패 시 무음 upsert 폴백 제거 → `logger.exception` + `UserSaveError` 거부 신호. apply_xp(청크 1)·미션(청크 2~3)도 이 경로 경유 예정.
+- **deferred:** `titles`/`endboss_cleared_levels` 등 **리스트 append의 last-writer-wins**(delta-merge·RPC `||` 모두 리스트 병합 없음)는 별도 처리 필요. mutate_user_atomic 경유 저장은 fresh 기준이라 안전하나, 기존 save_user delta-merge 경로의 리스트 필드는 미해결. Supabase는 `version` 컬럼 추가 DDL 필요(아래 SUPABASE_MIGRATION_PLAN.md).
 
 ### 🟠 C-2. XP·카운터 다중 가산 + 재계산 드리프트
 `completed_stages`, `boss_cleared`가 login/progress/boss/miniboss 여러 곳에서 `+1` 되는 동시에 `serialize_user`에서 progress 기반으로 다시 계산해 `max()` 보정. 저장값과 계산값이 어긋날 수밖에 없는 구조.

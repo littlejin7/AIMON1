@@ -7,7 +7,14 @@ import hashlib
 import base64
 import json
 import secrets
-from routers.utils import get_current_user, save_user, now_kst, apply_xp, SECRET_KEY
+from routers.utils import (
+    get_current_user,
+    now_kst,
+    apply_xp,
+    SECRET_KEY,
+    mutate_user_atomic,
+    UserNotFoundError,
+)
 
 router = APIRouter()
 
@@ -106,126 +113,142 @@ def game_start(req: GameStartRequest, user_ref: dict = Depends(get_current_user)
 
 @router.post("/clear")
 def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)):
+    user_id = user_ref["id"]
 
     # KST 기준 날짜 구하기 (UTC + 9)
-    kst_now = now_kst()
-    today_kst = kst_now.date().isoformat()
+    today_kst = now_kst().date().isoformat()
 
-    crowns_awarded = 0
-    xp_awarded = 0
-    already_claimed = False
-
-    # game_rewards 딕셔너리 초기화
-    game_rewards = user_ref.get("game_rewards", {})
-    if not isinstance(game_rewards, dict):
-        game_rewards = {}
-
-    # [하위 호환성 및 마이그레이션]
-    # 1단계: 레거시 필드 (awarded_game_crowns, runner_plays) 이관
-    legacy_crowns = user_ref.pop("awarded_game_crowns", None)
-    legacy_plays = user_ref.pop("runner_plays", None)
-
-    if legacy_crowns and isinstance(legacy_crowns, dict):
-        aipang_date = legacy_crowns.get("aipang")
-        if aipang_date:
-            game_rewards["aipang_last_date"] = aipang_date
-
-    if legacy_plays and isinstance(legacy_plays, dict):
-        sorted_dates = sorted(legacy_plays.keys())
-        if sorted_dates:
-            last_date = sorted_dates[-1]
-            game_rewards["runner_last_date"] = last_date
-            game_rewards["runner_today_count"] = legacy_plays[last_date]
-
-    # 2단계: 이전 game_rewards["aipang"]["last_reward_date"] 및 game_rewards["runner"]["plays"] 형태 마이그레이션
-    if "aipang" in game_rewards and isinstance(game_rewards["aipang"], dict):
-        old_aipang = game_rewards.pop("aipang", {})
-        old_date = old_aipang.get("last_reward_date")
-        if old_date:
-            game_rewards["aipang_last_date"] = old_date
-
-    if "runner" in game_rewards and isinstance(game_rewards["runner"], dict):
-        old_runner = game_rewards.pop("runner", {})
-        old_plays = old_runner.get("plays", {})
-        if isinstance(old_plays, dict):
-            sorted_dates = sorted(old_plays.keys())
-            if sorted_dates:
-                last_date = sorted_dates[-1]
-                game_rewards["runner_last_date"] = last_date
-                game_rewards["runner_today_count"] = old_plays[last_date]
-
-    # 게임 종류에 따른 보상 처리
+    # --- 상태 무관(stateless) 토큰 검증은 원자 경계 밖에서 미리 수행 ---
+    # 서명·소유자·만료·최소경과시간 검증은 user 영속 상태와 무관하므로 락 밖에서 OK.
+    # nonce '소비'(일회성)는 영속 상태 기준이어야 하므로 아래 mutator 안에서 수행.
+    token_payload = None
+    distance_val = None
     if req.game_id == "aipang":
-        if game_rewards.get("aipang_last_date") == today_kst:
-            already_claimed = True
-        else:
-            # 세션 토큰이 있으면 검증 (optional — 청크 4에서 required 전환)
-            if req.game_token:
-                payload = _verify_game_token(
-                    req.game_token, "aipang", user_ref["id"], MIN_PLAY_SECONDS["aipang"]
-                )
-                _consume_nonce(game_rewards, payload)
-            game_rewards["aipang_last_date"] = today_kst
-            crowns_awarded = 1
-            user_ref["crowns"] = user_ref.get("crowns", 0) + crowns_awarded
-
+        if req.game_token:
+            token_payload = _verify_game_token(
+                req.game_token, "aipang", user_id, MIN_PLAY_SECONDS["aipang"]
+            )
     elif req.game_id == "runner":
-        runner_last = game_rewards.get("runner_last_date")
-        runner_count = game_rewards.get("runner_today_count", 0)
-
-        # 날짜가 바뀌었으면 카운트 초기화
-        if runner_last != today_kst:
-            runner_count = 0
-            runner_last = today_kst
-            game_rewards["daily_xp"] = 0
-
-        if runner_count >= 5:
-            already_claimed = True
-        else:
-            # 클라이언트 조작 방지: 음수 floor + 상한 검증
-            distance_val = req.distance if req.distance is not None else (req.score or 0)
-            distance_val = max(0, distance_val)
-            if distance_val > 10000:
-                raise HTTPException(status_code=400, detail="Abnormal gameplay detected (distance too high)")
-
-            # 세션 토큰이 있으면 검증 (optional — 청크 4에서 required 전환)
+        # 클라이언트 조작 방지: 음수 floor + 상한 검증
+        distance_val = max(0, req.distance if req.distance is not None else (req.score or 0))
+        if distance_val > 10000:
+            raise HTTPException(status_code=400, detail="Abnormal gameplay detected (distance too high)")
+        if req.game_token:
             # 최소 경과시간을 distance 에 비례시켜 "높은 distance 즉시 제출" 위조를 차단
-            if req.game_token:
-                elapsed_floor = max(MIN_PLAY_SECONDS["runner"], distance_val // 60)
-                payload = _verify_game_token(
-                    req.game_token, "runner", user_ref["id"], elapsed_floor
-                )
-                _consume_nonce(game_rewards, payload)
-
-            runner_count += 1
-            game_rewards["runner_today_count"] = runner_count
-            game_rewards["runner_last_date"] = today_kst
-
-            if distance_val < 500:
-                xp_awarded = 200
-            elif distance_val <= 1000:
-                xp_awarded = 350
-            else:
-                xp_awarded = 500
-
-            # 일일 게임 XP 캡 확인 (최대 2500)
-            daily_xp = game_rewards.get("daily_xp", 0)
-            if daily_xp + xp_awarded > 2500:
-                xp_awarded = max(0, 2500 - daily_xp)
-
-            game_rewards["daily_xp"] = daily_xp + xp_awarded
-            apply_xp(user_ref, xp_awarded)
+            elapsed_floor = max(MIN_PLAY_SECONDS["runner"], distance_val // 60)
+            token_payload = _verify_game_token(
+                req.game_token, "runner", user_id, elapsed_floor
+            )
     else:
         raise HTTPException(status_code=400, detail="Invalid game_id")
 
-    user_ref["game_rewards"] = game_rewards
+    def mutator(user: dict) -> dict:
+        """영속 상태에서 새로 읽은 user 기준으로 nonce 소비·캡·보상을 원자 처리."""
+        crowns_awarded = 0
+        xp_awarded = 0
+        already_claimed = False
 
-    save_user(user_ref)
+        # game_rewards 딕셔너리 초기화
+        game_rewards = user.get("game_rewards", {})
+        if not isinstance(game_rewards, dict):
+            game_rewards = {}
 
-    return {
-        "crowns_awarded": crowns_awarded,
-        "xp_awarded": xp_awarded,
-        "total_crowns": user_ref.get("crowns", 0),
-        "total_xp": user_ref.get("xp", 0),
-        "already_claimed": already_claimed
-    }
+        # [하위 호환성 및 마이그레이션]
+        # 1단계: 레거시 필드 (awarded_game_crowns, runner_plays) 이관
+        legacy_crowns = user.pop("awarded_game_crowns", None)
+        legacy_plays = user.pop("runner_plays", None)
+
+        if legacy_crowns and isinstance(legacy_crowns, dict):
+            aipang_date = legacy_crowns.get("aipang")
+            if aipang_date:
+                game_rewards["aipang_last_date"] = aipang_date
+
+        if legacy_plays and isinstance(legacy_plays, dict):
+            sorted_dates = sorted(legacy_plays.keys())
+            if sorted_dates:
+                last_date = sorted_dates[-1]
+                game_rewards["runner_last_date"] = last_date
+                game_rewards["runner_today_count"] = legacy_plays[last_date]
+
+        # 2단계: 이전 game_rewards["aipang"]["last_reward_date"] 및 game_rewards["runner"]["plays"] 형태 마이그레이션
+        if "aipang" in game_rewards and isinstance(game_rewards["aipang"], dict):
+            old_aipang = game_rewards.pop("aipang", {})
+            old_date = old_aipang.get("last_reward_date")
+            if old_date:
+                game_rewards["aipang_last_date"] = old_date
+
+        if "runner" in game_rewards and isinstance(game_rewards["runner"], dict):
+            old_runner = game_rewards.pop("runner", {})
+            old_plays = old_runner.get("plays", {})
+            if isinstance(old_plays, dict):
+                sorted_dates = sorted(old_plays.keys())
+                if sorted_dates:
+                    last_date = sorted_dates[-1]
+                    game_rewards["runner_last_date"] = last_date
+                    game_rewards["runner_today_count"] = old_plays[last_date]
+
+        # 게임 종류에 따른 보상 처리
+        if req.game_id == "aipang":
+            if game_rewards.get("aipang_last_date") == today_kst:
+                already_claimed = True
+            else:
+                # nonce 소비를 보상 지급과 같은 임계구역에서 수행 → 동시 동일토큰 이중통과 차단
+                if token_payload:
+                    _consume_nonce(game_rewards, token_payload)
+                game_rewards["aipang_last_date"] = today_kst
+                crowns_awarded = 1
+                user["crowns"] = user.get("crowns", 0) + crowns_awarded
+
+        else:  # runner
+            runner_last = game_rewards.get("runner_last_date")
+            runner_count = game_rewards.get("runner_today_count", 0)
+
+            # 날짜가 바뀌었으면 카운트 초기화
+            if runner_last != today_kst:
+                runner_count = 0
+                game_rewards["daily_xp"] = 0
+
+            if runner_count >= 5:
+                already_claimed = True
+            else:
+                # nonce 소비를 보상 지급과 같은 임계구역에서 수행
+                if token_payload:
+                    _consume_nonce(game_rewards, token_payload)
+
+                runner_count += 1
+                game_rewards["runner_today_count"] = runner_count
+                game_rewards["runner_last_date"] = today_kst
+
+                if distance_val < 500:
+                    xp_awarded = 200
+                elif distance_val <= 1000:
+                    xp_awarded = 350
+                else:
+                    xp_awarded = 500
+
+                # 일일 게임 XP 캡 확인 (최대 2500) — fresh 상태 기준이라 캡도 원자적
+                daily_xp = game_rewards.get("daily_xp", 0)
+                if daily_xp + xp_awarded > 2500:
+                    xp_awarded = max(0, 2500 - daily_xp)
+
+                game_rewards["daily_xp"] = daily_xp + xp_awarded
+                apply_xp(user, xp_awarded)
+
+        user["game_rewards"] = game_rewards
+        # save_user 가 떼어내던 파생 필드를 동일하게 정리
+        user.pop("boss_cleared", None)
+        user.pop("completed_stages", None)
+
+        return {
+            "crowns_awarded": crowns_awarded,
+            "xp_awarded": xp_awarded,
+            "total_crowns": user.get("crowns", 0),
+            "total_xp": user.get("xp", 0),
+            "already_claimed": already_claimed,
+        }
+
+    try:
+        _, result = mutate_user_atomic(user_id, mutator)
+    except UserNotFoundError:
+        raise HTTPException(status_code=404, detail="User not found")
+    return result

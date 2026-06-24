@@ -254,6 +254,17 @@ end;
 $$ language plpgsql;
 ```
 
+### 함수 2: mutate_user_atomic 용 version 컬럼 (낙관적 락, C-1)
+> `utils.py`의 표준 원자 쓰기 경로 `mutate_user_atomic()` 가 Supabase 모드에서 사용하는 낙관적 동시성(CAS) 가드. check-then-act(게임 nonce 소비·일일 캡·미션 claimed/login_days append)를 fresh 상태 기준으로 원자화한다. **이 컬럼이 없으면 Supabase 모드에서 mutate_user_atomic 이 동작하지 않는다.**
+```sql
+-- users 테이블에 version 컬럼 추가 (앱이 version+1 로 갱신, WHERE version = read_version 가드)
+alter table users add column if not exists version bigint not null default 0;
+```
+앱 측 동작(참고): `select * ... ; update users set ..., version = read_version + 1 where id = ? and version = read_version`.
+갱신 행이 0이면(그 사이 다른 쓰기 발생) fresh 재읽기 후 mutator 재실행(최대 5회). 초과 시 `UserSaveError`.
+
+> (선택) nonce 소비를 단일 SQL 가드로도 가능: `update users set game_rewards = jsonb_set(coalesce(game_rewards,'{}'),'{used_tokens,<nonce>}', to_jsonb(<expiry>)) where id=? and not (coalesce(game_rewards->'used_tokens','{}') ? '<nonce>') returning 1;` — 0행이면 이미 사용된 nonce. 현재 구현은 version CAS 경로로 일원화.
+
 ---
 
 ## PHASE 2 — 추상화 레이어 교체 (2~3일)
