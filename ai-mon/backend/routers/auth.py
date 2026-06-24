@@ -6,7 +6,7 @@ from jose import jwt
 from passlib.context import CryptContext
 from routers.utils import (
     serialize_user,
-    calc_level,
+    apply_xp,
     load_users,
     save_users,
     get_user_by_id,
@@ -99,15 +99,7 @@ def update_login_streak(user: dict) -> tuple[dict, dict | None]:
             streak_reward = {"days": 30, "xp": 10000, "crowns": 5}
 
         # Level up and evolution check (streak 증가 시 항상 실행)
-        new_lv = calc_level(user.get("xp", 0))
-        user["lv"] = max(new_lv, user.get("lv", 1))
-
-        if user["lv"] >= 10 and user.get("character") == "slime":
-            user["character"] = "robot"
-        elif user["lv"] >= 20 and user.get("character") == "robot":
-            user["character"] = "speech_bubble"
-        elif user["lv"] >= 30 and user.get("character") == "speech_bubble":
-            user["character"] = "final_ghost"
+        apply_xp(user, 0, {})
     else:
         user["streak"] = 1
 

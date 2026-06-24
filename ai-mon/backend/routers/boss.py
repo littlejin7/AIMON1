@@ -1,21 +1,20 @@
-from fastapi import APIRouter, HTTPException, Header, Request
+from fastapi import APIRouter, HTTPException, Request, Depends
 from pydantic import BaseModel, Field
 from services.claude_service import ask_claude_json
 import os, uuid
 from datetime import datetime, timedelta
-from routers.titles import check_and_award_titles
 from typing import Optional
 from routers.utils import (
-    get_user_by_id,
     save_user,
-    verify_token,
     get_progress_by_user,
     save_progress_item,
     save_wrong_answer_item,
     now_kst,
+    get_current_user,
+    apply_xp,
+    limiter,
 )
 from routers.quiz import load_questions_by_category
-from routers.utils import limiter
 
 router = APIRouter()
 
@@ -43,11 +42,8 @@ MY_HP_DELTA   = 350   # 오답 시 내 HP 감소
 
 
 @router.get("/info")
-def get_boss_info(unit: str = "1", authorization: str = Header(...)):
-    user_id = verify_token(authorization)
-    user = get_user_by_id(user_id)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+def get_boss_info(unit: str = "1", user: dict = Depends(get_current_user)):
+    user_id = user["id"]
         
     # 날짜 체크해서 무료 횟수 리셋
     today = now_kst().strftime("%Y-%m-%d")
@@ -67,11 +63,8 @@ def get_boss_info(unit: str = "1", authorization: str = Header(...)):
     }
 
 @router.post("/start")
-def start_boss_battle(unit: str = "1", authorization: str = Header(...)):
-    user_id = verify_token(authorization)
-    user = get_user_by_id(user_id)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+def start_boss_battle(unit: str = "1", user: dict = Depends(get_current_user)):
+    user_id = user["id"]
     
     # 왕관/무료 횟수 차감
     today = now_kst().strftime("%Y-%m-%d")
@@ -117,11 +110,8 @@ def start_boss_battle(unit: str = "1", authorization: str = Header(...)):
     return chosen
 
 @router.post("/next")
-def get_next_question(unit: str = "1", authorization: str = Header(...)):
-    user_id = verify_token(authorization)
-    user = get_user_by_id(user_id)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+def get_next_question(unit: str = "1", user: dict = Depends(get_current_user)):
+    user_id = user["id"]
     if unit == "final":
         raise HTTPException(status_code=400, detail="엔드보스는 /boss/endboss/next 플로우(phase3)를 사용해야 합니다.")
         
@@ -155,10 +145,9 @@ def get_next_question(unit: str = "1", authorization: str = Header(...)):
 
 @router.post("/hint")
 @limiter.limit("5/minute;100/day")
-async def get_boss_hint(request: Request, req: BossHintRequest, authorization: str = Header(...)):
-    user_id = verify_token(authorization)
-    user = get_user_by_id(user_id)
-    course_level = user.get("course_level", "beginner") if user else "beginner"
+async def get_boss_hint(request: Request, req: BossHintRequest, user: dict = Depends(get_current_user)):
+    user_id = user["id"]
+    course_level = user.get("course_level", "beginner")
 
     questions = load_questions_by_category("unitboss", course_level)
     question = next(
@@ -185,10 +174,9 @@ JSON 포맷으로 아래와 같이 응답하세요:
 
 @router.post("/answer")
 @limiter.limit("5/minute;100/day")
-async def submit_boss_answer(request: Request, req: BossAnswerRequest, authorization: str = Header(...)):
-    user_id = verify_token(authorization)
-    user = get_user_by_id(user_id)
-    course_level = user.get("course_level", "beginner") if user else "beginner"
+async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dict = Depends(get_current_user)):
+    user_id = user["id"]
+    course_level = user.get("course_level", "beginner")
 
     questions = load_questions_by_category("unitboss", course_level)
     # 우리 스키마는 "question_id" 필드 사용 ("id" 필드 없음)
@@ -389,7 +377,6 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
             next_unit = cleared_unit + 1
 
             if award_xp and u:
-                u["xp"] = u.get("xp", 0) + 3000
                 if is_unit_boss:
                     if not isinstance(u.get("completed_units"), dict):
                         old_val = u.get("completed_units", 0)
@@ -400,19 +387,9 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
                         }
                     u["completed_units"][course_level] = u["completed_units"].get(course_level, 0) + 1
 
-                new_lv = calc_level(u["xp"])
-                u["lv"] = max(new_lv, u.get("lv", 1))
-
-                lv = u["lv"]
-                if lv >= 10 and u.get("character") == "slime":
-                    u["character"] = "robot"
-                elif lv >= 20 and u.get("character") == "robot":
-                    u["character"] = "speech_bubble"
-                elif lv >= 30 and u.get("character") == "speech_bubble":
-                    u["character"] = "final_ghost"
-
                 context = {"boss_cleared": True}
-                newly_earned_clear = check_and_award_titles(u, context)
+                events = apply_xp(u, 3000, context)
+                newly_earned_clear = events["newly_earned_titles"]
 
                 title_ids = {t["id"] for t in newly_earned_titles}
                 for t in newly_earned_clear:

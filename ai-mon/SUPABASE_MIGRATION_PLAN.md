@@ -59,11 +59,11 @@ git checkout -b feature/supabase-migration
 ### supabase 패키지 설치
 > ⚠️ 현재 미설치 확인됨. Phase 0에서 설치 필요.
 ```bash
-pip install supabase==2.4.0
+pip install supabase==2.31.0
 ```
 `requirements.txt`에도 추가:
 ```
-supabase==2.4.0
+supabase==2.31.0
 ```
 
 ### JSON 파일 백업

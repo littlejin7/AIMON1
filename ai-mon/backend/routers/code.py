@@ -1,32 +1,37 @@
-from fastapi import APIRouter, HTTPException, Header, Request
+from fastapi import APIRouter, HTTPException, Request, Depends
 from pydantic import BaseModel, Field
 from services.claude_service import ask_claude_json, ask_claude
 import os, uuid
 from datetime import datetime
 from typing import Optional
 from routers.utils import (
-    get_user_by_id,
+    get_current_user,
     save_user,
-    verify_token,
     get_progress_by_user,
     save_progress_item,
     limiter,
     now_kst,
+    apply_xp,
 )
 
 router = APIRouter()
 
 CODE_CLEAR_XP = 200
 
-def find_question(question_id: str) -> Optional[dict]:
-    from routers.quiz import load_questions_by_category
-    for category in ("quiz", "unitboss", "miniboss", "endboss"):
-        for q in load_questions_by_category(category):
-            if q.get("question_id") == question_id or q.get("id") == question_id:
-                return q
-    return None
+_QUESTION_INDEX = {}
 
-from routers.utils import calc_level
+def find_question(question_id: str) -> Optional[dict]:
+    global _QUESTION_INDEX
+    if not _QUESTION_INDEX:
+        from routers.quiz import load_questions_by_category
+        index = {}
+        for category in ("quiz", "unitboss", "miniboss", "endboss"):
+            for q in load_questions_by_category(category):
+                q_id = q.get("question_id") or q.get("id")
+                if q_id:
+                    index[q_id] = q
+        _QUESTION_INDEX = index
+    return _QUESTION_INDEX.get(question_id)
 
 
 class SubmitRequest(BaseModel):
@@ -46,11 +51,8 @@ class HintRequest(BaseModel):
 
 @router.post("/submit")
 @limiter.limit("10/minute")
-async def submit_code(request: Request, req: SubmitRequest, authorization: str = Header(...)):
-    user_id = verify_token(authorization)
-    user    = get_user_by_id(user_id)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+async def submit_code(request: Request, req: SubmitRequest, user: dict = Depends(get_current_user)):
+    user_id = user["id"]
 
     question = find_question(req.question_id)
     if not question:
@@ -139,8 +141,7 @@ async def submit_code(request: Request, req: SubmitRequest, authorization: str =
             save_progress_item(item)
 
         if award_xp:
-            user["xp"]  = user.get("xp", 0) + CODE_CLEAR_XP
-            user["lv"]  = max(calc_level(user["xp"]), user.get("lv", 1))
+            apply_xp(user, CODE_CLEAR_XP)
             xp_awarded = CODE_CLEAR_XP
             save_user(user)
 
@@ -151,11 +152,7 @@ async def submit_code(request: Request, req: SubmitRequest, authorization: str =
 
 @router.post("/hint")
 @limiter.limit("10/minute")
-async def get_code_hint(request: Request, req: HintRequest, authorization: str = Header(...)):
-    user_id = verify_token(authorization)
-    user = get_user_by_id(user_id)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+async def get_code_hint(request: Request, req: HintRequest, user: dict = Depends(get_current_user)):
 
     question = find_question(req.question_id)
     if not question:
@@ -177,8 +174,8 @@ async def get_code_hint(request: Request, req: HintRequest, authorization: str =
 
     # Increment AI feedback count & award titles
     user["ai_feedback_count"] = user.get("ai_feedback_count", 0) + 1
-    from routers.titles import check_and_award_titles
-    newly_earned = check_and_award_titles(user, {})
+    events = apply_xp(user, 0, {})
+    newly_earned = events["newly_earned_titles"]
     save_user(user)
 
     return {

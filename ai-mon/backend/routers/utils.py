@@ -1,5 +1,5 @@
 import logging
-from fastapi import HTTPException
+from fastapi import HTTPException, Header, Request, Depends
 from jose import jwt, JWTError
 import json
 import os
@@ -11,8 +11,8 @@ from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 from slowapi import Limiter
 from slowapi.util import get_remote_address
-from fastapi import Request
 from supabase import create_client
+from typing import Optional
 from dotenv import load_dotenv
 
 def now_kst() -> datetime:
@@ -449,7 +449,7 @@ def verify_token(authorization: str) -> str:
         raise HTTPException(status_code=401, detail="토큰이 유효하지 않습니다.")
 
 
-def get_current_user(authorization: str) -> dict:
+def get_current_user(authorization: str = Header(...)) -> dict:
     try:
         token = authorization.replace("Bearer ", "")
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
@@ -463,6 +463,24 @@ def get_current_user(authorization: str) -> dict:
         return user
     except JWTError:
         raise HTTPException(status_code=401, detail="토큰이 유효하지 않습니다.")
+
+
+def get_current_user_optional(authorization: str = Header(None)) -> Optional[dict]:
+    if not authorization:
+        return None
+    try:
+        token = authorization.replace("Bearer ", "")
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id = payload.get("sub")
+        user = get_user_by_id(user_id)
+        if not user:
+            return None
+        token_ver = payload.get("ver")
+        if token_ver is not None and user.get("token_version", 1) != token_ver:
+            return None
+        return user
+    except JWTError:
+        return None
 
 
 def serialize_user(user: dict) -> dict:
@@ -595,4 +613,49 @@ def delete_user_refresh_tokens(user_id: str):
         tokens = load_refresh_tokens()
         tokens = [t for t in tokens if t.get("user_id") != user_id]
         _save_json_locked(REFRESH_TOKENS_FILE, tokens)
+
+
+def apply_xp(user: dict, xp_gain: int, context: dict = None) -> dict:
+    """
+    Apply XP, recalculate level, check evolution, and check/award titles.
+    Returns dictionary describing the events.
+    """
+    old_xp = user.get("xp") or 0
+    old_lv = user.get("lv") or 1
+    old_char = user.get("character") or "slime"
+
+    # 1. Apply XP
+    user["xp"] = old_xp + xp_gain
+
+    # 2. Recalculate level
+    new_lv = calc_level(user["xp"])
+    user["lv"] = max(new_lv, old_lv)
+    level_up = user["lv"] > old_lv
+
+    # 3. Check evolution
+    evolved = None
+    if user["lv"] >= 10 and old_char == "slime":
+        user["character"] = "robot"
+        evolved = "robot"
+    elif user["lv"] >= 20 and old_char == "robot":
+        user["character"] = "speech_bubble"
+        evolved = "speech_bubble"
+    elif user["lv"] >= 30 and old_char == "speech_bubble":
+        user["character"] = "final_ghost"
+        evolved = "final_ghost"
+
+    # 4. Award titles
+    from routers.titles import check_and_award_titles
+    newly_earned_titles = check_and_award_titles(user, context or {})
+
+    return {
+        "xp_gained": xp_gain,
+        "old_xp": old_xp,
+        "new_xp": user["xp"],
+        "level_up": level_up,
+        "old_lv": old_lv,
+        "new_lv": user["lv"],
+        "evolved": evolved,
+        "newly_earned_titles": newly_earned_titles
+    }
 

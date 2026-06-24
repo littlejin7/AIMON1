@@ -9,19 +9,17 @@
   POST /boss/endboss/clear     클리어 처리 (XP + 왕관 + 진화 + 칭호, 중복 방지)
 """
 
-from fastapi import APIRouter, HTTPException, Header, Request
+from fastapi import APIRouter, HTTPException, Depends, Request
 from pydantic import BaseModel, Field
 from services.claude_service import ask_claude_json
-from routers.titles import check_and_award_titles
 import json, os, random
 from typing import Optional
 
 from routers.utils import (
-    calc_level,
-    get_user_by_id,
     save_user,
-    verify_token,
     limiter,
+    get_current_user,
+    apply_xp,
 )
 
 router = APIRouter()
@@ -145,12 +143,9 @@ class ClearRequest(BaseModel):
 # ── 엔드포인트 ────────────────────────────────────────────────────────────────
 
 @router.get("/info")
-def endboss_info(authorization: str = Header(...)):
+def endboss_info(user: dict = Depends(get_current_user)):
     """해금 여부 + 왕관 수 + 이미 클리어한 레벨 반환."""
-    user_id = verify_token(authorization)
-    user    = get_user_by_id(user_id)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+    user_id = user["id"]
 
     level = user.get("course_level", "beginner")
     return {
@@ -164,17 +159,14 @@ def endboss_info(authorization: str = Header(...)):
 
 
 @router.post("/start")
-def endboss_start(req: StartRequest, authorization: str = Header(...)):
+def endboss_start(req: StartRequest, user: dict = Depends(get_current_user)):
     """
     배틀 시작.
     - 왕관 3개 차감
     - 선택한 프로젝트의 Phase 1 문제 5개 + Phase 2 문제 4개 순서대로 반환
     - Phase 3 첫 문제도 함께 반환 (phase3_first_question)
     """
-    user_id = verify_token(authorization)
-    user    = get_user_by_id(user_id)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+    user_id = user["id"]
 
     if not is_endboss_unlocked(user):
         raise HTTPException(status_code=403, detail="엔드보스가 아직 해금되지 않았습니다. Unit 8 보스를 먼저 클리어하세요.")
@@ -228,7 +220,7 @@ def endboss_start(req: StartRequest, authorization: str = Header(...)):
 
 @router.post("/answer")
 @limiter.limit("5/minute;100/day")
-async def endboss_answer(request: Request, req: AnswerRequest, authorization: str = Header(...)):
+async def endboss_answer(request: Request, req: AnswerRequest, user: dict = Depends(get_current_user)):
     """
     답안 제출.
 
@@ -391,7 +383,7 @@ async def endboss_answer(request: Request, req: AnswerRequest, authorization: st
 
 
 @router.post("/clear")
-def endboss_clear(req: ClearRequest, authorization: str = Header(...)):
+def endboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
     """
     클리어 처리.
     - XP 15,000 지급 (레벨별 1회만)
@@ -400,10 +392,7 @@ def endboss_clear(req: ClearRequest, authorization: str = Header(...)):
     - 칭호 부여
     - endboss_cleared_levels 기록
     """
-    user_id = verify_token(authorization)
-    user    = get_user_by_id(user_id)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+    user_id = user["id"]
 
     level           = user.get("course_level", "beginner")
     cleared_levels  = user.get("endboss_cleared_levels", [])
@@ -411,13 +400,6 @@ def endboss_clear(req: ClearRequest, authorization: str = Header(...)):
     newly_earned_titles = []
 
     if not already_cleared:
-        # XP
-        user["xp"] = user.get("xp", 0) + CLEAR_XP
-
-        # 레벨 재계산
-
-        user["lv"] = max(calc_level(user["xp"]), user.get("lv", 1))
-
         # 왕관
         user["crowns"] = user.get("crowns", 0) + CLEAR_CROWNS
 
@@ -437,9 +419,9 @@ def endboss_clear(req: ClearRequest, authorization: str = Header(...)):
             user["titles"] = list(earned)
             newly_earned_titles.append({"id": title_id, "name": title_name})
 
-        # 기타 칭호 체크
-        context_titles = check_and_award_titles(user, {"boss_cleared": True})
-        newly_earned_titles.extend(context_titles)
+        # XP 적용 및 기타 칭호 부여
+        events = apply_xp(user, CLEAR_XP, {"boss_cleared": True})
+        newly_earned_titles.extend(events["newly_earned_titles"])
 
         # cleared_levels 기록
         cleared_levels.append(level)

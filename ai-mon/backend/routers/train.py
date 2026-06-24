@@ -1,11 +1,13 @@
 import os, random
-from fastapi import APIRouter, Header, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
+from typing import Optional
 from routers.quiz import load_questions_by_category
 from routers.utils import (
-    verify_token,
     get_wrong_answers_by_user,
     save_wrong_answer_item,
+    get_current_user,
+    get_current_user_optional,
 )
 
 router = APIRouter()
@@ -16,15 +18,9 @@ def get_train_review(
     unit: int = 1,
     course_level: str = "beginner",
     limit: int = 15,
-    authorization: str = Header(None)
+    user: Optional[dict] = Depends(get_current_user_optional)
 ):
-    # 유저 ID 추출 (JWT 토큰 파싱)
-    user_id = None
-    if authorization:
-        try:
-            user_id = verify_token(authorization)
-        except HTTPException:
-            pass
+    user_id = user["id"] if user else None
 
     questions = load_questions_by_category("train", course_level=course_level, unit=unit)
     if not questions:
@@ -57,11 +53,8 @@ class ReviewedRequest(BaseModel):
 
 
 @router.post("/reviewed")
-def mark_question_reviewed(req: ReviewedRequest, authorization: str = Header(None)):
-    if not authorization:
-        raise HTTPException(status_code=401, detail="토큰이 유효하지 않습니다.")
-
-    user_id = verify_token(authorization)
+def mark_question_reviewed(req: ReviewedRequest, user: dict = Depends(get_current_user)):
+    user_id = user["id"]
 
     wrong_answers = get_wrong_answers_by_user(user_id)
     
