@@ -1,3 +1,4 @@
+import logging
 from fastapi import APIRouter, HTTPException, Header
 from pydantic import BaseModel
 import os
@@ -9,6 +10,7 @@ from routers.utils import (
     get_current_user,
 )
 
+logger = logging.getLogger("uvicorn.error")
 router = APIRouter()
 
 
@@ -48,7 +50,9 @@ def get_me(authorization: str = Header(...)):
 @router.patch("/me")
 def update_me(req: UpdateProfileRequest, authorization: str = Header(...)):
     user = get_current_user(authorization)
-    print("PATCH /user/me payload:", req.dict())
+    # Log structural metadata (excluding PII like nickname, username, etc.)
+    updated_fields = [k for k, v in req.dict().items() if v is not None]
+    logger.info(f"PATCH /user/me request: user_id={user['id']}, updated_fields={updated_fields}")
     
     if req.nickname is not None:
         user["nickname"] = req.nickname
@@ -62,7 +66,7 @@ def update_me(req: UpdateProfileRequest, authorization: str = Header(...)):
         user["equipped_title"] = req.equipped_title
         
     save_user(user)
-    print("PATCH /user/me successfully saved user:", user)
+    logger.info(f"PATCH /user/me successful: user_id={user['id']}")
     return serialize_user(user)
 
 
