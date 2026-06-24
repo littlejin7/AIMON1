@@ -54,7 +54,7 @@ const GAMES = [
     reward: "XP 100",
     rewardIcon: "⚡",
     route: "/game/aibomb",
-    available: true,
+    available: false,
     dailyTarget: null,
   },
       {
@@ -65,7 +65,7 @@ const GAMES = [
         reward: 'XP 100~200',
         rewardIcon: '⚡',
         route: '/game/aicross',
-        available: true,
+        available: false,
       },
 ];
 
