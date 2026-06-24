@@ -1,0 +1,180 @@
+{
+  "questions": [
+    {
+      "question_id": "adv_u4_r001",
+      "type": "fill_in_blank",
+      "difficulty": "easy",
+      "unit": 4,
+      "question": "사용자로부터 한 줄의 텍스트를 입력받으려고 합니다. 빈칸에 알맞은 Streamlit 위젯 함수명을 채워보세요.",
+      "code": "import streamlit as st\n\nname = st._____(label=\"이름을 입력하세요\")\nst.write(f\"반갑습니다, {name}님!\")",
+      "answer": "text_input",
+      "feedback": {
+        "correct": "정답! st.text_input()은 사용자가 한 줄의 텍스트를 입력할 수 있는 위젯입니다. label 파라미터로 입력 필드의 안내 문구를 지정하며, 입력된 값은 문자열(str)로 반환됩니다."
+      }
+    },
+    {
+      "question_id": "adv_u4_r002",
+      "type": "fill_in_blank",
+      "difficulty": "easy",
+      "unit": 4,
+      "question": "사용자가 버튼을 클릭했을 때 성공 메시지를 표시하려고 합니다. 빈칸에 알맞은 Streamlit 위젯 함수명을 채워보세요.",
+      "code": "import streamlit as st\n\nif st._____(\"확인\"):\n    st.success(\"처리가 완료되었습니다!\")",
+      "answer": "button",
+      "feedback": {
+        "correct": "정답! st.button()은 클릭 가능한 버튼을 생성하는 위젯입니다. 버튼이 클릭되면 True를 반환하므로, if문과 함께 사용하면 클릭 이벤트에 따른 동작을 간결하게 구현할 수 있습니다."
+      }
+    },
+    {
+      "question_id": "adv_u4_r003",
+      "type": "fill_in_blank",
+      "difficulty": "easy",
+      "unit": 4,
+      "question": "대화 기록을 저장할 리스트를 처음 한 번만 초기화하려고 합니다. 빈칸에 알맞은 Streamlit 상태 관리 객체명을 채워보세요.",
+      "code": "import streamlit as st\n\nif \"messages\" not in st._____:\n    st.session_state.messages = []",
+      "answer": "session_state",
+      "feedback": {
+        "correct": "정답! st.session_state는 Streamlit에서 상태를 유지하는 딕셔너리 형태의 객체입니다. 'if key not in st.session_state' 패턴을 사용하면 스크립트가 재실행될 때마다 불필요하게 초기화되는 것을 방지할 수 있습니다."
+      }
+    },
+    {
+      "question_id": "adv_u4_r004",
+      "type": "fill_in_blank",
+      "difficulty": "easy",
+      "unit": 4,
+      "question": "Streamlit 앱의 상단에 가장 큰 제목 텍스트를 표시하려고 합니다. 빈칸에 알맞은 함수명을 채워보세요.",
+      "code": "import streamlit as st\n\nst._____(\"AI 챗봇 서비스\")\nst.write(\"무엇이든 질문해 보세요!\")",
+      "answer": "title",
+      "feedback": {
+        "correct": "정답! st.title()은 앱 상단에 가장 큰 제목 텍스트를 표시하는 함수입니다. HTML의 <h1> 태그와 유사하며, 앱의 이름이나 주제를 한눈에 전달할 때 사용합니다."
+      }
+    },
+    {
+      "question_id": "adv_u4_r005",
+      "type": "code_input",
+      "difficulty": "easy",
+      "unit": 4,
+      "question": "Streamlit으로 간단한 앱 기본 구조를 작성해보세요. st.title()로 '나의 AI 챗봇'이라는 제목을 표시하고, st.text_input()으로 '질문을 입력하세요'라는 라벨의 입력 필드를 만드세요. (import 포함)",
+      "answer": "import streamlit as st\n\nst.title(\"나의 AI 챗봇\")\nuser_input = st.text_input(\"질문을 입력하세요\")",
+      "feedback": {
+        "correct": "정답! Streamlit 앱은 import streamlit as st로 시작하며, st.title()로 제목을, st.text_input()으로 텍스트 입력 위젯을 만듭니다. 위젯 함수는 작성 순서대로 화면에 배치됩니다."
+      }
+    },
+    {
+      "question_id": "adv_u4_r006",
+      "type": "fill_in_blank",
+      "difficulty": "medium",
+      "unit": 4,
+      "question": "AI의 안내 메시지를 채팅 말풍선 형식으로 표시하려고 합니다. st.chat_message()에 들어갈 알맞은 role 문자열을 채워보세요.",
+      "code": "import streamlit as st\n\nwith st.chat_message(_____):\n    st.write(\"무엇이든 물어보세요!\")",
+      "answer": "\"assistant\"",
+      "feedback": {
+        "correct": "정답! st.chat_message()는 role 값에 따라 말풍선 위치와 아이콘이 달라집니다. \"assistant\"는 AI 응답을, \"user\"는 사용자 메시지를 표시할 때 사용합니다."
+      }
+    },
+    {
+      "question_id": "adv_u4_r007",
+      "type": "fill_in_blank",
+      "difficulty": "medium",
+      "unit": 4,
+      "question": "사용자 메시지를 session_state의 대화 기록 리스트 끝에 추가하려고 합니다. 빈칸에 알맞은 리스트 메서드명을 채워보세요.",
+      "code": "import streamlit as st\n\nif \"messages\" not in st.session_state:\n    st.session_state.messages = []\n\nnew_msg = {\"role\": \"user\", \"content\": \"안녕하세요\"}\nst.session_state.messages._____(new_msg)",
+      "answer": "append",
+      "feedback": {
+        "correct": "정답! list.append()는 리스트의 맨 끝에 새 요소를 추가하는 메서드입니다. 대화 기록은 시간 순서대로 누적되어야 하므로, 새 메시지를 항상 리스트 끝에 추가하는 append()가 적합합니다."
+      }
+    },
+    {
+      "question_id": "adv_u4_r008",
+      "type": "fill_in_blank",
+      "difficulty": "medium",
+      "unit": 4,
+      "question": "저장된 대화 기록을 순서대로 화면에 표시하려고 합니다. 각 메시지 딕셔너리에서 발화자를 구분하는 키를 빈칸에 채워보세요.",
+      "code": "import streamlit as st\n\nfor message in st.session_state.messages:\n    with st.chat_message(message[_____]):\n        st.write(message[\"content\"])",
+      "answer": "\"role\"",
+      "feedback": {
+        "correct": "정답! 메시지 딕셔너리에서 message[\"role\"]로 발화자 값을 꺼냅니다. 대화 기록은 {\"role\": \"user\", \"content\": \"...\"} 또는 {\"role\": \"assistant\", \"content\": \"...\"} 형태로 저장되므로, \"role\" 키로 발화자를 구분합니다."
+      }
+    },
+    {
+      "question_id": "adv_u4_r009",
+      "type": "fill_in_blank",
+      "difficulty": "medium",
+      "unit": 4,
+      "question": "챗봇 앱에서 화면 하단에 고정되는 채팅 전용 입력창을 만들려고 합니다. 빈칸에 알맞은 Streamlit 위젯 함수명을 채워보세요.",
+      "code": "import streamlit as st\n\nif \"messages\" not in st.session_state:\n    st.session_state.messages = []\n\nprompt = st._____(\"메시지를 입력하세요\")\nif prompt:\n    st.session_state.messages.append({\"role\": \"user\", \"content\": prompt})",
+      "answer": "chat_input",
+      "feedback": {
+        "correct": "정답! st.chat_input()은 화면 하단에 고정되는 채팅 전용 입력창을 생성합니다. 사용자가 메시지를 입력하고 Enter를 누르면 해당 문자열을 반환하고, 아무것도 입력하지 않으면 None을 반환합니다."
+      }
+    },
+    {
+      "question_id": "adv_u4_r010",
+      "type": "code_input",
+      "difficulty": "medium",
+      "unit": 4,
+      "question": "버튼 클릭 횟수를 기억하는 Streamlit 앱을 작성해보세요. st.session_state에 'count' 키가 없으면 0으로 초기화하고, '클릭' 버튼을 누를 때마다 count를 1씩 증가시킨 뒤, 현재 클릭 횟수를 화면에 출력하세요. (import 포함)",
+      "answer": "import streamlit as st\n\nif \"count\" not in st.session_state:\n    st.session_state.count = 0\n\nif st.button(\"클릭\"):\n    st.session_state.count += 1\n\nst.write(f\"클릭 횟수: {st.session_state.count}\")",
+      "feedback": {
+        "correct": "정답! Streamlit은 위젯과 상호작용할 때마다 스크립트 전체를 재실행합니다. st.session_state를 사용하면 재실행 사이에도 count 값이 유지되므로 버튼 클릭 횟수를 정확히 누적할 수 있습니다."
+      }
+    },
+    {
+      "question_id": "adv_u4_r011",
+      "type": "fill_in_blank",
+      "difficulty": "hard",
+      "unit": 4,
+      "question": "Anthropic SDK로 Claude API 클라이언트를 초기화하려고 합니다. 빈칸에 알맞은 클래스명을 채워보세요.",
+      "code": "import anthropic\nimport streamlit as st\n\nclient = anthropic._____(  \n    api_key=st.secrets[\"ANTHROPIC_API_KEY\"]\n)",
+      "answer": "Anthropic",
+      "feedback": {
+        "correct": "정답! anthropic.Anthropic()은 Anthropic SDK의 메인 클라이언트 클래스입니다. api_key 파라미터로 인증 정보를 전달하며, 생성된 client 객체로 messages.create()나 messages.stream() 등의 API를 호출할 수 있습니다."
+      }
+    },
+    {
+      "question_id": "adv_u4_r012",
+      "type": "fill_in_blank",
+      "difficulty": "hard",
+      "unit": 4,
+      "question": "Streamlit Cloud 배포 시 .streamlit/secrets.toml에 저장한 API 키를 앱에서 안전하게 불러오려고 합니다. 빈칸에 알맞은 Streamlit 속성명을 채워보세요.",
+      "code": "import streamlit as st\nimport anthropic\n\napi_key = st._____[\"ANTHROPIC_API_KEY\"]\nclient = anthropic.Anthropic(api_key=api_key)",
+      "answer": "secrets",
+      "feedback": {
+        "correct": "정답! st.secrets는 .streamlit/secrets.toml 파일에 저장된 민감한 정보를 딕셔너리 형태로 불러오는 Streamlit의 시크릿 관리 속성입니다. API 키를 코드에 직접 노출하지 않고 안전하게 관리할 수 있습니다."
+      }
+    },
+    {
+      "question_id": "adv_u4_r013",
+      "type": "fill_in_blank",
+      "difficulty": "hard",
+      "unit": 4,
+      "question": "Anthropic 스트리밍 API를 사용할 때, 텍스트 청크를 실시간으로 꺼내는 제너레이터 속성명을 빈칸에 채워보세요.",
+      "code": "with st.chat_message(\"assistant\"):\n    with client.messages.stream(\n        model=\"claude-opus-4-5\",\n        max_tokens=1024,\n        messages=st.session_state.messages\n    ) as stream:\n        response = st.write_stream(stream._____)",
+      "answer": "text_stream",
+      "feedback": {
+        "correct": "정답! stream.text_stream은 Anthropic SDK 스트리밍 컨텍스트 매니저가 제공하는 텍스트 청크 제너레이터 속성입니다. st.write_stream()에 전달하면 생성되는 텍스트를 실시간으로 화면에 표시하고, 완성된 전체 텍스트를 반환합니다."
+      }
+    },
+    {
+      "question_id": "adv_u4_r014",
+      "type": "code_input",
+      "difficulty": "hard",
+      "unit": 4,
+      "question": "st.session_state.messages에 저장된 전체 대화 기록을 화면에 표시하는 코드를 작성해보세요. 각 메시지의 role 값에 맞는 st.chat_message() 컨텍스트 안에서 content를 st.write()로 출력해야 합니다.",
+      "answer": "for msg in st.session_state.messages:\n    with st.chat_message(msg[\"role\"]):\n        st.write(msg[\"content\"])",
+      "feedback": {
+        "correct": "정답! for 루프로 messages 리스트를 순회하며, 각 메시지의 role로 chat_message 컨텍스트를 열고 content를 표시합니다. 이 패턴은 앱이 재실행될 때마다 이전 대화 기록을 화면에 복원하는 핵심 로직입니다."
+      }
+    },
+    {
+      "question_id": "adv_u4_r015",
+      "type": "code_input",
+      "difficulty": "hard",
+      "unit": 4,
+      "question": "Anthropic 스트리밍 API를 호출하여 assistant 응답을 실시간으로 출력하고, 완성된 응답을 assistant role로 st.session_state.messages에 저장하는 코드를 작성해보세요. model은 'claude-opus-4-5', max_tokens는 1024를 사용하세요. (client와 st.session_state.messages는 이미 준비되어 있다고 가정합니다)",
+      "answer": "with st.chat_message(\"assistant\"):\n    with client.messages.stream(\n        model=\"claude-opus-4-5\",\n        max_tokens=1024,\n        messages=st.session_state.messages\n    ) as stream:\n        response = st.write_stream(stream.text_stream)\n\nst.session_state.messages.append({\"role\": \"assistant\", \"content\": response})",
+      "feedback": {
+        "correct": "정답! st.chat_message(\"assistant\") 컨텍스트 안에서 client.messages.stream()으로 스트리밍 API를 호출하고, st.write_stream(stream.text_stream)으로 실시간 출력합니다. 스트리밍 완료 후 반환된 response를 assistant role로 session_state.messages에 추가하여 대화 기록을 유지합니다."
+      }
+    }
+  ]
+}

@@ -1,0 +1,204 @@
+{
+  "questions": [
+    {
+      "question_id": "unitboss_mid_os_7_001",
+      "unit": 7,
+      "stage": "7-boss",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\nimport re\n\nresult = re.match(r\"\\d+\", \"42레벨 에이몬\")\nprint(result.group())\n```",
+      "choices": [
+        "A. 42레벨 에이몬",
+        "B. 42",
+        "C. 레벨 에이몬",
+        "D. None"
+      ],
+      "answer": "B",
+      "hint": "\\d+는 하나 이상의 숫자를 뜻해요. match()는 문자열 처음부터 패턴을 찾아요.",
+      "feedback": {
+        "correct": "정답! \\d+는 하나 이상의 숫자를 의미합니다. re.match()는 문자열 처음부터 패턴을 검사해요. \"42레벨 에이몬\"의 처음이 숫자이므로 매칭에 성공하고 group()으로 \"42\"를 꺼낼 수 있어요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_fib_7_002",
+      "unit": 7,
+      "stage": "7-boss",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "정규식에서 공백이 아닌 단어 문자(알파벳, 숫자, 언더바)를 하나 이상 매칭하는 패턴을 빈칸에 넣으세요.\n\n```python\nimport re\ntext = \"에이몬_100 !!!\"\nresult = re.findall(r\"_________+\", text)\nprint(result)  # ['에이몬_100']\n```",
+      "choices": [],
+      "answer": "\\w",
+      "hint": "단어 문자(word character)를 뜻하는 두 글자 정규식 기호예요.",
+      "feedback": {
+        "correct": "정답! \\w는 알파벳, 숫자, 언더바(_)를 포함하는 단어 문자를 나타냅니다. \\w+는 하나 이상의 단어 문자를 연속으로 매칭해요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_os_7_003",
+      "unit": 7,
+      "stage": "7-boss",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\nimport re\n\ntext = \"HP:100 MP:50 ATK:85\"\nnumbers = re.findall(r\"\\d+\", text)\nprint(numbers)\n```",
+      "choices": [
+        "A. ['100', '50', '85']",
+        "B. [100, 50, 85]",
+        "C. '100 50 85'",
+        "D. ['HP:100', 'MP:50', 'ATK:85']"
+      ],
+      "answer": "A",
+      "hint": "re.findall()은 매칭된 문자열을 리스트로 반환해요. 정규식 매칭 결과는 문자열 타입이에요.",
+      "feedback": {
+        "correct": "정답! re.findall(r\"\\d+\", text)는 텍스트에서 하나 이상의 숫자로 이루어진 부분을 모두 찾아 리스트로 반환합니다. 반환값은 문자열 타입이므로 ['100', '50', '85']가 돼요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_fib_7_004",
+      "unit": 7,
+      "stage": "7-boss",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "정규식 그룹을 이용해 이름과 점수를 각각 추출하려고 합니다. 빈칸에 들어갈 숫자는?\n\n```python\nimport re\n\ntext = \"에이몬:950점\"\nm = re.match(r\"(\\w+):(\\d+)점\", text)\nprint(m.group(_________))  # 에이몬\nprint(m.group(2))  # 950\n```",
+      "choices": [],
+      "answer": "1",
+      "hint": "group(0)은 전체 매칭, group(1)은 첫 번째 괄호 그룹이에요.",
+      "feedback": {
+        "correct": "정답! 정규식에서 괄호 ()로 그룹을 만들면 group(번호)로 각 그룹을 꺼낼 수 있습니다. group(0)은 전체 매칭, group(1)은 첫 번째 그룹(에이몬), group(2)는 두 번째 그룹(950)이에요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_ef_7_005",
+      "unit": 7,
+      "stage": "7-boss",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "error_find",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드에서 AttributeError가 발생하는 줄은?\n\n1줄: import re\n```python\n2줄: text = \"레벨: 99\"\n3줄: m1 = re.search(r\"\\d+\", text)\n4줄: print(m1.group())\n5줄: m2 = re.match(r\"\\d+\", text)\n6줄: print(m2.group())\n```",
+      "choices": [
+        "A. 3줄",
+        "B. 4줄",
+        "C. 5줄",
+        "D. 6줄"
+      ],
+      "answer": "D",
+      "hint": "re.match()는 문자열 처음부터 패턴을 찾아요. \"레벨: 99\"의 처음은 숫자가 아니에요.",
+      "feedback": {
+        "correct": "정답! re.match()는 문자열의 처음부터 패턴을 매칭합니다. \"레벨: 99\"는 숫자로 시작하지 않으므로 m2는 None이 됩니다. None.group()을 호출하면 AttributeError가 발생해요. re.search()를 써야 해요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_os_7_006",
+      "unit": 7,
+      "stage": "7-boss",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\nimport re\n\ntext = \"에이몬은 최강! 에이몬 파이팅!\"\nresult = re.sub(r\"에이몬\", \"드래곤\", text)\nprint(result)\n```",
+      "choices": [
+        "A. 드래곤은 최강! 에이몬 파이팅!",
+        "B. 에이몬은 최강! 드래곤 파이팅!",
+        "C. 드래곤은 최강! 드래곤 파이팅!",
+        "D. 에이몬은 최강! 에이몬 파이팅!"
+      ],
+      "answer": "C",
+      "hint": "re.sub()는 패턴과 일치하는 모든 부분을 치환해요.",
+      "feedback": {
+        "correct": "정답! re.sub(패턴, 치환문자, 문자열)은 패턴에 매칭되는 모든 부분을 치환합니다. 텍스트에 \"에이몬\"이 두 번 등장하므로 둘 다 \"드래곤\"으로 바뀌어요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_fib_7_007",
+      "unit": 7,
+      "stage": "7-boss",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "쉼표 또는 세미콜론으로 구분된 문자열을 분리하려고 합니다. 빈칸에 들어갈 패턴은?\n\n```python\nimport re\n\ntext = \"검,방패;활,포션;갑옷\"\nparts = re.split(r\"_________\", text)\nprint(parts)  # ['검', '방패', '활', '포션', '갑옷']\n```",
+      "choices": [],
+      "answer": "[,;]",
+      "hint": "쉼표(,) 또는 세미콜론(;) 중 하나를 매칭하는 문자 클래스를 사용해요.",
+      "feedback": {
+        "correct": "정답! 정규식에서 []는 문자 클래스로, 괄호 안의 문자 중 하나를 매칭합니다. [,;]는 쉼표 또는 세미콜론을 의미해요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_os_7_008",
+      "unit": 7,
+      "stage": "7-boss",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\nimport re\n\ntext = \"아이템: 검(공격+50), 방패(방어+30)\"\nmatches = re.findall(r\"([가-힣]+)\\((\\w+\\+\\d+)\\)\", text)\nprint(matches)\n```",
+      "choices": [
+        "A. ['검', '방패']",
+        "B. ['공격+50', '방어+30']",
+        "C. [('검', '공격+50'), ('방패', '방어+30')]",
+        "D. ['검(공격+50)', '방패(방어+30)']"
+      ],
+      "answer": "C",
+      "hint": "괄호가 두 개 있는 패턴으로 findall()을 쓰면 각 그룹이 튜플로 묶여 반환돼요.",
+      "feedback": {
+        "correct": "정답! 그룹이 두 개 이상인 패턴으로 re.findall()을 사용하면 각 매칭에서 그룹들을 튜플로 묶어 리스트로 반환합니다. 결과는 [('검', '공격+50'), ('방패', '방어+30')]이에요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_ef_7_009",
+      "unit": 7,
+      "stage": "7-boss",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "error_find",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드에서 오류 없이 실행되지만 의도한 대로 동작하지 않는 버그가 있는 줄은?\n\n```python\n1줄: import re\n2줄: emails = \"eimon@game.com hello@world.org test@example.net\"\n3줄: pattern = r\"[\\w.]+@[\\w.]+\"\n4줄: found = re.findall(pattern, emails)\n5줄: print(len(found))\n6줄: only_com = [e for e in found if re.match(r\".com\", e)]\n7줄: print(len(only_com))\n```",
+      "choices": [
+        "A. 3줄",
+        "B. 4줄",
+        "C. 6줄",
+        "D. 7줄"
+      ],
+      "answer": "C",
+      "hint": "정규식에서 .은 특수문자로 '임의의 한 문자'를 뜻해요. .com을 문자 그대로 매칭하려면 어떻게 해야 할까요?",
+      "feedback": {
+        "correct": "정답! 6줄에서 r\".com\"의 .은 임의의 한 문자를 뜻하는 메타문자입니다. 그래서 \"xcom\", \"1com\" 등도 매칭돼요. .com 도메인만 정확히 필터링하려면 r\"\\.com$\"으로 써야 해요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_fib_7_010",
+      "unit": 7,
+      "stage": "7-boss",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "3자리에서 4자리 숫자를 매칭하는 정규식 패턴을 완성하세요. 빈칸에 들어갈 수량자는?\n\n```python\nimport re\n\ntext = \"아이템 코드: AB123, XY9, PQ5678\"\nresult = re.findall(r\"\\d_________\", text)\nprint(result)  # ['123', '5678']\n```",
+      "choices": [],
+      "answer": "{3,4}",
+      "hint": "특정 횟수 범위를 지정하는 수량자는 {최소,최대} 형태예요.",
+      "feedback": {
+        "correct": "정답! {3,4}는 앞의 패턴이 3번 이상 4번 이하 반복됨을 의미합니다. \\d{3,4}는 3자리 또는 4자리 숫자를 매칭해요. 9는 1자리라 제외되고, 123(3자리)과 5678(4자리)만 매칭됩니다."
+      }
+    }
+  ]
+}

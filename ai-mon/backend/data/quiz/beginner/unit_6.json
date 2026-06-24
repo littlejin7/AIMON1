@@ -1,0 +1,3224 @@
+{
+  "questions": [
+    {
+      "question_id": "q601",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "Python에서 함수를 새로 정의할 때 가장 먼저 사용해야 하는 키워드는 무엇인가요?",
+      "choices": [
+        "A. function",
+        "B. def",
+        "C. define",
+        "D. make"
+      ],
+      "answer": "B",
+      "hint": "영어 단어 'define(정의하다)'의 앞 글자 3개를 따온 키워드예요.",
+      "feedback": {
+        "correct": "정답입니다! 파이썬에서는 def 키워드를 사용해 함수를 선언합니다."
+      }
+    },
+    {
+      "question_id": "q602",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "함수를 만드는 가장 큰 목적으로 올바른 것은 무엇인가요?",
+      "choices": [
+        "A. 코드를 더 빠르게 실행시키기 위해",
+        "B. 반복되는 코드를 재사용하여 중복을 줄이기 위해",
+        "C. 프로그램을 강제로 종료하기 위해",
+        "D. 변수의 자료형을 자동으로 바꾸기 위해"
+      ],
+      "answer": "B",
+      "hint": "자주 쓰는 코드를 묶어두면 필요할 때마다 다시 쓸 수 있어요.",
+      "feedback": {
+        "correct": "정답입니다! 함수를 사용하면 코드의 재사용성이 높아지고 관리가 쉬워집니다."
+      }
+    },
+    {
+      "question_id": "q603",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef say_hello():\n    print('안녕하세요!')\n```\n\nsay_hello()",
+      "choices": [
+        "A. say_hello()",
+        "B. 안녕하세요!",
+        "C. 아무것도 출력되지 않는다",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "정의된 함수 이름 뒤에 소괄호()를 붙여서 호출하면 함수 내부 코드가 실행돼요.",
+      "feedback": {
+        "correct": "정답입니다! say_hello() 호출을 통해 함수 내부의 print문이 실행됩니다."
+      }
+    },
+    {
+      "question_id": "q604",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "파이썬에서 함수를 정의하고 내부 코드를 작성할 때 반드시 지켜야 하는 문법적 규칙은 무엇인가요?",
+      "choices": [
+        "A. 코드 끝에 반드시 세미콜론(;)을 붙여야 한다.",
+        "B. 함수의 첫 줄 끝에 콜론(:)을 쓰고, 내부 코드는 들여쓰기를 해야 한다.",
+        "C. 함수의 내부 코드는 반드시 한 줄로만 작성해야 한다.",
+        "D. 함수 이름은 반드시 대문자로만 시작해야 한다."
+      ],
+      "answer": "B",
+      "hint": "조건문(if)이나 반복문(for)을 쓸 때 처럼 문장 끝의 기호와 하위 블록 구분이 필요해요.",
+      "feedback": {
+        "correct": "정답입니다! def 문장 끝에는 콜론(:)을 붙이고, 함수에 속한 코드는 들여쓰기를 해야 합니다."
+      }
+    },
+    {
+      "question_id": "q605",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef monster_attack():\n    print('몬스터가 공격합니다!')\n\nprint('전투 시작!')\n```",
+      "choices": [
+        "A. 몬스터가 공격합니다!\n전투 시작!",
+        "B. 몬스터가 공격합니다!",
+        "C. 전투 시작!",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "함수는 '정의(def)'만 하고 '호출()'하지 않으면 내부 코드가 실행되지 않아요.",
+      "feedback": {
+        "correct": "정답입니다! monster_attack 함수가 정의만 되었을 뿐 호출되지 않았으므로 '전투 시작!'만 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q606",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 중 파이썬의 올바른 함수 호출(실행) 방식으로 고르세요.",
+      "choices": [
+        "A. call open_box",
+        "B. open_box[]",
+        "C. open_box()",
+        "D. def open_box()"
+      ],
+      "answer": "C",
+      "hint": "함수를 실행할 때는 함수 이름 뒤에 소괄호를 열고 닫아야 합니다.",
+      "feedback": {
+        "correct": "정답입니다! open_box()와 같이 소괄호를 사용하는 것이 올바른 호출 방식입니다."
+      }
+    },
+    {
+      "question_id": "q607",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 출력되는 결과로 올바른 것은 무엇인가요?\n\n```python\ndef play_sound():\n    print('효과음 재생')\n\nplay_sound\n\nprint('게임 진행')\n```",
+      "choices": [
+        "A. 효과음 재생\n게임 진행",
+        "B. 게임 진행",
+        "C. 효과음 재생",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "play_sound 뒤에 소괄호()가 빠져 있으면 함수가 실행되지 않습니다.",
+      "feedback": {
+        "correct": "정답입니다! play_sound 구문은 소괄호가 없어 함수를 호출하지 않으므로 '게임 진행'만 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q608",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 최종 결과는 무엇인가요?\n\n```python\ndef show_level():\n    print('현재 레벨: 5')\n\nprint('체크 1')\nshow_level()\nprint('체크 2')\n```",
+      "choices": [
+        "A. 현재 레벨: 5\n체크 1\n체크 2",
+        "B. 체크 1\n체크 2\n현재 레벨: 5",
+        "C. 체크 1\n현재 레벨: 5\n체크 2",
+        "D. 현재 레벨: 5"
+      ],
+      "answer": "C",
+      "hint": "코드는 위에서 아래로 순서대로 실행됩니다. 함수가 호출되는 타이밍을 잘 보세요.",
+      "feedback": {
+        "correct": "정답입니다! '체크 1' 출력 후 show_level()이 호출되어 함수 내부가 실행되고, 마지막으로 '체크 2'가 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q609",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과로 올바른 것을 고르세요.\n\n```python\ndef print_star():\n    print('*')\n\nfor i in range(3):\n    print_star()\n```",
+      "choices": [
+        "A. *\n*\n*",
+        "B. ***",
+        "C. *",
+        "D. 오류 발생"
+      ],
+      "answer": "A",
+      "hint": "반복문 내부에서 함수를 호출하면, 반복할 때마다 함수가 실행됩니다. print()는 기본적으로 줄바꿈을 해요.",
+      "feedback": {
+        "correct": "정답입니다! print_star() 함수가 3번 반복 호출되어 별 기호가 세 줄에 걸쳐 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q610",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 중 파이썬에서 문법 오류(SyntaxError)를 발생시키는 함수 정의는 무엇인가요?",
+      "choices": [
+        "A. def my_game():\n    print('시작')",
+        "B. def 1st_function():\n    print('첫번째')",
+        "C. def game_level_1():\n    print('레벨1')",
+        "D. def _test():\n    print('테스트')"
+      ],
+      "answer": "B",
+      "hint": "변수 이름을 지을 때 규칙과 함수 이름을 지을 때 규칙은 동일해요. 숫자로 시작할 수 있을까요?",
+      "feedback": {
+        "correct": "정답입니다! 함수 이름은 변수와 마찬가지로 숫자로 시작할 수 없기 때문에 문법 오류가 발생합니다."
+      }
+    },
+    {
+      "question_id": "q611",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "파이썬에서 함수(Function)에 대한 설명으로 올바르지 않은 것은 무엇인가요?",
+      "choices": [
+        "A. 한 번 만들어둔 함수는 여러 번 반복해서 호출할 수 있다.",
+        "B. 함수 이름을 지을 때는 띄어쓰기를 사용할 수 없다.",
+        "C. 함수를 정의하기만 하면 본문 코드가 자동으로 즉시 실행된다.",
+        "D. 내장 함수 print()처럼 사용자가 직접 함수를 정의할 수 있다."
+      ],
+      "answer": "C",
+      "hint": "함수는 자판기와 같아요. 자판기를 '설치'해두는 것과 버튼을 눌러 '작동'시키는 것은 다릅니다.",
+      "feedback": {
+        "correct": "정답입니다! 함수는 정의(def)만으로는 실행되지 않고, 반드시 명시적으로 호출해야 실행됩니다."
+      }
+    },
+    {
+      "question_id": "q612",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 중 함수 이름 뒤에 오는 소괄호()의 주된 역할은 무엇인가요?",
+      "choices": [
+        "A. 함수를 주석 처리하기 위해",
+        "B. 함수를 호출하거나 필요한 데이터를 전달하기 위해",
+        "C. 함수의 코드 실행 속도를 올리기 위해",
+        "D. 함수를 삭제하기 위해"
+      ],
+      "answer": "B",
+      "hint": "함수를 실행하라는 신호이자 나중에 재료를 넘겨주는 통로예요.",
+      "feedback": {
+        "correct": "정답입니다! 소괄호는 함수 호출을 뜻하며, 필요 시 매개변수를 전달하는 역할을 합니다."
+      }
+    },
+    {
+      "question_id": "q613",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef aimon_status():\n    print('에이몬 Lv.1')\n\naimon_status()\naimon_status()\n```",
+      "choices": [
+        "A. 에이몬 Lv.1",
+        "B. 에이몬 Lv.1\n에이몬 Lv.1",
+        "C. 에이몬 Lv.2",
+        "D. 아무것도 출력되지 않는다"
+      ],
+      "answer": "B",
+      "hint": "함수는 호출하는 횟수만큼 정직하게 실행됩니다.",
+      "feedback": {
+        "correct": "정답입니다! aimon_status()를 연속으로 두 번 호출했으므로 해당 문구가 두 번 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q614",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 중 파이썬의 함수 정의 구조에서 문법 오류가 없는 올바른 코드를 고르세요.",
+      "choices": [
+        "A. def basic_def\n    print('test')",
+        "B. def basic_def():\nprint('test')",
+        "C. def basic_def():\n    print('test')",
+        "D. basic_def():\n    print('test')"
+      ],
+      "answer": "C",
+      "hint": "키워드 `def`, 함수명 뒤 `()`, 맨 끝의 `:`, 그리고 하위 코드의 들여쓰기가 모두 갖춰져야 해요.",
+      "feedback": {
+        "correct": "정답입니다! C번 문항이 파이썬의 표준 함수 정의 문법을 완벽히 따르고 있습니다."
+      }
+    },
+    {
+      "question_id": "q615",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 나타나는 출력 결과는 무엇인가요?\n\n```python\nprint('준비')\n\ndef level_up():\n    print('레벨업 완료!')\n\nprint('끝')\n```",
+      "choices": [
+        "A. 준비\n레벨업 완료!\n끝",
+        "B. 준비\n끝",
+        "C. 레벨업 완료!",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "정의(def) 블록 안에 있는 코드는 호출을 받기 전까지는 건너뛰고 진행됩니다.",
+      "feedback": {
+        "correct": "정답입니다! level_up 함수는 정의만 되었고 호출되지 않았으므로 '준비'와 '끝'만 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q616",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "함수 내부에서 작성되는 코드들의 소속을 나타내기 위해 파이썬에서 사용하는 가장 중요한 공백 작성 규칙은?",
+      "choices": [
+        "A. 줄바꿈(Enter)",
+        "B. 띄어쓰기 한 칸",
+        "C. 들여쓰기(Indentation)",
+        "D. 따옴표 감싸기"
+      ],
+      "answer": "C",
+      "hint": "def 아래 줄의 코드들은 대개 4칸의 공백을 두고 안으로 들어가서 작성돼요.",
+      "feedback": {
+        "correct": "정답입니다! 파이썬은 들여쓰기를 통해 특정 함수나 조건문에 속한 코드 블록을 구분합니다."
+      }
+    },
+    {
+      "question_id": "q617",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 순서와 흐름을 분석했을 때, 최종 출력 결과는 어떻게 될까요?\n\n```python\ndef login():\n    print('로그인 시도')\n\nprint('게임 실행')\nlogin()\n```",
+      "choices": [
+        "A. 로그인 시도\n게임 실행",
+        "B. 게임 실행\n로그인 시도",
+        "C. 로그인 시도",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "함수 정의(def)는 메모리에 보관될 뿐, 실제 실행문은 `print('게임 실행')`부터 시작됩니다.",
+      "feedback": {
+        "correct": "정답입니다! '게임 실행'이 먼저 출력되고 그 다음 줄에서 login() 함수를 호출하여 '로그인 시도'가 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q618",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 발생하는 결과로 올바른 것을 고르세요.\n\nattack_boss()\n\n```python\ndef attack_boss():\n    print('보스에게 데미지 100!')\n```",
+      "choices": [
+        "A. 보스에게 데미지 100!",
+        "B. 아무것도 출력되지 않고 정상 종료된다.",
+        "C. NameError(이름 오류)가 발생한다.",
+        "D. 함수가 무한히 반복 실행된다."
+      ],
+      "answer": "C",
+      "hint": "컴퓨터는 코드를 위에서부터 읽습니다. 함수가 만들어지기도 전에 호출을 하려고 하면 어떻게 될까요?",
+      "feedback": {
+        "correct": "정답입니다! 함수를 정의(def)하기 전에 상단에서 먼저 호출하면 파이썬은 해당 이름을 찾지 못해 NameError를 발생시킵니다."
+      }
+    },
+    {
+      "question_id": "q619",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과를 예측하여 고르세요.\n\n```python\ndef intro():\n    print('에이몬 세계에')\n    sub_intro()\n\ndef sub_intro():\n    print('오신 것을 환영합니다!')\n\nintro()\n```",
+      "choices": [
+        "A. 에이몬 세계에",
+        "B. 에이몬 세계에\n오신 것을 환영합니다!",
+        "C. 오신 것을 환영합니다!\n에이몬 세계에",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "intro() 함수가 실행되는 도중에 내부에서 sub_intro() 함수를 또 호출하고 있어요.",
+      "feedback": {
+        "correct": "정답입니다! intro() 실행 중 내부에서 sub_intro()를 정상적으로 호출하여 연달아 문장이 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q620",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "함수 이름으로 예약어(파이썬이 이미 용도를 정해둔 키워드)를 사용할 때 발생하는 문제로 옳은 것은?",
+      "choices": [
+        "A. 아무런 문제 없이 작동한다.",
+        "B. 문법 오류(SyntaxError)가 발생하여 프로그램이 실행되지 않거나 기존 기능이 덮어씌워진다.",
+        "C. 컴퓨터가 자동으로 이름을 알아서 바꾸어 준다.",
+        "D. 프로그램의 속도가 2배 빨라진다."
+      ],
+      "answer": "B",
+      "hint": "def, if, for, print 같은 단어들을 함수 이름으로 함부로 재정의하면 문법 충돌이 나거나 기존 기능이 망가집니다.",
+      "feedback": {
+        "correct": "정답입니다! 파이썬 예약어나 내장 함수명을 사용자 정의 함수 이름으로 쓰면 문법 오류가 나거나 기존 기능 상실을 초래합니다."
+      }
+    },
+    {
+      "question_id": "q631",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "함수를 정의할 때, 외부에서 값을 받아오기 위해 함수 이름 뒤 소괄호() 안에 넣는 변수를 무엇이라고 하나요?",
+      "choices": [
+        "A. 매개변수 (Parameter)",
+        "B. 인수 (Argument)",
+        "C. 반환값 (Return Value)",
+        "D. 전역변수 (Global Variable)"
+      ],
+      "answer": "A",
+      "hint": "함수 내부와 외부를 연결해주는 '매개체' 역할을 하는 변수예요.",
+      "feedback": {
+        "correct": "정답입니다! 함수를 정의할 때 소괄호 안에 적는 외부 데이터의 전달 통로를 '매개변수'라고 부릅니다."
+      }
+    },
+    {
+      "question_id": "q632",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "함수를 '호출할 때', 함수에 실제로 전달하는 구체적인 값을 무엇이라고 하나요?",
+      "choices": [
+        "A. 매개변수 (Parameter)",
+        "B. 인수 (Argument)",
+        "C. 리턴형 (Return Type)",
+        "D. 대입연산자 (Assignment)"
+      ],
+      "answer": "B",
+      "hint": "함수를 실행하면서 넘겨주는 실제 '값' 자체를 뜻하는 용어예요.",
+      "feedback": {
+        "correct": "정답입니다! 함수를 사용할 때 던져주는 실제 데이터나 변수를 '인수' 또는 '인자'라고 부릅니다."
+      }
+    },
+    {
+      "question_id": "q633",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef greet(name):\n    print('안녕,' + name)\n```\n\ngreet('에이몬')",
+      "choices": [
+        "A. 안녕, name",
+        "B. 안녕,에이몬",
+        "C. 에이몬",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "인수 '에이몬'이 매개변수 name에 대입되어 함수 내부 코드가 실행돼요.",
+      "feedback": {
+        "correct": "정답입니다! '에이몬'이라는 문자열 인수가 name으로 들어가서 '안녕,에이몬'이 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q634",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef double_num(x):\n    print(x * 2)\n```\n\ndouble_num(5)",
+      "choices": [
+        "A. 5",
+        "B. 10",
+        "C. x * 2",
+        "D. 25"
+      ],
+      "answer": "B",
+      "hint": "숫자 5가 x에 대입된 후, x * 2 연산이 수행됩니다.",
+      "feedback": {
+        "correct": "정답입니다! 인수 5를 전달받아 5 * 2의 결과인 10이 화면에 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q635",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 중 매개변수의 위치를 기준으로 인수를 순서대로 매칭하여 전달하는 방식을 무엇이라고 하나요?",
+      "choices": [
+        "A. 키워드 인수 (Keyword Arguments)",
+        "B. 위치 인수 (Positional Arguments)",
+        "C. 기본 인수 (Default Arguments)",
+        "D. 가변 인수 (Variable Arguments)"
+      ],
+      "answer": "B",
+      "hint": "첫 번째 자리는 첫 번째 매개변수로, 두 번째 자리는 두 번째 매개변수로 들어가는 가장 기본적인 방식이에요.",
+      "feedback": {
+        "correct": "정답입니다! 순서와 위치를 맞춰서 인수를 던지는 기본 방식을 '위치 인수'라고 합니다."
+      }
+    },
+    {
+      "question_id": "q636",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "인수를 전달할 때 순서와 상관없이 매개변수의 이름을 명시하여 값을 지정하는 방식을 무엇이라고 하나요?",
+      "choices": [
+        "A. 위치 인수",
+        "B. 순서 인수",
+        "C. 키워드 인수",
+        "D. 변수 인수"
+      ],
+      "answer": "C",
+      "hint": "함수 호출 시 `매개변수명 = 값` 형태로 지정해서 넘겨주는 방법이에요.",
+      "feedback": {
+        "correct": "정답입니다! 매개변수 이름을 콕 집어서 매칭하는 방식을 '키워드 인수'라고 합니다."
+      }
+    },
+    {
+      "question_id": "q637",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 발생하는 결과로 올바른 것은 무엇인가요?\n\n```python\ndef introduce(name, age):\n    print(name, age)\n```\n\nintroduce('지니')",
+      "choices": [
+        "A. 지니 None",
+        "B. 지니",
+        "C. TypeError(형식 오류)가 발생한다.",
+        "D. 아무것도 출력되지 않고 무시된다."
+      ],
+      "answer": "C",
+      "hint": "함수가 요구하는 매개변수는 2개인데, 호출할 때 인수를 1개만 주면 어떻게 될까요?",
+      "feedback": {
+        "correct": "정답입니다! 파이썬에서는 정의된 매개변수 개수와 전달된 인수 개수가 다르면 TypeError가 발생합니다."
+      }
+    },
+    {
+      "question_id": "q638",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과로 올바른 출력값을 고르세요.\n\n```python\ndef make_profile(id, level):\n    print(f'{id}님은 Lv.{level}입니다.')\n```\n\nmake_profile(level=10, id='robot')",
+      "choices": [
+        "A. robot님은 Lv.10입니다.",
+        "B. level님은 Lv.id입니다.",
+        "C. 10님은 Lv.robot입니다.",
+        "D. 오류 발생"
+      ],
+      "answer": "A",
+      "hint": "키워드 인수를 사용하면 호출할 때의 순서가 달라도 매개변수 이름을 찾아 정확히 들어갑니다.",
+      "feedback": {
+        "correct": "정답입니다! 키워드 인수를 명시했기 때문에 순서에 관계없이 id에 'robot', level에 10이 정상 대입됩니다."
+      }
+    },
+    {
+      "question_id": "q639",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 최종 결과는 무엇인가요?\n\n```python\ndef attack(attacker, defender):\n    print(f'{attacker}가 {defender}를 공격!')\n```\n\nattack('슬라임', '로봇')",
+      "choices": [
+        "A. attacker가 defender를 공격!",
+        "B. 로봇이 슬라임을 공격!",
+        "C. 슬라임가 로봇를 공격!",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "위치 인수는 순서가 중요합니다. 첫 번째 인수가 첫 번째 매개변수로 대입돼요.",
+      "feedback": {
+        "correct": "정답입니다! 순서대로 대입되어 attacker='슬라임', defender='로봇'이 되므로 C번이 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q640",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "위치 인수와 키워드 인수를 함께 사용하는 다음 코드 중, 파이썬에서 문법 오류(SyntaxError)를 일으키는 호출 방식은 무엇인가요?",
+      "choices": [
+        "A. introduce('지니', age=20)",
+        "B. introduce(name='지니', age=20)",
+        "C. introduce(name='지니', 20)",
+        "D. introduce('지니', 20)"
+      ],
+      "answer": "C",
+      "hint": "파이썬 규칙상, 함수 호출 시 위치 인수가 키워드 인수보다 무조건 먼저 앞에 나와야 합니다.",
+      "feedback": {
+        "correct": "정답입니다! 키워드 인수 뒤에 위치 인수(20)를 섞어서 작성하는 것은 문법적으로 금지되어 있어 오류가 발생합니다."
+      }
+    },
+    {
+      "question_id": "q641",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "```python\n함수 정의문 `def get_info(a, b):` 에서 'a'와 'b'를 가리키는 정확한 명칭은 무엇인가요?\n```",
+      "choices": [
+        "A. 인수",
+        "B. 키워드",
+        "C. 매개변수",
+        "D. 수식어"
+      ],
+      "answer": "C",
+      "hint": "함수 '정의' 단계에서 소괄호 내부에 명시하는 변수명들이에요.",
+      "feedback": {
+        "correct": "정답입니다! 함수를 설계하고 정의할 때 틀로 지정해 둔 변수들은 매개변수라고 합니다."
+      }
+    },
+    {
+      "question_id": "q642",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "함수 호출문 `calculate(100, 200)` 에서 '100'과 '200'을 가리키는 정확한 명칭은 무엇인가요?",
+      "choices": [
+        "A. 매개변수",
+        "B. 인수",
+        "C. 선언문",
+        "D. 속성"
+      ],
+      "answer": "B",
+      "hint": "함수를 '실행'할 때 실제로 집어넣어 주는 구체적인 값이에요.",
+      "feedback": {
+        "correct": "정답입니다! 실제로 전달되는 가치인 데이터들은 인수라고 부릅니다."
+      }
+    },
+    {
+      "question_id": "q643",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 나타나는 출력값을 고르세요.\n\n```python\ndef print_sum(a, b):\n    print(a + b)\n```\n\nprint_sum(15, 5)",
+      "choices": [
+        "A. a + b",
+        "B. 155",
+        "C. 20",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "위치 인수에 의해 a에는 15, b에는 5가 전달되어 더해집니다.",
+      "feedback": {
+        "correct": "정답입니다! 15와 5가 각각 매칭되어 합산된 20이 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q644",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때의 결과를 고르세요.\n\n```python\ndef welcome(user):\n    print(f'환영합니다, {user}님!')\n\nmy_name = '지훈'\nwelcome(my_name)\n```",
+      "choices": [
+        "A. 환영합니다, user님!",
+        "B. 환영합니다, my_name님!",
+        "C. 환영합니다, 지훈님!",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "인수로 변수를 넣으면 그 변수가 가지고 있는 '실제 값'이 매개변수에 대입됩니다.",
+      "feedback": {
+        "correct": "정답입니다! my_name 변수가 품고 있는 '지훈'이라는 값이 user에 전달됩니다."
+      }
+    },
+    {
+      "question_id": "q645",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때의 출력 결과를 고르세요.\n\n```python\ndef repeat_msg(msg, count):\n    print(msg * count)\n```\n\nrepeat_msg(3, 'A')",
+      "choices": [
+        "A. AAA",
+        "B. 333",
+        "C. AAAAAAA",
+        "D. 오류 발생"
+      ],
+      "answer": "A",
+      "hint": "위치 인수는 순서대로 대입됩니다. msg=3, count='A'가 되면 `3 * 'A'` 연산이 발생해요. 파이썬에서 int * str은 str * int와 동일하게 작동한답니다!",
+      "feedback": {
+        "correct": "정답입니다! 파이썬에서 int * str은 str * int와 동일하게 동작합니다. msg=3, count='A'이므로 3 * 'A' = 'AAA'가 정상 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q646",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "키워드 인수를 사용하여 함수를 호출할 때 얻을 수 있는 장점이 아닌 것은 무엇인가요?",
+      "choices": [
+        "A. 매개변수의 원래 정의 순서를 외우지 않아도 된다.",
+        "B. 각 인수가 어떤 매개변수에 들어가는지 직관적으로 알 수 있어 가독성이 좋아진다.",
+        "C. 인수의 순서를 바꿔서 전달해도 정상 작동한다.",
+        "D. 함수 내부의 코드 실행 속도가 위치 인수보다 빨라진다."
+      ],
+      "answer": "D",
+      "hint": "키워드 인수는 편의성과 가독성을 위한 문법 장치이지, 컴퓨터의 계산 속도를 올리는 튜닝은 아닙니다.",
+      "feedback": {
+        "correct": "정답입니다! 키워드 인수를 쓴다고 해서 실행 속도가 향상되는 것은 아닙니다."
+      }
+    },
+    {
+      "question_id": "q647",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 최종값은 무엇인가요?\n\n```python\ndef mix_match(first, second):\n    print(second + first)\n```\n\nmix_match(second='World', first='Hello')",
+      "choices": [
+        "A. HelloWorld",
+        "B. WorldHello",
+        "C. Hello World",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "함수 본문에서는 `second + first` 순서로 이어붙이고 있습니다. 호출할 때 각각 어떤 값이 대입되는지 잘 매칭해보세요.",
+      "feedback": {
+        "correct": "정답입니다! 키워드 인수에 의해 first='Hello', second='World'가 매칭되고 본문에서 second부터 결합하므로 'WorldHello'가 됩니다."
+      }
+    },
+    {
+      "question_id": "q648",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 발생하는 결과로 올바른 것은 무엇인가요?\n\n```python\ndef register(name, code):\n    print(name)\n```\n\nregister('지혜원', 101, 'PM')",
+      "choices": [
+        "A. 지혜원",
+        "B. 지혜원 101 PM",
+        "C. TypeError(형식 오류)가 발생한다.",
+        "D. 마지막 인수 'PM'은 무시하고 '지혜원'만 출력한다."
+      ],
+      "answer": "C",
+      "hint": "매개변수 방은 2개(name, code)만 준비되어 있는데, 호출할 때 인수를 3개나 밀어 넣으면 어떻게 될까요?",
+      "feedback": {
+        "correct": "정답입니다! 정의된 매개변수보다 많은 인수를 넘겨주어도 파이썬은 개수 불일치로 TypeError를 발생시킵니다."
+      }
+    },
+    {
+      "question_id": "q649",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 나타나는 출력값을 고르세요.\n\n```python\ndef score_check(kor, eng):\n    print(kor - eng)\n```\n\nscore_check(80, 90)",
+      "choices": [
+        "A. 10",
+        "B. -10",
+        "C. 170",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "위치 인수의 규칙에 따라 kor=80, eng=90이 들어갑니다.",
+      "feedback": {
+        "correct": "정답입니다! 80 - 90 연산이 실행되므로 결과는 -10이 됩니다."
+      }
+    },
+    {
+      "question_id": "q650",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 중 파이썬의 매개변수와 인수에 관한 문법 설명으로 옳지 않은 것은 무엇인가요?",
+      "choices": [
+        "A. 매개변수 이름은 파이썬 변수 이름 작명 규칙을 따라야 한다.",
+        "B. 함수를 호출할 때 인수로 숫자, 문자열, 리스트 등 다양한 자료형을 전달할 수 있다.",
+        "C. 하나의 함수 호출문에서 위치 인수와 키워드 인수를 혼합해 쓸 때, 키워드 인수를 위치 인수보다 먼저 배치해야 한다.",
+        "D. 매개변수가 없는 함수는 호출할 때 소괄호 내부를 비워둔 채 `()`로 호출해야 한다."
+      ],
+      "answer": "C",
+      "hint": "혼합하여 사용할 때는 순서가 명확해야 합니다. 값만 주는 인수가 항상 앞에 서야 해요.",
+      "feedback": {
+        "correct": "정답입니다! 혼합 사용 시 반드시 위치 인수가 키워드 인수보다 먼저 배치되어야 하므로 C번 설명이 틀렸습니다."
+      }
+    },
+    {
+      "question_id": "q661",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "함수 내부에서 계산된 결과를 함수 바깥으로 돌려주고 함수를 종료할 때 사용하는 키워드는 무엇인가요?",
+      "choices": [
+        "A. give",
+        "B. send",
+        "C. return",
+        "D. exit"
+      ],
+      "answer": "C",
+      "hint": "영어 단어 '되돌려주다', '반환하다'라는 뜻을 가진 키워드예요.",
+      "feedback": {
+        "correct": "정답입니다! 함수 바깥으로 값을 전달하고 제어권을 넘기기 위해 return 키워드를 사용합니다."
+      }
+    },
+    {
+      "question_id": "q662",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "파이썬 함수에서 `return` 키워드가 실행될 때 일어나는 현상으로 올바른 것은 무엇인가요?",
+      "choices": [
+        "A. 값을 반환한 뒤, 함수 내부에 남은 코드를 마저 실행한다.",
+        "B. 값을 반환하고 그 즉시 함수의 실행이 강제 종료된다.",
+        "C. 프로그램 전체가 에러와 함께 즉시 종료된다.",
+        "D. 함수 내부의 모든 변수가 초기화되고 함수가 처음부터 다시 실행된다."
+      ],
+      "answer": "B",
+      "hint": "return은 값을 던짐과 동시에 해당 함수의 탈출구 역할을 해요.",
+      "feedback": {
+        "correct": "정답입니다! return문이 실행되면 그 아래에 어떤 코드가 있든 함수는 그 즉시 종료됩니다."
+      }
+    },
+    {
+      "question_id": "q663",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef get_number():\n    return 7\n\nresult = get_number()\nprint(result)\n```",
+      "choices": [
+        "A. get_number()",
+        "B. 7",
+        "C. result",
+        "D. 아무것도 출력되지 않는다"
+      ],
+      "answer": "B",
+      "hint": "get_number()가 반환한 값 7이 result 변수에 대입된 후 출력됩니다.",
+      "feedback": {
+        "correct": "정답입니다! 함수가 반환한 값 7이 변수 result에 저장되어 정상적으로 7이 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q664",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef add(a, b):\n    return a + b\n\nprint(add(3, 5))\n```",
+      "choices": [
+        "A. 3",
+        "B. 5",
+        "C. 8",
+        "D. a + b"
+      ],
+      "answer": "C",
+      "hint": "인수 3과 5가 더해진 결과가 반환되어 print()에 의해 바로 출력됩니다.",
+      "feedback": {
+        "correct": "정답입니다! add(3, 5)의 결과인 8이 반환되어 화면에 바로 찍히게 됩니다."
+      }
+    },
+    {
+      "question_id": "q665",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 나타나는 출력 결과를 고르세요.\n\n```python\ndef check_luck():\n    return '당첨'\n    print('꽝')\n\nprint(check_luck())\n```",
+      "choices": [
+        "A. 당첨\n꽝",
+        "B. 꽝",
+        "C. 당첨",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "return문 뒤에 있는 코드는 컴퓨터가 읽지 못하는 죽은 코드(Dead Code)가 됩니다.",
+      "feedback": {
+        "correct": "정답입니다! '당첨'을 반환하며 함수가 끝났기 때문에 아래에 있는 `print('꽝')`은 실행되지 않습니다."
+      }
+    },
+    {
+      "question_id": "q666",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "```python\n함수 내부에서 값을 모니터 화면에 보여주는 `print()`와 값을 바깥으로 던져 변수에 담을 수 있게 하는 `return`의 차이점으로 올바르지 않은 것은?\n```",
+      "choices": [
+        "A. print()는 단순히 콘솔 창에 시각적으로 출력만 해줄 뿐이다.",
+        "B. return으로 반환된 값은 다른 변수에 저장하여 재가공할 수 있다.",
+        "C. 한 함수 내부에서 print()는 여러 번 실행될 수 있지만, return은 실행되는 순간 함수를 끝낸다.",
+        "D. print()를 사용하면 함수 바깥으로 데이터 값이 실제로 전달되어 변수에 저장된다."
+      ],
+      "answer": "D",
+      "hint": "print()는 눈으로 보게 해줄 뿐, 그 값을 변수가 가져다 쓸 수 있도록 넘겨주진 못해요.",
+      "feedback": {
+        "correct": "정답입니다! print()는 단순히 모니터 출력용이며, 실제 값을 변수에 담으려면 반드시 return을 써야 하므로 D번이 틀렸습니다."
+      }
+    },
+    {
+      "question_id": "q667",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 변수 x에 담기는 최종 데이터 상태(값)는 무엇인가요?\n\n```python\ndef do_nothing():\n    print('아무것도 안 해요')\n```\n\nx = do_nothing()",
+      "choices": [
+        "A. '아무것도 안 해요'",
+        "B. None",
+        "C. 0",
+        "D. 오류 발생 (반환값이 없으므로 대입 불가)"
+      ],
+      "answer": "B",
+      "hint": "파이썬에서 명시적인 return문이 없는 함수는 기본적으로 '이것'을 숨겨서 반환합니다. 주의: print()로 화면에 찍히는 문자열과 x에 담기는 값은 서로 다른 개념입니다.",
+      "feedback": {
+        "correct": "정답입니다! return문이 없거나 값이 비어있는 함수는 파이썬에서 빈 값인 `None`을 자동으로 반환합니다."
+      }
+    },
+    {
+      "question_id": "q668",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음과 같이 함수들이 중첩되어 작동할 때, 최종 출력되는 결과는 무엇인가요?\n\n```python\ndef step_one(n):\n    return n + 1\n\ndef step_two(n):\n    return n * 2\n\nprint(step_two(step_one(5)))\n```",
+      "choices": [
+        "A. 11",
+        "B. 12",
+        "C. 10",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "가장 안쪽에 있는 `step_one(5)`가 먼저 실행되어 어떤 값을 반환하는지 계산해 보세요.",
+      "feedback": {
+        "correct": "정답입니다! step_one(5)가 6을 반환하고, 이어서 step_two(6)이 실행되어 6 * 2인 12가 최종 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q669",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과로 올바른 것을 고르세요.\n\n```python\ndef is_even(num):\n    if num % 2 == 0:\n        return True\n    return False\n\nprint(is_even(3))\n```",
+      "choices": [
+        "A. True",
+        "B. False",
+        "C. True\nFalse",
+        "D. 아무것도 출력되지 않는다"
+      ],
+      "answer": "B",
+      "hint": "조건문 if가 성립하지 않으면 if 블록 내부의 return은 건너뛰게 됩니다.",
+      "feedback": {
+        "correct": "정답입니다! 3은 홀수이므로 if문 조건을 만족하지 못해 다음 줄에 있는 `return False`가 실행됩니다."
+      }
+    },
+    {
+      "question_id": "q670",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 중 파이썬의 `return`에 관한 설명으로 문법적인 오류가 있는 것을 고르세요.",
+      "choices": [
+        "A. 함수 내에서 조건문을 활용하면 여러 개의 return문을 나누어 배치할 수 있다.",
+        "B. return 뒤에 아무런 값을 적지 않고 `return`만 단독으로 쓰면 None이 반환된다.",
+        "C. 파이썬 함수는 무조건 1개 이상의 값을 반환해야 하므로 return이 없으면 실행 에러가 난다.",
+        "D. return 키워드는 오직 def로 정의된 함수 내부에서만 사용 가능하다."
+      ],
+      "answer": "C",
+      "hint": "반환값이 없는 함수도 우리는 무수히 많이 사용해 왔습니다. 대표적으로 에이몬 status를 출력만 해주는 함수가 있었죠.",
+      "feedback": {
+        "correct": "정답입니다! return문이 없어도 함수는 정상 실행되며 단지 None을 반환할 뿐이므로 C번 설명이 잘못되었습니다."
+      }
+    },
+    {
+      "question_id": "q671",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 중 함수가 실행을 마치고 돌려주는 결과값을 나타내는 가장 올바른 코딩 용어는?",
+      "choices": [
+        "A. 매개변수",
+        "B. 인수",
+        "C. 반환값 (혹은 리턴값)",
+        "D. 출력값"
+      ],
+      "answer": "C",
+      "hint": "함수 실행 종료 후 바깥으로 리턴되어 나오는 데이터를 지칭해요.",
+      "feedback": {
+        "correct": "정답입니다! 함수 내부에서 연산 후 외부로 던져주는 가치를 '반환값'이라고 합니다."
+      }
+    },
+    {
+      "question_id": "q672",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 중 `return` 키워드가 들어갈 수 있는 위치로 올바른 곳은 어디인가요?",
+      "choices": [
+        "A. 프로그램의 맨 첫 번째 줄",
+        "B. def 키워드로 선언된 함수의 내부 블록",
+        "C. import 구문 바로 앞부분",
+        "D. 변수 선언문 직전의 전역 공간"
+      ],
+      "answer": "B",
+      "hint": "return은 '함수를 마무리하는 키워드'이므로 반드시 함수 안에서만 쓰여야 합니다.",
+      "feedback": {
+        "correct": "정답입니다! return 키워드는 반드시 함수 정의 구문 내부에서만 사용해야 문법 오류가 나지 않습니다."
+      }
+    },
+    {
+      "question_id": "q673",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 결과를 고르세요.\n\n```python\ndef say_yes():\n    print('예스!')\n\nval = say_yes()\nprint(val)\n```",
+      "choices": [
+        "A. 예스!\nNone",
+        "B. 예스!",
+        "C. None",
+        "D. 오류 발생"
+      ],
+      "answer": "A",
+      "hint": "say_yes()가 실행되면서 먼저 내부의 print문이 실행되고, 반환값이 없으므로 val 변수에는 None이 들어갑니다.",
+      "feedback": {
+        "correct": "정답입니다! 함수 호출로 인해 '예스!'가 먼저 찍힌 뒤, 함수가 숨겨둔 None이 반환되어 마지막에 함께 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q674",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 최종 실행 결과를 선택하세요.\n\n```python\ndef make_caps(text):\n    return text.upper()\n\nmsg = make_caps('aimon')\nprint(msg)\n```",
+      "choices": [
+        "A. aimon",
+        "B. text.upper()",
+        "C. AIMON",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "문자열 대문자 변환 메서드인 .upper()의 결과가 바깥으로 return됩니다.",
+      "feedback": {
+        "correct": "정답입니다! 'aimon'의 대문자 변환 결과인 'AIMON'이 정상 리턴되어 msg에 저장 및 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q675",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 출력되는 최종 텍스트는 무엇일까요?\n\n```python\ndef test_flow():\n    print('시작')\n    return '완료'\n    print('종료')\n```\n\nans = test_flow()",
+      "choices": [
+        "A. 시작\n완료\n종료",
+        "B. 시작",
+        "C. 시작\n완료",
+        "D. 완료"
+      ],
+      "answer": "B",
+      "hint": "`ans = test_flow()` 호출 시 콘솔에 출력되는 텍스트만 묻고 있습니다. return된 '완료'는 ans 변수에 저장될 뿐 print()를 거치지 않으면 화면에 나타나지 않아요. C처럼 '완료'까지 보이려면 별도의 print(ans)가 필요합니다.",
+      "feedback": {
+        "correct": "정답입니다! 함수 내부에서 '시작'이 출력되고 return을 만나 함수가 즉각 종료됩니다. 반환값인 '완료'는 변수에 들어갔을 뿐 출력문을 거치지 않았습니다."
+      }
+    },
+    {
+      "question_id": "q676",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "파이썬 함수에서 return문이 지닌 유일무이한 절대적인 특징으로 올바른 것을 고르세요.",
+      "choices": [
+        "A. 무조건 숫자 데이터만 반환할 수 있다.",
+        "B. 하나의 함수 블록 내에 무조건 한 개만 적을 수 있다.",
+        "C. return 키워드가 물리적으로 작동해 실행되는 순간, 함수 전체가 즉각 마감 및 종료된다.",
+        "D. return을 쓰면 들여쓰기 규칙을 무시해도 된다."
+      ],
+      "answer": "C",
+      "hint": "아무리 많은 양의 코드가 그 밑에 대기하고 있어도 return 브레이크를 밟으면 함수는 바로 멈춥니다.",
+      "feedback": {
+        "correct": "정답입니다! return문이 실제로 한 번 수행되면 그 함수의 수명은 그 즉시 정지 및 마감됩니다."
+      }
+    },
+    {
+      "question_id": "q677",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 구동했을 때 공식 화면에 최종으로 나타나는 숫자를 선택하세요.\n\n```python\ndef square(x):\n    return x * x\n\nprint(square(square(3)))\n```",
+      "choices": [
+        "A. 9",
+        "B. 27",
+        "C. 81",
+        "D. 3"
+      ],
+      "answer": "C",
+      "hint": "안쪽 `square(3)`은 3 * 3 = 9를 돌려줍니다. 그럼 바깥쪽은 `square(9)`를 연산하게 됩니다.",
+      "feedback": {
+        "correct": "정답입니다! 1차로 9가 반환되고, 2차로 square(9)가 작동하여 9 * 9 = 81이 최종 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q678",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 조건 제어 흐름이 포함된 함수의 실행 결과로 가장 알맞은 것은 무엇인가요?\n\n```python\ndef select_hero(hp):\n    if hp <= 0:\n        return '유령'\n    return '에이몬'\n\nprint(select_hero(0))\n```",
+      "choices": [
+        "A. 유령",
+        "B. 에이몬",
+        "C. 유령\n에이몬",
+        "D. 오류 발생"
+      ],
+      "answer": "A",
+      "hint": "hp가 0이므로 `hp <= 0` 조건이 True가 되어 내부의 return문이 즉시 실행됩니다.",
+      "feedback": {
+        "correct": "정답입니다! if문 조건이 만족되어 '유령'이 반환되고 함수가 바로 종료되므로 아래의 '에이몬' 리턴까지 도달하지 않습니다."
+      }
+    },
+    {
+      "question_id": "q679",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 출력값으로 올바른 것을 고르세요.\n\n```python\ndef get_greeting(hour):\n    if hour < 12:\n        return '좋은 아침!'\n    else:\n        return '좋은 오후!'\n\nprint(get_greeting(15))\n```",
+      "choices": [
+        "A. 좋은 아침!",
+        "B. 좋은 오후!",
+        "C. None",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "전달된 인수 15는 12보다 크므로 else 분기로 넘어가 리턴을 수행하게 됩니다.",
+      "feedback": {
+        "correct": "정답입니다! hour=15는 조건에 맞지 않아 else 공식 블록이 수행되며 '좋은 오후!'를 정상 반환합니다."
+      }
+    },
+    {
+      "question_id": "q680",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 중 파이썬 함수의 return 값에 관한 설명으로 옳은 것을 모두 고른 것은?\n\nㄱ. return문 뒤에는 수식이나 연산식을 적을 수 있으며, 계산 완료된 최종 가치가 반환된다.\nㄴ. 문자열, 숫자형, 불리언형 등 파이썬의 모든 표준 자료형은 리턴값으로 활용 가능하다.\n```python\nㄷ. print()문 내부에서 어떤 함수를 바로 출력하려고 할 때, 그 함수에 return이 없으면 에러가 발생하며 멈춘다.\n```",
+      "choices": [
+        "A. ㄱ, ㄴ",
+        "B. ㄴ, ㄷ",
+        "C. ㄱ, ㄷ",
+        "D. ㄱ, ㄴ, ㄷ"
+      ],
+      "answer": "A",
+      "hint": "ㄷ 지문의 경우, 리턴이 없는 함수를 강제로 프린트하면 에러가 나는지 아니면 특정한 빈 기호가 출력되는지 상기해 보세요.",
+      "feedback": {
+        "correct": "정답입니다! 리턴이 없어도 멈추지 않고 `None`이 출력될 뿐이므로 ㄷ은 오답이며, ㄱ과 ㄴ이 올바른 팩트입니다."
+      }
+    },
+    {
+      "question_id": "q691",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "함수를 정의할 때 매개변수에 미리 지정해두는 기본값을 무엇이라고 하나요?",
+      "choices": [
+        "A. 초기 인수 (Initial Argument)",
+        "B. 기본값 매개변수 (Default Parameter)",
+        "C. 고정 반환값 (Fixed Return)",
+        "D. 전역 할당 (Global Assignment)"
+      ],
+      "answer": "B",
+      "hint": "영단어 'Default(디폴트)'의 의미를 생각해보세요.",
+      "feedback": {
+        "correct": "정답입니다! 함수 정의 시 소괄호 안에서 `변수명 = 값` 형태로 미리 지정하는 값을 기본값 매개변수라고 합니다."
+      }
+    },
+    {
+      "question_id": "q692",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "기본값 매개변수가 지정된 함수를 호출할 때, 해당 인수를 비워두고 호출하면 어떤 현상이 발생하나요?",
+      "choices": [
+        "A. 에러가 발생하며 프로그램이 멈춘다.",
+        "B. 미리 지정해둔 기본값이 자동으로 적용되어 실행된다.",
+        "C. None 값이 강제로 대입된다.",
+        "D. 함수 내부 코드가 모두 무시된다."
+      ],
+      "answer": "B",
+      "hint": "값이 주어지지 않았을 때 대안으로 쓰기 위해 미리 설정해둔 값이에요.",
+      "feedback": {
+        "correct": "정답입니다! 인수가 전달되지 않으면 함수는 선언할 때 지정해둔 기본값을 사용합니다."
+      }
+    },
+    {
+      "question_id": "q693",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef heal(monster, power=50):\n    print(f'{monster}의 HP가 {power}만큼 회복!')\n```\n\nheal('슬라임')",
+      "choices": [
+        "A. 슬라임의 HP가 power만큼 회복!",
+        "B. 슬라임의 HP가 0만큼 회복!",
+        "C. 슬라임의 HP가 50만큼 회복!",
+        "D. TypeError 발생"
+      ],
+      "answer": "C",
+      "hint": "power 인수를 전달하지 않았으므로 기본값으로 설정된 숫자가 적용됩니다.",
+      "feedback": {
+        "correct": "정답입니다! power의 기본값인 50이 적용되어 '슬라임의 HP가 50만큼 회복!'이 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q694",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef heal(monster, power=50):\n    print(f'{monster}의 HP가 {power}만큼 회복!')\n```\n\nheal('로봇', 100)",
+      "choices": [
+        "A. 로봇의 HP가 50만큼 회복!",
+        "B. 로봇의 HP가 100만큼 회복!",
+        "C. 로봇의 HP가 150만큼 회복!",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "인수를 명시적으로 던져주면, 기존에 설정된 기본값은 어떻게 될까요?",
+      "feedback": {
+        "correct": "정답입니다! 호출 시 인수를 직접 전달하면 기본값은 무시되고 새로 전달된 값(100)이 사용됩니다."
+      }
+    },
+    {
+      "question_id": "q695",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "파이썬에서 기본값이 있는 매개변수와 기본값이 없는 매개변수를 섞어서 선언할 때 반드시 지켜야 하는 문법 규칙은 무엇인가요?",
+      "choices": [
+        "A. 기본값이 있는 매개변수를 항상 뒤쪽에 배치해야 한다.",
+        "B. 기본값이 있는 매개변수를 항상 앞쪽에 배치해야 한다.",
+        "C. 매개변수들의 알파벳 순서대로 배치해야 한다.",
+        "D. 두 종류를 섞어서 선언하는 것은 절대 불가능하다."
+      ],
+      "answer": "A",
+      "hint": "컴퓨터가 위치 인수를 채워나갈 때 혼동이 없으려면 생략 가능한 방들이 오른쪽에 몰려있어야 해요.",
+      "feedback": {
+        "correct": "정답입니다! 기본값이 없는 필수 매개변수를 먼저 쓰고, 기본값이 있는 선택적 매개변수는 반드시 뒤쪽에 두어야 합니다."
+      }
+    },
+    {
+      "question_id": "q696",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 값을 고르세요.\n\n```python\ndef set_theme(bg='white', font='sans'):\n    print(f'배경:{bg}, 폰트:{font}')\n```\n\nset_theme(font='serif')",
+      "choices": [
+        "A. 배경:white, 폰트:sans",
+        "B. 배경:white, 폰트:serif",
+        "C. 배경:serif, 폰트:sans",
+        "D. TypeError 발생"
+      ],
+      "answer": "B",
+      "hint": "font 인수는 키워드로 지정해서 전달했고, bg 인수는 생략되었습니다.",
+      "feedback": {
+        "correct": "정답입니다! bg는 생략되어 기본값 'white'가 되고 font는 지정된 'serif'가 적용됩니다."
+      }
+    },
+    {
+      "question_id": "q697",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 함수 선언문 중 파이썬에서 문법 오류(SyntaxError)를 발생시키는 구문은 무엇인가요?",
+      "choices": [
+        "A. def build_avatar(name, color='purple', items=None):",
+        "B. def build_avatar(color='purple', name):",
+        "C. def build_avatar(name='slime', color='blue'):",
+        "D. def build_avatar(name, color):"
+      ],
+      "answer": "B",
+      "hint": "기본값이 없는 필수 매개변수보다 기본값 매개변수가 먼저 앞에 나오면 안 됩니다.",
+      "feedback": {
+        "correct": "정답입니다! `color='purple'`이라는 기본값 매개변수가 일반 매개변수 `name`보다 앞에 위치했기 때문에 SyntaxError가 발생합니다."
+      }
+    },
+    {
+      "question_id": "q698",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 수행했을 때 콘솔 창에 출력되는 결과는 무엇인가요?\n\n```python\ndef score_board(player, high_score=1000, current=0):\n    print(f'{player}:{high_score}/{current}')\n```\n\nscore_board('지니', current=500)",
+      "choices": [
+        "A. 지니:1000/0",
+        "B. 지니:1000/500",
+        "C. 지니:500/0",
+        "D. TypeError 발생"
+      ],
+      "answer": "B",
+      "hint": "player는 위치 인수로 전달되었고, current는 키워드 인수로 명시되었습니다. 가운데 high_score는 어떻게 될까요?",
+      "feedback": {
+        "correct": "정답입니다! high_score는 생략되어 기본값 1000을 유지하고, current는 전달받은 500으로 변경되어 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q699",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 최종 실행 결과로 올바른 것을 고르세요.\n\n```python\ndef calc_exp(base, bonus=1.2):\n    return int(base * bonus)\n\nprint(calc_exp(2000) + calc_exp(1000, 1.5))\n```",
+      "choices": [
+        "A. 3600",
+        "B. 3900",
+        "C. 4200",
+        "D. 4500"
+      ],
+      "answer": "B",
+      "hint": "`calc_exp(2000)`은 기본 보너스 1.2가 적용되고, `calc_exp(1000, 1.5)`는 보너스 1.5가 새로 적용됩니다.",
+      "feedback": {
+        "correct": "정답입니다! 앞 연산은 `2000 * 1.2 = 2400`, 뒤 연산은 `1000 * 1.5 = 1500`이 되므로 합산하면 3900이 됩니다."
+      }
+    },
+    {
+      "question_id": "q700",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "```python\n파이썬 내장 함수인 `print('Hello', end='\\n')` 구조에서 `end='\\n'`이 뜻하는 바를 기본값 매개변수 개념과 연결하여 올바르게 설명한 것은 무엇인가요?\n```",
+      "choices": [
+        "A. end 매개변수의 기본값이 '\\n'이므로 원래 평소에 값을 주지 않아도 줄바꿈이 일어났던 것이다.",
+        "B. end는 무조건 '\\n'만 받아야 하므로 다른 문자열로 변경하는 것이 금지되어 있다.",
+        "C. end를 생략하면 함수 실행이 아예 되지 않는 필수 매개변수이다.",
+        "D. 파이썬 버전에 따라 end 기본값은 매번 무작위로 바뀐다."
+      ],
+      "answer": "A",
+      "hint": "우리가 print()를 쓸 때 end를 매번 적지 않았음에도 다음 줄로 넘어갔던 이유를 생각해보세요.",
+      "feedback": {
+        "correct": "정답입니다! print() 함수 설계 시 end의 기본값이 줄바꿈('\\n')으로 선언되어 있기 때문에 인수를 생략해도 줄바꿈이 작동한 것입니다."
+      }
+    },
+    {
+      "question_id": "q701",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 중 기본값 매개변수(Default Parameter)를 사용하는 가장 주요한 원인은 무엇인가요?",
+      "choices": [
+        "A. 모든 매개변수의 값을 필수적으로 입력받기 위해",
+        "B. 인수의 입력을 선택적으로 만들어 함수의 사용 편의성을 높이기 위해",
+        "C. 함수가 항상 일정한 값만 반환하도록 고정하기 위해",
+        "D. 변수들의 자료형을 검사하기 위해"
+      ],
+      "answer": "B",
+      "hint": "매번 자주 쓰는 인수가 정해져 있다면, 호출할 때마다 매번 적는 수고를 덜 수 있어요.",
+      "feedback": {
+        "correct": "정답입니다! 자주 쓰이는 값을 기본값으로 지정해두면 인수를 생략할 수 있어 호출이 편리해집니다."
+      }
+    },
+    {
+      "question_id": "q702",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "기본값 매개변수 선언 형식으로 올바른 문법을 고르세요.",
+      "choices": [
+        "A. def test(a: 10):",
+        "B. def test(a == 10):",
+        "C. def test(a = 10):",
+        "D. def test(a <- 10):"
+      ],
+      "answer": "C",
+      "hint": "변수에 값을 할당할 때와 마찬가지로 대입 연산자 기호를 하나 사용합니다.",
+      "feedback": {
+        "correct": "정답입니다! 매개변수명 뒤에 `=` 기호와 기본값을 나열하면 문법이 성립합니다."
+      }
+    },
+    {
+      "question_id": "q703",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef make_team(name='에이짱'):\n    print('팀명:' + name)\n```\n\nmake_team()",
+      "choices": [
+        "A. 팀명:",
+        "B. 팀명:name",
+        "C. 팀명:에이짱",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "인수를 주지 않고 비워두었으므로 설계 단계의 기본 텍스트가 적용됩니다.",
+      "feedback": {
+        "correct": "정답입니다! name에 기본값 '에이짱'이 대입되어 정상 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q704",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef make_team(name='에이짱'):\n    print('팀명:' + name)\n```\n\nmake_team('FC파이썬')",
+      "choices": [
+        "A. 팀명:에이짱",
+        "B. 팀명:FC파이썬",
+        "C. 팀명:에이짱FC파이썬",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "전달된 인수 'FC파이썬'이 기존의 기본값을 대체(덮어쓰기)합니다.",
+      "feedback": {
+        "correct": "정답입니다! 인수가 명시되면 기본값은 무시되므로 '팀명:FC파이썬'이 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q705",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "```python\n함수 정의 구문 `def info(age, name='손님', vip=False):`에 대한 설명으로 올바르지 않은 것은 무엇인가요?\n```",
+      "choices": [
+        "A. age 매개변수는 호출 시 반드시 인수를 넘겨주어야 한다.",
+        "B. name과 vip 매개변수는 호출 시 인수를 생략할 수 있다.",
+        "C. `info(20)` 형태로 호출하면 name='손님', vip=False가 대입된다.",
+        "D. 이 함수는 기본값 배치가 틀렸으므로 무조건 선언 에러가 난다."
+      ],
+      "answer": "D",
+      "hint": "기본값이 없는 age가 맨 왼쪽에 처음에 잘 위치해 있는지 검토해보세요.",
+      "feedback": {
+        "correct": "정답입니다! 기본값이 없는 필수 매개변수(age)가 맨 앞에 정상이 배치되었으므로 문법상 올바른 식입니다. 따라서 D번이 오답입니다."
+      }
+    },
+    {
+      "question_id": "q706",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 최종 출력되는 텍스트를 고르세요.\n\n```python\ndef draw_line(length=5, shape='-'):\n    print(shape * length)\n```\n\ndraw_line(3, '*')",
+      "choices": [
+        "A. -----",
+        "B. ***",
+        "C. ***\n-----",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "length에는 3이 들어가고 shape에는 '*'이 들어가서 곱하기 연산이 수행됩니다.",
+      "feedback": {
+        "correct": "정답입니다! 두 인수가 모두 새 값으로 갱신되어 `3 * '*'`이 실행되므로 '***'이 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q707",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 배치와 호출 상태를 보고, 예상되는 결과를 고르세요.\n\n```python\ndef setup_player(lv=1, weapon):\n    print(lv, weapon)\n```\n\nsetup_player( weapon='지팡이' )",
+      "choices": [
+        "A. 1 지팡이",
+        "B. weapon 지팡이",
+        "C. 아무것도 출력되지 않는다.",
+        "D. SyntaxError(문법 오류)가 발생한다."
+      ],
+      "answer": "D",
+      "hint": "함수 정의문 `def setup_player(lv=1, weapon):` 부분에서 매개변수의 나열 순서를 엄격히 확인해보세요.",
+      "feedback": {
+        "correct": "정답입니다! 파이썬 문법상 기본값을 지닌 매개변수 뒤에 일반 매개변수를 배치할 수 없기 때문에 정의 시점에서 바로 SyntaxError가 터집니다."
+      }
+    },
+    {
+      "question_id": "q708",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 구동했을 때 최종 출력되는 결과물은 무엇인가요?\n\n```python\ndef select_item(user, slot='A', count=1):\n    print(f'{user}:{slot}/{count}')\n```\n\nselect_item('지혜원', count=3)",
+      "choices": [
+        "A. 지혜원:A/1",
+        "B. 지혜원:A/3",
+        "C. 지혜원:slot/3",
+        "D. TypeError 발생"
+      ],
+      "answer": "B",
+      "hint": "user와 count의 값은 명시적으로 전달받았으나, slot은 아예 언급되지 않았습니다.",
+      "feedback": {
+        "correct": "정답입니다! 언급되지 않은 slot 매개변수만 기본값 'A'로 유지되어 '지혜원:A/3'이 완성됩니다."
+      }
+    },
+    {
+      "question_id": "q709",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 리턴 연산 결과로 최종 출력되는 값을 고르세요.\n\n```python\ndef discount(price, rate=0.1):\n    return int(price * (1 - rate))\n\nprint(discount(10000) + discount(20000, 0.2))\n```",
+      "choices": [
+        "A. 23000",
+        "B. 25000",
+        "C. 27000",
+        "D. 29000"
+      ],
+      "answer": "B",
+      "hint": "첫 번째는 10% 할인(rate=0.1), 두 번째는 20% 할인(rate=0.2)이 들어갑니다.",
+      "feedback": {
+        "correct": "정답입니다! `10000 * 0.9 = 9000`이고 `20000 * 0.8 = 16000`이므로 두 값을 더하면 25000이 됩니다."
+      }
+    },
+    {
+      "question_id": "q710",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 중 기본값 매개변수(Default Parameter)에 대한 설명으로 옳은 것을 모두 고른 것은?\n\nㄱ. 함수 호출 시 인수를 생략하면 무조건 None이 대입되는 현상을 방지할 수 있다.\nㄴ. 여러 개의 기본값 매개변수가 있을 때 특정 매개변수만 값을 바꾸고 싶다면 키워드 인수를 활용하면 된다.\nㄷ. 함수 정의부의 매개변수 순서는 아무렇게나 배치해도 파이썬이 알아서 순서를 교정해준다.",
+      "choices": [
+        "A. ㄱ, ㄴ",
+        "B. ㄴ, ㄷ",
+        "C. ㄱ, ㄷ",
+        "D. ㄱ, ㄴ, ㄷ"
+      ],
+      "answer": "A",
+      "hint": "ㄷ 지문의 경우, 매개변수 순서(필수 매개변수와 선택 매개변수 배치)에 파이썬이 관대한지 아니면 에러를 내는지 판단해보세요.",
+      "feedback": {
+        "correct": "정답입니다! 순서는 엄격한 규칙이 존재하므로 자동으로 정렬되지 않아 ㄷ은 거짓이며, ㄱ과 ㄴ은 완벽한 진실입니다."
+      }
+    },
+    {
+      "question_id": "q721",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "함수 내부에서 선언되어 해당 함수 안에서만 사용할 수 있고, 함수가 종료되면 사라지는 변수를 무엇이라고 하나요?",
+      "choices": [
+        "A. 전역 변수 (Global Variable)",
+        "B. 지역 변수 (Local Variable)",
+        "C. 매개 변수 (Parameter)",
+        "D. 고정 변수 (Constant Variable)"
+      ],
+      "answer": "B",
+      "hint": "특정 '지역(함수 내부)'으로 사용 범위가 한정된 변수예요.",
+      "feedback": {
+        "correct": "정답입니다! 함수 내부에서 만들어져 그 안에서만 유효한 변수를 '지역 변수'라고 부릅니다."
+      }
+    },
+    {
+      "question_id": "q722",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "함수 바깥에 선언되어 프로그램 전체에서 자유롭게 접근하여 사용할 수 있는 변수를 무엇이라고 하나요?",
+      "choices": [
+        "A. 지역 변수 (Local Variable)",
+        "B. 전역 변수 (Global Variable)",
+        "C. 내부 변수 (Internal Variable)",
+        "D. 임시 변수 (Temporary Variable)"
+      ],
+      "answer": "B",
+      "hint": "전체 영역(Global)에서 다 통하는 변수를 뜻해요.",
+      "feedback": {
+        "correct": "정답입니다! 특정 함수에 속하지 않고 바깥 공용 공간에 선언된 변수를 '전역 변수'라고 합니다."
+      }
+    },
+    {
+      "question_id": "q723",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef test_scope():\n    local_val = 10\n    print(local_val)\n```\n\ntest_scope()",
+      "choices": [
+        "A. local_val",
+        "B. 10",
+        "C. 아무것도 출력되지 않는다",
+        "D. NameError 발생"
+      ],
+      "answer": "B",
+      "hint": "local_val은 함수 내부에서 선언되었고, 출력문(print) 역시 함수 내부에서 정상 실행되고 있습니다.",
+      "feedback": {
+        "correct": "정답입니다! test_scope 함수가 호출되면서 함수 안에서 지역 변수 10이 올바르게 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q724",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 발생하는 결과로 올바른 것을 고르세요.\n\n```python\ndef set_item():\n    my_weapon = '검'\n\nset_item()\nprint(my_weapon)\n```",
+      "choices": [
+        "A. 검",
+        "B. my_weapon",
+        "C. NameError(이름 오류)가 발생한다.",
+        "D. None이 출력된다."
+      ],
+      "answer": "C",
+      "hint": "my_weapon은 set_item 함수 '내부'에서만 살아있는 변수입니다. 바깥 공간(print)에서 꺼내 쓰려고 하면 어떻게 될까요?",
+      "feedback": {
+        "correct": "정답입니다! 함수 내부에서 만들어진 지역 변수는 함수 바깥 영역에서 알 수 없기 때문에 NameError가 발생합니다."
+      }
+    },
+    {
+      "question_id": "q725",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 전역 변수가 포함된 코드를 실행했을 때 최종 출력값을 고르세요.\n\nglobal_msg = '에이몬'\n\n```python\ndef show_msg():\n    print(global_msg)\n```\n\nshow_msg()",
+      "choices": [
+        "A. global_msg",
+        "B. 에이몬",
+        "C. NameError 발생",
+        "D. 아무것도 출력되지 않는다."
+      ],
+      "answer": "B",
+      "hint": "함수 바깥에 정의된 전역 변수는 함수 내부에서 읽어오는(참조하는) 것이 자유롭게 가능합니다.",
+      "feedback": {
+        "correct": "정답입니다! 전역 공간에 선언된 global_msg의 값 '에이몬'을 함수 내부에서 정상적으로 읽어와 출력합니다."
+      }
+    },
+    {
+      "question_id": "q726",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "함수 내부에서 전역 변수의 값을 단순 조회(읽기)하는 것을 넘어, 전역 변수 자체의 데이터를 수정하거나 새로운 값을 대입하고자 할 때 선언해야 하는 키워드는 무엇인가요?",
+      "choices": [
+        "A. local",
+        "B. change",
+        "C. global",
+        "D. extern"
+      ],
+      "answer": "C",
+      "hint": "파이썬에게 '이 변수는 내부에 새로 만드는 게 아니라 바깥에 있는 녀석이야!'라고 선언해주는 단어예요.",
+      "feedback": {
+        "correct": "정답입니다! 함수 안에서 전역 변수를 수정하려면 반드시 `global 변수명` 형태로 키워드를 선언해주어야 합니다."
+      }
+    },
+    {
+      "question_id": "q727",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 최종 숫자를 고르세요.\n\n```python\nx = 100\n\ndef change_x():\n    x = 50\n\nchange_x()\nprint(x)\n```",
+      "choices": [
+        "A. 100",
+        "B. 50",
+        "C. 150",
+        "D. NameError 발생"
+      ],
+      "answer": "A",
+      "hint": "change_x 함수 내부에서 키워드 선언 없이 `x = 50`을 하면, 전역 변수가 바뀌는 걸까요 아니면 동명의 새로운 지역 변수가 생기는 걸까요?",
+      "feedback": {
+        "correct": "정답입니다! 함수 내부에서 global 선언 없이 변수에 값을 대입하면 동명의 새로운 '지역 변수'가 만들어질 뿐이므로, 바깥의 전역 변수 x는 그대로 100을 유지합니다."
+      }
+    },
+    {
+      "question_id": "q728",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 global 키워드가 포함된 코드를 실행했을 때 화면에 나타나는 출력값을 고르세요.\n\nscore = 10\n\ndef increase_score():\n    global score\n    score = 30\n\n```python\nincrease_score()\nprint(score)\n```",
+      "choices": [
+        "A. 10",
+        "B. 30",
+        "C. 40",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "global score 선언을 했기 때문에, 함수 안에서의 변경 사항이 바깥 전역 변수까지 직접 영향을 미치게 됩니다.",
+      "feedback": {
+        "correct": "정답입니다! global 키워드를 명시했으므로 전역 변수 score가 30으로 직접 갱신되어 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q729",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드가 실행되는 순서를 따져보았을 때, 출력되는 결과물로 알맞은 것은 무엇인가요?\n\n```python\nval = 'A'\n\ndef process():\n    val = 'B'\n    print('내부:' + val)\n\nprocess()\nprint('외부:' + val)\n```",
+      "choices": [
+        "A. 내부:A\n외부:B",
+        "B. 내부:B\n외부:A",
+        "C. 내부:B\n외부:B",
+        "D. 내부:A\n외부:A"
+      ],
+      "answer": "B",
+      "hint": "함수 안에서는 지역 변수 val이 우선권을 갖고, 함수 밖에서는 전역 변수 val이 고유 영역을 가집니다.",
+      "feedback": {
+        "correct": "정답입니다! 함수 안에서는 새로 선언된 지역 변수 'B'가 찍히고, 바깥의 전역 변수는 훼손되지 않았으므로 'A'가 찍히게 됩니다."
+      }
+    },
+    {
+      "question_id": "q730",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "변수의 생명 주기(Life Cycle)와 사용 범위(Scope)에 대한 설명 중 문법적으로 틀린 주장을 고르세요.",
+      "choices": [
+        "A. 함수 호출 시 넘겨받는 '매개변수' 역시 함수 내부에서만 작동하는 지역 변수의 성격을 가진다.",
+        "B. 전역 변수는 프로그램이 실행을 시작해서 완전히 끝날 때까지 메모리에 유지된다.",
+        "C. 지역 변수는 함수 호출이 끝나고 리턴을 완료하는 순간 메모리에서 지워져 사라진다.",
+        "D. 파이썬에서는 안전을 위해 함수 내부에서 바깥의 전역 변수 값을 단순 조회(읽기)하는 것도 원천 금지하고 있다."
+      ],
+      "answer": "D",
+      "hint": "우리는 앞선 문제에서 global 키워드가 없어도 전역 변수의 글자를 print()로 읽어올 수 있음을 확인했습니다.",
+      "feedback": {
+        "correct": "정답입니다! 전역 변수의 값을 함수 안에서 읽어오는(참조하는) 것은 자유롭게 허용되므로 D번 설명이 잘못되었습니다."
+      }
+    },
+    {
+      "question_id": "q731",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "파이썬 코딩에서 변수가 선언되어 컴퓨터가 그 변수를 식별하고 사용할 수 있는 '유효 범위' 혹은 '활동 영역'을 뜻하는 올바른 IT 용어는 무엇인가요?",
+      "choices": [
+        "A. 스코프 (Scope)",
+        "B. 루프 (Loop)",
+        "C. 디버그 (Debug)",
+        "D. 도메인 (Domain)"
+      ],
+      "answer": "A",
+      "hint": "변수의 사용 범위나 영역을 뜻하는 영어 단어예요.",
+      "feedback": {
+        "correct": "정답입니다! 변수가 영향력을 미칠 수 있는 코드상의 유효 범위를 '스코프(Scope)'라고 부릅니다."
+      }
+    },
+    {
+      "question_id": "q732",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 중 전역 변수(Global Variable)의 무분별한 사용을 권장하지 않는 프로그래밍적인 이유로 가장 타당한 것은 무엇인가요?",
+      "choices": [
+        "A. 전역 변수를 쓰면 프로그램의 가독성이 무조건 올라가기 때문에",
+        "B. 여러 함수가 동시에 값을 변경하다가 엉뚱한 오류를 발생시킬 수 있고 코드가 복잡해지기 때문에",
+        "C. 전역 변수는 정수형 숫자 데이터만 저장할 수 있기 때문에",
+        "D. 함수 내부에서는 전역 변수 이름의 글자 수를 인식하지 못하기 때문에"
+      ],
+      "answer": "B",
+      "hint": "누구나 접근해서 고칠 수 있는 공용 공간의 물건은 관리와 통제가 어려워지는 단점이 있어요.",
+      "feedback": {
+        "correct": "정답입니다! 프로그램 전체가 변수를 공유하면 예상치 못한 변경이 누적되어 스파게티 코드가 되기 쉽습니다."
+      }
+    },
+    {
+      "question_id": "q733",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 가동했을 때 콘솔 창에 출력되는 결과물을 고르세요.\n\n```python\ndef calculate():\n    result_val = 5 * 5\n\ncalculate()\nprint(result_val)\n```",
+      "choices": [
+        "A. 25",
+        "B. result_val",
+        "C. 아무것도 출력되지 않는다.",
+        "D. NameError 발생"
+      ],
+      "answer": "D",
+      "hint": "result_val은 calculate 함수 안에 갇혀있는 지역 변수인데, 함수 밖 맨 밑줄에서 출력 명령을 내렸습니다.",
+      "feedback": {
+        "correct": "정답입니다! 지역 변수는 소속된 함수를 벗어나는 순간 소멸하므로, 바깥 영역에서는 인식하지 못해 NameError가 납니다."
+      }
+    },
+    {
+      "question_id": "q734",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\nuser_id = 'slime'\n\n```python\ndef print_user():\n    print(user_id)\n```\n\nprint_user()",
+      "choices": [
+        "A. user_id",
+        "B. slime",
+        "C. NameError 발생",
+        "D. None"
+      ],
+      "answer": "B",
+      "hint": "user_id는 전역 변수이므로 하위 배치된 print_user 함수 내부에서도 정상적으로 인지할 수 있습니다.",
+      "feedback": {
+        "correct": "정답입니다! 전역 공간에 할당된 'slime' 값을 함수 스코프 내에서도 정상적으로 가리키게 됩니다."
+      }
+    },
+    {
+      "question_id": "q735",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 출력 결과로 올바른 것을 고르세요.\n\n```python\ndef create_name():\n    nick = '로봇'\n    return nick\n\nmy_pet = create_name()\nprint(my_pet)\n```",
+      "choices": [
+        "A. nick",
+        "B. 로봇",
+        "C. NameError 발생",
+        "D. create_name"
+      ],
+      "answer": "B",
+      "hint": "지역 변수 nick 자체는 밖으로 못 나오지만, `return`을 통해 알맹이(값)를 바깥의 my_pet에 안전하게 패스해주었습니다.",
+      "feedback": {
+        "correct": "정답입니다! 함수 내부의 지역 변수 데이터를 return문으로 탈출시켜 바깥 변(my_pet)에 정상적으로 보관 및 출력했습니다."
+      }
+    },
+    {
+      "question_id": "q736",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "함수 안에서 `global ` 키워드를 사용할 때 따르는 특징으로 잘못 설명된 항목은 무엇인가요?",
+      "choices": [
+        "A. global 키워드 옆에는 반드시 전역에 연동시킬 변수 이름을 적어야 한다.",
+        "B. `global x = 100` 처럼 키워드 선언과 동시에 값을 대입하는 문법적 한 줄 쓰기가 완벽히 허용된다.",
+        "C. global 키워드를 명시하면 함수 안의 변수 수정이 실제 함수 바깥의 전역 공간 변수를 영구적으로 변경한다.",
+        "D. global 선언은 함수 내부 공식 안에서 상단에 선언해야 작동한다."
+      ],
+      "answer": "B",
+      "hint": "파이썬에서는 `global x`를 먼저 선언해 장소를 지정하고, 그 아랫줄에 `x = 100` 대입을 분리해서 적어야 오류가 안 납니다.",
+      "feedback": {
+        "correct": "정답입니다! global 선언줄에는 값 대입을 동시에 진행할 수 없도록 문법으로 못박아 두었기에 B번이 틀린 항목입니다."
+      }
+    },
+    {
+      "question_id": "q737",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 최종 수행 결과로 모니터에 출력되는 정수는 무엇인가요?\n\n```python\nnumber = 7\n\ndef modify_number():\n    number = 99\n\nmodify_number()\nprint(number)\n```",
+      "choices": [
+        "A. 7",
+        "B. 99",
+        "C. 106",
+        "D. 오류 발생"
+      ],
+      "answer": "A",
+      "hint": "함수 안에 작성된 `number = 99`는 global 영토 주권 선언이 빠졌으므로 바깥의 number와는 완전 별개의 독립된 변수입니다.",
+      "feedback": {
+        "correct": "정답입니다! 함수 내부의 대입식은 별도의 로컬 변수를 양산할 뿐이므로, 본래 전역 변수 7의 상태는 변함이 없습니다."
+      }
+    },
+    {
+      "question_id": "q738",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 최종으로 모니터링되는 텍스트 결과는 무엇인가요?\n\nlevel = 1\n\ndef force_up():\n    global level\n    level = level + 9\n\n```python\nforce_up()\nprint(level)\n```",
+      "choices": [
+        "A. 1",
+        "B. 9",
+        "C. 10",
+        "D. level + 9"
+      ],
+      "answer": "C",
+      "hint": "global을 선언했기에 `level + 9` 부분은 기존 전역 변수인 1에 9를 더하게 되는 온전한 연산으로 흘러갑니다.",
+      "feedback": {
+        "correct": "정답입니다! 전역 변수의 통제권을 확보한 뒤 연산을 덧붙여 대입했으므로 1+9의 가치인 10이 마침내 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q739",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음과 같이 동일한 명칭의 변수가 공간을 달리하여 배치되었을 때, 순차 출력 결과로 올바른 조합은 무엇인가요?\n\n```python\ncharacter = '보라 슬라임'\n\ndef transformation():\n    character = '보라 로봇'\n    print('1번:' + character)\n\ntransformation()\nprint('2번:' + character)\n```",
+      "choices": [
+        "A. 1번:보라 슬라임\n2번:보라 로봇",
+        "B. 1번:보라 로봇\n2번:보라 슬라임",
+        "C. 1번:보라 로봇\n2번:보라 로봇",
+        "D. 1번:보라 슬라임\n2번:보라 슬라임"
+      ],
+      "answer": "B",
+      "hint": "우선순위 스코프 법칙에 따라 함수 안에서는 내부 방 변수가, 바깥 영토에서는 외부 기지 전역 변수가 힘을 씁니다.",
+      "feedback": {
+        "correct": "정답입니다! 지역 스코프는 자기 내부의 '보라 로봇'을 먼저 꺼내 찍고, 전역 스코프는 오염되지 않은 본래의 '보라 슬라임'을 온전히 유지하여 출력합니다."
+      }
+    },
+    {
+      "question_id": "q740",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "전역 변수(Global)와 지역 변수(Local)의 충돌 관계에 관한 설명 중 가장 올바른 팩트는 무엇인가요?",
+      "choices": [
+        "A. 이름이 완벽히 똑같은 변수는 한 파일에 절대 공존할 수 없다.",
+        "B. 함수 내부에서 전역 변수와 완전히 똑같은 이름으로 지역 변수를 새로 정의하면, 함수 안에서는 해당 이름 호출 시 '지역 변수'가 전역 변수보다 우선순위를 가진다.",
+        "C. 지역 변수는 함수 바깥 영역에서도 얼마든지 마음대로 호출해서 데이터 조작이 가능하다.",
+        "D. global 키워드는 함수가 아닌 일반 if 조건문 내부에서 변수를 바꿀 때도 매번 필수로 써야만 한다."
+      ],
+      "answer": "B",
+      "hint": "이름이 겹칠 경우 더 좁고 구체적인 공간(함수 내부)에 소속된 변수가 우선권을 쥐고 동작하게 됩니다.",
+      "feedback": {
+        "correct": "정답입니다! 스코프 중첩 시 더 좁은 범위인 지역 변수가 일시적으로 전역 변수를 가리며(Shadowing) 우선 배치권을 가지게 됩니다."
+      }
+    },
+    {
+      "question_id": "q751",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "파이썬에서 함수 내부에 또 다른 함수를 정의하여 사용하는 것을 무엇이라고 하나요?",
+      "choices": [
+        "A. 외중 함수",
+        "B. 중첩 함수 (Nested Function)",
+        "C. 반복 함수 (Loop Function)",
+        "D. 연쇄 함수 (Chained Function)"
+      ],
+      "answer": "B",
+      "hint": "함수 안에 다른 함수가 '겹쳐져서' 들어가 있는 형태를 뜻하는 단어예요.",
+      "feedback": {
+        "correct": "정답입니다! 함수 내부에 정의된 또 다른 함수를 '중첩 함수' 혹은 '내부 함수'라고 부릅니다."
+      }
+    },
+    {
+      "question_id": "q752",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "중첩 함수(내부 함수)의 스코프(유효 범위)적 특징으로 올바른 것은 무엇인가요?",
+      "choices": [
+        "A. 프로그램 어디서나 자유롭게 호출할 수 있는 전역 함수가 된다.",
+        "B. 자신을 감싸고 있는 바깥쪽 함수 내부에서만 존재하며 외부에서는 호출할 수 없다.",
+        "C. 한 번 호출되면 컴퓨터가 꺼질 때까지 메모리에서 사라지지 않는다.",
+        "D. 내부 함수 안에서는 바깥쪽 함수의 변수를 읽을 수 없다."
+      ],
+      "answer": "B",
+      "hint": "내부 함수는 바깥쪽 함수의 '지역 변수'와 같은 취급을 받아서 꽁꽁 숨겨져 있어요.",
+      "feedback": {
+        "correct": "정답입니다! 내부 함수는 자신을 정의한 감싸고 있는 바깥 함수 안에서만 유효 범위를 가집니다."
+      }
+    },
+    {
+      "question_id": "q753",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\ndef outer():\n    def inner():\n        print('내부 호출!')\n    inner()\n```\n\nouter()",
+      "choices": [
+        "A. 내부 호출!",
+        "B. inner()",
+        "C. 아무것도 출력되지 않는다",
+        "D. NameError 발생"
+      ],
+      "answer": "A",
+      "hint": "outer()가 호출되면 그 안에서 inner() 함수가 정의되고 바로 이어서 실행(호출)까지 일어납니다.",
+      "feedback": {
+        "correct": "정답입니다! outer() 함수 내부 흐름에 따라 inner()가 정상 호출되어 문장이 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q754",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 중 중첩 함수를 포함한 아래 코드를 실행했을 때의 결과로 올바른 것은 무엇인가요?\n\n```python\ndef main_game():\n    def spawn_monster():\n        print('몬스터 등장')\n\nmain_game()\nspawn_monster()\n```",
+      "choices": [
+        "A. 몬스터 등장",
+        "B. 아무런 출력 없이 프로그램이 정상 종료된다.",
+        "C. NameError(이름 오류)가 발생한다.",
+        "D. None이 출력된다."
+      ],
+      "answer": "C",
+      "hint": "spawn_monster는 main_game 함수 안에서만 존재하는 내부 함수입니다. 바깥 영역인 맨 밑줄에서 단독 호출할 수 있을까요?",
+      "feedback": {
+        "correct": "정답입니다! spawn_monster는 외부 영역에서 보이지 않는 내부 스코프에 갇혀있으므로 바깥에서 호출하면 NameError가 발생합니다."
+      }
+    },
+    {
+      "question_id": "q755",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때의 출력 결과를 예측해 보세요.\n\n```python\ndef robot_factory():\n    def assemble():\n        print('부품 조립')\n    print('공장 가동')\n```\n\nrobot_factory()",
+      "choices": [
+        "A. 부품 조립\n공장 가동",
+        "B. 공장 가동\n부품 조립",
+        "C. 공장 가동",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "assemble 함수는 '정의(def)'만 되었을 뿐, robot_factory 내부 그 어디에서도 실행 명령을 내리지 않았습니다.",
+      "feedback": {
+        "correct": "정답입니다! 내부 함수가 정의만 되고 호출되지 않았으므로 '공장 가동'만 화면에 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q756",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "중첩 함수(내부 함수)를 사용하는 주된 프로그래밍적 장점이나 목적이 아닌 것은 무엇인가요?",
+      "choices": [
+        "A. 바깥 함수에서만 쓰는 특수한 기능을 안에 숨겨두어 코드를 깔끔하게 묶을 수 있다 (캡슐화).",
+        "B. 외부 영역으로부터 해당 내부 함수의 무분별한 접근 및 충돌을 원천 차단할 수 있다.",
+        "C. 내부 함수를 사용하면 무조건 전체 프로그램 코드 실행 속도가 10배 이상 빨라진다.",
+        "D. 내부 함수 안에서 바깥 함수 공간의 데이터를 활용할 수 있어 논리적 연결이 편리하다."
+      ],
+      "answer": "C",
+      "hint": "중첩 함수는 코드의 구조화, 보안(숨김), 가독성을 위한 설계 문법 장치이지 실행 속도 튜닝과는 무관합니다.",
+      "feedback": {
+        "correct": "정답입니다! 중첩 함수 구조를 쓴다고 해서 비약적인 속도 향상이 일어나는 것은 아닙니다."
+      }
+    },
+    {
+      "question_id": "q757",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 최종 출력되는 문구를 고르세요.\n\n```python\ndef outer_func(x):\n    def inner_func():\n        print('값:' + x)\n    inner_func()\n```\n\nouter_func('에이몬')",
+      "choices": [
+        "A. 값:x",
+        "B. 값:에이몬",
+        "C. 값:",
+        "D. NameError 발생"
+      ],
+      "answer": "B",
+      "hint": "내부 함수(inner_func)는 자신을 둘러싼 바깥 함수(outer_func)의 매개변수나 지역 변수를 자유롭게 가져다 쓸 수 있습니다.",
+      "feedback": {
+        "correct": "정답입니다! 내부 함수는 상위 바깥 함수의 변수 x에 할당된 '에이몬'이라는 값을 정상적으로 공유받아 출력합니다."
+      }
+    },
+    {
+      "question_id": "q758",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 연산 구조를 지닌 중첩 함수 코드의 최종 출력 정수를 선택하세요.\n\n```python\ndef calculator(a, b):\n    def multiply():\n        return a * b\n    result = multiply() + 10\n    return result\n\nprint(calculator(3, 5))\n```",
+      "choices": [
+        "A. 15",
+        "B. 25",
+        "C. 35",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "multiply()가 수행되면 바깥에서 받아온 `3 * 5 = 15`를 리턴하고, 거기에 10이 더해집니다.",
+      "feedback": {
+        "correct": "정답입니다! 15에 10이 더해진 25가 최종 반환되어 출력창에 찍히게 됩니다."
+      }
+    },
+    {
+      "question_id": "q759",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드가 실행되는 흐름과 순서를 정밀하게 추적했을 때, 화면에 도출되는 최종 라인 조합은 무엇인가요?\n\n```python\ndef step_1():\n    print('A')\n    def step_2():\n        print('B')\n    print('C')\n    step_2()\n```\n\nstep_1()",
+      "choices": [
+        "A. A\nB\nC",
+        "B. A\nC\nB",
+        "C. B\nA\nC",
+        "D. A\nC"
+      ],
+      "answer": "B",
+      "hint": "코드는 위에서 아래로 흐릅니다. `def step_2():` 문장을 만났을 때는 정의만 하고 지나친다는 점을 유념하세요.",
+      "feedback": {
+        "correct": "정답입니다! 'A'가 찍히고 step_2는 우회한 뒤 'C'가 찍힙니다. 그 이후에 `step_2()`를 호출했으므로 'B'가 마지막에 나타납니다."
+      }
+    },
+    {
+      "question_id": "q760",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "함수 안의 함수(중첩 함수) 문법과 제약 사항에 관한 설명 중 가장 올바르지 않은 명제는 무엇인가요?",
+      "choices": [
+        "A. 내부 함수도 일반 함수와 마찬가지로 인수를 전달받기 위한 독자적인 매개변수를 가질 수 있다.",
+        "B. 바깥 함수 내부에서는 여러 개의 내부 함수를 동시에 쪼개어 정의할 수 있다.",
+        "C. 내부 함수 내에서 바깥 함수의 지역 변수 값을 단순 읽기 조회하는 것은 가능하지만, 예약 키워드 선언 없이 다짜고짜 값을 대입해 수정하면 바깥 변수가 아닌 동명의 새로운 내부 지역 변수가 생길 뿐이다.",
+        "D. 파이썬에서는 딱 한 단계의 중첩만 허용하므로, 함수 안의 함수 안에 또 다른 함수를 정의하는 3단계 중첩은 문법상 원천 불가능하다."
+      ],
+      "answer": "D",
+      "hint": "파이썬은 중첩 횟수에 논리적 제한을 두지 않습니다. 함수 안에 함수 안에 함수를 넣는 것도 문법적으로 구현할 수 있어요.",
+      "feedback": {
+        "correct": "정답입니다! 파이썬은 다중 중첩 구조(함수 안의 함수 안의 함수 등)를 정상 지원하므로 D번 주장은 거짓입니다."
+      }
+    },
+    {
+      "question_id": "q761",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 중 중첩 함수를 품고 있는 가장 바깥쪽의 함수를 지칭하는 올바른 대응 용어는 무엇인가요?",
+      "choices": [
+        "A. 외부 함수 (Outer Function)",
+        "B. 상위 클래스 (Super Class)",
+        "C. 메인 루프 (Main Loop)",
+        "D. 전역 공간 (Global Space)"
+      ],
+      "answer": "A",
+      "hint": "내부(Inner)의 반대말에 해당하는 컴퓨터 과학 단어예요.",
+      "feedback": {
+        "correct": "정답입니다! 중첩 함수를 감싸고 있는 바깥층의 함수를 '외부 함수' 또는 '바깥쪽 함수'라고 칭합니다."
+      }
+    },
+    {
+      "question_id": "q762",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 중 중첩 함수(내부 함수)를 사용하기에 가장 적절하지 못한 비효율적인 상황은 언제인가요?",
+      "choices": [
+        "A. 특정 함수 안에서만 임시로 돌릴 보조 계산 기능이 필요할 때",
+        "B. 외부 파일들이나 다른 프로그램 영역 전반에서 수시로 불러다 써야 하는 공용 유틸리티 기능을 만들 때",
+        "C. 특정 함수 내부 코드가 너무 길어져서 내부에서만 쓰이는 단락을 가독성 있게 쪼개고 싶을 때",
+        "D. 함수 외부 공간의 오염으로부터 원천 격리된 보안성 높은 도구를 구현하고 싶을 때"
+      ],
+      "answer": "B",
+      "hint": "중첩 함수는 외부에서 부를 수 없다는 치명적인 격리 장벽이 존재합니다. 다 함께 널리 쓰는 공용 도구라면 굳이 가둘 필요가 없겠죠.",
+      "feedback": {
+        "correct": "정답입니다! 다른 여러 파일이나 공간에서 공유하여 광범위하게 쓰일 대중적인 기능은 전역 공간에 독립된 일반 함수로 만드는 것이 옳습니다."
+      }
+    },
+    {
+      "question_id": "q763",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 최종 도출되는 결과값을 선택하세요.\n\n```python\ndef intro_pack():\n    def show_name():\n        print('에이몬')\n    show_name()\n    show_name()\n```\n\nintro_pack()",
+      "choices": [
+        "A. 에이몬",
+        "B. 에이몬\n에이몬",
+        "C. 아무것도 출력되지 않는다.",
+        "D. NameError 발생"
+      ],
+      "answer": "B",
+      "hint": "바깥 함수 안에서 내부 함수 `show_name()`을 연속으로 두 번 호출하고 있는 배치입니다.",
+      "feedback": {
+        "correct": "정답입니다! 내부 함수 역시 바깥 함수 영역 안에서 선언된 횟수만큼 정직하게 실행되므로 두 번 찍히게 됩니다."
+      }
+    },
+    {
+      "question_id": "q764",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 발생하는 콘솔창 현상으로 알맞은 것은 무엇인가요?\n\n```python\ndef check_secure():\n    def get_password():\n        return '1234'\n\nprint(get_password())\n```",
+      "choices": [
+        "A. 1234",
+        "B. None",
+        "C. NameError(이름 오류)가 발생한다.",
+        "D. 프로그램이 멈추지 않고 무한 대기 상태에 빠진다."
+      ],
+      "answer": "C",
+      "hint": "get_password는 check_secure의 울타리 내부에 격리되어 설계되었습니다. 외부(print)에서는 그 존재 유무를 알 수 없습니다.",
+      "feedback": {
+        "correct": "정답입니다! 은닉된 내부 함수를 바깥에서 임의로 꺼내 호출하려 했으므로 식별 불가능하다는 NameError가 발생합니다."
+      }
+    },
+    {
+      "question_id": "q765",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 연산과 조건 흐름을 분석하여 출력 결과를 고르세요.\n\n```python\ndef process_data(status):\n    def alert():\n        print('경고!')\n\n    \n\n    if status == 'danger':\n        alert()\n\nprocess_data('safe')\n```",
+      "choices": [
+        "A. 경고!",
+        "B. 아무런 출력문 없이 정상 종료된다.",
+        "C. safe",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "인수로 'safe'가 들어왔습니다. `status == 'danger'` 조건식이 충족되는지 검토해보세요.",
+      "feedback": {
+        "correct": "정답입니다! if 조건문이 성립하지 않아 내부 함수 alert() 호출문까지 도달하지 못하므로 아무것도 출력되지 않고 종료됩니다."
+      }
+    },
+    {
+      "question_id": "q766",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "파이썬에서 중첩 함수를 작성할 때 지켜야 하는 가장 기초적인 소스코드 정렬(포맷) 규칙은 무엇인가요?",
+      "choices": [
+        "A. 내부 함수는 반드시 바깥 함수보다 코드 윗줄에 배치해야 한다.",
+        "B. 내부 함수의 def 선언문과 내부 본문 코드는 바깥 함수 내부 블록에 소속되도록 한 단계 더 들여쓰기(Indentation)해야 한다.",
+        "C. 내부 함수 이름 앞에는 무조건 언더바 두 개(`__`)를 강제로 붙여야 한다.",
+        "D. 내부 함수 안에서는 print() 함수를 사용하는 것이 문법적으로 불가능하다."
+      ],
+      "answer": "B",
+      "hint": "파이썬의 소속 관계 구분 방식은 언제나 '들여쓰기'의 깊이로 결정됩니다.",
+      "feedback": {
+        "correct": "정답입니다! 바깥 함수 본문 안에 종속되어야 하므로 한 단계 더 깊은 들여쓰기를 적용해 코드를 짜야 합니다."
+      }
+    },
+    {
+      "question_id": "q767",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드를 구동했을 때 모니터 창에 찍히는 최종 결합 텍스트는 무엇인가요?\n\n```python\ndef welcome(title):\n    def formal_greet():\n        print('대장님 ' + title)\n    formal_greet()\n```\n\nwelcome('안녕하세요!')",
+      "choices": [
+        "A. 대장님 title",
+        "B. 대장님 안녕하세요!",
+        "C. 안녕하세요! 대장님",
+        "D. TypeError 발생"
+      ],
+      "answer": "B",
+      "hint": "바깥 함수가 가리키는 변수 title의 문자열 데이터를 내부 함수가 그대로 공유하여 연산에 결합합니다.",
+      "feedback": {
+        "correct": "정답입니다! title에 매칭된 '안녕하세요!'를 내부 스코프가 완벽히 이어받아 '대장님 안녕하세요!'가 완성됩니다."
+      }
+    },
+    {
+      "question_id": "q768",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 수학적 가중치 계산이 덧붙여진 중첩 함수의 최종 반환 결과를 고르세요.\n\n```python\ndef score_booster(score):\n    def multiply(n):\n        return n * 2\n    final_score = multiply(score) + score\n    return final_score\n\nprint(score_booster(10))\n```",
+      "choices": [
+        "A. 20",
+        "B. 30",
+        "C. 40",
+        "D. 10"
+      ],
+      "answer": "B",
+      "hint": "multiply(10)은 `10 * 2 = 20`을 돌려줍니다. 거기에 원래 score인 10을 한번 더 더해주는 구도입니다.",
+      "feedback": {
+        "correct": "정답입니다! `20 + 10 = 30`이 연산되어 최종 결과값은 30이 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q769",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 특이한 실행 전개와 호출 위치를 고려했을 때, 도출되는 최종 정답은 무엇인가요?\n\n```python\ndef level_1():\n    def level_2():\n        print('인사 완료')\n    print('준비 단계')\n    level_2()\n```\n\nlevel_1()",
+      "choices": [
+        "A. 인사 완료\n준비 단계",
+        "B. 준비 단계\n인사 완료",
+        "C. 준비 단계",
+        "D. NameError 발생"
+      ],
+      "answer": "B",
+      "hint": "level_1() 내부에서 `def level_2():` 정의 구역을 지나쳐 아랫줄의 `print('준비 단계')`를 먼저 대면하게 됩니다.",
+      "feedback": {
+        "correct": "정답입니다! '준비 단계' 가 먼저 정직하게 찍힌 이후, 바로 아랫줄에서 장전된 `level_2()`를 쏘아 올려 실행하므로 '인사 완료'가 다음에 나옵니다."
+      }
+    },
+    {
+      "question_id": "q770",
+      "unit": 6,
+      "stage": "6-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 중 함수 내부에서 또 다른 함수를 부려 쓰는 '중첩 함수'의 동작 기저 규칙으로 올바른 진술을 고르세요.",
+      "choices": [
+        "A. 내부 함수 블록에서는 외부 함수의 매개변수나 지역 변수를 자유롭게 가져와 사용할 수 있다.",
+        "B. 외부 함수는 자신이 거느린 내부 함수의 가슴 안쪽 지역 변수를 global 선언 없이 자유롭게 꺼내 쓸 수 있다.",
+        "C. 내부 함수와 외부 함수의 매개변수 이름은 무슨 일이 있어도 서로 겹쳐서 지으면 문법 에러가 난다.",
+        "D. 내부 함수 안에서는 반복문(for)이나 조건문(if)을 섞어 쓰는 행위가 금지된다."
+      ],
+      "answer": "A",
+      "hint": "스코프의 기본 지배 논리에 따라 하위 공간(내부)은 상위 공간(외부)의 변수를 들여다볼 수 있는 프리패스 권한이 주어집니다.",
+      "feedback": {
+        "correct": "정답입니다! 상위 스코프에 등록된 자원은 하위 내부 함수 스코프에서 온전히 공유 및 인지할 수 있으므로 A번이 유일한 참입니다."
+      }
+    },
+    {
+      "question_id": "q781",
+      "unit": 6,
+      "stage": "6-7",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 중 함수를 작성하고 사용할 때 프로그램의 구조적 관점에서 얻을 수 있는 장점으로 가장 거리가 먼 것은 무엇인가요?",
+      "choices": [
+        "A. 복잡하고 긴 코드를 기능별로 분리하여 가독성을 높인다.",
+        "B. 코드의 수정이 필요할 때 함수 내부만 고치면 되므로 유지보수가 쉬워진다.",
+        "C. 한 번 만든 기능을 여러 군데에서 중복 코드 없이 다시 재사용할 수 있다.",
+        "D. 프로그램에 사용된 모든 변수의 이름을 하나로 통일할 수 있다."
+      ],
+      "answer": "D",
+      "hint": "함수는 코드를 쪼개고 관리하기 위한 도구이지 변수 이름을 강제 통일하는 문법이 아닙니다.",
+      "feedback": {
+        "correct": "정답입니다! 함수는 가독성, 재사용성, 유지보수성을 높여주지만 변수명을 통일해주는 기능은 없습니다."
+      }
+    },
+    {
+      "question_id": "q782",
+      "unit": 6,
+      "stage": "6-7",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "파이썬에서 이미 정의된 함수 `calc(x, y)`를 호출하여 그 반환값을 변수 `res`에 저장하는 가장 올바른 문법 양식은 무엇인가요?",
+      "choices": [
+        "A. res = calc(10, 20)",
+        "B. calc(10, 20) -> res",
+        "C. def calc(10, 20) = res",
+        "D. res == calc(10, 20)"
+      ],
+      "answer": "A",
+      "hint": "대입 연산자(=)를 사용하여 우변의 함수 실행 결과를 좌변의 변수에 할당해야 합니다.",
+      "feedback": {
+        "correct": "정답입니다! `변수 = 함수명(인수)` 구조가 함수 반환값을 저장하는 표준 문법입니다."
+      }
+    },
+    {
+      "question_id": "q783",
+      "unit": 6,
+      "stage": "6-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 최종 출력되는 값을 고르세요.\n\n```python\ndef greeting():\n    return '안녕'\n    print('에이몬')\n\nprint(greeting() + '하세요!')\n```",
+      "choices": [
+        "A. 안녕에이몬하세요!",
+        "B. 안녕하세요!",
+        "C. 안녕\n에이몬하세요!",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "return문 뒤에 있는 `print('에이몬')`은 실행되지 않는 코드(Dead Code)가 됩니다.",
+      "feedback": {
+        "correct": "정답입니다! greeting()은 '안녕'을 반환하고 즉시 종료되므로 '하세요!'와 결합되어 '안녕하세요!'가 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q784",
+      "unit": 6,
+      "stage": "6-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 결과를 고르세요.\n\n```python\ndef make_double(n):\n    print(n * 2)\n\nval = make_double(5)\nprint(val)\n```",
+      "choices": [
+        "A. 10\n10",
+        "B. 10\nNone",
+        "C. 10",
+        "D. None"
+      ],
+      "answer": "B",
+      "hint": "make_double 함수 내부에서 계산 결과를 `print`만 하고 있을 뿐, 함수 바깥으로 던져주는 `return`문은 존재하지 않습니다.",
+      "feedback": {
+        "correct": "정답입니다! 함수 호출로 10이 먼저 출력되지만, 반환값이 없어 val에 `None`이 저장되므로 최종적으로 10과 None이 연속 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q785",
+      "unit": 6,
+      "stage": "6-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 조건 분기가 포함된 코드를 가동했을 때 콘솔창에 찍히는 텍스트를 고르세요.\n\n```python\ndef pass_fail(score):\n    if score >= 80:\n        return '합격'\n    return '재시험'\n\nprint(pass_fail(80))\n```",
+      "choices": [
+        "A. 합격",
+        "B. 재시험",
+        "C. 합격\n재시험",
+        "D. None"
+      ],
+      "answer": "A",
+      "hint": "전달된 인수 80은 `score >= 80` 조건을 만족하므로 첫 번째 return문을 만나게 됩니다.",
+      "feedback": {
+        "correct": "정답입니다! 조건이 참이 되어 '합격'이 반환되고 함수가 즉시 종료되므로 아랫줄의 '재시험' 리턴은 실행되지 않습니다."
+      }
+    },
+    {
+      "question_id": "q786",
+      "unit": 6,
+      "stage": "6-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 기본값 매개변수가 혼합된 코드를 실행했을 때 화면에 출력되는 형태로 올바른 것은 무엇인가요?\n\n```python\ndef info(name, lv=1):\n    print(f'{name}:Lv.{lv}')\n```\n\ninfo(lv=5, name='슬라임')",
+      "choices": [
+        "A. 슬라임:Lv.1",
+        "B. 슬라임:Lv.5",
+        "C. lv:Lv.5",
+        "D. TypeError 발생"
+      ],
+      "answer": "B",
+      "hint": "호출할 때 키워드 인수를 명시하면 정의된 순서와 상관없이 해당 매개변수에 값이 매칭되며, 전달된 값이 우선 적용됩니다.",
+      "feedback": {
+        "correct": "정답입니다! 키워드 인수에 의해 값이 정확히 전달되어 기본값 1 대신 5가 반영된 '슬라임:Lv.5'가 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q787",
+      "unit": 6,
+      "stage": "6-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음과 같이 두 개의 함수가 유기적으로 연동되어 실행될 때, 최종 출력되는 결과물은 무엇인가요?\n\n```python\ndef add_one(x):\n    return x + 1\n\ndef square(x):\n    return x * x\n\nprint(square(add_one(3)))\n```",
+      "choices": [
+        "A. 10",
+        "B. 16",
+        "C. 12",
+        "D. 7"
+      ],
+      "answer": "B",
+      "hint": "가장 안쪽의 `add_one(3)`이 먼저 계산되어 값을 반환한 뒤, 그 결과가 `square()`의 인수로 전달됩니다.",
+      "feedback": {
+        "correct": "정답입니다! `add_one(3)`이 4를 반환하고, 이어서 `square(4)`가 실행되어 `4 * 4 = 16`이 최종 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q788",
+      "unit": 6,
+      "stage": "6-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 스코프와 global 키워드가 포함된 종합 응용 코드를 실행했을 때 최종 출력되는 정수 조합은 무엇인가요?\n\n```python\npoints = 10\n\ndef bonus():\n    global points\n    points = 20\n\ndef penalty():\n    points = 0\n\nbonus()\npenalty()\nprint(points)\n```",
+      "choices": [
+        "A. 10",
+        "B. 20",
+        "C. 0",
+        "D. 오류 발생"
+      ],
+      "answer": "B",
+      "hint": "bonus()는 전역 변수를 수정하지만, penalty()는 global 선언이 없어 내부에서 동명의 지역 변수만 만들 뿐입니다.",
+      "feedback": {
+        "correct": "정답입니다! bonus()에 의해 전역 변수가 20으로 바뀌고, penalty()의 `points = 0`은 지역 변수이므로 전역 변수 20은 그대로 유지됩니다."
+      }
+    },
+    {
+      "question_id": "q789",
+      "unit": 6,
+      "stage": "6-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 중첩 함수 구조의 코드 실행 순서를 추적했을 때, 화면에 나타나는 출력 라인으로 올바른 조합은 무엇인가요?\n\n```python\ndef outer_robot():\n    print('A')\n    def inner_stream():\n        print('B')\n    inner_stream()\n    print('C')\n```\n\nouter_robot()",
+      "choices": [
+        "A. A\nB\nC",
+        "B. A\nC\nB",
+        "C. B\nA\nC",
+        "D. A\nC"
+      ],
+      "answer": "A",
+      "hint": "코드는 위에서 아래로 순차 실행됩니다. inner_stream 정의를 마친 직후에 `inner_stream()` 호출문이 바로 이어서 배치되어 있습니다.",
+      "feedback": {
+        "correct": "정답입니다! 'A' 출력 후 내부 함수가 정의 및 호출되어 'B'가 출력되고, 마지막으로 'C'가 찍히는 순서로 진행됩니다."
+      }
+    },
+    {
+      "question_id": "q790",
+      "unit": 6,
+      "stage": "6-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 반복문 내부에서 함수 호출이 일어나는 코드의 실행 결과로 최종 도출되는 정수는 무엇인가요?\n\n```python\ntotal = 0\n\ndef accumulate(x):\n    return x + 2\n\nfor i in range(1, 4):\n    total = total + accumulate(i)\n\nprint(total)\n```",
+      "choices": [
+        "A. 6",
+        "B. 12",
+        "C. 9",
+        "D. 15"
+      ],
+      "answer": "B",
+      "hint": "반복문 i는 1, 2, 3 순서로 돕니다. 각각 accumulate(1), accumulate(2), accumulate(3)의 반환값을 구해 total에 누적해보세요.",
+      "feedback": {
+        "correct": "정답입니다! i가 1일 때 3, 2일 때 4, 3일 때 5를 반환하므로 `3 + 4 + 5 = 12`가 total에 누적되어 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q791",
+      "unit": 6,
+      "stage": "6-7",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "파이썬에서 여러 개의 매개변수를 지닌 함수를 정의할 때, 문법적 한계와 규칙에 대한 설명으로 옳은 항목은 무엇인가요?",
+      "choices": [
+        "A. 매개변수는 무조건 1개만 지정할 수 있으며 2개 이상은 불가능하다.",
+        "B. 여러 개의 매개변수를 지정할 때는 각 매개변수 이름을 쉼표(,)로 구분하여 나열해야 한다.",
+        "C. 매개변수의 이름은 모두 숫자로만 지어야 정상 작동한다.",
+        "D. 매개변수가 많아지면 return 키워드를 쓸 수 없다."
+      ],
+      "answer": "B",
+      "hint": "함수 정의 시 `def test(a, b, c):` 처럼 나열 기호를 사용합니다.",
+      "feedback": {
+        "correct": "정답입니다! 파이썬에서 다수의 매개변수를 선언할 때는 쉼표(,)를 통해 분리 및 나열해 주는 것이 기본 규칙입니다."
+      }
+    },
+    {
+      "question_id": "q792",
+      "unit": 6,
+      "stage": "6-7",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 중 매개변수도 없고 반환값(return)도 존재하지 않는 가장 단순한 형태의 함수를 실행시키는 호출 방식으로 올바른 것은?",
+      "choices": [
+        "A. show_status",
+        "B. show_status()",
+        "C. call show_status",
+        "D. show_status(None)"
+      ],
+      "answer": "B",
+      "hint": "인수가 없더라도 함수를 실행(호출)하겠다는 의미의 소괄호 짝꿍은 반드시 이름 뒤에 붙여야 합니다.",
+      "feedback": {
+        "correct": "정답입니다! 매개변수가 비어있는 함수도 괄호를 붙여 `함수명()` 형태로 호출해야 정상 작동합니다."
+      }
+    },
+    {
+      "question_id": "q793",
+      "unit": 6,
+      "stage": "6-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 종합 연산 코드를 실행했을 때 화면에 최종 출력되는 정수값을 고르세요.\n\n```python\ndef calc_data(x, y):\n    return x * y\n\nresult = calc_data(5, 3) + calc_data(2, 4)\nprint(result)\n```",
+      "choices": [
+        "A. 15",
+        "B. 8",
+        "C. 23",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "앞선 함수 호출 `calc_data(5, 3)`의 결과와 뒤선 함수 호출 `calc_data(2, 4)`의 결과가 각각 반환되어 덧셈 연산으로 묶입니다.",
+      "feedback": {
+        "correct": "정답입니다! 각각 15와 8을 리턴하므로 `15 + 8 = 23`이 최종 변수에 담겨 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q794",
+      "unit": 6,
+      "stage": "6-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 미묘한 출력 결과를 예측하여 고르세요.\n\n```python\ndef print_msg(msg):\n    print('메시지:' + msg)\n\nprint(print_msg('테스트'))\n```",
+      "choices": [
+        "A. 메시지:테스트",
+        "B. 메시지:테스트\nNone",
+        "C. None",
+        "D. 메시지:테스트\n오류 발생"
+      ],
+      "answer": "B",
+      "hint": "함수 자체가 실행되면서 내부의 '메시지:테스트'가 먼저 한 번 출력되고, 가장 바깥쪽의 `print()`가 함수 호출의 반환값을 받아 찍으려고 대기합니다.",
+      "feedback": {
+        "correct": "정답입니다! 함수 본문의 실행으로 문구가 먼저 찍힌 뒤, 함수에 return이 없어 발생한 빈 가치 `None`이 최종 라인에 함께 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q795",
+      "unit": 6,
+      "stage": "6-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 논리형(bool) 데이터를 핸들링하는 함수의 실행 결과로 가장 알맞은 것은 무엇인가요?\n\n```python\ndef check_premium(lv, crown):\n    if lv >= 10 and crown >= 5:\n        return True\n    return False\n\nprint(check_premium(12, 4))\n```",
+      "choices": [
+        "A. True",
+        "B. False",
+        "C. True\nFalse",
+        "D. None"
+      ],
+      "answer": "B",
+      "hint": "전달된 인수 lv=12, crown=4 입니다. `and` 연산자로 연결된 복합 조건이 충족하는지 따져보세요.",
+      "feedback": {
+        "correct": "정답입니다! crown이 5보다 작아 if문 조건이 성립하지 않으므로 건너뛰어 하단의 `False`가 최종 리턴됩니다."
+      }
+    },
+    {
+      "question_id": "q796",
+      "unit": 6,
+      "stage": "6-7",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 기본값 매개변수 배치 규칙이 포함된 코드의 실행 결과를 고르세요.\n\n```python\ndef create_id(nickname, badge='🌱'):\n    return nickname + badge\n\nprint(create_id('지니'))\n```",
+      "choices": [
+        "A. 지니",
+        "B. 지니🌱",
+        "C. 🌱",
+        "D. SyntaxError 발생"
+      ],
+      "answer": "B",
+      "hint": "인수를 하나 생략하고 호출하면, 미리 지정해 둔 이모지 기본값이 매개변수에 안전하게 자동 적용됩니다.",
+      "feedback": {
+        "correct": "정답입니다! badge 자리에 기본값 '🌱'이 매칭되어 두 문자열이 결합한 '지니🌱'가 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q797",
+      "unit": 6,
+      "stage": "6-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 함수 간의 연쇄 결합 흐름 코드의 출력 결과를 정확히 계산하여 고르세요.\n\n```python\ndef filter_num(x):\n    return x - 5\n\ndef multiply_num(x):\n    return x * 3\n\nprint(filter_num(multiply_num(10)))\n```",
+      "choices": [
+        "A. 15",
+        "B. 25",
+        "C. 30",
+        "D. 20"
+      ],
+      "answer": "B",
+      "hint": "괄호의 깊이를 먼저 보세요. 내부의 `multiply_num(10)` 계산값이 정해진 뒤, 그 숫자가 `filter_num()`의 재료로 투입됩니다.",
+      "feedback": {
+        "correct": "정답입니다! `10 * 3 = 30`이 먼저 반환되고, 이어서 `filter_num(30)`에 의해 `30 - 5 = 25`가 최종 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q798",
+      "unit": 6,
+      "stage": "6-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 전역 스코프 제어가 뒤섞인 종합 처리 코드의 최종 출력 텍스트 조합을 고르세요.\n\n```python\nstatus = '슬라임'\n\ndef evolution_1():\n    status = '로봇'\n\ndef evolution_2():\n    global status\n    status = '말풍선킹'\n\nevolution_1()\nevolution_2()\nprint(status)\n```",
+      "choices": [
+        "A. 슬라임",
+        "B. 로봇",
+        "C. 말풍선킹",
+        "D. 오류 발생"
+      ],
+      "answer": "C",
+      "hint": "evolution_1()은 순수 로컬 변수 조작일 뿐이지만, evolution_2()는 전역 공간의 주권을 쥐고 알맹이를 강제 변조합니다.",
+      "feedback": {
+        "correct": "정답입니다! evolution_1의 대입은 증발하고 evolution_2의 global 수정 명령이 전역 변수를 변경하므로 '말풍선킹'이 최종 출력됩니다."
+      }
+    },
+    {
+      "question_id": "q799",
+      "unit": 6,
+      "stage": "6-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 중첩 함수 내에서 값의 흐름과 소속을 제어하는 코드의 최종 출력 결과물은 무엇인가요?\n\n```python\ndef outer_game():\n    score = 100\n    def inner_bonus():\n        score = 500\n        print('내부:' + str(score))\n    inner_bonus()\n    print('외부:' + str(score))\n```\n\nouter_game()",
+      "choices": [
+        "A. 내부:500\n외부:100",
+        "B. 내부:500\n외부:500",
+        "C. 내부:100\n외부:100",
+        "D. 외부:100\n내부:500"
+      ],
+      "answer": "A",
+      "hint": "내부 함수 안에서 작성된 `score = 500` 구문은 상위 함수 변수를 직접 바꿀 수 없으며, 단지 동명의 새로운 내부 로컬 변수를 양산할 뿐입니다.",
+      "feedback": {
+        "correct": "정답입니다! 내부 함수 안에서는 독립된 500이 우선 찍히고, 바깥쪽 함수의 고유 스코프 영역 변 100은 오염되지 않고 유지되어 찍힙니다."
+      }
+    },
+    {
+      "question_id": "q800",
+      "unit": 6,
+      "stage": "6-7",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 함수 호출과 리스트 순회 결합 로직의 최종 연산 결과물로 모니터에 출력되는 정수는 무엇인가요?\n\n```python\nnums = [2, 4, 6]\nresult_sum = 0\n\ndef add_bonus(val):\n    if val > 3:\n        return val + 10\n    return val\n\nfor n in nums:\n    result_sum = result_sum + add_bonus(n)\n\nprint(result_sum)\n```",
+      "choices": [
+        "A. 12",
+        "B. 32",
+        "C. 22",
+        "D. 42"
+      ],
+      "answer": "B",
+      "hint": "리스트의 요소 2, 4, 6이 순서대로 함수 인수로 들어갑니다. 2는 3보다 작으므로 그대로 2가 나오고, 4와 6은 10씩 가산되어 반환됩니다.",
+      "feedback": {
+        "correct": "정답입니다! 2는 조건 미달로 2를 리턴하고, 4와 6은 조건을 충족하여 14와 16을 리턴하므로 `2 + 14 + 16 = 32`가 최종 합산됩니다."
+      }
+    }
+  ]
+}
