@@ -24,7 +24,10 @@ def get_user_id_or_ip(request: Request) -> str:
 
 limiter = Limiter(key_func=get_user_id_or_ip)
 
-SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
+SECRET_KEY = os.getenv("SECRET_KEY")
+if not SECRET_KEY or len(SECRET_KEY) < 32:
+    raise ValueError("SECRET_KEY environment variable is not set or is less than 32 characters long. Please set a strong SECRET_KEY.")
+
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
 
 USE_SUPABASE = os.getenv("USE_SUPABASE", "false") == "true"
