@@ -18,6 +18,12 @@ from dotenv import load_dotenv
 def now_kst() -> datetime:
     return datetime.now(timezone(timedelta(hours=9)))
 
+def today_kst() -> str:
+    return now_kst().strftime("%Y-%m-%d")
+
+def iso_week() -> str:
+    return now_kst().strftime("%G-W%V")
+
 
 logger = logging.getLogger("uvicorn.error")
 

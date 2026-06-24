@@ -1,0 +1,27 @@
+{
+  "daily": [
+    {
+      "mission_id": "d_quiz3",
+      "title": "스테이지 퀴즈 3회 클리어",
+      "event": "stage_clear",
+      "goal": 3,
+      "reward": {"xp": 300}
+    },
+    {
+      "mission_id": "d_review",
+      "title": "오답 1개 복습",
+      "event": "review_done",
+      "goal": 1,
+      "reward": {"xp": 150}
+    },
+    {
+      "mission_id": "d_login",
+      "title": "오늘도 출석",
+      "event": "login",
+      "goal": 1,
+      "reward": {"crowns": 1},
+      "auto_claim": true
+    }
+  ],
+  "weekly": []
+}

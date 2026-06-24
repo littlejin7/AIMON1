@@ -19,6 +19,8 @@ from routers.utils import (
     save_refresh_token,
     delete_refresh_token,
     delete_user_refresh_tokens,
+    mutate_user_atomic,
+    UserNotFoundError,
     SECRET_KEY,
     ALGORITHM,
     limiter,
@@ -191,12 +193,20 @@ def register(req: RegisterRequest, request: Request):
 @router.post("/login")
 @limiter.limit("10/minute")
 def login(req: LoginRequest, request: Request):
-    user = get_user_by_username(req.username)
-    if not user or not verify_password(req.password, user["password"]):
+    user_ref = get_user_by_username(req.username)
+    if not user_ref or not verify_password(req.password, user_ref["password"]):
         raise HTTPException(status_code=401, detail="아이디 또는 비밀번호가 올바르지 않습니다.")
 
-    user, streak_reward = update_login_streak(user)
-    save_user(user)
+    # d_login auto_claim 이 missions.daily.claimed(list) 를 append 하므로
+    # save_user delta-merge 대신 mutate_user_atomic 원자 경로로 저장. (C-1 [필수])
+    def mutator(user: dict):
+        _, streak_reward = update_login_streak(user)
+        return streak_reward
+
+    try:
+        user, streak_reward = mutate_user_atomic(user_ref["id"], mutator)
+    except UserNotFoundError:
+        raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")
 
     token = create_token({"sub": user["id"], "username": user["username"]}, user.get("token_version", 1))
     refresh_token = create_refresh_token(user["id"])
