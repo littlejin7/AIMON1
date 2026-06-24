@@ -13,7 +13,10 @@ from routers.utils import (
     get_current_user,
     apply_xp,
     limiter,
+    mutate_user_atomic,
+    UserNotFoundError,
 )
+from routers.titles import check_and_award_titles
 from routers.quiz import load_questions_by_category
 
 router = APIRouter()
@@ -313,24 +316,18 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dic
             "reviewed": False
         })
 
-    # 1. Load users to increment feedback count & handle rewards
-    u = user
-    
-    newly_earned_titles = []
-    if u and not grading_failed:
-        # Increment AI feedback count
-        u["ai_feedback_count"] = u.get("ai_feedback_count", 0) + 1
-        newly_earned_titles = check_and_award_titles(u, {})
-
-    # 2. is_clear일 때만 XP/진화 처리 및 진행도 완료 저장
+    # ── 진행도(별도 스토리지) 완료 판정/저장은 락 밖에서 먼저 수행 ──
+    # 유닛보스 XP 중복가드(progress.is_completed)는 users 와 다른 스토리지라
+    # mutate_user_atomic 으로 완전 원자화되지 않음 → M-4 로 잔존. (백로그 기록)
+    award_xp = False
+    next_unit = 1
     if is_clear and not grading_failed:
         unit_val = int(req.unit) if req.unit is not None else int(question.get("unit", 1))
         stage_val = question.get("stage", f"{unit_val}-boss")
-        
+
         progress = get_progress_by_user(user_id, course_level)
         existing = next((p for p in progress if p["unit"] == unit_val and p["stage"] == stage_val), None)
-        
-        award_xp = False
+
         if existing:
             if not existing.get("is_completed", False):
                 award_xp = True
@@ -352,18 +349,8 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dic
                 "updated_at": now_kst().isoformat(),
             }
             save_progress_item(item)
-        
-        from routers.utils import calc_level
 
-        if is_final_boss:
-            # ── 엔드보스 클리어 보상은 endboss.py /boss/endboss/clear 에서 전담 처리 ──
-            # 여기서 보상을 지급하면 중복 지급이 발생하므로, xp/crowns는 0으로 반환
-            ai_result["xp_awarded"]     = 0
-            ai_result["crowns_awarded"] = 0
-            ai_result["unlocked_unit"]  = 9  # 엔드보스 이후 유닛 없음
-
-        else:
-            # ── 유닛 보스 클리어 보상 ────────────────────────────────────
+        if not is_final_boss:
             try:
                 if req.unit is not None:
                     cleared_unit = int(req.unit)
@@ -373,55 +360,73 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dic
                     cleared_unit = 1
             except Exception:
                 cleared_unit = 1
-
             next_unit = cleared_unit + 1
 
-            if award_xp and u:
-                if is_unit_boss:
-                    if not isinstance(u.get("completed_units"), dict):
-                        old_val = u.get("completed_units", 0)
-                        u["completed_units"] = {
-                            "beginner": old_val,
-                            "intermediate": 0,
-                            "advanced": 0
-                        }
-                    u["completed_units"][course_level] = u["completed_units"].get(course_level, 0) + 1
+    # 유닛보스 보상 지급 여부 (엔드보스 보상은 endboss.py 가 전담)
+    do_unit_reward = (is_clear and not grading_failed and not is_final_boss and award_xp)
 
-                context = {"boss_cleared": True}
-                events = apply_xp(u, 3000, context, event_type="boss_clear")
-                newly_earned_clear = events["newly_earned_titles"]
+    # ── 유저 상태 변경(피드백 카운트·칭호·유닛보스 보상)은 fresh user 기준 원자 처리 ──
+    # ai_feedback_count(counter)·titles(list)·missions(boss_clear) 가 save_user
+    # delta-merge 에서 덮어써지던 문제 해소. (M-1)
+    def mutator(u: dict) -> dict:
+        newly = []
+        # 피드백 카운트 + 칭호 (채점 성공 시 매 답안)
+        u["ai_feedback_count"] = u.get("ai_feedback_count", 0) + 1
+        newly = check_and_award_titles(u, {})
 
-                title_ids = {t["id"] for t in newly_earned_titles}
-                for t in newly_earned_clear:
-                    if t["id"] not in title_ids:
-                        newly_earned_titles.append(t)
+        if do_unit_reward:
+            if is_unit_boss:
+                if not isinstance(u.get("completed_units"), dict):
+                    old_val = u.get("completed_units", 0)
+                    u["completed_units"] = {"beginner": old_val, "intermediate": 0, "advanced": 0}
+                u["completed_units"][course_level] = u["completed_units"].get(course_level, 0) + 1
 
-                u["crowns"] = u.get("crowns", 0) + 1
+            context = {"boss_cleared": True}
+            events = apply_xp(u, 3000, context, event_type="boss_clear")
 
-                if not isinstance(u.get("max_unlocked_unit"), dict):
-                    old_val = u.get("max_unlocked_unit", 1)
-                    u["max_unlocked_unit"] = {
-                        "beginner": old_val,
-                        "intermediate": 1,
-                        "advanced": 1
-                    }
-                u["max_unlocked_unit"][course_level] = max(u["max_unlocked_unit"].get(course_level, 1), next_unit)
+            title_ids = {t["id"] for t in newly}
+            for t in events["newly_earned_titles"]:
+                if t["id"] not in title_ids:
+                    newly.append(t)
 
-                ai_result["xp_awarded"]     = 3000
-                ai_result["crowns_awarded"] = 1
-                ai_result["unlocked_unit"]  = next_unit
-            else:
-                ai_result["xp_awarded"]     = 0
-                ai_result["crowns_awarded"] = 0
-                ai_result["unlocked_unit"]  = next_unit
+            u["crowns"] = u.get("crowns", 0) + 1
+
+            if not isinstance(u.get("max_unlocked_unit"), dict):
+                old_val = u.get("max_unlocked_unit", 1)
+                u["max_unlocked_unit"] = {"beginner": old_val, "intermediate": 1, "advanced": 1}
+            u["max_unlocked_unit"][course_level] = max(u["max_unlocked_unit"].get(course_level, 1), next_unit)
+
+        return {"newly_earned_titles": newly}
+
+    # 채점 실패가 아닐 때만 유저 상태를 원자 저장 (grading_failed 면 변경 없음 → 저장 생략)
+    newly_earned_titles = []
+    if not grading_failed:
+        try:
+            _, mres = mutate_user_atomic(user_id, mutator)
+            newly_earned_titles = mres["newly_earned_titles"]
+        except UserNotFoundError:
+            raise HTTPException(status_code=404, detail="User not found")
+
+    # ── 응답 보상 필드 ──
+    if do_unit_reward:
+        ai_result["xp_awarded"]     = 3000
+        ai_result["crowns_awarded"] = 1
+        ai_result["unlocked_unit"]  = next_unit
+    elif is_clear and not grading_failed and is_final_boss:
+        # 엔드보스: 보상은 endboss.py 전담, 여기선 0
+        ai_result["xp_awarded"]     = 0
+        ai_result["crowns_awarded"] = 0
+        ai_result["unlocked_unit"]  = 9
+    elif is_clear and not grading_failed:
+        # 유닛보스 재클리어(award_xp False)
+        ai_result["xp_awarded"]     = 0
+        ai_result["crowns_awarded"] = 0
+        ai_result["unlocked_unit"]  = next_unit
     else:
         ai_result["xp_awarded"] = 0
         ai_result["crowns_awarded"] = 0
         ai_result["unlocked_unit"] = 1
 
-    # Save user
-    if u:
-        save_user(u)
     ai_result["newly_earned_titles"] = newly_earned_titles
 
     return ai_result
