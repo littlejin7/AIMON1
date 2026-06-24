@@ -101,7 +101,7 @@ export default function AuthForm({
         type="submit"
         className={`auth-btn-main${error ? ' error-state' : ''}`}
         disabled={loading}
-        style={{ marginTop: '10px' }}
+        style={{ marginTop: '12px' }}
       >
         {loading ? (
           <><span className="spinner" style={{ width: 18, height: 18, borderWidth: 2 }} /> 처리 중...</>
@@ -111,7 +111,7 @@ export default function AuthForm({
       </button>
 
       {/* 링크 행 */}
-      <div className="auth-link-row" style={{ marginTop: '4px' }}>
+      <div className="auth-link-row" style={{ marginTop: '20px' }}>
         <button type="button" className="auth-link" onClick={onGoFindId}>
           아이디 찾기
         </button>
