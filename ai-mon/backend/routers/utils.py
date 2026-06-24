@@ -721,10 +721,18 @@ def delete_user_refresh_tokens(user_id: str):
         _save_json_locked(REFRESH_TOKENS_FILE, tokens)
 
 
-def apply_xp(user: dict, xp_gain: int, context: dict = None) -> dict:
+def apply_xp(user: dict, xp_gain: int, context: dict = None, event_type: str = None) -> dict:
     """
     Apply XP, recalculate level, check evolution, and check/award titles.
     Returns dictionary describing the events.
+
+    순수 in-place 변경 함수: user 를 그 자리에서만 갱신하고 저장은 호출부 책임
+    (save_user 또는 mutate_user_atomic). 내부에서 save 를 호출하지 않으므로
+    mutate_user_atomic 의 mutator 안에서도 그대로 재사용된다.
+
+    event_type 이 주어지면 미션 진척 훅(bump_mission)을 함께 굴린다. (XP 발생 지점
+    = 미션 이벤트 지점) 출석(login)은 XP 가 없고 day_key 가 필요하므로 호출부에서
+    bump_mission 을 직접 호출한다.
     """
     old_xp = user.get("xp") or 0
     old_lv = user.get("lv") or 1
@@ -753,6 +761,15 @@ def apply_xp(user: dict, xp_gain: int, context: dict = None) -> dict:
     # 4. Award titles
     from routers.titles import check_and_award_titles
     newly_earned_titles = check_and_award_titles(user, context or {})
+
+    # 5. Mission progress hook (청크 1: bump_mission 은 정의 없으면 no-op)
+    if event_type:
+        try:
+            from routers.missions_core import bump_mission  # 함수 내부 import 로 순환 import 회피
+            bump_mission(user, event_type)
+        except Exception:
+            # 미션 진척 실패가 XP/보상 처리를 깨지 않도록 격리(무음 아님, 로깅).
+            logger.exception("bump_mission failed for event_type=%s", event_type)
 
     return {
         "xp_gained": xp_gain,

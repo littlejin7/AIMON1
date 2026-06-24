@@ -76,6 +76,32 @@ def test_apply_xp_evolution():
     # Check aimon_master title awarded at lv 30
     assert "aimon_master" in user["titles"]
 
+def test_apply_xp_event_type_no_op_and_evolution_unchanged():
+    """청크 1: event_type 인자를 줘도 (1) 진화/레벨 결과가 이전과 동일하고
+    (2) no-op bump_mission 이 예외 없이 통과해야 한다."""
+    # event_type 없이 진화시킨 기준 유저
+    base = {"id": "u-base", "xp": 0, "lv": 1, "character": "slime", "titles": []}
+    ev_base = apply_xp(base, 45000)  # lv10 → robot
+
+    # event_type 을 넘긴 유저: 동일 입력이면 동일 결과여야 함
+    tagged = {"id": "u-tagged", "xp": 0, "lv": 1, "character": "slime", "titles": []}
+    ev_tagged = apply_xp(tagged, 45000, event_type="game_clear")
+
+    assert tagged["lv"] == base["lv"] == 10
+    assert tagged["character"] == base["character"] == "robot"
+    assert ev_tagged["evolved"] == ev_base["evolved"] == "robot"
+    assert ev_tagged["level_up"] == ev_base["level_up"] is True
+
+    # no-op bump_mission 은 미션 정의가 없으므로 user.missions 를 만들지 않는다(예외도 없음).
+    assert "missions" not in tagged
+
+    # 모든 이벤트 타입 호출이 예외 없이 동작
+    for et in ("stage_clear", "miniboss_clear", "boss_clear", "ai_feedback", "login"):
+        u = {"id": f"u-{et}", "xp": 0, "lv": 1, "character": "slime", "titles": []}
+        apply_xp(u, 100, {}, event_type=et)
+        assert u["xp"] == 100
+
+
 def test_apply_xp_titles():
     user = {
         "id": "test-user-uuid",

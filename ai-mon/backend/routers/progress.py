@@ -130,7 +130,7 @@ def update_progress(req: ProgressUpdateRequest, user: dict = Depends(get_current
             "stage_completed": award_xp,
             "unit_fully_done": unit_just_completed,
         }
-        events = apply_xp(user, xp_gain if award_xp else 0, context)
+        events = apply_xp(user, xp_gain if award_xp else 0, context, event_type="stage_clear")
         newly_earned = events["newly_earned_titles"]
         
         save_user(user)

@@ -388,7 +388,7 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dic
                     u["completed_units"][course_level] = u["completed_units"].get(course_level, 0) + 1
 
                 context = {"boss_cleared": True}
-                events = apply_xp(u, 3000, context)
+                events = apply_xp(u, 3000, context, event_type="boss_clear")
                 newly_earned_clear = events["newly_earned_titles"]
 
                 title_ids = {t["id"] for t in newly_earned_titles}

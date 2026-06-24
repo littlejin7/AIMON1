@@ -265,7 +265,7 @@ async def get_ai_feedback(request: Request, req: AiFeedbackRequest, user: Option
     if user:
         try:
             user["ai_feedback_count"] = user.get("ai_feedback_count", 0) + 1
-            apply_xp(user, 0, {})
+            apply_xp(user, 0, {}, event_type="ai_feedback")
             save_user(user)
         except Exception as e:
             logger.exception(f"Failed to update user titles/feedback count for user {user_id}: {str(e)}")

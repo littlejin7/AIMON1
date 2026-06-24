@@ -232,7 +232,7 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
                     xp_awarded = max(0, 2500 - daily_xp)
 
                 game_rewards["daily_xp"] = daily_xp + xp_awarded
-                apply_xp(user, xp_awarded)
+                apply_xp(user, xp_awarded, event_type="game_clear")
 
         user["game_rewards"] = game_rewards
         # save_user 가 떼어내던 파생 필드를 동일하게 정리
