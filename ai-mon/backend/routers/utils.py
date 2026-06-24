@@ -1,3 +1,4 @@
+import logging
 from fastapi import HTTPException
 from jose import jwt, JWTError
 import json
@@ -12,6 +13,8 @@ from slowapi.util import get_remote_address
 from fastapi import Request
 from supabase import create_client
 from dotenv import load_dotenv
+
+logger = logging.getLogger("uvicorn.error")
 
 _user_read_state = contextvars.ContextVar("_user_read_state", default=None)
 
@@ -207,6 +210,8 @@ def _merge_dicts(current: dict, original: dict, modified: dict) -> dict:
 
 
 def save_user(user: dict):
+    user.pop("boss_cleared", None)
+    user.pop("completed_stages", None)
     user_id = user["id"]
     try:
         cache = _user_read_state.get()
@@ -216,7 +221,7 @@ def save_user(user: dict):
 
     if USE_SUPABASE:
         if original:
-            numeric_cols = {"xp", "crowns", "lv", "streak", "completed_stages", "boss_cleared", "daily_free_attempts", "ai_feedback_count"}
+            numeric_cols = {"xp", "crowns", "lv", "streak", "daily_free_attempts", "ai_feedback_count"}
             jsonb_cols = {"max_unlocked_unit", "completed_units", "awarded_crown_units", "earned_streak_milestones", "titles", "game_rewards", "seen_questions", "endboss_cleared_levels", "miniboss_cleared_stages"}
             
             numeric_deltas = {}
@@ -428,7 +433,13 @@ def verify_token(authorization: str) -> str:
     try:
         token = authorization.replace("Bearer ", "")
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        return payload.get("sub")
+        user_id = payload.get("sub")
+        token_ver = payload.get("ver")
+        if token_ver is not None:
+            user = get_user_by_id(user_id)
+            if not user or user.get("token_version", 1) != token_ver:
+                raise JWTError("Token version mismatched")
+        return user_id
     except JWTError:
         raise HTTPException(status_code=401, detail="토큰이 유효하지 않습니다.")
 
@@ -441,6 +452,9 @@ def get_current_user(authorization: str) -> dict:
         user = get_user_by_id(user_id)
         if not user:
             raise HTTPException(status_code=401, detail="인증 실패")
+        token_ver = payload.get("ver")
+        if token_ver is not None and user.get("token_version", 1) != token_ver:
+            raise HTTPException(status_code=401, detail="토큰이 만료되었습니다. 다시 로그인해주세요.")
         return user
     except JWTError:
         raise HTTPException(status_code=401, detail="토큰이 유효하지 않습니다.")
@@ -508,11 +522,11 @@ def serialize_user(user: dict) -> dict:
             cleared_levels = res.get("endboss_cleared_levels") or []
             if course_level in cleared_levels:
                 db_boss_cleared += 1
-        except Exception:
-            pass
+        except Exception as e:
+            logger.exception(f"Failed to calculate progress in serialize_user for user {uid}: {str(e)}")
 
-    res["boss_cleared"] = max(res.get("boss_cleared") or 0, db_boss_cleared)
-    res["completed_stages"] = max(res.get("completed_stages") or 0, db_completed_stages)
+    res["boss_cleared"] = db_boss_cleared
+    res["completed_stages"] = db_completed_stages
 
     # 기본값 보장 (dark는 항상 무료 보유)
     pt = res.get("purchased_themes") or []

@@ -101,8 +101,7 @@ create table users (
   daily_free_attempts integer default 2,
   last_free_attempt_date text,
   ai_feedback_count integer default 0,
-  boss_cleared integer default 0,
-  completed_stages integer default 0,
+  token_version integer default 1,
   group_id uuid,                              -- nullable, 일부 유저에 없음 OK
   equipped_title text,                        -- users.json엔 없으나 추가해도 무방
   endboss_cleared_levels jsonb default '[]',  -- ⚠️ 누락 컬럼 추가 (endboss.py 사용 중)
@@ -193,6 +192,10 @@ create table wrong_answers (
   user_answer text,
   correct_answer text,
   course_level text,
+  feedback text,
+  ai_explanation text,
+  reviewed boolean default false,
+  timestamp text,
   created_at timestamptz default now()
 );
 ```
