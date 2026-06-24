@@ -1,9 +1,23 @@
-import { useRef } from 'react'
 import endbossQnaIcon from '../../assets/endboss_finalqna.png'
 import charSlimeIcon  from '../../assets/character_slime.png'
 import charRobotIcon  from '../../assets/character_robot.png'
 import charBubbleIcon from '../../assets/character_bubble.png'
 import charGhostIcon  from '../../assets/character_final_ghost.png'
+
+// question 필드에서 텍스트 / 코드블록 분리
+function parseQuestionText(raw) {
+  const match = raw.match(/^([\s\S]*?)```(?:\w+)?\n([\s\S]*?)```([\s\S]*)$/)
+  if (!match) return { text: raw.trim(), code: null, after: '' }
+  return { text: match[1].trim(), code: match[2].trimEnd(), after: match[3].trim() }
+}
+
+const TYPE_BADGE = {
+  output_select:   { label: '💻 출력 선택',   bg: '#E0F2FE', color: '#0369A1' },
+  multiple_choice: { label: '📋 객관식',       bg: '#EEEDFE', color: '#534AB7' },
+  error_find:      { label: '🐛 오류 찾기',    bg: '#FFF5F5', color: '#DC2626' },
+  fill_in_blank:   { label: '✏️ 빈칸 채우기', bg: '#F0FFF4', color: '#166534' },
+  code_input:      { label: '⌨️ 코드 작성',   bg: '#F0EFFE', color: '#6D28D9' },
+}
 
 export default function EndBossBattle({
   bossData,
@@ -26,203 +40,227 @@ export default function EndBossBattle({
   user,
   onSubmit,
   onNextQuestion,
+  questionNum,
+  questionTotal,
 }) {
-  const quizCardRef = useRef(null)
-
   const BOSS_HP_MAX = 1800
   const MY_HP_MAX   = 1200
-  const bossScale   = 0.7 + 0.3 * Math.max(0, bossHp / BOSS_HP_MAX)
+
+  const bossPct = Math.max(0, (bossHp / BOSS_HP_MAX) * 100)
+  const myHpPct = Math.max(0, (myHp  / MY_HP_MAX)   * 100)
 
   const characterIcon =
-    user?.character === 'robot'        ? charRobotIcon  :
-    user?.character === 'speech_bubble'? charBubbleIcon :
-    user?.character === 'final_ghost'  ? charGhostIcon  :
+    user?.character === 'robot'         ? charRobotIcon  :
+    user?.character === 'speech_bubble' ? charBubbleIcon :
+    user?.character === 'final_ghost'   ? charGhostIcon  :
     charSlimeIcon
 
+  const parsed = parseQuestionText(currentQuestion.question)
+  const badge  = TYPE_BADGE[currentQuestion.type] ?? TYPE_BADGE.multiple_choice
+
   const isCodeType = currentQuestion.type === 'code_input' || currentQuestion.type === 'fill_in_blank'
+  const hasChoice  = !isCodeType && currentQuestion.choices?.length > 0
+
+  // 보스 HP 색상
+  const bossHpGrad = bossPct > 50
+    ? 'linear-gradient(90deg,#FF6B6B,#FF4444)'
+    : bossPct > 25
+      ? 'linear-gradient(90deg,#FF9E2C,#FF6B6B)'
+      : 'linear-gradient(90deg,#FF4444,#CC0000)'
 
   return (
-    <div className="boss-card battle-card card-glass animate-fade-in-up">
+    <div className="eb-b-wrap">
 
-      {/* 보스 HP 바 */}
-      <div style={{ width: '100%' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px', fontSize: '0.85rem', gap: '8px' }}>
-          <span style={{ fontWeight: 'bold', color: '#f38ba8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1, minWidth: 0 }}>
-            😈 {bossData?.boss_name || '엔드보스'} (Phase {phase})
-          </span>
-          <span style={{ whiteSpace: 'nowrap', flexShrink: 0, color: '#cdd6f4' }}>
-            {bossHp} / {BOSS_HP_MAX} HP
-          </span>
-        </div>
-        <div style={{ width: '100%', height: '12px', background: '#313244', borderRadius: '6px', overflow: 'hidden' }}>
-          <div style={{
-            width: `${Math.max(0, (bossHp / BOSS_HP_MAX) * 100)}%`,
-            height: '100%',
-            background: 'linear-gradient(90deg, #ff6b6b, #c0392b)',  /* BossBattle과 색상 다름 */
-            borderRadius: '6px',
-            transition: 'width 0.4s ease',
-          }} />
-        </div>
-      </div>
+      {/* ── 전투 배경 ── */}
+      <div className="eb-b-bg">
+        <div className="eb-b-ground-top" />
+        <div className="eb-b-ground-bot" />
 
-      {/* 보스 아바타 */}
-      <div
-        className={bossShake ? 'boss-shake' : ''}
-        style={{ position: 'relative', display: 'flex', justifyContent: 'center', margin: '8px 0' }}
-      >
+        {/* 보스 HP 박스 */}
+        <div className="eb-b-boss-hpbox">
+          <div className="eb-b-hp-name">😈 {bossData?.boss_name || '엔드보스'}</div>
+          <div className="eb-b-hp-sub">Phase {phase} 진행 중</div>
+          <div className="eb-b-hp-bar-wrap">
+            <span className="eb-b-hp-label">HP</span>
+            <div className="eb-b-hp-track">
+              <div className="eb-b-hp-fill" style={{ width: `${bossPct}%`, background: bossHpGrad }} />
+            </div>
+          </div>
+          <div className="eb-b-hp-nums">{bossHp} / {BOSS_HP_MAX}</div>
+        </div>
+
+        {/* 플레이어 HP 박스 */}
+        <div className={`eb-b-player-hpbox${myShake ? ' shake' : ''}`}>
+          <div className="eb-b-hp-name">내 에이몬</div>
+          {phase === 3 ? (
+            <div className="eb-b-hearts">
+              {[0, 1, 2].map(i => (
+                <span key={i} className="eb-b-heart">
+                  {i < phase3Tries ? '🖤' : '❤️'}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <>
+              <div className="eb-b-hp-bar-wrap">
+                <span className="eb-b-hp-label">HP</span>
+                <div className="eb-b-hp-track">
+                  <div className="eb-b-hp-fill player" style={{ width: `${myHpPct}%` }} />
+                </div>
+              </div>
+              <div className="eb-b-hp-nums">{myHp} / {MY_HP_MAX}</div>
+            </>
+          )}
+        </div>
+
+        {/* 보스 이미지 */}
         <img
+          className={`eb-b-boss-img${bossShake ? ' shake' : ''}${bossHit ? ' hit' : ''}`}
           src={endbossQnaIcon}
           alt="엔드보스"
-          className={`battle-boss-icon ${bossHit ? 'boss-hit' : ''}`}
-          style={{
-            width: '300px',
-            height: '300px',
-            objectFit: 'contain',
-            transform: `scale(${bossScale})`,
-            transition: 'transform 0.6s ease',
-            transformOrigin: 'center bottom',
-            display: 'block',
-          }}
         />
-        {dmgPopup && <div className="dmg-popup">-{dmgPopup}</div>}
-      </div>
 
-      {/* 퀴즈 카드 (공격 애니메이션 래퍼) */}
-      <div ref={quizCardRef} className={`quiz-attack-wrap ${attackAnim ? 'attack-fly' : ''}`}>
-        <h2 className="battle-q-title" style={{ whiteSpace: 'pre-line', fontSize: '1.1rem', marginBottom: '8px' }}>
-          {currentQuestion.question}
-        </h2>
-
-        {/* AI 채점 결과 or 문제 입력 */}
-        {aiResult ? (
-          <div style={{ margin: '16px 0' }}>
-            {aiResult.is_correct ? (
-              <div style={{ padding: '16px', background: 'rgba(166,227,161,0.15)', border: '1px solid #a6e3a1', borderRadius: '12px', color: '#a6e3a1', fontWeight: 600, textAlign: 'center' }}>
-                🎉 정답입니다! 보스에게 강력한 데미지를 입혔습니다!
-                {!aiResult.is_clear && (
-                  <div style={{ marginTop: '16px' }}>
-                    <button className="btn btn-primary btn-full" onClick={onNextQuestion}>
-                      다음 문제 도전 ➔
-                    </button>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div style={{ textAlign: 'left', background: 'rgba(17,24,39,0.8)', padding: '16px', borderRadius: '12px', border: '1px solid rgba(243,139,168,0.4)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                  <span style={{ fontSize: '1.25rem' }}>🤖</span>
-                  <span style={{ fontWeight: 700, color: '#cba6f7' }}>Claude AI 분석</span>
-                </div>
-                <p style={{ color: '#cdd6f4', lineHeight: 1.5, fontSize: '0.9rem', margin: 0 }}>
-                  {aiResult.feedback}
-                </p>
-                <div style={{ marginTop: '16px' }}>
-                  {myHp <= 0 || phase3Tries >= 3 ? (
-                    <button className="btn btn-danger btn-full" onClick={onNextQuestion}>
-                      결과 보기 (패배) ➔
-                    </button>
-                  ) : (
-                    <button className="btn btn-primary btn-full" onClick={onNextQuestion}>
-                      다음 문제 도전 ➔
-                    </button>
-                  )}
-                </div>
-              </div>
-            )}
-          </div>
-        ) : (
-          <>
-            {/* 객관식 */}
-            {!isCodeType && currentQuestion.choices && (
-              <div className="battle-choices" style={{ display: 'flex', flexDirection: 'column', gap: '8px', margin: '16px 0' }}>
-                {currentQuestion.choices.map((opt, idx) => {
-                  const optionKey = opt.substring(0, 1)
-                  return (
-                    <button
-                      key={idx}
-                      className={`btn ${selectedOption === optionKey ? 'btn-primary' : 'btn-ghost'}`}
-                      style={{
-                        textAlign: 'left',
-                        padding: '12px 16px',
-                        justifyContent: 'flex-start',
-                        border: selectedOption === optionKey
-                          ? '1px solid var(--clr-primary)'
-                          : '1px solid rgba(255,255,255,0.1)',
-                      }}
-                      onClick={() => setSelectedOption(optionKey)}
-                    >
-                      {opt}
-                    </button>
-                  )
-                })}
-              </div>
-            )}
-
-            {/* 단답/코드 입력 */}
-            {isCodeType && (
-              <div style={{ margin: '16px 0' }}>
-                {currentQuestion.type === 'code_input' ? (
-                  <textarea
-                    value={answerInput}
-                    onChange={(e) => setAnswerInput(e.target.value)}
-                    className="input"
-                    placeholder="코드를 입력하세요"
-                    rows={10}
-                    style={{
-                      width: '100%',
-                      background: 'rgba(255,255,255,0.05)',
-                      color: '#cdd6f4',
-                      border: '1px solid rgba(255,255,255,0.3)',
-                      fontFamily: 'monospace',
-                      fontSize: '0.85rem',
-                      resize: 'vertical',
-                      lineHeight: 1.6,
-                      padding: '10px 12px',
-                      borderRadius: '8px',
-                    }}
-                  />
-                ) : (
-                  <input
-                    type="text"
-                    value={answerInput}
-                    onChange={(e) => setAnswerInput(e.target.value)}
-                    className="input"
-                    placeholder="정답을 입력하세요"
-                    style={{ width: '100%', background: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.3)' }}
-                  />
-                )}
-              </div>
-            )}
-
-            <button
-              className="btn btn-primary btn-lg btn-full"
-              onClick={onSubmit}
-              disabled={(!selectedOption && !answerInput.trim()) || loading}
-            >
-              공격하기 🚀
-            </button>
-          </>
-        )}
-      </div>
-
-      {/* 내 캐릭터 HP 바 */}
-      <div className="my-hp-bar" style={{ marginTop: '20px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '16px', display: 'flex', alignItems: 'center', gap: '16px' }}>
+        {/* 플레이어 캐릭터 */}
         <img
+          className={`eb-b-player-img${attackAnim ? ' atk' : ''}`}
           src={characterIcon}
           alt="내 캐릭터"
-          className={`my-avatar ${myShake ? 'my-shake' : ''}`}
-          style={{ width: '40px', height: '40px', objectFit: 'contain' }}
         />
-        <div style={{ flex: 1 }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '0.85rem' }}>
-            <span style={{ fontWeight: 'bold', color: '#a6e3a1' }}>🟢 내 에이몬</span>
-            <span>{myHp} / {MY_HP_MAX} HP{phase === 3 && ` (Phase 3 오답 ${phase3Tries}/3)`}</span>
-          </div>
-          <div className="hp-bar" style={{ background: '#313244', height: '10px', borderRadius: '5px', overflow: 'hidden' }}>
-            <div className="hp-fill" style={{ width: `${(myHp / MY_HP_MAX) * 100}%`, background: '#a6e3a1', transition: 'width 0.3s ease', height: '100%' }} />
+
+        {/* 데미지 팝업 */}
+        {dmgPopup && <div className="eb-b-dmg-popup">-{dmgPopup}</div>}
+      </div>
+
+      {/* ── 퀴즈 패널 ── */}
+      <div className="eb-b-quiz-wrap">
+
+        {/* 유형 뱃지 + 문제 번호 */}
+        <div className="eb-b-topbar">
+          <span
+            className="eb-b-badge"
+            style={{ background: badge.bg, color: badge.color }}
+          >
+            {badge.label}
+          </span>
+          {questionNum && questionTotal && (
+            <span className="eb-b-qnum">문제 {questionNum}/{questionTotal}</span>
+          )}
+        </div>
+
+        {/* 문제 카드 */}
+        <div className="eb-b-qcard">
+          {parsed.text && <div className="eb-b-qtext">{parsed.text}</div>}
+          {parsed.code && (
+            <div className="eb-b-terminal">
+              <pre className="eb-b-code">{parsed.code}</pre>
+            </div>
+          )}
+          {parsed.after && (
+            <div className="eb-b-qtext" style={{ marginTop: '6px' }}>{parsed.after}</div>
+          )}
+
+          {/* 객관식 / 출력선택 / 오류찾기 */}
+          {hasChoice && (
+            <div className="eb-b-radio-opts">
+              {currentQuestion.choices.map((opt, idx) => {
+                const key = opt.substring(0, 1)
+                return (
+                  <div
+                    key={idx}
+                    className={`eb-b-ropt${selectedOption === key ? ' sel' : ''}`}
+                    onClick={() => setSelectedOption(key)}
+                  >
+                    <div className="eb-b-rcircle">{key}</div>
+                    <span className="eb-b-rtext">{opt.substring(3)}</span>
+                  </div>
+                )
+              })}
+            </div>
+          )}
+
+          {/* 빈칸 채우기 */}
+          {currentQuestion.type === 'fill_in_blank' && (
+            <div className="eb-b-fib-row">
+              <span className="eb-b-fib-lbl">답</span>
+              <input
+                className="eb-b-fib-in"
+                type="text"
+                value={answerInput}
+                onChange={e => setAnswerInput(e.target.value)}
+                placeholder="정답 입력..."
+                onKeyDown={e => { if (e.key === 'Enter' && answerInput.trim()) onSubmit() }}
+              />
+            </div>
+          )}
+
+          {/* 코드 작성 */}
+          {currentQuestion.type === 'code_input' && (
+            <div className="eb-b-editor">
+              <div className="eb-b-edlbl"># 코드를 작성하세요</div>
+              <textarea
+                className="eb-b-edta"
+                rows={5}
+                value={answerInput}
+                onChange={e => setAnswerInput(e.target.value)}
+                placeholder="여기에 코드 작성..."
+              />
+            </div>
+          )}
+        </div>
+
+        {/* 공격 버튼 */}
+        <button
+          className="eb-b-atk-btn"
+          onClick={onSubmit}
+          disabled={(!selectedOption && !answerInput.trim()) || loading}
+        >
+          {loading ? '채점 중...' : '🚀 공격하기'}
+        </button>
+      </div>
+
+      {/* ── 결과 오버레이 ── */}
+      {aiResult && (
+        <div className="eb-b-result-overlay">
+          <div className="eb-b-result-card">
+            <div className="eb-b-res-icon">
+              {aiResult.is_correct ? '✅' : '❌'}
+            </div>
+            <div className="eb-b-res-title">
+              {aiResult.is_correct ? '정답! 공격 성공!' : '오답... 반격당했다!'}
+            </div>
+            {aiResult.feedback && (
+              <div className="eb-b-res-desc">{aiResult.feedback}</div>
+            )}
+            <div className="eb-b-res-hp-row">
+              <span>{aiResult.is_correct ? '⚡ 보스 HP 잔량' : '💢 내 HP 잔량'}</span>
+              <span
+                className="eb-b-res-hp-val"
+                style={{ color: aiResult.is_correct ? '#534AB7' : '#DC2626' }}
+              >
+                {aiResult.is_correct ? `${bossHp} HP` : `${myHp} HP`}
+              </span>
+            </div>
+
+            {aiResult.is_clear && (
+              <div className="eb-b-res-clear">🏆 클리어! 잠시 후 이동합니다...</div>
+            )}
+            {aiResult.is_fail && (
+              <button
+                className="eb-b-next-btn"
+                style={{ background: '#DC2626' }}
+                onClick={onNextQuestion}
+              >
+                결과 보기 →
+              </button>
+            )}
+            {!aiResult.is_clear && !aiResult.is_fail && (
+              <button className="eb-b-next-btn" onClick={onNextQuestion}>
+                다음 문제 →
+              </button>
+            )}
           </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
