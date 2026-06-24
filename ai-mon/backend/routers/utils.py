@@ -595,6 +595,8 @@ def serialize_user(user: dict) -> dict:
     
     # 2. Get current course level
     course_level = res.get("course_level", "beginner")
+    res["course_level"] = course_level
+
     
     # 3. Handle awarded_crown_units
     raw_crowns = res.get("awarded_crown_units") or []
