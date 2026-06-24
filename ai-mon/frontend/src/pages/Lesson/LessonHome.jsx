@@ -89,7 +89,7 @@ export default function LessonHome() {
   }
 
   const isStageComplete = (unitId, stageNum) =>
-    progress.some((p) => p.unit === unitId && p.stage === String(stageNum) && p.is_completed)
+    progress.some((p) => p.unit === unitId && p.stage === `${unitId}-${stageNum}` && p.is_completed)
 
   const isBossComplete = (unitId) =>
     progress.some((p) => p.unit === unitId && p.stage === `${unitId}-boss` && p.is_completed)
