@@ -114,21 +114,6 @@ export default function BossBattle({
   return (
     <div className="mb-page">
 
-      {/* ── 탑 네비 ── */}
-      <div className="mb-topnav">
-        <span className="mb-logo">AI MON</span>
-        <div className="mb-crown-pill">👑 {user?.crowns ?? 0}</div>
-        <div className="mb-user-info">
-          <div className="mb-uavatar">
-            <img src={characterIcon} alt="캐릭터" style={{ width: 20, height: 20, objectFit: 'contain' }} />
-          </div>
-          <div className="mb-utext">
-            <span className="mb-uname">{user?.username || '플레이어'}</span>
-            <span className="mb-ulvl">{levelLabel}</span>
-          </div>
-          <button className="mb-escape-btn" onClick={onEscape}>도망 🏃</button>
-        </div>
-      </div>
 
       {/* ── 진행도 스트립 ── */}
       <div className="mb-prog-strip">
