@@ -3,6 +3,7 @@ import { quizApi } from '../../api/index'
 import { usePyodide } from '../../hooks/usePyodide'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import ChoiceOptions from './ChoiceOptions'
+import ErrorFindLines from './ErrorFindLines'
 import FillInput from './FillInput'
 import CodeInput from './CodeInput'
 import AiFeedback from './AiFeedback'
@@ -79,10 +80,22 @@ export default function QuizCard({
   const { questionText, codeLines } = parseQuestionCode(rawQuestion) 
   
   const type          = question.quiz_type || question.type
-  const isChoiceType  = type === 'multiple_choice' || type === 'output_select' || type === 'error_find'
-  const isCodeInput   = type === 'code_input'
   const choicesList   = question.choices || question.options || []
 
+
+  // "N줄:" 형식 코드 + "A. N줄" 형식 선택지 → 줄 클릭 UI
+  const isLineSelectErrorFind =
+    type === 'error_find' &&
+    codeLines?.length > 0 &&
+    /^\d+줄:/.test(codeLines[0])
+
+  const isChoiceType  = type === 'multiple_choice' || type === 'output_select' ||
+                        (type === 'error_find' && !isLineSelectErrorFind)
+  const isCodeInput   = type === 'code_input'
+
+
+
+  
   // ── AI 피드백 호출 (SSE 스트리밍) ──
   const fetchAiFeedback = async (userAnswer) => {
     const staticFallback = question.feedback?.wrong || '정답을 다시 확인해 보세요!'
@@ -212,8 +225,22 @@ export default function QuizCard({
       <div className="quiz-question">
         <p>{questionText}</p>
       </div>
-      {codeLines && <CodeBlock lines={codeLines} />}
+      {codeLines && !isLineSelectErrorFind && <CodeBlock lines={codeLines} />}
 
+      {isLineSelectErrorFind && (
+        <ErrorFindLines
+          codeLines={codeLines}
+          choicesList={choicesList}
+          selected={selected}
+          revealed={revealed}
+          answer={question.answer}
+          onSelect={(opt) => { if (!revealed) setSelected(opt) }}
+          onSubmit={handleSubmitChoice}
+        />
+      )}
+
+
+      
       {/* 입력 영역 */}
       {isChoiceType && (
         <ChoiceOptions
