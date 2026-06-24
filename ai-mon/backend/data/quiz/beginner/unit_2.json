@@ -610,9 +610,9 @@
       "is_boss": false,
       "question": "다음과 같이 메서드가 연속으로 연결된 코드(메서드 체이닝)의 실행 결과를 고르세요.\n\n```python\ninfo = '  Welcome to AI-Mon  '\nprint(info.strip().upper())\n```",
       "choices": [
-        "A.   WELCOME TO AI-MON  ",
-        "B. WELCOME TO AI-MON  ",
-        "C. WELCOME TO AI-MON",
+        "A. '  WELCOME TO AI-MON  '",
+        "B. 'WELCOME TO AI-MON  '",
+        "C. 'WELCOME TO AI-MON'",
         "D. welcome to ai-mon"
       ],
       "answer": "C",

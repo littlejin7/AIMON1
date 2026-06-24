@@ -43,7 +43,11 @@ export default function ChoiceOptions({
           disabled={disabled || revealed}
         >
           <span className="opt-label">{LABELS[i] ?? i + 1}</span>
-          <span>{stripLabel(opt)}</span>
+          <span>
+            {stripLabel(opt).split(/\\n|\n/).map((line, li, arr) => (
+              <span key={li}>{line}{li < arr.length - 1 && <br />}</span>
+            ))}
+          </span>
         </button>
       ))}
       {!revealed && (
