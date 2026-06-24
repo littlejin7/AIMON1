@@ -191,3 +191,112 @@ def test_claim_d_review(tmp_path, monkeypatch):
     _, r = utils_mod.mutate_user_atomic("u-review", _make_claim_mutator("d_review"))
     assert not r["already_claimed"]
     assert r["xp"] == 150
+
+
+# ─────────────────────────────── 청크 3: 위클리 미션 ─────────────────────────
+
+def test_w_boss2_accumulates():
+    """boss_clear 2회 → w_boss2 progress = 2."""
+    u = _base_user()
+    bump_mission(u, "boss_clear")
+    assert u["missions"]["weekly"]["progress"].get("w_boss2", 0) == 1
+    bump_mission(u, "boss_clear")
+    assert u["missions"]["weekly"]["progress"].get("w_boss2", 0) == 2
+
+
+def test_w_boss2_capped_at_goal():
+    u = _base_user()
+    for _ in range(5):
+        bump_mission(u, "boss_clear")
+    assert u["missions"]["weekly"]["progress"].get("w_boss2", 0) == 2
+
+
+def test_w_ai5_accumulates():
+    """ai_feedback 5회 → w_ai5 progress = 5."""
+    u = _base_user()
+    for _ in range(5):
+        bump_mission(u, "ai_feedback")
+    assert u["missions"]["weekly"]["progress"].get("w_ai5", 0) == 5
+
+
+def test_login_bumps_both_daily_and_weekly():
+    """login 이벤트 1회 → d_login(데일리) + w_streak5(위클리) 동시 갱신 (포함관계)."""
+    u = _base_user()
+    bump_mission(u, "login", day_key=TODAY)
+    assert u["missions"]["daily"]["progress"].get("d_login", 0) == 1
+    assert u["missions"]["weekly"]["progress"].get("w_streak5", 0) == 1
+
+
+def test_stage_clear_bumps_daily_not_weekly():
+    """stage_clear는 d_quiz3(데일리)만 갱신, 위클리 progress는 건드리지 않는다."""
+    u = _base_user()
+    bump_mission(u, "stage_clear")
+    assert u["missions"]["daily"]["progress"].get("d_quiz3", 0) == 1
+    assert u["missions"]["weekly"]["progress"] == {}
+
+
+def test_boss_clear_bumps_weekly_not_daily():
+    """boss_clear는 w_boss2(위클리)만 갱신, 데일리 progress는 건드리지 않는다."""
+    u = _base_user()
+    bump_mission(u, "boss_clear")
+    assert u["missions"]["weekly"]["progress"].get("w_boss2", 0) == 1
+    assert u["missions"]["daily"]["progress"] == {}
+
+
+def test_w_streak5_dedup_same_day():
+    """같은 day_key로 두 번 bump → w_streak5 중복 카운트 없음."""
+    u = _base_user()
+    bump_mission(u, "login", day_key=TODAY)
+    bump_mission(u, "login", day_key=TODAY)
+    assert u["missions"]["weekly"]["progress"].get("w_streak5", 0) == 1
+    assert u["missions"]["weekly"]["login_days"] == [TODAY]
+
+
+def test_w_streak5_five_different_days():
+    """서로 다른 5일 bump → w_streak5 progress = 5 (주간 출석 완료)."""
+    u = _base_user()
+    days = [f"2026-06-{d:02d}" for d in range(18, 23)]  # 5일
+    for day in days:
+        bump_mission(u, "login", day_key=day)
+    assert u["missions"]["weekly"]["progress"].get("w_streak5", 0) == 5
+    assert len(u["missions"]["weekly"]["login_days"]) == 5
+
+
+def test_weekly_lazy_reset():
+    """이전 주차 기록은 접근 시 자동 초기화된다."""
+    u = _base_user()
+    u["missions"] = {
+        "daily": {"date": TODAY, "progress": {}, "claimed": []},
+        "weekly": {
+            "week": "2000-W01",
+            "progress": {"w_boss2": 2},
+            "claimed": ["w_boss2"],
+            "login_days": ["2000-01-03"],
+        },
+    }
+    bump_mission(u, "boss_clear")
+    w = u["missions"]["weekly"]
+    assert w["week"] == WEEK                    # 이번 주차로 갱신
+    assert w["progress"].get("w_boss2", 0) == 1  # 리셋 후 새로 +1
+    assert w.get("claimed", []) == []            # claimed 초기화
+    assert w.get("login_days", []) == []         # login_days 초기화
+
+
+def test_claim_w_boss2(tmp_path, monkeypatch):
+    """w_boss2 claim → xp:1500 + crowns:2 지급."""
+    import routers.utils as utils_mod
+
+    users_file = tmp_path / "users.json"
+    u = _base_user("u-wboss")
+    u["missions"] = {
+        "daily": {"date": TODAY, "progress": {}, "claimed": []},
+        "weekly": {"week": WEEK, "progress": {"w_boss2": 2}, "claimed": [], "login_days": []},
+    }
+    users_file.write_text(json.dumps([u]), encoding="utf-8")
+    monkeypatch.setattr(utils_mod, "USERS_FILE", str(users_file))
+    monkeypatch.setattr(utils_mod, "USE_SUPABASE", False)
+
+    _, r = utils_mod.mutate_user_atomic("u-wboss", _make_claim_mutator("w_boss2"))
+    assert not r["already_claimed"]
+    assert r["xp"] == 1500
+    assert r["crowns"] == 2

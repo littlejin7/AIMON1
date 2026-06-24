@@ -92,7 +92,9 @@ AI 피드백      ─┤        ▼
   ],
   "weekly": [
     {"mission_id":"w_boss2","title":"보스 2회 처치","event":"boss_clear","goal":2,"reward":{"xp":1500,"crowns":2}},
-    {"mission_id":"w_streak5","title":"주 5일 출석","event":"login_day","goal":5,"reward":{"xp":2000,"crowns":3}},
+    {"mission_id":"w_streak5","title":"주 5일 출석","event":"login","goal":5,"reward":{"xp":2000,"crowns":3}},
+    // w_streak5: event="login" (d_login과 동일). bump_mission("login",day_key) 1회로 daily+weekly 동시 갱신.
+    // 중복 방지는 weekly.login_days 날짜 집합 (daily.login_days와 독립).
     {"mission_id":"w_ai5","title":"AI 피드백 5회 활용","event":"ai_feedback","goal":5,"reward":{"xp":800}}
   ]
 }

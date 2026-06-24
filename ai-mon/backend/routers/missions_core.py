@@ -113,3 +113,24 @@ def bump_mission(user: dict, event: str, amount: int = 1, day_key: str = None) -
                     user["crowns"] = user.get("crowns", 0) + reward["crowns"]
                 # XP auto_claim 은 apply_xp 재귀를 유발하므로 지원하지 않음.
                 # auto_claim 미션에 XP 보상이 필요한 경우 수동 claim 사용.
+
+    # 위클리 스코프: 데일리와 같은 이벤트로 위클리도 동시에 갱신 (포함관계).
+    # bump_mission 한 번 호출로 daily · weekly 두 스코프를 순회 → 드리프트 방지.
+    w = m["weekly"]
+
+    for defn in WEEKLY_DEFS:
+        if defn["event"] != event:
+            continue
+        mid = defn["mission_id"]
+
+        # login 이벤트 위클리 미션: weekly.login_days 기반 하루 1회 dedup.
+        # daily.login_days 와 독립적으로 관리하므로 스코프 간 간섭 없음.
+        if event == "login" and day_key is not None:
+            w_login_days = w.setdefault("login_days", [])
+            if day_key in w_login_days:
+                continue
+            w_login_days.append(day_key)
+
+        prog = w.setdefault("progress", {})
+        prog[mid] = min(prog.get(mid, 0) + amount, defn["goal"])
+        # 위클리는 auto_claim 없음 — 수동 claim 버튼으로 수령
