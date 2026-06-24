@@ -49,7 +49,7 @@ const GAMES = [
     id: "aibomb",
     icon: aibombIconUrl,
     emoji: "💣",
-    title: "에이밤",
+    title: "공개 예정",
     desc: "코딩을 배우고, 코드를 입력해 폭탄을 해제하라!",
     reward: "XP 100",
     rewardIcon: "⚡",
@@ -60,7 +60,7 @@ const GAMES = [
       {
         id: 'aicross',
         icon: aiwordIconUrl,
-        title: 'AI 크로스워드',
+        title: '공개 예정',
         desc: '파이썬 & AI 단어로 십자말풀이를 완성하라!',
         reward: 'XP 100~200',
         rewardIcon: '⚡',
