@@ -58,10 +58,10 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     return hashlib.sha256(plain_password.encode()).hexdigest() == hashed_password
 
 
-def create_token(data: dict) -> str:
+def create_token(data: dict, token_version: int = 1) -> str:
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(minutes=EXPIRE_MINUTES)
-    to_encode.update({"exp": expire})
+    to_encode.update({"exp": expire, "ver": token_version})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 
@@ -168,8 +168,6 @@ def register(req: RegisterRequest, request: Request):
         "last_login": "",
         "titles": [],
         "ai_feedback_count": 0,
-        "boss_cleared": 0,
-        "completed_stages": 0,
         "max_unlocked_unit": {"beginner": 1, "intermediate": 1, "advanced": 1},
         "completed_units": {"beginner": 0, "intermediate": 0, "advanced": 0},
         "awarded_crown_units": [],
@@ -178,7 +176,7 @@ def register(req: RegisterRequest, request: Request):
         "created_at": datetime.utcnow().isoformat(),
     }
     save_user(new_user)
-    token = create_token({"sub": new_user["id"], "username": new_user["username"]})
+    token = create_token({"sub": new_user["id"], "username": new_user["username"]}, new_user.get("token_version", 1))
     refresh_token = create_refresh_token(new_user["id"])
     return {
         "access_token": token,
@@ -198,7 +196,7 @@ def login(req: LoginRequest, request: Request):
     user, streak_reward = update_login_streak(user)
     save_user(user)
 
-    token = create_token({"sub": user["id"], "username": user["username"]})
+    token = create_token({"sub": user["id"], "username": user["username"]}, user.get("token_version", 1))
     refresh_token = create_refresh_token(user["id"])
     res_data = {
         "access_token": token,
@@ -407,8 +405,6 @@ async def social_google(req: SocialLoginRequest, request: Request):
             "last_login": "",
             "titles": [],
             "ai_feedback_count": 0,
-            "boss_cleared": 0,
-            "completed_stages": 0,
             "max_unlocked_unit": {"beginner": 1, "intermediate": 1, "advanced": 1},
             "completed_units": {"beginner": 0, "intermediate": 0, "advanced": 0},
             "awarded_crown_units": [],
@@ -420,7 +416,7 @@ async def social_google(req: SocialLoginRequest, request: Request):
     user, streak_reward = update_login_streak(user)
     save_user(user)
 
-    token = create_token({"sub": user["id"], "username": user["username"]})
+    token = create_token({"sub": user["id"], "username": user["username"]}, user.get("token_version", 1))
     refresh_token = create_refresh_token(user["id"])
     res_data = {
         "access_token": token,
@@ -538,8 +534,6 @@ async def social_naver(req: SocialLoginRequest, request: Request):
             "last_login": "",
             "titles": [],
             "ai_feedback_count": 0,
-            "boss_cleared": 0,
-            "completed_stages": 0,
             "max_unlocked_unit": {"beginner": 1, "intermediate": 1, "advanced": 1},
             "completed_units": {"beginner": 0, "intermediate": 0, "advanced": 0},
             "awarded_crown_units": [],
@@ -551,7 +545,7 @@ async def social_naver(req: SocialLoginRequest, request: Request):
     user, streak_reward = update_login_streak(user)
     save_user(user)
 
-    token = create_token({"sub": user["id"], "username": user["username"]})
+    token = create_token({"sub": user["id"], "username": user["username"]}, user.get("token_version", 1))
     refresh_token = create_refresh_token(user["id"])
     res_data = {
         "access_token": token,
@@ -660,8 +654,6 @@ async def social_kakao(req: SocialLoginRequest, request: Request):
             "last_login": "",
             "titles": [],
             "ai_feedback_count": 0,
-            "boss_cleared": 0,
-            "completed_stages": 0,
             "max_unlocked_unit": {"beginner": 1, "intermediate": 1, "advanced": 1},
             "completed_units": {"beginner": 0, "intermediate": 0, "advanced": 0},
             "awarded_crown_units": [],
@@ -673,7 +665,7 @@ async def social_kakao(req: SocialLoginRequest, request: Request):
     user, streak_reward = update_login_streak(user)
     save_user(user)
 
-    token = create_token({"sub": user["id"], "username": user["username"]})
+    token = create_token({"sub": user["id"], "username": user["username"]}, user.get("token_version", 1))
     refresh_token = create_refresh_token(user["id"])
     res_data = {
         "access_token": token,
@@ -714,7 +706,7 @@ def refresh(req: RefreshRequest):
     if not user:
         raise HTTPException(status_code=401, detail="유저를 찾을 수 없습니다.")
     
-    new_access_token = create_token({"sub": user["id"], "username": user["username"]})
+    new_access_token = create_token({"sub": user["id"], "username": user["username"]}, user.get("token_version", 1))
     new_refresh_token = create_refresh_token(user["id"])
     
     delete_refresh_token(req.refresh_token)
@@ -737,6 +729,10 @@ def logout(authorization: str = Header(...)):
     
     if user_id:
         delete_user_refresh_tokens(user_id)
+        user = get_user_by_id(user_id)
+        if user:
+            user["token_version"] = user.get("token_version", 1) + 1
+            save_user(user)
         
     return {"ok": True, "message": "로그아웃 되었습니다."}
 

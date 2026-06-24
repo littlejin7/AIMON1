@@ -38,6 +38,8 @@ def migrate_users():
     
     for u in users:
         # 데이터 보정 로직 (seen_questions jsonb 통합 및 레거시 제거)
+        u.pop("boss_cleared", None)
+        u.pop("completed_stages", None)
         seen_questions = u.get("seen_questions", {})
         if seen_questions is None or not isinstance(seen_questions, dict):
             seen_questions = {}
@@ -58,6 +60,8 @@ def migrate_users():
         u["seen_questions"] = seen_questions
         
         # null 허용 및 JSON schema 보장
+        if "token_version" not in u or u["token_version"] is None:
+            u["token_version"] = 1
         if "endboss_cleared_levels" not in u or u["endboss_cleared_levels"] is None:
             u["endboss_cleared_levels"] = []
         if "miniboss_cleared_stages" not in u or u["miniboss_cleared_stages"] is None:
