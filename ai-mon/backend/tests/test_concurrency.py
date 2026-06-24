@@ -27,6 +27,8 @@ os.environ.setdefault("USE_SUPABASE", "false")
 from fastapi import HTTPException
 from routers import utils as U
 from routers import game as G
+from routers import mission as MI
+from routers.utils import today_kst, iso_week
 
 
 def _make_token(game_id: str, user_id: str, ts: int, nonce: str) -> str:
@@ -116,3 +118,88 @@ def test_two_distinct_tokens_both_grant(temp_user):
     u = _read_user(temp_user)
     assert u["xp"] == 700
     assert u["game_rewards"]["runner_today_count"] == 2
+
+
+# ─────────────────────── M-1: 미션 claimed 동시성 무결성 ───────────────────────
+# 보스/엔드보스/미니보스/소셜로그인/ai-feedback 의 미션 쓰기를 mutate_user_atomic 으로
+# 전환한 효과를 검증. 동시 claim / 동시 이벤트 쓰기에서 claimed 가 유실(=재수령)되지
+# 않아야 한다. (전환 전 save_user delta-merge 경로에서는 missions 가 덮어써졌음)
+
+@pytest.fixture
+def mission_user(monkeypatch, tmp_path):
+    """d_quiz3 완료(progress=3)·미수령 상태의 유저를 임시 파일에 준비."""
+    users_file = tmp_path / "users.json"
+    users_file.write_text(
+        json.dumps([{
+            "id": "u1", "xp": 0, "crowns": 0, "lv": 1,
+            "character": "slime", "titles": [],
+            "missions": {
+                "daily":  {"date": today_kst(), "progress": {"d_quiz3": 3}, "claimed": []},
+                "weekly": {"week": iso_week(), "progress": {}, "claimed": [], "login_days": []},
+            },
+        }]),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(U, "USERS_FILE", str(users_file))
+    monkeypatch.setattr(U, "USE_SUPABASE", False)
+    return str(users_file)
+
+
+def test_concurrent_double_claim_grants_once(mission_user):
+    """동일 완료 미션을 동시 2회 claim → 정확히 1회만 보상(재수령 없음). (M-1)"""
+    results, errors = [], []
+
+    def call():
+        try:
+            results.append(MI.claim_mission(MI.ClaimRequest(mission_id="d_quiz3"), {"id": "u1"}))
+        except HTTPException as e:
+            errors.append(e.detail)
+
+    t1 = threading.Thread(target=call)
+    t2 = threading.Thread(target=call)
+    t1.start(); t2.start(); t1.join(); t2.join()
+
+    granted = [r for r in results if r.get("xp_awarded", 0) > 0]
+    already = [r for r in results if r.get("already_claimed")]
+    assert len(granted) == 1, f"expected exactly 1 reward, results={results} errors={errors}"
+    assert granted[0]["xp_awarded"] == 300
+    assert len(already) == 1, f"expected 1 already_claimed, results={results}"
+
+    u = _read_user(mission_user)
+    assert u["xp"] == 300                                        # 이중 지급 없음
+    assert u["missions"]["daily"]["claimed"].count("d_quiz3") == 1
+
+
+def test_claim_survives_concurrent_event(mission_user):
+    """claim 과 다른 미션 이벤트(stage_clear bump)가 동시 실행돼도 claimed 가
+    유실되지 않고(재수령 불가) 이벤트 진척도 보존된다. (M-1 핵심 증거)"""
+    from routers.missions_core import bump_mission
+
+    def do_claim():
+        try:
+            MI.claim_mission(MI.ClaimRequest(mission_id="d_quiz3"), {"id": "u1"})
+        except HTTPException:
+            pass
+
+    def do_event():
+        # progress.py 가 mutator 안에서 하는 것과 동일한 미션 쓰기
+        def mutator(u):
+            bump_mission(u, "stage_clear")
+            return None
+        U.mutate_user_atomic("u1", mutator)
+
+    t1 = threading.Thread(target=do_claim)
+    t2 = threading.Thread(target=do_event)
+    t1.start(); t2.start(); t1.join(); t2.join()
+
+    u = _read_user(mission_user)
+    # 이벤트 쓰기가 claim 의 claimed 를 덮어쓰지 않음
+    assert "d_quiz3" in u["missions"]["daily"]["claimed"]
+    assert u["xp"] == 300
+    # 이벤트 진척도 보존 (goal=3 상한 유지)
+    assert u["missions"]["daily"]["progress"]["d_quiz3"] == 3
+
+    # 사후 재claim → 이미 받음 (재수령 없음)
+    r = MI.claim_mission(MI.ClaimRequest(mission_id="d_quiz3"), {"id": "u1"})
+    assert r["already_claimed"] is True
+    assert _read_user(mission_user)["xp"] == 300

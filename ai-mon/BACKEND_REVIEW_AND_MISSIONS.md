@@ -73,6 +73,9 @@ rate limit 없어 타인 이메일로 무한 발송 가능(SendGrid 비용 + 스
 - 조치(JSON): save_user를 "락 안에서 재로드→해당 필드만 갱신→저장"으로. (Supabase): 카운터성 컬럼은 upsert 대신 원자적 증가(RPC/`update ... set xp = xp + n`) 또는 낙관적 락(version 컬럼).
 - **진행(2026-06-24):** 표준 원자 쓰기 경로 `mutate_user_atomic()` 도입(JSON=file_lock 단일 임계구역 재읽기→검사→write / Supabase=version 낙관적 락 CAS+재시도). 게임 보상 nonce 소비·일일 캡을 이 경로로 원자화(B-4 동시 동일토큰 이중 통과 차단). Supabase RPC 실패 시 무음 upsert 폴백 제거 → `logger.exception` + `UserSaveError` 거부 신호. apply_xp(청크 1)·미션(청크 2~3)도 이 경로 경유 예정.
 - **deferred:** `titles`/`endboss_cleared_levels` 등 **리스트 append의 last-writer-wins**(delta-merge·RPC `||` 모두 리스트 병합 없음)는 별도 처리 필요. mutate_user_atomic 경유 저장은 fresh 기준이라 안전하나, 기존 save_user delta-merge 경로의 리스트 필드는 미해결. Supabase는 `version` 컬럼 추가 DDL 필요(아래 SUPABASE_MIGRATION_PLAN.md).
+- **후속(2026-06-25) — 통합 리뷰 M-1/M-2/M-3 해소:** 미션 도입(청크 1~3) 시 `boss_clear`/`miniboss_clear`/`ai_feedback`/소셜로그인 `login` 미션 쓰기가 위 deferred 인 `save_user` delta-merge 경로에 얹혀, Supabase 에서 `missions`(jsonb_cols 미포함 → other_updates 전체 덮어쓰기)가 last-writer-wins 로 유실/재수령되던 문제를 확인하고 수정. 7개 핸들러(boss·endboss·miniboss·quiz ai-feedback·social_google/naver/kakao)를 `mutate_user_atomic` mutator 로 전환(보상 중복 가드 동반 이동). `endboss_cleared_levels` 리스트 머지 리스크는 endboss_clear 가 원자화되며 함께 해소. 회귀: `tests/test_concurrency.py::test_concurrent_double_claim_grants_once`, `::test_claim_survives_concurrent_event`.
+- **잔존 deferred — M-4 🟡:** `boss.py submit_boss_answer` 유닛보스 XP 중복 지급 가드가 `progress.is_completed`(users 와 **다른 스토리지**) 기반이라 mutate_user_atomic 으로 완전 원자화 불가. 동시 중복 제출 시 유닛보스 XP/왕관 이중 지급 가능. (미션 쓰기 자체는 원자화 완료) 조치 후보: 유저 객체 내 가드 컬럼 도입 또는 progress 락 연계.
+- **잔존 deferred — M-5 🟡:** 출석 미션 dedup 의 `day_key` 미세 시각 불일치. `auth.py update_login_streak` 가 `now_kst()` 로 today 를 계산해 `bump_mission("login", day_key=today)` 로 넘기지만, `bump_mission` 내부는 `today_kst()` 를 **별도 재호출**. 요청이 자정 경계를 걸치는 극단 레이스에서 day_key(어제)와 daily.date(오늘) 불일치 가능. 영향 미미(익일 lazy reset). 조치 후보: today/week 를 bump_mission 인자로 주입.
 
 ### 🟠 C-2. XP·카운터 다중 가산 + 재계산 드리프트
 `completed_stages`, `boss_cleared`가 login/progress/boss/miniboss 여러 곳에서 `+1` 되는 동시에 `serialize_user`에서 progress 기반으로 다시 계산해 `max()` 보정. 저장값과 계산값이 어긋날 수밖에 없는 구조.
@@ -106,6 +109,11 @@ FastAPI 0.111 기준 `startup/shutdown` 이벤트는 lifespan 컨텍스트로 �
 
 ### 🟡 D-4. endboss 칭호 영속화 검증 필요
 `endboss.py`는 `CLEAR_TITLES`(titles.py와 별도 dict)로 rookie/ace/ai_master를 다루는데, 이 id들이 실제 `user["titles"]`에 append되어 저장되는지 확인 필요(미저장이면 칭호 미획득). titles.py `TITLE_DEFINITIONS`엔 이 3종이 없어 `check_and_award_titles` 경로로는 절대 안 들어감.
+
+### 🔴 D-5. `endboss.py endboss_answer` 미정의 심볼 NameError (발견된 기존 버그, 미션 무관)
+`endboss.py:240-241` 가 `user_id = verify_token(authorization)` / `user = get_user_by_id(user_id)` 를 호출하지만, `authorization`·`verify_token`·`get_user_by_id` 가 함수 시그니처/임포트 어디에도 정의돼 있지 않음. 함수 시그니처는 `endboss_answer(request, req, user=Depends(get_current_user))` 라 `authorization` 자체가 없음 → **`POST /boss/endboss/answer` 호출 시 NameError 로 엔드포인트 크래시**.
+- 통합 리뷰(2026-06-25) 중 발견. 미션 작업과 무관한 선재 버그라 이번 M-1~M-3 수정 범위에서 제외하고 기록만 함.
+- 조치 후보: 라인 240-241 제거(이미 `user`·`user["id"]` 가 Depends 로 주입됨 — 바로 사용하면 됨).
 
 ---
 
