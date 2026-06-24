@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, status, Header
+from fastapi import APIRouter, HTTPException, status, Header, Request
 from pydantic import BaseModel
 import json, os, hashlib, uuid, secrets
 from datetime import datetime, timedelta
@@ -21,6 +21,7 @@ from routers.utils import (
     delete_user_refresh_tokens,
     SECRET_KEY,
     ALGORITHM,
+    limiter,
 )
 
 router = APIRouter()
@@ -133,6 +134,7 @@ class ForgotPasswordRequest(BaseModel):
 
 
 class ResetPasswordRequest(BaseModel):
+    email: str
     token: str
     new_password: str
 
@@ -209,21 +211,22 @@ def login(req: LoginRequest):
 
 
 @router.post("/forgot-password")
-def forgot_password(req: ForgotPasswordRequest):
+@limiter.limit("5/hour")
+def forgot_password(req: ForgotPasswordRequest, request: Request):
     user = get_user_by_email(req.email)
     if not user:
         # 보안상 유저 존재 여부를 노출하지 않음
         return {"ok": True, "message": "If an account with that email exists, a reset code has been sent."}
 
-    # Generate 6-digit token
-    import random
-    token = f"{random.randint(0, 999999):06d}"
+    # Generate URL-safe 32-character token
+    token = secrets.token_urlsafe(32)
     expires_at = (datetime.utcnow() + timedelta(minutes=10)).isoformat()
     
     tokens = load_reset_tokens()
     tokens[req.email] = {
         "token": token,
-        "expires_at": expires_at
+        "expires_at": expires_at,
+        "failed_attempts": 0
     }
     save_reset_tokens(tokens)
     
@@ -233,7 +236,7 @@ def forgot_password(req: ForgotPasswordRequest):
     <div style="font-family: sans-serif; padding: 20px;">
         <h2>비밀번호 재설정</h2>
         <p>요청하신 비밀번호 재설정 인증 코드입니다.</p>
-        <h1 style="color: #4CAF50; letter-spacing: 5px;">{token}</h1>
+        <div style="background-color: #f5f5f5; padding: 10px; word-break: break-all; font-family: monospace;">{token}</div>
         <p>이 코드는 10분 후 만료됩니다.</p>
     </div>
     """
@@ -244,29 +247,34 @@ def forgot_password(req: ForgotPasswordRequest):
 
 
 @router.post("/reset-password")
-def reset_password(req: ResetPasswordRequest):
+@limiter.limit("5/hour")
+def reset_password(req: ResetPasswordRequest, request: Request):
     tokens = load_reset_tokens()
     
-    # Find email by token
-    target_email = None
-    for email, data in tokens.items():
-        if data["token"] == req.token:
-            target_email = email
-            break
-            
-    if not target_email:
+    if req.email not in tokens:
         raise HTTPException(status_code=400, detail="유효하지 않거나 만료된 토큰입니다.")
         
-    token_data = tokens[target_email]
+    token_data = tokens[req.email]
     expires_at = datetime.fromisoformat(token_data["expires_at"])
     
     if datetime.utcnow() > expires_at:
-        del tokens[target_email]
+        del tokens[req.email]
+        save_reset_tokens(tokens)
+        raise HTTPException(status_code=400, detail="유효하지 않거나 만료된 토큰입니다.")
+        
+    if token_data["token"] != req.token:
+        failed_attempts = token_data.get("failed_attempts", 0) + 1
+        if failed_attempts >= 5:
+            del tokens[req.email]
+            save_reset_tokens(tokens)
+            raise HTTPException(status_code=400, detail="허용된 시도 횟수를 초과하여 토큰이 무효화되었습니다. 비밀번호 찾기를 다시 요청해주세요.")
+        
+        token_data["failed_attempts"] = failed_attempts
         save_reset_tokens(tokens)
         raise HTTPException(status_code=400, detail="유효하지 않거나 만료된 토큰입니다.")
         
     # Valid token, update password
-    user = get_user_by_email(target_email)
+    user = get_user_by_email(req.email)
     if user is None:
         raise HTTPException(status_code=400, detail="유효하지 않거나 만료된 토큰입니다.")
         
@@ -274,7 +282,7 @@ def reset_password(req: ResetPasswordRequest):
     save_user(user)
     
     # Remove token
-    del tokens[target_email]
+    del tokens[req.email]
     save_reset_tokens(tokens)
     
     return {"ok": True, "message": "비밀번호가 성공적으로 변경되었습니다."}
