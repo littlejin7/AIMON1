@@ -1,0 +1,914 @@
+[
+  {
+    "question_id": "endboss_adv_ai_agent_p1_001",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "ai_agent",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "question": "Claude API에 도구를 전달하는 빈칸을 채우세요.\n\n```python\nresponse = client.messages.create(\n    model='claude-3-5-haiku-20241022',\n    max_tokens=1024,\n    ___=[get_weather_tool],\n    messages=[{'role': 'user', 'content': message}]\n)\n```",
+    "answer": "tools",
+    "feedback": {
+      "correct": "정확합니다! Claude API에서 도구 목록은 `tools` 파라미터로 전달합니다.",
+      "incorrect": "`functions`나 `tool_list`가 아닙니다. Tool Use에서 도구 목록 파라미터명은 `tools`입니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_ai_agent_p1_002",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "ai_agent",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "question": "에이전트 루프에서 도구 호출 여부를 확인하는 빈칸을 채우세요.\n\n```python\nwhile True:\n    response = client.messages.create(...)\n    if response.___ == 'tool_use':\n        # 도구 실행\n        ...\n    else:\n        break\n```",
+    "answer": "stop_reason",
+    "feedback": {
+      "correct": "맞습니다! `response.stop_reason`이 `'tool_use'`이면 모델이 도구를 호출한 것입니다.",
+      "incorrect": "Claude API 응답에서 도구 호출 여부는 `response.stop_reason`으로 확인합니다. `'tool_use'`이면 도구 실행이 필요합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_ai_agent_p1_003",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "ai_agent",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "error_find",
+    "question": "다음 에이전트 루프 코드에서 버그를 찾으세요.\n\n```python\nfor block in response.content:\n    if block.type == 'tool_use':\n        tool_result = execute_tool(block.name, block.input)\n        messages.append({\n            'role': 'user',\n            'content': [{\n                'type': 'tool_result',\n                'tool_use_id': block.id,\n                'content': tool_result\n            }]\n        })\nmessages.append({'role': 'assistant', 'content': response.content})\n```\n\nA. `block.input` 대신 `block.arguments`를 써야 한다\nB. `messages.append`의 순서가 잘못됐다 — assistant 메시지를 먼저 추가해야 한다\nC. `tool_result` 타입의 `content` 키에 문자열이 아닌 딕셔너리를 넣으면 안 된다\nD. `execute_tool`의 인자 순서가 틀렸다",
+    "choices": [
+      "A. block.input 대신 block.arguments를 써야 한다",
+      "B. assistant 메시지를 먼저 추가해야 한다",
+      "C. tool_result content에 딕셔너리를 넣으면 안 된다",
+      "D. execute_tool 인자 순서가 틀렸다"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정확합니다! 에이전트 루프에서 messages 순서는 반드시 assistant(도구 호출) → user(tool_result) 순이어야 합니다. assistant 응답을 먼저 추가해야 대화 흐름이 올바릅니다.",
+      "incorrect": "에이전트 루프에서 messages 배열에는 assistant의 도구 호출 메시지를 먼저 추가한 후, user의 tool_result를 추가해야 합니다. 순서가 반대이면 API 오류가 발생합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_ai_agent_p1_004",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "ai_agent",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "question": "Tool Use 도구 정의의 `input_schema`에서 필수 파라미터를 지정하는 빈칸을 채우세요.\n\n```python\nget_weather_tool = {\n    'name': 'get_weather',\n    'description': '도시의 날씨를 가져옵니다',\n    'input_schema': {\n        'type': 'object',\n        'properties': {\n            'city': {'type': 'string', 'description': '도시 이름'}\n        },\n        '___': ['city']\n    }\n}\n```",
+    "answer": "required",
+    "feedback": {
+      "correct": "맞습니다! `required` 배열에 필수 파라미터 이름을 나열합니다. 이 필드가 없으면 Claude가 파라미터를 생략할 수 있습니다.",
+      "incorrect": "`input_schema`에서 필수 파라미터는 `required` 배열로 지정합니다. `mandatory`나 `must_have`가 아닙니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_ai_agent_p1_005",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "ai_agent",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "error_find",
+    "question": "다음 에이전트 코드에서 무한루프를 유발할 수 있는 버그를 찾으세요.\n\n```python\ndef run_agent(user_message: str) -> str:\n    messages = [{'role': 'user', 'content': user_message}]\n    while True:\n        response = client.messages.create(\n            model='claude-3-5-haiku-20241022',\n            max_tokens=1024,\n            tools=TOOLS,\n            messages=messages\n        )\n        if response.stop_reason == 'tool_use':\n            for block in response.content:\n                if block.type == 'tool_use':\n                    result = execute_tool(block.name, block.input)\n                    messages.append({'role': 'assistant', 'content': response.content})\n                    messages.append({'role': 'user', 'content': [{'type': 'tool_result', 'tool_use_id': block.id, 'content': str(result)}]})\n        # stop_reason이 'end_turn'이면 루프 종료\n        return response.content[-1].text\n```\n\nA. `return`문이 `while` 루프 내부에 있어 첫 번째 반복 후 항상 종료된다\nB. `stop_reason`이 `'tool_use'`가 아닐 때 루프 탈출 조건이 없어 무한루프가 된다\nC. `messages.append` 순서가 틀렸다\nD. `execute_tool`이 예외를 던지면 프로그램이 종료된다",
+    "choices": [
+      "A. return문이 while 루프 내부에 있어 첫 번째 반복 후 종료된다",
+      "B. stop_reason이 tool_use가 아닐 때 루프 탈출 조건이 없다",
+      "C. messages.append 순서가 틀렸다",
+      "D. execute_tool이 예외를 던지면 종료된다"
+    ],
+    "answer": "A",
+    "feedback": {
+      "correct": "정확합니다! `return`문이 들여쓰기로 인해 `while` 루프 바깥이 아닌 안에 있어 첫 번째 반복에서 항상 반환됩니다. `else: return ...` 또는 루프 밖으로 빼야 합니다.",
+      "incorrect": "`return`문의 들여쓰기를 확인하세요. while 루프 내부에 있어 tool_use인 경우에도 첫 번째 순회 후 즉시 반환됩니다. `else: return` 구조로 바꿔야 합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_ai_agent_p2_001",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "ai_agent",
+    "phase": 2,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "`calculate` 도구 함수를 구현하세요.\n\n```python\n- 파라미터: `operation` (str: 'add' / 'subtract' / 'multiply' / 'divide'), `a` (float), `b` (float)\n- 반환: 연산 결과 (float)\n- `divide`일 때 `b`가 0이면 `ValueError('0으로 나눌 수 없습니다')` 발생\n- 지원하지 않는 연산이면 `ValueError(f'지원하지 않는 연산: {operation}')` 발생\n```",
+    "answer": "def calculate(operation: str, a: float, b: float) -> float:\n    if operation == 'add':\n        return a + b\n    elif operation == 'subtract':\n        return a - b\n    elif operation == 'multiply':\n        return a * b\n    elif operation == 'divide':\n        if b == 0:\n            raise ValueError('0으로 나눌 수 없습니다')\n        return a / b\n    else:\n        raise ValueError(f'지원하지 않는 연산: {operation}')",
+    "feedback": {
+      "correct": "완벽합니다! 4가지 연산과 divide의 0 나누기 예외, 미지원 연산 예외까지 모두 처리했습니다.",
+      "incorrect": "operation 값에 따라 분기하고, divide는 b==0 체크, 미지원 연산은 ValueError를 발생시켜야 합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_ai_agent_p2_002",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "ai_agent",
+    "phase": 2,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "`execute_tool` 함수를 구현하세요.\n\n```python\n- 파라미터: `tool_name` (str), `tool_input` (dict), `tools_map` (dict — 도구명: 함수 매핑)\n- `tools_map`에서 `tool_name`으로 함수를 꺼내 `**tool_input`으로 호출하고 결과를 str로 반환\n- 등록되지 않은 도구면 `f'알 수 없는 도구: {tool_name}'` 반환\n- 실행 중 예외 발생 시 `f'도구 실행 오류: {e}'` 반환\n```",
+    "answer": "def execute_tool(tool_name: str, tool_input: dict, tools_map: dict) -> str:\n    if tool_name not in tools_map:\n        return f'알 수 없는 도구: {tool_name}'\n    try:\n        result = tools_map[tool_name](**tool_input)\n        return str(result)\n    except Exception as e:\n        return f'도구 실행 오류: {e}'",
+    "feedback": {
+      "correct": "훌륭합니다! 도구 미등록 체크, **tool_input 언패킹 호출, 예외 처리까지 완벽합니다.",
+      "incorrect": "tools_map에서 tool_name으로 함수를 꺼내 **tool_input으로 호출하고, 미등록/예외 케이스를 처리해야 합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_ai_agent_p2_003",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "ai_agent",
+    "phase": 2,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "`build_tool_result_message` 함수를 구현하세요.\n\n- 파라미터: `tool_use_block` (응답 블록 객체 — `.id`, `.name`, `.input` 속성 있음), `result` (str)\n- 반환: tool_result를 담은 user 메시지 딕셔너리\n\n형식:\n```python\n{\n    'role': 'user',\n    'content': [{\n        'type': 'tool_result',\n        'tool_use_id': <block.id>,\n        'content': <result>\n    }]\n}\n```",
+    "answer": "def build_tool_result_message(tool_use_block, result: str) -> dict:\n    return {\n        'role': 'user',\n        'content': [{\n            'type': 'tool_result',\n            'tool_use_id': tool_use_block.id,\n            'content': result\n        }]\n    }",
+    "feedback": {
+      "correct": "정확합니다! tool_result 메시지는 role: user, content 배열 안에 type/tool_use_id/content 구조여야 합니다.",
+      "incorrect": "tool_result 메시지 형식: role은 'user', content는 배열로 type='tool_result', tool_use_id=block.id, content=result 를 담아야 합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_ai_agent_p2_004",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "ai_agent",
+    "phase": 2,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "최대 반복 횟수를 제한하는 `run_agent_safe` 함수를 구현하세요.\n\n```python\n- 파라미터: `client`, `messages` (list), `tools` (list), `tools_map` (dict), `max_iterations` (int, 기본값 10)\n- 매 반복마다 Claude API를 호출하고:\n  - `stop_reason == 'tool_use'`이면 모든 tool_use 블록을 실행하고 결과를 messages에 추가 (assistant 먼저, user tool_result 다음)\n  - 그 외이면 마지막 텍스트 블록의 `.text`를 반환\n- `max_iterations` 초과 시 `'최대 반복 횟수 초과'` 반환\n```",
+    "answer": "def run_agent_safe(client, messages, tools, tools_map, max_iterations=10):\n    for _ in range(max_iterations):\n        response = client.messages.create(\n            model='claude-3-5-haiku-20241022',\n            max_tokens=1024,\n            tools=tools,\n            messages=messages\n        )\n        if response.stop_reason == 'tool_use':\n            messages.append({'role': 'assistant', 'content': response.content})\n            for block in response.content:\n                if block.type == 'tool_use':\n                    result = execute_tool(block.name, block.input, tools_map)\n                    messages.append(build_tool_result_message(block, result))\n        else:\n            for block in response.content:\n                if hasattr(block, 'text'):\n                    return block.text\n    return '최대 반복 횟수 초과'",
+    "feedback": {
+      "correct": "완벽합니다! max_iterations 제한, assistant → user 메시지 순서, 최종 텍스트 추출까지 모두 올바릅니다.",
+      "incorrect": "for _ in range(max_iterations)로 반복을 제한하고, stop_reason에 따라 분기하며 messages 순서(assistant → user)를 지켜야 합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_ai_agent_p3_001",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "ai_agent",
+    "phase": 3,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "검색(`search_web`)과 계산(`calculate`) 두 도구를 가진 에이전트를 처음부터 완성하세요.\n\n요구 사항:\n```python\n1. 두 도구의 JSON 스키마를 `TOOLS` 리스트로 정의 (search_web: query(str), calculate: operation(str) + a(float) + b(float))\n2. `search_web(query)` → `f'검색 결과: {query}에 대한 정보입니다.'` 반환하는 더미 함수\n3. `calculate(operation, a, b)` → add/subtract/multiply/divide 처리 (0 나누기 예외 포함)\n4. `TOOLS_MAP = {'search_web': search_web, 'calculate': calculate}`\n5. `run_agent(client, user_message)` 함수: max 10회 루프, messages 관리, 최종 텍스트 반환\n```",
+    "answer": "TOOLS = [\n    {\n        'name': 'search_web',\n        'description': '웹에서 정보를 검색합니다',\n        'input_schema': {\n            'type': 'object',\n            'properties': {'query': {'type': 'string', 'description': '검색어'}},\n            'required': ['query']\n        }\n    },\n    {\n        'name': 'calculate',\n        'description': '사칙연산을 수행합니다',\n        'input_schema': {\n            'type': 'object',\n            'properties': {\n                'operation': {'type': 'string', 'description': 'add/subtract/multiply/divide'},\n                'a': {'type': 'number'},\n                'b': {'type': 'number'}\n            },\n            'required': ['operation', 'a', 'b']\n        }\n    }\n]\n\ndef search_web(query: str) -> str:\n    return f'검색 결과: {query}에 대한 정보입니다.'\n\ndef calculate(operation: str, a: float, b: float) -> float:\n    if operation == 'add':\n        return a + b\n    elif operation == 'subtract':\n        return a - b\n    elif operation == 'multiply':\n        return a * b\n    elif operation == 'divide':\n        if b == 0:\n            raise ValueError('0으로 나눌 수 없습니다')\n        return a / b\n    else:\n        raise ValueError(f'지원하지 않는 연산: {operation}')\n\nTOOLS_MAP = {'search_web': search_web, 'calculate': calculate}\n\ndef run_agent(client, user_message: str) -> str:\n    messages = [{'role': 'user', 'content': user_message}]\n    for _ in range(10):\n        response = client.messages.create(\n            model='claude-3-5-haiku-20241022',\n            max_tokens=1024,\n            tools=TOOLS,\n            messages=messages\n        )\n        if response.stop_reason == 'tool_use':\n            messages.append({'role': 'assistant', 'content': response.content})\n            for block in response.content:\n                if block.type == 'tool_use':\n                    try:\n                        result = TOOLS_MAP[block.name](**block.input)\n                    except Exception as e:\n                        result = f'오류: {e}'\n                    messages.append({'role': 'user', 'content': [{'type': 'tool_result', 'tool_use_id': block.id, 'content': str(result)}]})\n        else:\n            for block in response.content:\n                if hasattr(block, 'text'):\n                    return block.text\n    return '최대 반복 횟수 초과'",
+    "feedback": {
+      "correct": "완벽한 에이전트 구현입니다! 도구 스키마 정의, 에이전트 루프, messages 순서, 예외 처리까지 모두 정확합니다.",
+      "incorrect": "TOOLS 스키마 정의 → 도구 함수 구현 → run_agent 루프 순서로 작성하고, messages에 assistant 응답을 먼저 추가한 뒤 tool_result를 추가해야 합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_ai_agent_p3_002",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "ai_agent",
+    "phase": 3,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "도구 없이 Claude가 직접 답변하는 케이스도 처리하는 `run_agent_full` 함수를 구현하세요.\n\n요구 사항:\n```python\n- `stop_reason == 'end_turn'` 또는 `'max_tokens'`일 때 → TextBlock의 `.text` 반환\n- `stop_reason == 'tool_use'`일 때 → 도구 실행 후 루프 계속\n- 루프 최대 15회, 초과 시 `RuntimeError('에이전트 루프 한도 초과')` raise\n- 파라미터: `client`, `messages` (list), `tools` (list), `tools_map` (dict)\n```",
+    "answer": "def run_agent_full(client, messages, tools, tools_map):\n    for _ in range(15):\n        response = client.messages.create(\n            model='claude-3-5-haiku-20241022',\n            max_tokens=2048,\n            tools=tools,\n            messages=messages\n        )\n        if response.stop_reason in ('end_turn', 'max_tokens'):\n            for block in response.content:\n                if hasattr(block, 'text'):\n                    return block.text\n            return ''\n        elif response.stop_reason == 'tool_use':\n            messages.append({'role': 'assistant', 'content': response.content})\n            for block in response.content:\n                if block.type == 'tool_use':\n                    try:\n                        result = tools_map[block.name](**block.input)\n                    except Exception as e:\n                        result = f'오류: {e}'\n                    messages.append({\n                        'role': 'user',\n                        'content': [{'type': 'tool_result', 'tool_use_id': block.id, 'content': str(result)}]\n                    })\n    raise RuntimeError('에이전트 루프 한도 초과')",
+    "feedback": {
+      "correct": "훌륭합니다! end_turn/max_tokens 처리, tool_use 루프, 한도 초과 RuntimeError까지 모두 구현했습니다.",
+      "incorrect": "stop_reason이 'end_turn' 또는 'max_tokens'면 텍스트를 반환하고, 'tool_use'면 도구를 실행해 루프를 계속해야 합니다. 15회 초과 시 RuntimeError를 raise하세요."
+    }
+  },
+  {
+    "question_id": "endboss_adv_ai_agent_p3_003",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "ai_agent",
+    "phase": 3,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "대화 이력을 유지하는 멀티턴 에이전트 클래스를 구현하세요.\n\n```python\nclass MultiTurnAgent:\n    def __init__(self, client, tools, tools_map, system_prompt=''):\n        # 초기화: client, tools, tools_map, system_prompt, messages([]) 저장\n        ...\n\n    def chat(self, user_message: str) -> str:\n        # user_message를 messages에 추가\n        # run_agent_safe로 응답 받기 (max 10회)\n        # 최종 assistant 응답을 messages에 추가하고 반환\n        ...\n\n    def reset(self):\n        # messages 초기화\n        ...\n```\n\n`run_agent_safe(client, messages, tools, tools_map, system_prompt, max_iterations)` 함수는 이미 구현되어 있다고 가정.",
+    "answer": "class MultiTurnAgent:\n    def __init__(self, client, tools, tools_map, system_prompt=''):\n        self.client = client\n        self.tools = tools\n        self.tools_map = tools_map\n        self.system_prompt = system_prompt\n        self.messages = []\n\n    def chat(self, user_message: str) -> str:\n        self.messages.append({'role': 'user', 'content': user_message})\n        reply = run_agent_safe(\n            self.client,\n            self.messages,\n            self.tools,\n            self.tools_map,\n            self.system_prompt,\n            max_iterations=10\n        )\n        self.messages.append({'role': 'assistant', 'content': reply})\n        return reply\n\n    def reset(self):\n        self.messages = []",
+    "feedback": {
+      "correct": "완벽합니다! 멀티턴 대화 이력 유지, chat 메서드의 messages 추가 흐름, reset까지 정확히 구현했습니다.",
+      "incorrect": "__init__에서 messages=[]로 초기화, chat에서 user 메시지 추가 → 에이전트 실행 → assistant 응답 추가, reset에서 messages=[] 재설정해야 합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_async_api_p1_001",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "async_api",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "question": "비동기 함수를 정의하는 빈칸을 채우세요.\n\n```python\nimport asyncio\n\n___ ___ fetch_data(url: str) -> dict:\n    async with aiohttp.ClientSession() as session:\n        async with session.get(url) as response:\n            return await response.json()\n```",
+    "answer": "async def",
+    "feedback": {
+      "correct": "맞습니다! 비동기 함수는 `async def`로 선언합니다. `await`를 사용하려면 반드시 `async def` 함수 안이어야 합니다.",
+      "incorrect": "비동기 함수 선언은 `async def`입니다. 일반 `def`가 아닌 `async def`로 정의해야 내부에서 `await`를 쓸 수 있습니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_async_api_p1_002",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "async_api",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "question": "여러 코루틴을 병렬로 실행하는 빈칸을 채우세요.\n\n```python\nasync def fetch_all(urls: list) -> list:\n    tasks = [fetch_data(url) for url in urls]\n    results = await asyncio.___(tasks)\n    return results\n```",
+    "answer": "gather",
+    "feedback": {
+      "correct": "정확합니다! `asyncio.gather()`는 여러 코루틴을 동시에 실행하고 모든 결과를 리스트로 반환합니다.",
+      "incorrect": "`asyncio.gather()`를 사용해야 합니다. `asyncio.run()`은 단일 코루틴 실행용이고, `asyncio.wait()`는 다른 사용 패턴입니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_async_api_p1_003",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "async_api",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "error_find",
+    "question": "다음 코드에서 버그를 찾으세요.\n\n```python\nimport asyncio\nimport aiohttp\n\nasync def fetch_price(session, ticker: str) -> float:\n    url = f'https://api.example.com/price/{ticker}'\n    async with session.get(url) as resp:\n        data = resp.json()   # ← 여기\n        return data['price']\n\nasync def main():\n    async with aiohttp.ClientSession() as session:\n        price = await fetch_price(session, 'BTC')\n        print(price)\n```\n\nA. `aiohttp.ClientSession()`은 `async with` 없이 써야 한다\nB. `resp.json()`에 `await`가 빠져 있다\nC. `fetch_price`를 `await` 없이 호출해야 한다\nD. `main()` 함수에 `asyncio.run()`이 없다",
+    "choices": [
+      "A. ClientSession은 async with 없이 써야 한다",
+      "B. resp.json()에 await가 빠져 있다",
+      "C. fetch_price를 await 없이 호출해야 한다",
+      "D. main()에 asyncio.run()이 없다"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정확합니다! `aiohttp`의 `response.json()`은 코루틴이므로 반드시 `await resp.json()`으로 호출해야 합니다.",
+      "incorrect": "`aiohttp`에서 응답 파싱 메서드(`json()`, `text()`, `read()`)는 모두 코루틴입니다. `await resp.json()`으로 써야 합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_async_api_p1_004",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "async_api",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "question": "동시 요청 수를 5개로 제한하는 세마포어 빈칸을 채우세요.\n\n```python\nasync def limited_fetch_all(urls: list) -> list:\n    semaphore = asyncio.___(5)\n\n    async def fetch_with_limit(url):\n        async with semaphore:\n            return await fetch_data(url)\n\n    tasks = [fetch_with_limit(url) for url in urls]\n    return await asyncio.gather(*tasks)\n```",
+    "answer": "Semaphore",
+    "feedback": {
+      "correct": "맞습니다! `asyncio.Semaphore(n)`으로 동시 실행 수를 n개로 제한합니다. 서버 과부하 방지에 필수적인 패턴입니다.",
+      "incorrect": "`asyncio.Semaphore(n)`을 사용합니다. Lock은 1개, Semaphore는 n개 동시 접근을 허용합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_async_api_p1_005",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "async_api",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "error_find",
+    "question": "다음 비동기 코드에서 버그를 찾으세요.\n\n```python\nimport asyncio\nimport time\n\nasync def slow_task(n: int):\n    print(f'Task {n} 시작')\n    time.sleep(1)   # ← 여기\n    print(f'Task {n} 완료')\n    return n\n\nasync def main():\n    results = await asyncio.gather(\n        slow_task(1),\n        slow_task(2),\n        slow_task(3)\n    )\n    print(results)\n```\n\nA. `asyncio.gather`에 코루틴 객체가 아닌 함수를 전달해야 한다\nB. `time.sleep()`은 이벤트 루프를 블로킹해 병렬 실행이 안 된다\nC. `async def main()`은 `def main()`이어야 한다\nD. `return n` 대신 `yield n`을 써야 한다",
+    "choices": [
+      "A. gather에 코루틴 객체가 아닌 함수를 전달해야 한다",
+      "B. time.sleep()은 이벤트 루프를 블로킹해 병렬 실행이 안 된다",
+      "C. async def main()은 def main()이어야 한다",
+      "D. return n 대신 yield n을 써야 한다"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정확합니다! `time.sleep()`은 동기 블로킹 함수로 이벤트 루프 전체를 멈춥니다. 비동기 코드에서는 반드시 `await asyncio.sleep(1)`을 사용해야 합니다.",
+      "incorrect": "비동기 코드에서 `time.sleep()`은 이벤트 루프를 막아 다른 코루틴이 실행되지 않습니다. `await asyncio.sleep(1)`로 대체해야 합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_async_api_p2_001",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "async_api",
+    "phase": 2,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "`async def fetch_url(session, url)` 함수를 구현하세요.\n\n```python\n- `session.get(url)`로 GET 요청\n- 상태 코드가 200이면 응답 JSON을 dict로 반환\n- 200이 아니면 `{'error': True, 'status': <상태코드>, 'url': url}` 반환\n- `aiohttp.ClientError` 예외 발생 시 `{'error': True, 'message': str(e), 'url': url}` 반환\n```",
+    "answer": "async def fetch_url(session, url: str) -> dict:\n    try:\n        async with session.get(url) as response:\n            if response.status == 200:\n                return await response.json()\n            else:\n                return {'error': True, 'status': response.status, 'url': url}\n    except aiohttp.ClientError as e:\n        return {'error': True, 'message': str(e), 'url': url}",
+    "feedback": {
+      "correct": "완벽합니다! 상태 코드 체크, JSON 파싱, ClientError 예외 처리까지 모두 정확합니다.",
+      "incorrect": "async with session.get(url) as response로 요청하고, response.status == 200인지 확인 후 await response.json()으로 파싱합니다. aiohttp.ClientError도 처리해야 합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_async_api_p2_002",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "async_api",
+    "phase": 2,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "지수 백오프(exponential backoff)로 재시도하는 `fetch_with_retry` 함수를 구현하세요.\n\n```python\n- 파라미터: `session`, `url` (str), `max_retries` (int, 기본값 3)\n- 성공(status 200)이면 즉시 JSON 반환\n- 실패 시 `await asyncio.sleep(2 ** 시도횟수)` 후 재시도\n- `max_retries` 소진 시 `RuntimeError(f'요청 실패: {url}')` raise\n```",
+    "answer": "async def fetch_with_retry(session, url: str, max_retries: int = 3) -> dict:\n    for attempt in range(max_retries):\n        try:\n            async with session.get(url) as response:\n                if response.status == 200:\n                    return await response.json()\n        except aiohttp.ClientError:\n            pass\n        await asyncio.sleep(2 ** attempt)\n    raise RuntimeError(f'요청 실패: {url}')",
+    "feedback": {
+      "correct": "훌륭합니다! 지수 백오프(2**attempt), 성공 시 즉시 반환, 소진 시 RuntimeError까지 정확합니다.",
+      "incorrect": "for attempt in range(max_retries) 루프에서 성공 시 즉시 반환, 실패 시 await asyncio.sleep(2**attempt)로 대기 후 재시도, 소진 시 RuntimeError를 raise합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_async_api_p2_003",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "async_api",
+    "phase": 2,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "타임아웃과 세마포어를 모두 적용한 `fetch_all_limited` 함수를 구현하세요.\n\n```python\n- 파라미터: `urls` (list[str]), `max_concurrent` (int, 기본값 5), `timeout_sec` (float, 기본값 10.0)\n- `asyncio.Semaphore(max_concurrent)`로 동시 요청 제한\n- `aiohttp.ClientTimeout(total=timeout_sec)` 적용한 session 생성\n- 모든 URL을 병렬로 요청하고 결과 리스트 반환\n- 개별 요청 실패 시 `None` 처리 (전체 중단 없이)\n```",
+    "answer": "async def fetch_all_limited(urls: list, max_concurrent: int = 5, timeout_sec: float = 10.0) -> list:\n    semaphore = asyncio.Semaphore(max_concurrent)\n    timeout = aiohttp.ClientTimeout(total=timeout_sec)\n\n    async def fetch_one(session, url):\n        async with semaphore:\n            try:\n                async with session.get(url) as response:\n                    if response.status == 200:\n                        return await response.json()\n                    return None\n            except Exception:\n                return None\n\n    async with aiohttp.ClientSession(timeout=timeout) as session:\n        tasks = [fetch_one(session, url) for url in urls]\n        return await asyncio.gather(*tasks)",
+    "feedback": {
+      "correct": "완벽합니다! Semaphore, ClientTimeout, 개별 예외 None 처리, gather 병렬 실행 모두 정확합니다.",
+      "incorrect": "Semaphore로 동시 수 제한, ClientTimeout으로 타임아웃 설정, 개별 실패는 None 반환, asyncio.gather(*tasks)로 병렬 실행해야 합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_async_api_p2_004",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "async_api",
+    "phase": 2,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "여러 프롬프트를 Claude API에 비동기로 병렬 요청하는 `batch_claude_requests` 함수를 구현하세요.\n\n```python\n- 파라미터: `client` (anthropic.AsyncAnthropic), `prompts` (list[str]), `system` (str, 기본값 '')\n- 각 프롬프트를 `client.messages.create()`로 비동기 요청 (await 필요)\n- `asyncio.gather()`로 모두 병렬 실행\n- 반환: 각 응답의 첫 번째 content 블록 `.text` 리스트\n```",
+    "answer": "async def batch_claude_requests(client, prompts: list, system: str = '') -> list:\n    async def call_claude(prompt):\n        kwargs = {\n            'model': 'claude-3-5-haiku-20241022',\n            'max_tokens': 1024,\n            'messages': [{'role': 'user', 'content': prompt}]\n        }\n        if system:\n            kwargs['system'] = system\n        response = await client.messages.create(**kwargs)\n        return response.content[0].text\n\n    tasks = [call_claude(p) for p in prompts]\n    return await asyncio.gather(*tasks)",
+    "feedback": {
+      "correct": "훌륭합니다! AsyncAnthropic의 await messages.create(), gather 병렬화, content[0].text 추출까지 정확합니다.",
+      "incorrect": "anthropic.AsyncAnthropic은 await client.messages.create()로 호출합니다. 각 프롬프트를 코루틴으로 만들어 asyncio.gather()로 병렬 실행하고 content[0].text를 반환합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_async_api_p3_001",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "async_api",
+    "phase": 3,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "여러 외부 API를 비동기로 병렬 호출해 결과를 합치는 `aggregate_data` 함수를 구현하세요.\n\n요구 사항:\n- `ENDPOINTS = {'weather': '...', 'news': '...', 'stock': '...'}` 3개 URL이 있다고 가정\n- 세마포어 3개, 타임아웃 5초 적용\n- 각 소스 이름을 키로, 응답 JSON(실패 시 None)을 값으로 하는 dict 반환\n- 모두 병렬 실행",
+    "answer": "ENDPOINTS = {\n    'weather': 'https://api.example.com/weather',\n    'news': 'https://api.example.com/news',\n    'stock': 'https://api.example.com/stock'\n}\n\nasync def aggregate_data() -> dict:\n    semaphore = asyncio.Semaphore(3)\n    timeout = aiohttp.ClientTimeout(total=5.0)\n\n    async def fetch_source(session, name, url):\n        async with semaphore:\n            try:\n                async with session.get(url) as resp:\n                    if resp.status == 200:\n                        return name, await resp.json()\n                    return name, None\n            except Exception:\n                return name, None\n\n    async with aiohttp.ClientSession(timeout=timeout) as session:\n        tasks = [fetch_source(session, name, url) for name, url in ENDPOINTS.items()]\n        results = await asyncio.gather(*tasks)\n        return dict(results)",
+    "feedback": {
+      "correct": "완벽합니다! Semaphore, Timeout, (name, result) 튜플로 dict 구성, 실패 시 None까지 모두 정확합니다.",
+      "incorrect": "각 소스를 (name, result) 튜플로 반환하도록 내부 함수를 만들고, gather 결과를 dict()로 변환합니다. 실패는 None으로 처리합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_async_api_p3_002",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "async_api",
+    "phase": 3,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "비동기 속도 vs 동기 속도를 비교하는 벤치마크 함수를 구현하세요.\n\n```python\n- `async def benchmark(urls: list[str]) -> dict`\n- **비동기**: `asyncio.gather`로 모든 URL 병렬 요청 → 소요 시간 측정\n- **동기 시뮬레이션**: `asyncio.sleep(0.1)`을 순서대로(gather 없이) 실행 → 소요 시간 측정\n- 반환: `{'async_time': <float>, 'sync_time': <float>, 'speedup': <sync/async 배율 float>}`\n- 시간 측정은 `asyncio.get_event_loop().time()` 사용\n```",
+    "answer": "async def benchmark(urls: list) -> dict:\n    loop = asyncio.get_event_loop()\n\n    # 비동기 병렬\n    async def fetch_dummy(url):\n        await asyncio.sleep(0.1)\n        return url\n\n    start = loop.time()\n    await asyncio.gather(*[fetch_dummy(url) for url in urls])\n    async_time = loop.time() - start\n\n    # 동기 순차 시뮬레이션\n    start = loop.time()\n    for url in urls:\n        await asyncio.sleep(0.1)\n    sync_time = loop.time() - start\n\n    return {\n        'async_time': round(async_time, 3),\n        'sync_time': round(sync_time, 3),\n        'speedup': round(sync_time / async_time, 2) if async_time > 0 else 0\n    }",
+    "feedback": {
+      "correct": "훌륭합니다! gather 병렬 시간, 순차 시간, speedup 계산까지 모두 정확하게 구현했습니다.",
+      "incorrect": "asyncio.get_event_loop().time()으로 시작/끝 시간을 재고, 병렬(gather)과 순차(for loop) 두 방식을 모두 실행해 소요 시간을 비교합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_async_api_p3_003",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "async_api",
+    "phase": 3,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "결과를 실시간으로 스트리밍하는 `stream_results` 비동기 제너레이터를 구현하세요.\n\n```python\n- 파라미터: `urls` (list[str])\n- `asyncio.as_completed()`를 사용해 완료되는 순서대로 결과를 yield\n- 각 완료된 태스크의 결과를 `{'url': url, 'data': result}` 형태로 yield\n- 실패한 태스크는 `{'url': '알 수 없음', 'error': str(e)}` yield\n- 내부 fetch는 `aiohttp.ClientSession`으로 JSON 파싱\n```",
+    "answer": "async def stream_results(urls: list):\n    async with aiohttp.ClientSession() as session:\n        async def fetch_one(url):\n            async with session.get(url) as resp:\n                return url, await resp.json()\n\n        tasks = {asyncio.ensure_future(fetch_one(url)): url for url in urls}\n\n        for future in asyncio.as_completed(tasks.keys()):\n            try:\n                url, data = await future\n                yield {'url': url, 'data': data}\n            except Exception as e:\n                yield {'url': '알 수 없음', 'error': str(e)}",
+    "feedback": {
+      "correct": "완벽합니다! as_completed로 완료 순 스트리밍, 비동기 제너레이터(async def + yield), 예외 처리까지 정확합니다.",
+      "incorrect": "asyncio.as_completed()는 태스크가 완료되는 순서대로 이터레이션합니다. async def 함수에 yield를 써서 비동기 제너레이터로 만들고, 각 future를 await해 결과를 받습니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_fastapi_server_p1_001",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "fastapi_server",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "question": "FastAPI POST 엔드포인트를 정의하는 빈칸을 채우세요.\n\n```python\nfrom fastapi import FastAPI\nfrom pydantic import BaseModel\n\napp = FastAPI()\n\nclass ChatRequest(BaseModel):\n    message: str\n\n@app.___('/chat')\nasync def chat(req: ChatRequest):\n    return {'reply': f'받은 메시지: {req.message}'}\n```",
+    "answer": "post",
+    "feedback": {
+      "correct": "맞습니다! POST 요청을 처리하는 엔드포인트는 `@app.post()`로 선언합니다.",
+      "incorrect": "데이터를 전송받는 엔드포인트는 `@app.post()`를 씁니다. `@app.get()`은 조회, `@app.post()`는 생성/전송입니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_fastapi_server_p1_002",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "fastapi_server",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "question": "Pydantic 모델의 필드 타입 힌트 빈칸을 채우세요.\n\n```python\nfrom pydantic import BaseModel\nfrom typing import ___\n\nclass ChatRequest(BaseModel):\n    message: str\n    history: Optional[list[dict]] = None\n    system_prompt: Optional[str] = None\n    max_tokens: int = 1024\n```",
+    "answer": "Optional",
+    "feedback": {
+      "correct": "정확합니다! `Optional[T]`는 `T | None`과 동일하며, 필드가 없어도 되는 경우에 사용합니다.",
+      "incorrect": "`Optional`은 `typing` 모듈에서 가져옵니다. `Optional[str]`은 `str | None`이며, 기본값 `None`과 함께 선택적 필드를 만들 때 씁니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_fastapi_server_p1_003",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "fastapi_server",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "error_find",
+    "question": "다음 CORS 설정 코드에서 버그를 찾으세요.\n\n```python\nfrom fastapi import FastAPI\nfrom fastapi.middleware.cors import CORSMiddleware\n\napp = FastAPI()\n\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[],        # ← A\n    allow_credentials=True,\n    allow_methods=['*'],\n    allow_headers=['*'],\n)\n```\n\nA. `allow_origins=[]`가 빈 리스트라 모든 출처가 차단된다\nB. `allow_credentials=True`는 보안 위험이 있어 False로 써야 한다\nC. `allow_methods=['*']` 대신 메서드를 명시해야 한다\nD. `CORSMiddleware`는 `add_middleware`가 아닌 `use_middleware`로 추가해야 한다",
+    "choices": [
+      "A. allow_origins=[]라 모든 출처가 차단된다",
+      "B. allow_credentials=True는 False로 써야 한다",
+      "C. allow_methods=['*']은 안 된다",
+      "D. add_middleware가 아닌 use_middleware를 써야 한다"
+    ],
+    "answer": "A",
+    "feedback": {
+      "correct": "정확합니다! `allow_origins=[]`이면 허용된 출처가 없어 모든 크로스 오리진 요청이 차단됩니다. `['*']`(전체 허용) 또는 특정 도메인 리스트를 넣어야 합니다.",
+      "incorrect": "`allow_origins`에 빈 리스트를 넣으면 허용된 도메인이 없어 프론트엔드에서 API를 호출할 수 없습니다. `['*']` 또는 `['http://localhost:3000']` 등을 지정해야 합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_fastapi_server_p1_004",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "fastapi_server",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "question": "FastAPI에서 SSE 스트리밍 응답을 반환하는 빈칸을 채우세요.\n\n```python\nfrom fastapi.responses import ___\nimport asyncio\n\n@app.post('/chat/stream')\nasync def chat_stream(req: ChatRequest):\n    async def generate():\n        for chunk in ['안녕', '하세요', '!']:\n            yield f'data: {chunk}\n\n'\n            await asyncio.sleep(0.1)\n\n    return ___(generate(), media_type='text/event-stream')\n```",
+    "answer": "StreamingResponse",
+    "feedback": {
+      "correct": "정확합니다! `StreamingResponse`는 제너레이터/이터레이터를 청크 단위로 스트리밍합니다. SSE는 `media_type='text/event-stream'`과 함께 사용합니다.",
+      "incorrect": "`from fastapi.responses import StreamingResponse`로 가져와 비동기 제너레이터를 감싸면 SSE 스트리밍이 됩니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_fastapi_server_p1_005",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "fastapi_server",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "error_find",
+    "question": "다음 FastAPI + SQLite 코드에서 버그를 찾으세요.\n\n```python\nimport sqlite3\nfrom fastapi import FastAPI\n\napp = FastAPI()\nconn = sqlite3.connect('chat.db')  # ← A: 모듈 레벨에서 연결\n\n@app.post('/save')\ndef save_message(message: str, role: str):\n    cursor = conn.cursor()\n    cursor.execute(\n        'INSERT INTO messages (role, content) VALUES (?, ?)',\n        (role, message)\n    )\n    # ← B: 커밋 없음\n    return {'status': 'saved'}\n```\n\nA. 모듈 레벨 `sqlite3.connect()`는 멀티스레드에서 안전하지 않다\nB. `conn.commit()`이 없어 데이터가 실제로 저장되지 않는다\nC. `cursor.execute()` 대신 `conn.execute()`를 써야 한다\nD. `?` 플레이스홀더 대신 f-string을 써야 한다",
+    "choices": [
+      "A. 모듈 레벨 connect()는 멀티스레드에서 안전하지 않다",
+      "B. conn.commit()이 없어 데이터가 저장되지 않는다",
+      "C. cursor.execute() 대신 conn.execute()를 써야 한다",
+      "D. ? 대신 f-string을 써야 한다"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정확합니다! SQLite에서 INSERT/UPDATE/DELETE 후에는 반드시 `conn.commit()`을 호출해야 트랜잭션이 확정됩니다. 없으면 데이터가 저장되지 않습니다.",
+      "incorrect": "`cursor.execute()` 후 `conn.commit()`이 없으면 변경 사항이 DB에 반영되지 않습니다. `cursor.execute()` 다음 줄에 `conn.commit()`을 추가해야 합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_fastapi_server_p2_001",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "fastapi_server",
+    "phase": 2,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "Claude API를 호출하는 `/chat` 엔드포인트를 구현하세요.\n\n```python\nclass ChatRequest(BaseModel):\n    message: str\n    system: str = '당신은 친절한 AI 어시스턴트입니다.'\n    history: list = []\n```\n\n- `history`에 이전 대화를 담고, 새 user 메시지를 추가해 Claude에 전달\n- `client.messages.create()`로 응답 생성 (model: claude-3-5-haiku-20241022, max_tokens: 1024)\n- 반환: `{'reply': <응답 텍스트>, 'history': <업데이트된 대화 이력>}`",
+    "answer": "@app.post('/chat')\nasync def chat(req: ChatRequest):\n    messages = req.history + [{'role': 'user', 'content': req.message}]\n    response = await client.messages.create(\n        model='claude-3-5-haiku-20241022',\n        max_tokens=1024,\n        system=req.system,\n        messages=messages\n    )\n    reply = response.content[0].text\n    updated_history = messages + [{'role': 'assistant', 'content': reply}]\n    return {'reply': reply, 'history': updated_history}",
+    "feedback": {
+      "correct": "완벽합니다! history + user 메시지 구성, await client.messages.create(), 응답 후 history 업데이트까지 정확합니다.",
+      "incorrect": "history에 새 user 메시지를 추가해 messages를 구성하고, await client.messages.create()로 Claude를 호출합니다. 응답 텍스트를 history에 추가해 반환합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_fastapi_server_p2_002",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "fastapi_server",
+    "phase": 2,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "SQLite에 대화 메시지를 저장하는 `save_message` 함수와 불러오는 `get_history` 함수를 구현하세요.\n\n```python\n- `save_message(session_id, role, content)`: messages 테이블에 INSERT + commit\n- `get_history(session_id)`: 해당 session_id의 메시지를 시간순으로 SELECT → `[{'role': ..., 'content': ...}]` 리스트 반환\n- DB 연결은 함수 내부에서 `sqlite3.connect('chat.db')`로 생성하고 `with` 구문으로 관리\n```",
+    "answer": "def save_message(session_id: str, role: str, content: str):\n    with sqlite3.connect('chat.db') as conn:\n        conn.execute(\n            'INSERT INTO messages (session_id, role, content) VALUES (?, ?, ?)',\n            (session_id, role, content)\n        )\n        conn.commit()\n\ndef get_history(session_id: str) -> list:\n    with sqlite3.connect('chat.db') as conn:\n        cursor = conn.execute(\n            'SELECT role, content FROM messages WHERE session_id = ? ORDER BY id ASC',\n            (session_id,)\n        )\n        return [{'role': row[0], 'content': row[1]} for row in cursor.fetchall()]",
+    "feedback": {
+      "correct": "훌륭합니다! with sqlite3.connect()로 안전한 연결, INSERT+commit, SELECT 리스트 컴프리헨션까지 정확합니다.",
+      "incorrect": "with sqlite3.connect('chat.db') as conn으로 연결, INSERT 후 commit(), SELECT 결과를 {'role', 'content'} 딕셔너리 리스트로 변환합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_fastapi_server_p2_003",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "fastapi_server",
+    "phase": 2,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "Claude 응답을 SSE로 스트리밍하는 `/chat/stream` 엔드포인트를 구현하세요.\n\n```python\n- `client.messages.stream()`을 사용 (컨텍스트 매니저 형태)\n- `async with client.messages.stream(...) as stream:` 안에서 `async for text in stream.text_stream:` 으로 청크를 yield\n- 각 청크는 `f'data: {text}\\n\\n'` 형태로 yield\n- 스트리밍 종료 후 `'data: [DONE]\\n\\n'` yield\n- `StreamingResponse(..., media_type='text/event-stream')` 반환\n```",
+    "answer": "@app.post('/chat/stream')\nasync def chat_stream(req: ChatRequest):\n    messages = req.history + [{'role': 'user', 'content': req.message}]\n\n    async def generate():\n        async with client.messages.stream(\n            model='claude-3-5-haiku-20241022',\n            max_tokens=1024,\n            system=req.system,\n            messages=messages\n        ) as stream:\n            async for text in stream.text_stream:\n                yield f'data: {text}\\n\\n'\n        yield 'data: [DONE]\\n\\n'\n\n    return StreamingResponse(generate(), media_type='text/event-stream')",
+    "feedback": {
+      "correct": "완벽합니다! async with stream, async for text_stream, [DONE] 종료 시그널, StreamingResponse까지 모두 정확합니다.",
+      "incorrect": "client.messages.stream()을 async with로 열고, stream.text_stream을 async for로 순회해 각 텍스트 청크를 yield합니다. 마지막에 [DONE]을 보내고 StreamingResponse로 감쌉니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_fastapi_server_p2_004",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "fastapi_server",
+    "phase": 2,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "FastAPI `Depends`를 사용해 JWT 토큰을 검증하는 의존성 함수 `get_current_user`를 구현하세요.\n\n```python\n- `Authorization: Bearer <token>` 헤더에서 토큰 추출\n- `jwt.decode(token, SECRET_KEY, algorithms=['HS256'])`로 디코딩\n- 디코딩 성공 시 payload의 `'sub'` 값(사용자 ID) 반환\n- 실패(JWTError, 헤더 없음) 시 `HTTPException(status_code=401, detail='인증 실패')` raise\n- `from fastapi.security import HTTPBearer`의 `HTTPBearer()` 스킴 사용\n```",
+    "answer": "from fastapi import Depends, HTTPException\nfrom fastapi.security import HTTPBearer, HTTPAuthorizationCredentials\nfrom jose import jwt, JWTError\n\nSECRET_KEY = 'your-secret-key'\nsecurity = HTTPBearer()\n\ndef get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)) -> str:\n    try:\n        token = credentials.credentials\n        payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])\n        user_id = payload.get('sub')\n        if user_id is None:\n            raise HTTPException(status_code=401, detail='인증 실패')\n        return user_id\n    except JWTError:\n        raise HTTPException(status_code=401, detail='인증 실패')",
+    "feedback": {
+      "correct": "훌륭합니다! HTTPBearer, Depends, jwt.decode, JWTError 처리까지 FastAPI JWT 인증 패턴을 정확히 구현했습니다.",
+      "incorrect": "HTTPBearer()로 토큰을 추출하고, jwt.decode()로 검증하며, 실패 시 HTTPException(401)을 raise합니다. `Depends(security)`로 의존성 주입합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_fastapi_server_p3_001",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "fastapi_server",
+    "phase": 3,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "세션 기반 멀티턴 챗봇 FastAPI 서버를 완성하세요.\n\n요구 사항:\n```python\n1. `POST /sessions` — 새 세션 생성, UUID 기반 session_id 반환\n2. `POST /chat/{session_id}` — 해당 세션 이력을 DB에서 로드 → Claude 호출 → 이력 저장\n3. `GET /sessions/{session_id}/history` — 세션 대화 이력 반환\n4. SQLite `chat.db`에 messages 테이블(id, session_id, role, content, created_at) 사용\n5. 인증 없는 간단한 버전으로 구현\n```",
+    "answer": "import uuid\nimport sqlite3\nfrom fastapi import FastAPI\nfrom pydantic import BaseModel\nimport anthropic\n\napp = FastAPI()\nclient = anthropic.AsyncAnthropic()\n\ndef init_db():\n    with sqlite3.connect('chat.db') as conn:\n        conn.execute('''CREATE TABLE IF NOT EXISTS messages (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            session_id TEXT NOT NULL,\n            role TEXT NOT NULL,\n            content TEXT NOT NULL,\n            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n        )''')\n        conn.commit()\n\ninit_db()\n\ndef save_message(session_id, role, content):\n    with sqlite3.connect('chat.db') as conn:\n        conn.execute('INSERT INTO messages (session_id, role, content) VALUES (?, ?, ?)', (session_id, role, content))\n        conn.commit()\n\ndef get_history(session_id):\n    with sqlite3.connect('chat.db') as conn:\n        rows = conn.execute('SELECT role, content FROM messages WHERE session_id = ? ORDER BY id ASC', (session_id,)).fetchall()\n        return [{'role': r[0], 'content': r[1]} for r in rows]\n\nclass ChatRequest(BaseModel):\n    message: str\n    system: str = '당신은 친절한 AI 어시스턴트입니다.'\n\n@app.post('/sessions')\ndef create_session():\n    return {'session_id': str(uuid.uuid4())}\n\n@app.post('/chat/{session_id}')\nasync def chat(session_id: str, req: ChatRequest):\n    history = get_history(session_id)\n    messages = history + [{'role': 'user', 'content': req.message}]\n    response = await client.messages.create(\n        model='claude-3-5-haiku-20241022',\n        max_tokens=1024,\n        system=req.system,\n        messages=messages\n    )\n    reply = response.content[0].text\n    save_message(session_id, 'user', req.message)\n    save_message(session_id, 'assistant', reply)\n    return {'reply': reply, 'session_id': session_id}\n\n@app.get('/sessions/{session_id}/history')\ndef get_session_history(session_id: str):\n    return {'session_id': session_id, 'history': get_history(session_id)}",
+    "feedback": {
+      "correct": "완벽한 멀티턴 챗봇 서버입니다! DB 초기화, 세션 생성, 이력 기반 Claude 호출, 저장, 조회까지 전체 흐름이 정확합니다.",
+      "incorrect": "init_db()로 테이블 생성, /sessions로 UUID 세션 발급, /chat/{session_id}에서 DB 이력 로드 → Claude 호출 → 저장, /history로 조회하는 구조로 작성합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_fastapi_server_p3_002",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "fastapi_server",
+    "phase": 3,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "JWT 인증이 적용된 보호된 채팅 엔드포인트를 구현하세요.\n\n요구 사항:\n```python\n1. `POST /auth/login` — `username` + `password` 받아 JWT 토큰 반환 (`{'access_token': ..., 'token_type': 'bearer'}`)\n2. `POST /chat` — JWT 인증 필요 (`Depends(get_current_user)`), 인증된 user_id를 session_id로 사용해 Claude 호출\n3. SECRET_KEY = 'aimon-secret', 알고리즘 HS256, 만료 없는 단순 토큰\n4. 테스트용 사용자: `{'admin': 'password123'}`\n```",
+    "answer": "from fastapi import FastAPI, Depends, HTTPException\nfrom fastapi.security import HTTPBearer, HTTPAuthorizationCredentials\nfrom pydantic import BaseModel\nfrom jose import jwt, JWTError\nimport anthropic\n\napp = FastAPI()\nclient = anthropic.AsyncAnthropic()\nSECRET_KEY = 'aimon-secret'\nFAKE_USERS = {'admin': 'password123'}\nsecurity = HTTPBearer()\n\nclass LoginRequest(BaseModel):\n    username: str\n    password: str\n\nclass ChatRequest(BaseModel):\n    message: str\n\ndef get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)) -> str:\n    try:\n        payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=['HS256'])\n        user_id = payload.get('sub')\n        if not user_id:\n            raise HTTPException(status_code=401, detail='인증 실패')\n        return user_id\n    except JWTError:\n        raise HTTPException(status_code=401, detail='인증 실패')\n\n@app.post('/auth/login')\ndef login(req: LoginRequest):\n    if FAKE_USERS.get(req.username) != req.password:\n        raise HTTPException(status_code=401, detail='잘못된 자격증명')\n    token = jwt.encode({'sub': req.username}, SECRET_KEY, algorithm='HS256')\n    return {'access_token': token, 'token_type': 'bearer'}\n\n@app.post('/chat')\nasync def chat(req: ChatRequest, user_id: str = Depends(get_current_user)):\n    response = await client.messages.create(\n        model='claude-3-5-haiku-20241022',\n        max_tokens=1024,\n        messages=[{'role': 'user', 'content': req.message}]\n    )\n    return {'user': user_id, 'reply': response.content[0].text}",
+    "feedback": {
+      "correct": "훌륭합니다! 로그인 → JWT 발급 → 보호된 엔드포인트 전체 흐름을 정확하게 구현했습니다.",
+      "incorrect": "/auth/login에서 자격증명 확인 후 jwt.encode()로 토큰 발급, get_current_user에서 jwt.decode()로 검증, /chat에서 Depends(get_current_user)로 인증 적용합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_fastapi_server_p3_003",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "fastapi_server",
+    "phase": 3,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "파일을 업로드받아 Claude로 분석하는 엔드포인트를 구현하세요.\n\n요구 사항:\n```python\n- `POST /analyze` — `UploadFile`로 텍스트 파일을 받아 내용을 읽고 Claude에 분석 요청\n- Claude 프롬프트: `f'다음 텍스트를 분석해 핵심 내용을 3줄로 요약하세요:\\n\\n{file_content}'`\n- 파일 크기 제한: 10KB 초과 시 `HTTPException(413, '파일이 너무 큽니다')`\n- 반환: `{'filename': ..., 'size': ..., 'summary': ...}`\n```",
+    "answer": "from fastapi import FastAPI, UploadFile, HTTPException\nimport anthropic\n\napp = FastAPI()\nclient = anthropic.AsyncAnthropic()\n\n@app.post('/analyze')\nasync def analyze_file(file: UploadFile):\n    content = await file.read()\n    if len(content) > 10 * 1024:\n        raise HTTPException(status_code=413, detail='파일이 너무 큽니다')\n    file_content = content.decode('utf-8')\n    prompt = f'다음 텍스트를 분석해 핵심 내용을 3줄로 요약하세요:\\n\\n{file_content}'\n    response = await client.messages.create(\n        model='claude-3-5-haiku-20241022',\n        max_tokens=512,\n        messages=[{'role': 'user', 'content': prompt}]\n    )\n    return {\n        'filename': file.filename,\n        'size': len(content),\n        'summary': response.content[0].text\n    }",
+    "feedback": {
+      "correct": "완벽합니다! UploadFile.read(), 크기 제한, decode, Claude 요약, 결과 반환까지 모두 정확합니다.",
+      "incorrect": "await file.read()로 바이트를 읽고, len(content) > 10*1024로 크기를 확인합니다. content.decode('utf-8')로 문자열로 변환 후 Claude에 요약을 요청합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_langchain_bot_p1_001",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "langchain_bot",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "question": "LangChain 프롬프트 템플릿을 생성하는 빈칸을 채우세요.\n\n```python\nfrom langchain_core.prompts import ChatPromptTemplate\n\nprompt = ChatPromptTemplate.___([\n    ('system', '당신은 친절한 AI 어시스턴트입니다.'),\n    ('human', '{question}')\n])\n```",
+    "answer": "from_messages",
+    "feedback": {
+      "correct": "정확합니다! `ChatPromptTemplate.from_messages()`는 메시지 튜플 리스트로 프롬프트를 생성합니다.",
+      "incorrect": "`ChatPromptTemplate.from_messages([])`로 시스템/휴먼 메시지 튜플 리스트를 전달합니다. `from_template()`은 단일 문자열용입니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_langchain_bot_p1_002",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "langchain_bot",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "question": "LCEL(LangChain Expression Language) 파이프로 체인을 연결하는 빈칸을 채우세요.\n\n```python\nfrom langchain_anthropic import ChatAnthropic\nfrom langchain_core.output_parsers import StrOutputParser\n\nllm = ChatAnthropic(model='claude-3-5-haiku-20241022')\nparser = StrOutputParser()\n\nchain = prompt ___ llm ___ parser\n```",
+    "answer": "|",
+    "feedback": {
+      "correct": "맞습니다! LCEL에서 `|` 연산자로 체인을 연결합니다. `prompt | llm | parser` 순서로 데이터가 흐릅니다.",
+      "incorrect": "LCEL은 파이프 연산자 `|`로 컴포넌트를 연결합니다. Unix 파이프와 같은 개념으로, 왼쪽 출력이 오른쪽 입력이 됩니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_langchain_bot_p1_003",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "langchain_bot",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "error_find",
+    "question": "다음 LangChain 메모리 설정에서 버그를 찾으세요.\n\n```python\nfrom langchain.memory import ConversationBufferMemory\nfrom langchain.chains import ConversationChain\nfrom langchain_anthropic import ChatAnthropic\n\nllm = ChatAnthropic(model='claude-3-5-haiku-20241022')\nmemory = ConversationBufferMemory(return_messages=False)  # ← A\n\nchain = ConversationChain(\n    llm=llm,\n    memory=memory,\n    verbose=True\n)\n\nreply = chain.predict(input='안녕하세요')\n```\n\nA. `return_messages=False`라 Chat 모델과 메시지 형식이 맞지 않는다\nB. `ConversationChain` 대신 `LLMChain`을 써야 한다\nC. `chain.predict()` 대신 `chain.run()`을 써야 한다\nD. `ChatAnthropic`은 `ConversationChain`과 호환되지 않는다",
+    "choices": [
+      "A. return_messages=False라 Chat 모델과 형식이 맞지 않는다",
+      "B. ConversationChain 대신 LLMChain을 써야 한다",
+      "C. chain.predict() 대신 chain.run()을 써야 한다",
+      "D. ChatAnthropic은 ConversationChain과 호환되지 않는다"
+    ],
+    "answer": "A",
+    "feedback": {
+      "correct": "정확합니다! Chat 모델(ChatAnthropic)과 함께 쓰는 ConversationBufferMemory는 `return_messages=True`여야 합니다. `False`이면 문자열 형식으로 반환돼 Chat 모델의 메시지 리스트 형식과 맞지 않습니다.",
+      "incorrect": "Chat 모델을 사용할 때는 `ConversationBufferMemory(return_messages=True)`로 설정해야 메시지 객체 리스트 형식으로 반환됩니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_langchain_bot_p1_004",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "langchain_bot",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "fill_in_blank",
+    "question": "FAISS 벡터스토어에서 검색기를 생성하는 빈칸을 채우세요.\n\n```python\nfrom langchain_community.vectorstores import FAISS\n\nvectorstore = FAISS.from_documents(docs, embeddings)\nretriever = vectorstore.___(search_kwargs={'k': 3})\n```",
+    "answer": "as_retriever",
+    "feedback": {
+      "correct": "맞습니다! `vectorstore.as_retriever()`로 검색기를 생성합니다. `search_kwargs={'k': 3}`은 상위 3개 문서를 반환하도록 설정합니다.",
+      "incorrect": "`as_retriever()`로 벡터스토어를 LangChain 체인에서 사용 가능한 Retriever 객체로 변환합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_langchain_bot_p1_005",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "langchain_bot",
+    "phase": 1,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "error_find",
+    "question": "다음 FAISS 문서 임베딩 코드에서 버그를 찾으세요.\n\n```python\nfrom langchain_community.vectorstores import FAISS\nfrom langchain_anthropic import AnthropicEmbeddings\nfrom langchain_core.documents import Document\n\ndocs = [\n    Document(page_content='파이썬은 배우기 쉬운 언어입니다'),\n    Document(page_content='FastAPI는 빠른 웹 프레임워크입니다')\n]\n\nembeddings = AnthropicEmbeddings()  # ← A\nvectorstore = FAISS.load(docs, embeddings)  # ← B\n```\n\nA. Anthropic은 임베딩 API를 제공하지 않아 AnthropicEmbeddings가 없다\nB. `FAISS.load()` 대신 `FAISS.from_documents()`를 써야 한다\nC. `Document` 임포트 경로가 잘못됐다\nD. `embeddings` 인자를 `FAISS`에 전달하면 안 된다",
+    "choices": [
+      "A. AnthropicEmbeddings가 존재하지 않는다",
+      "B. FAISS.load() 대신 FAISS.from_documents()를 써야 한다",
+      "C. Document 임포트 경로가 잘못됐다",
+      "D. embeddings 인자를 FAISS에 전달하면 안 된다"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정확합니다! 문서로 벡터스토어를 새로 생성할 때는 `FAISS.from_documents(docs, embeddings)`를 사용합니다. `FAISS.load()`는 이미 저장된 인덱스를 불러올 때 쓰는 메서드입니다.",
+      "incorrect": "`FAISS.load()`는 디스크에 저장된 인덱스를 로드할 때 씁니다. 문서 리스트로 새 벡터스토어를 만들려면 `FAISS.from_documents(docs, embeddings)`를 사용해야 합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_langchain_bot_p2_001",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "langchain_bot",
+    "phase": 2,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "텍스트를 청크로 분할하는 `split_documents` 함수를 구현하세요.\n\n```python\n- 파라미터: `text` (str), `chunk_size` (int, 기본값 500), `chunk_overlap` (int, 기본값 50)\n- `RecursiveCharacterTextSplitter`를 사용해 텍스트를 Document 리스트로 분할\n- `langchain_core.documents.Document`로 각 청크를 래핑\n- 반환: `list[Document]`\n```",
+    "answer": "from langchain_text_splitters import RecursiveCharacterTextSplitter\nfrom langchain_core.documents import Document\n\ndef split_documents(text: str, chunk_size: int = 500, chunk_overlap: int = 50) -> list:\n    splitter = RecursiveCharacterTextSplitter(\n        chunk_size=chunk_size,\n        chunk_overlap=chunk_overlap\n    )\n    chunks = splitter.split_text(text)\n    return [Document(page_content=chunk) for chunk in chunks]",
+    "feedback": {
+      "correct": "완벽합니다! RecursiveCharacterTextSplitter로 분할 후 Document 리스트로 변환하는 패턴이 정확합니다.",
+      "incorrect": "RecursiveCharacterTextSplitter(chunk_size, chunk_overlap)를 만들고 split_text()로 청크를 만든 뒤, 각각을 Document(page_content=chunk)로 감쌉니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_langchain_bot_p2_002",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "langchain_bot",
+    "phase": 2,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "LCEL로 RAG 체인을 구성하는 `build_rag_chain` 함수를 구현하세요.\n\n- 파라미터: `retriever`, `llm`\n- 프롬프트 템플릿:\n  ```\n  시스템: 주어진 context만 사용해 질문에 답하세요.\n  context: {context}\n  사용자: {question}\n  ```\n- retriever로 문서를 가져와 `context`에 넣고, `question`은 그대로 전달\n- `RunnablePassthrough`와 `RunnableLambda` 또는 딕셔너리 매핑으로 입력 구성\n- 반환: LCEL 체인 (invoke 가능한 객체)",
+    "answer": "from langchain_core.prompts import ChatPromptTemplate\nfrom langchain_core.output_parsers import StrOutputParser\nfrom langchain_core.runnables import RunnablePassthrough\n\ndef build_rag_chain(retriever, llm):\n    prompt = ChatPromptTemplate.from_messages([\n        ('system', '주어진 context만 사용해 질문에 답하세요.\ncontext: {context}'),\n        ('human', '{question}')\n    ])\n\n    def format_docs(docs):\n        return '\n\n'.join(doc.page_content for doc in docs)\n\n    chain = (\n        {'context': retriever | format_docs, 'question': RunnablePassthrough()}\n        | prompt\n        | llm\n        | StrOutputParser()\n    )\n    return chain",
+    "feedback": {
+      "correct": "훌륭합니다! retriever | format_docs로 context 구성, RunnablePassthrough로 question 전달, LCEL 파이프 체인이 정확합니다.",
+      "incorrect": "context는 retriever | format_docs로, question은 RunnablePassthrough()로 딕셔너리 입력을 구성한 뒤 | prompt | llm | StrOutputParser()로 체인을 연결합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_langchain_bot_p2_003",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "langchain_bot",
+    "phase": 2,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "대화 이력을 유지하는 `ConversationChain`을 구성하는 `build_conversation_chain` 함수를 구현하세요.\n\n```python\n- 파라미터: `llm`\n- `ConversationBufferMemory(return_messages=True, memory_key='history')`로 메모리 생성\n- 프롬프트: system='당신은 친절한 AI입니다.', history={history}, human={input}\n- `ConversationChain` 또는 LCEL + `RunnableWithMessageHistory` 중 택일\n- 반환: `chain` 객체와 `memory` 객체를 튜플로 반환 `(chain, memory)`\n```",
+    "answer": "from langchain.memory import ConversationBufferMemory\nfrom langchain.chains import ConversationChain\nfrom langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder\n\ndef build_conversation_chain(llm):\n    memory = ConversationBufferMemory(return_messages=True, memory_key='history')\n    prompt = ChatPromptTemplate.from_messages([\n        ('system', '당신은 친절한 AI입니다.'),\n        MessagesPlaceholder(variable_name='history'),\n        ('human', '{input}')\n    ])\n    chain = ConversationChain(\n        llm=llm,\n        memory=memory,\n        prompt=prompt,\n        verbose=False\n    )\n    return chain, memory",
+    "feedback": {
+      "correct": "완벽합니다! return_messages=True, MessagesPlaceholder, ConversationChain 구성과 (chain, memory) 튜플 반환이 정확합니다.",
+      "incorrect": "ConversationBufferMemory(return_messages=True)로 메모리를 만들고, MessagesPlaceholder로 history를 프롬프트에 삽입합니다. (chain, memory) 튜플을 반환합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_langchain_bot_p2_004",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "langchain_bot",
+    "phase": 2,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "텍스트 파일을 읽어 FAISS 벡터스토어를 구축하는 `build_vectorstore` 함수를 구현하세요.\n\n```python\n- 파라미터: `file_path` (str), `embeddings`\n- 파일을 읽어 `RecursiveCharacterTextSplitter(chunk_size=300, chunk_overlap=30)`로 분할\n- `FAISS.from_documents(docs, embeddings)`로 벡터스토어 생성\n- 반환: `FAISS` 벡터스토어 객체\n```",
+    "answer": "from langchain_text_splitters import RecursiveCharacterTextSplitter\nfrom langchain_core.documents import Document\nfrom langchain_community.vectorstores import FAISS\n\ndef build_vectorstore(file_path: str, embeddings):\n    with open(file_path, 'r', encoding='utf-8') as f:\n        text = f.read()\n    splitter = RecursiveCharacterTextSplitter(chunk_size=300, chunk_overlap=30)\n    chunks = splitter.split_text(text)\n    docs = [Document(page_content=chunk) for chunk in chunks]\n    return FAISS.from_documents(docs, embeddings)",
+    "feedback": {
+      "correct": "훌륭합니다! 파일 읽기 → 분할 → Document 변환 → FAISS 생성 파이프라인이 정확합니다.",
+      "incorrect": "파일을 read()로 읽고, RecursiveCharacterTextSplitter로 분할, Document 리스트로 변환, FAISS.from_documents()로 벡터스토어를 만듭니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_langchain_bot_p3_001",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "langchain_bot",
+    "phase": 3,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "문서 로드부터 질문 답변까지 RAG 전체 파이프라인을 구현하세요.\n\n요구 사항:\n```python\n1. `TextLoader`로 'docs.txt' 파일 로드\n2. `RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)`로 분할\n3. `OpenAIEmbeddings()` 또는 `HuggingFaceEmbeddings()`로 임베딩 (어느 것이든)\n4. `FAISS.from_documents()`로 벡터스토어 생성, `as_retriever(search_kwargs={'k': 3})`\n5. RAG 체인 구성 (context + question → Claude 답변)\n6. `ask(question: str) -> str` 함수 구현\n```",
+    "answer": "from langchain_community.document_loaders import TextLoader\nfrom langchain_text_splitters import RecursiveCharacterTextSplitter\nfrom langchain_community.embeddings import HuggingFaceEmbeddings\nfrom langchain_community.vectorstores import FAISS\nfrom langchain_anthropic import ChatAnthropic\nfrom langchain_core.prompts import ChatPromptTemplate\nfrom langchain_core.output_parsers import StrOutputParser\nfrom langchain_core.runnables import RunnablePassthrough\n\n# 1. 문서 로드 및 분할\nloader = TextLoader('docs.txt', encoding='utf-8')\ndocs = loader.load()\nsplitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)\nchunks = splitter.split_documents(docs)\n\n# 2. 벡터스토어 구축\nembeddings = HuggingFaceEmbeddings()\nvectorstore = FAISS.from_documents(chunks, embeddings)\nretriever = vectorstore.as_retriever(search_kwargs={'k': 3})\n\n# 3. RAG 체인\nllm = ChatAnthropic(model='claude-3-5-haiku-20241022')\nprompt = ChatPromptTemplate.from_messages([\n    ('system', '주어진 context를 바탕으로 질문에 답하세요.\ncontext: {context}'),\n    ('human', '{question}')\n])\n\ndef format_docs(docs):\n    return '\n\n'.join(doc.page_content for doc in docs)\n\nchain = (\n    {'context': retriever | format_docs, 'question': RunnablePassthrough()}\n    | prompt\n    | llm\n    | StrOutputParser()\n)\n\ndef ask(question: str) -> str:\n    return chain.invoke(question)",
+    "feedback": {
+      "correct": "완벽한 RAG 파이프라인입니다! 로드 → 분할 → 임베딩 → 검색 → 체인 → ask 함수까지 전체 흐름이 정확합니다.",
+      "incorrect": "TextLoader → split_documents → FAISS.from_documents → as_retriever → LCEL 체인 순서로 구성합니다. ask()는 chain.invoke(question)을 호출합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_langchain_bot_p3_002",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "langchain_bot",
+    "phase": 3,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "대화 이력 + RAG를 결합한 멀티턴 챗봇 클래스를 구현하세요.\n\n```python\nclass RAGChatbot:\n    def __init__(self, retriever, llm):\n        # retriever, llm 저장\n        # chat_history = [] 초기화\n        # RAG + 대화이력 프롬프트 구성\n        ...\n\n    def chat(self, question: str) -> str:\n        # chat_history를 context로 포함해 RAG 체인 실행\n        # 질문과 답변을 chat_history에 추가\n        # 답변 반환\n        ...\n\n    def clear(self):\n        # chat_history 초기화\n        ...\n```",
+    "answer": "from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder\nfrom langchain_core.messages import HumanMessage, AIMessage\nfrom langchain_core.output_parsers import StrOutputParser\nfrom langchain_core.runnables import RunnablePassthrough\n\nclass RAGChatbot:\n    def __init__(self, retriever, llm):\n        self.retriever = retriever\n        self.llm = llm\n        self.chat_history = []\n\n        self.prompt = ChatPromptTemplate.from_messages([\n            ('system', '다음 context와 대화 이력을 참고해 답하세요.\\ncontext: {context}'),\n            MessagesPlaceholder(variable_name='chat_history'),\n            ('human', '{question}')\n        ])\n\n        def format_docs(docs):\n            return '\\n\\n'.join(doc.page_content for doc in docs)\n\n        self.chain = (\n            {'context': self.retriever | format_docs,\n             'chat_history': lambda _: self.chat_history,\n             'question': RunnablePassthrough()}\n            | self.prompt\n            | self.llm\n            | StrOutputParser()\n        )\n\n    def chat(self, question: str) -> str:\n        answer = self.chain.invoke(question)\n        self.chat_history.append(HumanMessage(content=question))\n        self.chat_history.append(AIMessage(content=answer))\n        return answer\n\n    def clear(self):\n        self.chat_history = []",
+    "feedback": {
+      "correct": "완벽합니다! MessagesPlaceholder, HumanMessage/AIMessage, RAG + 대화이력 결합 LCEL 체인, chat/clear 메서드가 모두 정확합니다.",
+      "incorrect": "MessagesPlaceholder로 chat_history를 프롬프트에 삽입하고, chat()에서 HumanMessage/AIMessage를 추가합니다. context는 retriever | format_docs로 구성합니다."
+    }
+  },
+  {
+    "question_id": "endboss_adv_langchain_bot_p3_003",
+    "quiz_category": "final_boss",
+    "is_boss": true,
+    "project": "langchain_bot",
+    "phase": 3,
+    "stage": "final",
+    "unit": 9,
+    "course_level": "advanced",
+    "difficulty": "hard",
+    "type": "code_input",
+    "question": "여러 문서 소스를 합쳐 검색하는 `build_ensemble_retriever` 함수를 구현하세요.\n\n```python\n- 파라미터: `docs_list` (list[list[Document]]), `embeddings`, `weights` (list[float], 기본값 None)\n- 각 docs 리스트로 개별 FAISS 벡터스토어 생성 → 각각 retriever로 변환\n- `EnsembleRetriever(retrievers=[...], weights=[...])` 로 앙상블 구성\n- weights가 None이면 균등 가중치 (1/n씩) 자동 계산\n- 반환: `EnsembleRetriever` 객체\n```",
+    "answer": "from langchain_community.vectorstores import FAISS\nfrom langchain.retrievers import EnsembleRetriever\n\ndef build_ensemble_retriever(docs_list: list, embeddings, weights=None):\n    retrievers = []\n    for docs in docs_list:\n        vectorstore = FAISS.from_documents(docs, embeddings)\n        retriever = vectorstore.as_retriever(search_kwargs={'k': 3})\n        retrievers.append(retriever)\n\n    if weights is None:\n        n = len(retrievers)\n        weights = [1.0 / n] * n\n\n    return EnsembleRetriever(retrievers=retrievers, weights=weights)",
+    "feedback": {
+      "correct": "완벽합니다! 각 docs로 FAISS 생성 → retriever 변환 → EnsembleRetriever 조합, 균등 가중치 자동 계산까지 정확합니다.",
+      "incorrect": "각 docs 리스트로 FAISS.from_documents() → as_retriever()를 만들고, EnsembleRetriever(retrievers=[], weights=[])로 앙상블을 구성합니다. weights가 None이면 1/n으로 균등 분배합니다."
+    }
+  }
+]
