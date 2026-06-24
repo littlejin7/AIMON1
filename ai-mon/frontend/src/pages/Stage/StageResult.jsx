@@ -108,7 +108,7 @@ export default function StageResult({
                 navigate(`/stage/${lessonId}/${stageNum + 1}`)
                 resetStageState()
               } else {
-                navigate(`/stage/${lessonId}/boss`)
+                navigate(`/boss/${lessonId}`)
               }
             }}
           >
