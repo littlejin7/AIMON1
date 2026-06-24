@@ -21,8 +21,18 @@ function shuffleChoices(question) {
   const labels = ['A', 'B', 'C', 'D']
   const hasLetterPrefix = /^[A-D]\.\s/.test(question.choices?.[0] ?? '')
   if (hasLetterPrefix) {
-    const answerIndex = labels.indexOf(question.answer)
-    if (answerIndex === -1) return question
+    let answerIndex = labels.indexOf(question.answer)
+
+    // answer가 "A"/"B"가 아닌 텍스트(예: "p", "yth")로 저장된 경우:
+    // choices 텍스트 부분에서 answer와 일치하는 항목을 찾아 레이블로 변환
+    if (answerIndex === -1) {
+      const texts = question.choices.map(c => c.replace(/^[A-D]\.\s*/, ''))
+      const matchIdx = texts.findIndex(t => t === question.answer)
+      if (matchIdx === -1) return question  // 매칭 실패 → 원본 반환
+      question = { ...question, answer: labels[matchIdx] }
+      answerIndex = matchIdx
+    }
+
     const correctText = question.choices[answerIndex].replace(/^[A-D]\.\s*/, '')
     const texts = question.choices.map(c => c.replace(/^[A-D]\.\s*/, ''))
     const shuffled = [...texts].sort(() => Math.random() - 0.5)
