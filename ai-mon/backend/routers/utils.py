@@ -4,12 +4,29 @@ import json
 import os
 import time
 import tempfile
+import contextvars
+import copy
 from contextlib import contextmanager
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 from fastapi import Request
 from supabase import create_client
 from dotenv import load_dotenv
+
+_user_read_state = contextvars.ContextVar("_user_read_state", default=None)
+
+def _cache_original_user(user: dict | None) -> dict | None:
+    if user:
+        try:
+            cache = _user_read_state.get()
+        except LookupError:
+            cache = {}
+            _user_read_state.set(cache)
+        if cache is None:
+            cache = {}
+            _user_read_state.set(cache)
+        cache[user["id"]] = copy.deepcopy(user)
+    return user
 
 load_dotenv(os.path.join(os.path.dirname(__file__), "../../.env"))
 
@@ -136,30 +153,30 @@ def get_user_by_id(user_id: str) -> dict | None:
     if USE_SUPABASE:
         res = supabase.table("users").select("*").eq("id", user_id).execute()
         if res.data:
-            return res.data[0]
+            return _cache_original_user(res.data[0])
         return None
     users = load_users()
-    return next((u for u in users if u["id"] == user_id), None)
+    return _cache_original_user(next((u for u in users if u["id"] == user_id), None))
 
 
 def get_user_by_username(username: str) -> dict | None:
     if USE_SUPABASE:
         res = supabase.table("users").select("*").eq("username", username).execute()
         if res.data:
-            return res.data[0]
+            return _cache_original_user(res.data[0])
         return None
     users = load_users()
-    return next((u for u in users if u["username"] == username), None)
+    return _cache_original_user(next((u for u in users if u["username"] == username), None))
 
 
 def get_user_by_email(email: str) -> dict | None:
     if USE_SUPABASE:
         res = supabase.table("users").select("*").eq("email", email).execute()
         if res.data:
-            return res.data[0]
+            return _cache_original_user(res.data[0])
         return None
     users = load_users()
-    return next((u for u in users if u.get("email") == email), None)
+    return _cache_original_user(next((u for u in users if u.get("email") == email), None))
 
 
 def save_users(users):
@@ -170,18 +187,130 @@ def save_users(users):
         _save_json_locked(USERS_FILE, users)
 
 
+def _merge_dicts(current: dict, original: dict, modified: dict) -> dict:
+    res = copy.deepcopy(current)
+    for k, v in modified.items():
+        if k not in original:
+            res[k] = copy.deepcopy(v)
+        elif original[k] != v:
+            if isinstance(v, (int, float)) and isinstance(original[k], (int, float)) and isinstance(current.get(k), (int, float)):
+                delta = v - original[k]
+                res[k] = current.get(k, 0) + delta
+            elif isinstance(v, dict) and isinstance(original[k], dict) and isinstance(current.get(k), dict):
+                res[k] = _merge_dicts(current.get(k, {}), original[k], v)
+            else:
+                res[k] = copy.deepcopy(v)
+    for k in list(original.keys()):
+        if k not in modified:
+            res.pop(k, None)
+    return res
+
+
 def save_user(user: dict):
+    user_id = user["id"]
+    try:
+        cache = _user_read_state.get()
+        original = cache.get(user_id) if cache else None
+    except LookupError:
+        original = None
+
     if USE_SUPABASE:
-        u_copy = user.copy()
-        supabase.table("users").upsert(u_copy).execute()
-    else:
-        users = load_users()
-        idx = next((i for i, u in enumerate(users) if u["id"] == user["id"]), None)
-        if idx is not None:
-            users[idx] = user
+        if original:
+            numeric_cols = {"xp", "crowns", "lv", "streak", "completed_stages", "boss_cleared", "daily_free_attempts", "ai_feedback_count"}
+            jsonb_cols = {"max_unlocked_unit", "completed_units", "awarded_crown_units", "earned_streak_milestones", "titles", "game_rewards", "seen_questions", "endboss_cleared_levels", "miniboss_cleared_stages"}
+            
+            numeric_deltas = {}
+            jsonb_merges = {}
+            other_updates = {}
+            has_changes = False
+            
+            for k, v in user.items():
+                if k == "id":
+                    continue
+                if k not in original:
+                    has_changes = True
+                    if k in numeric_cols:
+                        numeric_deltas[k] = v
+                    elif k in jsonb_cols:
+                        jsonb_merges[k] = v
+                    else:
+                        other_updates[k] = v
+                elif original[k] != v:
+                    has_changes = True
+                    if k in numeric_cols:
+                        numeric_deltas[k] = v - original[k]
+                    elif k in jsonb_cols:
+                        if isinstance(v, dict) and isinstance(original[k], dict):
+                            jsonb_merges[k] = v
+                        else:
+                            other_updates[k] = v
+                    else:
+                        other_updates[k] = v
+                        
+            for k in list(original.keys()):
+                if k not in user:
+                    has_changes = True
+                    other_updates[k] = None
+                    
+            if has_changes:
+                try:
+                    supabase.rpc("update_user_atomic", {
+                        "p_user_id": user_id,
+                        "p_numeric_deltas": numeric_deltas,
+                        "p_jsonb_merges": jsonb_merges,
+                        "p_other_updates": other_updates
+                    }).execute()
+                except Exception:
+                    u_copy = user.copy()
+                    supabase.table("users").upsert(u_copy).execute()
         else:
-            users.append(user)
-        _save_json_locked(USERS_FILE, users)
+            u_copy = user.copy()
+            supabase.table("users").upsert(u_copy).execute()
+    else:
+        with file_lock(USERS_FILE):
+            users = []
+            if os.path.exists(USERS_FILE):
+                try:
+                    with open(USERS_FILE, "r", encoding="utf-8") as f:
+                        users = json.load(f)
+                except Exception:
+                    users = []
+            
+            idx = next((i for i, u in enumerate(users) if u["id"] == user_id), None)
+            if idx is not None:
+                current_user = users[idx]
+                if original:
+                    for k, v in user.items():
+                        if k not in original:
+                            current_user[k] = copy.deepcopy(v)
+                        elif original[k] != v:
+                            if isinstance(v, (int, float)) and isinstance(original[k], (int, float)) and isinstance(current_user.get(k), (int, float)):
+                                delta = v - original[k]
+                                current_user[k] = current_user.get(k, 0) + delta
+                            elif isinstance(v, dict) and isinstance(original[k], dict) and isinstance(current_user.get(k), dict):
+                                current_user[k] = _merge_dicts(current_user.get(k, {}), original[k], v)
+                            else:
+                                current_user[k] = copy.deepcopy(v)
+                    for k in list(original.keys()):
+                        if k not in user:
+                            current_user.pop(k, None)
+                else:
+                    current_user.update(user)
+                users[idx] = current_user
+            else:
+                users.append(user)
+            
+            dir_name = os.path.dirname(USERS_FILE)
+            os.makedirs(dir_name, exist_ok=True)
+            temp_fd, temp_path = tempfile.mkstemp(dir=dir_name)
+            try:
+                with os.fdopen(temp_fd, "w", encoding="utf-8") as tmp:
+                    json.dump(users, tmp, ensure_ascii=False, indent=2)
+                os.replace(temp_path, USERS_FILE)
+            except Exception:
+                if os.path.exists(temp_path):
+                    os.remove(temp_path)
+                raise
 
 
 def load_progress():

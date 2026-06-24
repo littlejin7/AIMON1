@@ -200,6 +200,57 @@ create table wrong_answers (
 > ℹ️ 현재 `wrong_answers.json`은 0개 레코드. 마이그레이션 자체는 문제없으나,  
 > 라우터에서 저장 시 `course_level`을 실제로 넣고 있는지 Phase 3 검증 때 확인 필요.
 
+### 함수 1: update_user_atomic (원자적 유저 정보 업데이트 RPC)
+> 동시성 처리 중 Read-Modify-Write 경합에 따른 데이터 유실(Lost Update)을 방지하기 위한 DB 수준 RPC입니다.
+```sql
+create or replace function update_user_atomic(
+  p_user_id uuid,
+  p_numeric_deltas jsonb,
+  p_jsonb_merges jsonb,
+  p_other_updates jsonb
+) returns void as $$
+declare
+  v_key text;
+  v_val jsonb;
+  v_sql text;
+begin
+  v_sql := 'update users set ';
+  
+  -- 1. 카운터성 수치 컬럼 원자적 증가 (coalesce + delta)
+  for v_key, v_val in select * from jsonb_each(p_numeric_deltas) loop
+    v_sql := v_sql || quote_ident(v_key) || ' = coalesce(' || quote_ident(v_key) || ', 0) + ' || (v_val::text) || ', ';
+  end loop;
+  
+  -- 2. JSONB 컬럼 머지 (coalesce + merge ||)
+  for v_key, v_val in select * from jsonb_each(p_jsonb_merges) loop
+    v_sql := v_sql || quote_ident(v_key) || ' = coalesce(' || quote_ident(v_key) || ', ''{}''::jsonb) || ' || quote_literal(v_val::text) || '::jsonb, ';
+  end loop;
+  
+  -- 3. 기타 일반 필드 덮어쓰기
+  for v_key, v_val in select * from jsonb_each(p_other_updates) loop
+    v_sql := v_sql || quote_ident(v_key) || ' = ' || 
+      case jsonb_typeof(v_val)
+        when 'string' then quote_literal(v_val#>>'{}')
+        when 'boolean' then (v_val::text)
+        when 'null' then 'null'
+        else quote_literal(v_val::text) || '::jsonb'
+      end || ', ';
+  end loop;
+  
+  -- 트레일링 쉼표 제거
+  if right(v_sql, 2) = ', ' then
+    v_sql := left(v_sql, length(v_sql) - 2);
+  else
+    return;
+  end if;
+  
+  v_sql := v_sql || ' where id = ' || quote_literal(p_user_id::text) || '::uuid';
+  
+  execute v_sql;
+end;
+$$ language plpgsql;
+```
+
 ---
 
 ## PHASE 2 — 추상화 레이어 교체 (2~3일)
