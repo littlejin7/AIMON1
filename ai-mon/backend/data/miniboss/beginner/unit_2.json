@@ -1,0 +1,1384 @@
+{
+  "questions": [
+    {
+      "question_id": "miniboss_beg_os_2_1_001",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'python'\nprint(s[0])\n```",
+      "choices": [
+        "A. p",
+        "B. y",
+        "C. n",
+        "D. python"
+      ],
+      "answer": "p",
+      "feedback": {
+        "correct": "정답! 인덱스는 0부터 시작해요. s[0]은 'python'의 첫 번째 글자 'p'예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_1_002",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'hello'\nprint(s[-1])\n```",
+      "choices": [
+        "A. h",
+        "B. e",
+        "C. l",
+        "D. o"
+      ],
+      "answer": "o",
+      "feedback": {
+        "correct": "정답! s[-1]은 마지막 글자를 가져와요. 'hello'의 마지막 글자는 'o'예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_1_003",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'python'\nprint(s[1:4])\n```",
+      "choices": [
+        "A. pyt",
+        "B. yth",
+        "C. ytho",
+        "D. ython"
+      ],
+      "answer": "yth",
+      "feedback": {
+        "correct": "정답! s[1:4]는 인덱스 1, 2, 3번이에요. y(1), t(2), h(3) → 'yth'. 끝 번호(4)는 포함되지 않아요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_1_004",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'aimon'\nprint(s[:3])\n```",
+      "choices": [
+        "A. aim",
+        "B. mon",
+        "C. aimo",
+        "D. aimon"
+      ],
+      "answer": "aim",
+      "feedback": {
+        "correct": "정답! s[:3]은 처음부터 인덱스 2번까지예요. 'aimon'의 0, 1, 2번 → 'aim'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_1_005",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'coding'\nprint(s[3:])\n```",
+      "choices": [
+        "A. cod",
+        "B. ing",
+        "C. ding",
+        "D. odin"
+      ],
+      "answer": "ing",
+      "feedback": {
+        "correct": "정답! s[3:]은 인덱스 3번부터 끝까지예요. 'coding'에서 i(3), n(4), g(5) → 'ing'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_2_1_006",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "s = 'hello' 일 때, s[-2]의 값은?",
+      "choices": [
+        "A. h",
+        "B. e",
+        "C. l",
+        "D. o"
+      ],
+      "answer": "l",
+      "feedback": {
+        "correct": "정답! s[-2]는 뒤에서 두 번째 글자예요. 'hello'에서 o(-1), l(-2) → 'l'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_1_007",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'python'\nprint(s[::2])\n```",
+      "choices": [
+        "A. pto",
+        "B. yhn",
+        "C. pyt",
+        "D. hon"
+      ],
+      "answer": "pto",
+      "feedback": {
+        "correct": "정답! s[::2]는 0, 2, 4번 인덱스를 가져와요. 'python'에서 p(0), t(2), o(4) → 'pto'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_1_008",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'hello'\nprint(s[::-1])\n```",
+      "choices": [
+        "A. hello",
+        "B. olleh",
+        "C. hloe",
+        "D. olelh"
+      ],
+      "answer": "olleh",
+      "feedback": {
+        "correct": "정답! s[::-1]은 문자열을 거꾸로 뒤집어요. 'hello' → 'olleh'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_1_009",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'abcdef'\nprint(s[1:5:2])\n```",
+      "choices": [
+        "A. ace",
+        "B. bd",
+        "C. bc",
+        "D. bdf"
+      ],
+      "answer": "B",
+      "feedback": {
+        "correct": "정답! s[1:5:2]는 인덱스 1, 3번을 가져와요. 'abcdef'에서 b(1), d(3) → 'bd'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_1_010",
+      "unit": 2,
+      "stage": "2-1",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nword = 'aimon'\nprint(word[-3:-1])\n```",
+      "choices": [
+        "A. mo",
+        "B. on",
+        "C. im",
+        "D. mon"
+      ],
+      "answer": "mo",
+      "feedback": {
+        "correct": "정답! 'aimon'에서 -3=m, -2=o예요. word[-3:-1]은 m, o만 가져와 'mo'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_2_001",
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'hello'\nprint(s.upper())\n```",
+      "choices": [
+        "A. hello",
+        "B. HELLO",
+        "C. Hello",
+        "D. hELLO"
+      ],
+      "answer": "HELLO",
+      "feedback": {
+        "correct": "정답! .upper()는 문자열의 모든 글자를 대문자로 바꿔요. 'hello' → 'HELLO'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_2_002",
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = '  aimon  '\nprint(s.strip())\n```",
+      "choices": [
+        "A.   aimon",
+        "B. aimon",
+        "C. aimon",
+        "D.   aimon"
+      ],
+      "answer": "aimon",
+      "feedback": {
+        "correct": "정답! .strip()은 앞뒤 공백을 모두 제거해요. '  aimon  ' → 'aimon'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_2_003",
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'PYTHON'\nprint(s.lower())\n```",
+      "choices": [
+        "A. PYTHON",
+        "B. Python",
+        "C. python",
+        "D. pYTHON"
+      ],
+      "answer": "python",
+      "feedback": {
+        "correct": "정답! .lower()는 모든 글자를 소문자로 바꿔요. 'PYTHON' → 'python'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_2_004",
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'I love Python'\nprint(s.replace('Python', 'AI'))\n```",
+      "choices": [
+        "A. I love Python",
+        "B. I love AI",
+        "C. I AI Python",
+        "D. AI love Python"
+      ],
+      "answer": "I love AI",
+      "feedback": {
+        "correct": "정답! .replace(old, new)는 old를 모두 찾아 new로 바꿔요. 'Python' → 'AI'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_2_005",
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'Hello World'\nprint(s.replace('l', 'r'))\n```",
+      "choices": [
+        "A. Herro Worrd",
+        "B. Herlo World",
+        "C. Hello Worrd",
+        "D. Herro World"
+      ],
+      "answer": "Herro Worrd",
+      "feedback": {
+        "correct": "정답! .replace()는 일치하는 모든 부분을 바꿔요. 'Hello World'의 l 세 개가 모두 r로 → 'Herro Worrd'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_2_2_006",
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": ".upper()를 호출한 뒤 원본 변수 s의 값은?\n\n```python\ns = 'hello'\ns.upper()\nprint(s)\n```",
+      "choices": [
+        "A. HELLO",
+        "B. hello",
+        "C. Hello",
+        "D. 오류 발생"
+      ],
+      "answer": "hello",
+      "feedback": {
+        "correct": "정답! 문자열은 변경 불가(immutable)예요. s.upper()는 새 문자열을 반환할 뿐, 원본 s는 'hello' 그대로예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_2_007",
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = '  Hello World  '\nprint(s.strip().lower())\n```",
+      "choices": [
+        "A.   hello world",
+        "B. Hello World",
+        "C. hello world",
+        "D.   Hello World"
+      ],
+      "answer": "hello world",
+      "feedback": {
+        "correct": "정답! s.strip() → 'Hello World', .lower() → 'hello world'. 체이닝은 왼쪽 → 오른쪽 순서예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_2_008",
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = '  AIMON  '\nresult = s.strip().lower().replace('aimon', 'python')\nprint(result)\n```",
+      "choices": [
+        "A.   AIMON",
+        "B. aimon",
+        "C. python",
+        "D.   python"
+      ],
+      "answer": "python",
+      "feedback": {
+        "correct": "정답! strip() → 'AIMON', lower() → 'aimon', replace() → 'python'. 체이닝 세 단계 결과예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_2_009",
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'hello hello hello'\nprint(s.replace('hello', 'hi', 2))\n```",
+      "choices": [
+        "A. hi hi hi",
+        "B. hi hello hello",
+        "C. hi hi hello",
+        "D. hello hello hi"
+      ],
+      "answer": "hi hi hello",
+      "feedback": {
+        "correct": "정답! .replace(old, new, 2)는 앞에서부터 2번만 교체해요. 'hello hello hello' → 'hi hi hello'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_2_010",
+      "unit": 2,
+      "stage": "2-2",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nname = '  PyThOn  '\nprint(name.strip().upper().replace('PYTHON', 'AIMON'))\n```",
+      "choices": [
+        "A. AIMON",
+        "B. python",
+        "C. PyThOn",
+        "D.   AIMON"
+      ],
+      "answer": "AIMON",
+      "feedback": {
+        "correct": "정답! strip() → 'PyThOn', upper() → 'PYTHON', replace() → 'AIMON'. 세 메서드 체이닝 결과예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_3_001",
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'apple banana cherry'\nprint(s.split())\n```",
+      "choices": [
+        "A. apple banana cherry",
+        "B. ['apple', 'banana', 'cherry']",
+        "C. ('apple', 'banana', 'cherry')",
+        "D. apple, banana, cherry"
+      ],
+      "answer": "['apple', 'banana', 'cherry']",
+      "feedback": {
+        "correct": "정답! .split()은 공백 기준으로 나눠 리스트를 반환해요. 결과는 ['apple', 'banana', 'cherry']."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_3_002",
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'banana'\nprint(s.count('a'))\n```",
+      "choices": [
+        "A. 1",
+        "B. 2",
+        "C. 3",
+        "D. 0"
+      ],
+      "answer": "3",
+      "feedback": {
+        "correct": "정답! 'banana'에서 a는 2번째, 4번째, 6번째 자리에 있어요. .count('a') = 3."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_3_003",
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = '홍길동,20,서울'\nprint(s.split(','))\n```",
+      "choices": [
+        "A. ['홍길동', '20', '서울']",
+        "B. ['홍길동,20,서울']",
+        "C. 홍길동 20 서울",
+        "D. ['홍길동' '20' '서울']"
+      ],
+      "answer": "['홍길동', '20', '서울']",
+      "feedback": {
+        "correct": "정답! .split(',')은 콤마 기준으로 나눠요. '홍길동,20,서울' → ['홍길동', '20', '서울']."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_3_004",
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nwords = ['a', 'b', 'c']\nprint('-'.join(words))\n```",
+      "choices": [
+        "A. a b c",
+        "B. abc",
+        "C. a-b-c",
+        "D. ['a', 'b', 'c']"
+      ],
+      "answer": "a-b-c",
+      "feedback": {
+        "correct": "정답! '-'.join(words)는 리스트 요소를 '-'로 이어 붙여요. ['a', 'b', 'c'] → 'a-b-c'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_3_005",
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nemail = 'aimon@test.com'\nprint(email.find('@'))\n```",
+      "choices": [
+        "A. True",
+        "B. 4",
+        "C. 5",
+        "D. -1"
+      ],
+      "answer": "5",
+      "feedback": {
+        "correct": "정답! 'aimon@test.com'에서 @는 인덱스 5번이에요. .find('@') = 5."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_2_3_006",
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": ".find()가 찾는 문자가 없을 때 반환하는 값은?",
+      "choices": [
+        "A. 0",
+        "B. False",
+        "C. -1",
+        "D. 오류 발생"
+      ],
+      "answer": "-1",
+      "feedback": {
+        "correct": "정답! .find()는 찾는 문자가 없으면 -1을 반환해요. 오류가 발생하지 않는 게 특징이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_3_007",
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndata = 'kim,lee,park'\nnames = data.split(',')\nprint(' / '.join(names))\n```",
+      "choices": [
+        "A. kim,lee,park",
+        "B. kim / lee / park",
+        "C. ['kim', 'lee', 'park']",
+        "D. kim lee park"
+      ],
+      "answer": "kim / lee / park",
+      "feedback": {
+        "correct": "정답! split(',') → ['kim','lee','park'], ' / '.join() → 'kim / lee / park'. split과 join의 조합이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_3_008",
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'hello world hello'\nprint(s.count('hello'))\nprint(s.find('world'))\n```",
+      "choices": [
+        "A. 2 / 5",
+        "B. 2 / 6",
+        "C. 1 / 5",
+        "D. 2 / 4"
+      ],
+      "answer": "2 / 6",
+      "feedback": {
+        "correct": "정답! count('hello') = 2, find('world') = 6. 'hello world hello'에서 w는 인덱스 6번이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_3_009",
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nsentence = 'the quick brown fox'\nwords = sentence.split()\nprint(len(words))\nprint(words[-1])\n```",
+      "choices": [
+        "A. 4 / fox",
+        "B. 4 / the",
+        "C. 19 / fox",
+        "D. 3 / fox"
+      ],
+      "answer": "4 / fox",
+      "feedback": {
+        "correct": "정답! split() → ['the','quick','brown','fox'], len = 4, [-1] = 'fox'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_3_010",
+      "unit": 2,
+      "stage": "2-3",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'abcabc'\nprint(s.count('bc'))\nprint(s.find('bc'))\n```",
+      "choices": [
+        "A. 2 / 1",
+        "B. 1 / 1",
+        "C. 2 / 2",
+        "D. 2 / 0"
+      ],
+      "answer": "2 / 1",
+      "feedback": {
+        "correct": "정답! 'abcabc'에서 'bc'는 인덱스 1과 4에서 등장해요. count = 2, find = 1(첫 번째 위치)."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_4_001",
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\npi = 3.14159\nprint(f'{pi:.2f}')\n```",
+      "choices": [
+        "A. 3.14159",
+        "B. 3.14",
+        "C. 3.1",
+        "D. 3.142"
+      ],
+      "answer": "3.14",
+      "feedback": {
+        "correct": "정답! :.2f는 소수점 아래 2자리까지 출력하는 포맷이에요. 3.14159 → 3.14."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_4_002",
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nprice = 1234567\nprint(f'{price:,}원')\n```",
+      "choices": [
+        "A. 1234567원",
+        "B. 1,234,567원",
+        "C. 1.234.567원",
+        "D. 12,34,567원"
+      ],
+      "answer": "1,234,567원",
+      "feedback": {
+        "correct": "정답! :, 는 숫자를 천 단위마다 콤마로 구분해줘요. 1234567 → 1,234,567."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_4_003",
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nname = 'aimon'\nprint(f'{name.upper()} 시작!')\n```",
+      "choices": [
+        "A. aimon 시작!",
+        "B. AIMON 시작!",
+        "C. Aimon 시작!",
+        "D. name.upper() 시작!"
+      ],
+      "answer": "AIMON 시작!",
+      "feedback": {
+        "correct": "정답! f-string {} 안에서 메서드를 직접 호출할 수 있어요. 'aimon'.upper() → 'AIMON' → 'AIMON 시작!'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_4_004",
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nx = 5\nprint(f'{x * x}의 제곱근은 {x}입니다')\n```",
+      "choices": [
+        "A. x * x의 제곱근은 x입니다",
+        "B. 5 * 5의 제곱근은 5입니다",
+        "C. 25의 제곱근은 5입니다",
+        "D. 10의 제곱근은 5입니다"
+      ],
+      "answer": "25의 제곱근은 5입니다",
+      "feedback": {
+        "correct": "정답! f-string {} 안에 x * x 표현식을 넣으면 직접 계산돼요. 5 * 5 = 25 → '25의 제곱근은 5입니다'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_4_005",
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ntotal = 45000.5\nprint(f'합계: {total:,.1f}원')\n```",
+      "choices": [
+        "A. 합계: 45000.5원",
+        "B. 합계: 45,000.5원",
+        "C. 합계: 45,000.50원",
+        "D. 합계: 45.000.5원"
+      ],
+      "answer": "합계: 45,000.5원",
+      "feedback": {
+        "correct": "정답! :,.1f 는 두 포맷을 동시에 적용해요. :, 로 천 단위 콤마, .1f 로 소수점 1자리. 45000.5 → 45,000.5."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_2_4_006",
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "f-string에서 {} 안에 넣을 수 없는 것은?",
+      "choices": [
+        "A. 변수 이름",
+        "B. 사칙연산 (예: a + b)",
+        "C. 메서드 호출 (예: name.upper())",
+        "D. if/else 조건문 블록"
+      ],
+      "answer": "if/else 조건문 블록",
+      "feedback": {
+        "correct": "정답! f-string {} 안에는 값을 반환하는 표현식만 들어갈 수 있어요. if/else 블록처럼 실행되는 구문(statement)은 넣을 수 없어요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_4_007",
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는? (공백 개수에 주의하세요)\n\n```python\nscore = 98.6\nprint(f'[{score:8.1f}]')\n```",
+      "choices": [
+        "A. [98.6    ]",
+        "B. [    98.6]",
+        "C. [  98.6  ]",
+        "D. [98.60000]"
+      ],
+      "answer": "[    98.6]",
+      "feedback": {
+        "correct": "정답! :8.1f 에서 8은 전체 너비, .1f는 소수점 1자리예요. '98.6'(4자)을 8칸에 오른쪽 정렬 → [    98.6]."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_4_008",
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nx = 1234.5678\nx = x * 2\nprint(f'결과: {x:,.2f}')\n```",
+      "choices": [
+        "A. 결과: 2469.1356",
+        "B. 결과: 2,469.14",
+        "C. 결과: 2469.14",
+        "D. 결과: 2,469.1356"
+      ],
+      "answer": "결과: 2,469.14",
+      "feedback": {
+        "correct": "정답! x = 1234.5678 × 2 = 2469.1356이고, :,.2f 로 소수 2자리 반올림 + 천 단위 콤마 → 2,469.14."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_4_009",
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nitems = ['사과', '바나나', '딸기']\nprint(f'첫 번째 과일: {items[0].upper()}, 개수: {len(items)}')\n```",
+      "choices": [
+        "A. 첫 번째 과일: 사과, 개수: 3",
+        "B. 첫 번째 과일: 사과, 개수: items",
+        "C. 첫 번째 과일: 사과.upper(), 개수: 3",
+        "D. 첫 번째 과일: 사과, 개수: len(items)"
+      ],
+      "answer": "첫 번째 과일: 사과, 개수: 3",
+      "feedback": {
+        "correct": "정답! items[0] = '사과', 한국어는 upper()에 영향 없어요. len(items) = 3. 결과: '첫 번째 과일: 사과, 개수: 3'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_4_010",
+      "unit": 2,
+      "stage": "2-4",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndiscount = 0.15\noriginal = 20000\nfinal = original * (1 - discount)\nprint(f'원가: {original:,}원 → 할인가: {final:,.0f}원')\n```",
+      "choices": [
+        "A. 원가: 20000원 → 할인가: 17000원",
+        "B. 원가: 20,000원 → 할인가: 17,000원",
+        "C. 원가: 20,000원 → 할인가: 17000원",
+        "D. 원가: 20000원 → 할인가: 17,000원"
+      ],
+      "answer": "원가: 20,000원 → 할인가: 17,000원",
+      "feedback": {
+        "correct": "정답! original :, → 20,000. final = 17000.0, :,.0f → 17,000. 두 포맷이 모두 적용된 결과예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_5_001",
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'ha'\nprint(s * 3)\n```",
+      "choices": [
+        "A. ha 3",
+        "B. ha ha ha",
+        "C. hahaha",
+        "D. hahaHA"
+      ],
+      "answer": "hahaha",
+      "feedback": {
+        "correct": "정답! 문자열 * 숫자는 해당 문자열을 반복해요. 'ha' * 3 → 'hahaha'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_5_002",
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'Python'\nprint(len(s))\n```",
+      "choices": [
+        "A. 5",
+        "B. 6",
+        "C. 7",
+        "D. 4"
+      ],
+      "answer": "6",
+      "feedback": {
+        "correct": "정답! 'Python'은 6글자예요. len('Python') = 6."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_5_003",
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nsentence = 'hello world'\nprint(len(sentence))\n```",
+      "choices": [
+        "A. 10",
+        "B. 11",
+        "C. 2",
+        "D. 9"
+      ],
+      "answer": "11",
+      "feedback": {
+        "correct": "정답! 공백도 1글자로 계산돼요. 'hello world' = 11글자."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_5_004",
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nword = 'aimon'\nprint('ai' in word)\n```",
+      "choices": [
+        "A. True",
+        "B. False",
+        "C. 1",
+        "D. ai"
+      ],
+      "answer": "True",
+      "feedback": {
+        "correct": "정답! 'ai' in 'aimon'은 포함 여부를 검사해요. 'aimon'에 'ai'가 있으므로 True."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_5_005",
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nprint('Java' in 'I love Python')\n```",
+      "choices": [
+        "A. True",
+        "B. False",
+        "C. 0",
+        "D. -1"
+      ],
+      "answer": "False",
+      "feedback": {
+        "correct": "정답! 'I love Python'에 'Java'는 없어요. in 연산자는 포함되지 않으면 False를 반환해요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_mc_2_5_006",
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 중 출력 결과가 나머지 셋과 다른 것은?",
+      "choices": [
+        "A. print('-' * 5)",
+        "B. print('-----')",
+        "C. print('-' + '-' + '-' + '-' + '-')",
+        "D. print('-' * 4)"
+      ],
+      "answer": "print('-' * 4)",
+      "feedback": {
+        "correct": "정답! A, B, C는 모두 '-'가 5개인 '-----'를 출력해요. D만 '-' * 4 = '----'(4개)로 달라요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_5_007",
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nname = 'aimon'\nprint('*' * len(name))\n```",
+      "choices": [
+        "A. aimon",
+        "B. *****",
+        "C. * * * * *",
+        "D. *5"
+      ],
+      "answer": "*****",
+      "feedback": {
+        "correct": "정답! len('aimon') = 5이고, '*' * 5 = '*****'. len()과 * 연산자의 조합이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_5_008",
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'hello'\nprint('e' in s and 'z' not in s)\n```",
+      "choices": [
+        "A. True",
+        "B. False",
+        "C. True False",
+        "D. 오류 발생"
+      ],
+      "answer": "True",
+      "feedback": {
+        "correct": "정답! 'e' in 'hello' = True, 'z' not in 'hello' = True. True and True = True."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_5_009",
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nword = 'code'\nresult = word * 2 + '!'\nprint(len(result))\n```",
+      "choices": [
+        "A. 5",
+        "B. 8",
+        "C. 9",
+        "D. 10"
+      ],
+      "answer": "9",
+      "feedback": {
+        "correct": "정답! 'code' * 2 = 'codecode'(8자), + '!' = 'codecode!'(9자). len() = 9."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_5_010",
+      "unit": 2,
+      "stage": "2-5",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\npassword = 'aimon2024'\nprint(len(password) >= 8)\nprint('2024' in password)\n```",
+      "choices": [
+        "A. True / True",
+        "B. False / True",
+        "C. True / False",
+        "D. False / False"
+      ],
+      "answer": "True / True",
+      "feedback": {
+        "correct": "정답! len('aimon2024') = 9, 9 >= 8 → True. '2024'는 'aimon2024'에 포함 → True."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_6_001",
+      "unit": 2,
+      "stage": "2-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = '  hello  '\nprint(s.strip().upper())\n```",
+      "choices": [
+        "A.   HELLO",
+        "B. HELLO",
+        "C. hello",
+        "D.   hello"
+      ],
+      "answer": "HELLO",
+      "feedback": {
+        "correct": "정답! strip() → 'hello', upper() → 'HELLO'. 체이닝은 왼쪽에서 오른쪽 순서예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_6_002",
+      "unit": 2,
+      "stage": "2-6",
+      "course_level": "beginner",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nname = 'aimon'\nprint(f'이름: {name}, 길이: {len(name)}')\n```",
+      "choices": [
+        "A. 이름: aimon, 길이: len(name)",
+        "B. 이름: name, 길이: 5",
+        "C. 이름: aimon, 길이: 5",
+        "D. 이름: aimon, 길이: 6"
+      ],
+      "answer": "이름: aimon, 길이: 5",
+      "feedback": {
+        "correct": "정답! {name} → 'aimon', {len(name)} → 5. 결과: '이름: aimon, 길이: 5'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_6_003",
+      "unit": 2,
+      "stage": "2-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nuser = '  AIMON  '\nclean = user.strip().lower()\nprint(clean == 'aimon')\n```",
+      "choices": [
+        "A. True",
+        "B. False",
+        "C. aimon",
+        "D. AIMON"
+      ],
+      "answer": "True",
+      "feedback": {
+        "correct": "정답! strip() → 'AIMON', lower() → 'aimon'. 'aimon' == 'aimon' → True. 입력값 정제 후 비교하는 실전 패턴이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_6_004",
+      "unit": 2,
+      "stage": "2-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nrow = 'alice,85,pass'\nfields = row.split(',')\nprint(fields[1])\n```",
+      "choices": [
+        "A. alice",
+        "B. 85",
+        "C. pass",
+        "D. ['alice', '85', 'pass']"
+      ],
+      "answer": "85",
+      "feedback": {
+        "correct": "정답! split(',') → ['alice', '85', 'pass']. [1] = '85'. CSV 파싱의 기본 패턴이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_6_005",
+      "unit": 2,
+      "stage": "2-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\nemail = 'aimon@test.com'\nprint('@' in email and '.' in email)\n```",
+      "choices": [
+        "A. True",
+        "B. False",
+        "C. @ .",
+        "D. True True"
+      ],
+      "answer": "True",
+      "feedback": {
+        "correct": "정답! 두 조건 모두 True이므로 True and True = True. 이메일 유효성 간단 검사 패턴이에요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_6_006",
+      "unit": 2,
+      "stage": "2-6",
+      "course_level": "beginner",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ntitle = 'Python'\nprint('=' * len(title))\nprint(title)\nprint('=' * len(title))\n```",
+      "choices": [
+        "A. Python / ====== / Python",
+        "B. ====== / Python / ======",
+        "C. Python / Python / Python",
+        "D. ====== / ====== / ======"
+      ],
+      "answer": "====== / Python / ======",
+      "feedback": {
+        "correct": "정답! len('Python') = 6, '=' * 6 = '======'. 출력 순서: '======', 'Python', '======'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_6_007",
+      "unit": 2,
+      "stage": "2-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ncsv = 'kim,lee,park,choi'\nnames = csv.split(',')\nprint(len(names))\nprint(' & '.join(names[-2:]))\n```",
+      "choices": [
+        "A. 4 / park & choi",
+        "B. 3 / lee & park",
+        "C. 4 / kim & lee",
+        "D. 4 / kim & choi"
+      ],
+      "answer": "4 / park & choi",
+      "feedback": {
+        "correct": "정답! split → 4개 리스트, [-2:] → ['park','choi'], ' & '.join() → 'park & choi'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_6_008",
+      "unit": 2,
+      "stage": "2-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'hello world'\nresult = s.replace(' ', '-').upper()\nprint(result)\n```",
+      "choices": [
+        "A. HELLO WORLD",
+        "B. hello-world",
+        "C. HELLO-WORLD",
+        "D. Hello-World"
+      ],
+      "answer": "HELLO-WORLD",
+      "feedback": {
+        "correct": "정답! replace(' ', '-') → 'hello-world', upper() → 'HELLO-WORLD'. 체이닝 결과예요."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_6_009",
+      "unit": 2,
+      "stage": "2-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndata = 'apple,BANANA,cherry'\nitems = data.split(',')\ncleaned = [items[0].upper(), items[1].lower(), items[2].upper()]\nprint(','.join(cleaned))\n```",
+      "choices": [
+        "A. apple,BANANA,cherry",
+        "B. APPLE,banana,CHERRY",
+        "C. apple,banana,cherry",
+        "D. APPLE,BANANA,CHERRY"
+      ],
+      "answer": "APPLE,banana,CHERRY",
+      "feedback": {
+        "correct": "정답! upper/lower 적용 후 join. ['APPLE','banana','CHERRY'] → 'APPLE,banana,CHERRY'."
+      }
+    },
+    {
+      "question_id": "miniboss_beg_os_2_6_010",
+      "unit": 2,
+      "stage": "2-6",
+      "course_level": "beginner",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "miniboss",
+      "is_boss": true,
+      "villain": "codemmon",
+      "pass_score": 70,
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = 'aimon'\nprint(f'{s.upper()[:3]}{\"!\" * len(s)}')\n```",
+      "choices": [
+        "A. AIM!!!!!",
+        "B. aim!!!!!",
+        "C. AIM!!!!",
+        "D. AIMON!!!!!"
+      ],
+      "answer": "AIM!!!!!",
+      "feedback": {
+        "correct": "정답! s.upper()[:3] = 'AIM', '!' * len('aimon') = '!!!!!'. f-string으로 합치면 'AIM!!!!!'."
+      }
+    }
+  ]
+}
