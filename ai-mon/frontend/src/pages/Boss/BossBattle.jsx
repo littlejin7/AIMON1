@@ -1,43 +1,24 @@
-import { useRef, useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import bossQnaIcon    from '../../assets/boss_finalqna.png'
+import { useState, useEffect } from 'react'
+import bossQnaIcon   from '../../assets/boss_finalqna.png'
 import charSlimeIcon  from '../../assets/character_slime.png'
 import charRobotIcon  from '../../assets/character_robot.png'
 import charBubbleIcon from '../../assets/character_bubble.png'
 import charGhostIcon  from '../../assets/character_final_ghost.png'
 import { bossApi } from '../../api/index'
 
-function parseQuestionCode(raw) {
-  const match = raw.match(/^([\s\S]*?)```(?:python)?\n([\s\S]*?)```([\s\S]*)$/m)
-  if (!match) return { questionText: raw.trim(), codeLines: null }
-  const before = match[1].trim()
-  const after  = match[3].trim()
-  const code   = match[2].trimEnd()
-  const questionText = [before, after].filter(Boolean).join('\n').trim()
-  return { questionText, codeLines: code.split('\n') }
+function parseQuestionText(raw) {
+  const match = raw.match(/^([\s\S]*?)```(?:\w+)?\n([\s\S]*?)```([\s\S]*)$/)
+  if (!match) return { text: raw.trim(), code: null, after: '' }
+  return { text: match[1].trim(), code: match[2].trimEnd(), after: match[3].trim() }
 }
 
-function QTerminal({ lines }) {
-  return (
-    <div className="mb-q-terminal">
-      <div className="mb-q-code">
-        {lines.map((line, i) => (
-          <div key={i} style={{ color: line.trim().startsWith('#') ? '#4C4465' : '#D0ACFF' }}>
-            {line}
-          </div>
-        ))}
-      </div>
-    </div>
-  )
+const TYPE_BADGE = {
+  output_select:   { label: '💻 출력 선택',   bg: '#E0F2FE', color: '#0369A1' },
+  multiple_choice: { label: '📋 객관식',       bg: '#EEEDFE', color: '#534AB7' },
+  error_find:      { label: '🐛 오류 찾기',    bg: '#FFF5F5', color: '#DC2626' },
+  fill_in_blank:   { label: '✏️ 빈칸 채우기', bg: '#F0FFF4', color: '#166534' },
+  code_input:      { label: '⌨️ 코드 작성',   bg: '#F0EFFE', color: '#6D28D9' },
 }
-
-const BOSS_TAUNTS = [
-  '"엉뚱한 코드로 널 괴롭혀주지!"',
-  '"Python 기초도 모르면 통과 불가야!"',
-  '"빈칸을 채워야 살아남는다!"',
-  '"직접 코드를 짜봐! 어디 한번 해봐!"',
-  '"제법이군... 하지만 아직 멀었다! 💥"',
-]
 
 export default function BossBattle({
   bossData,
@@ -62,11 +43,9 @@ export default function BossBattle({
   onNextQuestion,
   onEscape,
 }) {
-  const quizCardRef = useRef(null)
-  const [usedHints, setUsedHints] = useState(0)
-  const [currentHint, setCurrentHint] = useState('')
-  const [hintLoading, setHintLoading] = useState(false)
-  const [tauntIdx] = useState(() => Math.floor(Math.random() * BOSS_TAUNTS.length))
+  const [usedHints,    setUsedHints]    = useState(0)
+  const [currentHint,  setCurrentHint]  = useState('')
+  const [hintLoading,  setHintLoading]  = useState(false)
 
   useEffect(() => {
     setUsedHints(0)
@@ -94,218 +73,238 @@ export default function BossBattle({
   const BOSS_HP_MAX = 1000
   const MY_HP_MAX   = 1000
 
+  const bossPct = Math.max(0, (bossHp / BOSS_HP_MAX) * 100)
+  const myHpPct = Math.max(0, (myHp  / MY_HP_MAX)   * 100)
+
   const characterIcon =
-    user?.character === 'robot'        ? charRobotIcon  :
-    user?.character === 'speech_bubble'? charBubbleIcon :
-    user?.character === 'final_ghost'  ? charGhostIcon  :
+    user?.character === 'robot'         ? charRobotIcon  :
+    user?.character === 'speech_bubble' ? charBubbleIcon :
+    user?.character === 'final_ghost'   ? charGhostIcon  :
     charSlimeIcon
+
+  const parsed = parseQuestionText(currentQuestion.question)
+  const badge  = TYPE_BADGE[currentQuestion.type] ?? TYPE_BADGE.multiple_choice
 
   const isCodeType = currentQuestion.type === 'code_input'
   const isFibType  = currentQuestion.type === 'fill_in_blank'
-  const { questionText, codeLines } = parseQuestionCode(currentQuestion.question)
+  const hasChoice  = !isCodeType && !isFibType && currentQuestion.choices?.length > 0
 
-  const bossScale  = 0.7 + 0.3 * Math.max(0, bossHp / BOSS_HP_MAX)
-  const bossHpPct  = Math.max(0, (bossHp / BOSS_HP_MAX) * 100)
-  const myHpPct    = Math.max(0, (myHp / MY_HP_MAX) * 100)
-  const progressPct = Math.round(100 - bossHpPct)
+  const bossHpGrad = bossPct > 50
+    ? 'linear-gradient(90deg,#FF6B6B,#FF4444)'
+    : bossPct > 25
+      ? 'linear-gradient(90deg,#FF9E2C,#FF6B6B)'
+      : 'linear-gradient(90deg,#FF4444,#CC0000)'
 
-  const levelLabel = (user?.lv || 1) <= 3 ? '초급' : (user?.lv || 1) <= 6 ? '중급' : '고급'
+  const hintLeft = 2 - usedHints
 
   return (
-    <div className="mb-page">
+    <div className="eb-b-wrap">
 
+      {/* ── 전투 배경 ── */}
+      <div className="eb-b-bg">
+        <div className="eb-b-ground-top" />
+        <div className="eb-b-ground-bot" />
 
-      {/* ── 진행도 스트립 ── */}
-      <div className="mb-prog-strip">
-        <span className="mb-prog-lbl">진행도</span>
-        <div className="mb-prog-track">
-          <div className="mb-prog-fill" style={{ width: `${progressPct}%` }} />
+        {/* 보스 HP 박스 */}
+        <div className="eb-b-boss-hpbox">
+          <div className="eb-b-hp-name">😈 {bossData?.boss_name || '유닛 보스'}</div>
+          <div className="eb-b-hp-sub">{bossData?.unit_topic || 'Python'}</div>
+          <div className="eb-b-hp-bar-wrap">
+            <span className="eb-b-hp-label">HP</span>
+            <div className="eb-b-hp-track">
+              <div className="eb-b-hp-fill" style={{ width: `${bossPct}%`, background: bossHpGrad }} />
+            </div>
+          </div>
+          <div className="eb-b-hp-nums">{bossHp} / {BOSS_HP_MAX}</div>
         </div>
-        <span className="mb-prog-cnt">오답 {wrongCount} / 3</span>
+
+        {/* 플레이어 HP 박스 */}
+        <div className={`eb-b-player-hpbox${myShake ? ' shake' : ''}`}>
+          <div className="eb-b-hp-name">
+            내 에이몬
+            {wrongCount > 0 && (
+              <span style={{ fontSize: '9px', color: '#EF4444', marginLeft: '5px', fontWeight: 400 }}>
+                오답 {wrongCount}/3
+              </span>
+            )}
+          </div>
+          <div className="eb-b-hp-bar-wrap">
+            <span className="eb-b-hp-label">HP</span>
+            <div className="eb-b-hp-track">
+              <div className="eb-b-hp-fill player" style={{ width: `${myHpPct}%` }} />
+            </div>
+          </div>
+          <div className="eb-b-hp-nums">{myHp} / {MY_HP_MAX}</div>
+        </div>
+
+        {/* 보스 이미지 */}
+        <img
+          className={`eb-b-boss-img${bossShake ? ' shake' : ''}${bossHit ? ' hit' : ''}`}
+          src={bossQnaIcon}
+          alt="보스"
+        />
+
+        {/* 플레이어 캐릭터 */}
+        <img
+          className={`eb-b-player-img${attackAnim ? ' atk' : ''}`}
+          src={characterIcon}
+          alt="내 캐릭터"
+        />
+
+        {/* 데미지 팝업 */}
+        {dmgPopup && <div className="eb-b-dmg-popup">-{dmgPopup}</div>}
       </div>
 
-      {/* ── 본문 ── */}
-      <div className="mb-content">
+      {/* ── 퀴즈 패널 ── */}
+      <div className="eb-b-quiz-wrap">
 
-        {/* 보스 영역 */}
-        <div className={`mb-boss-area ${bossShake ? 'boss-shake' : ''}`}>
-          <div style={{ position: 'relative', display: 'inline-block' }}>
-            <img
-              src={bossQnaIcon}
-              alt="보스"
-              className={bossHit ? 'boss-hit' : ''}
-              style={{
-                width: 120,
-                height: 120,
-                objectFit: 'contain',
-                transform: `scale(${bossScale})`,
-                transition: 'transform 0.6s ease',
-                transformOrigin: 'center bottom',
-                display: 'block',
-                filter: 'drop-shadow(0 4px 16px rgba(83,74,183,0.3))',
-              }}
-            />
-            {dmgPopup && <div className="dmg-popup">-{dmgPopup}</div>}
-          </div>
-          <div className="mb-speech">{BOSS_TAUNTS[tauntIdx]}</div>
+        {/* 유형 뱃지 + 힌트 + 문제 번호 */}
+        <div className="eb-b-topbar">
+          <span
+            className="eb-b-badge"
+            style={{ background: badge.bg, color: badge.color }}
+          >
+            {badge.label}
+          </span>
+          {/* 힌트 필 (유닛보스 전용) */}
+          <span
+            className={`eb-b-hint-pill${hintLeft === 0 ? ' used' : ''}`}
+            onClick={() => !loading && hintLeft > 0 && !aiResult && handleGetHint()}
+          >
+            {hintLoading ? '생성 중...' : `💡 힌트 ${hintLeft}회`}
+          </span>
         </div>
 
-        {/* HP 바 */}
-        <div className="mb-hp-row">
-          <div className="mb-hp-item">
-            <div className="mb-hp-header">
-              <img
-                src={characterIcon}
-                alt="나"
-                className={myShake ? 'my-shake' : ''}
-                style={{ width: 14, height: 14, objectFit: 'contain' }}
+        {/* 문제 카드 */}
+        <div className="eb-b-qcard">
+          {parsed.text && <div className="eb-b-qtext">{parsed.text}</div>}
+          {parsed.code && (
+            <div className="eb-b-terminal">
+              <pre className="eb-b-code">{parsed.code}</pre>
+            </div>
+          )}
+          {parsed.after && (
+            <div className="eb-b-qtext" style={{ marginTop: '6px' }}>{parsed.after}</div>
+          )}
+
+          {/* 객관식 / 출력선택 / 오류찾기 */}
+          {hasChoice && (
+            <div className="eb-b-radio-opts">
+              {currentQuestion.choices.map((opt, idx) => {
+                const key = opt.substring(0, 1)
+                return (
+                  <div
+                    key={idx}
+                    className={`eb-b-ropt${selectedOption === key ? ' sel' : ''}`}
+                    onClick={() => !aiResult && setSelectedOption(key)}
+                  >
+                    <div className="eb-b-rcircle">{key}</div>
+                    <span className="eb-b-rtext">{opt.substring(3)}</span>
+                  </div>
+                )
+              })}
+            </div>
+          )}
+
+          {/* 빈칸 채우기 */}
+          {isFibType && (
+            <div className="eb-b-fib-row">
+              <span className="eb-b-fib-lbl">답</span>
+              <input
+                className="eb-b-fib-in"
+                type="text"
+                value={answerInput}
+                onChange={e => setAnswerInput(e.target.value)}
+                placeholder="정답 입력..."
+                onKeyDown={e => { if (e.key === 'Enter' && answerInput.trim() && !aiResult) onSubmit() }}
               />
-              <span>내 에이몬</span>
-              <span className="mb-hp-num">{myHp}/{MY_HP_MAX}</span>
             </div>
-            <div className="mb-hp-track">
-              <div className="mb-hp-fill-green" style={{ width: `${myHpPct}%` }} />
+          )}
+
+          {/* 코드 작성 */}
+          {isCodeType && (
+            <div className="eb-b-editor">
+              <div className="eb-b-edlbl"># 코드를 작성하세요</div>
+              <textarea
+                className="eb-b-edta"
+                rows={5}
+                value={answerInput}
+                onChange={e => setAnswerInput(e.target.value)}
+                placeholder="여기에 코드 작성..."
+              />
             </div>
-          </div>
-          <div className="mb-hp-item">
-            <div className="mb-hp-header">
-              <span>😈 {bossData?.boss_name || '보스'}</span>
-              <span className="mb-hp-num">{bossHp}/{BOSS_HP_MAX}</span>
+          )}
+
+          {/* 힌트 박스 */}
+          {currentHint && !aiResult && (
+            <div className="eb-b-hint-box">
+              <span className="eb-b-hint-title">💡 에이몬의 힌트</span>
+              <span className="eb-b-hint-body">{currentHint}</span>
             </div>
-            <div className="mb-hp-track">
-              <div className="mb-hp-fill-red" style={{ width: `${bossHpPct}%` }} />
-            </div>
-          </div>
-        </div>
-
-        {/* 퀴즈 카드 */}
-        <div ref={quizCardRef} className={`mb-qcard quiz-attack-wrap ${attackAnim ? 'attack-fly' : ''}`}>
-
-          <div className="mb-qtitle">
-            <div className="mb-qmark">❓</div>
-            <div className="mb-qtext" style={{ whiteSpace: 'pre-line' }}>{questionText}</div>
-          </div>
-
-          {codeLines && <QTerminal lines={codeLines} />}
-
-          {/* AI 채점 결과 */}
-          {aiResult ? (
-            aiResult.is_correct ? (
-              <div className="mb-result-correct">
-                <div>🎉 정답! 보스에게 데미지를 입혔습니다!</div>
-                {!aiResult.is_clear && (
-                  <button className="mb-subbtn" style={{ marginTop: 12 }} onClick={onNextQuestion}>
-                    다음 문제 도전 ➔
-                  </button>
-                )}
-              </div>
-            ) : (
-              <div className="mb-result-wrong">
-                <div className="mb-result-wrong-header">
-                  <span>🤖</span>
-                  <span>Claude AI 분석</span>
-                </div>
-                <p style={{ color: '#26215C', lineHeight: 1.5, fontSize: '0.88rem', margin: 0 }}>
-                  {aiResult.feedback}
-                </p>
-                {aiResult.hint && (
-                  <div className="mb-hint-box">
-                    <span style={{ color: '#534AB7', fontWeight: 600, fontSize: '0.8rem', display: 'block', marginBottom: 2 }}>💡 힌트</span>
-                    <span style={{ color: '#555', fontSize: '0.85rem' }}>{aiResult.hint}</span>
-                  </div>
-                )}
-                <button className="mb-subbtn" style={{ marginTop: 4 }} onClick={onNextQuestion}>
-                  {myHp <= 0 || wrongCount >= 3 ? '결과 보기 (패배) ➔' : '다음 문제 도전 ➔'}
-                </button>
-              </div>
-            )
-          ) : (
-            <>
-              {/* 객관식 */}
-              {!isCodeType && !isFibType && currentQuestion.choices && (
-                <div className="mb-radio-opts">
-                  {currentQuestion.choices.map((opt, idx) => {
-                    const optionKey = opt.substring(0, 1)
-                    return (
-                      <div
-                        key={idx}
-                        className={`mb-ropt${selectedOption === optionKey ? ' sel' : ''}`}
-                        onClick={() => setSelectedOption(optionKey)}
-                      >
-                        <div className="mb-rcircle" />
-                        <span className="mb-rtext">{opt}</span>
-                      </div>
-                    )
-                  })}
-                </div>
-              )}
-
-              {/* 빈칸 채우기 */}
-              {isFibType && (
-                <div className="mb-fib-row">
-                  <span className="mb-fib-l">답</span>
-                  <input
-                    className="mb-fib-in"
-                    type="text"
-                    value={answerInput}
-                    onChange={(e) => setAnswerInput(e.target.value)}
-                    placeholder="정답을 입력하세요..."
-                    onKeyDown={(e) => e.key === 'Enter' && onSubmit()}
-                  />
-                </div>
-              )}
-
-              {/* 코드 입력 */}
-              {isCodeType && (
-                <div className="mb-e-terminal">
-                  <div className="mb-e-top">
-                    <span className="mb-e-lbl"># 코드를 작성하세요</span>
-                  </div>
-                  <textarea
-                    className="mb-e-in"
-                    rows={4}
-                    value={answerInput}
-                    onChange={(e) => setAnswerInput(e.target.value)}
-                    placeholder={'for i in range(1, 6):\n    ...'}
-                  />
-                  <div className="mb-e-divider" />
-                  <div className="mb-e-out">실행 결과가 여기 표시됩니다</div>
-                </div>
-              )}
-
-              {/* 힌트 표시 */}
-              {currentHint && (
-                <div className="mb-hint-box">
-                  <span style={{ color: '#534AB7', fontWeight: 'bold', display: 'block', marginBottom: 4, fontSize: '0.85rem' }}>
-                    💡 에이몬의 힌트
-                  </span>
-                  <span style={{ color: '#26215C', fontSize: '0.85rem', lineHeight: 1.5 }}>{currentHint}</span>
-                </div>
-              )}
-
-              {/* 버튼 */}
-              <div style={{ display: 'flex', gap: 8 }}>
-                <button
-                  className="mb-hint-btn"
-                  onClick={handleGetHint}
-                  disabled={usedHints >= 2 || hintLoading || loading}
-                >
-                  {hintLoading ? '생성 중...' : `💡 힌트 (${2 - usedHints}회)`}
-                </button>
-                <button
-                  className="mb-subbtn"
-                  style={{ flex: 2 }}
-                  onClick={onSubmit}
-                  disabled={(!selectedOption && !answerInput.trim()) || loading}
-                >
-                  {loading ? '채점 중...' : '✓ 공격하기'}
-                </button>
-              </div>
-            </>
           )}
         </div>
 
+        {/* 공격 버튼 */}
+        {!aiResult && (
+          <button
+            className="eb-b-atk-btn"
+            onClick={onSubmit}
+            disabled={(!selectedOption && !answerInput.trim()) || loading}
+          >
+            {loading ? '채점 중...' : '🚀 공격하기'}
+          </button>
+        )}
       </div>
+
+      {/* ── 결과 오버레이 ── */}
+      {aiResult && (
+        <div className="eb-b-result-overlay">
+          <div className="eb-b-result-card">
+            <div className="eb-b-res-icon">
+              {aiResult.is_correct ? '✅' : '❌'}
+            </div>
+            <div className="eb-b-res-title">
+              {aiResult.is_correct ? '정답! 공격 성공!' : '오답... 반격당했다!'}
+            </div>
+            {aiResult.feedback && (
+              <div className="eb-b-res-desc">{aiResult.feedback}</div>
+            )}
+            {aiResult.hint && (
+              <div className="eb-b-res-hint">
+                <span style={{ fontWeight: 600, color: '#8A5500' }}>💡 힌트</span>
+                <span>{aiResult.hint}</span>
+              </div>
+            )}
+            <div className="eb-b-res-hp-row">
+              <span>{aiResult.is_correct ? '⚡ 보스 HP 잔량' : '💢 내 HP 잔량'}</span>
+              <span
+                className="eb-b-res-hp-val"
+                style={{ color: aiResult.is_correct ? '#534AB7' : '#DC2626' }}
+              >
+                {aiResult.is_correct ? `${bossHp} HP` : `${myHp} HP`}
+              </span>
+            </div>
+
+            {aiResult.is_clear && (
+              <div className="eb-b-res-clear">🏆 클리어! 잠시 후 이동합니다...</div>
+            )}
+            {aiResult.is_fail && (
+              <button
+                className="eb-b-next-btn"
+                style={{ background: '#DC2626' }}
+                onClick={onNextQuestion}
+              >
+                결과 보기 →
+              </button>
+            )}
+            {!aiResult.is_clear && !aiResult.is_fail && (
+              <button className="eb-b-next-btn" onClick={onNextQuestion}>
+                다음 문제 →
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
