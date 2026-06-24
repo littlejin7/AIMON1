@@ -67,5 +67,11 @@ export const trainApi = {
 }
 
 export const gameApi = {
-  clearGame: (data) => api.post('/game/clear', data),
+  startGame: (gameId) => api.post('/game/start', { game_id: gameId }),
+  clearGame: (data)   => api.post('/game/clear', data),
+}
+
+export const missionApi = {
+  getMissions:  ()          => api.get('/missions/'),
+  claimMission: (missionId) => api.post('/missions/claim', { mission_id: missionId }),
 }
