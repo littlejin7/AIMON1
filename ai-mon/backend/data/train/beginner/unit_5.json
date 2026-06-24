@@ -1,0 +1,285 @@
+[
+  {
+    "question_id": "u5_q001",
+    "unit": 5,
+    "type": "output_select",
+    "difficulty": "easy",
+    "concept": "리스트 인덱싱",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "fruits = ['apple', 'banana', 'cherry', 'date']\nprint(fruits[2])",
+    "choices": [
+      "A. apple",
+      "B. banana",
+      "C. cherry",
+      "D. date"
+    ],
+    "answer": "C",
+    "feedback": {
+      "correct": "정답! 리스트 인덱스는 0부터 시작합니다. fruits[0]='apple', fruits[1]='banana', fruits[2]='cherry'이므로 'cherry'가 출력됩니다."
+    }
+  },
+  {
+    "question_id": "u5_q002",
+    "unit": 5,
+    "type": "output_select",
+    "difficulty": "easy",
+    "concept": "리스트 슬라이싱",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "nums = [10, 20, 30, 40, 50]\nprint(nums[1:4])",
+    "choices": [
+      "A. [10, 20, 30]",
+      "B. [20, 30, 40]",
+      "C. [20, 30, 40, 50]",
+      "D. [30, 40, 50]"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정답! 슬라이싱 nums[1:4]는 인덱스 1부터 3까지(4는 포함되지 않음)의 요소를 가져옵니다. nums[1]=20, nums[2]=30, nums[3]=40이므로 [20, 30, 40]이 출력됩니다."
+    }
+  },
+  {
+    "question_id": "u5_q004",
+    "unit": 5,
+    "type": "output_select",
+    "difficulty": "easy",
+    "concept": "list.append",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "items = [1, 2, 3]\nitems.append(4)\nitems.append(5)\nprint(items)",
+    "choices": [
+      "A. [1, 2, 3, 4]",
+      "B. [1, 2, 3, 4, 5]",
+      "C. [4, 5, 1, 2, 3]",
+      "D. [1, 2, 3, [4, 5]]"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정답! append()는 리스트 맨 끝에 요소를 하나씩 추가합니다. 4를 추가하면 [1, 2, 3, 4], 다시 5를 추가하면 [1, 2, 3, 4, 5]가 됩니다."
+    }
+  },
+  {
+    "question_id": "u5_q007",
+    "unit": 5,
+    "type": "multiple_choice",
+    "difficulty": "easy",
+    "concept": "list.remove",
+    "question": "리스트에서 특정 값과 일치하는 첫 번째 요소를 찾아 제거할 때 사용하는 메서드는 무엇인가요?",
+    "choices": [
+      "A. pop()",
+      "B. delete()",
+      "C. remove()",
+      "D. discard()"
+    ],
+    "answer": "C",
+    "feedback": {
+      "correct": "정답! remove()는 지정한 값과 일치하는 첫 번째 요소를 제거합니다. 예: [1, 2, 2, 3].remove(2) → [1, 2, 3]. pop()은 인덱스로 제거하며, delete()와 discard()는 리스트 메서드가 아닙니다."
+    }
+  },
+  {
+    "question_id": "u5_q003",
+    "unit": 5,
+    "type": "output_select",
+    "difficulty": "medium",
+    "concept": "리스트 음수 인덱스",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "colors = ['red', 'green', 'blue', 'yellow']\nprint(colors[-2])",
+    "choices": [
+      "A. green",
+      "B. blue",
+      "C. yellow",
+      "D. red"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정답! 음수 인덱스는 리스트 끝에서부터 셉니다. colors[-1]='yellow', colors[-2]='blue'이므로 'blue'가 출력됩니다."
+    }
+  },
+  {
+    "question_id": "u5_q005",
+    "unit": 5,
+    "type": "output_select",
+    "difficulty": "medium",
+    "concept": "list.pop",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "numbers = [10, 20, 30, 40, 50]\nnumbers.pop(1)\nprint(numbers)",
+    "choices": [
+      "A. [20, 30, 40, 50]",
+      "B. [10, 30, 40, 50]",
+      "C. [10, 20, 30, 40]",
+      "D. [10, 20, 40, 50]"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정답! pop(1)은 인덱스 1에 있는 요소(값 20)를 제거합니다. 20이 빠진 나머지 [10, 30, 40, 50]이 출력됩니다."
+    }
+  },
+  {
+    "question_id": "u5_q006",
+    "unit": 5,
+    "type": "output_select",
+    "difficulty": "medium",
+    "concept": "list.insert",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "letters = ['a', 'b', 'd', 'e']\nletters.insert(2, 'c')\nprint(letters)",
+    "choices": [
+      "A. ['a', 'c', 'b', 'd', 'e']",
+      "B. ['a', 'b', 'c', 'd', 'e']",
+      "C. ['c', 'a', 'b', 'd', 'e']",
+      "D. ['a', 'b', 'd', 'c', 'e']"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정답! insert(2, 'c')는 인덱스 2 자리에 'c'를 삽입하고 기존 요소들을 뒤로 밉니다. 'b' 뒤, 'd' 앞에 'c'가 들어가 ['a', 'b', 'c', 'd', 'e']가 됩니다."
+    }
+  },
+  {
+    "question_id": "u5_q008",
+    "unit": 5,
+    "type": "output_select",
+    "difficulty": "medium",
+    "concept": "list.sort",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "scores = [85, 42, 97, 13, 56]\nscores.sort()\nprint(scores)",
+    "choices": [
+      "A. [97, 85, 56, 42, 13]",
+      "B. [85, 42, 97, 13, 56]",
+      "C. [13, 42, 56, 85, 97]",
+      "D. [42, 56, 85, 13, 97]"
+    ],
+    "answer": "C",
+    "feedback": {
+      "correct": "정답! sort()는 리스트를 오름차순(작은 값 → 큰 값)으로 정렬합니다. [85, 42, 97, 13, 56]을 정렬하면 [13, 42, 56, 85, 97]이 됩니다."
+    }
+  },
+  {
+    "question_id": "u5_q009",
+    "unit": 5,
+    "type": "output_select",
+    "difficulty": "medium",
+    "concept": "enumerate",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "animals = ['cat', 'dog', 'fish']\nfor i, animal in enumerate(animals):\n    print(i, animal)",
+    "choices": [
+      "A. 1 cat\n2 dog\n3 fish",
+      "B. 0 cat\n1 dog\n2 fish",
+      "C. cat 0\ndog 1\nfish 2",
+      "D. 0 animals\n1 animals\n2 animals"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정답! enumerate()는 (인덱스, 요소) 쌍을 반환하며 기본 시작 인덱스는 0입니다. print(i, animal) 순서로 0 cat, 1 dog, 2 fish가 한 줄씩 출력됩니다."
+    }
+  },
+  {
+    "question_id": "u5_q011",
+    "unit": 5,
+    "type": "multiple_choice",
+    "difficulty": "medium",
+    "concept": "with open / 읽기 모드",
+    "question": "파일을 읽기 모드로 열고, 블록이 끝나면 자동으로 파일이 닫히도록 하는 올바른 코드는 무엇인가요?",
+    "choices": [
+      "A. with open('file.txt', 'w') as f:",
+      "B. with open('file.txt', 'r') as f:",
+      "C. with open('file.txt', 'a') as f:",
+      "D. open('file.txt', 'r')"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정답! 'r'은 읽기(read) 모드를 의미하며, with 구문을 함께 사용하면 블록이 끝날 때 파일이 자동으로 닫힙니다. A는 쓰기('w'), C는 추가('a') 모드이며, D는 with 구문 없이 열어 수동으로 닫아야 합니다."
+    }
+  },
+  {
+    "question_id": "u5_q014",
+    "unit": 5,
+    "type": "multiple_choice",
+    "difficulty": "medium",
+    "concept": "list.sort() 반환값",
+    "question": "파일에서 읽어온 names 리스트를 오름차순으로 정렬하려고 합니다. 다음 중 올바른 코드는 무엇인가요?",
+    "code": "with open('names.txt', 'r') as f:\n    names = f.readlines()\n# 아래에 정렬 코드를 작성합니다",
+    "choices": [
+      "A. names = names.sort()",
+      "B. names.sort()",
+      "C. sort(names)",
+      "D. names = sort.names()"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정답! sort()는 리스트를 제자리에서 정렬하며 반환값은 None입니다. names.sort()처럼 사용해야 합니다. A처럼 names = names.sort()로 쓰면 names가 None이 되고, C와 D는 유효하지 않은 문법입니다."
+    }
+  },
+  {
+    "question_id": "u5_q010",
+    "unit": 5,
+    "type": "output_select",
+    "difficulty": "hard",
+    "concept": "list.count / len",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "data = [3, 1, 4, 1, 5, 9, 2, 6, 1]\nprint(data.count(1))\nprint(len(data))",
+    "choices": [
+      "A. 2\n9",
+      "B. 3\n8",
+      "C. 3\n9",
+      "D. 1\n9"
+    ],
+    "answer": "C",
+    "feedback": {
+      "correct": "정답! count(1)은 리스트에서 1이 등장하는 횟수를 반환합니다. data에서 1은 인덱스 1, 3, 8에 있으므로 3입니다. len(data)는 전체 요소 수로 9입니다."
+    }
+  },
+  {
+    "question_id": "u5_q012",
+    "unit": 5,
+    "type": "multiple_choice",
+    "difficulty": "hard",
+    "concept": "file.readlines",
+    "question": "다음 코드에서 readlines()가 반환하는 값의 데이터 타입은 무엇인가요?",
+    "code": "with open('data.txt', 'r') as f:\n    result = f.readlines()",
+    "choices": [
+      "A. str",
+      "B. int",
+      "C. list",
+      "D. tuple"
+    ],
+    "answer": "C",
+    "feedback": {
+      "correct": "정답! readlines()는 파일의 각 줄을 문자열 요소로 담은 리스트를 반환합니다. 예: ['첫 번째 줄\\n', '두 번째 줄\\n']. 반면 read()는 전체 내용을 하나의 str로 반환합니다."
+    }
+  },
+  {
+    "question_id": "u5_q013",
+    "unit": 5,
+    "type": "output_select",
+    "difficulty": "hard",
+    "concept": "file.write / readlines",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "with open('test.txt', 'w') as f:\n    f.write('Hello\\n')\n    f.write('World\\n')\n\nwith open('test.txt', 'r') as f:\n    lines = f.readlines()\n\nprint(len(lines))",
+    "choices": [
+      "A. 1",
+      "B. 2",
+      "C. 3",
+      "D. 0"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정답! 파일에 'Hello\\n'과 'World\\n' 두 줄을 썼습니다. readlines()는 줄 단위로 읽어 리스트로 반환하므로 ['Hello\\n', 'World\\n']이 되고, len()은 2를 반환합니다."
+    }
+  },
+  {
+    "question_id": "u5_q015",
+    "unit": 5,
+    "type": "output_select",
+    "difficulty": "hard",
+    "concept": "list.reverse",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "words = ['banana', 'apple', 'cherry']\nwords.reverse()\nprint(words[0])",
+    "choices": [
+      "A. banana",
+      "B. apple",
+      "C. cherry",
+      "D. words"
+    ],
+    "answer": "C",
+    "feedback": {
+      "correct": "정답! reverse()는 리스트의 순서를 제자리에서 뒤집습니다. ['banana', 'apple', 'cherry']를 뒤집으면 ['cherry', 'apple', 'banana']가 되고, words[0]은 'cherry'입니다."
+    }
+  }
+]

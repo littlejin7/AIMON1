@@ -1,0 +1,179 @@
+{
+  "questions": [
+    {
+      "question_id": "adv_u5_r001",
+      "type": "fill_in_blank",
+      "difficulty": "easy",
+      "unit": "5",
+      "question": "다음 코드에서 빈칸을 채워 PromptTemplate을 올바르게 import해 주세요.",
+      "code": "from langchain.prompts import _____\n\nprompt = PromptTemplate(\n    input_variables=[\"city\"],\n    template=\"{city}의 유명한 관광지를 알려주세요.\"\n)\nprint(prompt.format(city=\"서울\"))",
+      "answer": "PromptTemplate",
+      "feedback": {
+        "correct": "정답! PromptTemplate은 langchain.prompts 모듈에서 import합니다. input_variables에 변수명 리스트를 지정하고, template 문자열에서 {변수명} 형식으로 사용합니다."
+      }
+    },
+    {
+      "question_id": "adv_u5_r002",
+      "type": "fill_in_blank",
+      "difficulty": "medium",
+      "unit": "5",
+      "question": "LLMChain을 생성할 때 언어 모델을 전달하는 키워드 인자를 빈칸에 채워 주세요.",
+      "code": "from langchain.chains import LLMChain\nfrom langchain.prompts import PromptTemplate\n\nprompt = PromptTemplate(\n    input_variables=[\"animal\"],\n    template=\"{animal}의 생태를 설명해주세요.\"\n)\nchain = LLMChain(_____, prompt=prompt)\nresult = chain.run(\"고래\")",
+      "answer": "llm=llm",
+      "feedback": {
+        "correct": "정답! LLMChain(llm=llm, prompt=prompt)처럼 llm= 키워드 인자로 언어 모델 인스턴스를 전달합니다. llm과 prompt 두 인자 모두 LLMChain 생성에 필수입니다."
+      }
+    },
+    {
+      "question_id": "adv_u5_r003",
+      "type": "fill_in_blank",
+      "difficulty": "medium",
+      "unit": "5",
+      "question": "ChatPromptTemplate에서 사용자 입력 메시지의 역할(role) 이름을 빈칸에 채워 주세요.",
+      "code": "from langchain.prompts import ChatPromptTemplate\n\nchat_prompt = ChatPromptTemplate.from_messages([\n    (\"system\", \"당신은 요리 전문가입니다.\"),\n    (\"_____\", \"{dish}의 레시피를 알려주세요.\")\n])\nmessages = chat_prompt.format_messages(dish=\"비빔밥\")",
+      "answer": "human",
+      "feedback": {
+        "correct": "정답! ChatPromptTemplate에서 사용자 메시지 역할은 \"human\"입니다. \"system\"은 AI 행동 지침, \"human\"은 사용자 입력, \"ai\"는 AI의 이전 응답을 나타냅니다."
+      }
+    },
+    {
+      "question_id": "adv_u5_r004",
+      "type": "fill_in_blank",
+      "difficulty": "easy",
+      "unit": "5",
+      "question": "대화 내용 전체를 버퍼에 저장하는 메모리 클래스를 빈칸에 import해 주세요.",
+      "code": "from langchain.memory import _____\n\nmemory = ConversationBufferMemory()\nmemory.save_context(\n    {\"input\": \"오늘 날씨가 어때요?\"},\n    {\"output\": \"맑고 화창합니다!\"}\n)\nhistory = memory.load_memory_variables({})",
+      "answer": "ConversationBufferMemory",
+      "feedback": {
+        "correct": "정답! ConversationBufferMemory는 대화의 모든 메시지를 그대로 버퍼에 저장합니다. save_context()로 입출력 쌍을 저장하고, load_memory_variables()로 저장된 대화 기록을 불러옵니다."
+      }
+    },
+    {
+      "question_id": "adv_u5_r005",
+      "type": "fill_in_blank",
+      "difficulty": "easy",
+      "unit": "5",
+      "question": "ConversationBufferMemory를 생성할 때 대화 기록을 문자열이 아닌 Message 객체 리스트로 반환받기 위한 매개변수를 빈칸에 채워 주세요.",
+      "code": "from langchain.memory import ConversationBufferMemory\n\nmemory = ConversationBufferMemory(\n    memory_key=\"chat_history\",\n    _____=True\n)",
+      "answer": "return_messages",
+      "feedback": {
+        "correct": "정답! return_messages=True로 설정하면 load_memory_variables() 호출 시 대화 기록이 문자열이 아닌 Message 객체 리스트로 반환됩니다. 기본값(False)이면 하나의 긴 문자열로 반환됩니다."
+      }
+    },
+    {
+      "question_id": "adv_u5_r006",
+      "type": "fill_in_blank",
+      "difficulty": "hard",
+      "unit": "5",
+      "question": "ConversationSummaryMemory에서 요약된 대화 기록을 Message 객체 형태로 반환받기 위한 매개변수명을 빈칸에 채워 주세요.",
+      "code": "from langchain.memory import ConversationSummaryMemory\n\nmemory = ConversationSummaryMemory(\n    llm=llm,\n    _____=True\n)\nmemory.save_context(\n    {\"input\": \"LangChain이란 무엇인가요?\"},\n    {\"output\": \"LangChain은 LLM 애플리케이션 개발 프레임워크입니다.\"}\n)",
+      "answer": "return_messages",
+      "feedback": {
+        "correct": "정답! return_messages=True를 설정하면 load_memory_variables() 호출 시 요약 내용이 Message 객체 형태로 반환됩니다. 기본값(False)이면 문자열로 반환됩니다."
+      }
+    },
+    {
+      "question_id": "adv_u5_r007",
+      "type": "fill_in_blank",
+      "difficulty": "easy",
+      "unit": "5",
+      "question": "텍스트 파일을 LangChain Document 형식으로 불러오는 로더 클래스를 빈칸에 import해 주세요.",
+      "code": "from langchain.document_loaders import _____\n\nloader = TextLoader(\"data/intro.txt\", encoding=\"utf-8\")\ndocuments = loader.load()\nprint(f\"로드된 문서 수: {len(documents)}\")",
+      "answer": "TextLoader",
+      "feedback": {
+        "correct": "정답! TextLoader는 텍스트 파일(.txt)을 LangChain의 Document 객체 리스트로 불러옵니다. encoding 인자로 파일 인코딩을 지정하며, 한국어 파일은 \"utf-8\"을 주로 사용합니다."
+      }
+    },
+    {
+      "question_id": "adv_u5_r008",
+      "type": "fill_in_blank",
+      "difficulty": "hard",
+      "unit": "5",
+      "question": "FAISS 벡터 스토어에서 유사도 검색 결과로 반환할 문서 수를 지정하는 search_kwargs 키를 빈칸에 채워 주세요.",
+      "code": "from langchain.vectorstores import FAISS\n\nvectorstore = FAISS.from_documents(chunks, embeddings)\nretriever = vectorstore.as_retriever(\n    search_type=\"similarity\",\n    search_kwargs={\"_____\": 4}\n)\ndocs = retriever.get_relevant_documents(\"RAG란?\")",
+      "answer": "k",
+      "feedback": {
+        "correct": "정답! search_kwargs={\"k\": 4}는 유사도 검색 결과로 반환할 문서 수를 4개로 제한합니다. k 값이 클수록 더 많은 관련 문서를 가져오지만 LLM으로 전달되는 컨텍스트 크기도 함께 증가합니다."
+      }
+    },
+    {
+      "question_id": "adv_u5_r009",
+      "type": "fill_in_blank",
+      "difficulty": "medium",
+      "unit": "5",
+      "question": "LCEL에서 LLM 출력을 StrOutputParser에 연결하기 위해 빈칸에 사용하는 연산자를 채워 주세요.",
+      "code": "from langchain_core.prompts import ChatPromptTemplate\nfrom langchain_core.output_parsers import StrOutputParser\n\nprompt = ChatPromptTemplate.from_template(\"{topic}의 핵심 개념을 설명해주세요.\")\nparser = StrOutputParser()\n\nchain = prompt | llm _____ parser\nresult = chain.invoke({\"topic\": \"벡터 임베딩\"})",
+      "answer": "|",
+      "feedback": {
+        "correct": "정답! LCEL의 | 연산자(파이프 연산자)는 Runnable 컴포넌트들을 순서대로 연결합니다. prompt | llm | parser 형식으로 왼쪽 컴포넌트의 출력이 오른쪽 컴포넌트의 입력으로 자동 전달됩니다."
+      }
+    },
+    {
+      "question_id": "adv_u5_r010",
+      "type": "fill_in_blank",
+      "difficulty": "hard",
+      "unit": "5",
+      "question": "RAG 체인에서 사용자 질문을 변환 없이 그대로 다음 단계로 전달하는 클래스를 빈칸에 import해 주세요.",
+      "code": "from langchain_core.runnables import _____\nfrom langchain_core.output_parsers import StrOutputParser\n\nrag_chain = (\n    {\"context\": retriever, \"question\": RunnablePassthrough()}\n    | prompt\n    | llm\n    | StrOutputParser()\n)\nanswer = rag_chain.invoke(\"LangChain의 장점은?\")",
+      "answer": "RunnablePassthrough",
+      "feedback": {
+        "correct": "정답! RunnablePassthrough는 입력값을 변환 없이 그대로 다음 단계로 전달하는 Runnable입니다. RAG 체인에서 사용자 질문을 question 키에 그대로 매핑할 때 주로 사용합니다."
+      }
+    },
+    {
+      "question_id": "adv_u5_r011",
+      "type": "code_input",
+      "difficulty": "easy",
+      "unit": "5",
+      "question": "다음 조건을 만족하는 코드를 작성해 주세요.\n```python\n- TextLoader를 import합니다.\n- \"data/notes.txt\" 파일을 encoding=\"utf-8\"로 불러옵니다.\n```\n- load()로 문서를 로드합니다.\n- 로드된 문서 개수를 출력합니다.",
+      "answer": "from langchain.document_loaders import TextLoader\n\nloader = TextLoader(\"data/notes.txt\", encoding=\"utf-8\")\ndocuments = loader.load()\nprint(f\"문서 개수: {len(documents)}\")",
+      "feedback": {
+        "correct": "정답! TextLoader(\"data/notes.txt\", encoding=\"utf-8\")로 로더를 생성하고 load() 메서드를 호출하면 Document 객체 리스트가 반환됩니다. len()으로 리스트 길이를 확인해 로드된 문서 개수를 알 수 있습니다."
+      }
+    },
+    {
+      "question_id": "adv_u5_r012",
+      "type": "code_input",
+      "difficulty": "medium",
+      "unit": "5",
+      "question": "다음 조건을 만족하는 코드를 작성해 주세요.\n```python\n- PromptTemplate을 import합니다.\n- input_variables: [\"name\", \"job\"]\n- template: \"{name}님은 {job} 전문가입니다. 간단히 자기소개해 주세요.\"\n```\n- format() 메서드로 name=\"이수진\", job=\"머신러닝\" 을 적용한 결과를 출력합니다.",
+      "answer": "from langchain.prompts import PromptTemplate\n\nprompt = PromptTemplate(\n    input_variables=[\"name\", \"job\"],\n    template=\"{name}님은 {job} 전문가입니다. 간단히 자기소개해 주세요.\"\n)\nprint(prompt.format(name=\"이수진\", job=\"머신러닝\"))",
+      "feedback": {
+        "correct": "정답! PromptTemplate의 input_variables에 [\"name\", \"job\"]을 지정하고, format() 메서드에 name=\"이수진\", job=\"머신러닝\" 키워드 인자를 전달하면 완성된 프롬프트 문자열이 반환됩니다. 출력: 이수진님은 머신러닝 전문가입니다. 간단히 자기소개해 주세요."
+      }
+    },
+    {
+      "question_id": "adv_u5_r013",
+      "type": "code_input",
+      "difficulty": "medium",
+      "unit": "5",
+      "question": "다음 조건을 만족하는 코드를 작성해 주세요.\n```python\n- RecursiveCharacterTextSplitter를 import합니다.\n- chunk_size=300, chunk_overlap=30으로 설정합니다.\n- 아래 sample_text를 split_text()로 분할합니다.\n```\n- 분할된 청크 수를 출력합니다.\n\nsample_text = \"LangChain은 LLM 기반 애플리케이션 개발 프레임워크입니다. \" * 15",
+      "answer": "from langchain.text_splitter import RecursiveCharacterTextSplitter\n\nsample_text = \"LangChain은 LLM 기반 애플리케이션 개발 프레임워크입니다. \" * 15\n\nsplitter = RecursiveCharacterTextSplitter(\n    chunk_size=300,\n    chunk_overlap=30\n)\nchunks = splitter.split_text(sample_text)\nprint(f\"청크 수: {len(chunks)}\")",
+      "feedback": {
+        "correct": "정답! RecursiveCharacterTextSplitter는 [\"\\n\\n\", \"\\n\", \" \", \"\"] 순서의 구분자를 재귀적으로 적용해 청크를 분할합니다. chunk_size=300으로 각 청크의 최대 크기를 제한하고, chunk_overlap=30으로 청크 간 문맥 연속성을 유지합니다."
+      }
+    },
+    {
+      "question_id": "adv_u5_r014",
+      "type": "code_input",
+      "difficulty": "hard",
+      "unit": "5",
+      "question": "다음 조건을 만족하는 코드를 작성해 주세요.\n```python\n- ConversationBufferWindowMemory를 import합니다.\n- 최근 2번의 대화만 기억하도록 k=2로 설정합니다.\n- 아래 3번의 대화를 순서대로 save_context()로 저장합니다.\n  1) input=\"파이썬이란?\", output=\"범용 프로그래밍 언어입니다.\"\n  2) input=\"자바스크립트란?\", output=\"웹 개발에 사용되는 언어입니다.\"\n  3) input=\"러스트란?\", output=\"시스템 프로그래밍 언어입니다.\"\n- load_memory_variables({})의 결과를 출력합니다.\n```",
+      "answer": "from langchain.memory import ConversationBufferWindowMemory\n\nmemory = ConversationBufferWindowMemory(k=2)\nmemory.save_context({\"input\": \"파이썬이란?\"}, {\"output\": \"범용 프로그래밍 언어입니다.\"})\nmemory.save_context({\"input\": \"자바스크립트란?\"}, {\"output\": \"웹 개발에 사용되는 언어입니다.\"})\nmemory.save_context({\"input\": \"러스트란?\"}, {\"output\": \"시스템 프로그래밍 언어입니다.\"})\nprint(memory.load_memory_variables({}))",
+      "feedback": {
+        "correct": "정답! ConversationBufferWindowMemory(k=2)는 가장 최근 k번의 대화만 유지합니다. 3번의 대화를 저장했으므로 첫 번째 대화(파이썬)는 제거되고, 자바스크립트와 러스트 대화 2개만 메모리에 남습니다."
+      }
+    },
+    {
+      "question_id": "adv_u5_r015",
+      "type": "code_input",
+      "difficulty": "hard",
+      "unit": "5",
+      "question": "다음 조건을 만족하는 LCEL 기반 RAG 체인 코드를 작성해 주세요.\n```python\n- langchain_core.prompts에서 ChatPromptTemplate을 import합니다.\n- langchain_core.runnables에서 RunnablePassthrough를 import합니다.\n- langchain_core.output_parsers에서 StrOutputParser를 import합니다.\n- 아래 template으로 ChatPromptTemplate을 생성합니다.\n  template = \"컨텍스트: {context}\\n질문: {question}\\n답변:\"\n- LCEL로 rag_chain을 구성합니다: context는 retriever, question은 RunnablePassthrough()로 매핑합니다.\n```\n- invoke()로 \"벡터 스토어란?\" 질문을 실행합니다.",
+      "answer": "from langchain_core.prompts import ChatPromptTemplate\nfrom langchain_core.runnables import RunnablePassthrough\nfrom langchain_core.output_parsers import StrOutputParser\n\ntemplate = \"컨텍스트: {context}\\n질문: {question}\\n답변:\"\nprompt = ChatPromptTemplate.from_template(template)\n\nrag_chain = (\n    {\"context\": retriever, \"question\": RunnablePassthrough()}\n    | prompt\n    | llm\n    | StrOutputParser()\n)\nresult = rag_chain.invoke(\"벡터 스토어란?\")",
+      "feedback": {
+        "correct": "정답! LCEL RAG 체인은 {\"context\": retriever, \"question\": RunnablePassthrough()}로 입력을 매핑하고, | 연산자로 prompt | llm | StrOutputParser()를 순서대로 연결합니다. invoke()에 질문 문자열을 전달하면 retriever가 관련 문서를 검색하고 그 결과를 context로 활용해 최종 답변을 생성합니다."
+      }
+    }
+  ]
+}

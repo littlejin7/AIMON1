@@ -1,0 +1,224 @@
+[
+  {
+    "question_id": "u4_rev_001",
+    "type": "fill_in_blank",
+    "difficulty": "easy",
+    "topic": "클래스 선언",
+    "question": "다음 코드에서 빈칸을 채워 Circle 클래스를 올바르게 선언해 보세요.",
+    "code": "_____ Circle:\n    def __init__(self, radius):\n        self.radius = radius",
+    "answer": "class",
+    "feedback": {
+      "correct": "정답! 파이썬에서 클래스를 선언할 때는 class 키워드를 사용합니다. class Circle: 처럼 작성하면 Circle이라는 이름의 클래스가 정의됩니다."
+    }
+  },
+  {
+    "question_id": "u4_rev_002",
+    "type": "output_select",
+    "difficulty": "easy",
+    "topic": "인스턴스 생성과 속성 접근",
+    "question": "다음 코드를 실행했을 때 출력되는 값은 무엇일까요?",
+    "code": "class Person:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n\np = Person(\"Alice\", 25)\nprint(p.age)",
+    "choices": [
+      "A. Alice",
+      "B. 25",
+      "C. Person",
+      "D. age"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정답! Person(\"Alice\", 25)로 인스턴스를 생성하면 self.age = 25가 저장됩니다. p.age로 접근하면 25가 출력됩니다."
+    }
+  },
+  {
+    "question_id": "u4_rev_003",
+    "type": "fill_in_blank",
+    "difficulty": "easy",
+    "topic": "__init__ 생성자",
+    "question": "다음 코드에서 빈칸을 채워 Book 클래스의 생성자 메서드를 완성해 보세요.",
+    "code": "class Book:\n    def _____(self, title):\n        self.title = title",
+    "answer": "__init__",
+    "feedback": {
+      "correct": "정답! __init__은 파이썬 클래스의 생성자 메서드입니다. 인스턴스가 생성될 때 자동으로 호출되며, 초기 속성 값을 설정하는 데 사용됩니다."
+    }
+  },
+  {
+    "question_id": "u4_rev_004",
+    "type": "output_select",
+    "difficulty": "easy",
+    "topic": "클래스 변수",
+    "question": "다음 코드를 실행했을 때 출력되는 값은 무엇일까요?",
+    "code": "class Counter:\n    count = 0\n\n    def __init__(self):\n        Counter.count += 1\n\nc1 = Counter()\nc2 = Counter()\nprint(Counter.count)",
+    "choices": [
+      "A. 0",
+      "B. 1",
+      "C. 2",
+      "D. 3"
+    ],
+    "answer": "C",
+    "feedback": {
+      "correct": "정답! Counter()를 두 번 호출하면 __init__이 두 번 실행되어 Counter.count가 0 → 1 → 2로 증가합니다. 클래스 변수는 모든 인스턴스가 공유하므로 2가 출력됩니다."
+    }
+  },
+  {
+    "question_id": "u4_rev_005",
+    "type": "fill_in_blank",
+    "difficulty": "medium",
+    "topic": "인스턴스 메서드와 self",
+    "question": "다음 코드에서 빈칸을 채워 area() 메서드가 올바르게 동작하도록 완성해 보세요.",
+    "code": "class Triangle:\n    def __init__(self, base, height):\n        self.base = base\n        self.height = height\n\n    def area(self):\n        return (self._____ * self.height) / 2\n\nt = Triangle(6, 4)\nprint(t.area())",
+    "answer": "base",
+    "feedback": {
+      "correct": "정답! self.base는 __init__에서 저장한 인스턴스 속성입니다. 메서드 내부에서도 self를 통해 self.base에 접근해야 합니다. 결과는 (6 * 4) / 2 = 12.0입니다."
+    }
+  },
+  {
+    "question_id": "u4_rev_006",
+    "type": "output_select",
+    "difficulty": "medium",
+    "topic": "클래스 변수 vs 인스턴스 변수",
+    "question": "다음 코드를 실행했을 때 출력되는 값은 무엇일까요?",
+    "code": "class Student:\n    school = \"Python School\"\n\n    def __init__(self, name):\n        self.name = name\n\ns1 = Student(\"Tom\")\ns1.school = \"New School\"\nprint(Student.school)",
+    "choices": [
+      "A. Python School",
+      "B. New School",
+      "C. Tom",
+      "D. None"
+    ],
+    "answer": "A",
+    "feedback": {
+      "correct": "정답! s1.school = \"New School\"은 s1 인스턴스에만 새로운 인스턴스 변수를 만들 뿐, 클래스 변수 Student.school은 변경되지 않습니다. 따라서 Student.school은 여전히 A) \"Python School\"이 출력됩니다."
+    }
+  },
+  {
+    "question_id": "u4_rev_007",
+    "type": "fill_in_blank",
+    "difficulty": "medium",
+    "topic": "상속 선언",
+    "question": "다음 코드에서 빈칸을 채워 Dog 클래스가 Animal 클래스를 상속받도록 완성해 보세요.",
+    "code": "class Animal:\n    def __init__(self, name):\n        self.name = name\n\nclass Dog(_____):\n    def bark(self):\n        return f\"{self.name} says Woof!\"",
+    "answer": "Animal",
+    "feedback": {
+      "correct": "정답! class Dog(Animal): 처럼 괄호 안에 부모 클래스 이름을 넣으면 Dog가 Animal을 상속받습니다. 덕분에 Dog 인스턴스에서 self.name처럼 Animal의 속성도 사용할 수 있습니다."
+    }
+  },
+  {
+    "question_id": "u4_rev_008",
+    "type": "output_select",
+    "difficulty": "medium",
+    "topic": "super()를 활용한 상속",
+    "question": "다음 코드를 실행했을 때 출력되는 값은 무엇일까요?",
+    "code": "class Vehicle:\n    def __init__(self, brand):\n        self.brand = brand\n\nclass Car(Vehicle):\n    def __init__(self, brand, model):\n        super().__init__(brand)\n        self.model = model\n\nc = Car(\"Toyota\", \"Camry\")\nprint(c.brand)",
+    "choices": [
+      "A. Toyota",
+      "B. Camry",
+      "C. Car",
+      "D. Vehicle"
+    ],
+    "answer": "A",
+    "feedback": {
+      "correct": "정답! super().__init__(brand)는 부모 클래스 Vehicle의 __init__을 호출해 self.brand = \"Toyota\"를 설정합니다. 따라서 c.brand는 A) \"Toyota\"가 출력됩니다."
+    }
+  },
+  {
+    "question_id": "u4_rev_009",
+    "type": "fill_in_blank",
+    "difficulty": "medium",
+    "topic": "캡슐화 - 비공개 속성",
+    "question": "다음 코드에서 빈칸을 채워 잔액을 비공개 속성으로 저장해 보세요.",
+    "code": "class BankAccount:\n    def __init__(self, balance):\n        self._____ = balance\n\n    def get_balance(self):\n        return self._balance\n\naccount = BankAccount(1000)\nprint(account.get_balance())",
+    "answer": "_balance",
+    "feedback": {
+      "correct": "정답! self._balance처럼 언더스코어(_)를 앞에 붙이면 비공개(protected) 속성임을 나타냅니다. get_balance()에서 self._balance를 반환하므로 1000이 출력됩니다."
+    }
+  },
+  {
+    "question_id": "u4_rev_010",
+    "type": "output_select",
+    "difficulty": "medium",
+    "topic": "__str__ 특수 메서드",
+    "question": "다음 코드를 실행했을 때 출력되는 값은 무엇일까요?",
+    "code": "class Point:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n\n    def __str__(self):\n        return f\"({self.x}, {self.y})\"\n\np = Point(3, 7)\nprint(p)",
+    "choices": [
+      "A. Point object",
+      "B. (3, 7)",
+      "C. 3, 7",
+      "D. Point(3, 7)"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정답! print(p)는 자동으로 __str__ 메서드를 호출합니다. f\"({self.x}, {self.y})\"에서 x=3, y=7이므로 B) \"(3, 7)\"이 출력됩니다."
+    }
+  },
+  {
+    "question_id": "u4_rev_011",
+    "type": "fill_in_blank",
+    "difficulty": "hard",
+    "topic": "super()를 활용한 부모 __init__ 호출",
+    "question": "다음 코드에서 빈칸을 채워 부모 클래스 Shape의 __init__을 올바르게 호출해 보세요.",
+    "code": "class Shape:\n    def __init__(self, color):\n        self.color = color\n\nclass Square(Shape):\n    def __init__(self, color, side):\n        _____.__init__(color)\n        self.side = side\n\ns = Square(\"blue\", 5)\nprint(s.color)",
+    "answer": "super()",
+    "feedback": {
+      "correct": "정답! super().__init__(color)는 부모 클래스 Shape의 __init__을 호출해 self.color = \"blue\"를 설정합니다. super()는 부모 클래스를 직접 명시하지 않아도 참조할 수 있게 해 주는 내장 함수입니다."
+    }
+  },
+  {
+    "question_id": "u4_rev_012",
+    "type": "output_select",
+    "difficulty": "hard",
+    "topic": "메서드 오버라이딩과 MRO",
+    "question": "다음 코드를 실행했을 때 출력되는 값은 무엇일까요?",
+    "code": "class Animal:\n    def speak(self):\n        return \"...\"\n\nclass Cat(Animal):\n    def speak(self):\n        return \"Meow\"\n\nclass Kitten(Cat):\n    pass\n\nk = Kitten()\nprint(k.speak())",
+    "choices": [
+      "A. ...",
+      "B. Meow",
+      "C. None",
+      "D. Error"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정답! Kitten은 speak()를 직접 정의하지 않아서 바로 위 부모 클래스인 Cat의 speak()를 상속받습니다. Cat.speak()는 \"Meow\"를 반환하므로 B) \"Meow\"가 출력됩니다."
+    }
+  },
+  {
+    "question_id": "u4_rev_013",
+    "type": "fill_in_blank",
+    "difficulty": "hard",
+    "topic": "__repr__ 특수 메서드",
+    "question": "다음 코드에서 빈칸을 채워 repr() 호출 시 Color 객체의 정보가 출력되도록 완성해 보세요.",
+    "code": "class Color:\n    def __init__(self, r, g, b):\n        self.r = r\n        self.g = g\n        self.b = b\n\n    def _____(self):\n        return f\"Color({self.r}, {self.g}, {self.b})\"\n\nc = Color(255, 0, 128)\nprint(repr(c))",
+    "answer": "__repr__",
+    "feedback": {
+      "correct": "정답! __repr__ 메서드는 repr() 함수 호출 시 자동으로 사용됩니다. repr(c)가 __repr__을 호출하고 f\"Color({self.r}, {self.g}, {self.b})\"에 의해 \"Color(255, 0, 128)\"이 출력됩니다."
+    }
+  },
+  {
+    "question_id": "u4_rev_014",
+    "type": "output_select",
+    "difficulty": "hard",
+    "topic": "클래스 변수의 가변 객체 공유",
+    "question": "다음 코드를 실행했을 때 출력되는 값은 무엇일까요?",
+    "code": "class Team:\n    members = []\n\n    def __init__(self, name):\n        self.name = name\n\n    def add_member(self, member):\n        self.members.append(member)\n\nt1 = Team(\"Alpha\")\nt2 = Team(\"Beta\")\nt1.add_member(\"Alice\")\nprint(len(t2.members))",
+    "choices": [
+      "A. 0",
+      "B. 1",
+      "C. 2",
+      "D. Error"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정답! members는 클래스 변수로 선언된 리스트입니다. t1.members.append(\"Alice\")는 리스트 자체를 수정하므로 t2.members도 같은 리스트를 참조합니다. 결과적으로 len(t2.members)는 B) 1입니다."
+    }
+  },
+  {
+    "question_id": "u4_rev_015",
+    "type": "fill_in_blank",
+    "difficulty": "hard",
+    "topic": "클래스 변수로 인스턴스 개수 관리",
+    "question": "다음 코드에서 빈칸을 채워 Car 인스턴스가 생성될 때마다 총 개수가 증가하도록 완성해 보세요.",
+    "code": "class Car:\n    total = 0\n\n    def __init__(self, model):\n        self.model = model\n        Car._____ += 1\n\nc1 = Car(\"Tesla\")\nc2 = Car(\"BMW\")\nc3 = Car(\"Honda\")\nprint(Car.total)",
+    "answer": "total",
+    "feedback": {
+      "correct": "정답! Car.total += 1은 클래스 변수 total을 1씩 증가시킵니다. 세 개의 인스턴스가 생성되므로 Car.total은 0 → 1 → 2 → 3이 되어 3이 출력됩니다."
+    }
+  }
+]

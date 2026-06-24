@@ -1,0 +1,199 @@
+{
+  "questions": [
+    {
+      "question_id": "unitboss_adv_os_5_001",
+      "unit": 5,
+      "stage": "5-boss",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "LangChain에서 Document 리스트의 page_content만 추출했을 때 출력 결과는?\n\n```python\ndocs = [\n    {\"page_content\": \"LangChain 소개\", \"metadata\": {\"source\": \"doc1\"}},\n    {\"page_content\": \"RAG 파이프라인\", \"metadata\": {\"source\": \"doc2\"}},\n]\ncontents = [d[\"page_content\"] for d in docs]\nprint(contents)\n```",
+      "choices": [
+        "A. ['doc1', 'doc2']",
+        "B. {'LangChain 소개', 'RAG 파이프라인'}",
+        "C. ['LangChain 소개', 'RAG 파이프라인']",
+        "D. [{'page_content': 'LangChain 소개'}, {'page_content': 'RAG 파이프라인'}]"
+      ],
+      "answer": "C",
+      "hint": "리스트 컴프리헨션이 각 딕셔너리의 'page_content' 값만 추출합니다.",
+      "feedback": {
+        "correct": "정답! 리스트 컴프리헨션 [d[\"page_content\"] for d in docs]는 각 딕셔너리에서 page_content 값만 꺼내 새 리스트를 만듭니다."
+      }
+    },
+    {
+      "question_id": "unitboss_adv_fib_5_002",
+      "unit": 5,
+      "stage": "5-boss",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "LangChain에서 AI 응답을 순수 문자열로 변환하는 파서 클래스를 임포트하는 빈칸을 완성하세요.\n\n```python\nfrom langchain_core.output_parsers import _______\n```\n\nparser = StrOutputParser()",
+      "choices": [],
+      "answer": "StrOutputParser",
+      "hint": "str + Output + Parser 세 단어를 합친 클래스 이름입니다.",
+      "feedback": {
+        "correct": "정답! StrOutputParser는 LLM의 AIMessage 응답을 순수 문자열(str)로 변환하는 파서입니다. chain | StrOutputParser() 형태로 체인 끝에 연결합니다."
+      }
+    },
+    {
+      "question_id": "unitboss_adv_fib_5_003",
+      "unit": 5,
+      "stage": "5-boss",
+      "course_level": "advanced",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "RAG 파이프라인에서 문서 조각을 표현하는 클래스를 임포트하는 빈칸을 완성하세요.\n\n```python\nfrom langchain_core.documents import _______\n```\n\ndoc = Document(page_content=\"RAG 기초\", metadata={\"source\": \"a.txt\"})",
+      "choices": [],
+      "answer": "Document",
+      "hint": "langchain_core.documents에서 가져오는 클래스 이름입니다.",
+      "feedback": {
+        "correct": "정답! Document는 LangChain에서 텍스트 청크를 표현하는 클래스입니다. page_content로 내용을, metadata로 출처 정보를 저장합니다."
+      }
+    },
+    {
+      "question_id": "unitboss_adv_os_5_004",
+      "unit": 5,
+      "stage": "5-boss",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "멀티턴 대화 기록에서 AI 메시지 수와 마지막 메시지의 role을 출력하면?\n\n```python\nhistory = [\n    {\"role\": \"human\", \"content\": \"LangChain이 뭐야?\"},\n    {\"role\": \"ai\", \"content\": \"LLM 프레임워크야.\"},\n    {\"role\": \"human\", \"content\": \"RAG는?\"},\n]\nai_msgs = [m for m in history if m[\"role\"] == \"ai\"]\nprint(len(ai_msgs))\nprint(history[-1][\"role\"])\n```",
+      "choices": [
+        "A. 1\nhuman",
+        "B. 2\nhuman",
+        "C. 1\nai",
+        "D. 2\nai"
+      ],
+      "answer": "A",
+      "hint": "ai role은 몇 개인지, 마지막 항목의 role은 무엇인지 각각 확인하세요.",
+      "feedback": {
+        "correct": "정답! history에서 role이 'ai'인 항목은 1개뿐입니다. 마지막 항목 history[-1]의 role은 'human'입니다. LangChain 메모리에서는 human/ai로 역할을 구분합니다."
+      }
+    },
+    {
+      "question_id": "unitboss_adv_ef_5_005",
+      "unit": 5,
+      "stage": "5-boss",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "error_find",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "프롬프트 템플릿에 변수가 누락되어 KeyError가 발생하는 줄은?\n\n```python\n1줄: template = \"이름: {name}, 역할: {role}, 언어: {lang}\"\n2줄: \n3줄: result = template.format(name=\"에이몬\", role=\"AI\")\n4줄: print(result)\n```",
+      "choices": [
+        "A. 1줄",
+        "B. 2줄",
+        "C. 3줄",
+        "D. 4줄"
+      ],
+      "answer": "C",
+      "hint": "template에 정의된 변수가 모두 전달됐는지 확인하세요.",
+      "feedback": {
+        "correct": "정답! 템플릿에 {lang} 변수가 있지만 format()에서 lang을 전달하지 않아 3줄에서 KeyError: 'lang'이 발생합니다. LangChain 프롬프트 템플릿도 같은 원리로 동작합니다."
+      }
+    },
+    {
+      "question_id": "unitboss_adv_os_5_006",
+      "unit": 5,
+      "stage": "5-boss",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "LangChain 체인의 파이프라인 처리 흐름을 Python 함수로 표현했을 때 출력 결과는?\n\n```python\ndef prompt_step(x): return f\"Q: {x}\"\ndef llm_step(x): return f\"A: {x[3:]}\"\ndef parser_step(x): return x.strip()\n\nresult = parser_step(llm_step(prompt_step(\"파이썬이란?\")))\nprint(result)\n```",
+      "choices": [
+        "A. Q: 파이썬이란?",
+        "B. A: 파이썬이란?",
+        "C. 파이썬이란?",
+        "D. A: Q: 파이썬이란?"
+      ],
+      "answer": "B",
+      "hint": "각 단계를 안쪽부터 차례로 적용해 보세요.",
+      "feedback": {
+        "correct": "정답! prompt_step('파이썬이란?') → 'Q: 파이썬이란?', llm_step에서 [3:]로 'Q: '를 제거하면 '파이썬이란?', 그 앞에 'A: '를 붙이면 'A: 파이썬이란?', parser_step의 strip()은 변화 없습니다."
+      }
+    },
+    {
+      "question_id": "unitboss_adv_fib_5_007",
+      "unit": 5,
+      "stage": "5-boss",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "LangChain에서 대화 이력을 메모리에 저장하는 클래스를 임포트하는 빈칸을 완성하세요.\n\n```python\nfrom langchain_core.chat_history import _______\n\nhistory = InMemoryChatMessageHistory()\n```",
+      "choices": [],
+      "answer": "InMemoryChatMessageHistory",
+      "hint": "InMemory + ChatMessage + History 세 단어를 합친 클래스 이름입니다.",
+      "feedback": {
+        "correct": "정답! InMemoryChatMessageHistory는 대화 이력을 메모리(RAM)에 저장하는 클래스입니다. RunnableWithMessageHistory와 함께 사용해 멀티턴 대화를 구현합니다."
+      }
+    },
+    {
+      "question_id": "unitboss_adv_ef_5_008",
+      "unit": 5,
+      "stage": "5-boss",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "error_find",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "문자열과 딕셔너리를 직접 더하려고 해 TypeError가 발생하는 줄은?\n\n```python\n1줄: documents = [\n2줄:     {\"page_content\": \"문서1\", \"metadata\": {}},\n3줄:     {\"page_content\": \"문서2\", \"metadata\": {}},\n4줄: ]\n5줄: \n6줄: combined = documents[0][\"page_content\"] + documents[1]\n7줄: print(combined)\n```",
+      "choices": [
+        "A. 2줄",
+        "B. 4줄",
+        "C. 6줄",
+        "D. 7줄"
+      ],
+      "answer": "C",
+      "hint": "documents[0][\"page_content\"]는 문자열, documents[1]은 딕셔너리입니다. 두 타입을 + 로 더하면?",
+      "feedback": {
+        "correct": "정답! documents[0][\"page_content\"]는 str, documents[1]은 dict입니다. 서로 다른 타입을 + 로 연결하면 6줄에서 TypeError가 발생합니다. 올바른 방법은 documents[1][\"page_content\"]를 접근하는 것입니다."
+      }
+    },
+    {
+      "question_id": "unitboss_adv_ci_5_009",
+      "unit": 5,
+      "stage": "5-boss",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "code_input",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "StrOutputParser 인스턴스를 생성하는 한 줄을 빈칸에 채우세요.\n\n```python\nfrom langchain_core.output_parsers import StrOutputParser\n\nparser = _______\nprint(type(parser).__name__)  # StrOutputParser\n```",
+      "choices": [],
+      "answer": "StrOutputParser()",
+      "hint": "클래스 이름 뒤에 괄호를 붙여 인스턴스를 생성하세요.",
+      "feedback": {
+        "correct": "정답! StrOutputParser()로 파서 인스턴스를 만들고 chain = prompt | llm | parser 형태로 체인에 연결합니다."
+      }
+    },
+    {
+      "question_id": "unitboss_adv_ci_5_010",
+      "unit": 5,
+      "stage": "5-boss",
+      "course_level": "advanced",
+      "difficulty": "hard",
+      "type": "code_input",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "page_content가 \"LangChain RAG 기초\"인 Document 객체를 생성하는 한 줄을 완성하세요.\n\n```python\nfrom langchain_core.documents import Document\n\ndoc = _______\nprint(doc.page_content)  # LangChain RAG 기초\n```",
+      "choices": [],
+      "answer": "Document(page_content=\"LangChain RAG 기초\")",
+      "hint": "Document 클래스의 page_content 키워드 인자를 사용하세요.",
+      "feedback": {
+        "correct": "정답! Document(page_content=...) 형태로 생성합니다. metadata 인자는 생략 가능하며 기본값은 빈 딕셔너리입니다."
+      }
+    }
+  ]
+}

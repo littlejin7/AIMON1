@@ -1,0 +1,2004 @@
+{
+  "questions": [
+    {
+      "question_id": "sl_mid_os_6_1_001",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "Python에서 가상환경을 만드는 명령어는 무엇인가요?",
+      "choices": [
+        "A) python -m venv 환경명",
+        "B) python --create-venv 환경명",
+        "C) venv create 환경명",
+        "D) pip create-env 환경명"
+      ],
+      "answer": "A) python -m venv 환경명",
+      "hint": "Python 표준 라이브러리의 venv 모듈을 '-m' 옵션으로 실행해요.",
+      "feedback": {
+        "correct": "정답! 'python -m venv 환경명'으로 가상환경을 생성해요. venv는 Python 3.3부터 표준 라이브러리에 포함된 가상환경 모듈이에요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_1_002",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "Linux/Mac에서 가상환경을 활성화하는 명령어를 완성하세요.\n\n________ venv/bin/activate",
+      "answer": "source",
+      "hint": "bash에서 스크립트를 현재 셸 세션에 적용할 때 쓰는 명령어예요.",
+      "feedback": {
+        "correct": "정답! 'source venv/bin/activate'로 가상환경을 활성화해요. source 없이 실행하면 새 셸에서 실행되어 현재 세션에 반영되지 않아요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_1_003",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "가상환경에서 패키지를 설치하는 명령어는?",
+      "choices": [
+        "A) python install 패키지명",
+        "B) pip install 패키지명",
+        "C) apt-get install 패키지명",
+        "D) install-package 패키지명"
+      ],
+      "answer": "B) pip install 패키지명",
+      "hint": "pip는 Python의 공식 패키지 설치 도구예요.",
+      "feedback": {
+        "correct": "정답! 'pip install 패키지명'으로 패키지를 설치해요. 가상환경이 활성화된 상태에서 실행하면 가상환경 안에만 설치돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_1_004",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "현재 가상환경에 설치된 패키지 목록을 파일로 저장하는 명령어를 완성하세요.\n\npip freeze > ________",
+      "answer": "requirements.txt",
+      "hint": "패키지 목록을 저장하는 관례적인 파일 이름이에요.",
+      "feedback": {
+        "correct": "정답! 'pip freeze > requirements.txt'로 현재 환경의 모든 패키지와 버전을 파일에 저장해요. 이 파일로 다른 환경에서 동일한 패키지를 설치할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_1_005",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "requirements.txt 파일에 있는 패키지를 한 번에 설치하는 명령어는?",
+      "choices": [
+        "A) python requirements.txt",
+        "B) pip import requirements.txt",
+        "C) pip install -r requirements.txt",
+        "D) pip load requirements.txt"
+      ],
+      "answer": "C) pip install -r requirements.txt",
+      "hint": "'-r' 옵션은 파일을 읽어서(read) 설치한다는 의미예요.",
+      "feedback": {
+        "correct": "정답! 'pip install -r requirements.txt'로 파일에 명시된 모든 패키지를 한 번에 설치해요. 팀 프로젝트에서 환경을 맞출 때 필수 명령어예요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_1_006",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "가상환경에 설치된 패키지 목록을 확인하는 명령어는?",
+      "choices": [
+        "A) pip info",
+        "B) pip show",
+        "C) pip check",
+        "D) pip list"
+      ],
+      "answer": "D) pip list",
+      "hint": "현재 환경에 설치된 모든 패키지와 버전을 보여줘요.",
+      "feedback": {
+        "correct": "정답! 'pip list'로 설치된 모든 패키지와 버전을 확인해요. 'pip show 패키지명'은 특정 패키지의 상세 정보를 보여줘요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_1_007",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "활성화된 가상환경을 비활성화하는 명령어를 완성하세요.\n\n________",
+      "answer": "deactivate",
+      "hint": "가상환경을 '비활성화(deactivate)'한다는 단어 자체가 명령어예요.",
+      "feedback": {
+        "correct": "정답! 'deactivate'를 실행하면 가상환경이 비활성화되고 시스템 Python 환경으로 돌아가요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_1_008",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "numpy 버전 1.23.0을 정확히 지정해서 설치하는 명령어는?",
+      "choices": [
+        "A) pip install numpy==1.23.0",
+        "B) pip install numpy:1.23.0",
+        "C) pip install numpy@1.23.0",
+        "D) pip install numpy-1.23.0"
+      ],
+      "answer": "A) pip install numpy==1.23.0",
+      "hint": "버전을 정확히 지정할 때는 '같다' 기호를 두 개 연속으로 써요.",
+      "feedback": {
+        "correct": "정답! 'pip install 패키지명==버전'으로 특정 버전을 설치해요. '==' 연산자는 '정확히 이 버전'을 의미해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_1_009",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "Windows 명령 프롬프트(cmd)에서 가상환경을 활성화하는 명령어를 완성하세요.\n\nvenv\\Scripts\\________",
+      "answer": "activate.bat",
+      "hint": "Windows cmd에서는 '.bat' 확장자의 배치 파일을 실행해요.",
+      "feedback": {
+        "correct": "정답! Windows cmd에서는 'venv\\Scripts\\activate.bat'로 가상환경을 활성화해요. PowerShell에서는 'Activate.ps1'을 사용해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_1_010",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "가상환경에서 설치된 패키지 간의 의존성 충돌을 검사하는 명령어를 완성하세요.\n\npip ________",
+      "answer": "check",
+      "hint": "문제가 없으면 'No broken requirements found.'가 출력돼요.",
+      "feedback": {
+        "correct": "정답! 'pip check'는 설치된 패키지 간의 의존성 충돌을 확인해요. 배포 전에 실행해 호환성 문제를 미리 발견할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_1_011",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "가상환경을 사용하는 주된 목적은 무엇인가요?",
+      "choices": [
+        "A) 프로젝트마다 독립적인 패키지 환경을 제공",
+        "B) 컴퓨터 전체의 패키지를 일괄 관리",
+        "C) 시스템 파일을 보호",
+        "D) 인터넷 연결 속도 향상"
+      ],
+      "answer": "A) 프로젝트마다 독립적인 패키지 환경을 제공",
+      "hint": "프로젝트마다 필요한 패키지 버전이 다를 수 있어요.",
+      "feedback": {
+        "correct": "정답! 가상환경은 프로젝트별로 독립적인 패키지 환경을 제공해요. 서로 다른 버전이 필요한 프로젝트도 충돌 없이 관리할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_1_012",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "가상환경 생성 후 폴더 내용을 확인하는 Linux/Mac 명령어를 완성하세요.\n\nls ________",
+      "answer": "venv",
+      "hint": "생성된 가상환경 폴더 이름을 입력해요.",
+      "feedback": {
+        "correct": "정답! 'ls venv'로 가상환경 폴더 안의 구조를 확인할 수 있어요. bin/, lib/, include/ 등의 하위 폴더를 볼 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_1_013",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "설치된 패키지를 제거하는 명령어는?",
+      "choices": [
+        "A) pip remove 패키지명",
+        "B) pip uninstall 패키지명",
+        "C) pip delete 패키지명",
+        "D) pip drop 패키지명"
+      ],
+      "answer": "B) pip uninstall 패키지명",
+      "hint": "설치(install)의 반대 개념이에요.",
+      "feedback": {
+        "correct": "정답! 'pip uninstall 패키지명'으로 패키지를 제거해요. 실행 시 확인 메시지가 표시되며 'y'를 입력해야 삭제돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_1_014",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "Linux/Mac에서 가상환경 폴더를 강제로 삭제하는 명령어를 완성하세요.\n\n________ -rf venv",
+      "answer": "rm",
+      "hint": "Linux에서 파일/폴더를 삭제하는 명령어예요. '-rf'는 재귀 강제 삭제 옵션이에요.",
+      "feedback": {
+        "correct": "정답! 'rm -rf venv'로 가상환경 폴더를 완전히 삭제해요. '-r'은 폴더 안까지 재귀 삭제, '-f'는 확인 없이 강제 삭제를 의미해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_1_015",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "가상환경이 활성화되었는지 확인하는 가장 쉬운 방법은?",
+      "choices": [
+        "A) 파일 탐색기에서 venv 폴더 확인",
+        "B) 'pip version' 명령어로 확인",
+        "C) 터미널 프롬프트 앞에 (venv)처럼 환경 이름이 표시됨",
+        "D) 'echo $PYTHON' 명령어로 확인"
+      ],
+      "answer": "C) 터미널 프롬프트 앞에 (venv)처럼 환경 이름이 표시됨",
+      "hint": "활성화되면 터미널 앞에 괄호로 감싼 환경 이름이 표시돼요.",
+      "feedback": {
+        "correct": "정답! 가상환경이 활성화되면 '(venv) $'처럼 프롬프트 앞에 환경 이름이 표시돼요. 이것으로 현재 어떤 가상환경이 활성화되어 있는지 바로 알 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_1_016",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "pip의 역할은 무엇인가요?",
+      "choices": [
+        "A) Python 코드를 실행",
+        "B) Python 파일을 컴파일",
+        "C) 가상환경을 생성",
+        "D) Python 패키지를 설치하고 관리"
+      ],
+      "answer": "D) Python 패키지를 설치하고 관리",
+      "hint": "pip는 'Package Installer for Python'의 약자예요.",
+      "feedback": {
+        "correct": "정답! pip는 Python 패키지를 설치·제거·관리하는 도구예요. PyPI(Python Package Index)에서 패키지를 다운로드해 설치해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_1_017",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "pip 자체를 최신 버전으로 업그레이드하는 명령어를 완성하세요.\n\npip install --upgrade ________",
+      "answer": "pip",
+      "hint": "업그레이드 대상이 pip 자신이에요.",
+      "feedback": {
+        "correct": "정답! 'pip install --upgrade pip'로 pip를 최신 버전으로 업그레이드해요. '--upgrade' 옵션은 이미 설치된 패키지를 최신 버전으로 갱신해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_1_018",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "requirements.txt 파일의 올바른 작성 형식은?",
+      "choices": [
+        "A) requests==2.28.0\nnumpy==1.23.0",
+        "B) requests:2.28.0, numpy:1.23.0",
+        "C) [requests==2.28.0, numpy==1.23.0]",
+        "D) {requests: 2.28.0, numpy: 1.23.0}"
+      ],
+      "answer": "A) requests==2.28.0\nnumpy==1.23.0",
+      "hint": "각 패키지를 한 줄씩 작성하고 '=='로 버전을 지정해요.",
+      "feedback": {
+        "correct": "정답! requirements.txt는 '패키지명==버전'을 한 줄씩 작성해요. 'pip freeze > requirements.txt'로 자동 생성할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_1_019",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "설치된 특정 패키지의 상세 정보(버전, 위치, 의존성 등)를 확인하는 명령어를 완성하세요.\n\npip show ________",
+      "answer": "requests",
+      "hint": "확인하고 싶은 패키지 이름을 입력해요. 예: requests",
+      "feedback": {
+        "correct": "정답! 'pip show 패키지명'으로 버전, 설치 위치, 의존 패키지 등 상세 정보를 확인해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_1_020",
+      "unit": 6,
+      "stage": "6-1",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "여러 패키지를 확인 없이 한 번에 제거하는 명령어를 완성하세요.\n\npip uninstall ________ numpy pandas",
+      "answer": "-y",
+      "hint": "확인 과정(yes/no)을 건너뛰는 옵션이에요.",
+      "feedback": {
+        "correct": "정답! '-y' 옵션을 사용하면 삭제 확인 없이 바로 제거해요. 'pip uninstall -y numpy pandas'로 두 패키지를 한 번에 삭제할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_2_001",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "가상환경을 만들기 전에 먼저 해야 할 작업은?",
+      "choices": [
+        "A) 프로젝트 폴더를 만들고 그 안으로 이동",
+        "B) 모든 패키지를 미리 설치",
+        "C) Python 재설치",
+        "D) 시스템 PATH 수정"
+      ],
+      "answer": "A) 프로젝트 폴더를 만들고 그 안으로 이동",
+      "hint": "가상환경은 프로젝트 폴더 안에 생성하는 것이 좋아요.",
+      "feedback": {
+        "correct": "정답! 먼저 프로젝트 폴더를 만들고 그 안으로 이동한 후 가상환경을 생성해요. 가상환경이 프로젝트 폴더 안에 위치하게 돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_2_002",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "myproject 폴더를 만든 후 그 안으로 이동하는 명령어를 완성하세요.\n\nmkdir myproject\ncd ________",
+      "answer": "myproject",
+      "hint": "생성한 폴더 이름으로 이동해요.",
+      "feedback": {
+        "correct": "정답! 'cd myproject'로 생성한 폴더 안으로 이동해요. cd는 'change directory'의 약자예요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_2_003",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "가상환경을 활성화하기 전, 터미널에서 'python' 명령어는 어떤 Python을 실행하나요?",
+      "choices": [
+        "A) 가상환경의 Python",
+        "B) 시스템에 설치된 전역 Python",
+        "C) 가장 최신 버전의 Python",
+        "D) 아무것도 실행되지 않음"
+      ],
+      "answer": "B) 시스템에 설치된 전역 Python",
+      "hint": "가상환경이 활성화되어야 가상환경의 Python이 사용돼요.",
+      "feedback": {
+        "correct": "정답! 가상환경 활성화 전에는 시스템(전역) Python이 실행돼요. 활성화 후에는 가상환경의 Python이 우선 실행돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_2_004",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "Linux/Mac 가상환경의 Python 실행 파일이 저장되는 경로를 완성하세요.\n\nvenv/________/python",
+      "answer": "bin",
+      "hint": "Linux/Mac에서 실행 파일은 'bin' 폴더에 위치해요.",
+      "feedback": {
+        "correct": "정답! Linux/Mac의 가상환경에서 Python과 activate 스크립트는 'venv/bin/' 폴더에 있어요. Windows는 'venv/Scripts/'를 사용해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_2_005",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "Windows와 Linux/Mac에서 가상환경 활성화 경로의 차이는?",
+      "choices": [
+        "A) 폴더 구조 자체가 완전히 다름",
+        "B) 경로는 같고 파일 이름만 다름",
+        "C) Windows는 Scripts 폴더, Linux/Mac은 bin 폴더 사용",
+        "D) Windows는 bin 폴더, Linux/Mac은 Scripts 폴더 사용"
+      ],
+      "answer": "C) Windows는 Scripts 폴더, Linux/Mac은 bin 폴더 사용",
+      "hint": "두 OS에서 실행 파일 폴더의 이름이 달라요.",
+      "feedback": {
+        "correct": "정답! Windows는 'venv\\Scripts\\activate.bat', Linux/Mac은 'source venv/bin/activate'를 사용해요. 폴더 이름만 다르고 개념은 같아요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_2_006",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "가상환경이 정상 생성되었는지 확인하는 방법은?",
+      "choices": [
+        "A) activate 파일이 실행되는지 확인",
+        "B) pip list 명령어 실행",
+        "C) python --version 명령어 실행",
+        "D) venv 폴더가 생성되었는지 확인"
+      ],
+      "answer": "D) venv 폴더가 생성되었는지 확인",
+      "hint": "가상환경을 만들면 설정한 이름의 폴더가 생겨요.",
+      "feedback": {
+        "correct": "정답! 'python -m venv venv' 실행 후 'ls venv'(또는 'dir venv')로 venv 폴더가 생성되었는지 확인해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_2_007",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "Linux/Mac에서 가상환경 활성화 스크립트를 실행하는 명령어를 완성하세요.\n\n________ venv/bin/activate",
+      "answer": "source",
+      "hint": "스크립트를 현재 셸에서 실행하는 bash 명령어예요.",
+      "feedback": {
+        "correct": "정답! 'source venv/bin/activate'로 가상환경을 활성화해요. '.' 명령어도 source와 동일한 역할을 해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_2_008",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "가상환경 활성화 후 'which python' 명령어의 결과는?",
+      "choices": [
+        "A) /path/to/project/venv/bin/python",
+        "B) /usr/bin/python",
+        "C) /usr/local/bin/python",
+        "D) C:\\\\Python\\\\python.exe"
+      ],
+      "answer": "A) /path/to/project/venv/bin/python",
+      "hint": "활성화 후에는 가상환경 안의 Python이 사용돼요.",
+      "feedback": {
+        "correct": "정답! 가상환경이 활성화되면 'which python'이 가상환경 내부의 python 경로를 반환해요. 가상환경 경로가 PATH 맨 앞에 추가되기 때문이에요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_2_009",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "가상환경이 활성화되면 터미널 프롬프트 앞에 무엇이 표시되나요?\n\n________ $",
+      "answer": "(venv)",
+      "hint": "가상환경 이름이 괄호로 감싸여 표시돼요.",
+      "feedback": {
+        "correct": "정답! '(venv) $'처럼 가상환경 이름이 괄호로 표시되면 활성화된 상태예요. 가상환경 이름이 venv가 아니면 해당 이름이 표시돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_2_010",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "가상환경에서 pip로 설치한 패키지가 저장되는 경로를 완성하세요.\n\nvenv/lib/python3.x/________",
+      "answer": "site-packages",
+      "hint": "Python 패키지가 설치되는 특별한 폴더 이름이에요.",
+      "feedback": {
+        "correct": "정답! 가상환경의 패키지는 'venv/lib/python3.x/site-packages/' 폴더에 저장돼요. 각 가상환경이 독립적인 site-packages를 가지기 때문에 프로젝트 간 패키지 충돌이 없어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_2_011",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "가상환경 활성화 후 pip의 위치는?",
+      "choices": [
+        "A) 가상환경 내 bin 또는 Scripts 폴더",
+        "B) 시스템의 전역 pip 경로",
+        "C) /usr/local/bin/pip",
+        "D) Python 설치 폴더"
+      ],
+      "answer": "A) 가상환경 내 bin 또는 Scripts 폴더",
+      "hint": "활성화 후에는 모든 명령어가 가상환경 안의 것을 사용해요.",
+      "feedback": {
+        "correct": "정답! 가상환경이 활성화되면 pip도 가상환경 내의 pip를 사용해요. Linux/Mac은 bin/, Windows는 Scripts/ 폴더에 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_2_012",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "Windows cmd에서 가상환경을 활성화하는 명령어를 완성하세요.\n\nvenv\\Scripts\\________",
+      "answer": "activate.bat",
+      "hint": "Windows 배치 파일(.bat) 형식이에요.",
+      "feedback": {
+        "correct": "정답! Windows cmd에서는 'venv\\Scripts\\activate.bat'로 활성화해요. PowerShell을 사용할 경우에는 'Activate.ps1'을 사용해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_2_013",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "여러 가상환경이 각자 다른 패키지를 가질 수 있는 이유는?",
+      "choices": [
+        "A) 시스템이 패키지를 자동으로 분리해줌",
+        "B) 각 가상환경이 독립적인 site-packages 폴더를 가짐",
+        "C) pip가 자동으로 버전을 관리함",
+        "D) 패키지를 캐시로 분리 저장하기 때문"
+      ],
+      "answer": "B) 각 가상환경이 독립적인 site-packages 폴더를 가짐",
+      "hint": "각 가상환경 안에 패키지를 저장하는 전용 폴더가 있어요.",
+      "feedback": {
+        "correct": "정답! 각 가상환경은 자신만의 site-packages 폴더를 가져서 패키지가 독립적으로 관리돼요. 서로 다른 버전의 같은 패키지도 충돌 없이 사용할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_2_014",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "활성화된 가상환경에서 pip의 전체 경로를 확인하는 명령어를 완성하세요.\n\nwhich ________",
+      "answer": "pip",
+      "hint": "which 명령어 뒤에 위치를 확인할 명령어 이름을 입력해요.",
+      "feedback": {
+        "correct": "정답! 'which pip'로 현재 사용 중인 pip의 경로를 확인해요. 가상환경이 활성화되면 venv 폴더 안의 pip 경로가 출력돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_2_015",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "가상환경 활성화 시 $VIRTUAL_ENV 환경변수에 저장되는 값은?",
+      "choices": [
+        "A) 설치된 패키지 목록",
+        "B) 현재 Python 버전 정보",
+        "C) 가상환경 폴더의 절대 경로",
+        "D) 가상환경 활성화 날짜"
+      ],
+      "answer": "C) 가상환경 폴더의 절대 경로",
+      "hint": "가상환경 활성화 시 자동으로 설정되는 환경변수예요.",
+      "feedback": {
+        "correct": "정답! $VIRTUAL_ENV에는 활성화된 가상환경 폴더의 절대 경로가 저장돼요. 'echo $VIRTUAL_ENV'로 확인할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_2_016",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "가상환경이 활성화될 때 PATH 환경변수는 어떻게 바뀌나요?",
+      "choices": [
+        "A) 모든 경로가 가상환경 경로로 교체됨",
+        "B) 기존 시스템 PATH가 모두 제거됨",
+        "C) PATH가 전혀 변경되지 않음",
+        "D) 가상환경의 bin/Scripts 폴더 경로가 맨 앞에 추가됨"
+      ],
+      "answer": "D) 가상환경의 bin/Scripts 폴더 경로가 맨 앞에 추가됨",
+      "hint": "PATH 앞에 추가되면 가상환경 명령어가 우선 실행돼요.",
+      "feedback": {
+        "correct": "정답! 가상환경 활성화 시 가상환경의 bin/ 또는 Scripts/ 경로가 PATH 맨 앞에 추가돼요. 그래서 python, pip 입력 시 가상환경의 것이 먼저 실행돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_2_017",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "pip freeze 출력 결과를 requirements.txt 파일로 저장하는 명령어를 완성하세요.\n\npip freeze ________ requirements.txt",
+      "answer": ">",
+      "hint": "터미널에서 명령어 출력을 파일로 보내는 리다이렉션 기호예요.",
+      "feedback": {
+        "correct": "정답! '>'는 출력을 파일로 저장하는 리다이렉션 연산자예요. 'pip freeze > requirements.txt'로 현재 환경의 패키지 목록을 파일에 저장해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_2_018",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "기존 가상환경의 패키지를 새 가상환경에 그대로 복제하는 올바른 방법은?",
+      "choices": [
+        "A) pip freeze > req.txt 저장 후 새 환경에서 pip install -r req.txt",
+        "B) venv 폴더 전체를 복사",
+        "C) 각 패키지를 수동으로 재설치",
+        "D) pip clone 명령어 사용"
+      ],
+      "answer": "A) pip freeze > req.txt 저장 후 새 환경에서 pip install -r req.txt",
+      "hint": "requirements.txt를 이용한 표준 패키지 공유 방법이에요.",
+      "feedback": {
+        "correct": "정답! 'pip freeze > req.txt'로 패키지 목록을 저장하고, 새 가상환경에서 'pip install -r req.txt'로 설치해요. 이것이 가상환경 패키지를 공유하는 표준 방법이에요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_2_019",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "deactivate 실행 시 어떤 환경변수가 원래 상태로 복원되나요?\n\n________ 환경변수가 원래 상태로 복원된다.",
+      "answer": "PATH",
+      "hint": "가상환경 활성화 시 맨 앞에 경로가 추가되었던 바로 그 환경변수예요.",
+      "feedback": {
+        "correct": "정답! deactivate 실행 시 PATH 환경변수가 원래 상태로 복원되면서 시스템 Python으로 돌아가요. $VIRTUAL_ENV 변수도 함께 해제돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_2_020",
+      "unit": 6,
+      "stage": "6-2",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "가상환경 생성 시 pip를 포함하지 않으려면 어떤 옵션을 사용하나요?\n\npython -m venv ________ myenv",
+      "answer": "--without-pip",
+      "hint": "pip를 '제외하고(without)' 생성하는 옵션이에요.",
+      "feedback": {
+        "correct": "정답! 'python -m venv --without-pip myenv'로 pip 없이 가상환경을 생성해요. 이후 ensurepip 모듈로 pip를 별도로 추가할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_3_001",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "pip는 무엇의 약자인가요?",
+      "choices": [
+        "A) Package Installer for Python",
+        "B) Python Installation Program",
+        "C) Project Integration Package",
+        "D) Python Import Package"
+      ],
+      "answer": "A) Package Installer for Python",
+      "hint": "Python 패키지를 설치하는 공식 도구예요.",
+      "feedback": {
+        "correct": "정답! pip는 'Package Installer for Python'의 약자예요. PyPI(Python Package Index)에서 패키지를 검색하고 설치해줘요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_3_002",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "requests 패키지의 최신 버전을 설치하는 명령어를 완성하세요.\n\npip install ________",
+      "answer": "requests",
+      "hint": "버전을 따로 지정하지 않으면 최신 버전이 설치돼요.",
+      "feedback": {
+        "correct": "정답! 'pip install requests'로 requests 패키지를 설치해요. 버전을 지정하지 않으면 PyPI에서 제공하는 최신 버전이 설치돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_3_003",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "pandas 버전 1.3.0을 정확히 지정해서 설치하는 명령어는?",
+      "choices": [
+        "A) pip install pandas@1.3.0",
+        "B) pip install pandas==1.3.0",
+        "C) pip install pandas-1.3.0",
+        "D) pip install pandas:1.3.0"
+      ],
+      "answer": "B) pip install pandas==1.3.0",
+      "hint": "'=='는 정확히 그 버전을 의미해요.",
+      "feedback": {
+        "correct": "정답! 'pip install 패키지명==버전'으로 특정 버전을 설치해요. '=='를 사용해야 정확히 그 버전이 설치돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_3_004",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "numpy를 최신 버전으로 업그레이드하는 명령어를 완성하세요.\n\npip install ________ numpy",
+      "answer": "--upgrade",
+      "hint": "이미 설치된 패키지를 최신 버전으로 갱신하는 옵션이에요.",
+      "feedback": {
+        "correct": "정답! 'pip install --upgrade numpy'로 numpy를 최신 버전으로 업그레이드해요. 이미 최신 버전이면 아무런 변경이 없어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_3_005",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "특정 버전 범위의 패키지를 설치할 때 올바른 표현식은?",
+      "choices": [
+        "A) numpy^1.20.0",
+        "B) numpy~1.20.0",
+        "C) numpy>=1.20.0,<2.0.0",
+        "D) numpy[1.20.0-2.0.0]"
+      ],
+      "answer": "C) numpy>=1.20.0,<2.0.0",
+      "hint": "'크거나 같음(>=)'과 '작음(<)' 연산자를 조합해 범위를 지정해요.",
+      "feedback": {
+        "correct": "정답! 'numpy>=1.20.0,<2.0.0'으로 1.20.0 이상 2.0.0 미만의 버전을 설치해요. 쉼표로 여러 조건을 동시에 지정할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_3_006",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "현재 환경에 설치된 모든 패키지와 버전을 확인하는 명령어는?",
+      "choices": [
+        "A) pip info",
+        "B) pip show",
+        "C) pip check",
+        "D) pip list"
+      ],
+      "answer": "D) pip list",
+      "hint": "설치된 모든 패키지를 나열(list)해요.",
+      "feedback": {
+        "correct": "정답! 'pip list'로 설치된 모든 패키지와 버전을 확인해요. 특정 패키지의 상세 정보는 'pip show 패키지명'으로 확인해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_3_007",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "requests 패키지의 상세 정보를 확인하는 명령어를 완성하세요.\n\npip show ________",
+      "answer": "requests",
+      "hint": "정보를 확인하고 싶은 패키지 이름을 입력해요.",
+      "feedback": {
+        "correct": "정답! 'pip show requests'로 버전, 설치 위치, 의존 패키지 등 requests의 상세 정보를 확인해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_3_008",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "'pip check' 명령어는 무슨 역할을 하나요?",
+      "choices": [
+        "A) 설치된 패키지 간의 의존성 충돌을 확인",
+        "B) 새 버전의 패키지를 확인",
+        "C) pip의 현재 버전 확인",
+        "D) 패키지 파일의 무결성 확인"
+      ],
+      "answer": "A) 설치된 패키지 간의 의존성 충돌을 확인",
+      "hint": "패키지끼리 요구하는 버전이 서로 충돌하는지 검사해요.",
+      "feedback": {
+        "correct": "정답! 'pip check'는 설치된 패키지 간의 의존성 충돌을 확인해요. 문제가 없으면 'No broken requirements found.'를 출력해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_3_009",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "numpy와 pandas를 확인 없이 한 번에 제거하는 명령어를 완성하세요.\n\npip uninstall ________ numpy pandas",
+      "answer": "-y",
+      "hint": "yes/no 확인 없이 자동으로 승인하는 옵션이에요.",
+      "feedback": {
+        "correct": "정답! '-y' 옵션을 사용하면 각 패키지 삭제 시 확인 없이 자동으로 제거해요. 여러 패키지를 한 번에 제거할 때 편리해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_3_010",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "업그레이드가 필요한(오래된) 패키지 목록을 확인하는 명령어를 완성하세요.\n\npip list ________",
+      "answer": "--outdated",
+      "hint": "'오래된(outdated)' 패키지를 확인하는 옵션이에요.",
+      "feedback": {
+        "correct": "정답! 'pip list --outdated'로 현재 버전보다 새 버전이 있는 패키지 목록을 확인해요. 정기적으로 실행해 패키지를 최신 상태로 유지할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_3_011",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "pip를 최신 버전으로 업그레이드하는 명령어는?",
+      "choices": [
+        "A) pip install --upgrade pip",
+        "B) pip update pip",
+        "C) pip upgrade pip",
+        "D) pip install pip@latest"
+      ],
+      "answer": "A) pip install --upgrade pip",
+      "hint": "'--upgrade' 옵션으로 이미 설치된 패키지를 업그레이드해요.",
+      "feedback": {
+        "correct": "정답! 'pip install --upgrade pip'로 pip 자체를 최신 버전으로 업그레이드해요. pip가 오래되면 경고 메시지가 뜨는데 이 명령어로 해결해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_3_012",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "현재 환경의 패키지 목록을 requirements.txt에 저장하는 명령어를 완성하세요.\n\npip freeze ________ requirements.txt",
+      "answer": ">",
+      "hint": "출력을 파일로 저장하는 리다이렉션 연산자예요.",
+      "feedback": {
+        "correct": "정답! '>'는 명령어 출력을 파일로 저장하는 리다이렉션 연산자예요. 'pip freeze > requirements.txt'로 패키지 목록을 파일에 저장해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_3_013",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "requirements.txt 파일에서 패키지를 설치할 때 사용하는 옵션은?",
+      "choices": [
+        "A) -f",
+        "B) -r",
+        "C) -i",
+        "D) -l"
+      ],
+      "answer": "B) -r",
+      "hint": "파일을 읽어서(read) 설치하는 옵션이에요.",
+      "feedback": {
+        "correct": "정답! '-r'은 파일을 읽어서(read) 설치하는 옵션이에요. 'pip install -r requirements.txt'로 파일에 있는 모든 패키지를 설치해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_3_014",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "flask 버전 2.0.0 이상을 설치하는 명령어를 완성하세요.\n\npip install flask________2.0.0",
+      "answer": ">=",
+      "hint": "'크거나 같음'을 나타내는 비교 연산자예요.",
+      "feedback": {
+        "correct": "정답! 'pip install flask>=2.0.0'으로 flask 2.0.0 이상의 버전을 설치해요. '>='는 '이상'을 의미해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_3_015",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "'pip freeze'의 출력 형식은?",
+      "choices": [
+        "A) 패키지명 (버전)",
+        "B) 패키지명: 버전",
+        "C) 패키지명==버전",
+        "D) 패키지명-버전"
+      ],
+      "answer": "C) 패키지명==버전",
+      "hint": "requirements.txt에 저장되는 형식과 같아요.",
+      "feedback": {
+        "correct": "정답! 'pip freeze'는 'requests==2.28.0' 형식으로 출력해요. 이 형식이 바로 requirements.txt에 저장되는 표준 형식이에요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_3_016",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "django 패키지의 상세 정보와 의존성을 확인하는 명령어를 완성하세요.\n\npip show ________",
+      "answer": "django",
+      "hint": "확인할 패키지 이름을 입력하면 Requires 항목에서 의존 패키지를 볼 수 있어요.",
+      "feedback": {
+        "correct": "정답! 'pip show django'로 버전, 설치 경로, 의존 패키지(Requires) 등을 확인해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_3_017",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "pip의 캐시를 모두 삭제하는 명령어를 완성하세요.\n\npip cache ________",
+      "answer": "purge",
+      "hint": "캐시를 완전히 제거(purge)하는 명령어예요.",
+      "feedback": {
+        "correct": "정답! 'pip cache purge'로 pip가 저장해둔 캐시를 모두 삭제해요. 패키지 설치 문제 해결이나 디스크 공간 확보 시 유용해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_3_018",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "설치된 패키지를 이전 버전으로 다운그레이드하는 방법은?",
+      "choices": [
+        "A) pip install 패키지명==이전버전",
+        "B) pip downgrade 패키지명",
+        "C) pip uninstall 후 재설치",
+        "D) pip install --downgrade 패키지명"
+      ],
+      "answer": "A) pip install 패키지명==이전버전",
+      "hint": "낮은 버전을 '=='로 지정해서 설치하면 자동으로 다운그레이드돼요.",
+      "feedback": {
+        "correct": "정답! 'pip install 패키지명==이전버전'으로 더 낮은 버전을 지정하면 현재 버전을 대체해요. downgrade 명령어는 따로 없어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_3_019",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "업그레이드 가능한 패키지 목록을 확인하는 명령어를 완성하세요.\n\npip list ________",
+      "answer": "--outdated",
+      "hint": "최신 버전이 있는 '오래된(outdated)' 패키지를 찾는 옵션이에요.",
+      "feedback": {
+        "correct": "정답! 'pip list --outdated'로 새 버전이 있는 패키지를 확인해요. 현재 버전과 최신 버전을 함께 보여줘요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_3_020",
+      "unit": 6,
+      "stage": "6-3",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "직접 설치한 패키지만 보고 의존성으로 자동 설치된 패키지를 제외하는 옵션을 완성하세요.\n\npip list ________",
+      "answer": "--not-required",
+      "hint": "다른 패키지에서 '요구되지 않은(not-required)' 패키지만 표시하는 옵션이에요.",
+      "feedback": {
+        "correct": "정답! 'pip list --not-required'는 다른 패키지의 의존성이 아닌, 직접 설치한 패키지만 표시해요. 불필요한 패키지를 찾아 정리할 때 유용해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_4_001",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택하세요.\n\n```python\nimport math\n\nresult = math.sqrt(16)\nprint(result)\n```",
+      "choices": [
+        "A) 4.0",
+        "B) 4",
+        "C) 16",
+        "D) 2.0"
+      ],
+      "answer": "A) 4.0",
+      "hint": "math.sqrt()는 제곱근을 계산하고, 결과는 항상 부동소수점(float)이에요.",
+      "feedback": {
+        "correct": "정답! math.sqrt(16) = 4.0이에요. math.sqrt()는 항상 float를 반환하기 때문에 4가 아닌 4.0이 출력돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_4_002",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "현재 날짜와 시간을 가져오는 코드를 완성하세요.\n\n```python\nimport datetime\n\nnow = ________\nprint(now)\n```",
+      "answer": "datetime.datetime.now()",
+      "hint": "datetime 모듈의 datetime 클래스 안에 있는 now() 메서드를 사용해요.",
+      "feedback": {
+        "correct": "정답! 'datetime.datetime.now()'로 현재 날짜와 시간을 가져와요. 모듈 이름과 클래스 이름이 모두 datetime이라 두 번 써야 해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_4_003",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택하세요.\n\n```python\nimport random\n\nrandom.seed(42)\nresult = random.randint(1, 10)\nprint(result)\n```",
+      "choices": [
+        "A) 7",
+        "B) 2",
+        "C) 42",
+        "D) 10"
+      ],
+      "answer": "B) 2",
+      "hint": "seed(42)로 고정하면 항상 동일한 결과가 나와요.",
+      "feedback": {
+        "correct": "정답! random.seed(42) 설정 후 randint(1, 10)의 첫 번째 결과는 2예요. seed로 난수 생성 순서를 고정해서 재현 가능한 결과를 만들어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_4_004",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "현재 작업 디렉토리 경로를 얻는 os 모듈 함수를 완성하세요.\n\n```python\nimport os\n\ncwd = os.________\nprint(cwd)\n```",
+      "answer": "getcwd()",
+      "hint": "'get current working directory'의 약자 함수예요.",
+      "feedback": {
+        "correct": "정답! os.getcwd()는 현재 작업 디렉토리의 절대 경로를 문자열로 반환해요. cwd는 current working directory의 약자예요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_4_005",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택하세요.\n\n```python\nimport os\n\npath = '/home/user/documents/file.txt'\nbasename = os.path.basename(path)\nprint(basename)\n```",
+      "choices": [
+        "A) /home/user/documents",
+        "B) file.txt",
+        "C) documents",
+        "D) file"
+      ],
+      "answer": "B) file.txt",
+      "hint": "basename()은 경로에서 파일 이름 부분만 추출해요.",
+      "feedback": {
+        "correct": "정답! os.path.basename()은 경로의 마지막 구성 요소(파일명)를 반환해요. '/home/user/documents/file.txt'에서 'file.txt'를 반환해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_4_006",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택하세요.\n\n```python\nimport math\n\nresult = math.ceil(3.2)\nprint(result)\n```",
+      "choices": [
+        "A) 3.2",
+        "B) 3",
+        "C) 4",
+        "D) 3.0"
+      ],
+      "answer": "C) 4",
+      "hint": "ceil()은 올림 함수로 소수점 이상의 정수를 반환해요.",
+      "feedback": {
+        "correct": "정답! math.ceil(3.2) = 4예요. ceil()은 올림 함수로 3.2보다 크거나 같은 최솟값 정수인 4를 반환해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_4_007",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "1부터 100까지 정수 난수를 생성하는 코드를 완성하세요.\n\n```python\nimport random\n\nresult = random.________(1, 100)\nprint(result)\n```",
+      "answer": "randint",
+      "hint": "'random integer(정수 난수)'의 약자 함수예요.",
+      "feedback": {
+        "correct": "정답! random.randint(a, b)는 a 이상 b 이하의 정수 난수를 생성해요. 양쪽 끝값(1과 100) 모두 포함돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_4_008",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택하세요.\n\n```python\nimport collections\n\ndata = [1, 2, 3, 3, 3]\ncounter = collections.Counter(data)\nmost_common = counter.most_common(1)\nprint([most_common[0][0]])\n```",
+      "choices": [
+        "A) [3, 3, 3]",
+        "B) [3, 3]",
+        "C) [(3, 3)]",
+        "D) [3]"
+      ],
+      "answer": "D) [3]",
+      "hint": "most_common(1)은 가장 많이 나온 요소 1개를 (값, 횟수) 튜플로 반환해요. [0][0]은 그 값만 추출해요.",
+      "feedback": {
+        "correct": "정답! most_common(1)은 [(3, 3)](값=3, 횟수=3)을 반환해요. [0][0]으로 첫 번째 튜플의 첫 번째 값(3)을 꺼내고, 리스트로 감싸면 [3]이에요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_4_009",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "파일 또는 디렉토리가 존재하는지 확인하는 함수를 완성하세요.\n\n```python\nimport os\n\nif os.path.________(filepath):\n    print('존재합니다')\n```",
+      "answer": "exists",
+      "hint": "경로가 '존재하는지(exists)' 확인하는 함수예요.",
+      "feedback": {
+        "correct": "정답! os.path.exists(경로)는 경로가 존재하면 True, 없으면 False를 반환해요. 파일과 디렉토리 모두 확인할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_4_010",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다음 코드에서 각 요소를 제곱하려면 빈칸에 무엇이 들어가야 하나요?\n\n```python\nnumbers = [1, 2, 3, 4, 5]\nsquared = list(map(________, numbers))\nprint(squared)\n```",
+      "choices": [
+        "A) lambda x: x**2",
+        "B) lambda x: x*2",
+        "C) x**2",
+        "D) pow"
+      ],
+      "answer": "A) lambda x: x**2",
+      "hint": "map()에는 각 요소에 적용할 함수를 전달해야 해요. 제곱은 **2 연산이에요.",
+      "feedback": {
+        "correct": "정답! 'lambda x: x**2'는 x를 받아 x²을 반환하는 익명 함수예요. map(lambda x: x**2, numbers)는 [1, 4, 9, 16, 25]를 반환해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_4_011",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택하세요.\n\n```python\nimport sys\n\nversion = sys.version_info\nprint(version.major)\n```",
+      "choices": [
+        "A) 3",
+        "B) 8",
+        "C) 10",
+        "D) 0"
+      ],
+      "answer": "A) 3",
+      "hint": "Python 3.x에서 major 버전은 항상 3이에요.",
+      "feedback": {
+        "correct": "정답! sys.version_info.major는 Python 메이저 버전 번호를 반환해요. Python 3.x에서는 항상 3이에요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_4_012",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "숫자의 절댓값을 float로 반환하는 math 함수를 완성하세요.\n\n```python\nimport math\n\nresult = math.________(-10)\nprint(result)\n```",
+      "answer": "fabs",
+      "hint": "float absolute value의 약자 함수예요. 내장 abs()와 다르게 항상 float를 반환해요.",
+      "feedback": {
+        "correct": "정답! math.fabs(-10)은 10.0(float)을 반환해요. 내장 함수 abs(-10)은 10(int)을 반환하는 점이 달라요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_4_013",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택하세요.\n\n```python\nimport math\n\nresult = math.floor(3.8)\nprint(result)\n```",
+      "choices": [
+        "A) 3.8",
+        "B) 4",
+        "C) 3",
+        "D) 3.0"
+      ],
+      "answer": "C) 3",
+      "hint": "floor()는 내림 함수예요. 소수점 아래를 버려요.",
+      "feedback": {
+        "correct": "정답! math.floor(3.8) = 3이에요. floor()는 내림 함수로 3.8보다 작거나 같은 최대 정수인 3을 반환해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_4_014",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드에서 짝수만 필터링하려면 빈칸에 무엇이 들어가야 하나요?\n\n```python\nnumbers = [1, 2, 3, 4, 5, 6]\neven = list(filter(________, numbers))\nprint(even)\n```",
+      "choices": [
+        "A) lambda x: x % 2 == 0",
+        "B) lambda x: x % 2 != 0",
+        "C) lambda x: x / 2 == 0",
+        "D) lambda x: x == 2"
+      ],
+      "answer": "A) lambda x: x % 2 == 0",
+      "hint": "짝수는 2로 나누었을 때 나머지가 0인 숫자예요.",
+      "feedback": {
+        "correct": "정답! 'lambda x: x % 2 == 0'는 짝수일 때 True를 반환해요. filter()는 True인 요소만 남겨서 [2, 4, 6]이 출력돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_4_015",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택하세요.\n\n```python\nimport math\n\nresult = math.log2(256)\nprint(int(result))\n```",
+      "choices": [
+        "A) 2",
+        "B) 8",
+        "C) 16",
+        "D) 4"
+      ],
+      "answer": "B) 8",
+      "hint": "log2(256)은 '2의 몇 제곱이 256인가'를 묻는 함수예요. 2^8 = 256이에요.",
+      "feedback": {
+        "correct": "정답! 2^8 = 256이므로 math.log2(256) = 8.0이에요. int()로 변환하면 8이 출력돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_4_016",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "리스트를 제자리에서 무작위로 섞는 코드를 완성하세요.\n\n```python\nimport random\n\ndata = [1, 2, 3]\n________\nprint(data)\n```",
+      "answer": "random.shuffle(data)",
+      "hint": "리스트 자체를 직접 섞는(shuffle) 함수예요. 새 리스트를 반환하지 않아요.",
+      "feedback": {
+        "correct": "정답! random.shuffle(data)는 리스트를 제자리에서 무작위로 섞어요. 반환값이 없고(None) 원본 리스트가 변경돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_4_017",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "여러 경로 요소를 운영체제에 맞게 결합하는 함수를 완성하세요.\n\n```python\nimport os\n\npath = os.path.________('/home', 'user', 'documents')\nprint(path)\n```",
+      "answer": "join",
+      "hint": "문자열의 join()과 비슷하지만 경로 구분자를 자동으로 처리해줘요.",
+      "feedback": {
+        "correct": "정답! os.path.join()은 경로 요소들을 운영체제에 맞는 구분자로 결합해요. Linux는 '/', Windows는 '\\'를 자동으로 사용해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_4_018",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "다음 코드의 실행 결과를 선택하세요.\n\n```python\nimport math\n\nresult = math.pow(2, 3)\nprint(int(result))\n```",
+      "choices": [
+        "A) 6",
+        "B) 8",
+        "C) 5",
+        "D) 2"
+      ],
+      "answer": "B) 8",
+      "hint": "pow(2, 3)은 2의 3제곱(2³)을 계산해요.",
+      "feedback": {
+        "correct": "정답! math.pow(2, 3) = 8.0이에요. 2³ = 8이고 math.pow()는 항상 float를 반환해서 int()로 변환하면 8이 출력돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_4_019",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "리스트의 모든 요소를 하나의 값으로 누적 연산하는 함수를 완성하세요.\n\n```python\nimport functools\n\nnumbers = [1, 2, 3, 4]\nresult = functools.________(lambda x, y: x + y, numbers)\nprint(result)\n```",
+      "answer": "reduce",
+      "hint": "여러 값을 하나로 줄이는(reduce) 함수예요.",
+      "feedback": {
+        "correct": "정답! functools.reduce()는 리스트 요소를 왼쪽부터 차례로 함수에 적용해 하나의 값으로 줄여요. 1+2+3+4 = 10이 출력돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_4_020",
+      "unit": 6,
+      "stage": "6-4",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "문자열을 MD5 해시로 변환하는 코드를 완성하세요.\n\n```python\nimport hashlib\n\ntext = 'hello'\nhash_obj = hashlib.________()\nhash_obj.update(text.encode())\nprint(hash_obj.hexdigest())\n```",
+      "answer": "md5",
+      "hint": "사용하려는 해시 알고리즘의 이름을 소문자로 입력해요.",
+      "feedback": {
+        "correct": "정답! hashlib.md5()로 MD5 해시 객체를 생성해요. update()로 데이터를 추가하고 hexdigest()로 16진수 해시 문자열을 얻어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_5_001",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "팀 프로젝트에서 가상환경을 공유할 때 필요한 파일은?",
+      "choices": [
+        "A) requirements.txt",
+        "B) venv 폴더 전체",
+        "C) .env 파일",
+        "D) config.json"
+      ],
+      "answer": "A) requirements.txt",
+      "hint": "패키지 목록과 버전을 담은 텍스트 파일이에요.",
+      "feedback": {
+        "correct": "정답! venv 폴더는 공유하지 않고 requirements.txt만 공유해요. 받은 사람이 가상환경을 새로 만들고 pip install -r requirements.txt로 패키지를 설치해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_5_002",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "Git에서 가상환경 폴더를 버전 관리에서 제외하기 위해 .gitignore에 추가하는 항목은?\n\n________/",
+      "answer": "venv",
+      "hint": "가상환경 폴더의 이름이에요. Git에 올리면 불필요하게 큰 파일이 포함돼요.",
+      "feedback": {
+        "correct": "정답! .gitignore에 'venv/'를 추가하면 가상환경 폴더가 Git에 포함되지 않아요. requirements.txt로 환경을 재현할 수 있으므로 venv 폴더는 올릴 필요가 없어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_5_003",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "다른 개발자가 프로젝트를 클론했을 때 가장 먼저 해야 할 작업은?",
+      "choices": [
+        "A) pip uninstall 실행",
+        "B) 가상환경을 생성하고 활성화",
+        "C) Python 버전 먼저 확인",
+        "D) pip list 실행"
+      ],
+      "answer": "B) 가상환경을 생성하고 활성화",
+      "hint": "패키지를 설치하기 전에 먼저 가상환경이 필요해요.",
+      "feedback": {
+        "correct": "정답! 먼저 가상환경을 만들고 활성화한 후, pip install -r requirements.txt로 패키지를 설치해요. 순서가 중요해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_5_004",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "프로젝트 폴더 구조에서 문서를 저장하는 일반적인 폴더 이름을 완성하세요.\n\n```python\nproject/\n  venv/\n  src/\n  tests/\n  ________/\n```",
+      "answer": "docs",
+      "hint": "'documents(문서)'의 줄임말이에요.",
+      "feedback": {
+        "correct": "정답! docs 폴더에 프로젝트 문서, API 문서 등을 저장해요. 표준 Python 프로젝트 구조에서 자주 사용하는 폴더명이에요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_5_005",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "개발 환경과 프로덕션 환경의 패키지를 분리 관리하는 방법은?",
+      "choices": [
+        "A) 환경 변수로 설정 분리",
+        "B) 가상환경을 두 개 생성",
+        "C) requirements.txt와 requirements-dev.txt 두 파일 사용",
+        "D) pip의 조건부 설치 옵션 사용"
+      ],
+      "answer": "C) requirements.txt와 requirements-dev.txt 두 파일 사용",
+      "hint": "프로덕션용과 개발용 패키지를 파일로 구분해요.",
+      "feedback": {
+        "correct": "정답! requirements.txt에는 프로덕션에 필요한 패키지, requirements-dev.txt에는 테스트·린팅 등 개발 전용 패키지를 분리해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_5_006",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "가상환경 활성화 후 Python 스크립트를 실행하면?",
+      "choices": [
+        "A) 패키지가 자동으로 설치됨",
+        "B) 시스템의 Python을 사용",
+        "C) Python 버전이 자동으로 변경됨",
+        "D) 가상환경의 Python과 설치된 패키지를 사용"
+      ],
+      "answer": "D) 가상환경의 Python과 설치된 패키지를 사용",
+      "hint": "가상환경이 활성화된 상태이면 모든 리소스가 가상환경 것을 사용해요.",
+      "feedback": {
+        "correct": "정답! 가상환경이 활성화된 상태에서 실행하면 가상환경 내의 Python과 거기에 설치된 패키지를 사용해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_5_007",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "두 개의 requirements 파일을 한 번에 설치하는 명령어를 완성하세요.\n\npip install -r requirements.txt -r ________",
+      "answer": "requirements-dev.txt",
+      "hint": "개발 전용 패키지 파일의 이름이에요.",
+      "feedback": {
+        "correct": "정답! '-r' 옵션을 여러 번 사용하면 여러 파일의 패키지를 한 번에 설치해요. 'pip install -r requirements.txt -r requirements-dev.txt'로 모두 설치할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_5_008",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "개발 중 코드 변경이 즉시 반영되도록 프로젝트를 설치하는 명령어는?",
+      "choices": [
+        "A) pip install -e .",
+        "B) python setup.py install",
+        "C) pip install setup.py",
+        "D) python -m pip setup.py"
+      ],
+      "answer": "A) pip install -e .",
+      "hint": "'-e'는 'editable(편집 가능)' 모드를 의미해요.",
+      "feedback": {
+        "correct": "정답! 'pip install -e .'는 editable 모드로 설치해요. 코드를 수정하면 재설치 없이 변경 사항이 바로 반영돼요. 개발 중에 매우 유용해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_5_009",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "전통적인 Python 프로젝트의 메타데이터와 의존성을 설정하는 파일 이름은?\n\n________",
+      "answer": "setup.py",
+      "hint": "프로젝트 설정(setup)을 담은 Python 파일이에요.",
+      "feedback": {
+        "correct": "정답! setup.py는 전통적인 Python 프로젝트의 메타데이터(이름, 버전, 의존성 등)를 정의해요. 현대에는 pyproject.toml도 함께 사용해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_5_010",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "현대적인 Python 프로젝트의 표준 설정 파일 이름은?\n\n________",
+      "answer": "pyproject.toml",
+      "hint": "PEP 518에서 도입된 현대 Python 프로젝트의 설정 표준 파일이에요.",
+      "feedback": {
+        "correct": "정답! pyproject.toml은 현대 Python 프로젝트의 표준 설정 파일이에요. build 도구, 린터, 테스트 설정 등을 한 파일에서 관리할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_5_011",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "가상환경 폴더를 삭제해도 프로젝트를 복구할 수 있는 이유는?",
+      "choices": [
+        "A) requirements.txt에 패키지 목록이 저장되어 있음",
+        "B) 가상환경은 프로젝트와 무관함",
+        "C) pip list가 자동으로 백업됨",
+        "D) 시스템에 패키지가 남아 있음"
+      ],
+      "answer": "A) requirements.txt에 패키지 목록이 저장되어 있음",
+      "hint": "requirements.txt가 있으면 언제든 재설치할 수 있어요.",
+      "feedback": {
+        "correct": "정답! requirements.txt에 패키지 목록이 있으면 가상환경을 다시 만들고 pip install -r requirements.txt로 복구할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_5_012",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "Python 3.8용 가상환경을 만드는 명령어를 완성하세요.\n\npython3.8 -m venv ________",
+      "answer": "venv3.8",
+      "hint": "Python 버전을 폴더명에 포함해 구분해요.",
+      "feedback": {
+        "correct": "정답! 'python3.8 -m venv venv3.8'처럼 버전을 폴더명에 포함하면 여러 Python 버전의 가상환경을 구분해서 관리할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_5_013",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "가상환경에서 패키지 버전이 맞지 않을 때 가장 빠르게 해결하는 방법은?",
+      "choices": [
+        "A) pip uninstall 후 시스템 패키지 사용",
+        "B) requirements.txt를 확인하고 pip install -r requirements.txt 재실행",
+        "C) Python 인터프리터를 최신 버전으로 교체",
+        "D) 가상환경을 삭제하고 Python 재설치"
+      ],
+      "answer": "B) requirements.txt를 확인하고 pip install -r requirements.txt 재실행",
+      "hint": "requirements.txt가 버전의 단일 기준(SSOT)이에요.",
+      "feedback": {
+        "correct": "정답! requirements.txt를 기준으로 'pip install -r requirements.txt'를 재실행해 패키지 버전을 동기화해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_5_014",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "현재 가상환경의 패키지 목록을 requirements.txt에 저장하는 명령어를 완성하세요.\n\npip freeze ________ requirements.txt",
+      "answer": ">",
+      "hint": "명령어 출력을 파일로 보내는 리다이렉션 기호예요.",
+      "feedback": {
+        "correct": "정답! 'pip freeze > requirements.txt'로 현재 가상환경의 패키지를 파일에 저장해요. 팀원과 공유할 때 이 파일을 전달해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_5_015",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "'pip install .' 명령어의 역할은?",
+      "choices": [
+        "A) 현재 디렉토리에서 패키지 검색",
+        "B) 현재 디렉토리의 모든 .py 파일 실행",
+        "C) 현재 디렉토리의 setup.py(또는 pyproject.toml)를 기반으로 프로젝트 설치",
+        "D) 현재 환경의 모든 패키지 업그레이드"
+      ],
+      "answer": "C) 현재 디렉토리의 setup.py(또는 pyproject.toml)를 기반으로 프로젝트 설치",
+      "hint": "'.'은 현재 디렉토리를 의미해요.",
+      "feedback": {
+        "correct": "정답! 'pip install .'은 현재 디렉토리의 setup.py 또는 pyproject.toml에 정의된 의존성을 읽어 프로젝트를 설치해요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_5_016",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "가상환경 없이 프로젝트를 실행하면 발생할 수 있는 문제는?",
+      "choices": [
+        "A) 메모리 사용량이 증가함",
+        "B) 실행 속도가 느려짐",
+        "C) 보안이 취약해짐",
+        "D) 시스템 패키지와 프로젝트 패키지가 혼동되어 버전 충돌 가능"
+      ],
+      "answer": "D) 시스템 패키지와 프로젝트 패키지가 혼동되어 버전 충돌 가능",
+      "hint": "가상환경의 핵심 목적은 패키지 격리예요.",
+      "feedback": {
+        "correct": "정답! 가상환경 없이 사용하면 시스템 패키지와 프로젝트 패키지가 충돌할 수 있어요. 서로 다른 버전을 요구하는 프로젝트가 공존할 수 없어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_5_017",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "GitHub에 올릴 때 민감한 정보가 담긴 파일을 제외하기 위해 .gitignore에 추가하는 항목은?\n\n```python\nvenv/\n__pycache__/\n*.pyc\n________\n```",
+      "answer": ".env",
+      "hint": "환경 변수와 API 키 등 민감한 정보를 담은 파일이에요.",
+      "feedback": {
+        "correct": "정답! .env 파일에는 API 키, 데이터베이스 비밀번호 등 민감한 정보가 담겨 있어요. 절대 GitHub에 올리면 안 돼요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_5_018",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "프로젝트를 다른 컴퓨터로 옮길 때 반드시 필요한 파일들은?",
+      "choices": [
+        "A) 소스 코드, requirements.txt, setup.py",
+        "B) venv 폴더 전체",
+        "C) .git 폴더만",
+        "D) requirements.txt 파일만"
+      ],
+      "answer": "A) 소스 코드, requirements.txt, setup.py",
+      "hint": "가상환경은 옮기지 않고 새로 생성해요.",
+      "feedback": {
+        "correct": "정답! 소스 코드와 requirements.txt, setup.py만 있으면 어디서든 가상환경을 새로 만들고 패키지를 설치해 환경을 재구성할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_5_019",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "README.md에 기록할 환경 설정 방법의 세 번째 단계를 완성하세요.\n\n```python\n1. python -m venv venv\n2. source venv/bin/activate\n```\n3. pip install ________",
+      "answer": "-r requirements.txt",
+      "hint": "requirements.txt 파일에서 패키지를 읽어 설치하는 옵션이에요.",
+      "feedback": {
+        "correct": "정답! 'pip install -r requirements.txt'로 requirements.txt의 모든 패키지를 설치해요. README.md에 이 세 단계를 기록해두면 누구나 쉽게 환경을 설정할 수 있어요."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_6_5_020",
+      "unit": 6,
+      "stage": "6-5",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "CI/CD 파이프라인에서 개발용 패키지까지 모두 설치한 뒤 의존성 충돌을 검사하는 세 번째 명령어를 완성하세요.\n\n```python\npip install -r requirements.txt\npip install -r requirements-dev.txt\n```\npip ________",
+      "answer": "check",
+      "hint": "설치된 패키지 간의 의존성 충돌을 검사하는 명령어예요.",
+      "feedback": {
+        "correct": "정답! 'pip check'는 설치된 패키지 간의 의존성 충돌을 확인해요. CI/CD에서 이 명령어로 환경 문제를 미리 발견할 수 있어요."
+      }
+    }
+  ]
+}

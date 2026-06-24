@@ -1,0 +1,204 @@
+{
+  "questions": [
+    {
+      "question_id": "unitboss_mid_os_2_001",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\nstats = (100, 50, 30)\nprint(stats[1])\n```",
+      "choices": [
+        "A. 100",
+        "B. 50",
+        "C. 30",
+        "D. (100, 50, 30)"
+      ],
+      "answer": "B",
+      "hint": "튜플도 리스트처럼 인덱스는 0부터 시작해요.",
+      "feedback": {
+        "correct": "정답! 튜플은 인덱스 0부터 시작합니다. stats[0]=100, stats[1]=50, stats[2]=30이므로 stats[1]은 50이에요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_fib_2_002",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "튜플 언패킹을 이용해 세 변수에 값을 각각 할당하려고 합니다. 빈칸에 들어갈 코드는?\n\n```python\n_________ = (\"에이몬\", 100, 30)\nprint(name, hp, mp)  # 에이몬 100 30\n```",
+      "choices": [],
+      "answer": "name, hp, mp",
+      "hint": "튜플의 값 개수와 변수 개수를 맞춰 왼쪽에 나열하면 됩니다.",
+      "feedback": {
+        "correct": "정답! 튜플 언패킹은 왼쪽에 변수 이름을 쉼표로 나열하면 튜플의 각 요소가 순서대로 할당됩니다. 변수 개수와 튜플 요소 개수가 같아야 해요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_os_2_003",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\na = [1, 2, 3]\nb = (1, 2, 3)\nc = {1, 2, 3}\nprint(type(a) == type(b))\nprint(type(b) == type(c))\n```",
+      "choices": [
+        "A. True / True",
+        "B. True / False",
+        "C. False / False",
+        "D. False / True"
+      ],
+      "answer": "C",
+      "hint": "list, tuple, set은 서로 다른 자료형이에요.",
+      "feedback": {
+        "correct": "정답! a는 list, b는 tuple, c는 set입니다. 세 자료형은 모두 다르기 때문에 type(a)==type(b)는 False, type(b)==type(c)도 False예요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_fib_2_004",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "중첩 딕셔너리에서 에이몬의 공격력 값을 꺼내려고 합니다. 빈칸에 들어갈 코드는?\n\n```python\ncharacter = {\n    \"name\": \"에이몬\",\n    \"stats\": {\"attack\": 85, \"defense\": 40}\n}\nprint(character_________)\n```",
+      "choices": [],
+      "answer": "[\"stats\"][\"attack\"]",
+      "hint": "딕셔너리 안에 딕셔너리가 있을 때 대괄호를 연달아 써서 접근해요.",
+      "feedback": {
+        "correct": "정답! 중첩 딕셔너리는 대괄호를 연달아 써서 접근합니다. character[\"stats\"]로 안쪽 딕셔너리를 꺼낸 뒤, [\"attack\"]으로 공격력 값을 가져와요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_ef_2_005",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "error_find",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드에서 TypeError가 발생하는 줄은?\n\n```python\n1줄: coords = (10, 20)\n2줄: print(coords[0])\n3줄: coords[0] = 99\n4줄: print(coords)\n```",
+      "choices": [
+        "A. 1줄",
+        "B. 2줄",
+        "C. 3줄",
+        "D. 4줄"
+      ],
+      "answer": "C",
+      "hint": "튜플은 생성 후 요소를 변경할 수 없는 불변(immutable) 자료형이에요.",
+      "feedback": {
+        "correct": "정답! 튜플은 불변(immutable) 자료형입니다. 한 번 생성된 튜플의 요소를 coords[0] = 99처럼 변경하려 하면 TypeError: 'tuple' object does not support item assignment가 발생해요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_os_2_006",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\nmonsters = {\"슬라임\": 3, \"드래곤\": 1}\nmonsters[\"슬라임\"] += 2\nmonsters[\"고블린\"] = 5\nprint(len(monsters))\n```",
+      "choices": [
+        "A. 2",
+        "B. 3",
+        "C. 4",
+        "D. 10"
+      ],
+      "answer": "B",
+      "hint": "기존 키 수정은 개수에 영향 없고, 새 키 추가는 개수를 늘려요.",
+      "feedback": {
+        "correct": "정답! 처음 딕셔너리에는 키가 2개(슬라임, 드래곤)입니다. 슬라임의 값을 수정해도 키 개수는 그대로이고, 고블린이라는 새 키가 추가되어 최종적으로 키가 3개가 됩니다."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_fib_2_007",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "두 세트의 교집합(공통 원소)만 구하려고 합니다. 빈칸에 들어갈 메서드 이름은?\n\n```python\nteam_a = {\"에이몬\", \"슬라임\", \"고블린\"}\nteam_b = {\"드래곤\", \"슬라임\", \"에이몬\"}\ncommon = team_a._________(team_b)\nprint(common)  # {'에이몬', '슬라임'}\n```",
+      "choices": [],
+      "answer": "intersection",
+      "hint": "두 집합의 공통 원소를 구하는 집합 연산의 이름을 영어로 생각해 보세요.",
+      "feedback": {
+        "correct": "정답! 교집합은 intersection() 메서드로 구합니다. & 연산자로도 같은 결과를 얻을 수 있어요. team_a & team_b와 team_a.intersection(team_b)는 동일합니다."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_os_2_008",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "output_select",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\nfirst, *rest = (10, 20, 30, 40, 50)\nprint(first)\nprint(rest)\n```",
+      "choices": [
+        "A. 10 / (20, 30, 40, 50)",
+        "B. 10 / [20, 30, 40, 50]",
+        "C. (10,) / [20, 30, 40, 50]",
+        "D. 10 / 20"
+      ],
+      "answer": "B",
+      "hint": "*rest는 나머지 요소들을 리스트로 담아요. 튜플이 아니라요.",
+      "feedback": {
+        "correct": "정답! 언패킹에서 *변수명은 나머지 값을 모두 리스트로 담습니다. first에는 10이, rest에는 [20, 30, 40, 50]이 할당됩니다. rest는 리스트 타입이에요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_ef_2_009",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "error_find",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "다음 코드에서 오류가 발생하는 줄은?\n\n```python\n1줄: dungeon = {\"1층\": {\"보스\": \"슬라임\", \"보상\": [\"검\", \"방패\"]}}\n2줄: print(dungeon[\"1층\"][\"보스\"])\n3줄: dungeon[\"1층\"][\"보상\"][0] = \"도끼\"\n4줄: dungeon[\"1층\"] = (\"오크\", [\"활\"])\n5줄: dungeon[\"1층\"][\"보스\"] = \"드래곤\"\n```",
+      "choices": [
+        "A. 2줄",
+        "B. 3줄",
+        "C. 4줄",
+        "D. 5줄"
+      ],
+      "answer": "D",
+      "hint": "4줄에서 값이 튜플로 바뀐 후, 5줄에서 어떤 자료형으로 접근하는지 확인해 보세요.",
+      "feedback": {
+        "correct": "정답! 4줄에서 dungeon[\"1층\"]의 값이 튜플 (\"오크\", [\"활\"])로 교체됩니다. 5줄에서 dungeon[\"1층\"][\"보스\"]처럼 문자열 키로 접근하려 하면 튜플은 정수 인덱스만 지원하므로 TypeError가 발생해요."
+      }
+    },
+    {
+      "question_id": "unitboss_mid_fib_2_010",
+      "unit": 2,
+      "stage": "2-boss",
+      "course_level": "intermediate",
+      "difficulty": "hard",
+      "type": "fill_in_blank",
+      "quiz_category": "unit_boss",
+      "is_boss": true,
+      "question": "딕셔너리에서 키가 없을 때 기본값 0을 반환하도록 빈칸을 채워주세요.\n\n```python\nscores = {\"에이몬\": 95, \"슬라임\": 70}\nresult = scores._________(\"드래곤\", 0)\nprint(result)  # 0\n```",
+      "choices": [],
+      "answer": "get",
+      "hint": "딕셔너리에서 키가 없을 때 예외 대신 기본값을 돌려주는 메서드예요.",
+      "feedback": {
+        "correct": "정답! dict.get(키, 기본값)은 키가 없을 때 KeyError 대신 지정한 기본값을 반환합니다. 기본값을 생략하면 None을 반환해요."
+      }
+    }
+  ]
+}

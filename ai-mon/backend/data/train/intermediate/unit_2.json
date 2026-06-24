@@ -1,0 +1,215 @@
+[
+  {
+    "question_id": "q001",
+    "type": "output_select",
+    "difficulty": "easy",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "seasons = ('spring', 'summer', 'fall', 'winter')\nprint(seasons[2])",
+    "choices": [
+      "A. spring",
+      "B. summer",
+      "C. fall",
+      "D. winter"
+    ],
+    "answer": "C",
+    "feedback": {
+      "correct": "정답! 튜플 인덱스는 0부터 시작합니다. seasons[0]='spring', seasons[1]='summer', seasons[2]='fall'이므로 C) fall이 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q002",
+    "type": "fill_in_blank",
+    "difficulty": "easy",
+    "question": "출력 결과가 4가 되도록 빈칸에 알맞은 내장 함수를 채워보세요.",
+    "code": "fruits = ('apple', 'banana', 'cherry', 'date')\nprint(_____(fruits))",
+    "answer": "len",
+    "feedback": {
+      "correct": "정답! len() 함수는 시퀀스의 요소 개수를 반환합니다. fruits 튜플에는 요소가 4개이므로 4가 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q003",
+    "type": "output_select",
+    "difficulty": "easy",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "numbers = [1, 2, 2, 3, 3, 3, 4]\nunique = set(numbers)\nprint(len(unique))",
+    "choices": [
+      "A. 7",
+      "B. 4",
+      "C. 3",
+      "D. 6"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정답! set()은 중복을 자동으로 제거합니다. [1, 2, 2, 3, 3, 3, 4]에서 고유한 값은 1, 2, 3, 4로 총 4개이므로 B) 4가 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q004",
+    "type": "fill_in_blank",
+    "difficulty": "easy",
+    "question": "튜플 t에서 값 2가 몇 번 등장하는지 세도록 빈칸에 알맞은 메서드를 채워보세요.",
+    "code": "t = (1, 2, 3, 2, 4, 2)\nprint(t._____(2))",
+    "answer": "count",
+    "feedback": {
+      "correct": "정답! 튜플의 count() 메서드는 특정 값이 몇 번 등장하는지 반환합니다. 2는 인덱스 1, 3, 5에 위치하므로 3이 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q005",
+    "type": "output_select",
+    "difficulty": "easy",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "t = (1, 2, 3)\nl = list(t)\nl.append(4)\nprint(t)",
+    "choices": [
+      "A. (1, 2, 3, 4)",
+      "B. [1, 2, 3, 4]",
+      "C. (1, 2, 3)",
+      "D. [1, 2, 3]"
+    ],
+    "answer": "C",
+    "feedback": {
+      "correct": "정답! 튜플은 불변(immutable)입니다. list(t)는 t를 복사한 새 리스트 l을 만들며, l.append(4)는 l만 변경합니다. 원본 t는 (1, 2, 3) 그대로이므로 C)가 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q006",
+    "type": "fill_in_blank",
+    "difficulty": "easy",
+    "question": "'banana'가 몇 번째 위치에 있는지 찾도록 빈칸에 알맞은 메서드를 채워보세요.",
+    "code": "fruits = ('apple', 'banana', 'banana', 'cherry')\npos = fruits._____('banana')\nprint(pos)",
+    "answer": "index",
+    "feedback": {
+      "correct": "정답! 튜플의 index() 메서드는 특정 값이 처음 등장하는 인덱스를 반환합니다. 'banana'는 인덱스 1에 있으므로 1이 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q007",
+    "type": "output_select",
+    "difficulty": "medium",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "a, b, c = (10, 20, 30)\nprint(b - a)",
+    "choices": [
+      "A. 10",
+      "B. 20",
+      "C. 30",
+      "D. -10"
+    ],
+    "answer": "A",
+    "feedback": {
+      "correct": "정답! 튜플 언패킹으로 a=10, b=20, c=30이 한 번에 할당됩니다. b - a = 20 - 10 = 10이므로 A) 10이 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q008",
+    "type": "fill_in_blank",
+    "difficulty": "medium",
+    "question": "출력 결과가 3이 되도록 빈칸에 알맞은 변수명을 채워보세요.",
+    "code": "data = (1, 2, 3, 4, 5)\nfirst, *middle, last = data\nprint(len(_____))  ",
+    "answer": "middle",
+    "feedback": {
+      "correct": "정답! *middle은 extended unpacking으로 첫 번째(1)와 마지막(5)을 제외한 [2, 3, 4]를 담습니다. len(middle) = 3이 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q009",
+    "type": "output_select",
+    "difficulty": "medium",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "x = 5\ny = 10\nx, y = y, x\nprint(x, y)",
+    "choices": [
+      "A. 5 10",
+      "B. 10 5",
+      "C. 15 15",
+      "D. 5 5"
+    ],
+    "answer": "B",
+    "feedback": {
+      "correct": "정답! x, y = y, x는 오른쪽에서 튜플 (10, 5)를 먼저 만든 뒤 x=10, y=5로 동시에 언패킹합니다. 따라서 B) 10 5가 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q010",
+    "type": "fill_in_blank",
+    "difficulty": "medium",
+    "question": "두 세트의 공통 원소만 구하도록 빈칸에 알맞은 메서드를 채워보세요.",
+    "code": "a = {1, 2, 3, 4, 5}\nb = {3, 4, 5, 6, 7}\ncommon = a._____(b)\nprint(common)",
+    "answer": "intersection",
+    "feedback": {
+      "correct": "정답! intersection() 메서드는 두 세트의 교집합을 반환합니다. a와 b에서 공통인 원소는 {3, 4, 5}입니다."
+    }
+  },
+  {
+    "question_id": "q011",
+    "type": "output_select",
+    "difficulty": "medium",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "school = {\n    'class_a': [85, 90, 78],\n    'class_b': [92, 88, 76]\n}\nprint(max(school['class_b']))",
+    "choices": [
+      "A. 88",
+      "B. 90",
+      "C. 92",
+      "D. 76"
+    ],
+    "answer": "C",
+    "feedback": {
+      "correct": "정답! school['class_b']는 [92, 88, 76] 리스트를 반환하고, max()로 가장 큰 값인 C) 92가 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q012",
+    "type": "fill_in_blank",
+    "difficulty": "medium",
+    "question": "출력 결과가 ['Alice', 'Bob', 'Carol']이 되도록 빈칸에 알맞은 인덱스를 채워보세요.",
+    "code": "records = [(1, 'Alice'), (2, 'Bob'), (3, 'Carol')]\nnames = [item[_____] for item in records]\nprint(names)",
+    "answer": "1",
+    "feedback": {
+      "correct": "정답! 각 튜플의 인덱스 1에 이름이 있습니다. (1, 'Alice')[1]='Alice'처럼 두 번째 요소를 추출하면 ['Alice', 'Bob', 'Carol']이 완성됩니다."
+    }
+  },
+  {
+    "question_id": "q013",
+    "type": "output_select",
+    "difficulty": "hard",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "data = {\n    'students': [\n        ('Alice', [90, 85, 92]),\n        ('Bob',   [78, 82, 88])\n    ]\n}\nresult = data['students'][0][1][2]\nprint(result)",
+    "choices": [
+      "A. 85",
+      "B. 90",
+      "C. 92",
+      "D. 88"
+    ],
+    "answer": "C",
+    "feedback": {
+      "correct": "정답! 단계별로 추적하면: data['students'][0] → ('Alice', [90, 85, 92]), [1] → [90, 85, 92], [2] → 세 번째 점수인 C) 92가 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q014",
+    "type": "fill_in_blank",
+    "difficulty": "hard",
+    "question": "딕셔너리 안 모든 튜플 점수의 합계를 구하도록 빈칸에 알맞은 메서드를 채워보세요.",
+    "code": "grade_book = {\n    'Alice': (88, 92, 79),\n    'Bob':   (75, 85, 90)\n}\ntotal = sum(score for scores in grade_book._____() for score in scores)\nprint(total)",
+    "answer": "values",
+    "feedback": {
+      "correct": "정답! grade_book.values()는 각 학생의 점수 튜플을 순회합니다. 이중 반복으로 모든 점수(88+92+79+75+85+90)를 합산하여 509가 출력됩니다."
+    }
+  },
+  {
+    "question_id": "q015",
+    "type": "output_select",
+    "difficulty": "hard",
+    "question": "다음 코드를 실행하면 어떤 값이 출력될까요?",
+    "code": "teams = {\n    'A': [('Alice', 90), ('Bob', 75)],\n    'B': [('Carol', 85), ('Dave', 95)]\n}\ntop = [name for group in teams.values()\n       for name, score in group if score >= 85]\nprint(top)",
+    "choices": [
+      "A. ['Alice', 'Carol', 'Dave']",
+      "B. ['Carol', 'Dave']",
+      "C. ['Alice', 'Dave']",
+      "D. ['Bob', 'Carol', 'Dave']"
+    ],
+    "answer": "A",
+    "feedback": {
+      "correct": "정답! score >= 85 조건: Alice(90)✓, Bob(75)✗, Carol(85)✓, Dave(95)✓. teams.values()를 순서대로 순회하므로 A) ['Alice', 'Carol', 'Dave']가 출력됩니다."
+    }
+  }
+]
