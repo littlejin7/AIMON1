@@ -37,7 +37,7 @@ export default function KakaoCallback() {
         }
 
         // 신규 소셜 가입이면 홈(레벨 테스트 배너)으로, 기존 유저는 레슨으로
-        navigate(is_new ? '/' : '/lesson')
+        navigate('/')
       } catch (err) {
         console.error(err)
         setError(err.response?.data?.detail || '카카오 로그인 중 오류가 발생했습니다.')
