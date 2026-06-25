@@ -5,6 +5,7 @@ import pytz
 import os
 import json
 import shutil
+import logging
 from routers.utils import (
     USE_SUPABASE,
     supabase,
@@ -15,34 +16,36 @@ from routers.utils import (
 )
 from services.email_service import send_email
 
+logger = logging.getLogger(__name__)
+
 scheduler = BackgroundScheduler(timezone=pytz.timezone('Asia/Seoul'))
 
 def send_streak_reminders():
-    print(f"[{now_kst()}] Running streak reminder job...")
-    
+    logger.info("Running streak reminder job...")
+
     # Calculate yesterday in KST (UTC+9)
     kst_now = now_kst()
     yesterday_str = (kst_now - timedelta(days=1)).strftime("%Y-%m-%d")
-    
+
     if USE_SUPABASE:
         try:
             # Query only required fields and filter directly in Supabase
             res = supabase.table("users").select("email, nickname, username, last_login").eq("last_login", yesterday_str).execute()
             target_users = res.data or []
-        except Exception as e:
-            print(f"[{now_kst()}] Failed to query users from Supabase in send_streak_reminders: {e}")
+        except Exception:
+            logger.exception("send_streak_reminders: Supabase 유저 쿼리 실패")
             target_users = []
     else:
         users = load_users()
         target_users = [u for u in users if u.get("last_login") == yesterday_str]
-    
+
     reminded_count = 0
     for user in target_users:
         email = user.get("email")
         # Skip if no email or empty string (often true for some social logins)
         if not email or not email.strip():
             continue
-            
+
         nickname = user.get("nickname", user.get("username", "유저"))
         subject = f"[AI MON] {nickname}님, 스트릭을 이어나갈 시간입니다! 🔥"
         html_content = f"""
@@ -57,25 +60,25 @@ def send_streak_reminders():
             </a>
         </div>
         """
-        
+
         success = send_email(to_email=email, subject=subject, html_content=html_content)
         if success:
             reminded_count += 1
-                
-    print(f"[{now_kst()}] Streak reminder job finished. Reminders sent: {reminded_count}")
+
+    logger.info("Streak reminder job finished. Reminders sent: %d", reminded_count)
 
 
 def backup_to_json():
-    print(f"[{now_kst()}] Running database backup job...")
+    logger.info("Running database backup job...")
     try:
         kst_now = now_kst()
         today_str = kst_now.strftime("%Y-%m-%d")
-        
+
         # Identify DATA_DIR from utils
         from routers.utils import DATA_DIR
         backup_dir = os.path.join(DATA_DIR, "backup", today_str)
         os.makedirs(backup_dir, exist_ok=True)
-        
+
         # 1. Fetch data
         if USE_SUPABASE:
             users_data = supabase.table("users").select("*").execute().data
@@ -85,7 +88,7 @@ def backup_to_json():
             users_data = load_users()
             progress_data = load_progress()
             wrong_answers_data = load_wrong_answers()
-            
+
         # 2. Write JSON files
         for filename, data in [
             ("users.json", users_data),
@@ -95,9 +98,9 @@ def backup_to_json():
             file_path = os.path.join(backup_dir, filename)
             with open(file_path, "w", encoding="utf-8") as f:
                 json.dump(data, f, ensure_ascii=False, indent=2)
-                
-        print(f"[{now_kst()}] Backup files successfully created at: {backup_dir}")
-        
+
+        logger.info("Backup files successfully created at: %s", backup_dir)
+
         # 3. Retention policy: delete backups older than 7 days
         base_backup_dir = os.path.join(DATA_DIR, "backup")
         if os.path.exists(base_backup_dir):
@@ -109,13 +112,12 @@ def backup_to_json():
                         folder_date = datetime.strptime(folder_name, "%Y-%m-%d")
                         if folder_date.date() < retention_limit.date():
                             shutil.rmtree(folder_path)
-                            print(f"[{now_kst()}] Removed expired backup directory: {folder_name}")
+                            logger.info("Removed expired backup directory: %s", folder_name)
                     except ValueError:
-                        # Skip folders that don't match YYYY-MM-DD
-                        pass
-                        
-    except Exception as e:
-        print(f"[{now_kst()}] Database backup job failed with error: {e}")
+                        pass  # YYYY-MM-DD 형식이 아닌 폴더 — 보존 정책 대상 아님
+
+    except Exception:
+        logger.exception("Database backup job failed")
 
 
 # Schedule the job every day at 18:00 KST

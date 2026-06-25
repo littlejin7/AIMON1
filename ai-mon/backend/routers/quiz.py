@@ -360,6 +360,7 @@ async def get_ai_feedback_stream(req: AiFeedbackRequest, user: Optional[dict] = 
                     _bump_ai_feedback(user_id)
 
         except Exception as e:
+            logger.exception("ai-feedback stream error for user %s", user_id)
             yield f"data: {json.dumps({'text': f'[오류: {str(e)}]'}, ensure_ascii=False)}\n\n"
         finally:
             yield "data: [DONE]\n\n"

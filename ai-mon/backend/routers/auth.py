@@ -257,6 +257,7 @@ def forgot_password(req: ForgotPasswordRequest, request: Request):
                 if (now - last_sent_dt).total_seconds() < 180:
                     return _SAME
             except (ValueError, TypeError):
+                logger.debug("last_sent 타임스탬프 파싱 실패 — 쿨다운 검사 skip", exc_info=True)
                 pass
         send_count = existing.get("send_count_today", 0) + 1
     else:

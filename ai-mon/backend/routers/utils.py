@@ -61,7 +61,7 @@ def get_user_id_or_ip(request: Request) -> str:
         try:
             return verify_token(auth)
         except Exception:
-            pass
+            pass  # 토큰 검증 실패는 정상 비로그인 요청으로 간주 — IP fallback
     return get_remote_address(request)
 
 limiter = Limiter(key_func=get_user_id_or_ip)
@@ -119,7 +119,7 @@ def file_lock(file_path: str):
                 lock_file.seek(0)
                 msvcrt.locking(lock_file.fileno(), msvcrt.LK_UNLCK, 1)
         except Exception:
-            pass
+            logger.warning("file_lock: 잠금 해제 실패 (무시)", exc_info=True)
         lock_file.close()
 
 
@@ -649,7 +649,7 @@ def serialize_user(user: dict) -> dict:
                     try:
                         filtered_crowns.append(int(unit_str))
                     except ValueError:
-                        pass
+                        pass  # "level-NaN" 같은 비정수 unit_str — 왕관 목록에서 제외
     res["awarded_crown_units"] = filtered_crowns
     
     # 4. Handle max_unlocked_unit
