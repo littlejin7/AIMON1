@@ -7,7 +7,7 @@ load_dotenv(os.path.join(os.path.dirname(__file__), "../.env"))
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import auth, quiz, boss, endboss, miniboss, progress, user, code, train, titles, game, mission
+from routers import auth, quiz, boss, endboss, miniboss, progress, user, code, train, titles, game, mission, admin
 
 
 @asynccontextmanager
@@ -57,6 +57,7 @@ app.include_router(train.router, prefix="/train", tags=["Train"])
 app.include_router(titles.router, prefix="/titles", tags=["Titles"])
 app.include_router(game.router, prefix="/game", tags=["Game"])
 app.include_router(mission.router, prefix="/missions", tags=["Missions"])
+app.include_router(admin.router, prefix="/admin", tags=["Admin"])
 
 @app.get("/")
 def health_check():
