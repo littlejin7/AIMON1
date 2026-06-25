@@ -27,9 +27,11 @@ export default function ChoiceOptions({
     return opt === selected && opt !== answer
   }
 
+  const normalizedChoices = choicesList.map(opt => opt.replace(/\\n/g, '\n'))
+  
   return (
     <div className="quiz-options stagger">
-      {choicesList.map((opt, i) => (
+      {normalizedChoices.map((opt, i) => (
         <button
           key={opt}
           id={`option-${opt.replace(/\s+/g, '-')}`}
@@ -39,7 +41,7 @@ export default function ChoiceOptions({
             isCorrect(opt)    ? 'correct'  : '',
             isWrong(opt)      ? 'wrong'    : '',
           ].join(' ')}
-          onClick={() => onSelect(opt)}.replace(/\\n/g, '\n')
+          onClick={() => onSelect(opt)}
           disabled={disabled || revealed}
         >
           <span className="opt-label">{LABELS[i] ?? i + 1}</span>
