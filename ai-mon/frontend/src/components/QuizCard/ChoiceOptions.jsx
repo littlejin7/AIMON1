@@ -39,7 +39,7 @@ export default function ChoiceOptions({
             isCorrect(opt)    ? 'correct'  : '',
             isWrong(opt)      ? 'wrong'    : '',
           ].join(' ')}
-          onClick={() => onSelect(opt)}
+          onClick={() => onSelect(opt)}.replace(/\\n/g, '\n')
           disabled={disabled || revealed}
         >
           <span className="opt-label">{LABELS[i] ?? i + 1}</span>
