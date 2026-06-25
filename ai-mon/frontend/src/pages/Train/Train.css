@@ -214,16 +214,20 @@ body:has(.tr-page) { background: #F4F3FA; }
 .tr-locked-desc  { font-size: 0.9rem; color: #7A7A94; line-height: 1.6; margin-bottom: 1.5rem; }
 
 .tr-go-btn {
-  background: #7F77DD;
+  background: linear-gradient(135deg, #7F77DD, #6C63C7);
   color: #fff;
   border: none;
-  border-radius: 12px;
-  padding: 12px 28px;
-  font-size: 14px;
-  font-weight: 600;
+  border-radius: 50px;
+  padding: 16px 0;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 700;
   cursor: pointer;
   font-family: inherit;
+  margin-top: 8px;
+  transition: opacity 0.2s;
 }
+.tr-go-btn:active { opacity: 0.85; }
 
 /* ── 기존 playing 모드 호환 ── */
 .train-page {
