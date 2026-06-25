@@ -82,8 +82,8 @@
       "question": "다음 슬라이싱 코드의 실행 결과값으로 올바른 것을 고르세요.\n\n```python\ntext = 'Hello World'\nprint(text[0:5])\n```",
       "choices": [
         "A. Hello",
-        "B. Hello ",
-        "C. ello ",
+        "B. Hell",
+        "C. ello",
         "D. Hello W"
       ],
       "answer": "A",
@@ -842,7 +842,7 @@
       "choices": [
         "A. 01012345678",
         "B. 010 1234 5678",
-        "C.    01012345678   ",
+        "C. 010 12 34 5678",
         "D. 010-1234-5678"
       ],
       "answer": "A",
