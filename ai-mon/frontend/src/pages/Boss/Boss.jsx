@@ -139,7 +139,6 @@ export default function Boss() {
       const isClear = d.is_clear
       const isFail = d.is_fail
 
-      setAiResult(d)
       setMyHp(nextMyHp)
       setBossHp(nextBossHp)
       setWrongCount(nextWrongCount)
@@ -148,6 +147,7 @@ export default function Boss() {
 
       if (isCorrect) {
         playAttackEffect(damage > 0 ? damage : 150)
+        setTimeout(() => setAiResult(d), 1100)
         if (isClear) {
           if (d.newly_earned_titles && d.newly_earned_titles.length > 0) {
             setNewlyEarnedTitles(d.newly_earned_titles)
@@ -169,6 +169,7 @@ export default function Boss() {
           }, 1500)
         }
       } else {
+        setAiResult(d)
         playHitEffect()
         if (isFail) {
           setTimeout(() => { playBGM('fail'); setPhase('failed') }, 2500)
