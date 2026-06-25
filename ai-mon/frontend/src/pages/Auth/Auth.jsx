@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import axios from 'axios'
 import { authApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import SocialButtons from './SocialButtons'
@@ -17,6 +18,19 @@ export default function Auth() {
   const setAuth  = useAuthStore((s) => s.setAuth)
   const navigate = useNavigate()
 
+  // 언마운트 감지 — 비동기 콜백이 이미 떠난 페이지로 navigate하는 것을 막음
+  const mountedRef = useRef(true)
+  // 진행 중인 로그인 요청 취소 핸들러
+  const abortRef = useRef(null)
+
+  useEffect(() => {
+    mountedRef.current = true
+    return () => {
+      mountedRef.current = false
+      abortRef.current?.abort()
+    }
+  }, [])
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
     setError('')
@@ -24,10 +38,22 @@ export default function Auth() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    // 중복 submit 방지 (autofill Enter + 버튼 동시 트리거 등)
+    if (loading) return
+
+    // 이전 요청이 아직 살아 있으면 취소
+    abortRef.current?.abort()
+    abortRef.current = new AbortController()
+
     setLoading(true)
     setError('')
     try {
-      const res = await authApi.login({ username: form.username.trim(), password: form.password })
+      const res = await authApi.login(
+        { username: form.username.trim(), password: form.password },
+        { signal: abortRef.current.signal },
+      )
+      // 응답이 돌아왔을 때 이미 다른 페이지로 이동한 경우 무시
+      if (!mountedRef.current) return
       setAuth(res.data.access_token, res.data.user, res.data.refresh_token)
       if (res.data.streak_reward) {
         const reward = res.data.streak_reward
@@ -35,10 +61,19 @@ export default function Auth() {
       }
       navigate('/')
     } catch (err) {
+      // AbortController로 취소된 요청은 조용히 무시
+      if (axios.isCancel(err)) return
+      if (!mountedRef.current) return
       setError(err.response?.data?.detail || '아이디 또는 비밀번호를 확인해주세요.')
     } finally {
-      setLoading(false)
+      if (mountedRef.current) setLoading(false)
     }
+  }
+
+  // 링크 이동 전 진행 중인 로그인 요청을 먼저 취소
+  const cancelAndNavigate = (path) => {
+    abortRef.current?.abort()
+    navigate(path)
   }
 
   const handleSocial = (provider) => {
@@ -70,7 +105,7 @@ export default function Auth() {
 
   const goToRegister = () => {
     const level = searchParams.get('level')
-    navigate(level ? `/register?level=${level}` : '/register')
+    cancelAndNavigate(level ? `/register?level=${level}` : '/register')
   }
 
   return (
@@ -79,7 +114,8 @@ export default function Auth() {
 
         {/* 뒤로가기 */}
         <button
-          onClick={() => navigate('/')}
+          type="button"
+          onClick={() => cancelAndNavigate('/')}
           style={{
             alignSelf: 'flex-start',
             margin: '14px 0 0 16px',
@@ -120,8 +156,8 @@ export default function Auth() {
             loading={loading}
             onSubmit={handleSubmit}
             onGoRegister={goToRegister}
-            onGoFindId={() => navigate('/find-id')}
-            onGoFindPw={() => navigate('/find-pw')}
+            onGoFindId={() => cancelAndNavigate('/find-id')}
+            onGoFindPw={() => cancelAndNavigate('/find-pw')}
           />
 
           {socialMsg && (
