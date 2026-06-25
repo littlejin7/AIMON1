@@ -543,7 +543,11 @@ def load_reset_tokens():
         for item in res.data:
             tokens_dict[item["email"]] = {
                 "token": item["token"],
-                "expires_at": item["expires_at"]
+                "expires_at": item["expires_at"],
+                "failed_attempts": item.get("failed_attempts", 0),
+                "send_date": item.get("send_date"),
+                "send_count_today": item.get("send_count_today", 0),
+                "last_sent": item.get("last_sent"),
             }
         return tokens_dict
     return _load_json_locked(RESET_TOKENS_FILE, {})
@@ -553,16 +557,21 @@ def save_reset_tokens(data):
     if USE_SUPABASE:
         db_tokens = supabase.table("reset_tokens").select("email").execute().data
         db_emails = {t["email"] for t in db_tokens}
-        
+
         emails_to_delete = db_emails - set(data.keys())
         if emails_to_delete:
             supabase.table("reset_tokens").delete().in_("email", list(emails_to_delete)).execute()
-            
+
         for email, token_info in data.items():
             supabase.table("reset_tokens").upsert({
                 "email": email,
                 "token": token_info["token"],
-                "expires_at": token_info["expires_at"]
+                "expires_at": token_info["expires_at"],
+                # 실패 횟수·발송 스로틀 상태도 Supabase에 영속화 (Supabase 경로 failed_attempts 버그 수정)
+                "failed_attempts": token_info.get("failed_attempts", 0),
+                "send_date": token_info.get("send_date"),
+                "send_count_today": token_info.get("send_count_today", 0),
+                "last_sent": token_info.get("last_sent"),
             }).execute()
     else:
         _save_json_locked(RESET_TOKENS_FILE, data)
