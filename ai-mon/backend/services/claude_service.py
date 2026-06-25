@@ -106,8 +106,10 @@ async def stream_claude(prompt: str, level: str = "beginner"):
 
 
 def extract_json(text: str) -> str:
+    # 각 단계는 독립 시도 — 파싱 실패 시 다음 방법으로 넘어가는 cascade 설계.
+    # except Exception: pass 는 의도적 무시이며 마지막에 원문 반환이 최종 fallback.
     text_clean = text.strip()
-    
+
     # 1. Try to extract from ```json ... ```
     if "```json" in text_clean:
         try:
