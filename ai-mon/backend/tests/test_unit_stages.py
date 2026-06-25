@@ -2,12 +2,16 @@
 
 배경: 유닛 완료/왕관 판정은 lessons 메타의 `stages` 로 required 스테이지 집합
   {unit-1 .. unit-stages} ∪ {unit-boss} 을 만든다(progress.py). 메타 stages 가
-  실제 콘텐츠(디스크 레슨 파일의 스테이지 수)와 어긋나면:
-    - stages 과다(예: 과거 beginner unit8=9, 실제 7) → required 에 없는 스테이지 요구
-      → 왕관 영구 미지급
-    - stages 과소(예: 과거 unit2=6, 실제 7) → X-7 끝내기 전에 왕관 조기 지급
+  실제로 유저가 푸는 quiz 콘텐츠(data/quiz/<level>/unit_N.json)의 스테이지 수와
+  어긋나면:
+    - stages 과다(예: 과거 beginner unit2=7, 실제 quiz 6) → required 에 없는
+      스테이지(2-7)를 요구 → 왕관 영구 미지급
+    - stages 과소 → 마지막 스테이지를 끝내기 전에 왕관 조기 지급
 
-1) 정합성: 전 레벨×유닛에서 meta.stages == 실제 콘텐츠 non-boss 스테이지 수.
+  ※ 진실 기준은 'data/quiz'(유저가 실제로 푸는 문제)다. 브리핑 슬라이드
+    (data/lessons/)는 별개 파일이라 여기서 기준으로 쓰지 않는다.
+
+1) 정합성: 전 레벨×유닛에서 meta.stages == 실제 quiz non-boss 스테이지 수.
 2) 왕관 회귀: 7스테이지 유닛은 X-7 까지, 6스테이지 유닛은 X-6 까지 + 보스라야 왕관 1개.
 """
 import sys
@@ -35,12 +39,22 @@ LEVELS = ["beginner", "intermediate", "advanced"]
 
 
 def _content_nonboss_count(level: str, unit: int) -> int | None:
-    """디스크 레슨 콘텐츠 파일의 non-boss 스테이지 수(실제 진실)."""
-    cf = os.path.join(DATA_DIR, "lessons", level, f"unit_{unit}.json")
+    """유저가 실제로 푸는 quiz 콘텐츠의 distinct non-boss 스테이지 수(진실 기준).
+
+    quiz 파일은 한 스테이지에 문제가 여러 개이므로 stage 값으로 distinct 집계한다.
+    boss 문제(is_boss=True 또는 stage 에 'boss')는 제외한다.
+    """
+    cf = os.path.join(DATA_DIR, "quiz", level, f"unit_{unit}.json")
     if not os.path.exists(cf):
         return None
     data = json.load(open(cf, encoding="utf-8"))
-    return sum(1 for x in data if "boss" not in str(x.get("stage", "")).lower())
+    questions = data.get("questions", data) if isinstance(data, dict) else data
+    stages = {
+        q.get("stage")
+        for q in questions
+        if not q.get("is_boss") and "boss" not in str(q.get("stage", "")).lower()
+    }
+    return len(stages)
 
 
 def _meta_stages(level: str, unit: int) -> int | None:
@@ -105,9 +119,10 @@ def _crowns(users_file: str) -> int:
 
 
 def test_seven_stage_unit_no_early_crown(progress_env):
-    """7스테이지 유닛(beginner unit2): X-7 을 빼고 X-1..X-6 + 보스만 완료하면
-    왕관이 나오면 안 된다(과거 meta=6 버그면 여기서 조기 지급됨). X-7 완료 시 지급."""
-    unit = 2
+    """7스테이지 유닛(beginner unit4=for/while, quiz 7스테이지): X-7 을 빼고
+    X-1..X-6 + 보스만 완료하면 왕관이 나오면 안 된다(meta.stages 과소 회귀).
+    X-7 완료 시 지급."""
+    unit = 4
     granted = 0
     # 2-1 ~ 2-6 + 보스 (2-7 누락)
     for i in range(1, 7):
@@ -137,6 +152,22 @@ def test_six_stage_unit_crown_at_six(progress_env):
     # 3-6 완료 → 왕관 1개
     granted += _submit(unit, f"{unit}-6")
     assert granted == 1, "6스테이지 유닛 전 완료인데 왕관 미지급"
+    assert _crowns(progress_env["users"]) == 1
+
+
+def test_unit2_six_stage_crown_fixed(progress_env):
+    """회귀 고정: beginner unit2 는 quiz 가 6스테이지(2-1..2-6)인데 과거 meta=7 이라
+    required 에 존재하지 않는 2-7 이 끼어 왕관이 영구 미지급됐다.
+    meta 를 6 으로 고친 뒤에는 2-1..2-6 + 보스 완료 시 왕관 1개가 정상 지급돼야 한다."""
+    unit = 2
+    granted = 0
+    for i in range(1, 6):  # 2-1 ~ 2-5
+        granted += _submit(unit, f"{unit}-{i}")
+    granted += _submit(unit, f"{unit}-boss")
+    assert granted == 0, "2-6 미완료인데 왕관 지급됨"
+
+    granted += _submit(unit, f"{unit}-6")  # 마지막 스테이지
+    assert granted == 1, "unit2 6스테이지+보스 완료인데 왕관 미지급(meta=7 회귀)"
     assert _crowns(progress_env["users"]) == 1
 
 

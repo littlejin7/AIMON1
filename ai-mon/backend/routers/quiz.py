@@ -133,21 +133,46 @@ def load_lessons(course_level: str = None, unit: int = None):
     return result
 
 
+def _read_units_file(path: str) -> list:
+    """유닛 목록 JSON 파일 1개를 읽어 list로 반환.
+
+    파일이 깨졌거나(JSONDecodeError) 읽기 실패 시 통째로 죽지 않도록 방어한다.
+    단, 조용히 빈 목록으로 넘기지 않고 에러 로그를 남긴 뒤 예외를 다시 올린다.
+    호출부(load_units)가 폴백 여부를 판단한다.
+    """
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (json.JSONDecodeError, OSError):
+        logger.exception("유닛 목록 파일 로드 실패: %s", path)
+        raise
+
+
 @lru_cache(maxsize=128)
 def load_units(course_level: str = None):
-    """유닛 목록: course_level별 파일 우선, 없으면 lessons.json(beginner) 폴백."""
+    """유닛 목록: course_level별 파일 우선, 없으면 lessons.json(beginner) 폴백.
+
+    레벨별 파일이 깨졌으면 에러를 로그로 남기고 기본 lessons.json 으로 폴백한다.
+    기본 파일까지 깨졌으면 에러를 로그로 남기고 예외를 올린다(조용한 빈 목록 금지).
+    """
     # 레벨별 파일 우선 (예: lessons_intermediate.json)
     if course_level and course_level != "beginner":
         base_dir = os.path.dirname(UNITS_FILE)
         level_file = os.path.join(base_dir, f"lessons_{course_level}.json")
         if os.path.exists(level_file):
-            with open(level_file, "r", encoding="utf-8") as f:
-                return json.load(f)
+            try:
+                return _read_units_file(level_file)
+            except (json.JSONDecodeError, OSError):
+                # 레벨별 파일이 깨진 경우 기본 lessons.json 으로 폴백
+                logger.warning(
+                    "레벨별 유닛 파일(%s)이 깨져 기본 lessons.json 으로 폴백합니다.",
+                    level_file,
+                )
     # 폴백: 기본 lessons.json
     if not os.path.exists(UNITS_FILE):
+        logger.error("기본 유닛 목록 파일이 존재하지 않습니다: %s", UNITS_FILE)
         return []
-    with open(UNITS_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
+    return _read_units_file(UNITS_FILE)
 
 
 # ── 유닛 목록 (lessons.json) ────────────────────────────────────
