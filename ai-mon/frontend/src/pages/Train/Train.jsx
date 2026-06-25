@@ -145,6 +145,10 @@ export default function Train() {
     }
   }
 
+  // ── 비로그인 → 로그인 유도 ──
+  if (!token) return <TrainLocked reason="login" />
+
+  
   // ── 로딩 스피너 ──
   if (checkingLock && token) {
     return (
