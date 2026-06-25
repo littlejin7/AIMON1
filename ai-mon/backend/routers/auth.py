@@ -143,6 +143,10 @@ class ResetPasswordRequest(BaseModel):
     new_password: str
 
 
+class FindIdRequest(BaseModel):
+    email: str
+
+
 @router.post("/register", status_code=status.HTTP_201_CREATED)
 @limiter.limit("5/minute")
 def register(req: RegisterRequest, request: Request):
@@ -323,6 +327,41 @@ def reset_password(req: ResetPasswordRequest, request: Request):
     save_reset_tokens(tokens)
     
     return {"ok": True, "message": "비밀번호가 성공적으로 변경되었습니다."}
+
+
+def mask_username(username: str) -> str:
+    """아이디를 마스킹: 앞 2글자만 노출하고 나머지는 *로 치환 (예: 'jinny' -> 'ji***')."""
+    if len(username) <= 2:
+        # 너무 짧으면 첫 글자만 노출
+        return username[:1] + "*" * max(len(username) - 1, 1)
+    return username[:2] + "*" * (len(username) - 2)
+
+
+@router.post("/find-id")
+@limiter.limit("5/hour")
+def find_id(req: FindIdRequest, request: Request):
+    user = get_user_by_email(req.email.strip())
+
+    # 보안: 계정이 없어도 HTTP 200 동일 형태로 응답해 info-disclosure(이메일 존재 여부 노출)를 줄임
+    if not user:
+        return {"ok": True, "found": False, "message": "해당 이메일로 가입된 계정을 찾을 수 없습니다."}
+
+    # 소셜 전용 계정 판별: username 이 google_/naver_/kakao_ 접두사로 시작하면 일반 비번 로그인 불가
+    username = user.get("username", "")
+    if username.startswith(("google_", "naver_", "kakao_")):
+        return {
+            "ok": True,
+            "found": True,
+            "is_social": True,
+            "message": "소셜 로그인(구글/네이버/카카오)으로 가입된 계정입니다.",
+        }
+
+    return {
+        "ok": True,
+        "found": True,
+        "is_social": False,
+        "masked_username": mask_username(username),
+    }
 
 
 from typing import Optional

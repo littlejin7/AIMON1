@@ -8,6 +8,9 @@ export const authApi = {
   socialLoginGoogle: (data) => api.post('/auth/social/google', data),
   socialLoginNaver: (data) => api.post('/auth/social/naver', data),
   socialLoginKakao: (data) => api.post('/auth/social/kakao', data),
+  forgotPassword: (data) => api.post('/auth/forgot-password', data),
+  resetPassword:  (data) => api.post('/auth/reset-password', data),
+  findId: (data) => api.post('/auth/find-id', data),
 }
 
 export const quizApi = {
