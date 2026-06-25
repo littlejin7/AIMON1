@@ -48,10 +48,21 @@ CREATE TABLE IF NOT EXISTS refresh_tokens (
 );
 
 -- 3. Reset Tokens Table
+-- token 컬럼은 SHA-256 hex digest (평문 아닌 해시만 저장).
+-- ALTER TABLE 마이그레이션 (기존 DB):
+--   ALTER TABLE reset_tokens
+--     ADD COLUMN IF NOT EXISTS failed_attempts integer DEFAULT 0,
+--     ADD COLUMN IF NOT EXISTS send_date text,
+--     ADD COLUMN IF NOT EXISTS send_count_today integer DEFAULT 0,
+--     ADD COLUMN IF NOT EXISTS last_sent timestamptz;
 CREATE TABLE IF NOT EXISTS reset_tokens (
   email text PRIMARY KEY,
-  token text NOT NULL,
+  token text NOT NULL,             -- SHA-256(raw_token) hex — 평문 저장 금지
   expires_at timestamptz NOT NULL,
+  failed_attempts integer DEFAULT 0,
+  send_date text,                  -- KST 날짜(YYYY-MM-DD) — 이메일 단위 일일 발송 카운터 키
+  send_count_today integer DEFAULT 0,
+  last_sent timestamptz,           -- 발송 쿨다운(3분) 기준시각
   created_at timestamptz DEFAULT now()
 );
 

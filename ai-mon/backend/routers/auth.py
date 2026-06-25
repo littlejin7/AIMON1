@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, status, Header, Request
 from pydantic import BaseModel
-import json, os, hashlib, uuid, secrets
+import json, os, hashlib, hmac, uuid, secrets
 from datetime import datetime, timedelta
 from jose import jwt
 from passlib.context import CryptContext
@@ -229,103 +229,118 @@ def login(req: LoginRequest, request: Request):
 @router.post("/forgot-password")
 @limiter.limit("5/hour")
 def forgot_password(req: ForgotPasswordRequest, request: Request):
+    _SAME = {"ok": True, "message": "If an account with that email exists, a reset code has been sent."}
+
     user = get_user_by_email(req.email)
     if not user:
-        # 보안상 유저 존재 여부를 노출하지 않음
-        return {"ok": True, "message": "If an account with that email exists, a reset code has been sent."}
+        # user enumeration 방지: 계정 미존재도 동일 응답
+        return _SAME
 
-    # B-5: 타인 이메일 무한 발송(이메일 폭탄) 방지를 위한 이메일 계정 단위 속도 제한
     now = now_kst()
     today_str = now.strftime("%Y-%m-%d")
-    
-    forgot_pwd_data = user.get("forgot_password_data", {})
-    if forgot_pwd_data.get("date") != today_str:
-        forgot_pwd_data = {"date": today_str, "count": 0, "last_sent": None}
-        
-    # 하루 최대 발송 횟수 제한 (예: 5회)
-    if forgot_pwd_data["count"] >= 5:
-        # 실제 발송은 생략하되 응답은 동일하게 하여 브루트포스 힌트를 주지 않음
-        return {"ok": True, "message": "If an account with that email exists, a reset code has been sent."}
-        
-    # 재발송 대기 시간 (예: 3분)
-    if forgot_pwd_data["last_sent"]:
-        last_sent = datetime.fromisoformat(forgot_pwd_data["last_sent"])
-        if (now - last_sent).total_seconds() < 180:
-            return {"ok": True, "message": "If an account with that email exists, a reset code has been sent."}
-            
-    # 발송 허가됨, 기록 업데이트
-    forgot_pwd_data["count"] += 1
-    forgot_pwd_data["last_sent"] = now.isoformat()
-    user["forgot_password_data"] = forgot_pwd_data
-    save_user(user)
 
-    # Generate URL-safe 32-character token
-    token = secrets.token_urlsafe(32)
-    expires_at = (now_kst() + timedelta(minutes=10)).isoformat()
-    
+    # 이메일 단위 스로틀: reset_tokens 레코드에 보관 (user 컬럼 불필요, 별도 저장 경로)
+    # 하루 5회 · 3분 쿨다운 — IP limiter(5/hour) 와 이중 방어
     tokens = load_reset_tokens()
+    existing = tokens.get(req.email, {})
+
+    if existing.get("send_date") == today_str:
+        if existing.get("send_count_today", 0) >= 5:
+            return _SAME
+        if existing.get("last_sent"):
+            try:
+                last_sent_dt = datetime.fromisoformat(existing["last_sent"])
+                if (now - last_sent_dt).total_seconds() < 180:
+                    return _SAME
+            except (ValueError, TypeError):
+                pass
+        send_count = existing.get("send_count_today", 0) + 1
+    else:
+        send_count = 1
+
+    # 토큰 생성 — SHA-256 해시만 저장(평문 저장 금지). 이메일엔 raw 토큰 발송.
+    raw_token = secrets.token_urlsafe(32)
+    token_hash = hashlib.sha256(raw_token.encode()).hexdigest()
+    expires_at = (now + timedelta(minutes=30)).isoformat()
+
     tokens[req.email] = {
-        "token": token,
+        "token": token_hash,        # 해시만 영속화
         "expires_at": expires_at,
-        "failed_attempts": 0
+        "failed_attempts": 0,
+        "send_date": today_str,
+        "send_count_today": send_count,
+        "last_sent": now.isoformat(),
     }
     save_reset_tokens(tokens)
-    
-    # Send email
+
     subject = "[AI MON] 비밀번호 재설정 인증 코드"
     html_content = f"""
     <div style="font-family: sans-serif; padding: 20px;">
         <h2>비밀번호 재설정</h2>
         <p>요청하신 비밀번호 재설정 인증 코드입니다.</p>
-        <div style="background-color: #f5f5f5; padding: 10px; word-break: break-all; font-family: monospace;">{token}</div>
-        <p>이 코드는 10분 후 만료됩니다.</p>
+        <div style="background-color: #f5f5f5; padding: 10px; word-break: break-all; font-family: monospace;">{raw_token}</div>
+        <p>이 코드는 30분 후 만료됩니다.</p>
     </div>
     """
     from services.email_service import send_email
     send_email(to_email=req.email, subject=subject, html_content=html_content)
-    
-    return {"ok": True, "message": "If an account with that email exists, a reset code has been sent."}
+
+    return _SAME
 
 
 @router.post("/reset-password")
 @limiter.limit("5/hour")
 def reset_password(req: ResetPasswordRequest, request: Request):
+    _INVALID = HTTPException(status_code=400, detail="유효하지 않거나 만료된 토큰입니다.")
+
     tokens = load_reset_tokens()
-    
+
     if req.email not in tokens:
-        raise HTTPException(status_code=400, detail="유효하지 않거나 만료된 토큰입니다.")
-        
+        raise _INVALID
+
     token_data = tokens[req.email]
     expires_at = datetime.fromisoformat(token_data["expires_at"])
-    
+
     if now_kst() > expires_at:
         del tokens[req.email]
         save_reset_tokens(tokens)
-        raise HTTPException(status_code=400, detail="유효하지 않거나 만료된 토큰입니다.")
-        
-    if token_data["token"] != req.token:
-        failed_attempts = token_data.get("failed_attempts", 0) + 1
-        if failed_attempts >= 5:
+        raise _INVALID
+
+    # 타이밍 안전 비교: 제출값 해시 후 hmac.compare_digest (평문 ↔ 해시 직접 비교 금지)
+    submitted_hash = hashlib.sha256(req.token.encode()).hexdigest()
+    stored_hash = token_data["token"]
+
+    if not hmac.compare_digest(stored_hash, submitted_hash):
+        failed = token_data.get("failed_attempts", 0) + 1
+        if failed >= 5:
             del tokens[req.email]
             save_reset_tokens(tokens)
-            raise HTTPException(status_code=400, detail="허용된 시도 횟수를 초과하여 토큰이 무효화되었습니다. 비밀번호 찾기를 다시 요청해주세요.")
-        
-        token_data["failed_attempts"] = failed_attempts
+            raise HTTPException(
+                status_code=400,
+                detail="허용된 시도 횟수를 초과하여 토큰이 무효화되었습니다. 비밀번호 찾기를 다시 요청해주세요.",
+            )
+        token_data["failed_attempts"] = failed
         save_reset_tokens(tokens)
-        raise HTTPException(status_code=400, detail="유효하지 않거나 만료된 토큰입니다.")
-        
-    # Valid token, update password
+        raise _INVALID
+
     user = get_user_by_email(req.email)
     if user is None:
-        raise HTTPException(status_code=400, detail="유효하지 않거나 만료된 토큰입니다.")
-        
-    user["password"] = hash_password(req.new_password)
-    save_user(user)
-    
-    # Remove token
+        raise _INVALID
+
+    # 비밀번호 변경 — mutate_user_atomic 원자 경로로 저장 (C-1)
+    new_hashed_pw = hash_password(req.new_password)
+    def mutator(u: dict) -> None:
+        u["password"] = new_hashed_pw
+        return None
+
+    try:
+        mutate_user_atomic(user["id"], mutator)
+    except UserNotFoundError:
+        raise _INVALID
+
     del tokens[req.email]
     save_reset_tokens(tokens)
-    
+
     return {"ok": True, "message": "비밀번호가 성공적으로 변경되었습니다."}
 
 
