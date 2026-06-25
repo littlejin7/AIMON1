@@ -1,6 +1,10 @@
 from fastapi import APIRouter, HTTPException, status, Header, Request
 from pydantic import BaseModel
 import json, os, hashlib, hmac, uuid, secrets
+import httpx
+import logging
+
+logger = logging.getLogger(__name__)
 from datetime import datetime, timedelta
 from jose import jwt
 from passlib.context import CryptContext
@@ -390,7 +394,6 @@ class SocialLoginRequest(BaseModel):
 @router.post("/social/google")
 @limiter.limit("5/minute")
 async def social_google(req: SocialLoginRequest, request: Request):
-    import httpx
     # 1. Exchange code for credentials
     client_id = os.getenv("GOOGLE_CLIENT_ID")
     client_secret = os.getenv("GOOGLE_CLIENT_SECRET")
@@ -413,15 +416,24 @@ async def social_google(req: SocialLoginRequest, request: Request):
     try:
         async with httpx.AsyncClient(timeout=httpx.Timeout(10.0, connect=3.0)) as client:
             token_res = await client.post(token_url, data=data)
-            token_json = token_res.json()
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=f"구글 토큰 요청 실패: {str(e)}")
+    except httpx.RequestError:
+        logger.exception("[Google] 토큰 교환 네트워크/timeout 오류")
+        raise HTTPException(status_code=502, detail="소셜 로그인 일시 오류 — 잠시 후 다시 시도해 주세요.")
+
+    try:
+        token_json = token_res.json()
+    except Exception:
+        logger.exception("[Google] 토큰 응답 파싱 실패 (HTTP %d)", token_res.status_code)
+        raise
 
     if "error" in token_json:
         raise HTTPException(
             status_code=400,
             detail=f"구글 토큰 인증 에러: {token_json.get('error_description', token_json['error'])}"
         )
+    if not token_res.is_success:
+        logger.error("[Google] 토큰 교환 비2xx: HTTP %d", token_res.status_code)
+        raise HTTPException(status_code=502, detail="소셜 로그인 일시 오류 — 잠시 후 다시 시도해 주세요.")
 
     access_token = token_json.get("access_token")
     if not access_token:
@@ -433,9 +445,19 @@ async def social_google(req: SocialLoginRequest, request: Request):
     try:
         async with httpx.AsyncClient(timeout=httpx.Timeout(10.0, connect=3.0)) as client:
             user_res = await client.get(userinfo_url, headers=headers)
-            user_info = user_res.json()
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=f"구글 사용자 정보 요청 실패: {str(e)}")
+    except httpx.RequestError:
+        logger.exception("[Google] 프로필 조회 네트워크/timeout 오류")
+        raise HTTPException(status_code=502, detail="소셜 로그인 일시 오류 — 잠시 후 다시 시도해 주세요.")
+
+    try:
+        user_info = user_res.json()
+    except Exception:
+        logger.exception("[Google] 프로필 응답 파싱 실패 (HTTP %d)", user_res.status_code)
+        raise
+
+    if not user_res.is_success:
+        logger.error("[Google] 프로필 조회 비2xx: HTTP %d", user_res.status_code)
+        raise HTTPException(status_code=502, detail="소셜 로그인 일시 오류 — 잠시 후 다시 시도해 주세요.")
 
     email = user_info.get("email")
     if not email:
@@ -527,7 +549,6 @@ def check_email(email: str):
 @router.post("/social/naver")
 @limiter.limit("5/minute")
 async def social_naver(req: SocialLoginRequest, request: Request):
-    import httpx
     client_id = os.getenv("NAVER_CLIENT_ID")
     client_secret = os.getenv("NAVER_CLIENT_SECRET")
     
@@ -549,15 +570,24 @@ async def social_naver(req: SocialLoginRequest, request: Request):
     try:
         async with httpx.AsyncClient(timeout=httpx.Timeout(10.0, connect=3.0)) as client:
             token_res = await client.post(token_url, data=params)
-            token_json = token_res.json()
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=f"네이버 토큰 요청 실패: {str(e)}")
+    except httpx.RequestError:
+        logger.exception("[Naver] 토큰 교환 네트워크/timeout 오류")
+        raise HTTPException(status_code=502, detail="소셜 로그인 일시 오류 — 잠시 후 다시 시도해 주세요.")
+
+    try:
+        token_json = token_res.json()
+    except Exception:
+        logger.exception("[Naver] 토큰 응답 파싱 실패 (HTTP %d)", token_res.status_code)
+        raise
 
     if "error" in token_json:
         raise HTTPException(
             status_code=400,
             detail=f"네이버 토큰 인증 에러: {token_json.get('error_description', token_json['error'])}"
         )
+    if not token_res.is_success:
+        logger.error("[Naver] 토큰 교환 비2xx: HTTP %d", token_res.status_code)
+        raise HTTPException(status_code=502, detail="소셜 로그인 일시 오류 — 잠시 후 다시 시도해 주세요.")
 
     access_token = token_json.get("access_token")
     if not access_token:
@@ -569,9 +599,19 @@ async def social_naver(req: SocialLoginRequest, request: Request):
     try:
         async with httpx.AsyncClient(timeout=httpx.Timeout(10.0, connect=3.0)) as client:
             user_res = await client.get(userinfo_url, headers=headers)
-            user_info_res = user_res.json()
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=f"네이버 사용자 정보 요청 실패: {str(e)}")
+    except httpx.RequestError:
+        logger.exception("[Naver] 프로필 조회 네트워크/timeout 오류")
+        raise HTTPException(status_code=502, detail="소셜 로그인 일시 오류 — 잠시 후 다시 시도해 주세요.")
+
+    try:
+        user_info_res = user_res.json()
+    except Exception:
+        logger.exception("[Naver] 프로필 응답 파싱 실패 (HTTP %d)", user_res.status_code)
+        raise
+
+    if not user_res.is_success:
+        logger.error("[Naver] 프로필 조회 비2xx: HTTP %d", user_res.status_code)
+        raise HTTPException(status_code=502, detail="소셜 로그인 일시 오류 — 잠시 후 다시 시도해 주세요.")
 
     if user_info_res.get("resultcode") != "00":
         raise HTTPException(
@@ -655,7 +695,6 @@ async def social_naver(req: SocialLoginRequest, request: Request):
 @router.post("/social/kakao")
 @limiter.limit("5/minute")
 async def social_kakao(req: SocialLoginRequest, request: Request):
-    import httpx
     client_id = os.getenv("KAKAO_CLIENT_ID")
     client_secret = os.getenv("KAKAO_CLIENT_SECRET")
     
@@ -678,15 +717,24 @@ async def social_kakao(req: SocialLoginRequest, request: Request):
     try:
         async with httpx.AsyncClient(timeout=httpx.Timeout(10.0, connect=3.0)) as client:
             token_res = await client.post(token_url, data=data)
-            token_json = token_res.json()
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=f"카카오 토큰 요청 실패: {str(e)}")
+    except httpx.RequestError:
+        logger.exception("[Kakao] 토큰 교환 네트워크/timeout 오류")
+        raise HTTPException(status_code=502, detail="소셜 로그인 일시 오류 — 잠시 후 다시 시도해 주세요.")
+
+    try:
+        token_json = token_res.json()
+    except Exception:
+        logger.exception("[Kakao] 토큰 응답 파싱 실패 (HTTP %d)", token_res.status_code)
+        raise
 
     if "error" in token_json:
         raise HTTPException(
             status_code=400,
             detail=f"카카오 토큰 인증 에러: {token_json.get('error_description', token_json['error'])}"
         )
+    if not token_res.is_success:
+        logger.error("[Kakao] 토큰 교환 비2xx: HTTP %d", token_res.status_code)
+        raise HTTPException(status_code=502, detail="소셜 로그인 일시 오류 — 잠시 후 다시 시도해 주세요.")
 
     access_token = token_json.get("access_token")
     if not access_token:
@@ -701,9 +749,19 @@ async def social_kakao(req: SocialLoginRequest, request: Request):
     try:
         async with httpx.AsyncClient(timeout=httpx.Timeout(10.0, connect=3.0)) as client:
             user_res = await client.get(userinfo_url, headers=headers)
-            user_info_res = user_res.json()
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=f"카카오 사용자 정보 요청 실패: {str(e)}")
+    except httpx.RequestError:
+        logger.exception("[Kakao] 프로필 조회 네트워크/timeout 오류")
+        raise HTTPException(status_code=502, detail="소셜 로그인 일시 오류 — 잠시 후 다시 시도해 주세요.")
+
+    try:
+        user_info_res = user_res.json()
+    except Exception:
+        logger.exception("[Kakao] 프로필 응답 파싱 실패 (HTTP %d)", user_res.status_code)
+        raise
+
+    if not user_res.is_success:
+        logger.error("[Kakao] 프로필 조회 비2xx: HTTP %d", user_res.status_code)
+        raise HTTPException(status_code=502, detail="소셜 로그인 일시 오류 — 잠시 후 다시 시도해 주세요.")
 
     kakao_id = user_info_res.get("id")
     if not kakao_id:
