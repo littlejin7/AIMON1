@@ -158,10 +158,6 @@ export default function BossBattle({
 
       {/* ── 퀴즈 패널 ── */}
       <div className={`eb-b-quiz-wrap quiz-attack-wrap${attackAnim ? ' attack-fly' : ''}`}>
-      
-      
-      {/* ── 퀴즈 패널 ── */}
-      <div className="eb-b-quiz-wrap">
 
         {/* 유형 뱃지 + 힌트 + 문제 번호 */}
         <div className="eb-b-topbar">
