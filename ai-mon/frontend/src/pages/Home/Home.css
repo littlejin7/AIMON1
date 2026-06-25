@@ -95,6 +95,8 @@ body:has(.home-page) { background: #F4F3FA; }
   gap: var(--sp-2);
   overflow-x: auto;
   padding-bottom: var(--sp-3);
+  padding-left: 14px;
+  padding-top: 12px;
   scrollbar-width: none;
 }
 .home-evo-track::-webkit-scrollbar { display: none; }
