@@ -260,10 +260,11 @@ body:has(.hd-page) { background: #F4F3FA; }
 }
 .hd-char-meta {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  margin: -2px 0 0; padding-left: 210px;
-  flex-wrap: wrap;
+  margin: 8px 0 0;
 }
 .hd-char-title-badge {
   font-size: 11px;
