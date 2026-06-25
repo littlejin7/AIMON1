@@ -31,6 +31,7 @@ TOKEN_TTL_SECONDS = 600  # 발급 후 10분 내 clear 만 유효
 MIN_PLAY_SECONDS = {
     "runner": 5,
     "aipang": 5,
+    "aizzak": 30,
 }
 
 
@@ -100,12 +101,13 @@ class GameClearRequest(BaseModel):
     game_id: str
     distance: Optional[int] = None
     score: Optional[int] = None
+    correct_count: Optional[int] = None  # 에이짝 전용: 클라이언트 제출값, 서버에서 범위 검증만
     game_token: str  # B-4: 프론트 배선 완료 후 required 전환
 
 
 @router.post("/start")
 def game_start(req: GameStartRequest, user_ref: dict = Depends(get_current_user)):
-    if req.game_id not in ("aipang", "runner"):
+    if req.game_id not in ("aipang", "runner", "aizzak"):
         raise HTTPException(status_code=400, detail="Invalid game_id")
     token = _make_game_token(req.game_id, user_ref["id"])
     return {"game_token": token}
@@ -122,6 +124,8 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
     # 서명·소유자·만료·최소경과시간 검증은 user 영속 상태와 무관하므로 락 밖에서 OK.
     # nonce '소비'(일회성)는 영속 상태 기준이어야 하므로 아래 mutator 안에서 수행.
     distance_val = None
+    aizzak_correct = None
+    aizzak_elapsed = None
     if req.game_id == "aipang":
         token_payload = _verify_game_token(
             req.game_token, "aipang", user_id, MIN_PLAY_SECONDS["aipang"]
@@ -136,6 +140,16 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
         token_payload = _verify_game_token(
             req.game_token, "runner", user_id, elapsed_floor
         )
+    elif req.game_id == "aizzak":
+        # correct_count 범위 검증 (클라 점수·시간·XP 입력은 무시, 서버가 직접 산출)
+        if req.correct_count is None or not (0 <= req.correct_count <= 8):
+            raise HTTPException(status_code=400, detail="correct_count는 0~8 범위여야 합니다.")
+        token_payload = _verify_game_token(
+            req.game_token, "aizzak", user_id, MIN_PLAY_SECONDS["aizzak"]
+        )
+        # 경과시간: 클라 제출값 불신 — 토큰 발급시각(ts) 기준 서버가 직접 계산
+        aizzak_elapsed = int(now_kst().timestamp()) - int(token_payload["ts"])
+        aizzak_correct = req.correct_count
     else:
         raise HTTPException(status_code=400, detail="Invalid game_id")
 
@@ -143,6 +157,7 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
         """영속 상태에서 새로 읽은 user 기준으로 nonce 소비·캡·보상을 원자 처리."""
         crowns_awarded = 0
         xp_awarded = 0
+        score_result = 0
         already_claimed = False
 
         # game_rewards 딕셔너리 초기화
@@ -184,8 +199,56 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
                     game_rewards["runner_last_date"] = last_date
                     game_rewards["runner_today_count"] = old_plays[last_date]
 
-        # 게임 종류에 따른 보상 처리
-        if req.game_id == "aipang":
+        # ── 게임 종류에 따른 보상 처리 ──────────────────────────────────────────
+        if req.game_id == "aizzak":
+            aizzak_last  = game_rewards.get("aizzak_last_date")
+            aizzak_count = game_rewards.get("aizzak_today_count", 0)
+
+            if aizzak_last != today_kst:
+                aizzak_count = 0
+                # daily_xp 공유 캡: 어느 게임도 오늘 아직 안 했을 때만 리셋
+                # (runner가 이미 오늘 실행해서 채웠을 수 있으므로 runner_last_date 확인)
+                if game_rewards.get("runner_last_date") != today_kst:
+                    game_rewards["daily_xp"] = 0
+
+            if aizzak_count >= 3:
+                already_claimed = True
+            else:
+                # nonce 소비: 보상 지급과 같은 임계구역 → 동시 동일토큰 이중통과 차단
+                _consume_nonce(game_rewards, token_payload)
+                aizzak_count += 1
+                game_rewards["aizzak_today_count"] = aizzak_count
+                game_rewards["aizzak_last_date"]   = today_kst
+
+                # 점수 산출 — 서버가 직접 계산, 클라 입력값 불신
+                if aizzak_elapsed <= 60:
+                    time_bonus = 300
+                elif aizzak_elapsed <= 90:
+                    time_bonus = 200
+                elif aizzak_elapsed <= 120:
+                    time_bonus = 100
+                else:
+                    time_bonus = 0
+                score_result = aizzak_correct * 50 + time_bonus
+
+                # XP 산출
+                if score_result >= 700:
+                    xp_awarded = 300
+                elif score_result >= 600:
+                    xp_awarded = 200
+                elif score_result >= 500:
+                    xp_awarded = 100
+                else:
+                    xp_awarded = 0
+
+                # 글로벌 일일 게임 XP 캡 (2500)
+                daily_xp = game_rewards.get("daily_xp", 0)
+                if daily_xp + xp_awarded > 2500:
+                    xp_awarded = max(0, 2500 - daily_xp)
+                game_rewards["daily_xp"] = daily_xp + xp_awarded
+                apply_xp(user, xp_awarded, event_type="game_clear")
+
+        elif req.game_id == "aipang":
             if game_rewards.get("aipang_last_date") == today_kst:
                 already_claimed = True
             else:
@@ -235,6 +298,7 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
         return {
             "crowns_awarded": crowns_awarded,
             "xp_awarded": xp_awarded,
+            "score": score_result,
             "total_crowns": user.get("crowns", 0),
             "total_xp": user.get("xp", 0),
             "already_claimed": already_claimed,
