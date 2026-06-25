@@ -1,7 +1,7 @@
 import api from './client'
 
 export const authApi = {
-  login:    (data) => api.post('/auth/login', data),
+  login:    (data, cfg) => api.post('/auth/login', data, cfg),
   register: (data) => api.post('/auth/register', data),
   checkId: (username) => api.get(`/auth/check-id?username=${encodeURIComponent(username)}`),
   checkEmail: (email) => api.get(`/auth/check-email?email=${encodeURIComponent(email)}`),
