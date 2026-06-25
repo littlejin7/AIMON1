@@ -76,7 +76,7 @@ export default function Train() {
   }, [token, user])
 
   const startTraining = async (unitNum) => {
-    if (!token) { alert('로그인이 필요한 기능입니다.'); navigate('/auth'); return }
+    if (!token) 
     setLoading(true)
     try {
       const res = await trainApi.getReview({ unit: unitNum, limit: 15, course_level: user?.course_level || 'beginner' })
