@@ -152,15 +152,14 @@ export default function BossBattle({
           alt="내 캐릭터"
         />
 
-        {/* 날아가는 공격 카드 */}
-        {attackAnim && (
-          <div className="eb-b-flying-card">⚡</div>
-        )}
-
         {/* 데미지 팝업 */}
         {dmgPopup && <div className="eb-b-dmg-popup">-{dmgPopup}</div>}
       </div>
 
+      {/* ── 퀴즈 패널 ── */}
+      <div className={`eb-b-quiz-wrap quiz-attack-wrap${attackAnim ? ' attack-fly' : ''}`}>
+      
+      
       {/* ── 퀴즈 패널 ── */}
       <div className="eb-b-quiz-wrap">
 
