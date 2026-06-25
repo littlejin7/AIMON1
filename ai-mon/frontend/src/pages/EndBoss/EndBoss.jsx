@@ -189,7 +189,6 @@ export default function EndBoss() {
       const isClear   = d.is_clear
       const isFail    = d.is_fail
 
-      setAiResult(d)
       setMyHp(nextMyHp)
       setBossHp(nextBossHp)
 
@@ -197,6 +196,7 @@ export default function EndBoss() {
 
       if (isCorrect) {
         playAttackEffect(damage > 0 ? damage : 150)
+        setTimeout(() => setAiResult(d), 1100)
         if (isClear) {
           setTimeout(async () => {
             try {
@@ -222,6 +222,7 @@ export default function EndBoss() {
           setTimeout(() => setPhase('phase3_transition'), 1500)
         }
       } else {
+        setAiResult(d)
         playHitEffect()
         if (isFail) {
           setTimeout(() => { playBGM('fail'); setPhase('failed') }, 2500)
