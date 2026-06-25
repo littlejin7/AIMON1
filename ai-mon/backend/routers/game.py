@@ -229,9 +229,8 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
                 apply_xp(user, xp_awarded, event_type="game_clear")
 
         user["game_rewards"] = game_rewards
-        # save_user 가 떼어내던 파생 필드를 동일하게 정리
-        user.pop("boss_cleared", None)
-        user.pop("completed_stages", None)
+        # 파생 카운터(boss_cleared/completed_stages) strip 은 mutate_user_atomic 코어가
+        # 일괄 처리(SSOT). 여기서 따로 pop 하지 않는다.
 
         return {
             "crowns_awarded": crowns_awarded,

@@ -316,39 +316,36 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dic
             "reviewed": False
         })
 
-    # ── 진행도(별도 스토리지) 완료 판정/저장은 락 밖에서 먼저 수행 ──
-    # 유닛보스 XP 중복가드(progress.is_completed)는 users 와 다른 스토리지라
-    # mutate_user_atomic 으로 완전 원자화되지 않음 → M-4 로 잔존. (백로그 기록)
-    award_xp = False
+    # ── 진행도(별도 스토리지)는 '읽기(가드 보조)'만 먼저, '쓰기(완료표시)'는 mutate 이후 ──
+    # progress.is_completed 는 '학습 진행 표시' 용도로만 유지한다. 유닛보스 보상
+    # 중복가드의 단일 진실은 user 컬럼 unitboss_cleared_units 로 이전(M-4 해소):
+    # progress 는 users 와 다른 스토리지라 mutate_user_atomic 임계구역으로 보호되지
+    # 않아 동시 제출 시 TOCTOU 로 XP/왕관 이중 지급이 가능했다.
+    #
+    # was_completed_before: progress.is_completed 의 '이번 요청 쓰기 전' 값. 레거시(과거
+    # progress 가드로 이미 보상받은) 유저를 mutator 안에서 재지급 없이 백필하는 데 쓴다.
+    # ★ 완료표시 쓰기를 mutate '이후' 로 미루는 이유: mutate 이전에 쓰면 동시 형제 요청이
+    #   우리가 쓴 is_completed=True 를 읽고 was_completed_before=True 로 오인 → 백필(무지급)
+    #   하여 양쪽 다 미지급되는 race 가 생긴다. mutate 이후로 미루면 was_completed_before=True
+    #   는 오직 '이전 세션 레거시' 만 의미하게 되어 동시 제출도 정확히 1회 지급된다.
+    was_completed_before = False
     next_unit = 1
+    unit_key = None   # 보상 가드 키 "{course_level}-{unit}" (mutator 가 user 컬럼으로 멱등 판정)
+    progress_existing = None
+    progress_unit_val = None
+    progress_stage_val = None
     if is_clear and not grading_failed:
         unit_val = int(req.unit) if req.unit is not None else int(question.get("unit", 1))
         stage_val = question.get("stage", f"{unit_val}-boss")
+        unit_key = f"{course_level}-{unit_val}"
+        progress_unit_val, progress_stage_val = unit_val, stage_val
 
         progress = get_progress_by_user(user_id, course_level)
         existing = next((p for p in progress if p["unit"] == unit_val and p["stage"] == stage_val), None)
-
+        progress_existing = existing
         if existing:
-            if not existing.get("is_completed", False):
-                award_xp = True
-            existing["score"] = max(existing.get("score", 0), ai_result.get("score", 100))
-            existing["is_completed"] = True
-            existing["updated_at"] = now_kst().isoformat()
-            save_progress_item(existing)
-        else:
-            award_xp = True
-            item = {
-                "id": str(uuid.uuid4()),
-                "user_id": user_id,
-                "unit": unit_val,
-                "stage": stage_val,
-                "score": ai_result.get("score", 100),
-                "is_completed": True,
-                "course_level": course_level,
-                "created_at": now_kst().isoformat(),
-                "updated_at": now_kst().isoformat(),
-            }
-            save_progress_item(item)
+            was_completed_before = existing.get("is_completed", False)
+        # (완료표시 저장은 mutate 이후로 미룸 — 위 ★ 주석 참고)
 
         if not is_final_boss:
             try:
@@ -362,53 +359,98 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dic
                 cleared_unit = 1
             next_unit = cleared_unit + 1
 
-    # 유닛보스 보상 지급 여부 (엔드보스 보상은 endboss.py 가 전담)
-    do_unit_reward = (is_clear and not grading_failed and not is_final_boss and award_xp)
+    # 유닛보스 클리어 이벤트 여부(엔드보스 보상은 endboss.py 전담). '이미 지급됐는지'의
+    # 최종 판정은 mutator 안에서 user 컬럼(unitboss_cleared_units) 기준으로 한다.
+    attempt_unit_reward = (is_clear and not grading_failed and not is_final_boss and unit_key is not None)
 
     # ── 유저 상태 변경(피드백 카운트·칭호·유닛보스 보상)은 fresh user 기준 원자 처리 ──
     # ai_feedback_count(counter)·titles(list)·missions(boss_clear) 가 save_user
     # delta-merge 에서 덮어써지던 문제 해소. (M-1)
+    # 유닛보스 보상 중복가드를 progress(별도 스토리지)에서 unitboss_cleared_units(user
+    # 컬럼)로 이전 → '검사→지급→append' 가 같은 임계구역에서 원자적. 동시 이중 제출에도
+    # 정확히 1회만 지급. (M-4 해소; endboss/miniboss 와 동일 패턴)
     def mutator(u: dict) -> dict:
         newly = []
+        granted = False   # 이 호출에서 실제로 XP/왕관을 지급했는지 (응답 보상 필드용)
         # 피드백 카운트 + 칭호 (채점 성공 시 매 답안)
         u["ai_feedback_count"] = u.get("ai_feedback_count", 0) + 1
         newly = check_and_award_titles(u, {})
 
-        if do_unit_reward:
-            if is_unit_boss:
-                if not isinstance(u.get("completed_units"), dict):
-                    old_val = u.get("completed_units", 0)
-                    u["completed_units"] = {"beginner": old_val, "intermediate": 0, "advanced": 0}
-                u["completed_units"][course_level] = u["completed_units"].get(course_level, 0) + 1
+        if attempt_unit_reward:
+            cleared = u.get("unitboss_cleared_units")
+            if not isinstance(cleared, list):
+                cleared = []
+            already = unit_key in cleared
 
-            context = {"boss_cleared": True}
-            events = apply_xp(u, 3000, context, event_type="boss_clear")
+            # 레거시 호환: 과거 progress 가드로 이미 보상받은 유저(was_completed_before)는
+            # 재지급 없이 컬럼만 백필. 백필도 already 검사를 거쳐 멱등.
+            if not already and was_completed_before:
+                cleared.append(unit_key)
+                u["unitboss_cleared_units"] = cleared
+                already = True
 
-            title_ids = {t["id"] for t in newly}
-            for t in events["newly_earned_titles"]:
-                if t["id"] not in title_ids:
-                    newly.append(t)
+            if not already:
+                if is_unit_boss:
+                    if not isinstance(u.get("completed_units"), dict):
+                        old_val = u.get("completed_units", 0)
+                        u["completed_units"] = {"beginner": old_val, "intermediate": 0, "advanced": 0}
+                    u["completed_units"][course_level] = u["completed_units"].get(course_level, 0) + 1
 
-            u["crowns"] = u.get("crowns", 0) + 1
+                context = {"boss_cleared": True}
+                events = apply_xp(u, 3000, context, event_type="boss_clear")
 
-            if not isinstance(u.get("max_unlocked_unit"), dict):
-                old_val = u.get("max_unlocked_unit", 1)
-                u["max_unlocked_unit"] = {"beginner": old_val, "intermediate": 1, "advanced": 1}
-            u["max_unlocked_unit"][course_level] = max(u["max_unlocked_unit"].get(course_level, 1), next_unit)
+                title_ids = {t["id"] for t in newly}
+                for t in events["newly_earned_titles"]:
+                    if t["id"] not in title_ids:
+                        newly.append(t)
 
-        return {"newly_earned_titles": newly}
+                u["crowns"] = u.get("crowns", 0) + 1
+
+                if not isinstance(u.get("max_unlocked_unit"), dict):
+                    old_val = u.get("max_unlocked_unit", 1)
+                    u["max_unlocked_unit"] = {"beginner": old_val, "intermediate": 1, "advanced": 1}
+                u["max_unlocked_unit"][course_level] = max(u["max_unlocked_unit"].get(course_level, 1), next_unit)
+
+                cleared.append(unit_key)          # 지급 직후 같은 임계구역에서 가드 기록
+                u["unitboss_cleared_units"] = cleared
+                granted = True
+
+        return {"newly_earned_titles": newly, "granted": granted}
 
     # 채점 실패가 아닐 때만 유저 상태를 원자 저장 (grading_failed 면 변경 없음 → 저장 생략)
     newly_earned_titles = []
+    reward_granted = False   # mutator 가 이 호출에서 실제 지급했는지 (응답 보상 필드의 진실)
     if not grading_failed:
         try:
             _, mres = mutate_user_atomic(user_id, mutator)
             newly_earned_titles = mres["newly_earned_titles"]
+            reward_granted = mres["granted"]
         except UserNotFoundError:
             raise HTTPException(status_code=404, detail="User not found")
 
-    # ── 응답 보상 필드 ──
-    if do_unit_reward:
+    # ── 진행도(별도 스토리지) 완료 표시 — 보상 mutate '이후' 에 기록(학습 표시용) ──
+    # 위 ★ 주석: mutate 이전에 쓰면 동시 형제 요청이 was_completed_before 를 오인한다.
+    if is_clear and not grading_failed:
+        if progress_existing is not None:
+            progress_existing["score"] = max(progress_existing.get("score", 0), ai_result.get("score", 100))
+            progress_existing["is_completed"] = True
+            progress_existing["updated_at"] = now_kst().isoformat()
+            save_progress_item(progress_existing)
+        else:
+            save_progress_item({
+                "id": str(uuid.uuid4()),
+                "user_id": user_id,
+                "unit": progress_unit_val,
+                "stage": progress_stage_val,
+                "score": ai_result.get("score", 100),
+                "is_completed": True,
+                "course_level": course_level,
+                "created_at": now_kst().isoformat(),
+                "updated_at": now_kst().isoformat(),
+            })
+
+    # ── 응답 보상 필드 (실제 지급 여부 = mutator 의 granted 기준) ──
+    if reward_granted:
         ai_result["xp_awarded"]     = 3000
         ai_result["crowns_awarded"] = 1
         ai_result["unlocked_unit"]  = next_unit
@@ -418,7 +460,7 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dic
         ai_result["crowns_awarded"] = 0
         ai_result["unlocked_unit"]  = 9
     elif is_clear and not grading_failed:
-        # 유닛보스 재클리어(award_xp False)
+        # 유닛보스 재클리어/이미 지급됨 → 0 (unitboss_cleared_units 가드)
         ai_result["xp_awarded"]     = 0
         ai_result["crowns_awarded"] = 0
         ai_result["unlocked_unit"]  = next_unit

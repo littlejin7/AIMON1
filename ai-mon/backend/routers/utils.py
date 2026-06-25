@@ -232,6 +232,7 @@ def _merge_dicts(current: dict, original: dict, modified: dict) -> dict:
 
 
 def save_user(user: dict):
+    # 파생 카운터 영속화 차단(이중 안전망). SSOT 정책은 _strip_derived_fields 주석 참고.
     user.pop("boss_cleared", None)
     user.pop("completed_stages", None)
     user_id = user["id"]
@@ -244,7 +245,7 @@ def save_user(user: dict):
     if USE_SUPABASE:
         if original:
             numeric_cols = {"xp", "crowns", "lv", "streak", "daily_free_attempts", "ai_feedback_count"}
-            jsonb_cols = {"max_unlocked_unit", "completed_units", "awarded_crown_units", "earned_streak_milestones", "titles", "game_rewards", "seen_questions", "endboss_cleared_levels", "miniboss_cleared_stages"}
+            jsonb_cols = {"max_unlocked_unit", "completed_units", "awarded_crown_units", "earned_streak_milestones", "titles", "game_rewards", "seen_questions", "endboss_cleared_levels", "miniboss_cleared_stages", "unitboss_cleared_units"}
             
             numeric_deltas = {}
             jsonb_merges = {}
@@ -388,6 +389,25 @@ def _write_users_unlocked(users: list):
         raise
 
 
+# ---------------------------------------------------------------------------
+# 파생 카운터 SSOT 정책 (boss_cleared / completed_stages)
+# ---------------------------------------------------------------------------
+# 이 두 값의 단일 진실(SSOT)은 progress(+ endboss_cleared_levels)다.
+# serialize_user 가 매 응답마다 progress 기준으로 *파생 계산*하므로, user 레코드에
+# 절대 영속화하면 안 된다(영속 stale 값 ↔ 파생 계산값 드리프트의 원인).
+# 영속화 차단을 모든 쓰기 경로에서 보장하기 위해 mutate_user_atomic 코어에서
+# write 직전 strip 한다. (save_user 도 같은 키를 pop — 이중 안전망)
+# 부가 효과: Supabase users 테이블엔 이 두 컬럼이 없으므로, 레거시/직렬화 잔재로
+# 키가 끼면 update 가 "column not found" 로 500 난다. 코어 strip 이 이를 원천 차단.
+_DERIVED_USER_FIELDS = ("boss_cleared", "completed_stages")
+
+
+def _strip_derived_fields(user: dict) -> None:
+    """progress 파생 카운터를 영속화 직전 제거한다. SSOT=progress. (제자리 변경)"""
+    for k in _DERIVED_USER_FIELDS:
+        user.pop(k, None)
+
+
 def _mutate_user_atomic_json(user_id: str, mutator):
     # 단일 프로세스: file_lock 한 임계구역 안에서 재읽기→검사·변경→원자적 write.
     with file_lock(USERS_FILE):
@@ -397,6 +417,7 @@ def _mutate_user_atomic_json(user_id: str, mutator):
             raise UserNotFoundError(user_id)
         user = users[idx]
         result = mutator(user)            # 예외 발생 시 아래 write 도달 못함 → no-op
+        _strip_derived_fields(user)       # SSOT: 파생 카운터 영속화 차단
         users[idx] = user
         _write_users_unlocked(users)
         return user, result
@@ -412,6 +433,7 @@ def _mutate_user_atomic_supabase(user_id: str, mutator):
         user = res.data[0]
         version = user.get("version", 0) or 0
         result = mutator(user)            # 예외 발생 시 update 도달 못함 → no-op
+        _strip_derived_fields(user)       # SSOT: 파생 카운터 영속화 차단(+컬럼 부재 500 방지)
         update_obj = {k: v for k, v in user.items() if k != "id"}
         update_obj["version"] = version + 1
         upd = (

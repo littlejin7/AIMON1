@@ -188,10 +188,7 @@ create table wrong_answers (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references users(id) on delete cascade,
   question_id text,
-  question text,
   user_answer text,
-  correct_answer text,
-  course_level text,
   feedback text,
   ai_explanation text,
   reviewed boolean default false,
@@ -200,8 +197,13 @@ create table wrong_answers (
 );
 ```
 
-> ℹ️ 현재 `wrong_answers.json`은 0개 레코드. 마이그레이션 자체는 문제없으나,  
-> 라우터에서 저장 시 `course_level`을 실제로 넣고 있는지 Phase 3 검증 때 확인 필요.
+> ℹ️ 컬럼은 **실제 라우터 저장 코드 기준**으로 정의됨 (`quiz.py`·`boss.py`의 `save_wrong_answer_item` 호출).
+> 코드가 쓰는 필드: `id`, `user_id`, `question_id`, `user_answer`, `feedback`, `ai_explanation`, `timestamp`, `reviewed`.
+> 코드가 읽는 필드: `/train` 복습은 `reviewed`·`question_id`, AI 피드백 캐시는 `ai_explanation`(1순위)·`feedback`(폴백).
+> `question`·`correct_answer`·`course_level`은 라우터가 저장/조회하지 않으므로 컬럼에서 제외했다
+> (`boss.py /answer`는 `ai_explanation` 없이 저장하므로 해당 컬럼은 nullable 유지).
+> 데이터 실측(2026-06-25, 라이브 Supabase `wrong_answers` 기준): 전체 186건
+> (예: `tester_wang` 9건). 과거 문서의 "0개 레코드" 서술은 오기였으며 실제로는 데이터가 쌓여 있다.
 
 ### 함수 1: update_user_atomic (원자적 유저 정보 업데이트 RPC)
 > 동시성 처리 중 Read-Modify-Write 경합에 따른 데이터 유실(Lost Update)을 방지하기 위한 DB 수준 RPC입니다.
