@@ -260,8 +260,11 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dic
             }
         else:
             ai_result = await ask_claude_json(prompt)
-            ai_result["is_correct"] = False
-            ai_result["score"] = 0
+            # 직접 매칭 실패 → AI 채점에 위임. grading_failed=True면 is_correct를 덮어쓰지 않는다.
+            # (채점 실패를 오답으로 오인하는 D-1 버그 방지)
+            if not ai_result.get("grading_failed"):
+                ai_result["is_correct"] = False
+                ai_result["score"] = 0
     else:
         # fill_in_blank, code_input
         if user_ans == correct_answer or is_direct_match(user_ans, correct_answer):

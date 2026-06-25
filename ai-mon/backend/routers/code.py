@@ -106,6 +106,14 @@ async def submit_code(request: Request, req: SubmitRequest, user: dict = Depends
 }}"""
 
     result = await ask_claude_json(prompt)
+
+    # AI 채점 실패 시: HP·XP·진행도 미변경, 재시도 안내 응답 (D-1 버그 방지)
+    if result.get("grading_failed"):
+        result["xp_awarded"]    = 0
+        result["lv"]            = user.get("lv", 1)
+        result["grading_failed"] = True
+        return result
+
     is_correct = result.get("is_correct", False)
 
     xp_awarded = 0

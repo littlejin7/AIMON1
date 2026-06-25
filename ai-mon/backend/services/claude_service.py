@@ -1,6 +1,9 @@
 import anthropic
 import os
 import json
+import logging
+
+logger = logging.getLogger(__name__)
 
 _client = None
 
@@ -185,6 +188,7 @@ async def ask_claude_json(prompt: str) -> dict:
         else:
             raise json.JSONDecodeError("Parsed JSON is not a dictionary", text, 0)
     except json.JSONDecodeError:
+        logger.exception("ask_claude_json: AI 응답 JSON 파싱 실패")
         return {
             "is_correct": False,
             "score": 0,
@@ -192,11 +196,12 @@ async def ask_claude_json(prompt: str) -> dict:
             "hint": "",
             "grading_failed": True,
         }
-    except Exception as e:
+    except Exception:
+        logger.exception("ask_claude_json: AI 서비스 오류")
         return {
             "is_correct": False,
             "score": 0,
-            "feedback": f"AI 서비스 오류: {str(e)}. 패널티 없이 다시 제출할 수 있습니다.",
+            "feedback": "AI 서비스에 일시적인 오류가 발생했습니다. 패널티 없이 다시 제출할 수 있습니다.",
             "hint": "",
             "grading_failed": True,
         }
