@@ -66,6 +66,8 @@ def migrate_users():
             u["endboss_cleared_levels"] = []
         if "miniboss_cleared_stages" not in u or u["miniboss_cleared_stages"] is None:
             u["miniboss_cleared_stages"] = []
+        if "unitboss_cleared_units" not in u or u["unitboss_cleared_units"] is None:
+            u["unitboss_cleared_units"] = []
         if "game_rewards" not in u or u["game_rewards"] is None:
             u["game_rewards"] = {}
         if "titles" not in u or u["titles"] is None:
@@ -148,13 +150,23 @@ def migrate_wrong_answers():
     success_count = 0
     skip_count = 0
     
+    # wrong_answers 테이블 실제 컬럼 (라우터 저장 코드 + schema.sql 기준).
+    # 레거시 JSON에 question/correct_answer/course_level 등 미사용 키가 섞여 있어도
+    # 제거된 컬럼으로 인한 upsert 실패를 막기 위해 화이트리스트로 투영한다.
+    WA_COLUMNS = {
+        "id", "user_id", "question_id", "user_answer",
+        "feedback", "ai_explanation", "reviewed", "timestamp",
+    }
+
     for wa in wrong_answers:
         if wa.get("user_id") not in active_user_ids:
             skip_count += 1
             continue
-            
+
+        wa_row = {k: v for k, v in wa.items() if k in WA_COLUMNS}
+
         try:
-            supabase.table("wrong_answers").upsert(wa).execute()
+            supabase.table("wrong_answers").upsert(wa_row).execute()
             success_count += 1
         except Exception as e:
             print(f"Failed to migrate wrong answer ID '{wa.get('id')}': {e}")

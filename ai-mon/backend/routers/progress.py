@@ -150,6 +150,8 @@ def get_stats(user: dict = Depends(get_current_user)):
 
     return {
         "total_stages": len(user_progress),
+        # completed_stages 는 progress(is_completed) 에서 파생. SSOT=progress 이며
+        # serialize_user 의 동일 파생 계산과 같은 정의를 유지해야 한다(드리프트 방지).
         "completed_stages": len(completed),
         "total_score": total_score,
         "average_score": round(avg_score, 1),
