@@ -7,20 +7,6 @@ import charGhostIcon  from '../../assets/character_final_ghost.png'
 import { bossApi } from '../../api/index'
 import { parseQuestionText, TYPE_BADGE } from './bossBattleUtils'
 
-function parseQuestionText(raw) {
-  const match = raw.match(/^([\s\S]*?)```(?:\w+)?\n([\s\S]*?)```([\s\S]*)$/)
-  if (!match) return { text: raw.trim(), code: null, after: '' }
-  return { text: match[1].trim(), code: match[2].trimEnd(), after: match[3].trim() }
-}
-
-const TYPE_BADGE = {
-  output_select:   { label: '💻 출력 선택',   bg: '#E0F2FE', color: '#0369A1' },
-  multiple_choice: { label: '📋 객관식',       bg: '#EEEDFE', color: '#534AB7' },
-  error_find:      { label: '🐛 오류 찾기',    bg: '#FFF5F5', color: '#DC2626' },
-  fill_in_blank:   { label: '✏️ 빈칸 채우기', bg: '#F0FFF4', color: '#166534' },
-  code_input:      { label: '⌨️ 코드 작성',   bg: '#F0EFFE', color: '#6D28D9' },
-}
-
 export default function BossBattle({
   bossData,
   currentQuestion,
