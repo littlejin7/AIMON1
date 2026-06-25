@@ -5,6 +5,7 @@ import charRobotIcon  from '../../assets/character_robot.png'
 import charBubbleIcon from '../../assets/character_bubble.png'
 import charGhostIcon  from '../../assets/character_final_ghost.png'
 import { bossApi } from '../../api/index'
+import { parseQuestionText, TYPE_BADGE } from './bossBattleUtils'
 
 function parseQuestionText(raw) {
   const match = raw.match(/^([\s\S]*?)```(?:\w+)?\n([\s\S]*?)```([\s\S]*)$/)
