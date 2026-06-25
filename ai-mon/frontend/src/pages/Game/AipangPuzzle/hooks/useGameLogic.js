@@ -1,8 +1,9 @@
 // ── 게임 핵심 로직 훅 ──
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { gameApi } from '../../../../api';
-import { incrementGamePlay } from '../../Game';
+import { incrementGamePlay } from '../../gameConstants';
 import { COLS, ROWS, BOSS_STAGES } from '../constants/gameConstants';
+import { getBoardScreenCenter, showDmgNumber, showComboText } from '../utils/gameEffects';
 import {
   rndType,
   findMatchGroups,
@@ -48,7 +49,6 @@ export function useGameLogic(pCanvasRef, lCanvasRef) {
     bossIntro: false,
     clearData: null,
   });
-  const [startError, setStartError] = useState(null);
 
   // ── 가변 게임 상태 Refs (렌더 트리거 없이 변경) ──
   const gridRef           = useRef([]);
@@ -65,7 +65,6 @@ export function useGameLogic(pCanvasRef, lCanvasRef) {
   const bgmMutedRef       = useRef(false)
   const comboEnergyRef = useRef(0);
   const comboDecayTimer = useRef(null);
-  const gameTokenRef    = useRef(null); // B-4 세션 토큰
 
   // ── 오디오 Refs ──
   const bgmRef    = useRef(null);
@@ -169,38 +168,6 @@ useEffect(() => {
       return next;
     });
   }, []);
-
-  // ── 보드 화면 중심 좌표 ──
-  function getBoardScreenCenter() {
-    const el = document.getElementById('board-wrap');
-    if (!el) return { x: 0, y: 0 };
-    const rect = el.getBoundingClientRect();
-    return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
-  }
-
-  // ── 데미지 숫자 표시 (DOM 직접 삽입) ──
-  function showDmgNumber(dmg, cardId) {
-    const cardEl = document.getElementById(cardId);
-    if (!cardEl) return;
-    const rect = cardEl.getBoundingClientRect();
-    const el = document.createElement('div');
-    el.className = 'dmg-num' + (dmg >= 200 ? ' big' : '');
-    el.textContent = '-' + dmg.toLocaleString();
-    el.style.left = (rect.left + rect.width / 2) + 'px';
-    el.style.top  = (rect.top + 8) + 'px';
-    document.body.appendChild(el);
-    setTimeout(() => el.remove(), 1100);
-  }
-
-  // ── 콤보 텍스트 표시 ──
-  function showComboText(combo, mult) {
-    const el = document.createElement('div');
-    el.className = 'combo-text';
-    el.textContent = `COMBO ×${mult.toFixed(1)}!`;
-    el.style.cssText = 'left:50%;top:42%;';
-    document.body.appendChild(el);
-    setTimeout(() => el.remove(), 1150);
-  }
 
   // ── 보스 카드 흔들기 ──
   function shakeBossCard(cardId) {
@@ -382,7 +349,7 @@ useEffect(() => {
 
 
           incrementGamePlay('aipang');
-          gameApi.clearGame({ game_id: 'aipang', game_token: gameTokenRef.current })
+          gameApi.clearGame({ game_id: 'aipang' })
             .then(res => {
               setPopups(prev => ({ ...prev, final: true, clearData: res.data }));
             })
@@ -396,7 +363,7 @@ useEffect(() => {
           setTimeout(() => beep(784, 0.3), 300);
           setBossUI(prev => ({ ...prev, unitDefeated: true }));
 
-          gameApi.clearGame({ game_id: 'aipang', game_token: gameTokenRef.current })
+          gameApi.clearGame({ game_id: 'aipang' })
             .then(res => {
               setTimeout(() => setPopups(prev => ({ ...prev, clear: true, clearData: res.data })), 600);
             })
@@ -515,27 +482,7 @@ useEffect(() => {
   }, []);
 
   // ── 팝업 버튼 핸들러 ──
-  const handleStart = useCallback(async () => {
-    setStartError(null);
-    gameTokenRef.current = null;
-
-    // 게임 세션 토큰 취득 (실패 시 1회 재시도). 토큰 없이는 보상 못 받으므로 진입 차단.
-    let token = null;
-    for (let attempt = 0; attempt < 2; attempt++) {
-      try {
-        const res = await gameApi.startGame('aipang');
-        token = res.data.game_token;
-        break;
-      } catch {
-        if (attempt === 1) {
-          setStartError('네트워크 문제로 시작 실패. 다시 시도해주세요.');
-          return;
-        }
-        await new Promise(r => setTimeout(r, 1000));
-      }
-    }
-
-    gameTokenRef.current = token;
+  const handleStart = useCallback(() => {
     stageRef.current = 0;
     finalUnlockedRef.current = false;
     finalHpRef.current = 30000;
@@ -559,14 +506,7 @@ useEffect(() => {
     if (!bgmMutedRef.current && bgmRef.current) { bgmRef.current.currentTime = 0; bgmRef.current.play().catch(() => {}); }
   }, [initStage]);
 
-  const handleRestart = useCallback(async () => {
-    // 재플레이용 토큰 — 당일 보상은 이미 지급됐으므로 실패해도 게임 차단하지 않음
-    gameTokenRef.current = null;
-    try {
-      const res = await gameApi.startGame('aipang');
-      gameTokenRef.current = res.data.game_token;
-    } catch { /* no-op */ }
-
+  const handleRestart = useCallback(() => {
     stageRef.current = 0;
     finalUnlockedRef.current = false;
     finalHpRef.current = 30000;
@@ -604,7 +544,6 @@ useEffect(() => {
 
   return {
     // 렌더링 State
-    startError,
     grid,
     moves,
     unitHp,
