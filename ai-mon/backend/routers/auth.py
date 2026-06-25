@@ -895,11 +895,13 @@ def logout(authorization: str = Header(...)):
     
     if user_id:
         delete_user_refresh_tokens(user_id)
-        user = get_user_by_id(user_id)
-        if user:
-            user["token_version"] = user.get("token_version", 1) + 1
-            save_user(user)
-        
+        try:
+            def _bump_version(u: dict):
+                u["token_version"] = u.get("token_version", 1) + 1
+            mutate_user_atomic(user_id, _bump_version)
+        except Exception:
+            logger.exception("logout: token_version 증가 실패 user=%s", user_id)
+
     return {"ok": True, "message": "로그아웃 되었습니다."}
 
 
