@@ -1,28 +1,28 @@
 .boss-select-page {
-  padding-top: var(--sp-6);
-  padding-bottom: var(--sp-16);
+  padding-top: 1.5rem;
+  padding-bottom: 4rem;
   min-height: 90vh;
 }
 
 .boss-select-header {
-  margin-bottom: var(--sp-8);
-  padding: 0 var(--sp-2);
+  margin-bottom: 2rem;
+  padding: 0 0.5rem;
 }
 
 .boss-select-title {
-  font-size: var(--font-size-2xl);
+  font-size: 1.5rem;
   font-weight: 800;
-  margin-top: var(--sp-4);
-  margin-bottom: var(--sp-2);
-  background: var(--grad-boss);
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #ef4444 0%, #7F77DD 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .boss-select-subtitle {
-  font-size: var(--font-size-sm);
-  color: var(--clr-text-muted);
+  font-size: 0.875rem;
+  color: #7A7A94;
   line-height: 1.5;
 }
 
@@ -30,55 +30,55 @@
   background: rgba(239, 68, 68, 0.1);
   border: 1px solid rgba(239, 68, 68, 0.3);
   color: #f87171;
-  padding: var(--sp-4);
-  border-radius: var(--radius-lg);
-  margin-bottom: var(--sp-6);
-  font-size: var(--font-size-sm);
+  padding: 1rem;
+  border-radius: 14px;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
   text-align: center;
 }
 
 .boss-select-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--sp-4);
-  padding: 0 var(--sp-2);
+  gap: 1rem;
+  padding: 0 0.5rem;
 }
 
 .boss-select-card {
   display: flex;
   flex-direction: column;
   text-align: left;
-  padding: var(--sp-5);
-  border-radius: var(--radius-xl);
+  padding: 1.25rem;
+  border-radius: 20px;
   cursor: pointer;
-  border: 1px solid var(--clr-border);
+  border: 1px solid #E2E1EE;
   position: relative;
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
-  background: var(--grad-card);
+  transition: transform 250ms ease, box-shadow 250ms ease, border-color 250ms ease;
+  background: #FFFFFF;
   min-height: 200px;
 }
 
 .boss-select-card:hover {
   transform: translateY(-4px);
   border-color: rgba(239, 68, 68, 0.4);
-  box-shadow: var(--shadow-card), 0 10px 25px rgba(239, 68, 68, 0.15);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08), 0 10px 25px rgba(239, 68, 68, 0.15);
 }
 
 .bs-card-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--sp-4);
+  margin-bottom: 1rem;
 }
 
 .bs-unit-badge {
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--clr-border);
-  padding: var(--sp-1) var(--sp-3);
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-xs);
+  border: 1px solid #E2E1EE;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
   font-weight: 700;
-  color: var(--clr-text-muted);
+  color: #7A7A94;
 }
 
 .bs-icon {
@@ -90,31 +90,31 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-bottom: var(--sp-4);
+  margin-bottom: 1rem;
 }
 
 .bs-boss-name {
-  font-size: var(--font-size-md);
+  font-size: 1rem;
   font-weight: 800;
-  color: var(--clr-text-bright);
-  margin-bottom: var(--sp-2);
+  color: #FFFFFF;
+  margin-bottom: 0.5rem;
   line-height: 1.4;
 }
 
 .bs-reward-row {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--sp-2);
+  gap: 0.5rem;
 }
 
 .bs-reward-tag {
   font-size: 0.7rem;
   font-weight: 600;
-  background: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.25);
-  color: #fbbf24;
-  padding: 2px var(--sp-2);
-  border-radius: var(--radius-sm);
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  color: #c4b5fd;
+  padding: 2px 0.5rem;
+  border-radius: 6px;
 }
 
 .bs-reward-tag:nth-child(2) {
@@ -128,11 +128,11 @@
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
-  padding-top: var(--sp-3);
+  padding-top: 0.75rem;
 }
 
 .bs-attempts {
-  font-size: var(--font-size-xs);
+  font-size: 0.75rem;
   font-weight: 700;
 }
 
@@ -141,18 +141,18 @@
 }
 
 .bs-out {
-  color: var(--clr-text-faint);
+  color: #9999B0;
 }
 
 .bs-arrow {
   font-size: 1.2rem;
-  color: var(--clr-text-faint);
-  transition: transform var(--transition-normal);
+  color: #9999B0;
+  transition: transform 250ms ease;
 }
 
 .boss-select-card:hover .bs-arrow {
   transform: translateX(4px);
-  color: var(--clr-text);
+  color: #1A1A2E;
 }
 
 /* Dimmed State */
@@ -163,7 +163,7 @@
 .bs-dimmed:hover {
   opacity: 0.9;
   border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: var(--shadow-card);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
 }
 
 .bs-exhausted-badge {
@@ -175,8 +175,8 @@
   color: #ef4444;
   font-size: 0.65rem;
   font-weight: 800;
-  padding: 2px var(--sp-2);
-  border-radius: var(--radius-sm);
+  padding: 2px 0.5rem;
+  border-radius: 6px;
   text-transform: uppercase;
   z-index: 2;
 }

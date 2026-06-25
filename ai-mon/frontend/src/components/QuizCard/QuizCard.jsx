@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { quizApi } from '../../api/index'
 import { usePyodide } from '../../hooks/usePyodide'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import ChoiceOptions from './ChoiceOptions'
+import ErrorFindLines from './ErrorFindLines'
 import FillInput from './FillInput'
 import CodeInput from './CodeInput'
 import AiFeedback from './AiFeedback'
@@ -18,56 +19,83 @@ function parseQuestionCode(raw) {
   return { questionText, codeLines: code.split('\n') }
 }
 
-function TerminalBlock({ lines }) {
+function CodeBlock({ lines }) {
   return (
-    <div style={{ margin: '10px 0 12px', borderRadius: '10px', overflow: 'hidden', border: '1px solid #313244' }}>
-      <div style={{
-        background: '#181825', padding: '6px 12px',
-        display: 'flex', alignItems: 'center', gap: '6px',
-      }}>
-        <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#ff5f57', display: 'inline-block' }} />
-        <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#febc2e', display: 'inline-block' }} />
-        <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#28c840', display: 'inline-block' }} />
-        <span style={{ color: '#585b70', fontSize: '0.72rem', marginLeft: 8 }}>Python</span>
-      </div>
-      <div style={{
-        background: '#1e1e2e', padding: '0.85rem 1rem',
-        fontFamily: 'monospace', fontSize: '1.4rem', color: '#cdd6f4',
-        whiteSpace: 'pre', overflowX: 'auto',
+    <div style={{
+      background: '#1E1B4B', borderRadius: '11px',
+      padding: '11px 13px', overflowX: 'auto', margin: '0 0 8px',
+    }}>
+      <pre style={{
+        fontFamily: "'d2coding', monospace", fontSize: '18px',
+        lineHeight: '1.7', color: '#ffffff', whiteSpace: 'pre', margin: 0,
       }}>
         {lines.map((line, i) => (
-          <div key={i} style={{ color: line.trim().startsWith('#') ? '#6c7086' : '#cdd6f4' }}>
-            <span style={{ color: '#585b70', userSelect: 'none', marginRight: 10 }}>&gt;&gt;&gt;</span>
+          <div key={i} style={{ color: line.trim().startsWith('#') ? '#6B7280' : '#E9D5FF' }}>
             {line}
           </div>
         ))}
-      </div>
+      </pre>
     </div>
   )
 }
 
-export default function QuizCard({ question, onAnswer, onNext, disabled = false }) {
-  const [selected,          setSelected]          = useState(null)
-  const [input,             setInput]             = useState('')
-  const [revealed,          setRevealed]          = useState(false)
+export default function QuizCard({
+  question,
+  onAnswer,
+  onNext,
+  disabled = false,
+  initialSelected = null,
+  initialInput = '',
+  initialRevealed = false,
+  initialAiFeedback = '',
+  initialIsCorrectResult = null,
+  onFeedbackUpdate,
+}) {
+  const [selected,          setSelected]          = useState(initialSelected)
+  const [input,             setInput]             = useState(initialInput)
+  const [revealed,          setRevealed]          = useState(initialRevealed)
   const [retried,           setRetried]           = useState(false)
-  const [aiFeedback,        setAiFeedback]        = useState('')
+  const [aiFeedback,        setAiFeedback]        = useState(initialAiFeedback)
   const [aiFeedbackLoading, setAiFeedbackLoading] = useState(false)
   const [codeRunResult,     setCodeRunResult]     = useState(null)
-  const [isCorrectResult,   setIsCorrectResult]   = useState(null)
+  const [isCorrectResult,   setIsCorrectResult]   = useState(initialIsCorrectResult)
 
   const { runPython, pyLoading } = usePyodide()
   const user        = useAuthStore((s) => s.user)
   const courseLevel = user?.course_level || 'beginner'
 
+  useEffect(() => {
+    if (aiFeedback) {
+      onFeedbackUpdate?.(aiFeedback)
+    }
+  }, [aiFeedback, onFeedbackUpdate])
+
   if (!question) return null
-  const { questionText, codeLines } = parseQuestionCode(question.question || '') 
+  
+  let rawQuestion = question.question || ''
+  if (question.code && !rawQuestion.includes('```')) {
+    rawQuestion += `\n\n\`\`\`python\n${question.code}\n\`\`\``
+  }
+  
+  const { questionText, codeLines } = parseQuestionCode(rawQuestion) 
   
   const type          = question.quiz_type || question.type
-  const isChoiceType  = type === 'multiple_choice' || type === 'output_select' || type === 'error_find'
-  const isCodeInput   = type === 'code_input'
   const choicesList   = question.choices || question.options || []
 
+
+  // "N줄:" 형식 코드 + "A. N줄" 형식 선택지 → 줄 클릭 UI
+  const isLineSelectErrorFind =
+    type === 'error_find' &&
+    codeLines?.length > 0 &&
+    /^\d+줄:/.test(codeLines[0])
+
+  const isChoiceType  = type === 'multiple_choice' || type === 'output_select' ||
+                        (type === 'error_find' && !isLineSelectErrorFind)
+  const isCodeInput   = type === 'code_input'
+
+
+
+  
   // ── AI 피드백 호출 (SSE 스트리밍) ──
   const fetchAiFeedback = async (userAnswer) => {
     const staticFallback = question.feedback?.wrong || '정답을 다시 확인해 보세요!'
@@ -195,11 +223,24 @@ export default function QuizCard({ question, onAnswer, onNext, disabled = false 
     <div className="quiz-card animate-fade-in-up">
       {/* 문제 */}
       <div className="quiz-question">
-        <span className="quiz-q-icon">❓</span>
-        <p style={{ fontSize: '1.4rem' }}>{questionText}</p>
+        <p>{questionText}</p>
       </div>
-      {codeLines && <TerminalBlock lines={codeLines} />}
+      {codeLines && !isLineSelectErrorFind && <CodeBlock lines={codeLines} />}
 
+      {isLineSelectErrorFind && (
+        <ErrorFindLines
+          codeLines={codeLines}
+          choicesList={choicesList}
+          selected={selected}
+          revealed={revealed}
+          answer={question.answer}
+          onSelect={(opt) => { if (!revealed) setSelected(opt) }}
+          onSubmit={handleSubmitChoice}
+        />
+      )}
+
+
+      
       {/* 입력 영역 */}
       {isChoiceType && (
         <ChoiceOptions
@@ -245,11 +286,7 @@ export default function QuizCard({ question, onAnswer, onNext, disabled = false 
           {isCorrectResult && (
             <>
               <p>{question.feedback?.correct || question.explanation}</p>
-              <button
-                className="btn btn-primary btn-sm"
-                style={{ width: '100%', marginTop: '12px' }}
-                onClick={onNext}
-              >
+              <button className="quiz-submit-btn" onClick={onNext}>
                 다음으로 ➔
               </button>
             </>

@@ -1,94 +1,27 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { quizApi, progressApi } from '../../api/index'
+import { quizApi, progressApi, userApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import LevelTestModal from '../../components/LevelTestModal/LevelTestModal'
-import { userApi } from '../../api/index'
-import UnitCard   from './UnitCard'
-import LevelBadge from './LevelBadge'
 import './LessonHome.css'
 
-const UNIT_META = [
-  {
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="4 17 10 11 4 5"></polyline>
-        <line x1="12" y1="19" x2="20" y2="19"></line>
-      </svg>
-    ),
-    color: '#7c3aed', keywords: ['print', '변수', '자료형']
-  },
-  {
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="4 7 4 4 20 4 20 7"></polyline>
-        <line x1="9" y1="20" x2="15" y2="20"></line>
-        <line x1="12" y1="4" x2="12" y2="20"></line>
-      </svg>
-    ),
-    color: '#06b6d4', keywords: ['리스트', '딕셔너리']
-  },
-  {
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#34D399" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="6" y1="3" x2="6" y2="15"></line>
-        <circle cx="18" cy="6" r="3"></circle>
-        <circle cx="6" cy="18" r="3"></circle>
-        <path d="M18 9a9 9 0 0 1-9 9"></path>
-      </svg>
-    ),
-    color: '#10b981', keywords: ['조건문', '논리 연산']
-  },
-  {
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="17 1 21 5 17 9"></polyline>
-        <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
-        <polyline points="7 23 3 19 7 15"></polyline>
-        <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
-      </svg>
-    ),
-    color: '#f59e0b', keywords: ['for', 'while', 'break']
-  },
-  {
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F472B6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-        <polyline points="2 17 12 22 22 17"></polyline>
-        <polyline points="2 12 12 17 22 12"></polyline>
-      </svg>
-    ),
-    color: '#ef4444', keywords: ['함수', 'return', '스코프']
-  },
-  {
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C084FC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5a2 2 0 0 0 2 2h1"></path>
-        <path d="M16 3h1a2 2 0 0 1 2 2v5a2 2 0 0 0 2 2 2 2 0 0 0-2 2v5a2 2 0 0 1-2 2h-1"></path>
-      </svg>
-    ),
-    color: '#8b5cf6', keywords: ['문자열', '라이브러리']
-  },
-  {
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
-        <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"></path>
-      </svg>
-    ),
-    color: '#0ea5e9', keywords: ['파일', 'JSON', 'API']
-  },
-  {
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FB923C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
-        <path d="m5 3 1 2.5L8.5 6 6 7 5 9.5 4 7 1.5 6 4 5.5z"></path>
-        <path d="m19 17 1 2.5 2.5.5-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1z"></path>
-      </svg>
-    ),
-    color: '#f59e0b', keywords: ['AI 에이전트']
-  },
+const LEVEL_MAP = {
+  beginner:     { label: '초급', idx: 0 },
+  intermediate: { label: '중급', idx: 1 },
+  advanced:     { label: '고급', idx: 2 },
+}
+const LEVELS = ['beginner', 'intermediate', 'advanced']
+const LEVEL_LABELS = ['초급', '중급', '고급']
+
+const UNIT_TITLES = [
+  'Python 기초 & 변수',
+  '함수와 제어 흐름',
+  '자료구조 (리스트·딕셔너리)',
+  '반복문과 조건문',
+  '클래스와 객체',
+  '문자열 & 라이브러리',
+  '파일·JSON·API',
+  'AI 에이전트',
 ]
 
 export default function LessonHome() {
@@ -102,14 +35,16 @@ export default function LessonHome() {
   const [lessons,  setLessons]  = useState([])
   const [progress, setProgress] = useState([])
   const [loading,  setLoading]  = useState(true)
+  const [expandedUnit, setExpandedUnit] = useState(null)
 
   const courseLevel = user?.course_level || 'beginner'
+  const activeLevelIdx = LEVEL_MAP[courseLevel]?.idx ?? 0
 
   useEffect(() => {
     const calls = [quizApi.getUnits(courseLevel)]
     if (token) {
-      calls.push(progressApi.getProgress().catch(err => { console.error(err); return null }))
-      calls.push(userApi.getMe().catch(err => { console.error(err); return null }))
+      calls.push(progressApi.getProgress(courseLevel).catch(() => null))
+      calls.push(userApi.getMe().catch(() => null))
     }
     Promise.all(calls)
       .then(([l, p, u]) => {
@@ -120,6 +55,18 @@ export default function LessonHome() {
       .catch(() => {})
       .finally(() => setLoading(false))
   }, [token, courseLevel])
+
+  // 진행 중인 유닛 자동 펼치기
+  useEffect(() => {
+    if (lessons.length === 0) return
+    const maxUnlocked = user?.max_unlocked_unit ?? 1
+    const currentUnit = lessons.find((l) => {
+      if (l.unit_id > maxUnlocked) return false
+      const prog = getUnitProgress(l.unit_id)
+      return prog.completed < l.stages
+    })
+    if (currentUnit) setExpandedUnit(currentUnit.unit_id)
+  }, [lessons, progress])
 
   const handleLevelTestFinish = async (levelKey) => {
     try {
@@ -135,27 +82,37 @@ export default function LessonHome() {
   }
 
   const getUnitProgress = (unitId) => {
-    const items     = progress.filter((p) => p.unit === unitId)
-    const completed = items.filter((p) => p.is_completed).length
-    return { completed, total: items.length }
+    const items = progress.filter((p) => p.unit === unitId)
+    const stageItems = items.filter((p) => p.stage !== `${unitId}-boss` && p.stage !== 'miniboss')
+    const completed  = stageItems.filter((p) => p.is_completed).length
+    return { completed, total: stageItems.length }
   }
 
-  const isUnitUnlocked = (index) => {
-    if (index === 0) return true
-    const prev = lessons[index - 1]
-    if (!prev) return false
-    return getUnitProgress(prev.unit_id).completed >= (prev.stages || 1)
-  }
+  const isStageComplete = (unitId, stageNum) =>
+    progress.some((p) => p.unit === unitId && p.stage === `${unitId}-${stageNum}` && p.is_completed)
+
+  const isBossComplete = (unitId) =>
+    progress.some((p) => p.unit === unitId && p.stage === `${unitId}-boss` && p.is_completed)
 
   const totalStages = lessons.reduce((a, l) => a + (l.stages || 0), 0)
-  const doneStages  = progress.filter((p) => p.is_completed).length
+  const doneStages  = progress.filter((p) => {
+    const stageNum = parseInt(p.stage)
+    return !isNaN(stageNum) && p.is_completed
+  }).length
   const overallPct  = totalStages > 0 ? Math.round((doneStages / totalStages) * 100) : 0
 
-  const isAllDone = token && lessons.length >= 8 && lessons.every((l) => {
-    const prog = getUnitProgress(l.unit_id)
-    const awardedCrowns = user?.awarded_crown_units || []
-    return (prog.completed >= l.stages && l.stages > 0) || awardedCrowns.includes(l.unit_id)
-  })
+  const handleUnitClick = (lesson, unlocked) => {
+    if (!unlocked) return
+    if (!token && lesson.unit_id === 1) { navigate('/stage/1/1'); return }
+    if (!token) { navigate('/auth'); return }
+    if (!user?.is_level_tested) { setPendingUnitId(lesson.unit_id); setShowLevelTest(true); return }
+    navigate(`/lesson/${lesson.unit_id}`)
+  }
+
+  const toggleExpand = (unitId, unlocked) => {
+    if (!unlocked) return
+    setExpandedUnit(prev => prev === unitId ? null : unitId)
+  }
 
   if (loading) {
     return (
@@ -176,139 +133,139 @@ export default function LessonHome() {
         />
       )}
 
-      {/* 헤더 */}
-      <div className="lh-header">
-        <div className="lh-header-row">
-          <div>
-            <p className="lh-greeting">
-              {token ? `${user?.nickname || user?.username} 님의 레슨` : '에이몬에 오신 걸 환영합니다 👋'}
-            </p>
-            <h1 className="lh-title">📚 레슨</h1>
-          </div>
-          {token && (
-            <div className="lh-overall">
-              <div className="lh-overall-label">
-                <span>전체 진도</span>
-                <span className="lh-overall-pct">{overallPct}%</span>
+      <div className="lh-scroll">
+
+        {/* ── 레벨 탭 ── */}
+        <div className="lh-level-tabs">
+          {LEVELS.map((lv, i) => {
+            const isActive = i === activeLevelIdx
+            const isLocked = i > activeLevelIdx
+            return (
+              <div
+                key={lv}
+                className={`lh-tab ${isActive ? 'active' : ''} ${isLocked ? 'locked' : ''}`}
+              >
+                {isLocked && <span className="lh-tab-lock">🔒</span>}
+                {LEVEL_LABELS[i]}
               </div>
-              <div className="progress-bar" style={{ width: 80 }}>
-                <div className="progress-bar-fill" style={{ width: `${overallPct}%` }} />
-              </div>
-            </div>
-          )}
+            )
+          })}
         </div>
-      </div>
 
-      {/* 코스 레벨 배지 */}
-      <LevelBadge courseLevel={courseLevel} />
+        {/* ── 진행률 요약 ── */}
+        {token && (
+          <div className="lh-progress-card">
+            <div className="lh-progress-row">
+              <span className="lh-progress-label">{LEVEL_MAP[courseLevel]?.label} 전체 진행률</span>
+              <span className="lh-progress-val">
+                {overallPct}% · {doneStages}/{totalStages} 스테이지
+              </span>
+            </div>
+            <div className="lh-prog-bar">
+              <div className="lh-prog-fill" style={{ width: `${overallPct}%` }} />
+            </div>
+          </div>
+        )}
 
-      {/* 유닛 목록 */}
-      <div className="lh-unit-list container">
+        {/* ── 유닛 목록 ── */}
         {lessons.map((lesson, idx) => {
-          const meta     = UNIT_META[idx] || { icon: '📖', color: '#7c3aed', keywords: [] }
           const maxUnlocked = user?.max_unlocked_unit ?? 1
-          const unlocked = lesson.unit_id <= maxUnlocked
-          const prog     = getUnitProgress(lesson.unit_id)
-          const pct      = lesson.stages > 0 ? (prog.completed / lesson.stages) * 100 : 0
-          const awardedCrowns = user?.awarded_crown_units || []
-          const done     = (prog.completed >= lesson.stages && lesson.stages > 0) || awardedCrowns.includes(lesson.unit_id)
-          const isUnit1  = idx === 0
-
-          const handleClick = () => {
-            if (!unlocked) return
-            if (!token && isUnit1) {
-              navigate('/stage/1/1')
-            } else if (token) {
-              if (!user?.is_level_tested) {
-                setPendingUnitId(lesson.unit_id)
-                setShowLevelTest(true)
-              } else {
-                navigate(`/lesson/${lesson.unit_id}`)
-              }
-            } else {
-              navigate('/auth')
-            }
-          }
+          const unlocked = token ? lesson.unit_id <= maxUnlocked : lesson.unit_id === 1
+          const prog = getUnitProgress(lesson.unit_id)
+          const done = prog.completed >= lesson.stages && lesson.stages > 0 && isBossComplete(lesson.unit_id)
+          const pct  = lesson.stages > 0 ? Math.round((prog.completed / lesson.stages) * 100) : 0
+          const isExpanded = expandedUnit === lesson.unit_id && unlocked
+          const stageNums  = Array.from({ length: lesson.stages || 0 }, (_, i) => i + 1)
+          const title = lesson.title || UNIT_TITLES[idx] || `Unit ${lesson.unit_id}`
 
           return (
-            <UnitCard
+            <div
               key={lesson.unit_id}
-              lesson={lesson}
-              meta={meta}
-              prog={prog}
-              pct={pct}
-              done={done}
-              unlocked={unlocked}
-              isUnit1={isUnit1}
-              token={token}
-              onClick={handleClick}
-            />
+              className={`lh-unit-card ${!unlocked ? 'lh-unit-locked' : ''} ${done ? 'lh-unit-done' : ''}`}
+            >
+              {/* 카드 헤더 */}
+              <div
+                className="lh-unit-header"
+                onClick={() => unlocked && toggleExpand(lesson.unit_id, unlocked)}
+              >
+                <div className={`lh-unit-badge ${done ? 'done' : !unlocked ? 'locked' : 'current'}`}>
+                  {done    ? '✓' : !unlocked ? '🔒' : lesson.unit_id}
+                </div>
+                <div className="lh-unit-info">
+                  <div className={`lh-unit-title ${!unlocked ? 'locked' : ''}`}>
+                    Unit {lesson.unit_id} · {title}
+                  </div>
+                  <div className="lh-unit-meta">
+                    {done
+                      ? `${lesson.stages}스테이지 완료 · 보스 클리어 ✓`
+                      : !unlocked
+                      ? `Unit ${idx} 완료 후 해금`
+                      : `${prog.completed} / ${lesson.stages} 스테이지 · 진행 중`
+                    }
+                  </div>
+                </div>
+                {unlocked && (
+                  <span className="lh-unit-chevron">
+                    {isExpanded ? '∧' : '∨'}
+                  </span>
+                )}
+              </div>
+
+              {/* 미니 진행 바 */}
+              {unlocked && (
+                <div className="lh-mini-bar">
+                  <div className="lh-mini-fill" style={{ width: `${done ? 100 : pct}%` }} />
+                </div>
+              )}
+
+              {/* 스테이지 트랙 (펼쳐진 상태) */}
+              {isExpanded && (
+                <div className="lh-stage-track">
+                  <div className="lh-stage-label">스테이지</div>
+                  <div className="lh-stage-row">
+                    {stageNums.map((s, i) => {
+                      const stageDone    = isStageComplete(lesson.unit_id, s)
+                      const prevDone     = s === 1 || isStageComplete(lesson.unit_id, s - 1)
+                      const isCurrent    = !stageDone && prevDone
+                      const stateClass   = stageDone ? 'done' : isCurrent ? 'current' : 'todo'
+                      const lineClass    = stageDone ? 'done' : 'todo'
+                      return (
+                        <div key={s} className="lh-stage-seg" onClick={() => token && navigate(`/stage/${lesson.unit_id}/${s}`)}>
+                          <div className={`lh-stage-node ${stateClass}`}>
+                            {stageDone ? '✓' : s}
+                          </div>
+                          {i < stageNums.length - 1 && (
+                            <div className={`lh-stage-line ${lineClass}`} />
+                          )}
+                        </div>
+                      )
+                    })}
+                    {/* 선 + 보스 노드 */}
+                    <div className={`lh-stage-line ${prog.completed >= lesson.stages ? 'done' : 'todo'}`} />
+                    <div
+                      className="lh-boss-node"
+                      onClick={() => token && navigate(`/boss/${lesson.unit_id}`)}
+                      title="유닛 보스"
+                    >
+                      ⚔️
+                    </div>
+                  </div>
+                </div>
+              )}
+
+            </div>
           )
         })}
 
-        {/* 유닛보스 도전 */}
-        {token && (
-          <button 
-            className="lh-unit-card lh-unitboss-nav animate-fade-in-up" 
-            onClick={() => navigate('/boss')}
-            style={{ 
-              background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%)', 
-              borderColor: 'rgba(168, 85, 247, 0.3)' 
-            }}
-          >
-            <div className="lh-unit-badge" style={{ background: 'rgba(168, 85, 247, 0.2)', borderColor: '#a855f7' }}>
-              <span style={{ color: '#a855f7', fontWeight: 800 }}>⚔️</span>
-            </div>
-            <div className="lh-unit-body">
-              <div className="lh-unit-row">
-                <span className="lh-unit-icon" style={{ fontWeight: 900, fontSize: '1.2rem', letterSpacing: '0.15em', background: 'var(--grad-boss)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>BOSS</span>
-                <div className="lh-unit-text">
-                  <span className="lh-unit-title">유닛보스 도전</span>
-                  <div className="lh-unit-keywords">
-                    <span className="lh-keyword">보스 선택 및 도전</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <span className="lh-arrow">›</span>
-          </button>
-        )}
-
-        {/* 파이널 보스 */}
-        {isAllDone && (
-          <button className="lh-unit-card lh-endboss animate-fade-in-up" onClick={() => navigate('/boss/endboss')}>
-            <div className="lh-unit-badge" style={{ background: '#ef444430', borderColor: '#ef4444' }}>
-              <span style={{ color: '#ef4444', fontWeight: 800 }}>👿</span>
-            </div>
-            <div className="lh-unit-body">
-              <div className="lh-unit-row">
-                <span className="lh-unit-icon">💀</span>
-                <div className="lh-unit-text">
-                  <span className="lh-unit-title">FINAL BOSS</span>
-                  <div className="lh-unit-keywords">
-                    <span className="lh-keyword">최종 보스</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </button>
-        )}
-
-        {/* 비로그인 체험 배너 */}
-        {!token && (
-          <div className="lh-trial-banner card-glass">
-            <div className="lh-trial-left">
-              <span className="lh-trial-icon">🚀</span>
-              <div>
-                <strong className="lh-trial-title">지금 바로 체험하세요!</strong>
-                <p className="lh-trial-desc">Unit 1 · Stage 1-1은 로그인 없이 무료 체험 가능합니다.</p>
-              </div>
-            </div>
-            <button className="btn btn-primary btn-sm" onClick={() => navigate('/stage/1/1')}>
-              시작하기
-            </button>
+        {/* ── 엔드보스 티저 ── */}
+        <div className="lh-endboss-teaser" onClick={() => navigate('/boss/endboss')}>
+          <div className="lh-endboss-icon">👑</div>
+          <div>
+            <div className="lh-endboss-title">엔드보스</div>
+            <div className="lh-endboss-desc">Unit 1~8 전체 완료 후 해금</div>
           </div>
-        )}
+        </div>
+
       </div>
     </div>
   )

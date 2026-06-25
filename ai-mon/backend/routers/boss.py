@@ -1,30 +1,34 @@
-from fastapi import APIRouter, HTTPException, Header, Request
-from pydantic import BaseModel
+from fastapi import APIRouter, HTTPException, Request, Depends
+from pydantic import BaseModel, Field
 from services.claude_service import ask_claude_json
 import os, uuid
 from datetime import datetime, timedelta
-from routers.titles import check_and_award_titles
 from typing import Optional
 from routers.utils import (
-    load_users,
-    save_users,
-    verify_token,
-    load_wrong_answers,
-    save_wrong_answers,
+    save_user,
+    get_progress_by_user,
+    save_progress_item,
+    save_wrong_answer_item,
+    now_kst,
+    get_current_user,
+    apply_xp,
+    limiter,
+    mutate_user_atomic,
+    UserNotFoundError,
 )
+from routers.titles import check_and_award_titles
 from routers.quiz import load_questions_by_category
-from routers.utils import limiter
 
 router = APIRouter()
 
 
 class BossHintRequest(BaseModel):
     question_id: str
-    user_answer: str = ""
+    user_answer: str = Field("", max_length=4000)
 
 class BossAnswerRequest(BaseModel):
     question_id: str
-    user_answer: str
+    user_answer: str = Field(..., max_length=4000)
     is_code_question: bool = False
     wrong_count: int = 0
     my_hp: int = 1000
@@ -41,19 +45,15 @@ MY_HP_DELTA   = 350   # 오답 시 내 HP 감소
 
 
 @router.get("/info")
-def get_boss_info(unit: str = "1", authorization: str = Header(...)):
-    user_id = verify_token(authorization)
-    users = load_users()
-    user = next((u for u in users if u["id"] == user_id), None)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+def get_boss_info(unit: str = "1", user: dict = Depends(get_current_user)):
+    user_id = user["id"]
         
     # 날짜 체크해서 무료 횟수 리셋
-    today = (datetime.utcnow() + timedelta(hours=9)).strftime("%Y-%m-%d")
+    today = now_kst().strftime("%Y-%m-%d")
     if user.get("last_free_attempt_date") != today:
         user["daily_free_attempts"] = 2
         user["last_free_attempt_date"] = today
-        save_users(users)
+        save_user(user)
         
     # 보스 메타데이터 (고정값으로 MVP 구현)
     return {
@@ -66,15 +66,11 @@ def get_boss_info(unit: str = "1", authorization: str = Header(...)):
     }
 
 @router.post("/start")
-def start_boss_battle(unit: str = "1", authorization: str = Header(...)):
-    user_id = verify_token(authorization)
-    users = load_users()
-    user = next((u for u in users if u["id"] == user_id), None)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+def start_boss_battle(unit: str = "1", user: dict = Depends(get_current_user)):
+    user_id = user["id"]
     
     # 왕관/무료 횟수 차감
-    today = (datetime.utcnow() + timedelta(hours=9)).strftime("%Y-%m-%d")
+    today = now_kst().strftime("%Y-%m-%d")
     if user.get("last_free_attempt_date") != today:
         user["daily_free_attempts"] = 2
         user["last_free_attempt_date"] = today
@@ -99,26 +95,26 @@ def start_boss_battle(unit: str = "1", authorization: str = Header(...)):
     
     # unitboss_seen_questions: 유닛별 분리 (endboss_seen_questions와도 분리)
     seen_key = f"unitboss_seen_{unit_num}" if unit_num is not None else "unitboss_seen_final"
-    seen = user.get(seen_key, [])
+    if "seen_questions" not in user or user["seen_questions"] is None:
+        user["seen_questions"] = {}
+    seen_questions = user["seen_questions"]
+    seen = seen_questions.get(seen_key, [])
     unseen = [q for q in boss_qs if q["question_id"] not in seen]
 
     if not unseen:  # 전부 소진하면 리셋
-        user[seen_key] = []
-        seen = []
-        unseen = boss_qs
+         seen_questions[seen_key] = []
+         seen = []
+         unseen = boss_qs
 
     chosen = random.choice(unseen)
-    user[seen_key] = seen + [chosen["question_id"]]
-    save_users(users)
+    seen_questions[seen_key] = seen + [chosen["question_id"]]
+    user["seen_questions"] = seen_questions
+    save_user(user)
     return chosen
 
 @router.post("/next")
-def get_next_question(unit: str = "1", authorization: str = Header(...)):
-    user_id = verify_token(authorization)
-    users = load_users()
-    user = next((u for u in users if u["id"] == user_id), None)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+def get_next_question(unit: str = "1", user: dict = Depends(get_current_user)):
+    user_id = user["id"]
     if unit == "final":
         raise HTTPException(status_code=400, detail="엔드보스는 /boss/endboss/next 플로우(phase3)를 사용해야 합니다.")
         
@@ -132,27 +128,29 @@ def get_next_question(unit: str = "1", authorization: str = Header(...)):
     import random
 
     seen_key = f"unitboss_seen_{unit_num}" if unit_num is not None else "unitboss_seen_final"
-    seen = user.get(seen_key, [])
+    if "seen_questions" not in user or user["seen_questions"] is None:
+        user["seen_questions"] = {}
+    seen_questions = user["seen_questions"]
+    seen = seen_questions.get(seen_key, [])
     unseen = [q for q in boss_qs if q["question_id"] not in seen]
 
     if not unseen:  # 전부 소진하면 리셋
-        user[seen_key] = []
+        seen_questions[seen_key] = []
         seen = []
         unseen = boss_qs
 
     chosen = random.choice(unseen)
-    user[seen_key] = seen + [chosen["question_id"]]
-    save_users(users)
+    seen_questions[seen_key] = seen + [chosen["question_id"]]
+    user["seen_questions"] = seen_questions
+    save_user(user)
     return chosen
 
 
 @router.post("/hint")
-@limiter.limit("5/minute;100/day")
-async def get_boss_hint(request: Request, req: BossHintRequest, authorization: str = Header(...)):
-    user_id = verify_token(authorization)
-    users = load_users()
-    user = next((u for u in users if u["id"] == user_id), None)
-    course_level = user.get("course_level", "beginner") if user else "beginner"
+@limiter.limit("10/minute;100/day")
+async def get_boss_hint(request: Request, req: BossHintRequest, user: dict = Depends(get_current_user)):
+    user_id = user["id"]
+    course_level = user.get("course_level", "beginner")
 
     questions = load_questions_by_category("unitboss", course_level)
     question = next(
@@ -178,12 +176,10 @@ JSON 포맷으로 아래와 같이 응답하세요:
     return {"hint": ai_result.get("hint", "힌트를 생성할 수 없습니다.")}
 
 @router.post("/answer")
-@limiter.limit("5/minute;100/day")
-async def submit_boss_answer(request: Request, req: BossAnswerRequest, authorization: str = Header(...)):
-    user_id = verify_token(authorization)
-    users = load_users()
-    user = next((u for u in users if u["id"] == user_id), None)
-    course_level = user.get("course_level", "beginner") if user else "beginner"
+@limiter.limit("30/minute;100/day")
+async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dict = Depends(get_current_user)):
+    user_id = user["id"]
+    course_level = user.get("course_level", "beginner")
 
     questions = load_questions_by_category("unitboss", course_level)
     # 우리 스키마는 "question_id" 필드 사용 ("id" 필드 없음)
@@ -264,8 +260,11 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
             }
         else:
             ai_result = await ask_claude_json(prompt)
-            ai_result["is_correct"] = False
-            ai_result["score"] = 0
+            # 직접 매칭 실패 → AI 채점에 위임. grading_failed=True면 is_correct를 덮어쓰지 않는다.
+            # (채점 실패를 오답으로 오인하는 D-1 버그 방지)
+            if not ai_result.get("grading_failed"):
+                ai_result["is_correct"] = False
+                ai_result["score"] = 0
     else:
         # fill_in_blank, code_input
         if user_ans == correct_answer or is_direct_match(user_ans, correct_answer):
@@ -283,7 +282,13 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
     safe_my_hp   = max(0, min(req.my_hp,   MY_HP_INIT))
     safe_wrong   = max(0, min(req.wrong_count, 2))  # 0~2 사이로 클램프
 
-    if ai_result.get("is_correct"):
+    grading_failed = ai_result.get("grading_failed", False)
+
+    if grading_failed:
+        new_boss_hp     = safe_boss_hp
+        new_my_hp       = safe_my_hp
+        new_wrong_count = safe_wrong
+    elif ai_result.get("is_correct"):
         new_boss_hp    = safe_boss_hp - BOSS_HP_DELTA
         new_my_hp      = safe_my_hp
         new_wrong_count = safe_wrong
@@ -292,8 +297,8 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
         new_my_hp      = safe_my_hp - MY_HP_DELTA
         new_wrong_count = safe_wrong + 1
 
-    is_clear = new_boss_hp <= 0
-    is_fail  = new_my_hp  <= 0 or new_wrong_count >= 3
+    is_clear = (new_boss_hp <= 0) if not grading_failed else False
+    is_fail  = (new_my_hp  <= 0 or new_wrong_count >= 3) if not grading_failed else False
 
     # 응답에 HP 정보 추가
     ai_result["my_hp"]       = new_my_hp
@@ -302,71 +307,50 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
     ai_result["is_clear"]    = is_clear
     ai_result["is_fail"]     = is_fail
 
-    # 오답 기록
-    if not ai_result.get("is_correct", False):
-        wrong_answers = load_wrong_answers()
-        wrong_answers.append({
+    # 오답 기록 (채점 실패가 아닐 때만)
+    if not ai_result.get("is_correct", False) and not grading_failed:
+        save_wrong_answer_item({
             "id": str(uuid.uuid4()),
             "user_id": user_id,
             "question_id": req.question_id,
             "user_answer": req.user_answer,
             "feedback": ai_result.get("feedback", ""),
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": now_kst().isoformat(),
             "reviewed": False
         })
-        save_wrong_answers(wrong_answers)
 
-    # 1. Load users to increment feedback count & handle rewards
-    users = load_users()
-    u = next((user_entry for user_entry in users if user_entry["id"] == user_id), None)
-    
-    newly_earned_titles = []
-    if u:
-        # Increment AI feedback count
-        u["ai_feedback_count"] = u.get("ai_feedback_count", 0) + 1
-        newly_earned_titles = check_and_award_titles(u, {})
-
-    # 2. is_clear일 때만 XP/진화 처리 및 진행도 완료 저장
-    if is_clear:
-        from routers.progress import load_progress, save_progress
-        progress = load_progress()
+    # ── 진행도(별도 스토리지)는 '읽기(가드 보조)'만 먼저, '쓰기(완료표시)'는 mutate 이후 ──
+    # progress.is_completed 는 '학습 진행 표시' 용도로만 유지한다. 유닛보스 보상
+    # 중복가드의 단일 진실은 user 컬럼 unitboss_cleared_units 로 이전(M-4 해소):
+    # progress 는 users 와 다른 스토리지라 mutate_user_atomic 임계구역으로 보호되지
+    # 않아 동시 제출 시 TOCTOU 로 XP/왕관 이중 지급이 가능했다.
+    #
+    # was_completed_before: progress.is_completed 의 '이번 요청 쓰기 전' 값. 레거시(과거
+    # progress 가드로 이미 보상받은) 유저를 mutator 안에서 재지급 없이 백필하는 데 쓴다.
+    # ★ 완료표시 쓰기를 mutate '이후' 로 미루는 이유: mutate 이전에 쓰면 동시 형제 요청이
+    #   우리가 쓴 is_completed=True 를 읽고 was_completed_before=True 로 오인 → 백필(무지급)
+    #   하여 양쪽 다 미지급되는 race 가 생긴다. mutate 이후로 미루면 was_completed_before=True
+    #   는 오직 '이전 세션 레거시' 만 의미하게 되어 동시 제출도 정확히 1회 지급된다.
+    was_completed_before = False
+    next_unit = 1
+    unit_key = None   # 보상 가드 키 "{course_level}-{unit}" (mutator 가 user 컬럼으로 멱등 판정)
+    progress_existing = None
+    progress_unit_val = None
+    progress_stage_val = None
+    if is_clear and not grading_failed:
         unit_val = int(req.unit) if req.unit is not None else int(question.get("unit", 1))
         stage_val = question.get("stage", f"{unit_val}-boss")
-        existing = next((p for p in progress if p["user_id"] == user_id and p["unit"] == unit_val and p["stage"] == stage_val and p.get("course_level", "beginner") == course_level), None)
-        
-        award_xp = False
+        unit_key = f"{course_level}-{unit_val}"
+        progress_unit_val, progress_stage_val = unit_val, stage_val
+
+        progress = get_progress_by_user(user_id, course_level)
+        existing = next((p for p in progress if p["unit"] == unit_val and p["stage"] == stage_val), None)
+        progress_existing = existing
         if existing:
-            if not existing.get("is_completed", False):
-                award_xp = True
-            existing["score"] = max(existing.get("score", 0), ai_result.get("score", 100))
-            existing["is_completed"] = True
-            existing["updated_at"] = datetime.utcnow().isoformat()
-        else:
-            award_xp = True
-            progress.append({
-                "id": str(uuid.uuid4()),
-                "user_id": user_id,
-                "unit": unit_val,
-                "stage": stage_val,
-                "score": ai_result.get("score", 100),
-                "is_completed": True,
-                "course_level": course_level,
-                "created_at": datetime.utcnow().isoformat(),
-                "updated_at": datetime.utcnow().isoformat(),
-            })
-        save_progress(progress)
-        
-        from routers.utils import calc_level
+            was_completed_before = existing.get("is_completed", False)
+        # (완료표시 저장은 mutate 이후로 미룸 — 위 ★ 주석 참고)
 
-        if is_final_boss:
-            # ── 엔드보스 클리어 보상은 endboss.py /boss/endboss/clear 에서 전담 처리 ──
-            # 여기서 보상을 지급하면 중복 지급이 발생하므로, xp/crowns는 0으로 반환
-            ai_result["xp_awarded"]     = 0
-            ai_result["crowns_awarded"] = 0
-            ai_result["unlocked_unit"]  = 9  # 엔드보스 이후 유닛 없음
-
-        else:
-            # ── 유닛 보스 클리어 보상 ────────────────────────────────────
+        if not is_final_boss:
             try:
                 if req.unit is not None:
                     cleared_unit = int(req.unit)
@@ -376,69 +360,118 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, authoriza
                     cleared_unit = 1
             except Exception:
                 cleared_unit = 1
-
             next_unit = cleared_unit + 1
 
-            if award_xp and u:
-                u["xp"] = u.get("xp", 0) + 3000
+    # 유닛보스 클리어 이벤트 여부(엔드보스 보상은 endboss.py 전담). '이미 지급됐는지'의
+    # 최종 판정은 mutator 안에서 user 컬럼(unitboss_cleared_units) 기준으로 한다.
+    attempt_unit_reward = (is_clear and not grading_failed and not is_final_boss and unit_key is not None)
+
+    # ── 유저 상태 변경(피드백 카운트·칭호·유닛보스 보상)은 fresh user 기준 원자 처리 ──
+    # ai_feedback_count(counter)·titles(list)·missions(boss_clear) 가 save_user
+    # delta-merge 에서 덮어써지던 문제 해소. (M-1)
+    # 유닛보스 보상 중복가드를 progress(별도 스토리지)에서 unitboss_cleared_units(user
+    # 컬럼)로 이전 → '검사→지급→append' 가 같은 임계구역에서 원자적. 동시 이중 제출에도
+    # 정확히 1회만 지급. (M-4 해소; endboss/miniboss 와 동일 패턴)
+    def mutator(u: dict) -> dict:
+        newly = []
+        granted = False   # 이 호출에서 실제로 XP/왕관을 지급했는지 (응답 보상 필드용)
+        # 피드백 카운트 + 칭호 (채점 성공 시 매 답안)
+        u["ai_feedback_count"] = u.get("ai_feedback_count", 0) + 1
+        newly = check_and_award_titles(u, {})
+
+        if attempt_unit_reward:
+            cleared = u.get("unitboss_cleared_units")
+            if not isinstance(cleared, list):
+                cleared = []
+            already = unit_key in cleared
+
+            # 레거시 호환: 과거 progress 가드로 이미 보상받은 유저(was_completed_before)는
+            # 재지급 없이 컬럼만 백필. 백필도 already 검사를 거쳐 멱등.
+            if not already and was_completed_before:
+                cleared.append(unit_key)
+                u["unitboss_cleared_units"] = cleared
+                already = True
+
+            if not already:
                 if is_unit_boss:
                     if not isinstance(u.get("completed_units"), dict):
                         old_val = u.get("completed_units", 0)
-                        u["completed_units"] = {
-                            "beginner": old_val if course_level == "beginner" else 0,
-                            "intermediate": old_val if course_level == "intermediate" else 0,
-                            "advanced": old_val if course_level == "advanced" else 0
-                        }
+                        u["completed_units"] = {"beginner": old_val, "intermediate": 0, "advanced": 0}
                     u["completed_units"][course_level] = u["completed_units"].get(course_level, 0) + 1
 
-                new_lv = calc_level(u["xp"])
-                u["lv"] = max(new_lv, u.get("lv", 1))
-
-                lv = u["lv"]
-                if lv >= 10 and u.get("character") == "slime":
-                    u["character"] = "robot"
-                elif lv >= 20 and u.get("character") == "robot":
-                    u["character"] = "speech_bubble"
-                elif lv >= 30 and u.get("character") == "speech_bubble":
-                    u["character"] = "final_ghost"
-
-                # boss_cleared 및 completed_stages 카운트 user에 저장
-                u["boss_cleared"] = u.get("boss_cleared", 0) + 1
-                u["completed_stages"] = u.get("completed_stages", 0) + 1
-
                 context = {"boss_cleared": True}
-                newly_earned_clear = check_and_award_titles(u, context)
+                events = apply_xp(u, 3000, context, event_type="boss_clear")
 
-                title_ids = {t["id"] for t in newly_earned_titles}
-                for t in newly_earned_clear:
+                title_ids = {t["id"] for t in newly}
+                for t in events["newly_earned_titles"]:
                     if t["id"] not in title_ids:
-                        newly_earned_titles.append(t)
+                        newly.append(t)
 
                 u["crowns"] = u.get("crowns", 0) + 1
 
                 if not isinstance(u.get("max_unlocked_unit"), dict):
                     old_val = u.get("max_unlocked_unit", 1)
-                    u["max_unlocked_unit"] = {
-                        "beginner": old_val if course_level == "beginner" else 1,
-                        "intermediate": old_val if course_level == "intermediate" else 1,
-                        "advanced": old_val if course_level == "advanced" else 1
-                    }
+                    u["max_unlocked_unit"] = {"beginner": old_val, "intermediate": 1, "advanced": 1}
                 u["max_unlocked_unit"][course_level] = max(u["max_unlocked_unit"].get(course_level, 1), next_unit)
 
-                ai_result["xp_awarded"]     = 3000
-                ai_result["crowns_awarded"] = 1
-                ai_result["unlocked_unit"]  = next_unit
-            else:
-                ai_result["xp_awarded"]     = 0
-                ai_result["crowns_awarded"] = 0
-                ai_result["unlocked_unit"]  = next_unit
+                cleared.append(unit_key)          # 지급 직후 같은 임계구역에서 가드 기록
+                u["unitboss_cleared_units"] = cleared
+                granted = True
+
+        return {"newly_earned_titles": newly, "granted": granted}
+
+    # 채점 실패가 아닐 때만 유저 상태를 원자 저장 (grading_failed 면 변경 없음 → 저장 생략)
+    newly_earned_titles = []
+    reward_granted = False   # mutator 가 이 호출에서 실제 지급했는지 (응답 보상 필드의 진실)
+    if not grading_failed:
+        try:
+            _, mres = mutate_user_atomic(user_id, mutator)
+            newly_earned_titles = mres["newly_earned_titles"]
+            reward_granted = mres["granted"]
+        except UserNotFoundError:
+            raise HTTPException(status_code=404, detail="User not found")
+
+    # ── 진행도(별도 스토리지) 완료 표시 — 보상 mutate '이후' 에 기록(학습 표시용) ──
+    # 위 ★ 주석: mutate 이전에 쓰면 동시 형제 요청이 was_completed_before 를 오인한다.
+    if is_clear and not grading_failed:
+        if progress_existing is not None:
+            progress_existing["score"] = max(progress_existing.get("score", 0), ai_result.get("score", 100))
+            progress_existing["is_completed"] = True
+            progress_existing["updated_at"] = now_kst().isoformat()
+            save_progress_item(progress_existing)
+        else:
+            save_progress_item({
+                "id": str(uuid.uuid4()),
+                "user_id": user_id,
+                "unit": progress_unit_val,
+                "stage": progress_stage_val,
+                "score": ai_result.get("score", 100),
+                "is_completed": True,
+                "course_level": course_level,
+                "created_at": now_kst().isoformat(),
+                "updated_at": now_kst().isoformat(),
+            })
+
+    # ── 응답 보상 필드 (실제 지급 여부 = mutator 의 granted 기준) ──
+    if reward_granted:
+        ai_result["xp_awarded"]     = 3000
+        ai_result["crowns_awarded"] = 1
+        ai_result["unlocked_unit"]  = next_unit
+    elif is_clear and not grading_failed and is_final_boss:
+        # 엔드보스: 보상은 endboss.py 전담, 여기선 0
+        ai_result["xp_awarded"]     = 0
+        ai_result["crowns_awarded"] = 0
+        ai_result["unlocked_unit"]  = 9
+    elif is_clear and not grading_failed:
+        # 유닛보스 재클리어/이미 지급됨 → 0 (unitboss_cleared_units 가드)
+        ai_result["xp_awarded"]     = 0
+        ai_result["crowns_awarded"] = 0
+        ai_result["unlocked_unit"]  = next_unit
     else:
         ai_result["xp_awarded"] = 0
         ai_result["crowns_awarded"] = 0
         ai_result["unlocked_unit"] = 1
 
-    # Save users
-    save_users(users)
     ai_result["newly_earned_titles"] = newly_earned_titles
 
     return ai_result

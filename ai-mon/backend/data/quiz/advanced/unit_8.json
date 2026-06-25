@@ -1024,7 +1024,7 @@
       "answer": "event",
       "hint": "self._triggers는 이벤트 이름을 키로 콜백을 저장합니다. emit 시 어떤 키로 콜백을 조회해야 할까요?",
       "feedback": {
-        "correct": "정답! self._triggers[event](payload)로 해당 이벤트의 콜백을 호출합니다. file_created와 api_called는 등록되어 있어 실행되고, unknown은 등록되지 않아 건너뜁니다. len=2, results[0]=\"처리: report.csv\"입니다."
+        "correct": "정답! self._triggers[event](payload)로 해당 이벤트의 콜백을 호출합니다. file_created와 api_called는 등록되어 있어 실행되고, unknown은 등록되지 않아 건너뜅니다. len=2, results[0]=\"처리: report.csv\"입니다."
       }
     },
     {
@@ -1329,7 +1329,7 @@
       "quiz_category": "output",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "아래 코드의 출력 결과는 무엇일까요?\n\n```python\ndef process_log_lines(lines, keyword):\n    matched = []\n    for line in lines:\n        if keyword in line:\n            matched.append(line.strip())\n    return matched\n\nlog_lines = [\n    \"  2024-01-01 INFO: 서버 시작\\n\",\n    \"  2024-01-01 ERROR: 연결 실패\\n\",\n    \"  2024-01-01 INFO: 요청 처리\\n\",\n    \"  2024-01-01 ERROR: 타임아웃\\n\",\n    \"  2024-01-01 ERROR: 디스크 오류\\n\",\n]\nresult = process_log_lines(log_lines, \"ERROR\")\nprint(len(result))\nprint(result[0])\n```",
+      "question": "아래 코드의 출력 결과는 무엇일까요?\n\n```python\ndef process_log_lines(lines, keyword):\n    matched = []\n    for line in lines:\n        if keyword in line:\n            matched.append(line.strip())\n    return matched\n\nlog_lines = [\n    \"  2024-01-01 INFO: 서버 시작\n\",\n    \"  2024-01-01 ERROR: 연결 실패\n\",\n    \"  2024-01-01 INFO: 요청 처리\n\",\n    \"  2024-01-01 ERROR: 타임아웃\n\",\n    \"  2024-01-01 ERROR: 디스크 오류\n\",\n]\nresult = process_log_lines(log_lines, \"ERROR\")\nprint(len(result))\nprint(result[0])\n```",
       "choices": [
         "A. 2\n2024-01-01 ERROR: 연결 실패",
         "B. 3\n  2024-01-01 ERROR: 연결 실패",
@@ -1539,7 +1539,7 @@
       "quiz_category": "output",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "아래 코드의 출력 결과는 무엇일까요?\n\n```python\ndef parse_csv_lines(lines, delimiter=\",\"):\n    header = lines[0].strip().split(delimiter)\n    records = []\n    for line in lines[1:]:\n        values = line.strip().split(delimiter)\n        records.append(dict(zip(header, values)))\n    return records\n\ncsv_data = [\n    \"name,score,grade\\n\",\n    \"Alice,95,A\\n\",\n    \"Bob,72,B\\n\",\n    \"Carol,88,A\\n\",\n]\nrecords = parse_csv_lines(csv_data)\nprint(len(records))\nprint(records[0][\"name\"])\nprint(records[2][\"grade\"])\n```",
+      "question": "아래 코드의 출력 결과는 무엇일까요?\n\n```python\ndef parse_csv_lines(lines, delimiter=\",\"):\n    header = lines[0].strip().split(delimiter)\n    records = []\n    for line in lines[1:]:\n        values = line.strip().split(delimiter)\n        records.append(dict(zip(header, values)))\n    return records\n\ncsv_data = [\n    \"name,score,grade\n\",\n    \"Alice,95,A\n\",\n    \"Bob,72,B\n\",\n    \"Carol,88,A\n\",\n]\nrecords = parse_csv_lines(csv_data)\nprint(len(records))\nprint(records[0][\"name\"])\nprint(records[2][\"grade\"])\n```",
       "choices": [
         "A. 4\nname\nA",
         "B. 3\nAlice\nA",
@@ -1603,7 +1603,7 @@
       "quiz_category": "output",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "아래 코드의 출력 결과는 무엇일까요?\n\n```python\ndef file_pipeline(content, stages):\n    stats = {\"lines_in\": 0, \"lines_out\": 0}\n    lines = content.strip().split(\"\\n\")\n    stats[\"lines_in\"] = len(lines)\n    for stage_name, func in stages:\n        lines = func(lines)\n    stats[\"lines_out\"] = len(lines)\n    return lines, stats\n\ncontent = \"\"\"에러: 서버 오류\n정보: 시작됨\n에러: DB 연결 실패\n경고: 메모리 부족\n에러: 타임아웃\n정보: 완료\"\"\"\n\nstages = [\n    (\"filter_errors\",  lambda ls: [l for l in ls if \"에러\" in l]),\n    (\"strip_prefix\",   lambda ls: [l.split(\": \", 1)[1] for l in ls]),\n    (\"sort_alpha\",     lambda ls: sorted(ls)),\n]\nresult, stats = file_pipeline(content, stages)\nprint(stats[\"lines_in\"])\nprint(stats[\"lines_out\"])\nprint(result[0])\n```",
+      "question": "아래 코드의 출력 결과는 무엇일까요?\n\n```python\ndef file_pipeline(content, stages):\n    stats = {\"lines_in\": 0, \"lines_out\": 0}\n    lines = content.strip().split(\"\n\")\n    stats[\"lines_in\"] = len(lines)\n    for stage_name, func in stages:\n        lines = func(lines)\n    stats[\"lines_out\"] = len(lines)\n    return lines, stats\n\ncontent = \"\"\"에러: 서버 오류\n정보: 시작됨\n에러: DB 연결 실패\n경고: 메모리 부족\n에러: 타임아웃\n정보: 완료\"\"\"\n\nstages = [\n    (\"filter_errors\",  lambda ls: [l for l in ls if \"에러\" in l]),\n    (\"strip_prefix\",   lambda ls: [l.split(\": \", 1)[1] for l in ls]),\n    (\"sort_alpha\",     lambda ls: sorted(ls)),\n]\nresult, stats = file_pipeline(content, stages)\nprint(stats[\"lines_in\"])\nprint(stats[\"lines_out\"])\nprint(result[0])\n```",
       "choices": [
         "A. 6\n3\nDB 연결 실패",
         "B. 5\n3\n서버 오류",

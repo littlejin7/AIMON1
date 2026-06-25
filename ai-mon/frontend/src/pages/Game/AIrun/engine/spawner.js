@@ -1,39 +1,130 @@
 import * as THREE from 'three';
 
-export function spawnObstacle(game) {
-  const lane = [-1, 0, 1][Math.floor(Math.random() * 3)];
-  const isTall = Math.random() < 0.5;
-  const template = isTall ? game.gltfModels.fence : game.gltfModels.boulder;
-  let mesh;
+// ── 꼬깔콘 ────────────────────────────────────────
+function _makeCone() {
+  const group = new THREE.Group();
 
-  if (template) {
-    mesh = template.clone(true);
-    if (isTall) {
-      const size = new THREE.Vector3();
-      new THREE.Box3().setFromObject(mesh).getSize(size);
-      const s = 2.8 / (size.y || 1);
-      mesh.scale.set(s * 0.5, s, s);
-      mesh.traverse(c => { if (/corner|start|end/i.test(c.name)) c.visible = false; });
-      mesh.position.set(lane * 3, 0, game.nextObstacleZ);
-    } else {
-      const size = new THREE.Vector3();
-      const box = new THREE.Box3().setFromObject(mesh);
-      box.getSize(size);
-      const s = 1.2 / (size.y || 1);
-      mesh.scale.setScalar(s);
-      const newBox = new THREE.Box3().setFromObject(mesh);
-      mesh.position.set(lane * 3, -newBox.min.y, game.nextObstacleZ);
-    }
-  } else {
-    const geo = isTall ? new THREE.BoxGeometry(2.5, 2.8, 0.4) : new THREE.SphereGeometry(0.8, 8, 6);
-    mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: isTall ? 0x885522 : 0x776655, roughness: 0.9 }));
-    mesh.position.set(lane * 3, isTall ? 1.4 : 0.8, game.nextObstacleZ);
+  const coneMat = new THREE.MeshStandardMaterial({ color: 0xff6600, roughness: 0.5 });
+  const cone = new THREE.Mesh(new THREE.ConeGeometry(0.55, 2.0, 12), coneMat);
+  cone.position.y = 1.0;
+  cone.castShadow = true;
+  group.add(cone);
+
+  const bandMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.4, metalness: 0.1 });
+  [0.55, 1.1].forEach(y => {
+    const r = 0.55 * (1 - y / 2.0) + 0.04;
+    const band = new THREE.Mesh(new THREE.TorusGeometry(r, 0.055, 8, 24), bandMat);
+    band.position.y = y;
+    group.add(band);
+  });
+
+  const tip = new THREE.Mesh(new THREE.SphereGeometry(0.09, 8, 8), bandMat);
+  tip.position.y = 2.05;
+  group.add(tip);
+
+  const baseMat = new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 0.8 });
+  const base = new THREE.Mesh(new THREE.CylinderGeometry(0.68, 0.72, 0.14, 16), baseMat);
+  base.position.y = 0.07;
+  base.castShadow = true;
+  group.add(base);
+
+  return group;
+}
+
+// ── 바닥 구멍 ─────────────────────────────────────
+function _makeHole() {
+  const group = new THREE.Group();
+
+  const HOLE_W = 8.4;   // 도로 너비 덮기
+  const HOLE_D = 3.2;   // 앞뒤 깊이(z)
+  const PIT_H  = 3.0;   // 구멍 깊이(y)
+
+  // ① 구멍 위를 덮는 도로 부분을 잘라낸 것처럼 보이게 —
+  //    도로색 평면을 구멍 주변에 깔고 구멍 자리만 비움
+  //    → Three.js에서 구멍 뚫기가 어려우므로 "pit box"로 시각적으로 표현
+
+  // ② pit 내부 바닥 — 아주 어두운 검정
+  const bottomMat = new THREE.MeshStandardMaterial({ color: 0x050505, roughness: 1.0 });
+  const bottom = new THREE.Mesh(new THREE.PlaneGeometry(HOLE_W, HOLE_D), bottomMat);
+  bottom.rotation.x = -Math.PI / 2;
+  bottom.position.y = -PIT_H;
+  group.add(bottom);
+
+  // ③ pit 벽면 4개 (앞/뒤/좌/우) — 도로 단면처럼 돌 질감
+  const wallMat = new THREE.MeshStandardMaterial({ color: 0x4a4030, roughness: 0.95 });
+  const wallDarkMat = new THREE.MeshStandardMaterial({ color: 0x2a2018, roughness: 1.0 });
+
+  // 앞벽 / 뒷벽
+  [HOLE_D / 2, -HOLE_D / 2].forEach((z, idx) => {
+    const wall = new THREE.Mesh(new THREE.BoxGeometry(HOLE_W, PIT_H, 0.12), idx === 0 ? wallMat : wallDarkMat);
+    wall.position.set(0, -PIT_H / 2, z);
+    group.add(wall);
+  });
+
+  // 좌벽 / 우벽
+  [-HOLE_W / 2, HOLE_W / 2].forEach(x => {
+    const wall = new THREE.Mesh(new THREE.BoxGeometry(0.12, PIT_H, HOLE_D), wallMat);
+    wall.position.set(x, -PIT_H / 2, 0);
+    group.add(wall);
+  });
+
+  // ④ 테두리 — 도로 단면 크랙 표현 (밝은 베이지 테두리)
+  const rimMat = new THREE.MeshStandardMaterial({ color: 0xc8c0a8, roughness: 0.8 });
+  // 앞/뒤 테두리
+  [HOLE_D / 2, -HOLE_D / 2].forEach(z => {
+    const rim = new THREE.Mesh(new THREE.BoxGeometry(HOLE_W + 0.1, 0.22, 0.28), rimMat);
+    rim.position.set(0, 0.0, z);
+    group.add(rim);
+  });
+  // 좌/우 테두리
+  [-HOLE_W / 2, HOLE_W / 2].forEach(x => {
+    const rim = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.22, HOLE_D), rimMat);
+    rim.position.set(x, 0.0, 0);
+    group.add(rim);
+  });
+
+  // ⑤ 구멍 위 어두운 그림자 오버레이 (살짝 위에서 어둡게)
+  const shadowMat = new THREE.MeshStandardMaterial({
+    color: 0x000000, transparent: true, opacity: 0.82, depthWrite: false,
+  });
+  const shadow = new THREE.Mesh(new THREE.PlaneGeometry(HOLE_W, HOLE_D), shadowMat);
+  shadow.rotation.x = -Math.PI / 2;
+  shadow.position.y = 0.01;
+  group.add(shadow);
+
+  // ⑥ 경고 줄무늬 — 구멍 직전 (노랑/검정)
+  const warnYellow = new THREE.MeshStandardMaterial({ color: 0xffcc00, roughness: 0.5 });
+  const warnBlack  = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.6 });
+  const stripeW = HOLE_W / 8;
+  for (let i = 0; i < 8; i++) {
+    const mat = i % 2 === 0 ? warnYellow : warnBlack;
+    const stripe = new THREE.Mesh(new THREE.BoxGeometry(stripeW - 0.05, 0.015, 0.6), mat);
+    stripe.position.set(-HOLE_W / 2 + stripeW * i + stripeW / 2, 0.01, HOLE_D / 2 + 0.5);
+    group.add(stripe);
   }
 
-  mesh.castShadow = true;
-  game.scene.add(mesh);
-  game.obstacles.push({ mesh, ring: null, lane, active: true, h: isTall ? 2.8 : 1.2, yPos: isTall ? 1.4 : 0.6 });
-  game.nextObstacleZ -= 4 + Math.random() * 2.3;
+  return group;
+}
+
+export function spawnObstacle(game) {
+  const lane = [-1, 0, 1][Math.floor(Math.random() * 3)];
+  // 꼬깔콘 70%, 구멍 30%
+  const isHole = Math.random() < 0.3;
+
+  if (isHole) {
+    const mesh = _makeHole();
+    mesh.position.set(0, 0, game.nextObstacleZ);
+    game.scene.add(mesh);
+    // type:'hole' — 점프 중이면 통과, 아니면 데미지
+    game.obstacles.push({ mesh, ring: null, lane: 'all', active: true, h: 0.5, yPos: 0, type: 'hole' });
+    game.nextObstacleZ -= 6 + Math.random() * 2;
+  } else {
+    const cone = _makeCone();
+    cone.position.set(lane * 3, 0, game.nextObstacleZ);
+    game.scene.add(cone);
+    game.obstacles.push({ mesh: cone, ring: null, lane, active: true, h: 2.1, yPos: 1.0, type: 'cone' });
+    game.nextObstacleZ -= 4 + Math.random() * 2.3;
+  }
 }
 
 export function spawnQuizGate(game) {

@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import airunIconUrl from '../assets/AIRUNicon.png';
 import { OX_QUESTIONS } from '../constants/quizData.js';
-import { setupScene, setupLights, setupTrack } from './world.js';
+import { setupScene, setupLights, setupTrack, updateWorld } from './world.js';
 import { setupPlayer, preloadModels, animatePlayer } from './player.js';
 import { spawnObstacle, spawnQuizGate } from './spawner.js';
 import { SoundManager } from './sound.js';
@@ -362,6 +362,8 @@ export class RunnerEngine {
     this.tracks.forEach(t => { t.position.z += this.speed; if (t.position.z > 15) t.position.z -= 10 * 38; });
     this.roadPlanes?.forEach(r => { r.position.z += this.speed; if (r.position.z > 26) r.position.z -= r._loopLen; });
     this.treeGroups?.forEach(g => { g.position.z += this.speed; if (g.position.z > 6) g.position.z -= g._loopLen; });
+    this.runTime += 1 / 60;  
+    updateWorld(this, 1 / 60); 
     this.obstacles.forEach(o => { o.mesh.position.z += this.speed; if (o.ring) o.ring.position.z += this.speed; });
     this.quizGates.forEach(g => { g.group.position.z += this.speed; });
 
@@ -380,21 +382,33 @@ export class RunnerEngine {
     const { x: px, z: pz } = this.playerGroup.position;
     const py = this.playerY;
 
-    for (let i = this.obstacles.length - 1; i >= 0; i--) {
-      const o = this.obstacles[i];
-      if (!o.active) continue;
-      const { x: ox, z: oz } = o.mesh.position;
-      if (oz > pz + 12) { this.scene.remove(o.mesh); if (o.ring) this.scene.remove(o.ring); this.obstacles.splice(i, 1); this.score += 50; continue; }
-      if (Math.abs(oz - pz) < 1.3 && Math.abs(ox - px) < 1.5) {
-        if ((py + 2.2) > (o.yPos - o.h / 2) + 0.15 && py < (o.yPos + o.h / 2) - 0.1) {
-          o.active = false;
-          this._hitObstacle();
-          this.scene.remove(o.mesh);
-          if (o.ring) this.scene.remove(o.ring);
-          this.obstacles.splice(i, 1);
-        }
+for (let i = this.obstacles.length - 1; i >= 0; i--) {
+  const o = this.obstacles[i];
+  if (!o.active) continue;
+  const { x: ox, z: oz } = o.mesh.position;
+  if (oz > pz + 12) { /* 제거 */ continue; }
+
+  if (o.type === 'hole') {
+    // 🆕 구멍 판정: x 무관 (전 레인), 점프 중이면 통과
+    if (Math.abs(oz - pz) < 1.8 && !this.jumping && py < 0.3) {
+      o.active = false;
+      this._hitObstacle();
+      this.scene.remove(o.mesh);
+      this.obstacles.splice(i, 1);
+    }
+  } else {
+    // 🆕 꼬깔콘 판정: 기존과 동일 (레인 + 높이)
+    if (Math.abs(oz - pz) < 1.3 && Math.abs(ox - px) < 1.5) {
+      if ((py + 2.2) > (o.yPos - o.h/2) + 0.15 && py < (o.yPos + o.h/2) - 0.1) {
+        o.active = false;
+        this._hitObstacle();
+        this.scene.remove(o.mesh);
+        if (o.ring) this.scene.remove(o.ring);
+        this.obstacles.splice(i, 1);
       }
     }
+  }
+}
 
     for (let i = this.quizGates.length - 1; i >= 0; i--) {
       const g = this.quizGates[i];

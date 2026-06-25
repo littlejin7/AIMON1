@@ -56,7 +56,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 출력되는 결과값을 고르세요.\n\nword = 'AI-MON스터'\nprint(word[3])",
+      "question": "다음 코드를 실행했을 때 출력되는 결과값을 고르세요.\n\n```python\nword = 'AI-MON스터'\nprint(word[3])\n```",
       "choices": [
         "A. -",
         "B. M",
@@ -79,7 +79,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 슬라이싱 코드의 실행 결과값으로 올바른 것을 고르세요.\n\ntext = 'Hello World'\nprint(text[0:5])",
+      "question": "다음 슬라이싱 코드의 실행 결과값으로 올바른 것을 고르세요.\n\n```python\ntext = 'Hello World'\nprint(text[0:5])\n```",
       "choices": [
         "A. Hello",
         "B. Hello ",
@@ -125,7 +125,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 출력되는 결과값을 고르세요.\n\ns = 'Programming'\nprint(s[:4])",
+      "question": "다음 코드를 실행했을 때 출력되는 결과값을 고르세요.\n\n```python\ns = 'Programming'\nprint(s[:4])\n```",
       "choices": [
         "A. Prog",
         "B. Progr",
@@ -148,7 +148,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드의 정확한 출력값을 고르세요.\n\nsample = '에이몬_슬라임'\nprint(sample[2:5])",
+      "question": "다음 코드의 정확한 출력값을 고르세요.\n\n```python\nsample = '에이몬_슬라임'\nprint(sample[2:5])\n```",
       "choices": [
         "A. 몬_슬",
         "B. 몬_슬라",
@@ -194,7 +194,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 음수 인덱스 슬라이싱 코드의 실행 결과값으로 올바른 것을 고르세요.\n\ncode = 'PYTHON'\nprint(code[-4:-1])",
+      "question": "다음 음수 인덱스 슬라이싱 코드의 실행 결과값으로 올바른 것을 고르세요.\n\n```python\ncode = 'PYTHON'\nprint(code[-4:-1])\n```",
       "choices": [
         "A. YTH",
         "B. THO",
@@ -217,7 +217,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 step(간격) 옵션이 포함된 슬라이싱 코드의 출력값을 고르세요.\n\nnumbers = '123456789'\nprint(numbers[1:7:2])",
+      "question": "다음 step(간격) 옵션이 포함된 슬라이싱 코드의 출력값을 고르세요.\n\n```python\nnumbers = '123456789'\nprint(numbers[1:7:2])\n```",
       "choices": [
         "A. 135",
         "B. 246",
@@ -240,7 +240,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "문자열 title = 'AI_MON'에서 마지막 문자인 'N'을 가져오기 위해 괄호 안에 넣을 가장 알맞은 인덱스는 무엇인가요?\n\nprint(title[____])",
+      "question": "문자열 title = 'AI_MON'에서 마지막 문자인 'N'을 가져오기 위해 괄호 안에 넣을 가장 알맞은 인덱스는 무엇인가요?\n\n```python\nprint(title[____])\n```",
       "choices": [
         "A. 6",
         "B. -1",
@@ -263,7 +263,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 출력되는 결과값을 고르세요.\n\nmsg = '스마트에이전트'\nprint(msg[0])",
+      "question": "다음 코드를 실행했을 때 출력되는 결과값을 고르세요.\n\nmsg = '스마트에이전트'\n```python\nprint(msg[0])\n```",
       "choices": [
         "A. 스",
         "B. 마",
@@ -286,7 +286,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 출력되는 결과값을 고르세요.\n\nname = '코드몬스터'\nprint(name[-3])",
+      "question": "다음 코드를 실행했을 때 출력되는 결과값을 고르세요.\n\n```python\nname = '코드몬스터'\nprint(name[-3])\n```",
       "choices": [
         "A. 드",
         "B. 몬",
@@ -309,7 +309,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 슬라이싱 코드의 출력값으로 올바른 것을 고르세요.\n\ninfo = '2026-06-10'\nprint(info[5:7])",
+      "question": "다음 슬라이싱 코드의 출력값으로 올바른 것을 고르세요.\n\n```python\ninfo = '2026-06-10'\nprint(info[5:7])\n```",
       "choices": [
         "A. 26",
         "B. 06",
@@ -332,7 +332,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "문자열 text = '파이썬프롬프트'에서 앞의 세 글자인 '파이썬'만 추출하고 싶을 때, 빈칸에 들어갈 코드로 올바르지 않은 것은 무엇인가요?\n\nprint(____)",
+      "question": "문자열 text = '파이썬프롬프트'에서 앞의 세 글자인 '파이썬'만 추출하고 싶을 때, 빈칸에 들어갈 코드로 올바르지 않은 것은 무엇인가요?\n\n```python\nprint(____)\n```",
       "choices": [
         "A. text[0:3]",
         "B. text[:3]",
@@ -355,7 +355,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 출력값으로 올바른 것을 고르세요.\n\nphrase = '애플리케이션'\nprint(phrase[2:])",
+      "question": "다음 코드의 출력값으로 올바른 것을 고르세요.\n\n```python\nphrase = '애플리케이션'\nprint(phrase[2:])\n```",
       "choices": [
         "A. 애플",
         "B. 리케이션",
@@ -378,7 +378,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 수행했을 때의 출력 결과를 고르세요.\n\ndata = 'AimonRobot'\nprint(data[3:-2])",
+      "question": "다음 코드를 수행했을 때의 출력 결과를 고르세요.\n\n```python\ndata = 'AimonRobot'\nprint(data[3:-2])\n```",
       "choices": [
         "A. onRo",
         "B. monRob",
@@ -401,7 +401,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 실행 결과값으로 올바른 것을 고르세요.\n\ntext = '가나다라마바사'\nprint(text[-1:-4])",
+      "question": "다음 코드의 실행 결과값으로 올바른 것을 고르세요.\n\ntext = '가나다라마바사'\n```python\nprint(text[-1:-4])\n```",
       "choices": [
         "A. 사바마",
         "B. 마바사",
@@ -424,7 +424,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 step(간격) 옵션이 음수 방향인 슬라이싱 코드의 출력값을 고르세요.\n\nword = 'LEVEL'\nprint(word[::-1])",
+      "question": "다음 step(간격) 옵션이 음수 방향인 슬라이싱 코드의 출력값을 고르세요.\n\n```python\nword = 'LEVEL'\nprint(word[::-1])\n```",
       "choices": [
         "A. LEVEL",
         "B. L",
@@ -447,7 +447,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 실행 결과값으로 올바른 것을 고르세요.\n\nspeech = 'Hello'\nprint(speech[1:100])",
+      "question": "다음 코드의 실행 결과값으로 올바른 것을 고르세요.\n\n```python\nspeech = 'Hello'\nprint(speech[1:100])\n```",
       "choices": [
         "A. IndexError 에러 발생",
         "B. ello",
@@ -493,7 +493,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 출력되는 결과값을 고르세요.\n\ntext = 'AI-mon'\nprint(text.lower())",
+      "question": "다음 코드를 실행했을 때 출력되는 결과값을 고르세요.\n\n```python\ntext = 'AI-mon'\nprint(text.lower())\n```",
       "choices": [
         "A. AI-MON",
         "B. ai-mon",
@@ -516,7 +516,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 출력되는 결과값으로 올바른 것을 고르세요.\n\nuser_input = '  에이몬  '\nprint(user_input.strip())",
+      "question": "다음 코드를 실행했을 때 출력되는 결과값으로 올바른 것을 고르세요.\n\n```python\nuser_input = '  에이몬  '\nprint(user_input.strip())\n```",
       "choices": [
         "A. '  에이몬  '",
         "B. '에이몬  '",
@@ -539,7 +539,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드의 올바른 출력값을 고르세요.\n\nphrase = 'I love Java'\nprint(phrase.replace('Java', 'Python'))",
+      "question": "다음 코드의 올바른 출력값을 고르세요.\n\n```python\nphrase = 'I love Java'\nprint(phrase.replace('Java', 'Python'))\n```",
       "choices": [
         "A. I love Java",
         "B. I love Python",
@@ -562,7 +562,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과로 올바른 것을 고르세요.\n\ntext = '  Hello  '\nprint(text.lstrip())",
+      "question": "다음 코드의 출력 결과로 올바른 것을 고르세요.\n\n```python\ntext = '  Hello  '\nprint(text.lstrip())\n```",
       "choices": [
         "A. 'Hello'",
         "B. 'Hello  '",
@@ -585,7 +585,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 터미널에 표시되는 최종 결과물은 무엇인가요?\n\nword = 'banana'\nprint(word.replace('a', 'o'))",
+      "question": "다음 코드를 실행했을 때 터미널에 표시되는 최종 결과물은 무엇인가요?\n\n```python\nword = 'banana'\nprint(word.replace('a', 'o'))\n```",
       "choices": [
         "A. bonana",
         "B. bonona",
@@ -608,11 +608,11 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 메서드가 연속으로 연결된 코드(메서드 체이닝)의 실행 결과를 고르세요.\n\ninfo = '  Welcome to AI-Mon  '\nprint(info.strip().upper())",
+      "question": "다음과 같이 메서드가 연속으로 연결된 코드(메서드 체이닝)의 실행 결과를 고르세요.\n\n```python\ninfo = '  Welcome to AI-Mon  '\nprint(info.strip().upper())\n```",
       "choices": [
-        "A.   WELCOME TO AI-MON  ",
-        "B. WELCOME TO AI-MON  ",
-        "C. WELCOME TO AI-MON",
+        "A. '  WELCOME TO AI-MON  '",
+        "B. 'WELCOME TO AI-MON  '",
+        "C. 'WELCOME TO AI-MON'",
         "D. welcome to ai-mon"
       ],
       "answer": "C",
@@ -654,7 +654,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 가공되어 출력되는 문자열은 무엇인가요?\n\ntext = 'apple, banana, orange'\nprint(text.replace(', ', '/'))",
+      "question": "다음 코드를 실행했을 때 가공되어 출력되는 문자열은 무엇인가요?\n\n```python\ntext = 'apple, banana, orange'\nprint(text.replace(', ', '/'))\n```",
       "choices": [
         "A. apple bananarorange",
         "B. apple/banana/orange",
@@ -677,7 +677,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드의 가공 순서를 생각하여 최종 연산 결과를 예측해 고르세요.\n\nmsg = 'Python'\nprint(msg.upper().replace('PY', 'CO'))",
+      "question": "다음 코드의 가공 순서를 생각하여 최종 연산 결과를 예측해 고르세요.\n\n```python\nmsg = 'Python'\nprint(msg.upper().replace('PY', 'CO'))\n```",
       "choices": [
         "A. Cothon",
         "B. COThon",
@@ -723,7 +723,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 가동시켰을 때 반환되어 나오는 텍스트는 무엇인가요?\n\npet = 'slime'\nprint(pet.upper())",
+      "question": "다음 코드를 가동시켰을 때 반환되어 나오는 텍스트는 무엇인가요?\n\n```python\npet = 'slime'\nprint(pet.upper())\n```",
       "choices": [
         "A. SLIME",
         "B. slime",
@@ -746,7 +746,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 실제 출력 문자열을 골라보세요.\n\nraw_data = '초급_에이몬_공백  '\nprint(raw_data.rstrip())",
+      "question": "다음 코드의 실제 출력 문자열을 골라보세요.\n\n```python\nraw_data = '초급_에이몬_공백  '\nprint(raw_data.rstrip())\n```",
       "choices": [
         "A. '초급_에이몬_공백  '",
         "B. '  초급_에이몬_공백'",
@@ -769,7 +769,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 골라보세요.\n\ntext = 'A-B-C-D'\nprint(text.replace('-', '*'))",
+      "question": "다음 코드의 출력값을 골라보세요.\n\n```python\ntext = 'A-B-C-D'\nprint(text.replace('-', '*'))\n```",
       "choices": [
         "A. A*B*C*D",
         "B. A-B-C-D",
@@ -815,7 +815,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 구동한 뒤 얻어지는 화면상의 텍스트 결과는 무엇일까요?\n\nsubject = 'AI Agent Class'\nprint(subject.replace(' ', '_'))",
+      "question": "다음 코드를 구동한 뒤 얻어지는 화면상의 텍스트 결과는 무엇일까요?\n\n```python\nsubject = 'AI Agent Class'\nprint(subject.replace(' ', '_'))\n```",
       "choices": [
         "A. AIAgentClass",
         "B. AI_Agent_Class",
@@ -838,7 +838,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 연쇄 가공 체이닝 코드가 뱉어내는 데이터가 최종적으로 도달할 최종 텍스트는 무엇인가요?\n\nphone = '   010-1234-5678   '\nprint(phone.strip().replace('-', ''))",
+      "question": "다음 연쇄 가공 체이닝 코드가 뱉어내는 데이터가 최종적으로 도달할 최종 텍스트는 무엇인가요?\n\n```python\nphone = '   010-1234-5678   '\nprint(phone.strip().replace('-', ''))\n```",
       "choices": [
         "A. 01012345678",
         "B. 010 1234 5678",
@@ -861,7 +861,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "아래 코드를 실행한 시점에 원본 변수인 'origin'의 데이터 상태값을 올바르게 추론한 항목을 고르세요.\n\norigin = 'Robot'\nmodified = origin.lower()\nprint(origin)",
+      "question": "아래 코드를 실행한 시점에 원본 변수인 'origin'의 데이터 상태값을 올바르게 추론한 항목을 고르세요.\n\n```python\norigin = 'Robot'\nmodified = origin.lower()\nprint(origin)\n```",
       "choices": [
         "A. robot",
         "B. ROBOT",
@@ -884,7 +884,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음의 다중 교체식 코드의 결과를 예측하여 알맞은 출력을 고르세요.\n\nword = 'A몬 B몬 C몬'\nprint(word.replace('A', '에이').replace('B', '비').replace('C', '씨'))",
+      "question": "다음의 다중 교체식 코드의 결과를 예측하여 알맞은 출력을 고르세요.\n\n```python\nword = 'A몬 B몬 C몬'\nprint(word.replace('A', '에이').replace('B', '비').replace('C', '씨'))\n```",
       "choices": [
         "A. 에이몬 B몬 C몬",
         "B. 에이몬 비몬 씨몬",
@@ -907,7 +907,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 구동할 시 대소문자를 판독하는 정밀 필터링 로직에 의거해 수립될 결괏값은 무엇인가요?\n\ntext = 'Aimon-Slime'\nprint(text.replace('aimon', 'Robot'))",
+      "question": "다음 코드를 구동할 시 대소문자를 판독하는 정밀 필터링 로직에 의거해 수립될 결괏값은 무엇인가요?\n\n```python\ntext = 'Aimon-Slime'\nprint(text.replace('aimon', 'Robot'))\n```",
       "choices": [
         "A. Robot-Slime",
         "B. Aimon-Slime",
@@ -953,7 +953,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 출력되는 결과값을 고르세요.\n\ntext = 'apple'\nprint(text.find('p'))",
+      "question": "다음 코드를 실행했을 때 출력되는 결과값을 고르세요.\n\n```python\ntext = 'apple'\nprint(text.find('p'))\n```",
       "choices": [
         "A. 1",
         "B. 2",
@@ -976,7 +976,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 출력되는 결과값으로 올바른 것을 고르세요.\n\nskills = 'python,java,c++'\nprint(skills.split(','))",
+      "question": "다음 코드를 실행했을 때 출력되는 결과값으로 올바른 것을 고르세요.\n\n```python\nskills = 'python,java,c++'\nprint(skills.split(','))\n```",
       "choices": [
         "A. 'python', 'java', 'c++'",
         "B. ['python', 'java', 'c++']",
@@ -999,7 +999,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드의 출력값으로 가장 올바른 것을 고르세요.\n\nwords = ['AI', 'MON', 'PRO']\nprint('-'.join(words))",
+      "question": "다음 코드의 출력값으로 가장 올바른 것을 고르세요.\n\n```python\nwords = ['AI', 'MON', 'PRO']\nprint('-'.join(words))\n```",
       "choices": [
         "A. ['AI-MON-PRO']",
         "B. AI MON PRO",
@@ -1022,7 +1022,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 가동했을 때 반환되는 정수 값을 예측하여 고르세요.\n\nsentence = 'banana'\nprint(sentence.count('an'))",
+      "question": "다음 코드를 가동했을 때 반환되는 정수 값을 예측하여 고르세요.\n\n```python\nsentence = 'banana'\nprint(sentence.count('an'))\n```",
       "choices": [
         "A. 1",
         "B. 2",
@@ -1045,7 +1045,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 발생하는 결과를 고르세요.\n\ntext = 'Hello AI-Mon'\nprint(text.find('Robot'))",
+      "question": "다음 코드를 실행했을 때 발생하는 결과를 고르세요.\n\n```python\ntext = 'Hello AI-Mon'\nprint(text.find('Robot'))\n```",
       "choices": [
         "A. 에러 발생 (ValueError)",
         "B. 0",
@@ -1068,7 +1068,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "공백(스페이스)과 줄바꿈 기호가 섞여 있는 다음 문자열에 인자 없는 .split()을 적용했을 때의 출력 결과를 고르세요.\n\ninfo = '에이몬  슬라임\\n로봇'\nprint(info.split())",
+      "question": "공백(스페이스)과 줄바꿈 기호가 섞여 있는 다음 문자열에 인자 없는 .split()을 적용했을 때의 출력 결과를 고르세요.\n\n```python\ninfo = '에이몬  슬라임\\n로봇'\nprint(info.split())\n```",
       "choices": [
         "A. ['에이몬', '', '슬라임\\n로봇']",
         "B. ['에이몬', '슬라임', '로봇']",
@@ -1114,7 +1114,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 데이터 가공 과정이 복합적으로 얽힌 코드의 실행 결과를 분석하여 고르세요.\n\ndata = 'A,B,C,D'\ntokens = data.split(',')\nprint(''.join(tokens))",
+      "question": "다음과 같이 데이터 가공 과정이 복합적으로 얽힌 코드의 실행 결과를 분석하여 고르세요.\n\n```python\ndata = 'A,B,C,D'\ntokens = data.split(',')\nprint(''.join(tokens))\n```",
       "choices": [
         "A. A B C D",
         "B. ['ABCD']",
@@ -1137,7 +1137,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "대소문자를 정밀하게 가려내는 규칙에 기반해 다음 .count() 연산식의 정답을 도출해 고르세요.\n\nphrase = 'Python, python, PYTHON'\nprint(phrase.count('python'))",
+      "question": "대소문자를 정밀하게 가려내는 규칙에 기반해 다음 .count() 연산식의 정답을 도출해 고르세요.\n\n```python\nphrase = 'Python, python, PYTHON'\nprint(phrase.count('python'))\n```",
       "choices": [
         "A. 3",
         "B. 1",
@@ -1183,7 +1183,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 구동시켰을 때 반환되는 정수 결과값을 정확히 고르세요.\n\nchat = 'ai_mon_ai_mon'\nprint(chat.count('ai'))",
+      "question": "다음 코드를 구동시켰을 때 반환되는 정수 결과값을 정확히 고르세요.\n\n```python\nchat = 'ai_mon_ai_mon'\nprint(chat.count('ai'))\n```",
       "choices": [
         "A. 1",
         "B. 2",
@@ -1206,7 +1206,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 문자열 쪼개기(분할) 코드의 실행 결과값으로 올바른 레이아웃을 고르세요.\n\nname = '에이몬-로봇-고스트'\nprint(name.split('-'))",
+      "question": "다음 문자열 쪼개기(분할) 코드의 실행 결과값으로 올바른 레이아웃을 고르세요.\n\nname = '에이몬-로봇-고스트'\n```python\nprint(name.split('-'))\n```",
       "choices": [
         "A. '에이몬', '로봇', '고스트'",
         "B. ['에이몬', '로봇', '고스트']",
@@ -1229,7 +1229,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 기동했을 때 도출되어 출력되는 위치 인덱스 정수를 고르세요.\n\ninfo = 'Study Python'\nprint(info.find('P'))",
+      "question": "다음 코드를 기동했을 때 도출되어 출력되는 위치 인덱스 정수를 고르세요.\n\n```python\ninfo = 'Study Python'\nprint(info.find('P'))\n```",
       "choices": [
         "A. 5",
         "B. 6",
@@ -1252,7 +1252,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 리스트 요소를 빈칸 여백으로 엮어 내는 .join() 연산의 표출 문구를 고르세요.\n\nitems = ['고급', 'AI', '에이전트']\nprint(' '.join(items))",
+      "question": "다음과 같이 리스트 요소를 빈칸 여백으로 엮어 내는 .join() 연산의 표출 문구를 고르세요.\n\n```python\nitems = ['고급', 'AI', '에이전트']\nprint(' '.join(items))\n```",
       "choices": [
         "A. 고급AI에이전트",
         "B. ['고급 AI 에이전트']",
@@ -1275,7 +1275,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 연산 방향을 유추하여 출력 결과를 고르세요.\n\nsample = 'banana'\nprint(sample.find('a'))",
+      "question": "다음 코드의 연산 방향을 유추하여 출력 결과를 고르세요.\n\n```python\nsample = 'banana'\nprint(sample.find('a'))\n```",
       "choices": [
         "A. 1",
         "B. 3",
@@ -1298,7 +1298,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "특정 기호 대신 '공백 문자'가 다중 배열된 텍스트에 구분자를 생략한 채 .split() 처리를 가했을 때 획득하게 될 리스트 객체는?\n\ntext = '안녕  하세  요'\nprint(text.split())",
+      "question": "특정 기호 대신 '공백 문자'가 다중 배열된 텍스트에 구분자를 생략한 채 .split() 처리를 가했을 때 획득하게 될 리스트 객체는?\n\n```python\ntext = '안녕  하세  요'\nprint(text.split())\n```",
       "choices": [
         "A. ['안녕', '', '하세', '', '요']",
         "B. ['안녕', '하세', '요']",
@@ -1321,7 +1321,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "아래와 같이 문자 조각이 아닌 '단어 문자열 패턴' 단위로 위치 인덱스를 검색할 때 도출되는 인덱스 시작점 값은?\n\ntext = 'like Aimon'\nprint(text.find('Aimon'))",
+      "question": "아래와 같이 문자 조각이 아닌 '단어 문자열 패턴' 단위로 위치 인덱스를 검색할 때 도출되는 인덱스 시작점 값은?\n\n```python\ntext = 'like Aimon'\nprint(text.find('Aimon'))\n```",
       "choices": [
         "A. 3",
         "B. 4",
@@ -1344,7 +1344,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "리스트 요소를 하나의 스트링으로 연계하는 .join() 함수 스펙 메커니즘에서 유저들이 가장 자주 범하는 문법 위반 에러 분석 문제입니다. 다음 코드의 실행 양상을 판단하세요.\n\nvalues = [1, 2, 3]\nprint('-'.join(values))",
+      "question": "리스트 요소를 하나의 스트링으로 연계하는 .join() 함수 스펙 메커니즘에서 유저들이 가장 자주 범하는 문법 위반 에러 분석 문제입니다. 다음 코드의 실행 양상을 판단하세요.\n\n```python\nvalues = [1, 2, 3]\nprint('-'.join(values))\n```",
       "choices": [
         "A. 1-2-3",
         "B. TypeError 에러 발생",
@@ -1367,7 +1367,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 찾고자 하는 알파벳 타깃 패턴이 서로 완전히 겹쳐져 전개되는 중첩 데이터 구조 환경에서 .count() 메서드가 산정할 최종 판독 개수를 예측하세요.\n\nstream = 'aaaa'\nprint(stream.count('aa'))",
+      "question": "다음과 같이 찾고자 하는 알파벳 타깃 패턴이 서로 완전히 겹쳐져 전개되는 중첩 데이터 구조 환경에서 .count() 메서드가 산정할 최종 판독 개수를 예측하세요.\n\n```python\nstream = 'aaaa'\nprint(stream.count('aa'))\n```",
       "choices": [
         "A. 3",
         "B. 2",
@@ -1413,7 +1413,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 터미널에 출력되는 결과값을 고르세요.\n\nname = '에이몬'\nprint(f'안녕, {name}!')",
+      "question": "다음 코드를 실행했을 때 터미널에 출력되는 결과값을 고르세요.\n\n```python\nname = '에이몬'\nprint(f'안녕, {name}!')\n```",
       "choices": [
         "A. 안녕, name!",
         "B. 안녕, {name}!",
@@ -1436,7 +1436,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 f-string 코드의 출력 결과값으로 가장 올바른 것을 고르세요.\n\nx = 10\ny = 20\nprint(f'{x} + {y} = {x + y}')",
+      "question": "다음 f-string 코드의 출력 결과값으로 가장 올바른 것을 고르세요.\n\n```python\nx = 10\ny = 20\nprint(f'{x} + {y} = {x + y}')\n```",
       "choices": [
         "A. 10 + 20 = 30",
         "B. x + y = x + y",
@@ -1459,7 +1459,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 실수형 데이터를 소수점 아래 특정 자리까지 포맷 지정하는 코드의 출력값을 고르세요.\n\npi = 3.141592\nprint(f'원주율: {pi:.2f}')",
+      "question": "다음과 같이 실수형 데이터를 소수점 아래 특정 자리까지 포맷 지정하는 코드의 출력값을 고르세요.\n\n```python\npi = 3.141592\nprint(f'원주율: {pi:.2f}')\n```",
       "choices": [
         "A. 원주율: 3.141592",
         "B. 원주율: 3.14",
@@ -1482,7 +1482,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 f-string 구조 안에서 문자열 메서드가 호출되는 코드의 출력 결과를 고르세요.\n\npet = 'slime'\nprint(f'나의 펫은 {pet.upper()}입니다.')",
+      "question": "다음 f-string 구조 안에서 문자열 메서드가 호출되는 코드의 출력 결과를 고르세요.\n\n```python\npet = 'slime'\nprint(f'나의 펫은 {pet.upper()}입니다.')\n```",
       "choices": [
         "A. 나의 펫은 slime입니다.",
         "B. 나의 펫은 pet.upper()입니다.",
@@ -1505,7 +1505,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 f-string 정렬 옵션 코드를 실행했을 때 전체 확보되는 글자 자릿수(폭)로 올바른 것을 고르세요.\n\nword = 'AI'\nprint(f'{word:<5}')",
+      "question": "다음 f-string 정렬 옵션 코드를 실행했을 때 전체 확보되는 글자 자릿수(폭)로 올바른 것을 고르세요.\n\n```python\nword = 'AI'\nprint(f'{word:<5}')\n```",
       "choices": [
         "A. 'AI' (2자)",
         "B. 'AI   ' (총 5자 폭에서 왼쪽 정렬)",
@@ -1528,7 +1528,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "실수 데이터 포매팅 단계에서 반올림 원칙이 적용되는 다음 코드의 정확한 출력값을 예측해 고르세요.\n\nscore = 98.756\nprint(f'최종 점수: {score:.2f}')",
+      "question": "실수 데이터 포매팅 단계에서 반올림 원칙이 적용되는 다음 코드의 정확한 출력값을 예측해 고르세요.\n\n```python\nscore = 98.756\nprint(f'최종 점수: {score:.2f}')\n```",
       "choices": [
         "A. 최종 점수: 98.75",
         "B. 최종 점수: 98.76",
@@ -1574,7 +1574,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "딕셔너리 구조와 결합된 다음 f-string 문법 코드의 실행 최종 형태를 고르세요.\n\nuser = {'name': '지훈', 'lv': 10}\nprint(f'유저 {user[\"name\"]}의 레벨은 Lv.{user[\"lv\"]}입니다.')",
+      "question": "딕셔너리 구조와 결합된 다음 f-string 문법 코드의 실행 최종 형태를 고르세요.\n\n```python\nuser = {'name': '지훈', 'lv': 10}\nprint(f'유저 {user[\"name\"]}의 레벨은 Lv.{user[\"lv\"]}입니다.')\n```",
       "choices": [
         "A. 유저 지훈의 레벨은 Lv.10입니다.",
         "B. 유저 user[\"name\"]의 레벨은 Lv.user[\"lv\"]입니다.",
@@ -1597,7 +1597,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "f-string 내부에서 숫자 자릿수를 맞추기 위해 빈자리를 0으로 강제 충전하는 다음 코드의 출력 결과를 고르세요.\n\nunit_num = 5\nprint(f'Unit_{unit_num:03d}')",
+      "question": "f-string 내부에서 숫자 자릿수를 맞추기 위해 빈자리를 0으로 강제 충전하는 다음 코드의 출력 결과를 고르세요.\n\n```python\nunit_num = 5\nprint(f'Unit_{unit_num:03d}')\n```",
       "choices": [
         "A. Unit_5",
         "B. Unit_05",
@@ -1643,7 +1643,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드가 최종 반환하여 표출할 아웃풋 텍스트 문구를 고르세요.\n\nlevel = 3\nprint(f'현재 에이몬의 레벨은 {level}입니다.')",
+      "question": "다음 코드가 최종 반환하여 표출할 아웃풋 텍스트 문구를 고르세요.\n\n```python\nlevel = 3\nprint(f'현재 에이몬의 레벨은 {level}입니다.')\n```",
       "choices": [
         "A. 현재 에이몬의 레벨은 level입니다.",
         "B. 현재 에이몬의 레벨은 3입니다.",
@@ -1666,7 +1666,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 중괄호 내부에서 간단한 불리언 비교 연산이 작동하는 코드의 결과값을 고르세요.\n\nhp = 100\nprint(f'체력 만땅 여부: {hp == 100}')",
+      "question": "다음 중괄호 내부에서 간단한 불리언 비교 연산이 작동하는 코드의 결과값을 고르세요.\n\n```python\nhp = 100\nprint(f'체력 만땅 여부: {hp == 100}')\n```",
       "choices": [
         "A. 체력 만땅 여부: hp == 100",
         "B. 체력 만땅 여부: True",
@@ -1689,7 +1689,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 소수점 포맷 지정 연산 코드가 가공해 낼 최종 출력값을 엄선하세요.\n\nrate = 85.1234\nprint(f'합격률: {rate:.1f}%')",
+      "question": "다음 소수점 포맷 지정 연산 코드가 가공해 낼 최종 출력값을 엄선하세요.\n\n```python\nrate = 85.1234\nprint(f'합격률: {rate:.1f}%')\n```",
       "choices": [
         "A. 합격률: 85.1234%",
         "B. 합격률: 85.1%",
@@ -1712,7 +1712,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 f-string 구조 안에서 문자열 길이 측정 함수 `len()`이 내장 작동하는 코드의 결과는?\n\nword = 'Python'\nprint(f'단어 길이: {len(word)}')",
+      "question": "다음 f-string 구조 안에서 문자열 길이 측정 함수 `len()`이 내장 작동하는 코드의 결과는?\n\n```python\nword = 'Python'\nprint(f'단어 길이: {len(word)}')\n```",
       "choices": [
         "A. 단어 길이: len(word)",
         "B. 단어 길이: word",
@@ -1735,7 +1735,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 오른쪽 정렬 옵션 규칙 기호가 적용된 f-string 아웃풋의 정확한 모습을 고르세요.\n\nname = 'Bot'\nprint(f'{name:>6}')",
+      "question": "다음 오른쪽 정렬 옵션 규칙 기호가 적용된 f-string 아웃풋의 정확한 모습을 고르세요.\n\n```python\nname = 'Bot'\nprint(f'{name:>6}')\n```",
       "choices": [
         "A. 'Bot   '",
         "B. '   Bot'",
@@ -1758,7 +1758,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "매우 큰 단위의 소수점 아래 정밀 데이터를 소수점 0자리(정수 형태 부근)로 포매팅 가공 시 올림 처리가 수립될 다음 코드의 출력 결과를 도출하세요.\n\nprogress = 99.87\nprint(f'진행률: {progress:.0f}%')",
+      "question": "매우 큰 단위의 소수점 아래 정밀 데이터를 소수점 0자리(정수 형태 부근)로 포매팅 가공 시 올림 처리가 수립될 다음 코드의 출력 결과를 도출하세요.\n\n```python\nprogress = 99.87\nprint(f'진행률: {progress:.0f}%')\n```",
       "choices": [
         "A. 진행률: 99.87%",
         "B. 진행률: 99%",
@@ -1781,7 +1781,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "f-string 내부에서 값 수정을 연동하지 못하는 파이썬 문자열 고유의 불변 법칙 응용 문제입니다. 다음 코드의 실행 결과를 판독하세요.\n\nword = 'ai'\nprint(f'{word.upper()}몬 (원본: {word})')",
+      "question": "f-string 내부에서 값 수정을 연동하지 못하는 파이썬 문자열 고유의 불변 법칙 응용 문제입니다. 다음 코드의 실행 결과를 판독하세요.\n\n```python\nword = 'ai'\nprint(f'{word.upper()}몬 (원본: {word})')\n```",
       "choices": [
         "A. AI몬 (원본: AI)",
         "B. AI몬 (원본: ai)",
@@ -1827,7 +1827,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 f-string 구조 내 중괄호 `{}` 기호 자체를 문장 화면에 가공 없이 순수 텍스트 문자로 찍어내기 위해 탈출 이스케이프 처리를 가한 특수 코드의 결과물을 엄선하세요.\n\nage = 5\nprint(f'나이: {{{age}}}')",
+      "question": "다음 f-string 구조 내 중괄호 `{}` 기호 자체를 문장 화면에 가공 없이 순수 텍스트 문자로 찍어내기 위해 탈출 이스케이프 처리를 가한 특수 코드의 결과물을 엄선하세요.\n\n```python\nage = 5\nprint(f'나이: {{{age}}}')\n```",
       "choices": [
         "A. 나이: 5",
         "B. 나이: {5}",
@@ -1873,7 +1873,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 터미널에 출력되는 결과값을 고르세요.\n\nword = 'AI'\nprint(word * 3)",
+      "question": "다음 코드를 실행했을 때 터미널에 출력되는 결과값을 고르세요.\n\n```python\nword = 'AI'\nprint(word * 3)\n```",
       "choices": [
         "A. AI3",
         "B. AIAIAI",
@@ -1896,7 +1896,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 출력되는 결과값(True 또는 False)을 고르세요.\n\ntext = 'Hello AI-Mon'\nprint('AI' in text)",
+      "question": "다음 코드를 실행했을 때 출력되는 결과값(True 또는 False)을 고르세요.\n\n```python\ntext = 'Hello AI-Mon'\nprint('AI' in text)\n```",
       "choices": [
         "A. True",
         "B. False",
@@ -1919,7 +1919,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "공백 스페이스 문자가 포함된 다음 문자열의 `len()` 연산 결과값으로 올바른 것을 고르세요.\n\nmsg = 'AI Mon'\nprint(len(msg))",
+      "question": "공백 스페이스 문자가 포함된 다음 문자열의 `len()` 연산 결과값으로 올바른 것을 고르세요.\n\n```python\nmsg = 'AI Mon'\nprint(len(msg))\n```",
       "choices": [
         "A. 2",
         "B. 5",
@@ -1942,7 +1942,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 대소문자를 판별하는 규칙이 적용된 `in` 연산식의 출력 결과물로 올바른 것을 고르세요.\n\npet = 'Aimon-Slime'\nprint('aimon' in pet)",
+      "question": "다음과 같이 대소문자를 판별하는 규칙이 적용된 `in` 연산식의 출력 결과물로 올바른 것을 고르세요.\n\n```python\npet = 'Aimon-Slime'\nprint('aimon' in pet)\n```",
       "choices": [
         "A. True",
         "B. False",
@@ -1965,7 +1965,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 특수 기호 문자열 반복 연산 코드의 최종 아웃풋으로 가장 적절한 형태를 고르세요.\n\nline = '-' * 5\nprint(f'{line}START{line}')",
+      "question": "다음 특수 기호 문자열 반복 연산 코드의 최종 아웃풋으로 가장 적절한 형태를 고르세요.\n\n```python\nline = '-' * 5\nprint(f'{line}START{line}')\n```",
       "choices": [
         "A. -----START-----",
         "B. - - - - -START- - - - -",
@@ -1988,7 +1988,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 문자열 메서드 가공 처리가 중첩 결합된 `len()` 함수의 최종 반환 수치를 도출해 고르세요.\n\ninfo = '  Python  '\nprint(len(info.strip()))",
+      "question": "다음과 같이 문자열 메서드 가공 처리가 중첩 결합된 `len()` 함수의 최종 반환 수치를 도출해 고르세요.\n\n```python\ninfo = '  Python  '\nprint(len(info.strip()))\n```",
       "choices": [
         "A. 10",
         "B. 8",
@@ -2034,7 +2034,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "포함 관계를 역으로 반전하여 검증하는 `not in` 연산자의 작동 원리를 기반으로 다음 코드의 출력 결과를 추론해 고르세요.\n\nspeech = 'Hello Robot'\nprint('Slime' not in speech)",
+      "question": "포함 관계를 역으로 반전하여 검증하는 `not in` 연산자의 작동 원리를 기반으로 다음 코드의 출력 결과를 추론해 고르세요.\n\n```python\nspeech = 'Hello Robot'\nprint('Slime' not in speech)\n```",
       "choices": [
         "A. True",
         "B. False",
@@ -2057,7 +2057,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 빈 문자열 구조 환경에서 실행되는 `len()` 및 `in` 연산식의 각 결합 도출값으로 올바른 세트를 고르세요.\n\nempty_str = ''\nprint(len(empty_str))\nprint('' in empty_str)",
+      "question": "다음과 같이 빈 문자열 구조 환경에서 실행되는 `len()` 및 `in` 연산식의 각 결합 도출값으로 올바른 세트를 고르세요.\n\n```python\nempty_str = ''\nprint(len(empty_str))\nprint('' in empty_str)\n```",
       "choices": [
         "A. 0 / False",
         "B. 1 / True",
@@ -2103,7 +2103,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "아래의 문자열 연산 가동 코드가 터미널 창에 최종적으로 인쇄할 아웃풋 문구를 엄선하세요.\n\nword = 'Class'\nprint(len(word))",
+      "question": "아래의 문자열 연산 가동 코드가 터미널 창에 최종적으로 인쇄할 아웃풋 문구를 엄선하세요.\n\n```python\nword = 'Class'\nprint(len(word))\n```",
       "choices": [
         "A. word",
         "B. 4",
@@ -2126,7 +2126,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 문자 반복 증식 코드가 리턴 받아 화면에 표출할 데이터 형태를 골라보세요.\n\nstar = '*'\nprint(star * 4)",
+      "question": "다음 문자 반복 증식 코드가 리턴 받아 화면에 표출할 데이터 형태를 골라보세요.\n\n```python\nstar = '*'\nprint(star * 4)\n```",
       "choices": [
         "A. star4",
         "B. ****",
@@ -2149,7 +2149,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "단어와 단어가 멀리 떨어져 포진한 다음 문자열 데이터에 `in` 연산을 수행할 시 도출될 결과는?\n\ntext = 'AI      Mon'\nprint('Mon' in text)",
+      "question": "단어와 단어가 멀리 떨어져 포진한 다음 문자열 데이터에 `in` 연산을 수행할 시 도출될 결과는?\n\n```python\ntext = 'AI      Mon'\nprint('Mon' in text)\n```",
       "choices": [
         "A. True",
         "B. False",
@@ -2195,7 +2195,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 문자열 메서드가 연쇄 동작하는 체이닝 상태 하에서 수행될 `in` 연산의 출력 결과를 예측하세요.\n\nemail = 'USER@naver.com'\nprint('user' in email.lower())",
+      "question": "다음과 같이 문자열 메서드가 연쇄 동작하는 체이닝 상태 하에서 수행될 `in` 연산의 출력 결과를 예측하세요.\n\n```python\nemail = 'USER@naver.com'\nprint('user' in email.lower())\n```",
       "choices": [
         "A. True",
         "B. False",
@@ -2218,7 +2218,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다양한 종류의 구분 기호와 이스케이프 줄바꿈 특수 문자가 배정된 다음 텍스트 데이터의 정확한 `len()` 수치를 산정하세요.\n\ndata = 'A\\nB\\nC'\nprint(len(data))",
+      "question": "다양한 종류의 구분 기호와 이스케이프 줄바꿈 특수 문자가 배정된 다음 텍스트 데이터의 정확한 `len()` 수치를 산정하세요.\n\n```python\ndata = 'A\\nB\\nC'\nprint(len(data))\n```",
       "choices": [
         "A. 3",
         "B. 5",
@@ -2241,7 +2241,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 `in` 연산 결과(불리언 데이터)에 정수 배배수 반복 연산을 의도적으로 강제 연동 결합한 심화 코드의 최종 출력을 선택하세요.\n\nresult = 'Mon' in 'AI-Mon'\nprint(result * 3)",
+      "question": "다음과 같이 `in` 연산 결과(불리언 데이터)에 정수 배배수 반복 연산을 의도적으로 강제 연동 결합한 심화 코드의 최종 출력을 선택하세요.\n\n```python\nresult = 'Mon' in 'AI-Mon'\nprint(result * 3)\n```",
       "choices": [
         "A. TrueTrueTrue",
         "B. 3",
@@ -2264,7 +2264,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "부정형 필터식 구조인 `not in` 연산이 적용된 다음 연산 라인의 화면 표출 결과값을 도출해 내세요.\n\nbanned_word = '욕설'\nuser_chat = '클린한 채팅 공간입니다'\nprint(banned_word not in user_chat)",
+      "question": "부정형 필터식 구조인 `not in` 연산이 적용된 다음 연산 라인의 화면 표출 결과값을 도출해 내세요.\n\n```python\nbanned_word = '욕설'\nuser_chat = '클린한 채팅 공간입니다'\nprint(banned_word not in user_chat)\n```",
       "choices": [
         "A. True",
         "B. False",
@@ -2287,7 +2287,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 단일 문자열 결합 구조 하에서 문자열 간 덧셈 연산과 곱셈 반복 연산이 혼합 배열되었을 때 파이썬 문법 규칙의 우선순위 연산 결과값을 고르세요.\n\ncode = 'A' + 'B' * 3\nprint(code)",
+      "question": "다음과 같이 단일 문자열 결합 구조 하에서 문자열 간 덧셈 연산과 곱셈 반복 연산이 혼합 배열되었을 때 파이썬 문법 규칙의 우선순위 연산 결과값을 고르세요.\n\n```python\ncode = 'A' + 'B' * 3\nprint(code)\n```",
       "choices": [
         "A. ABABAB",
         "B. AAABBB",
@@ -2333,7 +2333,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 가동했을 때 최종 출력되는 데이터 문자열 형태를 고르세요.\n\nfirst = 'AI'\nsecond = 'Mon'\nprint(first + second)",
+      "question": "다음 코드를 가동했을 때 최종 출력되는 데이터 문자열 형태를 고르세요.\n\n```python\nfirst = 'AI'\nsecond = 'Mon'\nprint(first + second)\n```",
       "choices": [
         "A. AI Mon",
         "B. AIMon",
@@ -2356,7 +2356,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 문자열 메서드 가공과 인덱싱이 연속으로 결합된 연산 코드의 아웃풋을 고르세요.\n\nname = '   aimon_slime   '\nclean_name = name.strip()\nprint(clean_name[0])",
+      "question": "다음과 같이 문자열 메서드 가공과 인덱싱이 연속으로 결합된 연산 코드의 아웃풋을 고르세요.\n\n```python\nname = '   aimon_slime   '\nclean_name = name.strip()\nprint(clean_name[0])\n```",
       "choices": [
         "A. 공백 문자 (스페이스)",
         "B. a",
@@ -2379,7 +2379,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 f-string 기반의 포맷 데이터 구조 내부에서 문자열의 길이가 측정되는 코드의 출력값을 고르세요.\n\ncode = 'AI-99'\nprint(f'결과: {len(code) * 2}')",
+      "question": "다음 f-string 기반의 포맷 데이터 구조 내부에서 문자열의 길이가 측정되는 코드의 출력값을 고르세요.\n\n```python\ncode = 'AI-99'\nprint(f'결과: {len(code) * 2}')\n```",
       "choices": [
         "A. 결과: 5",
         "B. 결과: 10",
@@ -2402,7 +2402,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 문자열 분할 및 인덱싱 응용 코드를 가동했을 때 도출되는 글자를 고르세요.\n\ndata = 'python-robot-ghost'\ntokens = data.split('-')\nprint(tokens[1])",
+      "question": "다음 문자열 분할 및 인덱싱 응용 코드를 가동했을 때 도출되는 글자를 고르세요.\n\n```python\ndata = 'python-robot-ghost'\ntokens = data.split('-')\nprint(tokens[1])\n```",
       "choices": [
         "A. python",
         "B. robot",
@@ -2425,7 +2425,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 문자열의 특정 타깃 단어를 치환한 후 특정 음수 인덱스를 추적하는 코드의 연산 결과는 무엇인가요?\n\ntext = 'I love Java'\nnew_text = text.replace('Java', 'Python')\nprint(new_text[-1])",
+      "question": "다음과 같이 문자열의 특정 타깃 단어를 치환한 후 특정 음수 인덱스를 추적하는 코드의 연산 결과는 무엇인가요?\n\n```python\ntext = 'I love Java'\nnew_text = text.replace('Java', 'Python')\nprint(new_text[-1])\n```",
       "choices": [
         "A. a",
         "B. n",
@@ -2448,7 +2448,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "여러 연산과 슬라이싱이 복합적으로 설계된 다음 실전형 가공 로직 코드의 최종 인쇄 문자열을 유추해 고르세요.\n\nraw = '  Welcome_AI_Agent  '\nprocessed = raw.strip().upper()\nprint(processed[:7])",
+      "question": "여러 연산과 슬라이싱이 복합적으로 설계된 다음 실전형 가공 로직 코드의 최종 인쇄 문자열을 유추해 고르세요.\n\n```python\nraw = '  Welcome_AI_Agent  '\nprocessed = raw.strip().upper()\nprint(processed[:7])\n```",
       "choices": [
         "A. Welcome",
         "B. WELCOME",
@@ -2494,7 +2494,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "리스트에서 추출한 문자열을 특정 기호 단위로 병합 조치하는 다음 심화 연산 코드의 최종 아웃풋을 고르세요.\n\ninfo = ['010', '1234', '5678']\njoined = '-'.join(info)\nprint(joined.find('1234'))",
+      "question": "리스트에서 추출한 문자열을 특정 기호 단위로 병합 조치하는 다음 심화 연산 코드의 최종 아웃풋을 고르세요.\n\n```python\ninfo = ['010', '1234', '5678']\njoined = '-'.join(info)\nprint(joined.find('1234'))\n```",
       "choices": [
         "A. 1",
         "B. 3",
@@ -2517,7 +2517,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 소수점 변환 포맷 규칙과 문자열 포함 연산자가 고난도로 누적 결합된 코드의 구동 결과를 예측해 고르세요.\n\nvalue = 85.678\nformatted = f'{value:.1f}'\nprint('85.7' in formatted)",
+      "question": "다음 소수점 변환 포맷 규칙과 문자열 포함 연산자가 고난도로 누적 결합된 코드의 구동 결과를 예측해 고르세요.\n\n```python\nvalue = 85.678\nformatted = f'{value:.1f}'\nprint('85.7' in formatted)\n```",
       "choices": [
         "A. True",
         "B. False",
@@ -2563,7 +2563,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 다중 결합 문자열 처리 코드의 연산 실행 최종 결과를 정확하게 도출하세요.\n\nicon = '<' + '-' * 3 + '>'\nprint(icon)",
+      "question": "다음 다중 결합 문자열 처리 코드의 연산 실행 최종 결과를 정확하게 도출하세요.\n\n```python\nicon = '<' + '-' * 3 + '>'\nprint(icon)\n```",
       "choices": [
         "A. <---",
         "B. <--->",
@@ -2586,7 +2586,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 대소문자 컨버팅 및 단어 검색 메서드가 교차 바인딩된 가공 코드의 정수 출력값을 구하세요.\n\nmsg = 'AI_Agent_Class'\nlower_msg = msg.lower()\nprint(lower_msg.count('agent'))",
+      "question": "다음 대소문자 컨버팅 및 단어 검색 메서드가 교차 바인딩된 가공 코드의 정수 출력값을 구하세요.\n\n```python\nmsg = 'AI_Agent_Class'\nlower_msg = msg.lower()\nprint(lower_msg.count('agent'))\n```",
       "choices": [
         "A. 0",
         "B. 1",
@@ -2609,7 +2609,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 문자열 메서드 작동 단계 후 글자 길이를 판독해 내는 콤비네이션 연산식의 결과를 고르세요.\n\nraw_input = '  AimonRobot  '\nfiltered = raw_input.strip().replace('Robot', 'Mon')\nprint(len(filtered))",
+      "question": "다음과 같이 문자열 메서드 작동 단계 후 글자 길이를 판독해 내는 콤비네이션 연산식의 결과를 고르세요.\n\n```python\nraw_input = '  AimonRobot  '\nfiltered = raw_input.strip().replace('Robot', 'Mon')\nprint(len(filtered))\n```",
       "choices": [
         "A. 14",
         "B. 10",
@@ -2632,7 +2632,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 공백 여백 분리 규칙에 입각해 설계된 문자 가공 로직 코드의 최종 화면 출력 형태를 고르세요.\n\nsentence = '에이몬   고스트'\ntokens = sentence.split()\nprint('_'.join(tokens))",
+      "question": "다음 공백 여백 분리 규칙에 입각해 설계된 문자 가공 로직 코드의 최종 화면 출력 형태를 고르세요.\n\n```python\nsentence = '에이몬   고스트'\ntokens = sentence.split()\nprint('_'.join(tokens))\n```",
       "choices": [
         "A. 에이몬___고스트",
         "B. 에이몬_고스트",
@@ -2655,7 +2655,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 문자열 탐색 메서드 연산 결과가 f-string 변수 지정 구문과 융합되었을 때 수립될 텍스트 구문을 엄선하세요.\n\nchat = 'Hello AI-Mon스터'\npos = chat.find('Robot')\nprint(f'위치결과: {pos}')",
+      "question": "다음과 같이 문자열 탐색 메서드 연산 결과가 f-string 변수 지정 구문과 융합되었을 때 수립될 텍스트 구문을 엄선하세요.\n\n```python\nchat = 'Hello AI-Mon스터'\npos = chat.find('Robot')\nprint(f'위치결과: {pos}')\n```",
       "choices": [
         "A. 위치결과: 0",
         "B. 위치결과: -1",
@@ -2678,7 +2678,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 다단계 문자열 슬라이싱 및 메서드 체이닝 구조를 가동시켰을 때 반환 확정되는 연산 결과 스트링을 고르세요.\n\nsample = 'Python_Agent'\nresult = sample[7:].lower().replace('gent', 'mon')\nprint(result)",
+      "question": "다음 다단계 문자열 슬라이싱 및 메서드 체이닝 구조를 가동시켰을 때 반환 확정되는 연산 결과 스트링을 고르세요.\n\n```python\nsample = 'Python_Agent'\nresult = sample[7:].lower().replace('gent', 'mon')\nprint(result)\n```",
       "choices": [
         "A. amon",
         "B. agent",
@@ -2701,7 +2701,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "아래와 같이 문자 데이터 내부의 특정 단일 인덱스 세팅 공간을 겨냥해 강제로 글자 교체 수정을 시도할 시 파이썬 시스템의 대응 양상을 고르세요.\n\nword = 'Aimon'\nword[0] = 'E'\nprint(word)",
+      "question": "아래와 같이 문자 데이터 내부의 특정 단일 인덱스 세팅 공간을 겨냥해 강제로 글자 교체 수정을 시도할 시 파이썬 시스템의 대응 양상을 고르세요.\n\n```python\nword = 'Aimon'\nword[0] = 'E'\nprint(word)\n```",
       "choices": [
         "A. Eimon",
         "B. Aimon",
@@ -2724,7 +2724,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "부정형 멤버십 포함 조건식과 부합 여부 판독 로직이 다소 꼬여 배치된 다음 코드라인의 아웃풋 불리언 값을 도출하세요.\n\nchat_log = 'Aimon-Robot 클리어 완료'\ncheck_result = 'fail' not in chat_log.lower()\nprint(check_result)",
+      "question": "부정형 멤버십 포함 조건식과 부합 여부 판독 로직이 다소 꼬여 배치된 다음 코드라인의 아웃풋 불리언 값을 도출하세요.\n\n```python\nchat_log = 'Aimon-Robot 클리어 완료'\ncheck_result = 'fail' not in chat_log.lower()\nprint(check_result)\n```",
       "choices": [
         "A. True",
         "B. False",
@@ -2747,7 +2747,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 문자열 역방향 뒤집기 슬라이싱 연산과 치환 및 자릿수 영 충전 규칙이 중첩된 코드의 출력 결과를 골라내세요.\n\nsample_id = '123'\nreversed_id = sample_id[::-1]\nprint(f'ID_{int(reversed_id.replace(\"3\", \"9\")):04d}')",
+      "question": "다음과 같이 문자열 역방향 뒤집기 슬라이싱 연산과 치환 및 자릿수 영 충전 규칙이 중첩된 코드의 출력 결과를 골라내세요.\n\n```python\nsample_id = '123'\nreversed_id = sample_id[::-1]\nprint(f'ID_{int(reversed_id.replace(\"3\", \"9\")):04d}')\n```",
       "choices": [
         "A. ID_321",
         "B. ID_0321",

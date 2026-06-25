@@ -1,18 +1,51 @@
-from fastapi import APIRouter, HTTPException, Header, Query, Request
+import logging
+from functools import lru_cache
+from fastapi import APIRouter, HTTPException, Header, Query, Request, Depends
 from fastapi.responses import StreamingResponse
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from services.claude_service import ask_claude, stream_claude
+from typing import Optional
 import json, os, random, uuid
 from datetime import datetime
-from routers.utils import verify_token, load_wrong_answers, save_wrong_answers, limiter
+from routers.utils import (
+    get_wrong_answers_by_user,
+    save_wrong_answer_item,
+    limiter,
+    now_kst,
+    get_current_user_optional,
+    apply_xp,
+    mutate_user_atomic,
+)
+
+logger = logging.getLogger("uvicorn.error")
 
 router = APIRouter()
+
+
+def _bump_ai_feedback(user_id: str) -> None:
+    """ai_feedback_count++ 와 w_ai5(ai_feedback) 미션 진척을 원자 경로로 기록.
+
+    스트리밍/비스트리밍 양쪽이 동일 호출 → 발생원 일원화(M-3).
+    apply_xp(event_type="ai_feedback") 가 _ensure_period 로 missions 를 변형하므로
+    delta-merge 경로가 아닌 mutate_user_atomic 필수(M-1).
+    AI 성공 시에만 호출(실패한 호출은 미션/칭호에 반영하지 않음).
+    """
+    def mutator(u: dict):
+        u["ai_feedback_count"] = u.get("ai_feedback_count", 0) + 1
+        apply_xp(u, 0, {}, event_type="ai_feedback")
+        return None
+
+    try:
+        mutate_user_atomic(user_id, mutator)
+    except Exception:
+        logger.exception("ai_feedback bump failed for user %s", user_id)
 
 QUESTIONS_FILE = os.path.join(os.path.dirname(__file__), "../data/questions.json")
 LESSONS_DIR    = os.path.join(os.path.dirname(__file__), "../data/lessons")  # 브리핑 슬라이드 폴더
 UNITS_FILE     = os.path.join(os.path.dirname(__file__), "../data/lessons.json")  # 유닛 목록
 
 
+@lru_cache(maxsize=128)
 def load_questions_by_category(category: str, course_level: str = None, unit: int = None):
     base = os.path.join(os.path.dirname(__file__), f"../data/{category}")
     result = []
@@ -68,6 +101,7 @@ def load_questions_by_category(category: str, course_level: str = None, unit: in
     return result
 
 
+@lru_cache(maxsize=128)
 def load_lessons(course_level: str = None, unit: int = None):
     base = os.path.join(os.path.dirname(__file__), "../data/lessons")
     result = []
@@ -99,20 +133,46 @@ def load_lessons(course_level: str = None, unit: int = None):
     return result
 
 
+def _read_units_file(path: str) -> list:
+    """유닛 목록 JSON 파일 1개를 읽어 list로 반환.
+
+    파일이 깨졌거나(JSONDecodeError) 읽기 실패 시 통째로 죽지 않도록 방어한다.
+    단, 조용히 빈 목록으로 넘기지 않고 에러 로그를 남긴 뒤 예외를 다시 올린다.
+    호출부(load_units)가 폴백 여부를 판단한다.
+    """
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (json.JSONDecodeError, OSError):
+        logger.exception("유닛 목록 파일 로드 실패: %s", path)
+        raise
+
+
+@lru_cache(maxsize=128)
 def load_units(course_level: str = None):
-    """유닛 목록: course_level별 파일 우선, 없으면 lessons.json(beginner) 폴백."""
+    """유닛 목록: course_level별 파일 우선, 없으면 lessons.json(beginner) 폴백.
+
+    레벨별 파일이 깨졌으면 에러를 로그로 남기고 기본 lessons.json 으로 폴백한다.
+    기본 파일까지 깨졌으면 에러를 로그로 남기고 예외를 올린다(조용한 빈 목록 금지).
+    """
     # 레벨별 파일 우선 (예: lessons_intermediate.json)
     if course_level and course_level != "beginner":
         base_dir = os.path.dirname(UNITS_FILE)
         level_file = os.path.join(base_dir, f"lessons_{course_level}.json")
         if os.path.exists(level_file):
-            with open(level_file, "r", encoding="utf-8") as f:
-                return json.load(f)
+            try:
+                return _read_units_file(level_file)
+            except (json.JSONDecodeError, OSError):
+                # 레벨별 파일이 깨진 경우 기본 lessons.json 으로 폴백
+                logger.warning(
+                    "레벨별 유닛 파일(%s)이 깨져 기본 lessons.json 으로 폴백합니다.",
+                    level_file,
+                )
     # 폴백: 기본 lessons.json
     if not os.path.exists(UNITS_FILE):
+        logger.error("기본 유닛 목록 파일이 존재하지 않습니다: %s", UNITS_FILE)
         return []
-    with open(UNITS_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
+    return _read_units_file(UNITS_FILE)
 
 
 # ── 유닛 목록 (lessons.json) ────────────────────────────────────
@@ -218,18 +278,20 @@ class AiFeedbackRequest(BaseModel):
     question_id: str = ""
     question: str          # 문제 텍스트
     correct_answer: str    # 정답
-    user_answer: str       # 유저 답
+    user_answer: str = Field(..., max_length=4000)      # 유저 답
     level: str = "beginner"  # beginner | intermediate | advanced
 
 
 @router.post("/ai-feedback")
 @limiter.limit("5/minute;100/day")
-async def get_ai_feedback(request: Request, req: AiFeedbackRequest, authorization: str = Header(None)):
+async def get_ai_feedback(request: Request, req: AiFeedbackRequest, user: Optional[dict] = Depends(get_current_user_optional)):
     """
     오답 제출 시 Claude API를 호출해 레벨별 맞춤 피드백을 반환합니다.
     Claude 실패/타임아웃 시 is_ai_fallback=True와 함께 200 반환 (프론트 crash 방지).
     """
-    wrong_answers = load_wrong_answers()
+    user_id = user["id"] if user else None
+
+    wrong_answers = get_wrong_answers_by_user(user_id) if user_id else []
     if req.question_id:
         for entry in wrong_answers:
             if entry.get("question_id") == req.question_id and entry.get("user_answer") == req.user_answer:
@@ -245,71 +307,38 @@ async def get_ai_feedback(request: Request, req: AiFeedbackRequest, authorizatio
     )
     result = await ask_claude(prompt, level=req.level)
 
-    if authorization:
-        try:
-            import os
-            from jose import jwt
-            from routers.user import load_users, save_users
-            from routers.titles import TITLE_DEFINITIONS
-
-            SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
-            ALGORITHM = os.getenv("ALGORITHM", "HS256")
-
-            token = authorization.replace("Bearer ", "")
-            payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-            user_id = payload.get("sub")
-            users = load_users()
-            for u in users:
-                if u.get("id") == user_id:
-                    u["ai_feedback_count"] = u.get("ai_feedback_count", 0) + 1
-                    earned = set(u.get("titles", []))
-                    if u["ai_feedback_count"] >= 10 and "ai_explorer" not in earned:
-                        earned.add("ai_explorer")
-                    u["titles"] = list(earned)
-                    break
-            save_users(users)
-        except Exception:
-            pass
-
     if result["success"]:
         feedback = result["feedback"]
-        
-        # Save to wrong_answers.json
-        user_id = None
-        if authorization:
-            try:
-                from jose import jwt
-                SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
-                ALGORITHM = os.getenv("ALGORITHM", "HS256")
-                token = authorization.replace("Bearer ", "")
-                payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-                user_id = payload.get("sub")
-            except Exception:
-                pass
-                
-        wrong_answers.append({
+
+        # AI 성공 시에만 ai_feedback 카운트/미션 진척 기록 (스트리밍과 동일 경로)
+        if user_id:
+            _bump_ai_feedback(user_id)
+
+        new_wa = {
             "id": str(uuid.uuid4()),
             "user_id": user_id,
             "question_id": req.question_id,
             "user_answer": req.user_answer,
             "feedback": feedback,
             "ai_explanation": feedback,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": now_kst().isoformat(),
             "reviewed": False
-        })
-        save_wrong_answers(wrong_answers)
+        }
+        save_wrong_answer_item(new_wa)
         
         return {"feedback": feedback, "is_ai_fallback": False}
     return {"feedback": "", "is_ai_fallback": True}
 
 
 @router.post("/ai-feedback/stream")
-async def get_ai_feedback_stream(req: AiFeedbackRequest, authorization: str = Header(None)):
+async def get_ai_feedback_stream(req: AiFeedbackRequest, user: Optional[dict] = Depends(get_current_user_optional)):
     """
     SSE 스트리밍 피드백. 청크마다 data: {"text": "..."} 형식으로 전송.
     완료 시 data: [DONE] 전송.
     """
-    wrong_answers = load_wrong_answers()
+    user_id = user["id"] if user else None
+
+    wrong_answers = get_wrong_answers_by_user(user_id) if user_id else []
     if req.question_id:
         for entry in wrong_answers:
             if entry.get("question_id") == req.question_id and entry.get("user_answer") == req.user_answer:
@@ -339,32 +368,24 @@ async def get_ai_feedback_stream(req: AiFeedbackRequest, authorization: str = He
                 yield f"data: {json.dumps({'text': chunk}, ensure_ascii=False)}\n\n"
                 
             if full_text:
-                user_id = None
-                if authorization:
-                    try:
-                        from jose import jwt
-                        SECRET_KEY = os.getenv("SECRET_KEY", "aimon-dev-secret-key")
-                        ALGORITHM = os.getenv("ALGORITHM", "HS256")
-                        token = authorization.replace("Bearer ", "")
-                        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-                        user_id = payload.get("sub")
-                    except Exception:
-                        pass
-                
-                wa = load_wrong_answers()
-                wa.append({
+                new_wa = {
                     "id": str(uuid.uuid4()),
                     "user_id": user_id,
                     "question_id": req.question_id,
                     "user_answer": req.user_answer,
                     "feedback": full_text,
                     "ai_explanation": full_text,
-                    "timestamp": datetime.utcnow().isoformat(),
+                    "timestamp": now_kst().isoformat(),
                     "reviewed": False
-                })
-                save_wrong_answers(wa)
-                
+                }
+                save_wrong_answer_item(new_wa)
+
+                # 스트리밍도 ai_feedback 진척 기록 (M-3 일원화) — 성공(full_text) 시에만
+                if user_id:
+                    _bump_ai_feedback(user_id)
+
         except Exception as e:
+            logger.exception("ai-feedback stream error for user %s", user_id)
             yield f"data: {json.dumps({'text': f'[오류: {str(e)}]'}, ensure_ascii=False)}\n\n"
         finally:
             yield "data: [DONE]\n\n"

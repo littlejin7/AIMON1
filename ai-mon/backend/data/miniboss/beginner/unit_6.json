@@ -85,7 +85,7 @@
       "feedback": {
         "correct": "정답입니다! 함수를 만들기만 하고 부르지(호출하지) 않으면 내부 코드는 실행되지 않아요."
       },
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 결과는 무엇인가요?\ndef say_hello():\n    print(\"안녕하세요!\")",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 결과는 무엇인가요?\n```python\ndef say_hello():\n    print(\"안녕하세요!\")\n```",
       "stage": 1
     },
     {
@@ -107,7 +107,7 @@
       "feedback": {
         "correct": "정답입니다! 함수를 호출한 횟수만큼 내부 코드가 정직하게 실행됩니다."
       },
-      "question": "다음 코드의 최종 출력 결과는 무엇인가요?\ndef cheers():\n    print(\"파이팅!\")\n\ncheers()\ncheers()",
+      "question": "다음 코드의 최종 출력 결과는 무엇인가요?\n```python\ndef cheers():\n    print(\"파이팅!\")\n\ncheers()\ncheers()\n```",
       "stage": 1
     },
     {
@@ -129,7 +129,7 @@
       "feedback": {
         "correct": "정답입니다! 함수 정의부 내부 코드는 호출 신호가 떨어지기 전까지 건너뛰고 진행됩니다."
       },
-      "question": "다음 코드의 출력 결과를 올바르게 예측한 것을 고르세요.\nprint(\"시작\")\ndef monster():\n    print(\"방해몬 등장!\")\nprint(\"끝\")",
+      "question": "다음 코드의 출력 결과를 올바르게 예측한 것을 고르세요.\n```python\nprint(\"시작\")\ndef monster():\n    print(\"방해몬 등장!\")\nprint(\"끝\")\n```",
       "stage": 1
     },
     {
@@ -173,7 +173,7 @@
       "feedback": {
         "correct": "정답입니다! 함수를 호출하려면 반드시 호출하는 코드보다 윗줄에 함수가 먼저 정의되어 있어야 합니다."
       },
-      "question": "다음 코드를 실행했을 때 발생하는 결과로 옳은 것은 무엇인가요?\nsing()\n\ndef sing():\n    print(\"랄랄라~\")",
+      "question": "다음 코드를 실행했을 때 발생하는 결과로 옳은 것은 무엇인가요?\nsing()\n\n```python\ndef sing():\n    print(\"랄랄라~\")\n```",
       "stage": 1
     },
     {
@@ -195,7 +195,7 @@
       "feedback": {
         "correct": "정답입니다! 함수 내부에서 이미 만들어진 다른 함수를 호출하는 것도 완전히 가능합니다."
       },
-      "question": "다음 코드의 출력 결과를 골라보세요.\ndef stage_1():\n    print(\"하나\")\n\ndef stage_2():\n    stage_1()\n    print(\"둘\")\n\nstage_2()",
+      "question": "다음 코드의 출력 결과를 골라보세요.\n```python\ndef stage_1():\n    print(\"하나\")\n\ndef stage_2():\n    stage_1()\n    print(\"둘\")\n\nstage_2()\n```",
       "stage": 1
     },
     {
@@ -217,7 +217,7 @@
       "feedback": {
         "correct": "정답입니다! 반복문 속에 함수 호출을 넣으면 함수 내부의 기능을 손쉽게 여러 번 가동할 수 있습니다."
       },
-      "question": "다음 코드에서 \"에이몬\"이라는 글자가 출력되는 횟수는 총 몇 번인가요?\ndef print_monster():\n    print(\"에이몬\")\n\nfor i in range(3):\n    print_monster()",
+      "question": "다음 코드에서 \"에이몬\"이라는 글자가 출력되는 횟수는 총 몇 번인가요?\n```python\ndef print_monster():\n    print(\"에이몬\")\n\nfor i in range(3):\n    print_monster()\n```",
       "stage": 1
     },
     {
@@ -283,7 +283,7 @@
       "feedback": {
         "correct": "정답입니다! 전달된 데이터가 함수 안에서 수식으로 계산되어 처리되었습니다."
       },
-      "question": "다음 코드를 실행했을 때 출력되는 결과로 올바른 것은 무엇인가요?\ndef square(num):\n    print(num * num)\n\nsquare(4)",
+      "question": "다음 코드를 실행했을 때 출력되는 결과로 올바른 것은 무엇인가요?\n```python\ndef square(num):\n    print(num * num)\n```\n\nsquare(4)",
       "stage": 2
     },
     {
@@ -305,7 +305,7 @@
       "feedback": {
         "correct": "정답입니다! 기본적으로 인수는 함수에 정의된 매개변수의 순서대로 차례차례 들어갑니다."
       },
-      "question": "다음 코드를 실행했을 때 화면에 나오는 출력은 무엇인가요?\ndef show_info(name, level):\n    print(f\"Lv.{level} {name}\")\n\nshow_info(\"슬라임\", 5)",
+      "question": "다음 코드를 실행했을 때 화면에 나오는 출력은 무엇인가요?\n```python\ndef show_info(name, level):\n    print(f\"Lv.{level} {name}\")\n```\n\nshow_info(\"슬라임\", 5)",
       "stage": 2
     },
     {
@@ -327,7 +327,7 @@
       "feedback": {
         "correct": "정답입니다! 인수로 변수를 넘겨주면 변수 안의 알맹이 값이 함수에 전달됩니다."
       },
-      "question": "다음 코드의 출력 결과를 골라보세요.\ndef greet(user):\n    print(\"안녕, \" + user)\n\nmy_name = \"민준\"\ngreet(my_name)",
+      "question": "다음 코드의 출력 결과를 골라보세요.\n```python\ndef greet(user):\n    print(\"안녕, \" + user)\n\nmy_name = \"민준\"\ngreet(my_name)\n```",
       "stage": 2
     },
     {
@@ -349,7 +349,7 @@
       "feedback": {
         "correct": "정답입니다! 매개변수의 위치와 함수 내부에서 변수가 활용되는 순서는 별개라는 것을 조심해야 해요."
       },
-      "question": "다음 코드를 실행했을 때 화면에 나타나는 출력은 무엇인가요?\ndef combine(a, b):\n    print(b + a)\n\ncombine(\"파이\", \"썬\")",
+      "question": "다음 코드를 실행했을 때 화면에 나타나는 출력은 무엇인가요?\n```python\ndef combine(a, b):\n    print(b + a)\n```\n\ncombine(\"파이\", \"썬\")",
       "stage": 2
     },
     {
@@ -393,7 +393,7 @@
       "feedback": {
         "correct": "정답입니다! 인수가 매개변수 개수보다 많아도 문법 오류가 일어납니다."
       },
-      "question": "다음 코드를 실행했을 때 발생하는 현상은 무엇인가요?\ndef attack(power):\n    print(f\"{power}의 데미지를 주었습니다.\")\n\nattack(\"강력\", 500)",
+      "question": "다음 코드를 실행했을 때 발생하는 현상은 무엇인가요?\n```python\ndef attack(power):\n    print(f\"{power}의 데미지를 주었습니다.\")\n```\n\nattack(\"강력\", 500)",
       "stage": 2
     },
     {
@@ -415,7 +415,7 @@
       "feedback": {
         "correct": "정답입니다! 키워드 인수를 활용하면 순서가 뒤바뀌어도 이름에 맞춰 올바르게 대입됩니다."
       },
-      "question": "인수의 매개변수 이름을 직접 명시하는 '키워드 인수'를 활용한 다음 코드의 출력 결과는 무엇인가요?\ndef make_profile(id, nickname):\n    print(f\"{nickname}({id})\")\n\nmake_profile(nickname=\"에이짱\", id=\"user99\")",
+      "question": "인수의 매개변수 이름을 직접 명시하는 '키워드 인수'를 활용한 다음 코드의 출력 결과는 무엇인가요?\n```python\ndef make_profile(id, nickname):\n    print(f\"{nickname}({id})\")\n```\n\nmake_profile(nickname=\"에이짱\", id=\"user99\")",
       "stage": 2
     },
     {
@@ -437,7 +437,7 @@
       "feedback": {
         "correct": "정답입니다! 변수 매칭 결과를 수식에 대입하면 `30 - 10 = 20`이 도출됩니다."
       },
-      "question": "다음 코드의 실행 결과를 올바르게 고른 것은 무엇인가요?\ndef calculator(x, y):\n    print(x - y)\n\ncalculator(y=10, x=30)",
+      "question": "다음 코드의 실행 결과를 올바르게 고른 것은 무엇인가요?\n```python\ndef calculator(x, y):\n    print(x - y)\n```\n\ncalculator(y=10, x=30)",
       "stage": 2
     },
     {
@@ -503,7 +503,7 @@
       "feedback": {
         "correct": "정답입니다! return으로 돌려준 값이 변수에 아름답게 안착했습니다."
       },
-      "question": "다음 코드를 실행했을 때 변수 ans에 담기는 최종 데이터는 무엇인가요?\ndef multiply(a, b):\n    return a * b\n\nans = multiply(3, 5)",
+      "question": "다음 코드를 실행했을 때 변수 ans에 담기는 최종 데이터는 무엇인가요?\n```python\ndef multiply(a, b):\n    return a * b\n```\n\nans = multiply(3, 5)",
       "stage": 3
     },
     {
@@ -525,7 +525,7 @@
       "feedback": {
         "correct": "정답입니다! return 아래에 있는 코드는 절대 건드려지지 않고 함수가 닫힙니다."
       },
-      "question": "다음 코드의 실행 화면에 출력되는 텍스트를 골라보세요.\ndef get_message():\n    return \"진화 완료!\"\n    print(\"축하합니다!\")\n\nprint(get_message())",
+      "question": "다음 코드의 실행 화면에 출력되는 텍스트를 골라보세요.\n```python\ndef get_message():\n    return \"진화 완료!\"\n    print(\"축하합니다!\")\n\nprint(get_message())\n```",
       "stage": 3
     },
     {
@@ -547,7 +547,7 @@
       "feedback": {
         "correct": "정답입니다! return이 없으면 함수는 일을 다 하고 돌아올 때 빈손(`None`)으로 돌아와요."
       },
-      "question": "다음 코드를 실행했을 때 최종적으로 출력되는 값은 무엇인가요?\ndef test():\n    print(\"출력\")\n\nresult = test()\nprint(result)",
+      "question": "다음 코드를 실행했을 때 최종적으로 출력되는 값은 무엇인가요?\n```python\ndef test():\n    print(\"출력\")\n\nresult = test()\nprint(result)\n```",
       "stage": 3
     },
     {
@@ -569,7 +569,7 @@
       "feedback": {
         "correct": "정답입니다! 조건에 따라 함수 내에서 서로 다른 return문이 작동하도록 분기 처리를 구현할 수 있습니다."
       },
-      "question": "다음 코드의 출력 결과를 알맞게 고르세요.\ndef is_positive(num):\n    if num > 0:\n        return \"양수\"\n    else:\n        return \"음수 또는 0\"\n\nprint(is_positive(-5))",
+      "question": "다음 코드의 출력 결과를 알맞게 고르세요.\n```python\ndef is_positive(num):\n    if num > 0:\n        return \"양수\"\n    else:\n        return \"음수 또는 0\"\n\nprint(is_positive(-5))\n```",
       "stage": 3
     },
     {
@@ -613,7 +613,7 @@
       "feedback": {
         "correct": "정답입니다! 파이썬의 비밀 중 하나로, 콤마로 나열된 반환값은 튜플 상자로 포장되어 나갑니다."
       },
-      "question": "다음 코드를 실행했을 때 변수 data의 자료형(type)은 무엇이 될까요?\ndef get_coords():\n    return 10, 20\n\ndata = get_coords()",
+      "question": "다음 코드를 실행했을 때 변수 data의 자료형(type)은 무엇이 될까요?\n```python\ndef get_coords():\n    return 10, 20\n```\n\ndata = get_coords()",
       "stage": 3
     },
     {
@@ -635,7 +635,7 @@
       "feedback": {
         "correct": "정답입니다! 첫 번째 관문을 통과해 return이 발동하는 순간 함수는 미련 없이 짐을 싸서 종료됩니다."
       },
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 숫자는 무엇인가요?\ndef weight_check(w):\n    if w > 100:\n        return 50\n    if w > 50:\n        return 20\n    return 0\n\nprint(weight_check(120))",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 숫자는 무엇인가요?\n```python\ndef weight_check(w):\n    if w > 100:\n        return 50\n    if w > 50:\n        return 20\n    return 0\n\nprint(weight_check(120))\n```",
       "stage": 3
     },
     {
@@ -657,7 +657,7 @@
       "feedback": {
         "correct": "정답입니다! 조건에 맞는 return을 하나도 건져 올리지 못하면 결국 빈손(`None`) 처리가 됩니다."
       },
-      "question": "다음 코드의 출력 결과를 명확하게 맞추어 보세요.\ndef calc(mode, a, b):\n    if mode == \"add\":\n        return a + b\n    if mode == \"mul\":\n        return a * b\n\nprint(calc(\"sub\", 4, 2))",
+      "question": "다음 코드의 출력 결과를 명확하게 맞추어 보세요.\n```python\ndef calc(mode, a, b):\n    if mode == \"add\":\n        return a + b\n    if mode == \"mul\":\n        return a * b\n\nprint(calc(\"sub\", 4, 2))\n```",
       "stage": 3
     },
     {
@@ -723,7 +723,7 @@
       "feedback": {
         "correct": "정답입니다! 양쪽 모두 준비된 기본값 세팅을 바탕으로 에러 없이 출력되었습니다."
       },
-      "question": "다음 코드를 실행했을 때 나오는 출력 결과는 무엇인가요?\ndef power_up(robot=\"슬라임\", level=1):\n    print(f\"{robot} Lv.{level}\")\n\npower_up()",
+      "question": "다음 코드를 실행했을 때 나오는 출력 결과는 무엇인가요?\n```python\ndef power_up(robot=\"슬라임\", level=1):\n    print(f\"{robot} Lv.{level}\")\n```\n\npower_up()",
       "stage": 4
     },
     {
@@ -745,7 +745,7 @@
       "feedback": {
         "correct": "정답입니다! 직접 인수를 명시하면 기본값은 힘을 잃고 전달된 새로운 인수가 최우선시됩니다."
       },
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 결과물은 무엇인가요?\ndef order_coffee(menu, ice=True):\n    print(f\"{menu} / 얼음:{ice}\")\n\norder_coffee(\"아메리카노\", False)",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 결과물은 무엇인가요?\n```python\ndef order_coffee(menu, ice=True):\n    print(f\"{menu} / 얼음:{ice}\")\n```\n\norder_coffee(\"아메리카노\", False)",
       "stage": 4
     },
     {
@@ -767,7 +767,7 @@
       "feedback": {
         "correct": "정답입니다! 앞에서부터 차곡차곡 인수가 매핑되고 남은 매개변수만 기본값 보너스를 받습니다."
       },
-      "question": "다음 코드의 실행 결과를 알맞게 유추해 보세요.\ndef attack_monster(damage=10, count=2):\n    print(damage * count)\n\nattack_monster(50)",
+      "question": "다음 코드의 실행 결과를 알맞게 유추해 보세요.\n```python\ndef attack_monster(damage=10, count=2):\n    print(damage * count)\n```\n\nattack_monster(50)",
       "stage": 4
     },
     {
@@ -789,7 +789,7 @@
       "feedback": {
         "correct": "정답입니다! 위치 인수와 키워드 인수를 조합하여 특정 기본값만 콕 집어 바꿀 수 있습니다."
       },
-      "question": "다음 코드의 출력 결과를 골라보세요.\ndef say_words(w1, w2=\"파이썬\", w3=\"최고\"):\n    print(f\"{w1} {w2} {w3}\")\n\nsay_words(\"지구상\", w3=\"대박\")",
+      "question": "다음 코드의 출력 결과를 골라보세요.\n```python\ndef say_words(w1, w2=\"파이썬\", w3=\"최고\"):\n    print(f\"{w1} {w2} {w3}\")\n```\n\nsay_words(\"지구상\", w3=\"대박\")",
       "stage": 4
     },
     {
@@ -833,7 +833,7 @@
       "feedback": {
         "correct": "정답입니다! 순서가 꼬이면 파이썬 해석기가 구조를 파악하지 못해 거부해요."
       },
-      "question": "다음 코드를 실행하려고 할 때 발생하는 현상으로 옳은 것은 무엇인가요?\ndef calculate_tax(rate=0.1, price):\n    print(price * rate)\n\ncalculate_tax(1000)",
+      "question": "다음 코드를 실행하려고 할 때 발생하는 현상으로 옳은 것은 무엇인가요?\n```python\ndef calculate_tax(rate=0.1, price):\n    print(price * rate)\n```\n\ncalculate_tax(1000)",
       "stage": 4
     },
     {
@@ -855,7 +855,7 @@
       "feedback": {
         "correct": "정답입니다! 키워드 인수로 앞뒤를 흔들어 놓아도 이름 매칭만 맞으면 기본값과 훌륭히 버무려집니다."
       },
-      "question": "다음 코드의 최종 출력 결과로 올바른 숫자를 찾아보세요.\ndef add_all(a, b=10, c=20):\n    return a + b + c\n\nprint(add_all(c=5, a=5))",
+      "question": "다음 코드의 최종 출력 결과로 올바른 숫자를 찾아보세요.\n```python\ndef add_all(a, b=10, c=20):\n    return a + b + c\n\nprint(add_all(c=5, a=5))\n```",
       "stage": 4
     },
     {
@@ -877,7 +877,7 @@
       "feedback": {
         "correct": "정답입니다! 매번 호출할 때마다 인수를 생략할지 명시할지에 따라 기본값 적용 여부가 독립적으로 결정됩니다."
       },
-      "question": "다음 코드를 구동했을 때 화면에 표기되는 텍스트는 무엇인가요?\ndef build_sentence(item, mark=\".\"):\n    return item + mark\n\nprint(build_sentence(\"사과\", mark=\"?\") + build_sentence(\"바나나\"))",
+      "question": "다음 코드를 구동했을 때 화면에 표기되는 텍스트는 무엇인가요?\n```python\ndef build_sentence(item, mark=\".\"):\n    return item + mark\n\nprint(build_sentence(\"사과\", mark=\"?\") + build_sentence(\"바나나\"))\n```",
       "stage": 4
     },
     {
@@ -943,7 +943,7 @@
       "feedback": {
         "correct": "정답입니다! 지역 변수는 자신이 태어난 고향 함수 내부 안에서는 자유롭게 활보하고 출력될 수 있습니다."
       },
-      "question": "다음 코드를 가동했을 때 콘솔창에 찍히는 출력 결과물은 무엇인가요?\ndef sample():\n    msg = \"헬로 에이몬\"\n    print(msg)\n\nsample()",
+      "question": "다음 코드를 가동했을 때 콘솔창에 찍히는 출력 결과물은 무엇인가요?\n```python\ndef sample():\n    msg = \"헬로 에이몬\"\n    print(msg)\n```\n\nsample()",
       "stage": 5
     },
     {
@@ -965,7 +965,7 @@
       "feedback": {
         "correct": "정답입니다! 함수가 종료되면 지역 변수들은 메모리에서 소멸되므로 외부에서 불러내면 에러가 납니다."
       },
-      "question": "다음 코드를 돌렸을 때 목격되는 결과 현상으로 알맞은 것은 무엇인가요?\ndef create_number():\n    secret_num = 777\n\ncreate_number()\nprint(secret_num)",
+      "question": "다음 코드를 돌렸을 때 목격되는 결과 현상으로 알맞은 것은 무엇인가요?\n```python\ndef create_number():\n    secret_num = 777\n\ncreate_number()\nprint(secret_num)\n```",
       "stage": 5
     },
     {
@@ -987,7 +987,7 @@
       "feedback": {
         "correct": "정답입니다! 거실에 둔 공용 TV처럼, 바깥 전역 스코프에 만들어둔 변수는 안방인 함수 안에서도 잘 보여요."
       },
-      "question": "다음 코드의 최종 화면 출력 결과로 합당한 것은 무엇인가요?\ngame_title = \"에이몬 대모험\"\n\ndef print_game():\n    print(game_title)\n\nprint_game()",
+      "question": "다음 코드의 최종 화면 출력 결과로 합당한 것은 무엇인가요?\ngame_title = \"에이몬 대모험\"\n\n```python\ndef print_game():\n    print(game_title)\n```\n\nprint_game()",
       "stage": 5
     },
     {
@@ -1009,7 +1009,7 @@
       "feedback": {
         "correct": "정답입니다! 함수 내부에서 무턱대고 변수명에 값을 넣으면 전역 변수가 바뀌는 게 아니라 이름만 같은 지역 변수가 새롭게 파생될 뿐이에요."
       },
-      "question": "다음 코드의 출력 결과를 틀리지 않고 올바르게 골라보세요.\nval = 10\n\ndef change_val():\n    val = 99\n    print(\"안:\", val)\n\nchange_val()\nprint(\"밖:\", val)",
+      "question": "다음 코드의 출력 결과를 틀리지 않고 올바르게 골라보세요.\n```python\nval = 10\n\ndef change_val():\n    val = 99\n    print(\"안:\", val)\n\nchange_val()\nprint(\"밖:\", val)\n```",
       "stage": 5
     },
     {
@@ -1053,7 +1053,7 @@
       "feedback": {
         "correct": "정답입니다! global 선언 덕분에 함수 안에서의 수술 결과가 바깥 전역 변수세계에도 고스란히 영구 영속되었습니다."
       },
-      "question": "`global` 키워드가 가동되는 다음 코드의 최종 출력 결과는 무엇일까요?\nmoney = 5000\n\ndef spend_money():\n    global money\n    money = 2000\n\nspend_money()\nprint(money)",
+      "question": "`global` 키워드가 가동되는 다음 코드의 최종 출력 결과는 무엇일까요?\nmoney = 5000\n\ndef spend_money():\n    global money\n    money = 2000\n\n```python\nspend_money()\nprint(money)\n```",
       "stage": 5
     },
     {
@@ -1075,7 +1075,7 @@
       "feedback": {
         "correct": "정답입니다! 리턴된 값을 바깥에서 변수로 받아 챙기지 않는 한, 지역 변수의 요동은 바깥 세상에 전혀 전파되지 못해요."
       },
-      "question": "다음 코드의 실행 결과를 면밀히 파악하고 올바른 출력을 골라보세요.\nnum = 5\n\ndef test_scope():\n    num = 10\n    num += 5\n    return num\n\ntest_scope()\nprint(num)",
+      "question": "다음 코드의 실행 결과를 면밀히 파악하고 올바른 출력을 골라보세요.\n```python\nnum = 5\n\ndef test_scope():\n    num = 10\n    num += 5\n    return num\n\ntest_scope()\nprint(num)\n```",
       "stage": 5
     },
     {
@@ -1097,7 +1097,7 @@
       "feedback": {
         "correct": "정답입니다! 스코프는 안방에서 거실로 점진적으로 확장하며 변수를 검색하는 계층 체계를 지니고 있습니다."
       },
-      "question": "다음 코드의 출력 결과를 고르세요.\ndef level_1():\n    x = \"A\"\n    def level_2():\n        print(x)\n    level_2()\n\nlevel_1()",
+      "question": "다음 코드의 출력 결과를 고르세요.\n```python\ndef level_1():\n    x = \"A\"\n    def level_2():\n        print(x)\n    level_2()\n```\n\nlevel_1()",
       "stage": 5
     },
     {
@@ -1163,7 +1163,7 @@
       "feedback": {
         "correct": "정답입니다! 외부 함수가 흘러가다가 내부 함수를 직접 구동해 주어 순차적으로 출력되었습니다."
       },
-      "question": "다음 코드를 가동시켰을 때 연출되는 출력 화면은 어떤 모습인가요?\ndef outer_func():\n    print(\"바깥쪽\")\n    def inner_func():\n        print(\"안쪽\")\n    inner_func()\n\nouter_func()",
+      "question": "다음 코드를 가동시켰을 때 연출되는 출력 화면은 어떤 모습인가요?\n```python\ndef outer_func():\n    print(\"바깥쪽\")\n    def inner_func():\n        print(\"안쪽\")\n    inner_func()\n```\n\nouter_func()",
       "stage": 6
     },
     {
@@ -1185,7 +1185,7 @@
       "feedback": {
         "correct": "정답입니다! 내부 함수도 결국 함수이기 때문에 정의만 하고 가동 버튼(호출 괄호)을 누르지 않으면 절대 실행되지 않습니다."
       },
-      "question": "다음 코드를 돌렸을 때 도출되는 결과를 골라보세요.\ndef out_wall():\n    def in_wall():\n        print(\"비밀 통로\")\n\nout_wall()",
+      "question": "다음 코드를 돌렸을 때 도출되는 결과를 골라보세요.\n```python\ndef out_wall():\n    def in_wall():\n        print(\"비밀 통로\")\n```\n\nout_wall()",
       "stage": 6
     },
     {
@@ -1207,7 +1207,7 @@
       "feedback": {
         "correct": "정답입니다! 내부 함수는 은밀하게 격리되어 있으므로 바깥에서 멋대로 월담하여 도적 호출을 감행하면 에러가 납니다."
       },
-      "question": "다음 코드를 실행했을 때 목격할 수 있는 현상은 무엇인가요?\ndef machine():\n    def gear():\n        print(\"위잉\")\n    gear()\n\ngear()",
+      "question": "다음 코드를 실행했을 때 목격할 수 있는 현상은 무엇인가요?\n```python\ndef machine():\n    def gear():\n        print(\"위잉\")\n    gear()\n```\n\ngear()",
       "stage": 6
     },
     {
@@ -1229,7 +1229,7 @@
       "feedback": {
         "correct": "정답입니다! 외부 함수와 내부 함수 사이에 인수가 평화롭게 순환 전파되면서 수식이 계산되었습니다."
       },
-      "question": "다음 코드의 출력 결과를 올바르게 맞추어 보세요.\ndef master(x):\n    def servant(y):\n        return y * 2\n    return servant(x) + 5\n\nprint(master(10))",
+      "question": "다음 코드의 출력 결과를 올바르게 맞추어 보세요.\n```python\ndef master(x):\n    def servant(y):\n        return y * 2\n    return servant(x) + 5\n\nprint(master(10))\n```",
       "stage": 6
     },
     {
@@ -1273,7 +1273,7 @@
       "feedback": {
         "correct": "정답입니다! nonlocal 덕분에 내부 자식이 부모 방의 변수 데이터를 완벽히 통제하고 변개하는 데 성공했습니다."
       },
-      "question": "`nonlocal` 키워드를 장착한 다음 코드의 최종 화면 인쇄 숫자는 무엇일까요?\ndef main_calc():\n    num = 10\n    def sub_calc():\n        nonlocal num\n        num = 30\n    sub_calc()\n    print(num)\n\nmain_calc()",
+      "question": "`nonlocal` 키워드를 장착한 다음 코드의 최종 화면 인쇄 숫자는 무엇일까요?\n```python\ndef main_calc():\n    num = 10\n    def sub_calc():\n        nonlocal num\n        num = 30\n    sub_calc()\n    print(num)\n\nmain_calc()\n```",
       "stage": 6
     },
     {
@@ -1295,7 +1295,7 @@
       "feedback": {
         "correct": "정답입니다! 함수를 통째로 반환하여 바깥에 저장해두고 마치 도구처럼 조립하여 활용하는 고급 테크닉 기법의 기초입니다."
       },
-      "question": "다음 중 '클로저(Closure)' 개념맛보기의 원리가 가미된 코드입니다. 출력 결과를 세밀히 정조준하여 골라보세요.\ndef maker(n):\n    def helper(x):\n        return x + n\n    return helper\n\nmy_func = maker(10)\nprint(my_func(5))",
+      "question": "다음 중 '클로저(Closure)' 개념맛보기의 원리가 가미된 코드입니다. 출력 결과를 세밀히 정조준하여 골라보세요.\n```python\ndef maker(n):\n    def helper(x):\n        return x + n\n    return helper\n\nmy_func = maker(10)\nprint(my_func(5))\n```",
       "stage": 6
     },
     {
@@ -1317,7 +1317,7 @@
       "feedback": {
         "correct": "정답입니다! 내부 함수 이름만 리턴하는지, 괄호를 붙여 실행한 결과물을 리턴하는지 그 차이를 구분해야 합니다."
       },
-      "question": "다음 코드의 출력 결과를 명확하게 맞추어 보세요.\ndef monster_factory(name):\n    def spawn():\n        return name + \" 출격\"\n    return spawn()\n\nprint(monster_factory(\"방해몬\"))",
+      "question": "다음 코드의 출력 결과를 명확하게 맞추어 보세요.\n```python\ndef monster_factory(name):\n    def spawn():\n        return name + \" 출격\"\n    return spawn()\n\nprint(monster_factory(\"방해몬\"))\n```",
       "stage": 6
     },
     {
@@ -1383,7 +1383,7 @@
       "feedback": {
         "correct": "정답입니다! 수식 계산에 함수 호출 결과를 각각 적용하여 대입 연산을 순차적으로 해결했습니다."
       },
-      "question": "그동안 배운 지식을 활용하여 다음 복합 연산 코드를 실행했을 때 드러나는 출력 숫자는 무엇일까요?\ndef calc_magic(a, b):\n    return (a + b) * 2\n\nx = calc_magic(3, 4)\ny = calc_magic(1, 2)\nprint(x - y)",
+      "question": "그동안 배운 지식을 활용하여 다음 복합 연산 코드를 실행했을 때 드러나는 출력 숫자는 무엇일까요?\n```python\ndef calc_magic(a, b):\n    return (a + b) * 2\n\nx = calc_magic(3, 4)\ny = calc_magic(1, 2)\nprint(x - y)\n```",
       "stage": 7
     },
     {
@@ -1405,7 +1405,7 @@
       "feedback": {
         "correct": "정답입니다! `len()` 내장 함수와 사용자 함수가 서로 얽혀서 최종 숫자 18을 계산해 냈습니다."
       },
-      "question": "다음은 문자열의 길이 정보를 변형하여 활용하는 복합 함수입니다. 출력 결과는 무엇인가요?\ndef get_size(word):\n    return len(word)\n\ndef multiply_words(text, repeat):\n    length = get_size(text)\n    print(length * repeat)\n\nmultiply_words(\"Python\", 3)",
+      "question": "다음은 문자열의 길이 정보를 변형하여 활용하는 복합 함수입니다. 출력 결과는 무엇인가요?\n```python\ndef get_size(word):\n    return len(word)\n\ndef multiply_words(text, repeat):\n    length = get_size(text)\n    print(length * repeat)\n\nmultiply_words(\"Python\", 3)\n```",
       "stage": 7
     },
     {
@@ -1427,7 +1427,7 @@
       "feedback": {
         "correct": "정답입니다! 기존 유닛 2에서 습득한 문자열 처리 메서드 기능도 함수 내부에 심어 하나의 패키지처럼 가동할 수 있습니다."
       },
-      "question": "다음 코드를 수행했을 때 화면에 출력되는 최종 텍스트 라인은 무엇인가요?\ndef process_text(item):\n    return item.strip().upper()\n\nresult = process_text(\"  aimon  \")\nprint(result)",
+      "question": "다음 코드를 수행했을 때 화면에 출력되는 최종 텍스트 라인은 무엇인가요?\n```python\ndef process_text(item):\n    return item.strip().upper()\n\nresult = process_text(\"  aimon  \")\nprint(result)\n```",
       "stage": 7
     },
     {
@@ -1449,7 +1449,7 @@
       "feedback": {
         "correct": "정답입니다! 다중 분기 조건 제어 구조문이 함수 본체 스크립트와 아름답게 융합되었습니다."
       },
-      "question": "다음 코드의 출력 결과를 틀리지 않고 올바르게 지정해 보세요.\ndef check_level(lv):\n    if lv >= 20:\n        return \"고수\"\n    elif lv >= 10:\n        return \"중수\"\n    else:\n        return \"초보\"\n\nprint(check_level(15))",
+      "question": "다음 코드의 출력 결과를 틀리지 않고 올바르게 지정해 보세요.\n```python\ndef check_level(lv):\n    if lv >= 20:\n        return \"고수\"\n    elif lv >= 10:\n        return \"중수\"\n    else:\n        return \"초보\"\n\nprint(check_level(15))\n```",
       "stage": 7
     },
     {
@@ -1471,7 +1471,7 @@
       "feedback": {
         "correct": "정답입니다! 유닛 4, 5에서 핵심적으로 다루었던 리스트 누적 순회 순환 알고리즘이 함수 제어식으로 멋지게 마감되었습니다."
       },
-      "question": "리스트 자료구조 내부 원소들의 총합을 구하는 복합 함수형 제어 코드입니다. 출력 결과를 골라보세요.\ndef sum_all_elements(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    return total\n\nitems = [10, 20, 30]\nprint(sum_all_elements(items))",
+      "question": "리스트 자료구조 내부 원소들의 총합을 구하는 복합 함수형 제어 코드입니다. 출력 결과를 골라보세요.\n```python\ndef sum_all_elements(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    return total\n\nitems = [10, 20, 30]\nprint(sum_all_elements(items))\n```",
       "stage": 7
     },
     {
@@ -1493,7 +1493,7 @@
       "feedback": {
         "correct": "정답입니다! 함수를 활용하면 특정 조건으로 데이터를 감별하여 걸러내는 맞춤형 가공 기계 장치를 직접 설계할 수 있습니다."
       },
-      "question": "다음 코드를 돌렸을 때 반환되어 나오는 최종 출력물은 무엇인가요?\ndef filtering_list(words):\n    selected = []\n    for w in words:\n        if len(w) >= 4:\n            selected.append(w)\n    return selected\n\nsample = [\"cat\", \"tiger\", \"lion\", \"dog\"]\nprint(filtering_list(sample))",
+      "question": "다음 코드를 돌렸을 때 반환되어 나오는 최종 출력물은 무엇인가요?\n```python\ndef filtering_list(words):\n    selected = []\n    for w in words:\n        if len(w) >= 4:\n            selected.append(w)\n    return selected\n\nsample = [\"cat\", \"tiger\", \"lion\", \"dog\"]\nprint(filtering_list(sample))\n```",
       "stage": 7
     },
     {
@@ -1515,7 +1515,7 @@
       "feedback": {
         "correct": "정답입니다! 하나의 커다란 함수가 자신의 일을 완수하기 위해 세부 전용 함수에게 처리를 위임 배스하는 유기적 협업 실무 코드 패턴입니다."
       },
-      "question": "다음 코드의 최종 결과를 예측하여 보세요.\ndef transform(n):\n    if n % 2 == 0:\n        return n * 10\n    return n + 100\n\ndef multi_process(data_list):\n    result = []\n    for item in data_list:\n        result.append(transform(item))\n    return result\n\nprint(multi_process([2, 3]))",
+      "question": "다음 코드의 최종 결과를 예측하여 보세요.\n```python\ndef transform(n):\n    if n % 2 == 0:\n        return n * 10\n    return n + 100\n\ndef multi_process(data_list):\n    result = []\n    for item in data_list:\n        result.append(transform(item))\n    return result\n\nprint(multi_process([2, 3]))\n```",
       "stage": 7
     },
     {
@@ -1537,7 +1537,7 @@
       "feedback": {
         "correct": "정답입니다! 함수의 기본값 활용, 분기문, 문자열 가공 기능이 총집대성된 문제였습니다. 유닛 6 코스를 마침내 완벽히 독파하셨습니다!"
       },
-      "question": "다음 고난이도 종합 실습용 파이썬 구문의 실행 결과는 무엇인가요?\ndef add_deco(word):\n    return \"***\" + word + \"***\"\n\ndef print_report(title, check=True):\n    if check:\n        final_title = add_deco(title)\n    else:\n        final_title = title\n    print(final_title)\n\nprint_report(\"에이몬 보스\", check=True)",
+      "question": "다음 고난이도 종합 실습용 파이썬 구문의 실행 결과는 무엇인가요?\n```python\ndef add_deco(word):\n    return \"***\" + word + \"***\"\n\ndef print_report(title, check=True):\n    if check:\n        final_title = add_deco(title)\n    else:\n        final_title = title\n    print(final_title)\n\nprint_report(\"에이몬 보스\", check=True)\n```",
       "stage": 7
     }
   ]

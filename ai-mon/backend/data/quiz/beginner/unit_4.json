@@ -56,7 +56,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 결과로 올바른 것을 고르세요.\n\nfor i in range(3):\n    print('A')",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 결과로 올바른 것을 고르세요.\n\n```python\nfor i in range(3):\n    print('A')\n```",
       "choices": [
         "A. A가 3줄에 걸쳐 연속으로 출력된다.",
         "B. A가 1줄에 3번 연속으로 출력된다.",
@@ -79,7 +79,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드의 최종 출력값은 무엇인가요?\n\nfor x in range(1, 4):\n    print(x)",
+      "question": "다음 코드의 최종 출력값은 무엇인가요?\n\n```python\nfor x in range(1, 4):\n    print(x)\n```",
       "choices": [
         "A. 1\n2\n3",
         "B. 1\n2\n3\n4",
@@ -125,7 +125,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과로 올바른 것을 고르세요.\n\nfor i in range(2):\n    print(i)",
+      "question": "다음 코드의 출력 결과로 올바른 것을 고르세요.\n\n```python\nfor i in range(2):\n    print(i)\n```",
       "choices": [
         "A. 0\n1",
         "B. 1\n2",
@@ -148,7 +148,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 소스코드를 실행했을 때 변수 total의 최종 결과값은 무엇인가요?\n\ntotal = 0\nfor k in range(1, 5):\n    total = total + k\nprint(total)",
+      "question": "다음 소스코드를 실행했을 때 변수 total의 최종 결과값은 무엇인가요?\n\n```python\ntotal = 0\nfor k in range(1, 5):\n    total = total + k\nprint(total)\n```",
       "choices": [
         "A. 10",
         "B. 6",
@@ -171,7 +171,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 range의 증감 값이 음수일 때, 출력되는 결과는 무엇인가요?\n\nfor m in range(5, 2, -1):\n    print(m)",
+      "question": "다음과 같이 range의 증감 값이 음수일 때, 출력되는 결과는 무엇인가요?\n\n```python\nfor m in range(5, 2, -1):\n    print(m)\n```",
       "choices": [
         "A. 5\n4\n3",
         "B. 5\n4\n3\n2",
@@ -217,7 +217,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 최종 결과로 올바른 수식을 고르세요.\n\ncount = 0\nfor i in range(0, 10, 3):\n    count = count + 1\nprint(count)",
+      "question": "다음 코드를 실행했을 때 최종 결과로 올바른 수식을 고르세요.\n\n```python\ncount = 0\nfor i in range(0, 10, 3):\n    count = count + 1\nprint(count)\n```",
       "choices": [
         "A. 4",
         "B. 3",
@@ -286,7 +286,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 표시되는 문장의 개수는 몇 개인가요?\n\nfor i in range(4):\n    print('에이몬 잡아라!')",
+      "question": "다음 코드를 실행했을 때 화면에 표시되는 문장의 개수는 몇 개인가요?\n\n```python\nfor i in range(4):\n    print('에이몬 잡아라!')\n```",
       "choices": [
         "A. 4개",
         "B. 3개",
@@ -309,7 +309,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과를 예측하여 고르세요.\n\nfor num in range(3, 6):\n    print(num)",
+      "question": "다음 코드의 출력 결과를 예측하여 고르세요.\n\n```python\nfor num in range(3, 6):\n    print(num)\n```",
       "choices": [
         "A. 3\n4\n5",
         "B. 3\n4\n5\n6",
@@ -355,7 +355,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 반복문의 연산 과정 후 출력되는 결과는 무엇인가요?\n\nval = 10\nfor i in range(2):\n    val = val - 2\nprint(val)",
+      "question": "다음 반복문의 연산 과정 후 출력되는 결과는 무엇인가요?\n\n```python\nval = 10\nfor i in range(2):\n    val = val - 2\nprint(val)\n```",
       "choices": [
         "A. 6",
         "B. 8",
@@ -378,7 +378,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 도출되는 결과 변수 result의 값은 얼마인가요?\n\nresult = 1\nfor x in range(1, 4):\n    result = result * x\nprint(result)",
+      "question": "다음 코드를 실행했을 때 도출되는 결과 변수 result의 값은 얼마인가요?\n\n```python\nresult = 1\nfor x in range(1, 4):\n    result = result * x\nprint(result)\n```",
       "choices": [
         "A. 6",
         "B. 3",
@@ -401,7 +401,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음의 카운트다운 형태 코드의 출력값으로 알맞은 구성을 고르세요.\n\nfor cnt in range(3, 0, -1):\n    print(cnt)",
+      "question": "다음의 카운트다운 형태 코드의 출력값으로 알맞은 구성을 고르세요.\n\n```python\nfor cnt in range(3, 0, -1):\n    print(cnt)\n```",
       "choices": [
         "A. 3\n2\n1",
         "B. 3\n2\n1\n0",
@@ -447,7 +447,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 연산했을 때 최종 출력 결과값은 무엇인가요?\n\nsum_val = 0\nfor j in range(5, 15, 5):\n    sum_val = sum_val + j\nprint(sum_val)",
+      "question": "다음 코드를 연산했을 때 최종 출력 결과값은 무엇인가요?\n\n```python\nsum_val = 0\nfor j in range(5, 15, 5):\n    sum_val = sum_val + j\nprint(sum_val)\n```",
       "choices": [
         "A. 15",
         "B. 30",
@@ -493,7 +493,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 출력되는 결과로 올바른 것은 무엇인가요?\n\nanimals = ['토끼', '사슴']\nfor a in animals:\n    print(a)",
+      "question": "다음 코드를 실행했을 때 출력되는 결과로 올바른 것은 무엇인가요?\n\n```python\nanimals = ['토끼', '사슴']\nfor a in animals:\n    print(a)\n```",
       "choices": [
         "A. 토끼\n사슴",
         "B. ['토끼', '사슴']",
@@ -516,7 +516,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과를 고르세요.\n\nnums = [10, 20, 30]\nfor n in nums:\n    print(n + 5)",
+      "question": "다음 코드의 출력 결과를 고르세요.\n\n```python\nnums = [10, 20, 30]\nfor n in nums:\n    print(n + 5)\n```",
       "choices": [
         "A. 15\n25\n35",
         "B. 10\n20\n30",
@@ -539,7 +539,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "과일 이름들이 담긴 리스트 `fruits = ['사과', '바나나', '딸기']`가 있습니다. 모든 과일 이름 뒤에 '맛있다'를 붙여서 출력하고 싶을 때, 빈칸에 들어갈 코드로 올바른 것은 무엇인가요?\n\nfor f in fruits:\n    print(____________)",
+      "question": "과일 이름들이 담긴 리스트 `fruits = ['사과', '바나나', '딸기']`가 있습니다. 모든 과일 이름 뒤에 '맛있다'를 붙여서 출력하고 싶을 때, 빈칸에 들어갈 코드로 올바른 것은 무엇인가요?\n\n```python\nfor f in fruits:\n    print(____________)\n```",
       "choices": [
         "A. f + '맛있다'",
         "B. fruits + '맛있다'",
@@ -562,7 +562,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 문자열 '에이몬'의 총 개수는 몇 개인가요?\n\nmonsters = ['슬라임', '로봇', '고스트', '위저드']\nfor m in monsters:\n    print('에이몬')",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 문자열 '에이몬'의 총 개수는 몇 개인가요?\n\n```python\nmonsters = ['슬라임', '로봇', '고스트', '위저드']\nfor m in monsters:\n    print('에이몬')\n```",
       "choices": [
         "A. 4개",
         "B. 1개",
@@ -585,7 +585,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드의 실행 결과로 올바른 것을 고르세요.\n\nitems = ['A', 'B']\nfor x in items:\n    print(x)\nprint('끝')",
+      "question": "다음 코드의 실행 결과로 올바른 것을 고르세요.\n\n```python\nitems = ['A', 'B']\nfor x in items:\n    print(x)\nprint('끝')\n```",
       "choices": [
         "A. A\nB\n끝",
         "B. A\n끝\nB\n끝",
@@ -608,7 +608,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 변수 total에 저장되는 최종 결과값은 무엇인가요?\n\nscores = [1, 3, 5, 7]\ntotal = 0\nfor s in scores:\n    total = total + s\nprint(total)",
+      "question": "다음 코드를 실행했을 때 변수 total에 저장되는 최종 결과값은 무엇인가요?\n\n```python\nscores = [1, 3, 5, 7]\ntotal = 0\nfor s in scores:\n    total = total + s\nprint(total)\n```",
       "choices": [
         "A. 16",
         "B. 7",
@@ -631,7 +631,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과를 올바르게 예측한 것을 고르세요.\n\nwords = ['apple', 'banana', 'kiwi']\nfor w in words:\n    if len(w) <= 5:\n        print(w)",
+      "question": "다음 코드의 출력 결과를 올바르게 예측한 것을 고르세요.\n\n```python\nwords = ['apple', 'banana', 'kiwi']\nfor w in words:\n    if len(w) <= 5:\n        print(w)\n```",
       "choices": [
         "A. apple\nkiwi",
         "B. banana",
@@ -654,7 +654,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 출력되는 결과로 옳은 것은 무엇인가요?\n\nnumbers = [2, 4, 6]\ncount = 0\nfor n in numbers:\n    count = count + 1\nprint(count)",
+      "question": "다음 코드를 실행했을 때 출력되는 결과로 옳은 것은 무엇인가요?\n\n```python\nnumbers = [2, 4, 6]\ncount = 0\nfor n in numbers:\n    count = count + 1\nprint(count)\n```",
       "choices": [
         "A. 3",
         "B. 12",
@@ -723,7 +723,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 연산 및 구동했을 때 출력창에 나타나는 결과는 무엇인가요?\n\ncolors = ['빨강', '파랑']\nfor c in colors:\n    print('색상')",
+      "question": "다음 코드를 연산 및 구동했을 때 출력창에 나타나는 결과는 무엇인가요?\n\n```python\ncolors = ['빨강', '파랑']\nfor c in colors:\n    print('색상')\n```",
       "choices": [
         "A. 색상\n색상",
         "B. 빨강\n파랑",
@@ -746,7 +746,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 소스코드의 결과를 고르세요.\n\npoints = [100, 200]\nfor p in points:\n    print(p * 2)",
+      "question": "다음 소스코드의 결과를 고르세요.\n\n```python\npoints = [100, 200]\nfor p in points:\n    print(p * 2)\n```",
       "choices": [
         "A. 200\n400",
         "B. 100\n200",
@@ -769,7 +769,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "이름 리스트 `members = ['민수', '영희']`의 모든 이름 앞에 '회원:' 이라는 문구를 결합하여 출력하고자 합니다. 빈칸에 들어갈 알맞은 명령을 고르세요.\n\nfor m in members:\n    print(____________)",
+      "question": "이름 리스트 `members = ['민수', '영희']`의 모든 이름 앞에 '회원:' 이라는 문구를 결합하여 출력하고자 합니다. 빈칸에 들어갈 알맞은 명령을 고르세요.\n\n```python\nfor m in members:\n    print(____________)\n```",
       "choices": [
         "A. '회원:' + m",
         "B. '회원:' + members",
@@ -792,7 +792,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 구동시켰을 때 하위 문장인 print('안녕')은 총 몇 번 실행되나요?\n\ndata = [5, 4, 3, 2, 1, 0]\nfor x in data:\n    print('안녕')",
+      "question": "다음 코드를 구동시켰을 때 하위 문장인 print('안녕')은 총 몇 번 실행되나요?\n\n```python\ndata = [5, 4, 3, 2, 1, 0]\nfor x in data:\n    print('안녕')\n```",
       "choices": [
         "A. 6번",
         "B. 5번",
@@ -815,7 +815,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 소스코드 블록의 최종 출력 라인을 확인하고 정답을 고르세요.\n\nnames = ['지니']\nfor n in names:\n    print(n)\n    print('반가워')",
+      "question": "다음 소스코드 블록의 최종 출력 라인을 확인하고 정답을 고르세요.\n\n```python\nnames = ['지니']\nfor n in names:\n    print(n)\n    print('반가워')\n```",
       "choices": [
         "A. 지니\n반가워",
         "B. 지니",
@@ -838,7 +838,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 연산했을 때 최종적으로 변수 multiply_val에 연산 및 대입되는 값은 무엇인가요?\n\nnumbers = [2, 1, 4]\nmultiply_val = 1\nfor n in numbers:\n    multiply_val = multiply_val * n\nprint(multiply_val)",
+      "question": "다음 코드를 연산했을 때 최종적으로 변수 multiply_val에 연산 및 대입되는 값은 무엇인가요?\n\n```python\nnumbers = [2, 1, 4]\nmultiply_val = 1\nfor n in numbers:\n    multiply_val = multiply_val * n\nprint(multiply_val)\n```",
       "choices": [
         "A. 8",
         "B. 7",
@@ -861,7 +861,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 양수 조건문이 결합한 리스트 루프 코드의 실행 결과는 무엇인가요?\n\nmy_numbers = [12, -5, 3, -1, 8]\nfor x in my_numbers:\n    if x > 0:\n        print(x)",
+      "question": "다음과 같이 양수 조건문이 결합한 리스트 루프 코드의 실행 결과는 무엇인가요?\n\n```python\nmy_numbers = [12, -5, 3, -1, 8]\nfor x in my_numbers:\n    if x > 0:\n        print(x)\n```",
       "choices": [
         "A. 12\n3\n8",
         "B. -5\n-1",
@@ -884,7 +884,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 소스코드를 돌렸을 때 최종 찍히는 출력값은 무엇인가요?\n\nbox = [10, 20, 30]\nresult = 0\nfor v in box:\n    result = v\nprint(result)",
+      "question": "다음 파이썬 소스코드를 돌렸을 때 최종 찍히는 출력값은 무엇인가요?\n\n```python\nbox = [10, 20, 30]\nresult = 0\nfor v in box:\n    result = v\nprint(result)\n```",
       "choices": [
         "A. 30",
         "B. 60",
@@ -953,7 +953,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 결과로 옳은 것은 무엇인가요?\n\nages = {'지니': 10, '로봇': 15}\nfor name in ages:\n    print(name)",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 결과로 옳은 것은 무엇인가요?\n\n```python\nages = {'지니': 10, '로봇': 15}\nfor name in ages:\n    print(name)\n```",
       "choices": [
         "A. 지니\n로봇",
         "B. 10\n15",
@@ -976,7 +976,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 연산 및 실행했을 때 출력창에 나타나는 결과는 무엇인가요?\n\nscores = {'민수': 80, '영희': 90}\nfor name in scores:\n    print(scores[name])",
+      "question": "다음 코드를 연산 및 실행했을 때 출력창에 나타나는 결과는 무엇인가요?\n\n```python\nscores = {'민수': 80, '영희': 90}\nfor name in scores:\n    print(scores[name])\n```",
       "choices": [
         "A. 80\n90",
         "B. 민수\n영희",
@@ -1022,7 +1022,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 `.items()` 메서드를 활용한 딕셔너리 루프 코드의 출력 결과를 고르세요.\n\nitems = {'포션': 3, '결정': 5}\nfor name, count in items.items():\n    print(name, count)",
+      "question": "다음 `.items()` 메서드를 활용한 딕셔너리 루프 코드의 출력 결과를 고르세요.\n\n```python\nitems = {'포션': 3, '결정': 5}\nfor name, count in items.items():\n    print(name, count)\n```",
       "choices": [
         "A. 포션 3\n결정 5",
         "B. 포션\n결정",
@@ -1045,7 +1045,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드의 최종 출력 결과 라인으로 알맞은 것은 무엇인가요?\n\nstock = {'사과': 10, '배': 20}\nfor key in stock.keys():\n    print(key)",
+      "question": "다음 코드의 최종 출력 결과 라인으로 알맞은 것은 무엇인가요?\n\n```python\nstock = {'사과': 10, '배': 20}\nfor key in stock.keys():\n    print(key)\n```",
       "choices": [
         "A. 사과\n배",
         "B. 10\n20",
@@ -1068,7 +1068,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 변수 total_sum에 저장되는 최종 연산 결과값은 무엇인가요?\n\nmenu_prices = {'김밥': 3000, '라면': 4000, '떡볶이': 3500}\ntotal_sum = 0\nfor price in menu_prices.values():\n    total_sum = total_sum + price\nprint(total_sum)",
+      "question": "다음 코드를 실행했을 때 변수 total_sum에 저장되는 최종 연산 결과값은 무엇인가요?\n\n```python\nmenu_prices = {'김밥': 3000, '라면': 4000, '떡볶이': 3500}\ntotal_sum = 0\nfor price in menu_prices.values():\n    total_sum = total_sum + price\nprint(total_sum)\n```",
       "choices": [
         "A. 10500",
         "B. 3000",
@@ -1091,7 +1091,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 조건문이 포함된 딕셔너리 루프 코드의 출력값으로 알맞은 것을 고르세요.\n\ncharacter_lv = {'슬라임': 8, '로봇': 12, '에이몬': 25}\nfor name, level in character_lv.items():\n    if level >= 10:\n        print(name)",
+      "question": "다음과 같이 조건문이 포함된 딕셔너리 루프 코드의 출력값으로 알맞은 것을 고르세요.\n\n```python\ncharacter_lv = {'슬라임': 8, '로봇': 12, '에이몬': 25}\nfor name, level in character_lv.items():\n    if level >= 10:\n        print(name)\n```",
       "choices": [
         "A. 로봇\n에이몬",
         "B. 슬라임",
@@ -1114,7 +1114,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 연산했을 때 화면에 최종 출력되는 값은 무엇인가요?\n\npoints = {'A': 10, 'B': 20, 'C': 30}\nresult_key = ''\nfor k in points:\n    result_key = k\nprint(result_key)",
+      "question": "다음 코드를 연산했을 때 화면에 최종 출력되는 값은 무엇인가요?\n\n```python\npoints = {'A': 10, 'B': 20, 'C': 30}\nresult_key = ''\nfor k in points:\n    result_key = k\nprint(result_key)\n```",
       "choices": [
         "A. C",
         "B. A",
@@ -1183,7 +1183,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 구동했을 때 출력 결과로 올바른 것은 무엇인가요?\n\ncolors = {'apple': 'red', 'banana': 'yellow'}\nfor k in colors.values():\n    print(k)",
+      "question": "다음 코드를 구동했을 때 출력 결과로 올바른 것은 무엇인가요?\n\n```python\ncolors = {'apple': 'red', 'banana': 'yellow'}\nfor k in colors.values():\n    print(k)\n```",
       "choices": [
         "A. red\nyellow",
         "B. apple\nbanana",
@@ -1206,7 +1206,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과를 고르세요.\n\nbox = {'A': 1, 'B': 2}\nfor key in box:\n    print(key, box[key])",
+      "question": "다음 코드의 출력 결과를 고르세요.\n\n```python\nbox = {'A': 1, 'B': 2}\nfor key in box:\n    print(key, box[key])\n```",
       "choices": [
         "A. A 1\nB 2",
         "B. A\nB",
@@ -1229,7 +1229,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "딕셔너리 데이터 `inventory = {'금반지': 5, '은반지': 3}`가 있습니다. 반지 명칭인 '금반지', '은반지'만 가져와서 반복문을 돌리려고 할 때 빈칸에 들어갈 구문으로 가장 명확한 것은 무엇인가요?\n\nfor name in ____________:\n    print(name)",
+      "question": "딕셔너리 데이터 `inventory = {'금반지': 5, '은반지': 3}`가 있습니다. 반지 명칭인 '금반지', '은반지'만 가져와서 반복문을 돌리려고 할 때 빈칸에 들어갈 구문으로 가장 명확한 것은 무엇인가요?\n\n```python\nfor name in ____________:\n    print(name)\n```",
       "choices": [
         "A. inventory.keys()",
         "B. inventory.values()",
@@ -1252,7 +1252,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 print 명령어가 실행되는 총 횟수는 몇 번인가요?\n\nskills = {'불꽃': '공격', '얼음': '방어', '힐링': '회복', '텔포': '이동'}\nfor k, v in skills.items():\n    print(k)",
+      "question": "다음 코드를 실행했을 때 print 명령어가 실행되는 총 횟수는 몇 번인가요?\n\n```python\nskills = {'불꽃': '공격', '얼음': '방어', '힐링': '회복', '텔포': '이동'}\nfor k, v in skills.items():\n    print(k)\n```",
       "choices": [
         "A. 4번",
         "B. 8번",
@@ -1275,7 +1275,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 중 루프 내 코드 구성의 차이를 고려하여 출력 결과를 알맞게 예측해 보세요.\n\ninfo = {'닉네임': '에이몬'}\nfor key, value in info.items():\n    print(value)\nprint(key)",
+      "question": "다음 중 루프 내 코드 구성의 차이를 고려하여 출력 결과를 알맞게 예측해 보세요.\n\n```python\ninfo = {'닉네임': '에이몬'}\nfor key, value in info.items():\n    print(value)\nprint(key)\n```",
       "choices": [
         "A. 에이몬\n닉네임",
         "B. 에이몬\n에이몬",
@@ -1298,7 +1298,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 계산했을 때 변수 total_count에 최종 계산되는 정수 데이터 값은 얼마인가요?\n\nbackpack = {'포션': 2, '깃털': 1, '스크롤': 4}\ntotal_count = 0\nfor name, count in backpack.items():\n    total_count = total_count + count\nprint(total_count)",
+      "question": "다음 코드를 계산했을 때 변수 total_count에 최종 계산되는 정수 데이터 값은 얼마인가요?\n\n```python\nbackpack = {'포션': 2, '깃털': 1, '스크롤': 4}\ntotal_count = 0\nfor name, count in backpack.items():\n    total_count = total_count + count\nprint(total_count)\n```",
       "choices": [
         "A. 7",
         "B. 3",
@@ -1321,7 +1321,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 특정 문자열 조건 검사식이 혼합된 딕셔너리 반복문의 실행 결과는 무엇인가요?\n\nuser_status = {'지니': '온라인', '로봇': '오프라인', '고스트': '온라인'}\nfor name, status in user_status.items():\n    if status == '온라인':\n        print(name)",
+      "question": "다음 특정 문자열 조건 검사식이 혼합된 딕셔너리 반복문의 실행 결과는 무엇인가요?\n\n```python\nuser_status = {'지니': '온라인', '로봇': '오프라인', '고스트': '온라인'}\nfor name, status in user_status.items():\n    if status == '온라인':\n        print(name)\n```",
       "choices": [
         "A. 지니\n고스트",
         "B. 온라인\n온라인",
@@ -1344,7 +1344,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 소스코드를 실행 시 화면에 출력되는 최종 누적 연산 결과를 연산해 보세요.\n\nbox_weight = {'소형': 10, '중형': 30}\naccumulate = 0\nfor k in box_weight:\n    accumulate = accumulate + box_weight[k]\nprint(accumulate)",
+      "question": "다음 파이썬 소스코드를 실행 시 화면에 출력되는 최종 누적 연산 결과를 연산해 보세요.\n\n```python\nbox_weight = {'소형': 10, '중형': 30}\naccumulate = 0\nfor k in box_weight:\n    accumulate = accumulate + box_weight[k]\nprint(accumulate)\n```",
       "choices": [
         "A. 40",
         "B. 10",
@@ -1413,7 +1413,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 결과는 무엇인가요?\n\ncount = 1\nwhile count < 3:\n    print(count)\n    count = count + 1",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 결과는 무엇인가요?\n\n```python\ncount = 1\nwhile count < 3:\n    print(count)\n    count = count + 1\n```",
       "choices": [
         "A. 1\n2",
         "B. 1\n2\n3",
@@ -1436,7 +1436,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 소스코드의 최종 실행 결과로 올바른 값을 고르세요.\n\ni = 5\nwhile i > 2:\n    print(i)\n    i = i - 1",
+      "question": "다음 소스코드의 최종 실행 결과로 올바른 값을 고르세요.\n\n```python\ni = 5\nwhile i > 2:\n    print(i)\n    i = i - 1\n```",
       "choices": [
         "A. 5\n4\n3",
         "B. 5\n4\n3\n2",
@@ -1482,7 +1482,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드가 실행되었을 때 문자열 '에이몬'은 총 몇 번 출력되나요?\n\nn = 0\nwhile n < 4:\n    n = n + 1\nprint('에이몬')",
+      "question": "다음 코드가 실행되었을 때 문자열 '에이몬'은 총 몇 번 출력되나요?\n\n```python\nn = 0\nwhile n < 4:\n    n = n + 1\nprint('에이몬')\n```",
       "choices": [
         "A. 1번",
         "B. 4번",
@@ -1505,7 +1505,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드 블록의 최종 연산 결과를 고르세요.\n\nx = 10\nwhile x == 20:\n    print('실행')\nprint('종료')",
+      "question": "다음 코드 블록의 최종 연산 결과를 고르세요.\n\n```python\nx = 10\nwhile x == 20:\n    print('실행')\nprint('종료')\n```",
       "choices": [
         "A. 종료",
         "B. 실행\n종료",
@@ -1528,7 +1528,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 구동했을 때 출력창에 찍히는 변수 total의 최종 결과값은 무엇인가요?\n\ntotal = 0\nnum = 1\nwhile num <= 4:\n    total = total + num\n    num = num + 1\nprint(total)",
+      "question": "다음 코드를 구동했을 때 출력창에 찍히는 변수 total의 최종 결과값은 무엇인가요?\n\n```python\ntotal = 0\nnum = 1\nwhile num <= 4:\n    total = total + num\n    num = num + 1\nprint(total)\n```",
       "choices": [
         "A. 10",
         "B. 6",
@@ -1551,7 +1551,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 짝수 필터링 조건문이 결합된 while 문 코드의 실행 결과로 알맞은 것은 무엇인가요?\n\nk = 1\nwhile k <= 5:\n    if k % 2 == 0:\n        print(k)\n    k = k + 1",
+      "question": "다음 짝수 필터링 조건문이 결합된 while 문 코드의 실행 결과로 알맞은 것은 무엇인가요?\n\n```python\nk = 1\nwhile k <= 5:\n    if k % 2 == 0:\n        print(k)\n    k = k + 1\n```",
       "choices": [
         "A. 2\n4",
         "B. 1\n3\n5",
@@ -1574,7 +1574,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 변수 hp의 최종 출력값을 고르세요.\n\nhp = 100\nwhile hp > 40:\n    hp = hp - 25\nprint(hp)",
+      "question": "다음 코드를 실행했을 때 변수 hp의 최종 출력값을 고르세요.\n\n```python\nhp = 100\nwhile hp > 40:\n    hp = hp - 25\nprint(hp)\n```",
       "choices": [
         "A. 25",
         "B. 50",
@@ -1643,7 +1643,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 연산했을 때 도출되는 정밀 출력 결과는 무엇인가요?\n\ntimer = 3\nwhile timer > 1:\n    print(timer)\n    timer = timer - 1",
+      "question": "다음 코드를 연산했을 때 도출되는 정밀 출력 결과는 무엇인가요?\n\n```python\ntimer = 3\nwhile timer > 1:\n    print(timer)\n    timer = timer - 1\n```",
       "choices": [
         "A. 3\n2",
         "B. 3\n2\n1",
@@ -1666,7 +1666,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 소스코드를 돌렸을 때 도출되는 결과를 예측해 보세요.\n\na = 1\nwhile a <= 5:\n    a = a + 2\nprint(a)",
+      "question": "다음 파이썬 소스코드를 돌렸을 때 도출되는 결과를 예측해 보세요.\n\n```python\na = 1\nwhile a <= 5:\n    a = a + 2\nprint(a)\n```",
       "choices": [
         "A. 7",
         "B. 5",
@@ -1712,7 +1712,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행시켰을 때 최종 출력되는 라인을 확인하고 알맞은 답을 선택하세요.\n\nscore = 0\nwhile score < 2:\n    print('덤벼라')\n    score = score + 1\nprint('클리어')",
+      "question": "다음 코드를 실행시켰을 때 최종 출력되는 라인을 확인하고 알맞은 답을 선택하세요.\n\n```python\nscore = 0\nwhile score < 2:\n    print('덤벼라')\n    score = score + 1\nprint('클리어')\n```",
       "choices": [
         "A. 덤벼라\n덤벼라\n클리어",
         "B. 덤벼라\n클리어",
@@ -1735,7 +1735,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 초기 변수와 조건 필터가 맞지 않는 코드를 수행했을 때 도출되는 창의 결과물은 무엇인가요?\n\nlevel = 1\nwhile level > 10:\n    print('레벨업')\n    level = level + 1",
+      "question": "다음과 같이 초기 변수와 조건 필터가 맞지 않는 코드를 수행했을 때 도출되는 창의 결과물은 무엇인가요?\n\n```python\nlevel = 1\nwhile level > 10:\n    print('레벨업')\n    level = level + 1\n```",
       "choices": [
         "A. 아무것도 출력되지 않는다.",
         "B. 레벨업이 1번 출력된다.",
@@ -1758,7 +1758,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 누적 곱셈 알고리즘이 내장된 while 문의 연산 과정을 추적하여 최종 변수 result의 값을 맞추세요.\n\nresult = 1\nfactor = 3\nwhile factor >= 1:\n    result = result * factor\n    factor = factor - 1\nprint(result)",
+      "question": "다음 누적 곱셈 알고리즘이 내장된 while 문의 연산 과정을 추적하여 최종 변수 result의 값을 맞추세요.\n\n```python\nresult = 1\nfactor = 3\nwhile factor >= 1:\n    result = result * factor\n    factor = factor - 1\nprint(result)\n```",
       "choices": [
         "A. 6",
         "B. 3",
@@ -1781,7 +1781,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 홀수 필터링 수식문이 포함되어 작동하는 while 문의 최종 화면 결과 레이아웃을 고르세요.\n\nm = 10\nwhile m < 15:\n    if m % 2 != 0:\n        print(m)\n    m = m + 1",
+      "question": "다음 홀수 필터링 수식문이 포함되어 작동하는 while 문의 최종 화면 결과 레이아웃을 고르세요.\n\n```python\nm = 10\nwhile m < 15:\n    if m % 2 != 0:\n        print(m)\n    m = m + 1\n```",
       "choices": [
         "A. 11\n13",
         "B. 11\n13\n15",
@@ -1804,7 +1804,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 소스코드를 가동 및 연산했을 때 화면에 최종 마크되는 변수 gold의 최종 잔존 데이터는 무엇인가요?\n\ngold = 10\nwhile gold < 25:\n    gold = gold + 6\nprint(gold)",
+      "question": "다음 소스코드를 가동 및 연산했을 때 화면에 최종 마크되는 변수 gold의 최종 잔존 데이터는 무엇인가요?\n\n```python\ngold = 10\nwhile gold < 25:\n    gold = gold + 6\nprint(gold)\n```",
       "choices": [
         "A. 28",
         "B. 22",
@@ -1898,7 +1898,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 출력되는 결과로 알맞은 것은 무엇인가요?\n\nfor i in range(1, 6):\n    if i == 3:\n        break\n    print(i)",
+      "question": "다음 코드를 실행했을 때 출력되는 결과로 알맞은 것은 무엇인가요?\n\n```python\nfor i in range(1, 6):\n    if i == 3:\n        break\n    print(i)\n```",
       "choices": [
         "A. 1\n2",
         "B. 1\n2\n4\n5",
@@ -1922,7 +1922,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 continue 구문이 포함된 소스코드의 정확한 출력 결과 라인은 어떻게 되나요?\n\nfor i in range(1, 5):\n    if i == 3:\n        continue\n    print(i)",
+      "question": "다음 continue 구문이 포함된 소스코드의 정확한 출력 결과 라인은 어떻게 되나요?\n\n```python\nfor i in range(1, 5):\n    if i == 3:\n        continue\n    print(i)\n```",
       "choices": [
         "A. 1\n2\n4",
         "B. 1\n2",
@@ -1946,7 +1946,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 소스코드의 최종 실행 결과로 올바른 값을 고르세요.\n\nx = 1\nwhile True:\n    if x == 3:\n        break\n    print('A')\n    x = x + 1",
+      "question": "다음 소스코드의 최종 실행 결과로 올바른 값을 고르세요.\n\n```python\nx = 1\nwhile True:\n    if x == 3:\n        break\n    print('A')\n    x = x + 1\n```",
       "choices": [
         "A. A가 2줄 출력된다.",
         "B. A가 3줄 출력된다.",
@@ -1970,7 +1970,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 리스트 순회 기반 소스코드의 실행 최종 결과물로 올바른 레이아웃을 고르세요.\n\nmonsters = ['슬라임', '에이몬', '고스트']\nfor m in monsters:\n    if m == '에이몬':\n        break\n    print(m)",
+      "question": "다음 리스트 순회 기반 소스코드의 실행 최종 결과물로 올바른 레이아웃을 고르세요.\n\n```python\nmonsters = ['슬라임', '에이몬', '고스트']\nfor m in monsters:\n    if m == '에이몬':\n        break\n    print(m)\n```",
       "choices": [
         "A. 슬라임",
         "B. 슬라임\n고스트",
@@ -1994,7 +1994,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 복합 반복 제어 스크립트의 계산 결과를 계산해 보고 최종 변수 sum_val의 결과값을 고르세요.\n\nsum_val = 0\nfor n in range(1, 10):\n    if n % 3 == 0:\n        continue\n    if n > 5:\n        break\n    sum_val = sum_val + n\nprint(sum_val)",
+      "question": "다음 복합 반복 제어 스크립트의 계산 결과를 계산해 보고 최종 변수 sum_val의 결과값을 고르세요.\n\n```python\nsum_val = 0\nfor n in range(1, 10):\n    if n % 3 == 0:\n        continue\n    if n > 5:\n        break\n    sum_val = sum_val + n\nprint(sum_val)\n```",
       "choices": [
         "A. 12",
         "B. 7",
@@ -2018,7 +2018,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 소스코드를 가동했을 때 최종 화면 레이아웃으로 도출되는 정답 구성을 고르세요.\n\nfor val in range(1, 4):\n    print('시작')\n    if val == 2:\n        continue\n    print(val)",
+      "question": "다음 소스코드를 가동했을 때 최종 화면 레이아웃으로 도출되는 정답 구성을 고르세요.\n\n```python\nfor val in range(1, 4):\n    print('시작')\n    if val == 2:\n        continue\n    print(val)\n```",
       "choices": [
         "A. 시작\n1\n시작\n시작\n3",
         "B. 시작\n1\n시작\n2\n시작\n3",
@@ -2042,7 +2042,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 중 중첩 조건 제어가 포함된 무한 루프 스크립트 실행 시 최종 출력창에 찍히는 연산 누적값은 무엇인가요?\n\nscore = 10\nwhile True:\n    score = score - 2\n    if score <= 4:\n        break\nprint(score)",
+      "question": "다음 중 중첩 조건 제어가 포함된 무한 루프 스크립트 실행 시 최종 출력창에 찍히는 연산 누적값은 무엇인가요?\n\n```python\nscore = 10\nwhile True:\n    score = score - 2\n    if score <= 4:\n        break\nprint(score)\n```",
       "choices": [
         "A. 4",
         "B. 6",
@@ -2114,7 +2114,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드 작동 시 탈출 조건식과 강제 정지문의 영향을 분석하여 알맞은 최종 결과 라인을 선택하세요.\n\nk = 10\nwhile True:\n    print(k)\n    break",
+      "question": "다음 코드 작동 시 탈출 조건식과 강제 정지문의 영향을 분석하여 알맞은 최종 결과 라인을 선택하세요.\n\n```python\nk = 10\nwhile True:\n    print(k)\n    break\n```",
       "choices": [
         "A. 10",
         "B. 10이 무한히 연속 출력된다.",
@@ -2138,7 +2138,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 반복 건너뛰기 연산 코드가 가동되었을 때 표시되는 문자열 결과 조합을 예측해 보세요.\n\nfor n in range(1, 4):\n    if n == 2:\n        continue\n    print('B')",
+      "question": "다음 반복 건너뛰기 연산 코드가 가동되었을 때 표시되는 문자열 결과 조합을 예측해 보세요.\n\n```python\nfor n in range(1, 4):\n    if n == 2:\n        continue\n    print('B')\n```",
       "choices": [
         "A. B가 2줄 출력된다.",
         "B. B가 3줄 출력된다.",
@@ -2162,7 +2162,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 브레이킹 코딩 샘플을 구동창에서 동작시켰을 때 반환되는 정수 정보 시퀀스는 무엇인가요?\n\nfor count in range(10, 15):\n    if count == 12:\n        break\n    print(count)",
+      "question": "다음 브레이킹 코딩 샘플을 구동창에서 동작시켰을 때 반환되는 정수 정보 시퀀스는 무엇인가요?\n\n```python\nfor count in range(10, 15):\n    if count == 12:\n        break\n    print(count)\n```",
       "choices": [
         "A. 10\n11",
         "B. 10\n11\n13\n14",
@@ -2186,7 +2186,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 문자열 리스트 순회 필터 로직 소스코드의 최종 런타임 결과 스냅샷을 고르세요.\n\nitems = ['포션', '독약', '왕관']\nfor x in items:\n    if x == '독약':\n        continue\n    print(x)",
+      "question": "다음 문자열 리스트 순회 필터 로직 소스코드의 최종 런타임 결과 스냅샷을 고르세요.\n\n```python\nitems = ['포션', '독약', '왕관']\nfor x in items:\n    if x == '독약':\n        continue\n    print(x)\n```",
       "choices": [
         "A. 포션\n왕관",
         "B. 포션",
@@ -2210,7 +2210,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 카운터 제어 조건이 연계된 루프 구문의 출력 결과 개수로 올바른 값을 고르세요.\n\ny = 5\nwhile y < 10:\n    y = y + 1\n    if y == 7:\n        break\n    print('OK')",
+      "question": "다음 카운터 제어 조건이 연계된 루프 구문의 출력 결과 개수로 올바른 값을 고르세요.\n\n```python\ny = 5\nwhile y < 10:\n    y = y + 1\n    if y == 7:\n        break\n    print('OK')\n```",
       "choices": [
         "A. 1번",
         "B. 2번",
@@ -2234,7 +2234,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 홀수 덧셈 및 조기 종료 스크립트 연산의 최종 accumulate_val 수식을 계산하여 정확한 값을 고르세요.\n\naccumulate_val = 0\nfor x in range(1, 20, 2):\n    if x % 5 == 0:\n        continue\n    if x > 8:\n        break\n    accumulate_val = accumulate_val + x\nprint(accumulate_val)",
+      "question": "다음 파이썬 홀수 덧셈 및 조기 종료 스크립트 연산의 최종 accumulate_val 수식을 계산하여 정확한 값을 고르세요.\n\n```python\naccumulate_val = 0\nfor x in range(1, 20, 2):\n    if x % 5 == 0:\n        continue\n    if x > 8:\n        break\n    accumulate_val = accumulate_val + x\nprint(accumulate_val)\n```",
       "choices": [
         "A. 11",
         "B. 16",
@@ -2258,7 +2258,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 출력문의 고리가 전방에 배치된 특수 흐름 제어 반복 구문의 런타임 레이아웃 결과값을 연산해 보세요.\n\nfor element in range(10, 13):\n    if element == 11:\n        continue\n    print(element)\n    print('완료')",
+      "question": "다음과 같이 출력문의 고리가 전방에 배치된 특수 흐름 제어 반복 구문의 런타임 레이아웃 결과값을 연산해 보세요.\n\n```python\nfor element in range(10, 13):\n    if element == 11:\n        continue\n    print(element)\n    print('완료')\n```",
       "choices": [
         "A. 10\n완료\n12\n완료",
         "B. 10\n완료\n11\n12\n완료",
@@ -2282,7 +2282,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 음수 가산형 무한 궤도 탈출 알고리즘 연산 수행 시 화면 단에 최종 기록되는 정수 데이터 명칭을 연산해 보세요.\n\nenergy = -5\nwhile True:\n    energy = energy + 3\n    if energy >= 4:\n        break\nprint(energy)",
+      "question": "다음 음수 가산형 무한 궤도 탈출 알고리즘 연산 수행 시 화면 단에 최종 기록되는 정수 데이터 명칭을 연산해 보세요.\n\n```python\nenergy = -5\nwhile True:\n    energy = energy + 3\n    if energy >= 4:\n        break\nprint(energy)\n```",
       "choices": [
         "A. 4",
         "B. 7",
@@ -2354,7 +2354,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 이중 루프 코드의 동작 원리를 생각할 때, 문자열 '안녕'은 최종적으로 몇 번 실행 및 출력되나요?\n\nfor i in range(2):\n    for j in range(3):\n        print('안녕')",
+      "question": "다음 이중 루프 코드의 동작 원리를 생각할 때, 문자열 '안녕'은 최종적으로 몇 번 실행 및 출력되나요?\n\n```python\nfor i in range(2):\n    for j in range(3):\n        print('안녕')\n```",
       "choices": [
         "A. 6번",
         "B. 5번",
@@ -2378,7 +2378,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 변수 i와 j의 결합 상태 출력 레이아웃으로 올바른 것은 무엇인가요?\n\nfor i in range(1, 3):\n    for j in range(1, 3):\n        print(i, j)",
+      "question": "다음 코드를 실행했을 때 변수 i와 j의 결합 상태 출력 레이아웃으로 올바른 것은 무엇인가요?\n\n```python\nfor i in range(1, 3):\n    for j in range(1, 3):\n        print(i, j)\n```",
       "choices": [
         "A. 1 1\n1 2\n2 1\n2 2",
         "B. 1 1\n2 2",
@@ -2402,7 +2402,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드는 구구단의 일부를 출력합니다. 실행 시 터미널 화면에 나타나는 출력 결과물은 무엇인가요?\n\nfor dan in range(2, 4):\n    for i in range(1, 3):\n        print(f'{dan}x{i}={dan*i}')",
+      "question": "다음 코드는 구구단의 일부를 출력합니다. 실행 시 터미널 화면에 나타나는 출력 결과물은 무엇인가요?\n\n```python\nfor dan in range(2, 4):\n    for i in range(1, 3):\n        print(f'{dan}x{i}={dan*i}')\n```",
       "choices": [
         "A. 2x1=2\n2x2=4\n3x1=3\n3x2=6",
         "B. 2x1=2\n3x2=6",
@@ -2426,7 +2426,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 리스트 내부에 리스트가 포함된 '2차원 리스트' 순회 코드의 실행 결과는 무엇인가요?\n\nmatrix = [[1, 2], [3, 4]]\nfor row in matrix:\n    for val in row:\n        print(val)",
+      "question": "다음과 같이 리스트 내부에 리스트가 포함된 '2차원 리스트' 순회 코드의 실행 결과는 무엇인가요?\n\n```python\nmatrix = [[1, 2], [3, 4]]\nfor row in matrix:\n    for val in row:\n        print(val)\n```",
       "choices": [
         "A. 1\n2\n3\n4",
         "B. [1, 2]\n[3, 4]",
@@ -2450,7 +2450,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 중 줄바꿈 없이 별 기호를 나열하는 특수 옵션(`end=''`)이 포함된 중첩 루프 코드의 최종 출력 형태로 알맞은 것은 무엇인가요?\n\nfor i in range(2):\n    for j in range(3):\n        print('*', end='')\n    print()",
+      "question": "다음 중 줄바꿈 없이 별 기호를 나열하는 특수 옵션(`end=''`)이 포함된 중첩 루프 코드의 최종 출력 형태로 알맞은 것은 무엇인가요?\n\n```python\nfor i in range(2):\n    for j in range(3):\n        print('*', end='')\n    print()\n```",
       "choices": [
         "A. ***\n***",
         "B. ******",
@@ -2474,7 +2474,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 변수 가산 연산이 포함된 중첩 반복문 코드 실행 시 최종 변수 total_sum의 결과값은 얼마인가요?\n\ntotal_sum = 0\nfor a in range(1, 3):\n    for b in range(1, 4):\n        total_sum = total_sum + a\nprint(total_sum)",
+      "question": "다음 변수 가산 연산이 포함된 중첩 반복문 코드 실행 시 최종 변수 total_sum의 결과값은 얼마인가요?\n\n```python\ntotal_sum = 0\nfor a in range(1, 3):\n    for b in range(1, 4):\n        total_sum = total_sum + a\nprint(total_sum)\n```",
       "choices": [
         "A. 9",
         "B. 6",
@@ -2498,7 +2498,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 안쪽 루프의 range 조건 범위에 바깥 루프의 반복 변수(`i`)가 반영되어 가변적으로 작동하는 특수 패턴 코드의 출력 결과는 무엇인가요?\n\nfor i in range(1, 4):\n    for j in range(i):\n        print('*', end='')\n    print()",
+      "question": "다음과 같이 안쪽 루프의 range 조건 범위에 바깥 루프의 반복 변수(`i`)가 반영되어 가변적으로 작동하는 특수 패턴 코드의 출력 결과는 무엇인가요?\n\n```python\nfor i in range(1, 4):\n    for j in range(i):\n        print('*', end='')\n    print()\n```",
       "choices": [
         "A. *\n**\n***",
         "B. ***\n***\n***",
@@ -2522,7 +2522,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 중 이중 루프 내부에서 break 제어문이 구동될 때의 코드 탈출 범위를 테스트하는 문항입니다. 최종 출력창 결과는 어떻게 나타날까요?\n\nfor i in range(2):\n    for j in range(10):\n        if j == 2:\n            break\n        print(j)",
+      "question": "다음 중 이중 루프 내부에서 break 제어문이 구동될 때의 코드 탈출 범위를 테스트하는 문항입니다. 최종 출력창 결과는 어떻게 나타날까요?\n\n```python\nfor i in range(2):\n    for j in range(10):\n        if j == 2:\n            break\n        print(j)\n```",
       "choices": [
         "A. 0\n1\n0\n1",
         "B. 0\n1",
@@ -2594,7 +2594,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 중첩 반복 소스코드 가동 시 문자열 'OK'가 화면에 출력되는 누적 총 횟수는 몇 번인가요?\n\nfor a in range(3):\n    for b in range(4):\n        print('OK')",
+      "question": "다음 중첩 반복 소스코드 가동 시 문자열 'OK'가 화면에 출력되는 누적 총 횟수는 몇 번인가요?\n\n```python\nfor a in range(3):\n    for b in range(4):\n        print('OK')\n```",
       "choices": [
         "A. 12번",
         "B. 7번",
@@ -2618,7 +2618,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 구동했을 때 출력단에 포착되는 변수 흐름 결과 시퀀스로 올바른 것을 선택하세요.\n\nfor x in range(2):\n    for y in range(2):\n        print(y, x)",
+      "question": "다음 코드를 구동했을 때 출력단에 포착되는 변수 흐름 결과 시퀀스로 올바른 것을 선택하세요.\n\n```python\nfor x in range(2):\n    for y in range(2):\n        print(y, x)\n```",
       "choices": [
         "A. 0 0\n1 0\n0 1\n1 1",
         "B. 0 0\n0 1\n1 0\n1 1",
@@ -2642,7 +2642,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 덧셈 기호 형태의 문자열 포맷 중첩 반복 구문의 결과를 추적하여 올바른 출력을 고르세요.\n\nfor i in range(1, 3):\n    for j in range(1, 3):\n        print(f'{i}+{j}={i+j}')",
+      "question": "다음 덧셈 기호 형태의 문자열 포맷 중첩 반복 구문의 결과를 추적하여 올바른 출력을 고르세요.\n\n```python\nfor i in range(1, 3):\n    for j in range(1, 3):\n        print(f'{i}+{j}={i+j}')\n```",
       "choices": [
         "A. 1+1=2\n1+2=3\n2+1=3\n2+2=4",
         "B. 1+1=2\n2+2=4",
@@ -2666,7 +2666,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 중 텍스트 기반 문자열 원소들이 중첩되어 저장된 2차원 배열 구조의 데이터 추출 스크립트 실행 결과를 고르세요.\n\nteams = [['A', 'B'], ['C', 'D']]\nfor group in teams:\n    for player in group:\n        print(player)",
+      "question": "다음 중 텍스트 기반 문자열 원소들이 중첩되어 저장된 2차원 배열 구조의 데이터 추출 스크립트 실행 결과를 고르세요.\n\n```python\nteams = [['A', 'B'], ['C', 'D']]\nfor group in teams:\n    for player in group:\n        print(player)\n```",
       "choices": [
         "A. A\nB\nC\nD",
         "B. ['A', 'B']\n['C', 'D']",
@@ -2690,7 +2690,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 행 구조 차단용 개행 문구(`print()`)가 포함된 글자 출력 코드를 연산창에서 가동 시 최종 정답 구성을 고르세요.\n\nfor i in range(3):\n    for j in range(2):\n        print('#', end='')\n    print()",
+      "question": "다음과 같이 행 구조 차단용 개행 문구(`print()`)가 포함된 글자 출력 코드를 연산창에서 가동 시 최종 정답 구성을 고르세요.\n\n```python\nfor i in range(3):\n    for j in range(2):\n        print('#', end='')\n    print()\n```",
       "choices": [
         "A. ##\n##\n##",
         "B. ######",
@@ -2714,7 +2714,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 누적 합산 구조 스크립트를 분석하여 최종 단계에서 도출 및 정렬 인쇄되는 변수 result의 데이터 정수를 맞추세요.\n\nresult = 0\nfor x in range(1, 3):\n    for y in range(1, 4):\n        result = result + y\nprint(result)",
+      "question": "다음 누적 합산 구조 스크립트를 분석하여 최종 단계에서 도출 및 정렬 인쇄되는 변수 result의 데이터 정수를 맞추세요.\n\n```python\nresult = 0\nfor x in range(1, 3):\n    for y in range(1, 4):\n        result = result + y\nprint(result)\n```",
       "choices": [
         "A. 12",
         "B. 9",
@@ -2738,7 +2738,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 안쪽 루프의 정수 생성 범위 한계 지점이 역순 또는 감산형 가변 구조 패턴으로 설계된 이중 루프 코드의 최종 출력 구성을 고르세요.\n\nfor i in range(3, 0, -1):\n    for j in range(i):\n        print('@', end='')\n    print()",
+      "question": "다음과 같이 안쪽 루프의 정수 생성 범위 한계 지점이 역순 또는 감산형 가변 구조 패턴으로 설계된 이중 루프 코드의 최종 출력 구성을 고르세요.\n\n```python\nfor i in range(3, 0, -1):\n    for j in range(i):\n        print('@', end='')\n    print()\n```",
       "choices": [
         "A. @@@\n@@\n@",
         "B. @\n@@\n@@@",
@@ -2762,7 +2762,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 중 바깥 반복 흐름 스코프 내부에 내장 조건 필터링 검사가 걸려 특정 시점에 break를 발동시키는 특수 코드 세트의 런타임 결과 스냅샷을 적합하게 예측해 보세요.\n\nfor i in range(5):\n    if i == 2:\n        break\n    for j in range(2):\n        print(i)",
+      "question": "다음 중 바깥 반복 흐름 스코프 내부에 내장 조건 필터링 검사가 걸려 특정 시점에 break를 발동시키는 특수 코드 세트의 런타임 결과 스냅샷을 적합하게 예측해 보세요.\n\n```python\nfor i in range(5):\n    if i == 2:\n        break\n    for j in range(2):\n        print(i)\n```",
       "choices": [
         "A. 0\n0\n1\n1",
         "B. 0\n1\n2",
@@ -2833,7 +2833,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 조건 반복 조합 코드의 실행 결과는 무엇인가요?\n\nfor i in range(1, 4):\n    if i == 2:\n        print('A')\n    else:\n        print('B')",
+      "question": "다음 조건 반복 조합 코드의 실행 결과는 무엇인가요?\n\n```python\nfor i in range(1, 4):\n    if i == 2:\n        print('A')\n    else:\n        print('B')\n```",
       "choices": [
         "A. B\nA\nB",
         "B. B\nB\nB",
@@ -2856,7 +2856,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 리스트 순회 및 조건 합산 종합 코드의 출력 결과를 고르세요.\n\nitems = [10, 15, 20, 25]\ntotal = 0\nfor x in items:\n    if x >= 18:\n        total = total + x\nprint(total)",
+      "question": "다음 리스트 순회 및 조건 합산 종합 코드의 출력 결과를 고르세요.\n\n```python\nitems = [10, 15, 20, 25]\ntotal = 0\nfor x in items:\n    if x >= 18:\n        total = total + x\nprint(total)\n```",
       "choices": [
         "A. 45",
         "B. 70",
@@ -2879,7 +2879,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 카운터 가산 제어식과 조기 종료 조건이 혼합된 while 문의 출력값은 무엇인가요?\n\ncount = 0\nwhile count < 10:\n    count = count + 2\n    if count == 6:\n        break\n    print(count)",
+      "question": "다음 카운터 가산 제어식과 조기 종료 조건이 혼합된 while 문의 출력값은 무엇인가요?\n\n```python\ncount = 0\nwhile count < 10:\n    count = count + 2\n    if count == 6:\n        break\n    print(count)\n```",
       "choices": [
         "A. 2\n4",
         "B. 2\n4\n6",
@@ -2902,7 +2902,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 딕셔너리의 키와 값을 동시에 다루는 통합 실습 코드의 연산 출력물은 무엇인가요?\n\nweapon_power = {'단검': 10, '장검': 30}\nfor name, power in weapon_power.items():\n    print(f'{name}:{power + 5}')",
+      "question": "다음과 같이 딕셔너리의 키와 값을 동시에 다루는 통합 실습 코드의 연산 출력물은 무엇인가요?\n\n```python\nweapon_power = {'단검': 10, '장검': 30}\nfor name, power in weapon_power.items():\n    print(f'{name}:{power + 5}')\n```",
       "choices": [
         "A. 단검:15\n장검:35",
         "B. 단검:10\n장검:30",
@@ -2925,7 +2925,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 중 증감식 위치와 출력 타이밍의 디테일을 다루는 종합 문제입니다. 최종 연산창에 마크되는 숫자를 고르세요.\n\nx = 1\nwhile x < 4:\n    x = x + 1\nprint(x)",
+      "question": "다음 중 증감식 위치와 출력 타이밍의 디테일을 다루는 종합 문제입니다. 최종 연산창에 마크되는 숫자를 고르세요.\n\n```python\nx = 1\nwhile x < 4:\n    x = x + 1\nprint(x)\n```",
       "choices": [
         "A. 4",
         "B. 1\n2\n3",
@@ -2948,7 +2948,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 2차원 공간 빌더 및 가변 필터링이 결합한 종합 알고리즘 소스코드를 수행했을 때 화면에 출력되는 문자열 'X'의 누적 총 개수는 몇 개인가요?\n\nfor i in range(1, 4):\n    for j in range(3):\n        if i == 2:\n            continue\n        print('X', end='')",
+      "question": "다음 2차원 공간 빌더 및 가변 필터링이 결합한 종합 알고리즘 소스코드를 수행했을 때 화면에 출력되는 문자열 'X'의 누적 총 개수는 몇 개인가요?\n\n```python\nfor i in range(1, 4):\n    for j in range(3):\n        if i == 2:\n            continue\n        print('X', end='')\n```",
       "choices": [
         "A. 6개",
         "B. 9개",
@@ -2971,7 +2971,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 복합 반복 제어 및 리스트 가공 스크립트 실행 후 출력창에 기록되는 최종 누적 결과 정수를 연산하여 맞추세요.\n\nbox_data = [2, 3, 5, 6, 9]\naccumulate = 0\nfor val in box_data:\n    if val % 2 == 0:\n        continue\n    if val > 6:\n        break\n    accumulate = accumulate + val\nprint(accumulate)",
+      "question": "다음 파이썬 복합 반복 제어 및 리스트 가공 스크립트 실행 후 출력창에 기록되는 최종 누적 결과 정수를 연산하여 맞추세요.\n\n```python\nbox_data = [2, 3, 5, 6, 9]\naccumulate = 0\nfor val in box_data:\n    if val % 2 == 0:\n        continue\n    if val > 6:\n        break\n    accumulate = accumulate + val\nprint(accumulate)\n```",
       "choices": [
         "A. 8",
         "B. 17",
@@ -2994,7 +2994,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 임계점 강제 차단 제어 수식이 연결된 while 무한 궤도 알고리즘 코드를 수행했을 때 도출되는 변수 energy의 최종 잔존 데이터는 무엇인가요?\n\nenergy = 50\nwhile True:\n    if energy <= 20:\n        break\n    energy = energy - 15\nprint(energy)",
+      "question": "다음 임계점 강제 차단 제어 수식이 연결된 while 무한 궤도 알고리즘 코드를 수행했을 때 도출되는 변수 energy의 최종 잔존 데이터는 무엇인가요?\n\n```python\nenergy = 50\nwhile True:\n    if energy <= 20:\n        break\n    energy = energy - 15\nprint(energy)\n```",
       "choices": [
         "A. 20",
         "B. 35",
@@ -3063,7 +3063,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 조건 결합형 리스트 반복 스크립트의 화면 출력 레이아웃 결과를 고르세요.\n\nfor num in [7, 8, 9]:\n    if num % 2 != 0:\n        print('홀수')\n    else:\n        print('짝수')",
+      "question": "다음 조건 결합형 리스트 반복 스크립트의 화면 출력 레이아웃 결과를 고르세요.\n\n```python\nfor num in [7, 8, 9]:\n    if num % 2 != 0:\n        print('홀수')\n    else:\n        print('짝수')\n```",
       "choices": [
         "A. 홀수\n짝수\n홀수",
         "B. 홀수\n홀수\n짝수",
@@ -3086,7 +3086,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 문자열 단어 길이 수식 연산이 중첩된 종합 실습 코드의 최종 정답 수식을 고르세요.\n\nwords = ['cat', 'tiger', 'dog', 'hi']\ncount_short = 0\nfor w in words:\n    if len(w) <= 3:\n        count_short = count_short + 1\nprint(count_short)",
+      "question": "다음 문자열 단어 길이 수식 연산이 중첩된 종합 실습 코드의 최종 정답 수식을 고르세요.\n\n```python\nwords = ['cat', 'tiger', 'dog', 'hi']\ncount_short = 0\nfor w in words:\n    if len(w) <= 3:\n        count_short = count_short + 1\nprint(count_short)\n```",
       "choices": [
         "A. 3",
         "B. 4",
@@ -3109,7 +3109,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 선행 가산 및 우회 제어 조건이 포함된 while 반복 소스코드의 실행 최종 결과를 예측해 보세요.\n\nn = 0\nwhile n < 5:\n    n = n + 1\n    if n == 3:\n        continue\n    print(n)",
+      "question": "다음 선행 가산 및 우회 제어 조건이 포함된 while 반복 소스코드의 실행 최종 결과를 예측해 보세요.\n\n```python\nn = 0\nwhile n < 5:\n    n = n + 1\n    if n == 3:\n        continue\n    print(n)\n```",
       "choices": [
         "A. 1\n2\n4\n5",
         "B. 1\n2",
@@ -3132,7 +3132,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 딕셔너리 수량 가공 누적 연산 스크립트를 분석하여 터미널 공간에 인쇄되는 정수를 선택하세요.\n\nstore_bag = {'A': 2, 'B': 5, 'C': 1}\ntotal_items = 0\nfor k in store_bag:\n    total_items = total_items + store_bag[k]\nprint(total_items)",
+      "question": "다음 딕셔너리 수량 가공 누적 연산 스크립트를 분석하여 터미널 공간에 인쇄되는 정수를 선택하세요.\n\n```python\nstore_bag = {'A': 2, 'B': 5, 'C': 1}\ntotal_items = 0\nfor k in store_bag:\n    total_items = total_items + store_bag[k]\nprint(total_items)\n```",
       "choices": [
         "A. 8",
         "B. 3",
@@ -3155,7 +3155,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 소스코드 구동 시 들여쓰기 꼬임 유무를 연산 파악하여 결과 창 레이아웃 구성을 정밀 추적해 보세요.\n\nfor i in range(1, 3):\n    print('IN')\nprint('OUT')",
+      "question": "다음 소스코드 구동 시 들여쓰기 꼬임 유무를 연산 파악하여 결과 창 레이아웃 구성을 정밀 추적해 보세요.\n\n```python\nfor i in range(1, 3):\n    print('IN')\nprint('OUT')\n```",
       "choices": [
         "A. IN\nIN\nOUT",
         "B. IN\nOUT\nIN\nOUT",
@@ -3178,7 +3178,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 이중 루프 내부에 논리 일치 조건문 검사가 결합한 종합 연산 알고리즘 소스코드의 최종 실행 결과 레이아웃을 고르세요.\n\nfor i in range(2):\n    for j in range(2):\n        if i == j:\n            print('O', end='')\n        else:\n            print('X', end='')",
+      "question": "다음과 같이 이중 루프 내부에 논리 일치 조건문 검사가 결합한 종합 연산 알고리즘 소스코드의 최종 실행 결과 레이아웃을 고르세요.\n\n```python\nfor i in range(2):\n    for j in range(2):\n        if i == j:\n            print('O', end='')\n        else:\n            print('X', end='')\n```",
       "choices": [
         "A. OXXO",
         "B. OX\nXO",
@@ -3201,7 +3201,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 역순 range 흐름과 조건식 차단 필터가 복합 가동하는 종합 구조의 출력 결과를 고르세요.\n\nfor val in range(4, 0, -1):\n    if val == 2:\n        break\n    print(val)",
+      "question": "다음과 같이 역순 range 흐름과 조건식 차단 필터가 복합 가동하는 종합 구조의 출력 결과를 고르세요.\n\n```python\nfor val in range(4, 0, -1):\n    if val == 2:\n        break\n    print(val)\n```",
       "choices": [
         "A. 4\n3",
         "B. 4\n3\n2",
@@ -3224,7 +3224,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 가산형 무한 루프 탈출 조건문 블록 알고리즘 연산 수행 시 최종 도출되는 변수 level의 결과 정수를 계산하세요.\n\nlevel = 1\nwhile True:\n    level = level + 3\n    if level >= 10:\n        break\nprint(level)",
+      "question": "다음 가산형 무한 루프 탈출 조건문 블록 알고리즘 연산 수행 시 최종 도출되는 변수 level의 결과 정수를 계산하세요.\n\n```python\nlevel = 1\nwhile True:\n    level = level + 3\n    if level >= 10:\n        break\nprint(level)\n```",
       "choices": [
         "A. 10",
         "B. 13",

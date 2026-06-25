@@ -99,7 +99,7 @@ export default function HomeLanding({ onOpenLevelTest }) {
       </div>
 
       {/* 특징 카드 */}
-      <div className="home-features container">
+      <div className="home-features container" style={{ marginTop: '30px' }}>
         <h2 className="home-section-title">✨ 에이몬만의 특별함</h2>
         <div className="home-feature-grid">
           {FEATURES.map((f) => (

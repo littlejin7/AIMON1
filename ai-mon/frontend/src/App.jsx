@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./pages/Home/Home";
 import LessonHome from "./pages/Lesson/LessonHome";
-import Lesson from "./pages/Lesson/Lesson";
 import Stage from "./pages/Stage/Stage";
 import Boss from "./pages/Boss/Boss";
 import EndBoss from "./pages/EndBoss/EndBoss";
@@ -13,18 +12,20 @@ import Settings from "./pages/Settings/Settings";
 import Train from "./pages/Train/Train";
 import Auth from "./pages/Auth/Auth";
 import Register from "./pages/Auth/Register";
+import FindId from "./pages/Auth/FindId";
+import FindPw from "./pages/Auth/FindPw";
 import SocialCallback from "./pages/Auth/SocialCallback";
 import NaverCallback from "./pages/Auth/NaverCallback";
 import KakaoCallback from "./pages/Auth/KakaoCallback";
 import LevelTestInfo from "./pages/LevelTestInfo/LevelTestInfo";
 import { useAuthStore } from "./hooks/useAuthStore";
 import SplashLoading from "./components/loading/SplashLoading";
-import TopBar from "./components/TopBar/TopBar";
 import Game from "./pages/Game/Game";
 import Aipang from "./pages/Game/Aipang/Aipang";
 import RunnerGame from "./pages/Game/AIrun/index";
 import AIbomb from "./pages/Game/AIbomb/AIbomb";
 import AIPair from "./pages/Game/AIPair/AIPair";
+import AICross from "./pages/Game/AIcross/AICross";
 // 앱 시작 시 Pyodide를 백그라운드에서 미리 로드 (code_input 문제 대비)
 // App.jsx 내의 useEffect에서 처리하도록 이동되었습니다.
 
@@ -38,7 +39,6 @@ function ProtectedRoute({ children }) {
 function AppLayout({ children }) {
   return (
     <div className="page">
-      <TopBar />
       {children}
       <NavBar />
     </div>
@@ -90,6 +90,8 @@ export default function App() {
         {/* ── 인증 페이지 (NavBar 없음) ── */}
         <Route path="/auth" element={<Auth />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/find-id" element={<FindId />} />
+        <Route path="/find-pw" element={<FindPw />} />
         <Route path="/auth/callback/google" element={<SocialCallback />} />
         <Route path="/auth/callback/naver" element={<NaverCallback />} />
         <Route path="/auth/callback/kakao" element={<KakaoCallback />} />
@@ -138,17 +140,8 @@ export default function App() {
 
         {/* ── Private Routes: 로그인 필수 ── */}
 
-        {/* 유닛 상세 (스테이지 목록) */}
-        <Route
-          path="/lesson/:id"
-          element={
-            <ProtectedRoute>
-              <AppLayout>
-                <Lesson />
-              </AppLayout>
-            </ProtectedRoute>
-          }
-        />
+        {/* 유닛 상세 → 레슨홈으로 리다이렉트 */}
+        <Route path="/lesson/:id" element={<Navigate to="/lesson" replace />} />
 
         {/* 스테이지 퀴즈 (1-1 제외한 모든 스테이지) */}
         <Route
@@ -212,11 +205,9 @@ export default function App() {
         <Route
           path="/character"
           element={
-            <ProtectedRoute>
-              <AppLayout>
-                <Character />
-              </AppLayout>
-            </ProtectedRoute>
+            <AppLayout>
+              <Character />
+            </AppLayout>
           }
         />
 
@@ -236,11 +227,9 @@ export default function App() {
         <Route
           path="/game"
           element={
-            <ProtectedRoute>
-              <AppLayout>
-                <Game />
-              </AppLayout>
-            </ProtectedRoute>
+            <AppLayout>
+              <Game />
+            </AppLayout>
           }
         />
 
@@ -283,8 +272,42 @@ export default function App() {
           }
         />
 
-        {/* 그 외 경로 → 레슨 홈 */}
-        <Route path="*" element={<Navigate to="/lesson" replace />} />
+        
+        <Route
+          path="/game/cross"
+          element={
+            <ProtectedRoute>
+              <AICross />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* 학습통계 (placeholder) */}
+        <Route
+          path="/stats"
+          element={
+            <AppLayout>
+              <div style={{ padding: '40px 20px', textAlign: 'center', color: 'var(--clr-text-muted)' }}>
+                📊 학습통계 준비 중
+              </div>
+            </AppLayout>
+          }
+        />
+
+        {/* 리그 (placeholder) */}
+        <Route
+          path="/league"
+          element={
+            <AppLayout>
+              <div style={{ padding: '40px 20px', textAlign: 'center', color: 'var(--clr-text-muted)' }}>
+                🏆 리그 준비 중
+              </div>
+            </AppLayout>
+          }
+        />
+
+        {/* 그 외 경로 → 홈 */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );

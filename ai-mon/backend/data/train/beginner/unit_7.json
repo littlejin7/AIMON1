@@ -23,7 +23,7 @@
     "type": "output_select",
     "difficulty": "easy",
     "concept": "딕셔너리 키 접근",
-    "question": "다음 코드의 출력 결과는 무엇인가요?\n\nperson = {\"name\": \"Tom\", \"score\": 88}\nprint(person[\"score\"])",
+    "question": "다음 코드의 출력 결과는 무엇인가요?\n\n```python\nperson = {\"name\": \"Tom\", \"score\": 88}\nprint(person[\"score\"])\n```",
     "choices": [
       "A. \"88\"",
       "B. 88",
@@ -77,7 +77,7 @@
     "type": "output_select",
     "difficulty": "easy",
     "concept": "dict.get",
-    "question": "다음 코드의 출력 결과는 무엇인가요?\n\nconfig = {\"host\": \"localhost\", \"port\": 8080}\nprint(config.get(\"timeout\"))",
+    "question": "다음 코드의 출력 결과는 무엇인가요?\n\n```python\nconfig = {\"host\": \"localhost\", \"port\": 8080}\nprint(config.get(\"timeout\"))\n```",
     "choices": [
       "A. 0",
       "B. KeyError",
@@ -95,7 +95,7 @@
     "type": "output_select",
     "difficulty": "medium",
     "concept": "딕셔너리 수정/추가/len",
-    "question": "다음 코드의 출력 결과는 무엇인가요?\n\nmenu = {\"rice\": 5000, \"soup\": 3000}\nmenu[\"soup\"] = 4000\nmenu[\"salad\"] = 6000\nprint(len(menu))",
+    "question": "다음 코드의 출력 결과는 무엇인가요?\n\n```python\nmenu = {\"rice\": 5000, \"soup\": 3000}\nmenu[\"soup\"] = 4000\nmenu[\"salad\"] = 6000\nprint(len(menu))\n```",
     "choices": [
       "A. 2",
       "B. 3",
@@ -113,7 +113,7 @@
     "type": "output_select",
     "difficulty": "medium",
     "concept": "del / in 연산자",
-    "question": "다음 코드의 출력 결과는 무엇인가요?\n\nbook = {\"title\": \"Python\", \"author\": \"Kim\", \"year\": 2024}\ndel book[\"year\"]\nprint(\"year\" in book)",
+    "question": "다음 코드의 출력 결과는 무엇인가요?\n\n```python\nbook = {\"title\": \"Python\", \"author\": \"Kim\", \"year\": 2024}\ndel book[\"year\"]\nprint(\"year\" in book)\n```",
     "choices": [
       "A. True",
       "B. None",
@@ -131,7 +131,7 @@
     "type": "multiple_choice",
     "difficulty": "medium",
     "concept": "dict.items()",
-    "question": "다음 코드에서 item과 price에 각각 어떤 값이 들어가나요?\n\nshop = {\"pen\": 1000, \"ruler\": 500}\nfor item, price in shop.items():\n    print(item, price)",
+    "question": "다음 코드에서 item과 price에 각각 어떤 값이 들어가나요?\n\n```python\nshop = {\"pen\": 1000, \"ruler\": 500}\nfor item, price in shop.items():\n    print(item, price)\n```",
     "choices": [
       "A. item에는 키, price에는 값이 들어갑니다.",
       "B. item에는 값, price에는 키가 들어갑니다.",
@@ -149,7 +149,7 @@
     "type": "output_select",
     "difficulty": "medium",
     "concept": "dict.values / sum",
-    "question": "다음 코드의 출력 결과는 무엇인가요?\n\ngrades = {\"math\": 80, \"english\": 90, \"art\": 70}\nresult = sum(grades.values())\nprint(result)",
+    "question": "다음 코드의 출력 결과는 무엇인가요?\n\n```python\ngrades = {\"math\": 80, \"english\": 90, \"art\": 70}\nresult = sum(grades.values())\nprint(result)\n```",
     "choices": [
       "A. 80",
       "B. 90",
@@ -167,7 +167,7 @@
     "type": "output_select",
     "difficulty": "medium",
     "concept": "set 중복 제거",
-    "question": "다음 코드의 출력 결과는 무엇인가요?\n\ncolors = [\"red\", \"blue\", \"red\", \"green\", \"blue\", \"blue\"]\nunique = set(colors)\nprint(len(unique))",
+    "question": "다음 코드의 출력 결과는 무엇인가요?\n\n```python\ncolors = [\"red\", \"blue\", \"red\", \"green\", \"blue\", \"blue\"]\nunique = set(colors)\nprint(len(unique))\n```",
     "choices": [
       "A. 6",
       "B. 4",
@@ -203,7 +203,7 @@
     "type": "output_select",
     "difficulty": "hard",
     "concept": "set 교집합(&)",
-    "question": "다음 코드의 출력 결과는 무엇인가요?\n\na = {10, 20, 30, 40}\nb = {20, 40, 60}\nresult = a & b\nprint(len(result))",
+    "question": "다음 코드의 출력 결과는 무엇인가요?\n\n```python\na = {10, 20, 30, 40}\nb = {20, 40, 60}\nresult = a & b\nprint(len(result))\n```",
     "choices": [
       "A. 1",
       "B. 2",
@@ -221,7 +221,7 @@
     "type": "output_select",
     "difficulty": "hard",
     "concept": "set 합집합/차집합",
-    "question": "다음 코드의 출력 결과는 무엇인가요?\n\nx = {1, 2, 3, 4}\ny = {3, 4, 5, 6}\nprint(len(x | y), len(x - y))",
+    "question": "다음 코드의 출력 결과는 무엇인가요?\n\n```python\nx = {1, 2, 3, 4}\ny = {3, 4, 5, 6}\nprint(len(x | y), len(x - y))\n```",
     "choices": [
       "A. 4 2",
       "B. 6 4",
@@ -239,7 +239,7 @@
     "type": "output_select",
     "difficulty": "hard",
     "concept": "dict.items() / 짝수 판별",
-    "question": "다음 코드의 출력 결과는 무엇인가요?\n\ndata = {\"a\": 1, \"b\": 2, \"c\": 3, \"d\": 4, \"e\": 5}\ncount = 0\nfor key, value in data.items():\n    if value % 2 == 0:\n        count += 1\nprint(count)",
+    "question": "다음 코드의 출력 결과는 무엇인가요?\n\n```python\ndata = {\"a\": 1, \"b\": 2, \"c\": 3, \"d\": 4, \"e\": 5}\ncount = 0\nfor key, value in data.items():\n    if value % 2 == 0:\n        count += 1\nprint(count)\n```",
     "choices": [
       "A. 1",
       "B. 2",
@@ -257,7 +257,7 @@
     "type": "multiple_choice",
     "difficulty": "hard",
     "concept": "dict.get / KeyError",
-    "question": "다음 딕셔너리가 있을 때, 오류 없이 실행되는 코드는 무엇인가요?\n\nuser = {\"id\": 101, \"name\": \"Lee\"}",
+    "question": "다음 딕셔너리가 있을 때, 오류 없이 실행되는 코드는 무엇인가요?\n\n```python\nuser = {\"id\": 101, \"name\": \"Lee\"}\n```",
     "choices": [
       "A. print(user[\"email\"])",
       "B. print(user.get(\"email\"))",

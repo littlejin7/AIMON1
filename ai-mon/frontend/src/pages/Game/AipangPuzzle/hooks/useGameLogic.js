@@ -1,7 +1,9 @@
 // ── 게임 핵심 로직 훅 ──
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { gameApi } from '../../../../api';
+import { incrementGamePlay } from '../../gameConstants';
 import { COLS, ROWS, BOSS_STAGES } from '../constants/gameConstants';
+import { getBoardScreenCenter, showDmgNumber, showComboText } from '../utils/gameEffects';
 import {
   rndType,
   findMatchGroups,
@@ -166,38 +168,6 @@ useEffect(() => {
       return next;
     });
   }, []);
-
-  // ── 보드 화면 중심 좌표 ──
-  function getBoardScreenCenter() {
-    const el = document.getElementById('board-wrap');
-    if (!el) return { x: 0, y: 0 };
-    const rect = el.getBoundingClientRect();
-    return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
-  }
-
-  // ── 데미지 숫자 표시 (DOM 직접 삽입) ──
-  function showDmgNumber(dmg, cardId) {
-    const cardEl = document.getElementById(cardId);
-    if (!cardEl) return;
-    const rect = cardEl.getBoundingClientRect();
-    const el = document.createElement('div');
-    el.className = 'dmg-num' + (dmg >= 200 ? ' big' : '');
-    el.textContent = '-' + dmg.toLocaleString();
-    el.style.left = (rect.left + rect.width / 2) + 'px';
-    el.style.top  = (rect.top + 8) + 'px';
-    document.body.appendChild(el);
-    setTimeout(() => el.remove(), 1100);
-  }
-
-  // ── 콤보 텍스트 표시 ──
-  function showComboText(combo, mult) {
-    const el = document.createElement('div');
-    el.className = 'combo-text';
-    el.textContent = `COMBO ×${mult.toFixed(1)}!`;
-    el.style.cssText = 'left:50%;top:42%;';
-    document.body.appendChild(el);
-    setTimeout(() => el.remove(), 1150);
-  }
 
   // ── 보스 카드 흔들기 ──
   function shakeBossCard(cardId) {
@@ -376,7 +346,9 @@ useEffect(() => {
           setTimeout(() => beep(659, 0.1), 100);
           setTimeout(() => beep(784, 0.1), 200);
           setTimeout(() => beep(1046, 0.4), 300);
-          
+
+
+          incrementGamePlay('aipang');
           gameApi.clearGame({ game_id: 'aipang' })
             .then(res => {
               setPopups(prev => ({ ...prev, final: true, clearData: res.data }));

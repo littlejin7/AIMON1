@@ -48,7 +48,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\nimport random\nrandom.seed(42)\nprint(random.randint(1, 10))\nprint(random.randint(1, 10))",
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\nimport random\nrandom.seed(42)\nprint(random.randint(1, 10))\nprint(random.randint(1, 10))\n```",
       "choices": [
         "A. 매번 다른 값이 출력된다.",
         "B. 항상 같은 두 숫자가 출력된다.",
@@ -87,7 +87,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드에서 AttributeError가 발생하는 줄은?\n\n1줄: import os\n2줄: files = os.listdir(\".\")\n3줄: for f in files:\n4줄:     path = os.path.join(\".\", f)\n5줄:     size = os.path.size(path)\n6줄:     print(f\"{f}: {size}바이트\")",
+      "question": "다음 코드에서 AttributeError가 발생하는 줄은?\n\n1줄: import os\n2줄: files = os.listdir(\".\")\n3줄: for f in files:\n```python\n4줄:     path = os.path.join(\".\", f)\n5줄:     size = os.path.size(path)\n6줄:     print(f\"{f}: {size}바이트\")\n```",
       "choices": [
         "A. 2줄",
         "B. 3줄",
@@ -109,7 +109,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력 형식으로 올바른 것은?\n\nfrom datetime import datetime\nnow = datetime(2025, 7, 15, 9, 30, 0)\nprint(now.strftime(\"%Y-%m-%d %H:%M\"))",
+      "question": "다음 코드를 실행했을 때 출력 형식으로 올바른 것은?\n\n```python\nfrom datetime import datetime\nnow = datetime(2025, 7, 15, 9, 30, 0)\nprint(now.strftime(\"%Y-%m-%d %H:%M\"))\n```",
       "choices": [
         "A. 15-07-2025 09:30",
         "B. 2025-07-15 09:30",
@@ -131,7 +131,7 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "collections 모듈의 Counter를 이용해 각 요소의 개수를 세려고 합니다. 빈칸에 들어갈 코드는?\n\nfrom collections import _________\n\nmonsters = [\"슬라임\", \"고블린\", \"슬라임\", \"드래곤\", \"슬라임\"]\ncount = _________(monsters)\nprint(count[\"슬라임\"])  # 3",
+      "question": "collections 모듈의 Counter를 이용해 각 요소의 개수를 세려고 합니다. 빈칸에 들어갈 코드는?\n\n```python\nfrom collections import _________\n\nmonsters = [\"슬라임\", \"고블린\", \"슬라임\", \"드래곤\", \"슬라임\"]\ncount = _________(monsters)\nprint(count[\"슬라임\"])  # 3\n```",
       "choices": [],
       "answer": "Counter",
       "hint": "collections 모듈에서 요소 개수를 세는 클래스 이름이에요.",
@@ -148,7 +148,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\nimport os\n\npath = \"/home/eimon/quest/map.txt\"\nprint(os.path.basename(path))\nprint(os.path.dirname(path))",
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\nimport os\n\npath = \"/home/eimon/quest/map.txt\"\nprint(os.path.basename(path))\nprint(os.path.dirname(path))\n```",
       "choices": [
         "A. map.txt / /home/eimon/quest/map.txt",
         "B. map.txt / /home/eimon/quest",
@@ -170,7 +170,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드에서 ImportError가 발생하는 줄은?\n\n1줄: import os\n2줄: import sys\n3줄: from math import sqrt, pi\n4줄: from datetime import Date\n5줄: print(sqrt(16))",
+      "question": "다음 코드에서 ImportError가 발생하는 줄은?\n\n1줄: import os\n2줄: import sys\n3줄: from math import sqrt, pi\n4줄: from datetime import Date\n```python\n5줄: print(sqrt(16))\n```",
       "choices": [
         "A. 1줄",
         "B. 2줄",
@@ -192,7 +192,7 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "collections.defaultdict를 이용해 키가 없어도 자동으로 빈 리스트를 기본값으로 쓰려고 합니다. 빈칸에 들어갈 인자는?\n\nfrom collections import defaultdict\n\nteams = defaultdict(_________)\nteams[\"전사\"].append(\"에이몬\")\nteams[\"마법사\"].append(\"슬라임\")\nprint(teams[\"전사\"])  # ['에이몬']",
+      "question": "collections.defaultdict를 이용해 키가 없어도 자동으로 빈 리스트를 기본값으로 쓰려고 합니다. 빈칸에 들어갈 인자는?\n\n```python\nfrom collections import defaultdict\n\nteams = defaultdict(_________)\nteams[\"전사\"].append(\"에이몬\")\nteams[\"마법사\"].append(\"슬라임\")\nprint(teams[\"전사\"])  # ['에이몬']\n```",
       "choices": [],
       "answer": "list",
       "hint": "기본값으로 빈 리스트를 반환하는 팩토리 함수(callable) 이름이에요.",

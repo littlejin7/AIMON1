@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { quizApi, progressApi, minibossApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
@@ -21,8 +21,18 @@ function shuffleChoices(question) {
   const labels = ['A', 'B', 'C', 'D']
   const hasLetterPrefix = /^[A-D]\.\s/.test(question.choices?.[0] ?? '')
   if (hasLetterPrefix) {
-    const answerIndex = labels.indexOf(question.answer)
-    if (answerIndex === -1) return question
+    let answerIndex = labels.indexOf(question.answer)
+
+    // answer가 "A"/"B"가 아닌 텍스트(예: "p", "yth")로 저장된 경우:
+    // choices 텍스트 부분에서 answer와 일치하는 항목을 찾아 레이블로 변환
+    if (answerIndex === -1) {
+      const texts = question.choices.map(c => c.replace(/^[A-D]\.\s*/, ''))
+      const matchIdx = texts.findIndex(t => t === question.answer)
+      if (matchIdx === -1) return question  // 매칭 실패 → 원본 반환
+      question = { ...question, answer: labels[matchIdx] }
+      answerIndex = matchIdx
+    }
+
     const correctText = question.choices[answerIndex].replace(/^[A-D]\.\s*/, '')
     const texts = question.choices.map(c => c.replace(/^[A-D]\.\s*/, ''))
     const shuffled = [...texts].sort(() => Math.random() - 0.5)
@@ -45,6 +55,7 @@ export default function Stage({ _lessonId, _stage }) {
   const updateUser = useAuthStore((s) => s.updateUser)
   const courseLevel = user?.course_level || 'beginner'
   const { playBGM, stopBGM, playSFX } = useBossSound()
+  const loadedStageRef = useRef(null)
   
   // ── 퀴즈 진행 상태 ──
   const [questions,        setQuestions]        = useState([])
@@ -93,6 +104,16 @@ export default function Stage({ _lessonId, _stage }) {
 
   // ── 데이터 로드 ──
   useEffect(() => {
+    const stageKey = `${lessonId}-${stageNum}`
+    if (loadedStageRef.current !== null && loadedStageRef.current !== stageKey) {
+      loadedStageRef.current = stageKey
+      resetStageState()
+      return
+    }
+    loadedStageRef.current = stageKey
+
+    if (!loading) return
+
     const fetchUnit = quizApi.getUnit(lessonId, courseLevel).then(r => r.data).catch(() => null)
 
     const formattedLessonId = `${lessonId}-${stageNum}-${courseLevel}`
@@ -111,7 +132,7 @@ export default function Stage({ _lessonId, _stage }) {
       : Promise.resolve([])
 
     Promise.all([fetchUnit, fetchSlides, fetchQuestions, fetchProgress])
-      .then(([unitData, lessonData, questionsData, progressData]) => {
+      .then(async ([unitData, lessonData, questionsData, progressData]) => {
         setUnitInfo(unitData)
 
         let shouldShowBriefing = false
@@ -123,26 +144,31 @@ export default function Stage({ _lessonId, _stage }) {
         }
 
         // 미니보스 체크포인트 복원
-        const stageKey = `${lessonId}-${stageNum}`
         const existing = progressData.find(
           p => p.unit === parseInt(lessonId, 10) && p.stage === stageKey
         )
 
         let startMini = false
+        let finalQuestions = questionsData
+
         if (existing?.checkpoint === 'miniboss_ready' && !existing?.is_completed && questionsData.length > 0) {
-          const miniIndex = questionsData.findIndex(q => q.quiz_category === 'miniboss')
-          if (miniIndex !== -1) {
+          try {
+            const res = await minibossApi.startBattle(lessonId, stageKey)
+            const miniQuestions = res.data.questions
+            finalQuestions = [...questionsData, ...miniQuestions]
             shouldShowBriefing = false
             startMini = true
-            setCurrent(miniIndex)
-            setMinibossStartIndex(miniIndex)
+            setCurrent(questionsData.length)
+            setMinibossStartIndex(questionsData.length)
             setStageQuizCorrect(0)
             setCorrect(0)
+          } catch (err) {
+            console.error("체크포인트 미니보스 로드 실패", err)
           }
         }
 
         setShowBriefing(shouldShowBriefing)
-        setQuestions(questionsData.map(q => shuffleChoices(q)))
+        setQuestions(finalQuestions.map(q => shuffleChoices(q)))
         setLoading(false)
 
         if (startMini) {
@@ -150,7 +176,7 @@ export default function Stage({ _lessonId, _stage }) {
           playBGM('miniboss_intro')
         }
       })
-  }, [lessonId, stageNum, courseLevel, attempt, token, retryTick])
+  }, [lessonId, stageNum, courseLevel, attempt, token, retryTick, loading])
 
   // ── 스테이지 퀴즈 실패 (60% 미만) ──
   const handleStageQuizFailure = () => {
@@ -160,6 +186,7 @@ export default function Stage({ _lessonId, _stage }) {
     setCorrect(0)
     setFinished(false)
     setShowBriefing(false)
+    setLoading(true)
     alert('개념 퀴즈를 60% 이상 맞춰야 미니보스에 도전할 수 있어요! 다시 도전해봐요 💪')
     // setAttempt이 useEffect를 트리거해 자동으로 새 문제를 로드하므로 별도 fetch 불필요
     setAttempt(prev => prev + 1)
@@ -171,6 +198,24 @@ export default function Stage({ _lessonId, _stage }) {
     setCorrect(stageQuizCorrect)
     setScore(stageQuizCorrect * 20)
     setFinished(false)
+  }
+
+  // ── 개념 퀴즈부터 다시 도전 (체크포인트 초기화) ──
+  const handleRestartFromBeginning = async () => {
+    if (token) {
+      try {
+        await progressApi.saveProgress({
+          unit: parseInt(lessonId, 10),
+          stage: `${lessonId}-${stageNum}`,
+          score: 0,
+          is_completed: false,
+          checkpoint: 'concept_quiz',
+        })
+      } catch (err) {
+        console.error("체크포인트 초기화 실패", err)
+      }
+    }
+    resetStageState()
   }
 
   const handleAnswer = async ({ correct: isCorrect, retried }) => {
@@ -282,7 +327,7 @@ export default function Stage({ _lessonId, _stage }) {
         stage: `${lessonId}-${stageNum}`,
         score: totalScore,
         is_completed: totalScore >= 80,
-        checkpoint: 'done',
+        checkpoint: totalScore >= 80 ? 'done' : (minibossStartIndex !== null ? 'miniboss_ready' : 'concept_quiz'),
       })
 
       if (res?.data) {
@@ -346,6 +391,7 @@ export default function Stage({ _lessonId, _stage }) {
           showAuthModal={showAuthModal}
           setShowAuthModal={setShowAuthModal}
           handleMinibossRetry={handleMinibossRetry}
+          handleRestartFromBeginning={handleRestartFromBeginning}
           resetStageState={resetStageState}
           evoModal={evoModal}
           setEvoModal={setEvoModal}
@@ -378,6 +424,7 @@ export default function Stage({ _lessonId, _stage }) {
         setShowBriefing={setShowBriefing}
         lessonId={lessonId}
         stageNum={stageNum}
+        unitInfo={unitInfo}
       />
     )
   }

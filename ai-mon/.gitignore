@@ -61,3 +61,13 @@ coverage.xml
 *.tmp
 *.bak
 *.lock
+
+# Auto-generated daily backups (scheduler.py backup_to_json)
+backend/data/backup/
+
+# 런타임 생성 데이터 (계정/토큰/진행도 등 - 커밋 금지)
+backend/data/*.json
+!backend/data/lessons.json
+!backend/data/lessons_advanced.json
+!backend/data/lessons_intermediate.json
+!backend/data/missions.json

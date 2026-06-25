@@ -9,6 +9,9 @@ TITLE_DEFINITIONS = {
     "ai_explorer":  "🧠 AI 탐구자",
     "unit_master":  "👑 유닛 마스터",
     "aimon_master": "💎 에이몬 마스터",
+    "rookie_coder": "코드 ROOKIE",
+    "ace_coder":    "ACE 코더",
+    "ai_master":    "AI 마스터",
 }
 
 @router.get("")
@@ -17,7 +20,7 @@ def get_titles():
     return TITLE_DEFINITIONS
 
 def check_and_award_titles(user: dict, context: dict) -> list[dict]:
-    earned = set(user.get("titles", []))
+    earned = set(user.get("titles") or [])
     newly = []
 
     def award(title_id):
@@ -27,15 +30,15 @@ def check_and_award_titles(user: dict, context: dict) -> list[dict]:
 
     if context.get("stage_completed"):
         award("first_step")
-    if user.get("streak", 0) >= 7:
+    if (user.get("streak") or 0) >= 7:
         award("streak_7")
     if context.get("boss_cleared"):
         award("boss_slayer")
-    if user.get("ai_feedback_count", 0) >= 10:
+    if (user.get("ai_feedback_count") or 0) >= 10:
         award("ai_explorer")
     if context.get("unit_fully_done"):
         award("unit_master")
-    if user.get("lv", 1) >= 30:
+    if (user.get("lv") or 1) >= 30:
         award("aimon_master")
 
     user["titles"] = list(earned)

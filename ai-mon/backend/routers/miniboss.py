@@ -9,17 +9,21 @@
   POST /boss/miniboss/clear     클리어 처리 (XP + 진행도, 중복 방지)
 """
 
-from fastapi import APIRouter, HTTPException, Header
+from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 import json, os, random, uuid
 from datetime import datetime
 from typing import Optional
 
 from routers.utils import (
-    calc_level,
-    load_users,
-    save_users,
-    verify_token,
+    save_user,
+    get_progress_by_user,
+    save_progress_item,
+    now_kst,
+    get_current_user,
+    apply_xp,
+    mutate_user_atomic,
+    UserNotFoundError,
 )
 
 router = APIRouter()
@@ -86,15 +90,11 @@ class ClearRequest(BaseModel):
 # ── 엔드포인트 ────────────────────────────────────────────────────────────────
 
 @router.get("/info")
-def miniboss_info(unit: int = 1, stage: str = "1-1", authorization: str = Header(...)):
+def miniboss_info(unit: int = 1, stage: str = "1-1", user: dict = Depends(get_current_user)):
     """미니보스 정보 반환 (HP 설정, 이미 클리어 여부)."""
-    user_id = verify_token(authorization)
-    users   = load_users()
-    user    = next((u for u in users if u["id"] == user_id), None)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+    user_id = user["id"]
 
-    cleared = user.get("miniboss_cleared_stages", [])
+    cleared = user.get("miniboss_cleared_stages") or []
     stage_key = stage if "-" in str(stage) else f"{unit}-{stage}"
 
     return {
@@ -108,17 +108,13 @@ def miniboss_info(unit: int = 1, stage: str = "1-1", authorization: str = Header
 
 
 @router.post("/start")
-def miniboss_start(unit: int = 1, stage: str = "1-1", authorization: str = Header(...)):
+def miniboss_start(unit: int = 1, stage: str = "1-1", user: dict = Depends(get_current_user)):
     """
     미니보스 배틀 시작.
     - 해당 stage 문제 10개를 seen 관리하며 순서대로 반환
     - 모두 소진 시 리셋 후 재출제
     """
-    user_id = verify_token(authorization)
-    users   = load_users()
-    user    = next((u for u in users if u["id"] == user_id), None)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+    user_id = user["id"]
 
     course_level = user.get("course_level", "beginner")
     all_qs = load_miniboss_questions(course_level, unit)
@@ -128,9 +124,11 @@ def miniboss_start(unit: int = 1, stage: str = "1-1", authorization: str = Heade
         raise HTTPException(status_code=404, detail=f"Unit {unit} / Stage {stage} 미니보스 문제가 없습니다.")
 
     # seen 관리 (stage별 독립)
-    seen_key = "miniboss_seen_questions"
-    seen = user.get(seen_key, {})
-    stage_seen = seen.get(stage, [])
+    if "seen_questions" not in user or user["seen_questions"] is None:
+        user["seen_questions"] = {}
+    seen_questions = user["seen_questions"]
+    miniboss_seen = seen_questions.setdefault("miniboss", {})
+    stage_seen = miniboss_seen.get(stage, [])
 
     unseen = [q for q in stage_qs if q["question_id"] not in stage_seen]
     if not unseen:
@@ -140,9 +138,10 @@ def miniboss_start(unit: int = 1, stage: str = "1-1", authorization: str = Heade
     # 배틀 시작마다 seen 리셋 (매 배틀 새 문제 순서)
     random.shuffle(unseen)
     chosen = unseen[:5]  # 최대 5문제
-    seen[stage] = [q["question_id"] for q in chosen]
-    user[seen_key] = seen
-    save_users(users)
+    miniboss_seen[stage] = [q["question_id"] for q in chosen]
+    seen_questions["miniboss"] = miniboss_seen
+    user["seen_questions"] = seen_questions
+    save_user(user)
 
     return {
         "unit":      unit,
@@ -154,7 +153,7 @@ def miniboss_start(unit: int = 1, stage: str = "1-1", authorization: str = Heade
 
 
 @router.post("/answer")
-def miniboss_answer(req: AnswerRequest, authorization: str = Header(...)):
+def miniboss_answer(req: AnswerRequest, user: dict = Depends(get_current_user)):
     """
     답안 제출 → HP 계산.
     - 정답: boss_hp -= BOSS_HP_DELTA
@@ -162,11 +161,7 @@ def miniboss_answer(req: AnswerRequest, authorization: str = Header(...)):
     - boss_hp <= 0 → is_clear = True
     - my_hp  <= 0 → is_fail  = True
     """
-    user_id = verify_token(authorization)
-    users   = load_users()
-    user    = next((u for u in users if u["id"] == user_id), None)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+    user_id = user["id"]
 
     course_level = user.get("course_level", "beginner")
     all_qs = load_miniboss_questions(course_level, req.unit)
@@ -203,58 +198,55 @@ def miniboss_answer(req: AnswerRequest, authorization: str = Header(...)):
 
 
 @router.post("/clear")
-def miniboss_clear(req: ClearRequest, authorization: str = Header(...)):
+def miniboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
     """
     클리어 처리 (중복 방지).
     - XP 500 지급 (최초 1회)
     - miniboss_cleared_stages 기록
     - 진행도 저장
     """
-    user_id = verify_token(authorization)
-    users   = load_users()
-    user    = next((u for u in users if u["id"] == user_id), None)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+    user_id = user["id"]
 
     stage_key = req.stage if "-" in str(req.stage) else f"{req.unit}-{req.stage}"
-    cleared   = user.get("miniboss_cleared_stages", [])
-    already_cleared = stage_key in cleared
 
+    # 클리어 가드(miniboss_cleared_stages, list append) + XP + 미션(miniboss_clear)
+    # 훅을 fresh user 기준으로 원자 처리. apply_xp(event_type) 가 _ensure_period 로
+    # missions 객체를 건드리므로 save_user 가 아닌 mutate_user_atomic 필수. (M-1)
+    def mutator(u: dict) -> dict:
+        cleared = u.get("miniboss_cleared_stages") or []
+        already_cleared = stage_key in cleared
+        if not already_cleared:
+            apply_xp(u, CLEAR_XP, event_type="miniboss_clear")
+            cleared.append(stage_key)
+            u["miniboss_cleared_stages"] = cleared
+        return {
+            "already_cleared": already_cleared,
+            "cleared_stages": u.get("miniboss_cleared_stages", []),
+        }
+
+    try:
+        user, result = mutate_user_atomic(user_id, mutator)
+    except UserNotFoundError:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    already_cleared = result["already_cleared"]
     xp_awarded = 0
     if not already_cleared:
-        user["xp"] = user.get("xp", 0) + CLEAR_XP
         xp_awarded = CLEAR_XP
 
-        # 레벨 재계산 + 캐릭터 진화 체크
-        user["lv"] = max(calc_level(user["xp"]), user.get("lv", 1))
-        lv = user["lv"]
-        if lv >= 10 and user.get("character") == "slime":
-            user["character"] = "robot"
-        elif lv >= 20 and user.get("character") == "robot":
-            user["character"] = "speech_bubble"
-        elif lv >= 30 and user.get("character") == "speech_bubble":
-            user["character"] = "final_ghost"
-
-        cleared.append(stage_key)
-        user["miniboss_cleared_stages"] = cleared
-        user["completed_stages"] = user.get("completed_stages", 0) + 1
-        save_users(users)
-
-        # 진행도 저장
-        from routers.progress import load_progress, save_progress
-        progress = load_progress()
+        # 진행도 저장(별도 스토리지) — 신규 클리어 시에만 락 밖에서 수행
+        course_level = user.get("course_level", "beginner")
+        progress = get_progress_by_user(user_id, course_level)
         existing = next(
-            (p for p in progress if p["user_id"] == user_id
-             and p["unit"] == req.unit and p["stage"] == req.stage
-             and p.get("course_level", "beginner") == course_level),
+            (p for p in progress if p["unit"] == req.unit and p["stage"] == req.stage),
             None,
         )
         if existing:
             existing["is_completed"] = True
-            existing["updated_at"]   = datetime.utcnow().isoformat()
+            existing["updated_at"]   = now_kst().isoformat()
+            target_item = existing
         else:
-            course_level = user.get("course_level", "beginner")
-            progress.append({
+            target_item = {
                 "id":           str(uuid.uuid4()),
                 "user_id":      user_id,
                 "unit":         req.unit,
@@ -262,14 +254,14 @@ def miniboss_clear(req: ClearRequest, authorization: str = Header(...)):
                 "score":        100,
                 "is_completed": True,
                 "course_level": course_level,
-                "created_at":   datetime.utcnow().isoformat(),
-                "updated_at":   datetime.utcnow().isoformat(),
-            })
-        save_progress(progress)
+                "created_at":   now_kst().isoformat(),
+                "updated_at":   now_kst().isoformat(),
+            }
+        save_progress_item(target_item)
 
     return {
         "already_cleared":  already_cleared,
         "xp_awarded":       xp_awarded,
-         "lv":               user.get("lv", 1),
-        "cleared_stages":   user.get("miniboss_cleared_stages", []),
+        "lv":               user.get("lv", 1),
+        "cleared_stages":   result["cleared_stages"],
     }

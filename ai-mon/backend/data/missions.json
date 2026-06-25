@@ -1,0 +1,49 @@
+{
+  "daily": [
+    {
+      "mission_id": "d_quiz3",
+      "title": "스테이지 퀴즈 3회 클리어",
+      "event": "stage_clear",
+      "goal": 3,
+      "reward": {"xp": 300}
+    },
+    {
+      "mission_id": "d_review",
+      "title": "오답 1개 복습",
+      "event": "review_done",
+      "goal": 1,
+      "reward": {"xp": 150}
+    },
+    {
+      "mission_id": "d_login",
+      "title": "오늘도 출석",
+      "event": "login",
+      "goal": 1,
+      "reward": {"crowns": 1},
+      "auto_claim": true
+    }
+  ],
+  "weekly": [
+    {
+      "mission_id": "w_boss2",
+      "title": "보스 2회 처치",
+      "event": "boss_clear",
+      "goal": 2,
+      "reward": {"xp": 1500, "crowns": 2}
+    },
+    {
+      "mission_id": "w_streak5",
+      "title": "주 5일 출석",
+      "event": "login",
+      "goal": 5,
+      "reward": {"xp": 2000, "crowns": 3}
+    },
+    {
+      "mission_id": "w_ai5",
+      "title": "AI 피드백 5회 활용",
+      "event": "ai_feedback",
+      "goal": 5,
+      "reward": {"xp": 800}
+    }
+  ]
+}

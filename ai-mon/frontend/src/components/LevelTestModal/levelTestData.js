@@ -113,7 +113,7 @@ export const LEVEL_TEST_QUESTIONS = [
 export const LEVEL_RESULT = {
   beginner:     { label: '비기너',        icon: slimeIcon,      color: '#7c3aed', msg: '아기 슬라임 에이몬이 기다려요!',       desc: 'Python 기초부터 차근차근 함께해요 😊' },
   intermediate: { label: '인터미디에이트', icon: robotIcon,      color: '#06b6d4', msg: '로봇 에이몬이 당신을 알아봤어요!',    desc: 'lambda, 클래스, try/except — 이미 한 발 앞서 있어요!' },
-  advanced:     { label: '어드밴스드',    icon: finalGhostIcon, color: '#f59e0b', msg: '파이널 에이몬이 라이벌을 발견했어요!', desc: '데코레이터·비동기까지 꿰뚫는 당신, 에이몬도 긴장했어요 🔥' },
+  advanced:     { label: '어드밴스드',    icon: finalGhostIcon, color: '#7c3aed', msg: '파이널 에이몬이 라이벌을 발견했어요!', desc: '데코레이터·비동기까지 꿰뚫는 당신, 에이몬도 긴장했어요 🔥' },
 }
 
 /**

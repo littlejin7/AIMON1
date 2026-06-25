@@ -1,3 +1,10 @@
+const LABELS = ['A', 'B', 'C', 'D', 'E']
+
+function stripLabel(opt) {
+  // "A. answer text" → "answer text"
+  return opt.replace(/^[A-E]\.\s*/, '')
+}
+
 export default function ChoiceOptions({
   choicesList,
   selected,
@@ -20,33 +27,38 @@ export default function ChoiceOptions({
     return opt === selected && opt !== answer
   }
 
+  const normalizedChoices = choicesList.map(opt => opt.replace(/\\n/g, '\n'))
+  
   return (
     <div className="quiz-options stagger">
-      {choicesList.map((opt) => (
+      {normalizedChoices.map((opt, i) => (
         <button
           key={opt}
           id={`option-${opt.replace(/\s+/g, '-')}`}
           className={[
             'quiz-option',
-            selected === opt ? 'selected' : '',
-            isCorrect(opt) ? 'correct' : '',
-            isWrong(opt)   ? 'wrong'   : '',
+            selected === opt  ? 'selected' : '',
+            isCorrect(opt)    ? 'correct'  : '',
+            isWrong(opt)      ? 'wrong'    : '',
           ].join(' ')}
           onClick={() => onSelect(opt)}
           disabled={disabled || revealed}
         >
-          <span className="option-bullet" />
-          {opt}
+          <span className="opt-label">{LABELS[i] ?? i + 1}</span>
+          <span>
+            {stripLabel(opt).split(/\\n|\n/).map((line, li, arr) => (
+              <span key={li}>{line}{li < arr.length - 1 && <br />}</span>
+            ))}
+          </span>
         </button>
       ))}
       {!revealed && (
         <button
-          className="btn btn-primary btn-full"
-          style={{ marginTop: '12px' }}
+          className="quiz-submit-btn"
           disabled={!selected || disabled}
           onClick={onSubmit}
         >
-          확인하기 ✓
+          확인하기
         </button>
       )}
     </div>

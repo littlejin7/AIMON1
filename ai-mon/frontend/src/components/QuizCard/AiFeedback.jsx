@@ -1,84 +1,68 @@
 export default function AiFeedback({ aiFeedback, aiFeedbackLoading, onRetry, onNext }) {
-  // 스트리밍 중이면 커서 깜빡임, 완료 후 숨김
   const showCursor = aiFeedbackLoading && aiFeedback.length > 0
 
-  return (
-    <div
-      className="ai-feedback-box"
-      style={{
-        background: 'rgba(124,58,237,0.1)',
-        border: '1px solid rgba(124,58,237,0.3)',
-        borderRadius: '8px',
-        padding: '12px',
-        marginTop: '8px',
-        fontSize: '0.9rem',
-      }}
-    >
-      {/* 헤더 */}
-      <strong style={{ color: '#c4b5fd', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
-        🧠 Claude AI 피드백
-        {aiFeedbackLoading && aiFeedback.length === 0 && (
-          <span style={{
-            fontSize: '0.7rem',
-            background: 'rgba(124,58,237,0.25)',
-            border: '1px solid rgba(124,58,237,0.4)',
-            borderRadius: '999px',
-            padding: '1px 8px',
-            color: '#c4b5fd',
-            fontWeight: 400,
-            animation: 'pulse 1.5s infinite',
+  const renderFormattedText = (text) => {
+    if (!text) return null
+    const parts = text.split(/(\*\*.*?\*\*|`.*?`|\n)/g)
+    return parts.map((part, index) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        return (
+          <strong key={index} style={{
+            color: '#534AB7', fontWeight: 700,
+            background: 'rgba(127,119,221,0.12)',
+            padding: '1px 5px', borderRadius: '4px', margin: '0 2px',
           }}>
-            AI 분석 중...
+            {part.slice(2, -2)}
+          </strong>
+        )
+      } else if (part.startsWith('`') && part.endsWith('`')) {
+        return (
+          <code key={index} style={{
+            fontFamily: "'Courier New', monospace",
+            background: 'rgba(127,119,221,0.1)',
+            color: '#7F77DD',
+            padding: '1px 5px', borderRadius: '4px', fontSize: '0.9em', margin: '0 2px',
+          }}>
+            {part.slice(1, -1)}
+          </code>
+        )
+      } else if (part === '\n') {
+        return <br key={index} />
+      }
+      return part
+    })
+  }
+
+  return (
+    <div className="ai-feedback-box">
+      <div className="ai-feedback-header">
+        🧠 AI 피드백
+        {aiFeedbackLoading && aiFeedback.length === 0 && (
+          <span className="ai-feedback-badge" style={{ animation: 'pulse 1.5s infinite' }}>
+            분석 중...
           </span>
         )}
         {aiFeedbackLoading && aiFeedback.length > 0 && (
-          <span style={{
-            fontSize: '0.7rem',
-            background: 'rgba(124,58,237,0.15)',
-            border: '1px solid rgba(124,58,237,0.3)',
-            borderRadius: '999px',
-            padding: '1px 8px',
-            color: '#a78bfa',
-            fontWeight: 400,
-          }}>
-            ✍️ 작성 중
-          </span>
+          <span className="ai-feedback-badge">✍️ 작성 중</span>
         )}
-      </strong>
+      </div>
 
-      {/* 피드백 텍스트 + 타이핑 커서 */}
-      <p style={{ margin: 0, color: 'var(--clr-text-muted)', marginBottom: '12px', whiteSpace: 'pre-line', lineHeight: 1.7 }}>
-        {aiFeedback}
+      <p className="ai-feedback-text">
+        {renderFormattedText(aiFeedback)}
         {showCursor && (
           <span style={{
-            display: 'inline-block',
-            width: '2px',
-            height: '1em',
-            background: '#c4b5fd',
-            marginLeft: '2px',
+            display: 'inline-block', width: '2px', height: '1em',
+            background: '#7F77DD', marginLeft: '2px',
             verticalAlign: 'text-bottom',
             animation: 'blink-cursor 0.7s step-end infinite',
           }} />
         )}
       </p>
 
-      {/* 버튼 (스트리밍 완료 후만 표시) */}
       {!aiFeedbackLoading && (
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <button
-            className="btn btn-secondary btn-sm"
-            style={{ flex: 1, borderColor: 'rgba(124,58,237,0.4)', color: '#c4b5fd' }}
-            onClick={onRetry}
-          >
-            🔄 다시 풀기
-          </button>
-          <button
-            className="btn btn-primary btn-sm"
-            style={{ flex: 1 }}
-            onClick={onNext}
-          >
-            다음으로 ➔
-          </button>
+        <div className="ai-feedback-actions">
+          <button className="ai-btn-retry" onClick={onRetry}>🔄 다시 풀기</button>
+          <button className="ai-btn-next"  onClick={onNext}>다음으로 ➔</button>
         </div>
       )}
     </div>

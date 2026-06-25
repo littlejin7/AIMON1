@@ -33,7 +33,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 값은 무엇인가요?\n\nmy_list = [10, 20, 30]\nprint(my_list[0])",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값은 무엇인가요?\n\n```python\nmy_list = [10, 20, 30]\nprint(my_list[0])\n```",
       "choices": [
         "A. 20",
         "B. 10",
@@ -56,7 +56,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드와 같이 음수 인덱스(마이너스 번호)를 사용했을 때 도출되는 출력값은 무엇인가요?\n\nitems = ['포션', '방패', '왕관']\nprint(items[-1])",
+      "question": "다음 코드와 같이 음수 인덱스(마이너스 번호)를 사용했을 때 도출되는 출력값은 무엇인가요?\n\n```python\nitems = ['포션', '방패', '왕관']\nprint(items[-1])\n```",
       "choices": [
         "A. 포션",
         "B. 방패",
@@ -79,7 +79,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 슬라이싱 코드를 실행했을 때 화면에 표시되는 결과 리스트는 무엇인가요?\n\nnums = [1, 2, 3, 4, 5]\nprint(nums[1:4])",
+      "question": "다음 슬라이싱 코드를 실행했을 때 화면에 표시되는 결과 리스트는 무엇인가요?\n\n```python\nnums = [1, 2, 3, 4, 5]\nprint(nums[1:4])\n```",
       "choices": [
         "A. [1, 2, 3]",
         "B. [1, 2, 3, 4]",
@@ -125,7 +125,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드와 같이 슬라이싱에서 시작 번호를 생략했을 때(`[:3]`) 도출되는 결과는 무엇인가요?\n\nskills = ['불', '물', '빛', '어둠']\nprint(skills[:3])",
+      "question": "다음 코드와 같이 슬라이싱에서 시작 번호를 생략했을 때(`[:3]`) 도출되는 결과는 무엇인가요?\n\n```python\nskills = ['불', '물', '빛', '어둠']\nprint(skills[:3])\n```",
       "choices": [
         "A. ['물', '빛', '어둠']",
         "B. ['불', '물', '빛']",
@@ -148,7 +148,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드와 같이 리스트 내부의 요소에 인덱싱으로 다시 접근하는 '중첩 리스트 인덱싱'의 실행 결과는 무엇인가요?\n\nmatrix = [['A', 'B'], ['C', 'D']]\nprint(matrix[1][0])",
+      "question": "다음 코드와 같이 리스트 내부의 요소에 인덱싱으로 다시 접근하는 '중첩 리스트 인덱싱'의 실행 결과는 무엇인가요?\n\n```python\nmatrix = [['A', 'B'], ['C', 'D']]\nprint(matrix[1][0])\n```",
       "choices": [
         "A. A",
         "B. B",
@@ -171,7 +171,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 슬라이싱 코드의 실행 결과 변수 result의 값으로 올바른 것을 고르세요.\n\nbox = [10, 20, 30, 40, 50]\nresult = box[2:]\nprint(result)",
+      "question": "다음 슬라이싱 코드의 실행 결과 변수 result의 값으로 올바른 것을 고르세요.\n\n```python\nbox = [10, 20, 30, 40, 50]\nresult = box[2:]\nprint(result)\n```",
       "choices": [
         "A. [20, 30, 40]",
         "B. [30, 40]",
@@ -194,7 +194,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 연산 및 구동했을 때 출력창에 발생하는 현상으로 올바른 설명을 고르세요.\n\nmonsters = ['슬라임', '로봇']\nprint(monsters[5])",
+      "question": "다음 코드를 연산 및 구동했을 때 출력창에 발생하는 현상으로 올바른 설명을 고르세요.\n\n```python\nmonsters = ['슬라임', '로봇']\nprint(monsters[5])\n```",
       "choices": [
         "A. 범위를 벗어났다는 인덱스 에러(IndexError)가 발생한다.",
         "B. 빈 칸이 출력되며 프로그램은 계속 실행된다.",
@@ -217,7 +217,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 슬라이싱 조건에 대입 범위를 초과하는 엉뚱한 번호가 설정되었을 때 파이썬 리스트의 실행 결과는 무엇인가요?\n\ndata = ['A', 'B', 'C']\nprint(data[1:100])",
+      "question": "다음과 같이 슬라이싱 조건에 대입 범위를 초과하는 엉뚱한 번호가 설정되었을 때 파이썬 리스트의 실행 결과는 무엇인가요?\n\n```python\ndata = ['A', 'B', 'C']\nprint(data[1:100])\n```",
       "choices": [
         "A. 인덱스 에러(IndexError)가 발생한다.",
         "B. ['B', 'C']",
@@ -263,7 +263,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 소스코드의 출력 결과 라인으로 알맞은 정수를 선택하세요.\n\nscores = [85, 90, 95]\nprint(scores[2])",
+      "question": "다음 파이썬 소스코드의 출력 결과 라인으로 알맞은 정수를 선택하세요.\n\n```python\nscores = [85, 90, 95]\nprint(scores[2])\n```",
       "choices": [
         "A. 90",
         "B. 85",
@@ -286,7 +286,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 마이너스 번호가 부여된 인덱싱 코드를 실행했을 때 반환되는 문자열은 무엇인가요?\n\nlevels = ['초급', '중급', '고급']\nprint(levels[-2])",
+      "question": "다음 마이너스 번호가 부여된 인덱싱 코드를 실행했을 때 반환되는 문자열은 무엇인가요?\n\n```python\nlevels = ['초급', '중급', '고급']\nprint(levels[-2])\n```",
       "choices": [
         "A. 중급",
         "B. 초급",
@@ -309,7 +309,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 슬라이싱 범위 규칙을 적용했을 때 최종 출력창에 나타나는 결과는 무엇인가요?\n\ncharacter = ['S', 'L', 'I', 'M', 'E']\nprint(character[2:5])",
+      "question": "다음 슬라이싱 범위 규칙을 적용했을 때 최종 출력창에 나타나는 결과는 무엇인가요?\n\n```python\ncharacter = ['S', 'L', 'I', 'M', 'E']\nprint(character[2:5])\n```",
       "choices": [
         "A. ['I', 'M']",
         "B. ['I', 'M', 'E']",
@@ -332,7 +332,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "빈 대괄호(`[]`)만 사용하여 만들어진 '빈 리스트'에 대한 설명 중 올바른 표현을 고르세요.\n\nempty_box = []\nprint(empty_box)",
+      "question": "빈 대괄호(`[]`)만 사용하여 만들어진 '빈 리스트'에 대한 설명 중 올바른 표현을 고르세요.\n\n```python\nempty_box = []\nprint(empty_box)\n```",
       "choices": [
         "A. 문법 오류가 발생하여 프로그램이 다운된다.",
         "B. 0이라는 정수가 기본값으로 자동으로 채워진다.",
@@ -355,7 +355,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 슬라이싱 구문 내부의 양쪽 범위 숫자가 모두 비어있을 때(`[:]`) 도출되는 연산 결과는 무엇인가요?\n\noriginal = [7, 8, 9]\nprint(original[:])",
+      "question": "다음과 같이 슬라이싱 구문 내부의 양쪽 범위 숫자가 모두 비어있을 때(`[:]`) 도출되는 연산 결과는 무엇인가요?\n\n```python\noriginal = [7, 8, 9]\nprint(original[:])\n```",
       "choices": [
         "A. [ ] (빈 리스트)",
         "B. 0",
@@ -378,7 +378,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 복합 중첩 구조 리스트의 인덱싱 경로를 분석하여 최종 마크되는 정수 데이터를 도출하세요.\n\nitem_bundle = [100, [500, 600], 300]\nprint(item_bundle[1][1])",
+      "question": "다음 복합 중첩 구조 리스트의 인덱싱 경로를 분석하여 최종 마크되는 정수 데이터를 도출하세요.\n\n```python\nitem_bundle = [100, [500, 600], 300]\nprint(item_bundle[1][1])\n```",
       "choices": [
         "A. 600",
         "B. 100",
@@ -401,7 +401,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 슬라이싱 코드를 수행했을 때 화면 단에 마크되는 최종 리스트 구성 요소를 역산해 보세요.\n\nuser_ids = ['G1', 'G2', 'G3', 'G4']\nprint(user_ids[:2])",
+      "question": "다음 슬라이싱 코드를 수행했을 때 화면 단에 마크되는 최종 리스트 구성 요소를 역산해 보세요.\n\n```python\nuser_ids = ['G1', 'G2', 'G3', 'G4']\nprint(user_ids[:2])\n```",
       "choices": [
         "A. ['G2', 'G3']",
         "B. ['G1', 'G2']",
@@ -447,7 +447,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 시작점과 끝점의 인덱스 모순 관계 조건(`[3:1]`)이 지정되었을 때 파이썬 리스트 슬라이싱 시스템의 최종 반환 동작값은 무엇인가요?\n\nletters = ['A', 'B', 'C', 'D']\nprint(letters[3:1])",
+      "question": "다음과 같이 시작점과 끝점의 인덱스 모순 관계 조건(`[3:1]`)이 지정되었을 때 파이썬 리스트 슬라이싱 시스템의 최종 반환 동작값은 무엇인가요?\n\n```python\nletters = ['A', 'B', 'C', 'D']\nprint(letters[3:1])\n```",
       "choices": [
         "A. ['D', 'C', 'B'] (역순 리스트)",
         "B. 인덱스 에러(IndexError)가 발생한다.",
@@ -493,7 +493,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 최종적으로 출력되는 리스트의 모습은 무엇인가요?\n\nmy_list = [1, 2]\nmy_list.append(3)\nprint(my_list)",
+      "question": "다음 코드를 실행했을 때 최종적으로 출력되는 리스트의 모습은 무엇인가요?\n\n```python\nmy_list = [1, 2]\nmy_list.append(3)\nprint(my_list)\n```",
       "choices": [
         "A. [3, 1, 2]",
         "B. [1, 2, [3]]",
@@ -516,7 +516,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 `insert()` 메서드를 사용해 특정 인덱스 위치에 데이터를 삽입했을 때의 출력 결과를 고르세요.\n\nitems = ['포션', '왕관']\nitems.insert(1, '방패')\nprint(items)",
+      "question": "다음과 같이 `insert()` 메서드를 사용해 특정 인덱스 위치에 데이터를 삽입했을 때의 출력 결과를 고르세요.\n\n```python\nitems = ['포션', '왕관']\nitems.insert(1, '방패')\nprint(items)\n```",
       "choices": [
         "A. ['방패', '포션', '왕관']",
         "B. ['포션', '방패', '왕관']",
@@ -539,7 +539,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드와 같이 두 리스트를 합쳐서 확장하는 `extend()` 메서드를 적용했을 때의 최종 출력값은 무엇인가요?\n\na = [1, 2]\nb = [3, 4]\na.extend(b)\nprint(a)",
+      "question": "다음 코드와 같이 두 리스트를 합쳐서 확장하는 `extend()` 메서드를 적용했을 때의 최종 출력값은 무엇인가요?\n\n```python\na = [1, 2]\nb = [3, 4]\na.extend(b)\nprint(a)\n```",
       "choices": [
         "A. [1, 2, [3, 4]]",
         "B. [3, 4, 1, 2]",
@@ -562,7 +562,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드와 같이 `append()` 안에 또 다른 리스트를 통째로 집어넣었을 때 발생하는 결과 리스트의 형태는 무엇인가요?\n\nbase = [1, 2]\nbase.append([3, 4])\nprint(base)",
+      "question": "다음 코드와 같이 `append()` 안에 또 다른 리스트를 통째로 집어넣었을 때 발생하는 결과 리스트의 형태는 무엇인가요?\n\n```python\nbase = [1, 2]\nbase.append([3, 4])\nprint(base)\n```",
       "choices": [
         "A. [1, 2, [3, 4]]",
         "B. [1, 2, 3]",
@@ -608,7 +608,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 연산 및 구동했을 때 변수 `total_length`에 최종 저장되어 출력되는 정수는 얼마인가요?\n\nteam = ['지니']\nteam.append('로봇')\nteam.extend(['고스트', '위저드'])\ntotal_length = len(team)\nprint(total_length)",
+      "question": "다음 코드를 연산 및 구동했을 때 변수 `total_length`에 최종 저장되어 출력되는 정수는 얼마인가요?\n\n```python\nteam = ['지니']\nteam.append('로봇')\nteam.extend(['고스트', '위저드'])\ntotal_length = len(team)\nprint(total_length)\n```",
       "choices": [
         "A. 3",
         "B. 4",
@@ -631,7 +631,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 반복문(for 문) 내부에서 `append()` 메서드를 지속적으로 연동 호출했을 때, 최종 도출되는 리스트의 요소를 예측해 보세요.\n\nresult_list = []\nfor i in range(1, 4):\n    result_list.append(i * 10)\nprint(result_list)",
+      "question": "다음과 같이 반복문(for 문) 내부에서 `append()` 메서드를 지속적으로 연동 호출했을 때, 최종 도출되는 리스트의 요소를 예측해 보세요.\n\n```python\nresult_list = []\nfor i in range(1, 4):\n    result_list.append(i * 10)\nprint(result_list)\n```",
       "choices": [
         "A. [10, 20, 30, 40]",
         "B. [0, 10, 20]",
@@ -654,7 +654,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 `insert()` 메서드를 사용할 때, 리스트의 실제 현재 범위를 크게 벗어나는 엉뚱한 인덱스 번호(예: 100)를 대입했을 때 파이썬 리스트의 실행 동작 결과는 어떻게 될까요?\n\nskills = ['불', '물']\nskills.insert(100, '빛')\nprint(skills)",
+      "question": "다음과 같이 `insert()` 메서드를 사용할 때, 리스트의 실제 현재 범위를 크게 벗어나는 엉뚱한 인덱스 번호(예: 100)를 대입했을 때 파이썬 리스트의 실행 동작 결과는 어떻게 될까요?\n\n```python\nskills = ['불', '물']\nskills.insert(100, '빛')\nprint(skills)\n```",
       "choices": [
         "A. 인덱스 에러 없이 맨 마지막 자리에 '빛'을 추가한다.",
         "B. 빈 칸을 98개 채운 뒤 100번째 방에 '빛'을 삽입한다.",
@@ -677,7 +677,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드와 같이 리스트 가공 메서드 연산 후, 이를 다른 변수(`result`)에 직접 대입하여 출력창에 기록하려고 할 때 나타나는 함정의 결과를 고르세요.\n\nbox = ['A', 'B']\nresult = box.append('C')\nprint(result)",
+      "question": "다음 코드와 같이 리스트 가공 메서드 연산 후, 이를 다른 변수(`result`)에 직접 대입하여 출력창에 기록하려고 할 때 나타나는 함정의 결과를 고르세요.\n\n```python\nbox = ['A', 'B']\nresult = box.append('C')\nprint(result)\n```",
       "choices": [
         "A. ['A', 'B', 'C']",
         "B. 'C'",
@@ -723,7 +723,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 가동 및 실행시켰을 때 반환되는 최종 리스트의 모습은 무엇인가요?\n\ndata = [10, 30]\ndata.insert(1, 20)\nprint(data)",
+      "question": "다음 코드를 가동 및 실행시켰을 때 반환되는 최종 리스트의 모습은 무엇인가요?\n\n```python\ndata = [10, 30]\ndata.insert(1, 20)\nprint(data)\n```",
       "choices": [
         "A. [10, 20, 30]",
         "B. [20, 10, 30]",
@@ -746,7 +746,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 더하기 기호(`+`) 연산자를 사용하여 두 리스트를 결합한 코드의 실행 결과는 무엇인가요?\n\nlist1 = ['A', 'B']\nlist2 = ['C', 'D']\ncombined = list1 + list2\nprint(combined)",
+      "question": "다음과 같이 더하기 기호(`+`) 연산자를 사용하여 두 리스트를 결합한 코드의 실행 결과는 무엇인가요?\n\n```python\nlist1 = ['A', 'B']\nlist2 = ['C', 'D']\ncombined = list1 + list2\nprint(combined)\n```",
       "choices": [
         "A. [['A', 'B'], ['C', 'D']]",
         "B. 에러 발생",
@@ -769,7 +769,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드와 같이 `extend()` 메서드에 리스트가 아닌 단순 일반 정수 데이터(예: 5)를 인자로 무단 직접 전달했을 때 발생하는 현상은 무엇인가요?\n\nnumbers = [1, 2, 3]\nnumbers.extend(5)\nprint(numbers)",
+      "question": "다음 코드와 같이 `extend()` 메서드에 리스트가 아닌 단순 일반 정수 데이터(예: 5)를 인자로 무단 직접 전달했을 때 발생하는 현상은 무엇인가요?\n\n```python\nnumbers = [1, 2, 3]\nnumbers.extend(5)\nprint(numbers)\n```",
       "choices": [
         "A. 맨 끝 자리에 정수 5가 정상 추가되어 [1, 2, 3, 5]가 출력된다.",
         "B. 아무런 에러 없이 무시되고 [1, 2, 3] 그대로 찍힌다.",
@@ -792,7 +792,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드와 같이 리스트에 문자열 데이터를 `extend()`로 주입했을 때의 출력 결과를 예측하여 고르세요.\n\nword_list = ['AI']\nword_list.extend('MON')\nprint(word_list)",
+      "question": "다음 코드와 같이 리스트에 문자열 데이터를 `extend()`로 주입했을 때의 출력 결과를 예측하여 고르세요.\n\n```python\nword_list = ['AI']\nword_list.extend('MON')\nprint(word_list)\n```",
       "choices": [
         "A. ['AI', 'MON']",
         "B. ['AI', 'M', 'O', 'N']",
@@ -838,7 +838,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 다단계 리스트 가공 스크립트 실행의 결과로 도출되는 최종 원본 데이터의 구조 형태는 무엇인가요?\n\nbox_pack = ['A']\nbox_pack.append(['B', 'C'])\nbox_pack.extend(['D', 'E'])\nprint(box_pack)",
+      "question": "다음 다단계 리스트 가공 스크립트 실행의 결과로 도출되는 최종 원본 데이터의 구조 형태는 무엇인가요?\n\n```python\nbox_pack = ['A']\nbox_pack.append(['B', 'C'])\nbox_pack.extend(['D', 'E'])\nprint(box_pack)\n```",
       "choices": [
         "A. ['A', 'B', 'C', 'D', 'E']",
         "B. ['A', ['B', 'C'], ['D', 'E']]",
@@ -861,7 +861,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 조건부 제어 필터 내부에서 `insert()` 연산이 수행되도록 설계된 종합 문제의 실행 최종 결과를 연산하여 맞추세요.\n\npoints = [10, 30]\nfor p in points:\n    if p == 10:\n        points.insert(1, 20)\nprint(points)",
+      "question": "다음과 같이 조건부 제어 필터 내부에서 `insert()` 연산이 수행되도록 설계된 종합 문제의 실행 최종 결과를 연산하여 맞추세요.\n\n```python\npoints = [10, 30]\nfor p in points:\n    if p == 10:\n        points.insert(1, 20)\nprint(points)\n```",
       "choices": [
         "A. [10, 30, 20]",
         "B. [20, 10, 30]",
@@ -884,7 +884,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드와 같이 `insert()` 메서드의 인덱스 매개변수 자리에 '음수 번호(예: -1)'를 명시했을 때 파이썬 리스트의 내부 동작 삽입 위치는 정확히 어디가 될까요?\n\nlabels = ['A', 'C']\nlabels.insert(-1, 'B')\nprint(labels)",
+      "question": "다음 코드와 같이 `insert()` 메서드의 인덱스 매개변수 자리에 '음수 번호(예: -1)'를 명시했을 때 파이썬 리스트의 내부 동작 삽입 위치는 정확히 어디가 될까요?\n\n```python\nlabels = ['A', 'C']\nlabels.insert(-1, 'B')\nprint(labels)\n```",
       "choices": [
         "A. ['A', 'C', 'B']",
         "B. ['A', 'B', 'C']",
@@ -907,7 +907,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 이중 결합형 리스트 가공 메서드 연속 처리 구문 실행 시, 변수 `final_result`에 저장되는 아웃풋 정보의 실체를 명확히 판별해 보세요.\n\ncontainer = [7, 8]\nfinal_result = container.extend([9, 10])\nprint(final_result)",
+      "question": "다음 이중 결합형 리스트 가공 메서드 연속 처리 구문 실행 시, 변수 `final_result`에 저장되는 아웃풋 정보의 실체를 명확히 판별해 보세요.\n\n```python\ncontainer = [7, 8]\nfinal_result = container.extend([9, 10])\nprint(final_result)\n```",
       "choices": [
         "A. 4",
         "B. [9, 10]",
@@ -953,7 +953,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 최종 출력되는 리스트의 데이터 상태는 무엇인가요?\n\nskills = ['불', '물', '빛']\nskills.remove('물')\nprint(skills)",
+      "question": "다음 코드를 실행했을 때 최종 출력되는 리스트의 데이터 상태는 무엇인가요?\n\n```python\nskills = ['불', '물', '빛']\nskills.remove('물')\nprint(skills)\n```",
       "choices": [
         "A. ['불', '빛']",
         "B. ['물', '빛']",
@@ -976,7 +976,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 `pop()` 메서드의 괄호 안에 인덱스 번호를 지정하여 요소를 제거했을 때의 출력 결과를 고르세요.\n\nitems = ['포션', '방패', '왕관']\nitems.pop(1)\nprint(items)",
+      "question": "다음과 같이 `pop()` 메서드의 괄호 안에 인덱스 번호를 지정하여 요소를 제거했을 때의 출력 결과를 고르세요.\n\n```python\nitems = ['포션', '방패', '왕관']\nitems.pop(1)\nprint(items)\n```",
       "choices": [
         "A. ['포션', '왕관']",
         "B. ['방패', '왕관']",
@@ -999,7 +999,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드와 같이 `pop()` 메서드의 괄호 안에 아무런 번호도 지정하지 않았을 때(`pop()`) 삭제되는 위치와 출력 결과로 올바른 것은 무엇인가요?\n\nnums = [10, 20, 30]\nnums.pop()\nprint(nums)",
+      "question": "다음 코드와 같이 `pop()` 메서드의 괄호 안에 아무런 번호도 지정하지 않았을 때(`pop()`) 삭제되는 위치와 출력 결과로 올바른 것은 무엇인가요?\n\n```python\nnums = [10, 20, 30]\nnums.pop()\nprint(nums)\n```",
       "choices": [
         "A. 맨 마지막 요소가 삭제되어 [10, 20]이 출력된다.",
         "B. 맨 처음 요소가 삭제되어 [20, 30]이 출력된다.",
@@ -1022,7 +1022,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 리스트 내부의 요소를 한 번에 전부 소거하는 `clear()` 메서드를 적용했을 때 반환되는 최종 결과는 무엇인가요?\n\nbackpack = ['검', '방패', '물약']\nbackpack.clear()\nprint(backpack)",
+      "question": "다음 리스트 내부의 요소를 한 번에 전부 소거하는 `clear()` 메서드를 적용했을 때 반환되는 최종 결과는 무엇인가요?\n\n```python\nbackpack = ['검', '방패', '물약']\nbackpack.clear()\nprint(backpack)\n```",
       "choices": [
         "A. [] (빈 리스트)",
         "B. None",
@@ -1045,7 +1045,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드와 같이 한 리스트에 동일한 데이터 값('A')이 여러 개 들어있을 때, `remove('A')`를 실행하면 일어나는 변화는 무엇인가요?\n\ndata = ['A', 'B', 'A', 'C']\ndata.remove('A')\nprint(data)",
+      "question": "다음 코드와 같이 한 리스트에 동일한 데이터 값('A')이 여러 개 들어있을 때, `remove('A')`를 실행하면 일어나는 변화는 무엇인가요?\n\n```python\ndata = ['A', 'B', 'A', 'C']\ndata.remove('A')\nprint(data)\n```",
       "choices": [
         "A. 가장 왼쪽에 있는 첫 번째 'A'만 하나 삭제된다.",
         "B. 리스트 안에 들어있는 모든 'A'가 한 번에 전부 삭제된다.",
@@ -1068,7 +1068,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 리스트의 '주소 공유(얕은 복사) 함정'을 다루는 문제입니다. 코드를 연산했을 때 최종 원본 변수 `list_origin`의 출력 결과는 어떻게 되나요?\n\nlist_origin = [1, 2, 3]\nlist_copy = list_origin\nlist_copy.pop()\nprint(list_origin)",
+      "question": "다음 파이썬 리스트의 '주소 공유(얕은 복사) 함정'을 다루는 문제입니다. 코드를 연산했을 때 최종 원본 변수 `list_origin`의 출력 결과는 어떻게 되나요?\n\n```python\nlist_origin = [1, 2, 3]\nlist_copy = list_origin\nlist_copy.pop()\nprint(list_origin)\n```",
       "choices": [
         "A. [1, 2]",
         "B. [1, 2, 3]",
@@ -1091,7 +1091,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드와 같이 `pop()` 메서드를 호출하여 삭제된 결과물을 다른 변수(`removed_item`)에 대입받아 출력할 때 도출되는 실체는 무엇인가요?\n\nmonsters = ['슬라임', '로봇', '고스트']\nremoved_item = monsters.pop(1)\nprint(removed_item)",
+      "question": "다음 코드와 같이 `pop()` 메서드를 호출하여 삭제된 결과물을 다른 변수(`removed_item`)에 대입받아 출력할 때 도출되는 실체는 무엇인가요?\n\n```python\nmonsters = ['슬라임', '로봇', '고스트']\nremoved_item = monsters.pop(1)\nprint(removed_item)\n```",
       "choices": [
         "A. 로봇",
         "B. ['슬라임', '고스트']",
@@ -1114,7 +1114,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드와 같이 리스트에 실재하지 않는 엉뚱한 값을 `remove()` 메서드의 인자로 무단 전달하여 강제 삭제를 지시했을 때, 파이썬 시스템의 예외 동작 결과는 무엇인가요?\n\nbox = ['토끼', '사슴']\nbox.remove('호랑이')",
+      "question": "다음 코드와 같이 리스트에 실재하지 않는 엉뚱한 값을 `remove()` 메서드의 인자로 무단 전달하여 강제 삭제를 지시했을 때, 파이썬 시스템의 예외 동작 결과는 무엇인가요?\n\n```python\nbox = ['토끼', '사슴']\nbox.remove('호랑이')\n```",
       "choices": [
         "A. 값이 리스트에 존재하지 않는다는 값 에러(ValueError)를 내며 멈춘다.",
         "B. 삭제할 대상이 없으므로 아무 일도 일어나지 않고 그냥 통과한다.",
@@ -1137,7 +1137,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 `for` 반복문 내부에서 조건 일치에 의거해 `remove()` 메서드를 호출하여 동적으로 리스트 크기를 파괴해 나갈 때, 최종 완성 출력되는 변수 `nums` 리스트를 정밀 추적해 보세요.\n\nnums = [1, 2, 3, 4]\nfor n in nums:\n    if n % 2 == 0:\n        nums.remove(n)\nprint(nums)",
+      "question": "다음과 같이 `for` 반복문 내부에서 조건 일치에 의거해 `remove()` 메서드를 호출하여 동적으로 리스트 크기를 파괴해 나갈 때, 최종 완성 출력되는 변수 `nums` 리스트를 정밀 추적해 보세요.\n\n```python\nnums = [1, 2, 3, 4]\nfor n in nums:\n    if n % 2 == 0:\n        nums.remove(n)\nprint(nums)\n```",
       "choices": [
         "A. [1, 3]",
         "B. [1, 2, 3, 4]",
@@ -1183,7 +1183,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 인덱싱 삭제 코드를 실행창에 돌렸을 때 반환되는 최종 리스트의 가공 레이아웃은 무엇인가요?\n\nlevels = ['초급', '중급', '고급']\nlevels.pop(0)\nprint(levels)",
+      "question": "다음 파이썬 인덱싱 삭제 코드를 실행창에 돌렸을 때 반환되는 최종 리스트의 가공 레이아웃은 무엇인가요?\n\n```python\nlevels = ['초급', '중급', '고급']\nlevels.pop(0)\nprint(levels)\n```",
       "choices": [
         "A. ['중급', '고급']",
         "B. ['초급', '중급']",
@@ -1206,7 +1206,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드와 같이 주소 복사 함정을 회피하기 위해 독립된 새 복사본을 만드는 `.copy()` 메서드를 적용한 후 삭제를 연산했습니다. 출력 결과는 무엇인가요?\n\norigin = [7, 8, 9]\nclone = origin.copy()\nclone.clear()\nprint(origin)",
+      "question": "다음 코드와 같이 주소 복사 함정을 회피하기 위해 독립된 새 복사본을 만드는 `.copy()` 메서드를 적용한 후 삭제를 연산했습니다. 출력 결과는 무엇인가요?\n\n```python\norigin = [7, 8, 9]\nclone = origin.copy()\nclone.clear()\nprint(origin)\n```",
       "choices": [
         "A. [7, 8, 9]",
         "B. []",
@@ -1229,7 +1229,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드와 같이 비어있는 리스트 공간을 타겟팅하여 대책 없이 `pop()` 메서드를 호출했을 때 도출되는 예외적 런타임 결과는 무엇인가요?\n\nempty_list = []\nempty_list.pop()",
+      "question": "다음 코드와 같이 비어있는 리스트 공간을 타겟팅하여 대책 없이 `pop()` 메서드를 호출했을 때 도출되는 예외적 런타임 결과는 무엇인가요?\n\n```python\nempty_list = []\nempty_list.pop()\n```",
       "choices": [
         "A. 꺼낼 원소가 없다며 인덱스 에러(IndexError)가 발생하며 시스템이 다운된다.",
         "B. 꺼낼 게 없으므로 None이 조용히 반환되며 안전 종료된다.",
@@ -1252,7 +1252,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 마이너스(음수) 번호 방을 지정한 특수 삭제 연산 구문 구동 시 리스트 구조 변동 레이아웃을 계산해 보세요.\n\npoints = [100, 200, 300]\npoints.pop(-1)\nprint(points)",
+      "question": "다음 마이너스(음수) 번호 방을 지정한 특수 삭제 연산 구문 구동 시 리스트 구조 변동 레이아웃을 계산해 보세요.\n\n```python\npoints = [100, 200, 300]\npoints.pop(-1)\nprint(points)\n```",
       "choices": [
         "A. [100, 200]",
         "B. [200, 300]",
@@ -1298,7 +1298,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 복합 수식으로 꼬인 가공 스크립트를 분석하여 최종 단계에서 화면 단에 인쇄 기록되는 `team_A` 변수 정보를 도출하세요.\n\nteam_A = ['지니', '로봇']\nteam_B = team_A\nteam_B.append('고스트')\nteam_A.remove('지니')\nprint(team_A)",
+      "question": "다음 복합 수식으로 꼬인 가공 스크립트를 분석하여 최종 단계에서 화면 단에 인쇄 기록되는 `team_A` 변수 정보를 도출하세요.\n\n```python\nteam_A = ['지니', '로봇']\nteam_B = team_A\nteam_B.append('고스트')\nteam_A.remove('지니')\nprint(team_A)\n```",
       "choices": [
         "A. ['로봇', '고스트']",
         "B. ['지니', '로봇']",
@@ -1321,7 +1321,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 주소 복사 함정과 슬라이싱을 통한 복사 기법이 대조 처리된 코드를 구동했을 때 변수 `box_1`의 결과 사양을 고르세요.\n\nbox_1 = ['A', 'B']\nbox_2 = box_1[:]\nbox_2.remove('A')\nprint(box_1)",
+      "question": "다음 주소 복사 함정과 슬라이싱을 통한 복사 기법이 대조 처리된 코드를 구동했을 때 변수 `box_1`의 결과 사양을 고르세요.\n\n```python\nbox_1 = ['A', 'B']\nbox_2 = box_1[:]\nbox_2.remove('A')\nprint(box_1)\n```",
       "choices": [
         "A. ['A', 'B']",
         "B. ['B']",
@@ -1344,7 +1344,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 `remove()` 연산 수행 직후 도출되는 결과값을 직접 변수 `output`에 가두어 인쇄 명령 라인에 하달했을 때 터미널 창에 기록되는 정보의 실체는 무엇인가요?\n\ncontainer = [10, 20]\noutput = container.remove(10)\nprint(output)",
+      "question": "다음과 같이 `remove()` 연산 수행 직후 도출되는 결과값을 직접 변수 `output`에 가두어 인쇄 명령 라인에 하달했을 때 터미널 창에 기록되는 정보의 실체는 무엇인가요?\n\n```python\ncontainer = [10, 20]\noutput = container.remove(10)\nprint(output)\n```",
       "choices": [
         "A. None",
         "B. 10",
@@ -1367,7 +1367,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 `while` 조건 반복 루프 내부에서 `pop(0)` 연산을 지속 연동 호출하여 원소를 순차 소거해 나가는 카운터 결합형 스크립트가 도출하는 최종 합산 변수 `total_sum`을 계산해 보세요.\n\nnums = [5, 10, 15]\ntotal_sum = 0\nwhile len(nums) > 0:\n    total_sum = total_sum + nums.pop(0)\nprint(total_sum)",
+      "question": "다음과 같이 `while` 조건 반복 루프 내부에서 `pop(0)` 연산을 지속 연동 호출하여 원소를 순차 소거해 나가는 카운터 결합형 스크립트가 도출하는 최종 합산 변수 `total_sum`을 계산해 보세요.\n\n```python\nnums = [5, 10, 15]\ntotal_sum = 0\nwhile len(nums) > 0:\n    total_sum = total_sum + nums.pop(0)\nprint(total_sum)\n```",
       "choices": [
         "A. 30",
         "B. 15",
@@ -1413,7 +1413,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 숫자로 이루어진 리스트의 원소를 모두 합산하는 `sum()` 함수의 실행 결과는 무엇인가요?\n\npoints = [10, 20, 30]\nprint(sum(points))",
+      "question": "다음 숫자로 이루어진 리스트의 원소를 모두 합산하는 `sum()` 함수의 실행 결과는 무엇인가요?\n\n```python\npoints = [10, 20, 30]\nprint(sum(points))\n```",
       "choices": [
         "A. 60",
         "B. 3",
@@ -1436,7 +1436,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 `sort()` 메서드를 사용하여 숫자를 무옵션 정렬했을 때의 최종 아웃풋 상태를 고르세요.\n\nnums = [5, 1, 3]\nnums.sort()\nprint(nums)",
+      "question": "다음과 같이 `sort()` 메서드를 사용하여 숫자를 무옵션 정렬했을 때의 최종 아웃풋 상태를 고르세요.\n\n```python\nnums = [5, 1, 3]\nnums.sort()\nprint(nums)\n```",
       "choices": [
         "A. [1, 3, 5]",
         "B. [5, 3, 1]",
@@ -1459,7 +1459,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 `reverse()` 메서드를 적용했을 때 리스트 원소들의 배치 상태 변동 결과는 무엇인가요?\n\nletters = ['A', 'C', 'B']\nletters.reverse()\nprint(letters)",
+      "question": "다음과 같이 `reverse()` 메서드를 적용했을 때 리스트 원소들의 배치 상태 변동 결과는 무엇인가요?\n\n```python\nletters = ['A', 'C', 'B']\nletters.reverse()\nprint(letters)\n```",
       "choices": [
         "A. ['B', 'C', 'A']",
         "B. ['A', 'B', 'C']",
@@ -1482,7 +1482,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 문자열 단어들로 구성된 리스트에 알파벳 사전순 오름차순 정렬을 실행했을 때 출력되는 결과를 선택하세요.\n\nwords = ['banana', 'apple', 'cherry']\nwords.sort()\nprint(words)",
+      "question": "다음 문자열 단어들로 구성된 리스트에 알파벳 사전순 오름차순 정렬을 실행했을 때 출력되는 결과를 선택하세요.\n\n```python\nwords = ['banana', 'apple', 'cherry']\nwords.sort()\nprint(words)\n```",
       "choices": [
         "A. ['apple', 'banana', 'cherry']",
         "B. ['banana', 'apple', 'cherry']",
@@ -1528,7 +1528,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드는 문자열과 숫자가 혼합 저장된 리스트에 정렬을 시도하고 있습니다. 실행 시 나타나는 결과 현상은 무엇인가요?\n\nbad_list = [10, 'A', 5]\nbad_list.sort()",
+      "question": "다음 코드는 문자열과 숫자가 혼합 저장된 리스트에 정렬을 시도하고 있습니다. 실행 시 나타나는 결과 현상은 무엇인가요?\n\n```python\nbad_list = [10, 'A', 5]\nbad_list.sort()\n```",
       "choices": [
         "A. 크기를 비교할 수 없다며 타입 에러(TypeError)가 발생하고 프로그램이 다운된다.",
         "B. 숫자가 먼저 오고 문자가 뒤로 가며 [5, 10, 'A']가 된다.",
@@ -1551,7 +1551,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 문자열 리스트 내부에 알파벳 소문자와 대문자가 함께 섞여 있을 때, 오름차순 `.sort()` 연산 수행 시 대소문자 판정 아웃풋 결과를 예측해 보세요.\n\nchars = ['b', 'A', 'a', 'B']\nchars.sort()\nprint(chars)",
+      "question": "다음과 같이 문자열 리스트 내부에 알파벳 소문자와 대문자가 함께 섞여 있을 때, 오름차순 `.sort()` 연산 수행 시 대소문자 판정 아웃풋 결과를 예측해 보세요.\n\n```python\nchars = ['b', 'A', 'a', 'B']\nchars.sort()\nprint(chars)\n```",
       "choices": [
         "A. ['A', 'B', 'a', 'b']",
         "B. ['a', 'A', 'b', 'B']",
@@ -1574,7 +1574,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 원본 리스트 수정이 아닌, 원본은 그대로 보존한 채 '정렬된 새로운 리스트 복사본'만 쏙 꺼내오는 `sorted()` 내장 함수와 관련된 아웃풋 함정을 연산해 보세요.\n\ndata = [3, 1, 2]\nnew_data = sorted(data)\nprint(data)",
+      "question": "다음과 같이 원본 리스트 수정이 아닌, 원본은 그대로 보존한 채 '정렬된 새로운 리스트 복사본'만 쏙 꺼내오는 `sorted()` 내장 함수와 관련된 아웃풋 함정을 연산해 보세요.\n\n```python\ndata = [3, 1, 2]\nnew_data = sorted(data)\nprint(data)\n```",
       "choices": [
         "A. [3, 1, 2]",
         "B. [1, 2, 3]",
@@ -1597,7 +1597,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 `sort()` 가동 즉시 반환 데이터를 뽑아 다른 변수 `result`에 대입해 격리 인쇄를 명령했을 때 발생하는 리스트 인플레이스 가공 함정 결과를 고르세요.\n\nbox = [9, 7, 8]\nresult = box.sort()\nprint(result)",
+      "question": "다음과 같이 `sort()` 가동 즉시 반환 데이터를 뽑아 다른 변수 `result`에 대입해 격리 인쇄를 명령했을 때 발생하는 리스트 인플레이스 가공 함정 결과를 고르세요.\n\n```python\nbox = [9, 7, 8]\nresult = box.sort()\nprint(result)\n```",
       "choices": [
         "A. None",
         "B. [7, 8, 9]",
@@ -1643,7 +1643,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 수치 리스트의 총 데이터 원소 개수를 연산해 주는 `len()` 소스코드 실행의 정답을 고르세요.\n\nlevels = [1, 5, 2, 8, 4]\nprint(len(levels))",
+      "question": "다음 수치 리스트의 총 데이터 원소 개수를 연산해 주는 `len()` 소스코드 실행의 정답을 고르세요.\n\n```python\nlevels = [1, 5, 2, 8, 4]\nprint(len(levels))\n```",
       "choices": [
         "A. 5",
         "B. 20",
@@ -1666,7 +1666,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 큰 수부터 배치 정렬을 단행하는 `reverse=True` 명시형 내림차순 정렬 코드의 최종 변동 레이아웃을 고르세요.\n\nscores = [40, 90, 70]\nscores.sort(reverse=True)\nprint(scores)",
+      "question": "다음과 같이 큰 수부터 배치 정렬을 단행하는 `reverse=True` 명시형 내림차순 정렬 코드의 최종 변동 레이아웃을 고르세요.\n\n```python\nscores = [40, 90, 70]\nscores.sort(reverse=True)\nprint(scores)\n```",
       "choices": [
         "A. [90, 70, 40]",
         "B. [40, 70, 90]",
@@ -1689,7 +1689,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드 작동 시 정렬과 역순 반전 메서드가 연속으로 체이닝 구동되었을 때의 아웃풋 정보의 런타임 레이아웃을 계산해 보세요.\n\ncontainer = [3, 9, 6]\ncontainer.sort()\ncontainer.reverse()\nprint(container)",
+      "question": "다음 코드 작동 시 정렬과 역순 반전 메서드가 연속으로 체이닝 구동되었을 때의 아웃풋 정보의 런타임 레이아웃을 계산해 보세요.\n\n```python\ncontainer = [3, 9, 6]\ncontainer.sort()\ncontainer.reverse()\nprint(container)\n```",
       "choices": [
         "A. [9, 6, 3]",
         "B. [3, 6, 9]",
@@ -1712,7 +1712,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 한글 텍스트 명칭 데이터들이 들어간 동적 리스트에 오름차순 정렬 필터를 얹었을 때의 한글 자음 가나다순 배치 정답 구성을 고르세요.\n\nmonsters = ['로봇', '슬라임', '고스트']\nmonsters.sort()\nprint(monsters)",
+      "question": "다음 한글 텍스트 명칭 데이터들이 들어간 동적 리스트에 오름차순 정렬 필터를 얹었을 때의 한글 자음 가나다순 배치 정답 구성을 고르세요.\n\n```python\nmonsters = ['로봇', '슬라임', '고스트']\nmonsters.sort()\nprint(monsters)\n```",
       "choices": [
         "A. ['고스트', '로봇', '슬라임']",
         "B. ['로봇', '슬라임', '고스트']",
@@ -1735,7 +1735,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 통계적 결합 연산이 이루어진 복합 소스코드 실행 시의 최종 반환 평균값 연산 결과를 정확하게 계산해 보세요.\n\ndata_box = [10, 20, 30, 40]\naverage = sum(data_box) / len(data_box)\nprint(average)",
+      "question": "다음과 같이 통계적 결합 연산이 이루어진 복합 소스코드 실행 시의 최종 반환 평균값 연산 결과를 정확하게 계산해 보세요.\n\n```python\ndata_box = [10, 20, 30, 40]\naverage = sum(data_box) / len(data_box)\nprint(average)\n```",
       "choices": [
         "A. 25.0",
         "B. 100.0",
@@ -1758,7 +1758,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 정수와 실수(소수점 숫자) 자료형이 하나의 리스트 공간에 공존 연동 중일 때, 정렬을 감행하면 발생하는 내부 구동 판정은 무엇인가요?\n\nmix_nums = [2.5, 1, 1.8, 3]\nmix_nums.sort()\nprint(mix_nums)",
+      "question": "다음과 같이 정수와 실수(소수점 숫자) 자료형이 하나의 리스트 공간에 공존 연동 중일 때, 정렬을 감행하면 발생하는 내부 구동 판정은 무엇인가요?\n\n```python\nmix_nums = [2.5, 1, 1.8, 3]\nmix_nums.sort()\nprint(mix_nums)\n```",
       "choices": [
         "A. [1, 1.8, 2.5, 3] 형태로 에러 없이 수학적 크기순으로 정상 정렬 완료된다.",
         "B. 실수와 정수는 엄연히 다른 타 자료형이라며 크기 비교 타입 에러(TypeError)를 유발한다.",
@@ -1781,7 +1781,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 문자열 숫자가 포함된 리스트의 오름차순 정렬 연산 수행 시 발생하는 텍스트 코드 크기 비교 함정의 결과를 고르세요.\n\nstr_digits = ['10', '2', '15']\nstr_digits.sort()\nprint(str_digits)",
+      "question": "다음과 같이 문자열 숫자가 포함된 리스트의 오름차순 정렬 연산 수행 시 발생하는 텍스트 코드 크기 비교 함정의 결과를 고르세요.\n\n```python\nstr_digits = ['10', '2', '15']\nstr_digits.sort()\nprint(str_digits)\n```",
       "choices": [
         "A. ['10', '15', '2']",
         "B. ['2', '10', '15']",
@@ -1804,7 +1804,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 비파괴 독립 정렬 함수인 `sorted()` 아웃풋 데이터를 수신 변수 `result`에 정상 바인딩하여 복사본을 출력하려 할 때, 최종 도출되는 정보의 모습을 예측하세요.\n\noriginal = [9, 5, 7]\nresult = sorted(original)\nprint(result)",
+      "question": "다음 비파괴 독립 정렬 함수인 `sorted()` 아웃풋 데이터를 수신 변수 `result`에 정상 바인딩하여 복사본을 출력하려 할 때, 최종 도출되는 정보의 모습을 예측하세요.\n\n```python\noriginal = [9, 5, 7]\nresult = sorted(original)\nprint(result)\n```",
       "choices": [
         "A. [5, 7, 9]",
         "B. [9, 5, 7]",
@@ -1827,7 +1827,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 `for` 조건부 반복문 순회 제어 라인 우측 영역에 `sorted()` 비파괴 함수를 임베디드 결합 연동시켰을 때 최종 터미널에 줄바꿈 인쇄되는 정수 결과 흐름을 파악해 보세요.\n\nunordered = [8, 4, 6]\nfor val in sorted(unordered):\n    print(val)",
+      "question": "다음과 같이 `for` 조건부 반복문 순회 제어 라인 우측 영역에 `sorted()` 비파괴 함수를 임베디드 결합 연동시켰을 때 최종 터미널에 줄바꿈 인쇄되는 정수 결과 흐름을 파악해 보세요.\n\n```python\nunordered = [8, 4, 6]\nfor val in sorted(unordered):\n    print(val)\n```",
       "choices": [
         "A. 4\n6\n8",
         "B. 8\n4\n6",
@@ -1873,7 +1873,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 최종 출력창에 나타나는 결과는 무엇인가요?\n\nmonsters = ['슬라임', '로봇', '슬라임']\nprint(monsters.count('슬라임'))",
+      "question": "다음 코드를 실행했을 때 최종 출력창에 나타나는 결과는 무엇인가요?\n\n```python\nmonsters = ['슬라임', '로봇', '슬라임']\nprint(monsters.count('슬라임'))\n```",
       "choices": [
         "A. 2",
         "B. 1",
@@ -1896,7 +1896,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 `index()` 메서드를 사용하여 특정 데이터의 방 번호를 검색했을 때 도출되는 출력 정수는 무엇인가요?\n\nitems = ['포션', '방패', '왕관']\nprint(items.index('방패'))",
+      "question": "다음과 같이 `index()` 메서드를 사용하여 특정 데이터의 방 번호를 검색했을 때 도출되는 출력 정수는 무엇인가요?\n\n```python\nitems = ['포션', '방패', '왕관']\nprint(items.index('방패'))\n```",
       "choices": [
         "A. 1",
         "B. 0",
@@ -1919,7 +1919,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 `not in` 연산자를 적용한 탐색 구문의 실행 결과는 참(True)과 거짓(False) 중 무엇인가요?\n\nskills = ['불', '물']\nprint('빛' not in skills)",
+      "question": "다음과 같이 `not in` 연산자를 적용한 탐색 구문의 실행 결과는 참(True)과 거짓(False) 중 무엇인가요?\n\n```python\nskills = ['불', '물']\nprint('빛' not in skills)\n```",
       "choices": [
         "A. True",
         "B. False",
@@ -1942,7 +1942,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "동일한 데이터 값('A')이 리스트 내부에 여러 개 존재할 때, `index('A')` 메서드를 호출하면 어떤 인덱스 정수가 반환되나요?\n\ndata = ['B', 'A', 'A', 'C']\nprint(data.index('A'))",
+      "question": "동일한 데이터 값('A')이 리스트 내부에 여러 개 존재할 때, `index('A')` 메서드를 호출하면 어떤 인덱스 정수가 반환되나요?\n\n```python\ndata = ['B', 'A', 'A', 'C']\nprint(data.index('A'))\n```",
       "choices": [
         "A. 1",
         "B. 2",
@@ -1965,7 +1965,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 조건문(if) 내부에 `in` 연산자를 매칭시킨 종합 제어 구문의 실행 출력물은 무엇인가요?\n\nmy_bag = ['단검', '물약']\nif '단검' in my_bag:\n    print('전투 개시')\nelse:\n    print('도망치기')",
+      "question": "다음과 같이 조건문(if) 내부에 `in` 연산자를 매칭시킨 종합 제어 구문의 실행 출력물은 무엇인가요?\n\n```python\nmy_bag = ['단검', '물약']\nif '단검' in my_bag:\n    print('전투 개시')\nelse:\n    print('도망치기')\n```",
       "choices": [
         "A. 전투 개시",
         "B. 도망치기",
@@ -1988,7 +1988,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드와 같이 리스트 내부에 아예 존재하지 않는 엉뚱한 값을 `index()` 메서드의 인자로 전달하여 강제 탐색을 지시했을 때, 파이썬 시스템에서 일어나는 예외 현상은 무엇인가요?\n\nbox = ['토끼', '사슴']\nprint(box.index('호랑이'))",
+      "question": "다음 코드와 같이 리스트 내부에 아예 존재하지 않는 엉뚱한 값을 `index()` 메서드의 인자로 전달하여 강제 탐색을 지시했을 때, 파이썬 시스템에서 일어나는 예외 현상은 무엇인가요?\n\n```python\nbox = ['토끼', '사슴']\nprint(box.index('호랑이'))\n```",
       "choices": [
         "A. 존재하지 않는 값이라며 값 에러(ValueError)를 내며 프로그램이 다운된다.",
         "B. 리스트에 없다는 의미로 -1 정수가 정상 반환된다.",
@@ -2011,7 +2011,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 리스트 탐색 기반의 소스코드 실행 결과를 정밀 연산하여 최종 변수 `result`에 대입될 숫자를 맞추세요.\n\nnums = [10, 20, 30, 20, 40]\ntarget = 20\nif target in nums:\n    result = nums.index(target) + nums.count(target)\nprint(result)",
+      "question": "다음 리스트 탐색 기반의 소스코드 실행 결과를 정밀 연산하여 최종 변수 `result`에 대입될 숫자를 맞추세요.\n\n```python\nnums = [10, 20, 30, 20, 40]\ntarget = 20\nif target in nums:\n    result = nums.index(target) + nums.count(target)\nprint(result)\n```",
       "choices": [
         "A. 3",
         "B. 5",
@@ -2034,7 +2034,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 대소문자가 서로 구분되어 저장된 영문자 리스트에 `count()`와 `in` 연산을 수행했을 때 파이썬의 엄격한 판정 결과는 무엇인가요?\n\nchars = ['A', 'a', 'b', 'A']\nprint(chars.count('a'), 'A' in chars)",
+      "question": "다음과 같이 대소문자가 서로 구분되어 저장된 영문자 리스트에 `count()`와 `in` 연산을 수행했을 때 파이썬의 엄격한 판정 결과는 무엇인가요?\n\n```python\nchars = ['A', 'a', 'b', 'A']\nprint(chars.count('a'), 'A' in chars)\n```",
       "choices": [
         "A. 1 True",
         "B. 2 True",
@@ -2057,7 +2057,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드와 같이 중첩 리스트(2차원 구조) 환경에서 아우터 기준의 `in` 연산자를 수행했을 때 파이썬 엔진이 도출하는 인식 결과는 무엇인가요?\n\nnested = [[1, 2], [3, 4]]\nprint(1 in nested, [1, 2] in nested)",
+      "question": "다음 코드와 같이 중첩 리스트(2차원 구조) 환경에서 아우터 기준의 `in` 연산자를 수행했을 때 파이썬 엔진이 도출하는 인식 결과는 무엇인가요?\n\n```python\nnested = [[1, 2], [3, 4]]\nprint(1 in nested, [1, 2] in nested)\n```",
       "choices": [
         "A. False True",
         "B. True True",
@@ -2103,7 +2103,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 특정 수치가 포함되지 않았음을 판별하는 `not in` 연산 구조의 최종 정답 판단 레이아웃을 고르세요.\n\npoints = [10, 20, 30]\nprint(50 not in points)",
+      "question": "다음 특정 수치가 포함되지 않았음을 판별하는 `not in` 연산 구조의 최종 정답 판단 레이아웃을 고르세요.\n\n```python\npoints = [10, 20, 30]\nprint(50 not in points)\n```",
       "choices": [
         "A. True",
         "B. False",
@@ -2126,7 +2126,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 `count()` 메서드 조작 시, 리스트 내부에 전혀 매칭되지 않는 없는 값을 주어 개수를 세라고 지시했을 때 도출되는 안전 반환 정수는 얼마인가요?\n\nlevels = ['초급', '중급']\nprint(levels.count('고급'))",
+      "question": "다음과 같이 `count()` 메서드 조작 시, 리스트 내부에 전혀 매칭되지 않는 없는 값을 주어 개수를 세라고 지시했을 때 도출되는 안전 반환 정수는 얼마인가요?\n\n```python\nlevels = ['초급', '중급']\nprint(levels.count('고급'))\n```",
       "choices": [
         "A. 0",
         "B. None",
@@ -2149,7 +2149,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 리스트 내 데이터 위치 검색 소스코드 구동 시, 반환되는 두 인덱스 정수의 곱셈 연산 결과값을 계산해 보세요.\n\ncolors = ['빨강', '파랑', '노랑']\nresult = colors.index('파랑') * colors.index('노랑')\nprint(result)",
+      "question": "다음 리스트 내 데이터 위치 검색 소스코드 구동 시, 반환되는 두 인덱스 정수의 곱셈 연산 결과값을 계산해 보세요.\n\n```python\ncolors = ['빨강', '파랑', '노랑']\nresult = colors.index('파랑') * colors.index('노랑')\nprint(result)\n```",
       "choices": [
         "A. 2",
         "B. 0",
@@ -2195,7 +2195,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 복수 원소를 순회 조건 필터로 장착한 텍스트 기반 탐색 구문의 출력 결과를 선택하세요.\n\ntargets = ['로봇', '위저드']\nteam = ['슬라임', '로봇']\nfor t in targets:\n    if t in team:\n        print(t)",
+      "question": "다음과 같이 복수 원소를 순회 조건 필터로 장착한 텍스트 기반 탐색 구문의 출력 결과를 선택하세요.\n\n```python\ntargets = ['로봇', '위저드']\nteam = ['슬라임', '로봇']\nfor t in targets:\n    if t in team:\n        print(t)\n```",
       "choices": [
         "A. 로봇",
         "B. 위저드",
@@ -2218,7 +2218,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드와 같이 안전한 탐색 조건문(`if ... in`) 우회 장치 없이, 무단으로 부재하는 대상을 `index()`로 가동시켰을 때 발생하는 결함을 방어하는 논리 구조의 아웃풋 스냅샷을 고르세요.\n\nbackpack = ['검', '방패']\nif '물약' in backpack:\n    print(backpack.index('물약'))\nelse:\n    print('인벤토리에 물약이 없습니다.')",
+      "question": "다음 코드와 같이 안전한 탐색 조건문(`if ... in`) 우회 장치 없이, 무단으로 부재하는 대상을 `index()`로 가동시켰을 때 발생하는 결함을 방어하는 논리 구조의 아웃풋 스냅샷을 고르세요.\n\n```python\nbackpack = ['검', '방패']\nif '물약' in backpack:\n    print(backpack.index('물약'))\nelse:\n    print('인벤토리에 물약이 없습니다.')\n```",
       "choices": [
         "A. 인벤토리에 물약이 없습니다.",
         "B. 값 에러(ValueError)를 발생시키며 멈춘다.",
@@ -2241,7 +2241,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 복합 가산형 수량 탐색 스크립트가 연산 창에 기록해 올리는 최종 결합 정수를 계산하여 도출해 보세요.\n\nbox = [7, 8, 9, 8, 8]\nval = 8\naccumulate = box.count(val) * box.index(val)\nprint(accumulate)",
+      "question": "다음 복합 가산형 수량 탐색 스크립트가 연산 창에 기록해 올리는 최종 결합 정수를 계산하여 도출해 보세요.\n\n```python\nbox = [7, 8, 9, 8, 8]\nval = 8\naccumulate = box.count(val) * box.index(val)\nprint(accumulate)\n```",
       "choices": [
         "A. 3",
         "B. 6",
@@ -2264,7 +2264,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 숫자 형태를 띤 '문자열 숫자(예: '10')'와 '실제 숫자 정수(예: 10)' 간의 데이터 탐색 시, 파이썬 리스트 엔진의 엄격한 상이 기밀 자료형 대조 판정 결과를 파악해 보세요.\n\nmix_data = [10, 20, '30', 40]\nprint('10' in mix_data, 30 in mix_data)",
+      "question": "다음과 같이 숫자 형태를 띤 '문자열 숫자(예: '10')'와 '실제 숫자 정수(예: 10)' 간의 데이터 탐색 시, 파이썬 리스트 엔진의 엄격한 상이 기밀 자료형 대조 판정 결과를 파악해 보세요.\n\n```python\nmix_data = [10, 20, '30', 40]\nprint('10' in mix_data, 30 in mix_data)\n```",
       "choices": [
         "A. False False",
         "B. True True",
@@ -2287,7 +2287,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 내부 깊숙이 격리 매장된 2차원 중첩 자식 요소를 상대로 최외곽 1차원 베이스 라인 단위에서 단순 `in` 연산 탐색 필터를 주입했을 때 도출되는 파이썬의 조건 판정 결과는 무엇인가요?\n\ndata_layer = ['A', ['B', 'C']]\nprint('B' in data_layer, 'B' in data_layer[1])",
+      "question": "다음과 같이 내부 깊숙이 격리 매장된 2차원 중첩 자식 요소를 상대로 최외곽 1차원 베이스 라인 단위에서 단순 `in` 연산 탐색 필터를 주입했을 때 도출되는 파이썬의 조건 판정 결과는 무엇인가요?\n\n```python\ndata_layer = ['A', ['B', 'C']]\nprint('B' in data_layer, 'B' in data_layer[1])\n```",
       "choices": [
         "A. False True",
         "B. True True",
@@ -2333,7 +2333,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 복합 처리 코드의 실행 결과 최종적으로 화면에 출력되는 정수는 무엇인가요?\n\nnums = [1, 2]\nnums.append(3)\nprint(len(nums))",
+      "question": "다음 복합 처리 코드의 실행 결과 최종적으로 화면에 출력되는 정수는 무엇인가요?\n\n```python\nnums = [1, 2]\nnums.append(3)\nprint(len(nums))\n```",
       "choices": [
         "A. 3",
         "B. 2",
@@ -2356,7 +2356,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 리스트 가공 메서드인 `append()`와 `pop()`이 연속으로 호출되었을 때의 최종 연산 상태를 고르세요.\n\nbox = ['A', 'B']\nbox.append('C')\nbox.pop(0)\nprint(box)",
+      "question": "다음과 같이 리스트 가공 메서드인 `append()`와 `pop()`이 연속으로 호출되었을 때의 최종 연산 상태를 고르세요.\n\n```python\nbox = ['A', 'B']\nbox.append('C')\nbox.pop(0)\nprint(box)\n```",
       "choices": [
         "A. ['B', 'C']",
         "B. ['A', 'B']",
@@ -2379,7 +2379,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 조건 제어문 필터와 탐색 연산이 혼합 적용된 종합 실습 스크립트의 실행 출력 결과는 무엇인가요?\n\nbackpack = ['검', '방패']\nif '물약' not in backpack:\n    backpack.append('물약')\nprint(backpack)",
+      "question": "다음 조건 제어문 필터와 탐색 연산이 혼합 적용된 종합 실습 스크립트의 실행 출력 결과는 무엇인가요?\n\n```python\nbackpack = ['검', '방패']\nif '물약' not in backpack:\n    backpack.append('물약')\nprint(backpack)\n```",
       "choices": [
         "A. ['검', '방패', '물약']",
         "B. ['검', '방패']",
@@ -2402,7 +2402,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 수치 리스트 내부의 원소를 오름차순 정렬한 뒤 맨 마지막 요소를 가리켰을 때 도출되는 값은 무엇인가요?\n\npoints = [40, 10, 30, 20]\npoints.sort()\nprint(points[-1])",
+      "question": "다음 수치 리스트 내부의 원소를 오름차순 정렬한 뒤 맨 마지막 요소를 가리켰을 때 도출되는 값은 무엇인가요?\n\n```python\npoints = [40, 10, 30, 20]\npoints.sort()\nprint(points[-1])\n```",
       "choices": [
         "A. 40",
         "B. 10",
@@ -2425,7 +2425,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 슬라이싱 기능과 누적 합산 내장 함수가 결합한 복합 수식 코드의 실행 최종 결과 정수를 계산하세요.\n\ndata = [10, 20, 30, 40, 50]\nresult = sum(data[1:4])\nprint(result)",
+      "question": "다음 슬라이싱 기능과 누적 합산 내장 함수가 결합한 복합 수식 코드의 실행 최종 결과 정수를 계산하세요.\n\n```python\ndata = [10, 20, 30, 40, 50]\nresult = sum(data[1:4])\nprint(result)\n```",
       "choices": [
         "A. 90",
         "B. 140",
@@ -2448,7 +2448,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 반복문(for 문) 흐름 내부에서 조건에 맞춰 리스트 요소를 삽입 및 연산하는 종합 알고리즘의 실행 결과를 고르세요.\n\nnums = [10, 30]\nfor n in nums:\n    if n == 10:\n        nums.insert(1, 20)\nprint(nums.index(30))",
+      "question": "다음 반복문(for 문) 흐름 내부에서 조건에 맞춰 리스트 요소를 삽입 및 연산하는 종합 알고리즘의 실행 결과를 고르세요.\n\n```python\nnums = [10, 30]\nfor n in nums:\n    if n == 10:\n        nums.insert(1, 20)\nprint(nums.index(30))\n```",
       "choices": [
         "A. 2",
         "B. 1",
@@ -2471,7 +2471,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 비파괴 안전 복사본을 리턴해주는 `sorted()` 내장 함수와 변수 공유(얕은 복사) 개념이 복합적으로 얽힌 고난도 함정 문제의 출력 결과를 연산해 보세요.\n\norigin = [5, 2, 8]\nclone = origin\nresult = sorted(clone)\nclone.append(1)\nprint(origin)",
+      "question": "다음 비파괴 안전 복사본을 리턴해주는 `sorted()` 내장 함수와 변수 공유(얕은 복사) 개념이 복합적으로 얽힌 고난도 함정 문제의 출력 결과를 연산해 보세요.\n\n```python\norigin = [5, 2, 8]\nclone = origin\nresult = sorted(clone)\nclone.append(1)\nprint(origin)\n```",
       "choices": [
         "A. [5, 2, 8, 1]",
         "B. [2, 5, 8]",
@@ -2494,7 +2494,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 2차원 중첩 매트릭스 배열 형태를 타겟으로 동작 조건을 부여한 탐색 및 통계 수식의 최종 반환 결과를 연산하여 맞추세요.\n\nmatrix = [[10, 20], [30, 40]]\nsum_val = 0\nfor row in matrix:\n    if 10 in row or 40 in row:\n        sum_val = sum_val + sum(row)\nprint(sum_val)",
+      "question": "다음 2차원 중첩 매트릭스 배열 형태를 타겟으로 동작 조건을 부여한 탐색 및 통계 수식의 최종 반환 결과를 연산하여 맞추세요.\n\n```python\nmatrix = [[10, 20], [30, 40]]\nsum_val = 0\nfor row in matrix:\n    if 10 in row or 40 in row:\n        sum_val = sum_val + sum(row)\nprint(sum_val)\n```",
       "choices": [
         "A. 100",
         "B. 30",
@@ -2563,7 +2563,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 소스코드의 종합 누적 가산 처리 결과를 추적하여 화면 창에 찍힐 최종 숫자를 고르세요.\n\nlevels = [10, 20]\nlevels.clear()\nlevels.append(5)\nprint(sum(levels))",
+      "question": "다음 파이썬 소스코드의 종합 누적 가산 처리 결과를 추적하여 화면 창에 찍힐 최종 숫자를 고르세요.\n\n```python\nlevels = [10, 20]\nlevels.clear()\nlevels.append(5)\nprint(sum(levels))\n```",
       "choices": [
         "A. 5",
         "B. 30",
@@ -2586,7 +2586,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 쪼개어 이어붙이기 전용 확장 메서드인 `extend()` 가동 구문 실행 후, 리스트 내부의 최종 개수 변동 상태를 고르세요.\n\ncontainer = ['A', 'B']\ncontainer.extend(['C', 'D'])\nprint(len(container))",
+      "question": "다음 쪼개어 이어붙이기 전용 확장 메서드인 `extend()` 가동 구문 실행 후, 리스트 내부의 최종 개수 변동 상태를 고르세요.\n\n```python\ncontainer = ['A', 'B']\ncontainer.extend(['C', 'D'])\nprint(len(container))\n```",
       "choices": [
         "A. 4",
         "B. 2",
@@ -2609,7 +2609,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 조건문 필터 장치와 위치 인덱싱 삭제 명령어인 `pop()`이 조합 연계된 종합 실습 코드를 가동 시 출력 결과를 맞추세요.\n\nskills = ['불', '물']\nif '물' in skills:\n    skills.pop(1)\nprint(skills)",
+      "question": "다음 조건문 필터 장치와 위치 인덱싱 삭제 명령어인 `pop()`이 조합 연계된 종합 실습 코드를 가동 시 출력 결과를 맞추세요.\n\n```python\nskills = ['불', '물']\nif '물' in skills:\n    skills.pop(1)\nprint(skills)\n```",
       "choices": [
         "A. ['불']",
         "B. ['물']",
@@ -2632,7 +2632,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 영문 단어 텍스트 배열 상태에서 오름차순 사전순 정렬을 실행한 후, 가장 첫머리 0번방 데이터를 노출시켰을 때 반환값은 무엇인가요?\n\nmonsters = ['slime', 'robot', 'ghost']\nmonsters.sort()\nprint(monsters[0])",
+      "question": "다음과 같이 영문 단어 텍스트 배열 상태에서 오름차순 사전순 정렬을 실행한 후, 가장 첫머리 0번방 데이터를 노출시켰을 때 반환값은 무엇인가요?\n\n```python\nmonsters = ['slime', 'robot', 'ghost']\nmonsters.sort()\nprint(monsters[0])\n```",
       "choices": [
         "A. ghost",
         "B. robot",
@@ -2655,7 +2655,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 슬라이싱 범위 추출 테크닉과 낱개 원소 누적 빈도 측정 메서드인 `count()`가 혼합 배치된 연산 스크립트 실행의 정답을 고르세요.\n\nbox_data = ['A', 'B', 'B', 'A', 'C']\nsub_slice = box_data[:3]\nprint(sub_slice.count('B'))",
+      "question": "다음 슬라이싱 범위 추출 테크닉과 낱개 원소 누적 빈도 측정 메서드인 `count()`가 혼합 배치된 연산 스크립트 실행의 정답을 고르세요.\n\n```python\nbox_data = ['A', 'B', 'B', 'A', 'C']\nsub_slice = box_data[:3]\nprint(sub_slice.count('B'))\n```",
       "choices": [
         "A. 2",
         "B. 1",
@@ -2678,7 +2678,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 카운터 가산 처리 루프 제어 흐름 내부에 동적 소거 기법인 `pop(0)` 연산이 가동되도록 복합 설계된 종합 문항의 최종 도출 변수 `accumulate` 데이터를 계산해 내세요.\n\nscores = [10, 20, 30]\naccumulate = 0\nfor s in scores:\n    if len(scores) > 1:\n        accumulate = accumulate + scores.pop(0)\nprint(accumulate)",
+      "question": "다음 카운터 가산 처리 루프 제어 흐름 내부에 동적 소거 기법인 `pop(0)` 연산이 가동되도록 복합 설계된 종합 문항의 최종 도출 변수 `accumulate` 데이터를 계산해 내세요.\n\n```python\nscores = [10, 20, 30]\naccumulate = 0\nfor s in scores:\n    if len(scores) > 1:\n        accumulate = accumulate + scores.pop(0)\nprint(accumulate)\n```",
       "choices": [
         "A. 30",
         "B. 10",
@@ -2701,7 +2701,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 전체 슬라이싱 복사 전개법 `[:]`을 적용해 원본 안전지대를 확보하는 기법과 강제 수정 및 역순 배치 메서드가 맞물려 돌아가는 가공 스크립트 실행의 결과 변수 `box_1`의 잔존 가치를 추적해 보세요.\n\nbox_1 = [7, 9, 8]\nbox_2 = box_1[:]\nbox_2.sort()\nbox_2.reverse()\nprint(box_1)",
+      "question": "다음 전체 슬라이싱 복사 전개법 `[:]`을 적용해 원본 안전지대를 확보하는 기법과 강제 수정 및 역순 배치 메서드가 맞물려 돌아가는 가공 스크립트 실행의 결과 변수 `box_1`의 잔존 가치를 추적해 보세요.\n\n```python\nbox_1 = [7, 9, 8]\nbox_2 = box_1[:]\nbox_2.sort()\nbox_2.reverse()\nprint(box_1)\n```",
       "choices": [
         "A. [7, 9, 8]",
         "B. [9, 8, 7]",
@@ -2724,7 +2724,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 데이터 수치 크기가 같아 보이는 이종 호환 불능 자료형인 따옴표 묶음 '문자열 숫자'와 '순수 수치 정수형'이 복합적으로 엮인 탐색 구조의 종합 통계 연산 최종 마크 결과 정수를 계산해 보세요.\n\nmix_pool = [5, '10', 10, 5]\ntotal_score = 0\nif '5' not in mix_pool:\n    total_score = total_score + mix_pool.count(5) * mix_pool.index(10)\nprint(total_score)",
+      "question": "다음과 같이 데이터 수치 크기가 같아 보이는 이종 호환 불능 자료형인 따옴표 묶음 '문자열 숫자'와 '순수 수치 정수형'이 복합적으로 엮인 탐색 구조의 종합 통계 연산 최종 마크 결과 정수를 계산해 보세요.\n\n```python\nmix_pool = [5, '10', 10, 5]\ntotal_score = 0\nif '5' not in mix_pool:\n    total_score = total_score + mix_pool.count(5) * mix_pool.index(10)\nprint(total_score)\n```",
       "choices": [
         "A. 4",
         "B. 0",
@@ -2747,7 +2747,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 부모 리스트와 내부 자식 2차원 리스트 레이어가 복합 체이닝 중첩 결합 연동된 환경에서, 인덱싱 슬라이싱을 복합 주입시킨 최종 아웃풋 출력 형태 레이아웃 사양을 고르세요.\n\ndata_matrix = [['A', 'B'], ['C', 'D'], ['E', 'F']]\nresult_slice = data_matrix[1:]\nprint(result_slice[0][1])",
+      "question": "다음과 같이 부모 리스트와 내부 자식 2차원 리스트 레이어가 복합 체이닝 중첩 결합 연동된 환경에서, 인덱싱 슬라이싱을 복합 주입시킨 최종 아웃풋 출력 형태 레이아웃 사양을 고르세요.\n\n```python\ndata_matrix = [['A', 'B'], ['C', 'D'], ['E', 'F']]\nresult_slice = data_matrix[1:]\nprint(result_slice[0][1])\n```",
       "choices": [
         "A. D",
         "B. B",
@@ -2793,7 +2793,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 복합 처리 구문을 연산했을 때 화면에 출력되는 최종 숫자는 무엇인가요?\n\npoints = [10, 20]\npoints.append(30)\nprint(points[1])",
+      "question": "다음 복합 처리 구문을 연산했을 때 화면에 출력되는 최종 숫자는 무엇인가요?\n\n```python\npoints = [10, 20]\npoints.append(30)\nprint(points[1])\n```",
       "choices": [
         "A. 20",
         "B. 10",
@@ -2816,7 +2816,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드와 같이 순치 리스트 확장 연산과 슬라이싱 기법이 연계 구동되었을 때 최종 도출되는 리스트 구조는 무엇인가요?\n\nbase = [1, 2]\nbase.extend([3, 4, 5])\nprint(base[1:4])",
+      "question": "다음 코드와 같이 순치 리스트 확장 연산과 슬라이싱 기법이 연계 구동되었을 때 최종 도출되는 리스트 구조는 무엇인가요?\n\n```python\nbase = [1, 2]\nbase.extend([3, 4, 5])\nprint(base[1:4])\n```",
       "choices": [
         "A. [2, 3, 4]",
         "B. [1, 2, 3]",
@@ -2839,7 +2839,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 조건 제어 플래그와 동적 삭제 명령어인 remove()가 조합 연쇄 결합된 종합 코드의 실행 결과를 고르세요.\n\nmonsters = ['로봇', '슬라임', '로봇']\nif monsters.count('로봇') >= 2:\n    monsters.remove('로봇')\nprint(monsters)",
+      "question": "다음 조건 제어 플래그와 동적 삭제 명령어인 remove()가 조합 연쇄 결합된 종합 코드의 실행 결과를 고르세요.\n\n```python\nmonsters = ['로봇', '슬라임', '로봇']\nif monsters.count('로봇') >= 2:\n    monsters.remove('로봇')\nprint(monsters)\n```",
       "choices": [
         "A. ['슬라임', '로봇']",
         "B. ['로봇', '슬라임']",
@@ -2862,7 +2862,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음과 같이 수치 크기 오름차순 정렬과 누적 빈도 탐색 메서드가 한데 묶인 응용 스크립트 실행 시의 결과를 고르세요.\n\ndata_box = [9, 3, 7, 3]\ndata_box.sort()\nprint(data_box.index(3))",
+      "question": "다음과 같이 수치 크기 오름차순 정렬과 누적 빈도 탐색 메서드가 한데 묶인 응용 스크립트 실행 시의 결과를 고르세요.\n\n```python\ndata_box = [9, 3, 7, 3]\ndata_box.sort()\nprint(data_box.index(3))\n```",
       "choices": [
         "A. 0",
         "B. 1",
@@ -2885,7 +2885,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 복합 합산 통계 알고리즘 수식 결과 도출창에 인쇄 기록되는 변수 final_score 값을 맞추세요.\n\nscores = [10, 5, 15]\nfinal_score = sum(scores) - len(scores) * scores[0]\nprint(final_score)",
+      "question": "다음 복합 합산 통계 알고리즘 수식 결과 도출창에 인쇄 기록되는 변수 final_score 값을 맞추세요.\n\n```python\nscores = [10, 5, 15]\nfinal_score = sum(scores) - len(scores) * scores[0]\nprint(final_score)\n```",
       "choices": [
         "A. 0",
         "B. 10",
@@ -2908,7 +2908,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 for 반복 조건식 루프 순회 과정 도중, 가공 메서드인 pop()이 함께 톱니바퀴처럼 연동 작동하는 종합 실습 코드의 최종 출력창 레이아웃을 계산해 내세요.\n\nitems = ['A', 'B', 'C']\naccumulate_str = ''\nfor x in items:\n    if 'C' in items:\n        accumulate_str = accumulate_str + items.pop()\nprint(accumulate_str)",
+      "question": "다음 for 반복 조건식 루프 순회 과정 도중, 가공 메서드인 pop()이 함께 톱니바퀴처럼 연동 작동하는 종합 실습 코드의 최종 출력창 레이아웃을 계산해 내세요.\n\n```python\nitems = ['A', 'B', 'C']\naccumulate_str = ''\nfor x in items:\n    if 'C' in items:\n        accumulate_str = accumulate_str + items.pop()\nprint(accumulate_str)\n```",
       "choices": [
         "A. CBA",
         "B. CB",
@@ -2931,7 +2931,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 전체 영역 지정 슬라이싱 독립 복사 전개법 [:]과 인플레이스 정렬 메서드가 비대칭으로 결합한 함정 문항의 변수 origin_list 아웃풋을 고르세요.\n\norigin_list = [8, 4, 6]\nclone_list = origin_list[:]\nclone_list.sort()\nclone_list.append(10)\nprint(origin_list)",
+      "question": "다음 전체 영역 지정 슬라이싱 독립 복사 전개법 [:]과 인플레이스 정렬 메서드가 비대칭으로 결합한 함정 문항의 변수 origin_list 아웃풋을 고르세요.\n\n```python\norigin_list = [8, 4, 6]\nclone_list = origin_list[:]\nclone_list.sort()\nclone_list.append(10)\nprint(origin_list)\n```",
       "choices": [
         "A. [8, 4, 6]",
         "B. [4, 6, 8]",
@@ -2954,7 +2954,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 2차원 매트릭스 중첩 구조의 공간 내부에 in 멤버십 필터 검색 엔진과 sum() 종합 누적 합산 로직을 동시에 관통시킨 종합 실습 스크립트 연산의 결과를 맞추세요.\n\ndata_layer = [[10, 5], [20, 30], [5, 40]]\ntotal_sum = 0\nfor child in data_layer:\n    if 5 in child:\n        total_sum = total_sum + sum(child)\nprint(total_sum)",
+      "question": "다음 2차원 매트릭스 중첩 구조의 공간 내부에 in 멤버십 필터 검색 엔진과 sum() 종합 누적 합산 로직을 동시에 관통시킨 종합 실습 스크립트 연산의 결과를 맞추세요.\n\n```python\ndata_layer = [[10, 5], [20, 30], [5, 40]]\ntotal_sum = 0\nfor child in data_layer:\n    if 5 in child:\n        total_sum = total_sum + sum(child)\nprint(total_sum)\n```",
       "choices": [
         "A. 60",
         "B. 15",
@@ -3023,7 +3023,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 복합 처리 제어 스크립트 가동 시 도출되는 최종 연산 아웃풋 정수를 맞추세요.\n\ncontainer = [7, 8, 9]\ncontainer.clear()\ncontainer.append(100)\nprint(len(container))",
+      "question": "다음 복합 처리 제어 스크립트 가동 시 도출되는 최종 연산 아웃풋 정수를 맞추세요.\n\n```python\ncontainer = [7, 8, 9]\ncontainer.clear()\ncontainer.append(100)\nprint(len(container))\n```",
       "choices": [
         "A. 1",
         "B. 3",
@@ -3046,7 +3046,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 알맹이 쪼개어 붙이기 가공의 메서드인 extend()가 실행된 이후의 최종 도출 레이아웃을 예측하세요.\n\nbag_pack = ['X']\nbag_pack.extend(['Y', 'Z'])\nprint(bag_pack)",
+      "question": "다음과 같이 알맹이 쪼개어 붙이기 가공의 메서드인 extend()가 실행된 이후의 최종 도출 레이아웃을 예측하세요.\n\n```python\nbag_pack = ['X']\nbag_pack.extend(['Y', 'Z'])\nprint(bag_pack)\n```",
       "choices": [
         "A. ['X', 'Y', 'Z']",
         "B. ['X', ['Y', 'Z']]",
@@ -3069,7 +3069,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 멤버십 검사식과 특정 방 번호 끄집어내기 삭제 명령어 pop(0)이 연동 가동된 종합 코드의 실행 결과를 고르세요.\n\nskills = ['불', '물']\nif '불' in skills:\n    skills.pop(0)\nprint(skills)",
+      "question": "다음 멤버십 검사식과 특정 방 번호 끄집어내기 삭제 명령어 pop(0)이 연동 가동된 종합 코드의 실행 결과를 고르세요.\n\n```python\nskills = ['불', '물']\nif '불' in skills:\n    skills.pop(0)\nprint(skills)\n```",
       "choices": [
         "A. ['물']",
         "B. ['불']",
@@ -3092,7 +3092,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 영문 명칭 원소 세트들을 상대로 오름차순 알파벳 사전순 정렬을 실행한 직후, 맨 뒤 음수 인덱스([-1]) 자리를 호출 출력했을 때의 결과는 무엇인가요?\n\nmonsters = ['slime', 'robot', 'ghost']\nmonsters.sort()\nprint(monsters[-1])",
+      "question": "다음 영문 명칭 원소 세트들을 상대로 오름차순 알파벳 사전순 정렬을 실행한 직후, 맨 뒤 음수 인덱스([-1]) 자리를 호출 출력했을 때의 결과는 무엇인가요?\n\n```python\nmonsters = ['slime', 'robot', 'ghost']\nmonsters.sort()\nprint(monsters[-1])\n```",
       "choices": [
         "A. slime",
         "B. robot",
@@ -3115,7 +3115,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 슬라이싱 범위 발췌 조건과 요소 출현 빈도수 측정 메서드인 count()가 혼합 매칭된 연산 처리 아웃풋을 계산하세요.\n\ndata_pool = [7, 8, 8, 7, 9]\nslice_part = data_pool[1:4]\nprint(slice_part.count(7))",
+      "question": "다음 슬라이싱 범위 발췌 조건과 요소 출현 빈도수 측정 메서드인 count()가 혼합 매칭된 연산 처리 아웃풋을 계산하세요.\n\n```python\ndata_pool = [7, 8, 8, 7, 9]\nslice_part = data_pool[1:4]\nprint(slice_part.count(7))\n```",
       "choices": [
         "A. 1",
         "B. 2",
@@ -3138,7 +3138,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 카운터 가산 처리 루프 제어 흐름 내부에 동적 소거 기법인 pop(0) 연산이 가동되도록 복합 설계된 종합 문항의 최종 도출 변수 total_accumulate 데이터를 계산해 내세요.\n\nnums = [10, 20, 30]\ntotal_accumulate = 0\nfor n in nums:\n    if len(nums) > 1:\n        total_accumulate = total_accumulate + nums.pop(0)\nprint(total_accumulate)",
+      "question": "다음 카운터 가산 처리 루프 제어 흐름 내부에 동적 소거 기법인 pop(0) 연산이 가동되도록 복합 설계된 종합 문항의 최종 도출 변수 total_accumulate 데이터를 계산해 내세요.\n\n```python\nnums = [10, 20, 30]\ntotal_accumulate = 0\nfor n in nums:\n    if len(nums) > 1:\n        total_accumulate = total_accumulate + nums.pop(0)\nprint(total_accumulate)\n```",
       "choices": [
         "A. 30",
         "B. 10",
@@ -3161,7 +3161,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 전체 콜론 슬라이싱 복제 방식 [:]을 적용하여 격리막을 형성하는 소스코드의 런타임 결과 스냅샷 중 원본 변수 box_origin의 최후 상태 양식을 맞추세요.\n\nbox_origin = [9, 5, 7]\nbox_clone = box_origin[:]\nbox_clone.sort()\nbox_clone.reverse()\nprint(box_origin)",
+      "question": "다음 전체 콜론 슬라이싱 복제 방식 [:]을 적용하여 격리막을 형성하는 소스코드의 런타임 결과 스냅샷 중 원본 변수 box_origin의 최후 상태 양식을 맞추세요.\n\n```python\nbox_origin = [9, 5, 7]\nbox_clone = box_origin[:]\nbox_clone.sort()\nbox_clone.reverse()\nprint(box_origin)\n```",
       "choices": [
         "A. [9, 5, 7]",
         "B. [9, 7, 5]",
@@ -3184,7 +3184,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 값의 부호 외형은 같아 보여도 자료 규격 형태가 모순 이탈하는 '문자열 수치'와 '순수 정수형' 데이터 타입이 혼화 연동된 서치 통계 알고리즘 수식의 최종 아웃풋 정수를 계산하세요.\n\nmix_pool = [7, '20', 20, 7]\nscore_accumulate = 0\nif '7' not in mix_pool:\n    score_accumulate = score_accumulate + mix_pool.count(7) * mix_pool.index(20)\nprint(score_accumulate)",
+      "question": "다음 값의 부호 외형은 같아 보여도 자료 규격 형태가 모순 이탈하는 '문자열 수치'와 '순수 정수형' 데이터 타입이 혼화 연동된 서치 통계 알고리즘 수식의 최종 아웃풋 정수를 계산하세요.\n\n```python\nmix_pool = [7, '20', 20, 7]\nscore_accumulate = 0\nif '7' not in mix_pool:\n    score_accumulate = score_accumulate + mix_pool.count(7) * mix_pool.index(20)\nprint(score_accumulate)\n```",
       "choices": [
         "A. 4",
         "B. 0",
@@ -3207,7 +3207,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음과 같이 부모 행렬 레이어 우측단에 범위 슬라이싱 컷을 얹은 뒤, 자식 어레이 경로 인덱싱 접근법을 융합 단행한 다차원 구조 분석 코드의 최종 정답 글자를 도출하세요.\n\nmatrix_data = [['A', 'B'], ['C', 'D'], ['E', 'F']]\ncut_part = matrix_data[1:]\nprint(cut_part[0][1])",
+      "question": "다음과 같이 부모 행렬 레이어 우측단에 범위 슬라이싱 컷을 얹은 뒤, 자식 어레이 경로 인덱싱 접근법을 융합 단행한 다차원 구조 분석 코드의 최종 정답 글자를 도출하세요.\n\n```python\nmatrix_data = [['A', 'B'], ['C', 'D'], ['E', 'F']]\ncut_part = matrix_data[1:]\nprint(cut_part[0][1])\n```",
       "choices": [
         "A. D",
         "B. B",

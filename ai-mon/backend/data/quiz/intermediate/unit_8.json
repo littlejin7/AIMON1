@@ -10,7 +10,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "API를 사용하려면 먼저 requests 라이브러리를 가져와야 해요. 빈 칸을 채우세요.\n\n_____ requests\nresponse = requests.get('https://api.example.com/data')",
+      "question": "API를 사용하려면 먼저 requests 라이브러리를 가져와야 해요. 빈 칸을 채우세요.\n\n```python\n_____ requests\nresponse = requests.get('https://api.example.com/data')\n```",
       "answer": "import",
       "hint": "파이썬 라이브러리를 사용하려면 import 키워드가 필요해요.",
       "feedback": {
@@ -27,7 +27,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드에서 API 서버로부터 데이터를 받을 때 사용하는 메서드는 무엇인가요?\n\nimport requests\nurl = 'https://api.example.com/users'\nresponse = requests.get(url)\nprint(response.status_code)",
+      "question": "다음 코드에서 API 서버로부터 데이터를 받을 때 사용하는 메서드는 무엇인가요?\n\n```python\nimport requests\nurl = 'https://api.example.com/users'\nresponse = requests.get(url)\nprint(response.status_code)\n```",
       "choices": [
         "A. get",
         "B. post",
@@ -50,7 +50,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "API 응답은 보통 JSON 형식이에요. 응답을 파이썬 딕셔너리로 변환합니다.\n\nimport requests\nresponse = requests.get('https://api.example.com/user/1')\ndata = response._____( )\nprint(data['name'])",
+      "question": "API 응답은 보통 JSON 형식이에요. 응답을 파이썬 딕셔너리로 변환합니다.\n\n```python\nimport requests\nresponse = requests.get('https://api.example.com/user/1')\ndata = response._____( )\nprint(data['name'])\n```",
       "answer": "json",
       "hint": ".json() 메서드는 JSON 형식의 응답을 파이썬 딕셔너리로 변환해요.",
       "feedback": {
@@ -67,7 +67,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "API 요청이 성공했는지 상태 코드로 확인합니다. 다음 중 성공을 의미하는 상태 코드는?\n\nimport requests\nresponse = requests.get('https://api.example.com/data')\nif response.status_code == _____:\n    print('요청 성공!')",
+      "question": "API 요청이 성공했는지 상태 코드로 확인합니다. 다음 중 성공을 의미하는 상태 코드는?\n\n```python\nimport requests\nresponse = requests.get('https://api.example.com/data')\nif response.status_code == _____:\n    print('요청 성공!')\n```",
       "choices": [
         "A. 500",
         "B. 404",
@@ -90,7 +90,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "초급의 딕셔너리처럼 API에 데이터를 보낼 수 있어요. POST 요청으로 새로운 데이터를 생성합니다.\n\nimport requests\ndata = {'name': 'John', 'age': 30}\nresponse = requests.post('https://api.example.com/users', json=_____)\nprint(response.status_code)",
+      "question": "초급의 딕셔너리처럼 API에 데이터를 보낼 수 있어요. POST 요청으로 새로운 데이터를 생성합니다.\n\n```python\nimport requests\ndata = {'name': 'John', 'age': 30}\nresponse = requests.post('https://api.example.com/users', json=_____)\nprint(response.status_code)\n```",
       "answer": "data",
       "hint": "json 파라미터에 딕셔너리를 전달하면 자동으로 JSON 형식으로 변환돼요.",
       "feedback": {
@@ -107,7 +107,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "API 응답 중 특정 필드에 접근합니다. 다음 코드의 결과는?\n\nimport requests\nresponse_data = {'user': {'name': 'Alice', 'id': 123}, 'status': 'active'}\nprint(response_data['user']['name'])",
+      "question": "API 응답 중 특정 필드에 접근합니다. 다음 코드의 결과는?\n\n```python\nimport requests\nresponse_data = {'user': {'name': 'Alice', 'id': 123}, 'status': 'active'}\nprint(response_data['user']['name'])\n```",
       "choices": [
         "A. (에러 발생)",
         "B. {'name': 'Alice', 'id': 123}",
@@ -130,7 +130,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "초급의 for 루프를 사용해서 여러 사용자 정보를 처리합니다.\n\nimport requests\nusers_data = {'users': [{'name': 'John'}, {'name': 'Alice'}, {'name': 'Bob'}]}\nfor user in users_data_____:\n    print(user['name'])",
+      "question": "초급의 for 루프를 사용해서 여러 사용자 정보를 처리합니다.\n\n```python\nimport requests\nusers_data = {'users': [{'name': 'John'}, {'name': 'Alice'}, {'name': 'Bob'}]}\nfor user in users_data_____:\n    print(user['name'])\n```",
       "answer": "['users']",
       "hint": "['users']로 users 리스트를 가져온 후, for 루프로 각 사용자를 처리해요.",
       "feedback": {
@@ -147,7 +147,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport requests\nusers = [{'name': 'John', 'age': 25}, {'name': 'Alice', 'age': 30}, {'name': 'Bob', 'age': 28}]\nfor user in users:\n    if user['age'] >= 30:\n        print(user['name'])",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport requests\nusers = [{'name': 'John', 'age': 25}, {'name': 'Alice', 'age': 30}, {'name': 'Bob', 'age': 28}]\nfor user in users:\n    if user['age'] >= 30:\n        print(user['name'])\n```",
       "choices": [
         "A. John\\nAlice\\nBob",
         "B. John",
@@ -170,7 +170,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "초급의 함수를 사용해서 API 데이터를 처리합니다.\n\nimport requests\ndef process_user_data(data):\n    for user in data['users']:\n        if user.get('active', False):\n            print(user['name'])\n\nusers_data = {'users': [{'name': 'John', 'active': True}, {'name': 'Alice', 'active': False}]}\nprocess_user_data_____",
+      "question": "초급의 함수를 사용해서 API 데이터를 처리합니다.\n\n```python\nimport requests\ndef process_user_data(data):\n    for user in data['users']:\n        if user.get('active', False):\n            print(user['name'])\n```\n\nusers_data = {'users': [{'name': 'John', 'active': True}, {'name': 'Alice', 'active': False}]}\nprocess_user_data_____",
       "answer": "(users_data)",
       "hint": "함수를 호출할 때는 괄호 안에 인자를 전달해요.",
       "feedback": {
@@ -187,7 +187,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nresponse_data = {'data': [10, 20, 30, 40, 50]}\nfor num in response_data['data']:\n    if num > 25:\n        print(num, end=' ')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nresponse_data = {'data': [10, 20, 30, 40, 50]}\nfor num in response_data['data']:\n    if num > 25:\n        print(num, end=' ')\n```",
       "choices": [
         "A. 10 20",
         "B. 30 40 50",
@@ -210,7 +210,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "API 응답이 성공했을 때만 데이터를 처리합니다. 빈 칸을 채우세요.\n\nimport requests\nresponse = requests.get('https://api.example.com/posts')\nif response._____ == 200:\n    posts = response.json()\n    print(f'수신한 게시물: {len(posts)}')",
+      "question": "API 응답이 성공했을 때만 데이터를 처리합니다. 빈 칸을 채우세요.\n\n```python\nimport requests\nresponse = requests.get('https://api.example.com/posts')\nif response._____ == 200:\n    posts = response.json()\n    print(f'수신한 게시물: {len(posts)}')\n```",
       "answer": "status_code",
       "hint": "response.status_code는 HTTP 상태 코드를 담고 있어요.",
       "feedback": {
@@ -227,7 +227,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "API 요청을 보낼 때 추가 정보를 헤더로 전달합니다. 다음 중 맞는 설명은?\n\nimport requests\nheaders = {'Authorization': 'Bearer token123'}\nresponse = requests.get('https://api.example.com/private', headers=headers)",
+      "question": "API 요청을 보낼 때 추가 정보를 헤더로 전달합니다. 다음 중 맞는 설명은?\n\n```python\nimport requests\nheaders = {'Authorization': 'Bearer token123'}\nresponse = requests.get('https://api.example.com/private', headers=headers)\n```",
       "choices": [
         "A. 헤더는 API 서버에 인증 정보를 전달할 때 사용해요",
         "B. 헤더는 응답 데이터의 형식을 결정해요",
@@ -250,7 +250,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "API에 조건을 전달해서 원하는 데이터만 받을 수 있어요. query 파라미터를 사용합니다.\n\nimport requests\nparams = {'page': 1, 'limit': 10}\nresponse = requests.get('https://api.example.com/posts', _____=params)\nposts = response.json()\nprint(f'받은 게시물: {len(posts)}')",
+      "question": "API에 조건을 전달해서 원하는 데이터만 받을 수 있어요. query 파라미터를 사용합니다.\n\n```python\nimport requests\nparams = {'page': 1, 'limit': 10}\nresponse = requests.get('https://api.example.com/posts', _____=params)\nposts = response.json()\nprint(f'받은 게시물: {len(posts)}')\n```",
       "answer": "params",
       "hint": "params 파라미터로 쿼리 문자열을 URL에 추가할 수 있어요.",
       "feedback": {
@@ -267,7 +267,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport requests\napi_response = {\n    'status': 200,\n    'data': {\n        'posts': [\n            {'id': 1, 'title': 'Post 1'},\n            {'id': 2, 'title': 'Post 2'},\n            {'id': 3, 'title': 'Post 3'}\n        ]\n    }\n}\n\nfor post in api_response['data']['posts']:\n    if post['id'] <= 2:\n        print(post['title'])",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport requests\napi_response = {\n    'status': 200,\n    'data': {\n        'posts': [\n            {'id': 1, 'title': 'Post 1'},\n            {'id': 2, 'title': 'Post 2'},\n            {'id': 3, 'title': 'Post 3'}\n        ]\n    }\n}\n\nfor post in api_response['data']['posts']:\n    if post['id'] <= 2:\n        print(post['title'])\n```",
       "choices": [
         "A. Post 1\\nPost 2\\nPost 3",
         "B. Post 3",
@@ -290,7 +290,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "API 응답에 특정 키가 있는지 확인할 수 있어요. .get() 메서드를 사용합니다.\n\nimport requests\nuser_data = {'name': 'John', 'age': 30}\nemail = user_data._____('email', 'not available')\nprint(email)  # not available",
+      "question": "API 응답에 특정 키가 있는지 확인할 수 있어요. .get() 메서드를 사용합니다.\n\n```python\nimport requests\nuser_data = {'name': 'John', 'age': 30}\nemail = user_data._____('email', 'not available')\nprint(email)  # not available\n```",
       "answer": "get",
       "hint": ".get(키, 기본값)은 키가 없으면 기본값을 반환해요.",
       "feedback": {
@@ -307,7 +307,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport requests\nresponse_data = {\n    'users': [\n        {'name': 'Alice', 'role': 'admin'},\n        {'name': 'Bob', 'role': 'user'},\n        {'name': 'Charlie', 'role': 'user'}\n    ]\n}\n\nadmins = [u['name'] for u in response_data['users'] if u['role'] == 'admin']\nprint(admins)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport requests\nresponse_data = {\n    'users': [\n        {'name': 'Alice', 'role': 'admin'},\n        {'name': 'Bob', 'role': 'user'},\n        {'name': 'Charlie', 'role': 'user'}\n    ]\n}\n\nadmins = [u['name'] for u in response_data['users'] if u['role'] == 'admin']\nprint(admins)\n```",
       "choices": [
         "A. ['Alice', 'Bob', 'Charlie']",
         "B. ['Alice']",
@@ -330,7 +330,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "초급의 for 루프로 API 응답 데이터를 새로운 형식으로 변환합니다.\n\nimport requests\nraw_data = {'items': [{'id': 1, 'price': 100}, {'id': 2, 'price': 200}]}\nformatted = []\nfor item in raw_data_____:\n    formatted.append({'product_id': item['id'], 'cost': item['price']})\nprint(formatted)",
+      "question": "초급의 for 루프로 API 응답 데이터를 새로운 형식으로 변환합니다.\n\n```python\nimport requests\nraw_data = {'items': [{'id': 1, 'price': 100}, {'id': 2, 'price': 200}]}\nformatted = []\nfor item in raw_data_____:\n    formatted.append({'product_id': item['id'], 'cost': item['price']})\nprint(formatted)\n```",
       "answer": "['items']",
       "hint": "['items']로 items 리스트를 가져온 후, for 루프로 변환해요.",
       "feedback": {
@@ -347,7 +347,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport requests\ndef get_active_users(data):\n    active = []\n    for user in data['users']:\n        if user.get('active', False):\n            active.append(user['name'])\n    return active\n\napi_data = {\n    'users': [\n        {'name': 'John', 'active': True},\n        {'name': 'Alice', 'active': False},\n        {'name': 'Bob', 'active': True}\n    ]\n}\n\nresult = get_active_users(api_data)\nprint(result)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport requests\ndef get_active_users(data):\n    active = []\n    for user in data['users']:\n        if user.get('active', False):\n            active.append(user['name'])\n    return active\n\napi_data = {\n    'users': [\n        {'name': 'John', 'active': True},\n        {'name': 'Alice', 'active': False},\n        {'name': 'Bob', 'active': True}\n    ]\n}\n\nresult = get_active_users(api_data)\nprint(result)\n```",
       "choices": [
         "A. ['John', 'Alice', 'Bob']",
         "B. ['John', 'Bob']",
@@ -370,7 +370,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "초급의 딕셔너리와 for 루프를 사용해서 API 데이터를 요약합니다.\n\nimport requests\ndata = {'products': [{'name': 'A', 'price': 100}, {'name': 'B', 'price': 200}, {'name': 'C', 'price': 150}]}\ntotal = 0\nfor product in data_____:\n    total += product['price']\nprint(f'총합: {total}')  # 총합: 450",
+      "question": "초급의 딕셔너리와 for 루프를 사용해서 API 데이터를 요약합니다.\n\n```python\nimport requests\ndata = {'products': [{'name': 'A', 'price': 100}, {'name': 'B', 'price': 200}, {'name': 'C', 'price': 150}]}\ntotal = 0\nfor product in data_____:\n    total += product['price']\nprint(f'총합: {total}')  # 총합: 450\n```",
       "answer": "['products']",
       "hint": "['products']로 상품 리스트를 가져온 후, for 루프로 가격을 합산해요.",
       "feedback": {
@@ -387,7 +387,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport requests\napi_response = {\n    'transactions': [\n        {'type': 'income', 'amount': 1000},\n        {'type': 'expense', 'amount': 300},\n        {'type': 'income', 'amount': 500},\n        {'type': 'expense', 'amount': 200}\n    ]\n}\n\nincome_total = sum(t['amount'] for t in api_response['transactions'] if t['type'] == 'income')\nprint(income_total)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport requests\napi_response = {\n    'transactions': [\n        {'type': 'income', 'amount': 1000},\n        {'type': 'expense', 'amount': 300},\n        {'type': 'income', 'amount': 500},\n        {'type': 'expense', 'amount': 200}\n    ]\n}\n\nincome_total = sum(t['amount'] for t in api_response['transactions'] if t['type'] == 'income')\nprint(income_total)\n```",
       "choices": [
         "A. 500",
         "B. 1500",
@@ -410,7 +410,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "API로부터 받은 데이터에서 필수 필드가 있는지 확인합니다. 초급의 if 문으로 검증해요.\n\napi_data = {'name': 'John', 'age': 25}\nif '_____' in api_data:\n    print('name이 있어요')",
+      "question": "API로부터 받은 데이터에서 필수 필드가 있는지 확인합니다. 초급의 if 문으로 검증해요.\n\n```python\napi_data = {'name': 'John', 'age': 25}\nif '_____' in api_data:\n    print('name이 있어요')\n```",
       "answer": "'name'",
       "hint": "딕셔너리에서 키의 존재를 확인하려면 'key' in dict를 사용해요.",
       "feedback": {
@@ -427,7 +427,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\napi_response = [\n    {'name': 'Product A', 'price': 100, 'in_stock': True},\n    {'name': 'Product B', 'price': 50, 'in_stock': False},\n    {'name': 'Product C', 'price': 150, 'in_stock': True}\n]\n\navailable = [p['name'] for p in api_response if p['in_stock']]\nprint(available)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\napi_response = [\n    {'name': 'Product A', 'price': 100, 'in_stock': True},\n    {'name': 'Product B', 'price': 50, 'in_stock': False},\n    {'name': 'Product C', 'price': 150, 'in_stock': True}\n]\n\navailable = [p['name'] for p in api_response if p['in_stock']]\nprint(available)\n```",
       "choices": [
         "A. ['Product A', 'Product C']",
         "B. ['Product A', 'Product B', 'Product C']",
@@ -450,7 +450,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "API로 받은 판매 데이터를 분석해서 총 판매액을 계산합니다.\n\nsales_data = [{'amount': 1000}, {'amount': 2000}, {'amount': 1500}]\ntotal_sales = _____([s['amount'] for s in sales_data])\nprint(total_sales)  # 4500",
+      "question": "API로 받은 판매 데이터를 분석해서 총 판매액을 계산합니다.\n\n```python\nsales_data = [{'amount': 1000}, {'amount': 2000}, {'amount': 1500}]\ntotal_sales = _____([s['amount'] for s in sales_data])\nprint(total_sales)  # 4500\n```",
       "answer": "sum",
       "hint": "sum() 함수는 리스트의 모든 값을 더해요.",
       "feedback": {
@@ -467,7 +467,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nusers = [\n    {'name': 'Alice', 'score': 85},\n    {'name': 'Bob', 'score': 90},\n    {'name': 'Charlie', 'score': 78},\n    {'name': 'David', 'score': 92}\n]\n\nhigh_scorers = [u for u in users if u['score'] >= 85]\nprint(len(high_scorers))",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nusers = [\n    {'name': 'Alice', 'score': 85},\n    {'name': 'Bob', 'score': 90},\n    {'name': 'Charlie', 'score': 78},\n    {'name': 'David', 'score': 92}\n]\n\nhigh_scorers = [u for u in users if u['score'] >= 85]\nprint(len(high_scorers))\n```",
       "choices": [
         "A. 4",
         "B. 3",
@@ -490,7 +490,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "API로 받은 데이터를 가장 높은 점수 순으로 정렬하고 싶어요. sorted() 함수를 사용합니다.\n\nstudents = [{'name': 'John', 'score': 85}, {'name': 'Alice', 'score': 92}, {'name': 'Bob', 'score': 78}]\nsorted_students = sorted(students, key=lambda s: s['score']_____)\nprint(sorted_students[0]['name'])  # Alice",
+      "question": "API로 받은 데이터를 가장 높은 점수 순으로 정렬하고 싶어요. sorted() 함수를 사용합니다.\n\n```python\nstudents = [{'name': 'John', 'score': 85}, {'name': 'Alice', 'score': 92}, {'name': 'Bob', 'score': 78}]\nsorted_students = sorted(students, key=lambda s: s['score']_____)\nprint(sorted_students[0]['name'])  # Alice\n```",
       "answer": ", reverse=True",
       "hint": "reverse=True는 내림차순으로 정렬해요.",
       "feedback": {
@@ -507,7 +507,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ntemperatures = [22.5, 23.0, 21.8, 24.2, 22.8]\naverage_temp = sum(temperatures) / len(temperatures)\nprint(f'평균: {average_temp:.1f}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ntemperatures = [22.5, 23.0, 21.8, 24.2, 22.8]\naverage_temp = sum(temperatures) / len(temperatures)\nprint(f'평균: {average_temp:.1f}')\n```",
       "choices": [
         "A. 평균: 22.9",
         "B. 평균: 23.0",
@@ -530,7 +530,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "여러 조건으로 API 데이터를 필터링합니다. 초급의 and 연산자를 사용해요.\n\nproducts = [{'name': 'A', 'price': 100, 'stock': 10}, {'name': 'B', 'price': 50, 'stock': 0}, {'name': 'C', 'price': 150, 'stock': 5}]\navailable = [p for p in products if p['stock'] > 0 _____ p['price'] < 120]\nprint(available)  # [{'name': 'A', 'price': 100, 'stock': 10}]",
+      "question": "여러 조건으로 API 데이터를 필터링합니다. 초급의 and 연산자를 사용해요.\n\n```python\nproducts = [{'name': 'A', 'price': 100, 'stock': 10}, {'name': 'B', 'price': 50, 'stock': 0}, {'name': 'C', 'price': 150, 'stock': 5}]\navailable = [p for p in products if p['stock'] > 0 _____ p['price'] < 120]\nprint(available)  # [{'name': 'A', 'price': 100, 'stock': 10}]\n```",
       "answer": "and",
       "hint": "and는 두 조건을 모두 만족할 때만 True예요.",
       "feedback": {
@@ -547,7 +547,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\napi_users = [\n    {'name': 'Alice', 'age': 25, 'city': 'Seoul'},\n    {'name': 'Bob', 'age': 30, 'city': 'Busan'},\n    {'name': 'Charlie', 'age': 25, 'city': 'Seoul'},\n    {'name': 'David', 'age': 28, 'city': 'Seoul'}\n]\n\nseoul_users = [u['name'] for u in api_users if u['city'] == 'Seoul']\nprint(seoul_users)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\napi_users = [\n    {'name': 'Alice', 'age': 25, 'city': 'Seoul'},\n    {'name': 'Bob', 'age': 30, 'city': 'Busan'},\n    {'name': 'Charlie', 'age': 25, 'city': 'Seoul'},\n    {'name': 'David', 'age': 28, 'city': 'Seoul'}\n]\n\nseoul_users = [u['name'] for u in api_users if u['city'] == 'Seoul']\nprint(seoul_users)\n```",
       "choices": [
         "A. ['Alice', 'Bob', 'Charlie']",
         "B. ['Alice', 'Charlie', 'David']",
@@ -570,7 +570,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "초급의 함수를 사용해서 API 데이터를 분석합니다.\n\nimport json\n\ndef analyze_data(api_response):\n    total = sum([item['value'] for item in api_response])\n    average = total / len(api_response)\n    return average\n\ndata = [{'id': 1, 'value': 10}, {'id': 2, 'value': 20}, {'id': 3, 'value': 30}]\nresult = analyze_data_____\nprint(result)  # 20.0",
+      "question": "초급의 함수를 사용해서 API 데이터를 분석합니다.\n\n```python\nimport json\n\ndef analyze_data(api_response):\n    total = sum([item['value'] for item in api_response])\n    average = total / len(api_response)\n    return average\n\ndata = [{'id': 1, 'value': 10}, {'id': 2, 'value': 20}, {'id': 3, 'value': 30}]\nresult = analyze_data_____\nprint(result)  # 20.0\n```",
       "answer": "(data)",
       "hint": "함수를 호출할 때는 괄호 안에 인자를 전달해요.",
       "feedback": {
@@ -587,7 +587,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\napi_data = {\n    'sales': [\n        {'date': '2026-01', 'amount': 1000, 'category': 'A'},\n        {'date': '2026-01', 'amount': 1500, 'category': 'B'},\n        {'date': '2026-02', 'amount': 800, 'category': 'A'},\n        {'date': '2026-02', 'amount': 2000, 'category': 'B'}\n    ]\n}\n\ncategory_a = sum([s['amount'] for s in api_data['sales'] if s['category'] == 'A'])\nprint(category_a)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\napi_data = {\n    'sales': [\n        {'date': '2026-01', 'amount': 1000, 'category': 'A'},\n        {'date': '2026-01', 'amount': 1500, 'category': 'B'},\n        {'date': '2026-02', 'amount': 800, 'category': 'A'},\n        {'date': '2026-02', 'amount': 2000, 'category': 'B'}\n    ]\n}\n\ncategory_a = sum([s['amount'] for s in api_data['sales'] if s['category'] == 'A'])\nprint(category_a)\n```",
       "choices": [
         "A. 3500",
         "B. 2000",
@@ -610,7 +610,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "API 응답이 완전한지 확인합니다. 필수 필드를 모두 확인해요.\n\napi_user = {'name': 'John', 'email': 'john@test.com'}\nrequired_fields = ['name', 'email', 'age']\nis_valid = all(field _____ api_user for field in required_fields)\nprint(is_valid)  # False",
+      "question": "API 응답이 완전한지 확인합니다. 필수 필드를 모두 확인해요.\n\n```python\napi_user = {'name': 'John', 'email': 'john@test.com'}\nrequired_fields = ['name', 'email', 'age']\nis_valid = all(field _____ api_user for field in required_fields)\nprint(is_valid)  # False\n```",
       "answer": "in",
       "hint": "all()은 모든 조건이 True일 때만 True를 반환해요.",
       "feedback": {
@@ -627,7 +627,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nitems = [\n    {'name': 'Apple', 'quantity': 5},\n    {'name': 'Banana', 'quantity': 3},\n    {'name': 'Orange', 'quantity': 8},\n    {'name': 'Grape', 'quantity': 2}\n]\n\nmax_item = max(items, key=lambda x: x['quantity'])\nprint(max_item['name'])",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nitems = [\n    {'name': 'Apple', 'quantity': 5},\n    {'name': 'Banana', 'quantity': 3},\n    {'name': 'Orange', 'quantity': 8},\n    {'name': 'Grape', 'quantity': 2}\n]\n\nmax_item = max(items, key=lambda x: x['quantity'])\nprint(max_item['name'])\n```",
       "choices": [
         "A. Apple",
         "B. Banana",
@@ -650,7 +650,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "API 데이터를 새로운 형식으로 변환합니다. 초급의 for 루프로 변환해요.\n\noriginal = [{'id': 1, 'name': 'A'}, {'id': 2, 'name': 'B'}]\ntransformed = []\nfor item in original:\n    transformed._____({'product_id': item['id'], 'title': item['name']})\nprint(transformed)  # [{'product_id': 1, 'title': 'A'}, ...]",
+      "question": "API 데이터를 새로운 형식으로 변환합니다. 초급의 for 루프로 변환해요.\n\n```python\noriginal = [{'id': 1, 'name': 'A'}, {'id': 2, 'name': 'B'}]\ntransformed = []\nfor item in original:\n    transformed._____({'product_id': item['id'], 'title': item['name']})\nprint(transformed)  # [{'product_id': 1, 'title': 'A'}, ...]\n```",
       "answer": "append",
       "hint": ".append()는 리스트에 새로운 요소를 추가해요.",
       "feedback": {
@@ -667,7 +667,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nscores = [\n    {'student': 'Alice', 'math': 85, 'english': 90},\n    {'student': 'Bob', 'math': 78, 'english': 88},\n    {'student': 'Charlie', 'math': 92, 'english': 85}\n]\n\navg_math = sum([s['math'] for s in scores]) / len(scores)\nprint(f'{avg_math:.0f}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nscores = [\n    {'student': 'Alice', 'math': 85, 'english': 90},\n    {'student': 'Bob', 'math': 78, 'english': 88},\n    {'student': 'Charlie', 'math': 92, 'english': 85}\n]\n\navg_math = sum([s['math'] for s in scores]) / len(scores)\nprint(f'{avg_math:.0f}')\n```",
       "choices": [
         "A. 87",
         "B. 86",
@@ -690,7 +690,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "API 응답에서 특정 필드만 추출해서 새로운 리스트를 만듭니다.\n\napi_response = [{'id': 1, 'name': 'A', 'price': 100}, {'id': 2, 'name': 'B', 'price': 200}]\nnames = [item_____for item in api_response]\nprint(names)  # ['A', 'B']",
+      "question": "API 응답에서 특정 필드만 추출해서 새로운 리스트를 만듭니다.\n\n```python\napi_response = [{'id': 1, 'name': 'A', 'price': 100}, {'id': 2, 'name': 'B', 'price': 200}]\nnames = [item_____for item in api_response]\nprint(names)  # ['A', 'B']\n```",
       "answer": "['name']",
       "hint": "['name']으로 name 필드를 추출해요.",
       "feedback": {
@@ -707,7 +707,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndata = [\n    {'category': 'fruit', 'items': ['apple', 'banana']},\n    {'category': 'vegetable', 'items': ['carrot', 'lettuce', 'tomato']}\n]\n\nall_items = []\nfor group in data:\n    all_items.extend(group['items'])\nprint(all_items)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ndata = [\n    {'category': 'fruit', 'items': ['apple', 'banana']},\n    {'category': 'vegetable', 'items': ['carrot', 'lettuce', 'tomato']}\n]\n\nall_items = []\nfor group in data:\n    all_items.extend(group['items'])\nprint(all_items)\n```",
       "choices": [
         "A. ['apple', 'banana', 'carrot', 'lettuce', 'tomato']",
         "B. [['apple', 'banana'], ['carrot', 'lettuce', 'tomato']]",
@@ -730,7 +730,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "API 데이터를 딕셔너리로 재구성합니다. 초급의 for 루프를 사용해요.\n\nusers = [{'id': 1, 'name': 'Alice'}, {'id': 2, 'name': 'Bob'}]\nuser_dict = {}\nfor user in users:\n    user_dict_____= user['name']\nprint(user_dict)  # {1: 'Alice', 2: 'Bob'}",
+      "question": "API 데이터를 딕셔너리로 재구성합니다. 초급의 for 루프를 사용해요.\n\n```python\nusers = [{'id': 1, 'name': 'Alice'}, {'id': 2, 'name': 'Bob'}]\nuser_dict = {}\nfor user in users:\n    user_dict_____= user['name']\nprint(user_dict)  # {1: 'Alice', 2: 'Bob'}\n```",
       "answer": "[user['id']]",
       "hint": "[user['id']]로 id를 키로 사용해요.",
       "feedback": {
@@ -747,7 +747,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\napi_stats = {\n    'monthly_sales': [\n        {'month': 'Jan', 'amount': 1000},\n        {'month': 'Feb', 'amount': 1500},\n        {'month': 'Mar', 'amount': 900},\n        {'month': 'Apr', 'amount': 2000}\n    ]\n}\n\nbest_month = max(api_stats['monthly_sales'], key=lambda x: x['amount'])\nprint(best_month['month'])",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\napi_stats = {\n    'monthly_sales': [\n        {'month': 'Jan', 'amount': 1000},\n        {'month': 'Feb', 'amount': 1500},\n        {'month': 'Mar', 'amount': 900},\n        {'month': 'Apr', 'amount': 2000}\n    ]\n}\n\nbest_month = max(api_stats['monthly_sales'], key=lambda x: x['amount'])\nprint(best_month['month'])\n```",
       "choices": [
         "A. Jan",
         "B. Feb",
@@ -770,7 +770,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "여러 API 응답을 합칩니다. 초급의 + 연산자로 리스트를 합쳐요.\n\npage1_data = [{'id': 1, 'name': 'A'}, {'id': 2, 'name': 'B'}]\npage2_data = [{'id': 3, 'name': 'C'}]\nall_data = page1_data _____ page2_data\nprint(all_data)  # [{...}, {...}, {...}]",
+      "question": "여러 API 응답을 합칩니다. 초급의 + 연산자로 리스트를 합쳐요.\n\n```python\npage1_data = [{'id': 1, 'name': 'A'}, {'id': 2, 'name': 'B'}]\npage2_data = [{'id': 3, 'name': 'C'}]\nall_data = page1_data _____ page2_data\nprint(all_data)  # [{...}, {...}, {...}]\n```",
       "answer": "+",
       "hint": "+ 연산자로 두 리스트를 합칠 수 있어요.",
       "feedback": {
@@ -787,7 +787,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\napi_data = [\n    {'product': 'Laptop', 'price': 1000, 'sold': 5},\n    {'product': 'Phone', 'price': 500, 'sold': 15},\n    {'product': 'Tablet', 'price': 300, 'sold': 8}\n]\n\nrevenue = sum([item['price'] * item['sold'] for item in api_data])\nprint(revenue)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\napi_data = [\n    {'product': 'Laptop', 'price': 1000, 'sold': 5},\n    {'product': 'Phone', 'price': 500, 'sold': 15},\n    {'product': 'Tablet', 'price': 300, 'sold': 8}\n]\n\nrevenue = sum([item['price'] * item['sold'] for item in api_data])\nprint(revenue)\n```",
       "choices": [
         "A. 9500",
         "B. 12000",
@@ -810,7 +810,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "API로 받은 데이터를 파일에 저장하고 싶어요. 파일을 쓰기 모드로 열어야 해요.\n\nwith open('data.txt', _____) as f:\n    f.write('Hello')",
+      "question": "API로 받은 데이터를 파일에 저장하고 싶어요. 파일을 쓰기 모드로 열어야 해요.\n\n```python\nwith open('data.txt', _____) as f:\n    f.write('Hello')\n```",
       "answer": "w",
       "hint": "'w' 모드는 쓰기(write) 모드예요. 파일이 없으면 만들고, 있으면 덮어써요.",
       "feedback": {
@@ -827,7 +827,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 data.txt 파일에 무엇이 저장될까요?\n\ndata = 'API Response: Success'\nwith open('data.txt', 'w') as f:\n    f.write(data)",
+      "question": "다음 코드를 실행하면 data.txt 파일에 무엇이 저장될까요?\n\n```python\ndata = 'API Response: Success'\nwith open('data.txt', 'w') as f:\n    f.write(data)\n```",
       "choices": [
         "A. API Response: Success",
         "B. data = 'API Response: Success'",
@@ -850,7 +850,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "API로 받은 딕셔너리/리스트를 JSON 파일로 저장합니다. json 모듈을 사용해요.\n\nimport json\ndata = {'name': 'John', 'age': 30}\nwith open('data.json', 'w') as f:\n    json._____( data, f )",
+      "question": "API로 받은 딕셔너리/리스트를 JSON 파일로 저장합니다. json 모듈을 사용해요.\n\n```python\nimport json\ndata = {'name': 'John', 'age': 30}\nwith open('data.json', 'w') as f:\n    json._____( data, f )\n```",
       "answer": "dump",
       "hint": "json.dump()는 파이썬 객체를 JSON 파일로 저장해요.",
       "feedback": {
@@ -867,7 +867,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "저장된 파일에서 데이터를 읽어요. 다음 코드의 결과는?\n\nimport json\nwith open('data.json', 'r') as f:\n    data = json.load(f)\nprint(data['name'])\n\n# data.json 파일에는 {\"name\": \"Alice\", \"age\": 25}가 저장되어 있음",
+      "question": "저장된 파일에서 데이터를 읽어요. 다음 코드의 결과는?\n\n```python\nimport json\nwith open('data.json', 'r') as f:\n    data = json.load(f)\nprint(data['name'])\n```\n\n# data.json 파일에는 {\"name\": \"Alice\", \"age\": 25}가 저장되어 있음",
       "choices": [
         "A. Alice",
         "B. {'name': 'Alice', 'age': 25}",
@@ -890,7 +890,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "API 데이터를 CSV 형식으로 저장하고 싶어요. 초급의 for 루프를 사용해요.\n\nusers = [{'name': 'John', 'age': 30}, {'name': 'Alice', 'age': 25}]\nwith open('users.csv', 'w') as f:\n    f.write('name,age\\n')\n    for user in users:\n        f.write(f\"{user['name']},_____\\n\")",
+      "question": "API 데이터를 CSV 형식으로 저장하고 싶어요. 초급의 for 루프를 사용해요.\n\n```python\nusers = [{'name': 'John', 'age': 30}, {'name': 'Alice', 'age': 25}]\nwith open('users.csv', 'w') as f:\n    f.write('name,age\\n')\n    for user in users:\n        f.write(f\"{user['name']},_____\\n\")\n```",
       "answer": "user['age']",
       "hint": "f-string에서 딕셔너리 값을 중괄호로 감싸서 표현해요.",
       "feedback": {
@@ -907,7 +907,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "저장된 JSON 파일을 읽고 처리해요. 다음 코드의 결과는?\n\nimport json\nwith open('products.json', 'r') as f:\n    products = json.load(f)\n\n# products.json: [{\"name\": \"A\", \"price\": 100}, {\"name\": \"B\", \"price\": 200}]\nprint(len(products))",
+      "question": "저장된 JSON 파일을 읽고 처리해요. 다음 코드의 결과는?\n\n```python\nimport json\nwith open('products.json', 'r') as f:\n    products = json.load(f)\n\n# products.json: [{\"name\": \"A\", \"price\": 100}, {\"name\": \"B\", \"price\": 200}]\nprint(len(products))\n```",
       "choices": [
         "A. 2",
         "B. 4",
@@ -930,7 +930,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "특정 조건을 만족하는 데이터만 파일에 저장해요.\n\nimport json\nall_users = [{'name': 'John', 'age': 30}, {'name': 'Bob', 'age': 20}, {'name': 'Alice', 'age': 25}]\nadults = [u for u in all_users if u_____]\nwith open('adults.json', 'w') as f:\n    json.dump(adults, f)",
+      "question": "특정 조건을 만족하는 데이터만 파일에 저장해요.\n\n```python\nimport json\nall_users = [{'name': 'John', 'age': 30}, {'name': 'Bob', 'age': 20}, {'name': 'Alice', 'age': 25}]\nadults = [u for u in all_users if u_____]\nwith open('adults.json', 'w') as f:\n    json.dump(adults, f)\n```",
       "answer": "['age'] > 20",
       "hint": "나이가 20 초과인 사람만 필터링해요.",
       "feedback": {
@@ -947,7 +947,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport json\ndata = [{'id': 1, 'value': 10}, {'id': 2, 'value': 20}]\njson_str = json.dumps(data)\nprint(type(json_str))",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport json\ndata = [{'id': 1, 'value': 10}, {'id': 2, 'value': 20}]\njson_str = json.dumps(data)\nprint(type(json_str))\n```",
       "choices": [
         "A. <class 'str'>",
         "B. <class 'list'>",
@@ -970,7 +970,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "여러 API 응답을 수집해서 하나의 파일에 저장해요. 초급의 for 루프를 사용합니다.\n\nimport json\nall_data = []\nfor i in range(1, 4):  # API를 3번 호출한다고 가정\n    api_data = {'id': i, 'value': i * 100}\n    all_data._____( api_data )\nwith open('collection.json', 'w') as f:\n    json.dump(all_data, f)",
+      "question": "여러 API 응답을 수집해서 하나의 파일에 저장해요. 초급의 for 루프를 사용합니다.\n\n```python\nimport json\nall_data = []\nfor i in range(1, 4):  # API를 3번 호출한다고 가정\n    api_data = {'id': i, 'value': i * 100}\n    all_data._____( api_data )\nwith open('collection.json', 'w') as f:\n    json.dump(all_data, f)\n```",
       "answer": "append",
       "hint": ".append()로 각 API 응답을 리스트에 추가해요.",
       "feedback": {
@@ -987,7 +987,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport json\nwith open('data.json', 'r') as f:\n    data = json.load(f)\n\ntotal = sum([item['amount'] for item in data['transactions']])\nprint(total)\n\n# data.json: {\"transactions\": [{\"amount\": 1000}, {\"amount\": 2000}]}",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport json\nwith open('data.json', 'r') as f:\n    data = json.load(f)\n\ntotal = sum([item['amount'] for item in data['transactions']])\nprint(total)\n```\n# data.json: {\"transactions\": [{\"amount\": 1000}, {\"amount\": 2000}]}",
       "choices": [
         "A. 3000",
         "B. 2",
@@ -1010,7 +1010,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "파일에 데이터를 추가하고 싶어요 (기존 내용 유지). 파일을 추가 모드로 열어요.\n\nwith open('log.txt', _____) as f:\n    f.write('New log entry\\n')",
+      "question": "파일에 데이터를 추가하고 싶어요 (기존 내용 유지). 파일을 추가 모드로 열어요.\n\n```python\nwith open('log.txt', _____) as f:\n    f.write('New log entry\\n')\n```",
       "answer": "'a'",
       "hint": "'a' 모드는 추가(append) 모드예요. 기존 내용 뒤에 추가해요.",
       "feedback": {
@@ -1027,7 +1027,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nwith open('message.txt', 'r') as f:\n    lines = f.readlines()\nprint(lines[0])\n\n# message.txt 파일 내용:\n# Hello\n# World",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nwith open('message.txt', 'r') as f:\n    lines = f.readlines()\nprint(lines[0])\n\n# message.txt 파일 내용:\n# Hello\n# World\n```",
       "choices": [
         "A. Hello",
         "B. Hello\\nWorld",
@@ -1050,7 +1050,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "파일의 모든 내용을 한 번에 문자열로 읽어요.\n\nwith open('config.txt', 'r') as f:\n    content = f._____( )\nprint(content)",
+      "question": "파일의 모든 내용을 한 번에 문자열로 읽어요.\n\n```python\nwith open('config.txt', 'r') as f:\n    content = f._____( )\nprint(content)\n```",
       "answer": "read",
       "hint": ".read()는 파일의 전체 내용을 하나의 문자열로 반환해요.",
       "feedback": {
@@ -1067,7 +1067,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport json\njson_string = '{\"users\": [{\"name\": \"John\"}, {\"name\": \"Alice\"}]}'\ndata = json.loads(json_string)\nprint(len(data['users']))",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport json\njson_string = '{\"users\": [{\"name\": \"John\"}, {\"name\": \"Alice\"}]}'\ndata = json.loads(json_string)\nprint(len(data['users']))\n```",
       "choices": [
         "A. 2",
         "B. 1",
@@ -1090,7 +1090,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "초급의 for 루프로 파일의 각 라인을 처리해요.\n\nwith open('numbers.txt', 'r') as f:\n    for line in _____:\n        num = int(line.strip())\n        print(num * 2)",
+      "question": "초급의 for 루프로 파일의 각 라인을 처리해요.\n\n```python\nwith open('numbers.txt', 'r') as f:\n    for line in _____:\n        num = int(line.strip())\n        print(num * 2)\n```",
       "answer": "f",
       "hint": "파일 객체를 for 루프에 직접 사용하면 각 라인을 순회해요.",
       "feedback": {
@@ -1107,7 +1107,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport json\ndata = {'name': 'John', 'age': 30, 'city': 'Seoul'}\njson_str = json.dumps(data, indent=2)\nprint(json_str)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport json\ndata = {'name': 'John', 'age': 30, 'city': 'Seoul'}\njson_str = json.dumps(data, indent=2)\nprint(json_str)\n```",
       "choices": [
         "A. {\"name\": \"John\", \"age\": 30, \"city\": \"Seoul\"}",
         "B. {\\n  \"name\": \"John\",\\n  \"age\": 30,\\n  \"city\": \"Seoul\"\\n}",
@@ -1130,7 +1130,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "초급의 함수를 사용해서 데이터 저장을 자동화해요.\n\nimport json\ndef save_api_data(filename, data):\n    with open(filename, 'w') as f:\n        json._____( data, f )\n\napi_response = {'id': 1, 'name': 'Product'}\nsave_api_data('product.json', api_response)",
+      "question": "초급의 함수를 사용해서 데이터 저장을 자동화해요.\n\n```python\nimport json\ndef save_api_data(filename, data):\n    with open(filename, 'w') as f:\n        json._____( data, f )\n\napi_response = {'id': 1, 'name': 'Product'}\nsave_api_data('product.json', api_response)\n```",
       "answer": "dump",
       "hint": "json.dump()는 파이썬 객체를 파일에 JSON으로 저장해요.",
       "feedback": {
@@ -1147,7 +1147,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport json\nwith open('sales.json', 'r') as f:\n    sales_data = json.load(f)\n\ntop_sellers = [s for s in sales_data if s['amount'] > 1000]\nprint(len(top_sellers))\n\n# sales.json: [{\"seller\": \"A\", \"amount\": 800}, {\"seller\": \"B\", \"amount\": 1200}, {\"seller\": \"C\", \"amount\": 1500}]",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport json\nwith open('sales.json', 'r') as f:\n    sales_data = json.load(f)\n\ntop_sellers = [s for s in sales_data if s['amount'] > 1000]\nprint(len(top_sellers))\n```\n# sales.json: [{\"seller\": \"A\", \"amount\": 800}, {\"seller\": \"B\", \"amount\": 1200}, {\"seller\": \"C\", \"amount\": 1500}]",
       "choices": [
         "A. 3",
         "B. 2",
@@ -1170,7 +1170,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "여러 소스에서 받은 데이터를 합쳐서 저장해요. 초급의 + 연산자를 사용합니다.\n\nimport json\nwith open('file1.json', 'r') as f:\n    data1 = json.load(f)\nwith open('file2.json', 'r') as f:\n    data2 = json.load(f)\n\ncombined = data1 _____ data2\nwith open('combined.json', 'w') as f:\n    json.dump(combined, f)",
+      "question": "여러 소스에서 받은 데이터를 합쳐서 저장해요. 초급의 + 연산자를 사용합니다.\n\n```python\nimport json\nwith open('file1.json', 'r') as f:\n    data1 = json.load(f)\nwith open('file2.json', 'r') as f:\n    data2 = json.load(f)\n\ncombined = data1 _____ data2\nwith open('combined.json', 'w') as f:\n    json.dump(combined, f)\n```",
       "answer": "+",
       "hint": "+ 연산자로 두 리스트를 합칠 수 있어요.",
       "feedback": {
@@ -1187,7 +1187,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport json\nwith open('inventory.json', 'r') as f:\n    inventory = json.load(f)\n\ntotal_value = sum([item['price'] * item['quantity'] for item in inventory])\nwith open('summary.json', 'w') as f:\n    json.dump({'total_value': total_value}, f)\n\nprint('저장 완료')\n\n# inventory.json: [{\"name\": \"A\", \"price\": 100, \"quantity\": 5}, {\"name\": \"B\", \"price\": 200, \"quantity\": 3}]",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport json\nwith open('inventory.json', 'r') as f:\n    inventory = json.load(f)\n\ntotal_value = sum([item['price'] * item['quantity'] for item in inventory])\nwith open('summary.json', 'w') as f:\n    json.dump({'total_value': total_value}, f)\n\nprint('저장 완료')\n```\n# inventory.json: [{\"name\": \"A\", \"price\": 100, \"quantity\": 5}, {\"name\": \"B\", \"price\": 200, \"quantity\": 3}]",
       "choices": [
         "A. 저장 완료",
         "B. 1100",
@@ -1210,7 +1210,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "API 요청이 실패할 수 있으니 에러를 처리합니다. try-except 블록을 사용해요.\n\n_____:\n    with open('api_data.json', 'r') as f:\n        data = json.load(f)\nexcept FileNotFoundError:\n    print('파일을 찾을 수 없어요')",
+      "question": "API 요청이 실패할 수 있으니 에러를 처리합니다. try-except 블록을 사용해요.\n\n```python\n_____:\n    with open('api_data.json', 'r') as f:\n        data = json.load(f)\nexcept FileNotFoundError:\n    print('파일을 찾을 수 없어요')\n```",
       "answer": "try",
       "hint": "try 블록에는 에러가 발생할 수 있는 코드를 작성해요.",
       "feedback": {
@@ -1227,7 +1227,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ntry:\n    data = {'name': 'John'}\n    print(data['age'])\nexcept KeyError:\n    print('키가 없어요')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ntry:\n    data = {'name': 'John'}\n    print(data['age'])\nexcept KeyError:\n    print('키가 없어요')\n```",
       "choices": [
         "A. John",
         "B. 키가 없어요",
@@ -1250,7 +1250,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "API 상태 코드를 확인해서 에러를 처리합니다.\n\ntry:\n    response_code = 404\n    if response_code != 200:\n        raise _____(f'Error: {response_code}')\nexcept ValueError as e:\n    print(f'요청 실패: {e}')",
+      "question": "API 상태 코드를 확인해서 에러를 처리합니다.\n\n```python\ntry:\n    response_code = 404\n    if response_code != 200:\n        raise _____(f'Error: {response_code}')\nexcept ValueError as e:\n    print(f'요청 실패: {e}')\n```",
       "answer": "ValueError",
       "hint": "raise ValueError로 의도적으로 에러를 발생시킬 수 있어요.",
       "feedback": {
@@ -1267,7 +1267,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ntry:\n    nums = [1, 2, 3]\n    result = nums[5]\nexcept IndexError as e:\n    print(f'에러: {e}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ntry:\n    nums = [1, 2, 3]\n    result = nums[5]\nexcept IndexError as e:\n    print(f'에러: {e}')\n```",
       "choices": [
         "A. 3",
         "B. 에러: list index out of range",
@@ -1290,7 +1290,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "초급의 변수처럼 에러 처리 후 항상 실행할 코드가 있어요. finally 블록을 사용합니다.\n\ntry:\n    f = open('data.txt', 'r')\n    content = f.read()\nexcept FileNotFoundError:\n    print('파일을 찾을 수 없어요')\n_____:\n    if 'f' in locals():\n        f.close()",
+      "question": "초급의 변수처럼 에러 처리 후 항상 실행할 코드가 있어요. finally 블록을 사용합니다.\n\n```python\ntry:\n    f = open('data.txt', 'r')\n    content = f.read()\nexcept FileNotFoundError:\n    print('파일을 찾을 수 없어요')\n_____:\n    if 'f' in locals():\n        f.close()\n```",
       "answer": "finally",
       "hint": "finally는 에러 발생 여부와 관계없이 항상 실행돼요.",
       "feedback": {
@@ -1307,7 +1307,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ntry:\n    num = int('abc')\nexcept ValueError:\n    num = 0\n    print('기본값 사용')\nexcept TypeError:\n    print('타입 에러')\nprint(num)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ntry:\n    num = int('abc')\nexcept ValueError:\n    num = 0\n    print('기본값 사용')\nexcept TypeError:\n    print('타입 에러')\nprint(num)\n```",
       "choices": [
         "A. 기본값 사용\\n0",
         "B. 타입 에러\\n0",
@@ -1330,7 +1330,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "API 데이터가 없을 때 초급의 if 문으로 에러를 처리해요.\n\ntry:\n    api_response = {}\n    if _____ not in api_response:\n        raise KeyError('필수 필드 누락')\nexcept KeyError as e:\n    print(f'에러: {e}')",
+      "question": "API 데이터가 없을 때 초급의 if 문으로 에러를 처리해요.\n\n```python\ntry:\n    api_response = {}\n    if _____ not in api_response:\n        raise KeyError('필수 필드 누락')\nexcept KeyError as e:\n    print(f'에러: {e}')\n```",
       "answer": "'data'",
       "hint": "'data' 키가 없으면 에러를 발생시켜요.",
       "feedback": {
@@ -1347,7 +1347,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nretries = 0\nmax_retries = 3\n\nwhile retries < max_retries:\n    try:\n        data = {'valid': True}\n        result = data['missing']\n        break\n    except KeyError:\n        retries += 1\n        if retries == max_retries:\n            print('재시도 실패')\n            break",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nretries = 0\nmax_retries = 3\n\nwhile retries < max_retries:\n    try:\n        data = {'valid': True}\n        result = data['missing']\n        break\n    except KeyError:\n        retries += 1\n        if retries == max_retries:\n            print('재시도 실패')\n            break\n```",
       "choices": [
         "A. 재시도 실패",
         "B. (에러 발생)",
@@ -1370,7 +1370,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "초급의 함수를 사용해서 안전한 데이터 접근을 구현합니다.\n\ndef safe_get(data, key, default=None):\n    try:\n        return data_____\n    except (KeyError, TypeError):\n        return default\n\nresult = safe_get({'name': 'John'}, 'age')\nprint(result)  # None",
+      "question": "초급의 함수를 사용해서 안전한 데이터 접근을 구현합니다.\n\n```python\ndef safe_get(data, key, default=None):\n    try:\n        return data_____\n    except (KeyError, TypeError):\n        return default\n\nresult = safe_get({'name': 'John'}, 'age')\nprint(result)  # None\n```",
       "answer": "[key]",
       "hint": "[key]로 딕셔너리에서 값을 가져와요.",
       "feedback": {
@@ -1387,7 +1387,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndef process_data(items):\n    results = []\n    for item in items:\n        try:\n            value = int(item)\n            results.append(value * 2)\n        except ValueError:\n            results.append(None)\n    return results\n\noutput = process_data(['10', 'abc', '20', 'def'])\nprint(output)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ndef process_data(items):\n    results = []\n    for item in items:\n        try:\n            value = int(item)\n            results.append(value * 2)\n        except ValueError:\n            results.append(None)\n    return results\n\noutput = process_data(['10', 'abc', '20', 'def'])\nprint(output)\n```",
       "choices": [
         "A. [20, None, 40, None]",
         "B. [10, 20]",
@@ -1410,7 +1410,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "JSON 파싱 에러를 처리합니다.\n\ntry:\n    data = json.loads('{invalid json}')\nexcept _____:\n    print('JSON 파싱 실패')",
+      "question": "JSON 파싱 에러를 처리합니다.\n\n```python\ntry:\n    data = json.loads('{invalid json}')\nexcept _____:\n    print('JSON 파싱 실패')\n```",
       "answer": "json.JSONDecodeError",
       "hint": "json.JSONDecodeError는 JSON 형식이 잘못되었을 때 발생해요.",
       "feedback": {
@@ -1427,7 +1427,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ntry:\n    a = 10\n    b = 0\n    result = a / b\nexcept ZeroDivisionError:\n    result = 0\n    print('0으로 나눌 수 없어요')\nprint(result)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ntry:\n    a = 10\n    b = 0\n    result = a / b\nexcept ZeroDivisionError:\n    result = 0\n    print('0으로 나눌 수 없어요')\nprint(result)\n```",
       "choices": [
         "A. 0으로 나눌 수 없어요\\n0",
         "B. 1",
@@ -1450,7 +1450,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "일반 예외(Exception)로 모든 에러를 처리할 수 있어요.\n\ntry:\n    data = api_call()\nexcept _____ as e:\n    print(f'예상치 못한 에러: {e}')",
+      "question": "일반 예외(Exception)로 모든 에러를 처리할 수 있어요.\n\n```python\ntry:\n    data = api_call()\nexcept _____ as e:\n    print(f'예상치 못한 에러: {e}')\n```",
       "answer": "Exception",
       "hint": "Exception은 대부분의 에러를 캐치해요.",
       "feedback": {
@@ -1467,7 +1467,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ntry:\n    text = '123abc'\n    num = int(text)\n    print('변환 성공')\nexcept ValueError:\n    print('정수 변환 실패')\nelse:\n    print('추가 처리')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ntry:\n    text = '123abc'\n    num = int(text)\n    print('변환 성공')\nexcept ValueError:\n    print('정수 변환 실패')\nelse:\n    print('추가 처리')\n```",
       "choices": [
         "A. 변환 성공\\n추가 처리",
         "B. 정수 변환 실패",
@@ -1490,7 +1490,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "타입 에러를 처리합니다. 초급의 type() 함수와 함께 사용해요.\n\ntry:\n    data = None\n    length = len(data)\nexcept _____:\n    print('길이를 측정할 수 없어요')",
+      "question": "타입 에러를 처리합니다. 초급의 type() 함수와 함께 사용해요.\n\n```python\ntry:\n    data = None\n    length = len(data)\nexcept _____:\n    print('길이를 측정할 수 없어요')\n```",
       "answer": "TypeError",
       "hint": "None 타입은 len()을 지원하지 않아서 TypeError가 발생해요.",
       "feedback": {
@@ -1507,7 +1507,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndata = [10, 20, 30]\ntry:\n    for i in range(5):\n        print(data[i])\nexcept IndexError:\n    print('인덱스 범위 초과')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ndata = [10, 20, 30]\ntry:\n    for i in range(5):\n        print(data[i])\nexcept IndexError:\n    print('인덱스 범위 초과')\n```",
       "choices": [
         "A. 10\\n20\\n30",
         "B. 10\\n20\\n30\\n인덱스 범위 초과",
@@ -1530,7 +1530,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "여러 가지 에러를 한 번에 처리할 수 있어요.\n\ntry:\n    value = {'key': 'value'}['missing']\nexcept (KeyError, ValueError, _____) as e:\n    print(f'에러 처리: {type(e).__name__}')",
+      "question": "여러 가지 에러를 한 번에 처리할 수 있어요.\n\n```python\ntry:\n    value = {'key': 'value'}['missing']\nexcept (KeyError, ValueError, _____) as e:\n    print(f'에러 처리: {type(e).__name__}')\n```",
       "answer": "TypeError",
       "hint": "여러 예외를 튜플 안에 나열해서 한 번에 처리할 수 있어요.",
       "feedback": {
@@ -1547,7 +1547,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nstatus = 'unknown'\ntry:\n    if status == 'error':\n        raise Exception('에러 발생')\n    elif status == 'processing':\n        raise ValueError('처리 중')\nexcept Exception as e:\n    print(f'처리됨: {e}')\nelse:\n    print('성공')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nstatus = 'unknown'\ntry:\n    if status == 'error':\n        raise Exception('에러 발생')\n    elif status == 'processing':\n        raise ValueError('처리 중')\nexcept Exception as e:\n    print(f'처리됨: {e}')\nelse:\n    print('성공')\n```",
       "choices": [
         "A. 성공",
         "B. 처리됨: 에러 발생",
@@ -1570,7 +1570,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "여러 가지 에러를 처리하며 배치 작업을 해요. 초급의 for 루프와 함께 사용합니다.\n\nitems = [1, 2, 'invalid', 4]\nresults = []\nfor item in items:\n    try:\n        results._____( int(item) * 2 )\n    except ValueError:\n        results.append(0)\nprint(results)",
+      "question": "여러 가지 에러를 처리하며 배치 작업을 해요. 초급의 for 루프와 함께 사용합니다.\n\n```python\nitems = [1, 2, 'invalid', 4]\nresults = []\nfor item in items:\n    try:\n        results._____( int(item) * 2 )\n    except ValueError:\n        results.append(0)\nprint(results)\n```",
       "answer": "append",
       "hint": ".append()로 결과를 리스트에 추가해요.",
       "feedback": {
@@ -1587,7 +1587,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nitems = [1, 2, 'invalid', 4]\nresults = []\nfor item in items:\n    try:\n        results.append(int(item) * 2)\n    except ValueError:\n        results.append(0)\nprint(results)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nitems = [1, 2, 'invalid', 4]\nresults = []\nfor item in items:\n    try:\n        results.append(int(item) * 2)\n    except ValueError:\n        results.append(0)\nprint(results)\n```",
       "answer": "A. [2, 4, 0, 8]",
       "hint": "정수 변환 성공 시 ×2, 실패 시 0을 추가해요. 'invalid'만 ValueError가 발생해요.",
       "feedback": {
@@ -1610,7 +1610,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "API를 계속 호출해서 실시간 데이터를 받아요. 초급의 while 루프를 사용합니다.\n\ncount = 0\n_____ count < 5:\n    response = requests.get('https://api.example.com/data')\n    data = response.json()\n    count += 1",
+      "question": "API를 계속 호출해서 실시간 데이터를 받아요. 초급의 while 루프를 사용합니다.\n\n```python\ncount = 0\n_____ count < 5:\n    response = requests.get('https://api.example.com/data')\n    data = response.json()\n    count += 1\n```",
       "answer": "while",
       "hint": "while 루프로 일정 횟수만큼 반복할 수 있어요.",
       "feedback": {
@@ -1627,7 +1627,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nstock_price = 100\ncalls = 0\nwhile calls < 3:\n    stock_price += 10\n    calls += 1\n    print(stock_price)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nstock_price = 100\ncalls = 0\nwhile calls < 3:\n    stock_price += 10\n    calls += 1\n    print(stock_price)\n```",
       "choices": [
         "A. 100\n110\n120\n130",
         "B. 110\n120\n130",
@@ -1650,7 +1650,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "실시간 데이터를 일정 간격으로 받기 위해 대기 시간을 설정합니다.\n\nimport time\nfor i in range(3):\n    data = requests.get('https://api.example.com/data').json()\n    print(f'수신: {data}')\n    time._____( 2 )  # 2초 대기",
+      "question": "실시간 데이터를 일정 간격으로 받기 위해 대기 시간을 설정합니다.\n\n```python\nimport time\nfor i in range(3):\n    data = requests.get('https://api.example.com/data').json()\n    print(f'수신: {data}')\n    time._____( 2 )  # 2초 대기\n```",
       "answer": "sleep",
       "hint": "time.sleep()는 프로그램을 일시 중지해요.",
       "feedback": {
@@ -1667,7 +1667,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nprevious_data = {'price': 100}\ncurrent_data = {'price': 100}\n\nif previous_data == current_data:\n    print('변화 없음')\nelse:\n    print('데이터 변경됨')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nprevious_data = {'price': 100}\ncurrent_data = {'price': 100}\n\nif previous_data == current_data:\n    print('변화 없음')\nelse:\n    print('데이터 변경됨')\n```",
       "choices": [
         "A. 변화 없음",
         "B. 데이터 변경됨",
@@ -1690,7 +1690,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "이전 데이터와 현재 데이터를 비교합니다. 초급의 변수를 사용해요.\n\nprevious_value = 0\nfor i in range(3):\n    current_value = i * 100\n    if current_value != previous_value:\n        print(f'변경: {previous_value} -> {current_value}')\n    previous_value = _____",
+      "question": "이전 데이터와 현재 데이터를 비교합니다. 초급의 변수를 사용해요.\n\n```python\nprevious_value = 0\nfor i in range(3):\n    current_value = i * 100\n    if current_value != previous_value:\n        print(f'변경: {previous_value} -> {current_value}')\n    previous_value = _____\n```",
       "answer": "current_value",
       "hint": "다음 반복에서 비교하기 위해 현재 값을 저장해요.",
       "feedback": {
@@ -1707,7 +1707,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndata_cache = None\nnew_data = {'status': 'active'}\n\nif data_cache != new_data:\n    print('캐시 업데이트')\n    data_cache = new_data\n\nif data_cache == new_data:\n    print('캐시가 최신')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ndata_cache = None\nnew_data = {'status': 'active'}\n\nif data_cache != new_data:\n    print('캐시 업데이트')\n    data_cache = new_data\n\nif data_cache == new_data:\n    print('캐시가 최신')\n```",
       "choices": [
         "A. 캐시 업데이트\n캐시가 최신",
         "B. 캐시 업데이트",
@@ -1730,7 +1730,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "두 가지 조건을 모두 만족하는 데이터만 수집합니다.\n\napi_stream = [{'value': 120, 'status': 'active'}, {'value': 80, 'status': 'active'}, {'value': 150, 'status': 'inactive'}]\nupdates = []\nfor item in api_stream:\n    if item['value'] > 100 _____ item['status'] == 'active':\n        updates.append(item)\nprint(len(updates))",
+      "question": "두 가지 조건을 모두 만족하는 데이터만 수집합니다.\n\n```python\napi_stream = [{'value': 120, 'status': 'active'}, {'value': 80, 'status': 'active'}, {'value': 150, 'status': 'inactive'}]\nupdates = []\nfor item in api_stream:\n    if item['value'] > 100 _____ item['status'] == 'active':\n        updates.append(item)\nprint(len(updates))\n```",
       "answer": "and",
       "hint": "두 조건을 모두 만족할 때만 updates에 추가돼요.",
       "feedback": {
@@ -1747,7 +1747,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ncached_data = {}\nnew_items = [{'id': 1, 'value': 100}, {'id': 1, 'value': 150}]\n\nfor item in new_items:\n    item_id = item['id']\n    if item_id not in cached_data:\n        print('신규')\n    else:\n        print('업데이트')\n    cached_data[item_id] = item",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ncached_data = {}\nnew_items = [{'id': 1, 'value': 100}, {'id': 1, 'value': 150}]\n\nfor item in new_items:\n    item_id = item['id']\n    if item_id not in cached_data:\n        print('신규')\n    else:\n        print('업데이트')\n    cached_data[item_id] = item\n```",
       "choices": [
         "A. 신규\n신규",
         "B. 신규\n업데이트",
@@ -1770,7 +1770,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "변경된 항목만 수집해서 증분으로 처리합니다. 초급의 리스트 컴프리헨션을 사용해요.\n\nold_prices = {'A': 100, 'B': 200}\nnew_prices = {'A': 100, 'B': 250, 'C': 150}\n\nchanged = [k for k in new_prices if k not in old_prices _____  new_prices[k] != old_prices.get(k)]\nprint(changed)  # ['B', 'C']",
+      "question": "변경된 항목만 수집해서 증분으로 처리합니다. 초급의 리스트 컴프리헨션을 사용해요.\n\n```python\nold_prices = {'A': 100, 'B': 200}\nnew_prices = {'A': 100, 'B': 250, 'C': 150}\n\nchanged = [k for k in new_prices if k not in old_prices _____  new_prices[k] != old_prices.get(k)]\nprint(changed)  # ['B', 'C']\n```",
       "answer": "or",
       "hint": "신규이거나 값이 다르면 changed에 추가돼요.",
       "feedback": {
@@ -1787,7 +1787,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndef process_stream(items, last_id=0):\n    new_items = []\n    for item in items:\n        if item['id'] > last_id:\n            new_items.append(item)\n    return new_items\n\nall_items = [{'id': 1}, {'id': 2}, {'id': 3}]\nnew = process_stream(all_items, last_id=1)\nprint(len(new))",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ndef process_stream(items, last_id=0):\n    new_items = []\n    for item in items:\n        if item['id'] > last_id:\n            new_items.append(item)\n    return new_items\n\nall_items = [{'id': 1}, {'id': 2}, {'id': 3}]\nnew = process_stream(all_items, last_id=1)\nprint(len(new))\n```",
       "choices": [
         "A. 3",
         "B. 2",
@@ -1810,7 +1810,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "실시간으로 데이터가 들어올 때 수집합니다. 초급의 for 루프와 리스트를 사용해요.\n\nreal_time_data = []\nfor chunk in api_stream:\n    real_time_data._____( chunk )\n    if len(real_time_data) > 100:\n        process_batch(real_time_data)\n        real_time_data = []",
+      "question": "실시간으로 데이터가 들어올 때 수집합니다. 초급의 for 루프와 리스트를 사용해요.\n\n```python\nreal_time_data = []\nfor chunk in api_stream:\n    real_time_data._____( chunk )\n    if len(real_time_data) > 100:\n        process_batch(real_time_data)\n        real_time_data = []\n```",
       "answer": "append",
       "hint": ".append()로 실시간 데이터를 수집해요.",
       "feedback": {
@@ -1827,7 +1827,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nstatus = 'idle'\ncycles = 0\nwhile status == 'idle' and cycles < 3:\n    cycles += 1\n    if cycles == 2:\n        status = 'active'\nprint(cycles)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nstatus = 'idle'\ncycles = 0\nwhile status == 'idle' and cycles < 3:\n    cycles += 1\n    if cycles == 2:\n        status = 'active'\nprint(cycles)\n```",
       "choices": [
         "A. 1",
         "B. 2",
@@ -1850,7 +1850,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "실시간 데이터 스트림에서 중복을 제거합니다.\n\nseen_ids = _____\nfor item in stream:\n    if item['id'] not in seen_ids:\n        process(item)\n        seen_ids.add(item['id'])",
+      "question": "실시간 데이터 스트림에서 중복을 제거합니다.\n\n```python\nseen_ids = _____\nfor item in stream:\n    if item['id'] not in seen_ids:\n        process(item)\n        seen_ids.add(item['id'])\n```",
       "answer": "set()",
       "hint": "set()은 중복을 자동으로 제거해서 조회가 빠르게 돼요.",
       "feedback": {
@@ -1867,7 +1867,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ntimestamps = []\nfor i in range(3):\n    timestamp = i * 1000\n    if not timestamps or timestamp > timestamps[-1]:\n        timestamps.append(timestamp)\n        print('추가')\nprint(len(timestamps))",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ntimestamps = []\nfor i in range(3):\n    timestamp = i * 1000\n    if not timestamps or timestamp > timestamps[-1]:\n        timestamps.append(timestamp)\n        print('추가')\nprint(len(timestamps))\n```",
       "choices": [
         "A. 추가\n추가\n추가\n3",
         "B. 추가\n추가\n2",
@@ -1890,7 +1890,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "초급의 딕셔너리로 상태를 추적하면서 실시간 업데이트를 처리합니다.\n\nstate = {'count': 0, 'last_update': None}\nfor item in stream:\n    state['count'] _____  1\n    state['last_update'] = item['timestamp']",
+      "question": "초급의 딕셔너리로 상태를 추적하면서 실시간 업데이트를 처리합니다.\n\n```python\nstate = {'count': 0, 'last_update': None}\nfor item in stream:\n    state['count'] _____  1\n    state['last_update'] = item['timestamp']\n```",
       "answer": "+=",
       "hint": "+= 연산자로 카운트를 증가시켜요.",
       "feedback": {
@@ -1907,7 +1907,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nwindow = []\nfor i in range(5):\n    window.append(i)\n    if len(window) > 3:\n        window.pop(0)\n    print(f'{window}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nwindow = []\nfor i in range(5):\n    window.append(i)\n    if len(window) > 3:\n        window.pop(0)\n    print(f'{window}')\n```",
       "choices": [
         "A. [0]\n[0, 1]\n[0, 1, 2]\n[1, 2, 3]\n[2, 3, 4]",
         "B. [0]\n[0, 1]\n[0, 1, 2]\n[0, 1, 2, 3]\n[1, 2, 3, 4]",
@@ -1930,7 +1930,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "실시간 데이터에서 특정 이벤트를 감지하면 알림을 보냅니다.\n\nalerts = []\nfor event in stream:\n    if event['severity'] == 'critical':\n        alerts._____( event )\n        notify_user(event)\n\nreturn alerts",
+      "question": "실시간 데이터에서 특정 이벤트를 감지하면 알림을 보냅니다.\n\n```python\nalerts = []\nfor event in stream:\n    if event['severity'] == 'critical':\n        alerts._____( event )\n        notify_user(event)\nreturn alerts\n```",
       "answer": "append",
       "hint": ".append()로 알림을 기록해요.",
       "feedback": {
@@ -1947,7 +1947,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nmetrics = {'requests': 0, 'errors': 0}\n# stream은 API 응답 리스트 가정 (예: requests의 응답 객체 리스트)\nfor response in stream:\n    metrics['requests'] += 1\n    if response.status_code >= 400:\n        metrics['errors'] += 1\n\nerror_rate = metrics['errors'] / metrics['requests'] if metrics['requests'] > 0 else 0\nprint(f'{error_rate:.2f}')\n\n# 10개 요청 중 2개가 에러",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nmetrics = {'requests': 0, 'errors': 0}\n# stream은 API 응답 리스트 가정 (예: requests의 응답 객체 리스트)\nfor response in stream:\n    metrics['requests'] += 1\n    if response.status_code >= 400:\n        metrics['errors'] += 1\n\nerror_rate = metrics['errors'] / metrics['requests'] if metrics['requests'] > 0 else 0\nprint(f'{error_rate:.2f}')\n```\n# 10개 요청 중 2개가 에러",
       "choices": [
         "A. 0.20",
         "B. 0.10",
@@ -1970,7 +1970,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "실시간 데이터를 초급의 함수로 처리하면 코드를 정리할 수 있어요.\n\ndef handle_update(previous, current):\n    changes = {k: v for k, v in current.items() if k not in previous _____ current[k] != previous.get(k)}\n    return changes\n\nold = {'a': 1, 'b': 2}\nnew = {'a': 1, 'b': 3, 'c': 4}\nresult = handle_update(old, new)",
+      "question": "실시간 데이터를 초급의 함수로 처리하면 코드를 정리할 수 있어요.\n\n```python\ndef handle_update(previous, current):\n    changes = {k: v for k, v in current.items() if k not in previous _____ current[k] != previous.get(k)}\n    return changes\n\nold = {'a': 1, 'b': 2}\nnew = {'a': 1, 'b': 3, 'c': 4}\nresult = handle_update(old, new)\n```",
       "answer": "or",
       "hint": "신규이거나 변경된 항목만 반환해요.",
       "feedback": {
@@ -1987,7 +1987,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nhistory = []\nmax_history = 3\n\nfor i in range(5):\n    history.append(i)\n    if len(history) > max_history:\n        history.pop(0)\n\nprint(f'최종: {history}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nhistory = []\nmax_history = 3\n\nfor i in range(5):\n    history.append(i)\n    if len(history) > max_history:\n        history.pop(0)\n\nprint(f'최종: {history}')\n```",
       "choices": [
         "A. 최종: [0, 1, 2, 3, 4]",
         "B. 최종: [2, 3, 4]",
@@ -2010,7 +2010,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "API에서 데이터가 많을 때 페이지 단위로 나누어 받아요. 페이지네이션을 사용합니다.\n\npage = 1\nwhile page <= 3:\n    url = f'https://api.example.com/items?page={_____}'\n    response = requests.get(url)\n    data = response.json()\n    page += 1",
+      "question": "API에서 데이터가 많을 때 페이지 단위로 나누어 받아요. 페이지네이션을 사용합니다.\n\n```python\npage = 1\nwhile page <= 3:\n    url = f'https://api.example.com/items?page={_____}'\n    response = requests.get(url)\n    data = response.json()\n    page += 1\n```",
       "answer": "page",
       "hint": "f-string에서 page 변수를 사용해요.",
       "feedback": {
@@ -2027,7 +2027,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nall_items = []\nfor page in [1, 2, 3]:\n    # API 응답을 가정\n    items = [{'id': (page-1)*2+1}, {'id': (page-1)*2+2}]\n    all_items.extend(items)\n\nprint(len(all_items))",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nall_items = []\nfor page in [1, 2, 3]:\n    # API 응답을 가정\n    items = [{'id': (page-1)*2+1}, {'id': (page-1)*2+2}]\n    all_items.extend(items)\n\nprint(len(all_items))\n```",
       "choices": [
         "A. 3",
         "B. 6",
@@ -2050,7 +2050,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "API 응답을 특정 필드로 정렬해서 받을 수 있어요.\n\nparams = {\n    'page': 1,\n    'sort': '_____',\n    'order': 'asc'\n}\nresponse = requests.get('https://api.example.com/data', params=params)",
+      "question": "API 응답을 특정 필드로 정렬해서 받을 수 있어요.\n\n```python\nparams = {\n    'page': 1,\n    'sort': '_____',\n    'order': 'asc'\n}\nresponse = requests.get('https://api.example.com/data', params=params)\n```",
       "answer": "'price'",
       "hint": "정렬할 필드 이름을 문자열로 지정해요.",
       "feedback": {
@@ -2067,7 +2067,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndata = [\n    {'name': 'Product A', 'category': 'electronics', 'price': 100},\n    {'name': 'Product B', 'category': 'clothing', 'price': 50},\n    {'name': 'Product C', 'category': 'electronics', 'price': 200}\n]\n\nelectronics = [item for item in data if item['category'] == 'electronics']\nprint(len(electronics))",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ndata = [\n    {'name': 'Product A', 'category': 'electronics', 'price': 100},\n    {'name': 'Product B', 'category': 'clothing', 'price': 50},\n    {'name': 'Product C', 'category': 'electronics', 'price': 200}\n]\n\nelectronics = [item for item in data if item['category'] == 'electronics']\nprint(len(electronics))\n```",
       "choices": [
         "A. 1",
         "B. 2",
@@ -2090,7 +2090,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "API 응답 데이터를 검증합니다. 필수 필드를 확인해요.\n\nrequired_fields = ['id', 'name', 'price']\nfor item in api_response:\n    if not all(field in item _____ item[field] is not None for field in required_fields):\n        print('데이터 검증 실패')",
+      "question": "API 응답 데이터를 검증합니다. 필수 필드를 확인해요.\n\n```python\nrequired_fields = ['id', 'name', 'price']\nfor item in api_response:\n    if not all(field in item _____ item[field] is not None for field in required_fields):\n        print('데이터 검증 실패')\n```",
       "answer": "and",
       "hint": "필드가 존재하고 None이 아닌지 확인해요.",
       "feedback": {
@@ -2107,7 +2107,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "여러 API의 응답을 조합합니다. 다음 코드의 결과는?\n\nuser_api = {'id': 1, 'name': 'John'}\nprofile_api = {'bio': 'Developer', 'location': 'Seoul'}\n\ncombined = {**user_api, **profile_api}\nprint(combined['name'])",
+      "question": "여러 API의 응답을 조합합니다. 다음 코드의 결과는?\n\n```python\nuser_api = {'id': 1, 'name': 'John'}\nprofile_api = {'bio': 'Developer', 'location': 'Seoul'}\n\ncombined = {**user_api, **profile_api}\nprint(combined['name'])\n```",
       "choices": [
         "A. John",
         "B. Developer",
@@ -2130,7 +2130,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "중첩된 API 응답에서 데이터를 파싱합니다.\n\nresponse = {\n    'data': {\n        'users': [{'name': 'John', 'age': 30}]\n    }\n}\n\nname = response['data']['users'][0]_____\nprint(name)  # John",
+      "question": "중첩된 API 응답에서 데이터를 파싱합니다.\n\n```python\nresponse = {\n    'data': {\n        'users': [{'name': 'John', 'age': 30}]\n    }\n}\n\nname = response['data']['users'][0]_____\nprint(name)  # John\n```",
       "answer": "['name']",
       "hint": "['name']으로 딕셔너리에서 name 값을 가져와요.",
       "feedback": {
@@ -2147,7 +2147,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport time\nrequests_made = 0\nmax_requests_per_minute = 10\nlast_reset = time.time()\n\nfor i in range(15):\n    current_time = time.time()\n    if current_time - last_reset > 60:\n        requests_made = 0\n        last_reset = current_time\n    \n    if requests_made >= max_requests_per_minute:\n        print('Rate limit 초과')\n        break\n    \n    requests_made += 1\n\nprint(f'요청 완료: {requests_made}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport time\nrequests_made = 0\nmax_requests_per_minute = 10\nlast_reset = time.time()\n\nfor i in range(15):\n    current_time = time.time()\n    if current_time - last_reset > 60:\n        requests_made = 0\n        last_reset = current_time\n    \n    if requests_made >= max_requests_per_minute:\n        print('Rate limit 초과')\n        break\n    \n    requests_made += 1\n\nprint(f'요청 완료: {requests_made}')\n```",
       "choices": [
         "A. 요청 완료: 15",
         "B. Rate limit 초과\\n요청 완료: 10",
@@ -2170,7 +2170,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "API 응답 데이터를 정규화합니다. 초급의 함수를 사용해요.\n\ndef normalize_price(item):\n    if isinstance(item.get('price'), str):\n        return float(item['price'].replace('$', ''))\n    return item.get('price', 0)\n\nraw_data = [{'price': '$100'}, {'price': 200}, {'price': None}]\nnormalized = [_____ for item in raw_data]\nprint(normalized)  # [100.0, 200, 0]",
+      "question": "API 응답 데이터를 정규화합니다. 초급의 함수를 사용해요.\n\n```python\ndef normalize_price(item):\n    if isinstance(item.get('price'), str):\n        return float(item['price'].replace('$', ''))\n    return item.get('price', 0)\n\nraw_data = [{'price': '$100'}, {'price': 200}, {'price': None}]\nnormalized = [_____ for item in raw_data]\nprint(normalized)  # [100.0, 200, 0]\n```",
       "answer": "normalize_price(item)",
       "hint": "함수를 리스트 컴프리헨션에 적용해요.",
       "feedback": {
@@ -2187,7 +2187,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nall_data = []\nfor page in range(1, 4):\n    # API 응답을 가정\n    page_data = [{'id': i, 'value': i*10} for i in range((page-1)*3+1, page*3+1)]\n    all_data.extend(page_data)\n\nfiltered = [item for item in all_data if item['value'] > 30]\nprint(len(filtered))",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nall_data = []\nfor page in range(1, 4):\n    # API 응답을 가정\n    page_data = [{'id': i, 'value': i*10} for i in range((page-1)*3+1, page*3+1)]\n    all_data.extend(page_data)\n\nfiltered = [item for item in all_data if item['value'] > 30]\nprint(len(filtered))\n```",
       "choices": [
         "A. 3",
         "B. 4",
@@ -2210,7 +2210,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "복잡한 검색 조건으로 API를 호출합니다.\n\nsearch_params = {\n    'q': 'laptop',\n    'category': 'electronics',\n    'min_price': 500,\n    'max_price': 2000,\n    'sort': 'price',\n    'order': 'asc',\n    'page': 1\n}\n\nresponse = requests.get('https://api.example.com/search', _____=search_params)",
+      "question": "복잡한 검색 조건으로 API를 호출합니다.\n\n```python\nsearch_params = {\n    'q': 'laptop',\n    'category': 'electronics',\n    'min_price': 500,\n    'max_price': 2000,\n    'sort': 'price',\n    'order': 'asc',\n    'page': 1\n}\n\nresponse = requests.get('https://api.example.com/search', _____=search_params)\n```",
       "answer": "params",
       "hint": "params를 사용하면 복잡한 쿼리를 쉽게 전달할 수 있어요.",
       "feedback": {
@@ -2227,7 +2227,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nusers = [\n    {'id': 1, 'role': 'admin', 'status': 'active'},\n    {'id': 2, 'role': 'user', 'status': 'active'},\n    {'id': 3, 'role': 'user', 'status': 'inactive'}\n]\n\nactive_users = [u for u in users if u['status'] == 'active']\nprint(len(active_users))",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nusers = [\n    {'id': 1, 'role': 'admin', 'status': 'active'},\n    {'id': 2, 'role': 'user', 'status': 'active'},\n    {'id': 3, 'role': 'user', 'status': 'inactive'}\n]\n\nactive_users = [u for u in users if u['status'] == 'active']\nprint(len(active_users))\n```",
       "choices": [
         "A. 1",
         "B. 2",
@@ -2250,7 +2250,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "API 응답에서 빠진 필드를 기본값으로 채워요.\n\nraw_items = [{'id': 1, 'name': 'A'}, {'id': 2}]\ncleaned = [{\n    'id': item.get('id'),\n    'name': item.get('name', '_____'),\n    'price': item.get('price', 0)\n} for item in raw_items]",
+      "question": "API 응답에서 빠진 필드를 기본값으로 채워요.\n\n```python\nraw_items = [{'id': 1, 'name': 'A'}, {'id': 2}]\ncleaned = [{\n    'id': item.get('id'),\n    'name': item.get('name', '_____'),\n    'price': item.get('price', 0)\n```\n} for item in raw_items]",
       "answer": "'Unknown'",
       "hint": "name이 없을 때의 기본값을 설정해요.",
       "feedback": {
@@ -2267,7 +2267,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndata = {\n    'products': [\n        {'id': 1, 'name': 'A', 'stock': 10},\n        {'id': 2, 'name': 'B', 'stock': 0},\n        {'id': 3, 'name': 'C', 'stock': 5}\n    ]\n}\n\nin_stock = [p['name'] for p in data['products'] if p['stock'] > 0]\nprint(in_stock)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ndata = {\n    'products': [\n        {'id': 1, 'name': 'A', 'stock': 10},\n        {'id': 2, 'name': 'B', 'stock': 0},\n        {'id': 3, 'name': 'C', 'stock': 5}\n    ]\n}\n\nin_stock = [p['name'] for p in data['products'] if p['stock'] > 0]\nprint(in_stock)\n```",
       "choices": [
         "A. ['A', 'C']",
         "B. ['A', 'B', 'C']",
@@ -2290,7 +2290,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "API 응답을 그룹화해서 처리합니다. 초급의 딕셔너리를 사용해요.\n\nfrom collections import defaultdict\n\nitems = [{'category': 'A', 'value': 10}, {'category': 'B', 'value': 20}, {'category': 'A', 'value': 30}]\ngrouped = defaultdict(list)\nfor item in items:\n    grouped[item['category']]._____( item )\n\nprint(len(grouped['A']))  # 2",
+      "question": "API 응답을 그룹화해서 처리합니다. 초급의 딕셔너리를 사용해요.\n\n```python\nfrom collections import defaultdict\n\nitems = [{'category': 'A', 'value': 10}, {'category': 'B', 'value': 20}, {'category': 'A', 'value': 30}]\ngrouped = defaultdict(list)\nfor item in items:\n    grouped[item['category']]._____( item )\n\nprint(len(grouped['A']))  # 2\n```",
       "answer": "append",
       "hint": ".append()로 카테고리별로 항목을 모아요.",
       "feedback": {
@@ -2307,7 +2307,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nrecords = [\n    {'date': '2026-01', 'amount': 1000, 'category': 'income'},\n    {'date': '2026-01', 'amount': 200, 'category': 'expense'},\n    {'date': '2026-02', 'amount': 500, 'category': 'expense'}\n]\n\nincome = sum(r['amount'] for r in records if r['category'] == 'income')\nexpense = sum(r['amount'] for r in records if r['category'] == 'expense')\nprint(f'순이익: {income - expense}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nrecords = [\n    {'date': '2026-01', 'amount': 1000, 'category': 'income'},\n    {'date': '2026-01', 'amount': 200, 'category': 'expense'},\n    {'date': '2026-02', 'amount': 500, 'category': 'expense'}\n]\n\nincome = sum(r['amount'] for r in records if r['category'] == 'income')\nexpense = sum(r['amount'] for r in records if r['category'] == 'expense')\nprint(f'순이익: {income - expense}')\n```",
       "choices": [
         "A. 순이익: 300",
         "B. 순이익: 500",
@@ -2330,7 +2330,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "페이지네이션과 필터링을 함께 처리합니다. 초급의 for 루프를 사용해요.\n\ndef fetch_all_filtered(base_url, filter_condition, max_pages=None):\n    all_items = []\n    page = 1\n    while True:\n        response = requests.get(f'{base_url}?page={page}')\n        data = response.json()\n        if not data['items']:\n            break\n        filtered = [item for item in data['items'] if filter_condition_____]\n        all_items.extend(filtered)\n        page += 1\n        if max_pages and page > max_pages:\n            break\n    return all_items",
+      "question": "페이지네이션과 필터링을 함께 처리합니다. 초급의 for 루프를 사용해요.\n\n```python\ndef fetch_all_filtered(base_url, filter_condition, max_pages=None):\n    all_items = []\n    page = 1\n    while True:\n        response = requests.get(f'{base_url}?page={page}')\n        data = response.json()\n        if not data['items']:\n            break\n        filtered = [item for item in data['items'] if filter_condition_____]\n        all_items.extend(filtered)\n        page += 1\n        if max_pages and page > max_pages:\n            break\n    return all_items\n```",
       "answer": "(item)",
       "hint": "filter_condition이 함수이면 (item)을 호출해야 해요.",
       "feedback": {
@@ -2347,7 +2347,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\napi_responses = [\n    [{'id': 1, 'score': 85}, {'id': 2, 'score': 90}],\n    [{'id': 3, 'score': 78}],\n    [{'id': 4, 'score': 92}]\n]\n\nall_records = []\nfor response in api_responses:\n    all_records.extend(response)\n\ntop_scores = [r for r in all_records if r['score'] >= 90]\nprint(len(top_scores))",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\napi_responses = [\n    [{'id': 1, 'score': 85}, {'id': 2, 'score': 90}],\n    [{'id': 3, 'score': 78}],\n    [{'id': 4, 'score': 92}]\n]\n\nall_records = []\nfor response in api_responses:\n    all_records.extend(response)\n\ntop_scores = [r for r in all_records if r['score'] >= 90]\nprint(len(top_scores))\n```",
       "choices": [
         "A. 1",
         "B. 2",
@@ -2370,7 +2370,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "복잡한 API 데이터를 변환해서 저장합니다.\n\ndef transform_user_data(api_response):\n    return {\n        'user_id': api_response['id'],\n        'display_name': api_response.get('first_name', '') + ' ' + api_response.get('last_name', ''),\n        'email': api_response.get('email', '_____'),\n        'created_at': api_response.get('created_timestamp')\n    }\n\ntransformed = [transform_user_data(u) for u in api_users]",
+      "question": "복잡한 API 데이터를 변환해서 저장합니다.\n\n```python\ndef transform_user_data(api_response):\n    return {\n        'user_id': api_response['id'],\n        'display_name': api_response.get('first_name', '') + ' ' + api_response.get('last_name', ''),\n        'email': api_response.get('email', '_____'),\n        'created_at': api_response.get('created_timestamp')\n    }\n```\ntransformed = [transform_user_data(u) for u in api_users]",
       "answer": "'unknown@example.com'",
       "hint": "email이 없을 때의 기본 이메일값이에요.",
       "feedback": {
@@ -2387,7 +2387,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "import requests\n\n다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndef fetch_paginated_data(api_url, key_field, max_pages=2):\n    all_data = []\n    seen_ids = set()\n    for page in range(1, max_pages + 1):\n        response = requests.get(f'{api_url}?page={page}')\n        data = response.json()['data']\n        for item in data:\n            if item[key_field] not in seen_ids:\n                all_data.append(item)\n                seen_ids.add(item[key_field])\n    return all_data\n\n# 각 페이지에 id 1,2와 id 3,4가 있고, 중복 제거됨\nresult = fetch_paginated_data('https://api.test', 'id', 2)\nprint(len(result))  # 4개 항목",
+      "question": "\n\n```python\nimport requests\n\n다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndef fetch_paginated_data(api_url, key_field, max_pages=2):\n    all_data = []\n    seen_ids = set()\n    for page in range(1, max_pages + 1):\n        response = requests.get(f'{api_url}?page={page}')\n        data = response.json()['data']\n        for item in data:\n            if item[key_field] not in seen_ids:\n                all_data.append(item)\n                seen_ids.add(item[key_field])\n    return all_data\n\n# 각 페이지에 id 1,2와 id 3,4가 있고, 중복 제거됨\nresult = fetch_paginated_data('https://api.test', 'id', 2)\nprint(len(result))  # 4개 항목\n```",
       "choices": [
         "A. 2",
         "B. 4",
@@ -2410,7 +2410,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "실전 프로젝트에서 API 데이터를 가져와서 변환하고 저장해요. 기본 워크플로우를 만들어봅시다.\n\n# 1단계: API에서 데이터 가져오기\nresponse = requests.get(api_url)\ndata = response._____( )\n\n# 2단계: 데이터 변환\ncleaned_data = [transform(item) for item in data]\n\n# 3단계: 파일에 저장\nwith open('output.json', 'w') as f:\n    json.dump(cleaned_data, f)",
+      "question": "실전 프로젝트에서 API 데이터를 가져와서 변환하고 저장해요. 기본 워크플로우를 만들어봅시다.\n\n```python\n# 1단계: API에서 데이터 가져오기\nresponse = requests.get(api_url)\ndata = response._____( )\n\n# 2단계: 데이터 변환\ncleaned_data = [transform(item) for item in data]\n\n# 3단계: 파일에 저장\nwith open('output.json', 'w') as f:\n    json.dump(cleaned_data, f)\n```",
       "answer": "json",
       "hint": ".json()으로 API 응답을 딕셔너리로 변환해요.",
       "feedback": {
@@ -2450,7 +2450,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "여러 API의 데이터를 합쳐서 하나의 프로젝트를 구성해요.\n\ntry:\n    users = requests.get(user_api).json()\n    posts = requests.get(posts_api).json()\n    combined = {**{'users': users}, **{'posts': posts}}\n    \n    with open('project.json', 'w') as f:\n        json.dump(combined, f)\n    print('프로젝트 데이터 저장 완료')\nexcept _____:\n    print('API 요청 실패')",
+      "question": "여러 API의 데이터를 합쳐서 하나의 프로젝트를 구성해요.\n\n```python\ntry:\n    users = requests.get(user_api).json()\n    posts = requests.get(posts_api).json()\n    combined = {**{'users': users}, **{'posts': posts}}\n    \n    with open('project.json', 'w') as f:\n        json.dump(combined, f)\n    print('프로젝트 데이터 저장 완료')\nexcept _____:\n    print('API 요청 실패')\n```",
       "answer": "Exception",
       "hint": "모든 종류의 에러를 처리할 수 있는 일반 예외를 사용해요.",
       "feedback": {
@@ -2467,7 +2467,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndef process_project(api_data):\n    cleaned = []\n    for item in api_data:\n        try:\n            # 데이터 검증\n            if not item.get('id') or not item.get('name'):\n                continue\n            cleaned.append({\n                'id': item['id'],\n                'name': item['name'].upper()\n            })\n        except Exception:\n            pass\n    return cleaned\n\nraw_data = [{'id': 1, 'name': 'alice'}, {'id': 2}, {'id': 3, 'name': 'bob'}]\nresult = process_project(raw_data)\nprint(len(result))",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ndef process_project(api_data):\n    cleaned = []\n    for item in api_data:\n        try:\n            # 데이터 검증\n            if not item.get('id') or not item.get('name'):\n                continue\n            cleaned.append({\n                'id': item['id'],\n                'name': item['name'].upper()\n            })\n        except Exception:\n            pass\n    return cleaned\n\nraw_data = [{'id': 1, 'name': 'alice'}, {'id': 2}, {'id': 3, 'name': 'bob'}]\nresult = process_project(raw_data)\nprint(len(result))\n```",
       "choices": [
         "A. 3",
         "B. 2",
@@ -2490,7 +2490,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "실전 프로젝트에서는 실패해도 계속 진행해야 하는 경우가 있어요. 재시도 로직을 만들어봅시다.\n\ndef fetch_with_retry(url, max_retries=3):\n    for attempt in range(1, max_retries + 1):\n        try:\n            response = requests.get(url)\n            if response.status_code == 200:\n                return response.json()\n        except _____:\n            if attempt == max_retries:\n                print('최대 재시도 횟수 초과')\n            continue",
+      "question": "실전 프로젝트에서는 실패해도 계속 진행해야 하는 경우가 있어요. 재시도 로직을 만들어봅시다.\n\n```python\ndef fetch_with_retry(url, max_retries=3):\n    for attempt in range(1, max_retries + 1):\n        try:\n            response = requests.get(url)\n            if response.status_code == 200:\n                return response.json()\n        except _____:\n            if attempt == max_retries:\n                print('최대 재시도 횟수 초과')\n            continue\n```",
       "answer": "Exception",
       "hint": "네트워크 에러 등 예상 가능한 모든 에러를 처리해요.",
       "feedback": {
@@ -2507,7 +2507,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "캐싱을 사용해서 불필요한 API 호출을 줄일 수 있어요. 다음 코드의 결과는?\n\ncache = {}\ndef get_user(user_id):\n    if user_id in cache:\n        print(f'캐시에서 반환: {user_id}')\n        return cache[user_id]\n    \n    # API 호출\n    user = {'id': user_id, 'name': f'User{user_id}'}\n    cache[user_id] = user\n    print(f'API에서 가져옴: {user_id}')\n    return user\n\nget_user(1)\nget_user(1)\nget_user(2)",
+      "question": "캐싱을 사용해서 불필요한 API 호출을 줄일 수 있어요. 다음 코드의 결과는?\n\n```python\ncache = {}\ndef get_user(user_id):\n    if user_id in cache:\n        print(f'캐시에서 반환: {user_id}')\n        return cache[user_id]\n    \n    # API 호출\n    user = {'id': user_id, 'name': f'User{user_id}'}\n    cache[user_id] = user\n    print(f'API에서 가져옴: {user_id}')\n    return user\n\nget_user(1)\nget_user(1)\nget_user(2)\n```",
       "choices": [
         "A. API에서 가져옴: 1\nAPI에서 가져옴: 1\nAPI에서 가져옴: 2",
         "B. API에서 가져옴: 1\n캐시에서 반환: 1\nAPI에서 가져옴: 2",
@@ -2530,7 +2530,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "실전 프로젝트: 여러 API에서 데이터를 가져와서 통합하고 저장하는 전체 워크플로우\n\nimport json, requests\n\ndef run_project():\n    try:\n        # 단계 1: API 호출\n        products = requests.get('products_api').json()\n        inventory = requests.get('inventory_api').json()\n        \n        # 단계 2: 데이터 통합\n        enriched = []\n        for p in products:\n            inv = next((i for i in inventory if i['id'] == p['id']), {})\n            enriched._____( {**p, **inv} )\n        \n        # 단계 3: 저장\n        with open('enriched.json', 'w') as f:\n            json.dump(enriched, f)\n        return True\n    except Exception as e:\n        print(f'프로젝트 실패: {e}')\n        return False",
+      "question": "실전 프로젝트: 여러 API에서 데이터를 가져와서 통합하고 저장하는 전체 워크플로우\n\n```python\nimport json, requests\n\ndef run_project():\n    try:\n        # 단계 1: API 호출\n        products = requests.get('products_api').json()\n        inventory = requests.get('inventory_api').json()\n        \n        # 단계 2: 데이터 통합\n        enriched = []\n        for p in products:\n            inv = next((i for i in inventory if i['id'] == p['id']), {})\n            enriched._____( {**p, **inv} )\n        \n        # 단계 3: 저장\n        with open('enriched.json', 'w') as f:\n            json.dump(enriched, f)\n        return True\n    except Exception as e:\n        print(f'프로젝트 실패: {e}')\n        return False\n```",
       "answer": "append",
       "hint": ".append()로 통합된 데이터를 리스트에 추가해요.",
       "feedback": {
@@ -2547,7 +2547,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndef aggregate_metrics(api_responses):\n    metrics = {'total': 0, 'errors': 0, 'success': 0}\n    for response in api_responses:\n        metrics['total'] += 1\n        if response.get('status') == 'error':\n            metrics['errors'] += 1\n        else:\n            metrics['success'] += 1\n    \n    success_rate = metrics['success'] / metrics['total'] if metrics['total'] > 0 else 0\n    return success_rate\n\nresponses = [\n    {'status': 'ok'},\n    {'status': 'error'},\n    {'status': 'ok'},\n    {'status': 'ok'}\n]\n\nrate = aggregate_metrics(responses)\nprint(f'{rate:.2f}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ndef aggregate_metrics(api_responses):\n    metrics = {'total': 0, 'errors': 0, 'success': 0}\n    for response in api_responses:\n        metrics['total'] += 1\n        if response.get('status') == 'error':\n            metrics['errors'] += 1\n        else:\n            metrics['success'] += 1\n    \n    success_rate = metrics['success'] / metrics['total'] if metrics['total'] > 0 else 0\n    return success_rate\n\nresponses = [\n    {'status': 'ok'},\n    {'status': 'error'},\n    {'status': 'ok'},\n    {'status': 'ok'}\n]\n\nrate = aggregate_metrics(responses)\nprint(f'{rate:.2f}')\n```",
       "choices": [
         "A. 0.50",
         "B. 0.75",
@@ -2570,7 +2570,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "데이터 검증은 프로젝트의 핵심입니다. 초급의 함수로 검증 로직을 만들어봅시다.\n\ndef validate_record(record):\n    required_fields = ['id', 'name', 'email']\n    return all(_____[field] for field in required_fields)\n\ndef process_records(api_data):\n    valid_records = [r for r in api_data if validate_record(r)]\n    return valid_records\n\ndata = [\n    {'id': 1, 'name': 'Alice', 'email': 'alice@test.com'},\n    {'id': 2, 'name': 'Bob', 'email': None},\n    {'id': 3, 'name': 'Charlie', 'email': 'charlie@test.com'}\n]\n\nresult = process_records(data)\nprint(len(result))  # 2",
+      "question": "데이터 검증은 프로젝트의 핵심입니다. 초급의 함수로 검증 로직을 만들어봅시다.\n\n```python\ndef validate_record(record):\n    required_fields = ['id', 'name', 'email']\n    return all(_____[field] for field in required_fields)\n\ndef process_records(api_data):\n    valid_records = [r for r in api_data if validate_record(r)]\n    return valid_records\n\ndata = [\n    {'id': 1, 'name': 'Alice', 'email': 'alice@test.com'},\n    {'id': 2, 'name': 'Bob', 'email': None},\n    {'id': 3, 'name': 'Charlie', 'email': 'charlie@test.com'}\n]\n\nresult = process_records(data)\nprint(len(result))  # 2\n```",
       "answer": "record.get",
       "hint": "record.get(field)로 각 필드의 값을 확인해요.",
       "feedback": {
@@ -2587,7 +2587,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음은 완전한 API 프로젝트입니다. 실행 결과는?\n\nimport json\nfrom datetime import datetime\n\ndef create_report(api_data):\n    report = {\n        'timestamp': datetime.now().isoformat(),\n        'total_items': len(api_data),\n        'valid_items': len([i for i in api_data if i.get('id') and i.get('status')]),\n        'failed_items': len([i for i in api_data if not i.get('id') or not i.get('status')])\n    }\n    return report\n\ndata = [\n    {'id': 1, 'status': 'active'},\n    {'id': 2},\n    {'id': 3, 'status': 'inactive'},\n    {'status': 'pending'}\n]\n\nreport = create_report(data)\nprint(f\"총 {report['total_items']}개 중 {report['valid_items']}개 유효\")",
+      "question": "다음은 완전한 API 프로젝트입니다. 실행 결과는?\n\n```python\nimport json\nfrom datetime import datetime\n\ndef create_report(api_data):\n    report = {\n        'timestamp': datetime.now().isoformat(),\n        'total_items': len(api_data),\n        'valid_items': len([i for i in api_data if i.get('id') and i.get('status')]),\n        'failed_items': len([i for i in api_data if not i.get('id') or not i.get('status')])\n    }\n    return report\n\ndata = [\n    {'id': 1, 'status': 'active'},\n    {'id': 2},\n    {'id': 3, 'status': 'inactive'},\n    {'status': 'pending'}\n]\n\nreport = create_report(data)\nprint(f\"총 {report['total_items']}개 중 {report['valid_items']}개 유효\")\n```",
       "choices": [
         "A. 총 4개 중 4개 유효",
         "B. 총 4개 중 3개 유효",
@@ -2610,7 +2610,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "API 프로젝트의 기본은 데이터를 안전하게 처리하는 것입니다.\n\ndef safe_project(api_url):\n    try:\n        response = requests.get(api_url, timeout=5)\n        response._____()  # HTTP 에러 확인\n        data = response.json()\n        return data\n    except requests.RequestException as e:\n        print(f'API 호출 실패: {e}')\n        return None",
+      "question": "API 프로젝트의 기본은 데이터를 안전하게 처리하는 것입니다.\n\n```python\ndef safe_project(api_url):\n    try:\n        response = requests.get(api_url, timeout=5)\n        response._____()  # HTTP 에러 확인\n        data = response.json()\n        return data\n    except requests.RequestException as e:\n        print(f'API 호출 실패: {e}')\n        return None\n```",
       "answer": "raise_for_status",
       "hint": ".raise_for_status()는 HTTP 에러를 예외로 변환해요.",
       "feedback": {
@@ -2627,7 +2627,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드는 API 프로젝트에서 흔한 패턴입니다. 결과는?\n\nresults = []\nfor page in range(1, 4):\n    # API 페이지별 호출\n    items = [{'page': page, 'id': i} for i in range(1, 3)]\n    results.extend(items)\n\nprint(f'총 {len(results)}개 항목 수집')",
+      "question": "다음 코드는 API 프로젝트에서 흔한 패턴입니다. 결과는?\n\n```python\nresults = []\nfor page in range(1, 4):\n    # API 페이지별 호출\n    items = [{'page': page, 'id': i} for i in range(1, 3)]\n    results.extend(items)\n\nprint(f'총 {len(results)}개 항목 수집')\n```",
       "choices": [
         "A. 총 2개 항목 수집",
         "B. 총 3개 항목 수집",
@@ -2650,7 +2650,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "API 프로젝트에서 리스트 컴프리헨션으로 모든 항목을 변환합니다.\n\ndef normalize_item(raw_item):\n    return {\n        'id': raw_item.get('item_id'),\n        'title': raw_item.get('item_name', 'Untitled').upper()\n    }\n\nraw_data = [{'item_id': 1, 'item_name': 'laptop'}, {'item_id': 2}]\nnormalized = [normalize_item(item) for item in _____]\nprint(normalized[0]['title'])  # LAPTOP",
+      "question": "API 프로젝트에서 리스트 컴프리헨션으로 모든 항목을 변환합니다.\n\n```python\ndef normalize_item(raw_item):\n    return {\n        'id': raw_item.get('item_id'),\n        'title': raw_item.get('item_name', 'Untitled').upper()\n    }\n\nraw_data = [{'item_id': 1, 'item_name': 'laptop'}, {'item_id': 2}]\nnormalized = [normalize_item(item) for item in _____]\nprint(normalized[0]['title'])  # LAPTOP\n```",
       "answer": "raw_data",
       "hint": "for 루프가 순회할 리스트를 지정해요.",
       "feedback": {
@@ -2667,7 +2667,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndef batch_process(items, batch_size=2):\n    batches = []\n    for i in range(0, len(items), batch_size):\n        batch = items[i:i+batch_size]\n        batches.append({\n            'batch_num': len(batches) + 1,\n            'count': len(batch)\n        })\n    return batches\n\nitems = list(range(1, 6))  # [1, 2, 3, 4, 5]\nresult = batch_process(items)\nprint(len(result))",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ndef batch_process(items, batch_size=2):\n    batches = []\n    for i in range(0, len(items), batch_size):\n        batch = items[i:i+batch_size]\n        batches.append({\n            'batch_num': len(batches) + 1,\n            'count': len(batch)\n        })\n    return batches\n\nitems = list(range(1, 6))  # [1, 2, 3, 4, 5]\nresult = batch_process(items)\nprint(len(result))\n```",
       "choices": [
         "A. 2",
         "B. 3",
@@ -2690,7 +2690,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "로깅은 프로젝트의 안정성을 위해 매우 중요합니다.\n\ndef fetch_data_with_logging(url):\n    log = []\n    try:\n        log._____(f'API 호출 시작: {url}')\n        response = requests.get(url)\n        response.raise_for_status()\n        data = response.json()\n        log.append(f'데이터 수신 완료: {len(data)}개')\n        return data, log\n    except Exception as e:\n        log.append(f'에러 발생: {e}')\n        return None, log",
+      "question": "로깅은 프로젝트의 안정성을 위해 매우 중요합니다.\n\n```python\ndef fetch_data_with_logging(url):\n    log = []\n    try:\n        log._____(f'API 호출 시작: {url}')\n        response = requests.get(url)\n        response.raise_for_status()\n        data = response.json()\n        log.append(f'데이터 수신 완료: {len(data)}개')\n        return data, log\n    except Exception as e:\n        log.append(f'에러 발생: {e}')\n        return None, log\n```",
       "answer": "append",
       "hint": ".append()로 로그 메시지를 기록해요.",
       "feedback": {
@@ -2707,7 +2707,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndef dedup_and_sort(api_data):\n    # 중복 제거\n    unique = list({item['id']: item for item in api_data}.values())\n    # 정렬\n    sorted_data = sorted(unique, key=lambda x: x['id'])\n    return sorted_data\n\ndata = [\n    {'id': 3, 'name': 'C'},\n    {'id': 1, 'name': 'A'},\n    {'id': 3, 'name': 'C_dup'},\n    {'id': 2, 'name': 'B'}\n]\n\nresult = dedup_and_sort(data)\nprint(f'{len(result)}개, 첫 번째 ID: {result[0][\"id\"]}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ndef dedup_and_sort(api_data):\n    # 중복 제거\n    unique = list({item['id']: item for item in api_data}.values())\n    # 정렬\n    sorted_data = sorted(unique, key=lambda x: x['id'])\n    return sorted_data\n\ndata = [\n    {'id': 3, 'name': 'C'},\n    {'id': 1, 'name': 'A'},\n    {'id': 3, 'name': 'C_dup'},\n    {'id': 2, 'name': 'B'}\n]\n\nresult = dedup_and_sort(data)\nprint(f'{len(result)}개, 첫 번째 ID: {result[0][\"id\"]}')\n```",
       "choices": [
         "A. 4개, 첫 번째 ID: 1",
         "B. 3개, 첫 번째 ID: 1",
@@ -2730,7 +2730,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "실전 프로젝트: 완전한 ETL(Extract-Transform-Load) 파이프라인\n\ndef etl_pipeline(source_url, target_file):\n    try:\n        # Extract\n        raw_data = requests.get(source_url).json()\n        \n        # Transform\n        transformed = [\n            {\n                'id': item['id'],\n                'processed_value': float(item.get('value', 0)) * 1.1\n            }\n            for item in raw_data\n            if item.get('id')\n        ]\n        \n        # Load\n        with open(target_file, 'w') as f:\n            json._____( transformed, f )\n        \n        return {'status': 'success', 'count': len(transformed)}\n    except Exception as e:\n        return {'status': 'failed', 'error': str(e)}",
+      "question": "실전 프로젝트: 완전한 ETL(Extract-Transform-Load) 파이프라인\n\n```python\ndef etl_pipeline(source_url, target_file):\n    try:\n        # Extract\n        raw_data = requests.get(source_url).json()\n        \n        # Transform\n        transformed = [\n            {\n                'id': item['id'],\n                'processed_value': float(item.get('value', 0)) * 1.1\n            }\n            for item in raw_data\n            if item.get('id')\n        ]\n        \n        # Load\n        with open(target_file, 'w') as f:\n            json._____( transformed, f )\n        \n        return {'status': 'success', 'count': len(transformed)}\n    except Exception as e:\n        return {'status': 'failed', 'error': str(e)}\n```",
       "answer": "dump",
       "hint": "json.dump()로 파일에 저장해요.",
       "feedback": {
@@ -2747,7 +2747,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\ndef comprehensive_project(api_urls):\n    all_data = []\n    stats = {'total': 0, 'valid': 0, 'invalid': 0}\n    \n    for url in api_urls:\n        try:\n            response = requests.get(url, timeout=2)\n            data = response.json() if response.status_code == 200 else []\n            \n            for item in data:\n                stats['total'] += 1\n                if item.get('id') and item.get('value'):\n                    all_data.append(item)\n                    stats['valid'] += 1\n                else:\n                    stats['invalid'] += 1\n        except Exception:\n            pass\n    \n    return {\n        'items': len(all_data),\n        'valid_ratio': stats['valid'] / stats['total'] if stats['total'] > 0 else 0\n    }\n\n# API 1에서 [{id:1, value:10}, {id:2}] 반환\n# API 2에서 [{id:3, value:30}] 반환\nresult = comprehensive_project(['api1', 'api2'])\nprint(f'{result[\"items\"]}개 유효, 성공률 {result[\"valid_ratio\"]:.0%}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ndef comprehensive_project(api_urls):\n    all_data = []\n    stats = {'total': 0, 'valid': 0, 'invalid': 0}\n    \n    for url in api_urls:\n        try:\n            response = requests.get(url, timeout=2)\n            data = response.json() if response.status_code == 200 else []\n            \n            for item in data:\n                stats['total'] += 1\n                if item.get('id') and item.get('value'):\n                    all_data.append(item)\n                    stats['valid'] += 1\n                else:\n                    stats['invalid'] += 1\n        except Exception:\n            pass\n    \n    return {\n        'items': len(all_data),\n        'valid_ratio': stats['valid'] / stats['total'] if stats['total'] > 0 else 0\n    }\n\n# API 1에서 [{id:1, value:10}, {id:2}] 반환\n# API 2에서 [{id:3, value:30}] 반환\nresult = comprehensive_project(['api1', 'api2'])\nprint(f'{result[\"items\"]}개 유효, 성공률 {result[\"valid_ratio\"]:.0%}')\n```",
       "choices": [
         "A. 3개 유효, 성공률 100%",
         "B. 2개 유효, 성공률 67%",
@@ -2770,7 +2770,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "프로젝트 완성도를 높이려면 모든 것을 테스트해야 합니다.\n\ndef validate_project_output(output_file):\n    try:\n        with open(output_file, 'r') as f:\n            data = json.load(f)\n        \n        # 구조 검증\n        if not isinstance(data, list):\n            return {'valid': False, 'error': 'Not a list'}\n        \n        # 내용 검증\n        required = ['id', 'name']\n        for item in data:\n            if not all(field in item _____ item[field] for field in required):\n                return {'valid': False, 'error': 'Missing required fields'}\n        \n        return {'valid': True, 'count': len(data)}\n    except Exception as e:\n        return {'valid': False, 'error': str(e)}",
+      "question": "프로젝트 완성도를 높이려면 모든 것을 테스트해야 합니다.\n\n```python\ndef validate_project_output(output_file):\n    try:\n        with open(output_file, 'r') as f:\n            data = json.load(f)\n        \n        # 구조 검증\n        if not isinstance(data, list):\n            return {'valid': False, 'error': 'Not a list'}\n        \n        # 내용 검증\n        required = ['id', 'name']\n        for item in data:\n            if not all(field in item _____ item[field] for field in required):\n                return {'valid': False, 'error': 'Missing required fields'}\n        \n        return {'valid': True, 'count': len(data)}\n    except Exception as e:\n        return {'valid': False, 'error': str(e)}\n```",
       "answer": "and",
       "hint": "필드가 존재하고 None이 아닌지 확인해요.",
       "feedback": {
@@ -2787,7 +2787,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음은 Unit 8 전체를 종합한 최종 프로젝트입니다. 완성도는?\n\nimport json, requests, time\nfrom datetime import datetime\n\ndef final_project():\n    config = {\n        'api_url': 'https://api.example.com/data',\n        'output_file': 'final_output.json',\n        'cache': {}\n    }\n    \n    try:\n        # Step 1: API 호출 (캐싱 적용)\n        if 'data' not in config['cache']:\n            response = requests.get(config['api_url'], timeout=5)\n            response.raise_for_status()\n            config['cache']['data'] = response.json()\n        \n        data = config['cache']['data']\n        \n        # Step 2: 데이터 검증 및 변환\n        processed = []\n        for item in data:\n            if item.get('id') and item.get('status') == 'active':\n                processed.append({\n                    'id': item['id'],\n                    'name': item.get('name', 'Unknown'),\n                    'timestamp': datetime.now().isoformat()\n                })\n        \n        # Step 3: 저장\n        with open(config['output_file'], 'w') as f:\n            json.dump(processed, f)\n        \n        return {\n            'status': 'complete',\n            'processed_count': len(processed),\n            'output_file': config['output_file']\n        }\n    except Exception as e:\n        return {\n            'status': 'failed',\n            'error': str(e)\n        }\n\nresult = final_project()\nprint(f\"프로젝트 {result['status']}\")",
+      "question": "다음은 Unit 8 전체를 종합한 최종 프로젝트입니다. 완성도는?\n\n```python\nimport json, requests, time\nfrom datetime import datetime\n\ndef final_project():\n    config = {\n        'api_url': 'https://api.example.com/data',\n        'output_file': 'final_output.json',\n        'cache': {}\n    }\n    \n    try:\n        # Step 1: API 호출 (캐싱 적용)\n        if 'data' not in config['cache']:\n            response = requests.get(config['api_url'], timeout=5)\n            response.raise_for_status()\n            config['cache']['data'] = response.json()\n        \n        data = config['cache']['data']\n        \n        # Step 2: 데이터 검증 및 변환\n        processed = []\n        for item in data:\n            if item.get('id') and item.get('status') == 'active':\n                processed.append({\n                    'id': item['id'],\n                    'name': item.get('name', 'Unknown'),\n                    'timestamp': datetime.now().isoformat()\n                })\n        \n        # Step 3: 저장\n        with open(config['output_file'], 'w') as f:\n            json.dump(processed, f)\n        \n        return {\n            'status': 'complete',\n            'processed_count': len(processed),\n            'output_file': config['output_file']\n        }\n    except Exception as e:\n        return {\n            'status': 'failed',\n            'error': str(e)\n        }\n\nresult = final_project()\nprint(f\"프로젝트 {result['status']}\")\n```",
       "choices": [
         "A. 프로젝트 complete",
         "B. 프로젝트 failed",

@@ -81,7 +81,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\n# print('X')\\nprint('Y')\n```\n\n이 코드가 출력하는 값은?",
+      "question": "```python\n# print('X')\nprint('Y')\n```\n\n이 코드가 출력하는 값은?",
       "choices": [
         "A. X",
         "B. Y",
@@ -345,7 +345,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\n# print('Skip')\\nprint('Run')\n```",
+      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\n# print('Skip')\nprint('Run')\n```",
       "choices": [
         "A. Skip",
         "B. SkipRun",
@@ -489,7 +489,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nx = 5\\nprint(x)\n```",
+      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nx = 5\nprint(x)\n```",
       "choices": [
         "A. 5",
         "B. x",
@@ -513,7 +513,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\nname = 'Tom'\\nprint(name)\n```",
+      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\nname = 'Tom'\nprint(name)\n```",
       "choices": [
         "A. Tom",
         "B. name",
@@ -537,7 +537,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "실행하면 어떤 값이 나올까요?\n\n```python\na = 10\\nprint(a)\n```",
+      "question": "실행하면 어떤 값이 나올까요?\n\n```python\na = 10\nprint(a)\n```",
       "choices": [
         "A. 10",
         "B. a",
@@ -561,7 +561,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\ny = 7\\ny = 9\\nprint(y)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "```python\ny = 7\ny = 9\nprint(y)\n```\n\n이 코드가 출력하는 값은?",
       "choices": [
         "A. 7",
         "B. 9",
@@ -585,7 +585,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nmsg = 'Hi'\\nprint(msg)\n```",
+      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nmsg = 'Hi'\nprint(msg)\n```",
       "choices": [
         "A. msg",
         "B. Hi",
@@ -609,7 +609,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nval = 100\\nprint(val)\n```",
+      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nval = 100\nprint(val)\n```",
       "choices": [
         "A. val",
         "B. 100",
@@ -633,7 +633,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\ncode = 'Go'\\nprint(code)\n```",
+      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\ncode = 'Go'\nprint(code)\n```",
       "choices": [
         "A. code",
         "B. 'Go'",
@@ -657,7 +657,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nnum = 42\\nprint(num)\n```",
+      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nnum = 42\nprint(num)\n```",
       "choices": [
         "A. num",
         "B. Error",
@@ -681,7 +681,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\ntext = 'AI'\\nprint(text)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "```python\ntext = 'AI'\nprint(text)\n```\n\n이 코드가 출력하는 값은?",
       "choices": [
         "A. 'AI'",
         "B. text",
@@ -705,7 +705,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nt = 25\\nprint(t)\n```",
+      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nt = 25\nprint(t)\n```",
       "choices": [
         "A. t",
         "B. Error",
@@ -729,7 +729,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nz = 15\\nprint(z)\n```",
+      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nz = 15\nprint(z)\n```",
       "choices": [
         "A. 15",
         "B. z",
@@ -753,7 +753,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\na = 7\\nprint(a)\n```",
+      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\na = 7\nprint(a)\n```",
       "choices": [
         "A. 7",
         "B. a",
@@ -777,7 +777,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "실행하면 어떤 값이 나올까요?\n\n```python\ntext = 'Amy'\\nprint(text)\n```",
+      "question": "실행하면 어떤 값이 나올까요?\n\n```python\ntext = 'Amy'\nprint(text)\n```",
       "choices": [
         "A. text",
         "B. Amy",
@@ -801,7 +801,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\nb = 20\\nprint(b)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "```python\nb = 20\nprint(b)\n```\n\n이 코드가 출력하는 값은?",
       "choices": [
         "A. b",
         "B. 20",
@@ -825,7 +825,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nx = 3\\nx = 5\\nprint(x)\n```",
+      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nx = 3\nx = 5\nprint(x)\n```",
       "choices": [
         "A. 3",
         "B. 35",
@@ -849,7 +849,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\ndata = 'OK'\\nprint(data)\n```",
+      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\ndata = 'OK'\nprint(data)\n```",
       "choices": [
         "A. data",
         "B. 'OK'",
@@ -873,7 +873,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\nnum = 50\\nprint(num)\n```",
+      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\nnum = 50\nprint(num)\n```",
       "choices": [
         "A. num",
         "B. Error",
@@ -897,7 +897,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nvar = 'AI'\\nprint(var)\n```",
+      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nvar = 'AI'\nprint(var)\n```",
       "choices": [
         "A. var",
         "B. 'AI'",
@@ -921,7 +921,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\ny = 99\\nprint(y)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "```python\ny = 99\nprint(y)\n```\n\n이 코드가 출력하는 값은?",
       "choices": [
         "A. y",
         "B. Error",
@@ -945,7 +945,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nword = 'Go'\\nprint(word)\n```",
+      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nword = 'Go'\nprint(word)\n```",
       "choices": [
         "A. 'Go'",
         "B. word",
@@ -1473,7 +1473,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\ns = 'Hello'\\nprint(s)\n```",
+      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\ns = 'Hello'\nprint(s)\n```",
       "choices": [
         "A. Hello",
         "B. s",
@@ -1545,7 +1545,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nx = 'Go'\\nprint(x)\n```",
+      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nx = 'Go'\nprint(x)\n```",
       "choices": [
         "A. x",
         "B. Go",
@@ -1617,7 +1617,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nmsg = 'AI'\\nprint(msg)\n```",
+      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nmsg = 'AI'\nprint(msg)\n```",
       "choices": [
         "A. 'AI'",
         "B. msg",
@@ -1737,7 +1737,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nt = 'World'\\nprint(t)\n```",
+      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nt = 'World'\nprint(t)\n```",
       "choices": [
         "A. t",
         "B. World",
@@ -1809,7 +1809,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\ny = 'Run'\\nprint(y)\n```",
+      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\ny = 'Run'\nprint(y)\n```",
       "choices": [
         "A. y",
         "B. 'Run'",
@@ -1881,7 +1881,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\nvar = 'Hey'\\nprint(var)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "```python\nvar = 'Hey'\nprint(var)\n```\n\n이 코드가 출력하는 값은?",
       "choices": [
         "A. 'Hey'",
         "B. var",
@@ -2457,7 +2457,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nn = int('5')\\nprint(n + 1)\n```",
+      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nn = int('5')\nprint(n + 1)\n```",
       "choices": [
         "A. 6",
         "B. '51'",
@@ -2577,7 +2577,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nval = int('3')\\nprint(val + 2)\n```",
+      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nval = int('3')\nprint(val + 2)\n```",
       "choices": [
         "A. '32'",
         "B. 3",
@@ -2721,7 +2721,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\nm = int('8')\\nprint(m + 2)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "```python\nm = int('8')\nprint(m + 2)\n```\n\n이 코드가 출력하는 값은?",
       "choices": [
         "A. '82'",
         "B. 10",
@@ -2841,7 +2841,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\nx = int('6')\\nprint(x + 3)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "```python\nx = int('6')\nprint(x + 3)\n```\n\n이 코드가 출력하는 값은?",
       "choices": [
         "A. '63'",
         "B. 6",
@@ -2889,7 +2889,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nname = 'Amy'\\nprint(f'{name}')\n```",
+      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nname = 'Amy'\nprint(f'{name}')\n```",
       "choices": [
         "A. Amy",
         "B. name",
@@ -2913,7 +2913,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\nx = 10\\nprint(f'{x}')\n```",
+      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\nx = 10\nprint(f'{x}')\n```",
       "choices": [
         "A. 10",
         "B. x",
@@ -2937,7 +2937,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nn = 5\\nprint(f'Value: {n}')\n```",
+      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nn = 5\nprint(f'Value: {n}')\n```",
       "choices": [
         "A. Value: 5",
         "B. Value: n",
@@ -2961,7 +2961,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\nage = 20\\nprint(f'Age is {age}')\n```\n\n이 코드가 출력하는 값은?",
+      "question": "```python\nage = 20\nprint(f'Age is {age}')\n```\n\n이 코드가 출력하는 값은?",
       "choices": [
         "A. Age is age",
         "B. Age is 20",
@@ -2985,7 +2985,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nx = 2\\nprint(f'{x * 3}')\n```",
+      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nx = 2\nprint(f'{x * 3}')\n```",
       "choices": [
         "A. x * 3",
         "B. 6",
@@ -3009,7 +3009,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nname = 'Bob'\\nprint(f'Hi {name}!')\n```",
+      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nname = 'Bob'\nprint(f'Hi {name}!')\n```",
       "choices": [
         "A. Hi name!",
         "B. Hi Bob!",
@@ -3033,7 +3033,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\ncode = 'Python'\\nprint(f'{code}')\n```",
+      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\ncode = 'Python'\nprint(f'{code}')\n```",
       "choices": [
         "A. code",
         "B. {code}",
@@ -3057,7 +3057,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nval = 100\\nprint(f'Number {val}')\n```",
+      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nval = 100\nprint(f'Number {val}')\n```",
       "choices": [
         "A. Number val",
         "B. Number {val}",
@@ -3081,7 +3081,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\na = 3\\nprint(f'{a + 1}')\n```\n\n이 코드가 출력하는 값은?",
+      "question": "```python\na = 3\nprint(f'{a + 1}')\n```\n\n이 코드가 출력하는 값은?",
       "choices": [
         "A. a + 1",
         "B. 4",
@@ -3105,7 +3105,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nmsg = 'Done'\\nprint(f'{msg}!')\n```",
+      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nmsg = 'Done'\nprint(f'{msg}!')\n```",
       "choices": [
         "A. msg!",
         "B. {msg}!",
@@ -3129,7 +3129,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\ntext = 'OK'\\nprint(f'{text}!')\n```",
+      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\ntext = 'OK'\nprint(f'{text}!')\n```",
       "choices": [
         "A. OK!",
         "B. text!",
@@ -3153,7 +3153,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\nn = 'Bob'\\nprint(f'{n}')\n```",
+      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\nn = 'Bob'\nprint(f'{n}')\n```",
       "choices": [
         "A. Bob",
         "B. n",
@@ -3177,7 +3177,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "실행하면 어떤 값이 나올까요?\n\n```python\ny = 5\\nprint(f'{y}')\n```",
+      "question": "실행하면 어떤 값이 나올까요?\n\n```python\ny = 5\nprint(f'{y}')\n```",
       "choices": [
         "A. y",
         "B. 5",
@@ -3201,7 +3201,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\nm = 10\\nprint(f'Count: {m}')\n```\n\n이 코드가 출력하는 값은?",
+      "question": "```python\nm = 10\nprint(f'Count: {m}')\n```\n\n이 코드가 출력하는 값은?",
       "choices": [
         "A. Count: m",
         "B. Count: 10",
@@ -3225,7 +3225,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nval = 30\\nprint(f'Val is {val}')\n```",
+      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nval = 30\nprint(f'Val is {val}')\n```",
       "choices": [
         "A. Val is val",
         "B. Val is {val}",
@@ -3249,7 +3249,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\na = 4\\nprint(f'{a * 2}')\n```",
+      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\na = 4\nprint(f'{a * 2}')\n```",
       "choices": [
         "A. a * 2",
         "B. 8",
@@ -3273,7 +3273,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\nperson = 'Alice'\\nprint(f'Hello {person}!')\n```",
+      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\nperson = 'Alice'\nprint(f'Hello {person}!')\n```",
       "choices": [
         "A. Hello person!",
         "B. Hello {person}!",
@@ -3297,7 +3297,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nlang = 'C++'\\nprint(f'{lang}')\n```",
+      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nlang = 'C++'\nprint(f'{lang}')\n```",
       "choices": [
         "A. lang",
         "B. {lang}",
@@ -3321,7 +3321,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\nn = 50\\nprint(f'N={n}')\n```\n\n이 코드가 출력하는 값은?",
+      "question": "```python\nn = 50\nprint(f'N={n}')\n```\n\n이 코드가 출력하는 값은?",
       "choices": [
         "A. N=n",
         "B. N={n}",
@@ -3345,7 +3345,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nx = 7\\nprint(f'{x - 2}')\n```",
+      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nx = 7\nprint(f'{x - 2}')\n```",
       "choices": [
         "A. x - 2",
         "B. 5",

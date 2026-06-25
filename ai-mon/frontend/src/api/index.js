@@ -1,13 +1,16 @@
 import api from './client'
 
 export const authApi = {
-  login:    (data) => api.post('/auth/login', data),
+  login:    (data, cfg) => api.post('/auth/login', data, cfg),
   register: (data) => api.post('/auth/register', data),
   checkId: (username) => api.get(`/auth/check-id?username=${encodeURIComponent(username)}`),
   checkEmail: (email) => api.get(`/auth/check-email?email=${encodeURIComponent(email)}`),
   socialLoginGoogle: (data) => api.post('/auth/social/google', data),
   socialLoginNaver: (data) => api.post('/auth/social/naver', data),
   socialLoginKakao: (data) => api.post('/auth/social/kakao', data),
+  forgotPassword: (data) => api.post('/auth/forgot-password', data),
+  resetPassword:  (data) => api.post('/auth/reset-password', data),
+  findId: (data) => api.post('/auth/find-id', data),
 }
 
 export const quizApi = {
@@ -56,8 +59,9 @@ export const codeApi = {
 }
 
 export const userApi = {
-  getMe:    ()     => api.get('/user/me'),
-  updateMe: (data) => api.patch('/user/me', data),
+  getMe:         ()        => api.get('/user/me'),
+  updateMe:      (data)    => api.patch('/user/me', data),
+  purchaseTheme: (themeId) => api.post('/user/purchase-theme', { theme_id: themeId }),
 }
 
 export const trainApi = {
@@ -66,5 +70,11 @@ export const trainApi = {
 }
 
 export const gameApi = {
-  clearGame: (data) => api.post('/game/clear', data),
+  startGame: (gameId) => api.post('/game/start', { game_id: gameId }),
+  clearGame: (data)   => api.post('/game/clear', data),
+}
+
+export const missionApi = {
+  getMissions:  ()          => api.get('/missions/'),
+  claimMission: (missionId) => api.post('/missions/claim', { mission_id: missionId }),
 }

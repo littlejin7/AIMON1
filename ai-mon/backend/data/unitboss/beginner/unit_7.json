@@ -29,7 +29,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\npet = {\"name\": \"에이몬\", \"lv\": 5}\npet[\"lv\"] = 10\nprint(pet[\"lv\"])",
+      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\n```python\npet = {\"name\": \"에이몬\", \"lv\": 5}\npet[\"lv\"] = 10\nprint(pet[\"lv\"])\n```",
       "choices": [
         "A. 5",
         "B. {\"lv\": 10}",
@@ -92,7 +92,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\nscores = {\"Amy\": 90, \"Bob\": 75, \"Cam\": 85}\ntotal = 0\nfor v in scores.values():\n    total += v\nprint(total // 3)",
+      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\n```python\nscores = {\"Amy\": 90, \"Bob\": 75, \"Cam\": 85}\ntotal = 0\nfor v in scores.values():\n    total += v\nprint(total // 3)\n```",
       "choices": [
         "A. 250",
         "B. 83",
@@ -113,7 +113,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\na = {1, 2, 3, 4}\nb = {3, 4, 5, 6}\nprint(len(a & b))\nprint(len(a | b))",
+      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\n```python\na = {1, 2, 3, 4}\nb = {3, 4, 5, 6}\nprint(len(a & b))\nprint(len(a | b))\n```",
       "choices": [
         "A. 2\n6",
         "B. 4\n8",
@@ -134,7 +134,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\nuser = {\"name\": \"에이몬\", \"hp\": 100}\nprint(user.get(\"mp\", 0))\nprint(user.get(\"hp\", 0))",
+      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\n```python\nuser = {\"name\": \"에이몬\", \"hp\": 100}\nprint(user.get(\"mp\", 0))\nprint(user.get(\"hp\", 0))\n```",
       "choices": [
         "A. KeyError\n100",
         "B. 0\n100",
@@ -176,7 +176,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\nwords = [\"apple\", \"banana\", \"apple\", \"cherry\", \"banana\", \"apple\"]\ncount = {}\nfor w in words:\n    count[w] = count.get(w, 0) + 1\nprint(count[\"apple\"])\nprint(len(count))",
+      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\n```python\nwords = [\"apple\", \"banana\", \"apple\", \"cherry\", \"banana\", \"apple\"]\ncount = {}\nfor w in words:\n    count[w] = count.get(w, 0) + 1\nprint(count[\"apple\"])\nprint(len(count))\n```",
       "choices": [
         "A. 3\n3",
         "B. 2\n3",
@@ -197,7 +197,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\nteam_a = {\"Alice\", \"Bob\", \"Carol\"}\nteam_b = {\"Bob\", \"Carol\", \"Dave\"}\n\nboth = team_a & team_b\nonly_a = team_a - team_b\nprint(len(both))\nprint(len(only_a))",
+      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\n```python\nteam_a = {\"Alice\", \"Bob\", \"Carol\"}\nteam_b = {\"Bob\", \"Carol\", \"Dave\"}\n```\n\n```python\nboth = team_a & team_b\nonly_a = team_a - team_b\nprint(len(both))\nprint(len(only_a))\n```",
       "choices": [
         "A. 2\n2",
         "B. 2\n1",

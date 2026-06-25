@@ -139,7 +139,6 @@ export default function Boss() {
       const isClear = d.is_clear
       const isFail = d.is_fail
 
-      setAiResult(d)
       setMyHp(nextMyHp)
       setBossHp(nextBossHp)
       setWrongCount(nextWrongCount)
@@ -148,6 +147,7 @@ export default function Boss() {
 
       if (isCorrect) {
         playAttackEffect(damage > 0 ? damage : 150)
+        setTimeout(() => setAiResult(d), 1100)
         if (isClear) {
           if (d.newly_earned_titles && d.newly_earned_titles.length > 0) {
             setNewlyEarnedTitles(d.newly_earned_titles)
@@ -169,6 +169,7 @@ export default function Boss() {
           }, 1500)
         }
       } else {
+        setAiResult(d)
         playHitEffect()
         if (isFail) {
           setTimeout(() => { playBGM('fail'); setPhase('failed') }, 2500)
@@ -176,6 +177,11 @@ export default function Boss() {
       }
     } catch (err) {
       console.error(err)
+      if (err.response?.status === 429) {
+        setErrorMsg('잠시 후 다시 시도해주세요. (1분 요청 한도 초과)')
+      } else {
+        setErrorMsg(err.response?.data?.detail || '채점 중 오류가 발생했습니다. 다시 시도해주세요.')
+      }
     } finally {
       setLoading(false)
     }
@@ -208,16 +214,19 @@ export default function Boss() {
 
   return (
     <div className={`boss-page ${screenShake ? 'screen-shake' : ''}`}>
-      <div className="boss-header">
-        <button
-          className="btn btn-ghost btn-sm"
-          onClick={() => { stopBGM(); navigate(`/lesson/${lessonId}`) }}
-        >
-          도망가기 🏃
-        </button>
-      </div>
 
-      <div className="boss-container container">
+      {phase !== 'battle' && (
+        <div className="boss-header">
+          <button
+            className="btn btn-ghost btn-sm"
+            onClick={() => { stopBGM(); navigate(`/lesson/${lessonId}`) }}
+          >
+            도망가기 🏃
+          </button>
+        </div>
+      )}
+
+      <div className={`boss-container${phase === 'battle' ? ' boss-container-battle' : ' container'}`}>
         {phase === 'intro' && (
           <BossIntro
             bossData={bossData}
@@ -245,9 +254,28 @@ export default function Boss() {
             attackAnim={attackAnim}
             dmgPopup={dmgPopup}
             user={user}
+            lessonId={lessonId}
             onSubmit={handleSubmit}
             onNextQuestion={handleNextQuestion}
+            onEscape={() => { stopBGM(); navigate(`/lesson/${lessonId}`) }}
           />
+        )}
+        {/* 배틀 중 에러 토스트 */}
+        {phase === 'battle' && errorMsg && (
+          <div
+            style={{
+              position: 'fixed', bottom: '24px', left: '50%', transform: 'translateX(-50%)',
+              background: '#1e1e2e', color: '#FF6B6B', border: '1px solid #FF6B6B',
+              borderRadius: '12px', padding: '12px 24px', fontSize: '14px', fontWeight: 600,
+              zIndex: 9999, boxShadow: '0 4px 20px rgba(0,0,0,0.4)', maxWidth: '90vw', textAlign: 'center'
+            }}
+          >
+            ⚠️ {errorMsg}
+            <button
+              onClick={() => setErrorMsg('')}
+              style={{ marginLeft: '12px', background: 'none', border: 'none', color: '#aaa', cursor: 'pointer', fontSize: '16px' }}
+            >✕</button>
+          </div>
         )}
 
         {(phase === 'cleared' || phase === 'failed') && (

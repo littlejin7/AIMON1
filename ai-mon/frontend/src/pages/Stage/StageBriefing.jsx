@@ -1,4 +1,58 @@
-import { useNavigate } from 'react-router-dom'
+import slimeIcon from '../../assets/character_slime.png'
+import robotIcon from '../../assets/character_robot.png'
+import speechBubbleIcon from '../../assets/character_bubble.png'
+import finalGhostIcon from '../../assets/character_final_ghost.png'
+import { useAuthStore } from '../../hooks/useAuthStore'
+
+const CHARACTER_MAP = {
+  slime:         slimeIcon,
+  robot:         robotIcon,
+  speech_bubble: speechBubbleIcon,
+  final_ghost:   finalGhostIcon,
+}
+
+function addLineBreaks(text) {
+  if (!text) return null
+  return text.split('\n').map((sentence, i, arr) => (
+    <span key={i}>
+      {sentence}{i < arr.length - 1 && <br />}
+    </span>
+  ))
+}
+
+function highlightLine(line) {
+  if (line.trim().startsWith('#')) {
+    return <span className="sb-cm">{line}</span>
+  }
+
+  const commentMatch = line.match(/^(.*?)(\s+#.*)$/)
+  const code    = commentMatch ? commentMatch[1] : line
+  const comment = commentMatch ? commentMatch[2] : ''
+
+  const regex = /(".*?"|'.*?'|\bTrue\b|\bFalse\b|\bNone\b|\b(?:print|input|len|range|int|str|float|list|dict|type|zip|map|filter|sorted|enumerate)\b|\b\d+(?:\.\d+)?\b|[^\s"'#]+|\s+)/g
+  const tokens = []
+  let match
+  let idx = 0
+  while ((match = regex.exec(code)) !== null) {
+    const t = match[0]
+    if (/^(".*"|'.*')$/.test(t)) {
+      tokens.push(<span key={idx++} className="sb-str">{t}</span>)
+    } else if (/^(?:print|input|len|range|int|str|float|list|dict|type|zip|map|filter|sorted|enumerate)$/.test(t)) {
+      tokens.push(<span key={idx++} className="sb-fn">{t}</span>)
+    } else if (/^(?:True|False|None)$/.test(t) || /^\d+(?:\.\d+)?$/.test(t)) {
+      tokens.push(<span key={idx++} className="sb-nm">{t}</span>)
+    } else {
+      tokens.push(t)
+    }
+  }
+
+  return (
+    <>
+      {tokens}
+      {comment && <span className="sb-cm">{comment}</span>}
+    </>
+  )
+}
 
 export default function StageBriefing({
   briefings,
@@ -7,106 +61,98 @@ export default function StageBriefing({
   setShowBriefing,
   lessonId,
   stageNum,
+  unitInfo,
 }) {
-  const navigate = useNavigate()
-  const slide = briefings[briefingIndex]
-  const isLast = briefingIndex === briefings.length - 1
+  const user     = useAuthStore((s) => s.user)
+  const charSrc  = CHARACTER_MAP[user?.character] || slimeIcon
+
+  const slide   = briefings[briefingIndex]
+  const total   = briefings.length
+  const isFirst = briefingIndex === 0
+  const isLast  = briefingIndex === total - 1
+  const progress = ((briefingIndex + 1) / total) * 100
 
   return (
-    <div className="stage-page">
-      <div className="stage-header">
-        <button className="btn btn-ghost btn-sm" onClick={() => navigate(`/lesson/${lessonId}`)}>✕</button>
-        <div className="stage-progress-section">
-          <div className="stage-progress-label">
-            <span>UNIT {lessonId} · Stage {stageNum} · 슬라이드 {slide.order}</span>
-            <span>슬라이드 {briefingIndex + 1} / {briefings.length}</span>
-          </div>
-          <div className="progress-bar">
-            <div
-              className="progress-bar-fill"
-              style={{ width: `${((briefingIndex + 1) / briefings.length) * 100}%` }}
-            />
-          </div>
+    <div className="sb-page">
+
+      {/* ── Progress ── */}
+      <div className="sb-progress-wrap">
+        <div className="sb-progress-track">
+          <div className="sb-progress-fill" style={{ width: `${progress}%` }} />
         </div>
-        <div style={{ width: 32 }} />
       </div>
 
-      <div className="stage-content container">
-        <div
-          className="briefing-card card-glass animate-fade-in-up"
-          key={slide.order}
-          style={{ padding: '2rem', textAlign: 'left' }}
+      {/* ── Body ── */}
+      <div className="sb-body">
+
+        <div className="sb-unit-badge">
+          📘 {slide.topic || `슬라이드 ${slide.order}`}
+        </div>
+
+        {unitInfo?.title && (
+          <div className="sb-lesson-title">{unitInfo.title}</div>
+        )}
+
+        <div className="sb-mascot-bubble">
+          <div className="sb-mascot-avatar">
+            <img src={charSrc} alt="캐릭터" />
+          </div>
+          <div className="sb-bubble-text">{addLineBreaks(slide.text)}</div>
+        </div>
+
+        {slide.terminal && (
+          <div className="sb-code-block">
+            <pre>
+              {slide.terminal.code.map((line, i) => (
+                <div key={i}>{highlightLine(line)}</div>
+              ))}
+            </pre>
+          </div>
+        )}
+
+        {slide.terminal?.output?.length > 0 && (
+          <div className="sb-output-wrap">
+            <div className="sb-output-label">▶ 실행 결과</div>
+            <div className="sb-output-box">{slide.terminal.output.join('\n')}</div>
+          </div>
+        )}
+
+        {slide.tip && (
+          <div className="sb-tip">
+            <strong className="sb-tip-label">💡 에이몬의 팁</strong>
+            <p className="sb-tip-text">{addLineBreaks(slide.tip)}</p>
+          </div>
+        )}
+
+        {/* ── Navigation ── */}
+        <div className="sb-nav-bar">
+        <button
+          className="sb-nav-btn sb-nav-prev"
+          onClick={() => setBriefingIndex(b => b - 1)}
+          disabled={isFirst}
         >
-          {/* 개념 설명 텍스트 */}
-          <p style={{
-            color: 'var(--clr-text)', lineHeight: 1.85, marginBottom: '1.5rem',
-            whiteSpace: 'pre-line', fontSize: '2rem'
-          }}>
-            {slide.text}
-          </p>
+          ← 이전
+        </button>
 
-          {/* 터미널 블록 */}
-          {slide.terminal && (
-            <div style={{ marginBottom: '1.5rem', borderRadius: '10px', overflow: 'hidden', border: '1px solid #313244' }}>
-              <div style={{
-                background: '#181825', padding: '8px 14px',
-                display: 'flex', alignItems: 'center', gap: '6px'
-              }}>
-                <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#ff5f57', display: 'inline-block' }} />
-                <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#febc2e', display: 'inline-block' }} />
-                <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#28c840', display: 'inline-block' }} />
-                <span style={{ color: '#585b70', fontSize: '0.72rem', marginLeft: 8 }}>Python</span>
-              </div>
-              <div style={{
-                background: '#1e1e2e', padding: '1rem 1.2rem',
-                fontFamily: 'monospace', fontSize: '1.2rem', color: '#cdd6f4',
-                whiteSpace: 'pre', overflowX: 'auto'
-              }}>
-                {slide.terminal.code.map((line, i) => (
-                  <div key={i} style={{ color: line.startsWith('#') ? '#6c7086' : '#cdd6f4' }}>
-                    <span style={{ color: '#585b70', userSelect: 'none', marginRight: 12 }}>&gt;&gt;&gt;</span>
-                    {line}
-                  </div>
-                ))}
-              </div>
-              {slide.terminal.output?.length > 0 && (
-                <div style={{
-                  background: '#181825', padding: '0.75rem 1.2rem',
-                  borderTop: '1px solid #313244',
-                  fontFamily: 'monospace', fontSize: '1.2rem'
-                }}>
-                  {slide.terminal.output.map((line, i) => (
-                    <div key={i} style={{ color: '#a6e3a1' }}>{line}</div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* 팁 블록 */}
-          {slide.tip && (
-            <div style={{
-              background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.25)',
-              borderRadius: '10px', padding: '1rem 1.2rem', marginBottom: '2rem'
-            }}>
-              <strong style={{ color: '#34d399', display: 'block', marginBottom: '6px', fontSize: '0.85rem' }}>💡 에이몬의 팁</strong>
-              <p style={{ margin: 0, color: 'var(--clr-text-muted)', fontSize: '0.88rem', lineHeight: 1.6 }}>
-                {slide.tip}
-              </p>
-            </div>
-          )}
-
-          <button
-            className="btn btn-primary btn-lg btn-full"
-            onClick={() => {
-              if (isLast) setShowBriefing(false)
-              else setBriefingIndex(b => b + 1)
-            }}
-          >
-            {isLast ? '🚀 퀴즈 시작하기' : '다음 슬라이드 ➔'}
-          </button>
+        <div className="sb-slide-dots">
+          {briefings.map((_, i) => (
+            <div key={i} className={`sb-dot${i === briefingIndex ? ' active' : ''}`} />
+          ))}
         </div>
+
+        <button
+          className="sb-nav-btn sb-nav-next"
+          onClick={() => {
+            if (isLast) setShowBriefing(false)
+            else setBriefingIndex(b => b + 1)
+          }}
+        >
+          {isLast ? '퀴즈 시작 🚀' : '다음 →'}
+        </button>
+        </div>
+
       </div>
+
     </div>
   )
 }

@@ -9,11 +9,18 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드가 실행되었을 때, 보스에게 가해지는 최종 출력값은?\n\nprint(\"에이몬, 출발!\")",
-      "choices": ["A. \"에이몬, 출발!\"", "B. 에이몬, 출발!", "C. print(\"에이몬, 출발!\")", "D. 아무것도 출력되지 않는다."],
+      "question": "다음 코드가 실행되었을 때, 보스에게 가해지는 최종 출력값은?\n\n```python\nprint(\"에이몬, 출발!\")\n```",
+      "choices": [
+        "A. \"에이몬, 출발!\"",
+        "B. 에이몬, 출발!",
+        "C. print(\"에이몬, 출발!\")",
+        "D. 아무것도 출력되지 않는다."
+      ],
       "answer": "B",
       "hint": "print() 함수가 화면에 무엇을 보여주는지 생각해 보세요.",
-      "feedback": { "correct": "정답! print() 함수는 괄호 안의 알맹이만 화면에 출력합니다. 감싸고 있는 따옴표는 문자열이라는 신호일 뿐이므로 출력되지 않습니다." }
+      "feedback": {
+        "correct": "정답! print() 함수는 괄호 안의 알맹이만 화면에 출력합니다. 감싸고 있는 따옴표는 문자열이라는 신호일 뿐이므로 출력되지 않습니다."
+      }
     },
     {
       "question_id": "unitboss_beg_fib_1_002",
@@ -24,11 +31,13 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "2번째 줄의 방해 코드를 무력화(주석 처리)하여 건너뛰려고 합니다. 빈칸에 들어갈 알맞은 기호는?\n\nprint(\"공격 개시!\")\n____ print(\"에이몬 바보!\")\nprint(\"보스 격파!\")",
+      "question": "2번째 줄의 방해 코드를 무력화(주석 처리)하여 건너뛰려고 합니다. 빈칸에 들어갈 알맞은 기호는?\n\n```python\nprint(\"공격 개시!\")\n____ print(\"에이몬 바보!\")\nprint(\"보스 격파!\")\n```",
       "choices": [],
       "answer": "#",
       "hint": "파이썬에서 코드를 무시하게 만드는 주석 기호를 찾아보세요.",
-      "feedback": { "correct": "정답! 파이썬에서 줄 맨 앞에 # 기호를 붙이면 그 줄 전체가 주석으로 처리되어 실행되지 않고 넘어갑니다." }
+      "feedback": {
+        "correct": "정답! 파이썬에서 줄 맨 앞에 # 기호를 붙이면 그 줄 전체가 주석으로 처리되어 실행되지 않고 넘어갑니다."
+      }
     },
     {
       "question_id": "unitboss_beg_os_1_003",
@@ -39,11 +48,18 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "입력창에 '슬라임'을 입력했을 때, 마지막 print() 함수에 의해 화면에 출력될 최종 결과는?\n\nuser_name = input(\"이름을 입력하세요: \")\nprint(user_name, \"님 환영합니다!\")",
-      "choices": ["A. user_name 님 환영합니다!", "B. 슬라임님 환영합니다!", "C. 슬라임 님 환영합니다!", "D. 이름을 입력하세요: 슬라임 님 환영합니다!"],
+      "question": "입력창에 '슬라임'을 입력했을 때, 마지막 print() 함수에 의해 화면에 출력될 최종 결과는?\n\n```python\nuser_name = input(\"이름을 입력하세요: \")\nprint(user_name, \"님 환영합니다!\")\n```",
+      "choices": [
+        "A. user_name 님 환영합니다!",
+        "B. 슬라임님 환영합니다!",
+        "C. 슬라임 님 환영합니다!",
+        "D. 이름을 입력하세요: 슬라임 님 환영합니다!"
+      ],
       "answer": "C",
       "hint": "print()에서 쉼표(,)로 값을 구분할 때 공백이 생기는지 확인해 보세요.",
-      "feedback": { "correct": "정답! print() 내에서 여러 값을 쉼표(,)로 구분하면 값 사이에 자동으로 공백(띄어쓰기 한 칸)이 삽입됩니다." }
+      "feedback": {
+        "correct": "정답! print() 내에서 여러 값을 쉼표(,)로 구분하면 값 사이에 자동으로 공백(띄어쓰기 한 칸)이 삽입됩니다."
+      }
     },
     {
       "question_id": "unitboss_beg_fib_1_004",
@@ -54,11 +70,13 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "출력 목표와 똑같이 작동하도록 f-string 문법을 완성하려고 합니다. 빈칸에 들어갈 알맞은 코드는?\n\n[출력 목표] [보라슬라임] 현재 레벨은 5입니다.\n\nname = \"보라슬라임\"\nlevel = 5\nprint(f\"[{name}] 현재 레벨은 ________입니다.\")",
+      "question": "출력 목표와 똑같이 작동하도록 f-string 문법을 완성하려고 합니다. 빈칸에 들어갈 알맞은 코드는?\n\n[출력 목표] [보라슬라임] 현재 레벨은 5입니다.\n\n```python\nname = \"보라슬라임\"\nlevel = 5\nprint(f\"[{name}] 현재 레벨은 ________입니다.\")\n```",
       "choices": [],
       "answer": "{level}",
       "hint": "f-string 안에서 변수의 값을 출력하려면 변수명을 중괄호 { }로 감싸서 넣어야 합니다. 예: {변수명}",
-      "feedback": { "correct": "정답! f-string 구조에서 실제 변수 값을 넣고 싶은 부분은 중괄호 {}로 감싸주어야 합니다. 중괄호 안에 변수명을 적으면 그 자리에 변수의 값이 대입됩니다." }
+      "feedback": {
+        "correct": "정답! f-string 구조에서 실제 변수 값을 넣고 싶은 부분은 중괄호 {}로 감싸주어야 합니다. 중괄호 안에 변수명을 적으면 그 자리에 변수의 값이 대입됩니다."
+      }
     },
     {
       "question_id": "unitboss_beg_ef_1_005",
@@ -69,11 +87,18 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "실행 시 변수명 규칙 위반으로 문법 오류(SyntaxError)가 발생하는 줄은 몇 줄인가요?\n\n1줄: print(\"안녕하세요\")\n2줄: character_hp = 100\n3줄: 7_level_boss = \"코드몬\"\n4줄: is_game_over = False",
-      "choices": ["A. 1줄", "B. 2줄", "C. 3줄", "D. 4줄"],
+      "question": "실행 시 변수명 규칙 위반으로 문법 오류(SyntaxError)가 발생하는 줄은 몇 줄인가요?\n\n```python\n1줄: print(\"안녕하세요\")\n2줄: character_hp = 100\n3줄: 7_level_boss = \"코드몬\"\n4줄: is_game_over = False\n```",
+      "choices": [
+        "A. 1줄",
+        "B. 2줄",
+        "C. 3줄",
+        "D. 4줄"
+      ],
       "answer": "C",
       "hint": "파이썬 변수 이름은 숫자로 시작할 수 없습니다.",
-      "feedback": { "correct": "정답! 파이썬의 변수 이름은 문자나 언더바(_)로만 시작할 수 있으며, 숫자로 시작할 수 없습니다. 3줄은 숫자로 시작했기 때문에 오류가 발생합니다." }
+      "feedback": {
+        "correct": "정답! 파이썬의 변수 이름은 문자나 언더바(_)로만 시작할 수 있으며, 숫자로 시작할 수 없습니다. 3줄은 숫자로 시작했기 때문에 오류가 발생합니다."
+      }
     },
     {
       "question_id": "unitboss_beg_os_1_006",
@@ -84,11 +109,18 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때, 변수 result에 저장되는 값은?\n\nscore1 = \"80\"\nscore2 = \"90\"\nresult = score1 + score2",
-      "choices": ["A. 170", "B. \"170\"", "C. \"8090\"", "D. 8090"],
+      "question": "다음 코드를 실행했을 때, 변수 result에 저장되는 값은?\n\n```python\nscore1 = \"80\"\nscore2 = \"90\"\nresult = score1 + score2\n```",
+      "choices": [
+        "A. 170",
+        "B. \"170\"",
+        "C. \"8090\"",
+        "D. 8090"
+      ],
       "answer": "C",
       "hint": "따옴표로 감싸진 숫자는 문자열입니다. 문자열끼리 더하면 어떻게 될까요?",
-      "feedback": { "correct": "정답! 따옴표로 감싸진 데이터는 문자열(str)입니다. 문자열끼리 더하기(+)를 하면 숫자가 합쳐지는 게 아니라 글자가 그대로 이어 붙습니다." }
+      "feedback": {
+        "correct": "정답! 따옴표로 감싸진 데이터는 문자열(str)입니다. 문자열끼리 더하기(+)를 하면 숫자가 합쳐지는 게 아니라 글자가 그대로 이어 붙습니다."
+      }
     },
     {
       "question_id": "unitboss_beg_fib_1_007",
@@ -99,11 +131,13 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "입력받은 문자열을 숫자로 변환하여 정상 계산(15)이 되도록 만드는 빈칸의 함수 이름은?\n\nuser_input = input(\"숫자를 입력하세요: \") # 유저가 5를 입력함\nnumber = _________(user_input)\nprint(number + 10)",
+      "question": "입력받은 문자열을 숫자로 변환하여 정상 계산(15)이 되도록 만드는 빈칸의 함수 이름은?\n\n```python\nuser_input = input(\"숫자를 입력하세요: \") # 유저가 5를 입력함\nnumber = _________(user_input)\nprint(number + 10)\n```",
       "choices": [],
       "answer": "int",
       "hint": "문자열을 정수(Integer)형 숫자로 변환해 주는 함수 이름을 적어보세요.",
-      "feedback": { "correct": "정답! input()으로 들어온 데이터는 무조건 문자열 처리되므로, 사칙연산이 가능한 정수로 바꾸려면 int() 함수를 써야 합니다." }
+      "feedback": {
+        "correct": "정답! input()으로 들어온 데이터는 무조건 문자열 처리되므로, 사칙연산이 가능한 정수로 바꾸려면 int() 함수를 써야 합니다."
+      }
     },
     {
       "question_id": "unitboss_beg_os_1_008",
@@ -114,11 +148,18 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드가 완전히 실행된 후, 최종적으로 출력되는 값은?\n\ngold = 500\ngold = gold + 100\ngold = 200\nprint(gold)",
-      "choices": ["A. 500", "B. 600", "C. 200", "D. 700"],
+      "question": "다음 코드가 완전히 실행된 후, 최종적으로 출력되는 값은?\n\n```python\ngold = 500\ngold = gold + 100\ngold = 200\nprint(gold)\n```",
+      "choices": [
+        "A. 500",
+        "B. 600",
+        "C. 200",
+        "D. 700"
+      ],
       "answer": "C",
       "hint": "변수에 새로운 값을 계속 대입할 때 최종적으로 어떤 값이 남는지 추적해 보세요.",
-      "feedback": { "correct": "정답! 변수는 새로운 값을 대입(=)할 때마다 기존 값이 사라지고 가장 최신의 데이터로 덮어씌워집니다." }
+      "feedback": {
+        "correct": "정답! 변수는 새로운 값을 대입(=)할 때마다 기존 값이 사라지고 가장 최신의 데이터로 덮어씌워집니다."
+      }
     },
     {
       "question_id": "unitboss_beg_ef_1_009",
@@ -129,11 +170,18 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "문자열(str)과 정수(int)를 직접 더하려고 하여 자료형 오류(TypeError)가 발생하는 줄은 몇 줄인가요?\n\n1줄: damage = 50\n2줄: message = \"데미지를 입혔습니다.\"\n3줄: print(damage + 20)\n4줄: print(message + damage)",
-      "choices": ["A. 1줄", "B. 2줄", "C. 3줄", "D. 4줄"],
+      "question": "문자열(str)과 정수(int)를 직접 더하려고 하여 자료형 오류(TypeError)가 발생하는 줄은 몇 줄인가요?\n\n```python\n1줄: damage = 50\n2줄: message = \"데미지를 입혔습니다.\"\n3줄: print(damage + 20)\n4줄: print(message + damage)\n```",
+      "choices": [
+        "A. 1줄",
+        "B. 2줄",
+        "C. 3줄",
+        "D. 4줄"
+      ],
       "answer": "D",
       "hint": "문자열(str)과 정수(int)를 직접 더하려고 하는 줄을 찾아보세요.",
-      "feedback": { "correct": "정답! 파이썬에서는 글자(str)와 숫자(int)를 서로 직접 더할 수 없습니다. 숫자를 str(damage) 형태로 변환한 뒤 연결해야 에러가 나지 않습니다." }
+      "feedback": {
+        "correct": "정답! 파이썬에서는 글자(str)와 숫자(int)를 서로 직접 더할 수 없습니다. 숫자를 str(damage) 형태로 변환한 뒤 연결해야 에러가 나지 않습니다."
+      }
     },
     {
       "question_id": "unitboss_beg_fib_1_010",
@@ -144,11 +192,13 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "두 변수의 값이 '서로 같지 않은지' 검사하는 비교 연산자를 빈칸에 넣으려고 합니다. a와 b는 둘 다 7로 실제로 같기 때문에 '같지 않다'는 검사 결과는 False입니다. 빈칸에 들어갈 연산자는?\n\na = 7\nb = 7\nresult = (a ________ b)  # 출력: False\nprint(result)",
+      "question": "두 변수의 값이 '서로 같지 않은지' 검사하는 비교 연산자를 빈칸에 넣으려고 합니다. a와 b는 둘 다 7로 실제로 같기 때문에 '같지 않다'는 검사 결과는 False입니다. 빈칸에 들어갈 연산자는?\n\n```python\na = 7\nb = 7\nresult = (a ________ b)  # 출력: False\nprint(result)\n```",
       "choices": [],
       "answer": "!=",
       "hint": "느낌표(!)와 등호(=)를 함께 쓰는, '같지 않다'는 의미의 비교 연산자입니다.",
-      "feedback": { "correct": "정답! != 연산자는 '같지 않다'라는 뜻입니다. a와 b가 모두 7로 서로 같으므로, '같지 않다'는 검사 결과는 거짓(False)이 됩니다." }
+      "feedback": {
+        "correct": "정답! != 연산자는 '같지 않다'라는 뜻입니다. a와 b가 모두 7로 서로 같으므로, '같지 않다'는 검사 결과는 거짓(False)이 됩니다."
+      }
     }
   ]
 }

@@ -2,7 +2,7 @@
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background: #87ceeb;
+  background: #55b5f0;
   position: relative;
 }
 
@@ -11,19 +11,21 @@
   top: 14px;
   left: 16px;
   z-index: 30;
-  background: rgba(0,0,0,0.45);
-  color: #fff;
-  border: none;
+  background: rgba(255, 255, 255, 0.85);
+  color: #3388cc;
+  border: 2px solid #66bbee;
   border-radius: 20px;
-  padding: 14px 32px;
+  padding: 10px 24px;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.15s, transform 0.1s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 .rg-back-btn:hover {
-  background: rgba(0,0,0,0.7);
+  background: #e8f6ff;
+  transform: scale(1.04);
 }
 
 .runner-game-mount {
@@ -46,27 +48,27 @@
   z-index: 10;
 }
 
-/* 상단: HP(왼쪽) + 볼륨(오른쪽) */
+/* 상단: HP 중앙 + 볼륨 오른쪽 */
 .rg-hud-top {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  padding: 14px 18px;
+  padding: 12px 18px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(0,80,180,0.25) 0%, transparent 100%);
 }
 
 .rg-hp {
   position: absolute;
-  top: 14px;
+  top: 12px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 40px;
+  font-size: 38px;
   letter-spacing: 6px;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.45));
   white-space: nowrap;
 }
 
@@ -76,13 +78,15 @@
   align-items: center;
   gap: 8px;
   pointer-events: all;
-  background: rgba(0,0,0,0.35);
-  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.75);
+  padding: 6px 14px;
   border-radius: 20px;
+  border: 1.5px solid rgba(100,180,255,0.5);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .rg-vol-icon {
-  font-size: 30px;
+  font-size: 28px;
   cursor: default;
   line-height: 1;
 }
@@ -91,32 +95,34 @@
   -webkit-appearance: none;
   appearance: none;
   width: 90px;
-  height: 4px;
-  border-radius: 2px;
-  background: rgba(255,255,255,0.35);
+  height: 5px;
+  border-radius: 3px;
+  background: linear-gradient(to right, #66ccff, #cceeff);
   outline: none;
   cursor: pointer;
 }
 
 .rg-vol-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  background: #fff176;
+  background: #fff;
+  border: 2px solid #55aaee;
   cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
 
 .rg-vol-slider::-moz-range-thumb {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: #fff176;
-  border: none;
+  background: #fff;
+  border: 2px solid #55aaee;
   cursor: pointer;
 }
 
-/* 하단 오른쪽: 스코어 + 거리 크게 */
+/* 하단 오른쪽: 스코어 + 거리 */
 .rg-hud-br {
   position: absolute;
   bottom: 24px;
@@ -132,31 +138,34 @@
   flex-direction: column;
   align-items: flex-end;
   line-height: 1;
+  background: rgba(255, 255, 255, 0.75);
+  padding: 6px 14px 8px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(100,180,255,0.4);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.12);
 }
 
 .rg-stat-label {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
-  color: rgba(255,255,255,0.7);
-  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  color: #3388cc;
   margin-bottom: 2px;
 }
 
 .rg-stat-val {
-  font-size: 70px;
+  font-size: 64px;
   font-weight: 900;
-  color: #fff176;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.55);
+  color: #ff4488;
+  text-shadow: 0 2px 8px rgba(255, 68, 136, 0.35);
   font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
   letter-spacing: -1px;
 }
 
 .rg-stat-unit {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
-  color: rgba(255,255,255,0.8);
-  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  color: #55aaee;
   margin-left: 2px;
 }
 
@@ -168,55 +177,60 @@
   align-items: center;
   justify-content: center;
   z-index: 20;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 60, 140, 0.3);
   backdrop-filter: blur(6px);
 }
 
-/* Panel — 자연 테마 */
+/* 패널 — 카트라이더 감성 */
 .rg-icon {
   width: 80px;
   height: 80px;
   object-fit: contain;
   display: block;
   margin: 0 auto 12px;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2));
 }
 
 .rg-panel {
-  background: rgba(255, 252, 240, 0.92);
-  border: none;
-  border-radius: 18px;
+  background: linear-gradient(160deg, #fff 0%, #e8f6ff 100%);
+  border: 3px solid #66ccff;
+  border-radius: 24px;
   padding: 36px 46px;
   text-align: center;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.25), 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 40px rgba(0,100,220,0.18), 0 2px 8px rgba(0,0,0,0.08);
   max-width: 460px;
   width: 90%;
 }
 
 .rg-title {
   font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
-  font-size: 36px;
+  font-size: 38px;
   font-weight: 900;
-  color: #2e7d32;
-  letter-spacing: 2px;
+  color: #1166cc;
+  letter-spacing: 3px;
   margin-bottom: 6px;
+  text-shadow: 0 2px 0 rgba(100,180,255,0.4);
 }
 
 .rg-subtitle {
-  color: #6a8c6a;
+  color: #5599cc;
   font-size: 14px;
   margin-bottom: 24px;
 }
 
 .rg-controls {
-  color: #555;
+  color: #446688;
   font-size: 14px;
-  line-height: 2;
+  line-height: 2.2;
   margin-bottom: 26px;
   font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+  background: rgba(100,180,255,0.1);
+  border-radius: 12px;
+  padding: 12px 16px;
 }
 
 .rg-btn {
-  background: linear-gradient(135deg, #43a047, #2e7d32);
+  background: linear-gradient(135deg, #44bbff, #1177dd);
   border: none;
   color: #fff;
   font-size: 17px;
@@ -227,16 +241,16 @@
   letter-spacing: 2px;
   font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
   transition: transform 0.1s, box-shadow 0.2s;
-  box-shadow: 0 4px 16px rgba(46,125,50,0.4);
+  box-shadow: 0 4px 16px rgba(17,119,221,0.4);
 }
 
 .rg-btn:hover {
-  transform: scale(1.04);
-  box-shadow: 0 6px 24px rgba(46,125,50,0.6);
+  transform: scale(1.05);
+  box-shadow: 0 6px 24px rgba(17,119,221,0.6);
 }
 
 .rg-score-final {
-  color: #333;
+  color: #334;
   font-size: 19px;
   font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
   font-weight: 700;
@@ -245,19 +259,19 @@
 
 /* Quiz Panel */
 .rg-quiz-panel {
-  background: rgba(255, 252, 240, 0.95);
-  border: none;
-  border-radius: 20px;
+  background: linear-gradient(160deg, #fff 0%, #eef8ff 100%);
+  border: 3px solid #66ccff;
+  border-radius: 24px;
   padding: 32px 40px;
   text-align: center;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+  box-shadow: 0 8px 40px rgba(0,100,220,0.18);
   max-width: 540px;
   width: 92%;
 }
 
 .rg-quiz-label {
-  font-size: 13px;
-  color: #6a8c6a;
+  font-size: 14px;
+  color: #1177cc;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -265,16 +279,16 @@
 }
 
 .rg-quiz-q {
-  color: #222;
-  font-size: 28px;
+  color: #223;
+  font-size: 26px;
   font-weight: 700;
   line-height: 1.65;
   margin-bottom: 26px;
   font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
-  background: rgba(0,0,0,0.04);
-  padding: 20px 22px;
-  border-radius: 12px;
-  border-left: 4px solid #66bb6a;
+  background: rgba(100,180,255,0.1);
+  padding: 18px 20px;
+  border-radius: 14px;
+  border-left: 5px solid #55aaee;
   text-align: left;
 }
 
@@ -286,8 +300,8 @@
 }
 
 .rg-quiz-o, .rg-quiz-x {
-  padding: 14px 40px;
-  font-size: 21px;
+  padding: 14px 44px;
+  font-size: 22px;
   font-weight: 900;
   border: none;
   border-radius: 50px;
@@ -297,29 +311,29 @@
 }
 
 .rg-quiz-o {
-  background: linear-gradient(135deg, #66bb6a, #2e7d32);
+  background: linear-gradient(135deg, #55ddaa, #22aa66);
   color: #fff;
-  box-shadow: 0 4px 16px rgba(46,125,50,0.35);
+  box-shadow: 0 4px 16px rgba(34,170,102,0.4);
 }
 
 .rg-quiz-o:hover {
-  transform: scale(1.06);
-  box-shadow: 0 6px 22px rgba(46,125,50,0.55);
+  transform: scale(1.07);
+  box-shadow: 0 6px 22px rgba(34,170,102,0.6);
 }
 
 .rg-quiz-x {
-  background: linear-gradient(135deg, #ef5350, #b71c1c);
+  background: linear-gradient(135deg, #ff6677, #cc1133);
   color: #fff;
-  box-shadow: 0 4px 16px rgba(183,28,28,0.35);
+  box-shadow: 0 4px 16px rgba(204,17,51,0.4);
 }
 
 .rg-quiz-x:hover {
-  transform: scale(1.06);
-  box-shadow: 0 6px 22px rgba(183,28,28,0.55);
+  transform: scale(1.07);
+  box-shadow: 0 6px 22px rgba(204,17,51,0.6);
 }
 
 .rg-quiz-hint {
-  color: #999;
+  color: #99aacc;
   font-size: 12px;
   letter-spacing: 1px;
 }
@@ -327,7 +341,7 @@
 /* Result */
 .rg-result {
   padding: 40px 56px;
-  border-radius: 18px;
+  border-radius: 22px;
   text-align: center;
   font-size: 26px;
   font-weight: 900;
@@ -336,17 +350,17 @@
 }
 
 .rg-result.correct {
-  background: rgba(232, 245, 233, 0.97);
-  border-left: 6px solid #43a047;
-  box-shadow: 0 8px 32px rgba(46,125,50,0.2);
-  color: #2e7d32;
+  background: linear-gradient(160deg, #eaffef, #d0f5e0);
+  border: 3px solid #33cc77;
+  box-shadow: 0 8px 32px rgba(34,170,102,0.2);
+  color: #117744;
 }
 
 .rg-result.wrong {
-  background: rgba(255, 235, 238, 0.97);
-  border-left: 6px solid #e53935;
-  box-shadow: 0 8px 32px rgba(183,28,28,0.2);
-  color: #c62828;
+  background: linear-gradient(160deg, #fff0f2, #ffe0e5);
+  border: 3px solid #ff4466;
+  box-shadow: 0 8px 32px rgba(204,17,51,0.2);
+  color: #cc1133;
 }
 
 .rg-result-icon {
@@ -356,14 +370,14 @@
 
 .rg-result-sub {
   font-size: 15px;
-  color: #777;
+  color: #778899;
   margin-top: 8px;
   font-weight: 400;
 }
 
 @keyframes rg-pop {
   0% { transform: scale(0.75); opacity: 0; }
-  60% { transform: scale(1.05); opacity: 1; }
+  60% { transform: scale(1.06); opacity: 1; }
   100% { transform: scale(1); opacity: 1; }
 }
 
@@ -372,12 +386,12 @@
 }
 
 .rg-btn-danger {
-  background: linear-gradient(135deg, #ef5350, #b71c1c);
-  box-shadow: 0 4px 16px rgba(183,28,28,0.4);
+  background: linear-gradient(135deg, #ff6677, #cc1133);
+  box-shadow: 0 4px 16px rgba(204,17,51,0.4);
 }
 
 .rg-btn-danger:hover {
-  box-shadow: 0 6px 24px rgba(183,28,28,0.6);
+  box-shadow: 0 6px 24px rgba(204,17,51,0.6);
 }
 
 /* ── 카운트다운 ─────────────────────────────── */
@@ -385,15 +399,21 @@
   font-size: 140px;
   font-weight: 900;
   color: #fff;
-  text-shadow: 0 0 40px rgba(255,255,255,0.6), 0 4px 20px rgba(0,0,0,0.8);
+  text-shadow:
+    0 0 40px rgba(100,200,255,0.8),
+    0 4px 20px rgba(0,0,0,0.6),
+    3px 3px 0 #1166cc;
   animation: rg-countdown-pop 0.9s ease-out forwards;
   letter-spacing: -4px;
 }
 
 .rg-countdown-go {
   font-size: 100px;
-  color: #69f0ae;
-  text-shadow: 0 0 40px rgba(105,240,174,0.8), 0 4px 20px rgba(0,0,0,0.8);
+  color: #44ffcc;
+  text-shadow:
+    0 0 40px rgba(68,255,204,0.8),
+    0 4px 20px rgba(0,0,0,0.7),
+    3px 3px 0 #117755;
   letter-spacing: 4px;
 }
 

@@ -2160,7 +2160,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과를 골라보세요.\n\n```python\nrequirements = \"\"\"streamlit\nanthropic\"\"\"\nlines = [l for l in requirements.strip().split('\\n') if l.strip()]\nprint(len(lines))\n```",
+      "question": "다음 코드의 출력 결과를 골라보세요.\n\n```python\nrequirements = \"\"\"streamlit\nanthropic\"\"\"\nlines = [l for l in requirements.strip().split('\n') if l.strip()]\nprint(len(lines))\n```",
       "choices": [
         "A. 0",
         "B. 1",

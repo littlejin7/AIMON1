@@ -5,7 +5,7 @@ import { AP_IMGS, BOSS_UNIT, BOSS_FINAL } from '../../assetPaths';
 /**
  * 타이틀 화면 팝업
  */
-export function PopupTitle({ visible, onStart }) {
+export function PopupTitle({ visible, onStart, errorMsg }) {
   if (!visible) return null;
   return (
     <div className="popup" id="popup-title">
@@ -21,7 +21,14 @@ export function PopupTitle({ visible, onStart }) {
             <img key={i} src={AP_IMGS[i]} alt={`char-${i}`} />
           ))}
         </div>
-        <button className="btn" onClick={onStart}>게임 시작!</button>
+        {errorMsg && (
+          <div style={{ color: '#ff6b6b', fontSize: '0.85rem', margin: '8px 0' }}>
+            ⚠️ {errorMsg}
+          </div>
+        )}
+        <button className="btn" onClick={onStart}>
+          {errorMsg ? '다시 시도' : '게임 시작!'}
+        </button>
       </div>
     </div>
   );

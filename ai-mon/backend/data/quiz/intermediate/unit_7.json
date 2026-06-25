@@ -10,7 +10,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "정규표현식을 사용하려면 먼저 모듈을 불러와야 해요. 다음 코드의 빈 칸에 들어갈 모듈명을 적어주세요.\n\n_____ re\ntext = '안녕하세요 2026년입니다'\nresult = re.search(r'\\d+', text)",
+      "question": "정규표현식을 사용하려면 먼저 모듈을 불러와야 해요. 다음 코드의 빈 칸에 들어갈 모듈명을 적어주세요.\n\n```python\n_____ re\ntext = '안녕하세요 2026년입니다'\nresult = re.search(r'\\d+', text)\n```",
       "answer": "import",
       "hint": "Python의 정규표현식을 사용하기 위한 기본 모듈이에요.",
       "feedback": {
@@ -27,7 +27,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = '저는 25살이에요'\nresult = re.search(r'\\d+', text)\nprint(result.group())",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = '저는 25살이에요'\nresult = re.search(r'\\d+', text)\nprint(result.group())\n```",
       "choices": [
         "A. 25",
         "B. None",
@@ -50,7 +50,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "문자열에서 모든 숫자를 찾아 리스트로 받고 싶어요. 다음 코드의 빈 칸에 들어갈 함수명을 적어주세요.\n\nimport re\ntext = '핸드폰: 010-1234-5678'\nnumbers = re._____( r'\\d+', text )",
+      "question": "문자열에서 모든 숫자를 찾아 리스트로 받고 싶어요. 다음 코드의 빈 칸에 들어갈 함수명을 적어주세요.\n\n```python\nimport re\ntext = '핸드폰: 010-1234-5678'\nnumbers = re._____( r'\\d+', text )\n```",
       "answer": "findall",
       "hint": "처음 하나만 찾는 건 search(), 모든 것을 찾는 건 ___all()이에요.",
       "feedback": {
@@ -67,7 +67,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\nemail = 'contact@example.com'\nresult = re.findall(r'[a-z]+', email)\nprint(result)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\nemail = 'contact@example.com'\nresult = re.findall(r'[a-z]+', email)\nprint(result)\n```",
       "choices": [
         "A. ['c', 'o', 'n', 't', 'a', 'c', 't']",
         "B. ['contact', 'example', 'com']",
@@ -90,7 +90,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "문자열에서 모든 숫자를 찾고 싶어요. 정규표현식 패턴으로 '하나 이상의 숫자'를 나타내는 것은?\n\nimport re\nphone = '010-2345-6789'\ndigits = re.findall(r'_____', phone)",
+      "question": "문자열에서 모든 숫자를 찾고 싶어요. 정규표현식 패턴으로 '하나 이상의 숫자'를 나타내는 것은?\n\n```python\nimport re\nphone = '010-2345-6789'\ndigits = re.findall(r'_____', phone)\n```",
       "answer": "\\d+",
       "hint": "\\d는 한 자리 숫자를 의미하고, +는 '1개 이상'을 의미해요.",
       "feedback": {
@@ -107,7 +107,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\nsentence = '사과, 바나나, 딸기'\nfruits = re.findall(r'[가-힣]+', sentence)\nprint(len(fruits))",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\nsentence = '사과, 바나나, 딸기'\nfruits = re.findall(r'[가-힣]+', sentence)\nprint(len(fruits))\n```",
       "choices": [
         "A. 3",
         "B. 1",
@@ -130,7 +130,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "문자열의 모든 공백을 언더스코어(_)로 바꾸고 싶어요. 다음 코드의 빈 칸에 들어갈 함수명은?\n\nimport re\ntext = '파이썬 공부 재미있어요'\nresult = re._____( r'\\s', '_', text )\nprint(result)  # 파이썬_공부_재미있어요",
+      "question": "문자열의 모든 공백을 언더스코어(_)로 바꾸고 싶어요. 다음 코드의 빈 칸에 들어갈 함수명은?\n\n```python\nimport re\ntext = '파이썬 공부 재미있어요'\nresult = re._____( r'\\s', '_', text )\nprint(result)  # 파이썬_공부_재미있어요\n```",
       "answer": "sub",
       "hint": "s를 ubstitute(치환)한다고 생각하면 돼요. re.sub()를 사용하세요.",
       "feedback": {
@@ -147,7 +147,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\naddress = '서울시 강남구 테헤란로 123번지'\nhouse_num = re.search(r'\\d+', address)\nif house_num:\n    print(f'번지: {house_num.group()}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\naddress = '서울시 강남구 테헤란로 123번지'\nhouse_num = re.search(r'\\d+', address)\nif house_num:\n    print(f'번지: {house_num.group()}')\n```",
       "choices": [
         "A. 번지: 강남",
         "B. 번지: None",
@@ -170,7 +170,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "문자열에서 'cat' 또는 'dog'를 모두 찾고 싶어요. OR을 의미하는 정규표현식 기호를 사용해 패턴을 완성하세요.\n\nimport re\ntext = '개는 dog이고 고양이는 cat이에요'\nanimals = re.findall(r'_____', text)",
+      "question": "문자열에서 'cat' 또는 'dog'를 모두 찾고 싶어요. OR을 의미하는 정규표현식 기호를 사용해 패턴을 완성하세요.\n\n```python\nimport re\ntext = '개는 dog이고 고양이는 cat이에요'\nanimals = re.findall(r'_____', text)\n```",
       "answer": "cat|dog",
       "hint": "파이썬에서 OR은 | 기호를 사용해요. (dog|cat)도 같은 의미예요.",
       "feedback": {
@@ -187,7 +187,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\nlog = '2026-06-15 error 404'\npattern = r'\\d{4}-\\d{2}-\\d{2}'\nmatch = re.search(pattern, log)\nif match:\n    print(match.group())",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\nlog = '2026-06-15 error 404'\npattern = r'\\d{4}-\\d{2}-\\d{2}'\nmatch = re.search(pattern, log)\nif match:\n    print(match.group())\n```",
       "choices": [
         "A. 2026-06-15",
         "B. 2026",
@@ -210,7 +210,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "문자열의 모든 @를 [at]으로 바꾸고 싶어요. 다음 코드의 빈 칸에 들어갈 것은?\n\nimport re\nemail = 'user@gmail.com'\nresult = re.sub( '___', '[at]', email )",
+      "question": "문자열의 모든 @를 [at]으로 바꾸고 싶어요. 다음 코드의 빈 칸에 들어갈 것은?\n\n```python\nimport re\nemail = 'user@gmail.com'\nresult = re.sub( '___', '[at]', email )\n```",
       "answer": "@",
       "hint": "특수기호 @를 그냥 '@'로 쓰면 돼요.",
       "feedback": {
@@ -227,7 +227,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\nurl = 'https://example.com'\ndomain = re.search(r'[a-z.]+', url)\nprint(domain.group())",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\nurl = 'https://example.com'\ndomain = re.search(r'[a-z.]+', url)\nprint(domain.group())\n```",
       "choices": [
         "A. https",
         "B. example.com",
@@ -250,7 +250,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "문자열에서 '한 글자' 단위로 찾고 싶어요. 모든 단일 문자를 의미하는 정규표현식 기호는?\n\nimport re\ntext = 'Python 3'\nchars = re.findall( '_____', text )",
+      "question": "문자열에서 '한 글자' 단위로 찾고 싶어요. 모든 단일 문자를 의미하는 정규표현식 기호는?\n\n```python\nimport re\ntext = 'Python 3'\nchars = re.findall( '_____', text )\n```",
       "answer": ".",
       "hint": ".(점) 기호는 줄바꿈을 제외한 모든 단일 문자를 의미해요.",
       "feedback": {
@@ -267,7 +267,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'test123abc456def'\nresult = re.findall( r'[0-9]+', text )\nprint(result)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'test123abc456def'\nresult = re.findall( r'[0-9]+', text )\nprint(result)\n```",
       "choices": [
         "A. ['123', '456']",
         "B. ['1', '2', '3', '4', '5', '6']",
@@ -290,7 +290,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "패턴과 매칭되는 부분을 한 번에 찾고, 초급에서 배운 for 반복문으로 각각 처리하고 싶어요.\n\nimport re\ntext = 'apple123banana456'\nfor num in re.findall(r'\\d+', text):\n    print(f'숫자: {num}')\n\n몇 번 출력될까요?\n\n답: _____번",
+      "question": "패턴과 매칭되는 부분을 한 번에 찾고, 초급에서 배운 for 반복문으로 각각 처리하고 싶어요.\n\n```python\nimport re\ntext = 'apple123banana456'\nfor num in re.findall(r'\\d+', text):\n    print(f'숫자: {num}')\n```\n\n몇 번 출력될까요?\n\n답: _____번",
       "answer": "2번",
       "hint": "\\d+는 연속된 숫자를 찾고, findall()은 리스트로 반환해요. for는 그 리스트를 반복해요.",
       "feedback": {
@@ -307,7 +307,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\npassword = 'MyP@ssw0rd'\nspecial = re.findall( r'[^a-zA-Z0-9]', password )\nprint(special)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\npassword = 'MyP@ssw0rd'\nspecial = re.findall( r'[^a-zA-Z0-9]', password )\nprint(special)\n```",
       "choices": [
         "A. ['@']",
         "B. ['M', 'y', 'P', '@', 's', 's', 'w', '0', 'r', 'd']",
@@ -330,7 +330,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "문자열에서 한글만 추출하고 싶어요. 한글 범위를 나타내는 정규표현식 패턴은?\n\nimport re\ntext = '저는 user123 입니다'\nkorean = re.findall( r'_____', text )\nprint(korean)  # ['저는', '입니다']",
+      "question": "문자열에서 한글만 추출하고 싶어요. 한글 범위를 나타내는 정규표현식 패턴은?\n\n```python\nimport re\ntext = '저는 user123 입니다'\nkorean = re.findall( r'_____', text )\nprint(korean)  # ['저는', '입니다']\n```",
       "answer": "[가-힣]+",
       "hint": "[가-힣]는 한글 음절 전체 범위를 의미해요. +는 1개 이상이에요.",
       "feedback": {
@@ -347,7 +347,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'color colour colr'\nwords = re.findall( r'col..?r', text )\nprint(words)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'color colour colr'\nwords = re.findall( r'col..?r', text )\nprint(words)\n```",
       "choices": [
         "A. ['color', 'colr']",
         "B. ['color', 'colour', 'colr']",
@@ -370,7 +370,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "문자열의 '맨 앞'에서만 패턴을 찾고 싶어요. 문자열 시작을 의미하는 정규표현식 기호는?\n\nimport re\ntext = '123 hello 456'\nif re.search( '_____\\d', text ):\n    print('맨 앞이 숫자예요')",
+      "question": "문자열의 '맨 앞'에서만 패턴을 찾고 싶어요. 문자열 시작을 의미하는 정규표현식 기호는?\n\n```python\nimport re\ntext = '123 hello 456'\nif re.search( '_____\\d', text ):\n    print('맨 앞이 숫자예요')\n```",
       "answer": "^",
       "hint": "^ 는 문자열의 시작, $ 는 문자열의 끝을 의미해요.",
       "feedback": {
@@ -387,7 +387,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\nfor item in ['start123', '123end', 'mid123le']:\n    if re.search( r'^\\d', item ):\n        print(item)\n    else:\n        print(f'{item}은 숫자로 시작 안 함')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\nfor item in ['start123', '123end', 'mid123le']:\n    if re.search( r'^\\d', item ):\n        print(item)\n    else:\n        print(f'{item}은 숫자로 시작 안 함')\n```",
       "choices": [
         "A. 123end\\n123end은 숫자로 시작 안 함",
         "B. start123은 숫자로 시작 안 함\\n123end\\nmid123le은 숫자로 시작 안 함",
@@ -410,7 +410,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "정규표현식을 여러 번 사용할 때는 미리 패턴을 컴파일해두면 효율적이에요. 빈 칸에 들어갈 함수명은?\n\nimport re\npattern = re._____( r'\\d{3}-\\d{4}-\\d{4}' )\nphone = '010-1234-5678'\nresult = pattern.search(phone)",
+      "question": "정규표현식을 여러 번 사용할 때는 미리 패턴을 컴파일해두면 효율적이에요. 빈 칸에 들어갈 함수명은?\n\n```python\nimport re\npattern = re._____( r'\\d{3}-\\d{4}-\\d{4}' )\nphone = '010-1234-5678'\nresult = pattern.search(phone)\n```",
       "answer": "compile",
       "hint": "컴파일(compile)하면 패턴을 미리 준비해두는 거예요.",
       "feedback": {
@@ -427,7 +427,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = '이름: 김철수'\npattern = re.compile(r'이름: (.+)')\nmatch = pattern.search(text)\nprint(match.group(1))",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = '이름: 김철수'\npattern = re.compile(r'이름: (.+)')\nmatch = pattern.search(text)\nprint(match.group(1))\n```",
       "choices": [
         "A. 김철수",
         "B. 이름: 김철수",
@@ -450,7 +450,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "전화번호에서 지역번호와 나머지를 분리하고 싶어요. 빈 칸을 완성하세요.\n\nimport re\nphone = '010-1234-5678'\npattern = re.compile(r'(\\d+)-(\\d+)-(\\d+)')\nmatch = pattern.search(phone)\narea_code = match._____( 1 )",
+      "question": "전화번호에서 지역번호와 나머지를 분리하고 싶어요. 빈 칸을 완성하세요.\n\n```python\nimport re\nphone = '010-1234-5678'\npattern = re.compile(r'(\\d+)-(\\d+)-(\\d+)')\nmatch = pattern.search(phone)\narea_code = match._____( 1 )\n```",
       "answer": "group",
       "hint": ".group() 메서드를 사용해서 특정 그룹의 값을 가져와요.",
       "feedback": {
@@ -467,7 +467,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\nemail = 'user@example.com'\npattern = re.compile(r'(.+)@(.+)')\nmatch = pattern.search(email)\nprint(f'{match.group(1)} 계정은 {match.group(2)}에서')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\nemail = 'user@example.com'\npattern = re.compile(r'(.+)@(.+)')\nmatch = pattern.search(email)\nprint(f'{match.group(1)} 계정은 {match.group(2)}에서')\n```",
       "choices": [
         "A. user@example.com 계정은 user@example.com에서",
         "B. user 계정은 example.com에서",
@@ -490,7 +490,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "날짜 형식을 검사하고 년/월/일을 각각 추출하고 싶어요. 완성하세요.\n\nimport re\ndate = '2026-06-15'\npattern = re.compile(r'(\\d{4})_____(\\d{2})_____(\\d{2})')\nmatch = pattern.search(date)",
+      "question": "날짜 형식을 검사하고 년/월/일을 각각 추출하고 싶어요. 완성하세요.\n\n```python\nimport re\ndate = '2026-06-15'\npattern = re.compile(r'(\\d{4})_____(\\d{2})_____(\\d{2})')\nmatch = pattern.search(date)\n```",
       "answer": "-",
       "hint": "정규표현식에서는 - 기호를 그냥 쓰면 돼요. (\\d{4}) 뒤에 - 가 오는 패턴이에요.",
       "feedback": {
@@ -507,7 +507,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = '2026-06-15'\npattern = re.compile(r'(\\d{4})-(\\d{2})-(\\d{2})')\nmatch = pattern.search(text)\nprint(f'{match.group(1)}년 {match.group(2)}월 {match.group(3)}일')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = '2026-06-15'\npattern = re.compile(r'(\\d{4})-(\\d{2})-(\\d{2})')\nmatch = pattern.search(text)\nprint(f'{match.group(1)}년 {match.group(2)}월 {match.group(3)}일')\n```",
       "choices": [
         "A. (\\d{4})-(\\d{2})-(\\d{2})",
         "B. 2026 06 15",
@@ -530,7 +530,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "문자열에서 숫자 코드들을 모두 찾아 for 루프로 출력하고 싶어요.\n\nimport re\ntext = 'items: A10, B20, C30'\npattern = re.compile(r'\\d+')\ncodes = pattern._____( text )\nfor code in codes:\n    print(f'코드: {code}')",
+      "question": "문자열에서 숫자 코드들을 모두 찾아 for 루프로 출력하고 싶어요.\n\n```python\nimport re\ntext = 'items: A10, B20, C30'\npattern = re.compile(r'\\d+')\ncodes = pattern._____( text )\nfor code in codes:\n    print(f'코드: {code}')\n```",
       "answer": "findall",
       "hint": ".findall()은 모든 매칭 결과를 리스트로 반환해요.",
       "feedback": {
@@ -547,7 +547,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'phone: 010-1234, mobile: 011-5678'\npattern = re.compile(r'(\\d{3})-(\\d{4})')\nmatches = pattern.findall(text)\nfor match in matches:\n    print(f'지역: {match[0]}, 번호: {match[1]}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'phone: 010-1234, mobile: 011-5678'\npattern = re.compile(r'(\\d{3})-(\\d{4})')\nmatches = pattern.findall(text)\nfor match in matches:\n    print(f'지역: {match[0]}, 번호: {match[1]}')\n```",
       "choices": [
         "A. 지역: 010, 번호: 1234\\n지역: 011, 번호: 5678",
         "B. 지역: 010-1234, 번호: 011-5678",
@@ -570,7 +570,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "문자열에서 HTML 태그를 제거하고 싶어요. .sub() 메서드를 사용합니다.\n\nimport re\nhtml = '<p>안녕하세요</p>'\npattern = re.compile(r'<.+?>')\nclean = pattern._____( '', html )\nprint(clean)  # 안녕하세요",
+      "question": "문자열에서 HTML 태그를 제거하고 싶어요. .sub() 메서드를 사용합니다.\n\n```python\nimport re\nhtml = '<p>안녕하세요</p>'\npattern = re.compile(r'<.+?>')\nclean = pattern._____( '', html )\nprint(clean)  # 안녕하세요\n```",
       "answer": "sub",
       "hint": ".sub(바꿀내용, 원본)은 매칭된 부분을 바꿔요.",
       "feedback": {
@@ -587,7 +587,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = '2026년 6월 15일'\npattern = re.compile(r'(\\d+)년 (\\d+)월 (\\d+)일')\nresult = pattern.sub(r'\\1-\\2-\\3', text)\nprint(result)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = '2026년 6월 15일'\npattern = re.compile(r'(\\d+)년 (\\d+)월 (\\d+)일')\nresult = pattern.sub(r'\\1-\\2-\\3', text)\nprint(result)\n```",
       "choices": [
         "A. 2026-6-15",
         "B. 2026년-6월-15일",
@@ -610,7 +610,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "대소문자를 구분하지 않고 검사하고 싶어요. re.compile()의 두 번째 인자로 플래그를 넣어요.\n\nimport re\ntext = 'Python'\npattern = re.compile(r'python', _____)\nmatch = pattern.search(text)\nif match:\n    print('찾았어요')",
+      "question": "대소문자를 구분하지 않고 검사하고 싶어요. re.compile()의 두 번째 인자로 플래그를 넣어요.\n\n```python\nimport re\ntext = 'Python'\npattern = re.compile(r'python', _____)\nmatch = pattern.search(text)\nif match:\n    print('찾았어요')\n```",
       "answer": "re.IGNORECASE",
       "hint": "re.IGNORECASE 플래그는 대소문자를 무시해요. (re.I로도 쓸 수 있어요)",
       "feedback": {
@@ -627,7 +627,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'Hello HELLO hello'\npattern = re.compile(r'hello', re.IGNORECASE)\nresults = pattern.findall(text)\nprint(len(results))",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'Hello HELLO hello'\npattern = re.compile(r'hello', re.IGNORECASE)\nresults = pattern.findall(text)\nprint(len(results))\n```",
       "choices": [
         "A. 3",
         "B. 1",
@@ -650,7 +650,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "주민번호에서 생년월일과 뒷자리를 분리하고 싶어요. 초급에서 배운 변수처럼 캡처 그룹도 여러 개 만들 수 있어요.\n\nimport re\nid_number = '900101-1234567'\npattern = re.compile(r'(\\d{6})_____(\\d{7})')\nmatch = pattern.search(id_number)",
+      "question": "주민번호에서 생년월일과 뒷자리를 분리하고 싶어요. 초급에서 배운 변수처럼 캡처 그룹도 여러 개 만들 수 있어요.\n\n```python\nimport re\nid_number = '900101-1234567'\npattern = re.compile(r'(\\d{6})_____(\\d{7})')\nmatch = pattern.search(id_number)\n```",
       "answer": "-",
       "hint": "정규표현식에서 - 기호를 그냥 쓰면 돼요.",
       "feedback": {
@@ -667,7 +667,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\naddress = '서울시 강남구 테헤란로 123'\npattern = re.compile(r'([가-힣]+) ([가-힣]+) ([가-힣0-9]+)')\nmatch = pattern.search(address)\nprint(f'{match.group(1)}-{match.group(2)}-{match.group(3)}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\naddress = '서울시 강남구 테헤란로 123'\npattern = re.compile(r'([가-힣]+) ([가-힣]+) ([가-힣0-9]+)')\nmatch = pattern.search(address)\nprint(f'{match.group(1)}-{match.group(2)}-{match.group(3)}')\n```",
       "choices": [
         "A. 전체 주소",
         "B. 서울시-강남-테헤란로",
@@ -690,7 +690,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "매칭된 모든 부분의 위치(시작, 끝)와 내용을 알고 싶어요. 초급의 for 루프와 함께 사용합니다.\n\nimport re\ntext = 'apple123banana456'\npattern = re.compile(r'\\d+')\nfor match in pattern._____( text ):\n    print(f'위치: {match.start()}-{match.end()}, 값: {match.group()}')",
+      "question": "매칭된 모든 부분의 위치(시작, 끝)와 내용을 알고 싶어요. 초급의 for 루프와 함께 사용합니다.\n\n```python\nimport re\ntext = 'apple123banana456'\npattern = re.compile(r'\\d+')\nfor match in pattern._____( text ):\n    print(f'위치: {match.start()}-{match.end()}, 값: {match.group()}')\n```",
       "answer": "finditer",
       "hint": ".finditer()는 Match 객체의 반복자를 반환해요. for 루프로 처리할 수 있어요.",
       "feedback": {
@@ -707,7 +707,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'a1b2c3'\npattern = re.compile(r'\\d')\nfor m in pattern.finditer(text):\n    print(f'[{m.start()}:{m.end()}]')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'a1b2c3'\npattern = re.compile(r'\\d')\nfor m in pattern.finditer(text):\n    print(f'[{m.start()}:{m.end()}]')\n```",
       "choices": [
         "A. [1:2]\\n[3:4]\\n[5:6]",
         "B. [0:1][2:3][4:5]",
@@ -730,7 +730,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "전화번호 유효성을 검사하고 if 문으로 판단하고 싶어요.\n\nimport re\nphone = '010-1234-5678'\npattern = re.compile(r'^\\d{3}-\\d{4}-\\d{4}$')\nif pattern._____( phone ):\n    print('유효한 전화번호')\nelse:\n    print('유효하지 않음')",
+      "question": "전화번호 유효성을 검사하고 if 문으로 판단하고 싶어요.\n\n```python\nimport re\nphone = '010-1234-5678'\npattern = re.compile(r'^\\d{3}-\\d{4}-\\d{4}$')\nif pattern._____( phone ):\n    print('유효한 전화번호')\nelse:\n    print('유효하지 않음')\n```",
       "answer": "fullmatch",
       "hint": ".fullmatch()는 전체 문자열이 패턴과 완전히 일치할 때만 Match 객체를 반환해요.",
       "feedback": {
@@ -747,7 +747,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\nemails = ['user@test.com', 'admin@test', 'test@test.co.kr']\npattern = re.compile(r'^[\\w.-]+@[\\w.-]+\\.\\w+$')\nvalid_count = 0\nfor email in emails:\n    if pattern.search(email):\n        valid_count += 1\nprint(valid_count)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\nemails = ['user@test.com', 'admin@test', 'test@test.co.kr']\npattern = re.compile(r'^[\\w.-]+@[\\w.-]+\\.\\w+$')\nvalid_count = 0\nfor email in emails:\n    if pattern.search(email):\n        valid_count += 1\nprint(valid_count)\n```",
       "choices": [
         "A. 3",
         "B. 2",
@@ -770,7 +770,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "문자열을 특정 패턴으로 나누고 싶어요. 초급의 리스트처럼 여러 부분으로 나눌 수 있어요.\n\nimport re\ntext = '사과,배,딸기;포도'\nparts = re._____( r'[,;]', text )\nprint(parts)  # ['사과', '배', '딸기', '포도']",
+      "question": "문자열을 특정 패턴으로 나누고 싶어요. 초급의 리스트처럼 여러 부분으로 나눌 수 있어요.\n\n```python\nimport re\ntext = '사과,배,딸기;포도'\nparts = re._____( r'[,;]', text )\nprint(parts)  # ['사과', '배', '딸기', '포도']\n```",
       "answer": "split",
       "hint": ".split(패턴, 문자열)은 패턴으로 문자열을 나눠서 리스트로 반환해요.",
       "feedback": {
@@ -787,7 +787,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'Python3.9,Java11;C++20'\nversions = re.split(r'[,;]', text)\nfor v in versions:\n    match = re.search(r'([a-zA-Z]+)(\\d+)', v)\n    if match:\n        print(f'{match.group(1)}: {match.group(2)}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'Python3.9,Java11;C++20'\nversions = re.split(r'[,;]', text)\nfor v in versions:\n    match = re.search(r'([a-zA-Z]+)(\\d+)', v)\n    if match:\n        print(f'{match.group(1)}: {match.group(2)}')\n```",
       "choices": [
         "A. Python: 3\\nJava: 11",
         "B. Python: 3.9\\nJava: 11\\nC++: 20",
@@ -810,7 +810,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "정규표현식의 특수 문자 클래스를 알아봐요. 다음 중 '숫자 하나'를 의미하는 문자 클래스는?\n\nimport re\npattern = re.compile(r'_____')\ntext = '2026'\nmatches = pattern.findall(text)\nprint(matches)  # ['2', '0', '2', '6']",
+      "question": "정규표현식의 특수 문자 클래스를 알아봐요. 다음 중 '숫자 하나'를 의미하는 문자 클래스는?\n\n```python\nimport re\npattern = re.compile(r'_____')\ntext = '2026'\nmatches = pattern.findall(text)\nprint(matches)  # ['2', '0', '2', '6']\n```",
       "answer": "\\d",
       "hint": "\\w는 단어 문자, \\s는 공백, \\d는 숫자예요.",
       "feedback": {
@@ -827,7 +827,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'user_123 hello@world'\npattern = re.compile(r'\\W+')\nmatches = pattern.findall(text)\nprint(matches)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'user_123 hello@world'\npattern = re.compile(r'\\W+')\nmatches = pattern.findall(text)\nprint(matches)\n```",
       "choices": [
         "A. ['_', '@']",
         "B. [' ', '@']",
@@ -850,7 +850,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "전화번호 010-1234-5678 형식을 검증하고 싶어요. 빈 칸을 완성하세요.\n\nimport re\nphone = '010-1234-5678'\npattern = re.compile(r'_____-_____-_____')\nif pattern.search(phone):\n    print('유효한 전화번호')",
+      "question": "전화번호 010-1234-5678 형식을 검증하고 싶어요. 빈 칸을 완성하세요.\n\n```python\nimport re\nphone = '010-1234-5678'\npattern = re.compile(r'_____-_____-_____')\nif pattern.search(phone):\n    print('유효한 전화번호')\n```",
       "answer": "\\d{3}",
       "hint": "\\d{3}은 '정확히 3개의 숫자'를 의미해요.",
       "feedback": {
@@ -867,7 +867,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\nphones = ['010-1234-5678', '02-123-4567', '031-1234-5678']\npattern = re.compile(r'^\\d{3}-\\d{4}-\\d{4}$')\nvalid = 0\nfor p in phones:\n    if pattern.search(p):\n        valid += 1\nprint(valid)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\nphones = ['010-1234-5678', '02-123-4567', '031-1234-5678']\npattern = re.compile(r'^\\d{3}-\\d{4}-\\d{4}$')\nvalid = 0\nfor p in phones:\n    if pattern.search(p):\n        valid += 1\nprint(valid)\n```",
       "choices": [
         "A. 3",
         "B. 2",
@@ -890,7 +890,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "문자열 맨 뒤의 파일 확장자를 찾고 싶어요. 빈 칸을 완성하세요.\n\nimport re\nfilename = 'photo.jpg'\npattern = re.compile(r'_____\\w+$')\nmatch = pattern.search(filename)\nif match:\n    print(match.group())",
+      "question": "문자열 맨 뒤의 파일 확장자를 찾고 싶어요. 빈 칸을 완성하세요.\n\n```python\nimport re\nfilename = 'photo.jpg'\npattern = re.compile(r'_____\\w+$')\nmatch = pattern.search(filename)\nif match:\n    print(match.group())\n```",
       "answer": "\\.",
       "hint": "점(.)은 특수문자이므로 \\\\로 이스케이프해야 해요.",
       "feedback": {
@@ -907,7 +907,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'The password is P@ssw0rd'\npattern = re.compile(r'[A-Z][a-z]+')\nmatches = pattern.findall(text)\nprint(matches)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'The password is P@ssw0rd'\npattern = re.compile(r'[A-Z][a-z]+')\nmatches = pattern.findall(text)\nprint(matches)\n```",
       "choices": [
         "A. ['The', 'P']",
         "B. ['The']",
@@ -930,7 +930,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "문자열에서 정확히 6자리 숫자로 된 인증 코드를 찾고 싶어요. 빈 칸을 완성하세요.\n\nimport re\ncode = 'CODE-123456'\npattern = re.compile(r'_____')\nmatch = pattern.search(code)\nif match:\n    print(match.group())  # 123456",
+      "question": "문자열에서 정확히 6자리 숫자로 된 인증 코드를 찾고 싶어요. 빈 칸을 완성하세요.\n\n```python\nimport re\ncode = 'CODE-123456'\npattern = re.compile(r'_____')\nmatch = pattern.search(code)\nif match:\n    print(match.group())  # 123456\n```",
       "answer": "\\d{6}",
       "hint": "\\d{n}은 정확히 n개의 숫자를 의미해요. \\d{6}은 정확히 6자리 숫자예요.",
       "feedback": {
@@ -947,7 +947,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요? (초급에서 배운 for 루프 사용)\n\nimport re\ntext = 'a1b2c3d4'\npattern = re.compile(r'[a-z]\\d')\nfor match in pattern.finditer(text):\n    print(f'위치 {match.start()}: {match.group()}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요? (초급에서 배운 for 루프 사용)\n\n```python\nimport re\ntext = 'a1b2c3d4'\npattern = re.compile(r'[a-z]\\d')\nfor match in pattern.finditer(text):\n    print(f'위치 {match.start()}: {match.group()}')\n```",
       "choices": [
         "A. 위치 0: a1\\n위치 2: b2\\n위치 4: c3\\n위치 6: d4",
         "B. 위치 1: a1\\n위치 3: b2\\n위치 5: c3\\n위치 7: d4",
@@ -970,7 +970,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "특수문자를 제거하고 숫자와 알파벳만 남기고 싶어요.\n\nimport re\ntext = 'user@email.com#123'\npattern = re.compile(r'_____')\nclean = pattern.sub('', text)\nprint(clean)  # useremailcom123",
+      "question": "특수문자를 제거하고 숫자와 알파벳만 남기고 싶어요.\n\n```python\nimport re\ntext = 'user@email.com#123'\npattern = re.compile(r'_____')\nclean = pattern.sub('', text)\nprint(clean)  # useremailcom123\n```",
       "answer": "[^a-zA-Z0-9]",
       "hint": "[^...]는 '...이 아닌 것들'을 의미해요. [^a-zA-Z0-9]는 알파벳, 숫자가 아닌 모든 것이에요.",
       "feedback": {
@@ -987,7 +987,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'Price: $100, Tax: $20'\npattern = re.compile(r'\\$(\\d+)')\nfor match in pattern.finditer(text):\n    print(f'금액: {match.group(1)}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'Price: $100, Tax: $20'\npattern = re.compile(r'\\$(\\d+)')\nfor match in pattern.finditer(text):\n    print(f'금액: {match.group(1)}')\n```",
       "choices": [
         "A. 금액: 100\\n금액: 20",
         "B. 금액: $100\\n금액: $20",
@@ -1010,7 +1010,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "공백을 포함하는 모든 공백 문자를 찾고 싶어요 (스페이스, 탭, 줄바꿈 등).\n\nimport re\ntext = 'hello world'\npattern = re.compile(r'_____')\nmatches = pattern.findall(text)\nprint(len(matches))  # 1",
+      "question": "공백을 포함하는 모든 공백 문자를 찾고 싶어요 (스페이스, 탭, 줄바꿈 등).\n\n```python\nimport re\ntext = 'hello world'\npattern = re.compile(r'_____')\nmatches = pattern.findall(text)\nprint(len(matches))  # 1\n```",
       "answer": "\\s",
       "hint": "\\s는 모든 공백 문자를 의미해요. (스페이스, 탭, 줄바꿈 등)",
       "feedback": {
@@ -1027,7 +1027,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'call  me  tomorrow'\npattern = re.compile(r'\\s+')\nparts = pattern.split(text)\nprint(parts)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'call  me  tomorrow'\npattern = re.compile(r'\\s+')\nparts = pattern.split(text)\nprint(parts)\n```",
       "choices": [
         "A. ['call  me  tomorrow']",
         "B. ['call', '', 'me', '', 'tomorrow']",
@@ -1050,7 +1050,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "매치 객체의 groups() 메서드를 사용해서 모든 그룹을 한 번에 가져와요.\n\nimport re\ndate = '2026-06-15'\npattern = re.compile(r'(\\d{4})-(\\d{2})-(\\d{2})')\nmatch = pattern.search(date)\nresult = match._____( )\nprint(result)  # ('2026', '06', '15')",
+      "question": "매치 객체의 groups() 메서드를 사용해서 모든 그룹을 한 번에 가져와요.\n\n```python\nimport re\ndate = '2026-06-15'\npattern = re.compile(r'(\\d{4})-(\\d{2})-(\\d{2})')\nmatch = pattern.search(date)\nresult = match._____( )\nprint(result)  # ('2026', '06', '15')\n```",
       "answer": "groups",
       "hint": ".groups()는 모든 캡처 그룹을 튜플로 반환해요.",
       "feedback": {
@@ -1067,7 +1067,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\naddress = '서울시 강남구 테헤란로'\npattern = re.compile(r'([가-힣]+)\\s+([가-힣]+)\\s+([가-힣0-9]+)')\nmatch = pattern.search(address)\nprint(match.groups())",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\naddress = '서울시 강남구 테헤란로'\npattern = re.compile(r'([가-힣]+)\\s+([가-힣]+)\\s+([가-힣0-9]+)')\nmatch = pattern.search(address)\nprint(match.groups())\n```",
       "choices": [
         "A. ('서울시', '강남구', '테헤란로')",
         "B. ('서울시', '강남구', '테헤란로')[1]",
@@ -1090,7 +1090,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "이메일에서 도메인 부분만 찾고 싶어요. 빈 칸을 완성하세요.\n\nimport re\nemail = 'user@example.com'\npattern = re.compile(r'@_____')\nmatch = pattern.search(email)\nif match:\n    print(match.group())  # @example.com",
+      "question": "이메일에서 도메인 부분만 찾고 싶어요. 빈 칸을 완성하세요.\n\n```python\nimport re\nemail = 'user@example.com'\npattern = re.compile(r'@_____')\nmatch = pattern.search(email)\nif match:\n    print(match.group())  # @example.com\n```",
       "answer": "[\\w.]+",
       "hint": "[\\w.]+는 단어 문자(알파벳, 숫자, _)와 점(.)이 1개 이상을 의미해요.",
       "feedback": {
@@ -1107,7 +1107,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'Visit https://example.com or http://test.org'\npattern = re.compile(r'https?://\\S+')\nurls = pattern.findall(text)\nprint(len(urls))",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'Visit https://example.com or http://test.org'\npattern = re.compile(r'https?://\\S+')\nurls = pattern.findall(text)\nprint(len(urls))\n```",
       "choices": [
         "A. 2",
         "B. 1",
@@ -1130,7 +1130,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "초급의 if 문과 리스트를 사용해서 유효한 항목만 추출하고 싶어요.\n\nimport re\nitems = ['apple', 'banana123', 'cherry']\npattern = re.compile(r'^_____$')\nvalid = []\nfor item in items:\n    if pattern.search(item):\n        valid.append(item)\nprint(valid)  # ['apple', 'cherry']",
+      "question": "초급의 if 문과 리스트를 사용해서 유효한 항목만 추출하고 싶어요.\n\n```python\nimport re\nitems = ['apple', 'banana123', 'cherry']\npattern = re.compile(r'^_____$')\nvalid = []\nfor item in items:\n    if pattern.search(item):\n        valid.append(item)\nprint(valid)  # ['apple', 'cherry']\n```",
       "answer": "[a-zA-Z]+",
       "hint": "^[a-zA-Z]+$는 '알파벳만 있는 단어'를 의미해요.",
       "feedback": {
@@ -1147,7 +1147,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'Meeting on 2026-06-15 at 14:30'\npattern = re.compile(r'\\d{4}-\\d{2}-\\d{2}|\\d{2}:\\d{2}')\nmatches = pattern.findall(text)\nprint(matches)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'Meeting on 2026-06-15 at 14:30'\npattern = re.compile(r'\\d{4}-\\d{2}-\\d{2}|\\d{2}:\\d{2}')\nmatches = pattern.findall(text)\nprint(matches)\n```",
       "choices": [
         "A. ['2026-06-15', '14:30']",
         "B. ['2026', '06', '15', '14', '30']",
@@ -1170,7 +1170,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "HTML 태그를 제거하고 내용만 추출하고 싶어요. re.sub()로 태그를 공백으로 바꿔요.\n\nimport re\nhtml = '<p>Hello</p><div>World</div>'\npattern = re.compile(r'_____')\ntext = pattern.sub(' ', html)\nprint(text)  # ' Hello  World '",
+      "question": "HTML 태그를 제거하고 내용만 추출하고 싶어요. re.sub()로 태그를 공백으로 바꿔요.\n\n```python\nimport re\nhtml = '<p>Hello</p><div>World</div>'\npattern = re.compile(r'_____')\ntext = pattern.sub(' ', html)\nprint(text)  # ' Hello  World '\n```",
       "answer": "<[^>]+>",
       "hint": "<[^>]+>는 '<'로 시작해서 '>'로 끝나는 모든 태그를 의미해요.",
       "feedback": {
@@ -1187,7 +1187,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요? (초급 for 루프와 if 조합)\n\nimport re\ndata = ['apple', 'apple pie', 'pineapple', 'application']\npattern = re.compile(r'^apple$')\ncount = 0\nfor item in data:\n    if pattern.search(item):\n        count += 1\nprint(count)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요? (초급 for 루프와 if 조합)\n\n```python\nimport re\ndata = ['apple', 'apple pie', 'pineapple', 'application']\npattern = re.compile(r'^apple$')\ncount = 0\nfor item in data:\n    if pattern.search(item):\n        count += 1\nprint(count)\n```",
       "choices": [
         "A. 4",
         "B. 1",
@@ -1210,7 +1210,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "문자열에서 '<'부터 '>'까지 모든 내용을 추출하고 싶어요 (HTML 태그 같은 것). 욕심쟁이 매칭을 사용합니다.\n\nimport re\ntext = '<tag1>hello</tag2>'\npattern = re.compile(r'<_____>')\nmatch = pattern.search(text)\nprint(match.group())  # <tag1>hello</tag2>",
+      "question": "문자열에서 '<'부터 '>'까지 모든 내용을 추출하고 싶어요 (HTML 태그 같은 것). 욕심쟁이 매칭을 사용합니다.\n\n```python\nimport re\ntext = '<tag1>hello</tag2>'\npattern = re.compile(r'<_____>')\nmatch = pattern.search(text)\nprint(match.group())  # <tag1>hello</tag2>\n```",
       "answer": ".*",
       "hint": ".* 는 욕심쟁이 매칭으로 최대한 많이 가져가요. (tag1>hello</tag2)",
       "feedback": {
@@ -1227,7 +1227,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = '<tag1>hello</tag1>'\npattern = re.compile(r'<.*?>')\nmatches = pattern.findall(text)\nprint(matches)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = '<tag1>hello</tag1>'\npattern = re.compile(r'<.*?>')\nmatches = pattern.findall(text)\nprint(matches)\n```",
       "choices": [
         "A. ['<tag1>', '</tag1>']",
         "B. ['<tag1>hello</tag1>']",
@@ -1250,7 +1250,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "단어 단위로만 'apple'을 찾고 싶어요 ('pineapple'은 제외). 단어 경계를 사용합니다.\n\nimport re\ntext = 'apple pineapple apple pie'\npattern = re.compile(r'_____apple_____')\nmatches = pattern.findall(text)\nprint(len(matches))  # 2",
+      "question": "단어 단위로만 'apple'을 찾고 싶어요 ('pineapple'은 제외). 단어 경계를 사용합니다.\n\n```python\nimport re\ntext = 'apple pineapple apple pie'\npattern = re.compile(r'_____apple_____')\nmatches = pattern.findall(text)\nprint(len(matches))  # 2\n```",
       "answer": "\\b",
       "hint": "\\\\b는 단어의 경계를 의미해요.",
       "feedback": {
@@ -1267,7 +1267,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'The book and the book are different'\npattern = re.compile(r'\\bthe\\b', re.IGNORECASE)\nmatches = pattern.findall(text)\nprint(len(matches))",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'The book and the book are different'\npattern = re.compile(r'\\bthe\\b', re.IGNORECASE)\nmatches = pattern.findall(text)\nprint(len(matches))\n```",
       "choices": [
         "A. 4",
         "B. 2",
@@ -1290,7 +1290,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "전화번호를 010-1234-5678 형식으로 통일하고 싶어요. re.sub()으로 하이픈을 추가합니다.\n\nimport re\nphone = '01012345678'\npattern = re.compile(r'(\\d{3})(\\d{4})(\\d{4})')\nformatted = pattern.sub(r'_____', phone)\nprint(formatted)  # 010-1234-5678\n\n빈 칸에 들어갈 것은?",
+      "question": "전화번호를 010-1234-5678 형식으로 통일하고 싶어요. re.sub()으로 하이픈을 추가합니다.\n\n```python\nimport re\nphone = '01012345678'\npattern = re.compile(r'(\\d{3})(\\d{4})(\\d{4})')\nformatted = pattern.sub(r'_____', phone)\nprint(formatted)  # 010-1234-5678\n```\n\n빈 칸에 들어갈 것은?",
       "answer": "\\1-\\2-\\3",
       "hint": "\\\\1, \\\\2, \\\\3은 첫 번째, 두 번째, 세 번째 그룹을 참조해요.",
       "feedback": {
@@ -1307,7 +1307,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'Contact: john@test.com  support@test.com'\npattern = re.compile(r'\\S+@\\S+')\nemails = pattern.findall(text)\nfor email in emails:\n    print(f'Email: {email}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'Contact: john@test.com  support@test.com'\npattern = re.compile(r'\\S+@\\S+')\nemails = pattern.findall(text)\nfor email in emails:\n    print(f'Email: {email}')\n```",
       "choices": [
         "A. Email: john@test.com Email: support@test.com",
         "B. Email: john@test.com  support@test.com",
@@ -1330,7 +1330,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "날짜와 메시지가 있는 데이터에서 각 부분을 분리하고 싶어요. 빈 칸을 완성하세요.\n\nimport re\nlog = '2026-06-15 Error: 서버 오류'\npattern = re.compile(r'(\\d{4}-\\d{2}-\\d{2}) (\\w+): (.*)')\nmatch = pattern.search(log)\ndate, level, msg = match._____( )\nprint(f'{date} [{level}] {msg}')",
+      "question": "날짜와 메시지가 있는 데이터에서 각 부분을 분리하고 싶어요. 빈 칸을 완성하세요.\n\n```python\nimport re\nlog = '2026-06-15 Error: 서버 오류'\npattern = re.compile(r'(\\d{4}-\\d{2}-\\d{2}) (\\w+): (.*)')\nmatch = pattern.search(log)\ndate, level, msg = match._____( )\nprint(f'{date} [{level}] {msg}')\n```",
       "answer": "groups",
       "hint": ".groups()는 모든 캡처 그룹을 튜플로 반환해요. 여러 변수에 바로 할당할 수 있어요.",
       "feedback": {
@@ -1347,7 +1347,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = '2026-06-15 14:30:45 Error: Connection failed'\npattern = re.compile(r'(\\d{4}-\\d{2}-\\d{2}) (\\d{2}:\\d{2}:\\d{2}) (\\w+): (.*)')\nmatch = pattern.search(text)\ndate, time, level, msg = match.groups()\nprint(f'{date} [{level}] {msg}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = '2026-06-15 14:30:45 Error: Connection failed'\npattern = re.compile(r'(\\d{4}-\\d{2}-\\d{2}) (\\d{2}:\\d{2}:\\d{2}) (\\w+): (.*)')\nmatch = pattern.search(text)\ndate, time, level, msg = match.groups()\nprint(f'{date} [{level}] {msg}')\n```",
       "choices": [
         "A. 2026-06-15 [Error] Connection failed",
         "B. 2026-06-15 14:30:45 Error Connection failed",
@@ -1370,7 +1370,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "이름(나이) 형식을 '나이살 이름'으로 바꾸고 싶어요. 빈 칸을 완성하세요.\n\nimport re\ntext = 'Kim(25) Lee(30)'\npattern = re.compile(r'(\\w+)\\((\\d+)\\)')\nresult = pattern.sub(r'_____', text)\nprint(result)  # 25살 Kim 30살 Lee",
+      "question": "이름(나이) 형식을 '나이살 이름'으로 바꾸고 싶어요. 빈 칸을 완성하세요.\n\n```python\nimport re\ntext = 'Kim(25) Lee(30)'\npattern = re.compile(r'(\\w+)\\((\\d+)\\)')\nresult = pattern.sub(r'_____', text)\nprint(result)  # 25살 Kim 30살 Lee\n```",
       "answer": "\\2살 \\1",
       "hint": "\\1은 첫 번째 그룹(이름), \\2는 두 번째 그룹(나이)을 참조해요.",
       "feedback": {
@@ -1387,7 +1387,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = '2026-06-15 17:30 회의'\npattern = re.compile(r'(\\d{4}-\\d{2}-\\d{2}) (\\d{2}:\\d{2})')\nmatch = pattern.search(text)\ndate, time = match.groups()\nprint(f'{date}에 {time}에 회의')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = '2026-06-15 17:30 회의'\npattern = re.compile(r'(\\d{4}-\\d{2}-\\d{2}) (\\d{2}:\\d{2})')\nmatch = pattern.search(text)\ndate, time = match.groups()\nprint(f'{date}에 {time}에 회의')\n```",
       "choices": [
         "A. 2026-06-15에 17:30에 회의",
         "B. 2026-06-15 17:30에 회의",
@@ -1410,7 +1410,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "문자열에서 공백으로 시작하거나 끝나는 경우를 처리하고 싶어요.\n\nimport re\ntext = '  hello world  '\npattern = re.compile(r'^_____|_____$')\nclean = pattern.sub('', text)\nprint(f'|{clean}|')  # |hello world|",
+      "question": "문자열에서 공백으로 시작하거나 끝나는 경우를 처리하고 싶어요.\n\n```python\nimport re\ntext = '  hello world  '\npattern = re.compile(r'^_____|_____$')\nclean = pattern.sub('', text)\nprint(f'|{clean}|')  # |hello world|\n```",
       "answer": "\\s+",
       "hint": "^\\\\s+는 맨 앞의 공백, \\\\s+$는 맨 뒤의 공백을 의미해요.",
       "feedback": {
@@ -1427,7 +1427,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'There are 5 apples and 10 oranges'\npattern = re.compile(r'\\d+')\nfruit_counts = pattern.findall(text)\nprint(fruit_counts)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'There are 5 apples and 10 oranges'\npattern = re.compile(r'\\d+')\nfruit_counts = pattern.findall(text)\nprint(fruit_counts)\n```",
       "choices": [
         "A. ['There', 'are']",
         "B. [5, 10]",
@@ -1450,7 +1450,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "대문자로 시작하는 단어들을 찾고 싶어요. 초급의 리스트에 저장합니다.\n\nimport re\ntext = 'Python is a Great Language for Learning'\npattern = re.compile(r'_____')\ncapitalized = pattern.findall(text)\nprint(capitalized)  # ['Python', 'Great', 'Language', 'Learning']",
+      "question": "대문자로 시작하는 단어들을 찾고 싶어요. 초급의 리스트에 저장합니다.\n\n```python\nimport re\ntext = 'Python is a Great Language for Learning'\npattern = re.compile(r'_____')\ncapitalized = pattern.findall(text)\nprint(capitalized)  # ['Python', 'Great', 'Language', 'Learning']\n```",
       "answer": "\\b[A-Z][a-z]*",
       "hint": "\\\\b[A-Z]는 대문자로 시작한 단어, [a-z]*는 그 뒤의 소문자들이에요.",
       "feedback": {
@@ -1467,7 +1467,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'The price is $50 or 50 dollars'\npattern = re.compile(r'(\\$)(\\d+)|\\b(\\d+)\\s+dollars')\nfor match in pattern.finditer(text):\n    print(match.group())",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'The price is $50 or 50 dollars'\npattern = re.compile(r'(\\$)(\\d+)|\\b(\\d+)\\s+dollars')\nfor match in pattern.finditer(text):\n    print(match.group())\n```",
       "choices": [
         "A. $50\\n50 dollars",
         "B. $\\n50\\n50\\ndollars",
@@ -1490,7 +1490,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "파일 목록에서 특정 확장자만 찾고 싶어요.\n\nimport re\nfiles = ['photo.jpg', 'document.pdf', 'image.png', 'music.mp3']\npattern = re.compile(r'_____')\njpg_files = [f for f in files if pattern.search(f)]\nprint(jpg_files)  # ['photo.jpg']",
+      "question": "파일 목록에서 특정 확장자만 찾고 싶어요.\n\n```python\nimport re\nfiles = ['photo.jpg', 'document.pdf', 'image.png', 'music.mp3']\npattern = re.compile(r'_____')\njpg_files = [f for f in files if pattern.search(f)]\nprint(jpg_files)  # ['photo.jpg']\n```",
       "answer": "\\bjpg$",
       "hint": "\\\\bjpg$는 'jpg'로 끝나는 단어를 의미해요.",
       "feedback": {
@@ -1507,7 +1507,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'My phone: 010-1234-5678 and 02-123-4567'\npattern = re.compile(r'\\d{2,3}-\\d{3,4}-\\d{4}')\nphones = pattern.findall(text)\nfor phone in phones:\n    print(f'Found: {phone}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'My phone: 010-1234-5678 and 02-123-4567'\npattern = re.compile(r'\\d{2,3}-\\d{3,4}-\\d{4}')\nphones = pattern.findall(text)\nfor phone in phones:\n    print(f'Found: {phone}')\n```",
       "choices": [
         "A. Found: 010-1234-5678\\nFound: 02-123-4567",
         "B. Found: 010\\nFound: 02",
@@ -1530,7 +1530,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "CSV 데이터를 처리하고 싶어요. 쉼표로 분리된 값들을 캡처합니다.\n\nimport re\nline = 'John,Doe,30,Seoul'\npattern = re.compile(r'_____')\nfields = pattern.findall(line)\nprint(fields)  # ['John', 'Doe', '30', 'Seoul']",
+      "question": "CSV 데이터를 처리하고 싶어요. 쉼표로 분리된 값들을 캡처합니다.\n\n```python\nimport re\nline = 'John,Doe,30,Seoul'\npattern = re.compile(r'_____')\nfields = pattern.findall(line)\nprint(fields)  # ['John', 'Doe', '30', 'Seoul']\n```",
       "answer": "[^,]+",
       "hint": "[^,]+는 '쉼표가 아닌 문자들'을 의미해요.",
       "feedback": {
@@ -1547,7 +1547,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'user123\\nadmin_456\\nguest789\\n_test'\npattern = re.compile(r'^\\w+\\d+$', re.MULTILINE)\nmatches = pattern.findall(text)\nprint(len(matches))",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'user123\\nadmin_456\\nguest789\\n_test'\npattern = re.compile(r'^\\w+\\d+$', re.MULTILINE)\nmatches = pattern.findall(text)\nprint(len(matches))\n```",
       "choices": [
         "A. 4",
         "B. 3",
@@ -1570,7 +1570,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "초급의 if 문과 정규표현식을 조합해서 데이터를 검증하고 싶어요.\n\nimport re\nids = ['ID123', 'ID1234', 'ID12', 'TEST123']\npattern = re.compile(r'_____')\nvalid_ids = []\nfor id in ids:\n    if pattern.search(id):\n        valid_ids.append(id)\nprint(valid_ids)  # ['ID123', 'ID1234']",
+      "question": "초급의 if 문과 정규표현식을 조합해서 데이터를 검증하고 싶어요.\n\n```python\nimport re\nids = ['ID123', 'ID1234', 'ID12', 'TEST123']\npattern = re.compile(r'_____')\nvalid_ids = []\nfor id in ids:\n    if pattern.search(id):\n        valid_ids.append(id)\nprint(valid_ids)  # ['ID123', 'ID1234']\n```",
       "answer": "^ID\\d{3,4}$",
       "hint": "^ID는 'ID'로 시작, \\\\d{3,4}는 3~4자리 숫자, $는 끝을 의미해요.",
       "feedback": {
@@ -1587,7 +1587,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'Visit https://example.com or http://test.org for info'\npattern = re.compile(r'(https?)://([\\w.-]+)')\nfor match in pattern.finditer(text):\n    protocol, domain = match.groups()\n    print(f'{protocol.upper()}: {domain}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'Visit https://example.com or http://test.org for info'\npattern = re.compile(r'(https?)://([\\w.-]+)')\nfor match in pattern.finditer(text):\n    protocol, domain = match.groups()\n    print(f'{protocol.upper()}: {domain}')\n```",
       "choices": [
         "A. HTTPS: example.com\\nHTTP: test.org",
         "B. HTTPS: https://example.com\\nHTTP: http://test.org",
@@ -1610,7 +1610,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "SNS 계정 형식을 검증하고 싶어요. 사용자명은 문자로 시작하고 숫자/언더스코어 포함 가능합니다.\n\nimport re\nusername = 'user_123'\npattern = re.compile(r'_____')\nif pattern.match(username):\n    print('유효한 사용자명')",
+      "question": "SNS 계정 형식을 검증하고 싶어요. 사용자명은 문자로 시작하고 숫자/언더스코어 포함 가능합니다.\n\n```python\nimport re\nusername = 'user_123'\npattern = re.compile(r'_____')\nif pattern.match(username):\n    print('유효한 사용자명')\n```",
       "answer": "^[a-zA-Z][\\w]*$",
       "hint": "^[a-zA-Z]는 문자로 시작, [\\w]*는 단어문자 0개 이상, $는 끝을 의미해요.",
       "feedback": {
@@ -1627,7 +1627,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'apple123banana456cherry'\npattern = re.compile(r'[a-z]+\\d+')\nmatches = pattern.findall(text)\nprint(matches)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'apple123banana456cherry'\npattern = re.compile(r'[a-z]+\\d+')\nmatches = pattern.findall(text)\nprint(matches)\n```",
       "choices": [
         "A. ['apple123', 'banana456', 'cherry']",
         "B. ['apple123', 'banana456']",
@@ -1650,7 +1650,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "한국어 문자도 포함해서 검증하고 싶어요. 조금 더 유연한 패턴을 만들어봅시다.\n\nimport re\nname = '김철수'\npattern = re.compile(r'_____')\nif pattern.search(name):\n    print('유효한 이름')",
+      "question": "한국어 문자도 포함해서 검증하고 싶어요. 조금 더 유연한 패턴을 만들어봅시다.\n\n```python\nimport re\nname = '김철수'\npattern = re.compile(r'_____')\nif pattern.search(name):\n    print('유효한 이름')\n```",
       "answer": "^[가-힣]+$",
       "hint": "[가-힣]는 한글 음절을 의미해요.",
       "feedback": {
@@ -1667,7 +1667,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'Version 1.2.3 and Version 2.0.0'\npattern = re.compile(r'\\d+\\.\\d+\\.\\d+')\nversions = pattern.findall(text)\nprint(versions)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'Version 1.2.3 and Version 2.0.0'\npattern = re.compile(r'\\d+\\.\\d+\\.\\d+')\nversions = pattern.findall(text)\nprint(versions)\n```",
       "choices": [
         "A. ['1.2.3', '2.0.0']",
         "B. ['1', '2', '3', '2', '0', '0']",
@@ -1690,7 +1690,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "여러 줄의 텍스트에서 패턴을 찾고 싶어요. 플래그를 조합합니다.\n\nimport re\ntext = '''Python is great\npython is awesome\nPYTHON is powerful'''\npattern = re.compile(r'^python', _____)\nmatches = pattern.findall(text)\nprint(len(matches))  # 3",
+      "question": "여러 줄의 텍스트에서 패턴을 찾고 싶어요. 플래그를 조합합니다.\n\n```python\nimport re\ntext = '''Python is great\npython is awesome\nPYTHON is powerful'''\npattern = re.compile(r'^python', _____)\nmatches = pattern.findall(text)\nprint(len(matches))  # 3\n```",
       "answer": "re.IGNORECASE | re.MULTILINE",
       "hint": "re.IGNORECASE는 대소문자 무시, re.MULTILINE은 각 줄의 시작을 ^로 인식해요.",
       "feedback": {
@@ -1707,7 +1707,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'Price: $25.99 or $100.50'\npattern = re.compile(r'\\$(\\d+\\.\\d{2})')\nfor match in pattern.finditer(text):\n    price = match.group(1)\n    print(f'${price}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'Price: $25.99 or $100.50'\npattern = re.compile(r'\\$(\\d+\\.\\d{2})')\nfor match in pattern.finditer(text):\n    price = match.group(1)\n    print(f'${price}')\n```",
       "choices": [
         "A. $25.99\n$100.50",
         "B. $25\n$100",
@@ -1730,7 +1730,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "복잡한 데이터를 정제하고 싶어요. 여러 공백을 하나로 만듭니다.\n\nimport re\ntext = 'Hello    world   !!!'\npattern = re.compile(r'_____')\ncleaned = pattern.sub(' ', text)\nprint(cleaned)  # Hello world !!!",
+      "question": "복잡한 데이터를 정제하고 싶어요. 여러 공백을 하나로 만듭니다.\n\n```python\nimport re\ntext = 'Hello    world   !!!'\npattern = re.compile(r'_____')\ncleaned = pattern.sub(' ', text)\nprint(cleaned)  # Hello world !!!\n```",
       "answer": "\\s+",
       "hint": "\\\\s+는 1개 이상의 공백 문자를 의미해요.",
       "feedback": {
@@ -1747,7 +1747,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\nemails = ['user@test.com', 'admin@', '@test.com', 'test@domain.co.kr']\npattern = re.compile(r'^[\\w.-]+@[\\w.-]+\\.\\w+$')\nvalid = [e for e in emails if pattern.search(e)]\nprint(len(valid))",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\nemails = ['user@test.com', 'admin@', '@test.com', 'test@domain.co.kr']\npattern = re.compile(r'^[\\w.-]+@[\\w.-]+\\.\\w+$')\nvalid = [e for e in emails if pattern.search(e)]\nprint(len(valid))\n```",
       "choices": [
         "A. 4",
         "B. 3",
@@ -1770,7 +1770,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "초급의 for 루프와 정규표현식을 조합해서 로그 데이터를 처리하고 싶어요.\n\nimport re\nlines = ['2026-06-15 Hello', '2026-06-16 World']\npattern = re.compile(r'(\\d{4}-\\d{2}-\\d{2}) (.+)')\nfor line in lines:\n    match = pattern.search(line)\n    if match:\n        date, msg = match._____( )\n        print(f'{date}: {msg}')",
+      "question": "초급의 for 루프와 정규표현식을 조합해서 로그 데이터를 처리하고 싶어요.\n\n```python\nimport re\nlines = ['2026-06-15 Hello', '2026-06-16 World']\npattern = re.compile(r'(\\d{4}-\\d{2}-\\d{2}) (.+)')\nfor line in lines:\n    match = pattern.search(line)\n    if match:\n        date, msg = match._____( )\n        print(f'{date}: {msg}')\n```",
       "answer": "groups",
       "hint": ".groups()는 모든 캡처 그룹을 튜플로 반환해요.",
       "feedback": {
@@ -1787,7 +1787,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'user@test.com is active, admin@test.co.kr is inactive'\npattern = re.compile(r'(\\w+)@([\\w.]+) is (\\w+)')\nfor match in pattern.finditer(text):\n    user, domain, status = match.groups()\n    print(f'{user}({domain}): {status.upper()}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'user@test.com is active, admin@test.co.kr is inactive'\npattern = re.compile(r'(\\w+)@([\\w.]+) is (\\w+)')\nfor match in pattern.finditer(text):\n    user, domain, status = match.groups()\n    print(f'{user}({domain}): {status.upper()}')\n```",
       "choices": [
         "A. user(test.com): ACTIVE\nadmin(test.co.kr): INACTIVE",
         "B. user(test): ACTIVE\nadmin(test): INACTIVE",
@@ -1810,7 +1810,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "텍스트에서 숫자만 추출하고 싶어요. 간단한 패턴으로 만들어봅시다.\n\nimport re\ntext = 'Order #12345 on 2026-06-15'\npattern = re.compile(r'_____')\nnumbers = pattern.findall(text)\nprint(numbers)  # ['12345', '2026', '06', '15']",
+      "question": "텍스트에서 숫자만 추출하고 싶어요. 간단한 패턴으로 만들어봅시다.\n\n```python\nimport re\ntext = 'Order #12345 on 2026-06-15'\npattern = re.compile(r'_____')\nnumbers = pattern.findall(text)\nprint(numbers)  # ['12345', '2026', '06', '15']\n```",
       "answer": "\\d+",
       "hint": "\\\\d+는 연속된 숫자를 의미해요.",
       "feedback": {
@@ -1827,7 +1827,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'Contact us via: email@test.com, phone 010-1234-5678, fax 02-123-4567'\npattern = re.compile(r'\\b\\d{2,3}-\\d{3,4}-\\d{4}\\b')\ncontacts = pattern.findall(text)\nprint(len(contacts))",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'Contact us via: email@test.com, phone 010-1234-5678, fax 02-123-4567'\npattern = re.compile(r'\\b\\d{2,3}-\\d{3,4}-\\d{4}\\b')\ncontacts = pattern.findall(text)\nprint(len(contacts))\n```",
       "choices": [
         "A. 3",
         "B. 2",
@@ -1850,7 +1850,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "URL을 분석해서 프로토콜, 도메인, 경로를 분리하고 싶어요.\n\nimport re\nurl = 'https://example.com/path/to/page'\npattern = re.compile(r'(https?)://([\\w.-]+)(.*)')\nmatch = pattern.search(url)\nprotocol, domain, path = match._____( )\nprint(f'{domain} -> {path}')",
+      "question": "URL을 분석해서 프로토콜, 도메인, 경로를 분리하고 싶어요.\n\n```python\nimport re\nurl = 'https://example.com/path/to/page'\npattern = re.compile(r'(https?)://([\\w.-]+)(.*)')\nmatch = pattern.search(url)\nprotocol, domain, path = match._____( )\nprint(f'{domain} -> {path}')\n```",
       "answer": "groups",
       "hint": ".groups()로 세 그룹을 한 번에 가져올 수 있어요.",
       "feedback": {
@@ -1867,7 +1867,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = '회의는 2026-06-15에 회의실1에서 진행됩니다'\npattern = re.compile(r'회의')\ncount = len(pattern.findall(text))\nreplaced = pattern.sub('회의 ✓', text)\nprint(replaced)",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = '회의는 2026-06-15에 회의실1에서 진행됩니다'\npattern = re.compile(r'회의')\ncount = len(pattern.findall(text))\nreplaced = pattern.sub('회의 ✓', text)\nprint(replaced)\n```",
       "choices": [
         "A. 회의 ✓는 2026-06-15에 회의 ✓실1에 진행됩니다",
         "B. 회의 ✓는 2026-06-15에 회의실1에서 진행됩니다",
@@ -1890,7 +1890,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "문자열을 분석해서 각 부분을 배열로 나누고 싶어요. 초급의 리스트처럼 처리합니다.\n\nimport re\ndata = 'apple,banana;orange/grape'\npattern = re.compile(r'[,;/]')\nfruits = pattern._____( data )\nprint(fruits)  # ['apple', 'banana', 'orange', 'grape']",
+      "question": "문자열을 분석해서 각 부분을 배열로 나누고 싶어요. 초급의 리스트처럼 처리합니다.\n\n```python\nimport re\ndata = 'apple,banana;orange/grape'\npattern = re.compile(r'[,;/]')\nfruits = pattern._____( data )\nprint(fruits)  # ['apple', 'banana', 'orange', 'grape']\n```",
       "answer": "split",
       "hint": ".split(문자열)은 구분자로 문자열을 나눠서 리스트로 반환해요.",
       "feedback": {
@@ -1907,7 +1907,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'abc123'\npattern = re.compile(r'([a-z]+)(\\d+)')\nmatch = pattern.search(text)\nprint(match.group(1), match.group(2))",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'abc123'\npattern = re.compile(r'([a-z]+)(\\d+)')\nmatch = pattern.search(text)\nprint(match.group(1), match.group(2))\n```",
       "choices": [
         "A. abc 123",
         "B. abc123 abc123",
@@ -1930,7 +1930,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "초급의 리스트 컴프리헨션과 정규표현식을 조합해서 필터링합니다.\n\nimport re\nwords = ['apple', 'app', 'application', 'apply', 'ap']\npattern = re.compile(r'_____')\nlong_words = [w for w in words if pattern.match(w)]\nprint(long_words)  # ['apple', 'application', 'apply']",
+      "question": "초급의 리스트 컴프리헨션과 정규표현식을 조합해서 필터링합니다.\n\n```python\nimport re\nwords = ['apple', 'app', 'application', 'apply', 'ap']\npattern = re.compile(r'_____')\nlong_words = [w for w in words if pattern.match(w)]\nprint(long_words)  # ['apple', 'application', 'apply']\n```",
       "answer": "^app.{2,}$",
       "hint": "^app는 'app'로 시작, .{2,}는 2자 이상, $는 끝을 의미해요.",
       "feedback": {
@@ -1947,7 +1947,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\nlog = 'ERROR: 2026-06-15 10:30:45 Connection timeout'\npattern = re.compile(r'([A-Z]+): (\\d{4}-\\d{2}-\\d{2}) (\\d{2}:\\d{2}:\\d{2}) (.+)')\nmatch = pattern.search(log)\nlevel, date, time, msg = match.groups()\nprint(f'[{level}] {date} {time} - {msg}')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\nlog = 'ERROR: 2026-06-15 10:30:45 Connection timeout'\npattern = re.compile(r'([A-Z]+): (\\d{4}-\\d{2}-\\d{2}) (\\d{2}:\\d{2}:\\d{2}) (.+)')\nmatch = pattern.search(log)\nlevel, date, time, msg = match.groups()\nprint(f'[{level}] {date} {time} - {msg}')\n```",
       "choices": [
         "A. [ERROR] 2026-06-15 10:30:45 - Connection timeout",
         "B. [ERROR] 2026-06-15 10:30 - Connection timeout",
@@ -1970,7 +1970,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "복잡한 패턴으로 여러 형식을 동시에 처리합니다. 초급의 if 문과 조합합니다.\n\nimport re\ncontacts = ['010-1234-5678', 'user@test.com', '02-123-4567', 'admin@test.co.kr']\nphone_pattern = re.compile(r'^\\d{2,3}-\\d{3,4}-\\d{4}$')\nemail_pattern = re.compile(r'^[\\w.-]+@[\\w.-]+\\.\\w+$')\nfor c in contacts:\n    if phone_pattern.match(c):\n        print(f'Phone: {c}')\n    elif _____:\n        print(f'Email: {c}')",
+      "question": "복잡한 패턴으로 여러 형식을 동시에 처리합니다. 초급의 if 문과 조합합니다.\n\n```python\nimport re\ncontacts = ['010-1234-5678', 'user@test.com', '02-123-4567', 'admin@test.co.kr']\nphone_pattern = re.compile(r'^\\d{2,3}-\\d{3,4}-\\d{4}$')\nemail_pattern = re.compile(r'^[\\w.-]+@[\\w.-]+\\.\\w+$')\nfor c in contacts:\n    if phone_pattern.match(c):\n        print(f'Phone: {c}')\n    elif _____:\n        print(f'Email: {c}')\n```",
       "answer": "email_pattern.match(c)",
       "hint": ".match()는 문자열의 시작부터 패턴을 확인해요.",
       "feedback": {
@@ -1987,7 +1987,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\nimport re\ntext = 'The 2026 Q2 report: income $50k, expense $20k, profit $30k'\npattern = re.compile(r'(\\w+) \\$(\\d+)k')\nfor match in pattern.finditer(text):\n    category, amount = match.groups()\n    print(f'{category}: ${amount}000')",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport re\ntext = 'The 2026 Q2 report: income $50k, expense $20k, profit $30k'\npattern = re.compile(r'(\\w+) \\$(\\d+)k')\nfor match in pattern.finditer(text):\n    category, amount = match.groups()\n    print(f'{category}: ${amount}000')\n```",
       "choices": [
         "A. income: $50000\nexpense: $20000\nprofit: $30000",
         "B. income: $50k\nexpense: $20k\nprofit: $30k",

@@ -364,7 +364,7 @@
     "course_level": "intermediate",
     "difficulty": "medium",
     "type": "output_select",
-    "question": "다음 코드의 출력 결과는?\n\n```python\nimport re\n\nlogs = \"ERROR 404\\nWARN 200\\nERROR 500\\nINFO 200\"\nerrors = re.findall(r\"ERROR \\d+\", logs)\nprint(len(errors))\n```",
+    "question": "다음 코드의 출력 결과는?\n\n```python\nimport re\n\nlogs = \"ERROR 404\nWARN 200\nERROR 500\nINFO 200\"\nerrors = re.findall(r\"ERROR \\d+\", logs)\nprint(len(errors))\n```",
     "choices": [
       "A. 1",
       "B. 2",

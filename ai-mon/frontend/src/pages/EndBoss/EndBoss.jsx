@@ -7,56 +7,58 @@ import useBossSound from '../../hooks/useBossSound'
 import EndBossBattle from './EndBossBattle'
 import EndBossResult from './EndBossResult'
 import TitleEarnedModal from '../../components/TitleEarnedModal/TitleEarnedModal'
-import '../Boss/Boss.css' // 재사용
+import EndBossPhaseTransition from './EndBossPhaseTransition'
+import '../Boss/Boss.css'
 
 export default function EndBoss() {
   const navigate = useNavigate()
 
   const user       = useAuthStore(s => s.user)
   const updateUser = useAuthStore(s => s.updateUser)
-  
+
   const { playBGM, stopBGM, playSFX } = useBossSound()
-  
-  const [loading,       setLoading]       = useState(true)
-  // 'intro' | 'battle' | 'cleared' | 'failed'
-  const [phase,         setPhase]         = useState('intro')
-  const [bossData,      setBossData]      = useState(null)
+
+  const [loading,         setLoading]         = useState(true)
+  // 'intro' | 'phase1_transition' | 'phase2_transition' | 'phase3_transition'
+  // | 'battle' | 'cleared' | 'failed'
+  const [phase,           setPhase]           = useState('intro')
+  const [bossData,        setBossData]        = useState(null)
   const [currentQuestion, setCurrentQuestion] = useState(null)
   const [selectedOption,  setSelectedOption]  = useState(null)
   const [answerInput,     setAnswerInput]     = useState('')
   const [aiResult,        setAiResult]        = useState(null)
   const [errorMsg,        setErrorMsg]        = useState('')
 
-  // HP & 전투 상태 (엔드보스: 1200/1800)
+  // HP (엔드보스: 1200/1800)
   const BOSS_HP_INIT = 1800
   const MY_HP_INIT   = 1200
   const [myHp,       setMyHp]       = useState(MY_HP_INIT)
   const [bossHp,     setBossHp]     = useState(BOSS_HP_INIT)
 
   // 애니메이션 상태
-  const [bossShake,    setBossShake]    = useState(false)
-  const [myShake,      setMyShake]      = useState(false)
-  const [bossHit,      setBossHit]      = useState(false)
-  const [screenShake,  setScreenShake]  = useState(false)
-  const [attackAnim,   setAttackAnim]   = useState(false)
-  const [dmgPopup,     setDmgPopup]     = useState(null)
+  const [bossShake,   setBossShake]   = useState(false)
+  const [myShake,     setMyShake]     = useState(false)
+  const [bossHit,     setBossHit]     = useState(false)
+  const [screenShake, setScreenShake] = useState(false)
+  const [attackAnim,  setAttackAnim]  = useState(false)
+  const [dmgPopup,    setDmgPopup]    = useState(null)
 
-  // 엔드보스 상태
+  // 엔드보스 전투 상태
   const [endbossState, setEndbossState] = useState({
-    project: null,
-    phase: 1,
-    phase1Questions: [],
-    phase2Questions: [],
+    project:            null,
+    phase:              1,
+    phase1Questions:    [],
+    phase2Questions:    [],
     phase3FirstQuestion: null,
-    phase1Index: 0,
-    phase2Index: 0,
-    phase3Tries: 0,
-    nextPhase3Question: null
+    phase1Index:        0,
+    phase2Index:        0,
+    phase3Tries:        0,
+    nextPhase3Question: null,
   })
 
-  // 레벨업 정보
-  const [initialLevel,    setInitialLevel]    = useState(1)
-  const [levelUpMessage,  setLevelUpMessage]  = useState('')
+  // 레벨업 / 칭호
+  const [initialLevel,      setInitialLevel]      = useState(1)
+  const [levelUpMessage,    setLevelUpMessage]    = useState('')
   const [newlyEarnedTitles, setNewlyEarnedTitles] = useState([])
 
   useEffect(() => {
@@ -73,7 +75,7 @@ export default function EndBoss() {
     })
   }, [])
 
-  // ── 공격 이펙트 ──
+  // ── 공격 이펙트 ──────────────────────────────
   const playAttackEffect = (damage) => {
     setAttackAnim(true)
     setTimeout(() => {
@@ -90,7 +92,7 @@ export default function EndBoss() {
     }, 500)
   }
 
-  // ── 피격 이펙트 ──
+  // ── 피격 이펙트 ──────────────────────────────
   const playHitEffect = () => {
     playSFX('hit')
     setMyShake(true)
@@ -101,7 +103,7 @@ export default function EndBoss() {
     }, 600)
   }
 
-  // ── 전투 시작 ──
+  // ── 전투 시작 (선택한 프로젝트로 API 호출) ──
   const handleStart = async (project = null) => {
     setMyHp(MY_HP_INIT)
     setBossHp(BOSS_HP_INIT)
@@ -110,25 +112,26 @@ export default function EndBoss() {
     setAnswerInput('')
     setLoading(true)
     try {
-      if (!project) throw new Error("프로젝트를 선택해주세요.")
+      if (!project) throw new Error('프로젝트를 선택해주세요.')
       const res = await endbossApi.startBattle(project)
       const d = res.data
       setEndbossState({
-        project: d.project,
-        phase: d.phase,
-        phase1Questions: d.phase1_questions,
-        phase2Questions: d.phase2_questions,
+        project:             d.project,
+        phase:               d.phase,
+        phase1Questions:     d.phase1_questions,
+        phase2Questions:     d.phase2_questions,
         phase3FirstQuestion: d.phase3_first_question,
-        phase1Index: 0,
-        phase2Index: 0,
-        phase3Tries: 0,
-        nextPhase3Question: null
+        phase1Index:         0,
+        phase2Index:         0,
+        phase3Tries:         0,
+        nextPhase3Question:  null,
       })
+      // Phase 1 진입 문제 미리 세팅, 전환 화면 먼저 표시
       setCurrentQuestion(d.phase1_questions[0])
       setMyHp(d.my_hp)
       setBossHp(d.boss_hp)
       playBGM('endboss_intro')
-      setPhase('battle')
+      setPhase('phase1_transition')
       setErrorMsg('')
     } catch (err) {
       setErrorMsg(err.response?.data?.detail || err.message || '도전 비용이 부족합니다!')
@@ -137,33 +140,55 @@ export default function EndBoss() {
     }
   }
 
-  // ── 정답 제출 ──
+  // ── 페이즈 전환 핸들러 ──────────────────────
+  const handlePhase1Start = () => {
+    setPhase('battle')
+  }
+
+  const handlePhase2Start = () => {
+    setEndbossState(prev => ({ ...prev, phase: 2, phase2Index: 0 }))
+    setCurrentQuestion(endbossState.phase2Questions[0])
+    setAiResult(null)
+    setSelectedOption(null)
+    setAnswerInput('')
+    setPhase('battle')
+  }
+
+  const handlePhase3Start = () => {
+    setEndbossState(prev => ({ ...prev, phase: 3 }))
+    setCurrentQuestion(endbossState.phase3FirstQuestion)
+    setAiResult(null)
+    setSelectedOption(null)
+    setAnswerInput('')
+    setPhase('battle')
+  }
+
+  // ── 정답 제출 ────────────────────────────────
   const handleSubmit = async () => {
     if (!currentQuestion) return
-    const isCodeType  = currentQuestion.type === 'code_input' || currentQuestion.type === 'fill_in_blank'
-    const userAnswer  = isCodeType ? answerInput : selectedOption
+    const isCodeType = currentQuestion.type === 'code_input' || currentQuestion.type === 'fill_in_blank'
+    const userAnswer = isCodeType ? answerInput : selectedOption
     if (!userAnswer) return
 
     setLoading(true)
     try {
       const res = await endbossApi.submitAnswer({
-        question_id:     currentQuestion.question_id,
-        user_answer:     userAnswer,
-        phase:           endbossState.phase,
-        my_hp:           myHp,
-        boss_hp:         bossHp,
-        phase3_tries:    endbossState.phase3Tries,
-        project:         endbossState.project
+        question_id:  currentQuestion.question_id,
+        user_answer:  userAnswer,
+        phase:        endbossState.phase,
+        my_hp:        myHp,
+        boss_hp:      bossHp,
+        phase3_tries: endbossState.phase3Tries,
+        project:      endbossState.project,
       })
 
-      const d = res.data
+      const d         = res.data
       const isCorrect = d.is_correct
-      const nextMyHp = d.my_hp
+      const nextMyHp  = d.my_hp
       const nextBossHp = d.boss_hp
-      const isClear = d.is_clear
-      const isFail = d.is_fail
+      const isClear   = d.is_clear
+      const isFail    = d.is_fail
 
-      setAiResult(d)
       setMyHp(nextMyHp)
       setBossHp(nextBossHp)
 
@@ -171,6 +196,7 @@ export default function EndBoss() {
 
       if (isCorrect) {
         playAttackEffect(damage > 0 ? damage : 150)
+        setTimeout(() => setAiResult(d), 1100)
         if (isClear) {
           setTimeout(async () => {
             try {
@@ -192,9 +218,11 @@ export default function EndBoss() {
             setPhase('cleared')
           }, 1500)
         } else if (d.phase3_ready) {
-          setEndbossState(prev => ({ ...prev, phase: 3 }))
+          // Phase 2 완료 → Phase 3 전환 화면
+          setTimeout(() => setPhase('phase3_transition'), 1500)
         }
       } else {
+        setAiResult(d)
         playHitEffect()
         if (isFail) {
           setTimeout(() => { playBGM('fail'); setPhase('failed') }, 2500)
@@ -202,8 +230,8 @@ export default function EndBoss() {
         if (endbossState.phase === 3) {
           setEndbossState(prev => ({
             ...prev,
-            phase3Tries: d.phase3_tries,
-            nextPhase3Question: d.next_phase3_question
+            phase3Tries:        d.phase3_tries,
+            nextPhase3Question: d.next_phase3_question,
           }))
         }
       }
@@ -214,7 +242,7 @@ export default function EndBoss() {
     }
   }
 
-  // ── 다음 문제 ──
+  // ── 다음 문제 ────────────────────────────────
   const handleNextQuestion = async () => {
     if (myHp <= 0 || endbossState.phase3Tries >= 3) {
       setPhase('failed')
@@ -234,8 +262,8 @@ export default function EndBoss() {
           setEndbossState(prev => ({ ...prev, phase1Index: nextIdx }))
           setCurrentQuestion(endbossState.phase1Questions[nextIdx])
         } else {
-          setEndbossState(prev => ({ ...prev, phase: 2, phase2Index: 0 }))
-          setCurrentQuestion(endbossState.phase2Questions[0])
+          // Phase 1 완료 → Phase 2 전환 화면
+          setPhase('phase2_transition')
         }
       } else if (endbossState.phase === 2) {
         const nextIdx = endbossState.phase2Index + 1
@@ -254,7 +282,7 @@ export default function EndBoss() {
     }
   }
 
-  // ── 렌더링 ──
+  // ── 렌더링 ───────────────────────────────────
   if (loading) {
     return <div className="boss-loading"><div className="spinner" /></div>
   }
@@ -270,12 +298,24 @@ export default function EndBoss() {
         </button>
       </div>
 
-      <div className="boss-container container">
+      <div className={`${phase === 'battle' ? 'boss-container-battle' : 'boss-container container'}`}>
         {phase === 'intro' && (
           <EndBossIntro
             bossData={bossData}
             errorMsg={errorMsg}
             onStart={handleStart}
+          />
+        )}
+
+        {(phase === 'phase1_transition' || phase === 'phase2_transition' || phase === 'phase3_transition') && (
+          <EndBossPhaseTransition
+            phaseNum={phase === 'phase1_transition' ? 1 : phase === 'phase2_transition' ? 2 : 3}
+            myHp={myHp}
+            MY_HP_INIT={MY_HP_INIT}
+            endbossState={endbossState}
+            onPhase1Start={handlePhase1Start}
+            onPhase2Start={handlePhase2Start}
+            onPhase3Start={handlePhase3Start}
           />
         )}
 
@@ -301,6 +341,14 @@ export default function EndBoss() {
             user={user}
             onSubmit={handleSubmit}
             onNextQuestion={handleNextQuestion}
+            questionNum={
+              endbossState.phase === 1 ? endbossState.phase1Index + 1 :
+              endbossState.phase === 2 ? endbossState.phase2Index + 1 : 1
+            }
+            questionTotal={
+              endbossState.phase === 1 ? endbossState.phase1Questions.length :
+              endbossState.phase === 2 ? endbossState.phase2Questions.length : 1
+            }
           />
         )}
 
@@ -314,6 +362,7 @@ export default function EndBoss() {
           />
         )}
       </div>
+
       {newlyEarnedTitles.length > 0 && (
         <TitleEarnedModal
           titles={newlyEarnedTitles}

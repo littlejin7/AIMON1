@@ -1,6 +1,9 @@
 import anthropic
 import os
 import json
+import logging
+
+logger = logging.getLogger(__name__)
 
 _client = None
 
@@ -8,8 +11,12 @@ _client = None
 def get_client() -> anthropic.AsyncAnthropic:
     global _client
     if _client is None:
+        import httpx
         api_key = os.getenv("ANTHROPIC_API_KEY") or os.getenv("CLAUDE_API_KEY", "")
-        _client = anthropic.AsyncAnthropic(api_key=api_key)
+        _client = anthropic.AsyncAnthropic(
+            api_key=api_key,
+            timeout=httpx.Timeout(10.0, connect=3.0)
+        )
     return _client
 
 
@@ -43,7 +50,7 @@ async def ask_claude(prompt: str, level: str = "beginner") -> dict:
     try:
         client = get_client()
         message = await client.messages.create(
-            model="claude-3-5-haiku-latest",
+            model="claude-haiku-4-5-20251001",
             max_tokens=1024,
             system=system_prompt,
             messages=[{"role": "user", "content": prompt}],
@@ -87,7 +94,7 @@ async def stream_claude(prompt: str, level: str = "beginner"):
     try:
         client = get_client()
         async with client.messages.stream(
-            model="claude-3-5-haiku-latest",
+            model="claude-haiku-4-5-20251001",
             max_tokens=1024,
             system=system_prompt,
             messages=[{"role": "user", "content": prompt}],
@@ -99,8 +106,10 @@ async def stream_claude(prompt: str, level: str = "beginner"):
 
 
 def extract_json(text: str) -> str:
+    # 각 단계는 독립 시도 — 파싱 실패 시 다음 방법으로 넘어가는 cascade 설계.
+    # except Exception: pass 는 의도적 무시이며 마지막에 원문 반환이 최종 fallback.
     text_clean = text.strip()
-    
+
     # 1. Try to extract from ```json ... ```
     if "```json" in text_clean:
         try:
@@ -168,25 +177,34 @@ async def ask_claude_json(prompt: str) -> dict:
     try:
         client = get_client()
         message = await client.messages.create(
-            model="claude-3-5-haiku-latest",
+            model="claude-haiku-4-5-20251001",
             max_tokens=2048,
             messages=[{"role": "user", "content": prompt}],
         )
         text = message.content[0].text.strip()
         parsed_json_str = extract_json(text)
-        return json.loads(parsed_json_str)
+        data = json.loads(parsed_json_str)
+        if isinstance(data, dict):
+            data["grading_failed"] = False
+            return data
+        else:
+            raise json.JSONDecodeError("Parsed JSON is not a dictionary", text, 0)
     except json.JSONDecodeError:
+        logger.exception("ask_claude_json: AI 응답 JSON 파싱 실패")
         return {
             "is_correct": False,
             "score": 0,
-            "feedback": "AI 응답을 파싱할 수 없었습니다.",
+            "feedback": "AI 응답을 파싱할 수 없었습니다. 패널티 없이 다시 제출할 수 있습니다.",
             "hint": "",
+            "grading_failed": True,
         }
-    except Exception as e:
+    except Exception:
+        logger.exception("ask_claude_json: AI 서비스 오류")
         return {
             "is_correct": False,
             "score": 0,
-            "feedback": f"AI 서비스 오류: {str(e)}",
+            "feedback": "AI 서비스에 일시적인 오류가 발생했습니다. 패널티 없이 다시 제출할 수 있습니다.",
             "hint": "",
+            "grading_failed": True,
         }
 

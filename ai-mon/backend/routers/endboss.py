@@ -9,19 +9,19 @@
   POST /boss/endboss/clear     클리어 처리 (XP + 왕관 + 진화 + 칭호, 중복 방지)
 """
 
-from fastapi import APIRouter, HTTPException, Header, Request
-from pydantic import BaseModel
+from fastapi import APIRouter, HTTPException, Depends, Request
+from pydantic import BaseModel, Field
 from services.claude_service import ask_claude_json
-from routers.titles import check_and_award_titles
 import json, os, random
 from typing import Optional
 
 from routers.utils import (
-    calc_level,
-    load_users,
-    save_users,
-    verify_token,
+    save_user,
     limiter,
+    get_current_user,
+    apply_xp,
+    mutate_user_atomic,
+    UserNotFoundError,
 )
 
 router = APIRouter()
@@ -131,7 +131,7 @@ class StartRequest(BaseModel):
 
 class AnswerRequest(BaseModel):
     question_id: str
-    user_answer:  str
+    user_answer:  str = Field(..., max_length=4000)
     phase:        int          # 1 | 2 | 3
     my_hp:        int = MY_HP_INIT
     boss_hp:      int = BOSS_HP_INIT
@@ -145,13 +145,9 @@ class ClearRequest(BaseModel):
 # ── 엔드포인트 ────────────────────────────────────────────────────────────────
 
 @router.get("/info")
-def endboss_info(authorization: str = Header(...)):
+def endboss_info(user: dict = Depends(get_current_user)):
     """해금 여부 + 왕관 수 + 이미 클리어한 레벨 반환."""
-    user_id = verify_token(authorization)
-    users   = load_users()
-    user    = next((u for u in users if u["id"] == user_id), None)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+    user_id = user["id"]
 
     level = user.get("course_level", "beginner")
     return {
@@ -165,18 +161,14 @@ def endboss_info(authorization: str = Header(...)):
 
 
 @router.post("/start")
-def endboss_start(req: StartRequest, authorization: str = Header(...)):
+def endboss_start(req: StartRequest, user: dict = Depends(get_current_user)):
     """
     배틀 시작.
     - 왕관 3개 차감
     - 선택한 프로젝트의 Phase 1 문제 5개 + Phase 2 문제 4개 순서대로 반환
     - Phase 3 첫 문제도 함께 반환 (phase3_first_question)
     """
-    user_id = verify_token(authorization)
-    users   = load_users()
-    user    = next((u for u in users if u["id"] == user_id), None)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+    user_id = user["id"]
 
     if not is_endboss_unlocked(user):
         raise HTTPException(status_code=403, detail="엔드보스가 아직 해금되지 않았습니다. Unit 8 보스를 먼저 클리어하세요.")
@@ -211,8 +203,10 @@ def endboss_start(req: StartRequest, authorization: str = Header(...)):
     if p3_first:
         seen_ids.append(p3_first["question_id"])
 
-    user["endboss_seen_questions"] = seen_ids
-    save_users(users)
+    if "seen_questions" not in user or user["seen_questions"] is None:
+        user["seen_questions"] = {}
+    user["seen_questions"]["endboss"] = seen_ids
+    save_user(user)
 
     return {
         "phase":               1,
@@ -228,7 +222,7 @@ def endboss_start(req: StartRequest, authorization: str = Header(...)):
 
 @router.post("/answer")
 @limiter.limit("5/minute;100/day")
-async def endboss_answer(request: Request, req: AnswerRequest, authorization: str = Header(...)):
+async def endboss_answer(request: Request, req: AnswerRequest, user: dict = Depends(get_current_user)):
     """
     답안 제출.
 
@@ -246,8 +240,7 @@ async def endboss_answer(request: Request, req: AnswerRequest, authorization: st
         - tries < 3  → next_phase3_question 반환
     """
     user_id = verify_token(authorization)
-    users   = load_users()
-    user    = next((u for u in users if u["id"] == user_id), None)
+    user    = get_user_by_id(user_id)
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
 
@@ -322,15 +315,23 @@ async def endboss_answer(request: Request, req: AnswerRequest, authorization: st
         safe_boss_hp = max(0, min(req.boss_hp, BOSS_HP_INIT))
         safe_my_hp   = max(0, min(req.my_hp, MY_HP_INIT))
 
-        if is_correct:
+        grading_failed = result.get("grading_failed", False)
+
+        if grading_failed:
+            new_boss_hp  = safe_boss_hp
+            new_my_hp    = safe_my_hp
+            is_fail      = False
+            phase3_ready = False
+        elif is_correct:
             new_boss_hp = safe_boss_hp - BOSS_HP_DELTA
             new_my_hp   = safe_my_hp
+            is_fail      = False
+            phase3_ready = (new_boss_hp <= 0)
         else:
             new_boss_hp = safe_boss_hp
             new_my_hp   = safe_my_hp - MY_HP_DELTA
-
-        is_fail       = new_my_hp <= 0
-        phase3_ready  = (not is_fail) and (new_boss_hp <= 0)
+            is_fail      = new_my_hp <= 0
+            phase3_ready = False
 
         result.update({
             "my_hp":        new_my_hp,
@@ -344,19 +345,31 @@ async def endboss_answer(request: Request, req: AnswerRequest, authorization: st
 
     # ── Phase 3 ───────────────────────────────────────────────────────────────
     else:
-        new_tries = req.phase3_tries + (0 if is_correct else 1)
-        is_clear  = is_correct
-        is_fail   = (not is_correct) and (new_tries >= PHASE3_MAX_TRIES)
+        grading_failed = result.get("grading_failed", False)
 
-        next_q = None
-        if not is_correct and not is_fail:
-            # 다음 Phase 3 문제 출제 (중복 없음)
-            seen    = user.get("endboss_seen_questions", [])
-            p3_pool = get_phase_questions(all_qs, phase=3, project=req.project)
-            next_q  = pick_unseen(p3_pool, seen)
-            if next_q:
-                user["endboss_seen_questions"] = seen + [next_q["question_id"]]
-                save_users(users)
+        if grading_failed:
+            new_tries = req.phase3_tries
+            is_clear  = False
+            is_fail   = False
+            next_q    = None
+        else:
+            new_tries = req.phase3_tries + (0 if is_correct else 1)
+            is_clear  = is_correct
+            is_fail   = (not is_correct) and (new_tries >= PHASE3_MAX_TRIES)
+
+            next_q = None
+            if not is_correct and not is_fail:
+                # 다음 Phase 3 문제 출제 (중복 없음)
+                if "seen_questions" not in user or user["seen_questions"] is None:
+                    user["seen_questions"] = {}
+                seen_questions = user["seen_questions"]
+                seen = seen_questions.get("endboss", [])
+                p3_pool = get_phase_questions(all_qs, phase=3, project=req.project)
+                next_q  = pick_unseen(p3_pool, seen)
+                if next_q:
+                    seen_questions["endboss"] = seen + [next_q["question_id"]]
+                    user["seen_questions"] = seen_questions
+                    save_user(user)
 
         result.update({
             "my_hp":        req.my_hp,
@@ -372,7 +385,7 @@ async def endboss_answer(request: Request, req: AnswerRequest, authorization: st
 
 
 @router.post("/clear")
-def endboss_clear(req: ClearRequest, authorization: str = Header(...)):
+def endboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
     """
     클리어 처리.
     - XP 15,000 지급 (레벨별 1회만)
@@ -381,66 +394,66 @@ def endboss_clear(req: ClearRequest, authorization: str = Header(...)):
     - 칭호 부여
     - endboss_cleared_levels 기록
     """
-    user_id = verify_token(authorization)
-    users   = load_users()
-    user    = next((u for u in users if u["id"] == user_id), None)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+    user_id = user["id"]
 
-    level           = user.get("course_level", "beginner")
-    cleared_levels  = user.get("endboss_cleared_levels", [])
-    already_cleared = level in cleared_levels
-    newly_earned_titles = []
+    # 클리어 보상(중복 가드 + 진화 + 칭호 + XP + 미션 boss_clear + seen 리셋)을
+    # fresh user 기준으로 원자 처리. endboss_cleared_levels(list append) 와 missions 가
+    # save_user delta-merge 에서 last-writer-wins 되던 문제 해소. (M-1, C-1 deferred)
+    def mutator(u: dict) -> dict:
+        level           = u.get("course_level", "beginner")
+        cleared_levels  = u.get("endboss_cleared_levels", [])
+        already_cleared = level in cleared_levels
+        newly_earned_titles = []
 
-    if not already_cleared:
-        # XP
-        user["xp"] = user.get("xp", 0) + CLEAR_XP
+        if not already_cleared:
+            # 왕관
+            u["crowns"] = u.get("crowns", 0) + CLEAR_CROWNS
 
-        # 레벨 재계산
+            # 캐릭터 진화 (현재 캐릭터보다 등급이 높은 경우에만 덮어씀)
+            new_char = CLEAR_CHARACTER.get(level)
+            if new_char:
+                char_rank = {"slime": 1, "robot": 2, "speech_bubble": 3, "final_ghost": 4}
+                current_char = u.get("character", "slime")
+                if char_rank.get(new_char, 1) > char_rank.get(current_char, 1):
+                    u["character"] = new_char
 
-        user["lv"] = max(calc_level(user["xp"]), user.get("lv", 1))
+            # 칭호
+            title_id, title_name = CLEAR_TITLES.get(level, ("rookie_coder", "코드 ROOKIE"))
+            earned = set(u.get("titles", []))
+            if title_id not in earned:
+                earned.add(title_id)
+                u["titles"] = list(earned)
+                newly_earned_titles.append({"id": title_id, "name": title_name})
 
-        # 왕관
-        user["crowns"] = user.get("crowns", 0) + CLEAR_CROWNS
+            # XP 적용 및 기타 칭호 부여 (+ 미션 boss_clear 훅)
+            events = apply_xp(u, CLEAR_XP, {"boss_cleared": True}, event_type="boss_clear")
+            newly_earned_titles.extend(events["newly_earned_titles"])
 
-        # 캐릭터 진화 (현재 캐릭터보다 등급이 높은 경우에만 덮어씀)
-        new_char = CLEAR_CHARACTER.get(level)
-        if new_char:
-            char_rank = {"slime": 1, "robot": 2, "speech_bubble": 3, "final_ghost": 4}
-            current_char = user.get("character", "slime")
-            if char_rank.get(new_char, 1) > char_rank.get(current_char, 1):
-                user["character"] = new_char
+            # cleared_levels 기록
+            cleared_levels.append(level)
+            u["endboss_cleared_levels"] = cleared_levels
 
-        # 칭호
-        title_id, title_name = CLEAR_TITLES.get(level, ("rookie_coder", "코드 ROOKIE"))
-        earned = set(user.get("titles", []))
-        if title_id not in earned:
-            earned.add(title_id)
-            user["titles"] = list(earned)
-            newly_earned_titles.append({"id": title_id, "name": title_name})
+            # seen 리셋
+            if "seen_questions" not in u or u["seen_questions"] is None:
+                u["seen_questions"] = {}
+            u["seen_questions"]["endboss"] = []
 
-        # boss_cleared 및 completed_stages 카운트 user에 저장
-        user["boss_cleared"] = user.get("boss_cleared", 0) + 1
-        user["completed_stages"] = user.get("completed_stages", 0) + 1
+        return {
+            "already_cleared": already_cleared,
+            "newly_earned_titles": newly_earned_titles,
+        }
 
-        # 기타 칭호 체크
-        context_titles = check_and_award_titles(user, {"boss_cleared": True})
-        newly_earned_titles.extend(context_titles)
+    try:
+        user, result = mutate_user_atomic(user_id, mutator)
+    except UserNotFoundError:
+        raise HTTPException(status_code=404, detail="User not found")
 
-        # cleared_levels 기록
-        cleared_levels.append(level)
-        user["endboss_cleared_levels"] = cleared_levels
-
-        # seen 리셋
-        user["endboss_seen_questions"] = []
-
-        save_users(users)
-
+    already_cleared = result["already_cleared"]
     return {
         "already_cleared":    already_cleared,
         "xp_awarded":         0 if already_cleared else CLEAR_XP,
         "crowns_awarded":     0 if already_cleared else CLEAR_CROWNS,
         "lv":                 user.get("lv", 1),
-        "newly_earned_titles": newly_earned_titles,
+        "newly_earned_titles": result["newly_earned_titles"],
         "cleared_levels":     user.get("endboss_cleared_levels", []),
     }
