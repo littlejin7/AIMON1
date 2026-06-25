@@ -5,7 +5,7 @@ import httpx
 import logging
 
 logger = logging.getLogger(__name__)
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from jose import jwt
 from passlib.context import CryptContext
 from routers.utils import (
@@ -305,6 +305,8 @@ def reset_password(req: ResetPasswordRequest, request: Request):
 
     token_data = tokens[req.email]
     expires_at = datetime.fromisoformat(token_data["expires_at"])
+    if expires_at.tzinfo is None:  # 레거시 naive 타임스탬프 → KST로 간주
+        expires_at = expires_at.replace(tzinfo=timezone(timedelta(hours=9)))
 
     if now_kst() > expires_at:
         del tokens[req.email]
