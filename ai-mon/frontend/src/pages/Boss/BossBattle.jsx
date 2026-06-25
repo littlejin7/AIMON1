@@ -6,6 +6,8 @@ import charBubbleIcon from '../../assets/character_bubble.png'
 import charGhostIcon  from '../../assets/character_final_ghost.png'
 import { bossApi } from '../../api/index'
 import { parseQuestionText, TYPE_BADGE } from './bossBattleUtils'
+import ErrorFindLines from '../../components/QuizCard/ErrorFindLines'
+import '../../components/QuizCard/QuizCard.css'
 
 export default function BossBattle({
   bossData,
@@ -76,6 +78,18 @@ export default function BossBattle({
   const isFibType  = currentQuestion.type === 'fill_in_blank'
   const hasChoice  = !isCodeType && !isFibType && currentQuestion.choices?.length > 0
 
+  // error_find: 줄 클릭 UI
+  const choicesList = currentQuestion.choices || []
+  const codeLines   = parsed.code ? parsed.code.split('\n') : []
+  const isLineSelectErrorFind =
+    currentQuestion.type === 'error_find' &&
+    codeLines.length > 0 &&
+    /^\d+줄:/.test(codeLines[0])
+  // selectedOption(letter) → 전체 choice 문자열 (ErrorFindLines용)
+  const selectedChoiceFull = selectedOption
+    ? choicesList.find(c => c.startsWith(selectedOption + '.')) ?? null
+    : null
+
   const bossHpGrad = bossPct > 50
     ? 'linear-gradient(90deg,#FF6B6B,#FF4444)'
     : bossPct > 25
@@ -138,6 +152,11 @@ export default function BossBattle({
           alt="내 캐릭터"
         />
 
+        {/* 날아가는 공격 카드 */}
+        {attackAnim && (
+          <div className="eb-b-flying-card">⚡</div>
+        )}
+
         {/* 데미지 팝업 */}
         {dmgPopup && <div className="eb-b-dmg-popup">-{dmgPopup}</div>}
       </div>
@@ -165,32 +184,47 @@ export default function BossBattle({
         {/* 문제 카드 */}
         <div className="eb-b-qcard">
           {parsed.text && <div className="eb-b-qtext">{parsed.text}</div>}
-          {parsed.code && (
-            <div className="eb-b-terminal">
-              <pre className="eb-b-code">{parsed.code}</pre>
-            </div>
-          )}
-          {parsed.after && (
-            <div className="eb-b-qtext" style={{ marginTop: '6px' }}>{parsed.after}</div>
-          )}
+          {/* error_find: 줄 클릭 UI (코드블록 포함) */}
+          {isLineSelectErrorFind ? (
+            <ErrorFindLines
+              codeLines={codeLines}
+              choicesList={choicesList}
+              selected={selectedChoiceFull}
+              revealed={!!aiResult}
+              answer={currentQuestion.answer}
+              onSelect={(opt) => setSelectedOption(opt.substring(0, 1))}
+              onSubmit={onSubmit}
+            />
+          ) : (
+            <>
+              {parsed.code && (
+                <div className="eb-b-terminal">
+                  <pre className="eb-b-code">{parsed.code}</pre>
+                </div>
+              )}
+              {parsed.after && (
+                <div className="eb-b-qtext" style={{ marginTop: '6px' }}>{parsed.after}</div>
+              )}
 
-          {/* 객관식 / 출력선택 / 오류찾기 */}
-          {hasChoice && (
-            <div className="eb-b-radio-opts">
-              {currentQuestion.choices.map((opt, idx) => {
-                const key = opt.substring(0, 1)
-                return (
-                  <div
-                    key={idx}
-                    className={`eb-b-ropt${selectedOption === key ? ' sel' : ''}`}
-                    onClick={() => !aiResult && setSelectedOption(key)}
-                  >
-                    <div className="eb-b-rcircle">{key}</div>
-                    <span className="eb-b-rtext">{opt.substring(3)}</span>
-                  </div>
-                )
-              })}
-            </div>
+              {/* 객관식 / 출력선택 */}
+              {hasChoice && (
+                <div className="eb-b-radio-opts">
+                  {currentQuestion.choices.map((opt, idx) => {
+                    const key = opt.substring(0, 1)
+                    return (
+                      <div
+                        key={idx}
+                        className={`eb-b-ropt${selectedOption === key ? ' sel' : ''}`}
+                        onClick={() => !aiResult && setSelectedOption(key)}
+                      >
+                        <div className="eb-b-rcircle">{key}</div>
+                        <span className="eb-b-rtext">{opt.substring(3)}</span>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+            </>
           )}
 
           {/* 빈칸 채우기 */}
@@ -231,8 +265,8 @@ export default function BossBattle({
           )}
         </div>
 
-        {/* 공격 버튼 */}
-        {!aiResult && (
+        {/* 공격 버튼 (error_find 줄 클릭 UI는 자체 버튼 사용) */}
+        {!aiResult && !isLineSelectErrorFind && (
           <button
             className="eb-b-atk-btn"
             onClick={onSubmit}
