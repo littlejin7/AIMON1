@@ -136,11 +136,11 @@ body:has(.boss-page) { background: #F4F3FA; background-image: none; }
   outline-offset: -2px;
 }
 
-.quiz-attack-wrap { transform-origin: center top; }
+.quiz-attack-wrap { transform-origin: center center; }
 @keyframes attack-fly {
-  0%   { transform: translateY(0) scale(1);       opacity: 1; }
-  60%  { transform: translateY(-80px) scale(0.4); opacity: 0.7; }
-  100% { transform: translateY(-120px) scale(0.1); opacity: 0; }
+  0%   { transform: translate(0, 0) scale(1);               opacity: 1; }
+  60%  { transform: translate(110px, -180px) scale(0.35);  opacity: 0.8; }
+  100% { transform: translate(180px, -300px) scale(0.05);  opacity: 0; }
 }
 .quiz-attack-wrap.attack-fly {
   animation: attack-fly 0.5s cubic-bezier(0.4, 0, 0.6, 1) forwards;
