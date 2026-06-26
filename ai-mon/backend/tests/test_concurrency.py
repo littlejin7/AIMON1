@@ -378,3 +378,91 @@ def test_unitboss_legacy_progress_no_double_grant(unitboss_user, monkeypatch):
     u = _read_user(unitboss_user)
     assert u["xp"] == 0 and u["crowns"] == 0
     assert u["unitboss_cleared_units"] == ["beginner-2"], "백필 안 됨(멱등 가드 기록)"
+
+
+# ───────── /boss/start 진입 비용 차감 동시성 (save_user→mutate_user_atomic) ─────────
+# /start 의 왕관/무료 횟수 차감을 mutate_user_atomic 임계구역으로 옮긴 효과 검증.
+# 동시 진입 시 read→check→write race 없이 정확히 차감되거나 잔액 부족분이 정확히 차단돼야 한다.
+# (전환 전 save_user delta-merge 경로에서는 두 요청이 같은 잔액을 읽어 가드가 이중 통과 가능)
+_START_Q = {"question_id": "sq1", "question": "Q", "type": "multiple_choice",
+            "answer": "A", "unit": 1, "stage": "1-boss"}
+
+
+@pytest.fixture
+def start_user_factory(monkeypatch, tmp_path):
+    """USERS_FILE 을 임시 파일로 리디렉트하고 진입 비용 필드로 유저를 준비한다.
+    last_free_attempt_date 를 오늘로 세팅해 일일 리셋이 무료 횟수를 되돌리지 않게 한다."""
+    users_file = tmp_path / "users.json"
+    today = U.now_kst().strftime("%Y-%m-%d")
+    monkeypatch.setattr(U, "USERS_FILE", str(users_file))
+    monkeypatch.setattr(U, "USE_SUPABASE", False)
+    monkeypatch.setattr(B, "load_questions_by_category", lambda *a, **k: [_START_Q])
+
+    def _make(**fields):
+        user = {
+            "id": "u1", "xp": 0, "lv": 1, "crowns": 0, "character": "slime",
+            "course_level": "beginner", "daily_free_attempts": 0,
+            "last_free_attempt_date": today, "seen_questions": {},
+        }
+        user.update(fields)
+        users_file.write_text(json.dumps([user]), encoding="utf-8")
+        return user
+
+    return _make, str(users_file)
+
+
+def _start_concurrently(n=2):
+    """start_boss_battle 를 n개 스레드로 동시 호출. (성공 결과들, 에러 detail들) 반환."""
+    results, errors = [], []
+
+    def call():
+        try:
+            results.append(B.start_boss_battle(unit="1", user={"id": "u1"}))
+        except HTTPException as e:
+            errors.append((e.status_code, e.detail))
+
+    threads = [threading.Thread(target=call) for _ in range(n)]
+    for t in threads: t.start()
+    for t in threads: t.join()
+    return results, errors
+
+
+def test_start_concurrent_two_crowns_deducts_exactly_two(start_user_factory):
+    """무료 0 + 왕관 2, 동시 진입 2회 → 둘 다 성공, 왕관 정확히 0 (이중 통과 없음)."""
+    make, uf = start_user_factory
+    make(daily_free_attempts=0, crowns=2)
+
+    results, errors = _start_concurrently(2)
+
+    assert errors == [], f"동시 진입에서 차단 발생: {errors}"
+    assert len(results) == 2, f"두 요청 모두 성공해야 함: {results}"
+    u = _read_user(uf)
+    assert u["crowns"] == 0, f"왕관이 정확히 2 차감되지 않음: {u['crowns']}"
+
+
+def test_start_concurrent_one_crown_blocks_the_loser(start_user_factory):
+    """무료 0 + 왕관 1, 동시 진입 2회 → 정확히 1개만 성공, 나머지 400. 왕관 0 (음수 방지)."""
+    make, uf = start_user_factory
+    make(daily_free_attempts=0, crowns=1)
+
+    results, errors = _start_concurrently(2)
+
+    assert len(results) == 1, f"정확히 1개만 성공해야 함: results={results} errors={errors}"
+    assert len(errors) == 1 and errors[0][0] == 400, f"패자는 400 차단이어야 함: {errors}"
+    assert "왕관" in errors[0][1]
+    u = _read_user(uf)
+    assert u["crowns"] == 0, f"왕관 잔액이 0이 아님(음수/이중차감): {u['crowns']}"
+
+
+def test_start_concurrent_two_free_attempts(start_user_factory):
+    """무료 2 + 왕관 0, 동시 진입 2회 → 둘 다 성공, 무료 0·왕관 0 (왕관 미사용)."""
+    make, uf = start_user_factory
+    make(daily_free_attempts=2, crowns=0)
+
+    results, errors = _start_concurrently(2)
+
+    assert errors == [], f"무료 2회 있는데 차단됨: {errors}"
+    assert len(results) == 2
+    u = _read_user(uf)
+    assert u["daily_free_attempts"] == 0, f"무료 횟수가 정확히 2 차감되지 않음: {u['daily_free_attempts']}"
+    assert u["crowns"] == 0, "무료가 남아있는데 왕관이 차감됨"
