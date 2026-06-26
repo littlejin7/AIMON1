@@ -1,10 +1,14 @@
-.stage-page { min-height: 100vh; display: flex; flex-direction: column; }
+.stage-page { min-height: 100vh; display: flex; flex-direction: column; max-width: 480px; margin: 0 auto; }
 .stage-loading { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-4); }
 
-/* 미니보스 모드 — AppLayout 위에 전체 화면 덮기 */
 .mb-page {
   position: fixed !important;
-  inset: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 100% !important;
+  max-width: 480px !important;
   z-index: 100 !important;
   overflow-y: auto !important;
 }
@@ -192,6 +196,8 @@
   flex-direction: column;
   background: #F0EFFE;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
 /* Progress */
