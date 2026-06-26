@@ -35,8 +35,20 @@ CREATE TABLE IF NOT EXISTS users (
   earned_streak_milestones jsonb DEFAULT '[]',
   titles jsonb DEFAULT '[]',
   game_rewards jsonb DEFAULT '{}',
-  created_at timestamptz DEFAULT now()
+  created_at timestamptz DEFAULT now(),
+  deleted_at timestamptz DEFAULT NULL
 );
+
+-- Migration (기존 DB 적용 순서):
+--   1. deleted_at 컬럼 추가
+--      ALTER TABLE users ADD COLUMN IF NOT EXISTS deleted_at TIMESTAMPTZ DEFAULT NULL;
+--
+--   2. username 의 기존 UNIQUE 제약 제거 후 활성 계정 전용 부분 인덱스로 교체
+--      (소프트 삭제된 행은 인덱스 범위 밖 → 같은 username/email 로 재가입 허용)
+--      ALTER TABLE users DROP CONSTRAINT IF EXISTS users_username_key;
+--      CREATE UNIQUE INDEX IF NOT EXISTS users_username_active_uq
+--        ON users (username)
+--        WHERE deleted_at IS NULL;
 
 -- 2. Refresh Tokens Table
 CREATE TABLE IF NOT EXISTS refresh_tokens (

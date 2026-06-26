@@ -871,7 +871,10 @@ def refresh(req: RefreshRequest):
     user = get_user_by_id(target["user_id"])
     if not user:
         raise HTTPException(status_code=401, detail="유저를 찾을 수 없습니다.")
-    
+    if user.get("deleted_at"):
+        delete_refresh_token(req.refresh_token)
+        raise HTTPException(status_code=401, detail="탈퇴한 계정입니다.")
+
     new_access_token = create_token({"sub": user["id"], "username": user["username"]}, user.get("token_version", 1))
     new_refresh_token = create_refresh_token(user["id"])
     
