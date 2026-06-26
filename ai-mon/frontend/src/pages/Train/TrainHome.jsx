@@ -13,6 +13,9 @@ export default function TrainHome({
   trainingLevel,
   setTrainingLevel,
   maxUnit,
+  userCourseLevel,
+  hasCompletedStages,
+  hasClearedMiniboss,
   wrongCount,
   wrongAnswers,
   unitAccuracy,
@@ -25,17 +28,21 @@ export default function TrainHome({
     <div className="tr-page">
       <div className="tr-scroll">
 
-        {/* 레벨 칩 */}
+        {/* 레벨 칩 — Settings.jsx 동일 규칙: 초급은 항상 열림, 나머지는 현재 course_level만 */}
         <div className="tr-level-row">
-          {LEVELS.map(lv => (
-            <button
-              key={lv.id}
-              className={`tr-level-chip ${trainingLevel === lv.id ? 'active' : ''}`}
-              onClick={() => setTrainingLevel(lv.id)}
-            >
-              {lv.label}
-            </button>
-          ))}
+          {LEVELS.map(lv => {
+            const isCurrent = userCourseLevel === lv.id
+            const isChipLocked = lv.id !== 'beginner' && !isCurrent
+            return (
+              <button
+                key={lv.id}
+                className={`tr-level-chip ${trainingLevel === lv.id ? 'active' : ''} ${isChipLocked ? 'locked' : ''}`}
+                onClick={() => !isChipLocked && setTrainingLevel(lv.id)}
+              >
+                {lv.label}
+              </button>
+            )
+          })}
         </div>
 
         {/* 오늘의 추천 훈련 */}
@@ -55,27 +62,35 @@ export default function TrainHome({
         {/* 훈련 모드 그리드 */}
         <div className="tr-section-title">훈련 모드</div>
         <div className="tr-grid">
-          {TRAIN_MODES.map(m => (
-            <div
-              key={m.id}
-              className={`tr-mode-card ${m.locked ? 'tr-mode-locked' : ''}`}
-              onClick={() => {
-                if (m.locked) return
-                if (m.id === 'random')    { onStartRandom();   return }
-                if (m.id === 'boss')      { onStartBossRush(); return }
-                onStart({ onlyWrong: m.id === 'wrong' })
-              }}
-            >
-              <div className="tr-mode-icon" style={{ background: m.iconBg }}>
-                {m.icon}
+          {TRAIN_MODES.map(m => {
+            const isDisabled = m.locked
+              || (m.id === 'boss'   && !hasClearedMiniboss)
+              || (m.id === 'random' && !hasCompletedStages)
+            const countLabel = m.id === 'boss'   && !hasClearedMiniboss  ? '미니보스 클리어 필요'
+                             : m.id === 'random' && !hasCompletedStages  ? '스테이지 클리어 필요'
+                             : m.locked ? m.lockHint
+                             : m.id === 'wrong'  ? `${wrongCount}문제 대기 중`
+                             : m.reward || ''
+            return (
+              <div
+                key={m.id}
+                className={`tr-mode-card ${isDisabled ? 'tr-mode-locked' : ''}`}
+                onClick={() => {
+                  if (isDisabled) return
+                  if (m.id === 'random')    { onStartRandom();   return }
+                  if (m.id === 'boss')      { onStartBossRush(); return }
+                  onStart({ onlyWrong: m.id === 'wrong' })
+                }}
+              >
+                <div className="tr-mode-icon" style={{ background: m.iconBg }}>
+                  {m.icon}
+                </div>
+                <div className="tr-mode-name">{m.name}</div>
+                <div className="tr-mode-desc">{m.desc}</div>
+                <div className="tr-mode-count">{countLabel}</div>
               </div>
-              <div className="tr-mode-name">{m.name}</div>
-              <div className="tr-mode-desc">{m.desc}</div>
-              <div className="tr-mode-count">
-                {m.locked ? m.lockHint : m.id === 'wrong' ? `${wrongCount}문제 대기 중` : m.reward || ''}
-              </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         {/* 유닛 선택 */}

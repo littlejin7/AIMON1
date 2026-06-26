@@ -23,10 +23,11 @@ export default function Train() {
   const [answers, setAnswers]             = useState({})
   const [checkingLock, setCheckingLock]   = useState(true)
   const [isLocked, setIsLocked]           = useState(false)
-  const [wrongCount, setWrongCount]       = useState(0)
-  const [wrongAnswers, setWrongAnswers]   = useState([])
-  const [unitAccuracy, setUnitAccuracy]   = useState([])
-  const [lessons, setLessons]             = useState([])
+  const [wrongCount, setWrongCount]           = useState(0)
+  const [wrongAnswers, setWrongAnswers]       = useState([])
+  const [unitAccuracy, setUnitAccuracy]       = useState([])
+  const [lessons, setLessons]                 = useState([])
+  const [completedStageCount, setCompletedStageCount] = useState(0)
 
   const activeLevel = trainingLevel || user?.course_level || 'beginner'
 
@@ -42,6 +43,7 @@ export default function Train() {
         const prog = progressRes.data || []
         const isUnit1BossCleared = prog.some(p => p.unit === 1 && p.stage === '1-boss' && p.is_completed)
         setIsLocked(!isUnit1BossCleared)
+        setCompletedStageCount(prog.filter(p => p.is_completed).length)
         setLessons(lessonsRes.data || [])
         const cacheKey = user?.id ? `is_train_unlocked_${user.id}` : 'is_train_unlocked'
         localStorage.setItem(cacheKey, isUnit1BossCleared ? 'true' : 'false')
@@ -61,6 +63,7 @@ export default function Train() {
       try {
         const reviewRes = await trainApi.getReview({
           limit: 50, course_level: activeLevel,
+          only_wrong: true,
           ...(currentUnit !== null ? { unit: currentUnit } : {}),
         })
         const wq = reviewRes.data || []
@@ -266,6 +269,9 @@ export default function Train() {
       trainingLevel={activeLevel}
       setTrainingLevel={handleLevelChange}
       maxUnit={lessons.length || 8}
+      userCourseLevel={user?.course_level || 'beginner'}
+      hasCompletedStages={completedStageCount > 0}
+      hasClearedMiniboss={(user?.miniboss_cleared_stages?.length || 0) > 0}
       wrongCount={wrongCount}
       wrongAnswers={wrongAnswers}
       unitAccuracy={unitAccuracy}

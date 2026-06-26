@@ -371,3 +371,226 @@ def test_V5e_review_unit_not_found_no_fallback(monkeypatch):
     assert r.status_code == 200
     assert r.json() == [], f"없는 유닛인데 결과 있음: {len(r.json())}개"
     print("[V5e] unit=99(없음) → [] (타 유닛 폴백 없음)")
+
+
+# ═══════════════════════════════════════════════════════════════════
+# V6. 오답복습이 quiz 네임스페이스 오답과 매칭된다 (id 네임스페이스 버그 회귀 방지)
+#
+# 레슨/스테이지 퀴즈 오답은 attempts에 mode='quiz', question_id='q001'(quiz 풀
+# 네임스페이스)로 기록된다. 과거 /train/review 는 train 풀(u1_q001~)에서만 매칭해
+# 교집합이 0 → 오답 0건 → 랜덤 폴백으로 빠졌다. 이제 quiz+miniboss(+train) 풀을
+# 합쳐 인덱싱하므로 실제 quiz 오답이 정확히 잡혀야 한다.
+# ═══════════════════════════════════════════════════════════════════
+
+def _quiz_pool(unit, n=5):
+    """quiz 네임스페이스(q001~) 풀 — train 풀(u1_q001~)과 id가 겹치지 않는다."""
+    return [{"question_id": f"q00{i}", "unit": unit, "quiz_category": "quiz"}
+            for i in range(1, n + 1)]
+
+
+def _fake_load_by_cat(quiz_pool):
+    """cat=='quiz'면 quiz_pool, miniboss/train 등은 빈 풀(실제 데이터 구조 모사)."""
+    def fake_load(cat, course_level=None, unit=None):
+        if cat != "quiz":
+            return []
+        return [q for q in quiz_pool if unit is None or q["unit"] == unit]
+    return fake_load
+
+
+def _record_wrong(question_id, unit, is_correct=False, level="beginner"):
+    r = client.post("/attempts", json={
+        "question_id": question_id, "unit": unit, "stage": "1-1",
+        "level": level, "mode": "quiz", "is_correct": is_correct,
+    })
+    assert r.status_code == 200, r.text
+
+
+def test_V6a_only_wrong_matches_quiz_namespace_attempts(monkeypatch):
+    """quiz 오답(q002·q004) 기록 → only_wrong=True 가 정확히 그 문제들만 반환."""
+    quiz_pool = _quiz_pool(unit=1)
+    fake_load = _fake_load_by_cat(quiz_pool)
+    # 오답 기록(attempts)·복습 조회(train) 양쪽에서 같은 로더를 쓰도록 모두 패치
+    monkeypatch.setattr(ATT, "load_questions_by_category", fake_load)
+    monkeypatch.setattr(TRAIN, "load_questions_by_category", fake_load)
+
+    _record_wrong("q001", unit=1, is_correct=True)   # 정답 → 제외
+    _record_wrong("q002", unit=1, is_correct=False)  # 오답
+    _record_wrong("q004", unit=1, is_correct=False)  # 오답
+
+    r = client.get("/train/review", params={"unit": 1, "course_level": "beginner",
+                                            "only_wrong": True, "limit": 15})
+    assert r.status_code == 200
+    ids = [q["question_id"] for q in r.json()]
+    assert set(ids) == {"q002", "q004"}, f"오답 매칭 실패(랜덤 폴백?): {ids}"
+    print(f"\n[V6a] quiz 오답 정확히 매칭: {ids}")
+
+
+def test_V6b_only_wrong_is_deterministic_not_random(monkeypatch):
+    """only_wrong=True 를 반복 호출해도 결과(내용·순서)가 동일 — 랜덤 아님."""
+    quiz_pool = _quiz_pool(unit=1)
+    fake_load = _fake_load_by_cat(quiz_pool)
+    monkeypatch.setattr(ATT, "load_questions_by_category", fake_load)
+    monkeypatch.setattr(TRAIN, "load_questions_by_category", fake_load)
+
+    for qid in ("q001", "q002", "q003"):
+        _record_wrong(qid, unit=1, is_correct=False)
+
+    params = {"unit": 1, "course_level": "beginner", "only_wrong": True, "limit": 15}
+    first = [q["question_id"] for q in client.get("/train/review", params=params).json()]
+    for _ in range(5):
+        again = [q["question_id"] for q in client.get("/train/review", params=params).json()]
+        assert again == first, f"반복 호출 결과 불일치(랜덤): {first} != {again}"
+    assert set(first) == {"q001", "q002", "q003"}
+    assert len(first) == 3, f"오답 외 랜덤 패딩 발생: {first}"
+    print(f"[V6b] 반복 호출 동일(랜덤 아님): {first}")
+
+
+def test_V6c_only_wrong_empty_when_no_quiz_wrong(monkeypatch):
+    """오답이 하나도 없으면 only_wrong=True 는 [] (랜덤 15 폴백 절대 없음)."""
+    quiz_pool = _quiz_pool(unit=1)
+    fake_load = _fake_load_by_cat(quiz_pool)
+    monkeypatch.setattr(ATT, "load_questions_by_category", fake_load)
+    monkeypatch.setattr(TRAIN, "load_questions_by_category", fake_load)
+
+    _record_wrong("q001", unit=1, is_correct=True)  # 정답만 존재
+
+    r = client.get("/train/review", params={"unit": 1, "course_level": "beginner",
+                                            "only_wrong": True, "limit": 15})
+    assert r.status_code == 200
+    assert r.json() == [], f"오답 없는데 폴백 발생: {len(r.json())}개"
+    print("[V6c] 오답 없음 → [] (랜덤 폴백 없음)")
+
+
+# ═══════════════════════════════════════════════════════════════════
+# V7. 레슨 재시도 정답이 오답을 지우지 않는다 (오답 발생/해소 분리)
+#
+# 레슨(quiz/miniboss)에서 한 번이라도 틀리면 오답으로 남고, 복습모드
+# (train/random/boss_rush)에서 정답을 내야만 오답에서 빠진다. 레슨 '다시 풀기'로
+# 늦게 기록된 정답(quiz correct)으로는 오답이 사라지지 않아야 한다.
+# ═══════════════════════════════════════════════════════════════════
+
+def _record(question_id, unit, mode, is_correct, level="beginner"):
+    r = client.post("/attempts", json={
+        "question_id": question_id, "unit": unit, "stage": "1-1",
+        "level": level, "mode": mode, "is_correct": is_correct,
+    })
+    assert r.status_code == 200, r.text
+
+
+def test_V7a_lesson_wrong_shows_before_review_clear(monkeypatch):
+    """quiz로 오답 기록(복습 정답 전) → only_wrong=True 에 뜬다."""
+    fake_load = _fake_load_by_cat(_quiz_pool(unit=1))
+    monkeypatch.setattr(ATT, "load_questions_by_category", fake_load)
+    monkeypatch.setattr(TRAIN, "load_questions_by_category", fake_load)
+
+    _record("q002", unit=1, mode="quiz", is_correct=False)
+
+    r = client.get("/train/review", params={"unit": 1, "course_level": "beginner",
+                                            "only_wrong": True, "limit": 15})
+    ids = [q["question_id"] for q in r.json()]
+    assert ids == ["q002"], f"오답 미표시: {ids}"
+    print(f"\n[V7a] 레슨 오답(복습 전) 표시: {ids}")
+
+
+def test_V7b_lesson_retry_correct_does_not_clear(monkeypatch):
+    """같은 qid를 quiz wrong→correct(재시도) 두 건 기록해도 여전히 오답으로 뜬다."""
+    fake_load = _fake_load_by_cat(_quiz_pool(unit=1))
+    monkeypatch.setattr(ATT, "load_questions_by_category", fake_load)
+    monkeypatch.setattr(TRAIN, "load_questions_by_category", fake_load)
+
+    _record("q002", unit=1, mode="quiz", is_correct=False)  # 처음 오답
+    _record("q002", unit=1, mode="quiz", is_correct=True)   # 레슨 재시도 정답
+
+    r = client.get("/train/review", params={"unit": 1, "course_level": "beginner",
+                                            "only_wrong": True, "limit": 15})
+    ids = [q["question_id"] for q in r.json()]
+    assert ids == ["q002"], f"레슨 재시도 정답이 오답을 지움(버그): {ids}"
+    print(f"[V7b] 레슨 재시도 정답으로 안 지워짐: {ids}")
+
+
+@pytest.mark.parametrize("review_mode", ["train", "random", "boss_rush"])
+def test_V7c_review_correct_clears_wrong(monkeypatch, review_mode):
+    """복습모드(train/random/boss_rush) 정답을 내면 그 qid가 오답에서 사라진다."""
+    fake_load = _fake_load_by_cat(_quiz_pool(unit=1))
+    monkeypatch.setattr(ATT, "load_questions_by_category", fake_load)
+    monkeypatch.setattr(TRAIN, "load_questions_by_category", fake_load)
+
+    _record("q002", unit=1, mode="quiz", is_correct=False)       # 레슨 오답
+    _record("q002", unit=1, mode=review_mode, is_correct=True)   # 복습 정답 → 해소
+
+    r = client.get("/train/review", params={"unit": 1, "course_level": "beginner",
+                                            "only_wrong": True, "limit": 15})
+    ids = [q["question_id"] for q in r.json()]
+    assert ids == [], f"복습({review_mode}) 정답인데 오답 잔존: {ids}"
+    print(f"[V7c] 복습({review_mode}) 정답 → 오답 해소: {ids}")
+
+
+def test_V7d_unit_accuracy_unchanged_latest_based(monkeypatch):
+    """get_unit_accuracy 는 기존 latest-기반 유지 — quiz 재시도 정답이 정답률에 반영된다."""
+    # accuracy 는 문제 로더를 쓰지 않으므로 attempts 기록만으로 검증
+    _record("q001", unit=1, mode="quiz", is_correct=False)  # 최초 오답
+    _record("q001", unit=1, mode="quiz", is_correct=True)   # 재시도 정답 → 최신=정답
+    _record("q002", unit=1, mode="quiz", is_correct=False)  # 계속 오답
+
+    r = client.get("/train/accuracy", params={"course_level": "beginner"})
+    assert r.status_code == 200
+    unit1 = next(x for x in r.json() if x["unit"] == 1)
+    # latest-기반: q001=정답(최신), q002=오답 → 2문제 중 1정답 = 50%
+    assert unit1 == {"unit": 1, "correct": 1, "total": 2, "pct": 50}, unit1
+    print(f"[V7d] get_unit_accuracy latest-기반 유지: {unit1}")
+
+
+# ═══════════════════════════════════════════════════════════════════
+# V8. 랜덤퀴즈(/train/random) 풀 = train 문항 + 레슨 오답 (quiz-only 폐지)
+# ═══════════════════════════════════════════════════════════════════
+
+def _fake_load_train_quiz(unlocked_units, n=5):
+    """cat별 네임스페이스 분리 로더: train=u{u}_q*, quiz=q*, miniboss=[]."""
+    def fake_load(cat, course_level=None, unit=None):
+        if cat == "train":
+            return [{"question_id": f"u{u}_q00{i}", "unit": u}
+                    for u in unlocked_units for i in range(1, n + 1)
+                    if unit is None or u == unit]
+        if cat == "quiz":
+            return [{"question_id": f"q00{i}", "unit": u}
+                    for u in unlocked_units for i in range(1, n + 1)
+                    if unit is None or u == unit]
+        return []  # miniboss 등
+    return fake_load
+
+
+def test_V8a_random_pool_is_train_plus_wrong(monkeypatch):
+    """train 문항 + 레슨 오답(q002)이 한 풀에 섞여 출제된다 (quiz 전체가 아님)."""
+    fake_load = _fake_load_train_quiz([1])
+    monkeypatch.setattr(ATT, "load_questions_by_category", fake_load)
+    monkeypatch.setattr(TRAIN, "load_questions_by_category", fake_load)
+    _seed_progress([
+        {"user_id": "u1", "unit": 1, "stage": "1-1", "is_completed": True, "course_level": "beginner"},
+    ])
+    _record("q002", unit=1, mode="quiz", is_correct=False)  # 레슨 오답
+
+    r = client.get("/train/random", params={"n": 50, "course_level": "beginner"})
+    assert r.status_code == 200
+    ids = {q["question_id"] for q in r.json()}
+    # train 문항(u1_q*) 포함
+    assert any(i.startswith("u1_q") for i in ids), f"train 문항 미포함: {ids}"
+    # 레슨 오답 q002 포함
+    assert "q002" in ids, f"레슨 오답 미포함: {ids}"
+    # 오답 아닌 quiz 문제(q001 등)는 풀에 없음 — quiz-only 폐지 확인
+    assert not any(i in ids for i in ("q001", "q003", "q004", "q005")), f"오답 아닌 quiz 혼입: {ids}"
+    print(f"\n[V8a] 랜덤풀 = train + 오답: {sorted(ids)}")
+
+
+def test_V8b_random_empty_pool_no_fallback(monkeypatch):
+    """잠금해제 유닛은 있으나 train 문항·오답이 모두 없으면 [] (폴백 없음)."""
+    def fake_load(cat, course_level=None, unit=None):
+        return []  # 어떤 카테고리도 비어 있음
+    monkeypatch.setattr(ATT, "load_questions_by_category", fake_load)
+    monkeypatch.setattr(TRAIN, "load_questions_by_category", fake_load)
+    _seed_progress([
+        {"user_id": "u1", "unit": 1, "stage": "1-1", "is_completed": True, "course_level": "beginner"},
+    ])
+    r = client.get("/train/random", params={"course_level": "beginner"})
+    assert r.status_code == 200
+    assert r.json() == []
+    print("[V8b] 빈 풀 → [] (폴백 없음)")

@@ -1,9 +1,28 @@
 from dotenv import load_dotenv
 import os
+import subprocess
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="passlib")
 from contextlib import asynccontextmanager
 load_dotenv(os.path.join(os.path.dirname(__file__), "../.env"))
+
+
+def _detect_version() -> str:
+    """배포 시 GIT_COMMIT_SHA 환경변수로 주입, 없으면 git 직접 조회, 둘 다 없으면 "dev"."""
+    v = os.getenv("GIT_COMMIT_SHA", "").strip()
+    if v:
+        return v
+    try:
+        return subprocess.check_output(
+            ["git", "rev-parse", "--short", "HEAD"],
+            stderr=subprocess.DEVNULL,
+            text=True,
+        ).strip()
+    except Exception:
+        return "dev"
+
+
+_SERVER_VERSION = _detect_version()
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -63,3 +82,8 @@ app.include_router(admin.router, prefix="/admin", tags=["Admin"])
 @app.get("/")
 def health_check():
     return {"status": "AI MON Backend is running"}
+
+
+@app.get("/version")
+def get_version():
+    return {"version": _SERVER_VERSION}
