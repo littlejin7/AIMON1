@@ -198,6 +198,10 @@ body:has(.tr-page) { background: #F4F3FA; }
   color: #fff;
   border-color: #7F77DD;
 }
+.tr-level-chip.locked {
+  opacity: 0.4;
+  cursor: default;
+}
 
 /* ── 유닛 선택 ── */
 .tr-unit-grid {
