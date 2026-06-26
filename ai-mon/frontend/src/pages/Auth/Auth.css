@@ -371,68 +371,6 @@ body:has(.auth-page) {
 /* ─────────────────────────────────────────────
    Register 페이지 호환 (기존 클래스 유지)
 ───────────────────────────────────────────── */
-.auth-container {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: 400px;
-  background: #FFFFFF;
-  border: 1px solid #E2E1EE;
-  border-radius: 20px;
-  padding: 2rem;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08), 0 0 24px rgba(127,119,221,0.15);
-}
-
-.auth-bg-orb {
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.orb-1 {
-  width: 400px; height: 400px;
-  background: rgba(124,58,237,0.15);
-  top: -100px; right: -100px;
-}
-
-.orb-2 {
-  width: 300px; height: 300px;
-  background: rgba(6,182,212,0.1);
-  bottom: -80px; left: -80px;
-}
-
-.auth-logo {
-  text-align: center;
-  margin-bottom: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.auth-logo-emoji {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-  display: block;
-  margin-bottom: 0.75rem;
-}
-
-.auth-title {
-  font-size: 1.875rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, #7F77DD 0%, #534AB7 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 0.25rem;
-}
-
-.auth-subtitle {
-  font-size: 0.875rem;
-  color: #7A7A94;
-}
 
 .auth-form {
   display: flex;
@@ -502,20 +440,4 @@ body:has(.auth-page) {
   flex-shrink: 0;
 }
 
-/* Register용 구분선 */
-.auth-divider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 1.25rem;
-  color: #9999B0;
-  font-size: 0.78rem;
-}
 
-.auth-divider::before,
-.auth-divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: #E2E1EE;
-}
