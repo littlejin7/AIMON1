@@ -401,7 +401,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 발생하는 결과로 올바른 것을 고르세요.\n\nattack_boss()\n\n```python\ndef attack_boss():\n    print('보스에게 데미지 100!')\n```",
+      "question": "다음 코드를 실행했을 때 발생하는 결과로 올바른 것을 고르세요.\n\n```python\nattack_boss()\n\n```python\ndef attack_boss():\n    print('보스에게 데미지 100!')\n```",
       "choices": [
         "A. 보스에게 데미지 100!",
         "B. 아무것도 출력되지 않고 정상 종료된다.",
@@ -658,7 +658,7 @@
       "choices": [
         "A. attacker가 defender를 공격!",
         "B. 로봇이 슬라임을 공격!",
-        "C. 슬라임가 로봇를 공격!",
+        "C. 슬라임이 로봇을 공격!",
         "D. 오류 발생"
       ],
       "answer": "C",
@@ -700,7 +700,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "```python\n함수 정의문 `def get_info(a, b):` 에서 'a'와 'b'를 가리키는 정확한 명칭은 무엇인가요?\n```",
+      "question": "함수 정의문 `def get_info(a, b):` 에서 'a'와 'b'를 가리키는 정확한 명칭은 무엇인가요?",
       "choices": [
         "A. 인수",
         "B. 키워드",
@@ -1045,7 +1045,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "```python\n함수 내부에서 값을 모니터 화면에 보여주는 `print()`와 값을 바깥으로 던져 변수에 담을 수 있게 하는 `return`의 차이점으로 올바르지 않은 것은?\n```",
+      "question": "함수 내부에서 값을 모니터 화면에 보여주는 `print()`와 값을 바깥으로 던져 변수에 담을 수 있게 하는 `return`의 차이점으로 올바르지 않은 것은?",
       "choices": [
         "A. print()는 단순히 콘솔 창에 시각적으로 출력만 해줄 뿐이다.",
         "B. return으로 반환된 값은 다른 변수에 저장하여 재가공할 수 있다.",
@@ -1367,7 +1367,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 중 파이썬 함수의 return 값에 관한 설명으로 옳은 것을 모두 고른 것은?\n\nㄱ. return문 뒤에는 수식이나 연산식을 적을 수 있으며, 계산 완료된 최종 가치가 반환된다.\nㄴ. 문자열, 숫자형, 불리언형 등 파이썬의 모든 표준 자료형은 리턴값으로 활용 가능하다.\n```python\nㄷ. print()문 내부에서 어떤 함수를 바로 출력하려고 할 때, 그 함수에 return이 없으면 에러가 발생하며 멈춘다.\n```",
+      "question": "다음 중 파이썬 함수의 return 값에 관한 설명으로 옳은 것을 모두 고른 것은?\n\nㄱ. return문 뒤에는 수식이나 연산식을 적을 수 있으며, 계산 완료된 최종 가치가 반환된다.\nㄴ. 문자열, 숫자형, 불리언형 등 파이썬의 모든 표준 자료형은 리턴값으로 활용 가능하다.\nㄷ. print()문 내부에서 어떤 함수를 바로 출력하려고 할 때, 그 함수에 return이 없으면 에러가 발생하며 멈춘다.",
       "choices": [
         "A. ㄱ, ㄴ",
         "B. ㄴ, ㄷ",
@@ -1597,7 +1597,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "```python\n파이썬 내장 함수인 `print('Hello', end='\\n')` 구조에서 `end='\\n'`이 뜻하는 바를 기본값 매개변수 개념과 연결하여 올바르게 설명한 것은 무엇인가요?\n```",
+      "question": "파이썬 내장 함수인 `print('Hello', end='\\n')` 구조에서 `end='\\n'`이 뜻하는 바를 기본값 매개변수 개념과 연결하여 올바르게 설명한 것은 무엇인가요?",
       "choices": [
         "A. end 매개변수의 기본값이 '\\n'이므로 원래 평소에 값을 주지 않아도 줄바꿈이 일어났던 것이다.",
         "B. end는 무조건 '\\n'만 받아야 하므로 다른 문자열로 변경하는 것이 금지되어 있다.",
@@ -1712,7 +1712,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "```python\n함수 정의 구문 `def info(age, name='손님', vip=False):`에 대한 설명으로 올바르지 않은 것은 무엇인가요?\n```",
+      "question": "함수 정의 구문 `def info(age, name='손님', vip=False):`에 대한 설명으로 올바르지 않은 것은 무엇인가요?",
       "choices": [
         "A. age 매개변수는 호출 시 반드시 인수를 넘겨주어야 한다.",
         "B. name과 vip 매개변수는 호출 시 인수를 생략할 수 있다.",
@@ -1942,7 +1942,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 전역 변수가 포함된 코드를 실행했을 때 최종 출력값을 고르세요.\n\nglobal_msg = '에이몬'\n\n```python\ndef show_msg():\n    print(global_msg)\n```\n\nshow_msg()",
+      "question": "다음 전역 변수가 포함된 코드를 실행했을 때 최종 출력값을 고르세요.\n\n```python\nglobal_msg = '에이몬'\n\ndef show_msg():\n    print(global_msg)\n\nshow_msg()\n```",
       "choices": [
         "A. global_msg",
         "B. 에이몬",
