@@ -1,7 +1,10 @@
 .char-page {
   padding-bottom: 0;
   min-height: 100vh;
+  max-width: 480px;
+  margin: 0 auto;
 }
+
 
 /* ── 히어로 (보라 배경) ── */
 .char-hero-bg {
