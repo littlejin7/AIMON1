@@ -177,20 +177,20 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nprint('OK')\n```",
+      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nprint('Hi', 'Python')\n```",
       "choices": [
-        "A. OK",
-        "B. 'OK'",
-        "C. ok",
-        "D. Okay"
+        "A. HiPython",
+        "B. Hi Python",
+        "C. Hi,Python",
+        "D. Error"
       ],
-      "answer": "A",
+      "answer": "B",
       "feedback": {
         "correct": "정답! print()는 따옴표 안의 내용을 그대로 출력해요.",
-        "wrong": "정답은 A. OK예요. 정답!"
+        "wrong": "정답은 B. Hi Python예요. 정답!"
       },
       "is_boss": false,
-      "hint": "코드를 한 줄씩 따라가며 실행 결과를 예상해봐요."
+      "hint": "쉼표로 구분된 값들이 어떻게 이어지는지 생각해봐요."
     },
     {
       "question_id": "q009",
@@ -465,20 +465,20 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nprint('Run')\n```",
+      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nprint('Hello', 'World')\n```",
       "choices": [
-        "A. RUN",
-        "B. 'Run'",
-        "C. run",
-        "D. Run"
+        "A. HelloWorld",
+        "B. Hello,World",
+        "C. Error",
+        "D. Hello World"
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! print()는 따옴표 안의 내용을 그대로 출력해요.",
-        "wrong": "정답은 D. Run예요. 정답!"
+        "correct": "정답! print()에 쉼표로 값을 나열하면 자동으로 공백을 넣어 출력해요.",
+        "wrong": "정답은 D. Hello World예요. 쉼표는 출력 결과에서 공백으로 바뀌어요."
       },
       "is_boss": false,
-      "hint": "코드를 한 줄씩 따라가며 실행 결과를 예상해봐요."
+      "hint": "쉼표로 구분된 값들이 어떻게 이어지는지 생각해봐요."
     },
     {
       "question_id": "q021",
