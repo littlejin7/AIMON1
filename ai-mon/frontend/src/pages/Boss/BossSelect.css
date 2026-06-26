@@ -180,3 +180,21 @@
   text-transform: uppercase;
   z-index: 2;
 }
+
+.bs-crown-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(52, 211, 153, 0.15);
+  border: 1px solid rgba(52, 211, 153, 0.4);
+  color: #34d399;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 0.5rem;
+  border-radius: 6px;
+  z-index: 2;
+}
+
+.bs-crown-text {
+  color: #34d399;
+}
