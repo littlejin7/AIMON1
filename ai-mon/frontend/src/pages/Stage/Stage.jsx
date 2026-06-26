@@ -192,6 +192,28 @@ export default function Stage({ _lessonId, _stage }) {
     setAttempt(prev => prev + 1)
   }
 
+
+  // ── [임시] 미니보스 바로가기 ──
+  const handleSkipToMiniboss = async () => {
+    try {
+      const stageKey = `${lessonId}-${stageNum}`
+      const res = await minibossApi.startBattle(lessonId, stageKey)
+      const miniQuestions = res.data.questions.map(q => shuffleChoices(q))
+      setQuestions(miniQuestions)
+      setMinibossStartIndex(0)
+      setStageQuizCorrect(0)
+      setCorrect(0)
+      setScore(0)
+      setCurrent(0)
+      setFinished(false)
+      playBGM('miniboss_intro')
+      setShowMinibossAlert(true)
+    } catch (err) {
+      alert('미니보스 로드 실패: ' + (err?.message || err))
+    }
+  }
+
+  
   // ── 미니보스 재도전 ──
   const handleMinibossRetry = () => {
     setCurrent(minibossStartIndex)
@@ -464,5 +486,49 @@ export default function Stage({ _lessonId, _stage }) {
       handleAnswer={handleAnswer}
       handleNext={handleNext}
     />
+  )
+}
+
+
+
+  if (showMinibossAlert) {
+    return (
+      <MiniBossAlert
+        onFight={() => {
+          setShowMinibossAlert(false)
+          if (minibossStartIndex !== null) setCurrent(minibossStartIndex)
+          playBGM('battle')
+        }}
+      />
+    )
+  }
+
+  return (
+    <>
+      {/* [임시] 미니보스 바로가기 버튼 */}
+      {minibossStartIndex === null && (
+        <button
+          onClick={handleSkipToMiniboss}
+          style={{
+            position: 'fixed', bottom: '20px', right: '20px', zIndex: 9999,
+            background: '#ff4d4f', color: '#fff', border: 'none',
+            borderRadius: '8px', padding: '10px 16px', cursor: 'pointer',
+            fontWeight: 'bold', fontSize: '13px', boxShadow: '0 2px 8px rgba(0,0,0,0.3)'
+          }}
+        >
+          ⚔️ [임시] 미니보스 바로가기
+        </button>
+      )}
+      <StageQuiz
+        lessonId={lessonId}
+        stageNum={stageNum}
+        questions={questions}
+        current={current}
+        score={score}
+        minibossStartIndex={minibossStartIndex}
+        handleAnswer={handleAnswer}
+        handleNext={handleNext}
+      />
+    </>
   )
 }
