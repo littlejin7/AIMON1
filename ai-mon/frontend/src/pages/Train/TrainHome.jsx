@@ -97,7 +97,7 @@ export default function TrainHome({
         <div className="tr-section-title">유닛 선택</div>
         <UnitSelector
           value={currentUnit}
-          onChange={setCurrentUnit}
+          onChange={(u) => { setCurrentUnit(u); onStart({ onlyWrong: true, unit: u }) }}
           maxUnit={maxUnit}
         />
 
