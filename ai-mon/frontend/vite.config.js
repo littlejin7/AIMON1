@@ -1,8 +1,17 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
+import { execSync } from 'child_process'
+
+const _appVersion = (() => {
+  try { return execSync('git rev-parse --short HEAD', { stdio: ['pipe', 'pipe', 'ignore'] }).toString().trim() }
+  catch { return 'dev' }
+})()
 
 export default defineConfig({
+  define: {
+    __APP_VERSION__: JSON.stringify(_appVersion),
+  },
    plugins: [react()],
   // 시작 시 핵심 의존성을 한 번에 사전번들링 → 로드 중 재최적화(503)로 인한 흰 화면 방지
   optimizeDeps: {
