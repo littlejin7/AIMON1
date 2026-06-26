@@ -1,11 +1,11 @@
-import slimeIcon      from '../../assets/character_slime.png'
-import robotIcon      from '../../assets/character_robot.png'
-import finalGhostIcon from '../../assets/character_final_ghost.png'
-
-// 판정 기준:
-//   고급 2개 이상 정답 → advanced
-//   중급 2개 이상 정답 (고급 1개 이하) → intermediate
-//   나머지 → beginner
+// 판정 기준 (누적 게이트):
+//   beginnerOK && intermediateOK && advancedOK → 'advanced'
+//   beginnerOK && intermediateOK               → 'intermediate'
+//   그 외                                       → 'beginner'
+//
+//   beginnerOK     = beginner >= 3   (초급 4문제 중 3개)
+//   intermediateOK = intermediate >= 2 (중급 3문제 중 2개)
+//   advancedOK     = advanced >= 2   (고급 3문제 중 2개)
 
 export const LEVEL_TEST_QUESTIONS = [
   // ── 초급 4문제 ──────────────────────────────────────────
@@ -110,19 +110,11 @@ export const LEVEL_TEST_QUESTIONS = [
   },
 ]
 
+// 레벨 키('beginner'|'intermediate'|'advanced')를 화면 표기 라벨로 매핑
 export const LEVEL_RESULT = {
-  beginner:     { label: '비기너',        icon: slimeIcon,      color: '#7c3aed', msg: '아기 슬라임 에이몬이 기다려요!',       desc: 'Python 기초부터 차근차근 함께해요 😊' },
-  intermediate: { label: '인터미디에이트', icon: robotIcon,      color: '#06b6d4', msg: '로봇 에이몬이 당신을 알아봤어요!',    desc: 'lambda, 클래스, try/except — 이미 한 발 앞서 있어요!' },
-  advanced:     { label: '어드밴스드',    icon: finalGhostIcon, color: '#7c3aed', msg: '파이널 에이몬이 라이벌을 발견했어요!', desc: '데코레이터·비동기까지 꿰뚫는 당신, 에이몬도 긴장했어요 🔥' },
+  beginner:     { label: '초급' },
+  intermediate: { label: '중급' },
+  advanced:     { label: '고급' },
 }
 
-/**
- * 각 레벨별 정답 수로 레벨 판정
- * @param {Object} correctByLevel  e.g. { beginner: 3, intermediate: 2, advanced: 1 }
- */
-export function calcLevelResult(correctByLevel) {
-  const { advanced = 0, intermediate = 0 } = correctByLevel
-  if (advanced >= 2)     return 'advanced'
-  if (intermediate >= 2) return 'intermediate'
-  return 'beginner'
-}
+export { calcLevelResult } from './calcLevelResult.js'
