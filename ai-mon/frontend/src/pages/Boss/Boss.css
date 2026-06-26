@@ -928,10 +928,24 @@ body:has(.boss-page) { background: #F4F3FA; background-image: none; }
   font-size: 10px; font-weight: 600;
   padding: 3px 10px; border-radius: 20px;
   background: #FFF3DC; border: 0.5px solid #FAC775; color: #8A5500;
-  cursor: pointer; transition: opacity .15s; margin-left: auto;
+  cursor: pointer; transition: opacity .15s;
 }
 .eb-b-hint-pill:hover  { opacity: .8; }
 .eb-b-hint-pill.used   { opacity: .4; cursor: not-allowed; }
+
+/* 도망가기 버튼 */
+.eb-b-escape-btn {
+  font-size: 10px; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px;
+  background: rgba(239,68,68,0.08);
+  border: 0.5px solid rgba(239,68,68,0.3);
+  color: #DC2626;
+  cursor: pointer; transition: all .15s;
+  margin-left: auto; font-family: inherit;
+}
+.eb-b-escape-btn:hover { background: rgba(239,68,68,0.15); }
+
+
 
 /* 문제 카드 */
 .eb-b-qcard {
