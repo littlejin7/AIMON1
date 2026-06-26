@@ -42,6 +42,7 @@ export default function EndBossBattle({
   user,
   onSubmit,
   onNextQuestion,
+  onEscape,
   questionNum,
   questionTotal,
 }) {
@@ -144,6 +145,7 @@ export default function EndBossBattle({
         {dmgPopup && <div className="eb-b-dmg-popup">-{dmgPopup}</div>}
       </div>
 
+      
         {/* ── 퀴즈 패널 ── */}
       <div className={`eb-b-quiz-wrap quiz-attack-wrap${attackAnim ? ' attack-fly' : ''}`}>
 
@@ -158,6 +160,12 @@ export default function EndBossBattle({
           {questionNum && questionTotal && (
             <span className="eb-b-qnum">문제 {questionNum}/{questionTotal}</span>
           )}
+          <button
+            className="eb-b-escape-btn"
+            onClick={onEscape}
+          >
+            🏃 도망가기
+          </button>
         </div>
 
         {/* 문제 카드 */}
