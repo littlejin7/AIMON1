@@ -386,9 +386,7 @@
             "print(content)",
             "f.close()"
           ],
-          "output": [
-            "안녕하세요!\n에이몬 파일 읽기 예제입니다."
-          ]
+          "output": []
         },
         "tip": "'r'은 읽기(read) 모드예요. 파일이 없으면 오류가 발생해요."
       },
@@ -401,9 +399,7 @@
             "    content = f.read()",
             "    print(content)"
           ],
-          "output": [
-            "안녕하세요!\n에이몬 파일 읽기 예제입니다."
-          ]
+          "output": []
         },
         "tip": "with 블록이 끝나면 파일이 자동으로 닫혀요. 앞으로는 항상 with를 사용하세요."
       },
@@ -413,12 +409,14 @@
         "terminal": {
           "code": [
             "with open('hello.txt', 'r') as f:",
+            "    content = f.read()",
+            "    print(content)",
+            "",
+            "with open('hello.txt', 'r') as f:",
             "    lines = f.readlines()",
             "    print(lines)"
           ],
-          "output": [
-            "['안녕하세요!\\n', '에이몬 파일 읽기 예제입니다.']"
-          ]
+          "output": []
         },
         "tip": "각 줄 끝에 \\n(줄바꿈)이 포함돼요. strip()으로 제거할 수 있어요."
       },
@@ -428,13 +426,10 @@
         "terminal": {
           "code": [
             "with open('hello.txt', 'r') as f:",
-            "    for line in f:",
-            "        print(line.strip())"
+            "   for line in f:",
+            "     print(line.strip())"
           ],
-          "output": [
-            "안녕하세요!",
-            "에이몬 파일 읽기 예제입니다."
-          ]
+          "output": []
         },
         "tip": "for line in f: 패턴은 파일을 한 줄씩 처리하는 가장 일반적인 방법이에요."
       },
@@ -447,9 +442,7 @@
             "    content = f.read()",
             "    print(content)"
           ],
-          "output": [
-            "파이썬으로 한글 파일을 읽어요!"
-          ]
+          "output": []
         },
         "tip": "한글 파일은 항상 encoding='utf-8'을 붙이는 습관을 들이세요. 빠뜨리면 UnicodeDecodeError가 발생할 수 있어요."
       }

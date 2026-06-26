@@ -41,10 +41,7 @@
         "terminal": {
           "code": [
             "user = {\"name\": \"에이몬\"}",
-            "try:",
-            "    print(user[\"hp\"])",
-            "except KeyError as e:",
-            "    print(f\"KeyError: {e}\")"
+            "print(user[\"hp\"])  # 'hp' 키가 없어요!"
           ],
           "output": [
             "KeyError: 'hp'"
@@ -289,10 +286,7 @@
         "terminal": {
           "code": [
             "my_set = {\"사과\", \"바나나\"}",
-            "try:",
-            "    print(my_set[0])",
-            "except TypeError as e:",
-            "    print(f\"TypeError: {e}\")"
+            "print(my_set[0])  # 세트는 인덱싱 불가!"
           ],
           "output": [
             "TypeError: 'set' object is not subscriptable"
