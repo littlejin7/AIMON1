@@ -101,7 +101,7 @@
   text-align: right;
 }
 
-.stage-content { padding-top: var(--sp-6); padding-bottom: var(--sp-8); }
+.stage-content { padding-top: var(--sp-6) !important; padding-bottom: 120px !important; }
 
 /* ── Result screen ── */
 .stage-result {
@@ -217,7 +217,7 @@
 /* Body */
 .sb-body {
   flex: 1;
-  padding: 0 20px 18px;
+  padding: 0 20px 80px;
   display: flex;
   flex-direction: column;
   gap: 16px;
