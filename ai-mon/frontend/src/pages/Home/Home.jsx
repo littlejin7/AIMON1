@@ -19,8 +19,14 @@ export default function Home() {
   const [loading,       setLoading]       = useState(!!token)
   const [showLevelTest, setShowLevelTest] = useState(false)
 
-  const handleLevelTestFinish = async (levelKey) => {
+  const handleLevelTestFinish = async (levelKey, updatedUser) => {
     if (token) {
+      if (updatedUser) {
+        updateUser(updatedUser)
+        setShowLevelTest(false)
+        navigate('/lesson')
+        return
+      }
       try {
         const res = await userApi.updateMe({ course_level: levelKey, is_level_tested: true })
         updateUser(res.data)

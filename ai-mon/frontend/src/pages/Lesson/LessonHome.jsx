@@ -75,10 +75,14 @@ export default function LessonHome() {
     if (currentUnit) setExpandedUnit(currentUnit.unit_id)
   }, [lessons, progress])
 
-  const handleLevelTestFinish = async (levelKey) => {
+  const handleLevelTestFinish = async (levelKey, updatedUser) => {
     try {
-      const res = await userApi.updateMe({ course_level: levelKey, is_level_tested: true })
-      updateUser(res.data)
+      if (updatedUser) {
+        updateUser(updatedUser)
+      } else {
+        const res = await userApi.updateMe({ course_level: levelKey, is_level_tested: true })
+        updateUser(res.data)
+      }
       if (pendingUnitId) navigate(`/lesson/${pendingUnitId}`)
     } catch {
       alert('레벨 설정 변경에 실패했습니다.')

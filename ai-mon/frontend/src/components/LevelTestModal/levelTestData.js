@@ -12,6 +12,7 @@ export const LEVEL_TEST_QUESTIONS = [
   {
     id: 'lt1',
     level: 'beginner',
+    category: 'syntax',
     question: 'Python에서 화면에 글자를 출력하는 함수는?',
     choices: ['show()', 'print()', 'display()', 'echo()'],
     answer: 1,
@@ -19,6 +20,7 @@ export const LEVEL_TEST_QUESTIONS = [
   {
     id: 'lt2',
     level: 'beginner',
+    category: 'syntax',
     question: "for 반복문으로 1~5를 출력하려면?\n\nfor i in ___:\n    print(i)",
     choices: ['range(5)', 'range(1, 6)', 'range(1, 5)', 'range(0, 5)'],
     answer: 1,
@@ -26,6 +28,7 @@ export const LEVEL_TEST_QUESTIONS = [
   {
     id: 'lt3',
     level: 'beginner',
+    category: 'structure',
     question: "다음 코드의 출력은?\n\nx = [1, 2, 3, 4, 5]\nprint(x[1:3])",
     choices: ['[1, 2]', '[2, 3]', '[1, 2, 3]', '[3, 4]'],
     answer: 1,
@@ -33,6 +36,7 @@ export const LEVEL_TEST_QUESTIONS = [
   {
     id: 'lt4',
     level: 'beginner',
+    category: 'structure',
     question: "다음 코드의 출력은?\n\nd = {'hp': 100, 'mp': 50}\nprint(d['mp'])",
     choices: ['100', '50', 'mp', 'Error'],
     answer: 1,
@@ -42,6 +46,7 @@ export const LEVEL_TEST_QUESTIONS = [
   {
     id: 'lt5',
     level: 'intermediate',
+    category: 'syntax',
     question: "다음 코드에서 출력되는 값은?\n\nadd = lambda x, y: x + y\nprint(add(3, 7))",
     choices: ['37', '10', '3', 'Error'],
     answer: 1,
@@ -49,6 +54,7 @@ export const LEVEL_TEST_QUESTIONS = [
   {
     id: 'lt6',
     level: 'intermediate',
+    category: 'syntax',
     question: "리스트 컴프리헨션으로 1~5의 제곱 리스트를 만들려면?\n\nresult = ___",
     choices: [
       '[x^2 for x in range(1,6)]',
@@ -61,6 +67,7 @@ export const LEVEL_TEST_QUESTIONS = [
   {
     id: 'lt7',
     level: 'intermediate',
+    category: 'control',
     question: "다음 코드에서 except 블록이 실행되는 이유는?\n\ntry:\n    print(1 / 0)\nexcept ZeroDivisionError:\n    print('0으로 나눌 수 없어요')",
     choices: [
       'print()가 잘못 사용되어서',
@@ -75,6 +82,7 @@ export const LEVEL_TEST_QUESTIONS = [
   {
     id: 'lt8',
     level: 'advanced',
+    category: 'control',
     question: "데코레이터(@)의 역할로 가장 적절한 것은?",
     choices: [
       '변수에 주석을 단다',
@@ -87,6 +95,7 @@ export const LEVEL_TEST_QUESTIONS = [
   {
     id: 'lt9',
     level: 'advanced',
+    category: 'control',
     question: "Python에서 async / await를 사용하는 주된 이유는?",
     choices: [
       '코드를 더 짧게 쓰기 위해',
@@ -99,6 +108,7 @@ export const LEVEL_TEST_QUESTIONS = [
   {
     id: 'lt10',
     level: 'advanced',
+    category: 'control',
     question: "FastAPI에서 경로 함수(path function)에 async def를 쓰는 이유는?",
     choices: [
       '모든 FastAPI 함수는 반드시 async여야 해서',

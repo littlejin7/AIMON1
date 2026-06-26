@@ -1,4 +1,5 @@
-from fastapi import APIRouter, HTTPException, status, Header, Request
+from typing import Optional
+from fastapi import APIRouter, HTTPException, status, Header, Request, Depends
 from pydantic import BaseModel
 import json, os, hashlib, hmac, uuid, secrets
 import httpx
@@ -29,6 +30,7 @@ from routers.utils import (
     ALGORITHM,
     limiter,
     now_kst,
+    get_current_user_optional,
 )
 
 router = APIRouter()
@@ -52,6 +54,19 @@ def create_refresh_token(user_id: str) -> str:
     save_refresh_token(refresh_item)
     return token
 
+
+# passlib bcrypt 4.0+ / 5.0+ compatibility monkeypatch
+import bcrypt
+original_hashpw = bcrypt.hashpw
+def patched_hashpw(password, salt):
+    if isinstance(password, str):
+        password_bytes = password.encode("utf-8")
+    else:
+        password_bytes = password
+    if len(password_bytes) > 72:
+        password_bytes = password_bytes[:72]
+    return original_hashpw(password_bytes, salt)
+bcrypt.hashpw = patched_hashpw
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -907,5 +922,85 @@ def logout(authorization: str = Header(...)):
             logger.exception("logout: token_version 증가 실패 user=%s", user_id)
 
     return {"ok": True, "message": "로그아웃 되었습니다."}
+
+
+LEVEL_TEST_QUESTIONS_META = {
+    "lt1": {"level": "beginner", "category": "syntax", "answer": 1},
+    "lt2": {"level": "beginner", "category": "syntax", "answer": 1},
+    "lt3": {"level": "beginner", "category": "structure", "answer": 1},
+    "lt4": {"level": "beginner", "category": "structure", "answer": 1},
+    "lt5": {"level": "intermediate", "category": "syntax", "answer": 1},
+    "lt6": {"level": "intermediate", "category": "syntax", "answer": 1},
+    "lt7": {"level": "intermediate", "category": "control", "answer": 2},
+    "lt8": {"level": "advanced", "category": "control", "answer": 1},
+    "lt9": {"level": "advanced", "category": "control", "answer": 1},
+    "lt10": {"level": "advanced", "category": "control", "answer": 1},
+}
+
+
+class LevelTestAnswer(BaseModel):
+    questionId: str
+    selectedAnswer: int
+
+
+class SubmitLevelTestRequest(BaseModel):
+    answers: list[LevelTestAnswer]
+
+
+@router.post("/level-test/submit")
+def submit_level_test(req: SubmitLevelTestRequest, user: Optional[dict] = Depends(get_current_user_optional)):
+    correct_by_level = {"beginner": 0, "intermediate": 0, "advanced": 0}
+    correct_by_category = {"syntax": 0, "structure": 0, "control": 0}
+    total_correct = 0
+
+    for ans in req.answers:
+        q_id = ans.questionId
+        if q_id in LEVEL_TEST_QUESTIONS_META:
+            meta = LEVEL_TEST_QUESTIONS_META[q_id]
+            if ans.selectedAnswer == meta["answer"]:
+                correct_by_level[meta["level"]] += 1
+                correct_by_category[meta["category"]] += 1
+                total_correct += 1
+
+    # 게이트 판정
+    beginner_ok = correct_by_level["beginner"] >= 3
+    intermediate_ok = correct_by_level["intermediate"] >= 2
+    advanced_ok = correct_by_level["advanced"] >= 2
+
+    if beginner_ok and intermediate_ok and advanced_ok:
+        level_key = "advanced"
+    elif beginner_ok and intermediate_ok:
+        level_key = "intermediate"
+    else:
+        level_key = "beginner"
+
+    # 카테고리별 백분율
+    category_percentages = {
+        "syntax": int(correct_by_category["syntax"] / 4 * 100),
+        "structure": int(correct_by_category["structure"] / 2 * 100),
+        "control": int(correct_by_category["control"] / 4 * 100),
+    }
+
+    updated_user = None
+    if user:
+        # 로그인 유저 정보 업데이트
+        def mutator(u: dict):
+            u["course_level"] = level_key
+            u["is_level_tested"] = True
+            return None
+        
+        try:
+            updated_user = mutate_user_atomic(user["id"], mutator)
+        except UserNotFoundError:
+            raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")
+
+    return {
+        "levelKey": level_key,
+        "totalCorrect": total_correct,
+        "score": int(total_correct / 10 * 100),
+        "correctByCategory": correct_by_category,
+        "categoryPercentages": category_percentages,
+        "user": serialize_user(updated_user) if updated_user else None,
+    }
 
 
