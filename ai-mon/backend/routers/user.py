@@ -62,6 +62,9 @@ def delete_me(user: dict = Depends(get_current_user)):
         pass  # 이미 삭제됐거나 찾을 수 없어도 무해하게 처리
 
     delete_user_refresh_tokens(user_id)
+    # 명시적 빈 응답: FastAPI가 None 반환값을 "null" 바디로 직렬화하는 것 방지
+    # (uvicorn/h11 은 204에 body가 있으면 프로토콜 에러를 냄)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 @router.patch("/me")

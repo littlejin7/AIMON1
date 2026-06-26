@@ -15,9 +15,12 @@ test_account_delete.py
 (10) 활성 계정 username 중복 → 400 여전히 차단
 (11a) 2차 DELETE (동일 토큰) → 401/403, 5xx 아님
 (11b) 핸들러 직접 — UserNotFoundError 무해 흡수, 토큰은 정리됨
+(12) ASGI transport 스모크 — 204 응답에 body 없음 (uvicorn/h11 회귀 방지)
 """
 import sys, os
 import pytest
+import anyio
+import httpx
 
 BACKEND = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, BACKEND)
@@ -228,6 +231,37 @@ def test_handler_absorbs_usernotfounderror(monkeypatch):
         lambda uid: tokens_deleted.append(uid),
     )
 
+    from fastapi.responses import Response as FastAPIResponse
     result = USER.delete_me(user={"id": "ghost-uid", "username": "ghost"})
-    assert result is None               # 예외 없음, 204 반환
-    assert tokens_deleted == ["ghost-uid"]  # 토큰 정리는 항상 실행
+    assert isinstance(result, FastAPIResponse)   # 예외 없음, Response 반환
+    assert result.status_code == 204
+    assert tokens_deleted == ["ghost-uid"]       # 토큰 정리는 항상 실행
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# (12) ASGI transport 스모크 — 204 body 없음 (uvicorn/h11 회귀 방지)
+# ─────────────────────────────────────────────────────────────────────────────
+
+@pytest.mark.anyio
+async def test_delete_me_no_body_asgi(tmp_path, monkeypatch):
+    """httpx ASGITransport 으로 204 응답에 body 가 없음을 검증.
+
+    TestClient(raise_server_exceptions=False) 는 h11 계층을 거치지 않아
+    FastAPI 가 None → 'null' 바디를 내보내도 잡지 못한다. ASGITransport 는
+    실제 ASGI 응답 이터레이터를 그대로 소비하므로 body 유무가 드러난다.
+    """
+    monkeypatch.setattr(U, "USERS_FILE",          str(tmp_path / "users.json"))
+    monkeypatch.setattr(U, "REFRESH_TOKENS_FILE", str(tmp_path / "refresh_tokens.json"))
+    monkeypatch.setattr(limiter, "enabled", False)
+
+    app = _make_app()
+    transport = httpx.ASGITransport(app=app)
+    async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
+        r = await client.post("/auth/register", json=_PAYLOAD)
+        assert r.status_code == 201, r.text
+        token = r.json()["access_token"]
+
+        r = await client.delete("/user/me", headers={"Authorization": f"Bearer {token}"})
+        assert r.status_code == 204
+        assert r.content == b"", f"204 응답에 body 가 있음: {r.content!r}"
+        assert int(r.headers.get("content-length", "0")) == 0
