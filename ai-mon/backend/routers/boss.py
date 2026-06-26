@@ -69,48 +69,62 @@ def get_boss_info(unit: str = "1", user: dict = Depends(get_current_user)):
 @router.post("/start")
 def start_boss_battle(unit: str = "1", user: dict = Depends(get_current_user)):
     user_id = user["id"]
-    
-    # 왕관/무료 횟수 차감
-    today = now_kst().strftime("%Y-%m-%d")
-    if user.get("last_free_attempt_date") != today:
-        user["daily_free_attempts"] = 2
-        user["last_free_attempt_date"] = today
-        
-    if user.get("daily_free_attempts", 0) > 0:
-        user["daily_free_attempts"] -= 1
-    else:
-        if user.get("crowns", 0) <= 0:
-            raise HTTPException(status_code=400, detail="왕관이 부족합니다.")
-        user["crowns"] -= 1
-        
+
+    # ── 유저 상태 무관 검증/I/O 는 mutate '밖'에서 먼저 (실패해도 차감 없음) ──
     if unit == "final":
         raise HTTPException(status_code=400, detail="엔드보스는 /boss/endboss/start 를 사용해야 합니다.")
-    
+
     course_level = user.get("course_level", "beginner")
     category = "unitboss"
     unit_num = int(unit)
     boss_qs = load_questions_by_category(category, course_level=course_level, unit=unit_num)
     if not boss_qs:
         raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
+
     import random
-    
+    today = now_kst().strftime("%Y-%m-%d")
     # unitboss_seen_questions: 유닛별 분리 (endboss_seen_questions와도 분리)
     seen_key = f"unitboss_seen_{unit_num}" if unit_num is not None else "unitboss_seen_final"
-    if "seen_questions" not in user or user["seen_questions"] is None:
-        user["seen_questions"] = {}
-    seen_questions = user["seen_questions"]
-    seen = seen_questions.get(seen_key, [])
-    unseen = [q for q in boss_qs if q["question_id"] not in seen]
 
-    if not unseen:  # 전부 소진하면 리셋
-         seen_questions[seen_key] = []
-         seen = []
-         unseen = boss_qs
+    # ── 진입 비용 차감(무료 우선, 없으면 왕관) + 문제 선택을 한 임계구역에서 ──
+    # 가드(무료>0 / 왕관>0)와 차감을 fresh user 기준으로 같은 락 안에서 수행 →
+    # 동시 진입에도 read→check→write race 없이 정확히 차감/차단. (CLAUDE.md §1·§3)
+    # 가드 미통과 시 HTTPException 을 raise 하면 mutate_user_atomic 이 write 없이
+    # no-op 로 중단되어(=차감 안 됨) 그대로 전파된다.
+    def mutator(u: dict) -> dict:
+        # 날짜 바뀌면 무료 횟수 리셋
+        if u.get("last_free_attempt_date") != today:
+            u["daily_free_attempts"] = 2
+            u["last_free_attempt_date"] = today
 
-    chosen = random.choice(unseen)
-    seen_questions[seen_key] = seen + [chosen["question_id"]]
-    user["seen_questions"] = seen_questions
-    save_user(user)
+        if u.get("daily_free_attempts", 0) > 0:
+            u["daily_free_attempts"] -= 1
+        else:
+            if u.get("crowns", 0) <= 0:
+                raise HTTPException(status_code=400, detail="왕관이 부족합니다.")
+            u["crowns"] -= 1
+
+        # 문제 선택은 fresh seen 기준 (CAS 재시도 시 재선택돼도 무해)
+        if "seen_questions" not in u or u["seen_questions"] is None:
+            u["seen_questions"] = {}
+        seen_questions = u["seen_questions"]
+        seen = seen_questions.get(seen_key, [])
+        unseen = [q for q in boss_qs if q["question_id"] not in seen]
+
+        if not unseen:  # 전부 소진하면 리셋
+            seen_questions[seen_key] = []
+            seen = []
+            unseen = boss_qs
+
+        chosen = random.choice(unseen)
+        seen_questions[seen_key] = seen + [chosen["question_id"]]
+        u["seen_questions"] = seen_questions
+        return chosen
+
+    try:
+        _, chosen = mutate_user_atomic(user_id, mutator)
+    except UserNotFoundError:
+        raise HTTPException(status_code=404, detail="User not found")
     return chosen
 
 @router.post("/next")
