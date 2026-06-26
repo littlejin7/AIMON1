@@ -202,7 +202,7 @@
         "C. bc",
         "D. bdf"
       ],
-      "answer": "B",
+      "answer": "bd",
       "feedback": {
         "correct": "정답! s[1:5:2]는 인덱스 1, 3번을 가져와요. 'abcdef'에서 b(1), d(3) → 'bd'."
       }
@@ -266,10 +266,10 @@
       "pass_score": 70,
       "question": "다음 코드의 출력 결과는?\n\n```python\ns = '  aimon  '\nprint(s.strip())\n```",
       "choices": [
-        "A.   aimon",
+        "A. __aimon__",
         "B. aimon",
-        "C. aimon",
-        "D.   aimon"
+        "C. aimon__",
+        "D. __aimon"
       ],
       "answer": "aimon",
       "feedback": {
