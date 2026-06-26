@@ -133,7 +133,7 @@ export default function Train() {
     }
   }
 
-  const startTraining = async ({ onlyWrong = false } = {}) => {
+  const startTraining = async ({ onlyWrong = false, unit = currentUnit } = {}) => {
     if (!token) return
     setLoading(true)
     try {
@@ -141,7 +141,7 @@ export default function Train() {
         limit: 15,
         only_wrong: onlyWrong,
         course_level: activeLevel,
-        ...(currentUnit !== null ? { unit: currentUnit } : {}),
+        ...(unit !== null ? { unit } : {}),
       }
       const res = await trainApi.getReview(params)
       if (onlyWrong && (!res.data || res.data.length === 0)) {
