@@ -1,4 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
+import { Canvas } from '@react-three/fiber'
+import PlayerModel3D from './PlayerModel3D'
+import BossModel3D from './BossModel3D'
 import bossQnaIcon   from '../../assets/boss_finalqna.png'
 import charSlimeIcon  from '../../assets/character_slime.png'
 import charRobotIcon  from '../../assets/character_robot.png'
@@ -200,6 +203,7 @@ export default function BossBattle({
   return (
     <div className="eb-b-wrap">
 
+
       {/* ── 전투 배경 ── */}
       <div className="eb-b-bg">
         <div className="eb-b-ground-top" />
@@ -207,8 +211,6 @@ export default function BossBattle({
 
         {/* 보스 HP 박스 */}
         <div className="eb-b-boss-hpbox">
-          <div className="eb-b-hp-name">😈 {bossData?.boss_name || '유닛 보스'}</div>
-          <div className="eb-b-hp-sub">{bossData?.unit_topic || 'Python'}</div>
           <div className="eb-b-hp-bar-wrap">
             <span className="eb-b-hp-label">HP</span>
             <div className="eb-b-hp-track">
@@ -220,14 +222,11 @@ export default function BossBattle({
 
         {/* 플레이어 HP 박스 */}
         <div className={`eb-b-player-hpbox${myShake ? ' shake' : ''}`}>
-          <div className="eb-b-hp-name">
-            내 에이몬
-            {wrongCount > 0 && (
-              <span style={{ fontSize: '9px', color: '#EF4444', marginLeft: '5px', fontWeight: 400 }}>
-                오답 {wrongCount}/3
-              </span>
-            )}
-          </div>
+          {wrongCount > 0 && (
+            <span style={{ fontSize: '9px', color: '#EF4444', fontWeight: 400 }}>
+              오답 {wrongCount}/3
+            </span>
+          )}
           <div className="eb-b-hp-bar-wrap">
             <span className="eb-b-hp-label">HP</span>
             <div className="eb-b-hp-track">
@@ -237,19 +236,39 @@ export default function BossBattle({
           <div className="eb-b-hp-nums">{myHp} / {MY_HP_MAX}</div>
         </div>
 
-        {/* 보스 이미지 */}
-        <img
-          className={`eb-b-boss-img${bossShake ? ' shake' : ''}${bossHit ? ' hit' : ''}`}
-          src={bossQnaIcon}
-          alt="보스"
-        />
 
-        {/* 플레이어 캐릭터 */}
-        <img
-          className={`eb-b-player-img${attackAnim ? ' atk' : ''}`}
-          src={characterIcon}
-          alt="내 캐릭터"
-        />
+        {/* 보스 3D 캐릭터 */}
+        <div className={`eb-b-boss-canvas${bossHit ? ' hit-red' : ''}`}>
+          <Canvas
+            camera={{ position: [0, 0, 3], fov: 40 }}
+            style={{ background: 'transparent' }}
+            gl={{ alpha: true }}
+          >
+            <ambientLight intensity={2.5} />
+            <directionalLight position={[2, 4, 2]} intensity={1.5} />
+            <directionalLight position={[-2, 2, 2]} intensity={1.0} />
+            <directionalLight position={[0, -2, 2]} intensity={0.8} />
+            <Suspense fallback={null}>
+              <BossModel3D bossHit={bossHit} bossShake={bossShake} />
+            </Suspense>
+          </Canvas>
+        </div>
+
+        {/* 플레이어 3D 캐릭터 */}
+        <div className={`eb-b-player-canvas${myShake ? ' hit-red' : ''}`}>
+          <Canvas
+            camera={{ position: [0, 0, 3], fov: 40 }}
+            style={{ background: 'transparent' }}
+            gl={{ alpha: true }}
+          >
+            <ambientLight intensity={2.5} />
+            <directionalLight position={[2, 4, 2]} intensity={2.0} />
+            <directionalLight position={[-2, 2, 2]} intensity={1.0} />
+            <Suspense fallback={null}>
+              <PlayerModel3D myShake={myShake} attackAnim={attackAnim} />
+            </Suspense>
+          </Canvas>
+        </div>
 
         {/* 데미지 팝업 */}
         {dmgPopup && <div className="eb-b-dmg-popup">-{dmgPopup}</div>}
