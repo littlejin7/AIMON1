@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { bossApi } from '../../api/index'
+import { getBossCardState } from './bossSelectUtils'
 import './BossSelect.css'
 
 const UNIT_ICONS = {
@@ -64,17 +65,18 @@ export default function BossSelect() {
 
       <div className="boss-select-grid">
         {bosses.map((boss) => {
-          const isOut = boss.free_attempts_per_day <= 0
+          const { freeOut, canCrown, isBlocked } = getBossCardState(boss)
           const icon = UNIT_ICONS[boss.unit] || '👾'
 
           return (
             <button
               key={boss.unit}
-              className={`boss-select-card card-glass ${isOut ? 'bs-dimmed' : ''}`}
+              className={`boss-select-card card-glass ${isBlocked ? 'bs-dimmed' : ''}`}
               onClick={() => navigate(`/boss/${boss.unit}`)}
             >
-              {isOut && <span className="bs-exhausted-badge">도전권 소진</span>}
-              
+              {freeOut && canCrown && <span className="bs-crown-badge">👑 왕관으로 도전</span>}
+              {isBlocked && <span className="bs-exhausted-badge">도전권 소진</span>}
+
               <div className="bs-card-top">
                 <div className="bs-unit-badge">
                   <span>Unit {boss.unit}</span>
@@ -91,8 +93,12 @@ export default function BossSelect() {
               </div>
 
               <div className="bs-card-footer">
-                <span className={`bs-attempts ${isOut ? 'bs-out' : 'bs-available'}`}>
-                  {isOut ? '오늘 무료 도전 완료 (왕관 소모)' : `오늘 무료 도전 ${boss.free_attempts_per_day}회 남음`}
+                <span className={`bs-attempts ${isBlocked ? 'bs-out' : freeOut ? 'bs-crown-text' : 'bs-available'}`}>
+                  {isBlocked
+                    ? '왕관이 없어 도전 불가'
+                    : freeOut
+                      ? '무료 도전 완료 · 👑으로 도전 가능'
+                      : `오늘 무료 도전 ${boss.free_attempts_per_day}회 남음`}
                 </span>
                 <span className="bs-arrow">›</span>
               </div>

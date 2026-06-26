@@ -85,6 +85,7 @@ export default function App() {
   if (!ready) return <SplashLoading />;
 
   return (
+    <>
     <BrowserRouter>
       <Routes>
         {/* ── 인증 페이지 (NavBar 없음) ── */}
@@ -310,5 +311,6 @@ export default function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
+    </>
   );
 }

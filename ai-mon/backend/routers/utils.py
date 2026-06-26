@@ -564,7 +564,7 @@ def get_attempts_by_user(user_id: str) -> list:
 def _latest_attempt_per_question(user_id: str, course_level: str = None, unit: int = None) -> dict:
     """유저 attempts 를 question_id 별 '최신 1건'으로 접는다 (answered_at 기준).
 
-    get_wrong_answers / get_unit_accuracy 의 공통 베이스. retry 로 여러 번 풀어도
+    get_unit_accuracy 의 공통 베이스. retry 로 여러 번 풀어도
     question_id 당 가장 최근 결과만 반영한다.
     """
     latest: dict = {}
@@ -582,10 +582,41 @@ def _latest_attempt_per_question(user_id: str, course_level: str = None, unit: i
     return latest
 
 
+# 레슨(채점 결과가 오답 발생원) 모드 vs 복습(맞히면 오답을 해소하는) 모드
+LESSON_MODES = {"quiz", "miniboss"}
+REVIEW_MODES = {"train", "random", "boss_rush"}
+
+
 def get_wrong_answers(user_id: str, course_level: str = None, unit: int = None) -> list:
-    """최신 attempt 가 오답인 question_id 목록 (오답복습 우선순위 소스)."""
-    latest = _latest_attempt_per_question(user_id, course_level, unit)
-    return [qid for qid, a in latest.items() if not a.get("is_correct")]
+    """오답복습 대상 question_id 목록.
+
+    '최신 시도가 오답'(latest-wins) 방식은 쓰지 않는다. 레슨은 QuizCard '다시 풀기'로
+    재시도→정답이 가능하고 보통 맞혀야 통과하므로, 같은 qid에 늦게 기록된 정답이
+    오답을 덮어 "레슨에서 틀렸는데 오답복습에 안 뜨는" 증상이 생긴다.
+
+    대신 발생/해소를 분리한다:
+      - wrong_ids   : 레슨모드(quiz/miniboss)에서 오답 시도가 1건 이상 있는 qid
+      - cleared_ids : 복습모드(train/random/boss_rush)에서 정답 시도가 1건 이상 있는 qid
+      - 반환        : wrong_ids - cleared_ids
+    → 레슨 재시도 정답으로는 사라지지 않고, 오답복습에서 정답 처리해야만 빠진다.
+    course_level/unit 필터는 attempt.level / attempt.unit 으로 기존과 동일하게 적용.
+    """
+    wrong_ids: set = set()
+    cleared_ids: set = set()
+    for a in get_attempts_by_user(user_id):
+        if course_level is not None and a.get("level") != course_level:
+            continue
+        if unit is not None and a.get("unit") != unit:
+            continue
+        qid = a.get("question_id")
+        if not qid:
+            continue
+        mode = a.get("mode")
+        if mode in LESSON_MODES and not a.get("is_correct"):
+            wrong_ids.add(qid)
+        elif mode in REVIEW_MODES and a.get("is_correct"):
+            cleared_ids.add(qid)
+    return list(wrong_ids - cleared_ids)
 
 
 def get_unit_accuracy(user_id: str, course_level: str = None) -> list:
