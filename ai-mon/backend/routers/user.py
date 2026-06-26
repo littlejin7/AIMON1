@@ -1,11 +1,16 @@
 import logging
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, status
+from fastapi.responses import Response
 from pydantic import BaseModel
 import os
 from routers.utils import (
     serialize_user,
     save_user,
     get_current_user,
+    delete_user_refresh_tokens,
+    mutate_user_atomic,
+    UserNotFoundError,
+    now_kst,
 )
 
 logger = logging.getLogger("uvicorn.error")
@@ -42,6 +47,21 @@ class PurchaseThemeRequest(BaseModel):
 @router.get("/me")
 def get_me(user: dict = Depends(get_current_user)):
     return serialize_user(user)
+
+
+@router.delete("/me", status_code=status.HTTP_204_NO_CONTENT)
+def delete_me(user: dict = Depends(get_current_user)):
+    user_id = user["id"]
+
+    def mutator(u: dict) -> None:
+        u["deleted_at"] = now_kst().isoformat()
+
+    try:
+        mutate_user_atomic(user_id, mutator)
+    except UserNotFoundError:
+        pass  # 이미 삭제됐거나 찾을 수 없어도 무해하게 처리
+
+    delete_user_refresh_tokens(user_id)
 
 
 @router.patch("/me")

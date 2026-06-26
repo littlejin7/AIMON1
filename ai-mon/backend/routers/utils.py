@@ -188,22 +188,28 @@ def get_user_by_id(user_id: str) -> dict | None:
 
 def get_user_by_username(username: str) -> dict | None:
     if USE_SUPABASE:
-        res = supabase.table("users").select("*").eq("username", username).execute()
+        res = supabase.table("users").select("*").eq("username", username).is_("deleted_at", "null").execute()
         if res.data:
             return _cache_original_user(res.data[0])
         return None
     users = load_users()
-    return _cache_original_user(next((u for u in users if u["username"] == username), None))
+    return _cache_original_user(next(
+        (u for u in users if u["username"] == username and not u.get("deleted_at")),
+        None,
+    ))
 
 
 def get_user_by_email(email: str) -> dict | None:
     if USE_SUPABASE:
-        res = supabase.table("users").select("*").eq("email", email).execute()
+        res = supabase.table("users").select("*").eq("email", email).is_("deleted_at", "null").execute()
         if res.data:
             return _cache_original_user(res.data[0])
         return None
     users = load_users()
-    return _cache_original_user(next((u for u in users if u.get("email") == email), None))
+    return _cache_original_user(next(
+        (u for u in users if u.get("email") == email and not u.get("deleted_at")),
+        None,
+    ))
 
 
 def save_users(users):
@@ -690,6 +696,8 @@ def verify_token(authorization: str) -> str:
             user = get_user_by_id(user_id)
             if not user or user.get("token_version", 1) != token_ver:
                 raise JWTError("Token version mismatched")
+            if user.get("deleted_at"):
+                raise JWTError("Account deleted")
         return user_id
     except JWTError:
         raise HTTPException(status_code=401, detail="토큰이 유효하지 않습니다.")
@@ -703,6 +711,8 @@ def get_current_user(authorization: str = Header(...)) -> dict:
         user = get_user_by_id(user_id)
         if not user:
             raise HTTPException(status_code=401, detail="인증 실패")
+        if user.get("deleted_at"):
+            raise HTTPException(status_code=401, detail="탈퇴한 계정입니다.")
         token_ver = payload.get("ver")
         if token_ver is not None and user.get("token_version", 1) != token_ver:
             raise HTTPException(status_code=401, detail="토큰이 만료되었습니다. 다시 로그인해주세요.")
@@ -719,7 +729,7 @@ def get_current_user_optional(authorization: str = Header(None)) -> Optional[dic
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id = payload.get("sub")
         user = get_user_by_id(user_id)
-        if not user:
+        if not user or user.get("deleted_at"):
             return None
         token_ver = payload.get("ver")
         if token_ver is not None and user.get("token_version", 1) != token_ver:
@@ -806,6 +816,7 @@ def serialize_user(user: dict) -> dict:
     res["purchased_themes"] = pt
     
     res.pop("password", None)
+    res.pop("deleted_at", None)
     return res
 
 

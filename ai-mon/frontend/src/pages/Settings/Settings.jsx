@@ -33,6 +33,7 @@ export default function Settings() {
   const [nickSaved,   setNickSaved]   = useState(false)
   const [courseLevel, setCourseLevel] = useState(user?.course_level || 'beginner')
   const [levelSaving, setLevelSaving] = useState(false)
+  const [deleting,    setDeleting]    = useState(false)
 
   const [notifs, setNotifs] = useState({
     streak:  true,
@@ -69,6 +70,21 @@ export default function Settings() {
   const handleLogout = () => {
     logout()
     navigate('/auth')
+  }
+
+  const handleDeleteAccount = async () => {
+    if (!window.confirm('정말 계정을 삭제할까요? 이 작업은 되돌릴 수 없습니다.')) return
+    setDeleting(true)
+    try {
+      await userApi.deleteMe()
+      logout()
+      navigate('/auth')
+    } catch (err) {
+      const msg = err?.response?.data?.detail || '계정 삭제 중 오류가 발생했습니다. 다시 시도해주세요.'
+      window.alert(msg)
+    } finally {
+      setDeleting(false)
+    }
   }
 
   const toggleNotif = (key) =>
@@ -270,8 +286,8 @@ export default function Settings() {
         <button id="btn-logout" className="st-logout-btn" onClick={handleLogout}>
           ↩ 로그아웃
         </button>
-        <button className="st-delete-btn" onClick={() => window.confirm('정말 계정을 삭제할까요?')}>
-          🗑 계정 삭제
+        <button className="st-delete-btn" onClick={handleDeleteAccount} disabled={deleting}>
+          {deleting ? '삭제 중...' : '🗑 계정 삭제'}
         </button>
 
         <p className="st-footer">AI MON · made with 💜</p>
