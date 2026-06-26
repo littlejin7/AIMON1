@@ -665,3 +665,28 @@
   font-size: 13px;
   color: #DC2626;
 }
+
+/* ─────────────────────────────────────────────
+   중복확인 버튼
+───────────────────────────────────────────── */
+.reg-check-dup-btn {
+  padding: 0 16px;
+  background: #7F77DD;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #534AB7;
+  transition: all 0.1s;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reg-check-dup-btn:hover { background: #6E66CC; }
+.reg-check-dup-btn:active { transform: translateY(1px); box-shadow: 0 2px 0 #534AB7; }
+.reg-check-dup-btn:disabled { background: #C4BFEE; box-shadow: 0 3px 0 #A8A2D8; cursor: not-allowed; transform: none; }
