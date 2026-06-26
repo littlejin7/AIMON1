@@ -12,7 +12,7 @@
 from fastapi import APIRouter, HTTPException, Depends, Request
 from pydantic import BaseModel, Field
 from services.claude_service import ask_claude_json
-import json, os, random
+import json, os, random, uuid
 from typing import Optional
 
 from routers.utils import (
@@ -21,6 +21,8 @@ from routers.utils import (
     get_current_user,
     apply_xp,
     mutate_user_atomic,
+    save_attempt_item,
+    now_kst,
     UserNotFoundError,
 )
 
@@ -239,10 +241,9 @@ async def endboss_answer(request: Request, req: AnswerRequest, user: dict = Depe
         - tries >= 3 → is_fail = True
         - tries < 3  → next_phase3_question 반환
     """
-    user_id = verify_token(authorization)
-    user    = get_user_by_id(user_id)
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
+    # user 는 Depends(get_current_user) 로 이미 주입됨. (기존 verify_token(authorization)
+    # 호출은 미정의 심볼 참조로 NameError 를 일으키던 버그 — 제거.)
+    user_id = user["id"]
 
     level  = user.get("course_level", "beginner")
     all_qs = load_endboss_questions(level)
@@ -309,6 +310,20 @@ async def endboss_answer(request: Request, req: AnswerRequest, user: dict = Depe
             "feedback":   fb_text,
             "hint":       "" if is_correct else question.get("hint", ""),
         }
+
+    # 풀이 전수 기록 (채점 성공 시 정오답 무관 1건 — AI 피드백과 독립)
+    if not result.get("grading_failed", False):
+        save_attempt_item({
+            "id":          str(uuid.uuid4()),
+            "user_id":     user_id,
+            "question_id": question.get("question_id"),
+            "unit":        None,
+            "stage":       f"endboss-p{req.phase}",
+            "level":       level,
+            "mode":        "endboss",
+            "is_correct":  bool(is_correct),
+            "answered_at": now_kst().isoformat(),
+        })
 
     # ── Phase 1 / 2 HP 계산 ───────────────────────────────────────────────────
     if req.phase in (1, 2):

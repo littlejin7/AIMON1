@@ -9,6 +9,7 @@ from routers.utils import (
     get_progress_by_user,
     save_progress_item,
     save_wrong_answer_item,
+    save_attempt_item,
     now_kst,
     get_current_user,
     apply_xp,
@@ -306,6 +307,20 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dic
     ai_result["wrong_count"] = new_wrong_count
     ai_result["is_clear"]    = is_clear
     ai_result["is_fail"]     = is_fail
+
+    # 풀이 전수 기록 (채점 성공 시 정오답 무관 1건 — AI 피드백/오답 저장과 독립)
+    if not grading_failed:
+        save_attempt_item({
+            "id":          str(uuid.uuid4()),
+            "user_id":     user_id,
+            "question_id": question.get("question_id"),
+            "unit":        req.unit,
+            "stage":       None,
+            "level":       course_level,
+            "mode":        "unitboss",
+            "is_correct":  bool(ai_result.get("is_correct", False)),
+            "answered_at": now_kst().isoformat(),
+        })
 
     # 오답 기록 (채점 실패가 아닐 때만)
     if not ai_result.get("is_correct", False) and not grading_failed:

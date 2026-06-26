@@ -19,6 +19,7 @@ from routers.utils import (
     save_user,
     get_progress_by_user,
     save_progress_item,
+    save_attempt_item,
     now_kst,
     get_current_user,
     apply_xp,
@@ -185,6 +186,19 @@ def miniboss_answer(req: AnswerRequest, user: dict = Depends(get_current_user)):
 
     is_clear = new_boss_hp <= 0
     is_fail  = new_my_hp <= 0
+
+    # 풀이 전수 기록 (정오답 무관 1건)
+    save_attempt_item({
+        "id":          str(uuid.uuid4()),
+        "user_id":     user_id,
+        "question_id": question.get("question_id"),
+        "unit":        req.unit,
+        "stage":       req.stage or None,
+        "level":       course_level,
+        "mode":        "miniboss",
+        "is_correct":  bool(is_correct),
+        "answered_at": now_kst().isoformat(),
+    })
 
     return {
         "is_correct": is_correct,
