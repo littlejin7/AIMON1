@@ -96,9 +96,8 @@ export default function LessonHome() {
     const items = progress.filter((p) => p.unit === unitId)
     const stageItems = items.filter((p) => p.stage !== `${unitId}-boss` && p.stage !== 'miniboss')
     const completed  = stageItems.filter((p) => p.is_completed).length
-    return { completed, total: stageItems.length }
-  }
-
+    return !isNaN(stageNum) && p.is_completed && p.course_level === courseLevel
+  }).length
   const isStageComplete = (unitId, stageNum) =>
     progress.some((p) => p.unit === unitId && p.stage === `${unitId}-${stageNum}` && p.is_completed)
 
