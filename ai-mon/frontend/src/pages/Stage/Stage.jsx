@@ -463,32 +463,6 @@ export default function Stage({ _lessonId, _stage }) {
     )
   }
 
-  if (showMinibossAlert) {
-    return (
-      <MiniBossAlert
-        onFight={() => {
-          setShowMinibossAlert(false)
-          if (minibossStartIndex !== null) setCurrent(minibossStartIndex)
-          playBGM('battle')
-        }}
-      />
-    )
-  }
-
-  return (
-    <StageQuiz
-      lessonId={lessonId}
-      stageNum={stageNum}
-      questions={questions}
-      current={current}
-      score={score}
-      minibossStartIndex={minibossStartIndex}
-      handleAnswer={handleAnswer}
-      handleNext={handleNext}
-    />
-  )
-}
-
 
 
   if (showMinibossAlert) {
