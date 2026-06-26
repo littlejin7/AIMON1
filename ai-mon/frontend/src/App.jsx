@@ -20,7 +20,6 @@ import KakaoCallback from "./pages/Auth/KakaoCallback";
 import LevelTestInfo from "./pages/LevelTestInfo/LevelTestInfo";
 import { useAuthStore } from "./hooks/useAuthStore";
 import SplashLoading from "./components/loading/SplashLoading";
-import VersionBanner from "./components/VersionBanner/VersionBanner";
 import Game from "./pages/Game/Game";
 import Aipang from "./pages/Game/Aipang/Aipang";
 import RunnerGame from "./pages/Game/AIrun/index";
@@ -87,7 +86,6 @@ export default function App() {
 
   return (
     <>
-    <VersionBanner />
     <BrowserRouter>
       <Routes>
         {/* ── 인증 페이지 (NavBar 없음) ── */}
