@@ -810,21 +810,17 @@ body:has(.boss-page) { background: #F4F3FA; background-image: none; }
 .eb-b-boss-hpbox,
 .eb-b-player-hpbox {
   position: absolute;
-  background: white;
-  border: 1px solid #E5E2F8;
-  border-radius: 14px;
-  padding: 7px 12px;
-  min-width: 148px;
-  box-shadow: 0 2px 8px rgba(83,74,183,.08);
+  min-width: 130px;
 }
-.eb-b-boss-hpbox   { top: 12px; left: 12px; }
-.eb-b-player-hpbox { bottom: 48px; right: 12px; }
+.eb-b-boss-hpbox   { top: 8px; right: 8px; }
+.eb-b-player-hpbox { bottom: -8px; left: 8px; }
 .eb-b-player-hpbox.shake { animation: eb-b-shake .4s ease; }
 @keyframes eb-b-shake {
   0%,100%{transform:translateX(0)}
   20%{transform:translateX(-5px)} 40%{transform:translateX(5px)}
   60%{transform:translateX(-3px)} 80%{transform:translateX(3px)}
 }
+
 
 .eb-b-hp-name  { font-size: 11px; font-weight: 600; color: #26215C; margin-bottom: 1px; }
 .eb-b-hp-sub   { font-size: 9px; color: #9B96D0; margin-bottom: 4px; }
@@ -838,6 +834,33 @@ body:has(.boss-page) { background: #F4F3FA; background-image: none; }
 /* 하트 (Phase 3) */
 .eb-b-hearts { display: flex; gap: 4px; margin-top: 3px; }
 .eb-b-heart  { font-size: 16px; }
+
+
+/* 보스 3D 캔버스 */
+.eb-b-boss-canvas {
+  position: absolute; top: 15px; right: -0px;
+  width: 139px; height: 139px;
+  pointer-events: none;
+}
+
+/* 플레이어 3D 캔버스 */
+.eb-b-player-canvas {
+  position: absolute; bottom: 25px; left: -0px;
+  width: 139px; height: 139px;
+  pointer-events: none;
+}
+
+/* 피격 빨간 틴트 */
+.eb-b-boss-canvas.hit-red,
+.eb-b-player-canvas.hit-red {
+  filter: sepia(1) saturate(8) hue-rotate(310deg) brightness(1.3);
+  transition: filter 0s;
+}
+.eb-b-boss-canvas,
+.eb-b-player-canvas {
+  transition: filter 0.3s ease;
+}
+
 
 /* 보스 이미지 */
 .eb-b-boss-img {
@@ -859,11 +882,12 @@ body:has(.boss-page) { background: #F4F3FA; background-image: none; }
   position: absolute; bottom: 40px; left: 16px;
   width: 72px; height: 72px; object-fit: contain;
   filter: drop-shadow(0 3px 8px rgba(83,74,183,.2));
+  transform: scaleX(-1);
 }
 .eb-b-player-img.atk { animation: eb-b-atk .5s ease; }
 @keyframes eb-b-atk {
-  0%{transform:translateX(0)} 30%{transform:translateX(44px) scale(1.1)}
-  60%{transform:translateX(20px)} 100%{transform:translateX(0)}
+  0%{transform:scaleX(-1) translateX(0)} 30%{transform:scaleX(-1) translateX(-44px) scale(1.1)}
+  60%{transform:scaleX(-1) translateX(-20px)} 100%{transform:scaleX(-1) translateX(0)}
 }
 
 /* ── 날아가는 공격 카드 ── */
