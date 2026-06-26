@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { authApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import beginnerHappyIcon from '../../assets/character_beginnerhappy.png'
@@ -45,10 +45,12 @@ const STRENGTH_COLORS = ['', '#EF4444', '#F59E0B', '#7F77DD', '#22C55E']
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 export default function Register() {
+  const [searchParams] = useSearchParams()
+  const levelParam = searchParams.get('level')
   const [step, setStep] = useState(0)
   const [form, setForm] = useState({
     email: '', password: '', passwordConfirm: '',
-    nickname: '', level: 'elementary',
+    nickname: '', level: (levelParam && ['beginner', 'intermediate', 'advanced'].includes(levelParam)) ? levelParam : 'elementary',
     goals: [], dailyTime: 10,
   })
   const [terms, setTerms] = useState({ tos: false, privacy: false, marketing: false, thirdparty: false })
@@ -158,7 +160,7 @@ export default function Register() {
         nickname:        form.nickname,
         email:           form.email.trim(),
         course_level:    form.level,
-        is_level_tested: false,
+        is_level_tested: !!searchParams.get('level'),
         marketing_agreed: terms.marketing,
       }
       const res = await authApi.register(payload)

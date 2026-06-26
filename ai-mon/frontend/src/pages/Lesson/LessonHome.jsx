@@ -56,6 +56,13 @@ export default function LessonHome() {
       .finally(() => setLoading(false))
   }, [token, courseLevel])
 
+  // 레벨 테스트 미완료 시 자동 시작
+  useEffect(() => {
+    if (!loading && token && user && !user.is_level_tested) {
+      setShowLevelTest(true)
+    }
+  }, [loading, token, user])
+
   // 진행 중인 유닛 자동 펼치기
   useEffect(() => {
     if (lessons.length === 0) return
