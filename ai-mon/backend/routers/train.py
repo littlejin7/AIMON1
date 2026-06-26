@@ -30,26 +30,43 @@ def get_train_review(
 ):
     user_id = user["id"] if user else None
 
-    # unit=None → 전체 유닛 (load_questions_by_category가 unit=None이면 전부 반환)
-    questions = load_questions_by_category("train", course_level=course_level, unit=unit)
-    if not questions:
-        questions = load_questions_by_category("quiz", course_level=course_level, unit=unit) + \
-                    load_questions_by_category("miniboss", course_level=course_level, unit=unit)
-
-    unit_pool = questions
+    # 오답 매칭용 인덱스는 quiz + miniboss 풀만으로 구성한다.
+    # 오답은 quiz/miniboss 풀의 question_id(q001, mb...)로 attempts에 기록되므로,
+    # 이 두 풀에서 매칭해야 '레슨에서 틀린 원본 문제'를 그대로 돌려줄 수 있다.
+    # train 풀(u1_q001~)은 변형 문제라서 오답 매칭에는 절대 포함하지 않는다.
+    # (unit=None → 전체 유닛; course_level/unit 필터는 로더가 그대로 적용)
+    review_pool = (
+        load_questions_by_category("quiz", course_level=course_level, unit=unit)
+        + load_questions_by_category("miniboss", course_level=course_level, unit=unit)
+    )
+    # question_id 기준 중복 제거(앞선 풀 우선), 출제 순서는 보존.
+    review_index = {}
+    for q in review_pool:
+        qid = q.get("question_id")
+        if qid and qid not in review_index:
+            review_index[qid] = q
 
     # 오답 문제 우선 선별 — attempts 기반 '유저·문제별 최신 1건이 오답'인 question_id.
     # (AI 피드백 성공 여부와 무관한 전수 기록 → 실제 오답을 안정적으로 재현)
     priority_ids = set(get_wrong_answers(user_id, course_level=course_level, unit=unit)) if user_id else set()
 
-    priority_qs = [q for q in unit_pool if q.get("question_id") in priority_ids]
+    priority_qs = [q for qid, q in review_index.items() if qid in priority_ids]
 
-    # 오답복습(only_wrong): 실제 틀린 문제만 반환 — 랜덤 폴백 패딩 없음(없으면 빈 목록).
+    # 오답복습(only_wrong): 매칭된 실제 오답(원본 레슨 문제)만 반환.
+    # 랜덤 패딩·train 변형문제 절대 금지 — 없으면 빈 목록.
     if only_wrong:
         return priority_qs[:limit]
 
-    # 그 외 모드(유닛반복/랜덤): 오답 우선 + 나머지 랜덤으로 채우기
-    normal_qs = [q for q in unit_pool if q.get("question_id") not in priority_ids]
+    # 그 외 모드(유닛반복/랜덤): 오답(quiz+miniboss 매칭) 우선 + 나머지 랜덤으로 채우기.
+    # 채우기 풀에는 유닛반복용 train 변형문제까지 포함하되, 이미 뽑힌 오답은 제외한다.
+    chosen_ids = {q.get("question_id") for q in priority_qs}
+    pad_pool = review_pool + load_questions_by_category("train", course_level=course_level, unit=unit)
+    normal_qs = []
+    for q in pad_pool:
+        qid = q.get("question_id")
+        if qid and qid not in chosen_ids:
+            chosen_ids.add(qid)
+            normal_qs.append(q)
     random.shuffle(normal_qs)
     result = priority_qs + normal_qs
     return result[:limit]
@@ -61,8 +78,10 @@ def get_train_random(
     course_level: str = "beginner",
     user: Optional[dict] = Depends(get_current_user_optional),
 ):
-    """잠금해제(이미 학습)한 유닛에서 순수 랜덤 N개 출제.
+    """잠금해제(이미 학습)한 유닛의 train 문항 + 레슨 오답을 한 풀에 섞어 랜덤 N개 출제.
     '잠금해제' = progress에 is_completed=True 스테이지가 1개라도 있는 유닛.
+    출제 풀 = 직접 만든 train 문항 + 레슨 오답 원본 문제(quiz+miniboss 인덱스로 매칭).
+    오답 보장은 없다 — 그냥 한 풀에 섞어 순수 랜덤으로 뽑는다.
     빈 결과 시 폴백 없음 — 클라이언트가 안내 메시지를 표시한다.
 
     TODO(v2): 정답률 낮은 유닛에 가중치를 부여하는 가중 샘플링 적용.
@@ -81,10 +100,36 @@ def get_train_random(
     if not unlocked:
         return []
 
-    pool = []
+    # 1) 잠금해제된 각 유닛의 직접 제작 train 문항
+    train_pool = []
     for u in unlocked:
-        pool += load_questions_by_category("quiz",     course_level=course_level, unit=u)
-        pool += load_questions_by_category("miniboss", course_level=course_level, unit=u)
+        train_pool += load_questions_by_category("train", course_level=course_level, unit=u)
+
+    # 2) 레슨 오답 원본 문제 — quiz+miniboss 풀(전체 유닛)로 question_id→문제 인덱스 구성.
+    #    (/train/review 의 review_index 와 동일 방식, 앞선 풀 우선·중복 제거)
+    wrong_ids = set(get_wrong_answers(user_id, course_level=course_level))
+    wrong_index = {}
+    if wrong_ids:
+        review_pool = (
+            load_questions_by_category("quiz", course_level=course_level)
+            + load_questions_by_category("miniboss", course_level=course_level)
+        )
+        for q in review_pool:
+            qid = q.get("question_id")
+            if qid and qid not in wrong_index:
+                wrong_index[qid] = q
+    wrong_qs = [wrong_index[qid] for qid in wrong_ids if qid in wrong_index]
+
+    # 3) 합쳐서 question_id 기준 중복 제거 후 순수 랜덤
+    pool = []
+    seen = set()
+    for q in train_pool + wrong_qs:
+        qid = q.get("question_id")
+        if qid and qid in seen:
+            continue
+        if qid:
+            seen.add(qid)
+        pool.append(q)
 
     if not pool:
         return []
