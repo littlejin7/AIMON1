@@ -15,6 +15,8 @@
   background: #EAE6F8;
   min-height: 100vh;
   background: #F4F3FA;
+  max-width: 480px;
+  margin: 0 auto;
 }
 body:has(.boss-page) { background: #F4F3FA; background-image: none; }
 
