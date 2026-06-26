@@ -341,6 +341,7 @@ export default function EndBoss() {
             user={user}
             onSubmit={handleSubmit}
             onNextQuestion={handleNextQuestion}
+            onEscape={() => { stopBGM(); navigate('/lesson') }}
             questionNum={
               endbossState.phase === 1 ? endbossState.phase1Index + 1 :
               endbossState.phase === 2 ? endbossState.phase2Index + 1 : 1
