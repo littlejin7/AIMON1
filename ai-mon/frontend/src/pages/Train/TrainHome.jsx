@@ -1,25 +1,50 @@
 import { TRAIN_MODES } from './trainConstants'
+import UnitSelector from './UnitSelector'
+
+const LEVELS = [
+  { id: 'beginner',     label: '초급' },
+  { id: 'intermediate', label: '중급' },
+  { id: 'advanced',     label: '고급' },
+]
 
 export default function TrainHome({
   currentUnit,
   setCurrentUnit,
+  trainingLevel,
+  setTrainingLevel,
+  maxUnit,
   wrongCount,
   wrongAnswers,
   unitAccuracy,
   loading,
   onStart,
+  onStartRandom,
+  onStartBossRush,
 }) {
   return (
     <div className="tr-page">
       <div className="tr-scroll">
 
+        {/* 레벨 칩 */}
+        <div className="tr-level-row">
+          {LEVELS.map(lv => (
+            <button
+              key={lv.id}
+              className={`tr-level-chip ${trainingLevel === lv.id ? 'active' : ''}`}
+              onClick={() => setTrainingLevel(lv.id)}
+            >
+              {lv.label}
+            </button>
+          ))}
+        </div>
+
         {/* 오늘의 추천 훈련 */}
-        <div className="tr-today-card" onClick={() => onStart(currentUnit)}>
+        <div className="tr-today-card" onClick={() => onStart({ onlyWrong: true })}>
           <div className="tr-today-text">
             <div className="tr-today-label">오늘의 추천 훈련</div>
             <div className="tr-today-title">오답 복습 · {wrongCount > 0 ? `${wrongCount}문제` : '준비 중'}</div>
             <div className="tr-today-meta">
-              Unit {currentUnit} · 틀린 문제 모음
+              {currentUnit !== null ? `Unit ${currentUnit}` : '전체 유닛'} · 틀린 문제 모음
             </div>
           </div>
           <button className="tr-today-btn" disabled={loading}>
@@ -34,7 +59,12 @@ export default function TrainHome({
             <div
               key={m.id}
               className={`tr-mode-card ${m.locked ? 'tr-mode-locked' : ''}`}
-              onClick={() => !m.locked && onStart(currentUnit)}
+              onClick={() => {
+                if (m.locked) return
+                if (m.id === 'random')    { onStartRandom();   return }
+                if (m.id === 'boss')      { onStartBossRush(); return }
+                onStart({ onlyWrong: m.id === 'wrong' })
+              }}
             >
               <div className="tr-mode-icon" style={{ background: m.iconBg }}>
                 {m.icon}
@@ -48,6 +78,14 @@ export default function TrainHome({
           ))}
         </div>
 
+        {/* 유닛 선택 */}
+        <div className="tr-section-title">유닛 선택</div>
+        <UnitSelector
+          value={currentUnit}
+          onChange={setCurrentUnit}
+          maxUnit={maxUnit}
+        />
+
         {/* 오답 노트 */}
         {wrongAnswers.length > 0 && (
           <>
@@ -55,7 +93,7 @@ export default function TrainHome({
             <div className="tr-wrong-card">
               <div className="tr-wrong-header">
                 <span className="tr-wrong-title">최근 틀린 문제</span>
-                <span className="tr-wrong-more" onClick={() => onStart(currentUnit)}>전체 보기 →</span>
+                <span className="tr-wrong-more" onClick={() => onStart({ onlyWrong: true })}>전체 보기 →</span>
               </div>
               {wrongAnswers.map((q, i) => (
                 <div key={i} className="tr-wrong-row">
@@ -85,20 +123,6 @@ export default function TrainHome({
             </div>
           </>
         )}
-
-        {/* 유닛 선택 */}
-        <div className="tr-section-title">유닛 선택</div>
-        <div className="tr-unit-grid">
-          {[1,2,3,4,5,6,7,8].map(u => (
-            <button
-              key={u}
-              className={`tr-unit-btn ${currentUnit === u ? 'active' : ''}`}
-              onClick={() => setCurrentUnit(u)}
-            >
-              Unit {u}
-            </button>
-          ))}
-        </div>
 
       </div>
     </div>

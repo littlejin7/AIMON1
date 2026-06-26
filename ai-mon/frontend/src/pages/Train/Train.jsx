@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { trainApi, userApi, progressApi, quizApi } from '../../api/index'
+import { trainApi, userApi, progressApi, quizApi, attemptsApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import TrainLocked  from './TrainLocked'
 import TrainSession from './TrainSession'
@@ -12,58 +12,37 @@ export default function Train() {
   const { token, user, updateUser } = useAuthStore()
   const navigate = useNavigate()
 
-  const [questions, setQuestions]       = useState([])
-  const [currentUnit, setCurrentUnit]   = useState(1)
-  const [current, setCurrent]           = useState(0)
-  const [loading, setLoading]           = useState(false)
-  const [mode, setMode]                 = useState('idle')
-  const [correctCount, setCorrectCount] = useState(0)
-  const [answers, setAnswers]           = useState({})
-  const [checkingLock, setCheckingLock] = useState(true)
-  const [isLocked, setIsLocked]         = useState(false)
-  const [wrongCount, setWrongCount]     = useState(0)
-  const [wrongAnswers, setWrongAnswers] = useState([])
-  const [unitAccuracy, setUnitAccuracy] = useState([])
-  const [lessons, setLessons]           = useState([])
+  const [questions, setQuestions]         = useState([])
+  const [currentUnit, setCurrentUnit]     = useState(null)          // null = 전체
+  const [trainingLevel, setTrainingLevel] = useState(null)          // null → user.course_level
+  const [trainSubMode, setTrainSubMode]   = useState('train')       // 'train'|'random'|'boss_rush'
+  const [current, setCurrent]             = useState(0)
+  const [loading, setLoading]             = useState(false)
+  const [mode, setMode]                   = useState('idle')
+  const [correctCount, setCorrectCount]   = useState(0)
+  const [answers, setAnswers]             = useState({})
+  const [checkingLock, setCheckingLock]   = useState(true)
+  const [isLocked, setIsLocked]           = useState(false)
+  const [wrongCount, setWrongCount]       = useState(0)
+  const [wrongAnswers, setWrongAnswers]   = useState([])
+  const [unitAccuracy, setUnitAccuracy]   = useState([])
+  const [lessons, setLessons]             = useState([])
 
+  const activeLevel = trainingLevel || user?.course_level || 'beginner'
+
+  // 잠금 체크 — 로그인 후 1회
   useEffect(() => {
     if (!token) { setCheckingLock(false); return }
-
-    const init = async () => {
+    const checkLock = async () => {
       try {
         const [progressRes, lessonsRes] = await Promise.all([
           progressApi.getProgress(user?.course_level || 'beginner'),
           quizApi.getUnits(user?.course_level || 'beginner').catch(() => ({ data: [] })),
         ])
         const prog = progressRes.data || []
-
         const isUnit1BossCleared = prog.some(p => p.unit === 1 && p.stage === '1-boss' && p.is_completed)
         setIsLocked(!isUnit1BossCleared)
-
-        const ls = lessonsRes.data || []
-        setLessons(ls)
-
-        try {
-          const reviewRes = await trainApi.getReview({ limit: 50, course_level: user?.course_level || 'beginner' })
-          const wq = reviewRes.data || []
-          setWrongCount(wq.length)
-          setWrongAnswers(wq.slice(0, 3))
-        } catch {}
-
-        if (ls.length > 0) {
-          const accuracy = ls
-            .filter((l, i) => i < 2 || prog.some(p => p.unit === l.unit_id && p.is_completed))
-            .slice(0, 4)
-            .map(l => {
-              const unitProg = prog.filter(p => p.unit === l.unit_id)
-              const done = unitProg.filter(p => p.is_completed).length
-              const total = unitProg.length
-              const pct = total > 0 ? Math.round((done / total) * 100) : 0
-              return { unit_id: l.unit_id, title: l.title, pct }
-            })
-          setUnitAccuracy(accuracy)
-        }
-
+        setLessons(lessonsRes.data || [])
         const cacheKey = user?.id ? `is_train_unlocked_${user.id}` : 'is_train_unlocked'
         localStorage.setItem(cacheKey, isUnit1BossCleared ? 'true' : 'false')
       } catch (err) {
@@ -72,14 +51,101 @@ export default function Train() {
         setCheckingLock(false)
       }
     }
-    init()
+    checkLock()
   }, [token, user])
 
-  const startTraining = async (unitNum) => {
-    if (!token) 
+  // 오답·정답률 fetch — 레벨 전환 시 재실행
+  useEffect(() => {
+    if (!token) return
+    const fetchStats = async () => {
+      try {
+        const reviewRes = await trainApi.getReview({
+          limit: 50, course_level: activeLevel,
+          ...(currentUnit !== null ? { unit: currentUnit } : {}),
+        })
+        const wq = reviewRes.data || []
+        setWrongCount(wq.length)
+        setWrongAnswers(wq.slice(0, 3))
+      } catch {}
+      try {
+        const accRes = await trainApi.getAccuracy(activeLevel)
+        const titleByUnit = Object.fromEntries(lessons.map(l => [l.unit_id, l.title]))
+        setUnitAccuracy(
+          (accRes.data || [])
+            .slice(0, 4)
+            .map(a => ({ unit_id: a.unit, title: titleByUnit[a.unit] || `Unit ${a.unit}`, pct: a.pct }))
+        )
+      } catch {}
+    }
+    fetchStats()
+  }, [token, activeLevel, currentUnit, lessons])
+
+  // 레벨 전환 시 유닛 선택 초기화
+  const handleLevelChange = (lv) => {
+    setTrainingLevel(lv)
+    setCurrentUnit(null)
+  }
+
+  const startBossRush = async () => {
+    if (!token) return
     setLoading(true)
     try {
-      const res = await trainApi.getReview({ unit: unitNum, limit: 15, course_level: user?.course_level || 'beginner' })
+      const res = await trainApi.getBossRush({ n: 10 })
+      if (!res.data || res.data.length === 0) {
+        alert('미니보스를 먼저 클리어해야 보스 특훈을 이용할 수 있어요!\nCodemmon을 처치하고 돌아오세요 👹')
+        return
+      }
+      setTrainSubMode('boss_rush')
+      setQuestions(res.data)
+      setCurrent(0)
+      setAnswers({})
+      setCorrectCount(0)
+      setMode('playing')
+    } catch {
+      alert('문제를 불러오지 못했습니다.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const startRandom = async () => {
+    if (!token) return
+    setLoading(true)
+    try {
+      const res = await trainApi.getRandom({ n: 10, course_level: activeLevel })
+      if (!res.data || res.data.length === 0) {
+        alert('랜덤 훈련을 하려면 먼저 스테이지를 하나 이상 클리어해보세요!')
+        return
+      }
+      setTrainSubMode('random')
+      setQuestions(res.data)
+      setCurrent(0)
+      setAnswers({})
+      setCorrectCount(0)
+      setMode('playing')
+    } catch {
+      alert('문제를 불러오지 못했습니다.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const startTraining = async ({ onlyWrong = false } = {}) => {
+    if (!token) return
+    setLoading(true)
+    try {
+      const params = {
+        limit: 15,
+        only_wrong: onlyWrong,
+        course_level: activeLevel,
+        ...(currentUnit !== null ? { unit: currentUnit } : {}),
+      }
+      const res = await trainApi.getReview(params)
+      if (onlyWrong && (!res.data || res.data.length === 0)) {
+        alert('복습할 오답이 없어요! 먼저 퀴즈를 풀어보세요 🙌')
+        return
+      }
+      setTrainSubMode('train')
       setQuestions(res.data)
       setCurrent(0)
       setAnswers({})
@@ -94,6 +160,16 @@ export default function Train() {
 
   const handleAnswer = async ({ correct, userAnswer, retried }) => {
     const q = questions[current]
+    if (token && q) {
+      attemptsApi.record({
+        question_id: q.question_id || q.id || '',
+        unit:        q.unit || currentUnit,
+        stage:       null,
+        level:       activeLevel,
+        mode:        trainSubMode,
+        is_correct:  !!correct,
+      }).catch(() => {})
+    }
     setAnswers(prev => {
       const existing = prev[current]
       const isFirstAttemptCorrect = existing ? existing.isFirstAttemptCorrect : correct
@@ -145,11 +221,8 @@ export default function Train() {
     }
   }
 
-  // ── 비로그인 → 로그인 유도 ──
   if (!token) return <TrainLocked reason="login" />
 
-  
-  // ── 로딩 스피너 ──
   if (checkingLock && token) {
     return (
       <div className="tr-page" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
@@ -190,11 +263,16 @@ export default function Train() {
     <TrainHome
       currentUnit={currentUnit}
       setCurrentUnit={setCurrentUnit}
+      trainingLevel={activeLevel}
+      setTrainingLevel={handleLevelChange}
+      maxUnit={lessons.length || 8}
       wrongCount={wrongCount}
       wrongAnswers={wrongAnswers}
       unitAccuracy={unitAccuracy}
       loading={loading}
       onStart={startTraining}
+      onStartRandom={startRandom}
+      onStartBossRush={startBossRush}
     />
   )
 }
