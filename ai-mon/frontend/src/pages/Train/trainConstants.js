@@ -23,11 +23,10 @@ export const TRAIN_MODES = [
   },
   {
     id: 'boss',
-    icon: '🔒',
+    icon: '👹',
     iconBg: '#F0EFF8',
     name: '보스 특훈',
-    desc: '유닛 보스 패턴 집중 연습',
-    locked: true,
-    lockHint: 'Unit 2 완료 후 해금',
+    desc: 'Codemmon의 미니보스 패턴 집중 연습',
+    reward: '보스 러시',
   },
 ]

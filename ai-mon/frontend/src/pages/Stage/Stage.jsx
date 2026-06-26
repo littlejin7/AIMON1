@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { quizApi, progressApi, minibossApi } from '../../api/index'
+import { quizApi, progressApi, minibossApi, attemptsApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import useBossSound from '../../hooks/useBossSound'
 import StageBriefing from './StageBriefing'
@@ -220,7 +220,19 @@ export default function Stage({ _lessonId, _stage }) {
 
   const handleAnswer = async ({ correct: isCorrect, retried }) => {
     const isVillain = questions[current]?.quiz_category === 'miniboss'
-    
+
+    // 풀이 전수 기록 (정오답 무관, retry 포함). 미니보스는 서버 /answer 가 기록하므로 제외.
+    if (!isVillain && token && questions[current]) {
+      attemptsApi.record({
+        question_id: questions[current].question_id || questions[current].id || '',
+        unit:        parseInt(lessonId, 10),
+        stage:       `${lessonId}-${stageNum}`,
+        level:       courseLevel,
+        mode:        'quiz',
+        is_correct:  !!isCorrect,
+      }).catch(() => { /* 전수 기록 실패는 무시 (fire-and-forget) */ })
+    }
+
     if (isVillain && !retried && token) {
       try {
         await minibossApi.submitAnswer({

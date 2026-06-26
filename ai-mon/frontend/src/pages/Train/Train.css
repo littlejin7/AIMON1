@@ -175,6 +175,30 @@ body:has(.tr-page) { background: #F4F3FA; }
   text-align: right;
 }
 
+/* ── 레벨 칩 ── */
+.tr-level-row {
+  display: flex;
+  gap: 6px;
+}
+.tr-level-chip {
+  flex: 1;
+  background: #FFFFFF;
+  border: 0.5px solid #E2E1EE;
+  border-radius: 10px;
+  padding: 8px 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: #7A7A94;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+.tr-level-chip.active {
+  background: #7F77DD;
+  color: #fff;
+  border-color: #7F77DD;
+}
+
 /* ── 유닛 선택 ── */
 .tr-unit-grid {
   display: grid;
@@ -197,6 +221,10 @@ body:has(.tr-page) { background: #F4F3FA; }
   color: #fff;
   border-color: #7F77DD;
   font-weight: 500;
+}
+.tr-unit-btn-all {
+  grid-column: 1 / -1;
+  font-size: 12px;
 }
 
 /* ── 잠김 화면 ── */

@@ -87,6 +87,8 @@ USERS_FILE = os.path.join(DATA_DIR, "users.json")
 PROGRESS_FILE = os.path.join(DATA_DIR, "progress.json")
 WRONG_ANSWERS_FILE = os.path.join(DATA_DIR, "wrong_answers.json")
 RESET_TOKENS_FILE = os.path.join(DATA_DIR, "reset_tokens.json")
+# attempts.json 은 dev 폴백 전용. 운영은 USE_SUPABASE=true 로 attempts 테이블을 단일 진실로 쓴다.
+ATTEMPTS_FILE = os.path.join(DATA_DIR, "attempts.json")
 
 
 @contextmanager
@@ -534,6 +536,76 @@ def save_wrong_answer_item(item: dict):
         else:
             wrong.append(item)
         _save_json_locked(WRONG_ANSWERS_FILE, wrong)
+
+
+# ── Attempts (풀이 전수 기록) ──────────────────────────────────────────────
+# 정오답 무관·AI 피드백과 독립적으로 채점 순간마다 1건 append (retry 포함 전수).
+# 운영은 Supabase attempts 테이블이 단일 진실. JSON 분기는 dev 폴백 전용이다.
+def save_attempt_item(item: dict):
+    if USE_SUPABASE:
+        # id 가 매 호출 새 uuid 라 upsert 는 사실상 insert (append-only). 기존
+        # save_wrong_answer_item 과 동일 패턴으로 맞춘다.
+        supabase.table("attempts").upsert(item).execute()
+    else:
+        # dev 전용 폴백
+        attempts = _load_json_locked(ATTEMPTS_FILE, [])
+        attempts.append(item)
+        _save_json_locked(ATTEMPTS_FILE, attempts)
+
+
+def get_attempts_by_user(user_id: str) -> list:
+    if USE_SUPABASE:
+        res = supabase.table("attempts").select("*").eq("user_id", user_id).execute()
+        return res.data
+    attempts = _load_json_locked(ATTEMPTS_FILE, [])  # dev 전용
+    return [a for a in attempts if a.get("user_id") == user_id]
+
+
+def _latest_attempt_per_question(user_id: str, course_level: str = None, unit: int = None) -> dict:
+    """유저 attempts 를 question_id 별 '최신 1건'으로 접는다 (answered_at 기준).
+
+    get_wrong_answers / get_unit_accuracy 의 공통 베이스. retry 로 여러 번 풀어도
+    question_id 당 가장 최근 결과만 반영한다.
+    """
+    latest: dict = {}
+    for a in get_attempts_by_user(user_id):
+        if course_level is not None and a.get("level") != course_level:
+            continue
+        if unit is not None and a.get("unit") != unit:
+            continue
+        qid = a.get("question_id")
+        if not qid:
+            continue
+        cur = latest.get(qid)
+        if cur is None or str(a.get("answered_at") or "") > str(cur.get("answered_at") or ""):
+            latest[qid] = a
+    return latest
+
+
+def get_wrong_answers(user_id: str, course_level: str = None, unit: int = None) -> list:
+    """최신 attempt 가 오답인 question_id 목록 (오답복습 우선순위 소스)."""
+    latest = _latest_attempt_per_question(user_id, course_level, unit)
+    return [qid for qid, a in latest.items() if not a.get("is_correct")]
+
+
+def get_unit_accuracy(user_id: str, course_level: str = None) -> list:
+    """유닛별 정답률 = (최신 attempt 가 정답인 문제 수) / (시도한 distinct 문제 수)."""
+    latest = _latest_attempt_per_question(user_id, course_level)
+    by_unit: dict = {}
+    for a in latest.values():
+        unit = a.get("unit")
+        if unit is None:
+            continue
+        agg = by_unit.setdefault(unit, {"correct": 0, "total": 0})
+        agg["total"] += 1
+        if a.get("is_correct"):
+            agg["correct"] += 1
+    result = []
+    for unit in sorted(by_unit):
+        agg = by_unit[unit]
+        pct = round(agg["correct"] / agg["total"] * 100) if agg["total"] else 0
+        result.append({"unit": unit, "correct": agg["correct"], "total": agg["total"], "pct": pct})
+    return result
 
 
 def load_reset_tokens():

@@ -93,3 +93,23 @@ CREATE TABLE IF NOT EXISTS wrong_answers (
   timestamp text,
   created_at timestamptz DEFAULT now()
 );
+
+-- 6. Attempts Table (풀이 전수 기록)
+-- 정오답 무관, AI 피드백 호출과 완전히 독립적으로 '문제가 채점되는 순간' 매번 1건 insert.
+-- (retry 재제출 포함 전수 기록 — append-only) 유저 데이터 영역이며 레슨 콘텐츠 JSON과 분리.
+-- 컬럼 스키마 동결: user_id, question_id, unit, stage, level, mode, is_correct, answered_at.
+CREATE TABLE IF NOT EXISTS attempts (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES users(id) ON DELETE CASCADE,
+  question_id text NOT NULL,     -- quiz/miniboss JSON의 question_id와 동일 형식으로 정규화 저장
+  unit integer,
+  stage text,
+  level text,                    -- beginner | intermediate | advanced
+  mode text NOT NULL,            -- quiz | train | miniboss | unitboss | endboss
+  is_correct boolean NOT NULL,
+  answered_at timestamptz DEFAULT now(),
+  created_at timestamptz DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS idx_attempts_user      ON attempts (user_id);
+CREATE INDEX IF NOT EXISTS idx_attempts_user_q    ON attempts (user_id, question_id);
+CREATE INDEX IF NOT EXISTS idx_attempts_user_unit ON attempts (user_id, unit);

@@ -65,8 +65,16 @@ export const userApi = {
 }
 
 export const trainApi = {
-  getReview: (params) => api.get('/train/review', { params }),
-  updateReviewed: (data) => api.post('/train/reviewed', data),
+  getReview:      (params)      => api.get('/train/review',      { params }),
+  getRandom:      (params)      => api.get('/train/random',      { params }),
+  getBossRush:    (params)      => api.get('/train/boss_rush',   { params }),
+  getAccuracy:    (courseLevel) => api.get('/train/accuracy',    { params: { course_level: courseLevel } }),
+  updateReviewed: (data)        => api.post('/train/reviewed',   data),
+}
+
+export const attemptsApi = {
+  // 풀이 전수 기록 (정오답 무관). 채점 순간 fire-and-forget 로 호출.
+  record: (data) => api.post('/attempts', data),
 }
 
 export const gameApi = {
