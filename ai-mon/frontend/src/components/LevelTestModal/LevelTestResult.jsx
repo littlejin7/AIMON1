@@ -41,36 +41,110 @@ function ScoreRing({ score }) {
   )
 }
 
-function SkillBar({ name, pct, warn }) {
-  const fill = warn
-    ? 'linear-gradient(90deg,#FF9E9E,#FF6B6B)'
-    : 'linear-gradient(90deg,#7F77DD,#534AB7)'
-  const textColor = warn ? '#FF6B6B' : '#7F77DD'
+function RadarChart({ syntax = 0, structure = 0, control = 0 }) {
+  const cx = 110
+  const cy = 115
+  const maxR = 75
+  const cos30 = 0.866
+  const sin30 = 0.5
+
+  const getPt = (score, angleType) => {
+    const r = (score / 100) * maxR
+    if (angleType === 'syntax') {
+      return { x: cx, y: cy - r }
+    } else if (angleType === 'structure') {
+      return { x: cx - r * cos30, y: cy + r * sin30 }
+    } else {
+      return { x: cx + r * cos30, y: cy + r * sin30 }
+    }
+  }
+
+  const pSyntax = getPt(syntax, 'syntax')
+  const pStructure = getPt(structure, 'structure')
+  const pControl = getPt(control, 'control')
+
+  const pointsStr = `${pSyntax.x},${pSyntax.y} ${pControl.x},${pControl.y} ${pStructure.x},${pStructure.y}`
+  const levels = [25, 50, 75, 100]
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <span style={{ fontSize: '12px', color: '#26215C' }}>{name}</span>
-        <span style={{ fontSize: '11px', fontWeight: 600, color: textColor }}>{pct}%</span>
-      </div>
-      <div style={{ height: '6px', background: '#EEEDFE', borderRadius: '99px', overflow: 'hidden' }}>
-        <div style={{ height: '6px', borderRadius: '99px', background: fill, width: `${pct}%`, transition: 'width 1s .3s' }} />
-      </div>
+    <div style={{
+      display: 'flex', justifyContent: 'center', alignItems: 'center',
+      padding: '20px 0', background: '#F9F8FE', borderRadius: '20px',
+      boxShadow: 'inset 0 2px 8px rgba(83,74,183,0.06)',
+      position: 'relative'
+    }}>
+      <svg width="220" height="230" viewBox="0 0 220 230">
+        {levels.map((lv) => {
+          const s = getPt(lv, 'syntax')
+          const str = getPt(lv, 'structure')
+          const ctrl = getPt(lv, 'control')
+          return (
+            <polygon
+              key={lv}
+              points={`${s.x},${s.y} ${ctrl.x},${ctrl.y} ${str.x},${str.y}`}
+              fill="none"
+              stroke="#E5E2F8"
+              strokeWidth="1.5"
+              strokeDasharray={lv === 100 ? '0' : '3 3'}
+            />
+          )
+        })}
+
+        <line x1={cx} y1={cy} x2={cx} y2={cy - maxR} stroke="#E5E2F8" strokeWidth="1.5" />
+        <line x1={cx} y1={cy} x2={cx - maxR * cos30} y2={cy + maxR * sin30} stroke="#E5E2F8" strokeWidth="1.5" />
+        <line x1={cx} y1={cy} x2={cx + maxR * cos30} y2={cy + maxR * sin30} stroke="#E5E2F8" strokeWidth="1.5" />
+
+        <polygon
+          points={pointsStr}
+          fill="url(#chartGrad)"
+          stroke="#7F77DD"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <animate
+            attributeName="points"
+            dur="1s"
+            repeatCount="1"
+            from={`${cx},${cy} ${cx},${cy} ${cx},${cy}`}
+            to={pointsStr}
+            fill="freeze"
+          />
+        </polygon>
+
+        <circle cx={pSyntax.x} cy={pSyntax.y} r="5" fill="#534AB7" stroke="#ffffff" strokeWidth="2" />
+        <circle cx={pStructure.x} cy={pStructure.y} r="5" fill="#534AB7" stroke="#ffffff" strokeWidth="2" />
+        <circle cx={pControl.x} cy={pControl.y} r="5" fill="#534AB7" stroke="#ffffff" strokeWidth="2" />
+
+        <text x={cx} y={cy - maxR - 10} textAnchor="middle" fill="#26215C" fontSize="12" fontWeight="700">
+          기본 문법 ({syntax}%)
+        </text>
+        <text x={cx - maxR * cos30 - 15} y={cy + maxR * sin30 + 15} textAnchor="middle" fill="#26215C" fontSize="12" fontWeight="700">
+          자료구조 ({structure}%)
+        </text>
+        <text x={cx + maxR * cos30 + 15} y={cy + maxR * sin30 + 15} textAnchor="middle" fill="#26215C" fontSize="12" fontWeight="700">
+          논리 제어 ({control}%)
+        </text>
+
+        <defs>
+          <linearGradient id="chartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#7F77DD" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#534AB7" stopOpacity="0.85" />
+          </linearGradient>
+        </defs>
+      </svg>
     </div>
   )
 }
 
 export default function LevelTestResult({
-  levelKey, correctByLevel, totalCorrect, total, skipped,
-  isLoggedIn, onFinish, onClose,
+  levelKey, correctByLevel, categoryPercentages = { syntax: 0, structure: 0, control: 0 }, totalCorrect, total, skipped,
+  isLoggedIn, updatedUser, onFinish, onClose,
 }) {
   const meta = LEVEL_META[levelKey]
   if (!meta) return null
 
   const score = Math.round((totalCorrect / total) * 100)
-
-  const bPct = Math.round((correctByLevel.beginner     / LEVEL_MAX.beginner)     * 100)
-  const iPct = Math.round((correctByLevel.intermediate / LEVEL_MAX.intermediate) * 100)
-  const aPct = Math.round((correctByLevel.advanced     / LEVEL_MAX.advanced)     * 100)
 
   const topDiff =
     correctByLevel.advanced     > 0 ? '🔴 어려움' :
@@ -139,17 +213,17 @@ export default function LevelTestResult({
           <div style={{ fontSize: '13px', fontWeight: 600, color: '#26215C', marginBottom: '12px' }}>
             📊 영역별 분석
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <SkillBar name="초급 문제" pct={bPct} warn={bPct < 50} />
-            <SkillBar name="중급 문제" pct={iPct} warn={iPct < 50} />
-            <SkillBar name="고급 문제" pct={aPct} warn={aPct < 50} />
-          </div>
+          <RadarChart
+            syntax={categoryPercentages.syntax}
+            structure={categoryPercentages.structure}
+            control={categoryPercentages.control}
+          />
         </div>
 
         {/* CTA */}
         <button
           id="btn-level-test-register"
-          onClick={() => onFinish(levelKey)}
+          onClick={() => onFinish(levelKey, updatedUser)}
           style={{
             width: '100%', padding: '15px',
             background: '#7F77DD', color: 'white',
