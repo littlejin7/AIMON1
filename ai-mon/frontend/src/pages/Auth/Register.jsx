@@ -60,11 +60,43 @@ export default function Register() {
   const [error, setError]           = useState('')
   const otpRefs = useRef([])
 
+  const [isEmailChecked, setIsEmailChecked] = useState(false)
+  const [emailChecking, setEmailChecking] = useState(false)
+  const [emailError, setEmailError] = useState('')
+
   const setAuth  = useAuthStore((s) => s.setAuth)
   const navigate = useNavigate()
 
+  const isValidEmail = form.email.includes('@') && form.email.split('@')[1]?.length > 1
+
   /* ── helpers ── */
   const set = (field) => (e) => { setForm(f => ({ ...f, [field]: e.target.value })); setError('') }
+
+  const handleEmailChange = (e) => {
+    const val = e.target.value
+    setForm(f => ({ ...f, email: val }))
+    setIsEmailChecked(false)
+    setEmailError('')
+    setError('')
+  }
+
+  const handleCheckEmail = async () => {
+    if (!isValidEmail) return
+    setEmailChecking(true)
+    setEmailError('')
+    try {
+      const res = await authApi.checkEmail(form.email.trim())
+      if (res.data && res.data.ok) {
+        setIsEmailChecked(true)
+        setEmailError('')
+      }
+    } catch (err) {
+      setIsEmailChecked(false)
+      setEmailError(err.response?.data?.detail || '이미 사용 중인 이메일입니다.')
+    } finally {
+      setEmailChecking(false)
+    }
+  }
 
   const handlePwChange = (e) => {
     const pw = e.target.value
@@ -140,7 +172,7 @@ export default function Register() {
   }
 
   const allTermsRequired = terms.tos && terms.privacy
-  const canGoStep2 = form.email.includes('@') && form.email.split('@')[1]?.length > 1
+  const canGoStep2 = isEmailChecked && form.email.includes('@') && form.email.split('@')[1]?.length > 1
     && form.password.length >= 8 && form.password === form.passwordConfirm
   const otpFilled = otp.every(Boolean)
 
@@ -229,14 +261,30 @@ export default function Register() {
               {/* 이메일 */}
               <div className="reg-field">
                 <div className="reg-field-label">이메일</div>
-                <div className={`reg-field-wrap${form.email.includes('@') ? ' ok' : ''}`}>
-                  <span className="reg-field-icon">✉️</span>
-                  <input className="reg-field-in" type="email" placeholder="example@email.com"
-                    value={form.email} onChange={set('email')} autoComplete="email" />
-                  {form.email.includes('@') && (
-                    <span style={{ padding: '0 14px', fontSize: '16px', color: '#4ADE80', flexShrink: 0 }}>✓</span>
-                  )}
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <div className={`reg-field-wrap${isEmailChecked ? ' ok' : (emailError ? ' error' : '')}`} style={{ flex: 1, margin: 0 }}>
+                    <span className="reg-field-icon">✉️</span>
+                    <input className="reg-field-in" type="email" placeholder="example@email.com"
+                      value={form.email} onChange={handleEmailChange} autoComplete="email" />
+                    {isEmailChecked && (
+                      <span style={{ padding: '0 14px', fontSize: '16px', color: '#4ADE80', flexShrink: 0 }}>✓</span>
+                    )}
+                  </div>
+                  <button
+                    type="button"
+                    className="reg-check-dup-btn"
+                    disabled={!isValidEmail || emailChecking}
+                    onClick={handleCheckEmail}
+                  >
+                    {emailChecking ? '확인 중...' : '중복확인'}
+                  </button>
                 </div>
+                {emailError && (
+                  <div className="reg-field-hint err">⚠ {emailError}</div>
+                )}
+                {isEmailChecked && (
+                  <div className="reg-field-hint ok">✓ 사용 가능한 이메일입니다.</div>
+                )}
               </div>
 
               {/* 비밀번호 */}

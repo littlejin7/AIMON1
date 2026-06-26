@@ -544,7 +544,8 @@ def check_id(username: str):
 
 @router.get("/check-email")
 def check_email(email: str):
-    if get_user_by_email(email.strip()):
+    email_clean = email.strip()
+    if get_user_by_email(email_clean) or get_user_by_username(email_clean):
         raise HTTPException(status_code=400, detail="이미 존재하는 이메일입니다.")
     return {"ok": True}
 
