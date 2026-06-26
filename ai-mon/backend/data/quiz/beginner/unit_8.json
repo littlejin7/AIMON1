@@ -97,7 +97,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "방해몬이 show_menu() 코드를 망가뜨렸습니다. 실행 즉시 SyntaxError가 발생하는 줄은 몇 줄일까요?\n\n```python\n1줄: def show_menu()\n2줄:     print('1. 아이템 획득')\n3줄:     choice = input('선택: ')\n```\n4줄:     return choice",
+      "question": "방해몬이 show_menu() 코드를 망가뜨렸습니다. 실행 즉시 SyntaxError가 발생하는 줄은 몇 줄일까요?\n\n```python\n1줄: def show_menu()\n2줄:     print('1. 아이템 획득')\n3줄:     choice = input('선택: ')\n4줄:     return choice\n```",
       "choices": [
         "A. 1줄",
         "B. 2줄",
@@ -161,7 +161,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 변수 `result`에 저장되는 값은 무엇일까요?\n\n```python\ndef show_menu():\n    print('메뉴 출력')\n```\n\nresult = show_menu()",
+      "question": "다음 코드를 실행했을 때 변수 `result`에 저장되는 값은 무엇일까요?\n\n```python\ndef show_menu():\n    print('메뉴 출력')\n\nresult = show_menu()\n```",
       "choices": [
         "A. '메뉴 출력'",
         "B. None",

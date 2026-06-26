@@ -2034,7 +2034,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 파이썬 딕셔너리 내부 리스트 제어 코드의 계층적 연산 흐름을 추적하여 최종 출력되는 결과물로 올바른 것을 고르세요.\n\nplayer = {\n    'username': 'aimon_pro',\n    'skills': ['파이어볼', '아이스볼']\n}\n```python\nplayer['skills'].append('라이트닝')\nprint(player['skills'][2])\n```",
+      "question": "다음 파이썬 딕셔너리 내부 리스트 제어 코드의 계층적 연산 흐름을 추적하여 최종 출력되는 결과물로 올바른 것을 고르세요.```python\n\nplayer = {\n    'username': 'aimon_pro',\n    'skills': ['파이어볼', '아이스볼']\n}\nplayer['skills'].append('라이트닝')\nprint(player['skills'][2])\n```",
       "choices": [
         "A. 아이스볼",
         "B. 라이트닝",
@@ -2287,7 +2287,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 파이썬 복합 딕셔너리 내부 원소 삭제 연산 코드를 구동시켰을 때 최종 라인 통과 직후 도출 인쇄되는 결과 구조 상태로 알맞은 것을 고르세요.\n\ncharacter = {\n    'status': 'slime',\n    'items': ['나무검', '초급왕관']\n}\n```python\ndel character['items'][0]\nprint(character['items'])\n```",
+      "question": "다음 파이썬 복합 딕셔너리 내부 원소 삭제 연산 코드를 구동시켰을 때 최종 라인 통과 직후 도출 인쇄되는 결과 구조 상태로 알맞은 것을 고르세요.```python\n\ncharacter = {\n    'status': 'slime',\n    'items': ['나무검', '초급왕관']\n}\ndel character['items'][0]\nprint(character['items'])\n```",
       "choices": [
         "A. ['나무검', '초급왕관']",
         "B. KeyError 발생",
