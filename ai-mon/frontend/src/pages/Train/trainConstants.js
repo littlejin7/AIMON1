@@ -29,4 +29,3 @@ export const TRAIN_MODES = [
     desc: '코드를 직접 클릭하여 출력화면을 확인하세요',
   },
 ]
-]
