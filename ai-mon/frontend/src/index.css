@@ -408,6 +408,7 @@ input, textarea, select { font: inherit; }
 ::-webkit-scrollbar-track { background: var(--clr-bg); }
 ::-webkit-scrollbar-thumb { background: var(--clr-border); border-radius: var(--radius-full); }
 ::-webkit-scrollbar-thumb:hover { background: var(--clr-primary-dk); }
+.level-test-modal-inner::-webkit-scrollbar { display: none; }
 
 /* --- Misc Utilities --- */
 .divider {
