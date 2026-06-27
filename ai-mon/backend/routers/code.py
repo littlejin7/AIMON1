@@ -42,6 +42,10 @@ class SubmitRequest(BaseModel):
     unit:         int = 1
     stage:        str = ""
     course_level: str = "beginner"
+    # award=True: 정규 코드퀘 경로 — AI 관대 채점 + 200 XP + (unit,stage) 진행도 저장.
+    # award=False: 채점 전용 — is_correct/score/feedback 만 반환하고 XP·진행도·user 저장을
+    #              일절 하지 않는다. (Train 연습/복습, Stage-미니보스: 보상은 각 시스템이 소유)
+    award:        bool = True
 
 class HintRequest(BaseModel):
     question_id:  str
@@ -50,7 +54,9 @@ class HintRequest(BaseModel):
 
 
 @router.post("/submit")
-@limiter.limit("10/minute")
+# 코드 채점 전용 한도. 보스 답안 채점(30/minute;100/day)과 동일 기준.
+# Train(최대 15문항)·미니보스 한 세션의 연속 제출+재시도가 분당 10회를 넘길 수 있어 상향.
+@limiter.limit("30/minute;100/day")
 async def submit_code(request: Request, req: SubmitRequest, user: dict = Depends(get_current_user)):
     user_id = user["id"]
 
@@ -117,7 +123,9 @@ async def submit_code(request: Request, req: SubmitRequest, user: dict = Depends
     is_correct = result.get("is_correct", False)
 
     xp_awarded = 0
-    if is_correct:
+    # award=False 경로(Train·미니보스)는 채점 결과만 반환한다.
+    # apply_xp / save_progress_item / save_user 를 절대 타지 않아 200 XP·진행도 행이 써지지 않는다.
+    if req.award and is_correct:
         progress = get_progress_by_user(user_id, course_level)
         existing = next(
             (p for p in progress

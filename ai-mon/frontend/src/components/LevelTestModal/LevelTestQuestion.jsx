@@ -15,7 +15,7 @@ const TYPE_BADGE = {
 }
 
 export default function LevelTestQuestion({
-  step, total, selected, answered, timer,
+  step, total, selected, timer,
   onSelect, onNext, onSkip, onBack,
 }) {
   const q    = LEVEL_TEST_QUESTIONS[step - 1]
@@ -104,7 +104,6 @@ export default function LevelTestQuestion({
           {/* 선택지 */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
             {q.choices.map((c, i) => {
-              const isCorrect  = i === q.answer
               const isSelected = i === selected
 
               let borderColor = '#E8E6FA'
@@ -114,15 +113,9 @@ export default function LevelTestQuestion({
               let keyColor = '#9B96D0'
               let keyLabel = KEYS[i]
 
-              if (answered && isSelected && isCorrect) {
-                borderColor = '#4ADE80'; bg = '#F0FFF4'
-                keyBg = '#4ADE80'; keyBorderColor = '#4ADE80'; keyColor = 'white'; keyLabel = '✓'
-              } else if (answered && isSelected) {
-                borderColor = '#FF6B6B'; bg = '#FFF5F5'
-                keyBg = '#FF6B6B'; keyBorderColor = '#FF6B6B'; keyColor = 'white'; keyLabel = '✗'
-              } else if (answered && isCorrect) {
-                borderColor = '#4ADE80'; bg = '#F0FFF4'
-                keyBg = '#4ADE80'; keyBorderColor = '#4ADE80'; keyColor = 'white'; keyLabel = '✓'
+              if (isSelected) {
+                borderColor = '#7F77DD'; bg = '#F4F3FF'
+                keyBg = '#7F77DD'; keyBorderColor = '#7F77DD'; keyColor = 'white'
               }
 
               return (
@@ -133,7 +126,7 @@ export default function LevelTestQuestion({
                   style={{
                     display: 'flex', alignItems: 'center', gap: '10px',
                     border: `1.5px solid ${borderColor}`, borderRadius: '13px',
-                    padding: '11px 14px', cursor: answered ? 'default' : 'pointer',
+                    padding: '11px 14px', cursor: 'pointer',
                     background: bg, textAlign: 'left', width: '100%',
                     transition: 'all .15s',
                   }}
@@ -149,7 +142,7 @@ export default function LevelTestQuestion({
                   </div>
                   <span style={{
                     fontFamily: "'Courier New', monospace",
-                    fontSize: '12.5px', color: '#26215C', whiteSpace: 'pre-line',
+                    fontSize: '12.5px', color: '#26215C', whiteSpace: 'pre-line', fontWeight: 600,
                   }}>
                     {c}
                   </span>
@@ -164,11 +157,11 @@ export default function LevelTestQuestion({
           onClick={onNext}
           style={{
             width: '100%', padding: '15px',
-            background: answered ? '#7F77DD' : '#C4BFEE',
+            background: selected !== null ? '#7F77DD' : '#C4BFEE',
             color: 'white', border: 'none', borderRadius: '14px',
             fontSize: '15px', fontWeight: 600,
-            cursor: answered ? 'pointer' : 'not-allowed',
-            boxShadow: answered ? '0 4px 0 #534AB7' : 'none',
+            cursor: selected !== null ? 'pointer' : 'not-allowed',
+            boxShadow: selected !== null ? '0 4px 0 #534AB7' : 'none',
             transition: 'all .2s',
           }}
         >

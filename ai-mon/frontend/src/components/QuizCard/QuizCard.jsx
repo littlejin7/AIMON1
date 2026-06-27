@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { quizApi } from '../../api/index'
+import { quizApi, codeApi } from '../../api/index'
 import { usePyodide } from '../../hooks/usePyodide'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import ChoiceOptions from './ChoiceOptions'
@@ -59,6 +59,8 @@ export default function QuizCard({
   const [aiFeedbackLoading, setAiFeedbackLoading] = useState(false)
   const [codeRunResult,     setCodeRunResult]     = useState(null)
   const [isCorrectResult,   setIsCorrectResult]   = useState(initialIsCorrectResult)
+  const [gradingError,      setGradingError]      = useState('')
+  const [submitting,        setSubmitting]        = useState(false)
 
   const { runPython, pyLoading } = usePyodide()
   const user        = useAuthStore((s) => s.user)
@@ -99,7 +101,6 @@ export default function QuizCard({
   // ── AI 피드백 호출 (SSE 스트리밍) ──
   const fetchAiFeedback = async (userAnswer) => {
     const staticFallback = question.feedback?.wrong || '정답을 다시 확인해 보세요!'
-    setAiFeedback(staticFallback)
     setAiFeedbackLoading(true)
 
     let fullQuestionText = question.question
@@ -156,18 +157,27 @@ export default function QuizCard({
           } catch { /* JSON 파싱 실패 무시 */ }
         }
       }
-    } catch (streamErr) {
+
+      // 스트리밍이 빈 응답으로 끝난 경우 staticFallback
+      if (!accumulated) setAiFeedback(staticFallback)
+    } catch {
       // 스트리밍 실패 → 기존 단순 POST 폴백
       try {
-        const res = await quizApi.getAiFeedback({ 
+        const res = await quizApi.getAiFeedback({
           question_id: question.question_id || question.id || '',
-          question: fullQuestionText, 
-          correct_answer: question.answer, 
-          user_answer: userAnswer, 
-          level: courseLevel 
+          question: fullQuestionText,
+          correct_answer: question.answer,
+          user_answer: userAnswer,
+          level: courseLevel
         })
-        if (res.data?.feedback && !res.data?.is_ai_fallback) setAiFeedback(res.data.feedback)
-      } catch { /* staticFallback 유지 */ }
+        if (res.data?.feedback && !res.data?.is_ai_fallback) {
+          setAiFeedback(res.data.feedback)
+        } else {
+          setAiFeedback(staticFallback)
+        }
+      } catch {
+        setAiFeedback(staticFallback)
+      }
     } finally {
       setAiFeedbackLoading(false)
     }
@@ -197,16 +207,60 @@ export default function QuizCard({
     onAnswer?.({ correct, userAnswer: input.trim(), retried })
   }
 
-  // ── 코드 제출 ──
-  const handleCodeSubmit = async () => {
+  // ── 코드 실행 (출력 확인 전용, 채점 없음) ──
+  const handleCodeRun = async () => {
     if (!input.trim() || revealed) return
+    setGradingError('')
     const result = await runPython(input)
     setCodeRunResult(result)
-    const correct = result.success && result.stdout.trim() === (question.answer || '').trim()
+  }
+
+  // ── 코드 제출 (채점·revealed·onAnswer 전담) ──
+  // 채점 단일 소스 = 백엔드 /code/submit. Pyodide 는 실행/출력 표시 + output·error 전달용(채점 권한 아님).
+  // award=false: Train·미니보스 모두 무보상으로 호출 — 백엔드가 200 XP·(unit,stage) 진행도를 쓰지 않는다.
+  // 미니보스 보상은 onAnswer → Stage.handleAnswer → minibossApi.submitAnswer(HP/클리어/보상)가 소유.
+  const handleCodeSubmit = async () => {
+    if (!input.trim() || revealed) return
+    setGradingError('')
+
+    // 1) Pyodide 실행 → 출력/에러 표시 및 백엔드 전달값 확보
+    const runResult = await runPython(input)
+    setCodeRunResult(runResult)
+
+    // 2) 백엔드 채점 호출 (submitting = '🤖 채점 중...' 로딩, pyLoading 과 별개)
+    setSubmitting(true)
+    let res
+    try {
+      res = await codeApi.submitCode({
+        question_id:  question.question_id || question.id || '',
+        code:         input,
+        output:       runResult.stdout || '',
+        error:        runResult.stderr || runResult.compile_output || '',
+        unit:         parseInt(question.unit, 10) || 1,
+        course_level: courseLevel,
+        award:        false,
+      })
+    } catch {
+      // 백엔드 호출 실패 → HP/XP/진행도 미변경 + 재시도 안내 (D-1 규칙)
+      setGradingError('채점 서버에 연결하지 못했어요. 잠시 후 다시 [확인하기]를 눌러주세요.')
+      return
+    } finally {
+      setSubmitting(false)
+    }
+
+    const data = res?.data || {}
+    // AI 채점 실패 → 상태 변경 없이 재시도 안내 (D-1 규칙)
+    if (data.grading_failed) {
+      setGradingError('AI 채점이 일시적으로 실패했어요. 잠시 후 다시 [확인하기]를 눌러주세요.')
+      return
+    }
+
+    // 3) 백엔드 결과로 정답표시 — 단일 소스
+    const correct = !!data.is_correct
     setSelected(input)
     setRevealed(true)
     setIsCorrectResult(correct)
-    if (!correct) fetchAiFeedback(input)
+    if (!correct) setAiFeedback(data.feedback || question.feedback?.wrong || '정답을 다시 확인해 보세요!')
     onAnswer?.({ correct, userAnswer: input, retried })
   }
 
@@ -216,6 +270,7 @@ export default function QuizCard({
     setSelected(null)
     setInput('')
     setAiFeedback('')
+    setGradingError('')
     setRetried(true)
   }
 
@@ -272,6 +327,9 @@ export default function QuizCard({
           disabled={disabled}
           pyLoading={pyLoading}
           codeRunResult={codeRunResult}
+          gradingError={gradingError}
+          submitting={submitting}
+          onRun={handleCodeRun}
           onSubmit={handleCodeSubmit}
         />
       )}

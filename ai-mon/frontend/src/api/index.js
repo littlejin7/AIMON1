@@ -57,7 +57,10 @@ export const minibossApi = {
 }
 
 export const codeApi = {
-  runCode: (data) => api.post('/code/run', data),
+  // 채점 단일 소스. body: { question_id, code, output, error, unit, stage, course_level, award }
+  // award=false 면 백엔드가 채점 결과(is_correct/score/feedback)만 반환(XP·진행도 미저장).
+  submitCode: (data) => api.post('/code/submit', data),
+  getHint:    (data) => api.post('/code/hint',   data),
 }
 
 export const userApi = {
