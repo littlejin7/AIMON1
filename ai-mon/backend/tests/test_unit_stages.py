@@ -103,6 +103,9 @@ def progress_env(monkeypatch, tmp_path):
     monkeypatch.setattr(U, "USERS_FILE", str(users_file))
     monkeypatch.setattr(U, "PROGRESS_FILE", str(progress_file))
     monkeypatch.setattr(U, "USE_SUPABASE", False)
+    # 완료 게이트(서버채점 첫시도 정답수)는 왕관 지급 로직과 직교 → required=0 로 비활성화.
+    # (이 테스트는 attempts 를 시드하지 않으므로 게이트를 끄고 크라운 판정만 검증)
+    monkeypatch.setattr(P, "_stage_required_correct", lambda *a, **k: 0)
     return {"users": str(users_file)}
 
 

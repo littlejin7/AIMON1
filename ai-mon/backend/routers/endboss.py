@@ -25,6 +25,7 @@ from routers.utils import (
     now_kst,
     UserNotFoundError,
 )
+from routers.quiz import serialize_question
 
 router = APIRouter()
 
@@ -213,9 +214,9 @@ def endboss_start(req: StartRequest, user: dict = Depends(get_current_user)):
     return {
         "phase":               1,
         "project":             req.project,
-        "phase1_questions":    p1_questions,
-        "phase2_questions":    p2_questions,
-        "phase3_first_question": p3_first,
+        "phase1_questions":    [serialize_question(q) for q in p1_questions],   # 정답 제거(F)
+        "phase2_questions":    [serialize_question(q) for q in p2_questions],   # 정답 제거(F)
+        "phase3_first_question": serialize_question(p3_first) if p3_first else None,
         "my_hp":               MY_HP_INIT,
         "boss_hp":             BOSS_HP_INIT,
         "crowns_left":         user["crowns"],
@@ -393,9 +394,11 @@ async def endboss_answer(request: Request, req: AnswerRequest, user: dict = Depe
             "phase3_ready": False,
             "phase3_tries": new_tries,
             "is_clear":     is_clear,
-            "next_phase3_question": next_q,
+            "next_phase3_question": serialize_question(next_q) if next_q else None,  # 정답 제거(F)
         })
 
+    # correct_answer 는 제출 '후' 응답에만 — error_find reveal 하이라이트용
+    result["correct_answer"] = question.get("answer", "")
     return result
 
 

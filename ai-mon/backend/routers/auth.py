@@ -101,6 +101,11 @@ def update_login_streak(user: dict) -> tuple[dict, dict | None]:
         streak = user["streak"]
         earned_milestones = user.get("earned_streak_milestones", [])
         if streak == 3 and 3 not in earned_milestones:
+            # XP를 apply_xp 대신 직접 가산하는 이유:
+            # update_login_streak 는 이미 bump_mission(login) 중 또는 직후에 호출되며,
+            # apply_xp 내부에서 다시 미션 훅을 트리거하면 같은 mutator 내에서
+            # 미션 진척·보상이 중복 처리될 수 있다(재진입 위험).
+            # lv 재계산은 아래 apply_xp(user, 0, {}) 에서 XP 추가 없이 수행한다.
             user["xp"] = user.get("xp", 0) + 500
             user.setdefault("earned_streak_milestones", []).append(3)
             streak_reward = {"days": 3, "xp": 500, "crowns": 0}
@@ -120,7 +125,7 @@ def update_login_streak(user: dict) -> tuple[dict, dict | None]:
             user.setdefault("earned_streak_milestones", []).append(30)
             streak_reward = {"days": 30, "xp": 10000, "crowns": 5}
 
-        # Level up and evolution check (streak 증가 시 항상 실행)
+        # xp=0 으로 호출 → XP 추가 없이 lv·진화·칭호만 재계산 (XP는 위에서 직접 가산)
         apply_xp(user, 0, {})
     else:
         user["streak"] = 1
@@ -172,7 +177,12 @@ class FindIdRequest(BaseModel):
 def register(req: RegisterRequest, request: Request):
     if get_user_by_username(req.username):
         raise HTTPException(status_code=400, detail="이미 존재하는 아이디입니다.")
-    # course_level 유효성 검증
+    # course_level: 클라 값을 쓰되 valid_levels 외의 값은 "beginner"로 fallback한다.
+    # 레벨 테스트(/auth/level-test/submit)를 정상 완료한 클라이언트가 결과를 함께
+    # 전달하는 흐름이므로 허용된 값(beginner/intermediate/advanced)이면 신뢰한다.
+    # is_level_tested: 클라 신뢰 — 레벨 테스트 완료 여부를 클라가 설정한다.
+    # 악의적 클라가 is_level_tested=true 로 보내도 게임 로직 상 실질 피해가 없다
+    # (보스 진입 게이트는 progress 기반 별도 검증 / 레벨 배정은 course_level 이 결정).
     valid_levels = {"beginner", "intermediate", "advanced"}
     level = req.course_level if req.course_level in valid_levels else "beginner"
     new_user = {

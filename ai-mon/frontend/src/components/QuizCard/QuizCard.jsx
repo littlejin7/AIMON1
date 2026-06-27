@@ -61,6 +61,10 @@ export default function QuizCard({
   const [isCorrectResult,   setIsCorrectResult]   = useState(initialIsCorrectResult)
   const [gradingError,      setGradingError]      = useState('')
   const [submitting,        setSubmitting]        = useState(false)
+  // 서버 채점 응답에서 받은 reveal 정보(F: 정답이 클라 문제객체엔 없음).
+  // correct_answer 는 '제출 후' 응답에만 담겨 와서 reveal 하이라이트에만 쓰인다.
+  const [revealedAnswer,    setRevealedAnswer]    = useState('')
+  const [revealFeedback,    setRevealFeedback]    = useState('')
 
   const { runPython, pyLoading } = usePyodide()
   const user        = useAuthStore((s) => s.user)
@@ -99,8 +103,9 @@ export default function QuizCard({
 
   
   // ── AI 피드백 호출 (SSE 스트리밍) ──
-  const fetchAiFeedback = async (userAnswer) => {
-    const staticFallback = question.feedback?.wrong || '정답을 다시 확인해 보세요!'
+  // correct_answer 는 더 이상 보내지 않는다(F: 클라에 정답 없음). 서버가 question_id 로 조회.
+  const fetchAiFeedback = async (userAnswer, fallbackText) => {
+    const staticFallback = fallbackText || '정답을 다시 확인해 보세요!'
     setAiFeedbackLoading(true)
 
     let fullQuestionText = question.question
@@ -111,7 +116,6 @@ export default function QuizCard({
     const body = JSON.stringify({
       question_id:    question.question_id || question.id || '',
       question:       fullQuestionText,
-      correct_answer: question.answer,
       user_answer:    userAnswer,
       level:          courseLevel,
     })
@@ -166,7 +170,6 @@ export default function QuizCard({
         const res = await quizApi.getAiFeedback({
           question_id: question.question_id || question.id || '',
           question: fullQuestionText,
-          correct_answer: question.answer,
           user_answer: userAnswer,
           level: courseLevel
         })
@@ -183,28 +186,55 @@ export default function QuizCard({
     }
   }
 
-  // ── 객관식 제출 ──
-  const handleSubmitChoice = () => {
-    if (!selected || revealed) return
+  // ── 공통: 서버 채점 결과 적용 ──
+  // 클라는 정답을 모른다(F). onAnswer 가 서버 채점을 수행하고 결과를 돌려준다.
+  const applyGradeResult = (result, userAnswer) => {
+    const r = result || { is_correct: false, feedback: '', hint: '', correct_answer: '' }
     setRevealed(true)
-    const isLetterAnswer = question.answer.length === 1 && /^[A-Z]$/.test(question.answer)
-    const correct = isLetterAnswer
-      ? selected.startsWith(question.answer + '.')
-      : selected === question.answer
-    setIsCorrectResult(correct)
-    if (!correct) fetchAiFeedback(selected)
-    onAnswer?.({ correct, userAnswer: selected, retried })
+    setRevealedAnswer(r.correct_answer || '')
+    setIsCorrectResult(!!r.is_correct)
+    setRevealFeedback(r.feedback || '')
+    if (!r.is_correct) {
+      // 서버 정적 피드백을 우선 노출 후 AI 스트리밍으로 보강
+      if (r.feedback) setAiFeedback(r.feedback)
+      fetchAiFeedback(userAnswer, r.feedback)
+    }
   }
 
-  // ── 단답 제출 ──
-  const handleFillSubmit = () => {
-    if (!input.trim() || revealed) return
-    setSelected(input.trim())
-    setRevealed(true)
-    const correct = input.trim().toLowerCase() === question.answer.toLowerCase()
-    setIsCorrectResult(correct)
-    if (!correct) fetchAiFeedback(input.trim())
-    onAnswer?.({ correct, userAnswer: input.trim(), retried })
+  // ── 객관식 제출 (서버 채점) ──
+  const handleSubmitChoice = async () => {
+    if (!selected || revealed || submitting) return
+    setGradingError('')
+    setSubmitting(true)
+    let result
+    try {
+      result = await onAnswer?.({ userAnswer: selected, retried })
+    } catch {
+      setSubmitting(false)
+      setGradingError('채점 서버에 연결하지 못했어요. 잠시 후 다시 [확인하기]를 눌러주세요.')
+      return
+    }
+    setSubmitting(false)
+    applyGradeResult(result, selected)
+  }
+
+  // ── 단답 제출 (서버 채점) ──
+  const handleFillSubmit = async () => {
+    if (!input.trim() || revealed || submitting) return
+    const answer = input.trim()
+    setSelected(answer)
+    setGradingError('')
+    setSubmitting(true)
+    let result
+    try {
+      result = await onAnswer?.({ userAnswer: answer, retried })
+    } catch {
+      setSubmitting(false)
+      setGradingError('채점 서버에 연결하지 못했어요. 잠시 후 다시 [확인하기]를 눌러주세요.')
+      return
+    }
+    setSubmitting(false)
+    applyGradeResult(result, answer)
   }
 
   // ── 코드 실행 (출력 확인 전용, 채점 없음) ──
@@ -255,13 +285,20 @@ export default function QuizCard({
       return
     }
 
-    // 3) 백엔드 결과로 정답표시 — 단일 소스
+    // 3) 백엔드 결과로 정답표시 — /code/submit 가 코드 채점 단일 소스
     const correct = !!data.is_correct
     setSelected(input)
     setRevealed(true)
     setIsCorrectResult(correct)
-    if (!correct) setAiFeedback(data.feedback || question.feedback?.wrong || '정답을 다시 확인해 보세요!')
-    onAnswer?.({ correct, userAnswer: input, retried })
+    // onAnswer 가 결과를 서버에 기록(미니보스는 배틀세션, 일반은 /attempts)하고 reveal 정보 반환
+    let result
+    try {
+      result = await onAnswer?.({ userAnswer: input, retried, clientIsCorrect: correct })
+    } catch { result = null }
+    const r = result || {}
+    setRevealedAnswer(r.correct_answer || '')
+    setRevealFeedback(r.feedback || '')
+    if (!correct) setAiFeedback(data.feedback || r.feedback || '정답을 다시 확인해 보세요!')
   }
 
   // ── 다시 풀기 ──
@@ -288,7 +325,7 @@ export default function QuizCard({
           choicesList={choicesList}
           selected={selected}
           revealed={revealed}
-          answer={question.answer}
+          answer={revealedAnswer}
           onSelect={(opt) => { if (!revealed) setSelected(opt) }}
           onSubmit={handleSubmitChoice}
         />
@@ -302,8 +339,8 @@ export default function QuizCard({
           choicesList={choicesList}
           selected={selected}
           revealed={revealed}
-          disabled={disabled}
-          answer={question.answer}
+          disabled={disabled || submitting}
+          answer={revealedAnswer}
           onSelect={(opt) => { if (!revealed) setSelected(opt) }}
           onSubmit={handleSubmitChoice}
         />
@@ -314,7 +351,7 @@ export default function QuizCard({
           input={input}
           setInput={setInput}
           revealed={revealed}
-          disabled={disabled}
+          disabled={disabled || submitting}
           onSubmit={handleFillSubmit}
         />
       )}
@@ -343,7 +380,7 @@ export default function QuizCard({
 
           {isCorrectResult && (
             <>
-              <p>{question.feedback?.correct || question.explanation}</p>
+              <p>{revealFeedback}</p>
               <button className="quiz-submit-btn" onClick={onNext}>
                 다음으로 ➔
               </button>

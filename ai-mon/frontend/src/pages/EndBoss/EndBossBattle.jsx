@@ -178,7 +178,7 @@ export default function EndBossBattle({
               choicesList={choicesList}
               selected={selectedChoiceFull}
               revealed={!!aiResult}
-              answer={currentQuestion.answer}
+              answer={aiResult?.correct_answer ?? currentQuestion.answer}
               onSelect={(opt) => setSelectedOption(opt.substring(0, 1))}
               onSubmit={onSubmit}
             />

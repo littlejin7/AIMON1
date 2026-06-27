@@ -90,8 +90,10 @@ def test_entry_with_crowns_when_free_exhausted(user_factory):
     user = make(daily_free_attempts=0, crowns=201)
 
     # 예외 없이 문제 1개를 반환해야 한다 (진입 성공)
-    chosen = B.start_boss_battle(unit="1", user=user)
-    assert chosen is not None
+    # 응답 형식: {question, battle_token} (배틀세션 토큰 도입). question 에 정답은 없다(F).
+    res = B.start_boss_battle(unit="1", user=user)
+    assert res is not None and res.get("battle_token")
+    chosen = res["question"]
     assert chosen.get("question_id")
 
     # 왕관 1개 차감 → 200

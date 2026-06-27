@@ -270,7 +270,7 @@ def save_user(user: dict):
     if USE_SUPABASE:
         if original:
             numeric_cols = {"xp", "crowns", "lv", "streak", "daily_free_attempts", "ai_feedback_count"}
-            jsonb_cols = {"max_unlocked_unit", "completed_units", "awarded_crown_units", "earned_streak_milestones", "titles", "game_rewards", "seen_questions", "endboss_cleared_levels", "miniboss_cleared_stages", "unitboss_cleared_units"}
+            jsonb_cols = {"max_unlocked_unit", "completed_units", "awarded_crown_units", "earned_streak_milestones", "titles", "game_rewards", "seen_questions", "endboss_cleared_levels", "miniboss_cleared_stages", "unitboss_cleared_units", "battle_sessions"}
             
             numeric_deltas = {}
             jsonb_merges = {}

@@ -161,17 +161,33 @@ export default function Train() {
     }
   }
 
-  const handleAnswer = async ({ correct, userAnswer, retried }) => {
+  const handleAnswer = async ({ userAnswer, retried, clientIsCorrect }) => {
     const q = questions[current]
-    if (token && q) {
-      attemptsApi.record({
-        question_id: q.question_id || q.id || '',
-        unit:        q.unit || currentUnit,
-        stage:       null,
-        level:       activeLevel,
-        mode:        trainSubMode,
-        is_correct:  !!correct,
-      }).catch(() => {})
+    const qType = q?.quiz_type || q?.type
+    const isCodeType = qType === 'code_input'
+    const qid = q?.question_id || q?.id || ''
+
+    // 서버 채점 겸 기록(F): 정답이 클라에 없으므로 서버가 user_answer 를 재채점한다.
+    // code_input 은 /code/submit(QuizCard) 결과를 clientIsCorrect 로 중계.
+    let correct = isCodeType ? !!clientIsCorrect : false
+    let result = { is_correct: correct, feedback: '', hint: '', correct_answer: '' }
+    if (token && qid) {
+      try {
+        const res = await attemptsApi.record({
+          question_id: qid,
+          unit:        q.unit || currentUnit,
+          stage:       null,
+          level:       activeLevel,
+          mode:        trainSubMode,
+          is_correct:  correct,
+          user_answer: isCodeType ? undefined : userAnswer,
+        })
+        const d = res?.data || {}
+        correct = !!d.is_correct
+        result = { is_correct: correct, feedback: d.feedback || '', hint: d.hint || '', correct_answer: d.correct_answer ?? '' }
+      } catch {
+        // 채점 호출 실패 → 코드는 clientIsCorrect 유지, 객관식은 오답 처리(보수적)
+      }
     }
     setAnswers(prev => {
       const existing = prev[current]
@@ -202,6 +218,7 @@ export default function Train() {
         }
       }, 1200)
     }
+    return result   // QuizCard 가 reveal(정답 하이라이트·피드백)에 사용
   }
 
   const handleNext = () => {
