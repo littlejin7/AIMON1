@@ -220,7 +220,9 @@ def assert_stage_access(user: dict, unit: int, stage: str, course_level: str) ->
 def assert_boss_access(user: dict, unit: int, course_level: str) -> None:
     """유닛 보스 진입 가능 여부 검증. 불가 시 HTTP 403 raise.
 
-    순서: 레벨 테스트 완료 → 유닛 해금 → 해당 유닛 모든 스테이지 완료.
+    순서: 레벨 테스트 완료 → 유닛 해금 → 선행 스테이지 완료 (이미 깬 보스는 면제).
+    이미 보스를 클리어한 유저(unitboss_cleared_units에 키 존재)는 재진입 시
+    스테이지 진행도 체크를 건너뛴다. is_level_tested 검증은 항상 유지.
     """
     if not user.get("is_level_tested"):
         raise HTTPException(status_code=403, detail="레벨 테스트를 먼저 완료해주세요.")
@@ -233,6 +235,13 @@ def assert_boss_access(user: dict, unit: int, course_level: str) -> None:
     )
     if unit > max_unit:
         raise HTTPException(status_code=403, detail="해당 유닛이 잠겨 있습니다.")
+
+    # 이미 클리어한 보스는 재진입 허용 — 선행 스테이지 progress 체크 면제.
+    # 저장 포맷: boss.py의 unit_key = f"{course_level}-{unit_val}" 과 동일.
+    unit_key = f"{course_level}-{unit}"
+    already_cleared = unit_key in (user.get("unitboss_cleared_units") or [])
+    if already_cleared:
+        return
 
     units = load_units(course_level)
     unit_info = next((u for u in units if u.get("unit_id") == unit), None)
