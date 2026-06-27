@@ -149,7 +149,7 @@ export default function LevelTestQuestion({
                   </div>
                   <span style={{
                     fontFamily: "'Courier New', monospace",
-                    fontSize: '12.5px', color: '#26215C', whiteSpace: 'pre-line',
+                    fontSize: '12.5px', color: '#26215C', whiteSpace: 'pre-line', fontWeight: 600,
                   }}>
                     {c}
                   </span>
