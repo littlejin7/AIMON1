@@ -12,6 +12,7 @@ from routers.utils import (
     mutate_user_atomic,
     UserNotFoundError,
 )
+from routers.quiz import assert_stage_access
 
 router = APIRouter()
 
@@ -33,6 +34,11 @@ def get_progress(course_level: str = Query("beginner"), user: dict = Depends(get
 def update_progress(req: ProgressUpdateRequest, user_ref: dict = Depends(get_current_user)):
     user_id = user_ref["id"]
     course_level = user_ref.get("course_level", "beginner")
+
+    # 비보스 스테이지 완료 신청 시 선행조건 검증 (boss/miniboss 완료 기록은 각 전담 라우터가 관리)
+    is_boss_stage = "boss" in req.stage
+    if req.is_completed and not is_boss_stage:
+        assert_stage_access(user_ref, req.unit, req.stage, course_level)
 
     progress = get_progress_by_user(user_id, course_level)
 

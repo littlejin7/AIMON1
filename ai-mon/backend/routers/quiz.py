@@ -10,6 +10,7 @@ from datetime import datetime
 from routers.utils import (
     get_wrong_answers_by_user,
     save_wrong_answer_item,
+    get_progress_by_user,
     limiter,
     now_kst,
     get_current_user_optional,
@@ -175,6 +176,88 @@ def load_units(course_level: str = None):
     return _read_units_file(UNITS_FILE)
 
 
+# ── 진입 게이트 헬퍼 ────────────────────────────────────────────
+# quiz.py와 boss.py가 동일한 기준을 사용하도록 한 곳에서 정의한다.
+
+def assert_stage_access(user: dict, unit: int, stage: str, course_level: str) -> None:
+    """스테이지 진입/완료 가능 여부 검증. 불가 시 HTTP 403 raise.
+
+    순서: 레벨 테스트 완료 → 유닛 해금 → 이전 스테이지 완료.
+    quiz.py·progress.py·miniboss.py가 동일 함수를 공유한다.
+    """
+    if not user.get("is_level_tested"):
+        raise HTTPException(status_code=403, detail="레벨 테스트를 먼저 완료해주세요.")
+
+    max_unlocked = user.get("max_unlocked_unit", 1)
+    max_unit = (
+        max_unlocked.get(course_level, 1)
+        if isinstance(max_unlocked, dict)
+        else int(max_unlocked)
+    )
+    if unit > max_unit:
+        raise HTTPException(status_code=403, detail="해당 유닛이 잠겨 있습니다. 이전 유닛 보스를 클리어하세요.")
+
+    try:
+        stage_num = int(stage.split("-")[-1])
+    except (ValueError, AttributeError):
+        stage_num = 1
+
+    if stage_num > 1:
+        prev_stage = f"{unit}-{stage_num - 1}"
+        progress = get_progress_by_user(user["id"], course_level)
+        if not any(
+            p.get("unit") == unit
+            and p.get("stage") == prev_stage
+            and p.get("is_completed")
+            for p in progress
+        ):
+            raise HTTPException(
+                status_code=403,
+                detail=f"이전 스테이지({prev_stage})를 먼저 완료해주세요.",
+            )
+
+
+def assert_boss_access(user: dict, unit: int, course_level: str) -> None:
+    """유닛 보스 진입 가능 여부 검증. 불가 시 HTTP 403 raise.
+
+    순서: 레벨 테스트 완료 → 유닛 해금 → 해당 유닛 모든 스테이지 완료.
+    """
+    if not user.get("is_level_tested"):
+        raise HTTPException(status_code=403, detail="레벨 테스트를 먼저 완료해주세요.")
+
+    max_unlocked = user.get("max_unlocked_unit", 1)
+    max_unit = (
+        max_unlocked.get(course_level, 1)
+        if isinstance(max_unlocked, dict)
+        else int(max_unlocked)
+    )
+    if unit > max_unit:
+        raise HTTPException(status_code=403, detail="해당 유닛이 잠겨 있습니다.")
+
+    units = load_units(course_level)
+    unit_info = next((u for u in units if u.get("unit_id") == unit), None)
+    total_stages = unit_info.get("stages", 0) if unit_info else 0
+
+    if total_stages > 0:
+        progress = get_progress_by_user(user["id"], course_level)
+        done = sum(
+            1
+            for p in progress
+            if p.get("unit") == unit
+            and p.get("stage", "").startswith(f"{unit}-")
+            and p.get("stage") != f"{unit}-boss"
+            and p.get("is_completed")
+        )
+        if done < total_stages:
+            raise HTTPException(
+                status_code=403,
+                detail=(
+                    f"유닛 {unit}의 모든 스테이지를 완료해야 보스에 도전할 수 있습니다."
+                    f" ({done}/{total_stages})"
+                ),
+            )
+
+
 # ── 유닛 목록 (lessons.json) ────────────────────────────────────
 
 @router.get("/units")
@@ -229,7 +312,17 @@ def get_questions(
     category: str = Query("quiz"),
     limit: int = Query(10),
     attempt: int = Query(1),
+    user: Optional[dict] = Depends(get_current_user_optional),
 ):
+    # 스테이지 진입 게이트: quiz 문제 요청 시 유닛·스테이지가 지정된 경우에만 검사.
+    # Unit 1 / Stage 1-1 은 비로그인 선체험 공개 구간 → 인증 없이 허용.
+    if category == "quiz" and unit is not None and stage is not None:
+        is_public = unit == 1 and stage == "1-1"
+        if user:
+            assert_stage_access(user, unit, stage, course_level or "beginner")
+        elif not is_public:
+            raise HTTPException(status_code=401, detail="로그인이 필요합니다.")
+
     quiz_questions = load_questions_by_category(category, course_level, unit)
     if stage:
         quiz_questions = [q for q in quiz_questions if q.get("stage") == stage]
