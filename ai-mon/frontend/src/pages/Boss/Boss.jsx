@@ -22,6 +22,9 @@ export default function Boss() {
   // 'intro' | 'battle' | 'cleared' | 'failed'
   const [phase,         setPhase]         = useState('intro')
   const [bossData,      setBossData]      = useState(null)
+  // 서버 권위 배틀 토큰: /start 에서 발급받아 이후 /answer 마다 동봉. 클리어 판정은
+  // 서버가 이 세션의 정답 누적으로 결정한다(클라 HP 권위 제거).
+  const [battleToken,   setBattleToken]   = useState(null)
   const [currentQuestion, setCurrentQuestion] = useState(null)
   const [selectedOption,  setSelectedOption]  = useState(null)
   const [answerInput,     setAnswerInput]     = useState('')
@@ -101,7 +104,9 @@ export default function Boss() {
     setLoading(true)
     try {
       const res = await bossApi.startBattle(lessonId)
-      setCurrentQuestion(res.data)
+      // 응답 형식: { question, battle_token }
+      setBattleToken(res.data.battle_token)
+      setCurrentQuestion(res.data.question)
       playBGM('unitboss_intro')
       setPhase('battle')
       setErrorMsg('')
@@ -125,10 +130,8 @@ export default function Boss() {
         question_id:     currentQuestion.question_id,
         user_answer:     userAnswer,
         is_code_question: isCodeType,
-        wrong_count:     wrongCount,
-        my_hp:           myHp,
-        boss_hp:         bossHp,
         unit:            parseInt(lessonId) || 1,
+        battle_token:    battleToken,   // 서버 세션 식별 (HP/오답수는 서버가 누적)
       })
 
       const d = res.data

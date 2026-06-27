@@ -1,21 +1,133 @@
 from fastapi import APIRouter, HTTPException, Query, Depends
 from pydantic import BaseModel
+from typing import List, Optional
+import math
 import uuid
 from datetime import datetime
 from routers.utils import (
     serialize_user,
     get_progress_by_user,
+    get_attempts_by_user,
     save_progress_item,
     get_current_user,
     apply_xp,
     now_kst,
     mutate_user_atomic,
     UserNotFoundError,
+    LESSON_MODES,
 )
 # TODO(backlog): quiz 모듈을 두 번 import(assert_stage_access, load_units). 한 줄로 합칠 것. (사소)
 from routers.quiz import assert_stage_access
 
 router = APIRouter()
+
+# 비보스 스테이지 완료 서버검증 파라미터
+QUIZ_SERVE_LIMIT = 10    # quiz.get_questions 기본 limit 과 동기화 (set당 출제 수 상한)
+STAGE_PASS_RATIO = 0.8   # Stage.jsx 의 is_completed: totalScore >= 80 과 동기화
+
+
+def _stage_required_correct(course_level: str, unit: int, stage: str) -> int:
+    """해당 stage 완료에 필요한 '서버채점 정답 distinct 문제 수'.
+
+    출제 풀(quiz set A, 없으면 전체)을 limit 상한으로 자른 출제 수의 PASS_RATIO 만큼.
+    퀴즈 풀이가 아예 없는 스테이지(데이터 예외)는 0 을 반환해 카운트 게이트를 비적용한다.
+    """
+    from routers.quiz import load_questions_by_category
+    qs = [q for q in load_questions_by_category("quiz", course_level, unit)
+          if q.get("stage") == stage]
+    if not qs:
+        return 0
+    set_a = [q for q in qs if q.get("quiz_set") == "A"]
+    pool_size = len(set_a) if set_a else len(qs)
+    served = min(QUIZ_SERVE_LIMIT, pool_size)
+    return max(1, math.ceil(STAGE_PASS_RATIO * served))
+
+
+def _server_graded_correct_qids(user_id: str, course_level: str, unit: int, stage: str) -> tuple:
+    """레슨모드(quiz/miniboss) attempts 에서 'qid별 첫 시도' 결과를 집계.
+
+    반환: (first_correct_qids, attempted_qids)
+      - first_correct_qids: qid별 '가장 이른 attempt(min answered_at)'가 is_correct=True 인 qid 집합.
+        같은 qid에 (오답→재시도 정답) 기록이 있으면 첫 기록이 오답이므로 **집계 제외**(엿보기 차단).
+      - attempted_qids: attempt 가 1건이라도 있는 모든 qid 집합(폴백 보충 게이트용).
+
+    정렬 동률 대비: answered_at 이 같으면 attempt id 문자열로 안정적 tiebreak.
+    attempts.is_correct 는 객관식/단답 서버 재채점 결과(G 방어)이므로 위조 불가.
+    """
+    # qid -> (정렬키, is_correct) 중 가장 이른 것만 보관
+    earliest: dict = {}
+    attempted_qids: set = set()
+    for a in get_attempts_by_user(user_id):
+        if a.get("level") != course_level:
+            continue
+        if a.get("unit") != unit:
+            continue
+        if a.get("stage") != stage:
+            continue
+        if a.get("mode") not in LESSON_MODES:
+            continue
+        qid = a.get("question_id")
+        if not qid:
+            continue
+        attempted_qids.add(qid)
+        # 동률 tiebreak: (answered_at, id) 오름차순으로 '첫 기록' 결정
+        sort_key = (str(a.get("answered_at") or ""), str(a.get("id") or ""))
+        cur = earliest.get(qid)
+        if cur is None or sort_key < cur[0]:
+            earliest[qid] = (sort_key, bool(a.get("is_correct")))
+
+    first_correct_qids = {qid for qid, (_, ok) in earliest.items() if ok}
+    return first_correct_qids, attempted_qids
+
+
+def _supplement_from_answered(
+    answered_questions: list,
+    attempted_qids: set,
+    course_level: str,
+    unit: int,
+    stage: str,
+) -> int:
+    """answered_questions 를 서버 재채점해 '첫 시도 정답' 카운트에 보충할 수를 반환.
+
+    '첫 시도' 의미 일치 원칙:
+      - attempt 가 1건이라도 존재하는 qid 는 **서버 첫 기록을 우선**하고 폴백으로 덮어쓰지
+        않는다. (오답→재시도 정답 qid 가 폴백으로 되살아나는 것을 차단)
+      - attempt 가 전무한 qid(네트워크 유실로 기록 누락) 만 보충 대상.
+    보안 원칙:
+      - 클라 is_correct 는 무시. user_answer 만 grade_objective 로 서버 재채점.
+      - stage 퀴즈 풀에 없는 question_id 는 조용히 무시(외부 qid 주입 차단).
+    프론트는 '첫 답안'을 보내므로(sessionAnswersRef 첫 답안 보존), 보충도 첫 시도 의미를 따른다.
+    """
+    from routers.quiz import load_questions_by_category
+    from routers.battle_session import grade_objective
+
+    stage_pool = {
+        q.get("question_id"): q
+        for q in load_questions_by_category("quiz", course_level, unit)
+        if q.get("stage") == stage
+    }
+    if not stage_pool:
+        return 0
+
+    extra: set = set()
+    for item in answered_questions:
+        qid = item.question_id
+        user_answer = item.user_answer or ""
+        # 이미 attempt 가 있는 qid 는 서버 첫 기록이 권위 → 폴백 제외.
+        if not qid or qid in attempted_qids or qid in extra:
+            continue
+        q = stage_pool.get(qid)
+        if q is None:
+            continue  # stage 풀 밖 qid → 무시
+        if grade_objective(user_answer, q.get("answer", "")):
+            extra.add(qid)
+
+    return len(extra)
+
+
+class AnsweredQuestion(BaseModel):
+    question_id: str
+    user_answer: str   # 서버가 grade_objective 로 재채점. is_correct 는 무시.
 
 
 class ProgressUpdateRequest(BaseModel):
@@ -23,7 +135,10 @@ class ProgressUpdateRequest(BaseModel):
     stage: str  # 예: "1-1", "1-2", "1-final"
     score: int
     is_completed: bool = False
-    checkpoint: str | None = None
+    checkpoint: Optional[str] = None
+    # 완료 직전 flush 실패 폴백: quiz 답안을 서버가 재채점해 graded 에 합산.
+    # 네트워크 유실로 attempt 기록 누락된 정상통과 유저의 영구 소프트락 방지.
+    answered_questions: Optional[List[AnsweredQuestion]] = None
 
 
 @router.get("/")
@@ -36,11 +151,44 @@ def update_progress(req: ProgressUpdateRequest, user_ref: dict = Depends(get_cur
     user_id = user_ref["id"]
     course_level = user_ref.get("course_level", "beginner")
 
-    # TODO(backlog): is_completed를 클라이언트 입력으로 신뢰함. 1-1(공개)부터 순차로 위조하면 체인 해금 가능. 서버사이드 채점 결과로만 is_completed를 세우도록 변경 필요. 랭킹/보상 도입 전 처리.
-    # 비보스 스테이지 완료 신청 시 선행조건 검증 (boss/miniboss 완료 기록은 각 전담 라우터가 관리)
+    # 비보스 스테이지 완료 신청 시 선행조건 + 서버채점 통과 검증.
+    # (boss/miniboss 완료 기록은 각 전담 라우터가 관리 → 여기선 비보스만 게이트)
+    #
+    # ★ 서버 권위 완료 게이트 (C 어뷰징 방어):
+    #   is_completed=True 는 '해당 unit-stage 서버채점 정답이 필요정답수 이상'일 때만 허용.
+    #   클라가 is_completed=true 를 위조해도 attempts(서버 재채점) 누적이 없으면 403 으로
+    #   막혀 1-1(공개)부터 순차 위조로 유닛 체인을 해금하는 경로가 차단된다.
+    #   단, 미니보스로 이미 클리어된 스테이지는 miniboss 라우터가 전투 승리를 검증한
+    #   권위이므로 이 카운트 게이트를 면제한다(이중 기준 방지).
     is_boss_stage = "boss" in req.stage
     if req.is_completed and not is_boss_stage:
         assert_stage_access(user_ref, req.unit, req.stage, course_level)
+
+        stage_key = req.stage if "-" in str(req.stage) else f"{req.unit}-{req.stage}"
+        miniboss_cleared = stage_key in (user_ref.get("miniboss_cleared_stages") or [])
+        if not miniboss_cleared:
+            required = _stage_required_correct(course_level, req.unit, req.stage)
+            if required > 0:
+                first_correct_qids, attempted_qids = _server_graded_correct_qids(
+                    user_id, course_level, req.unit, req.stage)
+                graded = len(first_correct_qids)   # qid별 '첫 시도 정답'만 집계
+                if graded < required:
+                    # 1차: 첫시도 정답이 부족 → answered_questions 폴백으로 보충 시도.
+                    # 단 attempt 가 이미 있는 qid 는 서버 첫 기록 우선(폴백으로 안 덮음).
+                    supp = 0
+                    if req.answered_questions:
+                        supp = _supplement_from_answered(
+                            req.answered_questions, attempted_qids,
+                            course_level, req.unit, req.stage,
+                        )
+                    if graded + supp < required:
+                        raise HTTPException(
+                            status_code=403,
+                            detail=(
+                                f"스테이지 통과 조건을 충족하지 않았습니다."
+                                f" (서버 채점 정답 {graded + supp}/{required})"
+                            ),
+                        )
 
     progress = get_progress_by_user(user_id, course_level)
 

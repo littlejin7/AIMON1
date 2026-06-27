@@ -2,7 +2,7 @@ import os, random
 from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 from typing import Optional
-from routers.quiz import load_questions_by_category
+from routers.quiz import load_questions_by_category, serialize_question
 import logging
 from routers.utils import (
     get_wrong_answers_by_user,
@@ -55,7 +55,7 @@ def get_train_review(
     # 오답복습(only_wrong): 매칭된 실제 오답(원본 레슨 문제)만 반환.
     # 랜덤 패딩·train 변형문제 절대 금지 — 없으면 빈 목록.
     if only_wrong:
-        return priority_qs[:limit]
+        return [serialize_question(q) for q in priority_qs[:limit]]  # 정답 제거(F)
 
     # 그 외 모드(유닛반복/랜덤): 오답(quiz+miniboss 매칭) 우선 + 나머지 랜덤으로 채우기.
     # 채우기 풀에는 유닛반복용 train 변형문제까지 포함하되, 이미 뽑힌 오답은 제외한다.
@@ -69,7 +69,7 @@ def get_train_review(
             normal_qs.append(q)
     random.shuffle(normal_qs)
     result = priority_qs + normal_qs
-    return result[:limit]
+    return [serialize_question(q) for q in result[:limit]]  # 정답 제거(F)
 
 
 @router.get("/random")
@@ -135,7 +135,7 @@ def get_train_random(
         return []
 
     random.shuffle(pool)
-    return pool[:n]
+    return [serialize_question(q) for q in pool[:n]]  # 정답 제거(F)
 
 
 @router.get("/boss_rush")
@@ -172,7 +172,7 @@ def get_train_boss_rush(
         return []
 
     random.shuffle(pool)
-    return pool[:n]
+    return [serialize_question(q) for q in pool[:n]]  # 정답 제거(F)
 
 
 @router.get("/accuracy")

@@ -297,13 +297,27 @@ def test_V4e_unknown_mode_falls_back_to_quiz(monkeypatch):
 
 
 def test_V4f_miniboss_mode_via_server(monkeypatch):
-    """미니보스 서버 채점 → mode='miniboss' 저장."""
+    """미니보스 서버 채점 → mode='miniboss' 저장. (배틀세션 토큰 필요)"""
     monkeypatch.setattr(MINI, "load_miniboss_questions",
                         lambda level, unit: [{"question_id": "mb1", "stage": "1-1",
                                               "type": "multiple_choice", "question": "Q?",
                                               "options": ["A", "B", "C", "D"], "answer": "A"}])
+    # /answer 는 battle_token(서버 발급) + 서버 세션을 요구한다. 토큰/세션을 시드하고
+    # 유저를 USERS_FILE 에 기록한다(mutate_user_atomic 가 파일에서 읽음).
+    from routers.battle_session import make_battle_token, BATTLE_TOKEN_TTL
+    token, sid = make_battle_token("miniboss", 1, "1-1", "u1")
+    now_ts = int(U.now_kst().timestamp())
+    user = {**BASE_USER, "battle_sessions": {sid: {
+        "sid": sid, "mode": "miniboss", "unit": 1, "stage": "1-1",
+        "required": 3, "max_wrong": 3, "correct_qids": [], "wrong": 0,
+        "status": "active", "exp": now_ts + BATTLE_TOKEN_TTL,
+    }}}
+    with open(U.USERS_FILE, "w", encoding="utf-8") as f:
+        json.dump([user], f)
+
     r = client.post("/boss/miniboss/answer", json={
         "question_id": "mb1", "user_answer": "A", "unit": 1, "stage": "1-1",
+        "battle_token": token,
     })
     assert r.status_code == 200
     rows = _read_attempts()

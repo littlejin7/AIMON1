@@ -46,6 +46,22 @@ LESSONS_DIR    = os.path.join(os.path.dirname(__file__), "../data/lessons")  # �
 UNITS_FILE     = os.path.join(os.path.dirname(__file__), "../data/lessons.json")  # 유닛 목록
 
 
+# 클라로 절대 내보내면 안 되는 민감 필드(정답·해설·힌트·피드백).
+# 채점은 전부 서버(grade_objective / AI / code-submit)가 하므로 클라엔 정답이 불필요.
+_SENSITIVE_QUESTION_FIELDS = ("answer", "feedback", "hint", "explanation")
+
+
+def serialize_question(q: dict) -> dict:
+    """클라 응답용 문제 직렬화 — 민감 필드 제거(F 방어).
+
+    렌더에 필요한 choices/options/code/type/quiz_set 등은 모두 유지(denylist 방식).
+    quiz·miniboss·unitboss·endboss 의 모든 '문제 서빙' 응답이 이 헬퍼를 거쳐야 한다.
+    """
+    if not isinstance(q, dict):
+        return q
+    return {k: v for k, v in q.items() if k not in _SENSITIVE_QUESTION_FIELDS}
+
+
 @lru_cache(maxsize=128)
 def load_questions_by_category(category: str, course_level: str = None, unit: int = None):
     base = os.path.join(os.path.dirname(__file__), f"../data/{category}")
@@ -352,11 +368,11 @@ def get_questions(
 
         quiz_pool = pool[:limit]
 
-        return quiz_pool
+        return [serialize_question(q) for q in quiz_pool]  # 정답·해설 제거(F)
 
     # quiz가 아닌 다른 카테고리는 기존 방식대로 셔플 후 반환
     random.shuffle(quiz_questions)
-    return quiz_questions[:limit]
+    return [serialize_question(q) for q in quiz_questions[:limit]]  # 정답·해설 제거(F)
 
 
 @router.get("/questions/{question_id}")
@@ -371,7 +387,7 @@ def get_question(question_id: str):
     )
     if not q:
         raise HTTPException(status_code=404, detail="문제를 찾을 수 없습니다.")
-    return q
+    return serialize_question(q)  # 정답·해설 제거(F)
 
 
 # ── AI 피드백 엔드포인트 ──────────────────────────────────────
@@ -379,9 +395,29 @@ def get_question(question_id: str):
 class AiFeedbackRequest(BaseModel):
     question_id: str = ""
     question: str          # 문제 텍스트
-    correct_answer: str    # 정답
+    # correct_answer 는 더 이상 클라가 신뢰 입력으로 보내지 않는다(F: 정답이 클라에 없음).
+    # 서버가 question_id 로 원본 정답을 조회한다. 하위호환 위해 필드는 남기되 무시.
+    correct_answer: str = ""
     user_answer: str = Field(..., max_length=4000)      # 유저 답
     level: str = "beginner"  # beginner | intermediate | advanced
+
+
+def _resolve_answer(question_id: str, course_level: str = None) -> str:
+    """question_id 로 원본 정답을 서버에서 조회 (AI 피드백 프롬프트용).
+
+    클라가 정답을 모르므로(F) 서버가 직접 찾는다. 못 찾으면 빈 문자열.
+    """
+    if not question_id:
+        return ""
+    for category in ("quiz", "miniboss", "unitboss", "endboss"):
+        try:
+            pool = load_questions_by_category(category, course_level=course_level)
+        except Exception:
+            continue
+        for q in pool:
+            if q.get("question_id") == question_id or q.get("id") == question_id:
+                return str(q.get("answer", "") or "")
+    return ""
 
 
 @router.post("/ai-feedback")
@@ -401,9 +437,10 @@ async def get_ai_feedback(request: Request, req: AiFeedbackRequest, user: Option
                 if cached_feedback:
                     return {"feedback": cached_feedback, "is_ai_fallback": False, "cached": True}
 
+    correct_answer = _resolve_answer(req.question_id, req.level)  # 서버 조회(F)
     prompt = (
         f"[문제]\n{req.question}\n\n"
-        f"[정답]\n{req.correct_answer}\n\n"
+        f"[정답]\n{correct_answer}\n\n"
         f"[학생 답변]\n{req.user_answer}\n\n"
         "학생이 왜 틀렸는지, 그리고 올바른 개념을 이해할 수 있도록 설명해주세요."
     )
@@ -455,9 +492,10 @@ async def get_ai_feedback_stream(req: AiFeedbackRequest, user: Optional[dict] = 
                         headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
                     )
 
+    correct_answer = _resolve_answer(req.question_id, req.level)  # 서버 조회(F)
     prompt = (
         f"[문제]\n{req.question}\n\n"
-        f"[정답]\n{req.correct_answer}\n\n"
+        f"[정답]\n{correct_answer}\n\n"
         f"[학생 답변]\n{req.user_answer}\n\n"
         "학생이 왜 틀렸는지, 그리고 올바른 개념을 이해할 수 있도록 설명해주세요."
     )
