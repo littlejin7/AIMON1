@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { trainApi, userApi, progressApi, quizApi, attemptsApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
-import TrainLocked  from './TrainLocked'
-import TrainSession from './TrainSession'
-import TrainResult  from './TrainResult'
-import TrainHome    from './TrainHome'
+import TrainLocked       from './TrainLocked'
+import TrainSession      from './TrainSession'
+import TrainResult       from './TrainResult'
+import TrainHome         from './TrainHome'
+import CodeViewer        from './CodeViewer'
 import './Train.css'
 
 export default function Train() {
@@ -89,27 +90,7 @@ export default function Train() {
     setCurrentUnit(null)
   }
 
-  const startBossRush = async () => {
-    if (!token) return
-    setLoading(true)
-    try {
-      const res = await trainApi.getBossRush({ n: 10 })
-      if (!res.data || res.data.length === 0) {
-        alert('미니보스를 먼저 클리어해야 보스 특훈을 이용할 수 있어요!\nCodemmon을 처치하고 돌아오세요 👹')
-        return
-      }
-      setTrainSubMode('boss_rush')
-      setQuestions(res.data)
-      setCurrent(0)
-      setAnswers({})
-      setCorrectCount(0)
-      setMode('playing')
-    } catch {
-      alert('문제를 불러오지 못했습니다.')
-    } finally {
-      setLoading(false)
-    }
-  }
+  const showCodeViewer = () => setMode('code_viewer')
 
   const startRandom = async () => {
     if (!token) return
@@ -253,6 +234,15 @@ export default function Train() {
 
   if (isLocked) return <TrainLocked />
 
+
+  if (mode === 'code_viewer') {
+    return (
+      <CodeViewer
+        onBack={() => setMode('idle')}
+      />
+    )
+  }
+  
   if (mode === 'playing') {
     return (
       <TrainSession
@@ -288,14 +278,13 @@ export default function Train() {
       maxUnit={lessons.length || 8}
       userCourseLevel={user?.course_level || 'beginner'}
       hasCompletedStages={completedStageCount > 0}
-      hasClearedMiniboss={(user?.miniboss_cleared_stages?.length || 0) > 0}
       wrongCount={wrongCount}
       wrongAnswers={wrongAnswers}
       unitAccuracy={unitAccuracy}
       loading={loading}
       onStart={startTraining}
       onStartRandom={startRandom}
-      onStartBossRush={startBossRush}
+      onOpenCodeViewer={showCodeViewer}
     />
   )
 }
