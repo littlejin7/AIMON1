@@ -119,7 +119,7 @@ function RadarChart({ syntax = 0, structure = 0, control = 0 }) {
         <text x={cx} y={cy - maxR - 10} textAnchor="middle" fill="#26215C" fontSize="12" fontWeight="700">
           기본 문법 ({syntax}%)
         </text>
-        <text x={cx - maxR * cos30 - 15} y={cy + maxR * sin30 + 15} textAnchor="middle" fill="#26215C" fontSize="12" fontWeight="700">
+        <text x={cx - maxR * cos30 - 15} y={cy + maxR * sin30 + 15} textAnchor="start" fill="#26215C" fontSize="12" fontWeight="700">
           자료구조 ({structure}%)
         </text>
         <text x={cx + maxR * cos30 + 15} y={cy + maxR * sin30 + 15} textAnchor="middle" fill="#26215C" fontSize="12" fontWeight="700">
