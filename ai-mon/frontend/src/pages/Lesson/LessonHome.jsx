@@ -93,21 +93,23 @@ export default function LessonHome() {
   }
 
   const getUnitProgress = (unitId) => {
-    const items = progress.filter((p) => p.unit === unitId)
+    const items = progress.filter((p) => p.unit === unitId && p.course_level === courseLevel)
     const stageItems = items.filter((p) => p.stage !== `${unitId}-boss` && p.stage !== 'miniboss')
     const completed  = stageItems.filter((p) => p.is_completed).length
-   return { completed }
+    return { completed }
   }
   const isStageComplete = (unitId, stageNum) =>
-    progress.some((p) => p.unit === unitId && p.stage === `${unitId}-${stageNum}` && p.is_completed)
+    progress.some((p) => p.unit === unitId && p.stage === `${unitId}-${stageNum}` && p.is_completed && p.course_level === courseLevel)
 
   const isBossComplete = (unitId) =>
-    progress.some((p) => p.unit === unitId && p.stage === `${unitId}-boss` && p.is_completed)
+    progress.some((p) => p.unit === unitId && p.stage === `${unitId}-boss` && p.is_completed && p.course_level === courseLevel)
 
   const totalStages = lessons.reduce((a, l) => a + (l.stages || 0), 0)
   const doneStages  = progress.filter((p) => {
-    const stageNum = parseInt(p.stage)
-    return !isNaN(stageNum) && p.is_completed
+    if (p.stage.endsWith('-boss') || p.stage === 'miniboss') return false
+    const parts = p.stage.split('-')
+    const stageNum = parseInt(parts[1])
+    return !isNaN(stageNum) && p.is_completed && p.course_level === courseLevel
   }).length
   const overallPct  = totalStages > 0 ? Math.round((doneStages / totalStages) * 100) : 0
 

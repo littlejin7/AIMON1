@@ -1999,6 +1999,76 @@
       "feedback": {
         "correct": "정답! csv.DictWriter(f, fieldnames=fieldnames)는 딕셔너리 리스트를 CSV로 쓸 때 사용해요."
       }
+    },
+    {
+      "question_id": "sl_mid_fib_5_5_021",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "JSON 데이터를 파싱하는 과정에서 JSON 표준 규격(예: 큰따옴표 누락 등)에 맞지 않는 텍스트가 유입되면 발생하는 json 모듈 고유의 예외 에러 명칭을 빈칸에 채워주세요.\n\n```python\nimport json\ntry:\n    bad_json = \"{'level': 5}\"\n    data = json.loads(bad_json)\nexcept json._______________:\n    print('JSON 포맷 규격을 준수하지 않은 데이터입니다.')\n```",
+      "answer": "JSONDecodeError",
+      "feedback": {
+        "correct": "정답입니다! json 모듈은 텍스트 파싱 실패 시 `json.JSONDecodeError`를 발생시켜 문법적 결함이 있음을 개발자에게 명확히 경고합니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_fib_5_5_022",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "A",
+      "is_boss": false,
+      "question": "csv 모듈의 `DictReader`를 사용하여 CSV 문서를 정제하는 로직입니다. 데이터 행 내부의 특정 필드가 비어있을 때 의도적으로 예외를 발생시켜 흐름을 통제하고자 사용하는 키워드를 빈칸에 입력해 주세요.\n\n```python\nrow = {'item': 'potion', 'price': ''}\nif row['price'] == '':\n    _____ ValueError('상품 가격 필드가 비어 있습니다.')\n```",
+      "answer": "raise",
+      "feedback": {
+        "correct": "정답입니다! `raise` 키워드를 사용하면 조건에 부합하지 않는 불완전한 데이터 감지 시 즉시 예외 신호를 발생시킬 수 있습니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_fib_5_5_023",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "easy",
+      "type": "fill_in_blank",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "JSON 파싱 연산 중 어떠한 오류도 발생하지 않고 정상 종료되었을 때만 실행되는 예외 처리 키워드를 빈칸에 채워주세요.\n\n```python\ntry:\n    import json\n    parsed = json.loads('{\"crowns\": 5}')\nexcept json.JSONDecodeError:\n    print('파싱 실패')\n_____:\n    print('JSON 데이터 처리에 성공했습니다!')\n```",
+      "answer": "else",
+      "feedback": {
+        "correct": "정답입니다! `else` 블록은 try 블록이 성공적으로 실행 완료되었을 때 가동되는 영역입니다."
+      }
+    },
+    {
+      "question_id": "sl_mid_os_5_5_024",
+      "unit": 5,
+      "stage": "5-5",
+      "course_level": "intermediate",
+      "difficulty": "medium",
+      "type": "output_select",
+      "quiz_category": "stage_quiz",
+      "quiz_set": "B",
+      "is_boss": false,
+      "question": "csv 패키지의 `DictReader` 객체가 읽어 들인 행 데이터의 딕셔너리 키를 조회할 때 유발되는 아래 코드의 최종 결과를 예측해 보세요.\n\n```python\nrow_data = {'username': 'ji_hun', 'role': 'trainee'}\n\ntry:\n    print(row_data['grade'])\nexcept KeyError:\n    print('존재하지 않는 CSV 헤더 컬럼 이름입니다.')\n```",
+      "choices": [
+        "A. trainee",
+        "B. 존재하지 않는 CSV 헤더 컬럼 이름입니다.",
+        "C. None",
+        "D. 문법 에러로 실행 거부"
+      ],
+      "answer": "B. 존재하지 않는 CSV 헤더 컬럼 이름입니다.",
+      "feedback": {
+        "correct": "정답입니다! 딕셔너리에서 존재하지 않는 키에 대괄호로 접근하면 `KeyError`가 발생하며, 대응하는 except 블록이 작동합니다."
+      }
     }
   ]
 }
