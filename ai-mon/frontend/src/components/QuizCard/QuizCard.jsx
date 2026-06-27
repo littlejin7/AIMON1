@@ -27,7 +27,7 @@ function CodeBlock({ lines }) {
     }}>
       <pre style={{
         fontFamily: "'d2coding', monospace", fontSize: '18px',
-        lineHeight: '1.7', color: '#ffffff', whiteSpace: 'pre', margin: 0,
+        lineHeight: '1.7', color: '#ffffff', whiteSpace: 'pre-wrap', margin: 0,
       }}>
         {lines.map((line, i) => (
           <div key={i} style={{ color: line.trim().startsWith('#') ? '#6B7280' : '#E9D5FF' }}>

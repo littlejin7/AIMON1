@@ -1,18 +1,18 @@
 import logging
 import httpx
 
-# Patches for httpx Client/AsyncClient init to support 'proxy' argument (gotrue expects it, but httpx 0.25.2 uses 'proxies')
+# Patches for httpx Client/AsyncClient init: drop proxy/proxies kwargs that newer httpx versions don't support
 orig_client_init = httpx.Client.__init__
 def patched_client_init(self, *args, **kwargs):
-    if "proxy" in kwargs:
-        kwargs["proxies"] = kwargs.pop("proxy")
+    kwargs.pop("proxy", None)
+    kwargs.pop("proxies", None)
     orig_client_init(self, *args, **kwargs)
 httpx.Client.__init__ = patched_client_init
 
 orig_async_client_init = httpx.AsyncClient.__init__
 def patched_async_client_init(self, *args, **kwargs):
-    if "proxy" in kwargs:
-        kwargs["proxies"] = kwargs.pop("proxy")
+    kwargs.pop("proxy", None)
+    kwargs.pop("proxies", None)
     orig_async_client_init(self, *args, **kwargs)
 httpx.AsyncClient.__init__ = patched_async_client_init
 

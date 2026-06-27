@@ -476,34 +476,6 @@ export default function Stage({ _lessonId, _stage }) {
   }
 
   return (
-    <StageQuiz
-      lessonId={lessonId}
-      stageNum={stageNum}
-      questions={questions}
-      current={current}
-      score={score}
-      minibossStartIndex={minibossStartIndex}
-      handleAnswer={handleAnswer}
-      handleNext={handleNext}
-    />
-  )
-}
-
-
-
-  if (showMinibossAlert) {
-    return (
-      <MiniBossAlert
-        onFight={() => {
-          setShowMinibossAlert(false)
-          if (minibossStartIndex !== null) setCurrent(minibossStartIndex)
-          playBGM('battle')
-        }}
-      />
-    )
-  }
-
-  return (
     <>
       {/* [임시] 미니보스 바로가기 버튼 */}
       {minibossStartIndex === null && (

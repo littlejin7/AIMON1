@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import './LevelTestModal.css'
 
 const STEPS = [
   '답변 데이터 수집 완료',

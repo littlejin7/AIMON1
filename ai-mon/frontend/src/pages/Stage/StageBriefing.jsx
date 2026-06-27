@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import slimeIcon from '../../assets/character_slime.png'
 import robotIcon from '../../assets/character_robot.png'
 import speechBubbleIcon from '../../assets/character_bubble.png'
@@ -63,6 +64,7 @@ export default function StageBriefing({
   stageNum,
   unitInfo,
 }) {
+  const navigate = useNavigate()
   const user     = useAuthStore((s) => s.user)
   const charSrc  = CHARACTER_MAP[user?.character] || slimeIcon
 
@@ -75,23 +77,36 @@ export default function StageBriefing({
   return (
     <div className="sb-page">
 
-      {/* ── Progress ── */}
-      <div className="sb-progress-wrap">
-        <div className="sb-progress-track">
-          <div className="sb-progress-fill" style={{ width: `${progress}%` }} />
+      {/* ── 헤더 ── */}
+      <div className="stage-hero">
+        <button
+          className="stage-hero-close"
+          onClick={() => navigate(`/lesson/${lessonId}`)}
+          aria-label="레슨 목록으로"
+        >✕</button>
+        <div className="stage-hero-text">
+          <p className="stage-breadcrumb">UNIT {lessonId} · Stage {stageNum}</p>
+        </div>
+        <div style={{ width: 40 }} />
+      </div>
+
+      {/* ── 진행도 ── */}
+      <div className="stage-bottom-progress">
+        <div className="stage-progress-label">
+          <span>진행도</span>
+          <span>슬라이드 {briefingIndex + 1} / {total}</span>
+        </div>
+        <div className="progress-bar">
+          <div className="progress-bar-fill" style={{ width: `${progress}%` }} />
         </div>
       </div>
 
+      {unitInfo?.title && (
+        <div className="sb-lesson-title">{unitInfo.title}</div>
+      )}
+
       {/* ── Body ── */}
       <div className="sb-body">
-
-        <div className="sb-unit-badge">
-          📘 {slide.topic || `슬라이드 ${slide.order}`}
-        </div>
-
-        {unitInfo?.title && (
-          <div className="sb-lesson-title">{unitInfo.title}</div>
-        )}
 
         <div className="sb-mascot-bubble">
           <div className="sb-mascot-avatar">

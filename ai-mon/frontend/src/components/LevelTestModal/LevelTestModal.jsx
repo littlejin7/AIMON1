@@ -130,6 +130,7 @@ export default function LevelTestModal({ onClose, onFinish, isLoggedIn }) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
+        className="level-test-modal-inner"
         style={{
           background: '#ffffff',
           borderRadius: '24px',
@@ -137,6 +138,8 @@ export default function LevelTestModal({ onClose, onFinish, isLoggedIn }) {
           maxHeight: '90vh',
           overflowY: 'auto',
           boxShadow: '0 8px 40px rgba(83,74,183,.28)',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
         }}
       >
         {step === 0 && (

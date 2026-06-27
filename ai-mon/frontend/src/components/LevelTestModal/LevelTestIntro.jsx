@@ -72,7 +72,7 @@ export default function LevelTestIntro({ onStart, onClose }) {
               <span style={{ fontSize: '20px', flexShrink: 0 }}>{f.emoji}</span>
               <div>
                 <div style={{ fontSize: '13px', fontWeight: 600, color: '#26215C', marginBottom: '2px' }}>{f.title}</div>
-                <div style={{ fontSize: '11px', color: '#9B96D0', lineHeight: 1.5 }}>{f.desc}</div>
+                <div style={{ fontSize: '11px', color: '#9B96D0', lineHeight: 1.5, wordBreak: 'keep-all' }}>{f.desc}</div>
               </div>
             </div>
           ))}

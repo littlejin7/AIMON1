@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>코드를 배워요!</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #111827;
+    font-family: 'Segoe UI', 'Apple SD Gothic Neo', sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 20px 12px 40px;
+    min-height: 100vh;
+  }
+
+  .app {
+    width: 390px;
+    background: #1a2235;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+  }
+
+  /* 헤더 */
+  .header {
+    background: linear-gradient(135deg, #0f2d5e, #1a3a6e);
+    padding: 22px 20px 20px;
+    position: relative;
+  }
+  .header h1 { color: #fff; font-size: 20px; font-weight: 800; margin-bottom: 3px; }
+  .header p  { color: #8aafd4; font-size: 12px; }
+  .close-btn {
+    position: absolute; top: 16px; right: 16px;
+    width: 30px; height: 30px;
+    background: rgba(255,255,255,0.12); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #ccc; font-size: 14px; cursor: pointer;
+  }
+
+  /* ───── 코드 미리보기 패널 ───── */
+  .preview-panel {
+    margin: 16px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1.5px solid #2a3d5e;
+    transition: all 0.3s;
+  }
+
+  .code-area {
+    background: #0d1117;
+    padding: 14px 16px 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .line-num {
+    color: #3a4d6a;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    user-select: none;
+    padding-top: 1px;
+    line-height: 1.8;
+  }
+
+  .code-content {
+    flex: 1;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #c9d1d9;
+  }
+
+  /* 코드 하이라이트 색상 */
+  .kw   { color: #ff7b72; }   /* 키워드 (빨강) */
+  .str  { color: #a5d6ff; }   /* 문자열 (하늘) */
+  .num  { color: #79c0ff; }   /* 숫자 (파랑) */
+  .fn   { color: #d2a8ff; }   /* 함수 (보라) */
+  .cmt  { color: #6e8a6a; font-style: italic; }  /* 주석 (초록) */
+  .var  { color: #ffa657; }   /* 변수 (주황) */
+  .punc { color: #8b949e; }   /* 괄호 등 */
+
+  /* 밑줄 빈칸 */
+  .blank-slot {
+    display: inline-block;
+    min-width: 60px;
+    border-bottom: 2px solid #4fc3f7;
+    color: #4fc3f7;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    text-align: center;
+    transition: all 0.3s;
+    animation: blink-border 1.5s infinite;
+  }
+
+  @keyframes blink-border {
+    0%, 100% { border-color: #4fc3f7; }
+    50%       { border-color: #1565c0; }
+  }
+
+  .blank-slot.filled {
+    color: #ff7b72;
+    border-bottom: 2px solid #ff7b72;
+    animation: none;
+  }
+
+  /* 출력 영역 */
+  .output-area {
+    background: #161b22;
+    border-top: 1px solid #2a3d5e;
+    padding: 10px 16px 12px;
+  }
+
+  .output-label {
+    font-size: 10px;
+    color: #4a6a8a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .output-label::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #43a047;
+  }
+
+  .output-text {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: #a8d8a8;
+    min-height: 20px;
+    white-space: pre-wrap;
+    line-height: 1.6;
+  }
+
+  .output-empty {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: #3a4d6a;
+    font-style: italic;
+  }
+
+  /* 입력 프롬프트 스타일 */
+  .output-text.input-style {
+    color: #ffd54f;
+  }
+
+  /* ───── 키워드 그리드 ───── */
+  .section-label {
+    padding: 10px 16px 6px;
+    font-size: 10px;
+    color: #4a6a8a;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    padding: 0 14px 14px;
+  }
+
+  .card {
+    background: #1e2d4a;
+    border-radius: 14px;
+    padding: 10px 4px 9px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    border: 1.5px solid #253550;
+    transition: all 0.15s;
+    position: relative;
+  }
+
+  .card:hover  { transform: translateY(-2px); background: #243660; border-color: #4fc3f7; }
+  .card.active { background: #1a3a6e; border-color: #4fc3f7; box-shadow: 0 0 12px rgba(79,195,247,0.3); }
+  .card:active { transform: scale(0.95); }
+
+  .card.locked { cursor: default; opacity: 0.45; }
+  .card.locked:hover { transform: none; background: #1e2d4a; border-color: #253550; }
+
+  .card-keyword {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: #e0ecff;
+  }
+
+  .card-desc {
+    font-size: 9px;
+    color: #5a7a9a;
+  }
+
+  .progress-bar {
+    width: 88%;
+    height: 4px;
+    background: #2a3d5e;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.4s;
+  }
+
+  .fill-done    { background: linear-gradient(90deg, #43a047, #66bb6a); }
+  .fill-mid     { background: linear-gradient(90deg, #f9a825, #ffca28); }
+  .fill-low     { background: linear-gradient(90deg, #e53935, #ef5350); }
+  .fill-none    { background: transparent; }
+
+  /* 잠금 아이콘 */
+  .lock-icon {
+    font-size: 14px;
+    color: #3a4d6a;
+  }
+
+  /* 힌트 */
+  .hint-text {
+    padding: 0 16px 14px;
+    font-size: 11px;
+    color: #4a6a8a;
+    text-align: center;
+    font-style: italic;
+  }
+
+  .divider {
+    height: 1px;
+    background: #202d3e;
+    margin: 4px 16px 4px;
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- 헤더 -->
+  <div class="header">
+    <div class="close-btn">✕</div>
+    <h1>🐍 코드를 배워요!</h1>
+    <p>키워드를 눌러 코드 예시를 확인하세요</p>
+  </div>
+
+  <!-- 코드 미리보기 패널 -->
+  <div class="preview-panel" id="previewPanel">
+    <div class="code-area">
+      <div class="line-num" id="lineNums">1</div>
+      <div class="code-content" id="codeContent">
+        <span class="blank-slot" id="blankSlot">___</span><span class="punc">(</span><span class="str">"안녕하세요!"</span><span class="punc">)</span>
+      </div>
+    </div>
+    <div class="output-area">
+      <div class="output-label">출력 결과</div>
+      <div class="output-text output-empty" id="outputText">← 키워드를 눌러보세요</div>
+    </div>
+  </div>
+
+  <p class="hint-text" id="hintText">💡 아래 키워드 중 하나를 골라 빈칸을 채워보세요</p>
+
+  <!-- 출력/입력 -->
+  <div class="section-label">출력 / 입력 / 주석</div>
+  <div class="grid">
+
+    <div class="card" data-key="print" onclick="selectKeyword(this)">
+      <span class="card-keyword">print</span>
+      <span class="card-desc">출력</span>
+      <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    </div>
+
+    <div class="card" data-key="input" onclick="selectKeyword(this)">
+      <span class="card-keyword">input</span>
+      <span class="card-desc">입력</span>
+      <div class="progress-bar"><div class="progress-fill fill-mid" style="width:55%"></div></div>
+    </div>
+
+    <div class="card" data-key="comment" onclick="selectKeyword(this)">
+      <span class="card-keyword">#</span>
+      <span class="card-desc">주석</span>
+      <div class="progress-bar"><div class="progress-fill fill-low" style="width:20%"></div></div>
+    </div>
+
+    <div class="card locked">
+      <span class="lock-icon">🔒</span>
+      <span class="card-desc">???</span>
+      <div class="progress-bar"><div class="progress-fill fill-none" style="width:0%"></div></div>
+    </div>
+
+    <div class="card locked">
+      <span class="lock-icon">🔒</span>
+      <span class="card-desc">???</span>
+      <div class="progress-bar"><div class="progress-fill fill-none" style="width:0%"></div></div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 자료구조 -->
+  <div class="section-label">자료구조</div>
+  <div class="grid">
+
+    <div class="card" data-key="list" onclick="selectKeyword(this)">
+      <span class="card-keyword">list</span>
+      <span class="card-desc">리스트</span>
+      <div class="progress-bar"><div class="progress-fill fill-mid" style="width:70%"></div></div>
+    </div>
+
+    <div class="card" data-key="len" onclick="selectKeyword(this)">
+      <span class="card-keyword">len</span>
+      <span class="card-desc">길이</span>
+      <div class="progress-bar"><div class="progress-fill fill-mid" style="width:40%"></div></div>
+    </div>
+
+    <div class="card locked">
+      <span class="lock-icon">🔒</span>
+      <span class="card-desc">???</span>
+      <div class="progress-bar"><div class="progress-fill fill-none" style="width:0%"></div></div>
+    </div>
+
+    <div class="card locked">
+      <span class="lock-icon">🔒</span>
+      <span class="card-desc">???</span>
+      <div class="progress-bar"><div class="progress-fill fill-none" style="width:0%"></div></div>
+    </div>
+
+    <div class="card locked">
+      <span class="lock-icon">🔒</span>
+      <span class="card-desc">???</span>
+      <div class="progress-bar"><div class="progress-fill fill-none" style="width:0%"></div></div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 제어 흐름 -->
+  <div class="section-label">제어 흐름</div>
+  <div class="grid">
+
+    <div class="card" data-key="if" onclick="selectKeyword(this)">
+      <span class="card-keyword">if</span>
+      <span class="card-desc">조건</span>
+      <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    </div>
+
+    <div class="card" data-key="for" onclick="selectKeyword(this)">
+      <span class="card-keyword">for</span>
+      <span class="card-desc">반복</span>
+      <div class="progress-bar"><div class="progress-fill fill-mid" style="width:60%"></div></div>
+    </div>
+
+    <div class="card locked">
+      <span class="lock-icon">🔒</span>
+      <span class="card-desc">???</span>
+      <div class="progress-bar"><div class="progress-fill fill-none" style="width:0%"></div></div>
+    </div>
+
+    <div class="card locked">
+      <span class="lock-icon">🔒</span>
+      <span class="card-desc">???</span>
+      <div class="progress-bar"><div class="progress-fill fill-none" style="width:0%"></div></div>
+    </div>
+
+    <div class="card locked">
+      <span class="lock-icon">🔒</span>
+      <span class="card-desc">???</span>
+      <div class="progress-bar"><div class="progress-fill fill-none" style="width:0%"></div></div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 출력화면 -->
+  <div class="section-label">출력화면</div>
+  <div class="grid">
+
+    <div class="card" data-key="def" onclick="selectKeyword(this)">
+      <span class="card-keyword">def</span>
+      <span class="card-desc">함수정의</span>
+      <div class="progress-bar"><div class="progress-fill fill-none" style="width:0%"></div></div>
+    </div>
+
+    <div class="card" data-key="while" onclick="selectKeyword(this)">
+      <span class="card-keyword">while</span>
+      <span class="card-desc">조건반복</span>
+      <div class="progress-bar"><div class="progress-fill fill-none" style="width:0%"></div></div>
+    </div>
+
+    <div class="card" data-key="dict" onclick="selectKeyword(this)">
+      <span class="card-keyword">dict</span>
+      <span class="card-desc">딕셔너리</span>
+      <div class="progress-bar"><div class="progress-fill fill-none" style="width:0%"></div></div>
+    </div>
+
+    <div class="card" data-key="class" onclick="selectKeyword(this)">
+      <span class="card-keyword">class</span>
+      <span class="card-desc">클래스</span>
+      <div class="progress-bar"><div class="progress-fill fill-none" style="width:0%"></div></div>
+    </div>
+
+    <div class="card" data-key="try" onclick="selectKeyword(this)">
+      <span class="card-keyword">try</span>
+      <span class="card-desc">예외처리</span>
+      <div class="progress-bar"><div class="progress-fill fill-none" style="width:0%"></div></div>
+    </div>
+
+    <div class="card" data-key="lambda" onclick="selectKeyword(this)">
+      <span class="card-keyword">lambda</span>
+      <span class="card-desc">람다</span>
+      <div class="progress-bar"><div class="progress-fill fill-none" style="width:0%"></div></div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  // 각 키워드별 코드 + 출력 정의
+  const keywordData = {
+    print: {
+      lines: 1,
+      code: `<span class="kw filled" id="blankSlot">print</span><span class="punc">(</span><span class="str">"안녕하세요!"</span><span class="punc">)</span>`,
+      output: '안녕하세요!',
+      outputClass: 'output-text',
+      hint: '💡 print() 는 화면에 내용을 출력해요 — 콘솔의 스피커 역할이에요'
+    },
+    input: {
+      lines: 2,
+      code: `<span class="var">name</span> <span class="punc">=</span> <span class="kw filled" id="blankSlot">input</span><span class="punc">(</span><span class="str">"이름을 입력하세요: "</span><span class="punc">)</span>\n<span class="fn">print</span><span class="punc">(</span><span class="str">"안녕,"</span><span class="punc">,</span> <span class="var">name</span><span class="punc">)</span>`,
+      output: '이름을 입력하세요: █\n(입력 후 → 안녕, 홍길동)',
+      outputClass: 'output-text input-style',
+      hint: '💡 input() 은 사용자가 타이핑할 수 있게 기다려요'
+    },
+    comment: {
+      lines: 3,
+      code: `<span class="cmt"># 이 줄은 실행되지 않아요</span>\n<span class="fn">print</span><span class="punc">(</span><span class="str">"코드 실행!"</span><span class="punc">)</span>\n<span class="cmt"># print("이건 안 나와요")</span>`,
+      output: '코드 실행!',
+      outputClass: 'output-text',
+      hint: '💡 # 뒤의 내용은 파이썬이 무시해요 — 메모장 같은 거예요'
+    },
+    list: {
+      lines: 3,
+      code: `<span class="var">fruits</span> <span class="punc">=</span> <span class="kw filled" id="blankSlot">list</span><span class="punc">([</span><span class="str">"🍎"</span><span class="punc">,</span> <span class="str">"🍌"</span><span class="punc">,</span> <span class="str">"🍇"</span><span class="punc">])</span>\n<span class="fn">print</span><span class="punc">(</span><span class="var">fruits</span><span class="punc">)</span>\n<span class="fn">print</span><span class="punc">(</span><span class="var">fruits</span><span class="punc">[</span><span class="num">0</span><span class="punc">])</span>`,
+      output: "['🍎', '🍌', '🍇']\n🍎",
+      outputClass: 'output-text',
+      hint: '💡 list 는 항목들을 순서대로 담는 바구니예요'
+    },
+    len: {
+      lines: 2,
+      code: `<span class="var">fruits</span> <span class="punc">=</span> <span class="punc">[</span><span class="str">"🍎"</span><span class="punc">,</span> <span class="str">"🍌"</span><span class="punc">,</span> <span class="str">"🍇"</span><span class="punc">]</span>\n<span class="fn">print</span><span class="punc">(</span><span class="kw filled" id="blankSlot">len</span><span class="punc">(</span><span class="var">fruits</span><span class="punc">))</span>`,
+      output: '3',
+      outputClass: 'output-text',
+      hint: '💡 len() 은 항목이 몇 개인지 세어줘요 — 자로 길이 재기'
+    },
+    if: {
+      lines: 4,
+      code: `<span class="var">score</span> <span class="punc">=</span> <span class="num">85</span>\n<span class="kw filled" id="blankSlot">if</span> <span class="var">score</span> <span class="punc">>=</span> <span class="num">80</span><span class="punc">:</span>\n    <span class="fn">print</span><span class="punc">(</span><span class="str">"합격! 🎉"</span><span class="punc">)</span>\n<span class="kw">else</span><span class="punc">:</span>\n    <span class="fn">print</span><span class="punc">(</span><span class="str">"재도전!"</span><span class="punc">)</span>`,
+      output: '합격! 🎉',
+      outputClass: 'output-text',
+      hint: '💡 if 는 갈림길 — 조건이 참이면 이쪽, 거짓이면 저쪽'
+    },
+    for: {
+      lines: 3,
+      code: `<span class="var">items</span> <span class="punc">=</span> <span class="punc">[</span><span class="str">"🍎"</span><span class="punc">,</span> <span class="str">"🍌"</span><span class="punc">,</span> <span class="str">"🍇"</span><span class="punc">]</span>\n<span class="kw filled" id="blankSlot">for</span> <span class="var">item</span> <span class="kw">in</span> <span class="var">items</span><span class="punc">:</span>\n    <span class="fn">print</span><span class="punc">(</span><span class="var">item</span><span class="punc">)</span>`,
+      output: '🍎\n🍌\n🍇',
+      outputClass: 'output-text',
+      hint: '💡 for 는 컨베이어 벨트 — 항목을 하나씩 꺼내서 처리해요'
+    },
+    def: {
+      lines: 4,
+      code: `<span class="kw filled" id="blankSlot">def</span> <span class="fn">greet</span><span class="punc">(</span><span class="var">name</span><span class="punc">):</span>\n    <span class="fn">print</span><span class="punc">(</span><span class="str">"안녕,"</span><span class="punc">,</span> <span class="var">name</span><span class="punc">)</span>\n\n<span class="fn">greet</span><span class="punc">(</span><span class="str">"파이썬"</span><span class="punc">)</span>`,
+      output: '안녕, 파이썬',
+      outputClass: 'output-text',
+      hint: '💡 def 는 나만의 명령어를 만드는 것 — 레시피 작성하기'
+    },
+    while: {
+      lines: 4,
+      code: `<span class="var">n</span> <span class="punc">=</span> <span class="num">3</span>\n<span class="kw filled" id="blankSlot">while</span> <span class="var">n</span> <span class="punc">></span> <span class="num">0</span><span class="punc">:</span>\n    <span class="fn">print</span><span class="punc">(</span><span class="var">n</span><span class="punc">)</span>\n    <span class="var">n</span> <span class="punc">-=</span> <span class="num">1</span>`,
+      output: '3\n2\n1',
+      outputClass: 'output-text',
+      hint: '💡 while 은 조건이 참인 동안 계속 반복 — 신호등이 빨간불일 때 기다리기'
+    },
+    dict: {
+      lines: 3,
+      code: `<span class="var">person</span> <span class="punc">=</span> <span class="kw filled" id="blankSlot">dict</span><span class="punc">(</span><span class="var">name</span><span class="punc">=</span><span class="str">"철수"</span><span class="punc">,</span> <span class="var">age</span><span class="punc">=</span><span class="num">10</span><span class="punc">)</span>\n<span class="fn">print</span><span class="punc">(</span><span class="var">person</span><span class="punc">[</span><span class="str">"name"</span><span class="punc">])</span>\n<span class="fn">print</span><span class="punc">(</span><span class="var">person</span><span class="punc">[</span><span class="str">"age"</span><span class="punc">])</span>`,
+      output: '철수\n10',
+      outputClass: 'output-text',
+      hint: '💡 dict 는 이름표가 붙은 서랍장 — 키로 값을 꺼내요'
+    },
+    class: {
+      lines: 5,
+      code: `<span class="kw filled" id="blankSlot">class</span> <span class="fn">Dog</span><span class="punc">:</span>\n    <span class="kw">def</span> <span class="fn">bark</span><span class="punc">(</span><span class="var">self</span><span class="punc">):</span>\n        <span class="fn">print</span><span class="punc">(</span><span class="str">"멍멍!"</span><span class="punc">)</span>\n\n<span class="fn">Dog</span><span class="punc">().</span><span class="fn">bark</span><span class="punc">()</span>`,
+      output: '멍멍!',
+      outputClass: 'output-text',
+      hint: '💡 class 는 설계도 — 강아지 설계도로 진짜 강아지를 만들어요'
+    },
+    try: {
+      lines: 4,
+      code: `<span class="kw filled" id="blankSlot">try</span><span class="punc">:</span>\n    <span class="fn">print</span><span class="punc">(</span><span class="num">10</span> <span class="punc">/</span> <span class="num">0</span><span class="punc">)</span>\n<span class="kw">except</span> <span class="fn">ZeroDivisionError</span><span class="punc">:</span>\n    <span class="fn">print</span><span class="punc">(</span><span class="str">"0으로 못 나눠요!"</span><span class="punc">)</span>`,
+      output: '0으로 못 나눠요!',
+      outputClass: 'output-text',
+      hint: '💡 try/except 는 안전망 — 오류가 나도 프로그램이 멈추지 않아요'
+    },
+    lambda: {
+      lines: 2,
+      code: `<span class="var">double</span> <span class="punc">=</span> <span class="kw filled" id="blankSlot">lambda</span> <span class="var">x</span><span class="punc">:</span> <span class="var">x</span> <span class="punc">*</span> <span class="num">2</span>\n<span class="fn">print</span><span class="punc">(</span><span class="fn">double</span><span class="punc">(</span><span class="num">5</span><span class="punc">))</span>`,
+      output: '10',
+      outputClass: 'output-text',
+      hint: '💡 lambda 는 이름 없는 미니 함수 — 일회용 메모처럼 간단하게'
+    }
+  };
+
+  let activeCard = null;
+
+  function selectKeyword(card) {
+    if (card.classList.contains('locked')) return;
+
+    // 이전 active 해제
+    if (activeCard) activeCard.classList.remove('active');
+    card.classList.add('active');
+    activeCard = card;
+
+    const key = card.dataset.key;
+    const data = keywordData[key];
+    if (!data) return;
+
+    // 줄 번호 업데이트
+    const lineCount = (data.code.match(/\n/g) || []).length + 1;
+    document.getElementById('lineNums').textContent =
+      Array.from({length: lineCount}, (_, i) => i + 1).join('\n');
+
+    // 코드 업데이트
+    document.getElementById('codeContent').innerHTML = data.code;
+
+    // 출력 업데이트
+    const outputEl = document.getElementById('outputText');
+    outputEl.textContent = data.output;
+    outputEl.className = data.outputClass;
+
+    // 힌트 업데이트
+    document.getElementById('hintText').textContent = data.hint;
+  }
+</script>
+</body>
+</html>
