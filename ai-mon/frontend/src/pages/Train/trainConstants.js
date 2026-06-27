@@ -25,8 +25,8 @@ export const TRAIN_MODES = [
     id: 'boss',
     icon: '👹',
     iconBg: '#F0EFF8',
-    name: '보스 특훈',
-    desc: 'Codemmon의 미니보스 패턴 집중 연습',
-    reward: '보스 러시',
+    name: '출력화면',
+    desc: '코드를 직접 클릭하여 출력화면을 확인하세요',
   },
+]
 ]
