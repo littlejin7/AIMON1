@@ -18,6 +18,7 @@ export default function StageResult({
   handleMinibossRetry,
   handleRestartFromBeginning,
   resetStageState,
+  retryWithNextSet,
   evoModal,
   setEvoModal,
 }) {
@@ -129,7 +130,7 @@ export default function StageResult({
               </button>
             </div>
           ) : (
-            <button className="btn btn-primary" onClick={resetStageState}>
+            <button className="btn btn-primary" onClick={retryWithNextSet}>
               다시 도전 🔄
             </button>
           )

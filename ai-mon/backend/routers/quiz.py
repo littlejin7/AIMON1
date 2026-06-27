@@ -345,11 +345,11 @@ def get_questions(
         else:
             pool = list(quiz_questions)
             random.shuffle(pool)
-            
-        if not pool: # quiz_set이 없어 빈 경우 폴백
+
+        if not pool:  # quiz_set이 없어 빈 경우 폴백
             pool = list(quiz_questions)
             random.shuffle(pool)
-            
+
         quiz_pool = pool[:limit]
 
         return quiz_pool
