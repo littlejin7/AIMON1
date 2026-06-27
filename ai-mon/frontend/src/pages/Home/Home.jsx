@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { progressApi, userApi } from '../../api/index'
+import { progressApi, userApi, authApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import useHomeSound from '../../hooks/useHomeSound'
 import LevelTestModal from '../../components/LevelTestModal/LevelTestModal'
@@ -49,10 +49,11 @@ export default function Home() {
   
   useEffect(() => {
     if (!token) { setLoading(false); return }
-    Promise.all([progressApi.getStats(), userApi.getMe()])
-      .then(([statsRes, userRes]) => {
+    // touch() = getMe() + 하루 1회 streak 갱신(KST dedup). getMe() 별도 호출 불필요.
+    Promise.all([progressApi.getStats(), authApi.touch()])
+      .then(([statsRes, touchRes]) => {
         setStats(statsRes.data)
-        updateUser(userRes.data)
+        updateUser(touchRes.data.user)
       })
       .catch((err) => console.error(err))
       .finally(() => setLoading(false))

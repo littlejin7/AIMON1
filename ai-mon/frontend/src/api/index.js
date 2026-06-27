@@ -12,6 +12,7 @@ export const authApi = {
   resetPassword:  (data) => api.post('/auth/reset-password', data),
   findId: (data) => api.post('/auth/find-id', data),
   submitLevelTest: (data) => api.post('/auth/level-test/submit', data),
+  touch:           ()     => api.post('/auth/touch'),
 }
 
 export const quizApi = {
