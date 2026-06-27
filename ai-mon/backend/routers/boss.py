@@ -36,6 +36,7 @@ class BossAnswerRequest(BaseModel):
     boss_hp: int = 1000
     unit: Optional[int] = None
 
+# TODO(backlog): MY_HP_INIT/MY_HP_MAX가 백엔드(boss.py)·프론트(BossBattle.jsx=1000) 양쪽에 하드코딩됨. 응답에 my_hp_max를 실어 프론트 하드코딩 제거 → 보스 체력 튜닝 시 한 곳만 수정.
 # 서버 측 HP 고정 상수 – 클라이언트 조작 무력화
 BOSS_HP_INIT  = 1000
 MY_HP_INIT    = 1000
