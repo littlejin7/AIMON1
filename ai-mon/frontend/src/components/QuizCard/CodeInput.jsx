@@ -1,4 +1,4 @@
-export default function CodeInput({ input, setInput, revealed, disabled, pyLoading, codeRunResult, onSubmit }) {
+export default function CodeInput({ input, setInput, revealed, disabled, pyLoading, codeRunResult, gradingError, submitting, onRun, onSubmit }) {
   return (
     <div className="quiz-code-input">
       <div className="quiz-code-editor">
@@ -15,8 +15,8 @@ export default function CodeInput({ input, setInput, revealed, disabled, pyLoadi
 
       <button
         className="quiz-run-btn"
-        onClick={onSubmit}
-        disabled={!input.trim() || disabled || revealed || pyLoading}
+        onClick={onRun}
+        disabled={!input.trim() || disabled || revealed || pyLoading || submitting}
       >
         {pyLoading ? '⏳ 실행 중...' : '▶ 실행하기'}
       </button>
@@ -30,12 +30,18 @@ export default function CodeInput({ input, setInput, revealed, disabled, pyLoadi
         </div>
       )}
 
+      {gradingError && (
+        <div className="quiz-code-grading-error" style={{ color: '#DC2626', margin: '6px 0', fontSize: '14px' }}>
+          {gradingError}
+        </div>
+      )}
+
       <button
         className="quiz-submit-btn"
         onClick={onSubmit}
-        disabled={!input.trim() || disabled || revealed || pyLoading}
+        disabled={!input.trim() || disabled || revealed || pyLoading || submitting}
       >
-        확인하기
+        {submitting ? '🤖 채점 중...' : '확인하기'}
       </button>
     </div>
   )
