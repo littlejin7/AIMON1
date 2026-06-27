@@ -9,17 +9,16 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nfruits = ['사과', '바나나', '우유']\nprint(fruits[0])\n```",
+      "question": "2024년 개발자 설문 기준 프로그래밍 언어 인기 순위예요. 이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nlangs = ['Python', 'JavaScript', 'Java']\nprint(langs[0])\n```",
       "choices": [
-        "A. 사과",
-        "B. 바나나",
-        "C. 우유",
+        "A. Python",
+        "B. JavaScript",
+        "C. Java",
         "D. Error"
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! 인덱스 0은 첫 번째 값이에요. fruits[0]은 '사과'예요.",
-        "wrong": "정답은 A. 사과예요. 인덱스는 0부터 시작해요."
+        "correct": "정답! 인덱스 0은 첫 번째 값이에요. langs[0]은 'Python'이에요."
       },
       "is_boss": false,
       "hint": "리스트 인덱스는 0부터 시작해요."
@@ -42,8 +41,7 @@
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! 리스트를 print()하면 대괄호와 쉼표까지 함께 출력돼요.",
-        "wrong": "정답은 A. [10, 20, 30]이에요."
+        "correct": "정답! 리스트를 print()하면 대괄호와 쉼표까지 함께 출력돼요."
       },
       "is_boss": false,
       "hint": "리스트를 print()하면 대괄호 [ ]가 함께 출력돼요."
@@ -57,20 +55,19 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nfruits = ['봄', '여름', '가을']\nprint(fruits[1])\n```",
+      "question": "사계절을 순서대로 담은 리스트예요. 실행하면 어떤 값이 나올까요?\n\n```python\nseasons = ['봄', '여름', '가을', '겨울']\nprint(seasons[1])\n```",
       "choices": [
         "A. 봄",
         "B. 여름",
         "C. 가을",
-        "D. Error"
+        "D. 겨울"
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! 인덱스 1은 두 번째 값이에요.",
-        "wrong": "정답은 B. 여름예요."
+        "correct": "정답! 인덱스 1은 두 번째 값이에요."
       },
       "is_boss": false,
-      "hint": "인덱스 0=봄, 1=여름, 2=가을예요."
+      "hint": "인덱스 0=봄, 1=여름, 2=가을, 3=겨울이에요."
     },
     {
       "question_id": "q5004",
@@ -81,17 +78,16 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\nnums = [10, 20, 30, 40, 50]\nprint(nums[1:3])\n```\n\n이 코드가 출력하는 값은?",
+      "question": "5개월 간 월별 매출(만원) 데이터예요. 이 코드가 출력하는 값은?\n\n```python\nsales = [1200, 1540, 980, 2100, 1750]\nprint(sales[1:3])\n```",
       "choices": [
-        "A. [10, 20]",
-        "B. [20, 30]",
-        "C. [20, 30, 40]",
-        "D. [30, 40]"
+        "A. [1200, 1540]",
+        "B. [1540, 980]",
+        "C. [1540, 980, 2100]",
+        "D. [980, 2100]"
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! nums[1:3]은 인덱스 1, 2번 값이에요. 끝 번호는 포함되지 않아요.",
-        "wrong": "정답은 B. [20, 30]이에요."
+        "correct": "정답! sales[1:3]은 인덱스 1, 2번 값이에요. 끝 번호는 포함되지 않아요."
       },
       "is_boss": false,
       "hint": "슬라이싱 끝 번호는 포함되지 않아요."
@@ -105,17 +101,16 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nfruits = ['사과', '바나나', '우유']\nprint(fruits[-1])\n```",
+      "question": "프로그래밍 언어 인기 순위 리스트예요. 코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nlangs = ['Python', 'JavaScript', 'Java', 'C++', 'Rust']\nprint(langs[-1])\n```",
       "choices": [
-        "A. 사과",
-        "B. 바나나",
-        "C. 우유",
+        "A. Python",
+        "B. JavaScript",
+        "C. Rust",
         "D. Error"
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! [-1]은 마지막 값이에요. '우유'가 출력돼요.",
-        "wrong": "정답은 C. 우유예요."
+        "correct": "정답! [-1]은 마지막 값이에요. 'Rust'가 출력돼요."
       },
       "is_boss": false,
       "hint": "음수 인덱스 [-1]은 마지막 값이에요."
@@ -129,17 +124,16 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nnums = [10, 20, 30, 40, 50]\nprint(nums[:2])\n```",
+      "question": "월별 매출 데이터에서 처음 2개월 데이터만 뽑으려면? 이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nsales = [1200, 1540, 980, 2100, 1750]\nprint(sales[:2])\n```",
       "choices": [
-        "A. [20, 30]",
-        "B. [10, 20]",
-        "C. [10, 20, 30]",
-        "D. [30, 40, 50]"
+        "A. [1540, 980]",
+        "B. [1200, 1540]",
+        "C. [1200, 1540, 980]",
+        "D. [980, 2100, 1750]"
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! nums[:2]는 인덱스 0, 1번이에요.",
-        "wrong": "정답은 B. [10, 20]이에요."
+        "correct": "정답! sales[:2]는 인덱스 0, 1번이에요."
       },
       "is_boss": false,
       "hint": "[:2]는 처음부터 인덱스 1번까지예요."
@@ -153,20 +147,19 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\nnums = [10, 20, 30, 40, 50]\nprint(nums[3:])\n```",
+      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\nsales = [1200, 1540, 980, 2100, 1750]\nprint(sales[3:])\n```",
       "choices": [
-        "A. [30, 40, 50]",
-        "B. [30, 40]",
-        "C. [40, 50]",
-        "D. [50]"
+        "A. [980, 2100, 1750]",
+        "B. [980, 2100]",
+        "C. [2100, 1750]",
+        "D. [1750]"
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! nums[3:]은 인덱스 3번(40)부터 끝까지예요.",
-        "wrong": "정답은 C. [40, 50]이에요."
+        "correct": "정답! sales[3:]은 인덱스 3번(2100)부터 끝까지예요."
       },
       "is_boss": false,
-      "hint": "인덱스 0=10, 1=20, 2=30, 3=40이에요."
+      "hint": "인덱스 0=1200, 1=1540, 2=980, 3=2100이에요."
     },
     {
       "question_id": "q5008",
@@ -177,20 +170,19 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nmixed = [1, '안녕', True]\nprint(mixed[2])\n```",
+      "question": "사용자 정보 [이름, 나이, 프리미엄 여부]를 리스트로 저장했어요. 실행하면 어떤 값이 나올까요?\n\n```python\nuser = ['김민준', 28, True]\nprint(user[2])\n```",
       "choices": [
-        "A. 1",
-        "B. '안녕'",
+        "A. '김민준'",
+        "B. 28",
         "C. True",
         "D. Error"
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! 인덱스 2는 세 번째 값이에요. mixed[2]는 True예요.",
-        "wrong": "정답은 C. True예요."
+        "correct": "정답! 인덱스 2는 세 번째 값이에요. user[2]는 True예요."
       },
       "is_boss": false,
-      "hint": "리스트는 다양한 자료형을 담을 수 있어요."
+      "hint": "리스트는 문자열, 정수, 불리언 등 다양한 자료형을 함께 담을 수 있어요."
     },
     {
       "question_id": "q5009",
@@ -201,17 +193,16 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\nnested = [[1, 2], [3, 4]]\nprint(nested[0])\n```\n\n이 코드가 출력하는 값은?",
+      "question": "A팀과 B팀의 1차·2차 평가 점수를 중첩 리스트로 저장했어요. 이 코드가 출력하는 값은?\n\n```python\nteam_scores = [[85, 92], [78, 96]]\nprint(team_scores[0])\n```",
       "choices": [
-        "A. 1",
-        "B. [3, 4]",
-        "C. [[1, 2], [3, 4]]",
-        "D. [1, 2]"
+        "A. 85",
+        "B. [78, 96]",
+        "C. [[85, 92], [78, 96]]",
+        "D. [85, 92]"
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! nested[0]은 첫 번째 요소인 [1, 2]예요.",
-        "wrong": "정답은 D. [1, 2]예요."
+        "correct": "정답! team_scores[0]은 첫 번째 요소인 [85, 92]예요."
       },
       "is_boss": false,
       "hint": "중첩 리스트에서 [0]은 첫 번째 리스트 전체예요."
@@ -225,17 +216,16 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nfruits = ['빨강', '파랑', '노랑']\nprint(fruits[-2])\n```",
+      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nlangs = ['Python', 'JavaScript', 'Java', 'C++', 'Rust']\nprint(langs[-2])\n```",
       "choices": [
-        "A. 빨강",
-        "B. 노랑",
+        "A. Python",
+        "B. Rust",
         "C. Error",
-        "D. 파랑"
+        "D. C++"
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! [-2]는 뒤에서 두 번째 값이에요. -1=노랑, -2=파랑예요.",
-        "wrong": "정답은 D. 파랑예요."
+        "correct": "정답! [-2]는 뒤에서 두 번째 값이에요. -1=Rust, -2=C++이에요."
       },
       "is_boss": false,
       "hint": "음수 인덱스 -2는 뒤에서 두 번째예요."
@@ -258,8 +248,7 @@
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! 인덱스 0은 첫 번째 값이에요.",
-        "wrong": "정답은 A. 10이에요."
+        "correct": "정답! 인덱스 0은 첫 번째 값이에요."
       },
       "is_boss": false,
       "hint": "리스트 인덱스는 0부터 시작해요."
@@ -282,8 +271,7 @@
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! 리스트를 print()하면 대괄호와 요소가 모두 출력돼요.",
-        "wrong": "정답은 A예요."
+        "correct": "정답! 리스트를 print()하면 대괄호와 요소가 모두 출력돼요."
       },
       "is_boss": false,
       "hint": "리스트를 print()하면 대괄호 [ ]가 함께 출력돼요."
@@ -306,8 +294,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! [-1]은 마지막 값이에요.",
-        "wrong": "정답은 B. 30이에요."
+        "correct": "정답! [-1]은 마지막 값이에요."
       },
       "is_boss": false,
       "hint": "음수 인덱스 [-1]은 마지막 값이에요."
@@ -321,7 +308,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\nnums = [1, 2, 3, 4, 5]\nprint(nums[2])\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nnums = [1, 2, 3, 4, 5]\nprint(nums[2])\n```",
       "choices": [
         "A. 2",
         "B. 3",
@@ -330,8 +317,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! 인덱스 2는 세 번째 값이에요.",
-        "wrong": "정답은 B. 3이에요."
+        "correct": "정답! 인덱스 2는 세 번째 값이에요."
       },
       "is_boss": false,
       "hint": "인덱스 0=1, 1=2, 2=3이에요."
@@ -354,8 +340,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! [1:4]는 인덱스 1, 2, 3번이에요.",
-        "wrong": "정답은 C. [2, 3, 4]예요."
+        "correct": "정답! [1:4]는 인덱스 1, 2, 3번이에요."
       },
       "is_boss": false,
       "hint": "슬라이싱 끝 번호는 포함되지 않아요."
@@ -378,8 +363,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! nums[:3]은 인덱스 0, 1, 2번이에요.",
-        "wrong": "정답은 C. [10, 20, 30]이에요."
+        "correct": "정답! nums[:3]은 인덱스 0, 1, 2번이에요."
       },
       "is_boss": false,
       "hint": "[:3]은 인덱스 3번 직전까지예요."
@@ -402,8 +386,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! nums[2:]는 인덱스 2번(30)부터 끝까지예요.",
-        "wrong": "정답은 C. [30, 40, 50]이에요."
+        "correct": "정답! nums[2:]는 인덱스 2번(30)부터 끝까지예요."
       },
       "is_boss": false,
       "hint": "인덱스 2번이 몇인지 먼저 확인해봐요."
@@ -426,8 +409,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! [-2]는 뒤에서 두 번째 값이에요. -1=d, -2=c예요.",
-        "wrong": "정답은 C. 'c'예요."
+        "correct": "정답! [-2]는 뒤에서 두 번째 값이에요. -1=d, -2=c예요."
       },
       "is_boss": false,
       "hint": "음수 인덱스 -2는 뒤에서 두 번째예요."
@@ -450,8 +432,7 @@
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! 인덱스 2는 세 번째 값이에요.",
-        "wrong": "정답은 D. 15예요."
+        "correct": "정답! 인덱스 2는 세 번째 값이에요."
       },
       "is_boss": false,
       "hint": "인덱스 0=5, 1=10, 2=15예요."
@@ -465,17 +446,16 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nnested = [[1, 2], [3, 4]]\nprint(nested[1])\n```",
+      "question": "A팀과 B팀의 점수를 중첩 리스트로 저장했어요. 코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nteam_scores = [[85, 92], [78, 96]]\nprint(team_scores[1])\n```",
       "choices": [
-        "A. [1, 2]",
-        "B. 3",
-        "C. [[1, 2], [3, 4]]",
-        "D. [3, 4]"
+        "A. [85, 92]",
+        "B. 78",
+        "C. [[85, 92], [78, 96]]",
+        "D. [78, 96]"
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! nested[1]은 두 번째 요소인 [3, 4]예요.",
-        "wrong": "정답은 D. [3, 4]예요."
+        "correct": "정답! team_scores[1]은 두 번째 요소인 [78, 96]이에요."
       },
       "is_boss": false,
       "hint": "중첩 리스트에서 [1]은 두 번째 리스트 전체예요."
@@ -489,17 +469,16 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nfruits = ['사과', '바나나']\nfruits.append('포도')\nprint(fruits)\n```",
+      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\ncities = ['서울', '부산']\ncities.append('인천')\nprint(cities)\n```",
       "choices": [
-        "A. ['사과', '바나나', '포도']",
-        "B. ['사과', '바나나']",
-        "C. ['포도', '사과', '바나나']",
+        "A. ['서울', '부산', '인천']",
+        "B. ['서울', '부산']",
+        "C. ['인천', '서울', '부산']",
         "D. Error"
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! append()는 리스트 맨 끝에 값을 추가해요.",
-        "wrong": "정답은 A예요. append()는 맨 끝에 추가해요."
+        "correct": "정답! append()는 리스트 맨 끝에 값을 추가해요."
       },
       "is_boss": false,
       "hint": "append()는 리스트 맨 끝에 값을 추가해요."
@@ -513,17 +492,16 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\nfruits = ['사과', '바나나', '우유']\nfruits[1] = '딸기'\nprint(fruits)\n```",
+      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\ncities = ['서울', '부산', '대구']\ncities[1] = '인천'\nprint(cities)\n```",
       "choices": [
-        "A. ['사과', '딸기', '우유']",
-        "B. ['딸기', '바나나', '우유']",
-        "C. ['사과', '바나나', '딸기']",
+        "A. ['서울', '인천', '대구']",
+        "B. ['인천', '부산', '대구']",
+        "C. ['서울', '부산', '인천']",
         "D. Error"
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! fruits[1] = '딸기'는 인덱스 1번 값을 교체해요.",
-        "wrong": "정답은 A예요. 인덱스 1번 값이 '딸기'로 바뀌어요."
+        "correct": "정답! cities[1] = '인천'은 인덱스 1번 값을 교체해요."
       },
       "is_boss": false,
       "hint": "리스트[인덱스] = 새값으로 값을 교체할 수 있어요."
@@ -537,17 +515,16 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nfruits = ['사과', '바나나', '포도']\nfruits.insert(1, '딸기')\nprint(fruits)\n```",
+      "question": "실행하면 어떤 값이 나올까요?\n\n```python\ncities = ['서울', '부산', '대구']\ncities.insert(1, '인천')\nprint(cities)\n```",
       "choices": [
-        "A. ['딸기', '사과', '바나나', '포도']",
-        "B. ['사과', '딸기', '바나나', '포도']",
-        "C. ['사과', '바나나', '딸기', '포도']",
+        "A. ['인천', '서울', '부산', '대구']",
+        "B. ['서울', '인천', '부산', '대구']",
+        "C. ['서울', '부산', '인천', '대구']",
         "D. Error"
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! insert(1, '딸기')는 인덱스 1번 자리에 삽입해요. 기존 값들은 오른쪽으로 밀려요.",
-        "wrong": "정답은 B예요. insert(1, 값)은 인덱스 1번 자리에 삽입해요."
+        "correct": "정답! insert(1, '인천')는 인덱스 1번 자리에 삽입해요. 기존 값들은 오른쪽으로 밀려요."
       },
       "is_boss": false,
       "hint": "insert(위치, 값)은 해당 위치에 값을 끼워 넣어요."
@@ -561,17 +538,16 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\nfruits = ['사과', '딸기', '바나나', '딸기']\nfruits.remove('딸기')\nprint(fruits)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\ndays = ['월요일', '화요일', '수요일', '화요일']\ndays.remove('화요일')\nprint(days)\n```",
       "choices": [
-        "A. ['바나나', '딸기']",
-        "B. ['사과', '바나나', '딸기']",
-        "C. ['사과', '딸기', '바나나']",
+        "A. ['수요일', '화요일']",
+        "B. ['월요일', '수요일', '화요일']",
+        "C. ['월요일', '화요일', '수요일']",
         "D. Error"
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! remove()는 처음 나오는 '딸기' 하나만 삭제해요.",
-        "wrong": "정답은 B예요. remove()는 첫 번째로 나오는 값 하나만 삭제해요."
+        "correct": "정답! remove()는 처음 나오는 '화요일' 하나만 삭제해요."
       },
       "is_boss": false,
       "hint": "remove()는 같은 값이 여러 개여도 첫 번째 것만 삭제해요."
@@ -585,17 +561,16 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nfruits = ['사과', '바나나', '포도']\nlast = fruits.pop()\nprint(last)\n```",
+      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\ncities = ['서울', '부산', '인천']\nlast = cities.pop()\nprint(last)\n```",
       "choices": [
-        "A. 바나나",
-        "B. 포도",
-        "C. 사과",
+        "A. 부산",
+        "B. 인천",
+        "C. 서울",
         "D. Error"
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! pop()은 맨 끝 값을 꺼내요. '포도'가 last에 저장돼요.",
-        "wrong": "정답은 B. 포도예요. pop()은 맨 끝 값을 꺼내요."
+        "correct": "정답! pop()은 맨 끝 값을 꺼내요. '인천'이 last에 저장돼요."
       },
       "is_boss": false,
       "hint": "pop()은 리스트 맨 끝 값을 꺼내면서 삭제해요."
@@ -609,17 +584,16 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nfruits = ['사과', '바나나', '포도']\nfruits.pop()\nprint(fruits)\n```",
+      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\ncities = ['서울', '부산', '인천']\ncities.pop()\nprint(cities)\n```",
       "choices": [
-        "A. ['사과', '바나나', '포도']",
-        "B. ['사과', '바나나']",
-        "C. ['바나나', '포도']",
+        "A. ['서울', '부산', '인천']",
+        "B. ['서울', '부산']",
+        "C. ['부산', '인천']",
         "D. Error"
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! pop()이 '포도'를 꺼내 삭제했어요.",
-        "wrong": "정답은 B예요. pop() 후 마지막 값이 사라져요."
+        "correct": "정답! pop()이 '인천'을 꺼내 삭제했어요."
       },
       "is_boss": false,
       "hint": "pop() 후 리스트에서 마지막 값이 사라져요."
@@ -642,8 +616,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! insert(0, 0)은 인덱스 0번(맨 앞)에 0을 삽입해요.",
-        "wrong": "정답은 C. [0, 1, 2, 3]이에요. insert(0, 값)은 맨 앞에 삽입해요."
+        "correct": "정답! insert(0, 0)은 인덱스 0번(맨 앞)에 0을 삽입해요."
       },
       "is_boss": false,
       "hint": "insert(0, 값)은 리스트 맨 앞에 삽입해요."
@@ -666,8 +639,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! pop(1)은 인덱스 1번 값(2)을 꺼내 삭제해요.",
-        "wrong": "정답은 C. [1, 3, 4]예요. pop(1)은 인덱스 1번을 삭제해요."
+        "correct": "정답! pop(1)은 인덱스 1번 값(2)을 꺼내 삭제해요."
       },
       "is_boss": false,
       "hint": "pop(인덱스)는 해당 위치의 값을 꺼내 삭제해요."
@@ -681,7 +653,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\nnums = [1, 2, 3]\nnums.append(4)\nnums.append(5)\nprint(nums)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nnums = [1, 2, 3]\nnums.append(4)\nnums.append(5)\nprint(nums)\n```",
       "choices": [
         "A. [1, 2, 3, 4]",
         "B. [1, 2, 3, 5]",
@@ -690,8 +662,7 @@
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! append()를 두 번 하면 4, 5가 차례로 끝에 추가돼요.",
-        "wrong": "정답은 D예요. append()를 두 번 호출했어요."
+        "correct": "정답! append()를 두 번 하면 4, 5가 차례로 끝에 추가돼요."
       },
       "is_boss": false,
       "hint": "append()를 연속으로 사용하면 호출할 때마다 하나씩 추가돼요."
@@ -705,17 +676,16 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nfruits = ['사과', '바나나', '포도']\nfruits.remove('포도')\nprint(fruits)\n```",
+      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\ncities = ['서울', '부산', '인천']\ncities.remove('인천')\nprint(cities)\n```",
       "choices": [
-        "A. ['바나나', '포도']",
-        "B. ['사과', '포도']",
-        "C. ['포도']",
-        "D. ['사과', '바나나']"
+        "A. ['부산', '인천']",
+        "B. ['서울', '인천']",
+        "C. ['인천']",
+        "D. ['서울', '부산']"
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! remove('포도')는 '포도'를 삭제해요.",
-        "wrong": "정답은 D. ['사과', '바나나']예요."
+        "correct": "정답! remove('인천')은 '인천'을 삭제해요."
       },
       "is_boss": false,
       "hint": "remove(값)은 해당 값을 찾아 삭제해요."
@@ -738,8 +708,7 @@
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! append(4)는 맨 끝에 4를 추가해요.",
-        "wrong": "정답은 A. [1, 2, 3, 4]예요."
+        "correct": "정답! append(4)는 맨 끝에 4를 추가해요."
       },
       "is_boss": false,
       "hint": "append()는 리스트 맨 끝에 값을 추가해요."
@@ -762,8 +731,7 @@
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! nums[0] = 10은 첫 번째 값 1을 10으로 교체해요.",
-        "wrong": "정답은 A. [10, 2, 3]이에요."
+        "correct": "정답! nums[0] = 10은 첫 번째 값 1을 10으로 교체해요."
       },
       "is_boss": false,
       "hint": "리스트[0] = 새값은 첫 번째 값을 바꿔요."
@@ -786,8 +754,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! pop()은 맨 끝 값(3)을 삭제해요.",
-        "wrong": "정답은 B. [1, 2]예요."
+        "correct": "정답! pop()은 맨 끝 값(3)을 삭제해요."
       },
       "is_boss": false,
       "hint": "pop()은 마지막 값을 꺼내 삭제해요."
@@ -801,17 +768,16 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\nfruits = ['사과', '바나나']\nfruits.insert(0, '포도')\nprint(fruits)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nlangs = ['Java', 'Python']\nlangs.insert(0, 'C++')\nprint(langs)\n```",
       "choices": [
-        "A. ['사과', '포도', '바나나']",
-        "B. ['포도', '사과', '바나나']",
-        "C. ['사과', '바나나', '포도']",
+        "A. ['Java', 'C++', 'Python']",
+        "B. ['C++', 'Java', 'Python']",
+        "C. ['Java', 'Python', 'C++']",
         "D. Error"
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! insert(0, '포도')는 맨 앞에 '포도'를 삽입해요.",
-        "wrong": "정답은 B예요. insert(0, 값)은 맨 앞에 삽입해요."
+        "correct": "정답! insert(0, 'C++')는 맨 앞에 'C++'을 삽입해요."
       },
       "is_boss": false,
       "hint": "insert(0, 값)은 리스트 맨 앞에 삽입해요."
@@ -834,8 +800,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! remove(10)은 값 10을 찾아 삭제해요.",
-        "wrong": "정답은 C. [5, 15, 20]이에요."
+        "correct": "정답! remove(10)은 값 10을 찾아 삭제해요."
       },
       "is_boss": false,
       "hint": "remove(값)은 해당 값을 리스트에서 삭제해요."
@@ -858,8 +823,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! pop(2)는 인덱스 2번 값(3)을 꺼내요.",
-        "wrong": "정답은 C. 3이에요. 인덱스 2번(=3)이 꺼내져요."
+        "correct": "정답! pop(2)는 인덱스 2번 값(3)을 꺼내요."
       },
       "is_boss": false,
       "hint": "pop(인덱스)는 해당 위치의 값을 꺼내고 반환해요."
@@ -882,8 +846,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! pop(2)는 인덱스 2번 값(3)을 꺼내 삭제해요.",
-        "wrong": "정답은 C. [1, 2, 4]예요. 인덱스 2번(=3)이 삭제돼요."
+        "correct": "정답! pop(2)는 인덱스 2번 값(3)을 꺼내 삭제해요."
       },
       "is_boss": false,
       "hint": "pop(2)는 인덱스 2번을 삭제해요."
@@ -897,17 +860,16 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nfruits = ['사과', '바나나', '포도']\nfruits[2] = '딸기'\nprint(fruits)\n```",
+      "question": "실행하면 어떤 값이 나올까요?\n\n```python\ncities = ['서울', '부산', '인천']\ncities[2] = '대구'\nprint(cities)\n```",
       "choices": [
-        "A. ['딸기', '바나나', '포도']",
-        "B. ['사과', '딸기', '포도']",
-        "C. ['사과', '바나나', '딸기']",
+        "A. ['대구', '부산', '인천']",
+        "B. ['서울', '대구', '인천']",
+        "C. ['서울', '부산', '대구']",
         "D. Error"
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! fruits[2] = '딸기'는 인덱스 2번 '포도'를 교체해요.",
-        "wrong": "정답은 C예요. 인덱스 2번(='포도')이 '딸기'로 바뀌어요."
+        "correct": "정답! cities[2] = '대구'는 인덱스 2번 '인천'을 교체해요."
       },
       "is_boss": false,
       "hint": "인덱스 2번이 어떤 값인지 확인해봐요."
@@ -921,7 +883,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\nnums = [1, 2, 3]\nnums.insert(2, 99)\nprint(nums)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nnums = [1, 2, 3]\nnums.insert(2, 99)\nprint(nums)\n```",
       "choices": [
         "A. [1, 99, 2, 3]",
         "B. [99, 1, 2, 3]",
@@ -930,8 +892,7 @@
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! insert(2, 99)는 인덱스 2번 자리에 99를 삽입해요.",
-        "wrong": "정답은 D. [1, 2, 99, 3]이에요."
+        "correct": "정답! insert(2, 99)는 인덱스 2번 자리에 99를 삽입해요."
       },
       "is_boss": false,
       "hint": "insert(2, 값)은 인덱스 2번 자리에 삽입하고 뒤 값들을 밀어요."
@@ -945,17 +906,16 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nfruits = ['사과', '바나나', '바나나']\nfruits.remove('바나나')\nprint(fruits)\n```",
+      "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\nlangs = ['Python', 'Java', 'Java']\nlangs.remove('Java')\nprint(langs)\n```",
       "choices": [
-        "A. ['사과']",
-        "B. ['바나나']",
-        "C. ['사과', '바나나', '바나나']",
-        "D. ['사과', '바나나']"
+        "A. ['Python']",
+        "B. ['Java']",
+        "C. ['Python', 'Java', 'Java']",
+        "D. ['Python', 'Java']"
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! remove()는 첫 번째 '바나나'만 삭제해요.",
-        "wrong": "정답은 D. ['사과', '바나나']예요."
+        "correct": "정답! remove()는 첫 번째 'Java'만 삭제해요."
       },
       "is_boss": false,
       "hint": "remove()는 같은 값이 여러 개여도 첫 번째 것만 삭제해요."
@@ -969,7 +929,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nfruits = ['사과', '바나나', '포도', '딸기']\nprint(len(fruits))\n```",
+      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nsubjects = ['수학', '영어', '과학', '역사']\nprint(len(subjects))\n```",
       "choices": [
         "A. 4",
         "B. 3",
@@ -978,8 +938,7 @@
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! len()은 요소 개수를 반환해요. 요소가 4개니까 4예요.",
-        "wrong": "정답은 A. 4예요. len()은 리스트의 요소 개수를 세어줘요."
+        "correct": "정답! len()은 요소 개수를 반환해요. 요소가 4개니까 4예요."
       },
       "is_boss": false,
       "hint": "len()은 리스트 안의 요소 개수를 알려줘요."
@@ -1002,8 +961,7 @@
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! sort()는 오름차순으로 정렬해요.",
-        "wrong": "정답은 A. [1, 1, 3, 4, 5]예요."
+        "correct": "정답! sort()는 오름차순으로 정렬해요."
       },
       "is_boss": false,
       "hint": "sort()는 작은 값부터 큰 값 순서로 정렬해요."
@@ -1026,8 +984,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! sort(reverse=True)는 내림차순으로 정렬해요.",
-        "wrong": "정답은 B. [4, 3, 1]이에요. reverse=True는 내림차순이에요."
+        "correct": "정답! sort(reverse=True)는 내림차순으로 정렬해요."
       },
       "is_boss": false,
       "hint": "sort(reverse=True)는 내림차순 정렬이에요."
@@ -1041,17 +998,16 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\nfruits = ['사과', '바나나', '포도']\nfruits.reverse()\nprint(fruits)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nsubjects = ['수학', '영어', '과학']\nsubjects.reverse()\nprint(subjects)\n```",
       "choices": [
-        "A. ['사과', '바나나', '포도']",
-        "B. ['포도', '바나나', '사과']",
-        "C. ['바나나', '사과', '포도']",
+        "A. ['수학', '영어', '과학']",
+        "B. ['과학', '영어', '수학']",
+        "C. ['영어', '수학', '과학']",
         "D. Error"
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! reverse()는 리스트 순서를 완전히 뒤집어요.",
-        "wrong": "정답은 B예요. reverse()는 순서를 뒤집어요."
+        "correct": "정답! reverse()는 리스트 순서를 완전히 뒤집어요."
       },
       "is_boss": false,
       "hint": "reverse()는 리스트의 순서를 뒤집어요."
@@ -1074,8 +1030,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! count(2)는 리스트에서 2가 몇 번 나오는지 세요. 세 번이에요.",
-        "wrong": "정답은 B. 3이에요. 리스트에 2가 세 개 있어요."
+        "correct": "정답! count(2)는 리스트에서 2가 몇 번 나오는지 세요. 세 번이에요."
       },
       "is_boss": false,
       "hint": "count(값)은 해당 값이 리스트에 몇 번 나오는지 세어줘요."
@@ -1089,7 +1044,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nfruits = ['사과', '바나나', '포도', '바나나']\nprint(fruits.index('바나나'))\n```",
+      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nsubjects = ['수학', '영어', '과학', '영어']\nprint(subjects.index('영어'))\n```",
       "choices": [
         "A. 0",
         "B. 1",
@@ -1098,8 +1053,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! index('바나나')는 처음 나오는 인덱스를 반환해요. 인덱스 1번이에요.",
-        "wrong": "정답은 B. 1이에요. '바나나'는 인덱스 1번에 처음 나와요."
+        "correct": "정답! index('영어')는 처음 나오는 인덱스를 반환해요. 인덱스 1번이에요."
       },
       "is_boss": false,
       "hint": "index(값)은 해당 값이 처음 나오는 인덱스를 반환해요."
@@ -1122,8 +1076,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! count(5)는 5가 리스트에 몇 번 나오는지 세요. 없으니 0이에요.",
-        "wrong": "정답은 C. 0이에요. 찾는 값이 없으면 0을 반환해요."
+        "correct": "정답! count(5)는 5가 리스트에 몇 번 나오는지 세요. 없으니 0이에요."
       },
       "is_boss": false,
       "hint": "찾는 값이 리스트에 없으면 count()는 0을 반환해요."
@@ -1137,7 +1090,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nfruits = ['사과', '바나나', '포도']\nprint(fruits.index('포도'))\n```",
+      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nsubjects = ['수학', '영어', '과학']\nprint(subjects.index('과학'))\n```",
       "choices": [
         "A. 0",
         "B. 1",
@@ -1146,11 +1099,10 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! '포도'는 인덱스 2번에 있어요.",
-        "wrong": "정답은 C. 2예요. 인덱스 0=사과, 1=바나나, 2=포도예요."
+        "correct": "정답! '과학'은 인덱스 2번에 있어요."
       },
       "is_boss": false,
-      "hint": "인덱스를 0부터 세어 '포도'가 몇 번째인지 확인해봐요."
+      "hint": "인덱스를 0부터 세어 '과학'이 몇 번째인지 확인해봐요."
     },
     {
       "question_id": "q5049",
@@ -1161,7 +1113,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\nnums = [5, 3, 1, 4, 2]\nnums.sort()\nprint(nums[0])\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nnums = [5, 3, 1, 4, 2]\nnums.sort()\nprint(nums[0])\n```",
       "choices": [
         "A. 5",
         "B. 2",
@@ -1170,8 +1122,7 @@
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! sort() 후 [1, 2, 3, 4, 5]가 돼요. nums[0]은 가장 작은 값 1이에요.",
-        "wrong": "정답은 D. 1이에요. sort() 후 nums[0]은 가장 작은 값이에요."
+        "correct": "정답! sort() 후 [1, 2, 3, 4, 5]가 돼요. nums[0]은 가장 작은 값 1이에요."
       },
       "is_boss": false,
       "hint": "sort() 후 인덱스 0번은 가장 작은 값이에요."
@@ -1194,8 +1145,7 @@
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! sort() 후 [1, 3, 5, 8, 9]가 돼요. 인덱스 2번은 5예요.",
-        "wrong": "정답은 D. 5예요. 정렬 후 [1, 3, 5, 8, 9]에서 인덱스 2번은 5예요."
+        "correct": "정답! sort() 후 [1, 3, 5, 8, 9]가 돼요. 인덱스 2번은 5예요."
       },
       "is_boss": false,
       "hint": "먼저 sort()로 정렬하면 [1, 3, 5, 8, 9]가 돼요."
@@ -1218,8 +1168,7 @@
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! len([1, 2, 3])은 요소가 3개니까 3이에요.",
-        "wrong": "정답은 A. 3이에요."
+        "correct": "정답! len([1, 2, 3])은 요소가 3개니까 3이에요."
       },
       "is_boss": false,
       "hint": "len()은 요소 개수를 반환해요."
@@ -1242,8 +1191,7 @@
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! sort()는 오름차순 정렬이에요.",
-        "wrong": "정답은 A. [1, 2, 3]이에요."
+        "correct": "정답! sort()는 오름차순 정렬이에요."
       },
       "is_boss": false,
       "hint": "sort()는 작은 값부터 큰 값 순서로 정렬해요."
@@ -1266,8 +1214,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! reverse()는 리스트 순서를 뒤집어요.",
-        "wrong": "정답은 B. [3, 2, 1]이에요."
+        "correct": "정답! reverse()는 리스트 순서를 뒤집어요."
       },
       "is_boss": false,
       "hint": "reverse()는 리스트의 순서를 뒤집어요."
@@ -1281,7 +1228,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\nnums = [5, 3, 1, 4, 2]\nnums.sort()\nprint(nums[-1])\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nnums = [5, 3, 1, 4, 2]\nnums.sort()\nprint(nums[-1])\n```",
       "choices": [
         "A. 1",
         "B. 5",
@@ -1290,8 +1237,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! sort() 후 [1, 2, 3, 4, 5]가 돼요. nums[-1]은 가장 큰 값 5예요.",
-        "wrong": "정답은 B. 5예요."
+        "correct": "정답! sort() 후 [1, 2, 3, 4, 5]가 돼요. nums[-1]은 가장 큰 값 5예요."
       },
       "is_boss": false,
       "hint": "sort() 후 [-1]은 가장 큰 값이에요."
@@ -1314,8 +1260,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! 리스트에 2가 인덱스 1, 2, 4번에 있으니 count(2)는 3이에요.",
-        "wrong": "정답은 B. 3이에요. 리스트에 2가 세 개 있어요."
+        "correct": "정답! 리스트에 2가 인덱스 1, 2, 4번에 있으니 count(2)는 3이에요."
       },
       "is_boss": false,
       "hint": "리스트에서 2가 몇 번 나오는지 직접 세어봐요."
@@ -1338,8 +1283,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! 30은 인덱스 2번에 있어요.",
-        "wrong": "정답은 C. 2예요. 인덱스 0=10, 1=20, 2=30이에요."
+        "correct": "정답! 30은 인덱스 2번에 있어요."
       },
       "is_boss": false,
       "hint": "인덱스를 0부터 세어 30이 몇 번째인지 확인해봐요."
@@ -1362,8 +1306,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! sort(reverse=True)는 내림차순이에요.",
-        "wrong": "정답은 C. [5, 4, 3, 2, 1]이에요."
+        "correct": "정답! sort(reverse=True)는 내림차순이에요."
       },
       "is_boss": false,
       "hint": "sort(reverse=True)는 큰 값부터 작은 값 순서예요."
@@ -1386,8 +1329,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! sort() 후 [1, 3, 5, 8, 9]가 돼요. 인덱스 4번은 9예요.",
-        "wrong": "정답은 C. 9예요. 정렬 후 인덱스 4번은 마지막 값이에요."
+        "correct": "정답! sort() 후 [1, 3, 5, 8, 9]가 돼요. 인덱스 4번은 9예요."
       },
       "is_boss": false,
       "hint": "sort() 후 인덱스 4번을 찾아봐요."
@@ -1401,7 +1343,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\nnums = [1, 1, 2, 2, 3]\nprint(nums.count(2))\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nnums = [1, 1, 2, 2, 3]\nprint(nums.count(2))\n```",
       "choices": [
         "A. 1",
         "B. 3",
@@ -1410,8 +1352,7 @@
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! 리스트에 2가 인덱스 2, 3번에 있으니 count(2)는 2예요.",
-        "wrong": "정답은 D. 2예요. 리스트에 2가 두 개 있어요."
+        "correct": "정답! 리스트에 2가 인덱스 2, 3번에 있으니 count(2)는 2예요."
       },
       "is_boss": false,
       "hint": "리스트에서 2가 몇 번 나오는지 직접 세어봐요."
@@ -1434,8 +1375,7 @@
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! 10은 리스트의 첫 번째 값이에요. 인덱스는 0이에요.",
-        "wrong": "정답은 D. 0이에요. 인덱스는 0부터 시작해요."
+        "correct": "정답! 10은 리스트의 첫 번째 값이에요. 인덱스는 0이에요."
       },
       "is_boss": false,
       "hint": "인덱스는 0부터 시작해요. 10은 첫 번째 값이에요."
@@ -1449,7 +1389,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nfruits = ['사과', '바나나', '포도']\nprint('바나나' in fruits)\n```",
+      "question": "이 코드를 실행하면 뭐가 출력될까요?\n\n```python\nlangs = ['Python', 'JavaScript', 'Java']\nprint('JavaScript' in langs)\n```",
       "choices": [
         "A. True",
         "B. False",
@@ -1458,8 +1398,7 @@
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! '바나나'는 리스트에 있으니 in 연산자는 True를 반환해요.",
-        "wrong": "정답은 A. True예요. in은 값이 리스트에 있으면 True예요."
+        "correct": "정답! 'JavaScript'는 리스트에 있으니 in 연산자는 True를 반환해요."
       },
       "is_boss": false,
       "hint": "in 연산자는 값이 리스트에 있으면 True, 없으면 False예요."
@@ -1473,7 +1412,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\nfruits = ['사과', '바나나', '포도']\nprint('딸기' in fruits)\n```",
+      "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\nlangs = ['Python', 'JavaScript', 'Java']\nprint('Rust' in langs)\n```",
       "choices": [
         "A. False",
         "B. True",
@@ -1482,8 +1421,7 @@
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! '딸기'는 리스트에 없으니 in 연산자는 False를 반환해요.",
-        "wrong": "정답은 A. False예요. '딸기'는 리스트에 없어요."
+        "correct": "정답! 'Rust'는 리스트에 없으니 in 연산자는 False를 반환해요."
       },
       "is_boss": false,
       "hint": "in은 값이 리스트에 없으면 False예요."
@@ -1497,7 +1435,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nfruits = ['사과', '바나나', '포도']\nprint('딸기' not in fruits)\n```",
+      "question": "실행하면 어떤 값이 나올까요?\n\n```python\nlangs = ['Python', 'JavaScript', 'Java']\nprint('Rust' not in langs)\n```",
       "choices": [
         "A. False",
         "B. True",
@@ -1506,8 +1444,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! '딸기'는 리스트에 없으니 not in은 True를 반환해요.",
-        "wrong": "정답은 B. True예요. not in은 값이 없으면 True예요."
+        "correct": "정답! 'Rust'는 리스트에 없으니 not in은 True를 반환해요."
       },
       "is_boss": false,
       "hint": "not in은 값이 리스트에 없으면 True예요."
@@ -1521,7 +1458,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\nnums = [1, 2, 3, 4, 5]\ntotal = 0\nfor n in nums:\n    total += n\nprint(total)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nnums = [1, 2, 3, 4, 5]\ntotal = 0\nfor n in nums:\n    total += n\nprint(total)\n```",
       "choices": [
         "A. 10",
         "B. 15",
@@ -1530,8 +1467,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! 1+2+3+4+5 = 15예요.",
-        "wrong": "정답은 B. 15예요. 1+2+3+4+5 = 15예요."
+        "correct": "정답! 1+2+3+4+5 = 15예요."
       },
       "is_boss": false,
       "hint": "for 루프로 모든 값을 하나씩 더해봐요."
@@ -1554,8 +1490,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! 85+92+78 = 255예요.",
-        "wrong": "정답은 B. 255예요."
+        "correct": "정답! 85+92+78 = 255예요."
       },
       "is_boss": false,
       "hint": "85, 92, 78을 차례로 더해봐요."
@@ -1569,17 +1504,16 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "이 코드에서 처음 출력되는 값은?\n\n```python\nfruits = ['사과', '바나나', '포도']\nfor i, f in enumerate(fruits):\n    print(i, f)\n```",
+      "question": "이 코드에서 처음 출력되는 값은?\n\n```python\nlangs = ['Python', 'JavaScript', 'Java']\nfor i, lang in enumerate(langs):\n    print(i, lang)\n```",
       "choices": [
-        "A. 사과",
-        "B. 0 사과",
-        "C. 1 사과",
+        "A. Python",
+        "B. 0 Python",
+        "C. 1 Python",
         "D. 0"
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! enumerate()는 (인덱스, 값) 쌍을 반환해요. 처음은 0 사과예요.",
-        "wrong": "정답은 B. 0 사과예요. enumerate()는 인덱스와 값을 함께 반환해요."
+        "correct": "정답! enumerate()는 (인덱스, 값) 쌍을 반환해요. 처음은 0 Python이에요."
       },
       "is_boss": false,
       "hint": "enumerate()는 (인덱스, 값) 형태로 반환해요."
@@ -1602,8 +1536,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! 짝수는 2, 4, 6이에요. 세 개니까 count는 3이에요.",
-        "wrong": "정답은 C. 3이에요. 짝수인 2, 4, 6이 count를 각각 올려요."
+        "correct": "정답! 짝수는 2, 4, 6이에요. 세 개니까 count는 3이에요."
       },
       "is_boss": false,
       "hint": "n % 2 == 0이 되는 값이 몇 개인지 세어봐요."
@@ -1626,8 +1559,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! 짝수는 2, 4, 6, 8이에요. 네 개니까 count는 4예요.",
-        "wrong": "정답은 C. 4예요. 짝수인 2, 4, 6, 8이 count를 올려요."
+        "correct": "정답! 짝수는 2, 4, 6, 8이에요. 네 개니까 count는 4예요."
       },
       "is_boss": false,
       "hint": "1~8 중 짝수가 몇 개인지 세어봐요."
@@ -1641,7 +1573,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\nscores = [85, 92, 78, 96, 88]\ntotal = 0\nfor s in scores:\n    total += s\nprint(total / len(scores))\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nscores = [85, 92, 78, 96, 88]\ntotal = 0\nfor s in scores:\n    total += s\nprint(total / len(scores))\n```",
       "choices": [
         "A. 87.0",
         "B. 88.0",
@@ -1650,8 +1582,7 @@
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! 합계 = 439, 개수 = 5, 평균 = 439/5 = 87.8이에요.",
-        "wrong": "정답은 D. 87.8이에요."
+        "correct": "정답! 합계 = 439, 개수 = 5, 평균 = 439/5 = 87.8이에요."
       },
       "is_boss": false,
       "hint": "합계를 먼저 구하고 개수(5)로 나눠봐요."
@@ -1674,8 +1605,7 @@
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! 홀수는 1, 3, 5예요. 1+3+5 = 9예요.",
-        "wrong": "정답은 D. 9예요. 홀수인 1, 3, 5의 합이에요."
+        "correct": "정답! 홀수는 1, 3, 5예요. 1+3+5 = 9예요."
       },
       "is_boss": false,
       "hint": "n % 2 == 1인 값(홀수)만 더해봐요."
@@ -1698,8 +1628,7 @@
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! 10은 리스트에 없으니 False예요.",
-        "wrong": "정답은 A. False예요. 10은 [1, 2, 3]에 없어요."
+        "correct": "정답! 10은 리스트에 없으니 False예요."
       },
       "is_boss": false,
       "hint": "in은 값이 리스트에 없으면 False예요."
@@ -1722,8 +1651,7 @@
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! 2는 리스트에 있으니 True예요.",
-        "wrong": "정답은 A. True예요. 2는 [1, 2, 3]에 있어요."
+        "correct": "정답! 2는 리스트에 있으니 True예요."
       },
       "is_boss": false,
       "hint": "in은 값이 리스트에 있으면 True예요."
@@ -1746,8 +1674,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! 5는 리스트에 없으니 not in은 True예요.",
-        "wrong": "정답은 B. True예요. not in은 값이 없으면 True예요."
+        "correct": "정답! 5는 리스트에 없으니 not in은 True예요."
       },
       "is_boss": false,
       "hint": "not in은 값이 리스트에 없으면 True예요."
@@ -1761,7 +1688,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\nnums = [10, 20, 30]\ntotal = 0\nfor n in nums:\n    total += n\nprint(total)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nnums = [10, 20, 30]\ntotal = 0\nfor n in nums:\n    total += n\nprint(total)\n```",
       "choices": [
         "A. 30",
         "B. 60",
@@ -1770,8 +1697,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! 10+20+30 = 60이에요.",
-        "wrong": "정답은 B. 60이에요."
+        "correct": "정답! 10+20+30 = 60이에요."
       },
       "is_boss": false,
       "hint": "세 값을 모두 더해봐요."
@@ -1794,8 +1720,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! 1+2+3+4 = 10이에요.",
-        "wrong": "정답은 C. 10이에요."
+        "correct": "정답! 1+2+3+4 = 10이에요."
       },
       "is_boss": false,
       "hint": "네 값을 차례로 더해봐요."
@@ -1809,17 +1734,16 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "이 코드에서 두 번째로 출력되는 값은?\n\n```python\nfruits = ['사과', '바나나', '포도']\nfor i, f in enumerate(fruits):\n    print(i, f)\n```",
+      "question": "이 코드에서 두 번째로 출력되는 값은?\n\n```python\nlangs = ['Python', 'JavaScript', 'Java']\nfor i, lang in enumerate(langs):\n    print(i, lang)\n```",
       "choices": [
-        "A. 0 바나나",
-        "B. 1 사과",
-        "C. 1 바나나",
-        "D. 2 바나나"
+        "A. 0 JavaScript",
+        "B. 1 Python",
+        "C. 1 JavaScript",
+        "D. 2 JavaScript"
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! 두 번째 반복은 인덱스 1, 값 '바나나'예요.",
-        "wrong": "정답은 C. 1 바나나예요."
+        "correct": "정답! 두 번째 반복은 인덱스 1, 값 'JavaScript'예요."
       },
       "is_boss": false,
       "hint": "enumerate()는 0부터 인덱스를 붙여요. 두 번째는 인덱스 1이에요."
@@ -1842,8 +1766,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! 마지막 반복은 인덱스 2, 값 3이에요. '2 3'이 출력돼요.",
-        "wrong": "정답은 C. 2 3이에요."
+        "correct": "정답! 마지막 반복은 인덱스 2, 값 3이에요. '2 3'이 출력돼요."
       },
       "is_boss": false,
       "hint": "마지막 반복에서 인덱스는 2, 값은 3이에요."
@@ -1866,8 +1789,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! 3보다 큰 값은 5, 7이에요. 두 개니까 count는 2예요.",
-        "wrong": "정답은 C. 2예요. 3보다 큰 값인 5, 7이 count를 올려요."
+        "correct": "정답! 3보다 큰 값은 5, 7이에요. 두 개니까 count는 2예요."
       },
       "is_boss": false,
       "hint": "n > 3인 값이 몇 개인지 세어봐요."
@@ -1881,7 +1803,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\nscores = [60, 70, 80, 90, 100]\nhigh = 0\nfor s in scores:\n    if s >= 80:\n        high += 1\nprint(high)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nscores = [60, 70, 80, 90, 100]\nhigh = 0\nfor s in scores:\n    if s >= 80:\n        high += 1\nprint(high)\n```",
       "choices": [
         "A. 2",
         "B. 4",
@@ -1890,8 +1812,7 @@
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! 80 이상인 값은 80, 90, 100이에요. 세 개니까 high는 3이에요.",
-        "wrong": "정답은 D. 3이에요. 80 이상인 값이 세 개 있어요."
+        "correct": "정답! 80 이상인 값은 80, 90, 100이에요. 세 개니까 high는 3이에요."
       },
       "is_boss": false,
       "hint": "80 이상인 값을 리스트에서 하나씩 확인해봐요."
@@ -1914,8 +1835,7 @@
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! 합계 = 30, 개수 = 5, 평균 = 30/5 = 6.0이에요.",
-        "wrong": "정답은 D. 6.0이에요. 30 ÷ 5 = 6.0이에요."
+        "correct": "정답! 합계 = 30, 개수 = 5, 평균 = 30/5 = 6.0이에요."
       },
       "is_boss": false,
       "hint": "합계를 구하고 개수(5)로 나눠봐요."
@@ -1938,8 +1858,7 @@
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! read()는 파일 내용 전체를 문자열로 읽어요.",
-        "wrong": "정답은 A. Hello World!예요."
+        "correct": "정답! read()는 파일 내용 전체를 문자열로 읽어요."
       },
       "is_boss": false,
       "hint": "read()는 파일 전체 내용을 문자열로 읽어요."
@@ -1962,8 +1881,7 @@
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! read()는 파일 내용을 문자열로 그대로 반환해요.",
-        "wrong": "정답은 A. Python이에요."
+        "correct": "정답! read()는 파일 내용을 문자열로 그대로 반환해요."
       },
       "is_boss": false,
       "hint": "read()는 파일 내용을 그대로 반환해요."
@@ -1986,8 +1904,7 @@
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! 'r'은 read의 약자로 읽기 전용 모드예요.",
-        "wrong": "정답은 A. 읽기 전용이에요. 'r'은 read 모드예요."
+        "correct": "정답! 'r'은 read의 약자로 읽기 전용 모드예요."
       },
       "is_boss": false,
       "hint": "open()의 두 번째 인수는 파일 열기 모드예요. 'r'은 read예요."
@@ -2010,8 +1927,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! strip()은 양쪽 공백과 줄바꿈을 제거해요. '  Hello  '가 'Hello'가 돼요.",
-        "wrong": "정답은 B. Hello예요. strip()은 앞뒤 공백을 모두 제거해요."
+        "correct": "정답! strip()은 양쪽 공백과 줄바꿈을 제거해요. '  Hello  '가 'Hello'가 돼요."
       },
       "is_boss": false,
       "hint": "strip()은 문자열 앞뒤의 공백과 줄바꿈(\\n)을 제거해요."
@@ -2034,8 +1950,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! read()는 전체 내용을 하나의 문자열로, readlines()는 각 줄을 리스트 요소로 반환해요.",
-        "wrong": "정답은 B예요. read()와 readlines()는 반환 형태가 달라요."
+        "correct": "정답! read()는 전체 내용을 하나의 문자열로, readlines()는 각 줄을 리스트 요소로 반환해요."
       },
       "is_boss": false,
       "hint": "read()와 readlines()의 반환 자료형을 생각해봐요."
@@ -2058,8 +1973,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! readlines()는 각 줄을 리스트 요소로 만들어요. 3줄이면 3개 요소가 돼요.",
-        "wrong": "정답은 B. 3이에요."
+        "correct": "정답! readlines()는 각 줄을 리스트 요소로 만들어요. 3줄이면 3개 요소가 돼요."
       },
       "is_boss": false,
       "hint": "readlines()는 각 줄이 리스트의 요소가 돼요."
@@ -2082,8 +1996,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! with 구문은 블록이 끝나면 자동으로 f.close()를 호출해요.",
-        "wrong": "정답은 B예요. with 구문은 자동으로 파일을 닫아줘요."
+        "correct": "정답! with 구문은 블록이 끝나면 자동으로 f.close()를 호출해요."
       },
       "is_boss": false,
       "hint": "with 구문을 쓰면 f.close()를 직접 쓰지 않아도 돼요."
@@ -2106,8 +2019,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! 3줄짜리 파일을 readlines()로 읽으면 3개 요소 리스트가 돼요.",
-        "wrong": "정답은 C. 3이에요."
+        "correct": "정답! 3줄짜리 파일을 readlines()로 읽으면 3개 요소 리스트가 돼요."
       },
       "is_boss": false,
       "hint": "readlines()는 각 줄이 리스트 요소 하나가 돼요."
@@ -2130,8 +2042,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! 한국어 파일을 읽을 때는 encoding='utf-8'을 지정해야 글자가 깨지지 않아요.",
-        "wrong": "정답은 C예요. 한국어 파일은 encoding='utf-8'로 열어야 해요."
+        "correct": "정답! 한국어 파일을 읽을 때는 encoding='utf-8'을 지정해야 글자가 깨지지 않아요."
       },
       "is_boss": false,
       "hint": "한국어는 utf-8 인코딩으로 저장되어 있어요."
@@ -2154,8 +2065,7 @@
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! 'r' 모드는 읽기 전용이에요. 파일이 없으면 FileNotFoundError가 발생해요.",
-        "wrong": "정답은 D예요. 없는 파일을 'r'로 열면 FileNotFoundError가 발생해요."
+        "correct": "정답! 'r' 모드는 읽기 전용이에요. 파일이 없으면 FileNotFoundError가 발생해요."
       },
       "is_boss": false,
       "hint": "'r' 모드는 기존 파일만 읽을 수 있어요."
@@ -2178,8 +2088,7 @@
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! read()는 파일 내용 전체를 문자열로 읽어요.",
-        "wrong": "정답은 A. Hi Python이에요."
+        "correct": "정답! read()는 파일 내용 전체를 문자열로 읽어요."
       },
       "is_boss": false,
       "hint": "read()는 파일 내용을 문자열로 반환해요."
@@ -2202,8 +2111,7 @@
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! read()는 파일 내용을 그대로 문자열로 반환해요.",
-        "wrong": "정답은 A. Amy예요."
+        "correct": "정답! read()는 파일 내용을 그대로 문자열로 반환해요."
       },
       "is_boss": false,
       "hint": "read()는 파일 내용을 그대로 반환해요."
@@ -2226,8 +2134,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! readlines()는 각 줄을 요소로 하는 리스트를 반환해요.",
-        "wrong": "정답은 B. 리스트(list)예요."
+        "correct": "정답! readlines()는 각 줄을 요소로 하는 리스트를 반환해요."
       },
       "is_boss": false,
       "hint": "readlines()는 여러 줄을 담아야 하니 리스트로 반환해요."
@@ -2250,8 +2157,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! strip()은 양쪽 공백과 줄바꿈을 모두 제거해요.",
-        "wrong": "정답은 B. World예요."
+        "correct": "정답! strip()은 양쪽 공백과 줄바꿈을 모두 제거해요."
       },
       "is_boss": false,
       "hint": "strip()은 문자열 앞뒤의 공백을 모두 제거해요."
@@ -2274,8 +2180,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! for line in f: 구문은 파일을 한 줄씩 읽어요.",
-        "wrong": "정답은 B. for line in f: 예요."
+        "correct": "정답! for line in f: 구문은 파일을 한 줄씩 읽어요."
       },
       "is_boss": false,
       "hint": "파일 객체를 for로 순회하면 한 줄씩 읽을 수 있어요."
@@ -2298,8 +2203,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! lines[0]은 첫 줄이에요. strip()으로 줄바꿈을 제거하면 '10'이에요.",
-        "wrong": "정답은 B. 10이에요. strip()으로 줄바꿈(\\n)이 제거돼요."
+        "correct": "정답! lines[0]은 첫 줄이에요. strip()으로 줄바꿈을 제거하면 '10'이에요."
       },
       "is_boss": false,
       "hint": "readlines()로 읽으면 각 줄에 \\n이 붙어요. strip()으로 제거해요."
@@ -2322,8 +2226,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! with 구문은 블록이 끝나면 자동으로 파일을 닫아줘요.",
-        "wrong": "정답은 B예요. with 구문의 핵심은 자동으로 파일을 닫아주는 것이에요."
+        "correct": "정답! with 구문은 블록이 끝나면 자동으로 파일을 닫아줘요."
       },
       "is_boss": false,
       "hint": "with 구문 없이 쓰면 f.close()를 직접 써야 해요."
@@ -2337,20 +2240,19 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "hello.txt에 'apple', 'banana', 'orange'가 각 줄에 있을 때, 이 코드의 출력 결과는?\n\n```python\nwith open('hello.txt', 'r') as f:\n    lines = f.readlines()\nprint(lines[1].strip())\n```",
+      "question": "langs.txt에 'Python', 'Java', 'JavaScript'가 각 줄에 있을 때, 이 코드의 출력 결과는?\n\n```python\nwith open('langs.txt', 'r') as f:\n    lines = f.readlines()\nprint(lines[1].strip())\n```",
       "choices": [
-        "A. apple",
+        "A. Python",
         "B. Error",
-        "C. banana",
-        "D. orange"
+        "C. Java",
+        "D. JavaScript"
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! lines[1]은 두 번째 줄 'banana'예요. strip()으로 줄바꿈을 제거해요.",
-        "wrong": "정답은 C. banana예요. 인덱스 1번은 두 번째 줄이에요."
+        "correct": "정답! lines[1]은 두 번째 줄 'Java'예요. strip()으로 줄바꿈을 제거해요."
       },
       "is_boss": false,
-      "hint": "인덱스 0=apple, 1=banana, 2=orange예요."
+      "hint": "인덱스 0=Python, 1=Java, 2=JavaScript예요."
     },
     {
       "question_id": "q5099",
@@ -2370,8 +2272,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! 존재하지 않는 파일을 'r' 모드로 열면 FileNotFoundError가 발생해요.",
-        "wrong": "정답은 C. FileNotFoundError예요."
+        "correct": "정답! 존재하지 않는 파일을 'r' 모드로 열면 FileNotFoundError가 발생해요."
       },
       "is_boss": false,
       "hint": "파일을 찾지 못했다는 오류 이름을 생각해봐요."
@@ -2394,8 +2295,7 @@
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! readlines()나 for line in f:로 읽으면 줄 끝에 \\n이 붙어요. strip()으로 이를 제거해요.",
-        "wrong": "정답은 D예요. strip()은 앞뒤 공백과 줄바꿈(\\n)을 제거해요."
+        "correct": "정답! readlines()나 for line in f:로 읽으면 줄 끝에 \\n이 붙어요. strip()으로 이를 제거해요."
       },
       "is_boss": false,
       "hint": "파일에서 읽은 줄에는 끝에 \\n이 붙는 경우가 많아요."
@@ -2418,8 +2318,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! 'w'는 write의 약자로 쓰기 모드예요. 파일이 없으면 새로 만들어요.",
-        "wrong": "정답은 B. 'w'예요. 'w'는 쓰기 모드예요."
+        "correct": "정답! 'w'는 write의 약자로 쓰기 모드예요. 파일이 없으면 새로 만들어요."
       },
       "is_boss": false,
       "hint": "write의 첫 글자를 생각해봐요."
@@ -2442,8 +2341,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! f.write()는 파일에 저장하고 화면에는 나오지 않아요. print('저장 완료!')만 출력돼요.",
-        "wrong": "정답은 B. 저장 완료!예요."
+        "correct": "정답! f.write()는 파일에 저장하고 화면에는 나오지 않아요. print('저장 완료!')만 출력돼요."
       },
       "is_boss": false,
       "hint": "f.write()는 파일에 저장하고, print()만 화면에 출력해요."
@@ -2466,8 +2364,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! 'w' 모드는 기존 파일 내용을 모두 지우고 새로 써요.",
-        "wrong": "정답은 B예요. 'w'는 기존 내용을 삭제하고 덮어써요."
+        "correct": "정답! 'w' 모드는 기존 파일 내용을 모두 지우고 새로 써요."
       },
       "is_boss": false,
       "hint": "'w'는 write예요. 기존 내용은 어떻게 될까요?"
@@ -2490,8 +2387,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! 'a'는 append의 약자로 이어쓰기 모드예요. 기존 내용 뒤에 추가해요.",
-        "wrong": "정답은 B. 'a'예요. 'a'는 append(이어쓰기) 모드예요."
+        "correct": "정답! 'a'는 append의 약자로 이어쓰기 모드예요. 기존 내용 뒤에 추가해요."
       },
       "is_boss": false,
       "hint": "append의 첫 글자를 생각해봐요."
@@ -2514,8 +2410,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! f.write()는 파일에만 저장하고 화면에 출력하지 않아요. print('완료')만 화면에 나와요.",
-        "wrong": "정답은 B. 완료예요."
+        "correct": "정답! f.write()는 파일에만 저장하고 화면에 출력하지 않아요. print('완료')만 화면에 나와요."
       },
       "is_boss": false,
       "hint": "f.write()는 화면이 아닌 파일에 저장해요."
@@ -2538,8 +2433,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! f.write()는 문자열만 받아요. 숫자를 직접 넣으면 TypeError가 발생해요. str()로 변환해야 해요.",
-        "wrong": "정답은 B. TypeError예요. f.write()는 문자열만 쓸 수 있어요."
+        "correct": "정답! f.write()는 문자열만 받아요. 숫자를 직접 넣으면 TypeError가 발생해요. str()로 변환해야 해요."
       },
       "is_boss": false,
       "hint": "f.write()는 어떤 자료형을 받을 수 있을까요?"
@@ -2562,8 +2456,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! 'a'는 append로 기존 내용 뒤에 추가해요. 'w'는 기존 내용을 모두 지우고 새로 써요.",
-        "wrong": "정답은 B예요. 'a'는 이어쓰기, 'w'는 덮어쓰기예요."
+        "correct": "정답! 'a'는 append로 기존 내용 뒤에 추가해요. 'w'는 기존 내용을 모두 지우고 새로 써요."
       },
       "is_boss": false,
       "hint": "'a'는 append(추가), 'w'는 write(새로 쓰기)예요."
@@ -2586,8 +2479,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! writelines()는 파일에 저장해요. 화면에는 print('done')만 출력돼요.",
-        "wrong": "정답은 C. done이에요. writelines()는 파일에 쓰고 화면 출력은 없어요."
+        "correct": "정답! writelines()는 파일에 저장해요. 화면에는 print('done')만 출력돼요."
       },
       "is_boss": false,
       "hint": "f.writelines()도 화면에 출력하지 않아요."
@@ -2610,8 +2502,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! write()는 문자열 하나를 써요. writelines()는 리스트의 각 요소를 이어서 써요.",
-        "wrong": "정답은 C예요. writelines()는 리스트를 받아 한번에 써요."
+        "correct": "정답! write()는 문자열 하나를 써요. writelines()는 리스트의 각 요소를 이어서 써요."
       },
       "is_boss": false,
       "hint": "writelines()의 이름에서 's'(복수)에 주목해봐요."
@@ -2634,8 +2525,7 @@
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! 'x' 모드는 새 파일만 만들 수 있어요. 파일이 이미 있으면 FileExistsError가 발생해요.",
-        "wrong": "정답은 D. FileExistsError예요."
+        "correct": "정답! 'x' 모드는 새 파일만 만들 수 있어요. 파일이 이미 있으면 FileExistsError가 발생해요."
       },
       "is_boss": false,
       "hint": "'x'는 파일이 없을 때만 새로 만들 수 있어요."
@@ -2658,8 +2548,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! 'a'는 append의 약자로 기존 내용 뒤에 이어 쓰는 모드예요.",
-        "wrong": "정답은 C. 'a'예요. append의 줄임말이에요."
+        "correct": "정답! 'a'는 append의 약자로 기존 내용 뒤에 이어 쓰는 모드예요."
       },
       "is_boss": false,
       "hint": "이어쓰기는 append예요."
@@ -2682,8 +2571,7 @@
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! f.write()는 파일에만 저장해요. print('저장!')만 화면에 출력돼요.",
-        "wrong": "정답은 D. 저장!이에요."
+        "correct": "정답! f.write()는 파일에만 저장해요. print('저장!')만 화면에 출력돼요."
       },
       "is_boss": false,
       "hint": "f.write()는 파일에 저장, print()는 화면에 출력이에요."
@@ -2706,8 +2594,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! f.write()는 문자열만 받아요. str(42)로 변환한 뒤 써야 해요.",
-        "wrong": "정답은 C. f.write(str(42))예요."
+        "correct": "정답! f.write()는 문자열만 받아요. str(42)로 변환한 뒤 써야 해요."
       },
       "is_boss": false,
       "hint": "f.write()는 문자열(str)만 쓸 수 있어요."
@@ -2730,8 +2617,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! 'w' 모드는 파일이 없으면 새로 만들어요.",
-        "wrong": "정답은 B. 새 파일이 만들어져요."
+        "correct": "정답! 'w' 모드는 파일이 없으면 새로 만들어요."
       },
       "is_boss": false,
       "hint": "'w' 모드는 파일이 없어도 새로 생성해요."
@@ -2754,8 +2640,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! f.write()는 파일에 쓰고, print(len(nums))는 리스트 길이 3을 출력해요.",
-        "wrong": "정답은 B. 3이에요. len(nums)가 출력돼요."
+        "correct": "정답! f.write()는 파일에 쓰고, print(len(nums))는 리스트 길이 3을 출력해요."
       },
       "is_boss": false,
       "hint": "파일에 쓰는 것과 print()는 별개예요."
@@ -2778,8 +2663,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! 'a'는 append로 기존 내용을 유지하면서 뒤에 이어 써요.",
-        "wrong": "정답은 C. 이어쓰기예요. 'a'는 append(추가) 모드예요."
+        "correct": "정답! 'a'는 append로 기존 내용을 유지하면서 뒤에 이어 써요."
       },
       "is_boss": false,
       "hint": "'a'는 append예요. 기존 내용에 어떤 일이 일어날까요?"
@@ -2802,8 +2686,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! 한국어를 파일에 쓸 때는 encoding='utf-8'을 지정해야 해요.",
-        "wrong": "정답은 C. encoding='utf-8'이에요."
+        "correct": "정답! 한국어를 파일에 쓸 때는 encoding='utf-8'을 지정해야 해요."
       },
       "is_boss": false,
       "hint": "한국어는 utf-8 인코딩이 표준이에요."
@@ -2826,8 +2709,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! writelines()는 파일에 저장해요. 화면에는 print('ok')만 출력돼요.",
-        "wrong": "정답은 C. ok예요."
+        "correct": "정답! writelines()는 파일에 저장해요. 화면에는 print('ok')만 출력돼요."
       },
       "is_boss": false,
       "hint": "f.writelines()도 화면에 출력하지 않아요."
@@ -2850,8 +2732,7 @@
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! f.write()는 줄바꿈을 자동으로 추가하지 않아요. '\\n'을 직접 넣어야 해요.",
-        "wrong": "정답은 D예요."
+        "correct": "정답! f.write()는 줄바꿈을 자동으로 추가하지 않아요. '\\n'을 직접 넣어야 해요."
       },
       "is_boss": false,
       "hint": "f.write('내용\\n')처럼 \\n을 직접 넣어야 줄이 바뀌어요."
@@ -2874,8 +2755,7 @@
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! 'x' 모드는 새 파일만 만들 수 있어요. 파일이 이미 있으면 FileExistsError가 발생해요.",
-        "wrong": "정답은 D. 'x'예요. 'x'는 파일이 있으면 오류가 나요."
+        "correct": "정답! 'x' 모드는 새 파일만 만들 수 있어요. 파일이 이미 있으면 FileExistsError가 발생해요."
       },
       "is_boss": false,
       "hint": "exclusive creation의 약자예요. 이미 있는 파일은 거부해요."
@@ -2898,8 +2778,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! max()는 리스트에서 가장 큰 값을 반환해요. 96이에요.",
-        "wrong": "정답은 B. 96이에요. max()는 최댓값을 반환해요."
+        "correct": "정답! max()는 리스트에서 가장 큰 값을 반환해요. 96이에요."
       },
       "is_boss": false,
       "hint": "max()는 리스트에서 가장 큰 값을 찾아줘요."
@@ -2922,8 +2801,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! min()은 가장 작은 값을 반환해요. 78이에요.",
-        "wrong": "정답은 B. 78이에요. min()은 최솟값을 반환해요."
+        "correct": "정답! min()은 가장 작은 값을 반환해요. 78이에요."
       },
       "is_boss": false,
       "hint": "min()은 리스트에서 가장 작은 값을 찾아줘요."
@@ -2946,8 +2824,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! 합계 = 439, 개수 = 5, 평균 = 87.8이에요.",
-        "wrong": "정답은 B. 87.8이에요."
+        "correct": "정답! 합계 = 439, 개수 = 5, 평균 = 87.8이에요."
       },
       "is_boss": false,
       "hint": "sum()은 합계, len()은 개수예요."
@@ -2961,7 +2838,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\nscores = [85, 92, 78, 96, 88, 61, 73]\nhigh = []\nfor s in scores:\n    if s >= 85:\n        high.append(s)\nprint(high)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nscores = [85, 92, 78, 96, 88, 61, 73]\nhigh = []\nfor s in scores:\n    if s >= 85:\n        high.append(s)\nprint(high)\n```",
       "choices": [
         "A. [85, 92, 96]",
         "B. [85, 92, 96, 88]",
@@ -2970,8 +2847,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! 85 이상인 값은 85, 92, 96, 88이에요.",
-        "wrong": "정답은 B. [85, 92, 96, 88]이에요."
+        "correct": "정답! 85 이상인 값은 85, 92, 96, 88이에요."
       },
       "is_boss": false,
       "hint": "85 이상인 값이 몇 개인지 하나씩 확인해봐요."
@@ -2994,8 +2870,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! max([85, 92, 78])은 92예요. f-string으로 '최고점: 92'가 만들어져요.",
-        "wrong": "정답은 B. 최고점: 92예요."
+        "correct": "정답! max([85, 92, 78])은 92예요. f-string으로 '최고점: 92'가 만들어져요."
       },
       "is_boss": false,
       "hint": "먼저 max(scores)의 값을 구해봐요."
@@ -3018,8 +2893,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! f.write()는 파일에 저장하고 화면에는 나오지 않아요. print('done')만 출력돼요.",
-        "wrong": "정답은 C. done이에요."
+        "correct": "정답! f.write()는 파일에 저장하고 화면에는 나오지 않아요. print('done')만 출력돼요."
       },
       "is_boss": false,
       "hint": "f.write()는 파일에 저장해요."
@@ -3042,8 +2916,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! 내림차순 정렬 후 [96, 92, 88, 85, 78]이에요. [0]은 96이에요.",
-        "wrong": "정답은 C. 96이에요."
+        "correct": "정답! 내림차순 정렬 후 [96, 92, 88, 85, 78]이에요. [0]은 96이에요."
       },
       "is_boss": false,
       "hint": "내림차순 정렬 후 인덱스 0번은 가장 큰 값이에요."
@@ -3066,8 +2939,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! 정렬은 합계와 개수에 영향을 주지 않아요. 1+2+3+4+5=15, 15/5=3.0이에요.",
-        "wrong": "정답은 C. 3.0이에요."
+        "correct": "정답! 정렬은 합계와 개수에 영향을 주지 않아요. 1+2+3+4+5=15, 15/5=3.0이에요."
       },
       "is_boss": false,
       "hint": "정렬을 해도 값 자체는 바뀌지 않아요."
@@ -3090,8 +2962,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! 3줄을 읽어서 3개를 append하니 len(scores)는 3이에요.",
-        "wrong": "정답은 C. 3이에요."
+        "correct": "정답! 3줄을 읽어서 3개를 append하니 len(scores)는 3이에요."
       },
       "is_boss": false,
       "hint": "줄 수만큼 append()가 실행돼요."
@@ -3105,7 +2976,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\nscores = [85, 92, 78, 96, 88]\nresult = f'최고점: {max(scores)}, 평균: {sum(scores)/len(scores)}'\nprint(result)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nscores = [85, 92, 78, 96, 88]\nresult = f'최고점: {max(scores)}, 평균: {sum(scores)/len(scores)}'\nprint(result)\n```",
       "choices": [
         "A. 최고점: 88, 평균: 87.8",
         "B. 최고점: 96, 평균: 86.8",
@@ -3114,8 +2985,7 @@
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! max=96, 평균=439/5=87.8이에요.",
-        "wrong": "정답은 D예요."
+        "correct": "정답! max=96, 평균=439/5=87.8이에요."
       },
       "is_boss": false,
       "hint": "max()와 sum()/len()을 각각 계산해봐요."
@@ -3138,8 +3008,7 @@
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! max()는 가장 큰 값을 반환해요. 5가 최댓값이에요.",
-        "wrong": "정답은 A. 5예요."
+        "correct": "정답! max()는 가장 큰 값을 반환해요. 5가 최댓값이에요."
       },
       "is_boss": false,
       "hint": "max()는 리스트에서 가장 큰 값을 찾아줘요."
@@ -3162,8 +3031,7 @@
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! min()은 가장 작은 값을 반환해요. 1이 최솟값이에요.",
-        "wrong": "정답은 A. 1이에요."
+        "correct": "정답! min()은 가장 작은 값을 반환해요. 1이 최솟값이에요."
       },
       "is_boss": false,
       "hint": "min()은 리스트에서 가장 작은 값을 찾아줘요."
@@ -3186,8 +3054,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! 합계 = 100, 개수 = 4, 평균 = 100/4 = 25.0이에요.",
-        "wrong": "정답은 B. 25.0이에요."
+        "correct": "정답! 합계 = 100, 개수 = 4, 평균 = 100/4 = 25.0이에요."
       },
       "is_boss": false,
       "hint": "합계를 구하고 개수로 나눠봐요."
@@ -3201,7 +3068,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\ndata = [70, 85, 60, 90, 75]\nhigh = []\nfor d in data:\n    if d >= 75:\n        high.append(d)\nprint(len(high))\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\ndata = [70, 85, 60, 90, 75]\nhigh = []\nfor d in data:\n    if d >= 75:\n        high.append(d)\nprint(len(high))\n```",
       "choices": [
         "A. 2",
         "B. 3",
@@ -3210,8 +3077,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! 75 이상인 값은 85, 90, 75예요. 세 개니까 len(high)는 3이에요.",
-        "wrong": "정답은 B. 3이에요. 75 이상인 값이 세 개예요."
+        "correct": "정답! 75 이상인 값은 85, 90, 75예요. 세 개니까 len(high)는 3이에요."
       },
       "is_boss": false,
       "hint": "75 이상인 값을 하나씩 확인해봐요."
@@ -3234,8 +3100,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! 합계 = 270, 개수 = 3, 평균 = 90.0이에요.",
-        "wrong": "정답은 B. 평균: 90.0이에요."
+        "correct": "정답! 합계 = 270, 개수 = 3, 평균 = 90.0이에요."
       },
       "is_boss": false,
       "hint": "세 값의 합계를 구하고 3으로 나눠봐요."
@@ -3258,8 +3123,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! 파일 쓰기 후 print(sum(nums))가 실행돼요. 5+10+15 = 30이에요.",
-        "wrong": "정답은 B. 30이에요. sum([5, 10, 15]) = 30이에요."
+        "correct": "정답! 파일 쓰기 후 print(sum(nums))가 실행돼요. 5+10+15 = 30이에요."
       },
       "is_boss": false,
       "hint": "f.write()와 print()는 별개예요."
@@ -3282,8 +3146,7 @@
       ],
       "answer": "B",
       "feedback": {
-        "correct": "정답! sort() 후 [78, 85, 92]가 돼요. 인덱스 0번은 가장 작은 값 78이에요.",
-        "wrong": "정답은 B. 78이에요."
+        "correct": "정답! sort() 후 [78, 85, 92]가 돼요. 인덱스 0번은 가장 작은 값 78이에요."
       },
       "is_boss": false,
       "hint": "오름차순 정렬 후 인덱스 0번은 가장 작은 값이에요."
@@ -3306,8 +3169,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! 80 이상인 값은 80, 90이에요.",
-        "wrong": "정답은 C. [80, 90]이에요."
+        "correct": "정답! 80 이상인 값은 80, 90이에요."
       },
       "is_boss": false,
       "hint": "d >= 80인 값이 몇 개인지 확인해봐요."
@@ -3321,7 +3183,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\nnums = [1, 2, 3, 4, 5]\nnums.sort(reverse=True)\nprint(nums[0] + nums[-1])\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nnums = [1, 2, 3, 4, 5]\nnums.sort(reverse=True)\nprint(nums[0] + nums[-1])\n```",
       "choices": [
         "A. 10",
         "B. 5",
@@ -3330,8 +3192,7 @@
       ],
       "answer": "C",
       "feedback": {
-        "correct": "정답! 내림차순 정렬 후 [5, 4, 3, 2, 1]이에요. nums[0]=5, nums[-1]=1, 5+1=6이에요.",
-        "wrong": "정답은 C. 6이에요."
+        "correct": "정답! 내림차순 정렬 후 [5, 4, 3, 2, 1]이에요. nums[0]=5, nums[-1]=1, 5+1=6이에요."
       },
       "is_boss": false,
       "hint": "내림차순 정렬 후 nums[0]과 nums[-1]이 각각 몇인지 확인해봐요."
@@ -3354,8 +3215,7 @@
       ],
       "answer": "D",
       "feedback": {
-        "correct": "정답! nums = [10, 20, 30, 40, 50]이 돼요. max=50, min=10, 50-10=40이에요.",
-        "wrong": "정답은 D. 40이에요. 최댓값(50) - 최솟값(10) = 40이에요."
+        "correct": "정답! nums = [10, 20, 30, 40, 50]이 돼요. max=50, min=10, 50-10=40이에요."
       },
       "is_boss": false,
       "hint": "파일을 읽어 리스트를 만들고 max - min을 구해봐요."

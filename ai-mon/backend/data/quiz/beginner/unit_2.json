@@ -81,7 +81,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\ntext = 'Hello'\nprint(text[-2])\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\ntext = 'Hello'\nprint(text[-2])\n```",
       "choices": [
         "A. H",
         "B. o",
@@ -108,7 +108,7 @@
       "question": "코드를 돌려봤더니 뭐가 나왔을까요?\n\n```python\ntext = 'Hello World'\nprint(text[0:5])\n```",
       "choices": [
         "A. Hello",
-        "B. Hello ",
+        "B. hello ",
         "C. World",
         "D. Hell"
       ],
@@ -201,7 +201,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\nn = '123456789'\nprint(n[1:7:2])\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nn = '123456789'\nprint(n[1:7:2])\n```",
       "choices": [
         "A. 246",
         "B. 135",
@@ -321,7 +321,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\ntext = 'AI-mon'\nprint(text[3:6])\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\ntext = 'AI-mon'\nprint(text[3:6])\n```",
       "choices": [
         "A. AI-",
         "B. -mo",
@@ -441,7 +441,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\ns = 'abcdef'\nprint(s[::-1])\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\ns = 'abcdef'\nprint(s[::-1])\n```",
       "choices": [
         "A. abcdef",
         "B. fedcba",
@@ -561,7 +561,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\ntext = 'banana'\nprint(text.replace('a', 'o'))\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\ntext = 'banana'\nprint(text.replace('a', 'o'))\n```",
       "choices": [
         "A. bonono",
         "B. bxnxnx",
@@ -681,7 +681,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\ns = '  test  '\nprint(s.strip())\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\ns = '  test  '\nprint(s.strip())\n```",
       "choices": [
         "A. '__test__'",
         "B. test",
@@ -801,7 +801,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\ns = '  abc  '\nprint(s.strip())\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\ns = '  abc  '\nprint(s.strip())\n```",
       "choices": [
         "A. '  abc  '",
         "B. abc  ",
@@ -921,7 +921,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\norigin = 'Robot'\nmodified = origin.lower()\nprint(modified)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\norigin = 'Robot'\nmodified = origin.lower()\nprint(modified)\n```",
       "choices": [
         "A. Robot",
         "B. ROBOT",
@@ -1041,7 +1041,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\ntext = 'apple'\nprint(text.find('z'))\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\ntext = 'apple'\nprint(text.find('z'))\n```",
       "choices": [
         "A. 0",
         "B. 5",
@@ -1161,7 +1161,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\ntext = 'hello world'\nprint(text.count('l'))\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\ntext = 'hello world'\nprint(text.count('l'))\n```",
       "choices": [
         "A. 2",
         "B. 3",
@@ -1281,7 +1281,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\ntext = 'aaabbb'\nprint(text.count('a'))\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\ntext = 'aaabbb'\nprint(text.count('a'))\n```",
       "choices": [
         "A. 1",
         "B. 2",
@@ -1401,7 +1401,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\ndata = 'X-Y-Z'\ntokens = data.split('-')\nprint(' '.join(tokens))\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\ndata = 'X-Y-Z'\ntokens = data.split('-')\nprint(' '.join(tokens))\n```",
       "choices": [
         "A. X-Y-Z",
         "B. XYZ",
@@ -1521,7 +1521,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\nx = 5\ny = 3\nprint(f'{x} + {y} = {x + y}')\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nx = 5\ny = 3\nprint(f'{x} + {y} = {x + y}')\n```",
       "choices": [
         "A. x + y = x + y",
         "B. 5 + 3 = {x + y}",
@@ -1641,7 +1641,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\nname = 'Bob'\nprint(f'Hi {name}!')\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nname = 'Bob'\nprint(f'Hi {name}!')\n```",
       "choices": [
         "A. Hi name!",
         "B. Hi {name}!",
@@ -1761,7 +1761,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\nval = 100\nprint(f'Number {val}')\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nval = 100\nprint(f'Number {val}')\n```",
       "choices": [
         "A. Number val",
         "B. Number {val}",
@@ -1881,7 +1881,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\ncode = 'Python'\nprint(f'{code}')\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\ncode = 'Python'\nprint(f'{code}')\n```",
       "choices": [
         "A. code",
         "B. {code}",
@@ -2001,7 +2001,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\nword = 'AI'\nprint(word * 3)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nword = 'AI'\nprint(word * 3)\n```",
       "choices": [
         "A. AI 3",
         "B. AIAI",
@@ -2121,7 +2121,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\ntext = 'code'\nprint(len(text) - 1)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\ntext = 'code'\nprint(len(text) - 1)\n```",
       "choices": [
         "A. 3",
         "B. 4",
@@ -2241,7 +2241,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\ntext = 'abc'\nprint(len(text))\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\ntext = 'abc'\nprint(len(text))\n```",
       "choices": [
         "A. 2",
         "B. 3",
@@ -2361,7 +2361,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\ntext = 'Hi'\nprint(len(text) * 2)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\ntext = 'Hi'\nprint(len(text) * 2)\n```",
       "choices": [
         "A. HiHi",
         "B. 2",
@@ -2481,7 +2481,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\nemail = '  User@Example.COM  '\nclean = email.strip().lower()\nprint(clean)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nemail = '  User@Example.COM  '\nclean = email.strip().lower()\nprint(clean)\n```",
       "choices": [
         "A. User@Example.COM",
         "B. user@example.com",
@@ -2601,7 +2601,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
-      "question": "```python\ntext = 'hello world'\nwords = text.split(' ')\nprint(len(words))\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\ntext = 'hello world'\nwords = text.split(' ')\nprint(len(words))\n```",
       "choices": [
         "A. 1",
         "B. 2",
@@ -2721,7 +2721,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\ntext = 'Robot'\nresult = text.upper()\nprint(result)\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은?\n\n```python\ntext = 'Robot'\nresult = text.upper()\nprint(result)\n```",
       "choices": [
         "A. Robot",
         "B. robot",
@@ -2841,7 +2841,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "```python\nemail = 'user@test.com'\nparts = email.split('@')\nprint(parts[1])\n```\n\n이 코드가 출력하는 값은?",
+      "question": "이 코드가 출력하는 값은? `python\nemail = 'user@test.com'\nparts = email.split('@')\nprint(parts[1])\n```",
       "choices": [
         "A. user",
         "B. user@test.com",

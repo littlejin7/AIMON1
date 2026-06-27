@@ -1545,7 +1545,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "```python\n`run_inventory_sys()`에서 `while True`, `if/elif/else`, `break` 세 요소의 역할을 올바르게 묶은 것은?\n```",
+      "question": "메뉴 시스템의 핵심인 `run_inventory_sys()` 구조에서 `while True`, `if/elif/else`, `break` 세 요소의 역할을 올바르게 설명한 것은 무엇일까요?\n\n```python\ndef run_inventory_sys():\n    while True:\n        # 1. if/elif/else로 메뉴 선택\n        # 2. break로 탈출\n```",
       "choices": [
         "A. while True — 한 번 실행 / if/elif/else — 파일 저장 / break — 에러 처리",
         "B. while True — 시스템 지속 실행 / if/elif/else — 메뉴 번호별 함수 라우팅 / break — 종료",
@@ -1665,7 +1665,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드에서 오류가 있는 줄은?\n\n① while True:\n```python\n②     cmd = input()\n③     if cmd == '7':\n④         print('종료')\n```",
+      "question": "다음 코드에서 오류가 있는 줄은?```python\n① while True:\n②     cmd = input()\n③     if cmd == '7':\n④         print('종료')\n```",
       "choices": [
         "A. ① — while True 사용 오류",
         "B. ③ — 조건식 오류",

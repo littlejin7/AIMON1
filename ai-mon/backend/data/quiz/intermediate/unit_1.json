@@ -238,10 +238,10 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "프로그램 내에서 식별되거나 정의된 적이 없는 미지수 형태의 가짜 변수명을 함부로 호출해 조회하려고 할 때 가동되는 파이썬 예외 타입을 기입해 주세요.\n\n```python\ntry:\n    print(unknown_target)\nexcept _______________:\n    print('정의되지 않은 식별자 에러입니다.')\n```",
-      "answer": "NameError",
+      "question": "리스트나 튜플의 범위를 벗어난 인덱스에 접근하려고 할 때 발생하는 예외 이름을 빈칸에 채워 넣어 보세요.\n\n```python\ntry:\n    items = [1, 2, 3]\n    print(items[5])\nexcept _______________:\n    print('인덱스 범위를 초과하였습니다.')\n```",
+      "answer": "IndexError",
       "feedback": {
-        "correct": "참 잘하셨습니다! 선언이나 대입 연산 절차를 밟은 바 없는 변수 문자열을 컴파일 시도하면 NameError 경보가 내려집니다."
+        "correct": "정답입니다! 리스트 길이를 넘어서는 위치의 원소에 조회를 가할 때 발생하는 오류는 IndexError 타입에 의해 통제됩니다."
       }
     },
     {
@@ -254,16 +254,16 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 다중 예외 처리 장치가 배치된 코드를 실행했을 때 최종적으로 화면에 출력되는 문구 조합을 선택해 주세요.\n\n```python\ntry:\n    print(target_name)\n    team = ['AI', 'Bot']\n    print(team[10])\nexcept NameError:\n    print('존재하지 않는 식별자 발견')\nexcept IndexError:\n    print('인덱스 허용 범위 초과')\n```",
+      "question": "다음 다중 예외 처리 장치가 배치된 코드를 실행했을 때 최종적으로 화면에 출력되는 문구를 선택해 주세요.\n\n```python\ntry:\n    number = int('abc')\n    team = ['AI', 'Bot']\n    print(team[10])\nexcept ValueError:\n    print('값 변환 에러 발견')\nexcept IndexError:\n    print('인덱스 허용 범위 초과')\n```",
       "choices": [
-        "A. 존재하지 않는 식별자 발견",
+        "A. 값 변환 에러 발견",
         "B. 인덱스 허용 범위 초과",
-        "C. 존재하지 않는 식별자 발견\n인덱스 허용 범위 초과",
+        "C. 값 변환 에러 발견\n인덱스 허용 범위 초과",
         "D. 프로그램 에러 중단"
       ],
-      "answer": "A. 존재하지 않는 식별자 발견",
+      "answer": "A. 값 변환 에러 발견",
       "feedback": {
-        "correct": "정답입니다! 리스트 접근 명령줄에 도달하기 전 상단의 `print(target_name)`에서 정의되지 않은 변수로 인해 NameError가 먼저 발생하므로 첫 번째 except 블록만 실행됩니다."
+        "correct": "정답입니다! 리스트 접근 명령줄에 도달하기 전 상단의 `int('abc')`에서 문자열 변환 오류로 인해 ValueError가 먼저 발생하므로 첫 번째 except 블록만 실행됩니다."
       }
     },
     {
@@ -1568,10 +1568,10 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "웹 통신으로 수신한 대량의 JSON 데이터를 파싱하는 실전 상황입니다. `json.loads()`를 사용하여 역직렬화를 시도할 때, JSON 표준 규격(예: 큰따옴표 누락 등)에 맞지 않는 엉망인 텍스트가 유입되면 발생하는 json 모듈 고유의 예외 에러 명칭을 빈칸에 채워주세요.\n\n```python\nimport json\ntry:\n    bad_json = \"{'level': 5}\"\n    data = json.loads(bad_json)\nexcept json._______________:\n    print('JSON 포맷 규격을 준수하지 않은 데이터입니다.')\n```",
-      "answer": "JSONDecodeError",
+      "question": "사용자 입력 점수의 유효 범위를 체크하기 위해 정의한 커스텀 예외 `InvalidScoreError`를 정의하고 이를 강제로 발생시키고자 합니다. 빈칸에 들어갈 키워드를 적어주세요.\n\n```python\nclass InvalidScoreError(Exception): pass\n\ndef check_score(score):\n    if score < 0 or score > 100:\n        _____ InvalidScoreError('점수 범위 초과')\n```",
+      "answer": "raise",
       "feedback": {
-        "correct": "정답입니다! json 모듈은 텍스트 파싱 실패 시 `json.JSONDecodeError`를 발생시켜 문법적 결함이 있음을 개발자에게 명확히 경고합니다."
+        "correct": "정답입니다! `raise` 키워드를 사용해 직접 만든 커스텀 예외인 `InvalidScoreError`를 강제로 발생시킬 수 있습니다."
       }
     },
     {
@@ -1606,10 +1606,10 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "csv 모듈의 `DictReader`를 사용하여 엑셀형 CSV 문서를 정제하는 로직입니다. 비즈니스 로직 규격상 데이터 행 내부의 특정 필드 수치가 비어있거나 유효하지 않을 때, 개발자가 의도적으로 에러를 뿜으며 시스템의 흐름을 통제하고자 사용하는 인위적 예외 발생 키워드를 빈칸에 입력해 주세요.\n\n```python\nrow = {'item': 'potion', 'price': ''}\nif row['price'] == '':\n    _____ ValueError('상품 가격 필드가 텅 비어 있습니다.')\n```",
-      "answer": "raise",
+      "question": "성적 처리 시스템에서 문자열 입력값을 정수로 형변환하는 중 문자열 포맷이 부적절할 때 발생하는 표준 예외 명칭을 빈칸에 입력해 주세요.\n\n```python\ndef process_score(raw_score):\n    try:\n        score = int(raw_score)\n    except _______________:\n        print('숫자 형식만 입력이 가능합니다.')\n```",
+      "answer": "ValueError",
       "feedback": {
-        "correct": "정답입니다! `raise` 키워드를 사용하면 원치 않는 불완전한 데이터가 데이터셋 파일 내에서 감출 수 없이 검출되었을 때 즉시 예외 신호를 던질 수 있습니다."
+        "correct": "정답입니다! int('abc')와 같이 정수로 변환할 수 없는 문자열을 정수형으로 강제 변환 시도하면 ValueError가 발생합니다."
       }
     },
     {
@@ -1720,10 +1720,10 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "파일 입출력 제어 중 어떠한 예외 오류 정황도 검출되지 않고 '정상적인 처리가 완벽하게 100% 안착하여 마무리되었을 때만' 리워드 분기 형태로 활성화되어 진입하는 보완 예약어 키워드를 채워주세요.\n\n```python\ntry:\n    import json\n    parsed = json.loads('{\"crowns\": 5}')\nexcept json.JSONDecodeError:\n    print('파싱 실패')\n_____:\n    print('JSON 파일 연동에 무사히 성공했습니다!')\n```",
+      "question": "성적 처리 코드 중 예외(ValueError, InvalidScoreError)가 전혀 발생하지 않고 정상적으로 성적 변환에 성공했을 때만 등급 판정 분기로 넘어갈 수 있도록 구성하려 합니다. 빈칸에 들어갈 키워드를 채워주세요.\n\n```python\ntry:\n    score = int(raw_score)\n    if not (0 <= score <= 100):\n        raise InvalidScoreError()\nexcept (ValueError, InvalidScoreError):\n    print('오류 처리')\n_____:\n    grade = \"A\" if score >= 90 else \"B\"\n    print(f'등급 산출 완료: {grade}')\n```",
       "answer": "else",
       "feedback": {
-        "correct": "잘하셨어요! `else` 블록은 try 내부가 구름 한 점 없이 화창하고 클린하게 수행 완료된 맑은 시나리오에서만 연계 가동되는 특수 공간입니다."
+        "correct": "정답입니다! `else` 키워드는 try 블록 안에서 어떤 예외 오류도 발생하지 않았을 때 안전하게 진입하여 후속 코드를 처리하는 예약어입니다."
       }
     },
     {
@@ -1774,16 +1774,16 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "csv 패키지의 `DictReader` 객체가 유입된 문서 행의 딕셔너리 컬럼 키를 조회할 때 유발되는 아래 융합 코드의 최종 결과를 예측해 보세요.\n\n```python\nrow_data = {'username': 'ji_hun', 'role': 'trainee'}\n\ntry:\n    print(row_data['grade'])\nexcept KeyError:\n    print('존재하지 않는 CSV 헤더 컬럼 이름입니다.')\n```",
+      "question": "다음 성적 처리 코드에서 `process_score(\"150\")`을 구동시켰을 때 최종 콘솔에 도출 인쇄되는 출력 결과와 반환값을 올바르게 선택해 주세요.\n\n```python\nclass InvalidScoreError(Exception): pass\n\ndef process_score(raw_score):\n    try:\n        score = int(raw_score)\n        if not (0 <= score <= 100):\n            raise InvalidScoreError(\"범위 초과\")\n    except ValueError:\n        return \"ValueError 발생\"\n    except InvalidScoreError as e:\n        return f\"에러: {e}\"\n    finally:\n        print(\"처리 완료\")\n\nprint(process_score(\"150\"))\n```",
       "choices": [
-        "A. trainee",
-        "B. 존재하지 않는 CSV 헤더 컬럼 이름입니다.",
-        "C. None",
-        "D. 문법 에러로 실행 거부"
+        "A. 처리 완료\n에러: 범위 초과",
+        "B. 에러: 범위 초과\n처리 완료",
+        "C. 처리 완료",
+        "D. 에러: 범위 초과"
       ],
-      "answer": "B. 존재하지 않는 CSV 헤더 컬럼 이름입니다.",
+      "answer": "A. 처리 완료\n에러: 범위 초과",
       "feedback": {
-        "correct": "정답입니다! 딕셔너리 컴파일 조회 간 맵핑 정보가 유실된 식별자를 다이렉트로 대괄호 호출하면 `KeyError`가 터지며, 지정 대응 except 절이 작동합니다."
+        "correct": "정답입니다! 입력값 150은 범위가 초과되어 `InvalidScoreError`를 강제로 던지며, except 절에 잡혀 `\"에러: 범위 초과\"` 문자열을 반환합니다. 하지만 함수 실행이 종료(반환)되기 전에 `finally` 블록의 `print(\"처리 완료\")`가 무조건 먼저 실행되므로 콘솔에는 '처리 완료' 출력 후 반환값인 '에러: 범위 초과'가 인쇄됩니다."
       }
     },
     {
