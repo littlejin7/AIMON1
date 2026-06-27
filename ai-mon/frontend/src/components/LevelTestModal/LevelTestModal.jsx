@@ -8,7 +8,7 @@ import { authApi }       from '../../api'
 
 const TOTAL = LEVEL_TEST_QUESTIONS.length
 
-export default function LevelTestModal({ onClose, onFinish, isLoggedIn }) {
+export default function LevelTestModal({ onClose, onFinish, isLoggedIn, forced = false }) {
   const [step,         setStep]         = useState(0)
   const [selected,     setSelected]     = useState(null)
   const [answered,     setAnswered]     = useState(false)
@@ -120,7 +120,7 @@ export default function LevelTestModal({ onClose, onFinish, isLoggedIn }) {
 
   return (
     <div
-      onClick={onClose}
+      onClick={forced ? undefined : onClose}
       style={{
         position: 'fixed', inset: 0, zIndex: 2000,
         background: 'rgba(0,0,0,0.78)', backdropFilter: 'blur(8px)',
@@ -140,7 +140,7 @@ export default function LevelTestModal({ onClose, onFinish, isLoggedIn }) {
         }}
       >
         {step === 0 && (
-          <LevelTestIntro onStart={handleStart} onClose={onClose} />
+          <LevelTestIntro onStart={handleStart} onClose={forced ? undefined : onClose} />
         )}
 
         {step >= 1 && step <= TOTAL && (
