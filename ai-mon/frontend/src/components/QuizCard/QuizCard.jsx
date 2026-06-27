@@ -99,7 +99,6 @@ export default function QuizCard({
   // ── AI 피드백 호출 (SSE 스트리밍) ──
   const fetchAiFeedback = async (userAnswer) => {
     const staticFallback = question.feedback?.wrong || '정답을 다시 확인해 보세요!'
-    setAiFeedback(staticFallback)
     setAiFeedbackLoading(true)
 
     let fullQuestionText = question.question
@@ -156,18 +155,27 @@ export default function QuizCard({
           } catch { /* JSON 파싱 실패 무시 */ }
         }
       }
+
+      // 스트리밍이 빈 응답으로 끝난 경우 staticFallback
+      if (!accumulated) setAiFeedback(staticFallback)
     } catch (streamErr) {
       // 스트리밍 실패 → 기존 단순 POST 폴백
       try {
-        const res = await quizApi.getAiFeedback({ 
+        const res = await quizApi.getAiFeedback({
           question_id: question.question_id || question.id || '',
-          question: fullQuestionText, 
-          correct_answer: question.answer, 
-          user_answer: userAnswer, 
-          level: courseLevel 
+          question: fullQuestionText,
+          correct_answer: question.answer,
+          user_answer: userAnswer,
+          level: courseLevel
         })
-        if (res.data?.feedback && !res.data?.is_ai_fallback) setAiFeedback(res.data.feedback)
-      } catch { /* staticFallback 유지 */ }
+        if (res.data?.feedback && !res.data?.is_ai_fallback) {
+          setAiFeedback(res.data.feedback)
+        } else {
+          setAiFeedback(staticFallback)
+        }
+      } catch {
+        setAiFeedback(staticFallback)
+      }
     } finally {
       setAiFeedbackLoading(false)
     }
