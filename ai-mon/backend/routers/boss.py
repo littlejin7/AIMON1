@@ -40,7 +40,7 @@ class BossAnswerRequest(BaseModel):
 BOSS_HP_INIT  = 1000
 MY_HP_INIT    = 1000
 BOSS_HP_DELTA = 200   # 정답 시 보스 HP 감소 (5번 맞추면 클리어)
-MY_HP_DELTA   = 350   # 오답 시 내 HP 감소
+MY_HP_DELTA   = -(-MY_HP_INIT // 3)       # ceil(MY_HP_INIT/3) = 334: 3오답에 HP 정확히 0
 
 
 
@@ -309,11 +309,12 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dic
         new_wrong_count = safe_wrong
     else:
         new_boss_hp    = safe_boss_hp
-        new_my_hp      = safe_my_hp - MY_HP_DELTA
+        new_my_hp      = max(0, safe_my_hp - MY_HP_DELTA)
         new_wrong_count = safe_wrong + 1
 
     is_clear = (new_boss_hp <= 0) if not grading_failed else False
-    is_fail  = (new_my_hp  <= 0 or new_wrong_count >= 3) if not grading_failed else False
+    # 패배 단일 기준: 3오답 = HP 0 (MY_HP_DELTA = ceil(MY_HP_INIT/3)로 항상 동시 성립)
+    is_fail  = (new_wrong_count >= 3) if not grading_failed else False
 
     # 응답에 HP 정보 추가
     ai_result["my_hp"]       = new_my_hp
