@@ -120,17 +120,19 @@ export default function LevelTestIntro({ onStart, onClose }) {
         >
           🎯 테스트 시작하기
         </button>
-        <button
-          onClick={onClose}
-          style={{
-            width: '100%', padding: '13px',
-            background: 'transparent', color: '#9B96D0',
-            border: '1.5px solid #E5E2F8', borderRadius: '14px',
-            fontSize: '13px', fontWeight: 500, cursor: 'pointer',
-          }}
-        >
-          닫기
-        </button>
+        {onClose && (
+          <button
+            onClick={onClose}
+            style={{
+              width: '100%', padding: '13px',
+              background: 'transparent', color: '#9B96D0',
+              border: '1.5px solid #E5E2F8', borderRadius: '14px',
+              fontSize: '13px', fontWeight: 500, cursor: 'pointer',
+            }}
+          >
+            닫기
+          </button>
+        )}
       </div>
     </div>
   )

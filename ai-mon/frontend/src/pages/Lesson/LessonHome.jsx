@@ -137,6 +137,7 @@ export default function LessonHome() {
     <div className="lh-page">
       {showLevelTest && (
         <LevelTestModal
+          forced={!user?.is_level_tested}
           onClose={() => { setShowLevelTest(false); setPendingUnitId(null) }}
           onFinish={handleLevelTestFinish}
           isLoggedIn={true}
@@ -240,7 +241,19 @@ export default function LessonHome() {
                       const stateClass   = stageDone ? 'done' : isCurrent ? 'current' : 'todo'
                       const lineClass    = stageDone ? 'done' : 'todo'
                       return (
-                        <div key={s} className="lh-stage-seg" onClick={() => token && navigate(`/stage/${lesson.unit_id}/${s}`)}>
+                        <div
+                          key={s}
+                          className={`lh-stage-seg${!prevDone ? ' lh-stage-disabled' : ''}`}
+                          onClick={() => {
+                            if (!token || !prevDone) return
+                            if (!user?.is_level_tested && !(lesson.unit_id === 1 && s === 1)) {
+                              setPendingUnitId(lesson.unit_id)
+                              setShowLevelTest(true)
+                              return
+                            }
+                            navigate(`/stage/${lesson.unit_id}/${s}`)
+                          }}
+                        >
                           <div className={`lh-stage-node ${stateClass}`}>
                             {stageDone ? '✓' : s}
                           </div>
@@ -253,8 +266,16 @@ export default function LessonHome() {
                     {/* 선 + 보스 노드 */}
                     <div className={`lh-stage-line ${prog.completed >= lesson.stages ? 'done' : 'todo'}`} />
                     <div
-                      className="lh-boss-node"
-                      onClick={() => token && navigate(`/boss/${lesson.unit_id}`)}
+                      className={`lh-boss-node${prog.completed < lesson.stages ? ' lh-stage-disabled' : ''}`}
+                      onClick={() => {
+                        if (!token || prog.completed < lesson.stages) return
+                        if (!user?.is_level_tested) {
+                          setPendingUnitId(lesson.unit_id)
+                          setShowLevelTest(true)
+                          return
+                        }
+                        navigate(`/boss/${lesson.unit_id}`)
+                      }}
                       title="유닛 보스"
                     >
                       ⚔️
