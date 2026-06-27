@@ -12,6 +12,7 @@ from routers.utils import (
     mutate_user_atomic,
     UserNotFoundError,
 )
+# TODO(backlog): quiz 모듈을 두 번 import(assert_stage_access, load_units). 한 줄로 합칠 것. (사소)
 from routers.quiz import assert_stage_access
 
 router = APIRouter()
@@ -35,6 +36,7 @@ def update_progress(req: ProgressUpdateRequest, user_ref: dict = Depends(get_cur
     user_id = user_ref["id"]
     course_level = user_ref.get("course_level", "beginner")
 
+    # TODO(backlog): is_completed를 클라이언트 입력으로 신뢰함. 1-1(공개)부터 순차로 위조하면 체인 해금 가능. 서버사이드 채점 결과로만 is_completed를 세우도록 변경 필요. 랭킹/보상 도입 전 처리.
     # 비보스 스테이지 완료 신청 시 선행조건 검증 (boss/miniboss 완료 기록은 각 전담 라우터가 관리)
     is_boss_stage = "boss" in req.stage
     if req.is_completed and not is_boss_stage:
