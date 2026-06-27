@@ -15,14 +15,13 @@ export default function TrainHome({
   maxUnit,
   userCourseLevel,
   hasCompletedStages,
-  hasClearedMiniboss,
   wrongCount,
   wrongAnswers,
   unitAccuracy,
   loading,
   onStart,
   onStartRandom,
-  onStartBossRush,
+  onOpenCodeViewer,
 }) {
   return (
     <div className="tr-page">
@@ -59,15 +58,14 @@ export default function TrainHome({
           </button>
         </div>
 
+
         {/* 훈련 모드 그리드 */}
         <div className="tr-section-title">훈련 모드</div>
         <div className="tr-grid">
           {TRAIN_MODES.map(m => {
             const isDisabled = m.locked
-              || (m.id === 'boss'   && !hasClearedMiniboss)
               || (m.id === 'random' && !hasCompletedStages)
-            const countLabel = m.id === 'boss'   && !hasClearedMiniboss  ? '미니보스 클리어 필요'
-                             : m.id === 'random' && !hasCompletedStages  ? '스테이지 클리어 필요'
+            const countLabel = m.id === 'random' && !hasCompletedStages  ? '스테이지 클리어 필요'
                              : m.locked ? m.lockHint
                              : m.id === 'wrong'  ? `${wrongCount}문제 대기 중`
                              : m.reward || ''
@@ -77,8 +75,8 @@ export default function TrainHome({
                 className={`tr-mode-card ${isDisabled ? 'tr-mode-locked' : ''}`}
                 onClick={() => {
                   if (isDisabled) return
-                  if (m.id === 'random')    { onStartRandom();   return }
-                  if (m.id === 'boss')      { onStartBossRush(); return }
+                  if (m.id === 'random')    { onStartRandom();      return }
+                  if (m.id === 'boss')      { onOpenCodeViewer(); return }
                   onStart({ onlyWrong: m.id === 'wrong' })
                 }}
               >
