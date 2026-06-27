@@ -30,6 +30,7 @@ from routers.utils import (
     ALGORITHM,
     limiter,
     now_kst,
+    get_current_user,
     get_current_user_optional,
 )
 
@@ -1002,5 +1003,29 @@ def submit_level_test(req: SubmitLevelTestRequest, user: Optional[dict] = Depend
         "categoryPercentages": category_percentages,
         "user": serialize_user(updated_user) if updated_user else None,
     }
+
+
+@router.post("/touch")
+def touch(user: dict = Depends(get_current_user)):
+    """앱 부팅 시 클라이언트 1회 호출. KST 하루 1회 dedup으로 streak을 갱신한다."""
+    user_id = user["id"]
+
+    def mutator(u: dict) -> dict:
+        _, streak_reward = update_login_streak(u)
+        return streak_reward
+
+    try:
+        updated, streak_reward = mutate_user_atomic(user_id, mutator)
+    except UserNotFoundError:
+        raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")
+
+    res = {
+        "streak": updated.get("streak", 0),
+        "last_login": updated.get("last_login", ""),
+        "user": serialize_user(updated),
+    }
+    if streak_reward:
+        res["streak_reward"] = streak_reward
+    return res
 
 
