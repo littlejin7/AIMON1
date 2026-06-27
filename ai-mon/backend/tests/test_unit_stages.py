@@ -107,9 +107,17 @@ def progress_env(monkeypatch, tmp_path):
 
 
 def _submit(unit: int, stage: str) -> int:
-    """스테이지 완료 제출 → 그 호출에서 지급된 왕관 수 반환."""
+    """스테이지 완료 제출 → 그 호출에서 지급된 왕관 수 반환.
+
+    진입 게이트(assert_stage_access)는 왕관 지급 로직과 직교하므로, 호출 유저는
+    레벨테스트 완료 + 전 유닛 해금 상태로 둔다. 각 테스트가 1..N 순서대로 제출하므로
+    이전 스테이지 완료 조건도 자연히 충족된다."""
     req = P.ProgressUpdateRequest(unit=unit, stage=stage, score=100, is_completed=True)
-    res = P.update_progress(req, {"id": "u1", "course_level": "beginner"})
+    user = {
+        "id": "u1", "course_level": "beginner",
+        "is_level_tested": True, "max_unlocked_unit": {"beginner": 99},
+    }
+    res = P.update_progress(req, user)
     return res["crowns_awarded"]
 
 

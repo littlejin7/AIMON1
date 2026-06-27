@@ -18,7 +18,7 @@ from routers.utils import (
     UserNotFoundError,
 )
 from routers.titles import check_and_award_titles
-from routers.quiz import load_questions_by_category
+from routers.quiz import load_questions_by_category, assert_boss_access
 
 router = APIRouter()
 
@@ -77,6 +77,8 @@ def start_boss_battle(unit: str = "1", user: dict = Depends(get_current_user)):
     course_level = user.get("course_level", "beginner")
     category = "unitboss"
     unit_num = int(unit)
+    # 진입 게이트: 레벨테스트 완료 + 유닛 해금 + 해당 유닛 모든 스테이지 완료
+    assert_boss_access(user, unit_num, course_level)
     boss_qs = load_questions_by_category(category, course_level=course_level, unit=unit_num)
     if not boss_qs:
         raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")

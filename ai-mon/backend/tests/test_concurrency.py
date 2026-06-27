@@ -393,16 +393,27 @@ def start_user_factory(monkeypatch, tmp_path):
     """USERS_FILE 을 임시 파일로 리디렉트하고 진입 비용 필드로 유저를 준비한다.
     last_free_attempt_date 를 오늘로 세팅해 일일 리셋이 무료 횟수를 되돌리지 않게 한다."""
     users_file = tmp_path / "users.json"
+    progress_file = tmp_path / "progress.json"
     today = U.now_kst().strftime("%Y-%m-%d")
     monkeypatch.setattr(U, "USERS_FILE", str(users_file))
+    monkeypatch.setattr(U, "PROGRESS_FILE", str(progress_file))
     monkeypatch.setattr(U, "USE_SUPABASE", False)
     monkeypatch.setattr(B, "load_questions_by_category", lambda *a, **k: [_START_Q])
+
+    # unit1(7스테이지) 전 스테이지 완료 시드 → assert_boss_access 진행도 조건 충족
+    progress_file.write_text(json.dumps([
+        {"user_id": "u1", "unit": 1, "stage": f"1-{i}",
+         "is_completed": True, "course_level": "beginner"}
+        for i in range(1, 8)
+    ]), encoding="utf-8")
 
     def _make(**fields):
         user = {
             "id": "u1", "xp": 0, "lv": 1, "crowns": 0, "character": "slime",
             "course_level": "beginner", "daily_free_attempts": 0,
             "last_free_attempt_date": today, "seen_questions": {},
+            "is_level_tested": True,
+            "max_unlocked_unit": {"beginner": 99},
         }
         user.update(fields)
         users_file.write_text(json.dumps([user]), encoding="utf-8")
@@ -411,13 +422,18 @@ def start_user_factory(monkeypatch, tmp_path):
     return _make, str(users_file)
 
 
+# 진입 게이트는 동시성 검증과 직교 → 핸들러에 넘기는 인라인 유저도 게이트를 통과시킨다.
+_GATE_PASS = {"is_level_tested": True, "max_unlocked_unit": {"beginner": 99}}
+
+
 def _start_concurrently(n=2):
     """start_boss_battle 를 n개 스레드로 동시 호출. (성공 결과들, 에러 detail들) 반환."""
     results, errors = [], []
 
     def call():
         try:
-            results.append(B.start_boss_battle(unit="1", user={"id": "u1"}))
+            results.append(B.start_boss_battle(
+                unit="1", user={"id": "u1", "course_level": "beginner", **_GATE_PASS}))
         except HTTPException as e:
             errors.append((e.status_code, e.detail))
 

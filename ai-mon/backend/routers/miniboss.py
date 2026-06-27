@@ -26,6 +26,7 @@ from routers.utils import (
     mutate_user_atomic,
     UserNotFoundError,
 )
+from routers.quiz import assert_stage_access
 
 router = APIRouter()
 
@@ -220,6 +221,10 @@ def miniboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
     - 진행도 저장
     """
     user_id = user["id"]
+
+    # 해당 스테이지 접근 권한 검증 (레벨테스트 + 유닛 해금 + 이전 스테이지 완료)
+    course_level = user.get("course_level", "beginner")
+    assert_stage_access(user, req.unit, req.stage, course_level)
 
     stage_key = req.stage if "-" in str(req.stage) else f"{req.unit}-{req.stage}"
 
