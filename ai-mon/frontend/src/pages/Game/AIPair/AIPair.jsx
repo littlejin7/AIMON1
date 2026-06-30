@@ -72,8 +72,7 @@ export default function AIPair() {
           const row = Math.floor(idx / 3)
           const xCenter = `${(1 - col) * 140}px`
           const yCenter = `${(1.5 - row) * 125}px`
-          const rotCenter = `${(Math.random() - 0.5) * 35}deg`
-          const delay = `${idx * 20}ms`
+          const delay = `${idx * 8}ms`
           return (
             <PairsCard
               key={idx}
@@ -86,7 +85,6 @@ export default function AIPair() {
               style={{
                 '--x-center': xCenter,
                 '--y-center': yCenter,
-                '--rot-center': rotCenter,
                 '--delay': delay
               }}
               shuffling={isShuffling}

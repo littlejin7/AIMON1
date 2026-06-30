@@ -61,7 +61,7 @@ export function usePairsGame() {
     
     setTimeout(() => {
       setIsShuffling(false)
-    }, 900)
+    }, 600)
   }, [activeGameId])
 
   useEffect(() => { init() }, [init, activeGameId])
