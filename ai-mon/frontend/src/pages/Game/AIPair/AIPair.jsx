@@ -68,12 +68,12 @@ export default function AIPair() {
 
       <div className="mp-grid">
         {deck.map((card, idx) => {
-          const angle = (idx / deck.length) * 2 * Math.PI
-          const dist = 50 + Math.random() * 30
-          const x = `${Math.cos(angle) * dist}px`
-          const y = `${Math.sin(angle) * dist}px`
-          const rot = `${(Math.random() - 0.5) * 30}deg`
-          const delay = `${idx * 25}ms`
+          const col = idx % 3
+          const row = Math.floor(idx / 3)
+          const xCenter = `${(1 - col) * 140}px`
+          const yCenter = `${(1.5 - row) * 125}px`
+          const rotCenter = `${(Math.random() - 0.5) * 35}deg`
+          const delay = `${idx * 20}ms`
           return (
             <PairsCard
               key={idx}
@@ -84,9 +84,9 @@ export default function AIPair() {
               wrong={wrongIds.has(idx)}
               onClick={() => onCardClick(idx)}
               style={{
-                '--x': x,
-                '--y': y,
-                '--rot': rot,
+                '--x-center': xCenter,
+                '--y-center': yCenter,
+                '--rot-center': rotCenter,
                 '--delay': delay
               }}
               shuffling={isShuffling}
