@@ -343,7 +343,7 @@
 
 /* ── BACK ── */
 .mp-card-back {
-  background: linear-gradient(160deg, #1f0c2a 0%, #8561c5 50%, #1f0c2a 100%);
+  background: linear-gradient(160deg, #1a1040 0%, #2d1b5e 55%, #1a1040 100%);
   border: 1.5px solid rgba(155, 93, 229, 0.5);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(155, 93, 229, 0.2);
   gap: 0;
@@ -389,8 +389,8 @@
 }
 
 .mp-card-back-img {
-  width: 100%;
-  max-height: 100%;
+  width: 55%;
+  max-height: 60%;
   object-fit: contain;
   position: relative;
   z-index: 1;
@@ -408,11 +408,11 @@
 }
 
 .mp-card-badge {
-  font-size: 1.00rem;
+  font-size: 0.8rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  padding: 2px 10px;
+  padding: 1px 7px;
   border-radius: 99px;
   line-height: 1.6;
   margin-bottom: 3px;
@@ -424,19 +424,9 @@
   color: #fff;
 }
 
-.badge-code {
-  background: #f4a800;
-  color: #1a0a00;
-}
-
 .badge-analogy {
   background: #00b4d8;
   color: #03045e;
-}
-
-.badge-def {
-  background: #06d6a0;
-  color: #002e22;
 }
 
 .mp-card-content {
@@ -448,7 +438,7 @@
 }
 
 .mp-card-text {
-  font-size: 1.50rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: #1a0e3a;
   text-align: center;
@@ -459,8 +449,8 @@
 
 .mp-card-text.is-code {
   font-family: 'Consolas', 'Fira Code', 'Courier New', monospace;
-  font-size: 1.50rem;
-  font-weight: 700;
+  font-size: 0.58rem;
+  font-weight: 500;
   background: #1a0e3a;
   color: #ffd60a;
   padding: 4px 5px;
@@ -473,8 +463,8 @@
 }
 
 .mp-card-mini {
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
   margin-top: 2px;
   flex-shrink: 0;
@@ -766,64 +756,4 @@
     padding: 6px 10px;
     font-size: 0.72rem;
   }
-}
-
-/* ── GAME TABS ── */
-.mp-game-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 15px;
-  margin-bottom: 5px;
-  width: 100%;
-  max-width: 520px;
-  flex-wrap: wrap;
-}
-
-.mp-game-tab {
-  background: rgba(155, 93, 229, 0.08);
-  border: 1px solid rgba(155, 93, 229, 0.25);
-  border-radius: 20px;
-  padding: 6px 14px;
-  color: var(--mp-text-dim);
-  font-size: 0.75rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.mp-game-tab:hover {
-  background: rgba(155, 93, 229, 0.18);
-  color: var(--mp-white);
-  transform: translateY(-1px);
-}
-
-.mp-game-tab.active {
-  background: linear-gradient(135deg, #7b2ff7 0%, #9b5de5 100%);
-  border-color: transparent;
-  color: var(--mp-white);
-  box-shadow: 0 0 12px rgba(155, 93, 229, 0.5);
-}
-
-/* ── SHUFFLE ANIMATION ── */
-@keyframes mpShuffle {
-  0% {
-    transform: scale(1) translate(0, 0) rotate(0deg);
-  }
-  25% {
-    transform: scale(0.85) translate(var(--x-center, 0px), var(--y-center, 0px)) rotate(0deg);
-    z-index: 100;
-  }
-  50% {
-    transform: scale(0.8) translate(var(--x-center, 0px), var(--y-center, 0px)) rotate(360deg);
-    z-index: 100;
-  }
-  100% {
-    transform: scale(1) translate(0, 0) rotate(1440deg);
-  }
-}
-
-.mp-card.shuffling {
-  animation: mpShuffle 0.5s cubic-bezier(0.1, 0.9, 0.2, 1) both;
-  animation-delay: var(--delay, 0ms);
 }

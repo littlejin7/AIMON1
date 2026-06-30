@@ -5,7 +5,6 @@ import { usePairsGame } from './usePairsGame'
 import PairsCard from './PairsCard'
 import PairsDash from './PairsDash'
 import WinModal from './WinModal'
-import { GAMES } from './data'
 import './AIPair.css'
 
 import charSlime  from '../../../assets/character_slime.png'
@@ -37,7 +36,6 @@ export default function AIPair() {
   const {
     deck, flippedIds, matchedIds, wrongIds,
     score, timerSec, fmtTime, won, init, onCardClick, matchedCount,
-    activeGameId, setActiveGameId, isShuffling,
   } = usePairsGame()
 
   const openPicker = () => { setPendingChar(charId); setPickerOpen(true) }
@@ -52,45 +50,20 @@ export default function AIPair() {
         <span className="mp-char-hint">👆 탭해서 변경</span>
       </div>
 
-      <div className="mp-game-tabs">
-        {GAMES.map((g) => (
-          <button
-            key={g.gameId}
-            className={`mp-game-tab${activeGameId === g.gameId ? ' active' : ''}`}
-            onClick={() => setActiveGameId(g.gameId)}
-          >
-            {g.label}
-          </button>
-        ))}
-      </div>
-
       <PairsDash score={score} timeStr={fmtTime(timerSec)} matchedCount={matchedCount} onRestart={init} />
 
       <div className="mp-grid">
-        {deck.map((card, idx) => {
-          const col = idx % 3
-          const row = Math.floor(idx / 3)
-          const xCenter = `${(1 - col) * 140}px`
-          const yCenter = `${(1.5 - row) * 125}px`
-          const delay = `${idx * 8}ms`
-          return (
-            <PairsCard
-              key={idx}
-              data={card}
-              charSrc={charSrc}
-              flipped={flippedIds.includes(idx)}
-              matched={matchedIds.has(idx)}
-              wrong={wrongIds.has(idx)}
-              onClick={() => onCardClick(idx)}
-              style={{
-                '--x-center': xCenter,
-                '--y-center': yCenter,
-                '--delay': delay
-              }}
-              shuffling={isShuffling}
-            />
-          )
-        })}
+        {deck.map((card, idx) => (
+          <PairsCard
+            key={idx}
+            data={card}
+            charSrc={charSrc}
+            flipped={flippedIds.includes(idx)}
+            matched={matchedIds.has(idx)}
+            wrong={wrongIds.has(idx)}
+            onClick={() => onCardClick(idx)}
+          />
+        ))}
       </div>
 
       <div className="mp-hint">
