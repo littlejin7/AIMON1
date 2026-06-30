@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { PAIRS } from './data'
+import { PAIRS, GAMES } from './data'
 import { incrementGamePlay } from '../Game'
 
 const PAIRS_PER_GAME = 6   // 6쌍 = 12장 = 3x4
@@ -25,6 +25,7 @@ function buildDeck(pairSubset) {
 export const TOTAL_PAIRS = PAIRS_PER_GAME
 
 export function usePairsGame() {
+  const [activeGameId, setActiveGameId] = useState(1)
   const [deck, setDeck]             = useState([])
   const [flippedIds, setFlippedIds] = useState([])
   const [matchedIds, setMatchedIds] = useState(new Set())
@@ -44,7 +45,8 @@ export function usePairsGame() {
 
   /* 게임 초기화 (재시작마다 셔플) */
   const init = useCallback(() => {
-    const picked = shuffle([...PAIRS]).slice(0, PAIRS_PER_GAME)
+    const game = GAMES.find((g) => g.gameId === activeGameId) || GAMES[0]
+    const picked = shuffle([...game.pairs])
     setDeck(buildDeck(picked))
     setFlippedIds([])
     setMatchedIds(new Set())
@@ -54,9 +56,9 @@ export function usePairsGame() {
     setWon(false)
     setRunning(true)
     processingRef.current = false
-  }, [])
+  }, [activeGameId])
 
-  useEffect(() => { init() }, [init])
+  useEffect(() => { init() }, [init, activeGameId])
 
   /* 카드 클릭 */
   const onCardClick = useCallback((idx) => {
@@ -114,5 +116,7 @@ export function usePairsGame() {
     init,
     onCardClick,
     matchedCount: matchedIds.size / 2,
+    activeGameId,
+    setActiveGameId,
   }
 }

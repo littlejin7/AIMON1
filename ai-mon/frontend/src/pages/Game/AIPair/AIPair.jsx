@@ -5,6 +5,7 @@ import { usePairsGame } from './usePairsGame'
 import PairsCard from './PairsCard'
 import PairsDash from './PairsDash'
 import WinModal from './WinModal'
+import { GAMES } from './data'
 import './AIPair.css'
 
 import charSlime  from '../../../assets/character_slime.png'
@@ -36,6 +37,7 @@ export default function AIPair() {
   const {
     deck, flippedIds, matchedIds, wrongIds,
     score, timerSec, fmtTime, won, init, onCardClick, matchedCount,
+    activeGameId, setActiveGameId,
   } = usePairsGame()
 
   const openPicker = () => { setPendingChar(charId); setPickerOpen(true) }
@@ -48,6 +50,18 @@ export default function AIPair() {
       <div className="mp-hero">
         <img className="mp-hero-char" src={charSrc} alt="캐릭터" onClick={openPicker} />
         <span className="mp-char-hint">👆 탭해서 변경</span>
+      </div>
+
+      <div className="mp-game-tabs">
+        {GAMES.map((g) => (
+          <button
+            key={g.gameId}
+            className={`mp-game-tab${activeGameId === g.gameId ? ' active' : ''}`}
+            onClick={() => setActiveGameId(g.gameId)}
+          >
+            {g.label}
+          </button>
+        ))}
       </div>
 
       <PairsDash score={score} timeStr={fmtTime(timerSec)} matchedCount={matchedCount} onRestart={init} />
