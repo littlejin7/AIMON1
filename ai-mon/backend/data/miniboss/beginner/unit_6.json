@@ -97,9 +97,9 @@
       "type": "output_select",
       "question_id": "miniboss_beg_os_6_1_005",
       "choices": [
-        "A. 파이팅!\\n파이팅!",
+        "A. 파이팅!\n파이팅!",
         "B. 파이팅!",
-        "C. cheers()\\ncheers()",
+        "C. cheers()\ncheers()",
         "D. 에러 발생"
       ],
       "answer": "A",
@@ -119,8 +119,8 @@
       "type": "output_select",
       "question_id": "miniboss_beg_os_6_1_006",
       "choices": [
-        "A. 시작\\n방해몬 등장!\\n끝",
-        "B. 시작\\n끝",
+        "A. 시작\n방해몬 등장!\n끝",
+        "B. 시작\n끝",
         "C. 방해몬 등장!",
         "D. 에러 발생"
       ],
@@ -184,8 +184,8 @@
       "type": "output_select",
       "question_id": "miniboss_beg_os_6_1_009",
       "choices": [
-        "A. 하나\\n둘",
-        "B. 둘\\n하나",
+        "A. 하나\n둘",
+        "B. 둘\n하나",
         "C. 둘",
         "D. 에러 발생"
       ],
@@ -514,8 +514,8 @@
       "type": "output_select",
       "question_id": "miniboss_beg_os_6_3_004",
       "choices": [
-        "A. 진화 완료!\\n축하합니다!",
-        "B. 축하합니다!\\n진화 완료!",
+        "A. 진화 완료!\n축하합니다!",
+        "B. 축하합니다!\n진화 완료!",
         "C. 축하합니다!",
         "D. 진화 완료!"
       ],
@@ -536,7 +536,7 @@
       "type": "output_select",
       "question_id": "miniboss_beg_os_6_3_005",
       "choices": [
-        "A. 출력\\nNone",
+        "A. 출력\nNone",
         "B. 출력",
         "C. None",
         "D. 에러 발생"
@@ -560,7 +560,7 @@
       "choices": [
         "A. 양수",
         "B. 음수 또는 0",
-        "C. 양수\\n음수 또는 0",
+        "C. 양수\n음수 또는 0",
         "D. -5"
       ],
       "answer": "B",
@@ -998,10 +998,10 @@
       "type": "output_select",
       "question_id": "miniboss_beg_os_6_5_006",
       "choices": [
-        "A. 안: 10\\n밖: 10",
-        "B. 안: 99\\n밖: 10",
-        "C. 안: 99\\n밖: 99",
-        "D. 안: 10\\n밖: 99"
+        "A. 안: 10\n밖: 10",
+        "B. 안: 99\n밖: 10",
+        "C. 안: 99\n밖: 99",
+        "D. 안: 10\n밖: 99"
       ],
       "answer": "B",
       "hint": "함수 바깥의 `val`과 함수 내부의 `val = 99`는 이름만 우연히 같을 뿐 완전히 다른 방에 살고 있는 별개의 변수입니다. 함수 내부에서 대입문을 쓰면 새로운 지역 변수가 탄생하므로 안에서는 99가 찍히지만, 바깥 전역 변수 `val`은 훼손되지 않고 원래 값인 10을 지킵니다.",
@@ -1154,8 +1154,8 @@
       "choices": [
         "A. 바깥쪽",
         "B. 안쪽",
-        "C. 바깥쪽\\n안쪽",
-        "D. 안쪽\\n바깥쪽"
+        "C. 바깥쪽\n안쪽",
+        "D. 안쪽\n바깥쪽"
       ],
       "answer": "C",
       "hint": "`outer_func()`를 실행하면 먼저 `\"바깥쪽\"`이 인쇄됩니다. 그리고 이어서 줄 아래에 배치된 내부 호출 코드 `inner_func()`에 신호가 가면서 `\"안쪽\"`이 연달아 줄바꿈되어 찍힙니다.",

@@ -149,7 +149,7 @@
       "is_boss": false,
       "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport requests\nusers = [{'name': 'John', 'age': 25}, {'name': 'Alice', 'age': 30}, {'name': 'Bob', 'age': 28}]\nfor user in users:\n    if user['age'] >= 30:\n        print(user['name'])\n```",
       "choices": [
-        "A. John\\nAlice\\nBob",
+        "A. John\nAlice\nBob",
         "B. John",
         "C. Alice",
         "D. (아무것도 출력 안 됨)"
@@ -269,12 +269,12 @@
       "is_boss": false,
       "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport requests\napi_response = {\n    'status': 200,\n    'data': {\n        'posts': [\n            {'id': 1, 'title': 'Post 1'},\n            {'id': 2, 'title': 'Post 2'},\n            {'id': 3, 'title': 'Post 3'}\n        ]\n    }\n}\n\nfor post in api_response['data']['posts']:\n    if post['id'] <= 2:\n        print(post['title'])\n```",
       "choices": [
-        "A. Post 1\\nPost 2\\nPost 3",
+        "A. Post 1\nPost 2\nPost 3",
         "B. Post 3",
-        "C. Post 1\\nPost 2",
+        "C. Post 1\nPost 2",
         "D. (아무것도 출력 안 됨)"
       ],
-      "answer": "C. Post 1\\nPost 2",
+      "answer": "C. Post 1\nPost 2",
       "hint": "초급의 if 조건으로 id가 2 이하인 게시물만 출력해요.",
       "feedback": {
         "correct": "정답이에요! Post 1과 Post 2만 조건을 만족합니다."
@@ -1030,7 +1030,7 @@
       "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nwith open('message.txt', 'r') as f:\n    lines = f.readlines()\nprint(lines[0])\n\n# message.txt 파일 내용:\n# Hello\n# World\n```",
       "choices": [
         "A. Hello",
-        "B. Hello\\nWorld",
+        "B. Hello\nWorld",
         "C. Hello\\n",
         "D. World"
       ],
@@ -1110,11 +1110,11 @@
       "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport json\ndata = {'name': 'John', 'age': 30, 'city': 'Seoul'}\njson_str = json.dumps(data, indent=2)\nprint(json_str)\n```",
       "choices": [
         "A. {\"name\": \"John\", \"age\": 30, \"city\": \"Seoul\"}",
-        "B. {\\n  \"name\": \"John\",\\n  \"age\": 30,\\n  \"city\": \"Seoul\"\\n}",
+        "B. {\n  \"name\": \"John\",\n  \"age\": 30,\n  \"city\": \"Seoul\"\n}",
         "C. ['name', 'John', 'age', '30']",
         "D. <class 'dict'>"
       ],
-      "answer": "B. {\\n  \"name\": \"John\",\\n  \"age\": 30,\\n  \"city\": \"Seoul\"\\n}",
+      "answer": "B. {\n  \"name\": \"John\",\n  \"age\": 30,\n  \"city\": \"Seoul\"\n}",
       "hint": "indent=2는 JSON을 보기 좋게 2칸 들여쓰기로 포맷해요.",
       "feedback": {
         "correct": "정답이에요! indent 파라미터로 JSON을 읽기 쉽게 포맷할 수 있어요."
@@ -1309,12 +1309,12 @@
       "is_boss": false,
       "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ntry:\n    num = int('abc')\nexcept ValueError:\n    num = 0\n    print('기본값 사용')\nexcept TypeError:\n    print('타입 에러')\nprint(num)\n```",
       "choices": [
-        "A. 기본값 사용\\n0",
-        "B. 타입 에러\\n0",
+        "A. 기본값 사용\n0",
+        "B. 타입 에러\n0",
         "C. 0",
         "D. (에러 발생)"
       ],
-      "answer": "A. 기본값 사용\\n0",
+      "answer": "A. 기본값 사용\n0",
       "hint": "문자열을 정수로 변환하면 ValueError가 발생해요.",
       "feedback": {
         "correct": "정답이에요! 여러 except로 다양한 에러를 처리할 수 있어요."
@@ -1429,12 +1429,12 @@
       "is_boss": false,
       "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ntry:\n    a = 10\n    b = 0\n    result = a / b\nexcept ZeroDivisionError:\n    result = 0\n    print('0으로 나눌 수 없어요')\nprint(result)\n```",
       "choices": [
-        "A. 0으로 나눌 수 없어요\\n0",
+        "A. 0으로 나눌 수 없어요\n0",
         "B. 1",
         "C. 0",
         "D. (에러 발생)"
       ],
-      "answer": "A. 0으로 나눌 수 없어요\\n0",
+      "answer": "A. 0으로 나눌 수 없어요\n0",
       "hint": "0으로 나누면 ZeroDivisionError가 발생해요.",
       "feedback": {
         "correct": "정답이에요! ZeroDivisionError를 처리할 수 있어요."
@@ -1469,9 +1469,9 @@
       "is_boss": false,
       "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ntry:\n    text = '123abc'\n    num = int(text)\n    print('변환 성공')\nexcept ValueError:\n    print('정수 변환 실패')\nelse:\n    print('추가 처리')\n```",
       "choices": [
-        "A. 변환 성공\\n추가 처리",
+        "A. 변환 성공\n추가 처리",
         "B. 정수 변환 실패",
-        "C. 정수 변환 실패\\n추가 처리",
+        "C. 정수 변환 실패\n추가 처리",
         "D. (에러 발생)"
       ],
       "answer": "B. 정수 변환 실패",
@@ -1509,12 +1509,12 @@
       "is_boss": false,
       "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\ndata = [10, 20, 30]\ntry:\n    for i in range(5):\n        print(data[i])\nexcept IndexError:\n    print('인덱스 범위 초과')\n```",
       "choices": [
-        "A. 10\\n20\\n30",
-        "B. 10\\n20\\n30\\n인덱스 범위 초과",
+        "A. 10\n20\n30",
+        "B. 10\n20\n30\n인덱스 범위 초과",
         "C. 인덱스 범위 초과",
         "D. (에러 발생)"
       ],
-      "answer": "B. 10\\n20\\n30\\n인덱스 범위 초과",
+      "answer": "B. 10\n20\n30\n인덱스 범위 초과",
       "hint": "처음 3개는 출력되고, 4번째 인덱스에서 에러가 발생해요.",
       "feedback": {
         "correct": "정답이에요! 에러 발생 전까지의 결과는 출력돼요."
@@ -2150,11 +2150,11 @@
       "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport time\nrequests_made = 0\nmax_requests_per_minute = 10\nlast_reset = time.time()\n\nfor i in range(15):\n    current_time = time.time()\n    if current_time - last_reset > 60:\n        requests_made = 0\n        last_reset = current_time\n    \n    if requests_made >= max_requests_per_minute:\n        print('Rate limit 초과')\n        break\n    \n    requests_made += 1\n\nprint(f'요청 완료: {requests_made}')\n```",
       "choices": [
         "A. 요청 완료: 15",
-        "B. Rate limit 초과\\n요청 완료: 10",
-        "C. Rate limit 초과\\n요청 완료: 0",
+        "B. Rate limit 초과\n요청 완료: 10",
+        "C. Rate limit 초과\n요청 완료: 0",
         "D. 요청 완료: 10"
       ],
-      "answer": "B. Rate limit 초과\\n요청 완료: 10",
+      "answer": "B. Rate limit 초과\n요청 완료: 10",
       "hint": "10개 요청 후 11번째에서 제한이 걸려요.",
       "feedback": {
         "correct": "정답이에요! Rate limiting으로 API 사용량을 제어할 수 있어요."

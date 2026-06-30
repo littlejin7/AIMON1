@@ -573,7 +573,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "LangChain에서 텍스트를 일정 크기로 나누는 스플리터 클래스로 빈칸을 채우세요.\n\n```python\nfrom langchain_text_splitters import _____\n```\n\nsplitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)",
+      "question": "LangChain에서 텍스트를 일정 크기로 나누는 스플리터 클래스로 빈칸을 채우세요.\n\n```python\nfrom langchain_text_splitters import _____\n\nsplitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)\n```",
       "answer": "RecursiveCharacterTextSplitter",
       "feedback": {
         "correct": "정답! RecursiveCharacterTextSplitter는 긴 텍스트를 chunk_size 크기로 나눕니다. chunk_overlap은 인접 청크 간 겹치는 문자 수로, 문맥이 끊기지 않도록 해요. \\n\\n → \\n → ' ' → '' 순서로 구분자를 시도해 의미 단위로 분할합니다. 클리어!"

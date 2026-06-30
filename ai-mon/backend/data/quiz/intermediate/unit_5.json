@@ -1276,11 +1276,11 @@
       "question": "다음 코드의 실행 결과를 선택해주세요.\n\n```python\nimport csv\n\nwith open('data.csv', 'w', newline='') as f:\n    writer = csv.writer(f)\n    writer.writerow(['x', 'y', 'z'])\n    writer.writerow([1, 2, 3])\n\nwith open('data.csv', 'r') as f:\n    reader = csv.reader(f)\n    for row in reader:\n        print(row)\n```",
       "choices": [
         "A) {'x': 1, 'y': 2, 'z': 3}",
-        "B) ['x', 'y', 'z']\\n['1', '2', '3']",
+        "B) ['x', 'y', 'z']\n['1', '2', '3']",
         "C) [['x', 'y', 'z'], [1, 2, 3]]",
         "D) x,y,z"
       ],
-      "answer": "B) ['x', 'y', 'z']\\n['1', '2', '3']",
+      "answer": "B) ['x', 'y', 'z']\n['1', '2', '3']",
       "hint": "csv.reader()는 각 행을 리스트로 반환해요. 숫자도 문자열로 읽혀요.",
       "feedback": {
         "correct": "정답! csv.reader()는 각 행을 리스트로 반환해요. CSV에서 읽은 모든 값은 문자열이므로 숫자 1→'1'이에요."

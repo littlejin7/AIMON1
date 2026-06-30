@@ -635,10 +635,10 @@
       "is_boss": false,
       "question": "다음 코드의 출력 결과는?\n```python\na = [3, 1, 2]\nb = sorted(a)\nprint(a)\nprint(b)\n```",
       "choices": [
-        "A. [3, 1, 2]\\n[1, 2, 3]",
-        "B. [1, 2, 3]\\n[1, 2, 3]",
-        "C. [1, 2, 3]\\n[3, 1, 2]",
-        "D. [3, 1, 2]\\n[3, 1, 2]"
+        "A. [3, 1, 2]\n[1, 2, 3]",
+        "B. [1, 2, 3]\n[1, 2, 3]",
+        "C. [1, 2, 3]\n[3, 1, 2]",
+        "D. [3, 1, 2]\n[3, 1, 2]"
       ],
       "answer": "A",
       "hint": "sorted()는 원본 a를 건드리지 않고 정렬된 새 리스트를 b에 담아요.",
@@ -731,9 +731,9 @@
       "is_boss": false,
       "question": "다음 코드의 출력 결과는?\n```python\nfruits = [\"사과\", \"바나나\", \"포도\"]\nfor i, fruit in enumerate(fruits):\n    print(i, fruit)\n```",
       "choices": [
-        "A. 0 사과\\n1 바나나\\n2 포도",
-        "B. 1 사과\\n2 바나나\\n3 포도",
-        "C. 사과 0\\n바나나 1\\n포도 2",
+        "A. 0 사과\n1 바나나\n2 포도",
+        "B. 1 사과\n2 바나나\n3 포도",
+        "C. 사과 0\n바나나 1\n포도 2",
         "D. 오류 발생"
       ],
       "answer": "A",
@@ -779,9 +779,9 @@
       "is_boss": false,
       "question": "다음 코드의 출력 결과는?\n```python\nnums = [10, 20, 30]\nfor i, v in enumerate(nums, start=1):\n    print(i, v)\n```",
       "choices": [
-        "A. 0 10\\n1 20\\n2 30",
-        "B. 10 1\\n20 2\\n30 3",
-        "C. 1 10\\n2 20\\n3 30",
+        "A. 0 10\n1 20\n2 30",
+        "B. 10 1\n20 2\n30 3",
+        "C. 1 10\n2 20\n3 30",
         "D. 오류 발생"
       ],
       "answer": "C",
@@ -875,9 +875,9 @@
       "is_boss": false,
       "question": "다음 코드의 출력 결과는?\n```python\nnames = [\"에이몬\", \"코드몬\"]\nfor idx, name in enumerate(names):\n    print(f\"{idx}: {name}\")\n```",
       "choices": [
-        "A. 0: 에이몬\\n1: 코드몬",
-        "B. 1: 에이몬\\n2: 코드몬",
-        "C. 에이몬: 0\\n코드몬: 1",
+        "A. 0: 에이몬\n1: 코드몬",
+        "B. 1: 에이몬\n2: 코드몬",
+        "C. 에이몬: 0\n코드몬: 1",
         "D. 오류 발생"
       ],
       "answer": "A",
@@ -1308,7 +1308,7 @@
       "question": "다음 코드 실행 후 output.txt 파일에 남는 내용은?\n```python\nwith open(\"output.txt\", \"w\") as f:\n    f.write(\"첫 번째\\n\")\nwith open(\"output.txt\", \"w\") as f:\n    f.write(\"두 번째\\n\")\n```",
       "choices": [
         "A. 두 번째",
-        "B. 첫 번째\\n두 번째",
+        "B. 첫 번째\n두 번째",
         "C. 첫 번째",
         "D. 파일이 비어있다"
       ],
@@ -1332,7 +1332,7 @@
       "question": "다음 코드 실행 후 log.txt에 저장되는 내용은?\n```python\nlines = [\"사과\\n\", \"바나나\\n\", \"포도\\n\"]\nwith open(\"log.txt\", \"w\") as f:\n    f.writelines(lines)\n```",
       "choices": [
         "A. [\"사과\\n\", \"바나나\\n\", \"포도\\n\"]",
-        "B. 사과\\n바나나\\n포도 (3줄)",
+        "B. 사과\n바나나\n포도 (3줄)",
         "C. 사과바나나포도 (1줄)",
         "D. 오류 발생"
       ],
@@ -1500,7 +1500,7 @@
       "question": "다음 코드의 출력 결과는?\n```python\nwords = [\"Python\", \"은\", \"재미있다\"]\nwith open(\"test.txt\", \"w\") as f:\n    f.writelines(words)\nwith open(\"test.txt\", \"r\") as f:\n    print(f.read())\n```",
       "choices": [
         "A. [\"Python\", \"은\", \"재미있다\"]",
-        "B. Python\\n은\\n재미있다",
+        "B. Python\n은\n재미있다",
         "C. Python은재미있다",
         "D. 오류 발생"
       ],
