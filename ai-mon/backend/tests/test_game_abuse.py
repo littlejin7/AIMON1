@@ -20,6 +20,7 @@ import hashlib
 
 import pytest
 from fastapi import HTTPException
+from pydantic import ValidationError
 
 backend_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, backend_path)
@@ -106,6 +107,19 @@ def test_invalid_game_id_rejected(fresh_user):
     with pytest.raises(HTTPException) as exc:
         G.game_clear(req, {"id": "u1"})
     assert exc.value.status_code == 400
+
+
+def test_game_start_returns_game_token_for_aicross(fresh_user):
+    """aicross /game/start response includes a signed game_token."""
+    res = G.game_start(G.GameStartRequest(game_id="aicross"), {"id": "u1"})
+    assert isinstance(res["game_token"], str)
+    assert "." in res["game_token"]
+
+
+def test_game_clear_requires_game_token():
+    """/game/clear request model rejects missing game_token."""
+    with pytest.raises(ValidationError):
+        G.GameClearRequest(game_id="runner", distance=100)
 
 
 # ─── L2: 토큰 만료·재생 ──────────────────────────────────────────
@@ -240,6 +254,30 @@ def test_aipang_daily_crown_cap_1(fresh_user):
 
     u = _read_user(fresh_user)
     assert u["crowns"] == 1
+
+
+def test_aicross_start_clear_success(fresh_user):
+    """aicross can clear with a valid token and receives XP by score."""
+    token = _make_token("aicross", "u1", _past(), "NONCE-AC-1")
+    req = G.GameClearRequest(game_id="aicross", score=100, game_token=token)
+    res = G.game_clear(req, {"id": "u1"})
+
+    assert res["score"] == 100
+    assert res["xp_awarded"] == 200
+    assert res["already_claimed"] is False
+
+
+def test_aicross_token_reuse_blocked(fresh_user):
+    """aicross rejects the same token on the second clear attempt."""
+    token = _make_token("aicross", "u1", _past(), "NONCE-AC-REPLAY")
+    req = G.GameClearRequest(game_id="aicross", score=100, game_token=token)
+
+    G.game_clear(req, {"id": "u1"})
+    with pytest.raises(HTTPException) as exc:
+        G.game_clear(req, {"id": "u1"})
+
+    assert exc.value.status_code == 400
+    assert "already used" in exc.value.detail
 
 
 # ─── L6: 일일 XP 캡 ──────────────────────────────────────────────

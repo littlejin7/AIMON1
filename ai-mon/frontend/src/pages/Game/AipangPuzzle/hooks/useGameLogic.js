@@ -31,6 +31,7 @@ export function useGameLogic(pCanvasRef, lCanvasRef) {
   const [stageDisplay, setStageDisplay] = useState('1/5');
   const [selected, setSelected] = useState(null);
   const [bgmVolume, setBgmVolume] = useState(0.3);
+  const [startError, setStartError] = useState(null);
   const [comboEnergy, setComboEnergy] = useState(0);
   const [cellAnims, setCellAnims] = useState({}); // { 'r,c': 'pop'|'drop'|'shake' }
   const [bossUI, setBossUI] = useState({
@@ -61,6 +62,7 @@ export function useGameLogic(pCanvasRef, lCanvasRef) {
   const finalHpRef        = useRef(30000);
   const finalHpMaxRef     = useRef(30000);
   const finalUnlockedRef  = useRef(false);
+  const gameTokenRef      = useRef(null);
   const bgmVolumeRef      = useRef(0.3);
   const bgmMutedRef       = useRef(false)
   const comboEnergyRef = useRef(0);
@@ -349,7 +351,7 @@ useEffect(() => {
 
 
           incrementGamePlay('aipang');
-          gameApi.clearGame({ game_id: 'aipang' })
+          gameApi.clearGame({ game_id: 'aipang', game_token: gameTokenRef.current })
             .then(res => {
               setPopups(prev => ({ ...prev, final: true, clearData: res.data }));
             })
@@ -363,7 +365,7 @@ useEffect(() => {
           setTimeout(() => beep(784, 0.3), 300);
           setBossUI(prev => ({ ...prev, unitDefeated: true }));
 
-          gameApi.clearGame({ game_id: 'aipang' })
+          gameApi.clearGame({ game_id: 'aipang', game_token: gameTokenRef.current })
             .then(res => {
               setTimeout(() => setPopups(prev => ({ ...prev, clear: true, clearData: res.data })), 600);
             })
@@ -482,7 +484,21 @@ useEffect(() => {
   }, []);
 
   // ── 팝업 버튼 핸들러 ──
-  const handleStart = useCallback(() => {
+  const startAipangSession = useCallback(async () => {
+    try {
+      const res = await gameApi.startGame('aipang');
+      gameTokenRef.current = res.data.game_token;
+      setStartError(null);
+      return true;
+    } catch {
+      gameTokenRef.current = null;
+      setStartError('게임 보상 세션을 시작하지 못했습니다.');
+      return false;
+    }
+  }, []);
+
+  const handleStart = useCallback(async () => {
+    if (!(await startAipangSession())) return;
     stageRef.current = 0;
     finalUnlockedRef.current = false;
     finalHpRef.current = 30000;
@@ -491,7 +507,7 @@ useEffect(() => {
     setBossUI(prev => ({ ...prev, finalLocked: true, finalActive: false, unitActive: true }));
     initStage();
     if (!bgmMutedRef.current && bgmRef.current) { bgmRef.current.currentTime = 0; bgmRef.current.play().catch(() => {}); }
-  }, [initStage]);
+  }, [initStage, startAipangSession]);
 
   const handleNext = useCallback(() => {
     setPopups(prev => ({ ...prev, clear: false }));
@@ -506,7 +522,8 @@ useEffect(() => {
     if (!bgmMutedRef.current && bgmRef.current) { bgmRef.current.currentTime = 0; bgmRef.current.play().catch(() => {}); }
   }, [initStage]);
 
-  const handleRestart = useCallback(() => {
+  const handleRestart = useCallback(async () => {
+    if (!(await startAipangSession())) return;
     stageRef.current = 0;
     finalUnlockedRef.current = false;
     finalHpRef.current = 30000;
@@ -515,7 +532,7 @@ useEffect(() => {
     setBossUI(prev => ({ ...prev, finalLocked: true, finalActive: false, unitActive: true }));
     initStage();
     if (!bgmMutedRef.current && bgmRef.current) { bgmRef.current.currentTime = 0; bgmRef.current.play().catch(() => {}); }
-  }, [initStage]);
+  }, [initStage, startAipangSession]);
 
   const handleBossIntroOk = useCallback(() => {
     setPopups(prev => ({ ...prev, bossIntro: false }));
@@ -554,6 +571,7 @@ useEffect(() => {
     stageDisplay,
     selected,
     bgmVolume,
+    startError,
     comboEnergy,
     cellAnims,
     bossUI,
