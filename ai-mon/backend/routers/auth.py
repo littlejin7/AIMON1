@@ -32,6 +32,7 @@ from routers.utils import (
     now_kst,
     get_current_user,
     get_current_user_optional,
+    delete_soft_deleted_user_by_username,
 )
 
 router = APIRouter()
@@ -177,6 +178,9 @@ class FindIdRequest(BaseModel):
 def register(req: RegisterRequest, request: Request):
     if get_user_by_username(req.username):
         raise HTTPException(status_code=400, detail="이미 존재하는 아이디입니다.")
+    
+    # 계정 삭제를 하고 동일한 username으로 재가입한 경우 기존 탈퇴한 유저 데이터를 완전히 삭제합니다.
+    delete_soft_deleted_user_by_username(req.username)
     # course_level: 클라 값을 쓰되 valid_levels 외의 값은 "beginner"로 fallback한다.
     # 레벨 테스트(/auth/level-test/submit)를 정상 완료한 클라이언트가 결과를 함께
     # 전달하는 흐름이므로 허용된 값(beginner/intermediate/advanced)이면 신뢰한다.

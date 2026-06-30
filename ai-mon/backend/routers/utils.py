@@ -216,6 +216,38 @@ def get_user_by_username(username: str) -> dict | None:
     ))
 
 
+def delete_soft_deleted_user_by_username(username: str) -> None:
+    if USE_SUPABASE:
+        # Delete from users table (cascades to progress, wrong_answers, attempts, refresh_tokens)
+        supabase.table("users").delete().eq("username", username).not_.is_("deleted_at", "null").execute()
+    else:
+        users = _read_users_unlocked()
+        to_delete_ids = [u["id"] for u in users if u["username"] == username and u.get("deleted_at")]
+        if not to_delete_ids:
+            return
+        
+        new_users = [u for u in users if not (u["username"] == username and u.get("deleted_at"))]
+        _write_users_unlocked(new_users)
+        
+        # Clean up progress
+        if os.path.exists(PROGRESS_FILE):
+            progress = _load_json_locked(PROGRESS_FILE, [])
+            new_progress = [p for p in progress if p.get("user_id") not in to_delete_ids]
+            _save_json_locked(PROGRESS_FILE, new_progress)
+            
+        # Clean up wrong answers
+        if os.path.exists(WRONG_ANSWERS_FILE):
+            wrong = _load_json_locked(WRONG_ANSWERS_FILE, [])
+            new_wrong = [w for w in wrong if w.get("user_id") not in to_delete_ids]
+            _save_json_locked(WRONG_ANSWERS_FILE, new_wrong)
+            
+        # Clean up attempts
+        if os.path.exists(ATTEMPTS_FILE):
+            attempts = _load_json_locked(ATTEMPTS_FILE, [])
+            new_attempts = [a for a in attempts if a.get("user_id") not in to_delete_ids]
+            _save_json_locked(ATTEMPTS_FILE, new_attempts)
+
+
 def get_user_by_email(email: str) -> dict | None:
     if USE_SUPABASE:
         res = supabase.table("users").select("*").eq("email", email).is_("deleted_at", "null").execute()
