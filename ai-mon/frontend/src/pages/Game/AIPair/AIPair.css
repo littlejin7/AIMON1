@@ -389,8 +389,8 @@
 }
 
 .mp-card-back-img {
-  width: 80%;
-  max-height: 80%;
+  width: 100%;
+  max-height: 100%;
   object-fit: contain;
   position: relative;
   z-index: 1;
@@ -408,7 +408,7 @@
 }
 
 .mp-card-badge {
-  font-size: 0.80rem;
+  font-size: 1.00rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -473,8 +473,8 @@
 }
 
 .mp-card-mini {
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
   margin-top: 2px;
   flex-shrink: 0;
