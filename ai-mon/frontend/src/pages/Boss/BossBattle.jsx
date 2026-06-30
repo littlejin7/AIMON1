@@ -245,11 +245,11 @@ export default function BossBattle({
             gl={{ alpha: true }}
           >
             <ambientLight intensity={2.5} />
-            <directionalLight position={[2, 4, 2]} intensity={1.5} />
-            <directionalLight position={[-2, 2, 2]} intensity={1.0} />
-            <directionalLight position={[0, -2, 2]} intensity={0.8} />
+            <directionalLight position={[3, 5, 3]} intensity={4} />
+            <directionalLight position={[-2, 2, 2]} intensity={2.0} />
+            <directionalLight position={[0, -2, 2]} intensity={2} />
             <Suspense fallback={null}>
-              <BossModel3D bossHit={bossHit} bossShake={bossShake} />
+              <BossModel3D bossHit={bossHit} bossShake={bossShake} modelPath="/models/boss_unitboss.glb" />
             </Suspense>
           </Canvas>
         </div>
@@ -261,11 +261,11 @@ export default function BossBattle({
             style={{ background: 'transparent' }}
             gl={{ alpha: true }}
           >
-            <ambientLight intensity={2.5} />
+            <ambientLight intensity={3} />
             <directionalLight position={[2, 4, 2]} intensity={2.0} />
             <directionalLight position={[-2, 2, 2]} intensity={1.0} />
             <Suspense fallback={null}>
-              <PlayerModel3D myShake={myShake} attackAnim={attackAnim} />
+              <PlayerModel3D myShake={myShake} attackAnim={attackAnim} character={user?.character} position={[0, -0.9, 0]} rotation={[-0.8, -Math.PI * 0.15, 0]} />
             </Suspense>
           </Canvas>
         </div>
