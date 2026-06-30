@@ -2,16 +2,21 @@ import { useRef, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 
-export default function BossModel3D({ bossHit, bossShake }) {
-  const { scene } = useGLTF('/models/boss.glb')
+export default function BossModel3D({ bossHit, bossShake, modelPath = '/models/boss_unitboss.glb', scale = 0.9, position = [0, -0.2, 0] }) {
+const hasHitModel = modelPath.includes('boss_unitboss') || modelPath.includes('boss_endboss')
+const hitPath = hasHitModel ? modelPath.replace('.glb', 'HIT.glb') : modelPath
+const { scene: normalScene } = useGLTF(modelPath)
+const { scene: hitScene } = useGLTF(hitPath)
+const scene = bossHit ? hitScene : normalScene
   const meshRef = useRef()
   const shakeRef = useRef(0)
+
 
   useFrame((state) => {
     if (!meshRef.current) return
 
     // idle - 위아래 부유
-    meshRef.current.position.y = Math.sin(state.clock.elapsedTime * 1.4) * 0.05
+    meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * 1.4) * 0.05
 
     // 피격 시 좌우 흔들림
     if (bossShake) {
@@ -26,25 +31,27 @@ export default function BossModel3D({ bossHit, bossShake }) {
     }
   })
 
-  useEffect(() => {
+useEffect(() => {
     if (!scene) return
     scene.traverse((child) => {
       if (child.isMesh && child.material) {
-        child.material.emissive?.setHex(bossHit ? 0xff2222 : 0x000000)
-        child.material.emissiveIntensity = bossHit ? 0.5 : 0
+        child.material.emissive?.setHex(0x000000)
+        child.material.emissiveIntensity = 0
       }
     })
-  }, [bossHit, scene])
+  }, [scene])
 
-  return (
-    <primitive
-      ref={meshRef}
-      object={scene}
-      scale={0.78}
-      position={[0, -0.3, 0]}
-      rotation={[0, -Math.PI * 0.15, 0]}  // 플레이어 방향(왼쪽)으로 회전
-    />
-  )
+return (
+  <primitive
+    ref={meshRef}
+    object={scene}
+    scale={scale}
+    position={position}
+    rotation={[0.3, -Math.PI * 0.13, 0]}
+  />
+)
 }
 
-useGLTF.preload('/models/boss.glb')
+useGLTF.preload('/models/boss_unitboss.glb')
+useGLTF.preload('/models/boss_endboss.glb')
+useGLTF.preload('/models/boss_unitbossHIT.glb')
