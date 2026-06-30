@@ -401,7 +401,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 발생하는 결과로 올바른 것을 고르세요.\n\n```python\nattack_boss()\n\n```python\ndef attack_boss():\n    print('보스에게 데미지 100!')\n```",
+      "question": "다음 코드를 실행했을 때 발생하는 결과로 올바른 것을 고르세요.\n\n```python\nattack_boss()\n\ndef attack_boss():\n    print('보스에게 데미지 100!')\n```",
       "choices": [
         "A. 보스에게 데미지 100!",
         "B. 아무것도 출력되지 않고 정상 종료된다.",

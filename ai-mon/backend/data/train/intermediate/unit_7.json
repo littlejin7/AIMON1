@@ -9,7 +9,8 @@
     "answer": "search",
     "feedback": {
       "correct": "정답! re.search()는 문자열 전체를 스캔하여 패턴의 첫 번째 매칭을 찾습니다. \\d+는 하나 이상의 연속된 숫자를 의미하며, 이 코드는 '27'을 출력합니다."
-    }
+    },
+    "unit": "7"
   },
   {
     "question_id": "u7r002",
@@ -27,7 +28,8 @@
     "answer": "D",
     "feedback": {
       "correct": "정답! re.match()는 문자열의 시작 부분에서만 패턴을 검사합니다. '100 points earned'가 숫자로 시작하므로 \\d+와 매칭에 성공하고, .group()은 '100'을 반환합니다."
-    }
+    },
+    "unit": "7"
   },
   {
     "question_id": "u7r003",
@@ -39,7 +41,8 @@
     "answer": "a-z",
     "feedback": {
       "correct": "정답! 문자 클래스 [a-z]는 소문자 알파벳 'a'부터 'z'까지 중 한 글자와 매칭됩니다. re.findall()은 매칭된 모든 문자를 리스트로 반환합니다."
-    }
+    },
+    "unit": "7"
   },
   {
     "question_id": "u7r004",
@@ -57,7 +60,8 @@
     "answer": "C",
     "feedback": {
       "correct": "정답! 메타문자 *는 앞의 문자가 0번 이상 반복됨을 의미합니다. r'go*d'에서 'o'가 0번 반복된 'gd'도 패턴에 매칭되므로, result.group()은 'gd'를 반환합니다."
-    }
+    },
+    "unit": "7"
   },
   {
     "question_id": "u7r005",
@@ -69,7 +73,8 @@
     "answer": "+",
     "feedback": {
       "correct": "정답! 메타문자 +는 앞의 문자가 1번 이상 반복됨을 의미합니다. r'colou+r'는 'u'가 최소 1회 이상인 경우만 매칭하므로 'colouur'를 찾아 출력합니다. * 대신 +를 쓰면 'color'는 제외됩니다."
-    }
+    },
+    "unit": "7"
   },
   {
     "question_id": "u7r006",
@@ -87,7 +92,8 @@
     "answer": "B",
     "feedback": {
       "correct": "정답! 메타문자 ?는 앞의 문자가 0번 또는 1번 등장함을 의미합니다. r'https?'는 's'가 없는 'http'와 's'가 있는 'https' 모두 매칭하므로, ['http', 'https']가 반환됩니다."
-    }
+    },
+    "unit": "7"
   },
   {
     "question_id": "u7r007",
@@ -99,7 +105,8 @@
     "answer": "{3}",
     "feedback": {
       "correct": "정답! {n}은 앞의 문자가 정확히 n번 반복됨을 지정합니다. \\d{3}은 숫자 정확히 3자리만 매칭하므로 '0102'의 앞 3자리 '102'부터 시작해 '102-345-6789'가 출력됩니다. 반면 +나 *를 쓰면 탐욕적으로 '0102'를 통째로 가져가 '0102-345-6789'가 되어 결과가 달라집니다."
-    }
+    },
+    "unit": "7"
   },
   {
     "question_id": "u7r008",
@@ -117,7 +124,8 @@
     "answer": "C",
     "feedback": {
       "correct": "정답! ^는 문자열의 시작 위치를 의미합니다. 'Python is great'는 'Python'으로 시작하므로 r'^Python'은 매칭(True)되지만, r'^great'는 시작이 일치하지 않아 None(False)이 됩니다."
-    }
+    },
+    "unit": "7"
   },
   {
     "question_id": "u7r009",
@@ -129,7 +137,8 @@
     "answer": "1",
     "feedback": {
       "correct": "정답! 그룹은 왼쪽 괄호 순서대로 번호가 매겨집니다. group(1)은 첫 번째 ()에 매칭된 '1990'을 반환합니다. group(0)은 전체 매칭 '1990-05-15'를 반환하므로 1이 정답입니다."
-    }
+    },
+    "unit": "7"
   },
   {
     "question_id": "u7r010",
@@ -147,7 +156,8 @@
     "answer": "C",
     "feedback": {
       "correct": "정답! re.findall()에 그룹이 2개 이상 있으면 매칭된 그룹들의 튜플로 이루어진 리스트를 반환합니다. 각 튜플은 (과일 이름, 수량) 형태로 구성됩니다."
-    }
+    },
+    "unit": "7"
   },
   {
     "question_id": "u7r011",
@@ -159,7 +169,8 @@
     "answer": "sub",
     "feedback": {
       "correct": "정답! re.sub(pattern, repl, string)은 문자열에서 패턴과 일치하는 모든 부분을 repl로 교체합니다. 'Hello'가 모두 'Hi'로 바뀌어 'Hi World Hi Python'이 출력됩니다."
-    }
+    },
+    "unit": "7"
   },
   {
     "question_id": "u7r012",
@@ -177,7 +188,8 @@
     "answer": "A",
     "feedback": {
       "correct": "정답! re.sub()의 교체 문자열에서 \\1, \\2, \\3은 각 캡처 그룹의 매칭 결과를 참조합니다. group 1='2024', group 2='01', group 3='15'이므로, r'\\3/\\2/\\1'은 순서를 역전시켜 15/01/2024를 만듭니다."
-    }
+    },
+    "unit": "7"
   },
   {
     "question_id": "u7r013",
@@ -195,7 +207,8 @@
     "answer": "B",
     "feedback": {
       "correct": "정답! re.split()은 패턴을 구분자로 문자열을 분리합니다. r',+'는 하나 이상의 연속된 쉼표를 단일 구분자로 처리하므로, ',,'가 하나의 구분자로 인식되어 ['apple', 'banana', 'cherry']가 반환됩니다."
-    }
+    },
+    "unit": "7"
   },
   {
     "question_id": "u7r014",
@@ -207,7 +220,8 @@
     "answer": "com$",
     "feedback": {
       "correct": "정답! $는 문자열의 끝 위치를 의미합니다. r'@\\w+\\.com$'는 '@도메인.com'으로 끝나는 이메일만 매칭하여, valid = ['user@example.com']이 출력됩니다."
-    }
+    },
+    "unit": "7"
   },
   {
     "question_id": "u7r015",
@@ -225,6 +239,7 @@
     "answer": "A",
     "feedback": {
       "correct": "정답! [a-z]+는 소문자 알파벳이 1자 이상 연속된 부분을 매칭합니다. 대문자 'ABC'는 [a-z] 범위에 포함되지 않아 제외되고, 소문자 'abc'만 2번 찾아져 ['abc', 'abc']가 반환됩니다."
-    }
+    },
+    "unit": "7"
   }
 ]

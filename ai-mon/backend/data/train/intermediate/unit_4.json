@@ -9,7 +9,8 @@
     "answer": "class",
     "feedback": {
       "correct": "정답! 파이썬에서 클래스를 선언할 때는 class 키워드를 사용합니다. class Circle: 처럼 작성하면 Circle이라는 이름의 클래스가 정의됩니다."
-    }
+    },
+    "unit": "4"
   },
   {
     "question_id": "u4_rev_002",
@@ -27,7 +28,8 @@
     "answer": "B",
     "feedback": {
       "correct": "정답! Person(\"Alice\", 25)로 인스턴스를 생성하면 self.age = 25가 저장됩니다. p.age로 접근하면 25가 출력됩니다."
-    }
+    },
+    "unit": "4"
   },
   {
     "question_id": "u4_rev_003",
@@ -39,7 +41,8 @@
     "answer": "__init__",
     "feedback": {
       "correct": "정답! __init__은 파이썬 클래스의 생성자 메서드입니다. 인스턴스가 생성될 때 자동으로 호출되며, 초기 속성 값을 설정하는 데 사용됩니다."
-    }
+    },
+    "unit": "4"
   },
   {
     "question_id": "u4_rev_004",
@@ -57,7 +60,8 @@
     "answer": "C",
     "feedback": {
       "correct": "정답! Counter()를 두 번 호출하면 __init__이 두 번 실행되어 Counter.count가 0 → 1 → 2로 증가합니다. 클래스 변수는 모든 인스턴스가 공유하므로 2가 출력됩니다."
-    }
+    },
+    "unit": "4"
   },
   {
     "question_id": "u4_rev_005",
@@ -69,7 +73,8 @@
     "answer": "base",
     "feedback": {
       "correct": "정답! self.base는 __init__에서 저장한 인스턴스 속성입니다. 메서드 내부에서도 self를 통해 self.base에 접근해야 합니다. 결과는 (6 * 4) / 2 = 12.0입니다."
-    }
+    },
+    "unit": "4"
   },
   {
     "question_id": "u4_rev_006",
@@ -87,7 +92,8 @@
     "answer": "A",
     "feedback": {
       "correct": "정답! s1.school = \"New School\"은 s1 인스턴스에만 새로운 인스턴스 변수를 만들 뿐, 클래스 변수 Student.school은 변경되지 않습니다. 따라서 Student.school은 여전히 A) \"Python School\"이 출력됩니다."
-    }
+    },
+    "unit": "4"
   },
   {
     "question_id": "u4_rev_007",
@@ -99,7 +105,8 @@
     "answer": "Animal",
     "feedback": {
       "correct": "정답! class Dog(Animal): 처럼 괄호 안에 부모 클래스 이름을 넣으면 Dog가 Animal을 상속받습니다. 덕분에 Dog 인스턴스에서 self.name처럼 Animal의 속성도 사용할 수 있습니다."
-    }
+    },
+    "unit": "4"
   },
   {
     "question_id": "u4_rev_008",
@@ -117,7 +124,8 @@
     "answer": "A",
     "feedback": {
       "correct": "정답! super().__init__(brand)는 부모 클래스 Vehicle의 __init__을 호출해 self.brand = \"Toyota\"를 설정합니다. 따라서 c.brand는 A) \"Toyota\"가 출력됩니다."
-    }
+    },
+    "unit": "4"
   },
   {
     "question_id": "u4_rev_009",
@@ -129,7 +137,8 @@
     "answer": "_balance",
     "feedback": {
       "correct": "정답! self._balance처럼 언더스코어(_)를 앞에 붙이면 비공개(protected) 속성임을 나타냅니다. get_balance()에서 self._balance를 반환하므로 1000이 출력됩니다."
-    }
+    },
+    "unit": "4"
   },
   {
     "question_id": "u4_rev_010",
@@ -147,7 +156,8 @@
     "answer": "B",
     "feedback": {
       "correct": "정답! print(p)는 자동으로 __str__ 메서드를 호출합니다. f\"({self.x}, {self.y})\"에서 x=3, y=7이므로 B) \"(3, 7)\"이 출력됩니다."
-    }
+    },
+    "unit": "4"
   },
   {
     "question_id": "u4_rev_011",
@@ -159,7 +169,8 @@
     "answer": "super()",
     "feedback": {
       "correct": "정답! super().__init__(color)는 부모 클래스 Shape의 __init__을 호출해 self.color = \"blue\"를 설정합니다. super()는 부모 클래스를 직접 명시하지 않아도 참조할 수 있게 해 주는 내장 함수입니다."
-    }
+    },
+    "unit": "4"
   },
   {
     "question_id": "u4_rev_012",
@@ -177,7 +188,8 @@
     "answer": "B",
     "feedback": {
       "correct": "정답! Kitten은 speak()를 직접 정의하지 않아서 바로 위 부모 클래스인 Cat의 speak()를 상속받습니다. Cat.speak()는 \"Meow\"를 반환하므로 B) \"Meow\"가 출력됩니다."
-    }
+    },
+    "unit": "4"
   },
   {
     "question_id": "u4_rev_013",
@@ -189,7 +201,8 @@
     "answer": "__repr__",
     "feedback": {
       "correct": "정답! __repr__ 메서드는 repr() 함수 호출 시 자동으로 사용됩니다. repr(c)가 __repr__을 호출하고 f\"Color({self.r}, {self.g}, {self.b})\"에 의해 \"Color(255, 0, 128)\"이 출력됩니다."
-    }
+    },
+    "unit": "4"
   },
   {
     "question_id": "u4_rev_014",
@@ -207,7 +220,8 @@
     "answer": "B",
     "feedback": {
       "correct": "정답! members는 클래스 변수로 선언된 리스트입니다. t1.members.append(\"Alice\")는 리스트 자체를 수정하므로 t2.members도 같은 리스트를 참조합니다. 결과적으로 len(t2.members)는 B) 1입니다."
-    }
+    },
+    "unit": "4"
   },
   {
     "question_id": "u4_rev_015",
@@ -219,6 +233,7 @@
     "answer": "total",
     "feedback": {
       "correct": "정답! Car.total += 1은 클래스 변수 total을 1씩 증가시킵니다. 세 개의 인스턴스가 생성되므로 Car.total은 0 → 1 → 2 → 3이 되어 3이 출력됩니다."
-    }
+    },
+    "unit": "4"
   }
 ]

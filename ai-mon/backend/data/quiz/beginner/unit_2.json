@@ -2841,7 +2841,7 @@
       "type": "output_select",
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
-      "question": "이 코드가 출력하는 값은? `python\nemail = 'user@test.com'\nparts = email.split('@')\nprint(parts[1])\n```",
+      "question": "이 코드가 출력하는 값은?\n\n```python\nemail = 'user@test.com'\nparts = email.split('@')\nprint(parts[1])\n```",
       "choices": [
         "A. user",
         "B. user@test.com",
