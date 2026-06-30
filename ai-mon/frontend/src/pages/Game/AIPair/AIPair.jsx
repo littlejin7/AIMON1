@@ -37,7 +37,7 @@ export default function AIPair() {
   const {
     deck, flippedIds, matchedIds, wrongIds,
     score, timerSec, fmtTime, won, init, onCardClick, matchedCount,
-    activeGameId, setActiveGameId,
+    activeGameId, setActiveGameId, isShuffling,
   } = usePairsGame()
 
   const openPicker = () => { setPendingChar(charId); setPickerOpen(true) }
@@ -67,17 +67,32 @@ export default function AIPair() {
       <PairsDash score={score} timeStr={fmtTime(timerSec)} matchedCount={matchedCount} onRestart={init} />
 
       <div className="mp-grid">
-        {deck.map((card, idx) => (
-          <PairsCard
-            key={idx}
-            data={card}
-            charSrc={charSrc}
-            flipped={flippedIds.includes(idx)}
-            matched={matchedIds.has(idx)}
-            wrong={wrongIds.has(idx)}
-            onClick={() => onCardClick(idx)}
-          />
-        ))}
+        {deck.map((card, idx) => {
+          const angle = (idx / deck.length) * 2 * Math.PI
+          const dist = 50 + Math.random() * 30
+          const x = `${Math.cos(angle) * dist}px`
+          const y = `${Math.sin(angle) * dist}px`
+          const rot = `${(Math.random() - 0.5) * 30}deg`
+          const delay = `${idx * 25}ms`
+          return (
+            <PairsCard
+              key={idx}
+              data={card}
+              charSrc={charSrc}
+              flipped={flippedIds.includes(idx)}
+              matched={matchedIds.has(idx)}
+              wrong={wrongIds.has(idx)}
+              onClick={() => onCardClick(idx)}
+              style={{
+                '--x': x,
+                '--y': y,
+                '--rot': rot,
+                '--delay': delay
+              }}
+              shuffling={isShuffling}
+            />
+          )
+        })}
       </div>
 
       <div className="mp-hint">

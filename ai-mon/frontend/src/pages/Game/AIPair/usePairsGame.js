@@ -34,6 +34,7 @@ export function usePairsGame() {
   const [timerSec, setTimerSec]     = useState(0)
   const [running, setRunning]       = useState(false)
   const [won, setWon]               = useState(false)
+  const [isShuffling, setIsShuffling] = useState(false)
   const processingRef               = useRef(false)
 
   /* 타이머 */
@@ -45,6 +46,7 @@ export function usePairsGame() {
 
   /* 게임 초기화 (재시작마다 셔플) */
   const init = useCallback(() => {
+    setIsShuffling(true)
     const game = GAMES.find((g) => g.gameId === activeGameId) || GAMES[0]
     const picked = shuffle([...game.pairs])
     setDeck(buildDeck(picked))
@@ -56,6 +58,10 @@ export function usePairsGame() {
     setWon(false)
     setRunning(true)
     processingRef.current = false
+    
+    setTimeout(() => {
+      setIsShuffling(false)
+    }, 600)
   }, [activeGameId])
 
   useEffect(() => { init() }, [init, activeGameId])
@@ -118,5 +124,6 @@ export function usePairsGame() {
     matchedCount: matchedIds.size / 2,
     activeGameId,
     setActiveGameId,
+    isShuffling,
   }
 }
