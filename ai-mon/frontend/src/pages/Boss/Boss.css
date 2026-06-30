@@ -839,7 +839,7 @@ body:has(.boss-page) { background: #F4F3FA; background-image: none; }
 /* 보스 3D 캔버스 */
 .eb-b-boss-canvas {
   position: absolute; top: 15px; right: -0px;
-  width: 139px; height: 139px;
+  width: 200px; height: 200px;
   pointer-events: none;
 }
 
@@ -1133,4 +1133,10 @@ body:has(.boss-page) { background: #F4F3FA; background-image: none; }
   background: linear-gradient(135deg, #EF4444, #DC2626);
   box-shadow: 0 5px 0 #991B1B, 0 8px 24px rgba(239,68,68,.4);
   font-size: 16px; font-weight: 800;
+}
+.eb-b-hp-sub {
+  position: absolute;
+  top: 10px;        /* 원하는 위치로 조정 */
+  left: 50%;
+  transform: translateX(-50%);
 }
