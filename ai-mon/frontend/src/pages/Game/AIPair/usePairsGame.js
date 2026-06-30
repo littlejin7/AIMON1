@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import { PAIRS } from './data'
 import { incrementGamePlay } from '../Game'
 
-const PAIRS_PER_GAME = 8   // 8쌍 = 16장 = 4x4
+const PAIRS_PER_GAME = 6   // 6쌍 = 12장 = 3x4
 
 function shuffle(arr) {
   const a = [...arr]
@@ -17,7 +17,7 @@ function buildDeck(pairSubset) {
   const cards = []
   pairSubset.forEach((p) => {
     cards.push({ pairId: p.id, ...p.concept })
-    cards.push({ pairId: p.id, ...p.code })
+    cards.push({ pairId: p.id, ...p.analogy })
   })
   return shuffle(cards)
 }
