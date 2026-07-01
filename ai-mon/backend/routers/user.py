@@ -10,6 +10,8 @@ from routers.utils import (
     mutate_user_atomic,
     UserNotFoundError,
     now_kst,
+    derive_course_level_from_endboss,
+    promote_course_level_from_endboss,
 )
 
 logger = logging.getLogger("uvicorn.error")
@@ -60,6 +62,15 @@ class PurchaseThemeRequest(BaseModel):
 
 @router.get("/me")
 def get_me(user: dict = Depends(get_current_user)):
+    promoted_level = derive_course_level_from_endboss(user)
+    if promoted_level != user.get("course_level", "beginner"):
+        try:
+            user, _ = mutate_user_atomic(
+                user["id"],
+                lambda u: promote_course_level_from_endboss(u),
+            )
+        except UserNotFoundError:
+            raise HTTPException(status_code=404, detail="User not found")
     return serialize_user(user)
 
 
