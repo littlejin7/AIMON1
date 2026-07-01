@@ -5,6 +5,99 @@
   margin: 0 auto;
 }
 
+.st-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.st-modal-card {
+  width: min(100%, 360px);
+  background: var(--clr-bg-card);
+  border: 1px solid var(--clr-border);
+  border-radius: 18px;
+  padding: 22px 18px 18px;
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.26);
+}
+
+.st-modal-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--clr-text);
+}
+
+.st-modal-desc {
+  margin: 12px 0 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--clr-text-muted);
+}
+
+.st-modal-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.st-modal-btn {
+  border: none;
+  border-radius: 12px;
+  min-height: 44px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.st-modal-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.st-modal-btn-ghost {
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  border: 1px solid var(--clr-border);
+}
+
+.st-modal-btn-danger {
+  background: #E24B4A;
+  color: #fff;
+  box-shadow: 0 3px 0 #A32D2D;
+}
+
+.st-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  min-width: min(320px, calc(100vw - 24px));
+  max-width: calc(100vw - 24px);
+  padding: 13px 16px;
+  border-radius: 14px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  z-index: 1100;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.24);
+}
+
+.st-toast-success {
+  background: #15803D;
+}
+
+.st-toast-error {
+  background: #B91C1C;
+}
+
 /* ── 상단 바 ── */
 .st-topbar {
   display: flex;
