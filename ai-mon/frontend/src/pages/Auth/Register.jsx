@@ -66,6 +66,20 @@ export default function Register() {
   const [emailChecking, setEmailChecking] = useState(false)
   const [emailError, setEmailError] = useState('')
 
+  const [emailId, setEmailId] = useState(form.email ? form.email.split('@')[0] : '')
+  const [emailDomain, setEmailDomain] = useState(
+    form.email && form.email.includes('@')
+      ? ['naver.com', 'gmail.com', 'daum.net', 'kakao.com', 'hanmail.net', 'outlook.com'].includes(form.email.split('@')[1])
+        ? form.email.split('@')[1]
+        : 'direct'
+      : 'naver.com'
+  )
+  const [customDomain, setCustomDomain] = useState(
+    form.email && form.email.includes('@') && !['naver.com', 'gmail.com', 'daum.net', 'kakao.com', 'hanmail.net', 'outlook.com'].includes(form.email.split('@')[1])
+      ? form.email.split('@')[1]
+      : ''
+  )
+
   const setAuth  = useAuthStore((s) => s.setAuth)
   const navigate = useNavigate()
 
@@ -74,12 +88,38 @@ export default function Register() {
   /* ── helpers ── */
   const set = (field) => (e) => { setForm(f => ({ ...f, [field]: e.target.value })); setError('') }
 
-  const handleEmailChange = (e) => {
-    const val = e.target.value
-    setForm(f => ({ ...f, email: val }))
+  const updateEmail = (id, domain, custom) => {
+    const activeDomain = domain === 'direct' ? custom : domain
+    // @ 중복 방지, 한글 및 공백 방지
+    const cleanedId = id.replace(/@/g, '').replace(/\s/g, '').replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '')
+    const cleanedDomain = activeDomain.replace(/@/g, '').replace(/\s/g, '').replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '')
+    
+    let fullEmail = ''
+    if (cleanedId) {
+      fullEmail = cleanedDomain ? `${cleanedId}@${cleanedDomain}` : `${cleanedId}@`
+    }
+    setForm(f => ({ ...f, email: fullEmail }))
     setIsEmailChecked(false)
     setEmailError('')
     setError('')
+  }
+
+  const handleEmailIdChange = (e) => {
+    const val = e.target.value
+    setEmailId(val)
+    updateEmail(val, emailDomain, customDomain)
+  }
+
+  const handleDomainSelectChange = (e) => {
+    const val = e.target.value
+    setEmailDomain(val)
+    updateEmail(emailId, val, customDomain)
+  }
+
+  const handleCustomDomainChange = (e) => {
+    const val = e.target.value
+    setCustomDomain(val)
+    updateEmail(emailId, emailDomain, val)
   }
 
   const handleCheckEmail = async () => {
@@ -263,11 +303,31 @@ export default function Register() {
               {/* 이메일 */}
               <div className="reg-field">
                 <div className="reg-field-label">이메일</div>
-                <div style={{ display: 'flex', gap: '8px' }}>
+                <div className="reg-email-container">
                   <div className={`reg-field-wrap${isEmailChecked ? ' ok' : (emailError ? ' error' : '')}`} style={{ flex: 1, margin: 0 }}>
                     <span className="reg-field-icon">✉️</span>
-                    <input className="reg-field-in" type="email" placeholder="example@email.com"
-                      value={form.email} onChange={handleEmailChange} autoComplete="email" />
+                    <input
+                      className="reg-field-in"
+                      type="text"
+                      placeholder="이메일 아이디"
+                      value={emailId}
+                      onChange={handleEmailIdChange}
+                      required
+                    />
+                    <span className="reg-email-at">@</span>
+                    <select
+                      className="reg-email-select"
+                      value={emailDomain}
+                      onChange={handleDomainSelectChange}
+                    >
+                      <option value="direct">직접 입력</option>
+                      <option value="gmail.com">gmail.com</option>
+                      <option value="naver.com">naver.com</option>
+                      <option value="daum.net">daum.net</option>
+                      <option value="kakao.com">kakao.com</option>
+                      <option value="hanmail.net">hanmail.net</option>
+                      <option value="outlook.com">outlook.com</option>
+                    </select>
                     {isEmailChecked && (
                       <span style={{ padding: '0 14px', fontSize: '16px', color: '#4ADE80', flexShrink: 0 }}>✓</span>
                     )}
@@ -281,6 +341,19 @@ export default function Register() {
                     {emailChecking ? '확인 중...' : '중복확인'}
                   </button>
                 </div>
+                {emailDomain === 'direct' && (
+                  <div className={`reg-field-wrap${emailError ? ' error' : ''}`} style={{ marginTop: '6px' }}>
+                    <span className="reg-field-icon">🌐</span>
+                    <input
+                      className="reg-field-in"
+                      type="text"
+                      placeholder="도메인 입력 (예: gmail.com)"
+                      value={customDomain}
+                      onChange={handleCustomDomainChange}
+                      required
+                    />
+                  </div>
+                )}
                 {emailError && (
                   <div className="reg-field-hint err">⚠ {emailError}</div>
                 )}

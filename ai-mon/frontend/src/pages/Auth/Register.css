@@ -690,3 +690,33 @@
 .reg-check-dup-btn:hover { background: #6E66CC; }
 .reg-check-dup-btn:active { transform: translateY(1px); box-shadow: 0 2px 0 #534AB7; }
 .reg-check-dup-btn:disabled { background: #C4BFEE; box-shadow: 0 3px 0 #A8A2D8; cursor: not-allowed; transform: none; }
+
+/* ─────────────────────────────────────────────
+   이메일 분리 UI 스타일 추가
+   ───────────────────────────────────────────── */
+.reg-email-container {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.reg-email-at {
+  color: #9B96D0;
+  font-weight: 500;
+  padding: 0 4px;
+  user-select: none;
+}
+
+.reg-email-select {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  color: #26215C;
+  font-family: inherit;
+  padding: 0 12px 0 8px;
+  cursor: pointer;
+  max-width: 130px;
+  border-left: 1px solid #EEEDFE;
+  height: 100%;
+}
