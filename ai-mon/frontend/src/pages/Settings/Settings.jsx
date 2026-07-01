@@ -6,39 +6,39 @@ import { userApi } from '../../api/index'
 import './Settings.css'
 
 const CHARACTER_ICON = {
-  slime:         '/src/assets/character_slime.png',
-  robot:         '/src/assets/character_robot.png',
+  slime: '/src/assets/character_slime.png',
+  robot: '/src/assets/character_robot.png',
   speech_bubble: '/src/assets/character_bubble.png',
-  final_ghost:   '/src/assets/character_final_ghost.png',
+  final_ghost: '/src/assets/character_final_ghost.png',
 }
 
 const LEVELS = [
-  { key: 'beginner',     emoji: '🏹', label: 'beginner',     desc: 'Python 기초부터 차근차근' },
+  { key: 'beginner', emoji: '🏹', label: 'beginner', desc: 'Python 기초부터 차근차근' },
   { key: 'intermediate', emoji: '⚡', label: 'intermediate', desc: '기초를 알고 심화로 도전' },
-  { key: 'advanced',     emoji: '🔥', label: 'advanced',     desc: 'f-string급 실력자 전용' },
+  { key: 'advanced', emoji: '🔥', label: 'advanced', desc: 'f-string급 실력자 전용' },
 ]
 
 export default function Settings() {
-  const navigate     = useNavigate()
-  const user         = useAuthStore((s) => s.user)
-  const updateUser   = useAuthStore((s) => s.updateUser)
-  const logout       = useAuthStore((s) => s.logout)
-  const bgmVolume    = useSoundStore((s) => s.bgmVolume)
-  const sfxVolume    = useSoundStore((s) => s.sfxVolume)
+  const navigate = useNavigate()
+  const user = useAuthStore((s) => s.user)
+  const updateUser = useAuthStore((s) => s.updateUser)
+  const logout = useAuthStore((s) => s.logout)
+  const bgmVolume = useSoundStore((s) => s.bgmVolume)
+  const sfxVolume = useSoundStore((s) => s.sfxVolume)
   const setBgmVolume = useSoundStore((s) => s.setBgmVolume)
   const setSfxVolume = useSoundStore((s) => s.setSfxVolume)
 
-  const [nickname,    setNickname]    = useState(user?.nickname || '')
-  const [nickSaving,  setNickSaving]  = useState(false)
-  const [nickSaved,   setNickSaved]   = useState(false)
+  const [nickname, setNickname] = useState(user?.nickname || '')
+  const [nickSaving, setNickSaving] = useState(false)
+  const [nickSaved, setNickSaved] = useState(false)
   const [courseLevel, setCourseLevel] = useState(user?.course_level || 'beginner')
   const [levelSaving, setLevelSaving] = useState(false)
-  const [deleting,    setDeleting]    = useState(false)
+  const [deleting, setDeleting] = useState(false)
 
   const [notifs, setNotifs] = useState({
-    streak:  true,
-    boss:    true,
-    daily:   true,
+    streak: true,
+    boss: true,
+    daily: true,
     updates: false,
   })
 
@@ -166,10 +166,10 @@ export default function Settings() {
         <p className="st-section-label">알림</p>
         <div className="st-group">
           {[
-            { key: 'streak',  icon: '🔥', bg: 'rgba(133,79,11,0.18)',  label: '스트릭 알림',     sub: '오늘 학습을 안 했을 때' },
-            { key: 'boss',    icon: '⚔️', bg: 'rgba(163,45,45,0.18)', label: '보스 도전 알림' },
-            { key: 'daily',   icon: '📅', bg: 'rgba(83,74,183,0.18)', label: '데일리 미션 알림' },
-            { key: 'updates', icon: '🔔', bg: 'rgba(95,94,90,0.12)',  label: '업데이트 및 공지' },
+            { key: 'streak', icon: '🔥', bg: 'rgba(133,79,11,0.18)', label: '스트릭 알림', sub: '오늘 학습을 안 했을 때' },
+            { key: 'boss', icon: '⚔️', bg: 'rgba(163,45,45,0.18)', label: '보스 도전 알림' },
+            { key: 'daily', icon: '📅', bg: 'rgba(83,74,183,0.18)', label: '데일리 미션 알림' },
+            { key: 'updates', icon: '🔔', bg: 'rgba(95,94,90,0.12)', label: '업데이트 및 공지' },
           ].map(({ key, icon, bg, label, sub }) => (
             <div
               key={key}
@@ -235,7 +235,7 @@ export default function Settings() {
           <div className="st-level-hint">학습 난이도와 AI 설명 수준이 함께 바뀌어요.</div>
           {LEVELS.map(({ key, emoji, label, desc }) => {
             const isCurrent = courseLevel === key
-            const isLocked  = key !== 'beginner' && !isCurrent
+            const isLocked = key !== 'beginner' && !isCurrent
             return (
               <div
                 key={key}
@@ -249,7 +249,7 @@ export default function Settings() {
                 </div>
                 {isCurrent
                   ? <span className="st-current-tag">현재</span>
-                  : <span className="st-lock-tag">🔒 잠금</span>
+                  : <span className="st-lock-tag"> 🔓 </span>
                 }
               </div>
             )

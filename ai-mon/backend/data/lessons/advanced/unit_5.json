@@ -18,10 +18,10 @@
       },
       {
         "order": 3,
-        "text": "설치 명령어와 핵심 클래스 임포트를 확인합니다.\n`pip install langchain langchain-anthropic python-dotenv`\n임포트 후 input_variables와 messages 수를 출력해 환경이 정상인지 검증합니다.",
+        "text": "설치 명령어와 핵심 클래스 임포트를 확인합니다.\n'pip install langchain langchain-anthropic python-dotenv'\n임포트 후 input_variables와 messages 수를 출력해 환경이 정상인지 검증합니다.",
         "terminal": {
           "code": [
-            "# pip install langchain langchain-anthropic python-dotenv",
+            "pip install langchain langchain-anthropic python-dotenv",
             "",
             "from langchain_core.prompts import ChatPromptTemplate",
             "",
@@ -44,7 +44,7 @@
       },
       {
         "order": 4,
-        "text": "ChatAnthropic은 Claude 모델을 LangChain 인터페이스로 감싼 래퍼 클래스입니다.\n`.invoke()`에 HumanMessage 리스트를 전달하면 AIMessage 객체가 반환되고, `.content`로 텍스트를 꺼냅니다.",
+        "text": "ChatAnthropic은 Claude 모델을 LangChain 인터페이스로 감싼 래퍼 클래스입니다.\n'.invoke()'에 HumanMessage 리스트를 전달하면 AIMessage 객체가 반환되고, '.content'로 텍스트를 꺼냅니다.",
         "terminal": {
           "code": [
             "from dotenv import load_dotenv",
@@ -67,7 +67,7 @@
       },
       {
         "order": 5,
-        "text": "PromptTemplate은 중괄호 {} 변수를 갖는 문자열 템플릿입니다.\n`.format()`으로 변수를 채우면 최종 프롬프트 문자열을 얻을 수 있습니다.\n이 동작은 LLM 없이 완전히 확인할 수 있어 디버깅에 유용합니다.",
+        "text": "PromptTemplate은 중괄호 {} 변수를 갖는 문자열 템플릿입니다.\n'.format()'으로 변수를 채우면 최종 프롬프트 문자열을 얻을 수 있습니다.\n이 동작은 LLM 없이 완전히 확인할 수 있어 디버깅에 유용합니다.",
         "terminal": {
           "code": [
             "from langchain_core.prompts import PromptTemplate",
@@ -91,7 +91,7 @@
       },
       {
         "order": 6,
-        "text": "LCEL(LangChain Expression Language)은 | 연산자로 컴포넌트를 연결해 파이프라인을 만드는 방식입니다.\n`prompt | llm | parser` 형태로 작성하며, `.invoke()`로 전체 파이프라인을 실행합니다.\n각 컴포넌트는 이전 컴포넌트의 출력을 입력으로 받습니다.",
+        "text": "LCEL(LangChain Expression Language)은 | 연산자로 컴포넌트를 연결해 파이프라인을 만드는 방식입니다.\n'prompt | llm | parser' 형태로 작성하며, '.invoke()'로 전체 파이프라인을 실행합니다.\n각 컴포넌트는 이전 컴포넌트의 출력을 입력으로 받습니다.",
         "terminal": {
           "code": [
             "from langchain_core.prompts import ChatPromptTemplate",
@@ -118,7 +118,7 @@
       },
       {
         "order": 7,
-        "text": "실전 활용: 변수 두 개를 받아 동작하는 번역 체인입니다.\n`target_lang`과 `text`를 invoke()에 딕셔너리로 전달하면 체인이 프롬프트를 완성하고 LLM을 호출한 뒤 문자열을 반환합니다.",
+        "text": "실전 활용: 변수 두 개를 받아 동작하는 번역 체인입니다.\n'target_lang'과 'text'를 invoke()에 딕셔너리로 전달하면 체인이 프롬프트를 완성하고 LLM을 호출한 뒤 문자열을 반환합니다.",
         "terminal": {
           "code": [
             "from langchain_core.prompts import ChatPromptTemplate",
@@ -157,12 +157,12 @@
     "slides": [
       {
         "order": 1,
-        "text": "ChatPromptTemplate은 시스템·사용자·AI 역할이 구분된 채팅 형식의 프롬프트를 정의합니다.\n`from_messages()`에 `(role, content)` 튜플 리스트를 전달하며, 중괄호 {} 안에 변수명을 넣어 동적 내용을 주입합니다.\n역할(role) 값: `\"system\"` / `\"human\"` / `\"ai\"`",
+        "text": "ChatPromptTemplate은 시스템·사용자·AI 역할이 구분된 채팅 형식의 프롬프트를 정의합니다.\n'from_messages()'에 '(role, content)' 튜플 리스트를 전달하며, 중괄호 {} 안에 변수명을 넣어 동적 내용을 주입합니다.\n역할(role) 값: \"system\" / \"human\" / \"ai\"",
         "tip": "ChatPromptTemplate은 멀티턴 대화 구조를 표현할 수 있어, 단순 PromptTemplate보다 채팅 LLM에 더 적합합니다. 시스템 프롬프트로 AI 페르소나를 설정할 때 특히 유용합니다."
       },
       {
         "order": 2,
-        "text": "`format_messages()`는 변수를 채운 최종 Message 객체 리스트를 반환합니다.\nLLM 호출 없이 프롬프트가 올바르게 완성되는지 먼저 확인하는 디버깅 습관이 중요합니다.",
+        "text": "'format_messages()'는 변수를 채운 최종 Message 객체 리스트를 반환합니다.\nLLM 호출 없이 프롬프트가 올바르게 완성되는지 먼저 확인하는 디버깅 습관이 중요합니다.",
         "terminal": {
           "code": [
             "from langchain_core.prompts import ChatPromptTemplate",
@@ -189,7 +189,7 @@
       },
       {
         "order": 3,
-        "text": "LCEL 체인에 `.invoke()`를 호출하면 prompt → llm → parser 세 단계가 순서대로 실행됩니다.\nStrOutputParser()는 AIMessage 객체에서 `.content` 문자열만 추출해 반환합니다.",
+        "text": "LCEL 체인에 '.invoke()'를 호출하면 prompt → llm → parser 세 단계가 순서대로 실행됩니다.\nStrOutputParser()는 AIMessage 객체에서 '.content' 문자열만 추출해 반환합니다.",
         "terminal": {
           "code": [
             "from langchain_core.prompts import ChatPromptTemplate",
@@ -217,7 +217,7 @@
       },
       {
         "order": 4,
-        "text": "`.batch()`는 입력 딕셔너리 리스트를 한 번에 받아 병렬로 처리한 뒤 결과 리스트를 반환합니다.\n여러 건을 순서대로 invoke()하는 것보다 훨씬 빠릅니다.",
+        "text": "'.batch()'는 입력 딕셔너리 리스트를 한 번에 받아 병렬로 처리한 뒤 결과 리스트를 반환합니다.\n여러 건을 순서대로 invoke()하는 것보다 훨씬 빠릅니다.",
         "terminal": {
           "code": [
             "from langchain_core.prompts import ChatPromptTemplate",
@@ -360,7 +360,7 @@
       },
       {
         "order": 2,
-        "text": "ConversationBufferMemory는 모든 대화 이력을 그대로 버퍼에 저장합니다.\n`save_context()`로 한 턴을 저장하고, `load_memory_variables()`로 저장된 이력을 불러옵니다.",
+        "text": "ConversationBufferMemory는 모든 대화 이력을 그대로 버퍼에 저장합니다.\n'save_context()'로 한 턴을 저장하고, 'load_memory_variables()'로 저장된 이력을 불러옵니다.",
         "terminal": {
           "code": [
             "from langchain.memory import ConversationBufferMemory",
@@ -391,7 +391,7 @@
       },
       {
         "order": 3,
-        "text": "`return_messages=True`로 생성하면 history가 문자열 대신 Message 객체 리스트로 반환됩니다.\nChatPromptTemplate의 `(\"placeholder\", \"{history}\")` 슬롯에 이 리스트를 직접 주입할 수 있어 LCEL 체인 연동에 더 편리합니다.",
+        "text": "'return_messages=True'로 생성하면 history가 문자열 대신 Message 객체 리스트로 반환됩니다.\nChatPromptTemplate의 '(\"placeholder\", \"{history}\")' 슬롯에 이 리스트를 직접 주입할 수 있어 LCEL 체인 연동에 더 편리합니다.",
         "terminal": {
           "code": [
             "from langchain.memory import ConversationBufferMemory",
@@ -415,7 +415,7 @@
       },
       {
         "order": 4,
-        "text": "ConversationChain은 LLM과 Memory를 자동으로 연결해주는 고수준 체인입니다.\n`.predict(input=...)`로 호출하면 메모리 로드 → 프롬프트 구성 → LLM 호출 → 메모리 저장이 한 번에 처리됩니다.",
+        "text": "ConversationChain은 LLM과 Memory를 자동으로 연결해주는 고수준 체인입니다.\n'.predict(input=...)'로 호출하면 메모리 로드 → 프롬프트 구성 → LLM 호출 → 메모리 저장이 한 번에 처리됩니다.",
         "terminal": {
           "code": [
             "from langchain.chains import ConversationChain",
@@ -439,11 +439,11 @@
             "AI: 방금 말씀해주신 대로 Amy라고 하셨어요!"
           ]
         },
-        "tip": "ConversationChain은 매 호출 시 `memory.load_memory_variables()`로 이력을 불러와 프롬프트에 자동 삽입하고, 응답을 받으면 `memory.save_context()`로 저장합니다."
+        "tip": "ConversationChain은 매 호출 시 'memory.load_memory_variables()'로 이력을 불러와 프롬프트에 자동 삽입하고, 응답을 받으면 'memory.save_context()'로 저장합니다."
       },
       {
         "order": 5,
-        "text": "대화 후 메모리에 저장된 내용을 직접 꺼내어 검증하는 방법입니다.\n`memory.chat_memory.messages`는 저장된 모든 Message 객체 리스트를 반환합니다.",
+        "text": "대화 후 메모리에 저장된 내용을 직접 꺼내어 검증하는 방법입니다.\n'memory.chat_memory.messages'는 저장된 모든 Message 객체 리스트를 반환합니다.",
         "terminal": {
           "code": [
             "from langchain.memory import ConversationBufferMemory",
@@ -547,7 +547,7 @@
       },
       {
         "order": 2,
-        "text": "LangChain에서 문서는 `Document` 객체로 표현됩니다.\n`page_content`에 텍스트 내용, `metadata`에 출처·페이지 등 부가 정보를 담습니다.",
+        "text": "LangChain에서 문서는 'Document' 객체로 표현됩니다.\n'page_content'에 텍스트 내용, 'metadata'에 출처·페이지 등 부가 정보를 담습니다.",
         "terminal": {
           "code": [
             "from langchain_core.documents import Document",
@@ -616,7 +616,7 @@
       },
       {
         "order": 5,
-        "text": "FAISS(Facebook AI Similarity Search)로 벡터 스토어를 구성하고 유사도 검색을 실행합니다.\n`from_texts()`에 텍스트 리스트와 임베딩 객체를 전달하면 자동으로 임베딩 후 인덱스를 생성합니다.",
+        "text": "FAISS(Facebook AI Similarity Search)로 벡터 스토어를 구성하고 유사도 검색을 실행합니다.\n'from_texts()'에 텍스트 리스트와 임베딩 객체를 전달하면 자동으로 임베딩 후 인덱스를 생성합니다.",
         "terminal": {
           "code": [
             "# pip install faiss-cpu langchain-community sentence-transformers",
@@ -649,7 +649,7 @@
       },
       {
         "order": 6,
-        "text": "RetrievalQA 체인은 벡터 스토어 검색과 LLM 답변 생성을 자동으로 연결해줍니다.\n`as_retriever()`로 벡터 스토어를 Retriever 인터페이스로 변환해 체인에 연결합니다.",
+        "text": "RetrievalQA 체인은 벡터 스토어 검색과 LLM 답변 생성을 자동으로 연결해줍니다.\n'as_retriever()'로 벡터 스토어를 Retriever 인터페이스로 변환해 체인에 연결합니다.",
         "terminal": {
           "code": [
             "from langchain.chains import RetrievalQA",
@@ -685,7 +685,7 @@
       },
       {
         "order": 7,
-        "text": "실전 활용: 검색된 문서를 LCEL 파이프라인에 직접 통합하는 커스텀 RAG Q&A 시스템입니다.\n`RunnablePassthrough`로 질문을 그대로 전달하면서 retriever와 병렬로 묶습니다.",
+        "text": "실전 활용: 검색된 문서를 LCEL 파이프라인에 직접 통합하는 커스텀 RAG Q&A 시스템입니다.\n'RunnablePassthrough'로 질문을 그대로 전달하면서 retriever와 병렬로 묶습니다.",
         "terminal": {
           "code": [
             "from langchain_core.prompts import ChatPromptTemplate",
@@ -738,7 +738,7 @@
       },
       {
         "order": 2,
-        "text": "LCEL 체인에 메모리를 수동으로 연동하는 패턴입니다.\nChatPromptTemplate의 `(\"placeholder\", \"{history}\")`에 Message 객체 리스트를 주입하고, 응답 후 메모리에 저장합니다.",
+        "text": "LCEL 체인에 메모리를 수동으로 연동하는 패턴입니다.\nChatPromptTemplate의 '(\"placeholder\", \"{history}\")'에 Message 객체 리스트를 주입하고, 응답 후 메모리에 저장합니다.",
         "terminal": {
           "code": [
             "from langchain_core.prompts import ChatPromptTemplate",
@@ -803,7 +803,7 @@
       },
       {
         "order": 4,
-        "text": "LCEL로 RAG 파이프라인을 구성하는 표준 패턴입니다.\n딕셔너리 안에서 `retriever`와 `RunnablePassthrough()`를 묶어 context와 question을 동시에 준비한 뒤 프롬프트에 전달합니다.",
+        "text": "LCEL로 RAG 파이프라인을 구성하는 표준 패턴입니다.\n딕셔너리 안에서 'retriever'와 'RunnablePassthrough()'를 묶어 context와 question을 동시에 준비한 뒤 프롬프트에 전달합니다.",
         "terminal": {
           "code": [
             "from langchain_core.prompts import ChatPromptTemplate",
