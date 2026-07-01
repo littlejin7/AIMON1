@@ -8,7 +8,7 @@ function shuffle(arr) {
   const a = [...arr]
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
-    ;[a[i], a[j]] = [a[j], a[i]]
+      ;[a[i], a[j]] = [a[j], a[i]]
   }
   return a
 }
@@ -25,15 +25,16 @@ function buildDeck(pairSubset) {
 export const TOTAL_PAIRS = PAIRS_PER_GAME
 
 export function usePairsGame() {
-  const [deck, setDeck]             = useState([])
+  const [deck, setDeck] = useState([])
   const [flippedIds, setFlippedIds] = useState([])
   const [matchedIds, setMatchedIds] = useState(new Set())
-  const [wrongIds, setWrongIds]     = useState(new Set())
-  const [score, setScore]           = useState(0)
-  const [timerSec, setTimerSec]     = useState(0)
-  const [running, setRunning]       = useState(false)
-  const [won, setWon]               = useState(false)
-  const processingRef               = useRef(false)
+  const [wrongIds, setWrongIds] = useState(new Set())
+  const [score, setScore] = useState(0)
+  const [timerSec, setTimerSec] = useState(0)
+  const [running, setRunning] = useState(false)
+  const [won, setWon] = useState(false)
+  const processingRef = useRef(false)
+  const [isPreview, setIsPreview] = useState(false)
 
   /* 타이머 */
   useEffect(() => {
@@ -41,7 +42,6 @@ export function usePairsGame() {
     const id = setInterval(() => setTimerSec((s) => s + 1), 1000)
     return () => clearInterval(id)
   }, [running])
-
   /* 게임 초기화 (재시작마다 셔플) */
   const init = useCallback(() => {
     const picked = shuffle([...PAIRS]).slice(0, PAIRS_PER_GAME)
@@ -52,17 +52,25 @@ export function usePairsGame() {
     setScore(0)
     setTimerSec(0)
     setWon(false)
-    setRunning(true)
-    processingRef.current = false
+    // 3초 미리보기 로직 추가
+    setIsPreview(true)
+    setRunning(false)
+    processingRef.current = true //미리보기 중엔 클릭 방지
+    setTimeout(() => {
+      setIsPreview(false)
+      setRunning(true)
+      processingRef.current = false
+    }, 2000)
   }, [])
+
 
   useEffect(() => { init() }, [init])
 
   /* 카드 클릭 */
   const onCardClick = useCallback((idx) => {
-    if (processingRef.current)    return
+    if (processingRef.current) return
     if (flippedIds.includes(idx)) return
-    if (matchedIds.has(idx))      return
+    if (matchedIds.has(idx)) return
 
     const next = [...flippedIds, idx]
     setFlippedIds(next)
@@ -114,5 +122,6 @@ export function usePairsGame() {
     init,
     onCardClick,
     matchedCount: matchedIds.size / 2,
+    isPreview, // <-- 추가한 줄
   }
 }

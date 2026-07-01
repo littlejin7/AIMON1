@@ -34,6 +34,9 @@ export default function Settings() {
   const [courseLevel, setCourseLevel] = useState(user?.course_level || 'beginner')
   const [levelSaving, setLevelSaving] = useState(false)
   const [deleting, setDeleting] = useState(false)
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [deleteNotice, setDeleteNotice] = useState(null)
+  const deleteRedirectTimerRef = useRef(null)
 
   const [notifs, setNotifs] = useState({
     streak: true,
