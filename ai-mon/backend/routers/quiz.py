@@ -420,6 +420,45 @@ def _resolve_answer(question_id: str, course_level: str = None) -> str:
     return ""
 
 
+def _make_ai_feedback_prompt(question: str, correct_answer: str, user_answer: str, level: str) -> str:
+    level = level or "beginner"
+    if level == "beginner":
+        level_instruction = (
+            "- 일상적인 비유(예: 리스트 = 서랍장, 변수 = 상자)와 친근한 어조를 적용하고, 추상적이거나 복잡한 컴퓨터 과학 용어는 피하세요.\n"
+            "- 단순 오타나 세미콜론/콜론 등의 단순 누락에 대해 직관적으로 짚어주고, 쉬운 오답 소거 방식으로 올바른 답을 유도하세요."
+        )
+    elif level == "intermediate":
+        level_instruction = (
+            "- 파이썬의 표준(Pythonic) 코드 규칙 및 핵심 자료구조 용어를 명확히 사용하여 설명하세요.\n"
+            "- 사용한 자료구조나 내장 함수의 활용 여부를 짚고, 짤막한 코드 흐름을 들어 원리를 설명하세요."
+        )
+    else:  # advanced
+        level_instruction = (
+            "- 비동기(async/await), 데코레이터, 메모리 참조 등 파이썬 심화 메커니즘을 중심으로 깊이 있게 설명하세요.\n"
+            "- 엣지 케이스 및 예외 처리 방어 코드 검토, 최적화 및 확장성 있는 설계적 리팩터링 방향을 제시하세요."
+        )
+
+    return f"""당신은 파이썬을 가르치는 친근한 전문 AI 튜터 '에이몬'입니다.
+학생의 오답에 대해 다음의 세 문장 규칙을 엄격하게 준수하여 한국어로 피드백을 작성해 주세요.
+
+[중요 피드백 형식 규칙 (정확히 3문장만 작성해야 함)]
+- 첫 번째 문장: 아쉽지만 정답은 "{correct_answer}"입니다. (반드시 이 형식으로 시작하고, 따옴표 안에 정확한 정답 값을 기입해야 함)
+- 두 번째 문장: 왜 오답인지 핵심 개념 설명 (아래 레벨별 기준 반영)
+- 세 번째 문장: 다시 풀 때 볼 기준 (아래 레벨별 기준 반영)
+
+[레벨별 평가/설명 기준: {level.upper()}]
+{level_instruction}
+
+[문제 정보]
+문제: {question}
+정답: {correct_answer}
+
+[학생 답변]
+{user_answer}
+
+추가적인 설명이나 머리말, 꼬리말, 마크다운 코드블록(` ``` `) 등은 절대 붙이지 마세요. 오직 피드백 3문장만 출력하세요."""
+
+
 @router.post("/ai-feedback")
 @limiter.limit("5/minute;100/day")
 async def get_ai_feedback(request: Request, req: AiFeedbackRequest, user: Optional[dict] = Depends(get_current_user_optional)):
@@ -438,12 +477,7 @@ async def get_ai_feedback(request: Request, req: AiFeedbackRequest, user: Option
                     return {"feedback": cached_feedback, "is_ai_fallback": False, "cached": True}
 
     correct_answer = _resolve_answer(req.question_id, req.level)  # 서버 조회(F)
-    prompt = (
-        f"[문제]\n{req.question}\n\n"
-        f"[정답]\n{correct_answer}\n\n"
-        f"[학생 답변]\n{req.user_answer}\n\n"
-        "학생이 왜 틀렸는지, 그리고 올바른 개념을 이해할 수 있도록 설명해주세요."
-    )
+    prompt = _make_ai_feedback_prompt(req.question, correct_answer, req.user_answer, req.level)
     result = await ask_claude(prompt, level=req.level)
 
     if result["success"]:
@@ -493,12 +527,7 @@ async def get_ai_feedback_stream(req: AiFeedbackRequest, user: Optional[dict] = 
                     )
 
     correct_answer = _resolve_answer(req.question_id, req.level)  # 서버 조회(F)
-    prompt = (
-        f"[문제]\n{req.question}\n\n"
-        f"[정답]\n{correct_answer}\n\n"
-        f"[학생 답변]\n{req.user_answer}\n\n"
-        "학생이 왜 틀렸는지, 그리고 올바른 개념을 이해할 수 있도록 설명해주세요."
-    )
+    prompt = _make_ai_feedback_prompt(req.question, correct_answer, req.user_answer, req.level)
 
     async def event_generator():
         full_text = ""
