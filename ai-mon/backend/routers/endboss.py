@@ -24,6 +24,7 @@ from routers.utils import (
     save_attempt_item,
     now_kst,
     UserNotFoundError,
+    promote_course_level_from_endboss,
 )
 from routers.quiz import serialize_question
 
@@ -479,6 +480,7 @@ def endboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
             # cleared_levels 기록
             cleared_levels.append(level)
             u["endboss_cleared_levels"] = cleared_levels
+            promote_course_level_from_endboss(u)
 
             # seen 리셋
             if "seen_questions" not in u or u["seen_questions"] is None:

@@ -578,6 +578,38 @@ def _write_users_unlocked(users: list):
 # 키가 끼면 update 가 "column not found" 로 500 난다. 코어 strip 이 이를 원천 차단.
 _DERIVED_USER_FIELDS = ("boss_cleared", "completed_stages")
 
+COURSE_LEVEL_ORDER = ("beginner", "intermediate", "advanced")
+NEXT_COURSE_LEVEL = {
+    "beginner": "intermediate",
+    "intermediate": "advanced",
+}
+
+
+def derive_course_level_from_endboss(user: dict) -> str:
+    """Return the highest course level unlocked by cleared endboss records."""
+    level = user.get("course_level", "beginner")
+    if level not in COURSE_LEVEL_ORDER:
+        level = "beginner"
+
+    cleared = user.get("endboss_cleared_levels") or []
+    if not isinstance(cleared, list):
+        cleared = []
+    cleared_set = set(cleared)
+
+    while level in cleared_set and level in NEXT_COURSE_LEVEL:
+        level = NEXT_COURSE_LEVEL[level]
+    return level
+
+
+def promote_course_level_from_endboss(user: dict) -> bool:
+    """Mutate user.course_level when endboss clear history unlocks the next level."""
+    current = user.get("course_level", "beginner")
+    promoted = derive_course_level_from_endboss(user)
+    if promoted != current:
+        user["course_level"] = promoted
+        return True
+    return False
+
 
 def _strip_derived_fields(user: dict) -> None:
     """progress 파생 카운터를 영속화 직전 제거한다. SSOT=progress. (제자리 변경)"""
