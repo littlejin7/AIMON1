@@ -314,6 +314,7 @@ async def endboss_answer(request: Request, req: AnswerRequest, user: dict = Depe
 - 첫 번째 문장: 아쉽지만 정답은 "{question.get('answer', '')}"입니다. (따옴표 안에 정답 예시 값을 정확히 기입할 것)
 - 두 번째 문장: 왜 오답인지 핵심 개념 설명 (레벨별 기준 반영)
 - 세 번째 문장: 다시 풀 때 볼 기준 (레벨별 기준 반영)
+- 각 문장은 공백 포함 최대 30자 이내로 극도로 짧게 요약하여 작성하세요. 구구절절한 설명은 지양하고 한 눈에 들어오게 압축해야 합니다.
 
 [문제 정보]
 문제: {question['question']}
