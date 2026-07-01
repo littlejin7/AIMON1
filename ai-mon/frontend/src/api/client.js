@@ -6,6 +6,40 @@ const api = axios.create({
   timeout: 15000,
 })
 
+export function getApiErrorInfo(error) {
+  const config = error?.config || {}
+  return {
+    method: config.method?.toUpperCase(),
+    url: config.url,
+    status: error?.response?.status ?? null,
+    detail: error?.response?.data?.detail ?? error?.response?.data ?? null,
+    message: error?.message || 'Unknown API error',
+  }
+}
+
+export function logApiError(label, error) {
+  if (error?.__aimonLogged) return
+  Object.defineProperty(error, '__aimonLogged', {
+    value: true,
+    configurable: true,
+  })
+  console.error(`[API] ${label}`, getApiErrorInfo(error))
+}
+
+export function requireAuthToken(label = 'authenticated request') {
+  const token = useAuthStore.getState().token
+  if (token) return token
+
+  const error = new Error('Login required')
+  error.response = {
+    status: 401,
+    data: { detail: '로그인이 필요합니다.' },
+  }
+  error.config = { url: label }
+  logApiError(label, error)
+  throw error
+}
+
 // Attach token to every request
 api.interceptors.request.use((config) => {
   const token = useAuthStore.getState().token
@@ -74,13 +108,17 @@ api.interceptors.response.use(
           processQueue(refreshError, null)
           isRefreshing = false
           logout()
+          logApiError('token refresh failed', refreshError)
           return Promise.reject(refreshError)
         }
       } else {
+        processQueue(err, null)
+        isRefreshing = false
         logout()
       }
     }
 
+    logApiError('request failed', err)
     return Promise.reject(err)
   }
 )

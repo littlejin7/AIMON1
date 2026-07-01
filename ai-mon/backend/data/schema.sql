@@ -182,3 +182,112 @@ $$;
 REVOKE EXECUTE ON FUNCTION update_user_atomic(uuid, jsonb, jsonb, jsonb) FROM public;
 REVOKE EXECUTE ON FUNCTION update_user_atomic(uuid, jsonb, jsonb, jsonb) FROM anon;
 REVOKE EXECUTE ON FUNCTION update_user_atomic(uuid, jsonb, jsonb, jsonb) FROM authenticated;
+
+-- Existing database migration helper: align an older attempts table without deleting rows.
+-- Paste this block into the Supabase SQL Editor if attempts writes fail after a schema migration.
+CREATE TABLE IF NOT EXISTS attempts (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES users(id) ON DELETE CASCADE,
+  question_id text NOT NULL,
+  unit integer,
+  stage text,
+  level text,
+  mode text NOT NULL,
+  is_correct boolean NOT NULL,
+  answered_at timestamptz DEFAULT now(),
+  created_at timestamptz DEFAULT now()
+);
+
+ALTER TABLE attempts ADD COLUMN IF NOT EXISTS id uuid DEFAULT gen_random_uuid();
+ALTER TABLE attempts ADD COLUMN IF NOT EXISTS user_id uuid;
+ALTER TABLE attempts ADD COLUMN IF NOT EXISTS question_id text;
+ALTER TABLE attempts ADD COLUMN IF NOT EXISTS unit integer;
+ALTER TABLE attempts ADD COLUMN IF NOT EXISTS stage text;
+ALTER TABLE attempts ADD COLUMN IF NOT EXISTS level text;
+ALTER TABLE attempts ADD COLUMN IF NOT EXISTS mode text;
+ALTER TABLE attempts ADD COLUMN IF NOT EXISTS is_correct boolean;
+ALTER TABLE attempts ADD COLUMN IF NOT EXISTS answered_at timestamptz DEFAULT now();
+ALTER TABLE attempts ADD COLUMN IF NOT EXISTS created_at timestamptz DEFAULT now();
+
+DO $$
+DECLARE
+  v_type text;
+  v_bad_count integer;
+BEGIN
+  SELECT data_type INTO v_type
+  FROM information_schema.columns
+  WHERE table_schema = 'public' AND table_name = 'attempts' AND column_name = 'id';
+
+  IF v_type <> 'uuid' THEN
+    EXECUTE 'SELECT count(*) FROM attempts WHERE id IS NOT NULL AND id::text !~* ''^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'''
+      INTO v_bad_count;
+    IF v_bad_count > 0 THEN
+      RAISE EXCEPTION 'attempts.id has % non-uuid values; fix them before converting the column', v_bad_count;
+    END IF;
+    ALTER TABLE attempts ALTER COLUMN id TYPE uuid USING id::uuid;
+  END IF;
+
+  SELECT data_type INTO v_type
+  FROM information_schema.columns
+  WHERE table_schema = 'public' AND table_name = 'attempts' AND column_name = 'user_id';
+
+  IF v_type <> 'uuid' THEN
+    EXECUTE 'SELECT count(*) FROM attempts WHERE user_id IS NOT NULL AND user_id::text !~* ''^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'''
+      INTO v_bad_count;
+    IF v_bad_count > 0 THEN
+      RAISE EXCEPTION 'attempts.user_id has % non-uuid values; fix them before converting the column', v_bad_count;
+    END IF;
+    ALTER TABLE attempts ALTER COLUMN user_id TYPE uuid USING user_id::uuid;
+  END IF;
+
+  SELECT data_type INTO v_type
+  FROM information_schema.columns
+  WHERE table_schema = 'public' AND table_name = 'attempts' AND column_name = 'answered_at';
+
+  IF v_type NOT IN ('timestamp with time zone') THEN
+    ALTER TABLE attempts ALTER COLUMN answered_at TYPE timestamptz USING answered_at::timestamptz;
+  END IF;
+
+  SELECT count(*) INTO v_bad_count FROM attempts WHERE question_id IS NULL OR mode IS NULL OR is_correct IS NULL;
+  IF v_bad_count > 0 THEN
+    RAISE EXCEPTION 'attempts has % rows with null question_id/mode/is_correct; fix them before adding NOT NULL constraints', v_bad_count;
+  END IF;
+
+  SELECT count(*) INTO v_bad_count
+  FROM attempts a
+  WHERE a.user_id IS NOT NULL AND NOT EXISTS (SELECT 1 FROM users u WHERE u.id = a.user_id);
+  IF v_bad_count > 0 THEN
+    RAISE EXCEPTION 'attempts has % rows whose user_id does not exist in users.id; fix orphan rows before adding the FK', v_bad_count;
+  END IF;
+END $$;
+
+ALTER TABLE attempts ALTER COLUMN id SET DEFAULT gen_random_uuid();
+ALTER TABLE attempts ALTER COLUMN id SET NOT NULL;
+ALTER TABLE attempts ALTER COLUMN question_id SET NOT NULL;
+ALTER TABLE attempts ALTER COLUMN mode SET NOT NULL;
+ALTER TABLE attempts ALTER COLUMN is_correct SET NOT NULL;
+ALTER TABLE attempts ALTER COLUMN answered_at SET DEFAULT now();
+ALTER TABLE attempts ALTER COLUMN created_at SET DEFAULT now();
+
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_constraint
+    WHERE conrelid = 'attempts'::regclass AND contype = 'p'
+  ) THEN
+    ALTER TABLE attempts ADD CONSTRAINT attempts_pkey PRIMARY KEY (id);
+  END IF;
+
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_constraint
+    WHERE conrelid = 'attempts'::regclass AND conname = 'attempts_user_id_fkey'
+  ) THEN
+    ALTER TABLE attempts
+      ADD CONSTRAINT attempts_user_id_fkey
+      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+  END IF;
+END $$;
+
+CREATE INDEX IF NOT EXISTS idx_attempts_user      ON attempts (user_id);
+CREATE INDEX IF NOT EXISTS idx_attempts_user_q    ON attempts (user_id, question_id);
+CREATE INDEX IF NOT EXISTS idx_attempts_user_unit ON attempts (user_id, unit);

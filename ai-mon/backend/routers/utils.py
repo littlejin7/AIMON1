@@ -24,6 +24,7 @@ import time
 import tempfile
 import contextvars
 import copy
+import uuid
 from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 from slowapi import Limiter
@@ -596,16 +597,60 @@ def save_wrong_answer_item(item: dict):
 # ── Attempts (풀이 전수 기록) ──────────────────────────────────────────────
 # 정오답 무관·AI 피드백과 독립적으로 채점 순간마다 1건 append (retry 포함 전수).
 # 운영은 Supabase attempts 테이블이 단일 진실. JSON 분기는 dev 폴백 전용이다.
+def _attempt_log_context(item: dict) -> dict:
+    """Return only non-sensitive attempt fields for diagnostics."""
+    allowed = {
+        "id",
+        "user_id",
+        "question_id",
+        "unit",
+        "stage",
+        "level",
+        "mode",
+        "is_correct",
+        "answered_at",
+    }
+    return {k: item.get(k) for k in allowed if k in item}
+
+
+def _normalize_attempt_item_for_supabase(item: dict) -> dict | None:
+    normalized = item.copy()
+    user_id = normalized.get("user_id")
+    if user_id is None:
+        return normalized
+    try:
+        normalized["user_id"] = str(uuid.UUID(str(user_id)))
+    except (TypeError, ValueError, AttributeError):
+        logger.warning(
+            "save_attempt_item: skipping Supabase attempts write because user_id is not a valid uuid; item=%s",
+            _attempt_log_context(normalized),
+        )
+        return None
+    return normalized
+
+
 def save_attempt_item(item: dict):
     if USE_SUPABASE:
         # id 가 매 호출 새 uuid 라 upsert 는 사실상 insert (append-only). 기존
         # save_wrong_answer_item 과 동일 패턴으로 맞춘다.
-        supabase.table("attempts").upsert(item).execute()
+        item = _normalize_attempt_item_for_supabase(item)
+        if item is None:
+            return False
+        try:
+            supabase.table("attempts").upsert(item).execute()
+            return True
+        except Exception:
+            logger.exception(
+                "save_attempt_item: Supabase attempts upsert failed; item=%s",
+                _attempt_log_context(item),
+            )
+            return False
     else:
         # dev 전용 폴백
         attempts = _load_json_locked(ATTEMPTS_FILE, [])
         attempts.append(item)
         _save_json_locked(ATTEMPTS_FILE, attempts)
+        return True
 
 
 def get_attempts_by_user(user_id: str) -> list:
