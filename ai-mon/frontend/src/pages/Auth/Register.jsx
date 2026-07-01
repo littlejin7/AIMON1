@@ -49,7 +49,7 @@ export default function Register() {
   const levelParam = searchParams.get('level')
   const [step, setStep] = useState(0)
   const [form, setForm] = useState({
-    email: '', password: '', passwordConfirm: '',
+    username: '', email: '', password: '', passwordConfirm: '',
     nickname: '', level: (levelParam && ['beginner', 'intermediate', 'advanced'].includes(levelParam)) ? levelParam : 'elementary',
     goals: [], dailyTime: 10,
   })
@@ -61,6 +61,10 @@ export default function Register() {
   const [loading, setLoading]       = useState(false)
   const [error, setError]           = useState('')
   const otpRefs = useRef([])
+
+  const [isIdChecked, setIsIdChecked] = useState(false)
+  const [idChecking, setIdChecking] = useState(false)
+  const [idError, setIdError] = useState('')
 
   const [isEmailChecked, setIsEmailChecked] = useState(false)
   const [emailChecking, setEmailChecking] = useState(false)
@@ -120,6 +124,33 @@ export default function Register() {
     const val = e.target.value
     setCustomDomain(val)
     updateEmail(emailId, emailDomain, val)
+  }
+
+  const handleIdChange = (e) => {
+    const val = e.target.value.replace(/[^A-Za-z0-9]/g, '').trim()
+    setForm(f => ({ ...f, username: val }))
+    setIsIdChecked(false)
+    setIdError('')
+    setError('')
+  }
+
+  const handleCheckId = async () => {
+    const username = form.username.trim()
+    if (!username) return
+    setIdChecking(true)
+    setIdError('')
+    try {
+      const res = await authApi.checkId(username)
+      if (res.data && res.data.ok) {
+        setIsIdChecked(true)
+        setIdError('')
+      }
+    } catch (err) {
+      setIsIdChecked(false)
+      setIdError(err.response?.data?.detail || '이미 사용 중인 아이디입니다.')
+    } finally {
+      setIdChecking(false)
+    }
   }
 
   const handleCheckEmail = async () => {
@@ -195,7 +226,7 @@ export default function Register() {
     setLoading(true); setError('')
     try {
       const payload = {
-        username:        form.email.trim(),   // email을 username으로 사용
+        username:        form.username.trim(), // Use custom username/ID!
         password:        form.password,
         nickname:        form.nickname,
         email:           form.email.trim(),
@@ -214,7 +245,7 @@ export default function Register() {
   }
 
   const allTermsRequired = terms.tos && terms.privacy
-  const canGoStep2 = isEmailChecked && form.email.includes('@') && form.email.split('@')[1]?.length > 1
+  const canGoStep2 = isIdChecked && isEmailChecked && form.email.includes('@') && form.email.split('@')[1]?.length > 1
     && form.password.length >= 8 && form.password === form.passwordConfirm
   const otpFilled = otp.every(Boolean)
 
@@ -229,7 +260,7 @@ export default function Register() {
         {step >= 1 && step <= 6 && (
           <>
             <div className="reg-header">
-              <button className="reg-back-btn" onClick={() => setStep(s => s - 1)}>←</button>
+              <button className="reg-back-btn" onClick={() => step === 1 ? navigate('/auth') : setStep(s => s - 1)}>←</button>
               <span className="reg-logo-sm">AI MON</span>
               <span className="reg-step-chip">{STEP_CHIPS[step]}</span>
             </div>
@@ -295,11 +326,47 @@ export default function Register() {
         {step === 1 && (
           <div className="reg-body">
             <div>
-              <div className="reg-page-title">이메일로 시작해요</div>
-              <div className="reg-page-sub">가입에 사용할 이메일과<br />비밀번호를 입력해주세요.</div>
+              <div className="reg-page-title">회원 정보를 입력하세요</div>
+              <div className="reg-page-sub">가입에 사용할 아이디, 이메일과<br />비밀번호를 입력해주세요.</div>
             </div>
 
             <div className="reg-fields">
+              {/* 아이디 */}
+              <div className="reg-field">
+                <div className="reg-field-label">아이디</div>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <div className={`reg-field-wrap${isIdChecked ? ' ok' : (idError ? ' error' : '')}`} style={{ flex: 1, margin: 0 }}>
+                    <span className="reg-field-icon">👤</span>
+                    <input
+                      className="reg-field-in"
+                      type="text"
+                      placeholder="영문, 숫자 포함 4~15자"
+                      value={form.username}
+                      onChange={handleIdChange}
+                      required
+                      autoComplete="username"
+                    />
+                    {isIdChecked && (
+                      <span style={{ padding: '0 14px', fontSize: '16px', color: '#4ADE80', flexShrink: 0 }}>✓</span>
+                    )}
+                  </div>
+                  <button
+                    type="button"
+                    className="reg-check-dup-btn"
+                    disabled={!form.username || idChecking}
+                    onClick={handleCheckId}
+                  >
+                    {idChecking ? '확인 중...' : '중복확인'}
+                  </button>
+                </div>
+                {idError && (
+                  <div className="reg-field-hint err">⚠ {idError}</div>
+                )}
+                {isIdChecked && (
+                  <div className="reg-field-hint ok">✓ 사용 가능한 아이디입니다.</div>
+                )}
+              </div>
+
               {/* 이메일 */}
               <div className="reg-field">
                 <div className="reg-field-label">이메일</div>
