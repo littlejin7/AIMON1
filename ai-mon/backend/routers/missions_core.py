@@ -103,16 +103,8 @@ def bump_mission(user: dict, event: str, amount: int = 1, day_key: str = None) -
         goal = defn["goal"]
         prog[mid] = min(prog.get(mid, 0) + amount, goal)
 
-        # auto_claim: goal 도달 즉시 무마찰 수령
-        if defn.get("auto_claim") and prog[mid] >= goal:
-            claimed = d.setdefault("claimed", [])
-            if mid not in claimed:
-                claimed.append(mid)
-                reward = defn.get("reward", {})
-                if reward.get("crowns"):
-                    user["crowns"] = user.get("crowns", 0) + reward["crowns"]
-                # XP auto_claim 은 apply_xp 재귀를 유발하므로 지원하지 않음.
-                # auto_claim 미션에 XP 보상이 필요한 경우 수동 claim 사용.
+        # auto_claim 은 지원되지 않음 (수동 수령으로 단일화)
+        pass
 
     # 위클리 스코프: 데일리와 같은 이벤트로 위클리도 동시에 갱신 (포함관계).
     # bump_mission 한 번 호출로 daily · weekly 두 스코프를 순회 → 드리프트 방지.

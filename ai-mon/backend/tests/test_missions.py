@@ -52,14 +52,14 @@ def test_d_quiz3_capped_at_goal():
     assert u["missions"]["daily"]["progress"]["d_quiz3"] == 3
 
 
-def test_d_login_auto_claim():
-    """로그인 이벤트 → progress 1 + d_login claimed + crowns += 1."""
+def test_d_login_manual_claim():
+    """로그인 이벤트 → progress 1 이며 자동 수령은 되지 않아야 한다."""
     u = _base_user()
     bump_mission(u, "login", day_key=TODAY)
     d = u["missions"]["daily"]
     assert d["progress"].get("d_login", 0) == 1
-    assert "d_login" in d.get("claimed", [])
-    assert u["crowns"] == 1
+    assert "d_login" not in d.get("claimed", [])
+    assert u["crowns"] == 0
 
 
 def test_d_login_dedup_same_day():
@@ -69,7 +69,7 @@ def test_d_login_dedup_same_day():
     bump_mission(u, "login", day_key=TODAY)
     d = u["missions"]["daily"]
     assert d["progress"].get("d_login", 0) == 1  # 여전히 1
-    assert u["crowns"] == 1                       # 이중 지급 없음
+    assert u["crowns"] == 0                       # 자동 지급되지 않으므로 0
 
 
 def test_d_review_accumulates():
