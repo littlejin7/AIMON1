@@ -127,15 +127,20 @@ def test_refresh_token_blocked_after_delete(ctx):
 # (5) 삭제 계정 로그인 → 401 generic 메시지
 # ─────────────────────────────────────────────────────────────────────────────
 
-def test_login_deleted_account_401_generic(ctx):
-    token, _, _ = _register(ctx)
+def test_login_deleted_account_restores_within_retention(ctx):
+    token, _, old_uid = _register(ctx)
     ctx.delete("/user/me", headers=_auth(token))
     res = ctx.post("/auth/login", json={
         "username": _PAYLOAD["username"],
         "password": _PAYLOAD["password"],
     })
-    assert res.status_code == 401
-    assert res.json()["detail"] == "아이디 또는 비밀번호가 올바르지 않습니다."
+    assert res.status_code == 200
+    body = res.json()
+    assert body["account_restored"] is True
+    assert body["user"]["id"] == old_uid
+    users = U.load_users()
+    restored = next(u for u in users if u["id"] == old_uid)
+    assert not restored.get("deleted_at")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -148,6 +153,7 @@ def test_check_id_available_after_delete(ctx):
     res = ctx.get(f"/auth/check-id?username={_PAYLOAD['username']}")
     assert res.status_code == 200
     assert res.json()["ok"] is True
+    assert res.json()["restorable"] is True
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -160,34 +166,38 @@ def test_check_email_available_after_delete(ctx):
     res = ctx.get(f"/auth/check-email?email={_PAYLOAD['email']}")
     assert res.status_code == 200
     assert res.json()["ok"] is True
+    assert res.json()["restorable"] is True
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # (8) 재가입 — 같은 username 으로 201, 새 user_id
 # ─────────────────────────────────────────────────────────────────────────────
 
-def test_reregister_same_username_new_uid(ctx):
+def test_reregister_same_username_restores_old_uid(ctx):
     token, _, old_uid = _register(ctx)
     ctx.delete("/user/me", headers=_auth(token))
 
     res = ctx.post("/auth/register", json=_PAYLOAD)
     assert res.status_code == 201, res.text
-    new_uid = res.json()["user"]["id"]
-    assert new_uid != old_uid, "재가입 시 새 user_id 여야 한다"
+    body = res.json()
+    assert body["account_restored"] is True
+    assert body["user"]["id"] == old_uid
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # (9) 재가입 후 과거 progress 없음
 # ─────────────────────────────────────────────────────────────────────────────
 
-def test_reregister_no_inherited_progress(ctx):
+def test_reregister_restores_existing_progress(ctx):
     token, _, _ = _register(ctx)
+    users = U.load_users()
+    users[0]["xp"] = 123
+    U.save_users(users)
     ctx.delete("/user/me", headers=_auth(token))
 
     user = ctx.post("/auth/register", json=_PAYLOAD).json()["user"]
-    assert user["xp"] == 0
+    assert user["xp"] == 123
     assert user["lv"] == 1
-    assert user["completed_stages"] == 0
 
 
 # ─────────────────────────────────────────────────────────────────────────────

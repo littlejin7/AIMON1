@@ -217,6 +217,38 @@ def get_user_by_username(username: str) -> dict | None:
     ))
 
 
+def get_user_by_username_any(username: str) -> dict | None:
+    if USE_SUPABASE:
+        res = supabase.table("users").select("*").eq("username", username).execute()
+        if res.data:
+            return _cache_original_user(res.data[0])
+        return None
+    users = load_users()
+    return _cache_original_user(next((u for u in users if u["username"] == username), None))
+
+
+def get_user_by_email_any(email: str) -> dict | None:
+    if USE_SUPABASE:
+        res = supabase.table("users").select("*").eq("email", email).execute()
+        if res.data:
+            return _cache_original_user(res.data[0])
+        return None
+    users = load_users()
+    return _cache_original_user(next((u for u in users if u.get("email") == email), None))
+
+
+def restore_soft_deleted_user(user_id: str, updater=None) -> dict:
+    def mutator(u: dict) -> None:
+        u.pop("deleted_at", None)
+        u["token_version"] = u.get("token_version", 1) + 1
+        if updater:
+            updater(u)
+        return None
+
+    restored, _ = mutate_user_atomic(user_id, mutator)
+    return restored
+
+
 def delete_soft_deleted_user_by_username(username: str) -> None:
     if USE_SUPABASE:
         # Delete from users table (cascades to progress, wrong_answers, attempts, refresh_tokens)
@@ -247,6 +279,93 @@ def delete_soft_deleted_user_by_username(username: str) -> None:
             attempts = _load_json_locked(ATTEMPTS_FILE, [])
             new_attempts = [a for a in attempts if a.get("user_id") not in to_delete_ids]
             _save_json_locked(ATTEMPTS_FILE, new_attempts)
+
+
+def purge_soft_deleted_users(retention_days: int = 30, now: Optional[datetime] = None, dry_run: bool = False) -> dict:
+    """Purge users soft-deleted longer than `retention_days`.
+
+    Supabase path deletes rows from `users` and relies on FK cascade for related tables.
+    JSON path deletes matching users and related local data files directly.
+    """
+    ref_now = now or now_kst()
+    cutoff = ref_now - timedelta(days=retention_days)
+    result = {
+        "retention_days": retention_days,
+        "cutoff": cutoff.isoformat(),
+        "deleted_user_ids": [],
+        "deleted_count": 0,
+        "dry_run": dry_run,
+    }
+
+    if USE_SUPABASE:
+        res = (
+            supabase.table("users")
+            .select("id")
+            .not_.is_("deleted_at", "null")
+            .lt("deleted_at", cutoff.isoformat())
+            .execute()
+        )
+        rows = res.data or []
+        user_ids = [row.get("id") for row in rows if row.get("id")]
+        result["deleted_user_ids"] = user_ids
+        result["deleted_count"] = len(user_ids)
+        if dry_run or not user_ids:
+            return result
+
+        (
+            supabase.table("users")
+            .delete()
+            .not_.is_("deleted_at", "null")
+            .lt("deleted_at", cutoff.isoformat())
+            .execute()
+        )
+        return result
+
+    users = _read_users_unlocked()
+    to_delete_ids = []
+    kept_users = []
+    for user in users:
+        deleted_at = user.get("deleted_at")
+        if not deleted_at:
+            kept_users.append(user)
+            continue
+        try:
+            deleted_dt = datetime.fromisoformat(str(deleted_at))
+        except Exception:
+            logger.warning("purge_soft_deleted_users: invalid deleted_at for user_id=%s", user.get("id"))
+            kept_users.append(user)
+            continue
+
+        if deleted_dt <= cutoff:
+            if user.get("id"):
+                to_delete_ids.append(user["id"])
+        else:
+            kept_users.append(user)
+
+    result["deleted_user_ids"] = to_delete_ids
+    result["deleted_count"] = len(to_delete_ids)
+    if dry_run or not to_delete_ids:
+        return result
+
+    _write_users_unlocked(kept_users)
+
+    if os.path.exists(PROGRESS_FILE):
+        progress = _load_json_locked(PROGRESS_FILE, [])
+        _save_json_locked(PROGRESS_FILE, [p for p in progress if p.get("user_id") not in to_delete_ids])
+
+    if os.path.exists(WRONG_ANSWERS_FILE):
+        wrong = _load_json_locked(WRONG_ANSWERS_FILE, [])
+        _save_json_locked(WRONG_ANSWERS_FILE, [w for w in wrong if w.get("user_id") not in to_delete_ids])
+
+    if os.path.exists(ATTEMPTS_FILE):
+        attempts = _load_json_locked(ATTEMPTS_FILE, [])
+        _save_json_locked(ATTEMPTS_FILE, [a for a in attempts if a.get("user_id") not in to_delete_ids])
+
+    if os.path.exists(REFRESH_TOKENS_FILE):
+        tokens = _load_json_locked(REFRESH_TOKENS_FILE, [])
+        _save_json_locked(REFRESH_TOKENS_FILE, [t for t in tokens if t.get("user_id") not in to_delete_ids])
+
+    return result
 
 
 def get_user_by_email(email: str) -> dict | None:

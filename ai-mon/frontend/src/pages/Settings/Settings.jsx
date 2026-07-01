@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import { useSoundStore } from '../../hooks/useSoundStore'
@@ -42,6 +42,14 @@ export default function Settings() {
     updates: false,
   })
 
+  useEffect(() => {
+    return () => {
+      if (deleteRedirectTimerRef.current) {
+        clearTimeout(deleteRedirectTimerRef.current)
+      }
+    }
+  }, [])
+
   const handleNickSave = async (e) => {
     e.preventDefault()
     setNickSaving(true)
@@ -72,38 +80,73 @@ export default function Settings() {
     navigate('/auth')
   }
 
-  const handleDeleteAccount = async () => {
-    if (!window.confirm('정말 계정을 삭제할까요? 이 작업은 되돌릴 수 없습니다.')) return
+  const handleDeleteAccount = () => {
+    if (deleting) return
+    setShowDeleteConfirm(true)
+  }
+
+  const handleDeleteConfirm = async () => {
+    setShowDeleteConfirm(false)
     setDeleting(true)
     try {
       await userApi.deleteMe()
-      logout()
-      navigate('/auth')
-    } catch (err) {
-      const msg = err?.response?.data?.detail || '계정 삭제 중 오류가 발생했습니다. 다시 시도해주세요.'
-      window.alert(msg)
+      setDeleteNotice({ type: 'success', message: '계정이 삭제되었습니다.' })
+      deleteRedirectTimerRef.current = setTimeout(() => {
+        logout()
+        navigate('/')
+      }, 1200)
+    } catch {
+      setDeleteNotice({ type: 'error', message: '탈퇴 처리에 실패했습니다. 다시 시도해주세요.' })
     } finally {
       setDeleting(false)
     }
   }
 
-  const toggleNotif = (key) =>
-    setNotifs((prev) => ({ ...prev, [key]: !prev[key] }))
+  const toggleNotif = (key) => setNotifs((prev) => ({ ...prev, [key]: !prev[key] }))
 
   return (
     <div className="st-page">
+      {showDeleteConfirm && (
+        <div className="st-modal-overlay" onClick={() => !deleting && setShowDeleteConfirm(false)}>
+          <div className="st-modal-card" onClick={(e) => e.stopPropagation()}>
+            <h2 className="st-modal-title">정말 탈퇴하시겠습니까?</h2>
+            <p className="st-modal-desc">탈퇴 시 계정 정보와 진행 데이터가 삭제될 수 있습니다.</p>
+            <div className="st-modal-actions">
+              <button
+                type="button"
+                className="st-modal-btn st-modal-btn-ghost"
+                onClick={() => setShowDeleteConfirm(false)}
+                disabled={deleting}
+              >
+                취소
+              </button>
+              <button
+                type="button"
+                className="st-modal-btn st-modal-btn-danger"
+                onClick={handleDeleteConfirm}
+                disabled={deleting}
+              >
+                {deleting ? '처리 중...' : '탈퇴하기'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
-      {/* 상단 바 */}
+      {deleteNotice && (
+        <div className={`st-toast st-toast-${deleteNotice.type}`}>
+          {deleteNotice.message}
+        </div>
+      )}
+
       <div className="st-topbar">
         <button className="st-back-btn" onClick={() => navigate(-1)} aria-label="뒤로">
-          ‹
+          ←
         </button>
         <span className="st-topbar-title">설정</span>
       </div>
 
       <div className="st-scroll">
-
-        {/* ── 프로필 ── */}
         <p className="st-section-label">프로필</p>
         <div className="st-group">
           <div className="st-profile-top">
@@ -115,7 +158,7 @@ export default function Settings() {
             </div>
             <div>
               <div className="st-p-id">@{user?.username || user?.email?.split('@')[0]}</div>
-              <div className="st-p-sub">아이디</div>
+              <div className="st-p-sub">내 프로필</div>
             </div>
           </div>
           <form className="st-nickname-wrap" onSubmit={handleNickSave}>
@@ -132,37 +175,35 @@ export default function Settings() {
               className="st-save-btn"
               disabled={nickSaving || nickname === user?.nickname}
             >
-              {nickSaved ? '✅ 저장 완료' : nickSaving ? '저장 중...' : '저장하기'}
+              {nickSaved ? '저장 완료' : nickSaving ? '저장 중...' : '저장하기'}
             </button>
           </form>
         </div>
 
-        {/* ── 계정 ── */}
         <p className="st-section-label">계정</p>
         <div className="st-group">
           <div className="st-srow">
-            <div className="st-srow-icon" style={{ background: 'rgba(24,95,165,0.18)' }}>📧</div>
+            <div className="st-srow-icon" style={{ background: 'rgba(24,95,165,0.18)' }}>@</div>
             <div className="st-srow-text"><div className="st-srow-label">이메일 변경</div></div>
             <span className="st-chevron">›</span>
           </div>
           <div className="st-srow">
-            <div className="st-srow-icon" style={{ background: 'rgba(15,110,86,0.18)' }}>🔒</div>
+            <div className="st-srow-icon" style={{ background: 'rgba(15,110,86,0.18)' }}>PW</div>
             <div className="st-srow-text"><div className="st-srow-label">비밀번호 변경</div></div>
             <span className="st-chevron">›</span>
           </div>
           <div className="st-srow">
             <div className="st-srow-icon" style={{ background: 'rgba(95,94,90,0.12)' }}>
-              <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--clr-text-muted)' }}>G</span>
+              <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--clr-text-muted)' }}>S</span>
             </div>
             <div className="st-srow-text">
               <div className="st-srow-label">소셜 계정 연결</div>
-              <div className="st-srow-sub">Google 연결됨</div>
+              <div className="st-srow-sub">Google / Naver / Kakao</div>
             </div>
             <span className="st-chevron">›</span>
           </div>
         </div>
 
-        {/* ── 알림 ── */}
         <p className="st-section-label">알림</p>
         <div className="st-group">
           {[
@@ -189,50 +230,48 @@ export default function Settings() {
           ))}
         </div>
 
-        {/* ── 사운드 ── */}
         <p className="st-section-label">사운드</p>
         <div className="st-group">
           <div className="st-sound-wrap">
             <div className="st-sound-row">
               <div className="st-sound-top">
-                <span className="st-sound-name">🎵 배경음악</span>
+                <span className="st-sound-name">배경음악</span>
                 <span className="st-sound-pct">{Math.round(bgmVolume * 100)}%</span>
               </div>
               <div className="st-sound-controls">
-                <button className="st-mute-btn" onClick={() => setBgmVolume(0)} aria-label="음소거">🔇</button>
+                <button className="st-mute-btn" onClick={() => setBgmVolume(0)} aria-label="배경음악 음소거">M</button>
                 <input
                   type="range" min={0} max={1} step={0.01}
                   value={bgmVolume}
                   onChange={(e) => setBgmVolume(Number(e.target.value))}
                   className="st-slider"
                 />
-                <button className="st-vol-btn" onClick={() => setBgmVolume(Math.min(1, bgmVolume + 0.1))} aria-label="볼륨업">🔊</button>
+                <button className="st-vol-btn" onClick={() => setBgmVolume(Math.min(1, bgmVolume + 0.1))} aria-label="배경음악 볼륨 올리기">+</button>
               </div>
             </div>
             <div className="st-divider" />
             <div className="st-sound-row">
               <div className="st-sound-top">
-                <span className="st-sound-name">📢 효과음</span>
+                <span className="st-sound-name">효과음</span>
                 <span className="st-sound-pct">{Math.round(sfxVolume * 100)}%</span>
               </div>
               <div className="st-sound-controls">
-                <button className="st-mute-btn" onClick={() => setSfxVolume(0)} aria-label="음소거">🔇</button>
+                <button className="st-mute-btn" onClick={() => setSfxVolume(0)} aria-label="효과음 음소거">M</button>
                 <input
                   type="range" min={0} max={1} step={0.01}
                   value={sfxVolume}
                   onChange={(e) => setSfxVolume(Number(e.target.value))}
                   className="st-slider"
                 />
-                <button className="st-vol-btn" onClick={() => setSfxVolume(Math.min(1, sfxVolume + 0.1))} aria-label="볼륨업">🔊</button>
+                <button className="st-vol-btn" onClick={() => setSfxVolume(Math.min(1, sfxVolume + 0.1))} aria-label="효과음 볼륨 올리기">+</button>
               </div>
             </div>
           </div>
         </div>
 
-        {/* ── 수강 레벨 ── */}
-        <p className="st-section-label">수강 레벨</p>
+        <p className="st-section-label">학습 레벨</p>
         <div className="st-group">
-          <div className="st-level-hint">학습 난이도와 AI 설명 수준이 함께 바뀌어요.</div>
+          <div className="st-level-hint">학습 난이도와 AI 설명 기준을 바꿀 수 있습니다.</div>
           {LEVELS.map(({ key, emoji, label, desc }) => {
             const isCurrent = courseLevel === key
             const isLocked = key !== 'beginner' && !isCurrent
@@ -249,14 +288,13 @@ export default function Settings() {
                 </div>
                 {isCurrent
                   ? <span className="st-current-tag">현재</span>
-                  : <span className="st-lock-tag"> 🔓 </span>
+                  : <span className="st-lock-tag">🔒 잠금</span>
                 }
               </div>
             )
           })}
         </div>
 
-        {/* ── 앱 정보 ── */}
         <p className="st-section-label">앱 정보</p>
         <div className="st-group">
           <div className="st-info-row">
@@ -281,17 +319,15 @@ export default function Settings() {
           </div>
         </div>
 
-        {/* ── 계정 관리 ── */}
         <p className="st-section-label">계정 관리</p>
         <button id="btn-logout" className="st-logout-btn" onClick={handleLogout}>
-          ↩ 로그아웃
+          로그아웃
         </button>
         <button className="st-delete-btn" onClick={handleDeleteAccount} disabled={deleting}>
-          {deleting ? '삭제 중...' : '🗑 계정 삭제'}
+          {deleting ? '탈퇴 처리 중...' : '계정 탈퇴'}
         </button>
 
-        <p className="st-footer">AI MON · made with 💜</p>
-
+        <p className="st-footer">AI MON made with care</p>
       </div>
     </div>
   )

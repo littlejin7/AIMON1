@@ -231,53 +231,60 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dic
 
     is_unit_boss = question.get("quiz_category") == "unit_boss"
     is_final_boss = question.get("quiz_category") == "final_boss"
+    q_type = question.get("type", "")
+    correct_answer = str(question.get("answer", "")).strip()
+    user_ans = req.user_answer.strip()
     
     level_instruction = ""
     if course_level == "beginner":
         level_instruction = (
-            "초보자 수준에 맞춰 비유와 일상 예시를 들어 친절하게 설명해주세요.\n"
-            "단순 오타나 사소한 문법 오류보다는 로직의 큰 틀이 맞으면 정답 처리하세요."
+            "- 초보자 수준에 맞춰 비유와 일상 예시(예: 리스트 = 서랍장, 변수 = 상자)를 들어 친절하게 설명하고 추상적인 용어는 피하세요.\n"
+            "- 단순 오타나 사소한 문법 오류보다는 로직의 큰 틀이 맞으면 정답 처리하되, 설명 시 단순 오타/누락을 가볍게 짚어주며 오답 소거식으로 올바른 답을 유도하세요."
         )
     elif course_level == "intermediate":
         level_instruction = (
-            "핵심 개념과 짤막한 코드 예시를 포함해 왜 틀렸는지 분석해주세요.\n"
-            "파이썬다운(Pythonic) 코드 작성, 자료구조의 올바른 활용 여부를 우선적으로 평가하세요."
+            "- 파이썬의 표준(Pythonic) 코드 규칙 및 핵심 자료구조 용어를 명확히 사용하여 설명하세요.\n"
+            "- 사용한 자료구조나 내장 함수의 활용 여부를 짚고, 짤막한 코드 흐름을 들어 왜 틀렸는지 핵심 분석을 포함하세요."
         )
     elif course_level == "advanced":
         level_instruction = (
-            "고급 개념(비동기, 데코레이터 등)의 정확한 이해와 엣지 케이스 처리, 예외 상황 방어 로직을 엄격하게 평가하세요.\n"
-            "원리와 더 나은 구조적 접근법에 대해 깊이 있게 설명해주세요."
+            "- 비동기(async/await), 데코레이터, 메모리 참조 등 파이썬 심화 메커니즘을 중심으로 깊이 있게 설명하세요.\n"
+            "- 엣지 케이스 및 예외 처리 방어 코드 검토, 최적화 및 확장성 있는 설계적 리팩터링 방향을 제시하세요."
         )
 
     # AI 채점 요청
     prompt = f"""당신은 파이썬을 가르치는 전문 AI 튜터 '에이몬'입니다.
 다음 문제에 대한 사용자의 답변을 다각도에서 채점하고 피드백해주세요.
 
-[레벨별 평가 기준: {course_level.upper()}]
+[레벨별 평가/피드백 기준: {course_level.upper()}]
 {level_instruction}
 
 [중요 지시사항]
 - 사용자의 답변이 예시 정답의 기호(예: A, B, C, D)만 입력했거나 내용이 일치한다면 반드시 "is_correct": true 로 채점하세요.
+- 오답(is_correct: false)일 시 "feedback" 필드의 내용은 반드시 아래의 '피드백 3문장 형식 규칙'을 엄격하게 준수하여 작성해야 합니다.
+- 정답(is_correct: true)일 시 "feedback" 필드의 내용은 칭찬 및 해설을 담은 1~2문장의 격려말로 채우세요.
 - 반드시 아래 JSON 포맷으로만 응답하고 추가 텍스트나 마크다운(```json)을 출력하지 마세요.
+
+[피드백 3문장 형식 규칙 (오답일 때 "feedback" 필드에 적용)]
+- 첫 번째 문장: 아쉽지만 정답은 "{correct_answer}"입니다. (따옴표 안에 정답 값을 정확히 기입할 것. 이 첫 번째 문장은 글자 수 제한이 없습니다.)
+- 두 번째 문장: 왜 오답인지 핵심 개념 설명 (레벨별 기준 반영, **공백 포함 최대 30자 이내**로 극도로 짧게 요약하여 핵심 단어 위주로 작성하세요.)
+- 세 번째 문장: 다시 풀 때 볼 기준 (레벨별 기준 반영, **공백 포함 최대 30자 이내**로 극도로 짧게 요약하여 핵심 단어 위주로 작성하세요.)
 
 [문제 정보]
 문제 설명: {question['question']}
-예시 정답: {question.get('answer', '없음')}
+예시 정답: {correct_answer}
 
 [사용자 답변]
-{req.user_answer}
+{user_ans}
 
 출력 포맷:
 {{
   "is_correct": true/false,
   "score": 0~100 (정수),
-  "feedback": "에이몬 튜터로서의 상세한 피드백 (한국어, 3-4문장)",
+  "feedback": "3문장 규칙을 준수한 한국어 피드백",
   "hint": "틀렸을 경우 정답에 도달할 수 있는 핵심 힌트 (맞았으면 빈 문자열)"
 }}
 """
-    q_type = question.get("type", "")
-    correct_answer = str(question.get("answer", "")).strip()
-    user_ans = req.user_answer.strip()
 
     def is_direct_match(user_ans: str, correct: str) -> bool:
         # 완전 일치

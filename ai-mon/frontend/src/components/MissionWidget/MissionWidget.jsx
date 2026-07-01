@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { missionApi } from '../../api'
+import { useAuthStore } from '../../hooks/useAuthStore'
 import './MissionWidget.css'
 
 export default function MissionWidget() {
@@ -20,8 +21,22 @@ export default function MissionWidget() {
     if (claiming[missionId]) return
     setClaiming(p => ({ ...p, [missionId]: true }))
     missionApi.claimMission(missionId)
-      .then(() => load())
-      .catch(() => {})
+      .then((res) => {
+        const { total_xp, total_crowns } = res.data
+        const currentUser = useAuthStore.getState().user
+        const updateUser = useAuthStore.getState().updateUser
+        if (currentUser) {
+          updateUser({
+            ...currentUser,
+            xp: total_xp,
+            crowns: total_crowns,
+          })
+        }
+        load()
+      })
+      .catch((err) => {
+        alert(err.response?.data?.detail || '보상 수령에 실패했습니다.')
+      })
       .finally(() => setClaiming(p => ({ ...p, [missionId]: false })))
   }
 
@@ -29,7 +44,7 @@ export default function MissionWidget() {
 
   const renderRow = (m) => {
     const pct = m.goal > 0 ? Math.min(100, Math.round((m.progress / m.goal) * 100)) : 0
-    const canClaim = m.progress >= m.goal && !m.claimed && !m.auto_claim
+    const canClaim = m.progress >= m.goal && !m.claimed
     const rewardStr = [
       m.reward.xp    ? `+${m.reward.xp} XP` : '',
       m.reward.crowns ? `👑 ${m.reward.crowns}` : '',
@@ -48,17 +63,15 @@ export default function MissionWidget() {
           <span className="mw-reward">{rewardStr}</span>
           {m.claimed
             ? <span className="mw-done-badge">✓ 수령완료</span>
-            : m.auto_claim
-              ? <span className="mw-auto-badge">자동지급</span>
-              : canClaim
-                ? <button
-                    className="mw-claim-btn"
-                    onClick={() => claim(m.mission_id)}
-                    disabled={!!claiming[m.mission_id]}
-                  >
-                    {claiming[m.mission_id] ? '...' : '수령'}
-                  </button>
-                : null
+            : canClaim
+              ? <button
+                  className="mw-claim-btn"
+                  onClick={() => claim(m.mission_id)}
+                  disabled={!!claiming[m.mission_id]}
+                >
+                  {claiming[m.mission_id] ? '수령 중...' : '수령하기'}
+                </button>
+              : null
           }
         </div>
       </div>
