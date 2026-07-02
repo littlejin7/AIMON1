@@ -270,6 +270,15 @@ export default function EndBossBattle({
             {aiResult.feedback && (
               <div className="eb-b-res-desc">{aiResult.feedback}</div>
             )}
+            {!aiResult.is_correct && aiResult.hint && (
+              <div className="eb-b-res-desc">힌트: {aiResult.hint}</div>
+            )}
+            {!aiResult.is_correct && aiResult.explanation && (
+              <div className="eb-b-res-desc">해설: {aiResult.explanation}</div>
+            )}
+            {!aiResult.is_correct && aiResult.correct_answer && (
+              <div className="eb-b-res-desc">정답: {aiResult.correct_answer}</div>
+            )}
             <div className="eb-b-res-hp-row">
               <span>{aiResult.is_correct ? '⚡ 보스 HP 잔량' : '💢 내 HP 잔량'}</span>
               <span

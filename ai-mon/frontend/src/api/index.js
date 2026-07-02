@@ -52,9 +52,10 @@ export const bossApi = {
     requireAuthToken('POST /boss/start')
     return api.post(`/boss/start?unit=${unit}`)
   },
-  nextQuestion:  (unit) => {
+  nextQuestion:  (unit, battleToken = '') => {
     requireAuthToken('POST /boss/next')
-    return api.post(`/boss/next?unit=${unit}`)
+    const tokenParam = battleToken ? `&battle_token=${encodeURIComponent(battleToken)}` : ''
+    return api.post(`/boss/next?unit=${unit}${tokenParam}`)
   },
   submitAnswer:  (data) => {
     requireAuthToken('POST /boss/answer')

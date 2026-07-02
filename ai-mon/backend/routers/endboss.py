@@ -113,6 +113,11 @@ def pick_unseen(pool: list, seen: list) -> Optional[dict]:
             return q
     return None
 
+
+def _seen_key(level: str, project: str) -> str:
+    return f"endboss_{level}_{project}"
+
+
 def direct_grade(user_answer: str, correct_answer: str, q_type: str) -> bool:
     """output_select / multiple_choice / error_find / fill_in_blank 직접 채점."""
     ua = user_answer.strip()
@@ -209,6 +214,7 @@ def endboss_start(req: StartRequest, user: dict = Depends(get_current_user)):
 
     if "seen_questions" not in user or user["seen_questions"] is None:
         user["seen_questions"] = {}
+    user["seen_questions"][_seen_key(level, req.project)] = seen_ids
     user["seen_questions"]["endboss"] = seen_ids
     save_user(user)
 
@@ -333,13 +339,15 @@ async def endboss_answer(request: Request, req: AnswerRequest, user: dict = Depe
         is_correct = result.get("is_correct", False)
     else:
         is_correct = direct_grade(req.user_answer, question.get("answer", ""), q_type)
-        fb_key  = "correct" if is_correct else "incorrect"
-        fb_text = question.get("feedback", {}).get(fb_key, "")
+        fb = question.get("feedback", {}) or {}
+        fb_text = fb.get("correct", "") if is_correct else (fb.get("incorrect") or fb.get("wrong") or "")
         result  = {
             "is_correct": is_correct,
+            "grading_failed": False,
             "score":      100 if is_correct else 0,
             "feedback":   fb_text,
             "hint":       "" if is_correct else question.get("hint", ""),
+            "explanation": question.get("explanation", ""),
         }
 
     # 풀이 전수 기록 (채점 성공 시 정오답 무관 1건 — AI 피드백과 독립)
@@ -408,12 +416,20 @@ async def endboss_answer(request: Request, req: AnswerRequest, user: dict = Depe
                 # 다음 Phase 3 문제 출제 (중복 없음)
                 if "seen_questions" not in user or user["seen_questions"] is None:
                     user["seen_questions"] = {}
-                seen_questions = user["seen_questions"]
-                seen = seen_questions.get("endboss", [])
                 p3_pool = get_phase_questions(all_qs, phase=3, project=req.project)
+                seen_questions = user["seen_questions"]
+                key = _seen_key(level, req.project)
+                seen = seen_questions.get(key)
+                if not isinstance(seen, list):
+                    seen = seen_questions.get("endboss", [])
                 next_q  = pick_unseen(p3_pool, seen)
+                if not next_q:
+                    seen = [req.question_id]
+                    next_q = pick_unseen(p3_pool, seen)
                 if next_q:
-                    seen_questions["endboss"] = seen + [next_q["question_id"]]
+                    next_seen = seen + [next_q["question_id"]]
+                    seen_questions[key] = next_seen
+                    seen_questions["endboss"] = next_seen
                     user["seen_questions"] = seen_questions
                     save_user(user)
 

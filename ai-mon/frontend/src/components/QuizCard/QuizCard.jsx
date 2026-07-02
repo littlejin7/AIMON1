@@ -61,6 +61,7 @@ export default function QuizCard({
   question,
   onAnswer,
   onNext,
+  stageKey = '',
   disabled = false,
   initialSelected = null,
   initialInput = '',
@@ -276,6 +277,9 @@ export default function QuizCard({
     const runResult = await runPython(input)
     setCodeRunResult(runResult)
 
+    const unit = parseInt(question.unit, 10) || parseInt(String(stageKey).split('-')[0], 10) || 1
+    const stage = question.stage || stageKey || ''
+
     // 2) 백엔드 채점 호출 (submitting = '🤖 채점 중...' 로딩, pyLoading 과 별개)
     setSubmitting(true)
     let res
@@ -285,7 +289,8 @@ export default function QuizCard({
         code: input,
         output: runResult.stdout || '',
         error: runResult.stderr || runResult.compile_output || '',
-        unit: parseInt(question.unit, 10) || 1,
+        unit,
+        stage,
         course_level: courseLevel,
         award: false,
       })

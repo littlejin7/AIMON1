@@ -32,6 +32,7 @@ export default function StageQuiz({
 
   const currentQ = questions[current]
   const isVillain = currentQ?.quiz_category === 'miniboss'
+  const stageKey = `${lessonId}-${stageNum}`
 
   const totalQ = minibossStartIndex !== null
     ? questions.length - minibossStartIndex
@@ -106,6 +107,7 @@ export default function StageQuiz({
           <QuizCard
             key={current}
             question={currentQ}
+            stageKey={stageKey}
             onAnswer={handleAnswer}
             onNext={handleNext}
           />
@@ -156,6 +158,7 @@ export default function StageQuiz({
         <QuizCard
           key={current}
           question={currentQ}
+          stageKey={stageKey}
           onAnswer={handleAnswer}
           onNext={handleNext}
         />

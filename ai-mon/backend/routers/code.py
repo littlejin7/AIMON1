@@ -20,16 +20,49 @@ CODE_CLEAR_XP = 200
 
 _QUESTION_INDEX = {}
 
-def find_question(question_id: str) -> Optional[dict]:
+
+def _levels_to_try(course_level: str | None) -> list[str]:
+    levels = []
+    if course_level:
+        levels.append(course_level)
+    for level in ("beginner", "intermediate", "advanced"):
+        if level not in levels:
+            levels.append(level)
+    return levels
+
+
+def _categories_to_try(question_id: str) -> tuple[str, ...]:
+    qid = question_id or ""
+    if qid.startswith(("miniboss_", "mb_")):
+        return ("miniboss", "quiz", "unitboss", "endboss")
+    return ("quiz", "miniboss", "unitboss", "endboss")
+
+
+def find_question(
+    question_id: str,
+    *,
+    course_level: str | None = None,
+    unit: int | None = None,
+    stage: str | None = None,
+) -> Optional[dict]:
+    from routers.quiz import load_questions_by_category
+
+    for category in _categories_to_try(question_id):
+        for level in _levels_to_try(course_level):
+            for q in load_questions_by_category(category, course_level=level, unit=unit):
+                q_id = q.get("question_id") or q.get("id")
+                if q_id == question_id:
+                    return q
+
     global _QUESTION_INDEX
     if not _QUESTION_INDEX:
-        from routers.quiz import load_questions_by_category
         index = {}
         for category in ("quiz", "unitboss", "miniboss", "endboss"):
-            for q in load_questions_by_category(category):
-                q_id = q.get("question_id") or q.get("id")
-                if q_id:
-                    index[q_id] = q
+            for level in ("beginner", "intermediate", "advanced"):
+                for q in load_questions_by_category(category, course_level=level, unit=unit):
+                    q_id = q.get("question_id") or q.get("id")
+                    if q_id and q_id not in index:
+                        index[q_id] = q
         _QUESTION_INDEX = index
     return _QUESTION_INDEX.get(question_id)
 
@@ -41,7 +74,7 @@ class SubmitRequest(BaseModel):
     error:        str = Field("", max_length=4000)
     unit:         int = 1
     stage:        str = ""
-    course_level: str = "beginner"
+    course_level: str = ""
     # award=True: 정규 코드퀘 경로 — AI 관대 채점 + 200 XP + (unit,stage) 진행도 저장.
     # award=False: 채점 전용 — is_correct/score/feedback 만 반환하고 XP·진행도·user 저장을
     #              일절 하지 않는다. (Train 연습/복습, Stage-미니보스: 보상은 각 시스템이 소유)
@@ -59,12 +92,16 @@ class HintRequest(BaseModel):
 @limiter.limit("30/minute;100/day")
 async def submit_code(request: Request, req: SubmitRequest, user: dict = Depends(get_current_user)):
     user_id = user["id"]
+    course_level = req.course_level or user.get("course_level", "beginner")
 
-    question = find_question(req.question_id)
+    question = find_question(
+        req.question_id,
+        course_level=course_level,
+        unit=req.unit,
+        stage=req.stage,
+    )
     if not question:
         raise HTTPException(status_code=404, detail="Question not found")
-
-    course_level = user.get("course_level", req.course_level)
 
     level_instruction_map = {
         "beginner": (
@@ -179,7 +216,7 @@ async def submit_code(request: Request, req: SubmitRequest, user: dict = Depends
 @limiter.limit("10/minute")
 async def get_code_hint(request: Request, req: HintRequest, user: dict = Depends(get_current_user)):
 
-    question = find_question(req.question_id)
+    question = find_question(req.question_id, course_level=req.course_level)
     if not question:
         raise HTTPException(status_code=404, detail="Question not found")
 
