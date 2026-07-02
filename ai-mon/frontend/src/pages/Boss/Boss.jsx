@@ -198,7 +198,7 @@ export default function Boss() {
     }
     setLoading(true)
     try {
-      const nextRes = await bossApi.nextQuestion(lessonId)
+      const nextRes = await bossApi.nextQuestion(lessonId, battleToken)
       setCurrentQuestion(nextRes.data)
       setAiResult(null)
       setSelectedOption(null)

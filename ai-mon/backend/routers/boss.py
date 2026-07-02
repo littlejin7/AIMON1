@@ -55,6 +55,19 @@ REQUIRED_CORRECT = BOSS_HP_INIT // BOSS_HP_DELTA   # 5 (정답 누적 도달 시
 MAX_WRONG        = 3                                # 오답 누적 도달 시 패배
 
 
+def _pick_unserved_question(pool: list, served_qids: list[str]) -> dict:
+    import random
+
+    unseen = [q for q in pool if q.get("question_id") not in served_qids]
+    if not unseen:
+        raise HTTPException(status_code=404, detail="더 이상 출제할 보스 문제가 없습니다.")
+    return random.choice(unseen)
+
+
+def _legacy_served_key(unit_num: int) -> str:
+    return f"unitboss_legacy_served_{unit_num}"
+
+
 
 
 @router.get("/info")
@@ -97,9 +110,6 @@ def start_boss_battle(unit: str = "1", user: dict = Depends(get_current_user)):
 
     import random
     today = now_kst().strftime("%Y-%m-%d")
-    # unitboss_seen_questions: 유닛별 분리 (endboss_seen_questions와도 분리)
-    seen_key = f"unitboss_seen_{unit_num}" if unit_num is not None else "unitboss_seen_final"
-
     # 배틀 토큰(sid)은 서버 발급 nonce → 위조 불가. 정답 누적은 서버 세션에만 쌓인다.
     token, sid = make_battle_token(MODE, unit_num, None, user_id)
 
@@ -121,24 +131,14 @@ def start_boss_battle(unit: str = "1", user: dict = Depends(get_current_user)):
                 raise HTTPException(status_code=400, detail="왕관이 부족합니다.")
             u["crowns"] -= 1
 
-        # 문제 선택은 fresh seen 기준 (CAS 재시도 시 재선택돼도 무해)
-        if "seen_questions" not in u or u["seen_questions"] is None:
-            u["seen_questions"] = {}
-        seen_questions = u["seen_questions"]
-        seen = seen_questions.get(seen_key, [])
-        unseen = [q for q in boss_qs if q["question_id"] not in seen]
-
-        if not unseen:  # 전부 소진하면 리셋
-            seen_questions[seen_key] = []
-            seen = []
-            unseen = boss_qs
-
-        chosen = random.choice(unseen)
-        seen_questions[seen_key] = seen + [chosen["question_id"]]
-        u["seen_questions"] = seen_questions
+        chosen = random.choice(boss_qs)
 
         # 서버 권위 세션 생성: 정답 누적 REQUIRED_CORRECT(5) 도달 시에만 클리어 허용.
         create_session(u, sid, MODE, unit_num, None, REQUIRED_CORRECT, MAX_WRONG)
+        u["battle_sessions"][sid]["served_qids"] = [chosen["question_id"]]
+        if "seen_questions" not in u or u["seen_questions"] is None:
+            u["seen_questions"] = {}
+        u["seen_questions"][_legacy_served_key(unit_num)] = [chosen["question_id"]]
         return chosen
 
     try:
@@ -149,7 +149,7 @@ def start_boss_battle(unit: str = "1", user: dict = Depends(get_current_user)):
     return {"question": serialize_question(chosen), "battle_token": token}
 
 @router.post("/next")
-def get_next_question(unit: str = "1", user: dict = Depends(get_current_user)):
+def get_next_question(unit: str = "1", battle_token: str | None = None, user: dict = Depends(get_current_user)):
     user_id = user["id"]
     if unit == "final":
         raise HTTPException(status_code=400, detail="엔드보스는 /boss/endboss/next 플로우(phase3)를 사용해야 합니다.")
@@ -163,22 +163,47 @@ def get_next_question(unit: str = "1", user: dict = Depends(get_current_user)):
         raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
     import random
 
-    seen_key = f"unitboss_seen_{unit_num}" if unit_num is not None else "unitboss_seen_final"
-    if "seen_questions" not in user or user["seen_questions"] is None:
-        user["seen_questions"] = {}
-    seen_questions = user["seen_questions"]
-    seen = seen_questions.get(seen_key, [])
-    unseen = [q for q in boss_qs if q["question_id"] not in seen]
+    if battle_token:
+        payload = verify_battle_token(battle_token, user_id, MODE)
+        if payload.get("unit") != unit_num:
+            raise HTTPException(status_code=400, detail="Battle token unit mismatch")
 
-    if not unseen:  # 전부 소진하면 리셋
-        seen_questions[seen_key] = []
-        seen = []
-        unseen = boss_qs
+        def mutator(u: dict) -> dict:
+            sessions = u.get("battle_sessions") if isinstance(u.get("battle_sessions"), dict) else {}
+            sess = sessions.get(payload["sid"])
+            if not sess or sess.get("status") != "active":
+                raise HTTPException(status_code=400, detail="전투 세션이 만료되었거나 존재하지 않습니다. 다시 시작해주세요.")
 
-    chosen = random.choice(unseen)
-    seen_questions[seen_key] = seen + [chosen["question_id"]]
-    user["seen_questions"] = seen_questions
-    save_user(user)
+            served = sess.setdefault("served_qids", [])
+            chosen = _pick_unserved_question(boss_qs, served)
+            served.append(chosen["question_id"])
+            sessions[payload["sid"]] = sess
+            u["battle_sessions"] = sessions
+            return chosen
+
+        try:
+            _, chosen = mutate_user_atomic(user_id, mutator)
+        except UserNotFoundError:
+            raise HTTPException(status_code=404, detail="User not found")
+    else:
+        legacy_key = _legacy_served_key(unit_num)
+
+        def mutator(u: dict) -> dict:
+            if "seen_questions" not in u or u["seen_questions"] is None:
+                u["seen_questions"] = {}
+            served = u["seen_questions"].get(legacy_key, [])
+            try:
+                chosen = _pick_unserved_question(boss_qs, served)
+            except HTTPException:
+                served = []
+                chosen = random.choice(boss_qs)
+            u["seen_questions"][legacy_key] = served + [chosen["question_id"]]
+            return chosen
+
+        try:
+            _, chosen = mutate_user_atomic(user_id, mutator)
+        except UserNotFoundError:
+            raise HTTPException(status_code=404, detail="User not found")
     return serialize_question(chosen)  # 정답 제거(F)
 
 
