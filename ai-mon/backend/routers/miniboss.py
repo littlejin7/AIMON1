@@ -53,6 +53,7 @@ MY_HP_DELTA   = 300   # 오답 시 내 HP 감소
 # 서버 권위 클리어 조건
 # REQUIRED_CORRECT 는 HP 상수와 의도적으로 분리: 미니보스는 5문항 중 3정답이면 통과.
 # (유닛보스 REQUIRED_CORRECT=5 와 독립 — boss.py 를 건드리지 않는다)
+QUESTIONS_PER_BATTLE = 5
 REQUIRED_CORRECT = 3                                # 3정답이면 승리
 MAX_WRONG        = MY_HP_INIT // MY_HP_DELTA       # 3 (오답 누적이 이 수 도달 시 패배)
 
@@ -151,7 +152,7 @@ def miniboss_start(unit: int = 1, stage: str = "1-1", user: dict = Depends(get_c
             unseen = list(stage_qs)
 
         random.shuffle(unseen)
-        chosen = unseen[:REQUIRED_CORRECT]  # 최대 5문제
+        chosen = unseen[:QUESTIONS_PER_BATTLE]  # 최대 5문제
         miniboss_seen[stage] = [q["question_id"] for q in chosen]
         seen_questions["miniboss"] = miniboss_seen
         u["seen_questions"] = seen_questions
