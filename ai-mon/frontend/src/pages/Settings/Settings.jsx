@@ -144,7 +144,7 @@ export default function Settings() {
 
       <div className="st-topbar">
         <button className="st-back-btn" onClick={() => navigate(-1)} aria-label="뒤로">
-          ←
+          ✕
         </button>
         <span className="st-topbar-title">설정</span>
       </div>
