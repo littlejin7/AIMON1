@@ -757,3 +757,154 @@
     font-size: 0.72rem;
   }
 }
+
+/* ══════════════════════════════════════════
+   PREVIEW COUNTDOWN OVERLAY
+   ══════════════════════════════════════════ */
+.mp-countdown-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* 차분하고 세련된 미니멀 다크 모드 뱃지 디자인 - 퍼플 톤 단독 조화 (스케일 업) */
+.mp-countdown-box {
+  background: #141029; /* 주변 퍼플 테마와 잘 녹아드는 다크 바이올렛 배경 */
+  border: 2px solid var(--mp-purple-soft); /* 테두리를 네온 보라색 컬러로 변경 */
+  box-shadow: 
+    0 10px 40px rgba(15, 12, 27, 0.85), /* 깊이감 있는 어두운 그림자 강화 */
+    0 0 20px var(--mp-purple-glow), /* 은은한 네온 보라빛 글로우 광채 발산 */
+    inset 0 0 15px rgba(155, 93, 229, 0.15); /* 안쪽에도 은은한 퍼플 음영 추가 */
+  padding: 24px 64px; /* 세로 패딩을 16px에서 24px로 더 키워 세로 길이를 확장 */
+  border-radius: 18px; /* 크기 확대에 맞게 모서리 라운딩도 소폭 자연스럽게 조절 */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 24px; /* 텍스트와 숫자 간격 확대 */
+  width: auto;
+  min-width: 440px; /* 가로 최소 너비를 440px로 늘려 묵직하게 큰 배너 감각으로 */
+  /* 박스가 들썩이지 않도록 고정 (animation 제거) */
+}
+
+.mp-countdown-label {
+  font-family: 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  font-size: 1.7rem; /* 글꼴 크기를 1.35rem에서 1.7rem으로 확대 */
+  font-weight: 700; /* 뒤의 카드 텍스트 두께(700)와 일치시킴 */
+  color: var(--mp-white); /* 깔끔하고 선명한 오프화이트 텍스트 */
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.mp-countdown-num {
+  font-family: 'Consolas', 'Segoe UI', sans-serif;
+  font-size: 1.95rem; /* 숫자 크기 비율에 맞춰 스케일 업 */
+  font-weight: 900;
+  color: var(--mp-purple-soft); /* 보라색 계열로 연동 */
+  background: transparent;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  display: inline-block;
+  box-shrink: 0;
+  box-shadow: none;
+  text-shadow: 0 0 12px var(--mp-purple-glow); /* 보라색 글로우 */
+  line-height: 1;
+  animation: mpCountdownNumPop 0.3s ease-out; /* 숫자가 마운트/변경될 때마다 팝 효과 실행 */
+}
+
+/* 첫 1초 인트로 전용 배너 스타일 */
+.mp-countdown-box.is-intro {
+  min-width: 440px; /* 기존 고정 타이머 박스 너비와 완벽 대칭 */
+  padding: 24px 0; /* 좌우 패딩을 0으로 설정하여 내부 텍스트가 정확히 정중앙에 고정되게 함 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: mpCountdownIntroFade 1s forwards;
+}
+
+@keyframes mpCountdownIntroFade {
+  0% { transform: scale(0.9); opacity: 0; }
+  20% { transform: scale(1); opacity: 1; }
+  80% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0; }
+}
+
+/* 화면 정중앙에서 박스 없이 크게 뿜어져 나오는 5 4 3 2 1 카운트 숫자 */
+.mp-countdown-center-num {
+  font-family: 'Orbitron', 'Consolas', 'Fira Code', sans-serif;
+  font-size: 8rem; /* 정중앙 대형 사이즈 */
+  font-weight: 900;
+  color: #9b5de5; /* 채도가 높고 진한 명확한 보라색(에이몬 시그니처 퍼플)으로 변경 */
+  text-shadow: 
+    0 0 20px rgba(155, 93, 229, 0.6), /* 눈아프지 않도록 너무 퍼지지 않는 적당한 두께의 글로우 처리 */
+    0 4px 10px rgba(0, 0, 0, 0.9), /* 텍스트 외곽선을 잡아주기 위한 어두운 그림자 대비 강화 */
+    2px 2px 0px #1a0e3a; /* 진한 아웃라인 섀도우를 추가하여 가시성 및 눈 편안함 증대 */
+  line-height: 1;
+  text-align: center;
+  animation: mpCountdownNumPopCenter 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* START! 텍스트도 카운트다운 대형 숫자와 동일한 자이언트 크기 및 퍼플 색상으로 렌더링 */
+.mp-countdown-center-num.is-start-text {
+  font-size: 6.5rem; /* START! 글자 길이를 감안해 최적화한 자이언트 골드 크기 */
+  color: #ffffff; /* 가독성을 위해 흰색 중심 폰트 유지 */
+  text-shadow: 
+    0 0 45px rgba(155, 93, 229, 0.95), /* 보랏빛 아우라 */
+    0 10px 30px rgba(0, 0, 0, 0.8);
+  letter-spacing: 2px;
+}
+
+/* 화면 중앙 대형 숫자가 터지는 팝 모션 */
+@keyframes mpCountdownNumPopCenter {
+  0% { transform: scale(2.2); opacity: 0.1; filter: blur(5px); }
+  30% { transform: scale(0.9); opacity: 0.9; filter: blur(0px); }
+  60% { transform: scale(1.05); opacity: 1; }
+  85% { transform: scale(1.0); opacity: 1; }
+  100% { transform: scale(0.85); opacity: 0.3; } /* 서서히 잦아들며 1초 마무리 */
+}
+
+/* 박스 외부 하단으로 튕겨나가 큼직하게 연출되는 플로팅 숫자 스타일 */
+.mp-countdown-num-float {
+  position: absolute;
+  bottom: -68px; /* 바깥으로 나가되, 화면 밖으로 넘치지 않게 박스 바로 아래로 높이 상향 */
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Orbitron', 'Consolas', 'Fira Code', sans-serif;
+  font-size: 4.5rem; /* 화면 밖으로 넘치지 않는 최적의 큰 크기 */
+  font-weight: 900;
+  color: var(--mp-yellow);
+  text-shadow: 
+    0 0 25px rgba(255, 214, 10, 0.85),
+    0 4px 12px rgba(0, 0, 0, 0.7);
+  line-height: 1;
+  animation: mpCountdownNumGiantPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.mp-countdown-num.is-start {
+  color: #ffb703; /* 골드 계열과 자연스럽게 매칭되는 밝고 따뜻한 옐로우 골드 */
+  font-size: 2.1rem; /* START! 크기도 크게 확대 */
+  letter-spacing: 3px;
+  text-shadow: 0 0 16px rgba(255, 183, 3, 0.85);
+  box-shadow: none;
+  animation: mpCountdownNumPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 숫자 변경 시 튀어나오는 듯한 팝 애니메이션 */
+@keyframes mpCountdownNumPop {
+  0% { transform: scale(1.6); opacity: 0.3; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes mpCountdownNumGiantPop {
+  0% { transform: translateX(-50%) scale(1.8); opacity: 0.2; }
+  50% { transform: translateX(-50%) scale(0.9); opacity: 0.9; }
+  100% { transform: translateX(-50%) scale(1.0); opacity: 1; }
+}

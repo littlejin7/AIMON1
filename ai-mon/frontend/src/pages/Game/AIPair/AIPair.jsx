@@ -32,13 +32,35 @@ export default function AIPair() {
   const {
     deck, flippedIds, matchedIds, wrongIds,
     score, timerSec, fmtTime, won, init, onCardClick, matchedCount,
-    isPreview,
+    isPreview, previewSeconds,
   } = usePairsGame()
 
 
   return (
     <div className="mp-root">
       <button className="mp-back" onClick={() => navigate('/game')}>✕</button>
+
+      {/* 미리보기 카운트다운 */}
+      {isPreview && (
+        <div className="mp-countdown-overlay">
+          {previewSeconds === 6 ? (
+            /* 첫 1초 동안 노출되는 '기억하세요!' 인트로 전용 배너 */
+            <div className="mp-countdown-box is-intro">
+              <div className="mp-countdown-label">기억하세요!</div>
+            </div>
+          ) : previewSeconds === 'START' ? (
+            /* 마지막 START! 연출: 박스 없이 숫자와 같은 거대 골드 크기로 중앙 정렬 */
+            <div key="start-prompt" className="mp-countdown-center-num is-start-text">
+              START!
+            </div>
+          ) : (
+            /* 5, 4, 3, 2, 1 카운트다운: 박스 없이 화면 정중앙에 큼직한 골드색 숫자가 연출 */
+            <div key={previewSeconds} className="mp-countdown-center-num">
+              {previewSeconds}
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="mp-hero">
         <img className="mp-hero-char" src={charSrc} alt="캐릭터" />

@@ -35,6 +35,7 @@ export function usePairsGame() {
   const [won, setWon] = useState(false)
   const processingRef = useRef(false)
   const [isPreview, setIsPreview] = useState(false)
+  const [previewSeconds, setPreviewSeconds] = useState(5)
 
   /* 타이머 */
   useEffect(() => {
@@ -42,6 +43,25 @@ export function usePairsGame() {
     const id = setInterval(() => setTimerSec((s) => s + 1), 1000)
     return () => clearInterval(id)
   }, [running])
+
+  /* 미리보기 카운트다운 타이머 */
+  useEffect(() => {
+    if (!isPreview) return
+    const id = setInterval(() => {
+      setPreviewSeconds((s) => {
+        if (s === 1) {
+          return 'START'
+        }
+        if (s === 'START') {
+          clearInterval(id)
+          return 0
+        }
+        return s - 1
+      })
+    }, 1000)
+    return () => clearInterval(id)
+  }, [isPreview])
+
   /* 게임 초기화 (재시작마다 셔플) */
   const init = useCallback(() => {
     const picked = shuffle([...PAIRS]).slice(0, PAIRS_PER_GAME)
@@ -52,15 +72,15 @@ export function usePairsGame() {
     setScore(0)
     setTimerSec(0)
     setWon(false)
-    // 3초 미리보기 로직 추가
     setIsPreview(true)
+    setPreviewSeconds(6) // 6초로 설정: 첫 1초간은 '기억하세요!' 텍스트 배너가 출력되고 그 후에 숫자로 카운트다운
     setRunning(false)
     processingRef.current = true //미리보기 중엔 클릭 방지
     setTimeout(() => {
       setIsPreview(false)
       setRunning(true)
       processingRef.current = false
-    }, 2000)
+    }, 7000) // 총 7초 (기억하세요 배너 1초 + 5 4 3 2 1 + START 1초)
   }, [])
 
 
@@ -122,6 +142,7 @@ export function usePairsGame() {
     init,
     onCardClick,
     matchedCount: matchedIds.size / 2,
-    isPreview, // <-- 추가한 줄
+    isPreview,
+    previewSeconds,
   }
 }
