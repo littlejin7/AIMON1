@@ -76,7 +76,7 @@ export default function FindPw() {
             padding: 0,
           }}
         >
-          ← 로그인으로
+          ✕
         </button>
 
         {/* 히어로 */}
