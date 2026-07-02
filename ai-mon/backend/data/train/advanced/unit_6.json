@@ -10,7 +10,7 @@
       "code": "class ReActAgent:\n    def __init__(self, max_steps=10):\n        self.steps = 0\n        self.max_steps = max_steps\n\n    def act_and_count(self, action):\n        self.steps _____= 1\n        observation = self.observe(action)\n        return observation",
       "answer": "+",
       "feedback": {
-        "correct": "정답! `+=` 연산자로 `self.steps`를 1씩 증가시킵니다. 매 액션 호출마다 스텝 카운터가 누적되어 루프 종료 조건 판단에 활용됩니다."
+        "correct": "정답! '+=' 연산자로 'self.steps'를 1씩 증가시킵니다. 매 액션 호출마다 스텝 카운터가 누적되어 루프 종료 조건 판단에 활용됩니다."
       }
     },
     {
@@ -19,11 +19,11 @@
       "difficulty": "medium",
       "unit": "6",
       "concept": "Action-Observation 루프 - 완료 상태 파싱",
-      "question": "관찰 결과에 `\"FINAL ANSWER:\"`가 포함되면 작업 완료를 의미합니다. 반환되어야 할 완료 상태값으로 빈칸을 채워 코드를 완성하세요.",
+      "question": "관찰 결과에 '\"FINAL ANSWER:\"'가 포함되면 작업 완료를 의미합니다. 반환되어야 할 완료 상태값으로 빈칸을 채워 코드를 완성하세요.",
       "code": "def parse_observation(observation: str) -> dict:\n    if \"FINAL ANSWER:\" in observation:\n        return {\"status\": \"_____\", \"done\": True}\n    elif \"ERROR:\" in observation:\n        return {\"status\": \"error\", \"done\": False}\n    return {\"status\": \"in_progress\", \"done\": False}",
       "answer": "complete",
       "feedback": {
-        "correct": "정답! `\"FINAL ANSWER:\"` 감지 시 `status`를 `\"complete\"`로 설정합니다. 이 값은 루프 외부에서 작업 종료 여부를 판단하는 기준이 됩니다."
+        "correct": "정답! '\"FINAL ANSWER:\"' 감지 시 'status'를 '\"complete\"'로 설정합니다. 이 값은 루프 외부에서 작업 종료 여부를 판단하는 기준이 됩니다."
       }
     },
     {
@@ -32,11 +32,11 @@
       "difficulty": "hard",
       "unit": "6",
       "concept": "Action-Observation 루프 - run 메서드 전체 흐름 구현",
-      "question": "`ReActLoop`의 `run` 메서드 본문을 작성하세요. `max_steps`만큼 반복하며, 액션 타입이 `\"finish\"`이면 즉시 결과를 반환합니다. 루프가 모두 소진되면 `\"최대 스텝 초과\"`를 반환합니다.",
+      "question": "'ReActLoop'의 'run' 메서드 본문을 작성하세요. 'max_steps'만큼 반복하며, 액션 타입이 '\"finish\"'이면 즉시 결과를 반환합니다. 루프가 모두 소진되면 '\"최대 스텝 초과\"'를 반환합니다.",
       "code": "class ReActLoop:\n    def __init__(self, tools: dict, max_steps: int = 10):\n        self.tools = tools\n        self.max_steps = max_steps\n        self.history = []\n\n    def run(self, task: str) -> str:\n        _____",
       "answer": "for step in range(self.max_steps):\n            action = self._plan(task, self.history)\n            if action[\"type\"] == \"finish\":\n                return action[\"output\"]\n            tool_fn = self.tools[action[\"tool\"]]\n            obs = tool_fn(action[\"input\"])\n            self.history.append({\"step\": step, \"obs\": obs})\n        return \"최대 스텝 초과\"",
       "feedback": {
-        "correct": "정답! `range(self.max_steps)`로 반복 횟수를 제한하고, `action[\"type\"] == \"finish\"` 조건으로 조기 종료합니다. 각 스텝의 액션과 관찰 결과를 `self.history`에 누적하며, 루프 소진 시 `\"최대 스텝 초과\"`를 반환합니다."
+        "correct": "정답! 'range(self.max_steps)'로 반복 횟수를 제한하고, 'action[\"type\"] == \"finish\"' 조건으로 조기 종료합니다. 각 스텝의 액션과 관찰 결과를 'self.history'에 누적하며, 루프 소진 시 '\"최대 스텝 초과\"'를 반환합니다."
       }
     },
     {
@@ -49,7 +49,7 @@
       "code": "translate_schema = {\n    \"type\": \"object\",\n    \"properties\": {\n        \"text\": {\"type\": \"string\"},\n        \"target_lang\": {\"type\": \"string\", \"enum\": [\"ko\", \"en\", \"ja\"]}\n    },\n    \"_____\": [\"text\", \"target_lang\"]\n}",
       "answer": "required",
       "feedback": {
-        "correct": "정답! `\"required\"` 키에 필수 필드 목록을 배열로 지정합니다. `text` 또는 `target_lang`이 누락된 입력은 스키마 검증에서 즉시 실패합니다."
+        "correct": "정답! '\"required\"' 키에 필수 필드 목록을 배열로 지정합니다. 'text' 또는 'target_lang'이 누락된 입력은 스키마 검증에서 즉시 실패합니다."
       }
     },
     {
@@ -58,11 +58,11 @@
       "difficulty": "medium",
       "unit": "6",
       "concept": "JSON 스키마 - jsonschema 라이브러리 검증 함수",
-      "question": "`jsonschema` 라이브러리에서 데이터가 스키마를 준수하는지 검사하는 함수 이름으로 빈칸을 채워 코드를 완성하세요.",
+      "question": "'jsonschema' 라이브러리에서 데이터가 스키마를 준수하는지 검사하는 함수 이름으로 빈칸을 채워 코드를 완성하세요.",
       "code": "import jsonschema\n\ndef is_valid_tool_input(data: dict, schema: dict) -> bool:\n    try:\n        jsonschema._____(instance=data, schema=schema)\n        return True\n    except jsonschema.ValidationError:\n        return False",
       "answer": "validate",
       "feedback": {
-        "correct": "정답! `jsonschema.validate(instance=data, schema=schema)`는 데이터가 스키마를 위반하면 `ValidationError`를 발생시킵니다. 위반이 없으면 `None`을 반환하며, `try-except`로 이를 `bool`로 변환합니다."
+        "correct": "정답! 'jsonschema.validate(instance=data, schema=schema)'는 데이터가 스키마를 위반하면 'ValidationError'를 발생시킵니다. 위반이 없으면 'None'을 반환하며, 'try-except'로 이를 'bool'로 변환합니다."
       }
     },
     {
@@ -71,11 +71,11 @@
       "difficulty": "hard",
       "unit": "6",
       "concept": "JSON 스키마 - 전체 오류 수집 (Draft7Validator)",
-      "question": "`Draft7Validator`를 활용해 도구 입력값의 모든 스키마 위반 메시지를 리스트로 수집하는 `collect_schema_violations` 함수의 본문을 작성하세요.",
+      "question": "'Draft7Validator'를 활용해 도구 입력값의 모든 스키마 위반 메시지를 리스트로 수집하는 'collect_schema_violations' 함수의 본문을 작성하세요.",
       "code": "import jsonschema\n\ndef collect_schema_violations(data: dict, schema: dict) -> list:\n    _____",
       "answer": "validator = jsonschema.Draft7Validator(schema)\n    return [error.message for error in validator.iter_errors(data)]",
       "feedback": {
-        "correct": "정답! `Draft7Validator(schema).iter_errors(data)`는 모든 검증 오류를 이터레이터로 반환합니다. `validate()`와 달리 첫 번째 오류에서 멈추지 않으므로 전체 오류 목록을 한 번에 수집할 수 있습니다."
+        "correct": "정답! 'Draft7Validator(schema).iter_errors(data)'는 모든 검증 오류를 이터레이터로 반환합니다. 'validate()'와 달리 첫 번째 오류에서 멈추지 않으므로 전체 오류 목록을 한 번에 수집할 수 있습니다."
       }
     },
     {
@@ -88,7 +88,7 @@
       "code": "import json\n\ndef save_state(state: dict, filepath: str) -> None:\n    with open(filepath, \"w\", encoding=\"utf-8\") as f:\n        json._____(state, f, ensure_ascii=False, indent=2)",
       "answer": "dump",
       "feedback": {
-        "correct": "정답! `json.dump()`는 파이썬 객체를 파일 스트림에 직접 씁니다. 문자열로 반환하는 `json.dumps()`와 달리 두 번째 인자로 파일 객체를 받아 바로 저장합니다."
+        "correct": "정답! 'json.dump()'는 파이썬 객체를 파일 스트림에 직접 씁니다. 문자열로 반환하는 'json.dumps()'와 달리 두 번째 인자로 파일 객체를 받아 바로 저장합니다."
       }
     },
     {
@@ -101,7 +101,7 @@
       "code": "class AgentStateManager:\n    def __init__(self):\n        self.state = {\"messages\": [], \"context\": {}, \"step\": 0}\n\n    def merge(self, new_data: dict) -> None:\n        self.state._____(new_data)",
       "answer": "update",
       "feedback": {
-        "correct": "정답! `dict.update(other)`는 `other`의 키-값 쌍을 현재 딕셔너리에 덮어씁니다. `new_data`에 포함된 키만 갱신되고 나머지 기존 키는 그대로 유지됩니다."
+        "correct": "정답! 'dict.update(other)'는 'other'의 키-값 쌍을 현재 딕셔너리에 덮어씁니다. 'new_data'에 포함된 키만 갱신되고 나머지 기존 키는 그대로 유지됩니다."
       }
     },
     {
@@ -110,11 +110,11 @@
       "difficulty": "hard",
       "unit": "6",
       "concept": "에이전트 상태 영속성 - 체크포인트 복원",
-      "question": "체크포인트 파일이 있으면 해당 파일에서 상태를 불러오고, 없으면 초기 상태 `{\"step\": 0, \"messages\": [], \"completed\": False}`를 반환하는 `resume_from_checkpoint` 함수의 본문을 작성하세요.",
+      "question": "체크포인트 파일이 있으면 해당 파일에서 상태를 불러오고, 없으면 초기 상태 '{\"step\": 0, \"messages\": [], \"completed\": False}'를 반환하는 'resume_from_checkpoint' 함수의 본문을 작성하세요.",
       "code": "import json, os\n\ndef resume_from_checkpoint(checkpoint_path: str) -> dict:\n    _____",
       "answer": "if not os.path.exists(checkpoint_path):\n        return {\"step\": 0, \"messages\": [], \"completed\": False}\n    with open(checkpoint_path, \"r\", encoding=\"utf-8\") as f:\n        return json.load(f)",
       "feedback": {
-        "correct": "정답! `os.path.exists()`로 파일 존재 여부를 먼저 확인합니다. 파일이 없으면 초기 상태를 반환하고, 있으면 `json.load(f)`로 저장된 상태를 복원합니다."
+        "correct": "정답! 'os.path.exists()'로 파일 존재 여부를 먼저 확인합니다. 파일이 없으면 초기 상태를 반환하고, 있으면 'json.load(f)'로 저장된 상태를 복원합니다."
       }
     },
     {
@@ -123,11 +123,11 @@
       "difficulty": "easy",
       "unit": "6",
       "concept": "컨텍스트 관리 - 슬라이딩 윈도우",
-      "question": "메시지 리스트에서 가장 최근 `window_size`개만 유지하도록 빈칸을 채워 코드를 완성하세요.",
+      "question": "메시지 리스트에서 가장 최근 'window_size'개만 유지하도록 빈칸을 채워 코드를 완성하세요.",
       "code": "def sliding_window(messages: list, window_size: int) -> list:\n    return messages[_____:]",
       "answer": "-window_size",
       "feedback": {
-        "correct": "정답! `messages[-window_size:]`는 리스트의 마지막 `window_size`개 요소를 슬라이싱합니다. 파이썬의 음수 인덱싱을 활용한 컨텍스트 윈도우의 핵심 패턴입니다."
+        "correct": "정답! 'messages[-window_size:]'는 리스트의 마지막 'window_size'개 요소를 슬라이싱합니다. 파이썬의 음수 인덱싱을 활용한 컨텍스트 윈도우의 핵심 패턴입니다."
       }
     },
     {
@@ -140,7 +140,7 @@
       "code": "def enforce_token_budget(messages: list, max_tokens: int) -> list:\n    total = sum(len(m[\"content\"].split()) for m in messages)\n    while total > max_tokens and len(messages) > 1:\n        removed = messages._____(1)\n        total -= len(removed[\"content\"].split())\n    return messages",
       "answer": "pop",
       "feedback": {
-        "correct": "정답! `list.pop(index)`는 지정된 인덱스의 요소를 제거하고 반환합니다. `index=1`로 시스템 메시지(index 0)를 보존하면서 오래된 메시지부터 순차적으로 제거합니다."
+        "correct": "정답! 'list.pop(index)'는 지정된 인덱스의 요소를 제거하고 반환합니다. 'index=1'로 시스템 메시지(index 0)를 보존하면서 오래된 메시지부터 순차적으로 제거합니다."
       }
     },
     {
@@ -149,11 +149,11 @@
       "difficulty": "hard",
       "unit": "6",
       "concept": "컨텍스트 관리 - 시스템 메시지 보존 + 최신 메시지 유지",
-      "question": "role이 `\"system\"`인 메시지는 반드시 보존하고, 나머지는 `max_messages` 한도 내에서 가장 최신 메시지만 유지하는 `smart_context_trim` 함수의 본문을 작성하세요.",
+      "question": "role이 '\"system\"'인 메시지는 반드시 보존하고, 나머지는 'max_messages' 한도 내에서 가장 최신 메시지만 유지하는 'smart_context_trim' 함수의 본문을 작성하세요.",
       "code": "def smart_context_trim(messages: list, max_messages: int) -> list:\n    _____",
       "answer": "system = [m for m in messages if m[\"role\"] == \"system\"]\n    others = [m for m in messages if m[\"role\"] != \"system\"]\n    keep = max(0, max_messages - len(system))\n    return system + others[-keep:] if keep > 0 else system",
       "feedback": {
-        "correct": "정답! 시스템 메시지를 먼저 분리해 보존하고, 나머지는 `max_messages - len(system)` 개수만큼 최신 순으로 유지합니다. `keep`이 0 이하면 시스템 메시지만 반환합니다."
+        "correct": "정답! 시스템 메시지를 먼저 분리해 보존하고, 나머지는 'max_messages - len(system)' 개수만큼 최신 순으로 유지합니다. 'keep'이 0 이하면 시스템 메시지만 반환합니다."
       }
     },
     {
@@ -162,11 +162,11 @@
       "difficulty": "easy",
       "unit": "6",
       "concept": "재귀적 도구 호출 - 최대 깊이 초과 감지",
-      "question": "재귀 도구 호출 시 `MAX_DEPTH`를 초과하면 즉시 오류를 반환해야 합니다. '초과' 조건에 맞는 비교 연산자로 빈칸을 채워 코드를 완성하세요.",
+      "question": "재귀 도구 호출 시 'MAX_DEPTH'를 초과하면 즉시 오류를 반환해야 합니다. '초과' 조건에 맞는 비교 연산자로 빈칸을 채워 코드를 완성하세요.",
       "code": "MAX_DEPTH = 5\n\ndef recursive_tool_call(tool: str, args: dict, depth: int = 0) -> dict:\n    if depth _____ MAX_DEPTH:\n        return {\"error\": \"최대 재귀 깊이 초과\", \"depth\": depth}\n    result = call_tool(tool, args)\n    if result.get(\"next_tool\"):\n        return recursive_tool_call(result[\"next_tool\"], result[\"next_args\"], depth + 1)\n    return result",
       "answer": ">",
       "feedback": {
-        "correct": "정답! `depth > MAX_DEPTH`는 현재 깊이가 최대값을 초과했을 때 `True`가 됩니다. `depth`가 0부터 시작하므로 0~5까지 총 6번 호출이 허용되고, `depth=6`에서 차단됩니다."
+        "correct": "정답! 'depth > MAX_DEPTH'는 현재 깊이가 최대값을 초과했을 때 'True'가 됩니다. 'depth'가 0부터 시작하므로 0~5까지 총 6번 호출이 허용되고, 'depth=6'에서 차단됩니다."
       }
     },
     {
@@ -179,7 +179,7 @@
       "code": "def safe_tool_dispatch(tool_name: str, args: dict, call_log: set) -> dict:\n    signature = f\"{tool_name}:{sorted(args.items())}\"\n    if signature in _____:\n        raise RuntimeError(f\"중복 도구 호출 감지: {tool_name}\")\n    call_log.add(signature)\n    return execute_tool(tool_name, args)",
       "answer": "call_log",
       "feedback": {
-        "correct": "정답! `if signature in call_log`로 이미 실행된 시그니처가 존재하면 예외를 발생시킵니다. 이후 `call_log.add(signature)`로 현재 호출을 기록해 다음 중복 호출을 차단합니다."
+        "correct": "정답! 'if signature in call_log'로 이미 실행된 시그니처가 존재하면 예외를 발생시킵니다. 이후 'call_log.add(signature)'로 현재 호출을 기록해 다음 중복 호출을 차단합니다."
       }
     },
     {
@@ -188,11 +188,11 @@
       "difficulty": "hard",
       "unit": "6",
       "concept": "재귀적 도구 호출 - 서킷 브레이커 패턴",
-      "question": "연속 실패 횟수가 `threshold`에 도달하면 `is_open = True`로 전환해 이후 도구 호출을 차단하는 `call` 메서드의 본문을 작성하세요. 서킷이 열려 있으면 `RuntimeError`를 발생시키고, 성공 시 실패 카운터를 0으로 초기화합니다.",
+      "question": "연속 실패 횟수가 'threshold'에 도달하면 'is_open = True'로 전환해 이후 도구 호출을 차단하는 'call' 메서드의 본문을 작성하세요. 서킷이 열려 있으면 'RuntimeError'를 발생시키고, 성공 시 실패 카운터를 0으로 초기화합니다.",
       "code": "class ToolCircuitBreaker:\n    def __init__(self, failure_threshold: int = 3):\n        self.failures = 0\n        self.threshold = failure_threshold\n        self.is_open = False\n\n    def call(self, tool_fn, *args):\n        _____",
       "answer": "if self.is_open:\n            raise RuntimeError(\"Circuit breaker OPEN: 도구 호출 차단됨\")\n        try:\n            result = tool_fn(*args)\n            self.failures = 0\n            return result\n        except Exception:\n            self.failures += 1\n            if self.failures >= self.threshold:\n                self.is_open = True\n            raise",
       "feedback": {
-        "correct": "정답! 서킷이 열려 있으면 즉시 `RuntimeError`를 발생시킵니다. 성공 시 `self.failures = 0`으로 초기화하고, 실패 시 카운터를 증가시켜 `threshold`에 도달하면 `is_open = True`로 전환해 이후 호출을 차단합니다."
+        "correct": "정답! 서킷이 열려 있으면 즉시 'RuntimeError'를 발생시킵니다. 성공 시 'self.failures = 0'으로 초기화하고, 실패 시 카운터를 증가시켜 'threshold'에 도달하면 'is_open = True'로 전환해 이후 호출을 차단합니다."
       }
     }
   ]
