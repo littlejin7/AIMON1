@@ -75,7 +75,7 @@ export function PopupOver({ visible, onRetry, onHome }) {
         </div>
         <div className="popup-btn-row">
           <button className="btn btn-red" onClick={onRetry}>다시 도전!</button>
-          <button className="btn btn-gray" onClick={onHome}>홈으로</button>
+          <button className="btn btn-gray" onClick={onHome}>✕</button>
         </div>
       </div>
     </div>
@@ -103,7 +103,7 @@ export function PopupFinal({ visible, onRestart, onHome, clearData }) {
         )}
         <div className="popup-btn-row">
           <button className="btn" onClick={onRestart}>처음부터</button>
-          <button className="btn btn-gray" onClick={onHome}>홈으로</button>
+          <button className="btn btn-gray" onClick={onHome}>✕</button>
         </div>
       </div>
     </div>
