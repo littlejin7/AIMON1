@@ -6,6 +6,8 @@ import os
 from routers.utils import (
     serialize_user,
     get_current_user,
+    get_user_by_nickname,
+    normalize_nickname,
     delete_user_refresh_tokens,
     mutate_user_atomic,
     UserNotFoundError,
@@ -89,6 +91,11 @@ def update_me(req: UpdateProfileRequest, user: dict = Depends(get_current_user))
     updated_fields = [k for k, v in req.dict().items() if v is not None]
     logger.info(f"PATCH /user/me request: user_id={user['id']}, updated_fields={updated_fields}")
     user_id = user["id"]
+    next_nickname = None
+    if req.nickname is not None:
+        next_nickname = normalize_nickname(req.nickname) or user.get("username", "")
+        if get_user_by_nickname(next_nickname, exclude_user_id=user_id):
+            raise HTTPException(status_code=400, detail="이미 사용 중인 닉네임입니다.")
 
     # 검증·변경을 fresh user 기준으로 같은 임계구역에서 수행 (CLAUDE.md §1).
     # character/equipped_title 은 '소유/해금한 것'만 허용 — 위조 차단.
@@ -96,8 +103,8 @@ def update_me(req: UpdateProfileRequest, user: dict = Depends(get_current_user))
     #   - equipped_title: title_id 가 user["titles"] 에 있을 때만 (미보유 칭호 장착 차단)
     # 검증은 mutator 안(fresh u)에서 raise → write 미발생(no-op), CAS 재시도 대상 아님.
     def mutator(u: dict) -> None:
-        if req.nickname is not None:
-            u["nickname"] = req.nickname
+        if next_nickname is not None:
+            u["nickname"] = next_nickname
         if req.character is not None:
             if req.character not in _allowed_characters(u.get("lv", 1)):
                 raise HTTPException(status_code=400, detail="아직 진화하지 않은 캐릭터는 선택할 수 없습니다.")
@@ -119,6 +126,8 @@ def update_me(req: UpdateProfileRequest, user: dict = Depends(get_current_user))
         return None
 
     try:
+        if next_nickname is not None and get_user_by_nickname(next_nickname, exclude_user_id=user_id):
+            raise HTTPException(status_code=400, detail="이미 사용 중인 닉네임입니다.")
         user, _ = mutate_user_atomic(user_id, mutator)
     except UserNotFoundError:
         raise HTTPException(status_code=404, detail="User not found")

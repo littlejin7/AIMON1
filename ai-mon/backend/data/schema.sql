@@ -51,6 +51,11 @@ CREATE UNIQUE INDEX IF NOT EXISTS users_email_active_uq
   ON users (email)
   WHERE deleted_at IS NULL AND email IS NOT NULL AND email <> '';
 
+-- Future optional nickname uniqueness, apply only after cleaning duplicates:
+-- CREATE UNIQUE INDEX IF NOT EXISTS users_nickname_active_uq
+--   ON users ((lower(trim(nickname))))
+--   WHERE deleted_at IS NULL AND nickname IS NOT NULL AND trim(nickname) <> '';
+
 -- Migration helper for existing databases:
 -- ALTER TABLE users ADD COLUMN IF NOT EXISTS deleted_at TIMESTAMPTZ DEFAULT NULL;
 -- ALTER TABLE users ADD COLUMN IF NOT EXISTS version bigint NOT NULL DEFAULT 0;

@@ -17,8 +17,10 @@ from routers.utils import (
     get_user_by_id,
     get_user_by_username,
     get_user_by_email,
+    get_user_by_nickname,
     get_user_by_username_any,
     get_user_by_email_any,
+    normalize_nickname,
     save_user,
     load_reset_tokens,
     save_reset_tokens,
@@ -196,6 +198,39 @@ def _issue_auth_response(user: dict, *, is_new: bool = False, account_restored: 
     return res_data
 
 
+def _nickname_or_fallback(nickname: str | None, fallback: str) -> str:
+    cleaned = normalize_nickname(nickname)
+    return cleaned or str(fallback or "").strip()
+
+
+def _ensure_nickname_available(nickname: str, *, exclude_user_id: str | None = None) -> None:
+    if get_user_by_nickname(nickname, exclude_user_id=exclude_user_id):
+        raise HTTPException(status_code=400, detail="이미 사용 중인 닉네임입니다.")
+
+
+def _unique_social_nickname(preferred: str | None, username: str) -> str:
+    base = _nickname_or_fallback(preferred, username)
+    if not get_user_by_nickname(base):
+        return base
+
+    username_base = _nickname_or_fallback(username, "user")
+    for i in range(1, 1000):
+        candidate = f"{base}_{i}"
+        if not get_user_by_nickname(candidate):
+            return candidate
+
+    for i in range(1, 1000):
+        candidate = f"{username_base}_{i}"
+        if not get_user_by_nickname(candidate):
+            return candidate
+
+    return f"{username_base}_{uuid.uuid4().hex[:8]}"
+
+
+def _refresh_social_nickname_for_save(user: dict, username: str) -> None:
+    user["nickname"] = _unique_social_nickname(user.get("nickname"), username)
+
+
 def _restore_for_login(user: dict, updater=None) -> dict:
     if not _is_restore_eligible(user):
         raise HTTPException(status_code=401, detail=INVALID_LOGIN_DETAIL)
@@ -224,6 +259,11 @@ class FindIdRequest(BaseModel):
 def register(req: RegisterRequest, request: Request):
     if get_user_by_username(req.username):
         raise HTTPException(status_code=400, detail="이미 존재하는 아이디입니다.")
+    nickname = _nickname_or_fallback(req.nickname, req.username)
+    email = str(req.email or "").strip()
+    if email and (get_user_by_email(email) or get_user_by_username(email)):
+        raise HTTPException(status_code=400, detail="이미 사용 중인 이메일입니다.")
+    _ensure_nickname_available(nickname)
     
     # 계정 삭제를 하고 동일한 username으로 재가입한 경우 기존 탈퇴한 유저 데이터를 완전히 삭제합니다.
     # course_level: 클라 값을 쓰되 valid_levels 외의 값은 "beginner"로 fallback한다.
@@ -237,10 +277,12 @@ def register(req: RegisterRequest, request: Request):
     deleted_user = get_user_by_username_any(req.username)
     if deleted_user and deleted_user.get("deleted_at"):
         if _is_restore_eligible(deleted_user):
+            _ensure_nickname_available(nickname, exclude_user_id=deleted_user.get("id"))
+
             def restore_updater(u: dict) -> None:
                 u["password"] = hash_password(req.password)
-                u["nickname"] = req.nickname or req.username
-                u["email"] = req.email
+                u["nickname"] = nickname
+                u["email"] = email
                 u["course_level"] = level
                 u["is_level_tested"] = req.is_level_tested
                 u["marketing_agreed"] = req.marketing_agreed
@@ -263,8 +305,8 @@ def register(req: RegisterRequest, request: Request):
         "id": str(uuid.uuid4()),
         "username": req.username,
         "password": hash_password(req.password),
-        "nickname": req.nickname or req.username,
-        "email": req.email,
+        "nickname": nickname,
+        "email": email,
         "course_level": level,
         "is_level_tested": req.is_level_tested,
         "marketing_agreed": req.marketing_agreed,
@@ -287,6 +329,7 @@ def register(req: RegisterRequest, request: Request):
         "game_rewards": {},
         "created_at": now_kst().isoformat(),
     }
+    _ensure_nickname_available(new_user["nickname"])
     save_user(new_user)
     token = create_token({"sub": new_user["id"], "username": new_user["username"]}, new_user.get("token_version", 1))
     refresh_token = create_refresh_token(new_user["id"])
@@ -580,6 +623,7 @@ async def social_google(req: SocialLoginRequest, request: Request):
     is_new = False
     if not user:
         is_new = True
+        nickname = _unique_social_nickname(nickname, username)
         user = {
             "id": str(uuid.uuid4()),
             "username": username,
@@ -610,6 +654,7 @@ async def social_google(req: SocialLoginRequest, request: Request):
 
     # 신규 유저면 행을 먼저 생성해 mutate_user_atomic 대상 확보
     if is_new:
+        _refresh_social_nickname_for_save(user, username)
         save_user(user)
 
     # 로그인 스트릭 + 출석 미션(d_login auto_claim·w_streak5·login_days)을
@@ -758,6 +803,7 @@ async def social_naver(req: SocialLoginRequest, request: Request):
     is_new = False
     if not user:
         is_new = True
+        nickname = _unique_social_nickname(nickname, username)
         user = {
             "id": str(uuid.uuid4()),
             "username": username,
@@ -788,6 +834,7 @@ async def social_naver(req: SocialLoginRequest, request: Request):
 
     # 신규 유저면 행을 먼저 생성해 mutate_user_atomic 대상 확보
     if is_new:
+        _refresh_social_nickname_for_save(user, username)
         save_user(user)
 
     # 로그인 스트릭 + 출석 미션(d_login auto_claim·w_streak5·login_days)을
@@ -919,6 +966,7 @@ async def social_kakao(req: SocialLoginRequest, request: Request):
     is_new = False
     if not user:
         is_new = True
+        nickname = _unique_social_nickname(nickname, username)
         user = {
             "id": str(uuid.uuid4()),
             "username": username,
@@ -949,6 +997,7 @@ async def social_kakao(req: SocialLoginRequest, request: Request):
 
     # 신규 유저면 행을 먼저 생성해 mutate_user_atomic 대상 확보
     if is_new:
+        _refresh_social_nickname_for_save(user, username)
         save_user(user)
 
     # 로그인 스트릭 + 출석 미션(d_login auto_claim·w_streak5·login_days)을

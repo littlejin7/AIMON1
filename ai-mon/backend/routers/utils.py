@@ -227,6 +227,27 @@ def get_user_by_username_any(username: str) -> dict | None:
     return _cache_original_user(next((u for u in users if u["username"] == username), None))
 
 
+def normalize_nickname(nickname: str | None) -> str:
+    return str(nickname or "").strip()
+
+
+def get_user_by_nickname(nickname: str | None, exclude_user_id: str | None = None) -> dict | None:
+    nickname_key = normalize_nickname(nickname).casefold()
+    if not nickname_key:
+        return None
+
+    users = load_users()
+    return _cache_original_user(next(
+        (
+            u for u in users
+            if not u.get("deleted_at")
+            and (not exclude_user_id or u.get("id") != exclude_user_id)
+            and normalize_nickname(u.get("nickname")).casefold() == nickname_key
+        ),
+        None,
+    ))
+
+
 def get_user_by_email_any(email: str) -> dict | None:
     if USE_SUPABASE:
         res = supabase.table("users").select("*").eq("email", email).execute()
