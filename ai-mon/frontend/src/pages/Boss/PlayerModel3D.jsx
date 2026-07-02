@@ -2,8 +2,17 @@ import { useRef, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 
-export default function PlayerModel3D({ myShake, attackAnim }) {
-  const { scene } = useGLTF('/models/player.glb')
+export default function PlayerModel3D({ myShake, attackAnim, character, position = [0, -0.4, 0], scale }) {
+const MODEL_MAP = {
+  slime:         { path: '/models/player_beginner.glb',     scale: 0.48, offsetY: 0.4 },
+  robot:         { path: '/models/player_intermediate.glb', scale: 3.5, offsetY: 0 },
+  speech_bubble: { path: '/models/player_advanced.glb',     scale: 4, offsetY: 0 },
+  final_ghost:   { path: '/models/player_final.glb',        scale: 0.65, offsetY: 0.8 },
+}
+const modelData = MODEL_MAP[character] ?? { path: '/models/player.glb', scale: 0.78, offsetY: 0 }
+const { scene } = useGLTF(modelData.path)
+const modelScale = scale ?? modelData.scale
+const modelOffsetY = modelData.offsetY
   const meshRef = useRef()
   const shakeRef = useRef(0)
   const attackProgress = useRef(0)
@@ -12,7 +21,7 @@ export default function PlayerModel3D({ myShake, attackAnim }) {
     if (!meshRef.current) return
 
     // idle - 위아래 부유
-    meshRef.current.position.y = Math.sin(state.clock.elapsedTime * 1.5) * 0.05
+    meshRef.current.position.y = position[1] + modelOffsetY + Math.sin(state.clock.elapsedTime * 1.5) * 0.05
 
     // 피격 시 좌우 흔들림
     if (myShake) {
@@ -76,13 +85,7 @@ export default function PlayerModel3D({ myShake, attackAnim }) {
   }, [myShake, attackAnim, scene])
 
   return (
-    <primitive
-      ref={meshRef}
-      object={scene}
-      scale={0.78}
-      position={[0, -0.3, 0]}
-      rotation={[0, Math.PI * 0.15, 0]}  // 보스 방향으로 약간 회전
-    />
+    <primitive ref={meshRef} object={scene} scale={modelScale} position={position} rotation={[0, Math.PI * 0.25, 0]} />
   )
 }
 

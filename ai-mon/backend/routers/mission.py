@@ -68,11 +68,7 @@ def claim_mission(req: ClaimRequest, user_ref: dict = Depends(get_current_user))
     if defn is None:
         raise HTTPException(status_code=404, detail="Mission not found")
 
-    if defn.get("auto_claim"):
-        raise HTTPException(
-            status_code=400,
-            detail="This mission is auto-claimed on completion",
-        )
+    # 모든 미션 수동 수령 가능
 
     user_id = user_ref["id"]
     mission_id = req.mission_id

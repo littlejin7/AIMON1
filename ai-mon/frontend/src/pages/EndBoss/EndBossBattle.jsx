@@ -1,8 +1,8 @@
-import endbossQnaIcon from '../../assets/endboss_finalqna.png'
-import charSlimeIcon  from '../../assets/character_slime.png'
-import charRobotIcon  from '../../assets/character_robot.png'
-import charBubbleIcon from '../../assets/character_bubble.png'
-import charGhostIcon  from '../../assets/character_final_ghost.png'
+import BossModel3D from '../Boss/BossModel3D'
+import PlayerModel3D from '../Boss/PlayerModel3D'
+import endbossBg from '../../assets/endbossbg.png'
+import { useState, useEffect, Suspense } from 'react'
+import { Canvas } from '@react-three/fiber'
 import ErrorFindLines from '../../components/QuizCard/ErrorFindLines'
 import '../../components/QuizCard/QuizCard.css'
 
@@ -52,11 +52,6 @@ export default function EndBossBattle({
   const bossPct = Math.max(0, (bossHp / BOSS_HP_MAX) * 100)
   const myHpPct = Math.max(0, (myHp  / MY_HP_MAX)   * 100)
 
-  const characterIcon =
-    user?.character === 'robot'         ? charRobotIcon  :
-    user?.character === 'speech_bubble' ? charBubbleIcon :
-    user?.character === 'final_ghost'   ? charGhostIcon  :
-    charSlimeIcon
 
   const parsed = parseQuestionText(currentQuestion.question)
   const badge  = TYPE_BADGE[currentQuestion.type] ?? TYPE_BADGE.multiple_choice
@@ -86,26 +81,13 @@ export default function EndBossBattle({
     <div className="eb-b-wrap">
 
       {/* ── 전투 배경 ── */}
-      <div className="eb-b-bg">
+      <div className="eb-b-bg" style={{ backgroundImage: `url(${endbossBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="eb-b-ground-top" />
         <div className="eb-b-ground-bot" />
+        <div className="eb-b-hp-sub">Phase {phase} 진행 중</div>
 
-        {/* 보스 HP 박스 */}
-        <div className="eb-b-boss-hpbox">
-          <div className="eb-b-hp-name">😈 {bossData?.boss_name || '엔드보스'}</div>
-          <div className="eb-b-hp-sub">Phase {phase} 진행 중</div>
-          <div className="eb-b-hp-bar-wrap">
-            <span className="eb-b-hp-label">HP</span>
-            <div className="eb-b-hp-track">
-              <div className="eb-b-hp-fill" style={{ width: `${bossPct}%`, background: bossHpGrad }} />
-            </div>
-          </div>
-          <div className="eb-b-hp-nums">{bossHp} / {BOSS_HP_MAX}</div>
-        </div>
-
-        {/* 플레이어 HP 박스 */}
-        <div className={`eb-b-player-hpbox${myShake ? ' shake' : ''}`}>
-          <div className="eb-b-hp-name">내 에이몬</div>
+        {/* 플레이어 HP 박스 — 상단 왼쪽 */}
+        <div className={`eb-b-player-hpbox${myShake ? ' shake' : ''}`} style={{ top: '8px', bottom: 'auto', left: '8px' }}>
           {phase === 3 ? (
             <div className="eb-b-hearts">
               {[0, 1, 2].map(i => (
@@ -127,20 +109,39 @@ export default function EndBossBattle({
           )}
         </div>
 
-        {/* 보스 이미지 */}
-        <img
-          className={`eb-b-boss-img${bossShake ? ' shake' : ''}${bossHit ? ' hit' : ''}`}
-          src={endbossQnaIcon}
-          alt="엔드보스"
-        />
+        {/* 보스 HP 박스 — 상단 오른쪽 */}
+        <div className="eb-b-boss-hpbox" style={{ top: '8px', right: '8px' }}>
+          <div className="eb-b-hp-bar-wrap">
+            <span className="eb-b-hp-label">HP</span>
+            <div className="eb-b-hp-track">
+              <div className="eb-b-hp-fill" style={{ width: `${bossPct}%`, background: bossHpGrad }} />
+            </div>
+          </div>
+          <div className="eb-b-hp-nums">{bossHp} / {BOSS_HP_MAX}</div>
+        </div>
 
-        {/* 플레이어 캐릭터 */}
-        <img
-          className={`eb-b-player-img${attackAnim ? ' atk' : ''}`}
-          src={characterIcon}
-          alt="내 캐릭터"
-        />
+        {/* 플레이어 3D — 하단 왼쪽 */}
+        <div className={`eb-b-player-canvas${myShake ? ' hit-red' : ''}`} style={{ bottom: '-40px', top: 'auto', left: '0px', width: '170px', height: '170px' }}>
+          <Canvas camera={{ position: [0, 0, 3], fov: 40 }} style={{ background: 'transparent' }} gl={{ alpha: true }}>
+            <ambientLight intensity={2.5} />
+            <directionalLight position={[2, 4, 2]} intensity={2.0} />
+            <Suspense fallback={null}>
+              <PlayerModel3D myShake={myShake} attackAnim={attackAnim} character={user?.character} position={[0, -0.5, 0]} rotation={[0, Math.PI * 0.15, 0]} />
+            </Suspense>
+          </Canvas>
+        </div>
 
+        {/* 보스 3D — 하단 오른쪽 */}
+        <div className={`eb-b-boss-canvas${bossHit ? ' hit-red' : ''}`} style={{ bottom: '15px', top: 'auto', right: '0px', width: '200px', height: '200px' }}>
+          <Canvas camera={{ position: [0, 0, 3], fov: 50 }} style={{ background: 'transparent' }} gl={{ alpha: true }}>
+            <ambientLight intensity={3.5} />
+            <directionalLight position={[6, 4, 6]} intensity={1.5} />
+            <Suspense fallback={null}>
+              <BossModel3D bossHit={bossHit} bossShake={bossShake} modelPath="/models/boss_endboss.glb" scale={1} position={[4, -0.1, 0]} />
+            </Suspense>
+          </Canvas>
+        </div>
+        
         {/* 데미지 팝업 */}
         {dmgPopup && <div className="eb-b-dmg-popup">-{dmgPopup}</div>}
       </div>
@@ -178,7 +179,7 @@ export default function EndBossBattle({
               choicesList={choicesList}
               selected={selectedChoiceFull}
               revealed={!!aiResult}
-              answer={currentQuestion.answer}
+              answer={aiResult?.correct_answer ?? currentQuestion.answer}
               onSelect={(opt) => setSelectedOption(opt.substring(0, 1))}
               onSubmit={onSubmit}
             />

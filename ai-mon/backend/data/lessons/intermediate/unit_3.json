@@ -5,98 +5,107 @@
     "stage": "3-1",
     "course_level": "intermediate",
     "title": "lambda 익명 함수",
-    "villain": "speechbubble_king",
+    "villain": "codemmon",
     "slides": [
       {
         "order": 1,
-        "text": "lambda는 def 없이 한 줄로 함수를 정의하는 문법입니다. 이름을 붙이지 않아도 되는 \"익명 함수\"로, 간단한 연산을 짧게 표현할 때 사용합니다.",
+        "text": "lambda는 def 없이 한 줄로 함수를 만드는 방법이에요.\n이름이 없는 '익명 함수'라고도 불러요.",
         "terminal": {
           "code": [
-            "add = lambda x, y: x + y"
+            "add = lambda x, y: x + y",
+            "print(add(3, 5))"
           ],
-          "output": []
+          "output": [
+            "8"
+          ]
         },
-        "tip": "lambda 뒤에 매개변수, 콜론(:) 뒤에 반환값 표현식이 옵니다. return 키워드는 쓰지 않아요."
+        "tip": "lambda 뒤에 매개변수, 콜론(:) 뒤에 반환값을 써요. return은 쓰지 않아도 돼요."
       },
       {
         "order": 2,
-        "text": "def로 정의한 함수와 lambda는 동일한 동작을 합니다. 단, lambda는 표현식(expression) 하나만 작성할 수 있어 복잡한 로직에는 적합하지 않습니다.",
+        "text": "def로 만든 함수와 lambda는 똑같이 동작해요.\nlambda는 코드가 짧을 때 편하게 쓸 수 있어요.",
         "terminal": {
           "code": [
             "# def 방식",
-            "def square(x):",
-            "    return x ** 2",
+            "def double(x):",
+            "    return x * 2",
             "",
             "# lambda 방식",
-            "square = lambda x: x ** 2",
+            "double2 = lambda x: x * 2",
             "",
-            "print(square(5))"
+            "print(double(4))",
+            "print(double2(4))"
           ],
           "output": [
-            "25"
+            "8",
+            "8"
           ]
         },
-        "tip": "두 방식의 결과는 동일합니다. lambda는 단순한 변환 연산이나 일회성 로직에 주로 사용됩니다."
+        "tip": "두 방식의 결과는 완전히 같아요. lambda는 단순한 계산에 주로 써요."
       },
       {
         "order": 3,
-        "text": "파이썬의 `sort()`나 `sorted()` 함수는 `key` 매개변수를 통해 정렬 기준을 바꿀 수 있습니다. 이때 lambda 함수를 지정하여 정렬 기준을 변경할 수 있습니다.",
+        "text": "sorted()의 key에 lambda를 넣으면 정렬 기준을 바꿀 수 있어요.",
         "terminal": {
           "code": [
-            "pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]",
-            "pairs.sort(key=lambda pair: len(pair[1]))",
-            "print(pairs)"
+            "words = ['banana', 'kiwi', 'apple', 'fig']",
+            "result = sorted(words, key=lambda w: len(w))",
+            "print(result)"
           ],
           "output": [
-            "[(1, 'one'), (2, 'two'), (4, 'four'), (3, 'three')]"
+            "['fig', 'kiwi', 'apple', 'banana']"
           ]
         },
-        "tip": "딕셔너리의 value 값을 기준으로 정렬하고 싶을 때도 `key=lambda x: x[1]` 패턴을 가장 많이 사용합니다."
+        "tip": "key=lambda w: len(w)는 '단어 길이 순으로 정렬해줘'라는 뜻이에요."
       },
       {
         "order": 4,
-        "text": "lambda 함수 내부에서는 if-else 삼항 연산자(조건 표현식)를 사용하여 간단한 조건 분기를 처리할 수 있습니다.",
+        "text": "lambda 안에서 if-else를 써서 간단한 조건도 처리할 수 있어요.",
         "terminal": {
           "code": [
-            "check_even = lambda n: 'Even' if n % 2 == 0 else 'Odd'",
-            "print(check_even(4))",
-            "print(check_even(7))"
+            "check = lambda n: '짝수' if n % 2 == 0 else '홀수'",
+            "print(check(4))",
+            "print(check(7))"
           ],
           "output": [
-            "Even",
-            "Odd"
+            "짝수",
+            "홀수"
           ]
         },
-        "tip": "`값1 if 조건 else 값2` 형태로 작성하며, 반드시 else 분기까지 작성해 주어야 문법 에러가 나지 않습니다."
+        "tip": "'값1 if 조건 else 값2' 형태예요. else까지 꼭 써야 오류가 안 나요."
       },
       {
         "order": 5,
-        "text": "lambda 함수는 map(), filter() 같은 다른 함수를 인자로 받는 '고차 함수'와 함께 사용할 때 진가를 발휘합니다.",
+        "text": "map()과 lambda를 함께 쓰면 리스트 전체에 함수를 한 번에 적용할 수 있어요.",
         "terminal": {
           "code": [
-            "nums = [1, 2, 3, 4, 5]",
-            "squared = list(map(lambda x: x**2, nums))",
-            "print(squared)"
+            "nums = [1, 2, 3, 4]",
+            "doubled = list(map(lambda x: x * 2, nums))",
+            "print(doubled)"
           ],
           "output": [
-            "[1, 4, 9, 16, 25]"
+            "[2, 4, 6, 8]"
           ]
         },
-        "tip": "map()과 filter()의 결과물은 이터레이터 객체이므로, 눈으로 내용을 확인하려면 list()로 감싸 변환해야 합니다."
+        "tip": "map() 결과는 list()로 감싸야 내용을 볼 수 있어요."
       },
       {
         "order": 6,
-        "text": "파이썬 스타일 가이드(PEP 8)에서는 lambda 함수에 이름을 할당하는 방식보다 def를 직접 사용하는 것을 권장합니다.",
+        "text": "lambda는 짧고 간단한 곳에서 써요.\n복잡한 로직은 def로 만드는 게 더 읽기 쉬워요.",
         "terminal": {
           "code": [
-            "names = ['Alice', 'Bob', 'Charlie']",
-            "print(sorted(names, key=lambda x: x[-1]))"
+            "# 간단한 건 lambda",
+            "square = lambda x: x ** 2",
+            "",
+            "# 복잡한 건 def",
+            "def grade(score):",
+            "    if score >= 90: return 'A'",
+            "    elif score >= 80: return 'B'",
+            "    else: return 'C'"
           ],
-          "output": [
-            "['Bob', 'Alice', 'Charlie']"
-          ]
+          "output": []
         },
-        "tip": "디버깅 시 lambda 함수는 추적 장치(Traceback)에 <lambda>로만 표시되어 에러 위치를 찾기 어려울 수 있으니 주의하세요!"
+        "tip": "lambda는 한 줄 표현식만 쓸 수 있어요. 여러 줄이 필요하면 def를 써요."
       }
     ]
   },
@@ -106,116 +115,113 @@
     "stage": "3-2",
     "course_level": "intermediate",
     "title": "*args와 **kwargs",
-    "villain": "speechbubble_king",
+    "villain": "codemmon",
     "slides": [
       {
         "order": 1,
-        "text": "함수를 정의할 때 매개변수 앞에 별표 하나(*)를 붙이면, 함수 호출 시 넘겨진 여러 개의 위치 인자들을 하나의 튜플(Tuple)로 묶어서(Packing) 받습니다.",
+        "text": "함수를 정의할 때 *args를 쓰면 인자를 몇 개든 받을 수 있어요.\n받은 값들은 튜플로 묶여서 들어와요.",
         "terminal": {
           "code": [
-            "def sum_all(*args):",
-            "    print('입력된 args:', args)",
+            "def add_all(*args):",
+            "    print(args)",
             "    return sum(args)",
             "",
-            "print('결과:', sum_all(1, 2, 3))"
+            "print(add_all(1, 2, 3))"
           ],
           "output": [
-            "입력된 args: (1, 2, 3)",
-            "결과: 6"
+            "(1, 2, 3)",
+            "6"
           ]
         },
-        "tip": "꼭 args라는 이름을 쓰지 않아도 되지만, 파이썬 커뮤니티의 강력한 관례이므로 *args를 사용하는 것이 좋습니다."
+        "tip": "args라는 이름은 관례예요. *를 붙이는 게 핵심이에요."
       },
       {
         "order": 2,
-        "text": "매개변수 앞에 별표 두 개(**)를 붙이면, 함수 호출 시 넘겨진 키워드 인자(이름=값)들을 하나의 딕셔너리(Dictionary)로 묶어서 받습니다.",
+        "text": "**kwargs를 쓰면 '이름=값' 형태로 인자를 몇 개든 받을 수 있어요.\n받은 값들은 딕셔너리로 묶여서 들어와요.",
         "terminal": {
           "code": [
             "def print_info(**kwargs):",
-            "    print('입력된 kwargs:', kwargs)",
+            "    print(kwargs)",
             "",
             "print_info(name='에이몬', level=3)"
           ],
           "output": [
-            "입력된 kwargs: {'name': '에이몬', 'level': 3}"
+            "{'name': '에이몬', 'level': 3}"
           ]
         },
-        "tip": "kwargs는 Keyword Arguments의 약자이며, 내부적으로 키-값 쌍을 자유롭게 조회할 수 있습니다."
+        "tip": "kwargs는 Keyword Arguments의 줄임말이에요."
       },
       {
         "order": 3,
-        "text": "함수 정의 시 일반 매개변수, *args, **kwargs를 함께 사용할 때는 반드시 정해진 순서를 지켜야 합니다. 순서는 `일반 변수 -> *args -> **kwargs` 순서입니다.",
+        "text": "일반 매개변수, *args, **kwargs를 함께 쓸 때는 순서가 중요해요.\n반드시 '일반 → *args → **kwargs' 순서로 써야 해요.",
         "terminal": {
           "code": [
-            "def mixed_func(a, b, *args, **kwargs):",
-            "    print(f'a: {a}, b: {b}')",
-            "    print(f'args: {args}')",
-            "    print(f'kwargs: {kwargs}')",
+            "def show(a, *args, **kwargs):",
+            "    print('a:', a)",
+            "    print('args:', args)",
+            "    print('kwargs:', kwargs)",
             "",
-            "mixed_func(1, 2, 3, 4, x=100, y=200)"
+            "show(1, 2, 3, x=10)"
           ],
           "output": [
-            "a: 1, b: 2",
-            "args: (3, 4)",
-            "kwargs: {'x': 100, 'y': 200}"
+            "a: 1",
+            "args: (2, 3)",
+            "kwargs: {'x': 10}"
           ]
         },
-        "tip": "앞서 들어온 1과 2는 차례대로 고정 매개변수 a, b에 할당되고 남은 인자들이 가변 인자로 흡수됩니다."
+        "tip": "1은 a에, 2와 3은 args에, x=10은 kwargs에 들어가요."
       },
       {
         "order": 4,
-        "text": "함수를 호출할 때 리스트나 튜플 앞에 *를 붙이면, 내부 요소들이 각각 분리되어 독립된 인자로 함수에 전달됩니다. 이를 언패킹(Unpacking)이라고 합니다.",
+        "text": "리스트 앞에 *를 붙여서 함수에 넘기면 각 요소가 따로따로 인자로 전달돼요.\n이걸 '언패킹'이라고 해요.",
         "terminal": {
           "code": [
-            "def introduce(name, age, city):",
-            "    print(f'{name}({age}세)님은 {city}에 살고 있습니다.')",
+            "def greet(name, age):",
+            "    print(f'{name}({age}세)')",
             "",
-            "user_data = ['이호성', 27, '부산']",
-            "introduce(*user_data)"
+            "info = ['에이몬', 20]",
+            "greet(*info)"
           ],
           "output": [
-            "이호성(27세)님은 부산에 살고 있습니다."
+            "에이몬(20세)"
           ]
         },
-        "tip": "언패킹할 때는 컨테이너의 요소 개수와 함수의 매개변수 개수가 정확히 일치해야 오류가 나지 않습니다."
+        "tip": "리스트 요소 수와 매개변수 수가 같아야 오류가 안 나요."
       },
       {
         "order": 5,
-        "text": "딕셔너리 형태로 저장된 데이터를 함수의 키워드 인자로 풀어서 전달하고 싶을 때는 호출 시 딕셔너리 앞에 **를 붙입니다.",
+        "text": "딕셔너리 앞에 **를 붙여서 함수에 넘기면 키-값이 키워드 인자로 전달돼요.",
         "terminal": {
           "code": [
-            "def config_server(host, port, debug):",
-            "    print(f'Server running on {host}:{port} (Debug: {debug})')",
+            "def connect(host, port):",
+            "    print(f'{host}:{port}에 연결')",
             "",
-            "options = {'host': '127.0.0.1', 'port': 8080, 'debug': True}",
-            "config_server(**options)"
+            "config = {'host': 'localhost', 'port': 8080}",
+            "connect(**config)"
           ],
           "output": [
-            "Server running on 127.0.0.1:8080 (Debug: True)"
+            "localhost:8080에 연결"
           ]
         },
-        "tip": "딕셔너리의 key와 함수의 매개변수 이름이 일치해야 합니다."
+        "tip": "딕셔너리 키 이름과 매개변수 이름이 같아야 해요."
       },
       {
         "order": 6,
-        "text": "*args와 **kwargs를 사용하면 어떤 형태의 인자든 그대로 받아서 다른 함수로 통째로 전달(포워딩)할 수 있습니다.",
+        "text": "*args와 **kwargs를 잘 쓰면 어떤 인자든 유연하게 받을 수 있어요.",
         "terminal": {
           "code": [
-            "def wrapper_func(*args, **kwargs):",
-            "    print('--- 로깅 시작 ---')",
-            "    result = max(*args, **kwargs)",
-            "    print('--- 로깅 종료 ---')",
-            "    return result",
+            "def log(*args, **kwargs):",
+            "    print('값:', args)",
+            "    print('옵션:', kwargs)",
             "",
-            "print('최대값:', wrapper_func(5, 12, 8, 2))"
+            "log(1, 2, 3, mode='debug')"
           ],
           "output": [
-            "--- 로깅 시작 ---",
-            "--- 로깅 종료 ---",
-            "최대값: 12"
+            "값: (1, 2, 3)",
+            "옵션: {'mode': 'debug'}"
           ]
         },
-        "tip": "인자를 받아서 다시 보낼 때는 정의할 때처럼 함수 내부 호출부에서도 별표(*, **)를 반드시 붙여주어야 풀려서 들어갑니다."
+        "tip": "*는 위치 인자, **는 키워드 인자를 모아줘요."
       }
     ]
   },
@@ -224,12 +230,12 @@
     "unit": 3,
     "stage": "3-3",
     "course_level": "intermediate",
-    "title": "재귀 함수 (Recursion)",
-    "villain": "speechbubble_king",
+    "title": "재귀 함수",
+    "villain": "codemmon",
     "slides": [
       {
         "order": 1,
-        "text": "재귀 함수(Recursive Function)는 함수 정의 내부에서 자기 자신을 다시 호출하는 함수를 말합니다. 복잡한 문제를 더 작은 단위의 동일한 문제로 쪼개어 해결할 때 유용합니다.",
+        "text": "재귀 함수는 함수 안에서 자기 자신을 다시 호출하는 함수예요.\n반복되는 구조를 표현할 때 유용해요.",
         "terminal": {
           "code": [
             "def countdown(n):",
@@ -248,27 +254,30 @@
             "발사!"
           ]
         },
-        "tip": "러시아 인형(마트료시카)을 열면 안에 똑같은 인형이 계속 나오는 구조를 떠올려 보세요!"
+        "tip": "함수가 자기 자신을 부르면서 숫자를 하나씩 줄여가요."
       },
       {
         "order": 2,
-        "text": "재귀 함수를 만들 때 가장 중요한 것은 무한 루프에 빠지지 않도록 탈출 경로를 설정하는 것입니다. 이 탈출 조건을 '기저 조건(Base Case)'이라고 부릅니다.",
+        "text": "재귀 함수에서 가장 중요한 건 '멈추는 조건'이에요.\n멈추는 조건이 없으면 무한 반복되다가 오류가 나요.",
         "terminal": {
           "code": [
-            "def infinite_recurs(n):",
-            "    return infinite_recurs(n + 1)",
+            "# 멈추는 조건 없는 예 — 실행 X",
+            "# def forever(n):",
+            "# return forever(n + 1)",
             "",
-            "infinite_recurs(1)"
+            "# 멈추는 조건 있는 예",
+            "def countdown(n):",
+            "    if n <= 0: return   # 멈추는 조건",
+            "    print(n)",
+            "    countdown(n - 1)"
           ],
-          "output": [
-            "RecursionError: maximum recursion depth exceeded"
-          ]
+          "output": []
         },
-        "tip": "파이썬은 무한 재귀로 인한 메모리 파괴를 막기 위해 기본적으로 재귀 호출 횟수를 제한(기본 약 1,000회)해 두었습니다."
+        "tip": "멈추는 조건을 '기저 조건'이라고 해요. 재귀 함수를 만들 때 가장 먼저 생각해야 해요."
       },
       {
         "order": 3,
-        "text": "수학에서 n 팩토리얼(n!)은 1부터 n까지의 모든 양의 정수를 곱한 값입니다. 이는 n! = n * (n-1)! 이라는 재귀적 성질을 가지므로, 함수로 깔끔하게 표현할 수 있습니다.",
+        "text": "팩토리얼(n!)은 재귀로 깔끔하게 표현할 수 있어요.\n5! = 5 × 4 × 3 × 2 × 1 = 120이에요.",
         "terminal": {
           "code": [
             "def factorial(n):",
@@ -282,67 +291,76 @@
             "120"
           ]
         },
-        "tip": "factorial(5)는 5 * factorial(4)가 되고, 최종적으로 5 * 4 * 3 * 2 * 1이 계산되어 반환됩니다."
+        "tip": "factorial(5)는 5 × factorial(4)로 풀리고, 계속 이어지다가 factorial(1)에서 멈춰요."
       },
       {
         "order": 4,
-        "text": "함수가 호출되면 메모리의 '스택(Stack)' 영역에 함수의 실행 정보가 쌓입니다. 재귀 함수는 기저 조건에 도달할 때까지 스택을 계속 위로 쌓아 올렸다가 역순으로 풀립니다.",
+        "text": "재귀 함수가 실행되는 흐름을 print로 확인해봐요.\n들어갈 때와 나올 때의 순서가 반대예요.",
         "terminal": {
           "code": [
-            "def trace_stack(n):",
+            "def trace(n):",
             "    if n == 0: return",
-            "    print(f'진입: {n}')",
-            "    trace_stack(n - 1)",
-            "    print(f'탈출: {n}')",
+            "    print(f'들어감: {n}')",
+            "    trace(n - 1)",
+            "    print(f'나감: {n}')",
             "",
-            "trace_stack(3)"
+            "trace(3)"
           ],
           "output": [
-            "진입: 3",
-            "진입: 2",
-            "진입: 1",
-            "탈출: 1",
-            "탈출: 2",
-            "탈출: 3"
+            "들어감: 3",
+            "들어감: 2",
+            "들어감: 1",
+            "나감: 1",
+            "나감: 2",
+            "나감: 3"
           ]
         },
-        "tip": "먼저 들어간 함수가 가장 나중에 끝나는 LIFO(Last In, First Out) 구조로 실행 메커니즘이 작동합니다."
+        "tip": "가장 나중에 들어간 함수가 가장 먼저 나와요. 쌓이고 역순으로 풀리는 구조예요."
       },
       {
         "order": 5,
-        "text": "피보나치 수열은 앞의 두 수를 더해 다음 수를 만드는 수열입니다. 재귀로 직관적인 코딩이 가능하지만, 숫자가 커질수록 동일한 하위 문제를 중복 계산하므로 성능이 악화됩니다.",
+        "text": "재귀로 리스트의 합도 구할 수 있어요.\nfor 루프 없이 같은 결과를 낼 수 있어요.",
         "terminal": {
           "code": [
-            "def fibonacci(n):",
-            "    if n <= 1: return n",
-            "    return fibonacci(n - 1) + fibonacci(n - 2)",
+            "def list_sum(nums):",
+            "    if len(nums) == 0:",
+            "        return 0",
+            "    return nums[0] + list_sum(nums[1:])",
             "",
-            "print(fibonacci(6))"
+            "print(list_sum([1, 2, 3, 4]))"
           ],
           "output": [
-            "8"
+            "10"
           ]
         },
-        "tip": "이런 중복 계산 문제를 해결하기 위해 나중에는 '메모이제이션(Memoization)'이나 반복문을 통한 동적 계획법을 배우게 됩니다."
+        "tip": "nums[1:]은 첫 번째 요소를 뺀 나머지 리스트예요."
       },
       {
         "order": 6,
-        "text": "모든 재귀 함수는 반복문(for/while)으로 변환이 가능합니다. 반복문은 메모리 공간을 덜 차지해 성능상 유리하지만, 재귀 함수는 트리 구조 탐색 등에서 훨씬 뛰어난 가독성을 제공합니다.",
+        "text": "같은 결과를 for 루프로도 만들 수 있어요.\n간단한 경우엔 반복문이 더 읽기 쉬울 때도 있어요.",
         "terminal": {
           "code": [
+            "# 재귀 방식",
+            "def factorial(n):",
+            "    if n == 1: return 1",
+            "    return n * factorial(n - 1)",
+            "",
+            "# 반복문 방식",
             "def factorial_loop(n):",
             "    result = 1",
             "    for i in range(1, n + 1):",
             "        result *= i",
             "    return result",
             "",
+            "print(factorial(5))",
             "print(factorial_loop(5))"
           ],
           "output": [
+            "120",
             "120"
           ]
         },
-        "tip": "알고리즘의 복잡도와 가독성, 메모리 제약을 모두 고려하여 최적의 방식을 선택하는 시야를 넓혀보세요!"
+        "tip": "둘 다 120이 나와요. 상황에 따라 더 읽기 쉬운 방식을 골라서 써요."
       }
     ]
   },
@@ -351,114 +369,104 @@
     "unit": 3,
     "stage": "3-4",
     "course_level": "intermediate",
-    "title": "일급 객체와 고차 함수",
-    "villain": "speechbubble_king",
+    "title": "고차 함수 — map과 filter",
+    "villain": "codemmon",
     "slides": [
       {
         "order": 1,
-        "text": "파이썬의 함수는 '일급 객체(First-Class Object)'입니다. 즉, 함수를 일반 변수처럼 다룰 수 있습니다. 변수에 대입하거나, 다른 함수의 인자로 전달하고, 결과로 반환할 수도 있습니다.",
+        "text": "파이썬에서 함수는 변수에 담거나 다른 함수에 넘겨줄 수 있어요.\n함수 자체를 인자로 받는 함수를 '고차 함수'라고 해요.",
         "terminal": {
           "code": [
             "def greet(name):",
             "    return f'안녕, {name}!'",
             "",
-            "say_hello = greet",
-            "print(say_hello('에이몬'))"
+            "say = greet          # 함수를 변수에 담기",
+            "print(say('에이몬'))"
           ],
           "output": [
             "안녕, 에이몬!"
           ]
         },
-        "tip": "함수 이름 뒤에 괄호 ()를 붙이면 함수를 실행하는 것이고, 괄호 없이 이름만 쓰면 함수 객체 자체를 가리키는 것입니다."
+        "tip": "함수 이름 뒤에 ()가 없으면 함수를 '실행'하는 게 아니라 '가리키는' 거예요."
       },
       {
         "order": 2,
-        "text": "함수를 인자로 받거나 함수를 결과로 반환하는 함수를 '고차 함수(Higher-Order Function)'라고 부릅니다. 조건에 맞는 요소만 골라내는 filter() 함수 등이 이에 해당합니다.",
+        "text": "map(함수, 리스트)은 리스트의 모든 요소에 함수를 하나씩 적용해요.",
         "terminal": {
           "code": [
-            "def buster(func, value):",
-            "    return func(value) * 2",
-            "",
-            "print(buster(lambda x: x + 5, 10))"
+            "nums = [1, 2, 3, 4]",
+            "squared = list(map(lambda x: x ** 2, nums))",
+            "print(squared)"
           ],
           "output": [
-            "30"
+            "[1, 4, 9, 16]"
           ]
         },
-        "tip": "우리가 자주 쓰는 sorted()의 key 매개변수도 함수를 인자로 받는 대표적인 고차 함수 구조입니다."
+        "tip": "map() 결과는 list()로 감싸야 내용을 볼 수 있어요."
       },
       {
         "order": 3,
-        "text": "`map(함수, 이터러블)`은 반복 가능한 객체의 모든 요소에 지정된 함수를 하나씩 적용하여 새로운 형태의 데이터 흐름으로 변환해 주는 고차 함수입니다.",
+        "text": "문자열 리스트를 숫자로 바꿀 때도 map()을 쓸 수 있어요.",
         "terminal": {
           "code": [
-            "str_nums = ['1', '2', '3', '4']",
+            "str_nums = ['1', '2', '3']",
             "int_nums = list(map(int, str_nums))",
             "print(int_nums)"
           ],
           "output": [
-            "[1, 2, 3, 4]"
+            "[1, 2, 3]"
           ]
         },
-        "tip": "데이터 구조 전체를 순회하는 무거운 for 루프문을 간결하게 한 줄로 대체할 수 있는 강력한 무기입니다."
+        "tip": "int 자체를 함수처럼 넘겨줄 수 있어요. lambda 없이도 돼요."
       },
       {
         "order": 4,
-        "text": "`filter(함수, 이터러블)`은 이터러블의 요소 중 지정된 함수가 True를 반환하는 요소들만 쏙쏙 골라내어 필터링해 주는 함수입니다.",
+        "text": "filter(함수, 리스트)는 함수가 True를 반환하는 요소만 골라내요.",
         "terminal": {
           "code": [
-            "ages = [15, 23, 18, 32, 9, 21]",
-            "adults = list(filter(lambda age: age >= 20, ages))",
-            "print(adults)"
+            "nums = [1, 2, 3, 4, 5, 6]",
+            "evens = list(filter(lambda x: x % 2 == 0, nums))",
+            "print(evens)"
           ],
           "output": [
-            "[23, 32, 21]"
+            "[2, 4, 6]"
           ]
         },
-        "tip": "아무것도 필터링하고 싶지 않고 참인 값만 남기고 싶다면 첫 번째 인자에 None을 넣으면 됩니다."
+        "tip": "lambda가 True를 반환하는 요소만 남아요."
       },
       {
         "order": 5,
-        "text": "바깥쪽 함수의 변수를 참조하는 중첩 함수 패턴인 '클로저(Closure)'를 설계할 수 있습니다. 이를 통해 상태를 안전하게 은닉하고 동적으로 동작하는 함수를 생성합니다.",
+        "text": "map()과 filter()를 함께 쓸 수 있어요.\n먼저 거르고, 그 다음 변환하는 순서로 쓰는 경우가 많아요.",
         "terminal": {
           "code": [
-            "def make_formatter(prefix, suffix):",
-            "    return lambda text: f'{prefix}{text}{suffix}'",
-            "",
-            "tag_h1 = make_formatter('<h1>', '</h1>')",
-            "print(tag_h1('에이몬'))"
+            "ages = [15, 23, 18, 30, 12]",
+            "adults = list(filter(lambda a: a >= 20, ages))",
+            "labels = list(map(lambda a: f'{a}세 성인', adults))",
+            "print(labels)"
           ],
           "output": [
-            "<h1>에이몬</h1>"
+            "['23세 성인', '30세 성인']"
           ]
         },
-        "tip": "make_formatter는 호출할 때마다 다른 동작을 하는 함수를 반환합니다. 이 패턴은 템플릿 생성, 로깅, 데코레이터 구현에서 자주 등장해요."
+        "tip": "filter로 먼저 고른 뒤, map으로 형태를 바꿔요."
       },
       {
         "order": 6,
-        "text": "지금까지 배운 lambda, *args/**kwargs, 재귀, 고차 함수를 하나의 파이프라인으로 조합합니다. 데이터를 입력받아 변환 → 필터링 → 정렬까지 한 번에 처리하는 패턴입니다.",
+        "text": "함수를 인자로 직접 만들어서 넘겨줄 수도 있어요.",
         "terminal": {
           "code": [
-            "def pipeline(data, *funcs):",
-            "    result = data",
-            "    for func in funcs:",
-            "        result = func(result)",
-            "    return result",
+            "def apply(func, value):",
+            "    return func(value)",
             "",
-            "data = [3, -1, 4, -1, 5, -9, 2, 6]",
-            "",
-            "result = pipeline(",
-            "    data,",
-            "    lambda lst: list(filter(lambda x: x > 0, lst)),",
-            "    lambda lst: sorted(lst)",
-            ")",
-            "print(result)"
+            "print(apply(lambda x: x * 3, 5))",
+            "print(apply(str.upper, 'hello'))"
           ],
           "output": [
-            "[2, 3, 4, 5, 6]"
+            "15",
+            "HELLO"
           ]
         },
-        "tip": "각 단계를 독립된 익명 함수나 일반 함수로 분리해 관리하므로 데이터 가공 공정을 매우 유연하게 조립할 수 있습니다."
+        "tip": "apply()는 어떤 함수든 받아서 실행해줘요. 이게 고차 함수의 핵심이에요."
       }
     ]
   },
@@ -467,117 +475,113 @@
     "unit": 3,
     "stage": "3-5",
     "course_level": "intermediate",
-    "title": "데이터 필터 파이프라인 실습 및 종합요약",
-    "villain": "speechbubble_king",
+    "title": "함수심화 종합실습",
+    "villain": "codemmon",
     "slides": [
       {
         "order": 1,
-        "text": "이번 스테이지에서는 날것의 데이터를 가공하고 정제하는 '데이터 필터 파이프라인(Data Pipeline)' 프로젝트를 직접 구축해 봅니다.",
+        "text": "Unit 3에서 배운 내용을 정리해봐요.\nlambda, *args/**kwargs, 재귀, map/filter를 차례로 복습해요.",
         "terminal": {
           "code": [
-            "raw_logs = [",
-            "    '  ERROR: DB Connection Fail ',",
-            "    'INFO: User Login',",
-            "    '  WARNING: High CPU Usage   ',",
-            "    'ERROR: Network Timeout '",
-            "]",
-            "clean_logs = list(map(str.strip, raw_logs))",
-            "print(clean_logs)"
+            "# Unit 3 핵심 정리",
+            "# lambda     : 한 줄 익명 함수",
+            "# *args      : 위치 인자를 튜플로 받기",
+            "# **kwargs   : 키워드 인자를 딕셔너리로 받기",
+            "# 재귀       : 자기 자신을 호출하는 함수",
+            "# map/filter : 리스트 변환·필터링 고차 함수"
           ],
-          "output": [
-            "['ERROR: DB Connection Fail', 'INFO: User Login', 'WARNING: High CPU Usage', 'ERROR: Network Timeout']"
-          ]
+          "output": []
         },
-        "tip": "str.strip처럼 내장 메서드 자체를 고차 함수의 인자로 직접 넘겨줄 수도 있습니다."
+        "tip": "각 개념이 언제 필요한지 상황을 떠올리는 게 중요해요."
       },
       {
         "order": 2,
-        "text": "정제된 로그 데이터 중 우리가 추적하고 싶은 'ERROR' 등급의 심각한 데이터만 filter() 함수와 람다를 조합하여 추출하는 공정을 추가합니다.",
+        "text": "이름 리스트를 lambda와 map으로 한 번에 변환해봐요.",
         "terminal": {
           "code": [
-            "clean_logs = ['ERROR: DB Connection Fail', 'INFO: User Login', 'WARNING: High CPU Usage', 'ERROR: Network Timeout']",
-            "error_logs = list(filter(lambda log: log.startswith('ERROR'), clean_logs))",
-            "print(error_logs)"
+            "names = ['alice', 'bob', 'carol']",
+            "upper_names = list(map(lambda n: n.upper(), names))",
+            "print(upper_names)"
           ],
           "output": [
-            "['ERROR: DB Connection Fail', 'ERROR: Network Timeout']"
+            "['ALICE', 'BOB', 'CAROL']"
           ]
         },
-        "tip": "startswith() 메서드를 활용하면 문자열의 시작 부분만 명확하게 검사할 수 있습니다."
+        "tip": "lambda n: n.upper()는 str.upper와 같은 역할을 해요."
       },
       {
         "order": 3,
-        "text": "파이프라인 함수가 유연하게 작동하도록, *filters 가변 인자를 받아 여러 가공 규칙들을 순차적으로 적용하는 범용 기계를 만들어 봅시다.",
+        "text": "*args로 여러 숫자를 받아서 짝수만 골라 반환하는 함수를 만들어봐요.",
         "terminal": {
           "code": [
-            "def run_pipeline(data, *filters):",
-            "    current_data = data",
-            "    for filter_func in filters:",
-            "        current_data = filter_func(current_data)",
-            "    return current_data",
+            "def even_only(*args):",
+            "    return list(filter(lambda x: x % 2 == 0, args))",
             "",
-            "data = [' apple ', ' BANANA', '  Orange ']",
-            "steps = [",
-            "    lambda arr: list(map(str.strip, arr)),",
-            "    lambda arr: list(map(str.lower, arr))",
-            "]",
-            "print(run_pipeline(data, *steps))"
-          ],
-          "output": [
-            "['apple', 'banana', 'orange']"
-          ]
-        },
-        "tip": "인자로 넘겨준 함수 리스트가 루프를 돌며 데이터를 단계별로 완벽하게 변환해 냅니다."
-      },
-      {
-        "order": 4,
-        "text": "실제 회원가입 폼 데이터(딕셔너리 리스트)가 주어졌을 때, 유효하지 않은 데이터를 거르고 형식을 일괄 변환하여 정제 데이터셋을 생산해 봅시다.",
-        "terminal": {
-          "code": [
-            "users = [",
-            "    {'name': 'kim', 'age': 17},",
-            "    {'name': 'lee', 'age': 25},",
-            "    {'name': 'park', 'age': 31}",
-            "]",
-            "adult_names = list(map(lambda u: u['name'].upper(), filter(lambda u: u['age'] >= 20, users)))",
-            "print('정제된 명단:', adult_names)"
-          ],
-          "output": [
-            "정제된 명단: ['LEE', 'PARK']"
-          ]
-        },
-        "tip": "map과 filter를 적절히 중첩하여 사용하면 한 문장 안에서 거르기와 바꾸기가 동시에 완성됩니다."
-      },
-      {
-        "order": 5,
-        "text": "이번 유닛에서 배운 핵심 개념 4가지(lambda 익명 함수, 가변 인자 패킹/언패킹, 재귀 알고리즘, 고차 함수 연산)를 복습하고 정리합시다.",
-        "terminal": {
-          "code": [
-            "print((lambda *args: [x * 2 for x in args])(1, 2, 3))"
+            "print(even_only(1, 2, 3, 4, 5, 6))"
           ],
           "output": [
             "[2, 4, 6]"
           ]
         },
-        "tip": "이 코드들이 눈에 잘 들어온다면 여러분은 이미 중급 함수 마스터 과정을 완벽히 이해한 것입니다!"
+        "tip": "*args로 받은 튜플도 filter()에 바로 넣을 수 있어요."
+      },
+      {
+        "order": 4,
+        "text": "재귀로 문자열을 거꾸로 뒤집는 함수를 만들어봐요.",
+        "terminal": {
+          "code": [
+            "def reverse_str(s):",
+            "    if len(s) == 0:",
+            "        return ''",
+            "    return reverse_str(s[1:]) + s[0]",
+            "",
+            "print(reverse_str('hello'))"
+          ],
+          "output": [
+            "olleh"
+          ]
+        },
+        "tip": "s[1:]은 첫 글자를 뺀 나머지, s[0]은 첫 글자예요. 역순으로 이어붙여요."
+      },
+      {
+        "order": 5,
+        "text": "학생 점수 데이터에서 80점 이상만 골라서 이름을 대문자로 출력해봐요.",
+        "terminal": {
+          "code": [
+            "students = [",
+            "    {'name': 'kim', 'score': 75},",
+            "    {'name': 'lee', 'score': 88},",
+            "    {'name': 'park', 'score': 92}",
+            "]",
+            "",
+            "passed = list(filter(lambda s: s['score'] >= 80, students))",
+            "names = list(map(lambda s: s['name'].upper(), passed))",
+            "print(names)"
+          ],
+          "output": [
+            "['LEE', 'PARK']"
+          ]
+        },
+        "tip": "filter로 먼저 80점 이상만 고르고, map으로 이름만 꺼내서 대문자로 바꿔요."
       },
       {
         "order": 6,
-        "text": "함수 심화 유닛의 모든 스테이지 학습이 끝났습니다. 다음 관문인 고약한 빌런 코데몬(Codemmon)과의 유닛 보스전에서 디버깅 역량을 시험해 보세요!",
+        "text": "Unit 3 완료! 다음 Unit에서는 클래스와 OOP(객체지향 프로그래밍)를 배워요.",
         "terminal": {
           "code": [
+            "# Unit 3 완료 확인",
             "def clear_unit_3():",
-            "    print('✨ Intermediate Unit 3 완료!')",
-            "    print('🐉 유닛 보스 코데몬의 도전장 수락 가능')",
+            "    print('Unit 3 완료!')",
+            "    print('다음: 클래스 & OOP')",
             "",
             "clear_unit_3()"
           ],
           "output": [
-            "✨ Intermediate Unit 3 완료!",
-            "🐉 유닛 보스 코데몬의 도전장 수락 가능"
+            "Unit 3 완료!",
+            "다음: 클래스 & OOP"
           ]
         },
-        "tip": "보스전으로 넘어가기 전에 이전 스테이지 퀴즈 오답 노트를 한 번 더 복습하고 도전하는 것을 강력히 추천합니다!"
+        "tip": "lambda, 재귀, map/filter는 이후 코드에서 계속 등장해요. 익숙해질수록 자연스럽게 써지게 돼요!"
       }
     ]
   }

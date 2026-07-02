@@ -1,18 +1,18 @@
 import logging
 import httpx
 
-# Patches for httpx Client/AsyncClient init: drop proxy/proxies kwargs that newer httpx versions don't support
+# Patches for httpx Client/AsyncClient init to support 'proxy' argument (gotrue expects it, but httpx 0.25.2 uses 'proxies')
 orig_client_init = httpx.Client.__init__
 def patched_client_init(self, *args, **kwargs):
-    kwargs.pop("proxy", None)
-    kwargs.pop("proxies", None)
+    if "proxy" in kwargs:
+        kwargs["proxies"] = kwargs.pop("proxy")
     orig_client_init(self, *args, **kwargs)
 httpx.Client.__init__ = patched_client_init
 
 orig_async_client_init = httpx.AsyncClient.__init__
 def patched_async_client_init(self, *args, **kwargs):
-    kwargs.pop("proxy", None)
-    kwargs.pop("proxies", None)
+    if "proxy" in kwargs:
+        kwargs["proxies"] = kwargs.pop("proxy")
     orig_async_client_init(self, *args, **kwargs)
 httpx.AsyncClient.__init__ = patched_async_client_init
 
@@ -24,6 +24,7 @@ import time
 import tempfile
 import contextvars
 import copy
+import uuid
 from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 from slowapi import Limiter
@@ -216,6 +217,157 @@ def get_user_by_username(username: str) -> dict | None:
     ))
 
 
+def get_user_by_username_any(username: str) -> dict | None:
+    if USE_SUPABASE:
+        res = supabase.table("users").select("*").eq("username", username).execute()
+        if res.data:
+            return _cache_original_user(res.data[0])
+        return None
+    users = load_users()
+    return _cache_original_user(next((u for u in users if u["username"] == username), None))
+
+
+def get_user_by_email_any(email: str) -> dict | None:
+    if USE_SUPABASE:
+        res = supabase.table("users").select("*").eq("email", email).execute()
+        if res.data:
+            return _cache_original_user(res.data[0])
+        return None
+    users = load_users()
+    return _cache_original_user(next((u for u in users if u.get("email") == email), None))
+
+
+def restore_soft_deleted_user(user_id: str, updater=None) -> dict:
+    def mutator(u: dict) -> None:
+        u.pop("deleted_at", None)
+        u["token_version"] = u.get("token_version", 1) + 1
+        if updater:
+            updater(u)
+        return None
+
+    restored, _ = mutate_user_atomic(user_id, mutator)
+    return restored
+
+
+def delete_soft_deleted_user_by_username(username: str) -> None:
+    if USE_SUPABASE:
+        # Delete from users table (cascades to progress, wrong_answers, attempts, refresh_tokens)
+        supabase.table("users").delete().eq("username", username).not_.is_("deleted_at", "null").execute()
+    else:
+        users = _read_users_unlocked()
+        to_delete_ids = [u["id"] for u in users if u["username"] == username and u.get("deleted_at")]
+        if not to_delete_ids:
+            return
+        
+        new_users = [u for u in users if not (u["username"] == username and u.get("deleted_at"))]
+        _write_users_unlocked(new_users)
+        
+        # Clean up progress
+        if os.path.exists(PROGRESS_FILE):
+            progress = _load_json_locked(PROGRESS_FILE, [])
+            new_progress = [p for p in progress if p.get("user_id") not in to_delete_ids]
+            _save_json_locked(PROGRESS_FILE, new_progress)
+            
+        # Clean up wrong answers
+        if os.path.exists(WRONG_ANSWERS_FILE):
+            wrong = _load_json_locked(WRONG_ANSWERS_FILE, [])
+            new_wrong = [w for w in wrong if w.get("user_id") not in to_delete_ids]
+            _save_json_locked(WRONG_ANSWERS_FILE, new_wrong)
+            
+        # Clean up attempts
+        if os.path.exists(ATTEMPTS_FILE):
+            attempts = _load_json_locked(ATTEMPTS_FILE, [])
+            new_attempts = [a for a in attempts if a.get("user_id") not in to_delete_ids]
+            _save_json_locked(ATTEMPTS_FILE, new_attempts)
+
+
+def purge_soft_deleted_users(retention_days: int = 30, now: Optional[datetime] = None, dry_run: bool = False) -> dict:
+    """Purge users soft-deleted longer than `retention_days`.
+
+    Supabase path deletes rows from `users` and relies on FK cascade for related tables.
+    JSON path deletes matching users and related local data files directly.
+    """
+    ref_now = now or now_kst()
+    cutoff = ref_now - timedelta(days=retention_days)
+    result = {
+        "retention_days": retention_days,
+        "cutoff": cutoff.isoformat(),
+        "deleted_user_ids": [],
+        "deleted_count": 0,
+        "dry_run": dry_run,
+    }
+
+    if USE_SUPABASE:
+        res = (
+            supabase.table("users")
+            .select("id")
+            .not_.is_("deleted_at", "null")
+            .lt("deleted_at", cutoff.isoformat())
+            .execute()
+        )
+        rows = res.data or []
+        user_ids = [row.get("id") for row in rows if row.get("id")]
+        result["deleted_user_ids"] = user_ids
+        result["deleted_count"] = len(user_ids)
+        if dry_run or not user_ids:
+            return result
+
+        (
+            supabase.table("users")
+            .delete()
+            .not_.is_("deleted_at", "null")
+            .lt("deleted_at", cutoff.isoformat())
+            .execute()
+        )
+        return result
+
+    users = _read_users_unlocked()
+    to_delete_ids = []
+    kept_users = []
+    for user in users:
+        deleted_at = user.get("deleted_at")
+        if not deleted_at:
+            kept_users.append(user)
+            continue
+        try:
+            deleted_dt = datetime.fromisoformat(str(deleted_at))
+        except Exception:
+            logger.warning("purge_soft_deleted_users: invalid deleted_at for user_id=%s", user.get("id"))
+            kept_users.append(user)
+            continue
+
+        if deleted_dt <= cutoff:
+            if user.get("id"):
+                to_delete_ids.append(user["id"])
+        else:
+            kept_users.append(user)
+
+    result["deleted_user_ids"] = to_delete_ids
+    result["deleted_count"] = len(to_delete_ids)
+    if dry_run or not to_delete_ids:
+        return result
+
+    _write_users_unlocked(kept_users)
+
+    if os.path.exists(PROGRESS_FILE):
+        progress = _load_json_locked(PROGRESS_FILE, [])
+        _save_json_locked(PROGRESS_FILE, [p for p in progress if p.get("user_id") not in to_delete_ids])
+
+    if os.path.exists(WRONG_ANSWERS_FILE):
+        wrong = _load_json_locked(WRONG_ANSWERS_FILE, [])
+        _save_json_locked(WRONG_ANSWERS_FILE, [w for w in wrong if w.get("user_id") not in to_delete_ids])
+
+    if os.path.exists(ATTEMPTS_FILE):
+        attempts = _load_json_locked(ATTEMPTS_FILE, [])
+        _save_json_locked(ATTEMPTS_FILE, [a for a in attempts if a.get("user_id") not in to_delete_ids])
+
+    if os.path.exists(REFRESH_TOKENS_FILE):
+        tokens = _load_json_locked(REFRESH_TOKENS_FILE, [])
+        _save_json_locked(REFRESH_TOKENS_FILE, [t for t in tokens if t.get("user_id") not in to_delete_ids])
+
+    return result
+
+
 def get_user_by_email(email: str) -> dict | None:
     if USE_SUPABASE:
         res = supabase.table("users").select("*").eq("email", email).is_("deleted_at", "null").execute()
@@ -270,7 +422,7 @@ def save_user(user: dict):
     if USE_SUPABASE:
         if original:
             numeric_cols = {"xp", "crowns", "lv", "streak", "daily_free_attempts", "ai_feedback_count"}
-            jsonb_cols = {"max_unlocked_unit", "completed_units", "awarded_crown_units", "earned_streak_milestones", "titles", "game_rewards", "seen_questions", "endboss_cleared_levels", "miniboss_cleared_stages", "unitboss_cleared_units"}
+            jsonb_cols = {"max_unlocked_unit", "completed_units", "awarded_crown_units", "earned_streak_milestones", "titles", "game_rewards", "seen_questions", "endboss_cleared_levels", "miniboss_cleared_stages", "unitboss_cleared_units", "battle_sessions"}
             
             numeric_deltas = {}
             jsonb_merges = {}
@@ -426,6 +578,38 @@ def _write_users_unlocked(users: list):
 # 키가 끼면 update 가 "column not found" 로 500 난다. 코어 strip 이 이를 원천 차단.
 _DERIVED_USER_FIELDS = ("boss_cleared", "completed_stages")
 
+COURSE_LEVEL_ORDER = ("beginner", "intermediate", "advanced")
+NEXT_COURSE_LEVEL = {
+    "beginner": "intermediate",
+    "intermediate": "advanced",
+}
+
+
+def derive_course_level_from_endboss(user: dict) -> str:
+    """Return the highest course level unlocked by cleared endboss records."""
+    level = user.get("course_level", "beginner")
+    if level not in COURSE_LEVEL_ORDER:
+        level = "beginner"
+
+    cleared = user.get("endboss_cleared_levels") or []
+    if not isinstance(cleared, list):
+        cleared = []
+    cleared_set = set(cleared)
+
+    while level in cleared_set and level in NEXT_COURSE_LEVEL:
+        level = NEXT_COURSE_LEVEL[level]
+    return level
+
+
+def promote_course_level_from_endboss(user: dict) -> bool:
+    """Mutate user.course_level when endboss clear history unlocks the next level."""
+    current = user.get("course_level", "beginner")
+    promoted = derive_course_level_from_endboss(user)
+    if promoted != current:
+        user["course_level"] = promoted
+        return True
+    return False
+
 
 def _strip_derived_fields(user: dict) -> None:
     """progress 파생 카운터를 영속화 직전 제거한다. SSOT=progress. (제자리 변경)"""
@@ -564,16 +748,60 @@ def save_wrong_answer_item(item: dict):
 # ── Attempts (풀이 전수 기록) ──────────────────────────────────────────────
 # 정오답 무관·AI 피드백과 독립적으로 채점 순간마다 1건 append (retry 포함 전수).
 # 운영은 Supabase attempts 테이블이 단일 진실. JSON 분기는 dev 폴백 전용이다.
+def _attempt_log_context(item: dict) -> dict:
+    """Return only non-sensitive attempt fields for diagnostics."""
+    allowed = {
+        "id",
+        "user_id",
+        "question_id",
+        "unit",
+        "stage",
+        "level",
+        "mode",
+        "is_correct",
+        "answered_at",
+    }
+    return {k: item.get(k) for k in allowed if k in item}
+
+
+def _normalize_attempt_item_for_supabase(item: dict) -> dict | None:
+    normalized = item.copy()
+    user_id = normalized.get("user_id")
+    if user_id is None:
+        return normalized
+    try:
+        normalized["user_id"] = str(uuid.UUID(str(user_id)))
+    except (TypeError, ValueError, AttributeError):
+        logger.warning(
+            "save_attempt_item: skipping Supabase attempts write because user_id is not a valid uuid; item=%s",
+            _attempt_log_context(normalized),
+        )
+        return None
+    return normalized
+
+
 def save_attempt_item(item: dict):
     if USE_SUPABASE:
         # id 가 매 호출 새 uuid 라 upsert 는 사실상 insert (append-only). 기존
         # save_wrong_answer_item 과 동일 패턴으로 맞춘다.
-        supabase.table("attempts").upsert(item).execute()
+        item = _normalize_attempt_item_for_supabase(item)
+        if item is None:
+            return False
+        try:
+            supabase.table("attempts").upsert(item).execute()
+            return True
+        except Exception:
+            logger.exception(
+                "save_attempt_item: Supabase attempts upsert failed; item=%s",
+                _attempt_log_context(item),
+            )
+            return False
     else:
         # dev 전용 폴백
         attempts = _load_json_locked(ATTEMPTS_FILE, [])
         attempts.append(item)
         _save_json_locked(ATTEMPTS_FILE, attempts)
+        return True
 
 
 def get_attempts_by_user(user_id: str) -> list:

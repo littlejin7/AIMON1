@@ -55,10 +55,10 @@
       "choices": [
         "A. 1 2 3",
         "B. 0 1 2 3",
-        "C. 0\\n1\\n2",
-        "D. 1\\n2\\n3"
+        "C. 0\n1\n2",
+        "D. 1\n2\n3"
       ],
-      "answer": "C. 0\\n1\\n2",
+      "answer": "C. 0\n1\n2",
       "feedback": {
         "correct": "정답! range(3)은 0, 1, 2이고 print는 매번 줄바꿈을 하므로 세 줄에 나눠 출력돼요."
       }
@@ -116,12 +116,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nfor i in range(1, 4):\n      print(i * 2)\n```",
       "choices": [
-        "A. 2\\n4\\n6\\n8",
-        "B. 2\\n4\\n6",
-        "C. 0\\n2\\n4\\n6",
-        "D. 1\\n2\\n3"
+        "A. 2\n4\n6",
+        "B. 2\n4\n6",
+        "C. 0\n2\n4\n6",
+        "D. 1\n2\n3"
       ],
-      "answer": "B. 2\\n4\\n6",
+      "answer": "B. 2\n4\n6",
       "feedback": {
         "correct": "정답! 1×2=2, 2×2=4, 3×2=6이에요. range(1, 4)는 1, 2, 3이에요."
       }
@@ -137,12 +137,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nfor i in range(0, 10, 3):\n      print(i)\n```",
       "choices": [
-        "A. 3\\n6\\n9",
-        "B. 0\\n3\\n6",
-        "C. 0\\n3\\n6\\n9",
-        "D. 0\\n2\\n4\\n6\\n8"
+        "A. 3\n6\n9",
+        "B. 0\n3\n6",
+        "C. 0\n3\n6\n9",
+        "D. 0\n2\n4\n6\n8"
       ],
-      "answer": "C. 0\\n3\\n6\\n9",
+      "answer": "C. 0\n3\n6\n9",
       "feedback": {
         "correct": "정답! range(시작, 끝, 증가폭)이에요. 0, 3, 6, 9이고 다음은 12로 10 이상이라 멈춰요."
       }
@@ -243,11 +243,11 @@
       "question": "다음 코드의 출력 결과는?\n\n```python\nnums = [10, 20, 30]\n  for n in nums:\n      print(n)\n```",
       "choices": [
         "A. [10, 20, 30]",
-        "B. 10\\n20\\n30",
+        "B. 10\n20\n30",
         "C. 10 20 30",
         "D. n n n"
       ],
-      "answer": "B. 10\\n20\\n30",
+      "answer": "B. 10\n20\n30",
       "feedback": {
         "correct": "정답! for문은 리스트 원소를 순서대로 꺼내고, print는 줄바꿈을 하며 출력해요."
       }
@@ -263,12 +263,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nanimals = [\"고양이\", \"강아지\", \"토끼\"]\n  for a in animals:\n      print(\"안녕, \" + a)\n```",
       "choices": [
-        "A. 안녕, a\\n안녕, a\\n안녕, a",
-        "B. 고양이\\n강아지\\n토끼",
-        "C. 안녕, 고양이\\n안녕, 강아지\\n안녕, 토끼",
+        "A. 안녕, a\n안녕, a\n안녕, a",
+        "B. 고양이\n강아지\n토끼",
+        "C. 안녕, 고양이\n안녕, 강아지\n안녕, 토끼",
         "D. 안녕, 고양이 안녕, 강아지 안녕, 토끼"
       ],
-      "answer": "C. 안녕, 고양이\\n안녕, 강아지\\n안녕, 토끼",
+      "answer": "C. 안녕, 고양이\n안녕, 강아지\n안녕, 토끼",
       "feedback": {
         "correct": "정답! 반복마다 a에 고양이, 강아지, 토끼가 차례로 들어가고, 각각 \"안녕, \" + a가 출력돼요."
       }
@@ -284,7 +284,7 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nnums = [1, 2, 3, 4]\n  total = 0\n  for n in nums:\n      total += n\n  print(total)\n```",
       "choices": [
-        "A. 1\\n2\\n3\\n4",
+        "A. 1\n2\n3\n4",
         "B. [1, 2, 3, 4]",
         "C. 4",
         "D. 10"
@@ -326,12 +326,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nscores = [80, 90, 70]\n  for s in scores:\n      if s >= 80:\n          print(\"합격\")\n```",
       "choices": [
-        "A. 합격\\n합격\\n합격",
-        "B. 합격\\n합격",
+        "A. 합격\n합격\n합격",
+        "B. 합격\n합격",
         "C. 합격",
-        "D. 80\\n90"
+        "D. 80\n90"
       ],
-      "answer": "B. 합격\\n합격",
+      "answer": "B. 합격\n합격",
       "feedback": {
         "correct": "정답! 80과 90만 조건을 통과해요. \"합격\"이 두 번 출력돼요."
       }
@@ -347,12 +347,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nwords = [\"hi\", \"hello\", \"hey\"]\n  for w in words:\n      print(w.upper())\n```",
       "choices": [
-        "A. hi\\nhello\\nhey",
+        "A. hi\nhello\nhey",
         "B. HI HELLO HEY",
-        "C. HI\\nHELLO\\nHEY",
+        "C. HI\nHELLO\nHEY",
         "D. [\"HI\", \"HELLO\", \"HEY\"]"
       ],
-      "answer": "C. HI\\nHELLO\\nHEY",
+      "answer": "C. HI\nHELLO\nHEY",
       "feedback": {
         "correct": "정답! .upper()는 대문자로 변환이에요. print는 매번 줄바꿈을 하므로 세 줄이 출력돼요."
       }
@@ -413,7 +413,7 @@
         "A. A B C",
         "B. ABC",
         "C. [\"A\", \"B\", \"C\"]",
-        "D. A\\nB\\nC"
+        "D. A\nB\nC"
       ],
       "answer": "B. ABC",
       "feedback": {
@@ -452,12 +452,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\ninfo = {\"name\": \"에이몬\", \"lv\": 5}\n  for key in info:\n      print(key)\n```",
       "choices": [
-        "A. 에이몬\\n5",
-        "B. name\\nlv",
-        "C. name: 에이몬\\nlv: 5",
+        "A. 에이몬\n5",
+        "B. name\nlv",
+        "C. name: 에이몬\nlv: 5",
         "D. {\"name\": \"에이몬\", \"lv\": 5}"
       ],
-      "answer": "B. name\\nlv",
+      "answer": "B. name\nlv",
       "feedback": {
         "correct": "정답! for문으로 딕셔너리를 순회하면 키만 나와요. \"name\", \"lv\"가 출력돼요."
       }
@@ -473,12 +473,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nscores = {\"수학\": 90, \"영어\": 80}\n  for subject, score in scores.items():\n      print(subject + \": \" + str(score))\n```",
       "choices": [
-        "A. 수학\\n영어",
-        "B. 90\\n80",
-        "C. 수학: 90\\n영어: 80",
-        "D. subject: score\\nsubject: score"
+        "A. 수학\n영어",
+        "B. 90\n80",
+        "C. 수학: 90\n영어: 80",
+        "D. subject: score\nsubject: score"
       ],
-      "answer": "C. 수학: 90\\n영어: 80",
+      "answer": "C. 수학: 90\n영어: 80",
       "feedback": {
         "correct": "정답! .items()로 키-값을 동시에 꺼낼 수 있어요. 두 개의 반복 변수가 각각 키, 값을 받아요."
       }
@@ -536,12 +536,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\ndata = {\"x\": 10, \"y\": 20, \"z\": 30}\n  for k, v in data.items():\n      if v > 15:\n          print(k)\n```",
       "choices": [
-        "A. x\\ny\\nz",
-        "B. y\\nz",
-        "C. 20\\n30",
+        "A. x\ny\nz",
+        "B. y\nz",
+        "C. 20\n30",
         "D. x"
       ],
-      "answer": "B. y\\nz",
+      "answer": "B. y\nz",
       "feedback": {
         "correct": "정답! 값이 15보다 큰 키는 y와 z예요. 두 키가 출력돼요."
       }
@@ -557,12 +557,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nmenu = {\"아메리카노\": 4000, \"라떼\": 5000}\n  for item, price in menu.items():\n      print(f\"{item}{'은' if ... else '는'} {price}원\")\n```",
       "choices": [
-        "A. item은 price원\\nitem은 price원",
-        "B. 아메리카노\\n라떼",
-        "C. 아메리카노는 4000원\\n라떼은 5000원",
-        "D. 4000\\n5000"
+        "A. item은 price원\nitem은 price원",
+        "B. 아메리카노\n라떼",
+        "C. 아메리카노는 4000원\n라떼은 5000원",
+        "D. 4000\n5000"
       ],
-      "answer": "C. 아메리카노는 4000원\\n라떼은 5000원",
+      "answer": "C. 아메리카노는 4000원\n라떼은 5000원",
       "feedback": {
         "correct": "정답! f-string은 {} 안의 변수 값을 출력해요. 키-값이 순서대로 들어가 두 줄이 출력돼요."
       }
@@ -663,11 +663,11 @@
       "question": "다음 코드의 출력 결과는?\n\n```python\nn = 1\n  while n <= 3:\n      print(n)\n      n += 1\n```",
       "choices": [
         "A. 1 2 3",
-        "B. 1\\n2\\n3",
-        "C. 0\\n1\\n2\\n3",
-        "D. 1\\n2\\n3\\n4"
+        "B. 1\n2\n3",
+        "C. 0\n1\n2\n3",
+        "D. 1\n2\n3\n4"
       ],
-      "answer": "B. 1\\n2\\n3",
+      "answer": "B. 1\n2\n3",
       "feedback": {
         "correct": "정답! n이 1, 2, 3 순서로 출력돼요. n이 4가 되면 4 <= 3이 False라서 멈춰요."
       }
@@ -683,12 +683,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\ncount = 10\n  while count > 7:\n      print(count)\n      count -= 1\n```",
       "choices": [
-        "A. 10\\n9\\n8\\n7",
-        "B. 7\\n8\\n9\\n10",
-        "C. 10\\n9\\n8",
-        "D. 10\\n9\\n8\\n7\\n6"
+        "A. 10\n9\n8\n7",
+        "B. 7\n8\n9\n10",
+        "C. 10\n9\n8",
+        "D. 10\n9\n8\n7\n6"
       ],
-      "answer": "C. 10\\n9\\n8",
+      "answer": "C. 10\n9\n8",
       "feedback": {
         "correct": "정답! 10, 9, 8에서만 True예요. 7이 되면 7 > 7은 False라서 멈춰요."
       }
@@ -893,12 +893,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nfor i in range(5):\n      if i == 3:\n          break\n      print(i)\n```",
       "choices": [
-        "A. 0\\n1\\n2\\n3\\n4",
-        "B. 0\\n1\\n2\\n3",
-        "C. 0\\n1\\n2",
-        "D. 3\\n4"
+        "A. 0\n1\n2\n3\n4",
+        "B. 0\n1\n2\n3",
+        "C. 0\n1\n2",
+        "D. 3\n4"
       ],
-      "answer": "C. 0\\n1\\n2",
+      "answer": "C. 0\n1\n2",
       "feedback": {
         "correct": "정답! i == 3일 때 break가 실행돼요. 3은 출력되지 않고 반복이 끝나요."
       }
@@ -914,12 +914,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nfor i in range(5):\n      if i == 2:\n          continue\n      print(i)\n```",
       "choices": [
-        "A. 0\\n1\\n2\\n3\\n4",
-        "B. 0\\n1",
+        "A. 0\n1\n2\n3\n4",
+        "B. 0\n1",
         "C. 2",
-        "D. 0\\n1\\n3\\n4"
+        "D. 0\n1\n3\n4"
       ],
-      "answer": "D. 0\\n1\\n3\\n4",
+      "answer": "D. 0\n1\n3\n4",
       "feedback": {
         "correct": "정답! i == 2일 때 continue로 해당 print만 건너뛰어요. 0, 1, 3, 4가 출력돼요."
       }
@@ -935,12 +935,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nnumbers = [1, 2, 3, 4, 5]\n  for n in numbers:\n      if n == 4:\n          break\n      print(n)\n```",
       "choices": [
-        "A. 1\\n2\\n3",
-        "B. 1\\n2\\n3\\n4",
-        "C. 4\\n5",
-        "D. 1\\n2"
+        "A. 1\n2\n3",
+        "B. 1\n2\n3\n4",
+        "C. 4\n5",
+        "D. 1\n2"
       ],
-      "answer": "A. 1\\n2\\n3",
+      "answer": "A. 1\n2\n3",
       "feedback": {
         "correct": "정답! 4를 만나면 break예요. 4는 출력 안 하고 반복이 끝나요. 1, 2, 3이 출력돼요."
       }
@@ -956,12 +956,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nfor i in range(1, 6):\n      if i % 2 == 0:\n          continue\n      print(i)\n```",
       "choices": [
-        "A. 2\\n4",
-        "B. 1\\n3\\n5",
-        "C. 1\\n2\\n3\\n4\\n5",
+        "A. 2\n4",
+        "B. 1\n3\n5",
+        "C. 1\n2\n3\n4\n5",
         "D. 짝수만 출력"
       ],
-      "answer": "B. 1\\n3\\n5",
+      "answer": "B. 1\n3\n5",
       "feedback": {
         "correct": "정답! 짝수를 continue로 건너뛰어요. 홀수인 1, 3, 5만 출력돼요."
       }
@@ -1103,12 +1103,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nfor i in range(1, 3):\n      for j in range(1, 3):\n          print(i, j)\n```",
       "choices": [
-        "A. 1 2\\n2 1",
-        "B. 1\\n2\\n1\\n2",
-        "C. 1 1\\n1 2\\n2 1\\n2 2",
-        "D. 1 2\\n2 2"
+        "A. 1 2\n2 1",
+        "B. 1\n2\n1\n2",
+        "C. 1 1\n1 2\n2 1\n2 2",
+        "D. 1 2\n2 2"
       ],
-      "answer": "C. 1 1\\n1 2\\n2 1\\n2 2",
+      "answer": "C. 1 1\n1 2\n2 1\n2 2",
       "feedback": {
         "correct": "정답! (1,1), (1,2), (2,1), (2,2) 순서로 출력돼요. 바깥 for가 한 번 돌 때마다 안쪽 전체가 실행돼요."
       }
@@ -1124,12 +1124,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nfor i in range(3):\n      for j in range(i):\n          print(\"*\", end=\"\")\n      print()\n```",
       "choices": [
-        "A. *\\n**\\n***",
+        "A. *\n**\n***",
         "B. ***",
-        "C. *\\n**",
-        "D. (빈 줄)\\n*\\n**"
+        "C. *\n**",
+        "D. (빈 줄)\n*\n**"
       ],
-      "answer": "D. (빈 줄)\\n*\\n**",
+      "answer": "D. (빈 줄)\n*\n**",
       "feedback": {
         "correct": "정답! i=0: 빈 줄 / i=1: * / i=2: ** 순서로 출력돼요. range(i)는 i개만큼 반복해요."
       }
@@ -1146,8 +1146,8 @@
       "question": "다음 코드의 출력 결과는?\n\n```python\nmatrix = [[1, 2], [3, 4]]\n  for row in matrix:\n      for val in row:\n          print(val, end=\" \")\n```",
       "choices": [
         "A. 1 2 3 4",
-        "B. [1, 2]\\n[3, 4]",
-        "C. 1\\n2\\n3\\n4",
+        "B. [1, 2]\n[3, 4]",
+        "C. 1\n2\n3\n4",
         "D. [[1, 2], [3, 4]]"
       ],
       "answer": "A. 1 2 3 4",
@@ -1188,11 +1188,11 @@
       "question": "다음 코드의 출력 결과는?\n\n```python\nfor i in range(1, 4):\n      print(i * \"★\")\n```",
       "choices": [
         "A. ★★★",
-        "B. 1\\n2\\n3",
-        "C. ★\\n★★\\n★★★",
+        "B. 1\n2\n3",
+        "C. ★\n★★\n★★★",
         "D. ★ ★★ ★★★"
       ],
-      "answer": "C. ★\\n★★\\n★★★",
+      "answer": "C. ★\n★★\n★★★",
       "feedback": {
         "correct": "정답! 문자열 * 숫자로 반복 출력이 돼요. 1, 2, 3개씩 새 줄에 출력돼요."
       }
@@ -1313,12 +1313,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nwords = [\"apple\", \"banana\", \"cat\", \"dog\"]\n  for w in words:\n      if len(w) > 4:\n          print(w)\n```",
       "choices": [
-        "A. apple\\ncat",
-        "B. cat\\ndog",
-        "C. apple\\nbanana",
+        "A. apple\ncat",
+        "B. cat\ndog",
+        "C. apple\nbanana",
         "D. banana"
       ],
-      "answer": "C. apple\\nbanana",
+      "answer": "C. apple\nbanana",
       "feedback": {
         "correct": "정답! 5글자 apple과 6글자 banana만 조건을 통과해요. 두 단어가 출력돼요."
       }
@@ -1334,12 +1334,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\ni = 1\n  while i <= 100:\n      if i % 10 == 0:\n          print(i)\n      i += 1\n```",
       "choices": [
-        "A. 10\\n20\\n30",
-        "B. 1\\n2\\n3...100",
+        "A. 10\n20\n30",
+        "B. 1\n2\n3...100",
         "C. 100",
-        "D. 10\\n20\\n30\\n40\\n50\\n60\\n70\\n80\\n90\\n100"
+        "D. 10\n20\n30\n40\n50\n60\n70\n80\n90\n100"
       ],
-      "answer": "D. 10\\n20\\n30\\n40\\n50\\n60\\n70\\n80\\n90\\n100",
+      "answer": "D. 10\n20\n30\n40\n50\n60\n70\n80\n90\n100",
       "feedback": {
         "correct": "정답! 10의 배수 10, 20, 30, ..., 100이 출력돼요. 총 10줄이 나와요."
       }
@@ -1397,12 +1397,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nnumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\n  for n in numbers:\n      if n > 7:\n          break\n      if n % 2 == 0:\n          print(n)\n```",
       "choices": [
-        "A. 2\\n4\\n6\\n8",
-        "B. 2\\n4\\n6\\n8\\n10",
-        "C. 2\\n4\\n6",
-        "D. 1\\n3\\n5\\n7"
+        "A. 2\n4\n6\n8",
+        "B. 2\n4\n6\n8\n10",
+        "C. 2\n4\n6",
+        "D. 1\n3\n5\n7"
       ],
-      "answer": "C. 2\\n4\\n6",
+      "answer": "C. 2\n4\n6",
       "feedback": {
         "correct": "정답! 8에서 break이므로 1~7 범위에서만 동작해요. 짝수 2, 4, 6이 출력돼요."
       }

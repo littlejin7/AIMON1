@@ -36,14 +36,39 @@ const LEVEL_LABELS = {
 
 
 
-function getWeekDots(streak) {
-  // 오늘 요일 (0=일,1=월,...6=토) → 목업 기준 월~일 배열
-  const todayJs = new Date().getDay()
-  const todayIdx = todayJs === 0 ? 6 : todayJs - 1 // 0=월 ~ 6=일
+function getWeekDots(streak, lastLogin) {
+  // 모든 날짜 계산을 KST(UTC+9) 기준으로 수행한다.
+  const kstNow   = new Date(Date.now() + 9 * 60 * 60 * 1000)
+  const todayStr = kstNow.toISOString().slice(0, 10) // "YYYY-MM-DD"
+  const [ty, tm, td] = todayStr.split('-').map(Number)
+  const todayDays  = Math.floor(Date.UTC(ty, tm - 1, td) / 86400000) // epoch days
+
+  // 0=Mon … 6=Sun
+  const jsDow    = kstNow.getUTCDay() // 0=Sun…6=Sat
+  const todayIdx = jsDow === 0 ? 6 : jsDow - 1
+  const mondayDays = todayDays - todayIdx
+
+  // lastLogin → epoch days (서버가 "YYYY-MM-DD" KST 문자열로 저장)
+  let lastLoginDays = null
+  if (lastLogin && streak > 0) {
+    const [ly, lm, ld] = lastLogin.split('-').map(Number)
+    lastLoginDays = Math.floor(Date.UTC(ly, lm - 1, ld) / 86400000)
+  }
+
   return DAY_LABELS.map((label, i) => {
-    if (i < todayIdx) return { label, state: i < streak ? 'done' : 'empty' }
-    if (i === todayIdx) return { label, state: 'today' }
-    return { label, state: 'empty' }
+    const dayDays = mondayDays + i
+    if (dayDays > todayDays) return { label, state: 'empty' } // 미래
+
+    const isToday = dayDays === todayDays
+    if (isToday) {
+      // 오늘 접속했으면(last_login == today) done, 아직 미접속이면 today 링
+      return { label, state: lastLogin === todayStr ? 'done' : 'today' }
+    }
+
+    // 과거: streak 윈도우(lastLogin 기준 연속 streak일)에 속하면 done
+    if (lastLoginDays === null) return { label, state: 'empty' }
+    const diff = lastLoginDays - dayDays // 양수 = 이 날이 lastLogin보다 앞
+    return { label, state: diff >= 0 && diff < streak ? 'done' : 'empty' }
   })
 }
 
@@ -54,7 +79,7 @@ export default function HomeDashboard({ user, stats, onOpenLevelTest }) {
   const { lv, xpInLevel, xpForNext } = calcLevel(totalXp)
   const xpPct = xpForNext > 0 ? Math.round((xpInLevel / xpForNext) * 100) : 100
   const streak = user?.streak || 0
-  const weekDots = getWeekDots(streak)
+  const weekDots = getWeekDots(streak, user?.last_login || '')
   const charImg = CHARACTER_ICONS[user?.character]
 
   const handleLearn = () => {

@@ -8,10 +8,9 @@ import { authApi }       from '../../api'
 
 const TOTAL = LEVEL_TEST_QUESTIONS.length
 
-export default function LevelTestModal({ onClose, onFinish, isLoggedIn }) {
+export default function LevelTestModal({ onClose, onFinish, isLoggedIn, forced = false }) {
   const [step,         setStep]         = useState(0)
   const [selected,     setSelected]     = useState(null)
-  const [answered,     setAnswered]     = useState(false)
   const [levelKey,     setLevelKey]     = useState(null)
   const [totalCorrect, setTotalCorrect] = useState(0)
   const [skipped,      setSkipped]      = useState(0)
@@ -39,27 +38,32 @@ export default function LevelTestModal({ onClose, onFinish, isLoggedIn }) {
   }
 
   const handleSelect = (idx) => {
-    if (answered) return
-    const q = LEVEL_TEST_QUESTIONS[step - 1]
     setSelected(idx)
-    setAnswered(true)
-
-    const existingIdx = answersRef.current.findIndex(a => a.questionId === q.id)
-    if (existingIdx > -1) {
-      answersRef.current[existingIdx] = { questionId: q.id, selectedAnswer: idx }
-    } else {
-      answersRef.current.push({ questionId: q.id, selectedAnswer: idx })
-    }
-
-    const isCorrect = idx === q.answer
-    if (isCorrect) {
-      cblRef.current = { ...cblRef.current, [q.level]: cblRef.current[q.level] + 1 }
-      setCorrectByLevel({ ...cblRef.current })
-      setTotalCorrect(c => c + 1)
-    }
   }
 
-  const advance = async () => {
+  const advance = async (overrideSelected = null) => {
+    const finalSelected = overrideSelected !== null ? overrideSelected : selected
+    const q = LEVEL_TEST_QUESTIONS[step - 1]
+    const existingIdx = answersRef.current.findIndex(a => a.questionId === q.id)
+    if (existingIdx > -1) {
+      answersRef.current[existingIdx] = { questionId: q.id, selectedAnswer: finalSelected }
+    } else {
+      answersRef.current.push({ questionId: q.id, selectedAnswer: finalSelected })
+    }
+
+    let newTotal = 0
+    const newCbl = { beginner: 0, intermediate: 0, advanced: 0 }
+    answersRef.current.forEach(ans => {
+      const qObj = LEVEL_TEST_QUESTIONS.find(item => item.id === ans.questionId)
+      if (qObj && ans.selectedAnswer === qObj.answer) {
+        newTotal++
+        newCbl[qObj.level]++
+      }
+    })
+    setTotalCorrect(newTotal)
+    setCorrectByLevel(newCbl)
+    cblRef.current = newCbl
+
     const nextStep = step + 1
     if (nextStep > TOTAL) {
       setStep(TOTAL + 1)                          // 분석 로딩
@@ -95,32 +99,23 @@ export default function LevelTestModal({ onClose, onFinish, isLoggedIn }) {
     } else {
       setStep(nextStep)
       setSelected(null)
-      setAnswered(false)
     }
   }
 
-  const handleNext = () => { if (answered) advance() }
+  const handleNext = () => { if (selected !== null) advance() }
   const handleSkip = () => {
-    const q = LEVEL_TEST_QUESTIONS[step - 1]
-    const existingIdx = answersRef.current.findIndex(a => a.questionId === q.id)
-    if (existingIdx > -1) {
-      answersRef.current[existingIdx] = { questionId: q.id, selectedAnswer: -1 }
-    } else {
-      answersRef.current.push({ questionId: q.id, selectedAnswer: -1 })
-    }
     setSkipped(s => s + 1)
-    advance()
+    advance(-1)
   }
   const handleBack = () => {
     if (step <= 1) { setStep(0); return }
     setStep(step - 1)
     setSelected(null)
-    setAnswered(false)
   }
 
   return (
     <div
-      onClick={onClose}
+      onClick={forced ? undefined : onClose}
       style={{
         position: 'fixed', inset: 0, zIndex: 2000,
         background: 'rgba(0,0,0,0.78)', backdropFilter: 'blur(8px)',
@@ -143,7 +138,7 @@ export default function LevelTestModal({ onClose, onFinish, isLoggedIn }) {
         }}
       >
         {step === 0 && (
-          <LevelTestIntro onStart={handleStart} onClose={onClose} />
+          <LevelTestIntro onStart={handleStart} onClose={forced ? undefined : onClose} />
         )}
 
         {step >= 1 && step <= TOTAL && (
@@ -151,7 +146,6 @@ export default function LevelTestModal({ onClose, onFinish, isLoggedIn }) {
             step={step}
             total={TOTAL}
             selected={selected}
-            answered={answered}
             timer={timerLabel}
             onSelect={handleSelect}
             onNext={handleNext}

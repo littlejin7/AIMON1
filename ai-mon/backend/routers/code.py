@@ -42,6 +42,10 @@ class SubmitRequest(BaseModel):
     unit:         int = 1
     stage:        str = ""
     course_level: str = "beginner"
+    # award=True: 정규 코드퀘 경로 — AI 관대 채점 + 200 XP + (unit,stage) 진행도 저장.
+    # award=False: 채점 전용 — is_correct/score/feedback 만 반환하고 XP·진행도·user 저장을
+    #              일절 하지 않는다. (Train 연습/복습, Stage-미니보스: 보상은 각 시스템이 소유)
+    award:        bool = True
 
 class HintRequest(BaseModel):
     question_id:  str
@@ -50,7 +54,9 @@ class HintRequest(BaseModel):
 
 
 @router.post("/submit")
-@limiter.limit("10/minute")
+# 코드 채점 전용 한도. 보스 답안 채점(30/minute;100/day)과 동일 기준.
+# Train(최대 15문항)·미니보스 한 세션의 연속 제출+재시도가 분당 10회를 넘길 수 있어 상향.
+@limiter.limit("30/minute;100/day")
 async def submit_code(request: Request, req: SubmitRequest, user: dict = Depends(get_current_user)):
     user_id = user["id"]
 
@@ -60,38 +66,47 @@ async def submit_code(request: Request, req: SubmitRequest, user: dict = Depends
 
     course_level = user.get("course_level", req.course_level)
 
-    level_instruction = {
-        "beginner":     (
-            "단순 문법 오류가 없고 핵심 로직이 올바르다면 정답으로 인정하세요.\n"
-            "비유와 일상 예시를 들어 왜 틀렸는지 친절하게 설명해주세요."
+    level_instruction_map = {
+        "beginner": (
+            "- 초보자 수준에 맞춰 비유와 일상 예시(예: 리스트 = 서랍장, 변수 = 상자)를 들어 친절하게 설명하고 추상적인 용어는 피하세요.\n"
+            "- 단순 오타나 사소한 문법 오류보다는 로직의 큰 틀이 맞으면 정답 처리하되, 설명 시 단순 오타/누락을 가볍게 짚어주며 오답 소거식으로 올바른 답을 유도하세요."
         ),
         "intermediate": (
-            "리스트 컴프리헨션, 딕셔너리 등 파이썬스러운(Pythonic) 코드 작성 및 함수 모듈화에 가산점을 주세요.\n"
-            "핵심 개념과 코드 예시를 포함해 왜 틀렸는지, 어떻게 개선할지 분석해주세요."
+            "- 리스트 컴프리헨션, 딕셔너리 등 파이썬스러운(Pythonic) 코드 작성 및 함수 모듈화에 가산점을 주세요.\n"
+            "- 파이썬의 표준(Pythonic) 코드 규칙 및 핵심 자료구조 용어를 명확히 사용하여 설명하고, 짤막한 핵심 코드 흐름 중심의 원리 설명과 오답 원인을 포함하세요."
         ),
-        "advanced":     (
-            "알고리즘 효율성, 예외 처리, 비동기/고급 패턴 사용 여부를 엄격하게 채점하세요. (score 70점 이상 시 정답 인정)\n"
-            "원리와 엣지 케이스까지 깊이 있게 틀린 이유와 더 나은 접근법을 설명해주세요."
+        "advanced": (
+            "- 알고리즘 효율성, 예외 처리, 비동기/고급 패턴 사용 여부를 엄격하게 채점하세요. (score 70점 이상 시 정답 인정)\n"
+            "- 비동기(async/await), 데코레이터, 메모리 참조 등 파이썬 심화 메커니즘을 중심으로 깊이 있게 설명하고, 엣지 케이스 및 예외 처리 방어 코드 검토, 최적화 및 확장성 있는 설계적 리팩터링 방향을 제시하세요."
         ),
-    }.get(course_level, "비유와 일상 예시를 들어 왜 틀렸는지 친절하게 설명해주세요.")
+    }
+    level_instruction = level_instruction_map.get(course_level, level_instruction_map["beginner"])
 
     error_section = f"\n[실행 에러]\n{req.error}" if req.error else ""
     output_section = f"\n[사용자 코드 실행 결과]\n{req.output or '(출력 없음)'}" if req.output or req.error else ""
 
+    correct_ans = question.get('answer', '없음')
     prompt = f"""당신은 파이썬을 가르치는 전문 AI 튜터 '에이몬'입니다.
 사용자의 코드를 분석하여 채점하고 피드백을 제공해주세요.
 
-[레벨별 채점 지침: {course_level.upper()}]
+[레벨별 채점/피드백 지침: {course_level.upper()}]
 {level_instruction}
 
 [중요 지시사항]
 - 코드가 문제의 핵심 요구사항을 충족하면 is_correct: true로 채점하세요.
 - 실행 결과 텍스트가 예시 정답과 완전히 일치하지 않더라도 로직이 올바르면 정답으로 인정하세요.
+- 오답(is_correct: false)일 시 "feedback" 필드의 내용은 반드시 아래의 '피드백 3문장 형식 규칙'을 엄격하게 준수하여 작성해야 합니다.
+- 정답(is_correct: true)일 시 "feedback" 필드의 내용은 칭찬 및 해설을 담은 1~2문장의 격려말로 채우세요.
 - 오직 JSON 형식으로만 응답해야 하며, 그 외 어떠한 텍스트나 마크다운 기호도 포함하지 마세요.
+
+[피드백 3문장 형식 규칙 (오답일 때 "feedback" 필드에 적용)]
+- 첫 번째 문장: 아쉽지만 정답은 "{correct_ans}"입니다. (따옴표 안에 정답 예시 코드를 정확히 기입할 것. 이 첫 번째 문장은 글자 수 제한이 없습니다.)
+- 두 번째 문장: 왜 오답인지 핵심 개념 설명 (레벨별 기준 반영, **공백 포함 최대 30자 이내**로 극도로 짧게 요약하여 핵심 단어 위주로 작성하세요.)
+- 세 번째 문장: 다시 풀 때 볼 기준 (레벨별 기준 반영, **공백 포함 최대 30자 이내**로 극도로 짧게 요약하여 핵심 단어 위주로 작성하세요.)
 
 [문제 정보]
 문제 설명: {question.get('question', '')}
-예시 정답 코드: {question.get('answer', '없음')}
+예시 정답 코드: {correct_ans}
 
 [사용자 제출 코드]
 {req.code}
@@ -101,7 +116,7 @@ async def submit_code(request: Request, req: SubmitRequest, user: dict = Depends
 {{
   "is_correct": true/false,
   "score": 0~100,
-  "feedback": "에이몬 튜터로서의 상세한 피드백 (한국어, 3-4문장)",
+  "feedback": "3문장 규칙을 준수한 한국어 피드백",
   "hint": "틀렸을 때 힌트, 맞으면 빈 문자열"
 }}"""
 
@@ -117,7 +132,9 @@ async def submit_code(request: Request, req: SubmitRequest, user: dict = Depends
     is_correct = result.get("is_correct", False)
 
     xp_awarded = 0
-    if is_correct:
+    # award=False 경로(Train·미니보스)는 채점 결과만 반환한다.
+    # apply_xp / save_progress_item / save_user 를 절대 타지 않아 200 XP·진행도 행이 써지지 않는다.
+    if req.award and is_correct:
         progress = get_progress_by_user(user_id, course_level)
         existing = next(
             (p for p in progress

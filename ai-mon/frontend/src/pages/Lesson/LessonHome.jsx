@@ -40,6 +40,15 @@ export default function LessonHome() {
   const courseLevel = user?.course_level || 'beginner'
   const activeLevelIdx = LEVEL_MAP[courseLevel]?.idx ?? 0
 
+  // max_unlocked_unit 는 백엔드에서 {beginner,intermediate,advanced} 객체.
+  // (레거시 스칼라도 방어적으로 허용)
+  const rawMaxUnlocked = user?.max_unlocked_unit
+  const maxUnlocked = (
+    rawMaxUnlocked && typeof rawMaxUnlocked === 'object'
+      ? rawMaxUnlocked[courseLevel]
+      : rawMaxUnlocked
+  ) ?? 1
+
   useEffect(() => {
     const calls = [quizApi.getUnits(courseLevel)]
     if (token) {
@@ -66,10 +75,9 @@ export default function LessonHome() {
   // 진행 중인 유닛 자동 펼치기
   useEffect(() => {
     if (lessons.length === 0) return
-    const maxUnlocked = user?.max_unlocked_unit ?? 1
     const currentUnit = lessons.find((l) => {
       if (l.unit_id > maxUnlocked) return false
-      const prog = getUnitProgress(l.unit_id)
+      const prog = getUnitProgress(l.unit_id, l.stages)
       return prog.completed < l.stages
     })
     if (currentUnit) setExpandedUnit(currentUnit.unit_id)
@@ -92,23 +100,28 @@ export default function LessonHome() {
     }
   }
 
-  const getUnitProgress = (unitId) => {
-    const items = progress.filter((p) => p.unit === unitId)
-    const stageItems = items.filter((p) => p.stage !== `${unitId}-boss` && p.stage !== 'miniboss')
-    const completed  = stageItems.filter((p) => p.is_completed).length
+  const isStageComplete = (unitId, stageNum) =>
+    progress.some((p) => p.unit === unitId && p.stage === `${unitId}-${stageNum}` && p.is_completed && p.course_level === courseLevel)
+
+  // 표시용 진행도 = "1-1부터 연속으로 완료된 스테이지 개수".
+  // 중간에 구멍(예: 1-1 미완료인데 1-2 완료)이 있는 깨진 데이터에서는
+  // 구멍 직전까지만 진행으로 보여 ✓가 중간에 박히거나 current 노드가 둘이 되는 것을 막는다.
+  const getUnitProgress = (unitId, stages = 0) => {
+    let completed = 0
+    for (let s = 1; s <= stages; s++) {
+      if (isStageComplete(unitId, s)) completed++
+      else break
+    }
     return { completed }
   }
-  const isStageComplete = (unitId, stageNum) =>
-    progress.some((p) => p.unit === unitId && p.stage === `${unitId}-${stageNum}` && p.is_completed)
 
   const isBossComplete = (unitId) =>
-    progress.some((p) => p.unit === unitId && p.stage === `${unitId}-boss` && p.is_completed)
+    progress.some((p) => p.unit === unitId && p.stage === `${unitId}-boss` && p.is_completed && p.course_level === courseLevel)
 
   const totalStages = lessons.reduce((a, l) => a + (l.stages || 0), 0)
-  const doneStages  = progress.filter((p) => {
-    const stageNum = parseInt(p.stage)
-    return !isNaN(stageNum) && p.is_completed
-  }).length
+  // 맵 표시(연속 완료 기반)와 동일 정의로 집계해야 헤더/전체 카운트가 맵과 일치한다.
+  // (보스 스테이지는 제외 — totalStages 도 보스 미포함)
+  const doneStages  = lessons.reduce((a, l) => a + getUnitProgress(l.unit_id, l.stages).completed, 0)
   const overallPct  = totalStages > 0 ? Math.round((doneStages / totalStages) * 100) : 0
 
   const handleUnitClick = (lesson, unlocked) => {
@@ -137,6 +150,7 @@ export default function LessonHome() {
     <div className="lh-page">
       {showLevelTest && (
         <LevelTestModal
+          forced={!user?.is_level_tested}
           onClose={() => { setShowLevelTest(false); setPendingUnitId(null) }}
           onFinish={handleLevelTestFinish}
           isLoggedIn={true}
@@ -179,9 +193,8 @@ export default function LessonHome() {
 
         {/* ── 유닛 목록 ── */}
         {lessons.map((lesson, idx) => {
-          const maxUnlocked = user?.max_unlocked_unit ?? 1
           const unlocked = token ? lesson.unit_id <= maxUnlocked : lesson.unit_id === 1
-          const prog = getUnitProgress(lesson.unit_id)
+          const prog = getUnitProgress(lesson.unit_id, lesson.stages)
           const done = prog.completed >= lesson.stages && lesson.stages > 0 && isBossComplete(lesson.unit_id)
           const pct  = lesson.stages > 0 ? Math.round((prog.completed / lesson.stages) * 100) : 0
           const isExpanded = expandedUnit === lesson.unit_id && unlocked
@@ -234,13 +247,27 @@ export default function LessonHome() {
                   <div className="lh-stage-label">스테이지</div>
                   <div className="lh-stage-row">
                     {stageNums.map((s, i) => {
-                      const stageDone    = isStageComplete(lesson.unit_id, s)
-                      const prevDone     = s === 1 || isStageComplete(lesson.unit_id, s - 1)
-                      const isCurrent    = !stageDone && prevDone
+                      // 연속 완료 개수(prog.completed) 기준으로만 판정 →
+                      // 깨진 데이터에서도 ✓는 연속 prefix 에만, current 는 정확히 1개.
+                      const stageDone    = s <= prog.completed
+                      const isCurrent    = s === prog.completed + 1
+                      const enabled      = s <= prog.completed + 1   // 완료분 + 다음 1개만 진입 가능
                       const stateClass   = stageDone ? 'done' : isCurrent ? 'current' : 'todo'
                       const lineClass    = stageDone ? 'done' : 'todo'
                       return (
-                        <div key={s} className="lh-stage-seg" onClick={() => token && navigate(`/stage/${lesson.unit_id}/${s}`)}>
+                        <div
+                          key={s}
+                          className={`lh-stage-seg${!enabled ? ' lh-stage-disabled' : ''}`}
+                          onClick={() => {
+                            if (!token || !enabled) return
+                            if (!user?.is_level_tested && !(lesson.unit_id === 1 && s === 1)) {
+                              setPendingUnitId(lesson.unit_id)
+                              setShowLevelTest(true)
+                              return
+                            }
+                            navigate(`/stage/${lesson.unit_id}/${s}`)
+                          }}
+                        >
                           <div className={`lh-stage-node ${stateClass}`}>
                             {stageDone ? '✓' : s}
                           </div>
@@ -253,8 +280,16 @@ export default function LessonHome() {
                     {/* 선 + 보스 노드 */}
                     <div className={`lh-stage-line ${prog.completed >= lesson.stages ? 'done' : 'todo'}`} />
                     <div
-                      className="lh-boss-node"
-                      onClick={() => token && navigate(`/boss/${lesson.unit_id}`)}
+                      className={`lh-boss-node${prog.completed < lesson.stages ? ' lh-stage-disabled' : ''}`}
+                      onClick={() => {
+                        if (!token || prog.completed < lesson.stages) return
+                        if (!user?.is_level_tested) {
+                          setPendingUnitId(lesson.unit_id)
+                          setShowLevelTest(true)
+                          return
+                        }
+                        navigate(`/boss/${lesson.unit_id}`)
+                      }}
                       title="유닛 보스"
                     >
                       ⚔️

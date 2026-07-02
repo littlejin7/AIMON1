@@ -168,7 +168,7 @@ export default function AICross() {
   return (
     <div className="aicross-wrap" ref={wrapRef} tabIndex={-1}>
       <div className="aicross-header">
-        <button className="aicross-back" onClick={() => navigate('/game')}>←</button>
+        <button className="aicross-back" onClick={() => navigate('/game')}>✕</button>
         <div className="aicross-header-title-group">
           <span className="aicross-header-title">AI 크로스워드</span>
           <span className="aicross-set-label">{SET_NAMES[setIndex]}</span>
@@ -202,7 +202,7 @@ export default function AICross() {
             ) : (
               <div className="aicross-win-xp aicross-win-xp--loading">보상 계산 중…</div>
             )}
-            <button className="acbtn acbtn--next" onClick={() => navigate('/game')}>← 목록으로</button>
+            <button className="acbtn acbtn--next" onClick={() => navigate('/game')}>✕</button>
           </div>
         </div>
       )}

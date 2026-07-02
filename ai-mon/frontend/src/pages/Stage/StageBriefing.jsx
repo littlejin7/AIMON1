@@ -64,6 +64,7 @@ export default function StageBriefing({
   stageNum,
   unitInfo,
 }) {
+
   const navigate = useNavigate()
   const user     = useAuthStore((s) => s.user)
   const charSrc  = CHARACTER_MAP[user?.character] || slimeIcon
@@ -146,7 +147,7 @@ export default function StageBriefing({
           onClick={() => setBriefingIndex(b => b - 1)}
           disabled={isFirst}
         >
-          ← 이전
+          ✕
         </button>
 
         <div className="sb-slide-dots">

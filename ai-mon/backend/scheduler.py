@@ -13,12 +13,14 @@ from routers.utils import (
     load_progress,
     load_wrong_answers,
     now_kst,
+    purge_soft_deleted_users,
 )
 from services.email_service import send_email
 
 logger = logging.getLogger(__name__)
 
 scheduler = BackgroundScheduler(timezone=pytz.timezone('Asia/Seoul'))
+SOFT_DELETE_RETENTION_DAYS = 30
 
 def send_streak_reminders():
     logger.info("Running streak reminder job...")
@@ -120,6 +122,22 @@ def backup_to_json():
         logger.exception("Database backup job failed")
 
 
+def purge_deleted_accounts():
+    logger.info(
+        "Running soft-deleted account purge job... retention_days=%d",
+        SOFT_DELETE_RETENTION_DAYS,
+    )
+    try:
+        result = purge_soft_deleted_users(retention_days=SOFT_DELETE_RETENTION_DAYS)
+        logger.info(
+            "Soft-deleted account purge job finished. deleted_count=%d cutoff=%s",
+            result["deleted_count"],
+            result["cutoff"],
+        )
+    except Exception:
+        logger.exception("Soft-deleted account purge job failed")
+
+
 # Schedule the job every day at 18:00 KST
 scheduler.add_job(
     send_streak_reminders,
@@ -133,5 +151,13 @@ scheduler.add_job(
     backup_to_json,
     trigger=CronTrigger(hour=3, minute=0, timezone=pytz.timezone('Asia/Seoul')),
     id="daily_backup_job",
+    replace_existing=True
+)
+
+# Schedule the soft-delete purge job every day at 04:00 KST
+scheduler.add_job(
+    purge_deleted_accounts,
+    trigger=CronTrigger(hour=4, minute=0, timezone=pytz.timezone('Asia/Seoul')),
+    id="soft_delete_purge_job",
     replace_existing=True
 )

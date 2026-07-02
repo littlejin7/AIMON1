@@ -24,7 +24,9 @@ from routers.utils import (
     save_attempt_item,
     now_kst,
     UserNotFoundError,
+    promote_course_level_from_endboss,
 )
+from routers.quiz import serialize_question
 
 router = APIRouter()
 
@@ -213,9 +215,9 @@ def endboss_start(req: StartRequest, user: dict = Depends(get_current_user)):
     return {
         "phase":               1,
         "project":             req.project,
-        "phase1_questions":    p1_questions,
-        "phase2_questions":    p2_questions,
-        "phase3_first_question": p3_first,
+        "phase1_questions":    [serialize_question(q) for q in p1_questions],   # 정답 제거(F)
+        "phase2_questions":    [serialize_question(q) for q in p2_questions],   # 정답 제거(F)
+        "phase3_first_question": serialize_question(p3_first) if p3_first else None,
         "my_hp":               MY_HP_INIT,
         "boss_hp":             BOSS_HP_INIT,
         "crowns_left":         user["crowns"],
@@ -280,21 +282,50 @@ async def endboss_answer(request: Request, req: AnswerRequest, user: dict = Depe
                 "점수(score)는 0 혹은 100점으로만 부여하세요.\n"
             )
 
+        level_instruction = ""
+        if level == "beginner":
+            level_instruction = (
+                "- 초보자 수준에 맞춰 비유와 일상 예시(예: 리스트 = 서랍장, 변수 = 상자)를 들어 친절하게 설명하고 추상적인 용어는 피하세요.\n"
+                "- 단순 오타나 사소한 문법 오류보다는 로직의 큰 틀이 맞으면 정답 처리하되, 설명 시 단순 오타/누락을 가볍게 짚어주며 오답 소거식으로 올바른 답을 유도하세요."
+            )
+        elif level == "intermediate":
+            level_instruction = (
+                "- 파이썬의 표준(Pythonic) 코드 규칙 및 핵심 자료구조 용어를 명확히 사용하여 설명하세요.\n"
+                "- 사용한 자료구조나 내장 함수의 활용 여부를 짚고, 짤막한 코드 흐름을 들어 왜 틀렸는지 핵심 분석을 포함하세요."
+            )
+        else:  # advanced
+            level_instruction = (
+                "- 비동기(async/await), 데코레이터, 메모리 참조 등 파이썬 심화 메커니즘을 중심으로 깊이 있게 설명하세요.\n"
+                "- 엣지 케이스 및 예외 처리 방어 코드 검토, 최적화 및 확장성 있는 설계적 리팩터링 방향을 제시하세요."
+            )
+
         prompt = f"""당신은 파이썬을 가르치는 전문 AI 튜터 '에이몬'입니다.
 다음 코딩 문제에 대한 사용자의 코드를 다각도에서 분석하고 채점해주세요.
 {advanced_note}
-[출력 형식 제한]
-반드시 아래 JSON 포맷으로만 응답하고, 마크다운 코드 블록(` ```json `)이나 추가 텍스트를 포함하지 마세요.
+
+[레벨별 평가/피드백 기준: {level.upper()}]
+{level_instruction}
+
+[중요 지시사항]
+- 오답(is_correct: false)일 시 "feedback" 필드의 내용은 반드시 아래의 '피드백 3문장 형식 규칙'을 엄격하게 준수하여 작성해야 합니다.
+- 정답(is_correct: true)일 시 "feedback" 필드의 내용은 칭찬 및 해설을 담은 1~2문장의 격려말로 채우세요.
+- 반드시 아래 JSON 포맷으로만 응답하고, 마크다운 코드 블록(` ```json `)이나 추가 텍스트를 포함하지 마세요.
+
+[피드백 3문장 형식 규칙 (오답일 때 "feedback" 필드에 적용)]
+- 첫 번째 문장: 아쉽지만 정답은 "{question.get('answer', '')}"입니다. (따옴표 안에 정답 예시 값을 정확히 기입할 것. 이 첫 번째 문장은 글자 수 제한이 없습니다.)
+- 두 번째 문장: 왜 오답인지 핵심 개념 설명 (레벨별 기준 반영, **공백 포함 최대 30자 이내**로 극도로 짧게 요약하여 핵심 단어 위주로 작성하세요.)
+- 세 번째 문장: 다시 풀 때 볼 기준 (레벨별 기준 반영, **공백 포함 최대 30자 이내**로 극도로 짧게 요약하여 핵심 단어 위주로 작성하세요.)
 
 [문제 정보]
 문제: {question['question']}
 정답 예시: {question.get('answer', '')}
 사용자 답변: {req.user_answer}
 
+출력 포맷:
 {{
   "is_correct": true/false,
   "score": 0~100,
-  "feedback": "코드의 잘된 점과 부족한 점, 개선 방향에 대한 구체적인 피드백 (한국어, 3-4문장)",
+  "feedback": "3문장 규칙을 준수한 한국어 피드백",
   "hint": "틀렸을 경우 정답에 도달할 수 있는 핵심 힌트 (맞았으면 빈 문자열)"
 }}
 """
@@ -393,9 +424,11 @@ async def endboss_answer(request: Request, req: AnswerRequest, user: dict = Depe
             "phase3_ready": False,
             "phase3_tries": new_tries,
             "is_clear":     is_clear,
-            "next_phase3_question": next_q,
+            "next_phase3_question": serialize_question(next_q) if next_q else None,  # 정답 제거(F)
         })
 
+    # correct_answer 는 제출 '후' 응답에만 — error_find reveal 하이라이트용
+    result["correct_answer"] = question.get("answer", "")
     return result
 
 
@@ -447,6 +480,7 @@ def endboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
             # cleared_levels 기록
             cleared_levels.append(level)
             u["endboss_cleared_levels"] = cleared_levels
+            promote_course_level_from_endboss(u)
 
             # seen 리셋
             if "seen_questions" not in u or u["seen_questions"] is None:

@@ -210,11 +210,15 @@ def test_claim_survives_concurrent_event(mission_user):
 # 효과 검증. '검사→지급→append' 가 mutate_user_atomic 임계구역 안에서 원자적이라
 # 동시 제출에도 XP(+3000)·왕관(+1)이 정확히 1회만 지급돼야 한다.
 import asyncio
+import copy
 from types import SimpleNamespace
 from starlette.requests import Request
 from routers import boss as B
+from routers.battle_session import make_battle_token, BATTLE_TOKEN_TTL
 
-# 직접일치(객관식) 채점 경로 → Claude 호출 없이 is_correct=True. boss_hp=200 한 방에 클리어.
+# 직접일치(객관식) 채점 경로 → Claude 호출 없이 is_correct=True.
+# 클리어 판정은 클라 boss_hp 가 아니라 '서버 세션 정답 누적'이 required 도달 시 → won.
+# 테스트는 required=1 세션을 시드해 1정답에 won 되도록 한다(동시성 이중지급 가드 검증 목적).
 _UNITBOSS_Q = {
     "question_id": "ub2", "question": "다음 중 옳은 것은?", "quiz_category": "unit_boss",
     "type": "multiple_choice", "answer": "A", "unit": 2, "stage": "2-boss",
@@ -222,9 +226,22 @@ _UNITBOSS_Q = {
 }
 
 
-def _boss_req():
+def _seed_session(unit=2, user_id="u1", required=1):
+    """배틀 토큰 + (required 도달 직전) 세션 dict 를 만든다. 1정답에 won 되도록 required=1."""
+    token, sid = make_battle_token("unitboss", unit, None, user_id)
+    now_ts = int(U.now_kst().timestamp())
+    sessions = {sid: {
+        "sid": sid, "mode": "unitboss", "unit": unit, "stage": None,
+        "required": required, "max_wrong": 3, "correct_qids": [], "wrong": 0,
+        "status": "active", "exp": now_ts + BATTLE_TOKEN_TTL,
+    }}
+    return token, sessions
+
+
+def _boss_req(token):
+    # my_hp/boss_hp 는 더 이상 받지 않는다(클라 권위 제거). battle_token 으로 서버 세션 식별.
     return B.BossAnswerRequest(question_id="ub2", user_answer="A",
-                               boss_hp=200, my_hp=1000, unit=2)
+                               battle_token=token, unit=2)
 
 
 def _fake_request():
@@ -234,15 +251,16 @@ def _fake_request():
     })
 
 
-def _call_boss():
+def _call_boss(token):
     """submit_boss_answer(async) 를 동기 호출."""
     return asyncio.run(B.submit_boss_answer(
-        _fake_request(), _boss_req(), {"id": "u1", "course_level": "beginner"}
+        _fake_request(), _boss_req(token), {"id": "u1", "course_level": "beginner"}
     ))
 
 
 @pytest.fixture
 def unitboss_user(monkeypatch, tmp_path):
+    token, sessions = _seed_session()
     users_file = tmp_path / "users.json"
     users_file.write_text(
         json.dumps([{
@@ -251,6 +269,7 @@ def unitboss_user(monkeypatch, tmp_path):
             "completed_units": {"beginner": 0, "intermediate": 0, "advanced": 0},
             "max_unlocked_unit": {"beginner": 1, "intermediate": 1, "advanced": 1},
             "unitboss_cleared_units": [],
+            "battle_sessions": sessions,
         }]),
         encoding="utf-8",
     )
@@ -261,16 +280,21 @@ def unitboss_user(monkeypatch, tmp_path):
     monkeypatch.setattr(U, "USE_SUPABASE", False)
     monkeypatch.setattr(U.limiter, "enabled", False)          # 레이트리밋 우회
     monkeypatch.setattr(B, "load_questions_by_category", lambda *a, **k: [_UNITBOSS_Q])
-    return str(users_file)
+    return str(users_file), token
 
 
 def test_unitboss_concurrent_double_submit_grants_once_json(unitboss_user):
-    """JSON(file_lock): 동시 유닛보스 제출 2회 → XP·왕관 정확히 1회."""
+    """JSON(file_lock): 동시 유닛보스 제출 2회 → XP·왕관 정확히 1회.
+
+    같은 배틀 토큰으로 동시 2회 제출. 첫 제출이 세션을 won(required=1) + 보상지급하고
+    unitboss_cleared_units 에 기록하면, 둘째는 fresh 상태에서 이미 won/cleared 라 무지급.
+    """
+    users_file, token = unitboss_user
     results, errors = [], []
 
     def call():
         try:
-            results.append(_call_boss())
+            results.append(_call_boss(token))
         except Exception as e:  # noqa
             errors.append(repr(e))
 
@@ -283,7 +307,7 @@ def test_unitboss_concurrent_double_submit_grants_once_json(unitboss_user):
     assert len(granted) == 1, f"보상이 정확히 1회가 아님: {[r.get('xp_awarded') for r in results]}"
     assert granted[0]["crowns_awarded"] == 1
 
-    u = _read_user(unitboss_user)
+    u = _read_user(users_file)
     assert u["xp"] == 3000, f"XP 이중 지급: {u['xp']}"
     assert u["crowns"] == 1, f"왕관 이중 지급: {u['crowns']}"
     assert u["unitboss_cleared_units"] == ["beginner-2"]
@@ -333,6 +357,7 @@ class _FakeCASTable:
 def test_unitboss_concurrent_double_submit_grants_once_supabase(monkeypatch):
     """Supabase(가짜 CAS): 두 요청이 같은 stale 상태를 읽어도 CAS 가 1개만 커밋,
     패자는 재시도→이미 지급 확인→무지급. XP·왕관 정확히 1회."""
+    token, sessions = _seed_session()
     store = {
         "id": "u1", "version": 0, "xp": 0, "crowns": 0, "lv": 1,
         "character": "slime", "titles": [], "ai_feedback_count": 0,
@@ -340,6 +365,7 @@ def test_unitboss_concurrent_double_submit_grants_once_supabase(monkeypatch):
         "completed_units": {"beginner": 0, "intermediate": 0, "advanced": 0},
         "max_unlocked_unit": {"beginner": 1, "intermediate": 1, "advanced": 1},
         "unitboss_cleared_units": [],
+        "battle_sessions": sessions,
     }
     fake = _FakeCASClient(store)
     monkeypatch.setattr(U, "USE_SUPABASE", True)
@@ -347,12 +373,13 @@ def test_unitboss_concurrent_double_submit_grants_once_supabase(monkeypatch):
     monkeypatch.setattr(U.limiter, "enabled", False)
     monkeypatch.setattr(B, "load_questions_by_category", lambda *a, **k: [_UNITBOSS_Q])
 
-    # 첫 제출 전의 stale 스냅샷(v0, 미지급) — 둘째 제출의 첫 CAS 시도가 이걸 읽게 한다.
-    stale_v0 = dict(store)
+    # 첫 제출 전의 stale 스냅샷(v0, 미지급·세션 active) — 둘째 제출의 첫 CAS 시도가 이걸 읽게 한다.
+    # battle_sessions 가 중첩 dict 이므로 deepcopy 로 독립 스냅샷을 떠야 한다(공유 ref 변형 방지).
+    stale_v0 = copy.deepcopy(store)
 
-    r1 = _call_boss()                       # 정상 커밋 → store v1, 보상 지급
+    r1 = _call_boss(token)                  # 정상 커밋 → store v1, 보상 지급(세션 won)
     fake.stale_queue.append(stale_v0)       # 둘째 요청이 '커밋 전 stale' 을 읽도록 주입
-    r2 = _call_boss()                        # 첫 CAS 시도(stale) 실패 → 재시도 → 이미 지급 → 무지급
+    r2 = _call_boss(token)                   # 첫 CAS 시도(stale) 실패 → 재시도 → 이미 지급 → 무지급
 
     assert r1["xp_awarded"] == 3000 and r1["crowns_awarded"] == 1
     assert r2["xp_awarded"] == 0 and r2["crowns_awarded"] == 0, "CAS 패자가 이중 지급됨"
@@ -365,17 +392,18 @@ def test_unitboss_concurrent_double_submit_grants_once_supabase(monkeypatch):
 def test_unitboss_legacy_progress_no_double_grant(unitboss_user, monkeypatch):
     """레거시 호환: 과거 progress 가드로 이미 클리어된 유저(progress.is_completed=True,
     unitboss_cleared_units 비어있음)가 재제출해도 재지급 없이 컬럼만 백필."""
+    users_file, token = unitboss_user
     # progress 에 '2-boss' 완료 레코드를 미리 심는다(과거 세션에서 클리어한 상태 재현).
-    progress_file = os.path.join(os.path.dirname(unitboss_user), "progress.json")
+    progress_file = os.path.join(os.path.dirname(users_file), "progress.json")
     with open(progress_file, "w", encoding="utf-8") as f:
         json.dump([{
             "id": "p1", "user_id": "u1", "unit": 2, "stage": "2-boss",
             "score": 100, "is_completed": True, "course_level": "beginner",
         }], f)
 
-    r = _call_boss()
+    r = _call_boss(token)
     assert r["xp_awarded"] == 0 and r["crowns_awarded"] == 0, "레거시 유저 재지급됨"
-    u = _read_user(unitboss_user)
+    u = _read_user(users_file)
     assert u["xp"] == 0 and u["crowns"] == 0
     assert u["unitboss_cleared_units"] == ["beginner-2"], "백필 안 됨(멱등 가드 기록)"
 
@@ -393,16 +421,27 @@ def start_user_factory(monkeypatch, tmp_path):
     """USERS_FILE 을 임시 파일로 리디렉트하고 진입 비용 필드로 유저를 준비한다.
     last_free_attempt_date 를 오늘로 세팅해 일일 리셋이 무료 횟수를 되돌리지 않게 한다."""
     users_file = tmp_path / "users.json"
+    progress_file = tmp_path / "progress.json"
     today = U.now_kst().strftime("%Y-%m-%d")
     monkeypatch.setattr(U, "USERS_FILE", str(users_file))
+    monkeypatch.setattr(U, "PROGRESS_FILE", str(progress_file))
     monkeypatch.setattr(U, "USE_SUPABASE", False)
     monkeypatch.setattr(B, "load_questions_by_category", lambda *a, **k: [_START_Q])
+
+    # unit1(7스테이지) 전 스테이지 완료 시드 → assert_boss_access 진행도 조건 충족
+    progress_file.write_text(json.dumps([
+        {"user_id": "u1", "unit": 1, "stage": f"1-{i}",
+         "is_completed": True, "course_level": "beginner"}
+        for i in range(1, 8)
+    ]), encoding="utf-8")
 
     def _make(**fields):
         user = {
             "id": "u1", "xp": 0, "lv": 1, "crowns": 0, "character": "slime",
             "course_level": "beginner", "daily_free_attempts": 0,
             "last_free_attempt_date": today, "seen_questions": {},
+            "is_level_tested": True,
+            "max_unlocked_unit": {"beginner": 99},
         }
         user.update(fields)
         users_file.write_text(json.dumps([user]), encoding="utf-8")
@@ -411,13 +450,18 @@ def start_user_factory(monkeypatch, tmp_path):
     return _make, str(users_file)
 
 
+# 진입 게이트는 동시성 검증과 직교 → 핸들러에 넘기는 인라인 유저도 게이트를 통과시킨다.
+_GATE_PASS = {"is_level_tested": True, "max_unlocked_unit": {"beginner": 99}}
+
+
 def _start_concurrently(n=2):
     """start_boss_battle 를 n개 스레드로 동시 호출. (성공 결과들, 에러 detail들) 반환."""
     results, errors = [], []
 
     def call():
         try:
-            results.append(B.start_boss_battle(unit="1", user={"id": "u1"}))
+            results.append(B.start_boss_battle(
+                unit="1", user={"id": "u1", "course_level": "beginner", **_GATE_PASS}))
         except HTTPException as e:
             errors.append((e.status_code, e.detail))
 

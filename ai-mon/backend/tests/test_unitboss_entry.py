@@ -44,10 +44,23 @@ def _read_user(path: str) -> dict:
 @pytest.fixture
 def user_factory(monkeypatch, tmp_path):
     """USERS_FILE 을 임시 경로로 리디렉트하고, 주어진 필드로 유저 1명을 만든다.
-    반환값: (user_dict, users_file_path) — user_dict 를 핸들러에 그대로 넘긴다."""
+    반환값: (user_dict, users_file_path) — user_dict 를 핸들러에 그대로 넘긴다.
+
+    진입 게이트(assert_boss_access)는 이 테스트의 관심사(진입 비용)와 직교하므로,
+    기본 유저는 레벨테스트 완료 + 전 유닛 해금 상태로 두고, unit1 전 스테이지(1-1..1-7)
+    완료를 PROGRESS_FILE 에 시드해 게이트를 통과시킨다."""
     uf = tmp_path / "users.json"
+    pf = tmp_path / "progress.json"
     monkeypatch.setattr(U, "USERS_FILE", str(uf))
+    monkeypatch.setattr(U, "PROGRESS_FILE", str(pf))
     monkeypatch.setattr(U, "USE_SUPABASE", False)
+
+    # unit1(7스테이지) 전 스테이지 완료 시드 → assert_boss_access 의 진행도 조건 충족
+    pf.write_text(json.dumps([
+        {"user_id": "u1", "unit": 1, "stage": f"1-{i}",
+         "is_completed": True, "course_level": "beginner"}
+        for i in range(1, 8)
+    ]), encoding="utf-8")
 
     def _make(**fields) -> dict:
         user = {
@@ -61,6 +74,8 @@ def user_factory(monkeypatch, tmp_path):
             "character": "slime",
             "titles": [],
             "seen_questions": {},
+            "is_level_tested": True,                 # 진입 게이트 통과용
+            "max_unlocked_unit": {"beginner": 99},   # 전 유닛 해금
         }
         user.update(fields)
         uf.write_text(json.dumps([user]), encoding="utf-8")
@@ -75,8 +90,10 @@ def test_entry_with_crowns_when_free_exhausted(user_factory):
     user = make(daily_free_attempts=0, crowns=201)
 
     # 예외 없이 문제 1개를 반환해야 한다 (진입 성공)
-    chosen = B.start_boss_battle(unit="1", user=user)
-    assert chosen is not None
+    # 응답 형식: {question, battle_token} (배틀세션 토큰 도입). question 에 정답은 없다(F).
+    res = B.start_boss_battle(unit="1", user=user)
+    assert res is not None and res.get("battle_token")
+    chosen = res["question"]
     assert chosen.get("question_id")
 
     # 왕관 1개 차감 → 200

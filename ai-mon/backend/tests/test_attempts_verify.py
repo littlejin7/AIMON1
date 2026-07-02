@@ -8,7 +8,7 @@ attempts 전수 기록 검증 (실제 엔드포인트 호출, JSON dev 스토리
   T3. 오답복습(only_wrong)은 셔플 폴백 없이 '실제 틀린 문제만' 반환 (latest 기준)
   T4. 유닛별 정답률이 is_completed 가 아니라 실제 정오답으로 계산
 """
-import sys, os, json
+import sys, os, json, logging, uuid
 
 backend_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, backend_path)
@@ -57,6 +57,111 @@ def _read_attempts():
 def _seed_attempts(rows):
     with open(U.ATTEMPTS_FILE, "w", encoding="utf-8") as f:
         json.dump(rows, f)
+
+
+def test_supabase_attempt_failure_is_logged_not_raised(monkeypatch, caplog):
+    class FailingAttemptTable:
+        def upsert(self, item):
+            self.item = item
+            return self
+
+        def execute(self):
+            raise RuntimeError("column answered_at does not exist")
+
+    class FailingSupabase:
+        def table(self, name):
+            assert name == "attempts"
+            return FailingAttemptTable()
+
+    monkeypatch.setattr(U, "USE_SUPABASE", True)
+    monkeypatch.setattr(U, "supabase", FailingSupabase())
+
+    item = {
+        "id": "11111111-1111-1111-1111-111111111111",
+        "user_id": "22222222-2222-2222-2222-222222222222",
+        "question_id": "q1",
+        "unit": 1,
+        "stage": "1-1",
+        "level": "beginner",
+        "mode": "quiz",
+        "is_correct": True,
+        "answered_at": "2026-06-30T12:00:00+09:00",
+        "token": "secret-token",
+        "password": "secret-password",
+    }
+
+    with caplog.at_level(logging.ERROR, logger="uvicorn.error"):
+        result = U.save_attempt_item(item)
+
+    assert result is False
+    assert any("Supabase attempts upsert failed" in r.message for r in caplog.records)
+    log_text = "\n".join(r.getMessage() for r in caplog.records)
+    assert "secret-token" not in log_text
+    assert "secret-password" not in log_text
+    assert "'user_id': '22222222-2222-2222-2222-222222222222'" in log_text
+
+
+def test_supabase_attempt_user_id_is_normalized_to_str(monkeypatch):
+    class CapturingAttemptTable:
+        def __init__(self):
+            self.item = None
+
+        def upsert(self, item):
+            self.item = item
+            return self
+
+        def execute(self):
+            return type("Result", (), {"data": [self.item]})()
+
+    class CapturingSupabase:
+        def __init__(self):
+            self.attempts = CapturingAttemptTable()
+
+        def table(self, name):
+            assert name == "attempts"
+            return self.attempts
+
+    fake = CapturingSupabase()
+    user_id = uuid.UUID("33333333-3333-3333-3333-333333333333")
+    monkeypatch.setattr(U, "USE_SUPABASE", True)
+    monkeypatch.setattr(U, "supabase", fake)
+
+    result = U.save_attempt_item({
+        "id": "11111111-1111-1111-1111-111111111111",
+        "user_id": user_id,
+        "question_id": "q1",
+        "mode": "quiz",
+        "is_correct": True,
+    })
+
+    assert result is True
+    assert fake.attempts.item["user_id"] == "33333333-3333-3333-3333-333333333333"
+    assert isinstance(fake.attempts.item["user_id"], str)
+
+
+def test_supabase_attempt_invalid_uuid_is_skipped(monkeypatch, caplog):
+    class ShouldNotBeCalledSupabase:
+        def table(self, name):
+            raise AssertionError("Supabase should not be called for invalid user_id")
+
+    monkeypatch.setattr(U, "USE_SUPABASE", True)
+    monkeypatch.setattr(U, "supabase", ShouldNotBeCalledSupabase())
+    item = {
+        "id": "11111111-1111-1111-1111-111111111111",
+        "user_id": "u1",
+        "question_id": "q1",
+        "mode": "quiz",
+        "is_correct": True,
+        "password": "secret-password",
+    }
+
+    with caplog.at_level(logging.WARNING, logger="uvicorn.error"):
+        result = U.save_attempt_item(item)
+
+    assert result is False
+    log_text = "\n".join(r.getMessage() for r in caplog.records)
+    assert "not a valid uuid" in log_text
+    assert "secret-password" not in log_text
 
 
 # ─────────────────────────────────────────────────────────────────────────────

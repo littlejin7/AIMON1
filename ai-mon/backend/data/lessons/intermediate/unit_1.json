@@ -9,24 +9,20 @@
     "slides": [
       {
         "order": 1,
-        "text": "Python 프로그램은 실행 중 예상치 못한 오류가 발생하면 그 즉시 멈춰버려요.\n이걸 막기 위한 구조가 바로 try / except입니다.\n오류가 날 수 있는 코드를 try 블록에, 오류 발생 시 실행할 코드를 except 블록에 작성해요.",
+        "text": "프로그램 실행 중 오류가 생기면 그 자리에서 멈춰버려요.\n아래처럼 0으로 나누면 바로 오류가 나요.",
         "terminal": {
           "code": [
-            "# try / except 없이 실행",
             "print(10 / 0)"
           ],
           "output": [
-            "Traceback (most recent call last):",
-            "  File \"main.py\", line 2, in <module>",
-            "    print(10 / 0)",
             "ZeroDivisionError: division by zero"
           ]
         },
-        "tip": "try 블록 안의 코드에서 오류가 나는 순간, 그 아래 코드는 실행되지 않고 바로 except로 넘어가요."
+        "tip": "오류가 나면 그 줄 이후 코드는 전혀 실행되지 않아요."
       },
       {
         "order": 2,
-        "text": "try / except를 쓰면 오류가 나도 프로그램이 멈추지 않아요.\nexcept 블록이 오류를 잡아서 대신 처리해줍니다.",
+        "text": "try / except를 쓰면 오류가 나도 프로그램이 멈추지 않아요.\ntry 안에서 오류가 나면 except로 넘어가요.",
         "terminal": {
           "code": [
             "try:",
@@ -38,11 +34,11 @@
             "오류가 발생했어요!"
           ]
         },
-        "tip": "except 뒤에 아무것도 안 쓰면 모든 종류의 오류를 다 잡아요. 편하지만, 어떤 오류인지 모르게 되니까 나중엔 구체적으로 쓰는 게 좋아요."
+        "tip": "except 뒤에 아무것도 안 쓰면 모든 오류를 다 잡아요. 일단 이렇게 시작해봐요."
       },
       {
         "order": 3,
-        "text": "except 뒤에 오류 종류를 지정하면, 그 오류가 발생했을 때만 실행돼요.\n이렇게 하면 예상한 오류와 예상 못한 오류를 구분해서 처리할 수 있어요.",
+        "text": "except 뒤에 오류 종류를 쓰면, 그 오류가 났을 때만 실행돼요.\nValueError는 값의 형식이 잘못됐을 때 발생해요.",
         "terminal": {
           "code": [
             "try:",
@@ -54,11 +50,11 @@
             "숫자로 변환할 수 없어요!"
           ]
         },
-        "tip": "ValueError는 값의 형식이 맞지 않을 때 발생해요. int(\"abc\")처럼 숫자가 아닌 문자열을 변환하려 할 때 자주 만나게 돼요."
+        "tip": "int(\"abc\")처럼 숫자가 아닌 문자를 변환하려 할 때 ValueError가 나요."
       },
       {
         "order": 4,
-        "text": "as 키워드를 사용하면 발생한 오류 객체를 변수로 받아서 오류 메시지를 직접 출력할 수 있어요.\n실제 어떤 오류가 났는지 확인할 때 유용해요.",
+        "text": "as e를 붙이면 어떤 오류인지 내용을 직접 볼 수 있어요.",
         "terminal": {
           "code": [
             "try:",
@@ -70,11 +66,11 @@
             "오류 내용: division by zero"
           ]
         },
-        "tip": "e는 오류 객체예요. str(e) 또는 f-string으로 출력하면 오류 메시지를 문자열로 확인할 수 있어요."
+        "tip": "e는 오류 메시지를 담은 변수예요. f-string으로 출력하면 내용을 확인할 수 있어요."
       },
       {
         "order": 5,
-        "text": "except는 여러 개 연달아 쓸 수 있어요.\n오류 종류마다 다른 처리를 하고 싶을 때 사용해요.\n위에서부터 순서대로 오류 타입을 비교하고, 일치하는 첫 번째 except가 실행돼요.",
+        "text": "except를 여러 개 쓰면 오류 종류마다 다르게 처리할 수 있어요.",
         "terminal": {
           "code": [
             "try:",
@@ -89,17 +85,16 @@
             "리스트 범위를 벗어났어요!"
           ]
         },
-        "tip": "Exception은 거의 모든 오류의 부모 클래스예요. 가장 마지막 except에 두면 앞에서 못 잡은 나머지 오류를 처리하는 안전망이 돼요."
+        "tip": "위에서부터 순서대로 비교해요. Exception은 거의 모든 오류를 잡으므로 항상 맨 마지막에 써요."
       },
       {
         "order": 6,
-        "text": "지금까지 배운 try / except 구조를 정리해봐요.\n실전에서는 사용자 입력이나 파일 처리처럼 오류가 날 수 있는 코드에 항상 예외처리를 적용해요.",
+        "text": "함수 안에 try / except를 넣으면 오류를 깔끔하게 처리할 수 있어요.",
         "terminal": {
           "code": [
             "def safe_divide(a, b):",
             "    try:",
-            "        result = a / b",
-            "        return result",
+            "        return a / b",
             "    except ZeroDivisionError:",
             "        return \"0으로 나눌 수 없어요\"",
             "",
@@ -111,7 +106,7 @@
             "0으로 나눌 수 없어요"
           ]
         },
-        "tip": "함수 안에 try / except를 넣으면 오류를 함수 내부에서 처리하고, 호출한 쪽에서는 깔끔한 결과만 받을 수 있어요."
+        "tip": "함수 안에서 오류를 처리하면 호출한 쪽은 결과만 받아서 사용하면 돼요."
       }
     ]
   },
@@ -125,40 +120,39 @@
     "slides": [
       {
         "order": 1,
-        "text": "Python에는 상황별로 다양한 내장 예외 타입이 있어요.\n어떤 오류가 어떤 상황에서 발생하는지 알아두면, except를 더 정확하게 쓸 수 있어요.",
+        "text": "Python에는 상황별로 다양한 오류 타입이 있어요.\n어떤 상황에서 어떤 오류가 나는지 알아두면 except를 더 정확하게 쓸 수 있어요.",
         "terminal": {
           "code": [
-            "# 자주 만나는 예외 유형들",
-            "# ValueError   - 값의 형식이 잘못됨",
-            "# TypeError    - 타입이 맞지 않음",
-            "# IndexError   - 리스트/튜플 인덱스 초과",
-            "# KeyError     - 딕셔너리에 없는 키 접근",
-            "# ZeroDivisionError - 0으로 나누기",
-            "# FileNotFoundError - 파일을 찾을 수 없음"
+            "# 자주 만나는 오류들",
+            "# ValueError        - 값 형식이 잘못됨",
+            "# TypeError         - 타입이 맞지 않음",
+            "# IndexError        - 리스트 인덱스 초과",
+            "# KeyError          - 딕셔너리에 없는 키",
+            "# ZeroDivisionError - 0으로 나누기"
           ],
           "output": []
         },
-        "tip": "모든 예외를 외울 필요는 없어요. 오류 메시지에 예외 이름이 항상 나오니까, 그때그때 확인해서 except에 추가하면 돼요."
+        "tip": "외울 필요 없어요. 오류 메시지에 이름이 나오니까 그때 확인해서 except에 추가하면 돼요."
       },
       {
         "order": 2,
-        "text": "TypeError는 연산이나 함수에 맞지 않는 타입을 사용할 때 발생해요.\n초급에서 배운 자료형 개념과 직결되는 오류예요.",
+        "text": "TypeError는 타입이 맞지 않을 때 발생해요.\n문자열과 숫자를 그냥 더하면 이 오류가 나요.",
         "terminal": {
           "code": [
             "try:",
             "    result = \"나이: \" + 25",
             "except TypeError as e:",
-            "    print(f\"TypeError 발생: {e}\")"
+            "    print(f\"오류: {e}\")"
           ],
           "output": [
-            "TypeError 발생: can only concatenate str (not \"int\") to str"
+            "오류: can only concatenate str (not \"int\") to str"
           ]
         },
-        "tip": "문자열과 숫자를 +로 연결하려면 str(25) 또는 f-string으로 변환이 필요해요. TypeError 메시지에는 어떤 타입이 문제였는지 직접 알려줘요."
+        "tip": "\"나이: \" + str(25) 또는 f\"나이: {25}\"처럼 변환해서 써야 해요."
       },
       {
         "order": 3,
-        "text": "KeyError는 딕셔너리에서 존재하지 않는 키에 접근할 때 발생해요.\nget() 메서드를 쓰거나 예외처리로 안전하게 접근할 수 있어요.",
+        "text": "KeyError는 딕셔너리에 없는 키에 접근할 때 발생해요.",
         "terminal": {
           "code": [
             "user = {\"name\": \"지니\", \"level\": \"intermediate\"}",
@@ -172,11 +166,11 @@
             "없는 키예요: 'age'"
           ]
         },
-        "tip": "KeyError에서 e를 출력하면 따옴표가 포함돼요 — 키 이름이 문자열이라는 걸 명시하기 위해서예요."
+        "tip": "user.get(\"age\")를 쓰면 키가 없어도 오류 없이 None을 반환해요."
       },
       {
         "order": 4,
-        "text": "IndexError는 리스트나 튜플에서 범위를 벗어난 인덱스에 접근할 때 발생해요.\n반복문이나 슬라이싱과 함께 쓸 때 자주 만나게 돼요.",
+        "text": "IndexError는 리스트 범위를 벗어난 인덱스에 접근할 때 발생해요.",
         "terminal": {
           "code": [
             "scores = [85, 92, 78]",
@@ -184,53 +178,51 @@
             "try:",
             "    print(scores[5])",
             "except IndexError:",
-            "    print(f\"인덱스 범위 초과! 리스트 길이는 {len(scores)}개예요.\")"
+            "    print(f\"범위 초과! 리스트 길이: {len(scores)}\")"
           ],
           "output": [
-            "인덱스 범위 초과! 리스트 길이는 3개예요."
+            "범위 초과! 리스트 길이: 3"
           ]
         },
-        "tip": "len()으로 길이를 확인하거나, 접근 전에 if index < len(list) 조건을 먼저 체크하면 IndexError를 예방할 수 있어요."
+        "tip": "인덱스는 0부터 시작해요. 길이가 3이면 인덱스는 0, 1, 2까지만 사용할 수 있어요."
       },
       {
         "order": 5,
-        "text": "FileNotFoundError는 존재하지 않는 파일을 열려고 할 때 발생해요.\n파일 처리 코드에는 항상 예외처리를 붙이는 게 좋아요.",
+        "text": "FileNotFoundError는 없는 파일을 열려고 할 때 발생해요.\n파일 관련 코드에는 항상 예외처리를 붙이는 게 좋아요.",
         "terminal": {
           "code": [
             "try:",
-            "    with open(\"data.txt\", \"r\") as f:",
+            "    with open(\"data.txt\") as f:",
             "        content = f.read()",
             "except FileNotFoundError:",
-            "    print(\"파일이 없어요. 경로를 다시 확인해보세요.\")"
+            "    print(\"파일을 찾을 수 없어요.\")"
           ],
           "output": [
-            "파일이 없어요. 경로를 다시 확인해보세요."
+            "파일을 찾을 수 없어요."
           ]
         },
-        "tip": "with open()은 파일을 열고 작업이 끝나면 자동으로 닫아줘요. 파일 처리의 표준 패턴이에요."
+        "tip": "with open()은 파일 작업이 끝나면 자동으로 닫아줘요. 파일 처리의 기본 패턴이에요."
       },
       {
         "order": 6,
-        "text": "여러 예외를 하나의 except에서 동시에 처리하고 싶으면 튜플로 묶어서 쓸 수 있어요.\n처리 방식이 동일한 오류들을 한꺼번에 잡을 때 유용해요.",
+        "text": "같은 방식으로 처리할 오류들은 튜플로 묶어서 한 번에 잡을 수 있어요.",
         "terminal": {
           "code": [
-            "def parse_input(value, index):",
-            "    data = [10, 20, 30]",
+            "def get_item(data, index_str):",
             "    try:",
-            "        return data[int(value) + index]",
+            "        return data[int(index_str)]",
             "    except (ValueError, IndexError) as e:",
-            "        print(f\"입력 오류: {e}\")",
-            "        return None",
+            "        return f\"오류: {e}\"",
             "",
-            "parse_input(\"abc\", 0)",
-            "parse_input(\"1\", 10)"
+            "print(get_item([10, 20, 30], \"abc\"))",
+            "print(get_item([10, 20, 30], \"9\"))"
           ],
           "output": [
-            "입력 오류: invalid literal for int() with base 10: 'abc'",
-            "입력 오류: list index out of range"
+            "오류: invalid literal for int() with base 10: 'abc'",
+            "오류: list index out of range"
           ]
         },
-        "tip": "except (TypeError, ValueError):처럼 괄호 안에 쉼표로 나열하면 돼요. 두 오류 모두 같은 방식으로 처리될 때만 이렇게 묶는 게 적절해요."
+        "tip": "except (ValueError, IndexError):처럼 괄호 안에 쉼표로 나열하면 돼요."
       }
     ]
   },
@@ -244,13 +236,13 @@
     "slides": [
       {
         "order": 1,
-        "text": "try / except 뒤에 else와 finally를 추가할 수 있어요.\nelse는 오류가 없었을 때만 실행되고, finally는 오류 여부와 관계없이 항상 실행돼요.",
+        "text": "try / except 뒤에 else와 finally를 추가할 수 있어요.\nelse는 오류가 없을 때만, finally는 오류 여부와 관계없이 항상 실행돼요.",
         "terminal": {
           "code": [
             "try:",
             "    result = 10 / 2",
             "except ZeroDivisionError:",
-            "    print(\"0으로 나눌 수 없어요\")",
+            "    print(\"나눌 수 없어요\")",
             "else:",
             "    print(f\"성공! 결과: {result}\")",
             "finally:",
@@ -261,40 +253,40 @@
             "계산 완료"
           ]
         },
-        "tip": "else는 try가 오류 없이 완료됐을 때만 실행돼요. 성공 시의 처리 로직을 try 안에 넣지 않고 else로 분리하면 코드가 더 명확해져요."
+        "tip": "오류가 없으면 else → finally 순서로 실행돼요."
       },
       {
         "order": 2,
-        "text": "오류가 발생하면 else는 건너뛰고 finally만 실행돼요.\nfinally는 반드시 실행되어야 하는 정리 작업에 사용해요.",
+        "text": "오류가 발생하면 else는 건너뛰고, finally만 실행돼요.",
         "terminal": {
           "code": [
             "try:",
             "    result = 10 / 0",
             "except ZeroDivisionError:",
-            "    print(\"0으로 나눌 수 없어요\")",
+            "    print(\"나눌 수 없어요\")",
             "else:",
             "    print(f\"성공! 결과: {result}\")",
             "finally:",
             "    print(\"계산 완료\")"
           ],
           "output": [
-            "0으로 나눌 수 없어요",
+            "나눌 수 없어요",
             "계산 완료"
           ]
         },
-        "tip": "finally는 return이나 break가 실행되더라도 무조건 실행돼요. 그래서 파일 닫기, DB 연결 해제 같은 리소스 정리에 적합해요."
+        "tip": "finally는 return이나 오류가 있어도 항상 실행돼요. 그래서 '무조건 해야 하는 정리 작업'에 써요."
       },
       {
         "order": 3,
-        "text": "finally의 가장 대표적인 사용 사례는 파일이나 네트워크 연결을 반드시 닫아야 할 때예요.\n오류가 나도, 안 나도 항상 닫혀야 하니까요.",
+        "text": "finally의 가장 흔한 사용 사례는 파일을 반드시 닫아야 할 때예요.",
         "terminal": {
           "code": [
             "file = None",
             "try:",
             "    file = open(\"log.txt\", \"w\")",
-            "    file.write(\"로그 기록\")",
-            "except IOError as e:",
-            "    print(f\"파일 오류: {e}\")",
+            "    file.write(\"기록\")",
+            "except IOError:",
+            "    print(\"파일 오류\")",
             "finally:",
             "    if file:",
             "        file.close()",
@@ -304,86 +296,76 @@
             "파일 닫힘"
           ]
         },
-        "tip": "현대 Python에서는 with open()이 finally의 파일 닫기를 자동으로 처리해줘요. 하지만 finally 개념 자체는 파일 외에도 다양한 리소스 관리에 쓰여요."
+        "tip": "with open()을 쓰면 finally 없이도 자동으로 닫혀요. 하지만 finally 개념은 파일 외에도 다양하게 쓰여요."
       },
       {
         "order": 4,
-        "text": "else는 try가 성공했을 때만 실행할 로직을 분리해요.\n성공 처리를 try 안에 함께 쓰면 그 코드에서 발생한 오류도 except가 잡아버리는 문제가 생겨요.",
+        "text": "else는 try 성공 시의 로직을 분리하는 데 써요.\n성공 처리를 try 안에 쓰면 그 코드의 오류도 except가 잡아버려서 구분이 어려워져요.",
         "terminal": {
           "code": [
-            "def load_score(text):",
+            "def check_score(text):",
             "    try:",
             "        score = int(text)",
             "    except ValueError:",
             "        print(\"숫자를 입력해주세요\")",
             "    else:",
-            "        if score >= 80:",
-            "            print(\"합격!\")",
-            "        else:",
-            "            print(\"불합격\")",
+            "        print(\"합격!\" if score >= 80 else \"불합격\")",
             "",
-            "load_score(\"95\")",
-            "load_score(\"abc\")"
+            "check_score(\"95\")",
+            "check_score(\"abc\")"
           ],
           "output": [
             "합격!",
             "숫자를 입력해주세요"
           ]
         },
-        "tip": "else 안의 코드에서 오류가 나도 위의 except가 잡지 않아요. try 블록의 오류와 성공 후 처리의 오류를 명확히 구분할 수 있어요."
+        "tip": "else 안의 코드에서 오류가 나도 위의 except가 잡지 않아요. 역할이 명확하게 분리돼요."
       },
       {
         "order": 5,
-        "text": "try / except / else / finally 네 블록을 모두 조합하면 완전한 예외처리 구조가 돼요.\n각 블록의 역할을 명확히 구분해서 사용하는 게 핵심이에요.",
+        "text": "네 블록을 모두 조합하면 완전한 예외처리 구조가 돼요.\n하지만 항상 다 쓸 필요는 없어요. 필요한 것만 골라 쓰면 돼요.",
         "terminal": {
           "code": [
-            "# 구조 정리",
+            "# 전체 구조 정리",
             "try:",
-            "    # 오류가 날 수 있는 코드",
-            "    pass",
+            "    pass  # 오류 가능 코드",
             "except 특정오류:",
-            "    # 오류 발생 시 처리",
-            "    pass",
+            "    pass  # 오류 처리",
             "else:",
-            "    # 오류 없이 성공했을 때만 실행",
-            "    pass",
+            "    pass  # 성공 시만 실행",
             "finally:",
-            "    # 항상 실행 (정리 작업)",
-            "    pass"
+            "    pass  # 항상 실행"
           ],
           "output": []
         },
-        "tip": "네 블록을 모두 쓸 필요는 없어요. 상황에 맞게 필요한 블록만 조합하면 돼요. try + except만 써도 완전한 예외처리예요."
+        "tip": "try + except만 써도 충분해요. else와 finally는 필요할 때 추가하면 돼요."
       },
       {
         "order": 6,
-        "text": "실제 데이터 처리 코드에서 else와 finally를 함께 활용하는 패턴을 익혀봐요.",
+        "text": "실제 코드에서 else와 finally를 함께 쓰는 패턴이에요.",
         "terminal": {
           "code": [
-            "def process_data(raw):",
-            "    result = None",
+            "def process(raw):",
             "    try:",
             "        value = int(raw)",
-            "        result = value * 2",
             "    except ValueError:",
-            "        print(f\"변환 실패: '{raw}'는 숫자가 아니에요\")",
+            "        print(f\"'{raw}'는 숫자가 아니에요\")",
             "    else:",
-            "        print(f\"처리 성공: {result}\")",
+            "        print(f\"결과: {value * 2}\")",
             "    finally:",
-            "        print(f\"입력값 '{raw}' 처리 종료\")",
-            "    return result",
+            "        print(f\"처리 완료: {raw}\")",
             "",
-            "process_data(\"7\")",
-            "process_data(\"hi\")"
+            "process(\"7\")",
+            "process(\"hi\")"
           ],
           "output": [
-            "처리 성공: 14",
-            "입력값 '7' 처리 종료",
-            "변환 실패: 'hi'는 숫자가 아니에요",
-            "입력값 'hi' 처리 종료"
+            "결과: 14",
+            "처리 완료: 7",
+            "'hi'는 숫자가 아니에요",
+            "처리 완료: hi"
           ]
         },
-        "tip": "finally 안에서 result를 확인하거나 로그를 남기는 패턴은 실무에서 자주 쓰여요."
+        "tip": "finally에서 로그를 남기는 패턴은 실무에서 자주 써요."
       }
     ]
   },
@@ -397,7 +379,7 @@
     "slides": [
       {
         "order": 1,
-        "text": "raise를 사용하면 개발자가 직접 오류를 발생시킬 수 있어요.\n입력값이 조건에 맞지 않을 때, 잘못된 상황임을 명시적으로 알릴 수 있어요.",
+        "text": "raise를 쓰면 개발자가 직접 오류를 발생시킬 수 있어요.\n잘못된 입력을 받았을 때 명확하게 알려주고 싶을 때 사용해요.",
         "terminal": {
           "code": [
             "def set_age(age):",
@@ -414,36 +396,34 @@
             "잘못된 입력: 나이는 0 이상이어야 해요"
           ]
         },
-        "tip": "raise는 오류를 강제로 발생시켜요. 함수가 잘못 사용되는 걸 막고, 호출한 쪽에서 반드시 처리하도록 강제할 수 있어요."
+        "tip": "raise는 오류를 강제로 발생시켜서, 함수를 잘못 사용하는 걸 막아줘요."
       },
       {
         "order": 2,
-        "text": "raise는 기존 예외 타입을 그대로 활용할 수도 있고, 잡은 예외를 그대로 다시 던질 수도 있어요.\nexcept 블록 안에서 raise만 쓰면 현재 오류를 그대로 위로 전달해요.",
+        "text": "raise는 기존 예외 타입을 그대로 사용해요.\nValueError, TypeError 등 이미 배운 오류 타입을 raise에 그대로 쓸 수 있어요.",
         "terminal": {
           "code": [
-            "def load_config(path):",
-            "    try:",
-            "        with open(path) as f:",
-            "            return f.read()",
-            "    except FileNotFoundError:",
-            "        print(\"설정 파일 없음 — 기본값 사용\")",
-            "        raise  # 오류를 다시 위로 전달",
+            "def get_score(score):",
+            "    if not isinstance(score, int):",
+            "        raise TypeError(\"점수는 정수여야 해요\")",
+            "    if score < 0 or score > 100:",
+            "        raise ValueError(\"점수는 0~100 사이여야 해요\")",
+            "    return score",
             "",
             "try:",
-            "    load_config(\"config.json\")",
-            "except FileNotFoundError:",
-            "    print(\"호출한 쪽에서도 오류를 받았어요\")"
+            "    get_score(\"A\")",
+            "except TypeError as e:",
+            "    print(e)"
           ],
           "output": [
-            "설정 파일 없음 — 기본값 사용",
-            "호출한 쪽에서도 오류를 받았어요"
+            "점수는 정수여야 해요"
           ]
         },
-        "tip": "raise 단독 사용은 현재 처리 중인 예외를 그대로 재발생시켜요. 로그를 남기면서도 오류를 상위로 전파할 때 유용해요."
+        "tip": "조건 검사 → raise 패턴을 '입력 유효성 검사'라고 해요. 함수 첫 줄에서 잘못된 값을 바로 차단해요."
       },
       {
         "order": 3,
-        "text": "커스텀 예외 클래스를 만들면 오류에 이름을 붙이고 의미를 명확히 할 수 있어요.\nException 클래스를 상속받아서 만들어요.",
+        "text": "커스텀 예외를 만들면 오류에 이름을 붙여서 의미를 더 명확히 할 수 있어요.\nException을 상속받아서 만들어요.",
         "terminal": {
           "code": [
             "class ScoreError(Exception):",
@@ -451,7 +431,7 @@
             "",
             "def validate_score(score):",
             "    if score < 0 or score > 100:",
-            "        raise ScoreError(f\"점수는 0~100이어야 해요. 입력값: {score}\")",
+            "        raise ScoreError(f\"잘못된 점수: {score}\")",
             "",
             "try:",
             "    validate_score(150)",
@@ -459,75 +439,70 @@
             "    print(f\"ScoreError: {e}\")"
           ],
           "output": [
-            "ScoreError: 점수는 0~100이어야 해요. 입력값: 150"
+            "ScoreError: 잘못된 점수: 150"
           ]
         },
-        "tip": "pass만 써도 완전한 커스텀 예외예요. Exception을 상속받는 것만으로 raise와 except에서 사용할 수 있어요."
+        "tip": "pass만 써도 완전한 커스텀 예외예요. 이름만 달라도 예외 구분이 훨씬 명확해져요."
       },
       {
         "order": 4,
-        "text": "커스텀 예외에 __init__을 추가하면 오류 메시지 외에 추가 정보를 담을 수 있어요.",
+        "text": "커스텀 예외는 ValueError 같은 기본 오류와 별도로 잡을 수 있어요.\n오류 종류마다 다르게 처리하고 싶을 때 유용해요.",
         "terminal": {
           "code": [
-            "class InsufficientCrownsError(Exception):",
-            "    def __init__(self, required, current):",
-            "        self.required = required",
-            "        self.current = current",
-            "        super().__init__(f\"왕관 부족! 필요: {required}개, 보유: {current}개\")",
+            "class ScoreError(Exception):",
+            "    pass",
             "",
             "try:",
-            "    raise InsufficientCrownsError(3, 1)",
-            "except InsufficientCrownsError as e:",
-            "    print(e)",
-            "    print(f\"추가로 {e.required - e.current}개 필요해요\")"
+            "    score = int(\"abc\")     # ValueError 발생",
+            "except ValueError:",
+            "    print(\"숫자가 아니에요\")",
+            "except ScoreError:",
+            "    print(\"점수 범위 오류\")"
           ],
           "output": [
-            "왕관 부족! 필요: 3개, 보유: 1개",
-            "추가로 2개 필요해요"
+            "숫자가 아니에요"
           ]
         },
-        "tip": "super().__init__(메시지)로 부모 클래스의 메시지를 설정해요. e.required처럼 커스텀 속성에도 직접 접근할 수 있어요."
+        "tip": "커스텀 예외와 기본 예외를 따로 구분해서 처리할 수 있어요."
       },
       {
         "order": 5,
-        "text": "예외 계층 구조를 만들면 관련 예외를 묶어서 처리하거나 개별 처리할 수 있어요.",
+        "text": "except 블록 안에서 raise만 쓰면 현재 오류를 그대로 위로 전달해요.\n로그는 남기면서 오류를 호출한 쪽에도 전달하고 싶을 때 써요.",
         "terminal": {
           "code": [
-            "class AppError(Exception):",
-            "    pass",
-            "",
-            "class AuthError(AppError):",
-            "    pass",
-            "",
-            "class NetworkError(AppError):",
-            "    pass",
+            "def load_file(path):",
+            "    try:",
+            "        with open(path) as f:",
+            "            return f.read()",
+            "    except FileNotFoundError:",
+            "        print(\"파일 없음 — 오류 전달\")",
+            "        raise",
             "",
             "try:",
-            "    raise AuthError(\"로그인이 필요해요\")",
-            "except AuthError as e:",
-            "    print(f\"인증 오류: {e}\")",
-            "except AppError as e:",
-            "    print(f\"앱 오류: {e}\")"
+            "    load_file(\"config.json\")",
+            "except FileNotFoundError:",
+            "    print(\"호출한 쪽에서 오류를 받았어요\")"
           ],
           "output": [
-            "인증 오류: 로그인이 필요해요"
+            "파일 없음 — 오류 전달",
+            "호출한 쪽에서 오류를 받았어요"
           ]
         },
-        "tip": "AuthError는 AppError를 상속하므로 except AppError도 잡을 수 있어요. 더 구체적인 예외를 위에, 더 일반적인 예외를 아래에 배치해야 해요."
+        "tip": "raise 하나만 쓰면 오류를 다시 발생시켜요. 오류를 처리하면서도 위로 전파할 수 있어요."
       },
       {
         "order": 6,
-        "text": "raise와 커스텀 예외를 활용하면 함수의 사용 계약을 코드로 명시할 수 있어요.\n잘못된 사용을 런타임에 즉시 알려주는 방어적 프로그래밍 패턴이에요.",
+        "text": "커스텀 예외와 raise를 함께 쓰면 함수의 사용 규칙을 코드로 명확히 표현할 수 있어요.",
         "terminal": {
           "code": [
             "class LevelError(Exception):",
             "    pass",
             "",
             "def start_course(level):",
-            "    valid_levels = [\"beginner\", \"intermediate\", \"advanced\"]",
-            "    if level not in valid_levels:",
-            "        raise LevelError(f\"'{level}'은 유효하지 않은 레벨이에요. {valid_levels} 중 선택해주세요.\")",
-            "    return f\"{level} 과정을 시작해요!\"",
+            "    valid = [\"beginner\", \"intermediate\", \"advanced\"]",
+            "    if level not in valid:",
+            "        raise LevelError(f\"'{level}'은 없는 레벨이에요\")",
+            "    return f\"{level} 시작!\"",
             "",
             "try:",
             "    print(start_course(\"expert\"))",
@@ -535,10 +510,10 @@
             "    print(e)"
           ],
           "output": [
-            "'expert'은 유효하지 않은 레벨이에요. ['beginner', 'intermediate', 'advanced'] 중 선택해주세요."
+            "'expert'은 없는 레벨이에요"
           ]
         },
-        "tip": "이런 패턴을 '입력 유효성 검사(validation)'라고 해요. 함수 진입 시점에 잘못된 값을 차단해서 이후 코드에서 발생할 수 있는 더 복잡한 오류를 예방해요."
+        "tip": "이름 있는 예외를 쓰면 어떤 오류인지 바로 알 수 있어서 디버깅이 쉬워져요."
       }
     ]
   },
@@ -552,37 +527,26 @@
     "slides": [
       {
         "order": 1,
-        "text": "Unit 1에서 배운 예외처리 개념을 전부 정리해봐요.\ntry / except / else / finally, 다양한 예외 유형, raise, 커스텀 예외까지 하나의 흐름으로 연결해요.",
+        "text": "Unit 1에서 배운 내용을 정리해봐요.\ntry / except / else / finally, raise, 커스텀 예외까지 각각의 역할을 떠올려봐요.",
         "terminal": {
           "code": [
-            "# Unit 1 예외처리 전체 구조 요약",
+            "# Unit 1 핵심 구조",
             "try:",
-            "    # 오류 가능 코드",
-            "    pass",
-            "except 특정예외 as e:",
-            "    # 오류 처리",
-            "    pass",
+            "    pass  # 오류 가능 코드",
+            "except ValueError:",
+            "    pass  # 오류 처리",
             "else:",
-            "    # 성공 시 처리",
-            "    pass",
+            "    pass  # 성공 시만 실행",
             "finally:",
-            "    # 항상 실행",
-            "    pass",
-            "",
-            "# raise로 직접 오류 발생",
-            "raise ValueError(\"메시지\")",
-            "",
-            "# 커스텀 예외",
-            "class MyError(Exception):",
-            "    pass"
+            "    pass  # 항상 실행"
           ],
           "output": []
         },
-        "tip": "이 구조를 외우는 게 아니라, 각 블록이 언제 실행되는지 이해하는 게 핵심이에요."
+        "tip": "각 블록을 외우기보다, 언제 실행되는지 흐름을 이해하는 게 중요해요."
       },
       {
         "order": 2,
-        "text": "실전에서 예외처리는 사용자 입력, 파일 처리, 네트워크 요청에 가장 많이 쓰여요.\n이 세 가지 상황에서 공통적으로 적용되는 패턴을 익혀봐요.",
+        "text": "실전에서 자주 쓰는 세 가지 패턴이에요.\n짧게 구조만 확인해요.",
         "terminal": {
           "code": [
             "# 패턴 1: 사용자 입력 검증",
@@ -592,149 +556,105 @@
             "    except ValueError:",
             "        return None",
             "",
-            "# 패턴 2: 파일 처리",
+            "# 패턴 2: 파일 읽기",
             "def read_file(path):",
             "    try:",
             "        with open(path) as f:",
             "            return f.read()",
             "    except FileNotFoundError:",
-            "        return \"\"",
-            "",
-            "# 패턴 3: 커스텀 오류 전파",
-            "def validate(value):",
-            "    if value < 0:",
-            "        raise ValueError(f\"음수는 허용되지 않아요: {value}\")"
+            "        return \"\""
           ],
           "output": []
         },
-        "tip": "세 패턴 모두 오류를 잡아서 None이나 기본값을 반환하거나, 또는 의미 있는 오류로 변환해서 위로 전달해요. 이 슬라이드는 실행 결과 없이 패턴 구조만 확인해요."
+        "tip": "오류를 잡아서 None이나 기본값을 반환하는 패턴은 가장 자주 쓰이는 방식이에요."
       },
       {
         "order": 3,
-        "text": "예외처리에서 흔히 하는 실수들을 알아봐요.\n잘못된 패턴을 피하는 것만으로도 코드 품질이 크게 올라가요.",
+        "text": "흔히 하는 실수를 알아봐요.\nexcept: pass는 오류를 조용히 묻어버려서 나중에 찾기 매우 어려워요.",
         "terminal": {
           "code": [
-            "# 나쁜 패턴: 모든 오류를 조용히 무시",
+            "# 나쁜 패턴",
             "try:",
-            "    risky_operation()",
+            "    risky()",
             "except:",
-            "    pass  # 오류가 발생해도 아무것도 안 함",
+            "    pass  # 오류를 아무 처리 없이 무시",
             "",
-            "# 좋은 패턴: 구체적인 예외 + 처리",
+            "# 좋은 패턴",
             "try:",
-            "    risky_operation()",
+            "    risky()",
             "except ValueError as e:",
-            "    print(f\"값 오류: {e}\")",
-            "except Exception as e:",
-            "    print(f\"예상치 못한 오류: {e}\")",
-            "    raise"
+            "    print(f\"값 오류: {e}\")"
           ],
           "output": []
         },
-        "tip": "except: pass는 버그를 숨겨요. 오류가 발생해도 프로그램이 조용히 이상하게 동작하게 되어 디버깅이 매우 어려워져요."
+        "tip": "오류를 숨기지 말고, 최소한 print라도 해서 어떤 오류인지 확인할 수 있게 해요."
       },
       {
         "order": 4,
-        "text": "예외처리를 활용한 실전 예제 — 성적 처리 시스템을 만들어봐요.\n입력 검증, 커스텀 예외, 오류 메시지까지 통합해서 구현해요.",
+        "text": "커스텀 예외와 raise를 활용한 입력 검증 예제예요.",
         "terminal": {
           "code": [
-            "class InvalidScoreError(Exception):",
+            "class ScoreError(Exception):",
             "    pass",
             "",
-            "def process_score(raw_score):",
-            "    try:",
-            "        score = int(raw_score)",
-            "        if not (0 <= score <= 100):",
-            "            raise InvalidScoreError(f\"범위 초과: {score}\")",
-            "    except ValueError:",
-            "        print(f\"숫자가 아닌 입력: '{raw_score}'\")",
-            "        return None",
-            "    except InvalidScoreError as e:",
-            "        print(f\"점수 오류: {e}\")",
-            "        return None",
-            "    else:",
-            "        grade = \"A\" if score >= 90 else \"B\" if score >= 80 else \"C\"",
-            "        return grade",
-            "    finally:",
-            "        print(f\"처리 완료: {raw_score}\")",
+            "def check_score(score):",
+            "    if not (0 <= score <= 100):",
+            "        raise ScoreError(f\"범위 초과: {score}\")",
+            "    return \"A\" if score >= 90 else \"B\" if score >= 80 else \"C\"",
             "",
-            "print(process_score(\"95\"))",
-            "print(process_score(\"150\"))"
+            "try:",
+            "    print(check_score(95))",
+            "    print(check_score(150))",
+            "except ScoreError as e:",
+            "    print(f\"오류: {e}\")"
           ],
           "output": [
-            "처리 완료: 95",
             "A",
-            "점수 오류: 범위 초과: 150",
-            "처리 완료: 150",
-            "None"
+            "오류: 범위 초과: 150"
           ]
         },
-        "tip": "else에서 등급 계산을 하고, finally에서 로그를 남기는 구조예요. 각 블록의 역할이 명확하게 분리돼 있어요."
+        "tip": "95는 정상 처리, 150은 ScoreError로 잡혀요. 두 흐름이 명확하게 분리돼 있어요."
       },
       {
         "order": 5,
-        "text": "예외처리는 프로그램의 안정성을 높이는 핵심 도구예요.\n오류를 숨기는 게 아니라, 오류를 제어하는 거예요.",
+        "text": "여러 입력을 처리할 때 예외처리 덕분에 잘못된 값이 있어도 프로그램이 멈추지 않아요.",
         "terminal": {
           "code": [
-            "class InvalidScoreError(Exception):",
-            "    pass",
-            "",
-            "def process_score(raw_score):",
+            "def safe_score(raw):",
             "    try:",
-            "        score = int(raw_score)",
+            "        score = int(raw)",
             "        if not (0 <= score <= 100):",
-            "            raise InvalidScoreError(f\"범위 초과: {score}\")",
-            "    except ValueError:",
-            "        print(f\"숫자가 아닌 입력: '{raw_score}'\")",
+            "            raise ValueError",
+            "        return score",
+            "    except (ValueError, TypeError):",
             "        return None",
-            "    except InvalidScoreError as e:",
-            "        print(f\"점수 오류: {e}\")",
-            "        return None",
-            "    else:",
-            "        grade = \"A\" if score >= 90 else \"B\" if score >= 80 else \"C\"",
-            "        return grade",
-            "    finally:",
-            "        print(f\"처리 완료: {raw_score}\")",
             "",
-            "scores = [\"85\", \"abc\", \"92\", \"-5\", \"78\"]",
-            "results = []",
-            "",
-            "for s in scores:",
-            "    grade = process_score(s)",
-            "    if grade:",
-            "        results.append(grade)",
-            "",
-            "print(f\"유효한 성적: {results}\")"
+            "inputs = [\"85\", \"abc\", \"92\", \"-5\"]",
+            "results = [safe_score(s) for s in inputs]",
+            "print(results)"
           ],
           "output": [
-            "처리 완료: 85",
-            "숫자가 아닌 입력: 'abc'",
-            "처리 완료: abc",
-            "처리 완료: 92",
-            "점수 오류: 범위 초과: -5",
-            "처리 완료: -5",
-            "처리 완료: 78",
-            "유효한 성적: ['B', 'A', 'C']"
+            "[85, None, 92, None]"
           ]
         },
-        "tip": "잘못된 입력이 섞여 있어도 프로그램이 멈추지 않고 유효한 데이터만 처리하는 패턴이에요. 실제 데이터 파이프라인에서 자주 쓰이는 구조예요."
+        "tip": "잘못된 값은 None으로 처리하고 유효한 값만 남기는 패턴이에요. 실제 데이터 처리에서 자주 써요."
       },
       {
         "order": 6,
-        "text": "Unit 1을 마쳤어요! 예외처리는 중급 과정 전체에서 계속 등장해요.\nOOP, 파일 처리, 모듈, API 연동 — 어디서든 예외처리가 코드의 안전망이 돼요.",
+        "text": "Unit 1 완료! 예외처리는 중급 과정 전체에서 계속 등장해요.\n다음 Unit 2에서는 튜플, 패킹/언패킹, 자료형 심화를 배워요.",
         "terminal": {
           "code": [
             "# Unit 1 핵심 정리",
             "# try      → 오류 가능 코드",
-            "# except   → 오류 잡기 (구체적인 타입으로)",
-            "# else     → 성공 시 처리",
-            "# finally  → 항상 실행 (정리 작업)",
+            "# except   → 오류 잡기",
+            "# else     → 성공 시만 실행",
+            "# finally  → 항상 실행",
             "# raise    → 직접 오류 발생",
             "# class MyError(Exception): pass  → 커스텀 예외"
           ],
           "output": []
         },
-        "tip": "다음 Unit 2(자료형 심화)에서는 튜플, 패킹/언패킹, 중첩 자료구조를 다뤄요. 예외처리와 조합해서 더 견고한 코드를 만들 수 있어요."
+        "tip": "예외처리는 오류를 숨기는 게 아니라, 오류를 제어하는 도구예요."
       }
     ]
   }

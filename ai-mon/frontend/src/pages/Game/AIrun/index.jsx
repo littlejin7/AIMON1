@@ -42,7 +42,10 @@ export default function AIrun() {
       if (cancelled) return;
       gameTokenRef.current = token;
 
+      let hasCleared = false;
       const handleGameOver = async (score, distance) => {
+        if (hasCleared) return { data: null };
+        hasCleared = true;
         incrementGamePlay('runner');
         return await gameApi.clearGame({
           game_id: 'runner',
@@ -51,7 +54,19 @@ export default function AIrun() {
         });
       };
 
-      const engine = new RunnerEngine(mountRef.current, handleGameOver);
+      const handleGetNewToken = async () => {
+        try {
+          const res = await gameApi.startGame('runner');
+          gameTokenRef.current = res.data.game_token;
+          hasCleared = false; // 새 세션을 위한 초기화
+          return res.data.game_token;
+        } catch (err) {
+          console.error('Failed to get new game token', err);
+          return null;
+        }
+      };
+
+      const engine = new RunnerEngine(mountRef.current, handleGameOver, handleGetNewToken);
       engineRef.current = engine;
       engine.init();
     }

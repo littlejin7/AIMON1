@@ -32,7 +32,9 @@ MIN_PLAY_SECONDS = {
     "runner": 5,
     "aipang": 5,
     "aizzak": 30,
+    "aicross": 5,
 }
+SUPPORTED_GAME_IDS = frozenset(MIN_PLAY_SECONDS)
 
 
 def _make_game_token(game_id: str, user_id: str) -> str:
@@ -107,7 +109,7 @@ class GameClearRequest(BaseModel):
 
 @router.post("/start")
 def game_start(req: GameStartRequest, user_ref: dict = Depends(get_current_user)):
-    if req.game_id not in ("aipang", "runner", "aizzak"):
+    if req.game_id not in SUPPORTED_GAME_IDS:
         raise HTTPException(status_code=400, detail="Invalid game_id")
     token = _make_game_token(req.game_id, user_ref["id"])
     return {"game_token": token}
@@ -124,6 +126,7 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
     # 서명·소유자·만료·최소경과시간 검증은 user 영속 상태와 무관하므로 락 밖에서 OK.
     # nonce '소비'(일회성)는 영속 상태 기준이어야 하므로 아래 mutator 안에서 수행.
     distance_val = None
+    submitted_score_result = 0
     aizzak_correct = None
     aizzak_elapsed = None
     if req.game_id == "aipang":
@@ -150,6 +153,11 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
         # 경과시간: 클라 제출값 불신 — 토큰 발급시각(ts) 기준 서버가 직접 계산
         aizzak_elapsed = int(now_kst().timestamp()) - int(token_payload["ts"])
         aizzak_correct = req.correct_count
+    elif req.game_id == "aicross":
+        submitted_score_result = max(0, min(int(req.score or 0), 100))
+        token_payload = _verify_game_token(
+            req.game_token, "aicross", user_id, MIN_PLAY_SECONDS["aicross"]
+        )
     else:
         raise HTTPException(status_code=400, detail="Invalid game_id")
 
@@ -157,7 +165,7 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
         """영속 상태에서 새로 읽은 user 기준으로 nonce 소비·캡·보상을 원자 처리."""
         crowns_awarded = 0
         xp_awarded = 0
-        score_result = 0
+        score_result = submitted_score_result
         already_claimed = False
 
         # game_rewards 딕셔너리 초기화
@@ -257,6 +265,40 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
                 game_rewards["aipang_last_date"] = today_kst
                 crowns_awarded = 1
                 user["crowns"] = user.get("crowns", 0) + crowns_awarded
+
+        elif req.game_id == "aicross":
+            aicross_last = game_rewards.get("aicross_last_date")
+            aicross_count = game_rewards.get("aicross_today_count", 0)
+
+            if aicross_last != today_kst:
+                aicross_count = 0
+                if (
+                    game_rewards.get("runner_last_date") != today_kst
+                    and game_rewards.get("aizzak_last_date") != today_kst
+                ):
+                    game_rewards["daily_xp"] = 0
+
+            if aicross_count >= 3:
+                already_claimed = True
+            else:
+                _consume_nonce(game_rewards, token_payload)
+                aicross_count += 1
+                game_rewards["aicross_today_count"] = aicross_count
+                game_rewards["aicross_last_date"] = today_kst
+
+                if score_result >= 100:
+                    xp_awarded = 200
+                elif score_result >= 80:
+                    xp_awarded = 150
+                elif score_result > 0:
+                    xp_awarded = 100
+
+                daily_xp = game_rewards.get("daily_xp", 0)
+                if daily_xp + xp_awarded > 2500:
+                    xp_awarded = max(0, 2500 - daily_xp)
+
+                game_rewards["daily_xp"] = daily_xp + xp_awarded
+                apply_xp(user, xp_awarded, event_type="game_clear")
 
         else:  # runner
             runner_last = game_rewards.get("runner_last_date")

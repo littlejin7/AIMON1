@@ -10,7 +10,7 @@
       {
         "order": 1,
         "text": "Streamlit은 Python 코드만으로 웹 앱을 만들 수 있는 프레임워크입니다.\nHTML·CSS·JavaScript 없이도 데이터 시각화, 챗봇, 대시보드를 빠르게 구성할 수 있습니다.",
-        "tip": "pip install streamlit 으로 설치하고, streamlit run app.py 로 실행합니다."
+        "tip": "pip install streamlit으로 설치하고, streamlit run app.py로 실행합니다."
       },
       {
         "order": 2,
@@ -437,7 +437,7 @@
       {
         "order": 1,
         "text": "이번 스테이지에서는 에코 챗봇에 Claude API를 연결해 실제 AI 응답을 받습니다.\nanthopic 라이브러리 설치 → 클라이언트 생성 → messages 전달 → 응답 파싱 순으로 진행합니다.",
-        "tip": "pip install anthropic 으로 설치합니다. API 키는 코드에 직접 쓰지 않고 환경 변수로 관리합니다."
+        "tip": "pip install anthropic으로 설치합니다. API 키는 코드에 직접 쓰지 않고 환경 변수로 관리합니다."
       },
       {
         "order": 2,

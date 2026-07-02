@@ -1,4 +1,4 @@
-import api from './client'
+import api, { logApiError, requireAuthToken } from './client'
 
 export const authApi = {
   login:    (data, cfg) => api.post('/auth/login', data, cfg),
@@ -12,6 +12,7 @@ export const authApi = {
   resetPassword:  (data) => api.post('/auth/reset-password', data),
   findId: (data) => api.post('/auth/find-id', data),
   submitLevelTest: (data) => api.post('/auth/level-test/submit', data),
+  touch:           ()     => api.post('/auth/touch'),
 }
 
 export const quizApi = {
@@ -28,17 +29,41 @@ export const quizApi = {
 }
 
 export const progressApi = {
-  getProgress: (courseLevel) => api.get('/progress/', { params: { course_level: courseLevel } }),
-  getStats:    ()     => api.get('/progress/stats'),
-  saveProgress:(data) => api.post('/progress/', data),
+  getProgress: (courseLevel) => {
+    requireAuthToken('GET /progress/')
+    return api.get('/progress/', { params: { course_level: courseLevel } })
+  },
+  getStats:    ()     => {
+    requireAuthToken('GET /progress/stats')
+    return api.get('/progress/stats')
+  },
+  saveProgress:(data) => {
+    requireAuthToken('POST /progress/')
+    return api.post('/progress/', data)
+  },
 }
 
 export const bossApi = {
-  getInfo:       (unit) => api.get(`/boss/info?unit=${unit}`),
-  startBattle:   (unit) => api.post(`/boss/start?unit=${unit}`),
-  nextQuestion:  (unit) => api.post(`/boss/next?unit=${unit}`),
-  submitAnswer:  (data) => api.post('/boss/answer', data),
-  getHint:       (data) => api.post('/boss/hint', data),
+  getInfo:       (unit) => {
+    requireAuthToken('GET /boss/info')
+    return api.get(`/boss/info?unit=${unit}`)
+  },
+  startBattle:   (unit) => {
+    requireAuthToken('POST /boss/start')
+    return api.post(`/boss/start?unit=${unit}`)
+  },
+  nextQuestion:  (unit) => {
+    requireAuthToken('POST /boss/next')
+    return api.post(`/boss/next?unit=${unit}`)
+  },
+  submitAnswer:  (data) => {
+    requireAuthToken('POST /boss/answer')
+    return api.post('/boss/answer', data)
+  },
+  getHint:       (data) => {
+    requireAuthToken('POST /boss/hint')
+    return api.post('/boss/hint', data)
+  },
 }
 
 export const endbossApi = {
@@ -49,14 +74,29 @@ export const endbossApi = {
 }
 
 export const minibossApi = {
-  getInfo:       () => api.get('/boss/miniboss/info'),
-  startBattle:   (unit, stage) => api.post(`/boss/miniboss/start?unit=${unit}&stage=${stage}`),
-  submitAnswer:  (data) => api.post('/boss/miniboss/answer', data),
-  clearBoss:     (data) => api.post('/boss/miniboss/clear', data),
+  getInfo:       () => {
+    requireAuthToken('GET /boss/miniboss/info')
+    return api.get('/boss/miniboss/info')
+  },
+  startBattle:   (unit, stage) => {
+    requireAuthToken('POST /boss/miniboss/start')
+    return api.post(`/boss/miniboss/start?unit=${unit}&stage=${stage}`)
+  },
+  submitAnswer:  (data) => {
+    requireAuthToken('POST /boss/miniboss/answer')
+    return api.post('/boss/miniboss/answer', data)
+  },
+  clearBoss:     (data) => {
+    requireAuthToken('POST /boss/miniboss/clear')
+    return api.post('/boss/miniboss/clear', data)
+  },
 }
 
 export const codeApi = {
-  runCode: (data) => api.post('/code/run', data),
+  // 채점 단일 소스. body: { question_id, code, output, error, unit, stage, course_level, award }
+  // award=false 면 백엔드가 채점 결과(is_correct/score/feedback)만 반환(XP·진행도 미저장).
+  submitCode: (data) => api.post('/code/submit', data),
+  getHint:    (data) => api.post('/code/hint',   data),
 }
 
 export const userApi = {
@@ -76,7 +116,23 @@ export const trainApi = {
 
 export const attemptsApi = {
   // 풀이 전수 기록 (정오답 무관). 채점 순간 fire-and-forget 로 호출.
-  record: (data) => api.post('/attempts', data),
+  record: async (data) => {
+    try {
+      return await api.post('/attempts', data)
+    } catch (err) {
+      logApiError('POST /attempts failed without blocking UI', err)
+      return {
+        data: {
+          success: false,
+          is_correct: !!data?.is_correct,
+          feedback: '',
+          hint: '',
+          correct_answer: '',
+          attempt_record_failed: true,
+        },
+      }
+    }
+  },
 }
 
 export const gameApi = {

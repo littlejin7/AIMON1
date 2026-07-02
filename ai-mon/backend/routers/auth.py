@@ -17,6 +17,8 @@ from routers.utils import (
     get_user_by_id,
     get_user_by_username,
     get_user_by_email,
+    get_user_by_username_any,
+    get_user_by_email_any,
     save_user,
     load_reset_tokens,
     save_reset_tokens,
@@ -26,17 +28,23 @@ from routers.utils import (
     delete_user_refresh_tokens,
     mutate_user_atomic,
     UserNotFoundError,
+    UserSaveError,
     SECRET_KEY,
     ALGORITHM,
     limiter,
     now_kst,
+    get_current_user,
     get_current_user_optional,
+    delete_soft_deleted_user_by_username,
+    restore_soft_deleted_user,
 )
 
 router = APIRouter()
 
 EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 30))
 REFRESH_EXPIRE_DAYS = int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", 30))
+ACCOUNT_RESTORE_RETENTION_DAYS = int(os.getenv("ACCOUNT_RESTORE_RETENTION_DAYS", 30))
+INVALID_LOGIN_DETAIL = "\uc544\uc774\ub514 \ub610\ub294 \ube44\ubc00\ubc88\ud638\uac00 \uc62c\ubc14\ub974\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4."
 
 
 class RefreshRequest(BaseModel):
@@ -100,6 +108,11 @@ def update_login_streak(user: dict) -> tuple[dict, dict | None]:
         streak = user["streak"]
         earned_milestones = user.get("earned_streak_milestones", [])
         if streak == 3 and 3 not in earned_milestones:
+            # XP를 apply_xp 대신 직접 가산하는 이유:
+            # update_login_streak 는 이미 bump_mission(login) 중 또는 직후에 호출되며,
+            # apply_xp 내부에서 다시 미션 훅을 트리거하면 같은 mutator 내에서
+            # 미션 진척·보상이 중복 처리될 수 있다(재진입 위험).
+            # lv 재계산은 아래 apply_xp(user, 0, {}) 에서 XP 추가 없이 수행한다.
             user["xp"] = user.get("xp", 0) + 500
             user.setdefault("earned_streak_milestones", []).append(3)
             streak_reward = {"days": 3, "xp": 500, "crowns": 0}
@@ -119,7 +132,7 @@ def update_login_streak(user: dict) -> tuple[dict, dict | None]:
             user.setdefault("earned_streak_milestones", []).append(30)
             streak_reward = {"days": 30, "xp": 10000, "crowns": 5}
 
-        # Level up and evolution check (streak 증가 시 항상 실행)
+        # xp=0 으로 호출 → XP 추가 없이 lv·진화·칭호만 재계산 (XP는 위에서 직접 가산)
         apply_xp(user, 0, {})
     else:
         user["streak"] = 1
@@ -152,6 +165,46 @@ class LoginRequest(BaseModel):
     password: str
 
 
+def _is_restore_eligible(user: dict) -> bool:
+    deleted_at = user.get("deleted_at")
+    if not deleted_at:
+        return False
+    try:
+        deleted_dt = datetime.fromisoformat(str(deleted_at))
+    except Exception:
+        logger.warning("restore check skipped: invalid deleted_at for user_id=%s", user.get("id"))
+        return False
+    if deleted_dt.tzinfo is None:
+        deleted_dt = deleted_dt.replace(tzinfo=timezone(timedelta(hours=9)))
+    return now_kst() <= deleted_dt + timedelta(days=ACCOUNT_RESTORE_RETENTION_DAYS)
+
+
+def _issue_auth_response(user: dict, *, is_new: bool = False, account_restored: bool = False, streak_reward=None) -> dict:
+    token = create_token({"sub": user["id"], "username": user["username"]}, user.get("token_version", 1))
+    refresh_token = create_refresh_token(user["id"])
+    res_data = {
+        "access_token": token,
+        "refresh_token": refresh_token,
+        "token_type": "bearer",
+        "user": serialize_user(user),
+        "streak": user.get("streak", 0),
+        "is_new": is_new,
+        "account_restored": account_restored,
+    }
+    if streak_reward:
+        res_data["streak_reward"] = streak_reward
+    return res_data
+
+
+def _restore_for_login(user: dict, updater=None) -> dict:
+    if not _is_restore_eligible(user):
+        raise HTTPException(status_code=401, detail=INVALID_LOGIN_DETAIL)
+    try:
+        return restore_soft_deleted_user(user["id"], updater)
+    except UserNotFoundError:
+        raise HTTPException(status_code=404, detail="?ъ슜?먮? 李얠쓣 ???놁뒿?덈떎.")
+
+
 class ForgotPasswordRequest(BaseModel):
     email: str
 
@@ -171,9 +224,41 @@ class FindIdRequest(BaseModel):
 def register(req: RegisterRequest, request: Request):
     if get_user_by_username(req.username):
         raise HTTPException(status_code=400, detail="이미 존재하는 아이디입니다.")
-    # course_level 유효성 검증
+    
+    # 계정 삭제를 하고 동일한 username으로 재가입한 경우 기존 탈퇴한 유저 데이터를 완전히 삭제합니다.
+    # course_level: 클라 값을 쓰되 valid_levels 외의 값은 "beginner"로 fallback한다.
+    # 레벨 테스트(/auth/level-test/submit)를 정상 완료한 클라이언트가 결과를 함께
+    # 전달하는 흐름이므로 허용된 값(beginner/intermediate/advanced)이면 신뢰한다.
+    # is_level_tested: 클라 신뢰 — 레벨 테스트 완료 여부를 클라가 설정한다.
+    # 악의적 클라가 is_level_tested=true 로 보내도 게임 로직 상 실질 피해가 없다
+    # (보스 진입 게이트는 progress 기반 별도 검증 / 레벨 배정은 course_level 이 결정).
     valid_levels = {"beginner", "intermediate", "advanced"}
     level = req.course_level if req.course_level in valid_levels else "beginner"
+    deleted_user = get_user_by_username_any(req.username)
+    if deleted_user and deleted_user.get("deleted_at"):
+        if _is_restore_eligible(deleted_user):
+            def restore_updater(u: dict) -> None:
+                u["password"] = hash_password(req.password)
+                u["nickname"] = req.nickname or req.username
+                u["email"] = req.email
+                u["course_level"] = level
+                u["is_level_tested"] = req.is_level_tested
+                u["marketing_agreed"] = req.marketing_agreed
+
+            restored = _restore_for_login(deleted_user, restore_updater)
+
+            def login_mutator(u: dict):
+                _, sr = update_login_streak(u)
+                return sr
+
+            try:
+                restored, streak_reward = mutate_user_atomic(restored["id"], login_mutator)
+            except UserNotFoundError:
+                raise HTTPException(status_code=404, detail="?ъ슜?먮? 李얠쓣 ???놁뒿?덈떎.")
+            return _issue_auth_response(restored, is_new=False, account_restored=True, streak_reward=streak_reward)
+
+        delete_soft_deleted_user_by_username(req.username)
+
     new_user = {
         "id": str(uuid.uuid4()),
         "username": req.username,
@@ -217,8 +302,14 @@ def register(req: RegisterRequest, request: Request):
 @limiter.limit("10/minute")
 def login(req: LoginRequest, request: Request):
     user_ref = get_user_by_username(req.username)
+    account_restored = False
+    if not user_ref:
+        deleted_user = get_user_by_username_any(req.username)
+        if deleted_user and deleted_user.get("deleted_at") and verify_password(req.password, deleted_user.get("password", "")):
+            user_ref = _restore_for_login(deleted_user)
+            account_restored = True
     if not user_ref or not verify_password(req.password, user_ref["password"]):
-        raise HTTPException(status_code=401, detail="아이디 또는 비밀번호가 올바르지 않습니다.")
+        raise HTTPException(status_code=401, detail=INVALID_LOGIN_DETAIL)
 
     # d_login auto_claim 이 missions.daily.claimed(list) 를 append 하므로
     # save_user delta-merge 대신 mutate_user_atomic 원자 경로로 저장. (C-1 [필수])
@@ -231,18 +322,7 @@ def login(req: LoginRequest, request: Request):
     except UserNotFoundError:
         raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")
 
-    token = create_token({"sub": user["id"], "username": user["username"]}, user.get("token_version", 1))
-    refresh_token = create_refresh_token(user["id"])
-    res_data = {
-        "access_token": token,
-        "refresh_token": refresh_token,
-        "token_type": "bearer",
-        "user": serialize_user(user),
-        "streak": user["streak"]
-    }
-    if streak_reward:
-        res_data["streak_reward"] = streak_reward
-    return res_data
+    return _issue_auth_response(user, account_restored=account_restored, streak_reward=streak_reward)
 
 
 @router.post("/forgot-password")
@@ -487,6 +567,15 @@ async def social_google(req: SocialLoginRequest, request: Request):
     # 소셜 로그인은 username을 google_이메일 형식으로 저장해 고유성 유지
     username = f"google_{email}"
     user = get_user_by_username(username)
+    account_restored = False
+    if not user:
+        deleted_user = get_user_by_username_any(username)
+        if deleted_user and deleted_user.get("deleted_at"):
+            if _is_restore_eligible(deleted_user):
+                user = _restore_for_login(deleted_user)
+                account_restored = True
+            else:
+                delete_soft_deleted_user_by_username(username)
 
     is_new = False
     if not user:
@@ -543,7 +632,8 @@ async def social_google(req: SocialLoginRequest, request: Request):
         "token_type": "bearer",
         "user": serialize_user(user),
         "streak": user["streak"],
-        "is_new": is_new
+        "is_new": is_new,
+        "account_restored": account_restored
     }
     if streak_reward:
         res_data["streak_reward"] = streak_reward
@@ -552,16 +642,23 @@ async def social_google(req: SocialLoginRequest, request: Request):
 
 @router.get("/check-id")
 def check_id(username: str):
-    if get_user_by_username(username.strip()):
+    username_clean = username.strip()
+    if get_user_by_username(username_clean):
         raise HTTPException(status_code=400, detail="이미 존재하는 아이디입니다.")
+    deleted_user = get_user_by_username_any(username_clean)
+    if deleted_user and deleted_user.get("deleted_at") and _is_restore_eligible(deleted_user):
+        return {"ok": True, "restorable": True}
     return {"ok": True}
 
 
 @router.get("/check-email")
 def check_email(email: str):
     email_clean = email.strip()
+    deleted_user = get_user_by_email_any(email_clean) or get_user_by_username_any(email_clean)
     if get_user_by_email(email_clean) or get_user_by_username(email_clean):
         raise HTTPException(status_code=400, detail="이미 존재하는 이메일입니다.")
+    if deleted_user and deleted_user.get("deleted_at") and _is_restore_eligible(deleted_user):
+        return {"ok": True, "restorable": True}
     return {"ok": True}
 
 
@@ -648,6 +745,15 @@ async def social_naver(req: SocialLoginRequest, request: Request):
     # 3. Find or create user
     username = f"naver_{email}"
     user = get_user_by_username(username)
+    account_restored = False
+    if not user:
+        deleted_user = get_user_by_username_any(username)
+        if deleted_user and deleted_user.get("deleted_at"):
+            if _is_restore_eligible(deleted_user):
+                user = _restore_for_login(deleted_user)
+                account_restored = True
+            else:
+                delete_soft_deleted_user_by_username(username)
 
     is_new = False
     if not user:
@@ -704,7 +810,8 @@ async def social_naver(req: SocialLoginRequest, request: Request):
         "token_type": "bearer",
         "user": serialize_user(user),
         "streak": user["streak"],
-        "is_new": is_new
+        "is_new": is_new,
+        "account_restored": account_restored
     }
     if streak_reward:
         res_data["streak_reward"] = streak_reward
@@ -799,6 +906,15 @@ async def social_kakao(req: SocialLoginRequest, request: Request):
 
     # 3. Find or create user
     user = get_user_by_username(username)
+    account_restored = False
+    if not user:
+        deleted_user = get_user_by_username_any(username)
+        if deleted_user and deleted_user.get("deleted_at"):
+            if _is_restore_eligible(deleted_user):
+                user = _restore_for_login(deleted_user)
+                account_restored = True
+            else:
+                delete_soft_deleted_user_by_username(username)
 
     is_new = False
     if not user:
@@ -855,7 +971,8 @@ async def social_kakao(req: SocialLoginRequest, request: Request):
         "token_type": "bearer",
         "user": serialize_user(user),
         "streak": user["streak"],
-        "is_new": is_new
+        "is_new": is_new,
+        "account_restored": account_restored
     }
     if streak_reward:
         res_data["streak_reward"] = streak_reward
@@ -1002,5 +1119,35 @@ def submit_level_test(req: SubmitLevelTestRequest, user: Optional[dict] = Depend
         "categoryPercentages": category_percentages,
         "user": serialize_user(updated_user) if updated_user else None,
     }
+
+
+@router.post("/touch")
+def touch(user: dict = Depends(get_current_user)):
+    """앱 부팅 시 클라이언트 1회 호출. KST 하루 1회 dedup으로 streak을 갱신한다."""
+    user_id = user["id"]
+
+    def mutator(u: dict) -> dict:
+        _, streak_reward = update_login_streak(u)
+        return streak_reward
+
+    try:
+        updated, streak_reward = mutate_user_atomic(user_id, mutator)
+    except UserNotFoundError:
+        raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")
+    except UserSaveError:
+        logger.exception("auth touch save conflict for user %s", user_id)
+        updated, streak_reward = user, None
+    except Exception:
+        logger.exception("auth touch failed for user %s", user_id)
+        updated, streak_reward = user, None
+
+    res = {
+        "streak": updated.get("streak", 0),
+        "last_login": updated.get("last_login", ""),
+        "user": serialize_user(updated),
+    }
+    if streak_reward:
+        res["streak_reward"] = streak_reward
+    return res
 
 

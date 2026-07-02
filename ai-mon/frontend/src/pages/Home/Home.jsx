@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { progressApi, userApi } from '../../api/index'
+import { progressApi, userApi, authApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import useHomeSound from '../../hooks/useHomeSound'
 import LevelTestModal from '../../components/LevelTestModal/LevelTestModal'
@@ -49,13 +49,31 @@ export default function Home() {
   
   useEffect(() => {
     if (!token) { setLoading(false); return }
-    Promise.all([progressApi.getStats(), userApi.getMe()])
-      .then(([statsRes, userRes]) => {
-        setStats(statsRes.data)
-        updateUser(userRes.data)
-      })
-      .catch((err) => console.error(err))
-      .finally(() => setLoading(false))
+    // touch()는 출석 갱신 보조 요청이므로 실패해도 홈 통계 로딩을 막지 않는다.
+    let cancelled = false
+
+    const loadHome = async () => {
+      try {
+        const statsRes = await progressApi.getStats()
+        if (!cancelled) setStats(statsRes.data)
+      } catch (err) {
+        console.error(err)
+      }
+
+      try {
+        const touchRes = await authApi.touch()
+        if (!cancelled && touchRes.data?.user) {
+          updateUser(touchRes.data.user)
+        }
+      } catch (err) {
+        console.error(err)
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    }
+
+    loadHome()
+    return () => { cancelled = true }
   }, [token, updateUser])
 
   // LevelTestModal은 랜딩/대시보드 양쪽에서 열 수 있어 Home에서 단일 렌더

@@ -51,7 +51,7 @@ Supabase 경로에서 변경분을 **어떻게 병합하는지**를 결정하는
 | 분류 | 병합 방식 | 컬럼 |
 | --- | --- | --- |
 | **numeric** | delta(차분) 적용 — 동시 증가가 합산됨 | `xp`, `crowns`, `lv`, `streak`, `daily_free_attempts`, `ai_feedback_count` |
-| **jsonb** | dict 깊은 병합 (`_merge_dicts`) | `max_unlocked_unit`, `completed_units`, `awarded_crown_units`, `earned_streak_milestones`, `titles`, `game_rewards`, `seen_questions`, `endboss_cleared_levels`, `miniboss_cleared_stages` |
+| **jsonb** | dict 깊은 병합 (`_merge_dicts`) | `max_unlocked_unit`, `completed_units`, `awarded_crown_units`, `earned_streak_milestones`, `titles`, `game_rewards`, `seen_questions`, `endboss_cleared_levels`, `miniboss_cleared_stages`, `unitboss_cleared_units`, `battle_sessions` |
 | **other** | 마지막 쓰기 우선(전체 치환) | 위 두 분류에 없는 모든 필드 (`character`, `course_level`, `token_version`, `version`, 등) |
 
 분류 규칙:

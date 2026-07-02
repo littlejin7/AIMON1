@@ -58,6 +58,7 @@ export default function TrainHome({
           </button>
         </div>
 
+
         {/* 훈련 모드 그리드 */}
         <div className="tr-section-title">훈련 모드</div>
         <div className="tr-grid">

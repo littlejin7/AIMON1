@@ -2,6 +2,7 @@ import { useState, useEffect, Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
 import PlayerModel3D from './PlayerModel3D'
 import BossModel3D from './BossModel3D'
+import unitbossBg    from '../../assets/unitbossbg.png'
 import bossQnaIcon   from '../../assets/boss_finalqna.png'
 import charSlimeIcon  from '../../assets/character_slime.png'
 import charRobotIcon  from '../../assets/character_robot.png'
@@ -205,23 +206,12 @@ export default function BossBattle({
 
 
       {/* ── 전투 배경 ── */}
-      <div className="eb-b-bg">
+      <div className="eb-b-bg" style={{ backgroundImage: `url(${unitbossBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="eb-b-ground-top" />
         <div className="eb-b-ground-bot" />
 
-        {/* 보스 HP 박스 */}
-        <div className="eb-b-boss-hpbox">
-          <div className="eb-b-hp-bar-wrap">
-            <span className="eb-b-hp-label">HP</span>
-            <div className="eb-b-hp-track">
-              <div className="eb-b-hp-fill" style={{ width: `${bossPct}%`, background: bossHpGrad }} />
-            </div>
-          </div>
-          <div className="eb-b-hp-nums">{bossHp} / {BOSS_HP_MAX}</div>
-        </div>
-
-        {/* 플레이어 HP 박스 */}
-        <div className={`eb-b-player-hpbox${myShake ? ' shake' : ''}`}>
+        {/* 플레이어 HP 박스 — 상단 왼쪽 */}
+        <div className={`eb-b-player-hpbox${myShake ? ' shake' : ''}`} style={{ top: '12px', bottom: 'auto', left: '12px' }}>
           {wrongCount > 0 && (
             <span style={{ fontSize: '9px', color: '#EF4444', fontWeight: 400 }}>
               오답 {wrongCount}/3
@@ -236,20 +226,46 @@ export default function BossBattle({
           <div className="eb-b-hp-nums">{myHp} / {MY_HP_MAX}</div>
         </div>
 
+        {/* 보스 HP 박스 — 상단 오른쪽 */}
+        <div className="eb-b-boss-hpbox" style={{ top: '12px', right: '12px' }}>
+          <div className="eb-b-hp-bar-wrap">
+            <span className="eb-b-hp-label">HP</span>
+            <div className="eb-b-hp-track">
+              <div className="eb-b-hp-fill" style={{ width: `${bossPct}%`, background: bossHpGrad }} />
+            </div>
+          </div>
+          <div className="eb-b-hp-nums">{bossHp} / {BOSS_HP_MAX}</div>
+        </div>
 
-        {/* 보스 3D 캐릭터 */}
-        <div className={`eb-b-boss-canvas${bossHit ? ' hit-red' : ''}`}>
+        {/* 플레이어 3D 캐릭터 — 하단 왼쪽 */}
+        <div className={`eb-b-player-canvas${myShake ? ' hit-red' : ''}`} style={{ bottom: '0px', top: 'auto', left: '0px', width: '170px', height: '170px' }}>
+          <Canvas
+            camera={{ position: [0, 0, 3], fov: 40 }}
+            style={{ background: 'transparent' }}
+            gl={{ alpha: true }}
+          >
+            <ambientLight intensity={3} />
+            <directionalLight position={[2, 4, 2]} intensity={2.0} />
+            <directionalLight position={[-2, 2, 2]} intensity={1.0} />
+            <Suspense fallback={null}>
+              <PlayerModel3D myShake={myShake} attackAnim={attackAnim} character={user?.character} position={[0, -0.9, 0]} rotation={[0, Math.PI * 0.15, 0]} />
+            </Suspense>
+          </Canvas>
+        </div>
+
+        {/* 보스 3D 캐릭터 — 하단 오른쪽 */}
+        <div className={`eb-b-boss-canvas${bossHit ? ' hit-red' : ''}`} style={{ bottom: '10px', top: 'auto', right: '-25px', width: '220px', height: '220px' }}>
           <Canvas
             camera={{ position: [0, 0, 3], fov: 40 }}
             style={{ background: 'transparent' }}
             gl={{ alpha: true }}
           >
             <ambientLight intensity={2.5} />
-            <directionalLight position={[2, 4, 2]} intensity={1.5} />
-            <directionalLight position={[-2, 2, 2]} intensity={1.0} />
-            <directionalLight position={[0, -2, 2]} intensity={0.8} />
+            <directionalLight position={[3, 5, 3]} intensity={4} />
+            <directionalLight position={[-2, 2, 2]} intensity={2.0} />
+            <directionalLight position={[0, -2, 2]} intensity={2} />
             <Suspense fallback={null}>
-              <BossModel3D bossHit={bossHit} bossShake={bossShake} />
+              <BossModel3D bossHit={bossHit} bossShake={bossShake} modelPath="/models/boss_unitboss.glb" />
             </Suspense>
           </Canvas>
         </div>
@@ -261,11 +277,11 @@ export default function BossBattle({
             style={{ background: 'transparent' }}
             gl={{ alpha: true }}
           >
-            <ambientLight intensity={2.5} />
+            <ambientLight intensity={3} />
             <directionalLight position={[2, 4, 2]} intensity={2.0} />
             <directionalLight position={[-2, 2, 2]} intensity={1.0} />
             <Suspense fallback={null}>
-              <PlayerModel3D myShake={myShake} attackAnim={attackAnim} />
+              <PlayerModel3D myShake={myShake} attackAnim={attackAnim} character={user?.character} position={[0, -0.9, 0]} rotation={[-0.8, -Math.PI * 0.15, 0]} />
             </Suspense>
           </Canvas>
         </div>
@@ -310,7 +326,7 @@ export default function BossBattle({
               choicesList={choicesList}
               selected={selectedChoiceFull}
               revealed={!!aiResult}
-              answer={currentQuestion.answer}
+              answer={aiResult?.correct_answer ?? currentQuestion.answer}
               onSelect={(opt) => setSelectedOption(opt.substring(0, 1))}
               onSubmit={onSubmit}
             />

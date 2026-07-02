@@ -21,7 +21,7 @@ export const LEVEL_TEST_QUESTIONS = [
     id: 'lt2',
     level: 'beginner',
     category: 'syntax',
-    question: "for 반복문으로 1~5를 출력하려면?\n\nfor i in ___:\n    print(i)",
+    question: "for 반복문으로 1~5를 출력하려면?\n\n```python\nfor i in ___:\n    print(i)\n```",
     choices: ['range(5)', 'range(1, 6)', 'range(1, 5)', 'range(0, 5)'],
     answer: 1,
   },
@@ -29,7 +29,7 @@ export const LEVEL_TEST_QUESTIONS = [
     id: 'lt3',
     level: 'beginner',
     category: 'structure',
-    question: "다음 코드의 출력은?\n\nx = [1, 2, 3, 4, 5]\nprint(x[1:3])",
+    question: "다음 코드의 출력은?\n\n```python\nx = [1, 2, 3, 4, 5]\nprint(x[1:3])\n```",
     choices: ['[1, 2]', '[2, 3]', '[1, 2, 3]', '[3, 4]'],
     answer: 1,
   },
@@ -37,7 +37,7 @@ export const LEVEL_TEST_QUESTIONS = [
     id: 'lt4',
     level: 'beginner',
     category: 'structure',
-    question: "다음 코드의 출력은?\n\nd = {'hp': 100, 'mp': 50}\nprint(d['mp'])",
+    question: "다음 코드의 출력은?\n\n```python\nd = {'hp': 100, 'mp': 50}\nprint(d['mp'])\n```",
     choices: ['100', '50', 'mp', 'Error'],
     answer: 1,
   },
@@ -47,7 +47,7 @@ export const LEVEL_TEST_QUESTIONS = [
     id: 'lt5',
     level: 'intermediate',
     category: 'syntax',
-    question: "다음 코드에서 출력되는 값은?\n\nadd = lambda x, y: x + y\nprint(add(3, 7))",
+    question: "다음 코드에서 출력되는 값은?\n\n```python\nadd = lambda x, y: x + y\nprint(add(3, 7))\n```",
     choices: ['37', '10', '3', 'Error'],
     answer: 1,
   },
@@ -55,7 +55,7 @@ export const LEVEL_TEST_QUESTIONS = [
     id: 'lt6',
     level: 'intermediate',
     category: 'syntax',
-    question: "리스트 컴프리헨션으로 1~5의 제곱 리스트를 만들려면?\n\nresult = ___",
+    question: "리스트 컴프리헨션으로 1~5의 제곱 리스트를 만들려면?\n\n```python\nresult = ___\n```",
     choices: [
       '[x^2 for x in range(1,6)]',
       '[x**2 for x in range(1,6)]',
@@ -68,7 +68,7 @@ export const LEVEL_TEST_QUESTIONS = [
     id: 'lt7',
     level: 'intermediate',
     category: 'control',
-    question: "다음 코드에서 except 블록이 실행되는 이유는?\n\ntry:\n    print(1 / 0)\nexcept ZeroDivisionError:\n    print('0으로 나눌 수 없어요')",
+    question: "다음 코드에서 except 블록이 실행되는 이유는?\n\n```python\ntry:\n    print(1 / 0)\nexcept ZeroDivisionError:\n    print('0으로 나눌 수 없어요')\n```",
     choices: [
       'print()가 잘못 사용되어서',
       '1이 0보다 커서',
@@ -122,9 +122,9 @@ export const LEVEL_TEST_QUESTIONS = [
 
 // 레벨 키('beginner'|'intermediate'|'advanced')를 화면 표기 라벨로 매핑
 export const LEVEL_RESULT = {
-  beginner:     { label: '초급' },
+  beginner: { label: '초급' },
   intermediate: { label: '중급' },
-  advanced:     { label: '고급' },
+  advanced: { label: '고급' },
 }
 
 export { calcLevelResult } from './calcLevelResult.js'

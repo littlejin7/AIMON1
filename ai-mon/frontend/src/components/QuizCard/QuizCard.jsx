@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { quizApi } from '../../api/index'
+import { quizApi, codeApi } from '../../api/index'
 import { usePyodide } from '../../hooks/usePyodide'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import ChoiceOptions from './ChoiceOptions'
@@ -59,6 +59,12 @@ export default function QuizCard({
   const [aiFeedbackLoading, setAiFeedbackLoading] = useState(false)
   const [codeRunResult,     setCodeRunResult]     = useState(null)
   const [isCorrectResult,   setIsCorrectResult]   = useState(initialIsCorrectResult)
+  const [gradingError,      setGradingError]      = useState('')
+  const [submitting,        setSubmitting]        = useState(false)
+  // 서버 채점 응답에서 받은 reveal 정보(F: 정답이 클라 문제객체엔 없음).
+  // correct_answer 는 '제출 후' 응답에만 담겨 와서 reveal 하이라이트에만 쓰인다.
+  const [revealedAnswer,    setRevealedAnswer]    = useState('')
+  const [revealFeedback,    setRevealFeedback]    = useState('')
 
   const { runPython, pyLoading } = usePyodide()
   const user        = useAuthStore((s) => s.user)
@@ -97,9 +103,9 @@ export default function QuizCard({
 
   
   // ── AI 피드백 호출 (SSE 스트리밍) ──
-  const fetchAiFeedback = async (userAnswer) => {
-    const staticFallback = question.feedback?.wrong || '정답을 다시 확인해 보세요!'
-    setAiFeedback(staticFallback)
+  // correct_answer 는 더 이상 보내지 않는다(F: 클라에 정답 없음). 서버가 question_id 로 조회.
+  const fetchAiFeedback = async (userAnswer, fallbackText) => {
+    const staticFallback = fallbackText || '정답을 다시 확인해 보세요!'
     setAiFeedbackLoading(true)
 
     let fullQuestionText = question.question
@@ -110,7 +116,6 @@ export default function QuizCard({
     const body = JSON.stringify({
       question_id:    question.question_id || question.id || '',
       question:       fullQuestionText,
-      correct_answer: question.answer,
       user_answer:    userAnswer,
       level:          courseLevel,
     })
@@ -156,58 +161,144 @@ export default function QuizCard({
           } catch { /* JSON 파싱 실패 무시 */ }
         }
       }
-    } catch (streamErr) {
+
+      // 스트리밍이 빈 응답으로 끝난 경우 staticFallback
+      if (!accumulated) setAiFeedback(staticFallback)
+    } catch {
       // 스트리밍 실패 → 기존 단순 POST 폴백
       try {
-        const res = await quizApi.getAiFeedback({ 
+        const res = await quizApi.getAiFeedback({
           question_id: question.question_id || question.id || '',
-          question: fullQuestionText, 
-          correct_answer: question.answer, 
-          user_answer: userAnswer, 
-          level: courseLevel 
+          question: fullQuestionText,
+          user_answer: userAnswer,
+          level: courseLevel
         })
-        if (res.data?.feedback && !res.data?.is_ai_fallback) setAiFeedback(res.data.feedback)
-      } catch { /* staticFallback 유지 */ }
+        if (res.data?.feedback && !res.data?.is_ai_fallback) {
+          setAiFeedback(res.data.feedback)
+        } else {
+          setAiFeedback(staticFallback)
+        }
+      } catch {
+        setAiFeedback(staticFallback)
+      }
     } finally {
       setAiFeedbackLoading(false)
     }
   }
 
-  // ── 객관식 제출 ──
-  const handleSubmitChoice = () => {
-    if (!selected || revealed) return
+  // ── 공통: 서버 채점 결과 적용 ──
+  // 클라는 정답을 모른다(F). onAnswer 가 서버 채점을 수행하고 결과를 돌려준다.
+  const applyGradeResult = (result, userAnswer) => {
+    const r = result || { is_correct: false, feedback: '', hint: '', correct_answer: '' }
     setRevealed(true)
-    const isLetterAnswer = question.answer.length === 1 && /^[A-Z]$/.test(question.answer)
-    const correct = isLetterAnswer
-      ? selected.startsWith(question.answer + '.')
-      : selected === question.answer
-    setIsCorrectResult(correct)
-    if (!correct) fetchAiFeedback(selected)
-    onAnswer?.({ correct, userAnswer: selected, retried })
+    setRevealedAnswer(r.correct_answer || '')
+    setIsCorrectResult(!!r.is_correct)
+    setRevealFeedback(r.feedback || '')
+    if (!r.is_correct) {
+      // 서버 정적 피드백을 우선 노출 후 AI 스트리밍으로 보강
+      if (r.feedback) setAiFeedback(r.feedback)
+      fetchAiFeedback(userAnswer, r.feedback)
+    }
   }
 
-  // ── 단답 제출 ──
-  const handleFillSubmit = () => {
-    if (!input.trim() || revealed) return
-    setSelected(input.trim())
-    setRevealed(true)
-    const correct = input.trim().toLowerCase() === question.answer.toLowerCase()
-    setIsCorrectResult(correct)
-    if (!correct) fetchAiFeedback(input.trim())
-    onAnswer?.({ correct, userAnswer: input.trim(), retried })
+  // ── 객관식 제출 (서버 채점) ──
+  const handleSubmitChoice = async () => {
+    if (!selected || revealed || submitting) return
+    setGradingError('')
+    setSubmitting(true)
+    let result
+    try {
+      result = await onAnswer?.({ userAnswer: selected, retried })
+    } catch {
+      setSubmitting(false)
+      setGradingError('채점 서버에 연결하지 못했어요. 잠시 후 다시 [확인하기]를 눌러주세요.')
+      return
+    }
+    setSubmitting(false)
+    applyGradeResult(result, selected)
   }
 
-  // ── 코드 제출 ──
-  const handleCodeSubmit = async () => {
+  // ── 단답 제출 (서버 채점) ──
+  const handleFillSubmit = async () => {
+    if (!input.trim() || revealed || submitting) return
+    const answer = input.trim()
+    setSelected(answer)
+    setGradingError('')
+    setSubmitting(true)
+    let result
+    try {
+      result = await onAnswer?.({ userAnswer: answer, retried })
+    } catch {
+      setSubmitting(false)
+      setGradingError('채점 서버에 연결하지 못했어요. 잠시 후 다시 [확인하기]를 눌러주세요.')
+      return
+    }
+    setSubmitting(false)
+    applyGradeResult(result, answer)
+  }
+
+  // ── 코드 실행 (출력 확인 전용, 채점 없음) ──
+  const handleCodeRun = async () => {
     if (!input.trim() || revealed) return
+    setGradingError('')
     const result = await runPython(input)
     setCodeRunResult(result)
-    const correct = result.success && result.stdout.trim() === (question.answer || '').trim()
+  }
+
+  // ── 코드 제출 (채점·revealed·onAnswer 전담) ──
+  // 채점 단일 소스 = 백엔드 /code/submit. Pyodide 는 실행/출력 표시 + output·error 전달용(채점 권한 아님).
+  // award=false: Train·미니보스 모두 무보상으로 호출 — 백엔드가 200 XP·(unit,stage) 진행도를 쓰지 않는다.
+  // 미니보스 보상은 onAnswer → Stage.handleAnswer → minibossApi.submitAnswer(HP/클리어/보상)가 소유.
+  const handleCodeSubmit = async () => {
+    if (!input.trim() || revealed) return
+    setGradingError('')
+
+    // 1) Pyodide 실행 → 출력/에러 표시 및 백엔드 전달값 확보
+    const runResult = await runPython(input)
+    setCodeRunResult(runResult)
+
+    // 2) 백엔드 채점 호출 (submitting = '🤖 채점 중...' 로딩, pyLoading 과 별개)
+    setSubmitting(true)
+    let res
+    try {
+      res = await codeApi.submitCode({
+        question_id:  question.question_id || question.id || '',
+        code:         input,
+        output:       runResult.stdout || '',
+        error:        runResult.stderr || runResult.compile_output || '',
+        unit:         parseInt(question.unit, 10) || 1,
+        course_level: courseLevel,
+        award:        false,
+      })
+    } catch {
+      // 백엔드 호출 실패 → HP/XP/진행도 미변경 + 재시도 안내 (D-1 규칙)
+      setGradingError('채점 서버에 연결하지 못했어요. 잠시 후 다시 [확인하기]를 눌러주세요.')
+      return
+    } finally {
+      setSubmitting(false)
+    }
+
+    const data = res?.data || {}
+    // AI 채점 실패 → 상태 변경 없이 재시도 안내 (D-1 규칙)
+    if (data.grading_failed) {
+      setGradingError('AI 채점이 일시적으로 실패했어요. 잠시 후 다시 [확인하기]를 눌러주세요.')
+      return
+    }
+
+    // 3) 백엔드 결과로 정답표시 — /code/submit 가 코드 채점 단일 소스
+    const correct = !!data.is_correct
     setSelected(input)
     setRevealed(true)
     setIsCorrectResult(correct)
-    if (!correct) fetchAiFeedback(input)
-    onAnswer?.({ correct, userAnswer: input, retried })
+    // onAnswer 가 결과를 서버에 기록(미니보스는 배틀세션, 일반은 /attempts)하고 reveal 정보 반환
+    let result
+    try {
+      result = await onAnswer?.({ userAnswer: input, retried, clientIsCorrect: correct })
+    } catch { result = null }
+    const r = result || {}
+    setRevealedAnswer(r.correct_answer || '')
+    setRevealFeedback(r.feedback || '')
+    if (!correct) setAiFeedback(data.feedback || r.feedback || '정답을 다시 확인해 보세요!')
   }
 
   // ── 다시 풀기 ──
@@ -216,6 +307,7 @@ export default function QuizCard({
     setSelected(null)
     setInput('')
     setAiFeedback('')
+    setGradingError('')
     setRetried(true)
   }
 
@@ -233,7 +325,7 @@ export default function QuizCard({
           choicesList={choicesList}
           selected={selected}
           revealed={revealed}
-          answer={question.answer}
+          answer={revealedAnswer}
           onSelect={(opt) => { if (!revealed) setSelected(opt) }}
           onSubmit={handleSubmitChoice}
         />
@@ -247,8 +339,8 @@ export default function QuizCard({
           choicesList={choicesList}
           selected={selected}
           revealed={revealed}
-          disabled={disabled}
-          answer={question.answer}
+          disabled={disabled || submitting}
+          answer={revealedAnswer}
           onSelect={(opt) => { if (!revealed) setSelected(opt) }}
           onSubmit={handleSubmitChoice}
         />
@@ -259,7 +351,7 @@ export default function QuizCard({
           input={input}
           setInput={setInput}
           revealed={revealed}
-          disabled={disabled}
+          disabled={disabled || submitting}
           onSubmit={handleFillSubmit}
         />
       )}
@@ -272,6 +364,9 @@ export default function QuizCard({
           disabled={disabled}
           pyLoading={pyLoading}
           codeRunResult={codeRunResult}
+          gradingError={gradingError}
+          submitting={submitting}
+          onRun={handleCodeRun}
           onSubmit={handleCodeSubmit}
         />
       )}
@@ -285,7 +380,7 @@ export default function QuizCard({
 
           {isCorrectResult && (
             <>
-              <p>{question.feedback?.correct || question.explanation}</p>
+              <p>{revealFeedback}</p>
               <button className="quiz-submit-btn" onClick={onNext}>
                 다음으로 ➔
               </button>

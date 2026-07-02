@@ -32,9 +32,17 @@ from routers import auth, quiz, boss, endboss, miniboss, progress, user, code, t
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     from scheduler import scheduler
-    scheduler.start()
+    # 멀티워커(gunicorn -w N / uvicorn --workers N) 환경에서 모든 워커가
+    # scheduler.start()를 호출하면 스트릭 이메일 중복 발송·백업 중복 실행이 발생한다.
+    # 운영: 스케줄러를 담당할 워커 1개에만 RUN_SCHEDULER=1 을 주거나,
+    #       별도 단일 프로세스(worker role)로 분리해 RUN_SCHEDULER=1 을 부여한다.
+    # 로컬 단일 워커: 미설정 시 편의상 1로 취급해 스케줄러를 켠다.
+    # Advisory lock 대안: DB 레벨 pg_try_advisory_lock 으로 선착 워커만 잡아도 됨.
+    if os.getenv("RUN_SCHEDULER", "1") == "1":
+        scheduler.start()
     yield
-    scheduler.shutdown()
+    if scheduler.running:
+        scheduler.shutdown()
 
 app = FastAPI(title="AI MON API - MVP", version="1.0.0", lifespan=lifespan)
 

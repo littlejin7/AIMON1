@@ -18,6 +18,7 @@ export default function StageResult({
   handleMinibossRetry,
   handleRestartFromBeginning,
   resetStageState,
+  retryWithNextSet,
   evoModal,
   setEvoModal,
 }) {
@@ -116,7 +117,7 @@ export default function StageResult({
           </button>
         )}
         <button className="btn btn-secondary" onClick={() => navigate(`/lesson/${lessonId}`)}>
-          레슨으로 돌아가기
+          ✕
         </button>
         {!passed && (
           isMinibossPlayed ? (
@@ -129,7 +130,7 @@ export default function StageResult({
               </button>
             </div>
           ) : (
-            <button className="btn btn-primary" onClick={resetStageState}>
+            <button className="btn btn-primary" onClick={retryWithNextSet}>
               다시 도전 🔄
             </button>
           )

@@ -8,9 +8,10 @@ import { spawnObstacle, spawnQuizGate } from './spawner.js';
 import { SoundManager } from './sound.js';
 
 export class RunnerEngine {
-  constructor(container, onGameOver) {
+  constructor(container, onGameOver, onGetNewToken) {
     this.container = container;
     this.onGameOverCallback = onGameOver;
+    this.onGetNewToken = onGetNewToken;
     this.renderer = null;
     this.scene = null;
     this.camera = null;
@@ -185,6 +186,7 @@ export class RunnerEngine {
   }
 
   _gameOver() {
+    if (this.state === 'dead') return;
     this.state = 'dead';
     this.sound.stopBGM();
     this.overlay.style.display = 'flex';
@@ -198,23 +200,51 @@ export class RunnerEngine {
         <button class="rg-btn rg-btn-danger" id="rg-list-btn">↩ 목록으로 가기</button>
       </div>
     `;
-    document.getElementById('rg-retry-btn')?.addEventListener('click', () => this._resetGame());
+    
+    document.getElementById('rg-retry-btn')?.addEventListener('click', async () => {
+      const btn = document.getElementById('rg-retry-btn');
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = '준비 중...';
+      }
+      if (this.onGetNewToken) {
+        const token = await this.onGetNewToken();
+        if (token) {
+          this._resetGame();
+        } else {
+          alert('새 게임 세션을 시작할 수 없습니다. 다시 시도해주세요.');
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = '다시하기';
+          }
+        }
+      } else {
+        this._resetGame();
+      }
+    });
+
     document.getElementById('rg-list-btn')?.addEventListener('click', () => window.history.back());
     
     if (this.onGameOverCallback) {
         const el = document.getElementById('rg-reward-info');
-        if (el) el.innerHTML = `보상 정산 중...`;
-        this.onGameOverCallback(this.score, this.distance).then(res => {
-            if (el && res && res.data) {
-                if (res.data.xp_awarded > 0) {
-                    el.innerHTML = `✨ ${res.data.xp_awarded} XP 획득! (총 ${res.data.total_xp} XP)`;
-                } else {
-                    el.innerHTML = `오늘 획득 가능한 XP를 모두 받았습니다.`;
+        const fetchReward = () => {
+            if (el) el.innerHTML = `보상 정보를 불러오는 중입니다.`;
+            this.onGameOverCallback(this.score, this.distance).then(res => {
+                if (el && res && res.data) {
+                    if (res.data.xp_awarded > 0) {
+                        el.innerHTML = `✨ ${res.data.xp_awarded} XP 획득! (총 ${res.data.total_xp} XP)`;
+                    } else {
+                        el.innerHTML = `오늘 획득 가능한 XP를 모두 받았습니다.`;
+                    }
                 }
-            }
-        }).catch(err => {
-            if (el) el.innerHTML = `보상 정보를 불러오지 못했습니다.`;
-        });
+            }).catch(err => {
+                if (el) {
+                    el.innerHTML = `보상 정보를 불러오지 못했습니다. <span id="rg-reward-retry" style="text-decoration:underline;cursor:pointer;color:#ffaa00;">다시 시도해주세요.</span>`;
+                    document.getElementById('rg-reward-retry')?.addEventListener('click', fetchReward);
+                }
+            });
+        };
+        fetchReward();
     }
   }
 

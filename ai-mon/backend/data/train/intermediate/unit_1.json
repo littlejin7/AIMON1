@@ -8,7 +8,8 @@
     "answer": "ValueError",
     "feedback": {
       "correct": "정답! int(\"abc\")처럼 숫자가 아닌 문자열을 정수로 변환하려 할 때 ValueError가 발생해요. except ValueError:로 이 오류를 처리할 수 있습니다."
-    }
+    },
+    "unit": "1"
   },
   {
     "question_id": "q002",
@@ -25,7 +26,8 @@
     "answer": "A",
     "feedback": {
       "correct": "정답! 10 / 0은 ZeroDivisionError를 발생시켜 except 블록의 '오류 발생'이 출력돼요. finally 블록은 예외 발생 여부와 관계없이 항상 실행되므로 '종료'도 이어서 출력됩니다."
-    }
+    },
+    "unit": "1"
   },
   {
     "question_id": "q003",
@@ -36,7 +38,8 @@
     "answer": "KeyError",
     "feedback": {
       "correct": "정답! 딕셔너리에 존재하지 않는 키로 접근하면 KeyError가 발생해요. profile[\"age\"]처럼 없는 키를 조회할 때 except KeyError:로 이를 처리할 수 있습니다."
-    }
+    },
+    "unit": "1"
   },
   {
     "question_id": "q004",
@@ -53,7 +56,8 @@
     "answer": "C",
     "feedback": {
       "correct": "정답! fruits[5]는 인덱스 0~2인 리스트에서 IndexError를 발생시켜 '범위를 벗어났어요'가 출력돼요. print(\"완료\")는 try 블록 바깥에 있어 항상 실행되므로 C가 정답입니다."
-    }
+    },
+    "unit": "1"
   },
   {
     "question_id": "q005",
@@ -64,7 +68,8 @@
     "answer": "else",
     "feedback": {
       "correct": "정답! else 블록은 try 블록에서 예외가 발생하지 않았을 때만 실행돼요. int(\"95\")는 ValueError 없이 95로 변환되므로 else 블록의 '변환 성공: 95'가 출력됩니다."
-    }
+    },
+    "unit": "1"
   },
   {
     "question_id": "q006",
@@ -81,7 +86,8 @@
     "answer": "B",
     "feedback": {
       "correct": "정답! int(\"200\")은 정상적으로 200을 반환하므로 ValueError가 발생하지 않아요. except 블록은 건너뛰고 try 블록 안의 '변환 결과: 200'이 그대로 출력됩니다."
-    }
+    },
+    "unit": "1"
   },
   {
     "question_id": "q007",
@@ -92,7 +98,8 @@
     "answer": "raise",
     "feedback": {
       "correct": "정답! raise 키워드는 예외를 강제로 발생시킬 때 사용해요. check_temperature(120)에서 120 > 100이므로 raise ValueError(...)가 실행되고, 호출부의 except에서 해당 메시지를 출력합니다."
-    }
+    },
+    "unit": "1"
   },
   {
     "question_id": "q008",
@@ -109,7 +116,8 @@
     "answer": "A",
     "feedback": {
       "correct": "정답! lst[5]는 인덱스 범위 초과로 IndexError를, lst[\"x\"]는 정수가 아닌 인덱스로 TypeError를 발생시켜요. 각각 매칭된 except 블록이 실행되어 A가 정답입니다."
-    }
+    },
+    "unit": "1"
   },
   {
     "question_id": "q009",
@@ -120,7 +128,8 @@
     "answer": "value",
     "feedback": {
       "correct": "정답! f-string의 {}에는 변수 이름을 넣어요. __init__(self, value)로 받은 value가 999이므로 super().__init__(f\"범위 초과: {value}\")는 \"범위 초과: 999\" 메시지를 설정합니다."
-    }
+    },
+    "unit": "1"
   },
   {
     "question_id": "q010",
@@ -137,7 +146,8 @@
     "answer": "A",
     "feedback": {
       "correct": "정답! 3 * 4 = 12로 TypeError 없이 성공하므로 else 블록의 '계산 성공'이 먼저 출력돼요. finally 블록은 return 전에 반드시 실행되어 '종료'가 출력된 뒤 12가 반환되어 A가 정답입니다."
-    }
+    },
+    "unit": "1"
   },
   {
     "question_id": "q011",
@@ -148,7 +158,8 @@
     "answer": "ValueError",
     "feedback": {
       "correct": "정답! except (KeyError, ValueError):처럼 튜플로 여러 예외를 한 번에 처리할 수 있어요. safe_parse(d, \"x\")는 int(\"hello\")에서 ValueError가, safe_parse(d, \"z\")는 d[\"z\"] 접근에서 KeyError가 발생해 둘 다 None을 반환합니다."
-    }
+    },
+    "unit": "1"
   },
   {
     "question_id": "q012",
@@ -165,7 +176,8 @@
     "answer": "A",
     "feedback": {
       "correct": "정답! int(\"42\")는 42, int(\"hello\")는 ValueError를 발생시켜 0, int(\"-7\")는 -7을 반환해요. except ValueError:가 문자열 변환 실패를 잡아 기본값 0을 반환하므로 A가 정답입니다."
-    }
+    },
+    "unit": "1"
   },
   {
     "question_id": "q013",
@@ -176,7 +188,8 @@
     "answer": "raise",
     "feedback": {
       "correct": "정답! raise e는 현재 예외 인스턴스를 호출부로 다시 전달해요. 내부에서 처리 로그를 남긴 뒤 raise e로 예외를 다시 던지면, 외부의 except ValueError:가 이를 최종적으로 처리합니다."
-    }
+    },
+    "unit": "1"
   },
   {
     "question_id": "q014",
@@ -193,7 +206,8 @@
     "answer": "A",
     "feedback": {
       "correct": "정답! NetworkError는 AppError의 서브클래스이므로 except AppError:로 잡힐 수 있어요. type(e).__name__은 실제 인스턴스 클래스 이름인 'NetworkError'를 반환하고, print(e)는 super().__init__()으로 설정된 '네트워크 오류 404'를 출력합니다."
-    }
+    },
+    "unit": "1"
   },
   {
     "question_id": "q015",
@@ -204,6 +218,7 @@
     "answer": "__init__",
     "feedback": {
       "correct": "정답! super().__init__(메시지)는 부모 클래스 Exception의 __init__을 호출해 예외 메시지를 설정해요. 이렇게 해야 print(e)가 '사과 재고 부족: 50개 필요'처럼 설정한 메시지를 올바르게 출력할 수 있습니다."
-    }
+    },
+    "unit": "1"
   }
 ]

@@ -8,7 +8,8 @@
     "answer": "get",
     "feedback": {
       "correct": "정답! `requests.get(url)`은 지정된 URL로 HTTP GET 요청을 보내는 기본 메서드입니다. GET은 서버에서 데이터를 읽어올 때 사용하는 HTTP 메서드입니다."
-    }
+    },
+    "unit": "8"
   },
   {
     "question_id": "q002",
@@ -25,7 +26,8 @@
     "answer": "B",
     "feedback": {
       "correct": "정답! `response.status_code`는 HTTP 상태 코드를 정수(int)로 반환합니다. 성공 시 200, 리소스 없음 시 404 등 숫자 형태로 표현됩니다."
-    }
+    },
+    "unit": "8"
   },
   {
     "question_id": "q003",
@@ -36,7 +38,8 @@
     "answer": "json",
     "feedback": {
       "correct": "정답! `response.json()`은 서버의 JSON 응답 본문을 파이썬 딕셔너리(또는 리스트)로 자동 변환해 줍니다. 이를 통해 키로 바로 값에 접근할 수 있습니다."
-    }
+    },
+    "unit": "8"
   },
   {
     "question_id": "q004",
@@ -53,7 +56,8 @@
     "answer": "C",
     "feedback": {
       "correct": "정답! 404 Not Found는 요청한 URL의 리소스가 서버에 존재하지 않을 때 반환됩니다. 200은 성공, 301은 리다이렉트, 500은 서버 내부 오류를 나타냅니다."
-    }
+    },
+    "unit": "8"
   },
   {
     "question_id": "q005",
@@ -64,7 +68,8 @@
     "answer": "status_code",
     "feedback": {
       "correct": "정답! `response.status_code`는 서버가 반환한 HTTP 상태 코드를 담고 있는 속성입니다. 200이면 성공을 의미하며, 이를 통해 요청 결과를 분기 처리할 수 있습니다."
-    }
+    },
+    "unit": "8"
   },
   {
     "question_id": "q006",
@@ -75,7 +80,8 @@
     "answer": "headers",
     "feedback": {
       "correct": "정답! `headers=` 매개변수를 사용하면 HTTP 요청 헤더에 인증 정보를 포함할 수 있습니다. API 키는 `X-API-Key`, `Authorization` 등 헤더 필드를 통해 서버에 전달됩니다."
-    }
+    },
+    "unit": "8"
   },
   {
     "question_id": "q007",
@@ -92,7 +98,8 @@
     "answer": "C",
     "feedback": {
       "correct": "정답! `data[\"result\"]`로 내부 딕셔너리를 먼저 꺼낸 뒤, `[\"city\"]`로 \"Seoul\" 값에 접근합니다. 중첩 딕셔너리는 키를 연속으로 사용해 계층적으로 접근하는 것이 핵심입니다."
-    }
+    },
+    "unit": "8"
   },
   {
     "question_id": "q008",
@@ -103,7 +110,8 @@
     "answer": "post",
     "feedback": {
       "correct": "정답! `requests.post(url, json=payload)`는 JSON 형태의 데이터를 서버에 전송할 때 사용합니다. GET이 데이터 조회라면, POST는 새 데이터를 서버에 생성하거나 전달하는 데 쓰입니다."
-    }
+    },
+    "unit": "8"
   },
   {
     "question_id": "q009",
@@ -120,7 +128,8 @@
     "answer": "C",
     "feedback": {
       "correct": "정답! `data[\"items\"]`는 리스트를 반환하고, `[1]`로 인덱스 1(두 번째 요소)인 `{\"name\": \"바나나\", \"price\": 800}`에 접근한 뒤 `[\"name\"]`으로 \"바나나\"를 가져옵니다."
-    }
+    },
+    "unit": "8"
   },
   {
     "question_id": "q010",
@@ -131,7 +140,8 @@
     "answer": "params",
     "feedback": {
       "correct": "정답! `params=` 매개변수를 사용하면 딕셔너리가 자동으로 URL 쿼리 문자열(`?q=python&page=1`)로 변환되어 요청이 전송됩니다. `headers=`는 인증 정보를, `params=`는 검색 조건 등 쿼리 파라미터를 담습니다."
-    }
+    },
+    "unit": "8"
   },
   {
     "question_id": "q011",
@@ -148,7 +158,8 @@
     "answer": "B",
     "feedback": {
       "correct": "정답! 인터넷 연결이 끊기거나 DNS 조회가 실패하면 `requests.exceptions.ConnectionError`가 발생합니다. Timeout은 연결은 됐지만 지정된 시간 내에 응답이 없을 때 발생하는 별개의 예외입니다."
-    }
+    },
+    "unit": "8"
   },
   {
     "question_id": "q012",
@@ -165,7 +176,8 @@
     "answer": "C",
     "feedback": {
       "correct": "정답! 500 Internal Server Error는 서버 측 처리 중 예기치 않은 오류가 발생했을 때 반환됩니다. `check_status(500)`은 `elif status_code == 500` 분기로 진입해 \"서버 오류\"를 반환합니다."
-    }
+    },
+    "unit": "8"
   },
   {
     "question_id": "q013",
@@ -176,7 +188,8 @@
     "answer": "raise_for_status",
     "feedback": {
       "correct": "정답! `response.raise_for_status()`는 응답 코드가 4xx나 5xx일 경우 `requests.exceptions.HTTPError`를 자동으로 발생시킵니다. 상태 코드를 일일이 if문으로 확인하지 않아도 오류를 효율적으로 처리할 수 있습니다."
-    }
+    },
+    "unit": "8"
   },
   {
     "question_id": "q014",
@@ -193,7 +206,8 @@
     "answer": "B",
     "feedback": {
       "correct": "정답! `data[\"api\"][\"results\"][0]`은 첫 번째 결과 `{\"id\": 1, \"tags\": [\"python\", \"requests\"]}`이고, `[\"tags\"][1]`은 tags 리스트의 인덱스 1인 \"requests\"를 가져옵니다."
-    }
+    },
+    "unit": "8"
   },
   {
     "question_id": "q015",
@@ -204,6 +218,7 @@
     "answer": "environ",
     "feedback": {
       "correct": "정답! `os.environ`은 운영체제의 환경 변수 딕셔너리입니다. API 키를 코드에 직접 작성하면 코드 유출 시 보안 사고가 발생할 수 있으므로, 환경 변수로 관리하는 것이 권장되는 보안 처리 방법입니다."
-    }
+    },
+    "unit": "8"
   }
 ]

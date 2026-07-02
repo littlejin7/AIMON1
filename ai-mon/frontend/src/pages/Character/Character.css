@@ -380,25 +380,20 @@
   font-size: 10px;
   color: var(--clr-text-muted);
 }
-.char-title-radio {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 1.5px solid var(--clr-border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.char-title-equip-btn {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--clr-primary);
+  border: 1.5px solid var(--clr-primary);
+  border-radius: 6px;
+  padding: 3px 8px;
   flex-shrink: 0;
+  background: none;
+  line-height: 1.4;
 }
-.char-title-radio.on {
-  border-color: var(--clr-primary);
-  background: rgba(127,119,221,0.15);
-}
-.char-title-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
+.char-title-equip-btn.on {
   background: var(--clr-primary);
+  color: white;
 }
 
 /* ── 인증카드 ── */

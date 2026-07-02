@@ -55,10 +55,10 @@
       "choices": [
         "A. 선선하다",
         "B. 덥다",
-        "C. 덥다\\n오늘 날씨 확인 완료",
-        "D. 선선하다\\n오늘 날씨 확인 완료"
+        "C. 덥다\n오늘 날씨 확인 완료",
+        "D. 선선하다\n오늘 날씨 확인 완료"
       ],
-      "answer": "C. 덥다\\n오늘 날씨 확인 완료",
+      "answer": "C. 덥다\n오늘 날씨 확인 완료",
       "feedback": {
         "correct": "정답! 조건이 True이므로 \"덥다\" 출력, 그 다음 줄은 if/else 밖이라 항상 실행돼요."
       }
@@ -161,7 +161,7 @@
         "A. 우산 챙기기",
         "B. 그냥 나가기",
         "C. False",
-        "D. 우산 챙기기\\n그냥 나가기"
+        "D. 우산 챙기기\n그냥 나가기"
       ],
       "answer": "B. 그냥 나가기",
       "feedback": {
@@ -200,12 +200,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nage = 17\nif age >= 18:\n    print(\"성인\")\nelse:\n    print(\"미성년자\")\nprint(\"확인 완료\")\n```",
       "choices": [
-        "A. 성인\\n확인 완료",
+        "A. 성인\n확인 완료",
         "B. 미성년자",
         "C. 성인",
-        "D. 미성년자\\n확인 완료"
+        "D. 미성년자\n확인 완료"
       ],
-      "answer": "D. 미성년자\\n확인 완료",
+      "answer": "D. 미성년자\n확인 완료",
       "feedback": {
         "correct": "정답! 17 >= 18은 False → \"미성년자\". if/else 블록 밖의 코드는 항상 실행돼요."
       }
@@ -224,7 +224,7 @@
         "A. A",
         "B. B",
         "C. C",
-        "D. A\\nB"
+        "D. A\nB"
       ],
       "answer": "B. B",
       "feedback": {
@@ -266,7 +266,7 @@
         "A. 양수",
         "B. 음수",
         "C. 0",
-        "D. 양수\\n음수\\n0"
+        "D. 양수\n음수\n0"
       ],
       "answer": "C. 0",
       "feedback": {
@@ -284,7 +284,7 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nscore = 95\nif score >= 90:\n    print(\"A\")\nelif score >= 80:\n    print(\"B\")\nelif score >= 70:\n    print(\"C\")\nelse:\n    print(\"F\")\n```",
       "choices": [
-        "A. A\\nB",
+        "A. A\nB",
         "B. B",
         "C. F",
         "D. A"
@@ -326,7 +326,7 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nx = 80\nif x >= 90:\n    print(\"우수\")\nelif x >= 80:\n    print(\"보통\")\nelif x >= 80:\n    print(\"중복조건\")\nelse:\n    print(\"미달\")\n```",
       "choices": [
-        "A. 보통\\n중복조건",
+        "A. 보통\n중복조건",
         "B. 중복조건",
         "C. 미달",
         "D. 보통"
@@ -347,7 +347,7 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nnum = 15\nif num % 3 == 0:\n    print(\"3의 배수\")\nelif num % 5 == 0:\n    print(\"5의 배수\")\nelse:\n    print(\"해당 없음\")\n```",
       "choices": [
-        "A. 3의 배수\\n5의 배수",
+        "A. 3의 배수\n5의 배수",
         "B. 5의 배수",
         "C. 해당 없음",
         "D. 3의 배수"
@@ -494,12 +494,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nx = 5\nif x > 3:\n    print(\"A\")\nif x > 7:\n    print(\"B\")\nif x == 5:\n    print(\"C\")\n```",
       "choices": [
-        "A. A\\nB\\nC",
+        "A. A\nB\nC",
         "B. A",
-        "C. A\\nC",
+        "C. A\nC",
         "D. C"
       ],
-      "answer": "C. A\\nC",
+      "answer": "C. A\nC",
       "feedback": {
         "correct": "정답! elif가 아닌 독립 if 3개예요. 5 > 3 → A, 5 > 7 → 건너뜀, 5 == 5 → C. 두 줄 출력돼요."
       }
@@ -536,12 +536,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nprint(3 < 5)\nprint(5 < 3)\n```",
       "choices": [
-        "A. True\\nTrue",
-        "B. False\\nFalse",
-        "C. True\\nFalse",
-        "D. False\\nTrue"
+        "A. True\nTrue",
+        "B. False\nFalse",
+        "C. True\nFalse",
+        "D. False\nTrue"
       ],
-      "answer": "C. True\\nFalse",
+      "answer": "C. True\nFalse",
       "feedback": {
         "correct": "정답! 3 < 5는 True, 5 < 3은 False예요. 두 줄이 각각 출력돼요."
       }
@@ -557,7 +557,7 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nx = 5\nprint(1 < x < 10)\n```",
       "choices": [
-        "A. True\\nTrue",
+        "A. True\nTrue",
         "B. False",
         "C. 오류 발생",
         "D. True"
@@ -790,7 +790,7 @@
       "choices": [
         "A. 실패",
         "B. True",
-        "C. 통과\\n실패",
+        "C. 통과\n실패",
         "D. 통과"
       ],
       "answer": "D. 통과",
@@ -956,7 +956,7 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nx = 10\nif x > 0:\n    if x > 20:\n        print(\"크다\")\nprint(\"끝\")\n```",
       "choices": [
-        "A. 크다\\n끝",
+        "A. 크다\n끝",
         "B. 끝",
         "C. 크다",
         "D. 아무것도 출력 안 됨"
@@ -1166,12 +1166,12 @@
       "is_boss": true,
       "question": "다음 코드의 출력 결과는?\n\n```python\nnum = -7\nif num > 0:\n    print(\"양수\")\nelif num < 0:\n    print(\"음수\")\nelse:\n    print(\"0\")\nprint(\"판별 완료\")\n```",
       "choices": [
-        "A. 양수\\n판별 완료",
-        "B. 음수\\n판별 완료",
-        "C. 0\\n판별 완료",
+        "A. 양수\n판별 완료",
+        "B. 음수\n판별 완료",
+        "C. 0\n판별 완료",
         "D. 판별 완료"
       ],
-      "answer": "B. 음수\\n판별 완료",
+      "answer": "B. 음수\n판별 완료",
       "feedback": {
         "correct": "정답! -7 < 0은 True → \"음수\" 출력. if/elif/else 밖의 print는 항상 실행돼요."
       }
@@ -1210,7 +1210,7 @@
       "choices": [
         "A. 단독 입장",
         "B. 입장 불가",
-        "C. 보호자 동반 입장\\n단독 입장",
+        "C. 보호자 동반 입장\n단독 입장",
         "D. 보호자 동반 입장"
       ],
       "answer": "D. 보호자 동반 입장",
@@ -1232,7 +1232,7 @@
         "A. A",
         "B. B",
         "C. C",
-        "D. A\\nB"
+        "D. A\nB"
       ],
       "answer": "A. A",
       "feedback": {

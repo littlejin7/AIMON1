@@ -7,7 +7,8 @@
     "answer": "venv",
     "feedback": {
       "correct": "정답! `python -m venv myenv` 명령으로 가상환경을 생성합니다. `venv`는 파이썬 3.3+에 내장된 가상환경 모듈이며, `-m` 옵션은 해당 모듈을 스크립트처럼 실행합니다."
-    }
+    },
+    "unit": "6"
   },
   {
     "question_id": "q002",
@@ -23,7 +24,8 @@
     "answer": "A",
     "feedback": {
       "correct": "정답! Windows에서 가상환경을 활성화하려면 A) `myenv\\Scripts\\activate`를 사용합니다. B)는 macOS/Linux 전용 명령어이며, C)와 D)는 존재하지 않는 형식입니다."
-    }
+    },
+    "unit": "6"
   },
   {
     "question_id": "q003",
@@ -33,7 +35,8 @@
     "answer": "deactivate",
     "feedback": {
       "correct": "정답! `deactivate` 명령어는 현재 활성화된 가상환경을 비활성화합니다. Windows와 macOS/Linux 모두 동일하게 사용할 수 있습니다."
-    }
+    },
+    "unit": "6"
   },
   {
     "question_id": "q004",
@@ -49,7 +52,8 @@
     "answer": "A",
     "feedback": {
       "correct": "정답! pip에서 특정 버전을 지정할 때는 `==` 연산자를 사용합니다. A) `pip install requests==2.28.0`이 올바른 형식이며, B)의 `=` 하나는 문법 오류입니다."
-    }
+    },
+    "unit": "6"
   },
   {
     "question_id": "q005",
@@ -59,7 +63,8 @@
     "answer": "-r",
     "feedback": {
       "correct": "정답! `pip install -r requirements.txt` 명령으로 requirements.txt에 기록된 패키지들을 일괄 설치할 수 있습니다. `-r`은 파일에서 패키지 목록을 읽어오는 옵션입니다."
-    }
+    },
+    "unit": "6"
   },
   {
     "question_id": "q006",
@@ -69,7 +74,8 @@
     "answer": "freeze",
     "feedback": {
       "correct": "정답! `pip freeze`는 현재 환경에 설치된 패키지를 `패키지명==버전` 형식으로 출력합니다. `> requirements.txt`와 조합하면 의존성 목록을 파일로 저장할 수 있습니다."
-    }
+    },
+    "unit": "6"
   },
   {
     "question_id": "q007",
@@ -85,7 +91,8 @@
     "answer": "A",
     "feedback": {
       "correct": "정답! `os.environ['MY_VAR'] = 'hello'`로 환경 변수를 설정한 직후 `os.environ.get('MY_VAR', 'default')`를 호출하면 이미 설정된 값인 `hello`가 반환됩니다. A)가 정답입니다."
-    }
+    },
+    "unit": "6"
   },
   {
     "question_id": "q008",
@@ -95,7 +102,8 @@
     "answer": "join",
     "feedback": {
       "correct": "정답! `os.path.join()`은 경로 요소들을 OS에 맞는 구분자(`\\` 또는 `/`)로 결합합니다. 하드코딩 대신 이 함수를 사용하면 OS 간 이식성 높은 경로를 만들 수 있습니다."
-    }
+    },
+    "unit": "6"
   },
   {
     "question_id": "q009",
@@ -111,7 +119,8 @@
     "answer": "B",
     "feedback": {
       "correct": "정답! `sys.argv`는 스크립트 이름을 포함해 `['script.py', 'apple', 'banana']`로 구성됩니다. 요소가 총 3개이므로 `len(sys.argv)`는 B) 3을 출력합니다."
-    }
+    },
+    "unit": "6"
   },
   {
     "question_id": "q010",
@@ -121,7 +130,8 @@
     "answer": "stem",
     "feedback": {
       "correct": "정답! `Path.stem`은 파일명에서 확장자를 제외한 이름만 반환합니다. `Path('/home/user/report.pdf').stem`은 `report`를 반환하며, `.name`은 확장자를 포함한 `report.pdf`를 반환합니다."
-    }
+    },
+    "unit": "6"
   },
   {
     "question_id": "q011",
@@ -137,7 +147,8 @@
     "answer": "A",
     "feedback": {
       "correct": "정답! 3월은 31일까지 있으므로, 2024년 3월 1일에 30일을 더하면 3월 31일이 됩니다. `result.month`는 월(month) 값인 A) 3을 반환합니다."
-    }
+    },
+    "unit": "6"
   },
   {
     "question_id": "q012",
@@ -147,7 +158,8 @@
     "answer": "suffix",
     "feedback": {
       "correct": "정답! `Path.suffix`는 파일의 마지막 확장자를 반환합니다. `'report.final.pdf'`에서 `suffix`는 `.pdf`를 반환합니다. 모든 확장자 목록이 필요하다면 `Path.suffixes`를 사용하면 `['.final', '.pdf']`가 반환됩니다."
-    }
+    },
+    "unit": "6"
   },
   {
     "question_id": "q013",
@@ -163,7 +175,8 @@
     "answer": "A",
     "feedback": {
       "correct": "정답! pip 버전 지정자에서 `>=`는 이상, `<`는 미만을 나타냅니다. A) `flask>=2.0,<3.0`이 올바른 표기법이며, 쉼표로 여러 조건을 결합할 수 있습니다. B)는 2.0 초과 3.0 이하이므로 조건이 다릅니다."
-    }
+    },
+    "unit": "6"
   },
   {
     "question_id": "q014",
@@ -173,7 +186,8 @@
     "answer": "==",
     "feedback": {
       "correct": "정답! `==` 연산자는 패키지 버전을 정확히 고정합니다. `numpy==1.24.0`으로 작성하면 해당 버전만 설치되며, 이를 버전 고정(pinning)이라 합니다. 재현 가능한 환경을 보장하는 핵심 의존성 관리 전략입니다."
-    }
+    },
+    "unit": "6"
   },
   {
     "question_id": "q015",
@@ -189,6 +203,7 @@
     "answer": "A",
     "feedback": {
       "correct": "정답! `pip show 패키지명` 명령은 해당 패키지의 버전, 설치 경로, 의존 패키지(`Requires`) 등의 상세 정보를 출력합니다. A) `pip show requests`가 올바른 명령어입니다."
-    }
+    },
+    "unit": "6"
   }
 ]
