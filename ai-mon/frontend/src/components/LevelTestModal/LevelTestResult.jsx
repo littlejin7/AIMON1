@@ -69,11 +69,12 @@ function RadarChart({ syntax = 0, structure = 0, control = 0 }) {
   return (
     <div style={{
       display: 'flex', justifyContent: 'center', alignItems: 'center',
-      padding: '20px 0', background: '#F9F8FE', borderRadius: '20px',
+      width: 'fit-content', margin: '0 auto',
+      padding: '2px 6px', background: '#F9F8FE', borderRadius: '18px',
       boxShadow: 'inset 0 2px 8px rgba(83,74,183,0.06)',
       position: 'relative'
     }}>
-      <svg width="220" height="230" viewBox="0 0 220 230">
+      <svg width="220" height="185" viewBox="0 0 220 185">
         {levels.map((lv) => {
           const s = getPt(lv, 'syntax')
           const str = getPt(lv, 'structure')
@@ -192,7 +193,7 @@ export default function LevelTestResult({
       </div>
 
       {/* ── 상세 결과 ── */}
-      <div style={{ padding: '16px 20px 28px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <div style={{ padding: '14px 20px 10px', display: 'flex', flexDirection: 'column', gap: '7px' }}>
 
         {/* 점수 요약 */}
         <div style={{ background: '#F9F8FE', borderRadius: '16px', padding: '14px 16px' }}>
@@ -210,7 +211,8 @@ export default function LevelTestResult({
 
         {/* 영역별 분석 */}
         <div>
-          <div style={{ fontSize: '13px', fontWeight: 600, color: '#26215C', marginBottom: '12px' }}>
+          <div style={{ fontSize: '13px', fontWeight: 600, color: '#26215C', marginBottom: '6px' }}>
+
             📊 영역별 분석
           </div>
           <RadarChart
@@ -225,11 +227,11 @@ export default function LevelTestResult({
           id="btn-level-test-register"
           onClick={() => onFinish(levelKey, updatedUser)}
           style={{
-            width: '100%', padding: '15px',
+            width: '100%', padding: '10px',
             background: '#7F77DD', color: 'white',
             border: 'none', borderRadius: '14px',
             fontSize: '15px', fontWeight: 600, cursor: 'pointer',
-            boxShadow: '0 4px 0 #534AB7',
+            boxShadow: '0 3px 0 #534AB7',
           }}
         >
           {isLoggedIn ? `🚀 ${meta.label}으로 학습 시작하기` : '✨ 가입하고 에이몬 받기'}
@@ -237,7 +239,7 @@ export default function LevelTestResult({
         <button
           onClick={onClose}
           style={{
-            width: '100%', padding: '13px',
+            width: '100%', padding: '8px',
             background: 'transparent', color: '#9B96D0',
             border: '1.5px solid #E5E2F8', borderRadius: '14px',
             fontSize: '13px', fontWeight: 500, cursor: 'pointer',
