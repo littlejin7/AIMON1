@@ -5,11 +5,11 @@
       "type": "fill_in_blank",
       "difficulty": "easy",
       "unit": 3,
-      "question": "`.env` 파일의 환경변수를 파이썬 코드에 로드하려면 어떤 함수를 호출해야 할까요? 빈칸을 채워 코드를 완성해 보세요.",
+      "question": "'.env' 파일의 환경변수를 파이썬 코드에 로드하려면 어떤 함수를 호출해야 할까요? 빈칸을 채워 코드를 완성해 보세요.",
       "code": "from dotenv import load_dotenv\nimport os\n\n_____()  # .env 파일 로드\napi_key = os.environ.get(\"ANTHROPIC_API_KEY\")",
       "answer": "load_dotenv",
       "feedback": {
-        "correct": "정답! `load_dotenv()`는 현재 디렉터리의 `.env` 파일을 읽어 환경변수로 등록합니다. 이후 `os.environ.get()`으로 해당 값을 안전하게 참조할 수 있습니다."
+        "correct": "정답! 'load_dotenv()'는 현재 디렉터리의 '.env' 파일을 읽어 환경변수로 등록합니다. 이후 'os.environ.get()'으로 해당 값을 안전하게 참조할 수 있습니다."
       }
     },
     {
@@ -17,11 +17,11 @@
       "type": "fill_in_blank",
       "difficulty": "easy",
       "unit": 3,
-      "question": "환경변수가 존재하지 않을 때 오류 대신 `None`을 반환하도록, `os.environ`에서 안전하게 값을 읽는 메서드명을 빈칸에 채워 보세요.",
+      "question": "환경변수가 존재하지 않을 때 오류 대신 'None'을 반환하도록, 'os.environ'에서 안전하게 값을 읽는 메서드명을 빈칸에 채워 보세요.",
       "code": "import os\n\napi_key = os.environ._____( \"ANTHROPIC_API_KEY\")",
       "answer": "get",
       "feedback": {
-        "correct": "정답! `os.environ.get(key)`는 키가 없을 때 `None`을 반환합니다. `os.environ[key]`처럼 직접 접근하면 키 부재 시 `KeyError`가 발생하므로, API 키 로드에는 `.get()`이 더 안전합니다."
+        "correct": "정답! 'os.environ.get(key)'는 키가 없을 때 'None'을 반환합니다. 'os.environ[key]'처럼 직접 접근하면 키 부재 시 'KeyError'가 발생하므로, API 키 로드에는 '.get()'이 더 안전합니다."
       }
     },
     {
@@ -33,7 +33,7 @@
       "code": "response = client.messages.create(\n    model=\"claude-opus-4-5\",\n    _____=256,\n    messages=[{\"role\": \"user\", \"content\": \"안녕하세요\"}]\n)",
       "answer": "max_tokens",
       "feedback": {
-        "correct": "정답! `max_tokens`는 API가 생성할 응답의 최대 토큰 수를 제한합니다. 비용 제어와 응답 길이 조정에 필수적인 파라미터입니다."
+        "correct": "정답! 'max_tokens'는 API가 생성할 응답의 최대 토큰 수를 제한합니다. 비용 제어와 응답 길이 조정에 필수적인 파라미터입니다."
       }
     },
     {
@@ -45,7 +45,7 @@
       "code": "response = client.messages.create(\n    model=\"claude-opus-4-5\",\n    max_tokens=512,\n    _____=\"당신은 10년 경력의 파이썬 튜터입니다. 초보자도 이해할 수 있게 설명하세요.\",\n    messages=[{\"role\": \"user\", \"content\": \"클래스란 무엇인가요?\"}]\n)",
       "answer": "system",
       "feedback": {
-        "correct": "정답! `system` 파라미터는 시스템 프롬프트를 전달하며, 모델이 대화 전반에 걸쳐 유지할 역할과 행동 지침을 설정합니다. `messages` 리스트 외부에 별도 필드로 전달하는 점이 특징입니다."
+        "correct": "정답! 'system' 파라미터는 시스템 프롬프트를 전달하며, 모델이 대화 전반에 걸쳐 유지할 역할과 행동 지침을 설정합니다. 'messages' 리스트 외부에 별도 필드로 전달하는 점이 특징입니다."
       }
     },
     {
@@ -53,11 +53,11 @@
       "type": "fill_in_blank",
       "difficulty": "medium",
       "unit": 3,
-      "question": "멀티턴 대화에서 AI의 이전 응답을 대화 히스토리에 추가할 때 사용하는 `role` 값을 빈칸에 채워 보세요.",
+      "question": "멀티턴 대화에서 AI의 이전 응답을 대화 히스토리에 추가할 때 사용하는 'role' 값을 빈칸에 채워 보세요.",
       "code": "messages = [\n    {\"role\": \"user\", \"content\": \"머신러닝이 뭔가요?\"},\n    {\"role\": \"_____\", \"content\": \"머신러닝은 데이터를 통해 스스로 학습하는 AI 기술입니다.\"},\n    {\"role\": \"user\", \"content\": \"딥러닝과의 차이는요?\"}\n]",
       "answer": "assistant",
       "feedback": {
-        "correct": "정답! 멀티턴 대화에서 AI의 발화는 `role: \"assistant\"`로 기록됩니다. `user`와 `assistant`가 번갈아 등장하는 구조가 컨텍스트 유지의 핵심 패턴입니다."
+        "correct": "정답! 멀티턴 대화에서 AI의 발화는 'role: \"assistant\"'로 기록됩니다. 'user'와 'assistant'가 번갈아 등장하는 구조가 컨텍스트 유지의 핵심 패턴입니다."
       }
     },
     {
@@ -65,11 +65,11 @@
       "type": "fill_in_blank",
       "difficulty": "medium",
       "unit": 3,
-      "question": "Claude API의 `temperature` 파라미터에 설정 가능한 최댓값(가장 창의적인 출력)을 정수로 빈칸에 채워 보세요.",
+      "question": "Claude API의 'temperature' 파라미터에 설정 가능한 최댓값(가장 창의적인 출력)을 정수로 빈칸에 채워 보세요.",
       "code": "response = client.messages.create(\n    model=\"claude-opus-4-5\",\n    max_tokens=128,\n    temperature=_____,  # 가장 창의적이고 다양한 출력을 위한 최댓값\n    messages=[{\"role\": \"user\", \"content\": \"시를 한 편 써줘\"}]\n)",
       "answer": "1",
       "feedback": {
-        "correct": "정답! Claude API의 `temperature` 범위는 `0`~`1`입니다. `1`에 가까울수록 창의적·다양한 출력이, `0`에 가까울수록 일관적·결정론적 출력이 나옵니다."
+        "correct": "정답! Claude API의 'temperature' 범위는 '0'~'1'입니다. '1'에 가까울수록 창의적·다양한 출력이, '0'에 가까울수록 일관적·결정론적 출력이 나옵니다."
       }
     },
     {
@@ -77,11 +77,11 @@
       "type": "fill_in_blank",
       "difficulty": "hard",
       "unit": 3,
-      "question": "스트리밍 응답에서 텍스트 조각을 하나씩 순서대로 순회할 때 사용하는 `stream` 객체의 속성명을 빈칸에 채워 보세요.",
+      "question": "스트리밍 응답에서 텍스트 조각을 하나씩 순서대로 순회할 때 사용하는 'stream' 객체의 속성명을 빈칸에 채워 보세요.",
       "code": "with client.messages.stream(\n    model=\"claude-opus-4-5\",\n    max_tokens=512,\n    messages=[{\"role\": \"user\", \"content\": \"긴 이야기를 들려줘\"}]\n) as stream:\n    for text in stream._____:\n        print(text, end=\"\", flush=True)",
       "answer": "text_stream",
       "feedback": {
-        "correct": "정답! `stream.text_stream`은 스트리밍 응답의 텍스트 델타를 하나씩 yield하는 이터레이터입니다. `print(text, end=\"\", flush=True)`와 함께 사용하면 실시간 출력 효과를 구현할 수 있습니다."
+        "correct": "정답! 'stream.text_stream'은 스트리밍 응답의 텍스트 델타를 하나씩 yield하는 이터레이터입니다. 'print(text, end=\"\", flush=True)'와 함께 사용하면 실시간 출력 효과를 구현할 수 있습니다."
       }
     },
     {
@@ -93,7 +93,7 @@
       "code": "response = client.messages.create(\n    model=\"claude-opus-4-5\",\n    max_tokens=100,\n    messages=[{\"role\": \"user\", \"content\": \"반갑습니다\"}]\n)\nresult = response.content[0]._____\nprint(result)",
       "answer": "text",
       "feedback": {
-        "correct": "정답! `response.content`는 콘텐츠 블록의 리스트이며, `[0].text`로 첫 번째 블록의 텍스트를 가져옵니다. 일반 대화 응답에는 보통 하나의 텍스트 블록만 존재합니다."
+        "correct": "정답! 'response.content'는 콘텐츠 블록의 리스트이며, '[0].text'로 첫 번째 블록의 텍스트를 가져옵니다. 일반 대화 응답에는 보통 하나의 텍스트 블록만 존재합니다."
       }
     },
     {
@@ -101,11 +101,11 @@
       "type": "fill_in_blank",
       "difficulty": "hard",
       "unit": 3,
-      "question": "Anthropic 클라이언트를 생성할 때 `ANTHROPIC_API_KEY` 환경변수를 자동으로 탐색하는 클래스명을 빈칸에 채워 보세요.",
+      "question": "Anthropic 클라이언트를 생성할 때 'ANTHROPIC_API_KEY' 환경변수를 자동으로 탐색하는 클래스명을 빈칸에 채워 보세요.",
       "code": "import anthropic\nfrom dotenv import load_dotenv\n\nload_dotenv()\nclient = anthropic._____()  # 환경변수에서 API 키 자동 로드",
       "answer": "Anthropic",
       "feedback": {
-        "correct": "정답! `anthropic.Anthropic()`은 `api_key`를 명시하지 않으면 `ANTHROPIC_API_KEY` 환경변수를 자동으로 탐색합니다. `load_dotenv()` 이후 호출하면 `.env` 파일의 키가 자동 적용됩니다."
+        "correct": "정답! 'anthropic.Anthropic()'은 'api_key'를 명시하지 않으면 'ANTHROPIC_API_KEY' 환경변수를 자동으로 탐색합니다. 'load_dotenv()' 이후 호출하면 '.env' 파일의 키가 자동 적용됩니다."
       }
     },
     {
@@ -113,11 +113,11 @@
       "type": "fill_in_blank",
       "difficulty": "medium",
       "unit": 3,
-      "question": "`.env` 파일에서 Anthropic API 키를 저장하는 공식 환경변수 키 이름을 빈칸에 채워 보세요.",
+      "question": "'.env' 파일에서 Anthropic API 키를 저장하는 공식 환경변수 키 이름을 빈칸에 채워 보세요.",
       "code": "# .env 파일 내용 예시\n_____=sk-ant-api03-xxxxxxxxxxxx",
       "answer": "ANTHROPIC_API_KEY",
       "feedback": {
-        "correct": "정답! Anthropic SDK는 기본적으로 `ANTHROPIC_API_KEY`라는 이름의 환경변수를 탐색합니다. `.env` 파일에 이 형식으로 저장하면 `load_dotenv()` 후 자동 로드됩니다."
+        "correct": "정답! Anthropic SDK는 기본적으로 'ANTHROPIC_API_KEY'라는 이름의 환경변수를 탐색합니다. '.env' 파일에 이 형식으로 저장하면 'load_dotenv()' 후 자동 로드됩니다."
       }
     },
     {
@@ -125,11 +125,11 @@
       "type": "code_input",
       "difficulty": "easy",
       "unit": 3,
-      "question": "`python-dotenv`를 사용해 `.env` 파일을 로드하고, `ANTHROPIC_API_KEY` 환경변수 값을 `api_key` 변수에 저장하는 코드를 작성해 보세요.",
+      "question": "'python-dotenv'를 사용해 '.env' 파일을 로드하고, 'ANTHROPIC_API_KEY' 환경변수 값을 'api_key' 변수에 저장하는 코드를 작성해 보세요.",
       "starter_code": "# 필요한 모듈 임포트 후 환경변수 로드",
       "answer": "from dotenv import load_dotenv\nimport os\n\nload_dotenv()\napi_key = os.environ.get(\"ANTHROPIC_API_KEY\")",
       "feedback": {
-        "correct": "정답! `load_dotenv()`로 `.env` 파일을 로드한 뒤 `os.environ.get()`으로 API 키를 안전하게 읽는 패턴은 API 키 보안 관리의 기본입니다."
+        "correct": "정답! 'load_dotenv()'로 '.env' 파일을 로드한 뒤 'os.environ.get()'으로 API 키를 안전하게 읽는 패턴은 API 키 보안 관리의 기본입니다."
       }
     },
     {
@@ -137,11 +137,11 @@
       "type": "code_input",
       "difficulty": "medium",
       "unit": 3,
-      "question": "`client` 객체가 이미 생성되어 있다고 가정하고, `temperature=0.7`, `max_tokens=256`으로 설정해 '파이썬의 장점 3가지를 알려줘'라는 메시지로 Claude API를 호출하세요. 응답 텍스트를 `result` 변수에 저장하는 코드를 작성해 보세요.",
+      "question": "'client' 객체가 이미 생성되어 있다고 가정하고, 'temperature=0.7', 'max_tokens=256'으로 설정해 '파이썬의 장점 3가지를 알려줘'라는 메시지로 Claude API를 호출하세요. 응답 텍스트를 'result' 변수에 저장하는 코드를 작성해 보세요.",
       "starter_code": "# client 객체는 이미 생성되어 있음",
       "answer": "response = client.messages.create(\n    model=\"claude-opus-4-5\",\n    max_tokens=256,\n    temperature=0.7,\n    messages=[{\"role\": \"user\", \"content\": \"파이썬의 장점 3가지를 알려줘\"}]\n)\nresult = response.content[0].text",
       "feedback": {
-        "correct": "정답! `messages.create()`에 `temperature`와 `max_tokens`를 함께 지정하고, `response.content[0].text`로 텍스트를 추출하는 기본 호출 패턴입니다."
+        "correct": "정답! 'messages.create()'에 'temperature'와 'max_tokens'를 함께 지정하고, 'response.content[0].text'로 텍스트를 추출하는 기본 호출 패턴입니다."
       }
     },
     {
@@ -149,11 +149,11 @@
       "type": "code_input",
       "difficulty": "medium",
       "unit": 3,
-      "question": "사용자가 '안녕'이라고 말하고 AI가 '안녕하세요!'라고 대답한 뒤, 사용자가 '오늘 날씨가 좋네요'라고 추가 발언하는 멀티턴 메시지 리스트를 `messages` 변수로 작성해 보세요.",
+      "question": "사용자가 '안녕'이라고 말하고 AI가 '안녕하세요!'라고 대답한 뒤, 사용자가 '오늘 날씨가 좋네요'라고 추가 발언하는 멀티턴 메시지 리스트를 'messages' 변수로 작성해 보세요.",
       "starter_code": "messages = []",
       "answer": "messages = [\n    {\"role\": \"user\", \"content\": \"안녕\"},\n    {\"role\": \"assistant\", \"content\": \"안녕하세요!\"},\n    {\"role\": \"user\", \"content\": \"오늘 날씨가 좋네요\"}\n]",
       "feedback": {
-        "correct": "정답! 멀티턴 대화는 `user`와 `assistant`가 교대로 등장하는 리스트 구조입니다. 이 히스토리를 API에 전달하면 모델이 이전 맥락을 이해하고 자연스럽게 이어서 답변합니다."
+        "correct": "정답! 멀티턴 대화는 'user'와 'assistant'가 교대로 등장하는 리스트 구조입니다. 이 히스토리를 API에 전달하면 모델이 이전 맥락을 이해하고 자연스럽게 이어서 답변합니다."
       }
     },
     {
@@ -161,11 +161,11 @@
       "type": "code_input",
       "difficulty": "hard",
       "unit": 3,
-      "question": "`client.messages.stream()`을 활용해 모델 `claude-opus-4-5`, `max_tokens=512`, 메시지 '우주에 대해 설명해줘'로 스트리밍 호출하고, `text_stream`으로 텍스트 조각을 실시간 출력하는 코드를 작성해 보세요.",
+      "question": "'client.messages.stream()'을 활용해 모델 'claude-opus-4-5', 'max_tokens=512', 메시지 '우주에 대해 설명해줘'로 스트리밍 호출하고, 'text_stream'으로 텍스트 조각을 실시간 출력하는 코드를 작성해 보세요.",
       "starter_code": "# client 객체는 이미 생성되어 있음",
       "answer": "with client.messages.stream(\n    model=\"claude-opus-4-5\",\n    max_tokens=512,\n    messages=[{\"role\": \"user\", \"content\": \"우주에 대해 설명해줘\"}]\n) as stream:\n    for text in stream.text_stream:\n        print(text, end=\"\", flush=True)",
       "feedback": {
-        "correct": "정답! `with ... as stream` 컨텍스트 매니저로 스트림을 열고, `stream.text_stream`을 순회하며 `print(text, end=\"\", flush=True)`로 실시간 출력하는 스트리밍 핵심 패턴입니다."
+        "correct": "정답! 'with ... as stream' 컨텍스트 매니저로 스트림을 열고, 'stream.text_stream'을 순회하며 'print(text, end=\"\", flush=True)'로 실시간 출력하는 스트리밍 핵심 패턴입니다."
       }
     },
     {
@@ -173,11 +173,11 @@
       "type": "code_input",
       "difficulty": "hard",
       "unit": 3,
-      "question": "빈 `messages` 리스트로 시작해 사용자 입력을 받고 API를 호출한 뒤 AI 응답을 히스토리에 추가하는 멀티턴 대화 루프를 작성해 보세요. 사용자가 'exit'를 입력하면 종료되어야 하며, `client` 객체는 이미 생성되어 있고 모델은 `claude-opus-4-5`, `max_tokens`는 `1024`로 설정하세요.",
+      "question": "빈 'messages' 리스트로 시작해 사용자 입력을 받고 API를 호출한 뒤 AI 응답을 히스토리에 추가하는 멀티턴 대화 루프를 작성해 보세요. 사용자가 'exit'를 입력하면 종료되어야 하며, 'client' 객체는 이미 생성되어 있고 모델은 'claude-opus-4-5', 'max_tokens'는 '1024'로 설정하세요.",
       "starter_code": "# client 객체는 이미 생성되어 있음\nmessages = []",
       "answer": "messages = []\nwhile True:\n    user_input = input(\"You: \")\n    if user_input.lower() == \"exit\":\n        break\n    messages.append({\"role\": \"user\", \"content\": user_input})\n    response = client.messages.create(\n        model=\"claude-opus-4-5\",\n        max_tokens=1024,\n        messages=messages\n    )\n    reply = response.content[0].text\n    messages.append({\"role\": \"assistant\", \"content\": reply})\n    print(f\"AI: {reply}\")",
       "feedback": {
-        "correct": "정답! `messages` 리스트에 사용자 입력과 AI 응답을 번갈아 추가하고, 매 API 호출 시 전체 히스토리를 전달하여 대화 컨텍스트를 유지하는 멀티턴 구현의 핵심 패턴입니다."
+        "correct": "정답! 'messages' 리스트에 사용자 입력과 AI 응답을 번갈아 추가하고, 매 API 호출 시 전체 히스토리를 전달하여 대화 컨텍스트를 유지하는 멀티턴 구현의 핵심 패턴입니다."
       }
     }
   ]
