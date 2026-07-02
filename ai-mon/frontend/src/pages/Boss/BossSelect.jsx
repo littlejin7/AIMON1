@@ -55,7 +55,7 @@ export default function BossSelect() {
     <div className="boss-select-page container animate-fade-in-up">
       <div className="boss-select-header">
         <button className="btn btn-ghost btn-sm" onClick={() => navigate('/lesson')}>
-          ◀ 레슨 홈으로
+          ✕
         </button>
         <h1 className="boss-select-title">⚔️ 유닛 보스 도전</h1>
         <p className="boss-select-subtitle">각 유닛의 강력한 보스몬스터들을 처치하고 특별한 보상을 획득하세요!</p>

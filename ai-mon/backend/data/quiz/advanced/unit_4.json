@@ -2206,7 +2206,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "secrets.toml에서 중첩 키로 API 키를 가져올 때 빈칸을 채워보세요.\n\n```toml\n# .streamlit/secrets.toml\n[anthropic]\napi_key = \"sk-ant-...\"\n```\n\n```python\nkey = st.secrets[\"anthropic\"][\"_____\"]\n```",
+      "question": "secrets.toml에서 중첩 키로 API 키를 가져올 때 빈칸에 들어갈 키 이름을 써보세요.\n\n```toml\n# .streamlit/secrets.toml\n[anthropic]\napi_key = \"sk-ant-...\"\n```\n\n```python\nkey = st.secrets[\"anthropic\"][\"_____\"]\n```",
       "choices": [],
       "answer": "api_key",
       "hint": "secrets.toml의 [anthropic] 섹션 아래 키 이름을 그대로 써요.",

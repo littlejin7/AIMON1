@@ -25,7 +25,7 @@ export default function WinModal({ show, score, timeStr, charSrc, onPlayAgain })
           🚀 다시 도전하기
         </button>
         <button className="mp-btn-to-list" onClick={() => navigate('/game')}>
-          ← 목록으로 가기
+          ✕
         </button>
       </div>
     </div>

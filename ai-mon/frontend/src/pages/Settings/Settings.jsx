@@ -13,9 +13,9 @@ const CHARACTER_ICON = {
 }
 
 const LEVELS = [
-  { key: 'beginner', emoji: '1', label: 'beginner', desc: 'Python basics and first lessons' },
-  { key: 'intermediate', emoji: '2', label: 'intermediate', desc: 'Functions, collections, and problem solving' },
-  { key: 'advanced', emoji: '3', label: 'advanced', desc: 'Projects, patterns, and deeper Python usage' },
+  { key: 'beginner', emoji: '🏹', label: 'beginner', desc: 'Python 기초부터 차근차근' },
+  { key: 'intermediate', emoji: '⚡', label: 'intermediate', desc: '기초를 알고 심화로 도전' },
+  { key: 'advanced', emoji: '🔥', label: 'advanced', desc: 'f-string급 실력자 전용' },
 ]
 
 export default function Settings() {
@@ -144,7 +144,7 @@ export default function Settings() {
 
       <div className="st-topbar">
         <button className="st-back-btn" onClick={() => navigate(-1)} aria-label="뒤로">
-          ←
+          ✕
         </button>
         <span className="st-topbar-title">설정</span>
       </div>
@@ -210,10 +210,10 @@ export default function Settings() {
         <p className="st-section-label">알림</p>
         <div className="st-group">
           {[
-            { key: 'streak', icon: 'S', bg: 'rgba(133,79,11,0.18)', label: '스트릭 알림', sub: '연속 학습 알림' },
-            { key: 'boss', icon: 'B', bg: 'rgba(163,45,45,0.18)', label: '보스 도전 알림' },
-            { key: 'daily', icon: 'D', bg: 'rgba(83,74,183,0.18)', label: '데일리 미션 알림' },
-            { key: 'updates', icon: 'N', bg: 'rgba(95,94,90,0.12)', label: '업데이트 및 공지' },
+            { key: 'streak', icon: '🔥', bg: 'rgba(133,79,11,0.18)', label: '스트릭 알림', sub: '오늘 학습을 안 했을 때' },
+            { key: 'boss', icon: '⚔️', bg: 'rgba(163,45,45,0.18)', label: '보스 도전 알림' },
+            { key: 'daily', icon: '📅', bg: 'rgba(83,74,183,0.18)', label: '데일리 미션 알림' },
+            { key: 'updates', icon: '🔔', bg: 'rgba(95,94,90,0.12)', label: '업데이트 및 공지' },
           ].map(({ key, icon, bg, label, sub }) => (
             <div
               key={key}
@@ -290,8 +290,8 @@ export default function Settings() {
                   <div className="st-level-desc">{desc}</div>
                 </div>
                 {isCurrent
-                  ? <span className="st-current-tag">{levelSaving ? '저장 중' : '현재'}</span>
-                  : <span className="st-lock-tag">{isLocked ? '잠금' : '변경'}</span>
+                  ? <span className="st-current-tag">현재</span>
+                  : <span className="st-lock-tag">🔒 잠금</span>
                 }
               </div>
             )

@@ -557,7 +557,7 @@ export default function Stage({ _lessonId, _stage }) {
     return (
       <div className="stage-loading">
         <p>문제를 불러올 수 없습니다.</p>
-        <button className="btn btn-ghost" onClick={() => navigate(-1)}>돌아가기</button>
+        <button className="btn btn-ghost" onClick={() => navigate(-1)}>✕</button>
       </div>
     )
   }

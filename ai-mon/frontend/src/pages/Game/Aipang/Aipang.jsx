@@ -17,7 +17,7 @@ export default function Aipang() {
         onClick={() => navigate('/game')}
         aria-label="미니게임 목록으로"
       >
-        ← 목록
+        ✕
       </button>
 
       {/* AI팡 퍼즐 */}

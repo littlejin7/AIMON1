@@ -44,10 +44,10 @@ export default function LevelTestIntro({ onStart, onClose }) {
       </div>
 
       {/* ── 바디 ── */}
-      <div style={{ padding: '20px 20px 28px', display: 'flex', flexDirection: 'column', gap: '18px' }}>
+      <div style={{ padding: '16px 20px 14px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
 
         {/* 특징 카드 */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
           {[
             {
               emoji: '🎯',
@@ -67,7 +67,7 @@ export default function LevelTestIntro({ onStart, onClose }) {
           ].map((f) => (
             <div key={f.title} style={{
               display: 'flex', alignItems: 'flex-start', gap: '12px',
-              padding: '12px 14px', background: '#F9F8FE', borderRadius: '14px',
+              padding: '10px 14px', background: '#F9F8FE', borderRadius: '14px',
             }}>
               <span style={{ fontSize: '20px', flexShrink: 0 }}>{f.emoji}</span>
               <div>
@@ -80,7 +80,7 @@ export default function LevelTestIntro({ onStart, onClose }) {
 
         {/* 레벨 범위 바 */}
         <div>
-          <div style={{ fontSize: '12px', fontWeight: 600, color: '#26215C', marginBottom: '10px' }}>테스트 레벨 범위</div>
+          <div style={{ fontSize: '12px', fontWeight: 600, color: '#26215C', marginBottom: '6px' }}>테스트 레벨 범위</div>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <div style={{ flex: 1, textAlign: 'center' }}>
               <div style={{ fontSize: '20px' }}>🐣</div>
@@ -111,7 +111,7 @@ export default function LevelTestIntro({ onStart, onClose }) {
           id="btn-level-test-start"
           onClick={onStart}
           style={{
-            width: '100%', padding: '15px',
+            width: '100%', padding: '13px',
             background: '#7F77DD', color: 'white',
             border: 'none', borderRadius: '14px',
             fontSize: '15px', fontWeight: 600, cursor: 'pointer',

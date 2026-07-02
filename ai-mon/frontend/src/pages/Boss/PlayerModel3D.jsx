@@ -85,7 +85,7 @@ const modelOffsetY = modelData.offsetY
   }, [myShake, attackAnim, scene])
 
   return (
-    <primitive ref={meshRef} object={scene} scale={modelScale} position={position} rotation={[0, Math.PI * 0.15, 0]} />
+    <primitive ref={meshRef} object={scene} scale={modelScale} position={position} rotation={[0, Math.PI * 0.25, 0]} />
   )
 }
 

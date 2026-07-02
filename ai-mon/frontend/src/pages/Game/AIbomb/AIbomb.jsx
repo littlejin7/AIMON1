@@ -77,7 +77,7 @@ export default function AIbomb() {
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
           <path d="M11 4L6 9L11 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
-        뒤로
+        ✕
       </button>
 
       {/* ── 헤더 ── */}

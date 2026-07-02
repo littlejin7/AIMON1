@@ -147,7 +147,7 @@ export default function StageBriefing({
           onClick={() => setBriefingIndex(b => b - 1)}
           disabled={isFirst}
         >
-          ← 이전
+          ✕
         </button>
 
         <div className="sb-slide-dots">

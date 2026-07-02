@@ -32,7 +32,7 @@
             "{\"message\": \"에이몬 API 서버 가동!\"}"
           ]
         },
-        "tip": "uvicorn main:app --reload 에서 main 은 파일명(main.py), app 은 FastAPI() 인스턴스 변수명입니다."
+        "tip": "uvicorn main:app --reload 에서 main은 파일명(main.py), app은 FastAPI() 인스턴스 변수명입니다."
       },
       {
         "order": 3,
@@ -262,7 +262,7 @@
       },
       {
         "order": 5,
-        "text": "Claude API 호출 실패 시 HTTPException 으로 적절한 오류를 반환합니다.\n빈 질문 체크(400)와 API 오류 catch(502)를 분리하면 클라이언트가 오류 원인을 파악하기 쉽습니다.",
+        "text": "Claude API 호출 실패 시 HTTPException으로 적절한 오류를 반환합니다.\n빈 질문 체크(400)와 API 오류 catch(502)를 분리하면 클라이언트가 오류 원인을 파악하기 쉽습니다.",
         "terminal": {
           "code": [
             "from fastapi import FastAPI, HTTPException",
@@ -605,7 +605,7 @@
       },
       {
         "order": 3,
-        "text": "SessionLocal 로 세션을 열고, add/commit/refresh 패턴으로 데이터를 저장합니다.\ncommit() 은 트랜잭션을 DB에 확정하고, refresh() 는 DB에서 최신 데이터(자동 생성된 id 등)를 다시 읽어옵니다.",
+        "text": "SessionLocal로 세션을 열고, add/commit/refresh 패턴으로 데이터를 저장합니다.\ncommit()은 트랜잭션을 DB에 확정하고, refresh()는 DB에서 최신 데이터(자동 생성된 id 등)를 다시 읽어옵니다.",
         "terminal": {
           "code": [
             "from sqlalchemy.orm import sessionmaker",
@@ -740,7 +740,7 @@
       },
       {
         "order": 7,
-        "text": "filter() 로 조건 검색을, order_by() 로 정렬을, offset/limit 으로 페이지네이션을 구현합니다.\n대용량 데이터를 다룰 때 전체를 한 번에 반환하면 성능이 떨어지므로 페이지네이션은 필수입니다.",
+        "text": "filter()로 조건 검색을, order_by()로 정렬을, offset/limit으로 페이지네이션을 구현합니다.\n대용량 데이터를 다룰 때 전체를 한 번에 반환하면 성능이 떨어지므로 페이지네이션은 필수입니다.",
         "terminal": {
           "code": [
             "from fastapi import FastAPI, Depends",

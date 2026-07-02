@@ -265,15 +265,14 @@ export default function Character() {
                 <div className="char-title-info">
                   <div className="char-title-name-row">
                     <span className="char-title-name" style={!owned ? { color: 'var(--clr-text-faint)' } : {}}>{name}</span>
-                    {equipped && <span className="char-title-equipped-badge">장착 중</span>}
                   </div>
                   <div className="char-title-desc">{desc}</div>
                 </div>
                 {!owned
                   ? <span style={{ fontSize: '0.85rem', flexShrink: 0 }}>🔒</span>
                   : equipped
-                  ? <div className="char-title-radio on"><div className="char-title-dot" /></div>
-                  : <div className="char-title-radio" />
+                  ? <span className="char-title-equip-btn on">장착중</span>
+                  : <span className="char-title-equip-btn">장착</span>
                 }
               </button>
             )

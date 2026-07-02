@@ -162,7 +162,7 @@
     "slides": [
       {
         "order": 1,
-        "text": "Anthropic Python SDK를 사용하면 Claude API를 간편하게 호출할 수 있습니다.\npip install anthropic 으로 설치하고, anthropic.Anthropic() 클라이언트 객체를 생성해 사용합니다.\nclient.messages.create() 가 핵심 메서드이며, model · max_tokens · messages 세 가지가 필수 파라미터입니다.",
+        "text": "Anthropic Python SDK를 사용하면 Claude API를 간편하게 호출할 수 있습니다.\npip install anthropic으로 설치하고, anthropic.Anthropic() 클라이언트 객체를 생성해 사용합니다.\nclient.messages.create() 가 핵심 메서드이며, model · max_tokens · messages 세 가지가 필수 파라미터입니다.",
         "tip": "SDK는 requests 직접 호출보다 인증·재시도·에러 파싱을 자동으로 처리합니다. 실무에서는 항상 SDK를 사용하세요."
       },
       {

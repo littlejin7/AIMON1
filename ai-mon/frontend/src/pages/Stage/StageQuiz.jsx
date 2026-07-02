@@ -3,10 +3,7 @@ import { useAuthStore } from '../../hooks/useAuthStore'
 import QuizCard from '../../components/QuizCard/QuizCard'
 import '../Boss/Boss.css'
 import villainIcon from '../../assets/boss_midcmorg.png'
-import slimeIcon from '../../assets/character_slime.png'
-import robotIcon from '../../assets/character_robot.png'
-import speechBubbleIcon from '../../assets/character_bubble.png'
-import finalGhostIcon from '../../assets/character_final_ghost.png'
+import amon from '../../assets/amon.png'
 
 const CHARACTER_MAP = {
   slime:         slimeIcon,
@@ -36,7 +33,7 @@ export default function StageQuiz({
 }) {
   const navigate = useNavigate()
   const user = useAuthStore((s) => s.user)
-  const charSrc = CHARACTER_MAP[user?.character] || slimeIcon
+  const charSrc = amon
 
   const currentQ = questions[current]
   const isVillain = currentQ?.quiz_category === 'miniboss'

@@ -260,7 +260,7 @@ export default function Register() {
         {step >= 1 && step <= 6 && (
           <>
             <div className="reg-header">
-              <button className="reg-back-btn" onClick={() => step === 1 ? navigate('/auth') : setStep(s => s - 1)}>←</button>
+              <button className="reg-back-btn" onClick={() => step === 1 ? navigate('/auth') : setStep(s => s - 1)}>✕</button>
               <span className="reg-logo-sm">AI MON</span>
               <span className="reg-step-chip">{STEP_CHIPS[step]}</span>
             </div>
