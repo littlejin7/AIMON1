@@ -44,7 +44,7 @@ export default function AIPair() {
 
   return (
     <div className="mp-root">
-      <button className="mp-back" onClick={() => navigate('/game')}>← 목록</button>
+      <button className="mp-back" onClick={() => navigate('/game')}>✕</button>
 
       <div className="mp-hero">
         <img className="mp-hero-char" src={charSrc} alt="캐릭터" onClick={openPicker} />
