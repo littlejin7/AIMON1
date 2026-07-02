@@ -9,7 +9,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 파이프라인 코드에서 빈칸을 채워 각 단계를 순서대로 실행하세요.\n출력 목표: LANGCHAIN NEWS\n\n```python\ndef fetch(state):\n    state['raw'] = 'langchain news'\n    return state\n```\n\n```python\ndef process(state):\n    state['clean'] = state['raw'].upper()\n    return state\n```\n\n```python\npipeline = [fetch, process]\nstate = {}\nfor step in pipeline:\n    state = _____(state)\n```\n\n```python\nprint(state['clean'])\n```",
+      "question": "아래 파이프라인 코드에서 빈칸을 채워 각 단계를 순서대로 실행하세요.\n출력 목표: LANGCHAIN NEWS\n\n```python\ndef fetch(state):\n    state['raw'] = 'langchain news'\n    return state\n\ndef process(state):\n    state['clean'] = state['raw'].upper()\n    return state\n\npipeline = [fetch, process]\nstate = {}\nfor step in pipeline:\n    state = _____(state)\n\nprint(state['clean'])\n```",
       "answer": "step",
       "feedback": {
         "correct": "정답! for step in pipeline에서 step은 현재 반복 중인 함수를 참조합니다. state = step(state)로 각 단계가 state를 받아 처리 후 다음 단계로 넘기는 파이프라인의 핵심 패턴이에요. pipeline(state)는 리스트라 호출 불가, fetch(state)는 항상 첫 단계만 실행하므로 오답입니다. 클리어!"
@@ -24,7 +24,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef count_words(state):\n    state['count'] = len(state.get('text', '').split())\n    return state\n```\n\n```python\ndef format_result(state):\n    state['output'] = '단어 수: ' + str(state['count']) + '개'\n    return state\n```\n\n```python\npipeline = [count_words, format_result]\nstate = {'text': 'AI 에이전트 파이프라인'}\nfor step in pipeline:\n    state = step(state)\nprint(state['output'])\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef count_words(state):\n    state['count'] = len(state.get('text', '').split())\n    return state\n\ndef format_result(state):\n    state['output'] = '단어 수: ' + str(state['count']) + '개'\n    return state\n\npipeline = [count_words, format_result]\nstate = {'text': 'AI 에이전트 파이프라인'}\nfor step in pipeline:\n    state = step(state)\nprint(state['output'])\n```",
       "choices": [
         "A. 단어 수: 3개",
         "B. 단어 수: 2개",
@@ -45,7 +45,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Pipeline 클래스에서 add_step이 메서드 체이닝을 지원하려면 빈칸을 채우세요.\n출력 목표: 합계: 6\n\n```python\nclass Pipeline:\n    def __init__(self):\n        self.steps = []\n```\n\n```python\n    def add_step(self, func):\n        self.steps.append(func)\n        return _____\n```\n\n```python\n    def run(self, state=None):\n        state = state or {}\n        for step in self.steps:\n            state = step(state)\n        return state\n```\n\n```python\ndef collect(state):\n    state['items'] = [1, 2, 3]\n    return state\n```\n\n```python\ndef total(state):\n    state['sum'] = sum(state['items'])\n    return state\n```\n\n```python\ndef report(state):\n    print('합계: ' + str(state['sum']))\n    return state\n```\n\nPipeline().add_step(collect).add_step(total).add_step(report).run()",
+      "question": "Pipeline 클래스에서 add_step이 메서드 체이닝을 지원하려면 빈칸을 채우세요.\n출력 목표: 합계: 6\n\n```python\nclass Pipeline:\n    def __init__(self):\n        self.steps = []\n\n    def add_step(self, func):\n        self.steps.append(func)\n        return _____\n\n    def run(self, state=None):\n        state = state or {}\n        for step in self.steps:\n            state = step(state)\n        return state\n\ndef collect(state):\n    state['items'] = [1, 2, 3]\n    return state\n\ndef total(state):\n    state['sum'] = sum(state['items'])\n    return state\n\ndef report(state):\n    print('합계: ' + str(state['sum']))\n    return state\n\nPipeline().add_step(collect).add_step(total).add_step(report).run()\n```",
       "answer": "self",
       "feedback": {
         "correct": "정답! add_step이 return self를 반환해야 Pipeline 인스턴스가 유지되어 .add_step(total).add_step(report) 형태의 메서드 체이닝이 가능합니다. return None이면 다음 .add_step() 호출 시 AttributeError가 발생하고, return func이면 함수 객체에 add_step 메서드가 없어 실패합니다. 이를 빌더(Builder) 패턴이라 해요. 클리어!"
@@ -60,7 +60,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef classify(state):\n    state['label'] = '우수' if state['score'] >= 80 else '보통'\n    return state\n```\n\n```python\ndef handle_excellent(state):\n    state['action'] = 'bonus'\n    print('보너스 지급')\n    return state\n```\n\n```python\ndef handle_normal(state):\n    state['action'] = 'review'\n    print('복습 추천')\n    return state\n```\n\n```python\nstate = {'score': 75}\nstate = classify(state)\nif state['label'] == '우수':\n    state = handle_excellent(state)\nelse:\n    state = handle_normal(state)\nprint(state['action'])\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef classify(state):\n    state['label'] = '우수' if state['score'] >= 80 else '보통'\n    return state\n\ndef handle_excellent(state):\n    state['action'] = 'bonus'\n    print('보너스 지급')\n    return state\n\ndef handle_normal(state):\n    state['action'] = 'review'\n    print('복습 추천')\n    return state\n\nstate = {'score': 75}\nstate = classify(state)\nif state['label'] == '우수':\n    state = handle_excellent(state)\nelse:\n    state = handle_normal(state)\nprint(state['action'])\n```",
       "choices": [
         "A. 복습 추천\nreview",
         "B. 보너스 지급\nbonus",
@@ -96,7 +96,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef make_pipeline(*steps):\n    def run(state):\n        for step in steps:\n            state = step(state)\n        return state\n    return run\n```\n\n```python\ndef step_a(state):\n    state['count'] = len(state.get('items', []))\n    return state\n```\n\n```python\ndef step_b(state):\n    state['label'] = '많음' if state['count'] >= 3 else '적음'\n    return state\n```\n\n```python\ndata_pipeline = make_pipeline(step_a, step_b)\nresult = data_pipeline({'items': ['AI', 'ML', 'DL', 'LLM']})\nprint(result['label'])\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef make_pipeline(*steps):\n    def run(state):\n        for step in steps:\n            state = step(state)\n        return state\n    return run\n\ndef step_a(state):\n    state['count'] = len(state.get('items', []))\n    return state\n\ndef step_b(state):\n    state['label'] = '많음' if state['count'] >= 3 else '적음'\n    return state\n\ndata_pipeline = make_pipeline(step_a, step_b)\nresult = data_pipeline({'items': ['AI', 'ML', 'DL', 'LLM']})\nprint(result['label'])\n```",
       "choices": [
         "A. 많음",
         "B. 적음",
@@ -117,7 +117,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "safe_step에서 오류 메시지 출력 시 실패한 단계 함수의 이름을 가져오려면 빈칸을 채우세요.\n출력 목표:\n[오류] broken: 데이터 없음\n데이터 없음\n\n```python\ndef safe_step(step, state):\n    try:\n        return step(state)\n    except Exception as e:\n        state['error'] = str(e)\n        print('[오류] ' + step._____ + ': ' + str(e))\n        return state\n```\n\n```python\ndef broken(state):\n    raise ValueError('데이터 없음')\n```\n\n```python\nresult = safe_step(broken, {})\nprint(result['error'])\n```",
+      "question": "safe_step에서 오류 메시지 출력 시 실패한 단계 함수의 이름을 가져오려면 빈칸을 채우세요.\n출력 목표:\n[오류] broken: 데이터 없음\n데이터 없음\n\n```python\ndef safe_step(step, state):\n    try:\n        return step(state)\n    except Exception as e:\n        state['error'] = str(e)\n        print('[오류] ' + step._____ + ': ' + str(e))\n        return state\n\ndef broken(state):\n    raise ValueError('데이터 없음')\n\nresult = safe_step(broken, {})\nprint(result['error'])\n```",
       "answer": "__name__",
       "feedback": {
         "correct": "정답! 모든 파이썬 함수는 __name__ 속성에 함수 이름 문자열을 가지고 있습니다. step.__name__은 실패한 단계의 이름을 반환해 '[오류] broken: ...' 형태의 명확한 오류 메시지를 만들 수 있어요. __doc__은 독스트링, __class__는 타입 정보를 반환하므로 함수 이름을 얻으려면 __name__이 적합합니다. 클리어!"
@@ -132,7 +132,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef safe_step(step, state):\n    try:\n        return step(state)\n    except Exception as e:\n        state['error'] = str(e)\n        print('[오류] ' + step.__name__ + ': ' + str(e))\n        return state\n```\n\n```python\ndef fetch(state):\n    state['data'] = 'AI 뉴스'\n    return state\n```\n\n```python\ndef process(state):\n    raise ValueError('파싱 실패')\n```\n\n```python\ndef save(state):\n    print('저장: ' + state.get('data', '없음'))\n    return state\n```\n\n```python\npipeline = [fetch, process, save]\nstate = {}\nfor step in pipeline:\n    state = safe_step(step, state)\nprint('오류 있음' if 'error' in state else '정상')\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef safe_step(step, state):\n    try:\n        return step(state)\n    except Exception as e:\n        state['error'] = str(e)\n        print('[오류] ' + step.__name__ + ': ' + str(e))\n        return state\n\ndef fetch(state):\n    state['data'] = 'AI 뉴스'\n    return state\n\ndef process(state):\n    raise ValueError('파싱 실패')\n\ndef save(state):\n    print('저장: ' + state.get('data', '없음'))\n    return state\n\npipeline = [fetch, process, save]\nstate = {}\nfor step in pipeline:\n    state = safe_step(step, state)\nprint('오류 있음' if 'error' in state else '정상')\n```",
       "choices": [
         "A. [오류] process: 파싱 실패\n저장: AI 뉴스\n오류 있음",
         "B. [오류] process: 파싱 실패\n저장: 없음\n오류 있음",
@@ -153,7 +153,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "make_pipeline 함수는 여러 단계를 묶어 하나의 실행 함수로 반환합니다.\n빈칸을 채워 코드를 완성하세요.\n출력 목표: [AI] LANGCHAIN\n\n```python\ndef make_pipeline(*steps):\n    def run(state):\n        for step in steps:\n            state = step(state)\n        return state\n    return _____\n```\n\n```python\ndef add_prefix(state):\n    state['text'] = '[AI] ' + state.get('text', '')\n    return state\n```\n\n```python\ndef uppercase(state):\n    state['text'] = state['text'].upper()\n    return state\n```\n\n```python\ntext_pipeline = make_pipeline(add_prefix, uppercase)\nresult = text_pipeline({'text': 'langchain'})\nprint(result['text'])\n```",
+      "question": "make_pipeline 함수는 여러 단계를 묶어 하나의 실행 함수로 반환합니다.\n빈칸을 채워 코드를 완성하세요.\n출력 목표: [AI] LANGCHAIN\n\n```python\ndef make_pipeline(*steps):\n    def run(state):\n        for step in steps:\n            state = step(state)\n        return state\n    return _____\n\ndef add_prefix(state):\n    state['text'] = '[AI] ' + state.get('text', '')\n    return state\n\ndef uppercase(state):\n    state['text'] = state['text'].upper()\n    return state\n\ntext_pipeline = make_pipeline(add_prefix, uppercase)\nresult = text_pipeline({'text': 'langchain'})\nprint(result['text'])\n```",
       "answer": "run",
       "feedback": {
         "correct": "정답! return run은 내부 함수 run을 값으로 반환합니다. return run()은 run을 즉시 호출해버려 인자가 없어 오류가 발생하고, return steps는 튜플을 반환해 호출 불가합니다. make_pipeline은 고차 함수 패턴으로, run이 steps를 클로저로 기억한 채 반환됩니다. text_pipeline = run이 되어 text_pipeline({'text': 'langchain'}) 호출이 가능해요. 클리어!"
@@ -184,7 +184,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 코드에서 빈칸을 채워 get_length를 LangChain 도구로 등록하세요.\n출력 목표: get_length\n\n```python\nfrom langchain_core.tools import tool\n```\n\n_____\ndef get_length(text: str) -> str:\n    '''텍스트의 글자 수를 반환합니다.'''\n    return str(len(text)) + '자'\n\n```python\nprint(get_length.name)\n```",
+      "question": "아래 코드에서 빈칸을 채워 get_length를 LangChain 도구로 등록하세요.\n출력 목표: get_length\n\n```python\nfrom langchain_core.tools import tool\n\n_____\ndef get_length(text: str) -> str:\n    '''텍스트의 글자 수를 반환합니다.'''\n    return str(len(text)) + '자'\n\nprint(get_length.name)\n```",
       "answer": "@tool",
       "feedback": {
         "correct": "정답! @tool 데코레이터를 함수 위에 붙이면 LangChain이 함수를 도구로 등록합니다. 함수 이름이 tool.name이 되고, 독스트링(''' ''')이 tool.description이 됩니다. @tool 없이 함수를 정의하면 get_length.name 접근 시 AttributeError가 발생합니다. 클리어!"
@@ -199,7 +199,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nfrom langchain_core.tools import tool\n```\n\n@tool\n```python\ndef calculate(expression: str) -> str:\n    '''수식을 계산합니다. 예: 3 + 5 * 2'''\n    return str(eval(expression))\n```\n\n```python\nprint(calculate.name)\nprint(calculate.description)\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nfrom langchain_core.tools import tool\n\n@tool\ndef calculate(expression: str) -> str:\n    '''수식을 계산합니다. 예: 3 + 5 * 2'''\n    return str(eval(expression))\n\nprint(calculate.name)\nprint(calculate.description)\n```",
       "choices": [
         "A. calculate\n수식을 계산합니다. 예: 3 + 5 * 2",
         "B. calculate\ndef calculate(expression: str) -> str",
@@ -220,7 +220,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "LangChain 도구를 직접 호출할 때 빈칸을 채우세요.\n출력 목표: 인사: 에이몬\n\n```python\nfrom langchain_core.tools import tool\n```\n\n@tool\ndef greet(name: str) -> str:\n    '''인사를 반환합니다.'''\n    return '인사: ' + name\n\n```python\nresult = greet._____({'name': '에이몬'})\nprint(result)\n```",
+      "question": "LangChain 도구를 직접 호출할 때 빈칸을 채우세요.\n출력 목표: 인사: 에이몬\n\n```python\nfrom langchain_core.tools import tool\n\n@tool\ndef greet(name: str) -> str:\n    '''인사를 반환합니다.'''\n    return '인사: ' + name\n\nresult = greet._____({'name': '에이몬'})\nprint(result)\n```",
       "answer": "invoke",
       "feedback": {
         "correct": "정답! LangChain 도구는 tool.invoke({'인자명': 값}) 형태로 호출합니다. greet('에이몬')처럼 직접 호출하면 LangChain 내부 처리가 생략되어 오류가 발생합니다. invoke는 입력 검증, 오류 처리, 로깅 등 LangChain 파이프라인의 표준 실행 경로를 거칩니다. 클리어!"
@@ -235,7 +235,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef simulate_agent(user_input, tools_dict):\n    print('[입력] ' + user_input)\n    for tool_name, tool_func in tools_dict.items():\n        if tool_name in user_input:\n            print('[선택] 도구: ' + tool_name)\n            result = tool_func(user_input)\n            print('[결과] ' + result)\n            print('[출력] ' + result + '를 바탕으로 답변 완료')\n```\n            return\n```python\n    print('[출력] 도구 없이 직접 답변')\n```\n\ntools_dict = {\n    'search': lambda q: 'LangChain은 LLM 프레임워크입니다',\n    'calculate': lambda q: '42',\n}\nsimulate_agent('search: LangChain이란?', tools_dict)",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef simulate_agent(user_input, tools_dict):\n    print('[입력] ' + user_input)\n    for tool_name, tool_func in tools_dict.items():\n        if tool_name in user_input:\n            print('[선택] 도구: ' + tool_name)\n            result = tool_func(user_input)\n            print('[결과] ' + result)\n            print('[출력] ' + result + '를 바탕으로 답변 완료')\n            return\n    print('[출력] 도구 없이 직접 답변')\n\ntools_dict = {\n    'search': lambda q: 'LangChain은 LLM 프레임워크입니다',\n    'calculate': lambda q: '42',\n}\nsimulate_agent('search: LangChain이란?', tools_dict)\n```",
       "choices": [
         "A. [입력] search: LangChain이란?\n[선택] 도구: search\n[결과] LangChain은 LLM 프레임워크입니다\n[출력] LangChain은 LLM 프레임워크입니다를 바탕으로 답변 완료",
         "B. [입력] search: LangChain이란?\n[선택] 도구: calculate\n[결과] 42\n[출력] 42를 바탕으로 답변 완료",
@@ -256,7 +256,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "도구 함수에서 문자열을 정수로 변환할 때 발생하는 예외를 처리하려면 빈칸을 채우세요.\n출력 목표: -1\n\n```python\ndef safe_convert(value):\n    try:\n        return int(value)\n    except _____:\n        return -1\n```\n\n```python\nprint(safe_convert('abc'))\n```",
+      "question": "도구 함수에서 문자열을 정수로 변환할 때 발생하는 예외를 처리하려면 빈칸을 채우세요.\n출력 목표: -1\n\n```python\ndef safe_convert(value):\n    try:\n        return int(value)\n    except _____:\n        return -1\n\nprint(safe_convert('abc'))\n```",
       "answer": "ValueError",
       "feedback": {
         "correct": "정답! int('abc')처럼 숫자로 변환할 수 없는 문자열을 전달하면 ValueError가 발생합니다. ZeroDivisionError는 나눗셈 시 0으로 나눌 때, TypeError는 타입이 아예 잘못된 경우입니다. LangChain @tool 함수에서도 외부 입력을 int()로 변환할 때 ValueError를 except로 잡아 안전한 오류 메시지를 반환하는 패턴이 표준입니다. 클리어!"
@@ -292,7 +292,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "AgentExecutor가 에이전트의 중간 추론 과정(도구 호출 기록)을 프롬프트에 삽입하려면 빈칸을 채우세요.\n\n```python\nfrom langchain_core.prompts import ChatPromptTemplate\n```\n\n```python\nprompt = ChatPromptTemplate.from_messages([\n    ('system', '당신은 AI 에이전트입니다.'),\n    ('human', '{input}'),\n    ('placeholder', '{_____}'),\n```\n])",
+      "question": "AgentExecutor가 에이전트의 중간 추론 과정(도구 호출 기록)을 프롬프트에 삽입하려면 빈칸을 채우세요.\n\n```python\nfrom langchain_core.prompts import ChatPromptTemplate\n\nprompt = ChatPromptTemplate.from_messages([\n    ('system', '당신은 AI 에이전트입니다.'),\n    ('human', '{input}'),\n    ('placeholder', '{_____}'),\n])\n```",
       "answer": "agent_scratchpad",
       "feedback": {
         "correct": "정답! {agent_scratchpad}는 AgentExecutor가 에이전트의 추론 단계(Tool 호출 요청 → Tool 결과 수신)를 순서대로 프롬프트에 주입하는 예약 플레이스홀더입니다. 이 자리가 없으면 에이전트는 이전 단계 결과를 기억하지 못해 루프가 올바로 동작하지 않습니다. {input}은 사용자 질문, {agent_scratchpad}는 에이전트 내부 메모장 역할입니다. 클리어!"
@@ -307,7 +307,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nfrom langchain_core.tools import tool\n```\n\n@tool\n```python\ndef divide(a: str, b: str) -> str:\n    '''두 수를 나눕니다. a / b'''\n    try:\n        return '결과: ' + str(int(a) / int(b))\n    except ZeroDivisionError:\n```\n        return '오류: 0으로 나눌 수 없습니다'\n    except ValueError:\n        return '오류: 숫자를 입력하세요'\n\n```python\nprint(divide.invoke({'a': '10', 'b': '2'}))\nprint(divide.invoke({'a': '10', 'b': '0'}))\nprint(divide.invoke({'a': '10', 'b': 'abc'}))\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nfrom langchain_core.tools import tool\n\n@tool\ndef divide(a: str, b: str) -> str:\n    '''두 수를 나눕니다. a / b'''\n    try:\n        return '결과: ' + str(int(a) / int(b))\n    except ZeroDivisionError:\n        return '오류: 0으로 나눌 수 없습니다'\n    except ValueError:\n        return '오류: 숫자를 입력하세요'\n\nprint(divide.invoke({'a': '10', 'b': '2'})) \nprint(divide.invoke({'a': '10', 'b': '0'}))\nprint(divide.invoke({'a': '10', 'b': 'abc'}))\n```",
       "choices": [
         "A. 결과: 5.0\n오류: 0으로 나눌 수 없습니다\n오류: 숫자를 입력하세요",
         "B. 결과: 5\n오류: 0으로 나눌 수 없습니다\n오류: 숫자를 입력하세요",
@@ -328,7 +328,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "AgentExecutor에 사용할 도구 목록을 전달하려면 빈칸을 채우세요.\n\n```python\nfrom langchain.agents import AgentExecutor\n```\n\n```python\nagent_executor = AgentExecutor(\n    agent=agent,\n    _____=tools,\n    verbose=False\n```\n)",
+      "question": "AgentExecutor에 사용할 도구 목록을 전달하려면 빈칸을 채우세요.\n\n```python\nfrom langchain.agents import AgentExecutor\n\nagent_executor = AgentExecutor(\n    agent=agent,\n    _____=tools,\n    verbose=False\n)\n```",
       "answer": "tools",
       "feedback": {
         "correct": "정답! AgentExecutor(agent=agent, tools=tools)는 에이전트와 도구를 결합한 실행기를 생성합니다. agent는 어떤 도구를 언제 호출할지 결정하는 LLM 기반 로직이고, tools는 실제로 실행할 수 있는 함수 목록입니다. tool_list, functions 등은 AgentExecutor의 실제 파라미터명이 아니므로 오답입니다. 클리어!"
@@ -359,7 +359,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Job 클래스의 __str__에서 함수 이름을 가져오려면 빈칸을 채우세요.\n출력 목표: 매 1일마다 morning_report 실행\n\n```python\nclass Job:\n    def __init__(self, interval, unit, func):\n        self.interval = interval\n        self.unit = unit\n        self.func = func\n```\n\n```python\n    def __str__(self):\n        return '매 ' + str(self.interval) + self.unit + '마다 ' + self.func._____ + ' 실행'\n```\n\ndef morning_report(): pass\n\n```python\njob = Job(1, '일', morning_report)\nprint(str(job))\n```",
+      "question": "Job 클래스의 __str__에서 함수 이름을 가져오려면 빈칸을 채우세요.\n출력 목표: 매 1일마다 morning_report 실행\n\n```python\nclass Job:\n    def __init__(self, interval, unit, func):\n        self.interval = interval\n        self.unit = unit\n        self.func = func\n\n    def __str__(self):\n        return '매 ' + str(self.interval) + self.unit + '마다 ' + self.func._____ + ' 실행'\n\ndef morning_report(): pass\n\njob = Job(1, '일', morning_report)\nprint(str(job))\n```",
       "answer": "__name__",
       "feedback": {
         "correct": "정답! 파이썬의 모든 함수는 __name__ 속성에 함수 이름 문자열을 저장합니다. morning_report.__name__은 'morning_report'를 반환합니다. __doc__은 독스트링, __class__는 타입 정보를 반환하므로 함수 이름을 동적으로 출력할 때는 __name__을 사용합니다. 클리어!"
@@ -374,7 +374,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass Monitor:\n    def __init__(self, threshold):\n        self.threshold = threshold\n        self.alerts = []\n```\n\n```python\n    def check(self, value, label):\n        if value > self.threshold:\n            msg = '[경고] ' + label + ': ' + str(value) + ' > ' + str(self.threshold)\n            self.alerts.append(msg)\n            print(msg)\n        else:\n            print('[정상] ' + label + ': ' + str(value))\n```\n\n```python\n    def summary(self):\n        print('총 ' + str(len(self.alerts)) + '건 경고 발생')\n```\n\n```python\nmonitor = Monitor(threshold=80)\nmonitor.check(65, 'CPU')\nmonitor.check(92, '메모리')\nmonitor.summary()\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass Monitor:\n    def __init__(self, threshold):\n        self.threshold = threshold\n        self.alerts = []\n\n    def check(self, value, label):\n        if value > self.threshold:\n            msg = '[경고] ' + label + ': ' + str(value) + ' > ' + str(self.threshold)\n            self.alerts.append(msg)\n            print(msg)\n        else:\n            print('[정상] ' + label + ': ' + str(value))\n\n    def summary(self):\n        print('총 ' + str(len(self.alerts)) + '건 경고 발생')\n\nmonitor = Monitor(threshold=80)\nmonitor.check(65, 'CPU')\nmonitor.check(92, '메모리')\nmonitor.summary()\n```",
       "choices": [
         "A. [정상] CPU: 65\n[경고] 메모리: 92 > 80\n총 1건 경고 발생",
         "B. [경고] CPU: 65 > 80\n[경고] 메모리: 92 > 80\n총 2건 경고 발생",
@@ -395,7 +395,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Scheduler 클래스에서 메서드 체이닝으로 여러 작업을 등록하려면 빈칸을 채우세요.\n출력 목표: 총 2개 작업 등록\n\n```python\nclass Scheduler:\n    def __init__(self):\n        self.jobs = []\n```\n\n```python\n    def add(self, interval, unit, func):\n        self.jobs.append((interval, unit, func))\n        return _____\n```\n\n```python\n    def show(self):\n        print('총 ' + str(len(self.jobs)) + '개 작업 등록')\n```\n\ndef check(): pass\n\nScheduler().add(1, '일', check).add(30, '분', check).show()",
+      "question": "Scheduler 클래스에서 메서드 체이닝으로 여러 작업을 등록하려면 빈칸을 채우세요.\n출력 목표: 총 2개 작업 등록\n\n```python\nclass Scheduler:\n    def __init__(self):\n        self.jobs = []\n\n    def add(self, interval, unit, func):\n        self.jobs.append((interval, unit, func))\n        return _____\n\n    def show(self):\n        print('총 ' + str(len(self.jobs)) + '개 작업 등록')\n\ndef check(): pass\n\nScheduler().add(1, '일', check).add(30, '분', check).show()\n```",
       "answer": "self",
       "feedback": {
         "correct": "정답! return self는 현재 Scheduler 인스턴스를 반환해 .add().add().show() 형태의 메서드 체이닝을 가능하게 합니다. return None이면 두 번째 .add() 호출 시 AttributeError가 발생합니다. 이 패턴을 빌더(Builder) 패턴이라 하며, Pipeline.add_step(self)과 동일한 원리입니다. 클리어!"
@@ -410,7 +410,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass EventBus:\n    def __init__(self):\n        self.handlers = {}\n```\n\n```python\n    def on(self, event, handler):\n        self.handlers.setdefault(event, []).append(handler)\n```\n\n```python\n    def emit(self, event, data=None):\n        print('[이벤트] ' + event + ' 발생')\n        for handler in self.handlers.get(event, []):\n            handler(data)\n```\n\nbus = EventBus()\n\n```python\ndef on_new_data(data):\n    print('  → 데이터 수신: ' + str(data))\n```\n\n```python\ndef on_new_data_log(data):\n    print('  → 로그 기록: ' + str(data))\n```\n\n```python\nbus.on('new_data', on_new_data)\nbus.on('new_data', on_new_data_log)\nbus.emit('new_data', 'AI 뉴스 업데이트')\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass EventBus:\n    def __init__(self):\n        self.handlers = {}\n\n    def on(self, event, handler):\n        self.handlers.setdefault(event, []).append(handler)\n\n    def emit(self, event, data=None):\n        print('[이벤트] ' + event + ' 발생')\n        for handler in self.handlers.get(event, []):\n            handler(data)\n```\n\nbus = EventBus()\n\n```python\ndef on_new_data(data):\n    print('  → 데이터 수신: ' + str(data))\n\ndef on_new_data_log(data):\n    print('  → 로그 기록: ' + str(data))\n\nbus.on('new_data', on_new_data)\nbus.on('new_data', on_new_data_log)\nbus.emit('new_data', 'AI 뉴스 업데이트')\n```",
       "choices": [
         "A. [이벤트] new_data 발생\n  → 데이터 수신: AI 뉴스 업데이트\n  → 로그 기록: AI 뉴스 업데이트",
         "B. [이벤트] new_data 발생\n  → 데이터 수신: AI 뉴스 업데이트",
@@ -431,7 +431,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "EventBus.on에서 이벤트 키가 없을 때 빈 리스트를 생성하고 핸들러를 등록하려면 빈칸을 채우세요.\n\n```python\nclass EventBus:\n    def __init__(self):\n        self.handlers = {}\n```\n\n```python\n    def on(self, event, handler):\n        self.handlers.setdefault(event, [])._____（handler)\n```",
+      "question": "EventBus.on에서 이벤트 키가 없을 때 빈 리스트를 생성하고 핸들러를 등록하려면 빈칸을 채우세요.\n\n```python\nclass EventBus:\n    def __init__(self):\n        self.handlers = {}\n\n    def on(self, event, handler):\n        self.handlers.setdefault(event, [])._____（handler)\n```",
       "answer": "append",
       "feedback": {
         "correct": "정답! setdefault(event, [])는 키가 없으면 빈 리스트를 생성해 반환하고, 있으면 기존 리스트를 반환합니다. 이어서 .append(handler)로 핸들러를 추가합니다. extend는 리스트를 이어 붙이고, add는 리스트 메서드가 아니므로 오답입니다. 이 패턴으로 하나의 이벤트에 여러 핸들러를 등록할 수 있습니다. 클리어!"
@@ -446,7 +446,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass Workflow:\n    def __init__(self):\n        self.schedule = []\n        self.events = {}\n        self.log = []\n```\n\n```python\n    def every(self, label, func):\n        self.schedule.append((label, func))\n        return self\n```\n\n```python\n    def on(self, event, handler):\n        self.events.setdefault(event, []).append(handler)\n        return self\n```\n\n```python\n    def trigger(self, event, data=None):\n        for handler in self.events.get(event, []):\n            handler(data)\n```\n\n```python\n    def run_schedule(self):\n        for label, func in self.schedule:\n            result = func()\n            self.log.append(label + ': 실행')\n            if result:\n                self.trigger(result)\n```\n\n```python\ndef collect_news():\n    print('[수집] AI 뉴스 3건 수집')\n    return 'news_ready'\n```\n\n```python\ndef analyze(data):\n    print('[분석] 수집 완료 → 분석 시작')\n```\n\n```python\ndef notify(data):\n    print('[알림] 분석 완료 알림 발송')\n```\n\n```python\nwf = Workflow()\nwf.every('매일 수집', collect_news).on('news_ready', analyze).on('news_ready', notify)\nwf.run_schedule()\nprint('로그: ' + str(wf.log))\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass Workflow:\n    def __init__(self):\n        self.schedule = []\n        self.events = {}\n        self.log = []\n\n    def every(self, label, func):\n        self.schedule.append((label, func))\n        return self\n\n    def on(self, event, handler):\n        self.events.setdefault(event, []).append(handler)\n        return self\n\n    def trigger(self, event, data=None):\n        for handler in self.events.get(event, []):\n            handler(data)\n\n    def run_schedule(self):\n        for label, func in self.schedule:\n            result = func()\n            self.log.append(label + ': 실행')\n            if result:\n                self.trigger(result)\n\ndef collect_news():\n    print('[수집] AI 뉴스 3건 수집')\n    return 'news_ready'\n\ndef analyze(data):\n    print('[분석] 수집 완료 → 분석 시작')\n\ndef notify(data):\n    print('[알림] 분석 완료 알림 발송')\n\nwf = Workflow()\nwf.every('매일 수집', collect_news).on('news_ready', analyze).on('news_ready', notify)\nwf.run_schedule()\nprint('로그: ' + str(wf.log))\n```",
       "choices": [
         "A. [수집] AI 뉴스 3건 수집\n[분석] 수집 완료 → 분석 시작\n[알림] 분석 완료 알림 발송\n로그: ['매일 수집: 실행']",
         "B. [수집] AI 뉴스 3건 수집\n로그: ['매일 수집: 실행']",
@@ -467,7 +467,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "retry 데코레이터에서 최대 시도 횟수를 모두 소진한 뒤에도 실패하면 빈칸을 채워 반환하세요.\n출력 목표:\n[시도 1/2] 실패: 연결 실패\n[시도 2/2] 실패: 연결 실패\n결과: None\n\n```python\ndef retry(max_attempts=3):\n    def decorator(func):\n        def wrapper(*args, **kwargs):\n            for attempt in range(1, max_attempts + 1):\n                try:\n                    return func(*args, **kwargs)\n                except Exception as e:\n                    print('[시도 ' + str(attempt) + '/' + str(max_attempts) + '] 실패: ' + str(e))\n            return _____\n        return wrapper\n    return decorator\n```\n\n```python\n@retry(max_attempts=2)\ndef always_fail():\n    raise ValueError('연결 실패')\n```\n\n```python\nresult = always_fail()\nprint('결과: ' + str(result))\n```",
+      "question": "retry 데코레이터에서 최대 시도 횟수를 모두 소진한 뒤에도 실패하면 빈칸을 채워 반환하세요.\n출력 목표:\n[시도 1/2] 실패: 연결 실패\n[시도 2/2] 실패: 연결 실패\n결과: None\n\n```python\ndef retry(max_attempts=3):\n    def decorator(func):\n        def wrapper(*args, **kwargs):\n            for attempt in range(1, max_attempts + 1):\n                try:\n                    return func(*args, **kwargs)\n                except Exception as e:\n                    print('[시도 ' + str(attempt) + '/' + str(max_attempts) + '] 실패: ' + str(e))\n            return _____\n        return wrapper\n    return decorator\n\n@retry(max_attempts=2)\ndef always_fail():\n    raise ValueError('연결 실패')\n\nresult = always_fail()\nprint('결과: ' + str(result))\n```",
       "answer": "None",
       "feedback": {
         "correct": "정답! retry 데코레이터는 for 루프가 끝날 때까지 성공하지 못하면 return None으로 실패를 조용히 알립니다. 예외를 다시 raise하면 호출부에서 별도로 처리해야 하지만, None을 반환하면 호출부가 결과를 확인해 후속 처리를 결정할 수 있습니다. 일시적 네트워크 오류에 대한 안전한 자동화 패턴입니다. 클리어!"
@@ -482,7 +482,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport time\n```\n\n```python\ndef retry(max_attempts=3, delay=0):\n    def decorator(func):\n        def wrapper(*args, **kwargs):\n            for attempt in range(1, max_attempts + 1):\n                try:\n                    return func(*args, **kwargs)\n                except Exception as e:\n                    print('[시도 ' + str(attempt) + '/' + str(max_attempts) + '] 실패: ' + str(e))\n                    if attempt < max_attempts:\n                        time.sleep(delay)\n            return None\n        return wrapper\n    return decorator\n```\n\ncall_count = 0\n\n```python\n@retry(max_attempts=3, delay=0)\ndef unstable_api():\n```\n    global call_count\n```python\n    call_count += 1\n    if call_count < 3:\n        raise ConnectionError('API 타임아웃')\n    return 'API 응답 성공'\n```\n\n```python\nresult = unstable_api()\nprint('결과: ' + str(result))\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport time\n\ndef retry(max_attempts=3, delay=0):\n    def decorator(func):\n        def wrapper(*args, **kwargs):\n            for attempt in range(1, max_attempts + 1):\n                try:\n                    return func(*args, **kwargs)\n                except Exception as e:\n                    print('[시도 ' + str(attempt) + '/' + str(max_attempts) + '] 실패: ' + str(e))\n                    if attempt < max_attempts:\n                        time.sleep(delay)\n            return None\n        return wrapper\n    return decorator\n```\n\ncall_count = 0\n\n```python\n@retry(max_attempts=3, delay=0)\ndef unstable_api():\n\n    global call_count\n    call_count += 1\n    if call_count < 3:\n        raise ConnectionError('API 타임아웃')\n    return 'API 응답 성공'\n\nresult = unstable_api()\nprint('결과: ' + str(result))\n```",
       "choices": [
         "A. [시도 1/3] 실패: API 타임아웃\n[시도 2/3] 실패: API 타임아웃\n결과: API 응답 성공",
         "B. [시도 1/3] 실패: API 타임아웃\n[시도 2/3] 실패: API 타임아웃\n[시도 3/3] 실패: API 타임아웃\n결과: None",
@@ -534,7 +534,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "@tool 데코레이터로 등록된 도구의 함수명을 출력하려면 빈칸을 채우세요.\n출력 목표: call_api\n\n```python\nfrom langchain_core.tools import tool\n```\n\n@tool\n```python\ndef call_api(url: str, method: str = 'GET') -> str:\n    '''HTTP API를 호출합니다. method는 GET 또는 POST.'''\n    return method + ' ' + url + ' → 상태: 200 OK'\n```\n\n```python\nprint(call_api._____)\n```",
+      "question": "@tool 데코레이터로 등록된 도구의 함수명을 출력하려면 빈칸을 채우세요.\n출력 목표: call_api\n\n```python\nfrom langchain_core.tools import tool\n\n@tool\ndef call_api(url: str, method: str = 'GET') -> str:\n    '''HTTP API를 호출합니다. method는 GET 또는 POST.'''\n    return method + ' ' + url + ' → 상태: 200 OK'\n\nprint(call_api._____)\n```",
       "answer": "name",
       "feedback": {
         "correct": "정답! @tool 데코레이터는 함수 이름을 tool.name에 자동 저장합니다. call_api.name은 'call_api'를 반환합니다. tool.description은 독스트링을 반환하고, tool.invoke()는 도구를 실행합니다. name은 에이전트가 어떤 도구를 선택했는지 로깅할 때 활용됩니다. 클리어!"
@@ -549,7 +549,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nfrom langchain_core.tools import tool\n```\n\n@tool\ndef lookup(query: str) -> str:\n    '''키워드로 정보를 조회합니다.'''\n```python\n    db = {'Python': 'AI 개발 언어', 'Java': '엔터프라이즈 언어'}\n    for key, value in db.items():\n        if key.lower() in query.lower():\n            return '[결과] ' + key + ': ' + value\n    return '[결과] 정보 없음'\n```\n\n```python\nprint(lookup.invoke({'query': 'Python 배우기'}))\nprint(lookup.invoke({'query': '모르는 주제'}))\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nfrom langchain_core.tools import tool\n\n@tool\ndef lookup(query: str) -> str:\n    '''키워드로 정보를 조회합니다.'''\n    db = {'Python': 'AI 개발 언어', 'Java': '엔터프라이즈 언어'}\n    for key, value in db.items():\n        if key.lower() in query.lower():\n            return '[결과] ' + key + ': ' + value\n    return '[결과] 정보 없음'\n\nprint(lookup.invoke({'query': 'Python 배우기'}))\nprint(lookup.invoke({'query': '모르는 주제'}))\n```",
       "choices": [
         "A. [결과] Python: AI 개발 언어\n[결과] 정보 없음",
         "B. [결과] Python: AI 개발 언어\n[결과] Java: 엔터프라이즈 언어",
@@ -570,7 +570,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "save_json 도구에서 잘못된 JSON 입력을 처리하려면 빈칸을 채우세요.\n출력 목표: 오류: 올바른 JSON 형식이 아닙니다\n\n```python\nimport json\nfrom langchain_core.tools import tool\n```\n\n@tool\ndef save_json(filename: str, data: str) -> str:\n    '''데이터를 JSON 파일로 저장합니다.'''\n```python\n    try:\n        parsed = json.loads(data)\n        return filename + ' 저장 완료'\n    except json._____:\n        return '오류: 올바른 JSON 형식이 아닙니다'\n```\n\n```python\nprint(save_json.invoke({'filename': 'test.json', 'data': 'not json'}))\n```",
+      "question": "save_json 도구에서 잘못된 JSON 입력을 처리하려면 빈칸을 채우세요.\n출력 목표: 오류: 올바른 JSON 형식이 아닙니다\n\n```python\nimport json\nfrom langchain_core.tools import tool\n\n@tool\ndef save_json(filename: str, data: str) -> str:\n    '''데이터를 JSON 파일로 저장합니다.'''\n    try:\n        parsed = json.loads(data)\n        return filename + ' 저장 완료'\n    except json._____:\n        return '오류: 올바른 JSON 형식이 아닙니다'\n\nprint(save_json.invoke({'filename': 'test.json', 'data': 'not json'}))\n```",
       "answer": "JSONDecodeError",
       "feedback": {
         "correct": "정답! json.loads()가 올바르지 않은 JSON 문자열을 파싱할 때 json.JSONDecodeError가 발생합니다. ValueError는 JSONDecodeError의 부모 클래스라 잡을 수 있지만, 더 구체적인 json.JSONDecodeError를 사용하는 것이 의도를 명확히 합니다. 외부 에이전트가 잘못된 JSON을 보낼 경우 이 패턴으로 안전하게 처리할 수 있습니다. 클리어!"
@@ -585,7 +585,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass ToolRegistry:\n    def __init__(self):\n        self._tools = {}\n```\n\n```python\n    def register(self, name):\n        def decorator(func):\n            self._tools[name] = func\n            return func\n        return decorator\n```\n\n```python\n    def call(self, name, **kwargs):\n        if name not in self._tools:\n            return \"오류: '\" + name + \"' 도구 없음\"\n        return self._tools[name](**kwargs)\n```\n\n```python\n    def list_tools(self):\n        return list(self._tools.keys())\n```\n\nregistry = ToolRegistry()\n\n```python\n@registry.register('search')\ndef search(query):\n    return \"'\" + query + \"' 검색 결과: 관련 문서 3건\"\n```\n\n```python\n@registry.register('summarize')\ndef summarize(text):\n    return '요약: ' + text[:10] + '...'\n```\n\n```python\nprint('등록된 도구:', registry.list_tools())\nprint(registry.call('search', query='LangChain'))\nprint(registry.call('summarize', text='LangChain은 LLM 애플리케이션 프레임워크입니다'))\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass ToolRegistry:\n    def __init__(self):\n        self._tools = {}\n\n    def register(self, name):\n        def decorator(func):\n            self._tools[name] = func\n            return func\n        return decorator\n\n    def call(self, name, **kwargs):\n        if name not in self._tools:\n            return \"오류: '\" + name + \"' 도구 없음\"\n        return self._tools[name](**kwargs)\n\n    def list_tools(self):\n        return list(self._tools.keys())\n```\n\nregistry = ToolRegistry()\n\n```python\n@registry.register('search')\ndef search(query):\n    return \"'\" + query + \"' 검색 결과: 관련 문서 3건\"\n\n@registry.register('summarize')\ndef summarize(text):\n    return '요약: ' + text[:10] + '...'\n\nprint('등록된 도구:', registry.list_tools())\nprint(registry.call('search', query='LangChain'))\nprint(registry.call('summarize', text='LangChain은 LLM 애플리케이션 프레임워크입니다'))\n```",
       "choices": [
         "A. 등록된 도구: ['search', 'summarize']\n'LangChain' 검색 결과: 관련 문서 3건\n요약: LangChain은...",
         "B. 등록된 도구: ['search', 'summarize']\n'LangChain' 검색 결과: 관련 문서 3건\n요약: LangChain은 LLM 애플리케이션...",
@@ -606,7 +606,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "ToolRegistry의 register 데코레이터가 원래 함수를 그대로 유지하려면 빈칸을 채우세요.\n출력 목표: 안녕, 에이몬\n\n```python\nclass ToolRegistry:\n    def __init__(self):\n        self._tools = {}\n```\n\n```python\n    def register(self, name):\n        def decorator(func):\n            self._tools[name] = func\n            return _____\n        return decorator\n```\n\n```python\n    def call(self, name, **kwargs):\n        return self._tools[name](**kwargs)\n```\n\nregistry = ToolRegistry()\n\n```python\n@registry.register('greet')\ndef greet(name): return '안녕, ' + name\n```\n\n```python\nprint(registry.call('greet', name='에이몬'))\n```",
+      "question": "ToolRegistry의 register 데코레이터가 원래 함수를 그대로 유지하려면 빈칸을 채우세요.\n출력 목표: 안녕, 에이몬\n\n```python\nclass ToolRegistry:\n    def __init__(self):\n        self._tools = {}\n\n    def register(self, name):\n        def decorator(func):\n            self._tools[name] = func\n            return _____\n        return decorator\n\n    def call(self, name, **kwargs):\n        return self._tools[name](**kwargs)\n```\n\nregistry = ToolRegistry()\n\n```python\n@registry.register('greet')\ndef greet(name): return '안녕, ' + name\n\nprint(registry.call('greet', name='에이몬'))\n```",
       "answer": "func",
       "feedback": {
         "correct": "정답! 데코레이터의 decorator 함수는 func(원본 함수)를 _tools에 저장한 뒤 func를 그대로 반환합니다. return None이면 greet 변수가 None이 되어 직접 호출이 불가능해집니다. return name이면 문자열이 반환됩니다. func를 반환함으로써 데코레이터 적용 후에도 greet('에이몬')처럼 직접 호출할 수 있습니다. 클리어!"
@@ -621,7 +621,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nfrom langchain_core.tools import tool\n```\n\n@tool\ndef safe_fetch(url: str) -> str:\n    '''URL에서 데이터를 가져옵니다. 미허가 도메인은 차단됩니다.'''\n```python\n    allowed = ['api.example.com', 'data.mysite.com']\n    domain = url.split('/')[2] if '//' in url else url\n    if any(a in domain for a in allowed):\n        return '[성공] ' + url + ': 데이터 200건 수신'\n    return '[차단] ' + url + ': 허가되지 않은 도메인'\n```\n\n```python\nprint(safe_fetch.invoke({'url': 'https://api.example.com/news'}))\nprint(safe_fetch.invoke({'url': 'https://blocked.site.com/data'}))\nprint(safe_fetch.invoke({'url': 'https://data.mysite.com/feed'}))\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nfrom langchain_core.tools import tool\n\n@tool\ndef safe_fetch(url: str) -> str:\n    '''URL에서 데이터를 가져옵니다. 미허가 도메인은 차단됩니다.'''\n    allowed = ['api.example.com', 'data.mysite.com']\n    domain = url.split('/')[2] if '//' in url else url\n    if any(a in domain for a in allowed):\n        return '[성공] ' + url + ': 데이터 200건 수신'\n    return '[차단] ' + url + ': 허가되지 않은 도메인'\n\nprint(safe_fetch.invoke({'url': 'https://api.example.com/news'}))\nprint(safe_fetch.invoke({'url': 'https://blocked.site.com/data'}))\nprint(safe_fetch.invoke({'url': 'https://data.mysite.com/feed'}))\n```",
       "choices": [
         "A. [성공] https://api.example.com/news: 데이터 200건 수신\n[차단] https://blocked.site.com/data: 허가되지 않은 도메인\n[성공] https://data.mysite.com/feed: 데이터 200건 수신",
         "B. [성공] https://api.example.com/news: 데이터 200건 수신\n[성공] https://blocked.site.com/data: 데이터 200건 수신\n[성공] https://data.mysite.com/feed: 데이터 200건 수신",
@@ -642,7 +642,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "safe_fetch에서 URL에서 도메인 부분을 추출하려면 빈칸을 채우세요.\n출력 목표: api.example.com\n\n```python\nurl = 'https://api.example.com/news'\nparts = url.split('/')\nprint(parts)\n# ['https:', '', 'api.example.com', 'news']\n```\n\n```python\ndomain = url.split('/')[_____]\nprint(domain)\n```",
+      "question": "safe_fetch에서 URL에서 도메인 부분을 추출하려면 빈칸을 채우세요.\n출력 목표: api.example.com\n\n```python\nurl = 'https://api.example.com/news'\nparts = url.split('/')\nprint(parts)\n# ['https:', '', 'api.example.com', 'news']\n\ndomain = url.split('/')[_____]\nprint(domain)\n```",
       "answer": "2",
       "feedback": {
         "correct": "정답! 'https://api.example.com/news'.split('/')는 ['https:', '', 'api.example.com', 'news']를 반환합니다. 인덱스 0은 'https:', 1은 '' (빈 문자열), 2는 'api.example.com'입니다. URL이 '//'를 포함하는 경우 도메인은 항상 인덱스 2에 위치합니다. safe_fetch에서 '//' in url 조건으로 이 패턴이 적용 가능한지 먼저 확인합니다. 클리어!"
@@ -657,7 +657,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nfrom langchain_core.tools import tool\n```\n\n@tool\ndef search(query: str) -> str:\n    '''정보를 검색합니다.'''\n```python\n    db = {'LangChain': 'LLM 프레임워크', 'asyncio': '비동기 라이브러리'}\n    for k, v in db.items():\n        if k.lower() in query.lower():\n            return k + ': ' + v\n    return '결과 없음'\n```\n\n@tool\ndef summarize(text: str) -> str:\n    '''텍스트를 한 줄로 요약합니다.'''\n    return '요약: ' + text[:15] + ('...' if len(text) > 15 else '')\n\n```python\ndef tool_chain(query: str):\n    print('[1단계] 검색: ' + query)\n    search_result = search.invoke({'query': query})\n    print('  → ' + search_result)\n    print('[2단계] 요약')\n    summary = summarize.invoke({'text': search_result})\n    print('  → ' + summary)\n    return summary\n```\n\ntool_chain('LangChain이란?')",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nfrom langchain_core.tools import tool\n\n@tool\ndef search(query: str) -> str:\n    '''정보를 검색합니다.'''\n    db = {'LangChain': 'LLM 프레임워크', 'asyncio': '비동기 라이브러리'}\n    for k, v in db.items():\n        if k.lower() in query.lower():\n            return k + ': ' + v\n    return '결과 없음'\n\n@tool\ndef summarize(text: str) -> str:\n    '''텍스트를 한 줄로 요약합니다.'''\n    return '요약: ' + text[:15] + ('...' if len(text) > 15 else '')\n\ndef tool_chain(query: str):\n    print('[1단계] 검색: ' + query)\n    search_result = search.invoke({'query': query})\n    print('  → ' + search_result)\n    print('[2단계] 요약')\n    summary = summarize.invoke({'text': search_result})\n    print('  → ' + summary)\n    return summary\n\ntool_chain('LangChain이란?')\n```",
       "choices": [
         "A. [1단계] 검색: LangChain이란?\n  → LangChain: LLM 프레임워크\n[2단계] 요약\n  → 요약: LangChain: LLM ...",
         "B. [1단계] 검색: LangChain이란?\n  → LangChain: LLM 프레임워크\n[2단계] 요약\n  → 요약: LangChain: LLM 프레임워크",
@@ -678,7 +678,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "ToolRegistry에서 등록된 도구 이름 목록을 반환하려면 빈칸을 채우세요.\n출력 목표: ['search', 'save']\n\n```python\nclass ToolRegistry:\n    def __init__(self):\n        self._tools = {}\n```\n\n```python\n    def register(self, name, func):\n        self._tools[name] = func\n```\n\n```python\n    def list_tools(self):\n        return list(self._tools._____)\n```\n\n```python\nregistry = ToolRegistry()\nregistry.register('search', lambda q: q)\nregistry.register('save', lambda d: d)\nprint(registry.list_tools())\n```",
+      "question": "ToolRegistry에서 등록된 도구 이름 목록을 반환하려면 빈칸을 채우세요.\n출력 목표: ['search', 'save']\n\n```python\nclass ToolRegistry:\n    def __init__(self):\n        self._tools = {}\n\n    def register(self, name, func):\n        self._tools[name] = func\n\n    def list_tools(self):\n        return list(self._tools._____)\n\nregistry = ToolRegistry()\nregistry.register('search', lambda q: q)\nregistry.register('save', lambda d: d)\nprint(registry.list_tools())\n```",
       "answer": "keys()",
       "feedback": {
         "correct": "정답! dict.keys()는 딕셔너리의 모든 키를 dict_keys 뷰로 반환합니다. list()로 감싸면 ['search', 'save'] 리스트가 됩니다. values()는 값(함수 객체)을 반환하고, items()는 (키, 값) 튜플을 반환합니다. ToolRegistry에서 list_tools()는 에이전트에게 어떤 도구가 사용 가능한지 알려주는 역할을 합니다. 클리어!"
@@ -709,7 +709,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Agent.can_handle 메서드에서 키워드가 작업에 포함되는지 확인하려면 빈칸을 채우세요.\n출력 목표:\nTrue\nFalse\n\n```python\nclass Agent:\n    def __init__(self, name, keyword):\n        self.name = name\n        self.keyword = keyword\n```\n\n```python\n    def can_handle(self, task):\n        return self.keyword in _____\n```\n\n```python\nagent = Agent('검색봇', '검색')\nprint(agent.can_handle('뉴스 검색 실행'))\nprint(agent.can_handle('번역 요청'))\n```",
+      "question": "Agent.can_handle 메서드에서 키워드가 작업에 포함되는지 확인하려면 빈칸을 채우세요.\n출력 목표:\nTrue\nFalse\n\n```python\nclass Agent:\n    def __init__(self, name, keyword):\n        self.name = name\n        self.keyword = keyword\n\n    def can_handle(self, task):\n        return self.keyword in _____\n\nagent = Agent('검색봇', '검색')\nprint(agent.can_handle('뉴스 검색 실행'))\nprint(agent.can_handle('번역 요청'))\n```",
       "answer": "task",
       "feedback": {
         "correct": "정답! self.keyword in task는 self.keyword 문자열이 task 문자열 안에 포함되어 있는지 확인합니다. '검색' in '뉴스 검색 실행'은 True, '검색' in '번역 요청'은 False입니다. 오케스트레이터는 이 메서드로 각 에이전트의 처리 가능 여부를 판단해 작업을 라우팅합니다. 클리어!"
@@ -724,7 +724,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass Agent:\n    def __init__(self, name, keyword):\n        self.name = name\n        self.keyword = keyword\n    def can_handle(self, task):\n        return self.keyword in task\n    def run(self, task):\n        return '[' + self.name + '] 완료'\n```\n\n```python\nclass Orchestrator:\n    def __init__(self, agents):\n        self.agents = agents\n    def dispatch(self, task):\n        print('[작업] ' + task)\n        for agent in self.agents:\n            if agent.can_handle(task):\n                result = agent.run(task)\n                print('  → ' + result)\n                return result\n        print('  → 처리 가능한 에이전트 없음')\n        return None\n```\n\n```python\nagents = [Agent('검색봇', '검색'), Agent('분석봇', '분석'), Agent('저장봇', '저장')]\norch = Orchestrator(agents)\norch.dispatch('뉴스 검색 실행')\norch.dispatch('데이터 분석 요청')\norch.dispatch('번역 요청')\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass Agent:\n    def __init__(self, name, keyword):\n        self.name = name\n        self.keyword = keyword\n    def can_handle(self, task):\n        return self.keyword in task\n    def run(self, task):\n        return '[' + self.name + '] 완료'\n\nclass Orchestrator:\n    def __init__(self, agents):\n        self.agents = agents\n    def dispatch(self, task):\n        print('[작업] ' + task)\n        for agent in self.agents:\n            if agent.can_handle(task):\n                result = agent.run(task)\n                print('  → ' + result)\n                return result\n        print('  → 처리 가능한 에이전트 없음')\n        return None\n\nagents = [Agent('검색봇', '검색'), Agent('분석봇', '분석'), Agent('저장봇', '저장')]\norch = Orchestrator(agents)\norch.dispatch('뉴스 검색 실행')\norch.dispatch('데이터 분석 요청')\norch.dispatch('번역 요청')\n```",
       "choices": [
         "A. [작업] 뉴스 검색 실행\n  → [검색봇] 완료\n[작업] 데이터 분석 요청\n  → [분석봇] 완료\n[작업] 번역 요청\n  → 처리 가능한 에이전트 없음",
         "B. [작업] 뉴스 검색 실행\n  → [검색봇] 완료\n[작업] 데이터 분석 요청\n  → [검색봇] 완료\n[작업] 번역 요청\n  → 처리 가능한 에이전트 없음",
@@ -745,7 +745,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "MessageQueue에서 메시지를 큐에 추가하려면 빈칸을 채우세요.\n\n```python\nfrom collections import deque\n```\n\n```python\nclass MessageQueue:\n    def __init__(self):\n        self.queue = deque()\n```\n\n```python\n    def send(self, sender, receiver, content):\n        msg = {'from': sender, 'to': receiver, 'content': content}\n        self.queue._____(msg)\n```",
+      "question": "MessageQueue에서 메시지를 큐에 추가하려면 빈칸을 채우세요.\n\n```python\nfrom collections import deque\n\nclass MessageQueue:\n    def __init__(self):\n        self.queue = deque()\n\n    def send(self, sender, receiver, content):\n        msg = {'from': sender, 'to': receiver, 'content': content}\n        self.queue._____(msg)\n```",
       "answer": "append",
       "feedback": {
         "correct": "정답! deque.append(item)는 덱의 오른쪽 끝에 항목을 추가합니다. deque는 양방향 큐로, append로 오른쪽에 추가하고 popleft로 왼쪽에서 꺼내는 FIFO 구조를 구현합니다. add는 deque 메서드가 아니고, insert는 인덱스가 필요합니다. 에이전트 간 메시지 큐의 핵심 연산입니다. 클리어!"
@@ -760,7 +760,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nfrom collections import deque\n```\n\n```python\nclass MessageQueue:\n    def __init__(self):\n        self.queue = deque()\n    def send(self, sender, receiver, content):\n        self.queue.append({'from': sender, 'to': receiver, 'content': content})\n    def receive(self, receiver):\n        return [m for m in self.queue if m['to'] == receiver]\n```\n\n```python\nmq = MessageQueue()\nmq.send('검색봇', '분석봇', '뉴스 10건')\nmq.send('분석봇', '저장봇', '분석 완료')\n```\nmq.send('저장봇', '오케스트레이터', '저장 완료')\n\n```python\nmsgs = mq.receive('저장봇')\nprint('수신 건수: ' + str(len(msgs)))\nprint('내용: ' + msgs[0]['content'])\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nfrom collections import deque\n\nclass MessageQueue:\n    def __init__(self):\n        self.queue = deque()\n    def send(self, sender, receiver, content):\n        self.queue.append({'from': sender, 'to': receiver, 'content': content})\n    def receive(self, receiver):\n        return [m for m in self.queue if m['to'] == receiver]\n\nmq = MessageQueue()\nmq.send('검색봇', '분석봇', '뉴스 10건')\nmq.send('분석봇', '저장봇', '분석 완료')\n```\nmq.send('저장봇', '오케스트레이터', '저장 완료')\n\n```python\nmsgs = mq.receive('저장봇')\nprint('수신 건수: ' + str(len(msgs)))\nprint('내용: ' + msgs[0]['content'])\n```",
       "choices": [
         "A. 수신 건수: 1\n내용: 분석 완료",
         "B. 수신 건수: 1\n내용: 저장 완료",
@@ -781,7 +781,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "MultiAgentSystem에서 에이전트를 체이닝으로 등록하려면 빈칸을 채우세요.\n\n```python\nclass MultiAgentSystem:\n    def __init__(self):\n        self.agents = {}\n```\n\n```python\n    def register(self, name, func):\n        self.agents[name] = func\n        return _____\n```\n\n```python\nmas = MultiAgentSystem()\nmas.register('수집', lambda s: s).register('분석', lambda s: s)\nprint(len(mas.agents))\n```",
+      "question": "MultiAgentSystem에서 에이전트를 체이닝으로 등록하려면 빈칸을 채우세요.\n\n```python\nclass MultiAgentSystem:\n    def __init__(self):\n        self.agents = {}\n\n    def register(self, name, func):\n        self.agents[name] = func\n        return _____\n\nmas = MultiAgentSystem()\nmas.register('수집', lambda s: s).register('분석', lambda s: s)\nprint(len(mas.agents))\n```",
       "answer": "self",
       "feedback": {
         "correct": "정답! return self로 인스턴스를 반환해 .register().register() 메서드 체이닝이 가능합니다. 이 빌더 패턴은 Pipeline.add_step, Scheduler.add, Workflow.every와 동일한 원리입니다. return None이면 두 번째 .register() 호출 시 AttributeError가 발생합니다. 멀티 에이전트 시스템에서 에이전트를 간결하게 등록하는 핵심 패턴입니다. 클리어!"
@@ -817,7 +817,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "PriorityOrchestrator에서 우선순위 높은 에이전트가 먼저 선택되도록 정렬하려면 빈칸을 채우세요.\n\n```python\nclass PriorityOrchestrator:\n    def __init__(self):\n        self.agents = []\n```\n\n```python\n    def register(self, name, keyword, priority=0):\n        self.agents.append({'name': name, 'keyword': keyword, 'priority': priority})\n        self.agents.sort(key=lambda x: x['priority'], reverse=_____)\n        return self\n```",
+      "question": "PriorityOrchestrator에서 우선순위 높은 에이전트가 먼저 선택되도록 정렬하려면 빈칸을 채우세요.\n\n```python\nclass PriorityOrchestrator:\n    def __init__(self):\n        self.agents = []\n\n    def register(self, name, keyword, priority=0):\n        self.agents.append({'name': name, 'keyword': keyword, 'priority': priority})\n        self.agents.sort(key=lambda x: x['priority'], reverse=_____)\n        return self\n```",
       "answer": "True",
       "feedback": {
         "correct": "정답! sort(reverse=True)는 내림차순(큰 값 먼저) 정렬입니다. priority=5인 에이전트가 priority=1보다 앞에 위치해 dispatch 시 우선 선택됩니다. reverse=False는 오름차순으로 낮은 우선순위가 먼저 선택됩니다. 우선순위 기반 라우팅은 중요 작업을 고급 에이전트에 배정하는 실전 패턴입니다. 클리어!"
@@ -832,7 +832,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass MultiAgentSystem:\n    def __init__(self):\n        self.agents = {}\n        self.log = []\n    def register(self, name, func):\n        self.agents[name] = func\n        return self\n    def execute(self, plan):\n        state = {}\n        for step in plan:\n            name = step['agent']\n            args = step.get('args', {})\n            print('[실행] ' + name)\n            result = self.agents[name](state, **args)\n            if result:\n                state.update(result)\n            self.log.append(name + ': 완료')\n        return state\n```\n\n```python\ndef collect(state, topic='AI'):\n    state['news'] = [topic + ' 뉴스 1', topic + ' 뉴스 2']\n    return state\ndef summarize(state):\n    state['summary'] = '총 ' + str(len(state['news'])) + '건 수집'\n    return state\ndef notify(state, channel='이메일'):\n    print('  → ' + channel + '로 발송: ' + state['summary'])\n    return state\n```\n\n```python\nmas = MultiAgentSystem()\nmas.register('수집', collect).register('요약', summarize).register('발송', notify)\nplan = [{'agent': '수집', 'args': {'topic': 'LangChain'}}, {'agent': '요약'}, {'agent': '발송'}]\nfinal = mas.execute(plan)\nprint('완료 로그: ' + str(mas.log))\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass MultiAgentSystem:\n    def __init__(self):\n        self.agents = {}\n        self.log = []\n    def register(self, name, func):\n        self.agents[name] = func\n        return self\n    def execute(self, plan):\n        state = {}\n        for step in plan:\n            name = step['agent']\n            args = step.get('args', {})\n            print('[실행] ' + name)\n            result = self.agents[name](state, **args)\n            if result:\n                state.update(result)\n            self.log.append(name + ': 완료')\n        return state\n\ndef collect(state, topic='AI'):\n    state['news'] = [topic + ' 뉴스 1', topic + ' 뉴스 2']\n    return state\ndef summarize(state):\n    state['summary'] = '총 ' + str(len(state['news'])) + '건 수집'\n    return state\ndef notify(state, channel='이메일'):\n    print('  → ' + channel + '로 발송: ' + state['summary'])\n    return state\n\nmas = MultiAgentSystem()\nmas.register('수집', collect).register('요약', summarize).register('발송', notify)\nplan = [{'agent': '수집', 'args': {'topic': 'LangChain'}}, {'agent': '요약'}, {'agent': '발송'}]\nfinal = mas.execute(plan)\nprint('완료 로그: ' + str(mas.log))\n```",
       "choices": [
         "A. [실행] 수집\n[실행] 요약\n[실행] 발송\n  → 이메일로 발송: 총 2건 수집\n완료 로그: ['수집: 완료', '요약: 완료', '발송: 완료']",
         "B. [실행] 수집\n[실행] 요약\n[실행] 발송\n  → 이메일로 발송: 총 2건 수집\n완료 로그: []",
@@ -971,7 +971,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass AIAutomationSystem:\n    def __init__(self):\n        self.pipeline = []\n        self.state = {}\n    def add_agent(self, name, func):\n        self.pipeline.append((name, func))\n        return self\n    def run(self, initial=None):\n        self.state = initial or {}\n        for name, func in self.pipeline:\n            print('[' + name + '] 실행 중...')\n            result = func(self.state)\n            if result:\n                self.state.update(result)\n        print('[시스템] 전체 파이프라인 완료')\n        return self.state\n```\n\n```python\ndef collect(state):\n    state['articles'] = [{'title': 'AI 뉴스'}, {'title': 'LangChain 업데이트'}]\n    return {'articles': state['articles']}\ndef analyze(state):\n    return {'analysis': '총 ' + str(len(state['articles'])) + '건 분석'}\ndef report(state):\n    print('  리포트: ' + state['analysis'])\n    return {'report': '생성 완료'}\n```\n\n```python\nsystem = (AIAutomationSystem()\n          .add_agent('수집 에이전트', collect)\n          .add_agent('분석 에이전트', analyze)\n          .add_agent('보고서 에이전트', report))\nfinal = system.run()\nprint('최종 상태: ' + str(final.get('report')))\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass AIAutomationSystem:\n    def __init__(self):\n        self.pipeline = []\n        self.state = {}\n    def add_agent(self, name, func):\n        self.pipeline.append((name, func))\n        return self\n    def run(self, initial=None):\n        self.state = initial or {}\n        for name, func in self.pipeline:\n            print('[' + name + '] 실행 중...')\n            result = func(self.state)\n            if result:\n                self.state.update(result)\n        print('[시스템] 전체 파이프라인 완료')\n        return self.state\n\ndef collect(state):\n    state['articles'] = [{'title': 'AI 뉴스'}, {'title': 'LangChain 업데이트'}]\n    return {'articles': state['articles']}\ndef analyze(state):\n    return {'analysis': '총 ' + str(len(state['articles'])) + '건 분석'}\ndef report(state):\n    print('  리포트: ' + state['analysis'])\n    return {'report': '생성 완료'}\n\nsystem = (AIAutomationSystem()\n          .add_agent('수집 에이전트', collect)\n          .add_agent('분석 에이전트', analyze)\n          .add_agent('보고서 에이전트', report))\nfinal = system.run()\nprint('최종 상태: ' + str(final.get('report')))\n```",
       "choices": [
         "A. [수집 에이전트] 실행 중...\n[분석 에이전트] 실행 중...\n[보고서 에이전트] 실행 중...\n  리포트: 총 2건 분석\n[시스템] 전체 파이프라인 완료\n최종 상태: 생성 완료",
         "B. [수집 에이전트] 실행 중...\n[분석 에이전트] 실행 중...\n[보고서 에이전트] 실행 중...\n[시스템] 전체 파이프라인 완료\n최종 상태: 생성 완료",
@@ -992,7 +992,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "DailyScheduler.run에서 실행 횟수만큼 반복하려면 빈칸을 채우세요.\n출력 목표: 1, 2 (순서대로 출력)\n\n```python\nclass DailyScheduler:\n    def __init__(self):\n        self.run_count = 0\n```\n\n```python\n    def run(self, times=1):\n        for i in range(1, _____ + 1):\n            self.run_count += 1\n            print(self.run_count)\n```",
+      "question": "DailyScheduler.run에서 실행 횟수만큼 반복하려면 빈칸을 채우세요.\n출력 목표: 1, 2 (순서대로 출력)\n\n```python\nclass DailyScheduler:\n    def __init__(self):\n        self.run_count = 0\n\n    def run(self, times=1):\n        for i in range(1, _____ + 1):\n            self.run_count += 1\n            print(self.run_count)\n```",
       "answer": "times",
       "feedback": {
         "correct": "정답! range(1, times + 1)은 1부터 times까지의 정수를 생성합니다. times=2이면 range(1, 3) → 1, 2가 순회됩니다. range(times)는 0부터 시작해 run_count가 0, 1, ...이 됩니다. +1이 필요한 이유는 range의 끝값이 제외되기 때문입니다. 스케줄러에서 실행 횟수를 정확히 제어하는 핵심 패턴입니다. 클리어!"
@@ -1007,7 +1007,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass DailyScheduler:\n    def __init__(self):\n        self.task = None\n        self.run_count = 0\n    def set_task(self, func):\n        self.task = func\n        return self\n    def run(self, times=1):\n        for i in range(1, times + 1):\n            self.run_count += 1\n            print('[스케줄] 실행 #' + str(self.run_count))\n            result = self.task()\n            print('  → ' + result)\n```\n\n```python\ndef daily_ai_report():\n    articles = ['AI 뉴스', 'LangChain 업데이트']\n    keywords = {'AI': 1, 'LangChain': 1}\n    top = max(keywords, key=keywords.get)\n    return '리포트 생성 완료: ' + str(len(articles)) + '건 수집, 핵심 키워드=' + top\n```\n\n```python\nscheduler = DailyScheduler()\nscheduler.set_task(daily_ai_report)\nscheduler.run(times=2)\nprint('총 실행 횟수: ' + str(scheduler.run_count) + '회')\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass DailyScheduler:\n    def __init__(self):\n        self.task = None\n        self.run_count = 0\n    def set_task(self, func):\n        self.task = func\n        return self\n    def run(self, times=1):\n        for i in range(1, times + 1):\n            self.run_count += 1\n            print('[스케줄] 실행 #' + str(self.run_count))\n            result = self.task()\n            print('  → ' + result)\n\ndef daily_ai_report():\n    articles = ['AI 뉴스', 'LangChain 업데이트']\n    keywords = {'AI': 1, 'LangChain': 1}\n    top = max(keywords, key=keywords.get)\n    return '리포트 생성 완료: ' + str(len(articles)) + '건 수집, 핵심 키워드=' + top\n\nscheduler = DailyScheduler()\nscheduler.set_task(daily_ai_report)\nscheduler.run(times=2)\nprint('총 실행 횟수: ' + str(scheduler.run_count) + '회')\n```",
       "choices": [
         "A. [스케줄] 실행 #1\n  → 리포트 생성 완료: 2건 수집, 핵심 키워드=AI\n[스케줄] 실행 #2\n  → 리포트 생성 완료: 2건 수집, 핵심 키워드=AI\n총 실행 횟수: 2회",
         "B. [스케줄] 실행 #1\n  → 리포트 생성 완료: 2건 수집, 핵심 키워드=AI\n총 실행 횟수: 1회",
@@ -1043,7 +1043,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 조건에 맞게 analyze_articles 함수를 작성하세요.\n조건:\n```python\n- analyze_articles(articles: list) -> dict\n- keywords 딕셔너리에 4글자 초과(len > 3) 단어의 빈도 집계\n- sorted(keywords.items(), key=lambda x: x[1], reverse=True)[:3]으로 상위 3개 추출\n- 반환: {'total': len(articles), 'top_keywords': [k for k,v in top], 'summary': '총 N건 분석 — 핵심 주제: 상위키워드'}\n```\n- 3개 기사로 테스트 후 요약과 상위 키워드 출력\n\n출력 목표:\n요약: 총 3건 분석 — 핵심 주제: 인공지능\n상위 키워드: ['인공지능', '에이전트', '파이프라인']",
+      "question": "아래 조건에 맞게 analyze_articles 함수를 작성하세요.\n조건:\n```python\n- analyze_articles(articles: list) -> dict\n- keywords 딕셔너리에 4글자 초과(len > 3) 단어의 빈도 집계\n- sorted(keywords.items(), key=lambda x: x[1], reverse=True)[:3]으로 상위 3개 추출\n- 반환: {'total': len(articles), 'top_keywords': [k for k,v in top], 'summary': '총 N건 분석 — 핵심 주제: 상위키워드'}\n```\n- 3개 기사로 테스트 후 요약과 상위 키워드 출력\n\n출력 목표:\n```python\n요약: 총 3건 분석 — 핵심 주제: 인공지능\n상위 키워드: ['인공지능', '에이전트', '파이프라인']\n```",
       "answer": "def analyze_articles(articles):\n    keywords = {}\n    for article in articles:\n        words = article['title'].split()\n        for word in words:\n            if len(word) > 3:\n                keywords[word] = keywords.get(word, 0) + 1\n    top = sorted(keywords.items(), key=lambda x: x[1], reverse=True)[:3]\n    return {\n        'total': len(articles),\n        'top_keywords': [k for k, v in top],\n        'summary': '총 ' + str(len(articles)) + '건 분석 — 핵심 주제: ' + top[0][0]\n    }\n\nsample = [\n    {'title': '인공지능 에이전트 동향과 트렌드'},\n    {'title': '인공지능 파이프라인 설계 패턴'},\n    {'title': 'LangChain 에이전트 프레임워크 업데이트'},\n]\nresult = analyze_articles(sample)\nprint('요약: ' + result['summary'])\nprint('상위 키워드: ' + str(result['top_keywords']))",
       "pyodide_eval": true,
       "feedback": {
