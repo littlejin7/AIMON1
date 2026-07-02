@@ -1,1028 +1,624 @@
 [
   {
-    "lesson_id": "2-1-advanced",
+    "lesson_id": "2-1-intermediate",
     "unit": 2,
     "stage": "2-1",
-    "course_level": "advanced",
-    "title": "동기 vs 비동기 개념",
+    "course_level": "intermediate",
+    "title": "튜플 기초",
     "villain": "codemmon",
     "slides": [
       {
         "order": 1,
-        "text": "동기(synchronous) 방식은 작업을 순서대로 실행하며, 앞 작업이 끝날 때까지 다음 작업이 블로킹됩니다.\n비동기(asynchronous) 방식은 I/O 대기 중 다른 작업을 실행할 수 있어 전체 처리 시간을 단축합니다.",
-        "tip": "CPU 연산에는 비동기의 이점이 없습니다. 비동기는 I/O 대기(네트워크, 파일, DB) 구간을 겹쳐 실행할 때 효과적입니다."
+        "text": "튜플(tuple)은 리스트와 비슷하지만, 한 번 만들면 값을 바꿀 수 없습니다.\n소괄호 '()'로 만들고, 쉼표로 값을 구분합니다.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "point = (10, 20)",
+            "print(point)",
+            "print(type(point))"
+          ],
+          "output": [
+            "(10, 20)",
+            "<class 'tuple'>"
+          ]
+        },
+        "tip": "소괄호 없이 쉼표만으로도 튜플이 됩니다. 'x = 1, 2'도 튜플이에요."
       },
       {
         "order": 2,
-        "text": "동기 방식: 각 API 요청이 완료될 때까지 대기합니다.\n3개 요청이 각 1초씩 걸리면 총 3초가 소요됩니다.",
+        "text": "튜플 안에는 서로 다른 타입의 값도 함께 담을 수 있습니다.",
         "terminal": {
           "code": [
-            "import time",
-            "",
-            "def fetch_sync(name, delay):",
-            "    time.sleep(delay)          # 블로킹 — 대기 중 다른 작업 불가",
-            "    return f\"{name} 완료\"",
-            "",
-            "start = time.time()",
-            "print(fetch_sync(\"작업A\", 1))",
-            "print(fetch_sync(\"작업B\", 1))",
-            "print(fetch_sync(\"작업C\", 1))",
-            "print(f\"총 소요: {time.time() - start:.1f}초\")"
+            "# 코드",
+            "info = ('Alice', 30, True)",
+            "print(info[0])",
+            "print(info[1])"
           ],
           "output": [
-            "작업A 완료",
-            "작업B 완료",
-            "작업C 완료",
-            "총 소요: 3.0초"
+            "Alice",
+            "30"
           ]
-        }
+        },
+        "tip": "인덱스는 리스트와 똑같이 0부터 시작합니다."
       },
       {
         "order": 3,
-        "text": "비동기 방식: I/O 대기 중 다른 작업을 실행합니다.\n동일한 3개 요청을 동시에 처리해 전체 소요 시간이 단일 요청 시간과 같아집니다.",
+        "text": "튜플도 인덱스와 슬라이싱으로 값을 꺼낼 수 있습니다.\n음수 인덱스도 사용 가능합니다.",
         "terminal": {
           "code": [
-            "import asyncio, time",
-            "",
-            "async def fetch_async(name, delay):",
-            "    await asyncio.sleep(delay)  # 논블로킹 — 대기 중 다른 코루틴 실행",
-            "    return f\"{name} 완료\"",
-            "",
-            "async def main():",
-            "    start = time.time()",
-            "    results = await asyncio.gather(",
-            "        fetch_async(\"작업A\", 0.1),",
-            "        fetch_async(\"작업B\", 0.1),",
-            "        fetch_async(\"작업C\", 0.1),",
-            "    )",
-            "    for r in results:",
-            "        print(r)",
-            "    print(f\"총 소요: {time.time() - start:.1f}초\")",
-            "",
-            "asyncio.run(main())"
+            "# 코드",
+            "color = ('red', 'green', 'blue')",
+            "print(color[0])",
+            "print(color[-1])",
+            "print(color[1:3])"
           ],
           "output": [
-            "작업A 완료",
-            "작업B 완료",
-            "작업C 완료",
-            "총 소요: 0.1초"
+            "red",
+            "blue",
+            "('green', 'blue')"
           ]
-        }
+        },
+        "tip": "슬라이싱 결과도 튜플로 반환됩니다."
       },
       {
         "order": 4,
-        "text": "Python의 비동기 실행 모델은 이벤트 루프(event loop) 기반입니다.\n이벤트 루프는 코루틴 큐를 관리하며, 하나의 코루틴이 await 에서 대기할 때 다른 코루틴을 실행합니다.\n멀티스레드와 달리 단일 스레드에서 동작합니다.",
-        "tip": "asyncio는 멀티스레딩과 다릅니다. 이벤트 루프는 한 번에 하나의 코루틴만 실행하며, await 지점에서 실행권을 넘깁니다."
+        "text": "튜플은 불변(immutable)이라서 값을 수정하려고 하면 오류가 발생합니다.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "point = (10, 20)",
+            "point[0] = 99"
+          ],
+          "output": [
+            "TypeError: 'tuple' object does not support item assignment"
+          ]
+        },
+        "tip": "불변이기 때문에 딕셔너리 키로 쓸 수 있어요. 리스트는 키로 쓸 수 없습니다."
       },
       {
         "order": 5,
-        "text": "코루틴(coroutine)은 async def 로 정의한 함수입니다.\n호출해도 즉시 실행되지 않고 코루틴 객체를 반환하며, await 또는 asyncio.run() 으로 실행해야 합니다.",
+        "text": "요소가 하나인 튜플을 만들 때는 반드시 쉼표를 붙여야 합니다.\n쉼표가 없으면 그냥 괄호로 인식됩니다.",
         "terminal": {
           "code": [
-            "import asyncio",
+            "# 코드",
+            "a = (5)    # 튜플 아님 — int",
+            "b = (5,)   # 올바른 1요소 튜플",
             "",
-            "async def greet(name):",
-            "    return f\"안녕, {name}!\"",
-            "",
-            "# 호출만 해서는 실행되지 않음",
-            "obj = greet(\"에이몬\")",
-            "print(type(obj))           # <class 'coroutine'>",
-            "",
-            "# asyncio.run() 으로 실행",
-            "result = asyncio.run(greet(\"에이몬\"))",
-            "print(result)"
+            "print(type(a))",
+            "print(type(b))"
           ],
           "output": [
-            "<class 'coroutine'>",
-            "안녕, 에이몬!"
+            "<class 'int'>",
+            "<class 'tuple'>"
           ]
-        }
+        },
+        "tip": "헷갈리면 'type()'으로 바로 확인하세요."
       },
       {
         "order": 6,
-        "text": "비동기가 적합한 상황과 부적합한 상황을 구분해야 합니다.\nI/O 바운드 작업에는 asyncio, CPU 바운드 작업에는 multiprocessing 이 적합합니다.",
+        "text": "튜플에서 자주 쓰는 조회 함수들입니다.\n값을 바꾸지 않는 읽기 기능만 사용할 수 있어요.",
         "terminal": {
           "code": [
-            "# ✅ 비동기 효과 있음: I/O 바운드",
-            "# - HTTP 요청, DB 쿼리, 파일 읽기, 소켓 통신",
+            "# 코드",
+            "scores = (85, 90, 78, 90)",
             "",
-            "# ❌ 비동기 효과 없음: CPU 바운드",
-            "# - 이미지 처리, 머신러닝 연산, 암호화",
-            "",
-            "# CPU 바운드 → multiprocessing 사용",
-            "from multiprocessing import Pool",
-            "",
-            "def heavy_compute(n):",
-            "    return sum(i * i for i in range(n))",
-            "",
-            "with Pool(4) as p:",
-            "    results = p.map(heavy_compute, [10**6, 10**6, 10**6, 10**6])",
-            "print(f\"완료: {len(results)}개 작업\")"
+            "print(len(scores))",
+            "print(scores.count(90))",
+            "print(max(scores))"
           ],
           "output": [
-            "완료: 4개 작업"
+            "4",
+            "2",
+            "90"
           ]
         },
-        "tip": "I/O 바운드 ↔ CPU 바운드 구분이 asyncio 도입 여부를 결정하는 핵심 기준입니다."
-      },
-      {
-        "order": 7,
-        "text": "동기 블로킹 함수(time.sleep, 파일 I/O 등)를 이벤트 루프 안에서 직접 호출하면 루프 전체가 멈춥니다.\nloop.run_in_executor() 로 별도 스레드풀에서 실행해 이벤트 루프를 보호합니다.",
-        "terminal": {
-          "code": [
-            "import asyncio, time",
-            "",
-            "def blocking_io(name):",
-            "    time.sleep(0.05)           # 동기 블로킹",
-            "    return f\"{name} 처리 완료\"",
-            "",
-            "async def main():",
-            "    loop = asyncio.get_event_loop()",
-            "    # run_in_executor: 스레드풀에서 블로킹 함수 실행",
-            "    results = await asyncio.gather(",
-            "        loop.run_in_executor(None, blocking_io, \"파일A\"),",
-            "        loop.run_in_executor(None, blocking_io, \"파일B\"),",
-            "        loop.run_in_executor(None, blocking_io, \"파일C\"),",
-            "    )",
-            "    for r in results:",
-            "        print(r)",
-            "",
-            "asyncio.run(main())"
-          ],
-          "output": [
-            "파일A 처리 완료",
-            "파일B 처리 완료",
-            "파일C 처리 완료"
-          ]
-        },
-        "tip": "None 을 전달하면 기본 ThreadPoolExecutor 를 사용합니다. ProcessPoolExecutor 를 전달하면 CPU 바운드 작업도 병렬 처리할 수 있습니다.\n코드에서 사용한 asyncio.get_event_loop() 는 이미 실행 중인 이벤트 루프 내부에서만 안전합니다. 루프 외부에서 현재 루프를 얻으려면 asyncio.get_running_loop() 를 사용하세요."
+        "tip": "튜플은 리스트보다 가볍고 빠릅니다. 바꿀 필요 없는 데이터는 튜플로 쓰세요."
       }
     ]
   },
   {
-    "lesson_id": "2-2-advanced",
+    "lesson_id": "2-2-intermediate",
     "unit": 2,
     "stage": "2-2",
-    "course_level": "advanced",
-    "title": "asyncio 기초",
+    "course_level": "intermediate",
+    "title": "패킹 & 언패킹",
     "villain": "codemmon",
     "slides": [
       {
         "order": 1,
-        "text": "asyncio의 핵심 구성 요소는 세 가지입니다.\n\n- 코루틴(coroutine): async def로 정의, await으로 실행\n- 이벤트 루프(event loop): 코루틴 실행을 스케줄링\n- asyncio.run(): 최상위 진입점, 이벤트 루프를 생성하고 코루틴을 실행한 뒤 닫음"
+        "text": "패킹(packing)은 여러 값을 하나의 튜플로 묶는 것입니다.\n괄호 없이 쉼표만 써도 자동으로 튜플이 됩니다.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "point = 10, 20, 30",
+            "print(point)",
+            "print(type(point))"
+          ],
+          "output": [
+            "(10, 20, 30)",
+            "<class 'tuple'>"
+          ]
+        },
+        "tip": "'point = (10, 20, 30)'과 완전히 같습니다."
       },
       {
         "order": 2,
-        "text": "await는 코루틴, Task, Future 세 가지에 사용할 수 있습니다.\nawait를 만나면 현재 코루틴의 실행을 일시 중단하고 이벤트 루프에 제어권을 돌려줍니다.",
+        "text": "언패킹(unpacking)은 튜플의 각 값을 변수에 나눠 담는 것입니다.\n변수 개수와 튜플 요소 수가 맞아야 합니다.",
         "terminal": {
           "code": [
-            "import asyncio",
+            "# 코드",
+            "point = (10, 20)",
+            "x, y = point",
             "",
-            "async def step(label, delay):",
-            "    print(f\"{label} 시작\")",
-            "    await asyncio.sleep(delay)  # 이벤트 루프에 제어권 반환",
-            "    print(f\"{label} 완료\")",
-            "    return label",
-            "",
-            "async def main():",
-            "    # 순차 실행 (await 두 번)",
-            "    await step(\"A\", 0.05)",
-            "    await step(\"B\", 0.05)",
-            "",
-            "asyncio.run(main())"
+            "print(x)",
+            "print(y)"
           ],
           "output": [
-            "A 시작",
-            "A 완료",
-            "B 시작",
-            "B 완료"
+            "10",
+            "20"
           ]
         },
-        "tip": "await 를 순차적으로 호출하면 동기 코드처럼 한 번에 하나씩 실행됩니다. 동시 실행은 asyncio.gather() 나 Task 를 사용해야 합니다."
+        "tip": "개수가 안 맞으면 'ValueError'가 발생합니다."
       },
       {
         "order": 3,
-        "text": "asyncio.gather() 는 여러 코루틴을 동시에 스케줄링합니다.\n모든 코루틴이 완료되면 결과를 입력 순서대로 리스트로 반환합니다.",
+        "text": "언패킹으로 두 변수의 값을 간단하게 교환할 수 있습니다.\n임시 변수가 필요 없어서 코드가 훨씬 짧아집니다.",
         "terminal": {
           "code": [
-            "import asyncio",
+            "# 코드",
+            "a = 10",
+            "b = 20",
+            "a, b = b, a",
             "",
-            "async def fetch(name, delay):",
-            "    await asyncio.sleep(delay)",
-            "    return f\"{name}: {delay}초\"",
-            "",
-            "async def main():",
-            "    results = await asyncio.gather(",
-            "        fetch(\"API-1\", 0.3),",
-            "        fetch(\"API-2\", 0.1),",
-            "        fetch(\"API-3\", 0.2),",
-            "    )",
-            "    for r in results:          # 완료 순서가 아닌 입력 순서",
-            "        print(r)",
-            "",
-            "asyncio.run(main())"
+            "print(a)",
+            "print(b)"
           ],
           "output": [
-            "API-1: 0.3초",
-            "API-2: 0.1초",
-            "API-3: 0.2초"
+            "20",
+            "10"
           ]
-        }
+        },
+        "tip": "오른쪽 'b, a'가 먼저 튜플 '(20, 10)'으로 패킹된 뒤 왼쪽으로 언패킹됩니다."
       },
       {
         "order": 4,
-        "text": "asyncio.sleep(0) 은 실행 시간이 0이지만 이벤트 루프에 제어권을 넘기는 관용 패턴입니다.\n다른 대기 중인 코루틴에 실행 기회를 부여할 때 사용합니다.",
+        "text": "'*'을 쓰면 나머지 값을 리스트로 한 번에 받을 수 있습니다.",
         "terminal": {
           "code": [
-            "import asyncio",
+            "# 코드",
+            "numbers = (1, 2, 3, 4, 5)",
+            "first, *rest = numbers",
             "",
-            "async def worker(n):",
-            "    for i in range(3):",
-            "        print(f\"worker-{n}: 단계 {i}\")",
-            "        await asyncio.sleep(0)  # 다른 worker 에 실행권 양보",
-            "",
-            "async def main():",
-            "    await asyncio.gather(worker(1), worker(2))",
-            "",
-            "asyncio.run(main())"
+            "print(first)",
+            "print(rest)"
           ],
           "output": [
-            "worker-1: 단계 0",
-            "worker-2: 단계 0",
-            "worker-1: 단계 1",
-            "worker-2: 단계 1",
-            "worker-1: 단계 2",
-            "worker-2: 단계 2"
+            "1",
+            "[2, 3, 4, 5]"
           ]
-        }
+        },
+        "tip": "'*' 변수는 항상 리스트로 받습니다. 튜플이 아닙니다."
       },
       {
         "order": 5,
-        "text": "asyncio.run() 은 Python 3.7+ 에서 권장하는 진입점입니다.\n내부적으로 새 이벤트 루프를 생성, 코루틴 실행, 루프 종료를 자동으로 처리합니다.\n이미 실행 중인 루프에서는 호출할 수 없습니다.",
+        "text": "함수가 여러 값을 반환할 때도 튜플 패킹이 사용됩니다.\n받는 쪽에서 언패킹으로 바로 나눌 수 있습니다.",
         "terminal": {
           "code": [
-            "import asyncio",
+            "# 코드",
+            "def min_max(nums):",
+            "    return min(nums), max(nums)",
             "",
-            "async def pipeline():",
-            "    print(\"파이프라인 시작\")",
-            "    await asyncio.sleep(0)",
-            "    print(\"파이프라인 완료\")",
-            "    return 42",
-            "",
-            "# asyncio.run() 은 새 이벤트 루프를 생성하고 완료 후 닫음",
-            "result = asyncio.run(pipeline())",
-            "print(f\"결과: {result}\")"
+            "low, high = min_max([3, 1, 5, 2])",
+            "print(low, high)"
           ],
           "output": [
-            "파이프라인 시작",
-            "파이프라인 완료",
-            "결과: 42"
+            "1 5"
           ]
         },
-        "tip": "Jupyter Notebook 등 이미 이벤트 루프가 실행 중인 환경에서는 asyncio.run() 대신 await 를 직접 사용하거나 nest_asyncio 를 적용해야 합니다."
+        "tip": "'return a, b'는 'return (a, b)'와 같습니다."
       },
       {
         "order": 6,
-        "text": "비동기 컨텍스트 매니저(async with) 는 I/O 리소스를 비동기적으로 열고 닫습니다.\n__aenter__ / __aexit__ 를 구현하며, aiohttp.ClientSession 등 비동기 라이브러리에서 공통으로 사용됩니다.",
+        "text": "'enumerate()'와 'zip()'은 언패킹과 함께 쓸 때 가장 편합니다.",
         "terminal": {
           "code": [
-            "import asyncio",
+            "# 코드",
+            "names = ['Alice', 'Bob']",
+            "scores = [85, 92]",
             "",
-            "class AsyncDB:",
-            "    async def __aenter__(self):",
-            "        print(\"DB 연결\")",
-            "        return self",
-            "    async def __aexit__(self, *args):",
-            "        print(\"DB 연결 종료\")",
-            "    async def query(self, sql):",
-            "        await asyncio.sleep(0)",
-            "        return f\"결과: {sql}\"",
-            "",
-            "async def main():",
-            "    async with AsyncDB() as db:",
-            "        result = await db.query(\"SELECT *\")",
-            "        print(result)",
-            "",
-            "asyncio.run(main())"
+            "for name, score in zip(names, scores):",
+            "    print(name, score)"
           ],
           "output": [
-            "DB 연결",
-            "결과: SELECT *",
-            "DB 연결 종료"
-          ]
-        }
-      },
-      {
-        "order": 7,
-        "text": "비동기 제너레이터(async def + yield) 와 async for 를 조합하면 데이터를 스트리밍 방식으로 비동기 처리할 수 있습니다.\n각 yield 마다 이벤트 루프에 제어권을 반환해 다른 코루틴과 협력 실행됩니다.",
-        "terminal": {
-          "code": [
-            "import asyncio",
-            "",
-            "async def score_stream(scores):",
-            "    for score in scores:",
-            "        await asyncio.sleep(0.01)  # I/O 모의",
-            "        yield score",
-            "",
-            "async def main():",
-            "    data = [85, 92, 78, 96, 61]",
-            "    total = 0",
-            "    count = 0",
-            "    async for score in score_stream(data):",
-            "        total += score",
-            "        count += 1",
-            "        print(f\"수신: {score}점\")",
-            "    print(f\"평균: {total / count:.1f}점\")",
-            "",
-            "asyncio.run(main())"
-          ],
-          "output": [
-            "수신: 85점",
-            "수신: 92점",
-            "수신: 78점",
-            "수신: 96점",
-            "수신: 61점",
-            "평균: 82.4점"
+            "Alice 85",
+            "Bob 92"
           ]
         },
-        "tip": "비동기 제너레이터는 소진 후 재사용할 수 없습니다. 다시 순회하려면 새 제너레이터 객체를 생성해야 합니다."
+        "tip": "'zip()'은 두 리스트를 짝지어 '(이름, 점수)' 튜플로 묶어 줍니다."
       }
     ]
   },
   {
-    "lesson_id": "2-3-advanced",
+    "lesson_id": "2-3-intermediate",
     "unit": 2,
     "stage": "2-3",
-    "course_level": "advanced",
-    "title": "비동기 태스크",
+    "course_level": "intermediate",
+    "title": "자료형 비교",
     "villain": "codemmon",
     "slides": [
       {
         "order": 1,
-        "text": "asyncio.Task 는 코루틴을 이벤트 루프에 즉시 스케줄링하는 래퍼입니다.\nasyncio.create_task() 로 생성하면 await 하지 않아도 백그라운드에서 실행이 시작됩니다.",
-        "tip": "Task 를 생성한 뒤 await 하지 않고 함수가 종료되면 Task 가 취소될 수 있습니다. 생성한 Task 는 반드시 await 하거나 gather 에 전달하세요."
+        "text": "Python에는 순서가 있는 시퀀스 자료형이 세 가지 있습니다.\n리스트, 튜플, 문자열 — 모두 인덱싱이 가능합니다.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "my_list  = [1, 2, 3]",
+            "my_tuple = (1, 2, 3)",
+            "my_str   = 'abc'",
+            "",
+            "print(my_list[0])",
+            "print(my_tuple[0])",
+            "print(my_str[0])"
+          ],
+          "output": [
+            "1",
+            "1",
+            "a"
+          ]
+        },
+        "tip": "세 타입 모두 'len()', 인덱싱, 슬라이싱, 'in'을 지원합니다."
       },
       {
         "order": 2,
-        "text": "asyncio.create_task() 로 생성한 Task 들은 즉시 스케줄링됩니다.\ngather() 로 await 하면 모든 Task 가 완료된 뒤 결과를 수집합니다.",
+        "text": "가장 큰 차이는 가변성입니다.\n리스트는 수정 가능, 튜플과 문자열은 불변입니다.",
         "terminal": {
           "code": [
-            "import asyncio",
+            "# 코드",
+            "my_list = [1, 2, 3]",
+            "my_list[0] = 99",
+            "print(my_list)",
             "",
-            "async def download(name, size):",
-            "    print(f\"{name} 다운로드 시작 ({size}MB)\")",
-            "    await asyncio.sleep(size * 0.01)",
-            "    print(f\"{name} 다운로드 완료\")",
-            "    return size",
-            "",
-            "async def main():",
-            "    task1 = asyncio.create_task(download(\"파일A\", 10))",
-            "    task2 = asyncio.create_task(download(\"파일B\", 20))",
-            "    task3 = asyncio.create_task(download(\"파일C\", 15))",
-            "    results = await asyncio.gather(task1, task2, task3)",
-            "    print(f\"총 다운로드: {sum(results)}MB\")",
-            "",
-            "asyncio.run(main())"
+            "my_tuple = (1, 2, 3)",
+            "my_tuple[0] = 99"
           ],
           "output": [
-            "파일A 다운로드 시작 (10MB)",
-            "파일B 다운로드 시작 (20MB)",
-            "파일C 다운로드 시작 (15MB)",
-            "파일A 다운로드 완료",
-            "파일C 다운로드 완료",
-            "파일B 다운로드 완료",
-            "총 다운로드: 45MB"
+            "[99, 2, 3]",
+            "TypeError: 'tuple' object does not support item assignment"
           ]
-        }
+        },
+        "tip": "불변 자료형은 딕셔너리 키로 사용할 수 있습니다."
       },
       {
         "order": 3,
-        "text": "asyncio.wait() 는 gather() 와 달리 완료/미완료 Task 셋을 반환합니다.\nreturn_when 파라미터로 첫 번째 완료 시점 또는 첫 번째 예외 시점에 반환하도록 제어할 수 있습니다.",
+        "text": "딕셔너리(dict)는 키-값 쌍으로 데이터를 저장합니다.\n세트(set)는 중복 없는 값의 집합입니다.",
         "terminal": {
           "code": [
-            "import asyncio",
+            "# 코드",
+            "my_dict = {'name': 'Alice', 'age': 30}",
+            "my_set  = {1, 2, 3, 2, 1}",
             "",
-            "async def task(n, delay):",
-            "    await asyncio.sleep(delay)",
-            "    return f\"task-{n}\"",
-            "",
-            "async def main():",
-            "    tasks = {asyncio.create_task(task(i, i * 0.05)) for i in range(1, 4)}",
-            "    done, pending = await asyncio.wait(",
-            "        tasks,",
-            "        return_when=asyncio.FIRST_COMPLETED",
-            "    )",
-            "    print(f\"완료: {len(done)}개, 미완료: {len(pending)}개\")",
-            "    for t in done:",
-            "        print(f\"결과: {t.result()}\")",
-            "    for t in pending:",
-            "        t.cancel()",
-            "",
-            "asyncio.run(main())"
+            "print(my_dict['name'])",
+            "print(my_set)"
           ],
           "output": [
-            "완료: 1개, 미완료: 2개",
-            "결과: task-1"
+            "Alice",
+            "{1, 2, 3}"
           ]
-        }
+        },
+        "tip": "세트는 순서가 없어서 인덱싱이 안 됩니다."
       },
       {
         "order": 4,
-        "text": "Task.cancel()은 Task에 CancelledError를 주입합니다.\nTask 내부에서 try/except asyncio.CancelledError로 정리 작업을 수행할 수 있으며, 반드시 re-raise 해야 합니다.",
+        "text": "각 자료형의 특성을 한 눈에 정리하면 이렇습니다.",
         "terminal": {
           "code": [
-            "import asyncio",
-            "",
-            "async def long_job():",
-            "    try:",
-            "        print(\"작업 시작\")",
-            "        await asyncio.sleep(10)",
-            "        print(\"작업 완료\")         # 취소되면 실행 안 됨",
-            "    except asyncio.CancelledError:",
-            "        print(\"작업 취소됨 — 정리 중\")",
-            "        raise                          # 반드시 재발생",
-            "",
-            "async def main():",
-            "    task = asyncio.create_task(long_job())",
-            "    await asyncio.sleep(0.05)",
-            "    task.cancel()",
-            "    try:",
-            "        await task",
-            "    except asyncio.CancelledError:",
-            "        print(\"main: Task 취소 확인\")",
-            "",
-            "asyncio.run(main())"
-          ],
-          "output": [
-            "작업 시작",
-            "작업 취소됨 — 정리 중",
-            "main: Task 취소 확인"
-          ]
-        },
-        "tip": "CancelledError 를 catch 한 뒤 raise 하지 않으면 Task 가 정상 완료된 것으로 간주됩니다. 반드시 re-raise 하세요."
-      },
-      {
-        "order": 5,
-        "text": "asyncio.timeout() (Python 3.11+) 은 with 블록 내 작업에 제한 시간을 설정합니다.\n초과 시 asyncio.TimeoutError 가 발생합니다.",
-        "terminal": {
-          "code": [
-            "import asyncio",
-            "",
-            "async def slow_api(name, delay):",
-            "    await asyncio.sleep(delay)",
-            "    return f\"{name} 응답\"",
-            "",
-            "async def main():",
-            "    # 타임아웃 내 완료",
-            "    try:",
-            "        async with asyncio.timeout(0.5):",
-            "            result = await slow_api(\"빠른 API\", 0.1)",
-            "            print(result)",
-            "    except asyncio.TimeoutError:",
-            "        print(\"타임아웃\")",
-            "",
-            "    # 타임아웃 초과",
-            "    try:",
-            "        async with asyncio.timeout(0.1):",
-            "            result = await slow_api(\"느린 API\", 0.5)",
-            "            print(result)",
-            "    except asyncio.TimeoutError:",
-            "        print(\"느린 API: 요청 시간 초과\")",
-            "",
-            "asyncio.run(main())"
-          ],
-          "output": [
-            "빠른 API 응답",
-            "느린 API: 요청 시간 초과"
-          ]
-        }
-      },
-      {
-        "order": 6,
-        "text": "asyncio.gather() 의 return_exceptions=True 옵션은 일부 Task 가 예외를 발생시켜도 나머지 결과를 수집합니다.\nFalse(기본값)이면 첫 예외 발생 시 즉시 전파됩니다.",
-        "terminal": {
-          "code": [
-            "import asyncio",
-            "",
-            "async def safe_task(n):",
-            "    if n == 2:",
-            "        raise ValueError(f\"task-{n} 실패\")",
-            "    return f\"task-{n} 성공\"",
-            "",
-            "async def main():",
-            "    results = await asyncio.gather(",
-            "        safe_task(1),",
-            "        safe_task(2),",
-            "        safe_task(3),",
-            "        return_exceptions=True",
-            "    )",
-            "    for r in results:",
-            "        if isinstance(r, Exception):",
-            "            print(f\"오류: {r}\")",
-            "        else:",
-            "            print(r)",
-            "",
-            "asyncio.run(main())"
-          ],
-          "output": [
-            "task-1 성공",
-            "오류: task-2 실패",
-            "task-3 성공"
-          ]
-        },
-        "tip": "프로덕션 환경에서는 return_exceptions=True 를 사용해 일부 실패가 전체 처리를 중단하지 않도록 하는 것이 일반적입니다."
-      },
-      {
-        "order": 7,
-        "text": "Task 의 상태는 done(), cancelled(), exception() 으로 조회합니다.\nasyncio.wait_for() 는 단일 코루틴에 타임아웃을 적용하는 간결한 대안입니다.",
-        "terminal": {
-          "code": [
-            "import asyncio",
-            "",
-            "async def job(delay):",
-            "    await asyncio.sleep(delay)",
-            "    return \"완료\"",
-            "",
-            "async def main():",
-            "    # Task 상태 조회",
-            "    task = asyncio.create_task(job(0.05))",
-            "    print(f\"실행 전 done(): {task.done()}\")",
-            "    await task",
-            "    print(f\"완료 후 done(): {task.done()}\")",
-            "    print(f\"result(): {task.result()}\")",
-            "",
-            "    # wait_for: 단일 코루틴 타임아웃",
-            "    try:",
-            "        result = await asyncio.wait_for(job(1.0), timeout=0.1)",
-            "    except asyncio.TimeoutError:",
-            "        print(\"wait_for: 타임아웃 초과\")",
-            "",
-            "asyncio.run(main())"
-          ],
-          "output": [
-            "실행 전 done(): False",
-            "완료 후 done(): True",
-            "result(): 완료",
-            "wait_for: 타임아웃 초과"
-          ]
-        },
-        "tip": "완료되지 않은 Task 에 result() 를 호출하면 InvalidStateError 가 발생합니다. 반드시 done() 확인 후 호출하세요."
-      }
-    ]
-  },
-  {
-    "lesson_id": "2-4-advanced",
-    "unit": 2,
-    "stage": "2-4",
-    "course_level": "advanced",
-    "title": "비동기 HTTP 요청",
-    "villain": "codemmon",
-    "slides": [
-      {
-        "order": 1,
-        "text": "requests 라이브러리는 동기 블로킹 방식으로, 비동기 이벤트 루프 내에서 사용하면 전체 루프가 블로킹됩니다.\n비동기 HTTP 요청에는 aiohttp 또는 httpx 를 사용합니다.",
-        "tip": "asyncio 환경에서 requests.get() 을 호출하면 해당 코루틴뿐 아니라 이벤트 루프 전체가 블로킹됩니다. 반드시 비동기 HTTP 클라이언트를 사용하세요.",
-        "terminal": {
-          "code": [
-            "# ❌ 동기 방식 — 이벤트 루프 전체를 블로킹",
-            "# import requests",
-            "# def fetch_sync(url):",
-            "#     return requests.get(url).json()  # 루프 멈춤!",
-            "",
-            "# ✅ 비동기 방식 — 이벤트 루프를 블로킹하지 않음",
-            "import asyncio",
-            "import aiohttp",
-            "",
-            "async def fetch_async(url):",
-            "    async with aiohttp.ClientSession() as session:",
-            "        async with session.get(url) as resp:",
-            "            return await resp.json()",
-            "",
-            "# asyncio 환경에서는 반드시 aiohttp / httpx 를 사용할 것"
+            "# 코드",
+            "# list  : 순서O / 중복O / 가변   → 일반 목록",
+            "# tuple : 순서O / 중복O / 불변   → 고정 데이터",
+            "# str   : 순서O / 중복O / 불변   → 텍스트",
+            "# dict  : 키 중복X / 가변        → 키-값 매핑",
+            "# set   : 순서X / 중복X / 가변   → 중복 제거"
           ],
           "output": []
-        }
-      },
-      {
-        "order": 2,
-        "text": "aiohttp의 기본 패턴: ClientSession을 async with로 열고, session.get()으로 요청합니다.\nClientSession은 커넥션 풀을 관리하므로 요청마다 새로 생성하지 않고 재사용해야 합니다.",
-        "terminal": {
-          "code": [
-            "import aiohttp, asyncio",
-            "",
-            "async def fetch(session, url):",
-            "    async with session.get(url) as response:",
-            "        data = await response.json()",
-            "        return data",
-            "",
-            "async def main():",
-            "    url = \"https://jsonplaceholder.typicode.com/todos/1\"",
-            "    async with aiohttp.ClientSession() as session:",
-            "        result = await fetch(session, url)",
-            "        print(f\"id: {result['id']}, title: {result['title']}\")",
-            "",
-            "asyncio.run(main())"
-          ],
-          "output": [
-            "id: 1, title: delectus aut autem"
-          ]
-        }
-      },
-      {
-        "order": 3,
-        "text": "여러 URL 에 동시 요청 시 gather() 를 활용합니다.\nClientSession 하나를 여러 코루틴이 공유해 커넥션 풀을 효율적으로 사용합니다.",
-        "terminal": {
-          "code": [
-            "import aiohttp, asyncio",
-            "",
-            "async def fetch(session, url, idx):",
-            "    async with session.get(url) as resp:",
-            "        data = await resp.json()",
-            "        return idx, data[\"title\"]",
-            "",
-            "async def main():",
-            "    base = \"https://jsonplaceholder.typicode.com/todos/\"",
-            "    urls = [base + str(i) for i in range(1, 6)]",
-            "",
-            "    async with aiohttp.ClientSession() as session:",
-            "        tasks = [fetch(session, url, i+1) for i, url in enumerate(urls)]",
-            "        results = await asyncio.gather(*tasks)",
-            "",
-            "    for idx, title in results:",
-            "        print(f\"[{idx}] {title}\")",
-            "",
-            "asyncio.run(main())"
-          ],
-          "output": [
-            "[1] delectus aut autem",
-            "[2] quis ut nam facilis et officia qui",
-            "[3] fugiat veniam minus",
-            "[4] et porro tempora",
-            "[5] laboriosam mollitia et enim quasi adipisci quia provident illum"
-          ]
-        }
-      },
-      {
-        "order": 4,
-        "text": "동시 요청 수를 제한하지 않으면 서버 과부하나 429(Too Many Requests) 오류가 발생할 수 있습니다.\nasyncio.Semaphore 로 동시 실행 수를 제어합니다.",
-        "terminal": {
-          "code": [
-            "import aiohttp, asyncio",
-            "",
-            "async def fetch_limited(session, url, sem):",
-            "    async with sem:            # 세마포어 획득 — 초과 시 대기",
-            "        async with session.get(url) as resp:",
-            "            return await resp.json()",
-            "",
-            "async def main():",
-            "    sem = asyncio.Semaphore(3)  # 동시 요청 최대 3개",
-            "    base = \"https://jsonplaceholder.typicode.com/todos/\"",
-            "    urls = [base + str(i) for i in range(1, 11)]",
-            "",
-            "    async with aiohttp.ClientSession() as session:",
-            "        tasks = [fetch_limited(session, url, sem) for url in urls]",
-            "        results = await asyncio.gather(*tasks)",
-            "",
-            "    print(f\"수신 완료: {len(results)}건\")",
-            "",
-            "asyncio.run(main())"
-          ],
-          "output": [
-            "수신 완료: 10건"
-          ]
         },
-        "tip": "Semaphore(n) 은 동시에 n 개의 코루틴만 sem 블록 내부를 실행할 수 있게 제한합니다. Rate Limit 대응의 핵심 패턴입니다."
+        "tip": "어떤 자료형을 쓸지 모르겠다면 '수정이 필요한가? 순서가 필요한가?'를 먼저 물어보세요."
       },
       {
         "order": 5,
-        "text": "네트워크 요청에는 타임아웃 설정이 필수입니다.\naiohttp.ClientTimeout으로 전체 요청 시간, 커넥션 타임아웃, 읽기 타임아웃을 각각 설정합니다.",
+        "text": "'list()', 'tuple()', 'set()' 함수로 자료형을 변환할 수 있습니다.\nset으로 변환하면 중복이 자동으로 제거됩니다.",
         "terminal": {
           "code": [
-            "import aiohttp, asyncio",
+            "# 코드",
+            "data = [1, 2, 2, 3]",
+            "unique = set(data)",
+            "back = list(unique)",
             "",
-            "async def fetch_with_timeout(url):",
-            "    timeout = aiohttp.ClientTimeout(total=5, connect=2)",
-            "    try:",
-            "        async with aiohttp.ClientSession(timeout=timeout) as session:",
-            "            async with session.get(url) as resp:",
-            "                resp.raise_for_status()    # 4xx/5xx → 예외 발생",
-            "                return await resp.json()",
-            "    except aiohttp.ClientConnectorError:",
-            "        return {\"error\": \"연결 실패\"}",
-            "    except asyncio.TimeoutError:",
-            "        return {\"error\": \"타임아웃\"}",
-            "    except aiohttp.ClientResponseError as e:",
-            "        return {\"error\": f\"HTTP {e.status}\"}",
-            "",
-            "result = asyncio.run(fetch_with_timeout(",
-            "    \"https://jsonplaceholder.typicode.com/todos/1\"",
-            "))",
-            "print(result)"
+            "print(unique)",
+            "print(back)"
           ],
           "output": [
-            "{'userId': 1, 'id': 1, 'title': 'delectus aut autem', 'completed': False}"
+            "{1, 2, 3}",
+            "[1, 2, 3]"
           ]
-        }
+        },
+        "tip": "중복 제거가 필요할 때 'list → set → list' 패턴을 자주 씁니다."
       },
       {
         "order": 6,
-        "text": "재시도(retry) 로직은 일시적 네트워크 오류에 대응하는 실무 패턴입니다.\n지수 백오프(exponential backoff) 를 적용해 서버에 부담을 주지 않도록 합니다.",
+        "text": "'=='는 값이 같은지, 'is'는 같은 객체인지를 비교합니다.\n이 둘은 다릅니다.",
         "terminal": {
           "code": [
-            "import aiohttp, asyncio",
+            "# 코드",
+            "a = [1, 2, 3]",
+            "b = [1, 2, 3]",
+            "c = a",
             "",
-            "async def fetch_with_retry(session, url, max_retries=3):",
-            "    for attempt in range(max_retries):",
-            "        try:",
-            "            async with session.get(url) as resp:",
-            "                resp.raise_for_status()",
-            "                return await resp.json()",
-            "        except (aiohttp.ClientError, asyncio.TimeoutError) as e:",
-            "            if attempt == max_retries - 1:",
-            "                raise",
-            "            wait = 2 ** attempt          # 지수 백오프: 1초, 2초, 4초",
-            "            print(f\"재시도 {attempt + 1}/{max_retries}, {wait}초 대기\")",
-            "            await asyncio.sleep(wait)",
-            "",
-            "async def main():",
-            "    url = \"https://jsonplaceholder.typicode.com/todos/1\"",
-            "    async with aiohttp.ClientSession() as session:",
-            "        data = await fetch_with_retry(session, url)",
-            "        print(f\"성공: id={data['id']}\")",
-            "",
-            "asyncio.run(main())"
+            "print(a == b)",
+            "print(a is b)",
+            "print(a is c)"
           ],
           "output": [
-            "성공: id=1"
+            "True",
+            "False",
+            "True"
           ]
         },
-        "tip": "실무에서는 tenacity 라이브러리를 사용하면 재시도 데코레이터를 간결하게 구성할 수 있습니다."
-      },
-      {
-        "order": 7,
-        "text": "POST 요청과 헤더/인증 설정은 session.post() 와 headers 파라미터로 처리합니다.\nJSON 바디는 json= 으로, form 데이터는 data= 로 전달합니다.",
-        "terminal": {
-          "code": [
-            "import aiohttp, asyncio",
-            "",
-            "async def create_post(session, payload):",
-            "    url = \"https://jsonplaceholder.typicode.com/posts\"",
-            "    headers = {",
-            "        \"Content-Type\": \"application/json\",",
-            "        \"Authorization\": \"Bearer my-token\",",
-            "    }",
-            "    async with session.post(url, json=payload, headers=headers) as resp:",
-            "        resp.raise_for_status()",
-            "        return await resp.json()",
-            "",
-            "async def main():",
-            "    payload = {\"title\": \"에이몬 학습 기록\", \"body\": \"asyncio 완료\", \"userId\": 1}",
-            "    async with aiohttp.ClientSession() as session:",
-            "        result = await create_post(session, payload)",
-            "        print(f\"생성된 id: {result['id']}\")",
-            "        print(f\"title: {result['title']}\")",
-            "",
-            "asyncio.run(main())"
-          ],
-          "output": [
-            "생성된 id: 101",
-            "title: 에이몬 학습 기록"
-          ]
-        }
+        "tip": "값 비교는 '==', None 비교는 'is'가 관례입니다. 'if x is None:'처럼 씁니다."
       }
     ]
   },
   {
-    "lesson_id": "2-5-advanced",
+    "lesson_id": "2-4-intermediate",
     "unit": 2,
-    "stage": "2-5",
-    "course_level": "advanced",
-    "title": "비동기 종합실습",
+    "stage": "2-4",
+    "course_level": "intermediate",
+    "title": "중첩 자료구조 심화",
     "villain": "codemmon",
     "slides": [
       {
         "order": 1,
-        "text": "Unit 2에서 학습한 핵심 패턴을 정리합니다.\n\n- 이벤트 루프: 단일 스레드, await 지점에서 코루틴 전환\n- asyncio.gather(): 여러 코루틴 동시 실행 및 결과 수집\n- Task / cancel / timeout: 세밀한 실행 제어\n- aiohttp + Semaphore: 동시 HTTP 요청 및 Rate Limit 제어\n- 재시도 + 지수 백오프: 일시적 네트워크 오류 대응"
+        "text": "중첩 자료구조는 리스트 안에 딕셔너리, 딕셔너리 안에 리스트처럼\n자료구조 안에 자료구조가 들어있는 형태입니다.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "student = {'name': 'Alice', 'score': 85}",
+            "",
+            "print(student['name'])",
+            "print(student['score'])"
+          ],
+          "output": [
+            "Alice",
+            "85"
+          ]
+        },
+        "tip": "딕셔너리는 '변수['키']'로 값을 꺼냅니다."
       },
       {
         "order": 2,
-        "text": "실전 미니 프로젝트 ①: 비동기 데이터 파이프라인\nasync for 와 asyncio.Queue 를 조합해 생산자-소비자 패턴을 구현합니다.",
+        "text": "리스트 안에 딕셔너리를 담으면 여러 항목을 묶어서 관리할 수 있습니다.\n인덱스로 먼저 꺼낸 뒤 키로 접근합니다.",
         "terminal": {
           "code": [
-            "import asyncio",
+            "# 코드",
+            "students = [",
+            "    {'name': 'Alice', 'score': 85},",
+            "    {'name': 'Bob',   'score': 92}",
+            "]",
             "",
-            "async def producer(queue, items):",
-            "    for item in items:",
-            "        await queue.put(item)",
-            "        print(f\"[생산] {item}\")",
-            "        await asyncio.sleep(0.01)",
-            "    await queue.put(None)      # 종료 신호",
-            "",
-            "async def consumer(queue):",
-            "    while True:",
-            "        item = await queue.get()",
-            "        if item is None:",
-            "            break",
-            "        print(f\"[소비] {item * 2}\")",
-            "        queue.task_done()",
-            "",
-            "async def main():",
-            "    queue = asyncio.Queue(maxsize=3)",
-            "    data = [10, 20, 30, 40, 50]",
-            "    await asyncio.gather(producer(queue, data), consumer(queue))",
-            "",
-            "asyncio.run(main())"
+            "print(students[0]['name'])"
           ],
           "output": [
-            "[생산] 10",
-            "[소비] 20",
-            "[생산] 20",
-            "[소비] 40",
-            "[생산] 30",
-            "[소비] 60",
-            "[생산] 40",
-            "[소비] 80",
-            "[생산] 50",
-            "[소비] 100"
+            "Alice"
           ]
         },
-        "tip": "위 출력 순서는 CPython asyncio 의 스케줄링 방식에서 재현되는 대표 예시입니다. asyncio 구현이나 실행 환경에 따라 [생산]·[소비] 순서가 달라질 수 있으므로, 출력 순서보다 '모든 항목이 생산·소비된다'는 동작에 집중하세요."
+        "tip": "'students[0]'으로 딕셔너리를 꺼내고, '['name']'으로 값을 꺼냅니다."
       },
       {
         "order": 3,
-        "text": "실전 미니 프로젝트 ②: Semaphore 기반 병렬 API 수집기\n여러 엔드포인트에서 동시 요청 수를 제어하며 데이터를 수집합니다.",
+        "text": "'for' 루프로 리스트 안의 딕셔너리들을 하나씩 꺼내 처리할 수 있습니다.",
         "terminal": {
           "code": [
-            "import aiohttp, asyncio",
+            "# 코드",
+            "students = [",
+            "    {'name': 'Alice', 'score': 85},",
+            "    {'name': 'Bob',   'score': 92}",
+            "]",
             "",
-            "async def fetch(session, sem, endpoint_id):",
-            "    url = f\"https://jsonplaceholder.typicode.com/posts/{endpoint_id}\"",
-            "    async with sem:",
-            "        async with session.get(url) as resp:",
-            "            data = await resp.json()",
-            "            return {\"id\": data[\"id\"], \"title\": data[\"title\"][:20]}",
-            "",
-            "async def collect(ids, concurrency=5):",
-            "    sem = asyncio.Semaphore(concurrency)",
-            "    async with aiohttp.ClientSession() as session:",
-            "        tasks = [fetch(session, sem, i) for i in ids]",
-            "        results = await asyncio.gather(*tasks, return_exceptions=True)",
-            "    return [r for r in results if not isinstance(r, Exception)]",
-            "",
-            "results = asyncio.run(collect(range(1, 6)))",
-            "for r in results:",
-            "    print(r)"
+            "for s in students:",
+            "    print(s['name'], s['score'])"
           ],
           "output": [
-            "{'id': 1, 'title': 'sunt aut facere repe'}",
-            "{'id': 2, 'title': 'qui est esse'}",
-            "{'id': 3, 'title': 'ea molestias quasi e'}",
-            "{'id': 4, 'title': 'eum et est occaecati'}",
-            "{'id': 5, 'title': 'nesciunt quas odio'}"
+            "Alice 85",
+            "Bob 92"
           ]
-        }
+        },
+        "tip": "'s'가 딕셔너리이므로 's['키']'로 접근합니다."
       },
       {
         "order": 4,
-        "text": "실전 미니 프로젝트 ③: 비동기 타이머 데코레이터\nUnit 1의 데코레이터 패턴을 비동기 함수에 적용합니다.\nwrapper 를 async def 로 정의하고 func() 앞에 await 를 추가하면 됩니다.",
+        "text": "딕셔너리 안에 리스트를 값으로 담으면 한 키에 여러 데이터를 연결할 수 있습니다.",
         "terminal": {
           "code": [
-            "import asyncio, time, functools",
+            "# 코드",
+            "grade_book = {",
+            "    'Alice': [85, 90, 78],",
+            "    'Bob':   [92, 88, 95]",
+            "}",
             "",
-            "def async_timer(func):",
-            "    @functools.wraps(func)",
-            "    async def wrapper(*args, **kwargs):",
-            "        start = time.time()",
-            "        result = await func(*args, **kwargs)",
-            "        elapsed = time.time() - start",
-            "        print(f\"{func.__name__} 실행 시간: {elapsed:.3f}초\")",
-            "        return result",
-            "    return wrapper",
-            "",
-            "@async_timer",
-            "async def fetch_all(n):",
-            "    tasks = [asyncio.sleep(0.05) for _ in range(n)]",
-            "    await asyncio.gather(*tasks)",
-            "    return n",
-            "",
-            "result = asyncio.run(fetch_all(10))",
-            "print(f\"처리 완료: {result}건\")"
+            "print(grade_book['Alice'])",
+            "print(grade_book['Alice'][1])"
           ],
           "output": [
-            "fetch_all 실행 시간: 0.051초",
-            "처리 완료: 10건"
+            "[85, 90, 78]",
+            "90"
           ]
         },
-        "tip": "동기 데코레이터의 wrapper 를 async def 로 바꾸고 func() 앞에 await 를 추가하면 비동기 함수에 그대로 적용할 수 있습니다. 실제 수행 시간은 환경에 따라 다를 수 있습니다."
+        "tip": "'딕셔너리[키][인덱스]' 순서로 접근합니다."
       },
       {
         "order": 5,
-        "text": "asyncio.shield() 는 Task 가 외부에서 취소되더라도 내부 코루틴이 계속 실행되도록 보호합니다.\n중요한 작업(DB 커밋, 파일 저장 등)이 중간에 중단되면 안 될 때 사용합니다.",
+        "text": "존재하지 않는 키에 접근하면 'KeyError'가 납니다.\n'.get()'을 쓰면 오류 대신 기본값을 받을 수 있습니다.",
         "terminal": {
           "code": [
-            "import asyncio",
+            "# 코드",
+            "student = {'name': 'Alice', 'score': 85}",
             "",
-            "async def critical_save():",
-            "    await asyncio.sleep(0.05)",
-            "    print(\"중요한 저장 완료\")",
-            "    return 42",
-            "",
-            "async def main():",
-            "    shielded = asyncio.shield(critical_save())",
-            "    outer = asyncio.ensure_future(shielded)",
-            "    await asyncio.sleep(0.01)",
-            "    outer.cancel()             # 외부 Future 취소",
-            "    try:",
-            "        await outer",
-            "    except asyncio.CancelledError:",
-            "        print(\"외부 Future 취소됨 — 내부는 계속 실행 중\")",
-            "    await asyncio.sleep(0.1)   # 내부 완료 대기",
-            "",
-            "asyncio.run(main())"
+            "print(student.get('score'))",
+            "print(student.get('grade', 'N/A'))"
           ],
           "output": [
-            "외부 Future 취소됨 — 내부는 계속 실행 중",
-            "중요한 저장 완료"
+            "85",
+            "N/A"
           ]
         },
-        "tip": "shield 는 외부 취소로부터 내부를 보호하지만, 이벤트 루프 자체가 종료되면 내부도 중단됩니다."
+        "tip": "'.get(키, 기본값)' — 키가 없을 때 오류 대신 기본값을 반환합니다."
       },
       {
         "order": 6,
-        "text": "⚠️ 주요 함정 정리 — 비동기 프로그래밍에서 자주 발생하는 실수입니다.",
+        "text": "리스트 컴프리헨션으로 중첩 구조에서 원하는 데이터만 골라낼 수 있습니다.",
         "terminal": {
           "code": [
-            "import asyncio",
+            "# 코드",
+            "students = [",
+            "    {'name': 'Alice', 'score': 85},",
+            "    {'name': 'Bob',   'score': 92},",
+            "    {'name': 'Carol', 'score': 78}",
+            "]",
             "",
-            "# ❌ 함정 1: 코루틴을 await 없이 호출 → 실행 안 됨",
-            "# result = some_coroutine()   # 코루틴 객체만 반환",
-            "# ✅ result = await some_coroutine()",
-            "",
-            "# ❌ 함정 2: 이미 실행 중인 루프에서 asyncio.run() 호출",
-            "# RuntimeError: This event loop is already running",
-            "",
-            "# ❌ 함정 3: 동기 블로킹 함수를 루프에서 직접 호출",
-            "# async def bad(): time.sleep(5)  # 루프 전체 블로킹!",
-            "# ✅ await loop.run_in_executor(None, time.sleep, 5)",
-            "",
-            "# ❌ 함정 4: CancelledError 를 catch 후 re-raise 누락",
-            "# except asyncio.CancelledError: pass  # Task 정상 종료로 간주됨",
-            "# ✅ except asyncio.CancelledError: raise",
-            "",
-            "# ❌ 함정 5: 소진된 비동기 제너레이터 재사용",
-            "async def gen():",
-            "    yield 1",
-            "",
-            "async def main():",
-            "    g = gen()",
-            "    async for v in g: pass    # 소진",
-            "    count = sum([1 async for _ in g])  # 0 — 재사용 불가",
-            "    print(f\"재사용 결과: {count}건 (0이어야 함)\")",
-            "",
-            "asyncio.run(main())"
+            "passed = [s['name'] for s in students if s['score'] >= 80]",
+            "print(passed)"
           ],
           "output": [
-            "재사용 결과: 0건 (0이어야 함)"
-          ]
-        }
-      },
-      {
-        "order": 7,
-        "text": "세 가지 패턴을 통합한 최종 예제: 비동기 성적 수집 시스템\n비동기 타이머 데코레이터 + Semaphore + return_exceptions 를 조합합니다.",
-        "terminal": {
-          "code": [
-            "import asyncio, time, functools",
-            "",
-            "def async_timer(func):",
-            "    @functools.wraps(func)",
-            "    async def wrapper(*args, **kwargs):",
-            "        start = time.time()",
-            "        result = await func(*args, **kwargs)",
-            "        print(f\"{func.__name__}: {time.time()-start:.3f}초\")",
-            "        return result",
-            "    return wrapper",
-            "",
-            "async def fetch_score(sem, student_id):",
-            "    async with sem:",
-            "        await asyncio.sleep(0.02)   # API 요청 모의",
-            "        return {\"id\": student_id, \"score\": 70 + student_id}",
-            "",
-            "@async_timer",
-            "async def collect_scores(student_ids):",
-            "    sem = asyncio.Semaphore(3)",
-            "    tasks = [fetch_score(sem, sid) for sid in student_ids]",
-            "    return await asyncio.gather(*tasks, return_exceptions=True)",
-            "",
-            "results = asyncio.run(collect_scores(range(1, 6)))",
-            "scores = [r['score'] for r in results if isinstance(r, dict)]",
-            "print(f\"평균 점수: {sum(scores)/len(scores):.1f}\")"
-          ],
-          "output": [
-            "collect_scores: 0.042초",
-            "평균 점수: 73.0"
+            "['Alice', 'Bob']"
           ]
         },
-        "tip": "Unit 2 핵심 체크리스트 — ① await 없는 코루틴 호출 방지 ② Semaphore 로 동시 요청 제한 ③ return_exceptions=True 로 부분 실패 처리 ④ 블로킹 함수는 run_in_executor 사용 ⑤ CancelledError 는 반드시 re-raise 실제 수행 시간은 환경에 따라 다를 수 있습니다."
+        "tip": "컴프리헨션 안에서 's['키']'로 조건을 걸 수 있습니다."
+      }
+    ]
+  },
+  {
+    "lesson_id": "2-5-intermediate",
+    "unit": 2,
+    "stage": "2-5",
+    "course_level": "intermediate",
+    "title": "자료형 심화 종합실습",
+    "villain": "codemmon",
+    "slides": [
+      {
+        "order": 1,
+        "text": "Unit 2 종합실습입니다. 학생 성적 데이터를 단계별로 처리해봅니다.\n먼저 튜플 리스트를 언패킹해서 출력합니다.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "records = [('Alice', 85), ('Bob', 92), ('Carol', 78)]",
+            "",
+            "for name, score in records:",
+            "    print(name, score)"
+          ],
+          "output": [
+            "Alice 85",
+            "Bob 92",
+            "Carol 78"
+          ]
+        },
+        "tip": "'for name, score in records'는 각 튜플을 자동으로 언패킹합니다."
+      },
+      {
+        "order": 2,
+        "text": "점수만 따로 꺼내서 세트로 변환하면 중복을 제거할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "records = [('Alice', 85), ('Bob', 92), ('Carol', 85)]",
+            "",
+            "scores = [score for _, score in records]",
+            "print(scores)",
+            "print(set(scores))"
+          ],
+          "output": [
+            "[85, 92, 85]",
+            "{85, 92}"
+          ]
+        },
+        "tip": "'_'는 '사용하지 않는 변수'라는 관례입니다. 여기서는 이름을 무시합니다."
+      },
+      {
+        "order": 3,
+        "text": "튜플 리스트를 'dict()'로 변환하면 이름으로 바로 점수를 조회할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "records = [('Alice', 85), ('Bob', 92), ('Carol', 78)]",
+            "score_dict = dict(records)",
+            "",
+            "print(score_dict)",
+            "print(score_dict['Bob'])"
+          ],
+          "output": [
+            "{'Alice': 85, 'Bob': 92, 'Carol': 78}",
+            "92"
+          ]
+        },
+        "tip": "'dict(튜플_리스트)'는 '(키, 값)' 튜플을 딕셔너리로 바꿔줍니다."
+      },
+      {
+        "order": 4,
+        "text": "점수에 따라 등급을 매기는 함수를 만들어봅니다.\n조건은 간단하게 두 단계로 나눕니다.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "def get_grade(score):",
+            "    if score >= 80:",
+            "        return 'pass'",
+            "    else:",
+            "        return 'fail'",
+            "",
+            "print(get_grade(85))",
+            "print(get_grade(70))"
+          ],
+          "output": [
+            "pass",
+            "fail"
+          ]
+        },
+        "tip": "함수를 먼저 작게 만들고 나중에 기준을 추가하면 다루기 쉽습니다."
+      },
+      {
+        "order": 5,
+        "text": "딕셔너리를 순회하며 각 학생의 등급을 출력합니다.\n'.items()'로 키와 값을 함께 꺼냅니다.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "score_dict = {'Alice': 85, 'Bob': 92, 'Carol': 70}",
+            "",
+            "for name, score in score_dict.items():",
+            "    grade = get_grade(score)",
+            "    print(name, score, grade)"
+          ],
+          "output": [
+            "Alice 85 pass",
+            "Bob 92 pass",
+            "Carol 70 fail"
+          ]
+        },
+        "tip": "'.items()'는 '(키, 값)' 튜플을 반환하므로 언패킹해서 받습니다."
+      },
+      {
+        "order": 6,
+        "text": "마지막으로 전체 평균을 계산합니다.\n'sum()'과 'len()'으로 간단하게 구할 수 있습니다.",
+        "terminal": {
+          "code": [
+            "# 코드",
+            "score_dict = {'Alice': 85, 'Bob': 92, 'Carol': 70}",
+            "scores = list(score_dict.values())",
+            "",
+            "avg = sum(scores) / len(scores)",
+            "print(f'평균: {avg:.1f}')"
+          ],
+          "output": [
+            "평균: 82.3"
+          ]
+        },
+        "tip": "'.values()'로 점수만 꺼낸 뒤 'list()'로 변환하면 계산이 편합니다."
       }
     ]
   }
