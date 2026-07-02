@@ -78,7 +78,7 @@ export default function LevelTestInfo() {
             onClick={() => navigate('/')}
             style={{ fontSize: '0.85rem', color: 'var(--clr-text-faint)', marginTop: '0.5rem' }}
           >
-            뒤로가기
+            ✕
           </button>
         </div>
       </div>
