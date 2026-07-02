@@ -1,14 +1,14 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { gameApi } from '../../../api'
+import { useAuthStore } from '../../../hooks/useAuthStore'
 import { WORD_SETS, SET_NAMES } from './crosswordData'
 import { buildLayout } from './crosswordEngine'
 import './AICross.css'
 
 export default function AICross() {
   const navigate = useNavigate()
+  const { token } = useAuthStore()
   const wrapRef = useRef(null)
-  const gameTokenRef = useRef(null)
 
   const [usedIndices, setUsedIndices] = useState(new Set())
   const [setIndex, setSetIndex] = useState(() => Math.floor(Math.random() * WORD_SETS.length))
@@ -22,27 +22,6 @@ export default function AICross() {
   const [checked, setChecked] = useState({})
   const [won, setWon] = useState(false)
   const [reward, setReward] = useState(null)
-
-  useEffect(() => {
-    let cancelled = false
-    gameTokenRef.current = null
-
-    gameApi.startGame('aicross')
-      .then((res) => {
-        if (!cancelled) {
-          gameTokenRef.current = res.data.game_token
-        }
-      })
-      .catch(() => {
-        if (!cancelled) {
-          gameTokenRef.current = null
-        }
-      })
-
-    return () => {
-      cancelled = true
-    }
-  }, [])
 
   useEffect(() => {
     setUsedIndices(new Set([setIndex]))
@@ -126,20 +105,16 @@ export default function AICross() {
   useEffect(() => { wrapRef.current?.focus() }, [])
 
   const callClearAPI = async (score) => {
-    if (reward) return
-
-    if (!gameTokenRef.current) {
-      setReward({ xp_awarded: 0, already_claimed: false })
-      return
-    }
-
     try {
-      const res = await gameApi.clearGame({
-        game_id: 'aicross',
-        score,
-        game_token: gameTokenRef.current,
+      const res = await fetch('/api/game/clear', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: token },
+        body: JSON.stringify({ game_id: 'aicross', score }),
       })
-      setReward(res.data)
+      if (res.ok) {
+        const data = await res.json()
+        setReward(data)
+      }
     } catch {
       setReward({ xp_awarded: 0, already_claimed: false })
     }
@@ -193,7 +168,7 @@ export default function AICross() {
   return (
     <div className="aicross-wrap" ref={wrapRef} tabIndex={-1}>
       <div className="aicross-header">
-        <button className="aicross-back" onClick={() => navigate('/game')}>←</button>
+        <button className="aicross-back" onClick={() => navigate('/game')}>✕</button>
         <div className="aicross-header-title-group">
           <span className="aicross-header-title">AI 크로스워드</span>
           <span className="aicross-set-label">{SET_NAMES[setIndex]}</span>
@@ -227,7 +202,7 @@ export default function AICross() {
             ) : (
               <div className="aicross-win-xp aicross-win-xp--loading">보상 계산 중…</div>
             )}
-            <button className="acbtn acbtn--next" onClick={() => navigate('/game')}>← 목록으로</button>
+            <button className="acbtn acbtn--next" onClick={() => navigate('/game')}>✕</button>
           </div>
         </div>
       )}
