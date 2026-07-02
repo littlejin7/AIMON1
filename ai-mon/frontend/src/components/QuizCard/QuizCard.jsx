@@ -9,15 +9,33 @@ import CodeInput from './CodeInput'
 import AiFeedback from './AiFeedback'
 import './QuizCard.css'
 
-function parseQuestionCode(raw) {
-  const match = raw.match(/^([\s\S]*?)```(?:python)?\n([\s\S]*?)```([\s\S]*)$/m)
-  if (!match) return { questionText: raw.trim(), codeLines: null }
-  const before = match[1].trim()
-  const after  = match[3].trim()
-  const code   = match[2].trimEnd()
-  const questionText = [before, after].filter(Boolean).join('\n').trim()
-  return { questionText, codeLines: code.split('\n') }
+function parseQuestionContent(raw) {
+  const regex = /```(?:python)?\n([\s\S]*?)```/g;
+  const parts = [];
+  let lastIndex = 0;
+  let match;
+  while ((match = regex.exec(raw)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push({
+        type: 'text',
+        content: raw.substring(lastIndex, match.index)
+      });
+    }
+    parts.push({
+      type: 'code',
+      lines: match[1].trimEnd().split('\n')
+    });
+    lastIndex = regex.lastIndex;
+  }
+  if (lastIndex < raw.length) {
+    parts.push({
+      type: 'text',
+      content: raw.substring(lastIndex)
+    });
+  }
+  return parts;
 }
+
 
 function CodeBlock({ lines }) {
   return (
@@ -51,23 +69,23 @@ export default function QuizCard({
   initialIsCorrectResult = null,
   onFeedbackUpdate,
 }) {
-  const [selected,          setSelected]          = useState(initialSelected)
-  const [input,             setInput]             = useState(initialInput)
-  const [revealed,          setRevealed]          = useState(initialRevealed)
-  const [retried,           setRetried]           = useState(false)
-  const [aiFeedback,        setAiFeedback]        = useState(initialAiFeedback)
+  const [selected, setSelected] = useState(initialSelected)
+  const [input, setInput] = useState(initialInput)
+  const [revealed, setRevealed] = useState(initialRevealed)
+  const [retried, setRetried] = useState(false)
+  const [aiFeedback, setAiFeedback] = useState(initialAiFeedback)
   const [aiFeedbackLoading, setAiFeedbackLoading] = useState(false)
-  const [codeRunResult,     setCodeRunResult]     = useState(null)
-  const [isCorrectResult,   setIsCorrectResult]   = useState(initialIsCorrectResult)
-  const [gradingError,      setGradingError]      = useState('')
-  const [submitting,        setSubmitting]        = useState(false)
+  const [codeRunResult, setCodeRunResult] = useState(null)
+  const [isCorrectResult, setIsCorrectResult] = useState(initialIsCorrectResult)
+  const [gradingError, setGradingError] = useState('')
+  const [submitting, setSubmitting] = useState(false)
   // 서버 채점 응답에서 받은 reveal 정보(F: 정답이 클라 문제객체엔 없음).
   // correct_answer 는 '제출 후' 응답에만 담겨 와서 reveal 하이라이트에만 쓰인다.
-  const [revealedAnswer,    setRevealedAnswer]    = useState('')
-  const [revealFeedback,    setRevealFeedback]    = useState('')
+  const [revealedAnswer, setRevealedAnswer] = useState('')
+  const [revealFeedback, setRevealFeedback] = useState('')
 
   const { runPython, pyLoading } = usePyodide()
-  const user        = useAuthStore((s) => s.user)
+  const user = useAuthStore((s) => s.user)
   const courseLevel = user?.course_level || 'beginner'
 
   useEffect(() => {
@@ -77,16 +95,17 @@ export default function QuizCard({
   }, [aiFeedback, onFeedbackUpdate])
 
   if (!question) return null
-  
+
   let rawQuestion = question.question || ''
   if (question.code && !rawQuestion.includes('```')) {
     rawQuestion += `\n\n\`\`\`python\n${question.code}\n\`\`\``
   }
-  
-  const { questionText, codeLines } = parseQuestionCode(rawQuestion) 
-  
-  const type          = question.quiz_type || question.type
-  const choicesList   = question.choices || question.options || []
+
+  const parsedContent = parseQuestionContent(rawQuestion)
+  const codeLines = parsedContent.find(p => p.type === 'code')?.lines || null
+
+  const type = question.quiz_type || question.type
+  const choicesList = question.choices || question.options || []
 
 
   // "N줄:" 형식 코드 + "A. N줄" 형식 선택지 → 줄 클릭 UI
@@ -95,13 +114,13 @@ export default function QuizCard({
     codeLines?.length > 0 &&
     /^\d+줄:/.test(codeLines[0])
 
-  const isChoiceType  = type === 'multiple_choice' || type === 'output_select' ||
-                        (type === 'error_find' && !isLineSelectErrorFind)
-  const isCodeInput   = type === 'code_input'
+  const isChoiceType = type === 'multiple_choice' || type === 'output_select' ||
+    (type === 'error_find' && !isLineSelectErrorFind)
+  const isCodeInput = type === 'code_input'
 
 
 
-  
+
   // ── AI 피드백 호출 (SSE 스트리밍) ──
   // correct_answer 는 더 이상 보내지 않는다(F: 클라에 정답 없음). 서버가 question_id 로 조회.
   const fetchAiFeedback = async (userAnswer, fallbackText) => {
@@ -114,20 +133,20 @@ export default function QuizCard({
     }
 
     const body = JSON.stringify({
-      question_id:    question.question_id || question.id || '',
-      question:       fullQuestionText,
-      user_answer:    userAnswer,
-      level:          courseLevel,
+      question_id: question.question_id || question.id || '',
+      question: fullQuestionText,
+      user_answer: userAnswer,
+      level: courseLevel,
     })
 
     const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
-    const token   = (await import('../../hooks/useAuthStore')).useAuthStore.getState().token
+    const token = (await import('../../hooks/useAuthStore')).useAuthStore.getState().token
     const headers = { 'Content-Type': 'application/json' }
     if (token) headers['Authorization'] = `Bearer ${token}`
 
     try {
       const res = await fetch(`${baseUrl}/quiz/ai-feedback/stream`, {
-        method:  'POST',
+        method: 'POST',
         headers,
         body,
         signal: AbortSignal.timeout(30000),
@@ -135,7 +154,7 @@ export default function QuizCard({
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
 
-      const reader  = res.body.getReader()
+      const reader = res.body.getReader()
       const decoder = new TextDecoder()
       let accumulated = ''
       let buffer = ''
@@ -262,13 +281,13 @@ export default function QuizCard({
     let res
     try {
       res = await codeApi.submitCode({
-        question_id:  question.question_id || question.id || '',
-        code:         input,
-        output:       runResult.stdout || '',
-        error:        runResult.stderr || runResult.compile_output || '',
-        unit:         parseInt(question.unit, 10) || 1,
+        question_id: question.question_id || question.id || '',
+        code: input,
+        output: runResult.stdout || '',
+        error: runResult.stderr || runResult.compile_output || '',
+        unit: parseInt(question.unit, 10) || 1,
         course_level: courseLevel,
-        award:        false,
+        award: false,
       })
     } catch {
       // 백엔드 호출 실패 → HP/XP/진행도 미변경 + 재시도 안내 (D-1 규칙)
@@ -314,10 +333,20 @@ export default function QuizCard({
   return (
     <div className="quiz-card animate-fade-in-up">
       {/* 문제 */}
-      <div className="quiz-question">
-        <p>{questionText}</p>
+      <div className="quiz-question" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        {parsedContent.map((part, idx) => {
+          if (part.type === 'code' && !isLineSelectErrorFind) {
+            return <CodeBlock key={idx} lines={part.lines} />;
+          } else if (part.type === 'text') {
+            return (
+              <p key={idx} style={{ whiteSpace: 'pre-wrap', margin: 0 }}>
+                {part.content.trim()}
+              </p>
+            );
+          }
+          return null;
+        })}
       </div>
-      {codeLines && !isLineSelectErrorFind && <CodeBlock lines={codeLines} />}
 
       {isLineSelectErrorFind && (
         <ErrorFindLines
@@ -332,7 +361,7 @@ export default function QuizCard({
       )}
 
 
-      
+
       {/* 입력 영역 */}
       {isChoiceType && (
         <ChoiceOptions

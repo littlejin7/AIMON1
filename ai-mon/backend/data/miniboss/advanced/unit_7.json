@@ -465,7 +465,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "SQLite 파일 DB를 연결하는 URL의 스키마(scheme) 부분을 채워보세요.\n\n```python\nDATABASE_URL = \"_____:///./aimon.db\"\nengine = create_engine(\n```\n    DATABASE_URL,\n    connect_args={\"check_same_thread\": False}\n)",
+      "question": "SQLite 파일 DB를 연결하는 URL의 스키마(scheme) 부분을 채워보세요.\n\n```python\nDATABASE_URL = \"_____:///./aimon.db\"\nengine = create_engine(\n    DATABASE_URL,\n    connect_args={\"check_same_thread\": False}\n)\n```",
       "answer": "sqlite",
       "feedback": {
         "correct": "정답! SQLAlchemy의 DB URL 형식은 '스키마://경로' 구조입니다. sqlite:///./aimon.db는 현재 디렉터리의 aimon.db 파일을 가리켜요. PostgreSQL이라면 postgresql://user:pass@host/dbname 형태가 됩니다. ORM을 쓰면 URL 한 줄만 바꿔 DB를 교체할 수 있어요. 클리어!"
