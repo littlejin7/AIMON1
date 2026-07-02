@@ -5,12 +5,7 @@ import '../Boss/Boss.css'
 import villainIcon from '../../assets/boss_midcmorg.png'
 import amon from '../../assets/amon.png'
 
-const CHARACTER_MAP = {
-  slime:         slimeIcon,
-  robot:         robotIcon,
-  speech_bubble: speechBubbleIcon,
-  final_ghost:   finalGhostIcon,
-}
+
 
 const VILLAIN_TAUNTS = {
   fill_in_blank:   ['"빈칸을 채워야 살아남는다! 어디 해봐!"', '"빈칸이 두렵냐? 채워봐!"'],
