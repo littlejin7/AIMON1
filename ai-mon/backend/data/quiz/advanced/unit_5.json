@@ -15,7 +15,7 @@
       "answer": "langchain",
       "hint": "LLM 애플리케이션 개발 프레임워크의 이름이 곧 패키지 이름이에요.",
       "feedback": {
-        "correct": "정답! `pip install langchain` 명령어로 LangChain의 핵심 패키지를 설치할 수 있어요. LangChain은 LLM 애플리케이션 개발을 체계적으로 도와주는 프레임워크로, 이 하나의 명령어로 프롬프트 템플릿·체인·메모리 등 핵심 모듈을 한꺼번에 받을 수 있답니다."
+        "correct": "정답! 'pip install langchain' 명령어로 LangChain의 핵심 패키지를 설치할 수 있어요. LangChain은 LLM 애플리케이션 개발을 체계적으로 도와주는 프레임워크로, 이 하나의 명령어로 프롬프트 템플릿·체인·메모리 등 핵심 모듈을 한꺼번에 받을 수 있답니다."
       }
     },
     {
@@ -56,7 +56,7 @@
       "answer": "anthropic",
       "hint": "Claude는 Anthropic이 만든 모델이에요. 제공 회사명을 소문자로 쓰면 됩니다.",
       "feedback": {
-        "correct": "정답! `pip install langchain-anthropic` 명령어로 Claude 모델을 LangChain에서 사용할 수 있는 통합 패키지를 설치할 수 있어요. 이 패키지를 설치하면 `from langchain_anthropic import ChatAnthropic`으로 Claude 모델을 불러올 수 있답니다. OpenAI 모델을 쓰고 싶다면 `langchain-openai`를 설치하면 돼요."
+        "correct": "정답! 'pip install langchain-anthropic' 명령어로 Claude 모델을 LangChain에서 사용할 수 있는 통합 패키지를 설치할 수 있어요. 이 패키지를 설치하면 'from langchain_anthropic import ChatAnthropic'으로 Claude 모델을 불러올 수 있답니다. OpenAI 모델을 쓰고 싶다면 'langchain-openai'를 설치하면 돼요."
       }
     },
     {
@@ -97,7 +97,7 @@
       "answer": "|",
       "hint": "파이프라인처럼 앞의 출력을 뒤에 연결하는 연산자를 파이썬에서도 그대로 사용해요.",
       "feedback": {
-        "correct": "정답! LCEL에서는 `|` (파이프) 연산자로 컴포넌트를 연결해 체인을 구성해요. `chain = prompt | llm`은 \"프롬프트의 출력을 LLM에 입력으로 전달한다\"는 의미입니다. 유닉스 파이프(`|`)와 같은 개념으로, 여러 컴포넌트를 직관적으로 이어붙일 수 있어요."
+        "correct": "정답! LCEL에서는 '|' (파이프) 연산자로 컴포넌트를 연결해 체인을 구성해요. 'chain = prompt | llm'은 \"프롬프트의 출력을 LLM에 입력으로 전달한다\"는 의미입니다. 유닉스 파이프('|')와 같은 개념으로, 여러 컴포넌트를 직관적으로 이어붙일 수 있어요."
       }
     },
     {
@@ -261,7 +261,7 @@
       "answer": "prompts",
       "hint": "langchain_core 패키지에서 프롬프트 관련 클래스들이 모여 있는 서브모듈 이름을 써보세요.",
       "feedback": {
-        "correct": "정답! ChatPromptTemplate은 `langchain_core.prompts` 서브모듈에 있어요. `from langchain_core.prompts import ChatPromptTemplate`으로 임포트합니다. 메시지 클래스들은 `langchain_core.messages`, LLM 관련은 `langchain_core.language_models`에 위치해 있어요."
+        "correct": "정답! ChatPromptTemplate은 'langchain_core.prompts' 서브모듈에 있어요. 'from langchain_core.prompts import ChatPromptTemplate'으로 임포트합니다. 메시지 클래스들은 'langchain_core.messages', LLM 관련은 'langchain_core.language_models'에 위치해 있어요."
       }
     },
     {
@@ -302,7 +302,7 @@
       "answer": "ChatAnthropic",
       "hint": "langchain_anthropic 패키지에서 Claude 계열 채팅 모델을 감싼 클래스 이름을 써보세요.",
       "feedback": {
-        "correct": "정답! `from langchain_anthropic import ChatAnthropic`으로 임포트한 뒤, ChatAnthropic(model=\"...\")으로 Claude 모델 객체를 생성할 수 있어요. 같은 방식으로 OpenAI 모델은 `from langchain_openai import ChatOpenAI`를 사용하면 된답니다."
+        "correct": "정답! 'from langchain_anthropic import ChatAnthropic'으로 임포트한 뒤, ChatAnthropic(model=\"...\")으로 Claude 모델 객체를 생성할 수 있어요. 같은 방식으로 OpenAI 모델은 'from langchain_openai import ChatOpenAI'를 사용하면 된답니다."
       }
     },
     {
@@ -384,7 +384,7 @@
       "answer": "HumanMessage",
       "hint": "(\"human\", ...) 튜플은 어떤 LangChain 메시지 클래스의 인스턴스를 만들어낼까요?",
       "feedback": {
-        "correct": "정답! from_messages()에서 \"human\" 역할 튜플은 HumanMessage 인스턴스로 변환됩니다. `type(msgs[1]) == HumanMessage`는 정확한 타입 비교이므로 True가 출력돼요. 마찬가지로 \"system\" → SystemMessage, \"ai\" → AIMessage 로 변환된답니다."
+        "correct": "정답! from_messages()에서 \"human\" 역할 튜플은 HumanMessage 인스턴스로 변환됩니다. 'type(msgs[1]) == HumanMessage'는 정확한 타입 비교이므로 True가 출력돼요. 마찬가지로 \"system\" → SystemMessage, \"ai\" → AIMessage 로 변환된답니다."
       }
     },
     {
@@ -425,7 +425,7 @@
       "answer": "StrOutputParser",
       "hint": "LLM의 출력(AIMessage)을 단순 문자열(str)로 꺼내주는 파서의 이름을 써보세요.",
       "feedback": {
-        "correct": "정답! StrOutputParser는 LLM이 반환한 AIMessage 객체에서 .content 텍스트만 추출해 문자열로 변환해주는 파서예요. 체인 마지막에 `| StrOutputParser()`를 붙이면 invoke() 결과가 AIMessage가 아닌 str(또는 str 서브클래스)로 바뀝니다."
+        "correct": "정답! StrOutputParser는 LLM이 반환한 AIMessage 객체에서 .content 텍스트만 추출해 문자열로 변환해주는 파서예요. 체인 마지막에 '| StrOutputParser()'를 붙이면 invoke() 결과가 AIMessage가 아닌 str(또는 str 서브클래스)로 바뀝니다."
       }
     },
     {
@@ -464,9 +464,9 @@
       "question": "프롬프트 → LLM → 파서 순서로 3단계 체인을 완성하도록 빈칸을 채워보세요.\n\n```python\nfrom langchain_anthropic import ChatAnthropic\nfrom langchain_core.prompts import ChatPromptTemplate\nfrom langchain_core.output_parsers import StrOutputParser\n\nllm = ChatAnthropic(model=\"claude-3-5-haiku-20241022\")\nprompt = ChatPromptTemplate.from_template(\"{topic}을 한 문장으로 설명해줘\")\nparser = StrOutputParser()\n\nchain = prompt | llm | _____\n```",
       "choices": [],
       "answer": "parser",
-      "hint": "파이프(`|`) 마지막에 연결할 컴포넌트가 이미 위에서 만들어진 변수로 존재해요.",
+      "hint": "파이프('|') 마지막에 연결할 컴포넌트가 이미 위에서 만들어진 변수로 존재해요.",
       "feedback": {
-        "correct": "정답! `chain = prompt | llm | parser`로 3단계 체인이 완성됩니다. 데이터 흐름은 프롬프트가 메시지 리스트를 만들고 → LLM이 AIMessage를 반환하고 → StrOutputParser가 그 content를 str로 추출하는 순서예요. invoke() 결과가 AIMessage가 아닌 str이 되는 것이 핵심 변화입니다."
+        "correct": "정답! 'chain = prompt | llm | parser'로 3단계 체인이 완성됩니다. 데이터 흐름은 프롬프트가 메시지 리스트를 만들고 → LLM이 AIMessage를 반환하고 → StrOutputParser가 그 content를 str로 추출하는 순서예요. invoke() 결과가 AIMessage가 아닌 str이 되는 것이 핵심 변화입니다."
       }
     },
     {
@@ -507,7 +507,7 @@
       "answer": "RunnablePassthrough",
       "hint": "이름에서 알 수 있듯이, 값을 '통과'시키는 Runnable이에요.",
       "feedback": {
-        "correct": "정답! RunnablePassthrough는 입력을 변환 없이 그대로 다음 단계로 넘겨주는 컴포넌트예요. RAG 체인에서 검색된 문서와 질문을 함께 다음 단계에 전달할 때 자주 사용되며, `{\"context\": retriever, \"question\": RunnablePassthrough()}` 형태의 병렬 체인 구성에서도 핵심적으로 쓰입니다."
+        "correct": "정답! RunnablePassthrough는 입력을 변환 없이 그대로 다음 단계로 넘겨주는 컴포넌트예요. RAG 체인에서 검색된 문서와 질문을 함께 다음 단계에 전달할 때 자주 사용되며, '{\"context\": retriever, \"question\": RunnablePassthrough()}' 형태의 병렬 체인 구성에서도 핵심적으로 쓰입니다."
       }
     },
     {
@@ -630,7 +630,7 @@
       "answer": "output_parsers",
       "hint": "파서(parser)를 출력(output) 변환 도구라고 생각하면, langchain_core 안에서 어느 서브모듈에 있을지 유추할 수 있어요.",
       "feedback": {
-        "correct": "정답! StrOutputParser는 `langchain_core.output_parsers` 서브모듈에 있어요. `from langchain_core.output_parsers import StrOutputParser`로 임포트합니다. 참고로 프롬프트 관련은 `langchain_core.prompts`, 메시지 관련은 `langchain_core.messages`에 있답니다."
+        "correct": "정답! StrOutputParser는 'langchain_core.output_parsers' 서브모듈에 있어요. 'from langchain_core.output_parsers import StrOutputParser'로 임포트합니다. 참고로 프롬프트 관련은 'langchain_core.prompts', 메시지 관련은 'langchain_core.messages'에 있답니다."
       }
     },
     {
@@ -671,7 +671,7 @@
       "answer": "llm",
       "hint": "LCEL 체인에서 프롬프트 뒤, 파서 앞에 위치해야 하는 컴포넌트가 무엇인지 생각해보세요.",
       "feedback": {
-        "correct": "정답! `chain = prompt | llm | parser`에서 가운데는 반드시 LLM이 와야 합니다. 프롬프트가 메시지 리스트를 만들면 → LLM이 AIMessage를 생성하고 → StrOutputParser가 str로 변환하는 흐름이에요. prompt와 parser를 바로 연결하면 타입 불일치로 오류가 발생합니다."
+        "correct": "정답! 'chain = prompt | llm | parser'에서 가운데는 반드시 LLM이 와야 합니다. 프롬프트가 메시지 리스트를 만들면 → LLM이 AIMessage를 생성하고 → StrOutputParser가 str로 변환하는 흐름이에요. prompt와 parser를 바로 연결하면 타입 불일치로 오류가 발생합니다."
       }
     },
     {
@@ -835,7 +835,7 @@
       "answer": "InMemoryChatMessageHistory",
       "hint": "이름에 'InMemory(메모리 내)', 'Chat(대화)', 'MessageHistory(메시지 이력)'이 모두 포함되어 있어요.",
       "feedback": {
-        "correct": "정답! InMemoryChatMessageHistory는 대화 메시지를 파이썬 메모리(RAM)에 저장하는 클래스예요. `from langchain_core.chat_history import InMemoryChatMessageHistory`로 임포트하며, 세션별로 인스턴스를 생성해 대화 이력을 독립적으로 관리합니다. 서버를 재시작하면 이력이 사라지므로, 영구 저장이 필요하면 DB 기반 구현체를 사용해야 해요."
+        "correct": "정답! InMemoryChatMessageHistory는 대화 메시지를 파이썬 메모리(RAM)에 저장하는 클래스예요. 'from langchain_core.chat_history import InMemoryChatMessageHistory'로 임포트하며, 세션별로 인스턴스를 생성해 대화 이력을 독립적으로 관리합니다. 서버를 재시작하면 이력이 사라지므로, 영구 저장이 필요하면 DB 기반 구현체를 사용해야 해요."
       }
     },
     {
@@ -1040,7 +1040,7 @@
       "answer": "HumanMessage",
       "hint": "사람(Human)의 메시지를 나타내는 클래스 이름이에요.",
       "feedback": {
-        "correct": "정답! HumanMessage는 사용자 발화를 나타내는 메시지 클래스로, `from langchain_core.messages import HumanMessage`로 임포트해요. .content에 텍스트가 저장되고 .type은 \"human\"이에요. 자주 함께 쓰이는 클래스로 AIMessage(.type=\"ai\")와 SystemMessage(.type=\"system\")가 있습니다."
+        "correct": "정답! HumanMessage는 사용자 발화를 나타내는 메시지 클래스로, 'from langchain_core.messages import HumanMessage'로 임포트해요. .content에 텍스트가 저장되고 .type은 \"human\"이에요. 자주 함께 쓰이는 클래스로 AIMessage(.type=\"ai\")와 SystemMessage(.type=\"system\")가 있습니다."
       }
     },
     {
@@ -1122,7 +1122,7 @@
       "answer": "chat_history",
       "hint": "대화(chat)의 이력(history)을 담당하는 서브모듈 이름이에요.",
       "feedback": {
-        "correct": "정답! InMemoryChatMessageHistory는 `langchain_core.chat_history` 서브모듈에 있어요. 참고로 메시지 클래스(HumanMessage, AIMessage 등)는 `langchain_core.messages`에, Runnable 관련은 `langchain_core.runnables`에, 이력을 체인에 연결하는 래퍼는 `langchain_core.runnables.history`에 있습니다."
+        "correct": "정답! InMemoryChatMessageHistory는 'langchain_core.chat_history' 서브모듈에 있어요. 참고로 메시지 클래스(HumanMessage, AIMessage 등)는 'langchain_core.messages'에, Runnable 관련은 'langchain_core.runnables'에, 이력을 체인에 연결하는 래퍼는 'langchain_core.runnables.history'에 있습니다."
       }
     },
     {
@@ -1245,7 +1245,7 @@
       "answer": "Document",
       "hint": "문서(Document)를 나타내는 클래스 이름을 써보세요.",
       "feedback": {
-        "correct": "정답! Document는 RAG 파이프라인의 기본 단위로, `from langchain_core.documents import Document`로 임포트해요. page_content에 텍스트 내용, metadata에 출처·페이지 번호 등 부가 정보를 딕셔너리로 저장합니다. 텍스트 스플리터나 벡터 스토어가 모두 이 Document 객체를 기반으로 동작해요."
+        "correct": "정답! Document는 RAG 파이프라인의 기본 단위로, 'from langchain_core.documents import Document'로 임포트해요. page_content에 텍스트 내용, metadata에 출처·페이지 번호 등 부가 정보를 딕셔너리로 저장합니다. 텍스트 스플리터나 벡터 스토어가 모두 이 Document 객체를 기반으로 동작해요."
       }
     },
     {
@@ -1368,7 +1368,7 @@
       "answer": "RecursiveCharacterTextSplitter",
       "hint": "재귀적(Recursive)으로 문자(Character) 단위로 텍스트를 분할(Splitter)하는 클래스예요.",
       "feedback": {
-        "correct": "정답! RecursiveCharacterTextSplitter는 `[\"\\n\\n\", \"\\n\", \" \", \"\"]` 순서로 구분자를 시도하며 청크 크기에 맞게 재귀적으로 분할해요. 단락 → 줄 → 단어 순으로 의미 단위를 최대한 유지하며 자르기 때문에 RAG 파이프라인의 텍스트 분할 단계에서 가장 많이 사용됩니다."
+        "correct": "정답! RecursiveCharacterTextSplitter는 '[\"\\n\\n\", \"\\n\", \" \", \"\"]' 순서로 구분자를 시도하며 청크 크기에 맞게 재귀적으로 분할해요. 단락 → 줄 → 단어 순으로 의미 단위를 최대한 유지하며 자르기 때문에 RAG 파이프라인의 텍스트 분할 단계에서 가장 많이 사용됩니다."
       }
     },
     {
@@ -1655,7 +1655,7 @@
       "answer": "ChatPromptTemplate",
       "hint": "대화(Chat) 형식의 프롬프트 템플릿(PromptTemplate) 클래스예요.",
       "feedback": {
-        "correct": "정답! ChatPromptTemplate은 system/human/ai 역할 튜플 리스트로 멀티턴 프롬프트를 정의하는 클래스예요. RAG 파이프라인에서 검색된 컨텍스트와 사용자 질문을 함께 LLM에 전달할 때 `(\"system\", \"컨텍스트: {context}\"), (\"human\", \"{question}\")` 구조로 자주 활용됩니다."
+        "correct": "정답! ChatPromptTemplate은 system/human/ai 역할 튜플 리스트로 멀티턴 프롬프트를 정의하는 클래스예요. RAG 파이프라인에서 검색된 컨텍스트와 사용자 질문을 함께 LLM에 전달할 때 '(\"system\", \"컨텍스트: {context}\"), (\"human\", \"{question}\")' 구조로 자주 활용됩니다."
       }
     },
     {
@@ -1696,7 +1696,7 @@
       "answer": "RunnablePassthrough",
       "hint": "입력을 '통과(passthrough)'시키는 Runnable이에요.",
       "feedback": {
-        "correct": "정답! RunnablePassthrough는 입력을 그대로 다음 단계로 전달하는 Runnable이에요. RAG 체인에서 `{\"context\": retriever, \"question\": RunnablePassthrough()}`처럼 병렬 구성을 만들 때 핵심적으로 쓰입니다. retriever가 context를 가져오는 동안 question은 RunnablePassthrough를 통해 변환 없이 다음 단계(프롬프트)로 전달돼요."
+        "correct": "정답! RunnablePassthrough는 입력을 그대로 다음 단계로 전달하는 Runnable이에요. RAG 체인에서 '{\"context\": retriever, \"question\": RunnablePassthrough()}'처럼 병렬 구성을 만들 때 핵심적으로 쓰입니다. retriever가 context를 가져오는 동안 question은 RunnablePassthrough를 통해 변환 없이 다음 단계(프롬프트)로 전달돼요."
       }
     },
     {
@@ -1719,7 +1719,7 @@
       "answer": "A",
       "hint": "StrOutputParser는 AIMessage를 str(또는 str 서브클래스)로 변환해요.",
       "feedback": {
-        "correct": "정답! StrOutputParser.invoke()는 str 타입(또는 서브클래스)을 반환하므로 isinstance(result, str)는 True입니다. RAG 파이프라인에서 LLM 응답을 텍스트로 추출할 때 체인 마지막에 `| StrOutputParser()`를 붙이면, invoke() 결과를 str처럼 바로 사용할 수 있어요."
+        "correct": "정답! StrOutputParser.invoke()는 str 타입(또는 서브클래스)을 반환하므로 isinstance(result, str)는 True입니다. RAG 파이프라인에서 LLM 응답을 텍스트로 추출할 때 체인 마지막에 '| StrOutputParser()'를 붙이면, invoke() 결과를 str처럼 바로 사용할 수 있어요."
       }
     },
     {
