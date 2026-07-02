@@ -17,6 +17,7 @@ const EVOLUTION_MAP = {
 }
 
 function shuffleChoices(question) {
+  if (!question || !question.choices) return question
   if (question.type === 'error_find' || question.type === 'fill_in_blank') return question
   const labels = ['A', 'B', 'C', 'D']
   const hasLetterPrefix = /^[A-D]\.\s/.test(question.choices?.[0] ?? '')
