@@ -27,11 +27,7 @@ export default function AIPair() {
   const defaultChar = user?.character && CHARACTER_MAP[user.character]
     ? user.character : 'slime'
 
-  const [charId, setCharId] = useState(defaultChar)
-  const [pickerOpen, setPickerOpen] = useState(false)
-  const [pendingChar, setPendingChar] = useState(charId)
-
-  const charSrc = CHARACTER_MAP[charId]?.src ?? charSlime
+  const charSrc = CHARACTER_MAP[defaultChar]?.src ?? charSlime
 
   const {
     deck, flippedIds, matchedIds, wrongIds,
@@ -39,16 +35,13 @@ export default function AIPair() {
     isPreview,
   } = usePairsGame()
 
-  const openPicker = () => { setPendingChar(charId); setPickerOpen(true) }
-  const confirmChar = () => { setCharId(pendingChar); setPickerOpen(false) }
 
   return (
     <div className="mp-root">
       <button className="mp-back" onClick={() => navigate('/game')}>✕</button>
 
       <div className="mp-hero">
-        <img className="mp-hero-char" src={charSrc} alt="캐릭터" onClick={openPicker} />
-        <span className="mp-char-hint">👆 탭해서 변경</span>
+        <img className="mp-hero-char" src={charSrc} alt="캐릭터" />
       </div>
 
       <PairsDash score={score} timeStr={fmtTime(timerSec)} matchedCount={matchedCount} onRestart={init} />
@@ -73,23 +66,7 @@ export default function AIPair() {
 
       <WinModal show={won} score={score} timeStr={fmtTime(timerSec)} charSrc={charSrc} onPlayAgain={init} />
 
-      {pickerOpen && (
-        <div className="mp-char-modal-bg" onClick={(e) => e.target === e.currentTarget && setPickerOpen(false)}>
-          <div className="mp-char-modal">
-            <div className="mp-char-modal-title">🎮 캐릭터 선택</div>
-            <div className="mp-char-modal-sub">내 프로필 캐릭터를 골라보세요</div>
-            <div className="mp-char-grid-pick">
-              {CHAR_LIST.map(([id, { src, name }]) => (
-                <button key={id} className={`mp-char-option${pendingChar === id ? ' selected' : ''}`} onClick={() => setPendingChar(id)}>
-                  <img src={src} alt={name} />
-                  <span className="mp-char-option-name">{name}</span>
-                </button>
-              ))}
-            </div>
-            <button className="mp-btn-char-confirm" onClick={confirmChar}>✅ 선택 완료</button>
-          </div>
-        </div>
-      )}
+
     </div>
   )
 }
