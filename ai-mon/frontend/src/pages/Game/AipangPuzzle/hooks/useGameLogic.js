@@ -254,7 +254,7 @@ useEffect(() => {
 
     while (allCells.length > 0) {
       comboCount++;
-      const comboMult = 1 + (comboCount - 1) * 0.7;
+      const comboMult = 1 + (comboCount - 1) * 0.5;
 
       // 콤보 에너지 충전 (콤보마다 20% + 매치 크기 보너스, 최대 100)
       const prevEnergy = comboEnergyRef.current;
@@ -415,7 +415,7 @@ useEffect(() => {
   // ── 스테이지 초기화 ──
   const initStage = useCallback(() => {
     const sd = BOSS_STAGES[Math.min(stageRef.current, BOSS_STAGES.length - 1)];
-    movesRef.current = 20 + stageRef.current * 3;
+    movesRef.current = 10 + stageRef.current * 2;
     unitHpMaxRef.current = sd.hp;
     unitHpRef.current = sd.hp;
     selectedRef.current = null;
