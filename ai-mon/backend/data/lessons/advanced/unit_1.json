@@ -567,7 +567,7 @@
       },
       {
         "order": 3,
-        "text": "__exit__ 는 with 블록이 끝날 때 예외 정보를 세 인자로 받습니다: exc_type (예외 종류), exc_val (예외 메시지), exc_tb (발생 위치 정보).\n예외 없이 정상 종료되면 세 값 모두 None 으로 전달됩니다.",
+        "text": "__exit__ 는 with 블록이 끝날 때 예외 정보를 세 인자로 받습니다: exc_type (예외 종류), exc_val (예외 메시지), exc_tb (발생 위치 정보).\n예외 없이 정상 종료되면 세 값 모두 None으로 전달됩니다.",
         "terminal": {
           "code": [
             "class SafeDiv:",

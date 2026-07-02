@@ -797,10 +797,7 @@ body:has(.boss-page) { background: #F4F3FA; background-image: none; }
   overflow: hidden;
   flex-shrink: 0;
 }
-.eb-b-ground-top {
-  position: absolute; top: 0; left: 0; right: 0; height: 24px;
-  background: #B8B0E8; border-radius: 0 0 60% 60% / 0 0 16px 16px; opacity: .4;
-}
+
 .eb-b-ground-bot {
   position: absolute; bottom: 0; left: 0; right: 0; height: 34px;
   background: #B8B0E8; border-radius: 60% 60% 0 0 / 16px 16px 0 0; opacity: .3;
@@ -810,7 +807,7 @@ body:has(.boss-page) { background: #F4F3FA; background-image: none; }
 .eb-b-boss-hpbox,
 .eb-b-player-hpbox {
   position: absolute;
-  min-width: 130px;
+  min-width: 170px;
 }
 .eb-b-boss-hpbox   { top: 8px; right: 8px; }
 .eb-b-player-hpbox { bottom: -8px; left: 8px; }
@@ -839,7 +836,7 @@ body:has(.boss-page) { background: #F4F3FA; background-image: none; }
 /* 보스 3D 캔버스 */
 .eb-b-boss-canvas {
   position: absolute; top: 15px; right: -0px;
-  width: 200px; height: 200px;
+  width: 220px; height: 220px;
   pointer-events: none;
 }
 

@@ -7,28 +7,28 @@ import PairsDash from './PairsDash'
 import WinModal from './WinModal'
 import './AIPair.css'
 
-import charSlime  from '../../../assets/character_slime.png'
-import charRobot  from '../../../assets/character_robot.png'
+import charSlime from '../../../assets/character_slime.png'
+import charRobot from '../../../assets/character_robot.png'
 import charBubble from '../../../assets/character_bubble.png'
-import charGhost  from '../../../assets/character_final_ghost.png'
+import charGhost from '../../../assets/character_final_ghost.png'
 
 const CHARACTER_MAP = {
-  slime:         { src: charSlime,  name: '에이몬 슬라임' },
-  robot:         { src: charRobot,  name: '에이몬 로봇' },
+  slime: { src: charSlime, name: '에이몬 슬라임' },
+  robot: { src: charRobot, name: '에이몬 로봇' },
   speech_bubble: { src: charBubble, name: '에이몬 말풍선' },
-  final_ghost:   { src: charGhost,  name: '파이널 에이몬' },
+  final_ghost: { src: charGhost, name: '파이널 에이몬' },
 }
 const CHAR_LIST = Object.entries(CHARACTER_MAP)
 
 export default function AIPair() {
   const navigate = useNavigate()
-  const user     = useAuthStore((s) => s.user)
+  const user = useAuthStore((s) => s.user)
 
   const defaultChar = user?.character && CHARACTER_MAP[user.character]
     ? user.character : 'slime'
 
-  const [charId, setCharId]           = useState(defaultChar)
-  const [pickerOpen, setPickerOpen]   = useState(false)
+  const [charId, setCharId] = useState(defaultChar)
+  const [pickerOpen, setPickerOpen] = useState(false)
   const [pendingChar, setPendingChar] = useState(charId)
 
   const charSrc = CHARACTER_MAP[charId]?.src ?? charSlime
@@ -36,6 +36,7 @@ export default function AIPair() {
   const {
     deck, flippedIds, matchedIds, wrongIds,
     score, timerSec, fmtTime, won, init, onCardClick, matchedCount,
+    isPreview,
   } = usePairsGame()
 
   const openPicker = () => { setPendingChar(charId); setPickerOpen(true) }
@@ -43,7 +44,7 @@ export default function AIPair() {
 
   return (
     <div className="mp-root">
-      <button className="mp-back" onClick={() => navigate('/game')}>← 목록</button>
+      <button className="mp-back" onClick={() => navigate('/game')}>✕</button>
 
       <div className="mp-hero">
         <img className="mp-hero-char" src={charSrc} alt="캐릭터" onClick={openPicker} />
@@ -58,7 +59,7 @@ export default function AIPair() {
             key={idx}
             data={card}
             charSrc={charSrc}
-            flipped={flippedIds.includes(idx)}
+            flipped={isPreview || flippedIds.includes(idx)}
             matched={matchedIds.has(idx)}
             wrong={wrongIds.has(idx)}
             onClick={() => onCardClick(idx)}

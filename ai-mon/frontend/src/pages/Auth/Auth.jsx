@@ -131,7 +131,7 @@ export default function Auth() {
             padding: 0,
           }}
         >
-          ← 뒤로
+          ✕
         </button>
 
         {/* 히어로 */}

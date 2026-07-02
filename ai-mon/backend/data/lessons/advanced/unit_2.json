@@ -169,11 +169,11 @@
     "slides": [
       {
         "order": 1,
-        "text": "asyncio 의 핵심 구성 요소는 세 가지입니다.\n\n- 코루틴(coroutine): async def 로 정의, await 으로 실행\n- 이벤트 루프(event loop): 코루틴 실행을 스케줄링\n- asyncio.run(): 최상위 진입점, 이벤트 루프를 생성하고 코루틴을 실행한 뒤 닫음"
+        "text": "asyncio의 핵심 구성 요소는 세 가지입니다.\n\n- 코루틴(coroutine): async def로 정의, await으로 실행\n- 이벤트 루프(event loop): 코루틴 실행을 스케줄링\n- asyncio.run(): 최상위 진입점, 이벤트 루프를 생성하고 코루틴을 실행한 뒤 닫음"
       },
       {
         "order": 2,
-        "text": "await 는 코루틴, Task, Future 세 가지에 사용할 수 있습니다.\nawait 를 만나면 현재 코루틴의 실행을 일시 중단하고 이벤트 루프에 제어권을 돌려줍니다.",
+        "text": "await는 코루틴, Task, Future 세 가지에 사용할 수 있습니다.\nawait를 만나면 현재 코루틴의 실행을 일시 중단하고 이벤트 루프에 제어권을 돌려줍니다.",
         "terminal": {
           "code": [
             "import asyncio",
@@ -428,7 +428,7 @@
       },
       {
         "order": 4,
-        "text": "Task.cancel() 은 Task 에 CancelledError 를 주입합니다.\nTask 내부에서 try/except asyncio.CancelledError 로 정리 작업을 수행할 수 있으며, 반드시 re-raise 해야 합니다.",
+        "text": "Task.cancel()은 Task에 CancelledError를 주입합니다.\nTask 내부에서 try/except asyncio.CancelledError로 정리 작업을 수행할 수 있으며, 반드시 re-raise 해야 합니다.",
         "terminal": {
           "code": [
             "import asyncio",
@@ -605,7 +605,7 @@
       },
       {
         "order": 2,
-        "text": "aiohttp 의 기본 패턴: ClientSession 을 async with 로 열고, session.get() 으로 요청합니다.\nClientSession 은 커넥션 풀을 관리하므로 요청마다 새로 생성하지 않고 재사용해야 합니다.",
+        "text": "aiohttp의 기본 패턴: ClientSession을 async with로 열고, session.get()으로 요청합니다.\nClientSession은 커넥션 풀을 관리하므로 요청마다 새로 생성하지 않고 재사용해야 합니다.",
         "terminal": {
           "code": [
             "import aiohttp, asyncio",
@@ -695,7 +695,7 @@
       },
       {
         "order": 5,
-        "text": "네트워크 요청에는 타임아웃 설정이 필수입니다.\naiohttp.ClientTimeout 으로 전체 요청 시간, 커넥션 타임아웃, 읽기 타임아웃을 각각 설정합니다.",
+        "text": "네트워크 요청에는 타임아웃 설정이 필수입니다.\naiohttp.ClientTimeout으로 전체 요청 시간, 커넥션 타임아웃, 읽기 타임아웃을 각각 설정합니다.",
         "terminal": {
           "code": [
             "import aiohttp, asyncio",
@@ -879,7 +879,7 @@
             "{'id': 3, 'title': 'ea molestias quasi e'}",
             "{'id': 4, 'title': 'eum et est occaecati'}",
             "{'id': 5, 'title': 'nesciunt quas odio'}"
-]
+          ]
         }
       },
       {

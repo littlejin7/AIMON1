@@ -47,7 +47,7 @@ return (
     object={scene}
     scale={scale}
     position={position}
-    rotation={[0.3, -Math.PI * 0.13, 0]}
+    rotation={[0.1, -Math.PI * 0.2, 0]}
   />
 )
 }

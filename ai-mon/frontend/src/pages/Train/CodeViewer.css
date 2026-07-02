@@ -3,7 +3,7 @@
 ══════════════════════════════ */
 
 .btp-page {
-  background: #111827;
+  background: #F4F3FA;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
@@ -12,7 +12,7 @@
 
 /* 헤더 */
 .btp-header {
-  background: linear-gradient(135deg, #0f2d5e, #1a3a6e);
+  background: linear-gradient(135deg, #7F77DD, #7F77DD);
   padding: 22px 20px 20px;
   position: relative;
   flex-shrink: 0;
@@ -49,7 +49,7 @@
   margin: 16px;
   border-radius: 16px;
   overflow: hidden;
-  border: 1.5px solid #2a3d5e;
+  border: 1.5px solid #7F77DD;
 }
 .btp-code-area {
   background: #0d1117;
@@ -140,7 +140,7 @@
 
 /* 키워드 카드 */
 .btp-card {
-  background: #1e2d4a;
+  background: #7F77DD;
   border-radius: 14px;
   padding: 10px 4px 9px;
   display: flex;

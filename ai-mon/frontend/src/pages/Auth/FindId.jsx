@@ -128,7 +128,7 @@ export default function FindId() {
 
           <div className="auth-link-row" style={{ marginTop: '18px' }}>
             <button type="button" className="auth-link" onClick={() => navigate('/auth')}>
-              로그인으로 돌아가기
+              ✕
             </button>
             <span className="auth-link-sep">|</span>
             <button type="button" className="auth-link" onClick={() => navigate('/find-pw')}>

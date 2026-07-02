@@ -45,7 +45,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "LangChain에서 Claude 모델을 초기화하는 코드의 빈칸을 채우세요.\n\n```python\nfrom langchain_anthropic import _____\n```\n\nllm = ChatAnthropic(model='claude-opus-4-8', temperature=0)",
+      "question": "LangChain에서 Claude 모델을 초기화하는 코드의 빈칸을 채우세요.\n\n```python\nfrom langchain_anthropic import _____\n\nllm = ChatAnthropic(model='claude-opus-4-8', temperature=0)\n```",
       "answer": "ChatAnthropic",
       "feedback": {
         "correct": "정답! ChatAnthropic은 langchain-anthropic 패키지에서 제공하는 Claude 래퍼 클래스입니다. LangChain의 ChatModel 인터페이스를 구현하므로 .invoke(), .stream(), 파이프 연산자(|)와 함께 사용할 수 있어요. 클리어!"
@@ -148,7 +148,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass FakeAIMessage:\n    def __init__(self, content):\n        self.content = content\n```\n\n```python\ndef fake_invoke(messages):\n    last = messages[-1]\n    return FakeAIMessage(f'답변: {last[\"content\"]}')\n```\n\n```python\nmsgs = [{'role': 'user', 'content': '파이썬이 뭐야?'}]\nresponse = fake_invoke(msgs)\nprint(response.content)\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass FakeAIMessage:\n    def __init__(self, content):\n        self.content = content\n\ndef fake_invoke(messages):\n    last = messages[-1]\n    return FakeAIMessage(f'답변: {last[\"content\"]}')\nmsgs = [{'role': 'user', 'content': '파이썬이 뭐야?'}]\nresponse = fake_invoke(msgs)\nprint(response.content)\n```",
       "choices": [
         "A. 답변: 파이썬이 뭐야?",
         "B. 파이썬이 뭐야?",
@@ -361,7 +361,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "LangChain의 InMemoryChatMessageHistory에서 저장된 모든 메시지 리스트를 반환하는 속성으로 빈칸을 채우세요.\n\n```python\nfrom langchain_core.chat_history import InMemoryChatMessageHistory\n```\n\n```python\nhistory = InMemoryChatMessageHistory()\nhistory.add_user_message('안녕')\nhistory.add_ai_message('반갑습니다')\n```\n\n```python\nprint(len(history._____))\n```",
+      "question": "LangChain의 InMemoryChatMessageHistory에서 저장된 모든 메시지 리스트를 반환하는 속성으로 빈칸을 채우세요.\n\n```python\nfrom langchain_core.chat_history import InMemoryChatMessageHistory\nhistory = InMemoryChatMessageHistory()\nhistory.add_user_message('안녕')\nhistory.add_ai_message('반갑습니다')\nprint(len(history._____))\n```",
       "answer": "messages",
       "feedback": {
         "correct": "정답! InMemoryChatMessageHistory.messages는 저장된 HumanMessage/AIMessage 객체 리스트를 반환합니다. add_user_message()와 add_ai_message()로 각각 1개씩 추가했으므로 len(history.messages)=2예요. RunnableWithMessageHistory가 이 .messages를 자동으로 프롬프트에 주입합니다. 클리어!"
@@ -448,7 +448,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 메모리 트리밍 코드의 출력값을 고르세요.\n\n```python\ndef trim_messages(messages, max_messages):\n    if len(messages) > max_messages:\n        return messages[-max_messages:]\n    return messages\n```\n\n```python\nmsgs = [f'msg{i}' for i in range(10)]\ntrimmed = trim_messages(msgs, 4)\nprint(len(trimmed))\nprint(trimmed[0])\n```",
+      "question": "다음 메모리 트리밍 코드의 출력값을 고르세요.\n\n```python\ndef trim_messages(messages, max_messages):\n    if len(messages) > max_messages:\n        return messages[-max_messages:]\n    return messages\n\nmsgs = [f'msg{i}' for i in range(10)]\ntrimmed = trim_messages(msgs, 4)\nprint(len(trimmed))\nprint(trimmed[0])\n```",
       "choices": [
         "A. 4\nmsg6",
         "B. 4\nmsg0",
@@ -500,7 +500,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\nstore = {}\n\n```python\ndef multi_turn(session_id, user_msg):\n    if session_id not in store:\n        store[session_id] = []\n    store[session_id].append({'role': 'user', 'content': user_msg})\n    reply = f'[{len(store[session_id])}] 네!'\n    store[session_id].append({'role': 'assistant', 'content': reply})\n    return reply\n```\n\n```python\nprint(multi_turn('s1', '안녕'))\nprint(multi_turn('s1', '잘 지내?'))\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nstore = {}\ndef multi_turn(session_id, user_msg):\n    if session_id not in store:\n        store[session_id] = []\n    store[session_id].append({'role': 'user', 'content': user_msg})\n    reply = f'[{len(store[session_id])}] 네!'\n    store[session_id].append({'role': 'assistant', 'content': reply})\n    return reply\nprint(multi_turn('s1', '안녕'))\nprint(multi_turn('s1', '잘 지내?'))\n```",
       "choices": [
         "A. [1] 네!\n[3] 네!",
         "B. [1] 네!\n[2] 네!",
@@ -588,7 +588,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 텍스트 분할 시뮬레이션 코드의 출력값을 고르세요.\n\n```python\ndef simple_split(text, chunk_size, overlap):\n    chunks = []\n    start = 0\n    while start < len(text):\n        end = min(start + chunk_size, len(text))\n        chunks.append(text[start:end])\n        start += chunk_size - overlap\n    return chunks\n```\n\n```python\ntext = 'A' * 20\nchunks = simple_split(text, 8, 2)\nprint(len(chunks))\n```",
+      "question": "다음 텍스트 분할 시뮬레이션 코드의 출력값을 고르세요.\n\n```python\ndef simple_split(text, chunk_size, overlap):\n    chunks = []\n    start = 0\n    while start < len(text):\n        end = min(start + chunk_size, len(text))\n        chunks.append(text[start:end])\n        start += chunk_size - overlap\n    return chunks\ntext = 'A' * 20\nchunks = simple_split(text, 8, 2)\nprint(len(chunks))\n```",
       "choices": [
         "A. 4",
         "B. 3",

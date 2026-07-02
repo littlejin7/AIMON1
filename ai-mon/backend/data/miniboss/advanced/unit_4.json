@@ -588,7 +588,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport os\nos.environ['ANTHROPIC_API_KEY'] = 'test-key-123'\n```\n\n```python\nkey = os.getenv('ANTHROPIC_API_KEY', 'default')\nmasked = f'{key[:4]}...{key[-3:]}'\nprint(masked)\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport os\nos.environ['ANTHROPIC_API_KEY'] = 'test-key-123'\nkey = os.getenv('ANTHROPIC_API_KEY', 'default')\nmasked = f'{key[:4]}...{key[-3:]}'\nprint(masked)\n```",
       "choices": [
         "A. test...123",
         "B. test-key-123",

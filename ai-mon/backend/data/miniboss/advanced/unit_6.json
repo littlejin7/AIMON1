@@ -9,7 +9,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Claude가 도구 호출이 필요하다고 판단했을 때 반환되는 stop_reason 값을 빈칸에 채워보세요.\n\nstop_reason = \"_____\"   # 도구 호출이 필요한 경우\n\n```python\nif stop_reason == \"tool_use\":\n    print(\"도구 처리 필요\")\nelif stop_reason == \"end_turn\":\n    print(\"최종 답변 완료\")\n```\n\n출력:\n도구 처리 필요",
+      "question": "Claude가 도구 호출이 필요하다고 판단했을 때 반환되는 stop_reason 값을 빈칸에 채워보세요.\n\n```python\nstop_reason = \"_____\"   # 도구 호출이 필요한 경우\n\nif stop_reason == \"tool_use\":\n...",
       "answer": "tool_use",
       "feedback": {
         "correct": "정답! Claude가 도구 호출을 결정하면 stop_reason이 \"tool_use\"로 반환됩니다. 모든 작업이 완료되어 최종 답변을 내놓을 때는 \"end_turn\"이 반환돼요. 에이전트 루프는 이 두 값을 분기 조건으로 삼아 반복됩니다. 클리어!"
@@ -60,7 +60,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "input_schema에서 특정 인자에 허용 가능한 값 목록을 제한할 때 사용하는 필드명을 빈칸에 채워보세요.\n\ntool_with_enum = {\n    \"name\": \"get_forecast\",\n    \"description\": \"날씨 예보 조회\",\n    \"input_schema\": {\n        \"type\": \"object\",\n```python\n        \"properties\": {\n            \"city\": {\"type\": \"string\"},\n            \"unit\": {\n```\n                \"type\": \"string\",\n```python\n                \"_____\": [\"celsius\", \"fahrenheit\"],\n                \"description\": \"온도 단위\"\n```\n            }\n        },\n        \"required\": [\"city\"]\n    }\n}\n```python\nprops = tool_with_enum[\"input_schema\"][\"properties\"]\nprint(props[\"unit\"][\"_____\"])\n```\n\n출력:\n['celsius', 'fahrenheit']",
+      "question": "input_schema에서 특정 인자에 허용 가능한 값 목록을 제한할 때 사용하는 필드명을 빈칸에 채워보세요.\n\n```python\ntool_with_enum = {\n    \"name\": \"get_forecast\",\n    \"description\": \"날씨 예보 조회\",\n    \"input_schema\": {\n        \"type\": \"object\",\n        \"properties\": {\n            \"city\": {\"type\": \"string\"},\n            \"unit\": {\n                \"type\": \"string\",\n                \"_____\": [\"celsius\", \"fahrenheit\"],\n                \"description\": \"온도 단위\"\n            }\n        },\n        \"required\": [\"city\"]\n    }\n}\nprops = tool_with_enum[\"input_schema\"][\"properties\"]\nprint(props[\"unit\"][\"_____\"])\n\n# # 출력:\n# ['celsius', 'fahrenheit']\n```",
       "answer": "enum",
       "feedback": {
         "correct": "정답! enum 필드에 허용값 목록을 지정하면 Claude는 그 중 하나만 인자로 전달합니다. 온도 단위를 'celsius'와 'fahrenheit'로 제한하면 잘못된 값이 함수에 전달되는 것을 사전에 방지할 수 있어요. description이 좋은 도구만큼 enum도 안전한 에이전트의 핵심입니다. 클리어!"
@@ -96,7 +96,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "tool_use 블록 객체에서 호출할 도구의 이름을 가져오는 속성명을 빈칸에 채워보세요.\n\n```python\nclass Block:\n    def __init__(self, **kw): self.__dict__.update(kw)\n```\n\n```python\nblock = Block(type=\"tool_use\", id=\"toolu_01XYZ\",\n              name=\"get_weather\", input={\"city\": \"서울\"})\n```\n\n```python\nprint(\"호출 도구:\", block._____)\nprint(\"전달 인자:\", block.input)\nprint(\"도구 ID:\",  block.id)\n```\n\n출력:\n호출 도구: get_weather\n전달 인자: {'city': '서울'}\n도구 ID: toolu_01XYZ",
+      "question": "tool_use 블록 객체에서 호출할 도구의 이름을 가져오는 속성명을 빈칸에 채워보세요.\n\n```python\nclass Block:\n    def __init__(self, **kw): self.__dict__.update(kw)\n\nblock = Block(type=\"tool_use\", id=\"toolu_01XYZ\",\n              name=\"get_weather\", input={\"city\": \"서울\"})\n\nprint(\"호출 도구:\", block._____)\nprint(\"전달 인자:\", block.input)\nprint(\"도구 ID:\",  block.id)\n\n# [출력 결과]\n# 호출 도구: get_weather\n# 전달 인자: {'city': '서울'}\n# 도구 ID: toolu_01XYZ\n```",
       "answer": "name",
       "feedback": {
         "correct": "정답! tool_use 블록의 name 속성에 호출할 도구 이름이 담겨 있습니다. block.input으로 전달 인자를, block.id로 해당 호출의 고유 ID를 확인할 수 있어요. 에이전트 루프에서 도구를 실행할 때 이 세 속성(name, input, id)이 핵심입니다. 클리어!"
@@ -132,7 +132,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "에이전트 루프에서 도구 실행 결과를 Claude에 전달할 때 tool_result 메시지에 사용해야 하는 role 값을 빈칸에 채워보세요.\n\nmessages = [{\"role\": \"user\", \"content\": \"서울 날씨는?\"}]\n\n```python\nmessages.append({\"role\": \"assistant\",\n                 \"content\": [{\"type\": \"tool_use\", \"id\": \"id_01\",\n                               \"name\": \"get_weather\", \"input\": {\"city\": \"서울\"}}]})\n```\n\nmessages.append({\n    \"role\": \"_____\",\n    \"content\": [{\"type\": \"tool_result\", \"tool_use_id\": \"id_01\",\n                 \"content\": \"맑음 20°C\"}]\n})\n```python\nprint(messages[-1][\"role\"])\nprint(f\"총 메시지 수: {len(messages)}\")\n```\n\n출력:\nuser\n총 메시지 수: 3",
+      "question": "에이전트 루프에서 도구 실행 결과를 Claude에 전달할 때 tool_result 메시지에 사용해야 하는 role 값을 빈칸에 채워보세요.\n\n```python\nmessages = [{\"role\": \"user\", \"content\": \"서울 날씨는?\"}]\n\nmessages.append({\n    \"role\": \"assistant\",\n    \"content\": [{\"type\": \"tool_use\", \"id\": \"id_01\",\n                 \"name\": \"get_weather\", \"input\": {\"city\": \"서울\"}}]\n})\n\nmessages.append({\n    \"role\": \"_____\",\n    \"content\": [{\"type\": \"tool_result\", \"tool_use_id\": \"id_01\",\n                 \"content\": \"맑음 20°C\"}]\n})\n\nprint(messages[-1][\"role\"])\nprint(f\"총 메시지 수: {len(messages)}\")\n\n# [출력 결과]\n# user\n# 총 메시지 수: 3\n```",
       "answer": "user",
       "feedback": {
         "correct": "정답! Claude의 응답은 \"assistant\" role로, 도구 실행 결과(tool_result)는 반드시 \"user\" role로 추가해야 합니다. 에이전트 루프에서 메시지는 user → assistant → user(tool_result) 순서로 쌓이며, 도구 호출 1회마다 메시지 수가 2개씩 늘어납니다. 클리어!"
@@ -147,7 +147,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "tool_result의 content 필드는 반드시 문자열 타입이어야 합니다.\n빈칸을 채워 build_tool_result 함수를 완성하세요.\n\n```python\ndef build_tool_result(tool_use_id: str, result) -> dict:\n    return {\n```\n        \"type\":        \"tool_result\",\n        \"tool_use_id\": tool_use_id,\n        \"content\":     _____(result)\n    }\n\n```python\nraw = \"맑음 20°C\"\ntr  = build_tool_result(\"toolu_abc123\", raw)\nprint(\"결과 타입:\", tr[\"type\"])\nprint(\"콘텐츠:\",   tr[\"content\"])\n```\n\n출력:\n결과 타입: tool_result\n콘텐츠: 맑음 20°C",
+      "question": "tool_result의 content 필드는 반드시 문자열 타입이어야 합니다.\n빈칸을 채워 build_tool_result 함수를 완성하세요.\n\n```python\ndef build_tool_result(tool_use_id: str, result) -> dict:\n    return {\n        \"type\":        \"tool_result\",\n        \"tool_use_id\": tool_use_id,\n        \"content\":     _____(result)\n    }\n\nraw = \"맑음 20°C\"\ntr  = build_tool_result(\"toolu_abc123\", raw)\nprint(\"결과 타입:\", tr[\"type\"])\nprint(\"콘텐츠:\",   tr[\"content\"])\n\n# # 출력:\n# 결과 타입: tool_result\n# 콘텐츠: 맑음 20°C\n```",
       "answer": "str",
       "feedback": {
         "correct": "정답! tool_result의 content는 반드시 str 타입이어야 합니다. 숫자나 딕셔너리 등 어떤 반환값이든 str()로 감싸 문자열로 변환해야 Claude가 올바르게 읽을 수 있어요. str(결과)를 빠뜨리면 타입 오류가 발생할 수 있습니다. 클리어!"
@@ -177,7 +177,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값으로 올바른 것을 골라보세요.\n\n```python\ndef get_weather(city: str) -> str:\n    db = {\"서울\": \"맑음 20°C\", \"부산\": \"흐림 18°C\"}\n    return db.get(city, \"정보 없음\")\n```\n\n```python\ndef build_tool_result(tool_use_id: str, result) -> dict:\n    return {\n```\n        \"type\":        \"tool_result\",\n        \"tool_use_id\": tool_use_id,\n        \"content\":     str(result)\n    }\n\n```python\nraw = get_weather(\"부산\")\ntr  = build_tool_result(\"toolu_abc123\", raw)\nprint(\"결과 타입:\", tr[\"type\"])\nprint(\"연결 ID:\",  tr[\"tool_use_id\"])\nprint(\"콘텐츠:\",   tr[\"content\"])\n```",
+      "question": "다음 코드의 출력값으로 올바른 것을 골라보세요.\n\n```python\ndef get_weather(city: str) -> str:\n    db = {\"서울\": \"맑음 20°C\", \"부산\": \"흐림 18°C\"}\n    return db.get(city, \"정보 없음\")\n\ndef build_tool_result(tool_use_id: str, result) -> dict:\n    return {\n        \"type\":        \"tool_result\",\n        \"tool_use_id\": tool_use_id,\n        \"content\":     str(result)\n    }\n\nraw = get_weather(\"부산\")\ntr  = build_tool_result(\"toolu_abc123\", raw)\nprint(\"결과 타입:\", tr[\"type\"])\nprint(\"연결 ID:\",  tr[\"tool_use_id\"])\nprint(\"콘텐츠:\",   tr[\"content\"])\n```",
       "choices": [
         "A. 결과 타입: tool_result\n연결 ID: toolu_abc123\n콘텐츠: 흐림 18°C",
         "B. 결과 타입: tool_result\n연결 ID: toolu_abc123\n콘텐츠: 맑음 20°C",
@@ -198,7 +198,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "ToolRegistry 클래스에서 등록된 스키마 목록을 순회해 도구 이름을 출력합니다.\n빈칸을 채워 코드를 완성하세요.\n\n```python\nclass ToolRegistry:\n    def __init__(self):\n        self._funcs   = {}\n        self._schemas = []\n```\n\n```python\n    def register(self, schema: dict, func):\n        self._funcs[schema[\"name\"]] = func\n        self._schemas.append(schema)\n```\n\n    @property\n```python\n    def schemas(self):\n        return self._schemas\n```\n\n```python\nregistry = ToolRegistry()\nregistry.register({\"name\": \"calculate\",\n                   \"input_schema\": {\"properties\": {\"expression\": {\"type\": \"string\"}},\n                                    \"required\": [\"expression\"]}},\n                  lambda expression: eval(expression))\nprint(\"등록된 도구:\", [s[\"_____\"] for s in registry.schemas])\n```\n\n출력:\n등록된 도구: ['calculate']",
+      "question": "ToolRegistry 클래스에서 등록된 스키마 목록을 순회해 도구 이름을 출력합니다.\n빈칸을 채워 코드를 완성하세요.\n\n```python\nclass ToolRegistry:\n    def __init__(self):\n        self._funcs   = {}\n        self._schemas = []\n\n    def register(self, schema: dict, func):\n        self._funcs[schema[\"name\"]] = func\n        self._schemas.append(schema)\n\n    @property\n    def schemas(self):\n        return self._schemas\n\nregistry = ToolRegistry()\nregistry.register({\"name\": \"calculate\",\n                   \"input_schema\": {\"properties\": {\"expression\": {\"type\": \"string\"}},\n                                    \"required\": [\"expression\"]}},\n                  lambda expression: eval(expression))\nprint(\"등록된 도구:\", [s[\"_____\"] for s in registry.schemas])\n\n# # 출력:\n# 등록된 도구: ['calculate']\n```",
       "answer": "name",
       "feedback": {
         "correct": "정답! 각 스키마 딕셔너리에서 s[\"name\"]으로 도구 이름을 꺼냅니다. register()가 호출될 때 schema[\"name\"]을 키로 _funcs에 함수를 저장하므로, schemas 리스트를 순회해 \"name\" 필드를 참조하면 등록된 모든 도구 이름을 얻을 수 있어요. 클리어!"
@@ -213,7 +213,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값으로 올바른 것을 골라보세요.\n\n```python\nclass ToolRegistry:\n    def __init__(self):\n        self._funcs   = {}\n        self._schemas = []\n    def register(self, schema: dict, func):\n        self._funcs[schema[\"name\"]] = func\n        self._schemas.append(schema)\n```\n    @property\n```python\n    def schemas(self): return self._schemas\n    def run(self, name: str, inputs: dict):\n        if name not in self._funcs:\n            raise KeyError(f\"미등록 도구: {name}\")\n        return self._funcs[name](**inputs)\n```\n\n```python\ndef calculate(expression: str):\n    return eval(expression)\n```\n\n```python\ncalc_schema = {\"name\": \"calculate\",\n               \"input_schema\": {\"properties\": {\"expression\": {\"type\": \"string\"}},\n                                \"required\": [\"expression\"]}}\nregistry = ToolRegistry()\nregistry.register(calc_schema, calculate)\nprint(\"등록된 도구:\", [s[\"name\"] for s in registry.schemas])\nprint(\"결과:\", registry.run(\"calculate\", {\"expression\": \"7 ** 2\"}))\n```",
+      "question": "다음 코드의 출력값으로 올바른 것을 골라보세요.\n\n```python\nclass ToolRegistry:\n    def __init__(self):\n        self._funcs   = {}\n        self._schemas = []\n    def register(self, schema: dict, func):\n        self._funcs[schema[\"name\"]] = func\n        self._schemas.append(schema)\n    @property\n    def schemas(self): return self._schemas\n    def run(self, name: str, inputs: dict):\n        if name not in self._funcs:\n            raise KeyError(f\"미등록 도구: {name}\")\n        return self._funcs[name](**inputs)\n\ndef calculate(expression: str):\n    return eval(expression)\n\ncalc_schema = {\"name\": \"calculate\",\n               \"input_schema\": {\"properties\": {\"expression\": {\"type\": \"string\"}},\n                                \"required\": [\"expression\"]}}\nregistry = ToolRegistry()\nregistry.register(calc_schema, calculate)\nprint(\"등록된 도구:\", [s[\"name\"] for s in registry.schemas])\nprint(\"결과:\", registry.run(\"calculate\", {\"expression\": \"7 ** 2\"}))\n```",
       "choices": [
         "A. 등록된 도구: ['calculate']\n결과: 49",
         "B. 등록된 도구: ['calculate']\n결과: 14",
@@ -234,7 +234,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "ToolRegistry.run()에서 등록되지 않은 도구 이름이 들어왔을 때 발생시켜야 하는 예외 클래스를 빈칸에 채워보세요.\n\n```python\ndef run(self, name: str, inputs: dict):\n    if name not in self._funcs:\n        raise _____(f\"미등록 도구: {name}\")\n    return self._funcs[name](**inputs)\n```\n\n```python\ntry:\n    raise KeyError(\"미등록 도구: send_email\")\nexcept KeyError as e:\n    print(f\"오류 발생: {e}\")\n```\n\n출력:\n오류 발생: '미등록 도구: send_email'",
+      "question": "ToolRegistry.run()에서 등록되지 않은 도구 이름이 들어왔을 때 발생시켜야 하는 예외 클래스를 빈칸에 채워보세요.\n\n```python\ndef run(self, name: str, inputs: dict):\n    if name not in self._funcs:\n        raise _____(f\"미등록 도구: {name}\")\n    return self._funcs[name](**inputs)\n\ntry:\n    raise KeyError(\"미등록 도구: send_email\")\nexcept KeyError as e:\n    print(f\"오류 발생: {e}\")\n\n# # 출력:\n# 오류 발생: '미등록 도구: send_email'\n```",
       "answer": "KeyError",
       "feedback": {
         "correct": "정답! 딕셔너리에서 없는 키를 조회할 때 Python이 자동으로 KeyError를 발생시키는 것에 맞춰, 레지스트리도 미등록 도구 요청 시 KeyError를 발생시킵니다. 출력의 따옴표는 KeyError의 __str__이 인자를 repr()로 변환하기 때문이에요. 클리어!"
@@ -249,7 +249,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값으로 올바른 것을 골라보세요.\n\n```python\nclass ToolRegistry:\n    def __init__(self):\n        self._funcs = {}\n        self._schemas = []\n    def register(self, schema, func):\n        self._funcs[schema[\"name\"]] = func\n        self._schemas.append(schema)\n    def run(self, name, inputs):\n        if name not in self._funcs:\n            raise KeyError(f\"미등록 도구: {name}\")\n        return self._funcs[name](**inputs)\n```\n\n```python\ndef get_weather(city: str) -> str:\n    db = {\"서울\": \"맑음 20°C\", \"부산\": \"흐림 18°C\"}\n    return db.get(city, \"정보 없음\")\n```\n\n```python\nregistry = ToolRegistry()\nregistry.register({\"name\": \"get_weather\", \"input_schema\": {}}, get_weather)\n```\n\n```python\ntry:\n    registry.run(\"send_email\", {\"to\": \"test@example.com\"})\nexcept KeyError as e:\n    print(f\"오류 발생: {e}\")\n```\n\n```python\nresult = registry.run(\"get_weather\", {\"city\": \"부산\"})\nprint(f\"도구: get_weather → 결과: {result}\")\n```",
+      "question": "다음 코드의 출력값으로 올바른 것을 골라보세요.\n\n```python\nclass ToolRegistry:\n    def __init__(self):\n        self._funcs = {}\n        self._schemas = []\n    def register(self, schema, func):\n        self._funcs[schema[\"name\"]] = func\n        self._schemas.append(schema)\n    def run(self, name, inputs):\n        if name not in self._funcs:\n            raise KeyError(f\"미등록 도구: {name}\")\n        return self._funcs[name](**inputs)\n\ndef get_weather(city: str) -> str:\n    db = {\"서울\": \"맑음 20°C\", \"부산\": \"흐림 18°C\"}\n    return db.get(city, \"정보 없음\")\n\nregistry = ToolRegistry()\nregistry.register({\"name\": \"get_weather\", \"input_schema\": {}}, get_weather)\n\ntry:\n    registry.run(\"send_email\", {\"to\": \"test@example.com\"})\nexcept KeyError as e:\n    print(f\"오류 발생: {e}\")\n\nresult = registry.run(\"get_weather\", {\"city\": \"부산\"})\nprint(f\"도구: get_weather → 결과: {result}\")\n```",
       "choices": [
         "A. 오류 발생: '미등록 도구: send_email'\n도구: get_weather → 결과: 흐림 18°C",
         "B. 오류 발생: 미등록 도구: send_email\n도구: get_weather → 결과: 흐림 18°C",
@@ -315,7 +315,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값으로 올바른 것을 골라보세요.\n\n```python\nclass Block:\n    def __init__(self, **kw): self.__dict__.update(kw)\n```\n\n```python\nclass Resp:\n    def __init__(self, stop_reason, content):\n        self.stop_reason = stop_reason\n        self.content = content\n```\n\n```python\nr = Resp(\"end_turn\", [Block(type=\"text\", text=\"안녕하세요!\")])\nprint(\"stop_reason:\", r.stop_reason)\nif r.stop_reason == \"end_turn\":\n    print(\"최종 답변:\", r.content[0].text)\nelif r.stop_reason == \"tool_use\":\n    print(\"도구 처리 필요\")\n```",
+      "question": "다음 코드의 출력값으로 올바른 것을 골라보세요.\n\n```python\nclass Block:\n    def __init__(self, **kw): self.__dict__.update(kw)\n\nclass Resp:\n    def __init__(self, stop_reason, content):\n        self.stop_reason = stop_reason\n        self.content = content\n\nr = Resp(\"end_turn\", [Block(type=\"text\", text=\"안녕하세요!\")])\nprint(\"stop_reason:\", r.stop_reason)\nif r.stop_reason == \"end_turn\":\n    print(\"최종 답변:\", r.content[0].text)\nelif r.stop_reason == \"tool_use\":\n    print(\"도구 처리 필요\")\n```",
       "choices": [
         "A. stop_reason: end_turn\n최종 답변: 안녕하세요!",
         "B. stop_reason: end_turn\n도구 처리 필요",
@@ -408,7 +408,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값으로 올바른 것을 골라보세요.\n\n```python\ndef get_weather(city): return f\"{city}: 맑음 20°C\"\nTOOLS = {\"get_weather\": get_weather}\n```\n\n```python\ntool_name  = \"get_weather\"\ntool_input = {\"city\": \"서울\"}\ntool_id    = \"id_01\"\n```\n\n```python\nprint(f\"[Step 1] tool_use: {tool_name}({tool_input})\")\nresult = TOOLS[tool_name](**tool_input)\nprint(f\"[Step 2] 도구 실행: {result}\")\nweather = result.split(\": \")[1]\nfinal = f\"서울은 현재 {weather}입니다.\"\nprint(f\"[Step 3] 최종 답변: {final}\")\n```",
+      "question": "다음 코드의 출력값으로 올바른 것을 골라보세요.\n\n```python\ndef get_weather(city): return f\"{city}: 맑음 20°C\"\nTOOLS = {\"get_weather\": get_weather}\n\ntool_name  = \"get_weather\"\ntool_input = {\"city\": \"서울\"}\ntool_id    = \"id_01\"\n\nprint(f\"[Step 1] tool_use: {tool_name}({tool_input})\")\nresult = TOOLS[tool_name](**tool_input)\nprint(f\"[Step 2] 도구 실행: {result}\")\nweather = result.split(\": \")[1]\nfinal = f\"서울은 현재 {weather}입니다.\"\nprint(f\"[Step 3] 최종 답변: {final}\")\n```",
       "choices": [
         "A. [Step 1] tool_use: get_weather({'city': '서울'})\n[Step 2] 도구 실행: 서울: 맑음 20°C\n[Step 3] 최종 답변: 서울은 현재 맑음 20°C입니다.",
         "B. [Step 1] tool_use: get_weather({'city': '서울'})\n[Step 2] 도구 실행: 맑음 20°C\n[Step 3] 최종 답변: 서울은 현재 맑음 20°C입니다.",
@@ -429,7 +429,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "process_tool_calls 함수에서 도구 실행이 성공했을 때 status 값을 빈칸에 채워보세요.\n\n```python\ndef get_weather(city: str) -> str:\n    return \"맑음 20°C\"\n```\n\n```python\nTOOLS = {\"get_weather\": get_weather}\nname, inputs = \"get_weather\", {\"city\": \"서울\"}\ntry:\n    result = TOOLS[name](**inputs)\n    status = \"_____\"\nexcept Exception as e:\n    result = str(e)\n    status = \"error\"\nprint(f\"[{status}] {name} → {result}\")\n```\n\n출력:\n[success] get_weather → 맑음 20°C",
+      "question": "process_tool_calls 함수에서 도구 실행이 성공했을 때 status 값을 빈칸에 채워보세요.\n\n```python\ndef get_weather(city: str) -> str:\n    return \"맑음 20°C\"\n\nTOOLS = {\"get_weather\": get_weather}\nname, inputs = \"get_weather\", {\"city\": \"서울\"}\ntry:\n    result = TOOLS[name](**inputs)\n    status = \"_____\"\nexcept Exception as e:\n    result = str(e)\n    status = \"error\"\nprint(f\"[{status}] {name} → {result}\")\n\n# # 출력:\n# [success] get_weather → 맑음 20°C\n```",
       "answer": "success",
       "feedback": {
         "correct": "정답! 도구 실행이 정상적으로 완료되면 status = \"success\", 예외가 발생하면 status = \"error\"로 구분합니다. 실행 로그에 [success] / [error]를 출력하면 어떤 도구가 실패했는지 즉시 파악할 수 있어요. 클리어!"
@@ -480,7 +480,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "tool_result의 content 필드는 문자열이어야 합니다.\neval()의 반환값(int)을 문자열로 변환하는 함수를 빈칸에 채워보세요.\n\n```python\ndef calculate(expression: str):\n    return eval(expression)\n```\n\n```python\nTOOLS = {\"calculate\": calculate}\ncall = {\"id\": \"id_01\", \"name\": \"calculate\", \"input\": {\"expression\": \"5 * 4\"}}\nname, inputs, tool_id = call[\"name\"], call[\"input\"], call[\"id\"]\nresult = TOOLS[name](**inputs)\ntool_result = {\n```\n    \"type\":        \"tool_result\",\n    \"tool_use_id\": tool_id,\n    \"content\":     _____(result)\n}\n```python\nprint(\"content 타입:\", type(tool_result[\"content\"]).__name__)\nprint(\"content 값:\",  tool_result[\"content\"])\n```\n\n출력:\ncontent 타입: str\ncontent 값: 20",
+      "question": "tool_result의 content 필드는 문자열이어야 합니다.\neval()의 반환값(int)을 문자열로 변환하는 함수를 빈칸에 채워보세요.\n\n```python\ndef calculate(expression: str):\n    return eval(expression)\n\nTOOLS = {\"calculate\": calculate}\ncall = {\"id\": \"id_01\", \"name\": \"calculate\", \"input\": {\"expression\": \"5 * 4\"}}\nname, inputs, tool_id = call[\"name\"], call[\"input\"], call[\"id\"]\nresult = TOOLS[name](**inputs)\ntool_result = {\n    \"type\":        \"tool_result\",\n    \"tool_use_id\": tool_id,\n    \"content\":     _____(result)\n}\nprint(\"content 타입:\", type(tool_result[\"content\"]).__name__)\nprint(\"content 값:\",  tool_result[\"content\"])\n\n# # 출력:\n# content 타입: str\n# content 값: 20\n```",
       "answer": "str",
       "feedback": {
         "correct": "정답! eval(\"5 * 4\") = 20(int)이므로 str(20) = \"20\"으로 변환해야 tool_result의 content 타입이 str이 됩니다. Claude API는 content를 문자열로 기대하므로, 숫자·리스트 등 어떤 반환값이든 str()로 감싸는 것이 필수예요. 클리어!"
@@ -588,7 +588,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "run_with_retry에서 재시도 번호를 1부터 시작하려면 range의 첫 번째 인자에 무엇을 넣어야 할까요?\n빈칸에 숫자를 채워보세요.\n\n```python\ndef run_with_retry(name, inputs, registry, max_retry=3):\n    for attempt in range(_____, max_retry + 1):\n        try:\n            result = registry[name](**inputs)\n            print(f\"  [시도 {attempt}] 성공: {result}\")\n            return str(result)\n        except Exception as e:\n            print(f\"  [시도 {attempt}] 실패: {type(e).__name__}: {e}\")\n    return f\"[최대 재시도 {max_retry}회 초과]\"\n```\n\n출력 예시:\n```python\n  [시도 1] ...\n  [시도 2] ...\n  [시도 3] ...\n```",
+      "question": "run_with_retry에서 재시도 번호를 1부터 시작하려면 range의 첫 번째 인자에 무엇을 넣어야 할까요?\n빈칸에 숫자를 채워보세요.\n\n```python\ndef run_with_retry(name, inputs, registry, max_retry=3):\n    for attempt in range(_____, max_retry + 1):\n        try:\n            result = registry[name](**inputs)\n            print(f\"  [시도 {attempt}] 성공: {result}\")\n            return str(result)\n        except Exception as e:\n            print(f\"  [시도 {attempt}] 실패: {type(e).__name__}: {e}\")\n    return f\"[최대 재시도 {max_retry}회 초과]\"\n\n출력 예시:\n  [시도 1] ...\n  [시도 2] ...\n  [시도 3] ...\n```",
       "answer": "1",
       "feedback": {
         "correct": "정답! range(1, max_retry + 1)로 attempt가 1부터 시작합니다. range(0, ...)이면 [시도 0]부터 출력되어 사람이 읽기 어려운 로그가 돼요. 재시도 로직에서 시도 번호는 1-based로 관리하는 것이 관례입니다. 클리어!"
@@ -603,7 +603,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값으로 올바른 것을 골라보세요.\n\n```python\ndef safe_execute(name: str, inputs: dict, registry: dict) -> dict:\n    try:\n        result = registry[name](**inputs)\n        return {\"ok\": True,  \"content\": str(result)}\n    except KeyError:\n        return {\"ok\": False, \"content\": f\"미등록 도구: {name}\"}\n    except Exception as e:\n        return {\"ok\": False, \"content\": f\"{type(e).__name__}: {e}\"}\n```\n\n```python\ndef bad_tool(x): return 1 / x\nreg = {\"bad_tool\": bad_tool}\n```\n\n```python\nprint(safe_execute(\"bad_tool\", {\"x\": 5},  reg))\nprint(safe_execute(\"bad_tool\", {\"x\": 0},  reg))\nprint(safe_execute(\"unknown\",  {},         reg))\n```",
+      "question": "다음 코드의 출력값으로 올바른 것을 골라보세요.\n\n```python\ndef safe_execute(name: str, inputs: dict, registry: dict) -> dict:\n    try:\n        result = registry[name](**inputs)\n        return {\"ok\": True,  \"content\": str(result)}\n    except KeyError:\n        return {\"ok\": False, \"content\": f\"미등록 도구: {name}\"}\n    except Exception as e:\n        return {\"ok\": False, \"content\": f\"{type(e).__name__}: {e}\"}\n\ndef bad_tool(x): return 1 / x\nreg = {\"bad_tool\": bad_tool}\n\nprint(safe_execute(\"bad_tool\", {\"x\": 5},  reg))\nprint(safe_execute(\"bad_tool\", {\"x\": 0},  reg))\nprint(safe_execute(\"unknown\",  {},         reg))\n```",
       "choices": [
         "A. {'ok': True, 'content': '0.2'}\n{'ok': False, 'content': 'ZeroDivisionError: division by zero'}\n{'ok': False, 'content': '미등록 도구: unknown'}",
         "B. {'ok': True, 'content': '0.2'}\n{'ok': True, 'content': 'ZeroDivisionError: division by zero'}\n{'ok': False, 'content': '미등록 도구: unknown'}",
@@ -624,7 +624,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "execute_to_result 함수에서 도구 실행이 정상일 때 is_err 값을 빈칸에 채워보세요.\n\n```python\ndef execute_to_result(tool_use_id, name, inputs, registry):\n    try:\n        result  = registry[name](**inputs)\n        content = str(result)\n        is_err  = _____\n    except Exception as e:\n        content = f\"[오류] {type(e).__name__}: {e}\"\n        is_err  = True\n    return {\"type\": \"tool_result\",\n```\n            \"tool_use_id\": tool_use_id,\n            \"content\": content, \"is_error\": is_err}\n\n```python\ndef divide(a, b): return a / b\nreg = {\"divide\": divide}\nr = execute_to_result(\"id_01\", \"divide\", {\"a\": 10, \"b\": 2}, reg)\nprint(\"정상:\", r[\"content\"], \"| 오류?\", r[\"is_error\"])\n```\n\n출력:\n정상: 5.0 | 오류? False",
+      "question": "execute_to_result 함수에서 도구 실행이 정상일 때 is_err 값을 빈칸에 채워보세요.\n\n```python\ndef execute_to_result(tool_use_id, name, inputs, registry):\n    try:\n        result  = registry[name](**inputs)\n        content = str(result)\n        is_err  = _____\n    except Exception as e:\n        content = f\"[오류] {type(e).__name__}: {e}\"\n        is_err  = True\n    return {\"type\": \"tool_result\",\n            \"tool_use_id\": tool_use_id,\n            \"content\": content, \"is_error\": is_err}\n\ndef divide(a, b): return a / b\nreg = {\"divide\": divide}\nr = execute_to_result(\"id_01\", \"divide\", {\"a\": 10, \"b\": 2}, reg)\nprint(\"정상:\", r[\"content\"], \"| 오류?\", r[\"is_error\"])\n\n# # 출력:\n# 정상: 5.0 | 오류? False\n```",
       "answer": "False",
       "feedback": {
         "correct": "정답! 도구 실행이 성공하면 is_err = False, 예외가 발생하면 is_err = True로 구분합니다. is_error 필드를 tool_result에 포함하면 Claude가 오류 여부를 명확히 인식하고 적절한 후속 조치를 취할 수 있어요. 클리어!"
@@ -660,7 +660,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "safe_execute에서 예외 객체 e의 클래스 이름을 문자열로 꺼낼 때 사용하는 속성을 빈칸에 채워보세요.\n\n```python\ndef safe_execute(name, inputs, registry):\n    try:\n        result = registry[name](**inputs)\n        return {\"ok\": True, \"content\": str(result)}\n    except KeyError:\n        return {\"ok\": False, \"content\": f\"미등록 도구: {name}\"}\n    except Exception as e:\n        return {\"ok\": False, \"content\": f\"{type(e)._____(  )}: {e}\"}\n```\n\n```python\ntry:\n    1 / 0\nexcept Exception as e:\n    print(f\"{type(e).__name__}: {e}\")\n```\n\n출력:\nZeroDivisionError: division by zero",
+      "question": "safe_execute에서 예외 객체 e의 클래스 이름을 문자열로 꺼낼 때 사용하는 속성을 빈칸에 채워보세요.\n\n```python\ndef safe_execute(name, inputs, registry):\n    try:\n        result = registry[name](**inputs)\n        return {\"ok\": True, \"content\": str(result)}\n    except KeyError:\n        return {\"ok\": False, \"content\": f\"미등록 도구: {name}\"}\n    except Exception as e:\n        return {\"ok\": False, \"content\": f\"{type(e)._____(  )}: {e}\"}\n\ntry:\n    1 / 0\nexcept Exception as e:\n    print(f\"{type(e).__name__}: {e}\")\n\n# # 출력:\n# ZeroDivisionError: division by zero\n```",
       "answer": "__name__",
       "feedback": {
         "correct": "정답! type(e)는 예외 클래스 자체를 반환하고, .__name__은 그 클래스의 이름 문자열을 꺼냅니다. ZeroDivisionError, ValueError, ConnectionError 등 어떤 예외든 이 패턴으로 오류 유형을 로그에 기록할 수 있어요. 클리어!"
@@ -675,7 +675,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값으로 올바른 것을 골라보세요.\n\n```python\ndef agent_with_limit(steps_needed: int, max_iter: int = 5):\n    for i in range(1, max_iter + 1):\n        print(f\"  [Iter {i}] 처리 중...\")\n        if i >= steps_needed:\n            print(\"  → end_turn: 완료\")\n            return True\n    print(f\"⚠️ 최대 {max_iter}회 초과 — 강제 종료\")\n    return False\n```\n\n```python\nprint(\"=== 정상 케이스 ===\")\nagent_with_limit(steps_needed=2, max_iter=5)\nprint()\nprint(\"=== 초과 케이스 ===\")\nagent_with_limit(steps_needed=10, max_iter=3)\n```",
+      "question": "다음 코드의 출력값으로 올바른 것을 골라보세요.\n\n```python\ndef agent_with_limit(steps_needed: int, max_iter: int = 5):\n    for i in range(1, max_iter + 1):\n        print(f\"  [Iter {i}] 처리 중...\")\n        if i >= steps_needed:\n            print(\"  → end_turn: 완료\")\n            return True\n    print(f\"⚠️ 최대 {max_iter}회 초과 — 강제 종료\")\n    return False\n\nprint(\"=== 정상 케이스 ===\")\nagent_with_limit(steps_needed=2, max_iter=5)\nprint()\nprint(\"=== 초과 케이스 ===\")\nagent_with_limit(steps_needed=10, max_iter=3)\n```",
       "choices": [
         "A. === 정상 케이스 ===\n  [Iter 1] 처리 중...\n  [Iter 2] 처리 중...\n  → end_turn: 완료\n\n=== 초과 케이스 ===\n  [Iter 1] 처리 중...\n  [Iter 2] 처리 중...\n  [Iter 3] 처리 중...\n⚠️ 최대 3회 초과 — 강제 종료",
         "B. === 정상 케이스 ===\n  [Iter 1] 처리 중...\n  [Iter 2] 처리 중...\n  → end_turn: 완료\n\n=== 초과 케이스 ===\n  [Iter 1] 처리 중...\n  [Iter 2] 처리 중...\n  [Iter 3] 처리 중...\n⚠️ 최대 5회 초과 — 강제 종료",
@@ -696,7 +696,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값으로 올바른 것을 골라보세요.\n\n```python\ndef run_with_retry(name, inputs, registry, max_retry=3):\n    for attempt in range(1, max_retry + 1):\n        try:\n            result = registry[name](**inputs)\n            print(f\"  [시도 {attempt}] 성공: {result}\")\n            return str(result)\n        except Exception as e:\n            print(f\"  [시도 {attempt}] 실패: {type(e).__name__}: {e}\")\n    return f\"[최대 재시도 {max_retry}회 초과]\"\n```\n\n```python\ncall_count = [0]\ndef flaky_tool():\n    call_count[0] += 1\n    if call_count[0] < 3:\n        raise ConnectionError(\"일시적 네트워크 오류\")\n    return \"데이터 수신 성공\"\n```\n\n```python\nreg = {\"flaky\": flaky_tool}\nresult = run_with_retry(\"flaky\", {}, reg)\nprint(\"최종 결과:\", result)\n```",
+      "question": "다음 코드의 출력값으로 올바른 것을 골라보세요.\n\n```python\ndef run_with_retry(name, inputs, registry, max_retry=3):\n    for attempt in range(1, max_retry + 1):\n        try:\n            result = registry[name](**inputs)\n            print(f\"  [시도 {attempt}] 성공: {result}\")\n            return str(result)\n        except Exception as e:\n            print(f\"  [시도 {attempt}] 실패: {type(e).__name__}: {e}\")\n    return f\"[최대 재시도 {max_retry}회 초과]\"\n\ncall_count = [0]\ndef flaky_tool():\n    call_count[0] += 1\n    if call_count[0] < 3:\n        raise ConnectionError(\"일시적 네트워크 오류\")\n    return \"데이터 수신 성공\"\n\nreg = {\"flaky\": flaky_tool}\nresult = run_with_retry(\"flaky\", {}, reg)\nprint(\"최종 결과:\", result)\n```",
       "choices": [
         "A.   [시도 1] 실패: ConnectionError: 일시적 네트워크 오류\n  [시도 2] 실패: ConnectionError: 일시적 네트워크 오류\n  [시도 3] 성공: 데이터 수신 성공\n최종 결과: 데이터 수신 성공",
         "B.   [시도 1] 실패: ConnectionError: 일시적 네트워크 오류\n  [시도 2] 실패: ConnectionError: 일시적 네트워크 오류\n  [시도 3] 실패: ConnectionError: 일시적 네트워크 오류\n최종 결과: [최대 재시도 3회 초과]",
@@ -717,7 +717,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "도구 레지스트리는 이름을 키, 함수를 값으로 하는 딕셔너리입니다.\n빈칸을 채워 코드를 완성해보세요.\n\n```python\ndef get_weather(city: str) -> str:\n    db = {\"서울\": \"맑음 22°C\", \"부산\": \"흐림 19°C\"}\n    return db.get(city, \"데이터 없음\")\n```\n\n```python\ndef calculate(expression: str):\n    allowed = set(\"0123456789+-*/().**% \")\n    if not all(c in allowed for c in expression):\n        raise ValueError(\"허용되지 않은 문자\")\n    return eval(expression)\n```\n\nTOOL_FUNCS = {\"get_weather\": get_weather,\n              \"_____\": calculate}\n\n```python\nprint(list(TOOL_FUNCS.keys()))\n# 출력: ['get_weather', 'calculate']\n```",
+      "question": "도구 레지스트리는 이름을 키, 함수를 값으로 하는 딕셔너리입니다.\n빈칸을 채워 코드를 완성해보세요.\n\n```python\ndef get_weather(city: str) -> str:\n    db = {\"서울\": \"맑음 22°C\", \"부산\": \"흐림 19°C\"}\n    return db.get(city, \"데이터 없음\")\n\ndef calculate(expression: str):\n    allowed = set(\"0123456789+-*/().**% \")\n    if not all(c in allowed for c in expression):\n        raise ValueError(\"허용되지 않은 문자\")\n    return eval(expression)\n\nTOOL_FUNCS = {\"get_weather\": get_weather,\n              \"_____\": calculate}\n\nprint(list(TOOL_FUNCS.keys()))\n# 출력: ['get_weather', 'calculate']\n```",
       "answer": "calculate",
       "feedback": {
         "correct": "정답! 도구 레지스트리에서 딕셔너리 키는 Claude가 tool_use 블록에서 사용하는 이름 문자열이고, 값은 실제 호출할 Python 함수입니다. 키 이름과 JSON 스키마의 name 필드가 반드시 일치해야 safe_run이 올바른 함수를 찾을 수 있어요. 클리어!"
@@ -732,7 +732,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 코드의 출력 결과로 올바른 것을 골라보세요.\n\n```python\ndef get_weather(city: str) -> str:\n    db = {\"서울\": \"맑음 22°C\", \"부산\": \"흐림 19°C\", \"제주\": \"바람 21°C\"}\n    return db.get(city, \"데이터 없음\")\n```\n\nTOOL_FUNCS = {\"get_weather\": get_weather}\n\n```python\ndef safe_run(name, inputs, registry):\n    if name not in registry:\n        return {\"ok\": False, \"result\": f\"미등록 도구: {name}\"}\n    try:\n        result = registry[name](**inputs)\n        return {\"ok\": True, \"result\": str(result)}\n    except Exception as e:\n        return {\"ok\": False, \"result\": f\"{type(e).__name__}: {e}\"}\n```\n\n```python\nr = safe_run(\"get_weather\", {\"city\": \"서울\"}, TOOL_FUNCS)\nprint(r)\n```",
+      "question": "아래 코드의 출력 결과로 올바른 것을 골라보세요.\n\n```python\ndef get_weather(city: str) -> str:\n    db = {\"서울\": \"맑음 22°C\", \"부산\": \"흐림 19°C\", \"제주\": \"바람 21°C\"}\n    return db.get(city, \"데이터 없음\")\n\nTOOL_FUNCS = {\"get_weather\": get_weather}\n\ndef safe_run(name, inputs, registry):\n    if name not in registry:\n        return {\"ok\": False, \"result\": f\"미등록 도구: {name}\"}\n    try:\n        result = registry[name](**inputs)\n        return {\"ok\": True, \"result\": str(result)}\n    except Exception as e:\n        return {\"ok\": False, \"result\": f\"{type(e).__name__}: {e}\"}\n\nr = safe_run(\"get_weather\", {\"city\": \"서울\"}, TOOL_FUNCS)\nprint(r)\n```",
       "choices": [
         "A. {'ok': True, 'result': '맑음 22°C'}",
         "B. {'ok': False, 'result': '미등록 도구: get_weather'}",
@@ -768,7 +768,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 코드의 출력 결과로 올바른 것을 골라보세요.\n\n```python\ndef calculate(expression: str):\n    allowed = set(\"0123456789+-*/().**% \")\n    if not all(c in allowed for c in expression):\n        raise ValueError(\"허용되지 않은 문자\")\n    return eval(expression)\n```\n\nTOOL_FUNCS = {\"calculate\": calculate}\n\n```python\ndef safe_run(name, inputs, registry):\n    if name not in registry:\n        return {\"ok\": False, \"result\": f\"미등록 도구: {name}\"}\n    try:\n        result = registry[name](**inputs)\n        return {\"ok\": True, \"result\": str(result)}\n    except Exception as e:\n        return {\"ok\": False, \"result\": f\"{type(e).__name__}: {e}\"}\n```\n\n```python\nr = safe_run(\"calculate\", {\"expression\": \"import os\"}, TOOL_FUNCS)\nprint(r[\"ok\"])\nprint(r[\"result\"])\n```",
+      "question": "아래 코드의 출력 결과로 올바른 것을 골라보세요.\n\n```python\ndef calculate(expression: str):\n    allowed = set(\"0123456789+-*/().**% \")\n    if not all(c in allowed for c in expression):\n        raise ValueError(\"허용되지 않은 문자\")\n    return eval(expression)\n\nTOOL_FUNCS = {\"calculate\": calculate}\n\ndef safe_run(name, inputs, registry):\n    if name not in registry:\n        return {\"ok\": False, \"result\": f\"미등록 도구: {name}\"}\n    try:\n        result = registry[name](**inputs)\n        return {\"ok\": True, \"result\": str(result)}\n    except Exception as e:\n        return {\"ok\": False, \"result\": f\"{type(e).__name__}: {e}\"}\n\nr = safe_run(\"calculate\", {\"expression\": \"import os\"}, TOOL_FUNCS)\nprint(r[\"ok\"])\nprint(r[\"result\"])\n```",
       "choices": [
         "A. True\nimport os",
         "B. False\nValueError: 허용되지 않은 문자",
@@ -804,7 +804,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 코드의 출력 결과로 올바른 것을 골라보세요.\n\nTOOL_FUNCS = {\"get_weather\": get_weather, \"calculate\": calculate}\n\n```python\ndef safe_run(name, inputs, registry):\n    if name not in registry:\n        return {\"ok\": False, \"result\": f\"미등록 도구: {name}\"}\n    try:\n        result = registry[name](**inputs)\n        return {\"ok\": True, \"result\": str(result)}\n    except Exception as e:\n        return {\"ok\": False, \"result\": f\"{type(e).__name__}: {e}\"}\n```\n\n```python\nr = safe_run(\"unknown\", {}, TOOL_FUNCS)\nprint(r[\"ok\"])\nprint(r[\"result\"])\n```",
+      "question": "아래 코드의 출력 결과로 올바른 것을 골라보세요.\n\n```python\nTOOL_FUNCS = {\"get_weather\": get_weather, \"calculate\": calculate}\n\ndef safe_run(name, inputs, registry):\n    if name not in registry:\n        return {\"ok\": False, \"result\": f\"미등록 도구: {name}\"}\n    try:\n        result = registry[name](**inputs)\n        return {\"ok\": True, \"result\": str(result)}\n    except Exception as e:\n        return {\"ok\": False, \"result\": f\"{type(e).__name__}: {e}\"}\n\nr = safe_run(\"unknown\", {}, TOOL_FUNCS)\nprint(r[\"ok\"])\nprint(r[\"result\"])\n```",
       "choices": [
         "A. False\n미등록 도구: unknown",
         "B. True\n미등록 도구: unknown",
@@ -840,7 +840,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 코드의 출력 결과로 올바른 것을 골라보세요.\n\nmessages = [{\"role\": \"user\", \"content\": \"서울 날씨와 25 곱하기 4를 알려줘\"}]\n\n```python\n# Step 1: get_weather 실행\nmessages.append({\"role\": \"assistant\", \"content\": [{\"type\": \"tool_use\", \"id\": \"id_01\", \"name\": \"get_weather\", \"input\": {\"city\": \"서울\"}}]})\nmessages.append({\"role\": \"user\",      \"content\": [{\"type\": \"tool_result\", \"tool_use_id\": \"id_01\", \"content\": \"맑음 22°C\"}]})\n```\n\n```python\n# Step 2: calculate 실행\nmessages.append({\"role\": \"assistant\", \"content\": [{\"type\": \"tool_use\", \"id\": \"id_02\", \"name\": \"calculate\", \"input\": {\"expression\": \"25 * 4\"}}]})\nmessages.append({\"role\": \"user\",      \"content\": [{\"type\": \"tool_result\", \"tool_use_id\": \"id_02\", \"content\": \"100\"}]})\n```\n\n```python\nprint(len(messages))\n```",
+      "question": "아래 코드의 출력 결과로 올바른 것을 골라보세요.\n\n```python\nmessages = [{\"role\": \"user\", \"content\": \"서울 날씨와 25 곱하기 4를 알려줘\"}]\n\n# Step 1: get_weather 실행\nmessages.append({\"role\": \"assistant\", \"content\": [{\"type\": \"tool_use\", \"id\": \"id_01\", \"name\": \"get_weather\", \"input\": {\"city\": \"서울\"}}]})\nmessages.append({\"role\": \"user\",      \"content\": [{\"type\": \"tool_result\", \"tool_use_id\": \"id_01\", \"content\": \"맑음 22°C\"}]})\n\n# Step 2: calculate 실행\nmessages.append({\"role\": \"assistant\", \"content\": [{\"type\": \"tool_use\", \"id\": \"id_02\", \"name\": \"calculate\", \"input\": {\"expression\": \"25 * 4\"}}]})\nmessages.append({\"role\": \"user\",      \"content\": [{\"type\": \"tool_result\", \"tool_use_id\": \"id_02\", \"content\": \"100\"}]})\n\nprint(len(messages))\n```",
       "choices": [
         "A. 3",
         "B. 4",
@@ -957,7 +957,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "여러 도구 호출을 순서대로 처리하는 process_tool_calls 함수를 작성해보세요.\n조건:\n- calls: [{\"id\", \"name\", \"inputs\"}, ...] 리스트\n- registry 딕셔너리에서 함수 조회 후 실행\n```python\n- 결과를 [{\"tool_use_id\", \"content\"}, ...] 형태로 반환\n- get_weather(\"서울\")과 calculate(\"3 * 4\") 결과를 순서대로 출력\n```\n\n출력 목표:\n맑음 20°C\n12",
+      "question": "여러 도구 호출을 순서대로 처리하는 process_tool_calls 함수를 작성해보세요.\n조건:\n- calls: [{\"id\", \"name\", \"inputs\"}, ...] 리스트\n- registry 딕셔너리에서 함수 조회 후 실행\n- 결과를 [{\"tool_use_id\", \"content\"}, ...] 형태로 반환\n- get_weather(\"서울\")과 calculate(\"3 * 4\") 결과를 순서대로 출력\n\n출력 목표:\n맑음 20°C\n12",
       "answer": "def get_weather(city):\n    db = {\"서울\": \"맑음 20°C\", \"부산\": \"흐림 18°C\"}\n    return db.get(city, \"정보 없음\")\n\ndef calculate(expression):\n    return eval(expression)\n\nTOOL_FUNCS = {\"get_weather\": get_weather, \"calculate\": calculate}\n\ndef process_tool_calls(calls, registry):\n    results = []\n    for call in calls:\n        result = registry[call[\"name\"]](**call[\"inputs\"])\n        results.append({\"tool_use_id\": call[\"id\"], \"content\": str(result)})\n    return results\n\ncalls = [\n    {\"id\": \"id_01\", \"name\": \"get_weather\", \"inputs\": {\"city\": \"서울\"}},\n    {\"id\": \"id_02\", \"name\": \"calculate\", \"inputs\": {\"expression\": \"3 * 4\"}}\n]\nfor r in process_tool_calls(calls, TOOL_FUNCS):\n    print(r[\"content\"])",
       "pyodide_eval": true,
       "feedback": {
@@ -973,7 +973,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "에이전트 실행 로그를 형식에 맞게 출력하는 format_agent_log 함수를 작성해보세요.\n조건:\n- 첫 줄: \"=== 에이전트 실행 로그 ===\"\n- 각 항목: \"[번호] 도구명(입력) → 결과\" 형식 (1부터 시작)\n- \"\\n\".join()으로 합쳐 반환 후 print\n\n출력 목표:\n=== 에이전트 실행 로그 ===\n```python\n[1] get_weather(서울) → 맑음 20°C\n[2] calculate(3+4) → 7\n```",
+      "question": "에이전트 실행 로그를 형식에 맞게 출력하는 format_agent_log 함수를 작성해보세요.\n조건:\n- 첫 줄: \"=== 에이전트 실행 로그 ===\"\n- 각 항목: \"[번호] 도구명(입력) → 결과\" 형식 (1부터 시작)\n- \"\\n\".join()으로 합쳐 반환 후 print\n\n출력 목표:\n=== 에이전트 실행 로그 ===\n[1] get_weather(서울) → 맑음 20°C\n[2] calculate(3+4) → 7",
       "answer": "def format_agent_log(log):\n    lines = [\"=== 에이전트 실행 로그 ===\"]\n    for i, r in enumerate(log, 1):\n        lines.append(f\"[{i}] {r['tool']}({r['input']}) → {r['result']}\")\n    return \"\\n\".join(lines)\n\nlog = [\n    {\"tool\": \"get_weather\", \"input\": \"서울\", \"result\": \"맑음 20°C\"},\n    {\"tool\": \"calculate\", \"input\": \"3+4\", \"result\": \"7\"}\n]\nprint(format_agent_log(log))",
       "pyodide_eval": true,
       "feedback": {
@@ -989,7 +989,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "예외를 안전하게 처리하는 safe_execute 함수를 작성해보세요.\n조건:\n```python\n- 정상 실행 시 {\"ok\": True, \"result\": str(결과)} 반환\n- KeyError(미등록 도구) 시 {\"ok\": False, \"result\": \"미등록 도구: {name}\"} 반환\n- 그 외 예외 시 {\"ok\": False, \"result\": \"{예외타입}: {메시지}\"} 반환\n- add(3,4)와 \"unknown\" 도구 실행 결과 출력\n```\n\n출력 목표:\nTrue 7\nFalse 미등록 도구: unknown",
+      "question": "예외를 안전하게 처리하는 safe_execute 함수를 작성해보세요.\n조건:\n- 정상 실행 시 {\"ok\": True, \"result\": str(결과)} 반환\n- KeyError(미등록 도구) 시 {\"ok\": False, \"result\": \"미등록 도구: {name}\"} 반환\n- 그 외 예외 시 {\"ok\": False, \"result\": \"{예외타입}: {메시지}\"} 반환\n- add(3,4)와 \"unknown\" 도구 실행 결과 출력\n\n출력 목표:\nTrue 7\nFalse 미등록 도구: unknown",
       "answer": "def safe_execute(name, inputs, registry):\n    try:\n        result = registry[name](**inputs)\n        return {\"ok\": True, \"result\": str(result)}\n    except KeyError:\n        return {\"ok\": False, \"result\": f\"미등록 도구: {name}\"}\n    except Exception as e:\n        return {\"ok\": False, \"result\": f\"{type(e).__name__}: {e}\"}\n\ndef add(a, b):\n    return a + b\n\nregistry = {\"add\": add}\nr1 = safe_execute(\"add\", {\"a\": 3, \"b\": 4}, registry)\nr2 = safe_execute(\"unknown\", {}, registry)\nprint(r1[\"ok\"], r1[\"result\"])\nprint(r2[\"ok\"], r2[\"result\"])",
       "pyodide_eval": true,
       "feedback": {
@@ -1005,7 +1005,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "도구 호출 전 필수 인자 누락을 검증하는 validate_inputs 함수를 작성해보세요.\n조건:\n- schema의 input_schema.required 목록 중 inputs에 없는 키 반환\n- 누락 없으면 빈 리스트 반환\n- 세 케이스 순서대로 출력\n\n출력 목표:\n```python\n['date']\n[]\n['city', 'date']\n```",
+      "question": "도구 호출 전 필수 인자 누락을 검증하는 validate_inputs 함수를 작성해보세요.\n조건:\n- schema의 input_schema.required 목록 중 inputs에 없는 키 반환\n- 누락 없으면 빈 리스트 반환\n- 세 케이스 순서대로 출력\n\n출력 목표:\n```\n['date']\n[]\n['city', 'date']\n```",
       "answer": "def validate_inputs(inputs, schema):\n    required = schema.get(\"input_schema\", {}).get(\"required\", [])\n    return [k for k in required if k not in inputs]\n\nschema = {\n    \"input_schema\": {\n        \"required\": [\"city\", \"date\"]\n    }\n}\n\nprint(validate_inputs({\"city\": \"서울\"}, schema))\nprint(validate_inputs({\"city\": \"서울\", \"date\": \"2024-01-01\"}, schema))\nprint(validate_inputs({}, schema))",
       "pyodide_eval": true,
       "feedback": {
@@ -1021,7 +1021,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "TOOL_FUNCS 레지스트리와 safe_run 함수를 완성하고 두 도구를 실행해보세요.\n조건:\n```python\n- get_weather: {\"서울\": \"맑음 22°C\"} DB 조회 (없으면 \"데이터 없음\")\n- safe_run: 미등록 도구 → {\"ok\": False}, 예외 → {\"ok\": False}, 정상 → {\"ok\": True, \"result\": str(결과)}\n- get_weather(\"서울\")과 calculate(\"10 * 5\") 결과(result 필드)를 순서대로 출력\n```\n\n출력 목표:\n맑음 22°C\n50",
+      "question": "TOOL_FUNCS 레지스트리와 safe_run 함수를 완성하고 두 도구를 실행해보세요.\n조건:\n- get_weather: {\"서울\": \"맑음 22°C\"} DB 조회 (없으면 \"데이터 없음\")\n- safe_run: 미등록 도구 → {\"ok\": False}, 예외 → {\"ok\": False}, 정상 → {\"ok\": True, \"result\": str(결과)}\n- get_weather(\"서울\")과 calculate(\"10 * 5\") 결과(result 필드)를 순서대로 출력\n\n출력 목표:\n맑음 22°C\n50",
       "answer": "def get_weather(city):\n    db = {\"서울\": \"맑음 22°C\", \"부산\": \"흐림 19°C\"}\n    return db.get(city, \"데이터 없음\")\n\ndef calculate(expression):\n    allowed = set(\"0123456789+-*/().**% \")\n    if not all(c in allowed for c in expression):\n        raise ValueError(\"허용되지 않은 문자\")\n    return eval(expression)\n\nTOOL_FUNCS = {\"get_weather\": get_weather, \"calculate\": calculate}\n\ndef safe_run(name, inputs, registry):\n    if name not in registry:\n        return {\"ok\": False, \"result\": f\"미등록 도구: {name}\"}\n    try:\n        result = registry[name](**inputs)\n        return {\"ok\": True, \"result\": str(result)}\n    except Exception as e:\n        return {\"ok\": False, \"result\": f\"{type(e).__name__}: {e}\"}\n\nprint(safe_run(\"get_weather\", {\"city\": \"서울\"}, TOOL_FUNCS)[\"result\"])\nprint(safe_run(\"calculate\", {\"expression\": \"10 * 5\"}, TOOL_FUNCS)[\"result\"])",
       "pyodide_eval": true,
       "feedback": {
@@ -1037,7 +1037,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "에이전트 루프의 멀티턴 메시지 구조를 만드는 build_messages 함수를 작성해보세요.\n조건:\n```python\n- 초기: [{\"role\": \"user\", \"content\": query}]\n- 도구 호출마다 assistant(tool_use)와 user(tool_result) 메시지 추가\n- build_messages(\"서울 날씨?\", [(\"id_01\", \"get_weather\", {\"city\": \"서울\"}, \"맑음 22°C\")]) 실행\n- len(msgs), msgs[0][\"role\"], msgs[2][\"role\"] 순서대로 출력\n```\n\n출력 목표:\n3\nuser\nuser",
+      "question": "에이전트 루프의 멀티턴 메시지 구조를 만드는 build_messages 함수를 작성해보세요.\n조건:\n- 초기: [{\"role\": \"user\", \"content\": query}]\n- 도구 호출마다 assistant(tool_use)와 user(tool_result) 메시지 추가\n- build_messages(\"서울 날씨?\", [(\"id_01\", \"get_weather\", {\"city\": \"서울\"}, \"맑음 22°C\")]) 실행\n- len(msgs), msgs[0][\"role\"], msgs[2][\"role\"] 순서대로 출력\n\n출력 목표:\n3\nuser\nuser",
       "answer": "def build_messages(query, tool_calls_results):\n    messages = [{\"role\": \"user\", \"content\": query}]\n    for tool_use_id, name, input_dict, result in tool_calls_results:\n        messages.append({\n            \"role\": \"assistant\",\n            \"content\": [{\"type\": \"tool_use\", \"id\": tool_use_id, \"name\": name, \"input\": input_dict}]\n        })\n        messages.append({\n            \"role\": \"user\",\n            \"content\": [{\"type\": \"tool_result\", \"tool_use_id\": tool_use_id, \"content\": result}]\n        })\n    return messages\n\nmsgs = build_messages(\"서울 날씨?\", [(\"id_01\", \"get_weather\", {\"city\": \"서울\"}, \"맑음 22°C\")])\nprint(len(msgs))\nprint(msgs[0][\"role\"])\nprint(msgs[2][\"role\"])",
       "pyodide_eval": true,
       "feedback": {

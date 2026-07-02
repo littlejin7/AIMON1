@@ -55,7 +55,7 @@ export default function NaverCallback() {
         <h2>로그인 실패</h2>
         <p>{error}</p>
         <button onClick={() => navigate('/auth')} style={{ marginTop: '20px', padding: '10px 20px', background: 'var(--clr-primary, #7c3aed)', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>
-          로그인 화면으로 돌아가기
+          ✕
         </button>
       </div>
     )
