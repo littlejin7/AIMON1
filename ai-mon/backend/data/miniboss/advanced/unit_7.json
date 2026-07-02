@@ -9,7 +9,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 코드에서 빈칸을 채워 루트 경로에 GET 엔드포인트를 등록해보세요.\n\n```python\nfrom fastapi import FastAPI\n```\n\napp = FastAPI()\n\n```python\n@app._____(\"/\")\ndef root():\n    return {\"message\": \"에이몬 API 서버 가동!\"}\n```",
+      "question": "아래 코드에서 빈칸을 채워 루트 경로에 GET 엔드포인트를 등록해보세요.\n\n```python\nfrom fastapi import FastAPI\n\napp = FastAPI()\n\n@app._____(\"/\")\ndef root():\n    return {\"message\": \"에이몬 API 서버 가동!\"}\n```",
       "answer": "get",
       "feedback": {
         "correct": "정답! @app.get()은 해당 경로로 들어오는 HTTP GET 요청을 처리할 함수를 등록합니다. POST 요청은 @app.post(), PUT은 @app.put(), DELETE는 @app.delete()를 사용해요. 클리어!"
@@ -24,7 +24,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 FastAPI 코드에서 GET /status 요청 시 응답으로 올바른 것을 골라보세요.\n\n```python\nfrom fastapi import FastAPI\n```\n\napp = FastAPI()\n\n```python\n@app.get(\"/status\")\ndef get_status():\n    return {\"service\": \"에이몬\", \"version\": 2, \"active\": True}\n```",
+      "question": "다음 FastAPI 코드에서 GET /status 요청 시 응답으로 올바른 것을 골라보세요.\n\n```python\nfrom fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/status\")\ndef get_status():\n    return {\"service\": \"에이몬\", \"version\": 2, \"active\": True}\n```",
       "choices": [
         "A. {\"service\": \"에이몬\", \"version\": 2, \"active\": true}",
         "B. {\"service\": \"에이몬\", \"version\": \"2\", \"active\": \"True\"}",
@@ -45,7 +45,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "경로 매개변수 {unit_id}를 정수로 자동 변환하려면 함수 인자에 타입 힌트를 붙여야 합니다.\n빈칸을 채워 코드를 완성해보세요.\n\n```python\nfrom fastapi import FastAPI\n```\n\napp = FastAPI()\n\n```python\n@app.get(\"/units/{unit_id}\")\ndef get_unit(unit_id: _____):\n    return {\"unit_id\": unit_id, \"name\": f\"Unit {unit_id}\"}\n```\n\n# GET /units/7 → {\"unit_id\": 7, \"name\": \"Unit 7\"}",
+      "question": "경로 매개변수 {unit_id}를 정수로 자동 변환하려면 함수 인자에 타입 힌트를 붙여야 합니다.\n빈칸을 채워 코드를 완성해보세요.\n\n```python\nfrom fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/units/{unit_id}\")\ndef get_unit(unit_id: _____):\n    return {\"unit_id\": unit_id, \"name\": f\"Unit {unit_id}\"}\n```\n\n# GET /units/7 -> {\"unit_id\": 7, \"name\": \"Unit 7\"}",
       "answer": "int",
       "feedback": {
         "correct": "정답! FastAPI는 함수 인자의 타입 힌트를 보고 URL 경로에서 받은 문자열을 자동으로 형변환합니다. int로 선언하면 '/units/7'의 '7'이 정수 7로 바뀌어 전달되고, 타입이 맞지 않으면 422 오류를 자동으로 반환해요. 클리어!"
@@ -60,7 +60,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 코드에서 GET /search?keyword=에이몬 으로 요청했을 때 (limit은 전달하지 않음) 응답으로 올바른 것을 골라보세요.\n\n```python\nfrom fastapi import FastAPI\n```\n\napp = FastAPI()\n\n```python\n@app.get(\"/search\")\ndef search(keyword: str, limit: int = 10):\n    return {\"keyword\": keyword, \"limit\": limit, \"results\": []}\n```",
+      "question": "아래 코드에서 GET /search?keyword=에이몬 으로 요청했을 때 (limit은 전달하지 않음) 응답으로 올바른 것을 골라보세요.\n\n```python\nfrom fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/search\")\ndef search(keyword: str, limit: int = 10):\n    return {\"keyword\": keyword, \"limit\": limit, \"results\": []}\n```",
       "choices": [
         "A. {\"keyword\": \"에이몬\", \"limit\": 10, \"results\": []}",
         "B. {\"keyword\": \"에이몬\", \"limit\": null, \"results\": []}",
@@ -132,7 +132,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 코드에서 GET /levels/5 요청 시 응답으로 올바른 것을 골라보세요.\n\n```python\nfrom fastapi import FastAPI\n```\n\napp = FastAPI()\n\n```python\n@app.get(\"/levels/{level_id}\")\ndef get_level(level_id: int):\n    return {\n```\n        \"level_id\": level_id,\n```python\n        \"label\": f\"Level {level_id}\",\n        \"doubled\": level_id * 2\n```\n    }",
+      "question": "아래 코드에서 GET /levels/5 요청 시 응답으로 올바른 것을 골라보세요.\n\n```python\nfrom fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/levels/{level_id}\")\ndef get_level(level_id: int):\n    return {\n```\n        \"level_id\": level_id,\n```python\n        \"label\": f\"Level {level_id}\",\n        \"doubled\": level_id * 2\n```\n    }",
       "choices": [
         "A. {\"level_id\": \"5\", \"label\": \"Level 5\", \"doubled\": \"55\"}",
         "B. {\"level_id\": 5, \"label\": \"Level 5\", \"doubled\": 10}",
@@ -297,7 +297,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "FastAPI에 CORS 미들웨어를 등록할 때 사용하는 메서드명을 채워보세요.\n\n```python\nfrom fastapi import FastAPI\nfrom fastapi.middleware.cors import CORSMiddleware\n```\n\napp = FastAPI()\n\napp._____(  \n    CORSMiddleware,\n```python\n    allow_origins=[\"http://localhost:5173\"],\n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n```\n)",
+      "question": "FastAPI에 CORS 미들웨어를 등록할 때 사용하는 메서드명을 채워보세요.\n\n```python\nfrom fastapi import FastAPI\nfrom fastapi.middleware.cors import CORSMiddleware\n\napp = FastAPI()\n\napp._____(  \n    CORSMiddleware,\n    allow_origins=[\"http://localhost:5173\"],\n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n)\n```",
       "answer": "add_middleware",
       "feedback": {
         "correct": "정답! app.add_middleware()는 FastAPI 앱에 미들웨어를 계층으로 추가하는 메서드입니다. CORSMiddleware를 첫 번째 인자로 넘기고 나머지 키워드 인자로 정책을 설정해요. 미들웨어는 모든 요청이 라우터에 닿기 전에 먼저 실행됩니다. 클리어!"
@@ -312,7 +312,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "fetch API로 서버 응답을 JavaScript 객체로 파싱하는 메서드를 채워보세요.\n\n```javascript\nasync function loadMemos() {\n  const response = await fetch(\"http://localhost:8000/memos\");\n\n  if (!response.ok) {\n    throw new Error(`서버 오류: ${response.status}`);\n  }\n\n  const data = await response._____();\n  console.log(\"메모 목록:\", data);\n}\n```",
+      "question": "fetch API로 서버 응답을 JavaScript 객체로 파싱하는 메서드를 채워보세요.\n\n```javascript\nasync function loadMemos() {\n  const response = await fetch(\"http://localhost:8000/memos\");\n\n  if (!response.ok) {\n    throw new Error('서버 오류: ${response.status}');\n  }\n\n  const data = await response._____();\n  console.log(\"메모 목록:\", data);\n}\n```",
       "answer": "json",
       "feedback": {
         "correct": "정답! response.json()은 HTTP 응답 본문을 JSON으로 파싱해 JavaScript 객체로 반환하는 비동기 메서드입니다. await를 붙여야 파싱이 완료된 객체를 얻을 수 있어요. response.text()는 문자열, response.blob()은 이진 데이터를 반환하는 유사 메서드들입니다. 클리어!"
@@ -327,7 +327,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "POST 요청 시 서버가 본문을 JSON으로 인식하게 하는 헤더 키를 채워보세요.\n\n```python\nasync function addMemo(title, content) {\n  const response = await fetch(\"http://localhost:8000/memos\", {\n```\n    method: \"POST\",\n```python\n    headers: { \"_____\": \"application/json\" },\n    body: JSON.stringify({ title, content }),\n```\n  });\n\n```python\n  const data = await response.json();\n  console.log(\"저장 결과:\", data);\n```\n}",
+      "question": "POST 요청 시 서버가 본문을 JSON으로 인식하게 하는 헤더 키를 채워보세요.\n\n```python\nasync function addMemo(title, content) {\n  const response = await fetch(\"http://localhost:8000/memos\", {\n    method: \"POST\",\n    headers: { \"_____\": \"application/json\" },\n    body: JSON.stringify({ title, content }),\n  });\n\n  const data = await response.json();\n  console.log(\"저장 결과:\", data);\n}\n```",
       "answer": "Content-Type",
       "feedback": {
         "correct": "정답! Content-Type: application/json 헤더는 요청 본문의 형식이 JSON임을 서버에 알립니다. FastAPI는 이 헤더를 보고 body를 자동으로 Pydantic 모델로 파싱해요. 이 헤더가 누락되면 FastAPI가 422 Unprocessable Entity 오류를 반환합니다. 클리어!"
@@ -351,7 +351,7 @@
       ],
       "answer": "A",
       "feedback": {
-        "correct": "정답! JSON.stringify()는 JavaScript 객체를 JSON 문자열로 변환합니다. JSON 표준에서 키도 반드시 큰따옴표로 감싸야 하므로 B처럼 키가 따옴표 없이 나오지 않아요. D는 객체를 그냥 문자열 변환(`String()`)할 때 나타납니다. 클리어!"
+        "correct": "정답! JSON.stringify()는 JavaScript 객체를 JSON 문자열로 변환합니다. JSON 표준에서 키도 반드시 큰따옴표로 감싸야 하므로 B처럼 키가 따옴표 없이 나오지 않아요. D는 객체를 그냥 문자열 변환('String()')할 때 나타납니다. 클리어!"
       }
     },
     {
@@ -378,7 +378,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 코드의 출력 결과로 올바른 것을 골라보세요.\n\n```python\nconst err = { detail: \"메모 없음\" };\nconst message = err.detail ?? `HTTP 404`;\nconsole.log(message);\n```",
+      "question": "아래 코드의 출력 결과로 올바른 것을 골라보세요.\n\n```python\nconst err = { detail: \"메모 없음\" };\nconst message = err.detail ?? 'HTTP 404';\nconsole.log(message);\n```",
       "choices": [
         "A. 메모 없음",
         "B. HTTP 404",
@@ -399,10 +399,10 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "safeFetch에서 FastAPI의 HTTPException 메시지를 꺼내는 필드명을 채워보세요.\n\n```javascript\nasync function safeFetch(url, options = {}) {\n  try {\n    const res = await fetch(url, options);\n\n    if (!res.ok) {\n      const err = await res.json();\n      throw new Error(err._____ ?? `HTTP ${res.status}`);\n    }\n\n    return await res.json();\n  } catch (e) {\n    console.error(\"API 오류:\", e.message);\n    throw e;\n  }\n}\n```",
+      "question": "safeFetch에서 FastAPI의 HTTPException 메시지를 꺼내는 필드명을 채워보세요.\n\n```javascript\nasync function safeFetch(url, options = {}) {\n  try {\n    const res = await fetch(url, options);\n\n    if (!res.ok) {\n      const err = await res.json();\n      throw new Error(err._____ ?? 'HTTP ${res.status}');\n    }\n\n    return await res.json();\n  } catch (e) {\n    console.error(\"API 오류:\", e.message);\n    throw e;\n  }\n}\n```",
       "answer": "detail",
       "feedback": {
-        "correct": "정답! FastAPI가 HTTPException을 발생시키면 응답 본문은 {\"detail\": \"...\"} 형태의 JSON입니다. 따라서 err.detail로 오류 메시지를 꺼낼 수 있어요. detail이 없는 다른 서버의 오류 형식에 대비해 ?? `HTTP ${res.status}` 로 폴백을 두는 것이 견고한 패턴입니다. 클리어!"
+        "correct": "정답! FastAPI가 HTTPException을 발생시키면 응답 본문은 {\"detail\": \"...\"} 형태의 JSON입니다. 따라서 err.detail로 오류 메시지를 꺼낼 수 있어요. detail이 없는 다른 서버의 오류 형식에 대비해 ?? 'HTTP ${res.status}' 로 폴백을 두는 것이 견고한 패턴입니다. 클리어!"
       }
     },
     {
@@ -414,7 +414,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 코드의 출력 결과로 올바른 것을 골라보세요.\n\n```python\nconst memos = [];\nconsole.log(memos.length);\n```\n\n```python\nconst data = { memos: [{id: 1, title: \"FastAPI 학습\"}, {id: 2, title: \"React 기초\"}] };\nconst updated = data.memos;\nconsole.log(updated.length);\n```",
+      "question": "아래 코드의 출력 결과로 올바른 것을 골라보세요.\n\n```python\nconst memos = [];\nconsole.log(memos.length);\n\nconst data = { memos: [{id: 1, title: \"FastAPI 학습\"}, {id: 2, title: \"React 기초\"}] };\nconst updated = data.memos;\nconsole.log(updated.length);\n```",
       "choices": [
         "A. 0\n2",
         "B. []\n2",
@@ -537,7 +537,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "FastAPI 엔드포인트에서 요청마다 DB 세션을 자동 주입받는 방법을 채워보세요.\n\n```python\nfrom fastapi import FastAPI, Depends\nfrom sqlalchemy.orm import Session\n```\n\napp = FastAPI()\n\n```python\n@app.get(\"/memos\")\ndef list_memos(db: Session = _____(get_db)):\n    memos = db.query(Memo).all()\n    return [{\"id\": m.id, \"title\": m.title} for m in memos]\n```",
+      "question": "FastAPI 엔드포인트에서 요청마다 DB 세션을 자동 주입받는 방법을 채워보세요.\n\n```python\nfrom fastapi import FastAPI, Depends\nfrom sqlalchemy.orm import Session\n\napp = FastAPI()\n\n@app.get(\"/memos\")\ndef list_memos(db: Session = _____(get_db)):\n    memos = db.query(Memo).all()\n    return [{\"id\": m.id, \"title\": m.title} for m in memos]\n```",
       "answer": "Depends",
       "feedback": {
         "correct": "정답! Depends(get_db)는 FastAPI의 의존성 주입(Dependency Injection) 시스템입니다. 요청이 들어올 때마다 get_db 제너레이터를 실행해 세션을 생성하고 함수 인자로 주입해요. 요청 처리 후에는 자동으로 제너레이터를 재개해 finally의 db.close()를 실행합니다. 클리어!"
@@ -639,7 +639,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "전역 예외 핸들러에서 모든 예외를 잡으려면 데코레이터 인자에 무엇을 넣어야 하는지 채워보세요.\n\n```python\nfrom fastapi import FastAPI, Request\nfrom fastapi.responses import JSONResponse\n```\n\napp = FastAPI()\n\n```python\n@app.exception_handler(_____)\nasync def global_exception_handler(request: Request, exc: Exception):\n    return JSONResponse(\n        status_code=500,\n        content={\"error\": \"서버 내부 오류\", \"detail\": str(exc)}\n```\n    )",
+      "question": "전역 예외 핸들러에서 모든 예외를 잡으려면 데코레이터 인자에 무엇을 넣어야 하는지 채워보세요.\n\n```python\nfrom fastapi import FastAPI, Request\nfrom fastapi.responses import JSONResponse\n\napp = FastAPI()\n\n@app.exception_handler(_____)\nasync def global_exception_handler(request: Request, exc: Exception):\n    return JSONResponse(\n        status_code=500,\n        content={\"error\": \"서버 내부 오류\", \"detail\": str(exc)}\n```\n    )",
       "answer": "Exception",
       "feedback": {
         "correct": "정답! Python의 모든 예외는 Exception 클래스를 상속하므로 Exception을 인자로 넘기면 처리되지 않은 모든 예외를 전역에서 잡을 수 있습니다. HTTPException은 별도 핸들러로 처리하고, 그 외 예상치 못한 예외는 Exception 핸들러로 500 오류를 반환하는 것이 실무 패턴이에요. 클리어!"
@@ -769,8 +769,8 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Python json 모듈로 딕셔너리를 JSON 문자열로 직렬화하고 다시 파싱해보세요.\n조건:\n- json.dumps()로 직렬화 (ensure_ascii=False)\n- 직렬화된 문자열 출력\n- json.loads()로 파싱 후 title, content 출력\n\n출력 목표:\n{\"title\": \"FastAPI 학습\", \"content\": \"오늘 배운 내용\"}\nFastAPI 학습\n오늘 배운 내용",
-      "answer": "import json\n\nmemo = {\"title\": \"FastAPI 학습\", \"content\": \"오늘 배운 내용\"}\nbody = json.dumps(memo, ensure_ascii=False)\nprint(body)\n\nparsed = json.loads(body)\nprint(parsed[\"title\"])\nprint(parsed[\"content\"])",
+      "question": "주어진 JSON 문자열을 json.loads()로 파싱하여 'title' 값을 출력해보세요.\n\n```python\nimport json\njson_str = '{\"title\": \"FastAPI 학습\"}'\n```\n\n출력 목표:\nFastAPI 학습",
+      "answer": "import json\njson_str = '{\"title\": \"FastAPI 학습\"}'\nprint(json.loads(json_str)[\"title\"])",
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! fetch POST 요청에서 body: JSON.stringify(data)와 대응하는 Python 코드가 json.dumps()입니다. ensure_ascii=False를 설정해야 한글이 유니코드 이스케이프 없이 그대로 출력돼요. 서버에서 json.loads()로 다시 파싱하는 흐름이 프론트-백엔드 JSON 통신의 기본입니다. 클리어!"
@@ -785,8 +785,8 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "HTTP 오류를 안전하게 처리하는 safe_fetch 함수를 작성해보세요.\n조건:\n```python\n- ok=False면 detail 또는 \"HTTP {status}\" 메시지로 RuntimeError 발생\n- ok=True면 {\"data\": \"success\"} 반환\n- 정상 호출: \"성공: \" + data 출력\n- 404 오류 호출: \"오류: \" + 메시지 출력\n```\n\n출력 목표:\n성공: success\n오류: 메모 없음",
-      "answer": "def safe_fetch(url, ok, status, detail=None):\n    if not ok:\n        raise RuntimeError(detail if detail else f\"HTTP {status}\")\n    return {\"data\": \"success\"}\n\ntry:\n    r = safe_fetch(\"http://localhost:8000/memos\", ok=True, status=200)\n    print(\"성공:\", r[\"data\"])\nexcept RuntimeError as e:\n    print(\"오류:\", e)\n\ntry:\n    safe_fetch(\"http://localhost:8000/memos/999\", ok=False, status=404, detail=\"메모 없음\")\nexcept RuntimeError as e:\n    print(\"오류:\", e)",
+      "question": "ok가 False일 때 RuntimeError(detail)를 발생시키는 safe_fetch(ok, detail) 함수를 작성하고, 이 함수를 호출하여 예외 메시지 '메모 없음'을 출력해보세요.\n\n출력 목표:\n메모 없음",
+      "answer": "def safe_fetch(ok, detail):\n    if not ok:\n        raise RuntimeError(detail)\n\ntry:\n    safe_fetch(False, \"메모 없음\")\nexcept RuntimeError as e:\n    print(e)",
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! response.ok 체크 후 오류면 detail을 꺼내 예외를 발생시키는 패턴이 safeFetch의 핵심입니다. detail이 있으면 FastAPI의 오류 메시지를, 없으면 HTTP 상태 코드를 폴백으로 사용해요. try/catch로 예외를 잡아 사용자에게 보여주는 흐름까지 완성입니다. 클리어!"
@@ -805,7 +805,7 @@
       "answer": "from sqlalchemy import create_engine, Column, Integer, String\nfrom sqlalchemy.orm import declarative_base, sessionmaker\n\nengine = create_engine(\"sqlite:///:memory:\")\nBase = declarative_base()\n\nclass Memo(Base):\n    __tablename__ = \"memos\"\n    id = Column(Integer, primary_key=True)\n    title = Column(String)\n\nBase.metadata.create_all(bind=engine)\ndb = sessionmaker(bind=engine)()\n\ndb.add(Memo(title=\"FastAPI 학습\"))\ndb.add(Memo(title=\"SQLAlchemy\"))\ndb.commit()\n\ncount = db.query(Memo).count()\nfirst = db.query(Memo).filter(Memo.id == 1).first()\nprint(count)\nprint(first.title)\ndb.close()",
       "pyodide_eval": true,
       "feedback": {
-        "correct": "정답! sqlite:///:memory:는 파일 없이 메모리에서만 동작하는 테스트용 DB입니다. add() → commit() → query()의 흐름이 SQLAlchemy CRUD의 기본 패턴이에요. filter(Memo.id == 1).first()는 id가 1인 첫 번째 레코드를 반환하고 없으면 None을 반환합니다. 클리어!"
+        "correct": "정답! sqlite:///:memory:는 파일 없이 메모리에서만 동작하는 테스트용 DB입니다. add() -> commit() -> query()의 흐름이 SQLAlchemy CRUD의 기본 패턴이에요. filter(Memo.id == 1).first()는 id가 1인 첫 번째 레코드를 반환하고 없으면 None을 반환합니다. 클리어!"
       }
     },
     {
@@ -837,7 +837,7 @@
       "answer": "import asyncio\nfrom contextlib import asynccontextmanager\n\nlog = []\n\n@asynccontextmanager\nasync def lifespan(app):\n    log.append(\"[시작] DB 초기화...\")\n    yield\n    log.append(\"[종료] 서버 종료 정리...\")\n\nasync def simulate():\n    async with lifespan(None):\n        log.append(\"[실행중] 요청 처리\")\n    for entry in log:\n        print(entry)\n\nasyncio.run(simulate())",
       "pyodide_eval": true,
       "feedback": {
-        "correct": "정답! @asynccontextmanager + yield 패턴에서 yield 전이 startup, yield 후가 shutdown입니다. async with 블록 안이 서버 실행 중에 해당하므로 시작 → 실행중 → 종료 순서가 보장돼요. FastAPI에서 lifespan=lifespan으로 등록하면 이 패턴이 서버 생명주기에 자동으로 적용됩니다. 클리어!"
+        "correct": "정답! @asynccontextmanager + yield 패턴에서 yield 전이 startup, yield 후가 shutdown입니다. async with 블록 안이 서버 실행 중에 해당하므로 시작 -> 실행중 -> 종료 순서가 보장돼요. FastAPI에서 lifespan=lifespan으로 등록하면 이 패턴이 서버 생명주기에 자동으로 적용됩니다. 클리어!"
       }
     },
     {
