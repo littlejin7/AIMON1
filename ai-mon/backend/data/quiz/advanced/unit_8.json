@@ -1275,7 +1275,7 @@
       "answer": "status_code",
       "hint": "HTTP 응답에서 상태를 나타내는 숫자 코드를 담는 키를 생각해 보세요.",
       "feedback": {
-        "correct": "맞아요! `status_code` 키로 HTTP 상태 코드(200, 404, 500 등)를 확인합니다."
+        "correct": "맞아요! 'status_code' 키로 HTTP 상태 코드(200, 404, 500 등)를 확인합니다."
       }
     },
     {
@@ -1316,7 +1316,7 @@
       "answer": "params",
       "hint": "HTTP 요청에서 URL 뒤에 붙는 쿼리 문자열을 담는 관습적인 키 이름을 생각해 보세요.",
       "feedback": {
-        "correct": "맞아요! `params`는 HTTP 요청의 쿼리 파라미터를 담는 관습적인 키입니다."
+        "correct": "맞아요! 'params'는 HTTP 요청의 쿼리 파라미터를 담는 관습적인 키입니다."
       }
     },
     {
@@ -1337,9 +1337,9 @@
         "D. 5\n2024-01-01 ERROR: 연결 실패"
       ],
       "answer": "C",
-      "hint": "`strip()`은 앞뒤 공백과 개행을 제거합니다. ERROR가 포함된 줄이 몇 개인지 세어 보세요.",
+      "hint": "'strip()'은 앞뒤 공백과 개행을 제거합니다. ERROR가 포함된 줄이 몇 개인지 세어 보세요.",
       "feedback": {
-        "correct": "정답! ERROR 줄은 3개이고, `strip()`으로 앞 공백과 \\n이 제거되어 '2024-01-01 ERROR: 연결 실패'가 됩니다."
+        "correct": "정답! ERROR 줄은 3개이고, 'strip()'으로 앞 공백과 \\n이 제거되어 '2024-01-01 ERROR: 연결 실패'가 됩니다."
       }
     },
     {
@@ -1355,9 +1355,9 @@
       "question": "아래 함수는 여러 파일의 내용을 변환하여 하나의 리스트로 합칩니다. 각 파일의 결과를 누적 리스트에 추가할 때 사용할 메서드는 무엇일까요?\n\n```python\ndef process_files(file_contents, transform):\n    all_results = []\n    for filename, content in file_contents.items():\n        processed = transform(content)\n        all_results.___(processed)  # 리스트를 풀어서 추가\n    return all_results\n\nfile_data = {\"log1.txt\": \"a b c\", \"log2.txt\": \"d e\", \"log3.txt\": \"f\"}\nresults = process_files(file_data, lambda s: s.split())\nprint(len(results))   # 6\nprint(results[0])     # a\n```\n\n출력:\n```\n6\na\n```",
       "choices": [],
       "answer": "extend",
-      "hint": "`append`는 리스트 자체를 하나의 원소로 넣고, ___는 리스트를 풀어서 개별 원소를 모두 추가합니다.",
+      "hint": "'append'는 리스트 자체를 하나의 원소로 넣고, ___는 리스트를 풀어서 개별 원소를 모두 추가합니다.",
       "feedback": {
-        "correct": "정답! `extend`는 iterable의 원소를 모두 펼쳐서 추가합니다. `append`를 쓰면 리스트 안에 리스트가 중첩됩니다."
+        "correct": "정답! 'extend'는 iterable의 원소를 모두 펼쳐서 추가합니다. 'append'를 쓰면 리스트 안에 리스트가 중첩됩니다."
       }
     },
     {
@@ -1378,7 +1378,7 @@
         "D. None 0\nTrue 2"
       ],
       "answer": "B",
-      "hint": "attachments를 전달하지 않으면 기본값은 None입니다. `None is not None`의 결과를 생각해 보세요.",
+      "hint": "attachments를 전달하지 않으면 기본값은 None입니다. 'None is not None'의 결과를 생각해 보세요.",
       "feedback": {
         "correct": "정답! e1은 attachments=None이므로 has_attachment=False, count=0. e2는 리스트가 있으므로 True, 2입니다."
       }
@@ -1444,7 +1444,7 @@
       "answer": "headers",
       "hint": "HTTP 요청에서 인증 정보, 콘텐츠 타입 등 메타데이터를 담는 섹션 이름을 생각해 보세요.",
       "feedback": {
-        "correct": "정답! `headers`는 HTTP 요청의 메타데이터(인증, 콘텐츠 타입 등)를 담는 표준 이름입니다."
+        "correct": "정답! 'headers'는 HTTP 요청의 메타데이터(인증, 콘텐츠 타입 등)를 담는 표준 이름입니다."
       }
     },
     {
@@ -1485,7 +1485,7 @@
       "answer": "content",
       "hint": "도구 응답에서 실제 텍스트 내용을 담는 가장 일반적인 키 이름을 생각해 보세요.",
       "feedback": {
-        "correct": "정답! `content`는 도구 응답에서 실제 텍스트 내용을 담는 표준적인 키 이름입니다."
+        "correct": "정답! 'content'는 도구 응답에서 실제 텍스트 내용을 담는 표준적인 키 이름입니다."
       }
     },
     {
@@ -1526,7 +1526,7 @@
       "answer": "get",
       "hint": "키가 없을 때 KeyError 대신 기본값을 반환하는 딕셔너리 메서드를 생각해 보세요.",
       "feedback": {
-        "correct": "정답! `get(key, default)`는 키가 없을 때 KeyError 없이 기본값을 반환합니다."
+        "correct": "정답! 'get(key, default)'는 키가 없을 때 KeyError 없이 기본값을 반환합니다."
       }
     },
     {
@@ -1567,7 +1567,7 @@
       "answer": "join",
       "hint": "구분자 문자열을 기준으로 여러 조각을 하나로 이어 붙이는 문자열 메서드를 생각해 보세요.",
       "feedback": {
-        "correct": "정답! `\"/\".join([...])` 은 리스트의 문자열들을 '/'로 연결합니다."
+        "correct": "정답! '\"/\".join([...])' 은 리스트의 문자열들을 '/'로 연결합니다."
       }
     },
     {
@@ -1631,7 +1631,7 @@
       "answer": "files",
       "hint": "업로드할 파일들의 목록을 담는 키로 가장 자연스러운 이름을 생각해 보세요.",
       "feedback": {
-        "correct": "정답! `files`는 업로드 요청에서 파일 목록을 담는 관습적인 키 이름입니다."
+        "correct": "정답! 'files'는 업로드 요청에서 파일 목록을 담는 관습적인 키 이름입니다."
       }
     },
     {
