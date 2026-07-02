@@ -28,6 +28,7 @@ from routers.utils import (
     delete_user_refresh_tokens,
     mutate_user_atomic,
     UserNotFoundError,
+    UserSaveError,
     SECRET_KEY,
     ALGORITHM,
     limiter,
@@ -1133,6 +1134,12 @@ def touch(user: dict = Depends(get_current_user)):
         updated, streak_reward = mutate_user_atomic(user_id, mutator)
     except UserNotFoundError:
         raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")
+    except UserSaveError:
+        logger.exception("auth touch save conflict for user %s", user_id)
+        updated, streak_reward = user, None
+    except Exception:
+        logger.exception("auth touch failed for user %s", user_id)
+        updated, streak_reward = user, None
 
     res = {
         "streak": updated.get("streak", 0),
