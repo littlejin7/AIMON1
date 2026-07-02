@@ -71,12 +71,12 @@
     "slides": [
       {
         "order": 1,
-        "text": "파이썬 3에는 가상환경을 만드는 `venv` 모듈이 기본으로 들어 있어요.\n별도로 설치할 필요 없이 터미널 명령어 한 줄로 만들 수 있어요.",
-        "tip": "명령어 형식은 `python -m venv 가상환경이름` 이에요."
+        "text": "파이썬 3에는 가상환경을 만드는 'venv' 모듈이 기본으로 들어 있어요.\n별도로 설치할 필요 없이 터미널 명령어 한 줄로 만들 수 있어요.",
+        "tip": "명령어 형식은 'python -m venv 가상환경이름' 이에요."
       },
       {
         "order": 2,
-        "text": "프로젝트 폴더 안에서 `.venv`라는 이름으로 가상환경을 만들어봐요.\n명령어를 실행하면 같은 이름의 폴더가 생겨요.",
+        "text": "프로젝트 폴더 안에서 '.venv'라는 이름으로 가상환경을 만들어봐요.\n명령어를 실행하면 같은 이름의 폴더가 생겨요.",
         "terminal": {
           "code": [
             "# 가상환경 만들기",
@@ -107,11 +107,11 @@
             "(.venv) C:\\my_project>  # 앞에 (.venv)가 붙으면 활성화된 거예요"
           ]
         },
-        "tip": "터미널 맨 앞에 `(.venv)`가 보여야 가상환경 안에 있는 상태예요."
+        "tip": "터미널 맨 앞에 '(.venv)'가 보여야 가상환경 안에 있는 상태예요."
       },
       {
         "order": 4,
-        "text": "활성화 후에는 `python` 명령어가 가상환경 안의 파이썬을 가리켜요.\n아래 명령어로 실제로 가상환경 경로를 쓰고 있는지 확인할 수 있어요.",
+        "text": "활성화 후에는 'python' 명령어가 가상환경 안의 파이썬을 가리켜요.\n아래 명령어로 실제로 가상환경 경로를 쓰고 있는지 확인할 수 있어요.",
         "terminal": {
           "code": [
             "# 현재 파이썬 경로 확인 (Mac/Linux)",
@@ -124,7 +124,7 @@
             "/Users/aimon/my_project/.venv/bin/python"
           ]
         },
-        "tip": "경로에 `.venv`가 들어 있으면 가상환경이 정상적으로 활성화된 거예요."
+        "tip": "경로에 '.venv'가 들어 있으면 가상환경이 정상적으로 활성화된 거예요."
       },
       {
         "order": 5,
@@ -139,11 +139,11 @@
             "(.venv) PS C:\\my_project>"
           ]
         },
-        "tip": "`-Scope Process`는 지금 열린 PowerShell 창에서만 임시로 적용돼요. 관리자 권한 없이도 돼요."
+        "tip": "'-Scope Process'는 지금 열린 PowerShell 창에서만 임시로 적용돼요. 관리자 권한 없이도 돼요."
       },
       {
         "order": 6,
-        "text": "가상환경에서 나오려면 `deactivate`를 입력하면 돼요.\nOS에 상관없이 동일한 명령어예요.",
+        "text": "가상환경에서 나오려면 'deactivate'를 입력하면 돼요.\nOS에 상관없이 동일한 명령어예요.",
         "terminal": {
           "code": [
             "deactivate"
@@ -166,12 +166,12 @@
     "slides": [
       {
         "order": 1,
-        "text": "파이썬 패키지 저장소를 PyPI라고 해요.\n`pip`는 PyPI에서 패키지를 찾아 내 가상환경에 설치해주는 도구예요.",
+        "text": "파이썬 패키지 저장소를 PyPI라고 해요.\n'pip'는 PyPI에서 패키지를 찾아 내 가상환경에 설치해주는 도구예요.",
         "tip": "pip는 스마트폰 앱스토어처럼 명령어 한 줄로 패키지를 설치해줘요."
       },
       {
         "order": 2,
-        "text": "가상환경이 활성화된 상태(`(.venv)`)에서 `pip install 패키지명`을 실행해요.\n그러면 가상환경 안에만 패키지가 설치돼요.",
+        "text": "가상환경이 활성화된 상태('(.venv)')에서 'pip install 패키지명'을 실행해요.\n그러면 가상환경 안에만 패키지가 설치돼요.",
         "terminal": {
           "code": [
             "# requests 패키지 설치",
@@ -187,7 +187,7 @@
       },
       {
         "order": 3,
-        "text": "지금 가상환경에 설치된 패키지 목록을 보려면 `pip list`를 써요.",
+        "text": "지금 가상환경에 설치된 패키지 목록을 보려면 'pip list'를 써요.",
         "terminal": {
           "code": [
             "pip list"
@@ -204,7 +204,7 @@
       },
       {
         "order": 4,
-        "text": "특정 버전을 설치하고 싶을 때는 패키지명 뒤에 `==버전`을 붙여요.",
+        "text": "특정 버전을 설치하고 싶을 때는 패키지명 뒤에 '==버전'을 붙여요.",
         "terminal": {
           "code": [
             "# 2.28.1 버전으로 설치",
@@ -221,7 +221,7 @@
       },
       {
         "order": 5,
-        "text": "필요 없어진 패키지는 `pip uninstall`로 삭제할 수 있어요.\n확인 메시지가 뜨면 `y`를 누르면 돼요.",
+        "text": "필요 없어진 패키지는 'pip uninstall'로 삭제할 수 있어요.\n확인 메시지가 뜨면 'y'를 누르면 돼요.",
         "terminal": {
           "code": [
             "pip uninstall requests"
@@ -235,7 +235,7 @@
       },
       {
         "order": 6,
-        "text": "`pip freeze`를 쓰면 현재 설치된 패키지와 버전을 파일로 저장할 수 있어요.\n팀원이 같은 환경을 만들 때 이 파일을 사용해요.",
+        "text": "'pip freeze'를 쓰면 현재 설치된 패키지와 버전을 파일로 저장할 수 있어요.\n팀원이 같은 환경을 만들 때 이 파일을 사용해요.",
         "terminal": {
           "code": [
             "pip freeze > requirements.txt",
@@ -246,7 +246,7 @@
             "urllib3==2.2.1"
           ]
         },
-        "tip": "받은 requirements.txt가 있으면 `pip install -r requirements.txt`로 같은 환경을 바로 만들 수 있어요."
+        "tip": "받은 requirements.txt가 있으면 'pip install -r requirements.txt'로 같은 환경을 바로 만들 수 있어요."
       }
     ]
   },
@@ -260,12 +260,12 @@
     "slides": [
       {
         "order": 1,
-        "text": "파이썬에는 설치 없이 바로 쓸 수 있는 내장 모듈들이 있어요.\n이것을 표준 라이브러리라고 해요. `import`만 하면 바로 사용할 수 있어요.",
+        "text": "파이썬에는 설치 없이 바로 쓸 수 있는 내장 모듈들이 있어요.\n이것을 표준 라이브러리라고 해요. 'import'만 하면 바로 사용할 수 있어요.",
         "tip": "pip install 없이 쓸 수 있는 도구들이에요."
       },
       {
         "order": 2,
-        "text": "`datetime` 모듈로 현재 날짜와 시간을 가져올 수 있어요.\n날짜 형식도 원하는 대로 바꿀 수 있어요.",
+        "text": "'datetime' 모듈로 현재 날짜와 시간을 가져올 수 있어요.\n날짜 형식도 원하는 대로 바꿀 수 있어요.",
         "terminal": {
           "code": [
             "from datetime import datetime",
@@ -279,11 +279,11 @@
             "날짜만: 2026-06-12"
           ]
         },
-        "tip": "`strftime`의 형식 문자를 바꾸면 다양한 날짜 형태로 출력할 수 있어요."
+        "tip": "'strftime'의 형식 문자를 바꾸면 다양한 날짜 형태로 출력할 수 있어요."
       },
       {
         "order": 3,
-        "text": "`os` 모듈로 현재 작업 폴더 위치를 확인하거나 파일·폴더가 존재하는지 체크할 수 있어요.",
+        "text": "'os' 모듈로 현재 작업 폴더 위치를 확인하거나 파일·폴더가 존재하는지 체크할 수 있어요.",
         "terminal": {
           "code": [
             "import os",
@@ -296,11 +296,11 @@
             "파일 있나요? True"
           ]
         },
-        "tip": "`os.path.join()`을 쓰면 Windows와 Mac의 경로 구분자 차이를 자동으로 처리해줘요."
+        "tip": "'os.path.join()'을 쓰면 Windows와 Mac의 경로 구분자 차이를 자동으로 처리해줘요."
       },
       {
         "order": 4,
-        "text": "`random` 모듈로 무작위 숫자를 뽑고, `math` 모듈로 수학 계산을 할 수 있어요.",
+        "text": "'random' 모듈로 무작위 숫자를 뽑고, 'math' 모듈로 수학 계산을 할 수 있어요.",
         "terminal": {
           "code": [
             "import random",
@@ -314,11 +314,11 @@
             "주사위: 5, 올림: 4"
           ]
         },
-        "tip": "`random.choice(리스트)`를 쓰면 리스트에서 항목을 무작위로 하나 뽑을 수 있어요."
+        "tip": "'random.choice(리스트)'를 쓰면 리스트에서 항목을 무작위로 하나 뽑을 수 있어요."
       },
       {
         "order": 5,
-        "text": "`urllib.parse` 모듈로 URL에 한글이 들어갈 때 인코딩 처리를 할 수 있어요.\n웹 주소는 한글을 그대로 쓸 수 없어서 변환이 필요해요.",
+        "text": "'urllib.parse' 모듈로 URL에 한글이 들어갈 때 인코딩 처리를 할 수 있어요.\n웹 주소는 한글을 그대로 쓸 수 없어서 변환이 필요해요.",
         "terminal": {
           "code": [
             "from urllib.parse import quote, unquote",
@@ -333,7 +333,7 @@
             "복원: 에이몬"
           ]
         },
-        "tip": "URL에서 한글이 깨지는 현상을 막기 위해 `%` 기호가 붙은 형태로 변환해요."
+        "tip": "URL에서 한글이 깨지는 현상을 막기 위해 '%' 기호가 붙은 형태로 변환해요."
       },
       {
         "order": 6,
@@ -357,7 +357,7 @@
       },
       {
         "order": 2,
-        "text": "먼저 `sandbox_env`라는 가상환경을 만들고 활성화한 다음, `requests` 패키지를 설치해요.",
+        "text": "먼저 'sandbox_env'라는 가상환경을 만들고 활성화한 다음, 'requests' 패키지를 설치해요.",
         "terminal": {
           "code": [
             "# 가상환경 만들기",
@@ -373,11 +373,11 @@
             "Successfully installed requests-2.31.0"
           ]
         },
-        "tip": "터미널 왼쪽에 `(sandbox_env)`가 보여야 활성화된 상태예요."
+        "tip": "터미널 왼쪽에 '(sandbox_env)'가 보여야 활성화된 상태예요."
       },
       {
         "order": 3,
-        "text": "이제 표준 라이브러리(`datetime`, `json`)와 설치한 패키지(`requests`)를 함께 써봐요.",
+        "text": "이제 표준 라이브러리('datetime', 'json')와 설치한 패키지('requests')를 함께 써봐요.",
         "terminal": {
           "code": [
             "import json",
@@ -392,11 +392,11 @@
             "{\"status\": \"OK\", \"date\": \"2026-06-12\"}"
           ]
         },
-        "tip": "활성화를 깜빡하거나 패키지를 설치 안 했으면 `ModuleNotFoundError`가 나요."
+        "tip": "활성화를 깜빡하거나 패키지를 설치 안 했으면 'ModuleNotFoundError'가 나요."
       },
       {
         "order": 4,
-        "text": "가상환경을 끄고 같은 코드를 실행하면 어떻게 될까요?\n`requests`가 없다는 오류가 나요.",
+        "text": "가상환경을 끄고 같은 코드를 실행하면 어떻게 될까요?\n'requests'가 없다는 오류가 나요.",
         "terminal": {
           "code": [
             "deactivate",
@@ -413,7 +413,7 @@
       },
       {
         "order": 5,
-        "text": "다시 활성화하고 `pip freeze`로 패키지 목록을 저장해요.\n팀원이 이 파일로 같은 환경을 만들 수 있어요.",
+        "text": "다시 활성화하고 'pip freeze'로 패키지 목록을 저장해요.\n팀원이 이 파일로 같은 환경을 만들 수 있어요.",
         "terminal": {
           "code": [
             "source sandbox_env/bin/activate",
@@ -426,7 +426,7 @@
             "app.py    requirements.txt    sandbox_env/"
           ]
         },
-        "tip": "`pip install -r requirements.txt`로 다른 컴퓨터에서도 같은 환경을 그대로 만들 수 있어요."
+        "tip": "'pip install -r requirements.txt'로 다른 컴퓨터에서도 같은 환경을 그대로 만들 수 있어요."
       },
       {
         "order": 6,
