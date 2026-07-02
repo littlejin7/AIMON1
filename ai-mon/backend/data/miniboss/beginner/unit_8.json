@@ -9,7 +9,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`show_menu()` 함수가 한 번에 수행하는 세 가지 동작을 올바르게 묶은 것은?",
+      "question": "'show_menu()' 함수가 한 번에 수행하는 세 가지 동작을 올바르게 묶은 것은?",
       "choices": [
         "A. 메뉴 출력(print) → 사용자 입력(input) → 결과 반환(return)",
         "B. 파일 저장 → 리스트 정렬 → 결과 출력",
@@ -33,7 +33,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`input('선택: ')`이 항상 반환하는 자료형은?",
+      "question": "'input('선택: ')'이 항상 반환하는 자료형은?",
       "choices": [
         "A. str (문자열)",
         "B. int (정수)",
@@ -57,7 +57,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 중 `return`의 역할로 가장 올바른 것은?",
+      "question": "다음 중 'return'의 역할로 가장 올바른 것은?",
       "choices": [
         "A. 함수 실행을 중단하고 값을 호출부로 돌려준다",
         "B. 화면에 값을 출력한다",
@@ -81,7 +81,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`choice = show_menu()`처럼 함수 반환값을 변수에 저장하려면 함수 안에 반드시 필요한 것은?",
+      "question": "'choice = show_menu()'처럼 함수 반환값을 변수에 저장하려면 함수 안에 반드시 필요한 것은?",
       "choices": [
         "A. print() 호출",
         "B. return 문",
@@ -105,7 +105,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "```python\n`show_menu()` 안에 `print()`가 있을 때, 함수를 호출하지 않으면 어떻게 될까요?\n```",
+      "question": "```python\n'show_menu()' 안에 'print()'가 있을 때, 함수를 호출하지 않으면 어떻게 될까요?\n```",
       "choices": [
         "A. 자동으로 출력된다",
         "B. 오류가 발생한다",
@@ -249,7 +249,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`import random`을 코드 맨 위에 쓰는 이유는?",
+      "question": "'import random'을 코드 맨 위에 쓰는 이유는?",
       "choices": [
         "A. random 모듈의 기능을 현재 파일에서 사용하기 위해",
         "B. 파이썬을 더 빠르게 실행하기 위해",
@@ -273,7 +273,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`random.choice(['검', '방패', '물약'])`의 결과는?",
+      "question": "'random.choice(['검', '방패', '물약'])'의 결과는?",
       "choices": [
         "A. 항상 첫 번째 요소 '검'",
         "B. 리스트 전체를 반환",
@@ -297,7 +297,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`inventory.append(item)`이 하는 일은?",
+      "question": "'inventory.append(item)'이 하는 일은?",
       "choices": [
         "A. inventory에서 item을 제거한다",
         "B. inventory의 맨 앞에 item을 삽입한다",
@@ -321,7 +321,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`add_item()` 함수가 `random.choice()`를 사용하는 이유는?",
+      "question": "'add_item()' 함수가 'random.choice()'를 사용하는 이유는?",
       "choices": [
         "A. 아이템 목록을 알파벳 순으로 정렬하기 위해",
         "B. 아이템 풀(pool)에서 무작위로 하나를 골라 인벤토리에 추가하기 위해",
@@ -345,7 +345,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`import random` 없이 `random.choice()`를 호출하면 어떻게 될까요?",
+      "question": "'import random' 없이 'random.choice()'를 호출하면 어떻게 될까요?",
       "choices": [
         "A. 기본값 None을 반환한다",
         "B. NameError가 발생한다",
@@ -369,7 +369,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드 실행 후 `inventory`의 상태는?\n\n```python\ninventory = ['검']\ninventory.append('물약')\nprint(inventory)\n```",
+      "question": "다음 코드 실행 후 'inventory'의 상태는?\n\n```python\ninventory = ['검']\ninventory.append('물약')\nprint(inventory)\n```",
       "choices": [
         "A. ['검']",
         "B. ['물약']",
@@ -393,7 +393,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드 실행 후 `inventory` 길이는?\n\n```python\ninventory = []\nfor _ in range(3):\n    inventory.append('아이템')\nprint(len(inventory))\n```",
+      "question": "다음 코드 실행 후 'inventory' 길이는?\n\n```python\ninventory = []\nfor _ in range(3):\n    inventory.append('아이템')\nprint(len(inventory))\n```",
       "choices": [
         "A. 0",
         "B. 1",
@@ -417,7 +417,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드에서 `item`에 저장될 수 없는 값은?\n\n```python\nimport random\npool = ['검', '방패', '물약']\nitem = random.choice(pool)\n```",
+      "question": "다음 코드에서 'item'에 저장될 수 없는 값은?\n\n```python\nimport random\npool = ['검', '방패', '물약']\nitem = random.choice(pool)\n```",
       "choices": [
         "A. '검'",
         "B. '방패'",
@@ -441,7 +441,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드 실행 후 `inventory`에 들어올 수 있는 값은?\n\n```python\nimport random\ninventory = []\npool = ['A', 'B', 'C']\nnew_item = random.choice(pool)\ninventory.append(new_item)\nprint(inventory)\n```",
+      "question": "다음 코드 실행 후 'inventory'에 들어올 수 있는 값은?\n\n```python\nimport random\ninventory = []\npool = ['A', 'B', 'C']\nnew_item = random.choice(pool)\ninventory.append(new_item)\nprint(inventory)\n```",
       "choices": [
         "A. ['A', 'B', 'C']",
         "B. ['A'] 또는 ['B'] 또는 ['C'] 중 하나",
@@ -489,7 +489,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`len(inventory)`가 반환하는 값은?",
+      "question": "'len(inventory)'가 반환하는 값은?",
       "choices": [
         "A. inventory 리스트의 첫 번째 요소",
         "B. inventory 리스트 안 요소의 개수",
@@ -513,7 +513,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음과 같이 `enumerate()`를 사용하여 인벤토리를 순회할 때 `i`가 갖는 값의 범위는 무엇일까요?\n\n```python\nfor i, item in enumerate(inventory):\n    pass\n```",
+      "question": "다음과 같이 'enumerate()'를 사용하여 인벤토리를 순회할 때 'i'가 갖는 값의 범위는 무엇일까요?\n\n```python\nfor i, item in enumerate(inventory):\n    pass\n```",
       "choices": [
         "A. 1부터 len(inventory)까지",
         "B. 0부터 len(inventory)-1까지",
@@ -537,7 +537,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "목록 번호를 1부터 표시할 때 `i+1`을 쓰는 이유는?",
+      "question": "목록 번호를 1부터 표시할 때 'i+1'을 쓰는 이유는?",
       "choices": [
         "A. 파이썬이 0을 처리 못하기 때문에",
         "B. enumerate가 항상 1을 반환하기 때문에",
@@ -561,7 +561,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`f'{i+1}. {item}'`처럼 f-string에서 중괄호 안에 쓸 수 있는 것은?",
+      "question": "'f'{i+1}. {item}''처럼 f-string에서 중괄호 안에 쓸 수 있는 것은?",
       "choices": [
         "A. 변수명만",
         "B. 문자열만",
@@ -585,7 +585,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`show_inventory()`에서 `len()`과 `enumerate()`를 함께 쓰는 이유로 가장 정확한 것은?",
+      "question": "'show_inventory()'에서 'len()'과 'enumerate()'를 함께 쓰는 이유로 가장 정확한 것은?",
       "choices": [
         "A. 둘 다 같은 기능을 해서 백업용으로 사용",
         "B. len()으로 총 개수를 헤더에 표시하고, enumerate()로 각 아이템에 번호를 붙여 나열",
@@ -729,7 +729,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`inventory.pop(1)`이 하는 일은?",
+      "question": "'inventory.pop(1)'이 하는 일은?",
       "choices": [
         "A. 인덱스 1의 요소를 복사한다",
         "B. 인덱스 1의 요소를 리스트에서 제거하고 반환한다",
@@ -777,7 +777,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음과 같이 `get()` 메서드를 사용할 때 `0`이 하는 역할은 무엇일까요?\n\n```python\nitem_info.get('attack', 0)\n```",
+      "question": "다음과 같이 'get()' 메서드를 사용할 때 '0'이 하는 역할은 무엇일까요?\n\n```python\nitem_info.get('attack', 0)\n```",
       "choices": [
         "A. 딕셔너리의 0번 인덱스를 찾는다",
         "B. 키 'attack'이 없을 때 반환할 기본값이다",
@@ -801,7 +801,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "딕셔너리에서 없는 키를 `dict['없는키']`로 접근하면?",
+      "question": "딕셔너리에서 없는 키를 'dict['없는키']'로 접근하면?",
       "choices": [
         "A. None을 반환한다",
         "B. 0을 반환한다",
@@ -825,7 +825,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`drop_item()`에서 `.pop(idx)`와 `dict.get()`의 역할을 올바르게 짝지은 것은?",
+      "question": "'drop_item()'에서 '.pop(idx)'와 'dict.get()'의 역할을 올바르게 짝지은 것은?",
       "choices": [
         "A. pop(idx) — 딕셔너리 키 삭제 / get() — 리스트 요소 제거",
         "B. pop(idx) — 인벤토리 리스트에서 아이템 제거 / get() — 아이템 딕셔너리 속성 안전하게 읽기",
@@ -849,7 +849,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드 실행 후 `items`의 상태는?\n\n```python\nitems = ['검', '방패', '물약']\nitems.pop(1)\nprint(items)\n```",
+      "question": "다음 코드 실행 후 'items'의 상태는?\n\n```python\nitems = ['검', '방패', '물약']\nitems.pop(1)\nprint(items)\n```",
       "choices": [
         "A. ['검', '방패', '물약']",
         "B. ['방패', '물약']",
@@ -969,7 +969,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`'SWORD'.lower()`의 결과는?",
+      "question": "''SWORD'.lower()'의 결과는?",
       "choices": [
         "A. 'SWORD'",
         "B. 'sword'",
@@ -993,7 +993,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`'검' in inventory`의 결과는?",
+      "question": "''검' in inventory'의 결과는?",
       "choices": [
         "A. inventory에 '검'을 추가한다",
         "B. inventory에 '검'이 있으면 True, 없으면 False",
@@ -1003,7 +1003,7 @@
       "answer": "B",
       "hint": "in은 포함 여부를 True/False로 알려주는 연산자예요.",
       "feedback": {
-        "correct": "정답! `값 in 리스트`는 해당 값이 리스트에 포함되면 True, 없으면 False를 반환해요."
+        "correct": "정답! '값 in 리스트'는 해당 값이 리스트에 포함되면 True, 없으면 False를 반환해요."
       },
       "villain": "interferencemon",
       "quiz_set": "A"
@@ -1017,7 +1017,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`find_item()`에서 `found = False`로 초기화하는 이유는?",
+      "question": "'find_item()'에서 'found = False'로 초기화하는 이유는?",
       "choices": [
         "A. found가 True면 루프가 시작되지 않기 때문에",
         "B. 루프 종료 후 '아무것도 못 찾음' 상태를 기본값으로 설정하기 위해",
@@ -1065,7 +1065,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`found = True`로 초기화하면 어떤 문제가 생길까요?",
+      "question": "'found = True'로 초기화하면 어떤 문제가 생길까요?",
       "choices": [
         "A. 루프가 무한 반복된다",
         "B. 아무것도 못 찾아도 '검색 성공'으로 잘못 처리된다",
@@ -1257,7 +1257,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`with open()` 구문을 쓰는 가장 중요한 이유는?",
+      "question": "'with open()' 구문을 쓰는 가장 중요한 이유는?",
       "choices": [
         "A. 파일을 더 빠르게 읽기 위해",
         "B. with 블록이 끝나면 자동으로 파일을 닫아 리소스를 안전하게 관리하기 위해",
@@ -1281,7 +1281,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아이템마다 `item + '\\n'`을 붙여 저장하는 이유는?",
+      "question": "아이템마다 'item + '\\n''을 붙여 저장하는 이유는?",
       "choices": [
         "A. 파일 크기를 줄이기 위해",
         "B. 각 아이템을 별도 줄에 기록해 나중에 읽기 쉽게 하기 위해",
@@ -1425,7 +1425,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드 실행 후 `result`의 자료형은?\n\n```python\nwith open('test.txt', 'w') as f:\n    f.write('hello')\nwith open('test.txt', 'r') as f:\n    result = f.read()\nprint(type(result).__name__)\n```",
+      "question": "다음 코드 실행 후 'result'의 자료형은?\n\n```python\nwith open('test.txt', 'w') as f:\n    f.write('hello')\nwith open('test.txt', 'r') as f:\n    result = f.read()\nprint(type(result).__name__)\n```",
       "choices": [
         "A. list",
         "B. bytes",
@@ -1449,7 +1449,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`while True:`를 사용하는 이유는?",
+      "question": "'while True:'를 사용하는 이유는?",
       "choices": [
         "A. 코드를 정확히 한 번만 실행하기 위해",
         "B. 사용자가 종료를 선택할 때까지 시스템을 계속 실행하기 위해",
@@ -1473,7 +1473,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`break`의 역할은?",
+      "question": "'break'의 역할은?",
       "choices": [
         "A. 현재 반복을 건너뛰고 다음으로 이동",
         "B. 가장 가까운 반복문을 즉시 탈출",
@@ -1497,7 +1497,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`if/elif/else` 분기에서 `else` 블록이 실행되는 조건은?",
+      "question": "'if/elif/else' 분기에서 'else' 블록이 실행되는 조건은?",
       "choices": [
         "A. if 조건이 True일 때",
         "B. elif 조건이 True일 때",
@@ -1521,7 +1521,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "`while True` 안에 `break` 없이 계속 실행하면?",
+      "question": "'while True' 안에 'break' 없이 계속 실행하면?",
       "choices": [
         "A. 10번 후 자동 종료",
         "B. 메모리 부족 시 자동 종료",
@@ -1545,7 +1545,7 @@
       "type": "multiple_choice",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "메뉴 시스템의 핵심인 `run_inventory_sys()` 구조에서 `while True`, `if/elif/else`, `break` 세 요소의 역할을 올바르게 설명한 것은 무엇일까요?\n\n```python\ndef run_inventory_sys():\n    while True:\n        # 1. if/elif/else로 메뉴 선택\n        # 2. break로 탈출\n```",
+      "question": "메뉴 시스템의 핵심인 'run_inventory_sys()' 구조에서 'while True', 'if/elif/else', 'break' 세 요소의 역할을 올바르게 설명한 것은 무엇일까요?\n\n```python\ndef run_inventory_sys():\n    while True:\n        # 1. if/elif/else로 메뉴 선택\n        # 2. break로 탈출\n```",
       "choices": [
         "A. while True — 한 번 실행 / if/elif/else — 파일 저장 / break — 에러 처리",
         "B. while True — 시스템 지속 실행 / if/elif/else — 메뉴 번호별 함수 라우팅 / break — 종료",
