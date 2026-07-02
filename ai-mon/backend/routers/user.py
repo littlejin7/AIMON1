@@ -10,8 +10,8 @@ from routers.utils import (
     mutate_user_atomic,
     UserNotFoundError,
     now_kst,
-    derive_course_level_from_endboss,
-    promote_course_level_from_endboss,
+    COURSE_LEVEL_ORDER,
+    derive_unlocked_course_levels,
 )
 
 logger = logging.getLogger("uvicorn.error")
@@ -62,15 +62,6 @@ class PurchaseThemeRequest(BaseModel):
 
 @router.get("/me")
 def get_me(user: dict = Depends(get_current_user)):
-    promoted_level = derive_course_level_from_endboss(user)
-    if promoted_level != user.get("course_level", "beginner"):
-        try:
-            user, _ = mutate_user_atomic(
-                user["id"],
-                lambda u: promote_course_level_from_endboss(u),
-            )
-        except UserNotFoundError:
-            raise HTTPException(status_code=404, detail="User not found")
     return serialize_user(user)
 
 
@@ -112,6 +103,11 @@ def update_me(req: UpdateProfileRequest, user: dict = Depends(get_current_user))
                 raise HTTPException(status_code=400, detail="아직 진화하지 않은 캐릭터는 선택할 수 없습니다.")
             u["character"] = req.character
         if req.course_level is not None:
+            if req.course_level not in COURSE_LEVEL_ORDER:
+                raise HTTPException(status_code=400, detail="Invalid course level")
+            unlocked_levels = derive_unlocked_course_levels(u)
+            if req.is_level_tested is not True and req.course_level not in unlocked_levels:
+                raise HTTPException(status_code=400, detail="Locked course level")
             u["course_level"] = req.course_level
         if req.is_level_tested is not None:
             u["is_level_tested"] = req.is_level_tested

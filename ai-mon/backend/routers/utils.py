@@ -585,20 +585,43 @@ NEXT_COURSE_LEVEL = {
 }
 
 
-def derive_course_level_from_endboss(user: dict) -> str:
-    """Return the highest course level unlocked by cleared endboss records."""
-    level = user.get("course_level", "beginner")
-    if level not in COURSE_LEVEL_ORDER:
-        level = "beginner"
-
+def derive_unlocked_course_levels(user: dict) -> list[str]:
+    """Return course levels unlocked by endboss clears or existing progress."""
     cleared = user.get("endboss_cleared_levels") or []
     if not isinstance(cleared, list):
         cleared = []
     cleared_set = set(cleared)
 
-    while level in cleared_set and level in NEXT_COURSE_LEVEL:
-        level = NEXT_COURSE_LEVEL[level]
-    return level
+    unlocked_set = {"beginner"}
+    if "beginner" in cleared_set or "intermediate" in cleared_set:
+        unlocked_set.add("intermediate")
+    if "intermediate" in cleared_set:
+        unlocked_set.add("advanced")
+
+    for item in user.get("unitboss_cleared_units") or []:
+        if not isinstance(item, str) or "-" not in item:
+            continue
+        level = item.split("-", 1)[0]
+        if level in COURSE_LEVEL_ORDER:
+            unlocked_set.add(level)
+
+    uid = user.get("id")
+    if uid:
+        try:
+            for item in get_progress_by_user(uid):
+                level = item.get("course_level", "beginner")
+                if level in COURSE_LEVEL_ORDER:
+                    unlocked_set.add(level)
+        except Exception:
+            logger.exception("Failed to derive course unlocks from progress for user %s", uid)
+
+    return [level for level in COURSE_LEVEL_ORDER if level in unlocked_set]
+
+
+def derive_course_level_from_endboss(user: dict) -> str:
+    """Return the highest course level unlocked by cleared endboss records."""
+    unlocked = derive_unlocked_course_levels(user)
+    return unlocked[-1]
 
 
 def promote_course_level_from_endboss(user: dict) -> bool:
@@ -990,7 +1013,10 @@ def serialize_user(user: dict) -> dict:
     
     # 2. Get current course level
     course_level = res.get("course_level", "beginner")
+    if course_level not in COURSE_LEVEL_ORDER:
+        course_level = "beginner"
     res["course_level"] = course_level
+    res["unlocked_course_levels"] = derive_unlocked_course_levels(res)
 
     
     # 3. Handle awarded_crown_units

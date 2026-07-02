@@ -69,10 +69,15 @@ export default function Settings() {
   const handleLevelChange = async (key) => {
     if (key === courseLevel || levelSaving) return
     setLevelSaving(true)
+    const prevLevel = courseLevel
     setCourseLevel(key)
     try {
       const res = await userApi.updateMe({ course_level: key })
       updateUser(res.data)
+      setCourseLevel(res.data?.course_level || key)
+    } catch (err) {
+      setCourseLevel(prevLevel)
+      console.error(err)
     } finally {
       setLevelSaving(false)
     }
@@ -276,8 +281,9 @@ export default function Settings() {
         <div className="st-group">
           <div className="st-level-hint">학습 난이도와 AI 설명 기준을 바꿀 수 있습니다.</div>
           {LEVELS.map(({ key, emoji, label, desc }) => {
+            const unlockedLevels = user?.unlocked_course_levels || ['beginner']
             const isCurrent = courseLevel === key
-            const isLocked = key !== 'beginner' && !isCurrent
+            const isLocked = !unlockedLevels.includes(key)
             return (
               <div
                 key={key}
@@ -289,10 +295,13 @@ export default function Settings() {
                   <div className={`st-level-name${isCurrent ? ' current' : isLocked ? ' locked' : ''}`}>{label}</div>
                   <div className="st-level-desc">{desc}</div>
                 </div>
-                {isCurrent
-                  ? <span className="st-current-tag">현재</span>
-                  : <span className="st-lock-tag">🔒 잠금</span>
-                }
+                {isCurrent ? (
+                  <span className="st-current-tag">현재</span>
+                ) : isLocked ? (
+                  <span className="st-lock-tag">🔒 잠금</span>
+                ) : (
+                  <span className="st-current-tag">선택 가능</span>
+                )}
               </div>
             )
           })}
