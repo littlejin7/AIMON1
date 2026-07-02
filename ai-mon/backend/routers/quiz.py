@@ -62,6 +62,37 @@ def serialize_question(q: dict) -> dict:
     return {k: v for k, v in q.items() if k not in _SENSITIVE_QUESTION_FIELDS}
 
 
+def select_attempt_question_pool(questions: list, attempt: int) -> list:
+    """Return the attempt-specific question pool.
+
+    Policy:
+    - attempt 1: set A
+    - attempt 2: set B
+    - attempt 3+: shuffled A+B pool
+    If the requested set metadata is unavailable, fall back to the full pool.
+    """
+    try:
+        attempt_no = int(attempt)
+    except (TypeError, ValueError):
+        attempt_no = 1
+
+    if attempt_no <= 1:
+        pool = [q for q in questions if q.get("quiz_set") == "A"]
+    elif attempt_no == 2:
+        pool = [q for q in questions if q.get("quiz_set") == "B"]
+    else:
+        pool = [q for q in questions if q.get("quiz_set") in ("A", "B")]
+        if pool:
+            random.shuffle(pool)
+
+    if not pool:
+        pool = list(questions)
+        if attempt_no >= 3:
+            random.shuffle(pool)
+
+    return pool
+
+
 @lru_cache(maxsize=128)
 def load_questions_by_category(category: str, course_level: str = None, unit: int = None):
     base = os.path.join(os.path.dirname(__file__), f"../data/{category}")
@@ -353,19 +384,7 @@ def get_questions(
         quiz_questions = [q for q in quiz_questions if q.get("stage") == stage]
 
     if category == "quiz":
-        # attempt별 quiz_set 필터 (quiz 문제에만 적용)
-        if attempt == 1:
-            pool = [q for q in quiz_questions if q.get("quiz_set") == "A"]
-        elif attempt == 2:
-            pool = [q for q in quiz_questions if q.get("quiz_set") == "B"]
-        else:
-            pool = list(quiz_questions)
-            random.shuffle(pool)
-
-        if not pool:  # quiz_set이 없어 빈 경우 폴백
-            pool = list(quiz_questions)
-            random.shuffle(pool)
-
+        pool = select_attempt_question_pool(quiz_questions, attempt)
         quiz_pool = pool[:limit]
 
         return [serialize_question(q) for q in quiz_pool]  # 정답·해설 제거(F)

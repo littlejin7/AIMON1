@@ -181,7 +181,7 @@ export default function Stage({ _lessonId, _stage }) {
 
         if (existing?.checkpoint === 'miniboss_ready' && !existing?.is_completed && questionsData.length > 0 && !minibossDefeatedRef.current) {
           try {
-            const res = await minibossApi.startBattle(lessonId, stageKey)
+            const res = await minibossApi.startBattle(lessonId, stageKey, attempt)
             setMinibossToken(res.data.battle_token)
             const miniQuestions = res.data.questions
             finalQuestions = [...questionsData, ...miniQuestions]
@@ -220,7 +220,7 @@ export default function Stage({ _lessonId, _stage }) {
   const handleSkipToMiniboss = async () => {
     try {
       const stageKey = `${lessonId}-${stageNum}`
-      const res = await minibossApi.startBattle(lessonId, stageKey)
+      const res = await minibossApi.startBattle(lessonId, stageKey, attempt)
       setMinibossToken(res.data.battle_token)
       const miniQuestions = res.data.questions.map(q => shuffleChoices(q))
       setQuestions(miniQuestions)
@@ -394,7 +394,7 @@ export default function Stage({ _lessonId, _stage }) {
         
         // 미니보스 문제 로드
         try {
-          const res = await minibossApi.startBattle(lessonId, `${lessonId}-${stageNum}`)
+          const res = await minibossApi.startBattle(lessonId, `${lessonId}-${stageNum}`, attempt)
           setMinibossToken(res.data.battle_token)
           const miniQuestions = res.data.questions.map(q => shuffleChoices(q))
           setQuestions(prev => [...prev, ...miniQuestions])

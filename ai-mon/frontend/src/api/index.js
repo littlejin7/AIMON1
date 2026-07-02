@@ -79,9 +79,9 @@ export const minibossApi = {
     requireAuthToken('GET /boss/miniboss/info')
     return api.get('/boss/miniboss/info')
   },
-  startBattle:   (unit, stage) => {
+  startBattle:   (unit, stage, attempt = 1) => {
     requireAuthToken('POST /boss/miniboss/start')
-    return api.post(`/boss/miniboss/start?unit=${unit}&stage=${stage}`)
+    return api.post(`/boss/miniboss/start?unit=${unit}&stage=${stage}&attempt=${attempt}`)
   },
   submitAnswer:  (data) => {
     requireAuthToken('POST /boss/miniboss/answer')

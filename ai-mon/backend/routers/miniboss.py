@@ -9,7 +9,7 @@
   POST /boss/miniboss/clear     클리어 처리 (XP + 진행도, 중복 방지)
 """
 
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Query
 from pydantic import BaseModel
 import json, os, random, uuid
 from datetime import datetime
@@ -25,7 +25,7 @@ from routers.utils import (
     mutate_user_atomic,
     UserNotFoundError,
 )
-from routers.quiz import assert_stage_access, serialize_question
+from routers.quiz import assert_stage_access, serialize_question, select_attempt_question_pool
 from routers.battle_session import (
     make_battle_token,
     verify_battle_token,
@@ -121,7 +121,12 @@ def miniboss_info(unit: int = 1, stage: str = "1-1", user: dict = Depends(get_cu
 
 
 @router.post("/start")
-def miniboss_start(unit: int = 1, stage: str = "1-1", user: dict = Depends(get_current_user)):
+def miniboss_start(
+    unit: int = 1,
+    stage: str = "1-1",
+    attempt: int = Query(1),
+    user: dict = Depends(get_current_user),
+):
     """
     미니보스 배틀 시작.
     - 해당 stage 문제 10개를 seen 관리하며 순서대로 반환
@@ -132,6 +137,7 @@ def miniboss_start(unit: int = 1, stage: str = "1-1", user: dict = Depends(get_c
     course_level = user.get("course_level", "beginner")
     all_qs = load_miniboss_questions(course_level, unit)
     stage_qs = [q for q in all_qs if q.get("stage") == stage]
+    attempt_pool = select_attempt_question_pool(stage_qs, attempt)
 
     if not stage_qs:
         raise HTTPException(status_code=404, detail=f"Unit {unit} / Stage {stage} 미니보스 문제가 없습니다.")
@@ -147,9 +153,9 @@ def miniboss_start(unit: int = 1, stage: str = "1-1", user: dict = Depends(get_c
         miniboss_seen = seen_questions.setdefault("miniboss", {})
         stage_seen = miniboss_seen.get(stage, [])
 
-        unseen = [q for q in stage_qs if q["question_id"] not in stage_seen]
+        unseen = [q for q in attempt_pool if q["question_id"] not in stage_seen]
         if not unseen:
-            unseen = list(stage_qs)
+            unseen = list(attempt_pool)
 
         random.shuffle(unseen)
         chosen = unseen[:QUESTIONS_PER_BATTLE]  # 최대 5문제
