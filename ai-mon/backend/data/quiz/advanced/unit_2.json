@@ -415,12 +415,12 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "비동기 함수(코루틴)를 정의할 때 `def` 앞에 붙이는 키워드는 _____이에요.",
+      "question": "비동기 함수(코루틴)를 정의할 때 'def' 앞에 붙이는 키워드는 _____이에요.",
       "choices": [],
       "answer": "async",
       "hint": "영어로 'asynchronous(비동기)'를 줄인 단어예요. 4글자예요.",
       "feedback": {
-        "correct": "정답! `async def`로 함수를 정의하면 코루틴 함수가 돼요. 호출 시 즉시 실행되지 않고 코루틴 객체를 반환하며, `await`나 `asyncio.run()`을 통해 실행해요."
+        "correct": "정답! 'async def'로 함수를 정의하면 코루틴 함수가 돼요. 호출 시 즉시 실행되지 않고 코루틴 객체를 반환하며, 'await'나 'asyncio.run()'을 통해 실행해요."
       }
     },
     {
@@ -436,9 +436,9 @@
       "question": "코루틴 안에서 다른 코루틴의 실행이 완료될 때까지 현재 코루틴을 일시 중단하고 기다릴 때 사용하는 키워드는 _____이에요.",
       "choices": [],
       "answer": "await",
-      "hint": "영어로 '기다리다'라는 뜻이에요. `async def` 함수 안에서만 사용할 수 있어요.",
+      "hint": "영어로 '기다리다'라는 뜻이에요. 'async def' 함수 안에서만 사용할 수 있어요.",
       "feedback": {
-        "correct": "정답! `await`는 코루틴 실행을 일시 중단하고 이벤트 루프에 제어권을 넘겨요. 지정한 코루틴이 완료되면 결과를 받아 이어서 실행해요. `async def` 함수 바깥에서 사용하면 SyntaxError가 발생해요."
+        "correct": "정답! 'await'는 코루틴 실행을 일시 중단하고 이벤트 루프에 제어권을 넘겨요. 지정한 코루틴이 완료되면 결과를 받아 이어서 실행해요. 'async def' 함수 바깥에서 사용하면 SyntaxError가 발생해요."
       }
     },
     {
@@ -459,9 +459,9 @@
         "D. 오류 발생"
       ],
       "answer": "B",
-      "hint": "`asyncio.run()`은 코루틴을 실제로 실행해줘요. `greet()` 안의 `print()`가 동작해요.",
+      "hint": "'asyncio.run()'은 코루틴을 실제로 실행해줘요. 'greet()' 안의 'print()'가 동작해요.",
       "feedback": {
-        "correct": "정답! `asyncio.run(greet())`은 이벤트 루프를 생성하고 greet() 코루틴을 실행해요. 그 결과 `print('안녕하세요!')`가 호출되어 '안녕하세요!'가 출력돼요. A처럼 코루틴 객체 자체가 출력되려면 `asyncio.run()` 없이 `print(greet())`처럼 호출해야 해요."
+        "correct": "정답! 'asyncio.run(greet())'은 이벤트 루프를 생성하고 greet() 코루틴을 실행해요. 그 결과 'print('안녕하세요!')'가 호출되어 '안녕하세요!'가 출력돼요. A처럼 코루틴 객체 자체가 출력되려면 'asyncio.run()' 없이 'print(greet())'처럼 호출해야 해요."
       }
     },
     {
@@ -474,12 +474,12 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "`async def`로 정의된 함수를 호출했을 때 반환되는 객체의 타입 이름은 _____이에요. 이 객체는 `await`나 `asyncio.run()`을 통해서만 실제로 실행돼요.",
+      "question": "'async def'로 정의된 함수를 호출했을 때 반환되는 객체의 타입 이름은 _____이에요. 이 객체는 'await'나 'asyncio.run()'을 통해서만 실제로 실행돼요.",
       "choices": [],
       "answer": "코루틴",
       "hint": "영어로 'coroutine'이에요. Python이 비동기 실행을 위해 만들어주는 특별한 객체예요.",
       "feedback": {
-        "correct": "정답! `async def` 함수를 호출하면 코루틴(coroutine) 객체가 반환돼요. 일반 함수처럼 즉시 실행되지 않으며, `await`로 기다리거나 `asyncio.run()`으로 이벤트 루프에서 실행해야 해요."
+        "correct": "정답! 'async def' 함수를 호출하면 코루틴(coroutine) 객체가 반환돼요. 일반 함수처럼 즉시 실행되지 않으며, 'await'로 기다리거나 'asyncio.run()'으로 이벤트 루프에서 실행해야 해요."
       }
     },
     {
@@ -500,9 +500,9 @@
         "D. None / None"
       ],
       "answer": "C",
-      "hint": "`await say('Hello')`가 완료된 후 `await say('World')`가 실행돼요. 각 `print()`는 줄바꿈을 해요.",
+      "hint": "'await say('Hello')'가 완료된 후 'await say('World')'가 실행돼요. 각 'print()'는 줄바꿈을 해요.",
       "feedback": {
-        "correct": "정답! `await say('Hello')`가 먼저 실행되어 'Hello'를 출력하고, 이어서 `await say('World')`가 실행되어 'World'를 출력해요. 각 `print()`는 자동 줄바꿈을 포함하므로 두 줄에 나뉘어 출력돼요."
+        "correct": "정답! 'await say('Hello')'가 먼저 실행되어 'Hello'를 출력하고, 이어서 'await say('World')'가 실행되어 'World'를 출력해요. 각 'print()'는 자동 줄바꿈을 포함하므로 두 줄에 나뉘어 출력돼요."
       }
     },
     {
@@ -515,12 +515,12 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "asyncio에서 이벤트 루프를 생성하고 최상위 코루틴을 실행하는 함수는 `asyncio._____()`이에요.",
+      "question": "asyncio에서 이벤트 루프를 생성하고 최상위 코루틴을 실행하는 함수는 'asyncio._____()'이에요.",
       "choices": [],
       "answer": "run",
       "hint": "영어로 '실행하다'라는 뜻의 단어예요. Python 3.7부터 추가된 편의 함수예요.",
       "feedback": {
-        "correct": "정답! `asyncio.run(coroutine)`은 새로운 이벤트 루프를 생성하고, 전달받은 코루틴을 실행한 뒤, 완료되면 이벤트 루프를 종료해요. Python 3.7부터 사용 가능한 가장 간단한 비동기 진입점이에요."
+        "correct": "정답! 'asyncio.run(coroutine)'은 새로운 이벤트 루프를 생성하고, 전달받은 코루틴을 실행한 뒤, 완료되면 이벤트 루프를 종료해요. Python 3.7부터 사용 가능한 가장 간단한 비동기 진입점이에요."
       }
     },
     {
@@ -533,7 +533,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "아래 코드의 출력 결과를 올바르게 골라보세요. `await asyncio.sleep(0)`의 동작에 주목해보세요.\n\n```python\nimport asyncio\n\nasync def count():\n    print('하나')\n    await asyncio.sleep(0)\n    print('둘')\n\nasyncio.run(count())\n```",
+      "question": "아래 코드의 출력 결과를 올바르게 골라보세요. 'await asyncio.sleep(0)'의 동작에 주목해보세요.\n\n```python\nimport asyncio\n\nasync def count():\n    print('하나')\n    await asyncio.sleep(0)\n    print('둘')\n\nasyncio.run(count())\n```",
       "choices": [
         "A. 둘 / 하나",
         "B. 하나",
@@ -541,9 +541,9 @@
         "D. 하나 / 둘"
       ],
       "answer": "D",
-      "hint": "`asyncio.sleep(0)`은 잠깐 제어권을 이벤트 루프에 넘기지만, 다른 코루틴이 없으면 바로 돌아와요. 출력 순서는 코드 순서와 같아요.",
+      "hint": "'asyncio.sleep(0)'은 잠깐 제어권을 이벤트 루프에 넘기지만, 다른 코루틴이 없으면 바로 돌아와요. 출력 순서는 코드 순서와 같아요.",
       "feedback": {
-        "correct": "정답! `await asyncio.sleep(0)`은 0초 대기로 이벤트 루프에 제어권을 잠시 양보해요. 하지만 현재 실행 중인 코루틴이 count() 하나뿐이므로 이벤트 루프는 곧바로 count()로 돌아와 '둘'을 출력해요."
+        "correct": "정답! 'await asyncio.sleep(0)'은 0초 대기로 이벤트 루프에 제어권을 잠시 양보해요. 하지만 현재 실행 중인 코루틴이 count() 하나뿐이므로 이벤트 루프는 곧바로 count()로 돌아와 '둘'을 출력해요."
       }
     },
     {
@@ -556,12 +556,12 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "`time.sleep(1)`은 현재 _____를 완전히 멈추지만, `await asyncio.sleep(1)`은 현재 코루틴만 일시 중단하고 이벤트 루프가 다른 코루틴을 실행할 수 있게 해줘요.",
+      "question": "'time.sleep(1)'은 현재 _____를 완전히 멈추지만, 'await asyncio.sleep(1)'은 현재 코루틴만 일시 중단하고 이벤트 루프가 다른 코루틴을 실행할 수 있게 해줘요.",
       "choices": [],
       "answer": "스레드",
       "hint": "컴퓨터에서 코드를 실행하는 단위예요. asyncio는 단일 _____로 동작해요.",
       "feedback": {
-        "correct": "정답! `time.sleep(1)`은 해당 스레드 전체를 1초간 블로킹해요. 반면 `await asyncio.sleep(1)`은 현재 코루틴만 일시 중단하고 이벤트 루프가 다른 코루틴을 실행할 수 있도록 제어권을 넘겨줘요. 그래서 비동기 코드 안에서는 반드시 `asyncio.sleep()`을 사용해야 해요."
+        "correct": "정답! 'time.sleep(1)'은 해당 스레드 전체를 1초간 블로킹해요. 반면 'await asyncio.sleep(1)'은 현재 코루틴만 일시 중단하고 이벤트 루프가 다른 코루틴을 실행할 수 있도록 제어권을 넘겨줘요. 그래서 비동기 코드 안에서는 반드시 'asyncio.sleep()'을 사용해야 해요."
       }
     },
     {
@@ -582,9 +582,9 @@
         "D. 작업: 시작"
       ],
       "answer": "A",
-      "hint": "`await step('작업')`은 step()이 완전히 끝날 때까지 main()의 진행을 기다려요.",
+      "hint": "'await step('작업')'은 step()이 완전히 끝날 때까지 main()의 진행을 기다려요.",
       "feedback": {
-        "correct": "정답! `await step('작업')`은 step() 코루틴이 완료될 때까지 main()을 일시 중단해요. step()이 '작업: 시작' → sleep(0) → '작업: 완료' 순으로 실행된 뒤, main()이 재개되어 '메인 완료'를 출력해요."
+        "correct": "정답! 'await step('작업')'은 step() 코루틴이 완료될 때까지 main()을 일시 중단해요. step()이 '작업: 시작' → sleep(0) → '작업: 완료' 순으로 실행된 뒤, main()이 재개되어 '메인 완료'를 출력해요."
       }
     },
     {
@@ -597,12 +597,12 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "asyncio에서 비동기 방식으로 일정 시간을 대기할 때, 이벤트 루프를 차단하지 않으려면 `time.sleep()` 대신 `await asyncio._____(초)`를 사용해야 해요.",
+      "question": "asyncio에서 비동기 방식으로 일정 시간을 대기할 때, 이벤트 루프를 차단하지 않으려면 'time.sleep()' 대신 'await asyncio._____(초)'를 사용해야 해요.",
       "choices": [],
       "answer": "sleep",
-      "hint": "`time` 모듈에도 같은 이름의 함수가 있어요. 하지만 비동기 코드에서는 반드시 asyncio 버전을 써야 해요.",
+      "hint": "'time' 모듈에도 같은 이름의 함수가 있어요. 하지만 비동기 코드에서는 반드시 asyncio 버전을 써야 해요.",
       "feedback": {
-        "correct": "정답! `await asyncio.sleep(초)`는 현재 코루틴만 지정한 시간 동안 일시 중단하고, 그 사이 이벤트 루프가 다른 코루틴을 실행할 수 있어요. 비동기 함수 안에서 `time.sleep()`을 쓰면 이벤트 루프 전체가 블로킹돼요."
+        "correct": "정답! 'await asyncio.sleep(초)'는 현재 코루틴만 지정한 시간 동안 일시 중단하고, 그 사이 이벤트 루프가 다른 코루틴을 실행할 수 있어요. 비동기 함수 안에서 'time.sleep()'을 쓰면 이벤트 루프 전체가 블로킹돼요."
       }
     },
     {
@@ -623,9 +623,9 @@
         "D. 오류 발생"
       ],
       "answer": "C",
-      "hint": "`asyncio.run(hello())`는 hello() 코루틴을 실제로 실행해줘요.",
+      "hint": "'asyncio.run(hello())'는 hello() 코루틴을 실제로 실행해줘요.",
       "feedback": {
-        "correct": "정답! `asyncio.run(hello())`이 이벤트 루프를 생성하고 hello()를 실행해 'Hello, async!'가 출력돼요. A처럼 코루틴 객체 자체가 출력되는 건 `asyncio.run()` 없이 `print(hello())`를 호출했을 때예요."
+        "correct": "정답! 'asyncio.run(hello())'이 이벤트 루프를 생성하고 hello()를 실행해 'Hello, async!'가 출력돼요. A처럼 코루틴 객체 자체가 출력되는 건 'asyncio.run()' 없이 'print(hello())'를 호출했을 때예요."
       }
     },
     {
@@ -638,12 +638,12 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "`async def main():` 으로 정의된 코루틴을 실행하는 올바른 방법은 `asyncio._____(main())`이에요.",
+      "question": "'async def main():' 으로 정의된 코루틴을 실행하는 올바른 방법은 'asyncio._____(main())'이에요.",
       "choices": [],
       "answer": "run",
       "hint": "이 함수를 사용하면 이벤트 루프 생성과 종료를 자동으로 처리해줘요.",
       "feedback": {
-        "correct": "정답! `asyncio.run(main())`은 새로운 이벤트 루프를 생성하고, main() 코루틴을 실행한 뒤 완료되면 자동으로 이벤트 루프를 종료해요. 가장 간단하고 권장되는 비동기 진입점이에요."
+        "correct": "정답! 'asyncio.run(main())'은 새로운 이벤트 루프를 생성하고, main() 코루틴을 실행한 뒤 완료되면 자동으로 이벤트 루프를 종료해요. 가장 간단하고 권장되는 비동기 진입점이에요."
       }
     },
     {
@@ -664,9 +664,9 @@
         "D. 오류 발생"
       ],
       "answer": "B",
-      "hint": "`await add(3, 4)`는 add() 코루틴의 return 값을 받아요. 3 + 4는 얼마일까요?",
+      "hint": "'await add(3, 4)'는 add() 코루틴의 return 값을 받아요. 3 + 4는 얼마일까요?",
       "feedback": {
-        "correct": "정답! `await add(3, 4)`는 add() 코루틴을 실행하고 반환값 7을 result에 저장해요. f-string으로 '결과: 7'이 출력돼요. A의 34는 문자열 '3'과 '4'를 이어붙인 결과이며, 이 코드에서는 숫자 덧셈이에요."
+        "correct": "정답! 'await add(3, 4)'는 add() 코루틴을 실행하고 반환값 7을 result에 저장해요. f-string으로 '결과: 7'이 출력돼요. A의 34는 문자열 '3'과 '4'를 이어붙인 결과이며, 이 코드에서는 숫자 덧셈이에요."
       }
     },
     {
@@ -679,12 +679,12 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "`async def` 함수 내부에서만 사용 가능하며, 코루틴의 실행을 일시 중단하고 결과를 기다릴 때 쓰는 키워드는 _____이에요.",
+      "question": "'async def' 함수 내부에서만 사용 가능하며, 코루틴의 실행을 일시 중단하고 결과를 기다릴 때 쓰는 키워드는 _____이에요.",
       "choices": [],
       "answer": "await",
       "hint": "이 키워드를 만나면 이벤트 루프가 다른 코루틴을 실행할 기회를 가져요.",
       "feedback": {
-        "correct": "정답! `await`는 비동기 함수 안에서 코루틴의 완료를 기다리는 키워드예요. `await` 지점에서 현재 코루틴이 일시 중단되고, 이벤트 루프가 다른 실행 가능한 코루틴으로 전환했다가 결과가 준비되면 돌아와요."
+        "correct": "정답! 'await'는 비동기 함수 안에서 코루틴의 완료를 기다리는 키워드예요. 'await' 지점에서 현재 코루틴이 일시 중단되고, 이벤트 루프가 다른 실행 가능한 코루틴으로 전환했다가 결과가 준비되면 돌아와요."
       }
     },
     {
@@ -705,9 +705,9 @@
         "D. 안녕, 에이몬! / 안녕, AI!"
       ],
       "answer": "D",
-      "hint": "`await greet('에이몬')`이 먼저 완료되고, 이어서 `await greet('AI')`가 실행돼요.",
+      "hint": "'await greet('에이몬')'이 먼저 완료되고, 이어서 'await greet('AI')'가 실행돼요.",
       "feedback": {
-        "correct": "정답! main()에서 `await greet('에이몬')`이 먼저 실행되어 '안녕, 에이몬!'을 출력하고, 그 다음 `await greet('AI')`가 실행되어 '안녕, AI!'를 출력해요. A처럼 순서가 바뀌는 것은 비동기 동시 실행(gather 등)에서 발생할 수 있어요."
+        "correct": "정답! main()에서 'await greet('에이몬')'이 먼저 실행되어 '안녕, 에이몬!'을 출력하고, 그 다음 'await greet('AI')'가 실행되어 '안녕, AI!'를 출력해요. A처럼 순서가 바뀌는 것은 비동기 동시 실행(gather 등)에서 발생할 수 있어요."
       }
     },
     {
@@ -720,12 +720,12 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "비동기 코드 안에서 동기식 `time._____()`을 사용하면 이벤트 루프 전체가 블로킹돼요. 반드시 `await asyncio.sleep()`을 사용해야 해요.",
+      "question": "비동기 코드 안에서 동기식 'time._____()'을 사용하면 이벤트 루프 전체가 블로킹돼요. 반드시 'await asyncio.sleep()'을 사용해야 해요.",
       "choices": [],
       "answer": "sleep",
-      "hint": "일정 시간을 대기하는 함수예요. `time` 모듈과 `asyncio` 모듈 둘 다에 같은 이름으로 존재해요.",
+      "hint": "일정 시간을 대기하는 함수예요. 'time' 모듈과 'asyncio' 모듈 둘 다에 같은 이름으로 존재해요.",
       "feedback": {
-        "correct": "정답! `time.sleep()`은 동기 함수로 해당 스레드 전체를 블로킹해요. 비동기 코드에서 사용하면 이벤트 루프가 멈춰 다른 코루틴이 실행되지 못해요. 비동기 환경에서는 반드시 `await asyncio.sleep()`을 사용해야 해요."
+        "correct": "정답! 'time.sleep()'은 동기 함수로 해당 스레드 전체를 블로킹해요. 비동기 코드에서 사용하면 이벤트 루프가 멈춰 다른 코루틴이 실행되지 못해요. 비동기 환경에서는 반드시 'await asyncio.sleep()'을 사용해야 해요."
       }
     },
     {
@@ -746,9 +746,9 @@
         "D. A 시작 / A 완료 / main 완료"
       ],
       "answer": "D",
-      "hint": "`await task_a()`는 task_a()가 완전히 끝날 때까지 main()을 기다리게 해요.",
+      "hint": "'await task_a()'는 task_a()가 완전히 끝날 때까지 main()을 기다리게 해요.",
       "feedback": {
-        "correct": "정답! `await task_a()`로 task_a() 전체가 완료된 뒤 main()이 재개돼요. task_a()는 'A 시작' 출력 → sleep(0) → 'A 완료' 출력 순으로 실행돼요. 마지막으로 main()이 재개되어 'main 완료'를 출력해요."
+        "correct": "정답! 'await task_a()'로 task_a() 전체가 완료된 뒤 main()이 재개돼요. task_a()는 'A 시작' 출력 → sleep(0) → 'A 완료' 출력 순으로 실행돼요. 마지막으로 main()이 재개되어 'main 완료'를 출력해요."
       }
     },
     {
@@ -761,12 +761,12 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "비동기 함수를 정의할 때 `def` 앞에 붙이는 키워드는 _____이에요. 이 키워드가 없으면 내부에서 `await`를 사용할 수 없어 SyntaxError가 발생해요.",
+      "question": "비동기 함수를 정의할 때 'def' 앞에 붙이는 키워드는 _____이에요. 이 키워드가 없으면 내부에서 'await'를 사용할 수 없어 SyntaxError가 발생해요.",
       "choices": [],
       "answer": "async",
       "hint": "비동기(asynchronous)를 의미하는 4글자 영단어예요.",
       "feedback": {
-        "correct": "정답! `async` 키워드를 붙여야 해당 함수가 코루틴 함수로 정의돼요. `async`가 없는 일반 함수 안에서 `await`를 사용하면 SyntaxError가 발생하므로, 반드시 짝을 이뤄 사용해야 해요."
+        "correct": "정답! 'async' 키워드를 붙여야 해당 함수가 코루틴 함수로 정의돼요. 'async'가 없는 일반 함수 안에서 'await'를 사용하면 SyntaxError가 발생하므로, 반드시 짝을 이뤄 사용해야 해요."
       }
     },
     {
@@ -787,7 +787,7 @@
         "D. 3의 제곱: 9 / 합계: 9 / 4의 제곱: 16"
       ],
       "answer": "A",
-      "hint": "`await compute(3)`은 9를 반환하고 `await compute(4)`는 16을 반환해요. a + b는 얼마일까요?",
+      "hint": "'await compute(3)'은 9를 반환하고 'await compute(4)'는 16을 반환해요. a + b는 얼마일까요?",
       "feedback": {
         "correct": "정답! compute(3)은 '3의 제곱: 9'를 출력하고 9를 반환해요. compute(4)는 '4의 제곱: 16'을 출력하고 16을 반환해요. 마지막으로 9 + 16 = 25이므로 '합계: 25'가 출력돼요. C의 7은 3+4의 결과이며, 이 코드는 곱셈(x*x)을 사용해요."
       }
@@ -802,12 +802,12 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "`await` 없이 `async def` 함수를 호출하면, 실행되지 않고 _____ 객체만 생성돼요. Python은 이 상황에서 RuntimeWarning을 출력해줘요.",
+      "question": "'await' 없이 'async def' 함수를 호출하면, 실행되지 않고 _____ 객체만 생성돼요. Python은 이 상황에서 RuntimeWarning을 출력해줘요.",
       "choices": [],
       "answer": "코루틴",
-      "hint": "영어로 'coroutine'이에요. `async def` 함수 호출의 반환 타입이에요.",
+      "hint": "영어로 'coroutine'이에요. 'async def' 함수 호출의 반환 타입이에요.",
       "feedback": {
-        "correct": "정답! `async def` 함수를 `await` 없이 호출하면 코루틴 객체가 생성되기만 하고 내부 코드는 실행되지 않아요. Python은 'coroutine was never awaited'라는 RuntimeWarning을 출력해 이 실수를 알려줘요."
+        "correct": "정답! 'async def' 함수를 'await' 없이 호출하면 코루틴 객체가 생성되기만 하고 내부 코드는 실행되지 않아요. Python은 'coroutine was never awaited'라는 RuntimeWarning을 출력해 이 실수를 알려줘요."
       }
     },
     {
