@@ -1,5 +1,6 @@
 import BossModel3D from '../Boss/BossModel3D'
 import PlayerModel3D from '../Boss/PlayerModel3D'
+import endbossBg from '../../assets/endbossbg.png'
 import { useState, useEffect, Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
 import ErrorFindLines from '../../components/QuizCard/ErrorFindLines'
@@ -80,24 +81,13 @@ export default function EndBossBattle({
     <div className="eb-b-wrap">
 
       {/* ── 전투 배경 ── */}
-      <div className="eb-b-bg">
+      <div className="eb-b-bg" style={{ backgroundImage: `url(${endbossBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="eb-b-ground-top" />
         <div className="eb-b-ground-bot" />
         <div className="eb-b-hp-sub">Phase {phase} 진행 중</div>
-        {/* 보스 HP 박스 */}
-        <div className="eb-b-boss-hpbox">
 
-          <div className="eb-b-hp-bar-wrap">
-            <span className="eb-b-hp-label">HP</span>
-            <div className="eb-b-hp-track">
-              <div className="eb-b-hp-fill" style={{ width: `${bossPct}%`, background: bossHpGrad }} />
-            </div>
-          </div>
-          <div className="eb-b-hp-nums">{bossHp} / {BOSS_HP_MAX}</div>
-        </div>
-
-        {/* 플레이어 HP 박스 */}
-        <div className={`eb-b-player-hpbox${myShake ? ' shake' : ''}`}>
+        {/* 플레이어 HP 박스 — 상단 왼쪽 */}
+        <div className={`eb-b-player-hpbox${myShake ? ' shake' : ''}`} style={{ top: '8px', bottom: 'auto', left: '8px' }}>
           {phase === 3 ? (
             <div className="eb-b-hearts">
               {[0, 1, 2].map(i => (
@@ -119,8 +109,30 @@ export default function EndBossBattle({
           )}
         </div>
 
-        {/* 보스 3D */}
-        <div className={`eb-b-boss-canvas${bossHit ? ' hit-red' : ''}`}>
+        {/* 보스 HP 박스 — 상단 오른쪽 */}
+        <div className="eb-b-boss-hpbox" style={{ top: '8px', right: '8px' }}>
+          <div className="eb-b-hp-bar-wrap">
+            <span className="eb-b-hp-label">HP</span>
+            <div className="eb-b-hp-track">
+              <div className="eb-b-hp-fill" style={{ width: `${bossPct}%`, background: bossHpGrad }} />
+            </div>
+          </div>
+          <div className="eb-b-hp-nums">{bossHp} / {BOSS_HP_MAX}</div>
+        </div>
+
+        {/* 플레이어 3D — 하단 왼쪽 */}
+        <div className={`eb-b-player-canvas${myShake ? ' hit-red' : ''}`} style={{ bottom: '-40px', top: 'auto', left: '0px', width: '170px', height: '170px' }}>
+          <Canvas camera={{ position: [0, 0, 3], fov: 40 }} style={{ background: 'transparent' }} gl={{ alpha: true }}>
+            <ambientLight intensity={2.5} />
+            <directionalLight position={[2, 4, 2]} intensity={2.0} />
+            <Suspense fallback={null}>
+              <PlayerModel3D myShake={myShake} attackAnim={attackAnim} character={user?.character} position={[0, -0.5, 0]} rotation={[0, Math.PI * 0.15, 0]} />
+            </Suspense>
+          </Canvas>
+        </div>
+
+        {/* 보스 3D — 하단 오른쪽 */}
+        <div className={`eb-b-boss-canvas${bossHit ? ' hit-red' : ''}`} style={{ bottom: '15px', top: 'auto', right: '0px', width: '200px', height: '200px' }}>
           <Canvas camera={{ position: [0, 0, 3], fov: 50 }} style={{ background: 'transparent' }} gl={{ alpha: true }}>
             <ambientLight intensity={3.5} />
             <directionalLight position={[6, 4, 6]} intensity={1.5} />
@@ -129,18 +141,7 @@ export default function EndBossBattle({
             </Suspense>
           </Canvas>
         </div>
-
-        {/* 플레이어 3D */}
-        <div className={`eb-b-player-canvas${myShake ? ' hit-red' : ''}`}>
-          <Canvas camera={{ position: [0, 0, 3], fov: 60 }} style={{ background: 'transparent' }} gl={{ alpha: true }}>
-            <ambientLight intensity={2.5} />
-            <directionalLight position={[2, 4, 2]} intensity={2.0} />
-            <Suspense fallback={null}>
-              <PlayerModel3D myShake={myShake} attackAnim={attackAnim} character={user?.character} position={[0, -0.5, 0]} />
-            </Suspense>
-          </Canvas>
-        </div>
-
+        
         {/* 데미지 팝업 */}
         {dmgPopup && <div className="eb-b-dmg-popup">-{dmgPopup}</div>}
       </div>
