@@ -347,7 +347,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "초급에서 문자열을 특정 기준으로 나누어 리스트로 변환해주던 강력한 무기인 `.split()` 기억나시나요? 클래스 안으로 입력받은 원본 대화 텍스트를 공백 기준으로 쪼개어 속성에 담고자 합니다. 빈칸에 어울리는 구문을 기재해보세요.\n\n```python\nclass DialogParser:\n    def __init__(self, raw_text):\n        self.words = _____\n\nparser = DialogParser('Hello Amon Real Expert')\n# parser.words 결과물이 ['Hello', 'Amon', 'Real', 'Expert']가 되어야 합니다.\n```",
+      "question": "초급에서 문자열을 특정 기준으로 나누어 리스트로 변환해주던 강력한 무기인 '.split()' 기억나시나요? 클래스 안으로 입력받은 원본 대화 텍스트를 공백 기준으로 쪼개어 속성에 담고자 합니다. 빈칸에 어울리는 구문을 기재해보세요.\n\n```python\nclass DialogParser:\n    def __init__(self, raw_text):\n        self.words = _____\n\nparser = DialogParser('Hello Amon Real Expert')\n# parser.words 결과물이 ['Hello', 'Amon', 'Real', 'Expert']가 되어야 합니다.\n```",
       "answer": "raw_text.split()",
       "hint": "외부 매개변수로 들어온 raw_text 문자열 뒤에 파이썬 기본 문자열 분할 메서드를 연쇄해보세요.",
       "feedback": {
@@ -2258,7 +2258,7 @@
         "D. 170"
       ],
       "answer": "B. 85",
-      "hint": "등록된 점수는 80과 90이에요. calculate_average 내부의 초급 산술 연산자 기호 `//`는 합산된 데이터를 개수로 나눈 정수 몫을 반환해 줘요.",
+      "hint": "등록된 점수는 80과 90이에요. calculate_average 내부의 초급 산술 연산자 기호 '//'는 합산된 데이터를 개수로 나눈 정수 몫을 반환해 줘요.",
       "feedback": {
         "correct": "정답이에요! 두 점수의 총합 170을 요소의 개수인 2로 나누어 몫 연산한 결과값인 85가 도출됩니다."
       }
