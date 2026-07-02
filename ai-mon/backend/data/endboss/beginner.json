@@ -423,7 +423,7 @@
     "unit": 9,
     "difficulty": "medium",
     "type": "error_find",
-    "question": "used_words에 새 단어 전체를 추가하려는 코드입니다.\n논리 오류가 있는 줄 번호는?\n\n```python\n1: used_words = []\n2: new_word = \"사과\"\n3: used_words += new_word\n4: print(used_words)\n```\n\n(실제 출력: `['사', '과']`, 의도한 출력: `['사과']`)",
+    "question": "used_words에 새 단어 전체를 추가하려는 코드입니다.\n논리 오류가 있는 줄 번호는?\n\n```python\n1: used_words = []\n2: new_word = \"사과\"\n3: used_words += new_word\n4: print(used_words)\n```\n\n(실제 출력: '['사', '과']', 의도한 출력: '['사과']')",
     "choices": [
       "A. 1번째 줄",
       "B. 2번째 줄",
@@ -693,7 +693,7 @@
     "unit": 9,
     "difficulty": "medium",
     "type": "error_find",
-    "question": "all_scores에 new_scores 항목들을 추가하려는 코드입니다.\n논리 오류가 있는 줄 번호는?\n\n```python\n1: all_scores = [85, 92]\n2: new_scores = [78, 67, 55]\n3: all_scores.append(new_scores)\n4: print(len(all_scores))\n```\n\n(의도한 출력: `5`, 실제 출력: `3`)",
+    "question": "all_scores에 new_scores 항목들을 추가하려는 코드입니다.\n논리 오류가 있는 줄 번호는?\n\n```python\n1: all_scores = [85, 92]\n2: new_scores = [78, 67, 55]\n3: all_scores.append(new_scores)\n4: print(len(all_scores))\n```\n\n(의도한 출력: '5', 실제 출력: '3')",
     "choices": [
       "A. 1번째 줄",
       "B. 2번째 줄",
@@ -939,7 +939,7 @@
     "unit": 9,
     "difficulty": "medium",
     "type": "error_find",
-    "question": "다음 코드는 실행되지만 GPA가 잘못 계산됩니다. 논리 오류가 있는 줄 번호는?\n\n```python\n1: courses = [\n2:     {\"과목\": \"수학\", \"학점\": 3, \"등급\": \"A\"},\n3:     {\"과목\": \"영어\", \"학점\": 2, \"등급\": \"B\"}\n4: ]\n5: grade_map = {\"A\": 4.0, \"B\": 3.0, \"C\": 2.0, \"D\": 1.0}\n6: total = sum(c[\"학점\"] * grade_map[c[\"등급\"]] for c in courses)\n7: gpa = total / len(courses)\n8: print(f\"GPA: {gpa}\")\n```\n\n(의도한 출력: `GPA: 3.6`, 실제 출력: `GPA: 9.0`)",
+    "question": "다음 코드는 실행되지만 GPA가 잘못 계산됩니다. 논리 오류가 있는 줄 번호는?\n\n```python\n1: courses = [\n2:     {\"과목\": \"수학\", \"학점\": 3, \"등급\": \"A\"},\n3:     {\"과목\": \"영어\", \"학점\": 2, \"등급\": \"B\"}\n4: ]\n5: grade_map = {\"A\": 4.0, \"B\": 3.0, \"C\": 2.0, \"D\": 1.0}\n6: total = sum(c[\"학점\"] * grade_map[c[\"등급\"]] for c in courses)\n7: gpa = total / len(courses)\n8: print(f\"GPA: {gpa}\")\n```\n\n(의도한 출력: 'GPA: 3.6', 실제 출력: 'GPA: 9.0')",
     "choices": [
       "A. 5번째 줄",
       "B. 6번째 줄",
@@ -987,7 +987,7 @@
     "unit": 9,
     "difficulty": "hard",
     "type": "error_find",
-    "question": "등급(평점)이 가장 높은 과목을 찾으려는 코드입니다. 논리 오류가 있는 줄 번호는?\n\n```python\n1: courses = [\n2:     {\"과목\": \"수학\", \"학점\": 3, \"등급\": \"B\"},\n3:     {\"과목\": \"영어\", \"학점\": 2, \"등급\": \"A\"},\n4:     {\"과목\": \"과학\", \"학점\": 1, \"등급\": \"A\"}\n5: ]\n6: grade_map = {\"A\": 4.0, \"B\": 3.0, \"C\": 2.0}\n7: best = max(courses, key=lambda c: c[\"학점\"])\n8: print(best[\"과목\"])\n```\n\n(의도한 출력: 등급이 A인 과목, 실제 출력: `수학`)",
+    "question": "등급(평점)이 가장 높은 과목을 찾으려는 코드입니다. 논리 오류가 있는 줄 번호는?\n\n```python\n1: courses = [\n2:     {\"과목\": \"수학\", \"학점\": 3, \"등급\": \"B\"},\n3:     {\"과목\": \"영어\", \"학점\": 2, \"등급\": \"A\"},\n4:     {\"과목\": \"과학\", \"학점\": 1, \"등급\": \"A\"}\n5: ]\n6: grade_map = {\"A\": 4.0, \"B\": 3.0, \"C\": 2.0}\n7: best = max(courses, key=lambda c: c[\"학점\"])\n8: print(best[\"과목\"])\n```\n\n(의도한 출력: 등급이 A인 과목, 실제 출력: '수학')",
     "choices": [
       "A. 2번째 줄",
       "B. 6번째 줄",
