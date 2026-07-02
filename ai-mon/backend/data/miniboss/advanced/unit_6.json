@@ -9,7 +9,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Claude가 도구 호출이 필요하다고 판단했을 때 반환되는 stop_reason 값을 빈칸에 채워보세요.\n\n```python\nstop_reason = \"_____\"   # 도구 호출이 필요한 경우\n\nif stop_reason == \"tool_use\":\n...",
+      "question": "Claude가 도구 호출이 필요하다고 판단했을 때 반환되는 stop_reason 값을 빈칸에 채워보세요.\n\n```python\nstop_reason = \"_____\"   # 도구 호출이 필요한 경우\n\nif stop_reason == \"tool_use\":\n...\n```",
       "answer": "tool_use",
       "feedback": {
         "correct": "정답! Claude가 도구 호출을 결정하면 stop_reason이 \"tool_use\"로 반환됩니다. 모든 작업이 완료되어 최종 답변을 내놓을 때는 \"end_turn\"이 반환돼요. 에이전트 루프는 이 두 값을 분기 조건으로 삼아 반복됩니다. 클리어!"

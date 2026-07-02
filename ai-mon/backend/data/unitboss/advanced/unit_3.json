@@ -9,7 +9,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "```python\nos.environ.get()에서 기본값이 반환되는 경우는?\n\nimport os\n\nos.environ[\"APP_KEY\"] = \"secret-123\"\nprint(os.environ.get(\"APP_KEY\", \"없음\"))\nprint(os.environ.get(\"MISSING_KEY\", \"없음\"))\n```",
+      "question": "os.environ.get()에서 기본값이 반환되는 경우는?\n\n```python\nimport os\n\nos.environ[\"APP_KEY\"] = \"secret-123\"\nprint(os.environ.get(\"APP_KEY\", \"없음\"))\nprint(os.environ.get(\"MISSING_KEY\", \"없음\"))\n```",
       "choices": [
         "A. secret-123\nsecret-123",
         "B. 없음\n없음",

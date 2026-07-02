@@ -19,7 +19,7 @@
       "difficulty": "easy",
       "unit": "2",
       "topic": "async 키워드로 코루틴 함수 정의",
-      "question": "```python\n아래 함수를 코루틴(Coroutine)으로 정의하려면 def 앞에 넣어야 할 키워드를 빈칸에 채워보세요.\n```",
+      "question": "아래 함수를 코루틴(Coroutine)으로 정의하려면 def 앞에 넣어야 할 키워드를 빈칸에 채워보세요.",
       "code": "import asyncio\n\n_____ def fetch_data():\n    await asyncio.sleep(1)\n    return \"data received\"",
       "answer": "async",
       "feedback": {

@@ -9,7 +9,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "```python\nasync 함수를 asyncio.run() 없이 직접 호출했을 때 출력되는 타입명은?\n\nimport asyncio\n\nasync def greet():\n    return \"안녕!\"\n\nresult = greet()\nprint(type(result).__name__)\n```",
+      "question": "async 함수를 asyncio.run() 없이 직접 호출했을 때 출력되는 타입명은?\n\n```python\nimport asyncio\n\nasync def greet():\n    return \"안녕!\"\n\nresult = greet()\nprint(type(result).__name__)\n```",
       "choices": [
         "A. str",
         "B. NoneType",

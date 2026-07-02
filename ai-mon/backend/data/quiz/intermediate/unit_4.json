@@ -473,7 +473,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "\n\n```python\nrun() 메서드 안에서 tick() 메서드를 두 번 호출하도록 빈칸을 채워보세요.\n\nclass Timer:\n    def __init__(self, seconds):\n        self.seconds = seconds\n\n    def tick(self):\n        self.seconds -= 1\n\n    def run(self):\n        _____\n        self.tick()\n        print(f'남은 시간: {self.seconds}초')\n\nt = Timer(10)\nt.run()  # 남은 시간: 8초\n```",
+      "question": "run() 메서드 안에서 tick() 메서드를 두 번 호출하도록 빈칸을 채워보세요.\n\n```python\nclass Timer:\n    def __init__(self, seconds):\n        self.seconds = seconds\n\n    def tick(self):\n        self.seconds -= 1\n\n    def run(self):\n        _____\n        self.tick()\n        print(f'남은 시간: {self.seconds}초')\n\nt = Timer(10)\nt.run()  # 남은 시간: 8초\n```",
       "answer": "self.tick()",
       "hint": "메서드 안에서 같은 클래스의 다른 메서드를 호출할 때는 self.메서드이름() 형태를 써요.",
       "feedback": {
@@ -513,7 +513,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "\n\n```python\nadd() 메서드에서 total 속성에 n을 더해 누산하도록 빈칸을 채워보세요.\n\nclass Score:\n    def __init__(self):\n        self.total = 0\n\n    def add(self, n):\n        _____\n\ns = Score()\ns.add(10)\ns.add(20)\nprint(s.total)  # 30\n```",
+      "question": "add() 메서드에서 total 속성에 n을 더해 누산하도록 빈칸을 채워보세요.\n\n```python\nclass Score:\n    def __init__(self):\n        self.total = 0\n\n    def add(self, n):\n        _____\n\ns = Score()\ns.add(10)\ns.add(20)\nprint(s.total)  # 30\n```",
       "answer": "self.total += n",
       "hint": "초급에서 배운 누산 패턴을 생각해보세요. 인스턴스 속성이니까 self.total에 접근해야 해요.",
       "feedback": {
@@ -553,7 +553,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "\n\n```python\nwrite() 메서드에서 records 리스트 속성에 msg를 추가하도록 빈칸을 채워보세요.\n\nclass Log:\n    def __init__(self):\n        self.records = []\n\n    def write(self, msg):\n        _____\n\nlog = Log()\nlog.write('시작')\nlog.write('진행 중')\nprint(log.records)  # ['시작', '진행 중']\n```",
+      "question": "write() 메서드에서 records 리스트 속성에 msg를 추가하도록 빈칸을 채워보세요.\n\n```python\nclass Log:\n    def __init__(self):\n        self.records = []\n\n    def write(self, msg):\n        _____\n\nlog = Log()\nlog.write('시작')\nlog.write('진행 중')\nprint(log.records)  # ['시작', '진행 중']\n```",
       "answer": "self.records.append(msg)",
       "hint": "초급에서 배운 리스트 메서드를 떠올려보세요. 리스트에 항목을 추가할 때 쓰는 메서드는 뭐였죠? 인스턴스 속성이니까 self.records를 써야 해요.",
       "feedback": {
@@ -593,7 +593,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "\n\n```python\nunlock() 메서드에서 key가 'secret'일 때 locked 속성을 False로 바꾸도록 빈칸을 채워보세요.\n\nclass Gate:\n    def __init__(self):\n        self.locked = True\n\n    def unlock(self, key):\n        if key == 'secret':\n            _____ = False\n            print('열렸어요!')\n        else:\n            print('틀린 열쇠예요.')\n\ng = Gate()\ng.unlock('secret')  # 열렸어요!\n```",
+      "question": "unlock() 메서드에서 key가 'secret'일 때 locked 속성을 False로 바꾸도록 빈칸을 채워보세요.\n\n```python\nclass Gate:\n    def __init__(self):\n        self.locked = True\n\n    def unlock(self, key):\n        if key == 'secret':\n            _____ = False\n            print('열렸어요!')\n        else:\n            print('틀린 열쇠예요.')\n\ng = Gate()\ng.unlock('secret')  # 열렸어요!\n```",
       "answer": "self.locked",
       "hint": "메서드 안에서 인스턴스 속성을 수정할 때는 self.속성이름 형태를 써요.",
       "feedback": {
@@ -673,7 +673,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "\n\n```python\nget() 메서드가 인스턴스의 km 속성 값을 반환하도록 빈칸을 채워보세요.\n\nclass Distance:\n    def __init__(self, km):\n        self.km = km\n\n    def get(self):\n        return _____\n\nd = Distance(42)\nprint(d.get())  # 42\n```",
+      "question": "get() 메서드가 인스턴스의 km 속성 값을 반환하도록 빈칸을 채워보세요.\n\n```python\nclass Distance:\n    def __init__(self, km):\n        self.km = km\n\n    def get(self):\n        return _____\n\nd = Distance(42)\nprint(d.get())  # 42\n```",
       "answer": "self.km",
       "hint": "메서드 내부에서 객체의 고유 멤버 변수에 정석적으로 접근하고 데이터를 추출하는 키워드 조합 형태를 적어주세요. 외부 변수 지칭은 제외합니다.",
       "feedback": {
@@ -713,7 +713,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "\n\n```python\nfire() 메서드 안에서 charge() 메서드를 먼저 호출하도록 빈칸을 채워보세요.\n\nclass Cannon:\n    def __init__(self, power):\n        self.power = power\n\n    def charge(self):\n        print(f'충전 완료! 위력: {self.power}')\n\n    def fire(self):\n        _____\n        print('발사!')\n\nc = Cannon(99)\nc.fire()\n# 충전 완료! 위력: 99\n# 발사!\n```",
+      "question": "fire() 메서드 안에서 charge() 메서드를 먼저 호출하도록 빈칸을 채워보세요.\n\n```python\nclass Cannon:\n    def __init__(self, power):\n        self.power = power\n\n    def charge(self):\n        print(f'충전 완료! 위력: {self.power}')\n\n    def fire(self):\n        _____\n        print('발사!')\n\nc = Cannon(99)\nc.fire()\n# 충전 완료! 위력: 99\n# 발사!\n```",
       "answer": "self.charge()",
       "hint": "같은 클래스의 다른 메서드를 호출할 때는 self.메서드이름() 형태를 써요.",
       "feedback": {
@@ -753,7 +753,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "\n\n```python\nroll_call() 메서드에서 members 리스트 속성을 순회하도록 빈칸을 채워보세요.\n\nclass Party:\n    def __init__(self):\n        self.members = []\n\n    def join(self, name):\n        self.members.append(name)\n\n    def roll_call(self):\n        for name in _____:\n            print(f'출석: {name}')\n\np = Party()\np.join('에이몬')\np.join('슬라임')\np.roll_call()\n# 출석: 에이몬\n# 출석: 슬라임\n```",
+      "question": "roll_call() 메서드에서 members 리스트 속성을 순회하도록 빈칸을 채워보세요.\n\n```python\nclass Party:\n    def __init__(self):\n        self.members = []\n\n    def join(self, name):\n        self.members.append(name)\n\n    def roll_call(self):\n        for name in _____:\n            print(f'출석: {name}')\n\np = Party()\np.join('에이몬')\np.join('슬라임')\np.roll_call()\n# 출석: 에이몬\n# 출석: 슬라임\n```",
       "answer": "self.members",
       "hint": "for문에서 순회할 대상은 인스턴스 속성인 members 리스트예요. 인스턴스 속성에 접근할 때는 self를 앞에 붙여요.",
       "feedback": {
@@ -793,7 +793,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "\n\n```python\ncheck() 메서드에서 인스턴스의 level 속성으로 조건을 비교하도록 빈칸을 채워보세요.\n\nclass Battery:\n    def __init__(self, level):\n        self.level = level\n\n    def check(self):\n        if _____ >= 50:\n            print('배터리 양호해요.')\n        else:\n            print('배터리가 부족해요!')\n\nbat = Battery(30)\nbat.check()  # 배터리가 부족해요!\nbat2 = Battery(80)\nbat2.check()  # 배터리 양호해요.\n```",
+      "question": "check() 메서드에서 인스턴스의 level 속성으로 조건을 비교하도록 빈칸을 채워보세요.\n\n```python\nclass Battery:\n    def __init__(self, level):\n        self.level = level\n\n    def check(self):\n        if _____ >= 50:\n            print('배터리 양호해요.')\n        else:\n            print('배터리가 부족해요!')\n\nbat = Battery(30)\nbat.check()  # 배터리가 부족해요!\nbat2 = Battery(80)\nbat2.check()  # 배터리 양호해요.\n```",
       "answer": "self.level",
       "hint": "메서드 안에서 인스턴스의 속성 값을 비교할 때도 self.속성명 형태를 써요.",
       "feedback": {
@@ -953,7 +953,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "\n\n```python\n__init__에서 Enemy가 생성될 때마다 클래스 변수 total을 1씩 늘리도록 빈칸을 채워보세요.\n\nclass Enemy:\n    total = 0\n\n    def __init__(self, name):\n        self.name = name\n        _____\n\ne1 = Enemy('고블린')\ne2 = Enemy('오크')\ne3 = Enemy('드래곤')\nprint(Enemy.total)  # 3\n```",
+      "question": "__init__에서 Enemy가 생성될 때마다 클래스 변수 total을 1씩 늘리도록 빈칸을 채워보세요.\n\n```python\nclass Enemy:\n    total = 0\n\n    def __init__(self, name):\n        self.name = name\n        _____\n\ne1 = Enemy('고블린')\ne2 = Enemy('오크')\ne3 = Enemy('드래곤')\nprint(Enemy.total)  # 3\n```",
       "answer": "Enemy.total += 1",
       "hint": "클래스 변수를 메서드 안에서 수정할 때는 클래스이름.변수명 += 1 형태를 써요. self.total += 1은 인스턴스 변수를 만들어버려요!",
       "feedback": {
@@ -1153,7 +1153,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "\n\n```python\n__init__에서 Wave가 생성될 때마다 클래스 변수 count를 1씩 늘리도록 빈칸을 채워보세요.\n\nclass Wave:\n    count = 0\n\n    def __init__(self):\n        _____\n\nfor _ in range(4):\n    Wave()\nprint(Wave.count)  # 4\n```",
+      "question": "__init__에서 Wave가 생성될 때마다 클래스 변수 count를 1씩 늘리도록 빈칸을 채워보세요.\n\n```python\nclass Wave:\n    count = 0\n\n    def __init__(self):\n        _____\n\nfor _ in range(4):\n    Wave()\nprint(Wave.count)  # 4\n```",
       "answer": "Wave.count += 1",
       "hint": "클래스 변수를 메서드 안에서 수정할 때는 클래스이름.변수명 형태를 써야 해요. self.count += 1을 쓰면 인스턴스 변수가 따로 생겨버려요.",
       "feedback": {
@@ -1690,7 +1690,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "\n\n```python\nprint() 함수에 객체를 넣었을 때 원하는 문자열이 예쁘게 나오도록 만들어주는 특수 메서드 코드예요. 어떤 결과가 출력될까요?\n\nclass Pet:\n    def __init__(self, name):\n        self.name = name\n\n    def __str__(self):\n        return f'반려동물: {self.name}'\n\np = Pet('구름이')\nprint(p)\n```",
+      "question": "```python\nprint() 함수에 객체를 넣었을 때 원하는 문자열이 예쁘게 나오도록 만들어주는 특수 메서드 코드예요. 어떤 결과가 출력될까요?\n\nclass Pet:\n    def __init__(self, name):\n        self.name = name\n\n    def __str__(self):\n        return f'반려동물: {self.name}'\n\np = Pet('구름이')\nprint(p)\n```",
       "choices": [
         "A. 구름이",
         "B. 반려동물: 구름이",
