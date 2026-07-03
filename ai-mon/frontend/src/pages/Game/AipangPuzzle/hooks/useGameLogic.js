@@ -11,7 +11,7 @@ import {
   hasMoves,
   createFreshGrid,
 } from '../utils/gameUtils';
-import { beep, delay } from '../utils/audioUtils';
+import { beep, delay, setAudioMuted } from '../utils/audioUtils';
 import { launchProjectileAsync, launchFireballAsync } from '../utils/projectileUtils';
 import { AP_IMGS, BGM_SRC, POP_SRC } from '../assetPaths';
 
@@ -65,8 +65,11 @@ export function useGameLogic(pCanvasRef, lCanvasRef) {
   const gameTokenRef      = useRef(null);
   const bgmVolumeRef      = useRef(0.3);
   const bgmMutedRef       = useRef(false)
+  const prevVolumeRef     = useRef(0.3); // 음소거 전 볼륨 기억 (사운드 버튼 토글용)
   const comboEnergyRef = useRef(0);
   const comboDecayTimer = useRef(null);
+  const stageClearedRef = useRef(false); // 클리어 처리 중복 트리거 방지
+  const pendingTimersRef = useRef([]);   // 클리어/게임오버 지연 타이머 (스테이지 전환 시 취소용)
 
   // ── 오디오 Refs ──
   const bgmRef    = useRef(null);
@@ -89,6 +92,7 @@ useEffect(() => {
   return () => {          // ← 추가
     bgmRef.current?.pause();
     bgmRef.current = null;
+    clearPendingTimers();
   };
 }, []);
 
@@ -264,7 +268,7 @@ useEffect(() => {
       // 에너지 100% 도달 시 파이어볼 발사
       if (prevEnergy < 100 && comboEnergyRef.current >= 100) {
         const bc = getBoardScreenCenter();
-        const fireballDmg = Math.round(500 * sd.dmgMult);
+        const fireballDmg = Math.round(12345 * sd.dmgMult);
         launchFireballAsync(bc.x, bc.y, isFinal).then(() => {
           dealDamageToBoss(fireballDmg, isFinal);
         });
@@ -291,7 +295,7 @@ useEffect(() => {
         }
       });
 
-      if (popSfxRef.current) {
+      if (!bgmMutedRef.current && popSfxRef.current) {
         popSfxRef.current.currentTime = 0;
         popSfxRef.current.play().catch(() => {});
       }
@@ -334,6 +338,21 @@ useEffect(() => {
   }, 60);
 }
 
+  // ── 지연 타이머 등록/정리 ──
+  function addPendingTimer(fn, ms) {
+    const id = setTimeout(() => {
+      pendingTimersRef.current = pendingTimersRef.current.filter(t => t !== id);
+      fn();
+    }, ms);
+    pendingTimersRef.current.push(id);
+    return id;
+  }
+
+  function clearPendingTimers() {
+    pendingTimersRef.current.forEach(id => clearTimeout(id));
+    pendingTimersRef.current = [];
+  }
+
   // ── 게임 종료 체크 ──
   function checkEnd() {
     const sd = BOSS_STAGES[Math.min(stageRef.current, BOSS_STAGES.length - 1)];
@@ -341,7 +360,15 @@ useEffect(() => {
     const bossHp = isFinal ? finalHpRef.current : unitHpRef.current;
 
     if (bossHp <= 0) {
-      setTimeout(() => {
+      // 이미 클리어 처리(연출/팝업 예약) 중이면 중복 트리거 방지
+      if (stageClearedRef.current) return;
+      stageClearedRef.current = true;
+      // 클리어 팝업이 실제로 뜨기 전까지 보드 조작 잠금
+      // (기존엔 여기서 잠금이 풀린 상태라, 그 틈에 큐브를 맞추면
+      //  다음 스테이지로 넘어간 뒤 뒤늦게 이전 스테이지의 클리어 팝업이 다시 떠버리는 문제가 있었음)
+      busyRef.current = true;
+
+      addPendingTimer(() => {
         bgmRef.current?.pause();
         if (isFinal) {
           beep(523, 0.1);
@@ -367,17 +394,17 @@ useEffect(() => {
 
           gameApi.clearGame({ game_id: 'aipang', game_token: gameTokenRef.current })
             .then(res => {
-              setTimeout(() => setPopups(prev => ({ ...prev, clear: true, clearData: res.data })), 600);
+              addPendingTimer(() => setPopups(prev => ({ ...prev, clear: true, clearData: res.data })), 600);
             })
             .catch(() => {
-              setTimeout(() => setPopups(prev => ({ ...prev, clear: true })), 600);
+              addPendingTimer(() => setPopups(prev => ({ ...prev, clear: true })), 600);
             });
         }
       }, 400);
       return;
     }
     if (movesRef.current <= 0) {
-      setTimeout(() => {
+      addPendingTimer(() => {
         bgmRef.current?.pause();
         setPopups(prev => ({ ...prev, over: true }));
       }, 300);
@@ -414,6 +441,11 @@ useEffect(() => {
 
   // ── 스테이지 초기화 ──
   const initStage = useCallback(() => {
+    // 이전 스테이지에서 예약된 클리어/게임오버 지연 타이머가 남아있으면
+    // 스테이지가 바뀐 뒤에 엉뚱하게 팝업을 다시 띄우므로 여기서 전부 정리한다.
+    clearPendingTimers();
+    stageClearedRef.current = false;
+
     const sd = BOSS_STAGES[Math.min(stageRef.current, BOSS_STAGES.length - 1)];
     movesRef.current = 10 + stageRef.current * 2;
     unitHpMaxRef.current = sd.hp;
@@ -539,8 +571,10 @@ useEffect(() => {
   }, []);
 
   const handleBgmVolume = useCallback((v) => {
+    if (v > 0) prevVolumeRef.current = v; // 음소거가 아닌 마지막 볼륨 기억
     bgmVolumeRef.current = v;
-    bgmMutedRef.current = v === 0; 
+    bgmMutedRef.current = v === 0;
+    setAudioMuted(v === 0); // 팝/콤보 등 효과음(beep)도 함께 음소거
     setBgmVolume(v);
     if (bgmRef.current) {
       bgmRef.current.volume = v;
@@ -548,7 +582,16 @@ useEffect(() => {
       else if (bgmRef.current.paused) bgmRef.current.play().catch(() => {});
     }
   }, []);
-  
+
+  // ── 사운드 버튼 클릭: 음소거 토글 ──
+  const handleToggleMute = useCallback(() => {
+    if (bgmVolumeRef.current > 0) {
+      handleBgmVolume(0);
+    } else {
+      handleBgmVolume(prevVolumeRef.current || 0.3);
+    }
+  }, [handleBgmVolume]);
+
   const handleRefresh = useCallback(() => {
     if (busyRef.current) return;
     setPopups({ title: false, clear: false, over: false, final: false, bossIntro: false, clearData: null });
@@ -584,6 +627,7 @@ useEffect(() => {
     handleRestart,
     handleBossIntroOk,
     handleBgmVolume,
+    handleToggleMute,
     handleRefresh,
   };
 }
