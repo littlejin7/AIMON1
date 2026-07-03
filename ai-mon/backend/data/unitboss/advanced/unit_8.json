@@ -187,7 +187,7 @@
       "type": "code_input",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "에이전트 루프에서 Claude의 최종 텍스트 응답을 반환하는 stop_reason 값을 빈칸에 채우세요.\n\n```python\ndef agent_loop(client, tools, messages):\n    while True:\n        response = client.messages.create(\n            model=\"claude-haiku-4-5-20251001\",\n            max_tokens=1000,\n            tools=tools,\n            messages=messages\n```\n        )\n```python\n        if response.stop_reason == _______:\n            return response.content[0].text\n        # 도구 처리 생략\n```",
+      "question": "에이전트 루프에서 Claude의 최종 텍스트 응답을 반환하는 stop_reason 값을 빈칸에 채우세요.\n\n```python\ndef agent_loop(client, tools, messages):\n    while True:\n        response = client.messages.create(\n            model=\"claude-haiku-4-5-20251001\",\n            max_tokens=1000,\n            tools=tools,\n            messages=messages\n        )\n        if response.stop_reason == ______:\n            return response.content[0].text\n        # 도구 처리 생략\n```",
       "choices": [],
       "answer": "\"end_turn\"",
       "hint": "도구 사용이 끝나고 Claude가 최종 답변을 낼 때의 stop_reason입니다.",
