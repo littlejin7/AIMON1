@@ -7,7 +7,7 @@ export const EVOLUTION_STAGES = [
   {
     id: 'slime',
     icon: slimeIcon,
-    name: '에이몬 슬라임',
+    name: '에이원',
     unitRange: 'Lv.1 ~ 9',
     color: '#7c3aed',
     glow: 'rgba(124,58,237,0.5)',
@@ -16,7 +16,7 @@ export const EVOLUTION_STAGES = [
   {
     id: 'robot',
     icon: robotIcon,
-    name: '에이몬 로봇',
+    name: '에이량',
     unitRange: 'Lv.10 ~ 19',
     color: '#06b6d4',
     glow: 'rgba(6,182,212,0.5)',
@@ -25,7 +25,7 @@ export const EVOLUTION_STAGES = [
   {
     id: 'speech_bubble',
     icon: speechBubbleIcon,
-    name: '에이몬 말풍선',
+    name: '에이훈',
     unitRange: 'Lv.20 ~ 29',
     color: '#10b981',
     glow: 'rgba(16,185,129,0.5)',
@@ -34,7 +34,7 @@ export const EVOLUTION_STAGES = [
   {
     id: 'final_ghost',
     icon: finalGhostIcon,
-    name: '파이널 에이몬',
+    name: '에이왕',
     unitRange: 'Lv.30+',
     color: '#f59e0b',
     glow: 'rgba(245,158,11,0.5)',
