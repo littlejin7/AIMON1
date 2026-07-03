@@ -163,7 +163,7 @@ export default function Character() {
       {/* ── 보상 스트립 ── */}
       <div className="char-reward-strip">
         <div className="char-ri">
-          <span className="char-ri-val">👑 {user?.crown || 0}</span>
+          <span className="char-ri-val">👑 {user?.crowns || 0}</span>
           <span className="char-ri-label">보유 왕관</span>
         </div>
         <div className="char-ri">
@@ -255,7 +255,7 @@ export default function Character() {
             return (
               <button
                 key={id}
-                className={`char-title-row ${equipped ? 'equipped' : ''} ${!owned ? 'locked' : ''}`}
+                className={`char-title-row no-3d ${equipped ? 'equipped' : ''} ${!owned ? 'locked' : ''}`}
                 onClick={() => owned && handleEquipTitle(id)}
                 disabled={!owned}
               >
