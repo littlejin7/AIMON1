@@ -117,7 +117,33 @@
     "feedback": {
       "correct": "완벽합니다! 4가지 연산과 divide의 0 나누기 예외, 미지원 연산 예외까지 모두 처리했습니다.",
       "incorrect": "operation 값에 따라 분기하고, divide는 b==0 체크, 미지원 연산은 ValueError를 발생시켜야 합니다."
-    }
+    },
+    "testcases": [
+      {
+        "call": "calculate('add', 3, 3)",
+        "expect": 6
+      },
+      {
+        "call": "calculate('subtract', 3, 3)",
+        "expect": 0
+      },
+      {
+        "call": "calculate('multiply', 3, 3)",
+        "expect": 9
+      },
+      {
+        "call": "calculate('divide', 3, 0)",
+        "raises": "ValueError"
+      },
+      {
+        "call": "calculate('divide', 3, 5)",
+        "expect": 0.6
+      },
+      {
+        "call": "calculate('add_x', 3, 3)",
+        "raises": "ValueError"
+      }
+    ]
   },
   {
     "question_id": "endboss_adv_ai_agent_p2_002",

@@ -843,7 +843,21 @@
     "feedback": {
       "correct": "클리어! append()로 딕셔너리를 추가하고 len()으로 개수를 반환하는 깔끔한 구현입니다.",
       "incorrect": "todos.append({\"title\": title, \"done\": False})로 항목을 추가하고, len(todos)를 반환하면 됩니다."
-    }
+    },
+    "testcases": [
+      {
+        "call": "add_todo([], '운동')",
+        "expect": 1
+      },
+      {
+        "call": "add_todo([{'title': '운동', 'done': False}], '독서')",
+        "expect": 2
+      },
+      {
+        "call": "add_todo([], '')",
+        "expect": 1
+      }
+    ]
   },
   {
     "question_id": "endboss_mid_todo_p3_002",
@@ -861,7 +875,30 @@
     "feedback": {
       "correct": "클리어! 리스트 컴프리헨션으로 done=True인 항목만 깔끔하게 필터링했습니다.",
       "incorrect": "리스트 컴프리헨션 [t for t in todos if t['done']]을 사용해 done이 True인 항목만 반환하면 됩니다."
-    }
+    },
+    "testcases": [
+      {
+        "call": "get_done_todos([{'title': '운동', 'done': True}, {'title': '독서', 'done': False}, {'title': '코딩', 'done': True}])",
+        "expect": [
+          {
+            "title": "운동",
+            "done": true
+          },
+          {
+            "title": "코딩",
+            "done": true
+          }
+        ]
+      },
+      {
+        "call": "get_done_todos([])",
+        "expect": []
+      },
+      {
+        "call": "get_done_todos([{'title': 'a', 'done': False}, {'title': 'b', 'done': False}])",
+        "expect": []
+      }
+    ]
   },
   {
     "question_id": "endboss_mid_todo_p3_003",
@@ -915,7 +952,39 @@
     "feedback": {
       "correct": "클리어! sorted()는 원본을 변경하지 않고 새 리스트를 반환합니다. list.sort()와의 차이를 잘 이해한 구현이에요.",
       "incorrect": "sorted(contacts, key=lambda c: c['name'])을 반환하면 됩니다. sort()는 원본을 변경하지만 sorted()는 새 리스트를 반환해요."
-    }
+    },
+    "testcases": [
+      {
+        "call": "sort_contacts([{'name': '에이몬', 'phone': '010-1111'}, {'name': '고스트', 'phone': '010-3333'}, {'name': '로봇', 'phone': '010-2222'}])",
+        "expect": [
+          {
+            "name": "고스트",
+            "phone": "010-3333"
+          },
+          {
+            "name": "로봇",
+            "phone": "010-2222"
+          },
+          {
+            "name": "에이몬",
+            "phone": "010-1111"
+          }
+        ]
+      },
+      {
+        "call": "sort_contacts([])",
+        "expect": []
+      },
+      {
+        "call": "sort_contacts([{'name': 'A', 'phone': '1'}])",
+        "expect": [
+          {
+            "name": "A",
+            "phone": "1"
+          }
+        ]
+      }
+    ]
   },
   {
     "question_id": "endboss_mid_contact_p3_003",
@@ -933,7 +1002,39 @@
     "feedback": {
       "correct": "클리어! lower()로 대소문자를 통일하고 name과 phone 모두 검색하는 완성도 높은 구현입니다.",
       "incorrect": "keyword.lower()로 소문자 변환 후, c['name'].lower()와 c['phone'].lower() 각각에 keyword가 포함되는지 확인하면 됩니다."
-    }
+    },
+    "testcases": [
+      {
+        "call": "search_contact([{'name': '에이몬', 'phone': '010-1111'}, {'name': 'AI로봇', 'phone': '010-2222'}, {'name': '고스트', 'phone': '010-1234'}], '010-1')",
+        "expect": [
+          {
+            "name": "에이몬",
+            "phone": "010-1111"
+          },
+          {
+            "name": "고스트",
+            "phone": "010-1234"
+          }
+        ]
+      },
+      {
+        "call": "search_contact([{'name': '에이몬', 'phone': '010-1111'}, {'name': 'AI로봇', 'phone': '010-2222'}, {'name': '고스트', 'phone': '010-1234'}], 'ai')",
+        "expect": [
+          {
+            "name": "AI로봇",
+            "phone": "010-2222"
+          }
+        ]
+      },
+      {
+        "call": "search_contact([{'name': '에이몬', 'phone': '010-1111'}, {'name': 'AI로봇', 'phone': '010-2222'}, {'name': '고스트', 'phone': '010-1234'}], 'zzz')",
+        "expect": []
+      },
+      {
+        "call": "search_contact([], 'a')",
+        "expect": []
+      }
+    ]
   },
   {
     "question_id": "endboss_mid_weather_p3_001",
@@ -951,7 +1052,21 @@
     "feedback": {
       "correct": "클리어! 빈 리스트 처리와 round()를 모두 정확히 사용했습니다.",
       "incorrect": "빈 리스트 체크 후, sum(f['temp'] for f in forecasts) / len(forecasts)를 round(..., 1)로 감싸면 됩니다."
-    }
+    },
+    "testcases": [
+      {
+        "call": "average_temp([{'day': '월', 'temp': 20}, {'day': '화', 'temp': 25}, {'day': '수', 'temp': 18}])",
+        "expect": 21.0
+      },
+      {
+        "call": "average_temp([])",
+        "expect": 0
+      },
+      {
+        "call": "average_temp([{'temp': 21}, {'temp': 22}])",
+        "expect": 21.5
+      }
+    ]
   },
   {
     "question_id": "endboss_mid_weather_p3_002",
@@ -969,7 +1084,29 @@
     "feedback": {
       "correct": "클리어! json.loads()와 예외처리, 필드 추출까지 완벽하게 구현했습니다.",
       "incorrect": "json.loads()로 파싱 후 필요한 키만 추출해 반환하고, JSONDecodeError와 KeyError를 except로 잡아 None을 반환하면 됩니다."
-    }
+    },
+    "testcases": [
+      {
+        "call": "parse_weather('{\"city\": \"서울\", \"temp\": 23, \"desc\": \"맑음\", \"humidity\": 60}')",
+        "expect": {
+          "city": "서울",
+          "temp": 23,
+          "desc": "맑음"
+        }
+      },
+      {
+        "call": "parse_weather('not json')",
+        "expect": null
+      },
+      {
+        "call": "parse_weather('')",
+        "expect": null
+      },
+      {
+        "call": "parse_weather('{\"city\": \"서울\", \"temp\": 23}')",
+        "expect": null
+      }
+    ]
   },
   {
     "question_id": "endboss_mid_weather_p3_003",
@@ -987,7 +1124,25 @@
     "feedback": {
       "correct": "클리어! re.search()로 그룹 캡처 후 int 변환까지 정확히 구현했습니다.",
       "incorrect": "re.search(r'temp=(\\d+)', log_line)으로 숫자를 캡처하고, match가 있으면 int(match.group(1))을 반환하면 됩니다."
-    }
+    },
+    "testcases": [
+      {
+        "call": "extract_temp('2026-06-17 temp=23 humidity=60')",
+        "expect": 23
+      },
+      {
+        "call": "extract_temp('2026-06-17 ERROR: no data')",
+        "expect": null
+      },
+      {
+        "call": "extract_temp('')",
+        "expect": null
+      },
+      {
+        "call": "extract_temp('temp=0')",
+        "expect": 0
+      }
+    ]
   },
   {
     "question_id": "endboss_mid_log_parser_p3_001",
@@ -1005,7 +1160,27 @@
     "feedback": {
       "correct": "클리어! split(':')[0]으로 레벨을 추출하고 dict.get()으로 안전하게 카운트하는 깔끔한 구현입니다.",
       "incorrect": "log.split(':')[0].strip()으로 레벨을 추출하고, result.get(level, 0) + 1로 카운트를 누적하면 됩니다."
-    }
+    },
+    "testcases": [
+      {
+        "call": "count_levels(['ERROR: DB 오류', 'INFO: 시작', 'ERROR: 타임아웃', 'WARN: 메모리', 'INFO: 완료'])",
+        "expect": {
+          "ERROR": 2,
+          "INFO": 2,
+          "WARN": 1
+        }
+      },
+      {
+        "call": "count_levels([])",
+        "expect": {}
+      },
+      {
+        "call": "count_levels(['DEBUG: x'])",
+        "expect": {
+          "DEBUG": 1
+        }
+      }
+    ]
   },
   {
     "question_id": "endboss_mid_log_parser_p3_002",
@@ -1023,7 +1198,24 @@
     "feedback": {
       "correct": "클리어! 정규식 그룹 캡처와 리스트 누적을 정확히 구현했습니다.",
       "incorrect": "r'(\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2})' 패턴으로 re.search() 후 match.group(1)을 리스트에 추가하면 됩니다."
-    }
+    },
+    "testcases": [
+      {
+        "call": "extract_timestamps(['[2026-06-17 14:30:00] ERROR: 오류', '[2026-06-17 15:00:00] INFO: 정상', '--- 구분선 ---'])",
+        "expect": [
+          "2026-06-17 14:30:00",
+          "2026-06-17 15:00:00"
+        ]
+      },
+      {
+        "call": "extract_timestamps([])",
+        "expect": []
+      },
+      {
+        "call": "extract_timestamps(['no timestamp here', 'also none'])",
+        "expect": []
+      }
+    ]
   },
   {
     "question_id": "endboss_mid_log_parser_p3_003",
