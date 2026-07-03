@@ -66,20 +66,22 @@
   margin: 0 0 14px;
 }
 .char-hero-glow {
-  width: 110px;
-  height: 110px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   background: rgba(255,255,255,0.15);
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible;
 }
 .char-visual-img {
-  height: 90px;
+  width: 150px;
+  height: 150px;
+  max-width: none;
   object-fit: contain;
   filter: drop-shadow(0 4px 16px rgba(0,0,0,0.2));
 }
-
 /* XP 섹션 */
 .char-hero-xp {
   width: 100%;
@@ -391,9 +393,25 @@
   background: none;
   line-height: 1.4;
 }
+  /* 장착 버튼만 3D 느낌 (양각 pill) */
+  box-shadow: 0 2px 0 rgba(127,119,221,0.35), 0 3px 6px rgba(127,119,221,0.18);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
 .char-title-equip-btn.on {
   background: var(--clr-primary);
   color: white;
+  box-shadow: 0 2px 0 #534AB7, 0 4px 8px rgba(83,74,183,0.35);
+}
+.char-title-row:not(.locked):hover .char-title-equip-btn {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 rgba(127,119,221,0.35), 0 5px 10px rgba(127,119,221,0.22);
+}
+.char-title-row:not(.locked):hover .char-title-equip-btn.on {
+  box-shadow: 0 3px 0 #534AB7, 0 6px 12px rgba(83,74,183,0.4);
+}
+.char-title-row:not(.locked):active .char-title-equip-btn {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 rgba(127,119,221,0.35);
 }
 
 /* ── 인증카드 ── */
