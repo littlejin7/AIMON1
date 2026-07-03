@@ -40,7 +40,7 @@ export default function LevelTestInfo() {
               <span className="benefit-icon">👾</span>
               <div>
                 <h3 className="benefit-title">나의 파트너 에이몬 분양</h3>
-                <p className="benefit-desc">비기너 슬라임부터 고스트까지, 나의 첫 캐릭터가 결정됩니다.</p>
+                <p className="benefit-desc">비기너 에이원부터 에이왕까지, 나의 첫 캐릭터가 결정됩니다.</p>
               </div>
             </div>
             <div className="benefit-item">
