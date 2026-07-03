@@ -4,10 +4,13 @@ export class SoundManager {
     this._master = null;
     this._bgmNodes = [];
     this._bgmActive = false;
+    this._bgmTimer = null;
     this._volume = 0.7;
+    this._destroyed = false;
   }
 
   _ctx_() {
+    if (this._destroyed) return null;
     if (!this._ctx) {
       this._ctx = new (window.AudioContext || window.webkitAudioContext)();
       this._master = this._ctx.createGain();
@@ -18,7 +21,7 @@ export class SoundManager {
     return this._ctx;
   }
 
-  _out() { this._ctx_(); return this._master; }
+  _out() { if (this._destroyed) return null; this._ctx_(); return this._master; }
 
   setVolume(v) {
     this._volume = Math.max(0, Math.min(1, v));
@@ -27,19 +30,20 @@ export class SoundManager {
 
   // ── 배경음 (8비트 칩튠) ────────────────────
   startBGM() {
-    if (this._bgmActive) return;
+    if (this._destroyed || this._bgmActive) return;
     this._bgmActive = true;
     this._loopChiptune();
   }
 
   stopBGM() {
     this._bgmActive = false;
+    if (this._bgmTimer) { clearTimeout(this._bgmTimer); this._bgmTimer = null; }
     this._bgmNodes.forEach(n => { try { n.stop(); } catch (e) {} });
     this._bgmNodes = [];
   }
 
   _loopChiptune() {
-    if (!this._bgmActive) return;
+    if (this._destroyed || !this._bgmActive) return;
     const ctx = this._ctx_();
     const out = this._out();
     const beat = 60 / 160;
@@ -70,11 +74,12 @@ export class SoundManager {
     });
 
     const loopLen = melody.length * beat * 0.5;
-    setTimeout(() => this._loopChiptune(), (loopLen - 0.2) * 1000);
+    this._bgmTimer = setTimeout(() => this._loopChiptune(), (loopLen - 0.2) * 1000);
   }
 
   // ── 점프 (가벼운 통통) ─────────────────────
   jump() {
+    if (this._destroyed) return;
     const ctx = this._ctx_(); const out = this._out();
     const t = ctx.currentTime;
     [0, 0.05].forEach((delay, i) => {
@@ -91,6 +96,7 @@ export class SoundManager {
 
   // ── 레인 이동 (부드러운 슈) ─────────────────
   move() {
+    if (this._destroyed) return;
     const ctx = this._ctx_(); const out = this._out();
     const t = ctx.currentTime;
     const o = ctx.createOscillator(); const g = ctx.createGain();
@@ -105,6 +111,7 @@ export class SoundManager {
 
   // ── 충돌 (짧고 강한 충격) ──────────────────
   hit() {
+    if (this._destroyed) return;
     const ctx = this._ctx_(); const out = this._out();
     const t = ctx.currentTime;
     const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.3), ctx.sampleRate);
@@ -123,6 +130,7 @@ export class SoundManager {
 
   // ── 정리 ───────────────────────────────────
   destroy() {
+    this._destroyed = true;
     this.stopBGM();
     if (this._ctx) { this._ctx.close(); this._ctx = null; }
   }

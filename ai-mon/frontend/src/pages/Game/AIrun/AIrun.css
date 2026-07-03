@@ -48,19 +48,6 @@
   z-index: 10;
 }
 
-/* 상단: HP 중앙 + 볼륨 오른쪽 */
-.rg-hud-top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 12px 18px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(180deg, rgba(0,80,180,0.25) 0%, transparent 100%);
-}
-
 .rg-hp {
   position: absolute;
   top: 12px;
@@ -72,7 +59,22 @@
   white-space: nowrap;
 }
 
-/* 볼륨 컨트롤 */
+/* 하단 왼쪽: 볼륨 */
+.rg-hud-bl {
+  position: absolute;
+  bottom: 24px;
+  left: 22px;
+  pointer-events: all;
+}
+
+/* 상단 오른쪽: 아침/저녁 토글 */
+.rg-hud-tr {
+  position: absolute;
+  top: 24px;
+  right: 18px;
+  pointer-events: all;
+}
+
 .rg-volume-ctrl {
   display: flex;
   align-items: center;
@@ -87,8 +89,45 @@
 
 .rg-vol-icon {
   font-size: 28px;
-  cursor: default;
+  cursor: pointer;
   line-height: 1;
+  transition: transform 0.1s;
+}
+
+.rg-vol-icon:hover {
+  transform: scale(1.12);
+}
+
+.rg-vol-icon:active {
+  transform: scale(0.92);
+}
+
+.rg-ctrl-divider {
+  color: rgba(100, 160, 220, 0.5);
+  font-size: 18px;
+  line-height: 1;
+  margin: 0 2px;
+}
+
+.rg-time-btn {
+  background: linear-gradient(135deg, #ffd060, #ff8833);
+  border: none;
+  border-radius: 14px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 5px 12px;
+  cursor: pointer;
+  pointer-events: all;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(255, 140, 0, 0.35);
+  transition: transform 0.1s, box-shadow 0.15s;
+  font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+}
+
+.rg-time-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 4px 14px rgba(255, 140, 0, 0.55);
 }
 
 .rg-vol-slider {
@@ -288,7 +327,8 @@
   background: rgba(100,180,255,0.1);
   padding: 18px 20px;
   border-radius: 14px;
-  border-left: 5px solid #55aaee;
+  border: 1px solid rgba(85,170,238,0.3);
+  border-left: 3px solid #55aaee;
   text-align: left;
 }
 

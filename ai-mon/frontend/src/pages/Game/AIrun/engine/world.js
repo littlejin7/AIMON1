@@ -12,13 +12,13 @@ export function setupScene(game) {
   game.renderer.shadowMap.enabled = true;
   game.renderer.shadowMap.type = THREE.PCFShadowMap;
   game.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  game.renderer.toneMappingExposure = 1.3;
+  game.renderer.toneMappingExposure = 1.2;
   game.container.appendChild(game.renderer.domElement);
 
   game.scene = new THREE.Scene();
-  // 밝고 선명한 하늘색
-  game.scene.background = new THREE.Color(0x55b5f0);
-  game.scene.fog = new THREE.Fog(0x88d0f5, 40, 130);
+  // 저녁 하늘 — 인디고 보라
+  game.scene.background = new THREE.Color(0x1a0f3a);
+  game.scene.fog = new THREE.Fog(0x2a1848, 32, 105);
 
   game.camera = new THREE.PerspectiveCamera(65, w / h, 0.1, 200);
   game.camera.position.set(0, 5.5, 11);
@@ -28,10 +28,14 @@ export function setupScene(game) {
 }
 
 export function setupLights(game) {
-  // 밝고 따뜻한 햇빛
-  game.scene.add(new THREE.HemisphereLight(0x87d4f5, 0x5aaa3f, 1.4));
-  const dir = new THREE.DirectionalLight(0xfffbe8, 3.0);
-  dir.position.set(8, 30, 10);
+  // 저녁 조명 — 노을빛 하늘 + 어두운 지면
+  const hemi = new THREE.HemisphereLight(0xff8844, 0x1a0a30, 1.0);
+  game.scene.add(hemi);
+  game.hemiLight = hemi;
+
+  // 저녁 태양 — 지평선 가까이 낮은 각도
+  const dir = new THREE.DirectionalLight(0xffaa66, 3.5);
+  dir.position.set(18, 12, 8);
   dir.castShadow = true;
   dir.shadow.mapSize.width = 1024;
   dir.shadow.mapSize.height = 1024;
@@ -44,7 +48,11 @@ export function setupLights(game) {
   dir.shadow.bias = -0.0005;
   game.scene.add(dir);
   game.dirLight = dir;
-  game.scene.add(new THREE.AmbientLight(0xd0f0ff, 1.0));
+
+  // 보라 앰비언트
+  const ambient = new THREE.AmbientLight(0x3a1860, 1.2);
+  game.scene.add(ambient);
+  game.ambientLight = ambient;
 }
 
 export function setupTrack(game) {
@@ -280,8 +288,16 @@ function _buildFences(game) {
 
 // ── 가로등 + 배너 ─────────────────────────────────
 function _buildLampPosts(game) {
-  const poleMat = new THREE.MeshStandardMaterial({ color: 0xccddee, roughness: 0.4, metalness: 0.3 });
-  const headMat = new THREE.MeshStandardMaterial({ color: 0xddeeff, roughness: 0.35, metalness: 0.4 });
+  const poleMat = new THREE.MeshStandardMaterial({ color: 0x8899aa, roughness: 0.4, metalness: 0.3 });
+  // 저녁 가로등 — 따뜻한 주황 글로우
+  const headMat = new THREE.MeshStandardMaterial({
+    color: 0xffdd88,
+    emissive: 0xff9922,
+    emissiveIntensity: 2.5,
+    roughness: 0.2,
+    metalness: 0.1,
+  });
+  game.lampHeadMat = headMat; // 조명 전환 시 업데이트용
   const bannerMat = new THREE.MeshStandardMaterial({ color: 0xff7baa, roughness: 0.7, side: THREE.DoubleSide });
   const bannerBlueMat = new THREE.MeshStandardMaterial({ color: 0x44aaee, roughness: 0.7, side: THREE.DoubleSide });
 
@@ -495,6 +511,49 @@ function _buildPetals(game) {
     petal._phase     = Math.random() * Math.PI * 2;
     game.scene.add(petal);
     game.petalMeshes.push(petal);
+  }
+}
+
+// ── 아침 / 저녁 조명 전환 ─────────────────────────────
+export function setTimeOfDay(game, mode) {
+  if (mode === 'day') {
+    game.scene.background.set(0x55b5f0);
+    game.scene.fog.color.set(0x88d0f5);
+    game.scene.fog.near = 40;
+    game.scene.fog.far = 130;
+    game.hemiLight.color.set(0x87d4f5);
+    game.hemiLight.groundColor.set(0x5aaa3f);
+    game.hemiLight.intensity = 1.4;
+    game.dirLight.color.set(0xfffbe8);
+    game.dirLight.intensity = 3.0;
+    game.dirLight.position.set(8, 30, 10);
+    game.ambientLight.color.set(0xd0f0ff);
+    game.ambientLight.intensity = 1.0;
+    game.renderer.toneMappingExposure = 1.3;
+    if (game.lampHeadMat) {
+      game.lampHeadMat.color.set(0xddeeff);
+      game.lampHeadMat.emissive.set(0x000000);
+      game.lampHeadMat.emissiveIntensity = 0;
+    }
+  } else {
+    game.scene.background.set(0x1a0f3a);
+    game.scene.fog.color.set(0x2a1848);
+    game.scene.fog.near = 32;
+    game.scene.fog.far = 105;
+    game.hemiLight.color.set(0xff8844);
+    game.hemiLight.groundColor.set(0x1a0a30);
+    game.hemiLight.intensity = 1.0;
+    game.dirLight.color.set(0xffaa66);
+    game.dirLight.intensity = 3.5;
+    game.dirLight.position.set(18, 12, 8);
+    game.ambientLight.color.set(0x3a1860);
+    game.ambientLight.intensity = 1.2;
+    game.renderer.toneMappingExposure = 1.2;
+    if (game.lampHeadMat) {
+      game.lampHeadMat.color.set(0xffdd88);
+      game.lampHeadMat.emissive.set(0xff9922);
+      game.lampHeadMat.emissiveIntensity = 2.5;
+    }
   }
 }
 

@@ -106,6 +106,55 @@ function _makeHole() {
   return group;
 }
 
+// ── 하트 아이템 ───────────────────────────────────
+function _makeHeart() {
+  const group = new THREE.Group();
+  const mat = new THREE.MeshStandardMaterial({
+    color: 0xff2255,
+    emissive: 0xff0044,
+    emissiveIntensity: 1.2,
+    roughness: 0.4,
+  });
+
+  // 상단 두 개의 볼록 (하트 위쪽 두 덩어리)
+  [-0.25, 0.25].forEach(x => {
+    const bump = new THREE.Mesh(new THREE.SphereGeometry(0.32, 10, 10), mat);
+    bump.position.set(x, 0.28, 0);
+    group.add(bump);
+  });
+
+  // 45도 회전한 박스 → 하트 아래 뾰족한 부분
+  const bottom = new THREE.Mesh(new THREE.BoxGeometry(0.52, 0.52, 0.3), mat);
+  bottom.rotation.z = Math.PI / 4;
+  bottom.position.set(0, -0.1, 0);
+  group.add(bottom);
+
+  // 글로우 오라
+  const glowMat = new THREE.MeshStandardMaterial({
+    color: 0xff4477,
+    transparent: true,
+    opacity: 0.28,
+    emissive: 0xff0044,
+    emissiveIntensity: 0.4,
+  });
+  const glow = new THREE.Mesh(new THREE.SphereGeometry(0.65, 10, 10), glowMat);
+  glow.position.set(0, 0.1, 0);
+  group.add(glow);
+
+  return group;
+}
+
+export function spawnHeart(game) {
+  const lane = [-1, 0, 1][Math.floor(Math.random() * 3)];
+  const heart = _makeHeart();
+  heart.position.set(lane * 3, 1.5, game.nextHeartZ);
+  heart._baseY = 1.5;
+  heart._phase = Math.random() * Math.PI * 2;
+  game.scene.add(heart);
+  game.hearts.push({ mesh: heart, lane, active: true });
+  game.nextHeartZ -= 160 + Math.random() * 100;
+}
+
 export function spawnObstacle(game) {
   const lane = [-1, 0, 1][Math.floor(Math.random() * 3)];
   // 꼬깔콘 70%, 구멍 30%
@@ -117,13 +166,13 @@ export function spawnObstacle(game) {
     game.scene.add(mesh);
     // type:'hole' — 점프 중이면 통과, 아니면 데미지
     game.obstacles.push({ mesh, ring: null, lane: 'all', active: true, h: 0.5, yPos: 0, type: 'hole' });
-    game.nextObstacleZ -= 6 + Math.random() * 2;
+    game.nextObstacleZ -= 4.5 + Math.random() * 1.5;
   } else {
     const cone = _makeCone();
     cone.position.set(lane * 3, 0, game.nextObstacleZ);
     game.scene.add(cone);
     game.obstacles.push({ mesh: cone, ring: null, lane, active: true, h: 2.1, yPos: 1.0, type: 'cone' });
-    game.nextObstacleZ -= 4 + Math.random() * 2.3;
+    game.nextObstacleZ -= 3.1 + Math.random() * 1.6;
   }
 }
 

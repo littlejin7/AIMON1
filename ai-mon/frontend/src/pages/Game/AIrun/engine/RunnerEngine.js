@@ -2,16 +2,15 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import airunIconUrl from '../assets/AIRUNicon.png';
 import { OX_QUESTIONS } from '../constants/quizData.js';
-import { setupScene, setupLights, setupTrack, updateWorld } from './world.js';
+import { setupScene, setupLights, setupTrack, updateWorld, setTimeOfDay } from './world.js';
 import { setupPlayer, preloadModels, animatePlayer } from './player.js';
-import { spawnObstacle, spawnQuizGate } from './spawner.js';
+import { spawnObstacle, spawnQuizGate, spawnHeart } from './spawner.js';
 import { SoundManager } from './sound.js';
 
 export class RunnerEngine {
-  constructor(container, onGameOver, onGetNewToken) {
+  constructor(container, onGameOver) {
     this.container = container;
     this.onGameOverCallback = onGameOver;
-    this.onGetNewToken = onGetNewToken;
     this.renderer = null;
     this.scene = null;
     this.camera = null;
@@ -19,7 +18,6 @@ export class RunnerEngine {
 
     this.state = 'start';
     this.score = 0;
-    this.hp = 3;
     this.speed = 0.5;
     this.distance = 0;
     this.targetLane = 0;
@@ -36,9 +34,11 @@ export class RunnerEngine {
     this.obstacles = [];
     this.quizGates = [];
     this.particles = [];
+    this.hearts = [];
     this.tracks = [];
     this.nextObstacleZ = -60;
     this.nextQuizZ = -130;
+    this.nextHeartZ = -200;
     this.gltfModels = { fence: null, boulder: null, player: null };
     this.gltfLoader = new GLTFLoader();
 
@@ -71,13 +71,15 @@ export class RunnerEngine {
     this.hud = document.createElement('div');
     this.hud.className = 'rg-hud';
     this.hud.innerHTML = `
-      <div class="rg-hp" id="rg-hp">❤️❤️❤️</div>
-      <div class="rg-hud-top">
-        <div></div>
+      <div class="rg-hp" id="rg-hp">❤️❤️❤️❤️❤️</div>
+      <div class="rg-hud-bl">
         <div class="rg-volume-ctrl">
           <span class="rg-vol-icon" id="rg-vol-icon">🔊</span>
           <input type="range" class="rg-vol-slider" id="rg-vol-slider" min="0" max="100" value="70">
         </div>
+      </div>
+      <div class="rg-hud-tr">
+        <button class="rg-time-btn" id="rg-time-btn">☀️ 아침</button>
       </div>
       <div class="rg-hud-br">
         <div class="rg-stat">
@@ -92,11 +94,37 @@ export class RunnerEngine {
     `;
     this.container.appendChild(this.hud);
 
+    this._prevVolume = 70; // 음소거 해제 시 되돌아갈 볼륨(%)
     document.getElementById('rg-vol-slider')?.addEventListener('input', (e) => {
       const v = e.target.value / 100;
       this.sound.setVolume(v);
+      if (e.target.value > 0) this._prevVolume = e.target.value;
       const icon = document.getElementById('rg-vol-icon');
       if (icon) icon.textContent = v === 0 ? '🔇' : v < 0.4 ? '🔉' : '🔊';
+    });
+
+    // 스피커 아이콘 클릭 시 음소거 토글
+    document.getElementById('rg-vol-icon')?.addEventListener('click', () => {
+      const slider = document.getElementById('rg-vol-slider');
+      const icon = document.getElementById('rg-vol-icon');
+      if (!slider) return;
+      const isMuted = Number(slider.value) === 0;
+      const nextValue = isMuted ? (Number(this._prevVolume) || 70) : 0;
+      if (!isMuted) this._prevVolume = slider.value;
+      slider.value = nextValue;
+      const v = nextValue / 100;
+      this.sound.setVolume(v);
+      if (icon) icon.textContent = v === 0 ? '🔇' : v < 0.4 ? '🔉' : '🔊';
+    });
+
+    // 아침 / 저녁 토글
+    this.timeOfDay = 'evening';
+    document.getElementById('rg-time-btn')?.addEventListener('click', (e) => {
+      this.timeOfDay = this.timeOfDay === 'evening' ? 'day' : 'evening';
+      const btn = document.getElementById('rg-time-btn');
+      if (btn) btn.textContent = this.timeOfDay === 'evening' ? '☀️ 아침' : '🌙 저녁';
+      e.currentTarget?.blur(); // 클릭 후 포커스를 남기지 않아 Space 등 키 입력에 반응하지 않도록
+      setTimeOfDay(this, this.timeOfDay);
     });
   }
 
@@ -111,7 +139,7 @@ export class RunnerEngine {
     const h = document.getElementById('rg-hp');
     const d = document.getElementById('rg-dist-val');
     if (s) s.textContent = this.score.toLocaleString();
-    if (h) h.textContent = '❤️'.repeat(Math.max(0, this.hp)) + '🖤'.repeat(Math.max(0, 3 - this.hp));
+    if (h) h.textContent = '❤️'.repeat(Math.max(0, this.hp)) + '🖤'.repeat(Math.max(0, 5 - this.hp));
     if (d) d.textContent = Math.floor(this.distance);
   }
 
@@ -136,7 +164,7 @@ export class RunnerEngine {
 
   _startGame() {
     this.score = 0;
-    this.hp = 3;
+    this.hp = 5;
     this.distance = 0;
     this.speed = 0.5;
     this._updateHUD();
@@ -153,10 +181,11 @@ export class RunnerEngine {
       `;
       count--;
       if (count >= 0) {
-        setTimeout(show, 1000);
+        this._countdownTimer = setTimeout(show, 1000);
       } else {
         this.overlay.innerHTML = `<div class="rg-countdown rg-countdown-go">GO!</div>`;
-        setTimeout(() => {
+        this._countdownTimer = setTimeout(() => {
+          this._countdownTimer = null;
           this.overlay.style.display = 'none';
           this.state = 'running';
           this.sound.startBGM();
@@ -186,7 +215,8 @@ export class RunnerEngine {
   }
 
   _gameOver() {
-    if (this.state === 'dead') return;
+    this.playerGroup.visible = true;  
+    this.invincible = false;
     this.state = 'dead';
     this.sound.stopBGM();
     this.overlay.style.display = 'flex';
@@ -200,51 +230,23 @@ export class RunnerEngine {
         <button class="rg-btn rg-btn-danger" id="rg-list-btn">↩ 목록으로 가기</button>
       </div>
     `;
-    
-    document.getElementById('rg-retry-btn')?.addEventListener('click', async () => {
-      const btn = document.getElementById('rg-retry-btn');
-      if (btn) {
-        btn.disabled = true;
-        btn.textContent = '준비 중...';
-      }
-      if (this.onGetNewToken) {
-        const token = await this.onGetNewToken();
-        if (token) {
-          this._resetGame();
-        } else {
-          alert('새 게임 세션을 시작할 수 없습니다. 다시 시도해주세요.');
-          if (btn) {
-            btn.disabled = false;
-            btn.textContent = '다시하기';
-          }
-        }
-      } else {
-        this._resetGame();
-      }
-    });
-
+    document.getElementById('rg-retry-btn')?.addEventListener('click', () => this._resetGame());
     document.getElementById('rg-list-btn')?.addEventListener('click', () => window.history.back());
     
     if (this.onGameOverCallback) {
         const el = document.getElementById('rg-reward-info');
-        const fetchReward = () => {
-            if (el) el.innerHTML = `보상 정보를 불러오는 중입니다.`;
-            this.onGameOverCallback(this.score, this.distance).then(res => {
-                if (el && res && res.data) {
-                    if (res.data.xp_awarded > 0) {
-                        el.innerHTML = `✨ ${res.data.xp_awarded} XP 획득! (총 ${res.data.total_xp} XP)`;
-                    } else {
-                        el.innerHTML = `오늘 획득 가능한 XP를 모두 받았습니다.`;
-                    }
+        if (el) el.innerHTML = `보상 정산 중...`;
+        this.onGameOverCallback(this.score, this.distance).then(res => {
+            if (el && res && res.data) {
+                if (res.data.xp_awarded > 0) {
+                    el.innerHTML = `✨ ${res.data.xp_awarded} XP 획득! (총 ${res.data.total_xp} XP)`;
+                } else {
+                    el.innerHTML = `오늘 획득 가능한 XP를 모두 받았습니다.`;
                 }
-            }).catch(err => {
-                if (el) {
-                    el.innerHTML = `보상 정보를 불러오지 못했습니다. <span id="rg-reward-retry" style="text-decoration:underline;cursor:pointer;color:#ffaa00;">다시 시도해주세요.</span>`;
-                    document.getElementById('rg-reward-retry')?.addEventListener('click', fetchReward);
-                }
-            });
-        };
-        fetchReward();
+            }
+        }).catch(err => {
+            if (el) el.innerHTML = `보상 정보를 불러오지 못했습니다.`;
+        });
     }
   }
 
@@ -252,10 +254,16 @@ export class RunnerEngine {
   _setupEvents() {
     this._onKeyDown = (e) => {
       if (e.code === 'Escape') { window.history.back(); return; }
+      // 게임 조작 키는 상태와 무관하게 항상 기본 동작(포커스된 버튼 클릭 등)을 막는다.
+      // 그렇지 않으면 아침/저녁 토글 버튼 등에 포커스가 남아있을 때
+      // 퀴즈 화면 등에서 Space를 눌러도 그 버튼이 브라우저 기본 동작으로 클릭돼버린다.
+      if (e.code === 'Space' || e.code === 'ArrowLeft' || e.code === 'ArrowRight') {
+        e.preventDefault();
+      }
       if (this.state === 'running') {
         if (e.code === 'ArrowLeft')  this._moveLane(-1);
         if (e.code === 'ArrowRight') this._moveLane(1);
-        if (e.code === 'Space') { e.preventDefault(); this._jump(); }
+        if (e.code === 'Space') this._jump();
       }
       if (this.state === 'quiz') {
         if (e.code === 'KeyO') this._answerQuiz(true);
@@ -323,6 +331,21 @@ export class RunnerEngine {
     if (this.hp <= 0) setTimeout(() => this._gameOver(), 400);
   }
 
+  _spawnHeartParticles(pos) {
+    const mat = new THREE.MeshStandardMaterial({ color: 0xff2255, emissive: 0xff0044, emissiveIntensity: 1.5, transparent: true });
+    for (let i = 0; i < 16; i++) {
+      const p = new THREE.Mesh(new THREE.SphereGeometry(0.1, 4, 4), mat.clone());
+      p.position.copy(pos);
+      const vel = new THREE.Vector3(
+        (Math.random() - 0.5) * 0.22,
+        Math.random() * 0.25 + 0.1,
+        (Math.random() - 0.5) * 0.22
+      );
+      this.scene.add(p);
+      this.particles.push({ mesh: p, vel, life: 35 });
+    }
+  }
+
   _spawnHitParticles() {
     const mat = new THREE.MeshStandardMaterial({ color: 0xff4400, emissive: 0xff4400, emissiveIntensity: 1.5 });
     for (let i = 0; i < 24; i++) {
@@ -344,11 +367,14 @@ export class RunnerEngine {
     this.obstacles.forEach(o => { this.scene.remove(o.mesh); if (o.ring) this.scene.remove(o.ring); });
     this.quizGates.forEach(g => this.scene.remove(g.group));
     this.particles.forEach(p => this.scene.remove(p.mesh));
+    this.hearts.forEach(h => this.scene.remove(h.mesh));
     this.obstacles = [];
     this.quizGates = [];
     this.particles = [];
+    this.hearts = [];
     this.nextObstacleZ = -60;
     this.nextQuizZ = -130;
+    this.nextHeartZ = -200;
     this.quizPool = [...OX_QUESTIONS].sort(() => Math.random() - 0.5);
     this.quizIndex = 0;
     this.playerGroup.position.set(0, 0, 2);
@@ -390,7 +416,7 @@ export class RunnerEngine {
     this.playerGroup.position.y = this.playerY;
 
     this.tracks.forEach(t => { t.position.z += this.speed; if (t.position.z > 15) t.position.z -= 10 * 38; });
-    this.roadPlanes?.forEach(r => { r.position.z += this.speed; if (r.position.z > 26) r.position.z -= r._loopLen; });
+    this.roadPlanes?.forEach(r => { r.position.z += this.speed; if (r.position.z > 38) r.position.z -= r._loopLen; });
     this.treeGroups?.forEach(g => { g.position.z += this.speed; if (g.position.z > 6) g.position.z -= g._loopLen; });
     this.runTime += 1 / 60;  
     updateWorld(this, 1 / 60); 
@@ -448,6 +474,44 @@ for (let i = this.obstacles.length - 1; i >= 0; i--) {
       if (Math.abs(gz - pz) < 1.6 && py < 3) { g.active = false; this._showQuizPanel(g.quiz); }
     }
 
+    // ── 하트 아이템 ──────────────────────────────────
+    // 스폰
+    const minHZ = this.hearts.length > 0
+      ? Math.min(...this.hearts.map(h => h.mesh.position.z)) : 0;
+    if (minHZ > -100) spawnHeart(this);
+
+    // 이동 + 둥실 애니메이션 + 충돌
+    for (let i = this.hearts.length - 1; i >= 0; i--) {
+      const h = this.hearts[i];
+      h.mesh.position.z += this.speed;
+      h.mesh.position.y = h.mesh._baseY + Math.sin(this.runTime * 2 + h.mesh._phase) * 0.22;
+      h.mesh.rotation.y += 0.05;
+
+      // 화면 밖 제거
+      if (h.mesh.position.z > pz + 15) {
+        this.scene.remove(h.mesh);
+        this.hearts.splice(i, 1);
+        continue;
+      }
+
+      if (!h.active) continue;
+
+      // 플레이어 수집 판정
+      if (
+        Math.abs(h.mesh.position.z - pz) < 1.5 &&
+        Math.abs(h.mesh.position.x - px) < 1.8
+      ) {
+        h.active = false;
+        this.scene.remove(h.mesh);
+        this.hearts.splice(i, 1);
+        if (this.hp < 5) {
+          this.hp = Math.min(6, this.hp + 1);
+          this._updateHUD();
+        }
+        this._spawnHeartParticles(h.mesh.position.clone());
+      }
+    }
+
     this.dirLight.position.z = pz - 8;
     this._updateHUD();
   }
@@ -480,6 +544,7 @@ for (let i = this.obstacles.length - 1; i >= 0; i--) {
 
   // ── 정리 ───────────────────────────────────
   destroy() {
+    if (this._countdownTimer) { clearTimeout(this._countdownTimer); this._countdownTimer = null; }
     this.sound.destroy();
     if (this.animId) cancelAnimationFrame(this.animId);
     window.removeEventListener('keydown', this._onKeyDown);
