@@ -239,7 +239,7 @@
 }
 
 .sb-lesson-title {
-  font-size: 33px;
+  font-size: 28px;
   font-weight: 600;
   color: #26215C;
   line-height: 1.3;
@@ -292,6 +292,7 @@
   line-height: 1.75;
   color: #E9D5FF;
   white-space: pre-wrap;
+  overflow-wrap: break-word;
   margin: 0;
 }
 .sb-cm  { color: #6B7280; }
