@@ -34,11 +34,12 @@ export const TITLES = [
 ]
 
 export const CHARACTERS = [
-  { id: 'slime',         icon: '/src/assets/character_slime.png',      name: '에이몬 슬라임', desc: '기본 캐릭터',         unlockUnits: 0 },
-  { id: 'robot',         icon: '/src/assets/character_robot.png',       name: '에이몬 로봇',   desc: 'Unit 3 완료 시 해금', unlockUnits: 3 },
-  { id: 'speech_bubble', icon: '/src/assets/character_bubble.png',      name: '에이몬 말풍선', desc: 'Unit 6 완료 시 해금', unlockUnits: 6 },
-  { id: 'final_ghost',   icon: '/src/assets/character_final_ghost.png', name: '파이널 에이몬', desc: 'Unit 8 완료 시 해금', unlockUnits: 8 },
+  { id: 'slime',         icon: '/src/assets/character_slime.png',      name: '에이원', desc: '기본 캐릭터',         unlockUnits: 0 },
+  { id: 'robot',         icon: '/src/assets/character_robot.png',       name: '에이량',   desc: 'Unit 3 완료 시 해금', unlockUnits: 3 },
+  { id: 'speech_bubble', icon: '/src/assets/character_bubble.png',      name: '에이훈', desc: 'Unit 6 완료 시 해금', unlockUnits: 6 },
+  { id: 'final_ghost',   icon: '/src/assets/character_final_ghost.png', name: '에이왕', desc: 'Unit 8 완료 시 해금', unlockUnits: 8 },
 ]
+
 
 export const CHAR_ICONS = Object.fromEntries(CHARACTERS.map(c => [c.id, c.icon]))
 
