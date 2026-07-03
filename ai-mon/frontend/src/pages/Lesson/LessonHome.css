@@ -171,6 +171,9 @@ body:has(.lh-page) { background: #F4F3FA; }
 .lh-stage-seg {
   display: flex;
   align-items: center;
+  flex: 0 0 auto;
+}
+.lh-stage-seg:has(.lh-stage-line) {
   flex: 1;
 }
 .lh-stage-node {
