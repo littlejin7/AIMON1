@@ -176,7 +176,8 @@
       "hint": "yield from은 이터러블의 모든 값을 순서대로 yield합니다.",
       "feedback": {
         "correct": "정답! yield from range(n)은 range(n)의 각 값을 차례로 yield합니다. for i in range(n): yield i 와 동일하지만 더 간결합니다."
-      }
+      },
+      "expected_output": "[0, 1, 2, 3]\n"
     },
     {
       "question_id": "unitboss_adv_ci_1_010",
@@ -193,7 +194,8 @@
       "hint": "@contextmanager에서 yield 앞이 __enter__, yield 뒤가 __exit__에 해당합니다.",
       "feedback": {
         "correct": "정답! @contextmanager 데코레이터에서 yield는 with 블록의 실행 지점을 표시합니다. yield 앞 코드는 블록 진입 시, yield 뒤 코드는 블록 종료 시 실행됩니다."
-      }
+      },
+      "expected_output": "연결\n작업 중\n종료\n"
     }
   ]
 }

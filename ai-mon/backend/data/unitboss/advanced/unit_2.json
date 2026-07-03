@@ -176,7 +176,8 @@
       "hint": "asyncio 모듈의 진입점 함수를 사용하세요.",
       "feedback": {
         "correct": "정답! asyncio.run(main())은 이벤트 루프를 생성하고 main() 코루틴을 실행한 뒤 루프를 종료합니다. 비동기 프로그램의 표준 진입점 패턴입니다."
-      }
+      },
+      "expected_output": "비동기 실행!\n"
     },
     {
       "question_id": "unitboss_adv_ci_2_010",
@@ -193,7 +194,8 @@
       "hint": "비동기 대기에는 time.sleep이 아니라 asyncio의 sleep을 사용합니다.",
       "feedback": {
         "correct": "정답! await asyncio.sleep(1)은 이벤트 루프를 블로킹하지 않고 1초 대기합니다. time.sleep(1)은 동기 대기라 이벤트 루프 전체를 멈추므로 async 함수에서는 사용하지 않습니다."
-      }
+      },
+      "expected_output": "완료\n"
     }
   ]
 }
