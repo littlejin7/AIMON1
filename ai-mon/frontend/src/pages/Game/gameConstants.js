@@ -50,7 +50,7 @@ export const GAMES = [
     reward: 'XP 100',
     rewardIcon: '⚡',
     route: '/game/aibomb',
-    available: false,
+    available: true,
     dailyTarget: null,
   },
   {
