@@ -710,7 +710,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! Pydantic BaseModel은 타입 힌트를 기반으로 자동으로 데이터 검증을 수행합니다. content는 기본값이 \"\"이므로 전달하지 않으면 빈 문자열이 되어 두 번째 줄이 비어 보여요. FastAPI는 이 모델을 요청 본문 파싱에 그대로 활용합니다. 클리어!"
-      }
+      },
+      "expected_output": "FastAPI 학습\n\nstr\n"
     },
     {
       "question_id": "miniboss_adv_ci_7_1_010",
@@ -726,7 +727,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! next(generator, None) 패턴은 조건에 맞는 첫 항목을 찾고 없으면 None을 반환합니다. None 체크 후 HTTPException을 발생시키는 것이 FastAPI의 표준 404 처리 방식이에요. 실제 FastAPI에서는 raise HTTPException 하나로 자동으로 JSON 오류 응답이 생성됩니다. 클리어!"
-      }
+      },
+      "expected_output": "404\n메모 없음\n"
     },
     {
       "question_id": "miniboss_adv_ci_7_2_009",
@@ -742,7 +744,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! Turn 클래스는 대화 메시지 하나를 객체로 감싸 관리합니다. dict() 메서드로 Claude API가 요구하는 {role, content} 딕셔너리 형태로 변환할 수 있어요. [m.dict() for m in messages]로 API 전송용 리스트를 만드는 패턴이 실제 코드와 동일합니다. 클리어!"
-      }
+      },
+      "expected_output": "3\n{'role': 'user', 'content': '안녕하세요'}\n"
     },
     {
       "question_id": "miniboss_adv_ci_7_2_010",
@@ -758,7 +761,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! if not messages: 는 빈 리스트일 때 True가 되어 즉시 ValueError를 발생시킵니다. FastAPI 엔드포인트에서 이 검증을 수행하면 빈 메시지로 Claude API를 호출해 422 오류가 나는 상황을 사전에 방지할 수 있어요. 클리어!"
-      }
+      },
+      "expected_output": "응답: Python이란?\n메시지가 비어 있습니다.\n"
     },
     {
       "question_id": "miniboss_adv_ci_7_3_009",
@@ -774,7 +778,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! fetch POST 요청에서 body: JSON.stringify(data)와 대응하는 Python 코드가 json.dumps()입니다. ensure_ascii=False를 설정해야 한글이 유니코드 이스케이프 없이 그대로 출력돼요. 서버에서 json.loads()로 다시 파싱하는 흐름이 프론트-백엔드 JSON 통신의 기본입니다. 클리어!"
-      }
+      },
+      "expected_output": "FastAPI 학습\n"
     },
     {
       "question_id": "miniboss_adv_ci_7_3_010",
@@ -790,7 +795,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! response.ok 체크 후 오류면 detail을 꺼내 예외를 발생시키는 패턴이 safeFetch의 핵심입니다. detail이 있으면 FastAPI의 오류 메시지를, 없으면 HTTP 상태 코드를 폴백으로 사용해요. try/catch로 예외를 잡아 사용자에게 보여주는 흐름까지 완성입니다. 클리어!"
-      }
+      },
+      "expected_output": "메모 없음\n"
     },
     {
       "question_id": "miniboss_adv_ci_7_4_009",
@@ -806,7 +812,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! sqlite:///:memory:는 파일 없이 메모리에서만 동작하는 테스트용 DB입니다. add() -> commit() -> query()의 흐름이 SQLAlchemy CRUD의 기본 패턴이에요. filter(Memo.id == 1).first()는 id가 1인 첫 번째 레코드를 반환하고 없으면 None을 반환합니다. 클리어!"
-      }
+      },
+      "expected_output": "2\nFastAPI 학습\n"
     },
     {
       "question_id": "miniboss_adv_ci_7_4_010",
@@ -822,7 +829,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! offset(skip)은 앞에서 skip개를 건너뛰고, limit(limit)는 최대 limit개만 가져옵니다. skip=2, limit=2면 3번째와 4번째 항목(항목3, 항목4)이 반환돼요. page = skip // limit + 1 = 2 // 2 + 1 = 2가 현재 페이지 번호입니다. 클리어!"
-      }
+      },
+      "expected_output": "페이지: 2\n항목3\n항목4\n"
     },
     {
       "question_id": "miniboss_adv_ci_7_5_009",
@@ -838,7 +846,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! @asynccontextmanager + yield 패턴에서 yield 전이 startup, yield 후가 shutdown입니다. async with 블록 안이 서버 실행 중에 해당하므로 시작 -> 실행중 -> 종료 순서가 보장돼요. FastAPI에서 lifespan=lifespan으로 등록하면 이 패턴이 서버 생명주기에 자동으로 적용됩니다. 클리어!"
-      }
+      },
+      "expected_output": "[시작] DB 초기화...\n[실행중] 요청 처리\n[종료] 서버 종료 정리...\n"
     },
     {
       "question_id": "miniboss_adv_ci_7_5_010",
@@ -854,7 +863,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! APIRouter의 prefix와 개별 경로를 더하면 최종 URL이 됩니다. include_router()는 라우터의 모든 경로를 앱에 병합해요. 실제 FastAPI에서는 app.include_router(router, prefix=\"/v1\")처럼 등록 시점에 prefix를 추가할 수도 있습니다. 클리어!"
-      }
+      },
+      "expected_output": "2\n/memos/\n/memos/{id}\n"
     }
   ]
 }

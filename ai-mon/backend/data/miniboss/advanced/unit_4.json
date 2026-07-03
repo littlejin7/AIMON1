@@ -122,7 +122,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! Streamlit 앱에서 설정값을 딕셔너리로 관리하면 유지보수가 편해집니다. st.set_page_config()에 title 등을 전달하거나, 모델 파라미터를 통합 관리하는 데 활용해요. 클리어!"
-      }
+      },
+      "expected_output": "{'title': 'AI 도우미', 'model': 'claude-opus-4-8', 'max_tokens': 1024}\n"
     },
     {
       "question_id": "miniboss_adv_fib_4_1_008",
@@ -174,7 +175,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! pages[0] if self.pages else None 패턴으로 리스트가 비었을 때 안전하게 None을 반환합니다. st.selectbox에 pages를 전달하고 index=0으로 기본 선택을 지정하는 패턴의 기반 로직이에요. 클리어!"
-      }
+      },
+      "expected_output": "홈\n"
     },
     {
       "question_id": "miniboss_adv_fib_4_2_001",
@@ -350,7 +352,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! 12개 추가 후 max_turns*2=10 초과이므로 마지막 10개만 유지됩니다. messages[-(10):]로 최근 5턴을 보존해요. count()는 10을 반환합니다. 클리어!"
-      }
+      },
+      "expected_output": "10\n"
     },
     {
       "question_id": "miniboss_adv_fib_4_3_001",
@@ -474,7 +477,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! 삼항 연산자 '[user]' if msg['role'] == 'user' else '[AI]'로 역할에 따라 접두사를 선택합니다. 실제 Streamlit에서는 st.chat_message(msg['role'])로 말풍선을 그리는 동일한 구조예요. 클리어!"
-      }
+      },
+      "expected_output": "[user] 안녕\n[AI] 반갑습니다\n[user] 고마워\n"
     },
     {
       "question_id": "miniboss_adv_fib_4_3_008",
@@ -526,7 +530,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! role에 따라 이모지 접두사를 다르게 붙여 메시지를 포맷합니다. 클리어!"
-      }
+      },
+      "expected_output": "👤 안녕\n🤖 반갑습니다\n👤 잘 지내?\n"
     },
     {
       "question_id": "miniboss_adv_fib_4_4_001",
@@ -650,7 +655,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! system=None 기본값으로 선택적 파라미터를 구현합니다. if system: 조건으로 None이나 빈 문자열이면 'system' 키를 추가하지 않아요. 이런 빌더 함수로 Claude API 파라미터를 유연하게 구성할 수 있습니다. 클리어!"
-      }
+      },
+      "expected_output": "False\nTrue\n"
     },
     {
       "question_id": "miniboss_adv_fib_4_4_008",
@@ -702,7 +708,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! 100자 텍스트는 200자 이하이므로 그대로 반환, len=100입니다. 250자 텍스트는 초과이므로 text[:200]+'...'=203자가 돼요. 응답을 특정 길이로 제한하는 실전 처리 로직입니다. 클리어!"
-      }
+      },
+      "expected_output": "100\n203\n"
     },
     {
       "question_id": "miniboss_adv_fib_4_5_001",
@@ -826,7 +833,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! 조건부로 파트를 리스트에 추가하고 join으로 조합하는 빌더 패턴입니다. language='en'이므로 '영어로 답하세요.'가 추가되고, max_words=100이므로 마지막 파트도 추가됩니다. 클리어!"
-      }
+      },
+      "expected_output": "당신은 튜터입니다. 영어로 답하세요. 100단어 이내로 답하세요.\n"
     },
     {
       "question_id": "miniboss_adv_fib_4_5_008",
@@ -1002,7 +1010,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! 리스트 컴프리헨션으로 존재하는 키와 없는 키를 각각 분류합니다. 딕셔너리로 결과를 반환해 present/missing을 명확히 구분해요. 배포 전 필수 환경 변수 검증에 실전적으로 쓰이는 패턴입니다. 클리어!"
-      }
+      },
+      "expected_output": "present: ['MODEL', 'MAX_TOKENS']\nmissing: ['API_KEY']\n"
     },
     {
       "question_id": "miniboss_adv_fib_4_6_008",
@@ -1054,7 +1063,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! 첫 케이스는 빈 dict이라 False, 두 번째는 api_key='abc'(3자)로 길이 부족 False, 세 번째는 모두 조건 충족으로 True입니다. 배포 전 최소 유효성 검증 패턴이에요. 클리어!"
-      }
+      },
+      "expected_output": "False\nFalse\nTrue\n"
     }
   ]
 }

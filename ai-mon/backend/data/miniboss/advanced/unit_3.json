@@ -122,7 +122,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! not key는 None과 빈 문자열 모두 True로 평가되므로 두 케이스를 한 번에 처리할 수 있어요. 이후 len() 검사로 길이를 확인합니다. 실전에서는 API 키 형식(접두사, 길이 등)까지 검증합니다. 클리어!"
-      }
+      },
+      "expected_output": "키 없음\n키 짧음\n유효\n"
     },
     {
       "question_id": "miniboss_adv_fib_3_1_008",
@@ -174,7 +175,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! 환경 변수는 항상 문자열이므로 숫자 값은 int()나 float()으로 형 변환이 필요합니다. load_config() 같은 함수로 설정 로딩을 캡슐화하면 코드 재사용성이 높아져요. 클리어!"
-      }
+      },
+      "expected_output": "{'model': 'claude-3', 'max_tokens': 1024}\n"
     },
     {
       "question_id": "miniboss_adv_fib_3_2_001",
@@ -334,7 +336,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! messages[-1]['role']로 마지막 메시지의 role을 가져옵니다. Claude API는 user→assistant→user 순서를 지켜야 하며, 항상 user 메시지로 끝나야 합니다. 헬퍼 함수로 캡슐화하면 관리가 쉬워집니다. 클리어!"
-      }
+      },
+      "expected_output": "user\n"
     },
     {
       "question_id": "miniboss_adv_ci_3_2_010",
@@ -350,7 +353,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! 누적 카운터 클래스로 여러 API 호출의 토큰 사용량을 집계합니다. 10+20=30 입력, 5+8=13 출력, 합계 43이에요. 실제 프로덕션에서는 이런 tracker로 비용을 모니터링합니다. 클리어!"
-      }
+      },
+      "expected_output": "입력: 30, 출력: 13, 합계: 43\n"
     },
     {
       "question_id": "miniboss_adv_fib_3_3_001",
@@ -474,7 +478,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! user+assistant 쌍이 한 '턴'이므로 len(history) // 2로 턴 수를 계산합니다. 4개 메시지 / 2 = 2턴이에요. 이런 ChatSession 클래스로 대화 상태를 캡슐화하면 코드가 깔끔해집니다. 클리어!"
-      }
+      },
+      "expected_output": "턴 수: 2\n"
     },
     {
       "question_id": "miniboss_adv_fib_3_3_008",
@@ -526,7 +531,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! sum(1 for m in history if m['role'] == 'user')는 generator expression으로 user 메시지 수를 셉니다. len([m for m in history if ...])보다 메모리 효율적인 방법이에요. 클리어!"
-      }
+      },
+      "expected_output": "사용자: 3, 어시스턴트: 2\n"
     },
     {
       "question_id": "miniboss_adv_fib_3_4_001",
@@ -650,7 +656,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! range(0, len(text), chunk_size)로 step을 지정해 텍스트를 chunk_size 단위로 슬라이싱합니다. print()만 쓰면 개행이 출력됩니다. 스트리밍 UX를 테스트할 때 실제 API 없이도 이런 시뮬레이터로 검증할 수 있어요. 클리어!"
-      }
+      },
+      "expected_output": "에이몬AI\n"
     },
     {
       "question_id": "miniboss_adv_fib_3_4_008",
@@ -702,7 +709,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! '에이'(2자) + '몬 '(3자) + 'AI'(2자) = 7자, 청크 3개입니다. 스트리밍 수신 통계를 추적하는 실용적인 클래스 설계예요. 클리어!"
-      }
+      },
+      "expected_output": "완료: 6자, 3청크\n"
     },
     {
       "question_id": "miniboss_adv_os_3_5_001",
@@ -826,7 +834,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! call_count를 인스턴스 변수로 관리해 API 호출 수를 추적합니다. chat()을 두 번 호출했으므로 call_count=2예요. 실전에서는 여기에 토큰 수, 에러율, 레이턴시도 추가합니다. 클리어!"
-      }
+      },
+      "expected_output": "호출 횟수: 2\n"
     },
     {
       "question_id": "miniboss_adv_fib_3_5_008",
@@ -878,7 +887,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! for 루프로 최대 3번 시도하고 실패마다 'attempt N'을 출력합니다. 모두 실패하면 루프를 벗어나 '최대 재시도 초과'를 출력해요. 실전에서는 time.sleep(2**n) 지수 백오프를 추가합니다. 클리어!"
-      }
+      },
+      "expected_output": "attempt 1\nattempt 2\nattempt 3\n최대 재시도 초과\n"
     }
   ]
 }

@@ -122,7 +122,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! async def로 코루틴 함수를 정의하고, 다른 코루틴 안에서 await으로 호출하면 완료될 때까지 기다립니다. main은 asyncio.run()으로 실행해요. 클리어!"
-      }
+      },
+      "expected_output": "첫번째\n두번째\n"
     },
     {
       "question_id": "miniboss_adv_os_2_1_008",
@@ -174,7 +175,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! while 루프와 await asyncio.sleep(0)으로 각 단계에서 이벤트 루프에 제어권을 양보합니다. asyncio.sleep(0)은 실제로 0초 대기가 아니라 '이번 루프 사이클은 여기서 멈춤'을 의미합니다. 클리어!"
-      }
+      },
+      "expected_output": "3\n2\n1\n"
     },
     {
       "question_id": "miniboss_adv_fib_2_2_001",
@@ -334,7 +336,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! gather()로 두 코루틴을 동시 실행하면 결과가 리스트로 반환됩니다. a, b = await asyncio.gather(...)로 언패킹하고 합산하면 30 + 50 = 80이에요. 클리어!"
-      }
+      },
+      "expected_output": "80\n"
     },
     {
       "question_id": "miniboss_adv_ci_2_2_010",
@@ -350,7 +353,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! return_exceptions=True로 예외를 결과에 담고, isinstance(r, Exception)으로 오류 여부를 판별합니다. 이 패턴은 일부 실패해도 나머지 결과를 활용하는 실전 비동기 코드에서 자주 쓰입니다. 클리어!"
-      }
+      },
+      "expected_output": "OK\n에러\n"
     },
     {
       "question_id": "miniboss_adv_fib_2_3_001",
@@ -474,7 +478,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! create_task()로 Task를 생성하고, await 후 task.result()로 반환값을 꺼냅니다. await task는 완료를 기다리고, task.result()는 완료 후 반환값을 가져옵니다. 클리어!"
-      }
+      },
+      "expected_output": "4\n9\n16\n"
     },
     {
       "question_id": "miniboss_adv_fib_2_3_008",
@@ -526,7 +531,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! FIRST_COMPLETED로 가장 먼저 끝난 task만 done에 담깁니다. fast()가 await 없이 바로 반환하므로 먼저 완료돼요. pending에 남은 task는 cancel()로 정리하는 것이 좋은 습관입니다. 클리어!"
-      }
+      },
+      "expected_output": "fast\nslow\n"
     },
     {
       "question_id": "miniboss_adv_fib_2_4_001",
@@ -650,7 +656,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! asyncio.Semaphore(2)로 동시에 2개의 task만 async with 블록에 진입하도록 제한합니다. gather()가 결과를 입력 순서대로 반환하므로 [0, 1, 2, 3, 4]가 출력됩니다. 클리어!"
-      }
+      },
+      "expected_output": "[0, 1, 2, 3, 4]\n"
     },
     {
       "question_id": "miniboss_adv_fib_2_4_008",
@@ -702,7 +709,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! asyncio.wait_for()에 timeout을 설정하면 초과 시 TimeoutError를 발생시킵니다. try/except asyncio.TimeoutError로 처리하면 타임아웃 상황을 안전하게 핸들링할 수 있어요. 클리어!"
-      }
+      },
+      "expected_output": "타임아웃\n"
     },
     {
       "question_id": "miniboss_adv_fib_2_5_001",
@@ -826,7 +834,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! 생산자-소비자 패턴에서 큐는 두 코루틴을 안전하게 연결합니다. None을 종료 신호로 쓰는 패턴이 일반적이에요. gather()로 두 코루틴을 동시 실행해야 producer가 put한 것을 consumer가 실시간으로 get할 수 있습니다. 클리어!"
-      }
+      },
+      "expected_output": "A\nB\nC\n"
     },
     {
       "question_id": "miniboss_adv_fib_2_5_008",
@@ -878,7 +887,8 @@
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! async 함수 데코레이터의 핵심은 wrapper도 async def로 선언하고, func 호출 시 await를 붙이는 것입니다. functools.wraps로 메타데이터를 보존하는 것까지 포함하면 실전 수준의 비동기 데코레이터가 완성됩니다. 클리어!"
-      }
+      },
+      "expected_output": "process 실행\n100\n"
     }
   ]
 }
