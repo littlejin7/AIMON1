@@ -23,9 +23,9 @@ export const TRAIN_MODES = [
   },
   {
     id: 'boss',
-    icon: '👹',
+    icon: '💻',
     iconBg: '#F0EFF8',
-    name: '출력화면',
-    desc: '코드를 직접 클릭하여 출력화면을 확인하세요',
+    name: '코드도감',
+    desc: '지금 까지 모은 코드를 확인해보세요!',
   },
 ]
