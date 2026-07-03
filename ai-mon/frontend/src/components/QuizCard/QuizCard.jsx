@@ -7,6 +7,8 @@ import ErrorFindLines from './ErrorFindLines'
 import FillInput from './FillInput'
 import CodeInput from './CodeInput'
 import AiFeedback from './AiFeedback'
+import { getFillFeedback } from '../../data/fillFeedback'
+import { getChoiceFeedback, choiceLetterOf } from '../../data/choiceFeedback'
 import './QuizCard.css'
 
 function parseQuestionContent(raw) {
@@ -126,6 +128,42 @@ export default function QuizCard({
   // correct_answer 는 더 이상 보내지 않는다(F: 클라에 정답 없음). 서버가 question_id 로 조회.
   const fetchAiFeedback = async (userAnswer, fallbackText) => {
     const staticFallback = fallbackText || '정답을 다시 확인해 보세요!'
+
+    // fill_in_blank: 정답이 1개라 오답 해설을 문항당 1건으로 고정할 수 있다.
+    // 사전 생성 정적 번들(src/data/fillFeedback)에서 먼저 찾고, 히트하면 Claude 호출을
+    // 건너뛴다(토큰·왕복 절감). 미스/오류면 아래 기존 Claude 스트리밍으로 폴백.
+    if (type === 'fill_in_blank') {
+      try {
+        const unit = parseInt(question.unit, 10) ||
+          parseInt(String(stageKey).split('-')[0], 10)
+        const qid = question.question_id || question.id || ''
+        const bundled = await getFillFeedback(courseLevel, unit, qid)
+        if (bundled) {
+          setAiFeedback(bundled)
+          return
+        }
+      } catch { /* 번들 미스/오류 → Claude 폴백 */ }
+    }
+
+    // 객관식: 오답은 선택지 개수로 유한 → 선택지별 고정 해설을 사전 생성 번들에서 조회.
+    // 히트하면 Claude 호출을 건너뛴다. 미스(신규 문항/번들 미포함)면 Claude 폴백.
+    if (isChoiceType) {
+      try {
+        const unit = parseInt(question.unit, 10) ||
+          parseInt(String(stageKey).split('-')[0], 10)
+        const qid = question.question_id || question.id || ''
+        const map = await getChoiceFeedback(courseLevel, unit, qid)
+        if (map) {
+          const letter = choiceLetterOf(userAnswer, choicesList)
+          const bundled = letter && map[letter]
+          if (bundled) {
+            setAiFeedback(bundled)
+            return
+          }
+        }
+      } catch { /* 번들 미스/오류 → Claude 폴백 */ }
+    }
+
     setAiFeedbackLoading(true)
 
     let fullQuestionText = question.question
