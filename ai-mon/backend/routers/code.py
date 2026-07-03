@@ -67,6 +67,31 @@ def find_question(
     return _QUESTION_INDEX.get(question_id)
 
 
+def _normalize_output(text: str | None) -> str:
+    normalized = (text or "").replace("\r\n", "\n").replace("\r", "\n")
+    return "\n".join(line.rstrip() for line in normalized.split("\n")).rstrip("\n")
+
+
+def _deterministic_grade_from_expected_output(question: dict, output: str, error: str) -> Optional[dict]:
+    if question.get("type") != "code_input":
+        return None
+    expected_output = question.get("expected_output")
+    if not expected_output or error:
+        return None
+    if _normalize_output(output) != _normalize_output(expected_output):
+        return None
+
+    feedback = question.get("feedback")
+    correct_feedback = feedback.get("correct", "") if isinstance(feedback, dict) else ""
+    return {
+        "is_correct": True,
+        "score": 100,
+        "feedback": correct_feedback or "Correct.",
+        "hint": "",
+        "grading_failed": False,
+    }
+
+
 class SubmitRequest(BaseModel):
     question_id:  str
     code:         str = Field(..., max_length=4000)
@@ -102,6 +127,8 @@ async def submit_code(request: Request, req: SubmitRequest, user: dict = Depends
     )
     if not question:
         raise HTTPException(status_code=404, detail="Question not found")
+
+    result = _deterministic_grade_from_expected_output(question, req.output, req.error)
 
     level_instruction_map = {
         "beginner": (
@@ -157,7 +184,8 @@ async def submit_code(request: Request, req: SubmitRequest, user: dict = Depends
   "hint": "틀렸을 때 힌트, 맞으면 빈 문자열"
 }}"""
 
-    result = await ask_claude_json(prompt)
+    if result is None:
+        result = await ask_claude_json(prompt)
 
     # AI 채점 실패 시: HP·XP·진행도 미변경, 재시도 안내 응답 (D-1 버그 방지)
     if result.get("grading_failed"):
