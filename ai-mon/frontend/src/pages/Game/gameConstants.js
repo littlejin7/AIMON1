@@ -61,7 +61,7 @@ export const GAMES = [
     reward: 'XP 100~200',
     rewardIcon: '⚡',
     route: '/game/aicross',
-    available: false,
+    available: true,
   },
 ]
 
