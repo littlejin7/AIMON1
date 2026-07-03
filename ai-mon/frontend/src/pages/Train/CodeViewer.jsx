@@ -136,8 +136,8 @@ export default function CodeViewer({ onBack }) {
       {/* 헤더 */}
       <div className="btp-header">
         <button className="btp-back-btn" onClick={onBack}>✕</button>
-        <h1 className="btp-title">🐍 코드를 배워요!</h1>
-        <p className="btp-subtitle">키워드를 눌러 코드 예시를 확인하세요</p>
+        <h1 className="btp-title">💻 코드도감</h1>
+        <p className="btp-subtitle">키워드를 눌러 실행화면을 확인하세요</p>
       </div>
 
       <div className="btp-scroll">
