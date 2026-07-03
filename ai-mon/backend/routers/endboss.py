@@ -118,6 +118,26 @@ def _seen_key(level: str, project: str) -> str:
     return f"endboss_{level}_{project}"
 
 
+def _phase12_seen_key(level: str, project: str, phase: int) -> str:
+    """Phase1/2 전용 서브키. phase3 seen(_seen_key)과 별도 저장해 충돌을 막는다."""
+    return f"endboss_p{phase}_{level}_{project}"
+
+
+def pick_batch_unseen(pool: list, seen: list, count: int) -> tuple[list, list]:
+    """안 본 문제를 우선으로 섞어서 count개 선택.
+    안 본 문제가 모자라면 전체 풀을 재오픈(seen 리셋)한다.
+    반환: (선택된 문제 리스트, 갱신된 seen id 리스트)."""
+    unseen = [q for q in pool if q["question_id"] not in seen]
+    if len(unseen) < count:
+        unseen = list(pool)
+        seen = []
+    unseen = list(unseen)
+    random.shuffle(unseen)
+    chosen = unseen[:count]
+    new_seen = seen + [q["question_id"] for q in chosen]
+    return chosen, new_seen
+
+
 def direct_grade(user_answer: str, correct_answer: str, q_type: str) -> bool:
     """output_select / multiple_choice / error_find / fill_in_blank 직접 채점."""
     ua = user_answer.strip()
@@ -202,20 +222,27 @@ def endboss_start(req: StartRequest, user: dict = Depends(get_current_user)):
     # 왕관 차감
     user["crowns"] = user.get("crowns", 0) - RETRY_CROWN_COST
 
-    # Phase 1, 2 문제 확정
-    p1_questions = phase1_pool[:5]
-    p2_questions = phase2_pool[:4]
-
-    # Phase 3 첫 문제 확정 + seen 기록
-    p3_first = phase3_pool[0] if phase3_pool else None
-    seen_ids  = [q["question_id"] for q in p1_questions + p2_questions]
-    if p3_first:
-        seen_ids.append(p3_first["question_id"])
-
     if "seen_questions" not in user or user["seen_questions"] is None:
         user["seen_questions"] = {}
-    user["seen_questions"][_seen_key(level, req.project)] = seen_ids
-    user["seen_questions"]["endboss"] = seen_ids
+    seen_qs = user["seen_questions"]
+
+    # Phase 1, 2 문제 확정 — 이력 기반 안 본 문제 우선 + shuffle, 소진 시 재오픈.
+    p1_key = _phase12_seen_key(level, req.project, 1)
+    p2_key = _phase12_seen_key(level, req.project, 2)
+    p1_questions, p1_seen = pick_batch_unseen(phase1_pool, seen_qs.get(p1_key, []), 5)
+    p2_questions, p2_seen = pick_batch_unseen(phase2_pool, seen_qs.get(p2_key, []), 4)
+    seen_qs[p1_key] = p1_seen
+    seen_qs[p2_key] = p2_seen
+
+    # Phase 3 첫 문제 확정 + seen 기록 (phase1/2 서브키와 분리된 phase3 전용 키)
+    p3_first = phase3_pool[0] if phase3_pool else None
+    p3_key = _seen_key(level, req.project)
+    p3_seen = seen_qs.get(p3_key, [])
+    if p3_first:
+        p3_seen = p3_seen + [p3_first["question_id"]]
+    seen_qs[p3_key] = p3_seen
+    seen_qs["endboss"] = p3_seen
+    user["seen_questions"] = seen_qs
     save_user(user)
 
     return {

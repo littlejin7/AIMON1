@@ -68,6 +68,13 @@ def _legacy_served_key(unit_num: int) -> str:
     return f"unitboss_legacy_served_{unit_num}"
 
 
+def _pre_migration_seen_key(unit_num: int) -> str:
+    # 재도전 이력 버그 수정(2026-07) 이전에 쓰이던 구키. 운영 백업(data/backup/*/users.json)의
+    # 기존 유저 이력이 여기 쌓여 있으므로, prior_seen 조회 시 이 구키도 합집합으로 읽어
+    # 과거 이력을 승계한다(신규 저장은 _legacy_served_key 로만, 점진적 이전).
+    return f"unitboss_seen_{unit_num}"
+
+
 
 
 @router.get("/info")
@@ -131,14 +138,24 @@ def start_boss_battle(unit: str = "1", user: dict = Depends(get_current_user)):
                 raise HTTPException(status_code=400, detail="왕관이 부족합니다.")
             u["crowns"] -= 1
 
-        chosen = random.choice(boss_qs)
+        if "seen_questions" not in u or u["seen_questions"] is None:
+            u["seen_questions"] = {}
+        legacy_key = _legacy_served_key(unit_num)
+        pre_migration_key = _pre_migration_seen_key(unit_num)
+        prior_seen = list(dict.fromkeys(
+            u["seen_questions"].get(legacy_key, []) + u["seen_questions"].get(pre_migration_key, [])
+        ))
+        unseen = [q for q in boss_qs if q.get("question_id") not in prior_seen]
+        if not unseen:
+            unseen = list(boss_qs)
+            prior_seen = []
+        chosen = random.choice(unseen)
 
         # 서버 권위 세션 생성: 정답 누적 REQUIRED_CORRECT(5) 도달 시에만 클리어 허용.
         create_session(u, sid, MODE, unit_num, None, REQUIRED_CORRECT, MAX_WRONG)
         u["battle_sessions"][sid]["served_qids"] = [chosen["question_id"]]
-        if "seen_questions" not in u or u["seen_questions"] is None:
-            u["seen_questions"] = {}
-        u["seen_questions"][_legacy_served_key(unit_num)] = [chosen["question_id"]]
+        # 재도전 이력에 누적 저장(덮어쓰기 아님) → 다음 재도전에서 안 본 문제 우선 출제.
+        u["seen_questions"][legacy_key] = prior_seen + [chosen["question_id"]]
         return chosen
 
     try:
