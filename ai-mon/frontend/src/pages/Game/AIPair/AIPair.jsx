@@ -43,12 +43,7 @@ export default function AIPair() {
       {/* 미리보기 카운트다운 */}
       {isPreview && (
         <div className="mp-countdown-overlay">
-          {previewSeconds === 6 ? (
-            /* 첫 1초 동안 노출되는 '기억하세요!' 인트로 전용 배너 */
-            <div className="mp-countdown-box is-intro">
-              <div className="mp-countdown-label">기억하세요!</div>
-            </div>
-          ) : previewSeconds === 'START' ? (
+          {previewSeconds === 'START' ? (
             /* 마지막 START! 연출: 박스 없이 숫자와 같은 거대 골드 크기로 중앙 정렬 */
             <div key="start-prompt" className="mp-countdown-center-num is-start-text">
               START!

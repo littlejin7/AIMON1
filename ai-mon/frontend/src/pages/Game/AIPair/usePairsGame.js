@@ -73,14 +73,14 @@ export function usePairsGame() {
     setTimerSec(0)
     setWon(false)
     setIsPreview(true)
-    setPreviewSeconds(6) // 6초로 설정: 첫 1초간은 '기억하세요!' 텍스트 배너가 출력되고 그 후에 숫자로 카운트다운
+    setPreviewSeconds(5) // 5초로 설정: 바로 5부터 숫자로 카운트다운 시작
     setRunning(false)
     processingRef.current = true //미리보기 중엔 클릭 방지
     setTimeout(() => {
       setIsPreview(false)
       setRunning(true)
       processingRef.current = false
-    }, 7000) // 총 7초 (기억하세요 배너 1초 + 5 4 3 2 1 + START 1초)
+    }, 6000) // 총 6초 (5 4 3 2 1 + START 1초)
   }, [])
 
 
