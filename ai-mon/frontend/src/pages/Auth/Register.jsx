@@ -277,6 +277,11 @@ export default function Register() {
         ━━━━━━━━━━━━━━━━━ */}
         {step === 0 && (
           <>
+            <div className="reg-header" style={{ padding: '16px 20px 0' }}>
+              <button className="reg-back-btn" onClick={() => navigate(-1)}>✕</button>
+              <span className="reg-logo-sm">AI MON</span>
+              <span style={{ width: '36px' }} />
+            </div>
             <div className="reg-mascot-hero">
               <img src={beginnerHappyIcon} alt="에이몬" className="reg-mascot animate-float" />
               <div>
@@ -306,7 +311,7 @@ export default function Register() {
               </div>
 
               <button className="reg-btn-ghost" onClick={() => setStep(1)}>
-                📧 이메일로 가입하기
+                📧 가입하기
               </button>
 
               <div style={{ textAlign: 'center', fontSize: '12px', color: '#C4BFEE' }}>
@@ -633,7 +638,7 @@ export default function Register() {
               <img src={slimeIcon} alt="에이몬" style={{ width: '58px', height: '58px', objectFit: 'contain' }} />
               <div>
                 <div className="reg-char-name">{form.nickname || '내 에이몬'}</div>
-                <div className="reg-char-sub">내 에이몬 · Lv.1 슬라임</div>
+                <div className="reg-char-sub">내 에이몬 · Lv.1 에이원</div>
               </div>
             </div>
 
