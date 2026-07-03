@@ -1,5 +1,5 @@
 const LEVEL_META = {
-  beginner:     { label: '초급', color: '#7F77DD', emoji: '🐣', desc: '기초부터 차근차근 시작해요!\n아기 슬라임 에이몬이 기다려요 😊' },
+  beginner:     { label: '초급', color: '#7F77DD', emoji: '🐣', desc: '기초부터 차근차근 시작해요!\n아기 에이원이 기다려요 😊' },
   intermediate: { label: '중급', color: '#06b6d4', emoji: '🌱', desc: '기초 개념은 탄탄해요!\n자료구조부터 시작하면 빠르게 성장할 수 있어요.' },
   advanced:     { label: '고급', color: '#534AB7', emoji: '🔥', desc: '데코레이터·비동기까지 꿰뚫는 당신,\n에이몬도 긴장했어요 🔥' },
 }
