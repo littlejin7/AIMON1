@@ -226,7 +226,6 @@ export default function Boss() {
           도망가기 🏃
         </button>
       </div>
-      )}
 
       <div className={`boss-container${phase === 'battle' ? ' boss-container-battle' : ' container'}`}>
         {phase === 'intro' && (

@@ -51,7 +51,7 @@ export const GAMES = [
     rewardIcon: '⚡',
     route: '/game/aibomb',
     available: true,
-    dailyTarget: null,
+    dailyTarget: 3,
   },
   {
     id: 'aicross',

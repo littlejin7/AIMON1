@@ -174,7 +174,13 @@ export default function AIbomb() {
             <div className="bd-reward-box">
               <span className="bd-reward-label-tag">TOTAL REWARD</span>
               <div className="bd-reward-chips">
-                <span className="bd-reward-chip">✨ +{game.exp}</span>
+                {game.xpAwarded === null ? (
+                  <span className="bd-reward-chip">적립 중...</span>
+                ) : game.alreadyClaimed ? (
+                  <span className="bd-reward-chip">오늘 획득 한도 도달</span>
+                ) : (
+                  <span className="bd-reward-chip">✨ +{game.xpAwarded} XP</span>
+                )}
               </div>
             </div>
             <button className="bd-btn bd-btn--primary bd-btn--full" onClick={game.restart}>

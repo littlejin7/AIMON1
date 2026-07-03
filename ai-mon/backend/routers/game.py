@@ -33,6 +33,7 @@ MIN_PLAY_SECONDS = {
     "aipang": 5,
     "aizzak": 30,
     "aicross": 5,
+    "aibomb": 15,
 }
 SUPPORTED_GAME_IDS = frozenset(MIN_PLAY_SECONDS)
 
@@ -95,6 +96,25 @@ def _consume_nonce(game_rewards: dict, payload: dict):
     game_rewards["used_tokens"] = used
 
 
+def _maybe_reset_daily_xp(game_rewards: dict, today_kst: str) -> None:
+    """공유 daily_xp 캡을 '오늘의 첫 게임' 시점에 한 번만 0으로 리셋한다.
+
+    daily_xp 는 XP 지급 게임(runner/aizzak/aicross/aibomb)이 공유하는 일일 캡이다.
+    SUPPORTED_GAME_IDS(=MIN_PLAY_SECONDS 의 key)의 *_last_date 가 전부 오늘이 아닐 때
+    (=오늘 아직 아무 게임도 안 함)에만 리셋한다. 개별 분기가 서로를 부분적으로만 확인하던
+    기존 방식(aizzak=runner만, aicross=runner+aizzak, runner=무조건)은 특정 실행 순서에서
+    다른 게임의 당일 누적분을 지우던 정합성 버그가 있어 이 헬퍼로 통일한다.
+    게임 목록을 SUPPORTED_GAME_IDS 에서 파생시켜, 새 미니게임 추가 시 이 하드코딩된
+    리스트에 넣는 걸 잊어 리셋 판단에서 조용히 빠지는 회귀를 원천 차단한다.
+    aipang 은 XP 는 안 주지만, 오늘의 첫 게임이 될 수 있으므로 리셋 주체에 포함한다.
+    """
+    if all(
+        game_rewards.get(f"{g}_last_date") != today_kst
+        for g in SUPPORTED_GAME_IDS
+    ):
+        game_rewards["daily_xp"] = 0
+
+
 class GameStartRequest(BaseModel):
     game_id: str
 
@@ -129,6 +149,7 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
     submitted_score_result = 0
     aizzak_correct = None
     aizzak_elapsed = None
+    aibomb_cleared = None
     if req.game_id == "aipang":
         token_payload = _verify_game_token(
             req.game_token, "aipang", user_id, MIN_PLAY_SECONDS["aipang"]
@@ -153,6 +174,15 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
         # 경과시간: 클라 제출값 불신 — 토큰 발급시각(ts) 기준 서버가 직접 계산
         aizzak_elapsed = int(now_kst().timestamp()) - int(token_payload["ts"])
         aizzak_correct = req.correct_count
+    elif req.game_id == "aibomb":
+        # correct_count(=클리어 스테이지 수) 범위 검증. 클라 점수·시간·XP 입력은 무시,
+        # 서버가 correct_count 로만 XP 산출.
+        if req.correct_count is None or not (0 <= req.correct_count <= 10):
+            raise HTTPException(status_code=400, detail="correct_count는 0~10 범위여야 합니다.")
+        token_payload = _verify_game_token(
+            req.game_token, "aibomb", user_id, MIN_PLAY_SECONDS["aibomb"]
+        )
+        aibomb_cleared = req.correct_count
     elif req.game_id == "aicross":
         submitted_score_result = max(0, min(int(req.score or 0), 100))
         token_payload = _verify_game_token(
@@ -214,10 +244,8 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
 
             if aizzak_last != today_kst:
                 aizzak_count = 0
-                # daily_xp 공유 캡: 어느 게임도 오늘 아직 안 했을 때만 리셋
-                # (runner가 이미 오늘 실행해서 채웠을 수 있으므로 runner_last_date 확인)
-                if game_rewards.get("runner_last_date") != today_kst:
-                    game_rewards["daily_xp"] = 0
+                # daily_xp 공유 캡: 오늘의 첫 게임일 때만 리셋 (헬퍼로 통일)
+                _maybe_reset_daily_xp(game_rewards, today_kst)
 
             if aizzak_count >= 3:
                 already_claimed = True
@@ -262,6 +290,9 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
             else:
                 # nonce 소비를 보상 지급과 같은 임계구역에서 수행 → 동시 동일토큰 이중통과 차단
                 _consume_nonce(game_rewards, token_payload)
+                # 공유 daily_xp 캡: aipang(크라운 전용)이 오늘의 첫 게임이면 여기서 리셋해야
+                # 이후 XP 게임이 전날 잔여 캡에 막히지 않는다.
+                _maybe_reset_daily_xp(game_rewards, today_kst)
                 game_rewards["aipang_last_date"] = today_kst
                 crowns_awarded = 1
                 user["crowns"] = user.get("crowns", 0) + crowns_awarded
@@ -272,11 +303,7 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
 
             if aicross_last != today_kst:
                 aicross_count = 0
-                if (
-                    game_rewards.get("runner_last_date") != today_kst
-                    and game_rewards.get("aizzak_last_date") != today_kst
-                ):
-                    game_rewards["daily_xp"] = 0
+                _maybe_reset_daily_xp(game_rewards, today_kst)
 
             if aicross_count >= 3:
                 already_claimed = True
@@ -300,6 +327,41 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
                 game_rewards["daily_xp"] = daily_xp + xp_awarded
                 apply_xp(user, xp_awarded, event_type="game_clear")
 
+        elif req.game_id == "aibomb":
+            aibomb_last  = game_rewards.get("aibomb_last_date")
+            aibomb_count = game_rewards.get("aibomb_today_count", 0)
+
+            if aibomb_last != today_kst:
+                aibomb_count = 0
+                _maybe_reset_daily_xp(game_rewards, today_kst)
+
+            if aibomb_count >= 3:
+                already_claimed = True
+            else:
+                # nonce 소비: 보상 지급과 같은 임계구역 → 동시 동일토큰 이중통과 차단
+                _consume_nonce(game_rewards, token_payload)
+                aibomb_count += 1
+                game_rewards["aibomb_today_count"] = aibomb_count
+                game_rewards["aibomb_last_date"]   = today_kst
+
+                # XP 산출 — 서버가 correct_count(클리어 스테이지 수)로만 산출
+                # 확정 스펙: 한 판 최대 100, 하루 3판(캡)=300
+                if aibomb_cleared >= 10:
+                    xp_awarded = 100
+                elif aibomb_cleared >= 9:
+                    xp_awarded = 70
+                elif aibomb_cleared >= 7:
+                    xp_awarded = 50
+                else:
+                    xp_awarded = 0
+
+                # 글로벌 일일 게임 XP 캡 (2500)
+                daily_xp = game_rewards.get("daily_xp", 0)
+                if daily_xp + xp_awarded > 2500:
+                    xp_awarded = max(0, 2500 - daily_xp)
+                game_rewards["daily_xp"] = daily_xp + xp_awarded
+                apply_xp(user, xp_awarded, event_type="game_clear")
+
         else:  # runner
             runner_last = game_rewards.get("runner_last_date")
             runner_count = game_rewards.get("runner_today_count", 0)
@@ -307,7 +369,7 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
             # 날짜가 바뀌었으면 카운트 초기화
             if runner_last != today_kst:
                 runner_count = 0
-                game_rewards["daily_xp"] = 0
+                _maybe_reset_daily_xp(game_rewards, today_kst)
 
             if runner_count >= 5:
                 already_claimed = True
