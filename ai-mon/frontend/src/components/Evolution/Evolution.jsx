@@ -24,25 +24,25 @@ import './Evolution.css'
 const CHAR_META = {
   slime: {
     icon: '/src/assets/character_slime.png',
-    name: '에이몬 슬라임',
+    name: '에이원',
     color: '#7c3aed',
     glow: 'rgba(124,58,237,0.5)',
   },
   robot: {
     icon: '/src/assets/character_robot.png',
-    name: '에이몬 로봇',
+    name: '에이량',
     color: '#06b6d4',
     glow: 'rgba(6,182,212,0.5)',
   },
   speech_bubble: {
     icon: '/src/assets/character_bubble.png',
-    name: '에이몬 말풍선',
+    name: '에이훈',
     color: '#10b981',
     glow: 'rgba(16,185,129,0.5)',
   },
   final_ghost: {
     icon: '/src/assets/character_final_ghost.png',
-    name: '파이널 에이몬',
+    name: '에이왕',
     color: '#f59e0b',
     glow: 'rgba(245,158,11,0.5)',
   },
