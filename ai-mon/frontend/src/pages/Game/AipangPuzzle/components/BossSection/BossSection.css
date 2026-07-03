@@ -1,0 +1,60 @@
+/* ── BossSection 컴포넌트 스타일 ── */
+#boss-section {
+  position: absolute;
+  top: 4px;
+  left: 5px;
+  right: 5px;
+  height: 158px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  z-index: 5;
+}
+
+.boss-cards-row {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+  min-height: 0;
+}
+
+/* 보스 카드 1개만 표시될 때: 가운데 정렬 + 폭 제한 */
+.boss-cards-row--solo {
+  justify-content: center;
+}
+
+/* .boss-card.active 의 flex:1.45 보다 우선 적용되도록 클래스 두 개로 명시도 확보 */
+.boss-cards-row.boss-cards-row--solo .boss-card {
+  flex: 0 1 200px;
+}
+
+/* ── 이동/스테이지 스트립 ── */
+.boss-info-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1px 12px;
+  min-height: 22px;
+  flex-shrink: 0;
+}
+
+.info-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+.info-label {
+  font-size: 0.36rem;
+  color: #99b0dd;
+  letter-spacing: 1.2px;
+}
+
+.info-value {
+  font-size: 0.9rem;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(160, 220, 255, 0.8);
+  line-height: 1;
+}
