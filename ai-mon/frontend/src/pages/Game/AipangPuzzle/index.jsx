@@ -54,6 +54,7 @@ export default function AipangPuzzle() {
     handleRestart,
     handleBossIntroOk,
     handleBgmVolume,
+    handleToggleMute,
     handleRefresh,
   } = useGameLogic(pCanvasRef, lCanvasRef);
 
@@ -117,6 +118,7 @@ export default function AipangPuzzle() {
           <CtrlBar
             bgmVolume={bgmVolume}
             onBgmVolume={handleBgmVolume}
+            onToggleMute={handleToggleMute}
             onRefresh={handleRefresh}
           />
 
