@@ -218,15 +218,14 @@ export default function Boss() {
   return (
     <div className={`boss-page ${screenShake ? 'screen-shake' : ''}`}>
 
-      {phase !== 'battle' && (
-        <div className="boss-header">
-          <button
-            className="btn btn-ghost btn-sm"
-            onClick={() => { stopBGM(); navigate(`/lesson/${lessonId}`) }}
-          >
-            도망가기 🏃
-          </button>
-        </div>
+      <div className={`boss-header${phase === 'battle' ? ' boss-header-battle' : ''}`}>
+        <button
+          className="btn btn-ghost btn-sm"
+          onClick={() => { stopBGM(); navigate(`/lesson/${lessonId}`) }}
+        >
+          도망가기 🏃
+        </button>
+      </div>
       )}
 
       <div className={`boss-container${phase === 'battle' ? ' boss-container-battle' : ' container'}`}>
