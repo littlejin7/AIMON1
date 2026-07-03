@@ -1,12 +1,11 @@
 import './CharacterDisplay.css'
 
 const CHARACTER_MAP = {
-  slime:         { icon: '/src/assets/character_slime.png', name: '에이몬 슬라임', color: '#7c3aed', title: '초보자' },
-  robot:         { icon: '/src/assets/character_robot.png', name: '에이몬 로봇', color: '#06b6d4', title: '탐험가' },
-  speech_bubble: { icon: '/src/assets/character_bubble.png', name: '에이몬 말풍선', color: '#10b981', title: '마스터' },
-  final_ghost:   { icon: '/src/assets/character_final_ghost.png', name: '파이널 에이몬', color: '#f59e0b', title: '전설' },
+  slime:         { icon: '/src/assets/character_slime.png', name: '에이원', color: '#7c3aed', title: '초보자' },
+  robot:         { icon: '/src/assets/character_robot.png', name: '에이량', color: '#06b6d4', title: '탐험가' },
+  speech_bubble: { icon: '/src/assets/character_bubble.png', name: '에이훈', color: '#10b981', title: '마스터' },
+  final_ghost:   { icon: '/src/assets/character_final_ghost.png', name: '에이왕', color: '#f59e0b', title: '전설' },
 }
-
 export default function CharacterDisplay({ characterId = 'slime', level = 1, xp = 0, maxXp = 100, compact = false }) {
   const char = CHARACTER_MAP[characterId] || CHARACTER_MAP.slime
   const xpPercent = Math.min(100, (xp / maxXp) * 100)
