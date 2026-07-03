@@ -99,25 +99,6 @@ export default function TrainHome({
           maxUnit={maxUnit}
         />
 
-        {/* 오답 노트 */}
-        {wrongAnswers.length > 0 && (
-          <>
-            <div className="tr-section-title">오답 노트</div>
-            <div className="tr-wrong-card">
-              <div className="tr-wrong-header">
-                <span className="tr-wrong-title">최근 틀린 문제</span>
-                <span className="tr-wrong-more" onClick={() => onStart({ onlyWrong: true })}>전체 보기 →</span>
-              </div>
-              {wrongAnswers.map((q, i) => (
-                <div key={i} className="tr-wrong-row">
-                  <span className="tr-wrong-tag">오답</span>
-                  <span className="tr-wrong-q">{q.question || q.content || '문제 로딩 중'}</span>
-                  <span className="tr-wrong-unit">U{q.unit || '?'}</span>
-                </div>
-              ))}
-            </div>
-          </>
-        )}
 
         {/* 유닛별 정답률 */}
         {unitAccuracy.length > 0 && (
