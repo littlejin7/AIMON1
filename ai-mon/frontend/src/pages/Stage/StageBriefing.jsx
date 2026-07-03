@@ -1,16 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import slimeIcon from '../../assets/character_slime.png'
-import robotIcon from '../../assets/character_robot.png'
-import speechBubbleIcon from '../../assets/character_bubble.png'
-import finalGhostIcon from '../../assets/character_final_ghost.png'
-import { useAuthStore } from '../../hooks/useAuthStore'
 
-const CHARACTER_MAP = {
-  slime:         slimeIcon,
-  robot:         robotIcon,
-  speech_bubble: speechBubbleIcon,
-  final_ghost:   finalGhostIcon,
-}
 
 function addLineBreaks(text) {
   if (!text) return null
@@ -66,9 +55,7 @@ export default function StageBriefing({
 }) {
 
   const navigate = useNavigate()
-  const user     = useAuthStore((s) => s.user)
-  const charSrc  = CHARACTER_MAP[user?.character] || slimeIcon
-
+ 
   const slide   = briefings[briefingIndex]
   const total   = briefings.length
   const isFirst = briefingIndex === 0
@@ -110,9 +97,6 @@ export default function StageBriefing({
       <div className="sb-body">
 
         <div className="sb-mascot-bubble">
-          <div className="sb-mascot-avatar">
-            <img src={charSrc} alt="캐릭터" />
-          </div>
           <div className="sb-bubble-text">{addLineBreaks(slide.text)}</div>
         </div>
 
