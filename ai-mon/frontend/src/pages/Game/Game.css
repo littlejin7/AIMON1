@@ -30,23 +30,19 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
 }
-
 .game-challenge-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  align-items: center;
+  column-gap: 8px;
   margin-bottom: 12px;
-}
-.game-challenge-title-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
 }
 .game-challenge-trophy {
   font-size: 1.3rem;
   line-height: 1;
-  flex-shrink: 0;
-  margin-top: 2px;
+}
+.game-challenge-text {
+  min-width: 0;
 }
 .game-challenge-title {
   font-size: var(--font-size-md);
