@@ -25,6 +25,10 @@ body:has(.boss-page) { background: #F4F3FA; background-image: none; }
   padding: 1rem;
 }
 
+.boss-header-battle {
+  padding: 0.75rem 1rem 0.5rem;
+}
+
 .boss-container {
   display: flex;
   justify-content: center;
