@@ -263,7 +263,7 @@ export default function App() {
             </ProtectedRoute>
           }
         />
-
+        <Route path="/dev-aibomb-preview" element={<AIbomb />} />
         <Route
           path="/game/pairs"
           element={
