@@ -66,12 +66,10 @@ export default function Game() {
       {/* ── 오늘의 챌린지 카드 ── */}
       <div className="game-challenge-hero card-glass">
         <div className="game-challenge-top">
-          <div className="game-challenge-title-row">
-            <span className="game-challenge-trophy">🏆</span>
-            <div>
-              <p className="game-challenge-title">오늘의 챌린지</p>
-              <p className="game-challenge-sub">모두 달성하면 보너스 지급!</p>
-            </div>
+          <span className="game-challenge-trophy">🏆</span>
+          <div className="game-challenge-text">
+            <p className="game-challenge-title">오늘의 챌린지</p>
+            <p className="game-challenge-sub">모두 달성하면 보너스 지급!</p>
           </div>
           {allDone
             ? <span className="game-challenge-done-badge">완료 ✓</span>
