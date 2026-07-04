@@ -34,6 +34,62 @@
   color: var(--clr-text-muted);
 }
 
+/* 지난주 우승자 배너 (/game/ranking 상단 전용) */
+.last-week-banner {
+  margin: 0 16px 14px;
+  padding: 12px 14px;
+  border-radius: var(--radius-lg);
+  border: 0.5px solid rgba(232,164,74,0.45);
+}
+
+.last-week-banner-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #e8a44a;
+}
+
+.last-week-banner-body {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.last-week-banner-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: rgba(232,164,74,0.15);
+  flex-shrink: 0;
+}
+
+.last-week-banner-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.last-week-banner-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--clr-text-bright);
+}
+
+.last-week-banner-meta {
+  font-size: 12px;
+  color: var(--clr-text-muted);
+}
+
+.last-week-banner-cta {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--clr-text);
+}
+
 .ranking-section {
   margin: 0 16px 14px;
   border-radius: var(--radius-lg);

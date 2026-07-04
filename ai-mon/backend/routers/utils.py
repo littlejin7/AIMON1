@@ -43,6 +43,11 @@ def iso_week() -> str:
     return now_kst().strftime("%G-W%V")
 
 
+def prev_iso_week() -> str:
+    """직전(지난) ISO 주 문자열. 연/주 경계에서도 안전하게 -7일로 계산한다."""
+    return (now_kst() - timedelta(days=7)).strftime("%G-W%V")
+
+
 logger = logging.getLogger("uvicorn.error")
 
 

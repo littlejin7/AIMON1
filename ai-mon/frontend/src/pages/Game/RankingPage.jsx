@@ -6,6 +6,55 @@ import './RankingPage.css'
 
 const RANK_MEDALS = { 1: '🥇', 2: '🥈', 3: '🥉' }
 
+// API 응답에 이미 들어있을 수 있는 "지난주 우승자" 데이터를 여러 키 형태에서 안전하게 추출.
+// 더미를 만들지 않는다 — 유효한 nickname 이 없으면 null 을 반환해 배너를 렌더링하지 않는다.
+function pickLastWeekWinner(data) {
+  if (!data) return null
+  const raw =
+    data.last_week_winner ||
+    data.lastWeekWinner ||
+    data.last_week ||
+    data.lastWeek ||
+    null
+  if (!raw) return null
+  const w = raw.winner || raw            // { winner: {...} } 래퍼도 허용
+  if (!w || !w.nickname) return null
+  return {
+    nickname: w.nickname,
+    score: w.score,
+    game_title: w.game_title || w.title || raw.game_title || raw.title || null,
+    character: w.character || null,
+  }
+}
+
+function LastWeekWinnerBanner({ data }) {
+  const w = pickLastWeekWinner(data)
+  if (!w) return null                    // 데이터 없으면 아무것도 렌더링하지 않음
+
+  const meta = [
+    w.game_title,
+    w.score != null ? `${w.score}점` : null,
+  ].filter(Boolean).join(' · ')
+
+  return (
+    <div className="last-week-banner card-glass">
+      <div className="last-week-banner-title">🏆 지난주 우승자</div>
+      <div className="last-week-banner-body">
+        {w.character && (
+          <div className="last-week-banner-avatar">
+            <img src={CHAR_ICONS[w.character] || CHAR_ICONS.slime} alt="" className="ranking-avatar-img" />
+          </div>
+        )}
+        <div className="last-week-banner-info">
+          <span className="last-week-banner-name">{w.nickname}</span>
+          {meta && <span className="last-week-banner-meta">{meta}</span>}
+        </div>
+      </div>
+      <div className="last-week-banner-cta">이번 주 왕좌에 도전해보세요!</div>
+    </div>
+  )
+}
+
 export default function RankingPage() {
   const navigate = useNavigate()
   const [data, setData]       = useState(null)
@@ -29,6 +78,8 @@ export default function RankingPage() {
         <button className="ranking-back-btn" onClick={() => navigate(-1)} aria-label="뒤로">←</button>
         <h1 className="ranking-page-title">이번 주 미니게임 랭킹</h1>
       </div>
+
+      <LastWeekWinnerBanner data={data} />
 
       {loading ? (
         <div className="ranking-page-status">불러오는 중...</div>
