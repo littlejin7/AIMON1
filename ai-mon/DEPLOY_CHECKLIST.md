@@ -18,6 +18,14 @@ ALTER TABLE users
 - 변경 프론트 파일: Boss.jsx, Stage.jsx (+ api 호출부).
 - 무중단 필요 시: 백엔드를 battle_token 옵셔널(폴백)로 먼저 → 프론트 배포 → 구경로 제거(2단계).
 
+### 2-1. Render / Vercel 배포 전 확인
+- 배포 기준 커밋: 백엔드(Render)와 프론트(Vercel)가 같은 Git 커밋 SHA를 기준으로 빌드되는지 확인한다.
+- Render Backend: `render.yaml`의 `rootDir=ai-mon/backend`, `buildCommand=pip install -r requirements.txt`, `startCommand=uvicorn main:app --host 0.0.0.0 --port $PORT` 확인.
+- Render env: `SECRET_KEY`, `SUPABASE_URL`, `SUPABASE_KEY`, `USE_SUPABASE=true`, `ANTHROPIC_API_KEY`, `ALLOWED_ORIGINS`, `RUN_SCHEDULER=1`을 대시보드에서 입력한다. 값은 Git에 커밋하지 않는다.
+- Vercel Frontend: `ai-mon/frontend/vercel.json`의 `buildCommand=npm run build`, `outputDirectory=dist`, SPA rewrite(`/index.html`) 확인.
+- Vercel env: `VITE_API_BASE_URL`을 배포 백엔드 URL로 입력한다. 값은 Git에 커밋하지 않는다.
+- 배포 순서: Supabase 마이그레이션 적용 → 백엔드와 프론트가 같은 커밋 SHA를 바라보는지 확인 → 백엔드 배포 → 프론트 배포 → §4/§4-1 스모크.
+
 ## 3. 스케줄러 멀티워커 가드 (RUN_SCHEDULER) — 멀티워커 배포 시 필수
 - 배경: `main.py` lifespan 이 `scheduler.start()` 를 호출. `gunicorn -w N`/`uvicorn --workers N`
   으로 워커가 여러 개면 **모든 워커가 스케줄러를 켜서** 스트릭 리마인더 이메일이 N배 발송되고
@@ -28,15 +36,19 @@ ALTER TABLE users
     DB advisory lock(`pg_try_advisory_lock`)으로 선착 워커만 잡는 방식도 대안.
 - 미설정 시 기본값 `1`(로컬 단일 워커 편의). **운영 멀티워커에서 미설정 = 중복 실행이므로 반드시 명시.**
 - 검증: `RUN_SCHEDULER=0` 워커 로그에 APScheduler 기동 로그가 없고, 단일 담당 워커에서만 1회 기동.
+- Render 단일 웹 인스턴스로 시작하는 동안은 `RUN_SCHEDULER=1`로 둔다. 인스턴스/워커를 늘리기 전에는 반드시 1개 프로세스만 스케줄러를 담당하도록 재점검한다.
 
 ## 4. 배포 직후 스모크 테스트
+- 로그인/회원가입/비밀번호 복구 auth 흐름이 정상인지 확인.
 - 미니보스 1스테이지: 3정답 → 클리어·XP 500 / 2정답 문제소진 → 클리어 불가(재시작).
 - 미니보스 `/clear`: 세션 없음/미승리 상태로 POST → 거부(보상 없음).
 - 유닛보스 1유닛: 5정답 → 클리어·XP 3000·왕관. boss_hp 조작 전송해도 클리어 안 됨.
 - 객관식 오답을 is_correct:true로 위조 POST → 서버 재채점으로 오답 유지.
 - 레슨 스테이지: 첫시도 정답 8/10 → 완료 허용 / 오답 후 재시도 정답 8개 → 403(미집계).
+- 일반 스테이지 진입, 퀴즈 재도전 세트 정책, 미니보스 재도전 세트 정책을 확인.
 - GET /quiz/questions 응답에 `answer`/`feedback`/`hint` 가 없음(정답 비노출).
 - 캐릭터/칭호/테마: 미해금·미보유 값 전송 → 거부. 테마 동시 2회 구매 → 1회만 차감.
+- 프론트 새로고침/재진입 시 로그인과 진행 상태가 유지되는지 확인.
 
 ## 4-1. 엔드보스 / 레벨 스모크 (레벨업 정책 A: 엔드보스 클리어로만 승격)
 - 레벨테스트 제출(로그인 상태): `POST /auth/level-test/submit` → **200** + 응답 `user.course_level` 갱신
@@ -45,6 +57,7 @@ ALTER TABLE users
 - 순차 승격: beginner 엔드보스 clear → `course_level` 이 **intermediate 한 단계만** 상승(건너뜀 없음).
 - 오염 비기여 확인: endboss/unitboss 이력 없이 progress 기록만 상위레벨인 유저 → 언락 `["beginner"]` 유지.
 - 유닛 승격 없음(정책 A): 유닛 8 클리어만으로는 `course_level` 이 오르지 않음(엔드보스 클리어가 유일 관문).
+- `USE_SUPABASE=true`에서 `battle_sessions`가 저장되고, 새로고침/재진입 후 같은 토큰 기준으로 복원되는지 확인.
 - Supabase 모드에서 위 승격/언락이 JSON 모드와 동일하게 동작하는지 확인.
 
 ## 참고: 밸런스 (확정)
