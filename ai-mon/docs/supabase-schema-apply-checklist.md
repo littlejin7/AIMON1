@@ -51,6 +51,7 @@ Supabase 대시보드의 **SQL Editor**에 쿼리를 복사하여 실행할 때,
    ALTER TABLE users ADD COLUMN IF NOT EXISTS version bigint NOT NULL DEFAULT 0;
    ALTER TABLE users ADD COLUMN IF NOT EXISTS missions jsonb DEFAULT '{}';
    ALTER TABLE users ADD COLUMN IF NOT EXISTS purchased_themes jsonb DEFAULT '["dark"]';
+   ALTER TABLE users ADD COLUMN IF NOT EXISTS battle_sessions jsonb DEFAULT '{}';
    ```
 2. **기존 강한 UNIQUE 제약 조건 삭제** (소프트 삭제 유저와의 중복 허용 목적):
    ```sql
@@ -80,7 +81,7 @@ Supabase 대시보드의 **SQL Editor**에 쿼리를 복사하여 실행할 때,
 SELECT column_name, data_type, column_default, is_nullable
 FROM information_schema.columns
 WHERE table_name = 'users'
-  AND column_name IN ('version', 'missions', 'purchased_themes', 'deleted_at');
+  AND column_name IN ('version', 'missions', 'purchased_themes', 'battle_sessions', 'deleted_at');
 ```
 
 ### 3-2. 유니크 인덱스(Index) 활성화 여부 검증 SQL

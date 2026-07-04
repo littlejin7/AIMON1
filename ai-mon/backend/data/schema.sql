@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS users (
   endboss_cleared_levels jsonb DEFAULT '[]',
   miniboss_cleared_stages jsonb DEFAULT '[]',
   unitboss_cleared_units jsonb DEFAULT '[]',
+  battle_sessions jsonb DEFAULT '{}',
   seen_questions jsonb DEFAULT '{}',
   max_unlocked_unit jsonb DEFAULT '{"beginner":1,"intermediate":1,"advanced":1}',
   completed_units jsonb DEFAULT '{"beginner":0,"intermediate":0,"advanced":0}',
@@ -61,6 +62,7 @@ CREATE UNIQUE INDEX IF NOT EXISTS users_email_active_uq
 -- ALTER TABLE users ADD COLUMN IF NOT EXISTS version bigint NOT NULL DEFAULT 0;
 -- ALTER TABLE users ADD COLUMN IF NOT EXISTS missions jsonb DEFAULT '{}';
 -- ALTER TABLE users ADD COLUMN IF NOT EXISTS purchased_themes jsonb DEFAULT '["dark"]';
+-- ALTER TABLE users ADD COLUMN IF NOT EXISTS battle_sessions jsonb DEFAULT '{}';
 -- ALTER TABLE users DROP CONSTRAINT IF EXISTS users_username_key;
 -- ALTER TABLE users DROP CONSTRAINT IF EXISTS users_email_key;
 
