@@ -409,6 +409,13 @@
   justify-content: center;
   font-size: 14px;
   flex-shrink: 0;
+  overflow: hidden;
+  background: rgba(127,119,221,0.15);
+}
+.game-rank-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 .game-rank-name {
   flex: 1;
@@ -419,4 +426,42 @@
   font-size: 12px;
   font-weight: 600;
   color: #e8a44a;
+}
+
+/* ── 랭킹 카드: 상태(로딩/에러/빈값) ── */
+.game-ranking-status {
+  padding: 20px 14px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--clr-text-muted);
+}
+
+/* ── 랭킹 카드: 비로그인 잠금 ── */
+.game-ranking-locked {
+  position: relative;
+}
+.game-ranking-locked-blur {
+  filter: blur(4px);
+  pointer-events: none;
+  user-select: none;
+}
+.game-ranking-lock-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  background: rgba(10,10,20,0.35);
+}
+.game-ranking-lock-icon {
+  font-size: 22px;
+}
+.game-ranking-lock-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--clr-text-bright);
+  margin: 0;
 }

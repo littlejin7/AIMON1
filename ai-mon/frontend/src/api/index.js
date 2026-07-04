@@ -139,6 +139,8 @@ export const attemptsApi = {
 export const gameApi = {
   startGame: (gameId) => api.post('/game/start', { game_id: gameId }),
   clearGame: (data)   => api.post('/game/clear', data),
+  ranking:        (limit = 3) => api.get('/game/ranking',         { params: { limit } }),
+  rankingByGame:  (limit = 3) => api.get('/game/ranking/by-game', { params: { limit } }),
 }
 
 export const missionApi = {

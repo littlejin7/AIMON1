@@ -21,6 +21,7 @@ import LevelTestInfo from "./pages/LevelTestInfo/LevelTestInfo";
 import { useAuthStore } from "./hooks/useAuthStore";
 import SplashLoading from "./components/loading/SplashLoading";
 import Game from "./pages/Game/Game";
+import RankingPage from "./pages/Game/RankingPage";
 import Aipang from "./pages/Game/Aipang/Aipang";
 import RunnerGame from "./pages/Game/AIrun/index";
 import AIbomb from "./pages/Game/AIbomb/AIbomb";
@@ -231,6 +232,18 @@ export default function App() {
             <AppLayout>
               <Game />
             </AppLayout>
+          }
+        />
+
+        {/* 이번 주 미니게임 랭킹 전체 보기 */}
+        <Route
+          path="/game/ranking"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <RankingPage />
+              </AppLayout>
+            </ProtectedRoute>
           }
         />
 

@@ -1,19 +1,41 @@
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useAuthStore } from '../../hooks/useAuthStore'
+import { gameApi } from '../../api'
+import { CHAR_ICONS } from '../Character/characterData'
 import { GAMES, CHALLENGE_GAMES, CHAL_META, loadCounts } from './gameConstants'
 export { incrementGamePlay } from './gameConstants'
 import './Game.css'
+
+const RANK_MEDALS = { 1: '🥇', 2: '🥈', 3: '🥉' }
 
 export default function Game() {
   const navigate = useNavigate()
   const { token } = useAuthStore()
   const [counts, setCounts]         = useState({})
   const [lockedGame, setLockedGame] = useState(null)
+  const [ranking, setRanking]             = useState(null)
+  const [rankingLoading, setRankingLoading] = useState(false)
+  const [rankingError, setRankingError]     = useState(false)
 
   useEffect(() => {
     setCounts(loadCounts())
   }, [])
+
+  useEffect(() => {
+    if (!token) {
+      setRanking(null)
+      return
+    }
+    let cancelled = false
+    setRankingLoading(true)
+    setRankingError(false)
+    gameApi.ranking(3)
+      .then((res) => { if (!cancelled) setRanking(res.data) })
+      .catch(() => { if (!cancelled) setRankingError(true) })
+      .finally(() => { if (!cancelled) setRankingLoading(false) })
+    return () => { cancelled = true }
+  }, [token])
 
   const handleClick = (g) => {
     if (!g.available || !g.route) return
@@ -190,26 +212,61 @@ export default function Game() {
       <div className="game-ranking-card card-glass">
         <div className="game-ranking-header">
           <span className="game-ranking-title">이번 주 미니게임 랭킹</span>
-          <span className="game-ranking-more">전체 보기 →</span>
+          {token && (
+            <span className="game-ranking-more" onClick={() => navigate('/game/ranking')}>전체 보기 →</span>
+          )}
         </div>
-        {[
-          { rank: '🥇', avatar: '😎', name: '코딩왕',    score: 142, bg: 'rgba(250,238,218,0.15)' },
-          { rank: '🥈', avatar: '🐱', name: '파이썬천재', score: 98,  bg: 'rgba(230,241,251,0.1)' },
-          { rank: '🥉', avatar: '🦊', name: 'AI러버',    score: 71,  bg: 'rgba(225,245,238,0.1)' },
-        ].map((r) => (
-          <div key={r.name} className="game-rank-row">
-            <span className="game-rank-medal">{r.rank}</span>
-            <div className="game-rank-avatar" style={{ background: r.bg }}>{r.avatar}</div>
-            <span className="game-rank-name">{r.name}</span>
-            <span className="game-rank-score">👑 {r.score}개</span>
+
+        {!token ? (
+          <div className="game-ranking-locked">
+            <div className="game-ranking-locked-blur">
+              {[1, 2, 3].map((rank) => (
+                <div key={rank} className="game-rank-row">
+                  <span className="game-rank-medal">{RANK_MEDALS[rank]}</span>
+                  <div className="game-rank-avatar" />
+                  <span className="game-rank-name">???</span>
+                  <span className="game-rank-score">🎮 ??점</span>
+                </div>
+              ))}
+            </div>
+            <div className="game-ranking-lock-overlay">
+              <span className="game-ranking-lock-icon">🔒</span>
+              <p className="game-ranking-lock-text">로그인하고 순위 확인</p>
+              <button className="btn btn-primary btn-sm" onClick={() => navigate('/auth')}>
+                로그인하러 가기
+              </button>
+            </div>
           </div>
-        ))}
-        <div className="game-rank-row game-rank-row--me">
-          <span className="game-rank-medal game-rank-medal--me">24</span>
-          <div className="game-rank-avatar" style={{ background: 'rgba(127,119,221,0.3)' }}>👤</div>
-          <span className="game-rank-name" style={{ fontWeight: 600 }}>나</span>
-          <span className="game-rank-score">👑 {(counts.aipang || 0) + (counts.pairs || 0) + (counts.runner || 0)}개</span>
-        </div>
+        ) : rankingLoading ? (
+          <div className="game-ranking-status">불러오는 중...</div>
+        ) : rankingError ? (
+          <div className="game-ranking-status">랭킹을 불러오지 못했어요.</div>
+        ) : !ranking || ranking.top.length === 0 ? (
+          <div className="game-ranking-status">이번 주 기록이 아직 없어요.</div>
+        ) : (
+          <>
+            {ranking.top.map((r) => (
+              <div key={r.rank} className="game-rank-row">
+                <span className="game-rank-medal">{RANK_MEDALS[r.rank] || r.rank}</span>
+                <div className="game-rank-avatar">
+                  <img src={CHAR_ICONS[r.character] || CHAR_ICONS.slime} alt="" className="game-rank-avatar-img" />
+                </div>
+                <span className="game-rank-name">{r.nickname}</span>
+                <span className="game-rank-score">🎮 {r.score}점</span>
+              </div>
+            ))}
+            {ranking.me && (
+              <div className="game-rank-row game-rank-row--me">
+                <span className="game-rank-medal game-rank-medal--me">{ranking.me.rank}</span>
+                <div className="game-rank-avatar">
+                  <img src={CHAR_ICONS[ranking.me.character] || CHAR_ICONS.slime} alt="" className="game-rank-avatar-img" />
+                </div>
+                <span className="game-rank-name" style={{ fontWeight: 600 }}>나</span>
+                <span className="game-rank-score">🎮 {ranking.me.score}점</span>
+              </div>
+            )}
+          </>
+        )}
       </div>
 
     </div>
