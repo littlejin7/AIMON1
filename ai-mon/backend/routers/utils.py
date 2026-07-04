@@ -607,8 +607,16 @@ NEXT_COURSE_LEVEL = {
 
 
 def derive_unlocked_course_levels(user: dict) -> list[str]:
-    """Return course levels unlocked by endboss clears or existing progress."""
-    cleared = user.get("endboss_cleared_levels") or []
+    """Return course levels unlocked by endboss / unit-boss clear history.
+
+    언락 판정은 endboss_cleared_levels 와 unitboss_cleared_units 로만 결정한다.
+    (progress 기반 확장 루프는 제거 — 언락 SSOT 를 보스 클리어 이력으로 단일화.)
+
+    승격은 순차(sequential)다: 상위 레벨이 열리면 그 아래 레벨도 모두 열린 것으로
+    간주해 항상 COURSE_LEVEL_ORDER 의 '연속 prefix' 를 반환한다. 따라서
+    derive_course_level_from_endboss() 의 unlocked[-1] 이 중간 레벨을 건너뛰지 않는다.
+    """
+    cleared = user.get("endboss_cleared_levels")
     if not isinstance(cleared, list):
         cleared = []
     cleared_set = set(cleared)
@@ -616,7 +624,7 @@ def derive_unlocked_course_levels(user: dict) -> list[str]:
     unlocked_set = {"beginner"}
     if "beginner" in cleared_set or "intermediate" in cleared_set:
         unlocked_set.add("intermediate")
-    if "intermediate" in cleared_set:
+    if "intermediate" in cleared_set or "advanced" in cleared_set:
         unlocked_set.add("advanced")
 
     for item in user.get("unitboss_cleared_units") or []:
@@ -626,17 +634,12 @@ def derive_unlocked_course_levels(user: dict) -> list[str]:
         if level in COURSE_LEVEL_ORDER:
             unlocked_set.add(level)
 
-    uid = user.get("id")
-    if uid:
-        try:
-            for item in get_progress_by_user(uid):
-                level = item.get("course_level", "beginner")
-                if level in COURSE_LEVEL_ORDER:
-                    unlocked_set.add(level)
-        except Exception:
-            logger.exception("Failed to derive course unlocks from progress for user %s", uid)
-
-    return [level for level in COURSE_LEVEL_ORDER if level in unlocked_set]
+    # 순차 보장: 가장 높은 언락 레벨까지의 연속 prefix 로 채운다(건너뜀 방지).
+    highest_idx = 0
+    for i, level in enumerate(COURSE_LEVEL_ORDER):
+        if level in unlocked_set:
+            highest_idx = i
+    return list(COURSE_LEVEL_ORDER[: highest_idx + 1])
 
 
 def derive_course_level_from_endboss(user: dict) -> str:

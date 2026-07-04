@@ -101,7 +101,9 @@ def test_unlocked_course_levels_are_derived_from_endboss_clears():
     ) == ["beginner", "intermediate", "advanced"]
 
 
-def test_unlocked_course_levels_preserve_legacy_progress_unlocks(monkeypatch):
+def test_unlocked_course_levels_ignore_progress_use_boss_clears_only(monkeypatch):
+    # progress 기반 언락은 제거됨 — 언락 판정은 endboss/unitboss 이력만 사용한다.
+    # progress 에 상위 레벨 완료 기록이 있어도 무시되어 beginner 만 언락되어야 한다.
     monkeypatch.setattr(
         U,
         "get_progress_by_user",
@@ -116,7 +118,7 @@ def test_unlocked_course_levels_preserve_legacy_progress_unlocks(monkeypatch):
         "endboss_cleared_levels": None,
     }
 
-    assert U.derive_unlocked_course_levels(user) == ["beginner", "intermediate", "advanced"]
+    assert U.derive_unlocked_course_levels(user) == ["beginner"]
 
 
 def test_update_me_allows_beginner_even_without_unlocks(monkeypatch):

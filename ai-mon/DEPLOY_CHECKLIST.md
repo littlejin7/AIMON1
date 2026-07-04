@@ -38,6 +38,15 @@ ALTER TABLE users
 - GET /quiz/questions 응답에 `answer`/`feedback`/`hint` 가 없음(정답 비노출).
 - 캐릭터/칭호/테마: 미해금·미보유 값 전송 → 거부. 테마 동시 2회 구매 → 1회만 차감.
 
+## 4-1. 엔드보스 / 레벨 스모크 (레벨업 정책 A: 엔드보스 클리어로만 승격)
+- 레벨테스트 제출(로그인 상태): `POST /auth/level-test/submit` → **200** + 응답 `user.course_level` 갱신
+  (회귀 가드: `auth.py` submit_level_test 튜플 언패킹. 500 나오면 배포본이 워킹트리보다 뒤처진 것).
+- 초급 유저 엔드보스 시작: `POST /boss/endboss/start` → **beginner.json 문제만** 나옴(중급/고급 혼입 없음).
+- 순차 승격: beginner 엔드보스 clear → `course_level` 이 **intermediate 한 단계만** 상승(건너뜀 없음).
+- 오염 비기여 확인: endboss/unitboss 이력 없이 progress 기록만 상위레벨인 유저 → 언락 `["beginner"]` 유지.
+- 유닛 승격 없음(정책 A): 유닛 8 클리어만으로는 `course_level` 이 오르지 않음(엔드보스 클리어가 유일 관문).
+- Supabase 모드에서 위 승격/언락이 JSON 모드와 동일하게 동작하는지 확인.
+
 ## 참고: 밸런스 (확정)
 - 미니보스 REQUIRED_CORRECT = 3 (5문항 중 3정답이면 클리어).
 - 유닛보스 REQUIRED_CORRECT = 5 (변경 없음).

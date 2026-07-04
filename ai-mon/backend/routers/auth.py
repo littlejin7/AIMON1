@@ -1156,7 +1156,7 @@ def submit_level_test(req: SubmitLevelTestRequest, user: Optional[dict] = Depend
             return None
         
         try:
-            updated_user = mutate_user_atomic(user["id"], mutator)
+            updated_user, _ = mutate_user_atomic(user["id"], mutator)
         except UserNotFoundError:
             raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")
 
