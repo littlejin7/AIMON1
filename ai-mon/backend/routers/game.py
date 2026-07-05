@@ -307,10 +307,9 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
                     xp_awarded = 300
                 elif score_result >= 600:
                     xp_awarded = 200
-                elif score_result >= 500:
-                    xp_awarded = 100
                 else:
-                    xp_awarded = 0
+                    xp_awarded = 100
+
 
                 # 글로벌 일일 게임 XP 캡 (2500)
                 daily_xp = game_rewards.get("daily_xp", 0)
@@ -415,9 +414,9 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
                 game_rewards["runner_today_count"] = runner_count
                 game_rewards["runner_last_date"] = today_kst
 
-                if distance_val < 500:
+                if distance_val < 1000:
                     xp_awarded = 200
-                elif distance_val <= 1000:
+                elif distance_val <= 3000:
                     xp_awarded = 350
                 else:
                     xp_awarded = 500
