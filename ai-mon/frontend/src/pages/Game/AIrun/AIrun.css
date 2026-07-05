@@ -8,19 +8,20 @@
 
 .rg-back-btn {
   position: absolute;
-  top: 14px;
-  left: 16px;
+  top: clamp(6px, 2vw, 14px);
+  left: clamp(8px, 2vw, 16px);
   z-index: 30;
   background: rgba(255, 255, 255, 0.85);
   color: #3388cc;
-  border: 2px solid #66bbee;
+  border: clamp(1px, 0.3vw, 2px) solid #66bbee;
   border-radius: 20px;
-  padding: 10px 24px;
-  font-size: 14px;
+  padding: clamp(5px, 1.4vw, 10px) clamp(12px, 3.2vw, 24px);
+  font-size: clamp(10px, 2vw, 14px);
   font-weight: 700;
   cursor: pointer;
   transition: background 0.15s, transform 0.1s;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  white-space: nowrap;
 }
 
 .rg-back-btn:hover {
@@ -50,45 +51,155 @@
 
 .rg-hp {
   position: absolute;
-  top: 12px;
+  top: clamp(6px, 2vw, 12px);
   left: 50%;
   transform: translateX(-50%);
-  font-size: 38px;
-  letter-spacing: 6px;
+  font-size: clamp(16px, 4.5vw, 38px);
+  letter-spacing: clamp(2px, 1vw, 6px);
   filter: drop-shadow(0 2px 6px rgba(0,0,0,0.45));
   white-space: nowrap;
+  max-width: 40vw;
+  overflow: hidden;
+  z-index: 5;
 }
 
-/* 하단 왼쪽: 볼륨 */
-.rg-hud-bl {
+/* 상단 왼쪽: 스코어 + 거리 (뒤로가기 버튼 아래) */
+.rg-hud-tl {
   position: absolute;
-  bottom: 24px;
-  left: 22px;
-  pointer-events: all;
+  top: clamp(46px, 11vw, 68px);
+  left: clamp(8px, 2.5vw, 22px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3px, 1vw, 6px);
 }
 
-/* 상단 오른쪽: 아침/저녁 토글 */
+/* 상단 오른쪽: 볼륨 + 아침/저녁 토글 */
 .rg-hud-tr {
   position: absolute;
-  top: 24px;
-  right: 18px;
+  top: clamp(8px, 2.5vw, 24px);
+  right: clamp(6px, 2vw, 18px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: clamp(6px, 1.5vw, 10px);
   pointer-events: all;
+  z-index: 30;
+}
+
+/* 하단 왼쪽: 방향키 토글 */
+.rg-hud-bl-controls {
+  position: absolute;
+  bottom: clamp(16px, 4vw, 32px);
+  left: clamp(12px, 3vw, 28px);
+  display: flex;
+  gap: clamp(10px, 2.5vw, 16px);
+  pointer-events: all;
+}
+
+.rg-dir-btn {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.65);
+  background: rgba(255,255,255,0.35);
+  color: #fff;
+  font-size: 28px;
+  font-weight: 900;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  transition: transform 0.1s, background 0.15s, width 0.15s, height 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+/* 태블릿 이하: 방향키 버튼 축소 */
+@media (max-width: 768px) {
+  .rg-dir-btn {
+    width: 52px;
+    height: 52px;
+    font-size: 22px;
+  }
+}
+
+/* 모바일: 방향키 버튼 더 축소 */
+@media (max-width: 480px) {
+  .rg-dir-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+}
+
+.rg-dir-btn:active {
+  transform: scale(0.9);
+  background: rgba(255,255,255,0.55);
+}
+
+/* 하단 오른쪽: 점프 */
+.rg-hud-br-controls {
+  position: absolute;
+  bottom: clamp(16px, 4vw, 32px);
+  right: clamp(12px, 3vw, 28px);
+  pointer-events: all;
+}
+
+.rg-jump-btn {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 200, 80, 0.85);
+  background: linear-gradient(135deg, #ffd060, #ff8833);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.3;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(255,140,0,0.45);
+  transition: transform 0.1s, box-shadow 0.15s, width 0.15s, height 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+/* 태블릿 이하: 점프 버튼 축소 */
+@media (max-width: 768px) {
+  .rg-jump-btn {
+    width: 68px;
+    height: 68px;
+    font-size: 12px;
+  }
+}
+
+/* 모바일: 점프 버튼 더 축소 */
+@media (max-width: 480px) {
+  .rg-jump-btn {
+    width: 54px;
+    height: 54px;
+    font-size: 10px;
+  }
+}
+
+.rg-jump-btn:active {
+  transform: scale(0.9);
+  box-shadow: 0 2px 8px rgba(255,140,0,0.6);
 }
 
 .rg-volume-ctrl {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: clamp(4px, 1vw, 8px);
   pointer-events: all;
   background: rgba(255, 255, 255, 0.75);
-  padding: 6px 14px;
+  padding: clamp(3px, 1vw, 6px) clamp(8px, 2vw, 14px);
   border-radius: 20px;
   border: 1.5px solid rgba(100,180,255,0.5);
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .rg-vol-icon {
-  font-size: 28px;
+  font-size: clamp(16px, 4vw, 28px);
   cursor: pointer;
   line-height: 1;
   transition: transform 0.1s;
@@ -104,7 +215,7 @@
 
 .rg-ctrl-divider {
   color: rgba(100, 160, 220, 0.5);
-  font-size: 18px;
+  font-size: clamp(12px, 2.5vw, 18px);
   line-height: 1;
   margin: 0 2px;
 }
@@ -114,9 +225,9 @@
   border: none;
   border-radius: 14px;
   color: #fff;
-  font-size: 13px;
+  font-size: clamp(9px, 2vw, 13px);
   font-weight: 700;
-  padding: 5px 12px;
+  padding: clamp(3px, 1vw, 5px) clamp(7px, 2vw, 12px);
   cursor: pointer;
   pointer-events: all;
   white-space: nowrap;
@@ -133,7 +244,7 @@
 .rg-vol-slider {
   -webkit-appearance: none;
   appearance: none;
-  width: 90px;
+  width: clamp(50px, 12vw, 90px);
   height: 5px;
   border-radius: 3px;
   background: linear-gradient(to right, #66ccff, #cceeff);
@@ -143,8 +254,8 @@
 
 .rg-vol-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
+  width: clamp(11px, 2.5vw, 16px);
+  height: clamp(11px, 2.5vw, 16px);
   border-radius: 50%;
   background: #fff;
   border: 2px solid #55aaee;
@@ -153,39 +264,28 @@
 }
 
 .rg-vol-slider::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
+  width: clamp(10px, 2.2vw, 14px);
+  height: clamp(10px, 2.2vw, 14px);
   border-radius: 50%;
   background: #fff;
   border: 2px solid #55aaee;
   cursor: pointer;
 }
 
-/* 하단 오른쪽: 스코어 + 거리 */
-.rg-hud-br {
-  position: absolute;
-  bottom: 24px;
-  right: 22px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 6px;
-}
-
 .rg-stat {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   line-height: 1;
   background: rgba(255, 255, 255, 0.75);
-  padding: 6px 14px 8px;
+  padding: clamp(3px, 1vw, 6px) clamp(8px, 2vw, 14px) clamp(4px, 1.2vw, 8px);
   border-radius: 14px;
   border: 1.5px solid rgba(100,180,255,0.4);
   box-shadow: 0 2px 10px rgba(0,0,0,0.12);
 }
 
 .rg-stat-label {
-  font-size: 13px;
+  font-size: clamp(9px, 2vw, 13px);
   font-weight: 700;
   letter-spacing: 2px;
   color: #3388cc;
@@ -193,7 +293,7 @@
 }
 
 .rg-stat-val {
-  font-size: 64px;
+  font-size: clamp(28px, 8vw, 64px);
   font-weight: 900;
   color: #ff4488;
   text-shadow: 0 2px 8px rgba(255, 68, 136, 0.35);
@@ -202,7 +302,7 @@
 }
 
 .rg-stat-unit {
-  font-size: 20px;
+  font-size: clamp(11px, 2.5vw, 20px);
   font-weight: 700;
   color: #55aaee;
   margin-left: 2px;
@@ -222,8 +322,8 @@
 
 /* 패널 — 카트라이더 감성 */
 .rg-icon {
-  width: 80px;
-  height: 80px;
+  width: clamp(48px, 12vw, 80px);
+  height: clamp(48px, 12vw, 80px);
   object-fit: contain;
   display: block;
   margin: 0 auto 12px;
@@ -234,7 +334,7 @@
   background: linear-gradient(160deg, #fff 0%, #e8f6ff 100%);
   border: 3px solid #66ccff;
   border-radius: 24px;
-  padding: 36px 46px;
+  padding: clamp(20px, 5vw, 36px) clamp(24px, 6vw, 46px);
   text-align: center;
   box-shadow: 0 8px 40px rgba(0,100,220,0.18), 0 2px 8px rgba(0,0,0,0.08);
   max-width: 460px;
@@ -243,7 +343,7 @@
 
 .rg-title {
   font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
-  font-size: 38px;
+  font-size: clamp(24px, 6vw, 38px);
   font-weight: 900;
   color: #1166cc;
   letter-spacing: 3px;
@@ -253,7 +353,7 @@
 
 .rg-subtitle {
   color: #5599cc;
-  font-size: 14px;
+  font-size: clamp(11px, 2.5vw, 14px);
   margin-bottom: 24px;
 }
 
