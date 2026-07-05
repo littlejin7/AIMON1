@@ -131,7 +131,6 @@ export class RunnerEngine {
       e.currentTarget?.blur(); // 클릭 후 포커스를 남기지 않아 Space 등 키 입력에 반응하지 않도록
       setTimeOfDay(this, this.timeOfDay);
     });
-  }
 
 
     // 모바일용 방향키 / 점프 버튼 (터치 즉시 반응 위해 pointerdown 사용)
@@ -149,8 +148,6 @@ export class RunnerEngine {
     bindHold('rg-jump-btn', () => this._jump());
   }
 
-
-  
   _setupOverlay() {
     this.overlay = document.createElement('div');
     this.overlay.className = 'rg-overlay';
