@@ -64,6 +64,28 @@ async def custom_rate_limit_exceeded_handler(request, exc: RateLimitExceeded):
 raw_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000")
 origins = [origin.strip() for origin in raw_origins.split(",") if origin.strip()]
 
+
+def _expand_local_dev_origins(values: list[str]) -> list[str]:
+    expanded: list[str] = []
+    seen: set[str] = set()
+
+    def _add(origin: str) -> None:
+        if origin and origin not in seen:
+            seen.add(origin)
+            expanded.append(origin)
+
+    for origin in values:
+        _add(origin)
+        if origin.startswith("http://localhost:"):
+            _add(origin.replace("http://localhost:", "http://127.0.0.1:", 1))
+        elif origin.startswith("http://127.0.0.1:"):
+            _add(origin.replace("http://127.0.0.1:", "http://localhost:", 1))
+
+    return expanded
+
+
+origins = _expand_local_dev_origins(origins)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,

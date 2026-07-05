@@ -121,6 +121,10 @@ def is_endboss_unlocked(user: dict, level: str) -> bool:
     해당 레벨 유닛 진행과 무관하게 직행 진입을 허용한다(사다리 하위칸). 그 외(현재
     진행 티어 이상)는 기존 게이트 그대로 그 레벨 Unit 8 보스 클리어를 요구한다.
     """
+    cleared = user.get("endboss_cleared_levels")
+    if isinstance(cleared, list) and level in cleared:
+        return True
+
     course = user.get("course_level", "beginner")
     if level in COURSE_LEVEL_ORDER and course in COURSE_LEVEL_ORDER:
         if COURSE_LEVEL_ORDER.index(level) < COURSE_LEVEL_ORDER.index(course):
@@ -154,7 +158,7 @@ def endboss_level_status(user: dict, level: str) -> dict:
     """
     cleared = user.get("endboss_cleared_levels") or []
     if level in cleared:
-        return {"level": level, "status": "cleared", "enterable": False}
+        return {"level": level, "status": "cleared", "enterable": True}
 
     course = user.get("course_level", "beginner")
     li = COURSE_LEVEL_ORDER.index(level) if level in COURSE_LEVEL_ORDER else 0
@@ -242,15 +246,16 @@ class ClearRequest(BaseModel):
 @router.get("/info")
 def endboss_info(target_level: Optional[str] = None, user: dict = Depends(get_current_user)):
     """해금 여부 + 왕관 수 + 이미 클리어한 레벨 반환."""
-    user_id = user["id"]
-
     level = resolve_level(user, target_level)
+    cleared_levels = user.get("endboss_cleared_levels")
+    if not isinstance(cleared_levels, list):
+        cleared_levels = []
     return {
         "is_unlocked":      is_endboss_unlocked(user, level),
         "crowns":           user.get("crowns", 0),
         "retry_cost":       RETRY_CROWN_COST,
-        "cleared_levels":   user.get("endboss_cleared_levels", []),
-        "already_cleared":  level in user.get("endboss_cleared_levels", []),
+        "cleared_levels":   cleared_levels,
+        "already_cleared":  level in cleared_levels,
         "course_level":     level,
         "unlocked_levels":  derive_unlocked_course_levels(user),
         "levels":           [endboss_level_status(user, L) for L in COURSE_LEVEL_ORDER],
