@@ -126,7 +126,7 @@ export default function EndBossBattle({
             <ambientLight intensity={2.5} />
             <directionalLight position={[2, 4, 2]} intensity={2.0} />
             <Suspense fallback={null}>
-              <PlayerModel3D myShake={myShake} attackAnim={attackAnim} character={user?.character} position={[0, -0.5, 0]} rotation={[0, Math.PI * 0.15, 0]} />
+              <PlayerModel3D myShake={myShake} attackAnim={attackAnim} character={user?.character} position={[0, -0.3, 0]} rotation={[0, Math.PI * 0.15, 0]} />
             </Suspense>
           </Canvas>
         </div>
