@@ -31,7 +31,7 @@ export default function AIPair() {
 
   const {
     deck, flippedIds, matchedIds, wrongIds,
-    score, timerSec, fmtTime, won, init, onCardClick, matchedCount,
+    score, timerSec, fmtTime, won, reward, init, onCardClick, matchedCount,
     isPreview, previewSeconds,
   } = usePairsGame()
 
@@ -81,7 +81,7 @@ export default function AIPair() {
         💡&nbsp;<strong>카드를 두 장씩 뒤집어 파이썬 개념과 코드/정의의 짝을 맞춰보세요!</strong>
       </div>
 
-      <WinModal show={won} score={score} timeStr={fmtTime(timerSec)} charSrc={charSrc} onPlayAgain={init} />
+      <WinModal show={won} score={score} timeStr={fmtTime(timerSec)} charSrc={charSrc} reward={reward} onPlayAgain={init} />
 
 
     </div>
