@@ -671,6 +671,30 @@ body:has(.boss-page) { background: #F4F3FA; background-image: none; }
 }
 .eb-proj-card.selected .eb-proj-check { background: #7F77DD; }
 
+.eb-level-ladder { display: flex; flex-direction: column; gap: 7px; }
+.eb-level-card {
+  width: 100%; display: flex; align-items: center; gap: 10px;
+  border: 1px solid #E5E2F8; border-radius: 14px;
+  padding: 10px 12px; cursor: pointer; transition: all .15s; background: white;
+  font-family: inherit; text-align: left;
+}
+.eb-level-card:hover:not(:disabled) { border-color: #B0A8F0; background: #F9F8FE; }
+.eb-level-card.selected { border-color: #7F77DD; background: #F0EFFE; }
+.eb-level-card:disabled { cursor: not-allowed; opacity: .72; }
+.eb-level-icon {
+  width: 34px; height: 34px; border-radius: 10px; background: #F4F3FA;
+  display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0;
+}
+.eb-level-copy { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.eb-level-status {
+  font-size: 10px; font-weight: 700; color: #7F77DD; white-space: nowrap;
+  background: #F0EFFE; border-radius: 999px; padding: 4px 8px;
+}
+.eb-level-card.cleared .eb-level-status { color: #16A34A; background: #DCFCE7; }
+.eb-level-card.locked .eb-level-status,
+.eb-level-card.current:disabled .eb-level-status { color: #EF4444; background: #FEE2E2; }
+.eb-clear-note { font-size: 12px; color: #16A34A; text-align: center; padding: 4px 0; }
+
 /* 조건 행 */
 .eb-cond-row { display: flex; flex-direction: column; gap: 6px; }
 .eb-cond-item { display: flex; justify-content: space-between; font-size: 12px; color: #666; }

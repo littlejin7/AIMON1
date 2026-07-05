@@ -2,6 +2,13 @@ import { useState } from 'react'
 import endbossOrgImg from '../../assets/endboss_finalorg.png'
 
 const LEVEL_LABELS = { beginner: '초급', intermediate: '중급', advanced: '고급' }
+const LEVEL_ORDER_DESC = ['advanced', 'intermediate', 'beginner']
+const STATUS_META = {
+  cleared: { icon: '🏆', label: '정복 완료', desc: '인증카드를 보유한 레벨입니다.' },
+  recognized: { icon: '✅', label: '진행 인정', desc: '배치보다 낮은 레벨이라 바로 도전할 수 있습니다.' },
+  current: { icon: '🎯', label: '현재 목표', desc: '유닛 8 보스를 클리어하면 도전할 수 있습니다.' },
+  locked: { icon: '🔒', label: '잠김', desc: '이전 레벨을 먼저 정복해야 합니다.' },
+}
 
 const PROJECTS_BY_LEVEL = {
   beginner: [
@@ -28,6 +35,17 @@ export default function EndBossIntro({ bossData, errorMsg, onStart, selectedLeve
   const level = selectedLevel || bossData?.course_level || 'beginner'
   const unlockedLevels = bossData?.unlocked_levels ?? ['beginner']
   const isUnlocked = bossData?.is_unlocked ?? false
+  const levelInfos = (bossData?.levels?.length
+    ? bossData.levels
+    : unlockedLevels.map(lv => ({
+        level: lv,
+        status: lv === level ? 'current' : 'recognized',
+        enterable: lv === level ? isUnlocked : true,
+      }))
+  ).slice().sort((a, b) => LEVEL_ORDER_DESC.indexOf(a.level) - LEVEL_ORDER_DESC.indexOf(b.level))
+  const selectedLevelInfo = levelInfos.find(item => item.level === level)
+  const canStart = selectedLevelInfo?.enterable === true
+  const allCleared = levelInfos.length > 0 && levelInfos.every(item => item.status === 'cleared')
   const ENDBOSS_PROJECTS = PROJECTS_BY_LEVEL[level] ?? PROJECTS_BY_LEVEL.beginner
   const [selectedProject, setSelectedProject] = useState(ENDBOSS_PROJECTS[0].id)
 
@@ -85,23 +103,36 @@ export default function EndBossIntro({ bossData, errorMsg, onStart, selectedLeve
 
         <div className="eb-divider" />
 
-        {/* 레벨 선택 칩 */}
+        {/* 레벨 사다리 */}
         <div>
-          <div className="eb-proj-label">도전할 레벨을 선택하세요:</div>
-          <div className="eb-proj-grid">
-            {unlockedLevels.map(lv => (
-              <div
-                key={lv}
-                className={`eb-proj-card${level === lv ? ' selected' : ''}`}
-                onClick={() => onLevelChange?.(lv)}
-              >
-                <div className="eb-proj-name">{LEVEL_LABELS[lv] ?? lv}</div>
-              </div>
-            ))}
+          <div className="eb-proj-label">도전 가능한 사다리:</div>
+          <div className="eb-level-ladder">
+            {levelInfos.map(({ level: lv, status, enterable }) => {
+              const meta = STATUS_META[status] ?? STATUS_META.locked
+              const currentLocked = status === 'current' && !enterable
+              return (
+                <button
+                  key={lv}
+                  type="button"
+                  className={`eb-level-card ${status}${level === lv ? ' selected' : ''}`}
+                  disabled={!enterable}
+                  onClick={() => onLevelChange?.(lv)}
+                >
+                  <span className="eb-level-icon">{meta.icon}</span>
+                  <span className="eb-level-copy">
+                    <span className="eb-proj-name">{LEVEL_LABELS[lv] ?? lv}</span>
+                    <span className="eb-proj-tag">{currentLocked ? '유닛 8 보스를 먼저 클리어하세요.' : meta.desc}</span>
+                  </span>
+                  <span className="eb-level-status">{meta.label}</span>
+                </button>
+              )
+            })}
           </div>
-          {!isUnlocked && (
+          {allCleared ? (
+            <div className="eb-clear-note">모든 엔드보스를 정복했습니다. 인증카드를 확인해 주세요.</div>
+          ) : !canStart && (
             <div className="eb-error">
-              이 레벨 엔드보스는 유닛 8 보스를 먼저 깨야 열려요.
+              도전 가능한 레벨을 선택해야 전투를 시작할 수 있습니다.
             </div>
           )}
         </div>
@@ -156,8 +187,8 @@ export default function EndBossIntro({ bossData, errorMsg, onStart, selectedLeve
         {/* 시작 버튼 */}
         <button
           className="eb-start-btn"
-          disabled={!isUnlocked}
-          onClick={() => onStart(selectedProject)}
+          disabled={!canStart}
+          onClick={() => canStart && onStart(selectedProject)}
         >
           전투 시작 ⚔️
         </button>
