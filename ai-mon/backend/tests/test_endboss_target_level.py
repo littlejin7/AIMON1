@@ -283,7 +283,28 @@ def test_info_levels_cleared_takes_priority():
     # 이미 깬 레벨은 인덱스 비교보다 우선해 항상 cleared.
     user = _make_user(course_level="intermediate", endboss_cleared_levels=["beginner"])
     levels = {d["level"]: d for d in E.endboss_info(target_level=None, user=user)["levels"]}
-    assert levels["beginner"] == {"level": "beginner", "status": "cleared", "enterable": False}
+    assert levels["beginner"] == {"level": "beginner", "status": "cleared", "enterable": True}
+
+
+def test_cleared_level_can_be_replayed_without_reward(monkeypatch, tmp_path):
+    monkeypatch.setattr(U, "USERS_FILE", str(tmp_path / "users.json"))
+    user = _make_user(
+        id="u-replay",
+        course_level="advanced",
+        endboss_cleared_levels=["beginner"],
+        max_unlocked_unit={"beginner": 1, "advanced": 1},
+    )
+    U.save_users([user])
+
+    assert E.is_endboss_unlocked(user, "beginner") is True
+
+    result = E.endboss_clear(
+        E.ClearRequest(project="account", target_level="beginner"), user=user
+    )
+
+    assert result["already_cleared"] is True
+    assert result["xp_awarded"] == 0
+    assert result["crowns_awarded"] == 0
 
 
 # K) 엣지 — 레벨테스트 재응시로 course_level < 클리어 이력

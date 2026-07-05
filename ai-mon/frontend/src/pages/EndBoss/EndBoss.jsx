@@ -28,6 +28,7 @@ export default function EndBoss() {
   const [selectedOption,  setSelectedOption]  = useState(null)
   const [answerInput,     setAnswerInput]     = useState('')
   const [aiResult,        setAiResult]        = useState(null)
+  const [clearResult,     setClearResult]     = useState(null)
   const [errorMsg,        setErrorMsg]        = useState('')
 
   // HP (엔드보스: 1200/1800)
@@ -63,10 +64,6 @@ export default function EndBoss() {
   const [newlyEarnedTitles, setNewlyEarnedTitles] = useState([])
 
   useEffect(() => {
-    if (user) setInitialLevel(user.lv || 1)
-  }, [user])
-
-  useEffect(() => {
     // target_level 없이 호출 — 기존 계약과 동일한 baseline 조회(게이트 없음).
     endbossApi.getInfo().then(res => {
       setBossData(res.data)
@@ -88,6 +85,7 @@ export default function EndBoss() {
     setSelectedOption(null)
     setAnswerInput('')
     setAiResult(null)
+    setClearResult(null)
     setErrorMsg('')
     setEndbossState({
       project:             null,
@@ -138,9 +136,11 @@ export default function EndBoss() {
 
   // ── 전투 시작 (선택한 프로젝트로 API 호출) ──
   const handleStart = async (project = null) => {
+    setInitialLevel(user?.lv || 1)
     setMyHp(MY_HP_INIT)
     setBossHp(BOSS_HP_INIT)
     setAiResult(null)
+    setClearResult(null)
     setSelectedOption(null)
     setAnswerInput('')
     setLoading(true)
@@ -235,6 +235,7 @@ export default function EndBoss() {
           setTimeout(async () => {
             try {
               const clearRes = await endbossApi.clearBoss(endbossState.project, selectedLevel)
+              setClearResult(clearRes?.data || null)
               if (clearRes?.data?.newly_earned_titles?.length > 0) {
                 setNewlyEarnedTitles(clearRes.data.newly_earned_titles)
               }
@@ -392,9 +393,9 @@ export default function EndBoss() {
         {(phase === 'cleared' || phase === 'failed') && (
           <EndBossResult
             phase={phase}
-            aiResult={aiResult}
+            clearResult={clearResult}
             levelUpMessage={levelUpMessage}
-            onRetry={() => setPhase('intro')}
+            onRetry={() => { setClearResult(null); setPhase('intro') }}
             onNavigateLesson={() => navigate('/lesson')}
           />
         )}

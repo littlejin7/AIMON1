@@ -3,12 +3,15 @@ import endbossFailIcon  from '../../assets/boss_finalfail.png'
 
 export default function EndBossResult({
   phase,
-  aiResult,
+  clearResult,
   levelUpMessage,
   onRetry,
   onNavigateLesson,
 }) {
   const isCleared = phase === 'cleared'
+  const isReplayClear = clearResult?.already_cleared === true
+  const xpAwarded = clearResult?.xp_awarded ?? 15000
+  const crownsAwarded = clearResult?.crowns_awarded ?? 15
 
   return (
     <div className="boss-card result-card card-glass animate-fade-in-up">
@@ -22,21 +25,50 @@ export default function EndBossResult({
       {isCleared ? (
         <>
           <h1 className="result-title" style={{ color: '#f59e0b' }}>엔드보스 처치 완료!</h1>
-          <p className="result-desc">훌륭합니다! 엔드보스를 쓰러뜨리고 거대한 전리품을 획득했습니다.</p>
+          <p className="result-desc">
+            {isReplayClear
+              ? '다시 정복했습니다. 이미 클리어한 레벨이라 추가 보상은 지급되지 않습니다.'
+              : '훌륭합니다! 엔드보스를 쓰러뜨리고 거대한 전리품을 획득했습니다.'}
+          </p>
 
           <div className="result-rewards" style={{ margin: '24px 0', background: 'rgba(255,255,255,0.05)', padding: '16px', borderRadius: '12px' }}>
-            <div className="reward-item" style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
-              <span className="reward-icon">⭐</span>
-              <span style={{ fontWeight: 700, color: '#a6e3a1', marginLeft: '8px' }}>
-                +15000 XP 획득!
-              </span>
-            </div>
-            <div className="reward-item" style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
-              <span className="reward-icon">💳</span>
-              <span style={{ fontWeight: 700, color: '#f9e2af', marginLeft: '8px' }}>
-                최종 레벨 클리어 인증카드
-              </span>
-            </div>
+            {isReplayClear ? (
+              <>
+                <div className="reward-item" style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
+                  <span className="reward-icon">↻</span>
+                  <span style={{ fontWeight: 700, color: '#f9e2af', marginLeft: '8px' }}>
+                    재도전 완료 · 추가 보상 없음
+                  </span>
+                </div>
+                <div className="reward-item" style={{ fontSize: '1rem', marginBottom: '8px' }}>
+                  <span className="reward-icon">💳</span>
+                  <span style={{ fontWeight: 700, color: '#cdd6f4', marginLeft: '8px' }}>
+                    이미 획득한 인증카드와 칭호는 유지됩니다.
+                  </span>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="reward-item" style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
+                  <span className="reward-icon">⭐</span>
+                  <span style={{ fontWeight: 700, color: '#a6e3a1', marginLeft: '8px' }}>
+                    +{xpAwarded.toLocaleString()} XP 획득!
+                  </span>
+                </div>
+                <div className="reward-item" style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
+                  <span className="reward-icon">👑</span>
+                  <span style={{ fontWeight: 700, color: '#f9e2af', marginLeft: '8px' }}>
+                    +{crownsAwarded.toLocaleString()} 왕관 획득!
+                  </span>
+                </div>
+                <div className="reward-item" style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
+                  <span className="reward-icon">💳</span>
+                  <span style={{ fontWeight: 700, color: '#f9e2af', marginLeft: '8px' }}>
+                    최종 레벨 클리어 인증카드
+                  </span>
+                </div>
+              </>
+            )}
             {levelUpMessage && (
               <div className="reward-item" style={{ fontSize: '1.1rem', marginTop: '12px', padding: '8px', background: 'rgba(166,227,161,0.15)', borderRadius: '8px', border: '1px dashed #a6e3a1' }}>
                 <span style={{ fontWeight: 700, color: '#a6e3a1' }}>{levelUpMessage}</span>
