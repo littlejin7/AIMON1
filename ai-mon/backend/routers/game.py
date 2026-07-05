@@ -468,6 +468,12 @@ RANKED_GAMES = (
     ("aibomb", "에이밤"),
 )
 _GAME_TITLES = dict(RANKED_GAMES)
+RANKING_WEIGHT = {
+    "runner": 1.0,
+    "aizzak": 1.0,
+    "aicross": 1.0,
+    "aibomb": 1.0,
+}
 
 
 def _weekly_xp_map(user: dict, wk: str) -> dict:
@@ -486,6 +492,15 @@ def _weekly_xp_map(user: dict, wk: str) -> dict:
         if gid in _GAME_TITLES and isinstance(v, (int, float)) and v > 0:
             out[gid] = int(v)
     return out
+
+
+def _ranking_weekly_xp_map(user: dict, wk: str) -> dict:
+    raw = _weekly_xp_map(user, wk)
+    result = {}
+    for game_id, xp in raw.items():
+        weight = RANKING_WEIGHT.get(game_id, 1.0)
+        result[game_id] = int(round(int(xp or 0) * weight))
+    return result
 
 
 def _display_nickname(user: dict) -> str:
@@ -530,7 +545,7 @@ def _compute_last_week_winner(users: list, prev_wk: str) -> Optional[dict]:
     """
     best = None  # (total, nickname, user, per_game_map)
     for u in users:
-        m = _weekly_xp_map(u, prev_wk)
+        m = _ranking_weekly_xp_map(u, prev_wk)
         total = sum(m.values())
         if total <= 0:
             continue
@@ -558,7 +573,7 @@ def game_ranking(limit: int = 3, user_ref: Optional[dict] = Depends(get_current_
     for u in load_users():
         if u.get("deleted_at"):
             continue
-        total = sum(_weekly_xp_map(u, wk).values())
+        total = sum(_ranking_weekly_xp_map(u, wk).values())
         if total <= 0:
             continue
         entries.append({
@@ -587,7 +602,7 @@ def game_ranking_by_game(limit: int = 3, user_ref: Optional[dict] = Depends(get_
     for gid, title in RANKED_GAMES:
         entries = []
         for u in users:
-            score = _weekly_xp_map(u, wk).get(gid, 0)
+            score = _ranking_weekly_xp_map(u, wk).get(gid, 0)
             if score <= 0:
                 continue
             entries.append({
