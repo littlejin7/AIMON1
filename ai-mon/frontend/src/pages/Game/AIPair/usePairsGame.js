@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { PAIRS } from './data'
 import { incrementGamePlay } from '../Game'
+import { gameApi } from '../../../api'
 
 const PAIRS_PER_GAME = 6   // 6쌍 = 12장 = 3x4
 
@@ -33,7 +34,9 @@ export function usePairsGame() {
   const [timerSec, setTimerSec] = useState(0)
   const [running, setRunning] = useState(false)
   const [won, setWon] = useState(false)
+  const [reward, setReward] = useState(null)
   const processingRef = useRef(false)
+  const gameTokenRef = useRef(null)
   const [isPreview, setIsPreview] = useState(false)
   const [previewSeconds, setPreviewSeconds] = useState(5)
 
@@ -72,6 +75,12 @@ export function usePairsGame() {
     setScore(0)
     setTimerSec(0)
     setWon(false)
+    setReward(null)
+    gameTokenRef.current = null
+    // 보상 지급용 게임 세션 토큰 발급
+    gameApi.startGame('aizzak')
+      .then((res) => { gameTokenRef.current = res.data.game_token })
+      .catch(() => { gameTokenRef.current = null })
     setIsPreview(true)
     setPreviewSeconds(5) // 5초로 설정: 바로 5부터 숫자로 카운트다운 시작
     setRunning(false)
@@ -83,6 +92,22 @@ export function usePairsGame() {
     }, 6000) // 총 6초 (5 4 3 2 1 + START 1초)
   }, [])
 
+  /* 클리어 보상 API 호출 */
+  const callClearAPI = useCallback(() => {
+    if (!gameTokenRef.current) {
+      setReward({ xp_awarded: 0, already_claimed: false })
+      return
+    }
+    gameApi.clearGame({
+      game_id: 'aizzak',
+      correct_count: PAIRS_PER_GAME,
+      game_token: gameTokenRef.current,
+    })
+      .then((res) => setReward(res.data))
+      .catch(() => setReward({ xp_awarded: 0, already_claimed: false }))
+  }, [])
+
+  
 
   useEffect(() => { init() }, [init])
 
@@ -111,6 +136,7 @@ export function usePairsGame() {
             setRunning(false)
             setWon(true)
             incrementGamePlay('pairs')
+            callClearAPI()
           }
           processingRef.current = false
           return s
@@ -125,7 +151,7 @@ export function usePairsGame() {
         processingRef.current = false
       }, 850)
     }
-  }, [deck, flippedIds, matchedIds])
+ }, [deck, flippedIds, matchedIds, callClearAPI])
 
   const fmtTime = (s) =>
     `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`
@@ -139,6 +165,7 @@ export function usePairsGame() {
     timerSec,
     fmtTime,
     won,
+    reward,
     init,
     onCardClick,
     matchedCount: matchedIds.size / 2,
