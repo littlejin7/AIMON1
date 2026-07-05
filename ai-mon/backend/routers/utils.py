@@ -654,10 +654,17 @@ def derive_course_level_from_endboss(user: dict) -> str:
 
 
 def promote_course_level_from_endboss(user: dict) -> bool:
-    """Mutate user.course_level when endboss clear history unlocks the next level."""
+    """Mutate user.course_level when endboss clear history unlocks the next level.
+
+    단조 승급만 허용한다(강등 금지). 레벨테스트로 course_level 이 이미 앞서 있는
+    유저가 target_level 로 하위 엔드보스를 클리어해도, 그 하위 레벨의 derive 결과가
+    현재보다 낮으면 course_level 을 내리지 않는다.
+    """
     current = user.get("course_level", "beginner")
     promoted = derive_course_level_from_endboss(user)
-    if promoted != current:
+    current_idx = COURSE_LEVEL_ORDER.index(current) if current in COURSE_LEVEL_ORDER else 0
+    promoted_idx = COURSE_LEVEL_ORDER.index(promoted) if promoted in COURSE_LEVEL_ORDER else 0
+    if promoted_idx > current_idx:
         user["course_level"] = promoted
         return True
     return False
