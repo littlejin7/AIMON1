@@ -34,9 +34,11 @@ from routers import game as G
 
 # ─── 공통 헬퍼 ───────────────────────────────────────────────────
 
-def _make_token(game_id: str, user_id: str, ts: int, nonce: str) -> str:
+def _make_token(game_id: str, user_id: str, ts: int, nonce: str, extra: dict | None = None) -> str:
     """game.py 와 동일한 HMAC-SHA256 서명 토큰 생성 (ts 직접 지정 가능)."""
     payload = {"game_id": game_id, "user_id": user_id, "ts": ts, "nonce": nonce}
+    if extra:
+        payload.update(extra)
     raw = json.dumps(payload, separators=(",", ":"), sort_keys=True).encode()
     sig = hmac.new(U.SECRET_KEY.encode(), raw, hashlib.sha256).digest()
     body = base64.urlsafe_b64encode(raw).decode().rstrip("=")
@@ -52,6 +54,43 @@ def _past(offset: int = 200) -> int:
 def _read_user(path: str) -> dict:
     with open(path, encoding="utf-8") as f:
         return json.load(f)[0]
+
+
+def _decode_token_payload(token: str) -> dict:
+    body = token.split(".", 1)[0]
+    raw = base64.urlsafe_b64decode(body + "=" * (-len(body) % 4))
+    return json.loads(raw.decode())
+
+
+def _aicross_token(nonce: str) -> str:
+    return _make_token(
+        "aicross",
+        "u1",
+        _past(),
+        nonce,
+        {"puzzle_id": G.AICROSS_DEFAULT_PUZZLE_ID},
+    )
+
+
+def _aicross_entry_answers(puzzle_id: str | None = None) -> dict:
+    puzzle_id = puzzle_id or G.AICROSS_DEFAULT_PUZZLE_ID
+    return {
+        entry["id"]: entry["answer"].lower()
+        for entry in G.AICROSS_PUZZLES[puzzle_id]["entries"]
+    }
+
+
+def _aicross_cell_answers(puzzle_id: str | None = None) -> dict:
+    puzzle_id = puzzle_id or G.AICROSS_DEFAULT_PUZZLE_ID
+    answers = {}
+    for entry in G.AICROSS_PUZZLES[puzzle_id]["entries"]:
+        d_row = 1 if entry["direction"] == "down" else 0
+        d_col = 1 if entry["direction"] == "across" else 0
+        for idx, letter in enumerate(entry["answer"]):
+            row = entry["row"] + d_row * idx
+            col = entry["col"] + d_col * idx
+            answers[f"{row},{col}"] = letter
+    return answers
 
 
 @pytest.fixture
@@ -116,6 +155,36 @@ def test_game_start_returns_game_token_for_aicross(fresh_user):
     assert "." in res["game_token"]
 
 
+def test_aicross_start_returns_public_puzzle_payload(fresh_user):
+    """aicross /game/start returns the renderable puzzle payload."""
+    res = G.game_start(G.GameStartRequest(game_id="aicross"), {"id": "u1"})
+
+    assert res["game_id"] == "aicross"
+    assert isinstance(res["game_token"], str)
+    puzzle = res["puzzle"]
+    assert puzzle["puzzle_id"]
+    assert puzzle["grid"]
+    assert puzzle["entries"]
+    assert puzzle["max_score"] == 100
+    assert _decode_token_payload(res["game_token"])["puzzle_id"] == puzzle["puzzle_id"]
+
+
+def test_aicross_start_payload_does_not_expose_answers(fresh_user):
+    """The public aicross puzzle must not include answer-bearing fields."""
+    res = G.game_start(G.GameStartRequest(game_id="aicross"), {"id": "u1"})
+    puzzle = res["puzzle"]
+    serialized = json.dumps(puzzle, sort_keys=True).lower()
+
+    forbidden = ["answer", "word", "letter", "solution", "correct_word", "correctanswer"]
+    for key in forbidden:
+        assert key not in serialized
+
+    for entry in puzzle["entries"]:
+        assert "answer" not in entry
+        assert "word" not in entry
+        assert "letter" not in entry
+
+
 def test_game_clear_requires_game_token():
     """/game/clear request model rejects missing game_token."""
     with pytest.raises(ValidationError):
@@ -143,6 +212,102 @@ def test_token_sequential_replay_rejected(fresh_user):
         G.game_clear(req, {"id": "u1"})      # 2회째 → 거부
     assert exc.value.status_code == 400
     assert "already used" in exc.value.detail
+
+
+def test_aicross_entry_answers_are_server_scored_and_ranked(fresh_user):
+    """Entry-level answers are scored by the server and recorded in weekly_xp."""
+    puzzle_id = G.AICROSS_DEFAULT_PUZZLE_ID
+    req = G.GameClearRequest(
+        game_id="aicross",
+        game_token=_aicross_token("NONCE-AC-ENTRY"),
+        puzzle_id=puzzle_id,
+        score=0,
+        answers=_aicross_entry_answers(puzzle_id),
+    )
+
+    res = G.game_clear(req, {"id": "u1"})
+
+    assert res["puzzle_id"] == puzzle_id
+    assert res["correct"] == res["total"]
+    assert res["score"] == 100
+    assert res["xp_awarded"] == 200
+
+    user = _read_user(fresh_user)
+    assert user["xp"] == 200
+    assert user["game_rewards"]["weekly_xp"][G.iso_week()]["aicross"] == 200
+
+
+def test_aicross_client_score_is_ignored_for_wrong_answers(fresh_user):
+    """A submitted score=100 must not override server-side wrong-answer scoring."""
+    puzzle_id = G.AICROSS_DEFAULT_PUZZLE_ID
+    req = G.GameClearRequest(
+        game_id="aicross",
+        game_token=_aicross_token("NONCE-AC-SCORE-FORGE"),
+        puzzle_id=puzzle_id,
+        score=100,
+        answers={"A1": "wrong"},
+    )
+
+    res = G.game_clear(req, {"id": "u1"})
+
+    assert res["score"] == 0
+    assert res["correct"] == 0
+    assert res["xp_awarded"] == 0
+    assert _read_user(fresh_user)["xp"] == 0
+
+
+def test_aicross_cell_answers_are_supported(fresh_user):
+    """Cell-level answers are reconstructed by coordinates and scored by the server."""
+    puzzle_id = G.AICROSS_DEFAULT_PUZZLE_ID
+    req = G.GameClearRequest(
+        game_id="aicross",
+        game_token=_aicross_token("NONCE-AC-CELL"),
+        puzzle_id=puzzle_id,
+        answers=_aicross_cell_answers(puzzle_id),
+    )
+
+    res = G.game_clear(req, {"id": "u1"})
+
+    assert res["correct"] == res["total"]
+    assert res["score"] == 100
+    assert res["xp_awarded"] == 200
+
+
+def test_aicross_nonce_reuse_does_not_double_award_xp(fresh_user):
+    """A replayed aicross game_token is rejected before a second XP grant."""
+    puzzle_id = G.AICROSS_DEFAULT_PUZZLE_ID
+    req = G.GameClearRequest(
+        game_id="aicross",
+        game_token=_aicross_token("NONCE-AC-REPLAY-SCORED"),
+        puzzle_id=puzzle_id,
+        answers=_aicross_entry_answers(puzzle_id),
+    )
+
+    first = G.game_clear(req, {"id": "u1"})
+    assert first["xp_awarded"] == 200
+
+    with pytest.raises(HTTPException) as exc:
+        G.game_clear(req, {"id": "u1"})
+
+    assert exc.value.status_code == 400
+    assert "already used" in exc.value.detail
+    assert _read_user(fresh_user)["xp"] == 200
+
+
+def test_aicross_puzzle_id_mismatch_rejected(fresh_user):
+    """The submitted puzzle_id must match the puzzle_id embedded in the token."""
+    req = G.GameClearRequest(
+        game_id="aicross",
+        game_token=_aicross_token("NONCE-AC-PUZZLE-MISMATCH"),
+        puzzle_id="fake_puzzle",
+        answers=_aicross_entry_answers(),
+    )
+
+    with pytest.raises(HTTPException) as exc:
+        G.game_clear(req, {"id": "u1"})
+
+    assert exc.value.status_code == 400
+    assert _read_user(fresh_user)["xp"] == 0
 
 
 def test_aipang_token_replay_no_double_grant(fresh_user):
