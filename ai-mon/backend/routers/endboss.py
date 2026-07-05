@@ -25,6 +25,7 @@ from routers.utils import (
     now_kst,
     UserNotFoundError,
     promote_course_level_from_endboss,
+    derive_unlocked_course_levels,
 )
 from routers.quiz import serialize_question
 
@@ -94,9 +95,26 @@ def load_endboss_questions(course_level: str) -> list:
     raw = re.sub(r"(?<!:)//[^\n]*", "", raw)
     return json.loads(raw)
 
-def is_endboss_unlocked(user: dict) -> bool:
-    """Unit 8 보스 클리어 여부 확인."""
-    level = user.get("course_level", "beginner")
+def resolve_level(user: dict, target_level: Optional[str]) -> str:
+    """도전할 레벨을 결정한다.
+
+    - target_level 미지정(None/빈값) → 계정 course_level 을 그대로 사용하고 추가
+      해금 게이트를 적용하지 않는다. 기존(단일 레벨) 동작을 100% 보존하기 위함.
+      (레벨테스트로 course_level 만 앞선 유저의 기존 응답을 바꾸지 않는다.)
+    - target_level 명시 → 값 검증 + '해금된 레벨(derive_unlocked_course_levels)'
+      게이트를 적용한다. 해금되지 않은 레벨을 요청하면 403.
+    """
+    if not target_level:
+        return user.get("course_level", "beginner")
+    if target_level not in ("beginner", "intermediate", "advanced"):
+        raise HTTPException(status_code=400, detail="잘못된 레벨입니다.")
+    if target_level not in derive_unlocked_course_levels(user):
+        raise HTTPException(status_code=403, detail="해금되지 않은 레벨입니다.")
+    return target_level
+
+
+def is_endboss_unlocked(user: dict, level: str) -> bool:
+    """주어진 레벨의 Unit 8 보스 클리어 여부 확인."""
     unlocked = user.get("max_unlocked_unit", {})
     if isinstance(unlocked, dict):
         return unlocked.get(level, 1) > 8
@@ -157,6 +175,7 @@ def direct_grade(user_answer: str, correct_answer: str, q_type: str) -> bool:
 
 class StartRequest(BaseModel):
     project: str  # account | wordchain | grade | gpa
+    target_level: Optional[str] = None   # 미지정 시 계정 course_level 사용(하위호환)
 
 class AnswerRequest(BaseModel):
     question_id: str
@@ -166,26 +185,29 @@ class AnswerRequest(BaseModel):
     boss_hp:      int = BOSS_HP_INIT
     phase3_tries: int = 0      # Phase 3 현재 시도 횟수 (0-based)
     project:      str = ""
+    target_level: Optional[str] = None   # 미지정 시 계정 course_level 사용(하위호환)
 
 class ClearRequest(BaseModel):
     project: str
+    target_level: Optional[str] = None   # 미지정 시 계정 course_level 사용(하위호환)
 
 
 # ── 엔드포인트 ────────────────────────────────────────────────────────────────
 
 @router.get("/info")
-def endboss_info(user: dict = Depends(get_current_user)):
+def endboss_info(target_level: Optional[str] = None, user: dict = Depends(get_current_user)):
     """해금 여부 + 왕관 수 + 이미 클리어한 레벨 반환."""
     user_id = user["id"]
 
-    level = user.get("course_level", "beginner")
+    level = resolve_level(user, target_level)
     return {
-        "is_unlocked":      is_endboss_unlocked(user),
+        "is_unlocked":      is_endboss_unlocked(user, level),
         "crowns":           user.get("crowns", 0),
         "retry_cost":       RETRY_CROWN_COST,
         "cleared_levels":   user.get("endboss_cleared_levels", []),
         "already_cleared":  level in user.get("endboss_cleared_levels", []),
         "course_level":     level,
+        "unlocked_levels":  derive_unlocked_course_levels(user),
     }
 
 
@@ -199,13 +221,14 @@ def endboss_start(req: StartRequest, user: dict = Depends(get_current_user)):
     """
     user_id = user["id"]
 
-    if not is_endboss_unlocked(user):
+    level = resolve_level(user, req.target_level)
+
+    if not is_endboss_unlocked(user, level):
         raise HTTPException(status_code=403, detail="엔드보스가 아직 해금되지 않았습니다. Unit 8 보스를 먼저 클리어하세요.")
 
     if user.get("crowns", 0) < RETRY_CROWN_COST:
         raise HTTPException(status_code=400, detail=f"왕관이 부족합니다. 엔드보스 도전에는 왕관 {RETRY_CROWN_COST}개가 필요합니다.")
 
-    level = user.get("course_level", "beginner")
     all_qs = load_endboss_questions(level)
     if not all_qs:
         raise HTTPException(status_code=404, detail="엔드보스 문제 데이터가 없습니다.")
@@ -280,7 +303,7 @@ async def endboss_answer(request: Request, req: AnswerRequest, user: dict = Depe
     # 호출은 미정의 심볼 참조로 NameError 를 일으키던 버그 — 제거.)
     user_id = user["id"]
 
-    level  = user.get("course_level", "beginner")
+    level  = resolve_level(user, req.target_level)
     all_qs = load_endboss_questions(level)
     question = next((q for q in all_qs if q.get("question_id") == req.question_id), None)
     if not question:
@@ -487,11 +510,14 @@ def endboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
     """
     user_id = user["id"]
 
+    # 도전 레벨 결정(target_level 미지정 시 course_level). 검증/해금 게이트는
+    # 임계구역 밖에서 1회만 — mutator 는 CAS 로 여러 번 실행될 수 있으므로.
+    level = resolve_level(user, req.target_level)
+
     # 클리어 보상(중복 가드 + 진화 + 칭호 + XP + 미션 boss_clear + seen 리셋)을
     # fresh user 기준으로 원자 처리. endboss_cleared_levels(list append) 와 missions 가
     # save_user delta-merge 에서 last-writer-wins 되던 문제 해소. (M-1, C-1 deferred)
     def mutator(u: dict) -> dict:
-        level           = u.get("course_level", "beginner")
         cleared_levels  = u.get("endboss_cleared_levels", [])
         already_cleared = level in cleared_levels
         newly_earned_titles = []
