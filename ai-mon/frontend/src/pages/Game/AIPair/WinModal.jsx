@@ -21,6 +21,13 @@ export default function WinModal({ show, score, timeStr, charSrc, onPlayAgain })
             <div className="mp-modal-stat-val">{timeStr}</div>
           </div>
         </div>
+        {reward ? (
+          reward.already_claimed
+            ? <div className="mp-modal-reward mp-modal-reward--claimed">오늘 보상은 이미 받았어요 (최대 3판)</div>
+            : <div className="mp-modal-reward">⚡ +{reward.xp_awarded} XP 획득!</div>
+        ) : (
+          <div className="mp-modal-reward mp-modal-reward--loading">보상 계산 중…</div>
+        )}
         <button className="mp-btn-play-again" onClick={onPlayAgain}>
           🚀 다시 도전하기
         </button>
