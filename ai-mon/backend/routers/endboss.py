@@ -26,6 +26,7 @@ from routers.utils import (
     UserNotFoundError,
     promote_course_level_from_endboss,
     derive_unlocked_course_levels,
+    COURSE_LEVEL_ORDER,
 )
 from routers.quiz import serialize_question
 
@@ -101,24 +102,68 @@ def resolve_level(user: dict, target_level: Optional[str]) -> str:
     - target_level 미지정(None/빈값) → 계정 course_level 을 그대로 사용하고 추가
       해금 게이트를 적용하지 않는다. 기존(단일 레벨) 동작을 100% 보존하기 위함.
       (레벨테스트로 course_level 만 앞선 유저의 기존 응답을 바꾸지 않는다.)
-    - target_level 명시 → 값 검증 + '해금된 레벨(derive_unlocked_course_levels)'
-      게이트를 적용한다. 해금되지 않은 레벨을 요청하면 403.
+    - target_level 명시 → 값 검증 + '선택 가능 레벨(endboss_selectable_levels)'
+      게이트를 적용한다. 선택 불가한 레벨을 요청하면 403.
     """
     if not target_level:
         return user.get("course_level", "beginner")
     if target_level not in ("beginner", "intermediate", "advanced"):
         raise HTTPException(status_code=400, detail="잘못된 레벨입니다.")
-    if target_level not in derive_unlocked_course_levels(user):
+    if target_level not in endboss_selectable_levels(user):
         raise HTTPException(status_code=403, detail="해금되지 않은 레벨입니다.")
     return target_level
 
 
 def is_endboss_unlocked(user: dict, level: str) -> bool:
-    """주어진 레벨의 Unit 8 보스 클리어 여부 확인."""
+    """주어진 레벨 엔드보스 진입 가능 여부.
+
+    배치 레벨(course_level)보다 낮은 티어 = 레벨테스트로 통과한 '인정' 구간이므로
+    해당 레벨 유닛 진행과 무관하게 직행 진입을 허용한다(사다리 하위칸). 그 외(현재
+    진행 티어 이상)는 기존 게이트 그대로 그 레벨 Unit 8 보스 클리어를 요구한다.
+    """
+    course = user.get("course_level", "beginner")
+    if level in COURSE_LEVEL_ORDER and course in COURSE_LEVEL_ORDER:
+        if COURSE_LEVEL_ORDER.index(level) < COURSE_LEVEL_ORDER.index(course):
+            return True
     unlocked = user.get("max_unlocked_unit", {})
     if isinstance(unlocked, dict):
         return unlocked.get(level, 1) > 8
     return int(unlocked) > 8
+
+
+def endboss_selectable_levels(user: dict) -> list:
+    """엔드보스 사다리에서 '선택 가능(칩 노출 + resolve_level 통과)'한 레벨 목록.
+
+    = 클리어 이력 기반 해금(derive_unlocked_course_levels) ∪ course_level 이하(배치 바닥선).
+    - 'L in base' 절 유지: 레벨테스트 재응시 등으로 course_level 이 클리어 이력보다 낮아진
+      엣지에서도, 실제로 깬 상위 레벨이 목록에서 사라지지 않도록 방어한다.
+    - course_level 바닥선은 여기서만 얹는다. derive_unlocked_course_levels(언락 SSOT=
+      보스 클리어 이력) 와 커리큘럼 전환 로직은 오염시키지 않는다.
+    """
+    base = set(derive_unlocked_course_levels(user))
+    course = user.get("course_level", "beginner")
+    ci = COURSE_LEVEL_ORDER.index(course) if course in COURSE_LEVEL_ORDER else 0
+    return [L for L in COURSE_LEVEL_ORDER
+            if L in base or COURSE_LEVEL_ORDER.index(L) <= ci]
+
+
+def endboss_level_status(user: dict, level: str) -> dict:
+    """사다리 UI용 레벨별 상태.
+
+    cleared(최우선) > recognized(인정·직행) / current(현재목표) / locked(잠김).
+    """
+    cleared = user.get("endboss_cleared_levels") or []
+    if level in cleared:
+        return {"level": level, "status": "cleared", "enterable": False}
+
+    course = user.get("course_level", "beginner")
+    li = COURSE_LEVEL_ORDER.index(level) if level in COURSE_LEVEL_ORDER else 0
+    ci = COURSE_LEVEL_ORDER.index(course) if course in COURSE_LEVEL_ORDER else 0
+    if li < ci:
+        return {"level": level, "status": "recognized", "enterable": True}
+    if li == ci:
+        return {"level": level, "status": "current", "enterable": is_endboss_unlocked(user, level)}
+    return {"level": level, "status": "locked", "enterable": False}
 
 def get_phase_questions(all_qs: list, phase: int, project: str) -> list:
     """특정 phase + project 의 문제만 필터링해서 순서대로 반환."""
@@ -208,6 +253,7 @@ def endboss_info(target_level: Optional[str] = None, user: dict = Depends(get_cu
         "already_cleared":  level in user.get("endboss_cleared_levels", []),
         "course_level":     level,
         "unlocked_levels":  derive_unlocked_course_levels(user),
+        "levels":           [endboss_level_status(user, L) for L in COURSE_LEVEL_ORDER],
     }
 
 

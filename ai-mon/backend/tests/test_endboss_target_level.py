@@ -196,3 +196,117 @@ def test_crown_gate_fires_after_level_gate_passes():
         )
     assert exc.value.status_code == 400
     assert "왕관이 부족합니다" in exc.value.detail
+
+
+# ── 사다리 Phase 1: selectable / status / 직행 인정 ─────────────────────────────
+
+# G) endboss_selectable_levels — 배치별
+def test_selectable_beginner_fresh_only_beginner():
+    user = _make_user(course_level="beginner", endboss_cleared_levels=[])
+    assert E.endboss_selectable_levels(user) == ["beginner"]
+
+
+def test_selectable_intermediate_placed_includes_beginner_and_intermediate():
+    user = _make_user(course_level="intermediate", endboss_cleared_levels=[])
+    assert E.endboss_selectable_levels(user) == ["beginner", "intermediate"]
+
+
+def test_selectable_advanced_placed_includes_all_three():
+    user = _make_user(course_level="advanced", endboss_cleared_levels=[])
+    assert E.endboss_selectable_levels(user) == ["beginner", "intermediate", "advanced"]
+
+
+# H) is_endboss_unlocked — 티어 위치별
+def test_is_unlocked_lower_tier_bypasses_unit_gate():
+    # 배치가 advanced 인데 beginner 유닛은 하나도 안 깬(=1) 상태여도 직행 True.
+    user = _make_user(course_level="advanced", max_unlocked_unit={"beginner": 1})
+    assert E.is_endboss_unlocked(user, "beginner") is True
+
+
+def test_is_unlocked_current_tier_requires_unit8():
+    ready = _make_user(course_level="intermediate", max_unlocked_unit={"intermediate": 9})
+    not_ready = _make_user(course_level="intermediate", max_unlocked_unit={"intermediate": 5})
+    assert E.is_endboss_unlocked(ready, "intermediate") is True
+    assert E.is_endboss_unlocked(not_ready, "intermediate") is False
+
+
+def test_is_unlocked_higher_tier_is_locked():
+    user = _make_user(course_level="beginner", max_unlocked_unit={"advanced": 1})
+    assert E.is_endboss_unlocked(user, "advanced") is False
+
+
+# I) resolve_level — selectable 게이트 반영
+def test_resolve_advanced_placed_can_target_intermediate():
+    user = _make_user(course_level="advanced", endboss_cleared_levels=[])
+    assert E.resolve_level(user, "intermediate") == "intermediate"
+
+
+def test_resolve_beginner_placed_rejects_intermediate_target():
+    user = _make_user(course_level="beginner", endboss_cleared_levels=[])
+    with pytest.raises(HTTPException) as exc:
+        E.resolve_level(user, "intermediate")
+    assert exc.value.status_code == 403
+
+
+def test_resolve_none_returns_course_level_no_gate_backcompat():
+    # 하위호환: None 이면 selectable 게이트를 타지 않고 course_level 그대로.
+    user = _make_user(course_level="advanced", endboss_cleared_levels=[])
+    assert E.resolve_level(user, None) == "advanced"
+
+
+# J) endboss_info["levels"] — 4상태 + cleared 최우선
+def test_info_levels_four_states_for_intermediate_placed():
+    user = _make_user(
+        course_level="intermediate",
+        endboss_cleared_levels=[],
+        max_unlocked_unit={"beginner": 9, "intermediate": 5, "advanced": 1},
+    )
+    levels = {d["level"]: d for d in E.endboss_info(target_level=None, user=user)["levels"]}
+    assert levels["beginner"] == {"level": "beginner", "status": "recognized", "enterable": True}
+    # intermediate = 현재 목표, 유닛8 미달(5) → enterable False
+    assert levels["intermediate"] == {"level": "intermediate", "status": "current", "enterable": False}
+    assert levels["advanced"] == {"level": "advanced", "status": "locked", "enterable": False}
+
+
+def test_info_levels_current_becomes_enterable_after_unit8():
+    user = _make_user(
+        course_level="intermediate",
+        endboss_cleared_levels=[],
+        max_unlocked_unit={"intermediate": 9},
+    )
+    levels = {d["level"]: d for d in E.endboss_info(target_level=None, user=user)["levels"]}
+    assert levels["intermediate"]["status"] == "current"
+    assert levels["intermediate"]["enterable"] is True
+
+
+def test_info_levels_cleared_takes_priority():
+    # 이미 깬 레벨은 인덱스 비교보다 우선해 항상 cleared.
+    user = _make_user(course_level="intermediate", endboss_cleared_levels=["beginner"])
+    levels = {d["level"]: d for d in E.endboss_info(target_level=None, user=user)["levels"]}
+    assert levels["beginner"] == {"level": "beginner", "status": "cleared", "enterable": False}
+
+
+# K) 엣지 — 레벨테스트 재응시로 course_level < 클리어 이력
+def test_edge_course_level_below_clear_history_keeps_cleared_selectable():
+    # course_level 은 beginner 로 낮아졌지만 실제로 beginner·intermediate 엔보를 깼음.
+    user = _make_user(course_level="beginner", endboss_cleared_levels=["beginner", "intermediate"])
+    # base(클리어 이력)로 advanced 까지 열려 'L in base' 절이 상위 레벨을 지켜준다.
+    assert E.endboss_selectable_levels(user) == ["beginner", "intermediate", "advanced"]
+    status = {d["level"]: d["status"] for d in E.endboss_info(target_level=None, user=user)["levels"]}
+    # 깬 레벨은 course_level 보다 위여도 cleared 최우선.
+    assert status["beginner"] == "cleared"
+    assert status["intermediate"] == "cleared"
+    # 안 깬 advanced 는 course_level(beginner) 위 → locked.
+    assert status["advanced"] == "locked"
+
+
+# L) info 기존 필드 하위호환 — 신규 필드만 추가되고 기존 키/값 유지
+def test_info_backward_compatible_fields_intact():
+    user = _make_user(course_level="beginner", endboss_cleared_levels=[])
+    resp = E.endboss_info(target_level=None, user=user)
+    for key in ("is_unlocked", "crowns", "retry_cost", "cleared_levels",
+                "already_cleared", "course_level", "unlocked_levels"):
+        assert key in resp
+    # None 경로 → course_level 그대로, unlocked_levels 는 derive(클리어 이력) 그대로.
+    assert resp["course_level"] == "beginner"
+    assert resp["unlocked_levels"] == U.derive_unlocked_course_levels(user)
