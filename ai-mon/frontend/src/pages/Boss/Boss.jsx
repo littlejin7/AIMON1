@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { bossApi, userApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
@@ -50,6 +50,10 @@ export default function Boss() {
   const [initialLevel,    setInitialLevel]    = useState(1)
   const [levelUpMessage,  setLevelUpMessage]  = useState('')
   const [newlyEarnedTitles, setNewlyEarnedTitles] = useState([])
+
+  // 제출 중복 방지 lock — React state(loading)는 비동기 반영이라 빠른 연타 첫 프레임을
+  // 놓칠 수 있으므로 ref 로 즉시 차단한다(중복 /boss/answer 발사 방지).
+  const submitLockRef = useRef(false)
 
   useEffect(() => {
     if (user) setInitialLevel(user.lv || 1)
@@ -124,6 +128,10 @@ export default function Boss() {
     const userAnswer  = isCodeType ? answerInput : selectedOption
     if (!userAnswer) return
 
+    // 이미 제출 진행 중이면 즉시 차단 (연타 방어) — state 반영 전이라도 ref 로 막힘
+    if (submitLockRef.current) return
+    submitLockRef.current = true
+
     setLoading(true)
     try {
       const res = await bossApi.submitAnswer({
@@ -186,6 +194,9 @@ export default function Boss() {
         setErrorMsg(err.response?.data?.detail || '채점 중 오류가 발생했습니다. 다시 시도해주세요.')
       }
     } finally {
+      // 성공·실패·grading_failed 무관하게 항상 해제 → API 실패 시 영구 disabled 방지,
+      // 오답 후 재제출/다음 문제 이동 등 정상 플로우 유지.
+      submitLockRef.current = false
       setLoading(false)
     }
   }

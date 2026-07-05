@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { endbossApi, userApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
@@ -9,10 +9,6 @@ import EndBossResult from './EndBossResult'
 import TitleEarnedModal from '../../components/TitleEarnedModal/TitleEarnedModal'
 import EndBossPhaseTransition from './EndBossPhaseTransition'
 import '../Boss/Boss.css'
-import './EndBossIntro.css'
-import './EndBossPhaseTransition.css'
-import '../Boss/BossBattle.css'
-
 
 export default function EndBoss() {
   const navigate = useNavigate()
@@ -66,6 +62,10 @@ export default function EndBoss() {
   const [initialLevel,      setInitialLevel]      = useState(1)
   const [levelUpMessage,    setLevelUpMessage]    = useState('')
   const [newlyEarnedTitles, setNewlyEarnedTitles] = useState([])
+
+  // 제출 중복 방지 lock — React state(loading)는 비동기 반영이라 빠른 연타 첫 프레임을
+  // 놓칠 수 있으므로 ref 로 즉시 차단한다. code_input(phase3)의 중복 Claude 호출 방지.
+  const submitLockRef = useRef(false)
 
   useEffect(() => {
     // target_level 없이 호출 — 기존 계약과 동일한 baseline 조회(게이트 없음).
@@ -207,6 +207,10 @@ export default function EndBoss() {
     const userAnswer = isCodeType ? answerInput : selectedOption
     if (!userAnswer) return
 
+    // 이미 제출 진행 중이면 즉시 차단 (연타 방어) — state 반영 전이라도 ref 로 막힘
+    if (submitLockRef.current) return
+    submitLockRef.current = true
+
     setLoading(true)
     try {
       const res = await endbossApi.submitAnswer({
@@ -277,6 +281,8 @@ export default function EndBoss() {
     } catch (err) {
       console.error(err)
     } finally {
+      // 성공·실패 무관하게 항상 해제 → API 실패 시 영구 disabled 방지, 정상 플로우 유지.
+      submitLockRef.current = false
       setLoading(false)
     }
   }
