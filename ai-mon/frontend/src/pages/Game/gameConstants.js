@@ -22,7 +22,7 @@ export const GAMES = [
     icon: aipairIconUrl,
     emoji: '🃏',
     title: '에이짝',
-    desc: '같은 카드 맞추기!',
+    desc: '반짝이는 카드 속 짝꿍을 찾아라!',
     reward: 'XP 100~300',
     rewardIcon: '⚡',
     route: '/game/pairs',
@@ -46,7 +46,7 @@ export const GAMES = [
     icon: aibombIconUrl,
     emoji: '💣',
     title: '에이밤',
-    desc: '코딩을 배우고, 코드를 입력해 폭탄을 해제하라!',
+    desc: '숨어 있는 오타를 찾아 폭탄을 해제하라!',
     reward: 'XP 100',
     rewardIcon: '⚡',
     route: '/game/aibomb',
@@ -57,11 +57,12 @@ export const GAMES = [
     id: 'aicross',
     icon: aiwordIconUrl,
     title: 'AI 크로스워드',
-    desc: '파이썬 & AI 단어로 십자말풀이를 완성하라!',
+    desc: '단어 조각을 모아 십자말을 완성하라!',
     reward: 'XP 100~200',
     rewardIcon: '⚡',
     route: '/game/aicross',
     available: true,
+    dailyTarget: 3,
   },
 ]
 
@@ -72,7 +73,9 @@ export const CHALLENGE_GAMES = GAMES.filter(g => g.available && g.dailyTarget)
 export const CHAL_META = {
   aipang:  { color: '#9B94E8', img: aipangIconUrl, rewardLabel: '👑 +2',  rewardColor: '#854F0B' },
   pairs:   { color: '#378ADD', img: aipairIconUrl, rewardLabel: '⚡ +300', rewardColor: '#534AB7' },
-  runner:  { color: '#1D9E75', img: airunIconUrl,  rewardLabel: '⚡ +500', rewardColor: '#0F6E56' },
+  runner:  { color: '#1D9E75', img: airunIconUrl,  rewardLabel: '⚡ +300', rewardColor: '#0F6E56' },
+  aibomb:  { color: '#E8944A', img: aibombIconUrl, rewardLabel: '⚡ +300', rewardColor: '#B45309' },
+  aicross: { color: '#C2427D', img: aiwordIconUrl, rewardLabel: '⚡ +300', rewardColor: '#9D174D' },
 }
 
 // 오늘 날짜 키 (YYYY-MM-DD)
