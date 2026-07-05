@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import endbossOrgImg from '../../assets/endboss_finalorg.png'
 
+const LEVEL_LABELS = { beginner: '초급', intermediate: '중급', advanced: '고급' }
+
 const PROJECTS_BY_LEVEL = {
   beginner: [
     { id: 'account',   label: '가계부 시스템',        icon: '💰', bg: '#FEF9EC' },
@@ -22,10 +24,20 @@ const PROJECTS_BY_LEVEL = {
   ],
 }
 
-export default function EndBossIntro({ bossData, errorMsg, onStart }) {
-  const level = bossData?.course_level || 'beginner'
+export default function EndBossIntro({ bossData, errorMsg, onStart, selectedLevel, onLevelChange }) {
+  const level = selectedLevel || bossData?.course_level || 'beginner'
+  const unlockedLevels = bossData?.unlocked_levels ?? ['beginner']
+  const isUnlocked = bossData?.is_unlocked ?? false
   const ENDBOSS_PROJECTS = PROJECTS_BY_LEVEL[level] ?? PROJECTS_BY_LEVEL.beginner
   const [selectedProject, setSelectedProject] = useState(ENDBOSS_PROJECTS[0].id)
+
+  // 레벨이 바뀌면 그 레벨의 첫 프로젝트로 선택 리셋.
+  // (렌더 중 이전 값과 비교해 조정 — useEffect 의 set-state-in-effect 경고를 피한다.)
+  const [prevLevel, setPrevLevel] = useState(level)
+  if (level !== prevLevel) {
+    setPrevLevel(level)
+    setSelectedProject(ENDBOSS_PROJECTS[0].id)
+  }
 
   return (
     <div className="eb-intro-card">
@@ -69,6 +81,29 @@ export default function EndBossIntro({ bossData, errorMsg, onStart }) {
             최종 유닛의 모든 지식을 시험할 보스가 나타났습니다.<br />
             물리치면 특별한 인증카드와 <strong>15,000 XP</strong>를 얻을 수 있습니다!
           </div>
+        </div>
+
+        <div className="eb-divider" />
+
+        {/* 레벨 선택 칩 */}
+        <div>
+          <div className="eb-proj-label">도전할 레벨을 선택하세요:</div>
+          <div className="eb-proj-grid">
+            {unlockedLevels.map(lv => (
+              <div
+                key={lv}
+                className={`eb-proj-card${level === lv ? ' selected' : ''}`}
+                onClick={() => onLevelChange?.(lv)}
+              >
+                <div className="eb-proj-name">{LEVEL_LABELS[lv] ?? lv}</div>
+              </div>
+            ))}
+          </div>
+          {!isUnlocked && (
+            <div className="eb-error">
+              이 레벨 엔드보스는 유닛 8 보스를 먼저 깨야 열려요.
+            </div>
+          )}
         </div>
 
         <div className="eb-divider" />
@@ -119,7 +154,11 @@ export default function EndBossIntro({ bossData, errorMsg, onStart }) {
         {errorMsg && <div className="eb-error">{errorMsg}</div>}
 
         {/* 시작 버튼 */}
-        <button className="eb-start-btn" onClick={() => onStart(selectedProject)}>
+        <button
+          className="eb-start-btn"
+          disabled={!isUnlocked}
+          onClick={() => onStart(selectedProject)}
+        >
           전투 시작 ⚔️
         </button>
       </div>

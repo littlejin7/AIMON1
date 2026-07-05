@@ -23,6 +23,7 @@ export default function EndBoss() {
   // | 'battle' | 'cleared' | 'failed'
   const [phase,           setPhase]           = useState('intro')
   const [bossData,        setBossData]        = useState(null)
+  const [selectedLevel,   setSelectedLevel]   = useState('beginner')
   const [currentQuestion, setCurrentQuestion] = useState(null)
   const [selectedOption,  setSelectedOption]  = useState(null)
   const [answerInput,     setAnswerInput]     = useState('')
@@ -66,14 +67,46 @@ export default function EndBoss() {
   }, [user])
 
   useEffect(() => {
+    // target_level 없이 호출 — 기존 계약과 동일한 baseline 조회(게이트 없음).
     endbossApi.getInfo().then(res => {
       setBossData(res.data)
+      setSelectedLevel(res.data.course_level || 'beginner')
       setLoading(false)
     }).catch(err => {
       console.error(err)
       setLoading(false)
     })
   }, [])
+
+  // ── 레벨 칩 선택 (인트로 화면에서만 노출) ──
+  const handleLevelChange = async (level) => {
+    setSelectedLevel(level)
+    // 진행 중이던 배틀 상태 초기화 (레벨 전환 시 잔존 방지)
+    setMyHp(MY_HP_INIT)
+    setBossHp(BOSS_HP_INIT)
+    setCurrentQuestion(null)
+    setSelectedOption(null)
+    setAnswerInput('')
+    setAiResult(null)
+    setErrorMsg('')
+    setEndbossState({
+      project:             null,
+      phase:               1,
+      phase1Questions:     [],
+      phase2Questions:     [],
+      phase3FirstQuestion: null,
+      phase1Index:         0,
+      phase2Index:         0,
+      phase3Tries:         0,
+      nextPhase3Question:  null,
+    })
+    try {
+      const res = await endbossApi.getInfo(level)
+      setBossData(res.data)
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   // ── 공격 이펙트 ──────────────────────────────
   const playAttackEffect = (damage) => {
@@ -113,7 +146,7 @@ export default function EndBoss() {
     setLoading(true)
     try {
       if (!project) throw new Error('프로젝트를 선택해주세요.')
-      const res = await endbossApi.startBattle(project)
+      const res = await endbossApi.startBattle(project, selectedLevel)
       const d = res.data
       setEndbossState({
         project:             d.project,
@@ -180,6 +213,7 @@ export default function EndBoss() {
         boss_hp:      bossHp,
         phase3_tries: endbossState.phase3Tries,
         project:      endbossState.project,
+        ...(selectedLevel && { target_level: selectedLevel }),
       })
 
       const d         = res.data
@@ -200,7 +234,7 @@ export default function EndBoss() {
         if (isClear) {
           setTimeout(async () => {
             try {
-              const clearRes = await endbossApi.clearBoss(endbossState.project)
+              const clearRes = await endbossApi.clearBoss(endbossState.project, selectedLevel)
               if (clearRes?.data?.newly_earned_titles?.length > 0) {
                 setNewlyEarnedTitles(clearRes.data.newly_earned_titles)
               }
@@ -304,6 +338,8 @@ export default function EndBoss() {
             bossData={bossData}
             errorMsg={errorMsg}
             onStart={handleStart}
+            selectedLevel={selectedLevel}
+            onLevelChange={handleLevelChange}
           />
         )}
 

@@ -68,10 +68,10 @@ export const bossApi = {
 }
 
 export const endbossApi = {
-  getInfo:       ()         => api.get('/boss/endboss/info'),
-  startBattle:   (project)  => api.post('/boss/endboss/start', { project }),
-  submitAnswer:  (data)     => api.post('/boss/endboss/answer', data),
-  clearBoss:     (project)  => api.post('/boss/endboss/clear', { project }),
+  getInfo:       (targetLevel)        => api.get('/boss/endboss/info', { params: targetLevel ? { target_level: targetLevel } : {} }),
+  startBattle:   (project, targetLevel) => api.post('/boss/endboss/start', { project, ...(targetLevel && { target_level: targetLevel }) }),
+  submitAnswer:  (data)                => api.post('/boss/endboss/answer', data),
+  clearBoss:     (project, targetLevel) => api.post('/boss/endboss/clear', { project, ...(targetLevel && { target_level: targetLevel }) }),
 }
 
 export const minibossApi = {
