@@ -5,8 +5,10 @@ export default function PairsDash({ score, timeStr, matchedCount, onRestart }) {
   const progress = (matchedCount / TOTAL_PAIRS) * 100
 
   return (
-    <>
+    <div className="mp-dashboard-container">
       <div className="mp-dashboard">
+        
+        {/* 🏆 SCORE */}
         <div className="mp-dash-item">
           <div className="mp-dash-icon score-ico">🏆</div>
           <div className="mp-dash-info">
@@ -17,8 +19,9 @@ export default function PairsDash({ score, timeStr, matchedCount, onRestart }) {
 
         <div className="mp-dash-sep" />
 
+        {/* 🕐 TIME */}
         <div className="mp-dash-item">
-          <div className="mp-dash-icon time-ico">🕐</div>
+          <div className="mp-dash-icon time-ico">⏰</div>
           <div className="mp-dash-info">
             <span className="mp-dash-label">Time</span>
             <span className="mp-dash-val time-color">{timeStr}</span>
@@ -27,31 +30,27 @@ export default function PairsDash({ score, timeStr, matchedCount, onRestart }) {
 
         <div className="mp-dash-sep" />
 
-        <div className="mp-dash-item">
-          <div className="mp-dash-icon" style={{ fontSize: '1rem' }}>🃏</div>
-          <div className="mp-dash-info">
-            <span className="mp-dash-label">짝</span>
-            <span className="mp-dash-val">{matchedCount} / {TOTAL_PAIRS}</span>
+        {/* 짝 찾기 + 프로그레스 바 */}
+        <div className="mp-dash-progress-area">
+          <div className="mp-progress-info">
+            <span className="mp-progress-label">짝 찾기</span>
+            <span className="mp-progress-val">{matchedCount} / {TOTAL_PAIRS}</span>
+          </div>
+          <div className="mp-progress-wrap">
+            <div className="mp-progress-fill" style={{ width: `${progress}%` }} />
+            <span className="mp-progress-star">⭐</span>
           </div>
         </div>
 
-
-        
-
-        <div className="mp-dash-sep" />
-
-        <button className="mp-btn-restart" onClick={onRestart}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
-               strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
-            <path d="M1 4v6h6" /><path d="M3.51 15a9 9 0 1 0 .49-4.5" />
-          </svg>
-          재시작
-        </button>
       </div>
 
-      <div className="mp-progress-wrap">
-        <div className="mp-progress-fill" style={{ width: `${progress}%` }} />
-      </div>
-    </>
+      <button className="mp-btn-restart-outside" onClick={onRestart}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+             strokeLinecap="round" strokeLinejoin="round" width="14" height="14">
+          <path d="M1 4v6h6" /><path d="M3.51 15a9 9 0 1 0 .49-4.5" />
+        </svg>
+        다시 시작
+      </button>
+    </div>
   )
 }

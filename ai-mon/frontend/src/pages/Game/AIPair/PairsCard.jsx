@@ -21,7 +21,7 @@ export default function PairsCard({ data, charSrc, flipped, matched, wrong, onCl
           <span className="mp-spark mp-spark-tr">✦</span>
           <span className="mp-spark mp-spark-bl">✦</span>
           <span className="mp-spark mp-spark-br">✦</span>
-          <img className="mp-card-back-img" src={charSrc} alt="" />
+          <div className="mp-card-back-star">★</div>
         </div>
 
         {/* 앞면 */}
