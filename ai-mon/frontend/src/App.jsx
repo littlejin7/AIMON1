@@ -288,7 +288,7 @@ export default function App() {
 
         
         <Route
-          path="/game/cross"
+          path="/game/aicross"
           element={
             <ProtectedRoute>
               <AICross />
