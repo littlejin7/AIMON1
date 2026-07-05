@@ -7,6 +7,7 @@ import hashlib
 import base64
 import json
 import secrets
+import time
 from routers.utils import (
     get_current_user,
     get_current_user_optional,
@@ -474,6 +475,20 @@ RANKING_WEIGHT = {
     "aicross": 1.0,
     "aibomb": 1.0,
 }
+
+_RANKING_CACHE_TTL = 30
+_ranking_cache = {}
+
+
+def _cached_ranking(cache_key: str, builder):
+    now = time.monotonic()
+    entry = _ranking_cache.get(cache_key)
+    if entry and now - entry[0] < _RANKING_CACHE_TTL:
+        return entry[1]
+
+    result = builder()
+    _ranking_cache[cache_key] = (now, result)
+    return result
 
 
 def _weekly_xp_map(user: dict, wk: str) -> dict:
