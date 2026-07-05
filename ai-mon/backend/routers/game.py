@@ -584,25 +584,31 @@ def game_ranking(limit: int = 3, user_ref: Optional[dict] = Depends(get_current_
     """통합 '이번 주 미니게임 랭킹' — 주간 게임 XP 합산 Top N + 내 순위."""
     limit = _clamp_limit(limit)
     wk = iso_week()
-    entries = []
-    for u in load_users():
-        if u.get("deleted_at"):
-            continue
-        total = sum(_ranking_weekly_xp_map(u, wk).values())
-        if total <= 0:
-            continue
-        entries.append({
-            "user_id": u.get("id"),
-            "nickname": _display_nickname(u),
-            "character": u.get("character") or "slime",
-            "score": total,
-        })
-    ranked = _rank_entries(entries)
-    top = [
-        {"rank": e["rank"], "nickname": e["nickname"], "character": e["character"], "score": e["score"]}
-        for e in ranked[:limit]
-    ]
-    return {"top": top, "me": _me_row(ranked, user_ref)}
+    user_id = user_ref.get("id") if user_ref else "anon"
+    cache_key = f"ranking:{wk}:{limit}:{user_id}"
+
+    def build():
+        entries = []
+        for u in load_users():
+            if u.get("deleted_at"):
+                continue
+            total = sum(_ranking_weekly_xp_map(u, wk).values())
+            if total <= 0:
+                continue
+            entries.append({
+                "user_id": u.get("id"),
+                "nickname": _display_nickname(u),
+                "character": u.get("character") or "slime",
+                "score": total,
+            })
+        ranked = _rank_entries(entries)
+        top = [
+            {"rank": e["rank"], "nickname": e["nickname"], "character": e["character"], "score": e["score"]}
+            for e in ranked[:limit]
+        ]
+        return {"top": top, "me": _me_row(ranked, user_ref)}
+
+    return _cached_ranking(cache_key, build)
 
 
 @router.get("/ranking/by-game")
@@ -611,34 +617,40 @@ def game_ranking_by_game(limit: int = 3, user_ref: Optional[dict] = Depends(get_
     limit = _clamp_limit(limit)
     wk = iso_week()
     prev_wk = prev_iso_week()
-    users = [u for u in load_users() if not u.get("deleted_at")]
+    user_id = user_ref.get("id") if user_ref else "anon"
+    cache_key = f"ranking_by_game:{wk}:{prev_wk}:{limit}:{user_id}"
 
-    games = []
-    for gid, title in RANKED_GAMES:
-        entries = []
-        for u in users:
-            score = _ranking_weekly_xp_map(u, wk).get(gid, 0)
-            if score <= 0:
-                continue
-            entries.append({
-                "user_id": u.get("id"),
-                "nickname": _display_nickname(u),
-                "character": u.get("character") or "slime",
-                "score": score,
+    def build():
+        users = [u for u in load_users() if not u.get("deleted_at")]
+
+        games = []
+        for gid, title in RANKED_GAMES:
+            entries = []
+            for u in users:
+                score = _ranking_weekly_xp_map(u, wk).get(gid, 0)
+                if score <= 0:
+                    continue
+                entries.append({
+                    "user_id": u.get("id"),
+                    "nickname": _display_nickname(u),
+                    "character": u.get("character") or "slime",
+                    "score": score,
+                })
+            ranked = _rank_entries(entries)
+            top = [
+                {"rank": e["rank"], "nickname": e["nickname"], "character": e["character"], "score": e["score"]}
+                for e in ranked[:limit]
+            ]
+            games.append({
+                "game_id": gid,
+                "title": title,
+                "top": top,
+                "me": _me_row(ranked, user_ref),
             })
-        ranked = _rank_entries(entries)
-        top = [
-            {"rank": e["rank"], "nickname": e["nickname"], "character": e["character"], "score": e["score"]}
-            for e in ranked[:limit]
-        ]
-        games.append({
-            "game_id": gid,
-            "title": title,
-            "top": top,
-            "me": _me_row(ranked, user_ref),
-        })
 
-    return {
-        "games": games,
-        "last_week_winner": _compute_last_week_winner(users, prev_wk),
-    }
+        return {
+            "games": games,
+            "last_week_winner": _compute_last_week_winner(users, prev_wk),
+        }
+
+    return _cached_ranking(cache_key, build)
