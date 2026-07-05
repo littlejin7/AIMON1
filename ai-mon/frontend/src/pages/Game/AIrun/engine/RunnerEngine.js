@@ -72,16 +72,7 @@ export class RunnerEngine {
     this.hud.className = 'rg-hud';
     this.hud.innerHTML = `
       <div class="rg-hp" id="rg-hp">❤️❤️❤️❤️❤️</div>
-      <div class="rg-hud-bl">
-        <div class="rg-volume-ctrl">
-          <span class="rg-vol-icon" id="rg-vol-icon">🔊</span>
-          <input type="range" class="rg-vol-slider" id="rg-vol-slider" min="0" max="100" value="70">
-        </div>
-      </div>
-      <div class="rg-hud-tr">
-        <button class="rg-time-btn" id="rg-time-btn">☀️ 아침</button>
-      </div>
-      <div class="rg-hud-br">
+      <div class="rg-hud-tl">
         <div class="rg-stat">
           <span class="rg-stat-label">SCORE</span>
           <span class="rg-stat-val" id="rg-score-val">0</span>
@@ -90,6 +81,20 @@ export class RunnerEngine {
           <span class="rg-stat-label">DIST</span>
           <span class="rg-stat-val" id="rg-dist-val">0</span><span class="rg-stat-unit">m</span>
         </div>
+      </div>
+      <div class="rg-hud-tr">
+        <div class="rg-volume-ctrl">
+          <span class="rg-vol-icon" id="rg-vol-icon">🔊</span>
+          <input type="range" class="rg-vol-slider" id="rg-vol-slider" min="0" max="100" value="70">
+        </div>
+        <button class="rg-time-btn" id="rg-time-btn">☀️ 아침</button>
+      </div>
+      <div class="rg-hud-bl-controls">
+        <button class="rg-dir-btn" id="rg-left-btn" aria-label="왼쪽 이동">◀</button>
+        <button class="rg-dir-btn" id="rg-right-btn" aria-label="오른쪽 이동">▶</button>
+      </div>
+      <div class="rg-hud-br-controls">
+        <button class="rg-jump-btn" id="rg-jump-btn" aria-label="점프">⬆<br>점프</button>
       </div>
     `;
     this.container.appendChild(this.hud);
@@ -128,6 +133,24 @@ export class RunnerEngine {
     });
   }
 
+
+    // 모바일용 방향키 / 점프 버튼 (터치 즉시 반응 위해 pointerdown 사용)
+    const bindHold = (id, action) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        if (this.state === 'running') action();
+        el.blur();
+      });
+    };
+    bindHold('rg-left-btn', () => this._moveLane(-1));
+    bindHold('rg-right-btn', () => this._moveLane(1));
+    bindHold('rg-jump-btn', () => this._jump());
+  }
+
+
+  
   _setupOverlay() {
     this.overlay = document.createElement('div');
     this.overlay.className = 'rg-overlay';
