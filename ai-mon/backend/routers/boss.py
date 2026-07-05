@@ -55,6 +55,30 @@ REQUIRED_CORRECT = BOSS_HP_INIT // BOSS_HP_DELTA   # 5 (정답 누적 도달 시
 MAX_WRONG        = 3                                # 오답 누적 도달 시 패배
 
 
+def _build_static_wrong_feedback(question: dict, correct_answer: str = "") -> str:
+    """객관식 계열 오답용 정적 피드백 조립 (LLM 미사용).
+
+    객관식은 직접 매칭으로 이미 오답 확정이므로 LLM 채점이 불필요하다. 피드백 텍스트만
+    데이터에서 안전하게 조립해 즉시 반환한다(2~10초 딜레이 제거).
+    우선순위: feedback.incorrect > feedback.wrong > explanation > hint > 기본 문구.
+    정답 텍스트가 있으면 첫 문장으로 덧붙인다. 필드가 없어도 서버 에러 없이 동작한다.
+    """
+    fb = question.get("feedback")
+    fb = fb if isinstance(fb, dict) else {}
+    body = (
+        fb.get("incorrect")
+        or fb.get("wrong")
+        or question.get("explanation")
+        or question.get("hint")
+        or "다시 한 번 핵심 개념을 확인해보세요."
+    )
+    body = str(body).strip()
+    ca = str(correct_answer or "").strip()
+    if ca:
+        return f'아쉽지만 정답은 "{ca}"입니다.\n{body}'
+    return body
+
+
 def _pick_unserved_question(pool: list, served_qids: list[str]) -> dict:
     import random
 
@@ -347,12 +371,15 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dic
                 "hint": "",
             }
         else:
-            ai_result = await ask_claude_json(prompt)
-            # 직접 매칭 실패 → AI 채점에 위임. grading_failed=True면 is_correct를 덮어쓰지 않는다.
-            # (채점 실패를 오답으로 오인하는 D-1 버그 방지)
-            if not ai_result.get("grading_failed"):
-                ai_result["is_correct"] = False
-                ai_result["score"] = 0
+            # 객관식 계열은 직접 매칭으로 이미 오답 확정 → LLM 호출 없이 정적 피드백 조립.
+            # (채점 정책 변경 아님. is_correct=False 확정은 기존과 동일, 딜레이만 제거)
+            ai_result = {
+                "is_correct": False,
+                "score": 0,
+                "feedback": _build_static_wrong_feedback(question, correct_answer),
+                "hint": question.get("hint", ""),
+                "grading_failed": False,
+            }
     else:
         # fill_in_blank, code_input
         if user_ans == correct_answer or is_direct_match(user_ans, correct_answer):
