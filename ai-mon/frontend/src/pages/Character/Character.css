@@ -324,6 +324,33 @@
   transform: translateY(-1px);
 }
 
+/* ── 로그아웃 ── */
+.char-logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  margin: 4px 0 0;
+  padding: 12px 22px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--clr-border);
+  background: var(--clr-bg-card);
+  color: var(--clr-text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+.char-logout-btn:hover {
+  background: rgba(239,68,68,0.08);
+  color: var(--clr-danger);
+  border-color: rgba(239,68,68,0.3);
+}
+
+
+
 /* ── 칭호 목록 ── */
 .char-title-list {
   background: var(--clr-bg-card);
