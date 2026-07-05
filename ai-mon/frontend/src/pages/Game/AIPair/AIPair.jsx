@@ -7,6 +7,8 @@ import PairsDash from './PairsDash'
 import WinModal from './WinModal'
 import './AIPair.css'
 
+import aiPairIcon from './assets/AIpairicon.png'
+
 import charSlime from '../../../assets/character_slime.png'
 import charRobot from '../../../assets/character_robot.png'
 import charBubble from '../../../assets/character_bubble.png'
@@ -38,7 +40,27 @@ export default function AIPair() {
 
   return (
     <div className="mp-root">
-      <button className="mp-back" onClick={() => navigate('/game')}>✕</button>
+      {/* 상단 헤더 영역 */}
+      <div className="mp-header">
+        <button className="mp-btn-close" onClick={() => navigate('/game')}>✕</button>
+
+        <div className="mp-header-center">
+          <div className="mp-logo-wrap">
+            <span className="mp-logo-text">AI<span>pair</span></span>
+            <span className="mp-logo-star">⭐</span>
+          </div>
+        </div>
+
+        <button className="mp-btn-settings" onClick={() => alert('설정 기능 준비 중!')}>⚙️</button>
+
+        {/* 좌우 배치 캐릭터 (왕관 쓴 귀여운 에이몬 - 우측은 초록/비유색으로 hue-rotate) */}
+        <div className="mp-header-char left">
+          <img src={charSrc} alt="캐릭터" />
+        </div>
+        <div className="mp-header-char right is-green">
+          <img src={charSrc} alt="캐릭터" />
+        </div>
+      </div>
 
       {/* 미리보기 카운트다운 */}
       {isPreview && (
@@ -57,11 +79,12 @@ export default function AIPair() {
         </div>
       )}
 
-      <div className="mp-hero">
-        <img className="mp-hero-char" src={charSrc} alt="캐릭터" />
-      </div>
-
-      <PairsDash score={score} timeStr={fmtTime(timerSec)} matchedCount={matchedCount} onRestart={init} />
+      <PairsDash
+        score={score}
+        timeStr={fmtTime(timerSec)}
+        matchedCount={matchedCount}
+        onRestart={init}
+      />
 
       <div className="mp-grid">
         {deck.map((card, idx) => (
@@ -78,12 +101,10 @@ export default function AIPair() {
       </div>
 
       <div className="mp-hint">
-        💡&nbsp;<strong>카드를 두 장씩 뒤집어 파이썬 개념과 코드/정의의 짝을 맞춰보세요!</strong>
+        💡&nbsp;<strong>카드를 두 장씩 뒤집어 파이썬 개념과 비유의 짝을 맞춰보세요!</strong>
       </div>
 
       <WinModal show={won} score={score} timeStr={fmtTime(timerSec)} charSrc={charSrc} reward={reward} onPlayAgain={init} />
-
-
     </div>
   )
 }

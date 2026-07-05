@@ -1,19 +1,17 @@
 /* ══════════════════════════════════════════
-   ROOT VARIABLES
+   ROOT VARIABLES & LIGHT PASTEL THEME
 ══════════════════════════════════════════ */
 .mp-root {
-  --mp-bg-deep: #0f0c1b;
-  --mp-bg-card: #1a1430;
-  --mp-purple-neon: #9b5de5;
-  --mp-purple-mid: #7b2ff7;
-  --mp-purple-soft: #c77dff;
-  --mp-purple-glow: rgba(155, 93, 229, 0.45);
-  --mp-yellow: #ffd60a;
-  --mp-white: #f0eeff;
-  --mp-text-dim: #8b7ec8;
-  --mp-border: rgba(155, 93, 229, 0.35);
-  --mp-radius-xl: 22px;
-  --mp-radius-lg: 16px;
+  --mp-bg-deep: #e4dafb;
+  --mp-purple-neon: #8b5cf6;
+  --mp-purple-mid: #7c3aed;
+  --mp-purple-soft: #c084fc;
+  --mp-yellow: #ffb703;
+  --mp-white: #ffffff;
+  --mp-text-dim: #7f6eab;
+  --mp-border: #eae2fc;
+  --mp-radius-xl: 24px;
+  --mp-radius-lg: 18px;
 
   position: relative;
   display: flex;
@@ -21,241 +19,324 @@
   align-items: center;
   width: 100%;
   height: 100vh;
-  background: var(--mp-bg-deep);
-  color: var(--mp-white);
+  background: linear-gradient(180deg, #e4dafb 0%, #d5c8f8 100%);
+  color: #43317c;
   font-family: 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
   -webkit-font-smoothing: antialiased;
   padding: 0 10px 8px;
   overflow: hidden;
-  background-image:
-    radial-gradient(ellipse 80% 35% at 50% 0%, rgba(123, 47, 247, 0.22) 0%, transparent 65%),
-    radial-gradient(ellipse 50% 20% at 80% 100%, rgba(155, 93, 229, 0.12) 0%, transparent 60%);
 }
 
 /* ══════════════════════════════════════════
-   BACK BUTTON
-══════════════════════════════════════════ */
-.mp-back {
-  align-self: flex-start;
-  background: none;
-  border: 1px solid var(--mp-border);
-  border-radius: 10px;
-  color: var(--mp-text-dim);
-  font-size: 0.75rem;
-  padding: 4px 10px;
+   HEADER & LOGO (새로운 라이트 파스텔 매칭)
+ ══════════════════════════════════════════ */
+.mp-header {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  height: 72px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-top: 10px;
+  margin-bottom:14px;
+  flex-shrink: 0;
+}
+
+/* 닫기 & 설정 버튼 */
+.mp-btn-close,
+.mp-btn-settings {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #8b5cf6;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
-  margin-top: 6px;
-  transition: color 0.15s, border-color 0.15s;
+  z-index: 10;
+  transition: transform 0.2s, background 0.2s, border-color 0.2s;
+  box-shadow: 0 4px 10px rgba(124, 58, 237, 0.15);
 }
 
-.mp-back:hover {
-  color: var(--mp-white);
-  border-color: var(--mp-purple-soft);
+.mp-btn-close:hover,
+.mp-btn-settings:hover {
+  transform: scale(1.1);
+  background: #7c3aed;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.mp-header-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  z-index: 5;
+  margin-top: 4px;
+}
+
+/* AIPair 로고 */
+.mp-logo-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mp-logo-text {
+  font-family: 'Orbitron', 'Fira Code', 'Segoe UI', sans-serif;
+  font-size: 2.3rem;
+  font-weight: 900;
+  color: #ffb703; /* 노란색 */
+  letter-spacing: -1px;
+  text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.8),
+    2px 2px 0px #ffffff,
+    -2px -2px 0px #ffffff,
+    2px -2px 0px #ffffff,
+    -2px 2px 0px #ffffff;
+}
+
+.mp-logo-text span {
+  color: #8c7ae6; /* Pair 부분 연보라 */
+}
+
+.mp-logo-star {
+  position: absolute;
+  top: -14px;
+  right: -6px;
+  font-size: 1.25rem;
+  transform: rotate(15deg);
+  filter: drop-shadow(0 2px 4px rgba(255, 183, 3, 0.4));
+}
+
+.mp-header-badge {
+  background: linear-gradient(90deg, #7c3aed, #a855f7);
+  color: #ffffff;
+  border-radius: 99px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 16px;
+  margin-top: 4px;
+  box-shadow: 0 4px 10px rgba(124, 58, 237, 0.25);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+}
+
+/* 양측에 배치되는 귀여운 에이몬 캐릭터들 */
+.mp-header-char {
+  position: absolute;
+  bottom: -55px;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+}
+
+.mp-header-char.left {
+  left: 34px;
+  animation: mpFloatLeft 3s ease-in-out infinite;
+}
+
+.mp-header-char.right {
+  right: 34px;
+  animation: mpFloatRight 3.2s ease-in-out infinite;
+}
+
+/* 우측 슬라임은 필터를 통해 비유 배지 색상인 초록색으로 변경 */
+.mp-header-char.right.is-green img {
+  filter: hue-rotate(241deg) saturate(1.2) brightness(1.05) drop-shadow(0 4px 10px rgba(104, 211, 145, 0.45));
+}
+
+.mp-header-char img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(147, 51, 234, 0.3));
+}
+
+.mp-header-char.right img {
+  transform: scaleX(-1); /* 우측 에이몬은 좌우 반전 */
+}
+
+@keyframes mpFloatLeft {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(-2deg); }
+}
+
+@keyframes mpFloatRight {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-4px) rotate(2deg); }
 }
 
 /* ══════════════════════════════════════════
-   HERO
-══════════════════════════════════════════ */
-.mp-hero {
+   DASHBOARD & PROGRESS CONTAINER
+ ══════════════════════════════════════════ */
+.mp-dashboard-container {
   width: 100%;
   max-width: 520px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding-top: 4px;
-  padding-bottom: 2px;
-  position: relative;
+  margin-bottom: 8px;
   flex-shrink: 0;
 }
 
-.mp-hero::before {
-  content: '';
-  position: absolute;
-  width: 120px;
-  height: 40px;
-  background: radial-gradient(ellipse, rgba(123, 47, 247, 0.3) 0%, transparent 70%);
-  bottom: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  filter: blur(10px);
-  pointer-events: none;
-}
-
-.mp-hero-char {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-  position: relative;
-  z-index: 1;
-  cursor: pointer;
-  filter: drop-shadow(0 0 12px rgba(155, 93, 229, 0.8)) drop-shadow(0 0 24px rgba(123, 47, 247, 0.4));
-  animation: mpFloat 3.2s ease-in-out infinite;
-  transition: filter 0.2s;
-}
-
-.mp-hero-char:hover {
-  filter: drop-shadow(0 0 18px rgba(155, 93, 229, 1)) drop-shadow(0 0 36px rgba(123, 47, 247, 0.7));
-}
-
-.mp-char-hint {
-  font-size: 0.58rem;
-  color: var(--mp-text-dim);
-  margin-top: 2px;
-}
-
-@keyframes mpFloat {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-/* ══════════════════════════════════════════
-   DASHBOARD
-══════════════════════════════════════════ */
 .mp-dashboard {
   width: 100%;
   max-width: 520px;
-  background: rgba(26, 20, 48, 0.9);
-  border: 1.5px solid var(--mp-border);
-  border-radius: var(--mp-radius-lg);
+  background: #ffffff;
+  border: 2.5px solid #eae2fc;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.08);
   display: flex;
   align-items: center;
-  padding: 6px 10px;
-  margin: 5px 0 6px;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(155, 93, 229, 0.15);
-  flex-shrink: 0;
+  justify-content: space-between;
+  padding: 12px 18px;
+  margin-bottom: 4px;
 }
 
 .mp-dash-item {
   display: flex;
   align-items: center;
   gap: 8px;
-  flex: 1;
 }
 
 .mp-dash-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
+  font-size: 1.45rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.95rem;
-  flex-shrink: 0;
-}
-
-.mp-dash-icon.score-ico {
-  background: rgba(255, 214, 10, 0.15);
-}
-
-.mp-dash-icon.time-ico {
-  background: rgba(155, 93, 229, 0.2);
 }
 
 .mp-dash-info {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 
 .mp-dash-label {
-  font-size: 0.6rem;
-  font-weight: 600;
-  color: var(--mp-text-dim);
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #8e7ebd;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  line-height: 1;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
 }
 
 .mp-dash-val {
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: var(--mp-white);
-  line-height: 1.2;
-  font-variant-numeric: tabular-nums;
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #43317c;
+  line-height: 1;
 }
 
-.mp-dash-val.time-color {
-  color: #a0a0a0;    /* 회색 글씨로 변경 */
-  font-size: 0.9rem; /* 기존 1.05rem에서 줄임 */
-  opacity: 0.5;      /* 더 투명하게 설정 */
+.time-color {
+  color: #43317c;
 }
 
 .mp-dash-sep {
-  width: 1px;
-  height: 28px;
-  background: var(--mp-border);
-  margin: 0 8px;
-  flex-shrink: 0;
+  width: 2px;
+  height: 32px;
+  background-color: #eae2fc;
+  border-radius: 1px;
 }
 
-.mp-btn-restart {
-  background: linear-gradient(135deg, #7b2ff7 0%, #9b5de5 50%, #c77dff 100%);
+.mp-dash-progress-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 120px;
+}
+
+.mp-progress-info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #8e7ebd;
+  margin-bottom: 4px;
+}
+
+.mp-progress-wrap {
+  position: relative;
+  overflow: visible; /* 별 이모지가 바를 살짝 삐져나가게 허용 */
+  width: 100%;
+  background: #eae2fc;
+  height: 10px;
+  border-radius: 6px;
+}
+
+.mp-progress-fill {
+  background: linear-gradient(90deg, #8b5cf6 0%, #c084fc 100%);
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.3s ease-out;
+}
+
+.mp-progress-star {
+  position: absolute;
+  top: 50%;
+  right: -6px;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  z-index: 5;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 6px rgba(255, 183, 3, 0.7));
+}
+
+/* 대시보드 하단에 예쁘게 독립된 다시 시작 버튼 */
+.mp-btn-restart-outside {
+  background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
   border: none;
-  border-radius: 10px;
-  padding: 7px 12px;
-  color: #fff;
-  font-size: 0.78rem;
-  font-weight: 700;
+  border-radius: 12px;
+  padding: 6px 14px;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 800;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 5px;
-  white-space: nowrap;
-  flex-shrink: 0;
-  box-shadow: 0 0 14px rgba(155, 93, 229, 0.5);
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.25);
+  margin-top: 4px;
   transition: transform 0.15s, box-shadow 0.15s;
 }
 
-.mp-btn-restart:hover {
-  transform: translateY(-2px) scale(1.03);
+.mp-btn-restart-outside:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 18px rgba(139, 92, 246, 0.4);
 }
 
-.mp-btn-restart:active {
-  transform: scale(0.95);
+.mp-btn-restart-outside:active {
+  transform: translateY(0) scale(0.97);
 }
 
-/* ══════════════════════════════════════════
-   PROGRESS
-══════════════════════════════════════════ */
-.mp-progress-wrap {
-  width: 100%;
-  max-width: 520px;
-  height: 4px;
-  background: rgba(155, 93, 229, 0.15);
-  border-radius: 99px;
-  margin-bottom: 6px;
-  overflow: hidden;
-  flex-shrink: 0;
-}
 
-.mp-progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--mp-purple-mid), var(--mp-purple-soft));
-  border-radius: 99px;
-  transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 6px var(--mp-purple-glow);
-}
 
 /* ══════════════════════════════════════════
-   GRID
+   GRID (뒤판 패널 연출)
 ══════════════════════════════════════════ */
 .mp-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  gap: 6px;
+  gap: 10px;
   width: 100%;
   max-width: 520px;
   flex: 1;
   min-height: 0;
+  background: rgba(255, 255, 255, 0.45);
+  border: 2.5px solid #ffffff;
+  border-radius: 24px;
+  padding: 10px;
+  box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.4), 0 8px 24px rgba(124, 58, 237, 0.06);
 }
 
 /* ══════════════════════════════════════════
@@ -271,7 +352,7 @@
 
 .mp-card:hover:not(.flipped):not(.matched) .mp-card-inner {
   transform: translateY(-3px) scale(1.03);
-  filter: drop-shadow(0 0 10px rgba(155, 93, 229, 0.55));
+  filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.2));
 }
 
 .mp-card-inner {
@@ -346,9 +427,9 @@
 
 /* ── BACK ── */
 .mp-card-back {
-  background: linear-gradient(160deg, #1a1040 0%, #2d1b5e 55%, #1a1040 100%);
-  border: 1.5px solid rgba(155, 93, 229, 0.5);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(155, 93, 229, 0.2);
+  background: linear-gradient(135deg, #d8ccf9 0%, #c4b3f6 100%); /* 전체 화면 배경보다 아주 살짝 진한 보라색 그라데이션 */
+  border: 2px solid #ffffff;
+  box-shadow: 0 4px 10px rgba(124, 58, 237, 0.06);
   gap: 0;
 }
 
@@ -356,8 +437,8 @@
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(155, 93, 229, 0.22) 1px, transparent 1px);
-  background-size: 13px 13px;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.3) 1px, transparent 1px);
+  background-size: 14px 14px;
   border-radius: var(--mp-radius-lg);
   pointer-events: none;
 }
@@ -365,49 +446,40 @@
 .mp-spark {
   position: absolute;
   font-size: 0.5rem;
-  color: rgba(199, 125, 255, 0.55);
+  color: rgba(255, 255, 255, 0.6);
   line-height: 1;
   pointer-events: none;
   z-index: 2;
 }
 
-.mp-spark-tl {
-  top: 6px;
-  left: 7px;
-}
+.mp-spark-tl { top: 6px; left: 7px; }
+.mp-spark-tr { top: 6px; right: 7px; }
+.mp-spark-bl { bottom: 6px; left: 7px; }
+.mp-spark-br { bottom: 6px; right: 7px; }
 
-.mp-spark-tr {
-  top: 6px;
-  right: 7px;
-}
-
-.mp-spark-bl {
-  bottom: 6px;
-  left: 7px;
-}
-
-.mp-spark-br {
-  bottom: 6px;
-  right: 7px;
-}
-
-.mp-card-back-img {
-  width: 55%;
-  max-height: 60%;
-  object-fit: contain;
-  position: relative;
-  z-index: 1;
-  filter: drop-shadow(0 4px 12px rgba(123, 47, 247, 0.65));
+.mp-card-back-star {
+  font-size: 3.2rem; /* 카드 중앙 거대 별 크기 */
+  color: #b7aae4;    /* 카드 배경보다 약간 더 차분하고 어두운 연보라 별 */
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
+  user-select: none;
 }
 
 /* ── FRONT ── */
 .mp-card-front {
-  background: #f4f0ff;
-  border: 1.5px solid rgba(155, 93, 229, 0.25);
+  background: #ffffff;
+  border: 2px solid #eae2fc;
   transform: rotateY(180deg);
   padding: 5px 5px 4px;
   justify-content: flex-start;
   gap: 0;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+/* 뒤집혔을 때 전면에 노란색/금색 테두리 글로우 효과 */
+.mp-card.flipped .mp-card-front {
+  border: 2.2px solid #ffb703;
+  box-shadow: 0 0 14px rgba(255, 183, 3, 0.45);
 }
 
 .mp-card-badge {
@@ -423,12 +495,12 @@
 }
 
 .badge-concept {
-  background: #7b2ff7;
+  background: #b794f4;
   color: #fff;
 }
 
 .badge-analogy {
-  background: #ff6b35;
+  background: #68d391;
   color: #fff;
 }
 
