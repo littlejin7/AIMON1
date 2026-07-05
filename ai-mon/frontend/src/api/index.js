@@ -141,6 +141,18 @@ export const gameApi = {
   clearGame: (data)   => api.post('/game/clear', data),
   ranking:        (limit = 3) => api.get('/game/ranking',         { params: { limit } }),
   rankingByGame:  (limit = 3) => api.get('/game/ranking/by-game', { params: { limit } }),
+
+  // aicross 전용 helper. 서버가 정답 필드 없는 public puzzle 을 내려주고(start),
+  // clear 시 answers 를 서버에서 재채점한다(entry/cell 단위 모두 지원).
+  startAicross: () => api.post('/game/start', { game_id: 'aicross' }),
+  clearAicross: ({ gameToken, puzzleId, answers, score = 0 }) =>
+    api.post('/game/clear', {
+      game_id: 'aicross',
+      game_token: gameToken,
+      puzzle_id: puzzleId,
+      answers,
+      score,
+    }),
 }
 
 export const missionApi = {

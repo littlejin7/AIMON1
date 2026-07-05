@@ -10,7 +10,7 @@ function ClueColumn({ icon, heading, words, selectedId, onSelect }) {
           className={`aicross-clue-item${selectedId === w.id ? ' is-active' : ''}`}
           onClick={() => onSelect(w.id)}
         >
-          <b>{w.num}</b> {w.clue} ({w.word.length})
+          <b>{w.num}</b> {w.clue} ({w.length})
         </div>
       ))}
     </div>
