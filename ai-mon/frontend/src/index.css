@@ -63,10 +63,12 @@
   --radius-full: 9999px;
 
   /* Shadows */
-  --shadow-glow-primary: 0 0 24px rgba(127,119,221,0.25);
-  --shadow-glow-cyan:    0 0 24px rgba(6,182,212,0.2);
-  --shadow-glow-boss:    0 0 32px rgba(239, 68, 68, 0.45);
-  --shadow-card:         0 2px 12px rgba(0,0,0,0.08);
+  --shadow-glow-primary: 0 0 20px rgba(127,119,221,0.16);
+  --shadow-glow-cyan:    0 0 20px rgba(6,182,212,0.14);
+  --shadow-glow-boss:    0 0 24px rgba(239, 68, 68, 0.28);
+  --shadow-card:         0 12px 32px rgba(26,26,46,0.08);
+  --shadow-control:      0 0 0 1px rgba(83,74,183,0.10);
+  --shadow-control-hover:0 0 0 3px rgba(127,119,221,0.10);
 
   /* Transitions */
   --transition-fast:   150ms ease;
@@ -92,8 +94,8 @@
   /* 형태 토큰 (테마 무관, :root 공유) */
   --radius-blob: 46% 54% 57% 43% / 52% 46% 54% 48%;
   --glass-blur:  16px;
-  --bevel-top:   inset 0 1px 0 rgba(255,255,255,0.10);
-  --bevel-bottom:inset 0 -2px 6px rgba(0,0,0,0.35);
+  --bevel-top:   inset 0 0 0 rgba(255,255,255,0);
+  --bevel-bottom:inset 0 0 0 rgba(26,26,46,0);
 }
 
 
@@ -182,54 +184,71 @@ input, textarea, select { font: inherit; }
   justify-content: center;
   gap: var(--sp-2);
   padding: var(--sp-3) var(--sp-6);
-  border-radius: var(--radius-full);   /* chunky clay pill */
+  border: 1px solid rgba(83,74,183,0.12);
+  border-radius: var(--radius-full);
   font-weight: 700;
   font-size: var(--font-size-md);
-  transition: all var(--transition-normal);
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
   position: relative;
   overflow: hidden;
   white-space: nowrap;
-  box-shadow: var(--bevel-top), var(--bevel-bottom);
+  background: rgba(255,255,255,0.86);
+  box-shadow: var(--shadow-control);
 }
 
 .btn::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(255,255,255,0.08);
+  background: linear-gradient(180deg, rgba(255,255,255,0.18), transparent);
   opacity: 0;
   transition: opacity var(--transition-fast);
+  pointer-events: none;
 }
 
+.btn:hover {
+  border-color: rgba(83,74,183,0.22);
+  box-shadow: var(--shadow-control-hover);
+  transform: none;
+}
 .btn:hover::after { opacity: 1; }
-.btn:active { transform: scale(0.97); }
+.btn:active { transform: translateY(0) scale(0.99); }
 
 .btn-primary {
   background: var(--grad-primary);
   color: #fff;
-  box-shadow: var(--shadow-glow-primary), var(--bevel-top), var(--bevel-bottom);
+  border-color: rgba(255,255,255,0.22);
+  box-shadow: 0 0 0 1px rgba(127,119,221,0.14);
 }
-.btn-primary:hover { box-shadow: 0 0 36px var(--clr-gold-glow), var(--bevel-top); }
+.btn-primary:hover {
+  box-shadow: 0 0 0 3px rgba(127,119,221,0.14);
+}
 
 .btn-secondary {
-  background: transparent;
-  border: 1.5px solid var(--clr-primary);
-  color: var(--clr-primary-lt);
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(83,74,183,0.22);
+  color: var(--clr-primary-dk);
 }
-.btn-secondary:hover { background: rgba(124,58,237,0.12); }
+.btn-secondary:hover { background: rgba(127,119,221,0.08); }
 
 .btn-danger {
   background: var(--grad-boss);
   color: #fff;
-  box-shadow: var(--shadow-glow-boss);
+  border-color: rgba(255,255,255,0.22);
+  box-shadow: 0 0 0 1px rgba(239,68,68,0.14);
 }
 
 .btn-ghost {
-  background: rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.7);
   color: var(--clr-text-muted);
   border: 1px solid var(--clr-border);
 }
-.btn-ghost:hover { background: rgba(255,255,255,0.1); color: var(--clr-text); }
+.btn-ghost:hover { background: #fff; color: var(--clr-text); }
 
 .btn-sm { padding: var(--sp-2) var(--sp-4); font-size: var(--font-size-sm); }
 .btn-lg { padding: var(--sp-4) var(--sp-8); font-size: var(--font-size-lg); }
@@ -434,31 +453,22 @@ input, textarea, select { font: inherit; }
   clip: rect(0,0,0,0); border: 0;
 }
 /* =============================================
-   Global 3D Button Effect
-   모든 <button>, a.btn류, input[type=button/submit] 요소에
-   "눌리는" 입체감(양각 → 클릭 시 침몰)을 부여.
-   컴포넌트별 CSS의 box-shadow/transform을 덮어써야 하므로 !important 사용.
-   ※ AUTH(로그인/회원가입/아이디·비번찾기) 영역은 자체 디자인을 그대로 쓰도록
-     :not(.auth-page *) 로 제외 — 그 안의 큰 버튼(.auth-btn-main, .reg-btn-primary)은
-     원래부터 자체 3D 베벨(offset shadow + 눌림 효과)이 있어서 그대로 3D로 보임.
-   ※ 단순 텍스트 링크 버튼(밑줄만 있고 배경/테두리 없는 <button>)은 .text-link-btn
-     클래스를 붙여 3D 효과에서 제외한다. (예: 홈 화면 "회원가입 | 로그인" 링크)
+   Global Flat Button Effect
+   버튼은 그림자로 띄우지 않고, 얇은 라인과 가벼운 포커스 링만 사용한다.
+   컴포넌트 CSS에 남은 강한 shadow를 확실히 덮기 위해 !important 사용.
    ============================================= */
 button:not(:disabled):not(.auth-page *):not(.text-link-btn):not(.no-3d),
 a[class*="btn" i]:not([aria-disabled="true"]):not(.auth-page *):not(.text-link-btn):not(.no-3d),
 input[type="button"]:not(:disabled):not(.auth-page *):not(.text-link-btn):not(.no-3d),
 input[type="submit"]:not(:disabled):not(.auth-page *):not(.text-link-btn):not(.no-3d),
 [role="button"]:not([aria-disabled="true"]):not(.auth-page *):not(.text-link-btn):not(.no-3d) {
-  transform: translateY(0) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.35),
-    inset 0 -3px 4px rgba(0,0,0,0.15),
-    0 4px 0 rgba(0,0,0,0.20),
-    0 8px 14px rgba(0,0,0,0.20) !important;
+  transform: none !important;
+  box-shadow: 0 0 0 1px rgba(83,74,183,0.10) !important;
   transition:
-    transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.12s ease,
+    border-color 0.12s ease,
     box-shadow 0.12s ease !important;
-  will-change: transform, box-shadow;
+  will-change: box-shadow;
 }
 
 button:not(:disabled):not(.auth-page *):not(.text-link-btn):not(.no-3d):hover,
@@ -466,12 +476,8 @@ a[class*="btn" i]:not([aria-disabled="true"]):not(.auth-page *):not(.text-link-b
 input[type="button"]:not(:disabled):not(.auth-page *):not(.text-link-btn):not(.no-3d):hover,
 input[type="submit"]:not(:disabled):not(.auth-page *):not(.text-link-btn):not(.no-3d):hover,
 [role="button"]:not([aria-disabled="true"]):not(.auth-page *):not(.text-link-btn):not(.no-3d):hover {
-  transform: translateY(-3px) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.4),
-    inset 0 -3px 4px rgba(0,0,0,0.15),
-    0 7px 0 rgba(0,0,0,0.22),
-    0 14px 20px rgba(0,0,0,0.25) !important;
+  transform: none !important;
+  box-shadow: 0 0 0 3px rgba(127,119,221,0.12) !important;
 }
 
 button:not(:disabled):not(.auth-page *):not(.text-link-btn):not(.no-3d):active,
@@ -479,12 +485,8 @@ a[class*="btn" i]:not([aria-disabled="true"]):not(.auth-page *):not(.text-link-b
 input[type="button"]:not(:disabled):not(.auth-page *):not(.text-link-btn):not(.no-3d):active,
 input[type="submit"]:not(:disabled):not(.auth-page *):not(.text-link-btn):not(.no-3d):active,
 [role="button"]:not([aria-disabled="true"]):not(.auth-page *):not(.text-link-btn):not(.no-3d):active {
-  transform: translateY(3px) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.25),
-    inset 0 -1px 2px rgba(0,0,0,0.15),
-    0 1px 0 rgba(0,0,0,0.18),
-    0 2px 4px rgba(0,0,0,0.15) !important;
+  transform: none !important;
+  box-shadow: 0 0 0 2px rgba(127,119,221,0.16) !important;
 }
 
 button:disabled:not(.auth-page *):not(.text-link-btn):not(.no-3d),
@@ -493,7 +495,7 @@ input[type="button"]:disabled:not(.auth-page *):not(.text-link-btn):not(.no-3d),
 input[type="submit"]:disabled:not(.auth-page *):not(.text-link-btn):not(.no-3d),
 [role="button"][aria-disabled="true"]:not(.auth-page *):not(.text-link-btn):not(.no-3d) {
   transform: none !important;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.15) !important;
+  box-shadow: none !important;
   opacity: 0.55;
   cursor: not-allowed !important;
 }
@@ -513,6 +515,130 @@ input[type="submit"]:disabled:not(.auth-page *):not(.text-link-btn):not(.no-3d),
    제외했으므로, 여기서는 기본 상태만 방어적으로 리셋하고 hover/active는
    컴포넌트 자체 CSS(있다면)가 정상 동작하도록 건드리지 않는다. */
 .no-3d {
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* Hard reset for app button-like controls: no raised shadow, no 3D motion. */
+.btn,
+.auth-btn-main,
+.reg-btn-primary,
+.reg-check-dup-btn,
+.st-modal-btn,
+.st-back-btn,
+.st-save-btn,
+.st-mute-btn,
+.st-vol-btn,
+.st-logout-btn,
+.st-delete-btn,
+.char-hero-settings,
+.char-option,
+.char-save-btn,
+.char-logout-btn,
+.char-title-equip-btn,
+.char-swatch,
+.char-effect,
+.tr-today-card,
+.tr-today-btn,
+.tr-mode-card,
+.tr-level-chip,
+.tr-unit-btn,
+.tr-go-btn,
+.btp-back-btn,
+.btp-card,
+.hd-cta-btn,
+.hd-room-tool,
+.hd-room-action-btn,
+.hd-modal-close,
+.hd-shop-row-btn,
+.hd-shop-buy-btn {
+  box-shadow: 0 0 0 1px rgba(83,74,183,0.10) !important;
+  transform: none !important;
+}
+
+.btn:hover,
+.auth-btn-main:hover,
+.reg-btn-primary:hover,
+.reg-check-dup-btn:hover,
+.st-modal-btn:hover,
+.st-back-btn:hover,
+.st-save-btn:not(:disabled):hover,
+.st-mute-btn:hover,
+.st-vol-btn:hover,
+.st-logout-btn:hover,
+.st-delete-btn:hover,
+.char-hero-settings:hover,
+.char-option:not(.locked):hover,
+.char-save-btn:not(:disabled):hover,
+.char-logout-btn:hover,
+.char-title-row:not(.locked):hover .char-title-equip-btn,
+.char-swatch:not(.locked):hover,
+.char-effect:not(.locked):hover,
+.tr-today-card:hover,
+.tr-today-btn:not(:disabled):hover,
+.tr-mode-card:not(.tr-mode-locked):hover,
+.tr-level-chip:not(.locked):hover,
+.tr-unit-btn:not(:disabled):hover,
+.tr-go-btn:hover,
+.btp-back-btn:hover,
+.btp-card:not(.btp-locked):hover,
+.hd-cta-btn:hover,
+.hd-room-tool:hover:not(:disabled),
+.hd-room-action-btn:hover,
+.hd-modal-close:hover,
+.hd-shop-row-btn:hover,
+.hd-shop-buy-btn:hover:not(:disabled) {
+  box-shadow: 0 0 0 3px rgba(127,119,221,0.12) !important;
+  transform: none !important;
+}
+
+.btn:active,
+.auth-btn-main:active,
+.reg-btn-primary:active,
+.reg-check-dup-btn:active,
+.st-modal-btn:active,
+.st-back-btn:active,
+.st-save-btn:not(:disabled):active,
+.st-mute-btn:active,
+.st-vol-btn:active,
+.st-logout-btn:active,
+.st-delete-btn:active,
+.char-hero-settings:active,
+.char-option:not(.locked):active,
+.char-save-btn:not(:disabled):active,
+.char-logout-btn:active,
+.char-title-row:not(.locked):active .char-title-equip-btn,
+.char-swatch:not(.locked):active,
+.char-effect:not(.locked):active,
+.tr-today-card:active,
+.tr-today-btn:not(:disabled):active,
+.tr-mode-card:not(.tr-mode-locked):active,
+.tr-level-chip:not(.locked):active,
+.tr-unit-btn:not(:disabled):active,
+.tr-go-btn:active,
+.btp-back-btn:active,
+.btp-card:not(.btp-locked):active,
+.hd-cta-btn:active,
+.hd-room-tool:active:not(:disabled),
+.hd-room-action-btn:active,
+.hd-modal-close:active,
+.hd-shop-row-btn:active,
+.hd-shop-buy-btn:active:not(:disabled) {
+  box-shadow: 0 0 0 2px rgba(127,119,221,0.16) !important;
+  transform: none !important;
+}
+
+.btn:disabled,
+.auth-btn-main:disabled,
+.reg-btn-primary:disabled,
+.reg-check-dup-btn:disabled,
+.st-modal-btn:disabled,
+.st-save-btn:disabled,
+.st-delete-btn:disabled,
+.char-save-btn:disabled,
+.tr-today-btn:disabled,
+.hd-room-tool:disabled,
+.hd-shop-buy-btn:disabled {
   box-shadow: none !important;
   transform: none !important;
 }
