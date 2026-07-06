@@ -148,7 +148,7 @@ export default function Register() {
   }
 
   const handleEmailIdChange = (e) => {
-    const val = e.target.value
+    const val = e.target.value.toLowerCase()
     setEmailId(val)
     updateEmail(val, emailDomain, customDomain)
   }
@@ -160,7 +160,7 @@ export default function Register() {
   }
 
   const handleCustomDomainChange = (e) => {
-    const val = e.target.value
+    const val = e.target.value.toLowerCase()
     setCustomDomain(val)
     updateEmail(emailId, emailDomain, val)
   }
