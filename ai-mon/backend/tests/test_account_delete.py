@@ -27,6 +27,7 @@ sys.path.insert(0, BACKEND)
 
 os.environ.setdefault("SECRET_KEY", "test-secret-key-at-least-32-characters-long-xx")
 os.environ.setdefault("USE_SUPABASE", "false")
+os.environ.setdefault("EMAIL_ENABLED", "false")
 
 from fastapi import FastAPI
 from starlette.testclient import TestClient
@@ -49,6 +50,7 @@ def ctx(tmp_path, monkeypatch):
     """격리된 tmp 파일 스토리지 + 레이트리밋 우회 + TestClient."""
     monkeypatch.setattr(U, "USERS_FILE",          str(tmp_path / "users.json"))
     monkeypatch.setattr(U, "REFRESH_TOKENS_FILE", str(tmp_path / "refresh_tokens.json"))
+    monkeypatch.setenv("EMAIL_ENABLED", "false")
     # limiter.enabled=False: 미들웨어·데코레이터 래퍼 양쪽 모두 rate limit 코드 건너뜀
     # (_check_request_limit 패치는 view_rate_limit 미설정 → AttributeError 500 유발)
     monkeypatch.setattr(limiter, "enabled", False)
@@ -262,6 +264,7 @@ async def test_delete_me_no_body_asgi(tmp_path, monkeypatch):
     """
     monkeypatch.setattr(U, "USERS_FILE",          str(tmp_path / "users.json"))
     monkeypatch.setattr(U, "REFRESH_TOKENS_FILE", str(tmp_path / "refresh_tokens.json"))
+    monkeypatch.setenv("EMAIL_ENABLED", "false")
     monkeypatch.setattr(limiter, "enabled", False)
 
     app = _make_app()
