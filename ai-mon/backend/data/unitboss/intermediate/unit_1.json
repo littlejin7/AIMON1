@@ -102,7 +102,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\ndef check_level(level):\n    if level < 1:\n        raise ValueError(\"레벨은 1 이상이어야 합니다\")\n    return level\n```\n\n```python\ntry:\n    result = check_level(0)\nexcept ValueError as e:\n    print(f\"오류: {e}\")\n```",
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\ndef check_level(level):\n    if level < 1:\n        raise ValueError(\"레벨은 1 이상이어야 합니다\")\n    return level\n\ntry:\n    result = check_level(0)\nexcept ValueError as e:\n    print(f\"오류: {e}\")\n```",
       "choices": [
         "A. 오류: level < 1",
         "B. 오류: 레벨은 1 이상이어야 합니다",

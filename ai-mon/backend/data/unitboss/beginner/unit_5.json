@@ -175,7 +175,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "기존 파일 데이터를 보존 유지하면서 꼬리 공간에 새 기록을 덧붙여 밀어내는 추가 모드 연산 코드입니다. 최종 로드 출력 결과물은?\n\n[saved.txt 기존 파일 잔존 내용] 로봇\n\n```python\nwith open(\"saved.txt\", \"a\") as file:\n    file.write(\"고스트\")\n```\n\n```python\nwith open(\"saved.txt\", \"r\") as file:\n    print(file.read())\n```",
+      "question": "기존 파일 데이터를 보존 유지하면서 꼬리 공간에 새 기록을 덧붙여 밀어내는 추가 모드 연산 코드입니다. 최종 로드 출력 결과물은?\n\n[saved.txt 기존 파일 잔존 내용] 로봇\n\n```python\nwith open(\"saved.txt\", \"a\") as file:\n    file.write(\"고스트\")\n\nwith open(\"saved.txt\", \"r\") as file:\n    print(file.read())\n```",
       "choices": [
         "A. 로봇",
         "B. 고스트",

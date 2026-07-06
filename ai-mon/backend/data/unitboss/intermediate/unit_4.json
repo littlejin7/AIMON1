@@ -9,7 +9,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\nclass Hero:\n    def __init__(self, name):\n        self.name = name\n```\n\n```python\nhero = Hero(\"에이몬\")\nprint(hero.name)\n```",
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\nclass Hero:\n    def __init__(self, name):\n        self.name = name\n\nhero = Hero(\"에이몬\")\nprint(hero.name)\n```",
       "choices": [
         "A. Hero",
         "B. name",

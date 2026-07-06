@@ -92,7 +92,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\n```python\ndef add(a, b):\n    return a + b\n```\n\n```python\nresult = add(3, 4) + add(1, 2)\nprint(result)\n```",
+      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\n```python\ndef add(a, b):\n    return a + b\n\nresult = add(3, 4) + add(1, 2)\nprint(result)\n```",
       "choices": [
         "A. 7",
         "B. 34",
@@ -113,7 +113,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\n```python\ndef check_score(score):\n    if score >= 90:\n        return \"S등급\"\n    elif score >= 70:\n        return \"A등급\"\n    return \"재도전\"\n```\n\n```python\nprint(check_score(85))\nprint(check_score(50))\n```",
+      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\n```python\ndef check_score(score):\n    if score >= 90:\n        return \"S등급\"\n    elif score >= 70:\n        return \"A등급\"\n    return \"재도전\"\n\nprint(check_score(85))\nprint(check_score(50))\n```",
       "choices": [
         "A. S등급\n재도전",
         "B. A등급\nA등급",
@@ -176,7 +176,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\n```python\ndef make_greeting(prefix=\"안녕\"):\n    def build(name):\n        return prefix + \", \" + name + \"!\"\n    return build\n```\n\n```python\nhello = make_greeting()\nprint(hello(\"에이몬\"))\n```",
+      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\n```python\ndef make_greeting(prefix=\"안녕\"):\n    def build(name):\n        return prefix + \", \" + name + \"!\"\n    return build\n\nhello = make_greeting()\nprint(hello(\"에이몬\"))\n```",
       "choices": [
         "A. 오류 발생",
         "B. 안녕, 에이몬!",
@@ -197,7 +197,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\n```python\ndef apply(func, value):\n    return func(value)\n```\n\n```python\ndef double(n):\n    return n * 2\n```\n\n```python\ndef square(n):\n    return n * n\n```\n\n```python\nprint(apply(double, 3))\nprint(apply(square, apply(double, 2)))\n```",
+      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\n```python\ndef apply(func, value):\n    return func(value)\n\ndef double(n):\n    return n * 2\n\ndef square(n):\n    return n * n\n\nprint(apply(double, 3))\nprint(apply(square, apply(double, 2)))\n```",
       "choices": [
         "A. 6\n8",
         "B. 6\n16",

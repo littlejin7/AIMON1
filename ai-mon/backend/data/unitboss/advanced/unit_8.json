@@ -158,7 +158,7 @@
       "type": "code_input",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "도구 레지스트리에서 이름으로 함수를 찾아 실행하는 한 줄을 완성하세요.\n\n```python\ntools = {\n    \"add\": lambda a, b: a + b,\n    \"multiply\": lambda a, b: a * b\n```\n}\n\n```python\ndef run_tool(name, **kwargs):\n    return _______\n```\n\n```python\nprint(run_tool(\"add\", a=3, b=4))  # 7\n```",
+      "question": "도구 레지스트리에서 이름으로 함수를 찾아 실행하는 한 줄을 완성하세요.\n\n```python\ntools = {\n    \"add\": lambda a, b: a + b,\n    \"multiply\": lambda a, b: a * b\n}\n\ndef run_tool(name, **kwargs):\n    return _______\n\nprint(run_tool(\"add\", a=3, b=4))  # 7\n```",
       "choices": [],
       "answer": "tools[name](**kwargs)",
       "hint": "레지스트리에서 name으로 함수를 꺼내 kwargs를 언패킹해 호출하세요.",

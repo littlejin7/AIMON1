@@ -31,7 +31,7 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "개수에 상관없이 여러 개의 위치 인자를 받는 함수를 만들려고 합니다. 빈칸에 들어갈 매개변수 표현은?\n\n```python\ndef total_damage(_______):\n    return sum(damages)\n```\n\n```python\nprint(total_damage(30, 50, 20))  # 100\n```",
+      "question": "개수에 상관없이 여러 개의 위치 인자를 받는 함수를 만들려고 합니다. 빈칸에 들어갈 매개변수 표현은?\n\n```python\ndef total_damage(_______):\n    return sum(damages)\n\nprint(total_damage(30, 50, 20))  # 100\n```",
       "choices": [],
       "answer": "*damages",
       "hint": "여러 위치 인자를 튜플로 묶어 받을 때 앞에 *을 붙여요.",
@@ -142,7 +142,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\ndef apply(func, value):\n    return func(value)\n```\n\n```python\nresult = apply(lambda x: x ** 2, 5)\nprint(result)\n```",
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\ndef apply(func, value):\n    return func(value)\n\nresult = apply(lambda x: x ** 2, 5)\nprint(result)\n```",
       "choices": [
         "A. 5",
         "B. 10",
