@@ -180,6 +180,69 @@ export const WORD_SETS = [
     { id: 'output',    word: 'OUTPUT',    clue: '함수나 프로그램이 실행 결과로 내보내는 값' },
     { id: 'define',    word: 'DEFINE',    clue: '함수나 변수를 선언하여 이름과 기능을 지정하는 것' },
   ],
+  // [Set 21] 가상환경 & 패키지 관리
+  [
+    { id: 'venv',         word: 'VENV',         clue: '프로젝트별로 독립된 파이썬 실행 환경을 만드는 표준 모듈 — python -m venv' },
+    { id: 'activate',     word: 'ACTIVATE',     clue: '가상환경을 켜서 사용 가능하게 만드는 명령' },
+    { id: 'deactivate',   word: 'DEACTIVATE',   clue: '가상환경에서 빠져나와 원래 환경으로 돌아가는 명령어' },
+    { id: 'pip',          word: 'PIP',          clue: 'PyPI에서 패키지를 찾아 설치·삭제해주는 파이썬 패키지 관리 도구' },
+    { id: 'freeze',       word: 'FREEZE',       clue: '현재 설치된 패키지와 버전을 파일로 저장하는 명령 — pip freeze' },
+    { id: 'requirements', word: 'REQUIREMENTS', clue: '설치할 패키지 목록을 적어두는 파일 — requirements.txt' },
+  ],
+  // [Set 22] 튜플 심화 & 패킹·언패킹
+  [
+    { id: 'unpack',    word: 'UNPACK',    clue: '튜플이나 리스트의 값을 여러 변수에 나눠 담는 것 — a, b = 1, 2' },
+    { id: 'packing',   word: 'PACKING',   clue: '괄호 없이 쉼표로 값을 나열해 하나의 튜플로 자동으로 묶는 것' },
+    { id: 'immutable', word: 'IMMUTABLE', clue: '한 번 만들면 값을 바꿀 수 없는 성질 — 튜플과 문자열의 특징' },
+    { id: 'mutable',   word: 'MUTABLE',   clue: '생성한 뒤에도 값을 바꿀 수 있는 성질 — 리스트의 특징' },
+    { id: 'asterisk',  word: 'ASTERISK',  clue: '언패킹 시 나머지 값을 리스트로 한 번에 받을 때 쓰는 별표 기호 * 의 이름' },
+    { id: 'identity',  word: 'IDENTITY',  clue: '값이 아니라 객체 자체가 같은지 비교하는 성질 — is 연산자로 확인' },
+  ],
+  // [Set 23] 함수 심화 — 람다·가변인자·재귀·고차함수
+  [
+    { id: 'args',      word: 'ARGS',      clue: '함수에서 개수가 정해지지 않은 위치 인자를 튜플로 받는 문법 — *args' },
+    { id: 'kwargs',    word: 'KWARGS',    clue: '함수에서 이름=값 형태의 가변 인자를 딕셔너리로 받는 문법 — **kwargs' },
+    { id: 'anonymous', word: 'ANONYMOUS', clue: '이름 없이 정의하는 함수를 뜻하는 용어 — lambda가 대표적인 예' },
+    { id: 'factorial', word: 'FACTORIAL', clue: '재귀 함수의 대표 예제 — n부터 1까지 곱하는 계산, 5! = 120' },
+    { id: 'iterable',  word: 'ITERABLE',  clue: 'for문으로 반복 가능한 객체의 성질 — 리스트, 문자열 등이 해당' },
+    { id: 'map',       word: 'MAP',       clue: '리스트의 모든 요소에 함수를 하나씩 적용하는 고차 함수' },
+  ],
+  // [Set 24] Streamlit 챗봇
+  [
+    { id: 'widget',   word: 'WIDGET',   clue: '화면에 입력 요소를 만드는 Streamlit 구성요소 — 버튼, 슬라이더 등' },
+    { id: 'sidebar',  word: 'SIDEBAR',  clue: '화면 좌측에 별도 영역을 만드는 레이아웃 요소 — st.sidebar' },
+    { id: 'session',  word: 'SESSION',  clue: '새로고침해도 값을 유지시켜주는 상태 저장 객체 — st.session_state' },
+    { id: 'cache',    word: 'CACHE',    clue: '함수 반환값이나 리소스를 저장해 재실행 속도를 높이는 데코레이터 — @st.cache_data' },
+    { id: 'secrets',  word: 'SECRETS',  clue: 'API 키 같은 민감한 값을 안전하게 저장·관리하는 설정 파일 — secrets.toml' },
+    { id: 'rerun',    word: 'RERUN',    clue: '위젯 값이 바뀔 때마다 스크립트를 처음부터 다시 실행하는 Streamlit의 동작 방식' },
+  ],
+  // [Set 25] LangChain & RAG
+  [
+    { id: 'retriever',   word: 'RETRIEVER',   clue: '질문과 관련된 문서를 벡터 스토어에서 찾아오는 LangChain 구성요소' },
+    { id: 'embedding',   word: 'EMBEDDING',   clue: '텍스트를 고차원 숫자 벡터로 변환하는 과정 — 의미가 비슷할수록 벡터가 가까움' },
+    { id: 'vectorstore', word: 'VECTORSTORE', clue: '임베딩된 문서를 저장하고 유사도 검색을 수행하는 저장소 — FAISS 등' },
+    { id: 'chunk',       word: 'CHUNK',       clue: '긴 문서를 작은 조각으로 나누는 것 — RAG의 전처리 과정' },
+    { id: 'rag',         word: 'RAG',         clue: '검색으로 찾은 문서를 참고해 LLM이 답변을 생성하는 방식의 줄임말' },
+    { id: 'lcel',        word: 'LCEL',        clue: '파이프 연산자(|)로 프롬프트·모델·파서를 연결하는 LangChain의 표현식 언어' },
+  ],
+  // [Set 26] AI 에이전트 & Tool Use
+  [
+    { id: 'register',  word: 'REGISTER',  clue: '도구명과 실행 함수를 매핑해 관리하는 레지스트리에 도구를 등록하는 것' },
+    { id: 'tooluse',   word: 'TOOLUSE',   clue: 'Claude가 도구 호출이 필요할 때 반환하는 stop_reason 값 — tool_use' },
+    { id: 'retry',     word: 'RETRY',     clue: '일시적인 오류가 발생했을 때 같은 작업을 다시 시도하는 안전장치' },
+    { id: 'iteration', word: 'ITERATION', clue: '에이전트 루프가 도구 호출과 결과 전달을 반복하는 한 번의 주기' },
+    { id: 'validate',  word: 'VALIDATE',  clue: '도구에 인자를 전달하기 전 필요한 값이 모두 있는지 검증하는 것' },
+    { id: 'endturn',   word: 'ENDTURN',   clue: 'Claude가 더 이상 도구가 필요 없어 최종 답변을 마쳤다는 stop_reason 값' },
+  ],
+  // [Set 27] FastAPI & 웹 프로젝트
+  [
+    { id: 'route',      word: 'ROUTE',      clue: '특정 URL 경로에 대한 처리를 연결하는 FastAPI 엔드포인트 — @app.get()' },
+    { id: 'uvicorn',    word: 'UVICORN',    clue: 'FastAPI로 만든 앱을 실행시키는 ASGI 서버' },
+    { id: 'middleware', word: 'MIDDLEWARE', clue: '요청과 응답 사이에 공통 처리를 끼워 넣는 계층 — CORSMiddleware 등' },
+    { id: 'cors',       word: 'CORS',       clue: '다른 출처(origin)의 요청을 허용할지 결정하는 브라우저 보안 정책' },
+    { id: 'database',   word: 'DATABASE',   clue: '데이터를 구조적으로 저장하고 관리하는 저장소 — SQLAlchemy로 연동' },
+    { id: 'orm',        word: 'ORM',        clue: '데이터베이스 테이블을 파이썬 클래스처럼 다루게 해주는 기술 — Object Relational Mapper' },
+  ],
 ]
 
 export const SET_NAMES = [
@@ -190,4 +253,7 @@ export const SET_NAMES = [
   '파일 처리', '딕셔너리 심화', 'OOP 심화',
   '비동기 & 고급 문법', 'LLM & AI 기초', '데이터 & API 심화',
   '연산자 & 조건', '함수 & 실행 구조',
+  '가상환경 & 패키지 관리', '튜플 심화 & 패킹-언패킹', '함수 심화 — 람다·가변인자·재귀',
+  'Streamlit 챗봇', 'LangChain & RAG', 'AI 에이전트 & Tool Use',
+  'FastAPI & 웹 프로젝트',
 ]

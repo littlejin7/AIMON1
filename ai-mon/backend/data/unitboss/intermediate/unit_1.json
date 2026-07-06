@@ -124,7 +124,7 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "커스텀 예외 클래스를 만들려고 합니다. 빈칸에 들어갈 알맞은 클래스 이름은?\n\nclass BossDefeatError(_________):\n    pass\n\n```python\ntry:\n    raise BossDefeatError(\"보스에게 패배했습니다\")\nexcept BossDefeatError as e:\n    print(e)\n```",
+      "question": "커스텀 예외 클래스를 만들려고 합니다. 빈칸에 들어갈 알맞은 클래스 이름은?\n\n```python\nclass BossDefeatError(_________):\n    pass\n\ntry:\n    raise BossDefeatError(\"보스에게 패배했습니다\")\nexcept BossDefeatError as e:\n    print(e)\n```",
       "choices": [],
       "answer": "Exception",
       "hint": "파이썬에서 모든 일반 예외의 기반이 되는 최상위 예외 클래스 이름이에요.",

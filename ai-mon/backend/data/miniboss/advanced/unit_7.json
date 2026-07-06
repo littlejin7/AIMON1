@@ -168,7 +168,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "동기 엔드포인트에는 Anthropic(), 비동기 엔드포인트에는 AsyncAnthropic()을 사용합니다.\n아래 코드에서 GET /client-type 요청 시 응답으로 올바른 것을 골라보세요.\n\n```python\nfrom fastapi import FastAPI\nfrom anthropic import Anthropic\n```\n\n```python\napp = FastAPI()\nclient = Anthropic()\n```\n\n```python\n@app.get(\"/client-type\")\ndef get_client_type():\n    return {\"client\": type(client).__name__}\n```",
+      "question": "동기 엔드포인트에는 Anthropic(), 비동기 엔드포인트에는 AsyncAnthropic()을 사용합니다.\n아래 코드에서 GET /client-type 요청 시 응답으로 올바른 것을 골라보세요.\n\n```python\nfrom fastapi import FastAPI\nfrom anthropic import Anthropic\n\napp = FastAPI()\nclient = Anthropic()\n\n@app.get(\"/client-type\")\ndef get_client_type():\n    return {\"client\": type(client).__name__}\n```",
       "choices": [
         "A. {\"client\": \"Anthropic\"}",
         "B. {\"client\": \"AsyncAnthropic\"}",
@@ -480,7 +480,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 코드의 출력 결과로 올바른 것을 골라보세요.\n\n```python\nfrom sqlalchemy import create_engine, Column, Integer, String\nfrom sqlalchemy.orm import declarative_base, sessionmaker\n```\n\n```python\nengine = create_engine(\"sqlite:///:memory:\")\nBase = declarative_base()\n```\n\n```python\nclass Memo(Base):\n    __tablename__ = \"memos\"\n    id = Column(Integer, primary_key=True)\n    title = Column(String)\n```\n\n```python\nBase.metadata.create_all(bind=engine)\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\ndb = SessionLocal()\n```\n\n```python\ndb.add(Memo(title=\"FastAPI 학습\"))\ndb.add(Memo(title=\"SQLAlchemy 학습\"))\ndb.commit()\n```\n\n```python\nmemos = db.query(Memo).all()\nprint(len(memos))\ndb.close()\n```",
+      "question": "아래 코드의 출력 결과로 올바른 것을 골라보세요.\n\n```python\nfrom sqlalchemy import create_engine, Column, Integer, String\nfrom sqlalchemy.orm import declarative_base, sessionmaker\n\nengine = create_engine(\"sqlite:///:memory:\")\nBase = declarative_base()\n\nclass Memo(Base):\n    __tablename__ = \"memos\"\n    id = Column(Integer, primary_key=True)\n    title = Column(String)\n\nBase.metadata.create_all(bind=engine)\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\ndb = SessionLocal()\n\ndb.add(Memo(title=\"FastAPI 학습\"))\ndb.add(Memo(title=\"SQLAlchemy 학습\"))\ndb.commit()\n\nmemos = db.query(Memo).all()\nprint(len(memos))\ndb.close()\n```",
       "choices": [
         "A. 2",
         "B. 1",
@@ -552,7 +552,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 코드의 출력 결과로 올바른 것을 골라보세요.\n\n```python\nfrom typing import Optional\nfrom pydantic import BaseModel\n```\n\n```python\nclass MemoUpdate(BaseModel):\n    title: Optional[str] = None\n    content: Optional[str] = None\n```\n\n```python\nm = MemoUpdate(title=\"수정된 제목\")\nprint(m.title)\nprint(m.content)\n```",
+      "question": "아래 코드의 출력 결과로 올바른 것을 골라보세요.\n\n```python\nfrom typing import Optional\nfrom pydantic import BaseModel\n\nclass MemoUpdate(BaseModel):\n    title: Optional[str] = None\n    content: Optional[str] = None\n\nm = MemoUpdate(title=\"수정된 제목\")\nprint(m.title)\nprint(m.content)\n```",
       "choices": [
         "A. 수정된 제목\n수정된 제목",
         "B. 수정된 제목\nNone",
@@ -603,7 +603,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "분리된 라우터 모듈을 FastAPI 앱에 등록하는 메서드명을 채워보세요.\n\n```python\nfrom fastapi import FastAPI\nfrom routers import memos\n```\n\n```python\napp = FastAPI()\napp._____(memos.router)\n```\n\n# 이제 /memos 경로의 모든 엔드포인트를 사용할 수 있음",
+      "question": "분리된 라우터 모듈을 FastAPI 앱에 등록하는 메서드명을 채워보세요.\n\n```python\nfrom fastapi import FastAPI\nfrom routers import memos\n\napp = FastAPI()\napp._____(memos.router)\n```\n\n# 이제 /memos 경로의 모든 엔드포인트를 사용할 수 있음",
       "answer": "include_router",
       "feedback": {
         "correct": "정답! app.include_router()는 APIRouter 인스턴스를 메인 앱에 등록합니다. 여러 라우터를 등록하려면 include_router()를 여러 번 호출하면 돼요. prefix와 tags를 라우터 생성 시 지정해두면 include_router() 시 별도 인자 없이 바로 등록됩니다. 클리어!"

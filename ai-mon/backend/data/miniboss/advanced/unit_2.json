@@ -24,7 +24,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def greet():\n    print('안녕!')\n    await asyncio.sleep(0)\n    print('bye!')\n```\n\nasyncio.run(greet())",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n\nasync def greet():\n    print('안녕!')\n    await asyncio.sleep(0)\n    print('bye!')\n```\n\nasyncio.run(greet())",
       "choices": [
         "A. 안녕!\nbye!",
         "B. bye!\n안녕!",
@@ -45,7 +45,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def hello():\n    return '에이몬'\n```\n\n```python\ncoro = hello()\nprint(type(coro).__name__)\ncoro.close()\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n\nasync def hello():\n    return '에이몬'\n\ncoro = hello()\nprint(type(coro).__name__)\ncoro.close()\n```",
       "choices": [
         "A. coroutine",
         "B. function",
@@ -66,7 +66,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def task_a():\n    print('A 시작')\n    await asyncio.sleep(0)\n    print('A 끝')\n```\n\n```python\nasync def task_b():\n    print('B 시작')\n    await asyncio.sleep(0)\n    print('B 끝')\n```\n\n```python\nasync def main():\n    await task_a()\n    await task_b()\n```\n\nasyncio.run(main())",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n\nasync def task_a():\n    print('A 시작')\n    await asyncio.sleep(0)\n    print('A 끝')\n\nasync def task_b():\n    print('B 시작')\n    await asyncio.sleep(0)\n    print('B 끝')\n\nasync def main():\n    await task_a()\n    await task_b()\n```\n\nasyncio.run(main())",
       "choices": [
         "A. A 시작\nA 끝\nB 시작\nB 끝",
         "B. A 시작\nB 시작\nA 끝\nB 끝",
@@ -87,7 +87,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "코루틴을 이벤트 루프에서 실행하는 표준 진입점 함수를 채우세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def main():\n    print('실행')\n```\n\nasyncio._____(main())",
+      "question": "코루틴을 이벤트 루프에서 실행하는 표준 진입점 함수를 채우세요.\n\n```python\nimport asyncio\n\nasync def main():\n    print('실행')\n```\n\nasyncio._____(main())",
       "answer": "run",
       "feedback": {
         "correct": "정답! asyncio.run(coro)는 새 이벤트 루프를 만들고 코루틴을 실행한 뒤 루프를 닫습니다. 프로그램의 최상위 진입점으로 딱 한 번만 호출해야 해요. 이미 실행 중인 루프 안에서 호출하면 오류가 발생합니다. 클리어!"
@@ -134,7 +134,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def worker(name):\n    print(f'{name} 시작')\n    await asyncio.sleep(0)\n    print(f'{name} 끝')\n```\n\n```python\nasync def main():\n    await asyncio.gather(worker('A'), worker('B'))\n```\n\nasyncio.run(main())",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n\nasync def worker(name):\n    print(f'{name} 시작')\n    await asyncio.sleep(0)\n    print(f'{name} 끝')\n\nasync def main():\n    await asyncio.gather(worker('A'), worker('B'))\n```\n\nasyncio.run(main())",
       "choices": [
         "A. A 시작\nB 시작\nA 끝\nB 끝",
         "B. A 시작\nA 끝\nB 시작\nB 끝",
@@ -155,7 +155,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "코루틴 함수인지 확인하는 함수로 빈칸을 채우세요.\n출력 목표: True\n\n```python\nimport asyncio\n```\n\n```python\nasync def compute():\n    return 1\n```\n\n```python\nprint(asyncio._____(compute))\n```",
+      "question": "코루틴 함수인지 확인하는 함수로 빈칸을 채우세요.\n출력 목표: True\n\n```python\nimport asyncio\n\nasync def compute():\n    return 1\n\nprint(asyncio._____(compute))\n```",
       "answer": "iscoroutinefunction",
       "feedback": {
         "correct": "정답! asyncio.iscoroutinefunction(func)은 func가 async def로 정의된 코루틴 함수일 때 True를 반환합니다. 인스턴스(코루틴 객체)가 아닌 함수 자체를 넣어야 해요. 클리어!"
@@ -187,7 +187,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "코루틴 안에서 다른 코루틴이 완료될 때까지 기다리는 키워드를 채우세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def main():\n    _____ asyncio.sleep(2)\n    print('2초 후 실행')\n```",
+      "question": "코루틴 안에서 다른 코루틴이 완료될 때까지 기다리는 키워드를 채우세요.\n\n```python\nimport asyncio\n\nasync def main():\n    _____ asyncio.sleep(2)\n    print('2초 후 실행')\n```",
       "answer": "await",
       "feedback": {
         "correct": "정답! await는 코루틴, Task, Future 객체 앞에 붙여 해당 작업이 완료될 때까지 현재 코루틴을 일시 정지합니다. await 없이 asyncio.sleep(2)만 쓰면 코루틴 객체가 반환될 뿐 실제로 기다리지 않아요. 클리어!"
@@ -202,7 +202,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def add(a, b):\n    await asyncio.sleep(0)\n    return a + b\n```\n\n```python\nasync def main():\n    result = await add(3, 4)\n    print(result)\n```\n\nasyncio.run(main())",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n\nasync def add(a, b):\n    await asyncio.sleep(0)\n    return a + b\n\nasync def main():\n    result = await add(3, 4)\n    print(result)\n```\n\nasyncio.run(main())",
       "choices": [
         "A. 7",
         "B. 3\n4",
@@ -223,7 +223,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "여러 코루틴을 동시에 실행하고 모든 결과를 리스트로 받는 함수를 채우세요.\n출력 목표: [10, 20]\n\n```python\nimport asyncio\n```\n\n```python\nasync def val(n):\n    return n\n```\n\n```python\nasync def main():\n    results = await asyncio._____(val(10), val(20))\n    print(results)\n```\n\nasyncio.run(main())",
+      "question": "여러 코루틴을 동시에 실행하고 모든 결과를 리스트로 받는 함수를 채우세요.\n출력 목표: [10, 20]\n\n```python\nimport asyncio\n\nasync def val(n):\n    return n\n\nasync def main():\n    results = await asyncio._____(val(10), val(20))\n    print(results)\n```\n\nasyncio.run(main())",
       "answer": "gather",
       "feedback": {
         "correct": "정답! asyncio.gather(*coros)는 여러 코루틴을 동시에 스케줄링하고, 모두 완료되면 결과를 리스트로 반환합니다. 전달한 순서대로 결과가 담기므로 results[0]은 val(10)의 결과, results[1]은 val(20)의 결과예요. 클리어!"
@@ -238,7 +238,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def ping(n):\n    await asyncio.sleep(0)\n    return n * 2\n```\n\n```python\nasync def main():\n    a, b, c = await asyncio.gather(ping(1), ping(2), ping(3))\n    print(a, b, c)\n```\n\nasyncio.run(main())",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n\nasync def ping(n):\n    await asyncio.sleep(0)\n    return n * 2\n\nasync def main():\n    a, b, c = await asyncio.gather(ping(1), ping(2), ping(3))\n    print(a, b, c)\n```\n\nasyncio.run(main())",
       "choices": [
         "A. 2 4 6",
         "B. 1 2 3",
@@ -295,7 +295,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "gather()에서 예외가 발생해도 다른 코루틴 결과를 얻으려면 빈칸을 채우세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def ok(): return 1\nasync def fail(): raise ValueError('오류')\n```\n\n```python\nasync def main():\n    results = await asyncio.gather(ok(), fail(), return_exceptions=_____)\n    print(results)\n```\n\n```python\nasyncio.run(main())\n# 출력: [1, ValueError('오류')]\n```",
+      "question": "gather()에서 예외가 발생해도 다른 코루틴 결과를 얻으려면 빈칸을 채우세요.\n\n```python\nimport asyncio\n\nasync def ok(): return 1\nasync def fail(): raise ValueError('오류')\n\nasync def main():\n    results = await asyncio.gather(ok(), fail(), return_exceptions=_____)\n    print(results)\n\nasyncio.run(main())\n# 출력: [1, ValueError('오류')]\n```",
       "answer": "True",
       "feedback": {
         "correct": "정답! return_exceptions=True를 설정하면 예외가 발생한 코루틴의 결과 자리에 예외 객체가 담기고 다른 코루틴은 정상 실행됩니다. False(기본값)이면 첫 번째 예외가 즉시 전파되어 gather 전체가 실패해요. 클리어!"
@@ -310,7 +310,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def safe(): return 42\nasync def boom(): raise RuntimeError('터짐')\n```\n\n```python\nasync def main():\n    r = await asyncio.gather(safe(), boom(), return_exceptions=True)\n    print(type(r[1]).__name__)\n```\n\nasyncio.run(main())",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n\nasync def safe(): return 42\nasync def boom(): raise RuntimeError('터짐')\n\nasync def main():\n    r = await asyncio.gather(safe(), boom(), return_exceptions=True)\n    print(type(r[1]).__name__)\n```\n\nasyncio.run(main())",
       "choices": [
         "A. RuntimeError",
         "B. Exception",
@@ -365,7 +365,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "코루틴을 즉시 이벤트 루프에 스케줄링하는 함수로 빈칸을 채우세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def job():\n    return 'done'\n```\n\n```python\nasync def main():\n    task = asyncio._____(job())\n    result = await task\n    print(result)\n```\n\nasyncio.run(main())",
+      "question": "코루틴을 즉시 이벤트 루프에 스케줄링하는 함수로 빈칸을 채우세요.\n\n```python\nimport asyncio\n\nasync def job():\n    return 'done'\n\nasync def main():\n    task = asyncio._____(job())\n    result = await task\n    print(result)\n```\n\nasyncio.run(main())",
       "answer": "create_task",
       "feedback": {
         "correct": "정답! asyncio.create_task(coro)는 코루틴을 Task로 감싸 이벤트 루프에 즉시 스케줄링합니다. await task로 완료를 기다리면 반환값을 얻을 수 있어요. gather()와 달리 Task를 직접 제어(취소, 상태 확인 등)할 수 있습니다. 클리어!"
@@ -380,7 +380,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def worker():\n    await asyncio.sleep(0)\n    return 99\n```\n\n```python\nasync def main():\n    task = asyncio.create_task(worker())\n    result = await task\n    print(result)\n```\n\nasyncio.run(main())",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n\nasync def worker():\n    await asyncio.sleep(0)\n    return 99\n\nasync def main():\n    task = asyncio.create_task(worker())\n    result = await task\n    print(result)\n```\n\nasyncio.run(main())",
       "choices": [
         "A. 99",
         "B. <Task>",
@@ -401,7 +401,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def job(n):\n    print(f'시작 {n}')\n    await asyncio.sleep(0)\n    print(f'끝 {n}')\n```\n\n```python\nasync def main():\n    t1 = asyncio.create_task(job(1))\n    t2 = asyncio.create_task(job(2))\n    await t1\n    await t2\n```\n\nasyncio.run(main())",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n\nasync def job(n):\n    print(f'시작 {n}')\n    await asyncio.sleep(0)\n    print(f'끝 {n}')\n\nasync def main():\n    t1 = asyncio.create_task(job(1))\n    t2 = asyncio.create_task(job(2))\n    await t1\n    await t2\n```\n\nasyncio.run(main())",
       "choices": [
         "A. 시작 1\n시작 2\n끝 1\n끝 2",
         "B. 시작 1\n끝 1\n시작 2\n끝 2",
@@ -437,7 +437,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def slow(): await asyncio.sleep(0); return 'slow'\nasync def fast(): return 'fast'\n```\n\n```python\nasync def main():\n    tasks = [asyncio.create_task(slow()), asyncio.create_task(fast())]\n    done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)\n    for t in done:\n        print(t.result())\n```\n\nasyncio.run(main())",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n\nasync def slow(): await asyncio.sleep(0); return 'slow'\nasync def fast(): return 'fast'\n\nasync def main():\n    tasks = [asyncio.create_task(slow()), asyncio.create_task(fast())]\n    done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)\n    for t in done:\n        print(t.result())\n```\n\nasyncio.run(main())",
       "choices": [
         "A. fast",
         "B. slow",
@@ -490,7 +490,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "실행 중인 Task를 취소하는 메서드로 빈칸을 채우세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def long_job():\n    await asyncio.sleep(10)\n    return '완료'\n```\n\n```python\nasync def main():\n    task = asyncio.create_task(long_job())\n    await asyncio.sleep(0)\n    task._____()\n    print('취소 요청됨')\n```\n\nasyncio.run(main())",
+      "question": "실행 중인 Task를 취소하는 메서드로 빈칸을 채우세요.\n\n```python\nimport asyncio\n\nasync def long_job():\n    await asyncio.sleep(10)\n    return '완료'\n\nasync def main():\n    task = asyncio.create_task(long_job())\n    await asyncio.sleep(0)\n    task._____()\n    print('취소 요청됨')\n```\n\nasyncio.run(main())",
       "answer": "cancel",
       "feedback": {
         "correct": "정답! task.cancel()은 Task에 CancelledError를 주입해 취소를 요청합니다. 즉시 취소되는 게 아니라 다음 await 지점에서 CancelledError가 발생하며, 코루틴이 try/except로 이를 잡지 않으면 Task는 취소 상태가 됩니다. 클리어!"
@@ -543,7 +543,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "aiohttp에서 세션을 컨텍스트 매니저로 열 때 빈칸을 채우세요.\n\n```python\nimport aiohttp, asyncio\n```\n\n```python\nasync def fetch(url):\n    _____ aiohttp.ClientSession() as session:\n        async with session.get(url) as resp:\n            return await resp.text()\n```",
+      "question": "aiohttp에서 세션을 컨텍스트 매니저로 열 때 빈칸을 채우세요.\n\n```python\nimport aiohttp, asyncio\n\nasync def fetch(url):\n    _____ aiohttp.ClientSession() as session:\n        async with session.get(url) as resp:\n            return await resp.text()\n```",
       "answer": "async with",
       "feedback": {
         "correct": "정답! aiohttp.ClientSession()은 비동기 컨텍스트 매니저이므로 async with로 열어야 합니다. 블록을 나가면 자동으로 세션이 닫혀요. 일반 with는 동기 컨텍스트 매니저용이라 aiohttp에는 사용할 수 없습니다. 클리어!"
@@ -558,7 +558,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def mock_fetch(url):\n    await asyncio.sleep(0)\n    return f'{url} 응답'\n```\n\n```python\nasync def main():\n    urls = ['url1', 'url2', 'url3']\n    results = await asyncio.gather(*[mock_fetch(u) for u in urls])\n    print(results[1])\n```\n\nasyncio.run(main())",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n\nasync def mock_fetch(url):\n    await asyncio.sleep(0)\n    return f'{url} 응답'\n\nasync def main():\n    urls = ['url1', 'url2', 'url3']\n    results = await asyncio.gather(*[mock_fetch(u) for u in urls])\n    print(results[1])\n```\n\nasyncio.run(main())",
       "choices": [
         "A. url2 응답",
         "B. url1 응답",
@@ -594,7 +594,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def limited(sem, n):\n    async with sem:\n        await asyncio.sleep(0)\n        return n\n```\n\n```python\nasync def main():\n    sem = asyncio.Semaphore(2)\n    results = await asyncio.gather(*[limited(sem, i) for i in range(4)])\n    print(results)\n```\n\nasyncio.run(main())",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n\nasync def limited(sem, n):\n    async with sem:\n        await asyncio.sleep(0)\n        return n\n\nasync def main():\n    sem = asyncio.Semaphore(2)\n    results = await asyncio.gather(*[limited(sem, i) for i in range(4)])\n    print(results)\n```\n\nasyncio.run(main())",
       "choices": [
         "A. [0, 1, 2, 3]",
         "B. [0, 1]",
@@ -615,7 +615,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "코루틴에 타임아웃을 설정하는 함수로 빈칸을 채우세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def slow():\n    await asyncio.sleep(5)\n    return '완료'\n```\n\n```python\nasync def main():\n    try:\n        result = await asyncio._____(slow(), timeout=1)\n    except asyncio.TimeoutError:\n        print('타임아웃!')\n```\n\nasyncio.run(main())",
+      "question": "코루틴에 타임아웃을 설정하는 함수로 빈칸을 채우세요.\n\n```python\nimport asyncio\n\nasync def slow():\n    await asyncio.sleep(5)\n    return '완료'\n\nasync def main():\n    try:\n        result = await asyncio._____(slow(), timeout=1)\n    except asyncio.TimeoutError:\n        print('타임아웃!')\n```\n\nasyncio.run(main())",
       "answer": "wait_for",
       "feedback": {
         "correct": "정답! asyncio.wait_for(coro, timeout=n)은 코루틴이 n초 안에 완료되지 않으면 asyncio.TimeoutError를 발생시킵니다. timeout이 지나면 내부 태스크도 자동으로 취소돼요. 외부 API 호출 시 무한 대기를 방지하는 필수 패턴입니다. 클리어!"
@@ -630,7 +630,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def slow():\n    await asyncio.sleep(10)\n    return '완료'\n```\n\n```python\nasync def main():\n    try:\n        await asyncio.wait_for(slow(), timeout=0.01)\n    except asyncio.TimeoutError:\n        print('시간 초과')\n```\n\nasyncio.run(main())",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n\nasync def slow():\n    await asyncio.sleep(10)\n    return '완료'\n\nasync def main():\n    try:\n        await asyncio.wait_for(slow(), timeout=0.01)\n    except asyncio.TimeoutError:\n        print('시간 초과')\n```\n\nasyncio.run(main())",
       "choices": [
         "A. 시간 초과",
         "B. 완료",
@@ -668,7 +668,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "aiohttp 응답 객체에서 JSON을 파싱하는 메서드로 빈칸을 채우세요.\n\n```python\nimport aiohttp, asyncio\n```\n\n```python\nasync def fetch_json(url):\n    async with aiohttp.ClientSession() as session:\n        async with session.get(url) as resp:\n            return await resp._____()\n```",
+      "question": "aiohttp 응답 객체에서 JSON을 파싱하는 메서드로 빈칸을 채우세요.\n\n```python\nimport aiohttp, asyncio\n\nasync def fetch_json(url):\n    async with aiohttp.ClientSession() as session:\n        async with session.get(url) as resp:\n            return await resp._____()\n```",
       "answer": "json",
       "feedback": {
         "correct": "정답! aiohttp 응답 객체의 resp.json()은 응답 본문을 JSON으로 파싱한 파이썬 객체(보통 dict 또는 list)를 반환하는 코루틴입니다. 텍스트가 필요하면 resp.text(), 바이트가 필요하면 resp.read()를 사용해요. 모두 await이 필요합니다. 클리어!"
@@ -721,7 +721,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "비동기 큐에 아이템을 넣는 메서드로 빈칸을 채우세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def main():\n    q = asyncio.Queue()\n    await q._____(42)\n    print(q.qsize())\n```\n\nasyncio.run(main())",
+      "question": "비동기 큐에 아이템을 넣는 메서드로 빈칸을 채우세요.\n\n```python\nimport asyncio\n\nasync def main():\n    q = asyncio.Queue()\n    await q._____(42)\n    print(q.qsize())\n```\n\nasyncio.run(main())",
       "answer": "put",
       "feedback": {
         "correct": "정답! asyncio.Queue의 put(item) 메서드는 큐에 아이템을 넣는 코루틴입니다. 큐가 가득 차면 공간이 생길 때까지 대기해요. 즉시 넣기는 put_nowait(), 꺼내기는 get(), 즉시 꺼내기는 get_nowait()입니다. 클리어!"
@@ -736,7 +736,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def main():\n    q = asyncio.Queue()\n    await q.put('첫번째')\n    await q.put('두번째')\n    a = await q.get()\n    b = await q.get()\n    print(a, b)\n```\n\nasyncio.run(main())",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n\nasync def main():\n    q = asyncio.Queue()\n    await q.put('첫번째')\n    await q.put('두번째')\n    a = await q.get()\n    b = await q.get()\n    print(a, b)\n```\n\nasyncio.run(main())",
       "choices": [
         "A. 첫번째 두번째",
         "B. 두번째 첫번째",
@@ -793,7 +793,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "비동기 이벤트 신호를 기다리는 asyncio 클래스로 빈칸을 채우세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def waiter(event):\n    await event.wait()\n    print('신호 받음')\n```\n\n```python\nasync def main():\n    event = asyncio._____()\n    asyncio.create_task(waiter(event))\n    await asyncio.sleep(0)\n    event.set()\n    await asyncio.sleep(0)\n```\n\nasyncio.run(main())",
+      "question": "비동기 이벤트 신호를 기다리는 asyncio 클래스로 빈칸을 채우세요.\n\n```python\nimport asyncio\n\nasync def waiter(event):\n    await event.wait()\n    print('신호 받음')\n\nasync def main():\n    event = asyncio._____()\n    asyncio.create_task(waiter(event))\n    await asyncio.sleep(0)\n    event.set()\n    await asyncio.sleep(0)\n```\n\nasyncio.run(main())",
       "answer": "Event",
       "feedback": {
         "correct": "정답! asyncio.Event()는 코루틴 간 신호 전달 도구입니다. event.wait()는 event.set()이 호출될 때까지 대기하고, set() 후에는 wait() 중인 모든 코루틴이 재개돼요. event.clear()로 다시 초기화할 수 있습니다. 클리어!"
@@ -846,7 +846,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "비동기 함수에 데코레이터를 적용할 때 wrapper도 비동기여야 합니다. 빈칸을 채우세요.\n\n```python\nimport asyncio, functools\n```\n\n```python\ndef async_log(func):\n    @functools.wraps(func)\n    _____ async def wrapper(*args, **kwargs):\n        print(f'{func.__name__} 호출')\n        return await func(*args, **kwargs)\n    return wrapper\n```\n\n@async_log\nasync def fetch(): return '데이터'\n\nasyncio.run(fetch())",
+      "question": "비동기 함수에 데코레이터를 적용할 때 wrapper도 비동기여야 합니다. 빈칸을 채우세요.\n\n```python\nimport asyncio, functools\n\ndef async_log(func):\n    @functools.wraps(func)\n    _____ async def wrapper(*args, **kwargs):\n        print(f'{func.__name__} 호출')\n        return await func(*args, **kwargs)\n    return wrapper\n```\n\n@async_log\nasync def fetch(): return '데이터'\n\nasyncio.run(fetch())",
       "answer": "async",
       "feedback": {
         "correct": "정답! 비동기 함수를 데코레이터로 감쌀 때 wrapper도 async def로 정의해야 내부에서 await func()를 사용할 수 있습니다. async 없이 def wrapper라면 await를 사용할 수 없어 TypeError가 발생해요. 클리어!"
@@ -861,7 +861,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n```\n\n```python\nasync def pipeline(items):\n    q = asyncio.Queue()\n    for item in items:\n        await q.put(item * 2)\n    results = []\n    while not q.empty():\n        results.append(await q.get())\n    return results\n```\n\n```python\nasync def main():\n    out = await pipeline([1, 2, 3])\n    print(out)\n```\n\nasyncio.run(main())",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport asyncio\n\nasync def pipeline(items):\n    q = asyncio.Queue()\n    for item in items:\n        await q.put(item * 2)\n    results = []\n    while not q.empty():\n        results.append(await q.get())\n    return results\n\nasync def main():\n    out = await pipeline([1, 2, 3])\n    print(out)\n```\n\nasyncio.run(main())",
       "choices": [
         "A. [2, 4, 6]",
         "B. [1, 2, 3]",

@@ -24,7 +24,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 Streamlit 위젯 코드에서 슬라이더의 초기값을 고르세요.\n\n```python\nimport streamlit as st\n```\n\n```python\nvalue = st.slider('점수', min_value=0, max_value=100, value=50)\nprint(value)\n```",
+      "question": "다음 Streamlit 위젯 코드에서 슬라이더의 초기값을 고르세요.\n\n```python\nimport streamlit as st\n\nvalue = st.slider('점수', min_value=0, max_value=100, value=50)\nprint(value)\n```",
       "choices": [
         "A. 50",
         "B. 0",
@@ -81,7 +81,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit에서 사이드바에 위젯을 배치하는 방법으로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n```\n\n```python\nwith st._____:\n    model = st.selectbox('모델', ['claude-opus-4-8'])\n    temp = st.slider('온도', 0.0, 1.0, 0.7)\n```",
+      "question": "Streamlit에서 사이드바에 위젯을 배치하는 방법으로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n\nwith st._____:\n    model = st.selectbox('모델', ['claude-opus-4-8'])\n    temp = st.slider('온도', 0.0, 1.0, 0.7)\n```",
       "answer": "sidebar",
       "feedback": {
         "correct": "정답! st.sidebar는 앱 왼쪽에 고정된 사이드바입니다. with st.sidebar: 블록 안에 위젯을 배치하거나 st.sidebar.selectbox()처럼 직접 호출할 수 있어요. 설정 옵션을 사이드바에 모아두면 메인 영역을 콘텐츠에 집중할 수 있습니다. 클리어!"
@@ -96,7 +96,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 Streamlit 코드에서 버튼 클릭 전 초기 상태의 clicked 값을 고르세요.\n\n```python\nimport streamlit as st\n```\n\n```python\nclicked = st.button('실행')\nprint(clicked)\n```",
+      "question": "다음 Streamlit 코드에서 버튼 클릭 전 초기 상태의 clicked 값을 고르세요.\n\n```python\nimport streamlit as st\n\nclicked = st.button('실행')\nprint(clicked)\n```",
       "choices": [
         "A. False",
         "B. True",
@@ -187,7 +187,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit에서 리렌더링 간 데이터를 유지하는 객체로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n```\n\n```python\nif 'count' not in st._____:\n    st.session_state['count'] = 0\n```",
+      "question": "Streamlit에서 리렌더링 간 데이터를 유지하는 객체로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n\nif 'count' not in st._____:\n    st.session_state['count'] = 0\n```",
       "answer": "session_state",
       "feedback": {
         "correct": "정답! st.session_state는 Streamlit 앱에서 페이지 리렌더링 간 데이터를 유지하는 딕셔너리입니다. Streamlit은 인터랙션마다 스크립트 전체를 재실행하므로, 일반 변수는 초기화됩니다. session_state에 저장해야 값이 유지돼요. 클리어!"
@@ -202,7 +202,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 session_state 시뮬레이션 코드의 출력값을 고르세요.\n\nstate = {}\n\n```python\nif 'counter' not in state:\n    state['counter'] = 0\n```\n\n```python\nstate['counter'] += 1\nstate['counter'] += 1\n```\n\n```python\nprint(state['counter'])\n```",
+      "question": "다음 session_state 시뮬레이션 코드의 출력값을 고르세요.\n\nstate = {}\n\n```python\nif 'counter' not in state:\n    state['counter'] = 0\n\nstate['counter'] += 1\nstate['counter'] += 1\n\nprint(state['counter'])\n```",
       "choices": [
         "A. 2",
         "B. 1",
@@ -223,7 +223,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "session_state를 초기화하는 관용적 패턴에서 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n```\n\n```python\ndefaults = {'messages': [], 'model': 'claude-opus-4-8', 'temp': 0.7}\nfor key, val in defaults._____():\n    if key not in st.session_state:\n        st.session_state[key] = val\n```",
+      "question": "session_state를 초기화하는 관용적 패턴에서 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n\ndefaults = {'messages': [], 'model': 'claude-opus-4-8', 'temp': 0.7}\nfor key, val in defaults._____():\n    if key not in st.session_state:\n        st.session_state[key] = val\n```",
       "answer": "items",
       "feedback": {
         "correct": "정답! dict.items()는 (키, 값) 튜플을 반환합니다. 이 패턴으로 여러 session_state 키를 한 번에 초기화할 수 있어요. 이미 값이 있는 키는 덮어쓰지 않아 리렌더링 시 기존 값을 보존합니다. 클리어!"
@@ -238,7 +238,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\nstate = {'messages': [], 'count': 0}\n\n```python\nstate['messages'].append({'role': 'user', 'content': '안녕'})\nstate['messages'].append({'role': 'assistant', 'content': '반가워요'})\nstate['count'] = len(state['messages'])\n```\n\n```python\nprint(state['count'])\nprint(state['messages'][-1]['role'])\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\nstate = {'messages': [], 'count': 0}\n\n```python\nstate['messages'].append({'role': 'user', 'content': '안녕'})\nstate['messages'].append({'role': 'assistant', 'content': '반가워요'})\nstate['count'] = len(state['messages'])\n\nprint(state['count'])\nprint(state['messages'][-1]['role'])\n```",
       "choices": [
         "A. 2\nassistant",
         "B. 1\nuser",
@@ -259,7 +259,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "session_state에서 특정 키를 삭제하는 코드에서 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n```\n\n```python\n# 대화 초기화 버튼 처리\nif st.button('초기화'):\n    _____ st.session_state['messages']\n```",
+      "question": "session_state에서 특정 키를 삭제하는 코드에서 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n\n# 대화 초기화 버튼 처리\nif st.button('초기화'):\n    _____ st.session_state['messages']\n```",
       "answer": "del",
       "feedback": {
         "correct": "정답! del st.session_state['messages']로 session_state에서 키를 삭제합니다. 대화 초기화 버튼에서 messages를 삭제하고 다시 초기화하는 패턴이에요. st.session_state.pop('messages', None)으로도 같은 효과이며 키가 없을 때 오류가 나지 않습니다. 클리어!"
@@ -274,7 +274,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 session_state 패턴 코드의 출력값을 고르세요.\n\n```python\nstate = {}\nkeys_to_init = ['messages', 'model', 'tokens']\ndefaults = [[], 'claude-opus-4-8', 0]\n```\n\n```python\nfor key, default in zip(keys_to_init, defaults):\n    if key not in state:\n        state[key] = default\n```\n\n```python\nprint(list(state.keys()))\nprint(state['tokens'])\n```",
+      "question": "다음 session_state 패턴 코드의 출력값을 고르세요.\n\n```python\nstate = {}\nkeys_to_init = ['messages', 'model', 'tokens']\ndefaults = [[], 'claude-opus-4-8', 0]\n\nfor key, default in zip(keys_to_init, defaults):\n    if key not in state:\n        state[key] = default\n\nprint(list(state.keys()))\nprint(state['tokens'])\n```",
       "choices": [
         "A. ['messages', 'model', 'tokens']\n0",
         "B. ['messages', 'model']\n0",
@@ -311,7 +311,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "콜백 함수로 session_state를 업데이트하는 패턴에서 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n```\n\n```python\ndef reset_chat():\n    st.session_state.messages = []\n    st.session_state.token_count = 0\n```\n\nst.button('초기화', _____=reset_chat)",
+      "question": "콜백 함수로 session_state를 업데이트하는 패턴에서 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n\ndef reset_chat():\n    st.session_state.messages = []\n    st.session_state.token_count = 0\n```\n\nst.button('초기화', _____=reset_chat)",
       "answer": "on_click",
       "feedback": {
         "correct": "정답! st.button()의 on_click 파라미터에 콜백 함수를 전달하면, 버튼 클릭 시 스크립트 재실행 전에 콜백이 먼저 실행됩니다. 이 방식이 session_state를 수정하는 더 안전한 방법이에요. 클리어!"
@@ -326,7 +326,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\nstate = {'messages': [], 'total_tokens': 0}\n\n```python\ndef add_turn(user_msg, ai_msg, tokens):\n    state['messages'].append({'role': 'user', 'content': user_msg})\n    state['messages'].append({'role': 'assistant', 'content': ai_msg})\n    state['total_tokens'] += tokens\n```\n\n```python\nadd_turn('안녕', '반갑습니다', 15)\nadd_turn('잘 지내?', '네 잘 지냅니다', 20)\n```\n\n```python\nprint(len(state['messages']))\nprint(state['total_tokens'])\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\nstate = {'messages': [], 'total_tokens': 0}\n\n```python\ndef add_turn(user_msg, ai_msg, tokens):\n    state['messages'].append({'role': 'user', 'content': user_msg})\n    state['messages'].append({'role': 'assistant', 'content': ai_msg})\n    state['total_tokens'] += tokens\n\nadd_turn('안녕', '반갑습니다', 15)\nadd_turn('잘 지내?', '네 잘 지냅니다', 20)\n\nprint(len(state['messages']))\nprint(state['total_tokens'])\n```",
       "choices": [
         "A. 4\n35",
         "B. 2\n35",
@@ -364,7 +364,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit에서 채팅 말풍선을 표시하는 컨텍스트 매니저로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n```\n\n```python\nwith st._____(\"user\"):\n    st.write(\"안녕하세요!\")\n```",
+      "question": "Streamlit에서 채팅 말풍선을 표시하는 컨텍스트 매니저로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n\nwith st._____(\"user\"):\n    st.write(\"안녕하세요!\")\n```",
       "answer": "chat_message",
       "feedback": {
         "correct": "정답! st.chat_message(role)은 채팅 말풍선 UI를 만드는 컨텍스트 매니저입니다. role이 'user'이면 사용자 아이콘과 말풍선, 'assistant'이면 AI 아이콘과 말풍선을 표시해요. 클리어!"
@@ -400,7 +400,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit에서 채팅 입력창을 만드는 함수로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n```\n\n```python\nprompt = st._____(\"메시지를 입력하세요\")\nif prompt:\n    st.write(f\"입력: {prompt}\")\n```",
+      "question": "Streamlit에서 채팅 입력창을 만드는 함수로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n\nprompt = st._____(\"메시지를 입력하세요\")\nif prompt:\n    st.write(f\"입력: {prompt}\")\n```",
       "answer": "chat_input",
       "feedback": {
         "correct": "정답! st.chat_input()은 화면 하단에 고정된 채팅 입력창을 만듭니다. 사용자가 메시지를 입력하고 Enter를 누르면 입력값을 반환하고, 아무것도 입력하지 않으면 None을 반환해요. st.text_input()과 달리 채팅 UX에 특화돼 있습니다. 클리어!"
@@ -415,7 +415,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\nmessages = []\n\n```python\ndef add_and_render(role, content):\n    messages.append({'role': role, 'content': content})\n    print(f'[{role}] {content}')\n```\n\n```python\nadd_and_render('user', '안녕')\nadd_and_render('assistant', '반가워요')\nprint(f'총 {len(messages)}개')\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\nmessages = []\n\n```python\ndef add_and_render(role, content):\n    messages.append({'role': role, 'content': content})\n    print(f'[{role}] {content}')\n\nadd_and_render('user', '안녕')\nadd_and_render('assistant', '반가워요')\nprint(f'총 {len(messages)}개')\n```",
       "choices": [
         "A. [user] 안녕\n[assistant] 반가워요\n총 2개",
         "B. 총 2개\n[user] 안녕\n[assistant] 반가워요",
@@ -436,7 +436,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit에서 스피너(로딩 인디케이터)를 표시하는 컨텍스트 매니저로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n```\n\n```python\nwith st._____(\"AI 응답 생성 중...\"):\n    response = get_ai_response(prompt)\n```",
+      "question": "Streamlit에서 스피너(로딩 인디케이터)를 표시하는 컨텍스트 매니저로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n\nwith st._____(\"AI 응답 생성 중...\"):\n    response = get_ai_response(prompt)\n```",
       "answer": "spinner",
       "feedback": {
         "correct": "정답! st.spinner(text)는 with 블록이 실행되는 동안 로딩 스피너를 표시합니다. AI API 호출처럼 시간이 걸리는 작업에 사용하면 사용자가 기다리는 동안 진행 중임을 알 수 있어요. 클리어!"
@@ -489,7 +489,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit에서 텍스트를 스트리밍으로 점진적으로 출력하는 함수로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n```\n\n```python\nwith st.chat_message('assistant'):\n    response_text = '안녕하세요!'\n    st._____(response_text)\n```",
+      "question": "Streamlit에서 텍스트를 스트리밍으로 점진적으로 출력하는 함수로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n\nwith st.chat_message('assistant'):\n    response_text = '안녕하세요!'\n    st._____(response_text)\n```",
       "answer": "write_stream",
       "feedback": {
         "correct": "정답! st.write_stream()은 제너레이터나 이터러블을 받아 텍스트를 점진적으로 출력합니다. Claude API의 stream과 함께 쓰면 실시간 스트리밍 채팅 UI를 구현할 수 있어요. 단순 텍스트도 전달할 수 있습니다. 클리어!"
@@ -504,7 +504,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 스트리밍 출력 시뮬레이션의 출력값을 고르세요.\n\n```python\ndef stream_words(text):\n    for word in text.split():\n        yield word + ' '\n```\n\n```python\noutput = ''\nfor chunk in stream_words('안녕하세요 에이몬'):\n    output += chunk\n```\n\n```python\nprint(output.strip())\n```",
+      "question": "다음 스트리밍 출력 시뮬레이션의 출력값을 고르세요.\n\n```python\ndef stream_words(text):\n    for word in text.split():\n        yield word + ' '\n\noutput = ''\nfor chunk in stream_words('안녕하세요 에이몬'):\n    output += chunk\n\nprint(output.strip())\n```",
       "choices": [
         "A. 안녕하세요 에이몬",
         "B. 안녕하세요에이몬",
@@ -682,7 +682,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\nstate = {'messages': [], 'token_total': 0}\n\n```python\ndef send_message(state, user_msg):\n    state['messages'].append({'role': 'user', 'content': user_msg})\n    reply = f'Echo: {user_msg}'\n    state['messages'].append({'role': 'assistant', 'content': reply})\n    state['token_total'] += len(user_msg) + len(reply)\n    return reply\n```\n\n```python\nr1 = send_message(state, 'hi')\nr2 = send_message(state, 'bye')\nprint(len(state['messages']))\nprint(state['token_total'])\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\nstate = {'messages': [], 'token_total': 0}\n\n```python\ndef send_message(state, user_msg):\n    state['messages'].append({'role': 'user', 'content': user_msg})\n    reply = f'Echo: {user_msg}'\n    state['messages'].append({'role': 'assistant', 'content': reply})\n    state['token_total'] += len(user_msg) + len(reply)\n    return reply\n\nr1 = send_message(state, 'hi')\nr2 = send_message(state, 'bye')\nprint(len(state['messages']))\nprint(state['token_total'])\n```",
       "choices": [
         "A. 4\n22",
         "B. 2\n22",
@@ -771,7 +771,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef build_system_prompt(persona, language, max_len):\n    parts = [f'당신은 {persona}입니다.']\n    if language != 'ko':\n        parts.append(f'항상 {language}로 답하세요.')\n    if max_len:\n        parts.append(f'답변은 {max_len}자 이내로 작성하세요.')\n    return ' '.join(parts)\n```\n\n```python\nresult = build_system_prompt('파이썬 튜터', 'ko', 200)\nprint(result)\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef build_system_prompt(persona, language, max_len):\n    parts = [f'당신은 {persona}입니다.']\n    if language != 'ko':\n        parts.append(f'항상 {language}로 답하세요.')\n    if max_len:\n        parts.append(f'답변은 {max_len}자 이내로 작성하세요.')\n    return ' '.join(parts)\n\nresult = build_system_prompt('파이썬 튜터', 'ko', 200)\nprint(result)\n```",
       "choices": [
         "A. 당신은 파이썬 튜터입니다. 답변은 200자 이내로 작성하세요.",
         "B. 당신은 파이썬 튜터입니다.",
@@ -807,7 +807,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\nconfig = {'temperature': 0.7, 'max_tokens': 1024, 'top_p': 0.9}\n\n```python\n# 슬라이더 범위 유효성 검증\ndef validate_config(cfg):\n    errors = []\n    if not 0.0 <= cfg.get('temperature', 1.0) <= 1.0:\n        errors.append('temperature 범위 오류')\n    if cfg.get('max_tokens', 0) <= 0:\n        errors.append('max_tokens 오류')\n    return errors\n```\n\n```python\nprint(validate_config(config))\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\nconfig = {'temperature': 0.7, 'max_tokens': 1024, 'top_p': 0.9}\n\n```python\n# 슬라이더 범위 유효성 검증\ndef validate_config(cfg):\n    errors = []\n    if not 0.0 <= cfg.get('temperature', 1.0) <= 1.0:\n        errors.append('temperature 범위 오류')\n    if cfg.get('max_tokens', 0) <= 0:\n        errors.append('max_tokens 오류')\n    return errors\n\nprint(validate_config(config))\n```",
       "choices": [
         "A. []",
         "B. ['temperature 범위 오류']",
@@ -845,7 +845,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit에서 expander(접기/펼치기) 섹션을 만드는 함수로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n```\n\n```python\nwith st._____(\"고급 설정\", expanded=False):\n    temp = st.slider('temperature', 0.0, 1.0, 0.7)\n    top_p = st.slider('top_p', 0.0, 1.0, 0.9)\n```",
+      "question": "Streamlit에서 expander(접기/펼치기) 섹션을 만드는 함수로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n\nwith st._____(\"고급 설정\", expanded=False):\n    temp = st.slider('temperature', 0.0, 1.0, 0.7)\n    top_p = st.slider('top_p', 0.0, 1.0, 0.9)\n```",
       "answer": "expander",
       "feedback": {
         "correct": "정답! st.expander()는 클릭으로 접고 펼 수 있는 섹션을 만듭니다. expanded=False로 초기에 접힌 상태로 시작해요. 고급 설정이나 추가 정보를 숨겨두고 필요할 때만 보여주는 UI 패턴에 유용합니다. 클리어!"
@@ -860,7 +860,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef trim_history(messages, max_turns):\n    limit = max_turns * 2\n    if len(messages) > limit:\n        return messages[-limit:]\n    return messages\n```\n\n```python\nhistory = [{'role': f'r{i}', 'content': f'c{i}'} for i in range(8)]\ntrimmed = trim_history(history, 3)\nprint(len(trimmed))\nprint(trimmed[0]['content'])\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\ndef trim_history(messages, max_turns):\n    limit = max_turns * 2\n    if len(messages) > limit:\n        return messages[-limit:]\n    return messages\n\nhistory = [{'role': f'r{i}', 'content': f'c{i}'} for i in range(8)]\ntrimmed = trim_history(history, 3)\nprint(len(trimmed))\nprint(trimmed[0]['content'])\n```",
       "choices": [
         "A. 6\nc2",
         "B. 6\nc0",
@@ -897,7 +897,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit Cloud에 앱을 배포할 때 패키지 목록을 정의하는 파일명으로 빈칸을 채우세요.\n\n```python\n# 프로젝트 루트에 이 파일이 있어야 Streamlit Cloud가 패키지를 자동 설치합니다\n# 파일명: _____\n```\n\n```python\nstreamlit>=1.28.0\nanthropicpython-dotenv\n```",
+      "question": "Streamlit Cloud에 앱을 배포할 때 패키지 목록을 정의하는 파일명으로 빈칸을 채우세요.\n\n```python\n# 프로젝트 루트에 이 파일이 있어야 Streamlit Cloud가 패키지를 자동 설치합니다\n# 파일명: _____\n\nstreamlit>=1.28.0\nanthropicpython-dotenv\n```",
       "answer": "requirements.txt",
       "feedback": {
         "correct": "정답! requirements.txt는 Python 프로젝트의 의존성을 나열하는 표준 파일입니다. Streamlit Cloud는 배포 시 이 파일을 읽어 pip install을 자동으로 실행해요. 버전은 >=로 최소 버전을, ==으로 정확히 고정할 수 있습니다. 클리어!"
@@ -912,7 +912,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 배포 설정 파싱 코드의 출력값을 고르세요.\n\n```python\nrequirements = \"\"\"streamlit>=1.28.0\nanthropicpython-dotenv\"\"\"\n```\n\n```python\npackages = [line.split('>=')[0].split('==')[0].strip() \n            for line in requirements.strip().split('\\n') \n            if line.strip()]\nprint(packages)\n```",
+      "question": "다음 배포 설정 파싱 코드의 출력값을 고르세요.\n\n```python\nrequirements = \"\"\"streamlit>=1.28.0\nanthropicpython-dotenv\"\"\"\n\npackages = [line.split('>=')[0].split('==')[0].strip() \n            for line in requirements.strip().split('\\n') \n            if line.strip()]\nprint(packages)\n```",
       "choices": [
         "A. ['streamlit', 'anthropic', 'python-dotenv']",
         "B. ['streamlit>=1.28.0', 'anthropic', 'python-dotenv']",
@@ -948,7 +948,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 환경 설정 검증 코드의 출력값을 고르세요.\n\n```python\nimport os\n```\n\n```python\nos.environ['ANTHROPIC_API_KEY'] = 'test-key'\nos.environ['APP_ENV'] = 'production'\n```\n\n```python\nrequired_vars = ['ANTHROPIC_API_KEY', 'APP_ENV', 'DATABASE_URL']\nmissing = [v for v in required_vars if not os.getenv(v)]\n```\n\n```python\nif missing:\n    print(f\"누락: {missing}\")\nelse:\n    print('설정 완료')\n```",
+      "question": "다음 환경 설정 검증 코드의 출력값을 고르세요.\n\n```python\nimport os\n\nos.environ['ANTHROPIC_API_KEY'] = 'test-key'\nos.environ['APP_ENV'] = 'production'\n\nrequired_vars = ['ANTHROPIC_API_KEY', 'APP_ENV', 'DATABASE_URL']\nmissing = [v for v in required_vars if not os.getenv(v)]\n\nif missing:\n    print(f\"누락: {missing}\")\nelse:\n    print('설정 완료')\n```",
       "choices": [
         "A. 누락: ['DATABASE_URL']",
         "B. 설정 완료",
@@ -984,7 +984,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 배포 체크리스트 코드의 출력값을 고르세요.\n\nchecklist = {\n    'requirements.txt': True,\n    '.streamlit/secrets.toml': False,\n    'app.py': True,\n    '.gitignore': True\n}\n\n```python\npassed = sum(1 for v in checklist.values() if v)\nfailed = [k for k, v in checklist.items() if not v]\n```\n\n```python\nprint(f'{passed}/{len(checklist)} 통과')\nprint(f'누락: {failed}')\n```",
+      "question": "다음 배포 체크리스트 코드의 출력값을 고르세요.\n\nchecklist = {\n    'requirements.txt': True,\n    '.streamlit/secrets.toml': False,\n    'app.py': True,\n    '.gitignore': True\n}\n\n```python\npassed = sum(1 for v in checklist.values() if v)\nfailed = [k for k, v in checklist.items() if not v]\n\nprint(f'{passed}/{len(checklist)} 통과')\nprint(f'누락: {failed}')\n```",
       "choices": [
         "A. 3/4 통과\n누락: ['.streamlit/secrets.toml']",
         "B. 4/4 통과\n누락: []",
@@ -1022,7 +1022,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit 배포 시 API 키가 담긴 secrets.toml이 Git에 올라가지 않도록 목록에 추가해야 하는 파일명으로 빈칸을 채우세요.\n\n```python\n# 이 파일에 추가해야 secrets.toml이 저장소에 포함되지 않습니다\n# 파일명: _____\n```\n\n```python\n# 추가할 내용:\n.streamlit/secrets.toml\n```",
+      "question": "Streamlit 배포 시 API 키가 담긴 secrets.toml이 Git에 올라가지 않도록 목록에 추가해야 하는 파일명으로 빈칸을 채우세요.\n\n```python\n# 이 파일에 추가해야 secrets.toml이 저장소에 포함되지 않습니다\n# 파일명: _____\n\n# 추가할 내용:\n.streamlit/secrets.toml\n```",
       "answer": ".gitignore",
       "feedback": {
         "correct": "정답! .gitignore에 .streamlit/secrets.toml을 추가해 Git 저장소에 올라가지 않도록 해야 합니다. API 키가 GitHub 같은 공개 저장소에 노출되면 악용될 수 있어요. Streamlit Cloud 배포 시에는 대시보드의 Secrets 메뉴에 직접 입력합니다. 클리어!"

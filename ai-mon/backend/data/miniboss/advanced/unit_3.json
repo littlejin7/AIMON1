@@ -9,7 +9,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "환경 변수가 없을 때 기본값을 반환하도록 빈칸을 채우세요.\n출력 목표: default_key\n\n```python\nimport os\n```\n\n```python\nkey = os.getenv('API_KEY', '_____')\nprint(key)\n```",
+      "question": "환경 변수가 없을 때 기본값을 반환하도록 빈칸을 채우세요.\n출력 목표: default_key\n\n```python\nimport os\n\nkey = os.getenv('API_KEY', '_____')\nprint(key)\n```",
       "answer": "default_key",
       "feedback": {
         "correct": "정답! os.getenv(key, default)는 환경 변수가 없을 때 두 번째 인자를 반환합니다. os.environ['KEY']는 없을 때 KeyError를 발생시키지만, getenv는 안전하게 기본값을 반환해요. API 키 로딩에 필수 패턴입니다. 클리어!"
@@ -24,7 +24,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요. (환경 변수 'SECRET'은 설정되지 않은 상태입니다.)\n\n```python\nimport os\n```\n\n```python\nval = os.environ.get('SECRET')\nprint(val)\nprint(type(val).__name__)\n```",
+      "question": "다음 코드의 출력값을 고르세요. (환경 변수 'SECRET'은 설정되지 않은 상태입니다.)\n\n```python\nimport os\n\nval = os.environ.get('SECRET')\nprint(val)\nprint(type(val).__name__)\n```",
       "choices": [
         "A. None\nNoneType",
         "B. ''\nstr",
@@ -45,7 +45,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": ".env 파일에서 환경 변수를 로드하는 라이브러리로 빈칸을 채우세요.\n\n```python\nfrom _____ import load_dotenv\nimport os\n```\n\n```python\nload_dotenv()\napi_key = os.getenv('CLAUDE_API_KEY')\n```",
+      "question": ".env 파일에서 환경 변수를 로드하는 라이브러리로 빈칸을 채우세요.\n\n```python\nfrom _____ import load_dotenv\nimport os\n\nload_dotenv()\napi_key = os.getenv('CLAUDE_API_KEY')\n```",
       "answer": "dotenv",
       "feedback": {
         "correct": "정답! python-dotenv 라이브러리의 load_dotenv()는 .env 파일에 있는 KEY=VALUE 형태의 설정을 os.environ에 로드합니다. API 키를 코드에 직접 쓰지 않고 .env 파일에 관리하면 보안과 유지보수가 좋아져요. 클리어!"
@@ -60,7 +60,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport os\n```\n\n```python\nos.environ['MY_KEY'] = 'secret123'\nkey = os.environ['MY_KEY']\nmasked = key[:3] + '*' * (len(key) - 3)\nprint(masked)\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport os\n\nos.environ['MY_KEY'] = 'secret123'\nkey = os.environ['MY_KEY']\nmasked = key[:3] + '*' * (len(key) - 3)\nprint(masked)\n```",
       "choices": [
         "A. sec******",
         "B. secret123",
@@ -81,7 +81,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "API 키가 없으면 예외를 발생시키는 코드의 빈칸을 채우세요.\n\n```python\nimport os\n```\n\n```python\napi_key = os.getenv('CLAUDE_API_KEY')\nif not api_key:\n    raise _____(\"API 키가 설정되지 않았습니다\")\n```",
+      "question": "API 키가 없으면 예외를 발생시키는 코드의 빈칸을 채우세요.\n\n```python\nimport os\n\napi_key = os.getenv('CLAUDE_API_KEY')\nif not api_key:\n    raise _____(\"API 키가 설정되지 않았습니다\")\n```",
       "answer": "ValueError",
       "feedback": {
         "correct": "정답! API 키 같은 필수 설정이 없을 때는 ValueError를 발생시켜 프로그램 시작 시점에 오류를 알리는 것이 좋습니다. EnvironmentError나 RuntimeError를 쓰는 경우도 있지만, '잘못된 값(없는 값)' 의미에서 ValueError가 적절해요. 클리어!"
@@ -96,7 +96,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport os\n```\n\n```python\nos.environ['KEY'] = 'abc'\nprint('KEY' in os.environ)\ndel os.environ['KEY']\nprint('KEY' in os.environ)\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport os\n\nos.environ['KEY'] = 'abc'\nprint('KEY' in os.environ)\ndel os.environ['KEY']\nprint('KEY' in os.environ)\n```",
       "choices": [
         "A. True\nFalse",
         "B. False\nTrue",
@@ -134,7 +134,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "os.environ에서 없는 키를 대괄호로 접근하면 발생하는 예외를 빈칸에 채우세요.\n\n```python\nimport os\n```\n\n```python\ntry:\n    val = os.environ['NONEXISTENT']\nexcept _____:\n    print('환경 변수 없음')\n```",
+      "question": "os.environ에서 없는 키를 대괄호로 접근하면 발생하는 예외를 빈칸에 채우세요.\n\n```python\nimport os\n\ntry:\n    val = os.environ['NONEXISTENT']\nexcept _____:\n    print('환경 변수 없음')\n```",
       "answer": "KeyError",
       "feedback": {
         "correct": "정답! os.environ은 dict를 상속한 Mapping이므로 없는 키를 대괄호로 접근하면 KeyError가 발생합니다. 이를 피하려면 os.getenv() 또는 os.environ.get()을 사용하세요. 클리어!"
@@ -149,7 +149,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport os\n```\n\n```python\nkeys = {'KEY_A': 'val1', 'KEY_B': 'val2', 'OTHER': 'val3'}\nfor k, v in keys.items():\n    os.environ[k] = v\n```\n\n```python\nclaude_keys = {k: v for k, v in os.environ.items() if k.startswith('KEY_')}\nprint(len(claude_keys))\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport os\n\nkeys = {'KEY_A': 'val1', 'KEY_B': 'val2', 'OTHER': 'val3'}\nfor k, v in keys.items():\n    os.environ[k] = v\n\nclaude_keys = {k: v for k, v in os.environ.items() if k.startswith('KEY_')}\nprint(len(claude_keys))\n```",
       "choices": [
         "A. 2",
         "B. 3",
@@ -238,7 +238,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nmessages = []\nmessages.append({'role': 'user', 'content': '질문1'})\nmessages.append({'role': 'assistant', 'content': '답변1'})\nmessages.append({'role': 'user', 'content': '질문2'})\n```\n\n```python\nprint(len(messages))\nprint(messages[1]['role'])\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nmessages = []\nmessages.append({'role': 'user', 'content': '질문1'})\nmessages.append({'role': 'assistant', 'content': '답변1'})\nmessages.append({'role': 'user', 'content': '질문2'})\n\nprint(len(messages))\nprint(messages[1]['role'])\n```",
       "choices": [
         "A. 3\nassistant",
         "B. 2\nuser",
@@ -380,7 +380,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 멀티턴 대화 히스토리 코드의 출력값을 고르세요.\n\n```python\nhistory = []\nhistory.append({'role': 'user', 'content': '1+1은?'})\nhistory.append({'role': 'assistant', 'content': '2입니다.'})\nhistory.append({'role': 'user', 'content': '그럼 2+2는?'})\n```\n\n```python\nprint(len(history))\nprint(history[0]['content'])\n```",
+      "question": "다음 멀티턴 대화 히스토리 코드의 출력값을 고르세요.\n\n```python\nhistory = []\nhistory.append({'role': 'user', 'content': '1+1은?'})\nhistory.append({'role': 'assistant', 'content': '2입니다.'})\nhistory.append({'role': 'user', 'content': '그럼 2+2는?'})\n\nprint(len(history))\nprint(history[0]['content'])\n```",
       "choices": [
         "A. 3\n1+1은?",
         "B. 2\n1+1은?",
@@ -630,7 +630,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 스트리밍 시뮬레이션 코드의 출력값을 고르세요.\n\n```python\nimport sys\n```\n\n```python\nchunks = ['에', '이', '몬']\ncollected = []\nfor chunk in chunks:\n    collected.append(chunk)\n```\n\n```python\nfull_text = ''.join(collected)\nprint(f'수신: {full_text}')\nprint(f'청크 수: {len(collected)}')\n```",
+      "question": "다음 스트리밍 시뮬레이션 코드의 출력값을 고르세요.\n\n```python\nimport sys\n\nchunks = ['에', '이', '몬']\ncollected = []\nfor chunk in chunks:\n    collected.append(chunk)\n\nfull_text = ''.join(collected)\nprint(f'수신: {full_text}')\nprint(f'청크 수: {len(collected)}')\n```",
       "choices": [
         "A. 수신: 에이몬\n청크 수: 3",
         "B. 수신: ['에', '이', '몬']\n청크 수: 3",
@@ -683,7 +683,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nchunks = ['He', 'llo', ' Wor', 'ld']\ntotal_chars = 0\nfor chunk in chunks:\n    total_chars += len(chunk)\n```\n\n```python\nfull = ''.join(chunks)\nprint(total_chars == len(full))\nprint(full)\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nchunks = ['He', 'llo', ' Wor', 'ld']\ntotal_chars = 0\nfor chunk in chunks:\n    total_chars += len(chunk)\n\nfull = ''.join(chunks)\nprint(total_chars == len(full))\nprint(full)\n```",
       "choices": [
         "A. True\nHello World",
         "B. False\nHello World",
@@ -742,7 +742,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "API 호출 실패 시 재시도하는 패턴에서 빈칸을 채우세요.\n\n```python\nimport time\n```\n\n```python\ndef call_with_retry(func, max_retries=3):\n    for attempt in range(max_retries):\n        try:\n            return func()\n        except Exception as e:\n            if attempt == max_retries - 1:\n```\n                _____\n            time.sleep(2 ** attempt)\n\ncall_with_retry(lambda: 1/0)",
+      "question": "API 호출 실패 시 재시도하는 패턴에서 빈칸을 채우세요.\n\n```python\nimport time\n\ndef call_with_retry(func, max_retries=3):\n    for attempt in range(max_retries):\n        try:\n            return func()\n        except Exception as e:\n            if attempt == max_retries - 1:\n```\n                _____\n            time.sleep(2 ** attempt)\n\ncall_with_retry(lambda: 1/0)",
       "answer": "raise",
       "feedback": {
         "correct": "정답! raise는 현재 예외를 그대로 재발생시킵니다. 마지막 시도에서도 실패하면 예외를 상위로 전파해야 호출자가 오류를 알 수 있어요. time.sleep(2 ** attempt)는 지수 백오프 패턴으로 1초, 2초, 4초... 대기합니다. 클리어!"
@@ -757,7 +757,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "API 응답을 캐싱하는 딕셔너리 패턴에서 빈칸을 채우세요.\n\ncache = {}\n\n```python\ndef cached_call(prompt):\n    if prompt in cache:\n        return cache[prompt]\n    result = f'응답: {prompt}'\n    cache[_____] = result\n    return result\n```\n\n```python\nprint(cached_call('안녕'))\nprint(cached_call('안녕'))  # 캐시에서 반환\n```",
+      "question": "API 응답을 캐싱하는 딕셔너리 패턴에서 빈칸을 채우세요.\n\ncache = {}\n\n```python\ndef cached_call(prompt):\n    if prompt in cache:\n        return cache[prompt]\n    result = f'응답: {prompt}'\n    cache[_____] = result\n    return result\n\nprint(cached_call('안녕'))\nprint(cached_call('안녕'))  # 캐시에서 반환\n```",
       "answer": "prompt",
       "feedback": {
         "correct": "정답! cache[prompt] = result로 응답을 딕셔너리에 저장합니다. 같은 prompt로 두 번째 호출 시 cache[prompt]에서 바로 반환돼요. 동일 질문에 반복 API 호출을 피해 비용을 절약하는 단순하지만 효과적인 패턴입니다. 클리어!"
@@ -793,7 +793,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "함수 실행 시간을 측정해 로깅하는 데코레이터에서 빈칸을 채우세요.\n\n```python\nimport time, functools\n```\n\n```python\ndef timer(func):\n    @functools.wraps(func)\n    def wrapper(*args, **kwargs):\n        start = time.time()\n        result = func(*args, **kwargs)\n        elapsed = time._____ () - start\n        print(f'{func.__name__}: {elapsed:.3f}s')\n        return result\n    return wrapper\n```",
+      "question": "함수 실행 시간을 측정해 로깅하는 데코레이터에서 빈칸을 채우세요.\n\n```python\nimport time, functools\n\ndef timer(func):\n    @functools.wraps(func)\n    def wrapper(*args, **kwargs):\n        start = time.time()\n        result = func(*args, **kwargs)\n        elapsed = time._____ () - start\n        print(f'{func.__name__}: {elapsed:.3f}s')\n        return result\n    return wrapper\n```",
       "answer": "time",
       "feedback": {
         "correct": "정답! time.time()은 현재 시각을 Unix 타임스탬프(초 단위 float)로 반환합니다. 함수 실행 전후로 time.time()을 호출해 차이를 구하면 경과 시간이에요. API 호출 레이턴시 측정에 자주 쓰는 패턴입니다. 클리어!"
@@ -808,7 +808,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\ncache = {}\n\n```python\ndef cached(prompt):\n    if prompt not in cache:\n        cache[prompt] = prompt.upper()\n    return cache[prompt]\n```\n\n```python\nprint(cached('hello'))\nprint(cached('hello'))\nprint(len(cache))\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\ncache = {}\n\n```python\ndef cached(prompt):\n    if prompt not in cache:\n        cache[prompt] = prompt.upper()\n    return cache[prompt]\n\nprint(cached('hello'))\nprint(cached('hello'))\nprint(len(cache))\n```",
       "choices": [
         "A. HELLO\nHELLO\n1",
         "B. HELLO\nhello\n2",
@@ -861,7 +861,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass RateLimiter:\n    def __init__(self, max_calls):\n        self.max_calls = max_calls\n        self.calls = 0\n```\n\n```python\n    def can_call(self):\n        if self.calls < self.max_calls:\n            self.calls += 1\n            return True\n        return False\n```\n\n```python\nlimiter = RateLimiter(3)\nresults = [limiter.can_call() for _ in range(5)]\nprint(results)\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass RateLimiter:\n    def __init__(self, max_calls):\n        self.max_calls = max_calls\n        self.calls = 0\n\n    def can_call(self):\n        if self.calls < self.max_calls:\n            self.calls += 1\n            return True\n        return False\n\nlimiter = RateLimiter(3)\nresults = [limiter.can_call() for _ in range(5)]\nprint(results)\n```",
       "choices": [
         "A. [True, True, True, False, False]",
         "B. [True, True, True, True, True]",

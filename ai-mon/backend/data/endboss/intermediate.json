@@ -725,7 +725,7 @@
     "difficulty": "hard",
     "type": "error_find",
     "question": "로그 파서 클래스에 버그가 있습니다. 오류가 있는 줄을 고르세요. 오류가 없다면 'K'를 선택하세요.\n\n```python\nclass LogParser:                                    # (A)\n    def __init__(self, filepath):                   # (B)\n        self.filepath = filepath                    # (C)\n        self.logs = self.load()                     # (D)\n\n    def load(self):                                 # (E)\n        with open(self.filepath, 'r') as f:         # (F)\n            return f.readlines()                    # (G)\n\nparser = LogParser('server.log')                   # (H)\nparser2 = LogParser('server.log')                  # (I)\nprint(parser.logs is parser2.logs)                 # (J)\n```",
-    "answer": "K",
+    "answer": "E",
     "feedback": {
       "correct": "정답! 이 코드는 정상 동작합니다. parser와 parser2는 각자 load()를 호출해 별도 리스트를 가지므로 (J)는 False를 출력해요. 설계와 동작 모두 의도대로입니다.",
       "incorrect": "각 인스턴스는 __init__에서 독립적으로 load()를 호출해 별도 리스트를 생성합니다. parser.logs is parser2.logs는 False예요. 코드에 버그가 없습니다."

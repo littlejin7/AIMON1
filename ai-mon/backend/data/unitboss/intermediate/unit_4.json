@@ -142,7 +142,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\nclass Base:\n    count = 0\n    def __init__(self):\n        Base.count += 1\n```\n\nclass Child(Base):\n    pass\n\n```python\na = Base()\nb = Base()\nc = Child()\nprint(Base.count)\nprint(Child.count)\n```",
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\nclass Base:\n    count = 0\n    def __init__(self):\n        Base.count += 1\n\nclass Child(Base):\n    pass\n\na = Base()\nb = Base()\nc = Child()\nprint(Base.count)\nprint(Child.count)\n```",
       "choices": [
         "A. 2 / 1",
         "B. 3 / 1",
