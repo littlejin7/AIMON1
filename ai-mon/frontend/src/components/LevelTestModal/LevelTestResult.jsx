@@ -229,9 +229,9 @@ export default function LevelTestResult({
           style={{
             width: '100%', padding: '10px',
             background: '#7F77DD', color: 'white',
-            border: 'none', borderRadius: '14px',
+            border: '1px solid rgba(255,255,255,0.22)', borderRadius: '14px',
             fontSize: '15px', fontWeight: 600, cursor: 'pointer',
-            boxShadow: '0 3px 0 #534AB7',
+            boxShadow: '0 10px 22px rgba(83,74,183,.18), 0 0 0 1px rgba(127,119,221,.08)',
           }}
         >
           {isLoggedIn ? `🚀 ${meta.label}으로 학습 시작하기` : '✨ 가입하고 에이몬 받기'}
