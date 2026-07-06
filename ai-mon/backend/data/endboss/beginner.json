@@ -429,18 +429,12 @@
     "unit": 9,
     "difficulty": "hard",
     "type": "error_find",
-    "question": "다음 코드에서 오류가 발생하는 줄 번호는?\n\n```python\n1: history = []\n2: new_word = \"사과\"\n3: prev_last = history[-1][-1] if history else None\n4: if prev_last and new_word[0] != prev_last:\n5:     print(\"이어지지 않아요!\")\n```",
-    "choices": [
-      "A. 1번째 줄",
-      "B. 2번째 줄",
-      "C. 3번째 줄",
-      "D. 오류 없음"
-    ],
-    "answer": "D",
-    "explanation": "이 코드는 정상 동작합니다. 3번째 줄의 삼항 표현식에서 history가 빈 리스트면 None을 반환해 IndexError를 방지합니다. 4번째 줄에서 None은 False로 평가되어 print가 실행되지 않습니다.",
+    "question": "다음 코드에서 오류가 발생하는 줄 번호는?\n\n```python\n1: history = []\n2: new_word = \"사과\"\n3: prev_last = history[-1][-1]\n4: if prev_last and new_word[0] != prev_last:\n5:     print(\"이어지지 않아요!\")\n```",
+    "answer": "3",
+    "explanation": "3번째 줄에서 빈 리스트 history의 인덱스에 접근하려 하므로 IndexError: list index out of range 오류가 발생합니다. 빈 리스트를 방어하는 삼항 연산자 처리가 필요합니다.",
     "feedback": {
-      "correct": "맞아요! 삼항 표현식으로 빈 리스트의 IndexError를 방어한 올바른 코드입니다.",
-      "incorrect": "오류가 없습니다. history[-1] if history else None 패턴이 빈 리스트의 IndexError를 방어합니다."
+      "correct": "정답입니다! history가 빈 리스트일 때 `history[-1]`을 조회하려고 시도하므로 3번째 줄에서 IndexError가 발생합니다.",
+      "incorrect": "다시 생각해보세요. 3번째 줄에서 빈 리스트인 history에서 요소를 꺼내려(history[-1]) 하여 IndexError가 발생하게 됩니다."
     }
   },
   {
