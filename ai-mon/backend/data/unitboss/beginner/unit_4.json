@@ -164,8 +164,8 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "파이썬 반복 규칙 부호를 유실하여 컴파일 에러(SyntaxError)를 내뿜는 줄의 번호는?\n\n```python\n1줄: for i in range(5)\n2줄:     print(\"체력 회복!\")\n```",
-      "answer": "1",
+      "question": "파이썬 반복 규칙 부호를 유실하여 컴파일 에러(SyntaxError)를 내뿜는 줄의 번호는?\n\n```python\n1줄: hp = 100\n2줄: for i in range(5)\n3줄:     hp = hp - 10\n4줄:     print(f\"체력: {hp}\")\n```",
+      "answer": "2",
       "hint": "for 또는 while 제어문 선언 영역을 완료할 때 생략하면 안 되는 기호를 찾아보세요.",
       "feedback": {
         "correct": "정답! 파이썬 반복 제어식 선언부 꼬리칸에는 영역의 블록 시작을 통보하기 위한 콜론 기호(:) 작성이 강제됩니다."
