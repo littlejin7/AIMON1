@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import QuizCard from '../../components/QuizCard/QuizCard'
-import '../Boss/Boss.css'
 import './BossMini.css'
 import villainIcon from '../../assets/boss_midcmorg.png'
 import amon from '../../assets/amon.png'
