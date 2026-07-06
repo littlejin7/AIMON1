@@ -3,6 +3,7 @@ import sys
 
 os.environ.setdefault("SECRET_KEY", "test-secret-key-at-least-32-characters-long-xx")
 os.environ.setdefault("USE_SUPABASE", "false")
+os.environ.setdefault("EMAIL_ENABLED", "false")
 
 BACKEND = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, BACKEND)
@@ -47,6 +48,7 @@ def _register(client, username: str, nickname: str, email: str):
 def _client(tmp_path, monkeypatch):
     monkeypatch.setattr(U, "USERS_FILE", str(tmp_path / "users.json"))
     monkeypatch.setattr(U, "REFRESH_TOKENS_FILE", str(tmp_path / "refresh_tokens.json"))
+    monkeypatch.setenv("EMAIL_ENABLED", "false")
     monkeypatch.setattr(limiter, "enabled", False)
     return TestClient(_make_app(), raise_server_exceptions=False)
 

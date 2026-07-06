@@ -3,6 +3,8 @@ import api, { logApiError, requireAuthToken } from './client'
 export const authApi = {
   login:    (data, cfg) => api.post('/auth/login', data, cfg),
   register: (data) => api.post('/auth/register', data),
+  sendEmailCode: (data) => api.post('/auth/email/send-code', data),
+  verifyEmailCode: (data) => api.post('/auth/email/verify-code', data),
   checkId: (username) => api.get(`/auth/check-id?username=${encodeURIComponent(username)}`),
   checkEmail: (email) => api.get(`/auth/check-email?email=${encodeURIComponent(email)}`),
   checkNickname: (nickname) => api.get(`/auth/check-nickname?nickname=${encodeURIComponent(nickname)}`),

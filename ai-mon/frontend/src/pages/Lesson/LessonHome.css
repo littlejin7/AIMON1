@@ -235,8 +235,17 @@ body:has(.lh-page) { background: #F4F3FA; }
   display: flex;
   gap: 10px;
   align-items: center;
+  transition: opacity 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+.lh-endboss-teaser.locked {
   opacity: 0.6;
+  cursor: default;
+}
+.lh-endboss-teaser.unlocked {
+  opacity: 1;
   cursor: pointer;
+  border: 1.5px solid #F0B429;
+  box-shadow: 0 2px 10px rgba(240, 180, 41, 0.25);
 }
 .lh-endboss-icon {
   width: 36px;

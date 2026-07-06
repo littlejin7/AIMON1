@@ -1,7 +1,9 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { authApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
+import EmailVerificationStep from './components/EmailVerificationStep'
+import { useEmailVerification } from './hooks/useEmailVerification'
 import beginnerHappyIcon from '../../assets/character_beginnerhappy.png'
 import slimeIcon         from '../../assets/character_slime.png'
 import './Auth.css'
@@ -79,13 +81,11 @@ export default function Register() {
     goals: [], dailyTime: 10,
   })
   const [terms, setTerms] = useState({ tos: false, privacy: false, marketing: false, thirdparty: false })
-  const [otp, setOtp] = useState(['', '', '', '', '', ''])
   const [pwStrength, setPwStrength] = useState(0)
   const [showPw, setShowPw]         = useState(false)
   const [showPwC, setShowPwC]       = useState(false)
   const [loading, setLoading]       = useState(false)
   const [error, setError]           = useState('')
-  const otpRefs = useRef([])
 
   const [isIdChecked, setIsIdChecked] = useState(false)
   const [idChecking, setIdChecking] = useState(false)
@@ -119,13 +119,21 @@ export default function Register() {
 
   const isValidEmail = form.email.includes('@') && form.email.split('@')[1]?.length > 1
 
+  const emailVerification = useEmailVerification({
+    email: form.email,
+    isValidEmail,
+    onVerified: () => setStep(3),
+    onError: setError,
+  })
+  const { reset: resetEmailVerification, verified: emailVerified } = emailVerification
+
   /* ── helpers ── */
   const set = (field) => (e) => { setForm(f => ({ ...f, [field]: e.target.value })); setError('') }
 
   const updateEmail = (id, domain, custom) => {
     const activeDomain = domain === 'direct' ? custom : domain
     // @ 중복 방지, 한글 및 공백 방지
-    const cleanedId = id.replace(/@/g, '').replace(/\s/g, '').replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '')
+    const cleanedId = id.toLowerCase().replace(/@/g, '').replace(/\s/g, '').replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '')
     const cleanedDomain = activeDomain.replace(/@/g, '').replace(/\s/g, '').replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '')
     
     let fullEmail = ''
@@ -135,11 +143,12 @@ export default function Register() {
     setForm(f => ({ ...f, email: fullEmail }))
     setIsEmailChecked(false)
     setEmailError('')
+    resetEmailVerification()
     setError('')
   }
 
   const handleEmailIdChange = (e) => {
-    const val = e.target.value
+    const val = e.target.value.toLowerCase()
     setEmailId(val)
     updateEmail(val, emailDomain, customDomain)
   }
@@ -151,13 +160,13 @@ export default function Register() {
   }
 
   const handleCustomDomainChange = (e) => {
-    const val = e.target.value
+    const val = e.target.value.toLowerCase()
     setCustomDomain(val)
     updateEmail(emailId, emailDomain, val)
   }
 
   const handleIdChange = (e) => {
-    const val = e.target.value.replace(/[^A-Za-z0-9]/g, '').trim()
+    const val = e.target.value.toLowerCase().replace(/[^a-z0-9]/g, '').trim()
     setForm(f => ({ ...f, username: val }))
     setIsIdChecked(false)
     setIdError('')
@@ -264,16 +273,6 @@ export default function Register() {
     setTerms({ tos: !allOn, privacy: !allOn, marketing: !allOn, thirdparty: !allOn })
   }
 
-  const handleOtpChange = (i, val) => {
-    const v = val.replace(/\D/g, '').slice(-1)
-    const next = [...otp]; next[i] = v; setOtp(next)
-    if (v && i < 5) otpRefs.current[i + 1]?.focus()
-  }
-
-  const handleOtpKeyDown = (i, e) => {
-    if (e.key === 'Backspace' && !otp[i] && i > 0) otpRefs.current[i - 1]?.focus()
-  }
-
   /* ── Social OAuth ── */
   const handleSocial = (id) => {
     if (id === 'google') {
@@ -300,6 +299,13 @@ export default function Register() {
   const handleSubmit = async () => {
     setLoading(true); setError('')
     try {
+      if (!emailVerified) {
+        const msg = '이메일 인증을 완료해주세요.'
+        setStep(2)
+        setError(msg)
+        return
+      }
+
       const nickname = form.nickname.trim()
       if (nickname.length < 2) {
         const msg = '닉네임은 2자 이상 입력해주세요.'
@@ -347,7 +353,6 @@ export default function Register() {
   const canGoStep2 = isIdChecked && isEmailChecked && form.email.includes('@') && form.email.split('@')[1]?.length > 1
     && form.password.length >= 8 && form.password === form.passwordConfirm
   const canGoStep5 = isNicknameChecked && form.nickname.trim().length >= 2
-  const otpFilled = otp.every(Boolean)
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      RENDER
@@ -612,64 +617,11 @@ export default function Register() {
             Step 2 — 이메일 인증
         ━━━━━━━━━━━━━━━━━ */}
         {step === 2 && (
-          <div className="reg-body">
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '10px', padding: '10px 0' }}>
-              <div className="reg-verify-icon">📬</div>
-              <div className="reg-page-title">이메일을 확인해주세요</div>
-              <div className="reg-page-sub">
-                <strong style={{ color: '#534AB7' }}>{form.email}</strong> 으로<br />
-                6자리 인증코드를 보냈어요.
-              </div>
-            </div>
-
-            <div className="reg-otp-wrap">
-              {otp.map((v, i) => (
-                <input
-                  key={i}
-                  ref={el => otpRefs.current[i] = el}
-                  className={`reg-otp-box${v ? ' filled' : ''}`}
-                  maxLength={1}
-                  value={v}
-                  placeholder="·"
-                  type="text"
-                  inputMode="numeric"
-                  onChange={e => handleOtpChange(i, e.target.value)}
-                  onKeyDown={e => handleOtpKeyDown(i, e)}
-                />
-              ))}
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-              <div style={{ fontSize: '13px', color: '#9B96D0' }}>코드 만료까지</div>
-              <div style={{ fontSize: '16px', fontWeight: 700, color: '#7F77DD', fontVariantNumeric: 'tabular-nums' }}>04:59</div>
-            </div>
-
-            {!otpFilled && (
-              <div className="reg-info-box" style={{ background: '#FFF9ED', border: '1px solid #FAC775', color: '#8A5500' }}>
-                <span style={{ fontSize: '16px', flexShrink: 0 }}>⌨️</span>
-                나머지 {6 - otp.filter(Boolean).length}자리를 입력하면 자동으로 확인해요.
-              </div>
-            )}
-
-            {otpFilled && (
-              <div className="reg-info-box" style={{ background: '#F0FDF4', border: '1px solid #86EFAC', color: '#15803D' }}>
-                <span style={{ fontSize: '16px', flexShrink: 0 }}>✅</span>
-                인증코드가 입력됐어요. 아래 버튼을 눌러 확인해주세요.
-              </div>
-            )}
-
-            <button className="reg-btn-primary" onClick={() => setStep(3)}>
-              인증 완료
-            </button>
-
-            <div style={{ textAlign: 'center' }}>
-              <span style={{ fontSize: '12px', color: '#C4BFEE' }}>코드를 못 받았나요?</span>
-              <button type="button"
-                style={{ fontSize: '12px', color: '#7F77DD', fontWeight: 500, cursor: 'pointer', marginLeft: '6px', background: 'none', border: 'none', fontFamily: 'inherit' }}>
-                재전송
-              </button>
-            </div>
-          </div>
+          <EmailVerificationStep
+            email={form.email}
+            isValidEmail={isValidEmail}
+            verification={emailVerification}
+          />
         )}
 
         {/* ━━━━━━━━━━━━━━━━━

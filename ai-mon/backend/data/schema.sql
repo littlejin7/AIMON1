@@ -45,12 +45,13 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- Active-only partial unique indexes (allows reuse of username/email after soft delete)
 CREATE UNIQUE INDEX IF NOT EXISTS users_username_active_uq
-  ON users (username)
+  ON users (lower(username)) -- lower() 적용
   WHERE deleted_at IS NULL;
 
 CREATE UNIQUE INDEX IF NOT EXISTS users_email_active_uq
-  ON users (email)
+  ON users (lower(email)) -- lower() 적용
   WHERE deleted_at IS NULL AND email IS NOT NULL AND email <> '';
+
 
 -- Future optional nickname uniqueness, apply only after cleaning duplicates:
 -- CREATE UNIQUE INDEX IF NOT EXISTS users_nickname_active_uq
@@ -86,6 +87,21 @@ CREATE TABLE IF NOT EXISTS reset_tokens (
   send_count_today integer DEFAULT 0,
   last_sent timestamptz,           -- 3-minute cooldown reference
   created_at timestamptz DEFAULT now()
+);
+
+-- 3-A. Email Verification Codes Table
+-- code_hash stores an HMAC-SHA256 digest of the 6-digit email verification code.
+CREATE TABLE IF NOT EXISTS email_verification_codes (
+  email text NOT NULL,
+  purpose text NOT NULL DEFAULT 'register',
+  code_hash text NOT NULL,
+  expires_at timestamptz NOT NULL,
+  attempts integer DEFAULT 0,
+  verified boolean DEFAULT false,
+  last_sent timestamptz,
+  verified_at timestamptz,
+  created_at timestamptz DEFAULT now(),
+  PRIMARY KEY (email, purpose)
 );
 
 -- 4. Progress Table
