@@ -206,27 +206,29 @@ body:has(.auth-page) {
   padding: 10px;
   background: linear-gradient(135deg, #7F77DD, #534AB7);
   color: white;
-  border: none;
+  border: 1px solid rgba(255,255,255,0.22);
   border-radius: 14px;
   font-size: 15px;
   font-weight: 700;
   font-family: inherit;
   cursor: pointer;
-  box-shadow: 0 5px 0 #3C3489, 0 7px 16px rgba(83, 74, 183, 0.25);
+  box-shadow: 0 10px 22px rgba(83, 74, 183, 0.18), 0 0 0 1px rgba(127, 119, 221, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  transition: opacity 0.15s, transform 0.1s;
+  transition: background 0.15s, box-shadow 0.15s, opacity 0.15s, transform 0.1s;
 }
 
 .auth-btn-main:hover {
   opacity: 0.93;
+  box-shadow: 0 14px 28px rgba(83, 74, 183, 0.22), 0 0 0 4px rgba(127, 119, 221, 0.12);
+  transform: translateY(-1px);
 }
 
 .auth-btn-main:active {
-  transform: translateY(2px);
-  box-shadow: 0 3px 0 #3C3489, 0 4px 10px rgba(83, 74, 183, 0.2);
+  transform: translateY(0) scale(0.99);
+  box-shadow: 0 8px 18px rgba(83, 74, 183, 0.16), 0 0 0 1px rgba(127, 119, 221, 0.08);
 }
 
 .auth-btn-main:disabled {
@@ -236,7 +238,7 @@ body:has(.auth-page) {
 
 .auth-btn-main.error-state {
   background: linear-gradient(135deg, #EF4444, #DC2626);
-  box-shadow: 0 5px 0 #991B1B, 0 7px 16px rgba(239, 68, 68, 0.25);
+  box-shadow: 0 10px 22px rgba(239, 68, 68, 0.18), 0 0 0 1px rgba(239, 68, 68, 0.08);
 }
 
 /* ─────────────────────────────────────────────
@@ -253,16 +255,26 @@ body:has(.auth-page) {
 .auth-link {
   background: none;
   border: none;
+  box-shadow: none !important;
   color: #7F77DD;
   font-weight: 600;
   cursor: pointer;
   padding: 0 8px;
   font-size: 12px;
   font-family: inherit;
+  transform: none !important;
 }
 
 .auth-link:hover {
+  background: none;
+  box-shadow: none !important;
   text-decoration: underline;
+  transform: none !important;
+}
+
+.auth-link:active {
+  box-shadow: none !important;
+  transform: none !important;
 }
 
 .auth-link-sep {
