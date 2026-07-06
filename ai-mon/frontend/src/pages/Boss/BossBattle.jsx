@@ -10,7 +10,6 @@ import charBubbleIcon from '../../assets/character_bubble.png'
 import charGhostIcon  from '../../assets/character_final_ghost.png'
 import { bossApi } from '../../api/index'
 import { parseQuestionText, TYPE_BADGE } from './bossBattleUtils'
-import ErrorFindLines from '../../components/QuizCard/ErrorFindLines'
 import '../../components/QuizCard/QuizCard.css'
 import './BossBattle.css'
 
@@ -150,7 +149,9 @@ export default function BossBattle({
     if (usedHints >= 2 || !currentQuestion) return
     setHintLoading(true)
     try {
-      const isCodeType = currentQuestion.type === 'code_input' || currentQuestion.type === 'fill_in_blank'
+      const isCodeType = currentQuestion.type === 'code_input' ||
+        currentQuestion.type === 'fill_in_blank' ||
+        (currentQuestion.type === 'error_find' && (currentQuestion.choices?.length || 0) === 0)
       const res = await bossApi.getHint({
         question_id: currentQuestion.question_id,
         user_answer: isCodeType ? answerInput : (selectedOption || ''),
@@ -183,17 +184,8 @@ export default function BossBattle({
   const isFibType  = currentQuestion.type === 'fill_in_blank'
   const hasChoice  = !isCodeType && !isFibType && currentQuestion.choices?.length > 0
 
-  // error_find: 줄 클릭 UI
-  const choicesList = currentQuestion.choices || []
-  const codeLines   = parsed.code ? parsed.code.split('\n') : []
-  const isLineSelectErrorFind =
-    currentQuestion.type === 'error_find' &&
-    codeLines.length > 0 &&
-    /^\d+줄:/.test(codeLines[0])
-  // selectedOption(letter) → 전체 choice 문자열 (ErrorFindLines용)
-  const selectedChoiceFull = selectedOption
-    ? choicesList.find(c => c.startsWith(selectedOption + '.')) ?? null
-    : null
+  // error_find: 줄 클릭 UI 폐지 — 정답 줄 번호를 빈칸에 직접 입력하는 방식으로 통일
+  const isErrorFindNoChoice = currentQuestion.type === 'error_find'
 
   const bossHpGrad = bossPct > 50
     ? 'linear-gradient(90deg,#FF6B6B,#FF4444)'
@@ -309,51 +301,35 @@ export default function BossBattle({
         {/* 문제 카드 */}
         <div className="eb-b-qcard">
           {parsed.text && <div className="eb-b-qtext">{parsed.text}</div>}
-          {/* error_find: 줄 클릭 UI (코드블록 포함) */}
-          {isLineSelectErrorFind ? (
-            <ErrorFindLines
-              codeLines={codeLines}
-              choicesList={choicesList}
-              selected={selectedChoiceFull}
-              revealed={!!aiResult}
-              answer={aiResult?.correct_answer ?? currentQuestion.answer}
-              onSelect={(opt) => setSelectedOption(opt.substring(0, 1))}
-              onSubmit={onSubmit}
-            />
-          ) : (
-            <>
-              {parsed.code && (
-                <div className="eb-b-terminal">
-                  <PythonHighlighter code={parsed.code} className="eb-b-code" />
-                </div>
-              )}
-              {parsed.after && (
-                <div className="eb-b-qtext" style={{ marginTop: '6px' }}>{parsed.after}</div>
-              )}
-
-              {/* 객관식 / 출력선택 */}
-              {hasChoice && (
-                <div className="eb-b-radio-opts">
-                  {currentQuestion.choices.map((opt, idx) => {
-                    const key = opt.substring(0, 1)
-                    return (
-                      <div
-                        key={idx}
-                        className={`eb-b-ropt${selectedOption === key ? ' sel' : ''}`}
-                        onClick={() => !aiResult && setSelectedOption(key)}
-                      >
-                        <div className="eb-b-rcircle">{key}</div>
-                        <span className="eb-b-rtext">{opt.substring(3)}</span>
-                      </div>
-                    )
-                  })}
-                </div>
-              )}
-            </>
+          {parsed.code && (
+            <div className="eb-b-terminal">
+              <PythonHighlighter code={parsed.code} className="eb-b-code" />
+            </div>
+          )}
+          {parsed.after && (
+            <div className="eb-b-qtext" style={{ marginTop: '6px' }}>{parsed.after}</div>
+          )}
+          {/* 객관식 / 출력선택 */}
+          {hasChoice && (
+            <div className="eb-b-radio-opts">
+              {currentQuestion.choices.map((opt, idx) => {
+                const key = opt.substring(0, 1)
+                return (
+                  <div
+                    key={idx}
+                    className={`eb-b-ropt${selectedOption === key ? ' sel' : ''}`}
+                    onClick={() => !aiResult && setSelectedOption(key)}
+                  >
+                    <div className="eb-b-rcircle">{key}</div>
+                    <span className="eb-b-rtext">{opt.substring(3)}</span>
+                  </div>
+                )
+              })}
+            </div>
           )}
 
           {/* 빈칸 채우기 */}
-          {isFibType && (
+          {(isFibType || isErrorFindNoChoice) && (
             <div className="eb-b-fib-row">
               <span className="eb-b-fib-lbl">답</span>
               <input
@@ -361,7 +337,7 @@ export default function BossBattle({
                 type="text"
                 value={answerInput}
                 onChange={e => setAnswerInput(e.target.value)}
-                placeholder="정답 입력..."
+                placeholder={isErrorFindNoChoice ? '오류 줄 번호 입력...' : '정답 입력...'}
                 onKeyDown={e => { if (e.key === 'Enter' && answerInput.trim() && !aiResult) onSubmit() }}
               />
             </div>
@@ -390,8 +366,8 @@ export default function BossBattle({
           )}
         </div>
 
-        {/* 공격 버튼 (error_find 줄 클릭 UI는 자체 버튼 사용) */}
-        {!aiResult && !isLineSelectErrorFind && (
+        {/* 공격 버튼 */}
+        {!aiResult && (
           <button
             className="eb-b-atk-btn"
             onClick={onSubmit}
