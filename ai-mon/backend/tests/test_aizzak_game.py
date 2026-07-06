@@ -195,9 +195,9 @@ def test_aizzak_slow_game_no_time_bonus():
 
     result = _run_clear(uid, 4, token, user_store)
 
-    # score=4×50+0=200, xp=0
+    # score=4×50+0=200, xp=100
     assert result["score"] == 200
-    assert result["xp_awarded"] == 0
+    assert result["xp_awarded"] == 100
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -262,7 +262,7 @@ def test_aizzak_8correct_55sec_score700_xp300():
 # ─────────────────────────────────────────────────────────────────────────────
 
 def test_aizzak_5correct_100sec_score350_xp0():
-    """스펙 검증: 5×50=250, ≤120s→+100, score=350, xp=0 (500 미만)."""
+    """스펙 검증: 5×50=250, ≤120s→+100, score=350, xp=100 (600 미만 기본 보상)."""
     uid = "e2e-f"
     user_store = {uid: _make_user(uid)}
     token, _ = _fake_token(uid, ts_offset=-100)  # 100초 경과 → ≤120s → +100
@@ -270,7 +270,7 @@ def test_aizzak_5correct_100sec_score350_xp0():
     result = _run_clear(uid, 5, token, user_store)
 
     assert result["score"] == 350,  f"score={result['score']} (5×50+100=350)"
-    assert result["xp_awarded"] == 0, f"xp={result['xp_awarded']} (350 < 500)"
+    assert result["xp_awarded"] == 100, f"xp={result['xp_awarded']} (350 < 600 => default 100)"
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -286,8 +286,8 @@ def test_aizzak_score_boundaries():
         (8, -55,  700, 300, "700→300xp"),   # 8×50+300=700
         (6, -55,  600, 200, "600→200xp"),   # 6×50+300=600
         (4, -55,  500, 100, "500→100xp"),   # 4×50+300=500
-        (3, -55,  450, 0,   "450→0xp"),     # 3×50+300=450
-        (8, -200, 400, 0,   "400→0xp"),     # 8×50+0=400 (>120s)
+        (3, -55,  450, 100, "450→100xp"),   # 3×50+300=450
+        (8, -200, 400, 100, "400→100xp"),   # 8×50+0=400 (>120s)
     ]
 
     for correct, ts_offset, exp_score, exp_xp, label in cases:

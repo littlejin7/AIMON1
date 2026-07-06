@@ -536,10 +536,10 @@ def test_max_valid_distance_5plays_hits_cap(fresh_user):
 
 @pytest.mark.parametrize("distance,expected_xp", [
     (0, 200),
-    (499, 200),
-    (500, 350),
+    (999, 200),
     (1000, 350),
-    (1001, 500),
+    (3000, 350),
+    (3001, 500),
     (9999, 500),
     (10000, 500),
 ])
