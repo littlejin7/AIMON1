@@ -45,12 +45,13 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- Active-only partial unique indexes (allows reuse of username/email after soft delete)
 CREATE UNIQUE INDEX IF NOT EXISTS users_username_active_uq
-  ON users (username)
+  ON users (lower(username)) -- lower() 적용
   WHERE deleted_at IS NULL;
 
 CREATE UNIQUE INDEX IF NOT EXISTS users_email_active_uq
-  ON users (email)
+  ON users (lower(email)) -- lower() 적용
   WHERE deleted_at IS NULL AND email IS NOT NULL AND email <> '';
+
 
 -- Future optional nickname uniqueness, apply only after cleaning duplicates:
 -- CREATE UNIQUE INDEX IF NOT EXISTS users_nickname_active_uq
