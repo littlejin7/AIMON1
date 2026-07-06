@@ -70,7 +70,7 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "부모 클래스의 __init__을 자식 클래스에서 호출하려고 합니다. 빈칸에 들어갈 코드는?\n\n```python\nclass Character:\n    def __init__(self, name):\n        self.name = name\n```\n\n```python\nclass Mage(Character):\n    def __init__(self, name, mana):\n        _________.__init__(name)\n        self.mana = mana\n```",
+      "question": "부모 클래스의 __init__을 자식 클래스에서 호출하려고 합니다. 빈칸에 들어갈 코드는?\n\n```python\nclass Character:\n    def __init__(self, name):\n        self.name = name\n\nclass Mage(Character):\n    def __init__(self, name, mana):\n        _________.__init__(name)\n        self.mana = mana\n```",
       "choices": [],
       "answer": "super()",
       "hint": "부모 클래스를 참조하는 내장 함수예요.",

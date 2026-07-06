@@ -96,7 +96,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 코드에서 GET /units/99 로 요청했을 때 응답으로 올바른 것을 골라보세요.\n\n```python\nfrom fastapi import FastAPI, HTTPException\n```\n\n```python\napp = FastAPI()\nunits = {7: \"웹기술 연동\", 8: \"자동화 설계\"}\n```\n\n```python\n@app.get(\"/units/{unit_id}\")\ndef get_unit(unit_id: int):\n    if unit_id not in units:\n        raise HTTPException(status_code=404, detail=\"유닛을 찾을 수 없습니다\")\n    return {\"name\": units[unit_id]}\n```",
+      "question": "아래 코드에서 GET /units/99 로 요청했을 때 응답으로 올바른 것을 골라보세요.\n\n```python\nfrom fastapi import FastAPI, HTTPException\n\napp = FastAPI()\nunits = {7: \"웹기술 연동\", 8: \"자동화 설계\"}\n\n@app.get(\"/units/{unit_id}\")\ndef get_unit(unit_id: int):\n    if unit_id not in units:\n        raise HTTPException(status_code=404, detail=\"유닛을 찾을 수 없습니다\")\n    return {\"name\": units[unit_id]}\n```",
       "choices": [
         "A. {\"name\": null}",
         "B. {\"detail\": \"유닛을 찾을 수 없습니다\"}",
@@ -117,7 +117,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "REST 표준에 따라 POST 엔드포인트에서 새 리소스를 생성할 때 \"리소스가 새로 생성됨\"을 의미하는 HTTP 상태 코드를 반환해야 합니다.\n빈칸을 채워 코드를 완성해보세요.\n\n```python\nfrom fastapi import FastAPI\nfrom pydantic import BaseModel\n```\n\n```python\napp = FastAPI()\nmemos = []\n```\n\nclass Memo(BaseModel):\n    title: str\n    content: str\n\n```python\n@app.post(\"/memos\", status_code=_____)\ndef add_memo(memo: Memo):\n    memos.append(memo.dict())\n    return {\"message\": \"메모 저장 완료\", \"memo\": memo}\n```",
+      "question": "REST 표준에 따라 POST 엔드포인트에서 새 리소스를 생성할 때 \"리소스가 새로 생성됨\"을 의미하는 HTTP 상태 코드를 반환해야 합니다.\n빈칸을 채워 코드를 완성해보세요.\n\n```python\nfrom fastapi import FastAPI\nfrom pydantic import BaseModel\n\napp = FastAPI()\nmemos = []\n\nclass Memo(BaseModel):\n    title: str\n    content: str\n\n@app.post(\"/memos\", status_code=_____)\ndef add_memo(memo: Memo):\n    memos.append(memo.dict())\n    return {\"message\": \"메모 저장 완료\", \"memo\": memo}\n```",
       "answer": "201",
       "feedback": {
         "correct": "정답! HTTP 201 Created는 새 리소스가 성공적으로 생성되었음을 나타내는 REST 표준 상태 코드입니다. GET의 성공 응답은 기본 200 OK이지만, POST로 리소스를 생성할 때는 201을 사용하는 것이 REST 관례예요. 클리어!"
@@ -132,7 +132,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 코드에서 GET /levels/5 요청 시 응답으로 올바른 것을 골라보세요.\n\n```python\nfrom fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/levels/{level_id}\")\ndef get_level(level_id: int):\n    return {\n```\n        \"level_id\": level_id,\n```python\n        \"label\": f\"Level {level_id}\",\n        \"doubled\": level_id * 2\n```\n    }",
+      "question": "아래 코드에서 GET /levels/5 요청 시 응답으로 올바른 것을 골라보세요.\n\n```python\nfrom fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/levels/{level_id}\")\ndef get_level(level_id: int):\n    return {\n        \"level_id\": level_id,\n        \"label\": f\"Level {level_id}\",\n        \"doubled\": level_id * 2\n    }\n```",
       "choices": [
         "A. {\"level_id\": \"5\", \"label\": \"Level 5\", \"doubled\": \"55\"}",
         "B. {\"level_id\": 5, \"label\": \"Level 5\", \"doubled\": 10}",
@@ -153,7 +153,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Claude API 응답에서 실제 텍스트를 꺼내는 방법입니다.\n빈칸을 채워 코드를 완성해보세요.\n\n```python\nfrom fastapi import FastAPI\nfrom pydantic import BaseModel\nfrom anthropic import Anthropic\n```\n\n```python\napp = FastAPI()\nclient = Anthropic()\n```\n\nclass AskRequest(BaseModel):\n    question: str\n\n```python\n@app.post(\"/ask\")\ndef ask_claude(req: AskRequest):\n    response = client.messages.create(\n        model=\"claude-haiku-4-5-20251001\",\n        max_tokens=256,\n        messages=[{\"role\": \"user\", \"content\": req.question}]\n```\n    )\n    return {\"answer\": response.content[0]._____}",
+      "question": "Claude API 응답에서 실제 텍스트를 꺼내는 방법입니다.\n빈칸을 채워 코드를 완성해보세요.\n\n```python\nfrom fastapi import FastAPI\nfrom pydantic import BaseModel\nfrom anthropic import Anthropic\n\napp = FastAPI()\nclient = Anthropic()\n\nclass AskRequest(BaseModel):\n    question: str\n\n@app.post(\"/ask\")\ndef ask_claude(req: AskRequest):\n    response = client.messages.create(\n        model=\"claude-haiku-4-5-20251001\",\n        max_tokens=256,\n        messages=[{\"role\": \"user\", \"content\": req.question}]\n    )\n    return {\"answer\": response.content[0]._____}\n```",
       "answer": "text",
       "feedback": {
         "correct": "정답! Claude API 응답 객체에서 실제 텍스트는 response.content[0].text 로 접근합니다. content는 리스트이고 [0]이 첫 번째 블록, .text가 해당 블록의 텍스트 내용이에요. 클리어!"
@@ -189,7 +189,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "AsyncAnthropic과 await를 사용하는 비동기 엔드포인트를 완성합니다.\n빈칸을 채워 코드를 완성해보세요.\n\n```python\nfrom fastapi import FastAPI\nfrom pydantic import BaseModel\nfrom anthropic import AsyncAnthropic\n```\n\n```python\napp = FastAPI()\nclient = AsyncAnthropic()\n```\n\nclass AskRequest(BaseModel):\n    question: str\n\n```python\n@app.post(\"/ask/async\")\n_____ def ask_claude_async(req: AskRequest):\n    response = await client.messages.create(\n        model=\"claude-haiku-4-5-20251001\",\n        max_tokens=256,\n        messages=[{\"role\": \"user\", \"content\": req.question}]\n```\n    )\n    return {\"answer\": response.content[0].text}",
+      "question": "AsyncAnthropic과 await를 사용하는 비동기 엔드포인트를 완성합니다.\n빈칸을 채워 코드를 완성해보세요.\n\n```python\nfrom fastapi import FastAPI\nfrom pydantic import BaseModel\nfrom anthropic import AsyncAnthropic\n\napp = FastAPI()\nclient = AsyncAnthropic()\n\nclass AskRequest(BaseModel):\n    question: str\n\n@app.post(\"/ask/async\")\n_____ def ask_claude_async(req: AskRequest):\n    response = await client.messages.create(\n        model=\"claude-haiku-4-5-20251001\",\n        max_tokens=256,\n        messages=[{\"role\": \"user\", \"content\": req.question}]\n    )\n    return {\"answer\": response.content[0].text}\n```",
       "answer": "async",
       "feedback": {
         "correct": "정답! await 키워드를 함수 내부에서 사용하려면 함수 선언부에 async 키워드가 있어야 합니다. async def로 선언해야 FastAPI가 해당 함수를 비동기 코루틴으로 처리하고, AsyncAnthropic의 await 호출이 가능해요. 클리어!"
@@ -204,7 +204,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 코드에서 POST /ask Body: {\"question\": \"   \"} 으로 요청했을 때 (공백만 있는 질문) 응답으로 올바른 것을 골라보세요.\n\n```python\nfrom fastapi import FastAPI, HTTPException\nfrom pydantic import BaseModel\nfrom anthropic import Anthropic\n```\n\n```python\napp = FastAPI()\nclient = Anthropic()\n```\n\nclass AskRequest(BaseModel):\n    question: str\n\n```python\n@app.post(\"/ask\")\ndef ask_claude(req: AskRequest):\n    if not req.question.strip():\n        raise HTTPException(status_code=400, detail=\"질문이 비어있습니다.\")\n    response = client.messages.create(\n        model=\"claude-haiku-4-5-20251001\",\n        max_tokens=256,\n        messages=[{\"role\": \"user\", \"content\": req.question}]\n```\n    )\n    return {\"answer\": response.content[0].text}",
+      "question": "아래 코드에서 POST /ask Body: {\"question\": \"   \"} 으로 요청했을 때 (공백만 있는 질문) 응답으로 올바른 것을 골라보세요.\n\n```python\nfrom fastapi import FastAPI, HTTPException\nfrom pydantic import BaseModel\nfrom anthropic import Anthropic\n\napp = FastAPI()\nclient = Anthropic()\n\nclass AskRequest(BaseModel):\n    question: str\n\n@app.post(\"/ask\")\ndef ask_claude(req: AskRequest):\n    if not req.question.strip():\n        raise HTTPException(status_code=400, detail=\"질문이 비어있습니다.\")\n    response = client.messages.create(\n        model=\"claude-haiku-4-5-20251001\",\n        max_tokens=256,\n        messages=[{\"role\": \"user\", \"content\": req.question}]\n    )\n    return {\"answer\": response.content[0].text}\n```",
       "choices": [
         "A. {\"answer\": \"   \"}",
         "B. {\"detail\": \"질문이 비어있습니다.\"}",
@@ -225,7 +225,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "멀티턴 대화에서 Pydantic 모델 리스트를 Claude API가 요구하는 딕셔너리 리스트로 변환합니다.\n빈칸을 채워 코드를 완성해보세요.\n\n```python\nfrom fastapi import FastAPI\nfrom pydantic import BaseModel\nfrom anthropic import Anthropic\nfrom typing import List\n```\n\n```python\napp = FastAPI()\nclient = Anthropic()\n```\n\nclass Turn(BaseModel):\n    role: str\n    content: str\n\n```python\nclass ChatRequest(BaseModel):\n    messages: List[Turn]\n```\n\n```python\n@app.post(\"/chat/multi\")\ndef multi_turn(req: ChatRequest):\n    response = client.messages.create(\n        model=\"claude-haiku-4-5-20251001\",\n        max_tokens=256,\n        messages=[m._____() for m in req.messages]\n```\n    )\n    return {\"answer\": response.content[0].text}",
+      "question": "멀티턴 대화에서 Pydantic 모델 리스트를 Claude API가 요구하는 딕셔너리 리스트로 변환합니다.\n빈칸을 채워 코드를 완성해보세요.\n\n```python\nfrom fastapi import FastAPI\nfrom pydantic import BaseModel\nfrom anthropic import Anthropic\nfrom typing import List\n\napp = FastAPI()\nclient = Anthropic()\n\nclass Turn(BaseModel):\n    role: str\n    content: str\n\nclass ChatRequest(BaseModel):\n    messages: List[Turn]\n\n@app.post(\"/chat/multi\")\ndef multi_turn(req: ChatRequest):\n    response = client.messages.create(\n        model=\"claude-haiku-4-5-20251001\",\n        max_tokens=256,\n        messages=[m._____() for m in req.messages]\n    )\n    return {\"answer\": response.content[0].text}\n```",
       "answer": "dict",
       "feedback": {
         "correct": "정답! Pydantic 모델의 .dict() 메서드로 인스턴스를 Python 딕셔너리로 변환합니다. Claude API의 messages 파라미터는 [{\"role\": \"...\", \"content\": \"...\"}] 형태의 딕셔너리 리스트를 요구하므로, 리스트 컴프리헨션 안에서 각 Turn 객체를 .dict()로 변환하는 것이 핵심이에요. 클리어!"
@@ -261,7 +261,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "비동기 엔드포인트에서 await와 함께 사용할 비동기 Anthropic 클라이언트를 import합니다.\n빈칸을 채워 코드를 완성해보세요.\n\n```python\nfrom fastapi import FastAPI\nfrom pydantic import BaseModel\nfrom anthropic import _____\n```\n\n```python\napp = FastAPI()\nclient = AsyncAnthropic()\n```\n\nclass AskRequest(BaseModel):\n    question: str\n    system: str = \"당신은 친절한 Python 코딩 튜터입니다.\"\n\n```python\n@app.post(\"/ask/async\")\nasync def ask_claude_async(req: AskRequest):\n    response = await client.messages.create(\n        model=\"claude-haiku-4-5-20251001\",\n        max_tokens=256,\n        system=req.system,\n        messages=[{\"role\": \"user\", \"content\": req.question}]\n```\n    )\n    return {\"answer\": response.content[0].text}",
+      "question": "비동기 엔드포인트에서 await와 함께 사용할 비동기 Anthropic 클라이언트를 import합니다.\n빈칸을 채워 코드를 완성해보세요.\n\n```python\nfrom fastapi import FastAPI\nfrom pydantic import BaseModel\nfrom anthropic import _____\n\napp = FastAPI()\nclient = AsyncAnthropic()\n\nclass AskRequest(BaseModel):\n    question: str\n    system: str = \"당신은 친절한 Python 코딩 튜터입니다.\"\n\n@app.post(\"/ask/async\")\nasync def ask_claude_async(req: AskRequest):\n    response = await client.messages.create(\n        model=\"claude-haiku-4-5-20251001\",\n        max_tokens=256,\n        system=req.system,\n        messages=[{\"role\": \"user\", \"content\": req.question}]\n    )\n    return {\"answer\": response.content[0].text}\n```",
       "answer": "AsyncAnthropic",
       "feedback": {
         "correct": "정답! 비동기 엔드포인트(async def)에서는 반드시 AsyncAnthropic 클라이언트를 사용해야 합니다. 동기 Anthropic 클라이언트를 async def 안에서 await 없이 사용하면 이벤트 루프가 블로킹돼요. 동기에는 Anthropic, 비동기에는 AsyncAnthropic이 한 쌍입니다. 클리어!"
@@ -588,7 +588,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "lifespan 함수에서 startup 로직과 shutdown 로직을 구분하는 키워드를 채워보세요.\n\n```python\nfrom contextlib import asynccontextmanager\nfrom fastapi import FastAPI\n```\n\n@asynccontextmanager\n```python\nasync def lifespan(app: FastAPI):\n    print(\"[시작] DB 초기화...\")\n    Base.metadata.create_all(bind=engine)\n```\n    _____            # 서버 실행 중\n```python\n    print(\"[종료] 서버 종료 정리...\")\n```",
+      "question": "lifespan 함수에서 startup 로직과 shutdown 로직을 구분하는 키워드를 채워보세요.\n\n```python\nfrom contextlib import asynccontextmanager\nfrom fastapi import FastAPI\n\n@asynccontextmanager\nasync def lifespan(app: FastAPI):\n    print(\"[시작] DB 초기화...\")\n    Base.metadata.create_all(bind=engine)\n    _____            # 서버 실행 중\n    print(\"[종료] 서버 종료 정리...\")\n```",
       "answer": "yield",
       "feedback": {
         "correct": "정답! yield를 기준으로 위쪽은 서버 시작(startup) 시 실행되고, 아래쪽은 서버 종료(shutdown) 시 실행됩니다. 이 패턴은 get_db()의 yield와 동일한 원리로, 시작과 종료 사이의 생명주기를 하나의 함수 안에서 관리할 수 있게 해줘요. 클리어!"
@@ -654,7 +654,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": ".env 파일의 환경변수를 Python에서 사용하기 위해 호출해야 하는 함수를 채워보세요.\n\n```python\nimport os\nfrom dotenv import load_dotenv\n```\n\n```python\n_____()  # .env 파일 읽어 os.environ에 등록\napi_key = os.environ.get(\"ANTHROPIC_API_KEY\")\ndb_url = os.environ.get(\"DATABASE_URL\", \"sqlite:///./default.db\")\n```",
+      "question": ".env 파일의 환경변수를 Python에서 사용하기 위해 호출해야 하는 함수를 채워보세요.\n\n```python\nimport os\nfrom dotenv import load_dotenv\n\n_____()  # .env 파일 읽어 os.environ에 등록\napi_key = os.environ.get(\"ANTHROPIC_API_KEY\")\ndb_url = os.environ.get(\"DATABASE_URL\", \"sqlite:///./default.db\")\n```",
       "answer": "load_dotenv",
       "feedback": {
         "correct": "정답! load_dotenv()는 python-dotenv 패키지의 함수로, .env 파일을 읽어 os.environ에 등록합니다. 이후 os.environ.get(\"KEY\")로 값을 꺼낼 수 있어요. .env 파일은 절대 Git에 올려선 안 되므로 .gitignore에 반드시 추가해야 합니다. 클리어!"
@@ -684,7 +684,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 코드의 출력 결과로 올바른 것을 골라보세요.\n(DATABASE_URL, ANTHROPIC_API_KEY 환경변수가 설정되지 않은 상태)\n\n```python\nimport os\nos.environ.pop(\"DATABASE_URL\", None)\nos.environ.pop(\"ANTHROPIC_API_KEY\", None)\n```\n\n```python\ndb_url = os.environ.get(\"DATABASE_URL\", \"sqlite:///./default.db\")\nkey_exists = \"ANTHROPIC_API_KEY\" in os.environ\nprint(db_url)\nprint(key_exists)\n```",
+      "question": "아래 코드의 출력 결과로 올바른 것을 골라보세요.\n(DATABASE_URL, ANTHROPIC_API_KEY 환경변수가 설정되지 않은 상태)\n\n```python\nimport os\nos.environ.pop(\"DATABASE_URL\", None)\nos.environ.pop(\"ANTHROPIC_API_KEY\", None)\n\ndb_url = os.environ.get(\"DATABASE_URL\", \"sqlite:///./default.db\")\nkey_exists = \"ANTHROPIC_API_KEY\" in os.environ\nprint(db_url)\nprint(key_exists)\n```",
       "choices": [
         "A. None\nFalse",
         "B. sqlite:///./default.db\nFalse",

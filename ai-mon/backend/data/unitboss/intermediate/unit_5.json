@@ -180,7 +180,7 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "텍스트 파일을 읽어서 각 줄을 리스트로 가져오려고 합니다. 빈칸에 들어갈 메서드 이름은?\n\n```python\nwith open(\"quest.txt\", \"r\", encoding=\"utf-8\") as f:\n    lines = f._________()\n```\n\n```python\nprint(lines[0])  # 파일 첫 번째 줄 출력\n```",
+      "question": "텍스트 파일을 읽어서 각 줄을 리스트로 가져오려고 합니다. 빈칸에 들어갈 메서드 이름은?\n\n```python\nwith open(\"quest.txt\", \"r\", encoding=\"utf-8\") as f:\n    lines = f._________()\nprint(lines[0])  # 파일 첫 번째 줄 출력\n```",
       "choices": [],
       "answer": "readlines",
       "hint": "파일의 모든 줄을 리스트로 반환하는 메서드예요. 줄마다 '\\n'이 포함될 수 있어요.",

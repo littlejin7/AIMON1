@@ -87,7 +87,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드에서 AttributeError가 발생하는 줄은?\n\n1줄: import re\n```python\n2줄: text = \"레벨: 99\"\n3줄: m1 = re.search(r\"\\d+\", text)\n4줄: print(m1.group())\n5줄: m2 = re.match(r\"\\d+\", text)\n6줄: print(m2.group())\n```",
+      "question": "다음 코드에서 AttributeError가 발생하는 줄은?\n\n```python\n1줄: import re\n2줄: text = \"레벨: 99\"\n3줄: m1 = re.search(r\"\\d+\", text)\n4줄: print(m1.group())\n5줄: m2 = re.match(r\"\\d+\", text)\n6줄: print(m2.group())\n```",
       "answer": "6",
       "hint": "re.match()는 문자열 처음부터 패턴을 찾아요. \"레벨: 99\"의 처음은 숫자가 아니에요.",
       "feedback": {

@@ -87,7 +87,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드에서 AttributeError가 발생하는 줄은?\n\n1줄: import os\n2줄: files = os.listdir(\".\")\n3줄: for f in files:\n```python\n4줄:     path = os.path.join(\".\", f)\n5줄:     size = os.path.size(path)\n6줄:     print(f\"{f}: {size}바이트\")\n```",
+      "question": "다음 코드에서 AttributeError가 발생하는 줄은?\n\n```python\n1줄: import os\n2줄: files = os.listdir(\".\")\n3줄: for f in files:\n4줄:     path = os.path.join(\".\", f)\n5줄:     size = os.path.size(path)\n6줄:     print(f\"{f}: {size}바이트\")\n```",
       "answer": "5",
       "hint": "os.path에서 파일 크기를 구하는 함수 이름을 정확히 떠올려 보세요.",
       "feedback": {
@@ -164,7 +164,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드에서 ImportError가 발생하는 줄은?\n\n1줄: import os\n2줄: import sys\n3줄: from math import sqrt, pi\n4줄: from datetime import Date\n```python\n5줄: print(sqrt(16))\n```",
+      "question": "다음 코드에서 ImportError가 발생하는 줄은?\n\n```python\n1줄: import os\n2줄: import sys\n3줄: from math import sqrt, pi\n4줄: from datetime import Date\n5줄: print(sqrt(16))\n```",
       "answer": "4",
       "hint": "datetime 모듈에서 날짜를 다루는 클래스의 정확한 이름을 확인해 보세요.",
       "feedback": {

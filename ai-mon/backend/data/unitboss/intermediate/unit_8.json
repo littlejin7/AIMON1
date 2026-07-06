@@ -87,7 +87,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드에서 오류가 발생하는 줄은?\n\n1줄: import requests\n```python\n2줄: response = requests.get(\"https://api.example.com/data\")\n3줄: if response.status_code = 200:\n4줄:     data = response.json()\n5줄:     print(data)\n```",
+      "question": "다음 코드에서 오류가 발생하는 줄은?\n\n```python\n1줄: import requests\n2줄: response = requests.get(\"https://api.example.com/data\")\n3줄: if response.status_code = 200:\n4줄:     data = response.json()\n5줄:     print(data)\n```",
       "answer": "3",
       "hint": "비교 연산자와 대입 연산자를 헷갈리지 않도록 주의하세요.",
       "feedback": {
