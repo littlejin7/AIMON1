@@ -50,7 +50,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 결과는 무엇인가요?\n\n```python\ndef greet(name, title=\"용사\"):\n    print(f\"{title} {name}!\")\n```\n\ngreet(\"에이몬\")",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 결과는 무엇인가요?\n\n```python\ndef greet(name, title=\"용사\"):\n    print(f\"{title} {name}!\")\n\ngreet(\"에이몬\")\n```",
       "choices": [
         "A. name title!",
         "B. 에이몬 용사!",
@@ -134,7 +134,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\n```python\ndef outer():\n    msg = \"바깥\"\n    def inner():\n        print(msg)\n    inner()\n```\n\nouter()",
+      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\n```python\ndef outer():\n    msg = \"바깥\"\n    def inner():\n        print(msg)\n    inner()\n\nouter()\n```",
       "choices": [
         "A. 오류 발생",
         "B. None",
