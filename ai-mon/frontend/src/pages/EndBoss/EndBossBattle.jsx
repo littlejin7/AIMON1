@@ -82,7 +82,6 @@ export default function EndBossBattle({
 
       {/* ── 전투 배경 ── */}
       <div className="eb-b-bg" style={{ backgroundImage: `url(${endbossBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-        <div className="eb-b-ground-top" />
         <div className="eb-b-ground-bot" />
         <div className="eb-b-hp-sub">Phase {phase} 진행 중</div>
 
