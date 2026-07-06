@@ -1,0 +1,362 @@
+/* ══════════════════════════════════════
+   Battle (eb-b-*) — 유닛보스/엔드보스 공통
+   ══════════════════════════════════════ */
+
+.eb-b-wrap {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(83,74,183,.14);
+}
+
+/* 전투 배경 */
+.eb-b-bg {
+  position: relative;
+  height: 300px;
+  background: linear-gradient(180deg,#EAE6F8 0%,#D6D0F4 50%,#C4BCF0 100%);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.eb-b-ground-bot {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 34px;
+  background: #B8B0E8; border-radius: 60% 60% 0 0 / 16px 16px 0 0; opacity: .3;
+}
+
+/* HP 박스 공통 */
+.eb-b-boss-hpbox,
+.eb-b-player-hpbox {
+  position: absolute;
+  min-width: 170px;
+}
+.eb-b-boss-hpbox   { top: 8px; right: 8px; }
+.eb-b-player-hpbox { bottom: -8px; left: 8px; }
+.eb-b-player-hpbox.shake { animation: eb-b-shake .4s ease; }
+@keyframes eb-b-shake {
+  0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-5px)} 40%{transform:translateX(5px)}
+  60%{transform:translateX(-3px)} 80%{transform:translateX(3px)}
+}
+
+
+.eb-b-hp-name  { font-size: 11px; font-weight: 600; color: #26215C; margin-bottom: 1px; }
+.eb-b-hp-sub   { font-size: 9px; color: #9B96D0; margin-bottom: 4px; }
+.eb-b-hp-bar-wrap { display: flex; align-items: center; gap: 5px; }
+.eb-b-hp-label { font-size: 9px; font-weight: 600; color: #7F77DD; flex-shrink: 0; }
+.eb-b-hp-track { flex: 1; height: 6px; background: #EEEDFE; border-radius: 99px; overflow: hidden; }
+.eb-b-hp-fill  { height: 6px; border-radius: 99px; transition: width .5s ease; }
+.eb-b-hp-fill.player { background: linear-gradient(90deg,#7F77DD,#534AB7); }
+.eb-b-hp-nums  { font-size: 9px; color: #aaa; margin-top: 2px; text-align: right; }
+
+/* 하트 (Phase 3) */
+.eb-b-hearts { display: flex; gap: 4px; margin-top: 3px; }
+.eb-b-heart  { font-size: 16px; }
+
+
+/* 보스 3D 캔버스 */
+.eb-b-boss-canvas {
+  position: absolute; top: 15px; right: -0px;
+  width: 220px; height: 220px;
+  pointer-events: none;
+}
+
+/* 플레이어 3D 캔버스 */
+.eb-b-player-canvas {
+  position: absolute; bottom: 25px; left: -0px;
+  width: 139px; height: 139px;
+  pointer-events: none;
+}
+
+/* 피격 빨간 틴트 */
+.eb-b-boss-canvas.hit-red,
+.eb-b-player-canvas.hit-red {
+  filter: sepia(1) saturate(8) hue-rotate(310deg) brightness(1.3);
+  transition: filter 0s;
+}
+.eb-b-boss-canvas,
+.eb-b-player-canvas {
+  transition: filter 0.3s ease;
+}
+
+
+/* 보스 이미지 */
+.eb-b-boss-img {
+  position: absolute; top: 18px; right: 16px;
+  width: 88px; height: 88px; object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(83,74,183,.25));
+  transition: filter .3s ease;
+}
+.eb-b-boss-img.shake { animation: eb-b-boss-shake .4s ease; }
+.eb-b-boss-img.hit   { filter: brightness(2) drop-shadow(0 0 16px rgba(255,100,100,.8)); }
+@keyframes eb-b-boss-shake {
+  0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-8px)} 40%{transform:translateX(8px)}
+  60%{transform:translateX(-5px)} 80%{transform:translateX(5px)}
+}
+
+/* 플레이어 캐릭터 */
+.eb-b-player-img {
+  position: absolute; bottom: 40px; left: 16px;
+  width: 72px; height: 72px; object-fit: contain;
+  filter: drop-shadow(0 3px 8px rgba(83,74,183,.2));
+  transform: scaleX(-1);
+}
+.eb-b-player-img.atk { animation: eb-b-atk .5s ease; }
+@keyframes eb-b-atk {
+  0%{transform:scaleX(-1) translateX(0)} 30%{transform:scaleX(-1) translateX(-44px) scale(1.1)}
+  60%{transform:scaleX(-1) translateX(-20px)} 100%{transform:scaleX(-1) translateX(0)}
+}
+
+/* ── 날아가는 공격 카드 ── */
+.eb-b-flying-card {
+  position: absolute;
+  left: 20px;
+  bottom: 44px;
+  width: 34px;
+  height: 46px;
+  background: white;
+  border: 2px solid #534AB7;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  pointer-events: none;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(83,74,183,.4);
+  animation: eb-b-card-fly 0.46s cubic-bezier(0.3,0,0.7,1) forwards;
+}
+@keyframes eb-b-card-fly {
+  0%   { transform: translate(0,0) rotate(0deg) scale(1); opacity: 1; }
+  75%  { transform: translate(250px,-80px) rotate(-22deg) scale(0.85); opacity: 1; }
+  100% { transform: translate(275px,-92px) rotate(-28deg) scale(0.5); opacity: 0; }
+}
+
+
+
+
+/* 데미지 팝업 */
+.eb-b-dmg-popup {
+  position: absolute; top: 28px; right: 28px;
+  font-size: 22px; font-weight: 800; color: #FF4444;
+  text-shadow: 0 2px 8px rgba(255,68,68,.5);
+  animation: eb-b-dmg-float .8s ease forwards;
+  pointer-events: none;
+}
+@keyframes eb-b-dmg-float {
+  0%  { opacity:1; transform:translateY(0) scale(1.2); }
+  60% { opacity:1; transform:translateY(-28px) scale(1); }
+  100%{ opacity:0; transform:translateY(-44px) scale(.8); }
+}
+
+/* 퀴즈 패널 */
+.eb-b-quiz-wrap {
+  background: white;
+  padding: 12px 14px 16px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+
+/* 상단 바 */
+.eb-b-topbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.eb-b-badge {
+  font-size: 10px; font-weight: 600;
+  padding: 3px 9px; border-radius: 20px; letter-spacing: .3px;
+}
+.eb-b-qnum { font-size: 11px; color: #aaa; margin-left: auto; }
+
+/* 힌트 필 (유닛보스) */
+.eb-b-hint-pill {
+  font-size: 10px; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px;
+  background: #FFF3DC; border: 0.5px solid #FAC775; color: #8A5500;
+  cursor: pointer; transition: opacity .15s;
+}
+.eb-b-hint-pill:hover  { opacity: .8; }
+.eb-b-hint-pill.used   { opacity: .4; cursor: not-allowed; }
+
+/* 도망가기 버튼 */
+.eb-b-escape-btn {
+  font-size: 10px; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px;
+  background: rgba(239,68,68,0.08);
+  border: 0.5px solid rgba(239,68,68,0.3);
+  color: #DC2626;
+  cursor: pointer; transition: all .15s;
+  margin-left: auto; font-family: inherit;
+}
+.eb-b-escape-btn:hover { background: rgba(239,68,68,0.15); }
+
+
+
+/* 문제 카드 */
+.eb-b-qcard {
+  background: #F9F8FE; border: 0.5px solid #E5E2F8;
+  border-radius: 16px; padding: 13px; display: flex; flex-direction: column; gap: 9px;
+}
+.eb-b-qtext {
+  font-size: 13px; font-weight: 500; color: #26215C; line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+/* 코드 터미널 */
+.eb-b-terminal {
+  background: #1C1939; border-radius: 12px; padding: 12px 14px; overflow-x: auto;
+}
+.eb-b-code {
+  font-family: 'Courier New', monospace; font-size: 12px;
+  line-height: 1.8; color: #E9D5FF; white-space: pre; margin: 0;
+}
+
+/* 라디오 옵션 */
+.eb-b-radio-opts { display: flex; flex-direction: column; gap: 6px; }
+.eb-b-ropt {
+  display: flex; align-items: center; gap: 9px;
+  border: 1px solid #E8E6FA; border-radius: 12px;
+  padding: 9px 12px; cursor: pointer; transition: all .15s; background: white;
+}
+.eb-b-ropt:hover { border-color: #B0A8F0; background: #F9F8FE; }
+.eb-b-ropt.sel   { border-color: #7F77DD; background: #F0EFFE; }
+.eb-b-rcircle {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1.5px solid #C4BFEE; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; color: #9B96D0; transition: all .15s;
+}
+.eb-b-ropt.sel .eb-b-rcircle { background: #7F77DD; border-color: #7F77DD; color: white; }
+.eb-b-rtext { font-size: 12.5px; color: #26215C; line-height: 1.5; }
+
+/* 빈칸 채우기 */
+.eb-b-fib-row {
+  display: flex; align-items: center; gap: 8px;
+  background: white; border: 1px solid #C4BFEE; border-radius: 10px; padding: 9px 12px;
+}
+.eb-b-fib-lbl { font-size: 10px; color: #aaa; flex-shrink: 0; }
+.eb-b-fib-in  {
+  flex: 1; border: none; outline: none;
+  font-family: 'Courier New', monospace; font-size: 13px; color: #26215C; background: transparent;
+}
+.eb-b-fib-in::placeholder { color: #ccc; }
+
+/* 코드 에디터 */
+.eb-b-editor { background: #1C1939; border-radius: 12px; padding: 11px 14px; }
+.eb-b-edlbl  { font-size: 10px; color: #4C4465; margin-bottom: 6px; font-family: 'Courier New', monospace; }
+.eb-b-edta {
+  width: 100%; background: transparent; border: none; outline: none;
+  font-family: 'Courier New', monospace; font-size: 12px;
+  color: #E9D5FF; resize: vertical; line-height: 1.7; caret-color: #7F77DD;
+}
+.eb-b-edta::placeholder { color: #3A3560; }
+
+/* 힌트 박스 */
+.eb-b-hint-box {
+  padding: 10px 12px;
+  background: #FFF9ED; border: 0.5px solid #FAC775; border-radius: 10px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.eb-b-hint-title { font-size: 11px; font-weight: 600; color: #8A5500; }
+.eb-b-hint-body  { font-size: 12px; color: #26215C; line-height: 1.55; }
+
+/* 공격 버튼 */
+.eb-b-atk-btn {
+  width: 100%; padding: 13px;
+  background: #534AB7; color: white;
+  border: none; border-radius: 14px;
+  font-size: 14px; font-weight: 600; font-family: inherit;
+  cursor: pointer; display: flex; align-items: center;
+  justify-content: center; gap: 8px; transition: background .15s;
+}
+.eb-b-atk-btn:hover:not(:disabled) { background: #3C3489; }
+.eb-b-atk-btn:disabled { background: #C4BFEE; cursor: not-allowed; }
+
+/* 결과 오버레이 */
+.eb-b-result-overlay {
+  position: fixed; inset: 0;
+  background: rgba(30,27,75,.65); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 200;
+  animation: eb-b-fade-in .25s ease;
+}
+@keyframes eb-b-fade-in { from{opacity:0} to{opacity:1} }
+
+.eb-b-result-card {
+  background: white; border-radius: 24px; padding: 26px 22px;
+  width: 310px; display: flex; flex-direction: column; align-items: center; gap: 13px;
+  animation: eb-b-scale-in .3s ease;
+}
+@keyframes eb-b-scale-in { from{transform:scale(.85);opacity:0} to{transform:scale(1);opacity:1} }
+
+.eb-b-res-icon  { font-size: 44px; }
+.eb-b-res-title { font-size: 17px; font-weight: 700; color: #26215C; text-align: center; }
+.eb-b-res-desc  {
+  font-size: 12px; color: #9B96D0; text-align: center; line-height: 1.65;
+  max-height: 80px; overflow-y: auto;
+}
+.eb-b-res-hp-row {
+  background: #F0EFFE; border-radius: 12px; padding: 10px 16px;
+  width: 100%; display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; color: #534AB7; font-weight: 500;
+}
+.eb-b-res-hp-val { font-size: 15px; font-weight: 700; }
+.eb-b-res-clear  { font-size: 15px; font-weight: 600; color: #4ADE80; text-align: center; }
+.eb-b-res-hint {
+  width: 100%; padding: 10px 14px; background: #FFF9ED;
+  border: 0.5px solid #FAC775; border-radius: 12px;
+  display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #26215C;
+}
+.eb-b-next-btn {
+  width: 100%; padding: 13px;
+  background: #534AB7; color: white;
+  border: none; border-radius: 14px;
+  font-size: 14px; font-weight: 600; font-family: inherit;
+  cursor: pointer; transition: background .15s;
+}
+.eb-b-next-btn:hover { background: #3C3489; }
+
+.ep-hp-preview {
+  padding: 12px 16px;
+  width: 100%;
+  display: flex; align-items: center; gap: 12px;
+}
+.ep-hp-bar-wrap { flex: 1; }
+.ep-hp-labels {
+  display: flex; justify-content: space-between;
+  font-size: 11px; color: rgba(197,192,255,.65); margin-bottom: 5px;
+}
+.ep-hp-track { height: 7px; background: rgba(255,255,255,.1); border-radius: 99px; overflow: hidden; }
+.ep-hp-fill  { height: 7px; border-radius: 99px; }
+
+.ep-lives       { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; }
+.ep-lives-title { font-size: 11px; font-weight: 700; color: rgba(252,165,165,.65); letter-spacing: .5px; }
+.ep-lives-row   { display: flex; gap: 10px; justify-content: center; }
+.ep-life {
+  width: 50px; height: 50px; border-radius: 50%;
+  background: rgba(239,68,68,.18);
+  border: 2px solid rgba(239,68,68,.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.ep-lives-hint { font-size: 11px; color: rgba(255,180,180,.5); }
+
+.ep-continue-btn {
+  width: 100%; padding: 14px;
+  color: white; border: none; border-radius: 14px;
+  font-size: 15px; font-weight: 700; font-family: inherit; cursor: pointer;
+  transition: transform .1s;
+}
+.ep-continue-btn:active { transform: translateY(2px); }
+.ep-continue-btn.blue   { background: linear-gradient(135deg, #3B82F6, #1D4ED8); box-shadow: 0 5px 0 #1E3A8A; }
+.ep-continue-btn.yellow { background: linear-gradient(135deg, #EAB308, #CA8A04); box-shadow: 0 5px 0 #78350F; }
+.ep-continue-btn.red    {
+  background: linear-gradient(135deg, #EF4444, #DC2626);
+  box-shadow: 0 5px 0 #991B1B, 0 8px 24px rgba(239,68,68,.4);
+  font-size: 16px; font-weight: 800;
+}
+.eb-b-hp-sub {
+  position: absolute;
+  top: 10px;        /* 원하는 위치로 조정 */
+  left: 50%;
+  transform: translateX(-50%);
+}
