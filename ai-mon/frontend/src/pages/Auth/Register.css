@@ -126,19 +126,23 @@
   padding: 15px;
   background: #7F77DD;
   color: white;
-  border: none;
+  border: 1px solid rgba(255,255,255,0.22);
   border-radius: 14px;
   font-size: 15px;
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
-  box-shadow: 0 4px 0 #534AB7;
-  transition: all 0.1s;
+  box-shadow: 0 10px 22px rgba(83, 74, 183, 0.18), 0 0 0 1px rgba(127, 119, 221, 0.08);
+  transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
 }
 
-.reg-btn-primary:hover  { background: #6E66CC; }
-.reg-btn-primary:active { transform: translateY(2px); box-shadow: 0 2px 0 #534AB7; }
-.reg-btn-primary:disabled { background: #C4BFEE; box-shadow: 0 4px 0 #A8A2D8; cursor: not-allowed; transform: none; }
+.reg-btn-primary:hover  {
+  background: #6E66CC;
+  box-shadow: 0 14px 28px rgba(83, 74, 183, 0.22), 0 0 0 4px rgba(127, 119, 221, 0.12);
+  transform: translateY(-1px);
+}
+.reg-btn-primary:active { transform: translateY(0) scale(0.99); box-shadow: 0 8px 18px rgba(83, 74, 183, 0.16), 0 0 0 1px rgba(127, 119, 221, 0.08); }
+.reg-btn-primary:disabled { background: #C4BFEE; box-shadow: none; cursor: not-allowed; transform: none; }
 
 .reg-btn-ghost {
   width: 100%;
@@ -171,7 +175,7 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: #F4F3FF;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -179,11 +183,23 @@
   color: #534AB7;
   cursor: pointer;
   border: none;
+  box-shadow: none !important;
   font-family: inherit;
-  transition: background 0.15s;
+  transform: none !important;
+  transition: color 0.15s;
 }
 
-.reg-back-btn:hover { background: #E8E5FF; }
+.reg-back-btn:hover {
+  background: transparent;
+  box-shadow: none !important;
+  color: #3E36A1;
+  transform: none !important;
+}
+
+.reg-back-btn:active {
+  box-shadow: none !important;
+  transform: none !important;
+}
 
 .reg-logo-sm {
   font-size: 16px;
@@ -673,23 +689,28 @@
   padding: 0 16px;
   background: #7F77DD;
   color: white;
-  border: none;
+  border: 1px solid rgba(255,255,255,0.22);
   border-radius: 14px;
   font-size: 13px;
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
-  box-shadow: 0 3px 0 #534AB7;
-  transition: all 0.1s;
+  box-shadow: 0 6px 14px rgba(83, 74, 183, 0.16), 0 0 0 1px rgba(127, 119, 221, 0.08);
+  transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.reg-check-dup-btn:hover { background: #6E66CC; }
-.reg-check-dup-btn:active { transform: translateY(1px); box-shadow: 0 2px 0 #534AB7; }
-.reg-check-dup-btn:disabled { background: #C4BFEE; box-shadow: 0 3px 0 #A8A2D8; cursor: not-allowed; transform: none; }
+.reg-check-dup-btn:hover {
+  background: #6E66CC;
+  box-shadow: 0 8px 18px rgba(83, 74, 183, 0.2), 0 0 0 3px rgba(127, 119, 221, 0.1);
+  transform: translateY(-1px);
+}
+.reg-check-dup-btn:active { transform: translateY(0) scale(0.99); box-shadow: 0 5px 12px rgba(83, 74, 183, 0.14), 0 0 0 1px rgba(127, 119, 221, 0.08); }
+.reg-check-dup-btn:disabled { background: #C4BFEE; box-shadow: none; cursor: not-allowed; transform: none; }
+
 
 /* ─────────────────────────────────────────────
    이메일 분리 UI 스타일 추가
