@@ -60,7 +60,7 @@ export default function BossResult({
           </div>
 
           <button className="btn btn-primary btn-lg btn-full" onClick={onNavigateLesson}>
-            ✕
+            다음 유닛으로 넘어가기
           </button>
         </>
       ) : (
