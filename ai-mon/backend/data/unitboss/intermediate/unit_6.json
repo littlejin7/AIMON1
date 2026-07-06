@@ -88,13 +88,7 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 코드에서 AttributeError가 발생하는 줄은?\n\n1줄: import os\n2줄: files = os.listdir(\".\")\n3줄: for f in files:\n```python\n4줄:     path = os.path.join(\".\", f)\n5줄:     size = os.path.size(path)\n6줄:     print(f\"{f}: {size}바이트\")\n```",
-      "choices": [
-        "A. 2줄",
-        "B. 3줄",
-        "C. 4줄",
-        "D. 5줄"
-      ],
-      "answer": "D",
+      "answer": "5",
       "hint": "os.path에서 파일 크기를 구하는 함수 이름을 정확히 떠올려 보세요.",
       "feedback": {
         "correct": "정답! os.path.size()라는 함수는 존재하지 않습니다. 파일 크기를 구하려면 os.path.getsize(path)를 사용해야 해요. size()로 호출하면 AttributeError가 발생합니다."
@@ -131,12 +125,12 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "collections 모듈의 Counter를 이용해 각 요소의 개수를 세려고 합니다. 빈칸에 들어갈 코드는?\n\n```python\nfrom collections import _________\n\nmonsters = [\"슬라임\", \"고블린\", \"슬라임\", \"드래곤\", \"슬라임\"]\ncount = _________(monsters)\nprint(count[\"슬라임\"])  # 3\n```",
+      "question": "collections 모듈의 Counter를 이용해 각 요소의 개수를 세려고 합니다. 빈칸에 들어갈 코드는?\n\n```python\nfrom collections import _________\n\ncompleted_days = [\"월요일\", \"화요일\", \"월요일\", \"수요일\", \"월요일\"]\ncount = _________(completed_days)\nprint(count[\"월요일\"])  # 3\n```",
       "choices": [],
       "answer": "Counter",
       "hint": "collections 모듈에서 요소 개수를 세는 클래스 이름이에요.",
       "feedback": {
-        "correct": "정답! collections.Counter는 iterable의 각 요소 등장 횟수를 딕셔너리처럼 저장합니다. Counter(monsters)[\"슬라임\"]은 슬라임이 등장한 횟수 3을 반환해요."
+        "correct": "정답! collections.Counter는 iterable의 각 요소 등장 횟수를 딕셔너리처럼 저장합니다. Counter(completed_days)[\"월요일\"]은 월요일이 등장한 횟수 3을 반환해요."
       }
     },
     {
@@ -171,13 +165,7 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 코드에서 ImportError가 발생하는 줄은?\n\n1줄: import os\n2줄: import sys\n3줄: from math import sqrt, pi\n4줄: from datetime import Date\n```python\n5줄: print(sqrt(16))\n```",
-      "choices": [
-        "A. 1줄",
-        "B. 2줄",
-        "C. 3줄",
-        "D. 4줄"
-      ],
-      "answer": "D",
+      "answer": "4",
       "hint": "datetime 모듈에서 날짜를 다루는 클래스의 정확한 이름을 확인해 보세요.",
       "feedback": {
         "correct": "정답! datetime 모듈의 날짜 클래스는 date (소문자 d)입니다. Date처럼 대문자로 쓰면 ImportError: cannot import name 'Date' from 'datetime'이 발생해요."
@@ -192,7 +180,7 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "collections.defaultdict를 이용해 키가 없어도 자동으로 빈 리스트를 기본값으로 쓰려고 합니다. 빈칸에 들어갈 인자는?\n\n```python\nfrom collections import defaultdict\n\nteams = defaultdict(_________)\nteams[\"전사\"].append(\"에이몬\")\nteams[\"마법사\"].append(\"슬라임\")\nprint(teams[\"전사\"])  # ['에이몬']\n```",
+      "question": "collections.defaultdict를 이용해 키가 없어도 자동으로 빈 리스트를 기본값으로 쓰려고 합니다. 빈칸에 들어갈 인자는?\n\n```python\nfrom collections import defaultdict\n\nsubjects = defaultdict(_________)\nsubjects[\"파이썬\"].append(\"에이몬\")\nsubjects[\"알고리즘\"].append(\"철수\")\nprint(subjects[\"파이썬\"])  # ['에이몬']\n```",
       "choices": [],
       "answer": "list",
       "hint": "기본값으로 빈 리스트를 반환하는 팩토리 함수(callable) 이름이에요.",

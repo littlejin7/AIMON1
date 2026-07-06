@@ -48,17 +48,17 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\nmonsters = [\"오크\", \"슬라임\", \"드래곤왕\"]\nresult = {m: len(m) for m in monsters}\nprint(result)\n```",
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\nsubjects = [\"파이썬\", \"자바스크립트\", \"인공지능\"]\nresult = {s: len(s) for s in subjects}\nprint(result)\n```",
       "choices": [
-        "A. [2, 3, 4]",
-        "B. {'오크': 2, '슬라임': 3, '드래곤왕': 4}",
-        "C. {'오크': '오크', '슬라임': '슬라임', '드래곤왕': '드래곤왕'}",
-        "D. {2: '오크', 3: '슬라임', 4: '드래곤왕'}"
+        "A. [3, 6, 4]",
+        "B. {'파이썬': 3, '자바스크립트': 6, '인공지능': 4}",
+        "C. {'파이썬': '파이썬', '자바스크립트': '자바스크립트', '인공지능': '인공지능'}",
+        "D. {3: '파이썬', 6: '자바스크립트', 4: '인공지능'}"
       ],
       "answer": "B",
       "hint": "중괄호 {}를 쓰고 key: value 형태로 표현식을 쓰면 딕셔너리 컴프리헨션이에요.",
       "feedback": {
-        "correct": "정답! 딕셔너리 컴프리헨션은 {키: 값 for 변수 in iterable} 형태입니다. 오크(2글자), 슬라임(3글자), 드래곤왕(4글자) 각각의 이름을 키로, 글자 수를 값으로 하는 딕셔너리가 만들어집니다."
+        "correct": "정답! 딕셔너리 컴프리헨션은 {키: 값 for 변수 in iterable} 형태입니다. 파이썬(3글자), 자바스크립트(6글자), 인공지능(4글자) 각각의 이름을 키로, 글자 수를 값으로 하는 딕셔너리가 만들어집니다."
       }
     },
     {
@@ -88,13 +88,7 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 코드에서 SyntaxError가 발생하는 줄은?\n\n```python\n1줄: nums = [1, 2, 3, 4, 5]\n2줄: squares = [x**2 for x in nums]\n3줄: evens = [x for x in nums if x % 2 == 0]\n4줄: nested = [x*y for x in [1,2] for y in [3,4]]\n5줄: wrong = [if x > 3: x for x in nums]\n```",
-      "choices": [
-        "A. 2줄",
-        "B. 3줄",
-        "C. 4줄",
-        "D. 5줄"
-      ],
-      "answer": "D",
+      "answer": "5",
       "hint": "리스트 컴프리헨션에서 조건은 맨 앞이 아니라 맨 뒤에 if로 써야 해요.",
       "feedback": {
         "correct": "정답! 리스트 컴프리헨션은 [표현식 for 변수 in iterable if 조건] 순서입니다. [if 조건: 표현식 for ...] 형태는 파이썬 문법에 맞지 않아 SyntaxError가 발생해요."
@@ -171,13 +165,7 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 코드에서 오류가 발생하는 줄은?\n\n1줄: import json\n```python\n2줄: data = {\"name\": \"에이몬\", \"skills\": [\"불꽃\", \"얼음\"]}\n3줄: json_str = json.dumps(data)\n4줄: loaded = json.loads(json_str)\n5줄: print(loaded[\"skills\"][0])\n6줄: loaded[\"skills\"] = {1, 2, 3}\n7줄: print(json.dumps(loaded))\n```",
-      "choices": [
-        "A. 3줄",
-        "B. 4줄",
-        "C. 5줄",
-        "D. 7줄"
-      ],
-      "answer": "D",
+      "answer": "7",
       "hint": "JSON은 set 자료형을 지원하지 않아요.",
       "feedback": {
         "correct": "정답! JSON 표준은 set 자료형을 지원하지 않습니다. loaded[\"skills\"]에 세트 {1, 2, 3}을 할당한 후 json.dumps()를 호출하면 TypeError: Object of type set is not JSON serializable 오류가 발생해요."

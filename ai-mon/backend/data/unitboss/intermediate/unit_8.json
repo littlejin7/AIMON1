@@ -48,17 +48,17 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 API 응답 데이터에서 두 번째 몬스터의 이름을 출력하는 코드의 결과는?\n\n```python\ndata = {\n    \"status\": \"ok\",\n    \"monsters\": [\n        {\"name\": \"슬라임\", \"hp\": 30},\n        {\"name\": \"드래곤\", \"hp\": 500}\n    ]\n}\nprint(data[\"monsters\"][1][\"name\"])\n```",
+      "question": "다음 API 응답 데이터에서 두 번째 코스의 이름을 출력하는 코드의 결과는?\n\n```python\ndata = {\n    \"status\": \"success\",\n    \"courses\": [\n        {\"title\": \"파이썬 입문\", \"lectures\": 12},\n        {\"title\": \"웹 개발 기초\", \"lectures\": 25}\n    ]\n}\nprint(data[\"courses\"][1][\"title\"])\n```",
       "choices": [
-        "A. 슬라임",
-        "B. 드래곤",
-        "C. 500",
+        "A. 파이썬 입문",
+        "B. 웹 개발 기초",
+        "C. 25",
         "D. KeyError 발생"
       ],
       "answer": "B",
-      "hint": "monsters는 리스트이므로 인덱스로 접근하고, 그 뒤에 딕셔너리 키로 접근해요.",
+      "hint": "courses는 리스트이므로 인덱스로 접근하고, 그 뒤에 딕셔너리 키로 접근해요.",
       "feedback": {
-        "correct": "정답! data[\"monsters\"]로 리스트를 꺼낸 후, [1]로 두 번째 요소(드래곤 딕셔너리)에 접근하고, [\"name\"]으로 이름을 꺼냅니다. 결과는 \"드래곤\"이에요."
+        "correct": "정답! data[\"courses\"]로 리스트를 꺼낸 후, [1]로 두 번째 요소(웹 개발 기초 딕셔너리)에 접근하고, [\"title\"]로 코스 제목을 꺼냅니다. 결과는 \"웹 개발 기초\"예요."
       }
     },
     {
@@ -88,13 +88,7 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 코드에서 오류가 발생하는 줄은?\n\n1줄: import requests\n```python\n2줄: response = requests.get(\"https://api.example.com/data\")\n3줄: if response.status_code = 200:\n4줄:     data = response.json()\n5줄:     print(data)\n```",
-      "choices": [
-        "A. 2줄",
-        "B. 3줄",
-        "C. 4줄",
-        "D. 5줄"
-      ],
-      "answer": "B",
+      "answer": "3",
       "hint": "비교 연산자와 대입 연산자를 헷갈리지 않도록 주의하세요.",
       "feedback": {
         "correct": "정답! 3줄에서 = 는 대입 연산자입니다. 조건 비교에는 ==를 써야 합니다. if response.status_code = 200:은 SyntaxError를 발생시켜요."
@@ -148,17 +142,17 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\ndata = {\n    \"party\": [\n        {\"name\": \"에이몬\", \"role\": \"전사\", \"level\": 15},\n        {\"name\": \"슬라임\", \"role\": \"마법사\", \"level\": 12},\n        {\"name\": \"고블린\", \"role\": \"궁수\", \"level\": 10}\n    ]\n}\n\nhigh_level = [m[\"name\"] for m in data[\"party\"] if m[\"level\"] >= 12]\nprint(high_level)\n```",
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\ndata = {\n    \"students\": [\n        {\"name\": \"에이몬\", \"role\": \"멘토\", \"level\": 15},\n        {\"name\": \"철수\", \"role\": \"멘티\", \"level\": 12},\n        {\"name\": \"영희\", \"role\": \"멘티\", \"level\": 10}\n    ]\n}\n\nhigh_level = [m[\"name\"] for m in data[\"students\"] if m[\"level\"] >= 12]\nprint(high_level)\n```",
       "choices": [
-        "A. ['에이몬', '슬라임', '고블린']",
-        "B. ['에이몬', '슬라임']",
+        "A. ['에이몬', '철수', '영희']",
+        "B. ['에이몬', '철수']",
         "C. ['에이몬']",
         "D. [15, 12]"
       ],
       "answer": "B",
-      "hint": "level이 12 이상인 파티원은 에이몬(15)과 슬라임(12)이에요.",
+      "hint": "level이 12 이상인 학생은 에이몬(15)과 철수(12)예요.",
       "feedback": {
-        "correct": "정답! 컴프리헨션에서 if m[\"level\"] >= 12 조건을 만족하는 에이몬(15)과 슬라임(12)의 이름만 리스트에 담깁니다. 고블린은 10이므로 제외돼요."
+        "correct": "정답! 컴프리헨션에서 if m[\"level\"] >= 12 조건을 만족하는 에이몬(15)과 철수(12)의 이름만 리스트에 담깁니다. 영희는 10이므로 제외돼요."
       }
     },
     {
@@ -171,13 +165,7 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 재시도 로직에서 버그가 있는 줄은?\n\n```python\n1줄: import requests\n2줄:\n3줄: def fetch_with_retry(url, max_retry=3):\n4줄:     for attempt in range(max_retry):\n5줄:         try:\n6줄:             response = requests.get(url, timeout=5)\n7줄:             response.raise_for_status()\n8줄:             return response.json()\n9줄:         except Exception:\n10줄:             if attempt == max_retry:\n11줄:                 raise\n12줄:     return None\n```",
-      "choices": [
-        "A. 4줄",
-        "B. 6줄",
-        "C. 10줄",
-        "D. 12줄"
-      ],
-      "answer": "C",
+      "answer": "10",
       "hint": "range(max_retry)의 마지막 값이 max_retry와 같을 수 있는지 생각해 보세요.",
       "feedback": {
         "correct": "정답! range(3)은 0, 1, 2를 생성합니다. 마지막 attempt는 2(max_retry - 1)이에요. 10줄에서 attempt == max_retry(3)은 절대 True가 되지 않아 raise가 실행되지 않습니다. attempt == max_retry - 1로 수정해야 해요."

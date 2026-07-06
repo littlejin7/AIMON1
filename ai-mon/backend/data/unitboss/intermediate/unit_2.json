@@ -88,13 +88,7 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 코드에서 TypeError가 발생하는 줄은?\n\n```python\n1줄: coords = (10, 20)\n2줄: print(coords[0])\n3줄: coords[0] = 99\n4줄: print(coords)\n```",
-      "choices": [
-        "A. 1줄",
-        "B. 2줄",
-        "C. 3줄",
-        "D. 4줄"
-      ],
-      "answer": "C",
+      "answer": "3",
       "hint": "튜플은 생성 후 요소를 변경할 수 없는 불변(immutable) 자료형이에요.",
       "feedback": {
         "correct": "정답! 튜플은 불변(immutable) 자료형입니다. 한 번 생성된 튜플의 요소를 coords[0] = 99처럼 변경하려 하면 TypeError: 'tuple' object does not support item assignment가 발생해요."
@@ -109,7 +103,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\nmonsters = {\"슬라임\": 3, \"드래곤\": 1}\nmonsters[\"슬라임\"] += 2\nmonsters[\"고블린\"] = 5\nprint(len(monsters))\n```",
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\nwrong_answers = {\"조건문\": 3, \"반복문\": 1}\nwrong_answers[\"조건문\"] += 2\nwrong_answers[\"함수\"] = 5\nprint(len(wrong_answers))\n```",
       "choices": [
         "A. 2",
         "B. 3",
@@ -119,7 +113,7 @@
       "answer": "B",
       "hint": "기존 키 수정은 개수에 영향 없고, 새 키 추가는 개수를 늘려요.",
       "feedback": {
-        "correct": "정답! 처음 딕셔너리에는 키가 2개(슬라임, 드래곤)입니다. 슬라임의 값을 수정해도 키 개수는 그대로이고, 고블린이라는 새 키가 추가되어 최종적으로 키가 3개가 됩니다."
+        "correct": "정답! 처음 딕셔너리에는 키가 2개(조건문, 반복문)입니다. 조건문의 값을 수정해도 키 개수는 그대로이고, 함수라는 새 키가 추가되어 최종적으로 키가 3개가 됩니다."
       }
     },
     {
@@ -131,12 +125,12 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "두 세트의 교집합(공통 원소)만 구하려고 합니다. 빈칸에 들어갈 메서드 이름은?\n\n```python\nteam_a = {\"에이몬\", \"슬라임\", \"고블린\"}\nteam_b = {\"드래곤\", \"슬라임\", \"에이몬\"}\ncommon = team_a._________(team_b)\nprint(common)  # {'에이몬', '슬라임'}\n```",
+      "question": "두 세트의 교집합(공통 원소)만 구하려고 합니다. 빈칸에 들어갈 메서드 이름은?\n\n```python\nstudent_a = {\"파이썬\", \"웹개발\", \"인공지능\"}\nstudent_b = {\"데이터분석\", \"웹개발\", \"파이썬\"}\ncommon = student_a._________(student_b)\nprint(common)  # {'파이썬', '웹개발'}\n```",
       "choices": [],
       "answer": "intersection",
       "hint": "두 집합의 공통 원소를 구하는 집합 연산의 이름을 영어로 생각해 보세요.",
       "feedback": {
-        "correct": "정답! 교집합은 intersection() 메서드로 구합니다. & 연산자로도 같은 결과를 얻을 수 있어요. team_a & team_b와 team_a.intersection(team_b)는 동일합니다."
+        "correct": "정답! 교집합은 intersection() 메서드로 구합니다. & 연산자로도 같은 결과를 얻을 수 있어요. student_a & student_b와 student_a.intersection(student_b)는 동일합니다."
       }
     },
     {
@@ -170,17 +164,11 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드에서 오류가 발생하는 줄은?\n\n```python\n1줄: dungeon = {\"1층\": {\"보스\": \"슬라임\", \"보상\": [\"검\", \"방패\"]}}\n2줄: print(dungeon[\"1층\"][\"보스\"])\n3줄: dungeon[\"1층\"][\"보상\"][0] = \"도끼\"\n4줄: dungeon[\"1층\"] = (\"오크\", [\"활\"])\n5줄: dungeon[\"1층\"][\"보스\"] = \"드래곤\"\n```",
-      "choices": [
-        "A. 2줄",
-        "B. 3줄",
-        "C. 4줄",
-        "D. 5줄"
-      ],
-      "answer": "D",
+      "question": "다음 코드에서 오류가 발생하는 줄은?\n\n```python\n1줄: store = {\"A코너\": {\"담당자\": \"김철수\", \"판매물품\": [\"지우개\", \"연필\"]}}\n2줄: print(store[\"A코너\"][\"담당자\"])\n3줄: store[\"A코너\"][\"판매물품\"][0] = \"볼펜\"\n4줄: store[\"A코너\"] = (\"이영희\", [\"노트북\"])\n5줄: store[\"A코너\"][\"담당자\"] = \"박민수\"\n```",
+      "answer": "5",
       "hint": "4줄에서 값이 튜플로 바뀐 후, 5줄에서 어떤 자료형으로 접근하는지 확인해 보세요.",
       "feedback": {
-        "correct": "정답! 4줄에서 dungeon[\"1층\"]의 값이 튜플 (\"오크\", [\"활\"])로 교체됩니다. 5줄에서 dungeon[\"1층\"][\"보스\"]처럼 문자열 키로 접근하려 하면 튜플은 정수 인덱스만 지원하므로 TypeError가 발생해요."
+        "correct": "정답! 4줄에서 store[\"A코너\"]의 값이 튜플 (\"이영희\", [\"노트북\"])로 교체됩니다. 5줄에서 store[\"A코너\"][\"담당자\"]처럼 문자열 키로 접근하려 하면 튜플은 정수 인덱스만 지원하므로 TypeError가 발생해요."
       }
     },
     {
@@ -192,7 +180,7 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "딕셔너리에서 키가 없을 때 기본값 0을 반환하도록 빈칸을 채워주세요.\n\n```python\nscores = {\"에이몬\": 95, \"슬라임\": 70}\nresult = scores._________(\"드래곤\", 0)\nprint(result)  # 0\n```",
+      "question": "딕셔너리에서 키가 없을 때 기본값 0을 반환하도록 빈칸을 채워주세요.\n\n```python\nscores = {\"에이몬\": 95, \"철수\": 70}\nresult = scores._________(\"영희\", 0)\nprint(result)  # 0\n```",
       "choices": [],
       "answer": "get",
       "hint": "딕셔너리에서 키가 없을 때 예외 대신 기본값을 돌려주는 메서드예요.",

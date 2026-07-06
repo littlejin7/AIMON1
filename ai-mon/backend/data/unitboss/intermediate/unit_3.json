@@ -88,13 +88,7 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 재귀 함수에서 무한 재귀가 발생하게 만드는 버그가 있는 줄은?\n\n```python\n1줄: def countdown(n):\n2줄:     if n == 0:\n3줄:         print(\"발사!\")\n4줄:         return\n5줄:     print(n)\n6줄:     countdown(n)\n```",
-      "choices": [
-        "A. 2줄",
-        "B. 3줄",
-        "C. 5줄",
-        "D. 6줄"
-      ],
-      "answer": "D",
+      "answer": "6",
       "hint": "재귀 호출 시 n 값이 변하지 않으면 종료 조건에 영원히 도달할 수 없어요.",
       "feedback": {
         "correct": "정답! 6줄에서 countdown(n)으로 호출하면 n이 줄어들지 않아 종료 조건인 n == 0에 절대 도달할 수 없습니다. countdown(n - 1)로 수정해야 해요."
@@ -170,14 +164,8 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드에서 TypeError가 발생하는 줄은?\n\n```python\n1줄: items = [\"검\", \"방패\", \"포션\"]\n2줄: upper_items = list(map(lambda x: x.upper(), items))\n3줄: lengths = list(map(len, items))\n4줄: filtered = list(filter(lambda x: x > 3, lengths))\n5줄: result = list(map(lambda x, y: x + y, items))\n```",
-      "choices": [
-        "A. 2줄",
-        "B. 3줄",
-        "C. 4줄",
-        "D. 5줄"
-      ],
-      "answer": "D",
+      "question": "다음 코드에서 TypeError가 발생하는 줄은?\n\n```python\n1줄: items = [\"apple\", \"banana\", \"melon\"]\n2줄: upper_items = list(map(lambda x: x.upper(), items))\n3줄: lengths = list(map(len, items))\n4줄: filtered = list(filter(lambda x: x > 3, lengths))\n5줄: result = list(map(lambda x, y: x + y, items))\n```",
+      "answer": "5",
       "hint": "map()에 인자가 두 개인 lambda를 쓸 때 iterable도 두 개를 전달해야 해요.",
       "feedback": {
         "correct": "정답! lambda x, y: x + y는 인자 두 개를 받지만, map()에 iterable을 하나만(items) 전달했습니다. list()로 감싸 실제 실행이 일어나는 순간 TypeError: <lambda>() missing 1 required positional argument: 'y'가 발생해요."
@@ -192,12 +180,12 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "sorted()와 lambda를 이용해 딕셔너리 리스트를 'hp' 기준 내림차순으로 정렬하려고 합니다. 빈칸에 들어갈 코드는?\n\n```python\nmonsters = [\n    {\"name\": \"슬라임\", \"hp\": 30},\n    {\"name\": \"드래곤\", \"hp\": 500},\n    {\"name\": \"고블린\", \"hp\": 80}\n]\nresult = sorted(monsters, key=lambda x: x[\"hp\"], _________=True)\nprint(result[0][\"name\"])  # 드래곤\n```",
+      "question": "sorted()와 lambda를 이용해 딕셔너리 리스트를 'points' 기준 내림차순으로 정렬하려고 합니다. 빈칸에 들어갈 코드는?\n\n```python\nstudents = [\n    {\"name\": \"민수\", \"points\": 120},\n    {\"name\": \"영희\", \"points\": 450},\n    {\"name\": \"철수\", \"points\": 300}\n]\nresult = sorted(students, key=lambda x: x[\"points\"], _________=True)\nprint(result[0][\"name\"])  # 영희\n```",
       "choices": [],
       "answer": "reverse",
       "hint": "sorted()에서 내림차순 정렬을 활성화하는 매개변수 이름이에요.",
       "feedback": {
-        "correct": "정답! sorted()의 reverse=True 매개변수를 사용하면 내림차순으로 정렬합니다. key=lambda x: x[\"hp\"]로 hp 값 기준으로 정렬하고, reverse=True로 큰 값이 앞에 오도록 해요."
+        "correct": "정답! sorted()의 reverse=True 매개변수를 사용하면 내림차순으로 정렬합니다. key=lambda x: x[\"points\"]로 points 값 기준으로 정렬하고, reverse=True로 큰 값이 앞에 오도록 해요."
       }
     }
   ]
