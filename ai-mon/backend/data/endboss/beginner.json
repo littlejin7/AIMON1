@@ -130,13 +130,7 @@
     "difficulty": "medium",
     "type": "error_find",
     "question": "다음 코드는 실행되지만 합계가 잘못 나옵니다. 논리 오류가 있는 줄 번호는?\n\n```python\n1: records = [{\"금액\": 5000}, {\"금액\": 8000}, {\"금액\": 3000}]\n2: total = 0\n3: for r in records:\n4:     total =+ r[\"금액\"]\n5: print(f\"합계: {total}\")\n```",
-    "choices": [
-      "A. 2번째 줄",
-      "B. 3번째 줄",
-      "C. 4번째 줄 (결과: 16000)",
-      "D. 4번째 줄 (결과: 3000)"
-    ],
-    "answer": "D",
+    "answer": "4",
     "explanation": "4번째 줄의 =+는 +=의 오타처럼 보이지만 실제로는 total = (+r[\"금액\"]) 즉 매 반복마다 total을 덮어씁니다. 최종값은 마지막 항목인 3000이 됩니다. 올바른 코드는 total += r[\"금액\"]입니다.",
     "feedback": {
       "correct": "날카롭습니다! =+는 누산이 아니라 매번 덮어씌우는 버그입니다.",
@@ -154,13 +148,7 @@
     "difficulty": "medium",
     "type": "error_find",
     "question": "다음 코드에서 ZeroDivisionError가 발생하는 줄 번호는?\n\n```python\n1: records = []\n2: total = sum(r[\"금액\"] for r in records)\n3: average = total / len(records)\n4: print(f\"평균: {average}원\")\n```",
-    "choices": [
-      "A. 1번째 줄",
-      "B. 2번째 줄",
-      "C. 3번째 줄",
-      "D. 4번째 줄"
-    ],
-    "answer": "C",
+    "answer": "3",
     "explanation": "3번째 줄에서 ZeroDivisionError가 발생합니다. records가 빈 리스트이므로 len(records)는 0이고, total / 0은 오류입니다. if records: 조건이나 total / len(records) if records else 0으로 방어해야 합니다.",
     "feedback": {
       "correct": "맞아요! 빈 리스트에서 평균을 구하면 0으로 나누기 오류가 납니다.",
@@ -178,13 +166,7 @@
     "difficulty": "hard",
     "type": "error_find",
     "question": "다음 코드에서 KeyError가 발생하는 줄 번호는?\n\n```python\n1: records = [{\"항목\": \"식비\", \"금액\": 5000},\n2:            {\"항목\": \"교통비\", \"금액\": 3000}]\n3: total = 0\n4: for r in records:\n5:     total += r[\"amount\"]\n```",
-    "choices": [
-      "A. 1번째 줄",
-      "B. 3번째 줄",
-      "C. 4번째 줄",
-      "D. 5번째 줄"
-    ],
-    "answer": "D",
+    "answer": "5",
     "explanation": "5번째 줄에서 KeyError가 발생합니다. 딕셔너리의 키는 '금액'인데 'amount'로 잘못 참조했습니다. 한글 키와 영문 키를 혼용하지 않도록 주의해야 합니다.",
     "feedback": {
       "correct": "정확해요! 딕셔너리 키는 대소문자, 언어까지 정확히 일치해야 합니다.",
@@ -202,13 +184,7 @@
     "difficulty": "hard",
     "type": "error_find",
     "question": "다음 코드에서 TypeError가 발생하는 줄 번호는?\n\n```python\n1: import json\n2: records = [{\"항목\": \"식비\", \"금액\": 8000}]\n3: with open(\"account.json\", \"w\", encoding=\"utf-8\") as f:\n4:     json.dumps(records, f)\n```",
-    "choices": [
-      "A. 2번째 줄",
-      "B. 3번째 줄",
-      "C. 4번째 줄",
-      "D. 오류 없음"
-    ],
-    "answer": "C",
+    "answer": "4",
     "explanation": "4번째 줄에서 TypeError가 발생합니다. json.dumps()는 객체를 문자열로 반환하는 함수로, 두 번째 인수로 파일 객체를 받지 않습니다. 파일에 쓰려면 json.dump(records, f)를 사용해야 합니다.",
     "feedback": {
       "correct": "맞아요! dump(파일에 쓰기) vs dumps(문자열로 반환) 차이를 정확히 알고 있군요.",
@@ -400,13 +376,7 @@
     "difficulty": "medium",
     "type": "error_find",
     "question": "다음 코드는 실행되지만 끝말잇기 검사가 잘못됩니다. 논리 오류가 있는 줄 번호는?\n\n```python\n1: words = [\"나무\", \"무지개\", \"개미\"]\n2: new_word = \"미래\"\n3: if new_word[0] == words[-1][0]:\n4:     print(\"이어짐!\")\n5: else:\n6:     print(\"틀렸어요!\")\n```",
-    "choices": [
-      "A. 1번째 줄",
-      "B. 2번째 줄",
-      "C. 3번째 줄",
-      "D. 오류 없음"
-    ],
-    "answer": "C",
+    "answer": "3",
     "explanation": "3번째 줄에서 논리 오류가 있습니다. words[-1][0]은 '개미'의 첫 글자 '개'이고, new_word[0]='미'이므로 False → '틀렸어요!'가 출력됩니다. 하지만 '미래'는 '개미'[-1]='미'로 시작하므로 실제로는 이어지는 단어입니다. words[-1][-1]과 비교해야 합니다.",
     "feedback": {
       "correct": "날카롭습니다! words[-1][0]이 아닌 words[-1][-1]과 비교해야 합니다.",
@@ -424,13 +394,7 @@
     "difficulty": "medium",
     "type": "error_find",
     "question": "used_words에 새 단어 전체를 추가하려는 코드입니다.\n논리 오류가 있는 줄 번호는?\n\n```python\n1: used_words = []\n2: new_word = \"사과\"\n3: used_words += new_word\n4: print(used_words)\n```\n\n(실제 출력: '['사', '과']', 의도한 출력: '['사과']')",
-    "choices": [
-      "A. 1번째 줄",
-      "B. 2번째 줄",
-      "C. 3번째 줄",
-      "D. 4번째 줄"
-    ],
-    "answer": "C",
+    "answer": "3",
     "explanation": "3번째 줄에서 논리 오류가 있습니다. list += string은 문자열을 낱글자로 분해해 리스트에 추가합니다. 단어 전체를 추가하려면 used_words.append(new_word)를 사용해야 합니다.",
     "feedback": {
       "correct": "맞아요! list += string은 extend처럼 작동해 낱글자를 하나씩 추가합니다.",
@@ -448,13 +412,7 @@
     "difficulty": "hard",
     "type": "error_find",
     "question": "다음 함수는 체인이 올바른지 검사하려 합니다. 논리 오류가 있는 줄 번호는?\n\n```python\n1: def is_valid_chain(words):\n2:     for i in range(len(words)):\n3:         if words[i][0] != words[i-1][-1]:\n4:             return False\n5:     return True\n```",
-    "choices": [
-      "A. 1번째 줄",
-      "B. 2번째 줄",
-      "C. 3번째 줄",
-      "D. 5번째 줄"
-    ],
-    "answer": "B",
+    "answer": "2",
     "explanation": "2번째 줄에서 논리 오류가 있습니다. range(len(words))는 0부터 시작하는데, i=0일 때 words[0-1]=words[-1]로 마지막 단어와 비교해버립니다. range(1, len(words))로 시작해야 합니다.",
     "feedback": {
       "correct": "정확해요! i=0이면 words[-1]과 비교하는 버그가 생깁니다. range(1, len(words))가 올바릅니다.",
@@ -670,13 +628,7 @@
     "difficulty": "medium",
     "type": "error_find",
     "question": "다음 코드에서 TypeError가 발생하는 줄 번호는?\n\n```python\n1: students = [{\"이름\": \"김철수\", \"점수\": 88},\n2:             {\"이름\": \"이영희\", \"점수\": 95}]\n3: total = 0\n4: for s in students:\n5:     total += s[\"점수\"]\n6: print(\"평균: \" + total / len(students))\n```",
-    "choices": [
-      "A. 3번째 줄",
-      "B. 4번째 줄",
-      "C. 5번째 줄",
-      "D. 6번째 줄"
-    ],
-    "answer": "D",
+    "answer": "6",
     "explanation": "6번째 줄에서 TypeError가 발생합니다. 문자열 \"평균: \"과 float(숫자)를 + 연산자로 연결할 수 없습니다. f\"평균: {total / len(students):.1f}\" 또는 \"평균: \" + str(total / len(students))로 수정해야 합니다.",
     "feedback": {
       "correct": "정확해요! 문자열과 숫자는 + 로 연결할 수 없어요. f-string이나 str()로 변환해야 합니다.",
@@ -694,13 +646,7 @@
     "difficulty": "medium",
     "type": "error_find",
     "question": "all_scores에 new_scores 항목들을 추가하려는 코드입니다.\n논리 오류가 있는 줄 번호는?\n\n```python\n1: all_scores = [85, 92]\n2: new_scores = [78, 67, 55]\n3: all_scores.append(new_scores)\n4: print(len(all_scores))\n```\n\n(의도한 출력: '5', 실제 출력: '3')",
-    "choices": [
-      "A. 1번째 줄",
-      "B. 2번째 줄",
-      "C. 3번째 줄",
-      "D. 4번째 줄"
-    ],
-    "answer": "C",
+    "answer": "3",
     "explanation": "3번째 줄이 문제입니다. .append()는 인수를 하나의 원소로 추가합니다. all_scores.append([78,67,55])는 [85, 92, [78,67,55]]가 되어 len=3입니다. 항목을 풀어서 추가하려면 .extend(new_scores) 또는 all_scores += new_scores를 사용해야 합니다.",
     "feedback": {
       "correct": "맞아요! append()는 리스트 자체를 한 원소로 추가합니다. extend()가 올바릅니다.",
@@ -718,13 +664,7 @@
     "difficulty": "hard",
     "type": "error_find",
     "question": "60점이 'D'가 아닌 'F'로 출력됩니다. 논리 오류가 있는 줄 번호는?\n\n```python\n1: def get_grade(score):\n2:     if score >= 90: return \"A\"\n3:     elif score >= 80: return \"B\"\n4:     elif score >= 70: return \"C\"\n5:     elif score > 60: return \"D\"\n6:     else: return \"F\"\n7:\n8: print(get_grade(60))\n```",
-    "choices": [
-      "A. 2번째 줄",
-      "B. 4번째 줄",
-      "C. 5번째 줄",
-      "D. 6번째 줄"
-    ],
-    "answer": "C",
+    "answer": "5",
     "explanation": "5번째 줄의 score > 60이 문제입니다. 60점은 60 > 60이 False이므로 else로 넘어가 'F'가 됩니다. score >= 60으로 수정하면 60점이 'D'로 올바르게 처리됩니다.",
     "feedback": {
       "correct": "날카롭습니다! > 와 >= 의 차이가 경계값을 잘못 처리합니다.",
@@ -742,13 +682,7 @@
     "difficulty": "hard",
     "type": "error_find",
     "question": "다음 코드에서 ValueError가 발생하는 줄 번호는?\n\n```python\n1: grades = {\"김철수\": 88, \"이영희\": 95, \"박민준\": 72}\n2: for name, score in grades:\n3:     if score >= 90:\n4:         print(f\"{name}: A등급\")\n```",
-    "choices": [
-      "A. 1번째 줄",
-      "B. 2번째 줄",
-      "C. 3번째 줄",
-      "D. 4번째 줄"
-    ],
-    "answer": "B",
+    "answer": "2",
     "explanation": "2번째 줄에서 ValueError가 발생합니다. 딕셔너리를 직접 반복하면 키만 순회합니다. 키(문자열 \"김철수\" 등)를 (name, score) 두 변수로 언패킹하려 하면 오류가 납니다. grades.items()로 수정해야 합니다.",
     "feedback": {
       "correct": "정확해요! dict.items()를 사용해야 (키, 값) 쌍으로 언패킹할 수 있습니다.",
@@ -940,13 +874,7 @@
     "difficulty": "medium",
     "type": "error_find",
     "question": "다음 코드는 실행되지만 GPA가 잘못 계산됩니다. 논리 오류가 있는 줄 번호는?\n\n```python\n1: courses = [\n2:     {\"과목\": \"수학\", \"학점\": 3, \"등급\": \"A\"},\n3:     {\"과목\": \"영어\", \"학점\": 2, \"등급\": \"B\"}\n4: ]\n5: grade_map = {\"A\": 4.0, \"B\": 3.0, \"C\": 2.0, \"D\": 1.0}\n6: total = sum(c[\"학점\"] * grade_map[c[\"등급\"]] for c in courses)\n7: gpa = total / len(courses)\n8: print(f\"GPA: {gpa}\")\n```\n\n(의도한 출력: 'GPA: 3.6', 실제 출력: 'GPA: 9.0')",
-    "choices": [
-      "A. 5번째 줄",
-      "B. 6번째 줄",
-      "C. 7번째 줄",
-      "D. 8번째 줄"
-    ],
-    "answer": "C",
+    "answer": "7",
     "explanation": "7번째 줄에서 논리 오류가 있습니다. 가중 평균 GPA는 총 학점(3+2=5)으로 나눠야 합니다. len(courses)=2로 나누면 18.0/2=9.0이 됩니다. sum(c[\"학점\"] for c in courses)로 수정해야 합니다.",
     "feedback": {
       "correct": "날카롭습니다! 가중 평균은 과목 수가 아닌 총 이수 학점으로 나눠야 합니다.",
@@ -964,13 +892,7 @@
     "difficulty": "medium",
     "type": "error_find",
     "question": "다음 코드에서 KeyError가 발생하는 줄 번호는?\n\n```python\n1: grade_map = {\"A\": 4.0, \"B\": 3.0, \"C\": 2.0, \"D\": 1.0}\n2: courses = [\n3:     {\"과목\": \"수학\", \"등급\": \"A\"},\n4:     {\"과목\": \"영어\", \"등급\": \"F\"}\n5: ]\n6: for c in courses:\n7:     print(f\"{c['과목']}: {grade_map[c['등급']]}\")\n```",
-    "choices": [
-      "A. 1번째 줄",
-      "B. 4번째 줄",
-      "C. 6번째 줄",
-      "D. 7번째 줄"
-    ],
-    "answer": "D",
+    "answer": "7",
     "explanation": "7번째 줄에서 KeyError가 발생합니다. grade_map에는 \"F\" 키가 없으므로 영어 과목 처리 시 grade_map[\"F\"]에서 오류가 납니다. grade_map.get(c[\"등급\"], 0.0)으로 수정하거나 grade_map에 \"F\": 0.0을 추가해야 합니다.",
     "feedback": {
       "correct": "정확해요! grade_map에 없는 키를 직접 조회하면 KeyError가 발생합니다.",
@@ -988,13 +910,7 @@
     "difficulty": "hard",
     "type": "error_find",
     "question": "등급(평점)이 가장 높은 과목을 찾으려는 코드입니다. 논리 오류가 있는 줄 번호는?\n\n```python\n1: courses = [\n2:     {\"과목\": \"수학\", \"학점\": 3, \"등급\": \"B\"},\n3:     {\"과목\": \"영어\", \"학점\": 2, \"등급\": \"A\"},\n4:     {\"과목\": \"과학\", \"학점\": 1, \"등급\": \"A\"}\n5: ]\n6: grade_map = {\"A\": 4.0, \"B\": 3.0, \"C\": 2.0}\n7: best = max(courses, key=lambda c: c[\"학점\"])\n8: print(best[\"과목\"])\n```\n\n(의도한 출력: 등급이 A인 과목, 실제 출력: '수학')",
-    "choices": [
-      "A. 2번째 줄",
-      "B. 6번째 줄",
-      "C. 7번째 줄",
-      "D. 오류 없음"
-    ],
-    "answer": "C",
+    "answer": "7",
     "explanation": "7번째 줄에서 논리 오류가 있습니다. c[\"학점\"]은 이수 학점(credit) 수이지 등급 점수가 아닙니다. 학점이 3으로 가장 많은 수학이 선택됩니다. 등급이 가장 높은 과목을 찾으려면 key=lambda c: grade_map[c[\"등급\"]]으로 수정해야 합니다.",
     "feedback": {
       "correct": "날카롭습니다! c[\"학점\"]은 이수 학점(credit)이고 grade_map[c[\"등급\"]]이 등급 점수입니다. 혼동하지 마세요.",
@@ -1012,13 +928,7 @@
     "difficulty": "hard",
     "type": "error_find",
     "question": "다음 코드에서 ZeroDivisionError가 발생하는 줄 번호는?\n\n```python\n1: courses = []\n2: grade_map = {\"A\": 4.0, \"B\": 3.0, \"C\": 2.0, \"D\": 1.0}\n3: total_weight = sum(c[\"학점\"] * grade_map[c[\"등급\"]] for c in courses)\n4: total_credits = sum(c[\"학점\"] for c in courses)\n5: gpa = total_weight / total_credits\n6: print(f\"GPA: {gpa:.2f}\")\n```",
-    "choices": [
-      "A. 3번째 줄",
-      "B. 4번째 줄",
-      "C. 5번째 줄",
-      "D. 6번째 줄"
-    ],
-    "answer": "C",
+    "answer": "5",
     "explanation": "5번째 줄에서 ZeroDivisionError가 발생합니다. courses가 빈 리스트이므로 3번째 줄과 4번째 줄의 sum()은 각각 0을 반환합니다. 5번째 줄에서 0/0이 되어 오류가 납니다. if courses: 조건으로 방어해야 합니다.",
     "feedback": {
       "correct": "맞아요! 빈 리스트에서 sum()은 0을 반환하므로 total_credits=0이 되어 나누기 오류가 납니다.",

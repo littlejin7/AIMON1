@@ -97,14 +97,8 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "방해몬이 show_menu() 코드를 망가뜨렸습니다. 실행 즉시 SyntaxError가 발생하는 줄은 몇 줄일까요?\n\n```python\n1줄: def show_menu()\n2줄:     print('1. 아이템 획득')\n3줄:     choice = input('선택: ')\n4줄:     return choice\n```",
-      "choices": [
-        "A. 1줄",
-        "B. 2줄",
-        "C. 3줄",
-        "D. 4줄"
-      ],
-      "answer": "A",
+      "question": "방해몬이 show_menu() 코드를 망가뜨렸습니다. 실행 즉시 SyntaxError가 발생하는 줄은 몇 번째 줄일까요?\n\n```python\n1줄: def show_menu()\n2줄:     print('1. 아이템 획득')\n3줄:     choice = input('선택: ')\n4줄:     return choice\n```",
+      "answer": "1",
       "hint": "파이썬에서 def 선언 줄 맨 끝에 반드시 붙어야 하는 기호가 빠져 있습니다.",
       "feedback": {
         "correct": "정답! 1줄에서 함수 선언 끝에 콜론(:)이 누락되어 SyntaxError가 발생합니다. 'def show_menu():' 형태로 작성해야 합니다."
@@ -271,14 +265,8 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "방해몬이 들여쓰기를 망가뜨렸습니다! IndentationError가 발생하는 줄은 몇 줄일까요?\n\n```python\n1줄: def show_menu():\n2줄: choice = input('선택: ')\n```\n3줄:     return choice",
-      "choices": [
-        "A. 1줄",
-        "B. 2줄",
-        "C. 3줄",
-        "D. 오류 없음"
-      ],
-      "answer": "B",
+      "question": "방해몬이 들여쓰기를 망가뜨렸습니다! IndentationError가 발생하는 줄은 몇 번째 줄일까요?\n\n```python\n1줄: def show_menu():\n2줄: choice = input('선택: ')\n```\n3줄:     return choice",
+      "answer": "2",
       "hint": "def 블록 안의 코드는 반드시 들여쓰기(스페이스 4칸 또는 탭)가 되어 있어야 합니다.",
       "feedback": {
         "correct": "정답! 2줄의 choice = input(...)이 함수 안쪽 코드임에도 들여쓰기가 없어 IndentationError가 발생합니다."
@@ -422,14 +410,8 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "방해몬이 함수 호출 괄호를 지웠습니다. 다음 코드에서 TypeError가 발생하는 줄은 몇 줄일까요?\n\n1줄: def show_menu():\n2줄:     return '1'\n```python\n3줄: result = show_menu\n4줄: print(result + '번 선택')\n```",
-      "choices": [
-        "A. 1줄",
-        "B. 2줄",
-        "C. 3줄",
-        "D. 4줄"
-      ],
-      "answer": "C",
+      "question": "방해몬이 함수 호출 괄호를 지웠습니다. 다음 코드에서 TypeError가 발생하는 줄은 몇 번째 줄일까요?\n\n1줄: def show_menu():\n2줄:     return '1'\n```python\n3줄: result = show_menu\n4줄: print(result + '번 선택')\n```",
+      "answer": "3",
       "hint": "3줄에서 show_menu는 호출 없이 함수 객체 자체를 result에 담았습니다. 함수 객체와 문자열을 더하면 어떻게 될까요?",
       "feedback": {
         "correct": "정답! 3줄에서 show_menu()가 아닌 show_menu(괄호 없음)를 대입해 result에 함수 객체가 저장됩니다. 4줄에서 함수 객체와 문자열 '번 선택'을 + 연산하려 하면 TypeError가 발생합니다."
@@ -637,14 +619,8 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "방해몬이 import를 지웠습니다. 실행 시 NameError가 발생하는 줄은 몇 줄일까요?\n\n```python\n1줄: inventory = []\n2줄: item_db = ['HP포션', '철검']\n3줄: new_item = random.choice(item_db)\n4줄: inventory.append(new_item)\n```",
-      "choices": [
-        "A. 1줄",
-        "B. 2줄",
-        "C. 3줄",
-        "D. 4줄"
-      ],
-      "answer": "C",
+      "question": "방해몬이 import를 지웠습니다. 실행 시 NameError가 발생하는 줄은 몇 번째 줄일까요?\n\n```python\n1줄: inventory = []\n2줄: item_db = ['HP포션', '철검']\n3줄: new_item = random.choice(item_db)\n4줄: inventory.append(new_item)\n```",
+      "answer": "3",
       "hint": "파이썬이 처음으로 'random'이라는 이름을 마주치는 위치를 찾으세요. import가 없으면 그 이름을 알 수 없습니다.",
       "feedback": {
         "correct": "정답! 3줄에서 random.choice()를 호출하려 하지만, import random이 없어 파이썬은 'random'이 무엇인지 알지 못해 NameError를 발생시킵니다."
@@ -806,14 +782,8 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "방해몬이 random.choice()에 잘못된 인자를 넘겼습니다. TypeError가 발생하는 줄은 몇 줄일까요?\n\n1줄: import random\n```python\n2줄: inventory = []\n3줄: new_item = random.choice('HP포션', '철검')\n4줄: inventory.append(new_item)\n```",
-      "choices": [
-        "A. 1줄",
-        "B. 2줄",
-        "C. 3줄",
-        "D. 4줄"
-      ],
-      "answer": "C",
+      "question": "방해몬이 random.choice()에 잘못된 인자를 넘겼습니다. TypeError가 발생하는 줄은 몇 번째 줄일까요?\n\n1줄: import random\n```python\n2줄: inventory = []\n3줄: new_item = random.choice('HP포션', '철검')\n4줄: inventory.append(new_item)\n```",
+      "answer": "3",
       "hint": "random.choice()는 하나의 리스트([])만 인자로 받습니다. 두 개의 문자열을 따로 넘기면 어떻게 될까요?",
       "feedback": {
         "correct": "정답! 3줄에서 random.choice()에 리스트 대신 두 개의 문자열 인자를 따로 전달했기 때문에 TypeError가 발생합니다. 올바른 형태는 random.choice(['HP포션', '철검'])입니다."
@@ -829,14 +799,8 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "방해몬이 메서드 이름을 틀렸습니다. AttributeError가 발생하는 줄은 몇 줄일까요?\n\n1줄: import random\n```python\n2줄: inventory = ['지도']\n3줄: new_item = random.choice(['철검', 'HP포션'])\n4줄: inventory.add(new_item)\n```",
-      "choices": [
-        "A. 1줄",
-        "B. 2줄",
-        "C. 3줄",
-        "D. 4줄"
-      ],
-      "answer": "D",
+      "question": "방해몬이 메서드 이름을 틀렸습니다. AttributeError가 발생하는 줄은 몇 번째 줄일까요?\n\n1줄: import random\n```python\n2줄: inventory = ['지도']\n3줄: new_item = random.choice(['철검', 'HP포션'])\n4줄: inventory.add(new_item)\n```",
+      "answer": "4",
       "hint": "파이썬 리스트에서 요소를 추가할 때 사용하는 메서드 이름을 다시 떠올려보세요. add는 어떤 자료형에서 쓸까요?",
       "feedback": {
         "correct": "정답! 4줄에서 리스트에는 add() 메서드가 없습니다. 리스트에 요소를 추가할 때는 append()를 써야 하며, add()는 집합(set) 자료형에서 사용합니다."
@@ -1003,7 +967,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드에서 오류가 있는 줄을 고르세요.\n\n① inventory = ['검', '방패', '물약']\n② for i, item in inventory:\n```python\n③     print(f'{i+1}. {item}')\n```",
+      "question": "다음 코드에서 오류가 있는 줄을 고르세요.\n\n① inventory = ['정수', '실수', '변수']\n② for i, item in enumerate(inventory):\n```python\n③     print(f'{i+1}. {item}')\n```",
       "choices": [
         "A. ① — 리스트 선언이 잘못됨",
         "B. ② — enumerate()를 빠뜨렸음",
@@ -1218,7 +1182,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드에서 오류가 있는 줄을 고르세요.\n\n```python\n① inventory = ['검', '방패']\n② total = len[inventory]\n③ print(f'총 {total}개')\n```",
+      "question": "다음 코드에서 오류가 있는 줄을 고르세요.\n\n```python\n① inventory = ['책상', '의자']\n② total = len[inventory]\n③ print(f'침대 {total}개')\n```",
       "choices": [
         "A. ① — 리스트 문법 오류",
         "B. ② — len은 대괄호가 아닌 소괄호()를 사용해야 함",
@@ -1648,7 +1612,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드에서 문제가 있는 줄은?\n\n```python\n① inventory = ['검', '방패']\n② user_input = int(input('번호: '))\n③ dropped = inventory.pop(user_input)\n```",
+      "question": "다음 코드에서 문제가 있는 줄은?\n\n```python\n① inventory = ['나무', '바다']\n② user_input = int(input('번호: '))\n③ dropped = inventory.pop(user_input)\n```",
       "choices": [
         "A. ① — 리스트 초기화 오류",
         "B. ② — int() 변환 불필요",
@@ -1864,13 +1828,7 @@
       "quiz_set": "A",
       "is_boss": false,
       "question": "다음 find_item 코드에서 버그가 있는 줄은?\n\n```python\n① keyword = input('검색어: ')\n② found = True\n③ for item in inventory:\n④     if keyword.lower() in item.lower():\n⑤         found = True\n```",
-      "choices": [
-        "A. ① — input 사용법 오류",
-        "B. ② — found를 False로 초기화해야 함",
-        "C. ④ — in 연산자 사용법 오류",
-        "D. 오류 없음"
-      ],
-      "answer": "B",
+      "answer": "2",
       "hint": "검색 시작 전 '아직 못 찾음' 상태는 무엇이어야 할까요?",
       "feedback": {
         "correct": "정답! found = True로 시작하면 아무것도 못 찾아도 발견한 것으로 처리됩니다. 반드시 found = False로 초기화해야 합니다."
@@ -2079,13 +2037,7 @@
       "quiz_set": "B",
       "is_boss": false,
       "question": "다음 코드에서 대소문자 처리가 누락된 줄은?\n\n```python\n① keyword = input('검색어: ').lower()\n② found = False\n③ for item in inventory:\n④     if keyword in item:\n⑤         found = True\n⑥         print(f'발견: {item}')\n```",
-      "choices": [
-        "A. ① — keyword를 lower()하면 안 됨",
-        "B. ④ — item도 lower()로 변환해야 대소문자 무시 가능",
-        "C. ⑤ — True 대신 다른 값 필요",
-        "D. 오류 없음"
-      ],
-      "answer": "B",
+      "answer": "4",
       "hint": "keyword만 소문자로 바꿔도 item이 대문자면 매칭이 실패합니다.",
       "feedback": {
         "correct": "정답! keyword.lower()와 item.lower() 둘 다 변환해야 완전한 대소문자 무시 검색이 가능합니다. ④는 'if keyword in item.lower():'여야 합니다."
@@ -2724,13 +2676,7 @@
       "quiz_set": "A",
       "is_boss": false,
       "question": "다음 코드에서 무한 루프가 절대 끝나지 않는 원인 줄은?\n\n```python\n① while True:\n②     cmd = input('명령: ')\n③     if cmd == '7':\n④         print('종료')\n```",
-      "choices": [
-        "A. ① — while True 사용 자체가 오류",
-        "B. ③ — 조건식 오류",
-        "C. ④ — break가 없어서 '7' 입력 후에도 루프가 계속됨",
-        "D. 오류 없음"
-      ],
-      "answer": "C",
+      "answer": "4",
       "hint": "종료 메시지를 출력해도 루프를 '실제로 끊는' 명령이 없습니다.",
       "feedback": {
         "correct": "정답! print('종료')만으로는 루프가 끝나지 않습니다. 루프를 탈출하려면 break를 추가해야 합니다."
@@ -2939,13 +2885,7 @@
       "quiz_set": "B",
       "is_boss": false,
       "question": "다음 메뉴 분기 코드에서 문법 오류가 있는 줄은?\n\n```python\n① if cmd == '1':\n②     add_item()\n③ elif cmd == '2'\n④     show_inventory()\n⑤ else:\n⑥     print('오류')\n```",
-      "choices": [
-        "A. ① — if 문법 오류",
-        "B. ③ — elif 줄 끝에 콜론(:)이 없음",
-        "C. ⑤ — else 문법 오류",
-        "D. 오류 없음"
-      ],
-      "answer": "B",
+      "answer": "3",
       "hint": "파이썬의 모든 제어문(if, elif, else, while, for)은 줄 끝에 특정 기호가 필요합니다.",
       "feedback": {
         "correct": "정답! 'elif cmd == '2'' 줄 끝에 콜론(:)이 빠졌습니다. 'elif cmd == '2':'로 수정해야 합니다."
