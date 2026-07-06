@@ -133,7 +133,7 @@ export default function Register() {
   const updateEmail = (id, domain, custom) => {
     const activeDomain = domain === 'direct' ? custom : domain
     // @ 중복 방지, 한글 및 공백 방지
-    const cleanedId = id.replace(/@/g, '').replace(/\s/g, '').replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '')
+    const cleanedId = id.toLowerCase().replace(/@/g, '').replace(/\s/g, '').replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '')
     const cleanedDomain = activeDomain.replace(/@/g, '').replace(/\s/g, '').replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '')
     
     let fullEmail = ''
@@ -166,7 +166,7 @@ export default function Register() {
   }
 
   const handleIdChange = (e) => {
-    const val = e.target.value.replace(/[^A-Za-z0-9]/g, '').trim()
+    const val = e.target.value.toLowerCase().replace(/[^a-z0-9]/g, '').trim()
     setForm(f => ({ ...f, username: val }))
     setIsIdChecked(false)
     setIdError('')
