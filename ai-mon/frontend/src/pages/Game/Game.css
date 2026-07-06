@@ -142,6 +142,7 @@
 .game-overall-bar-bg {
   height: 6px;
   background: rgba(255,255,255,0.08);
+  border: 1px solid gray;
   border-radius: var(--radius-full);
   overflow: hidden;
 }
@@ -207,6 +208,7 @@
 }
 .game-challenge-bar-bg {
   background: rgba(255, 255, 255, 0.08);
+  border: 1px solid gray;
   border-radius: var(--radius-full);
   height: 5px;
   overflow: hidden;
@@ -441,7 +443,7 @@
   position: relative;
 }
 .game-ranking-locked-blur {
-  filter: blur(4px);
+  filter: blur(6px);
   pointer-events: none;
   user-select: none;
 }
@@ -454,14 +456,15 @@
   justify-content: center;
   gap: 8px;
   padding: 12px;
-  background: rgba(10,10,20,0.35);
 }
 .game-ranking-lock-icon {
   font-size: 22px;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
 }
 .game-ranking-lock-text {
   font-size: 12px;
   font-weight: 600;
   color: var(--clr-text-bright);
   margin: 0;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
 }
