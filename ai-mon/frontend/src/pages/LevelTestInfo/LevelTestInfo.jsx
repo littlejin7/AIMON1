@@ -47,7 +47,7 @@ export default function LevelTestInfo() {
               <span className="benefit-icon">📈</span>
               <div>
                 <h3 className="benefit-title">게임하듯 성장하는 커리큘럼</h3>
-                <p className="benefit-desc">스테이지를 풀며 에이몬을 진화시키고 보스 인증카드를 얻으세요.</p>
+                <p className="benefit-desc">스테이지와 보스를 넘어 엔드보스 난이도 인증카드에 도전하세요.</p>
               </div>
             </div>
           </div>
