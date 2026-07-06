@@ -88,13 +88,7 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "코루틴 함수 자체를 전달해 ValueError가 발생하는 줄은?\n\n```python\n1줄: import asyncio\n2줄: \n3줄: async def main():\n4줄:     print(\"실행!\")\n5줄: \n6줄: asyncio.run(main)\n```",
-      "choices": [
-        "A. 3줄",
-        "B. 4줄",
-        "C. 6줄",
-        "D. 오류 없음"
-      ],
-      "answer": "C",
+      "answer": "6",
       "hint": "asyncio.run()은 코루틴 객체를 기대합니다. main과 main()은 다릅니다.",
       "feedback": {
         "correct": "정답! asyncio.run()에는 코루틴 객체(main())를 전달해야 합니다. 함수 자체(main)를 전달하면 6줄에서 ValueError가 발생합니다."
@@ -149,13 +143,7 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "일반 함수 안에서 await를 사용해 SyntaxError가 발생하는 줄은?\n\n```python\n1줄: import asyncio\n2줄: \n3줄: async def fetch():\n4줄:     await asyncio.sleep(0)\n5줄:     return \"완료\"\n6줄: \n7줄: def sync_run():\n8줄:     result = await fetch()\n9줄:     print(result)\n10줄: \n11줄: sync_run()\n```",
-      "choices": [
-        "A. 4줄",
-        "B. 7줄",
-        "C. 8줄",
-        "D. 11줄"
-      ],
-      "answer": "C",
+      "answer": "8",
       "hint": "await는 async def 안에서만 사용할 수 있습니다.",
       "feedback": {
         "correct": "정답! await는 async def로 정의된 코루틴 함수 안에서만 사용할 수 있습니다. sync_run()은 일반 함수이므로 8줄의 await에서 SyntaxError가 발생합니다."

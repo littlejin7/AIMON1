@@ -88,13 +88,7 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "session_state 초기화 없이 접근해 KeyError가 발생하는 줄은?\n\n```python\n1줄: import streamlit as st\n2줄: \n3줄: def main():\n4줄:     st.session_state[\"messages\"].append(\n5줄:         {\"role\": \"user\", \"content\": \"안녕\"}\n6줄:     )\n7줄:     st.write(st.session_state[\"messages\"])\n8줄: \n9줄: main()\n```",
-      "choices": [
-        "A. 3줄",
-        "B. 4줄",
-        "C. 7줄",
-        "D. 9줄"
-      ],
-      "answer": "B",
+      "answer": "4",
       "hint": "session_state[\"messages\"]가 존재하지 않는 상태에서 접근하면 어느 줄에서 오류가 발생하나요?",
       "feedback": {
         "correct": "정답! 'messages' 키가 session_state에 존재하지 않는데 4줄에서 바로 접근하면 KeyError가 발생합니다. if 'messages' not in st.session_state: 로 먼저 초기화해야 합니다."
@@ -149,13 +143,7 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "session_state를 속성 접근으로 초기화하지 않아 AttributeError가 발생하는 줄은?\n\n```python\n1줄: import streamlit as st\n2줄: \n3줄: for msg in st.session_state.messages:\n4줄:     with st.chat_message(msg[\"role\"]):\n5줄:         st.markdown(msg[\"content\"])\n```",
-      "choices": [
-        "A. 1줄",
-        "B. 3줄",
-        "C. 4줄",
-        "D. 5줄"
-      ],
-      "answer": "B",
+      "answer": "3",
       "hint": "session_state.messages를 미리 초기화하지 않으면 속성 접근 시 어떤 오류가 발생하나요?",
       "feedback": {
         "correct": "정답! st.session_state.messages는 초기화하기 전까지 존재하지 않습니다. 3줄에서 바로 접근하면 AttributeError가 발생합니다. 먼저 if 'messages' not in st.session_state: 패턴으로 초기화해야 합니다."
