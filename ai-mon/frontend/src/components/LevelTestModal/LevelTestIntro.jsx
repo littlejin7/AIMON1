@@ -113,9 +113,9 @@ export default function LevelTestIntro({ onStart, onClose }) {
           style={{
             width: '100%', padding: '13px',
             background: '#7F77DD', color: 'white',
-            border: 'none', borderRadius: '14px',
+            border: '1px solid rgba(255,255,255,0.22)', borderRadius: '14px',
             fontSize: '15px', fontWeight: 600, cursor: 'pointer',
-            boxShadow: '0 4px 0 #534AB7',
+            boxShadow: '0 10px 22px rgba(83,74,183,.18), 0 0 0 1px rgba(127,119,221,.08)',
           }}
         >
           🎯 테스트 시작하기
