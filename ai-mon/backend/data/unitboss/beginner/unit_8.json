@@ -26,7 +26,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "방해문이 add_item()을 건드렸습니다. 아래 코드를 실행했을 때 출력 결과는?\n\n```python\nimport random\ninventory = ['검']\npool = ['방패', '물약', '지팡이']\nnew_item = random.choice(pool)\ninventory.append(new_item)\nprint(len(inventory))\n```",
+      "question": "방해문이 add_study_topic()을 건드렸습니다. 아래 코드를 실행했을 때 출력 결과는?\n\n```python\nimport random\nstudy_list = ['변수']\npool = ['리스트', '딕셔너리', '함수']\nnew_topic = random.choice(pool)\nstudy_list.append(new_topic)\nprint(len(study_list))\n```",
       "choices": [
         "A. 0",
         "B. 1",
@@ -36,7 +36,7 @@
       "answer": "C",
       "hint": "기존 1개에 1개를 추가하면 몇 개가 될까요?",
       "feedback": {
-        "correct": "정확히 분석했어요! '검' 1개가 있는 상태에서 random.choice로 1개를 추가하므로 len은 2예요."
+        "correct": "정확히 분석했어요! '변수' 1개가 있는 상태에서 random.choice로 1개를 추가하므로 len은 2예요."
       }
     },
     {
@@ -48,7 +48,7 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "방해문이 show_inventory()의 번호 부여 장치를 파괴했습니다! 각 아이템에 0이 아닌 1번부터 번호를 붙이도록 빈칸을 복구하세요.\n\n```python\ndef show_inventory(inventory):\n    print(f'[인벤토리 — {len(inventory)}개]')\n    for i, item in enumerate(inventory):\n        print(f'{____}. {item}')\n```",
+      "question": "방해문이 show_study_list()의 번호 부여 장치를 파괴했습니다! 각 학습 과제에 0이 아닌 1번부터 번호를 붙이도록 빈칸을 복구하세요.\n\n```python\ndef show_study_list(study_list):\n    print(f'[학습 목록 — {len(study_list)}개]')\n    for i, item in enumerate(study_list):\n        print(f'{____}. {item}')\n```",
       "choices": [],
       "answer": "i+1",
       "hint": "enumerate의 i는 0부터 시작해요. 유저에게 1번부터 보이려면?",
@@ -65,17 +65,17 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "방해문이 show_inventory() 출력을 조작했습니다. 다음 코드의 실제 출력 결과는?\n\n```python\ndef show_inventory(inventory):\n    print(f'[인벤토리 — {len(inventory)}개]')\n    for i, item in enumerate(inventory):\n        print(f'{i+1}. {item}')\n```\n\nshow_inventory(['검', '방패', '물약'])",
+      "question": "방해문이 show_study_list() 출력을 조작했습니다. 다음 코드의 실제 출력 결과는?\n\n```python\ndef show_study_list(study_list):\n    print(f'[학습 목록 — {len(study_list)}개]')\n    for i, item in enumerate(study_list):\n        print(f'{i+1}. {item}')\n```\n\nshow_study_list(['변수', '리스트', '딕셔너리'])",
       "choices": [
-        "A. [인벤토리 — 3개]\n0. 검\n1. 방패\n2. 물약",
-        "B. [인벤토리 — 3개]\n1. 검\n2. 방패\n3. 물약",
-        "C. 1. 검\n2. 방패\n3. 물약",
-        "D. [인벤토리 — ['검', '방패', '물약']개]"
+        "A. [학습 목록 — 3개]\n0. 변수\n1. 리스트\n2. 딕셔너리",
+        "B. [학습 목록 — 3개]\n1. 변수\n2. 리스트\n3. 딕셔너리",
+        "C. 1. 변수\n2. 리스트\n3. 딕셔너리",
+        "D. [학습 목록 — ['변수', '리스트', '딕셔너리']개]"
       ],
       "answer": "B",
       "hint": "헤더에 len(), 목록에 i+1을 사용해요.",
       "feedback": {
-        "correct": "정확히 분석했어요! len(['검','방패','물약'])=3, i+1 덕분에 1번부터 번호가 붙어요."
+        "correct": "정확히 분석했어요! len(['변수','리스트','딕셔너리'])=3, i+1 덕분에 1번부터 번호가 붙어요."
       }
     },
     {
@@ -87,7 +87,7 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "방해문이 drop_item()의 인덱스 변환 공식을 지워버렸습니다! 유저가 '2번'을 입력하면 파이썬 인덱스 1로 변환되도록 빈칸을 복구하세요.\n\n```python\ndef drop_item(inventory):\n    user_input = int(input('버릴 번호: '))\n    idx = ____\n    dropped = inventory.pop(idx)\n    print(f'{dropped} 버림!')\n```",
+      "question": "방해문이 remove_study_topic()의 인덱스 변환 공식을 지워버렸습니다! 유저가 '2번'을 입력하면 파이썬 인덱스 1로 변환되도록 빈칸을 복구하세요.\n\n```python\ndef remove_study_topic(study_list):\n    user_input = int(input('삭제할 번호: '))\n    idx = ____\n    removed = study_list.pop(idx)\n    print(f'{removed} 삭제 완료!')\n```",
       "choices": [],
       "answer": "user_input - 1",
       "hint": "사용자 번호와 파이썬 인덱스의 차이는 1이에요.",
@@ -104,17 +104,17 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "방해문이 find_item()을 분석 중입니다. 코드를 꼼꼼히 읽고, 키워드 '물약'으로 검색했을 때 실제 출력 결과는?\n\n```python\ndef find_item(inventory, keyword):\n    found = False\n    for item in inventory:\n        if keyword.lower() in item.lower():\n            found = True\n            print(f'발견: {item}')\n    if not found:\n        print('아이템을 찾을 수 없습니다.')\n```\n\nfind_item(['검', '물약', '방패'], '물약')",
+      "question": "방해문이 find_study_topic()을 분석 중입니다. 코드를 꼼꼼히 읽고, 키워드 '함수'로 검색했을 때 실제 출력 결과는?\n\n```python\ndef find_study_topic(study_list, keyword):\n    found = False\n    for item in study_list:\n        if keyword.lower() in item.lower():\n            found = True\n            print(f'발견: {item}')\n    if not found:\n        print('학습 주제를 찾을 수 없습니다.')\n```\n\nfind_study_topic(['변수', '함수', '리스트'], '함수')",
       "choices": [
-        "A. 아이템을 찾을 수 없습니다.",
-        "B. 발견: 물약",
-        "C. 발견: 검\n발견: 물약\n발견: 방패",
+        "A. 학습 주제를 찾을 수 없습니다.",
+        "B. 발견: 함수",
+        "C. 발견: 변수\n발견: 함수\n발견: 리스트",
         "D. 오류 발생"
       ],
       "answer": "B",
-      "hint": "'물약'은 리스트에 있고, found 패턴이 올바르게 동작해요.",
+      "hint": "'함수'는 리스트에 있고, found 패턴이 올바르게 동작해요.",
       "feedback": {
-        "correct": "정확히 분석했어요! '물약' keyword가 inventory의 '물약'과 일치하므로 '발견: 물약'이 출력돼요."
+        "correct": "정확히 분석했어요! '함수' keyword가 study_list의 '함수'와 일치하므로 '발견: 함수'가 출력돼요."
       }
     },
     {
@@ -126,7 +126,7 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "방해문이 save_inventory()의 파일 모드를 삭제했습니다! 인벤토리를 파일에 저장(쓰기)할 수 있도록 빈칸을 복구하세요.\n\n```python\ndef save_inventory(inventory, filename):\n    with open(filename, ____) as f:\n        for item in inventory:\n            f.write(item + '\\n')\n    print('저장 완료!')\n```",
+      "question": "방해문이 save_study_list()의 파일 모드를 삭제했습니다! 학습 목록을 파일에 저장(쓰기)할 수 있도록 빈칸을 복구하세요.\n\n```python\ndef save_study_list(study_list, filename):\n    with open(filename, ____) as f:\n        for item in study_list:\n            f.write(item + '\\n')\n    print('저장 완료!')\n```",
       "choices": [],
       "answer": "'w'",
       "hint": "파일에 내용을 쓰는 모드를 나타내는 한 글자예요.",
@@ -165,16 +165,11 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "방해문이 drop_item()에 교묘한 버그를 심었습니다! 유저가 '1'을 입력했는데 엉뚱한 아이템이 삭제됩니다. 오류 라인은?\n\n```python\n1줄: user_input = int(input('버릴 번호: '))\n2줄: idx = user_input\n3줄: dropped = inventory.pop(idx)\n```",
-      "choices": [
-        "A. 1줄",
-        "B. 2줄",
-        "C. 3줄"
-      ],
-      "answer": "B",
+      "question": "방해문이 remove_study_topic()에 교묘한 버그를 심었습니다! 유저가 '1'을 입력했는데 엉뚱한 학습 주제가 삭제됩니다. 오류 라인은?\n\n```python\n1줄: user_input = int(input('삭제할 번호: '))\n2줄: idx = user_input\n3줄: removed = study_list.pop(idx)\n```",
+      "answer": "2",
       "hint": "사용자가 '1'을 입력하면 어떤 인덱스를 pop하게 될까요?",
       "feedback": {
-        "correct": "버그 적발! 2줄에서 idx = user_input 그대로 쓰면 사용자가 '1' 입력 시 인덱스 1(두 번째 아이템)이 삭제돼요. idx = user_input - 1로 수정해야 해요."
+        "correct": "버그 적발! 2줄에서 idx = user_input 그대로 쓰면 사용자가 '1' 입력 시 인덱스 1(두 번째 학습 주제)이 삭제돼요. idx = user_input - 1로 수정해야 해요."
       }
     },
     {
@@ -186,13 +181,8 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "방해문이 save_inventory()의 파일 모드를 바꿔치기해서 저장 시 UnsupportedOperation 오류를 일으켰습니다. 오류 라인은?\n\n```python\n1줄: with open('inventory.txt', 'r') as f:\n2줄:     for item in inventory:\n3줄:         f.write(item + '\\n')\n```",
-      "choices": [
-        "A. 1줄",
-        "B. 2줄",
-        "C. 3줄"
-      ],
-      "answer": "A",
+      "question": "방해문이 save_study_list()의 파일 모드를 바꿔치기해서 저장 시 UnsupportedOperation 오류를 일으켰습니다. 오류 라인은?\n\n```python\n1줄: with open('study_list.txt', 'r') as f:\n2줄:     for item in study_list:\n3줄:         f.write(item + '\\n')\n```",
+      "answer": "1",
       "hint": "파일에 쓰려면 어떤 모드로 열어야 할까요?",
       "feedback": {
         "correct": "버그 적발! 1줄에서 'r'(읽기) 모드로 파일을 열었는데, 3줄에서 f.write()를 호출했어요. 쓰기 위해서는 'w' 모드로 열어야 해요."

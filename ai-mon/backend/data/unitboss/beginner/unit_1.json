@@ -87,14 +87,8 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "실행 시 변수명 규칙 위반으로 문법 오류(SyntaxError)가 발생하는 줄은 몇 줄인가요?\n\n```python\n1줄: print(\"안녕하세요\")\n2줄: character_hp = 100\n3줄: 7_level_boss = \"코드몬\"\n4줄: is_game_over = False\n```",
-      "choices": [
-        "A. 1줄",
-        "B. 2줄",
-        "C. 3줄",
-        "D. 4줄"
-      ],
-      "answer": "C",
+      "question": "실행 시 변수명 규칙 위반으로 문법 오류(SyntaxError)가 발생하는 줄은 몇 번째 줄인가요?\n\n```python\n1줄: print(\"안녕하세요\")\n2줄: character_hp = 100\n3줄: 7_level_boss = \"코드몬\"\n4줄: is_game_over = False\n```",
+      "answer": "3",
       "hint": "파이썬 변수 이름은 숫자로 시작할 수 없습니다.",
       "feedback": {
         "correct": "정답! 파이썬의 변수 이름은 문자나 언더바(_)로만 시작할 수 있으며, 숫자로 시작할 수 없습니다. 3줄은 숫자로 시작했기 때문에 오류가 발생합니다."
@@ -170,14 +164,8 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "문자열(str)과 정수(int)를 직접 더하려고 하여 자료형 오류(TypeError)가 발생하는 줄은 몇 줄인가요?\n\n```python\n1줄: damage = 50\n2줄: message = \"데미지를 입혔습니다.\"\n3줄: print(damage + 20)\n4줄: print(message + damage)\n```",
-      "choices": [
-        "A. 1줄",
-        "B. 2줄",
-        "C. 3줄",
-        "D. 4줄"
-      ],
-      "answer": "D",
+      "question": "문자열(str)과 정수(int)를 직접 더하려고 하여 자료형 오류(TypeError)가 발생하는 줄은 몇 번째 줄인가요?\n\n```python\n1줄: damage = 50\n2줄: message = \"데미지를 입혔습니다.\"\n3줄: print(damage + 20)\n4줄: print(message + damage)\n```",
+      "answer": "4",
       "hint": "문자열(str)과 정수(int)를 직접 더하려고 하는 줄을 찾아보세요.",
       "feedback": {
         "correct": "정답! 파이썬에서는 글자(str)와 숫자(int)를 서로 직접 더할 수 없습니다. 숫자를 str(damage) 형태로 변환한 뒤 연결해야 에러가 나지 않습니다."
