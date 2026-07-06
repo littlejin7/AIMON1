@@ -56,7 +56,7 @@ export const GAMES = [
   {
     id: 'aicross',
     icon: aiwordIconUrl,
-    title: 'AI 크로스워드',
+    title: '에이칸',
     desc: '단어 조각을 모아 십자말을 완성하라!',
     reward: 'XP 100~200',
     rewardIcon: '⚡',
