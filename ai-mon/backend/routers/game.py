@@ -43,71 +43,92 @@ MIN_PLAY_SECONDS = {
 SUPPORTED_GAME_IDS = frozenset(MIN_PLAY_SECONDS)
 
 
-AICROSS_PUZZLES = {
-    "basic_001": {
-        "grid": [
-            ["", "", "", ""],
-            ["", "#", "#", ""],
-            ["", "", "", ""],
-            ["", "", "", ""],
-        ],
-        "entries": [
-            {
-                "id": "A1",
-                "direction": "across",
-                "row": 0,
-                "col": 0,
-                "length": 4,
-                "clue": "Python list type name.",
-                "answer": "LIST",
-            },
-            {
-                "id": "D1",
-                "direction": "down",
-                "row": 0,
-                "col": 0,
-                "length": 4,
-                "clue": "Repeated execution structure.",
-                "answer": "LOOP",
-            },
-            {
-                "id": "D2",
-                "direction": "down",
-                "row": 0,
-                "col": 3,
-                "length": 4,
-                "clue": "Data category checked by type().",
-                "answer": "TYPE",
-            },
-            {
-                "id": "A2",
-                "direction": "across",
-                "row": 2,
-                "col": 0,
-                "length": 3,
-                "clue": "Object-oriented programming abbreviation.",
-                "answer": "OOP",
-            },
-            {
-                "id": "A3",
-                "direction": "across",
-                "row": 3,
-                "col": 0,
-                "length": 4,
-                "clue": "Connected processing flow.",
-                "answer": "PIPE",
-            },
-        ],
-    }
-}
+AICROSS_PUZZLES = {}
+try:
+    import os
+    _puzzles_path = os.path.join(os.path.dirname(__file__), "../data/aicross_puzzles.json")
+    if os.path.exists(_puzzles_path):
+        with open(_puzzles_path, "r", encoding="utf-8") as f:
+            AICROSS_PUZZLES = json.load(f)
+except Exception as e:
+    import logging
+    logging.getLogger("uvicorn").error(f"Failed to load aicross_puzzles.json: {e}")
 
-AICROSS_DEFAULT_PUZZLE_ID = "basic_001"
+# Fallback basic puzzle if loading fails
+if not AICROSS_PUZZLES:
+    AICROSS_PUZZLES = {
+        "basic_001": {
+            "set_label": "기본 퍼즐",
+            "grid": [
+                ["", "", "", ""],
+                ["", "#", "#", ""],
+                ["", "", "", ""],
+                ["", "", "", ""],
+            ],
+            "entries": [
+                {
+                    "id": "A1",
+                    "direction": "across",
+                    "row": 0,
+                    "col": 0,
+                    "length": 4,
+                    "clue": "파이썬에서 순서가 있는 데이터 묶음을 담는 자료형 이름",
+                    "answer": "LIST",
+                },
+                {
+                    "id": "D1",
+                    "direction": "down",
+                    "row": 0,
+                    "col": 0,
+                    "length": 4,
+                    "clue": "같은 동작을 여러 번 반복해서 실행하는 구조",
+                    "answer": "LOOP",
+                },
+                {
+                    "id": "D2",
+                    "direction": "down",
+                    "row": 0,
+                    "col": 3,
+                    "length": 4,
+                    "clue": "type() 함수로 확인할 수 있는 데이터의 종류",
+                    "answer": "TYPE",
+                },
+                {
+                    "id": "A2",
+                    "direction": "across",
+                    "row": 2,
+                    "col": 0,
+                    "length": 3,
+                    "clue": "객체 지향 프로그래밍을 줄여 부르는 약자",
+                    "answer": "OOP",
+                },
+                {
+                    "id": "A3",
+                    "direction": "across",
+                    "row": 3,
+                    "col": 0,
+                    "length": 4,
+                    "clue": "여러 처리 단계를 연결해 흐르게 만든 구조",
+                    "answer": "PIPE",
+                },
+            ],
+        }
+    }
+
+AICROSS_DEFAULT_PUZZLE_ID = "set_001" if "set_001" in AICROSS_PUZZLES else "basic_001"
+
+
+def _aicross_entry_length(entry: dict) -> int:
+    if entry.get("length") is not None:
+        return int(entry["length"])
+    return len(_normalize_aicross_answer(entry.get("answer")))
 
 
 def _aicross_public_puzzle(puzzle_id: str) -> dict:
-    puzzle = AICROSS_PUZZLES[puzzle_id]
+    puzzle = AICROSS_PUZZLES.get(puzzle_id) or AICROSS_PUZZLES[list(AICROSS_PUZZLES.keys())[0]]
     return {
         "puzzle_id": puzzle_id,
+        "set_label": puzzle.get("set_label", "코딩 명령어 퍼즐"),
         "grid": puzzle["grid"],
         "entries": [
             {
@@ -115,7 +136,7 @@ def _aicross_public_puzzle(puzzle_id: str) -> dict:
                 "direction": entry["direction"],
                 "row": entry["row"],
                 "col": entry["col"],
-                "length": entry["length"],
+                "length": _aicross_entry_length(entry),
                 "clue": entry["clue"],
             }
             for entry in puzzle["entries"]
@@ -160,7 +181,7 @@ def _score_aicross_answers(puzzle_id: str, answers) -> dict:
                     entry["row"] + d_row * idx,
                     entry["col"] + d_col * idx,
                 )
-                for idx in range(entry["length"])
+                for idx in range(_aicross_entry_length(entry))
             )
         if submitted == entry["answer"]:
             correct += 1
@@ -303,7 +324,11 @@ def game_start(req: GameStartRequest, user_ref: dict = Depends(get_current_user)
     if req.game_id not in SUPPORTED_GAME_IDS:
         raise HTTPException(status_code=400, detail="Invalid game_id")
     if req.game_id == "aicross":
-        puzzle_id = AICROSS_DEFAULT_PUZZLE_ID
+        import random
+        puzzle_ids = [k for k in AICROSS_PUZZLES.keys() if k != "basic_001"]
+        if not puzzle_ids:
+            puzzle_ids = list(AICROSS_PUZZLES.keys())
+        puzzle_id = random.choice(puzzle_ids) if puzzle_ids else AICROSS_DEFAULT_PUZZLE_ID
         token = _make_game_token(req.game_id, user_ref["id"], {"puzzle_id": puzzle_id})
         return {
             "game_token": token,

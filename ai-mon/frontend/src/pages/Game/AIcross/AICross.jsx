@@ -49,7 +49,7 @@ function buildServerLayout(puzzle) {
     if (cellMap[sk] && cellMap[sk].num == null) cellMap[sk].num = num
   })
 
-  return { wordData, rows, cols, cellMap, wordCells }
+  return { wordData, rows, cols, cellMap, wordCells, setLabel: puzzle?.set_label }
 }
 
 export default function AICross() {
@@ -219,7 +219,7 @@ export default function AICross() {
     <div className="aicross-wrap" ref={wrapRef} tabIndex={-1}>
       <button className="aicross-back" onClick={() => navigate('/game')}>✕</button>
 
-      <TitleBlock setLabel="코딩 명령어 퍼즐" />
+      <TitleBlock setLabel={layout?.setLabel || "코딩 명령어 퍼즐"} />
 
       {loading && (
         <div className="aicross-status">퍼즐을 불러오는 중…</div>
