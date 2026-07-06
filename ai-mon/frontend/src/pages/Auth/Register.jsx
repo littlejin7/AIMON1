@@ -814,14 +814,6 @@ export default function Register() {
               ))}
             </div>
 
-            <div className="reg-level-test-banner" onClick={() => navigate('/level-test')}>
-              <span style={{ fontSize: '22px' }}>🎯</span>
-              <div>
-                <div style={{ fontSize: '13px', fontWeight: 600, color: '#5C3A00' }}>레벨 테스트로 정확히 찾기</div>
-                <div style={{ fontSize: '11px', color: '#8A5500', marginTop: '2px' }}>3분 테스트로 딱 맞는 시작점을 찾아드려요</div>
-              </div>
-              <span style={{ fontSize: '16px', color: '#FAC775', marginLeft: 'auto' }}>›</span>
-            </div>
 
             <button className="reg-btn-primary" onClick={() => setStep(6)}>다음 →</button>
           </div>

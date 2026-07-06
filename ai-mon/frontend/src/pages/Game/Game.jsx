@@ -53,18 +53,18 @@ export default function Game() {
 
   if (lockedGame) {
     return (
-      <div className="game-page" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '75vh' }}>
-        <div className="game-card card-glass animate-fade-in-up" style={{ width: '100%', maxWidth: '450px', padding: '3.5rem 2rem', textAlign: 'center', border: '1px solid rgba(255,255,255,0.08)', position: 'relative', margin: '2rem auto' }}>
+      <div className="game-page app-locked-screen">
+        <div className="game-card card-glass animate-fade-in-up app-locked-card">
           <button
             onClick={() => setLockedGame(null)}
-            style={{ position: 'absolute', top: '20px', right: '20px', width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(255,255,255,0.08)', border: 'none', color: 'var(--clr-text-muted)', cursor: 'pointer', fontSize: '1.1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1 }}
+            className="app-locked-close no-3d"
             aria-label="닫기"
           >✕</button>
-          <div className="game-icon" style={{ fontSize: '3.5rem', marginBottom: '1.5rem', textShadow: '0 0 20px rgba(124,58,237,0.3)' }}>🔒</div>
-          <h2 style={{ color: 'var(--clr-text-bright)', marginBottom: '0.8rem', fontSize: '1.75rem', fontWeight: 800 }}>
+          <div className="game-icon app-locked-icon">🔒</div>
+          <h2 className="app-locked-title">
             {lockedGame.title} 잠김
           </h2>
-          <p style={{ color: 'var(--clr-text-muted)', lineHeight: '1.6', marginBottom: '2.5rem', fontSize: '0.95rem' }}>
+          <p className="app-locked-desc">
             로그인하시면 <strong>{lockedGame.title}</strong> 미니게임을 플레이하고<br />
             다양한 코딩 학습 모험과 <strong>XP, 왕관</strong> 보상을 받을 수 있습니다!
           </p>
