@@ -1,0 +1,85 @@
+/* ══════════════════════════════════════
+   Phase Transition (ep-*)
+   ══════════════════════════════════════ */
+
+.ep-card {
+  width: 100%; max-width: 420px;
+  background: white; border-radius: 24px; padding: 28px 22px;
+  display: flex; flex-direction: column; align-items: center; gap: 18px;
+  box-shadow: 0 4px 24px rgba(83,74,183,.12);
+}
+.ep-card.phase3 { border-top: 4px solid #EF4444; }
+
+/* 뱃지 */
+.ep-badge-wrap { text-align: center; }
+.ep-phase-lbl {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+.ep-phase-lbl.blue   { color: #93C5FD; }
+.ep-phase-lbl.yellow { color: #FDE047; }
+.ep-phase-lbl.red    { color: #FCA5A5; }
+
+.ep-big-num {
+  font-size: 64px; font-weight: 900; line-height: 1; letter-spacing: -4px;
+}
+.ep-big-num.blue   { color: #3B82F6; }
+.ep-big-num.yellow { color: #EAB308; }
+.ep-big-num.red    { color: #EF4444; }
+
+.ep-phase-name { font-size: 18px; font-weight: 700; color: #26215C; margin-top: 4px; }
+.ep-phase-desc { font-size: 12px; color: #9B96D0; line-height: 1.6; text-align: center; margin-top: 4px; }
+.ep-phase-desc.blue   { color: #93C5FD; }
+.ep-phase-desc.yellow { color: #CA8A04; }
+.ep-phase-desc.red    { color: #EF4444; }
+
+/* 규칙 */
+.ep-rules {
+  width: 100%; background: #F9F8FE; border-radius: 14px; padding: 14px 16px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.ep-rule-title { font-size: 11px; font-weight: 700; color: #EF4444; margin-bottom: 2px; }
+.ep-rule-row {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 12px; color: #26215C; line-height: 1.5;
+}
+.ep-rule-row.red { color: #EF4444; }
+.ep-rule-dot {
+  width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 4px;
+}
+
+/* HP 미리보기 */
+.ep-hp-preview {
+  width: 100%; display: flex; align-items: center; gap: 10px;
+}
+.ep-hp-bar-wrap { flex: 1; }
+.ep-hp-labels {
+  display: flex; justify-content: space-between;
+  font-size: 11px; color: #9B96D0; margin-bottom: 4px;
+}
+.ep-hp-track { height: 8px; background: #EEEDFE; border-radius: 99px; overflow: hidden; }
+.ep-hp-fill  { height: 8px; border-radius: 99px; transition: width .5s; }
+
+/* 목숨 (Phase 3) */
+.ep-lives {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  background: #FFF5F5; border: 1px solid #FECACA; border-radius: 16px; padding: 14px 20px; width: 100%;
+}
+.ep-lives-title { font-size: 11px; font-weight: 600; color: #EF4444; }
+.ep-lives-row { display: flex; gap: 10px; font-size: 28px; }
+.ep-life { line-height: 1; }
+.ep-life.used { filter: grayscale(1) opacity(.5); }
+.ep-lives-hint { font-size: 10px; color: #EF4444; text-align: center; }
+
+/* 계속 버튼 */
+.ep-continue-btn {
+  width: 100%; padding: 14px; cursor: pointer;
+  color: white; border: none; border-radius: 14px;
+  font-size: 15px; font-weight: 700; font-family: inherit;
+  transition: filter .15s;
+}
+.ep-continue-btn:hover { filter: brightness(1.1); }
+.ep-continue-btn.blue   { background: linear-gradient(135deg,#3B82F6,#1D4ED8); box-shadow: 0 4px 14px rgba(59,130,246,.35); }
+.ep-continue-btn.yellow { background: linear-gradient(135deg,#EAB308,#CA8A04); box-shadow: 0 4px 14px rgba(234,179,8,.35); }
+.ep-continue-btn.red    { background: linear-gradient(135deg,#EF4444,#B91C1C); box-shadow: 0 4px 14px rgba(239,68,68,.35); }
+
