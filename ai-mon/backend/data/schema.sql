@@ -88,6 +88,21 @@ CREATE TABLE IF NOT EXISTS reset_tokens (
   created_at timestamptz DEFAULT now()
 );
 
+-- 3-A. Email Verification Codes Table
+-- code_hash stores an HMAC-SHA256 digest of the 6-digit email verification code.
+CREATE TABLE IF NOT EXISTS email_verification_codes (
+  email text NOT NULL,
+  purpose text NOT NULL DEFAULT 'register',
+  code_hash text NOT NULL,
+  expires_at timestamptz NOT NULL,
+  attempts integer DEFAULT 0,
+  verified boolean DEFAULT false,
+  last_sent timestamptz,
+  verified_at timestamptz,
+  created_at timestamptz DEFAULT now(),
+  PRIMARY KEY (email, purpose)
+);
+
 -- 4. Progress Table
 CREATE TABLE IF NOT EXISTS progress (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),

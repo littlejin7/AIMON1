@@ -1,9 +1,10 @@
 from typing import Optional
 from fastapi import APIRouter, HTTPException, status, Header, Request, Depends
 from pydantic import BaseModel
-import json, os, hashlib, hmac, uuid, secrets
+import json, os, hashlib, hmac, uuid, secrets, re
 import httpx
 import logging
+from services.email_service import EmailConfigurationError, EmailDeliveryError, send_verification_email
 
 logger = logging.getLogger(__name__)
 from datetime import datetime, timedelta, timezone
@@ -24,6 +25,8 @@ from routers.utils import (
     save_user,
     load_reset_tokens,
     save_reset_tokens,
+    load_email_verification_codes,
+    save_email_verification_codes,
     load_refresh_tokens,
     save_refresh_token,
     delete_refresh_token,
@@ -47,6 +50,8 @@ EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 30))
 REFRESH_EXPIRE_DAYS = int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", 30))
 ACCOUNT_RESTORE_RETENTION_DAYS = int(os.getenv("ACCOUNT_RESTORE_RETENTION_DAYS", 30))
 INVALID_LOGIN_DETAIL = "\uc544\uc774\ub514 \ub610\ub294 \ube44\ubc00\ubc88\ud638\uac00 \uc62c\ubc14\ub974\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4."
+EMAIL_CODE_ATTEMPT_LIMIT = 5
+EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 
 class RefreshRequest(BaseModel):
@@ -162,6 +167,17 @@ class RegisterRequest(BaseModel):
     marketing_agreed: bool = False
 
 
+class EmailCodeRequest(BaseModel):
+    email: str
+    purpose: str = "register"
+
+
+class VerifyEmailCodeRequest(BaseModel):
+    email: str
+    code: str
+    purpose: str = "register"
+
+
 class LoginRequest(BaseModel):
     username: str
     password: str
@@ -240,6 +256,56 @@ def _restore_for_login(user: dict, updater=None) -> dict:
         raise HTTPException(status_code=404, detail="?ъ슜?먮? 李얠쓣 ???놁뒿?덈떎.")
 
 
+def _env_flag(name: str, default: str = "false") -> bool:
+    return os.getenv(name, default).strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _normalize_email(email: str) -> str:
+    return str(email or "").strip().lower()
+
+
+def _validate_register_email_request(email: str, purpose: str) -> None:
+    if purpose != "register":
+        raise HTTPException(status_code=400, detail="지원하지 않는 이메일 인증 목적입니다.")
+    if not EMAIL_RE.match(email):
+        raise HTTPException(status_code=400, detail="올바른 이메일 형식이 아닙니다.")
+
+
+def _email_code_key(email: str, purpose: str) -> str:
+    return f"{email}:{purpose}"
+
+
+def _hash_email_code(email: str, purpose: str, code: str) -> str:
+    payload = f"{email}:{purpose}:{code}".encode("utf-8")
+    return hmac.new(SECRET_KEY.encode("utf-8"), payload, hashlib.sha256).hexdigest()
+
+
+def _parse_datetime(value: str | None) -> datetime | None:
+    if not value:
+        return None
+    try:
+        parsed = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    except (TypeError, ValueError):
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone(timedelta(hours=9)))
+    return parsed
+
+
+def _email_verification_required() -> bool:
+    return _env_flag("EMAIL_REQUIRE_VERIFICATION", "false") or _env_flag("EMAIL_ENABLED", "false")
+
+
+def _is_email_verified(email: str, purpose: str = "register") -> bool:
+    email = _normalize_email(email)
+    records = load_email_verification_codes()
+    record = records.get(_email_code_key(email, purpose))
+    if not record or not record.get("verified"):
+        return False
+    expires_at = _parse_datetime(record.get("expires_at"))
+    return bool(expires_at and now_kst() <= expires_at)
+
+
 class ForgotPasswordRequest(BaseModel):
     email: str
 
@@ -254,13 +320,125 @@ class FindIdRequest(BaseModel):
     email: str
 
 
+@router.post("/email/send-code")
+@limiter.limit("5/minute")
+def send_email_code(req: EmailCodeRequest, request: Request):
+    email = _normalize_email(req.email)
+    purpose = str(req.purpose or "").strip()
+    _validate_register_email_request(email, purpose)
+
+    if get_user_by_email(email) or get_user_by_username(email):
+        raise HTTPException(status_code=400, detail="이미 사용 중인 이메일입니다.")
+
+    now = now_kst()
+    ttl_seconds = int(os.getenv("EMAIL_CODE_TTL_SECONDS", "300"))
+    cooldown_seconds = int(os.getenv("EMAIL_RESEND_COOLDOWN_SECONDS", "60"))
+    records = load_email_verification_codes()
+    key = _email_code_key(email, purpose)
+    existing = records.get(key)
+
+    if existing and existing.get("last_sent"):
+        last_sent = _parse_datetime(existing.get("last_sent"))
+        if last_sent:
+            elapsed = (now - last_sent).total_seconds()
+            if elapsed < cooldown_seconds:
+                raise HTTPException(
+                    status_code=429,
+                    detail=f"{int(cooldown_seconds - elapsed)}초 후 다시 요청해주세요.",
+                )
+
+    code = f"{secrets.randbelow(1000000):06d}"
+
+    try:
+        send_verification_email(email, code)
+    except EmailConfigurationError:
+        logger.exception("email verification configuration error")
+        raise HTTPException(
+            status_code=500,
+            detail="이메일 발송 설정이 완료되지 않았습니다. 관리자에게 문의해주세요.",
+        )
+    except EmailDeliveryError:
+        logger.exception("email verification delivery error")
+        raise HTTPException(
+            status_code=502,
+            detail="이메일 발송에 실패했습니다. 잠시 후 다시 시도해주세요.",
+        )
+
+    records[key] = {
+        "email": email,
+        "purpose": purpose,
+        "code_hash": _hash_email_code(email, purpose, code),
+        "expires_at": (now + timedelta(seconds=ttl_seconds)).isoformat(),
+        "attempts": 0,
+        "verified": False,
+        "last_sent": now.isoformat(),
+        "verified_at": None,
+    }
+    save_email_verification_codes(records)
+
+    return {
+        "ok": True,
+        "message": "인증코드를 발송했습니다. 메일함과 스팸함을 확인해주세요.",
+        "ttl_seconds": ttl_seconds,
+        "cooldown_seconds": cooldown_seconds,
+    }
+
+
+@router.post("/email/verify-code")
+@limiter.limit("10/minute")
+def verify_email_code(req: VerifyEmailCodeRequest, request: Request):
+    email = _normalize_email(req.email)
+    purpose = str(req.purpose or "").strip()
+    code = str(req.code or "").strip()
+    _validate_register_email_request(email, purpose)
+
+    if not re.fullmatch(r"\d{6}", code):
+        raise HTTPException(status_code=400, detail="코드가 일치하지 않거나 만료되었습니다.")
+
+    records = load_email_verification_codes()
+    key = _email_code_key(email, purpose)
+    record = records.get(key)
+    invalid = HTTPException(status_code=400, detail="코드가 일치하지 않거나 만료되었습니다.")
+
+    if not record:
+        raise invalid
+
+    expires_at = _parse_datetime(record.get("expires_at"))
+    if not expires_at or now_kst() > expires_at:
+        records.pop(key, None)
+        save_email_verification_codes(records)
+        raise invalid
+
+    attempts = int(record.get("attempts", 0))
+    if attempts >= EMAIL_CODE_ATTEMPT_LIMIT:
+        records.pop(key, None)
+        save_email_verification_codes(records)
+        raise invalid
+
+    submitted_hash = _hash_email_code(email, purpose, code)
+    if not hmac.compare_digest(str(record.get("code_hash", "")), submitted_hash):
+        record["attempts"] = attempts + 1
+        if record["attempts"] >= EMAIL_CODE_ATTEMPT_LIMIT:
+            records.pop(key, None)
+        save_email_verification_codes(records)
+        raise invalid
+
+    record["verified"] = True
+    record["verified_at"] = now_kst().isoformat()
+    records[key] = record
+    save_email_verification_codes(records)
+    return {"ok": True, "message": "이메일 인증이 완료되었습니다."}
+
+
 @router.post("/register", status_code=status.HTTP_201_CREATED)
 @limiter.limit("5/minute")
 def register(req: RegisterRequest, request: Request):
     if get_user_by_username(req.username):
         raise HTTPException(status_code=400, detail="이미 존재하는 아이디입니다.")
     nickname = _nickname_or_fallback(req.nickname, req.username)
-    email = str(req.email or "").strip()
+    email = _normalize_email(req.email)
+    if _email_verification_required() and not _is_email_verified(email, "register"):
+        raise HTTPException(status_code=400, detail="이메일 인증을 완료해주세요.")
     if email and (get_user_by_email(email) or get_user_by_username(email)):
         raise HTTPException(status_code=400, detail="이미 사용 중인 이메일입니다.")
     _ensure_nickname_available(nickname)
@@ -698,7 +876,7 @@ def check_id(username: str):
 
 @router.get("/check-email")
 def check_email(email: str):
-    email_clean = email.strip()
+    email_clean = _normalize_email(email)
     deleted_user = get_user_by_email_any(email_clean) or get_user_by_username_any(email_clean)
     if get_user_by_email(email_clean) or get_user_by_username(email_clean):
         raise HTTPException(status_code=400, detail="이미 존재하는 이메일입니다.")

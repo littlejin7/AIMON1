@@ -110,6 +110,7 @@ USERS_FILE = os.path.join(DATA_DIR, "users.json")
 PROGRESS_FILE = os.path.join(DATA_DIR, "progress.json")
 WRONG_ANSWERS_FILE = os.path.join(DATA_DIR, "wrong_answers.json")
 RESET_TOKENS_FILE = os.path.join(DATA_DIR, "reset_tokens.json")
+EMAIL_VERIFICATION_CODES_FILE = os.path.join(DATA_DIR, "email_verification_codes.json")
 # attempts.json 은 dev 폴백 전용. 운영은 USE_SUPABASE=true 로 attempts 테이블을 단일 진실로 쓴다.
 ATTEMPTS_FILE = os.path.join(DATA_DIR, "attempts.json")
 
@@ -988,6 +989,55 @@ def save_reset_tokens(data):
             }).execute()
     else:
         _save_json_locked(RESET_TOKENS_FILE, data)
+
+
+def load_email_verification_codes():
+    if USE_SUPABASE:
+        res = supabase.table("email_verification_codes").select("*").execute()
+        records = {}
+        for item in res.data:
+            records[f"{item['email']}:{item['purpose']}"] = {
+                "email": item["email"],
+                "purpose": item["purpose"],
+                "code_hash": item["code_hash"],
+                "expires_at": item["expires_at"],
+                "attempts": item.get("attempts", 0),
+                "verified": item.get("verified", False),
+                "last_sent": item.get("last_sent"),
+                "verified_at": item.get("verified_at"),
+            }
+        return records
+    return _load_json_locked(EMAIL_VERIFICATION_CODES_FILE, {})
+
+
+def save_email_verification_codes(data):
+    if USE_SUPABASE:
+        db_rows = supabase.table("email_verification_codes").select("email,purpose").execute().data
+        db_keys = {f"{row['email']}:{row['purpose']}" for row in db_rows}
+        keys_to_delete = db_keys - set(data.keys())
+        for key in keys_to_delete:
+            email, purpose = key.rsplit(":", 1)
+            (
+                supabase.table("email_verification_codes")
+                .delete()
+                .eq("email", email)
+                .eq("purpose", purpose)
+                .execute()
+            )
+
+        for record in data.values():
+            supabase.table("email_verification_codes").upsert({
+                "email": record["email"],
+                "purpose": record["purpose"],
+                "code_hash": record["code_hash"],
+                "expires_at": record["expires_at"],
+                "attempts": record.get("attempts", 0),
+                "verified": record.get("verified", False),
+                "last_sent": record.get("last_sent"),
+                "verified_at": record.get("verified_at"),
+            }).execute()
+    else:
+        _save_json_locked(EMAIL_VERIFICATION_CODES_FILE, data)
 
 
 def verify_token(authorization: str) -> str:
