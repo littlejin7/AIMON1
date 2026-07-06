@@ -88,13 +88,7 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "응답 객체 content[0]을 딕셔너리처럼 접근해 TypeError가 발생하는 줄은?\n\n```python\n1줄: import anthropic\n2줄: \n3줄: client = anthropic.Anthropic()\n4줄: response = client.messages.create(\n5줄:     model=\"claude-haiku-4-5-20251001\",\n6줄:     max_tokens=100,\n7줄:     messages=[{\"role\": \"user\", \"content\": \"안녕\"}]\n8줄: )\n9줄: print(response.content[0][\"text\"])\n```",
-      "choices": [
-        "A. 4줄",
-        "B. 6줄",
-        "C. 8줄",
-        "D. 9줄"
-      ],
-      "answer": "D",
+      "answer": "9",
       "hint": "response.content[0]은 딕셔너리가 아닌 TextBlock 객체입니다.",
       "feedback": {
         "correct": "정답! response.content[0]은 TextBlock 객체이므로 [\"text\"]처럼 딕셔너리 접근을 하면 9줄에서 TypeError가 발생합니다. 올바른 방법은 response.content[0].text 속성 접근입니다."
@@ -149,13 +143,7 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "존재하지 않는 content 인덱스에 접근해 IndexError가 발생하는 줄은?\n\n```python\n1줄: import anthropic\n2줄: \n3줄: client = anthropic.Anthropic()\n4줄: response = client.messages.create(\n5줄:     model=\"claude-haiku-4-5-20251001\",\n6줄:     max_tokens=100,\n7줄:     messages=[{\"role\": \"user\", \"content\": \"안녕\"}]\n8줄: )\n9줄: print(response.content[0].text)\n10줄: print(response.content[1].text)\n```",
-      "choices": [
-        "A. 4줄",
-        "B. 7줄",
-        "C. 9줄",
-        "D. 10줄"
-      ],
-      "answer": "D",
+      "answer": "10",
       "hint": "일반적인 응답에서 content 리스트에는 항목이 몇 개나 있을까요?",
       "feedback": {
         "correct": "정답! 기본 응답의 content 리스트는 TextBlock 하나만 포함합니다. content[0]은 정상이지만 10줄의 content[1]은 IndexError를 발생시킵니다."

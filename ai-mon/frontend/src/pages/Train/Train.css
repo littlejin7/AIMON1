@@ -278,14 +278,26 @@ body:has(.tr-page) { background: #F4F3FA; }
 
 /* ── 잠김 화면 ── */
 .tr-locked-card {
+  position: relative;
   background: #FFFFFF;
   border-radius: 20px;
   border: 0.5px solid #E2E1EE;
-  padding: 3rem 2rem;
+  padding: 3.5rem 2rem;
   text-align: center;
-  max-width: 360px;
-  margin: 60px auto;
+  max-width: 450px;
+  min-height: 360px;
+  margin: 0 auto;
   box-shadow: 0 16px 34px rgba(26,26,46,0.1), 0 0 0 1px rgba(127,119,221,0.06);
+}
+.tr-locked-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  color: #7A7A94;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px;
 }
 .tr-locked-icon { font-size: 3.5rem; margin-bottom: 1rem; }
 .tr-locked-title { font-size: 1.5rem; font-weight: 700; color: #1A1A2E; margin-bottom: 0.8rem; }

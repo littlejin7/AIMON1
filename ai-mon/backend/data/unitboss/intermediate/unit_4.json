@@ -9,7 +9,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\nclass Hero:\n    def __init__(self, name):\n        self.name = name\n```\n\n```python\nhero = Hero(\"에이몬\")\nprint(hero.name)\n```",
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\nclass Hero:\n    def __init__(self, name):\n        self.name = name\n\nhero = Hero(\"에이몬\")\nprint(hero.name)\n```",
       "choices": [
         "A. Hero",
         "B. name",
@@ -70,7 +70,7 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "부모 클래스의 __init__을 자식 클래스에서 호출하려고 합니다. 빈칸에 들어갈 코드는?\n\n```python\nclass Character:\n    def __init__(self, name):\n        self.name = name\n```\n\n```python\nclass Mage(Character):\n    def __init__(self, name, mana):\n        _________.__init__(name)\n        self.mana = mana\n```",
+      "question": "부모 클래스의 __init__을 자식 클래스에서 호출하려고 합니다. 빈칸에 들어갈 코드는?\n\n```python\nclass Character:\n    def __init__(self, name):\n        self.name = name\n\nclass Mage(Character):\n    def __init__(self, name, mana):\n        _________.__init__(name)\n        self.mana = mana\n```",
       "choices": [],
       "answer": "super()",
       "hint": "부모 클래스를 참조하는 내장 함수예요.",
@@ -88,13 +88,7 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 코드에서 TypeError가 발생하는 줄은?\n\n```python\n1줄: class Dragon:\n2줄:     element = \"불\"\n3줄:     def breathe(self):\n4줄:         print(f\"{self.element} 브레스!\")\n5줄:\n6줄: d = Dragon()\n7줄: print(Dragon.element)\n8줄: print(d.element)\n9줄: print(Dragon.breathe())\n```",
-      "choices": [
-        "A. 7줄",
-        "B. 8줄",
-        "C. 9줄",
-        "D. 오류 없음"
-      ],
-      "answer": "C",
+      "answer": "9",
       "hint": "인스턴스 메서드를 클래스에서 직접 호출할 때 self 인자 문제를 생각해 보세요.",
       "feedback": {
         "correct": "정답! breathe(self)는 인스턴스 메서드입니다. Dragon.breathe()처럼 클래스에서 직접 호출하면 self에 해당하는 인자가 없어 TypeError: breathe() missing 1 required positional argument: 'self'가 발생해요. d.breathe() 또는 Dragon.breathe(d)로 호출해야 합니다."
@@ -171,13 +165,7 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 코드에서 AttributeError가 발생하는 줄은?\n\n```python\n1줄: class BankAccount:\n2줄:     def __init__(self, balance):\n3줄:         self.__balance = balance\n4줄:     def get_balance(self):\n5줄:         return self.__balance\n6줄:\n7줄: acc = BankAccount(1000)\n8줄: print(acc.get_balance())\n9줄: print(acc.__balance)\n```",
-      "choices": [
-        "A. 3줄",
-        "B. 5줄",
-        "C. 8줄",
-        "D. 9줄"
-      ],
-      "answer": "D",
+      "answer": "9",
       "hint": "__로 시작하는 속성은 이름 맹글링(name mangling)이 적용돼 외부에서 직접 접근할 수 없어요.",
       "feedback": {
         "correct": "정답! __balance처럼 언더바 두 개로 시작하는 속성은 name mangling이 적용되어 _BankAccount__balance로 변환됩니다. 외부에서 acc.__balance로 접근하면 AttributeError가 발생해요. get_balance() 메서드로만 접근 가능합니다."

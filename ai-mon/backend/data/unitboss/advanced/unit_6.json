@@ -88,13 +88,7 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "등록되지 않은 도구 이름으로 실행해 KeyError가 발생하는 줄은?\n\n```python\n1줄: tools = {\n2줄:     \"get_weather\": lambda city: f\"{city}: 맑음\",\n3줄:     \"search\": lambda q: f\"검색: {q}\"\n4줄: }\n5줄: \n6줄: def run_tool(name, **kwargs):\n7줄:     return tools[name](**kwargs)\n8줄: \n9줄: print(run_tool(\"calculate\", x=5))\n```",
-      "choices": [
-        "A. 1줄",
-        "B. 6줄",
-        "C. 7줄",
-        "D. 9줄"
-      ],
-      "answer": "C",
+      "answer": "7",
       "hint": "run_tool(\"calculate\") 호출 시 어느 줄의 코드가 실행되어 오류가 발생하나요?",
       "feedback": {
         "correct": "정답! run_tool(\"calculate\")가 호출되면 7줄의 tools[\"calculate\"]를 실행하는데, 'calculate' 키가 없으므로 KeyError가 7줄에서 발생합니다. 에이전트에서는 이런 경우 try/except로 처리해야 합니다."
@@ -148,14 +142,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "정의되지 않은 함수를 호출해 NameError가 발생하는 줄은?\n\n```python\n1줄: tool_blocks = [\n2줄:     {\"type\": \"tool_use\", \"id\": \"t1\", \"name\": \"search\", \"input\": {\"query\": \"Python\"}}\n3줄: ]\n4줄: \n5줄: results = []\n6줄: for block in tool_blocks:\n7줄:     if block[\"type\"] == \"tool_use\":\n8줄:         result = execute_tool(block[\"name\"], block[\"input\"])\n9줄:         results.append(result)\n10줄: \n11줄: print(results)\n```",
-      "choices": [
-        "A. 6줄",
-        "B. 7줄",
-        "C. 8줄",
-        "D. 11줄"
-      ],
-      "answer": "C",
+      "answer": "8",
       "hint": "execute_tool은 이 코드에서 정의된 적 없습니다.",
       "feedback": {
         "correct": "정답! execute_tool 함수가 정의되지 않았으므로 8줄에서 NameError가 발생합니다. 실제 에이전트에서는 도구 이름과 입력을 받아 실행하는 dispatch 함수를 직접 구현해야 합니다."

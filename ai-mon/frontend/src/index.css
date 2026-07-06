@@ -177,6 +177,58 @@ input, textarea, select { font: inherit; }
 .font-bold  { font-weight: 700; }
 .font-semibold { font-weight: 600; }
 
+/* --- Shared Locked Screen --- */
+.app-locked-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 75vh;
+  padding: 2rem 1rem;
+}
+
+.app-locked-card.app-locked-card {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  min-height: 360px;
+  padding: 3.5rem 2rem;
+  margin: 0 auto;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.app-locked-close.app-locked-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: var(--clr-text-muted);
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 4px;
+}
+
+.app-locked-icon.app-locked-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 20px rgba(124,58,237,0.3);
+}
+
+.app-locked-title.app-locked-title {
+  color: var(--clr-text-bright, var(--clr-text));
+  margin-bottom: 0.8rem;
+  font-size: 1.75rem;
+  font-weight: 800;
+}
+
+.app-locked-desc.app-locked-desc {
+  color: var(--clr-text-muted);
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  font-size: 0.95rem;
+}
+
+
 /* --- Button System --- */
 .btn {
   display: inline-flex;

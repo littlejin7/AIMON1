@@ -87,14 +87,8 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드에서 AttributeError가 발생하는 줄은?\n\n1줄: import re\n```python\n2줄: text = \"레벨: 99\"\n3줄: m1 = re.search(r\"\\d+\", text)\n4줄: print(m1.group())\n5줄: m2 = re.match(r\"\\d+\", text)\n6줄: print(m2.group())\n```",
-      "choices": [
-        "A. 3줄",
-        "B. 4줄",
-        "C. 5줄",
-        "D. 6줄"
-      ],
-      "answer": "D",
+      "question": "다음 코드에서 AttributeError가 발생하는 줄은?\n\n```python\n1줄: import re\n2줄: text = \"레벨: 99\"\n3줄: m1 = re.search(r\"\\d+\", text)\n4줄: print(m1.group())\n5줄: m2 = re.match(r\"\\d+\", text)\n6줄: print(m2.group())\n```",
+      "answer": "6",
       "hint": "re.match()는 문자열 처음부터 패턴을 찾아요. \"레벨: 99\"의 처음은 숫자가 아니에요.",
       "feedback": {
         "correct": "정답! re.match()는 문자열의 처음부터 패턴을 매칭합니다. \"레벨: 99\"는 숫자로 시작하지 않으므로 m2는 None이 됩니다. None.group()을 호출하면 AttributeError가 발생해요. re.search()를 써야 해요."
@@ -131,7 +125,7 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "쉼표 또는 세미콜론으로 구분된 문자열을 분리하려고 합니다. 빈칸에 들어갈 패턴은?\n\n```python\nimport re\n\ntext = \"검,방패;활,포션;갑옷\"\nparts = re.split(r\"_________\", text)\nprint(parts)  # ['검', '방패', '활', '포션', '갑옷']\n```",
+      "question": "쉼표 또는 세미콜론으로 구분된 문자열을 분리하려고 합니다. 빈칸에 들어갈 패턴은?\n\n```python\nimport re\n\ntext = \"파이썬,알고리즘;HTML,CSS;장고\"\nparts = re.split(r\"_________\", text)\nprint(parts)  # ['파이썬', '알고리즘', 'HTML', 'CSS', '장고']\n```",
       "choices": [],
       "answer": "[,;]",
       "hint": "쉼표(,) 또는 세미콜론(;) 중 하나를 매칭하는 문자 클래스를 사용해요.",
@@ -148,17 +142,17 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\nimport re\n\ntext = \"아이템: 검(공격+50), 방패(방어+30)\"\nmatches = re.findall(r\"([가-힣]+)\\((\\w+\\+\\d+)\\)\", text)\nprint(matches)\n```",
+      "question": "다음 코드를 실행했을 때 출력되는 값은?\n\n```python\nimport re\n\ntext = \"과목: 파이썬(점수+95), 웹디자인(점수+88)\"\nmatches = re.findall(r\"([가-힣]+)\\((\\w+\\+\\d+)\\)\", text)\nprint(matches)\n```",
       "choices": [
-        "A. ['검', '방패']",
-        "B. ['공격+50', '방어+30']",
-        "C. [('검', '공격+50'), ('방패', '방어+30')]",
-        "D. ['검(공격+50)', '방패(방어+30)']"
+        "A. ['파이썬', '웹디자인']",
+        "B. ['점수+95', '점수+88']",
+        "C. [('파이썬', '점수+95'), ('웹디자인', '점수+88')]",
+        "D. ['파이썬(점수+95)', '웹디자인(점수+88)']"
       ],
       "answer": "C",
       "hint": "괄호가 두 개 있는 패턴으로 findall()을 쓰면 각 그룹이 튜플로 묶여 반환돼요.",
       "feedback": {
-        "correct": "정답! 그룹이 두 개 이상인 패턴으로 re.findall()을 사용하면 각 매칭에서 그룹들을 튜플로 묶어 리스트로 반환합니다. 결과는 [('검', '공격+50'), ('방패', '방어+30')]이에요."
+        "correct": "정답! 그룹이 두 개 이상인 패턴으로 re.findall()을 사용하면 각 매칭에서 그룹들을 튜플로 묶어 리스트로 반환합니다. 결과는 [('파이썬', '점수+95'), ('웹디자인', '점수+88')]이에요."
       }
     },
     {
@@ -171,13 +165,7 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "다음 코드에서 오류 없이 실행되지만 의도한 대로 동작하지 않는 버그가 있는 줄은?\n\n```python\n1줄: import re\n2줄: emails = \"eimon@game.com hello@world.org test@example.net\"\n3줄: pattern = r\"[\\w.]+@[\\w.]+\"\n4줄: found = re.findall(pattern, emails)\n5줄: print(len(found))\n6줄: only_com = [e for e in found if re.match(r\".com\", e)]\n7줄: print(len(only_com))\n```",
-      "choices": [
-        "A. 3줄",
-        "B. 4줄",
-        "C. 6줄",
-        "D. 7줄"
-      ],
-      "answer": "C",
+      "answer": "6",
       "hint": "정규식에서 .은 특수문자로 '임의의 한 문자'를 뜻해요. .com을 문자 그대로 매칭하려면 어떻게 해야 할까요?",
       "feedback": {
         "correct": "정답! 6줄에서 r\".com\"의 .은 임의의 한 문자를 뜻하는 메타문자입니다. 그래서 \"xcom\", \"1com\" 등도 매칭돼요. .com 도메인만 정확히 필터링하려면 r\"\\.com$\"으로 써야 해요."

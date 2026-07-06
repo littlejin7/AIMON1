@@ -197,7 +197,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\n```python\nteam_a = {\"Alice\", \"Bob\", \"Carol\"}\nteam_b = {\"Bob\", \"Carol\", \"Dave\"}\n```\n\n```python\nboth = team_a & team_b\nonly_a = team_a - team_b\nprint(len(both))\nprint(len(only_a))\n```",
+      "question": "다음 코드를 실행했을 때 출력되는 결과는 무엇인가요?\n\n```python\nteam_a = {\"Alice\", \"Bob\", \"Carol\"}\nteam_b = {\"Bob\", \"Carol\", \"Dave\"}\n\nboth = team_a & team_b\nonly_a = team_a - team_b\nprint(len(both))\nprint(len(only_a))\n```",
       "choices": [
         "A. 2\n2",
         "B. 2\n1",

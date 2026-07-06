@@ -34,24 +34,24 @@ export default function Character() {
 
   if (!token) {
     return (
-      <div className="char-page" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '75vh' }}>
-        <div className="char-section-card card-glass animate-fade-in-up" style={{ width: '100%', maxWidth: '450px', padding: '3.5rem 2rem', textAlign: 'center', border: '1px solid rgba(255,255,255,0.08)', position: 'relative', margin: '2rem auto' }}>
+      <div className="char-page app-locked-screen">
+        <div className="char-section-card card-glass animate-fade-in-up app-locked-card">
           
           <button 
             onClick={() => navigate('/')}
-            style={{ position: 'absolute', top: '20px', right: '20px', background: 'none', border: 'none', color: 'var(--clr-text-muted)', cursor: 'pointer', fontSize: '1.2rem' }}
+            className="app-locked-close no-3d"
             aria-label="닫기"
           >
             ✕
           </button>
 
-          <div style={{ fontSize: '3.5rem', marginBottom: '1.5rem', textShadow: '0 0 20px rgba(124,58,237,0.3)' }}>🔒</div>
+          <div className="app-locked-icon">🔒</div>
           
-          <h2 style={{ color: 'var(--clr-text-bright)', marginBottom: '0.8rem', fontSize: '1.75rem', fontWeight: 800 }}>
+          <h2 className="app-locked-title">
             내 캐릭터 커스터마이징 잠김
           </h2>
           
-          <p style={{ color: 'var(--clr-text-muted)', lineHeight: '1.6', marginBottom: '2.5rem', fontSize: '0.95rem' }}>
+          <p className="app-locked-desc">
             로그인하시면 나만의 캐릭터와 칭호를 변경하고,<br />
             학습 진행 상황에 따라 새로운 캐릭터를 해금할 수 있습니다!
           </p>
@@ -64,16 +64,18 @@ export default function Character() {
     );
   }
 
-  const completedUnits = Math.floor((stats?.completed_stages || 0) / 7)
+  const clearedLevels = user?.endboss_cleared_levels || []
+  const isCharUnlocked = (char) => !char.requiredLevel || clearedLevels.includes(char.requiredLevel)
+
   const { lv, xpInLevel, xpForNext } = calcLevel(user?.xp || 0)
   const xpPct = Math.round((xpInLevel / xpForNext) * 100)
 
-  const latestUnlocked = [...CHARACTERS].reverse().find(c => completedUnits >= c.unlockUnits)
+  const latestUnlocked = [...CHARACTERS].reverse().find(c => isCharUnlocked(c))
   const selectedChar   = CHARACTERS.find(c => c.id === selected) || CHARACTERS[0]
 
   const handleSelect = (id) => {
     const char = CHARACTERS.find(c => c.id === id)
-    if (completedUnits < char.unlockUnits) return
+    if (!isCharUnlocked(char)) return
     setSelected(id)
   }
 
@@ -178,7 +180,7 @@ export default function Character() {
 
       <div className="char-scroll">
 
-        {latestUnlocked && latestUnlocked.unlockUnits > 0 && (
+        {latestUnlocked && latestUnlocked.requiredLevel && (
           <div className="char-level-banner">⭐ {latestUnlocked.name} 해금!</div>
         )}
 
@@ -212,7 +214,7 @@ export default function Character() {
         <div className="char-section-card">
           <div className="char-grid">
             {CHARACTERS.map(char => {
-              const locked = completedUnits < char.unlockUnits
+              const locked = !isCharUnlocked(char)
               const active = selected === char.id
               return (
                 <button
@@ -231,7 +233,9 @@ export default function Character() {
                   </span>
                   <div className="char-opt-name">{locked ? <span style={{ color: 'var(--clr-text-faint)' }}>{char.name}</span> : char.name}</div>
                   <div className="char-opt-desc">
-                    {locked ? `Unit ${char.unlockUnits} 완료 후 해금` : char.desc}
+                    {locked
+                      ? `${{ beginner: '초급', intermediate: '중급', advanced: '고급' }[char.requiredLevel]} 클리어 후 해금`
+                      : char.desc}
                   </div>
                 </button>
               )

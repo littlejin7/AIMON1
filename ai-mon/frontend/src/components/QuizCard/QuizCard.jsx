@@ -3,7 +3,6 @@ import { quizApi, codeApi } from '../../api/index'
 import { usePyodide } from '../../hooks/usePyodide'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import ChoiceOptions from './ChoiceOptions'
-import ErrorFindLines from './ErrorFindLines'
 import FillInput from './FillInput'
 import CodeInput from './CodeInput'
 import AiFeedback from './AiFeedback'
@@ -105,22 +104,14 @@ export default function QuizCard({
   }
 
   const parsedContent = parseQuestionContent(rawQuestion)
-  const codeLines = parsedContent.find(p => p.type === 'code')?.lines || null
 
   const type = question.quiz_type || question.type
   const choicesList = question.choices || question.options || []
 
 
-  // "N줄:" 형식 코드 + "A. N줄" 형식 선택지 → 줄 클릭 UI
-  const isLineSelectErrorFind =
-    type === 'error_find' &&
-    codeLines?.length > 0 &&
-    /^\d+줄:/.test(codeLines[0])
-
-  const isChoiceType = type === 'multiple_choice' || type === 'output_select' ||
-    (type === 'error_find' && !isLineSelectErrorFind)
+  // error_find 는 줄 클릭 UI를 쓰지 않는다 — choices 없이 정답 줄 번호를 직접 입력하는 빈칸형으로 통일.
+  const isChoiceType = type === 'multiple_choice' || type === 'output_select'
   const isCodeInput = type === 'code_input'
-
 
 
 
@@ -378,7 +369,7 @@ export default function QuizCard({
       {/* 문제 */}
       <div className="quiz-question" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         {parsedContent.map((part, idx) => {
-          if (part.type === 'code' && !isLineSelectErrorFind) {
+          if (part.type === 'code') {
             return <CodeBlock key={idx} lines={part.lines} />;
           } else if (part.type === 'text') {
             return (
@@ -390,19 +381,6 @@ export default function QuizCard({
           return null;
         })}
       </div>
-
-      {isLineSelectErrorFind && (
-        <ErrorFindLines
-          codeLines={codeLines}
-          choicesList={choicesList}
-          selected={selected}
-          revealed={revealed}
-          answer={revealedAnswer}
-          onSelect={(opt) => { if (!revealed) setSelected(opt) }}
-          onSubmit={handleSubmitChoice}
-        />
-      )}
-
 
 
       {/* 입력 영역 */}

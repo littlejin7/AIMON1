@@ -125,7 +125,9 @@ export default function Boss() {
   const handleSubmit = async () => {
     if (!currentQuestion) return
     const isCodeType  = currentQuestion.type === 'code_input' || currentQuestion.type === 'fill_in_blank'
-    const userAnswer  = isCodeType ? answerInput : selectedOption
+    // error_find: 줄 클릭 UI 폐지 → 빈칸 직접 입력(answerInput)으로 채점
+    const isTextAnswer = isCodeType || currentQuestion.type === 'error_find'
+    const userAnswer  = isTextAnswer ? answerInput : selectedOption
     if (!userAnswer) return
 
     // 이미 제출 진행 중이면 즉시 차단 (연타 방어) — state 반영 전이라도 ref 로 막힘

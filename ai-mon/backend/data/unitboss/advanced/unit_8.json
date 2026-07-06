@@ -88,13 +88,7 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "등록되지 않은 워커 타입으로 KeyError가 발생하는 줄은?\n\n```python\n1줄: workers = {\n2줄:     \"analyzer\": lambda text: f\"분석: {text}\",\n3줄:     \"formatter\": lambda data: f\"포맷: {data}\"\n4줄: }\n5줄: \n6줄: task_type = \"translator\"\n7줄: result = workers[task_type](\"안녕하세요\")\n```",
-      "choices": [
-        "A. 1줄",
-        "B. 3줄",
-        "C. 6줄",
-        "D. 7줄"
-      ],
-      "answer": "D",
+      "answer": "7",
       "hint": "'translator' 키가 workers에 존재하는지 확인하세요.",
       "feedback": {
         "correct": "정답! workers에 'translator' 키가 없으므로 7줄의 workers[task_type] 실행 시 KeyError가 발생합니다. 멀티 에이전트 설계에서 task_type이 유효한지 사전에 검증하는 패턴이 중요합니다."
@@ -149,13 +143,7 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "정의되지 않은 함수를 레지스트리에 등록하려고 해 NameError가 발생하는 줄은?\n\n```python\n1줄: tool_registry = {}\n2줄: \n3줄: tool_registry[\"search\"] = search_tool\n4줄: tool_registry[\"weather\"] = weather_tool\n5줄: \n6줄: print(len(tool_registry))\n```",
-      "choices": [
-        "A. 1줄",
-        "B. 3줄",
-        "C. 4줄",
-        "D. 6줄"
-      ],
-      "answer": "B",
+      "answer": "3",
       "hint": "search_tool이 이 코드에서 정의된 적 있나요?",
       "feedback": {
         "correct": "정답! search_tool이 아직 정의되지 않았으므로 3줄에서 NameError가 발생합니다. 도구 함수를 먼저 정의한 뒤 레지스트리에 등록해야 합니다."
@@ -170,7 +158,7 @@
       "type": "code_input",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "도구 레지스트리에서 이름으로 함수를 찾아 실행하는 한 줄을 완성하세요.\n\n```python\ntools = {\n    \"add\": lambda a, b: a + b,\n    \"multiply\": lambda a, b: a * b\n```\n}\n\n```python\ndef run_tool(name, **kwargs):\n    return _______\n```\n\n```python\nprint(run_tool(\"add\", a=3, b=4))  # 7\n```",
+      "question": "도구 레지스트리에서 이름으로 함수를 찾아 실행하는 한 줄을 완성하세요.\n\n```python\ntools = {\n    \"add\": lambda a, b: a + b,\n    \"multiply\": lambda a, b: a * b\n}\n\ndef run_tool(name, **kwargs):\n    return _______\n\nprint(run_tool(\"add\", a=3, b=4))  # 7\n```",
       "choices": [],
       "answer": "tools[name](**kwargs)",
       "hint": "레지스트리에서 name으로 함수를 꺼내 kwargs를 언패킹해 호출하세요.",

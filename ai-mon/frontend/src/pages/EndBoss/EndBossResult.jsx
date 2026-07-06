@@ -77,7 +77,7 @@ export default function EndBossResult({
           </div>
 
           <button className="btn btn-primary btn-lg btn-full" onClick={onNavigateLesson}>
-            ✕
+            보스 클리어!
           </button>
         </>
       ) : (
@@ -90,7 +90,7 @@ export default function EndBossResult({
               👑 왕관을 소모하고 재도전할까요?
             </button>
             <button className="btn btn-secondary btn-full" onClick={onNavigateLesson}>
-              ✕
+              레슨으로 돌아가기
             </button>
           </div>
         </>

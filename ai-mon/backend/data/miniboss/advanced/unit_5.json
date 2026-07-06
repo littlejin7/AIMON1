@@ -274,7 +274,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 체인 파이프라인 시뮬레이션 코드의 출력값을 고르세요.\n\nsteps = []\n\n```python\ndef add_step(name):\n    steps.append(name)\n    return name\n```\n\n```python\nprompt = add_step('prompt')\nllm = add_step('llm')\nparser = add_step('parser')\n```\n\n```python\npipeline = [prompt, llm, parser]\nprint(' | '.join(pipeline))\n```",
+      "question": "다음 체인 파이프라인 시뮬레이션 코드의 출력값을 고르세요.\n\n```python\nsteps = []\n\ndef add_step(name):\n    steps.append(name)\n    return name\n\nprompt = add_step('prompt')\nllm = add_step('llm')\nparser = add_step('parser')\n\npipeline = [prompt, llm, parser]\nprint(' | '.join(pipeline))\n```",
       "choices": [
         "A. prompt | llm | parser",
         "B. parser | llm | prompt",
@@ -327,7 +327,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass Template:\n    def __init__(self, tmpl):\n        self.tmpl = tmpl\n```\n\n```python\n    def format(self, **kwargs):\n        result = self.tmpl\n        for k, v in kwargs.items():\n            result = result.replace(f'{{{k}}}', str(v))\n        return result\n```\n\n```python\n    def invoke(self, data):\n        return self.format(**data)\n```\n\n```python\ntpl = Template('{subject} 수업: {topic}')\nresult = tpl.invoke({'subject': 'AI', 'topic': 'LangChain'})\nprint(result)\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass Template:\n    def __init__(self, tmpl):\n        self.tmpl = tmpl\n\n    def format(self, **kwargs):\n        result = self.tmpl\n        for k, v in kwargs.items():\n            result = result.replace(f'{{{k}}}', str(v))\n        return result\n\n    def invoke(self, data):\n        return self.format(**data)\n\ntpl = Template('{subject} 수업: {topic}')\nresult = tpl.invoke({'subject': 'AI', 'topic': 'LangChain'})\nprint(result)\n```",
       "choices": [
         "A. AI 수업: LangChain",
         "B. {subject} 수업: {topic}",
