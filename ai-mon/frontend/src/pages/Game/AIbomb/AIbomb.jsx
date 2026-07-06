@@ -77,7 +77,6 @@ export default function AIbomb() {
         {/* ── ① 인트로 ── */}
         {game.status === 'ready' && (
           <div className="bd-intro">
-            <div className="bd-stage-badge">STAGE {game.stage + 1}</div>
             <h1 className="bd-intro-title">{intro.title.split('\n').map((l,i) => <div key={i}>{l}</div>)}</h1>
             <div className="bd-intro-desc">{intro.desc.split('\n').map((l,i) => <div key={i}>{l}</div>)}</div>
             <div className="bd-bomb-stage"><RunningMonstersSprite danger={false} /></div>
