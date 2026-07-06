@@ -124,6 +124,15 @@ export default function LessonHome() {
   const doneStages  = lessons.reduce((a, l) => a + getUnitProgress(l.unit_id, l.stages).completed, 0)
   const overallPct  = totalStages > 0 ? Math.round((doneStages / totalStages) * 100) : 0
 
+
+  // 엔드보스 해금 = Unit 1~8 전체 스테이지 완료 + 각 유닛 보스 클리어까지 끝난 상태.
+  // 유닛 카드의 `done` 판정과 동일한 기준을 써야 "해금 문구"와 실제 잠금 상태가 어긋나지 않는다.
+  const endbossUnlocked = token && lessons.length > 0 && lessons.every((l) => {
+    const prog = getUnitProgress(l.unit_id, l.stages)
+    return l.stages > 0 && prog.completed >= l.stages && isBossComplete(l.unit_id)
+  })
+
+  
   const handleUnitClick = (lesson, unlocked) => {
     if (!unlocked) return
     if (!token && lesson.unit_id === 1) { navigate('/stage/1/1'); return }
@@ -303,11 +312,16 @@ export default function LessonHome() {
         })}
 
         {/* ── 엔드보스 티저 ── */}
-        <div className="lh-endboss-teaser" onClick={() => navigate('/boss/endboss')}>
-          <div className="lh-endboss-icon">👑</div>
+        <div
+          className={`lh-endboss-teaser${endbossUnlocked ? ' unlocked' : ' locked'}`}
+          onClick={() => endbossUnlocked && navigate('/boss/endboss')}
+        >
+          <div className="lh-endboss-icon">{endbossUnlocked ? '👑' : '🔒'}</div>
           <div>
             <div className="lh-endboss-title">엔드보스</div>
-            <div className="lh-endboss-desc">Unit 1~8 전체 완료 후 해금</div>
+            <div className="lh-endboss-desc">
+              {endbossUnlocked ? '도전할 수 있어요! 지금 바로 만나보세요' : 'Unit 1~8 전체 완료 후 해금'}
+            </div>
           </div>
         </div>
 
