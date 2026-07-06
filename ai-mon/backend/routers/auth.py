@@ -433,6 +433,12 @@ def verify_email_code(req: VerifyEmailCodeRequest, request: Request):
 @router.post("/register", status_code=status.HTTP_201_CREATED)
 @limiter.limit("5/minute")
 def register(req: RegisterRequest, request: Request):
+    # ── [추가] 대문자 검사 ──
+    if any(c.isupper() for c in req.username):
+        raise HTTPException(status_code=400, detail="아이디는 소문자로만 입력해주세요.")
+    if any(c.isupper() for c in req.email):
+        raise HTTPException(status_code=400, detail="이메일은 소문자로만 입력해주세요.")
+    # ────────────────────────
     if get_user_by_username(req.username):
         raise HTTPException(status_code=400, detail="이미 존재하는 아이디입니다.")
     nickname = _nickname_or_fallback(req.nickname, req.username)
@@ -522,10 +528,12 @@ def register(req: RegisterRequest, request: Request):
 @router.post("/login")
 @limiter.limit("10/minute")
 def login(req: LoginRequest, request: Request):
-    user_ref = get_user_by_username(req.username)
+    # ── [추가 및 변경] 아이디를 소문자로 변환 ──
+    username_clean = req.username.strip().lower()
+    user_ref = get_user_by_username(username_clean)
     account_restored = False
     if not user_ref:
-        deleted_user = get_user_by_username_any(req.username)
+        deleted_user = get_user_by_username_any(username_clean)
         if deleted_user and deleted_user.get("deleted_at") and verify_password(req.password, deleted_user.get("password", "")):
             user_ref = _restore_for_login(deleted_user)
             account_restored = True
@@ -865,6 +873,10 @@ async def social_google(req: SocialLoginRequest, request: Request):
 
 @router.get("/check-id")
 def check_id(username: str):
+    # ── [추가] 대문자 검사 ──
+    if any(c.isupper() for c in username):
+        raise HTTPException(status_code=400, detail="아이디는 소문자로만 입력해주세요.")
+    # ────────────────────────
     username_clean = username.strip()
     if get_user_by_username(username_clean):
         raise HTTPException(status_code=400, detail="이미 존재하는 아이디입니다.")
@@ -876,6 +888,10 @@ def check_id(username: str):
 
 @router.get("/check-email")
 def check_email(email: str):
+    # ── [추가] 대문자 검사 ──
+    if any(c.isupper() for c in email):
+        raise HTTPException(status_code=400, detail="이메일은 소문자로만 입력해주세요.")
+    # ────────────────────────
     email_clean = _normalize_email(email)
     deleted_user = get_user_by_email_any(email_clean) or get_user_by_username_any(email_clean)
     if get_user_by_email(email_clean) or get_user_by_username(email_clean):
