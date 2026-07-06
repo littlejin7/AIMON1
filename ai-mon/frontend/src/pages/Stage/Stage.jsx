@@ -8,6 +8,7 @@ import MiniBossAlert from './MiniBossAlert'
 import StageQuiz from './StageQuiz'
 import StageResult from './StageResult'
 import TitleEarnedModal from '../../components/TitleEarnedModal/TitleEarnedModal'
+import '../Boss/Boss.css'
 import './Stage.css'
 
 const EVOLUTION_MAP = {
