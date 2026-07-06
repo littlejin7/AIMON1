@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import './StageBriefing.css'
 
 
 function addLineBreaks(text) {
