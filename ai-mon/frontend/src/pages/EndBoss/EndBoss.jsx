@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { endbossApi, userApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
-import EndBossIntro  from './EndBossIntro'
+import EndBossIntro from './EndBossIntro'
 import useBossSound from '../../hooks/useBossSound'
 import EndBossBattle from './EndBossBattle'
 import EndBossResult from './EndBossResult'
@@ -16,54 +16,54 @@ import '../Boss/BossBattle.css'
 export default function EndBoss() {
   const navigate = useNavigate()
 
-  const user       = useAuthStore(s => s.user)
+  const user = useAuthStore(s => s.user)
   const updateUser = useAuthStore(s => s.updateUser)
 
   const { playBGM, stopBGM, playSFX } = useBossSound()
 
-  const [loading,         setLoading]         = useState(true)
+  const [loading, setLoading] = useState(true)
   // 'intro' | 'phase1_transition' | 'phase2_transition' | 'phase3_transition'
   // | 'battle' | 'cleared' | 'failed'
-  const [phase,           setPhase]           = useState('intro')
-  const [bossData,        setBossData]        = useState(null)
-  const [selectedLevel,   setSelectedLevel]   = useState('beginner')
+  const [phase, setPhase] = useState('intro')
+  const [bossData, setBossData] = useState(null)
+  const [selectedLevel, setSelectedLevel] = useState('beginner')
   const [currentQuestion, setCurrentQuestion] = useState(null)
-  const [selectedOption,  setSelectedOption]  = useState(null)
-  const [answerInput,     setAnswerInput]     = useState('')
-  const [aiResult,        setAiResult]        = useState(null)
-  const [clearResult,     setClearResult]     = useState(null)
-  const [errorMsg,        setErrorMsg]        = useState('')
+  const [selectedOption, setSelectedOption] = useState(null)
+  const [answerInput, setAnswerInput] = useState('')
+  const [aiResult, setAiResult] = useState(null)
+  const [clearResult, setClearResult] = useState(null)
+  const [errorMsg, setErrorMsg] = useState('')
 
   // HP (엔드보스: 1200/1800)
   const BOSS_HP_INIT = 1800
-  const MY_HP_INIT   = 1200
-  const [myHp,       setMyHp]       = useState(MY_HP_INIT)
-  const [bossHp,     setBossHp]     = useState(BOSS_HP_INIT)
+  const MY_HP_INIT = 1200
+  const [myHp, setMyHp] = useState(MY_HP_INIT)
+  const [bossHp, setBossHp] = useState(BOSS_HP_INIT)
 
   // 애니메이션 상태
-  const [bossShake,   setBossShake]   = useState(false)
-  const [myShake,     setMyShake]     = useState(false)
-  const [bossHit,     setBossHit]     = useState(false)
+  const [bossShake, setBossShake] = useState(false)
+  const [myShake, setMyShake] = useState(false)
+  const [bossHit, setBossHit] = useState(false)
   const [screenShake, setScreenShake] = useState(false)
-  const [attackAnim,  setAttackAnim]  = useState(false)
-  const [dmgPopup,    setDmgPopup]    = useState(null)
+  const [attackAnim, setAttackAnim] = useState(false)
+  const [dmgPopup, setDmgPopup] = useState(null)
 
   // 엔드보스 전투 상태
   const [endbossState, setEndbossState] = useState({
-    project:            null,
-    phase:              1,
-    phase1Questions:    [],
-    phase2Questions:    [],
+    project: null,
+    phase: 1,
+    phase1Questions: [],
+    phase2Questions: [],
     phase3FirstQuestion: null,
-    phase1Index:        0,
-    phase2Index:        0,
-    phase3Tries:        0,
+    phase1Index: 0,
+    phase2Index: 0,
+    phase3Tries: 0,
     nextPhase3Question: null,
   })
 
   // 레벨업 / 칭호
-  const [initialLevel,      setInitialLevel]      = useState(1)
-  const [levelUpMessage,    setLevelUpMessage]    = useState('')
+  const [initialLevel, setInitialLevel] = useState(1)
+  const [levelUpMessage, setLevelUpMessage] = useState('')
   const [newlyEarnedTitles, setNewlyEarnedTitles] = useState([])
 
   // 제출 중복 방지 lock — React state(loading)는 비동기 반영이라 빠른 연타 첫 프레임을
@@ -95,15 +95,15 @@ export default function EndBoss() {
     setClearResult(null)
     setErrorMsg('')
     setEndbossState({
-      project:             null,
-      phase:               1,
-      phase1Questions:     [],
-      phase2Questions:     [],
+      project: null,
+      phase: 1,
+      phase1Questions: [],
+      phase2Questions: [],
       phase3FirstQuestion: null,
-      phase1Index:         0,
-      phase2Index:         0,
-      phase3Tries:         0,
-      nextPhase3Question:  null,
+      phase1Index: 0,
+      phase2Index: 0,
+      phase3Tries: 0,
+      nextPhase3Question: null,
     })
     try {
       const res = await endbossApi.getInfo(level)
@@ -156,15 +156,15 @@ export default function EndBoss() {
       const res = await endbossApi.startBattle(project, selectedLevel)
       const d = res.data
       setEndbossState({
-        project:             d.project,
-        phase:               d.phase,
-        phase1Questions:     d.phase1_questions,
-        phase2Questions:     d.phase2_questions,
+        project: d.project,
+        phase: d.phase,
+        phase1Questions: d.phase1_questions,
+        phase2Questions: d.phase2_questions,
         phase3FirstQuestion: d.phase3_first_question,
-        phase1Index:         0,
-        phase2Index:         0,
-        phase3Tries:         0,
-        nextPhase3Question:  null,
+        phase1Index: 0,
+        phase2Index: 0,
+        phase3Tries: 0,
+        nextPhase3Question: null,
       })
       // Phase 1 진입 문제 미리 세팅, 전환 화면 먼저 표시
       setCurrentQuestion(d.phase1_questions[0])
@@ -217,22 +217,22 @@ export default function EndBoss() {
     setLoading(true)
     try {
       const res = await endbossApi.submitAnswer({
-        question_id:  currentQuestion.question_id,
-        user_answer:  userAnswer,
-        phase:        endbossState.phase,
-        my_hp:        myHp,
-        boss_hp:      bossHp,
+        question_id: currentQuestion.question_id,
+        user_answer: userAnswer,
+        phase: endbossState.phase,
+        my_hp: myHp,
+        boss_hp: bossHp,
         phase3_tries: endbossState.phase3Tries,
-        project:      endbossState.project,
+        project: endbossState.project,
         ...(selectedLevel && { target_level: selectedLevel }),
       })
 
-      const d         = res.data
+      const d = res.data
       const isCorrect = d.is_correct
-      const nextMyHp  = d.my_hp
+      const nextMyHp = d.my_hp
       const nextBossHp = d.boss_hp
-      const isClear   = d.is_clear
-      const isFail    = d.is_fail
+      const isClear = d.is_clear
+      const isFail = d.is_fail
 
       setMyHp(nextMyHp)
       setBossHp(nextBossHp)
@@ -250,7 +250,7 @@ export default function EndBoss() {
               if (clearRes?.data?.newly_earned_titles?.length > 0) {
                 setNewlyEarnedTitles(clearRes.data.newly_earned_titles)
               }
-              const userRes     = await userApi.getMe()
+              const userRes = await userApi.getMe()
               const updatedUser = userRes.data
               updateUser(updatedUser)
               const newLevel = updatedUser.lv || 1
@@ -276,7 +276,7 @@ export default function EndBoss() {
         if (endbossState.phase === 3) {
           setEndbossState(prev => ({
             ...prev,
-            phase3Tries:        d.phase3_tries,
+            phase3Tries: d.phase3_tries,
             nextPhase3Question: d.next_phase3_question,
           }))
         }
@@ -394,11 +394,11 @@ export default function EndBoss() {
             onEscape={() => { stopBGM(); navigate('/lesson') }}
             questionNum={
               endbossState.phase === 1 ? endbossState.phase1Index + 1 :
-              endbossState.phase === 2 ? endbossState.phase2Index + 1 : 1
+                endbossState.phase === 2 ? endbossState.phase2Index + 1 : 1
             }
             questionTotal={
               endbossState.phase === 1 ? endbossState.phase1Questions.length :
-              endbossState.phase === 2 ? endbossState.phase2Questions.length : 1
+                endbossState.phase === 2 ? endbossState.phase2Questions.length : 1
             }
           />
         )}
