@@ -1,7 +1,9 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { authApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
+import EmailVerificationStep from './components/EmailVerificationStep'
+import { useEmailVerification } from './hooks/useEmailVerification'
 import beginnerHappyIcon from '../../assets/character_beginnerhappy.png'
 import slimeIcon         from '../../assets/character_slime.png'
 import './Auth.css'
@@ -79,13 +81,11 @@ export default function Register() {
     goals: [], dailyTime: 10,
   })
   const [terms, setTerms] = useState({ tos: false, privacy: false, marketing: false, thirdparty: false })
-  const [otp, setOtp] = useState(['', '', '', '', '', ''])
   const [pwStrength, setPwStrength] = useState(0)
   const [showPw, setShowPw]         = useState(false)
   const [showPwC, setShowPwC]       = useState(false)
   const [loading, setLoading]       = useState(false)
   const [error, setError]           = useState('')
-  const otpRefs = useRef([])
 
   const [isIdChecked, setIsIdChecked] = useState(false)
   const [idChecking, setIdChecking] = useState(false)
@@ -94,13 +94,6 @@ export default function Register() {
   const [isEmailChecked, setIsEmailChecked] = useState(false)
   const [emailChecking, setEmailChecking] = useState(false)
   const [emailError, setEmailError] = useState('')
-  const [emailCodeSending, setEmailCodeSending] = useState(false)
-  const [emailVerifying, setEmailVerifying] = useState(false)
-  const [emailCodeSent, setEmailCodeSent] = useState(false)
-  const [emailVerified, setEmailVerified] = useState(false)
-  const [emailVerifyMessage, setEmailVerifyMessage] = useState('')
-  const [emailResendRemaining, setEmailResendRemaining] = useState(0)
-  const [emailCodeExpiresIn, setEmailCodeExpiresIn] = useState(0)
 
   const [isNicknameChecked, setIsNicknameChecked] = useState(false)
   const [nicknameChecking, setNicknameChecking] = useState(false)
@@ -126,30 +119,13 @@ export default function Register() {
 
   const isValidEmail = form.email.includes('@') && form.email.split('@')[1]?.length > 1
 
-  useEffect(() => {
-    if (emailResendRemaining <= 0) return undefined
-    const timer = window.setInterval(() => {
-      setEmailResendRemaining((value) => Math.max(0, value - 1))
-    }, 1000)
-    return () => window.clearInterval(timer)
-  }, [emailResendRemaining])
-
-  useEffect(() => {
-    if (emailCodeExpiresIn <= 0) return undefined
-    const timer = window.setInterval(() => {
-      setEmailCodeExpiresIn((value) => Math.max(0, value - 1))
-    }, 1000)
-    return () => window.clearInterval(timer)
-  }, [emailCodeExpiresIn])
-
-  const resetEmailVerification = () => {
-    setOtp(['', '', '', '', '', ''])
-    setEmailCodeSent(false)
-    setEmailVerified(false)
-    setEmailVerifyMessage('')
-    setEmailResendRemaining(0)
-    setEmailCodeExpiresIn(0)
-  }
+  const emailVerification = useEmailVerification({
+    email: form.email,
+    isValidEmail,
+    onVerified: () => setStep(3),
+    onError: setError,
+  })
+  const { reset: resetEmailVerification, verified: emailVerified } = emailVerification
 
   /* ── helpers ── */
   const set = (field) => (e) => { setForm(f => ({ ...f, [field]: e.target.value })); setError('') }
@@ -234,57 +210,6 @@ export default function Register() {
     }
   }
 
-  const handleSendEmailCode = async () => {
-    if (!isValidEmail || emailCodeSending || emailResendRemaining > 0) return
-    setEmailCodeSending(true)
-    setEmailVerifyMessage('')
-    setError('')
-    try {
-      const res = await authApi.sendEmailCode({ email: form.email.trim(), purpose: 'register' })
-      setEmailCodeSent(true)
-      setEmailVerified(false)
-      setOtp(['', '', '', '', '', ''])
-      setEmailVerifyMessage(res.data?.message || '인증코드를 발송했습니다. 메일함과 스팸함을 확인해주세요.')
-      setEmailResendRemaining(res.data?.cooldown_seconds || 60)
-      setEmailCodeExpiresIn(res.data?.ttl_seconds || 300)
-      window.setTimeout(() => otpRefs.current[0]?.focus(), 0)
-    } catch (err) {
-      const status = err.response?.status
-      const detail = err.response?.data?.detail
-      const message = status >= 500
-        ? (detail || '서버 이메일 발송 설정을 확인해야 합니다. 관리자에게 문의해주세요.')
-        : (detail || '인증코드 발송에 실패했습니다. 잠시 후 다시 시도해주세요.')
-      setEmailVerifyMessage(message)
-      setError(message)
-    } finally {
-      setEmailCodeSending(false)
-    }
-  }
-
-  const handleVerifyEmailCode = async () => {
-    if (!otpFilled || emailVerifying || !emailCodeSent) return
-    setEmailVerifying(true)
-    setEmailVerifyMessage('')
-    setError('')
-    try {
-      await authApi.verifyEmailCode({
-        email: form.email.trim(),
-        code: otp.join(''),
-        purpose: 'register',
-      })
-      setEmailVerified(true)
-      setEmailVerifyMessage('이메일 인증이 완료되었습니다.')
-      setStep(3)
-    } catch (err) {
-      const message = err.response?.data?.detail || '코드가 일치하지 않거나 만료되었습니다.'
-      setEmailVerified(false)
-      setEmailVerifyMessage('코드가 일치하지 않거나 만료되었습니다.')
-      setError(message)
-    } finally {
-      setEmailVerifying(false)
-    }
-  }
-
   const handleNicknameChange = (e) => {
     setForm(f => ({ ...f, nickname: e.target.value }))
     setIsNicknameChecked(false)
@@ -346,16 +271,6 @@ export default function Register() {
   const toggleAllTerms = () => {
     const allOn = Object.values(terms).every(Boolean)
     setTerms({ tos: !allOn, privacy: !allOn, marketing: !allOn, thirdparty: !allOn })
-  }
-
-  const handleOtpChange = (i, val) => {
-    const v = val.replace(/\D/g, '').slice(-1)
-    const next = [...otp]; next[i] = v; setOtp(next)
-    if (v && i < 5) otpRefs.current[i + 1]?.focus()
-  }
-
-  const handleOtpKeyDown = (i, e) => {
-    if (e.key === 'Backspace' && !otp[i] && i > 0) otpRefs.current[i - 1]?.focus()
   }
 
   /* ── Social OAuth ── */
@@ -438,12 +353,6 @@ export default function Register() {
   const canGoStep2 = isIdChecked && isEmailChecked && form.email.includes('@') && form.email.split('@')[1]?.length > 1
     && form.password.length >= 8 && form.password === form.passwordConfirm
   const canGoStep5 = isNicknameChecked && form.nickname.trim().length >= 2
-  const otpFilled = otp.every(Boolean)
-  const formatSeconds = (seconds) => {
-    const mins = String(Math.floor(seconds / 60)).padStart(2, '0')
-    const secs = String(seconds % 60).padStart(2, '0')
-    return `${mins}:${secs}`
-  }
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      RENDER
@@ -708,97 +617,11 @@ export default function Register() {
             Step 2 — 이메일 인증
         ━━━━━━━━━━━━━━━━━ */}
         {step === 2 && (
-          <div className="reg-body">
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '10px', padding: '10px 0' }}>
-              <div className="reg-verify-icon">📬</div>
-              <div className="reg-page-title">이메일을 확인해주세요</div>
-              <div className="reg-page-sub">
-                <strong style={{ color: '#534AB7' }}>{form.email}</strong> 으로<br />
-                6자리 인증코드를 보냈어요.
-              </div>
-            </div>
-
-            <button
-              type="button"
-              className="reg-btn-primary"
-              disabled={!isValidEmail || emailCodeSending || emailResendRemaining > 0}
-              onClick={handleSendEmailCode}
-            >
-              {emailCodeSending
-                ? <><span className="spinner" style={{ width: 18, height: 18, borderWidth: 2 }} /> 발송 중...</>
-                : emailResendRemaining > 0
-                  ? `${emailResendRemaining}초 후 재발송`
-                  : emailCodeSent
-                    ? '인증코드 다시 보내기'
-                    : '이메일 인증코드 보내기'
-              }
-            </button>
-
-            {emailVerifyMessage && (
-              <div className="reg-info-box" style={{ background: emailVerified ? '#F0FDF4' : '#F9F8FE', border: '1px solid #E5E2F8', color: emailVerified ? '#15803D' : '#534AB7' }}>
-                {emailVerifyMessage}
-              </div>
-            )}
-
-            <div className="reg-otp-wrap">
-              {otp.map((v, i) => (
-                <input
-                  key={i}
-                  ref={el => otpRefs.current[i] = el}
-                  className={`reg-otp-box${v ? ' filled' : ''}`}
-                  maxLength={1}
-                  value={v}
-                  placeholder="·"
-                  type="text"
-                  inputMode="numeric"
-                  onChange={e => handleOtpChange(i, e.target.value)}
-                  onKeyDown={e => handleOtpKeyDown(i, e)}
-                />
-              ))}
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-              <div style={{ fontSize: '13px', color: '#9B96D0' }}>코드 만료까지</div>
-              <div style={{ fontSize: '16px', fontWeight: 700, color: '#7F77DD', fontVariantNumeric: 'tabular-nums' }}>
-                {emailCodeSent ? formatSeconds(emailCodeExpiresIn) : '--:--'}
-              </div>
-            </div>
-
-            {!otpFilled && (
-              <div className="reg-info-box" style={{ background: '#FFF9ED', border: '1px solid #FAC775', color: '#8A5500' }}>
-                <span style={{ fontSize: '16px', flexShrink: 0 }}>⌨️</span>
-                나머지 {6 - otp.filter(Boolean).length}자리를 입력하면 자동으로 확인해요.
-              </div>
-            )}
-
-            {otpFilled && (
-              <div className="reg-info-box" style={{ background: '#F0FDF4', border: '1px solid #86EFAC', color: '#15803D' }}>
-                <span style={{ fontSize: '16px', flexShrink: 0 }}>✅</span>
-                인증코드가 입력됐어요. 아래 버튼을 눌러 확인해주세요.
-              </div>
-            )}
-
-            <button
-              className="reg-btn-primary"
-              disabled={!otpFilled || !emailCodeSent || emailVerifying}
-              onClick={handleVerifyEmailCode}
-            >
-              {emailVerifying
-                ? <><span className="spinner" style={{ width: 18, height: 18, borderWidth: 2 }} /> 확인 중...</>
-                : '인증 완료'
-              }
-            </button>
-
-            <div style={{ textAlign: 'center' }}>
-              <span style={{ fontSize: '12px', color: '#C4BFEE' }}>코드를 못 받았나요?</span>
-              <button type="button"
-                disabled={emailCodeSending || emailResendRemaining > 0}
-                onClick={handleSendEmailCode}
-                style={{ fontSize: '12px', color: '#7F77DD', fontWeight: 500, cursor: 'pointer', marginLeft: '6px', background: 'none', border: 'none', fontFamily: 'inherit' }}>
-                {emailResendRemaining > 0 ? `${emailResendRemaining}초` : '재전송'}
-              </button>
-            </div>
-          </div>
+          <EmailVerificationStep
+            email={form.email}
+            isValidEmail={isValidEmail}
+            verification={emailVerification}
+          />
         )}
 
         {/* ━━━━━━━━━━━━━━━━━
