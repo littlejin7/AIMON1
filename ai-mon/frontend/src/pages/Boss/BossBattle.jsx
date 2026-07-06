@@ -12,6 +12,8 @@ import { bossApi } from '../../api/index'
 import { parseQuestionText, TYPE_BADGE } from './bossBattleUtils'
 import ErrorFindLines from '../../components/QuizCard/ErrorFindLines'
 import '../../components/QuizCard/QuizCard.css'
+import './BossBattle.css'
+
 
 
 const KW = new Set([
@@ -207,16 +209,10 @@ export default function BossBattle({
 
       {/* ── 전투 배경 ── */}
       <div className="eb-b-bg" style={{ backgroundImage: `url(${unitbossBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-        <div className="eb-b-ground-top" />
         <div className="eb-b-ground-bot" />
 
         {/* 플레이어 HP 박스 — 상단 왼쪽 */}
         <div className={`eb-b-player-hpbox${myShake ? ' shake' : ''}`} style={{ top: '12px', bottom: 'auto', left: '12px' }}>
-          {wrongCount > 0 && (
-            <span style={{ fontSize: '9px', color: '#EF4444', fontWeight: 400 }}>
-              오답 {wrongCount}/3
-            </span>
-          )}
           <div className="eb-b-hp-bar-wrap">
             <span className="eb-b-hp-label">HP</span>
             <div className="eb-b-hp-track">
