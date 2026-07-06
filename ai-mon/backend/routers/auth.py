@@ -108,7 +108,7 @@ def update_login_streak(user: dict) -> tuple[dict, dict | None]:
     elif last == yesterday:
         user["streak"] = user.get("streak", 0) + 1
         streak = user["streak"]
-        earned_milestones = user.get("earned_streak_milestones", [])
+        earned_milestones = user.get("earned_streak_milestones") or []
         if streak == 3 and 3 not in earned_milestones:
             # XP를 apply_xp 대신 직접 가산하는 이유:
             # update_login_streak 는 이미 bump_mission(login) 중 또는 직후에 호출되며,
