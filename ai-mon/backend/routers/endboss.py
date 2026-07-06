@@ -38,7 +38,7 @@ ENDBOSS_DIR    = os.path.join(os.path.dirname(__file__), "../data/endboss")
 RETRY_CROWN_COST = 3
 
 # ── HP 설정 (Phase 1~2 전용) ──────────────────────────────────────────────────
-BOSS_HP_INIT   = 1800
+BOSS_HP_INIT   = 1400
 MY_HP_INIT     = 1200
 BOSS_HP_DELTA  = 200   # 정답 시 보스 HP 감소
 MY_HP_DELTA    = 400   # 오답 시 내 HP 감소
@@ -332,7 +332,7 @@ def endboss_start(req: StartRequest, user: dict = Depends(get_current_user)):
 
 
 @router.post("/answer")
-@limiter.limit("5/minute;100/day")
+@limiter.limit("3/minute;300/day")
 async def endboss_answer(request: Request, req: AnswerRequest, user: dict = Depends(get_current_user)):
     """
     답안 제출.
@@ -569,7 +569,7 @@ def endboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
     # fresh user 기준으로 원자 처리. endboss_cleared_levels(list append) 와 missions 가
     # save_user delta-merge 에서 last-writer-wins 되던 문제 해소. (M-1, C-1 deferred)
     def mutator(u: dict) -> dict:
-        cleared_levels  = u.get("endboss_cleared_levels", [])
+        cleared_levels  = u.get("endboss_cleared_levels") or []
         already_cleared = level in cleared_levels
         newly_earned_titles = []
 
@@ -587,7 +587,7 @@ def endboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
 
             # 칭호
             title_id, title_name = CLEAR_TITLES.get(level, ("rookie_coder", "코드 ROOKIE"))
-            earned = set(u.get("titles", []))
+            earned = set(u.get("titles") or [])
             if title_id not in earned:
                 earned.add(title_id)
                 u["titles"] = list(earned)
@@ -624,5 +624,5 @@ def endboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
         "crowns_awarded":     0 if already_cleared else CLEAR_CROWNS,
         "lv":                 user.get("lv", 1),
         "newly_earned_titles": result["newly_earned_titles"],
-        "cleared_levels":     user.get("endboss_cleared_levels", []),
+        "cleared_levels":     user.get("endboss_cleared_levels") or [],
     }
