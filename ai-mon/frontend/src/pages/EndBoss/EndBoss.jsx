@@ -9,6 +9,10 @@ import EndBossResult from './EndBossResult'
 import TitleEarnedModal from '../../components/TitleEarnedModal/TitleEarnedModal'
 import EndBossPhaseTransition from './EndBossPhaseTransition'
 import '../Boss/Boss.css'
+import './EndBossIntro.css'
+import './EndBossPhaseTransition.css'
+import '../Boss/BossBattle.css'
+
 
 export default function EndBoss() {
   const navigate = useNavigate()
