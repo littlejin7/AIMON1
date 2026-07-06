@@ -707,6 +707,14 @@ def check_email(email: str):
     return {"ok": True}
 
 
+@router.get("/check-nickname")
+def check_nickname(nickname: str):
+    nickname_clean = normalize_nickname(nickname)
+    if get_user_by_nickname(nickname_clean):
+        raise HTTPException(status_code=400, detail="이미 사용 중인 닉네임입니다.")
+    return {"ok": True}
+
+
 @router.post("/social/naver")
 @limiter.limit("5/minute")
 async def social_naver(req: SocialLoginRequest, request: Request):

@@ -61,6 +61,19 @@ def test_register_blocks_active_duplicate_nickname(tmp_path, monkeypatch):
     assert res.json()["detail"] == "이미 사용 중인 닉네임입니다."
 
 
+def test_check_nickname_reports_available_and_duplicate(tmp_path, monkeypatch):
+    client = _client(tmp_path, monkeypatch)
+    _register(client, "user1", "SameNick", "user1@example.com")
+
+    available = client.get("/auth/check-nickname", params={"nickname": "FreshNick"})
+    duplicate = client.get("/auth/check-nickname", params={"nickname": "  samenick  "})
+
+    assert available.status_code == 200
+    assert available.json() == {"ok": True}
+    assert duplicate.status_code == 400
+    assert duplicate.json()["detail"] == "이미 사용 중인 닉네임입니다."
+
+
 def test_register_blocks_active_duplicate_email(tmp_path, monkeypatch):
     client = _client(tmp_path, monkeypatch)
     _register(client, "user1", "Nick1", "same@example.com")

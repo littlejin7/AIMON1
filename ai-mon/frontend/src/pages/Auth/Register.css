@@ -491,6 +491,21 @@
 
 .reg-nick-tag:hover { background: #E0DDFF; }
 
+.reg-nick-refresh {
+  border: none;
+  background: transparent;
+  color: #7F77DD;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 2px 0;
+}
+
+.reg-nick-refresh:hover {
+  color: #534AB7;
+}
+
 /* ─────────────────────────────────────────────
    레벨 선택 카드
 ───────────────────────────────────────────── */

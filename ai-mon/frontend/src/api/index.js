@@ -5,6 +5,7 @@ export const authApi = {
   register: (data) => api.post('/auth/register', data),
   checkId: (username) => api.get(`/auth/check-id?username=${encodeURIComponent(username)}`),
   checkEmail: (email) => api.get(`/auth/check-email?email=${encodeURIComponent(email)}`),
+  checkNickname: (nickname) => api.get(`/auth/check-nickname?nickname=${encodeURIComponent(nickname)}`),
   socialLoginGoogle: (data) => api.post('/auth/social/google', data),
   socialLoginNaver: (data) => api.post('/auth/social/naver', data),
   socialLoginKakao: (data) => api.post('/auth/social/kakao', data),

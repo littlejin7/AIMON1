@@ -25,7 +25,32 @@ const GOAL_OPTIONS = [
 ]
 
 const DAILY_TIMES = [5, 10, 20, 30]
-const NICK_SUGGESTIONS = ['코드마법사', '에이몬친구', '파이썬초보', '디버거킹']
+const NICK_ADJECTIVES = ['반짝', '용감한', '차분한', '빠른', '똑똑한', '새벽', '구름', '루키']
+const NICK_NOUNS = ['코더', '디버거', '파이썬', '에이몬', '빌더', '탐험가', '알고봇', '마법사']
+
+function createNickSuggestions() {
+  const suggestions = new Set()
+  while (suggestions.size < 4) {
+    const adj = NICK_ADJECTIVES[Math.floor(Math.random() * NICK_ADJECTIVES.length)]
+    const noun = NICK_NOUNS[Math.floor(Math.random() * NICK_NOUNS.length)]
+    const suffix = Math.random() > 0.55 ? String(Math.floor(Math.random() * 90) + 10) : ''
+    suggestions.add(`${adj}${noun}${suffix}`.slice(0, 10))
+  }
+  return [...suggestions]
+}
+
+function getNicknameCheckErrorMessage(err) {
+  const status = err?.response?.status
+  const detail = err?.response?.data?.detail
+
+  if (status === 404) {
+    return '닉네임 확인 기능을 찾을 수 없습니다. 서버를 재시작해주세요.'
+  }
+  if (typeof detail === 'string' && detail.trim()) {
+    return detail
+  }
+  return '이미 사용 중인 닉네임입니다.'
+}
 
 // 진행도 (step → %)
 const PROGRESS   = [0, 20, 40, 60, 80, 90, 95, 100]
@@ -69,6 +94,11 @@ export default function Register() {
   const [isEmailChecked, setIsEmailChecked] = useState(false)
   const [emailChecking, setEmailChecking] = useState(false)
   const [emailError, setEmailError] = useState('')
+
+  const [isNicknameChecked, setIsNicknameChecked] = useState(false)
+  const [nicknameChecking, setNicknameChecking] = useState(false)
+  const [nicknameError, setNicknameError] = useState('')
+  const [nickSuggestions, setNickSuggestions] = useState(() => createNickSuggestions())
 
   const [emailId, setEmailId] = useState(form.email ? form.email.split('@')[0] : '')
   const [emailDomain, setEmailDomain] = useState(
@@ -171,6 +201,51 @@ export default function Register() {
     }
   }
 
+  const handleNicknameChange = (e) => {
+    setForm(f => ({ ...f, nickname: e.target.value }))
+    setIsNicknameChecked(false)
+    setNicknameError('')
+    setError('')
+  }
+
+  const selectNicknameSuggestion = (nickname) => {
+    setForm(f => ({ ...f, nickname }))
+    setIsNicknameChecked(false)
+    setNicknameError('')
+    setError('')
+  }
+
+  const refreshNickSuggestions = () => {
+    setNickSuggestions(createNickSuggestions())
+  }
+
+  const handleCheckNickname = async () => {
+    const nickname = form.nickname.trim()
+    if (nickname.length < 2) {
+      setIsNicknameChecked(false)
+      setNicknameError('닉네임은 2자 이상 입력해주세요.')
+      return false
+    }
+    setNicknameChecking(true)
+    setNicknameError('')
+    try {
+      const res = await authApi.checkNickname(nickname)
+      if (res.data && res.data.ok) {
+        setForm(f => ({ ...f, nickname }))
+        setIsNicknameChecked(true)
+        setNicknameError('')
+        return true
+      }
+      return false
+    } catch (err) {
+      setIsNicknameChecked(false)
+      setNicknameError(getNicknameCheckErrorMessage(err))
+      return false
+    } finally {
+      setNicknameChecking(false)
+    }
+  }
+
   const handlePwChange = (e) => {
     const pw = e.target.value
     setForm(f => ({ ...f, password: pw }))
@@ -225,10 +300,34 @@ export default function Register() {
   const handleSubmit = async () => {
     setLoading(true); setError('')
     try {
+      const nickname = form.nickname.trim()
+      if (nickname.length < 2) {
+        const msg = '닉네임은 2자 이상 입력해주세요.'
+        setStep(4)
+        setIsNicknameChecked(false)
+        setNicknameError(msg)
+        setError(msg)
+        return
+      }
+
+      try {
+        await authApi.checkNickname(nickname)
+        setForm(f => ({ ...f, nickname }))
+        setIsNicknameChecked(true)
+        setNicknameError('')
+      } catch (nickErr) {
+        const msg = getNicknameCheckErrorMessage(nickErr)
+        setStep(4)
+        setIsNicknameChecked(false)
+        setNicknameError(msg)
+        setError(msg)
+        return
+      }
+
       const payload = {
         username:        form.username.trim(), // Use custom username/ID!
         password:        form.password,
-        nickname:        form.nickname,
+        nickname,
         email:           form.email.trim(),
         course_level:    form.level,
         is_level_tested: !!searchParams.get('level'),
@@ -247,6 +346,7 @@ export default function Register() {
   const allTermsRequired = terms.tos && terms.privacy
   const canGoStep2 = isIdChecked && isEmailChecked && form.email.includes('@') && form.email.split('@')[1]?.length > 1
     && form.password.length >= 8 && form.password === form.passwordConfirm
+  const canGoStep5 = isNicknameChecked && form.nickname.trim().length >= 2
   const otpFilled = otp.every(Boolean)
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -639,36 +739,51 @@ export default function Register() {
 
             <div className="reg-field">
               <div className="reg-field-label">닉네임</div>
-              <div className={`reg-field-wrap${form.nickname.length >= 2 ? ' ok' : ''}`}>
-                <input className="reg-field-in" type="text"
-                  placeholder="2~10자, 한글·영문·숫자"
-                  value={form.nickname} onChange={set('nickname')} maxLength={10} />
-                {form.nickname.length >= 2 && (
-                  <span style={{ padding: '0 14px', fontSize: '16px', color: '#4ADE80', flexShrink: 0 }}>✓</span>
-                )}
+              <div className="reg-id-row">
+                <div className={`reg-field-wrap${isNicknameChecked ? ' ok' : (nicknameError ? ' error' : '')}`} style={{ flex: 1, margin: 0 }}>
+                  <input className="reg-field-in" type="text"
+                    placeholder="2~10자, 한글·영문·숫자"
+                    value={form.nickname} onChange={handleNicknameChange} maxLength={10} />
+                  {isNicknameChecked && (
+                    <span style={{ padding: '0 14px', fontSize: '16px', color: '#4ADE80', flexShrink: 0 }}>✓</span>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  className="reg-check-dup-btn"
+                  disabled={form.nickname.trim().length < 2 || nicknameChecking}
+                  onClick={handleCheckNickname}
+                >
+                  {nicknameChecking ? '확인 중...' : '중복확인'}
+                </button>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                {form.nickname.length >= 2
-                  ? <div className="reg-field-hint ok">✓ 사용 가능한 닉네임이에요</div>
-                  : <div className="reg-field-hint" style={{ color: '#C4BFEE' }}>2자 이상 입력해주세요</div>
+                {nicknameError
+                  ? <div className="reg-field-hint err">⚠ {nicknameError}</div>
+                  : isNicknameChecked
+                    ? <div className="reg-field-hint ok">✓ 사용 가능한 닉네임이에요</div>
+                    : <div className="reg-field-hint" style={{ color: '#C4BFEE' }}>2자 이상 입력 후 중복확인을 눌러주세요</div>
                 }
                 <div style={{ fontSize: '11px', color: '#C4BFEE' }}>{form.nickname.length} / 10</div>
               </div>
             </div>
 
             <div>
-              <div style={{ fontSize: '12px', color: '#9B96D0', marginBottom: '8px' }}>추천 닉네임</div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                <div style={{ fontSize: '12px', color: '#9B96D0' }}>추천 닉네임</div>
+                <button type="button" className="reg-nick-refresh" onClick={refreshNickSuggestions}>새로고침</button>
+              </div>
               <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                {NICK_SUGGESTIONS.map(n => (
+                {nickSuggestions.map(n => (
                   <span key={n} className="reg-nick-tag"
-                    onClick={() => setForm(f => ({ ...f, nickname: n }))}>
+                    onClick={() => selectNicknameSuggestion(n)}>
                     {n}
                   </span>
                 ))}
               </div>
             </div>
 
-            <button className="reg-btn-primary" disabled={form.nickname.length < 2} onClick={() => setStep(5)}>
+            <button className="reg-btn-primary" disabled={!canGoStep5} onClick={() => setStep(5)}>
               다음 →
             </button>
           </div>
