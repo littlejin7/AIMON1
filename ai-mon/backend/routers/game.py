@@ -7,6 +7,7 @@ import hashlib
 import base64
 import json
 import secrets
+import time
 from routers.utils import (
     get_current_user,
     get_current_user_optional,
@@ -42,7 +43,138 @@ MIN_PLAY_SECONDS = {
 SUPPORTED_GAME_IDS = frozenset(MIN_PLAY_SECONDS)
 
 
-def _make_game_token(game_id: str, user_id: str) -> str:
+AICROSS_PUZZLES = {
+    "basic_001": {
+        "grid": [
+            ["", "", "", ""],
+            ["", "#", "#", ""],
+            ["", "", "", ""],
+            ["", "", "", ""],
+        ],
+        "entries": [
+            {
+                "id": "A1",
+                "direction": "across",
+                "row": 0,
+                "col": 0,
+                "length": 4,
+                "clue": "Python list type name.",
+                "answer": "LIST",
+            },
+            {
+                "id": "D1",
+                "direction": "down",
+                "row": 0,
+                "col": 0,
+                "length": 4,
+                "clue": "Repeated execution structure.",
+                "answer": "LOOP",
+            },
+            {
+                "id": "D2",
+                "direction": "down",
+                "row": 0,
+                "col": 3,
+                "length": 4,
+                "clue": "Data category checked by type().",
+                "answer": "TYPE",
+            },
+            {
+                "id": "A2",
+                "direction": "across",
+                "row": 2,
+                "col": 0,
+                "length": 3,
+                "clue": "Object-oriented programming abbreviation.",
+                "answer": "OOP",
+            },
+            {
+                "id": "A3",
+                "direction": "across",
+                "row": 3,
+                "col": 0,
+                "length": 4,
+                "clue": "Connected processing flow.",
+                "answer": "PIPE",
+            },
+        ],
+    }
+}
+
+AICROSS_DEFAULT_PUZZLE_ID = "basic_001"
+
+
+def _aicross_public_puzzle(puzzle_id: str) -> dict:
+    puzzle = AICROSS_PUZZLES[puzzle_id]
+    return {
+        "puzzle_id": puzzle_id,
+        "grid": puzzle["grid"],
+        "entries": [
+            {
+                "id": entry["id"],
+                "direction": entry["direction"],
+                "row": entry["row"],
+                "col": entry["col"],
+                "length": entry["length"],
+                "clue": entry["clue"],
+            }
+            for entry in puzzle["entries"]
+        ],
+        "max_score": 100,
+    }
+
+
+def _normalize_aicross_answer(value) -> str:
+    return "".join(str(value or "").strip().upper().split())
+
+
+def _aicross_cell_value(answers: dict, row: int, col: int) -> str:
+    for key in (f"{row},{col}", f"{row}-{col}"):
+        if key in answers:
+            return _normalize_aicross_answer(answers[key])[:1]
+    return ""
+
+
+def _score_aicross_answers(puzzle_id: str, answers) -> dict:
+    if puzzle_id not in AICROSS_PUZZLES:
+        raise HTTPException(status_code=400, detail="Invalid aicross puzzle_id")
+    if answers is None:
+        answers = {}
+    if not isinstance(answers, dict):
+        raise HTTPException(status_code=400, detail="answers must be an object")
+
+    puzzle = AICROSS_PUZZLES[puzzle_id]
+    normalized = {str(k).upper(): _normalize_aicross_answer(v) for k, v in answers.items()}
+    correct = 0
+    total = len(puzzle["entries"])
+
+    for entry in puzzle["entries"]:
+        entry_id = entry["id"].upper()
+        submitted = normalized.get(entry_id)
+        if submitted is None:
+            d_row = 1 if entry["direction"] == "down" else 0
+            d_col = 1 if entry["direction"] == "across" else 0
+            submitted = "".join(
+                _aicross_cell_value(
+                    answers,
+                    entry["row"] + d_row * idx,
+                    entry["col"] + d_col * idx,
+                )
+                for idx in range(entry["length"])
+            )
+        if submitted == entry["answer"]:
+            correct += 1
+
+    score = round((correct / total) * 100) if total else 0
+    return {
+        "puzzle_id": puzzle_id,
+        "correct": correct,
+        "total": total,
+        "score": score,
+    }
+
+
+def _make_game_token(game_id: str, user_id: str, extra_payload: Optional[dict] = None) -> str:
     """game_id/user_id/발급시각/nonce 를 담아 HMAC-SHA256 서명한 토큰을 만든다."""
     payload = {
         "game_id": game_id,
@@ -50,6 +182,8 @@ def _make_game_token(game_id: str, user_id: str) -> str:
         "ts": int(now_kst().timestamp()),
         "nonce": secrets.token_urlsafe(12),
     }
+    if extra_payload:
+        payload.update(extra_payload)
     raw = json.dumps(payload, separators=(",", ":"), sort_keys=True).encode()
     sig = hmac.new(SECRET_KEY.encode(), raw, hashlib.sha256).digest()
     body = base64.urlsafe_b64encode(raw).decode().rstrip("=")
@@ -158,6 +292,8 @@ class GameClearRequest(BaseModel):
     game_id: str
     distance: Optional[int] = None
     score: Optional[int] = None
+    puzzle_id: Optional[str] = None
+    answers: Optional[dict] = None
     correct_count: Optional[int] = None  # 에이짝 전용: 클라이언트 제출값, 서버에서 범위 검증만
     game_token: str  # B-4: 프론트 배선 완료 후 required 전환
 
@@ -166,6 +302,14 @@ class GameClearRequest(BaseModel):
 def game_start(req: GameStartRequest, user_ref: dict = Depends(get_current_user)):
     if req.game_id not in SUPPORTED_GAME_IDS:
         raise HTTPException(status_code=400, detail="Invalid game_id")
+    if req.game_id == "aicross":
+        puzzle_id = AICROSS_DEFAULT_PUZZLE_ID
+        token = _make_game_token(req.game_id, user_ref["id"], {"puzzle_id": puzzle_id})
+        return {
+            "game_token": token,
+            "game_id": "aicross",
+            "puzzle": _aicross_public_puzzle(puzzle_id),
+        }
     token = _make_game_token(req.game_id, user_ref["id"])
     return {"game_token": token}
 
@@ -185,6 +329,7 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
     aizzak_correct = None
     aizzak_elapsed = None
     aibomb_cleared = None
+    aicross_score_detail = None
     if req.game_id == "aipang":
         token_payload = _verify_game_token(
             req.game_token, "aipang", user_id, MIN_PLAY_SECONDS["aipang"]
@@ -219,10 +364,25 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
         )
         aibomb_cleared = req.correct_count
     elif req.game_id == "aicross":
-        submitted_score_result = max(0, min(int(req.score or 0), 100))
         token_payload = _verify_game_token(
             req.game_token, "aicross", user_id, MIN_PLAY_SECONDS["aicross"]
         )
+        token_puzzle_id = token_payload.get("puzzle_id")
+        puzzle_id = req.puzzle_id or token_puzzle_id
+        if token_puzzle_id and req.puzzle_id and req.puzzle_id != token_puzzle_id:
+            raise HTTPException(status_code=400, detail="Aicross puzzle mismatch")
+        if puzzle_id:
+            aicross_score_detail = _score_aicross_answers(puzzle_id, req.answers)
+            submitted_score_result = aicross_score_detail["score"]
+        else:
+            submitted_score_result = max(0, min(int(req.score or 0), 100))
+            aicross_score_detail = {
+                "puzzle_id": None,
+                "correct": None,
+                "total": None,
+                "score": submitted_score_result,
+                "legacy_score_only": True,
+            }
     else:
         raise HTTPException(status_code=400, detail="Invalid game_id")
 
@@ -436,7 +596,7 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
         # 파생 카운터(boss_cleared/completed_stages) strip 은 mutate_user_atomic 코어가
         # 일괄 처리(SSOT). 여기서 따로 pop 하지 않는다.
 
-        return {
+        result = {
             "crowns_awarded": crowns_awarded,
             "xp_awarded": xp_awarded,
             "score": score_result,
@@ -444,6 +604,13 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
             "total_xp": user.get("xp", 0),
             "already_claimed": already_claimed,
         }
+        if req.game_id == "aicross" and aicross_score_detail:
+            result.update({
+                "puzzle_id": aicross_score_detail["puzzle_id"],
+                "correct": aicross_score_detail["correct"],
+                "total": aicross_score_detail["total"],
+            })
+        return result
 
     try:
         _, result = mutate_user_atomic(user_id, mutator)
@@ -468,6 +635,26 @@ RANKED_GAMES = (
     ("aibomb", "에이밤"),
 )
 _GAME_TITLES = dict(RANKED_GAMES)
+RANKING_WEIGHT = {
+    "runner": 1.0,
+    "aizzak": 1.0,
+    "aicross": 1.0,
+    "aibomb": 1.0,
+}
+
+_RANKING_CACHE_TTL = 30
+_ranking_cache = {}
+
+
+def _cached_ranking(cache_key: str, builder):
+    now = time.monotonic()
+    entry = _ranking_cache.get(cache_key)
+    if entry and now - entry[0] < _RANKING_CACHE_TTL:
+        return entry[1]
+
+    result = builder()
+    _ranking_cache[cache_key] = (now, result)
+    return result
 
 
 def _weekly_xp_map(user: dict, wk: str) -> dict:
@@ -486,6 +673,15 @@ def _weekly_xp_map(user: dict, wk: str) -> dict:
         if gid in _GAME_TITLES and isinstance(v, (int, float)) and v > 0:
             out[gid] = int(v)
     return out
+
+
+def _ranking_weekly_xp_map(user: dict, wk: str) -> dict:
+    raw = _weekly_xp_map(user, wk)
+    result = {}
+    for game_id, xp in raw.items():
+        weight = RANKING_WEIGHT.get(game_id, 1.0)
+        result[game_id] = int(round(int(xp or 0) * weight))
+    return result
 
 
 def _display_nickname(user: dict) -> str:
@@ -530,7 +726,7 @@ def _compute_last_week_winner(users: list, prev_wk: str) -> Optional[dict]:
     """
     best = None  # (total, nickname, user, per_game_map)
     for u in users:
-        m = _weekly_xp_map(u, prev_wk)
+        m = _ranking_weekly_xp_map(u, prev_wk)
         total = sum(m.values())
         if total <= 0:
             continue
@@ -554,25 +750,31 @@ def game_ranking(limit: int = 3, user_ref: Optional[dict] = Depends(get_current_
     """통합 '이번 주 미니게임 랭킹' — 주간 게임 XP 합산 Top N + 내 순위."""
     limit = _clamp_limit(limit)
     wk = iso_week()
-    entries = []
-    for u in load_users():
-        if u.get("deleted_at"):
-            continue
-        total = sum(_weekly_xp_map(u, wk).values())
-        if total <= 0:
-            continue
-        entries.append({
-            "user_id": u.get("id"),
-            "nickname": _display_nickname(u),
-            "character": u.get("character") or "slime",
-            "score": total,
-        })
-    ranked = _rank_entries(entries)
-    top = [
-        {"rank": e["rank"], "nickname": e["nickname"], "character": e["character"], "score": e["score"]}
-        for e in ranked[:limit]
-    ]
-    return {"top": top, "me": _me_row(ranked, user_ref)}
+    user_id = user_ref.get("id") if user_ref else "anon"
+    cache_key = f"ranking:{wk}:{limit}:{user_id}"
+
+    def build():
+        entries = []
+        for u in load_users():
+            if u.get("deleted_at"):
+                continue
+            total = sum(_ranking_weekly_xp_map(u, wk).values())
+            if total <= 0:
+                continue
+            entries.append({
+                "user_id": u.get("id"),
+                "nickname": _display_nickname(u),
+                "character": u.get("character") or "slime",
+                "score": total,
+            })
+        ranked = _rank_entries(entries)
+        top = [
+            {"rank": e["rank"], "nickname": e["nickname"], "character": e["character"], "score": e["score"]}
+            for e in ranked[:limit]
+        ]
+        return {"top": top, "me": _me_row(ranked, user_ref)}
+
+    return _cached_ranking(cache_key, build)
 
 
 @router.get("/ranking/by-game")
@@ -581,34 +783,40 @@ def game_ranking_by_game(limit: int = 3, user_ref: Optional[dict] = Depends(get_
     limit = _clamp_limit(limit)
     wk = iso_week()
     prev_wk = prev_iso_week()
-    users = [u for u in load_users() if not u.get("deleted_at")]
+    user_id = user_ref.get("id") if user_ref else "anon"
+    cache_key = f"ranking_by_game:{wk}:{prev_wk}:{limit}:{user_id}"
 
-    games = []
-    for gid, title in RANKED_GAMES:
-        entries = []
-        for u in users:
-            score = _weekly_xp_map(u, wk).get(gid, 0)
-            if score <= 0:
-                continue
-            entries.append({
-                "user_id": u.get("id"),
-                "nickname": _display_nickname(u),
-                "character": u.get("character") or "slime",
-                "score": score,
+    def build():
+        users = [u for u in load_users() if not u.get("deleted_at")]
+
+        games = []
+        for gid, title in RANKED_GAMES:
+            entries = []
+            for u in users:
+                score = _ranking_weekly_xp_map(u, wk).get(gid, 0)
+                if score <= 0:
+                    continue
+                entries.append({
+                    "user_id": u.get("id"),
+                    "nickname": _display_nickname(u),
+                    "character": u.get("character") or "slime",
+                    "score": score,
+                })
+            ranked = _rank_entries(entries)
+            top = [
+                {"rank": e["rank"], "nickname": e["nickname"], "character": e["character"], "score": e["score"]}
+                for e in ranked[:limit]
+            ]
+            games.append({
+                "game_id": gid,
+                "title": title,
+                "top": top,
+                "me": _me_row(ranked, user_ref),
             })
-        ranked = _rank_entries(entries)
-        top = [
-            {"rank": e["rank"], "nickname": e["nickname"], "character": e["character"], "score": e["score"]}
-            for e in ranked[:limit]
-        ]
-        games.append({
-            "game_id": gid,
-            "title": title,
-            "top": top,
-            "me": _me_row(ranked, user_ref),
-        })
 
-    return {
-        "games": games,
-        "last_week_winner": _compute_last_week_winner(users, prev_wk),
-    }
+        return {
+            "games": games,
+            "last_week_winner": _compute_last_week_winner(users, prev_wk),
+        }
+
+    return _cached_ranking(cache_key, build)

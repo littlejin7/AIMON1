@@ -2,8 +2,6 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { gameApi } from '../../../api'
 import { incrementGamePlay } from '../Game'
-import { WORD_SETS, SET_NAMES } from './crosswordData'
-import { buildLayout } from './crosswordEngine'
 import TitleBlock from './components/TitleBlock'
 import WinModal from './components/WinModal'
 import CrosswordGrid from './components/CrosswordGrid'
@@ -11,37 +9,105 @@ import HintBox from './components/HintBox'
 import ClueList from './components/ClueList'
 import './AICross.css'
 
+// 서버 public puzzle(grid/entries) → 화면 렌더링용 레이아웃으로 변환한다.
+// 정답(letter/word/answer)은 포함하지 않는다 — 채점은 전적으로 서버가 한다.
+function buildServerLayout(puzzle) {
+  const grid = Array.isArray(puzzle?.grid) ? puzzle.grid : []
+  const rows = grid.length
+  const cols = grid.reduce((m, row) => Math.max(m, Array.isArray(row) ? row.length : 0), 0)
+  const entries = Array.isArray(puzzle?.entries) ? puzzle.entries : []
+
+  // 시작 칸(row,col)을 행 우선으로 정렬해 1..N 번호를 매긴다(기존 엔진과 동일 규칙).
+  const startKeys = [...new Set(entries.map(e => `${e.row},${e.col}`))].sort((a, b) => {
+    const [ar, ac] = a.split(',').map(Number)
+    const [br, bc] = b.split(',').map(Number)
+    return ar !== br ? ar - br : ac - bc
+  })
+  const numMap = {}
+  startKeys.forEach((k, i) => { numMap[k] = i + 1 })
+
+  const wordData = []
+  const cellMap = {}
+  const wordCells = {}
+
+  entries.forEach(e => {
+    const dir = e.direction === 'down' ? 'V' : 'H'
+    const num = numMap[`${e.row},${e.col}`]
+    wordData.push({ id: e.id, dir, r: e.row, c: e.col, num, clue: e.clue, length: e.length })
+    wordCells[e.id] = []
+    const dRow = dir === 'V' ? 1 : 0
+    const dCol = dir === 'H' ? 1 : 0
+    for (let i = 0; i < e.length; i++) {
+      const r = e.row + dRow * i
+      const c = e.col + dCol * i
+      const key = `${r},${c}`
+      if (!cellMap[key]) cellMap[key] = { wordIds: [] }
+      cellMap[key].wordIds.push(e.id)
+      wordCells[e.id].push({ r, c })
+    }
+    const sk = `${e.row},${e.col}`
+    if (cellMap[sk] && cellMap[sk].num == null) cellMap[sk].num = num
+  })
+
+  return { wordData, rows, cols, cellMap, wordCells }
+}
+
 export default function AICross() {
   const navigate = useNavigate()
   const wrapRef = useRef(null)
-  const gameTokenRef = useRef(null)
 
-  const [usedIndices, setUsedIndices] = useState(new Set())
-  const [setIndex, setSetIndex] = useState(() => Math.floor(Math.random() * WORD_SETS.length))
-  const [layout, setLayout] = useState(() => buildLayout(WORD_SETS[Math.floor(Math.random() * WORD_SETS.length)]))
+  // 서버 세션 상태
+  const [gameToken, setGameToken] = useState(null)
+  const [puzzleId, setPuzzleId] = useState(null)
+  const [layout, setLayout] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
-  const { wordData, rows, cols, cellMap, wordCells } = layout
-
+  // 입력/커서 상태
   const [inputs, setInputs] = useState({})
-  const [selectedId, setSelectedId] = useState(wordData[0]?.id)
-  const [cursor, setCursor] = useState({ r: wordData[0]?.r ?? 0, c: wordData[0]?.c ?? 0 })
-  const [checked, setChecked] = useState({})
-  const [won, setWon] = useState(false)
-  const [reward, setReward] = useState(null)
+  const [selectedId, setSelectedId] = useState(null)
+  const [cursor, setCursor] = useState({ r: 0, c: 0 })
 
-  useEffect(() => {
-    setUsedIndices(new Set([setIndex]))
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  // 제출/결과 상태 (정답 판정은 서버 응답으로만 채운다)
+  const [submitting, setSubmitting] = useState(false)
+  const [result, setResult] = useState(null)
+  const [showResult, setShowResult] = useState(false)
 
-  // 보상 지급용 게임 세션 토큰 발급 (마운트당 1회 = 한 판)
-  useEffect(() => {
-    gameApi.startGame('aicross')
-      .then(res => { gameTokenRef.current = res.data.game_token })
-      .catch(() => { gameTokenRef.current = null })
+  const { wordData = [], rows = 0, cols = 0, cellMap = {}, wordCells = {} } = layout || {}
+
+  // 화면 진입/재도전 시 서버에서 새 puzzle + game_token 을 받아 초기화한다.
+  const startNewGame = useCallback(() => {
+    setLoading(true)
+    setError('')
+    setResult(null)
+    setShowResult(false)
+    setSubmitting(false)
+    setInputs({})
+    gameApi.startAicross()
+      .then(res => {
+        const data = res.data || {}
+        const puzzle = data.puzzle || {}
+        const built = buildServerLayout(puzzle)
+        setGameToken(data.game_token || null)
+        setPuzzleId(puzzle.puzzle_id || null)
+        setLayout(built)
+        const first = built.wordData[0]
+        setSelectedId(first?.id ?? null)
+        setCursor({ r: first?.r ?? 0, c: first?.c ?? 0 })
+        setLoading(false)
+      })
+      .catch(() => {
+        setGameToken(null)
+        setLayout(null)
+        setError('퍼즐을 불러오지 못했어요. 잠시 후 다시 시도해주세요.')
+        setLoading(false)
+      })
   }, [])
 
+  useEffect(() => { startNewGame() }, [startNewGame])
+
   const selWord = wordData.find(w => w.id === selectedId)
-  const selSet = selectedId
+  const selSet = selectedId && wordCells[selectedId]
     ? new Set(wordCells[selectedId].map(({ r, c }) => `${r},${c}`))
     : new Set()
 
@@ -72,6 +138,7 @@ export default function AICross() {
   }
 
   const handleKeyDown = useCallback((e) => {
+    if (showResult) return
     const letter = e.key.toUpperCase()
     const { r, c } = cursor
     const key = `${r},${c}`
@@ -79,7 +146,6 @@ export default function AICross() {
     if (e.key.length === 1 && /^[A-Za-z]$/.test(e.key)) {
       e.preventDefault()
       setInputs(prev => ({ ...prev, [key]: letter }))
-      setChecked(prev => { const n = { ...prev }; delete n[key]; return n })
       if (selWord) {
         const cells = wordCells[selWord.id]
         const idx = cells.findIndex(x => x.r === r && x.c === c)
@@ -89,7 +155,6 @@ export default function AICross() {
       e.preventDefault()
       if (inputs[key]) {
         setInputs(prev => { const n = { ...prev }; delete n[key]; return n })
-        setChecked(prev => { const n = { ...prev }; delete n[key]; return n })
       } else if (selWord) {
         const cells = wordCells[selWord.id]
         const idx = cells.findIndex(x => x.r === r && x.c === c)
@@ -98,17 +163,17 @@ export default function AICross() {
           setCursor(prev)
           const pk = `${prev.r},${prev.c}`
           setInputs(p => { const n = { ...p }; delete n[pk]; return n })
-          setChecked(p => { const n = { ...p }; delete n[pk]; return n })
         }
       }
     } else if (e.key === 'Tab') {
       e.preventDefault()
+      if (!wordData.length) return
       const idx = wordData.findIndex(w => w.id === selectedId)
       const next = wordData[(idx + (e.shiftKey ? wordData.length - 1 : 1)) % wordData.length]
       setSelectedId(next.id)
       setCursor({ r: next.r, c: next.c })
     }
-  }, [cursor, selWord, selectedId, inputs, wordData, wordCells])
+  }, [cursor, selWord, selectedId, inputs, wordData, wordCells, showResult])
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown)
@@ -117,85 +182,96 @@ export default function AICross() {
 
   useEffect(() => { wrapRef.current?.focus() }, [])
 
-  const callClearAPI = async (score) => {
-    if (!gameTokenRef.current) {
-      setReward({ xp_awarded: 0, already_claimed: false })
+  // 제출: 로컬 판정 없이 cell 단위 answers 를 서버로 보내 채점받는다.
+  const handleSubmit = async () => {
+    if (submitting || showResult) return
+    if (!gameToken) {
+      setResult({ score: 0, xp_awarded: 0, already_claimed: false, submit_failed: true })
+      setShowResult(true)
       return
     }
+    setSubmitting(true)
     try {
-      const res = await gameApi.clearGame({
-        game_id: 'aicross',
-        score,
-        game_token: gameTokenRef.current,
+      const res = await gameApi.clearAicross({
+        gameToken,
+        puzzleId,
+        answers: inputs,
+        score: 0,
       })
-      setReward(res.data)
-    } catch {
-      setReward({ xp_awarded: 0, already_claimed: false })
-    }
-  }
-
-  const handleCheck = () => {
-    const result = {}
-    let allCorrect = true
-    Object.entries(cellMap).forEach(([key, { letter }]) => {
-      const u = inputs[key]
-      if (u) {
-        result[key] = u === letter ? 'correct' : 'wrong'
-        if (u !== letter) allCorrect = false
-      } else {
-        allCorrect = false
-      }
-    })
-    setChecked(result)
-    if (allCorrect && Object.keys(result).length === Object.keys(cellMap).length) {
-      setWon(true)
       incrementGamePlay('aicross')
-      const total = Object.keys(cellMap).length
-      const correct = Object.values(result).filter(v => v === 'correct').length
-      callClearAPI(Math.round((correct / total) * 100))
+      setResult(res.data)
+      setShowResult(true)
+    } catch {
+      setResult({ score: 0, xp_awarded: 0, already_claimed: false, submit_failed: true })
+      setShowResult(true)
+    } finally {
+      setSubmitting(false)
     }
   }
 
   const acrossWords = wordData.filter(w => w.dir === 'H').sort((a, b) => a.num - b.num)
-  const downWords   = wordData.filter(w => w.dir === 'V').sort((a, b) => a.num - b.num)
+  const downWords = wordData.filter(w => w.dir === 'V').sort((a, b) => a.num - b.num)
 
   const selCells = selWord ? wordCells[selWord.id] : []
+  const won = showResult && result && result.score >= 100
 
   return (
     <div className="aicross-wrap" ref={wrapRef} tabIndex={-1}>
       <button className="aicross-back" onClick={() => navigate('/game')}>✕</button>
 
-      <TitleBlock setLabel={SET_NAMES[setIndex]} />
+      <TitleBlock setLabel="코딩 명령어 퍼즐" />
 
-      {won && <WinModal reward={reward} onClose={() => navigate('/game')} />}
+      {loading && (
+        <div className="aicross-status">퍼즐을 불러오는 중…</div>
+      )}
 
-      <CrosswordGrid
-        rows={rows}
-        cols={cols}
-        cellMap={cellMap}
-        selSet={selSet}
-        cursor={cursor}
-        checked={checked}
-        inputs={inputs}
-        onCellClick={handleCellClick}
-      />
+      {!loading && error && (
+        <div className="aicross-status aicross-status--error">
+          {error}
+          <button className="acbtn acbtn--next" onClick={startNewGame}>다시 시도</button>
+        </div>
+      )}
 
-      <HintBox
-        selWord={selWord}
-        selCells={selCells}
-        cursor={cursor}
-        checked={checked}
-        inputs={inputs}
-        onLetterClick={setCursor}
-        onCheck={handleCheck}
-      />
+      {!loading && !error && layout && (
+        <>
+          {showResult && (
+            <WinModal
+              result={result}
+              won={won}
+              onClose={() => navigate('/game')}
+              onRetry={startNewGame}
+            />
+          )}
 
-      <ClueList
-        acrossWords={acrossWords}
-        downWords={downWords}
-        selectedId={selectedId}
-        onSelect={(id) => selectWord(id, true)}
-      />
+          <CrosswordGrid
+            rows={rows}
+            cols={cols}
+            cellMap={cellMap}
+            selSet={selSet}
+            cursor={cursor}
+            checked={{}}
+            inputs={inputs}
+            onCellClick={handleCellClick}
+          />
+
+          <HintBox
+            selWord={selWord}
+            selCells={selCells}
+            cursor={cursor}
+            checked={{}}
+            inputs={inputs}
+            onLetterClick={setCursor}
+            onCheck={handleSubmit}
+          />
+
+          <ClueList
+            acrossWords={acrossWords}
+            downWords={downWords}
+            selectedId={selectedId}
+            onSelect={(id) => selectWord(id, true)}
+          />
+        </>
+      )}
     </div>
   )
 }
