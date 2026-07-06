@@ -169,6 +169,27 @@ def test_aicross_start_returns_public_puzzle_payload(fresh_user):
     assert _decode_token_payload(res["game_token"])["puzzle_id"] == puzzle["puzzle_id"]
 
 
+def test_aicross_start_payload_uses_korean_clues(fresh_user):
+    """The public aicross clues shown in-game are Korean."""
+    res = G.game_start(G.GameStartRequest(game_id="aicross"), {"id": "u1"})
+    clues = [entry["clue"] for entry in res["puzzle"]["entries"]]
+
+    assert clues
+    assert all(any("가" <= ch <= "힣" for ch in clue) for clue in clues)
+
+
+def test_aicross_start_payload_derives_lengths_from_answers(fresh_user):
+    """Puzzle data may omit length; the public payload still includes it."""
+    res = G.game_start(G.GameStartRequest(game_id="aicross"), {"id": "u1"})
+    puzzle_id = res["puzzle"]["puzzle_id"]
+    expected = {
+        entry["id"]: len(G._normalize_aicross_answer(entry["answer"]))
+        for entry in G.AICROSS_PUZZLES[puzzle_id]["entries"]
+    }
+
+    assert {entry["id"]: entry["length"] for entry in res["puzzle"]["entries"]} == expected
+
+
 def test_aicross_start_payload_does_not_expose_answers(fresh_user):
     """The public aicross puzzle must not include answer-bearing fields."""
     res = G.game_start(G.GameStartRequest(game_id="aicross"), {"id": "u1"})
