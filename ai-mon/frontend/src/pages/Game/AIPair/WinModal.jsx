@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import './AIPair.css'
 
-export default function WinModal({ show, score, timeStr, charSrc, reward, onPlayAgain }) {
+export default function WinModal({ show, score, timeStr, charSrc, onPlayAgain }) {
   const navigate = useNavigate()
   if (!show) return null
 
