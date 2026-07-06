@@ -164,7 +164,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드에서 오류가 발생하는 줄은?\n\n1줄: import json\n```python\n2줄: data = {\"name\": \"에이몬\", \"skills\": [\"불꽃\", \"얼음\"]}\n3줄: json_str = json.dumps(data)\n4줄: loaded = json.loads(json_str)\n5줄: print(loaded[\"skills\"][0])\n6줄: loaded[\"skills\"] = {1, 2, 3}\n7줄: print(json.dumps(loaded))\n```",
+      "question": "다음 코드에서 오류가 발생하는 줄은?\n\n```python\n1줄: import json\n2줄: data = {\"name\": \"에이몬\", \"skills\": [\"불꽃\", \"얼음\"]}\n3줄: json_str = json.dumps(data)\n4줄: loaded = json.loads(json_str)\n5줄: print(loaded[\"skills\"][0])\n6줄: loaded[\"skills\"] = {1, 2, 3}\n7줄: print(json.dumps(loaded))\n```",
       "answer": "7",
       "hint": "JSON은 set 자료형을 지원하지 않아요.",
       "feedback": {
