@@ -338,10 +338,9 @@ export default function Register() {
             <div className="reg-fields">
               {/* 아이디 */}
               <div className="reg-field">
-                <div className="reg-field-label">아이디</div>
-                <div style={{ display: 'flex', gap: '8px' }}>
+                <div className="reg-field-label"><span className="reg-field-label-icon">👤</span>아이디</div>
+                <div className="reg-id-row">
                   <div className={`reg-field-wrap${isIdChecked ? ' ok' : (idError ? ' error' : '')}`} style={{ flex: 1, margin: 0 }}>
-                    <span className="reg-field-icon">👤</span>
                     <input
                       className="reg-field-in"
                       type="text"
@@ -374,10 +373,9 @@ export default function Register() {
 
               {/* 이메일 */}
               <div className="reg-field">
-                <div className="reg-field-label">이메일</div>
+                <div className="reg-field-label"><span className="reg-field-label-icon">✉️</span>이메일</div>
                 <div className="reg-email-container">
                   <div className={`reg-field-wrap${isEmailChecked ? ' ok' : (emailError ? ' error' : '')}`} style={{ flex: 1, margin: 0 }}>
-                    <span className="reg-field-icon">✉️</span>
                     <input
                       className="reg-field-in"
                       type="text"
@@ -415,7 +413,6 @@ export default function Register() {
                 </div>
                 {emailDomain === 'direct' && (
                   <div className={`reg-field-wrap${emailError ? ' error' : ''}`} style={{ marginTop: '6px' }}>
-                    <span className="reg-field-icon">🌐</span>
                     <input
                       className="reg-field-in"
                       type="text"
@@ -436,9 +433,8 @@ export default function Register() {
 
               {/* 비밀번호 */}
               <div className="reg-field">
-                <div className="reg-field-label">비밀번호</div>
+                <div className="reg-field-label"><span className="reg-field-label-icon">🔒</span>비밀번호</div>
                 <div className="reg-field-wrap">
-                  <span className="reg-field-icon">🔒</span>
                   <input className="reg-field-in" type={showPw ? 'text' : 'password'}
                     placeholder="8자 이상" value={form.password} onChange={handlePwChange} autoComplete="new-password" />
                   <button type="button" className="reg-field-suffix" onClick={() => setShowPw(v => !v)}>
@@ -455,13 +451,12 @@ export default function Register() {
 
               {/* 비밀번호 확인 */}
               <div className="reg-field">
-                <div className="reg-field-label">비밀번호 확인</div>
+                <div className="reg-field-label"><span className="reg-field-label-icon">🔒</span>비밀번호 확인</div>
                 <div className={`reg-field-wrap${
                   form.passwordConfirm
                     ? form.password === form.passwordConfirm ? ' ok' : ' error'
                     : ''
                 }`}>
-                  <span className="reg-field-icon">🔒</span>
                   <input className="reg-field-in" type={showPwC ? 'text' : 'password'}
                     placeholder="비밀번호 재입력" value={form.passwordConfirm} onChange={set('passwordConfirm')} autoComplete="new-password" />
                   <button type="button" className="reg-field-suffix" onClick={() => setShowPwC(v => !v)}>
