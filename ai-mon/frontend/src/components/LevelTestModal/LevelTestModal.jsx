@@ -8,6 +8,22 @@ import { authApi }       from '../../api'
 
 const TOTAL = LEVEL_TEST_QUESTIONS.length
 
+const isCorrectLevelTestAnswer = (question, selectedAnswer) => {
+  if (!question || selectedAnswer < 0) return false
+  return question.choices[selectedAnswer] === question.answer
+}
+
+const shuffleChoices = (question) => {
+  const choices = question.choices.map((text, originalIndex) => ({ text, originalIndex }))
+  for (let i = choices.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[choices[i], choices[j]] = [choices[j], choices[i]]
+  }
+  return { ...question, choices }
+}
+
+const createDisplayQuestions = () => LEVEL_TEST_QUESTIONS.map(shuffleChoices)
+
 export default function LevelTestModal({ onClose, onFinish, isLoggedIn, forced = false }) {
   const [step,         setStep]         = useState(0)
   const [selected,     setSelected]     = useState(null)
@@ -18,6 +34,7 @@ export default function LevelTestModal({ onClose, onFinish, isLoggedIn, forced =
   const [correctByLevel, setCorrectByLevel] = useState({ beginner: 0, intermediate: 0, advanced: 0 })
   const [categoryPercentages, setCategoryPercentages] = useState({ syntax: 0, structure: 0, control: 0 })
   const [updatedUser, setUpdatedUser] = useState(null)
+  const [displayQuestions, setDisplayQuestions] = useState(createDisplayQuestions)
 
   // ref로 최신 correctByLevel 즉시 접근 (handleNext에서 async state 문제 방지)
   const cblRef = useRef({ beginner: 0, intermediate: 0, advanced: 0 })
@@ -34,6 +51,15 @@ export default function LevelTestModal({ onClose, onFinish, isLoggedIn, forced =
 
   const handleStart = () => {
     setSeconds(180)
+    setSelected(null)
+    setTotalCorrect(0)
+    setSkipped(0)
+    setCorrectByLevel({ beginner: 0, intermediate: 0, advanced: 0 })
+    setCategoryPercentages({ syntax: 0, structure: 0, control: 0 })
+    setUpdatedUser(null)
+    answersRef.current = []
+    cblRef.current = { beginner: 0, intermediate: 0, advanced: 0 }
+    setDisplayQuestions(createDisplayQuestions())
     setStep(1)
   }
 
@@ -55,7 +81,7 @@ export default function LevelTestModal({ onClose, onFinish, isLoggedIn, forced =
     const newCbl = { beginner: 0, intermediate: 0, advanced: 0 }
     answersRef.current.forEach(ans => {
       const qObj = LEVEL_TEST_QUESTIONS.find(item => item.id === ans.questionId)
-      if (qObj && ans.selectedAnswer === qObj.answer) {
+      if (isCorrectLevelTestAnswer(qObj, ans.selectedAnswer)) {
         newTotal++
         newCbl[qObj.level]++
       }
@@ -83,7 +109,7 @@ export default function LevelTestModal({ onClose, onFinish, isLoggedIn, forced =
         const localCat = { syntax: 0, structure: 0, control: 0 }
         answersRef.current.forEach(ans => {
           const q = LEVEL_TEST_QUESTIONS.find(item => item.id === ans.questionId)
-          if (q && ans.selectedAnswer === q.answer) {
+          if (isCorrectLevelTestAnswer(q, ans.selectedAnswer)) {
             localCat[q.category] = (localCat[q.category] || 0) + 1
           }
         })
@@ -145,6 +171,7 @@ export default function LevelTestModal({ onClose, onFinish, isLoggedIn, forced =
           <LevelTestQuestion
             step={step}
             total={TOTAL}
+            question={displayQuestions[step - 1]}
             selected={selected}
             timer={timerLabel}
             onSelect={handleSelect}
