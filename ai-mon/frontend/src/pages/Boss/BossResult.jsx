@@ -73,7 +73,7 @@ export default function BossResult({
               👑 왕관 1개를 소모하고 재도전할까요?
             </button>
             <button className="btn btn-secondary btn-full" onClick={onNavigateLesson}>
-              ✕
+              레슨으로 돌아가기
             </button>
           </div>
         </>
