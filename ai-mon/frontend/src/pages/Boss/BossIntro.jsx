@@ -9,8 +9,7 @@ export default function BossIntro({ bossData, errorMsg, onStart }) {
 
       <h1 className="boss-title">{bossData?.boss_name || '보스'} 출현!</h1>
       <p className="boss-desc">
-        Unit {bossData?.unit_id}의 모든 지식을 시험할 보스가 나타났습니다.<br />
-        물리치면 특별한 인증카드와 <strong>{bossData?.xp_reward} XP</strong>를 얻을 수 있습니다!
+        물리치면 <strong>{bossData?.xp_reward} XP</strong>와 왕관을 얻을 수 있습니다!
       </p>
 
       {errorMsg && (
