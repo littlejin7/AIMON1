@@ -157,7 +157,13 @@ def miniboss_start(
         if not unseen:
             unseen = list(attempt_pool)
 
-        random.shuffle(unseen)
+
+        try:
+            attempt_no = int(attempt)
+        except (TypeError, ValueError):
+            attempt_no = 1
+        if attempt_no >= 3:
+            random.shuffle(unseen)
         chosen = unseen[:QUESTIONS_PER_BATTLE]  # 최대 5문제
         miniboss_seen[stage] = [q["question_id"] for q in chosen]
         seen_questions["miniboss"] = miniboss_seen
