@@ -99,9 +99,9 @@ def claim_mission(req: ClaimRequest, user_ref: dict = Depends(get_current_user))
         reward_delta = {"coin_delta": 0, "gp_delta": 0, "ranking_score_delta": 0}
 
         if xp:
-            # 미션 보상은 coin 만 지급 — 경쟁 랭킹(ranking_score)·gp 에는 반영하지 않는다.
-            # event_type 없음 → bump_mission 재진입 없음.
-            rr = grant_reward(user, coin_delta=xp)
+            # 미션 보상은 coin + ranking_score 분리 발급(스펙 §7). gp 는 미지급(성장치
+            # GP 는 미션 대상 아님 → gp_delta=0). event_type 없음 → bump_mission 재진입 없음.
+            rr = grant_reward(user, coin_delta=xp, ranking_score_delta=xp, gp_delta=0)
             reward_delta = {"coin_delta": rr["coin_delta"], "gp_delta": rr["gp_delta"],
                             "ranking_score_delta": rr["ranking_score_delta"]}
         if crowns:

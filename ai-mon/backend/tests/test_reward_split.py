@@ -114,3 +114,44 @@ def test_leaderboard_sorts_by_ranking_score(monkeypatch):
     assert result["top"][0]["score"] == 500
     assert result["top"][1]["nickname"] == "Alpha"
     G._ranking_cache.clear()
+
+
+# ── 미션 클리어(2-C): coin + ranking_score 분리, gp 0 ────────────────────────
+
+def test_mission_claim_grants_coin_and_ranking_no_gp(monkeypatch, tmp_path):
+    monkeypatch.setattr(U, "USERS_FILE", str(tmp_path / "users.json"))
+    from routers import mission as MI
+    from routers.missions_core import find_def, _load_defs, DAILY_DEFS
+    if not DAILY_DEFS:
+        _load_defs()
+
+    defn = find_def("d_quiz3")           # goal 3, reward xp 300
+    goal = defn["goal"]
+    amt = defn.get("reward", {}).get("xp", 0)
+    assert amt > 0                        # coin 보상이 있어야 검증 의미가 있다
+
+    user = {
+        "id": "u-mission", "xp": 0, "lv": 1, "character": "slime", "crowns": 0,
+        "missions": {
+            "daily": {"date": U.today_kst(), "progress": {"d_quiz3": goal}, "claimed": []},
+            "weekly": {"week": U.iso_week(), "progress": {}, "claimed": [], "login_days": []},
+        },
+    }
+    U.save_users([user])
+
+    resp = MI.claim_mission(MI.ClaimRequest(mission_id="d_quiz3"), {"id": "u-mission"})
+
+    assert resp["already_claimed"] is False
+    # §7: 미션 보상은 coin + ranking_score 분리 발급, gp 0
+    assert resp["reward"]["coin_delta"] == amt
+    assert resp["reward"]["ranking_score_delta"] == amt
+    assert resp["reward"]["gp_delta"] == 0
+    assert resp["user_state"]["coin_balance"] == amt
+    assert resp["user_state"]["ranking_score"] == amt
+    assert resp["user_state"]["gp"] == 0
+
+    persisted = U.get_user_by_id("u-mission")
+    assert persisted["coin_balance"] == amt
+    assert persisted["ranking_score"] == amt
+    assert (persisted.get("gp") or 0) == 0    # 3차 전 gp 미발생
+    assert persisted["xp"] == 0               # xp 신규 지급 없음(레거시 값 보존)

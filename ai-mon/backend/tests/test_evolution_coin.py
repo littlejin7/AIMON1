@@ -91,10 +91,25 @@ def test_endboss_clear_increments_evolution_stage(monkeypatch, tmp_path, level, 
     assert result["character"] == expected_char
     assert result["evolution"] == {"evolved": True, "from_stage": 0, "to_stage": expected_stage}
 
+    # 2-C: 보상은 coin + ranking_score 분리 발급, gp 는 0
+    assert result["reward"] == {
+        "coin_delta": E.BOSS_CLEAR_REWARD,
+        "gp_delta": 0,
+        "ranking_score_delta": E.BOSS_CLEAR_REWARD,
+    }
+    assert result["user_state"]["coin_balance"] == E.BOSS_CLEAR_REWARD
+    assert result["user_state"]["ranking_score"] == E.BOSS_CLEAR_REWARD
+    assert result["user_state"]["gp"] == 0
+    # 진화 정보가 보상보다 앞 순서(프론트 표시 우선순위)
+    keys = list(result.keys())
+    assert keys.index("evolution") < keys.index("reward")
+
     persisted = U.get_user_by_id(f"u-{level}")
     assert persisted["evolution_stage"] == expected_stage
     assert persisted["character"] == expected_char
-    assert (persisted.get("gp") or 0) == 0   # 보스 클리어로 GP 절대 미발생
+    assert (persisted.get("gp") or 0) == 0    # 보스 클리어로 GP 절대 미발생
+    assert persisted["coin_balance"] == E.BOSS_CLEAR_REWARD
+    assert persisted["ranking_score"] == E.BOSS_CLEAR_REWARD
 
 
 def test_endboss_clear_does_not_demote_evolution_stage(monkeypatch, tmp_path):
