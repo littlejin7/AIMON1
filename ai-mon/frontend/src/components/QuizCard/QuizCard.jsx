@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { quizApi, codeApi } from '../../api/index'
 import { usePyodide } from '../../hooks/usePyodide'
 import { useAuthStore } from '../../hooks/useAuthStore'
@@ -58,6 +58,15 @@ function CodeBlock({ lines }) {
   )
 }
 
+function shuffleChoices(choices) {
+  const shuffled = [...choices]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled
+}
+
 export default function QuizCard({
   question,
   onAnswer,
@@ -89,7 +98,13 @@ export default function QuizCard({
   const { runPython, pyLoading } = usePyodide()
   const user = useAuthStore((s) => s.user)
   const courseLevel = user?.course_level || 'beginner'
-
+  const rawChoicesList = question?.choices || question?.options || []
+  const choicesKey = rawChoicesList.join('\u0001')
+  const choicesList = useMemo(
+    () => shuffleChoices(rawChoicesList),
+    [question?.question_id, question?.id, choicesKey],
+  )
+  
   useEffect(() => {
     if (aiFeedback) {
       onFeedbackUpdate?.(aiFeedback)
@@ -106,7 +121,6 @@ export default function QuizCard({
   const parsedContent = parseQuestionContent(rawQuestion)
 
   const type = question.quiz_type || question.type
-  const choicesList = question.choices || question.options || []
 
 
   // error_find 는 줄 클릭 UI를 쓰지 않는다 — choices 없이 정답 줄 번호를 직접 입력하는 빈칸형으로 통일.
