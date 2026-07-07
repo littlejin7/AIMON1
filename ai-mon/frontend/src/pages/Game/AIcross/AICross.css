@@ -117,6 +117,74 @@
 }
 .aicross-status--error { color: #b05a7a; }
 
+/* ── Set selector toolbar ── */
+.aicross-toolbar {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.aicross-set-select,
+.aicross-starter-badge {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(180, 140, 255, 0.28);
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(120, 80, 200, 0.08);
+}
+
+.aicross-set-select {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  min-width: 0;
+}
+
+.aicross-set-select span,
+.aicross-starter-badge span {
+  font-size: 11px;
+  font-weight: 900;
+  color: #8a6bb8;
+  white-space: nowrap;
+}
+
+.aicross-set-select select {
+  flex: 1;
+  min-width: 0;
+  height: 32px;
+  border: 1px solid rgba(160, 120, 255, 0.35);
+  border-radius: 10px;
+  background: #fff;
+  color: #4a3970;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 0 8px;
+  outline: none;
+}
+
+.aicross-set-select select:focus {
+  border-color: rgba(124, 92, 255, 0.7);
+  box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.14);
+}
+
+.aicross-starter-badge {
+  min-width: 86px;
+  padding: 7px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.aicross-starter-badge b {
+  color: #5a3d99;
+  font-size: 20px;
+  font-family: 'Courier New', monospace;
+  line-height: 1;
+}
+
 /* ── Modal action row ── */
 .aicross-win-actions {
   display: flex;
