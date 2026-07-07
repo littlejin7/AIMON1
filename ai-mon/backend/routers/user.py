@@ -14,6 +14,7 @@ from routers.utils import (
     now_kst,
     COURSE_LEVEL_ORDER,
     derive_unlocked_course_levels,
+    apply_level_test_placement,
 )
 
 logger = logging.getLogger("uvicorn.error")
@@ -115,7 +116,10 @@ def update_me(req: UpdateProfileRequest, user: dict = Depends(get_current_user))
             unlocked_levels = derive_unlocked_course_levels(u)
             if req.is_level_tested is not True and req.course_level not in unlocked_levels:
                 raise HTTPException(status_code=400, detail="Locked course level")
-            u["course_level"] = req.course_level
+            if req.is_level_tested is True:
+                apply_level_test_placement(u, req.course_level)
+            else:
+                u["course_level"] = req.course_level
         if req.is_level_tested is not None:
             u["is_level_tested"] = req.is_level_tested
         if req.equipped_title is not None:
