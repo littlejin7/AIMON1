@@ -448,7 +448,12 @@ def save_user(user: dict):
 
     if USE_SUPABASE:
         if original:
-            numeric_cols = {"xp", "crowns", "lv", "streak", "daily_free_attempts", "ai_feedback_count"}
+            numeric_cols = {
+                "xp", "crowns", "lv", "streak", "daily_free_attempts", "ai_feedback_count",
+                # 신규 재화/성장/랭킹 누적 카운터 — 동시 증가·차감이 delta 로 합산돼야 함.
+                # (evolution_stage 는 스칼라 상태값이므로 numeric 아님 → other 로 전체 치환)
+                "coin_balance", "total_coin_earned", "gp", "ranking_score", "weekly_ranking_score",
+            }
             jsonb_cols = {"max_unlocked_unit", "completed_units", "awarded_crown_units", "earned_streak_milestones", "titles", "game_rewards", "seen_questions", "endboss_cleared_levels", "miniboss_cleared_stages", "unitboss_cleared_units", "battle_sessions"}
             
             numeric_deltas = {}
@@ -1234,7 +1239,11 @@ def serialize_user(user: dict) -> dict:
     if "dark" not in pt:
         pt = ["dark"] + pt
     res["purchased_themes"] = pt
-    
+
+    # 신규 재화/성장 필드 런타임 기본값 (purchased_themes 와 동일 패턴).
+    # 기존 값은 보존하고 없을 때만 채운다. xp/crowns 는 건드리지 않는다.
+    ensure_reward_fields(res)
+
     res.pop("password", None)
     res.pop("deleted_at", None)
     return res
@@ -1251,6 +1260,71 @@ def calc_level(xp: int) -> int:
         accumulated += needed
         lv += 1
     return lv
+
+
+# ── 진화 단계(evolution_stage) ↔ 캐릭터 · 신규 재화 필드 헬퍼 ──────────────────
+# evolution_stage(0~3) 가 성장의 단일 소스이며, character 는 여기서 파생되는
+# 표시값이다. 진화는 엔드보스 클리어(routers/endboss.py)에서 evolution_stage 를
+# 올릴 때만 발생한다. apply_xp 는 더 이상 진화를 트리거하지 않는다.
+CHARACTER_TO_STAGE = {"slime": 0, "robot": 1, "speech_bubble": 2, "final_ghost": 3}
+STAGE_TO_CHARACTER = {v: k for k, v in CHARACTER_TO_STAGE.items()}
+
+
+def character_for_stage(stage: int) -> str:
+    """evolution_stage → 대표 캐릭터. 범위를 벗어나면 0~3 으로 클램프한다."""
+    s = max(0, min(3, int(stage or 0)))
+    return STAGE_TO_CHARACTER[s]
+
+
+def get_evolution_stage(user: dict) -> int:
+    """유저의 진화 단계(0~3)를 반환한다.
+
+    evolution_stage 필드가 있으면 그 값을, 없으면(레거시 유저) 기존 character
+    로부터 산출한다. 실제 DB backfill 은 3단계에서 수행하며, 그 전까지는 런타임
+    파생으로 호환한다.
+    """
+    stage = user.get("evolution_stage")
+    if isinstance(stage, int) and not isinstance(stage, bool):
+        return max(0, min(3, stage))
+    return CHARACTER_TO_STAGE.get(user.get("character") or "slime", 0)
+
+
+def gp_gate(user: dict, gp_delta: int) -> int:
+    """GP 게이트: 3차 진화(evolution_stage>=3) 전에는 GP 가 절대 발생하지 않는다.
+
+    `if evolution_stage < 3: gp_delta = 0`. 보상 계산부(게임/스테이지/보스)가
+    공통으로 재사용한다. 보스 클리어 자체는 gp_delta 0 이 기본이다.
+    """
+    return int(gp_delta) if get_evolution_stage(user) >= 3 else 0
+
+
+# 신규 재화/성장/랭킹 필드의 코드상 기본값(누적 카운터류). purchased_themes 와
+# 동일하게 serialize_user 에서 런타임 기본값으로 주입한다. 실제 DB backfill
+# (및 legacy_xp_snapshot 스냅샷)은 3단계에서 수행한다.
+def reward_field_defaults() -> dict:
+    return {
+        "coin_balance": 0,
+        "total_coin_earned": 0,
+        "gp": 0,
+        "ranking_score": 0,
+        "weekly_ranking_score": 0,
+    }
+
+
+def ensure_reward_fields(user: dict) -> dict:
+    """유저 dict 에 신규 재화/성장 필드가 없으면 기본값을 채운다(제자리 변경).
+
+    - 누적 카운터(coin_balance 등): reward_field_defaults() 기본값.
+    - evolution_stage: 없으면 character 로부터 파생한 값으로 채운다.
+    기존 값이 있으면 절대 덮어쓰지 않는다. xp/crowns 는 건드리지 않는다.
+    """
+    for k, v in reward_field_defaults().items():
+        if user.get(k) is None:
+            user[k] = v
+    ev = user.get("evolution_stage")
+    if not isinstance(ev, int) or isinstance(ev, bool):
+        user["evolution_stage"] = get_evolution_stage(user)
+    return user
 
 
 REFRESH_TOKENS_FILE = os.path.join(DATA_DIR, "refresh_tokens.json")
@@ -1296,8 +1370,12 @@ def delete_user_refresh_tokens(user_id: str):
 
 def apply_xp(user: dict, xp_gain: int, context: dict = None, event_type: str = None) -> dict:
     """
-    Apply XP, recalculate level, check evolution, and check/award titles.
+    Apply XP, recalculate level, and check/award titles.
     Returns dictionary describing the events.
+
+    진화(evolution)는 더 이상 여기서 처리하지 않는다 — 진화는 엔드보스 클리어에서
+    evolution_stage 를 올릴 때만 발생한다. 반환 dict 의 "evolved" 는 계약 유지를
+    위해 항상 None 이다.
 
     순수 in-place 변경 함수: user 를 그 자리에서만 갱신하고 저장은 호출부 책임
     (save_user 또는 mutate_user_atomic). 내부에서 save 를 호출하지 않으므로
@@ -1309,7 +1387,6 @@ def apply_xp(user: dict, xp_gain: int, context: dict = None, event_type: str = N
     """
     old_xp = user.get("xp") or 0
     old_lv = user.get("lv") or 1
-    old_char = user.get("character") or "slime"
 
     # 1. Apply XP
     user["xp"] = old_xp + xp_gain
@@ -1319,17 +1396,12 @@ def apply_xp(user: dict, xp_gain: int, context: dict = None, event_type: str = N
     user["lv"] = max(new_lv, old_lv)
     level_up = user["lv"] > old_lv
 
-    # 3. Check evolution
+    # 3. 진화는 여기서 발생하지 않는다.
+    #    정책: 진화 트리거는 엔드보스 클리어(routers/endboss.py 의 evolution_stage
+    #    증가)뿐이다. 과거 lv 임계값(10/20/30) 기반 자동 진화는 제거됐다
+    #    (XP 만 쌓아도 진화하던 정책 위반 경로 차단). character 는 evolution_stage
+    #    에서 파생된다. evolved 는 호출부 응답 계약 유지를 위해 항상 None.
     evolved = None
-    if user["lv"] >= 10 and old_char == "slime":
-        user["character"] = "robot"
-        evolved = "robot"
-    elif user["lv"] >= 20 and old_char == "robot":
-        user["character"] = "speech_bubble"
-        evolved = "speech_bubble"
-    elif user["lv"] >= 30 and old_char == "speech_bubble":
-        user["character"] = "final_ghost"
-        evolved = "final_ghost"
 
     # 4. Award titles
     from routers.titles import check_and_award_titles

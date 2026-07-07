@@ -38,7 +38,7 @@ def _allowed_characters(lv: int) -> set:
     return {c for c, req_lv in CHARACTER_UNLOCK_LV.items() if lv >= req_lv}
 
 
-# 테마별 XP 가격 (dark는 무료)
+# 테마별 코인 가격 (dark는 무료). 상점은 coin_balance 만 차감한다.
 THEME_PRICES = {
     "dark":     0,
     "ocean":    500,
@@ -147,24 +147,23 @@ def purchase_theme(req: PurchaseThemeRequest, user: dict = Depends(get_current_u
     cost = THEME_PRICES[req.theme_id]
     user_id = user["id"]
 
-    from routers.utils import calc_level
-
-    # 보유체크 → XP 차감 → purchased_themes append 를 한 임계구역에서 원자 처리.
-    # (CLAUDE.md §1·§3) 가드를 fresh u 기준으로 검사해야 동시 요청에서도 이중차감·
-    # 이중구매·XP 음수가 생기지 않는다. mutate_user_atomic 은 절대값을 version CAS 로
-    # 커밋하므로 current_xp - cost 절대 할당이 안전하다.
+    # 보유체크 → coin_balance 차감 → purchased_themes append 를 한 임계구역에서 원자
+    # 처리. (CLAUDE.md §1·§3) 가드를 fresh u 기준으로 검사해야 동시 요청에서도
+    # 이중차감·이중구매·잔액 음수가 생기지 않는다. mutate_user_atomic 은 절대값을
+    # version CAS 로 커밋하므로 current_coin - cost 절대 할당이 안전하다.
+    # 상점은 coin_balance 만 참조/차감한다: gp/ranking_score/evolution_stage/crowns/xp
+    # 는 절대 건드리지 않는다.
     def mutator(u: dict) -> dict:
         owned = u.get("purchased_themes") or ["dark"]
         if req.theme_id in owned:
             raise HTTPException(status_code=400, detail="이미 보유한 테마입니다.")
-        current_xp = u.get("xp") or 0
-        if current_xp < cost:
-            raise HTTPException(status_code=400, detail=f"XP가 부족합니다. (필요: {cost}, 보유: {current_xp})")
+        current_coin = u.get("coin_balance") or 0
+        if current_coin < cost:
+            raise HTTPException(status_code=400, detail=f"코인이 부족합니다. (필요: {cost}, 보유: {current_coin})")
 
-        u["xp"] = current_xp - cost
+        u["coin_balance"] = current_coin - cost
         u["purchased_themes"] = owned + [req.theme_id]
-        u["lv"] = max(calc_level(u["xp"]), u.get("lv", 1))
-        return {"xp_spent": cost, "xp_remaining": u["xp"], "purchased_themes": u["purchased_themes"]}
+        return {"coin_spent": cost, "coin_remaining": u["coin_balance"], "purchased_themes": u["purchased_themes"]}
 
     try:
         user, result = mutate_user_atomic(user_id, mutator)
@@ -174,8 +173,8 @@ def purchase_theme(req: PurchaseThemeRequest, user: dict = Depends(get_current_u
     return {
         "success": True,
         "theme_id": req.theme_id,
-        "xp_spent": result["xp_spent"],
-        "xp_remaining": result["xp_remaining"],
+        "coin_spent": result["coin_spent"],
+        "coin_remaining": result["coin_remaining"],
         "purchased_themes": result["purchased_themes"],
         "user": serialize_user(user),
     }

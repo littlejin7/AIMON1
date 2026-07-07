@@ -30,8 +30,10 @@ def test_calc_level():
     assert calc_level(435000) == 30
     assert calc_level(1000000) == 30
 
-def test_apply_xp_evolution():
-    # Setup test user
+def test_apply_xp_no_auto_evolution():
+    """정책 변경: apply_xp 는 더 이상 자동 진화를 하지 않는다.
+    XP 를 아무리 쌓아 lv 이 10/20/30 을 넘어도 character 는 변하지 않고
+    evolved 는 항상 None 이어야 한다. (진화는 엔드보스 클리어 전용)"""
     user = {
         "id": "test-user-uuid",
         "username": "testuser",
@@ -40,7 +42,7 @@ def test_apply_xp_evolution():
         "character": "slime",
         "titles": []
     }
-    
+
     # Apply XP (no level up)
     events = apply_xp(user, 500)
     assert user["xp"] == 500
@@ -48,52 +50,42 @@ def test_apply_xp_evolution():
     assert user["character"] == "slime"
     assert events["level_up"] is False
     assert events["evolved"] is None
-    
-    # Apply XP to reach level 10 (needs 1*1000 + 2*1000 + ... + 9*1000 = 45000 XP)
-    # Let's add 45000 XP
+
+    # lv 10 도달: 레벨은 오르지만 진화는 없어야 한다 (과거엔 robot 이 됐음)
     events = apply_xp(user, 44500)  # Total 45000
     assert user["lv"] == 10
-    assert user["character"] == "robot"
+    assert user["character"] == "slime"        # 자동 진화 없음
     assert events["level_up"] is True
-    assert events["evolved"] == "robot"
-    
-    # Apply XP to reach level 20 (needs 20*19/2 * 1000 = 190000 XP)
-    # Let's add 145000 XP
-    events = apply_xp(user, 145000) # Total 190000
+    assert events["evolved"] is None
+
+    # lv 20 도달: 여전히 진화 없음
+    events = apply_xp(user, 145000)  # Total 190000
     assert user["lv"] == 20
-    assert user["character"] == "speech_bubble"
-    assert events["level_up"] is True
-    assert events["evolved"] == "speech_bubble"
-    
-    # Apply XP to reach level 30 (435000 XP)
-    # Let's add 245000 XP
-    events = apply_xp(user, 245000) # Total 435000
+    assert user["character"] == "slime"
+    assert events["evolved"] is None
+
+    # lv 30 도달: 여전히 진화 없음. lv 기반 aimon_master 칭호만 부여된다.
+    events = apply_xp(user, 245000)  # Total 435000
     assert user["lv"] == 30
-    assert user["character"] == "final_ghost"
-    assert events["level_up"] is True
-    assert events["evolved"] == "final_ghost"
-    
-    # Check aimon_master title awarded at lv 30
+    assert user["character"] == "slime"
+    assert events["evolved"] is None
     assert "aimon_master" in user["titles"]
 
-def test_apply_xp_event_type_no_op_and_evolution_unchanged():
-    """청크 1: event_type 인자를 줘도 (1) 진화/레벨 결과가 이전과 동일하고
-    (2) no-op bump_mission 이 예외 없이 통과해야 한다."""
-    # event_type 없이 진화시킨 기준 유저
+def test_apply_xp_event_type_no_op_and_no_evolution():
+    """event_type 인자를 줘도 (1) 진화가 발생하지 않고 (2) 레벨은 정상 계산되며
+    (3) no-op bump_mission 이 예외 없이 통과해야 한다."""
     base = {"id": "u-base", "xp": 0, "lv": 1, "character": "slime", "titles": []}
-    ev_base = apply_xp(base, 45000)  # lv10 → robot
+    ev_base = apply_xp(base, 45000)  # lv10, 진화 없음
 
-    # event_type 을 넘긴 유저: 동일 입력이면 동일 결과여야 함
     tagged = {"id": "u-tagged", "xp": 0, "lv": 1, "character": "slime", "titles": []}
     ev_tagged = apply_xp(tagged, 45000, event_type="game_clear")
 
     assert tagged["lv"] == base["lv"] == 10
-    assert tagged["character"] == base["character"] == "robot"
-    assert ev_tagged["evolved"] == ev_base["evolved"] == "robot"
+    assert tagged["character"] == base["character"] == "slime"   # 자동 진화 없음
+    assert ev_tagged["evolved"] == ev_base["evolved"] is None
     assert ev_tagged["level_up"] == ev_base["level_up"] is True
 
     # bump_mission 이 실행되지만 "game_clear" 는 데일리 정의에 없으므로 d_quiz3 진척 없음.
-    # _ensure_period 는 missions 컨테이너를 초기화하므로 missions 키 자체는 생성됨.
     daily_prog = tagged.get("missions", {}).get("daily", {}).get("progress", {})
     assert daily_prog.get("d_quiz3", 0) == 0  # game_clear ≠ stage_clear → 진척 없음
 
