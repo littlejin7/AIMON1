@@ -15,6 +15,8 @@ from routers.utils import (
     COURSE_LEVEL_ORDER,
     derive_unlocked_course_levels,
     apply_level_test_placement,
+    get_evolution_stage,
+    CHARACTER_TO_STAGE,
 )
 
 logger = logging.getLogger("uvicorn.error")
@@ -23,19 +25,13 @@ router = APIRouter()
 
 from typing import Optional, List
 
-# 캐릭터 진화 단계별 해금 레벨 (utils.apply_xp 진화 로직과 동일 기준).
-# 유저는 '자신의 레벨로 도달한 단계 이하' 캐릭터만 표시/선택할 수 있다.
-CHARACTER_UNLOCK_LV = {
-    "slime":         1,
-    "robot":         10,
-    "speech_bubble": 20,
-    "final_ghost":   30,
-}
-
-
-def _allowed_characters(lv: int) -> set:
-    """현재 lv 로 해금된 캐릭터 집합."""
-    return {c for c, req_lv in CHARACTER_UNLOCK_LV.items() if lv >= req_lv}
+# 캐릭터 해금 게이트는 evolution_stage 기준(routers.utils.CHARACTER_TO_STAGE 재사용).
+# lv 은 3차 진화 전에는 동결되는 값이라 더 이상 해금 판정에 쓸 수 없다 — 진화는
+# 엔드보스 클리어로만 오르는 evolution_stage 가 단일 소스다.
+# stage 0: slime만 / stage>=1: robot 추가 / stage>=2: speech_bubble 추가 / stage>=3: final_ghost 추가.
+def _allowed_characters(evolution_stage: int) -> set:
+    """현재 evolution_stage 로 해금된 캐릭터 집합."""
+    return {c for c, req_stage in CHARACTER_TO_STAGE.items() if evolution_stage >= req_stage}
 
 
 # 테마별 코인 가격 (dark는 무료). 상점은 coin_balance 만 차감한다.
@@ -100,14 +96,14 @@ def update_me(req: UpdateProfileRequest, user: dict = Depends(get_current_user))
 
     # 검증·변경을 fresh user 기준으로 같은 임계구역에서 수행 (CLAUDE.md §1).
     # character/equipped_title 은 '소유/해금한 것'만 허용 — 위조 차단.
-    #   - character: 현재 lv 로 해금된 진화 단계 이하만 (D 어뷰징 방어)
+    #   - character: 현재 evolution_stage 로 해금된 진화 단계 이하만 (D 어뷰징 방어)
     #   - equipped_title: title_id 가 user["titles"] 에 있을 때만 (미보유 칭호 장착 차단)
     # 검증은 mutator 안(fresh u)에서 raise → write 미발생(no-op), CAS 재시도 대상 아님.
     def mutator(u: dict) -> None:
         if next_nickname is not None:
             u["nickname"] = next_nickname
         if req.character is not None:
-            if req.character not in _allowed_characters(u.get("lv", 1)):
+            if req.character not in _allowed_characters(get_evolution_stage(u)):
                 raise HTTPException(status_code=400, detail="아직 진화하지 않은 캐릭터는 선택할 수 없습니다.")
             u["character"] = req.character
         if req.course_level is not None:
