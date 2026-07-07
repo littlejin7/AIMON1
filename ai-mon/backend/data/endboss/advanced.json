@@ -46,17 +46,12 @@
     "course_level": "advanced",
     "difficulty": "hard",
     "type": "error_find",
-    "question": "다음 에이전트 루프 코드에서 버그를 찾으세요.\n\n```python\nfor block in response.content:\n    if block.type == 'tool_use':\n        tool_result = execute_tool(block.name, block.input)\n        messages.append({\n            'role': 'user',\n            'content': [{\n                'type': 'tool_result',\n                'tool_use_id': block.id,\n                'content': tool_result\n            }]\n        })\nmessages.append({'role': 'assistant', 'content': response.content})\n```",
-    "choices": [
-      "A. block.input 대신 block.arguments를 써야 한다",
-      "B. assistant 메시지를 먼저 추가해야 한다",
-      "C. tool_result content에 딕셔너리를 넣으면 안 된다",
-      "D. execute_tool 인자 순서가 틀렸다"
-    ],
-    "answer": "B",
+    "question": "다음 에이전트 루프 코드에서 대화 흐름 순서(assistant -> user)가 어긋나게 작성되어 오류가 발생하는 줄 번호를 찾아 입력하세요.\n\n```python\n1줄: for block in response.content:\n2줄:     if block.type == 'tool_use':\n3줄:         tool_result = execute_tool(block.name, block.input)\n4줄:         messages.append({\n5줄:             'role': 'user',\n6줄:             'content': [{\n7줄:                 'type': 'tool_result',\n8줄:                 'tool_use_id': block.id,\n9줄:                 'content': tool_result\n10줄:             }]\n11줄:         })\n12줄: messages.append({'role': 'assistant', 'content': response.content})\n```",
+    "choices": [],
+    "answer": "12",
     "feedback": {
-      "correct": "정확합니다! 에이전트 루프에서 messages 순서는 반드시 assistant(도구 호출) → user(tool_result) 순이어야 합니다. assistant 응답을 먼저 추가해야 대화 흐름이 올바릅니다.",
-      "incorrect": "에이전트 루프에서 messages 배열에는 assistant의 도구 호출 메시지를 먼저 추가한 후, user의 tool_result를 추가해야 합니다. 순서가 반대이면 API 오류가 발생합니다."
+      "correct": "정확합니다! 에이전트 루프에서 messages 순서는 반드시 assistant(도구 호출) → user(tool_result) 순이어야 합니다. 따라서 assistant 응답을 추가하는 12줄의 위치가 잘못되었습니다(1줄 위로 올라가야 합니다).",
+      "incorrect": "에이전트 루프에서 messages 배열에는 assistant의 도구 호출 메시지를 먼저 추가한 후, user의 tool_result를 추가해야 합니다. 12줄의 assistant 추가 코드가 user 추가 코드보다 뒤에 있어 순서가 어긋납니다."
     }
   },
   {
@@ -88,17 +83,12 @@
     "course_level": "advanced",
     "difficulty": "hard",
     "type": "error_find",
-    "question": "다음 에이전트 코드에서 무한루프를 유발할 수 있는 버그를 찾으세요.\n\n```python\ndef run_agent(user_message: str) -> str:\n    messages = [{'role': 'user', 'content': user_message}]\n    while True:\n        response = client.messages.create(\n            model='claude-3-5-haiku-20241022',\n            max_tokens=1024,\n            tools=TOOLS,\n            messages=messages\n        )\n        if response.stop_reason == 'tool_use':\n            for block in response.content:\n                if block.type == 'tool_use':\n                    result = execute_tool(block.name, block.input)\n                    messages.append({'role': 'assistant', 'content': response.content})\n                    messages.append({'role': 'user', 'content': [{'type': 'tool_result', 'tool_use_id': block.id, 'content': str(result)}]})\n        # stop_reason이 'end_turn'이면 루프 종료\n        return response.content[-1].text\n```",
-    "choices": [
-      "A. return문이 while 루프 내부에 있어 첫 번째 반복 후 종료된다",
-      "B. stop_reason이 tool_use가 아닐 때 루프 탈출 조건이 없다",
-      "C. messages.append 순서가 틀렸다",
-      "D. execute_tool이 예외를 던지면 종료된다"
-    ],
-    "answer": "A",
+    "question": "다음 에이전트 코드에서 잘못된 들여쓰기(인덴트)로 인해 첫 번째 루프 반복 후 즉시 함수가 종료되는 버그가 있는 줄 번호를 찾아 입력하세요.\n\n```python\n1줄: def run_agent(msg):\n2줄:     messages = [{'role': 'user', 'content': msg}]\n3줄:     while True:\n4줄:         res = client.messages.create(model='claude', tools=T, messages=messages)\n5줄:         if res.stop_reason == 'tool_use':\n6줄:             block = res.content[0]\n7줄:             result = execute(block.name, block.input)\n8줄:             messages.append({'role': 'assistant', 'content': res.content})\n9줄:             messages.append({'role': 'user', 'content': [{'type': 'tool_result', 'tool_use_id': block.id, 'content': result}]})\n10줄:         # stop_reason이 'end_turn'이면 루프 종료\n11줄:         return res.content[0].text\n```",
+    "choices": [],
+    "answer": "11",
     "feedback": {
-      "correct": "정확합니다! 'return'문이 들여쓰기로 인해 'while' 루프 바깥이 아닌 안에 있어 첫 번째 반복에서 항상 반환됩니다. 'else: return ...' 또는 루프 밖으로 빼야 합니다.",
-      "incorrect": "'return'문의 들여쓰기를 확인하세요. while 루프 내부에 있어 tool_use인 경우에도 첫 번째 순회 후 즉시 반환됩니다. 'else: return' 구조로 바꿔야 합니다."
+      "correct": "정확합니다! 11줄의 'return'문이 들여쓰기(인덴트) 오류로 인해 'while' 루프 내부(1탭 들여쓰기)에 있어서, 도구 실행 후 다음 대화를 진행하지 않고 무조건 첫 번째 루프에서 결과를 반환하고 즉시 종료됩니다.",
+      "incorrect": "함수의 반환문인 'return'문의 들여쓰기 위치를 확인해 보세요. 11줄의 return문이 while 루프 내부에 들어와 있어 첫 번째 루프만 수행하고 종료됩니다."
     }
   },
   {
@@ -174,7 +164,7 @@
     "course_level": "advanced",
     "difficulty": "hard",
     "type": "code_input",
-    "question": "'build_tool_result_message' 함수를 구현하세요.\n\n- 파라미터: 'tool_use_block' (응답 블록 객체 — '.id', '.name', '.input' 속성 있음), 'result' (str)\n- 반환: tool_result를 담은 user 메시지 딕셔너리\n\n형식:\n```python\n{\n    'role': 'user',\n    'content': [{\n        'type': 'tool_result',\n        'tool_use_id': <block.id>,\n        'content': <result>\n    }]\n}\n```",
+    "question": "'build_tool_result_message' 함수를 구현하세요.\n\n```python\n- 파라미터: 'tool_use_block' (응답 블록 객체 — '.id', '.name', '.input' 속성 있음), 'result' (str)\n- 반환: tool_result를 담은 user 메시지 딕셔너리\n\n형식:\n{\n    'role': 'user',\n    'content': [{\n        'type': 'tool_result',\n        'tool_use_id': <block.id>,\n        'content': <result>\n    }]\n}\n```",
     "answer": "def build_tool_result_message(tool_use_block, result: str) -> dict:\n    return {\n        'role': 'user',\n        'content': [{\n            'type': 'tool_result',\n            'tool_use_id': tool_use_block.id,\n            'content': result\n        }]\n    }",
     "feedback": {
       "correct": "정확합니다! tool_result 메시지는 role: user, content 배열 안에 type/tool_use_id/content 구조여야 합니다.",
@@ -300,17 +290,12 @@
     "course_level": "advanced",
     "difficulty": "hard",
     "type": "error_find",
-    "question": "다음 코드에서 버그를 찾으세요.\n\n```python\nimport asyncio\nimport aiohttp\n\nasync def fetch_price(session, ticker: str) -> float:\n    url = f'https://api.example.com/price/{ticker}'\n    async with session.get(url) as resp:\n        data = resp.json()   # ← 여기\n        return data['price']\n\nasync def main():\n    async with aiohttp.ClientSession() as session:\n        price = await fetch_price(session, 'BTC')\n        print(price)\n```",
-    "choices": [
-      "A. ClientSession은 async with 없이 써야 한다",
-      "B. resp.json()에 await가 빠져 있다",
-      "C. fetch_price를 await 없이 호출해야 한다",
-      "D. main()에 asyncio.run()이 없다"
-    ],
-    "answer": "B",
+    "question": "다음 코드에서 SyntaxError나 런타임 오류가 발생하는 줄 번호를 찾아 입력하세요.\n\n```python\n1줄: import asyncio\n2줄: import aiohttp\n3줄: \n4줄: async def fetch_price(session, ticker: str) -> float:\n5줄:     url = f'https://api.example.com/price/{ticker}'\n6줄:     async with session.get(url) as resp:\n7줄:         data = resp.json()\n8줄:         return data['price']\n9줄: \n10줄: async def main():\n11줄:     async with aiohttp.ClientSession() as session:\n12줄:         price = await fetch_price(session, 'BTC')\n13줄:         print(price)\n```",
+    "choices": [],
+    "answer": "7",
     "feedback": {
-      "correct": "정확합니다! 'aiohttp'의 'response.json()'은 코루틴이므로 반드시 'await resp.json()'으로 호출해야 합니다.",
-      "incorrect": "'aiohttp'에서 응답 파싱 메서드('json()', 'text()', 'read()')는 모두 코루틴입니다. 'await resp.json()'으로 써야 합니다."
+      "correct": "정확합니다! 'aiohttp'의 'response.json()'은 코루틴이므로 반드시 'await resp.json()'으로 호출해야 합니다. 따라서 7줄에서 오류가 발생합니다.",
+      "incorrect": "'aiohttp'에서 응답 파싱 메서드('json()', 'text()', 'read()')는 모두 코루틴입니다. 'await resp.json()'으로 써야 하므로 7줄이 올바른 답입니다."
     }
   },
   {
@@ -342,17 +327,12 @@
     "course_level": "advanced",
     "difficulty": "hard",
     "type": "error_find",
-    "question": "다음 비동기 코드에서 버그를 찾으세요.\n\n```python\nimport asyncio\nimport time\n\nasync def slow_task(n: int):\n    print(f'Task {n} 시작')\n    time.sleep(1)   # ← 여기\n    print(f'Task {n} 완료')\n    return n\n\nasync def main():\n    results = await asyncio.gather(\n        slow_task(1),\n        slow_task(2),\n        slow_task(3)\n    )\n    print(results)\n```",
-    "choices": [
-      "A. gather에 코루틴 객체가 아닌 함수를 전달해야 한다",
-      "B. time.sleep()은 이벤트 루프를 블로킹해 병렬 실행이 안 된다",
-      "C. async def main()은 def main()이어야 한다",
-      "D. return n 대신 yield n을 써야 한다"
-    ],
-    "answer": "B",
+    "question": "다음 비동기 코드에서 동기식 블로킹 함수를 사용해 전체 이벤트 루프를 블로킹하는 버그가 있는 줄 번호를 찾아 입력하세요.\n\n```python\n1줄: import asyncio\n2줄: import time\n3줄: \n4줄: async def task(n):\n5줄:     print(f'{n} 시작')\n6줄:     time.sleep(1)\n7줄:     print(f'{n} 끝')\n8줄: \n9줄: async def main():\n10줄:     await asyncio.gather(task(1), task(2))\n```",
+    "choices": [],
+    "answer": "6",
     "feedback": {
-      "correct": "정확합니다! 'time.sleep()'은 동기 블로킹 함수로 이벤트 루프 전체를 멈춥니다. 비동기 코드에서는 반드시 'await asyncio.sleep(1)'을 사용해야 합니다.",
-      "incorrect": "비동기 코드에서 'time.sleep()'은 이벤트 루프를 막아 다른 코루틴이 실행되지 않습니다. 'await asyncio.sleep(1)'로 대체해야 합니다."
+      "correct": "정확합니다! 'time.sleep()'은 동기식 블로킹 함수로 이벤트 루프 전체를 멈춥니다. 비동기 코드에서는 반드시 'await asyncio.sleep(1)'(6줄)을 사용해야 병렬 처리가 가능합니다.",
+      "incorrect": "비동기 코드에서 동기식 sleep을 사용하면 이벤트 루프가 멈춰 병렬 실행이 불가능해집니다. 6줄의 코드를 확인하세요."
     }
   },
   {
@@ -438,7 +418,7 @@
     "course_level": "advanced",
     "difficulty": "hard",
     "type": "code_input",
-    "question": "여러 외부 API를 비동기로 병렬 호출해 결과를 합치는 'aggregate_data' 함수를 구현하세요.\n\n요구 사항:\n- 'ENDPOINTS = {'weather': '...', 'news': '...', 'stock': '...'}' 3개 URL이 있다고 가정\n- 세마포어 3개, 타임아웃 5초 적용\n- 각 소스 이름을 키로, 응답 JSON(실패 시 None)을 값으로 하는 dict 반환\n- 모두 병렬 실행",
+    "question": "여러 외부 API를 비동기로 병렬 호출해 결과를 합치는 'aggregate_data' 함수를 구현하세요.\n\n```python\n요구 사항:\n- 'ENDPOINTS = {'weather': '...', 'news': '...', 'stock': '...'}' 3개 URL이 있다고 가정\n- 세마포어 3개, 타임아웃 5초 적용\n- 각 소스 이름을 키로, 응답 JSON(실패 시 None)을 값으로 하는 dict 반환\n- 모두 병렬 실행\n```",
     "answer": "ENDPOINTS = {\n    'weather': 'https://api.example.com/weather',\n    'news': 'https://api.example.com/news',\n    'stock': 'https://api.example.com/stock'\n}\n\nasync def aggregate_data() -> dict:\n    semaphore = asyncio.Semaphore(3)\n    timeout = aiohttp.ClientTimeout(total=5.0)\n\n    async def fetch_source(session, name, url):\n        async with semaphore:\n            try:\n                async with session.get(url) as resp:\n                    if resp.status == 200:\n                        return name, await resp.json()\n                    return name, None\n            except Exception:\n                return name, None\n\n    async with aiohttp.ClientSession(timeout=timeout) as session:\n        tasks = [fetch_source(session, name, url) for name, url in ENDPOINTS.items()]\n        results = await asyncio.gather(*tasks)\n        return dict(results)",
     "feedback": {
       "correct": "완벽합니다! Semaphore, Timeout, (name, result) 튜플로 dict 구성, 실패 시 None까지 모두 정확합니다.",
@@ -528,17 +508,12 @@
     "course_level": "advanced",
     "difficulty": "hard",
     "type": "error_find",
-    "question": "다음 CORS 설정 코드에서 버그를 찾으세요.\n\n```python\nfrom fastapi import FastAPI\nfrom fastapi.middleware.cors import CORSMiddleware\n\napp = FastAPI()\n\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[],        # ← A\n    allow_credentials=True,\n    allow_methods=['*'],\n    allow_headers=['*'],\n)\n```",
-    "choices": [
-      "A. allow_origins=[]라 모든 출처가 차단된다",
-      "B. allow_credentials=True는 False로 써야 한다",
-      "C. allow_methods=['*']은 안 된다",
-      "D. add_middleware가 아닌 use_middleware를 써야 한다"
-    ],
-    "answer": "A",
+    "question": "다음 CORS 설정 코드에서 모든 외부 요청을 차단하게 만들어 프론트엔드와 통신에 문제를 유발하는 버그가 있는 줄 번호를 찾아 입력하세요.\n\n```python\n1줄: from fastapi import FastAPI\n2줄: from fastapi.middleware.cors import CORSMiddleware\n3줄: \n4줄: app = FastAPI()\n5줄: \n6줄: app.add_middleware(\n7줄:     CORSMiddleware,\n8줄:     allow_origins=[],\n9줄:     allow_credentials=True,\n10줄:     allow_methods=['*'],\n11줄:     allow_headers=['*'],\n12줄: )\n```",
+    "choices": [],
+    "answer": "8",
     "feedback": {
-      "correct": "정확합니다! 'allow_origins=[]'이면 허용된 출처가 없어 모든 크로스 오리진 요청이 차단됩니다. '['*']'(전체 허용) 또는 특정 도메인 리스트를 넣어야 합니다.",
-      "incorrect": "'allow_origins'에 빈 리스트를 넣으면 허용된 도메인이 없어 프론트엔드에서 API를 호출할 수 없습니다. '['*']' 또는 '['http://localhost:3000']' 등을 지정해야 합니다."
+      "correct": "정확합니다! 'allow_origins=[]'(8줄)이면 허용된 출처가 없어 모든 크로스 오리진 요청이 차단됩니다. '*' 또는 특정 도메인 리스트를 명시해야 정상적으로 통신할 수 있습니다.",
+      "incorrect": "'allow_origins'에 빈 리스트를 넣으면 허용된 도메인이 없어 프론트엔드에서 API를 호출할 수 없습니다. 8줄을 확인해 보세요."
     }
   },
   {
@@ -570,17 +545,12 @@
     "course_level": "advanced",
     "difficulty": "hard",
     "type": "error_find",
-    "question": "다음 FastAPI + SQLite 코드에서 버그를 찾으세요.\n\n```python\nimport sqlite3\nfrom fastapi import FastAPI\n\napp = FastAPI()\nconn = sqlite3.connect('chat.db')  # ← A: 모듈 레벨에서 연결\n\n@app.post('/save')\ndef save_message(message: str, role: str):\n    cursor = conn.conn.cursor() if hasattr(conn, 'conn') else conn.cursor()\n    cursor.execute(\n        'INSERT INTO messages (role, content) VALUES (?, ?)',\n        (role, message)\n    )\n    # ← B: 커밋 없음\n    return {'status': 'saved'}\n```",
-    "choices": [
-      "A. 모듈 레벨 connect()는 멀티스레드에서 안전하지 않다",
-      "B. conn.commit()이 없어 데이터가 저장되지 않는다",
-      "C. cursor.execute() 대신 conn.execute()를 써야 한다",
-      "D. ? 대신 f-string을 써야 한다"
-    ],
-    "answer": "B",
+    "question": "다음 코드에서 데이터베이스에 변경 사항이 실제로 영구 저장(커밋)되지 않는 버그가 있습니다. `conn.commit()`이 삽입되어야 하는 줄 번호(직전 줄 번호)를 찾아 입력하세요.\n\n```python\n1줄: import sqlite3\n2줄: \n3줄: conn = sqlite3.connect('chat.db')\n4줄: \n5줄: def save_msg(msg, role):\n6줄:     cursor = conn.cursor()\n7줄:     cursor.execute(\n8줄:         'INSERT INTO messages VALUES (?, ?)',\n9줄:         (role, msg)\n10줄:     )\n11줄:     return {'status': 'saved'}\n```",
+    "choices": [],
+    "answer": "10",
     "feedback": {
-      "correct": "정확합니다! SQLite에서 INSERT/UPDATE/DELETE 후에는 반드시 'conn.commit()'을 호출해야 트랜잭션이 확정됩니다. 없으면 데이터가 저장되지 않습니다.",
-      "incorrect": "'cursor.execute()' 후 'conn.commit()'이 없으면 변경 사항이 DB에 반영되지 않습니다. 'cursor.execute()' 다음 줄에 'conn.commit()'을 추가해야 합니다."
+      "correct": "정확합니다! SQLite에서 INSERT/UPDATE/DELETE와 같은 쓰기 작업 후에는 반드시 'conn.commit()'을 호출해야 트랜잭션이 확정됩니다. 따라서 10줄과 11줄 사이에 'conn.commit()'이 위치해야 합니다.",
+      "incorrect": "데이터가 DB에 저장되려면 execute()가 수행된 이후에 'conn.commit()'을 명시적으로 호출해야 합니다. 10줄 다음의 리턴 전 단계를 확인해 보세요."
     }
   },
   {
@@ -594,7 +564,7 @@
     "course_level": "advanced",
     "difficulty": "hard",
     "type": "code_input",
-    "question": "Claude API를 호출하는 '/chat' 엔드포인트를 구현하세요.\n\n```python\nclass ChatRequest(BaseModel):\n    message: str\n    system: str = '당신은 친절한 AI 어시스턴트입니다.'\n    history: list = []\n```\n\n- 'history'에 이전 대화를 담고, 새 user 메시지를 추가해 Claude에 전달\n- 'client.messages.create()'로 응답 생성 (model: claude-3-5-haiku-20241022, max_tokens: 1024)\n- 반환: '{'reply': <응답 텍스트>, 'history': <업데이트된 대화 이력>}'",
+    "question": "Claude API를 호출하는 '/chat' 엔드포인트를 구현하세요.\n\n```python\nclass ChatRequest(BaseModel):\n    message: str\n    system: str = '당신은 친절한 AI 어시스턴트입니다.'\n    history: list = []\n\n- 'history'에 이전 대화를 담고, 새 user 메시지를 추가해 Claude에 전달\n- 'client.messages.create()'로 응답 생성 (model: claude-3-5-haiku-20241022, max_tokens: 1024)\n- 반환: '{'reply': <응답 텍스트>, 'history': <업데이트된 대화 이력>}'\n```",
     "answer": "@app.post('/chat')\nasync def chat(req: ChatRequest):\n    messages = req.history + [{'role': 'user', 'content': req.message}]\n    response = await client.messages.create(\n        model='claude-3-5-haiku-20241022',\n        max_tokens=1024,\n        system=req.system,\n        messages=messages\n    )\n    reply = response.content[0].text\n    updated_history = messages + [{'role': 'assistant', 'content': reply}]\n    return {'reply': reply, 'history': updated_history}",
     "feedback": {
       "correct": "완벽합니다! history + user 메시지 구성, await client.messages.create(), 응답 후 history 업데이트까지 정확합니다.",
@@ -756,17 +726,12 @@
     "course_level": "advanced",
     "difficulty": "hard",
     "type": "error_find",
-    "question": "다음 LangChain 메모리 설정에서 버그를 찾으세요.\n\n```python\nfrom langchain.memory import ConversationBufferMemory\nfrom langchain.chains import ConversationChain\nfrom langchain_anthropic import ChatAnthropic\n\nllm = ChatAnthropic(model='claude-3-5-haiku-20241022')\nmemory = ConversationBufferMemory(return_messages=False)  # ← A\n\nchain = ConversationChain(\n    llm=llm,\n    memory=memory,\n    verbose=True\n)\n\nreply = chain.predict(input='안녕하세요')\n```",
-    "choices": [
-      "A. return_messages=False라 Chat 모델과 형식이 맞지 않는다",
-      "B. ConversationChain 대신 LLMChain을 써야 한다",
-      "C. chain.predict() 대신 chain.run()을 써야 한다",
-      "D. ChatAnthropic은 ConversationChain과 호환되지 않는다"
-    ],
-    "answer": "A",
+    "question": "다음 코드에서 Chat 모델을 사용하기 위해 `ConversationBufferMemory`의 반환 형식을 메시지 리스트 형태로 지정해야 하는데, 잘못 작성되어 오류를 유발하는 줄 번호를 찾아 입력하세요.\n\n```python\n1줄: from langchain.memory import ConversationBufferMemory\n2줄: from langchain.chains import ConversationChain\n3줄: from langchain_anthropic import ChatAnthropic\n4줄: \n5줄: llm = ChatAnthropic(model='claude')\n6줄: mem = ConversationBufferMemory(return_messages=False)\n7줄: \n8줄: chain = ConversationChain(\n9줄:     llm=llm,\n10줄:     memory=mem\n11줄: )\n```",
+    "choices": [],
+    "answer": "6",
     "feedback": {
-      "correct": "정확합니다! Chat 모델(ChatAnthropic)과 함께 쓰는 ConversationBufferMemory는 'return_messages=True'여야 합니다. 'False'이면 문자열 형식으로 반환돼 Chat 모델의 메시지 리스트 형식과 맞지 않습니다.",
-      "incorrect": "Chat 모델을 사용할 때는 'ConversationBufferMemory(return_messages=True)'로 설정해야 메시지 객체 리스트 형식으로 반환됩니다."
+      "correct": "정확합니다! Chat 모델(ChatAnthropic)과 함께 사용하는 ConversationBufferMemory는 반드시 'return_messages=True'(6줄)로 설정해야 합니다. 'False'인 경우 텍스트 문자열 형식으로 대화 이력이 반환되어 Chat 모델 형식과 충돌을 일으킵니다.",
+      "incorrect": "Chat 모델을 연동할 때는 memory가 메시지 객체의 리스트를 반환할 수 있도록 설정해야 합니다. 6줄을 확인해 보세요."
     }
   },
   {
@@ -798,17 +763,12 @@
     "course_level": "advanced",
     "difficulty": "hard",
     "type": "error_find",
-    "question": "다음 FAISS 문서 임베딩 코드에서 버그를 찾으세요.\n\n```python\nfrom langchain_community.vectorstores import FAISS\nfrom langchain_anthropic import AnthropicEmbeddings\nfrom langchain_core.documents import Document\n\ndocs = [\n    Document(page_content='파이썬은 배우기 쉬운 언어입니다'),\n    Document(page_content='FastAPI는 빠른 웹 프레임워크입니다')\n]\n\nembeddings = AnthropicEmbeddings()  # ← A\nvectorstore = FAISS.load(docs, embeddings)  # ← B\n```",
-    "choices": [
-      "A. AnthropicEmbeddings가 존재하지 않는다",
-      "B. FAISS.load() 대신 FAISS.from_documents()를 써야 한다",
-      "C. Document 임포트 경로가 잘못됐다",
-      "D. embeddings 인자를 FAISS에 전달하면 안 된다"
-    ],
-    "answer": "B",
+    "question": "다음 코드에서 문서 리스트(`docs`)와 임베딩(`embeddings`)을 사용해 새로운 벡터 스토어를 구축하려고 할 때, 잘못 사용된 메서드가 위치한 줄 번호를 찾아 입력하세요.\n\n```python\n1줄: from langchain_community.vectorstores import FAISS\n2줄: from langchain_anthropic import AnthropicEmbeddings\n3줄: from langchain_core.documents import Document\n4줄: \n5줄: docs = [\n6줄:     Document(page_content='파이썬은 배우기 쉬운 언어입니다'),\n7줄:     Document(page_content='FastAPI는 빠른 웹 프레임워크입니다')\n8줄: ]\n9줄: \n10줄: embeddings = AnthropicEmbeddings()\n11줄: vectorstore = FAISS.load(docs, embeddings)\n```",
+    "choices": [],
+    "answer": "11",
     "feedback": {
-      "correct": "정확합니다! 문서로 벡터스토어를 새로 생성할 때는 'FAISS.from_documents(docs, embeddings)'를 사용합니다. 'FAISS.load()'는 이미 저장된 인덱스를 불러올 때 쓰는 메서드입니다.",
-      "incorrect": "'FAISS.load()'는 디스크에 저장된 인덱스를 로드할 때 씁니다. 문서 리스트로 새 벡터스토어를 만들려면 'FAISS.from_documents(docs, embeddings)'를 사용해야 합니다."
+      "correct": "정확합니다! 문서 리스트로 벡터스토어를 신규 생성할 때는 'FAISS.from_documents(docs, embeddings)'를 사용해야 합니다. 'FAISS.load()'(11줄)는 디스크에 저장된 기존 인덱스를 로드하는 메서드입니다.",
+      "incorrect": "디스크 로드 메서드인 'load' 대신 새 문서를 다루기 위한 'from_documents'를 사용해야 합니다. 11줄의 코드를 확인하세요."
     }
   },
   {
@@ -840,7 +800,7 @@
     "course_level": "advanced",
     "difficulty": "hard",
     "type": "code_input",
-    "question": "LCEL로 RAG 체인을 구성하는 'build_rag_chain' 함수를 구현하세요.\n\n- 파라미터: 'retriever', 'llm'\n- 프롬프트 템플릿:\n  ```\n  시스템: 주어진 context만 사용해 질문에 답하세요.\n  context: {context}\n  사용자: {question}\n  ```\n- retriever로 문서를 가져와 'context'에 넣고, 'question'은 그대로 전달\n- 'RunnablePassthrough'와 'RunnableLambda' 또는 딕셔너리 매핑으로 입력 구성\n- 반환: LCEL 체인 (invoke 가능한 객체)",
+    "question": "LCEL로 RAG 체인을 구성하는 'build_rag_chain' 함수를 구현하세요.\n\n```python\n- 파라미터: 'retriever', 'llm'\n- 프롬프트 템플릿:\n  시스템: 주어진 context만 사용해 질문에 답하세요.\n  context: {context}\n  사용자: {question}\n- retriever로 문서를 가져와 'context'에 넣고, 'question'은 그대로 전달\n- 'RunnablePassthrough'와 'RunnableLambda' 또는 딕셔너리 매핑으로 입력 구성\n- 반환: LCEL 체인 (invoke 가능한 객체)\n```",
     "answer": "from langchain_core.prompts import ChatPromptTemplate\nfrom langchain_core.output_parsers import StrOutputParser\nfrom langchain_core.runnables import RunnablePassthrough\n\ndef build_rag_chain(retriever, llm):\n    prompt = ChatPromptTemplate.from_messages([\n        ('system', '주어진 context만 사용해 질문에 답하세요.\ncontext: {context}'),\n        ('human', '{question}')\n    ])\n\n    def format_docs(docs):\n        return '\n\n'.join(doc.page_content for doc in docs)\n\n    chain = (\n        {'context': retriever | format_docs, 'question': RunnablePassthrough()}\n        | prompt\n        | llm\n        | StrOutputParser()\n    )\n    return chain",
     "feedback": {
       "correct": "훌륭합니다! retriever | format_docs로 context 구성, RunnablePassthrough로 question 전달, LCEL 파이프 체인이 정확합니다.",
