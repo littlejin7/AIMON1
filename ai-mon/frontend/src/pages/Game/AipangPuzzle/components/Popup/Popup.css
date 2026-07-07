@@ -96,7 +96,7 @@
 }
 
 /* ── 버튼 ── */
-.btn {
+.popup .btn {
   padding: 11px 36px;
   font-size: 0.95rem;
   font-weight: 900;
@@ -110,21 +110,14 @@
   margin-top: 8px;
 }
 
-.btn:hover {
+.popup .btn:hover {
   transform: translateY(-2px);
 }
 
-.btn-red {
+.popup .btn-red {
   background: linear-gradient(135deg, #e01040, #f05080);
 }
 
-.btn-gray {
+.popup .btn-gray {
   background: linear-gradient(135deg, #444, #666);
-}
-
-.popup-btn-row {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
 }
