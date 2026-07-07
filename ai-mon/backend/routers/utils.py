@@ -654,6 +654,57 @@ def derive_course_level_from_endboss(user: dict) -> str:
     return unlocked[-1]
 
 
+def course_level_floor(level: str) -> list[str]:
+    """Return the sequential course prefix up to level."""
+    idx = COURSE_LEVEL_ORDER.index(level) if level in COURSE_LEVEL_ORDER else 0
+    return list(COURSE_LEVEL_ORDER[: idx + 1])
+
+
+def apply_level_test_placement(user: dict, level: str) -> str:
+    """Apply level-test placement and mark lower tiers as recognized clears.
+
+    A user placed into intermediate/advanced should not see the tiers below that
+    placement as locked. We record only lower tiers as cleared; the placed tier
+    itself remains the current learning target.
+    """
+    level = level if level in COURSE_LEVEL_ORDER else "beginner"
+    user["course_level"] = level
+    user["is_level_tested"] = True
+
+    lower_levels = course_level_floor(level)[:-1]
+
+    cleared = user.get("endboss_cleared_levels")
+    if not isinstance(cleared, list):
+        cleared = []
+    for lower in lower_levels:
+        if lower not in cleared:
+            cleared.append(lower)
+    user["endboss_cleared_levels"] = cleared
+
+    max_unlocked = user.get("max_unlocked_unit")
+    if not isinstance(max_unlocked, dict):
+        old_val = max_unlocked if isinstance(max_unlocked, int) else 1
+        max_unlocked = {"beginner": old_val, "intermediate": 1, "advanced": 1}
+    for lv in COURSE_LEVEL_ORDER:
+        max_unlocked.setdefault(lv, 1)
+    for lower in lower_levels:
+        max_unlocked[lower] = max(max_unlocked.get(lower, 1), 9)
+    user["max_unlocked_unit"] = max_unlocked
+
+    completed_units = user.get("completed_units")
+    if not isinstance(completed_units, dict):
+        old_val = completed_units if isinstance(completed_units, int) else 0
+        completed_units = {"beginner": old_val, "intermediate": 0, "advanced": 0}
+    for lv in COURSE_LEVEL_ORDER:
+        completed_units.setdefault(lv, 0)
+    for lower in lower_levels:
+        completed_units[lower] = max(completed_units.get(lower, 0), 8)
+    user["completed_units"] = completed_units
+
+    return level
+
+
+
 def promote_course_level_from_endboss(user: dict) -> bool:
     """Mutate user.course_level when endboss clear history unlocks the next level.
 
@@ -1102,9 +1153,21 @@ def serialize_user(user: dict) -> dict:
     if course_level not in COURSE_LEVEL_ORDER:
         course_level = "beginner"
     res["course_level"] = course_level
-    res["unlocked_course_levels"] = derive_unlocked_course_levels(res)
+    unlocked_levels = set(derive_unlocked_course_levels(res))
+    unlocked_levels.update(course_level_floor(course_level))
+    res["unlocked_course_levels"] = [
+        level for level in COURSE_LEVEL_ORDER if level in unlocked_levels
+    ]
 
-    
+    cleared_levels = res.get("endboss_cleared_levels")
+    if not isinstance(cleared_levels, list):
+        cleared_levels = []
+    lower_clears = course_level_floor(course_level)[:-1]
+    res["endboss_cleared_levels"] = [
+        level for level in COURSE_LEVEL_ORDER
+        if level in set(cleared_levels).union(lower_clears)
+    ]
+
     # 3. Handle awarded_crown_units
     raw_crowns = res.get("awarded_crown_units") or []
     filtered_crowns = []
