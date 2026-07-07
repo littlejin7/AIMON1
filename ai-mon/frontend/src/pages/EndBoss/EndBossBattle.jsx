@@ -1,7 +1,7 @@
 import BossModel3D from '../Boss/BossModel3D'
 import PlayerModel3D from '../Boss/PlayerModel3D'
 import endbossBg from '../../assets/endbossbg.png'
-import { useState, useEffect, Suspense } from 'react'
+import { useState, useEffect, Suspense, useMemo } from 'react'
 import { Canvas } from '@react-three/fiber'
 import '../../components/QuizCard/QuizCard.css'
 
