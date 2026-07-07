@@ -39,11 +39,13 @@ export default function LessonHome() {
 
   const courseLevel = user?.course_level || 'beginner'
   const activeLevelIdx = LEVEL_MAP[courseLevel]?.idx ?? 0
-
+  const clearedLevels = Array.isArray(user?.endboss_cleared_levels) ? user.endboss_cleared_levels : []
+  const isCurrentLevelCleared = clearedLevels.includes(courseLevel)
+  
   // max_unlocked_unit 는 백엔드에서 {beginner,intermediate,advanced} 객체.
   // (레거시 스칼라도 방어적으로 허용)
   const rawMaxUnlocked = user?.max_unlocked_unit
-  const maxUnlocked = (
+  const maxUnlocked = isCurrentLevelCleared ? 9 : (
     rawMaxUnlocked && typeof rawMaxUnlocked === 'object'
       ? rawMaxUnlocked[courseLevel]
       : rawMaxUnlocked
@@ -101,6 +103,7 @@ export default function LessonHome() {
   }
 
   const isStageComplete = (unitId, stageNum) =>
+    isCurrentLevelCleared ||
     progress.some((p) => p.unit === unitId && p.stage === `${unitId}-${stageNum}` && p.is_completed && p.course_level === courseLevel)
 
   // 표시용 진행도 = "1-1부터 연속으로 완료된 스테이지 개수".
@@ -116,6 +119,7 @@ export default function LessonHome() {
   }
 
   const isBossComplete = (unitId) =>
+    isCurrentLevelCleared ||
     progress.some((p) => p.unit === unitId && p.stage === `${unitId}-boss` && p.is_completed && p.course_level === courseLevel)
 
   const totalStages = lessons.reduce((a, l) => a + (l.stages || 0), 0)
@@ -168,21 +172,16 @@ export default function LessonHome() {
 
       <div className="lh-scroll">
 
-        {/* ── 레벨 탭 ── */}
+        {/* ── 레벨 표시 ── */}
         <div className="lh-level-tabs">
-          {LEVELS.map((lv, i) => {
-            const isActive = i === activeLevelIdx
-            const isLocked = i > activeLevelIdx
-            return (
-              <div
-                key={lv}
-                className={`lh-tab ${isActive ? 'active' : ''} ${isLocked ? 'locked' : ''}`}
-              >
-                {isLocked && <span className="lh-tab-lock">🔒</span>}
-                {LEVEL_LABELS[i]}
-              </div>
-            )
-          })}
+          {LEVELS.map((lv, i) => (
+            <div
+              key={lv}
+              className={`lh-tab ${i === activeLevelIdx ? 'active' : ''}`}
+            >
+              {LEVEL_LABELS[i]}
+            </div>
+          ))}
         </div>
 
         {/* ── 진행률 요약 ── */}
