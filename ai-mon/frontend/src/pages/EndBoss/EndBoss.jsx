@@ -69,7 +69,28 @@ export default function EndBoss() {
   // 제출 중복 방지 lock — React state(loading)는 비동기 반영이라 빠른 연타 첫 프레임을
   // 놓칠 수 있으므로 ref 로 즉시 차단한다. code_input(phase3)의 중복 Claude 호출 방지.
   const submitLockRef = useRef(false)
+  const shownPhaseIntroRef = useRef(new Set())
+  const phaseTimerRef = useRef(null)
 
+  const clearPhaseTimer = () => {
+    if (phaseTimerRef.current) {
+      window.clearTimeout(phaseTimerRef.current)
+      phaseTimerRef.current = null
+    }
+  }
+
+  const schedulePhase = (nextPhase, delay) => {
+    clearPhaseTimer()
+    phaseTimerRef.current = window.setTimeout(() => {
+      phaseTimerRef.current = null
+      setPhase(nextPhase)
+    }, delay)
+  }
+
+  useEffect(() => {
+    return () => clearPhaseTimer()
+  }, [])
+  
   useEffect(() => {
     // target_level 없이 호출 — 기존 계약과 동일한 baseline 조회(게이트 없음).
     endbossApi.getInfo().then(res => {
@@ -84,6 +105,7 @@ export default function EndBoss() {
 
   // ── 레벨 칩 선택 (인트로 화면에서만 노출) ──
   const handleLevelChange = async (level) => {
+    clearPhaseTimer()
     setSelectedLevel(level)
     // 진행 중이던 배틀 상태 초기화 (레벨 전환 시 잔존 방지)
     setMyHp(MY_HP_INIT)
@@ -143,6 +165,8 @@ export default function EndBoss() {
 
   // ── 전투 시작 (선택한 프로젝트로 API 호출) ──
   const handleStart = async (project = null) => {
+    clearPhaseTimer()
+    shownPhaseIntroRef.current = new Set()
     setInitialLevel(user?.lv || 1)
     setMyHp(MY_HP_INIT)
     setBossHp(BOSS_HP_INIT)
@@ -245,7 +269,9 @@ export default function EndBoss() {
         playAttackEffect(damage > 0 ? damage : 150)
         setTimeout(() => setAiResult(d), 1100)
         if (isClear) {
-          setTimeout(async () => {
+          clearPhaseTimer()
+          phaseTimerRef.current = window.setTimeout(async () => {
+            phaseTimerRef.current = null
             try {
               const clearRes = await endbossApi.clearBoss(endbossState.project, selectedLevel)
               setClearResult(clearRes?.data || null)
@@ -267,13 +293,18 @@ export default function EndBoss() {
           }, 1500)
         } else if (d.phase3_ready) {
           // Phase 2 완료 → Phase 3 전환 화면
-          setTimeout(() => setPhase('phase3_transition'), 1500)
+          schedulePhase('phase3_transition', 1500)
         }
       } else {
         setAiResult(d)
         playHitEffect()
         if (isFail) {
-          setTimeout(() => { playBGM('fail'); setPhase('failed') }, 2500)
+          clearPhaseTimer()
+          phaseTimerRef.current = window.setTimeout(() => {
+            phaseTimerRef.current = null
+            playBGM('fail')
+            setPhase('failed')
+          }, 2500)
         }
         if (endbossState.phase === 3) {
           setEndbossState(prev => ({
@@ -294,7 +325,9 @@ export default function EndBoss() {
 
   // ── 다음 문제 ────────────────────────────────
   const handleNextQuestion = async () => {
+    clearPhaseTimer()
     if (myHp <= 0 || endbossState.phase3Tries >= 3) {
+      playBGM('fail')
       setPhase('failed')
       return
     }
@@ -342,7 +375,7 @@ export default function EndBoss() {
       <div className="boss-header">
         <button
           className="btn btn-ghost btn-sm"
-          onClick={() => { stopBGM(); navigate('/lesson') }}
+          onClick={() => { clearPhaseTimer(); stopBGM(); navigate('/lesson') }}
         >
           도망가기 🏃
         </button>
@@ -378,6 +411,7 @@ export default function EndBoss() {
             bossHp={bossHp}
             myHp={myHp}
             phase={endbossState.phase}
+            selectedLevel={selectedLevel}
             phase3Tries={endbossState.phase3Tries}
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
@@ -393,7 +427,11 @@ export default function EndBoss() {
             user={user}
             onSubmit={handleSubmit}
             onNextQuestion={handleNextQuestion}
-            onEscape={() => { stopBGM(); navigate('/lesson') }}
+            onEscape={() => { clearPhaseTimer(); stopBGM(); navigate('/lesson') }}
+            showPhaseIntro={!shownPhaseIntroRef.current.has(endbossState.phase)}
+            onPhaseIntroShown={(introPhase) => {
+              shownPhaseIntroRef.current.add(introPhase)
+            }}
             questionNum={
               endbossState.phase === 1 ? endbossState.phase1Index + 1 :
                 endbossState.phase === 2 ? endbossState.phase2Index + 1 : 1
@@ -409,9 +447,10 @@ export default function EndBoss() {
           <EndBossResult
             phase={phase}
             clearResult={clearResult}
+            selectedLevel={selectedLevel}
             levelUpMessage={levelUpMessage}
-            onRetry={() => { setClearResult(null); setPhase('intro') }}
-            onNavigateLesson={() => navigate('/lesson')}
+            onRetry={() => { clearPhaseTimer(); setClearResult(null); setPhase('intro') }}
+            onNavigateLesson={() => { clearPhaseTimer(); navigate('/lesson') }}
           />
         )}
       </div>
