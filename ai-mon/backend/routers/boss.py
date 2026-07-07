@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Request, Depends
 from pydantic import BaseModel, Field
 from services.claude_service import ask_claude_json
-import os, uuid
+import os, random, uuid
 from datetime import datetime, timedelta
 from typing import Optional
 from routers.utils import (
@@ -55,6 +55,17 @@ REQUIRED_CORRECT = BOSS_HP_INIT // BOSS_HP_DELTA   # 5 (정답 누적 도달 시
 MAX_WRONG        = 3                                # 오답 누적 도달 시 패배
 
 
+def _display_answer_from_choices(question: dict, answer: str = "") -> str:
+    answer = str(answer or "").strip()
+    if len(answer) == 1 and answer.upper() in "ABCDE":
+        prefix = f"{answer.upper()}."
+        for choice in question.get("choices") or []:
+            text = str(choice)
+            if text.upper().startswith(prefix):
+                return text[2:].strip()
+    return answer
+
+
 def _build_static_wrong_feedback(question: dict, correct_answer: str = "") -> str:
     """객관식 계열 오답용 정적 피드백 조립 (LLM 미사용).
 
@@ -73,14 +84,13 @@ def _build_static_wrong_feedback(question: dict, correct_answer: str = "") -> st
         or "다시 한 번 핵심 개념을 확인해보세요."
     )
     body = str(body).strip()
-    ca = str(correct_answer or "").strip()
+    ca = _display_answer_from_choices(question, correct_answer)
     if ca:
         return f'아쉽지만 정답은 "{ca}"입니다.\n{body}'
     return body
 
 
 def _pick_unserved_question(pool: list, served_qids: list[str]) -> dict:
-    import random
 
     unseen = [q for q in pool if q.get("question_id") not in served_qids]
     if not unseen:
@@ -139,7 +149,6 @@ def start_boss_battle(unit: str = "1", user: dict = Depends(get_current_user)):
     if not boss_qs:
         raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
 
-    import random
     today = now_kst().strftime("%Y-%m-%d")
     # 배틀 토큰(sid)은 서버 발급 nonce → 위조 불가. 정답 누적은 서버 세션에만 쌓인다.
     token, sid = make_battle_token(MODE, unit_num, None, user_id)
@@ -202,7 +211,6 @@ def get_next_question(unit: str = "1", battle_token: str | None = None, user: di
 
     if not boss_qs:
         raise HTTPException(status_code=404, detail="보스 문제가 없습니다.")
-    import random
 
     if battle_token:
         payload = verify_battle_token(battle_token, user_id, MODE)
