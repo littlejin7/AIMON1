@@ -290,7 +290,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "패턴과 매칭되는 부분을 한 번에 찾고, 초급에서 배운 for 반복문으로 각각 처리하고 싶어요.\n\n```python\nimport re\ntext = 'apple123banana456'\nfor num in re.findall(r'\\d+', text):\n    print(f'숫자: {num}')\n```\n\n몇 번 출력될까요?\n\n답: _____번",
+      "question": "패턴과 매칭되는 부분을 한 번에 찾고, 초급에서 배운 for 반복문으로 각각 처리하고 싶어요.\n\n```python\nimport re\ntext = 'apple123banana456'\nfor num in re.findall(r'\\d+', text):\n    print(f'숫자: {num}')\n# 몇 번 출력될까요?\n\n# 답: _____번\n```",
       "answer": "2번",
       "hint": "\\d+는 연속된 숫자를 찾고, findall()은 리스트로 반환해요. for는 그 리스트를 반복해요.",
       "feedback": {
@@ -1290,7 +1290,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "전화번호를 010-1234-5678 형식으로 통일하고 싶어요. re.sub()으로 하이픈을 추가합니다.\n\n```python\nimport re\nphone = '01012345678'\npattern = re.compile(r'(\\d{3})(\\d{4})(\\d{4})')\nformatted = pattern.sub(r'_____', phone)\nprint(formatted)  # 010-1234-5678\n```\n\n빈 칸에 들어갈 것은?",
+      "question": "전화번호를 010-1234-5678 형식으로 통일하고 싶어요. re.sub()으로 하이픈을 추가합니다.\n\n```python\nimport re\nphone = '01012345678'\npattern = re.compile(r'(\\d{3})(\\d{4})(\\d{4})')\nformatted = pattern.sub(r'_____', phone)\nprint(formatted)  # 010-1234-5678\n# 빈 칸에 들어갈 것은?\n```",
       "answer": "\\1-\\2-\\3",
       "hint": "\\\\1, \\\\2, \\\\3은 첫 번째, 두 번째, 세 번째 그룹을 참조해요.",
       "feedback": {

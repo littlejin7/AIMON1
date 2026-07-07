@@ -170,7 +170,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "초급의 함수를 사용해서 API 데이터를 처리합니다.\n\n```python\nimport requests\ndef process_user_data(data):\n    for user in data['users']:\n        if user.get('active', False):\n            print(user['name'])\n```\n\nusers_data = {'users': [{'name': 'John', 'active': True}, {'name': 'Alice', 'active': False}]}\nprocess_user_data_____",
+      "question": "초급의 함수를 사용해서 API 데이터를 처리합니다.\n\n```python\nimport requests\ndef process_user_data(data):\n    for user in data['users']:\n        if user.get('active', False):\n            print(user['name'])\nusers_data = {'users': [{'name': 'John', 'active': True}, {'name': 'Alice', 'active': False}]}\nprocess_user_data_____\n```",
       "answer": "(users_data)",
       "hint": "함수를 호출할 때는 괄호 안에 인자를 전달해요.",
       "feedback": {
@@ -867,7 +867,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "저장된 파일에서 데이터를 읽어요. 다음 코드의 결과는?\n\n```python\nimport json\nwith open('data.json', 'r') as f:\n    data = json.load(f)\nprint(data['name'])\n```\n\n# data.json 파일에는 {\"name\": \"Alice\", \"age\": 25}가 저장되어 있음",
+      "question": "저장된 파일에서 데이터를 읽어요. 다음 코드의 결과는?\n\n```python\nimport json\nwith open('data.json', 'r') as f:\n    data = json.load(f)\nprint(data['name'])\n# data.json 파일에는 {\"name\": \"Alice\", \"age\": 25}가 저장되어 있음\n```",
       "choices": [
         "A. Alice",
         "B. {'name': 'Alice', 'age': 25}",
@@ -987,7 +987,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport json\nwith open('data.json', 'r') as f:\n    data = json.load(f)\n\ntotal = sum([item['amount'] for item in data['transactions']])\nprint(total)\n```\n# data.json: {\"transactions\": [{\"amount\": 1000}, {\"amount\": 2000}]}",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport json\nwith open('data.json', 'r') as f:\n    data = json.load(f)\n\ntotal = sum([item['amount'] for item in data['transactions']])\nprint(total)\n# data.json: {\"transactions\": [{\"amount\": 1000}, {\"amount\": 2000}]}\n```",
       "choices": [
         "A. 3000",
         "B. 2",
@@ -1147,7 +1147,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport json\nwith open('sales.json', 'r') as f:\n    sales_data = json.load(f)\n\ntop_sellers = [s for s in sales_data if s['amount'] > 1000]\nprint(len(top_sellers))\n```\n# sales.json: [{\"seller\": \"A\", \"amount\": 800}, {\"seller\": \"B\", \"amount\": 1200}, {\"seller\": \"C\", \"amount\": 1500}]",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport json\nwith open('sales.json', 'r') as f:\n    sales_data = json.load(f)\n\ntop_sellers = [s for s in sales_data if s['amount'] > 1000]\nprint(len(top_sellers))\n# sales.json: [{\"seller\": \"A\", \"amount\": 800}, {\"seller\": \"B\", \"amount\": 1200}, {\"seller\": \"C\", \"amount\": 1500}]\n```",
       "choices": [
         "A. 3",
         "B. 2",
@@ -1187,7 +1187,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport json\nwith open('inventory.json', 'r') as f:\n    inventory = json.load(f)\n\ntotal_value = sum([item['price'] * item['quantity'] for item in inventory])\nwith open('summary.json', 'w') as f:\n    json.dump({'total_value': total_value}, f)\n\nprint('저장 완료')\n```\n# inventory.json: [{\"name\": \"A\", \"price\": 100, \"quantity\": 5}, {\"name\": \"B\", \"price\": 200, \"quantity\": 3}]",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nimport json\nwith open('inventory.json', 'r') as f:\n    inventory = json.load(f)\n\ntotal_value = sum([item['price'] * item['quantity'] for item in inventory])\nwith open('summary.json', 'w') as f:\n    json.dump({'total_value': total_value}, f)\n\nprint('저장 완료')\n# inventory.json: [{\"name\": \"A\", \"price\": 100, \"quantity\": 5}, {\"name\": \"B\", \"price\": 200, \"quantity\": 3}]\n```",
       "choices": [
         "A. 저장 완료",
         "B. 1100",
@@ -1947,7 +1947,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nmetrics = {'requests': 0, 'errors': 0}\n# stream은 API 응답 리스트 가정 (예: requests의 응답 객체 리스트)\nfor response in stream:\n    metrics['requests'] += 1\n    if response.status_code >= 400:\n        metrics['errors'] += 1\n\nerror_rate = metrics['errors'] / metrics['requests'] if metrics['requests'] > 0 else 0\nprint(f'{error_rate:.2f}')\n```\n# 10개 요청 중 2개가 에러",
+      "question": "다음 코드를 실행하면 어떤 결과가 나올까요?\n\n```python\nmetrics = {'requests': 0, 'errors': 0}\n# stream은 API 응답 리스트 가정 (예: requests의 응답 객체 리스트)\nfor response in stream:\n    metrics['requests'] += 1\n    if response.status_code >= 400:\n        metrics['errors'] += 1\n\nerror_rate = metrics['errors'] / metrics['requests'] if metrics['requests'] > 0 else 0\nprint(f'{error_rate:.2f}')\n# 10개 요청 중 2개가 에러\n```",
       "choices": [
         "A. 0.20",
         "B. 0.10",
@@ -2250,7 +2250,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "API 응답에서 빠진 필드를 기본값으로 채워요.\n\n```python\nraw_items = [{'id': 1, 'name': 'A'}, {'id': 2}]\ncleaned = [{\n    'id': item.get('id'),\n    'name': item.get('name', '_____'),\n    'price': item.get('price', 0)\n```\n} for item in raw_items]",
+      "question": "API 응답에서 빠진 필드를 기본값으로 채워요.\n\n```python\nraw_items = [{'id': 1, 'name': 'A'}, {'id': 2}]\ncleaned = [{\n    'id': item.get('id'),\n    'name': item.get('name', '_____'),\n    'price': item.get('price', 0)\n} for item in raw_items]\n```",
       "answer": "'Unknown'",
       "hint": "name이 없을 때의 기본값을 설정해요.",
       "feedback": {
@@ -2370,7 +2370,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "복잡한 API 데이터를 변환해서 저장합니다.\n\n```python\ndef transform_user_data(api_response):\n    return {\n        'user_id': api_response['id'],\n        'display_name': api_response.get('first_name', '') + ' ' + api_response.get('last_name', ''),\n        'email': api_response.get('email', '_____'),\n        'created_at': api_response.get('created_timestamp')\n    }\n```\ntransformed = [transform_user_data(u) for u in api_users]",
+      "question": "복잡한 API 데이터를 변환해서 저장합니다.\n\n```python\ndef transform_user_data(api_response):\n    return {\n        'user_id': api_response['id'],\n        'display_name': api_response.get('first_name', '') + ' ' + api_response.get('last_name', ''),\n        'email': api_response.get('email', '_____'),\n        'created_at': api_response.get('created_timestamp')\n    }\ntransformed = [transform_user_data(u) for u in api_users]\n```",
       "answer": "'unknown@example.com'",
       "hint": "email이 없을 때의 기본 이메일값이에요.",
       "feedback": {

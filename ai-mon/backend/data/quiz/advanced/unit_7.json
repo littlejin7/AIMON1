@@ -320,7 +320,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "아래 'main.py' 파일의 FastAPI 앱을 개발 모드로 실행하려 합니다. 빈칸을 채워보세요.\n\n```python\n# main.py\nfrom fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/\")\ndef root():\n    return {\"hello\": \"world\"}\n```\n\n실행 명령:\n```\nuvicorn _____:app --reload\n```",
+      "question": "아래 'main.py' 파일의 FastAPI 앱을 개발 모드로 실행하려 합니다. 빈칸을 채워보세요.\n\n```python\n# main.py\nfrom fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/\")\ndef root():\n    return {\"hello\": \"world\"}\n```\n\n```bash\n# 실행 명령:\nuvicorn _____:app --reload\n```",
       "choices": [],
       "answer": "main",
       "hint": "uvicorn 실행 명령의 형식은 '파일명:앱_변수명'입니다. 파이썬 파일 이름(확장자 제외)을 쓰세요.",

@@ -1633,7 +1633,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "금액(price) 속성을 외부에서 마음대로 바꾸지 못하게 비공개 속성으로 만들려고 해요. 빈칸에 알맞은 기호를 채워보세요.\n\n```python\nclass Product:\n    def __init__(self, name, price):\n        self.name = name\n        self._____price = price\n```\n\np = Product('에이몬 인형', 25000)",
+      "question": "금액(price) 속성을 외부에서 마음대로 바꾸지 못하게 비공개 속성으로 만들려고 해요. 빈칸에 알맞은 기호를 채워보세요.\n\n```python\nclass Product:\n    def __init__(self, name, price):\n        self.name = name\n        self._____price = price\n# p = Product('에이몬 인형', 25000)\n```",
       "answer": "__",
       "hint": "파이썬에서 클래스 내부 속성을 비공개(Private)로 전환할 때는 언더바 기호를 연속으로 사용해요.",
       "feedback": {
@@ -1833,7 +1833,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "파이썬에서 객체를 생성하고 변수들을 초기화해주는 대표적인 기본 특수 메서드(생성자)입니다. 빈칸에 알맞은 이름을 채워보세요.\n\n```python\nclass Profile:\n    def _____(self, nickname):\n        self.nickname = nickname\n```\n\np = Profile('에이몬프로')",
+      "question": "파이썬에서 객체를 생성하고 변수들을 초기화해주는 대표적인 기본 특수 메서드(생성자)입니다. 빈칸에 알맞은 이름을 채워보세요.\n\n```python\nclass Profile:\n    def _____(self, nickname):\n        self.nickname = nickname\n# p = Profile('에이몬프로')\n```",
       "answer": "__init__",
       "hint": "인스턴스가 처음 만들어질 때 자동으로 호출되며, 앞뒤로 언더바 2개씩 사용하는 가장 친숙한 특수 메서드예요.",
       "feedback": {
@@ -2033,7 +2033,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "온라인 쇼핑몰의 장바구니 시스템을 객체 지향으로 구현해 보려고 해요. 새로운 상품(Item) 인스턴스를 만들 때 이름을 저장할 수 있도록, 초기화 메서드의 빈칸을 완성해 주세요.\n\n```python\nclass Item:\n    def _____(self, name):\n        self.name = name\n```\n\nitem1 = Item('스마트폰')",
+      "question": "온라인 쇼핑몰의 장바구니 시스템을 객체 지향으로 구현해 보려고 해요. 새로운 상품(Item) 인스턴스를 만들 때 이름을 저장할 수 있도록, 초기화 메서드의 빈칸을 완성해 주세요.\n\n```python\nclass Item:\n    def _____(self, name):\n        self.name = name\n# item1 = Item('스마트폰')\n```",
       "answer": "__init__",
       "hint": "파이썬에서 클래스의 인스턴스가 생성될 때 자동으로 실행되며, 속성을 초기화해 주는 특수 메서드의 이름이에요.",
       "feedback": {
@@ -2113,7 +2113,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "은행 계좌(Account) 클래스를 만들면서, 비밀번호(__password) 같은 민감 정보를 비공개 속성으로 처리하려고 해요. 캡슐화 원칙에 맞게 외부 직접 접근을 차단하는 접두어 기호를 빈칸에 채워 보세요.\n\n```python\nclass Account:\n    def __init__(self, password):\n        self._____password = password\n```\n\nacc = Account('1234')",
+      "question": "은행 계좌(Account) 클래스를 만들면서, 비밀번호(__password) 같은 민감 정보를 비공개 속성으로 처리하려고 해요. 캡슐화 원칙에 맞게 외부 직접 접근을 차단하는 접두어 기호를 빈칸에 채워 보세요.\n\n```python\nclass Account:\n    def __init__(self, password):\n        self._____password = password\nacc = Account('1234')\n```",
       "answer": "__",
       "hint": "파이썬 클래스 내부에서 속성 이름 앞에 이 기호를 연속으로 2개 붙이면 외부에서 직접 수정하거나 조회할 수 없게 차단돼요.",
       "feedback": {
@@ -2233,7 +2233,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "회원 정보를 다루는 프로그램의 구조를 잡고 있어요. 새로운 유저(User) 인스턴스를 생성할 때 아이디를 바인딩해 주는 생성자 메서드 형태가 되도록 빈칸을 올바르게 채워 주세요.\n\n```python\nclass User:\n    def _____(self, user_id):\n        self.user_id = user_id\n```\n\nu = User('aimon_pro')",
+      "question": "회원 정보를 다루는 프로그램의 구조를 잡고 있어요. 새로운 유저(User) 인스턴스를 생성할 때 아이디를 바인딩해 주는 생성자 메서드 형태가 되도록 빈칸을 올바르게 채워 주세요.\n\n```python\nclass User:\n    def _____(self, user_id):\n        self.user_id = user_id\nu = User('aimon_pro')\n```",
       "answer": "__init__",
       "hint": "인스턴스가 메모리에 최초 할당될 때 자동으로 트리거되는 파이썬 표준 매직 메서드의 키워드를 적어 주시면 돼요.",
       "feedback": {
@@ -2313,7 +2313,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "초급에서 배운 정보 은닉의 연장선으로, 외부에서 임의로 인게임 점수(__score)를 마이너스 오염시키는 상황을 막기 위해 캡슐화를 도입하려 합니다. 약속된 파이썬 비공개 기호를 빈칸에 적용해 주세요.\n\n```python\nclass GameSystem:\n    def __init__(self):\n        self._____score = 0\n```\n\ngs = GameSystem()",
+      "question": "초급에서 배운 정보 은닉의 연장선으로, 외부에서 임의로 인게임 점수(__score)를 마이너스 오염시키는 상황을 막기 위해 캡슐화를 도입하려 합니다. 약속된 파이썬 비공개 기호를 빈칸에 적용해 주세요.\n\n```python\nclass GameSystem:\n    def __init__(self):\n        self._____score = 0\ngs = GameSystem()\n```",
       "answer": "__",
       "hint": "변수나 속성 스코프 이름 직전에 밑줄 공백 기호를 연속으로 구성하면 캡슐화 은닉 상태로 성격이 제어됩니다.",
       "feedback": {

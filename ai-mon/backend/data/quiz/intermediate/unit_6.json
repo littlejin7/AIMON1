@@ -1976,7 +1976,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "README.md에 기록할 환경 설정 방법의 세 번째 단계를 완성하세요.\n\n```python\n1. python -m venv venv\n2. source venv/bin/activate\n```\n3. pip install ________",
+      "question": "README.md에 기록할 환경 설정 방법의 세 번째 단계를 완성하세요.\n\n```python\n1. python -m venv venv\n2. source venv/bin/activate\n3. pip install ________\n```",
       "answer": "-r requirements.txt",
       "hint": "requirements.txt 파일에서 패키지를 읽어 설치하는 옵션이에요.",
       "feedback": {
@@ -1993,7 +1993,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "CI/CD 파이프라인에서 개발용 패키지까지 모두 설치한 뒤 의존성 충돌을 검사하는 세 번째 명령어를 완성하세요.\n\n```python\npip install -r requirements.txt\npip install -r requirements-dev.txt\n```\npip ________",
+      "question": "CI/CD 파이프라인에서 개발용 패키지까지 모두 설치한 뒤 의존성 충돌을 검사하는 세 번째 명령어를 완성하세요.\n\n```python\npip install -r requirements.txt\npip install -r requirements-dev.txt\npip ________\n```",
       "answer": "check",
       "hint": "설치된 패키지 간의 의존성 충돌을 검사하는 명령어예요.",
       "feedback": {

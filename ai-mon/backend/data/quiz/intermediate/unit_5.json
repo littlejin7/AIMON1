@@ -1130,7 +1130,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드에서 빈칸을 채워 복잡한 구조의 JSON 데이터를 파일에 저장하세요.\n\n```python\nimport json\n\ndata = {\n    'users': [{'id': 1, 'name': 'Eve'}, {'id': 2, 'name': 'Frank'}],\n    'total': 2\n```\n}\nwith open('users.json', 'w') as f:\n    ________",
+      "question": "다음 코드에서 빈칸을 채워 복잡한 구조의 JSON 데이터를 파일에 저장하세요.\n\n```python\nimport json\n\ndata = {\n    'users': [{'id': 1, 'name': 'Eve'}, {'id': 2, 'name': 'Frank'}],\n    'total': 2\n}\nwith open('users.json', 'w') as f:\n________\n```",
       "answer": "json.dump(data, f)",
       "hint": "json.dump()로 복잡한 데이터 구조를 파일에 저장해요.",
       "feedback": {

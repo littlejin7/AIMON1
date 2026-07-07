@@ -130,7 +130,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "튜플은 불변(Immutable) 객체입니다. 다음 코드에서 에러를 일으키는 줄 번호를 빈칸에 입력하세요.\n\n```python\n1: my_tuple = (1, 2, 3)\n2: total = sum(my_tuple)\n3: my_tuple[0] = 9\n4: print(total)\n```\n에러가 발생하는 줄 번호: ___",
+      "question": "튜플은 불변(Immutable) 객체입니다. 다음 코드에서 에러를 일으키는 줄 번호를 빈칸에 입력하세요.\n\n```python\n1: my_tuple = (1, 2, 3)\n2: total = sum(my_tuple)\n3: my_tuple[0] = 9\n4: print(total)\n# 에러가 발생하는 줄 번호: ___\n```",
       "answer": "3",
       "hint": "튜플은 한 번 만들어지면 인덱스를 통해 직접 내부의 값을 수정하거나 대입할 수 없어요.",
       "feedback": {
@@ -530,7 +530,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "함수에서 여러 개의 값을 리턴할 때도 튜플 패킹이 일어납니다. 아래 코드의 빈칸을 채워, 함수가 리턴한 결과 중 첫 번째 값인 '성공'만 변수 'status'에 담고 나머지 값은 생략(무시)하고자 합니다. 파이썬에서 관례적으로 사용하지 않는 변수를 무시할 때 쓰는 기호(Underbar)를 채워주세요.\n\n```python\ndef get_result():\n    return '성공', 'Lv.30', 'slime'\n```\nstatus, *______ = get_result()",
+      "question": "함수에서 여러 개의 값을 리턴할 때도 튜플 패킹이 일어납니다. 아래 코드의 빈칸을 채워, 함수가 리턴한 결과 중 첫 번째 값인 '성공'만 변수 'status'에 담고 나머지 값은 생략(무시)하고자 합니다. 파이썬에서 관례적으로 사용하지 않는 변수를 무시할 때 쓰는 기호(Underbar)를 채워주세요.\n\n```python\ndef get_result():\n    return '성공', 'Lv.30', 'slime'\nstatus, *______ = get_result()\n```",
       "answer": "_",
       "hint": "사용하지 않는 나머지 변수나 값을 통째로 받아 넘길 때 사용하는 언더스코어(_) 특수문자입니다.",
       "feedback": {
