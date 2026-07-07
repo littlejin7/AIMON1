@@ -120,7 +120,7 @@ export default function StageResult({
           </button>
         )}
         <button className="btn btn-secondary" onClick={() => navigate(`/lesson/${lessonId}`)}>
-          ✕
+          홈으로 돌아가기
         </button>
         {!passed && (
           isMinibossPlayed ? (
