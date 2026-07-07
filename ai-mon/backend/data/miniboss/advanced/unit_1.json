@@ -131,7 +131,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "인수를 받는 데코레이터 팩토리 prefix를 작성하세요.\n조건:\n```python\n- prefix(text)는 데코레이터를 반환\n- 데코레이터는 함수 실행 전 text를 출력 (print(text, end=\" \") 사용)\n- functools.wraps 적용\n- log_msg('서버 시작') 호출\n# 출력 목표:\n# [INFO] 서버 시작\n```",
+      "question": "인수를 받는 데코레이터 팩토리 prefix를 작성하세요.\n\n```python\n조건:\n\n- prefix(text)는 데코레이터를 반환\n- 데코레이터는 함수 실행 전 text를 출력 (print(text, end=\" \") 사용)\n- functools.wraps 적용\n- log_msg('서버 시작') 호출\n# 출력 목표:\n# [INFO] 서버 시작\n```",
       "answer": "import functools\n\ndef prefix(text):\n    def decorator(func):\n        @functools.wraps(func)\n        def wrapper(*args, **kwargs):\n            print(text, end=' ')\n            return func(*args, **kwargs)\n        return wrapper\n    return decorator\n\n@prefix('[INFO]')\ndef log_msg(msg):\n    print(msg)\n\nlog_msg('서버 시작')",
       "pyodide_eval": true,
       "feedback": {
@@ -148,7 +148,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "입력값을 검증하는 validate 데코레이터를 완성하고 square 함수에 적용하세요.\n조건:\n- x가 음수이면 '오류: 음수 불가' 출력 후 return\n- 양수이면 x ** 2를 출력\n```python\n- functools.wraps 적용\n- square(4), square(-1) 순서로 호출\n# 출력 목표:\n16\n# 오류: 음수 불가\n```",
+      "question": "입력값을 검증하는 validate 데코레이터를 완성하고 square 함수에 적용하세요.\n조건:\n- x가 음수이면 '오류: 음수 불가' 출력 후 return\n\n```python\n조건:\n\n- functools.wraps 적용\n- square(4), square(-1) 순서로 호출\n# 출력 목표:\n16\n# 오류: 음수 불가\n```",
       "answer": "import functools\n\ndef validate(func):\n    @functools.wraps(func)\n    def wrapper(x):\n        if x < 0:\n            print('오류: 음수 불가')\n            return\n        return func(x)\n    return wrapper\n\n@validate\ndef square(x):\n    print(x ** 2)\n\nsquare(4)\nsquare(-1)",
       "pyodide_eval": true,
       "feedback": {
@@ -273,7 +273,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "@repeat(n) 데코레이터를 완성하세요.\n조건:\n- repeat(n)은 데코레이터를 반환\n- 함수를 n번 반복 실행\n```python\n- functools.wraps 적용\n- say_hi('에이몬')을 @repeat(3)으로 호출\n# 출력 목표:\n# 안녕, 에이몬!\n# 안녕, 에이몬!\n# 안녕, 에이몬!\n```",
+      "question": "@repeat(n) 데코레이터를 완성하세요.\n조건:\n- repeat(n)은 데코레이터를 반환\n\n```python\n조건:\n\n- functools.wraps 적용\n- say_hi('에이몬')을 @repeat(3)으로 호출\n# 출력 목표:\n# 안녕, 에이몬!\n# 안녕, 에이몬!\n# 안녕, 에이몬!\n```",
       "answer": "import functools\n\ndef repeat(n):\n    def decorator(func):\n        @functools.wraps(func)\n        def wrapper(*args, **kwargs):\n            for _ in range(n):\n                func(*args, **kwargs)\n        return wrapper\n    return decorator\n\n@repeat(3)\ndef say_hi(name):\n    print(f'안녕, {name}!')\n\nsay_hi('에이몬')",
       "pyodide_eval": true,
       "feedback": {
@@ -326,7 +326,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "클래스 기반 데코레이터 CallCounter를 작성하세요.\n조건:\n```python\n- __init__: func 저장, count=0, functools.update_wrapper 적용\n- __call__: count 1 증가 후 '호출 횟수: {count}' 출력, func 호출\n- greet()에 적용해 2번 호출\n# 출력 목표:\n# 호출 횟수: 1\n# 안녕하세요!\n# 호출 횟수: 2\n# 안녕하세요!\n```",
+      "question": "클래스 기반 데코레이터 CallCounter를 작성하세요.\n\n```python\n조건:\n\n- __init__: func 저장, count=0, functools.update_wrapper 적용\n- __call__: count 1 증가 후 '호출 횟수: {count}' 출력, func 호출\n- greet()에 적용해 2번 호출\n# 출력 목표:\n# 호출 횟수: 1\n# 안녕하세요!\n# 호출 횟수: 2\n# 안녕하세요!\n```",
       "answer": "import functools\n\nclass CallCounter:\n    def __init__(self, func):\n        self.func = func\n        self.count = 0\n        functools.update_wrapper(self, func)\n\n    def __call__(self, *args, **kwargs):\n        self.count += 1\n        print(f'호출 횟수: {self.count}')\n        return self.func(*args, **kwargs)\n\n@CallCounter\ndef greet():\n    print('안녕하세요!')\n\ngreet()\ngreet()",
       "pyodide_eval": true,
       "feedback": {
@@ -451,7 +451,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "1부터 n까지 홀수만 생산하는 제너레이터 odd_gen을 작성하세요.\n조건:\n```python\n- while 루프와 yield 사용\n- odd_gen(7)의 결과를 list로 출력\n# 출력 목표:\n[1, 3, 5, 7]\n```",
+      "question": "1부터 n까지 홀수만 생산하는 제너레이터 odd_gen을 작성하세요.\n\n```python\n조건:\n\n- while 루프와 yield 사용\n- odd_gen(7)의 결과를 list로 출력\n# 출력 목표:\n[1, 3, 5, 7]\n```",
       "answer": "def odd_gen(n):\n    i = 1\n    while i <= n:\n        yield i\n        i += 2\n\nprint(list(odd_gen(7)))",
       "pyodide_eval": true,
       "feedback": {
@@ -504,7 +504,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "두 제너레이터를 yield from으로 연결하는 combined_gen을 작성하세요.\n조건:\n```python\n- gen_a: 1, 2, 3 생산\n- gen_b: 4, 5 생산\n- combined_gen: yield from으로 gen_a(), gen_b() 순서로 위임\n- list(combined_gen())을 출력\n# 출력 목표:\n[1, 2, 3, 4, 5]\n```",
+      "question": "두 제너레이터를 yield from으로 연결하는 combined_gen을 작성하세요.\n\n```python\n조건:\n\n- gen_a: 1, 2, 3 생산\n- gen_b: 4, 5 생산\n- combined_gen: yield from으로 gen_a(), gen_b() 순서로 위임\n- list(combined_gen())을 출력\n# 출력 목표:\n[1, 2, 3, 4, 5]\n```",
       "answer": "def gen_a():\n    yield 1\n    yield 2\n    yield 3\n\ndef gen_b():\n    yield 4\n    yield 5\n\ndef combined_gen():\n    yield from gen_a()\n    yield from gen_b()\n\nprint(list(combined_gen()))",
       "pyodide_eval": true,
       "feedback": {
@@ -686,7 +686,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "클래스 기반 컨텍스트 매니저 Timer를 작성하세요.\n조건:\n```python\n- __init__: label 저장\n- __enter__: '[시작] {label}' 출력 후 self 반환\n- __exit__: '[종료] {label}' 출력, False 반환\n- with Timer('테스트') 안에서 print('실행 중') 호출\n# 출력 목표:\n# [시작] 테스트\n# 실행 중\n# [종료] 테스트\n```",
+      "question": "클래스 기반 컨텍스트 매니저 Timer를 작성하세요.\n\n```python\n조건:\n\n- __init__: label 저장\n- __enter__: '[시작] {label}' 출력 후 self 반환\n- __exit__: '[종료] {label}' 출력, False 반환\n- with Timer('테스트') 안에서 print('실행 중') 호출\n# 출력 목표:\n# [시작] 테스트\n# 실행 중\n# [종료] 테스트\n```",
       "answer": "class Timer:\n    def __init__(self, label):\n        self.label = label\n\n    def __enter__(self):\n        print(f'[시작] {self.label}')\n        return self\n\n    def __exit__(self, exc_type, exc_val, exc_tb):\n        print(f'[종료] {self.label}')\n        return False\n\nwith Timer('테스트'):\n    print('실행 중')",
       "pyodide_eval": true,
       "feedback": {
@@ -811,7 +811,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "데코레이터와 제너레이터를 결합하세요.\n조건:\n```python\n- log_calls 데코레이터: functools.wraps 적용, '{함수명} 시작' 출력 후 func 결과 반환\n- score_gen(scores): scores 리스트를 하나씩 yield\n- gen = score_gen([80, 90]) 호출 후 for 루프로 값 출력\n# 출력 목표:\n# score_gen 시작\n80\n90\n```",
+      "question": "데코레이터와 제너레이터를 결합하세요.\n\n```python\n조건:\n\n- log_calls 데코레이터: functools.wraps 적용, '{함수명} 시작' 출력 후 func 결과 반환\n- score_gen(scores): scores 리스트를 하나씩 yield\n- gen = score_gen([80, 90]) 호출 후 for 루프로 값 출력\n# 출력 목표:\n# score_gen 시작\n80\n90\n```",
       "answer": "import functools\n\ndef log_calls(func):\n    @functools.wraps(func)\n    def wrapper(*args, **kwargs):\n        print(f'{func.__name__} 시작')\n        return func(*args, **kwargs)\n    return wrapper\n\n@log_calls\ndef score_gen(scores):\n    for s in scores:\n        yield s\n\ngen = score_gen([80, 90])\nfor v in gen:\n    print(v)",
       "pyodide_eval": true,
       "feedback": {
@@ -864,7 +864,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "@contextmanager로 batch_context를 작성하세요.\n조건:\n```python\n- label을 받아 '[배치 시작] {label}' 출력 후 yield\n- with 블록 종료 후 '[배치 완료] {label}' 출력\n- with batch_context('분석') 안에서 print('처리 중') 호출\n# 출력 목표:\n# [배치 시작] 분석\n# 처리 중\n# [배치 완료] 분석\n```",
+      "question": "@contextmanager로 batch_context를 작성하세요.\n\n```python\n조건:\n\n- label을 받아 '[배치 시작] {label}' 출력 후 yield\n- with 블록 종료 후 '[배치 완료] {label}' 출력\n- with batch_context('분석') 안에서 print('처리 중') 호출\n# 출력 목표:\n# [배치 시작] 분석\n# 처리 중\n# [배치 완료] 분석\n```",
       "answer": "from contextlib import contextmanager\n\n@contextmanager\ndef batch_context(label):\n    print(f'[배치 시작] {label}')\n    yield\n    print(f'[배치 완료] {label}')\n\nwith batch_context('분석'):\n    print('처리 중')",
       "pyodide_eval": true,
       "feedback": {

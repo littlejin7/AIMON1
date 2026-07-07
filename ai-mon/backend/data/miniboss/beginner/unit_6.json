@@ -1052,7 +1052,7 @@
       "feedback": {
         "correct": "정답입니다! global 선언 덕분에 함수 안에서의 수술 결과가 바깥 전역 변수세계에도 고스란히 영구 영속되었습니다."
       },
-      "question": "'global' 키워드가 가동되는 다음 코드의 최종 출력 결과는 무엇일까요?\nmoney = 5000\n\ndef spend_money():\n    global money\n    money = 2000\n\n```python\nspend_money()\nprint(money)\n```",
+      "question": "'global' 키워드가 가동되는 다음 코드의 최종 출력 결과는 무엇일까요?\n\n```python\nmoney = 5000\n\ndef spend_money():\n    global money\n    money = 2000\n\nspend_money()\nprint(money)\n```",
       "stage": "6-5"
     },
     {
