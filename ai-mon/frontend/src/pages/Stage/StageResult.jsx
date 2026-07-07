@@ -32,7 +32,7 @@ export default function StageResult({
         <EvolutionModal
           fromChar={evoModal.fromChar}
           toChar={evoModal.toChar}
-          newLevel={evoModal.newLevel}
+          stage={evoModal.stage}
           onClose={() => setEvoModal(null)}
         />
       )}

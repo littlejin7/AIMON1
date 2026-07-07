@@ -2,7 +2,7 @@ import { useAuthStore } from '../../hooks/useAuthStore'
 import { userApi, progressApi } from '../../api/index'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { calcLevel, TITLES, CHARACTERS, CHAR_ICONS, CERT_THEMES, TITLE_ICON_BG } from './characterData'
+import { TITLES, CHARACTERS, CHAR_ICONS, CERT_THEMES, TITLE_ICON_BG } from './characterData'
 import './Character.css'
 
 export default function Character() {
@@ -67,8 +67,11 @@ export default function Character() {
   const clearedLevels = Array.isArray(user?.endboss_cleared_levels) ? user.endboss_cleared_levels : []
   const isCharUnlocked = (char) => !char.requiredLevel || clearedLevels.includes(char.requiredLevel)
 
-  const { lv, xpInLevel, xpForNext } = calcLevel(user?.xp || 0)
-  const xpPct = Math.round((xpInLevel / xpForNext) * 100)
+  // lv/evolution_stage 는 백엔드 값 직접 사용 — 프론트에서 xp 로 재계산하지 않는다.
+  const lv = user?.lv || 1
+  const evolutionStage = user?.evolution_stage || 0
+  const coinBalance = user?.coin_balance || 0
+  const gp = user?.gp || 0
 
   const latestUnlocked = [...CHARACTERS].reverse().find(c => isCharUnlocked(c))
   const selectedChar   = CHARACTERS.find(c => c.id === selected) || CHARACTERS[0]
@@ -150,15 +153,14 @@ export default function Character() {
               className="char-visual-img animate-bob"
             />
           </div>
-          <div className="char-hero-xp">
-            <div className="char-hero-xp-row">
-              <span className="char-hero-xp-lv">Lv. {lv} · {selectedChar.name}</span>
-              <span className="char-hero-xp-num">{(user?.xp || 0).toLocaleString()} XP</span>
+          <div className="char-hero-status">
+            <div className="char-hero-status-row">
+              <span className="char-hero-status-lv">Lv. {lv} · {selectedChar.name}</span>
+              <span className="char-hero-status-num">🪙 {coinBalance.toLocaleString()}</span>
             </div>
-            <div className="char-hero-xp-bar">
-              <div className="char-hero-xp-fill" style={{ width: `${xpPct}%` }} />
-            </div>
-            <p className="char-hero-xp-hint">다음 레벨까지 {xpForNext - xpInLevel} XP 남았어요</p>
+            {evolutionStage >= 3 && (
+              <p className="char-hero-status-hint">💠 GP {gp.toLocaleString()}</p>
+            )}
           </div>
         </div>
       </div>
@@ -189,9 +191,9 @@ export default function Character() {
         <p className="char-section-label">학습 스탯</p>
         <div className="char-stats-grid">
           <div className="char-stat-card">
-            <div className="char-stat-icon" style={{ background: 'rgba(83,74,183,0.18)' }}>⚡</div>
-            <div className="char-stat-val">{(user?.xp || 0).toLocaleString()}</div>
-            <div className="char-stat-label">누적 XP</div>
+            <div className="char-stat-icon" style={{ background: 'rgba(83,74,183,0.18)' }}>🪙</div>
+            <div className="char-stat-val">{coinBalance.toLocaleString()}</div>
+            <div className="char-stat-label">보유 코인</div>
           </div>
           <div className="char-stat-card">
             <div className="char-stat-icon" style={{ background: 'rgba(15,110,86,0.18)' }}>📈</div>
