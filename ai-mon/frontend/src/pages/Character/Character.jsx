@@ -64,7 +64,7 @@ export default function Character() {
     );
   }
 
-  const clearedLevels = user?.endboss_cleared_levels || []
+  const clearedLevels = Array.isArray(user?.endboss_cleared_levels) ? user.endboss_cleared_levels : []
   const isCharUnlocked = (char) => !char.requiredLevel || clearedLevels.includes(char.requiredLevel)
 
   const { lv, xpInLevel, xpForNext } = calcLevel(user?.xp || 0)
@@ -110,7 +110,8 @@ export default function Character() {
   }))
 
   const bossCleared = user?.boss_cleared || 0
-  const clearDates = ['2026.06.10', '2026.06.15', '2026.06.20', '2026.06.22']
+  const earnedCerts = CERT_THEMES.filter(theme => clearedLevels.includes(theme.level))
+  const nextCert = CERT_THEMES.find(theme => !clearedLevels.includes(theme.level))
 
   // 장착 중인 칭호 이름
   const equippedTitleName = titlesWithState.find(t => t.id === equippedTitle)?.name || ''
@@ -284,32 +285,31 @@ export default function Character() {
         </div>
 
         {/* ── 인증카드 ── */}
-        {bossCleared > 0 && (
+        {earnedCerts.length > 0 && (
           <>
             <p className="char-section-label">🎖 인증카드</p>
             <div className="char-cert-scroll">
-              {Array.from({ length: Math.min(bossCleared, 4) }).map((_, i) => {
-                const theme = CERT_THEMES[i]
+              {earnedCerts.map((theme) => {
                 return (
-                  <div key={i} className="char-cert-card">
+                  <div key={theme.level} className="char-cert-card">
                     <div className="char-cert-top" style={{ background: theme.grad }}>
-                      <div className="char-cert-badge">BOSS CLEAR</div>
+                      <div className="char-cert-badge">{theme.badge}</div>
                       <div className="char-cert-name">{theme.label}</div>
                     </div>
                     <div className="char-cert-body" style={{ background: theme.bodyBg }}>
-                      <img src={CHAR_ICONS['slime']} alt="에이몬" className="char-cert-img" />
+                      <img src={CHAR_ICONS[theme.character] || CHAR_ICONS.slime} alt="에이몬" className="char-cert-img" />
                     </div>
                     <div className="char-cert-footer" style={{ background: theme.footerBg }}>
-                      <span className="char-cert-date">{clearDates[i]}</span>
+                      <span className="char-cert-date">엔드보스 클리어</span>
                       <span className="char-cert-share">↗ 공유</span>
                     </div>
                   </div>
                 )
               })}
-              {bossCleared < 4 && (
+              {nextCert && (
                 <div className="char-cert-card char-cert-locked">
                   <div style={{ fontSize: '1.4rem', marginBottom: 6 }}>🔒</div>
-                  <div className="char-cert-locked-text">Unit {bossCleared + 1} 보스<br />클리어 후 해금</div>
+                  <div className="char-cert-locked-text">{nextCert.label}<br />엔드보스 클리어 후 해금</div>
                 </div>
               )}
             </div>
