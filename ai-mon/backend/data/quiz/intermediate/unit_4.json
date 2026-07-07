@@ -1353,7 +1353,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "h가 Pet의 인스턴스인지 확인하는 내장 함수를 빈칸에 채워보세요.\n\nclass Pet:\n    pass\n\n```python\nclass Hamster(Pet):\n    pass\n\nh = Hamster()\nprint(_____(h, Pet))      # True\nprint(_____(h, Hamster))  # True\n```",
+      "question": "h가 Pet의 인스턴스인지 확인하는 내장 함수를 빈칸에 채워보세요.\n\n```python\nclass Pet:\n    pass\n\nclass Hamster(Pet):\n    pass\n\nh = Hamster()\nprint(_____(h, Pet))      # True\nprint(_____(h, Hamster))  # True\n```",
       "answer": "isinstance",
       "hint": "객체가 특정 클래스(또는 그 부모 클래스)의 인스턴스인지 확인하는 내장 함수예요.",
       "feedback": {
@@ -1370,7 +1370,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "아래 코드를 실행하면 어떤 결과가 출력될까요?\n\nclass Monster:\n    pass\n\n```python\nclass Boss(Monster):\n    pass\n\nb = Boss()\nprint(isinstance(b, Monster))\nprint(isinstance(b, Boss))\n```",
+      "question": "아래 코드를 실행하면 어떤 결과가 출력될까요?\n\n```python\nclass Monster:\n    pass\n\nclass Boss(Monster):\n    pass\n\nb = Boss()\nprint(isinstance(b, Monster))\nprint(isinstance(b, Boss))\n```",
       "choices": [
         "A. False\nTrue",
         "B. True\nFalse",

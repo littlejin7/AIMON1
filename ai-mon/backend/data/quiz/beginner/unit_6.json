@@ -2011,7 +2011,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "A",
       "is_boss": false,
-      "question": "다음 global 키워드가 포함된 코드를 실행했을 때 화면에 나타나는 출력값을 고르세요.\n\nscore = 10\n\ndef increase_score():\n    global score\n    score = 30\n\n```python\nincrease_score()\nprint(score)\n```",
+      "question": "다음 global 키워드가 포함된 코드를 실행했을 때 화면에 나타나는 출력값을 고르세요.\n\n```python\nscore = 10\n\ndef increase_score():\n    global score\n    score = 30\n\nincrease_score()\nprint(score)\n```",
       "choices": [
         "A. 10",
         "B. 30",
@@ -2149,7 +2149,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\nuser_id = 'slime'\n\n```python\ndef print_user():\n    print(user_id)\nprint_user()\n```",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 값을 고르세요.\n\n```python\nuser_id = 'slime'\n\ndef print_user():\n    print(user_id)\nprint_user()\n```",
       "choices": [
         "A. user_id",
         "B. slime",
@@ -2241,7 +2241,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "다음 코드를 실행했을 때 최종으로 모니터링되는 텍스트 결과는 무엇인가요?\n\nlevel = 1\n\ndef force_up():\n    global level\n    level = level + 9\n\n```python\nforce_up()\nprint(level)\n```",
+      "question": "다음 코드를 실행했을 때 최종으로 모니터링되는 텍스트 결과는 무엇인가요?\n\n```python\nlevel = 1\n\ndef force_up():\n    global level\n    level = level + 9\n\nforce_up()\nprint(level)\n```",
       "choices": [
         "A. 1",
         "B. 9",
