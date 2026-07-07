@@ -20,12 +20,43 @@ const TYPE_BADGE = {
   code_input:      { label: '⌨️ 코드 작성',   bg: '#F0EFFE', color: '#6D28D9' },
 }
 
+const LEVEL_LABELS = {
+  beginner: '초급',
+  intermediate: '중급',
+  advanced: '고급',
+}
+
+const LABELS = ['A', 'B', 'C', 'D', 'E']
+
+function stripChoiceLabel(opt) {
+  return String(opt || '').replace(/^[A-E]\.\s*/, '')
+}
+
+function displayCorrectAnswer(answer, choices = []) {
+  const answerText = String(answer || '')
+  if (/^[A-E]$/.test(answerText)) {
+    const matched = choices.find((opt) => String(opt).startsWith(`${answerText}.`))
+    return matched ? stripChoiceLabel(matched) : answerText
+  }
+  return answerText
+}
+
+function shuffleChoices(choices) {
+  const shuffled = [...choices]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled
+}
+
 export default function EndBossBattle({
   bossData,
   currentQuestion,
   bossHp,
   myHp,
   phase,
+  selectedLevel,
   phase3Tries,
   selectedOption,
   setSelectedOption,
@@ -42,6 +73,8 @@ export default function EndBossBattle({
   onSubmit,
   onNextQuestion,
   onEscape,
+  showPhaseIntro: shouldShowPhaseIntro = false,
+  onPhaseIntroShown,
   questionNum,
   questionTotal,
 }) {
@@ -50,14 +83,35 @@ export default function EndBossBattle({
 
   const bossPct = Math.max(0, (bossHp / BOSS_HP_MAX) * 100)
   const myHpPct = Math.max(0, (myHp  / MY_HP_MAX)   * 100)
+  const [showPhaseIntro, setShowPhaseIntro] = useState(() => shouldShowPhaseIntro)
 
+  useEffect(() => {
+    if (!shouldShowPhaseIntro) {
+      setShowPhaseIntro(false)
+      return undefined
+    }
 
+    setShowPhaseIntro(true)
+    onPhaseIntroShown?.(phase)
+    const timer = window.setTimeout(() => setShowPhaseIntro(false), 1300)
+    return () => window.clearTimeout(timer)
+  }, [phase, shouldShowPhaseIntro, onPhaseIntroShown])
+  
   const parsed = parseQuestionText(currentQuestion.question)
   const badge  = TYPE_BADGE[currentQuestion.type] ?? TYPE_BADGE.multiple_choice
 
   const isCodeType = currentQuestion.type === 'code_input' || currentQuestion.type === 'fill_in_blank'
   const hasChoice  = !isCodeType && currentQuestion.choices?.length > 0
-
+  const choicesKey = (currentQuestion.choices || []).join('\u0001')
+  const shuffledChoices = useMemo(
+    () => shuffleChoices(currentQuestion.choices || []),
+    [currentQuestion.question_id, choicesKey],
+  )
+  const correctAnswerText = displayCorrectAnswer(
+    aiResult?.correct_answer,
+    currentQuestion.choices || [],
+  )
+  
   // error_find: 줄 클릭 UI 폐지 — 정답 줄 번호를 빈칸에 직접 입력하는 방식으로 통일
   const isErrorFindNoChoice = currentQuestion.type === 'error_find'
 
@@ -74,8 +128,17 @@ export default function EndBossBattle({
       {/* ── 전투 배경 ── */}
       <div className="eb-b-bg" style={{ backgroundImage: `url(${endbossBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="eb-b-ground-bot" />
-        <div className="eb-b-hp-sub">Phase {phase} 진행 중</div>
+        <div className="eb-b-hp-sub">
+          <span className="eb-b-level-label">{LEVEL_LABELS[selectedLevel] ?? selectedLevel ?? '난이도'}</span>
+          <span className="eb-b-boss-label">Endboss</span>
+        </div>
 
+        {showPhaseIntro && (
+          <div className="eb-b-phase-intro" aria-hidden="true">
+            <span>Phase{phase}</span>
+          </div>
+        )}
+        
         {/* 플레이어 HP 박스 — 상단 왼쪽 */}
         <div className={`eb-b-player-hpbox${myShake ? ' shake' : ''}`} style={{ top: '8px', bottom: 'auto', left: '8px' }}>
           {phase === 3 ? (
@@ -148,9 +211,6 @@ export default function EndBossBattle({
           >
             {badge.label}
           </span>
-          {questionNum && questionTotal && (
-            <span className="eb-b-qnum">문제 {questionNum}/{questionTotal}</span>
-          )}
           <button
             className="eb-b-escape-btn"
             onClick={onEscape}
@@ -174,16 +234,15 @@ export default function EndBossBattle({
           {/* 객관식 / 출력선택 */}
           {hasChoice && (
             <div className="eb-b-radio-opts">
-              {currentQuestion.choices.map((opt, idx) => {
-                const key = opt.substring(0, 1)
+              {shuffledChoices.map((opt, idx) => {
                 return (
                   <div
-                    key={idx}
-                    className={`eb-b-ropt${selectedOption === key ? ' sel' : ''}`}
-                    onClick={() => setSelectedOption(key)}
+                    key={opt}
+                    className={`eb-b-ropt${selectedOption === opt ? ' sel' : ''}`}
+                    onClick={() => setSelectedOption(opt)}
                   >
-                    <div className="eb-b-rcircle">{key}</div>
-                    <span className="eb-b-rtext">{opt.substring(3)}</span>
+                    <div className="eb-b-rcircle">{LABELS[idx] ?? idx + 1}</div>
+                    <span className="eb-b-rtext">{stripChoiceLabel(opt)}</span>
                   </div>
                 )
               })}
@@ -249,8 +308,8 @@ export default function EndBossBattle({
             {!aiResult.is_correct && aiResult.explanation && (
               <div className="eb-b-res-desc">해설: {aiResult.explanation}</div>
             )}
-            {!aiResult.is_correct && aiResult.correct_answer && (
-              <div className="eb-b-res-desc">정답: {aiResult.correct_answer}</div>
+            {!aiResult.is_correct && correctAnswerText && (
+              <div className="eb-b-res-desc">정답: {correctAnswerText}</div>
             )}
             <div className="eb-b-res-hp-row">
               <span>{aiResult.is_correct ? '⚡ 보스 HP 잔량' : '💢 내 HP 잔량'}</span>
