@@ -4,6 +4,7 @@ import endbossFailIcon  from '../../assets/boss_finalfail.png'
 export default function EndBossResult({
   phase,
   clearResult,
+  selectedLevel,
   levelUpMessage,
   onRetry,
   onNavigateLesson,
@@ -12,7 +13,12 @@ export default function EndBossResult({
   const isReplayClear = clearResult?.already_cleared === true
   const xpAwarded = clearResult?.xp_awarded ?? 15000
   const crownsAwarded = clearResult?.crowns_awarded ?? 15
-
+  const levelLabel = {
+    beginner: '초급',
+    intermediate: '중급',
+    advanced: '고급',
+  }[selectedLevel] || '난이도'
+  
   return (
     <div className="boss-card result-card card-glass animate-fade-in-up">
       <div className={`result-crown ${isCleared ? 'animate-float' : ''}`}>
@@ -64,7 +70,7 @@ export default function EndBossResult({
                 <div className="reward-item" style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
                   <span className="reward-icon">💳</span>
                   <span style={{ fontWeight: 700, color: '#f9e2af', marginLeft: '8px' }}>
-                    최종 레벨 클리어 인증카드
+                    {levelLabel} 엔드보스 인증카드
                   </span>
                 </div>
               </>
@@ -87,7 +93,7 @@ export default function EndBossResult({
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '24px' }}>
             <button className="btn btn-primary btn-lg btn-full pulse-btn" onClick={onRetry}>
-              👑 왕관을 소모하고 재도전할까요?
+              프로젝트 선택으로 돌아가기
             </button>
             <button className="btn btn-secondary btn-full" onClick={onNavigateLesson}>
               레슨으로 돌아가기
