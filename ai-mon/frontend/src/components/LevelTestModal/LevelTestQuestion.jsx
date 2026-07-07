@@ -46,10 +46,10 @@ const TYPE_BADGE = {
 }
 
 export default function LevelTestQuestion({
-  step, total, selected, timer,
+  step, total, question, selected, timer,
   onSelect, onNext, onSkip, onBack,
 }) {
-  const q    = LEVEL_TEST_QUESTIONS[step - 1]
+  const q    = question || LEVEL_TEST_QUESTIONS[step - 1]
   const { questionText, codeLines } = parseQuestionCode(q.question)
   const diff = DIFF_META[q.level]
   const badge = TYPE_BADGE[q.level]
@@ -137,8 +137,11 @@ export default function LevelTestQuestion({
           
           {/* 선택지 */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
-            {q.choices.map((c, i) => {
-              const isSelected = i === selected
+            {q.choices.map((choice, i) => {
+              const c = typeof choice === 'object' ? choice.text : choice
+              const originalIndex = typeof choice === 'object' ? choice.originalIndex : i
+              const isSelected = originalIndex === selected
+
 
               let borderColor = '#E8E6FA'
               let bg = 'white'
@@ -154,9 +157,9 @@ export default function LevelTestQuestion({
 
               return (
                 <button
-                  key={i}
+                  key={`${originalIndex}-${c}`}
                   id={`lt-q${step}-c${i}`}
-                  onClick={() => onSelect(i)}
+                  onClick={() => onSelect(originalIndex)}
                   style={{
                     display: 'flex', alignItems: 'center', gap: '10px',
                     border: `1.5px solid ${borderColor}`, borderRadius: '13px',
