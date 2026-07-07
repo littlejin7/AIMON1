@@ -297,7 +297,6 @@ export default function Boss() {
             phase={phase}
             aiResult={aiResult}
             levelUpMessage={levelUpMessage}
-            lessonId={lessonId}
             onRetry={handleStart}
             onNavigateLesson={() => navigate('/lesson')}
           />
