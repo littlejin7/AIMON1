@@ -117,7 +117,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "API 키 유효성 검사 함수를 작성하세요.\n조건:\n```python\n- validate_key(key): key가 None이거나 빈 문자열이면 '키 없음', 길이 10 미만이면 '키 짧음', 그 외 '유효' 출력\n- validate_key(None), validate_key('short'), validate_key('validkey123') 순서로 호출\n```\n\n출력 목표:\n키 없음\n키 짧음\n유효",
+      "question": "API 키 유효성 검사 함수를 작성하세요.\n조건:\n```python\n- validate_key(key): key가 None이거나 빈 문자열이면 '키 없음', 길이 10 미만이면 '키 짧음', 그 외 '유효' 출력\n- validate_key(None), validate_key('short'), validate_key('validkey123') 순서로 호출\n# 출력 목표:\n# 키 없음\n# 키 짧음\n# 유효\n```",
       "answer": "def validate_key(key):\n    if not key:\n        print('키 없음')\n    elif len(key) < 10:\n        print('키 짧음')\n    else:\n        print('유효')\n\nvalidate_key(None)\nvalidate_key('short')\nvalidate_key('validkey123')",
       "pyodide_eval": true,
       "feedback": {
@@ -170,7 +170,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "환경 변수 기반 설정 로더를 작성하세요.\n조건:\n```python\n- os.environ에 'MODEL'='claude-3', 'MAX_TOKENS'='1024' 설정\n- load_config(): 두 값을 읽어 {'model': ..., 'max_tokens': int(...)} 딕셔너리 반환\n- config를 출력\n```\n\n출력 목표:\n{'model': 'claude-3', 'max_tokens': 1024}",
+      "question": "환경 변수 기반 설정 로더를 작성하세요.\n조건:\n```python\n- os.environ에 'MODEL'='claude-3', 'MAX_TOKENS'='1024' 설정\n- load_config(): 두 값을 읽어 {'model': ..., 'max_tokens': int(...)} 딕셔너리 반환\n- config를 출력\n# 출력 목표:\n{'model': 'claude-3', 'max_tokens': 1024}\n```",
       "answer": "import os\n\nos.environ['MODEL'] = 'claude-3'\nos.environ['MAX_TOKENS'] = '1024'\n\ndef load_config():\n    return {\n        'model': os.environ['MODEL'],\n        'max_tokens': int(os.environ['MAX_TOKENS'])\n    }\n\nconfig = load_config()\nprint(config)",
       "pyodide_eval": true,
       "feedback": {
@@ -187,7 +187,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Anthropic 클라이언트를 생성하는 클래스로 빈칸을 채우세요.\n\n```python\nimport anthropic\n```\n\nclient = anthropic._____(api_key='test-key')",
+      "question": "Anthropic 클라이언트를 생성하는 클래스로 빈칸을 채우세요.\n\n```python\nimport anthropic\nclient = anthropic._____(api_key='test-key')\n```",
       "answer": "Anthropic",
       "feedback": {
         "correct": "정답! anthropic.Anthropic()으로 클라이언트 인스턴스를 생성합니다. api_key를 생략하면 ANTHROPIC_API_KEY 환경 변수에서 자동으로 읽어요. 이 클라이언트 객체가 모든 API 호출의 진입점입니다. 클리어!"
@@ -259,7 +259,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Claude API 호출 시 응답 토큰 최대값을 지정하는 파라미터 이름으로 빈칸을 채우세요.\n\n```python\nresponse = client.messages.create(\n    model='claude-opus-4-8',\n    _____=1024,\n    messages=[{'role': 'user', 'content': '안녕'}]\n```\n)",
+      "question": "Claude API 호출 시 응답 토큰 최대값을 지정하는 파라미터 이름으로 빈칸을 채우세요.\n\n```python\nresponse = client.messages.create(\n    model='claude-opus-4-8',\n    _____=1024,\n    messages=[{'role': 'user', 'content': '안녕'}]\n)\n```",
       "answer": "max_tokens",
       "feedback": {
         "correct": "정답! max_tokens는 Claude API의 필수 파라미터입니다. 응답이 이 값에 도달하면 stop_reason이 'max_tokens'가 되고 응답이 잘릴 수 있어요. 충분히 크게 설정하되, 비용을 고려해 필요 이상으로 크게 잡지 않는 것이 좋습니다. 클리어!"
@@ -331,7 +331,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "messages 리스트를 관리하는 헬퍼 함수를 작성하세요.\n조건:\n```python\n- add_message(messages, role, content): messages에 {'role': role, 'content': content} 추가\n- get_last_role(messages): 마지막 메시지의 role 반환\n- 빈 리스트 생성, user/assistant/user 순서로 추가, 마지막 role 출력\n```\n\n출력 목표:\nuser",
+      "question": "messages 리스트를 관리하는 헬퍼 함수를 작성하세요.\n조건:\n```python\n- add_message(messages, role, content): messages에 {'role': role, 'content': content} 추가\n- get_last_role(messages): 마지막 메시지의 role 반환\n- 빈 리스트 생성, user/assistant/user 순서로 추가, 마지막 role 출력\n# 출력 목표:\nuser\n```",
       "answer": "def add_message(messages, role, content):\n    messages.append({'role': role, 'content': content})\n\ndef get_last_role(messages):\n    return messages[-1]['role']\n\nmsgs = []\nadd_message(msgs, 'user', '안녕')\nadd_message(msgs, 'assistant', '안녕하세요')\nadd_message(msgs, 'user', '잘 지내?')\nprint(get_last_role(msgs))",
       "pyodide_eval": true,
       "feedback": {
@@ -348,7 +348,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "토큰 사용량을 추적하는 클래스를 작성하세요.\n조건:\n```python\n- TokenTracker: total_input=0, total_output=0\n- add(input_tokens, output_tokens): 각 누적\n- report(): '입력: {total_input}, 출력: {total_output}, 합계: {합}' 출력\n- add(10, 5), add(20, 8) 후 report() 호출\n```\n\n출력 목표:\n입력: 30, 출력: 13, 합계: 43",
+      "question": "토큰 사용량을 추적하는 클래스를 작성하세요.\n조건:\n```python\n- TokenTracker: total_input=0, total_output=0\n- add(input_tokens, output_tokens): 각 누적\n- report(): '입력: {total_input}, 출력: {total_output}, 합계: {합}' 출력\n- add(10, 5), add(20, 8) 후 report() 호출\n# 출력 목표:\n# 입력: 30, 출력: 13, 합계: 43\n```",
       "answer": "class TokenTracker:\n    def __init__(self):\n        self.total_input = 0\n        self.total_output = 0\n\n    def add(self, input_tokens, output_tokens):\n        self.total_input += input_tokens\n        self.total_output += output_tokens\n\n    def report(self):\n        total = self.total_input + self.total_output\n        print(f'입력: {self.total_input}, 출력: {self.total_output}, 합계: {total}')\n\ntracker = TokenTracker()\ntracker.add(10, 5)\ntracker.add(20, 8)\ntracker.report()",
       "pyodide_eval": true,
       "feedback": {
@@ -365,7 +365,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Claude API에서 시스템 프롬프트를 전달하는 파라미터 이름으로 빈칸을 채우세요.\n\n```python\nresponse = client.messages.create(\n    model='claude-opus-4-8',\n    max_tokens=512,\n```\n    _____='당신은 친절한 AI 도우미입니다.',\n    messages=[{'role': 'user', 'content': '안녕'}]\n)",
+      "question": "Claude API에서 시스템 프롬프트를 전달하는 파라미터 이름으로 빈칸을 채우세요.\n\n```python\nresponse = client.messages.create(\n    model='claude-opus-4-8',\n    max_tokens=512,\n# _____='당신은 친절한 AI 도우미입니다.',\n# messages=[{'role': 'user', 'content': '안녕'}]\n)\n```",
       "answer": "system",
       "feedback": {
         "correct": "정답! system 파라미터로 Claude의 역할, 성격, 제약 등을 설정합니다. messages 리스트에 포함되지 않고 별도 파라미터로 전달되며, 대화 전체에 적용됩니다. 시스템 프롬프트는 Claude의 행동을 일관되게 유지하는 핵심 도구예요. 클리어!"
@@ -473,7 +473,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "멀티턴 대화 시뮬레이터를 작성하세요.\n조건:\n```python\n- ChatSession 클래스: system(str), history(list) 초기화\n- add_user(msg): user 메시지 추가\n- add_assistant(msg): assistant 메시지 추가\n- summary(): '턴 수: {len(history)//2}' 출력\n- user '안녕', assistant '안녕!', user '잘 지내?', assistant '잘 지내요!' 추가 후 summary()\n```\n\n출력 목표:\n턴 수: 2",
+      "question": "멀티턴 대화 시뮬레이터를 작성하세요.\n조건:\n```python\n- ChatSession 클래스: system(str), history(list) 초기화\n- add_user(msg): user 메시지 추가\n- add_assistant(msg): assistant 메시지 추가\n- summary(): '턴 수: {len(history)//2}' 출력\n- user '안녕', assistant '안녕!', user '잘 지내?', assistant '잘 지내요!' 추가 후 summary()\n# 출력 목표:\n# 턴 수: 2\n```",
       "answer": "class ChatSession:\n    def __init__(self, system=''):\n        self.system = system\n        self.history = []\n\n    def add_user(self, msg):\n        self.history.append({'role': 'user', 'content': msg})\n\n    def add_assistant(self, msg):\n        self.history.append({'role': 'assistant', 'content': msg})\n\n    def summary(self):\n        print(f'턴 수: {len(self.history) // 2}')\n\nsession = ChatSession(system='AI 도우미')\nsession.add_user('안녕')\nsession.add_assistant('안녕!')\nsession.add_user('잘 지내?')\nsession.add_assistant('잘 지내요!')\nsession.summary()",
       "pyodide_eval": true,
       "feedback": {
@@ -526,7 +526,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "히스토리 요약 함수를 작성하세요.\n조건:\n```python\n- summarize(history): user/assistant 메시지 수를 세어 '사용자: N, 어시스턴트: M' 출력\n- history에 user 3개, assistant 2개 추가 후 summarize 호출\n```\n\n출력 목표:\n사용자: 3, 어시스턴트: 2",
+      "question": "히스토리 요약 함수를 작성하세요.\n조건:\n```python\n- summarize(history): user/assistant 메시지 수를 세어 '사용자: N, 어시스턴트: M' 출력\n- history에 user 3개, assistant 2개 추가 후 summarize 호출\n# 출력 목표:\n# 사용자: 3, 어시스턴트: 2\n```",
       "answer": "def summarize(history):\n    user_count = sum(1 for m in history if m['role'] == 'user')\n    asst_count = sum(1 for m in history if m['role'] == 'assistant')\n    print(f'사용자: {user_count}, 어시스턴트: {asst_count}')\n\nhistory = [\n    {'role': 'user', 'content': 'Q1'},\n    {'role': 'assistant', 'content': 'A1'},\n    {'role': 'user', 'content': 'Q2'},\n    {'role': 'assistant', 'content': 'A2'},\n    {'role': 'user', 'content': 'Q3'},\n]\nsummarize(history)",
       "pyodide_eval": true,
       "feedback": {
@@ -615,7 +615,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "스트리밍 이벤트 중 텍스트 델타 이벤트의 타입으로 빈칸을 채우세요.\n\n```python\n# 스트리밍 이벤트 처리 예시\nevent_type = 'content_block_delta'\nif event_type == '_____':\n    # delta.text로 청크 텍스트 접근\n```\n    pass",
+      "question": "스트리밍 이벤트 중 텍스트 델타 이벤트의 타입으로 빈칸을 채우세요.\n\n```python\n# 스트리밍 이벤트 처리 예시\nevent_type = 'content_block_delta'\nif event_type == '_____':\n    # delta.text로 청크 텍스트 접근\npass\n```",
       "answer": "content_block_delta",
       "feedback": {
         "correct": "정답! Claude API 스트리밍에서 텍스트 청크는 content_block_delta 이벤트로 전달됩니다. 이벤트 객체의 delta.text에 실제 텍스트 조각이 담겨요. message_start, content_block_start, content_block_delta, content_block_stop, message_stop 순으로 이벤트가 발생합니다. 클리어!"
@@ -651,7 +651,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "스트리밍 시뮬레이터를 구현하세요.\n조건:\n```python\n- stream_text(text, chunk_size=2): text를 chunk_size 단위로 나눠 리스트로 반환\n- stream_text('에이몬AI', 2)로 청크 리스트 생성\n- 각 청크를 print(chunk, end='', flush=True)로 출력\n```\n- 마지막에 개행 출력\n\n출력 목표:\n에이몬AI",
+      "question": "스트리밍 시뮬레이터를 구현하세요.\n조건:\n```python\n- stream_text(text, chunk_size=2): text를 chunk_size 단위로 나눠 리스트로 반환\n- stream_text('에이몬AI', 2)로 청크 리스트 생성\n- 각 청크를 print(chunk, end='', flush=True)로 출력\n# - 마지막에 개행 출력\n\n# 출력 목표:\n# 에이몬AI\n```",
       "answer": "def stream_text(text, chunk_size=2):\n    return [text[i:i+chunk_size] for i in range(0, len(text), chunk_size)]\n\nchunks = stream_text('에이몬AI', 2)\nfor chunk in chunks:\n    print(chunk, end='', flush=True)\nprint()",
       "pyodide_eval": true,
       "feedback": {
@@ -704,7 +704,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "스트리밍 응답 처리기 클래스를 작성하세요.\n조건:\n```python\n- StreamCollector: chunks=[], char_count=0\n- add(chunk): chunks에 추가하고 char_count 누적\n- finish(): '완료: {char_count}자, {len(chunks)}청크' 출력\n- 청크 '에이', '몬 ', 'AI' 추가 후 finish()\n```\n\n출력 목표:\n완료: 7자, 3청크",
+      "question": "스트리밍 응답 처리기 클래스를 작성하세요.\n조건:\n```python\n- StreamCollector: chunks=[], char_count=0\n- add(chunk): chunks에 추가하고 char_count 누적\n- finish(): '완료: {char_count}자, {len(chunks)}청크' 출력\n- 청크 '에이', '몬 ', 'AI' 추가 후 finish()\n# 출력 목표:\n# 완료: 7자, 3청크\n```",
       "answer": "class StreamCollector:\n    def __init__(self):\n        self.chunks = []\n        self.char_count = 0\n\n    def add(self, chunk):\n        self.chunks.append(chunk)\n        self.char_count += len(chunk)\n\n    def finish(self):\n        print(f'완료: {self.char_count}자, {len(self.chunks)}청크')\n\ncollector = StreamCollector()\ncollector.add('에이')\ncollector.add('몬 ')\ncollector.add('AI')\ncollector.finish()",
       "pyodide_eval": true,
       "feedback": {
@@ -742,7 +742,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "API 호출 실패 시 재시도하는 패턴에서 빈칸을 채우세요.\n\n```python\nimport time\n\ndef call_with_retry(func, max_retries=3):\n    for attempt in range(max_retries):\n        try:\n            return func()\n        except Exception as e:\n            if attempt == max_retries - 1:\n```\n                _____\n            time.sleep(2 ** attempt)\n\ncall_with_retry(lambda: 1/0)",
+      "question": "API 호출 실패 시 재시도하는 패턴에서 빈칸을 채우세요.\n\n```python\nimport time\n\ndef call_with_retry(func, max_retries=3):\n    for attempt in range(max_retries):\n        try:\n            return func()\n        except Exception as e:\n            if attempt == max_retries - 1:\n_____\ntime.sleep(2 ** attempt)\n\ncall_with_retry(lambda: 1/0)\n```",
       "answer": "raise",
       "feedback": {
         "correct": "정답! raise는 현재 예외를 그대로 재발생시킵니다. 마지막 시도에서도 실패하면 예외를 상위로 전파해야 호출자가 오류를 알 수 있어요. time.sleep(2 ** attempt)는 지수 백오프 패턴으로 1초, 2초, 4초... 대기합니다. 클리어!"
@@ -829,7 +829,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "API 클라이언트 래퍼 클래스를 작성하세요.\n조건:\n```python\n- AIClient: api_key(str), call_count=0\n- chat(message): call_count 증가, f'[응답] {message}' 반환\n- get_stats(): '호출 횟수: {call_count}' 출력\n- chat('안녕'), chat('잘 있어') 후 get_stats()\n```\n\n출력 목표:\n호출 횟수: 2",
+      "question": "API 클라이언트 래퍼 클래스를 작성하세요.\n조건:\n```python\n- AIClient: api_key(str), call_count=0\n- chat(message): call_count 증가, f'[응답] {message}' 반환\n- get_stats(): '호출 횟수: {call_count}' 출력\n- chat('안녕'), chat('잘 있어') 후 get_stats()\n# 출력 목표:\n# 호출 횟수: 2\n```",
       "answer": "class AIClient:\n    def __init__(self, api_key):\n        self.api_key = api_key\n        self.call_count = 0\n\n    def chat(self, message):\n        self.call_count += 1\n        return f'[응답] {message}'\n\n    def get_stats(self):\n        print(f'호출 횟수: {self.call_count}')\n\nclient = AIClient(api_key='test-key')\nclient.chat('안녕')\nclient.chat('잘 있어')\nclient.get_stats()",
       "pyodide_eval": true,
       "feedback": {
@@ -882,7 +882,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "지수 백오프 재시도 함수를 작성하세요.\n조건:\n- retry(func, max_retries=3): 성공 시 반환값, 실패 시 'attempt {n}' 출력\n- 3번 모두 실패하면 '최대 재시도 초과' 출력 후 None 반환\n```python\n- 항상 실패하는 lambda: (_ for _ in ()).throw(Exception())를 전달\n```\n\n출력 목표:\nattempt 1\nattempt 2\nattempt 3\n최대 재시도 초과",
+      "question": "지수 백오프 재시도 함수를 작성하세요.\n조건:\n- retry(func, max_retries=3): 성공 시 반환값, 실패 시 'attempt {n}' 출력\n- 3번 모두 실패하면 '최대 재시도 초과' 출력 후 None 반환\n```python\n- 항상 실패하는 lambda: (_ for _ in ()).throw(Exception())를 전달\n# 출력 목표:\nattempt 1\nattempt 2\nattempt 3\n# 최대 재시도 초과\n```",
       "answer": "def retry(func, max_retries=3):\n    for n in range(1, max_retries + 1):\n        try:\n            return func()\n        except Exception:\n            print(f'attempt {n}')\n    print('최대 재시도 초과')\n    return None\n\nresult = retry(lambda: (_ for _ in ()).throw(Exception('실패')))\n",
       "pyodide_eval": true,
       "feedback": {

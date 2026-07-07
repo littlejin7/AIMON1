@@ -282,7 +282,7 @@
       "feedback": {
         "correct": "정답입니다! 전달된 데이터가 함수 안에서 수식으로 계산되어 처리되었습니다."
       },
-      "question": "다음 코드를 실행했을 때 출력되는 결과로 올바른 것은 무엇인가요?\n```python\ndef square(num):\n    print(num * num)\n```\n\nsquare(4)",
+      "question": "다음 코드를 실행했을 때 출력되는 결과로 올바른 것은 무엇인가요?\n```python\ndef square(num):\n    print(num * num)\nsquare(4)\n```",
       "stage": "6-2"
     },
     {
@@ -304,7 +304,7 @@
       "feedback": {
         "correct": "정답입니다! 기본적으로 인수는 함수에 정의된 매개변수의 순서대로 차례차례 들어갑니다."
       },
-      "question": "다음 코드를 실행했을 때 화면에 나오는 출력은 무엇인가요?\n```python\ndef show_info(name, level):\n    print(f\"Lv.{level} {name}\")\n```\n\nshow_info(\"슬라임\", 5)",
+      "question": "다음 코드를 실행했을 때 화면에 나오는 출력은 무엇인가요?\n```python\ndef show_info(name, level):\n    print(f\"Lv.{level} {name}\")\n# show_info(\"슬라임\", 5)\n```",
       "stage": "6-2"
     },
     {
@@ -348,7 +348,7 @@
       "feedback": {
         "correct": "정답입니다! 매개변수의 위치와 함수 내부에서 변수가 활용되는 순서는 별개라는 것을 조심해야 해요."
       },
-      "question": "다음 코드를 실행했을 때 화면에 나타나는 출력은 무엇인가요?\n```python\ndef combine(a, b):\n    print(b + a)\n```\n\ncombine(\"파이\", \"썬\")",
+      "question": "다음 코드를 실행했을 때 화면에 나타나는 출력은 무엇인가요?\n```python\ndef combine(a, b):\n    print(b + a)\n# combine(\"파이\", \"썬\")\n```",
       "stage": "6-2"
     },
     {
@@ -392,7 +392,7 @@
       "feedback": {
         "correct": "정답입니다! 인수가 매개변수 개수보다 많아도 문법 오류가 일어납니다."
       },
-      "question": "다음 코드를 실행했을 때 발생하는 현상은 무엇인가요?\n```python\ndef attack(power):\n    print(f\"{power}의 데미지를 주었습니다.\")\n```\n\nattack(\"강력\", 500)",
+      "question": "다음 코드를 실행했을 때 발생하는 현상은 무엇인가요?\n```python\ndef attack(power):\n    print(f\"{power}의 데미지를 주었습니다.\")\n# attack(\"강력\", 500)\n```",
       "stage": "6-2"
     },
     {
@@ -414,7 +414,7 @@
       "feedback": {
         "correct": "정답입니다! 키워드 인수를 활용하면 순서가 뒤바뀌어도 이름에 맞춰 올바르게 대입됩니다."
       },
-      "question": "인수의 매개변수 이름을 직접 명시하는 '키워드 인수'를 활용한 다음 코드의 출력 결과는 무엇인가요?\n```python\ndef make_profile(id, nickname):\n    print(f\"{nickname}({id})\")\n```\n\nmake_profile(nickname=\"에이짱\", id=\"user99\")",
+      "question": "인수의 매개변수 이름을 직접 명시하는 '키워드 인수'를 활용한 다음 코드의 출력 결과는 무엇인가요?\n```python\ndef make_profile(id, nickname):\n    print(f\"{nickname}({id})\")\n# make_profile(nickname=\"에이짱\", id=\"user99\")\n```",
       "stage": "6-2"
     },
     {
@@ -436,7 +436,7 @@
       "feedback": {
         "correct": "정답입니다! 변수 매칭 결과를 수식에 대입하면 '30 - 10 = 20'이 도출됩니다."
       },
-      "question": "다음 코드의 실행 결과를 올바르게 고른 것은 무엇인가요?\n```python\ndef calculator(x, y):\n    print(x - y)\n```\n\ncalculator(y=10, x=30)",
+      "question": "다음 코드의 실행 결과를 올바르게 고른 것은 무엇인가요?\n```python\ndef calculator(x, y):\n    print(x - y)\ncalculator(y=10, x=30)\n```",
       "stage": "6-2"
     },
     {
@@ -502,7 +502,7 @@
       "feedback": {
         "correct": "정답입니다! return으로 돌려준 값이 변수에 아름답게 안착했습니다."
       },
-      "question": "다음 코드를 실행했을 때 변수 ans에 담기는 최종 데이터는 무엇인가요?\n```python\ndef multiply(a, b):\n    return a * b\n```\n\nans = multiply(3, 5)",
+      "question": "다음 코드를 실행했을 때 변수 ans에 담기는 최종 데이터는 무엇인가요?\n```python\ndef multiply(a, b):\n    return a * b\nans = multiply(3, 5)\n```",
       "stage": "6-3"
     },
     {
@@ -612,7 +612,7 @@
       "feedback": {
         "correct": "정답입니다! 파이썬의 비밀 중 하나로, 콤마로 나열된 반환값은 튜플 상자로 포장되어 나갑니다."
       },
-      "question": "다음 코드를 실행했을 때 변수 data의 자료형(type)은 무엇이 될까요?\n```python\ndef get_coords():\n    return 10, 20\n```\n\ndata = get_coords()",
+      "question": "다음 코드를 실행했을 때 변수 data의 자료형(type)은 무엇이 될까요?\n```python\ndef get_coords():\n    return 10, 20\ndata = get_coords()\n```",
       "stage": "6-3"
     },
     {
@@ -722,7 +722,7 @@
       "feedback": {
         "correct": "정답입니다! 양쪽 모두 준비된 기본값 세팅을 바탕으로 에러 없이 출력되었습니다."
       },
-      "question": "다음 코드를 실행했을 때 나오는 출력 결과는 무엇인가요?\n```python\ndef power_up(robot=\"슬라임\", level=1):\n    print(f\"{robot} Lv.{level}\")\n```\n\npower_up()",
+      "question": "다음 코드를 실행했을 때 나오는 출력 결과는 무엇인가요?\n```python\ndef power_up(robot=\"슬라임\", level=1):\n    print(f\"{robot} Lv.{level}\")\npower_up()\n```",
       "stage": "6-4"
     },
     {
@@ -744,7 +744,7 @@
       "feedback": {
         "correct": "정답입니다! 직접 인수를 명시하면 기본값은 힘을 잃고 전달된 새로운 인수가 최우선시됩니다."
       },
-      "question": "다음 코드를 실행했을 때 화면에 출력되는 결과물은 무엇인가요?\n```python\ndef order_coffee(menu, ice=True):\n    print(f\"{menu} / 얼음:{ice}\")\n```\n\norder_coffee(\"아메리카노\", False)",
+      "question": "다음 코드를 실행했을 때 화면에 출력되는 결과물은 무엇인가요?\n```python\ndef order_coffee(menu, ice=True):\n    print(f\"{menu} / 얼음:{ice}\")\n# order_coffee(\"아메리카노\", False)\n```",
       "stage": "6-4"
     },
     {
@@ -766,7 +766,7 @@
       "feedback": {
         "correct": "정답입니다! 앞에서부터 차곡차곡 인수가 매핑되고 남은 매개변수만 기본값 보너스를 받습니다."
       },
-      "question": "다음 코드의 실행 결과를 알맞게 유추해 보세요.\n```python\ndef attack_monster(damage=10, count=2):\n    print(damage * count)\n```\n\nattack_monster(50)",
+      "question": "다음 코드의 실행 결과를 알맞게 유추해 보세요.\n```python\ndef attack_monster(damage=10, count=2):\n    print(damage * count)\nattack_monster(50)\n```",
       "stage": "6-4"
     },
     {
@@ -788,7 +788,7 @@
       "feedback": {
         "correct": "정답입니다! 위치 인수와 키워드 인수를 조합하여 특정 기본값만 콕 집어 바꿀 수 있습니다."
       },
-      "question": "다음 코드의 출력 결과를 골라보세요.\n```python\ndef say_words(w1, w2=\"파이썬\", w3=\"최고\"):\n    print(f\"{w1} {w2} {w3}\")\n```\n\nsay_words(\"지구상\", w3=\"대박\")",
+      "question": "다음 코드의 출력 결과를 골라보세요.\n```python\ndef say_words(w1, w2=\"파이썬\", w3=\"최고\"):\n    print(f\"{w1} {w2} {w3}\")\n# say_words(\"지구상\", w3=\"대박\")\n```",
       "stage": "6-4"
     },
     {
@@ -832,7 +832,7 @@
       "feedback": {
         "correct": "정답입니다! 순서가 꼬이면 파이썬 해석기가 구조를 파악하지 못해 거부해요."
       },
-      "question": "다음 코드를 실행하려고 할 때 발생하는 현상으로 옳은 것은 무엇인가요?\n```python\ndef calculate_tax(rate=0.1, price):\n    print(price * rate)\n```\n\ncalculate_tax(1000)",
+      "question": "다음 코드를 실행하려고 할 때 발생하는 현상으로 옳은 것은 무엇인가요?\n```python\ndef calculate_tax(rate=0.1, price):\n    print(price * rate)\ncalculate_tax(1000)\n```",
       "stage": "6-4"
     },
     {
@@ -942,7 +942,7 @@
       "feedback": {
         "correct": "정답입니다! 지역 변수는 자신이 태어난 고향 함수 내부 안에서는 자유롭게 활보하고 출력될 수 있습니다."
       },
-      "question": "다음 코드를 가동했을 때 콘솔창에 찍히는 출력 결과물은 무엇인가요?\n```python\ndef sample():\n    msg = \"헬로 에이몬\"\n    print(msg)\n```\n\nsample()",
+      "question": "다음 코드를 가동했을 때 콘솔창에 찍히는 출력 결과물은 무엇인가요?\n```python\ndef sample():\n    msg = \"헬로 에이몬\"\n    print(msg)\nsample()\n```",
       "stage": "6-5"
     },
     {
@@ -986,7 +986,7 @@
       "feedback": {
         "correct": "정답입니다! 거실에 둔 공용 TV처럼, 바깥 전역 스코프에 만들어둔 변수는 안방인 함수 안에서도 잘 보여요."
       },
-      "question": "다음 코드의 최종 화면 출력 결과로 합당한 것은 무엇인가요?\ngame_title = \"에이몬 대모험\"\n\n```python\ndef print_game():\n    print(game_title)\n```\n\nprint_game()",
+      "question": "다음 코드의 최종 화면 출력 결과로 합당한 것은 무엇인가요?\ngame_title = \"에이몬 대모험\"\n\n```python\ndef print_game():\n    print(game_title)\nprint_game()\n```",
       "stage": "6-5"
     },
     {
@@ -1096,7 +1096,7 @@
       "feedback": {
         "correct": "정답입니다! 스코프는 안방에서 거실로 점진적으로 확장하며 변수를 검색하는 계층 체계를 지니고 있습니다."
       },
-      "question": "다음 코드의 출력 결과를 고르세요.\n```python\ndef level_1():\n    x = \"A\"\n    def level_2():\n        print(x)\n    level_2()\n```\n\nlevel_1()",
+      "question": "다음 코드의 출력 결과를 고르세요.\n```python\ndef level_1():\n    x = \"A\"\n    def level_2():\n        print(x)\n    level_2()\nlevel_1()\n```",
       "stage": "6-5"
     },
     {
@@ -1184,7 +1184,7 @@
       "feedback": {
         "correct": "정답입니다! 내부 함수도 결국 함수이기 때문에 정의만 하고 가동 버튼(호출 괄호)을 누르지 않으면 절대 실행되지 않습니다."
       },
-      "question": "다음 코드를 돌렸을 때 도출되는 결과를 골라보세요.\n```python\ndef out_wall():\n    def in_wall():\n        print(\"비밀 통로\")\n```\n\nout_wall()",
+      "question": "다음 코드를 돌렸을 때 도출되는 결과를 골라보세요.\n```python\ndef out_wall():\n    def in_wall():\n        print(\"비밀 통로\")\nout_wall()\n```",
       "stage": "6-6"
     },
     {
@@ -1206,7 +1206,7 @@
       "feedback": {
         "correct": "정답입니다! 내부 함수는 은밀하게 격리되어 있으므로 바깥에서 멋대로 월담하여 도적 호출을 감행하면 에러가 납니다."
       },
-      "question": "다음 코드를 실행했을 때 목격할 수 있는 현상은 무엇인가요?\n```python\ndef machine():\n    def gear():\n        print(\"위잉\")\n    gear()\n```\n\ngear()",
+      "question": "다음 코드를 실행했을 때 목격할 수 있는 현상은 무엇인가요?\n```python\ndef machine():\n    def gear():\n        print(\"위잉\")\n    gear()\ngear()\n```",
       "stage": "6-6"
     },
     {

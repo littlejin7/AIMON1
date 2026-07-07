@@ -168,7 +168,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 조건에 맞게 파이프라인 코드를 작성하세요.\n조건:\n```python\n- make_pipeline(*steps): steps를 순서대로 실행하는 run 함수를 반환\n- step_add(state): state['val']에 5를 더해 반환\n- step_double(state): state['val']을 2배로 만들어 반환\n- make_pipeline(step_add, step_double)로 파이프라인 생성\n- {'val': 3}으로 실행하여 result['val'] 출력\n```\n\n출력 목표:\n16",
+      "question": "아래 조건에 맞게 파이프라인 코드를 작성하세요.\n조건:\n```python\n- make_pipeline(*steps): steps를 순서대로 실행하는 run 함수를 반환\n- step_add(state): state['val']에 5를 더해 반환\n- step_double(state): state['val']을 2배로 만들어 반환\n- make_pipeline(step_add, step_double)로 파이프라인 생성\n- {'val': 3}으로 실행하여 result['val'] 출력\n# 출력 목표:\n16\n```",
       "answer": "def make_pipeline(*steps):\n    def run(state):\n        for step in steps:\n            state = step(state)\n        return state\n    return run\n\ndef step_add(state):\n    state['val'] = state['val'] + 5\n    return state\n\ndef step_double(state):\n    state['val'] = state['val'] * 2\n    return state\n\npipeline = make_pipeline(step_add, step_double)\nresult = pipeline({'val': 3})\nprint(result['val'])",
       "pyodide_eval": true,
       "feedback": {
@@ -344,7 +344,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 조건에 맞게 simulate_agent 코드를 작성하세요.\n조건:\n```python\n- simulate_agent(user_input, tools_dict) 함수 정의\n- '[입력] ' + user_input 출력\n- tools_dict의 tool_name이 user_input에 포함되면 해당 도구 실행\n- '[선택] 도구: ' + tool_name 출력\n- '[결과] ' + result 출력\n- '[출력] ' + result + '를 바탕으로 답변 완료' 출력 후 return\n```\n- 해당 도구 없으면 '[출력] 도구 없이 직접 답변' 출력\n```python\n- search 함수: 'AI 뉴스' 반환\n- simulate_agent('search: 오늘 뉴스', {'search': search}) 호출\n```\n\n출력 목표:\n```python\n[입력] search: 오늘 뉴스\n[선택] 도구: search\n[결과] AI 뉴스\n```\n[출력] AI 뉴스를 바탕으로 답변 완료",
+      "question": "아래 조건에 맞게 simulate_agent 코드를 작성하세요.\n조건:\n```python\n- simulate_agent(user_input, tools_dict) 함수 정의\n- '[입력] ' + user_input 출력\n- tools_dict의 tool_name이 user_input에 포함되면 해당 도구 실행\n- '[선택] 도구: ' + tool_name 출력\n- '[결과] ' + result 출력\n- '[출력] ' + result + '를 바탕으로 답변 완료' 출력 후 return\n# - 해당 도구 없으면 '[출력] 도구 없이 직접 답변' 출력\n```python\n# - search 함수: 'AI 뉴스' 반환\n# - simulate_agent('search: 오늘 뉴스', {'search': search}) 호출\n```\n\n# 출력 목표:\n```python\n# [입력] search: 오늘 뉴스\n# [선택] 도구: search\n# [결과] AI 뉴스\n```\n# [출력] AI 뉴스를 바탕으로 답변 완료\n```",
       "answer": "def simulate_agent(user_input, tools_dict):\n    print('[입력] ' + user_input)\n    for tool_name, tool_func in tools_dict.items():\n        if tool_name in user_input:\n            print('[선택] 도구: ' + tool_name)\n            result = tool_func(user_input)\n            print('[결과] ' + result)\n            print('[출력] ' + result + '를 바탕으로 답변 완료')\n            return\n    print('[출력] 도구 없이 직접 답변')\n\ndef search(query):\n    return 'AI 뉴스'\n\nsimulate_agent('search: 오늘 뉴스', {'search': search})",
       "pyodide_eval": true,
       "feedback": {
@@ -412,7 +412,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass EventBus:\n    def __init__(self):\n        self.handlers = {}\n\n    def on(self, event, handler):\n        self.handlers.setdefault(event, []).append(handler)\n\n    def emit(self, event, data=None):\n        print('[이벤트] ' + event + ' 발생')\n        for handler in self.handlers.get(event, []):\n            handler(data)\n```\n\nbus = EventBus()\n\n```python\ndef on_new_data(data):\n    print('  → 데이터 수신: ' + str(data))\n\ndef on_new_data_log(data):\n    print('  → 로그 기록: ' + str(data))\n\nbus.on('new_data', on_new_data)\nbus.on('new_data', on_new_data_log)\nbus.emit('new_data', 'AI 뉴스 업데이트')\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass EventBus:\n    def __init__(self):\n        self.handlers = {}\n\n    def on(self, event, handler):\n        self.handlers.setdefault(event, []).append(handler)\n\n    def emit(self, event, data=None):\n        print('[이벤트] ' + event + ' 발생')\n        for handler in self.handlers.get(event, []):\n            handler(data)\nbus = EventBus()\n\n```python\ndef on_new_data(data):\n# print('  → 데이터 수신: ' + str(data))\n\ndef on_new_data_log(data):\n# print('  → 로그 기록: ' + str(data))\n\nbus.on('new_data', on_new_data)\nbus.on('new_data', on_new_data_log)\n# bus.emit('new_data', 'AI 뉴스 업데이트')\n```\n```",
       "choices": [
         "A. [이벤트] new_data 발생\n  → 데이터 수신: AI 뉴스 업데이트\n  → 로그 기록: AI 뉴스 업데이트",
         "B. [이벤트] new_data 발생\n  → 데이터 수신: AI 뉴스 업데이트",
@@ -484,7 +484,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport time\n\ndef retry(max_attempts=3, delay=0):\n    def decorator(func):\n        def wrapper(*args, **kwargs):\n            for attempt in range(1, max_attempts + 1):\n                try:\n                    return func(*args, **kwargs)\n                except Exception as e:\n                    print('[시도 ' + str(attempt) + '/' + str(max_attempts) + '] 실패: ' + str(e))\n                    if attempt < max_attempts:\n                        time.sleep(delay)\n            return None\n        return wrapper\n    return decorator\n```\n\ncall_count = 0\n\n```python\n@retry(max_attempts=3, delay=0)\ndef unstable_api():\n\n    global call_count\n    call_count += 1\n    if call_count < 3:\n        raise ConnectionError('API 타임아웃')\n    return 'API 응답 성공'\n\nresult = unstable_api()\nprint('결과: ' + str(result))\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nimport time\n\ndef retry(max_attempts=3, delay=0):\n    def decorator(func):\n        def wrapper(*args, **kwargs):\n            for attempt in range(1, max_attempts + 1):\n                try:\n                    return func(*args, **kwargs)\n                except Exception as e:\n                    print('[시도 ' + str(attempt) + '/' + str(max_attempts) + '] 실패: ' + str(e))\n                    if attempt < max_attempts:\n                        time.sleep(delay)\n            return None\n        return wrapper\n    return decorator\ncall_count = 0\n\n```python\n@retry(max_attempts=3, delay=0)\ndef unstable_api():\n\nglobal call_count\ncall_count += 1\nif call_count < 3:\n# raise ConnectionError('API 타임아웃')\n# return 'API 응답 성공'\n\nresult = unstable_api()\n# print('결과: ' + str(result))\n```\n```",
       "choices": [
         "A. [시도 1/3] 실패: API 타임아웃\n[시도 2/3] 실패: API 타임아웃\n결과: API 응답 성공",
         "B. [시도 1/3] 실패: API 타임아웃\n[시도 2/3] 실패: API 타임아웃\n[시도 3/3] 실패: API 타임아웃\n결과: None",
@@ -520,7 +520,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 조건에 맞게 Monitor 클래스를 작성하세요.\n조건:\n```python\n- Monitor(threshold): 임계치 저장, alerts 빈 리스트 초기화\n- check(value, label): value > threshold면 '[경고] {label}: {value} > {threshold}' 출력 후 alerts에 추가, 아니면 '[정상] {label}: {value}' 출력\n- summary(): '총 {len(alerts)}건 경고 발생' 출력\n- Monitor(threshold=80)으로 생성, check 4회 호출 후 summary 실행\n```\n\n출력 목표:\n```python\n[정상] CPU 사용률(%): 65\n[경고] 메모리 사용률(%): 92 > 80\n```\n[정상] 디스크 사용률(%): 78\n[경고] API 응답시간(ms): 95 > 80\n총 2건 경고 발생",
+      "question": "아래 조건에 맞게 Monitor 클래스를 작성하세요.\n조건:\n```python\n- Monitor(threshold): 임계치 저장, alerts 빈 리스트 초기화\n- check(value, label): value > threshold면 '[경고] {label}: {value} > {threshold}' 출력 후 alerts에 추가, 아니면 '[정상] {label}: {value}' 출력\n- summary(): '총 {len(alerts)}건 경고 발생' 출력\n- Monitor(threshold=80)으로 생성, check 4회 호출 후 summary 실행\n# 출력 목표:\n```python\n# [정상] CPU 사용률(%): 65\n# [경고] 메모리 사용률(%): 92 > 80\n```\n# [정상] 디스크 사용률(%): 78\n# [경고] API 응답시간(ms): 95 > 80\n# 총 2건 경고 발생\n```",
       "answer": "class Monitor:\n    def __init__(self, threshold):\n        self.threshold = threshold\n        self.alerts = []\n\n    def check(self, value, label):\n        if value > self.threshold:\n            msg = '[경고] ' + label + ': ' + str(value) + ' > ' + str(self.threshold)\n            self.alerts.append(msg)\n            print(msg)\n        else:\n            print('[정상] ' + label + ': ' + str(value))\n\n    def summary(self):\n        print('총 ' + str(len(self.alerts)) + '건 경고 발생')\n\nm = Monitor(threshold=80)\nm.check(65, 'CPU 사용률(%)')\nm.check(92, '메모리 사용률(%)')\nm.check(78, '디스크 사용률(%)')\nm.check(95, 'API 응답시간(ms)')\nm.summary()",
       "pyodide_eval": true,
       "feedback": {
@@ -588,7 +588,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass ToolRegistry:\n    def __init__(self):\n        self._tools = {}\n\n    def register(self, name):\n        def decorator(func):\n            self._tools[name] = func\n            return func\n        return decorator\n\n    def call(self, name, **kwargs):\n        if name not in self._tools:\n            return \"오류: '\" + name + \"' 도구 없음\"\n        return self._tools[name](**kwargs)\n\n    def list_tools(self):\n        return list(self._tools.keys())\n```\n\nregistry = ToolRegistry()\n\n```python\n@registry.register('search')\ndef search(query):\n    return \"'\" + query + \"' 검색 결과: 관련 문서 3건\"\n\n@registry.register('summarize')\ndef summarize(text):\n    return '요약: ' + text[:10] + '...'\n\nprint('등록된 도구:', registry.list_tools())\nprint(registry.call('search', query='LangChain'))\nprint(registry.call('summarize', text='LangChain은 LLM 애플리케이션 프레임워크입니다'))\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nclass ToolRegistry:\n    def __init__(self):\n        self._tools = {}\n\n    def register(self, name):\n        def decorator(func):\n            self._tools[name] = func\n            return func\n        return decorator\n\n    def call(self, name, **kwargs):\n        if name not in self._tools:\n            return \"오류: '\" + name + \"' 도구 없음\"\n        return self._tools[name](**kwargs)\n\n    def list_tools(self):\n        return list(self._tools.keys())\nregistry = ToolRegistry()\n\n```python\n@registry.register('search')\ndef search(query):\n# return \"'\" + query + \"' 검색 결과: 관련 문서 3건\"\n\n@registry.register('summarize')\ndef summarize(text):\n# return '요약: ' + text[:10] + '...'\n\n# print('등록된 도구:', registry.list_tools())\nprint(registry.call('search', query='LangChain'))\n# print(registry.call('summarize', text='LangChain은 LLM 애플리케이션 프레임워크입니다'))\n```\n```",
       "choices": [
         "A. 등록된 도구: ['search', 'summarize']\n'LangChain' 검색 결과: 관련 문서 3건\n요약: LangChain은...",
         "B. 등록된 도구: ['search', 'summarize']\n'LangChain' 검색 결과: 관련 문서 3건\n요약: LangChain은 LLM 애플리케이션...",
@@ -609,7 +609,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "ToolRegistry의 register 데코레이터가 원래 함수를 그대로 유지하려면 빈칸을 채우세요.\n출력 목표: 안녕, 에이몬\n\n```python\nclass ToolRegistry:\n    def __init__(self):\n        self._tools = {}\n\n    def register(self, name):\n        def decorator(func):\n            self._tools[name] = func\n            return _____\n        return decorator\n\n    def call(self, name, **kwargs):\n        return self._tools[name](**kwargs)\n```\n\nregistry = ToolRegistry()\n\n```python\n@registry.register('greet')\ndef greet(name): return '안녕, ' + name\n\nprint(registry.call('greet', name='에이몬'))\n```",
+      "question": "ToolRegistry의 register 데코레이터가 원래 함수를 그대로 유지하려면 빈칸을 채우세요.\n출력 목표: 안녕, 에이몬\n\n```python\nclass ToolRegistry:\n    def __init__(self):\n        self._tools = {}\n\n    def register(self, name):\n        def decorator(func):\n            self._tools[name] = func\n            return _____\n        return decorator\n\n    def call(self, name, **kwargs):\n        return self._tools[name](**kwargs)\nregistry = ToolRegistry()\n\n```python\n@registry.register('greet')\n# def greet(name): return '안녕, ' + name\n\n# print(registry.call('greet', name='에이몬'))\n```\n```",
       "answer": "func",
       "feedback": {
         "correct": "정답! 데코레이터의 decorator 함수는 func(원본 함수)를 _tools에 저장한 뒤 func를 그대로 반환합니다. return None이면 greet 변수가 None이 되어 직접 호출이 불가능해집니다. return name이면 문자열이 반환됩니다. func를 반환함으로써 데코레이터 적용 후에도 greet('에이몬')처럼 직접 호출할 수 있습니다. 클리어!"
@@ -696,7 +696,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 조건에 맞게 safe_fetch 함수를 작성하세요.\n조건:\n```python\n- safe_fetch(url: str) -> str 함수 정의\n- allowed = ['api.example.com', 'data.mysite.com']\n- '//' 포함 시 url.split('/')[2]로 domain 추출, 아니면 url 그대로 사용\n- any()로 allowed 중 하나라도 domain에 포함되면 '[성공] {url}: 데이터 200건 수신' 반환\n```\n- 아니면 '[차단] {url}: 허가되지 않은 도메인' 반환\n- safe_fetch 2회 호출\n\n출력 목표:\n```python\n[성공] https://api.example.com/news: 데이터 200건 수신\n[차단] https://blocked.site.com/data: 허가되지 않은 도메인\n```",
+      "question": "아래 조건에 맞게 safe_fetch 함수를 작성하세요.\n조건:\n```python\n- safe_fetch(url: str) -> str 함수 정의\n- allowed = ['api.example.com', 'data.mysite.com']\n- '//' 포함 시 url.split('/')[2]로 domain 추출, 아니면 url 그대로 사용\n- any()로 allowed 중 하나라도 domain에 포함되면 '[성공] {url}: 데이터 200건 수신' 반환\n# - 아니면 '[차단] {url}: 허가되지 않은 도메인' 반환\n# - safe_fetch 2회 호출\n\n# 출력 목표:\n```python\n# [성공] https://api.example.com/news: 데이터 200건 수신\n# [차단] https://blocked.site.com/data: 허가되지 않은 도메인\n```\n```",
       "answer": "def safe_fetch(url):\n    allowed = ['api.example.com', 'data.mysite.com']\n    domain = url.split('/')[2] if '//' in url else url\n    if any(a in domain for a in allowed):\n        return '[성공] ' + url + ': 데이터 200건 수신'\n    return '[차단] ' + url + ': 허가되지 않은 도메인'\n\nprint(safe_fetch('https://api.example.com/news'))\nprint(safe_fetch('https://blocked.site.com/data'))",
       "pyodide_eval": true,
       "feedback": {
@@ -764,7 +764,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nfrom collections import deque\n\nclass MessageQueue:\n    def __init__(self):\n        self.queue = deque()\n    def send(self, sender, receiver, content):\n        self.queue.append({'from': sender, 'to': receiver, 'content': content})\n    def receive(self, receiver):\n        return [m for m in self.queue if m['to'] == receiver]\n\nmq = MessageQueue()\nmq.send('검색봇', '분석봇', '뉴스 10건')\nmq.send('분석봇', '저장봇', '분석 완료')\n```\nmq.send('저장봇', '오케스트레이터', '저장 완료')\n\n```python\nmsgs = mq.receive('저장봇')\nprint('수신 건수: ' + str(len(msgs)))\nprint('내용: ' + msgs[0]['content'])\n```",
+      "question": "다음 코드의 출력값을 고르세요.\n\n```python\nfrom collections import deque\n\nclass MessageQueue:\n    def __init__(self):\n        self.queue = deque()\n    def send(self, sender, receiver, content):\n        self.queue.append({'from': sender, 'to': receiver, 'content': content})\n    def receive(self, receiver):\n        return [m for m in self.queue if m['to'] == receiver]\n\nmq = MessageQueue()\nmq.send('검색봇', '분석봇', '뉴스 10건')\nmq.send('분석봇', '저장봇', '분석 완료')\n# mq.send('저장봇', '오케스트레이터', '저장 완료')\n\n```python\n# msgs = mq.receive('저장봇')\n# print('수신 건수: ' + str(len(msgs)))\n# print('내용: ' + msgs[0]['content'])\n```\n```",
       "choices": [
         "A. 수신 건수: 1\n내용: 분석 완료",
         "B. 수신 건수: 1\n내용: 저장 완료",
@@ -872,7 +872,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 조건에 맞게 Agent와 Orchestrator 클래스를 작성하세요.\n조건:\n```python\n- Agent(name, keyword): can_handle(task)는 keyword in task 반환, run(task)는 '[{name}] 완료' 반환\n- Orchestrator(agents): dispatch(task)는 '[작업] {task}' 출력 후 can_handle이 True인 첫 에이전트 run 결과를 '  → {result}' 출력, 없으면 '  → 처리 가능한 에이전트 없음' 출력\n- agents = [Agent('검색봇','검색'), Agent('분석봇','분석')]\n- dispatch 2회 호출\n```\n\n출력 목표:\n[작업] 뉴스 검색 실행\n  → [검색봇] 완료\n[작업] 번역 요청\n  → 처리 가능한 에이전트 없음",
+      "question": "아래 조건에 맞게 Agent와 Orchestrator 클래스를 작성하세요.\n조건:\n```python\n- Agent(name, keyword): can_handle(task)는 keyword in task 반환, run(task)는 '[{name}] 완료' 반환\n- Orchestrator(agents): dispatch(task)는 '[작업] {task}' 출력 후 can_handle이 True인 첫 에이전트 run 결과를 '  → {result}' 출력, 없으면 '  → 처리 가능한 에이전트 없음' 출력\n- agents = [Agent('검색봇','검색'), Agent('분석봇','분석')]\n- dispatch 2회 호출\n# 출력 목표:\n# [작업] 뉴스 검색 실행\n# → [검색봇] 완료\n# [작업] 번역 요청\n# → 처리 가능한 에이전트 없음\n```",
       "answer": "class Agent:\n    def __init__(self, name, keyword):\n        self.name = name\n        self.keyword = keyword\n    def can_handle(self, task):\n        return self.keyword in task\n    def run(self, task):\n        return '[' + self.name + '] 완료'\n\nclass Orchestrator:\n    def __init__(self, agents):\n        self.agents = agents\n    def dispatch(self, task):\n        print('[작업] ' + task)\n        for agent in self.agents:\n            if agent.can_handle(task):\n                result = agent.run(task)\n                print('  → ' + result)\n                return result\n        print('  → 처리 가능한 에이전트 없음')\n        return None\n\nagents = [Agent('검색봇', '검색'), Agent('분석봇', '분석')]\norch = Orchestrator(agents)\norch.dispatch('뉴스 검색 실행')\norch.dispatch('번역 요청')",
       "pyodide_eval": true,
       "feedback": {
@@ -889,7 +889,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "generate_report에서 리스트의 각 줄을 줄바꿈으로 연결하려면 빈칸을 채우세요.\n출력 목표:\n=== AI 일일 동향 리포트 ===\n수집 기사: 6건\n========================\n\n```python\nlines = [\n    '=== AI 일일 동향 리포트 ===',\n```\n    '수집 기사: 6건',\n    '========================',\n]\n```python\nreport = '\\n'.join(_____)\nprint(report)\n```",
+      "question": "generate_report에서 리스트의 각 줄을 줄바꿈으로 연결하려면 빈칸을 채우세요.\n출력 목표:\n=== AI 일일 동향 리포트 ===\n수집 기사: 6건\n========================\n\n```python\nlines = [\n    '=== AI 일일 동향 리포트 ===',\n# '수집 기사: 6건',\n'========================',\n]\n```python\nreport = '\\n'.join(_____)\nprint(report)\n```\n```",
       "answer": "lines",
       "feedback": {
         "correct": "정답! '\\n'.join(lines)는 lines 리스트의 각 문자열 사이에 줄바꿈('\\n')을 삽입해 하나의 문자열로 합칩니다. ''.join(lines)는 구분자 없이, ', '.join(lines)는 쉼표로 연결됩니다. 보고서처럼 여러 줄 텍스트를 만들 때 join이 + 연산보다 효율적이고 가독성이 높습니다. 클리어!"
@@ -961,7 +961,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "analyze_articles에서 단어 빈도를 딕셔너리에 누적할 때 기존 값이 없으면 0을 기본값으로 사용하려면 빈칸을 채우세요.\n\n```python\ndef analyze_articles(articles):\n    keywords = {}\n    for article in articles:\n        words = article['title'].split()\n        for word in words:\n            if len(word) > 3:\n                keywords[word] = keywords._____(word, 0) + 1\n```\n    ...",
+      "question": "analyze_articles에서 단어 빈도를 딕셔너리에 누적할 때 기존 값이 없으면 0을 기본값으로 사용하려면 빈칸을 채우세요.\n\n```python\ndef analyze_articles(articles):\n    keywords = {}\n    for article in articles:\n        words = article['title'].split()\n        for word in words:\n            if len(word) > 3:\n                keywords[word] = keywords._____(word, 0) + 1\n...\n```",
       "answer": "get",
       "feedback": {
         "correct": "정답! dict.get(key, default)는 key가 존재하면 그 값을, 없으면 default를 반환합니다. keywords.get(word, 0)은 처음 등장하는 단어는 0을 반환해 0+1=1로 초기화되고, 이미 있는 단어는 기존 값+1이 됩니다. keywords[word]만 사용하면 키가 없을 때 KeyError가 발생합니다. 카운터 패턴의 핵심 관용구입니다. 클리어!"
@@ -1048,7 +1048,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "아래 조건에 맞게 analyze_articles 함수를 작성하세요.\n조건:\n```python\n- analyze_articles(articles: list) -> dict\n- keywords 딕셔너리에 4글자 초과(len > 3) 단어의 빈도 집계\n- sorted(keywords.items(), key=lambda x: x[1], reverse=True)[:3]으로 상위 3개 추출\n- 반환: {'total': len(articles), 'top_keywords': [k for k,v in top], 'summary': '총 N건 분석 — 핵심 주제: 상위키워드'}\n```\n- 3개 기사로 테스트 후 요약과 상위 키워드 출력\n\n출력 목표:\n```python\n요약: 총 3건 분석 — 핵심 주제: 인공지능\n상위 키워드: ['인공지능', '에이전트', '파이프라인']\n```",
+      "question": "아래 조건에 맞게 analyze_articles 함수를 작성하세요.\n조건:\n```python\n- analyze_articles(articles: list) -> dict\n- keywords 딕셔너리에 4글자 초과(len > 3) 단어의 빈도 집계\n- sorted(keywords.items(), key=lambda x: x[1], reverse=True)[:3]으로 상위 3개 추출\n- 반환: {'total': len(articles), 'top_keywords': [k for k,v in top], 'summary': '총 N건 분석 — 핵심 주제: 상위키워드'}\n# - 3개 기사로 테스트 후 요약과 상위 키워드 출력\n\n# 출력 목표:\n```python\n# 요약: 총 3건 분석 — 핵심 주제: 인공지능\n# 상위 키워드: ['인공지능', '에이전트', '파이프라인']\n```\n```",
       "answer": "def analyze_articles(articles):\n    keywords = {}\n    for article in articles:\n        words = article['title'].split()\n        for word in words:\n            if len(word) > 3:\n                keywords[word] = keywords.get(word, 0) + 1\n    top = sorted(keywords.items(), key=lambda x: x[1], reverse=True)[:3]\n    return {\n        'total': len(articles),\n        'top_keywords': [k for k, v in top],\n        'summary': '총 ' + str(len(articles)) + '건 분석 — 핵심 주제: ' + top[0][0]\n    }\n\nsample = [\n    {'title': '인공지능 에이전트 동향과 트렌드'},\n    {'title': '인공지능 파이프라인 설계 패턴'},\n    {'title': 'LangChain 에이전트 프레임워크 업데이트'},\n]\nresult = analyze_articles(sample)\nprint('요약: ' + result['summary'])\nprint('상위 키워드: ' + str(result['top_keywords']))",
       "pyodide_eval": true,
       "feedback": {

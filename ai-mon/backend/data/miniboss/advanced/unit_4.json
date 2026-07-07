@@ -9,7 +9,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit에서 제목을 표시하는 함수로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n```\n\nst._____(\"에이몬 AI 챗봇\")",
+      "question": "Streamlit에서 제목을 표시하는 함수로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n# st._____(\"에이몬 AI 챗봇\")\n```",
       "answer": "title",
       "feedback": {
         "correct": "정답! st.title()은 가장 큰 H1 수준의 제목을 표시합니다. 그 아래로 st.header()(H2), st.subheader()(H3), st.text(), st.markdown() 등의 텍스트 출력 함수가 있어요. 클리어!"
@@ -45,7 +45,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit에서 선택박스를 만드는 함수로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n```\n\nmodel = st._____(\"모델 선택\", [\"claude-opus-4-8\", \"claude-sonnet-4-6\", \"claude-haiku-4-5-20251001\"])",
+      "question": "Streamlit에서 선택박스를 만드는 함수로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n# model = st._____(\"모델 선택\", [\"claude-opus-4-8\", \"claude-sonnet-4-6\", \"claude-haiku-4-5-20251001\"])\n```",
       "answer": "selectbox",
       "feedback": {
         "correct": "정답! st.selectbox(label, options)는 드롭다운 선택박스를 만듭니다. 첫 번째 항목이 기본 선택값이에요. 다중 선택이 필요하면 st.multiselect()를 사용합니다. 클리어!"
@@ -60,7 +60,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드에서 col1의 넓이 비율로 올바른 것을 고르세요.\n\n```python\nimport streamlit as st\n```\n\ncol1, col2, col3 = st.columns([2, 1, 1])\n\n# col1의 상대적 비율은?",
+      "question": "다음 코드에서 col1의 넓이 비율로 올바른 것을 고르세요.\n\n```python\nimport streamlit as st\ncol1, col2, col3 = st.columns([2, 1, 1])\n\n# col1의 상대적 비율은?\n```",
       "choices": [
         "A. 50%",
         "B. 25%",
@@ -117,7 +117,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit 앱 설정 딕셔너리를 생성하는 함수를 작성하세요.\n조건:\n```python\n- make_config(title, model, max_tokens): 딕셔너리 반환\n- make_config('AI 도우미', 'claude-opus-4-8', 1024) 출력\n```\n\n출력 목표:\n{'title': 'AI 도우미', 'model': 'claude-opus-4-8', 'max_tokens': 1024}",
+      "question": "Streamlit 앱 설정 딕셔너리를 생성하는 함수를 작성하세요.\n조건:\n```python\n- make_config(title, model, max_tokens): 딕셔너리 반환\n- make_config('AI 도우미', 'claude-opus-4-8', 1024) 출력\n# 출력 목표:\n# {'title': 'AI 도우미', 'model': 'claude-opus-4-8', 'max_tokens': 1024}\n```",
       "answer": "def make_config(title, model, max_tokens):\n    return {'title': title, 'model': model, 'max_tokens': max_tokens}\n\nconfig = make_config('AI 도우미', 'claude-opus-4-8', 1024)\nprint(config)",
       "pyodide_eval": true,
       "feedback": {
@@ -134,7 +134,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit에서 성공 메시지를 녹색 박스로 표시하는 함수로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n```\n\nst._____(\"연결 성공!\")",
+      "question": "Streamlit에서 성공 메시지를 녹색 박스로 표시하는 함수로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n# st._____(\"연결 성공!\")\n```",
       "answer": "success",
       "feedback": {
         "correct": "정답! st.success()는 녹색 박스, st.error()는 빨간 박스, st.warning()은 노란 박스, st.info()는 파란 박스로 메시지를 표시합니다. 사용자에게 상태를 시각적으로 알릴 때 유용해요. 클리어!"
@@ -170,7 +170,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit 페이지 메뉴 관리 클래스를 작성하세요.\n조건:\n```python\n- PageManager: pages=[] 초기화\n- add_page(name): pages에 추가\n- get_default(): pages[0] 반환, 없으면 None\n- '홈', '설정', '도움말' 추가 후 get_default() 출력\n```\n\n출력 목표:\n홈",
+      "question": "Streamlit 페이지 메뉴 관리 클래스를 작성하세요.\n조건:\n```python\n- PageManager: pages=[] 초기화\n- add_page(name): pages에 추가\n- get_default(): pages[0] 반환, 없으면 None\n- '홈', '설정', '도움말' 추가 후 get_default() 출력\n# 출력 목표:\n# 홈\n```",
       "answer": "class PageManager:\n    def __init__(self):\n        self.pages = []\n\n    def add_page(self, name):\n        self.pages.append(name)\n\n    def get_default(self):\n        return self.pages[0] if self.pages else None\n\npm = PageManager()\npm.add_page('홈')\npm.add_page('설정')\npm.add_page('도움말')\nprint(pm.get_default())",
       "pyodide_eval": true,
       "feedback": {
@@ -295,7 +295,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit session_state 시뮬레이터를 작성하세요.\n조건:\n```python\n- SessionState 클래스: data={} 초기화\n- init(key, default): key가 없으면 default로 초기화\n- get(key): data[key] 반환\n- set(key, val): data[key] = val\n- init('count', 0), set('count', 5), get('count') 출력\n```\n\n출력 목표:\n5",
+      "question": "Streamlit session_state 시뮬레이터를 작성하세요.\n조건:\n```python\n- SessionState 클래스: data={} 초기화\n- init(key, default): key가 없으면 default로 초기화\n- get(key): data[key] 반환\n- set(key, val): data[key] = val\n- init('count', 0), set('count', 5), get('count') 출력\n# 출력 목표:\n5\n```",
       "answer": "class SessionState:\n    def __init__(self):\n        self.data = {}\n\n    def init(self, key, default):\n        if key not in self.data:\n            self.data[key] = default\n\n    def get(self, key):\n        return self.data[key]\n\n    def set(self, key, val):\n        self.data[key] = val\n\nss = SessionState()\nss.init('count', 0)\nss.set('count', 5)\nprint(ss.get('count'))",
       "pyodide_eval": true,
       "feedback": {
@@ -311,7 +311,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "콜백 함수로 session_state를 업데이트하는 패턴에서 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n\ndef reset_chat():\n    st.session_state.messages = []\n    st.session_state.token_count = 0\n```\n\nst.button('초기화', _____=reset_chat)",
+      "question": "콜백 함수로 session_state를 업데이트하는 패턴에서 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n\ndef reset_chat():\n    st.session_state.messages = []\n    st.session_state.token_count = 0\n# st.button('초기화', _____=reset_chat)\n```",
       "answer": "on_click",
       "feedback": {
         "correct": "정답! st.button()의 on_click 파라미터에 콜백 함수를 전달하면, 버튼 클릭 시 스크립트 재실행 전에 콜백이 먼저 실행됩니다. 이 방식이 session_state를 수정하는 더 안전한 방법이에요. 클리어!"
@@ -347,7 +347,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "대화 히스토리 상태 관리자를 작성하세요.\n조건:\n```python\n- ChatState: messages=[], max_turns=5\n- add(role, content): messages에 추가, max_turns*2 초과시 앞부터 자르기\n- count(): len(messages) 반환\n- user 6개, assistant 6개 번갈아 추가(총 12개), count() 출력\n```\n\n출력 목표:\n10",
+      "question": "대화 히스토리 상태 관리자를 작성하세요.\n조건:\n```python\n- ChatState: messages=[], max_turns=5\n- add(role, content): messages에 추가, max_turns*2 초과시 앞부터 자르기\n- count(): len(messages) 반환\n- user 6개, assistant 6개 번갈아 추가(총 12개), count() 출력\n# 출력 목표:\n10\n```",
       "answer": "class ChatState:\n    def __init__(self, max_turns=5):\n        self.messages = []\n        self.max_turns = max_turns\n\n    def add(self, role, content):\n        self.messages.append({'role': role, 'content': content})\n        if len(self.messages) > self.max_turns * 2:\n            self.messages = self.messages[-(self.max_turns * 2):]\n\n    def count(self):\n        return len(self.messages)\n\ncs = ChatState(max_turns=5)\nfor i in range(6):\n    cs.add('user', f'Q{i}')\n    cs.add('assistant', f'A{i}')\nprint(cs.count())",
       "pyodide_eval": true,
       "feedback": {
@@ -472,7 +472,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "채팅 UI 렌더링 시뮬레이터를 작성하세요.\n조건:\n```python\n- render_chat(messages): 각 메시지를 '[user] 내용' 또는 '[AI] 내용' 형식으로 출력\n- role이 'user'면 '[user]', 'assistant'면 '[AI]' 접두사\n- messages에 user/assistant/user 3개 추가 후 render_chat 호출\n```\n\n출력 목표:\n[user] 안녕\n[AI] 반갑습니다\n[user] 고마워",
+      "question": "채팅 UI 렌더링 시뮬레이터를 작성하세요.\n조건:\n```python\n- render_chat(messages): 각 메시지를 '[user] 내용' 또는 '[AI] 내용' 형식으로 출력\n- role이 'user'면 '[user]', 'assistant'면 '[AI]' 접두사\n- messages에 user/assistant/user 3개 추가 후 render_chat 호출\n# 출력 목표:\n# [user] 안녕\n# [AI] 반갑습니다\n# [user] 고마워\n```",
       "answer": "def render_chat(messages):\n    for msg in messages:\n        prefix = '[user]' if msg['role'] == 'user' else '[AI]'\n        print(f\"{prefix} {msg['content']}\")\n\nmessages = [\n    {'role': 'user', 'content': '안녕'},\n    {'role': 'assistant', 'content': '반갑습니다'},\n    {'role': 'user', 'content': '고마워'},\n]\nrender_chat(messages)",
       "pyodide_eval": true,
       "feedback": {
@@ -525,7 +525,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "채팅 메시지 포맷터를 작성하세요.\n조건:\n```python\n- format_message(role, content): role='user'면 '👤 {content}', role='assistant'면 '🤖 {content}' 반환\n- messages 리스트에 user/assistant/user 각 1개 추가\n- 각 메시지를 format_message로 출력\n```\n\n출력 목표:\n👤 안녕\n🤖 반갑습니다\n👤 잘 지내?",
+      "question": "채팅 메시지 포맷터를 작성하세요.\n조건:\n```python\n- format_message(role, content): role='user'면 '👤 {content}', role='assistant'면 '🤖 {content}' 반환\n- messages 리스트에 user/assistant/user 각 1개 추가\n- 각 메시지를 format_message로 출력\n# 출력 목표:\n# 👤 안녕\n# 🤖 반갑습니다\n# 👤 잘 지내?\n```",
       "answer": "def format_message(role, content):\n    if role == 'user':\n        return f'👤 {content}'\n    return f'🤖 {content}'\n\nmessages = [\n    {'role': 'user', 'content': '안녕'},\n    {'role': 'assistant', 'content': '반갑습니다'},\n    {'role': 'user', 'content': '잘 지내?'},\n]\nfor msg in messages:\n    print(format_message(msg['role'], msg['content']))",
       "pyodide_eval": true,
       "feedback": {
@@ -542,7 +542,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit에서 secrets.toml에 저장된 API 키를 읽는 방법으로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n```\n\napi_key = st.secrets[\"_____\"]",
+      "question": "Streamlit에서 secrets.toml에 저장된 API 키를 읽는 방법으로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\napi_key = st.secrets[\"_____\"]\n```",
       "answer": "ANTHROPIC_API_KEY",
       "feedback": {
         "correct": "정답! st.secrets['ANTHROPIC_API_KEY']로 .streamlit/secrets.toml에 저장된 API 키를 안전하게 읽습니다. secrets.toml은 .gitignore에 포함해 절대 공개 저장소에 올리지 않아야 해요. 배포 환경에서는 Streamlit Cloud의 Secrets 메뉴에 설정합니다. 클리어!"
@@ -578,7 +578,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit 앱에서 Anthropic 클라이언트를 캐싱하는 데코레이터로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\nimport anthropic\n```\n\n@st._____\n```python\ndef get_client():\n    return anthropic.Anthropic(api_key=st.secrets['ANTHROPIC_API_KEY'])\n```",
+      "question": "Streamlit 앱에서 Anthropic 클라이언트를 캐싱하는 데코레이터로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\nimport anthropic\n@st._____\n```python\ndef get_client():\nreturn anthropic.Anthropic(api_key=st.secrets['ANTHROPIC_API_KEY'])\n```\n```",
       "answer": "cache_resource",
       "feedback": {
         "correct": "정답! @st.cache_resource는 함수 반환값을 앱 전체에서 한 번만 생성해 재사용합니다. Anthropic 클라이언트나 DB 연결처럼 무거운 리소스에 적합해요. @st.cache_data는 데이터를 캐싱하고 복사본을 반환하지만, 리소스 객체는 복사가 불가능해 cache_resource를 써야 합니다. 클리어!"
@@ -650,7 +650,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "API 파라미터 빌더 함수를 작성하세요.\n조건:\n```python\n- build_params(messages, model, max_tokens, system=None): dict 반환\n- system이 있으면 'system' 키 추가, 없으면 제외\n- build_params([{'role':'user','content':'hi'}], 'claude-opus-4-8', 512) 출력\n- build_params(..., system='튜터') 에서 'system' in params 출력\n```\n\n출력 목표:\nFalse\nTrue",
+      "question": "API 파라미터 빌더 함수를 작성하세요.\n조건:\n```python\n- build_params(messages, model, max_tokens, system=None): dict 반환\n- system이 있으면 'system' 키 추가, 없으면 제외\n- build_params([{'role':'user','content':'hi'}], 'claude-opus-4-8', 512) 출력\n- build_params(..., system='튜터') 에서 'system' in params 출력\n# 출력 목표:\nFalse\nTrue\n```",
       "answer": "def build_params(messages, model, max_tokens, system=None):\n    params = {\n        'model': model,\n        'max_tokens': max_tokens,\n        'messages': messages\n    }\n    if system:\n        params['system'] = system\n    return params\n\nmsg = [{'role': 'user', 'content': 'hi'}]\np1 = build_params(msg, 'claude-opus-4-8', 512)\nprint('system' in p1)\n\np2 = build_params(msg, 'claude-opus-4-8', 512, system='튜터')\nprint('system' in p2)",
       "pyodide_eval": true,
       "feedback": {
@@ -667,7 +667,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit에서 데이터를 캐시하되 리렌더링 간 최신 상태를 유지하는 데코레이터로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n```\n\n@st._____\n```python\ndef load_model_list():\n    return ['claude-opus-4-8', 'claude-sonnet-4-6', 'claude-haiku-4-5-20251001']\n```",
+      "question": "Streamlit에서 데이터를 캐시하되 리렌더링 간 최신 상태를 유지하는 데코레이터로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n@st._____\n```python\ndef load_model_list():\nreturn ['claude-opus-4-8', 'claude-sonnet-4-6', 'claude-haiku-4-5-20251001']\n```\n```",
       "answer": "cache_data",
       "feedback": {
         "correct": "정답! @st.cache_data는 순수 데이터(리스트, dict, DataFrame 등)를 캐싱합니다. 함수 인자가 같으면 재실행하지 않고 캐시된 복사본을 반환해요. @st.cache_resource와 달리 데이터를 직렬화해 안전하게 복사합니다. 클리어!"
@@ -703,7 +703,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "API 응답 처리 파이프라인을 작성하세요.\n조건:\n```python\n- process_response(raw_text): 앞뒤 공백 제거, 200자 초과시 '...' 붙여 자르기, 반환\n- test_texts: 100자 텍스트 / 250자 텍스트 두 개 처리\n```\n- 각 결과의 길이 출력\n\n출력 목표:\n100\n203",
+      "question": "API 응답 처리 파이프라인을 작성하세요.\n조건:\n```python\n- process_response(raw_text): 앞뒤 공백 제거, 200자 초과시 '...' 붙여 자르기, 반환\n- test_texts: 100자 텍스트 / 250자 텍스트 두 개 처리\n# - 각 결과의 길이 출력\n\n# 출력 목표:\n100\n203\n```",
       "answer": "def process_response(raw_text):\n    text = raw_text.strip()\n    if len(text) > 200:\n        text = text[:200] + '...'\n    return text\n\nshort = 'A' * 100\nlong = 'B' * 250\n\nr1 = process_response(short)\nr2 = process_response(long)\nprint(len(r1))\nprint(len(r2))",
       "pyodide_eval": true,
       "feedback": {
@@ -720,7 +720,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit에서 숫자 입력 위젯을 만들어 max_tokens를 조절하는 코드에서 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n```\n\nmax_tokens = st._____(\"최대 토큰\", min_value=100, max_value=4096, value=1024, step=100)",
+      "question": "Streamlit에서 숫자 입력 위젯을 만들어 max_tokens를 조절하는 코드에서 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n# max_tokens = st._____(\"최대 토큰\", min_value=100, max_value=4096, value=1024, step=100)\n```",
       "answer": "number_input",
       "feedback": {
         "correct": "정답! st.number_input()은 숫자를 입력하거나 조절하는 위젯을 만듭니다. min_value/max_value로 범위를, step으로 증감 단위를, value로 초기값을 설정해요. 모델 파라미터를 사용자가 직접 조절하게 할 때 유용합니다. 클리어!"
@@ -756,7 +756,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit에서 파일 업로드 위젯으로 PDF나 텍스트 파일을 받는 함수로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n```\n\nuploaded = st._____(\"파일 선택\", type=['pdf', 'txt'])",
+      "question": "Streamlit에서 파일 업로드 위젯으로 PDF나 텍스트 파일을 받는 함수로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n# uploaded = st._____(\"파일 선택\", type=['pdf', 'txt'])\n```",
       "answer": "file_uploader",
       "feedback": {
         "correct": "정답! st.file_uploader()는 파일 업로드 위젯을 만듭니다. type 파라미터로 허용할 확장자를 지정하고, 반환값은 UploadedFile 객체예요. uploaded.read()로 내용을 읽거나, accept_multiple_files=True로 여러 파일을 받을 수 있습니다. 클리어!"
@@ -792,7 +792,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit에서 텍스트 영역(여러 줄 입력)을 만드는 함수로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n```\n\nsystem_prompt = st._____(\"시스템 프롬프트\",\n    value=\"당신은 도움이 되는 AI 어시스턴트입니다.\",\n    height=150)",
+      "question": "Streamlit에서 텍스트 영역(여러 줄 입력)을 만드는 함수로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n# system_prompt = st._____(\"시스템 프롬프트\",\n# value=\"당신은 도움이 되는 AI 어시스턴트입니다.\",\nheight=150)\n```",
       "answer": "text_area",
       "feedback": {
         "correct": "정답! st.text_area()는 여러 줄 텍스트 입력창을 만듭니다. height로 픽셀 높이를 설정하고, value로 초기값을 지정해요. 시스템 프롬프트나 긴 텍스트 입력에 적합합니다. 한 줄 입력은 st.text_input()을 사용해요. 클리어!"
@@ -828,7 +828,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "시스템 프롬프트 템플릿 빌더를 작성하세요.\n조건:\n```python\n- build_system(persona, language='ko', max_words=None): 문자열 반환\n- 항상 '당신은 {persona}입니다.' 포함\n- language != 'ko'면 '영어로 답하세요.' 추가\n- max_words가 있으면 '{max_words}단어 이내로 답하세요.' 추가\n- build_system('튜터', language='en', max_words=100) 출력\n```\n\n출력 목표:\n당신은 튜터입니다. 영어로 답하세요. 100단어 이내로 답하세요.",
+      "question": "시스템 프롬프트 템플릿 빌더를 작성하세요.\n조건:\n```python\n- build_system(persona, language='ko', max_words=None): 문자열 반환\n- 항상 '당신은 {persona}입니다.' 포함\n- language != 'ko'면 '영어로 답하세요.' 추가\n- max_words가 있으면 '{max_words}단어 이내로 답하세요.' 추가\n- build_system('튜터', language='en', max_words=100) 출력\n# 출력 목표:\n# 당신은 튜터입니다. 영어로 답하세요. 100단어 이내로 답하세요.\n```",
       "answer": "def build_system(persona, language='ko', max_words=None):\n    parts = [f'당신은 {persona}입니다.']\n    if language != 'ko':\n        parts.append('영어로 답하세요.')\n    if max_words:\n        parts.append(f'{max_words}단어 이내로 답하세요.')\n    return ' '.join(parts)\n\nresult = build_system('튜터', language='en', max_words=100)\nprint(result)",
       "pyodide_eval": true,
       "feedback": {
@@ -881,7 +881,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "챗봇 설정 관리자를 작성하세요.\n조건:\n```python\n- ChatConfig: model='claude-opus-4-8', temperature=0.7, max_tokens=1024 기본값\n- update(**kwargs): 유효한 키만 업데이트\n- to_dict(): 현재 설정 딕셔너리 반환\n- update(temperature=0.3, unknown=99) 후 to_dict() 출력\n```\n\n출력 목표:\n{'model': 'claude-opus-4-8', 'temperature': 0.3, 'max_tokens': 1024}",
+      "question": "챗봇 설정 관리자를 작성하세요.\n조건:\n```python\n- ChatConfig: model='claude-opus-4-8', temperature=0.7, max_tokens=1024 기본값\n- update(**kwargs): 유효한 키만 업데이트\n- to_dict(): 현재 설정 딕셔너리 반환\n- update(temperature=0.3, unknown=99) 후 to_dict() 출력\n# 출력 목표:\n{'model': 'claude-opus-4-8', 'temperature': 0.3, 'max_tokens': 1024}\n```",
       "answer": "class ChatConfig:\n    VALID_KEYS = {'model', 'temperature', 'max_tokens'}\n\n    def __init__(self):\n        self.model = 'claude-opus-4-8'\n        self.temperature = 0.7\n        self.max_tokens = 1024\n\n    def update(self, **kwargs):\n        for key, val in kwargs.items():\n            if key in self.VALID_KEYS:\n                setattr(self, key, val)\n\n    def to_dict(self):\n        return {k: getattr(self, k) for k in self.VALID_KEYS}\n\nconfig = ChatConfig()\nconfig.update(temperature=0.3, unknown=99)\nprint(config.to_dict())",
       "pyodide_eval": true,
       "feedback": {
@@ -969,7 +969,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Streamlit 페이지 설정을 앱 맨 처음에 호출하는 함수로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n```\n\nst._____(page_title='AI 챗봇', page_icon='🤖', layout='wide')",
+      "question": "Streamlit 페이지 설정을 앱 맨 처음에 호출하는 함수로 빈칸을 채우세요.\n\n```python\nimport streamlit as st\n# st._____(page_title='AI 챗봇', page_icon='🤖', layout='wide')\n```",
       "answer": "set_page_config",
       "feedback": {
         "correct": "정답! st.set_page_config()는 반드시 스크립트에서 가장 먼저, 다른 st 함수 호출 전에 실행해야 합니다. page_title은 브라우저 탭 제목, page_icon은 파비콘, layout='wide'는 넓은 화면 모드를 설정해요. 클리어!"
@@ -1005,7 +1005,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "배포 환경 검증기를 작성하세요.\n조건:\n```python\n- check_env(required_keys): 딕셔너리 {'present': [...], 'missing': [...]} 반환\n- os.environ에 'MODEL'='claude-opus-4-8', 'MAX_TOKENS'='1024' 설정\n- check_env(['MODEL', 'MAX_TOKENS', 'API_KEY']) 실행 후 present/missing 출력\n```\n\n출력 목표:\n```python\npresent: ['MODEL', 'MAX_TOKENS']\nmissing: ['API_KEY']\n```",
+      "question": "배포 환경 검증기를 작성하세요.\n조건:\n```python\n- check_env(required_keys): 딕셔너리 {'present': [...], 'missing': [...]} 반환\n- os.environ에 'MODEL'='claude-opus-4-8', 'MAX_TOKENS'='1024' 설정\n- check_env(['MODEL', 'MAX_TOKENS', 'API_KEY']) 실행 후 present/missing 출력\n# 출력 목표:\n```python\npresent: ['MODEL', 'MAX_TOKENS']\nmissing: ['API_KEY']\n```\n```",
       "answer": "import os\n\nos.environ['MODEL'] = 'claude-opus-4-8'\nos.environ['MAX_TOKENS'] = '1024'\n\ndef check_env(required_keys):\n    present = [k for k in required_keys if os.getenv(k)]\n    missing = [k for k in required_keys if not os.getenv(k)]\n    return {'present': present, 'missing': missing}\n\nresult = check_env(['MODEL', 'MAX_TOKENS', 'API_KEY'])\nprint('present:', result['present'])\nprint('missing:', result['missing'])",
       "pyodide_eval": true,
       "feedback": {

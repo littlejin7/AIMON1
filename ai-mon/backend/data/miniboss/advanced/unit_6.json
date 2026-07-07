@@ -24,7 +24,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "tools 파라미터의 input_schema에서 Claude가 반드시 포함해야 하는 인자 목록을 지정하는 필드명을 빈칸에 채워보세요.\n\n```python\ntools = [\n    {\n        \"name\": \"get_weather\",\n        \"description\": \"특정 도시의 현재 날씨를 조회합니다.\",\n        \"input_schema\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"city\": {\"type\": \"string\", \"description\": \"날씨를 조회할 도시 이름\"}\n            },\n            \"_____\": [\"city\"]\n        }\n    }\n]\n\nprint(tools[0][\"input_schema\"][\"_____\"])\n```\n\n출력:\n['city']",
+      "question": "tools 파라미터의 input_schema에서 Claude가 반드시 포함해야 하는 인자 목록을 지정하는 필드명을 빈칸에 채워보세요.\n\n```python\ntools = [\n    {\n        \"name\": \"get_weather\",\n        \"description\": \"특정 도시의 현재 날씨를 조회합니다.\",\n        \"input_schema\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"city\": {\"type\": \"string\", \"description\": \"날씨를 조회할 도시 이름\"}\n            },\n            \"_____\": [\"city\"]\n        }\n    }\n]\n\nprint(tools[0][\"input_schema\"][\"_____\"])\n# 출력:\n['city']\n```",
       "answer": "required",
       "feedback": {
         "correct": "정답! input_schema의 required 필드에 필수 인자 이름을 리스트로 지정합니다. Claude는 이 목록에 있는 인자를 빠짐없이 포함해 도구를 호출하므로, 빠뜨리면 안 되는 인자는 반드시 여기에 명시해야 합니다. 클리어!"
@@ -162,7 +162,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "TOOL_REGISTRY 딕셔너리 패턴에서 tool_input을 함수에 전달할 때 사용하는 키워드 인자 언패킹 연산자를 빈칸에 채워보세요.\n\n```python\nTOOL_REGISTRY = {\n    \"get_weather\": lambda city: f\"{city}: 맑음 20°C\",\n    \"calculate\":   lambda expression: eval(expression),\n}\n\ntool_name  = \"get_weather\"\ntool_input = {\"city\": \"서울\"}\nresult = TOOL_REGISTRY[tool_name](_____tool_input)\nprint(result)\n```\n\n출력:\n서울: 맑음 20°C",
+      "question": "TOOL_REGISTRY 딕셔너리 패턴에서 tool_input을 함수에 전달할 때 사용하는 키워드 인자 언패킹 연산자를 빈칸에 채워보세요.\n\n```python\nTOOL_REGISTRY = {\n    \"get_weather\": lambda city: f\"{city}: 맑음 20°C\",\n    \"calculate\":   lambda expression: eval(expression),\n}\n\ntool_name  = \"get_weather\"\ntool_input = {\"city\": \"서울\"}\nresult = TOOL_REGISTRY[tool_name](_____tool_input)\nprint(result)\n# 출력:\n# 서울: 맑음 20°C\n```",
       "answer": "**",
       "feedback": {
         "correct": "정답! **tool_input은 딕셔너리를 키워드 인자로 언패킹합니다. TOOL_REGISTRY[\"get_weather\"](**{\"city\": \"서울\"})은 lambda city: ...에 city=\"서울\"로 전달돼요. *tool_input은 위치 인자로 전달되어 TypeError가 발생하니 반드시 **를 사용해야 합니다. 클리어!"
@@ -270,7 +270,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "inspect 모듈로 함수의 매개변수 목록을 가져올 때 사용하는 함수명을 빈칸에 채워보세요.\n\n```python\nimport inspect\n\ndef calculate(expression: str):\n    return eval(expression)\n\ncalc_schema = {\n    \"name\": \"calculate\",\n    \"input_schema\": {\n        \"properties\": {\"expression\": {\"type\": \"string\"}},\n        \"required\":   [\"expression\"]\n    }\n}\n\nfunc_params  = set(inspect._____(calculate).parameters.keys())\nschema_props = set(calc_schema[\"input_schema\"][\"properties\"].keys())\nprint(\"파라미터 일치:\", func_params == schema_props)\n```\n\n출력:\n파라미터 일치: True",
+      "question": "inspect 모듈로 함수의 매개변수 목록을 가져올 때 사용하는 함수명을 빈칸에 채워보세요.\n\n```python\nimport inspect\n\ndef calculate(expression: str):\n    return eval(expression)\n\ncalc_schema = {\n    \"name\": \"calculate\",\n    \"input_schema\": {\n        \"properties\": {\"expression\": {\"type\": \"string\"}},\n        \"required\":   [\"expression\"]\n    }\n}\n\nfunc_params  = set(inspect._____(calculate).parameters.keys())\nschema_props = set(calc_schema[\"input_schema\"][\"properties\"].keys())\nprint(\"파라미터 일치:\", func_params == schema_props)\n# 출력:\n# 파라미터 일치: True\n```",
       "answer": "signature",
       "feedback": {
         "correct": "정답! inspect.signature(func)는 함수의 시그니처 객체를 반환하고, .parameters.keys()로 매개변수 이름 목록을 얻습니다. 함수 파라미터와 스키마 properties 키가 일치하는지 등록 시점에 검증하면 런타임 오류를 미리 방지할 수 있어요. 클리어!"
@@ -285,7 +285,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "에이전트 루프는 Claude가 도구 호출을 멈추고 최종 답변을 내놓을 때까지 반복합니다.\n빈칸을 채워 루프 종료 조건을 완성하세요.\n\n```python\nstop_reasons = [\"tool_use\", \"tool_use\", \"end_turn\"]\ni = 0\nwhile stop_reasons[i] != \"_____\":\n    print(f\"[{i+1}회차] 도구 처리 중...\")\n    i += 1\nprint(\"루프 종료: 최종 답변 완료\")\n```\n\n출력:\n[1회차] 도구 처리 중...\n[2회차] 도구 처리 중...\n루프 종료: 최종 답변 완료",
+      "question": "에이전트 루프는 Claude가 도구 호출을 멈추고 최종 답변을 내놓을 때까지 반복합니다.\n빈칸을 채워 루프 종료 조건을 완성하세요.\n\n```python\nstop_reasons = [\"tool_use\", \"tool_use\", \"end_turn\"]\ni = 0\nwhile stop_reasons[i] != \"_____\":\n    print(f\"[{i+1}회차] 도구 처리 중...\")\n    i += 1\nprint(\"루프 종료: 최종 답변 완료\")\n# 출력:\n# [1회차] 도구 처리 중...\n# [2회차] 도구 처리 중...\n# 루프 종료: 최종 답변 완료\n```",
       "answer": "end_turn",
       "feedback": {
         "correct": "정답! 에이전트 루프의 종료 조건은 stop_reason == \"end_turn\"입니다. \"tool_use\"가 나오는 동안은 도구를 실행하며 루프를 돌고, \"end_turn\"이 오면 최종 답변을 꺼내 반환해요. 클리어!"
@@ -300,7 +300,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "에이전트 루프에서 도구 결과는 어떤 role로 messages에 추가해야 할까요?\n빈칸을 채워보세요.\n\ntool_results = [{\"type\": \"tool_result\",\n                 \"tool_use_id\": \"id_01\",\n                 \"content\": \"맑음 20°C\"}]\n```python\nmessages = []\nmessages.append({\"role\": \"_____\", \"content\": tool_results})\nprint(\"도구 결과 role:\", messages[0][\"role\"])\n```\n\n출력:\n도구 결과 role: user",
+      "question": "에이전트 루프에서 도구 결과는 어떤 role로 messages에 추가해야 할까요?\n빈칸을 채워보세요.\n\ntool_results = [{\"type\": \"tool_result\",\n                 \"tool_use_id\": \"id_01\",\n                 \"content\": \"맑음 20°C\"}]\n```python\nmessages = []\nmessages.append({\"role\": \"_____\", \"content\": tool_results})\nprint(\"도구 결과 role:\", messages[0][\"role\"])\n# 출력:\n# 도구 결과 role: user\n```",
       "answer": "user",
       "feedback": {
         "correct": "정답! tool_result는 반드시 role: \"user\"로 추가해야 합니다. Claude API에서 tool_result 메시지의 role이 \"assistant\"이거나 잘못된 경우 오류가 발생해요. 도구 결과 → user, Claude 응답 → assistant 구분을 꼭 기억하세요. 클리어!"
@@ -336,7 +336,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "에이전트 루프에서 Claude의 응답(tool_use 포함)을 messages에 추가할 때 사용하는 role 값을 빈칸에 채워보세요.\n\n```python\nassistant_blocks = [\n    {\"type\": \"text\",     \"text\": \"날씨를 조회하겠습니다.\"},\n    {\"type\": \"tool_use\", \"id\": \"id_01\",\n     \"name\": \"get_weather\", \"input\": {\"city\": \"서울\"}}\n]\n\nmessages = [{\"role\": \"user\", \"content\": \"서울 날씨는?\"}]\nmessages.append({\"role\": \"_____\", \"content\": assistant_blocks})\nprint(\"Claude 응답 role:\", messages[-1][\"role\"])\n```\n\n출력:\nClaude 응답 role: assistant",
+      "question": "에이전트 루프에서 Claude의 응답(tool_use 포함)을 messages에 추가할 때 사용하는 role 값을 빈칸에 채워보세요.\n\n```python\nassistant_blocks = [\n    {\"type\": \"text\",     \"text\": \"날씨를 조회하겠습니다.\"},\n    {\"type\": \"tool_use\", \"id\": \"id_01\",\n     \"name\": \"get_weather\", \"input\": {\"city\": \"서울\"}}\n]\n\nmessages = [{\"role\": \"user\", \"content\": \"서울 날씨는?\"}]\nmessages.append({\"role\": \"_____\", \"content\": assistant_blocks})\nprint(\"Claude 응답 role:\", messages[-1][\"role\"])\n# 출력:\n# Claude 응답 role: assistant\n```",
       "answer": "assistant",
       "feedback": {
         "correct": "정답! Claude API 호출 결과는 role: \"assistant\"로 messages에 추가합니다. 이후 도구 결과는 role: \"user\"로 이어서 추가하므로, 루프를 돌수록 messages는 user → assistant → user → assistant → ... 순으로 쌓여요. 클리어!"
@@ -372,7 +372,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "extract_tool_calls 헬퍼 함수에서 tool_use 블록만 필터링하려면 빈칸에 무엇을 채워야 할까요?\n\n```python\ndef extract_tool_calls(blocks):\n    return [b for b in blocks\n            if isinstance(b, dict) and b.get(\"type\") == \"_____\"]\n\nresponse_blocks = [\n    {\"type\": \"text\",     \"text\": \"날씨를 조회하겠습니다.\"},\n    {\"type\": \"tool_use\", \"id\": \"id_01\",\n     \"name\": \"get_weather\", \"input\": {\"city\": \"부산\"}}\n]\ncalls = extract_tool_calls(response_blocks)\nprint(\"도구 호출 수:\", len(calls))\nprint(\"도구 이름:\",    calls[0][\"name\"])\n```\n\n출력:\n도구 호출 수: 1\n도구 이름: get_weather",
+      "question": "extract_tool_calls 헬퍼 함수에서 tool_use 블록만 필터링하려면 빈칸에 무엇을 채워야 할까요?\n\n```python\ndef extract_tool_calls(blocks):\n    return [b for b in blocks\n            if isinstance(b, dict) and b.get(\"type\") == \"_____\"]\n\nresponse_blocks = [\n    {\"type\": \"text\",     \"text\": \"날씨를 조회하겠습니다.\"},\n    {\"type\": \"tool_use\", \"id\": \"id_01\",\n     \"name\": \"get_weather\", \"input\": {\"city\": \"부산\"}}\n]\ncalls = extract_tool_calls(response_blocks)\nprint(\"도구 호출 수:\", len(calls))\nprint(\"도구 이름:\",    calls[0][\"name\"])\n# 출력:\n# 도구 호출 수: 1\n# 도구 이름: get_weather\n```",
       "answer": "tool_use",
       "feedback": {
         "correct": "정답! response.content 블록 중 type이 \"tool_use\"인 것만 걸러내면 Claude가 요청한 도구 호출 목록을 얻을 수 있어요. \"text\" 블록은 최종 답변 텍스트이고, \"tool_use\" 블록이 실제로 실행해야 할 도구 정보를 담고 있습니다. 클리어!"
@@ -387,7 +387,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력값으로 올바른 것을 골라보세요.\n\n```python\ndef run_with_limit(steps_needed, max_iter):\n    for i in range(1, max_iter + 1):\n        print(f\"  [Iter {i}] 처리 중...\")\n        if i >= steps_needed:\n            print(\"  → 완료\")\n            return True\n    print(f\"⚠️ 최대 반복 {max_iter}회 초과 — 강제 종료\")\n    return False\n```\n\nrun_with_limit(steps_needed=2, max_iter=3)",
+      "question": "다음 코드의 출력값으로 올바른 것을 골라보세요.\n\n```python\ndef run_with_limit(steps_needed, max_iter):\n    for i in range(1, max_iter + 1):\n        print(f\"  [Iter {i}] 처리 중...\")\n        if i >= steps_needed:\n            print(\"  → 완료\")\n            return True\n    print(f\"⚠️ 최대 반복 {max_iter}회 초과 — 강제 종료\")\n    return False\nrun_with_limit(steps_needed=2, max_iter=3)\n```",
       "choices": [
         "A.   [Iter 1] 처리 중...\n  [Iter 2] 처리 중...\n  → 완료",
         "B.   [Iter 1] 처리 중...\n  [Iter 2] 처리 중...\n  [Iter 3] 처리 중...\n  → 완료",
@@ -444,7 +444,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "TOOL_REGISTRY 딕셔너리에서 등록된 도구 이름 목록을 가져오는 메서드를 빈칸에 채워보세요.\n\nTOOLS = {\n    \"get_weather\": lambda city: \"맑음 20°C\",\n    \"calculate\":   lambda expression: eval(expression),\n    \"get_info\":    lambda topic: \"정보\",\n}\n```python\nprint(\"등록 도구:\", list(TOOLS._____(  )))\nprint(\"도구 수:\",   len(TOOLS))\n```\n\n출력:\n등록 도구: ['get_weather', 'calculate', 'get_info']\n도구 수: 3",
+      "question": "TOOL_REGISTRY 딕셔너리에서 등록된 도구 이름 목록을 가져오는 메서드를 빈칸에 채워보세요.\n\nTOOLS = {\n    \"get_weather\": lambda city: \"맑음 20°C\",\n    \"calculate\":   lambda expression: eval(expression),\n    \"get_info\":    lambda topic: \"정보\",\n}\n```python\nprint(\"등록 도구:\", list(TOOLS._____(  )))\nprint(\"도구 수:\",   len(TOOLS))\n# 출력:\n# 등록 도구: ['get_weather', 'calculate', 'get_info']\n# 도구 수: 3\n```",
       "answer": "keys",
       "feedback": {
         "correct": "정답! dict.keys()는 딕셔너리의 키 뷰를 반환합니다. list()로 감싸면 순서 있는 리스트로 변환돼요. 멀티 도구 에이전트에서 등록된 도구 목록을 확인할 때 자주 쓰는 패턴입니다. 클리어!"
@@ -516,7 +516,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "run_multi_tool에서 inputs 딕셔너리의 첫 번째 값을 요약 문자열에 포함할 때 사용하는 메서드를 빈칸에 채워보세요.\n\ndef get_info(topic: str) -> str:\n    db = {\"Python\": \"파이썬은 범용 프로그래밍 언어입니다.\"}\n    return db.get(topic, \"정보 없음\")\n\n```python\nTOOLS = {\"get_info\": get_info}\ncall = {\"name\": \"get_info\", \"inputs\": {\"topic\": \"Python\"}}\nname, inputs = call[\"name\"], call[\"inputs\"]\nresult = TOOLS[name](**inputs)\nsummary = f\"{name}({list(inputs._____(  ))[0]}) → {result}\"\nprint(summary)\n```\n\n출력:\nget_info(Python) → 파이썬은 범용 프로그래밍 언어입니다.",
+      "question": "run_multi_tool에서 inputs 딕셔너리의 첫 번째 값을 요약 문자열에 포함할 때 사용하는 메서드를 빈칸에 채워보세요.\n\ndef get_info(topic: str) -> str:\n    db = {\"Python\": \"파이썬은 범용 프로그래밍 언어입니다.\"}\n    return db.get(topic, \"정보 없음\")\n\n```python\nTOOLS = {\"get_info\": get_info}\ncall = {\"name\": \"get_info\", \"inputs\": {\"topic\": \"Python\"}}\nname, inputs = call[\"name\"], call[\"inputs\"]\nresult = TOOLS[name](**inputs)\nsummary = f\"{name}({list(inputs._____(  ))[0]}) → {result}\"\nprint(summary)\n# 출력:\n# get_info(Python) → 파이썬은 범용 프로그래밍 언어입니다.\n```",
       "answer": "values",
       "feedback": {
         "correct": "정답! inputs.values()는 딕셔너리의 값 뷰를 반환합니다. list()로 감싸고 [0]으로 첫 번째 값(\"Python\")을 꺼냅니다. keys()를 쓰면 키 이름(\"topic\")이 출력되므로 구분이 중요해요. 클리어!"
@@ -573,7 +573,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "validate_inputs 함수는 schema에서 필수 인자 목록을 꺼낸 뒤, inputs에 없는 항목을 반환합니다.\n빈칸에 schema 키 이름을 채워보세요.\n\n```python\ndef validate_inputs(inputs: dict, schema: dict) -> list:\n    required = schema.get(\"input_schema\", {}).get(\"_____\", [])\n    return [f for f in required if f not in inputs]\n\ncalc_schema = {\n    \"name\": \"calculate\",\n    \"input_schema\": {\n        \"properties\": {\"expression\": {\"type\": \"string\"}},\n        \"required\": [\"expression\"]\n    }\n}\nprint(\"누락 필드(정상):\", validate_inputs({\"expression\": \"1+1\"}, calc_schema))\nprint(\"누락 필드(오류):\", validate_inputs({}, calc_schema))\n```\n\n출력:\n누락 필드(정상): []\n누락 필드(오류): ['expression']",
+      "question": "validate_inputs 함수는 schema에서 필수 인자 목록을 꺼낸 뒤, inputs에 없는 항목을 반환합니다.\n빈칸에 schema 키 이름을 채워보세요.\n\n```python\ndef validate_inputs(inputs: dict, schema: dict) -> list:\n    required = schema.get(\"input_schema\", {}).get(\"_____\", [])\n    return [f for f in required if f not in inputs]\n\ncalc_schema = {\n    \"name\": \"calculate\",\n    \"input_schema\": {\n        \"properties\": {\"expression\": {\"type\": \"string\"}},\n        \"required\": [\"expression\"]\n    }\n}\nprint(\"누락 필드(정상):\", validate_inputs({\"expression\": \"1+1\"}, calc_schema))\nprint(\"누락 필드(오류):\", validate_inputs({}, calc_schema))\n# 출력:\n# 누락 필드(정상): []\n# 누락 필드(오류): ['expression']\n```",
       "answer": "required",
       "feedback": {
         "correct": "정답! schema의 input_schema 안에 있는 \"required\" 키에 필수 인자 이름 목록이 담겨 있습니다. inputs에 해당 키가 없으면 누락 목록에 포함돼요. 도구 실행 전 이 검증을 거치면 불필요한 예외 발생을 미리 방지할 수 있어요. 클리어!"
@@ -861,7 +861,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "get_weather 도구의 JSON 스키마 딕셔너리를 완성하고 출력해보세요.\n조건:\n```python\n- name: \"get_weather\", description: \"특정 도시의 현재 날씨를 조회합니다.\"\n- input_schema: type=object, city 프로퍼티(type=string), required=[\"city\"]\n- print(schema[\"name\"]) 출력\n- print(schema[\"input_schema\"][\"required\"]) 출력\n```\n\n출력 목표:\nget_weather\n['city']",
+      "question": "get_weather 도구의 JSON 스키마 딕셔너리를 완성하고 출력해보세요.\n조건:\n```python\n- name: \"get_weather\", description: \"특정 도시의 현재 날씨를 조회합니다.\"\n- input_schema: type=object, city 프로퍼티(type=string), required=[\"city\"]\n- print(schema[\"name\"]) 출력\n- print(schema[\"input_schema\"][\"required\"]) 출력\n# 출력 목표:\nget_weather\n['city']\n```",
       "answer": "schema = {\n    \"name\": \"get_weather\",\n    \"description\": \"특정 도시의 현재 날씨를 조회합니다.\",\n    \"input_schema\": {\n        \"type\": \"object\",\n        \"properties\": {\n            \"city\": {\"type\": \"string\", \"description\": \"도시명\"}\n        },\n        \"required\": [\"city\"]\n    }\n}\nprint(schema[\"name\"])\nprint(schema[\"input_schema\"][\"required\"])",
       "pyodide_eval": true,
       "feedback": {
@@ -895,7 +895,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "calculate 도구 함수를 작성하고 수식을 계산한 뒤 스키마의 name을 출력해보세요.\n조건:\n```python\n- calculate(expression)은 eval()로 수식 계산 후 결과 반환\n- calculate(\"3 * 7 + 5\") 결과 출력\n- calculate_schema의 name 필드 출력\n```\n\n출력 목표:\n26\ncalculate",
+      "question": "calculate 도구 함수를 작성하고 수식을 계산한 뒤 스키마의 name을 출력해보세요.\n조건:\n```python\n- calculate(expression)은 eval()로 수식 계산 후 결과 반환\n- calculate(\"3 * 7 + 5\") 결과 출력\n- calculate_schema의 name 필드 출력\n# 출력 목표:\n26\ncalculate\n```",
       "answer": "def calculate(expression: str):\n    return eval(expression)\n\ncalculate_schema = {\n    \"name\": \"calculate\",\n    \"description\": \"수학 수식을 계산합니다.\",\n    \"input_schema\": {\n        \"type\": \"object\",\n        \"properties\": {\n            \"expression\": {\"type\": \"string\", \"description\": \"계산할 수학 수식\"}\n        },\n        \"required\": [\"expression\"]\n    }\n}\n\nresult = calculate(\"3 * 7 + 5\")\nprint(result)\nprint(calculate_schema[\"name\"])",
       "pyodide_eval": true,
       "feedback": {
@@ -912,7 +912,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "ToolRegistry 클래스를 구현하고 add 도구를 등록한 뒤 실행해보세요.\n조건:\n```python\n- __init__: _funcs(dict), _schemas(list) 초기화\n- register(schema, func): _funcs와 _schemas에 등록\n- run(name, inputs): 미등록이면 KeyError, 아니면 함수 실행\n- add(a, b) 함수 등록 후 run(\"add\", {\"a\": 3, \"b\": 7}) 출력\n- len(registry._schemas) 출력\n```\n\n출력 목표:\n10\n1",
+      "question": "ToolRegistry 클래스를 구현하고 add 도구를 등록한 뒤 실행해보세요.\n조건:\n```python\n- __init__: _funcs(dict), _schemas(list) 초기화\n- register(schema, func): _funcs와 _schemas에 등록\n- run(name, inputs): 미등록이면 KeyError, 아니면 함수 실행\n- add(a, b) 함수 등록 후 run(\"add\", {\"a\": 3, \"b\": 7}) 출력\n- len(registry._schemas) 출력\n# 출력 목표:\n10\n1\n```",
       "answer": "class ToolRegistry:\n    def __init__(self):\n        self._funcs = {}\n        self._schemas = []\n\n    def register(self, schema, func):\n        self._funcs[schema[\"name\"]] = func\n        self._schemas.append(schema)\n\n    def run(self, name, inputs):\n        if name not in self._funcs:\n            raise KeyError(f\"미등록 도구: {name}\")\n        return self._funcs[name](**inputs)\n\ndef add(a, b):\n    return a + b\n\nregistry = ToolRegistry()\nregistry.register({\"name\": \"add\"}, add)\nprint(registry.run(\"add\", {\"a\": 3, \"b\": 7}))\nprint(len(registry._schemas))",
       "pyodide_eval": true,
       "feedback": {
@@ -929,7 +929,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "도구 호출 횟수로 전체 메시지 수를 계산하는 count_messages 함수를 작성해보세요.\n조건:\n```python\n- 초기 user 메시지 1개 + 도구 호출마다 (assistant + user) 2개\n- count_messages(0), count_messages(1), count_messages(3) 순서로 출력\n```\n\n출력 목표:\n1\n3\n7",
+      "question": "도구 호출 횟수로 전체 메시지 수를 계산하는 count_messages 함수를 작성해보세요.\n조건:\n```python\n- 초기 user 메시지 1개 + 도구 호출마다 (assistant + user) 2개\n- count_messages(0), count_messages(1), count_messages(3) 순서로 출력\n# 출력 목표:\n1\n3\n7\n```",
       "answer": "def count_messages(n_tool_calls: int) -> int:\n    # 초기 user 메시지 1개 + 도구 호출마다 (assistant + user) 2개\n    return 1 + n_tool_calls * 2\n\nprint(count_messages(0))\nprint(count_messages(1))\nprint(count_messages(3))",
       "pyodide_eval": true,
       "feedback": {

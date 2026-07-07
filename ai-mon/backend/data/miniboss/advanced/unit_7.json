@@ -45,7 +45,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "경로 매개변수 {unit_id}를 정수로 자동 변환하려면 함수 인자에 타입 힌트를 붙여야 합니다.\n빈칸을 채워 코드를 완성해보세요.\n\n```python\nfrom fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/units/{unit_id}\")\ndef get_unit(unit_id: _____):\n    return {\"unit_id\": unit_id, \"name\": f\"Unit {unit_id}\"}\n```\n\n# GET /units/7 -> {\"unit_id\": 7, \"name\": \"Unit 7\"}",
+      "question": "경로 매개변수 {unit_id}를 정수로 자동 변환하려면 함수 인자에 타입 힌트를 붙여야 합니다.\n빈칸을 채워 코드를 완성해보세요.\n\n```python\nfrom fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/units/{unit_id}\")\ndef get_unit(unit_id: _____):\n    return {\"unit_id\": unit_id, \"name\": f\"Unit {unit_id}\"}\n# GET /units/7 -> {\"unit_id\": 7, \"name\": \"Unit 7\"}\n```",
       "answer": "int",
       "feedback": {
         "correct": "정답! FastAPI는 함수 인자의 타입 힌트를 보고 URL 경로에서 받은 문자열을 자동으로 형변환합니다. int로 선언하면 '/units/7'의 '7'이 정수 7로 바뀌어 전달되고, 타입이 맞지 않으면 422 오류를 자동으로 반환해요. 클리어!"
@@ -81,7 +81,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "POST 요청의 본문(body)을 자동으로 파싱하고 검증하려면 Pydantic의 BaseModel을 import해야 합니다.\n빈칸을 채워 코드를 완성해보세요.\n\n```python\nfrom fastapi import FastAPI\nfrom pydantic import _____\n```\n\napp = FastAPI()\n\nclass ItemRequest(BaseModel):\n    name: str\n    price: float = 0.0\n\n```python\n@app.post(\"/items\")\ndef create_item(item: ItemRequest):\n    return {\"name\": item.name, \"price\": item.price}\n```",
+      "question": "POST 요청의 본문(body)을 자동으로 파싱하고 검증하려면 Pydantic의 BaseModel을 import해야 합니다.\n빈칸을 채워 코드를 완성해보세요.\n\n```python\nfrom fastapi import FastAPI\nfrom pydantic import _____\napp = FastAPI()\n\nclass ItemRequest(BaseModel):\nname: str\nprice: float = 0.0\n\n```python\n@app.post(\"/items\")\ndef create_item(item: ItemRequest):\nreturn {\"name\": item.name, \"price\": item.price}\n```\n```",
       "answer": "BaseModel",
       "feedback": {
         "correct": "정답! Pydantic의 BaseModel을 상속받은 클래스를 함수 인자 타입으로 지정하면, FastAPI가 POST 요청의 JSON 본문을 자동으로 파싱하고 타입을 검증합니다. 검증 실패 시 422 오류를 자동으로 반환해요. 클리어!"
@@ -363,7 +363,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "React에서 컴포넌트 마운트 시 딱 한 번만 API를 호출하게 하는 useEffect 의존성 배열을 채워보세요.\n\n```python\nuseEffect(() => {\n  fetch(\"http://localhost:8000/memos\")\n    .then((res) => res.json())\n    .then((data) => {\n      setMemos(data.memos);\n      setLoading(false);\n```\n    });\n}, _____);  // 마운트 시 1회만 실행",
+      "question": "React에서 컴포넌트 마운트 시 딱 한 번만 API를 호출하게 하는 useEffect 의존성 배열을 채워보세요.\n\n```python\nuseEffect(() => {\n  fetch(\"http://localhost:8000/memos\")\n    .then((res) => res.json())\n    .then((data) => {\n      setMemos(data.memos);\n      setLoading(false);\n});\n# }, _____);  // 마운트 시 1회만 실행\n```",
       "answer": "[]",
       "feedback": {
         "correct": "정답! useEffect의 두 번째 인자는 의존성 배열입니다. 빈 배열 []을 넘기면 컴포넌트 마운트 시 딱 한 번만 실행돼요. 배열에 값을 넣으면 그 값이 바뀔 때마다 실행되고, 두 번째 인자를 아예 생략하면 렌더링마다 실행됩니다. 클리어!"
@@ -435,7 +435,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "SQLAlchemy에서 ORM 모델의 기반이 되는 Base 클래스를 생성하는 함수를 채워보세요.\n\n```python\nfrom sqlalchemy.ext.declarative import declarative_base\n```\n\nBase = _____()  \n\n```python\nclass Memo(Base):\n    __tablename__ = \"memos\"\n    id = Column(Integer, primary_key=True, index=True)\n    title = Column(String, nullable=False)\n    content = Column(String, default=\"\")\n```",
+      "question": "SQLAlchemy에서 ORM 모델의 기반이 되는 Base 클래스를 생성하는 함수를 채워보세요.\n\n```python\nfrom sqlalchemy.ext.declarative import declarative_base\nBase = _____()\n\n```python\nclass Memo(Base):\n__tablename__ = \"memos\"\nid = Column(Integer, primary_key=True, index=True)\ntitle = Column(String, nullable=False)\ncontent = Column(String, default=\"\")\n```\n```",
       "answer": "declarative_base",
       "feedback": {
         "correct": "정답! declarative_base()는 SQLAlchemy ORM 모델의 공통 기반 클래스를 생성합니다. 이 Base를 상속받은 Python 클래스가 DB 테이블로 매핑돼요. Base.metadata.create_all(bind=engine)을 호출하면 정의된 모든 클래스에 대응하는 테이블이 한 번에 생성됩니다. 클리어!"
@@ -501,7 +501,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "get_db 함수에서 예외가 발생해도 세션이 반드시 닫히도록 하는 키워드를 채워보세요.\n\n```python\ndef get_db():\n    db = SessionLocal()\n    try:\n        yield db        # 요청 처리 중 세션 사용\n```\n    _____:\n        db.close()      # 응답 후 반드시 닫힘",
+      "question": "get_db 함수에서 예외가 발생해도 세션이 반드시 닫히도록 하는 키워드를 채워보세요.\n\n```python\ndef get_db():\n    db = SessionLocal()\n    try:\n        yield db        # 요청 처리 중 세션 사용\n_____:\n# db.close()      # 응답 후 반드시 닫힘\n```",
       "answer": "finally",
       "feedback": {
         "correct": "정답! finally 블록은 try 안에서 예외가 발생하든 정상 완료되든 반드시 실행됩니다. yield db 이후 요청 처리가 끝나면 FastAPI가 제너레이터를 재개하고 finally의 db.close()가 호출돼요. 이 패턴 덕분에 커넥션 누수 없이 안전하게 세션을 관리할 수 있습니다. 클리어!"
@@ -573,7 +573,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "APIRouter를 생성할 때 모든 엔드포인트에 공통으로 적용될 경로를 지정하는 파라미터명을 채워보세요.\n\n```python\nfrom fastapi import APIRouter\n```\n\nrouter = APIRouter(_____ =\"/memos\", tags=[\"memos\"])\n\n```python\n@router.get(\"/\")\ndef list_memos():\n    return []\n```",
+      "question": "APIRouter를 생성할 때 모든 엔드포인트에 공통으로 적용될 경로를 지정하는 파라미터명을 채워보세요.\n\n```python\nfrom fastapi import APIRouter\nrouter = APIRouter(_____ =\"/memos\", tags=[\"memos\"])\n\n```python\n@router.get(\"/\")\ndef list_memos():\nreturn []\n```\n```",
       "answer": "prefix",
       "feedback": {
         "correct": "정답! prefix는 해당 라우터의 모든 엔드포인트 앞에 자동으로 붙는 공통 경로입니다. prefix=\"/memos\"로 설정하면 @router.get(\"/\")의 실제 URL은 /memos/가 되고, @router.get(\"/{id}\")는 /memos/{id}가 돼요. 관련 엔드포인트를 파일 단위로 묶어 관리할 수 있습니다. 클리어!"
@@ -603,7 +603,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "분리된 라우터 모듈을 FastAPI 앱에 등록하는 메서드명을 채워보세요.\n\n```python\nfrom fastapi import FastAPI\nfrom routers import memos\n\napp = FastAPI()\napp._____(memos.router)\n```\n\n# 이제 /memos 경로의 모든 엔드포인트를 사용할 수 있음",
+      "question": "분리된 라우터 모듈을 FastAPI 앱에 등록하는 메서드명을 채워보세요.\n\n```python\nfrom fastapi import FastAPI\nfrom routers import memos\n\napp = FastAPI()\napp._____(memos.router)\n# 이제 /memos 경로의 모든 엔드포인트를 사용할 수 있음\n```",
       "answer": "include_router",
       "feedback": {
         "correct": "정답! app.include_router()는 APIRouter 인스턴스를 메인 앱에 등록합니다. 여러 라우터를 등록하려면 include_router()를 여러 번 호출하면 돼요. prefix와 tags를 라우터 생성 시 지정해두면 include_router() 시 별도 인자 없이 바로 등록됩니다. 클리어!"
@@ -639,7 +639,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "전역 예외 핸들러에서 모든 예외를 잡으려면 데코레이터 인자에 무엇을 넣어야 하는지 채워보세요.\n\n```python\nfrom fastapi import FastAPI, Request\nfrom fastapi.responses import JSONResponse\n\napp = FastAPI()\n\n@app.exception_handler(_____)\nasync def global_exception_handler(request: Request, exc: Exception):\n    return JSONResponse(\n        status_code=500,\n        content={\"error\": \"서버 내부 오류\", \"detail\": str(exc)}\n```\n    )",
+      "question": "전역 예외 핸들러에서 모든 예외를 잡으려면 데코레이터 인자에 무엇을 넣어야 하는지 채워보세요.\n\n```python\nfrom fastapi import FastAPI, Request\nfrom fastapi.responses import JSONResponse\n\napp = FastAPI()\n\n@app.exception_handler(_____)\nasync def global_exception_handler(request: Request, exc: Exception):\n    return JSONResponse(\n        status_code=500,\n        content={\"error\": \"서버 내부 오류\", \"detail\": str(exc)}\n)\n```",
       "answer": "Exception",
       "feedback": {
         "correct": "정답! Python의 모든 예외는 Exception 클래스를 상속하므로 Exception을 인자로 넘기면 처리되지 않은 모든 예외를 전역에서 잡을 수 있습니다. HTTPException은 별도 핸들러로 처리하고, 그 외 예상치 못한 예외는 Exception 핸들러로 500 오류를 반환하는 것이 실무 패턴이에요. 클리어!"
@@ -705,7 +705,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "Pydantic BaseModel로 Memo 모델을 정의하고 인스턴스를 생성해보세요.\n조건:\n```python\n- title: str (필수), content: str (기본값 \"\")\n- Memo(title=\"FastAPI 학습\") 생성\n- m.title, m.content, type(m.title).__name__ 순서대로 출력\n```\n\n출력 목표:\nFastAPI 학습\n\nstr",
+      "question": "Pydantic BaseModel로 Memo 모델을 정의하고 인스턴스를 생성해보세요.\n조건:\n```python\n- title: str (필수), content: str (기본값 \"\")\n- Memo(title=\"FastAPI 학습\") 생성\n- m.title, m.content, type(m.title).__name__ 순서대로 출력\n# 출력 목표:\n# FastAPI 학습\n\nstr\n```",
       "answer": "from pydantic import BaseModel\n\nclass Memo(BaseModel):\n    title: str\n    content: str = \"\"\n\nm = Memo(title=\"FastAPI 학습\")\nprint(m.title)\nprint(m.content)\nprint(type(m.title).__name__)",
       "pyodide_eval": true,
       "feedback": {
@@ -722,7 +722,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "메모 조회 시 없는 id면 HTTPException을 발생시키는 get_memo 함수를 작성해보세요.\n조건:\n- memos 리스트에서 id가 일치하는 항목을 next()로 검색\n```python\n- 없으면 HTTPException(status_code=404, detail=\"메모 없음\") 발생\n- get_memo(99) 호출 시 status_code와 detail 출력\n```\n\n출력 목표:\n404\n메모 없음",
+      "question": "메모 조회 시 없는 id면 HTTPException을 발생시키는 get_memo 함수를 작성해보세요.\n조건:\n- memos 리스트에서 id가 일치하는 항목을 next()로 검색\n```python\n- 없으면 HTTPException(status_code=404, detail=\"메모 없음\") 발생\n- get_memo(99) 호출 시 status_code와 detail 출력\n# 출력 목표:\n404\n# 메모 없음\n```",
       "answer": "class HTTPException(Exception):\n    def __init__(self, status_code, detail):\n        self.status_code = status_code\n        self.detail = detail\n\nmemos = [{\"id\": 1, \"title\": \"학습\"}]\n\ndef get_memo(memo_id):\n    memo = next((m for m in memos if m[\"id\"] == memo_id), None)\n    if not memo:\n        raise HTTPException(status_code=404, detail=\"메모 없음\")\n    return memo\n\ntry:\n    get_memo(99)\nexcept HTTPException as e:\n    print(e.status_code)\n    print(e.detail)",
       "pyodide_eval": true,
       "feedback": {
@@ -739,7 +739,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "멀티턴 대화를 위한 Turn 클래스를 구현하고 메시지 목록을 만들어보세요.\n조건:\n```python\n- Turn(role, content): dict() 메서드로 {\"role\": ..., \"content\": ...} 반환\n- user/assistant/user 순서로 3개 Turn 생성\n- len(messages)와 messages[0].dict() 출력\n```\n\n출력 목표:\n3\n{'role': 'user', 'content': '안녕하세요'}",
+      "question": "멀티턴 대화를 위한 Turn 클래스를 구현하고 메시지 목록을 만들어보세요.\n조건:\n```python\n- Turn(role, content): dict() 메서드로 {\"role\": ..., \"content\": ...} 반환\n- user/assistant/user 순서로 3개 Turn 생성\n- len(messages)와 messages[0].dict() 출력\n# 출력 목표:\n3\n# {'role': 'user', 'content': '안녕하세요'}\n```",
       "answer": "class Turn:\n    def __init__(self, role, content):\n        self.role = role\n        self.content = content\n\n    def dict(self):\n        return {\"role\": self.role, \"content\": self.content}\n\nmessages = [Turn(\"user\", \"안녕하세요\")]\nmessages.append(Turn(\"assistant\", \"안녕하세요! 무엇을 도와드릴까요?\"))\nmessages.append(Turn(\"user\", \"FastAPI 알려줘\"))\n\nprint(len(messages))\nprint(messages[0].dict())",
       "pyodide_eval": true,
       "feedback": {
@@ -773,7 +773,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "주어진 JSON 문자열을 json.loads()로 파싱하여 'title' 값을 출력해보세요.\n\n```python\nimport json\njson_str = '{\"title\": \"FastAPI 학습\"}'\n```\n\n출력 목표:\nFastAPI 학습",
+      "question": "주어진 JSON 문자열을 json.loads()로 파싱하여 'title' 값을 출력해보세요.\n\n```python\nimport json\njson_str = '{\"title\": \"FastAPI 학습\"}'\n# 출력 목표:\n# FastAPI 학습\n```",
       "answer": "import json\njson_str = '{\"title\": \"FastAPI 학습\"}'\nprint(json.loads(json_str)[\"title\"])",
       "pyodide_eval": true,
       "feedback": {
@@ -807,7 +807,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "SQLAlchemy 인메모리 DB로 메모를 저장하고 조회해보세요.\n조건:\n```python\n- Memo 모델: id(Integer PK), title(String)\n- 두 개의 메모(\"FastAPI 학습\", \"SQLAlchemy\") 추가 후 commit\n- 전체 count와 id=1인 메모의 title 출력\n```\n\n출력 목표:\n2\nFastAPI 학습",
+      "question": "SQLAlchemy 인메모리 DB로 메모를 저장하고 조회해보세요.\n조건:\n```python\n- Memo 모델: id(Integer PK), title(String)\n- 두 개의 메모(\"FastAPI 학습\", \"SQLAlchemy\") 추가 후 commit\n- 전체 count와 id=1인 메모의 title 출력\n# 출력 목표:\n2\n# FastAPI 학습\n```",
       "answer": "from sqlalchemy import create_engine, Column, Integer, String\nfrom sqlalchemy.orm import declarative_base, sessionmaker\n\nengine = create_engine(\"sqlite:///:memory:\")\nBase = declarative_base()\n\nclass Memo(Base):\n    __tablename__ = \"memos\"\n    id = Column(Integer, primary_key=True)\n    title = Column(String)\n\nBase.metadata.create_all(bind=engine)\ndb = sessionmaker(bind=engine)()\n\ndb.add(Memo(title=\"FastAPI 학습\"))\ndb.add(Memo(title=\"SQLAlchemy\"))\ndb.commit()\n\ncount = db.query(Memo).count()\nfirst = db.query(Memo).filter(Memo.id == 1).first()\nprint(count)\nprint(first.title)\ndb.close()",
       "pyodide_eval": true,
       "feedback": {
@@ -824,7 +824,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "SQLAlchemy로 페이지네이션을 구현해보세요.\n조건:\n```python\n- Item 모델: id(Integer PK), name(String)\n- 항목1~항목5 저장 후 commit\n- skip=2, limit=2로 id 오름차순 조회\n- page = skip // limit + 1\n- \"페이지: {page}\" 출력 후 각 항목 name 출력\n```\n\n출력 목표:\n페이지: 2\n항목3\n항목4",
+      "question": "SQLAlchemy로 페이지네이션을 구현해보세요.\n조건:\n```python\n- Item 모델: id(Integer PK), name(String)\n- 항목1~항목5 저장 후 commit\n- skip=2, limit=2로 id 오름차순 조회\n- page = skip // limit + 1\n- \"페이지: {page}\" 출력 후 각 항목 name 출력\n# 출력 목표:\n# 페이지: 2\n# 항목3\n# 항목4\n```",
       "answer": "from sqlalchemy import create_engine, Column, Integer, String\nfrom sqlalchemy.orm import declarative_base, sessionmaker\n\nengine = create_engine(\"sqlite:///:memory:\")\nBase = declarative_base()\n\nclass Item(Base):\n    __tablename__ = \"items\"\n    id = Column(Integer, primary_key=True)\n    name = Column(String)\n\nBase.metadata.create_all(bind=engine)\ndb = sessionmaker(bind=engine)()\n\nfor i in range(1, 6):\n    db.add(Item(name=f\"항목{i}\"))\ndb.commit()\n\nskip, limit = 2, 2\nitems = db.query(Item).order_by(Item.id).offset(skip).limit(limit).all()\npage = skip // limit + 1\nprint(f\"페이지: {page}\")\nfor item in items:\n    print(item.name)\ndb.close()",
       "pyodide_eval": true,
       "feedback": {
@@ -858,7 +858,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "APIRouter와 FastAPI의 include_router를 시뮬레이션해보세요.\n조건:\n```python\n- APIRouter: prefix 저장, get(path) 데코레이터로 routes에 {method, path} 추가\n- FastAPI: include_router()로 라우터의 routes를 앱에 병합\n- prefix=\"/memos\"로 \"/\" 와 \"/{id}\" 두 경로 등록\n- len(app.routes)와 각 route의 path 출력\n```\n\n출력 목표:\n2\n```python\n/memos/\n/memos/{id}\n```",
+      "question": "APIRouter와 FastAPI의 include_router를 시뮬레이션해보세요.\n조건:\n```python\n- APIRouter: prefix 저장, get(path) 데코레이터로 routes에 {method, path} 추가\n- FastAPI: include_router()로 라우터의 routes를 앱에 병합\n- prefix=\"/memos\"로 \"/\" 와 \"/{id}\" 두 경로 등록\n- len(app.routes)와 각 route의 path 출력\n# 출력 목표:\n2\n```python\n/memos/\n/memos/{id}\n```\n```",
       "answer": "class APIRouter:\n    def __init__(self, prefix=\"\", tags=None):\n        self.prefix = prefix\n        self.tags = tags or []\n        self.routes = []\n\n    def get(self, path):\n        def decorator(func):\n            self.routes.append({\"method\": \"GET\", \"path\": self.prefix + path})\n            return func\n        return decorator\n\nclass FastAPI:\n    def __init__(self):\n        self.routes = []\n\n    def include_router(self, router):\n        self.routes.extend(router.routes)\n\nmemo_router = APIRouter(prefix=\"/memos\", tags=[\"memos\"])\n\n@memo_router.get(\"/\")\ndef list_memos(): pass\n\n@memo_router.get(\"/{id}\")\ndef get_memo(): pass\n\napp = FastAPI()\napp.include_router(memo_router)\n\nprint(len(app.routes))\nfor r in app.routes:\n    print(r[\"path\"])",
       "pyodide_eval": true,
       "feedback": {

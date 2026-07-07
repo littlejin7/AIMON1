@@ -129,7 +129,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "다음 코드의 출력 결과는?\n\n```python\ndef show_menu():\n    print('1. 아이템 획득')\n    print('2. 인벤토리 확인')\n```\n\nshow_menu()",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ndef show_menu():\n    print('1. 아이템 획득')\n    print('2. 인벤토리 확인')\nshow_menu()\n```",
       "choices": [
         "A. 1. 아이템 획득\n2. 인벤토리 확인",
         "B. show_menu()",
@@ -1641,7 +1641,7 @@
       "type": "output_select",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "입력값이 '2', '7' 순서일 때 다음 코드의 출력은?\n\n```python\ncmds = ['2', '7']\nfor cmd in cmds:\n    if cmd == '1':\n        print('추가')\n    elif cmd == '2':\n        print('확인')\n    elif cmd == '7':\n        print('종료')\n```\n        break",
+      "question": "입력값이 '2', '7' 순서일 때 다음 코드의 출력은?\n\n```python\ncmds = ['2', '7']\nfor cmd in cmds:\n    if cmd == '1':\n        print('추가')\n    elif cmd == '2':\n        print('확인')\n    elif cmd == '7':\n        print('종료')\nbreak\n```",
       "choices": [
         "A. 종료",
         "B. 확인\n종료",

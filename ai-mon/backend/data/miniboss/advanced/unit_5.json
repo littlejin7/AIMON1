@@ -117,7 +117,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "LangChain 메시지 빌더를 작성하세요.\n조건:\n```python\n- build_messages(system, turns): 메시지 딕셔너리 리스트 반환\n- 결과: [{'role':'system','content':system}] + turns 순서대로\n- turns = [('user','Q1'),('assistant','A1'),('user','Q2')]\n- build_messages('튜터', turns)의 길이와 첫 role 출력\n```\n\n출력 목표:\n4\nsystem",
+      "question": "LangChain 메시지 빌더를 작성하세요.\n조건:\n```python\n- build_messages(system, turns): 메시지 딕셔너리 리스트 반환\n- 결과: [{'role':'system','content':system}] + turns 순서대로\n- turns = [('user','Q1'),('assistant','A1'),('user','Q2')]\n- build_messages('튜터', turns)의 길이와 첫 role 출력\n# 출력 목표:\n4\nsystem\n```",
       "answer": "def build_messages(system, turns):\n    messages = [{'role': 'system', 'content': system}]\n    for role, content in turns:\n        messages.append({'role': role, 'content': content})\n    return messages\n\nturns = [('user', 'Q1'), ('assistant', 'A1'), ('user', 'Q2')]\nresult = build_messages('튜터', turns)\nprint(len(result))\nprint(result[0]['role'])",
       "pyodide_eval": true,
       "feedback": {
@@ -170,7 +170,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "LangChain 메시지 통계 분석기를 작성하세요.\n조건:\n```python\n- analyze(messages): {'human': int, 'ai': int, 'total': int} 딕셔너리 반환\n- role이 'user'이면 human 카운트, 'assistant'이면 ai 카운트\n- human=3, ai=2인 메시지 5개로 테스트, 결과 출력\n```\n\n출력 목표:\n{'human': 3, 'ai': 2, 'total': 5}",
+      "question": "LangChain 메시지 통계 분석기를 작성하세요.\n조건:\n```python\n- analyze(messages): {'human': int, 'ai': int, 'total': int} 딕셔너리 반환\n- role이 'user'이면 human 카운트, 'assistant'이면 ai 카운트\n- human=3, ai=2인 메시지 5개로 테스트, 결과 출력\n# 출력 목표:\n{'human': 3, 'ai': 2, 'total': 5}\n```",
       "answer": "def analyze(messages):\n    human = sum(1 for m in messages if m['role'] == 'user')\n    ai = sum(1 for m in messages if m['role'] == 'assistant')\n    return {'human': human, 'ai': ai, 'total': len(messages)}\n\nmsgs = [\n    {'role': 'user', 'content': 'Q1'},\n    {'role': 'assistant', 'content': 'A1'},\n    {'role': 'user', 'content': 'Q2'},\n    {'role': 'assistant', 'content': 'A2'},\n    {'role': 'user', 'content': 'Q3'},\n]\nprint(analyze(msgs))",
       "pyodide_eval": true,
       "feedback": {
@@ -187,7 +187,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "LangChain에서 AIMessage의 .content 문자열만 추출하는 파서 클래스로 빈칸을 채우세요.\n\n```python\nfrom langchain_core.output_parsers import _____\n```\n\nchain = llm | StrOutputParser()",
+      "question": "LangChain에서 AIMessage의 .content 문자열만 추출하는 파서 클래스로 빈칸을 채우세요.\n\n```python\nfrom langchain_core.output_parsers import _____\nchain = llm | StrOutputParser()\n```",
       "answer": "StrOutputParser",
       "feedback": {
         "correct": "정답! StrOutputParser는 AIMessage 객체에서 .content 텍스트를 추출해 순수 문자열로 반환합니다. LCEL 파이프 연산자(|)로 llm | StrOutputParser()처럼 체인에 연결해요. 클리어!"
@@ -223,7 +223,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "LangChain에서 프롬프트 템플릿을 문자열로 빠르게 생성하는 클래스 메서드로 빈칸을 채우세요.\n\n```python\nfrom langchain_core.prompts import ChatPromptTemplate\n\nprompt = ChatPromptTemplate._____([\n    ('system', '너는 {role}야'),\n    ('human', '{question}'),\n```\n])",
+      "question": "LangChain에서 프롬프트 템플릿을 문자열로 빠르게 생성하는 클래스 메서드로 빈칸을 채우세요.\n\n```python\nfrom langchain_core.prompts import ChatPromptTemplate\n\nprompt = ChatPromptTemplate._____([\n    ('system', '너는 {role}야'),\n    ('human', '{question}'),\n])\n```",
       "answer": "from_messages",
       "feedback": {
         "correct": "정답! ChatPromptTemplate.from_messages(messages)는 튜플 리스트로 프롬프트 템플릿을 생성합니다. 각 튜플은 (role, template_string) 형태이며, {변수명}으로 나중에 채울 자리를 만들어요. 클리어!"
@@ -259,7 +259,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "LangChain LCEL에서 입력 딕셔너리의 특정 키 값을 그대로 통과시키는 Runnable로 빈칸을 채우세요.\n\n```python\nfrom langchain_core.runnables import _____\n```\n\nchain = {'question': RunnablePassthrough()} | prompt | llm",
+      "question": "LangChain LCEL에서 입력 딕셔너리의 특정 키 값을 그대로 통과시키는 Runnable로 빈칸을 채우세요.\n\n```python\nfrom langchain_core.runnables import _____\nchain = {'question': RunnablePassthrough()} | prompt | llm\n```",
       "answer": "RunnablePassthrough",
       "feedback": {
         "correct": "정답! RunnablePassthrough는 입력을 변환 없이 그대로 다음 단계로 전달하는 Runnable입니다. {'question': RunnablePassthrough()} 패턴으로 딕셔너리 구조를 유지하면서 특정 키 값을 프롬프트 템플릿에 전달할 때 쓰여요. 클리어!"
@@ -295,7 +295,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "LCEL 체인 시뮬레이터를 작성하세요.\n조건:\n```python\n- Pipeline 클래스: steps=[] 초기화\n- add(fn): steps에 추가 (체인 가능하도록 self 반환)\n- run(inp): inp를 각 step 함수에 순차 적용\n- step1: 문자열에 'A:' 추가 / step2: 대문자화\n- Pipeline().add(step1).add(step2).run('hello') 출력\n```\n\n출력 목표:\nA:HELLO",
+      "question": "LCEL 체인 시뮬레이터를 작성하세요.\n조건:\n```python\n- Pipeline 클래스: steps=[] 초기화\n- add(fn): steps에 추가 (체인 가능하도록 self 반환)\n- run(inp): inp를 각 step 함수에 순차 적용\n- step1: 문자열에 'A:' 추가 / step2: 대문자화\n- Pipeline().add(step1).add(step2).run('hello') 출력\n# 출력 목표:\nA:HELLO\n```",
       "answer": "class Pipeline:\n    def __init__(self):\n        self.steps = []\n\n    def add(self, fn):\n        self.steps.append(fn)\n        return self\n\n    def run(self, inp):\n        result = inp\n        for fn in self.steps:\n            result = fn(result)\n        return result\n\nstep1 = lambda x: 'A:' + x\nstep2 = lambda x: x.upper()\n\nresult = Pipeline().add(step1).add(step2).run('hello')\nprint(result)",
       "pyodide_eval": true,
       "feedback": {
@@ -312,7 +312,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "LangChain에서 딕셔너리의 여러 키를 각 Runnable에 라우팅하는 클래스로 빈칸을 채우세요.\n\n```python\nfrom langchain_core.runnables import _____\n\nmap_chain = RunnableParallel(\n    summary=summary_chain,\n    keywords=keyword_chain,\n```\n)",
+      "question": "LangChain에서 딕셔너리의 여러 키를 각 Runnable에 라우팅하는 클래스로 빈칸을 채우세요.\n\n```python\nfrom langchain_core.runnables import _____\n\nmap_chain = RunnableParallel(\n    summary=summary_chain,\n    keywords=keyword_chain,\n)\n```",
       "answer": "RunnableParallel",
       "feedback": {
         "correct": "정답! RunnableParallel은 여러 Runnable을 동시에 실행하고 결과를 딕셔너리로 반환합니다. 같은 입력을 summary_chain과 keyword_chain에 각각 전달해 두 결과를 {'summary': ..., 'keywords': ...} 형태로 받아요. 클리어!"
@@ -348,7 +348,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "프롬프트 템플릿 + 파서 체인을 작성하세요.\n조건:\n```python\n- format_prompt(role, question): '{role}야. {question}' 반환\n- parse_output(text): 텍스트의 단어 수(split 기준) 반환\n- chain(role, question): format_prompt → 에코(f'답변: {text}') → parse_output 순서\n- chain('튜터', '안녕') 출력\n```\n\n출력 목표:\n3",
+      "question": "프롬프트 템플릿 + 파서 체인을 작성하세요.\n조건:\n```python\n- format_prompt(role, question): '{role}야. {question}' 반환\n- parse_output(text): 텍스트의 단어 수(split 기준) 반환\n- chain(role, question): format_prompt → 에코(f'답변: {text}') → parse_output 순서\n- chain('튜터', '안녕') 출력\n# 출력 목표:\n3\n```",
       "answer": "def format_prompt(role, question):\n    return f'{role}야. {question}'\n\ndef parse_output(text):\n    return len(text.split())\n\ndef chain(role, question):\n    prompt = format_prompt(role, question)\n    echo = f'답변: {prompt}'\n    return parse_output(echo)\n\nresult = chain('튜터', '안녕')\nprint(result)",
       "pyodide_eval": true,
       "feedback": {
@@ -437,7 +437,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "LangChain에서 체인에 메시지 히스토리를 연결하는 함수로 빈칸을 채우세요.\n\n```python\nfrom langchain_core.runnables.history import _____\n```\n\nchain_with_history = RunnableWithMessageHistory(\n    chain,\n    get_session_history,\n```python\n    input_messages_key='input',\n    history_messages_key='history',\n```\n)",
+      "question": "LangChain에서 체인에 메시지 히스토리를 연결하는 함수로 빈칸을 채우세요.\n\n```python\nfrom langchain_core.runnables.history import _____\nchain_with_history = RunnableWithMessageHistory(\nchain,\nget_session_history,\n```python\ninput_messages_key='input',\nhistory_messages_key='history',\n```\n)\n```",
       "answer": "RunnableWithMessageHistory",
       "feedback": {
         "correct": "정답! RunnableWithMessageHistory는 기존 체인에 메시지 이력 기능을 추가합니다. get_session_history 함수를 전달해 세션별 이력을 관리하고, input_messages_key로 사용자 입력 키를, history_messages_key로 이력 키를 지정해요. 클리어!"
@@ -473,7 +473,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "세션 기반 대화 히스토리 관리자를 작성하세요.\n조건:\n```python\n- SessionStore: store={} 딕셔너리\n- get(session_id): 없으면 빈 리스트 생성 후 반환\n- add(session_id, role, content): 해당 세션에 {'role','content'} 추가\n- count(session_id): 해당 세션 메시지 수 반환\n- 'alice' 세션에 2개, 'bob' 세션에 1개 추가 후 각 count 출력\n```\n\n출력 목표:\n2\n1",
+      "question": "세션 기반 대화 히스토리 관리자를 작성하세요.\n조건:\n```python\n- SessionStore: store={} 딕셔너리\n- get(session_id): 없으면 빈 리스트 생성 후 반환\n- add(session_id, role, content): 해당 세션에 {'role','content'} 추가\n- count(session_id): 해당 세션 메시지 수 반환\n- 'alice' 세션에 2개, 'bob' 세션에 1개 추가 후 각 count 출력\n# 출력 목표:\n2\n1\n```",
       "answer": "class SessionStore:\n    def __init__(self):\n        self.store = {}\n\n    def get(self, session_id):\n        if session_id not in self.store:\n            self.store[session_id] = []\n        return self.store[session_id]\n\n    def add(self, session_id, role, content):\n        self.get(session_id).append({'role': role, 'content': content})\n\n    def count(self, session_id):\n        return len(self.get(session_id))\n\nss = SessionStore()\nss.add('alice', 'user', 'Q1')\nss.add('alice', 'assistant', 'A1')\nss.add('bob', 'user', 'Hi')\nprint(ss.count('alice'))\nprint(ss.count('bob'))",
       "pyodide_eval": true,
       "feedback": {
@@ -526,7 +526,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "대화 이력 요약기를 작성하세요.\n조건:\n```python\n- summarize_history(messages, last_n): 마지막 n쌍(user+assistant)의 user content를 리스트로 반환\n- messages: [user, assistant, user, assistant, user, assistant] 6개 (인덱스 0~5)\n- summarize_history(messages, 2): 마지막 2쌍의 user content 출력\n```\n\n출력 목표:\n['Q2', 'Q3']",
+      "question": "대화 이력 요약기를 작성하세요.\n조건:\n```python\n- summarize_history(messages, last_n): 마지막 n쌍(user+assistant)의 user content를 리스트로 반환\n- messages: [user, assistant, user, assistant, user, assistant] 6개 (인덱스 0~5)\n- summarize_history(messages, 2): 마지막 2쌍의 user content 출력\n# 출력 목표:\n['Q2', 'Q3']\n```",
       "answer": "def summarize_history(messages, last_n):\n    pairs = []\n    i = 0\n    while i < len(messages) - 1:\n        if messages[i]['role'] == 'user' and messages[i+1]['role'] == 'assistant':\n            pairs.append(messages[i]['content'])\n            i += 2\n        else:\n            i += 1\n    return pairs[-last_n:]\n\nmsgs = [\n    {'role': 'user', 'content': 'Q1'},\n    {'role': 'assistant', 'content': 'A1'},\n    {'role': 'user', 'content': 'Q2'},\n    {'role': 'assistant', 'content': 'A2'},\n    {'role': 'user', 'content': 'Q3'},\n    {'role': 'assistant', 'content': 'A3'},\n]\nprint(summarize_history(msgs, 2))",
       "pyodide_eval": true,
       "feedback": {
@@ -543,7 +543,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "LangChain에서 문서 조각을 나타내는 클래스를 임포트하는 빈칸을 채우세요.\n\n```python\nfrom langchain_core.documents import _____\n```\n\ndoc = Document(page_content='파이썬은 범용 언어입니다.', metadata={'source': 'wiki'})",
+      "question": "LangChain에서 문서 조각을 나타내는 클래스를 임포트하는 빈칸을 채우세요.\n\n```python\nfrom langchain_core.documents import _____\n# doc = Document(page_content='파이썬은 범용 언어입니다.', metadata={'source': 'wiki'})\n```",
       "answer": "Document",
       "feedback": {
         "correct": "정답! Document는 LangChain에서 텍스트 조각을 표현하는 기본 클래스입니다. page_content에 텍스트를, metadata에 출처·페이지 번호 등 메타데이터를 저장해요. RAG 파이프라인에서 검색되는 단위입니다. 클리어!"
@@ -651,7 +651,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "텍스트 청킹 함수를 작성하세요.\n조건:\n```python\n- chunk_text(text, size, overlap): 문자 단위로 size씩 자르되, overlap 겹침\n- step = size - overlap\n- 'ABCDEFGHI'를 size=4, overlap=1로 청킹 후 결과 출력\n```\n\n출력 목표:\n['ABCD', 'DEFG', 'GHI']",
+      "question": "텍스트 청킹 함수를 작성하세요.\n조건:\n```python\n- chunk_text(text, size, overlap): 문자 단위로 size씩 자르되, overlap 겹침\n- step = size - overlap\n- 'ABCDEFGHI'를 size=4, overlap=1로 청킹 후 결과 출력\n# 출력 목표:\n['ABCD', 'DEFG', 'GHI']\n```",
       "answer": "def chunk_text(text, size, overlap):\n    chunks = []\n    step = size - overlap\n    start = 0\n    while start < len(text):\n        end = min(start + size, len(text))\n        chunks.append(text[start:end])\n        start += step\n    return chunks\n\nresult = chunk_text('ABCDEFGHI', 4, 1)\nprint(result)",
       "pyodide_eval": true,
       "feedback": {
@@ -668,7 +668,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "LangChain 벡터스토어에서 검색기(retriever)를 생성하는 메서드로 빈칸을 채우세요.\n\n```python\nvectorstore = InMemoryVectorStore(embedding=embeddings)\nvectorstore.add_documents(docs)\n```\n\nretriever = vectorstore._____(search_kwargs={'k': 3})",
+      "question": "LangChain 벡터스토어에서 검색기(retriever)를 생성하는 메서드로 빈칸을 채우세요.\n\n```python\nvectorstore = InMemoryVectorStore(embedding=embeddings)\nvectorstore.add_documents(docs)\nretriever = vectorstore._____(search_kwargs={'k': 3})\n```",
       "answer": "as_retriever",
       "feedback": {
         "correct": "정답! .as_retriever()는 벡터스토어를 Retriever 인터페이스로 변환합니다. search_kwargs={'k': 3}으로 상위 3개 문서를 검색해요. retriever.invoke(query)로 관련 Document 리스트를 반환받아 RAG 체인에 연결합니다. 클리어!"
@@ -704,7 +704,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "간단한 문서 검색기를 작성하세요.\n조건:\n```python\n- SimpleRetriever: docs=[] 초기화\n- add_doc(content, keywords): docs에 {'content', 'keywords'} 추가\n- search(query, k=2): keywords에 query 포함하는 doc content 리스트 반환 (최대 k개)\n- 3개 문서 추가, search('python', k=2) 출력\n```\n\n출력 목표:\n['Python 기초', 'Python 심화']",
+      "question": "간단한 문서 검색기를 작성하세요.\n조건:\n```python\n- SimpleRetriever: docs=[] 초기화\n- add_doc(content, keywords): docs에 {'content', 'keywords'} 추가\n- search(query, k=2): keywords에 query 포함하는 doc content 리스트 반환 (최대 k개)\n- 3개 문서 추가, search('python', k=2) 출력\n# 출력 목표:\n# ['Python 기초', 'Python 심화']\n```",
       "answer": "class SimpleRetriever:\n    def __init__(self):\n        self.docs = []\n\n    def add_doc(self, content, keywords):\n        self.docs.append({'content': content, 'keywords': keywords})\n\n    def search(self, query, k=2):\n        matches = [d['content'] for d in self.docs if query.lower() in d['keywords'].lower()]\n        return matches[:k]\n\nsr = SimpleRetriever()\nsr.add_doc('Python 기초', 'python programming')\nsr.add_doc('LangChain 소개', 'langchain ai')\nsr.add_doc('Python 심화', 'python advanced')\nprint(sr.search('python', k=2))",
       "pyodide_eval": true,
       "feedback": {
@@ -721,7 +721,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "LangChain에서 검색된 문서들을 컨텍스트로 묶어 LLM에 전달하는 체인을 만드는 함수로 빈칸을 채우세요.\n\n```python\nfrom langchain.chains.combine_documents import _____\n```\n\ncombine_chain = create_stuff_documents_chain(llm, qa_prompt)",
+      "question": "LangChain에서 검색된 문서들을 컨텍스트로 묶어 LLM에 전달하는 체인을 만드는 함수로 빈칸을 채우세요.\n\n```python\nfrom langchain.chains.combine_documents import _____\ncombine_chain = create_stuff_documents_chain(llm, qa_prompt)\n```",
       "answer": "create_stuff_documents_chain",
       "feedback": {
         "correct": "정답! create_stuff_documents_chain은 검색된 Document 리스트를 하나의 컨텍스트 문자열로 합쳐(stuff) LLM에 전달하는 체인을 생성합니다. 문서가 많아 컨텍스트 창을 초과하면 map-reduce나 refine 방식을 사용해야 해요. 클리어!"
@@ -757,7 +757,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "LangChain에서 retriever와 combine_chain을 연결해 완전한 RAG 체인을 만드는 함수로 빈칸을 채우세요.\n\n```python\nfrom langchain.chains import _____\n```\n\nrag_chain = create_retrieval_chain(retriever, combine_docs_chain)",
+      "question": "LangChain에서 retriever와 combine_chain을 연결해 완전한 RAG 체인을 만드는 함수로 빈칸을 채우세요.\n\n```python\nfrom langchain.chains import _____\nrag_chain = create_retrieval_chain(retriever, combine_docs_chain)\n```",
       "answer": "create_retrieval_chain",
       "feedback": {
         "correct": "정답! create_retrieval_chain(retriever, combine_docs_chain)은 retriever로 관련 문서를 검색하고, combine_docs_chain으로 문서+질문을 LLM에 전달하는 완전한 RAG 파이프라인을 만듭니다. 결과는 {'answer': ..., 'context': [...]} 딕셔너리로 반환해요. 클리어!"
@@ -793,7 +793,7 @@
       "type": "fill_in_blank",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "LangChain RAG 프롬프트에서 대화 이력을 삽입하는 플레이스홀더 클래스로 빈칸을 채우세요.\n\n```python\nfrom langchain_core.prompts import ChatPromptTemplate, _____\n\nprompt = ChatPromptTemplate.from_messages([\n    ('system', '컨텍스트:\\n{context}'),\n    MessagesPlaceholder('chat_history'),\n    ('human', '{input}'),\n```\n])",
+      "question": "LangChain RAG 프롬프트에서 대화 이력을 삽입하는 플레이스홀더 클래스로 빈칸을 채우세요.\n\n```python\nfrom langchain_core.prompts import ChatPromptTemplate, _____\n\nprompt = ChatPromptTemplate.from_messages([\n    ('system', '컨텍스트:\\n{context}'),\n    MessagesPlaceholder('chat_history'),\n    ('human', '{input}'),\n])\n```",
       "answer": "MessagesPlaceholder",
       "feedback": {
         "correct": "정답! MessagesPlaceholder는 ChatPromptTemplate에서 메시지 리스트가 삽입될 자리를 표시합니다. 'chat_history' 자리에 실제 대화 이력 메시지 리스트가 채워져요. 멀티턴 RAG 체인에서 이전 대화를 유지할 때 필수입니다. 클리어!"
@@ -829,7 +829,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "간단한 RAG 체인 시뮬레이터를 작성하세요.\n조건:\n```python\n- RAGChain: docs=[], k=2\n- add_doc(text): docs에 추가\n- retrieve(query): docs 중 query 포함하는 것 최대 k개 반환 (lower() 비교)\n- answer(query): retrieve 후 '컨텍스트: {texts} | 답변: {query}' 형식 반환\n- 3개 doc 추가, answer('python') 출력\n```\n\n출력 목표:\n컨텍스트: ['Python 기초', 'Python 심화'] | 답변: python",
+      "question": "간단한 RAG 체인 시뮬레이터를 작성하세요.\n조건:\n```python\n- RAGChain: docs=[], k=2\n- add_doc(text): docs에 추가\n- retrieve(query): docs 중 query 포함하는 것 최대 k개 반환 (lower() 비교)\n- answer(query): retrieve 후 '컨텍스트: {texts} | 답변: {query}' 형식 반환\n- 3개 doc 추가, answer('python') 출력\n# 출력 목표:\n# 컨텍스트: ['Python 기초', 'Python 심화'] | 답변: python\n```",
       "answer": "class RAGChain:\n    def __init__(self, k=2):\n        self.docs = []\n        self.k = k\n\n    def add_doc(self, text):\n        self.docs.append(text)\n\n    def retrieve(self, query):\n        matches = [d for d in self.docs if query.lower() in d.lower()]\n        return matches[:self.k]\n\n    def answer(self, query):\n        context = self.retrieve(query)\n        return f'컨텍스트: {context} | 답변: {query}'\n\nrc = RAGChain(k=2)\nrc.add_doc('Python 기초')\nrc.add_doc('LangChain 소개')\nrc.add_doc('Python 심화')\nprint(rc.answer('python'))",
       "pyodide_eval": true,
       "feedback": {
@@ -882,7 +882,7 @@
       "type": "code_input",
       "quiz_category": "miniboss",
       "is_boss": false,
-      "question": "전체 RAG 파이프라인 평가기를 작성하세요.\n조건:\n```python\n- evaluate_rag(docs, queries): 각 query에 대해 docs 중 관련 문서 수 리스트 반환\n- 관련: query(lower)가 doc(lower)에 포함\n- docs=['Python 기초','LangChain 소개','Python 심화'], queries=['python','langchain','java']\n```\n- 결과 출력\n\n출력 목표:\n[2, 1, 0]",
+      "question": "전체 RAG 파이프라인 평가기를 작성하세요.\n조건:\n```python\n- evaluate_rag(docs, queries): 각 query에 대해 docs 중 관련 문서 수 리스트 반환\n- 관련: query(lower)가 doc(lower)에 포함\n- docs=['Python 기초','LangChain 소개','Python 심화'], queries=['python','langchain','java']\n# - 결과 출력\n\n# 출력 목표:\n[2, 1, 0]\n```",
       "answer": "def evaluate_rag(docs, queries):\n    results = []\n    for query in queries:\n        count = sum(1 for doc in docs if query.lower() in doc.lower())\n        results.append(count)\n    return results\n\ndocs = ['Python 기초', 'LangChain 소개', 'Python 심화']\nqueries = ['python', 'langchain', 'java']\nprint(evaluate_rag(docs, queries))",
       "pyodide_eval": true,
       "feedback": {
