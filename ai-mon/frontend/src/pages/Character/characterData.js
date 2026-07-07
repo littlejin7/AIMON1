@@ -45,10 +45,9 @@ export const CHAR_ICONS = Object.fromEntries(CHARACTERS.map(c => [c.id, c.icon])
 
 // 인증카드 색상 테마
 export const CERT_THEMES = [
-  { grad: 'linear-gradient(135deg,#378ADD,#185FA5)', bodyBg: '#E6F1FB', footerBg: '#185FA5', label: 'Unit 1 보스' },
-  { grad: 'linear-gradient(135deg,#1D9E75,#085041)', bodyBg: '#E1F5EE', footerBg: '#085041', label: 'Unit 2 보스' },
-  { grad: 'linear-gradient(135deg,#7F77DD,#26215C)', bodyBg: '#EEEDFE', footerBg: '#26215C', label: 'Unit 3 보스' },
-  { grad: 'linear-gradient(135deg,#854F0B,#412402)', bodyBg: '#FAEEDA', footerBg: '#412402', label: 'Unit 4 보스' },
+  { level: 'beginner',     grad: 'linear-gradient(135deg,#378ADD,#185FA5)', bodyBg: '#E6F1FB', footerBg: '#185FA5', label: '초급 인증카드', badge: 'BEGINNER CLEAR', character: 'robot' },
+  { level: 'intermediate', grad: 'linear-gradient(135deg,#1D9E75,#085041)', bodyBg: '#E1F5EE', footerBg: '#085041', label: '중급 인증카드', badge: 'INTERMEDIATE CLEAR', character: 'speech_bubble' },
+  { level: 'advanced',     grad: 'linear-gradient(135deg,#7F77DD,#26215C)', bodyBg: '#EEEDFE', footerBg: '#26215C', label: '고급 인증카드', badge: 'ADVANCED CLEAR', character: 'final_ghost' },
 ]
 
 // 칭호별 아이콘 배경색
