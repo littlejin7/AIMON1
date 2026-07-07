@@ -14,7 +14,9 @@ from routers.utils import (
     now_kst,
     iso_week,
     prev_iso_week,
-    apply_xp,
+    grant_reward,
+    get_evolution_stage,
+    current_week_ranking_score,
     SECRET_KEY,
     mutate_user_atomic,
     UserNotFoundError,
@@ -275,24 +277,25 @@ def _maybe_reset_daily_xp(game_rewards: dict, today_kst: str) -> None:
 
 
 # ---------------------------------------------------------------------------
-# 주간 랭킹 소스: 주간 게임 XP 누적 (game_rewards["weekly_xp"])
+# 주간 랭킹 소스: 주간 게임 랭킹 점수 누적 (game_rewards["weekly_ranking"])
 # ---------------------------------------------------------------------------
-# 랭킹/지난주 우승자의 단일 진실. game_id → 그 주에 실제 지급된 XP(daily 캡 반영 후)를
-# ISO 주별로 누적한다. 게임별 점수 체계(거리/점수/스테이지)가 서로 달라 비교 불가하므로,
-# "주간 게임 XP 합산"이라는 단일 비교 지표로 통일한다.
-#   game_rewards["weekly_xp"] = { "<ISO주>": { "<game_id>": <누적 XP> } }
+# 랭킹/지난주 우승자의 단일 진실. game_id → 그 주에 실제 지급된 ranking_score(daily 캡
+# 반영 후)를 ISO 주별로 누적한다. 게임별 점수 체계(거리/점수/스테이지)가 서로 달라
+# 비교 불가하므로, "주간 게임 랭킹 점수 합산"이라는 단일 비교 지표로 통일한다.
+#   game_rewards["weekly_ranking"] = { "<ISO주>": { "<game_id>": <누적 ranking_score> } }
+# (XP 소스에서 ranking_score 소스로 교체. 리더보드는 coin/gp 가 아니라 이 값으로 정렬한다.)
 # 보관은 이번 주 + 지난주 2주만(자동 prune) — user 레코드 비대화 방지.
-def _record_weekly_xp(game_rewards: dict, game_id: str, xp: int) -> None:
-    """이번 주 game_id 의 주간 XP 를 누적하고 이번 주/지난주만 남긴다. (in-place)
+def _record_weekly_ranking(game_rewards: dict, game_id: str, score: int) -> None:
+    """이번 주 game_id 의 주간 랭킹 점수를 누적하고 이번 주/지난주만 남긴다. (in-place)
 
-    xp<=0(무보상·이미 클레임·크라운 전용 aipang)이면 아무 것도 하지 않는다 → 랭킹 크레딧 없음.
+    score<=0(무보상·이미 클레임·크라운 전용 aipang)이면 아무 것도 하지 않는다 → 랭킹 크레딧 없음.
     같은 임계구역(mutate_user_atomic)에서 fresh 상태에 대해 호출되므로 동시성 안전.
     """
-    if xp <= 0:
+    if score <= 0:
         return
     wk = iso_week()
     prev = prev_iso_week()
-    weekly = game_rewards.get("weekly_xp")
+    weekly = game_rewards.get("weekly_ranking")
     if not isinstance(weekly, dict):
         weekly = {}
     # 이번 주 + 지난주만 롤링 보관 (오래된 주는 prune)
@@ -300,9 +303,9 @@ def _record_weekly_xp(game_rewards: dict, game_id: str, xp: int) -> None:
     cur = weekly.get(wk)
     if not isinstance(cur, dict):
         cur = {}
-    cur[game_id] = int(cur.get(game_id, 0) or 0) + int(xp)
+    cur[game_id] = int(cur.get(game_id, 0) or 0) + int(score)
     weekly[wk] = cur
-    game_rewards["weekly_xp"] = weekly
+    game_rewards["weekly_ranking"] = weekly
 
 
 class GameStartRequest(BaseModel):
@@ -414,7 +417,10 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
     def mutator(user: dict) -> dict:
         """영속 상태에서 새로 읽은 user 기준으로 nonce 소비·캡·보상을 원자 처리."""
         crowns_awarded = 0
-        xp_awarded = 0
+        xp_awarded = 0            # 캡 반영 후 '보상 단위'(coin=ranking=gp 후보 동일값)
+        coin_awarded = 0
+        gp_awarded = 0            # gp_gate 통과(3차 진화>=3) 시에만 실제 지급
+        ranking_awarded = 0
         score_result = submitted_score_result
         already_claimed = False
 
@@ -501,7 +507,11 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
                 if daily_xp + xp_awarded > 2500:
                     xp_awarded = max(0, 2500 - daily_xp)
                 game_rewards["daily_xp"] = daily_xp + xp_awarded
-                apply_xp(user, xp_awarded, event_type="game_clear")
+                _r = grant_reward(user, coin_delta=xp_awarded,
+                                  ranking_score_delta=xp_awarded,
+                                  gp_delta=xp_awarded, event_type="game_clear")
+                coin_awarded, gp_awarded, ranking_awarded = (
+                    _r["coin_delta"], _r["gp_delta"], _r["ranking_score_delta"])
 
         elif req.game_id == "aipang":
             if game_rewards.get("aipang_last_date") == today_kst:
@@ -544,7 +554,11 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
                     xp_awarded = max(0, 2500 - daily_xp)
 
                 game_rewards["daily_xp"] = daily_xp + xp_awarded
-                apply_xp(user, xp_awarded, event_type="game_clear")
+                _r = grant_reward(user, coin_delta=xp_awarded,
+                                  ranking_score_delta=xp_awarded,
+                                  gp_delta=xp_awarded, event_type="game_clear")
+                coin_awarded, gp_awarded, ranking_awarded = (
+                    _r["coin_delta"], _r["gp_delta"], _r["ranking_score_delta"])
 
         elif req.game_id == "aibomb":
             aibomb_last  = game_rewards.get("aibomb_last_date")
@@ -579,7 +593,11 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
                 if daily_xp + xp_awarded > 2500:
                     xp_awarded = max(0, 2500 - daily_xp)
                 game_rewards["daily_xp"] = daily_xp + xp_awarded
-                apply_xp(user, xp_awarded, event_type="game_clear")
+                _r = grant_reward(user, coin_delta=xp_awarded,
+                                  ranking_score_delta=xp_awarded,
+                                  gp_delta=xp_awarded, event_type="game_clear")
+                coin_awarded, gp_awarded, ranking_awarded = (
+                    _r["coin_delta"], _r["gp_delta"], _r["ranking_score_delta"])
 
         else:  # runner
             runner_last = game_rewards.get("runner_last_date")
@@ -612,10 +630,14 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
                     xp_awarded = max(0, 2500 - daily_xp)
 
                 game_rewards["daily_xp"] = daily_xp + xp_awarded
-                apply_xp(user, xp_awarded, event_type="game_clear")
+                _r = grant_reward(user, coin_delta=xp_awarded,
+                                  ranking_score_delta=xp_awarded,
+                                  gp_delta=xp_awarded, event_type="game_clear")
+                coin_awarded, gp_awarded, ranking_awarded = (
+                    _r["coin_delta"], _r["gp_delta"], _r["ranking_score_delta"])
 
-        # 주간 랭킹 소스 누적 (실제 지급된 XP 기준, 캡 반영 후). xp_awarded<=0 이면 no-op.
-        _record_weekly_xp(game_rewards, req.game_id, xp_awarded)
+        # 주간 랭킹 소스 누적 (실제 지급된 ranking_score 기준, 캡 반영 후). <=0 이면 no-op.
+        _record_weekly_ranking(game_rewards, req.game_id, ranking_awarded)
 
         user["game_rewards"] = game_rewards
         # 파생 카운터(boss_cleared/completed_stages) strip 은 mutate_user_atomic 코어가
@@ -623,11 +645,27 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
 
         result = {
             "crowns_awarded": crowns_awarded,
+            # xp_awarded 는 하위호환 표기(=보상 단위). 신규 소비자는 reward.* 를 쓴다.
             "xp_awarded": xp_awarded,
             "score": score_result,
+            "already_claimed": already_claimed,
+            "reward": {
+                "coin_delta": coin_awarded,
+                "gp_delta": gp_awarded,
+                "ranking_score_delta": ranking_awarded,
+            },
+            "user_state": {
+                "coin_balance": user.get("coin_balance", 0),
+                "gp": user.get("gp", 0),
+                "lv": user.get("lv", 1),
+                "evolution_stage": get_evolution_stage(user),
+                "ranking_score": user.get("ranking_score", 0),
+                "weekly_ranking_score": current_week_ranking_score(user),
+                "crowns": user.get("crowns", 0),
+            },
+            # 레거시 표시 필드 유지(프론트 전환 전 하위호환)
             "total_crowns": user.get("crowns", 0),
             "total_xp": user.get("xp", 0),
-            "already_claimed": already_claimed,
         }
         if req.game_id == "aicross" and aicross_score_detail:
             result.update({
@@ -647,7 +685,7 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
 # ---------------------------------------------------------------------------
 # 미니게임 주간 랭킹 (읽기 전용 집계)
 # ---------------------------------------------------------------------------
-# 지표: 주간 게임 XP 합산(_record_weekly_xp 로 누적된 game_rewards["weekly_xp"]).
+# 지표: 주간 게임 랭킹 점수 합산(_record_weekly_ranking 로 누적된 game_rewards["weekly_ranking"]).
 # - GET /game/ranking          : 전 게임 합산 Top N + 내 순위 (홈 게임 탭 요약)
 # - GET /game/ranking/by-game  : 게임별 Top N + 내 순위 + 지난주 우승자 (전체보기 페이지)
 # 더미 없음: 데이터가 없으면 빈 목록 / last_week_winner=null 을 그대로 반환한다.
@@ -682,12 +720,12 @@ def _cached_ranking(cache_key: str, builder):
     return result
 
 
-def _weekly_xp_map(user: dict, wk: str) -> dict:
-    """해당 유저의 지정 ISO 주 게임별 XP 맵 {game_id: xp}. 방어적으로 정제한다."""
+def _weekly_score_map(user: dict, wk: str) -> dict:
+    """해당 유저의 지정 ISO 주 게임별 랭킹 점수 맵 {game_id: score}. 방어적으로 정제한다."""
     gr = user.get("game_rewards")
     if not isinstance(gr, dict):
         return {}
-    weekly = gr.get("weekly_xp")
+    weekly = gr.get("weekly_ranking")
     if not isinstance(weekly, dict):
         return {}
     wkmap = weekly.get(wk)
@@ -700,12 +738,12 @@ def _weekly_xp_map(user: dict, wk: str) -> dict:
     return out
 
 
-def _ranking_weekly_xp_map(user: dict, wk: str) -> dict:
-    raw = _weekly_xp_map(user, wk)
+def _ranking_weekly_score_map(user: dict, wk: str) -> dict:
+    raw = _weekly_score_map(user, wk)
     result = {}
-    for game_id, xp in raw.items():
+    for game_id, score in raw.items():
         weight = RANKING_WEIGHT.get(game_id, 1.0)
-        result[game_id] = int(round(int(xp or 0) * weight))
+        result[game_id] = int(round(int(score or 0) * weight))
     return result
 
 
@@ -751,7 +789,7 @@ def _compute_last_week_winner(users: list, prev_wk: str) -> Optional[dict]:
     """
     best = None  # (total, nickname, user, per_game_map)
     for u in users:
-        m = _ranking_weekly_xp_map(u, prev_wk)
+        m = _ranking_weekly_score_map(u, prev_wk)
         total = sum(m.values())
         if total <= 0:
             continue
@@ -783,7 +821,7 @@ def game_ranking(limit: int = 3, user_ref: Optional[dict] = Depends(get_current_
         for u in load_users():
             if u.get("deleted_at"):
                 continue
-            total = sum(_ranking_weekly_xp_map(u, wk).values())
+            total = sum(_ranking_weekly_score_map(u, wk).values())
             if total <= 0:
                 continue
             entries.append({
@@ -818,7 +856,7 @@ def game_ranking_by_game(limit: int = 3, user_ref: Optional[dict] = Depends(get_
         for gid, title in RANKED_GAMES:
             entries = []
             for u in users:
-                score = _ranking_weekly_xp_map(u, wk).get(gid, 0)
+                score = _ranking_weekly_score_map(u, wk).get(gid, 0)
                 if score <= 0:
                     continue
                 entries.append({

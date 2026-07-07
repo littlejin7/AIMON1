@@ -1149,6 +1149,27 @@ def get_current_user_optional(authorization: str = Header(None)) -> Optional[dic
         return None
 
 
+def current_week_ranking_score(user: dict) -> int:
+    """현재 ISO 주의 게임 랭킹 점수 합. 게임별 주간 맵(game_rewards["weekly_ranking"])
+    에서 계산한다. 주가 바뀌면 해당 주 키가 없어 0 이 되므로 자동으로 주간 리셋된다.
+    (상위 스칼라 weekly_ranking_score 는 저장하지 않고 이 파생값을 응답에 노출한다.)
+    """
+    gr = user.get("game_rewards")
+    if not isinstance(gr, dict):
+        return 0
+    weekly = gr.get("weekly_ranking")
+    if not isinstance(weekly, dict):
+        return 0
+    wkmap = weekly.get(iso_week())
+    if not isinstance(wkmap, dict):
+        return 0
+    total = 0
+    for v in wkmap.values():
+        if isinstance(v, (int, float)) and v > 0:
+            total += int(v)
+    return total
+
+
 def serialize_user(user: dict) -> dict:
     # 1. Make a copy of user
     res = user.copy()
@@ -1243,6 +1264,8 @@ def serialize_user(user: dict) -> dict:
     # 신규 재화/성장 필드 런타임 기본값 (purchased_themes 와 동일 패턴).
     # 기존 값은 보존하고 없을 때만 채운다. xp/crowns 는 건드리지 않는다.
     ensure_reward_fields(res)
+    # weekly_ranking_score 는 저장 스칼라 대신 게임 주간 맵에서 파생(자동 주간 리셋).
+    res["weekly_ranking_score"] = current_week_ranking_score(res)
 
     res.pop("password", None)
     res.pop("deleted_at", None)
@@ -1327,6 +1350,36 @@ def ensure_reward_fields(user: dict) -> dict:
     return user
 
 
+# ── GP → 레벨 곡선 (임시 밸런스) ──────────────────────────────────────────────
+# lv 는 3차 진화(evolution_stage>=3) 이후에만 의미를 갖는다. 그 전에는 신규
+# 레벨업이 없고 기존 lv 값은 동결된다(레거시 xp 로 lv 를 올리지 않는다). 3차 진화
+# 후 lv 는 gp 누적으로만 오른다. [임시 밸런스] 아래 상수만 조정하면 커브가 바뀐다.
+GP_PER_LEVEL = 1000   # [임시 밸런스] 레벨당 필요 GP (선형). 추후 커브 교체 가능.
+
+
+def calc_level_from_gp(gp: int) -> int:
+    """3차 진화 후 gp 누적으로 얻는 '추가 레벨 수'.
+    [임시 밸런스] 선형 — GP_PER_LEVEL 마다 +1."""
+    return max(0, int(gp or 0)) // GP_PER_LEVEL
+
+
+def recompute_level_from_gp(user: dict) -> None:
+    """레벨 재계산(제자리). 정책:
+    - evolution_stage < 3: 신규 레벨업 없음 → lv 동결(변경하지 않음).
+    - evolution_stage >= 3: 진화 시점 lv 를 gp_level_base 로 1회 캡처하고,
+      lv = max(현재 lv, gp_level_base + calc_level_from_gp(gp)). gp 로만 증가.
+    lv 는 절대 감소하지 않는다.
+    """
+    if get_evolution_stage(user) < 3:
+        return
+    base = user.get("gp_level_base")
+    if not isinstance(base, int) or isinstance(base, bool):
+        base = user.get("lv") or 1
+        user["gp_level_base"] = base
+    target = base + calc_level_from_gp(user.get("gp") or 0)
+    user["lv"] = max(user.get("lv") or 1, target)
+
+
 REFRESH_TOKENS_FILE = os.path.join(DATA_DIR, "refresh_tokens.json")
 
 
@@ -1388,19 +1441,19 @@ def apply_xp(user: dict, xp_gain: int, context: dict = None, event_type: str = N
     old_xp = user.get("xp") or 0
     old_lv = user.get("lv") or 1
 
-    # 1. Apply XP
+    # 1. Apply XP (레거시 누적만 — 신규 지급은 grant_reward 로 이관되어 대부분 0).
     user["xp"] = old_xp + xp_gain
 
-    # 2. Recalculate level
-    new_lv = calc_level(user["xp"])
-    user["lv"] = max(new_lv, old_lv)
-    level_up = user["lv"] > old_lv
+    # 2. 레벨은 더 이상 xp 로 올리지 않는다(레벨 소스 전환).
+    #    - evolution_stage < 3: 신규 레벨업 없음(기존 lv 동결).
+    #    - evolution_stage >= 3: gp 누적으로만 lv 상승(grant_reward 가 gp 변경 시
+    #      recompute_level_from_gp 로 처리). 여기서는 lv 를 건드리지 않는다.
+    level_up = (user.get("lv") or 1) > old_lv
 
     # 3. 진화는 여기서 발생하지 않는다.
     #    정책: 진화 트리거는 엔드보스 클리어(routers/endboss.py 의 evolution_stage
-    #    증가)뿐이다. 과거 lv 임계값(10/20/30) 기반 자동 진화는 제거됐다
-    #    (XP 만 쌓아도 진화하던 정책 위반 경로 차단). character 는 evolution_stage
-    #    에서 파생된다. evolved 는 호출부 응답 계약 유지를 위해 항상 None.
+    #    증가)뿐이다. character 는 evolution_stage 에서 파생된다. evolved 는 호출부
+    #    응답 계약 유지를 위해 항상 None.
     evolved = None
 
     # 4. Award titles
@@ -1422,8 +1475,49 @@ def apply_xp(user: dict, xp_gain: int, context: dict = None, event_type: str = N
         "new_xp": user["xp"],
         "level_up": level_up,
         "old_lv": old_lv,
-        "new_lv": user["lv"],
+        "new_lv": user.get("lv") or 1,
         "evolved": evolved,
         "newly_earned_titles": newly_earned_titles
+    }
+
+
+def grant_reward(user: dict, *, coin_delta: int = 0, ranking_score_delta: int = 0,
+                 gp_delta: int = 0, context: dict = None, event_type: str = None) -> dict:
+    """이벤트 보상을 coin / ranking_score / gp 로 분리 적용한다(제자리 변경, 저장은
+    호출부 책임 — apply_xp 와 동일하게 mutate_user_atomic 안에서 재사용 가능).
+
+    - coin_balance / total_coin_earned += coin_delta
+    - ranking_score(누적, 리더보드 소스) += ranking_score_delta
+    - gp += gp_gate(user, gp_delta)  → 3차 진화(evolution_stage>=3) 에서만 실제 지급
+    - recompute_level_from_gp(user)  → 3차 후 gp 로만 lv 상승
+    - apply_xp(user, 0, context, event_type) 로 칭호·미션 훅을 그대로 재사용(신규 xp 0)
+
+    weekly_ranking_score 는 상위 스칼라로 저장하지 않고, 게임 주간 랭킹은 게임별
+    주간 맵(game_rewards)으로, user_state 표시는 serialize_user 파생으로 처리한다.
+
+    반환: {"coin_delta", "gp_delta"(실적용), "ranking_score_delta", "level_up", "events"}.
+    """
+    ensure_reward_fields(user)
+    coin_delta = max(0, int(coin_delta or 0))
+    ranking_score_delta = max(0, int(ranking_score_delta or 0))
+    applied_gp = gp_gate(user, gp_delta)
+
+    lv_before = user.get("lv") or 1
+    if coin_delta:
+        user["coin_balance"] = (user.get("coin_balance") or 0) + coin_delta
+        user["total_coin_earned"] = (user.get("total_coin_earned") or 0) + coin_delta
+    if ranking_score_delta:
+        user["ranking_score"] = (user.get("ranking_score") or 0) + ranking_score_delta
+    if applied_gp:
+        user["gp"] = (user.get("gp") or 0) + applied_gp
+    recompute_level_from_gp(user)
+
+    events = apply_xp(user, 0, context, event_type=event_type)
+    return {
+        "coin_delta": coin_delta,
+        "gp_delta": applied_gp,
+        "ranking_score_delta": ranking_score_delta,
+        "level_up": (user.get("lv") or 1) > lv_before,
+        "events": events,
     }
 

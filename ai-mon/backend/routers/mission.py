@@ -13,7 +13,9 @@ from routers.utils import (
     get_current_user,
     mutate_user_atomic,
     UserNotFoundError,
-    apply_xp,
+    grant_reward,
+    get_evolution_stage,
+    current_week_ranking_score,
 )
 from routers.missions_core import find_def, DAILY_DEFS, WEEKLY_DEFS, _ensure_period
 
@@ -94,13 +96,18 @@ def claim_mission(req: ClaimRequest, user_ref: dict = Depends(get_current_user))
         reward = defn.get("reward", {})
         xp = reward.get("xp", 0)
         crowns = reward.get("crowns", 0)
+        reward_delta = {"coin_delta": 0, "gp_delta": 0, "ranking_score_delta": 0}
 
         if xp:
-            apply_xp(user, xp)  # event_type 없음 → bump_mission 재진입 없음
+            # 미션 보상은 coin 만 지급 — 경쟁 랭킹(ranking_score)·gp 에는 반영하지 않는다.
+            # event_type 없음 → bump_mission 재진입 없음.
+            rr = grant_reward(user, coin_delta=xp)
+            reward_delta = {"coin_delta": rr["coin_delta"], "gp_delta": rr["gp_delta"],
+                            "ranking_score_delta": rr["ranking_score_delta"]}
         if crowns:
             user["crowns"] = user.get("crowns", 0) + crowns
 
-        return {"already_claimed": False, "xp": xp, "crowns": crowns}
+        return {"already_claimed": False, "xp": xp, "crowns": crowns, "reward": reward_delta}
 
     try:
         user, result = mutate_user_atomic(user_id, mutator)
@@ -112,8 +119,19 @@ def claim_mission(req: ClaimRequest, user_ref: dict = Depends(get_current_user))
     return {
         "mission_id": mission_id,
         "already_claimed": result["already_claimed"],
+        # xp_awarded 는 하위호환 표기(=coin 보상 단위). 신규 소비자는 reward.* 를 쓴다.
         "xp_awarded": result["xp"],
         "crowns_awarded": result["crowns"],
         "total_xp": user.get("xp", 0),
         "total_crowns": user.get("crowns", 0),
+        "reward": result.get("reward", {"coin_delta": 0, "gp_delta": 0, "ranking_score_delta": 0}),
+        "user_state": {
+            "coin_balance": user.get("coin_balance", 0),
+            "gp": user.get("gp", 0),
+            "lv": user.get("lv", 1),
+            "evolution_stage": get_evolution_stage(user),
+            "ranking_score": user.get("ranking_score", 0),
+            "weekly_ranking_score": current_week_ranking_score(user),
+            "crowns": user.get("crowns", 0),
+        },
     }

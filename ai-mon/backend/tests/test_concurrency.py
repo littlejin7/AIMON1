@@ -90,7 +90,7 @@ def test_same_token_concurrent_clear_grants_once(temp_user):
 
     # 영속 상태에 이중 가산 없음
     u = _read_user(temp_user)
-    assert u["xp"] == 350
+    assert u["coin_balance"] == 350
     assert u["game_rewards"]["runner_today_count"] == 1
 
 
@@ -116,7 +116,7 @@ def test_two_distinct_tokens_both_grant(temp_user):
     # 서로 다른 세션이므로 둘 다 지급
     assert len(results) == 2 and errors == [], f"results={results} errors={errors}"
     u = _read_user(temp_user)
-    assert u["xp"] == 700
+    assert u["coin_balance"] == 700
     assert u["game_rewards"]["runner_today_count"] == 2
 
 
@@ -166,7 +166,7 @@ def test_concurrent_double_claim_grants_once(mission_user):
     assert len(already) == 1, f"expected 1 already_claimed, results={results}"
 
     u = _read_user(mission_user)
-    assert u["xp"] == 300                                        # 이중 지급 없음
+    assert u["coin_balance"] == 300                                        # 이중 지급 없음
     assert u["missions"]["daily"]["claimed"].count("d_quiz3") == 1
 
 
@@ -195,14 +195,14 @@ def test_claim_survives_concurrent_event(mission_user):
     u = _read_user(mission_user)
     # 이벤트 쓰기가 claim 의 claimed 를 덮어쓰지 않음
     assert "d_quiz3" in u["missions"]["daily"]["claimed"]
-    assert u["xp"] == 300
+    assert u["coin_balance"] == 300
     # 이벤트 진척도 보존 (goal=3 상한 유지)
     assert u["missions"]["daily"]["progress"]["d_quiz3"] == 3
 
     # 사후 재claim → 이미 받음 (재수령 없음)
     r = MI.claim_mission(MI.ClaimRequest(mission_id="d_quiz3"), {"id": "u1"})
     assert r["already_claimed"] is True
-    assert _read_user(mission_user)["xp"] == 300
+    assert _read_user(mission_user)["coin_balance"] == 300
 
 
 # ─────────── M-4: 유닛보스 보상 동시 이중 제출 → 정확히 1회 지급 ───────────
@@ -308,7 +308,7 @@ def test_unitboss_concurrent_double_submit_grants_once_json(unitboss_user):
     assert granted[0]["crowns_awarded"] == 1
 
     u = _read_user(users_file)
-    assert u["xp"] == 3000, f"XP 이중 지급: {u['xp']}"
+    assert u["coin_balance"] == 3000, f"XP 이중 지급: {u['xp']}"
     assert u["crowns"] == 1, f"왕관 이중 지급: {u['crowns']}"
     assert u["unitboss_cleared_units"] == ["beginner-2"]
     assert u["completed_units"]["beginner"] == 1
@@ -383,7 +383,7 @@ def test_unitboss_concurrent_double_submit_grants_once_supabase(monkeypatch):
 
     assert r1["xp_awarded"] == 3000 and r1["crowns_awarded"] == 1
     assert r2["xp_awarded"] == 0 and r2["crowns_awarded"] == 0, "CAS 패자가 이중 지급됨"
-    assert fake.user["xp"] == 3000, f"XP 이중 지급: {fake.user['xp']}"
+    assert fake.user["coin_balance"] == 3000, f"XP 이중 지급: {fake.user['xp']}"
     assert fake.user["crowns"] == 1, f"왕관 이중 지급: {fake.user['crowns']}"
     assert fake.user["unitboss_cleared_units"] == ["beginner-2"]
     assert fake.user["completed_units"]["beginner"] == 1
@@ -404,7 +404,7 @@ def test_unitboss_legacy_progress_no_double_grant(unitboss_user, monkeypatch):
     r = _call_boss(token)
     assert r["xp_awarded"] == 0 and r["crowns_awarded"] == 0, "레거시 유저 재지급됨"
     u = _read_user(users_file)
-    assert u["xp"] == 0 and u["crowns"] == 0
+    assert u.get("coin_balance", 0) == 0 and u["crowns"] == 0
     assert u["unitboss_cleared_units"] == ["beginner-2"], "백필 안 됨(멱등 가드 기록)"
 
 

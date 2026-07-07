@@ -118,14 +118,18 @@ def test_award_true_preserves_existing_reward_flow(monkeypatch):
     saved_progress = []
     saved_users = []
 
-    def _apply_xp(user, xp_gain):
-        user["xp"] = user.get("xp", 0) + xp_gain
+    def _grant_reward(user, coin_delta=0, ranking_score_delta=0, gp_delta=0, context=None, event_type=None):
+        # 코드 클리어 보상은 coin/ranking 으로 분리 지급된다(xp 신규 지급 중단).
+        user["coin_balance"] = user.get("coin_balance", 0) + coin_delta
+        user["ranking_score"] = user.get("ranking_score", 0) + ranking_score_delta
+        return {"coin_delta": coin_delta, "gp_delta": 0, "ranking_score_delta": ranking_score_delta,
+                "level_up": False, "events": {"newly_earned_titles": []}}
 
     monkeypatch.setattr(CODE, "find_question", lambda *args, **kwargs: question)
     monkeypatch.setattr(CODE, "ask_claude_json", AsyncMock())
     monkeypatch.setattr(CODE, "get_progress_by_user", lambda *args, **kwargs: [])
     monkeypatch.setattr(CODE, "save_progress_item", lambda item: saved_progress.append(item.copy()))
-    monkeypatch.setattr(CODE, "apply_xp", _apply_xp)
+    monkeypatch.setattr(CODE, "grant_reward", _grant_reward)
     monkeypatch.setattr(CODE, "save_user", lambda user: saved_users.append(user.copy()))
 
     user = _base_user()
@@ -147,4 +151,4 @@ def test_award_true_preserves_existing_reward_flow(monkeypatch):
     assert saved_progress[0]["unit"] == 2
     assert saved_progress[0]["stage"] == "2-1"
     assert len(saved_users) == 1
-    assert saved_users[0]["xp"] == CODE.CODE_CLEAR_XP
+    assert saved_users[0]["coin_balance"] == CODE.CODE_CLEAR_XP

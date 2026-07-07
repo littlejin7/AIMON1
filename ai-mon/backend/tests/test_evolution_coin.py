@@ -124,11 +124,11 @@ def test_endboss_clear_does_not_demote_evolution_stage(monkeypatch, tmp_path):
 
 # ── XP 만 쌓아도 진화 안 됨 (자동진화 제거 검증) ─────────────────────────────
 
-def test_xp_accumulation_never_evolves():
+def test_xp_accumulation_never_evolves_or_levels():
     user = {"id": "u-xp", "xp": 0, "lv": 1, "character": "slime", "titles": []}
-    # lv 30 을 넘겨도 character 는 slime 그대로, evolved None
-    events = U.apply_xp(user, 435000)  # lv30
-    assert user["lv"] == 30
+    # 2-B: xp 로는 진화도 레벨업도 없다. lv 동결(1), character slime, evolved None.
+    events = U.apply_xp(user, 435000)  # 과거 lv30 상당 XP
+    assert user["lv"] == 1
     assert user["character"] == "slime"
     assert events["evolved"] is None
     assert U.get_evolution_stage(user) == 0  # 진화 단계 0 유지

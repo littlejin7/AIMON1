@@ -21,7 +21,9 @@ from routers.utils import (
     save_attempt_item,
     now_kst,
     get_current_user,
-    apply_xp,
+    grant_reward,
+    get_evolution_stage,
+    current_week_ranking_score,
     mutate_user_atomic,
     UserNotFoundError,
 )
@@ -58,7 +60,10 @@ REQUIRED_CORRECT = 3                                # 3정답이면 승리
 MAX_WRONG        = MY_HP_INIT // MY_HP_DELTA       # 3 (오답 누적이 이 수 도달 시 패배)
 
 # ── 보상 ─────────────────────────────────────────────────────────────────────
-CLEAR_XP = 500
+# 미니보스 클리어 보상 단위(coin=ranking=gp 후보 동일값). gp 는 gp_gate(3차 진화>=3)
+# 통과 시에만 실제 지급. [기존 xp 500 을 coin/ranking 으로 이관]
+CLEAR_REWARD = 500
+CLEAR_XP = CLEAR_REWARD   # 하위호환 상수명 유지(응답 xp_awarded 표기용)
 
 
 
@@ -297,17 +302,23 @@ def miniboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
     def mutator(u: dict) -> dict:
         cleared = u.get("miniboss_cleared_stages") or []
         already_cleared = stage_key in cleared
+        reward = {"coin_delta": 0, "gp_delta": 0, "ranking_score_delta": 0}
         if not already_cleared:
             view = get_session(u, sid)
             if not view or view["status"] != "won":
                 raise HTTPException(status_code=403, detail="전투에서 승리해야 클리어할 수 있습니다.")
-            apply_xp(u, CLEAR_XP, event_type="miniboss_clear")
+            # xp 신규 지급 중단 → coin/ranking 분리 발급. gp 는 gate 통과 시만.
+            rr = grant_reward(u, coin_delta=CLEAR_REWARD, ranking_score_delta=CLEAR_REWARD,
+                              gp_delta=CLEAR_REWARD, event_type="miniboss_clear")
+            reward = {"coin_delta": rr["coin_delta"], "gp_delta": rr["gp_delta"],
+                      "ranking_score_delta": rr["ranking_score_delta"]}
             cleared.append(stage_key)
             u["miniboss_cleared_stages"] = cleared
             consume_session(u, sid)   # 보상 후 세션 소비 (리플레이 방지)
         return {
             "already_cleared": already_cleared,
             "cleared_stages": u.get("miniboss_cleared_stages", []),
+            "reward": reward,
         }
 
     try:
@@ -347,7 +358,18 @@ def miniboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
 
     return {
         "already_cleared":  already_cleared,
+        # xp_awarded 는 하위호환 표기(=보상 단위). 신규 소비자는 reward.* 를 쓴다.
         "xp_awarded":       xp_awarded,
         "lv":               user.get("lv", 1),
         "cleared_stages":   result["cleared_stages"],
+        "reward":           result["reward"],
+        "user_state": {
+            "coin_balance": user.get("coin_balance", 0),
+            "gp": user.get("gp", 0),
+            "lv": user.get("lv", 1),
+            "evolution_stage": get_evolution_stage(user),
+            "ranking_score": user.get("ranking_score", 0),
+            "weekly_ranking_score": current_week_ranking_score(user),
+            "crowns": user.get("crowns", 0),
+        },
     }
