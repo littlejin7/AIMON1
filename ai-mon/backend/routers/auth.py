@@ -42,6 +42,7 @@ from routers.utils import (
     get_current_user_optional,
     delete_soft_deleted_user_by_username,
     restore_soft_deleted_user,
+    apply_level_test_placement,
 )
 
 router = APIRouter()
@@ -467,8 +468,11 @@ def register(req: RegisterRequest, request: Request):
                 u["password"] = hash_password(req.password)
                 u["nickname"] = nickname
                 u["email"] = email
-                u["course_level"] = level
-                u["is_level_tested"] = req.is_level_tested
+                if req.is_level_tested:
+                    apply_level_test_placement(u, level)
+                else:
+                    u["course_level"] = level
+                    u["is_level_tested"] = req.is_level_tested
                 u["marketing_agreed"] = req.marketing_agreed
 
             restored = _restore_for_login(deleted_user, restore_updater)
@@ -513,6 +517,8 @@ def register(req: RegisterRequest, request: Request):
         "game_rewards": {},
         "created_at": now_kst().isoformat(),
     }
+    if req.is_level_tested:
+        apply_level_test_placement(new_user, level)
     _ensure_nickname_available(new_user["nickname"])
     save_user(new_user)
     token = create_token({"sub": new_user["id"], "username": new_user["username"]}, new_user.get("token_version", 1))
@@ -1294,15 +1300,15 @@ def logout(authorization: str = Header(...)):
 
 LEVEL_TEST_QUESTIONS_META = {
     "lt1": {"level": "beginner", "category": "syntax", "answer": 1},
-    "lt2": {"level": "beginner", "category": "syntax", "answer": 1},
+    "lt2": {"level": "beginner", "category": "syntax", "answer": 2},
     "lt3": {"level": "beginner", "category": "structure", "answer": 1},
     "lt4": {"level": "beginner", "category": "structure", "answer": 1},
     "lt5": {"level": "intermediate", "category": "syntax", "answer": 1},
-    "lt6": {"level": "intermediate", "category": "syntax", "answer": 1},
-    "lt7": {"level": "intermediate", "category": "control", "answer": 2},
-    "lt8": {"level": "advanced", "category": "control", "answer": 1},
-    "lt9": {"level": "advanced", "category": "control", "answer": 1},
-    "lt10": {"level": "advanced", "category": "control", "answer": 1},
+    "lt6": {"level": "intermediate", "category": "syntax", "answer": 3},
+    "lt7": {"level": "intermediate", "category": "control", "answer": 0},
+    "lt8": {"level": "advanced", "category": "control", "answer": 3},
+    "lt9": {"level": "advanced", "category": "control", "answer": 2},
+    "lt10": {"level": "advanced", "category": "control", "answer": 2},
 }
 
 
@@ -1353,8 +1359,7 @@ def submit_level_test(req: SubmitLevelTestRequest, user: Optional[dict] = Depend
     if user:
         # 로그인 유저 정보 업데이트
         def mutator(u: dict):
-            u["course_level"] = level_key
-            u["is_level_tested"] = True
+            apply_level_test_placement(u, level_key)
             return None
         
         try:
