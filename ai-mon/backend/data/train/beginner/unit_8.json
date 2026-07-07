@@ -221,7 +221,7 @@
     "type": "output_select",
     "difficulty": "hard",
     "concept": "인덱스 보정 + pop",
-    "question": "다음 코드에서 유저가 '2'를 입력했을 때의 출력 결과는 무엇인가요?\n\ninventory = ['철검', '사과', 'HP포션']\nnum = 2  # 유저 입력 시뮬레이션\n```python\nidx = num - 1\ndropped = inventory.pop(idx)\nprint(f'삭제된 아이템: {dropped}')\nprint(f'남은 인벤토리: {inventory}')\n```",
+    "question": "다음 코드에서 유저가 '2'를 입력했을 때의 출력 결과는 무엇인가요?\n\n```python\ninventory = ['철검', '사과', 'HP포션']\nnum = 2  # 유저 입력 시뮬레이션\nidx = num - 1\ndropped = inventory.pop(idx)\nprint(f'삭제된 아이템: {dropped}')\nprint(f'남은 인벤토리: {inventory}')\n```",
     "choices": [
       "A. 삭제된 아이템: 철검\n남은 인벤토리: ['사과', 'HP포션']",
       "B. 삭제된 아이템: 사과\n남은 인벤토리: ['철검', 'HP포션']",
