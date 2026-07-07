@@ -1,5 +1,12 @@
+import { useMemo } from 'react'
+
 export default function HintBox({ selWord, selCells, cursor, checked, inputs, onLetterClick, onCheck }) {
   if (!selWord) return null
+
+  const shuffledLetters = useMemo(() => {
+    if (!selWord.word) return []
+    return selWord.word.split('').sort(() => Math.random() - 0.5)
+  }, [selWord.word])
 
   return (
     <div className="aicross-hint-box">
@@ -11,6 +18,16 @@ export default function HintBox({ selWord, selCells, cursor, checked, inputs, on
         <div className="aicross-hint-desc">
           {selWord.easyClue || selWord.clue} ({selCells.length})
         </div>
+
+        {/* Word Bank */}
+        <div className="aicross-word-bank">
+          {shuffledLetters.map((letter, idx) => (
+            <span key={idx} className="aicross-word-bank-letter">
+              {letter}
+            </span>
+          ))}
+        </div>
+
         <div className="aicross-hint-answer-row">
           <div className="aicross-hint-boxes">
             {selCells.map((cellPos) => {

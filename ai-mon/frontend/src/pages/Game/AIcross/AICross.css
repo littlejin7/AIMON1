@@ -279,6 +279,11 @@
   overflow-x: auto;
   max-width: 100%;
   box-sizing: border-box;
+  scrollbar-width: none;
+}
+
+.aicross-grid-card::-webkit-scrollbar {
+  display: none;
 }
 
 .aicross-corner {
@@ -412,15 +417,15 @@
   position: relative;
   display: flex;
   gap: 12px;
-  background: linear-gradient(160deg, #ffffff 0%, #faf5ff 100%);
-  border: 1px solid rgba(180, 140, 255, 0.3);
+  background: linear-gradient(160deg, #f2e9fc 0%, #e5d6fa 100%);
+  border: 1px solid rgba(140, 90, 230, 0.45);
   border-radius: 18px;
   padding: 14px 16px;
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
-    0 -6px 14px rgba(160, 110, 255, 0.06) inset,
-    0 10px 24px rgba(120, 80, 200, 0.16),
-    0 2px 4px rgba(120, 80, 200, 0.1);
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 -6px 14px rgba(160, 110, 255, 0.08) inset,
+    0 10px 24px rgba(120, 80, 200, 0.18),
+    0 2px 4px rgba(120, 80, 200, 0.12);
 }
 
 .aicross-hint-icon {
@@ -450,12 +455,12 @@
 .aicross-hint-title {
   font-size: 13px;
   font-weight: 800;
-  color: #5a3d99;
+  color: #361c6b;
 }
 
 .aicross-hint-desc {
   font-size: 12px;
-  color: #8a6bb8;
+  color: #4e3a73;
   line-height: 1.4;
 }
 
@@ -633,3 +638,29 @@
 .aicross-clue-item.is-active b {
   color: #7c3dff;
 }
+
+/* ── Word Bank ── */
+.aicross-word-bank {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 4px 0 6px 0;
+}
+
+.aicross-word-bank-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: #cbb3f7;
+  border: 1px solid rgba(110, 50, 210, 0.45);
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #3d1a80;
+  font-family: 'Courier New', monospace;
+  box-shadow: 0 2px 4px rgba(120, 80, 200, 0.12);
+  text-transform: uppercase;
+}
+
