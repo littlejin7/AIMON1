@@ -48,7 +48,7 @@ export default function Character() {
           <div className="app-locked-icon">🔒</div>
           
           <h2 className="app-locked-title">
-            내 캐릭터 커스터마이징 잠김
+            내 캐릭터 설정 잠김
           </h2>
           
           <p className="app-locked-desc">
