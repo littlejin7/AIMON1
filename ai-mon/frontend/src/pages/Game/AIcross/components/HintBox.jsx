@@ -1,12 +1,70 @@
 import { useMemo } from 'react'
 
-export default function HintBox({ selWord, selCells, cursor, checked, inputs, onLetterClick, onCheck }) {
+function shuffleLetters(word) {
+  if (!word) return [];
+  const chars = word.split('');
+  if (chars.length <= 1) return chars;
+
+  const allSame = chars.every(c => c === chars[0]);
+  if (allSame) return chars;
+
+  let attempts = 0;
+  let bestShuffle = null;
+  let bestScore = Infinity;
+
+  while (attempts < 100) {
+    const shuffled = [...chars].sort(() => Math.random() - 0.5);
+    const shuffledStr = shuffled.join('');
+
+    if (shuffledStr === word) {
+      attempts++;
+      continue;
+    }
+
+    let adjacentDupes = 0;
+    for (let i = 0; i < shuffled.length - 1; i++) {
+      if (shuffled[i] === shuffled[i + 1]) {
+        adjacentDupes++;
+      }
+    }
+
+    if (adjacentDupes === 0) {
+      return shuffled;
+    }
+
+    if (bestShuffle === null || adjacentDupes < bestScore) {
+      bestShuffle = shuffled;
+      bestScore = adjacentDupes;
+    }
+
+    attempts++;
+  }
+
+  return bestShuffle || chars;
+}
+
+export default function HintBox({ selWord, selCells, cursor, checked, inputs, onLetterClick, onCheck, disabled }) {
   if (!selWord) return null
 
-  const shuffledLetters = useMemo(() => {
-    if (!selWord.word) return []
-    return selWord.word.split('').sort(() => Math.random() - 0.5)
+  const shuffledLettersBase = useMemo(() => {
+    return shuffleLetters(selWord.word)
   }, [selWord.word])
+
+  const currentInputs = useMemo(() => {
+    return selCells.map(cell => inputs[`${cell.r},${cell.c}`] || '').filter(Boolean)
+  }, [selCells, inputs])
+
+  const wordBankLetters = useMemo(() => {
+    const tempInputs = [...currentInputs]
+    return shuffledLettersBase.map((char, index) => {
+      const inputIdx = tempInputs.indexOf(char)
+      const isUsed = inputIdx !== -1
+      if (isUsed) {
+        tempInputs.splice(inputIdx, 1)
+      }
+      return { id: `${char}-${index}`, char, isUsed }
+    })
+  }, [shuffledLettersBase, currentInputs])
 
   return (
     <div className="aicross-hint-box">
@@ -21,9 +79,9 @@ export default function HintBox({ selWord, selCells, cursor, checked, inputs, on
 
         {/* Word Bank */}
         <div className="aicross-word-bank">
-          {shuffledLetters.map((letter, idx) => (
-            <span key={idx} className="aicross-word-bank-letter">
-              {letter}
+          {wordBankLetters.map((item) => (
+            <span key={item.id} className={`aicross-word-bank-letter ${item.isUsed ? 'is-used' : ''}`}>
+              {item.char}
             </span>
           ))}
         </div>
@@ -50,7 +108,7 @@ export default function HintBox({ selWord, selCells, cursor, checked, inputs, on
               )
             })}
           </div>
-          <button className="aicross-submit-btn" onClick={onCheck}>정답 입력</button>
+          <button className="aicross-submit-btn" onClick={onCheck} disabled={disabled}>정답 입력</button>
         </div>
       </div>
     </div>

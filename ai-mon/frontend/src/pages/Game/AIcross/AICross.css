@@ -562,6 +562,14 @@
     0 -1px 3px rgba(150, 100, 0, 0.2) inset,
     0 1px 3px rgba(255, 190, 40, 0.3);
 }
+.aicross-submit-btn:disabled {
+  background: #cbd5e1;
+  color: #94a3b8;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+  pointer-events: none;
+}
 
 /* ── Clue card ── */
 .aicross-clue-card {
@@ -662,5 +670,15 @@
   font-family: 'Courier New', monospace;
   box-shadow: 0 2px 4px rgba(120, 80, 200, 0.12);
   text-transform: uppercase;
+  transition: all 0.15s ease;
 }
+
+.aicross-word-bank-letter.is-used {
+  opacity: 0.75;
+  background: #94a3b8;
+  color: #1e293b;
+  border-color: #64748b;
+  box-shadow: none;
+}
+
 

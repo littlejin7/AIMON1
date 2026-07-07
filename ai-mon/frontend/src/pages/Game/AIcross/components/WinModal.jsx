@@ -44,7 +44,7 @@ export default function WinModal({ result, won, onClose, onRetry }) {
           ) : (
             <div className="aicross-win-reward aicross-win-reward--loading">보상 계산 중…</div>
           )}
-          <button className="acbtn acbtn--next" onClick={onClose}>✕</button>
+          <button className="acbtn acbtn--next" onClick={onClose}>다음 주제로</button>
         </div>
       </div>
     )

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { incrementGamePlay } from '../Game'
 import TitleBlock from './components/TitleBlock'
@@ -16,7 +16,10 @@ export default function AICross() {
 
   const [layout, setLayout] = useState(null)
   const [error, setError] = useState('')
-  const [selectedSetIndex, setSelectedSetIndex] = useState(0)
+  const [selectedSetIndex, setSelectedSetIndex] = useState(() => {
+    const saved = localStorage.getItem('aicross_last_set_index')
+    return saved !== null ? Number(saved) : 0
+  })
   const [starterCellKey, setStarterCellKey] = useState('')
   const [starterLetter, setStarterLetter] = useState('')
 
@@ -70,6 +73,7 @@ export default function AICross() {
   const handleSetChange = (e) => {
     const nextIndex = Number(e.target.value)
     setSelectedSetIndex(nextIndex)
+    localStorage.setItem('aicross_last_set_index', nextIndex.toString())
     setError('')
   }
 
@@ -185,11 +189,23 @@ export default function AICross() {
     setSubmitting(false)
   }
 
+  const handleNextSet = () => {
+    const nextIndex = (selectedSetIndex + 1) % WORD_SETS.length
+    setSelectedSetIndex(nextIndex)
+    localStorage.setItem('aicross_last_set_index', nextIndex.toString())
+    setError('')
+  }
+
   const acrossWords = wordData.filter(w => w.dir === 'H').sort((a, b) => a.num - b.num)
   const downWords = wordData.filter(w => w.dir === 'V').sort((a, b) => a.num - b.num)
 
   const selCells = selWord ? wordCells[selWord.id] : []
   const won = showResult && result && result.score >= 100
+
+  const isAllFilled = useMemo(() => {
+    if (!cellMap || Object.keys(cellMap).length === 0) return false
+    return Object.keys(cellMap).every(key => !!inputs[key])
+  }, [cellMap, inputs])
 
   return (
     <div className="aicross-wrap" ref={wrapRef} tabIndex={-1}>
@@ -224,7 +240,7 @@ export default function AICross() {
             <WinModal
               result={result}
               won={won}
-              onClose={() => navigate('/game')}
+              onClose={won ? handleNextSet : () => navigate('/game')}
               onRetry={startNewGame}
             />
           )}
@@ -248,6 +264,7 @@ export default function AICross() {
             inputs={inputs}
             onLetterClick={setCursor}
             onCheck={handleSubmit}
+            disabled={!isAllFilled}
           />
 
           <ClueList
