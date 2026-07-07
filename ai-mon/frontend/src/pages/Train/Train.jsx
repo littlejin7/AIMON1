@@ -24,6 +24,7 @@ export default function Train() {
   const [answers, setAnswers]             = useState({})
   const [checkingLock, setCheckingLock]   = useState(true)
   const [isLocked, setIsLocked]           = useState(false)
+  const [showLoginPopup, setShowLoginPopup] = useState(false)
   const [wrongCount, setWrongCount]           = useState(0)
   const [wrongAnswers, setWrongAnswers]       = useState([])
   const [unitAccuracy, setUnitAccuracy]       = useState([])
@@ -90,10 +91,18 @@ export default function Train() {
     setCurrentUnit(null)
   }
 
-  const showCodeViewer = () => setMode('code_viewer')
+  // 비로그인 시 로그인 팝업을 띄우고 true 반환
+  const requireLogin = () => {
+    if (!token) { setShowLoginPopup(true); return true }
+    return false
+  }
+  const showCodeViewer = () => {
+    if (requireLogin()) return
+    setMode('code_viewer')
+  }
 
   const startRandom = async () => {
-    if (!token) return
+    if (requireLogin()) return
     setLoading(true)
     try {
       const res = await trainApi.getRandom({ n: 10, course_level: activeLevel })
@@ -115,7 +124,7 @@ export default function Train() {
   }
 
   const startTraining = async ({ onlyWrong = false, unit = currentUnit } = {}) => {
-    if (!token) return
+    if (requireLogin()) return
     setLoading(true)
     try {
       const params = {
@@ -222,7 +231,7 @@ export default function Train() {
     }
   }
 
-  if (!token) return <TrainLocked reason="login" />
+  //if (!token) return <TrainLocked reason="login" />   // 비로그인 잠금화면
 
   if (checkingLock && token) {
     return (
@@ -270,21 +279,39 @@ export default function Train() {
   }
 
   return (
-    <TrainHome
-      currentUnit={currentUnit}
-      setCurrentUnit={setCurrentUnit}
-      trainingLevel={activeLevel}
-      setTrainingLevel={handleLevelChange}
-      maxUnit={lessons.length || 8}
-      userCourseLevel={user?.course_level || 'beginner'}
-      hasCompletedStages={completedStageCount > 0}
-      wrongCount={wrongCount}
-      wrongAnswers={wrongAnswers}
-      unitAccuracy={unitAccuracy}
-      loading={loading}
-      onStart={startTraining}
-      onStartRandom={startRandom}
-      onOpenCodeViewer={showCodeViewer}
-    />
+    <>
+      <TrainHome
+        currentUnit={currentUnit}
+        setCurrentUnit={setCurrentUnit}
+        trainingLevel={activeLevel}
+        setTrainingLevel={handleLevelChange}
+        maxUnit={lessons.length || 8}
+        userCourseLevel={user?.course_level || 'beginner'}
+        hasCompletedStages={completedStageCount > 0}
+        wrongCount={wrongCount}
+        wrongAnswers={wrongAnswers}
+        unitAccuracy={unitAccuracy}
+        loading={loading}
+        onStart={startTraining}
+        onStartRandom={startRandom}
+        onOpenCodeViewer={showCodeViewer}
+      />
+
+      {showLoginPopup && (
+        <div className="tr-login-overlay" onClick={() => setShowLoginPopup(false)}>
+          <div className="tr-login-popup" onClick={e => e.stopPropagation()}>
+            <div style={{ fontSize: '36px', marginBottom: '12px' }}>🔒</div>
+            <h3 className="tr-login-title">로그인이 필요해요</h3>
+            <p className="tr-login-desc">훈련을 진행하려면 로그인해주세요.</p>
+            <button className="btn btn-primary btn-lg btn-full" onClick={() => navigate('/auth')}>
+              로그인하러 가기
+            </button>
+            <button className="tr-login-close-btn" onClick={() => setShowLoginPopup(false)}>
+              닫기
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   )
 }

@@ -359,3 +359,50 @@ body:has(.tr-page) { background: #F4F3FA; }
   text-align: center;
   font-size: 0.95rem;
 }
+
+/* ── 로그인 유도 팝업 ── */
+.tr-login-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999;
+  animation: trOverlayIn 0.2s ease;
+}
+@keyframes trOverlayIn { from { opacity: 0 } to { opacity: 1 } }
+
+.tr-login-popup {
+  background: #fff;
+  border-radius: 20px;
+  padding: 32px 28px;
+  text-align: center;
+  max-width: 320px; width: 90%;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+  animation: trPopupIn 0.25s ease;
+}
+@keyframes trPopupIn { from { transform: scale(0.9); opacity: 0 } to { transform: scale(1); opacity: 1 } }
+
+.tr-login-title {
+  margin: 0 0 8px;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #1a1a1a;
+}
+.tr-login-desc {
+  margin: 0 0 20px;
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.6;
+}
+.tr-login-close-btn {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 13px;
+  cursor: pointer;
+}
+.tr-login-close-btn:hover { color: #333; }
+
+
