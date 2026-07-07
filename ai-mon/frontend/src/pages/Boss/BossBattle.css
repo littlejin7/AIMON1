@@ -356,7 +356,68 @@
 }
 .eb-b-hp-sub {
   position: absolute;
-  top: 10px;        /* 원하는 위치로 조정 */
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 8;
+  min-width: 82px;
+  padding: 5px 12px 6px;
+  border-radius: 999px;
+  background: rgba(30, 27, 75, 0.52);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  box-shadow: 0 4px 14px rgba(30, 27, 75, .24);
+}
+
+.eb-b-level-label {
+  font-size: 8px;
+  font-weight: 800;
+  line-height: 1;
+  color: rgba(255, 255, 255, .78);
+}
+
+.eb-b-boss-label {
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+}
+
+.eb-b-phase-intro {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  background: radial-gradient(circle at center, rgba(30, 27, 75, .42), rgba(30, 27, 75, 0) 62%);
+  animation: eb-b-phase-intro-fade 1.3s ease forwards;
+}
+
+.eb-b-phase-intro span {
+  color: #fff;
+  font-size: 52px;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-shadow: 0 6px 18px rgba(30, 27, 75, .45);
+  animation: eb-b-phase-intro-pop 1.3s cubic-bezier(.2,.9,.2,1) forwards;
+}
+
+@keyframes eb-b-phase-intro-fade {
+  0% { opacity: 0; }
+  15% { opacity: 1; }
+  72% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes eb-b-phase-intro-pop {
+  0% { transform: scale(.68); opacity: 0; }
+  18% { transform: scale(1.08); opacity: 1; }
+  36% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.08); opacity: 0; }
 }
