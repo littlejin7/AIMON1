@@ -21,7 +21,7 @@ def test_streak_increments_on_consecutive_day():
     today, yesterday = _today_yesterday()
     user = {"streak": 3, "last_login": yesterday, "xp": 0,
             "earned_streak_milestones": [], "missions": {}}
-    updated, _ = A.update_login_streak(user)
+    updated, _, _ = A.update_login_streak(user)
     assert updated["streak"] == 4
     assert updated["last_login"] == today
 
@@ -29,7 +29,7 @@ def test_streak_increments_on_consecutive_day():
 def test_streak_resets_after_gap():
     user = {"streak": 9, "last_login": "2000-01-01", "xp": 0,
             "earned_streak_milestones": [], "missions": {}}
-    updated, _ = A.update_login_streak(user)
+    updated, _, _ = A.update_login_streak(user)
     assert updated["streak"] == 1
 
 
@@ -37,7 +37,7 @@ def test_streak_no_double_increment_same_day():
     today, _ = _today_yesterday()
     user = {"streak": 5, "last_login": today, "xp": 0,
             "earned_streak_milestones": [], "missions": {}}
-    updated, reward = A.update_login_streak(user)
+    updated, reward, _ = A.update_login_streak(user)
     assert updated["streak"] == 5, "같은 날 재호출에 streak 중복 증가"
     assert reward is None
 
