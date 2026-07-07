@@ -122,7 +122,13 @@ def _mock_post_gate(monkeypatch):
     monkeypatch.setattr(P, "_stage_required_correct", lambda lvl, u, s: 8)
     monkeypatch.setattr(P, "get_progress_by_user", lambda uid, lvl: [])
     monkeypatch.setattr(P, "save_progress_item", lambda item: None)
-    monkeypatch.setattr(P, "apply_xp", lambda u, xp, ctx=None, event_type=None: {"newly_earned_titles": []})
+    monkeypatch.setattr(
+        P, "grant_reward",
+        lambda u, coin_delta=0, ranking_score_delta=0, gp_delta=0, context=None, event_type=None: {
+            "coin_delta": coin_delta, "gp_delta": 0, "ranking_score_delta": ranking_score_delta,
+            "level_up": False, "events": {"newly_earned_titles": []},
+        },
+    )
     monkeypatch.setattr(P, "serialize_user", lambda u: u)
 
     def _fake_mutate(uid, mutator):

@@ -11,8 +11,8 @@ export default function TrainResult({ correctCount, total, onDone }) {
       </p>
       {isPerfect && (
         <div style={{ background: '#EAF3DE', borderRadius: 12, padding: '1rem', marginBottom: '2rem' }}>
-          <strong style={{ color: '#3B6D11' }}>완벽 보상 획득!</strong>
-          <p style={{ margin: '0.5rem 0 0', color: '#3B6D11' }}>+100 XP / +1 왕관 👑</p>
+          <strong style={{ color: '#3B6D11' }}>완벽 클리어!</strong>
+          <p style={{ margin: '0.5rem 0 0', color: '#3B6D11' }}>오답 없이 훈련을 마쳤어요.</p>
         </div>
       )}
       <button className="tr-go-btn" onClick={onDone}>훈련 종료</button>

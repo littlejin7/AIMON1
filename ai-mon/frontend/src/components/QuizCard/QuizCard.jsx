@@ -310,7 +310,7 @@ export default function QuizCard({
 
   // ── 코드 제출 (채점·revealed·onAnswer 전담) ──
   // 채점 단일 소스 = 백엔드 /code/submit. Pyodide 는 실행/출력 표시 + output·error 전달용(채점 권한 아님).
-  // award=false: Train·미니보스 모두 무보상으로 호출 — 백엔드가 200 XP·(unit,stage) 진행도를 쓰지 않는다.
+  // award=false: Train·미니보스 모두 무보상으로 호출 — 백엔드가 보상·(unit,stage) 진행도를 쓰지 않는다.
   // 미니보스 보상은 onAnswer → Stage.handleAnswer → minibossApi.submitAnswer(HP/클리어/보상)가 소유.
   const handleCodeSubmit = async () => {
     if (!input.trim() || revealed) return
@@ -338,7 +338,7 @@ export default function QuizCard({
         award: false,
       })
     } catch {
-      // 백엔드 호출 실패 → HP/XP/진행도 미변경 + 재시도 안내 (D-1 규칙)
+      // 백엔드 호출 실패 → HP/보상/진행도 미변경 + 재시도 안내 (D-1 규칙)
       setGradingError('채점 서버에 연결하지 못했어요. 잠시 후 다시 [확인하기]를 눌러주세요.')
       return
     } finally {

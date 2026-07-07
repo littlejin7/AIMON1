@@ -13,18 +13,18 @@ from routers import game as G
 
 
 def _user(user_id, nickname, current=None, previous=None, character="slime", deleted=False):
-    weekly_xp = {}
+    weekly_ranking = {}
     if current is not None:
-        weekly_xp[G.iso_week()] = current
+        weekly_ranking[G.iso_week()] = current
     if previous is not None:
-        weekly_xp[G.prev_iso_week()] = previous
+        weekly_ranking[G.prev_iso_week()] = previous
 
     user = {
         "id": user_id,
         "username": user_id,
         "nickname": nickname,
         "character": character,
-        "game_rewards": {"weekly_xp": weekly_xp},
+        "game_rewards": {"weekly_ranking": weekly_ranking},
     }
     if deleted:
         user["deleted_at"] = "2026-01-01T00:00:00Z"
@@ -68,7 +68,7 @@ def test_default_weight_keeps_raw_ranking_score(monkeypatch):
     assert result["me"] == {"rank": 1, "character": "slime", "score": 600}
 
 
-def test_record_weekly_xp_stores_raw_and_ranking_helper_does_not_mutate(monkeypatch):
+def test_record_weekly_ranking_stores_raw_and_ranking_helper_does_not_mutate(monkeypatch):
     monkeypatch.setattr(
         G,
         "RANKING_WEIGHT",
@@ -81,17 +81,17 @@ def test_record_weekly_xp_stores_raw_and_ranking_helper_does_not_mutate(monkeypa
     )
     rewards = {}
 
-    G._record_weekly_xp(rewards, "runner", 500)
+    G._record_weekly_ranking(rewards, "runner", 500)
 
     user = {"game_rewards": rewards}
-    raw_before = G._weekly_xp_map(user, G.iso_week())
-    weighted = G._ranking_weekly_xp_map(user, G.iso_week())
-    raw_after = G._weekly_xp_map(user, G.iso_week())
+    raw_before = G._weekly_score_map(user, G.iso_week())
+    weighted = G._ranking_weekly_score_map(user, G.iso_week())
+    raw_after = G._weekly_score_map(user, G.iso_week())
 
     assert raw_before == {"runner": 500}
     assert weighted == {"runner": 50}
     assert raw_after == raw_before
-    assert rewards["weekly_xp"][G.iso_week()]["runner"] == 500
+    assert rewards["weekly_ranking"][G.iso_week()]["runner"] == 500
 
 
 def test_game_ranking_by_game_shape_is_preserved(monkeypatch):

@@ -12,7 +12,9 @@ from routers.utils import (
     save_attempt_item,
     now_kst,
     get_current_user,
-    apply_xp,
+    grant_reward,
+    get_evolution_stage,
+    current_week_ranking_score,
     limiter,
     mutate_user_atomic,
     UserNotFoundError,
@@ -53,6 +55,10 @@ MY_HP_DELTA   = -(-MY_HP_INIT // 3)       # ceil(MY_HP_INIT/3) = 334: 3오답에
 # 서버 권위 클리어 조건 (HP 상수에서 파생)
 REQUIRED_CORRECT = BOSS_HP_INIT // BOSS_HP_DELTA   # 5 (정답 누적 도달 시 승리)
 MAX_WRONG        = 3                                # 오답 누적 도달 시 패배
+
+# 유닛보스 클리어 보상 단위(coin=ranking=gp 후보 동일값). gp 는 gp_gate(3차 진화>=3)
+# 통과 시에만 실제 지급. [기존 xp 3000 을 coin/ranking 으로 이관]
+UNITBOSS_CLEAR_REWARD = 3000
 
 
 def _display_answer_from_choices(question: dict, answer: str = "") -> str:
@@ -437,6 +443,8 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dic
     view = None
     newly_earned_titles = []
     reward_granted = False
+    reward_deltas = {"coin_delta": 0, "gp_delta": 0, "ranking_score_delta": 0}
+    user_after = user
     if not grading_failed:
         def mutator(u: dict) -> dict:
             v = apply_answer(u, payload, question.get("question_id"), is_correct)
@@ -445,6 +453,7 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dic
             u["ai_feedback_count"] = u.get("ai_feedback_count", 0) + 1
             newly = check_and_award_titles(u, {})
             granted = False
+            reward = {"coin_delta": 0, "gp_delta": 0, "ranking_score_delta": 0}
 
             if won and not is_final_boss:
                 cleared = u.get("unitboss_cleared_units")
@@ -466,13 +475,28 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dic
                         u["completed_units"][course_level] = u["completed_units"].get(course_level, 0) + 1
 
                     context = {"boss_cleared": True}
-                    events = apply_xp(u, 3000, context, event_type="boss_clear")
+                    # xp 신규 지급 중단 → coin/ranking 분리 발급. gp 는 gate 통과 시만.
+                    rr = grant_reward(
+                        u,
+                        coin_delta=UNITBOSS_CLEAR_REWARD,
+                        ranking_score_delta=UNITBOSS_CLEAR_REWARD,
+                        gp_delta=UNITBOSS_CLEAR_REWARD,
+                        context=context,
+                        event_type="boss_clear",
+                    )
+                    reward = {
+                        "coin_delta": rr["coin_delta"],
+                        "gp_delta": rr["gp_delta"],
+                        "ranking_score_delta": rr["ranking_score_delta"],
+                    }
+                    events = rr["events"]
 
                     title_ids = {t["id"] for t in newly}
                     for t in events["newly_earned_titles"]:
                         if t["id"] not in title_ids:
                             newly.append(t)
 
+                    # crowns 는 기존 흐름 유지(보상 분리와 무관).
                     u["crowns"] = u.get("crowns", 0) + 1
 
                     if not isinstance(u.get("max_unlocked_unit"), dict):
@@ -484,15 +508,17 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dic
                     u["unitboss_cleared_units"] = cleared
                     granted = True
 
-            return {"view": v, "newly_earned_titles": newly, "granted": granted}
+            return {"view": v, "newly_earned_titles": newly, "granted": granted,
+                    "reward": reward, "user": u}
 
         try:
-            _, mres = mutate_user_atomic(user_id, mutator)
+            user_after, mres = mutate_user_atomic(user_id, mutator)
         except UserNotFoundError:
             raise HTTPException(status_code=404, detail="User not found")
         view = mres["view"]
         newly_earned_titles = mres["newly_earned_titles"]
         reward_granted = mres["granted"]
+        reward_deltas = mres["reward"]
     else:
         # 채점 실패: 세션 변경 없음 — 표시용 카운트만 현재 스냅샷에서 읽는다.
         view = get_session(user, payload["sid"]) or {
@@ -559,7 +585,8 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dic
 
     # ── 응답 보상 필드 (실제 지급 여부 = mutator 의 granted 기준) ──
     if reward_granted:
-        ai_result["xp_awarded"]     = 3000
+        # xp_awarded 는 하위호환 표기(=보상 단위). 신규 소비자는 reward.* 를 쓴다.
+        ai_result["xp_awarded"]     = UNITBOSS_CLEAR_REWARD
         ai_result["crowns_awarded"] = 1
         ai_result["unlocked_unit"]  = next_unit
     elif is_clear and not grading_failed and is_final_boss:
@@ -577,6 +604,17 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dic
         ai_result["crowns_awarded"] = 0
         ai_result["unlocked_unit"] = 1
 
+    # 분리 보상 구조 (프론트 전환용). reward 는 실제 지급된 delta, user_state 는 최신 스냅샷.
+    ai_result["reward"] = reward_deltas
+    ai_result["user_state"] = {
+        "coin_balance": user_after.get("coin_balance", 0),
+        "gp": user_after.get("gp", 0),
+        "lv": user_after.get("lv", 1),
+        "evolution_stage": get_evolution_stage(user_after),
+        "ranking_score": user_after.get("ranking_score", 0),
+        "weekly_ranking_score": current_week_ranking_score(user_after),
+        "crowns": user_after.get("crowns", 0),
+    }
     ai_result["newly_earned_titles"] = newly_earned_titles
     # correct_answer 는 제출 '후' 응답에만 — error_find reveal 하이라이트용(게이트 우회 불가)
     ai_result["correct_answer"] = question.get("answer", "")

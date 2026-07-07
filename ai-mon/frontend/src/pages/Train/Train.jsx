@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { trainApi, userApi, progressApi, quizApi, attemptsApi } from '../../api/index'
+import { trainApi, progressApi, quizApi, attemptsApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import TrainLocked       from './TrainLocked'
 import TrainSession      from './TrainSession'
@@ -10,7 +10,7 @@ import CodeViewer        from './CodeViewer'
 import './Train.css'
 
 export default function Train() {
-  const { token, user, updateUser } = useAuthStore()
+  const { token, user } = useAuthStore()
   const navigate = useNavigate()
 
   const [questions, setQuestions]         = useState([])
@@ -223,12 +223,6 @@ export default function Train() {
   const finishTraining = async (finalCorrect) => {
     setCorrectCount(finalCorrect)
     setMode('result')
-    if (finalCorrect === questions.length) {
-      try {
-        const res = await userApi.updateMe({ xp: (user.xp || 0) + 100, crowns: (user.crowns || 0) + 1 })
-        updateUser(res.data)
-      } catch {}
-    }
   }
 
   //if (!token) return <TrainLocked reason="login" />   // 비로그인 잠금화면

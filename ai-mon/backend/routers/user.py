@@ -15,6 +15,8 @@ from routers.utils import (
     COURSE_LEVEL_ORDER,
     derive_unlocked_course_levels,
     apply_level_test_placement,
+    get_evolution_stage,
+    CHARACTER_TO_STAGE,
 )
 
 logger = logging.getLogger("uvicorn.error")
@@ -23,22 +25,16 @@ router = APIRouter()
 
 from typing import Optional, List
 
-# 캐릭터 진화 단계별 해금 레벨 (utils.apply_xp 진화 로직과 동일 기준).
-# 유저는 '자신의 레벨로 도달한 단계 이하' 캐릭터만 표시/선택할 수 있다.
-CHARACTER_UNLOCK_LV = {
-    "slime":         1,
-    "robot":         10,
-    "speech_bubble": 20,
-    "final_ghost":   30,
-}
+# 캐릭터 해금 게이트는 evolution_stage 기준(routers.utils.CHARACTER_TO_STAGE 재사용).
+# lv 은 3차 진화 전에는 동결되는 값이라 더 이상 해금 판정에 쓸 수 없다 — 진화는
+# 엔드보스 클리어로만 오르는 evolution_stage 가 단일 소스다.
+# stage 0: slime만 / stage>=1: robot 추가 / stage>=2: speech_bubble 추가 / stage>=3: final_ghost 추가.
+def _allowed_characters(evolution_stage: int) -> set:
+    """현재 evolution_stage 로 해금된 캐릭터 집합."""
+    return {c for c, req_stage in CHARACTER_TO_STAGE.items() if evolution_stage >= req_stage}
 
 
-def _allowed_characters(lv: int) -> set:
-    """현재 lv 로 해금된 캐릭터 집합."""
-    return {c for c, req_lv in CHARACTER_UNLOCK_LV.items() if lv >= req_lv}
-
-
-# 테마별 XP 가격 (dark는 무료)
+# 테마별 코인 가격 (dark는 무료). 상점은 coin_balance 만 차감한다.
 THEME_PRICES = {
     "dark":     0,
     "ocean":    500,
@@ -100,14 +96,14 @@ def update_me(req: UpdateProfileRequest, user: dict = Depends(get_current_user))
 
     # 검증·변경을 fresh user 기준으로 같은 임계구역에서 수행 (CLAUDE.md §1).
     # character/equipped_title 은 '소유/해금한 것'만 허용 — 위조 차단.
-    #   - character: 현재 lv 로 해금된 진화 단계 이하만 (D 어뷰징 방어)
+    #   - character: 현재 evolution_stage 로 해금된 진화 단계 이하만 (D 어뷰징 방어)
     #   - equipped_title: title_id 가 user["titles"] 에 있을 때만 (미보유 칭호 장착 차단)
     # 검증은 mutator 안(fresh u)에서 raise → write 미발생(no-op), CAS 재시도 대상 아님.
     def mutator(u: dict) -> None:
         if next_nickname is not None:
             u["nickname"] = next_nickname
         if req.character is not None:
-            if req.character not in _allowed_characters(u.get("lv", 1)):
+            if req.character not in _allowed_characters(get_evolution_stage(u)):
                 raise HTTPException(status_code=400, detail="아직 진화하지 않은 캐릭터는 선택할 수 없습니다.")
             u["character"] = req.character
         if req.course_level is not None:
@@ -147,24 +143,23 @@ def purchase_theme(req: PurchaseThemeRequest, user: dict = Depends(get_current_u
     cost = THEME_PRICES[req.theme_id]
     user_id = user["id"]
 
-    from routers.utils import calc_level
-
-    # 보유체크 → XP 차감 → purchased_themes append 를 한 임계구역에서 원자 처리.
-    # (CLAUDE.md §1·§3) 가드를 fresh u 기준으로 검사해야 동시 요청에서도 이중차감·
-    # 이중구매·XP 음수가 생기지 않는다. mutate_user_atomic 은 절대값을 version CAS 로
-    # 커밋하므로 current_xp - cost 절대 할당이 안전하다.
+    # 보유체크 → coin_balance 차감 → purchased_themes append 를 한 임계구역에서 원자
+    # 처리. (CLAUDE.md §1·§3) 가드를 fresh u 기준으로 검사해야 동시 요청에서도
+    # 이중차감·이중구매·잔액 음수가 생기지 않는다. mutate_user_atomic 은 절대값을
+    # version CAS 로 커밋하므로 current_coin - cost 절대 할당이 안전하다.
+    # 상점은 coin_balance 만 참조/차감한다: gp/ranking_score/evolution_stage/crowns/xp
+    # 는 절대 건드리지 않는다.
     def mutator(u: dict) -> dict:
         owned = u.get("purchased_themes") or ["dark"]
         if req.theme_id in owned:
             raise HTTPException(status_code=400, detail="이미 보유한 테마입니다.")
-        current_xp = u.get("xp") or 0
-        if current_xp < cost:
-            raise HTTPException(status_code=400, detail=f"XP가 부족합니다. (필요: {cost}, 보유: {current_xp})")
+        current_coin = u.get("coin_balance") or 0
+        if current_coin < cost:
+            raise HTTPException(status_code=400, detail=f"코인이 부족합니다. (필요: {cost}, 보유: {current_coin})")
 
-        u["xp"] = current_xp - cost
+        u["coin_balance"] = current_coin - cost
         u["purchased_themes"] = owned + [req.theme_id]
-        u["lv"] = max(calc_level(u["xp"]), u.get("lv", 1))
-        return {"xp_spent": cost, "xp_remaining": u["xp"], "purchased_themes": u["purchased_themes"]}
+        return {"coin_spent": cost, "coin_remaining": u["coin_balance"], "purchased_themes": u["purchased_themes"]}
 
     try:
         user, result = mutate_user_atomic(user_id, mutator)
@@ -174,8 +169,8 @@ def purchase_theme(req: PurchaseThemeRequest, user: dict = Depends(get_current_u
     return {
         "success": True,
         "theme_id": req.theme_id,
-        "xp_spent": result["xp_spent"],
-        "xp_remaining": result["xp_remaining"],
+        "coin_spent": result["coin_spent"],
+        "coin_remaining": result["coin_remaining"],
         "purchased_themes": result["purchased_themes"],
         "user": serialize_user(user),
     }

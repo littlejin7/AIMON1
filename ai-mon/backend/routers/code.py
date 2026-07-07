@@ -12,10 +12,15 @@ from routers.utils import (
     limiter,
     now_kst,
     apply_xp,
+    grant_reward,
+    get_evolution_stage,
+    current_week_ranking_score,
 )
 
 router = APIRouter()
 
+# 코드 문제 클리어 보상 단위(coin=ranking=gp 후보 동일값). gp 는 gp_gate(3차 진화>=3)
+# 통과 시에만 실제 지급. [기존 xp 200 을 coin/ranking 으로 이관]
 CODE_CLEAR_XP = 200
 
 _QUESTION_INDEX = {}
@@ -197,8 +202,9 @@ async def submit_code(request: Request, req: SubmitRequest, user: dict = Depends
     is_correct = result.get("is_correct", False)
 
     xp_awarded = 0
+    reward_delta = {"coin_delta": 0, "gp_delta": 0, "ranking_score_delta": 0}
     # award=False 경로(Train·미니보스)는 채점 결과만 반환한다.
-    # apply_xp / save_progress_item / save_user 를 절대 타지 않아 200 XP·진행도 행이 써지지 않는다.
+    # grant_reward / save_progress_item / save_user 를 절대 타지 않아 보상·진행도 행이 써지지 않는다.
     if req.award and is_correct:
         progress = get_progress_by_user(user_id, course_level)
         existing = next(
@@ -231,12 +237,28 @@ async def submit_code(request: Request, req: SubmitRequest, user: dict = Depends
             save_progress_item(item)
 
         if award_xp:
-            apply_xp(user, CODE_CLEAR_XP)
+            # xp 신규 지급 중단 → coin/ranking 분리 발급. gp 는 gate 통과 시만.
+            rr = grant_reward(user, coin_delta=CODE_CLEAR_XP,
+                              ranking_score_delta=CODE_CLEAR_XP,
+                              gp_delta=CODE_CLEAR_XP, event_type="stage_clear")
+            reward_delta = {"coin_delta": rr["coin_delta"], "gp_delta": rr["gp_delta"],
+                            "ranking_score_delta": rr["ranking_score_delta"]}
             xp_awarded = CODE_CLEAR_XP
             save_user(user)
 
+    # xp_awarded 는 하위호환 표기(=보상 단위). 신규 소비자는 reward.* 를 쓴다.
     result["xp_awarded"] = xp_awarded
     result["lv"]         = user.get("lv", 1)
+    result["reward"]     = reward_delta
+    result["user_state"] = {
+        "coin_balance": user.get("coin_balance", 0),
+        "gp": user.get("gp", 0),
+        "lv": user.get("lv", 1),
+        "evolution_stage": get_evolution_stage(user),
+        "ranking_score": user.get("ranking_score", 0),
+        "weekly_ranking_score": current_week_ranking_score(user),
+        "crowns": user.get("crowns", 0),
+    }
     return result
 
 

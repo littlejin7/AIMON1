@@ -11,8 +11,11 @@ export default function EndBossResult({
 }) {
   const isCleared = phase === 'cleared'
   const isReplayClear = clearResult?.already_cleared === true
-  const xpAwarded = clearResult?.xp_awarded ?? 15000
+  // 신규 계약: reward.coin_delta / reward.gp_delta. 구 응답(xp_awarded) 은 폴백.
+  const coinAwarded = clearResult?.reward?.coin_delta ?? clearResult?.xp_awarded ?? 15000
+  const gpAwarded = clearResult?.reward?.gp_delta ?? 0
   const crownsAwarded = clearResult?.crowns_awarded ?? 15
+  const evolved = clearResult?.evolution?.evolved === true
   const levelLabel = {
     beginner: '초급',
     intermediate: '중급',
@@ -37,6 +40,15 @@ export default function EndBossResult({
               : '훌륭합니다! 엔드보스를 쓰러뜨리고 거대한 전리품을 획득했습니다.'}
           </p>
 
+          {/* 진화 성공 메시지를 보상보다 먼저 표시 */}
+          {!isReplayClear && evolved && (
+            <div className="result-evolution" style={{ margin: '20px 0 0', padding: '14px 16px', background: 'rgba(245,158,11,0.15)', borderRadius: '12px', border: '1px dashed #f59e0b', textAlign: 'center' }}>
+              <span style={{ fontWeight: 700, color: '#f59e0b', fontSize: '1.15rem' }}>
+                ✨ AI-Mon이 진화했습니다!
+              </span>
+            </div>
+          )}
+
           <div className="result-rewards" style={{ margin: '24px 0', background: 'rgba(255,255,255,0.05)', padding: '16px', borderRadius: '12px' }}>
             {isReplayClear ? (
               <>
@@ -56,11 +68,19 @@ export default function EndBossResult({
             ) : (
               <>
                 <div className="reward-item" style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
-                  <span className="reward-icon">⭐</span>
+                  <span className="reward-icon">🪙</span>
                   <span style={{ fontWeight: 700, color: '#a6e3a1', marginLeft: '8px' }}>
-                    +{xpAwarded.toLocaleString()} XP 획득!
+                    +{coinAwarded.toLocaleString()} 코인 획득!
                   </span>
                 </div>
+                {gpAwarded > 0 && (
+                  <div className="reward-item" style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
+                    <span className="reward-icon">💠</span>
+                    <span style={{ fontWeight: 700, color: '#89b4fa', marginLeft: '8px' }}>
+                      +{gpAwarded.toLocaleString()} GP 획득!
+                    </span>
+                  </div>
+                )}
                 <div className="reward-item" style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
                   <span className="reward-icon">👑</span>
                   <span style={{ fontWeight: 700, color: '#f9e2af', marginLeft: '8px' }}>

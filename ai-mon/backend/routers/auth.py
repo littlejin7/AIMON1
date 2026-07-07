@@ -11,6 +11,7 @@ from datetime import datetime, timedelta, timezone
 from jose import jwt
 from passlib.context import CryptContext
 from routers.utils import (
+    grant_reward,
     serialize_user,
     apply_xp,
     load_users,
@@ -103,50 +104,65 @@ def create_token(data: dict, token_version: int = 1) -> str:
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 
-def update_login_streak(user: dict) -> tuple[dict, dict | None]:
+# 스트릭 보상 밸런스 상수 (임시 밸런스)
+DAILY_ATTENDANCE_COIN = 1000
+STREAK_3_COIN = 500
+STREAK_7_COIN = 2000
+STREAK_14_COIN = 5000
+STREAK_30_COIN = 10000
+
+def update_login_streak(user: dict) -> tuple[dict, dict | None, dict | None]:
     today = now_kst().strftime("%Y-%m-%d")
     yesterday = (now_kst() - timedelta(days=1)).strftime("%Y-%m-%d")
     last = user.get("last_login", "")
 
     streak_reward = None
+    attendance_reward = None
+
     if last == today:
         pass
-    elif last == yesterday:
-        user["streak"] = user.get("streak", 0) + 1
-        streak = user["streak"]
-        earned_milestones = user.get("earned_streak_milestones") or []
-        if streak == 3 and 3 not in earned_milestones:
-            # XP를 apply_xp 대신 직접 가산하는 이유:
-            # update_login_streak 는 이미 bump_mission(login) 중 또는 직후에 호출되며,
-            # apply_xp 내부에서 다시 미션 훅을 트리거하면 같은 mutator 내에서
-            # 미션 진척·보상이 중복 처리될 수 있다(재진입 위험).
-            # lv 재계산은 아래 apply_xp(user, 0, {}) 에서 XP 추가 없이 수행한다.
-            user["xp"] = user.get("xp", 0) + 500
-            user.setdefault("earned_streak_milestones", []).append(3)
-            streak_reward = {"days": 3, "xp": 500, "crowns": 0}
-        elif streak == 7 and 7 not in earned_milestones:
-            user["xp"] = user.get("xp", 0) + 2000
-            user["crowns"] = user.get("crowns", 0) + 1
-            user.setdefault("earned_streak_milestones", []).append(7)
-            streak_reward = {"days": 7, "xp": 2000, "crowns": 1}
-        elif streak == 14 and 14 not in earned_milestones:
-            user["xp"] = user.get("xp", 0) + 5000
-            user["crowns"] = user.get("crowns", 0) + 2
-            user.setdefault("earned_streak_milestones", []).append(14)
-            streak_reward = {"days": 14, "xp": 5000, "crowns": 2}
-        elif streak == 30 and 30 not in earned_milestones:
-            user["xp"] = user.get("xp", 0) + 10000
-            user["crowns"] = user.get("crowns", 0) + 5
-            user.setdefault("earned_streak_milestones", []).append(30)
-            streak_reward = {"days": 30, "xp": 10000, "crowns": 5}
-
-        # xp=0 으로 호출 → XP 추가 없이 lv·진화·칭호만 재계산 (XP는 위에서 직접 가산)
-        apply_xp(user, 0, {})
     else:
-        user["streak"] = 1
+        # 1. 일일 출석 보상 실제 지급 (하루 1회만 - last != today 분기 진입 시)
+        # gp_delta=0, ranking_score_delta=0 (출석은 랭킹 비대상)
+        attendance_reward = grant_reward(
+            user,
+            coin_delta=DAILY_ATTENDANCE_COIN,
+            ranking_score_delta=0,
+            gp_delta=0,
+            event_type="daily_attendance"
+        )
+
+        # 2. 스트릭 마일스톤 보상 판정
+        if last == yesterday:
+            user["streak"] = user.get("streak", 0) + 1
+            streak = user["streak"]
+            earned_milestones = user.get("earned_streak_milestones") or []
+
+            # 스트릭 마일스톤 도달 시 코인 지급, xp 미지급
+            # 기존 crowns 유지, xp=0 은 프론트엔드/테스트 호환성 및 xp 지급 중단용
+            if streak == 3 and 3 not in earned_milestones:
+                grant_reward(user, coin_delta=STREAK_3_COIN, event_type="streak_3")
+                user.setdefault("earned_streak_milestones", []).append(3)
+                streak_reward = {"days": 3, "xp": 0, "coin": STREAK_3_COIN, "crowns": 0}
+            elif streak == 7 and 7 not in earned_milestones:
+                grant_reward(user, coin_delta=STREAK_7_COIN, event_type="streak_7")
+                user["crowns"] = user.get("crowns", 0) + 1
+                user.setdefault("earned_streak_milestones", []).append(7)
+                streak_reward = {"days": 7, "xp": 0, "coin": STREAK_7_COIN, "crowns": 1}
+            elif streak == 14 and 14 not in earned_milestones:
+                grant_reward(user, coin_delta=STREAK_14_COIN, event_type="streak_14")
+                user["crowns"] = user.get("crowns", 0) + 2
+                user.setdefault("earned_streak_milestones", []).append(14)
+                streak_reward = {"days": 14, "xp": 0, "coin": STREAK_14_COIN, "crowns": 2}
+            elif streak == 30 and 30 not in earned_milestones:
+                grant_reward(user, coin_delta=STREAK_30_COIN, event_type="streak_30")
+                user["crowns"] = user.get("crowns", 0) + 5
+                user.setdefault("earned_streak_milestones", []).append(30)
+                streak_reward = {"days": 30, "xp": 0, "coin": STREAK_30_COIN, "crowns": 5}
+        else:
+            user["streak"] = 1
 
     # 출석 미션(예외 경로): XP 가 없고 day_key 가 필요하므로 bump_mission 직접 호출.
-    # 모든 로그인 분기에서 실행되며, 날짜 dedup 은 청크 2 본체(login_days)에서. 청크 1: no-op.
     try:
         from routers.missions_core import bump_mission
         bump_mission(user, "login", day_key=today)
@@ -155,7 +171,7 @@ def update_login_streak(user: dict) -> tuple[dict, dict | None]:
         logging.getLogger("uvicorn.error").exception("login bump_mission failed")
 
     user["last_login"] = today
-    return user, streak_reward
+    return user, streak_reward, attendance_reward
 
 
 class RegisterRequest(BaseModel):
@@ -198,17 +214,31 @@ def _is_restore_eligible(user: dict) -> bool:
     return now_kst() <= deleted_dt + timedelta(days=ACCOUNT_RESTORE_RETENTION_DAYS)
 
 
-def _issue_auth_response(user: dict, *, is_new: bool = False, account_restored: bool = False, streak_reward=None) -> dict:
+def _issue_auth_response(user: dict, *, is_new: bool = False, account_restored: bool = False, streak_reward=None, attendance_reward=None) -> dict:
     token = create_token({"sub": user["id"], "username": user["username"]}, user.get("token_version", 1))
     refresh_token = create_refresh_token(user["id"])
+    serialized = serialize_user(user)
+    
+    total_coin_delta = 0
+    if attendance_reward:
+        total_coin_delta += attendance_reward.get("coin_delta") or 0
+    if streak_reward and "coin" in streak_reward:
+        total_coin_delta += streak_reward.get("coin") or 0
+
     res_data = {
         "access_token": token,
         "refresh_token": refresh_token,
         "token_type": "bearer",
-        "user": serialize_user(user),
+        "user": serialized,
+        "user_state": serialized,
         "streak": user.get("streak", 0),
         "is_new": is_new,
         "account_restored": account_restored,
+        "reward": {
+            "coin_delta": total_coin_delta,
+            "gp_delta": 0,
+            "ranking_score_delta": 0
+        }
     }
     if streak_reward:
         res_data["streak_reward"] = streak_reward
@@ -478,14 +508,14 @@ def register(req: RegisterRequest, request: Request):
             restored = _restore_for_login(deleted_user, restore_updater)
 
             def login_mutator(u: dict):
-                _, sr = update_login_streak(u)
-                return sr
+                _, sr, ar = update_login_streak(u)
+                return sr, ar
 
             try:
-                restored, streak_reward = mutate_user_atomic(restored["id"], login_mutator)
+                restored, (streak_reward, attendance_reward) = mutate_user_atomic(restored["id"], login_mutator)
             except UserNotFoundError:
                 raise HTTPException(status_code=404, detail="?ъ슜?먮? 李얠쓣 ???놁뒿?덈떎.")
-            return _issue_auth_response(restored, is_new=False, account_restored=True, streak_reward=streak_reward)
+            return _issue_auth_response(restored, is_new=False, account_restored=True, streak_reward=streak_reward, attendance_reward=attendance_reward)
 
         delete_soft_deleted_user_by_username(req.username)
 
@@ -549,15 +579,15 @@ def login(req: LoginRequest, request: Request):
     # d_login auto_claim 이 missions.daily.claimed(list) 를 append 하므로
     # save_user delta-merge 대신 mutate_user_atomic 원자 경로로 저장. (C-1 [필수])
     def mutator(user: dict):
-        _, streak_reward = update_login_streak(user)
-        return streak_reward
+        _, sr, ar = update_login_streak(user)
+        return sr, ar
 
     try:
-        user, streak_reward = mutate_user_atomic(user_ref["id"], mutator)
+        user, (streak_reward, attendance_reward) = mutate_user_atomic(user_ref["id"], mutator)
     except UserNotFoundError:
         raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")
 
-    return _issue_auth_response(user, account_restored=account_restored, streak_reward=streak_reward)
+    return _issue_auth_response(user, account_restored=account_restored, streak_reward=streak_reward, attendance_reward=attendance_reward)
 
 
 @router.post("/forgot-password")
@@ -853,24 +883,38 @@ async def social_google(req: SocialLoginRequest, request: Request):
     # 원자 경로로 기록. save_user delta-merge 는 missions 를 덮어써 동시성에서
     # 왕관 이중 지급/진척 유실을 유발하므로 mutate_user_atomic 필수. (M-1/M-2)
     def _login_mutator(u: dict):
-        _, sr = update_login_streak(u)
-        return sr
+        _, sr, ar = update_login_streak(u)
+        return sr, ar
 
     try:
-        user, streak_reward = mutate_user_atomic(user["id"], _login_mutator)
+        user, (streak_reward, attendance_reward) = mutate_user_atomic(user["id"], _login_mutator)
     except UserNotFoundError:
         raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")
 
     token = create_token({"sub": user["id"], "username": user["username"]}, user.get("token_version", 1))
     refresh_token = create_refresh_token(user["id"])
+    
+    total_coin_delta = 0
+    if attendance_reward:
+        total_coin_delta += attendance_reward.get("coin_delta") or 0
+    if streak_reward and "coin" in streak_reward:
+        total_coin_delta += streak_reward.get("coin") or 0
+
+    serialized = serialize_user(user)
     res_data = {
         "access_token": token,
         "refresh_token": refresh_token,
         "token_type": "bearer",
-        "user": serialize_user(user),
+        "user": serialized,
+        "user_state": serialized,
         "streak": user["streak"],
         "is_new": is_new,
-        "account_restored": account_restored
+        "account_restored": account_restored,
+        "reward": {
+            "coin_delta": total_coin_delta,
+            "gp_delta": 0,
+            "ranking_score_delta": 0
+        }
     }
     if streak_reward:
         res_data["streak_reward"] = streak_reward
@@ -1049,24 +1093,38 @@ async def social_naver(req: SocialLoginRequest, request: Request):
     # 원자 경로로 기록. save_user delta-merge 는 missions 를 덮어써 동시성에서
     # 왕관 이중 지급/진척 유실을 유발하므로 mutate_user_atomic 필수. (M-1/M-2)
     def _login_mutator(u: dict):
-        _, sr = update_login_streak(u)
-        return sr
+        _, sr, ar = update_login_streak(u)
+        return sr, ar
 
     try:
-        user, streak_reward = mutate_user_atomic(user["id"], _login_mutator)
+        user, (streak_reward, attendance_reward) = mutate_user_atomic(user["id"], _login_mutator)
     except UserNotFoundError:
         raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")
 
     token = create_token({"sub": user["id"], "username": user["username"]}, user.get("token_version", 1))
     refresh_token = create_refresh_token(user["id"])
+    
+    total_coin_delta = 0
+    if attendance_reward:
+        total_coin_delta += attendance_reward.get("coin_delta") or 0
+    if streak_reward and "coin" in streak_reward:
+        total_coin_delta += streak_reward.get("coin") or 0
+
+    serialized = serialize_user(user)
     res_data = {
         "access_token": token,
         "refresh_token": refresh_token,
         "token_type": "bearer",
-        "user": serialize_user(user),
+        "user": serialized,
+        "user_state": serialized,
         "streak": user["streak"],
         "is_new": is_new,
-        "account_restored": account_restored
+        "account_restored": account_restored,
+        "reward": {
+            "coin_delta": total_coin_delta,
+            "gp_delta": 0,
+            "ranking_score_delta": 0
+        }
     }
     if streak_reward:
         res_data["streak_reward"] = streak_reward
@@ -1212,24 +1270,38 @@ async def social_kakao(req: SocialLoginRequest, request: Request):
     # 원자 경로로 기록. save_user delta-merge 는 missions 를 덮어써 동시성에서
     # 왕관 이중 지급/진척 유실을 유발하므로 mutate_user_atomic 필수. (M-1/M-2)
     def _login_mutator(u: dict):
-        _, sr = update_login_streak(u)
-        return sr
+        _, sr, ar = update_login_streak(u)
+        return sr, ar
 
     try:
-        user, streak_reward = mutate_user_atomic(user["id"], _login_mutator)
+        user, (streak_reward, attendance_reward) = mutate_user_atomic(user["id"], _login_mutator)
     except UserNotFoundError:
         raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")
 
     token = create_token({"sub": user["id"], "username": user["username"]}, user.get("token_version", 1))
     refresh_token = create_refresh_token(user["id"])
+    
+    total_coin_delta = 0
+    if attendance_reward:
+        total_coin_delta += attendance_reward.get("coin_delta") or 0
+    if streak_reward and "coin" in streak_reward:
+        total_coin_delta += streak_reward.get("coin") or 0
+
+    serialized = serialize_user(user)
     res_data = {
         "access_token": token,
         "refresh_token": refresh_token,
         "token_type": "bearer",
-        "user": serialize_user(user),
+        "user": serialized,
+        "user_state": serialized,
         "streak": user["streak"],
         "is_new": is_new,
-        "account_restored": account_restored
+        "account_restored": account_restored,
+        "reward": {
+            "coin_delta": total_coin_delta,
+            "gp_delta": 0,
+            "ranking_score_delta": 0
+        }
     }
     if streak_reward:
         res_data["streak_reward"] = streak_reward
@@ -1382,25 +1454,38 @@ def touch(user: dict = Depends(get_current_user)):
     """앱 부팅 시 클라이언트 1회 호출. KST 하루 1회 dedup으로 streak을 갱신한다."""
     user_id = user["id"]
 
-    def mutator(u: dict) -> dict:
-        _, streak_reward = update_login_streak(u)
-        return streak_reward
+    def mutator(u: dict):
+        _, sr, ar = update_login_streak(u)
+        return sr, ar
 
     try:
-        updated, streak_reward = mutate_user_atomic(user_id, mutator)
+        updated, (streak_reward, attendance_reward) = mutate_user_atomic(user_id, mutator)
     except UserNotFoundError:
         raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")
     except UserSaveError:
         logger.exception("auth touch save conflict for user %s", user_id)
-        updated, streak_reward = user, None
+        updated, streak_reward, attendance_reward = user, None, None
     except Exception:
         logger.exception("auth touch failed for user %s", user_id)
-        updated, streak_reward = user, None
+        updated, streak_reward, attendance_reward = user, None, None
 
+    total_coin_delta = 0
+    if attendance_reward:
+        total_coin_delta += attendance_reward.get("coin_delta") or 0
+    if streak_reward and "coin" in streak_reward:
+        total_coin_delta += streak_reward.get("coin") or 0
+
+    serialized = serialize_user(updated)
     res = {
         "streak": updated.get("streak", 0),
         "last_login": updated.get("last_login", ""),
-        "user": serialize_user(updated),
+        "user": serialized,
+        "user_state": serialized,
+        "reward": {
+            "coin_delta": total_coin_delta,
+            "gp_delta": 0,
+            "ranking_score_delta": 0
+        }
     }
     if streak_reward:
         res["streak_reward"] = streak_reward

@@ -19,7 +19,7 @@ export const TRAIN_MODES = [
     iconBg: '#EAF3DE',
     name: '랜덤 퀴즈',
     desc: '전 범위에서 랜덤 10문제',
-    reward: '+2,000 XP',
+    reward: '+2,000 코인',
   },
   {
     id: 'boss',

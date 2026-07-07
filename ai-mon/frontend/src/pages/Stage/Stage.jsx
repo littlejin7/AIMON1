@@ -11,11 +11,11 @@ import TitleEarnedModal from '../../components/TitleEarnedModal/TitleEarnedModal
 import '../Boss/Boss.css'
 import './Stage.css'
 
-const EVOLUTION_MAP = {
-  10: { from: 'slime',         to: 'robot' },
-  20: { from: 'robot',         to: 'speech_bubble' },
-  30: { from: 'speech_bubble', to: 'final_ghost' },
-}
+// evolution_stage(0~3) → 캐릭터 ID. 백엔드 character_for_stage 와 동일 기준.
+// 진화는 엔드보스 클리어로만 발생하므로, 일반 스테이지 클리어 응답에서
+// evolution_stage 가 바뀌는 일은 실제로는 없다 — 그래도 트리거 자체는 프론트
+// 누적치/lv 계산이 아니라 항상 백엔드 user_state.evolution_stage 비교로만 판단한다.
+const STAGE_TO_CHAR = { 0: 'slime', 1: 'robot', 2: 'speech_bubble', 3: 'final_ghost' }
 
 function shuffleChoices(question) {
   if (!question || !question.choices) return question
@@ -78,6 +78,7 @@ export default function Stage({ _lessonId, _stage }) {
 
   // ── 결과 상태 ──
   const [xpAwarded,     setXpAwarded]     = useState(0)
+  const [gpAwarded,     setGpAwarded]     = useState(0)
   const [unitInfo,      setUnitInfo]      = useState(null)
   const [evoModal,      setEvoModal]      = useState(null)
   const [showAuthModal, setShowAuthModal] = useState(false)
@@ -445,8 +446,9 @@ export default function Stage({ _lessonId, _stage }) {
         totalScore = Math.round((miniCorrect / miniTotal) * 100)
       }
 
-      const prevLv   = user?.lv        || 1
-      const prevChar = user?.character || 'slime'
+      const prevLv    = user?.lv              || 1
+      const prevChar  = user?.character       || 'slime'
+      const prevStage = user?.evolution_stage ?? 0
 
       // 미니보스 클리어 처리
       if (minibossStartIndex !== null && token) {
@@ -479,26 +481,32 @@ export default function Stage({ _lessonId, _stage }) {
       })
 
       if (res?.data) {
-        setXpAwarded(res.data.xp_awarded || 0)
+        // 신규 계약: reward.coin_delta/gp_delta. 구 응답(xp_awarded) 은 폴백(코인 표시용).
+        setXpAwarded(res.data.reward?.coin_delta ?? res.data.xp_awarded ?? 0)
+        setGpAwarded(res.data.reward?.gp_delta ?? 0)
 
         if (res.data.newly_earned_titles && res.data.newly_earned_titles.length > 0) {
           setNewlyEarnedTitles(res.data.newly_earned_titles)
         }
 
-        const newLv   = res.data.lv        || prevLv
-        const newChar = res.data.character || prevChar
+        const newLv    = res.data.lv                          || prevLv
+        const newChar  = res.data.character                   || prevChar
+        const newStage = res.data.user_state?.evolution_stage ?? prevStage
 
-        // 진화 감지
-        for (const [lvStr, evo] of Object.entries(EVOLUTION_MAP)) {
-          const lvNum = Number(lvStr)
-          if (prevLv < lvNum && newLv >= lvNum) {
-            setEvoModal({ fromChar: evo.from, toChar: evo.to, newLevel: lvNum })
-            break
-          }
+        // 진화 감지: 프론트에서 누적치/lv 를 재계산하지 않는다 — 백엔드가 응답에 실어준
+        // user_state.evolution_stage 가 이전 값보다 올라갔을 때만 트리거한다(단일
+        // 소스 = 백엔드). 진화는 엔드보스 클리어로만 발생하므로 일반 스테이지
+        // 클리어에서는 사실상 발동하지 않지만, 판정 기준 자체는 여기서 통일한다.
+        if (newStage > prevStage) {
+          setEvoModal({
+            fromChar: STAGE_TO_CHAR[prevStage] || 'slime',
+            toChar: STAGE_TO_CHAR[newStage] || newChar,
+            stage: newStage,
+          })
         }
 
-        if (newLv !== prevLv || newChar !== prevChar) {
-          updateUser({ ...user, lv: newLv, character: newChar })
+        if (newLv !== prevLv || newChar !== prevChar || newStage !== prevStage) {
+          updateUser({ ...user, lv: newLv, character: newChar, evolution_stage: newStage })
         }
       }
 
@@ -533,6 +541,7 @@ export default function Stage({ _lessonId, _stage }) {
           evalCorrectCount={evalCorrectCount}
           isMinibossPlayed={isMinibossPlayed}
           xpAwarded={xpAwarded}
+          gpAwarded={gpAwarded}
           unitInfo={unitInfo}
           stageNum={stageNum}
           lessonId={lessonId}

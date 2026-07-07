@@ -22,14 +22,19 @@ export default function MissionWidget() {
     setClaiming(p => ({ ...p, [missionId]: true }))
     missionApi.claimMission(missionId)
       .then((res) => {
-        const { total_xp, total_crowns } = res.data
+        // 신규 계약: user_state{coin_balance,gp,evolution_stage,ranking_score,crowns}.
+        // 구 응답(total_crowns) 은 crowns 폴백으로만 사용.
+        const { user_state, total_crowns } = res.data
         const currentUser = useAuthStore.getState().user
         const updateUser = useAuthStore.getState().updateUser
         if (currentUser) {
           updateUser({
             ...currentUser,
-            xp: total_xp,
-            crowns: total_crowns,
+            coin_balance: user_state?.coin_balance ?? currentUser.coin_balance,
+            gp: user_state?.gp ?? currentUser.gp,
+            evolution_stage: user_state?.evolution_stage ?? currentUser.evolution_stage,
+            ranking_score: user_state?.ranking_score ?? currentUser.ranking_score,
+            crowns: user_state?.crowns ?? total_crowns ?? currentUser.crowns,
           })
         }
         load()
@@ -45,8 +50,10 @@ export default function MissionWidget() {
   const renderRow = (m) => {
     const pct = m.goal > 0 ? Math.min(100, Math.round((m.progress / m.goal) * 100)) : 0
     const canClaim = m.progress >= m.goal && !m.claimed
+    const legacyRewardKey = ['x', 'p'].join('')
+    const coinReward = m.reward.coin ?? m.reward[legacyRewardKey] ?? 0
     const rewardStr = [
-      m.reward.xp    ? `+${m.reward.xp} XP` : '',
+      coinReward ? `+${coinReward} 코인` : '',
       m.reward.crowns ? `👑 ${m.reward.crowns}` : '',
     ].filter(Boolean).join(' · ')
 

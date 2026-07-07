@@ -47,22 +47,3 @@ export function getEvolutionStage(characterId) {
   return EVOLUTION_STAGES.find(s => s.id === characterId) || EVOLUTION_STAGES[0]
 }
 
-// XP → { lv, xpInLevel, xpForNext }
-export function calcLevel(xp) {
-  let lv = 1
-  let accumulated = 0
-
-  while (lv < 30) {
-    const needed = lv * 1000
-    if (xp < accumulated + needed) {
-      return { lv, xpInLevel: xp - accumulated, xpForNext: needed }
-    }
-    accumulated += needed
-    lv++
-  }
-
-  // Lv.30+ 리미트 해제
-  const extraXp  = xp - accumulated
-  const extraLv  = Math.floor(extraXp / 30000)
-  return { lv: 30 + extraLv, xpInLevel: extraXp % 30000, xpForNext: 30000 }
-}

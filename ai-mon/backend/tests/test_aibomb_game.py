@@ -130,7 +130,7 @@ def test_aibomb_clear_10_grants_xp100_once():
     assert "already used" in exc.value.detail
 
     # 재사용 시도로는 추가 지급이 없어야 함
-    assert user_store[uid]["xp"] == 100
+    assert user_store[uid]["coin_balance"] == 100
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -172,14 +172,14 @@ def test_aibomb_daily_cap_3_accumulates_300():
         total_xp += result["xp_awarded"]
 
     assert total_xp == 300
-    assert user_store[uid]["xp"] == 300
+    assert user_store[uid]["coin_balance"] == 300
     assert user_store[uid]["game_rewards"]["aibomb_today_count"] == 3
 
     token4 = _fake_token(uid, ts_offset=-20)
     result4 = _run_clear(uid, 10, token4, user_store)
     assert result4["already_claimed"] is True
     assert result4["xp_awarded"] == 0
-    assert user_store[uid]["xp"] == 300  # 변화 없음
+    assert user_store[uid]["coin_balance"] == 300  # 변화 없음
 
 
 def test_aibomb_daily_count_resets_next_day():

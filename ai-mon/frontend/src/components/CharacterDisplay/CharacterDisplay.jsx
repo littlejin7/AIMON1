@@ -6,9 +6,9 @@ const CHARACTER_MAP = {
   speech_bubble: { icon: '/src/assets/character_bubble.png', name: '에이훈', color: '#10b981', title: '마스터' },
   final_ghost:   { icon: '/src/assets/character_final_ghost.png', name: '에이왕', color: '#f59e0b', title: '전설' },
 }
-export default function CharacterDisplay({ characterId = 'slime', level = 1, xp = 0, maxXp = 100, compact = false }) {
+export default function CharacterDisplay({ characterId = 'slime', level = 1, gp = 0, maxGp = 100, compact = false }) {
   const char = CHARACTER_MAP[characterId] || CHARACTER_MAP.slime
-  const xpPercent = Math.min(100, (xp / maxXp) * 100)
+  const gpPercent = Math.min(100, (gp / maxGp) * 100)
 
   if (compact) {
     return (
@@ -37,15 +37,15 @@ export default function CharacterDisplay({ characterId = 'slime', level = 1, xp 
         <div className="char-name">{char.name}</div>
         <div className="char-title" style={{ color: char.color }}>{char.title}</div>
 
-        <div className="char-xp-section">
-          <div className="char-xp-label">
-            <span>EXP</span>
-            <span>{xp} / {maxXp}</span>
+        <div className="char-gp-section">
+          <div className="char-gp-label">
+            <span>GP</span>
+            <span>{gp} / {maxGp}</span>
           </div>
           <div className="progress-bar">
             <div
               className="progress-bar-fill"
-              style={{ width: `${xpPercent}%`, background: `linear-gradient(90deg, ${char.color}, #c4b5fd)` }}
+              style={{ width: `${gpPercent}%`, background: `linear-gradient(90deg, ${char.color}, #c4b5fd)` }}
             />
           </div>
         </div>

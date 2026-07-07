@@ -3,25 +3,27 @@
  * 포켓몬식 화이트아웃 진화 연출 모달
  *
  * 사용법:
- *   import EvolutionModal from '../../components/EvolutionModal/EvolutionModal'
+ *   import EvolutionModal from '../../components/Evolution/Evolution'
  *
  *   <EvolutionModal
  *     fromChar="slime"        // 이전 캐릭터 ID
  *     toChar="robot"          // 새 캐릭터 ID
- *     newLevel={10}           // 달성 레벨
+ *     stage={1}               // 도달한 evolution_stage(1~3)
  *     onClose={() => ...}     // 닫기 콜백
  *   />
  *
- * 트리거 타이밍 (Home.jsx):
- *   calcLevel(xp) 로 lv 계산 후, 이전 lv과 비교해서
- *   EVOLUTION_LEVELS (10, 20, 30) 을 넘는 순간 setState
+ * 트리거 타이밍: 진화는 엔드보스 클리어로만 발생한다(백엔드 evolution_stage 가 단일
+ * 소스). 호출부는 백엔드 응답의 evolution.evolved(+from_stage/to_stage) 또는
+ * user_state.evolution_stage 변화를 비교해서만 이 모달을 띄운다 — 프론트에서 누적치/lv
+ * 를 재계산해 진화 여부를 자체 판정하지 않는다.
  */
 
 import { useState, useEffect } from 'react'
 import './Evolution.css'
 
-// 캐릭터 메타 정보
-const CHAR_META = {
+// 캐릭터 메타 정보. evolution_stage(0~3) ↔ 캐릭터 매핑은 백엔드
+// character_for_stage 와 동일 기준(slime=0/robot=1/speech_bubble=2/final_ghost=3).
+export const CHAR_META = {
   slime: {
     icon: '/src/assets/character_slime.png',
     name: '에이원',
@@ -48,31 +50,10 @@ const CHAR_META = {
   },
 }
 
-// 레벨별 진화 맵
-export const EVOLUTION_MAP = {
-  10: { from: 'slime',         to: 'robot' },
-  20: { from: 'robot',         to: 'speech_bubble' },
-  30: { from: 'speech_bubble', to: 'final_ghost' },
-}
+// evolution_stage(0~3) → 캐릭터 ID. 백엔드 character_for_stage 와 동일 기준.
+export const STAGE_TO_CHAR = { 0: 'slime', 1: 'robot', 2: 'speech_bubble', 3: 'final_ghost' }
 
-// XP → 레벨 계산 (Home.jsx의 calcLevel 과 동일)
-export function calcLevel(xp) {
-  let lv = 1
-  let accumulated = 0
-  while (lv < 30) {
-    const needed = lv * 1000
-    if (xp < accumulated + needed) {
-      return { lv, xpInLevel: xp - accumulated, xpForNext: needed }
-    }
-    accumulated += needed
-    lv++
-  }
-  const extraXp = xp - accumulated
-  const extraLv = Math.floor(extraXp / 30000)
-  return { lv: 30 + extraLv, xpInLevel: extraXp % 30000, xpForNext: 30000 }
-}
-
-export default function EvolutionModal({ fromChar, toChar, newLevel, onClose }) {
+export default function EvolutionModal({ fromChar, toChar, stage, onClose }) {
   // 'flash' → 1.2s 후 'reveal'
   const [phase, setPhase] = useState('flash')
 
@@ -125,7 +106,7 @@ export default function EvolutionModal({ fromChar, toChar, newLevel, onClose }) 
           {to.name}
         </p>
         <p className="evo-new-sub">
-          Lv.{newLevel} 달성 — 진화 완료!
+          {stage}차 진화 완료!
         </p>
 
         <button className="evo-close-btn" onClick={onClose}>

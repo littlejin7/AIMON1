@@ -254,8 +254,8 @@ def test_aicross_entry_answers_are_server_scored_and_ranked(fresh_user):
     assert res["xp_awarded"] == 200
 
     user = _read_user(fresh_user)
-    assert user["xp"] == 200
-    assert user["game_rewards"]["weekly_xp"][G.iso_week()]["aicross"] == 200
+    assert user["coin_balance"] == 200
+    assert user["game_rewards"]["weekly_ranking"][G.iso_week()]["aicross"] == 200
 
 
 def test_aicross_client_score_is_ignored_for_wrong_answers(fresh_user):
@@ -274,7 +274,7 @@ def test_aicross_client_score_is_ignored_for_wrong_answers(fresh_user):
     assert res["score"] == 0
     assert res["correct"] == 0
     assert res["xp_awarded"] == 0
-    assert _read_user(fresh_user)["xp"] == 0
+    assert _read_user(fresh_user).get("coin_balance", 0) == 0
 
 
 def test_aicross_cell_answers_are_supported(fresh_user):
@@ -312,7 +312,7 @@ def test_aicross_nonce_reuse_does_not_double_award_xp(fresh_user):
 
     assert exc.value.status_code == 400
     assert "already used" in exc.value.detail
-    assert _read_user(fresh_user)["xp"] == 200
+    assert _read_user(fresh_user)["coin_balance"] == 200
 
 
 def test_aicross_puzzle_id_mismatch_rejected(fresh_user):
@@ -328,7 +328,7 @@ def test_aicross_puzzle_id_mismatch_rejected(fresh_user):
         G.game_clear(req, {"id": "u1"})
 
     assert exc.value.status_code == 400
-    assert _read_user(fresh_user)["xp"] == 0
+    assert _read_user(fresh_user).get("coin_balance", 0) == 0
 
 
 def test_aipang_token_replay_no_double_grant(fresh_user):
@@ -379,7 +379,7 @@ def test_distance_99999_repeated_abuse(fresh_user):
         assert exc.value.status_code == 400
 
     u = _read_user(fresh_user)
-    assert u["xp"] == 0, f"어뷰징 시도에서 XP 획득됨: {u['xp']}"
+    assert u.get("coin_balance", 0) == 0, f"어뷰징 시도에서 보상 획득됨: coin={u.get('coin_balance', 0)}"
     assert u.get("game_rewards", {}).get("runner_today_count", 0) == 0
 
 
@@ -479,7 +479,7 @@ def test_runner_daily_xp_cap_2500(fresh_user):
         total_xp += r["xp_awarded"]
 
     u = _read_user(fresh_user)
-    assert u["xp"] <= 2500, f"일일 XP 캡 초과: {u['xp']}"
+    assert u["coin_balance"] <= 2500, f"일일 XP 캡 초과: {u['xp']}"
     assert total_xp <= 2500, f"보상 합계 캡 초과: {total_xp}"
 
 
@@ -503,7 +503,7 @@ def test_daily_xp_cap_cuts_last_grant(fresh_user):
     assert r5["xp_awarded"] == 500
 
     u = _read_user(fresh_user)
-    assert u["xp"] == 2500
+    assert u["coin_balance"] == 2500
     assert u["game_rewards"]["daily_xp"] == 2500
 
 
@@ -521,7 +521,7 @@ def test_max_valid_distance_5plays_hits_cap(fresh_user):
         assert r["already_claimed"] is False
 
     u = _read_user(fresh_user)
-    assert u["xp"] == 2500
+    assert u["coin_balance"] == 2500
 
     token6 = _make_token("runner", "u1", _past(300), "NONCE-MV-5TH")
     r6 = G.game_clear(
@@ -529,7 +529,7 @@ def test_max_valid_distance_5plays_hits_cap(fresh_user):
         {"id": "u1"},
     )
     assert r6["already_claimed"] is True
-    assert _read_user(fresh_user)["xp"] == 2500
+    assert _read_user(fresh_user)["coin_balance"] == 2500
 
 
 # ─── XP 구간 경계 ─────────────────────────────────────────────────

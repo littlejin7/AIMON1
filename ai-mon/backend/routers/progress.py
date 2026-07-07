@@ -10,7 +10,9 @@ from routers.utils import (
     get_attempts_by_user,
     save_progress_item,
     get_current_user,
-    apply_xp,
+    grant_reward,
+    get_evolution_stage,
+    current_week_ranking_score,
     now_kst,
     mutate_user_atomic,
     UserNotFoundError,
@@ -274,8 +276,13 @@ def update_progress(req: ProgressUpdateRequest, user_ref: dict = Depends(get_cur
                 user["awarded_crown_units"] = awarded_units
 
         context = {"stage_completed": award_xp, "unit_fully_done": unit_just_completed}
-        events = apply_xp(user, xp_gain if award_xp else 0, context, event_type="stage_clear")
-        return {"crowns_awarded": crowns_awarded, "events": events}
+        # xp 신규 지급 중단 → coin/ranking 분리 발급. gp 는 gate 통과 시만.
+        amount = xp_gain if award_xp else 0
+        rr = grant_reward(user, coin_delta=amount, ranking_score_delta=amount,
+                          gp_delta=amount, context=context, event_type="stage_clear")
+        reward = {"coin_delta": rr["coin_delta"], "gp_delta": rr["gp_delta"],
+                  "ranking_score_delta": rr["ranking_score_delta"]}
+        return {"crowns_awarded": crowns_awarded, "events": rr["events"], "reward": reward}
 
     try:
         user, result = mutate_user_atomic(user_id, mutator)
@@ -285,11 +292,22 @@ def update_progress(req: ProgressUpdateRequest, user_ref: dict = Depends(get_cur
     serialized = serialize_user(user)
     return {
         "message": "진행상황이 저장되었습니다.",
+        # xp_awarded 는 하위호환 표기(=보상 단위). 신규 소비자는 reward.* 를 쓴다.
         "xp_awarded": xp_gain if award_xp else 0,
         "crowns_awarded": result["crowns_awarded"],
         "character": serialized.get("character", "slime"),
         "lv": serialized.get("lv", 1),
         "newly_earned_titles": result["events"]["newly_earned_titles"],
+        "reward": result["reward"],
+        "user_state": {
+            "coin_balance": serialized.get("coin_balance", 0),
+            "gp": serialized.get("gp", 0),
+            "lv": serialized.get("lv", 1),
+            "evolution_stage": get_evolution_stage(serialized),
+            "ranking_score": serialized.get("ranking_score", 0),
+            "weekly_ranking_score": serialized.get("weekly_ranking_score", 0),
+            "crowns": serialized.get("crowns", 0),
+        },
     }
 
 

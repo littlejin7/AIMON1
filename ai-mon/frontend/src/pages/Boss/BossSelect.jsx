@@ -87,7 +87,7 @@ export default function BossSelect() {
               <div className="bs-card-body">
                 <h3 className="bs-boss-name">{boss.boss_name}</h3>
                 <div className="bs-reward-row">
-                  <span className="bs-reward-tag">⭐ +{boss.xp_reward} XP</span>
+                  <span className="bs-reward-tag">⭐ +{boss.xp_reward} 코인</span>
                   <span className="bs-reward-tag">👑 왕관 획득 가능</span>
                 </div>
               </div>

@@ -3,21 +3,6 @@ import { useAuthStore } from '../../hooks/useAuthStore'
 import { userApi } from '../../api/index'
 import './title.css'
 
-// ── 레벨 계산 (Home.jsx와 동일)
-function calcLevel(xp) {
-  let lv = 1
-  let accumulated = 0
-  while (lv < 30) {
-    const needed = lv * 1000
-    if (xp < accumulated + needed) return { lv, xpInLevel: xp - accumulated, xpForNext: needed }
-    accumulated += needed
-    lv++
-  }
-  const extraXp = xp - accumulated
-  const extraLv = Math.floor(extraXp / 30000)
-  return { lv: 30 + extraLv, xpInLevel: extraXp % 30000, xpForNext: 30000 }
-}
-
 // ── 레벨 → 테두리 티어
 function getRingTier(lv) {
   if (lv >= 30) return 'ring-gold'
@@ -72,7 +57,7 @@ const TITLES = [
   { id: 'boss_slayer',  icon: IconBossSlayer,  name: '보스슬레이어', desc: '첫 보스 클리어',      condition: (u) => (u?.boss_cleared || 0) >= 1 },
   { id: 'ai_explorer',  icon: IconAiExplorer,  name: 'AI 탐구자',    desc: 'AI 피드백 10회 확인', condition: (u) => (u?.ai_feedback_count || 0) >= 10 },
   { id: 'unit_master',  icon: IconUnitMaster,  name: '유닛 마스터',  desc: '유닛 1개 100% 완료',  condition: (u) => (u?.completed_units || 0) >= 1 },
-  { id: 'aimon_master', icon: IconAimonMaster, name: '에이몬 마스터', desc: 'Lv.30 달성',         condition: (u) => calcLevel(u?.xp || 0).lv >= 30 },
+  { id: 'aimon_master', icon: IconAimonMaster, name: '에이몬 마스터', desc: 'Lv.30 달성',         condition: (u) => (u?.lv || 1) >= 30 },
   { id: 'rookie_coder',  icon: IconUnitMaster,  name: '코드 ROOKIE',   desc: '초급 엔드보스 클리어', condition: (u) => u?.titles?.includes('rookie_coder') },
   { id: 'ace_coder',     icon: IconUnitMaster,  name: 'ACE 코더',      desc: '중급 엔드보스 클리어', condition: (u) => u?.titles?.includes('ace_coder') },
   { id: 'ai_master',     icon: IconAimonMaster, name: 'AI 마스터',     desc: '고급 엔드보스 클리어', condition: (u) => u?.titles?.includes('ai_master') },
@@ -91,7 +76,7 @@ const CHAR_EMOJI = {
 const MOCK_USER = {
   username:          '에이몬유저',
   character:         'slime',
-  xp:                3200,
+  lv:                3,
   streak:            9,
   completed_stages:  5,
   completed_units:   1,
@@ -107,8 +92,7 @@ export default function Profile() {
   // 백엔드 연결 전엔 MOCK_USER, 연결 후엔 authUser로 교체
   const user = authUser || MOCK_USER
 
-  const { lv, xpInLevel, xpForNext } = calcLevel(user.xp || 0)
-  const xpPct = Math.round((xpInLevel / xpForNext) * 100)
+  const lv = user.lv || 1
   const ringTier = getRingTier(lv)
   const charEmoji = CHAR_EMOJI[user.character] || '🟣'
 

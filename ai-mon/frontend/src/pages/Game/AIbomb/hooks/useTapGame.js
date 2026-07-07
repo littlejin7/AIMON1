@@ -44,7 +44,8 @@ export function useTapGame({ audio }) {
   const tokenRef     = useRef(null);   // /game/start 로 발급받은 game_token
   const clearedRef   = useRef(0);      // 맞힌 스테이지 누적 수 (0~STAGE_COUNT), correct_count 로 제출
   const submittedRef = useRef(false);  // finishGame 중복 호출 가드
-  const [xpAwarded,     setXpAwarded]     = useState(null);  // 서버가 확정한 최종 XP (null=응답 대기중)
+  const [coinAwarded,   setCoinAwarded]   = useState(null);  // 서버가 확정한 최종 코인 (null=응답 대기중)
+  const [gpAwarded,     setGpAwarded]     = useState(0);     // 3차 진화 후에만 0 초과
   const [alreadyClaimed, setAlreadyClaimed] = useState(false);
 
   // ── 피드백 메시지 ────────────────────────────────────────────
@@ -60,7 +61,7 @@ export function useTapGame({ audio }) {
 
   // ── 전체 클리어 확정 — 두 지점(타임아웃 종료 / nextStage 마지막 스테이지)에서
   //    정확히 1회만 서버에 clear 를 제출한다. 화면 전환은 응답을 기다리지 않고 즉시 하고,
-  //    xpAwarded 는 응답 도착 시 반영(성공 화면에서 로딩 → 실제 값으로 갱신).
+  //    coinAwarded 는 응답 도착 시 반영(성공 화면에서 로딩 → 실제 값으로 갱신).
   const finishGame = useCallback(() => {
     setStatus('success');
     if (submittedRef.current) return;
@@ -73,11 +74,13 @@ export function useTapGame({ audio }) {
       correct_count: clearedRef.current,
     }).then((res) => {
       console.log('[AIbomb] clearGame response', res.data);
-      setXpAwarded(res.data.xp_awarded ?? 0);
+      // 신규 계약: reward.coin_delta/gp_delta. 구 응답(xp_awarded) 은 폴백.
+      setCoinAwarded(res.data.reward?.coin_delta ?? res.data.xp_awarded ?? 0);
+      setGpAwarded(res.data.reward?.gp_delta ?? 0);
       setAlreadyClaimed(!!res.data.already_claimed);
     }).catch((err) => {
-      console.warn('[AIbomb] 보상 적립 실패 — XP 미지급 처리', err);
-      setXpAwarded(0);
+      console.warn('[AIbomb] 보상 적립 실패 — 코인 미지급 처리', err);
+      setCoinAwarded(0);
     });
   }, []);
 
@@ -133,7 +136,8 @@ export function useTapGame({ audio }) {
     clearedRef.current = 0;
     submittedRef.current = false;
     tokenRef.current = null;
-    setXpAwarded(null);
+    setCoinAwarded(null);
+    setGpAwarded(0);
     setAlreadyClaimed(false);
 
     // 토큰 발급 실패해도 게임은 그대로 진행 — clear 제출 시 서버가 토큰 부재로 거부해
@@ -203,7 +207,8 @@ export function useTapGame({ audio }) {
     tokenRef.current = null;
     clearedRef.current = 0;
     submittedRef.current = false;
-    setXpAwarded(null);
+    setCoinAwarded(null);
+    setGpAwarded(0);
     setAlreadyClaimed(false);
   }, [audio]);
 
@@ -218,7 +223,8 @@ export function useTapGame({ audio }) {
     lives,
     feedback,
     shake,
-    xpAwarded,
+    coinAwarded,
+    gpAwarded,
     alreadyClaimed,
     startGame,
     tapToken,

@@ -5,7 +5,7 @@
  * 화면 흐름(참고 이미지 4컷 구성):
  *   ready      — 인트로: 제목 + 규칙 + 시작하기 버튼
  *   playing    — 원형 타이머 + 폭탄 + 칠판 코드(터치) + 진행 점
- *   stageclear — CLEAR! 화면 + 보상(EXP/코인) + 다음 스테이지 버튼
+ *   stageclear — CLEAR! 화면 + 보상(연출용 점수/코인) + 다음 스테이지 버튼
  *   gameover   — 폭발 화면 + 다시 도전 / 목록 버튼
  *   success    — 전체 클리어 화면
  *
@@ -173,12 +173,17 @@ export default function AIbomb() {
             <div className="bd-reward-box">
               <span className="bd-reward-label-tag">TOTAL REWARD</span>
               <div className="bd-reward-chips">
-                {game.xpAwarded === null ? (
+                {game.coinAwarded === null ? (
                   <span className="bd-reward-chip">적립 중...</span>
                 ) : game.alreadyClaimed ? (
                   <span className="bd-reward-chip">오늘 획득 한도 도달</span>
                 ) : (
-                  <span className="bd-reward-chip">✨ +{game.xpAwarded} XP</span>
+                  <>
+                    <span className="bd-reward-chip">✨ +{game.coinAwarded} 코인</span>
+                    {game.gpAwarded > 0 && (
+                      <span className="bd-reward-chip">💠 +{game.gpAwarded} GP</span>
+                    )}
+                  </>
                 )}
               </div>
             </div>

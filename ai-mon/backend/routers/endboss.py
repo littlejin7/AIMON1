@@ -19,7 +19,7 @@ from routers.utils import (
     save_user,
     limiter,
     get_current_user,
-    apply_xp,
+    grant_reward,
     mutate_user_atomic,
     save_attempt_item,
     now_kst,
@@ -27,6 +27,9 @@ from routers.utils import (
     promote_course_level_from_endboss,
     derive_unlocked_course_levels,
     COURSE_LEVEL_ORDER,
+    get_evolution_stage,
+    character_for_stage,
+    current_week_ranking_score,
 )
 from routers.quiz import serialize_question
 
@@ -47,7 +50,9 @@ MY_HP_DELTA    = 400   # 오답 시 내 HP 감소
 PHASE3_MAX_TRIES = 3
 
 # ── 보상 ─────────────────────────────────────────────────────────────────────
-CLEAR_XP      = 15000
+# 엔드보스 클리어 보상 단위(coin=ranking 동일값). 보스는 GP 를 지급하지 않으므로
+# gp_delta 는 항상 0. [임시 밸런스] 이 상수만 조정하면 지급액을 바꿀 수 있다.
+BOSS_CLEAR_REWARD = 15000
 CLEAR_CROWNS  = 15
 
 CLEAR_TITLES = {
@@ -56,10 +61,13 @@ CLEAR_TITLES = {
     "advanced":     ("ai_master",     "AI 마스터"),
 }
 
-CLEAR_CHARACTER = {
-    "beginner":     "robot",
-    "intermediate": "speech_bubble",
-    "advanced":     "final_ghost",
+# 엔드보스 클리어 = 진화 트리거. 레벨별 도달 진화 단계(evolution_stage).
+# 초급→1, 중급→2, 고급→3. character 는 evolution_stage 에서 파생한다.
+# (기존 CLEAR_CHARACTER 직접 대입을 evolution_stage 파생으로 대체)
+CLEAR_EVOLUTION_STAGE = {
+    "beginner":     1,
+    "intermediate": 2,
+    "advanced":     3,
 }
 
 # ── 레벨별 Phase 문제 유형 ────────────────────────────────────────────────────
@@ -551,9 +559,10 @@ async def endboss_answer(request: Request, req: AnswerRequest, user: dict = Depe
 def endboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
     """
     클리어 처리.
-    - XP 15,000 지급 (레벨별 1회만)
+    - coin·ranking_score 15,000 지급 (레벨별 1회만, xp 신규 지급 중단)
     - 왕관 15개 지급
-    - 캐릭터 진화
+    - 진화: evolution_stage 증가(초급→1/중급→2/고급→3), character 는 파생. 강등 방지.
+    - GP 는 지급하지 않음 (gp_delta 항상 0)
     - 칭호 부여
     - endboss_cleared_levels 기록
     """
@@ -570,18 +579,25 @@ def endboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
         cleared_levels  = u.get("endboss_cleared_levels") or []
         already_cleared = level in cleared_levels
         newly_earned_titles = []
+        reward = {"coin_delta": 0, "gp_delta": 0, "ranking_score_delta": 0}
+        from_stage = get_evolution_stage(u)
+        to_stage   = from_stage
 
         if not already_cleared:
             # 왕관
             u["crowns"] = u.get("crowns", 0) + CLEAR_CROWNS
 
-            # 캐릭터 진화 (현재 캐릭터보다 등급이 높은 경우에만 덮어씀)
-            new_char = CLEAR_CHARACTER.get(level)
-            if new_char:
-                char_rank = {"slime": 1, "robot": 2, "speech_bubble": 3, "final_ghost": 4}
-                current_char = u.get("character", "slime")
-                if char_rank.get(new_char, 1) > char_rank.get(current_char, 1):
-                    u["character"] = new_char
+            # 진화: 엔드보스 클리어가 유일한 트리거. evolution_stage 를 올린다.
+            #   초급→1 / 중급→2 / 고급→3. max() 로 강등 방지(하위 레벨 재클리어 시 유지).
+            #   character 는 evolution_stage 에서 파생(character_for_stage).
+            target_stage = CLEAR_EVOLUTION_STAGE.get(level, from_stage)
+            to_stage = max(from_stage, target_stage)
+            if to_stage != from_stage:
+                u["evolution_stage"] = to_stage
+                u["character"] = character_for_stage(to_stage)
+            else:
+                # 이미 같거나 상위 단계 — 단계는 유지하되 필드를 명시적으로 보존.
+                u["evolution_stage"] = to_stage
 
             # 칭호
             title_id, title_name = CLEAR_TITLES.get(level, ("rookie_coder", "코드 ROOKIE"))
@@ -591,9 +607,20 @@ def endboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
                 u["titles"] = list(earned)
                 newly_earned_titles.append({"id": title_id, "name": title_name})
 
-            # XP 적용 및 기타 칭호 부여 (+ 미션 boss_clear 훅)
-            events = apply_xp(u, CLEAR_XP, {"boss_cleared": True}, event_type="boss_clear")
-            newly_earned_titles.extend(events["newly_earned_titles"])
+            # 보상: coin + ranking_score 분리 발급(xp 신규 지급 중단). 진화는 위
+            # evolution_stage 로만 발생하고, 보스 클리어는 gp 를 지급하지 않는다(gp_delta=0).
+            # grant_reward 가 칭호·미션 boss_clear 훅(apply_xp(0))을 함께 굴린다.
+            rr = grant_reward(
+                u,
+                coin_delta=BOSS_CLEAR_REWARD,
+                ranking_score_delta=BOSS_CLEAR_REWARD,
+                gp_delta=0,
+                context={"boss_cleared": True},
+                event_type="boss_clear",
+            )
+            reward = {"coin_delta": rr["coin_delta"], "gp_delta": rr["gp_delta"],
+                      "ranking_score_delta": rr["ranking_score_delta"]}
+            newly_earned_titles.extend(rr["events"]["newly_earned_titles"])
 
             # cleared_levels 기록
             cleared_levels.append(level)
@@ -608,6 +635,9 @@ def endboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
         return {
             "already_cleared": already_cleared,
             "newly_earned_titles": newly_earned_titles,
+            "reward": reward,
+            "from_stage": from_stage,
+            "to_stage": to_stage,
         }
 
     try:
@@ -618,9 +648,29 @@ def endboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
     already_cleared = result["already_cleared"]
     return {
         "already_cleared":    already_cleared,
-        "xp_awarded":         0 if already_cleared else CLEAR_XP,
+        # 진화(성공) 정보를 보상보다 앞에 둔다 — 프론트 표시 우선순위(진화 연출 우선) 대비.
+        "evolution": {
+            "evolved":    result["to_stage"] > result["from_stage"],
+            "from_stage": result["from_stage"],
+            "to_stage":   result["to_stage"],
+        },
+        "reward": result["reward"],   # {coin_delta, gp_delta:0, ranking_score_delta}
+        "user_state": {
+            "coin_balance": user.get("coin_balance", 0),
+            "gp": user.get("gp", 0),
+            "lv": user.get("lv", 1),
+            "evolution_stage": get_evolution_stage(user),
+            "ranking_score": user.get("ranking_score", 0),
+            "weekly_ranking_score": current_week_ranking_score(user),
+            "crowns": user.get("crowns", 0),
+        },
+        # ── 하위호환 표기 필드(프론트 전환 전) ──
+        "xp_awarded":         0 if already_cleared else BOSS_CLEAR_REWARD,
         "crowns_awarded":     0 if already_cleared else CLEAR_CROWNS,
+        "gp_delta":           0,   # 보스 클리어 보상으로 GP 는 지급하지 않는다(항상 0).
         "lv":                 user.get("lv", 1),
+        "evolution_stage":    get_evolution_stage(user),
+        "character":          user.get("character", "slime"),
         "newly_earned_titles": result["newly_earned_titles"],
         "cleared_levels":     user.get("endboss_cleared_levels") or [],
     }

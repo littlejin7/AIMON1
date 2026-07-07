@@ -9,7 +9,7 @@ export default function BossIntro({ bossData, errorMsg, onStart }) {
 
       <h1 className="boss-title">{bossData?.boss_name || '보스'} 출현!</h1>
       <p className="boss-desc">
-        물리치면 <strong>{bossData?.xp_reward} XP</strong>와 왕관을 얻을 수 있습니다!
+        물리치면 <strong>{bossData?.xp_reward} 코인</strong>과 왕관을 얻을 수 있습니다!
       </p>
 
       {errorMsg && (

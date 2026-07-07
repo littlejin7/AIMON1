@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { getEvolutionStage, calcLevel } from './homeUtils'
+import { getEvolutionStage } from './homeUtils'
 import slimeIcon from '../../assets/character_slime.png'
 import robotIcon from '../../assets/character_robot.png'
 import speechBubbleIcon from '../../assets/character_bubble.png'
@@ -75,9 +75,10 @@ function getWeekDots(streak, lastLogin) {
 export default function HomeDashboard({ user, stats, onOpenLevelTest }) {
   const navigate = useNavigate()
 
-  const totalXp = user?.xp || 0
-  const { lv, xpInLevel, xpForNext } = calcLevel(totalXp)
-  const xpPct = xpForNext > 0 ? Math.round((xpInLevel / xpForNext) * 100) : 100
+  const lv = user?.lv || 1
+  const coinBalance = user?.coin_balance || 0
+  const evolutionStage = user?.evolution_stage || 0
+  const gp = user?.gp || 0
   const streak = user?.streak || 0
   const weekDots = getWeekDots(streak, user?.last_login || '')
   const charImg = CHARACTER_ICONS[user?.character]
@@ -96,7 +97,7 @@ export default function HomeDashboard({ user, stats, onOpenLevelTest }) {
           <span className="hd-streak-flame">🔥</span>
           <div>
             <div className="hd-streak-count">연속 학습 {streak}일</div>
-            <div className="hd-streak-label">내일도 접속하면 +1,000 XP</div>
+            <div className="hd-streak-label">내일도 접속하면 코인을 받아요</div>
           </div>
         </div>
         <div className="hd-week-dots">
@@ -153,13 +154,12 @@ export default function HomeDashboard({ user, stats, onOpenLevelTest }) {
               </svg>
             )
           }
-          <div className="hd-xp-wrap">
-            <div className="hd-xp-row">
-              <span>XP {xpInLevel.toLocaleString()}</span>
-              <span>다음 레벨까지 {(xpForNext - xpInLevel).toLocaleString()} XP</span>
-            </div>
-            <div className="hd-xp-bar">
-              <div className="hd-xp-fill" style={{ width: `${xpPct}%` }} />
+          <div className="hd-currency-wrap">
+            <div className="hd-currency-row">
+              <span className="hd-currency-badge hd-coin-badge">🪙 코인 {coinBalance.toLocaleString()}</span>
+              {evolutionStage >= 3 && (
+                <span className="hd-currency-badge hd-gp-badge">💠 GP {gp.toLocaleString()}</span>
+              )}
             </div>
           </div>
         </div>

@@ -97,7 +97,7 @@ export default function EndBossIntro({ bossData, errorMsg, onStart, selectedLeve
           <div className="eb-main-title">엔드보스 출현!</div>
           <div className="eb-main-desc">
             최종 유닛의 모든 지식을 시험할 보스가 나타났습니다.<br />
-            물리치면 특별한 인증카드와 <strong>15,000 XP</strong>를 얻을 수 있습니다!
+            물리치면 특별한 인증카드와 <strong>15,000 코인</strong>을 얻을 수 있습니다!
           </div>
         </div>
 

@@ -224,7 +224,7 @@
 .aicross-win-title { font-size: 26px; font-weight: 800; color: #5a3d99; }
 .aicross-win-sub   { font-size: 14px; color: #8a6bb8; margin-bottom: 4px; }
 
-.aicross-win-xp {
+.aicross-win-reward {
   font-size: 22px;
   font-weight: 800;
   color: #d9960b;
@@ -234,14 +234,14 @@
   padding: 10px 24px;
 }
 
-.aicross-win-xp--claimed {
+.aicross-win-reward--claimed {
   font-size: 13px;
   color: #9a86bf;
   background: rgba(150, 120, 220, 0.08);
   border-color: rgba(150, 120, 220, 0.2);
 }
 
-.aicross-win-xp--loading {
+.aicross-win-reward--loading {
   font-size: 14px;
   color: #8a6bb8;
   background: none;

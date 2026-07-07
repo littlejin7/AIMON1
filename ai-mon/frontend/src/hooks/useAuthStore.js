@@ -37,7 +37,10 @@ export const useAuthStore = create(
         try {
           const res = await userApi.purchaseTheme(themeId)
           set({ user: res.data.user })
-          return { success: true, xpSpent: res.data.xp_spent }
+          // coin_spent/coin_remaining 이 신규 계약. 구 xp_spent 는 과거 응답 호환용 폴백.
+          const coinSpent = res.data.coin_spent ?? res.data.xp_spent
+          const coinRemaining = res.data.coin_remaining ?? res.data.xp_remaining
+          return { success: true, coinSpent, coinRemaining }
         } catch (err) {
           const msg = err.response?.data?.detail || '구매에 실패했습니다.'
           return { success: false, error: msg }

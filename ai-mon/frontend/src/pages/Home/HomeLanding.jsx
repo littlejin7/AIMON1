@@ -5,7 +5,7 @@ import slimeIcon from '../../assets/character_slime.png'
 const FEATURES = [
   { icon: '🧠', title: 'Claude AI 오답 설명', desc: '틀린 문제를 AI가 비유와 예시로 친절하게 설명해줘요' },
   { icon: '⚔️', title: '엔드보스 인증카드', desc: '난이도별 엔드보스를 클리어하면 인증카드가 자동 생성!' },
-  { icon: '📈', title: 'XP · 레벨업',       desc: '퀴즈를 풀수록 XP가 쌓이고, 에이몬이 함께 성장해요' },
+  { icon: '📈', title: '코인 · 레벨업',      desc: '퀴즈를 풀수록 코인이 쌓이고, 에이몬이 함께 성장해요' },
 ]
 
 export default function HomeLanding({ onOpenLevelTest }) {

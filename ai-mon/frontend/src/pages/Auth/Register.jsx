@@ -841,7 +841,7 @@ export default function Register() {
                 <div style={{ fontSize: '13px', fontWeight: 600, color: '#26215C', marginBottom: '10px' }}>🎁 가입 보너스</div>
                 <div className="reg-reward-row">
                   {[
-                    { icon: '⚡', val: '+1,000', label: '시작 XP' },
+                    { icon: '🪙', val: '+1,000', label: '시작 코인' },
                     { icon: '💡', val: '×5',     label: '힌트 코인' },
                     { icon: '👑', val: '+500',   label: '왕관' },
                   ].map(r => (

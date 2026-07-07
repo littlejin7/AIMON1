@@ -258,10 +258,14 @@ export class RunnerEngine {
         if (el) el.innerHTML = `보상 정산 중...`;
         this.onGameOverCallback(this.score, this.distance).then(res => {
             if (el && res && res.data) {
-                if (res.data.xp_awarded > 0) {
-                    el.innerHTML = `✨ ${res.data.xp_awarded} XP 획득! (총 ${res.data.total_xp} XP)`;
+                // 신규 계약: reward.coin_delta/gp_delta. 구 응답(xp_awarded) 은 폴백.
+                const coinAwarded = res.data.reward?.coin_delta ?? res.data.xp_awarded ?? 0;
+                const gpAwarded = res.data.reward?.gp_delta ?? 0;
+                if (coinAwarded > 0) {
+                    const gpText = gpAwarded > 0 ? ` · 💠 +${gpAwarded} GP` : '';
+                    el.innerHTML = `✨ +${coinAwarded} 코인 획득!${gpText}`;
                 } else {
-                    el.innerHTML = `오늘 획득 가능한 XP를 모두 받았습니다.`;
+                    el.innerHTML = `오늘 획득 가능한 코인을 모두 받았습니다.`;
                 }
             }
         }).catch(err => {

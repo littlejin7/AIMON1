@@ -98,7 +98,7 @@ export const minibossApi = {
 
 export const codeApi = {
   // 채점 단일 소스. body: { question_id, code, output, error, unit, stage, course_level, award }
-  // award=false 면 백엔드가 채점 결과(is_correct/score/feedback)만 반환(XP·진행도 미저장).
+  // award=false 면 백엔드가 채점 결과(is_correct/score/feedback)만 반환(보상·진행도 미저장).
   submitCode: (data) => api.post('/code/submit', data),
   getHint:    (data) => api.post('/code/hint',   data),
 }
@@ -144,6 +144,7 @@ export const gameApi = {
   clearGame: (data)   => api.post('/game/clear', data),
   ranking:        (limit = 3) => api.get('/game/ranking',         { params: { limit } }),
   rankingByGame:  (limit = 3) => api.get('/game/ranking/by-game', { params: { limit } }),
+  rankingOverall: (limit = 3) => api.get('/game/ranking/overall', { params: { limit } }),
 
   // aicross 전용 helper. 서버가 정답 필드 없는 public puzzle 을 내려주고(start),
   // clear 시 answers 를 서버에서 재채점한다(entry/cell 단위 모두 지원).
