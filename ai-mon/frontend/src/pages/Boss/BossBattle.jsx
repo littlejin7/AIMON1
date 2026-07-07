@@ -1,4 +1,4 @@
-import { useState, useEffect, Suspense } from 'react'
+import { useState, useEffect, useMemo, Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
 import PlayerModel3D from './PlayerModel3D'
 import BossModel3D from './BossModel3D'
@@ -44,6 +44,22 @@ const SH_COLORS = {
   pm:      '#9CDCFE',  // 변수 — 하늘파랑
   op:      '#D4D4D4',  // 연산자
 }
+
+const LABELS = ['A', 'B', 'C', 'D', 'E']
+
+function stripChoiceLabel(opt) {
+  return String(opt || '').replace(/^[A-E]\.\s*/, '')
+}
+
+function shuffleChoices(choices) {
+  const shuffled = [...choices]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled
+}
+
 
 const TOKEN_RE = [
   { t: 'cm', r: /^(#[^\n]*)/ },
@@ -183,7 +199,12 @@ export default function BossBattle({
   const isCodeType = currentQuestion.type === 'code_input'
   const isFibType  = currentQuestion.type === 'fill_in_blank'
   const hasChoice  = !isCodeType && !isFibType && currentQuestion.choices?.length > 0
-
+  const choicesKey = (currentQuestion.choices || []).join('\u0001')
+  const shuffledChoices = useMemo(
+    () => shuffleChoices(currentQuestion.choices || []),
+    [currentQuestion.question_id, choicesKey],
+  )
+  
   // error_find: 줄 클릭 UI 폐지 — 정답 줄 번호를 빈칸에 직접 입력하는 방식으로 통일
   const isErrorFindNoChoice = currentQuestion.type === 'error_find'
 
@@ -312,16 +333,15 @@ export default function BossBattle({
           {/* 객관식 / 출력선택 */}
           {hasChoice && (
             <div className="eb-b-radio-opts">
-              {currentQuestion.choices.map((opt, idx) => {
-                const key = opt.substring(0, 1)
+              {shuffledChoices.map((opt, idx) => {
                 return (
                   <div
-                    key={idx}
-                    className={`eb-b-ropt${selectedOption === key ? ' sel' : ''}`}
-                    onClick={() => !aiResult && setSelectedOption(key)}
+                    key={opt}
+                    className={`eb-b-ropt${selectedOption === opt ? ' sel' : ''}`}
+                    onClick={() => !aiResult && setSelectedOption(opt)}
                   >
-                    <div className="eb-b-rcircle">{key}</div>
-                    <span className="eb-b-rtext">{opt.substring(3)}</span>
+                    <div className="eb-b-rcircle">{LABELS[idx] ?? idx + 1}</div>
+                    <span className="eb-b-rtext">{stripChoiceLabel(opt)}</span>
                   </div>
                 )
               })}
