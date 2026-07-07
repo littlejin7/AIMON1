@@ -1,4 +1,7 @@
-[
+// crosswordData.js 는 원래 crosswordData.json 이었고(3cfc817), JSON → JS 리네임 과정에서
+// export 문이 함께 옮겨지지 않아 AICross.jsx 가 기대하는 WORD_SETS/SET_NAMES 를 전혀
+// export 하지 않는 상태였다(빌드 실패 원인). 데이터 내용은 그대로 두고 export 만 복구한다.
+const CROSSWORD_SETS = [
   {
     "setNumber": 1,
     "setName": "파이썬 기초 & 입출력",
@@ -1134,3 +1137,8 @@
     ]
   }
 ]
+
+// AICross.jsx 가 기대하는 형태로 파생: 세트별 단어 배열(id/word/clue/easyClue 그대로 보존)과
+// 세트 이름 배열. 데이터는 CROSSWORD_SETS 하나로 유지하고 여기서만 형태를 맞춘다.
+export const WORD_SETS = CROSSWORD_SETS.map((s) => s.words)
+export const SET_NAMES = CROSSWORD_SETS.map((s) => s.setName)
