@@ -10,6 +10,7 @@ export default function StageResult({
   evalCorrectCount,
   isMinibossPlayed,
   xpAwarded,
+  gpAwarded,
   unitInfo,
   stageNum,
   lessonId,
@@ -85,11 +86,13 @@ export default function StageResult({
         {isMinibossPlayed && '미니보스 '}{evalTotalCount}문제 중 {evalCorrectCount}개 정답
       </p>
 
-      {/* XP 보상 */}
+      {/* 코인(+GP) 보상 */}
       {passed && xpAwarded > 0 && (
         <div className="result-reward" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px', marginBottom: '16px' }}>
           <span>⭐ 스테이지 완료</span>
-          <span style={{ color: '#a6e3a1', fontWeight: 'bold' }}>+{xpAwarded} XP 획득!</span>
+          <span style={{ color: '#a6e3a1', fontWeight: 'bold' }}>
+            +{xpAwarded} 코인 획득!{gpAwarded > 0 ? ` · +${gpAwarded} GP` : ''}
+          </span>
         </div>
       )}
       {passed && xpAwarded === 0 && (

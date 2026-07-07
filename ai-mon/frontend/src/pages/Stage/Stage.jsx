@@ -78,6 +78,7 @@ export default function Stage({ _lessonId, _stage }) {
 
   // ── 결과 상태 ──
   const [xpAwarded,     setXpAwarded]     = useState(0)
+  const [gpAwarded,     setGpAwarded]     = useState(0)
   const [unitInfo,      setUnitInfo]      = useState(null)
   const [evoModal,      setEvoModal]      = useState(null)
   const [showAuthModal, setShowAuthModal] = useState(false)
@@ -479,7 +480,9 @@ export default function Stage({ _lessonId, _stage }) {
       })
 
       if (res?.data) {
-        setXpAwarded(res.data.xp_awarded || 0)
+        // 신규 계약: reward.coin_delta/gp_delta. 구 응답(xp_awarded) 은 폴백(코인 표시용).
+        setXpAwarded(res.data.reward?.coin_delta ?? res.data.xp_awarded ?? 0)
+        setGpAwarded(res.data.reward?.gp_delta ?? 0)
 
         if (res.data.newly_earned_titles && res.data.newly_earned_titles.length > 0) {
           setNewlyEarnedTitles(res.data.newly_earned_titles)
@@ -533,6 +536,7 @@ export default function Stage({ _lessonId, _stage }) {
           evalCorrectCount={evalCorrectCount}
           isMinibossPlayed={isMinibossPlayed}
           xpAwarded={xpAwarded}
+          gpAwarded={gpAwarded}
           unitInfo={unitInfo}
           stageNum={stageNum}
           lessonId={lessonId}

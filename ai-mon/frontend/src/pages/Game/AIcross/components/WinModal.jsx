@@ -5,6 +5,9 @@ export default function WinModal({ result, won, onClose, onRetry }) {
   const score = result?.score ?? 0
   const correct = result?.correct
   const total = result?.total
+  // 신규 계약: reward.coin_delta/gp_delta. 구 응답(xp_awarded) 은 폴백.
+  const coinAwarded = result?.reward?.coin_delta ?? result?.xp_awarded ?? 0
+  const gpAwarded = result?.reward?.gp_delta ?? 0
 
   if (submitFailed) {
     return (
@@ -31,10 +34,15 @@ export default function WinModal({ result, won, onClose, onRetry }) {
           <div className="aicross-win-sub">모든 단어를 맞혔어요!</div>
           {result ? (
             result.already_claimed
-              ? <div className="aicross-win-xp aicross-win-xp--claimed">오늘 보상은 이미 받았어요 (최대 3판)</div>
-              : <div className="aicross-win-xp">⚡ +{result.xp_awarded} XP 획득!</div>
+              ? <div className="aicross-win-reward aicross-win-reward--claimed">오늘 보상은 이미 받았어요 (최대 3판)</div>
+              : (
+                <>
+                  <div className="aicross-win-reward">⚡ +{coinAwarded} 코인 획득!</div>
+                  {gpAwarded > 0 && <div className="aicross-win-reward">💠 +{gpAwarded} GP 획득!</div>}
+                </>
+              )
           ) : (
-            <div className="aicross-win-xp aicross-win-xp--loading">보상 계산 중…</div>
+            <div className="aicross-win-reward aicross-win-reward--loading">보상 계산 중…</div>
           )}
           <button className="acbtn acbtn--next" onClick={onClose}>✕</button>
         </div>
@@ -53,11 +61,14 @@ export default function WinModal({ result, won, onClose, onRetry }) {
             ? `${total}개 중 ${correct}개 정답 (${score}점)`
             : `${score}점`}
         </div>
-        {result && !result.already_claimed && result.xp_awarded > 0 && (
-          <div className="aicross-win-xp">⚡ +{result.xp_awarded} XP 획득!</div>
+        {result && !result.already_claimed && coinAwarded > 0 && (
+          <>
+            <div className="aicross-win-reward">⚡ +{coinAwarded} 코인 획득!</div>
+            {gpAwarded > 0 && <div className="aicross-win-reward">💠 +{gpAwarded} GP 획득!</div>}
+          </>
         )}
         {result?.already_claimed && (
-          <div className="aicross-win-xp aicross-win-xp--claimed">오늘 보상은 이미 받았어요 (최대 3판)</div>
+          <div className="aicross-win-reward aicross-win-reward--claimed">오늘 보상은 이미 받았어요 (최대 3판)</div>
         )}
         <div className="aicross-win-actions">
           {onRetry && <button className="acbtn acbtn--next" onClick={onRetry}>다시 도전</button>}

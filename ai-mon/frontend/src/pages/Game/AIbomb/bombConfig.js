@@ -19,7 +19,7 @@ export const BOMB_CONFIG = {
   reward: {
     label: '성공 보상',
     coinsPerStage: 10,              // 스테이지 클리어당 코인
-    expPerStage: 20,                // 스테이지 클리어당 EXP
+    expPerStage: 20,                // 스테이지 클리어당 연출용 점수(실제 코인과 무관)
   },
   result: {
     successTitle: '폭탄 해체 성공!',
