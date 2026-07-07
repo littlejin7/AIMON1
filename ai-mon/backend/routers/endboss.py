@@ -12,7 +12,7 @@
 from fastapi import APIRouter, HTTPException, Depends, Request
 from pydantic import BaseModel, Field
 from services.claude_service import ask_claude_json
-import json, os, random, uuid
+import json, os, uuid
 from typing import Optional
 
 from routers.utils import (
@@ -198,8 +198,6 @@ def pick_batch_unseen(pool: list, seen: list, count: int) -> tuple[list, list]:
     if len(unseen) < count:
         unseen = list(pool)
         seen = []
-    unseen = list(unseen)
-    random.shuffle(unseen)
     chosen = unseen[:count]
     new_seen = seen + [q["question_id"] for q in chosen]
     return chosen, new_seen
@@ -332,7 +330,7 @@ def endboss_start(req: StartRequest, user: dict = Depends(get_current_user)):
 
 
 @router.post("/answer")
-@limiter.limit("3/minute;300/day")
+@limiter.limit("30/minute;1000/day")
 async def endboss_answer(request: Request, req: AnswerRequest, user: dict = Depends(get_current_user)):
     """
     답안 제출.
