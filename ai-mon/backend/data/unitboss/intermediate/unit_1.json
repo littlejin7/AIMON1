@@ -87,6 +87,8 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
+      "question": "다음 코드에서 SyntaxError가 발생하는 줄은?\n\n```python\n1줄: try:\n2줄:     result = 10 / 2\n3줄: finally:\n4줄:     print(result)\n5줄: except ZeroDivisionError:\n6줄:     print(\"0으로 나눌 수 없어요\")\n```",
+      "choices": [],
       "answer": "5",
       "hint": "try/except/finally 블록의 올바른 순서를 생각해 보세요.",
       "feedback": {

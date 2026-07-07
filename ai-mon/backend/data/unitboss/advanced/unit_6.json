@@ -142,6 +142,8 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
+      "question": "정의되지 않은 함수를 호출해 NameError가 발생하는 줄은?\n\n```python\n1줄: tool_blocks = [\n2줄:     {\"type\": \"tool_use\", \"id\": \"t1\", \"name\": \"search\", \"input\": {\"query\": \"Python\"}}\n3줄: ]\n4줄: \n5줄: results = []\n6줄: for block in tool_blocks:\n7줄:     if block[\"type\"] == \"tool_use\":\n8줄:         result = execute_tool(block[\"name\"], block[\"input\"])\n9줄:         results.append(result)\n10줄: \n11줄: print(results)\n```",
+      "choices": [],
       "answer": "8",
       "hint": "execute_tool은 이 코드에서 정의된 적 없습니다.",
       "feedback": {
