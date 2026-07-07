@@ -9,7 +9,7 @@ export default function HintBox({ selWord, selCells, cursor, checked, inputs, on
           {selWord.num}번 {selWord.dir === 'H' ? '가로' : '세로'} 힌트
         </div>
         <div className="aicross-hint-desc">
-          {selWord.clue} ({selCells.length})
+          {selWord.easyClue || selWord.clue} ({selCells.length})
         </div>
         <div className="aicross-hint-answer-row">
           <div className="aicross-hint-boxes">
