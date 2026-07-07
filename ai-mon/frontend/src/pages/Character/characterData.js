@@ -13,7 +13,7 @@ export const TITLES = [
   { id: 'boss_slayer',  Icon: IconBossSlayer,   name: '보스슬레이어', desc: '첫 보스 클리어',       condition: (u) => (u?.boss_cleared || 0) >= 1 },
   { id: 'ai_explorer',  Icon: IconAiExplorer,   name: 'AI 탐구자',    desc: 'AI 피드백 10회 확인',  condition: (u) => (u?.ai_feedback_count || 0) >= 10 },
   { id: 'unit_master',  Icon: IconUnitMaster,   name: '유닛 마스터',  desc: '유닛 1개 100% 완료',   condition: (u) => (u?.completed_units || 0) >= 1 },
-  // Lv.30 달성 여부는 프론트에서 xp 로 재계산하지 않는다 — 백엔드가 이미 판정해
+  // Lv.30 달성 여부는 프론트에서 누적치로 재계산하지 않는다 — 백엔드가 이미 판정해
   // user.titles 에 넣어준 값을 그대로 읽는다(다른 엔드보스 칭호들과 동일 패턴).
   { id: 'aimon_master', Icon: IconAimonMaster,  name: '에이몬 마스터',desc: 'Lv.30 달성',           condition: (u) => u?.titles?.includes('aimon_master') },
   { id: 'rookie_coder', Icon: IconUnitMaster,   name: '코드 ROOKIE',  desc: '초급 엔드보스 클리어', condition: (u) => u?.titles?.includes('rookie_coder') },

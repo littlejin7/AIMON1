@@ -67,7 +67,7 @@ export default function Character() {
   const clearedLevels = Array.isArray(user?.endboss_cleared_levels) ? user.endboss_cleared_levels : []
   const isCharUnlocked = (char) => !char.requiredLevel || clearedLevels.includes(char.requiredLevel)
 
-  // lv/evolution_stage 는 백엔드 값 직접 사용 — 프론트에서 xp 로 재계산하지 않는다.
+  // lv/evolution_stage 는 백엔드 값 직접 사용 — 프론트에서 누적치로 재계산하지 않는다.
   const lv = user?.lv || 1
   const evolutionStage = user?.evolution_stage || 0
   const coinBalance = user?.coin_balance || 0

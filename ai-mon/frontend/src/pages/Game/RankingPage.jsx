@@ -57,6 +57,7 @@ function LastWeekWinnerBanner({ data }) {
 
 export default function RankingPage() {
   const navigate = useNavigate()
+  const [activeTab, setActiveTab] = useState('weekly')
   const [data, setData]       = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError]     = useState(false)
@@ -65,67 +66,136 @@ export default function RankingPage() {
     let cancelled = false
     setLoading(true)
     setError(false)
-    gameApi.rankingByGame(3)
+    const request = activeTab === 'overall'
+      ? gameApi.rankingOverall(10)
+      : gameApi.rankingByGame(3)
+    request
       .then((res) => { if (!cancelled) setData(res.data) })
       .catch(() => { if (!cancelled) setError(true) })
       .finally(() => { if (!cancelled) setLoading(false) })
     return () => { cancelled = true }
-  }, [])
+  }, [activeTab])
+
+  const renderOverallRanking = () => {
+    const hasTop = data?.top?.length > 0
+    const mePlayed = data?.me && data.me.score > 0
+
+    return (
+      <div className="ranking-section card-glass">
+        <div className="ranking-section-header">
+          <span className="ranking-section-title">누적 랭킹 점수</span>
+        </div>
+
+        {!hasTop ? (
+          <div className="ranking-section-empty">누적 랭킹 점수가 아직 없어요.</div>
+        ) : (
+          data.top.map((r) => (
+            <div key={`${r.rank}-${r.nickname}`} className="ranking-row">
+              <span className="ranking-medal">{RANK_MEDALS[r.rank] || r.rank}</span>
+              <div className="ranking-avatar">
+                <img src={CHAR_ICONS[r.character] || CHAR_ICONS.slime} alt="" className="ranking-avatar-img" />
+              </div>
+              <span className="ranking-name">{r.nickname}</span>
+              <span className="ranking-score">🏆 {r.score}점</span>
+            </div>
+          ))
+        )}
+
+        {data?.me && (
+          <div className="ranking-row ranking-row--me">
+            <span className="ranking-medal ranking-medal--me">{mePlayed ? data.me.rank : '-'}</span>
+            <div className="ranking-avatar">
+              <img src={CHAR_ICONS[data.me.character] || CHAR_ICONS.slime} alt="" className="ranking-avatar-img" />
+            </div>
+            <span className="ranking-name" style={{ fontWeight: 600 }}>나</span>
+            <span className="ranking-score">
+              {mePlayed ? `🏆 ${data.me.score}점` : '누적 기록 없음'}
+            </span>
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  const renderWeeklyRanking = () => (
+    data.games.map((g) => {
+      const iMePlayed = g.me && g.me.score > 0
+      return (
+        <div key={g.game_id} className="ranking-section card-glass">
+          <div className="ranking-section-header">
+            <span className="ranking-section-title">{g.title}</span>
+          </div>
+
+          {g.top.length === 0 ? (
+            <div className="ranking-section-empty">이번 주 기록이 아직 없어요.</div>
+          ) : (
+            g.top.map((r) => (
+              <div key={r.rank} className="ranking-row">
+                <span className="ranking-medal">{RANK_MEDALS[r.rank] || r.rank}</span>
+                <div className="ranking-avatar">
+                  <img src={CHAR_ICONS[r.character] || CHAR_ICONS.slime} alt="" className="ranking-avatar-img" />
+                </div>
+                <span className="ranking-name">{r.nickname}</span>
+                <span className="ranking-score">🎮 {r.score}점</span>
+              </div>
+            ))
+          )}
+
+          {g.me && (
+            <div className="ranking-row ranking-row--me">
+              <span className="ranking-medal ranking-medal--me">{iMePlayed ? g.me.rank : '-'}</span>
+              <div className="ranking-avatar">
+                <img src={CHAR_ICONS[g.me.character] || CHAR_ICONS.slime} alt="" className="ranking-avatar-img" />
+              </div>
+              <span className="ranking-name" style={{ fontWeight: 600 }}>나</span>
+              <span className="ranking-score">
+                {iMePlayed ? `🎮 ${g.me.score}점` : '이번 주 기록 없음'}
+              </span>
+            </div>
+          )}
+        </div>
+      )
+    })
+  )
 
   return (
     <div className="ranking-page">
       <div className="ranking-page-header">
         <button className="ranking-back-btn" onClick={() => navigate(-1)} aria-label="뒤로">←</button>
-        <h1 className="ranking-page-title">이번 주 미니게임 랭킹</h1>
+        <h1 className="ranking-page-title">랭킹</h1>
       </div>
 
-      <LastWeekWinnerBanner data={data} />
+      <div className="ranking-tabs" role="tablist" aria-label="랭킹 종류">
+        <button
+          type="button"
+          role="tab"
+          aria-selected={activeTab === 'weekly'}
+          className={`ranking-tab ${activeTab === 'weekly' ? 'ranking-tab--active' : ''}`}
+          onClick={() => setActiveTab('weekly')}
+        >
+          주간
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={activeTab === 'overall'}
+          className={`ranking-tab ${activeTab === 'overall' ? 'ranking-tab--active' : ''}`}
+          onClick={() => setActiveTab('overall')}
+        >
+          누적
+        </button>
+      </div>
+
+      {activeTab === 'weekly' && <LastWeekWinnerBanner data={data} />}
 
       {loading ? (
         <div className="ranking-page-status">불러오는 중...</div>
       ) : error ? (
         <div className="ranking-page-status">랭킹을 불러오지 못했어요.</div>
-      ) : !data || data.games.length === 0 ? (
+      ) : activeTab === 'weekly' && (!data || data.games.length === 0) ? (
         <div className="ranking-page-status">랭킹 정보가 없어요.</div>
       ) : (
-        data.games.map((g) => {
-          const iMePlayed = g.me && g.me.score > 0
-          return (
-            <div key={g.game_id} className="ranking-section card-glass">
-              <div className="ranking-section-header">
-                <span className="ranking-section-title">{g.title}</span>
-              </div>
-
-              {g.top.length === 0 ? (
-                <div className="ranking-section-empty">이번 주 기록이 아직 없어요.</div>
-              ) : (
-                g.top.map((r) => (
-                  <div key={r.rank} className="ranking-row">
-                    <span className="ranking-medal">{RANK_MEDALS[r.rank] || r.rank}</span>
-                    <div className="ranking-avatar">
-                      <img src={CHAR_ICONS[r.character] || CHAR_ICONS.slime} alt="" className="ranking-avatar-img" />
-                    </div>
-                    <span className="ranking-name">{r.nickname}</span>
-                    <span className="ranking-score">🎮 {r.score}점</span>
-                  </div>
-                ))
-              )}
-
-              {g.me && (
-                <div className="ranking-row ranking-row--me">
-                  <span className="ranking-medal ranking-medal--me">{iMePlayed ? g.me.rank : '-'}</span>
-                  <div className="ranking-avatar">
-                    <img src={CHAR_ICONS[g.me.character] || CHAR_ICONS.slime} alt="" className="ranking-avatar-img" />
-                  </div>
-                  <span className="ranking-name" style={{ fontWeight: 600 }}>나</span>
-                  <span className="ranking-score">
-                    {iMePlayed ? `🎮 ${g.me.score}점` : '이번 주 기록 없음'}
-                  </span>
-                </div>
-              )}
-            </div>
-          )
-        })
+        activeTab === 'overall' ? renderOverallRanking() : renderWeeklyRanking()
       )}
     </div>
   )

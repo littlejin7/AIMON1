@@ -14,7 +14,7 @@
  *
  * 트리거 타이밍: 진화는 엔드보스 클리어로만 발생한다(백엔드 evolution_stage 가 단일
  * 소스). 호출부는 백엔드 응답의 evolution.evolved(+from_stage/to_stage) 또는
- * user_state.evolution_stage 변화를 비교해서만 이 모달을 띄운다 — 프론트에서 xp/lv
+ * user_state.evolution_stage 변화를 비교해서만 이 모달을 띄운다 — 프론트에서 누적치/lv
  * 를 재계산해 진화 여부를 자체 판정하지 않는다.
  */
 

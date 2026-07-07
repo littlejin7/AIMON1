@@ -14,7 +14,7 @@ import './Stage.css'
 // evolution_stage(0~3) → 캐릭터 ID. 백엔드 character_for_stage 와 동일 기준.
 // 진화는 엔드보스 클리어로만 발생하므로, 일반 스테이지 클리어 응답에서
 // evolution_stage 가 바뀌는 일은 실제로는 없다 — 그래도 트리거 자체는 프론트
-// xp/lv 계산이 아니라 항상 백엔드 user_state.evolution_stage 비교로만 판단한다.
+// 누적치/lv 계산이 아니라 항상 백엔드 user_state.evolution_stage 비교로만 판단한다.
 const STAGE_TO_CHAR = { 0: 'slime', 1: 'robot', 2: 'speech_bubble', 3: 'final_ghost' }
 
 function shuffleChoices(question) {
@@ -493,7 +493,7 @@ export default function Stage({ _lessonId, _stage }) {
         const newChar  = res.data.character                   || prevChar
         const newStage = res.data.user_state?.evolution_stage ?? prevStage
 
-        // 진화 감지: 프론트에서 xp/lv 를 재계산하지 않는다 — 백엔드가 응답에 실어준
+        // 진화 감지: 프론트에서 누적치/lv 를 재계산하지 않는다 — 백엔드가 응답에 실어준
         // user_state.evolution_stage 가 이전 값보다 올라갔을 때만 트리거한다(단일
         // 소스 = 백엔드). 진화는 엔드보스 클리어로만 발생하므로 일반 스테이지
         // 클리어에서는 사실상 발동하지 않지만, 판정 기준 자체는 여기서 통일한다.

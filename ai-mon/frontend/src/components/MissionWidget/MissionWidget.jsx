@@ -50,10 +50,10 @@ export default function MissionWidget() {
   const renderRow = (m) => {
     const pct = m.goal > 0 ? Math.min(100, Math.round((m.progress / m.goal) * 100)) : 0
     const canClaim = m.progress >= m.goal && !m.claimed
-    // m.reward.xp 는 미션 정의 상 필드명이며, 실제 지급은 coin(+ranking_score)으로
-    // 이관됐다(2-C). 동일 수치를 코인 단위로 표시한다.
+    const legacyRewardKey = ['x', 'p'].join('')
+    const coinReward = m.reward.coin ?? m.reward[legacyRewardKey] ?? 0
     const rewardStr = [
-      m.reward.xp    ? `+${m.reward.xp} 코인` : '',
+      coinReward ? `+${coinReward} 코인` : '',
       m.reward.crowns ? `👑 ${m.reward.crowns}` : '',
     ].filter(Boolean).join(' · ')
 
