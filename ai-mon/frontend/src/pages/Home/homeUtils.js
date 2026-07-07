@@ -47,7 +47,8 @@ export function getEvolutionStage(characterId) {
   return EVOLUTION_STAGES.find(s => s.id === characterId) || EVOLUTION_STAGES[0]
 }
 
-// XP → { lv, xpInLevel, xpForNext }
+// (미사용) 누적치 → { lv, xpInLevel, xpForNext }. 백엔드는 3차 진화 전 lv 를 동결하고
+// 3차 후에는 GP 로만 올리므로, 이 xp 기반 레벨 계산은 더 이상 실제 레벨과 대응하지 않는다.
 export function calcLevel(xp) {
   let lv = 1
   let accumulated = 0
