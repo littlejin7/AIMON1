@@ -604,7 +604,7 @@ export default function Stage({ _lessonId, _stage }) {
   return (
     <>
       {/* [임시] 미니보스 바로가기 버튼 */}
-      {minibossStartIndex === null && (
+      {/* {minibossStartIndex === null && (
         <button
           onClick={handleSkipToMiniboss}
           style={{
@@ -616,7 +616,7 @@ export default function Stage({ _lessonId, _stage }) {
         >
           ⚔️ [임시] 미니보스 바로가기
         </button>
-      )}
+      )} */}
       <StageQuiz
         lessonId={lessonId}
         stageNum={stageNum}
