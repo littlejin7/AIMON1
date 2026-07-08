@@ -958,7 +958,7 @@
     "is_boss": true,
     "villain": "interferencemon",
     "pass_score": 70,
-    "question": "빈칸을 채워 숫자 변환 함수를 완성하세요.\n\n```python\ndef parse_number(s):\n    try:\n        return _____(s)\n    except ValueError:\n        return None\n\nprint(parse_number('42'))\nprint(parse_number('hello'))\n# 출력 목표: 42 / None\n```",
+    "question": "빈칸을 채워 정수 변환 함수를 완성하세요.\n\n```python\ndef parse_number(s):\n    try:\n        return _____(s)\n    except ValueError:\n        return None\n\nprint(parse_number('42'))\nprint(parse_number('hello'))\n# 출력 목표: 42 / None\n```",
     "answer": "int",
     "explanation": "int()로 변환 시 ValueError가 발생하면 None을 반환하는 안전한 파싱 패턴이에요.",
     "feedback": {

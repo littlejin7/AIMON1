@@ -125,7 +125,7 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "입력받은 문자열을 숫자로 변환하여 정상 계산(15)이 되도록 만드는 빈칸의 함수 이름은?\n\n```python\nuser_input = input(\"숫자를 입력하세요: \") # 유저가 5를 입력함\nnumber = _________(user_input)\nprint(number + 10)\n```",
+      "question": "입력받은 문자열을 정수(소수점이 없는 숫자)로 변환하여 정상 계산(15)이 되도록 만드는 빈칸의 함수 이름은?\n\n```python\nuser_input = input(\"숫자를 입력하세요: \") # 유저가 5를 입력함\nnumber = _________(user_input)\nprint(number + 10)\n```",
       "choices": [],
       "answer": "int",
       "hint": "문자열을 정수(Integer)형 숫자로 변환해 주는 함수 이름을 적어보세요.",
