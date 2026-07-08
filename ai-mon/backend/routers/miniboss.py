@@ -11,9 +11,11 @@
 
 from fastapi import APIRouter, HTTPException, Depends, Query
 from pydantic import BaseModel
-import json, os, random, uuid
+import json, logging, os, random, uuid
 from datetime import datetime
 from typing import Optional
+
+logger = logging.getLogger("uvicorn.error")
 
 from routers.utils import (
     get_progress_by_user,
@@ -44,20 +46,22 @@ router = APIRouter()
 
 MINIBOSS_DIR  = os.path.join(os.path.dirname(__file__), "../data/miniboss")
 
-# ── HP 설정 (표시용) ──────────────────────────────────────────────────────────
-# 서버 권위 전환 후 my_hp/boss_hp 는 '표시용'일 뿐이며 클리어 판정 권한이 없다.
-# 클리어는 서버가 센 정답 누적이 REQUIRED_CORRECT 에 도달했는지로만 결정한다.
-BOSS_HP_INIT  = 500   # 정답 5번이면 클리어
-MY_HP_INIT    = 900   # 오답 3번이면 실패
-BOSS_HP_DELTA = 100   # 정답 시 보스 HP 감소
-MY_HP_DELTA   = 300   # 오답 시 내 HP 감소
-
-# 서버 권위 클리어 조건
-# REQUIRED_CORRECT 는 HP 상수와 의도적으로 분리: 미니보스는 5문항 중 3정답이면 통과.
-# (유닛보스 REQUIRED_CORRECT=5 와 독립 — boss.py 를 건드리지 않는다)
+# ── 서버 권위 클리어 조건 (단일 진실) ──────────────────────────────────────────
+# 미니보스 통과 = 스테이지 완료 = 5문항 중 4정답. 4정답이 필요하므로 2오답이면 남은
+# 문제로 4정답 도달이 불가능 → 패배. 클리어/패배 판정 권한은 서버 세션 카운트
+# (correct/wrong)에만 있다(HP 는 표시용, 권한 없음). 유닛보스(boss.py)와 독립.
 QUESTIONS_PER_BATTLE = 5
-REQUIRED_CORRECT = 3                                # 3정답이면 승리
-MAX_WRONG        = MY_HP_INIT // MY_HP_DELTA       # 3 (오답 누적이 이 수 도달 시 패배)
+REQUIRED_CORRECT = 4        # 5문항 중 4정답이면 승리(status="won")
+MAX_WRONG        = 2        # 2오답이면 4정답 불가 → 패배(status="lost")
+
+# ── HP 설정 (표시용) ──────────────────────────────────────────────────────────
+# my_hp/boss_hp 는 표시용일 뿐 클리어 판정 권한이 없다. 표시 상수는 위 통과/패배
+# 기준과 일관되게 파생한다: 정답 REQUIRED_CORRECT(4)회면 boss_hp 0,
+# 오답 MAX_WRONG(2)회면 my_hp 0.
+BOSS_HP_INIT  = 500
+MY_HP_INIT    = 900
+BOSS_HP_DELTA = BOSS_HP_INIT // REQUIRED_CORRECT    # 125 (정답 4회 → 보스 HP 0)
+MY_HP_DELTA   = -(-MY_HP_INIT // MAX_WRONG)         # ceil(900/2)=450 (오답 2회 → 내 HP 0)
 
 # ── 보상 ─────────────────────────────────────────────────────────────────────
 # 미니보스 클리어 보상 단위(coin=ranking=gp 후보 동일값). gp 는 gp_gate(3차 진화>=3)
@@ -84,6 +88,33 @@ def load_miniboss_questions(course_level: str, unit: int) -> list:
     return data if isinstance(data, list) else data.get("questions", [])
 
 # 선택형 직접 채점은 battle_session.grade_objective 로 통합(드리프트 방지).
+
+
+def _persist_progress_with_retry(item: dict, attempts: int = 3) -> bool:
+    """미니보스 클리어의 progress 완료행 저장 — 유실 방지용 재시도(Task C 저장 정합화).
+
+    user 레코드(miniboss_cleared_stages)는 이미 mutate_user_atomic 으로 원자적 커밋된
+    상태지만, progress 는 별개 스토리지(비원자, progress.py '락 밖')라 저장이 실패하면
+    '클리어 흔적은 있으나 완료행 없음' 불일치가 생긴다(실제 사례: de0040ab). 그 상태는
+    다음 스테이지 진입 게이트를 영구 403 으로 막으므로, 저장 실패 시 최대 attempts 회
+    재시도하고 최종 실패는 error 로그로 남겨 백필 스캔이 잡을 수 있게 한다.
+    """
+    last_err = None
+    for i in range(attempts):
+        try:
+            save_progress_item(item)
+            return True
+        except Exception as e:  # noqa: BLE001 — 어떤 저장 실패든 재시도 대상
+            last_err = e
+            logger.warning(
+                "miniboss progress 저장 실패 (%d/%d) user=%s stage=%s: %s",
+                i + 1, attempts, item.get("user_id"), item.get("stage"), e,
+            )
+    logger.error(
+        "miniboss progress 저장 최종 실패 — 완료행 유실 위험(백필 필요) user=%s stage=%s: %s",
+        item.get("user_id"), item.get("stage"), last_err,
+    )
+    return False
 
 
 # ── Pydantic 모델 ─────────────────────────────────────────────────────────────
@@ -354,7 +385,7 @@ def miniboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
                 "created_at":   now_kst().isoformat(),
                 "updated_at":   now_kst().isoformat(),
             }
-        save_progress_item(target_item)
+        _persist_progress_with_retry(target_item)
 
     return {
         "already_cleared":  already_cleared,

@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { quizApi, progressApi, minibossApi, attemptsApi } from '../../api/index'
+import { getApiErrorInfo, logApiError } from '../../api/client'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import useBossSound from '../../hooks/useBossSound'
 import StageBriefing from './StageBriefing'
@@ -45,6 +46,39 @@ function shuffleChoices(question) {
   }
 }
 
+// 문제 로드 실패(throw) 를 사용자용 사유 메시지로 변환.
+// getApiErrorInfo 로 뽑은 { status, detail, message } 를 받아 { status, message } 반환.
+// 서버가 detail 을 문자열로 준 경우(예: 403 "이전 스테이지(1-2)를 먼저 완료해주세요")는
+// 어느 스테이지가 막혔는지까지 알려주므로 우선 노출한다.
+function messageForLoadError(info) {
+  const status = info?.status ?? null
+  const detail = typeof info?.detail === 'string' ? info.detail : null
+  if (status === 401) {
+    return { status, message: detail || '로그인이 필요합니다.' }
+  }
+  if (status === 403) {
+    return { status, message: detail || '이전 스테이지 완료 기록이 없어 진입할 수 없습니다.' }
+  }
+  return { status, message: '문제를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.' }
+}
+
+// 완료(is_completed) 저장은 다음 스테이지 진입 게이트의 근거다 — 유실되면 진입 불가
+// (실제 사례: de0040ab). fire-and-forget 대신 await + 실패 재시도(최대 attempts 회).
+// 최종 실패는 throw 해서 호출부가 처리(미니보스 스테이지는 서버 clearBoss 가 이미
+// 완료를 영속화했으므로 호출부에서 결과 화면은 계속 진행한다).
+async function saveProgressWithRetry(payload, attempts = 3) {
+  let lastErr
+  for (let i = 0; i < attempts; i++) {
+    try {
+      return await progressApi.saveProgress(payload)
+    } catch (err) {
+      lastErr = err
+      logApiError(`saveProgress 재시도 ${i + 1}/${attempts}`, err)
+    }
+  }
+  throw lastErr
+}
+
 export default function Stage({ _lessonId, _stage }) {
   const params    = useParams()
   const lessonId  = _lessonId || params.lessonId
@@ -75,6 +109,9 @@ export default function Stage({ _lessonId, _stage }) {
   const [loading,          setLoading]          = useState(true)
   const [attempt,          setAttempt]          = useState(1)
   const [retryTick,        setRetryTick]        = useState(0)
+  // 문제 로드 실패 사유. { status, message } — null 이면 실패 없음.
+  // "HTTP 200 + 빈 배열"(정상 응답이지만 데이터 없음)과 구분하기 위한 별도 상태.
+  const [loadError,        setLoadError]        = useState(null)
 
   // ── 결과 상태 ──
   const [xpAwarded,     setXpAwarded]     = useState(0)
@@ -114,6 +151,7 @@ export default function Stage({ _lessonId, _stage }) {
     setMinibossHp({ my_hp: 900, boss_hp: 500 })
     setLoading(true)
     setShowMinibossAlert(false)
+    setLoadError(null)
     sessionAnswersRef.current = new Map()   // 재도전/재시작 시 누적 답안 초기화
     setRetryTick(t => t + 1)
   }
@@ -143,26 +181,54 @@ export default function Stage({ _lessonId, _stage }) {
 
     if (!loading) return
 
-    const fetchUnit = quizApi.getUnit(lessonId, courseLevel).then(r => r.data).catch(() => null)
+    // 직전 실패 사유는 이 로드를 트리거한 호출부(resetProgressState/handleLoadRetry)가
+    // 이미 초기화했다 — 여기서 동기 setState 를 하지 않는다(cascading render 방지).
+
+    const fetchUnit = quizApi.getUnit(lessonId, courseLevel)
+      .then(r => r.data)
+      .catch(err => { logApiError('GET /quiz/units', err); return null })
 
     const formattedLessonId = `${lessonId}-${stageNum}-${courseLevel}`
-    const fetchSlides = quizApi.getLesson(formattedLessonId, courseLevel).then(r => r.data).catch(() => null)
+    const fetchSlides = quizApi.getLesson(formattedLessonId, courseLevel)
+      .then(r => r.data)
+      .catch(err => { logApiError('GET /quiz/lessons', err); return null })
 
+    // 문제 로드만은 에러를 삼키지 않는다. 성공/실패를 봉투로 감싸 구분하고,
+    // 실패 시 상태코드/detail 을 loadError 로 넘겨 빈 화면에 사유를 노출한다.
+    //   { ok: true,  data }              → 정상(빈 배열 포함)
+    //   { ok: false, error: {status,…} } → API 실패(401/403/500/네트워크)
     const fetchQuestions = quizApi.getQuestions({
       unit: lessonId,
       stage: `${lessonId}-${stageNum}`,
       course_level: courseLevel,
       limit: 10,
       attempt,
-    }).then(r => r.data).catch(() => [])
+    })
+      .then(r => ({ ok: true, data: r.data }))
+      .catch(err => {
+        logApiError('GET /quiz/questions', err)
+        return { ok: false, error: getApiErrorInfo(err) }
+      })
 
     const fetchProgress = token
-      ? progressApi.getProgress(courseLevel).then(r => r.data).catch(() => [])
+      ? progressApi.getProgress(courseLevel)
+          .then(r => r.data)
+          .catch(err => { logApiError('GET /progress', err); return [] })
       : Promise.resolve([])
 
     Promise.all([fetchUnit, fetchSlides, fetchQuestions, fetchProgress])
-      .then(async ([unitData, lessonData, questionsData, progressData]) => {
+      .then(async ([unitData, lessonData, questionsResult, progressData]) => {
         setUnitInfo(unitData)
+
+        // 문제 로드 실패(throw) — 빈 배열로 뭉개지 않고 사유를 노출하고 여기서 종료.
+        // 사용자가 사유를 보고 재시도를 선택하게 하며, navigate(-1) 자동 튕김을 하지 않는다.
+        if (!questionsResult.ok) {
+          setLoadError(messageForLoadError(questionsResult.error))
+          setQuestions([])
+          setLoading(false)
+          return
+        }
+        const questionsData = questionsResult.data
 
         // 브리핑은 신규 진입(attempt===1)에서만. 재도전(attempt>1)은 바로 퀴즈로.
         let shouldShowBriefing = false
@@ -207,6 +273,13 @@ export default function Stage({ _lessonId, _stage }) {
           setShowMinibossAlert(true)
           playBGM('miniboss_intro')
         }
+      })
+      .catch(err => {
+        // 여기 도달 = 문제 로드 봉투 이후 처리(예: 미니보스 복원)에서 삼켜지지 않은 예외.
+        // 스피너에 갇히지 않도록 사유를 노출하고 로딩을 종료한다.
+        logApiError('스테이지 로드 처리 실패', err)
+        setLoadError(messageForLoadError(getApiErrorInfo(err)))
+        setLoading(false)
       })
   }, [lessonId, stageNum, courseLevel, attempt, token, retryTick, loading])
 
@@ -450,7 +523,11 @@ export default function Stage({ _lessonId, _stage }) {
       const prevChar  = user?.character       || 'slime'
       const prevStage = user?.evolution_stage ?? 0
 
-      // 미니보스 클리어 처리
+      // ── 미니보스 클리어 처리 — 스테이지 완료(is_completed) 판정의 단일 소스 ──
+      // 미니보스를 플레이한 스테이지는 프론트가 점수로 완료를 재판정하지 않는다.
+      // clearBoss 성공(throw 안 함) = 서버 세션이 승리(5문항 중 4정답)를 인정 → 서버가
+      // 이미 progress is_completed=True 를 영속화. 실패(패배/세션문제)면 403 throw → 미완료.
+      let minibossCleared = false
       if (minibossStartIndex !== null && token) {
         try {
           await minibossApi.clearBoss({
@@ -458,27 +535,41 @@ export default function Stage({ _lessonId, _stage }) {
             stage: `${lessonId}-${stageNum}`,
             battle_token: minibossToken,   // 서버 세션 won 검증용
           })
+          minibossCleared = true
         } catch (err) {
-          console.error("미니보스 클리어 API 실패", err)
+          logApiError('미니보스 클리어 API 실패', err)
+          minibossCleared = false
         }
       }
 
-      // 완료 케이스: 각 답안은 이미 handleAnswer 에서 서버 채점·기록을 await 했다(race 해소).
-      // 그래도 개별 record POST 가 유실됐을 때를 위해 sessionAnswersRef 의 (qid, 답안)을
-      // answered_questions 로 함께 보낸다 → 서버가 grade_objective 로 재채점해 게이트에 합산.
+      // 완료 판정 단일화: 미니보스 플레이 시 서버 클리어 성공에 종속(프론트 점수 무관).
+      // 미니보스 없는 스테이지(데이터 예외 폴백)에서만 개념 점수 기준을 유지한다.
+      // totalScore/finalScore 는 결과 화면 '표시용'으로만 남는다.
+      const isCompleted = minibossStartIndex !== null ? minibossCleared : (totalScore >= 80)
+
+      // 완료 시: 개별 record POST 유실 대비 sessionAnswersRef 의 (qid, 첫 답안)을
+      // answered_questions 로 함께 보내 서버 게이트가 grade_objective 로 재채점·합산.
       let answeredQuestions = []
-      if (totalScore >= 80 && token) {
+      if (isCompleted && token) {
         answeredQuestions = Array.from(sessionAnswersRef.current.values())
       }
 
-      const res = await progressApi.saveProgress({
-        unit: parseInt(lessonId, 10),
-        stage: `${lessonId}-${stageNum}`,
-        score: totalScore,
-        is_completed: totalScore >= 80,
-        checkpoint: totalScore >= 80 ? 'done' : (minibossStartIndex !== null ? 'miniboss_ready' : 'concept_quiz'),
-        ...(answeredQuestions.length > 0 ? { answered_questions: answeredQuestions } : {}),
-      })
+      // 완료 저장은 게이트 근거 — fire-and-forget 금지, await + 실패 재시도.
+      let res = null
+      try {
+        res = await saveProgressWithRetry({
+          unit: parseInt(lessonId, 10),
+          stage: `${lessonId}-${stageNum}`,
+          score: totalScore,
+          is_completed: isCompleted,
+          checkpoint: isCompleted ? 'done' : (minibossStartIndex !== null ? 'miniboss_ready' : 'concept_quiz'),
+          ...(answeredQuestions.length > 0 ? { answered_questions: answeredQuestions } : {}),
+        })
+      } catch (err) {
+        // 최종 저장 실패. 미니보스 스테이지는 서버 clearBoss 가 이미 완료를 영속화했으므로
+        // 결과 화면은 계속 진행하고 보상/레벨 갱신만 생략한다.
+        logApiError('스테이지 완료 저장 최종 실패', err)
+      }
 
       if (res?.data) {
         // 신규 계약: reward.coin_delta/gp_delta. 구 응답(xp_awarded) 은 폴백(코인 표시용).
@@ -511,12 +602,20 @@ export default function Stage({ _lessonId, _stage }) {
       }
 
       stopBGM()
-      if (totalScore >= 80) playBGM('clear')
-      else                  playBGM('fail')
+      if (isCompleted) playBGM('clear')
+      else             playBGM('fail')
       setFinished(true)
     } else {
       setCurrent(prev => prev + 1)
     }
+  }
+
+  // ── 로드 실패 후 재시도: 같은 세트(attempt 유지)로 문제 재요청 ──
+  // loadError 를 지우고 loading 을 다시 켜 데이터 로드 useEffect 를 재실행한다.
+  const handleLoadRetry = () => {
+    setLoadError(null)
+    setLoading(true)
+    setRetryTick(t => t + 1)
   }
 
   // ── 결과 계산 ──
@@ -564,10 +663,24 @@ export default function Stage({ _lessonId, _stage }) {
     )
   }
 
+  // API 실패(throw) — 사유를 노출하고 재시도/뒤로를 사용자가 선택. 자동 튕김 없음.
+  if (loadError) {
+    return (
+      <div className="stage-loading">
+        <p>{loadError.message}</p>
+        <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
+          <button className="btn btn-primary" onClick={handleLoadRetry}>다시 시도</button>
+          <button className="btn btn-ghost" onClick={() => navigate(-1)}>뒤로</button>
+        </div>
+      </div>
+    )
+  }
+
+  // 정상 응답(HTTP 200)이지만 문제가 비어 있는 경우 — 실패와 구분해 표기.
   if (questions.length === 0) {
     return (
       <div className="stage-loading">
-        <p>문제를 불러올 수 없습니다.</p>
+        <p>문제 데이터가 없습니다.</p>
         <button className="btn btn-ghost" onClick={() => navigate(-1)}>✕</button>
       </div>
     )
