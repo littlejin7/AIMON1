@@ -307,6 +307,41 @@ def _aicross_progress_snapshot(game_rewards: dict, today_kst: str) -> dict:
     }
 
 
+def _aicross_next_set_index(completed_ids: set, last_set_index: int) -> int:
+    """첫 미완료 세트를 추천한다. 전체 완료 시 last_set_index(없으면 0)로 폴백."""
+    for idx in range(_aicross_set_count()):
+        if idx not in completed_ids:
+            return idx
+    return last_set_index if 0 <= last_set_index < _aicross_set_count() else 0
+
+
+def _normalize_aicross_set_answer(value) -> str:
+    """대소문자/공백 정규화. 레거시 _normalize_aicross_answer 와 별개 helper."""
+    return "".join(str(value or "").strip().upper().split())
+
+
+def _score_aicross_set_answers(set_index: int, answers) -> dict:
+    """aicross_sets.json 의 answer 기준으로 answers(dict {entry_id: 'WORD'})를 채점한다.
+    정답 문자열은 서버 내부에서만 비교하고 결과에 노출하지 않는다.
+    """
+    if answers is None:
+        answers = {}
+    if not isinstance(answers, dict):
+        raise HTTPException(status_code=400, detail="answers must be an object")
+
+    entries = AICROSS_SETS[set_index].get("entries", [])
+    normalized = {str(k): _normalize_aicross_set_answer(v) for k, v in answers.items()}
+    total = len(entries)
+    correct = 0
+    for entry in entries:
+        submitted = normalized.get(str(entry["id"]))
+        if submitted is not None and submitted == _normalize_aicross_set_answer(entry["answer"]):
+            correct += 1
+
+    score = round((correct / total) * 100) if total else 0
+    return {"correct": correct, "total": total, "score": score}
+
+
 def _make_game_token(game_id: str, user_id: str, extra_payload: Optional[dict] = None) -> str:
     """game_id/user_id/발급시각/nonce 를 담아 HMAC-SHA256 서명한 토큰을 만든다."""
     payload = {
@@ -434,6 +469,12 @@ class GameClearRequest(BaseModel):
 
 class AicrossStartRequest(BaseModel):
     set_index: Optional[int] = None
+
+
+class AicrossClearRequest(BaseModel):
+    game_token: str
+    set_index: int
+    answers: Optional[dict] = None
 
 
 @router.post("/start")
@@ -834,6 +875,171 @@ def game_aicross_start(req: AicrossStartRequest, user_ref: dict = Depends(get_cu
         "set_label": aicross_set.get("set_name", ""),
         "puzzle": _aicross_set_public_puzzle(set_index),
     }
+
+
+@router.post("/aicross/clear")
+def game_aicross_clear(req: AicrossClearRequest, user_ref: dict = Depends(get_current_user)):
+    """서버 채점 + 진행도 저장 + 차등 보상. 저장은 mutate_user_atomic 안에서 원자 처리한다.
+
+    - completed_sets 는 잠금이 아니라 진행도/표시용이다. 완료 세트도 재채점/재보상 대상.
+    - 하루 3판은 '보상 제한'. 3판 초과 후에도 채점/completed_sets 저장은 계속 가능하며
+      reward=0, already_claimed=True 로만 응답한다.
+    - aicross_today_count 는 오늘 '보상을 받은' 판 수 → reward_amount>0 일 때만 증가.
+    - aicross_today_count/aicross_last_date/daily_xp 는 레거시 game_id=aicross 경로와 공유.
+    """
+    user_id = user_ref["id"]
+    total_sets = _aicross_set_count()
+    if not isinstance(req.set_index, int) or not (0 <= req.set_index < total_sets):
+        raise HTTPException(status_code=400, detail="Invalid set_index")
+
+    # --- 상태 무관 토큰 검증(서명·소유자·만료·최소경과)은 원자 경계 밖에서 미리 수행 ---
+    token_payload = _verify_game_token(
+        req.game_token, "aicross", user_id, MIN_PLAY_SECONDS["aicross"]
+    )
+    # 토큰이 발급된 세트와 제출 세트가 다르면 거부 (다른 세트 정답 재사용 방지)
+    if token_payload.get("set_index") != req.set_index:
+        raise HTTPException(status_code=400, detail="Aicross set_index mismatch")
+
+    # 채점은 서버 answer 기준(stateless). nonce 소비/보상/저장은 아래 mutator 안에서.
+    score_detail = _score_aicross_set_answers(req.set_index, req.answers)
+    score = score_detail["score"]
+    today_kst = now_kst().date().isoformat()
+
+    def mutator(user: dict) -> dict:
+        game_rewards = user.get("game_rewards", {})
+        if not isinstance(game_rewards, dict):
+            game_rewards = {}
+
+        # 날짜 롤오버: daily_xp 공유 캡 리셋은 aicross_last_date 갱신 '전에' 수행해야
+        # _maybe_reset_daily_xp 의 '오늘 첫 게임' 판정이 올바르다(레거시와 동일 순서).
+        if game_rewards.get("aicross_last_date") != today_kst:
+            _maybe_reset_daily_xp(game_rewards, today_kst)
+            game_rewards["aicross_today_count"] = 0
+            game_rewards["aicross_last_date"] = today_kst
+
+        today_count = int(game_rewards.get("aicross_today_count", 0) or 0)
+
+        # nonce 소비: 이 토큰의 clear 를 1회로 제한(진행도/보상 저장 리플레이 차단).
+        # 보상 지급 여부와 무관하게 소비 → 3판 초과/저득점 재제출로 clear_count 파밍 방지.
+        _consume_nonce(game_rewards, token_payload)
+
+        idx = req.set_index
+        idx_key = str(idx)
+
+        completed_list = game_rewards.get("aicross_completed_sets")
+        if not isinstance(completed_list, list):
+            completed_list = []
+        completed_ids = set()
+        for v in completed_list:
+            try:
+                completed_ids.add(int(v))
+            except (TypeError, ValueError):
+                continue
+
+        best_scores = game_rewards.get("aicross_best_scores")
+        if not isinstance(best_scores, dict):
+            best_scores = {}
+        clear_counts = game_rewards.get("aicross_set_clear_counts")
+        if not isinstance(clear_counts, dict):
+            clear_counts = {}
+
+        # best_score 갱신(점수 무관, 항상 최고점 유지)
+        prev_best = int(best_scores.get(idx_key, 0) or 0)
+        if score > prev_best:
+            best_scores[idx_key] = score
+
+        # 완료/클리어 카운트: 100점일 때만 갱신 (80~99/실패는 진행도만 유지)
+        was_completed = idx in completed_ids
+        is_first_completion = False
+        clear_count_after = int(clear_counts.get(idx_key, 0) or 0)
+        if score == 100:
+            clear_count_after = clear_count_after + 1
+            clear_counts[idx_key] = clear_count_after
+            if not was_completed:
+                is_first_completion = True
+                completed_ids.add(idx)
+
+        game_rewards["aicross_completed_sets"] = sorted(completed_ids)
+        game_rewards["aicross_best_scores"] = best_scores
+        game_rewards["aicross_set_clear_counts"] = clear_counts
+        game_rewards["aicross_last_set_index"] = idx
+
+        # ── 차등 보상 계산 ──────────────────────────────────────────────
+        reward_amount = 0
+        already_claimed = False
+        coin_awarded = gp_awarded = ranking_awarded = 0
+
+        if today_count >= AICROSS_REWARD_DAILY_LIMIT:
+            already_claimed = True  # 하루 3판 보상 소진 (채점/저장은 위에서 이미 완료)
+        else:
+            if score == 100:
+                if clear_count_after == 1:
+                    reward_amount = 300     # 신규 세트 첫 완료
+                elif clear_count_after in (2, 3):
+                    reward_amount = 200     # 완료 세트 복습 1~2회차
+                else:
+                    reward_amount = 100     # 반복 복습(clear_count 4+)
+            elif score >= 80:
+                reward_amount = 100         # 부분 성공
+            else:
+                reward_amount = 0           # 실패
+
+        if reward_amount > 0:
+            # daily_xp 공유 캡(2500) 반영 — 캡에 걸리면 실제 지급이 줄 수 있다.
+            daily_xp = int(game_rewards.get("daily_xp", 0) or 0)
+            if daily_xp + reward_amount > 2500:
+                reward_amount = max(0, 2500 - daily_xp)
+
+            if reward_amount > 0:
+                game_rewards["daily_xp"] = daily_xp + reward_amount
+                _r = grant_reward(
+                    user,
+                    coin_delta=reward_amount,
+                    ranking_score_delta=reward_amount,
+                    gp_delta=reward_amount,
+                    event_type="game_clear",
+                )
+                coin_awarded = _r["coin_delta"]
+                gp_awarded = _r["gp_delta"]
+                ranking_awarded = _r["ranking_score_delta"]
+                # 보상을 받은 판만 카운트 증가(오늘 보상 판 수)
+                today_count += 1
+                game_rewards["aicross_today_count"] = today_count
+                game_rewards["aicross_last_date"] = today_kst
+                # 주간 랭킹: 실제 지급된 ranking_score 만 반영(캡 후 값). <=0 이면 no-op.
+                _record_weekly_ranking(game_rewards, "aicross", ranking_awarded)
+
+        user["game_rewards"] = game_rewards
+
+        next_set_index = _aicross_next_set_index(
+            completed_ids, game_rewards.get("aicross_last_set_index", 0)
+        )
+
+        return {
+            "score": score,
+            "correct": score_detail["correct"],
+            "total": score_detail["total"],
+            "completed": idx in completed_ids,
+            "is_first_completion": is_first_completion,
+            "set_clear_count": clear_count_after,
+            "completed_sets": sorted(completed_ids),
+            "next_set_index": next_set_index,
+            "today_reward_count": today_count,
+            "today_reward_limit": AICROSS_REWARD_DAILY_LIMIT,
+            "today_reward_remaining": max(0, AICROSS_REWARD_DAILY_LIMIT - today_count),
+            "already_claimed": already_claimed,
+            "reward": {
+                "coin_delta": coin_awarded,
+                "gp_delta": gp_awarded,
+                "ranking_score_delta": ranking_awarded,
+            },
+        }
+
+    try:
+        _, result = mutate_user_atomic(user_id, mutator)
+    except UserNotFoundError:
+        raise HTTPException(status_code=404, detail="User not found")
+    return result
 
 
 # ---------------------------------------------------------------------------
