@@ -345,9 +345,38 @@ export default function Stage({ _lessonId, _stage }) {
     setFinished(true)
   }
 
-  // ── 미니보스 재도전: 같은 문제 재생이 아니라 개념 Set B 를 처음부터 재학습 ──
-  const handleMinibossRetry = () => {
-    retryWithNextSet()
+  // ── 미니보스 재도전: 개념 퀴즈로 돌아가지 않고 미니보스 문제만 다음 세트로 즉시 재시작 ──
+  const handleMinibossRetry = async () => {
+    const nextAttempt = attempt + 1
+    const stageKey = `${lessonId}-${stageNum}`
+
+    setAttempt(nextAttempt)
+    minibossDefeatedRef.current = false
+
+    try {
+      const res = await minibossApi.startBattle(lessonId, stageKey, nextAttempt)
+      setMinibossToken(res.data.battle_token)
+      const miniQuestions = res.data.questions.map(q => shuffleChoices(q))
+
+      setQuestions(miniQuestions)
+      setMinibossStartIndex(0)
+      setStageQuizCorrect(0)
+      setCorrect(0)
+      setScore(0)
+      setCurrent(0)
+      setFinished(false)
+      setShowBriefing(false)
+      setBriefingIndex(0)
+      setShowMinibossAlert(true)
+      setLoadError(null)
+      setLoading(false)
+      setMinibossHp({ my_hp: 900, boss_hp: 500 })
+
+      playBGM('miniboss_intro')
+    } catch (err) {
+      console.error('미니보스 재도전 로드 실패', err)
+      alert('미니보스 로드 실패: ' + (err?.message || err))
+    }
   }
 
   // ── 개념 퀴즈부터 다시 도전 (체크포인트 초기화 + 다음 세트) ──
