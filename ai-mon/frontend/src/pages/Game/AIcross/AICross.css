@@ -117,6 +117,48 @@
 }
 .aicross-status--error { color: #b05a7a; }
 
+/* 완료/복습/전체완료 안내 배너 — 로딩/에러용 큰 박스(.aicross-status)와 달리
+   툴바 아래 인라인으로 붙는 짧은 안내문이라 여백/크기를 재정의한다. */
+.aicross-status--info {
+  margin: 0;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #6a4bb0;
+  background: rgba(160, 120, 255, 0.1);
+  border: 1px solid rgba(160, 120, 255, 0.28);
+  border-radius: 12px;
+}
+
+/* ── 진행도 / 오늘 보상 뱃지 ── */
+.aicross-progress-bar {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.aicross-progress-badge,
+.aicross-reward-badge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 5px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.aicross-progress-badge {
+  color: #6a4bb0;
+  background: rgba(160, 120, 255, 0.14);
+  border: 1px solid rgba(160, 120, 255, 0.32);
+}
+
+.aicross-reward-badge {
+  color: #b8860b;
+  background: rgba(255, 200, 60, 0.18);
+  border: 1px solid rgba(255, 200, 60, 0.4);
+}
+
 /* ── Set selector toolbar ── */
 .aicross-toolbar {
   display: flex;
@@ -241,11 +283,30 @@
   border-color: rgba(150, 120, 220, 0.2);
 }
 
+.aicross-win-reward--muted {
+  font-size: 12px;
+  font-weight: 600;
+  color: #8a6bb8;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
 .aicross-win-reward--loading {
   font-size: 14px;
   color: #8a6bb8;
   background: none;
   border: none;
+}
+
+.aicross-win-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 11px;
+  color: #9a86bf;
+  margin-top: -2px;
 }
 
 .acbtn { font-size: 13px; font-weight: 700; padding: 8px 20px; border-radius: 20px; border: 1px solid; cursor: pointer; background: none; }
