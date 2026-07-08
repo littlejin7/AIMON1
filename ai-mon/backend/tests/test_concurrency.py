@@ -85,12 +85,13 @@ def test_same_token_concurrent_clear_grants_once(temp_user):
 
     # 정확히 한 번만 보상, 다른 한 번은 nonce 이미 사용 거부
     assert len(results) == 1, f"expected 1 reward, got {results}"
-    assert results[0]["xp_awarded"] == 350
+    # distance=600 → 러너 보상 구간 distance_val < 1000 → 200 (game.py 보상 리밸런싱 854895f)
+    assert results[0]["xp_awarded"] == 200
     assert len(errors) == 1 and "already used" in errors[0]
 
     # 영속 상태에 이중 가산 없음
     u = _read_user(temp_user)
-    assert u["coin_balance"] == 350
+    assert u["coin_balance"] == 200
     assert u["game_rewards"]["runner_today_count"] == 1
 
 
@@ -116,7 +117,8 @@ def test_two_distinct_tokens_both_grant(temp_user):
     # 서로 다른 세션이므로 둘 다 지급
     assert len(results) == 2 and errors == [], f"results={results} errors={errors}"
     u = _read_user(temp_user)
-    assert u["coin_balance"] == 700
+    # 두 판 각 200 (distance=600 → distance_val < 1000 → 200) → 합 400
+    assert u["coin_balance"] == 400
     assert u["game_rewards"]["runner_today_count"] == 2
 
 
