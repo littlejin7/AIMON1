@@ -461,6 +461,15 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dic
                     cleared = []
                 already = unit_key in cleared
 
+                # 유닛 해금은 일회성 보상 가드(already)와 분리 — won 이면 항상 반영한다.
+                # 해금이 보상 가드 안에 묶여 있으면, unitboss_cleared_units 가 max_unlocked_unit
+                # 보다 앞선 어긋난 상태(데이터 리셋/레거시 백필 등)에서 재클리어해도 해금이
+                # 영영 복구되지 않는다. 실제 보상(coin/crown/title)만 아래 already 가드로 멱등 처리.
+                if not isinstance(u.get("max_unlocked_unit"), dict):
+                    old_val = u.get("max_unlocked_unit", 1)
+                    u["max_unlocked_unit"] = {"beginner": old_val, "intermediate": 1, "advanced": 1}
+                u["max_unlocked_unit"][course_level] = max(u["max_unlocked_unit"].get(course_level, 1), next_unit)
+
                 # 레거시 백필 (재지급 없이 컬럼만, already 검사로 멱등)
                 if not already and was_completed_before:
                     cleared.append(unit_key)
@@ -498,11 +507,6 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dic
 
                     # crowns 는 기존 흐름 유지(보상 분리와 무관).
                     u["crowns"] = u.get("crowns", 0) + 1
-
-                    if not isinstance(u.get("max_unlocked_unit"), dict):
-                        old_val = u.get("max_unlocked_unit", 1)
-                        u["max_unlocked_unit"] = {"beginner": old_val, "intermediate": 1, "advanced": 1}
-                    u["max_unlocked_unit"][course_level] = max(u["max_unlocked_unit"].get(course_level, 1), next_unit)
 
                     cleared.append(unit_key)          # 지급 직후 같은 임계구역에서 가드 기록
                     u["unitboss_cleared_units"] = cleared
