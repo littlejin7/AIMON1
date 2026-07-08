@@ -87,7 +87,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드에서 AttributeError가 발생하는 줄은?\n\n```python\n1줄: import re\n2줄: text = \"레벨: 99\"\n3줄: m1 = re.search(r\"\\d+\", text)\n4줄: print(m1.group())\n5줄: m2 = re.match(r\"\\d+\", text)\n6줄: print(m2.group())\n```",
+      "question": "다음 코드에서 AttributeError가 발생하는 줄은?\n\n```python\n1. import re\n2. text = \"레벨: 99\"\n3. m1 = re.search(r\"\\d+\", text)\n4. print(m1.group())\n5. m2 = re.match(r\"\\d+\", text)\n6. print(m2.group())\n```",
       "answer": "6",
       "hint": "re.match()는 문자열 처음부터 패턴을 찾아요. \"레벨: 99\"의 처음은 숫자가 아니에요.",
       "feedback": {
@@ -164,7 +164,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드에서 오류 없이 실행되지만 의도한 대로 동작하지 않는 버그가 있는 줄은?\n\n```python\n1줄: import re\n2줄: emails = \"eimon@game.com hello@world.org test@example.net\"\n3줄: pattern = r\"[\\w.]+@[\\w.]+\"\n4줄: found = re.findall(pattern, emails)\n5줄: print(len(found))\n6줄: only_com = [e for e in found if re.match(r\".com\", e)]\n7줄: print(len(only_com))\n```",
+      "question": "다음 코드에서 오류 없이 실행되지만 의도한 대로 동작하지 않는 버그가 있는 줄은?\n\n```python\n1. import re\n2. emails = \"eimon@game.com hello@world.org test@example.net\"\n3. pattern = r\"[\\w.]+@[\\w.]+\"\n4. found = re.findall(pattern, emails)\n5. print(len(found))\n6. only_com = [e for e in found if re.match(r\".com\", e)]\n7. print(len(only_com))\n```",
       "answer": "6",
       "hint": "정규식에서 .은 특수문자로 '임의의 한 문자'를 뜻해요. .com을 문자 그대로 매칭하려면 어떻게 해야 할까요?",
       "feedback": {

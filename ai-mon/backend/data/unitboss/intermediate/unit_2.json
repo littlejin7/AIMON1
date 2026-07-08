@@ -87,7 +87,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드에서 TypeError가 발생하는 줄은?\n\n```python\n1줄: coords = (10, 20)\n2줄: print(coords[0])\n3줄: coords[0] = 99\n4줄: print(coords)\n```",
+      "question": "다음 코드에서 TypeError가 발생하는 줄은?\n\n```python\n1. coords = (10, 20)\n2. print(coords[0])\n3. coords[0] = 99\n4. print(coords)\n```",
       "answer": "3",
       "hint": "튜플은 생성 후 요소를 변경할 수 없는 불변(immutable) 자료형이에요.",
       "feedback": {
@@ -164,7 +164,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드에서 오류가 발생하는 줄은?\n\n```python\n1줄: store = {\"A코너\": {\"담당자\": \"김철수\", \"판매물품\": [\"지우개\", \"연필\"]}}\n2줄: print(store[\"A코너\"][\"담당자\"])\n3줄: store[\"A코너\"][\"판매물품\"][0] = \"볼펜\"\n4줄: store[\"A코너\"] = (\"이영희\", [\"노트북\"])\n5줄: store[\"A코너\"][\"담당자\"] = \"박민수\"\n```",
+      "question": "다음 코드에서 오류가 발생하는 줄은?\n\n```python\n1. store = {\"A코너\": {\"담당자\": \"김철수\", \"판매물품\": [\"지우개\", \"연필\"]}}\n2. print(store[\"A코너\"][\"담당자\"])\n3. store[\"A코너\"][\"판매물품\"][0] = \"볼펜\"\n4. store[\"A코너\"] = (\"이영희\", [\"노트북\"])\n5. store[\"A코너\"][\"담당자\"] = \"박민수\"\n```",
       "answer": "5",
       "hint": "4줄에서 값이 튜플로 바뀐 후, 5줄에서 어떤 자료형으로 접근하는지 확인해 보세요.",
       "feedback": {

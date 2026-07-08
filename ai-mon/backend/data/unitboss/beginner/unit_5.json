@@ -9,7 +9,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "리스트 문법입니다. 구분 기호 누락으로 실행 시 문법 에러(SyntaxError)가 발생하는 줄은?\n\n```python\n1줄: inventory = [\"휴대폰\", \"지갑\", \"열쇠\"]\n2줄: score_list = [10 20 30]\n3줄: gold_list = [100, 200, 300]\n```",
+      "question": "리스트 문법입니다. 구분 기호 누락으로 실행 시 문법 에러(SyntaxError)가 발생하는 줄은?\n\n```python\n1. inventory = [\"휴대폰\", \"지갑\", \"열쇠\"]\n2. score_list = [10 20 30]\n3. gold_list = [100, 200, 300]\n```",
       "answer": "2",
       "hint": "리스트 요소 사이에 반드시 있어야 할 구분 기호가 빠진 곳을 찾아보세요.",
       "feedback": {
@@ -120,7 +120,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "리스트 대열에 등재되어 있지도 않은 가짜 요소를 강제로 삭제 처리하라고 억지 명령하여 값 에러(ValueError)를 터트리는 줄은?\n\n```python\n1줄: todos = [\"개념 읽기\", \"퀴즈 풀기\"]\n2줄: todos.append(\"오답 노트\")\n3줄: todos.remove(\"개념 읽기\")\n4줄: todos.remove(\"실습 제출\")\n```",
+      "question": "리스트 대열에 등재되어 있지도 않은 가짜 요소를 강제로 삭제 처리하라고 억지 명령하여 값 에러(ValueError)를 터트리는 줄은?\n\n```python\n1. todos = [\"개념 읽기\", \"퀴즈 풀기\"]\n2. todos.append(\"오답 노트\")\n3. todos.remove(\"개념 읽기\")\n4. todos.remove(\"실습 제출\")\n```",
       "answer": "4",
       "hint": "todos 리스트가 누적 관리하고 있는 최종 보유 데이터 목록에 실존하지 않는 할 일 명칭을 명시한 라인을 적발하세요.",
       "feedback": {

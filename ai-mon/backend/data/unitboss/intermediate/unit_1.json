@@ -87,7 +87,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드에서 SyntaxError가 발생하는 줄은?\n\n```python\n1줄: try:\n2줄:     result = 10 / 2\n3줄: finally:\n4줄:     print(result)\n5줄: except ZeroDivisionError:\n6줄:     print(\"0으로 나눌 수 없어요\")\n```",
+      "question": "다음 코드에서 SyntaxError가 발생하는 줄은?\n\n```python\n1. try:\n2. result = 10 / 2\n3. finally:\n4. print(result)\n5. except ZeroDivisionError:\n6. print(\"0으로 나눌 수 없어요\")\n```",
       "choices": [],
       "answer": "5",
       "hint": "try/except/finally 블록의 올바른 순서를 생각해 보세요.",
@@ -165,7 +165,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드 중 커스텀 예외가 정상적으로 동작하지 않게 만드는 버그가 있는 줄은?\n\n```python\n1줄: class LowHpError(Exception):\n2줄:     def __init__(self, hp):\n3줄:         self.hp = hp\n4줄:         super().__init__(f\"HP 부족: {hp}\")\n5줄:\n6줄: try:\n7줄:     raise LowHpError\n8줄: except LowHpError as e:\n9줄:     print(e.hp)\n```",
+      "question": "다음 코드 중 커스텀 예외가 정상적으로 동작하지 않게 만드는 버그가 있는 줄은?\n\n```python\n1. class LowHpError(Exception):\n2. def __init__(self, hp):\n3. self.hp = hp\n4. super().__init__(f\"HP 부족: {hp}\")\n5. \n6. try:\n7. raise LowHpError\n8. except LowHpError as e:\n9. print(e.hp)\n```",
       "answer": "7",
       "hint": "__init__에서 hp 인자를 받도록 정의했는데, raise할 때 인자를 전달했나요?",
       "feedback": {

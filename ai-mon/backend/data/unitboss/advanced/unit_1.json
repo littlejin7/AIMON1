@@ -87,7 +87,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "제너레이터가 소진되어 StopIteration이 발생하는 줄은?\n\n```python\n1줄: def two_items():\n2줄:     yield \"A\"\n3줄:     yield \"B\"\n4줄: \n5줄: g = two_items()\n6줄: print(next(g))\n7줄: print(next(g))\n8줄: print(next(g))\n```",
+      "question": "제너레이터가 소진되어 StopIteration이 발생하는 줄은?\n\n```python\n1. def two_items():\n2. yield \"A\"\n3. yield \"B\"\n4. \n5. g = two_items()\n6. print(next(g))\n7. print(next(g))\n8. print(next(g))\n```",
       "answer": "8",
       "hint": "제너레이터에 yield가 몇 개인지 세어보세요. next()를 그보다 많이 호출하면 어떻게 될까요?",
       "feedback": {
@@ -142,7 +142,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "__enter__ 대신 일반 메서드명 enter를 정의해 AttributeError가 발생하는 줄은?\n\n```python\n1줄: class Resource:\n2줄:     def enter(self):\n3줄:         print(\"열림\")\n4줄:         return self\n5줄:     def exit(self):\n6줄:         print(\"닫힘\")\n7줄: \n8줄: with Resource() as r:\n9줄:     print(\"사용 중\")\n```",
+      "question": "__enter__ 대신 일반 메서드명 enter를 정의해 AttributeError가 발생하는 줄은?\n\n```python\n1. class Resource:\n2. def enter(self):\n3. print(\"열림\")\n4. return self\n5. def exit(self):\n6. print(\"닫힘\")\n7. \n8. with Resource() as r:\n9. print(\"사용 중\")\n```",
       "answer": "8",
       "hint": "with 문은 __enter__ 던더 메서드를 찾습니다. enter와 __enter__는 다른 이름입니다.",
       "feedback": {

@@ -87,7 +87,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "등록되지 않은 도구 이름으로 실행해 KeyError가 발생하는 줄은?\n\n```python\n1줄: tools = {\n2줄:     \"get_weather\": lambda city: f\"{city}: 맑음\",\n3줄:     \"search\": lambda q: f\"검색: {q}\"\n4줄: }\n5줄: \n6줄: def run_tool(name, **kwargs):\n7줄:     return tools[name](**kwargs)\n8줄: \n9줄: print(run_tool(\"calculate\", x=5))\n```",
+      "question": "등록되지 않은 도구 이름으로 실행해 KeyError가 발생하는 줄은?\n\n```python\n1. tools = {\n2. \"get_weather\": lambda city: f\"{city}: 맑음\",\n3. \"search\": lambda q: f\"검색: {q}\"\n4. }\n5. \n6. def run_tool(name, **kwargs):\n7. return tools[name](**kwargs)\n8. \n9. print(run_tool(\"calculate\", x=5))\n```",
       "answer": "7",
       "hint": "run_tool(\"calculate\") 호출 시 어느 줄의 코드가 실행되어 오류가 발생하나요?",
       "feedback": {
@@ -142,7 +142,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "정의되지 않은 함수를 호출해 NameError가 발생하는 줄은?\n\n```python\n1줄: tool_blocks = [\n2줄:     {\"type\": \"tool_use\", \"id\": \"t1\", \"name\": \"search\", \"input\": {\"query\": \"Python\"}}\n3줄: ]\n4줄: \n5줄: results = []\n6줄: for block in tool_blocks:\n7줄:     if block[\"type\"] == \"tool_use\":\n8줄:         result = execute_tool(block[\"name\"], block[\"input\"])\n9줄:         results.append(result)\n10줄: \n11줄: print(results)\n```",
+      "question": "정의되지 않은 함수를 호출해 NameError가 발생하는 줄은?\n\n```python\n1. tool_blocks = [\n2. {\"type\": \"tool_use\", \"id\": \"t1\", \"name\": \"search\", \"input\": {\"query\": \"Python\"}}\n3. ]\n4. \n5. results = []\n6. for block in tool_blocks:\n7. if block[\"type\"] == \"tool_use\":\n8. result = execute_tool(block[\"name\"], block[\"input\"])\n9. results.append(result)\n10. \n11. print(results)\n```",
       "choices": [],
       "answer": "8",
       "hint": "execute_tool은 이 코드에서 정의된 적 없습니다.",

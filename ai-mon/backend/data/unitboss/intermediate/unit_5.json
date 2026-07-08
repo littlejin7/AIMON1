@@ -87,7 +87,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드에서 SyntaxError가 발생하는 줄은?\n\n```python\n1줄: nums = [1, 2, 3, 4, 5]\n2줄: squares = [x**2 for x in nums]\n3줄: evens = [x for x in nums if x % 2 == 0]\n4줄: nested = [x*y for x in [1,2] for y in [3,4]]\n5줄: wrong = [if x > 3: x for x in nums]\n```",
+      "question": "다음 코드에서 SyntaxError가 발생하는 줄은?\n\n```python\n1. nums = [1, 2, 3, 4, 5]\n2. squares = [x**2 for x in nums]\n3. evens = [x for x in nums if x % 2 == 0]\n4. nested = [x*y for x in [1,2] for y in [3,4]]\n5. wrong = [if x > 3: x for x in nums]\n```",
       "answer": "5",
       "hint": "리스트 컴프리헨션에서 조건은 맨 앞이 아니라 맨 뒤에 if로 써야 해요.",
       "feedback": {
@@ -164,7 +164,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드에서 오류가 발생하는 줄은?\n\n```python\n1줄: import json\n2줄: data = {\"name\": \"에이몬\", \"skills\": [\"불꽃\", \"얼음\"]}\n3줄: json_str = json.dumps(data)\n4줄: loaded = json.loads(json_str)\n5줄: print(loaded[\"skills\"][0])\n6줄: loaded[\"skills\"] = {1, 2, 3}\n7줄: print(json.dumps(loaded))\n```",
+      "question": "다음 코드에서 오류가 발생하는 줄은?\n\n```python\n1. import json\n2. data = {\"name\": \"에이몬\", \"skills\": [\"불꽃\", \"얼음\"]}\n3. json_str = json.dumps(data)\n4. loaded = json.loads(json_str)\n5. print(loaded[\"skills\"][0])\n6. loaded[\"skills\"] = {1, 2, 3}\n7. print(json.dumps(loaded))\n```",
       "answer": "7",
       "hint": "JSON은 set 자료형을 지원하지 않아요.",
       "feedback": {

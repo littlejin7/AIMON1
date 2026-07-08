@@ -87,7 +87,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드에서 오류가 발생하는 줄은?\n\n```python\n1줄: import requests\n2줄: response = requests.get(\"https://api.example.com/data\")\n3줄: if response.status_code = 200:\n4줄:     data = response.json()\n5줄:     print(data)\n```",
+      "question": "다음 코드에서 오류가 발생하는 줄은?\n\n```python\n1. import requests\n2. response = requests.get(\"https://api.example.com/data\")\n3. if response.status_code = 200:\n4. data = response.json()\n5. print(data)\n```",
       "answer": "3",
       "hint": "비교 연산자와 대입 연산자를 헷갈리지 않도록 주의하세요.",
       "feedback": {
@@ -164,7 +164,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 재시도 로직에서 버그가 있는 줄은?\n\n```python\n1줄: import requests\n2줄:\n3줄: def fetch_with_retry(url, max_retry=3):\n4줄:     for attempt in range(max_retry):\n5줄:         try:\n6줄:             response = requests.get(url, timeout=5)\n7줄:             response.raise_for_status()\n8줄:             return response.json()\n9줄:         except Exception:\n10줄:             if attempt == max_retry:\n11줄:                 raise\n12줄:     return None\n```",
+      "question": "다음 재시도 로직에서 버그가 있는 줄은?\n\n```python\n1. import requests\n2. \n3. def fetch_with_retry(url, max_retry=3):\n4. for attempt in range(max_retry):\n5. try:\n6. response = requests.get(url, timeout=5)\n7. response.raise_for_status()\n8. return response.json()\n9. except Exception:\n10. if attempt == max_retry:\n11. raise\n12. return None\n```",
       "answer": "10",
       "hint": "range(max_retry)의 마지막 값이 max_retry와 같을 수 있는지 생각해 보세요.",
       "feedback": {

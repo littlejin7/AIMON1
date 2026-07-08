@@ -131,7 +131,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "파이썬의 조건문 문법 규칙(콜론 기호)을 위반하여 실행 시 문법 오류(SyntaxError)가 발생하는 줄은 몇 번째 줄인가요?\n\n```python\ncrystal = 5\n1줄: if crystal >= 3:\n2줄:     print(\"워프 가동\")\n3줄: else\n4줄:     print(\"에너지 부족\")\n```",
+      "question": "파이썬의 조건문 문법 규칙(콜론 기호)을 위반하여 실행 시 문법 오류(SyntaxError)가 발생하는 줄은 몇 번째 줄인가요?\n\n```python\ncrystal = 5\n1. if crystal >= 3:\n2. print(\"워프 가동\")\n3. else\n4. print(\"에너지 부족\")\n```",
       "answer": "3",
       "hint": "if나 else 뒤에 구문이 끝났음을 파이썬 엔진에게 알리는 문장 부호가 잘 붙어있나 보세요.",
       "feedback": {
@@ -147,7 +147,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "들여쓰기(코드 정렬) 규칙이 어긋나서 실행 전부터 에러(IndentationError)를 유발시키는 줄을 찾으세요.\n\n```python\n1줄: potion = 0\n2줄: if potion == 0:\n3줄: print(\"포션이 없습니다.\")\n4줄:     print(\"마을로 가세요.\")\n```",
+      "question": "들여쓰기(코드 정렬) 규칙이 어긋나서 실행 전부터 에러(IndentationError)를 유발시키는 줄을 찾으세요.\n\n```python\n1. potion = 0\n2. if potion == 0:\n3. print(\"포션이 없습니다.\")\n4. print(\"마을로 가세요.\")\n```",
       "answer": "3",
       "hint": "if 조건식 밑에 종속되어 구동될 내부 코드들은 안쪽으로 밀려 들어가 있어야 합니다.",
       "feedback": {

@@ -126,7 +126,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "조건식 상태를 변환하는 로직 누락으로 인하여 시스템이 영원히 멈추지 않는 '무한 루프' 하자가 터지는 시작 라인 줄은?\n\n```python\n1줄: hp = 10\n2줄: while hp > 0:\n3줄:     print(\"전투 중...\")\n4줄:     # hp의 수치를 하향 가감시키는 연산이 누락됨\n```",
+      "question": "조건식 상태를 변환하는 로직 누락으로 인하여 시스템이 영원히 멈추지 않는 '무한 루프' 하자가 터지는 시작 라인 줄은?\n\n```python\n1. hp = 10\n2. while hp > 0:\n3. print(\"전투 중...\")\n4. # hp의 수치를 하향 가감시키는 연산이 누락됨\n```",
       "answer": "2",
       "hint": "어떤 제어 구문 선언문 때문에 무한으로 반복 실행 코드가 맞물리게 되는지 근본적 위치를 찾으세요.",
       "feedback": {
@@ -164,7 +164,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "파이썬 반복 규칙 부호를 유실하여 컴파일 에러(SyntaxError)를 내뿜는 줄의 번호는?\n\n```python\n1줄: hp = 100\n2줄: for i in range(5)\n3줄:     hp = hp - 10\n4줄:     print(f\"체력: {hp}\")\n```",
+      "question": "파이썬 반복 규칙 부호를 유실하여 컴파일 에러(SyntaxError)를 내뿜는 줄의 번호는?\n\n```python\n1. hp = 100\n2. for i in range(5)\n3. hp = hp - 10\n4. print(f\"체력: {hp}\")\n```",
       "answer": "2",
       "hint": "for 또는 while 제어문 선언 영역을 완료할 때 생략하면 안 되는 기호를 찾아보세요.",
       "feedback": {

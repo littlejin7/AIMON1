@@ -46,7 +46,7 @@
     "course_level": "advanced",
     "difficulty": "hard",
     "type": "error_find",
-    "question": "다음 에이전트 루프 코드에서 대화 흐름 순서(assistant -> user)가 어긋나게 작성되어 오류가 발생하는 줄 번호를 찾아 입력하세요.\n\n```python\n1줄: for block in response.content:\n2줄:     if block.type == 'tool_use':\n3줄:         tool_result = execute_tool(block.name, block.input)\n4줄:         messages.append({\n5줄:             'role': 'user',\n6줄:             'content': [{\n7줄:                 'type': 'tool_result',\n8줄:                 'tool_use_id': block.id,\n9줄:                 'content': tool_result\n10줄:             }]\n11줄:         })\n12줄: messages.append({'role': 'assistant', 'content': response.content})\n```",
+    "question": "다음 에이전트 루프 코드에서 대화 흐름 순서(assistant -> user)가 어긋나게 작성되어 오류가 발생하는 줄 번호를 찾아 입력하세요.\n\n```python\n1. for block in response.content:\n2. if block.type == 'tool_use':\n3. tool_result = execute_tool(block.name, block.input)\n4. messages.append({\n5. 'role': 'user',\n6. 'content': [{\n7. 'type': 'tool_result',\n8. 'tool_use_id': block.id,\n9. 'content': tool_result\n10. }]\n11. })\n12. messages.append({'role': 'assistant', 'content': response.content})\n```",
     "choices": [],
     "answer": "12",
     "feedback": {
@@ -83,7 +83,7 @@
     "course_level": "advanced",
     "difficulty": "hard",
     "type": "error_find",
-    "question": "다음 에이전트 코드에서 잘못된 들여쓰기(인덴트)로 인해 첫 번째 루프 반복 후 즉시 함수가 종료되는 버그가 있는 줄 번호를 찾아 입력하세요.\n\n```python\n1줄: def run_agent(msg):\n2줄:     messages = [{'role': 'user', 'content': msg}]\n3줄:     while True:\n4줄:         res = client.messages.create(model='claude', tools=T, messages=messages)\n5줄:         if res.stop_reason == 'tool_use':\n6줄:             block = res.content[0]\n7줄:             result = execute(block.name, block.input)\n8줄:             messages.append({'role': 'assistant', 'content': res.content})\n9줄:             messages.append({'role': 'user', 'content': [{'type': 'tool_result', 'tool_use_id': block.id, 'content': result}]})\n10줄:         # stop_reason이 'end_turn'이면 루프 종료\n11줄:         return res.content[0].text\n```",
+    "question": "다음 에이전트 코드에서 잘못된 들여쓰기(인덴트)로 인해 첫 번째 루프 반복 후 즉시 함수가 종료되는 버그가 있는 줄 번호를 찾아 입력하세요.\n\n```python\n1. def run_agent(msg):\n2. messages = [{'role': 'user', 'content': msg}]\n3. while True:\n4. res = client.messages.create(model='claude', tools=T, messages=messages)\n5. if res.stop_reason == 'tool_use':\n6. block = res.content[0]\n7. result = execute(block.name, block.input)\n8. messages.append({'role': 'assistant', 'content': res.content})\n9. messages.append({'role': 'user', 'content': [{'type': 'tool_result', 'tool_use_id': block.id, 'content': result}]})\n10. # stop_reason이 'end_turn'이면 루프 종료\n11. return res.content[0].text\n```",
     "choices": [],
     "answer": "11",
     "feedback": {
@@ -290,7 +290,7 @@
     "course_level": "advanced",
     "difficulty": "hard",
     "type": "error_find",
-    "question": "다음 코드에서 SyntaxError나 런타임 오류가 발생하는 줄 번호를 찾아 입력하세요.\n\n```python\n1줄: import asyncio\n2줄: import aiohttp\n3줄: \n4줄: async def fetch_price(session, ticker: str) -> float:\n5줄:     url = f'https://api.example.com/price/{ticker}'\n6줄:     async with session.get(url) as resp:\n7줄:         data = resp.json()\n8줄:         return data['price']\n9줄: \n10줄: async def main():\n11줄:     async with aiohttp.ClientSession() as session:\n12줄:         price = await fetch_price(session, 'BTC')\n13줄:         print(price)\n```",
+    "question": "다음 코드에서 SyntaxError나 런타임 오류가 발생하는 줄 번호를 찾아 입력하세요.\n\n```python\n1. import asyncio\n2. import aiohttp\n3. \n4. async def fetch_price(session, ticker: str) -> float:\n5. url = f'https://api.example.com/price/{ticker}'\n6. async with session.get(url) as resp:\n7. data = resp.json()\n8. return data['price']\n9. \n10. async def main():\n11. async with aiohttp.ClientSession() as session:\n12. price = await fetch_price(session, 'BTC')\n13. print(price)\n```",
     "choices": [],
     "answer": "7",
     "feedback": {
@@ -327,7 +327,7 @@
     "course_level": "advanced",
     "difficulty": "hard",
     "type": "error_find",
-    "question": "다음 비동기 코드에서 동기식 블로킹 함수를 사용해 전체 이벤트 루프를 블로킹하는 버그가 있는 줄 번호를 찾아 입력하세요.\n\n```python\n1줄: import asyncio\n2줄: import time\n3줄: \n4줄: async def task(n):\n5줄:     print(f'{n} 시작')\n6줄:     time.sleep(1)\n7줄:     print(f'{n} 끝')\n8줄: \n9줄: async def main():\n10줄:     await asyncio.gather(task(1), task(2))\n```",
+    "question": "다음 비동기 코드에서 동기식 블로킹 함수를 사용해 전체 이벤트 루프를 블로킹하는 버그가 있는 줄 번호를 찾아 입력하세요.\n\n```python\n1. import asyncio\n2. import time\n3. \n4. async def task(n):\n5. print(f'{n} 시작')\n6. time.sleep(1)\n7. print(f'{n} 끝')\n8. \n9. async def main():\n10. await asyncio.gather(task(1), task(2))\n```",
     "choices": [],
     "answer": "6",
     "feedback": {
@@ -508,7 +508,7 @@
     "course_level": "advanced",
     "difficulty": "hard",
     "type": "error_find",
-    "question": "다음 CORS 설정 코드에서 모든 외부 요청을 차단하게 만들어 프론트엔드와 통신에 문제를 유발하는 버그가 있는 줄 번호를 찾아 입력하세요.\n\n```python\n1줄: from fastapi import FastAPI\n2줄: from fastapi.middleware.cors import CORSMiddleware\n3줄: \n4줄: app = FastAPI()\n5줄: \n6줄: app.add_middleware(\n7줄:     CORSMiddleware,\n8줄:     allow_origins=[],\n9줄:     allow_credentials=True,\n10줄:     allow_methods=['*'],\n11줄:     allow_headers=['*'],\n12줄: )\n```",
+    "question": "다음 CORS 설정 코드에서 모든 외부 요청을 차단하게 만들어 프론트엔드와 통신에 문제를 유발하는 버그가 있는 줄 번호를 찾아 입력하세요.\n\n```python\n1. from fastapi import FastAPI\n2. from fastapi.middleware.cors import CORSMiddleware\n3. \n4. app = FastAPI()\n5. \n6. app.add_middleware(\n7. CORSMiddleware,\n8. allow_origins=[],\n9. allow_credentials=True,\n10. allow_methods=['*'],\n11. allow_headers=['*'],\n12. )\n```",
     "choices": [],
     "answer": "8",
     "feedback": {
@@ -545,7 +545,7 @@
     "course_level": "advanced",
     "difficulty": "hard",
     "type": "error_find",
-    "question": "다음 코드에서 데이터베이스에 변경 사항이 실제로 영구 저장(커밋)되지 않는 버그가 있습니다. `conn.commit()`이 삽입되어야 하는 줄 번호(직전 줄 번호)를 찾아 입력하세요.\n\n```python\n1줄: import sqlite3\n2줄: \n3줄: conn = sqlite3.connect('chat.db')\n4줄: \n5줄: def save_msg(msg, role):\n6줄:     cursor = conn.cursor()\n7줄:     cursor.execute(\n8줄:         'INSERT INTO messages VALUES (?, ?)',\n9줄:         (role, msg)\n10줄:     )\n11줄:     return {'status': 'saved'}\n```",
+    "question": "다음 코드에서 데이터베이스에 변경 사항이 실제로 영구 저장(커밋)되지 않는 버그가 있습니다. `conn.commit()`이 삽입되어야 하는 줄 번호(직전 줄 번호)를 찾아 입력하세요.\n\n```python\n1. import sqlite3\n2. \n3. conn = sqlite3.connect('chat.db')\n4. \n5. def save_msg(msg, role):\n6. cursor = conn.cursor()\n7. cursor.execute(\n8. 'INSERT INTO messages VALUES (?, ?)',\n9. (role, msg)\n10. )\n11. return {'status': 'saved'}\n```",
     "choices": [],
     "answer": "10",
     "feedback": {
@@ -726,7 +726,7 @@
     "course_level": "advanced",
     "difficulty": "hard",
     "type": "error_find",
-    "question": "다음 코드에서 Chat 모델을 사용하기 위해 `ConversationBufferMemory`의 반환 형식을 메시지 리스트 형태로 지정해야 하는데, 잘못 작성되어 오류를 유발하는 줄 번호를 찾아 입력하세요.\n\n```python\n1줄: from langchain.memory import ConversationBufferMemory\n2줄: from langchain.chains import ConversationChain\n3줄: from langchain_anthropic import ChatAnthropic\n4줄: \n5줄: llm = ChatAnthropic(model='claude')\n6줄: mem = ConversationBufferMemory(return_messages=False)\n7줄: \n8줄: chain = ConversationChain(\n9줄:     llm=llm,\n10줄:     memory=mem\n11줄: )\n```",
+    "question": "다음 코드에서 Chat 모델을 사용하기 위해 `ConversationBufferMemory`의 반환 형식을 메시지 리스트 형태로 지정해야 하는데, 잘못 작성되어 오류를 유발하는 줄 번호를 찾아 입력하세요.\n\n```python\n1. from langchain.memory import ConversationBufferMemory\n2. from langchain.chains import ConversationChain\n3. from langchain_anthropic import ChatAnthropic\n4. \n5. llm = ChatAnthropic(model='claude')\n6. mem = ConversationBufferMemory(return_messages=False)\n7. \n8. chain = ConversationChain(\n9. llm=llm,\n10. memory=mem\n11. )\n```",
     "choices": [],
     "answer": "6",
     "feedback": {
@@ -763,7 +763,7 @@
     "course_level": "advanced",
     "difficulty": "hard",
     "type": "error_find",
-    "question": "다음 코드에서 문서 리스트(`docs`)와 임베딩(`embeddings`)을 사용해 새로운 벡터 스토어를 구축하려고 할 때, 잘못 사용된 메서드가 위치한 줄 번호를 찾아 입력하세요.\n\n```python\n1줄: from langchain_community.vectorstores import FAISS\n2줄: from langchain_anthropic import AnthropicEmbeddings\n3줄: from langchain_core.documents import Document\n4줄: \n5줄: docs = [\n6줄:     Document(page_content='파이썬은 배우기 쉬운 언어입니다'),\n7줄:     Document(page_content='FastAPI는 빠른 웹 프레임워크입니다')\n8줄: ]\n9줄: \n10줄: embeddings = AnthropicEmbeddings()\n11줄: vectorstore = FAISS.load(docs, embeddings)\n```",
+    "question": "다음 코드에서 문서 리스트(`docs`)와 임베딩(`embeddings`)을 사용해 새로운 벡터 스토어를 구축하려고 할 때, 잘못 사용된 메서드가 위치한 줄 번호를 찾아 입력하세요.\n\n```python\n1. from langchain_community.vectorstores import FAISS\n2. from langchain_anthropic import AnthropicEmbeddings\n3. from langchain_core.documents import Document\n4. \n5. docs = [\n6. Document(page_content='파이썬은 배우기 쉬운 언어입니다'),\n7. Document(page_content='FastAPI는 빠른 웹 프레임워크입니다')\n8. ]\n9. \n10. embeddings = AnthropicEmbeddings()\n11. vectorstore = FAISS.load(docs, embeddings)\n```",
     "choices": [],
     "answer": "11",
     "feedback": {

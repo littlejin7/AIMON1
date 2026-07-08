@@ -87,7 +87,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "등록되지 않은 워커 타입으로 KeyError가 발생하는 줄은?\n\n```python\n1줄: workers = {\n2줄:     \"analyzer\": lambda text: f\"분석: {text}\",\n3줄:     \"formatter\": lambda data: f\"포맷: {data}\"\n4줄: }\n5줄: \n6줄: task_type = \"translator\"\n7줄: result = workers[task_type](\"안녕하세요\")\n```",
+      "question": "등록되지 않은 워커 타입으로 KeyError가 발생하는 줄은?\n\n```python\n1. workers = {\n2. \"analyzer\": lambda text: f\"분석: {text}\",\n3. \"formatter\": lambda data: f\"포맷: {data}\"\n4. }\n5. \n6. task_type = \"translator\"\n7. result = workers[task_type](\"안녕하세요\")\n```",
       "answer": "7",
       "hint": "'translator' 키가 workers에 존재하는지 확인하세요.",
       "feedback": {
@@ -142,7 +142,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "정의되지 않은 함수를 레지스트리에 등록하려고 해 NameError가 발생하는 줄은?\n\n```python\n1줄: tool_registry = {}\n2줄: \n3줄: tool_registry[\"search\"] = search_tool\n4줄: tool_registry[\"weather\"] = weather_tool\n5줄: \n6줄: print(len(tool_registry))\n```",
+      "question": "정의되지 않은 함수를 레지스트리에 등록하려고 해 NameError가 발생하는 줄은?\n\n```python\n1. tool_registry = {}\n2. \n3. tool_registry[\"search\"] = search_tool\n4. tool_registry[\"weather\"] = weather_tool\n5. \n6. print(len(tool_registry))\n```",
       "answer": "3",
       "hint": "search_tool이 이 코드에서 정의된 적 있나요?",
       "feedback": {

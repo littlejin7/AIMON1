@@ -87,7 +87,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "코루틴 함수 자체를 전달해 ValueError가 발생하는 줄은?\n\n```python\n1줄: import asyncio\n2줄: \n3줄: async def main():\n4줄:     print(\"실행!\")\n5줄: \n6줄: asyncio.run(main)\n```",
+      "question": "코루틴 함수 자체를 전달해 ValueError가 발생하는 줄은?\n\n```python\n1. import asyncio\n2. \n3. async def main():\n4. print(\"실행!\")\n5. \n6. asyncio.run(main)\n```",
       "answer": "6",
       "hint": "asyncio.run()은 코루틴 객체를 기대합니다. main과 main()은 다릅니다.",
       "feedback": {
@@ -142,7 +142,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "일반 함수 안에서 await를 사용해 SyntaxError가 발생하는 줄은?\n\n```python\n1줄: import asyncio\n2줄: \n3줄: async def fetch():\n4줄:     await asyncio.sleep(0)\n5줄:     return \"완료\"\n6줄: \n7줄: def sync_run():\n8줄:     result = await fetch()\n9줄:     print(result)\n10줄: \n11줄: sync_run()\n```",
+      "question": "일반 함수 안에서 await를 사용해 SyntaxError가 발생하는 줄은?\n\n```python\n1. import asyncio\n2. \n3. async def fetch():\n4. await asyncio.sleep(0)\n5. return \"완료\"\n6. \n7. def sync_run():\n8. result = await fetch()\n9. print(result)\n10. \n11. sync_run()\n```",
       "answer": "8",
       "hint": "await는 async def 안에서만 사용할 수 있습니다.",
       "feedback": {

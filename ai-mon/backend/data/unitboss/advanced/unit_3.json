@@ -87,7 +87,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "응답 객체 content[0]을 딕셔너리처럼 접근해 TypeError가 발생하는 줄은?\n\n```python\n1줄: import anthropic\n2줄: \n3줄: client = anthropic.Anthropic()\n4줄: response = client.messages.create(\n5줄:     model=\"claude-haiku-4-5-20251001\",\n6줄:     max_tokens=100,\n7줄:     messages=[{\"role\": \"user\", \"content\": \"안녕\"}]\n8줄: )\n9줄: print(response.content[0][\"text\"])\n```",
+      "question": "응답 객체 content[0]을 딕셔너리처럼 접근해 TypeError가 발생하는 줄은?\n\n```python\n1. import anthropic\n2. \n3. client = anthropic.Anthropic()\n4. response = client.messages.create(\n5. model=\"claude-haiku-4-5-20251001\",\n6. max_tokens=100,\n7. messages=[{\"role\": \"user\", \"content\": \"안녕\"}]\n8. )\n9. print(response.content[0][\"text\"])\n```",
       "answer": "9",
       "hint": "response.content[0]은 딕셔너리가 아닌 TextBlock 객체입니다.",
       "feedback": {
@@ -142,7 +142,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "존재하지 않는 content 인덱스에 접근해 IndexError가 발생하는 줄은?\n\n```python\n1줄: import anthropic\n2줄: \n3줄: client = anthropic.Anthropic()\n4줄: response = client.messages.create(\n5줄:     model=\"claude-haiku-4-5-20251001\",\n6줄:     max_tokens=100,\n7줄:     messages=[{\"role\": \"user\", \"content\": \"안녕\"}]\n8줄: )\n9줄: print(response.content[0].text)\n10줄: print(response.content[1].text)\n```",
+      "question": "존재하지 않는 content 인덱스에 접근해 IndexError가 발생하는 줄은?\n\n```python\n1. import anthropic\n2. \n3. client = anthropic.Anthropic()\n4. response = client.messages.create(\n5. model=\"claude-haiku-4-5-20251001\",\n6. max_tokens=100,\n7. messages=[{\"role\": \"user\", \"content\": \"안녕\"}]\n8. )\n9. print(response.content[0].text)\n10. print(response.content[1].text)\n```",
       "answer": "10",
       "hint": "일반적인 응답에서 content 리스트에는 항목이 몇 개나 있을까요?",
       "feedback": {

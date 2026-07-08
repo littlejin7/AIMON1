@@ -87,7 +87,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "실행 시 변수명 규칙 위반으로 문법 오류(SyntaxError)가 발생하는 줄은 몇 번째 줄인가요?\n\n```python\n1줄: print(\"안녕하세요\")\n2줄: character_hp = 100\n3줄: 7_level_boss = \"코드몬\"\n4줄: is_game_over = False\n```",
+      "question": "실행 시 변수명 규칙 위반으로 문법 오류(SyntaxError)가 발생하는 줄은 몇 번째 줄인가요?\n\n```python\n1. print(\"안녕하세요\")\n2. character_hp = 100\n3. 7_level_boss = \"코드몬\"\n4. is_game_over = False\n```",
       "answer": "3",
       "hint": "파이썬 변수 이름은 숫자로 시작할 수 없습니다.",
       "feedback": {
@@ -164,7 +164,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "문자열(str)과 정수(int)를 직접 더하려고 하여 자료형 오류(TypeError)가 발생하는 줄은 몇 번째 줄인가요?\n\n```python\n1줄: damage = 50\n2줄: message = \"데미지를 입혔습니다.\"\n3줄: print(damage + 20)\n4줄: print(message + damage)\n```",
+      "question": "문자열(str)과 정수(int)를 직접 더하려고 하여 자료형 오류(TypeError)가 발생하는 줄은 몇 번째 줄인가요?\n\n```python\n1. damage = 50\n2. message = \"데미지를 입혔습니다.\"\n3. print(damage + 20)\n4. print(message + damage)\n```",
       "answer": "4",
       "hint": "문자열(str)과 정수(int)를 직접 더하려고 하는 줄을 찾아보세요.",
       "feedback": {

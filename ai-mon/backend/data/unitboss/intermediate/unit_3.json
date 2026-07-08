@@ -87,7 +87,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 재귀 함수에서 무한 재귀가 발생하게 만드는 버그가 있는 줄은?\n\n```python\n1줄: def countdown(n):\n2줄:     if n == 0:\n3줄:         print(\"발사!\")\n4줄:         return\n5줄:     print(n)\n6줄:     countdown(n)\n```",
+      "question": "다음 재귀 함수에서 무한 재귀가 발생하게 만드는 버그가 있는 줄은?\n\n```python\n1. def countdown(n):\n2. if n == 0:\n3. print(\"발사!\")\n4. return\n5. print(n)\n6. countdown(n)\n```",
       "answer": "6",
       "hint": "재귀 호출 시 n 값이 변하지 않으면 종료 조건에 영원히 도달할 수 없어요.",
       "feedback": {
@@ -164,7 +164,7 @@
       "type": "error_find",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "다음 코드에서 TypeError가 발생하는 줄은?\n\n```python\n1줄: items = [\"apple\", \"banana\", \"melon\"]\n2줄: upper_items = list(map(lambda x: x.upper(), items))\n3줄: lengths = list(map(len, items))\n4줄: filtered = list(filter(lambda x: x > 3, lengths))\n5줄: result = list(map(lambda x, y: x + y, items))\n```",
+      "question": "다음 코드에서 TypeError가 발생하는 줄은?\n\n```python\n1. items = [\"apple\", \"banana\", \"melon\"]\n2. upper_items = list(map(lambda x: x.upper(), items))\n3. lengths = list(map(len, items))\n4. filtered = list(filter(lambda x: x > 3, lengths))\n5. result = list(map(lambda x, y: x + y, items))\n```",
       "answer": "5",
       "hint": "map()에 인자가 두 개인 lambda를 쓸 때 iterable도 두 개를 전달해야 해요.",
       "feedback": {
