@@ -51,6 +51,27 @@ def test_stage_access_allows_when_prev_done(monkeypatch):
     Q.assert_stage_access(LEVELED, 2, "2-2", "beginner")  # 통과(과잉 차단 없음)
 
 
+def test_stage_access_allows_when_prev_miniboss_cleared_but_progress_lost(monkeypatch):
+    """progress 완료행이 유실돼도 이전 스테이지가 miniboss_cleared_stages 에 있으면 통과.
+
+    de0040ab 사례: 미니보스 클리어(원자, users)만 남고 progress 완료행(락 밖)이
+    유실된 유저가 다음 스테이지에서 영구 403 되던 회귀를 고정한다.
+    """
+    _patch_progress(monkeypatch, [])  # progress 완전 유실
+    user = {**LEVELED, "miniboss_cleared_stages": ["2-1"]}
+    Q.assert_stage_access(user, 2, "2-2", "beginner")  # 예외 없음
+
+
+def test_boss_access_allows_when_stages_via_miniboss_cleared(monkeypatch):
+    """progress 일부 유실 + miniboss_cleared_stages 합산으로 전 스테이지 완료 인정."""
+    # progress 에는 3개만, 나머지 3개는 miniboss 클리어로만 남음
+    _patch_progress(monkeypatch, [
+        {"unit": 2, "stage": f"2-{i}", "is_completed": True} for i in range(1, 4)
+    ])
+    user = {**LEVELED, "miniboss_cleared_stages": ["2-4", "2-5", "2-6"]}
+    Q.assert_boss_access(user, 2, "beginner")  # 통과 (3 + 3 = 6)
+
+
 def test_boss_access_blocks_until_all_stages_done(monkeypatch):
     done = [{"unit": 2, "stage": f"2-{i}", "is_completed": True} for i in range(1, 6)]
     _patch_progress(monkeypatch, done)

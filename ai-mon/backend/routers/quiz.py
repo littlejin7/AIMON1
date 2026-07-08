@@ -226,6 +226,36 @@ def load_units(course_level: str = None):
 # ── 진입 게이트 헬퍼 ────────────────────────────────────────────
 # quiz.py와 boss.py가 동일한 기준을 사용하도록 한 곳에서 정의한다.
 
+def _completed_stage_ids(user: dict, unit: int, course_level: str) -> set:
+    """해당 유닛에서 '완료로 인정되는' 비보스 스테이지 id 집합.
+
+    progress(is_completed)를 1차 진실로 삼되, 미니보스 클리어
+    (user.miniboss_cleared_stages)는 전투 승리(서버 세션 status=="won") 후
+    mutate_user_atomic 으로 원자 기록된 서버 권위 신호이므로, progress 완료행이
+    유실되더라도 완료로 인정한다.
+
+    근거: 미니보스 클리어 시 miniboss_cleared_stages(users, 원자)와 progress
+    완료행(별도 스토리지, 락 밖)이 비원자적으로 분리 저장된다(miniboss.py). 후자만
+    유실되면 게이트가 이전 스테이지 완료를 못 찾아 영구 403 이 된다. 두 신호 모두
+    서버 채점/전투 승리를 거친 권위 신호라 miniboss_cleared_stages 를 폴백으로
+    인정해도 어뷰징 방어(C)를 훼손하지 않는다(클라가 위조할 수 없는 값).
+    """
+    progress = get_progress_by_user(user["id"], course_level)
+    done = {
+        p.get("stage")
+        for p in progress
+        if p.get("unit") == unit
+        and isinstance(p.get("stage"), str)
+        and p.get("stage").startswith(f"{unit}-")
+        and p.get("stage") != f"{unit}-boss"
+        and p.get("is_completed")
+    }
+    for sk in (user.get("miniboss_cleared_stages") or []):
+        if isinstance(sk, str) and sk.startswith(f"{unit}-") and sk != f"{unit}-boss":
+            done.add(sk)
+    return done
+
+
 def assert_stage_access(user: dict, unit: int, stage: str, course_level: str) -> None:
     """스테이지 진입/완료 가능 여부 검증. 불가 시 HTTP 403 raise.
 
@@ -251,13 +281,9 @@ def assert_stage_access(user: dict, unit: int, stage: str, course_level: str) ->
 
     if stage_num > 1:
         prev_stage = f"{unit}-{stage_num - 1}"
-        progress = get_progress_by_user(user["id"], course_level)
-        if not any(
-            p.get("unit") == unit
-            and p.get("stage") == prev_stage
-            and p.get("is_completed")
-            for p in progress
-        ):
+        # progress 완료행 또는 미니보스 클리어(권위 신호) 중 하나라도 있으면 통과.
+        # progress 저장 유실로 miniboss_cleared_stages 만 남은 경우의 영구 403 방지.
+        if prev_stage not in _completed_stage_ids(user, unit, course_level):
             raise HTTPException(
                 status_code=403,
                 detail=f"이전 스테이지({prev_stage})를 먼저 완료해주세요.",
@@ -295,15 +321,10 @@ def assert_boss_access(user: dict, unit: int, course_level: str) -> None:
     total_stages = unit_info.get("stages", 0) if unit_info else 0
 
     if total_stages > 0:
-        progress = get_progress_by_user(user["id"], course_level)
-        done = sum(
-            1
-            for p in progress
-            if p.get("unit") == unit
-            and p.get("stage", "").startswith(f"{unit}-")
-            and p.get("stage") != f"{unit}-boss"
-            and p.get("is_completed")
-        )
+        # progress 완료행 + 미니보스 클리어(권위 신호)를 distinct 스테이지로 합산.
+        # progress 유실로 miniboss_cleared_stages 만 남은 스테이지도 완료로 인정해
+        # 보스 진입이 영구 차단되지 않도록 한다(assert_stage_access 와 동일 기준).
+        done = len(_completed_stage_ids(user, unit, course_level))
         if done < total_stages:
             raise HTTPException(
                 status_code=403,
