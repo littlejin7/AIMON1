@@ -462,11 +462,6 @@ export default function Settings() {
 
         <p className="st-section-label">계정</p>
         <div className="st-group">
-          <div className="st-srow">
-            <div className="st-srow-icon" style={{ background: 'rgba(24,95,165,0.18)' }}>@</div>
-            <div className="st-srow-text"><div className="st-srow-label">이메일 변경</div></div>
-            <span className="st-chevron">›</span>
-          </div>
           <div className="st-srow" onClick={openPwModal} style={{ cursor: 'pointer' }}>
             <div className="st-srow-icon" style={{ background: 'rgba(15,110,86,0.18)' }}>PW</div>
             <div className="st-srow-text">
