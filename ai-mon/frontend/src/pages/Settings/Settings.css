@@ -227,8 +227,14 @@
   color: var(--clr-text-muted);
   margin-bottom: 7px;
 }
+.st-nick-row {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
 .st-nick-input {
-  width: 100%;
+  flex: 1;
+  min-width: 0;
   background: var(--clr-bg);
   border: 0.5px solid var(--clr-border);
   border-radius: 10px;
@@ -241,6 +247,37 @@
 }
 .st-nick-input:focus {
   border-color: var(--clr-primary);
+}
+.st-nick-check-btn {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  background: transparent;
+  color: var(--clr-primary);
+  border: 1px solid var(--clr-primary);
+  border-radius: 10px;
+  padding: 0 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.2s;
+}
+.st-nick-check-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.st-nick-check-btn:not(:disabled):hover {
+  opacity: 0.85;
+}
+.st-nick-msg {
+  font-size: 12px;
+  margin-top: 7px;
+}
+.st-nick-msg.ok {
+  color: #10b981;
+}
+.st-nick-msg.err {
+  color: #ef4444;
 }
 .st-save-btn {
   width: 100%;

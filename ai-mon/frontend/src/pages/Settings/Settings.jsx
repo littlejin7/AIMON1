@@ -2,8 +2,21 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import { useSoundStore } from '../../hooks/useSoundStore'
-import { userApi } from '../../api/index'
+import { userApi, authApi } from '../../api/index'
 import './Settings.css'
+
+// 닉네임 중복확인/저장 에러를 사용자용 메시지로 변환 (Register.jsx와 동일 규칙)
+function getNicknameErrorMessage(err) {
+  const status = err?.response?.status
+  const detail = err?.response?.data?.detail
+  if (status === 404) {
+    return '닉네임 확인 기능을 찾을 수 없습니다. 서버를 확인해주세요.'
+  }
+  if (typeof detail === 'string' && detail.trim()) {
+    return detail
+  }
+  return '이미 사용 중인 닉네임입니다.'
+}
 
 const CHARACTER_ICON = {
   slime: '/src/assets/character_slime.png',
@@ -31,6 +44,9 @@ export default function Settings() {
   const [nickname, setNickname] = useState(user?.nickname || '')
   const [nickSaving, setNickSaving] = useState(false)
   const [nickSaved, setNickSaved] = useState(false)
+  const [nickChecking, setNickChecking] = useState(false)
+  const [nickChecked, setNickChecked] = useState(false)
+  const [nickMsg, setNickMsg] = useState(null) // { type: 'ok' | 'err', text: string } | null
   const [courseLevel, setCourseLevel] = useState(user?.course_level || 'beginner')
   const [levelSaving, setLevelSaving] = useState(false)
   const [deleting, setDeleting] = useState(false)
@@ -53,14 +69,58 @@ export default function Settings() {
     }
   }, [])
 
+  const handleNickChange = (e) => {
+    setNickname(e.target.value)
+    // 입력이 바뀌면 이전 중복확인 결과를 무효화 — 다시 확인해야 저장 가능
+    setNickChecked(false)
+    setNickMsg(null)
+  }
+
+  const handleNickCheck = async () => {
+    const trimmed = nickname.trim()
+    if (trimmed.length < 2) {
+      setNickChecked(false)
+      setNickMsg({ type: 'err', text: '닉네임은 2자 이상 입력해주세요.' })
+      return
+    }
+    if (trimmed === user?.nickname) {
+      // 현재 닉네임 그대로면 확인 불필요 (저장 버튼은 어차피 비활성)
+      setNickChecked(true)
+      setNickMsg({ type: 'ok', text: '현재 사용 중인 닉네임입니다.' })
+      return
+    }
+    setNickChecking(true)
+    setNickMsg(null)
+    try {
+      await authApi.checkNickname(trimmed)
+      setNickChecked(true)
+      setNickMsg({ type: 'ok', text: '사용 가능한 닉네임입니다.' })
+    } catch (err) {
+      setNickChecked(false)
+      setNickMsg({ type: 'err', text: getNicknameErrorMessage(err) })
+    } finally {
+      setNickChecking(false)
+    }
+  }
+
   const handleNickSave = async (e) => {
     e.preventDefault()
+    if (!nickChecked) {
+      setNickMsg({ type: 'err', text: '닉네임 중복확인을 먼저 해주세요.' })
+      return
+    }
     setNickSaving(true)
     try {
       const res = await userApi.updateMe({ nickname })
       updateUser(res.data)
+      setNickChecked(false)
+      setNickMsg(null)
       setNickSaved(true)
       setTimeout(() => setNickSaved(false), 2000)
+    } catch (err) {
+      // 확인 후 저장 사이에 선점됐을 수 있으므로 서버 에러도 노출
+      setNickChecked(false)
+      setNickMsg({ type: 'err', text: getNicknameErrorMessage(err) })
     } finally {
       setNickSaving(false)
     }
@@ -171,17 +231,33 @@ export default function Settings() {
           </div>
           <form className="st-nickname-wrap" onSubmit={handleNickSave}>
             <div className="st-nick-label">닉네임</div>
-            <input
-              className="st-nick-input"
-              type="text"
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-              placeholder="닉네임을 입력하세요"
-            />
+            <div className="st-nick-row">
+              <input
+                className="st-nick-input"
+                type="text"
+                value={nickname}
+                onChange={handleNickChange}
+                placeholder="닉네임을 입력하세요"
+                maxLength={10}
+              />
+              <button
+                type="button"
+                className="st-nick-check-btn"
+                onClick={handleNickCheck}
+                disabled={nickChecking || nickname.trim() === user?.nickname}
+              >
+                {nickChecking ? '확인 중...' : '중복확인'}
+              </button>
+            </div>
+            {nickMsg && (
+              <div className={`st-nick-msg ${nickMsg.type}`}>
+                {nickMsg.type === 'ok' ? '✅ ' : '❌ '}{nickMsg.text}
+              </div>
+            )}
             <button
               type="submit"
               className="st-save-btn"
-              disabled={nickSaving || nickname === user?.nickname}
+              disabled={nickSaving || nickname === user?.nickname || !nickChecked}
             >
               {nickSaved ? '저장 완료' : nickSaving ? '저장 중...' : '저장하기'}
             </button>
