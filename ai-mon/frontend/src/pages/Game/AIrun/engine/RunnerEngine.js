@@ -274,16 +274,28 @@ export class RunnerEngine {
     }
   }
 
+  _toggleTimeOfDay() {
+    this.timeOfDay = this.timeOfDay === 'evening' ? 'day' : 'evening';
+    const btn = document.getElementById('rg-time-btn');
+    if (btn) btn.textContent = this.timeOfDay === 'evening' ? '☀️ 아침' : '🌙 저녁';
+    setTimeOfDay(this, this.timeOfDay);
+  }
+
   // ── 이벤트 ─────────────────────────────────
   _setupEvents() {
     this._onKeyDown = (e) => {
       if (e.code === 'Escape') { window.history.back(); return; }
+      
+      // T 키 입력 시 아침/저녁 토글 작동
+      if (e.code === 'KeyT') {
+        this._toggleTimeOfDay();
+      }
+
       // 게임 조작 키는 상태와 무관하게 항상 기본 동작(포커스된 버튼 클릭 등)을 막는다.
-      // 그렇지 않으면 아침/저녁 토글 버튼 등에 포커스가 남아있을 때
-      // 퀴즈 화면 등에서 Space를 눌러도 그 버튼이 브라우저 기본 동작으로 클릭돼버린다.
       if (e.code === 'Space' || e.code === 'ArrowLeft' || e.code === 'ArrowRight') {
         e.preventDefault();
       }
+
       if (this.state === 'running') {
         if (e.code === 'ArrowLeft')  this._moveLane(-1);
         if (e.code === 'ArrowRight') this._moveLane(1);
