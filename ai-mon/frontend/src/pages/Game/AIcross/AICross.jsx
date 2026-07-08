@@ -1,33 +1,101 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { incrementGamePlay } from '../Game'
+import { aicrossApi } from '../../../api'
 import TitleBlock from './components/TitleBlock'
 import WinModal from './components/WinModal'
 import CrosswordGrid from './components/CrosswordGrid'
 import HintBox from './components/HintBox'
 import ClueList from './components/ClueList'
-import { WORD_SETS, SET_NAMES } from './crosswordData'
-import { buildLayout } from './crosswordEngine'
 import './AICross.css'
+
+// 서버 start 응답 puzzle(grid_size + 좌표 포함 entries)을 프론트 렌더링 구조로 변환한다.
+// 프론트는 layout 을 새로 계산하지 않고(=buildLayout 미사용) 서버 좌표만 그대로 배치한다.
+// entries 에는 정답(answer)이 없으므로 셀 letter 는 만들지 않는다(정답 비노출 유지).
+function buildServerLayout(puzzle) {
+  const entries = puzzle?.entries || []
+  const cellMap = {}   // "r,c" -> { wordIds: [], num? }
+  const wordCells = {} // id -> [{ r, c }]
+  const placed = []    // { id, dir, r, c, length, clue, easyClue }
+
+  entries.forEach((e) => {
+    const dir = e.direction === 'down' ? 'V' : 'H'
+    const dRow = dir === 'V' ? 1 : 0
+    const dCol = dir === 'H' ? 1 : 0
+    const cells = []
+    for (let i = 0; i < e.length; i++) {
+      const r = e.row + dRow * i
+      const c = e.col + dCol * i
+      const key = `${r},${c}`
+      if (!cellMap[key]) cellMap[key] = { wordIds: [] }
+      cellMap[key].wordIds.push(e.id)
+      cells.push({ r, c })
+    }
+    wordCells[e.id] = cells
+    placed.push({
+      id: e.id,
+      dir,
+      r: e.row,
+      c: e.col,
+      length: e.length,
+      clue: e.clue,
+      easyClue: e.easyClue,
+    })
+  })
+
+  // 번호 부여: 시작 셀을 (행,열) 순으로 정렬해 1..N. (crosswordEngine 과 동일 규칙)
+  const startKeys = placed.map((p) => `${p.r},${p.c}`)
+  const uniqueStarts = Array.from(new Set(startKeys)).sort((a, b) => {
+    const [ar, ac] = a.split(',').map(Number)
+    const [br, bc] = b.split(',').map(Number)
+    return ar !== br ? ar - br : ac - bc
+  })
+  const numMap = {}
+  uniqueStarts.forEach((key, i) => { numMap[key] = i + 1 })
+
+  const wordData = placed.map((p) => ({
+    ...p,
+    num: numMap[`${p.r},${p.c}`],
+    // HintBox 가 selWord.word 를 참조하므로 빈 문자열을 채워 정답 미노출 상태로 렌더링한다.
+    // (정답 letter bank 는 서버가 answer 를 내려주지 않는 B-2 구조상 표시할 수 없다.)
+    word: '',
+  }))
+  wordData.forEach((p) => {
+    const sk = `${p.r},${p.c}`
+    if (cellMap[sk] && !cellMap[sk].num) cellMap[sk].num = p.num
+  })
+
+  // 좌표는 서버 생성 시 이미 0-기준으로 정규화되어 있으므로 셀 최대 좌표로 rows/cols 산출.
+  let maxR = 0, maxC = 0
+  Object.keys(cellMap).forEach((key) => {
+    const [r, c] = key.split(',').map(Number)
+    if (r > maxR) maxR = r
+    if (c > maxC) maxC = c
+  })
+  const rows = maxR + 1
+  const cols = maxC + 1
+
+  return { wordData, rows, cols, cellMap, wordCells }
+}
 
 export default function AICross() {
   const navigate = useNavigate()
   const wrapRef = useRef(null)
 
+  // 서버 진행도/세션 상태
+  const [progress, setProgress] = useState(null)
+  const [setIndex, setSetIndex] = useState(null)
+  const [setLabel, setSetLabel] = useState('코딩 명령어 퍼즐')
+  const [gameToken, setGameToken] = useState('')
   const [layout, setLayout] = useState(null)
+
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-  const [selectedSetIndex, setSelectedSetIndex] = useState(() => {
-    const saved = localStorage.getItem('aicross_last_set_index')
-    return saved !== null ? Number(saved) : 0
-  })
-  const [starterCellKey, setStarterCellKey] = useState('')
-  const [starterLetter, setStarterLetter] = useState('')
 
   // 입력/커서 상태
   const [inputs, setInputs] = useState({})
   const [selectedId, setSelectedId] = useState(null)
   const [cursor, setCursor] = useState({ r: 0, c: 0 })
-  const [checked, setChecked] = useState({})
 
   // 제출/결과 상태
   const [submitting, setSubmitting] = useState(false)
@@ -36,45 +104,69 @@ export default function AICross() {
 
   const { wordData = [], rows = 0, cols = 0, cellMap = {}, wordCells = {} } = layout || {}
 
-  const startNewGame = useCallback(() => {
-    const words = WORD_SETS[selectedSetIndex] || WORD_SETS[0] || []
-    if (!words.length) {
-      setError('퍼즐 세트를 찾지 못했어요.')
-      return
-    }
+  // 셀별 정오 색칠은 서버가 per-cell 결과를 주지 않으므로 사용하지 않는다(빈 객체 고정).
+  const checked = useMemo(() => ({}), [])
 
+  // 특정 세트를 서버에서 start 하고 화면을 초기화한다.
+  const startSet = useCallback(async (index) => {
     setError('')
     setResult(null)
     setShowResult(false)
     setSubmitting(false)
     setInputs({})
-    setChecked({})
 
-    const built = {
-      ...buildLayout(words),
-      setLabel: SET_NAMES[selectedSetIndex] || '코딩 명령어 퍼즐',
-    }
+    const { data } = await aicrossApi.start(index)
+    const built = buildServerLayout(data.puzzle)
+
+    setSetIndex(data.set_index)
+    setSetLabel(data.set_label || '코딩 명령어 퍼즐')
+    setGameToken(data.game_token)
     setLayout(built)
+
     const first = built.wordData[0]
-    const starterKey = first ? `${first.r},${first.c}` : ''
-    const firstLetter = first?.word?.[0] || ''
-    if (starterKey && firstLetter) {
-      setInputs({ [starterKey]: firstLetter })
-    }
-    setStarterCellKey(starterKey)
-    setStarterLetter(firstLetter)
     setSelectedId(first?.id ?? null)
     setCursor({ r: first?.r ?? 0, c: first?.c ?? 0 })
     wrapRef.current?.focus()
-  }, [selectedSetIndex])
+  }, [])
 
-  useEffect(() => { startNewGame() }, [startNewGame])
+  // 최초 진입: progress 조회 후 next_set_index 로 자동 start.
+  useEffect(() => {
+    let cancelled = false
+    ;(async () => {
+      try {
+        setLoading(true)
+        const { data: prog } = await aicrossApi.getProgress()
+        if (cancelled) return
+        setProgress(prog)
+        await startSet(prog.next_set_index ?? 0)
+      } catch (e) {
+        if (!cancelled) setError('에이칸을 불러오지 못했어요. 잠시 후 다시 시도해주세요.')
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    })()
+    return () => { cancelled = true }
+  }, [startSet])
 
-  const handleSetChange = (e) => {
+  const refreshProgress = useCallback(async () => {
+    try {
+      const { data: prog } = await aicrossApi.getProgress()
+      setProgress(prog)
+    } catch (e) {
+      // 진행도 갱신 실패는 치명적이지 않으므로 화면 전체 에러로 막지 않는다.
+    }
+  }, [])
+
+  const handleSetChange = async (e) => {
     const nextIndex = Number(e.target.value)
-    setSelectedSetIndex(nextIndex)
-    localStorage.setItem('aicross_last_set_index', nextIndex.toString())
-    setError('')
+    try {
+      setLoading(true)
+      await startSet(nextIndex)
+    } catch (err) {
+      setError('세트를 시작하지 못했어요. 잠시 후 다시 시도해주세요.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const selWord = wordData.find(w => w.id === selectedId)
@@ -117,14 +209,6 @@ export default function AICross() {
 
     if (e.key.length === 1 && /^[A-Za-z]$/.test(e.key)) {
       e.preventDefault()
-      if (key === starterCellKey && inputs[key]) {
-        if (selWord) {
-          const cells = wordCells[selWord.id]
-          const idx = cells.findIndex(x => x.r === r && x.c === c)
-          if (idx < cells.length - 1) setCursor(cells[idx + 1])
-        }
-        return
-      }
       setInputs(prev => ({ ...prev, [key]: letter }))
       if (selWord) {
         const cells = wordCells[selWord.id]
@@ -133,7 +217,6 @@ export default function AICross() {
       }
     } else if (e.key === 'Backspace') {
       e.preventDefault()
-      if (key === starterCellKey) return
       if (inputs[key]) {
         setInputs(prev => { const n = { ...prev }; delete n[key]; return n })
       } else if (selWord) {
@@ -143,7 +226,6 @@ export default function AICross() {
           const prev = cells[idx - 1]
           setCursor(prev)
           const pk = `${prev.r},${prev.c}`
-          if (pk === starterCellKey) return
           setInputs(p => { const n = { ...p }; delete n[pk]; return n })
         }
       }
@@ -155,7 +237,7 @@ export default function AICross() {
       setSelectedId(next.id)
       setCursor({ r: next.r, c: next.c })
     }
-  }, [cursor, selWord, selectedId, inputs, wordData, wordCells, showResult, layout, starterCellKey])
+  }, [cursor, selWord, selectedId, inputs, wordData, wordCells, showResult, layout])
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown)
@@ -165,35 +247,54 @@ export default function AICross() {
   useEffect(() => { wrapRef.current?.focus() }, [])
 
   const handleSubmit = async () => {
-    if (submitting || showResult) return
+    if (submitting || showResult || setIndex === null) return
     setSubmitting(true)
-    const nextChecked = {}
-    let correct = 0
 
+    // 각 entry(단어) 별로 입력 셀을 이어붙여 answers[id] = 제출 문자열 로 구성.
+    // 프론트 자체 채점은 하지 않고 서버 aicrossApi.clear() 가 answer 기준으로 채점한다.
+    const answers = {}
     wordData.forEach(word => {
       const cells = wordCells[word.id] || []
-      const answer = cells.map(({ r, c }) => inputs[`${r},${c}`] || '').join('').toUpperCase()
-      const isCorrect = answer === word.word
-      if (isCorrect) correct += 1
-      cells.forEach(({ r, c }) => {
-        nextChecked[`${r},${c}`] = isCorrect ? 'correct' : 'wrong'
-      })
+      answers[word.id] = cells.map(({ r, c }) => inputs[`${r},${c}`] || '').join('').toUpperCase()
     })
 
-    const total = wordData.length
-    const score = total ? Math.round((correct / total) * 100) : 0
-    setChecked(nextChecked)
-    incrementGamePlay('aicross')
-    setResult({ score, correct, total, xp_awarded: 0, already_claimed: false })
-    setShowResult(true)
-    setSubmitting(false)
+    try {
+      incrementGamePlay('aicross') // 홈 화면 플레이 카운트용(서버 보상/진행도와는 무관)
+      const { data } = await aicrossApi.clear({ gameToken, setIndex, answers })
+      setResult(data)
+      setShowResult(true)
+      await refreshProgress()
+    } catch (err) {
+      setResult({ submit_failed: true })
+      setShowResult(true)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
-  const handleNextSet = () => {
-    const nextIndex = (selectedSetIndex + 1) % WORD_SETS.length
-    setSelectedSetIndex(nextIndex)
-    localStorage.setItem('aicross_last_set_index', nextIndex.toString())
-    setError('')
+  // "다음 세트로": 서버 clear 응답의 next_set_index 로 start.
+  const handleNextSet = async () => {
+    const nextIndex = result?.next_set_index ?? setIndex ?? 0
+    try {
+      setLoading(true)
+      await startSet(nextIndex)
+    } catch (err) {
+      setError('다음 세트를 시작하지 못했어요. 잠시 후 다시 시도해주세요.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // 재도전: 같은 세트를 다시 start(새 game_token 발급, nonce 재사용 방지).
+  const handleRetry = async () => {
+    try {
+      setLoading(true)
+      await startSet(setIndex)
+    } catch (err) {
+      setError('다시 시작하지 못했어요. 잠시 후 다시 시도해주세요.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const acrossWords = wordData.filter(w => w.dir === 'H').sort((a, b) => a.num - b.num)
@@ -207,31 +308,58 @@ export default function AICross() {
     return Object.keys(cellMap).every(key => !!inputs[key])
   }, [cellMap, inputs])
 
+  // 진행도 파생값
+  const completedSets = progress?.completed_sets || []
+  const totalSets = progress?.total_sets || 0
+  const completedCount = completedSets.length
+  const todayRewardCount = progress?.today_reward_count ?? 0
+  const todayRewardLimit = progress?.today_reward_limit ?? 3
+  const nextSetIndex = progress?.next_set_index
+  const allCompleted = totalSets > 0 && completedCount >= totalSets
+  const currentIsCompleted = setIndex !== null && completedSets.includes(setIndex)
+
   return (
     <div className="aicross-wrap" ref={wrapRef} tabIndex={-1}>
       <button className="aicross-back" onClick={() => navigate('/game')}>✕</button>
 
-      <TitleBlock setLabel={layout?.setLabel || "코딩 명령어 퍼즐"} />
+      <TitleBlock setLabel={setLabel} />
+
+      {progress && (
+        <div className="aicross-progress-bar">
+          <span className="aicross-progress-badge">진행도 {completedCount} / {totalSets} 완료</span>
+          <span className="aicross-reward-badge">오늘 보상 {todayRewardCount} / {todayRewardLimit}</span>
+        </div>
+      )}
 
       <div className="aicross-toolbar">
         <label className="aicross-set-select">
           <span>세트</span>
-          <select value={selectedSetIndex} onChange={handleSetChange}>
-            {WORD_SETS.map((_, index) => (
-              <option key={index} value={index}>
-                {SET_NAMES[index] || '코딩 명령어 퍼즐'}
-              </option>
-            ))}
+          <select value={setIndex ?? ''} onChange={handleSetChange} disabled={loading || !progress}>
+            {(progress?.sets || []).map((s) => {
+              const prefix = s.completed ? '✓ ' : (s.index === nextSetIndex ? '→ ' : '')
+              return (
+                <option key={s.index} value={s.index}>
+                  {prefix}{String(s.index + 1).padStart(2, '0')}. {s.title}
+                </option>
+              )
+            })}
           </select>
         </label>
-        <div className="aicross-starter-badge">
-          <span>시작 알파벳</span>
-          <b>{starterLetter || '?'}</b>
-        </div>
       </div>
+
+      {currentIsCompleted && !allCompleted && (
+        <div className="aicross-status aicross-status--info">완료한 세트예요. 복습으로 다시 풀 수 있어요.</div>
+      )}
+      {allCompleted && (
+        <div className="aicross-status aicross-status--info">모든 에이칸 세트를 완료했어요! 원하는 세트를 골라 복습할 수 있어요.</div>
+      )}
 
       {error && (
         <div className="aicross-status aicross-status--error">{error}</div>
+      )}
+
+      {loading && !layout && (
+        <div className="aicross-status">불러오는 중…</div>
       )}
 
       {!error && layout && (
@@ -241,7 +369,7 @@ export default function AICross() {
               result={result}
               won={won}
               onClose={won ? handleNextSet : () => navigate('/game')}
-              onRetry={startNewGame}
+              onRetry={handleRetry}
             />
           )}
 
@@ -264,7 +392,7 @@ export default function AICross() {
             inputs={inputs}
             onLetterClick={setCursor}
             onCheck={handleSubmit}
-            disabled={!isAllFilled}
+            disabled={!isAllFilled || submitting}
           />
 
           <ClueList
