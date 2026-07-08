@@ -6,6 +6,7 @@ import hmac
 import hashlib
 import base64
 import json
+import random
 import secrets
 import time
 from routers.utils import (
@@ -222,8 +223,27 @@ def _aicross_set_count() -> int:
     return len(AICROSS_SETS)
 
 
+def _aicross_letter_bank(answer: str) -> list:
+    """정답 글자를 셔플한 배열(letterBank). 중복 글자는 그대로 유지하고, 원래(정답) 순서와
+    같으면 다시 섞어 정답을 그대로 노출하지 않게 한다. 글자 자체는 힌트 UI(글자 셔플칩)용
+    이라 노출해도 되지만, 배열 순서가 정답 그대로면 사실상 정답을 알려주는 것이므로 피한다.
+    """
+    chars = list(answer or "")
+    if len(chars) <= 1:
+        return chars
+    shuffled = chars[:]
+    for _ in range(20):
+        random.shuffle(shuffled)
+        if shuffled != chars:
+            break
+    return shuffled
+
+
 def _aicross_set_public_puzzle(set_index: int) -> dict:
-    """entries 에서 answer 를 제거한 public puzzle. 프론트는 좌표만으로 그리드를 그린다."""
+    """entries 에서 answer 를 제거한 public puzzle. 프론트는 좌표만으로 그리드를 그린다.
+    letterBank 는 answer 글자를 셔플한 배열로, 정답 문자열 자체(순서 있는 answer)는
+    아니지만 힌트박스의 글자 셔플칩 UI를 위해 내려준다.
+    """
     aicross_set = AICROSS_SETS[set_index]
     return {
         "grid_size": aicross_set.get("grid_size"),
@@ -236,6 +256,7 @@ def _aicross_set_public_puzzle(set_index: int) -> dict:
                 "length": entry["length"],
                 "clue": entry.get("clue", ""),
                 "easyClue": entry.get("easyClue", ""),
+                "letterBank": _aicross_letter_bank(entry.get("answer", "")),
             }
             for entry in aicross_set.get("entries", [])
         ],

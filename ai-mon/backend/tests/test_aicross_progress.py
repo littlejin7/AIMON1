@@ -147,7 +147,27 @@ def test_start_response_has_no_answer_field(fresh_user):
     body = json.dumps(res)
     assert "answer" not in body
     for entry in res["puzzle"]["entries"]:
-        assert set(entry.keys()) == {"id", "direction", "row", "col", "length", "clue", "easyClue"}
+        assert set(entry.keys()) == {
+            "id", "direction", "row", "col", "length", "clue", "easyClue", "letterBank",
+        }
+        # letterBank 는 셔플된 정답 글자 배열(힌트 UI용) — 길이만 entry.length 와 일치하면 된다.
+        # 정답 자체(순서 있는 answer 문자열)는 어디에도 없어야 한다.
+        assert len(entry["letterBank"]) == entry["length"]
+
+
+def test_start_letter_bank_preserves_multiset_but_not_answer_order(fresh_user):
+    """letterBank 는 정답 글자의 순서만 섞은 것 — 중복 글자를 포함해 글자 구성(멀티셋)은
+    answer 와 동일해야 하고, 글자가 2개 이상인 entry 는 answer 와 같은 순서면 안 된다.
+    (같은 순서 = 정답을 그대로 노출하는 것과 같으므로 서버가 재셔플하도록 강제)
+    """
+    res = _start(set_index=2)
+    answers_by_id = {e["id"]: e["answer"] for e in G.AICROSS_SETS[2]["entries"]}
+    for entry in res["puzzle"]["entries"]:
+        answer = answers_by_id[entry["id"]]
+        bank = entry["letterBank"]
+        assert sorted(bank) == sorted(list(answer))  # 멀티셋(중복 포함) 동일
+        if len(answer) >= 2:
+            assert "".join(bank) != answer  # 정답 순서 그대로 노출 금지
 
 
 def test_start_without_set_index_uses_next_set_index(fresh_user):

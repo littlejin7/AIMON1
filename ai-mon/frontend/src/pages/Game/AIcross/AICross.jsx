@@ -12,11 +12,13 @@ import './AICross.css'
 // 서버 start 응답 puzzle(grid_size + 좌표 포함 entries)을 프론트 렌더링 구조로 변환한다.
 // 프론트는 layout 을 새로 계산하지 않고(=buildLayout 미사용) 서버 좌표만 그대로 배치한다.
 // entries 에는 정답(answer)이 없으므로 셀 letter 는 만들지 않는다(정답 비노출 유지).
+// letterBank(서버가 answer 를 셔플해 내려주는 배열)는 힌트박스의 글자 셔플칩 렌더링용으로
+// 그대로 보존한다 — 정답 순서 자체는 아니므로 노출해도 안전하다.
 function buildServerLayout(puzzle) {
   const entries = puzzle?.entries || []
   const cellMap = {}   // "r,c" -> { wordIds: [], num? }
   const wordCells = {} // id -> [{ r, c }]
-  const placed = []    // { id, dir, r, c, length, clue, easyClue }
+  const placed = []    // { id, dir, r, c, length, clue, easyClue, letterBank }
 
   entries.forEach((e) => {
     const dir = e.direction === 'down' ? 'V' : 'H'
@@ -40,6 +42,7 @@ function buildServerLayout(puzzle) {
       length: e.length,
       clue: e.clue,
       easyClue: e.easyClue,
+      letterBank: e.letterBank || [],
     })
   })
 
@@ -56,9 +59,6 @@ function buildServerLayout(puzzle) {
   const wordData = placed.map((p) => ({
     ...p,
     num: numMap[`${p.r},${p.c}`],
-    // HintBox 가 selWord.word 를 참조하므로 빈 문자열을 채워 정답 미노출 상태로 렌더링한다.
-    // (정답 letter bank 는 서버가 answer 를 내려주지 않는 B-2 구조상 표시할 수 없다.)
-    word: '',
   }))
   wordData.forEach((p) => {
     const sk = `${p.r},${p.c}`

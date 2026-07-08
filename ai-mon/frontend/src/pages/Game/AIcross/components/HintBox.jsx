@@ -1,54 +1,10 @@
 import { useMemo } from 'react'
 
-function shuffleLetters(word) {
-  if (!word) return [];
-  const chars = word.split('');
-  if (chars.length <= 1) return chars;
-
-  const allSame = chars.every(c => c === chars[0]);
-  if (allSame) return chars;
-
-  let attempts = 0;
-  let bestShuffle = null;
-  let bestScore = Infinity;
-
-  while (attempts < 100) {
-    const shuffled = [...chars].sort(() => Math.random() - 0.5);
-    const shuffledStr = shuffled.join('');
-
-    if (shuffledStr === word) {
-      attempts++;
-      continue;
-    }
-
-    let adjacentDupes = 0;
-    for (let i = 0; i < shuffled.length - 1; i++) {
-      if (shuffled[i] === shuffled[i + 1]) {
-        adjacentDupes++;
-      }
-    }
-
-    if (adjacentDupes === 0) {
-      return shuffled;
-    }
-
-    if (bestShuffle === null || adjacentDupes < bestScore) {
-      bestShuffle = shuffled;
-      bestScore = adjacentDupes;
-    }
-
-    attempts++;
-  }
-
-  return bestShuffle || chars;
-}
-
+// 글자 셔플칩(word bank)은 서버가 내려주는 selWord.letterBank(정답을 셔플한 배열, 정답
+// 순서는 아님)를 그대로 쓴다. B-2 전환 전에는 프론트가 정답 문자열(word)을 직접 셔플했지만,
+// 서버가 answer 를 내려주지 않으므로 셔플 자체도 서버 책임으로 옮겼다.
 export default function HintBox({ selWord, selCells, cursor, checked, inputs, onLetterClick, onCheck, disabled }) {
   if (!selWord) return null
-
-  const shuffledLettersBase = useMemo(() => {
-    return shuffleLetters(selWord.word)
-  }, [selWord.word])
 
   const currentInputs = useMemo(() => {
     return selCells.map(cell => inputs[`${cell.r},${cell.c}`] || '').filter(Boolean)
@@ -56,7 +12,7 @@ export default function HintBox({ selWord, selCells, cursor, checked, inputs, on
 
   const wordBankLetters = useMemo(() => {
     const tempInputs = [...currentInputs]
-    return shuffledLettersBase.map((char, index) => {
+    return (selWord.letterBank || []).map((char, index) => {
       const inputIdx = tempInputs.indexOf(char)
       const isUsed = inputIdx !== -1
       if (isUsed) {
@@ -64,7 +20,7 @@ export default function HintBox({ selWord, selCells, cursor, checked, inputs, on
       }
       return { id: `${char}-${index}`, char, isUsed }
     })
-  }, [shuffledLettersBase, currentInputs])
+  }, [selWord.letterBank, currentInputs])
 
   return (
     <div className="aicross-hint-box">
