@@ -159,6 +159,20 @@ export const gameApi = {
     }),
 }
 
+// 에이칸 B-2 서버 진행도 helper. 레거시 gameApi.startAicross/clearAicross(위)와는
+// 별개 라우트(/game/aicross/*)를 쓴다 — completed_sets 진행도/차등 보상/세트별
+// clear_count 는 이쪽에서만 저장된다. 레거시 helper는 그대로 유지하고 병행한다.
+export const aicrossApi = {
+  getProgress: () => api.get('/game/aicross/progress'),
+  start: (setIndex) => api.post('/game/aicross/start', { set_index: setIndex }),
+  clear: ({ gameToken, setIndex, answers }) =>
+    api.post('/game/aicross/clear', {
+      game_token: gameToken,
+      set_index: setIndex,
+      answers,
+    }),
+}
+
 export const missionApi = {
   getMissions:  ()          => api.get('/missions/'),
   claimMission: (missionId) => api.post('/missions/claim', { mission_id: missionId }),
