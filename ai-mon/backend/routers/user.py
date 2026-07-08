@@ -18,6 +18,7 @@ from routers.utils import (
     get_evolution_stage,
     CHARACTER_TO_STAGE,
 )
+from routers.auth import hash_password, verify_password
 
 logger = logging.getLogger("uvicorn.error")
 router = APIRouter()
@@ -58,6 +59,11 @@ class UpdateProfileRequest(BaseModel):
 
 class PurchaseThemeRequest(BaseModel):
     theme_id: str
+
+
+class ChangePasswordRequest(BaseModel):
+    current_password: str
+    new_password: str
 
 @router.get("/me")
 def get_me(user: dict = Depends(get_current_user)):
@@ -174,5 +180,35 @@ def purchase_theme(req: PurchaseThemeRequest, user: dict = Depends(get_current_u
         "purchased_themes": result["purchased_themes"],
         "user": serialize_user(user),
     }
+
+
+@router.post("/change-password")
+def change_password(req: ChangePasswordRequest, user: dict = Depends(get_current_user)):
+    # 소셜 전용 계정(google_/naver_/kakao_ 접두사)은 비밀번호 자체가 없으므로 변경 불가.
+    username = user.get("username", "")
+    if username.startswith(("google_", "naver_", "kakao_")):
+        raise HTTPException(status_code=400, detail="소셜 로그인 계정은 비밀번호를 변경할 수 없습니다.")
+
+    if len(req.new_password) < 8:
+        raise HTTPException(status_code=400, detail="새 비밀번호는 8자 이상이어야 합니다.")
+    if req.new_password == req.current_password:
+        raise HTTPException(status_code=400, detail="새 비밀번호가 현재 비밀번호와 동일합니다.")
+
+    new_hashed_pw = hash_password(req.new_password)
+
+    # 현재 비밀번호 검증을 fresh user 기준으로 mutator 안에서 수행 (CLAUDE.md §1) —
+    # 검사와 변경을 같은 임계구역에 둬 동시 변경 요청 사이의 TOCTOU를 방지한다.
+    def mutator(u: dict) -> None:
+        if not verify_password(req.current_password, u.get("password", "")):
+            raise HTTPException(status_code=400, detail="현재 비밀번호가 일치하지 않습니다.")
+        u["password"] = new_hashed_pw
+        return None
+
+    try:
+        mutate_user_atomic(user["id"], mutator)
+    except UserNotFoundError:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    return {"ok": True, "message": "비밀번호가 변경되었습니다."}
 
 

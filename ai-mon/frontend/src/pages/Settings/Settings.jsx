@@ -31,6 +31,22 @@ const LEVELS = [
   { key: 'advanced', emoji: '🔥', label: 'advanced', desc: 'f-string급 실력자 전용' },
 ]
 
+// OS별 이모지 폰트가 👁를 자체 배경 박스로 렌더링해 버튼처럼 안 보이는 문제가 있어
+// 텍스트/이모지 대신 라인 아이콘 SVG로 그린다.
+function EyeIcon({ open }) {
+  return open ? (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  ) : (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a20.6 20.6 0 0 1 5.06-6.06M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a20.5 20.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+      <path d="M1 1l22 22" />
+    </svg>
+  )
+}
+
 export default function Settings() {
   const navigate = useNavigate()
   const user = useAuthStore((s) => s.user)
@@ -54,6 +70,15 @@ export default function Settings() {
   const [deleteNotice, setDeleteNotice] = useState(null)
   const deleteRedirectTimerRef = useRef(null)
 
+  const isSocialAccount = /^(google_|naver_|kakao_)/.test(user?.username || '')
+  const [showPwModal, setShowPwModal] = useState(false)
+  const [pwForm, setPwForm] = useState({ current: '', next: '', confirm: '' })
+  const [pwSaving, setPwSaving] = useState(false)
+  const [pwMsg, setPwMsg] = useState(null) // { type: 'ok' | 'err', text: string } | null
+  const [pwNotice, setPwNotice] = useState(null)
+  const pwNoticeTimerRef = useRef(null)
+  const [pwVisible, setPwVisible] = useState({ current: false, next: false, confirm: false })
+
   const [notifs, setNotifs] = useState({
     streak: true,
     boss: true,
@@ -65,6 +90,9 @@ export default function Settings() {
     return () => {
       if (deleteRedirectTimerRef.current) {
         clearTimeout(deleteRedirectTimerRef.current)
+      }
+      if (pwNoticeTimerRef.current) {
+        clearTimeout(pwNoticeTimerRef.current)
       }
     }
   }, [])
@@ -172,6 +200,70 @@ export default function Settings() {
 
   const toggleNotif = (key) => setNotifs((prev) => ({ ...prev, [key]: !prev[key] }))
 
+  const openPwModal = () => {
+    if (isSocialAccount) {
+      setPwNotice({ type: 'error', message: '소셜 로그인 계정은 비밀번호를 변경할 수 없습니다.' })
+      pwNoticeTimerRef.current = setTimeout(() => setPwNotice(null), 2500)
+      return
+    }
+    setPwForm({ current: '', next: '', confirm: '' })
+    setPwMsg(null)
+    setShowPwModal(true)
+  }
+
+  const closePwModal = () => {
+    if (pwSaving) return
+    setShowPwModal(false)
+  }
+
+  const handlePwFieldChange = (field) => (e) => {
+    setPwForm((prev) => ({ ...prev, [field]: e.target.value }))
+    setPwMsg(null)
+  }
+
+  const togglePwVisible = (field) => {
+    setPwVisible((prev) => ({ ...prev, [field]: !prev[field] }))
+  }
+
+  const getChangePasswordErrorMessage = (err) => {
+    const detail = err?.response?.data?.detail
+    if (typeof detail === 'string' && detail.trim()) {
+      return detail
+    }
+    return '비밀번호 변경에 실패했습니다. 다시 시도해주세요.'
+  }
+
+  const handlePwSubmit = async (e) => {
+    e.preventDefault()
+    if (pwForm.next.length < 8) {
+      setPwMsg({ type: 'err', text: '새 비밀번호는 8자 이상이어야 합니다.' })
+      return
+    }
+    if (pwForm.next !== pwForm.confirm) {
+      setPwMsg({ type: 'err', text: '새 비밀번호가 일치하지 않습니다.' })
+      return
+    }
+    if (pwForm.next === pwForm.current) {
+      setPwMsg({ type: 'err', text: '새 비밀번호가 현재 비밀번호와 동일합니다.' })
+      return
+    }
+    setPwSaving(true)
+    setPwMsg(null)
+    try {
+      await userApi.changePassword({
+        current_password: pwForm.current,
+        new_password: pwForm.next,
+      })
+      setShowPwModal(false)
+      setPwNotice({ type: 'success', message: '비밀번호가 변경되었습니다.' })
+      pwNoticeTimerRef.current = setTimeout(() => setPwNotice(null), 2500)
+    } catch (err) {
+      setPwMsg({ type: 'err', text: getChangePasswordErrorMessage(err) })
+    } finally {
+      setPwSaving(false)
+    }
+  }
+
   return (
     <div className="st-page">
       {showDeleteConfirm && (
@@ -204,6 +296,110 @@ export default function Settings() {
       {deleteNotice && (
         <div className={`st-toast st-toast-${deleteNotice.type}`}>
           {deleteNotice.message}
+        </div>
+      )}
+
+      {pwNotice && (
+        <div className={`st-toast st-toast-${pwNotice.type}`}>
+          {pwNotice.message}
+        </div>
+      )}
+
+      {showPwModal && (
+        <div className="st-modal-overlay" onClick={closePwModal}>
+          <div className="st-modal-card" onClick={(e) => e.stopPropagation()}>
+            <h2 className="st-modal-title">비밀번호 변경</h2>
+            <form className="st-pw-form" onSubmit={handlePwSubmit}>
+              <div className="st-pw-field">
+                <div className="st-nick-label">현재 비밀번호</div>
+                <div className="st-pw-input-wrap">
+                  <input
+                    className="st-nick-input"
+                    type={pwVisible.current ? 'text' : 'password'}
+                    value={pwForm.current}
+                    onChange={handlePwFieldChange('current')}
+                    autoComplete="current-password"
+                    placeholder="현재 비밀번호"
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="st-pw-eye-btn no-3d"
+                    onClick={() => togglePwVisible('current')}
+                    aria-label={pwVisible.current ? '비밀번호 숨기기' : '비밀번호 보기'}
+                  >
+                    <EyeIcon open={pwVisible.current} />
+                  </button>
+                </div>
+              </div>
+              <div className="st-pw-field">
+                <div className="st-nick-label">새 비밀번호</div>
+                <div className="st-pw-input-wrap">
+                  <input
+                    className="st-nick-input"
+                    type={pwVisible.next ? 'text' : 'password'}
+                    value={pwForm.next}
+                    onChange={handlePwFieldChange('next')}
+                    autoComplete="new-password"
+                    placeholder="8자 이상"
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="st-pw-eye-btn no-3d"
+                    onClick={() => togglePwVisible('next')}
+                    aria-label={pwVisible.next ? '비밀번호 숨기기' : '비밀번호 보기'}
+                  >
+                    <EyeIcon open={pwVisible.next} />
+                  </button>
+                </div>
+              </div>
+              <div className="st-pw-field">
+                <div className="st-nick-label">새 비밀번호 확인</div>
+                <div className="st-pw-input-wrap">
+                  <input
+                    className="st-nick-input"
+                    type={pwVisible.confirm ? 'text' : 'password'}
+                    value={pwForm.confirm}
+                    onChange={handlePwFieldChange('confirm')}
+                    autoComplete="new-password"
+                    placeholder="새 비밀번호 재입력"
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="st-pw-eye-btn no-3d"
+                    onClick={() => togglePwVisible('confirm')}
+                    aria-label={pwVisible.confirm ? '비밀번호 숨기기' : '비밀번호 보기'}
+                  >
+                    <EyeIcon open={pwVisible.confirm} />
+                  </button>
+                </div>
+              </div>
+              {pwMsg && (
+                <div className={`st-nick-msg ${pwMsg.type}`}>
+                  {pwMsg.type === 'ok' ? '✅ ' : '❌ '}{pwMsg.text}
+                </div>
+              )}
+              <div className="st-modal-actions">
+                <button
+                  type="button"
+                  className="st-modal-btn st-modal-btn-ghost"
+                  onClick={closePwModal}
+                  disabled={pwSaving}
+                >
+                  취소
+                </button>
+                <button
+                  type="submit"
+                  className="st-modal-btn st-modal-btn-primary"
+                  disabled={pwSaving}
+                >
+                  {pwSaving ? '변경 중...' : '변경하기'}
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       )}
 
@@ -271,9 +467,12 @@ export default function Settings() {
             <div className="st-srow-text"><div className="st-srow-label">이메일 변경</div></div>
             <span className="st-chevron">›</span>
           </div>
-          <div className="st-srow">
+          <div className="st-srow" onClick={openPwModal} style={{ cursor: 'pointer' }}>
             <div className="st-srow-icon" style={{ background: 'rgba(15,110,86,0.18)' }}>PW</div>
-            <div className="st-srow-text"><div className="st-srow-label">비밀번호 변경</div></div>
+            <div className="st-srow-text">
+              <div className="st-srow-label">비밀번호 변경</div>
+              {isSocialAccount && <div className="st-srow-sub">소셜 로그인 계정은 변경할 수 없어요</div>}
+            </div>
             <span className="st-chevron">›</span>
           </div>
           <div className="st-srow">

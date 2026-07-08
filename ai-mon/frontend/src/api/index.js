@@ -108,6 +108,7 @@ export const userApi = {
   updateMe:      (data)    => api.patch('/user/me', data),
   purchaseTheme: (themeId) => api.post('/user/purchase-theme', { theme_id: themeId }),
   deleteMe:      ()        => api.delete('/user/me'),
+  changePassword: (data)   => api.post('/user/change-password', data),
 }
 
 export const trainApi = {

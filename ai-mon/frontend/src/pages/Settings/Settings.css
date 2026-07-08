@@ -90,6 +90,66 @@
   transform: translateY(0) scale(0.99);
 }
 
+.st-modal-btn-primary {
+  background: var(--clr-primary);
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(83,74,183,0.16), 0 0 0 1px rgba(127,119,221,0.08);
+}
+.st-modal-btn-primary:hover {
+  box-shadow: 0 10px 22px rgba(83,74,183,0.2), 0 0 0 4px rgba(127,119,221,0.1);
+  transform: translateY(-1px);
+}
+
+.st-pw-form {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.st-pw-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.st-pw-input-wrap {
+  position: relative;
+  display: flex;
+}
+.st-pw-input-wrap .st-nick-input {
+  width: 100%;
+  padding-right: 40px;
+}
+/* 세로 중앙 정렬을 transform 대신 top/bottom+margin:auto 로 잡는다.
+   전역 .no-3d 규칙이 transform: none !important 를 강제하므로 translateY 는 무효화된다. */
+.st-pw-eye-btn {
+  position: absolute;
+  right: 6px;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--clr-text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  opacity: 0.75;
+  transition: opacity 0.15s, color 0.15s;
+}
+.st-pw-eye-btn:hover {
+  opacity: 1;
+  color: var(--clr-primary);
+}
+.st-pw-eye-btn svg {
+  display: block;
+  pointer-events: none;
+}
+
 .st-toast {
   position: fixed;
   left: 50%;
