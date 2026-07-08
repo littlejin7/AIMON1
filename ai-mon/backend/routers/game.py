@@ -197,6 +197,116 @@ def _score_aicross_answers(puzzle_id: str, answers) -> dict:
     }
 
 
+# ---------------------------------------------------------------------------
+# 에이칸 B-2: 서버 진행도 세트 (신규, 레거시 AICROSS_PUZZLES 와 완전히 분리)
+# ---------------------------------------------------------------------------
+# backend/data/aicross_sets.json 은 27개 세트(set_index/set_name/grid_size/entries)를
+# 담은 "정적 layout" 데이터다. 레거시 backend/data/aicross_puzzles.json(AICROSS_PUZZLES,
+# set_001.. 20세트, grid/entries/answer 구조)과는 이름도 내용도 다르며 서로 건드리지 않는다.
+# 신규 로직은 이 섹션의 AICROSS_SETS 계열 이름만 사용한다.
+
+AICROSS_SETS = []
+try:
+    _sets_path = os.path.join(os.path.dirname(__file__), "../data/aicross_sets.json")
+    if os.path.exists(_sets_path):
+        with open(_sets_path, "r", encoding="utf-8") as f:
+            AICROSS_SETS = json.load(f)
+except Exception as e:
+    import logging
+    logging.getLogger("uvicorn").error(f"Failed to load aicross_sets.json: {e}")
+
+AICROSS_REWARD_DAILY_LIMIT = 3
+
+
+def _aicross_set_count() -> int:
+    return len(AICROSS_SETS)
+
+
+def _aicross_set_public_puzzle(set_index: int) -> dict:
+    """entries 에서 answer 를 제거한 public puzzle. 프론트는 좌표만으로 그리드를 그린다."""
+    aicross_set = AICROSS_SETS[set_index]
+    return {
+        "grid_size": aicross_set.get("grid_size"),
+        "entries": [
+            {
+                "id": entry["id"],
+                "direction": entry["direction"],
+                "row": entry["row"],
+                "col": entry["col"],
+                "length": entry["length"],
+                "clue": entry.get("clue", ""),
+                "easyClue": entry.get("easyClue", ""),
+            }
+            for entry in aicross_set.get("entries", [])
+        ],
+    }
+
+
+def _aicross_reward_count_today(game_rewards: dict, today_kst: str) -> int:
+    """오늘 '보상을 받은' 에이칸 판 수. aicross_today_count 는 플레이 횟수가 아니라
+    reward>0 로 지급이 실제 이뤄진 판 수(레거시 game_id=aicross 경로와 공유하는 카운터).
+    날짜가 오늘이 아니면 아직 저장 전이므로 0으로 계산만 한다(이 시점에서 저장하지 않음).
+    """
+    if game_rewards.get("aicross_last_date") != today_kst:
+        return 0
+    return int(game_rewards.get("aicross_today_count", 0) or 0)
+
+
+def _aicross_progress_snapshot(game_rewards: dict, today_kst: str) -> dict:
+    """진행도 스냅샷(조회 전용, 저장 없음). progress/start 양쪽에서 재사용한다."""
+    raw_completed = game_rewards.get("aicross_completed_sets")
+    completed_set_ids = set()
+    if isinstance(raw_completed, list):
+        for v in raw_completed:
+            try:
+                completed_set_ids.add(int(v))
+            except (TypeError, ValueError):
+                continue
+
+    best_scores = game_rewards.get("aicross_best_scores")
+    if not isinstance(best_scores, dict):
+        best_scores = {}
+    clear_counts = game_rewards.get("aicross_set_clear_counts")
+    if not isinstance(clear_counts, dict):
+        clear_counts = {}
+
+    total_sets = _aicross_set_count()
+    last_set_index = game_rewards.get("aicross_last_set_index")
+    if not isinstance(last_set_index, int) or not (0 <= last_set_index < total_sets):
+        last_set_index = 0
+
+    sets = []
+    next_set_index = None
+    for idx, aicross_set in enumerate(AICROSS_SETS):
+        completed = idx in completed_set_ids
+        if next_set_index is None and not completed:
+            next_set_index = idx
+        sets.append({
+            "index": idx,
+            "title": aicross_set.get("set_name", ""),
+            "completed": completed,
+            "best_score": int(best_scores.get(str(idx), 0) or 0),
+            "clear_count": int(clear_counts.get(str(idx), 0) or 0),
+        })
+
+    if next_set_index is None:
+        # 전체 세트 완료 — 마지막 플레이 세트(없으면 0)로 안전하게 폴백해 복습을 유도한다.
+        next_set_index = last_set_index
+
+    today_reward_count = _aicross_reward_count_today(game_rewards, today_kst)
+
+    return {
+        "total_sets": total_sets,
+        "completed_sets": sorted(completed_set_ids),
+        "last_set_index": last_set_index,
+        "next_set_index": next_set_index,
+        "today_reward_count": today_reward_count,
+        "today_reward_limit": AICROSS_REWARD_DAILY_LIMIT,
+        "today_reward_remaining": max(0, AICROSS_REWARD_DAILY_LIMIT - today_reward_count),
+        "sets": sets,
+    }
+
+
 def _make_game_token(game_id: str, user_id: str, extra_payload: Optional[dict] = None) -> str:
     """game_id/user_id/발급시각/nonce 를 담아 HMAC-SHA256 서명한 토큰을 만든다."""
     payload = {
@@ -320,6 +430,10 @@ class GameClearRequest(BaseModel):
     answers: Optional[dict] = None
     correct_count: Optional[int] = None  # 에이짝 전용: 클라이언트 제출값, 서버에서 범위 검증만
     game_token: str  # B-4: 프론트 배선 완료 후 required 전환
+
+
+class AicrossStartRequest(BaseModel):
+    set_index: Optional[int] = None
 
 
 @router.post("/start")
@@ -680,6 +794,46 @@ def game_clear(req: GameClearRequest, user_ref: dict = Depends(get_current_user)
     except UserNotFoundError:
         raise HTTPException(status_code=404, detail="User not found")
     return result
+
+
+# ---------------------------------------------------------------------------
+# 에이칸 B-2: 서버 진행도 API (신규, 레거시 /start·/clear 와 별개 라우트)
+# ---------------------------------------------------------------------------
+# 이 단계(프롬프트 3)에서는 progress 조회와 start 발급만 구현한다. 채점/completed_sets
+# 저장/차등 보상은 POST /game/aicross/clear(다음 단계)에서 처리한다. 하루 3판 보상 카운트
+# (aicross_today_count/aicross_last_date)는 레거시 game_id=aicross 경로와 같은 필드를
+# 공유하므로 여기서는 읽기만 하고 쓰지 않는다(저장은 clear 단계에서 원자적으로 처리).
+
+@router.get("/aicross/progress")
+def game_aicross_progress(user_ref: dict = Depends(get_current_user)):
+    game_rewards = user_ref.get("game_rewards")
+    if not isinstance(game_rewards, dict):
+        game_rewards = {}
+    today_kst = now_kst().date().isoformat()
+    return _aicross_progress_snapshot(game_rewards, today_kst)
+
+
+@router.post("/aicross/start")
+def game_aicross_start(req: AicrossStartRequest, user_ref: dict = Depends(get_current_user)):
+    game_rewards = user_ref.get("game_rewards")
+    if not isinstance(game_rewards, dict):
+        game_rewards = {}
+    today_kst = now_kst().date().isoformat()
+    snapshot = _aicross_progress_snapshot(game_rewards, today_kst)
+
+    set_index = req.set_index if req.set_index is not None else snapshot["next_set_index"]
+    total_sets = _aicross_set_count()
+    if not isinstance(set_index, int) or not (0 <= set_index < total_sets):
+        raise HTTPException(status_code=400, detail="Invalid set_index")
+
+    token = _make_game_token("aicross", user_ref["id"], {"set_index": set_index})
+    aicross_set = AICROSS_SETS[set_index]
+    return {
+        "game_token": token,
+        "set_index": set_index,
+        "set_label": aicross_set.get("set_name", ""),
+        "puzzle": _aicross_set_public_puzzle(set_index),
+    }
 
 
 # ---------------------------------------------------------------------------
