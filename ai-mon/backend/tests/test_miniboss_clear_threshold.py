@@ -19,6 +19,7 @@ import pytest
 from fastapi import HTTPException
 
 import routers.miniboss as M
+import routers.quiz as Q
 
 
 def _user():
@@ -160,3 +161,34 @@ def test_three_correct_clear_is_blocked(monkeypatch):
 
     assert ei.value.status_code == 403
     assert saved == []  # 미완료 → 진행도 완료행 저장 없음
+
+
+# ── 시너지: 미니보스 클리어(신규 4정답 기준) + 게이트 자가치유(quiz.py) ────────
+#
+# 두 근본수정이 함께 배포됐을 때의 실제 실패 시나리오를 엔드투엔드로 재현한다:
+#   1) 유저가 4정답으로 미니보스(신규 기준)를 승리 → miniboss_clear 가
+#      miniboss_cleared_stages(원자, users)엔 기록하지만,
+#   2) progress 완료행 저장은 실패(save_progress_item 이 아무 것도 영속화하지
+#      못했다고 가정 — de0040ab 처럼 별도 스토리지 유실).
+#   3) 이 상태로 바로 다음 스테이지에 assert_stage_access(quiz.py) 를 물으면,
+#      게이트 자가치유(_completed_stage_ids 가 miniboss_cleared_stages 도
+#      완료 신호로 합산)가 progress 유실을 극복하고 통과시켜야 한다.
+def test_miniboss_win_then_progress_loss_still_passes_next_stage_gate(monkeypatch):
+    _prep_clear(monkeypatch)
+    # progress 저장을 완전히 무력화 — miniboss_clear 가 시도해도 아무 데도 안 쌓인다.
+    monkeypatch.setattr(M, "save_progress_item", lambda item: None)
+
+    user, start, _ = _battle(monkeypatch, [True, True, True, True], stage="1-2")
+    token = start["battle_token"]
+
+    out = M.miniboss_clear(M.ClearRequest(unit=1, stage="1-2", battle_token=token), user=user)
+    assert out["already_cleared"] is False
+    assert "1-2" in user["miniboss_cleared_stages"]  # 원자 기록은 성공(users)
+
+    # progress 는 완전 유실 상태(빈 목록)로 재현 — assert_stage_access 가 이걸 볼 때
+    # miniboss_cleared_stages 로 폴백해야 한다.
+    monkeypatch.setattr(Q, "get_progress_by_user", lambda uid, lvl: [])
+    user["is_level_tested"] = True
+    user["max_unlocked_unit"] = {"beginner": 1}
+
+    Q.assert_stage_access(user, 1, "1-3", "beginner")  # 예외 없이 통과해야 함
