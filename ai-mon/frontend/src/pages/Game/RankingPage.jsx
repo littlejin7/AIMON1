@@ -66,6 +66,7 @@ export default function RankingPage() {
     let cancelled = false
     setLoading(true)
     setError(false)
+    setData(null)                          // 탭 전환 시 이전 탭 데이터로 렌더되어 크래시나는 것 방지
     const request = activeTab === 'overall'
       ? gameApi.rankingOverall(10)
       : gameApi.rankingByGame(3)
@@ -192,7 +193,7 @@ export default function RankingPage() {
         <div className="ranking-page-status">불러오는 중...</div>
       ) : error ? (
         <div className="ranking-page-status">랭킹을 불러오지 못했어요.</div>
-      ) : activeTab === 'weekly' && (!data || data.games.length === 0) ? (
+      ) : activeTab === 'weekly' && (!data || !data.games || data.games.length === 0) ? (
         <div className="ranking-page-status">랭킹 정보가 없어요.</div>
       ) : (
         activeTab === 'overall' ? renderOverallRanking() : renderWeeklyRanking()
