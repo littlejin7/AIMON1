@@ -123,6 +123,10 @@ export function useTapGame({ audio }) {
 
   // ── 시작하기(인트로 → 플레이) ─────────────────────────────────
   const startGame = useCallback(() => {
+    // 시작하기 클릭(사용자 제스처) 시점에 오디오 컨텍스트 + BGM 시작.
+    // (기존엔 첫 토큰 터치 때만 시작돼서 인트로/첫 문제까지 음악이 안 나왔음)
+    audio.ensureAudio();
+
     setQuestions(pickStageQuestions());
     setStage(0);
     setSolved(false);
@@ -147,7 +151,7 @@ export function useTapGame({ audio }) {
     }).catch((err) => {
       console.warn('[AIbomb] 게임 토큰 발급 실패 — 이번 판은 보상이 지급되지 않을 수 있습니다.', err);
     });
-  }, []);
+  }, [audio]);
 
   // ── 채점: 오류 토큰을 터치했는지 확인 (오답은 시간만 차감, 하트는 유지) ──
   const tapToken = useCallback((index) => {
