@@ -424,7 +424,7 @@ export default function AICross() {
           <div className="aicross-intro-panel">
             <img className="aicross-intro-thumb" src={aiwordThumb} alt="에이칸" />
 
-            <h1 className="aicross-intro-title">AIword</h1>
+            <h1 className="aicross-intro-title">AI Word</h1>
             <p className="aicross-intro-desc">단어 조각을 모아 십자말을 완성하라!</p>
 
             <div className="aicross-intro-rule">
@@ -435,7 +435,7 @@ export default function AICross() {
             <div className="aicross-intro-reward">⚡ 클리어 보상 · 코인 100~200</div>
 
             <button className="aicross-intro-start" onClick={() => setStarted(true)}>
-              시작하기 ▶
+              게임시작 ▶
             </button>
           </div>
         </div>
