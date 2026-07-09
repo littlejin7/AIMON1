@@ -15,7 +15,7 @@ export default function Game() {
   const updateUser = useAuthStore(s => s.updateUser)
   const [counts, setCounts]         = useState({})
   const [lockedGame, setLockedGame] = useState(null)
-  const [challengeListOpen, setChallengeListOpen] = useState(true)
+  const [challengeListOpen, setChallengeListOpen] = useState(false)
   const [challengeBonus, setChallengeBonus] = useState(null)
   const [challengeClaiming, setChallengeClaiming] = useState(false)
   const [challengeClaimError, setChallengeClaimError] = useState('')
