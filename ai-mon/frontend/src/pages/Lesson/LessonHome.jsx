@@ -40,19 +40,41 @@ function getFallbackUnitIcon(unitId) {
   return FALLBACK_UNIT_ICONS[unitId] || '📘'
 }
 
-function getUnitShortTitle(title = '', unitId) {
-  const byUnit = {
-    1: '파이썬 첫걸음',
-    2: '문자열',
-    3: '조건문',
-    4: '반복문',
-    5: '리스트/파일',
-    6: '함수',
-    7: '딕셔너리',
-    8: '프로젝트',
+function getUnitShortTitle(title = '', unitId, courseLevel = 'beginner') {
+  const mapping = {
+    beginner: {
+      1: '파이썬 첫걸음',
+      2: '문자열',
+      3: '조건문',
+      4: '반복문',
+      5: '리스트/파일',
+      6: '함수',
+      7: '딕셔너리',
+      8: '프로젝트',
+    },
+    intermediate: {
+      1: '예외처리',
+      2: '자료형 심화',
+      3: '함수 심화',
+      4: '클래스 & OOP',
+      5: '리스트/파일 심화',
+      6: '가상환경',
+      7: '정규표현식',
+      8: 'API 프로젝트',
+    },
+    advanced: {
+      1: '고급 문법',
+      2: '비동기 프로그래밍',
+      3: 'AI API 활용',
+      4: 'Streamlit 챗봇',
+      5: 'LangChain 기초',
+      6: 'AI 에이전트',
+      7: '웹 연동 프로젝트',
+      8: '최종 프로젝트',
+    }
   }
 
-  return byUnit[unitId] || title.replace(/—/g, ' ').split(/\s+/).slice(0, 2).join(' ') || `Unit ${unitId}`
+  return mapping[courseLevel]?.[unitId] || title.replace(/—/g, ' ').split(/\s+/).slice(0, 2).join(' ') || `Unit ${unitId}`
 }
 
 export default function LessonHome() {
@@ -254,7 +276,7 @@ export default function LessonHome() {
                 const done = prog.completed >= lesson.stages && lesson.stages > 0 && isBossComplete(lesson.unit_id)
                 const isCurrent = unlocked && !done && lesson.unit_id === expandedUnit
                 const title = lesson.title || UNIT_TITLES[idx] || `Unit ${lesson.unit_id}`
-                const shortTitle = getUnitShortTitle(title, lesson.unit_id)
+                const shortTitle = getUnitShortTitle(title, lesson.unit_id, courseLevel)
                 const icon = lesson.icon || getFallbackUnitIcon(lesson.unit_id)
 
                 return (
