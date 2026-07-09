@@ -8,7 +8,7 @@ import ap4 from '@aipang/ap4.png'
 import bossUnit  from '@aipang/boss_unit.png'
 import bossFinal from '@aipang/boss_final.png'
 import projStone from '@aipang/proj_stone.png'
-import bgmSrc    from '@aipang/bgm.m4a'
+import bgmSrc    from '@aipang/aipang_bgm.mp3'
 import popSrc    from '@aipang/pop.mp3'
 
 // 파이어볼 / 파도(wave) 이펙트 — Higgsfield AI로 생성한 고퀄리티 VFX 스프라이트.
