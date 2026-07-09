@@ -189,7 +189,7 @@ const CROSSWORD_SETS = [
       {
         "id": "float",
         "word": "FLOAT",
-        "clue": "소수점이 있는 실수형 자료형 — float()",
+        "clue": "소수점이 있는 실수형 자료형",
         "easyClue": "소수점이 있는 실수 자료형이에요."
       },
       {
