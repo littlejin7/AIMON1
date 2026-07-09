@@ -544,7 +544,12 @@ export default function LessonHome() {
                   <UnitIcon unitId={lesson.unit_id} className="lh-selected-unit-svg" />
                 </div>
                 <div className="lh-selected-unit-info">
-                  <div className="lh-selected-unit-kicker">Unit {lesson.unit_id}</div>
+                  <div className="lh-selected-unit-meta-row">
+                    <span className="lh-selected-unit-kicker">UNIT {lesson.unit_id}</span>
+                    <button type="button" className="lh-selected-unit-info-pill no-3d">
+                      유닛 정보
+                    </button>
+                  </div>
                   <h2>{title}</h2>
                   <p>{lesson.description || `${prog.completed} / ${lesson.stages} 스테이지 완료`}</p>
                 </div>
