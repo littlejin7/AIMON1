@@ -286,7 +286,7 @@
   font-size: 12px;
   font-weight: 500;
   color: var(--clr-text-muted);
-  padding: 2px 20px 6px;
+  padding: 8px 26px 8px;
   letter-spacing: 0.3px;
 }
 
@@ -294,7 +294,7 @@
 .game-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   padding: 0 12px;
 }
 
@@ -302,7 +302,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 13px;
+  padding: 14px 13px;
   border-radius: var(--radius-lg);
 }
 .game-row--active {
@@ -400,7 +400,7 @@
 
 /* ── 랭킹 카드 ── */
 .game-ranking-card {
-  margin: 10px 12px 0;
+  margin: 10px 12px 6px;
   border-radius: var(--radius-lg);
   overflow: hidden;
 }

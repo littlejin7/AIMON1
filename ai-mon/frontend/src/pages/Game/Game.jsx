@@ -279,7 +279,7 @@ export default function Game() {
       </div>
 
       {/* ── 게임 목록 ── */}
-      <p className="game-section-label">게임 목록</p>
+      <p className="game-section-label">🎮 게임 목록</p>
       <div className="game-list">
         {GAMES.map((g) => {
           const done = g.dailyTarget
