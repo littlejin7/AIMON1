@@ -47,6 +47,8 @@ export default function EndBossIntro({ bossData, errorMsg, onStart, selectedLeve
   const canStart = selectedLevelInfo?.enterable === true
   const allCleared = levelInfos.length > 0 && levelInfos.every(item => item.status === 'cleared')
   const ENDBOSS_PROJECTS = PROJECTS_BY_LEVEL[level] ?? PROJECTS_BY_LEVEL.beginner
+  const retryCost = bossData?.retry_cost ?? 3
+  const crowns = bossData?.crowns ?? 0
   const [selectedProject, setSelectedProject] = useState(ENDBOSS_PROJECTS[0].id)
 
   // 레벨이 바뀌면 그 레벨의 첫 프로젝트로 선택 리셋.
@@ -170,7 +172,7 @@ export default function EndBossIntro({ bossData, errorMsg, onStart, selectedLeve
         <div className="eb-cond-row">
           <div className="eb-cond-item">
             <span>도전 비용</span>
-            <span className="eb-cond-val free">무료 (오늘 {bossData?.free_attempts_per_day ?? 3}회 남음)</span>
+            <span className={`eb-cond-val ${crowns >= retryCost ? 'free' : 'nohint'}`}>👑 왕관 {retryCost}개</span>
           </div>
           <div className="eb-cond-item">
             <span>도움말</span>
