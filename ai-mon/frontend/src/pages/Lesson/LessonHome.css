@@ -29,6 +29,24 @@ body:has(.lh-page) { background: #F4F3FA; }
   margin: 0 auto;
 }
 
+
+/* ── 헤더 ── */
+.lh-header {
+  padding: 20px 0 12px;
+}
+.lh-header-label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--clr-primary);
+  letter-spacing: 0.08em;
+  margin: 0 0 4px;
+}
+.lh-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--clr-text);
+  margin: 0;
+}
 /* ── 레벨 탭 ── */
 .lh-level-tabs {
   display: flex;
