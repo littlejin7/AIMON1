@@ -125,6 +125,9 @@ export default function HomeDashboard({ user, stats, onOpenLevelTest }) {
           const courseLevel = user?.course_level || 'beginner'
           return (
             <div className="hd-char-meta">
+              {user?.nickname && (
+                <span className="hd-char-nickname">{user.nickname}</span>
+              )}
               {equippedTitle && TITLE_NAMES[equippedTitle] && (
                 <span className="hd-char-title-badge">🎖 {TITLE_NAMES[equippedTitle]}</span>
               )}
