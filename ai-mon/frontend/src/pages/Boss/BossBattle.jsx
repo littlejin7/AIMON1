@@ -121,10 +121,17 @@ export default function BossBattle({
   const parsed = parseQuestionText(currentQuestion.question)
   const badge  = TYPE_BADGE[currentQuestion.type] ?? TYPE_BADGE.multiple_choice
 
-  const isCodeMultiInput = currentQuestion.type === 'code_multi_input' || currentQuestion.type === 'code_input'
-  const isCodeType = false
+  const isCodeMultiInput = currentQuestion.type === 'code_multi_input'
+  const isCodeType = currentQuestion.type === 'code_input'
   const isFibType  = currentQuestion.type === 'fill_in_blank'
   const hasChoice  = !isCodeType && !isFibType && !isCodeMultiInput && currentQuestion.choices?.length > 0
+  
+  const isSingleAnswer = useMemo(() => {
+    if (!currentQuestion) return true
+    if (Array.isArray(currentQuestion.answer)) return currentQuestion.answer.length === 1
+    return true
+  }, [currentQuestion?.answer])
+
   const choicesKey = (currentQuestion.choices || []).join('\u0001')
   const shuffledChoices = useMemo(
     () => shuffleChoices(currentQuestion.choices || []),
@@ -134,6 +141,10 @@ export default function BossBattle({
   const multiInputChoices = useMemo(() => {
     if (!isCodeMultiInput || !currentQuestion) return []
     if (currentQuestion.choices && currentQuestion.choices.length > 0) {
+      if (currentQuestion.choices.length === 1) {
+        const withDistractors = getChoicesForCodeInput(currentQuestion.choices[0], currentQuestion.choices)
+        return shuffleChoices(withDistractors)
+      }
       return shuffleChoices(currentQuestion.choices)
     }
     if (Array.isArray(currentQuestion.answer)) {
@@ -155,7 +166,8 @@ export default function BossBattle({
     }
     const answer = currentQuestion.answer
     const customChoices = currentQuestion.choices || []
-    return getChoicesForCodeInput(answer, customChoices)
+    const generated = getChoicesForCodeInput(answer, customChoices)
+    return shuffleChoices(generated)
   }, [currentQuestion?.question_id, currentQuestion?.choices, currentQuestion?.answer, isCodeType])
   
   const templateLines = currentQuestion?.code_template ? currentQuestion.code_template.split('\n') : []
@@ -386,7 +398,7 @@ export default function BossBattle({
                     marginBottom: '4px',
                   }}>
                     <div style={{ fontSize: '13px', fontWeight: 700, color: '#5B21B6', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span>코드 조각 예시</span>
+                      <span>{isSingleAnswer ? '알맞은 코드를 입력하세요.' : '코드 조각을 순서에 맞게 바르게 입력하세요.'}</span>
                       <button
                         type="button"
                         onClick={() => !loading && !aiResult && setSingleLineValue('')}
@@ -441,7 +453,7 @@ export default function BossBattle({
               {codeTypeChoices && codeTypeChoices.length > 0 && (
                 <div className="eb-b-choices-wrap" style={{ marginBottom: '8px' }}>
                   <div style={{ fontSize: '11px', fontWeight: 600, color: '#4C4465', marginBottom: '6px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span>코드 조각 예시</span>
+                    <span>{isSingleAnswer ? '알맞은 코드를 입력하세요.' : '코드 조각을 순서에 맞게 바르게 입력하세요.'}</span>
                     <button 
                       type="button" 
                       onClick={() => !loading && !aiResult && setAnswerInput('')} 

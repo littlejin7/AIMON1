@@ -17,7 +17,7 @@ export default function CodeInput({ input, setInput, choices, revealed, disabled
       {choices && choices.length > 0 && (
         <div className="quiz-code-choices" style={{ marginBottom: '12px' }}>
           <div style={{ fontSize: '13px', fontWeight: 600, color: '#4C4465', marginBottom: '6px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span>코드 조각 예시</span>
+            <span>알맞은 코드를 입력하세요.</span>
             <button 
               type="button" 
               onClick={handleClear} 

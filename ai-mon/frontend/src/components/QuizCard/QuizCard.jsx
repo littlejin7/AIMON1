@@ -168,11 +168,12 @@ export default function QuizCard({
   const codeInputChoices = useMemo(() => {
     if (!isCodeInput || !question) return []
     if (question.choices && question.choices.length >= 2) {
-      return question.choices
+      return shuffleChoices(question.choices)
     }
     const answer = question.answer
     const customChoices = question.choices || []
-    return getChoicesForCodeInput(answer, customChoices)
+    const generated = getChoicesForCodeInput(answer, customChoices)
+    return shuffleChoices(generated)
   }, [question?.question_id, question?.id, question?.choices, question?.answer, isCodeInput])
 
   useEffect(() => {

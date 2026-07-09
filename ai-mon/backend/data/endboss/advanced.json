@@ -161,22 +161,23 @@
     "type": "code_multi_input",
     "question": "'execute_tool' 함수를 구현하세요.\n\n```python\n- 파라미터: 'tool_name' (str), 'tool_input' (dict), 'tools_map' (dict — 도구명: 함수 매핑)\n- 'tools_map'에서 'tool_name'으로 함수를 꺼내 '**tool_input'으로 호출하고 결과를 str로 반환\n- 등록되지 않은 도구면 'f'알 수 없는 도구: {tool_name}'' 반환\n- 실행 중 예외 발생 시 'f'도구 실행 오류: {e}'' 반환\n```",
     "answer": [
-      "return",
-      "f'알",
-      "수",
-      "없는 도구: {tool_name}'"
+      "if tool_name not in tools_map:",
+      "return f'알 수 없는 도구: {tool_name}'",
+      "try:",
+      "result = tools_map[tool_name](**tool_input)",
+      "return str(result)"
     ],
     "feedback": {
       "correct": "훌륭합니다! 도구 미등록 체크, **tool_input 언패킹 호출, 예외 처리까지 완벽합니다.",
       "incorrect": "tools_map에서 tool_name으로 함수를 꺼내 **tool_input으로 호출하고, 미등록/예외 케이스를 처리해야 합니다."
     },
-    "code_template": "def execute_tool(tool_name: str, tool_input: dict, tools_map: dict) -> str:\n    if tool_name not in tools_map:\n        {slot1} {slot2} {slot3} {slot4}\n    try:\n        result = tools_map[tool_name](**tool_input)\n        return str(result)\n    except Exception as e:\n        return f'도구 실행 오류: {e}'",
+    "code_template": "def execute_tool(tool_name: str, tool_input: dict, tools_map: dict) -> str:\n    {slot1}\n        {slot2}\n    {slot3}\n        {slot4}\n        {slot5}\n    except Exception as e:\n        return f'도구 실행 오류: {e}'",
     "choices": [
-      "없는 도구: {tool_name}'",
-      "수",
-      "return",
-      "await",
-      "f'알"
+      "return str(result)",
+      "try:",
+      "return f'알 수 없는 도구: {tool_name}'",
+      "result = tools_map[tool_name](**tool_input)",
+      "if tool_name not in tools_map:"
     ]
   },
   {
@@ -192,18 +193,22 @@
     "type": "code_multi_input",
     "question": "'build_tool_result_message' 함수를 구현하세요.\n\n```python\n- 파라미터: 'tool_use_block' (응답 블록 객체 — '.id', '.name', '.input' 속성 있음), 'result' (str)\n- 반환: tool_result를 담은 user 메시지 딕셔너리\n\n형식:\n{\n    'role': 'user',\n    'content': [{\n        'type': 'tool_result',\n        'tool_use_id': <block.id>,\n        'content': <result>\n    }]\n}\n```",
     "answer": [
-      "return",
-      "{"
+      "return {",
+      "'role': 'user',",
+      "'content': [{"
     ],
     "feedback": {
       "correct": "정확합니다! tool_result 메시지는 role: user, content 배열 안에 type/tool_use_id/content 구조여야 합니다.",
       "incorrect": "tool_result 메시지 형식: role은 'user', content는 배열로 type='tool_result', tool_use_id=block.id, content=result 를 담아야 합니다."
     },
-    "code_template": "def build_tool_result_message(tool_use_block, result: str) -> dict:\n    {slot1} {slot2}\n        'role': 'user',\n        'content': [{\n            'type': 'tool_result',\n            'tool_use_id': tool_use_block.id,\n            'content': result\n        }]\n    }",
+    "code_template": "def build_tool_result_message(tool_use_block, result: str) -> dict:\n    {slot1}\n        {slot2}\n        {slot3}\n            'type': 'tool_result',\n            'tool_use_id': tool_use_block.id,\n            'content': result\n        }]\n    }",
     "choices": [
-      "{",
-      "return",
-      "await"
+      "return {",
+      "'role': 'user',",
+      "'content': [{",
+      "yield {",
+      "'role': 'assistant',",
+      "'messages': [{"
     ]
   },
   {
@@ -1071,17 +1076,21 @@
     "question": "LCEL로 RAG 체인을 구성하는 'build_rag_chain' 함수를 구현하세요.\n\n```python\n- 파라미터: 'retriever', 'llm'\n- 프롬프트 템플릿:\n  시스템: 주어진 context만 사용해 질문에 답하세요.\n  context: {context}\n  사용자: {question}\n- retriever로 문서를 가져와 'context'에 넣고, 'question'은 그대로 전달\n- 'RunnablePassthrough'와 'RunnableLambda' 또는 딕셔너리 매핑으로 입력 구성\n- 반환: LCEL 체인 (invoke 가능한 객체)\n```",
     "answer": [
       "return",
-      "'"
+      "'\\n\\n'.join(",
+      "doc.page_content for doc in docs)"
     ],
     "feedback": {
       "correct": "훌륭합니다! retriever | format_docs로 context 구성, RunnablePassthrough로 question 전달, LCEL 파이프 체인이 정확합니다.",
       "incorrect": "context는 retriever | format_docs로, question은 RunnablePassthrough()로 딕셔너리 입력을 구성한 뒤 | prompt | llm | StrOutputParser()로 체인을 연결합니다."
     },
-    "code_template": "        ('human', '{question}')\n    ])\n\n    def format_docs(docs):\n        {slot1} {slot2}\n\n'.join(doc.page_content for doc in docs)\n\n    chain = (\n        {'context': retriever | format_docs, 'question': RunnablePassthrough()}",
+    "code_template": "        ('human', '{question}')\n    ])\n\n    def format_docs(docs):\n        {slot1} {slot2} {slot3}\n\n    chain = (\n        {'context': retriever | format_docs, 'question': RunnablePassthrough()}",
     "choices": [
       "return",
+      "'\\n\\n'.join(",
+      "doc.page_content for doc in docs)",
       "await",
-      "'"
+      "yield",
+      "','.join("
     ]
   },
   {
@@ -1158,17 +1167,19 @@
     "question": "문서 로드부터 질문 답변까지 RAG 전체 파이프라인을 구현하세요.\n\n```python\n요구 사항:\n\n1. 'TextLoader'로 'docs.txt' 파일 로드\n2. 'RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)'로 분할\n3. 'OpenAIEmbeddings()' 또는 'HuggingFaceEmbeddings()'로 임베딩 (어느 것이든)\n4. 'FAISS.from_documents()'로 벡터스토어 생성, 'as_retriever(search_kwargs={'k': 3})'\n5. RAG 체인 구성 (context + question → Claude 답변)\n6. 'ask(question: str) -> str' 함수 구현\n```",
     "answer": [
       "return",
-      "'"
+      "'\\n\\n'.join(",
+      "doc.page_content for doc in docs)"
     ],
     "feedback": {
       "correct": "완벽한 RAG 파이프라인입니다! 로드 → 분할 → 임베딩 → 검색 → 체인 → ask 함수까지 전체 흐름이 정확합니다.",
       "incorrect": "TextLoader → split_documents → FAISS.from_documents → as_retriever → LCEL 체인 순서로 구성합니다. ask()는 chain.invoke(question)을 호출합니다."
     },
-    "code_template": "    ('human', '{question}')\n])\n\ndef format_docs(docs):\n    {slot1} {slot2}\n\n'.join(doc.page_content for doc in docs)\n\nchain = (\n    {'context': retriever | format_docs, 'question': RunnablePassthrough()}",
+    "code_template": "    ('human', '{question}')\n])\n\ndef format_docs(docs):\n    {slot1} {slot2} {slot3}\n\nchain = (\n    {'context': retriever | format_docs, 'question': RunnablePassthrough()}",
     "choices": [
       "return",
       "await",
-      "'"
+      "'\\n\\n'.join(",
+      "doc.page_content for doc in docs)"
     ]
   },
   {

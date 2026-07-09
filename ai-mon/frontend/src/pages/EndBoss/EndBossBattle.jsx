@@ -3,6 +3,7 @@ import PlayerModel3D from '../Boss/PlayerModel3D'
 import endbossBg from '../../assets/endbossbg.png'
 import { useState, useEffect, Suspense, useMemo } from 'react'
 import { Canvas } from '@react-three/fiber'
+import { getChoicesForCodeInput } from '../Boss/bossBattleUtils'
 import '../../components/QuizCard/QuizCard.css'
 
 // question 필드에서 텍스트 / 코드블록 분리
@@ -101,10 +102,18 @@ export default function EndBossBattle({
   const parsed = parseQuestionText(currentQuestion.question)
   const badge  = TYPE_BADGE[currentQuestion.type] ?? TYPE_BADGE.multiple_choice
 
-  const isCodeMultiInput = currentQuestion.type === 'code_multi_input' || currentQuestion.type === 'code_input'
-  const isCodeType = false
+  const isCodeMultiInput = currentQuestion.type === 'code_multi_input'
+  const isCodeType = currentQuestion.type === 'code_input'
   const isFibType  = currentQuestion.type === 'fill_in_blank'
   const hasChoice  = !isCodeType && !isFibType && !isCodeMultiInput && currentQuestion.choices?.length > 0
+
+  const isSingleAnswer = useMemo(() => {
+    if (!currentQuestion) return true
+    if (Array.isArray(currentQuestion.answer)) return currentQuestion.answer.length === 1
+    return true
+  }, [currentQuestion?.answer])
+
+  const parsedQuestion = useMemo(() => parseQuestionText(currentQuestion.question), [currentQuestion.question])
 
   // 단일 라인 입력 state (code_multi_input: slot 줄 전체를 1개 input으로 입력)
   const [singleLineValue, setSingleLineValue] = useState('')
@@ -151,6 +160,10 @@ export default function EndBossBattle({
   const multiInputChoices = useMemo(() => {
     if (!isCodeMultiInput || !currentQuestion) return []
     if (currentQuestion.choices && currentQuestion.choices.length > 0) {
+      if (currentQuestion.choices.length === 1) {
+        const withDistractors = getChoicesForCodeInput(currentQuestion.choices[0], currentQuestion.choices)
+        return shuffleChoices(withDistractors)
+      }
       return shuffleChoices(currentQuestion.choices)
     }
     return []
@@ -159,8 +172,20 @@ export default function EndBossBattle({
   const choicesKey = (currentQuestion.choices || []).join('\u0001')
   const shuffledChoices = useMemo(
     () => shuffleChoices(currentQuestion.choices || []),
-    [currentQuestion.question_id, choicesKey],
+    [currentQuestion.question_id, choicesKey]
   )
+
+  const codeTypeChoices = useMemo(() => {
+    if (!isCodeType || !currentQuestion) return []
+    if (currentQuestion.choices && currentQuestion.choices.length >= 2) {
+      return shuffleChoices(currentQuestion.choices)
+    }
+    const answer = currentQuestion.answer
+    const customChoices = currentQuestion.choices || []
+    const generated = getChoicesForCodeInput(answer, customChoices)
+    return shuffleChoices(generated)
+  }, [currentQuestion?.question_id, currentQuestion?.choices, currentQuestion?.answer, isCodeType])
+
   const correctAnswerText = displayCorrectAnswer(
     aiResult?.correct_answer,
     currentQuestion.choices || [],
@@ -373,7 +398,7 @@ export default function EndBossBattle({
                     marginBottom: '4px',
                   }}>
                     <div style={{ fontSize: '13px', fontWeight: 700, color: '#5B21B6', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span>코드 조각 예시</span>
+                      <span>{isSingleAnswer ? '알맞은 코드를 입력하세요.' : '코드 조각을 순서에 맞게 바르게 입력하세요.'}</span>
                       <button
                         type="button"
                         onClick={() => !loading && !aiResult && setSingleLineValue('')}
@@ -418,6 +443,71 @@ export default function EndBossBattle({
                   placeholder="빈칸 줄 전체를 입력하세요..."
                   disabled={loading || !!aiResult}
                   onKeyDown={e => { if (e.key === 'Enter' && singleLineValue.trim() && !aiResult) onSubmit() }}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* 코드 작성형 (code_input) */}
+          {isCodeType && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '10px' }}>
+              {codeTypeChoices && codeTypeChoices.length > 0 && (
+                <div className="eb-b-choices-wrap" style={{ marginBottom: '8px' }}>
+                  <div style={{ fontSize: '11px', fontWeight: 600, color: '#4C4465', marginBottom: '6px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span>{isSingleAnswer ? '알맞은 코드를 입력하세요.' : '코드 조각을 순서에 맞게 바르게 입력하세요.'}</span>
+                    <button 
+                      type="button" 
+                      onClick={() => !loading && !aiResult && setAnswerInput('')} 
+                      disabled={loading || !!aiResult}
+                      style={{
+                        background: 'transparent', border: 'none', color: '#DC2626', fontSize: '10px', cursor: 'pointer', fontWeight: 600
+                      }}
+                    >
+                      전체 지우기
+                    </button>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    {codeTypeChoices.map((choice, idx) => (
+                      <div
+                        key={idx}
+                        style={{
+                          textAlign: 'left',
+                          background: '#F3F4F6',
+                          border: '1px solid #E5E7EB',
+                          borderRadius: '6px',
+                          padding: '6px 10px',
+                          fontFamily: "'D2Coding', monospace",
+                          fontSize: '14px',
+                          color: '#1F2937',
+                          whiteSpace: 'pre-wrap',
+                          wordBreak: 'break-all',
+                        }}
+                      >
+                        {choice}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              <div className="eb-b-editor">
+                <div className="eb-b-editor-lbl"># 여기에 코드를 작성하세요</div>
+                <textarea
+                  className="eb-b-editor-text"
+                  placeholder="코드 입력..."
+                  rows={4}
+                  value={answerInput}
+                  onChange={(e) => setAnswerInput(e.target.value)}
+                  disabled={loading || !!aiResult}
+                  style={{
+                    width: '100%',
+                    padding: '8px',
+                    fontFamily: "'D2Coding', monospace",
+                    fontSize: '13px',
+                    border: '1px solid #CBD5E1',
+                    borderRadius: '8px',
+                    resize: 'none',
+                  }}
                 />
               </div>
             </div>

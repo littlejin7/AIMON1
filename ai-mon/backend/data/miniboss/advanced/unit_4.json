@@ -913,20 +913,18 @@
       "question": "시스템 프롬프트 템플릿 빌더를 작성하세요.\n\n```python\n조건:\n\n- build_system(persona, language='ko', max_words=None): 문자열 반환\n- 항상 '당신은 {persona}입니다.' 포함\n- language != 'ko'면 '영어로 답하세요.' 추가\n- max_words가 있으면 '{max_words}단어 이내로 답하세요.' 추가\n- build_system('튜터', language='en', max_words=100) 출력\n# 출력 목표:\n# 당신은 튜터입니다. 영어로 답하세요. 100단어 이내로 답하세요.\n```",
       "answer": [
         "return",
-        "'",
-        "'.join(parts)"
+        "' '.join(parts)"
       ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! 조건부로 파트를 리스트에 추가하고 join으로 조합하는 빌더 패턴입니다. language='en'이므로 '영어로 답하세요.'가 추가되고, max_words=100이므로 마지막 파트도 추가됩니다. 클리어!"
       },
       "expected_output": "당신은 튜터입니다. 영어로 답하세요. 100단어 이내로 답하세요.\n",
-      "code_template": "def build_system(persona, language='ko', max_words=None):\n    parts = [f'당신은 {persona}입니다.']\n    if language != 'ko':\n        parts.append('영어로 답하세요.')\n    if max_words:\n        parts.append(f'{max_words}단어 이내로 답하세요.')\n    {slot1} {slot2} {slot3}\n\nresult = build_system('튜터', language='en', max_words=100)\nprint(result)",
+      "code_template": "def build_system(persona, language='ko', max_words=None):\n    parts = [f'당신은 {persona}입니다.']\n    if language != 'ko':\n        parts.append('영어로 답하세요.')\n    if max_words:\n        parts.append(f'{max_words}단어 이내로 답하세요.')\n    {slot1} {slot2}\n\nresult = build_system('튜터', language='en', max_words=100)\nprint(result)",
       "choices": [
-        "'",
-        "await",
-        "'.join(parts)",
-        "return"
+        "return",
+        "' '.join(parts)",
+        "await"
       ]
     },
     {
