@@ -576,22 +576,57 @@ export default function LessonHome() {
                   )
                 }
 
-                // 2. 완료 유닛
-                if (done) {
-                  return (
-                    <div className="lh-unit-done-container">
-                      <div className="lh-stage-complete-header">
-                        <h3>완료한 스테이지</h3>
+                const shortTitle = getUnitShortTitle(title, lesson.unit_id, courseLevel)
+
+                // 2. 완료 유닛 또는 진행중 유닛
+                return (
+                  <div className="lh-unlocked-unit-content">
+                    {done ? (
+                      <div className="lh-unit-done-container">
+                        <div className="lh-stage-complete-header">
+                          <h3>완료한 스테이지</h3>
+                        </div>
+                        <div className="lh-stage-chip-list">
+                          {stageNums.map((s) => {
+                            return (
+                              <button
+                                key={s}
+                                type="button"
+                                className="lh-stage-pill no-3d"
+                                onClick={() => {
+                                  if (!token) return
+                                  if (!user?.is_level_tested && !(lesson.unit_id === 1 && s === 1)) {
+                                    setPendingUnitId(lesson.unit_id)
+                                    setShowLevelTest(true)
+                                    return
+                                  }
+                                  navigate(`/stage/${lesson.unit_id}/${s}`)
+                                }}
+                                aria-label={`Stage ${s} 복습`}
+                              >
+                                <span className="lh-stage-pill-num">{s}</span>
+                                <span className="lh-stage-pill-check">✓</span>
+                              </button>
+                            )
+                          })}
+                        </div>
                       </div>
-                      <div className="lh-stage-chip-list">
+                    ) : (
+                      <div className="lh-paw-roadmap">
                         {stageNums.map((s) => {
+                          const stageDone = s <= prog.completed
+                          const isCurrent = s === prog.completed + 1
+                          const enabled = unlocked && s <= prog.completed + 1
+                          const stateClass = stageDone ? 'done' : isCurrent ? 'current' : 'locked'
+
                           return (
                             <button
                               key={s}
                               type="button"
-                              className="lh-stage-pill no-3d"
+                              className={`lh-paw-stage no-3d ${stateClass}`}
+                              disabled={!enabled}
                               onClick={() => {
-                                if (!token) return
+                                if (!token || !enabled) return
                                 if (!user?.is_level_tested && !(lesson.unit_id === 1 && s === 1)) {
                                   setPendingUnitId(lesson.unit_id)
                                   setShowLevelTest(true)
@@ -599,73 +634,54 @@ export default function LessonHome() {
                                 }
                                 navigate(`/stage/${lesson.unit_id}/${s}`)
                               }}
-                              aria-label={`Stage ${s} 복습`}
                             >
-                              <span className="lh-stage-pill-num">{s}</span>
-                              <span className="lh-stage-pill-check">✓</span>
+                              <span className="lh-paw-node">{s}</span>
+                              <span className="lh-paw-content">
+                                <span className="lh-paw-title">{getStageDisplayTitle(lesson.unit_id, s, title)}</span>
+                                <span className="lh-paw-status">
+                                  {stageDone ? '완료' : isCurrent ? '진행중' : '잠김'}
+                                </span>
+                              </span>
+                              {stageDone && <span className="lh-paw-action review">복습</span>}
+                              {isCurrent && <span className="lh-paw-action continue">이어하기</span>}
+                              {!enabled && <span className="lh-paw-lock">🔒</span>}
                             </button>
                           )
                         })}
                       </div>
+                    )}
+
+                    {/* ── 유닛보스 게이트 박스 ── */}
+                    <div className="lh-unitboss-gate-card">
+                      <div className="lh-unitboss-gate-body">
+                        <div className="lh-unitboss-gate-text">
+                          <span className="lh-unitboss-gate-kicker">👑 유닛보스 게이트</span>
+                          <h4>{shortTitle} 마스터</h4>
+                          <p>
+                            {bossState === 'cleared'
+                              ? '보스전을 다시 복습할 수 있어요.'
+                              : bossState === 'open'
+                              ? '최종 관문이 열렸어요!'
+                              : '모든 스테이지 완료 후 도전 가능'}
+                          </p>
+                        </div>
+                        <div className="lh-unitboss-gate-monster">
+                          <span className="lh-unitboss-gate-silhouette">👾</span>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        className={`lh-unitboss-gate-cta no-3d ${bossState}`}
+                        disabled={bossState === 'locked'}
+                        onClick={handleBossClick}
+                      >
+                        {bossState === 'cleared'
+                          ? '보스 복습'
+                          : bossState === 'open'
+                          ? '유닛보스 도전하기'
+                          : '유닛보스 잠김'}
+                      </button>
                     </div>
-                  )
-                }
-
-                // 3. 진행중 유닛 (unlocked && !done)
-                return (
-                  <div className="lh-paw-roadmap">
-                    {stageNums.map((s) => {
-                      const stageDone = s <= prog.completed
-                      const isCurrent = s === prog.completed + 1
-                      const enabled = unlocked && s <= prog.completed + 1
-                      const stateClass = stageDone ? 'done' : isCurrent ? 'current' : 'locked'
-
-                      return (
-                        <button
-                          key={s}
-                          type="button"
-                          className={`lh-paw-stage no-3d ${stateClass}`}
-                          disabled={!enabled}
-                          onClick={() => {
-                            if (!token || !enabled) return
-                            if (!user?.is_level_tested && !(lesson.unit_id === 1 && s === 1)) {
-                              setPendingUnitId(lesson.unit_id)
-                              setShowLevelTest(true)
-                              return
-                            }
-                            navigate(`/stage/${lesson.unit_id}/${s}`)
-                          }}
-                        >
-                          <span className="lh-paw-node">{s}</span>
-                          <span className="lh-paw-content">
-                            <span className="lh-paw-title">{getStageDisplayTitle(lesson.unit_id, s, title)}</span>
-                            <span className="lh-paw-status">
-                              {stageDone ? '완료' : isCurrent ? '진행중' : '잠김'}
-                            </span>
-                          </span>
-                          {stageDone && <span className="lh-paw-action review">복습</span>}
-                          {isCurrent && <span className="lh-paw-action continue">이어하기</span>}
-                          {!enabled && <span className="lh-paw-lock">🔒</span>}
-                        </button>
-                      )
-                    })}
-                    <button
-                      type="button"
-                      className={`lh-paw-stage lh-paw-stage-boss no-3d ${bossState}`}
-                      disabled={prog.completed < lesson.stages}
-                      onClick={handleBossClick}
-                    >
-                      <span className="lh-paw-node">⚔</span>
-                      <span className="lh-paw-content">
-                        <span className="lh-paw-title">유닛보스</span>
-                        <span className="lh-paw-status">
-                          {bossState === 'cleared' ? '완료' : bossState === 'open' ? '도전 가능' : '잠김'}
-                        </span>
-                      </span>
-                      {bossState === 'cleared' && <span className="lh-paw-action review">복습</span>}
-                      {bossState === 'open' && <span className="lh-paw-action continue">도전</span>}
-                      {bossState === 'locked' && <span className="lh-paw-lock">🔒</span>}
-                    </button>
                   </div>
                 )
               })()}

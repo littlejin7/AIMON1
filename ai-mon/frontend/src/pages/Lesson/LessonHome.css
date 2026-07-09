@@ -14,7 +14,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    LessonHome — 라이트 테마
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -62,7 +94,55 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-loading {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -94,7 +174,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -126,7 +238,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   align-items: center;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -158,7 +302,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   gap: 12px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -190,6 +366,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #F4F3FA;
 
 
@@ -206,7 +398,55 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -254,7 +494,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #F4F3FA;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -286,7 +558,55 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -350,7 +670,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-scroll {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -382,7 +750,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -414,7 +814,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   gap: 10px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -446,6 +878,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   margin: 0 auto;
 
 
@@ -462,7 +910,71 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -526,7 +1038,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-header {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -558,7 +1102,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -590,7 +1166,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: var(--font-size-xs);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -622,7 +1230,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: var(--clr-primary);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -654,6 +1294,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   margin: 0 0 4px;
 
 
@@ -670,7 +1326,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -702,6 +1390,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: var(--font-size-2xl);
 
 
@@ -718,7 +1422,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-weight: 700;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -750,6 +1486,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   margin: 0;
 
 
@@ -766,7 +1518,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -798,7 +1582,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-level-tabs {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -830,6 +1646,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   gap: 6px;
 
 
@@ -846,7 +1678,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -878,7 +1742,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   flex: 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -910,7 +1806,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   padding: 9px 4px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -942,7 +1870,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 13px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -974,7 +1934,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #FFFFFF;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1006,6 +1998,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-weight: 500;
 
 
@@ -1022,7 +2030,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1054,7 +2094,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #7F77DD;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1086,7 +2158,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-color: #7F77DD;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1118,6 +2222,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 
@@ -1134,7 +2254,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-tab.locked { color: #BBBBCC; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1182,7 +2334,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ── 진행률 요약 ── */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1214,7 +2414,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #FFFFFF;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1246,7 +2478,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border: 0.5px solid #E2E1EE;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1278,7 +2542,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1310,7 +2606,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1342,7 +2670,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   align-items: center;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1374,7 +2734,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1406,7 +2798,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-progress-val   { font-size: 12px; font-weight: 500; color: #534AB7; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1438,7 +2862,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   height: 6px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1470,7 +2926,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 10px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1502,7 +2990,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1534,7 +3054,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   height: 100%;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1566,7 +3118,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 10px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1598,7 +3182,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1646,7 +3278,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-unit-card {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1678,7 +3342,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 14px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1710,6 +3406,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   overflow: hidden;
 
 
@@ -1726,7 +3438,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1774,7 +3518,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-unit-header {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1806,7 +3598,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   align-items: center;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1838,7 +3662,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   padding: 12px 13px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1870,6 +3726,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   user-select: none;
 
 
@@ -1886,7 +3758,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1934,7 +3838,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-unit-badge {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1966,7 +3918,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   height: 32px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1998,7 +3982,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2030,7 +4046,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   justify-content: center;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2062,7 +4110,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-weight: 600;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2094,7 +4174,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2126,7 +4238,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-unit-badge.current { background: #EEEDFE; color: #534AB7; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2174,7 +4318,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-unit-info { flex: 1; min-width: 0; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2206,7 +4398,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 13px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2238,7 +4462,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #1A1A2E;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2270,7 +4526,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   overflow: hidden;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2302,6 +4590,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 
@@ -2318,7 +4622,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-unit-title.locked { color: #9999B0; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2366,7 +4702,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-unit-chevron {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2398,7 +4782,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #9999B0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2430,7 +4846,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2478,7 +4942,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-mini-bar {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2510,7 +5006,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #EEEDFE;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2542,7 +5070,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 10px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2574,7 +5134,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2606,7 +5198,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   height: 100%;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2638,7 +5262,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 10px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2670,7 +5326,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2718,7 +5422,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-stage-track {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2750,6 +5486,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-top: 0.5px solid #EEEDF6;
 
 
@@ -2766,7 +5518,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2798,7 +5582,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 10px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2830,6 +5646,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   margin-bottom: 8px;
 
 
@@ -2846,7 +5678,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2878,7 +5742,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2910,7 +5806,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2942,6 +5870,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
 
 
@@ -2958,7 +5902,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   align-items: center;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2990,7 +5966,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3022,6 +6030,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   flex: 1;
 
 
@@ -3038,7 +6062,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3070,7 +6126,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   width: 30px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3102,7 +6190,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 50%;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3134,7 +6254,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   align-items: center;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3166,7 +6318,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 11px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3198,7 +6382,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   flex-shrink: 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3230,7 +6446,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   transition: transform 0.1s;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3262,7 +6510,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-stage-node:active { transform: scale(0.92); }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3294,7 +6574,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-stage-node.current { background: #EEEDFE; border: 2px solid #7F77DD; color: #534AB7; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3342,7 +6654,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-stage-line {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3374,7 +6734,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   height: 2px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3406,6 +6798,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 
@@ -3422,7 +6830,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-stage-line.done { background: #7F77DD; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3470,7 +6910,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-boss-node {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3502,7 +6990,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   height: 32px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3534,7 +7054,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #FAEEDA;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3566,7 +7118,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3598,7 +7182,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   justify-content: center;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3630,7 +7246,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   flex-shrink: 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3662,7 +7310,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3710,7 +7406,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-unit-done-action {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3742,7 +7470,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 12px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3774,7 +7534,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-top: 0.5px solid #EEEDF6;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3806,6 +7598,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   text-align: right;
 
 
@@ -3822,7 +7630,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3870,7 +7726,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-endboss-teaser {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3902,7 +7790,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 14px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3934,6 +7854,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   padding: 13px 14px;
 
 
@@ -3950,7 +7886,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3982,7 +7950,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   align-items: center;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4014,7 +8014,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4046,7 +8078,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   opacity: 0.6;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4078,7 +8142,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4110,7 +8206,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   opacity: 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4142,7 +8270,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border: 1.5px solid #F0B429;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4174,7 +8334,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4206,7 +8398,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   width: 36px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4238,7 +8462,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 50%;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4270,7 +8526,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4302,7 +8590,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   justify-content: center;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4334,7 +8654,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   flex-shrink: 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4366,7 +8718,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-endboss-title { font-size: 13px; font-weight: 500; color: #1A1A2E; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4414,7 +8798,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ── 진행률 요약 v2 ── */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4446,7 +8878,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 18px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4478,7 +8942,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4510,7 +9006,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4542,7 +9070,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   align-items: baseline;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4574,7 +9134,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4606,7 +9198,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 13px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4638,6 +9262,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #7A7A94;
 
 
@@ -4654,7 +9294,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4686,7 +9358,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 11px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4718,7 +9422,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4750,7 +9486,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #534AB7;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4782,6 +9550,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 13px;
 
 
@@ -4798,7 +9582,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4830,7 +9646,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4862,6 +9710,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   gap: 14px;
 
 
@@ -4878,7 +9742,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4910,7 +9806,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 26px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4942,7 +9870,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #1A1A2E;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4974,7 +9934,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   line-height: 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5006,7 +9998,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5038,7 +10062,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   flex: 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5070,7 +10126,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #EEEDFE;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5102,6 +10190,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   overflow: hidden;
 
 
@@ -5118,7 +10222,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5166,7 +10318,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-unit-node.unit-1,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5198,7 +10382,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   --unit-accent: #E86F7A;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5230,6 +10446,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   --unit-border: #F2B7BE;
 
 
@@ -5246,7 +10478,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5294,7 +10574,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-selected-unit-card.unit-2 {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5326,7 +10638,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   --unit-soft: #FFF3E8;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5358,7 +10702,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5406,7 +10798,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-selected-unit-card.unit-3 {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5438,7 +10862,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   --unit-soft: #FFF8DD;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5470,7 +10926,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5518,7 +11022,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-selected-unit-card.unit-4 {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5550,7 +11086,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   --unit-soft: #EAF9F2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5582,7 +11150,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5630,7 +11246,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-selected-unit-card.unit-5 {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5662,7 +11310,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   --unit-soft: #EEF5FF;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5694,7 +11374,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5742,7 +11470,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-selected-unit-card.unit-6 {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5774,7 +11534,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   --unit-soft: #EEF1FF;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5806,7 +11598,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5854,7 +11694,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-selected-unit-card.unit-7 {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5886,7 +11758,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   --unit-soft: #F4EEFF;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5918,7 +11822,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5966,7 +11918,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-selected-unit-card.unit-8 {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5998,7 +11982,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   --unit-soft: #FFF0F8;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6030,7 +12046,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6078,7 +12142,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-unit-node.locked,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6110,7 +12206,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   --unit-accent: #A4A4B8;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6142,6 +12270,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   --unit-border: #E2E1EE;
 
 
@@ -6158,7 +12302,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6206,7 +12398,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-unit-selector-card {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6238,7 +12462,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 18px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6270,6 +12526,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   padding: 16px 20px;
 
 
@@ -6286,7 +12558,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6318,6 +12622,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   gap: 14px;
 
 
@@ -6334,7 +12654,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6366,7 +12718,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6398,6 +12782,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   align-items: baseline;
 
 
@@ -6414,7 +12814,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6446,7 +12878,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 14px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6478,7 +12942,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #1A1A2E;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6510,7 +13006,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6542,7 +13070,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 11px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6574,6 +13134,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-weight: 500;
 
 
@@ -6590,7 +13166,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6622,7 +13230,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6654,7 +13294,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   padding: 8px 4px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6686,7 +13358,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   scroll-behavior: smooth;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6718,7 +13422,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   -ms-overflow-style: none;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6750,7 +13486,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6782,6 +13550,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: none;
 
 
@@ -6798,7 +13582,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6846,7 +13678,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-unit-node {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6878,7 +13742,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   flex-shrink: 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6910,7 +13806,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   flex-direction: column;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6942,7 +13870,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: transparent;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6974,7 +13934,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   padding: 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7006,7 +13998,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   width: 76px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7038,7 +14062,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   outline: none;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7070,7 +14126,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   -webkit-tap-highlight-color: transparent;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7102,7 +14190,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7134,6 +14254,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   outline: none;
 
 
@@ -7150,7 +14286,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7182,7 +14350,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   outline: 2px solid rgba(127, 119, 221, 0.35);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7214,7 +14414,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7246,6 +14478,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   cursor: not-allowed;
 
 
@@ -7262,7 +14510,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7310,7 +14606,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-unit-node:not(:last-child)::after {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7342,7 +14670,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   position: absolute;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7374,7 +14734,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   left: calc(50% + 32px);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7406,7 +14798,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   height: 1px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7438,6 +14862,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   z-index: 1;
 
 
@@ -7454,7 +14894,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7486,6 +14958,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-top: 1.5px dashed #A9A4E8;
 
 
@@ -7502,7 +14990,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7550,7 +15086,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-unit-node-icon-wrap {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7582,7 +15150,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   width: 64px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7614,7 +15214,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 22px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7646,7 +15278,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   place-items: center;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7678,7 +15342,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   z-index: 2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7710,7 +15406,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border: 1.5px solid var(--unit-border, #E2E1EE);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7742,6 +15470,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: var(--unit-accent, #7A7A94);
 
 
@@ -7758,7 +15502,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7790,7 +15566,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border: 1.5px solid var(--unit-border, #E2E1EE);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7822,6 +15630,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: var(--unit-accent, #7A7A94);
 
 
@@ -7838,7 +15662,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7870,7 +15726,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border: 1.5px solid var(--unit-border, #A9A4E8);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7902,6 +15790,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: var(--unit-accent, #7F77DD);
 
 
@@ -7918,7 +15822,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7950,7 +15886,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border: 1.5px solid var(--unit-border, #E2E1EE);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7982,6 +15950,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: var(--unit-accent, #C2C2D0);
 
 
@@ -7998,7 +15982,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8030,7 +16046,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   width: 70px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8062,7 +16110,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border: 2px solid var(--unit-accent, #7F77DD);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8094,7 +16174,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: var(--unit-accent, #7F77DD);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8126,7 +16238,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   margin-top: -3px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8158,7 +16302,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8206,7 +16398,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-unit-node-svg {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8238,7 +16462,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   height: 28px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8270,7 +16526,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8318,7 +16622,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-unit-node-state {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8350,7 +16686,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   bottom: -4px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8382,7 +16750,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   width: 17px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8414,7 +16814,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 50%;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8446,7 +16878,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   align-items: center;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8478,7 +16942,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 10px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8510,7 +17006,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border: 1.5px solid #FFFFFF;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8542,7 +17070,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8574,7 +17134,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #7F77DD;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8606,6 +17198,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 9px;
 
 
@@ -8622,7 +17230,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8654,6 +17294,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #9999B0;
 
 
@@ -8670,7 +17326,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #FFFFFF;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8702,7 +17390,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8734,7 +17454,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #7F77DD;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8766,6 +17518,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 7px;
 
 
@@ -8782,7 +17550,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8830,7 +17646,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-unit-node-num {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8862,6 +17710,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-weight: 600;
 
 
@@ -8878,7 +17742,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #7A7A94;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8910,7 +17806,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8942,7 +17870,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 12.5px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8974,7 +17934,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #1A1A2E;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9006,7 +17998,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   width: 100%;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9038,7 +18062,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   overflow: hidden;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9070,7 +18126,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9088,9 +18176,29 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 .lh-unit-node-status {
 
+
+
   display: none !important;
 
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9122,6 +18230,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #7F77DD;
 
 
@@ -9138,7 +18262,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9170,6 +18326,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #BBBBCC;
 
 
@@ -9186,7 +18358,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9218,7 +18422,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #7F77DD;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9250,7 +18486,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9282,6 +18550,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #7A7A94;
 
 
@@ -9298,7 +18582,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9346,25 +18678,75 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-selected-unit-card {
+
+
 
   background: #FFFFFF;
 
+
+
   border-radius: 22px;
+
+
 
   border: 1px solid #E2E1EE;
 
+
+
   padding: 18px 20px;
+
+
 
   display: flex;
 
+
+
   flex-direction: column;
+
+
 
   gap: 18px;
 
+
+
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
 
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9396,6 +18778,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   opacity: 0.7;
 
 
@@ -9412,7 +18810,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9460,7 +18906,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9492,7 +18970,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   align-items: flex-start;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9524,7 +19034,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9556,7 +19098,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   width: 50px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9588,7 +19162,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 14px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9620,7 +19226,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border: 1.5px solid var(--unit-border, #7F77DD);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9652,7 +19290,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   place-items: center;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9684,7 +19354,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9716,7 +19418,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #F5F4FA;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9748,7 +19482,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9796,7 +19578,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-selected-unit-svg {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9828,7 +19642,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   height: 26px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9860,7 +19706,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9892,6 +19770,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #A4A4B8;
 
 
@@ -9908,7 +19802,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9956,7 +19898,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   flex: 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9988,7 +19962,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10020,7 +20026,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 10px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10052,7 +20090,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: var(--unit-accent, #7F77DD);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10084,7 +20154,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   letter-spacing: 0.5px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10116,7 +20218,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10148,6 +20282,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #9999B0;
 
 
@@ -10164,7 +20314,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10198,17 +20396,45 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 .lh-selected-unit-info h2 {
 
+
+
   font-size: 18px;
+
+
 
   font-weight: 700;
 
+
+
   color: #1A1A2E;
+
+
 
   margin: 0 0 3px;
 
+
+
   line-height: 1.35;
 
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10226,15 +20452,57 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 .lh-selected-unit-info p {
 
+
+
   font-size: 13.5px;
+
+
 
   color: #7A7A94;
 
+
+
   margin: 0;
+
+
 
   line-height: 1.4;
 
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10282,7 +20550,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 20px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10314,7 +20614,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 10.5px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10346,7 +20678,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   cursor: pointer;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10378,7 +20742,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   align-self: flex-start;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10410,7 +20806,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10442,7 +20870,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #7F77DD;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10474,6 +20934,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border: none;
 
 
@@ -10490,7 +20966,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10522,7 +21030,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #F1F0F6;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10554,7 +21094,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border: none;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10586,7 +21158,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10618,7 +21222,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #F2F0FF;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10650,6 +21286,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border: 1px solid #DCD6FF;
 
 
@@ -10666,7 +21318,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10698,6 +21382,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   transform: scale(0.96);
 
 
@@ -10714,7 +21414,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10762,7 +21510,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10794,7 +21574,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   gap: 6px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10826,7 +21638,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #F8F7FD;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10858,6 +21702,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border: 0.5px solid #EEEDF8;
 
 
@@ -10874,7 +21734,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10906,7 +21798,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 11px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10938,6 +21862,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #7A7A94;
 
 
@@ -10954,7 +21894,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10986,7 +21958,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   height: 6px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11018,7 +22022,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 10px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11050,7 +22086,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11082,7 +22150,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   height: 100%;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11114,7 +22214,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 10px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11146,7 +22278,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11194,7 +22374,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-paw-roadmap {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11226,7 +22438,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   flex-direction: column;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11258,6 +22502,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   padding: 10px 0 4px;
 
 
@@ -11274,7 +22534,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11322,7 +22630,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-paw-roadmap::before {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11354,7 +22694,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   position: absolute;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11386,7 +22758,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   top: 42px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11418,7 +22822,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   width: 2px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11450,7 +22886,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     to bottom,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11482,7 +22950,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     transparent 8px 16px
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11514,6 +23014,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   z-index: 1;
 
 
@@ -11530,7 +23046,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11578,7 +23142,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-paw-stage {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11610,7 +23206,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   align-items: center;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11642,7 +23270,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   width: 100%;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11674,7 +23334,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   padding: 10px 12px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11706,7 +23398,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   cursor: pointer;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11738,7 +23462,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   z-index: 2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11770,6 +23526,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   -webkit-tap-highlight-color: transparent;
 
 
@@ -11786,7 +23558,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11818,6 +23622,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   cursor: not-allowed;
 
 
@@ -11834,7 +23654,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11882,7 +23750,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-paw-stage.done {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11914,7 +23814,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border: 1px solid #EEEAFD;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11946,6 +23878,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   margin-bottom: 4px;
 
 
@@ -11962,7 +23910,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11994,7 +23974,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: linear-gradient(90deg, #F5F2FF 0%, #FFFFFF 100%);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12026,6 +24038,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 14px;
 
 
@@ -12042,7 +24070,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   margin-bottom: 4px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12074,7 +24134,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12106,7 +24198,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #FAFAFC;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12138,7 +24262,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 14px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12170,7 +24326,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12218,7 +24422,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-paw-stage::before {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12250,7 +24486,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   position: absolute;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12282,7 +24550,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   top: -10px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12314,7 +24614,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   height: 12px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12346,7 +24678,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12378,7 +24742,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     radial-gradient(ellipse at 65% 50%, #7F77DD 0 35%, transparent 38%);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12410,6 +24806,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   z-index: 2;
 
 
@@ -12426,7 +24838,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12458,7 +24902,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12490,7 +24966,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     radial-gradient(ellipse at 65% 50%, #B8B8C8 0 35%, transparent 38%);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12522,7 +25030,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12570,7 +25126,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-paw-node {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12602,7 +25190,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   width: 40px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12634,7 +25254,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 50%;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12666,7 +25318,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   align-items: center;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12698,7 +25382,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 14px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12730,7 +25446,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   flex-shrink: 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12762,6 +25510,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   z-index: 3;
 
 
@@ -12778,7 +25542,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12810,7 +25606,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #F2F0FF;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12842,6 +25670,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #7F77DD;
 
 
@@ -12858,7 +25702,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12890,7 +25766,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #7F77DD;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12922,7 +25830,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #FFFFFF;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12954,6 +25894,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   box-shadow: 0 0 0 4px rgba(127, 119, 221, 0.16);
 
 
@@ -12970,7 +25926,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13002,7 +25990,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #F6F6FA;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13034,6 +26054,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #A4A4B8;
 
 
@@ -13050,7 +26086,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13098,7 +26182,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-paw-content {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13130,7 +26246,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   min-width: 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13162,7 +26310,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   flex-direction: column;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13194,7 +26374,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13226,7 +26438,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 13px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13258,7 +26502,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #1A1A2E;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13290,7 +26566,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   text-overflow: ellipsis;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13322,7 +26630,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13354,6 +26694,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #A4A4B8;
 
 
@@ -13370,7 +26726,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13418,7 +26822,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 10px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13450,7 +26886,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13482,6 +26950,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #37B66A; /* 완료 문구만 연한 성공 컬러 */
 
 
@@ -13498,7 +26982,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13530,7 +27046,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #7F77DD;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13562,7 +27110,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13594,6 +27174,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #BBBBCC;
 
 
@@ -13610,7 +27206,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13658,7 +27302,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-paw-action {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13690,7 +27366,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-weight: 700;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13722,7 +27430,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: var(--radius-full);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13754,6 +27494,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border: 1px solid transparent;
 
 
@@ -13770,7 +27526,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13802,7 +27590,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #F2F0FF;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13834,6 +27654,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border: 1px solid #DED9FF;
 
 
@@ -13850,7 +27686,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13882,7 +27750,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #7F77DD;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13914,7 +27814,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13946,7 +27878,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 12px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13978,6 +27942,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   padding-right: 4px;
 
 
@@ -13994,7 +27974,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14042,7 +28070,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-paw-boss {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14074,7 +28134,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   align-items: center;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14106,6 +28198,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   width: 100%;
 
 
@@ -14122,7 +28230,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #FFFFFF;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14154,7 +28294,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 16px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14186,7 +28358,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   cursor: pointer;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14218,7 +28422,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   z-index: 2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14250,7 +28486,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   text-align: left;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14282,7 +28550,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   transition: all 0.2s ease;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14314,6 +28614,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   -webkit-tap-highlight-color: transparent;
 
 
@@ -14330,7 +28646,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14362,7 +28710,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #FAFAFC;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14394,6 +28774,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   cursor: not-allowed;
 
 
@@ -14410,7 +28806,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14442,7 +28870,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #FFFFFF;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14474,6 +28934,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   box-shadow: 0 8px 24px rgba(127, 119, 221, 0.08);
 
 
@@ -14490,7 +28966,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14522,6 +29030,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   transform: scale(0.98);
 
 
@@ -14538,7 +29062,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14586,7 +29158,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   width: 38px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14618,7 +29222,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 50%;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14650,7 +29286,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   align-items: center;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14682,7 +29350,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 16px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14714,7 +29414,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #EEEDFE;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14746,6 +29478,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #7F77DD;
 
 
@@ -14762,7 +29510,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14794,7 +29574,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #EEEDF2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14826,6 +29638,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #9999B0;
 
 
@@ -14842,7 +29670,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14890,7 +29766,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14922,7 +29830,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   gap: 2px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14954,6 +29894,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   min-width: 0;
 
 
@@ -14970,7 +29926,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15002,6 +29990,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 11px;
 
 
@@ -15018,7 +30022,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-weight: 700;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15050,7 +30086,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15082,6 +30150,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #A4A4B8;
 
 
@@ -15098,7 +30182,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15130,7 +30246,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 13px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15162,7 +30310,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #1A1A2E;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15194,7 +30374,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   text-overflow: ellipsis;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15226,7 +30438,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15258,6 +30502,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #A4A4B8;
 
 
@@ -15274,7 +30534,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15306,7 +30598,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 10px !important;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15338,7 +30662,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #7A7A94 !important;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15370,7 +30726,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15402,6 +30790,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #BBBBCC !important;
 
 
@@ -15418,7 +30822,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15466,7 +30918,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 10px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15498,7 +30982,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   padding: 5px 12px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15530,6 +31046,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   flex-shrink: 0;
 
 
@@ -15546,7 +31078,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15578,7 +31142,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #EEEDF2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15610,7 +31206,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15642,7 +31270,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #7F77DD;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15674,7 +31334,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15722,7 +31430,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-lesson-hero {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15754,7 +31494,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 24px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15786,7 +31558,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     linear-gradient(135deg, rgba(143, 124, 255, 0.96), rgba(103, 87, 216, 0.92)),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15818,7 +31622,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background-size: cover;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15850,7 +31686,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   padding: 20px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15882,7 +31750,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   flex-direction: column;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15914,7 +31814,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   position: relative;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15946,7 +31878,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #FFFFFF;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15978,7 +31942,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16026,7 +32038,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16058,7 +32102,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   gap: 6px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16090,7 +32166,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16138,7 +32262,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 11px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16170,7 +32326,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   text-transform: uppercase;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16202,6 +32390,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: rgba(255, 255, 255, 0.85);
 
 
@@ -16218,7 +32422,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16266,7 +32518,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 17px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16298,7 +32582,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #FFFFFF;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16330,6 +32646,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   line-height: 1.35;
 
 
@@ -16346,7 +32678,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16394,7 +32774,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16426,7 +32838,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   gap: 6px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16458,7 +32902,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16506,7 +32998,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 9.5px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16538,7 +33062,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   padding: 3px 8px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16570,6 +33126,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   white-space: nowrap;
 
 
@@ -16586,7 +33158,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16634,7 +33254,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: rgba(255, 255, 255, 0.2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16666,7 +33318,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16714,7 +33414,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #B8FF6A;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16746,7 +33478,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16794,7 +33574,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   align-self: flex-start;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16826,7 +33638,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #6757D8;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16858,7 +33702,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 20px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16890,7 +33766,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 10.5px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16922,7 +33830,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   cursor: pointer;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16954,6 +33894,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 
 
@@ -16970,7 +33926,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17018,7 +34022,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   transform: translateY(-1px);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17050,7 +34086,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17098,6 +34182,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   transform: translateY(0);
 
 
@@ -17114,7 +34214,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17162,25 +34310,91 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-roadmap-board {
+
+
 
   background: #FFFFFF;
 
+
+
   border: 1px solid #E2E1EE;
+
+
 
   border-radius: 22px;
 
+
+
   padding: 18px 20px;
+
+
 
   display: flex;
 
+
+
   flex-direction: column;
+
+
 
   gap: 16px;
 
+
+
   box-shadow: 0 4px 18px rgba(103, 87, 216, 0.04);
 
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17214,27 +34428,81 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 .lh-roadmap-board-head {
 
+
+
   display: flex;
+
+
 
   flex-direction: column;
 
+
+
   gap: 4px;
+
+
 
   width: 100%;
 
+
+
 }
+
+
 
 .lh-roadmap-board-header-row {
 
+
+
   display: flex;
+
+
 
   justify-content: space-between;
 
+
+
   align-items: center;
+
+
 
   width: 100%;
 
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17282,7 +34550,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17314,6 +34614,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   gap: 3px;
 
 
@@ -17330,7 +34646,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17378,7 +34742,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 16.5px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17410,7 +34806,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #1A1A2E;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17442,7 +34870,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17476,13 +34952,53 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 .lh-roadmap-board-count {
 
+
+
   font-size: 13px;
+
+
 
   color: #7A7A94;
 
+
+
   text-align: left;
 
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17530,7 +35046,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #7F77DD;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17562,7 +35110,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17610,7 +35206,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 20px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17642,6 +35270,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   color: #7F77DD;
 
 
@@ -17658,7 +35302,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17706,7 +35398,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   width: 100%;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17738,7 +35462,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #EAE8F5;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17770,6 +35526,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   overflow: hidden;
 
 
@@ -17786,7 +35558,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17834,7 +35654,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   height: 100%;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17866,7 +35718,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 3px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17898,7 +35782,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17946,7 +35878,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-unit-lock-notice {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17978,7 +35942,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   flex-direction: column;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18010,7 +36006,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   justify-content: center;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18042,7 +36070,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: #F8F7FC;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18074,7 +36134,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 16px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18106,6 +36198,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   gap: 8px;
 
 
@@ -18122,7 +36230,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18154,6 +36294,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 20px;
 
 
@@ -18170,7 +36326,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18202,7 +36390,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 12px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18234,7 +36454,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   margin: 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18266,7 +36518,55 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18314,6 +36614,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .lh-unit-done-container {
 
 
@@ -18330,7 +36646,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18362,7 +36710,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   gap: 12px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18394,7 +36774,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border: 1px solid #EEEDF8;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18426,6 +36838,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   padding: 16px;
 
 
@@ -18442,7 +36870,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18474,6 +36934,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 11.5px;
 
 
@@ -18490,7 +36966,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-weight: 700;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18522,7 +37030,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   margin: 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18554,7 +37094,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18586,7 +37158,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18618,6 +37222,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   gap: 8px;
 
 
@@ -18634,7 +37254,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18666,7 +37318,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   width: 36px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18698,7 +37382,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border-radius: 50%;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18730,7 +37446,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   border: 1.5px solid var(--unit-border, #7F77DD);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18762,7 +37510,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18794,7 +37574,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   justify-content: center;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18826,7 +37638,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   outline: none;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18858,7 +37702,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-weight: 700;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18890,6 +37766,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   padding: 0;
 
 
@@ -18906,7 +37798,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18938,7 +37862,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   transform: scale(1.08);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18970,7 +37926,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -19002,6 +37990,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   transform: scale(0.96);
 
 
@@ -19018,7 +38022,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -19050,6 +38086,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 11px;
 
 
@@ -19066,7 +38118,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -19098,7 +38182,39 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   font-size: 8px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -19130,6 +38246,22 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   margin-bottom: 2px;
 
 
@@ -19146,7 +38278,95 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -19226,7 +38446,19 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
+
+
+
+
 .lh-unit-done-container {
+
+
+
+
 
 
 
@@ -19234,7 +38466,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   flex-direction: column;
+
+
+
+
 
 
 
@@ -19242,7 +38482,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   background: #FBFBFE;
+
+
+
+
 
 
 
@@ -19250,7 +38498,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   border-radius: 18px;
+
+
+
+
 
 
 
@@ -19258,7 +38514,19 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19270,7 +38538,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   display: flex;
+
+
+
+
 
 
 
@@ -19278,7 +38554,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   gap: 4px;
+
+
+
+
 
 
 
@@ -19286,11 +38570,27 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   text-align: left;
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19302,7 +38602,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   font-size: 16px;
+
+
+
+
 
 
 
@@ -19310,11 +38618,27 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   color: #1A1A2E;
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19326,7 +38650,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   font-size: 13px;
+
+
+
+
 
 
 
@@ -19334,7 +38666,19 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19346,7 +38690,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   display: grid;
+
+
+
+
 
 
 
@@ -19354,7 +38706,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   gap: 14px 12px;
+
+
+
+
 
 
 
@@ -19362,7 +38722,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   justify-items: center;
+
+
+
+
 
 
 
@@ -19370,7 +38738,19 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19382,7 +38762,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   display: flex;
+
+
+
+
 
 
 
@@ -19390,7 +38778,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   align-items: center;
+
+
+
+
 
 
 
@@ -19398,11 +38794,27 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   width: 100%;
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19414,7 +38826,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   font-size: 11px;
+
+
+
+
 
 
 
@@ -19422,11 +38842,27 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   color: #7A7A94;
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19438,7 +38874,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   position: relative;
+
+
+
+
 
 
 
@@ -19446,7 +38890,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   height: 50px;
+
+
+
+
 
 
 
@@ -19454,7 +38906,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   background: #F8F6FF;
+
+
+
+
 
 
 
@@ -19462,7 +38922,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   color: #6F5FE7;
+
+
+
+
 
 
 
@@ -19470,7 +38938,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   align-items: center;
+
+
+
+
 
 
 
@@ -19478,7 +38954,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   cursor: pointer;
+
+
+
+
 
 
 
@@ -19486,7 +38970,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   font-size: 15px;
+
+
+
+
 
 
 
@@ -19494,7 +38986,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   transition: all 0.2s ease;
+
+
+
+
 
 
 
@@ -19502,7 +39002,19 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19514,7 +39026,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   transform: scale(1.08);
+
+
+
+
 
 
 
@@ -19522,7 +39042,19 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19534,11 +39066,27 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   transform: scale(0.96);
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19550,7 +39098,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   font-size: 14px;
+
+
+
+
 
 
 
@@ -19558,7 +39114,19 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19570,7 +39138,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   position: absolute;
+
+
+
+
 
 
 
@@ -19578,7 +39154,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   right: -3px;
+
+
+
+
 
 
 
@@ -19586,7 +39170,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   height: 16px;
+
+
+
+
 
 
 
@@ -19594,7 +39186,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   background: #7F77DD;
+
+
+
+
 
 
 
@@ -19602,7 +39202,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   font-size: 9px;
+
+
+
+
 
 
 
@@ -19610,7 +39218,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   display: flex;
+
+
+
+
 
 
 
@@ -19618,7 +39234,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   justify-content: center;
+
+
+
+
 
 
 
@@ -19626,7 +39250,19 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19638,7 +39274,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
 .lh-unitboss-chip {
+
+
+
+
 
 
 
@@ -19646,7 +39290,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   height: 56px;
+
+
+
+
 
 
 
@@ -19654,7 +39306,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   display: grid;
+
+
+
+
 
 
 
@@ -19662,7 +39322,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   padding: 0;
+
+
+
+
 
 
 
@@ -19670,7 +39338,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   transition: all 0.2s ease;
+
+
+
+
 
 
 
@@ -19678,7 +39354,19 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19690,7 +39378,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   background: linear-gradient(135deg, #5A46C8 0%, #7F77DD 100%);
+
+
+
+
 
 
 
@@ -19698,11 +39394,27 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   color: #FFFFFF;
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19714,7 +39426,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   background: #F2F0FF;
+
+
+
+
 
 
 
@@ -19722,11 +39442,27 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   color: #534AB7;
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19738,7 +39474,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   background: #F1F0F6;
+
+
+
+
 
 
 
@@ -19746,7 +39490,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   color: #A4A4B8;
+
+
+
+
 
 
 
@@ -19754,7 +39506,19 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19766,7 +39530,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   font-size: 18px;
+
+
+
+
 
 
 
@@ -19774,7 +39546,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   align-items: center;
+
+
+
+
 
 
 
@@ -19782,7 +39562,19 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19794,7 +39586,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   font-size: 11px;
+
+
+
+
 
 
 
@@ -19802,11 +39602,27 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   color: #534AB7;
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19818,7 +39634,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
 .lh-paw-stage-boss .lh-paw-node {
+
+
+
+
 
 
 
@@ -19826,7 +39650,19 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19838,7 +39674,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   background: linear-gradient(135deg, #5A46C8 0%, #7F77DD 100%);
+
+
+
+
 
 
 
@@ -19846,11 +39690,27 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   color: #FFFFFF;
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19862,7 +39722,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   background: #F2F0FF;
+
+
+
+
 
 
 
@@ -19870,11 +39738,27 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   color: #534AB7;
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19886,7 +39770,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   background: #F1F0F6;
+
+
+
+
 
 
 
@@ -19894,11 +39786,27 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
 
+
+
+
+
   color: #A4A4B8;
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19908,35 +39816,159 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 /* ── 유닛 정보 뱃지 및 메타 로우 ── */
 
+
+
 .lh-selected-unit-meta-row {
+
+
 
   display: flex;
 
+
+
   justify-content: space-between;
+
+
 
   align-items: center;
 
+
+
   width: 100%;
+
+
 
   margin-bottom: 2px;
 
+
+
 }
+
+
 
 .lh-selected-unit-info-pill {
 
+
+
   font-size: 11px;
+
+
 
   font-weight: 700;
 
+
+
   color: #7F77DD;
+
+
 
   background: #F2F0FF;
 
+
+
   border: none;
+
+
 
   padding: 4px 12px;
 
+
+
   border-radius: 12px;
+
+
+
+  cursor: pointer;
+
+
+
+  outline: none;
+
+
+
+  transition: all 0.2s ease;
+
+
+
+}
+
+
+
+.lh-selected-unit-info-pill:hover {
+
+
+
+  background: #EAE8F5;
+
+
+
+}
+
+
+
+
+
+
+
+/* ── 6차: 완료 스테이지 요약 박스 (Pill 형태) ── */
+
+.lh-stage-complete-header h3 {
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  color: #7A7A94;
+
+  margin: 0;
+
+  text-align: left;
+
+}
+
+
+
+.lh-unit-done-container .lh-stage-chip-list {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  justify-content: flex-start;
+
+  align-items: center;
+
+  padding-top: 4px;
+
+}
+
+
+
+.lh-stage-pill {
+
+  height: 36px;
+
+  padding: 0 16px;
+
+  border-radius: 999px;
+
+  background: #F8F6FF;
+
+  border: 1px solid #EEEDF8;
+
+  color: #6F5FE7;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 13px;
+
+  font-weight: 800;
 
   cursor: pointer;
 
@@ -19944,68 +39976,156 @@ body:has(.lh-page) { background: #F4F3FA; }
 
   transition: all 0.2s ease;
 
-}
-
-.lh-selected-unit-info-pill:hover {
-
-  background: #EAE8F5;
+  box-sizing: border-box;
 
 }
 
 
 
-/* ── 6차: 완료 스테이지 요약 박스 (Pill 형태) ── */
-.lh-stage-complete-header h3 {
+.lh-stage-pill:hover {
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 3px 8px rgba(111, 95, 231, 0.08);
+
+}
+
+
+
+.lh-stage-pill:active {
+
+  transform: translateY(0);
+
+}
+
+
+
+.lh-stage-pill-num {
+
   font-size: 13px;
+
+}
+
+
+
+.lh-stage-pill-check {
+
+  font-size: 10px;
+
+  margin-left: 3px;
+
   font-weight: 700;
-  color: #7A7A94;
-  margin: 0;
+
+  opacity: 0.85;
+
+}
+
+
+
+/* ── 7차: 유닛보스 게이트 카드 ── */
+.lh-unlocked-unit-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.lh-unitboss-gate-card {
+  background: linear-gradient(135deg, #F3EFFF 0%, #E8E2FF 100%);
+  border: 1px solid #DCD6FF;
+  border-radius: 20px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-sizing: border-box;
+}
+
+.lh-unitboss-gate-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.lh-unitboss-gate-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   text-align: left;
 }
 
-.lh-unit-done-container .lh-stage-chip-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: flex-start;
-  align-items: center;
-  padding-top: 4px;
+.lh-unitboss-gate-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  color: #7F77DD;
 }
 
-.lh-stage-pill {
-  height: 36px;
-  padding: 0 16px;
-  border-radius: 999px;
-  background: #F8F6FF;
-  border: 1px solid #EEEDF8;
-  color: #6F5FE7;
-  display: inline-flex;
+.lh-unitboss-gate-text h4 {
+  font-size: 16.5px;
+  font-weight: 800;
+  color: #1A1A2E;
+  margin: 0;
+}
+
+.lh-unitboss-gate-text p {
+  font-size: 12px;
+  color: #7A7A94;
+  margin: 0;
+}
+
+.lh-unitboss-gate-monster {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 4px 10px rgba(127, 119, 221, 0.08);
+}
+
+.lh-unitboss-gate-silhouette {
+  font-size: 22px;
+}
+
+.lh-unitboss-gate-cta {
+  width: 100%;
+  height: 40px;
+  border-radius: 12px;
+  border: none;
   font-size: 13px;
   font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   outline: none;
   transition: all 0.2s ease;
   box-sizing: border-box;
 }
 
-.lh-stage-pill:hover {
+.lh-unitboss-gate-cta.open {
+  background: #6F5FE7;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(111, 95, 231, 0.2);
+}
+
+.lh-unitboss-gate-cta.cleared {
+  background: #6F5FE7;
+  color: #FFFFFF;
+}
+
+.lh-unitboss-gate-cta.locked {
+  background: #D5D2E5;
+  color: #8F8CA6;
+  cursor: not-allowed;
+}
+
+.lh-unitboss-gate-cta:hover:not(:disabled) {
+  opacity: 0.95;
   transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(111, 95, 231, 0.08);
 }
 
-.lh-stage-pill:active {
+.lh-unitboss-gate-cta:active:not(:disabled) {
   transform: translateY(0);
-}
-
-.lh-stage-pill-num {
-  font-size: 13px;
-}
-
-.lh-stage-pill-check {
-  font-size: 10px;
-  margin-left: 3px;
-  font-weight: 700;
-  opacity: 0.85;
 }
