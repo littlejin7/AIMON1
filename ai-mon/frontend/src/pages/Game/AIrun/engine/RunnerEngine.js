@@ -7,10 +7,16 @@ import { setupPlayer, preloadModels, animatePlayer } from './player.js';
 import { spawnObstacle, spawnQuizGate, spawnHeart } from './spawner.js';
 import { SoundManager } from './sound.js';
 
+const COUNTDOWN_START = 3;
+const START_SPEED = 0.5;
+const MAX_SPEED = 4.0;
+const SPEED_GAIN_PER_100M = 0.2;
+
 export class RunnerEngine {
-  constructor(container, onGameOver) {
+  constructor(container, onGameOver, onGetNewToken) {
     this.container = container;
     this.onGameOverCallback = onGameOver;
+    this.onGetNewToken = onGetNewToken;
     this.renderer = null;
     this.scene = null;
     this.camera = null;
@@ -18,7 +24,7 @@ export class RunnerEngine {
 
     this.state = 'start';
     this.score = 0;
-    this.speed = 0.5;
+    this.speed = START_SPEED;
     this.distance = 0;
     this.targetLane = 0;
     this.currentLaneX = 0;
@@ -186,14 +192,14 @@ export class RunnerEngine {
     this.score = 0;
     this.hp = 5;
     this.distance = 0;
-    this.speed = 0.5;
+    this.speed = START_SPEED;
     this._updateHUD();
     this._showCountdown();
   }
 
   _showCountdown() {
     this.state = 'countdown';
-    let count = 5;
+    let count = COUNTDOWN_START;
     const show = () => {
       this.overlay.style.display = 'flex';
       this.overlay.innerHTML = `
@@ -241,11 +247,11 @@ export class RunnerEngine {
     this.sound.stopBGM();
     this.overlay.style.display = 'flex';
     this.overlay.innerHTML = `
-      <div class="rg-panel">
-        <div class="rg-title" style="color:#ff4422;text-shadow:0 0 20px #ff4422">GAME OVER</div>
+      <div class="rg-panel rg-result-panel">
+        <div class="rg-title rg-result-title">GAME OVER</div>
         <div class="rg-score-final">최종 점수: <strong>${this.score.toLocaleString()}</strong></div>
         <div class="rg-score-final">달린 거리: <strong>${Math.floor(this.distance)}m</strong></div>
-        <div id="rg-reward-info" style="margin-top:10px; color:#ffcc00; font-weight:bold;"></div>
+        <div id="rg-reward-info" class="rg-reward-info"></div>
         <button class="rg-btn" id="rg-retry-btn">다시하기</button>
         <button class="rg-btn rg-btn-danger" id="rg-list-btn">↩ 목록으로 가기</button>
       </div>
@@ -263,7 +269,7 @@ export class RunnerEngine {
                 const gpAwarded = res.data.reward?.gp_delta ?? 0;
                 if (coinAwarded > 0) {
                     const gpText = gpAwarded > 0 ? ` · 💠 +${gpAwarded} GP` : '';
-                    el.innerHTML = `✨ +${coinAwarded} 코인 획득!${gpText}`;
+                    el.innerHTML = `🪙 +${coinAwarded} 코인 획득!${gpText}`;
                 } else {
                     el.innerHTML = `오늘 획득 가능한 코인을 모두 받았습니다.`;
                 }
@@ -438,8 +444,10 @@ export class RunnerEngine {
   _updateRunning() {
     this.distance += this.speed * 0.45;
     this.score += 1;
-    if (this.distance > 100 && this.speed < 2.0) this.speed = 0.5 + (this.distance / 100) * 0.1;
-
+    if (this.distance > 100 && this.speed < MAX_SPEED) {
+      this.speed = Math.min(MAX_SPEED, START_SPEED + (this.distance / 100) * SPEED_GAIN_PER_100M);
+    }
+    
     const targetX = this.targetLane * 3;
     this.currentLaneX += (targetX - this.currentLaneX) * 0.13;
     this.playerGroup.position.x = this.currentLaneX;
