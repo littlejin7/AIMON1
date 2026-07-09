@@ -69,6 +69,36 @@
   align-self: center;
 }
 
+.game-challenge-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 10px 0 0;
+  cursor: pointer;
+}
+
+.game-challenge-toggle-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--clr-text-muted);
+}
+
+.game-challenge-arrow {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--clr-text-muted);
+  line-height: 1;
+  transition: transform 0.15s ease;
+}
+
+.game-challenge-arrow.open {
+  transform: rotate(90deg);
+}
+
 /* 보너스 태그 */
 .game-bonus-tag {
   display: flex;
@@ -158,6 +188,28 @@
   margin-top: 4px;
 }
 
+.game-challenge-claim-btn {
+  width: 100%;
+  margin-top: 12px;
+  min-height: 38px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #f8c14a, #e8944a);
+  color: #3d2504;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.game-challenge-claim-btn:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.game-challenge-claim-error {
+  margin-top: 8px;
+  font-size: 11px;
+  color: #ef4444;
+}
+
 /* 개별 챌린지 행 */
 .game-challenge-list {
   display: flex;
@@ -191,56 +243,37 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
+  gap: 10px;
 }
 .game-chal-name {
   font-size: 12px;
   font-weight: 600;
   color: var(--clr-text);
 }
-.game-challenge-item-count {
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--clr-text-muted);
-}
-.game-challenge-item-count.completed {
-  color: #34d399;
-}
-.game-challenge-bar-bg {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid gray;
-  border-radius: var(--radius-full);
-  height: 5px;
-  overflow: hidden;
-}
-.game-challenge-bar-fill {
-  height: 100%;
-  background: var(--grad-primary);
-  border-radius: var(--radius-full);
-  transition: width 0.5s ease;
-}
-.game-challenge-bar-fill.completed {
-  background: linear-gradient(90deg, #10b981, #34d399) !important;
-}
-.game-chal-reward {
-  font-size: 10px;
-  font-weight: 600;
-  flex-shrink: 0;
-  min-width: 44px;
-  text-align: right;
-}
-.game-chal-check {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: #1D9E75;
+.game-challenge-dots {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: 700;
-  color: white;
+  gap: 5px;
   flex-shrink: 0;
+}
+.game-challenge-check {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 1.5px solid #DCD9EC;
+  color: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
+  background: #F5F3FB;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+.game-challenge-check.filled {
+  background: #FFFFFF;
+  transform: scale(1.03);
 }
 
 /* ── 섹션 레이블 ── */
