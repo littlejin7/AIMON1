@@ -690,17 +690,29 @@ export default function LessonHome() {
         })()}
 
         {/* ── 엔드보스 티저 ── */}
-        <div
-          className={`lh-endboss-teaser${endbossUnlocked ? ' unlocked' : ' locked'}`}
-          onClick={() => endbossUnlocked && navigate('/boss/endboss')}
-        >
-          <div className="lh-endboss-icon">{endbossUnlocked ? '👑' : '🔒'}</div>
-          <div>
-            <div className="lh-endboss-title">엔드보스</div>
-            <div className="lh-endboss-desc">
-              {endbossUnlocked ? '도전할 수 있어요! 지금 바로 만나보세요' : 'Unit 1~8 전체 완료 후 해금'}
+        <div className={`lh-endboss-gate-card ${endbossUnlocked ? 'unlocked' : 'locked'}`}>
+          <div className="lh-endboss-gate-body">
+            <div className="lh-endboss-gate-text">
+              <span className="lh-endboss-gate-kicker">👑 최종 관문</span>
+              <h4>엔드보스</h4>
+              <p>
+                {endbossUnlocked
+                  ? "모든 유닛을 클리어했어요. 최종 보스에 도전하세요!"
+                  : "모든 유닛을 클리어하고 최종 보스에 도전하세요!"}
+              </p>
+            </div>
+            <div className="lh-endboss-gate-media">
+              <span className="lh-endboss-gate-icon">{endbossUnlocked ? '👑' : '🔒'}</span>
             </div>
           </div>
+          <button
+            type="button"
+            className={`lh-endboss-gate-cta no-3d ${endbossUnlocked ? 'unlocked' : 'locked'}`}
+            disabled={!endbossUnlocked}
+            onClick={() => endbossUnlocked && navigate('/boss/endboss')}
+          >
+            {endbossUnlocked ? "엔드보스 도전하기" : "엔드보스 잠김"}
+          </button>
         </div>
 
       </div>
