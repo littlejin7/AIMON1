@@ -1,14 +1,13 @@
 import { useNavigate } from 'react-router-dom'
-import { EVOLUTION_STAGES } from './homeUtils'
 import slimeIcon from '../../assets/character_slime.png'
 
 const FEATURES = [
-  { icon: '🧠', title: 'Claude AI 오답 설명', desc: '틀린 문제를 AI가 비유와 예시로 친절하게 설명해줘요' },
-  { icon: '⚔️', title: '엔드보스 인증카드', desc: '난이도별 엔드보스를 클리어하면 인증카드가 자동 생성!' },
-  { icon: '📈', title: '코인 · 레벨업',      desc: '퀴즈를 풀수록 코인이 쌓이고, 에이몬이 함께 성장해요' },
+  { icon: '🧠', title: 'AI 오답 설명' },
+  { icon: '⚔️', title: '엔드보스 인증카드' },
+  { icon: '📈', title: '코인 · 레벨업' },
 ]
 
-export default function HomeLanding({ onOpenLevelTest }) {
+export default function HomeLanding() {
   const navigate = useNavigate()
 
   return (
@@ -28,87 +27,39 @@ export default function HomeLanding({ onOpenLevelTest }) {
           게임하듯 재미있는 코딩 학습
         </p>
 
-        <div className="home-hero-actions animate-fade-in-up">
+        <div className="home-hero-actions home-orbit-actions animate-fade-in-up">
+          <button
+            id="btn-login-home"
+            className="home-circle-btn home-circle-side"
+            onClick={() => navigate('/auth')}
+          >
+            로그인
+          </button>
           <button
             id="btn-free-trial"
-            className="btn btn-primary btn-lg"
+            className="home-circle-btn home-circle-main"
             onClick={() => navigate('/stage/1/1')}
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M4.5 16.5c-1.5 1.5-1.5 4.5 0 4.5 0 1.5 3 1.5 4.5 0L19 7l-5-5L4.5 16.5z"/>
-              <path d="M12 8l-4.5 4.5"/>
-              <path d="M20 4l-5 1-1 5"/>
-            </svg>
-            바로 체험하기
+            <span>바로<br />체험하기</span>
           </button>
           <button
-            id="btn-level-test"
-            className="btn btn-ghost btn-lg"
-            onClick={() => navigate('/level-test-info')}
-           style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, border: '1px solid rgba(124,58,237,0.45)', color: 'var(--clr-primary-lt)' }}
+            id="btn-register-home"
+            className="home-circle-btn home-circle-side"
+            onClick={() => navigate('/register')}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-            내 에이몬 찾기 (레벨 테스트)
+            회원가입
           </button>
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '12px', marginTop: '8px', fontSize: '0.88rem' }}>
-            <button
-              id="btn-register-home"
-              className="text-link-btn"
-              onClick={() => navigate('/register')}
-              style={{ background: 'none', border: 'none', padding: 0, color: 'var(--clr-primary-lt)', textDecoration: 'underline', cursor: 'pointer', fontWeight: 600 }}
-            >
-              회원가입
-            </button>
-            <span style={{ color: 'var(--clr-text-faint)' }}>|</span>
-            <button
-              id="btn-login-home"
-              className="text-link-btn"
-              onClick={() => navigate('/auth')}
-              style={{ background: 'none', border: 'none', padding: 0, color: 'var(--clr-text-muted)', cursor: 'pointer' }}
-            >
-              이미 계정이 있어요 (로그인)
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* 진화 프리뷰 */}
-      <div className="home-evo-preview container">
-        <h2 className="home-section-title">🌟 에이몬 진화 여정</h2>
-        <div className="home-evo-track">
-          {EVOLUTION_STAGES.map((stage, i) => (
-            <div key={stage.id} className="home-evo-step">
-              <div
-                className="home-evo-orb"
-                style={{ boxShadow: `0 0 20px ${stage.glow}`, borderColor: stage.color }}
-              >
-                <img src={stage.icon} alt={stage.name} className="home-evo-icon" />
-              </div>
-              <div className="home-evo-info">
-                <span className="home-evo-name" style={{ color: stage.color }}>{stage.name}</span>
-                <span className="home-evo-range">{stage.unitRange}</span>
-              </div>
-              {i < EVOLUTION_STAGES.length - 1 && (
-                <div className="home-evo-arrow">→</div>
-              )}
-            </div>
-          ))}
         </div>
       </div>
 
       {/* 특징 카드 */}
       <div className="home-features container" style={{ marginTop: '30px' }}>
-        <h2 className="home-section-title">✨ 에이몬만의 특별함</h2>
+        <h2 className="home-section-title">에이몬만의 특별함</h2>
         <div className="home-feature-grid">
           {FEATURES.map((f) => (
             <div key={f.title} className="home-feature-card card-glass">
               <span className="home-feature-icon">{f.icon}</span>
               <h3 className="home-feature-title">{f.title}</h3>
-              <p className="home-feature-desc">{f.desc}</p>
             </div>
           ))}
         </div>
