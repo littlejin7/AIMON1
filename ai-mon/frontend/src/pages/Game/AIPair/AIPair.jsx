@@ -114,6 +114,8 @@ export default function AIPair() {
               <div className="mp-intro-rule-sub">6쌍을 모두 맞추면 클리어 🎉</div>
             </div>
 
+            <div className="mp-intro-reward">⚡ 클리어 보상 · 코인 100~300</div>
+
             <button className="mp-intro-start" onClick={handleStart}>
               시작하기 ▶
             </button>
