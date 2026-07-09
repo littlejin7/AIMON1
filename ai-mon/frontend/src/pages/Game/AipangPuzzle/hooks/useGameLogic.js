@@ -392,13 +392,7 @@ useEffect(() => {
           setTimeout(() => beep(784, 0.3), 300);
           setBossUI(prev => ({ ...prev, unitDefeated: true }));
 
-          gameApi.clearGame({ game_id: 'aipang', game_token: gameTokenRef.current })
-            .then(res => {
-              addPendingTimer(() => setPopups(prev => ({ ...prev, clear: true, clearData: res.data })), 600);
-            })
-            .catch(() => {
-              addPendingTimer(() => setPopups(prev => ({ ...prev, clear: true })), 600);
-            });
+          addPendingTimer(() => setPopups(prev => ({ ...prev, clear: true, clearData: null })), 600);
         }
       }, 400);
       return;
