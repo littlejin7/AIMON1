@@ -174,8 +174,8 @@ export class RunnerEngine {
     this.overlay.style.display = 'flex';
     this.overlay.innerHTML = `
       <div class="rg-panel rg-panel--start">
-        <img src="${airunIconUrl}" class="rg-thumb" alt="AIrun" />
-        <div class="rg-title rg-title--modern">AIrun</div>
+        <img src="${airunIconUrl}" class="rg-thumb" alt="AI Run" />
+        <div class="rg-title rg-title--modern">AI Run</div>
         <div class="rg-subtitle">달리고! 피하고! 맞혀라!</div>
         <div class="rg-controls">
           <div><kbd>◀ ▶</kbd> 레인 이동</div>
@@ -183,7 +183,7 @@ export class RunnerEngine {
           <div><kbd>O</kbd> / <kbd>X</kbd> 퀴즈 정답</div>
         </div>
         <div class="rg-reward-pill">⚡ 클리어 보상 · 코인 200~500</div>
-        <button class="rg-btn" id="rg-start-btn">▶ START GAME</button>
+        <button class="rg-btn" id="rg-start-btn">게임시작 ▶</button>
       </div>
     `;
     document.getElementById('rg-start-btn')?.addEventListener('click', () => this._startGame());
