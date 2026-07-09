@@ -106,6 +106,7 @@ export default function Game() {
 
   return (
     <div className="game-page">
+      <div className="game-scroll">
 
       {/* ── 오늘의 챌린지 카드 ── */}
       <div className="game-challenge-hero card-glass">
@@ -314,7 +315,7 @@ export default function Game() {
           )
         })}
         </div>
-      
+      </div>
     </div>
   )
 }

@@ -1,7 +1,11 @@
 .game-page {
   min-height: 100vh;
+  background: #F4F3FA;
   padding-top: 8px;
   padding-bottom: 90px;
+}
+
+.game-scroll {
   max-width: 480px;
   margin: 0 auto;
 }

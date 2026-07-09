@@ -137,6 +137,7 @@ export default function Character() {
 
   return (
     <div className="char-page">
+      <div className="char-shell">
 
       {/* ── 히어로 (보라 배경) ── */}
       <div className="char-hero-bg">
@@ -194,7 +195,7 @@ export default function Character() {
         )}
 
         {/* ── 학습 스탯 ── */}
-        <p className="char-section-label">학습 스탯</p>
+        <p className="char-section-label">📊 학습 스탯</p>
         <div className="char-stats-grid">
           <div className="char-stat-card">
             <div className="char-stat-icon" style={{ background: 'rgba(133,79,11,0.18)' }}>🔥</div>
@@ -341,6 +342,7 @@ export default function Character() {
           <span>로그아웃</span>
         </button>
 
+      </div>
       </div>
     </div>
   )
