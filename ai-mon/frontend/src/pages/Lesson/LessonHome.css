@@ -348,8 +348,8 @@ body:has(.lh-page) { background: #F4F3FA; }
 }
 .lh-unit-selector-scroll {
   display: flex;
-  gap: 20px;
-  padding: 4px 4px 8px;
+  gap: 14px;
+  padding: 8px 4px;
   overflow-x: auto;
   scroll-behavior: smooth;
   position: relative;
@@ -360,75 +360,92 @@ body:has(.lh-page) { background: #F4F3FA; }
   display: none;
 }
 
-/* 유닛 노드 버튼 */
+/* 유닛 노드 버튼 (아웃라인 및 박스 테두리 완화) */
 .lh-unit-node {
   position: relative;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: none;
-  border: none;
+  background: transparent;
+  border: 0;
   padding: 0;
   cursor: pointer;
-  width: 72px;
+  width: 76px;
   text-align: center;
   outline: none;
+  box-shadow: none;
   -webkit-tap-highlight-color: transparent;
+  transition: transform 0.2s ease;
+}
+.lh-unit-node:focus {
+  outline: none;
+}
+.lh-unit-node:focus-visible .lh-unit-node-icon-wrap {
+  outline: 2px solid rgba(127, 119, 221, 0.35);
+  outline-offset: 3px;
 }
 .lh-unit-node.locked {
   cursor: not-allowed;
-  opacity: 0.6;
 }
 
-/* 연결선 처리 */
+/* 연결선 처리 (노드들 사이) */
 .lh-unit-node:not(:last-child)::after {
   content: '';
   position: absolute;
-  top: 24px;
-  left: calc(50% + 24px);
-  width: calc(100% - 28px);
+  top: 32px;
+  left: calc(50% + 32px);
+  width: calc(100% - 40px);
   height: 1px;
   border-top: 1.5px dashed #DEDDE8;
   z-index: 1;
 }
 .lh-unit-node.done:not(:last-child)::after {
-  border-top: 1.5px dashed #7F77DD;
+  border-top: 1.5px dashed #A9A4E8;
 }
 
-/* 아이콘 랩 */
+/* 아이콘 랩 (둥근 사각형으로 통일 및 비주얼 피드백) */
 .lh-unit-node-icon-wrap {
   position: relative;
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 22px;
+  display: grid;
+  place-items: center;
   margin-bottom: 8px;
   z-index: 2;
   transition: all 0.2s ease;
-  background: #FFFFFF;
 }
 .lh-unit-node.open .lh-unit-node-icon-wrap {
   border: 1.5px solid #E2E1EE;
-  background: #F8F7FD;
+  background: #F7F6FB;
+  color: #7A7A94;
 }
 .lh-unit-node.done .lh-unit-node-icon-wrap {
-  border: 1.5px solid #7F77DD;
-  background: #EEEDFE;
+  border: 1.5px solid #A9A4E8;
+  background: #F2F0FF;
+  color: #7F77DD;
 }
 .lh-unit-node.locked .lh-unit-node-icon-wrap {
-  border: 1.5px solid #DEDDE8;
-  background: #F5F4FA;
+  border: 1.5px solid #E2E1EE;
+  background: #FAFAFC;
+  color: #C2C2D0;
 }
 .lh-unit-node.current .lh-unit-node-icon-wrap {
+  width: 70px;
+  height: 70px;
   border: 2px solid #7F77DD;
-  background: #EEEDFE;
-  box-shadow: 0 0 0 3px rgba(127, 119, 221, 0.18);
+  background: #F2F0FF;
+  color: #7F77DD;
+  box-shadow: 0 0 0 4px rgba(127, 119, 221, 0.12);
+  margin-top: -3px;
+  margin-bottom: 5px;
 }
-.lh-unit-node-icon {
-  font-size: 20px;
+
+/* 유닛 아이콘 SVG 크기 */
+.lh-unit-node-svg {
+  width: 28px;
+  height: 28px;
 }
 
 /* 상태 배지 */
@@ -448,8 +465,8 @@ body:has(.lh-page) { background: #F4F3FA; }
   z-index: 3;
 }
 .lh-unit-node-state.done {
-  background: #22C55E;
-  color: #FFFFFF;
+  background: #7F77DD;
+  color: #B8FF6A;
   font-size: 9px;
 }
 .lh-unit-node-state.locked {
@@ -485,7 +502,7 @@ body:has(.lh-page) { background: #F4F3FA; }
   font-weight: 500;
 }
 .lh-unit-node.done .lh-unit-node-status {
-  color: #22C55E;
+  color: #7F77DD;
 }
 .lh-unit-node.locked .lh-unit-node-status {
   color: #BBBBCC;
@@ -525,15 +542,23 @@ body:has(.lh-page) { background: #F4F3FA; }
   border-radius: 14px;
   background: #EEEDFE;
   border: 1.5px solid #7F77DD;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
+  display: grid;
+  place-items: center;
   flex-shrink: 0;
 }
 .lh-selected-unit-card.locked .lh-selected-unit-icon {
   background: #F5F4FA;
   border-color: #DEDDE8;
+}
+
+/* 상세 유닛 SVG */
+.lh-selected-unit-svg {
+  width: 26px;
+  height: 26px;
+  color: #7F77DD;
+}
+.lh-selected-unit-card.locked .lh-selected-unit-svg {
+  color: #A4A4B8;
 }
 
 .lh-selected-unit-info {
@@ -606,11 +631,28 @@ body:has(.lh-page) { background: #F4F3FA; }
   transition: width 0.5s ease;
 }
 
-/* ── 2차: 발자국 스테이지 로드맵 ── */
+/* ── 2차: 로드맵 세로선 & 에이몬 발자국 ── */
 .lh-paw-roadmap {
   display: flex;
   flex-direction: column;
+  position: relative;
   padding: 10px 0 4px;
+}
+
+/* 세로 연결 점선 타임라인 */
+.lh-paw-roadmap::before {
+  content: '';
+  position: absolute;
+  left: 31px;
+  top: 42px;
+  bottom: 72px;
+  width: 2px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #CFC8FF 0 8px,
+    transparent 8px 16px
+  );
+  z-index: 1;
 }
 
 /* 개별 스테이지 행 */
@@ -653,25 +695,29 @@ body:has(.lh-page) { background: #F4F3FA; }
   margin-bottom: 4px;
 }
 
-/* 세로 연결선 (각 스테이지 노드들을 연결) */
+/* 에이몬 로봇/에너지 발자국 (더블 캡슐 부스터 패드) */
 .lh-paw-stage::before {
   content: '';
   position: absolute;
-  top: 50px;
-  bottom: -14px;
-  left: 32px;
-  width: 1.5px;
-  border-left: 1.5px dashed #DED9F5;
-  z-index: 1;
+  left: 23px;
+  top: -10px;
+  width: 18px;
+  height: 12px;
+  opacity: 0.35;
+  background:
+    radial-gradient(ellipse at 35% 50%, #7F77DD 0 35%, transparent 38%),
+    radial-gradient(ellipse at 65% 50%, #7F77DD 0 35%, transparent 38%);
+  transform: rotate(-18deg);
+  z-index: 2;
 }
-.lh-paw-stage.done::before {
-  border-left: 1.5px dashed #A9A4E8;
-}
-.lh-paw-stage:last-of-type::before {
-  bottom: -16px;
+.lh-paw-stage.locked::before {
+  background:
+    radial-gradient(ellipse at 35% 50%, #B8B8C8 0 35%, transparent 38%),
+    radial-gradient(ellipse at 65% 50%, #B8B8C8 0 35%, transparent 38%);
+  opacity: 0.25;
 }
 
-/* 스테이지 원형 노드 (발자국 장식 제거, 숫자만 표시) */
+/* 스테이지 원형 노드 (숫자만 깔끔하게 표시) */
 .lh-paw-node {
   position: relative;
   width: 40px;
@@ -684,25 +730,24 @@ body:has(.lh-page) { background: #F4F3FA; }
   font-weight: 700;
   flex-shrink: 0;
   transition: all 0.2s ease;
-  z-index: 2;
+  z-index: 3;
 }
-
 .lh-paw-stage.done .lh-paw-node {
   background: #F2F0FF;
   border: 1.5px solid #A9A4E8;
   color: #7F77DD;
 }
 .lh-paw-stage.current .lh-paw-node {
-  background: #EEEDFE;
+  background: #7F77DD;
   border: 2.5px solid #7F77DD;
-  color: #7F77DD;
+  color: #FFFFFF;
   font-size: 14px;
   box-shadow: 0 0 0 4px rgba(127, 119, 221, 0.16);
 }
 .lh-paw-stage.locked .lh-paw-node {
-  background: #F5F4FA;
-  border: 1.5px solid #DEDDE8;
-  color: #9999B0;
+  background: #F6F6FA;
+  border: 1.5px solid #E2E1EE;
+  color: #A4A4B8;
 }
 
 /* 텍스트 내용 */
@@ -730,7 +775,7 @@ body:has(.lh-page) { background: #F4F3FA; }
   font-weight: 500;
 }
 .lh-paw-stage.done .lh-paw-status {
-  color: #37B66A; /* 완료상태 텍스트만 초록색 허용 */
+  color: #37B66A; /* 완료 문구만 연한 성공 컬러 */
 }
 .lh-paw-stage.current .lh-paw-status {
   color: #7F77DD;
@@ -842,6 +887,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 }
 .lh-paw-boss.locked .lh-paw-boss-text span {
   color: #A4A4B8;
+}
+.lh-paw-boss-desc {
+  font-size: 10px !important;
+  font-weight: 500 !important;
+  color: #7A7A94 !important;
+  margin-top: 1px;
+}
+.lh-paw-boss.locked .lh-paw-boss-desc {
+  color: #BBBBCC !important;
 }
 
 .lh-paw-boss-action {

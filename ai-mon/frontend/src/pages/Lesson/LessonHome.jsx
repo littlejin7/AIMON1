@@ -92,6 +92,105 @@ function getStageDisplayTitle(unitId, stageNum, unitTitle = '') {
   return `Stage ${stageNum}`
 }
 
+function UnitIcon({ unitId, className = '' }) {
+  const common = {
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: 1.8,
+    strokeLinecap: 'round',
+    strokeLinejoin: 'round',
+    className,
+    'aria-hidden': true,
+  }
+
+  switch (unitId) {
+    case 1:
+      return (
+        <svg {...common}>
+          <rect x="6" y="8" width="12" height="8" rx="2" />
+          <path d="M8 8V5h8v3" />
+          <path d="M8 16v3h8v-3" />
+          <path d="M9 12h6" />
+        </svg>
+      )
+    case 2:
+      return (
+        <svg {...common}>
+          <path d="M7 5h10" />
+          <path d="M7 9h7" />
+          <path d="M7 13h10" />
+          <path d="M7 17h6" />
+          <path d="M17 15l2 2-2 2" />
+        </svg>
+      )
+    case 3:
+      return (
+        <svg {...common}>
+          <path d="M6 6h5a4 4 0 0 1 4 4v1" />
+          <path d="M6 18h5a4 4 0 0 0 4-4v-1" />
+          <path d="M16 8l3 3-3 3" />
+        </svg>
+      )
+    case 4:
+      return (
+        <svg {...common}>
+          <path d="M17 7a6 6 0 0 0-10 2" />
+          <path d="M7 7v2h2" />
+          <path d="M7 17a6 6 0 0 0 10-2" />
+          <path d="M17 17v-2h-2" />
+        </svg>
+      )
+    case 5:
+      return (
+        <svg {...common}>
+          <rect x="6" y="5" width="12" height="14" rx="2" />
+          <path d="M9 9h6" />
+          <path d="M9 13h6" />
+          <path d="M9 17h4" />
+        </svg>
+      )
+    case 6:
+      return (
+        <svg {...common}>
+          <path d="M8 7h8" />
+          <path d="M8 12h8" />
+          <path d="M8 17h5" />
+          <path d="M5 7h.01" />
+          <path d="M5 12h.01" />
+          <path d="M5 17h.01" />
+        </svg>
+      )
+    case 7:
+      return (
+        <svg {...common}>
+          <rect x="5" y="5" width="14" height="14" rx="3" />
+          <path d="M8 9h8" />
+          <path d="M8 13h5" />
+          <path d="M8 17h7" />
+        </svg>
+      )
+    case 8:
+      return (
+        <svg {...common}>
+          <path d="M12 4v5" />
+          <path d="M8 8h8" />
+          <rect x="6" y="10" width="12" height="8" rx="3" />
+          <path d="M9 14h.01" />
+          <path d="M15 14h.01" />
+        </svg>
+      )
+    default:
+      return (
+        <svg {...common}>
+          <rect x="5" y="5" width="14" height="14" rx="3" />
+          <path d="M9 9h6" />
+          <path d="M9 13h6" />
+        </svg>
+      )
+  }
+}
+
 export default function LessonHome() {
   const user       = useAuthStore((s) => s.user)
   const token      = useAuthStore((s) => s.token)
@@ -307,7 +406,7 @@ export default function LessonHome() {
                     aria-label={`Unit ${lesson.unit_id} ${shortTitle}`}
                   >
                     <span className="lh-unit-node-icon-wrap">
-                      <span className="lh-unit-node-icon">{icon}</span>
+                      <UnitIcon unitId={lesson.unit_id} className="lh-unit-node-svg" />
                       {done && <span className="lh-unit-node-state done">✓</span>}
                       {!unlocked && <span className="lh-unit-node-state locked">🔒</span>}
                       {isCurrent && <span className="lh-unit-node-state current">▶</span>}
@@ -339,7 +438,9 @@ export default function LessonHome() {
           return (
             <section className={`lh-selected-unit-card ${!unlocked ? 'locked' : ''}`}>
               <div className="lh-selected-unit-head">
-                <div className="lh-selected-unit-icon">{icon}</div>
+                <div className="lh-selected-unit-icon">
+                  <UnitIcon unitId={lesson.unit_id} className="lh-selected-unit-svg" />
+                </div>
                 <div className="lh-selected-unit-info">
                   <div className="lh-selected-unit-kicker">Unit {lesson.unit_id}</div>
                   <h2>{title}</h2>
@@ -416,9 +517,12 @@ export default function LessonHome() {
                   <span className="lh-paw-boss-text">
                     <strong>유닛보스</strong>
                     <span>{getUnitShortTitle(title, lesson.unit_id, courseLevel)} 마스터</span>
+                    <span className="lh-paw-boss-desc">
+                      {prog.completed >= lesson.stages ? '보스전에 도전해요' : '모든 스테이지 완료 후 도전 가능'}
+                    </span>
                   </span>
                   <span className="lh-paw-boss-action">
-                    {prog.completed >= lesson.stages ? '도전하기' : '스테이지 완료 후 해금'}
+                    {prog.completed >= lesson.stages ? '도전하기' : '잠김'}
                   </span>
                 </button>
               </div>
