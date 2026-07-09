@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { incrementGamePlay } from '../Game'
 import { aicrossApi } from '../../../api'
+import { useAuthStore } from '../../../hooks/useAuthStore'
+import { CHAR_ICONS } from '../../Character/characterData'
 import TitleBlock from './components/TitleBlock'
 import WinModal from './components/WinModal'
 import CrosswordGrid from './components/CrosswordGrid'
@@ -81,6 +83,7 @@ function buildServerLayout(puzzle) {
 export default function AICross() {
   const navigate = useNavigate()
   const wrapRef = useRef(null)
+  const user = useAuthStore((s) => s.user)
 
   // 서버 진행도/세션 상태
   const [progress, setProgress] = useState(null)
@@ -302,6 +305,7 @@ export default function AICross() {
 
   const selCells = selWord ? wordCells[selWord.id] : []
   const won = showResult && result && result.score >= 100
+  const characterSrc = CHAR_ICONS[user?.character] || CHAR_ICONS.slime
 
   const isAllFilled = useMemo(() => {
     if (!cellMap || Object.keys(cellMap).length === 0) return false
@@ -368,6 +372,7 @@ export default function AICross() {
             <WinModal
               result={result}
               won={won}
+              characterSrc={characterSrc}
               onClose={won ? handleNextSet : () => navigate('/game')}
               onRetry={handleRetry}
             />

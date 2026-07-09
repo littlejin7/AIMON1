@@ -1,0 +1,60 @@
+/* InfoModal.css — MiniBossGateModal과 동일한 팔레트(흰 카드 + 보라 포인트) */
+
+.info-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 6, 22, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 20px;
+}
+
+.info-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  border-radius: 24px;
+  border: 1px solid rgba(124, 58, 237, 0.4);
+  padding: 32px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(124, 58, 237, 0.25);
+}
+
+.info-modal-icon {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+}
+
+.info-modal-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--clr-text, #1A1A2E);
+  margin-bottom: 24px;
+}
+
+.info-modal-btn {
+  margin-top: 0;
+}
+
+/* animate-fade-in / animate-float 는 index.css 전역 정의를 사용.
+   animate-pop-in 만 이 모달 전용으로 로컬 정의(다른 모달들과 동일 패턴). */
+.animate-pop-in {
+  animation: infoPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes infoPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

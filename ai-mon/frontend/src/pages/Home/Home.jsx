@@ -4,6 +4,7 @@ import { progressApi, userApi, authApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import useHomeSound from '../../hooks/useHomeSound'
 import LevelTestModal from '../../components/LevelTestModal/LevelTestModal'
+import InfoModal from '../../components/InfoModal/InfoModal'
 import HomeLanding   from './HomeLanding'
 import HomeDashboard from './HomeDashboard'
 import './Home.css'
@@ -18,6 +19,7 @@ export default function Home() {
   const [stats,         setStats]         = useState(null)
   const [loading,       setLoading]       = useState(!!token)
   const [showLevelTest, setShowLevelTest] = useState(false)
+  const [levelTestErrorMsg, setLevelTestErrorMsg] = useState(null)
 
   const handleLevelTestFinish = async (levelKey, updatedUser) => {
     if (token) {
@@ -32,7 +34,7 @@ export default function Home() {
         updateUser(res.data)
         navigate('/lesson')
       } catch {
-        alert('레벨 설정 변경에 실패했습니다.')
+        setLevelTestErrorMsg('레벨 설정 변경에 실패했습니다.')
       } finally {
         setShowLevelTest(false)
       }
@@ -84,7 +86,14 @@ export default function Home() {
       isLoggedIn={!!token}
     />
   )
-
+  const levelTestErrorModal = (
+    <InfoModal
+      icon="⚠️"
+      message={levelTestErrorMsg}
+      onConfirm={() => setLevelTestErrorMsg(null)}
+    />
+  )
+  
   if (!token) {
     return (
       <>
@@ -106,6 +115,7 @@ export default function Home() {
   return (
     <>
       {levelTestModal}
+      {levelTestErrorModal}
       <HomeDashboard
         user={user}
         stats={stats}

@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { highlightLineTokens } from '../../utils/pythonHighlight'
 import './StageBriefing.css'
 
 
@@ -11,9 +12,8 @@ function addLineBreaks(text) {
   ))
 }
 
-function highlightLine(line) {
-  if (line.trim().startsWith('#')) {
-    return <span className="sb-cm">{line}</span>
+function highlightLine(line, keyPrefix = '') {
+  return highlightLineTokens(line, keyPrefix)
   }
 
   const commentMatch = line.match(/^(.*?)(\s+#.*)$/)

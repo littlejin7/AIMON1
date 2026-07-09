@@ -1,6 +1,10 @@
+/* 다른 게임들과 동일하게 가로폭을 앱 프레임(480px)으로 고정 —
+   전체화면(넓은 데스크톱 창)에서도 가로로 늘어나지 않도록 */
 .runner-game-wrapper {
   width: 100%;
+  max-width: 480px;
   height: 100vh;
+  margin: 0 auto;
   overflow: hidden;
   background: #55b5f0;
   position: relative;
@@ -331,45 +335,46 @@
 }
 
 .rg-panel {
-  background: linear-gradient(160deg, #fff 0%, #e8f6ff 100%);
-  border: 3px solid #66ccff;
+  background: #fff;
+  border: 1.5px solid rgba(127, 119, 221, 0.5);
   border-radius: 24px;
   padding: clamp(20px, 5vw, 36px) clamp(24px, 6vw, 46px);
   text-align: center;
-  box-shadow: 0 8px 40px rgba(0,100,220,0.18), 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 24px 48px rgba(127, 119, 221, 0.18);
   max-width: 460px;
   width: 90%;
+  margin: 0 auto;
 }
 
 .rg-title {
   font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
   font-size: clamp(24px, 6vw, 38px);
   font-weight: 900;
-  color: #1166cc;
+  color: #7F77DD;
   letter-spacing: 3px;
   margin-bottom: 6px;
-  text-shadow: 0 2px 0 rgba(100,180,255,0.4);
+  text-shadow: 0 2px 0 rgba(127,119,221,0.18);
 }
 
 .rg-subtitle {
-  color: #5599cc;
+  color: #7F77DD;
   font-size: clamp(11px, 2.5vw, 14px);
   margin-bottom: 24px;
 }
 
 .rg-controls {
-  color: #446688;
+  color: #5f57c8;
   font-size: 14px;
   line-height: 2.2;
-  margin-bottom: 26px;
+  margin: 0 auto 26px;
   font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
-  background: rgba(100,180,255,0.1);
+  background: rgba(127,119,221,0.08);
   border-radius: 12px;
   padding: 12px 16px;
 }
 
 .rg-btn {
-  background: linear-gradient(135deg, #44bbff, #1177dd);
+  background: #7F77DD;
   border: none;
   color: #fff;
   font-size: 17px;
@@ -380,12 +385,15 @@
   letter-spacing: 2px;
   font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
   transition: transform 0.1s, box-shadow 0.2s;
-  box-shadow: 0 4px 16px rgba(17,119,221,0.4);
+  box-shadow: none;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .rg-btn:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 24px rgba(17,119,221,0.6);
+  box-shadow: none;
+  opacity: 0.92;
 }
 
 .rg-score-final {
@@ -395,6 +403,61 @@
   font-weight: 700;
   margin-bottom: 14px;
 }
+
+.rg-result-panel {
+  background: #fff;
+  border: 1.5px solid rgba(127, 119, 221, 0.5);
+  box-shadow: 0 24px 48px rgba(127, 119, 221, 0.18);
+}
+
+.rg-result-title {
+  color: #ff1f1f;
+  letter-spacing: 2px;
+  text-shadow:
+    0 2px 0 #8f0000,
+    0 0 14px rgba(255, 31, 31, 0.6),
+    0 0 28px rgba(255, 90, 60, 0.35);
+}
+
+.rg-result-panel .rg-score-final {
+  color: #7F77DD;
+}
+
+.rg-result-panel .rg-score-final strong {
+  color: #7F77DD;
+}
+
+.rg-reward-info {
+  margin: 10px auto 0;
+  color: #000;
+  font-weight: 700;
+}
+
+.rg-result-panel .rg-btn {
+  width: 100%;
+  background: #7F77DD;
+  box-shadow: none;
+  color: #fff;
+  letter-spacing: 0;
+}
+
+.rg-result-panel .rg-btn:hover {
+  box-shadow: none;
+  opacity: 0.92;
+}
+
+.rg-result-panel .rg-btn-danger {
+  background: #fff;
+  border: 1.5px solid #d9d6f2;
+  color: #5f57c8;
+}
+
+.rg-result-panel .rg-btn-danger:hover {
+  background: #fff;
+  border-color: #c4bfee;
+  color: #534AB7;
+}
+
 
 /* Quiz Panel */
 .rg-quiz-panel {

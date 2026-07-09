@@ -475,10 +475,15 @@ input, textarea, select { font: inherit; }
 .animate-neon-pulse  { animation: neon-pulse 2s ease-in-out infinite; }
 
 /* --- Scrollbar --- */
-::-webkit-scrollbar       { width: 6px; }
-::-webkit-scrollbar-track { background: var(--clr-bg); }
-::-webkit-scrollbar-thumb { background: var(--clr-border); border-radius: var(--radius-full); }
-::-webkit-scrollbar-thumb:hover { background: var(--clr-primary-dk); }
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
 .level-test-modal-inner::-webkit-scrollbar { display: none; }
 
 /* --- Misc Utilities --- */

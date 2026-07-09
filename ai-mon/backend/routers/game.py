@@ -497,6 +497,94 @@ class AicrossClearRequest(BaseModel):
     set_index: int
     answers: Optional[dict] = None
 
+CHALLENGE_BONUS_CROWNS = 5
+CHALLENGE_TARGETS = {
+    "aipang": 1,
+    "aizzak": 3,
+    "runner": 5,
+    "aibomb": 3,
+    "aicross": 3,
+}
+
+
+def _challenge_progress(game_rewards: dict, today_kst: str) -> dict:
+    """오늘의 챌린지 완료/수령 상태를 game_rewards 기준으로 계산한다."""
+    if not isinstance(game_rewards, dict):
+        game_rewards = {}
+
+    counts = {
+        "aipang": 1 if game_rewards.get("aipang_last_date") == today_kst else 0,
+        "aizzak": int(game_rewards.get("aizzak_today_count", 0) or 0)
+        if game_rewards.get("aizzak_last_date") == today_kst else 0,
+        "runner": int(game_rewards.get("runner_today_count", 0) or 0)
+        if game_rewards.get("runner_last_date") == today_kst else 0,
+        "aibomb": int(game_rewards.get("aibomb_today_count", 0) or 0)
+        if game_rewards.get("aibomb_last_date") == today_kst else 0,
+        "aicross": int(game_rewards.get("aicross_today_count", 0) or 0)
+        if game_rewards.get("aicross_last_date") == today_kst else 0,
+    }
+    progress = {
+        game_id: min(counts.get(game_id, 0), target)
+        for game_id, target in CHALLENGE_TARGETS.items()
+    }
+    total_done = sum(progress.values())
+    total_target = sum(CHALLENGE_TARGETS.values())
+    return {
+        "progress": progress,
+        "total_done": total_done,
+        "total_target": total_target,
+        "is_complete": total_done >= total_target,
+        "claimed": game_rewards.get("challenge_bonus_date") == today_kst,
+        "reward_crowns": CHALLENGE_BONUS_CROWNS,
+    }
+
+
+@router.get("/challenge/status")
+def game_challenge_status(user_ref: dict = Depends(get_current_user)):
+    today_kst = now_kst().date().isoformat()
+    game_rewards = user_ref.get("game_rewards")
+    return _challenge_progress(game_rewards, today_kst)
+
+
+@router.post("/challenge/claim")
+def game_challenge_claim(user_ref: dict = Depends(get_current_user)):
+    user_id = user_ref["id"]
+    today_kst = now_kst().date().isoformat()
+
+    def mutator(user: dict) -> dict:
+        game_rewards = user.get("game_rewards")
+        if not isinstance(game_rewards, dict):
+            game_rewards = {}
+
+        status = _challenge_progress(game_rewards, today_kst)
+        if not status["is_complete"]:
+            raise HTTPException(status_code=400, detail="오늘의 챌린지를 아직 모두 완료하지 않았습니다.")
+        if status["claimed"]:
+            raise HTTPException(status_code=400, detail="오늘의 챌린지 보너스를 이미 수령했습니다.")
+
+        game_rewards["challenge_bonus_date"] = today_kst
+        user["game_rewards"] = game_rewards
+        user["crowns"] = int(user.get("crowns", 0) or 0) + CHALLENGE_BONUS_CROWNS
+        status["claimed"] = True
+        status["crowns"] = user["crowns"]
+        return status
+
+    try:
+        user, result = mutate_user_atomic(user_id, mutator)
+    except UserNotFoundError:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    result["user_state"] = {
+        "coin_balance": user.get("coin_balance", 0),
+        "gp": user.get("gp", 0),
+        "lv": user.get("lv", 1),
+        "evolution_stage": get_evolution_stage(user),
+        "ranking_score": user.get("ranking_score", 0),
+        "weekly_ranking_score": current_week_ranking_score(user),
+        "crowns": user.get("crowns", 0),
+    }
+    return result
+
 
 @router.post("/start")
 def game_start(req: GameStartRequest, user_ref: dict = Depends(get_current_user)):

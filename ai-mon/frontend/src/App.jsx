@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./pages/Home/Home";
 import LessonHome from "./pages/Lesson/LessonHome";
@@ -46,6 +46,20 @@ function AppLayout({ children }) {
   );
 }
 
+function BodyRouteCleanup() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.pathname.startsWith("/game/aipang")) {
+      document.body.classList.remove("aipang-active");
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "";
+    }
+  }, [location.pathname]);
+
+  return null;
+}
+
 export default function App() {
   const theme = useAuthStore((s) => s.theme);
   const [ready, setReady] = useState(false);
@@ -88,6 +102,7 @@ export default function App() {
   return (
     <>
     <BrowserRouter>
+      <BodyRouteCleanup />
       <Routes>
         {/* ── 인증 페이지 (NavBar 없음) ── */}
         <Route path="/auth" element={<Auth />} />

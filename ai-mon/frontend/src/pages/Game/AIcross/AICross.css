@@ -258,22 +258,59 @@
   align-items: center;
   gap: 12px;
   min-width: 280px;
+  margin: 0 auto;
   animation: winPop 0.4s ease;
   box-shadow: 0 20px 50px rgba(120, 80, 200, 0.25);
 }
 
-.aicross-win-emoji { font-size: 48px; }
+.aicross-win-hero {
+  position: relative;
+  width: 128px;
+  height: 112px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: -4px;
+}
+
+.aicross-win-character {
+  width: 108px;
+  height: 108px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: aicrossCharacterPop 0.45s ease both, aicrossCharacterFloat 2.4s ease-in-out 0.45s infinite;
+}
+
+.aicross-win-character img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 10px rgba(90, 61, 153, 0.22));
+}
+
+.aicross-win-emoji {
+  position: absolute;
+  right: 4px;
+  top: 2px;
+  z-index: 2;
+  font-size: 58px;
+  filter: drop-shadow(0 8px 10px rgba(184, 134, 11, 0.22));
+  animation: aicrossCoinPop 0.42s ease both;
+}
 .aicross-win-title { font-size: 26px; font-weight: 800; color: #5a3d99; }
 .aicross-win-sub   { font-size: 14px; color: #8a6bb8; margin-bottom: 4px; }
 
 .aicross-win-reward {
   font-size: 22px;
   font-weight: 800;
-  color: #d9960b;
-  background: rgba(255, 200, 60, 0.18);
-  border: 1px solid rgba(255, 200, 60, 0.4);
+  color: #7F77DD;
+  background: #fff;
+  border: 1.5px solid #7F77DD;
   border-radius: 12px;
   padding: 10px 24px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .aicross-win-reward--claimed {
@@ -310,7 +347,12 @@
 }
 
 .acbtn { font-size: 13px; font-weight: 700; padding: 8px 20px; border-radius: 20px; border: 1px solid; cursor: pointer; background: none; }
-.acbtn--next { background: rgba(120, 200, 140, 0.18); border-color: rgba(120, 200, 140, 0.5); color: #2f8f52; margin-top: 8px; }
+.acbtn--next {
+  background: #7F77DD;
+  border-color: #7F77DD;
+  color: #fff;
+  margin: 8px auto 0;
+}
 
 @keyframes winFade {
   from { opacity: 0; }
@@ -321,6 +363,21 @@
   0%   { transform: scale(0.88); opacity: 0; }
   60%  { transform: scale(1.03); }
   100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes aicrossCoinPop {
+  from { transform: translateY(12px) scale(0.65) rotate(-12deg); opacity: 0; }
+  to { transform: translateY(0) scale(1) rotate(0); opacity: 1; }
+}
+
+@keyframes aicrossCharacterPop {
+  from { transform: translateY(18px) scale(0.72); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes aicrossCharacterFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
 }
 
 /* ── Grid card ── */

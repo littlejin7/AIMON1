@@ -13,7 +13,7 @@ export default function WinModal({ show, score, timeStr, charSrc, reward, onPlay
     <div className="mp-modal-bg">
       <div className="mp-modal">
         <img className="mp-modal-char" src={charSrc} alt="" />
-        <div className="mp-modal-title">완벽해요! 🎉</div>
+        <div className="mp-modal-title">완벽해요! </div>
         <div className="mp-modal-sub">모든 짝을 맞췄어요. 당신은 파이썬 마스터!</div>
         <div className="mp-modal-stats">
           <div className="mp-modal-stat">
@@ -30,7 +30,7 @@ export default function WinModal({ show, score, timeStr, charSrc, reward, onPlay
             ? <div className="mp-modal-reward mp-modal-reward--claimed">오늘 보상은 이미 받았어요 (최대 3판)</div>
             : (
               <>
-                <div className="mp-modal-reward">⚡ +{coinAwarded} 코인 획득!</div>
+                 <div className="mp-modal-reward">🪙 +{coinAwarded} 코인 획득!</div>
                 {gpAwarded > 0 && <div className="mp-modal-reward">💠 +{gpAwarded} GP 획득!</div>}
               </>
             )

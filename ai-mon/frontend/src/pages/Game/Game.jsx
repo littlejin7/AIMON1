@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useAuthStore } from '../../hooks/useAuthStore'
-import { gameApi } from '../../api'
+import { gameApi, userApi } from '../../api'
 import { CHAR_ICONS } from '../Character/characterData'
 import { GAMES, CHALLENGE_GAMES, CHAL_META, loadCounts } from './gameConstants'
 export { incrementGamePlay } from './gameConstants'
@@ -12,8 +12,13 @@ const RANK_MEDALS = { 1: '🥇', 2: '🥈', 3: '🥉' }
 export default function Game() {
   const navigate = useNavigate()
   const { token } = useAuthStore()
+  const updateUser = useAuthStore(s => s.updateUser)
   const [counts, setCounts]         = useState({})
   const [lockedGame, setLockedGame] = useState(null)
+  const [challengeListOpen, setChallengeListOpen] = useState(true)
+  const [challengeBonus, setChallengeBonus] = useState(null)
+  const [challengeClaiming, setChallengeClaiming] = useState(false)
+  const [challengeClaimError, setChallengeClaimError] = useState('')
   const [ranking, setRanking]             = useState(null)
   const [rankingLoading, setRankingLoading] = useState(false)
   const [rankingError, setRankingError]     = useState(false)
@@ -25,6 +30,7 @@ export default function Game() {
   useEffect(() => {
     if (!token) {
       setRanking(null)
+      setChallengeBonus(null)
       return
     }
     let cancelled = false
@@ -34,6 +40,9 @@ export default function Game() {
       .then((res) => { if (!cancelled) setRanking(res.data) })
       .catch(() => { if (!cancelled) setRankingError(true) })
       .finally(() => { if (!cancelled) setRankingLoading(false) })
+    gameApi.challengeStatus()
+      .then((res) => { if (!cancelled) setChallengeBonus(res.data) })
+      .catch(() => { if (!cancelled) setChallengeBonus(null) })
     return () => { cancelled = true }
   }, [token])
 
@@ -46,7 +55,26 @@ export default function Game() {
   const totalTarget = CHALLENGE_GAMES.reduce((s, g) => s + g.dailyTarget, 0)
   const totalDone   = CHALLENGE_GAMES.reduce((s, g) => s + Math.min(counts[g.id] || 0, g.dailyTarget), 0)
   const allDone     = totalDone >= totalTarget
+  const bonusClaimed = challengeBonus?.claimed === true
+  const showChallengeClaim = allDone && token && !bonusClaimed
 
+  const handleClaimChallengeBonus = async () => {
+    if (!showChallengeClaim || challengeClaiming) return
+    setChallengeClaiming(true)
+    setChallengeClaimError('')
+    try {
+      const res = await gameApi.claimChallengeBonus()
+      setChallengeBonus(res.data)
+      const userRes = await userApi.getMe()
+      updateUser(userRes.data)
+      window.dispatchEvent(new Event('aimon:reward-status-changed'))
+    } catch (err) {
+      setChallengeClaimError(err.response?.data?.detail || '보너스를 수령하지 못했어요.')
+    } finally {
+      setChallengeClaiming(false)
+    }
+  }
+  
   const ringRadius        = 21
   const ringCircumference = 2 * Math.PI * ringRadius
   const ringOffset        = ringCircumference - (totalDone / totalTarget) * ringCircumference
@@ -127,85 +155,71 @@ export default function Game() {
               <div className="game-overall-bar-fill" style={{ width: `${totalTarget ? (totalDone / totalTarget) * 100 : 0}%` }}/>
             </div>
             <p className="game-overall-msg">
-              {allDone ? '🎉 오늘 챌린지 완료!' : `👑 +5 보너스까지 ${totalTarget - totalDone}판 남았어요`}
+              {allDone
+                ? bonusClaimed
+                  ? '🎉 오늘 보너스 수령 완료!'
+                  : '🎉 오늘 챌린지 완료!'
+                : `👑 +5 보너스까지 ${totalTarget - totalDone}판 남았어요`}
             </p>
           </div>
         </div>
 
-        <div className="game-challenge-list">
-          {CHALLENGE_GAMES.map((g) => {
-            const done = Math.min(counts[g.id] || 0, g.dailyTarget)
-            const pct = Math.round((done / g.dailyTarget) * 100)
-            const completed = done >= g.dailyTarget
-            const meta = CHAL_META[g.id] || {}
-            return (
-              <div key={g.id} className="game-challenge-item">
-                <div className="game-chal-icon">
-                  {meta.img
-                    ? <img src={meta.img} alt={g.title} style={{ width: 22, height: 22, objectFit: 'contain' }} />
-                    : <span style={{ fontSize: 15 }}>{g.emoji}</span>
-                  }
-                </div>
-                <div className="game-chal-info">
-                  <div className="game-chal-name-row">
-                    <span className="game-chal-name">{g.title}</span>
-                    <span className={`game-challenge-item-count${completed ? ' completed' : ''}`}>
-                      {done} / {g.dailyTarget}판
-                    </span>
-                  </div>
-                  <div className="game-challenge-bar-bg">
-                    <div
-                      className={`game-challenge-bar-fill${completed ? ' completed' : ''}`}
-                      style={{ width: `${pct}%`, background: completed ? undefined : meta.color }}
-                    />
-                  </div>
-                </div>
-                {completed
-                  ? <div className="game-chal-check">✓</div>
-                  : <span className="game-chal-reward" style={{ color: meta.rewardColor }}>{meta.rewardLabel}</span>
-                }
-              </div>
-            )
-          })}
-        </div>
-      </div>
+        {showChallengeClaim && (
+          <button
+            type="button"
+            className="game-challenge-claim-btn"
+            onClick={handleClaimChallengeBonus}
+            disabled={challengeClaiming}
+          >
+            {challengeClaiming ? '수령 중...' : '👑 왕관 5개 수령하기'}
+          </button>
+        )}
+        {challengeClaimError && <div className="game-challenge-claim-error">{challengeClaimError}</div>}
 
-      {/* ── 게임 목록 ── */}
-      <p className="game-section-label">게임 목록</p>
-      <div className="game-list">
-        {GAMES.map((g) => {
-          const done = g.dailyTarget
-            ? Math.min(counts[g.id] || 0, g.dailyTarget) >= g.dailyTarget
-            : false
-          return (
-            <div
-              key={g.id}
-              className={`game-row card-glass${g.available ? ' game-row--active' : ' game-row--locked'}`}
-              onClick={() => handleClick(g)}
-              role={g.available ? 'button' : undefined}
-            >
-              <div className="game-row-icon">
-                {g.icon
-                  ? <img src={g.icon} alt={g.title} />
-                  : <span className="game-row-emoji">{g.emoji}</span>
-                }
-              </div>
-              <div className="game-row-info">
-                <p className="game-row-title">{g.title}</p>
-                <p className="game-row-desc">{g.desc}</p>
-                <span className="game-row-reward">{g.rewardIcon} {g.reward}</span>
-              </div>
-              <button className="game-play-btn" aria-label={`${g.title} 플레이`} tabIndex={-1}>
-                {!g.available
-                  ? <span style={{ fontSize: '0.8rem' }}>🔒</span>
-                  : done
-                  ? <span style={{ fontSize: '0.85rem', fontWeight: 700 }}>✓</span>
-                  : <span style={{ fontSize: '0.75rem', marginLeft: 2 }}>▶</span>
-                }
-              </button>
-            </div>
-          )
-        })}
+        <button
+          type="button"
+          className="game-challenge-toggle no-3d"
+          onClick={() => setChallengeListOpen(open => !open)}
+          aria-expanded={challengeListOpen}
+        >
+          <span className="game-challenge-toggle-label">챌린지 목록</span>
+          <span className={`game-challenge-arrow${challengeListOpen ? ' open' : ''}`}>{'>'}</span>
+        </button>
+
+        {challengeListOpen && (
+          <div className="game-challenge-list">
+            {CHALLENGE_GAMES.map((g) => {
+              const done = Math.min(counts[g.id] || 0, g.dailyTarget)
+              const meta = CHAL_META[g.id] || {}
+              return (
+                <div key={g.id} className="game-challenge-item">
+                  <div className="game-chal-icon">
+                    {meta.img
+                      ? <img src={meta.img} alt={g.title} style={{ width: 22, height: 22, objectFit: 'contain' }} />
+                      : <span style={{ fontSize: 15 }}>{g.emoji}</span>
+                    }
+                  </div>
+                  <div className="game-chal-info">
+                    <div className="game-chal-name-row">
+                      <span className="game-chal-name">{g.title}</span>
+                      <div className="game-challenge-dots" aria-label={`${done} / ${g.dailyTarget} 완료`}>
+                        {Array.from({ length: g.dailyTarget }, (_, i) => (
+                          <span
+                            key={i}
+                            className={`game-challenge-check${i < done ? ' filled' : ''}`}
+                            style={i < done ? { color: meta.color, borderColor: meta.color } : undefined}
+                          >
+                            ✓
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        )}
       </div>
 
       {/* ── 이번 주 랭킹 ── */}
@@ -269,6 +283,44 @@ export default function Game() {
         )}
       </div>
 
+      {/* ── 게임 목록 ── */}
+      <p className="game-section-label">게임 목록</p>
+      <div className="game-list">
+        {GAMES.map((g) => {
+          const done = g.dailyTarget
+            ? Math.min(counts[g.id] || 0, g.dailyTarget) >= g.dailyTarget
+            : false
+          return (
+            <div
+              key={g.id}
+              className={`game-row card-glass${g.available ? ' game-row--active' : ' game-row--locked'}`}
+              onClick={() => handleClick(g)}
+              role={g.available ? 'button' : undefined}
+            >
+              <div className="game-row-icon">
+                {g.icon
+                  ? <img src={g.icon} alt={g.title} />
+                  : <span className="game-row-emoji">{g.emoji}</span>
+                }
+              </div>
+              <div className="game-row-info">
+                <p className="game-row-title">{g.title}</p>
+                <p className="game-row-desc">{g.desc}</p>
+                <span className="game-row-reward">{g.rewardIcon} {g.reward}</span>
+              </div>
+              <button className="game-play-btn" aria-label={`${g.title} 플레이`} tabIndex={-1}>
+                {!g.available
+                  ? <span style={{ fontSize: '0.8rem' }}>🔒</span>
+                  : done
+                  ? <span style={{ fontSize: '0.85rem', fontWeight: 700 }}>✓</span>
+                  : <span style={{ fontSize: '0.75rem', marginLeft: 2 }}>▶</span>
+                }
+              </button>
+            </div>
+          )
+        })}
+        </div>
+      
     </div>
   )
 }

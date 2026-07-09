@@ -318,73 +318,12 @@ export default function Character() {
           </>
         )}
 
-        {/* ── 캐릭터 커스텀 ── */}
-        <p className="char-section-label">🎨 캐릭터 커스텀</p>
+        {/* ── 내 방꾸미기 ── */}
+        <p className="char-section-label">🏠 내 방꾸미기</p>
         <div className="char-section-card">
-          <p className="char-custom-subtitle">색상 팔레트 · 왕관으로 구매</p>
-          <div className="char-palette-row">
-            {[
-              { color: '#7F77DD', unlocked: true  },
-              { color: '#378ADD', unlocked: true  },
-              { color: '#1D9E75', unlocked: true  },
-              { color: '#EF9F27', unlocked: false },
-              { color: '#D4537E', unlocked: false },
-              { color: '#26215C', unlocked: false },
-            ].map(({ color, unlocked }) => (
-              <div
-                key={color}
-                className={`char-swatch${!unlocked ? ' locked' : ''}`}
-                style={{ background: color }}
-                aria-label={color}
-              >
-                {!unlocked && <span className="char-swatch-lock">🔒</span>}
-              </div>
-            ))}
-          </div>
-          <div className="char-custom-divider" />
-          <p className="char-custom-subtitle" style={{ marginBottom: 8 }}>이펙트</p>
-          <div className="char-effect-row">
-            <div className="char-effect active">✨ 반짝이</div>
-            <div className="char-effect locked">🔥 불꽃 🔒</div>
-            <div className="char-effect locked">⚡ 전기 🔒</div>
-          </div>
-        </div>
-
-        {/* ── 터미널 테마 ── */}
-        <p className="char-section-label">💻 터미널 테마</p>
-        <div className="char-theme-card">
-          {[
-            {
-              bg: '#1a1a2e', lines: ['#7F77DD', '#AFA9EC', '#CECBF6'],
-              name: '에이몬 퍼플', sub: '기본 테마', active: true, locked: false,
-            },
-            {
-              bg: '#0d1117', lines: ['#58a6ff', '#79c0ff', '#d2a8ff'],
-              name: '깃허브 다크', sub: 'Unit 4 보스 클리어 후 해금', active: false, locked: true,
-            },
-            {
-              bg: '#001b00', lines: ['#00ff41', '#00cc33', '#008f11'],
-              name: '매트릭스', sub: '엔드보스 클리어 후 해금', active: false, locked: true,
-            },
-          ].map(({ bg, lines, name, sub, active, locked }) => (
-            <div key={name} className={`char-theme-row${locked ? ' locked' : ''}`}>
-              <div className="char-theme-preview" style={{ background: bg }}>
-                {lines.map((c, i) => (
-                  <div key={i} className="char-theme-line" style={{ background: c, width: ['70%','45%','55%'][i] }} />
-                ))}
-              </div>
-              <div className="char-theme-info">
-                <div className="char-theme-name" style={active ? { color: 'var(--clr-primary)' } : {}}>
-                  {name}{active ? ' ✓' : ''}
-                </div>
-                <div className="char-theme-sub">{sub}</div>
-              </div>
-              {active
-                ? <span className="char-theme-active-label">사용 중</span>
-                : <span style={{ fontSize: '0.85rem' }}>🔒</span>
-              }
-            </div>
-          ))}
+          <p className="char-custom-subtitle" style={{ textAlign: 'center', padding: '32px 0' }}>
+            🚧 준비중입니다
+          </p>
         </div>
 
         {/* ── 로그아웃 ── */}

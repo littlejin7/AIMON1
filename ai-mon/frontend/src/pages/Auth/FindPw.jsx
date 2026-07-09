@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { authApi } from '../../api/index'
+import InfoModal from '../../components/InfoModal/InfoModal'
 import beginnerHappyIcon from '../../assets/character_beginnerhappy.png'
 import './Auth.css'
 
@@ -16,6 +17,7 @@ export default function FindPw() {
   const [loading, setLoading] = useState(false)
   const [error, setError]     = useState('')
   const [notice, setNotice]   = useState('')
+  const [resetDone, setResetDone] = useState(false)
 
   // (a) 인증 코드 발송 요청
   const handleRequest = async (e) => {
@@ -45,8 +47,7 @@ export default function FindPw() {
         token: token.trim(),
         new_password: newPassword,
       })
-      alert('비밀번호가 성공적으로 변경되었습니다. 새 비밀번호로 로그인해주세요.')
-      navigate('/auth')
+      setResetDone(true)
     } catch (err) {
       setError(err.response?.data?.detail || '인증 코드가 올바르지 않거나 만료되었습니다.')
     } finally {
@@ -56,6 +57,13 @@ export default function FindPw() {
 
   return (
     <div className="auth-page">
+      {resetDone && (
+        <InfoModal
+          icon="🔑"
+          message="비밀번호가 성공적으로 변경되었습니다. 새 비밀번호로 로그인해주세요."
+          onConfirm={() => navigate('/auth')}
+        />
+      )}
       <div className="auth-card animate-fade-in-up">
 
         {/* 뒤로가기 */}

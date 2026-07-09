@@ -2,9 +2,15 @@ import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { gameApi } from '../../api'
 import { CHAR_ICONS } from '../Character/characterData'
+import { GAMES } from './gameConstants'
 import './RankingPage.css'
 
 const RANK_MEDALS = { 1: '🥇', 2: '🥈', 3: '🥉' }
+const WEEKLY_GAME_ORDER = ['runner', 'pairs', 'aicross', 'aibomb']
+const WEEKLY_GAME_ALIASES = {
+  pairs: ['pairs', 'aizzak'],
+}
+const GAME_META = Object.fromEntries(GAMES.map((game) => [game.id, game]))
 
 // API 응답에 이미 들어있을 수 있는 "지난주 우승자" 데이터를 여러 키 형태에서 안전하게 추출.
 // 더미를 만들지 않는다 — 유효한 nickname 이 없으면 null 을 반환해 배너를 렌더링하지 않는다.
@@ -118,51 +124,82 @@ export default function RankingPage() {
     )
   }
 
-  const renderWeeklyRanking = () => (
-    data.games.map((g) => {
-      const iMePlayed = g.me && g.me.score > 0
-      return (
-        <div key={g.game_id} className="ranking-section card-glass">
-          <div className="ranking-section-header">
-            <span className="ranking-section-title">{g.title}</span>
-          </div>
+  const renderWeeklyRanking = () => {
+    const gameMap = new Map((data.games || []).map((game) => [game.game_id, game]))
+    const games = WEEKLY_GAME_ORDER
+      .map((id) => {
+        const source = (WEEKLY_GAME_ALIASES[id] || [id]).map((key) => gameMap.get(key)).find(Boolean)
+        return source
+          ? { ...source, game_id: id }
+          : {
+              game_id: id,
+              title: GAME_META[id]?.title || id,
+              top: [],
+              me: null,
+            }
+      })
 
-          {g.top.length === 0 ? (
-            <div className="ranking-section-empty">이번 주 기록이 아직 없어요.</div>
-          ) : (
-            g.top.map((r) => (
-              <div key={r.rank} className="ranking-row">
-                <span className="ranking-medal">{RANK_MEDALS[r.rank] || r.rank}</span>
-                <div className="ranking-avatar">
-                  <img src={CHAR_ICONS[r.character] || CHAR_ICONS.slime} alt="" className="ranking-avatar-img" />
+    return (
+      <div className="ranking-game-grid">
+        {games.map((g) => {
+          const meta = GAME_META[g.game_id]
+          const top = g.top || []
+          const iMePlayed = g.me && g.me.score > 0
+          return (
+            <div key={g.game_id} className="ranking-game-card card-glass">
+              <div className="ranking-game-card-header">
+                <div className="ranking-game-icon">
+                  {meta?.icon
+                    ? <img src={meta.icon} alt="" />
+                    : <span>{meta?.emoji || '🎮'}</span>
+                  }
                 </div>
-                <span className="ranking-name">{r.nickname}</span>
-                <span className="ranking-score">🎮 {r.score}점</span>
+                <div className="ranking-game-title-wrap">
+                  <span className="ranking-game-title">{meta?.title || g.title}</span>
+                  <span className="ranking-game-sub">주간 TOP 3</span>
+                </div>
               </div>
-            ))
-          )}
 
-          {g.me && (
-            <div className="ranking-row ranking-row--me">
-              <span className="ranking-medal ranking-medal--me">{iMePlayed ? g.me.rank : '-'}</span>
-              <div className="ranking-avatar">
-                <img src={CHAR_ICONS[g.me.character] || CHAR_ICONS.slime} alt="" className="ranking-avatar-img" />
-              </div>
-              <span className="ranking-name" style={{ fontWeight: 600 }}>나</span>
-              <span className="ranking-score">
-                {iMePlayed ? `🎮 ${g.me.score}점` : '이번 주 기록 없음'}
-              </span>
+              {top.length === 0 ? (
+                <div className="ranking-section-empty ranking-game-empty">이번 주 기록이 아직 없어요.</div>
+              ) : (
+                <div className="ranking-game-list">
+                  {top.map((r) => (
+                    <div key={`${g.game_id}-${r.rank}-${r.nickname}`} className="ranking-row ranking-game-row">
+                      <span className="ranking-medal">{RANK_MEDALS[r.rank] || r.rank}</span>
+                      <div className="ranking-avatar">
+                        <img src={CHAR_ICONS[r.character] || CHAR_ICONS.slime} alt="" className="ranking-avatar-img" />
+                      </div>
+                      <span className="ranking-name">{r.nickname}</span>
+                      <span className="ranking-score">{r.score}점</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {g.me && (
+                <div className="ranking-row ranking-row--me ranking-game-row ranking-game-me">
+                  <span className="ranking-medal ranking-medal--me">{iMePlayed ? g.me.rank : '-'}</span>
+                  <div className="ranking-avatar">
+                    <img src={CHAR_ICONS[g.me.character] || CHAR_ICONS.slime} alt="" className="ranking-avatar-img" />
+                  </div>
+                  <span className="ranking-name" style={{ fontWeight: 600 }}>나</span>
+                  <span className="ranking-score">
+                    {iMePlayed ? `${g.me.score}점` : '기록 없음'}
+                  </span>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      )
-    })
-  )
+          )
+        })}
+      </div>
+    )
+  }
 
   return (
     <div className="ranking-page">
       <div className="ranking-page-header">
-        <button className="ranking-back-btn" onClick={() => navigate(-1)} aria-label="뒤로">←</button>
+        <button className="ranking-back-btn no-3d" onClick={() => navigate(-1)} aria-label="뒤로">←</button>
         <h1 className="ranking-page-title">랭킹</h1>
       </div>
 

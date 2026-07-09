@@ -123,6 +123,99 @@
   overflow: hidden;
 }
 
+.ranking-game-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0 16px 14px;
+}
+
+.ranking-game-card {
+  min-width: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.ranking-game-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-bottom: 0.5px solid var(--clr-border);
+}
+
+.ranking-game-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: rgba(127,119,221,0.12);
+}
+
+.ranking-game-icon img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.ranking-game-title-wrap {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.ranking-game-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--clr-text-bright);
+}
+
+.ranking-game-sub {
+  font-size: 11px;
+  color: var(--clr-text-muted);
+}
+
+.ranking-game-list {
+  min-height: 102px;
+}
+
+.ranking-game-row {
+  gap: 6px;
+  padding: 8px 10px;
+}
+
+.ranking-game-row .ranking-medal {
+  min-width: 20px;
+}
+
+.ranking-game-row .ranking-avatar {
+  width: 24px;
+  height: 24px;
+}
+
+.ranking-game-row .ranking-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ranking-game-row .ranking-score {
+  white-space: nowrap;
+}
+
+.ranking-game-empty {
+  min-height: 102px;
+  display: flex;
+  align-items: center;
+}
+
+.ranking-game-me {
+  border-top: 0.5px solid var(--clr-border);
+}
+
 .ranking-section-header {
   padding: 12px 14px 8px;
 }
