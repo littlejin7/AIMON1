@@ -97,6 +97,40 @@ def _deterministic_grade_from_expected_output(question: dict, output: str, error
     }
 
 
+def _deterministic_grade_code_multi_input(question: dict, code: str) -> Optional[dict]:
+    if question.get("type") != "code_multi_input":
+        return None
+    
+    template = question.get("code_template", "")
+    correct_code = template
+    for i, ans in enumerate(question.get("answer", [])):
+        correct_code = correct_code.replace(f"{{slot{i+1}}}", ans)
+        
+    def clean(c):
+        return "".join(c.split())
+        
+    if clean(code) == clean(correct_code):
+        feedback = question.get("feedback") or {}
+        correct_feedback = feedback.get("correct", "") if isinstance(feedback, dict) else ""
+        return {
+            "is_correct": True,
+            "score": 100,
+            "feedback": correct_feedback or "정답입니다!",
+            "hint": "",
+            "grading_failed": False,
+        }
+    else:
+        correct_ans = ", ".join(question.get("answer", []))
+        hint_text = question.get("hint", "")
+        return {
+            "is_correct": False,
+            "score": 0,
+            "feedback": f"아쉽지만 정답은 \"{correct_ans}\"입니다.\n{hint_text}",
+            "hint": hint_text,
+            "grading_failed": False,
+        }
+
+
 class SubmitRequest(BaseModel):
     question_id:  str
     code:         str = Field(..., max_length=4000)
@@ -134,6 +168,8 @@ async def submit_code(request: Request, req: SubmitRequest, user: dict = Depends
         raise HTTPException(status_code=404, detail="Question not found")
 
     result = _deterministic_grade_from_expected_output(question, req.output, req.error)
+    if result is None and question.get("type") == "code_multi_input":
+        result = _deterministic_grade_code_multi_input(question, req.code)
 
     level_instruction_map = {
         "beginner": (

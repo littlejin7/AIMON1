@@ -59,7 +59,20 @@ def serialize_question(q: dict) -> dict:
     """
     if not isinstance(q, dict):
         return q
-    return {k: v for k, v in q.items() if k not in _SENSITIVE_QUESTION_FIELDS}
+    res = {k: v for k, v in q.items() if k not in _SENSITIVE_QUESTION_FIELDS}
+    if q.get("type") == "code_input" and not res.get("choices") and q.get("answer"):
+        import random
+        lines = [line for line in q["answer"].split("\n") if line.strip()]
+        random.shuffle(lines)
+        res["choices"] = lines
+    elif q.get("type") == "code_multi_input":
+        # 다중 빈칸(code_multi_input): 정답 토큰만 순서대로 반환 (distractor 없음, 섞지 않음)
+        answer_list = q.get("answer")
+        if isinstance(answer_list, list):
+            res["choices"] = [item for item in answer_list if item]
+        else:
+            res["choices"] = []
+    return res
 
 
 def select_attempt_question_pool(questions: list, attempt: int) -> list:

@@ -375,7 +375,34 @@ async def submit_boss_answer(request: Request, req: BossAnswerRequest, user: dic
             return True
         return False
 
-    if q_type in ("multiple_choice", "output_select", "error_find"):
+    if q_type == "code_multi_input":
+        # Deterministic grading for code_multi_input
+        template = question.get("code_template", "")
+        correct_code = template
+        for i, ans in enumerate(question.get("answer", [])):
+            correct_code = correct_code.replace(f"{{slot{i+1}}}", ans)
+            
+        def clean(c):
+            return "".join(c.split())
+            
+        if clean(user_ans) == clean(correct_code):
+            ai_result = {
+                "is_correct": True,
+                "score": 100,
+                "feedback": question.get("feedback", {}).get("correct", "정답입니다! 잘하셨어요."),
+                "hint": "",
+            }
+        else:
+            correct_ans = ", ".join(question.get("answer", []))
+            hint_text = question.get("hint", "")
+            ai_result = {
+                "is_correct": False,
+                "score": 0,
+                "feedback": f"아쉽지만 정답은 \"{correct_ans}\"입니다.\n{hint_text}",
+                "hint": hint_text,
+                "grading_failed": False,
+            }
+    elif q_type in ("multiple_choice", "output_select", "error_find"):
         matched = is_direct_match(user_ans, correct_answer)
         if matched:
             ai_result = {

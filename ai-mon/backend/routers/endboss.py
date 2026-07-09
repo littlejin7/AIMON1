@@ -12,7 +12,7 @@
 from fastapi import APIRouter, HTTPException, Depends, Request
 from pydantic import BaseModel, Field
 from services.claude_service import ask_claude_json
-import json, os, uuid
+import json, os, uuid, re
 from typing import Optional
 
 from routers.utils import (
@@ -445,7 +445,37 @@ async def endboss_answer(request: Request, req: AnswerRequest, user: dict = Depe
         result = await ask_claude_json(prompt)
         is_correct = result.get("is_correct", False)
     else:
-        is_correct = direct_grade(req.user_answer, question.get("answer", ""), q_type)
+        if q_type == "code_multi_input":
+            template = question.get("code_template", "")
+            answers = question.get("answer", [])
+            if not isinstance(answers, list):
+                answers = [answers]
+
+            # 정답 slot 줄 추출: slot이 있는 줄의 들여쓰기 제거 후 정답 조합
+            correct_code_full = template
+            for i, ans in enumerate(answers):
+                correct_code_full = correct_code_full.replace(f"{{slot{i+1}}}", str(ans))
+
+            def clean(c):
+                return "".join(c.split())
+
+            # 단일 라인 입력 방식: slot줄만 추출해서 비교
+            lines = template.split("\n")
+            slot_line_idx = next(
+                (i for i, line in enumerate(lines) if re.search(r"\{slot\d+\}", line)),
+                None
+            )
+            if slot_line_idx is not None:
+                correct_line = correct_code_full.split("\n")[slot_line_idx].strip()
+                user_stripped = req.user_answer.strip()
+                # 단일 라인 비교 우선, 전체 코드 비교 하위 호환
+                is_correct = (clean(user_stripped) == clean(correct_line)
+                              or clean(req.user_answer) == clean(correct_code_full))
+            else:
+                is_correct = clean(req.user_answer) == clean(correct_code_full)
+        else:
+            is_correct = direct_grade(req.user_answer, question.get("answer", ""), q_type)
+            
         fb = question.get("feedback", {}) or {}
         fb_text = fb.get("correct", "") if is_correct else (fb.get("incorrect") or fb.get("wrong") or "")
         result  = {

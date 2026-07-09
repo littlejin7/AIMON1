@@ -249,7 +249,7 @@ def miniboss_answer(req: AnswerRequest, user: dict = Depends(get_current_user)):
     # 서버 채점 — 객관식/단답은 정답과 직접 대조(grade_objective). code_input 은
     # /code/submit 가 권위이므로 프론트가 중계한 code_is_correct 를 사용한다.
     q_type = question.get("type") or question.get("quiz_type")
-    if q_type == "code_input":
+    if q_type in ("code_input", "code_multi_input"):
         is_correct = bool(req.code_is_correct)
     else:
         is_correct = grade_objective(req.user_answer, question.get("answer", ""))
