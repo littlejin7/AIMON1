@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { progressApi, userApi, authApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
-import useHomeSound from '../../hooks/useHomeSound'
 import LevelTestModal from '../../components/LevelTestModal/LevelTestModal'
 import InfoModal from '../../components/InfoModal/InfoModal'
 import HomeLanding   from './HomeLanding'
@@ -14,7 +13,7 @@ export default function Home() {
   const token      = useAuthStore((s) => s.token)
   const updateUser = useAuthStore((s) => s.updateUser)
   const navigate   = useNavigate()
-  const { playBGM, stopBGM } = useHomeSound()
+  // 홈 BGM 은 App.jsx 의 <GlobalBGM /> 가 전역으로 재생한다 (중복 마운트 방지).
 
   const [stats,         setStats]         = useState(null)
   const [loading,       setLoading]       = useState(!!token)
@@ -44,11 +43,6 @@ export default function Home() {
     }
   }
 
-  useEffect(() => {
-    playBGM('lounge')
-    return () => stopBGM()
-  }, [])
-  
   useEffect(() => {
     if (!token) { setLoading(false); return }
     // touch()는 출석 갱신 보조 요청이므로 실패해도 홈 통계 로딩을 막지 않는다.

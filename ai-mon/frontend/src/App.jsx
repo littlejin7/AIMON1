@@ -20,6 +20,7 @@ import KakaoCallback from "./pages/Auth/KakaoCallback";
 import LevelTestInfo from "./pages/LevelTestInfo/LevelTestInfo";
 import { useAuthStore } from "./hooks/useAuthStore";
 import SplashLoading from "./components/loading/SplashLoading";
+import GlobalBGM from "./components/GlobalBGM";
 import Game from "./pages/Game/Game";
 import RankingPage from "./pages/Game/RankingPage";
 import Aipang from "./pages/Game/Aipang/Aipang";
@@ -103,6 +104,7 @@ export default function App() {
     <>
     <BrowserRouter>
       <BodyRouteCleanup />
+      <GlobalBGM />
       <Routes>
         {/* ── 인증 페이지 (NavBar 없음) ── */}
         <Route path="/auth" element={<Auth />} />

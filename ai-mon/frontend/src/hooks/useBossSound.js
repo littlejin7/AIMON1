@@ -77,6 +77,8 @@ export default function useBossSound() {
     // 일반 노드 정리
     bgmNodesRef.current.forEach(n => { try { n.stop() } catch (_) {} })
     bgmNodesRef.current = []
+    // 전역 홈 BGM 재개 허용 (보스/미니보스 BGM 종료 신호)
+    useSoundStore.getState().setBgmOwned(false)
   }
 
   function _clearFilePending() {
@@ -219,12 +221,16 @@ export default function useBossSound() {
     // 파일로 재생되는 타입(보스 등장~전투)
     if (BGM_FILES[type]) {
       _playFileBgm(BGM_FILES[type])
+      // 전역 홈 BGM 정지 신호 (_playFileBgm 내부 _stopAllBgm 이 false 로 만든 뒤 재설정)
+      useSoundStore.getState().setBgmOwned(true)
       return
     }
 
     // Web Audio 코드 생성 타입(보스 인트로 일부 / 결과 효과음)
     const ac = _getCtx()
     _stopAllBgm()
+    // 전역 홈 BGM 정지 신호
+    useSoundStore.getState().setBgmOwned(true)
 
     const doPlay = () => {
       let nodes = []
