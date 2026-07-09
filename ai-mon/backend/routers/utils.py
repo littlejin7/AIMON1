@@ -29,7 +29,7 @@ from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 from slowapi import Limiter
 from slowapi.util import get_remote_address
-from supabase import create_client
+from supabase import create_client, ClientOptions
 from typing import Optional
 from dotenv import load_dotenv
 
@@ -98,9 +98,17 @@ ALGORITHM = os.getenv("ALGORITHM", "HS256")
 USE_SUPABASE = os.getenv("USE_SUPABASE", "false") == "true"
 
 if USE_SUPABASE:
+    # postgrest-py의 동기 클라이언트는 내부적으로 http2=True를 하드코딩한다.
+    # HTTP/2는 커넥션 하나를 여러 요청이 멀티플렉싱해서 쓰는 방식인데, Windows에서
+    # FastAPI가 이 동기 클라이언트를 스레드풀(threadpool)로 동시에 호출하면
+    # 소켓 레벨에서 충돌해 WinError 10035(ReadError)가 발생한다.
+    # http2=False로 HTTP/1.1 커넥션 풀을 쓰면 스레드 간 동시 접근이 안전해진다.
     supabase = create_client(
         os.getenv("SUPABASE_URL", ""),
-        os.getenv("SUPABASE_KEY", "")
+        os.getenv("SUPABASE_KEY", ""),
+        options=ClientOptions(
+            httpx_client=httpx.Client(http2=False, timeout=httpx.Timeout(10.0))
+        )
     )
 else:
     supabase = None
