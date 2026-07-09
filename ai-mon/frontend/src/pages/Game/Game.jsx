@@ -109,7 +109,7 @@ export default function Game() {
 
       {/* ── 헤더 ── */}
       <div className="game-header">
-        <p className="game-header-label">TRAINING</p>
+        <p className="game-header-label">GAME</p>
         <h1 className="game-title">미니게임</h1>
       </div>
 

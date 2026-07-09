@@ -27,6 +27,11 @@ export default function TrainHome({
     <div className="tr-page">
       <div className="tr-scroll">
 
+        <div className="tr-header">
+          <p className="tr-header-label">TRAINING</p>
+          <h1 className="tr-title">훈련</h1>
+        </div>
+
         {/* 레벨 칩 — Settings.jsx 동일 규칙: 초급은 항상 열림, 나머지는 현재 course_level만 */}
         <div className="tr-level-row">
           {LEVELS.map(lv => {
@@ -60,7 +65,6 @@ export default function TrainHome({
 
 
         {/* 훈련 모드 그리드 */}
-        <div className="tr-section-title">훈련 모드</div>
         <div className="tr-grid">
           {TRAIN_MODES.map(m => {
             const isDisabled = m.locked

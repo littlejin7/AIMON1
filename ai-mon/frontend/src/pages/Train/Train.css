@@ -18,6 +18,24 @@ body:has(.tr-page) { background: #F4F3FA; }
   margin: 0 auto;
 }
 
+/* ── 헤더 ── */
+.tr-header {
+  padding: 20px 0 12px;
+}
+.tr-header-label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--clr-primary);
+  letter-spacing: 0.08em;
+  margin: 0 0 4px;
+}
+.tr-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--clr-text);
+  margin: 0;
+}
+
 /* ── 오늘의 추천 카드 ── */
 .tr-today-card {
   background: linear-gradient(160deg, #8B83E6 0%, #7F77DD 55%, #6C63C7 100%);
