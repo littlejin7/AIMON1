@@ -1,9 +1,16 @@
 import { useRef, useEffect, useCallback } from 'react'
 import { useSoundStore } from './useSoundStore'
+import minibossSrc from '@/assets/bgm/miniboss_bgm.mp3'
+import unitbossSrc from '@/assets/bgm/unitboss_bgm.mp3'
+import endbossSrc  from '@/assets/bgm/endboss_bgm.mp3'
 /**
  * useBossSound
  *
- * Web Audio API로 모든 사운드를 코드로 생성합니다 (외부 파일 없음).
+ * BGM: 보스 등장~전투는 MP3 파일을 루프 재생합니다.
+ *   - 'miniboss_intro' | 'battle' → miniboss_bgm.mp3 (하나의 곡을 끊김 없이 루프)
+ *   - 'unitboss_intro' → unitboss_bgm.mp3
+ *   - 'endboss_intro' → endboss_bgm.mp3
+ * 결과 효과음('clear' | 'fail')과 SFX('attack' | 'hit')는 Web Audio 코드 생성.
  *
  * BGM 종류: 'miniboss_intro' | 'unitboss_intro' | 'endboss_intro'
  *           | 'battle' | 'clear' | 'fail'
@@ -12,24 +19,36 @@ import { useSoundStore } from './useSoundStore'
  * 사용법:
  *   const { playBGM, stopBGM, playSFX, setVolume } = useBossSound()
  */
+
+// 파일로 재생되는 BGM 타입 → 소스 매핑.
+// 같은 파일이 매핑된 타입끼리는 재생 중 재시작 없이 이어집니다(intro→battle 끊김 없음).
+const BGM_FILES = {
+  miniboss_intro: minibossSrc,
+  battle:         minibossSrc,
+  unitboss_intro: unitbossSrc,
+  endboss_intro:  endbossSrc,
+}
+
 export default function useBossSound() {
   const ctxRef          = useRef(null)
   const bgmNodesRef     = useRef([])
   const _bgmVol = () => useSoundStore.getState().bgmVolume
   const _sfxVol = () => useSoundStore.getState().sfxVolume
-  // battle BGM lookahead scheduler
-  const battlePlayRef   = useRef(false)
-  const battleTimerRef  = useRef(null)
-  const battleNextRef   = useRef(0)
-
-  const BATTLE_BAR  = 1.2   // 1루프 길이(초)
-  const LOOKAHEAD   = 3.0
-  const INTERVAL_MS = 1000
+  // 파일 BGM
+  const fileAudioRef    = useRef(null)   // 현재 재생 중인 HTMLAudioElement
+  const fileSrcRef      = useRef(null)   // 현재 로드된 소스 URL
+  const volSubRef       = useRef(null)   // 볼륨 스토어 구독 해제 함수
+  const filePendingRef  = useRef(null)   // 자동재생 대기 리스너 해제 함수
 
   // 컴포넌트 unmount 시 모든 사운드 정리
   useEffect(() => {
     return () => {
       _stopAllBgm()
+      if (volSubRef.current) { volSubRef.current(); volSubRef.current = null }
+      if (fileAudioRef.current) {
+        fileAudioRef.current.src = ''
+        fileAudioRef.current = null
+      }
       if (ctxRef.current) {
         ctxRef.current.close()
         ctxRef.current = null
@@ -48,12 +67,64 @@ export default function useBossSound() {
   }
 
   function _stopAllBgm() {
-    // battle scheduler 정지
-    battlePlayRef.current = false
-    clearTimeout(battleTimerRef.current)
+    // 파일 BGM 정지
+    _clearFilePending()
+    if (fileAudioRef.current) {
+      fileAudioRef.current.pause()
+      fileAudioRef.current.currentTime = 0
+    }
+    fileSrcRef.current = null
     // 일반 노드 정리
     bgmNodesRef.current.forEach(n => { try { n.stop() } catch (_) {} })
     bgmNodesRef.current = []
+  }
+
+  function _clearFilePending() {
+    if (filePendingRef.current) {
+      filePendingRef.current()
+      filePendingRef.current = null
+    }
+  }
+
+  /** 파일 BGM 재생. 같은 소스가 이미 재생 중이면 재시작하지 않고 그대로 이어감. */
+  function _playFileBgm(src) {
+    // 같은 곡이 이미 재생 중이면 유지 (intro→battle 끊김 없음)
+    if (fileSrcRef.current === src && fileAudioRef.current && !fileAudioRef.current.paused) {
+      return
+    }
+    _stopAllBgm()
+
+    let a = fileAudioRef.current
+    if (!a) {
+      a = new Audio()
+      a.loop = true
+      a.preload = 'auto'
+      fileAudioRef.current = a
+      // 스토어 볼륨 실시간 반영
+      volSubRef.current = useSoundStore.subscribe((state) => {
+        if (fileAudioRef.current) fileAudioRef.current.volume = state.bgmVolume
+      })
+    }
+    if (a.src !== src) a.src = src
+    a.currentTime = 0
+    a.volume = _bgmVol()
+    fileSrcRef.current = src
+
+    a.play().catch(() => {
+      // 자동재생 차단 → 첫 인터랙션까지 대기
+      const onInteract = () => {
+        if (fileSrcRef.current === src) a.play().catch(() => {})
+        _clearFilePending()
+      }
+      document.addEventListener('click',      onInteract, { once: true })
+      document.addEventListener('keydown',    onInteract, { once: true })
+      document.addEventListener('touchstart', onInteract, { once: true })
+      filePendingRef.current = () => {
+        document.removeEventListener('click',      onInteract)
+        document.removeEventListener('keydown',    onInteract)
+        document.removeEventListener('touchstart', onInteract)
+      }
+    })
   }
 
   /** 오실레이터 하나 생성 후 재생 */
@@ -93,184 +164,6 @@ export default function useBossSound() {
   }
 
   // ─── BGM 생성 함수들 ─────────────────────────────────────────
-
-  function _playMiniBossIntro(ac) {
-    const t   = ac.currentTime
-    const seq = [220, 196, 165, 146, 110, 98, 82, 73]
-    const nodes = []
-    seq.forEach((f, i) => {
-      nodes.push(_note(ac, 'sawtooth', f,     t + i * 0.22, 0.25, 0.22))
-      nodes.push(_note(ac, 'square',   f * 2, t + i * 0.22, 0.12, 0.10))
-    })
-    ;[0, 0.44, 0.88, 1.32, 1.76].forEach(dt => {
-      nodes.push(_noise(ac, t + dt, 0.1, 0.4, 0.04))
-    })
-    return nodes
-  }
-
-  function _playUnitBossIntro(ac) {
-    const t     = ac.currentTime
-    const brass = [87, 110, 131, 175, 131, 110, 87, 73]
-    const nodes = []
-
-    brass.forEach((f, i) => {
-      nodes.push(_note(ac, 'sawtooth', f,       t + i * 0.28, 0.40, 0.28))
-      nodes.push(_note(ac, 'sawtooth', f * 2,   t + i * 0.28, 0.35, 0.18))
-      nodes.push(_note(ac, 'square',   f * 3,   t + i * 0.28, 0.20, 0.08))
-      nodes.push(_note(ac, 'sine',     f * 0.5, t + i * 0.28, 0.40, 0.12))
-    })
-
-    ;[0, 0.56, 1.12, 1.68, 2.24].forEach(dt => {
-      nodes.push(_noise(ac, t + dt,        0.15, 0.7, 0.030))
-      nodes.push(_noise(ac, t + dt + 0.28, 0.10, 0.4, 0.060))
-    })
-
-    const choir = [131, 165, 196, 220]
-    choir.forEach((f, i) => {
-      nodes.push(_note(ac, 'sine', f,     t + i * 0.18, 1.5, 0.15))
-      nodes.push(_note(ac, 'sine', f * 2, t + i * 0.18, 1.2, 0.08))
-    })
-
-    // 저음 베이스 드론
-    const o = ac.createOscillator()
-    o.type = 'sine'
-    o.frequency.setValueAtTime(55, t)
-    o.frequency.linearRampToValueAtTime(41, t + 2.8)
-    const g = ac.createGain()
-    g.gain.setValueAtTime(0.30 * _bgmVol(), t)
-    g.gain.linearRampToValueAtTime(0, t + 2.8)
-    o.connect(g)
-    g.connect(ac.destination)
-    o.start(t)
-    o.stop(t + 2.9)
-    nodes.push(o)
-
-    return nodes
-  }
-
-  function _playFinalBossIntro(ac) {
-    const t     = ac.currentTime
-    const nodes = []
-
-    // 저음 드론
-    const o0 = ac.createOscillator()
-    o0.type = 'sine'
-    o0.frequency.setValueAtTime(40, t)
-    const g0 = ac.createGain()
-    g0.gain.setValueAtTime(0,                    t)
-    g0.gain.setValueAtTime(0,                    t)
-    g0.gain.linearRampToValueAtTime(0.45 * _bgmVol(), t + 1.0)
-    g0.gain.linearRampToValueAtTime(0.35 * _bgmVol(), t + 4.0)
-    g0.gain.linearRampToValueAtTime(0,            t + 5.0)
-    o0.connect(g0)
-    g0.connect(ac.destination)
-    o0.start(t)
-    o0.stop(t + 5.1)
-    nodes.push(o0)
-
-    // 저음 브라스 선율
-    const rumble = [55, 58, 52, 49]
-    rumble.forEach((f, i) => {
-      nodes.push(_note(ac, 'sawtooth', f,     t + i * 0.9, 1.2, 0.25))
-      nodes.push(_note(ac, 'square',   f * 2, t + i * 0.9, 0.8, 0.10))
-    })
-
-    // 합창 코드 진행
-    const chords = [
-      [131, 165, 196],
-      [123, 155, 185],
-      [116, 146, 174],
-      [110, 138, 165],
-    ]
-    chords.forEach((chord, ci) => {
-      chord.forEach(f => {
-        nodes.push(_note(ac, 'sine',     f,       t + 1.0 + ci * 0.75, 0.9, 0.18))
-        nodes.push(_note(ac, 'triangle', f * 2,   t + 1.0 + ci * 0.75, 0.7, 0.08))
-        nodes.push(_note(ac, 'sine',     f * 0.5, t + 1.0 + ci * 0.75, 1.0, 0.06))
-      })
-    })
-
-    // 강한 드럼 히트
-    ;[0.8, 1.6, 2.4, 3.2, 4.0].forEach(dt => {
-      nodes.push(_noise(ac, t + dt, 0.2, 0.6, 0.025))
-    })
-    ;[1.4, 2.2, 3.0, 3.8].forEach(dt => {
-      nodes.push(_noise(ac, t + dt, 0.12, 0.3, 0.06))
-    })
-
-    // 마지막 사이렌 스윕 하강
-    const sweep = ac.createOscillator()
-    sweep.type = 'sawtooth'
-    sweep.frequency.setValueAtTime(800, t + 3.5)
-    sweep.frequency.linearRampToValueAtTime(60,  t + 5.0)
-    const sg = ac.createGain()
-    sg.gain.setValueAtTime(0.12 * _bgmVol(), t + 3.5)
-    sg.gain.linearRampToValueAtTime(0, t + 5.0)
-    sweep.connect(sg)
-    sg.connect(ac.destination)
-    sweep.start(t + 3.5)
-    sweep.stop(t + 5.1)
-    nodes.push(sweep)
-
-    // 마지막 낮은 화음 착지
-    nodes.push(_note(ac, 'sine', 65, t + 4.5, 0.6, 0.30))
-    nodes.push(_note(ac, 'sine', 55, t + 4.8, 0.5, 0.25))
-    nodes.push(_note(ac, 'sine', 41, t + 5.0, 0.8, 0.20))
-
-    return nodes
-  }
-
-  function _scheduleBattleBar(ac, t) {
-    const bassSeq = [55, 55, 65, 55, 0, 55, 65, 82]
-    const melSeq  = [220, 0, 196, 0, 220, 0, 247, 220]
-    const noteLen = 0.15
-
-    bassSeq.forEach((f, i) => {
-      if (f === 0) return
-      const st = t + i * noteLen
-      if (st + noteLen < ac.currentTime) return
-      const o = ac.createOscillator()
-      o.type = 'sawtooth'
-      o.frequency.value = f
-      const g = ac.createGain()
-      g.gain.setValueAtTime(0.18 * _bgmVol(), Math.max(st, ac.currentTime))
-      g.gain.linearRampToValueAtTime(0, st + noteLen * 0.8)
-      o.connect(g); g.connect(ac.destination)
-      o.start(Math.max(st, ac.currentTime)); o.stop(st + noteLen)
-    })
-    melSeq.forEach((f, i) => {
-      if (f === 0) return
-      const st = t + i * noteLen
-      if (st + noteLen < ac.currentTime) return
-      const o = ac.createOscillator()
-      o.type = 'square'
-      o.frequency.value = f
-      const g = ac.createGain()
-      g.gain.setValueAtTime(0.10 * _bgmVol(), Math.max(st, ac.currentTime))
-      g.gain.linearRampToValueAtTime(0, st + noteLen * 0.8)
-      o.connect(g); g.connect(ac.destination)
-      o.start(Math.max(st, ac.currentTime)); o.stop(st + noteLen)
-    })
-  }
-
-  function _runBattleScheduler() {
-    clearTimeout(battleTimerRef.current)
-    if (!battlePlayRef.current) return
-    const ac = ctxRef.current
-    const until = ac.currentTime + LOOKAHEAD
-    while (battleNextRef.current < until) {
-      _scheduleBattleBar(ac, battleNextRef.current)
-      battleNextRef.current += BATTLE_BAR
-    }
-    battleTimerRef.current = setTimeout(_runBattleScheduler, INTERVAL_MS)
-  }
-
-  function _playBattle(ac) {
-    battlePlayRef.current  = true
-    battleNextRef.current  = ac.currentTime + 0.05
-    _runBattleScheduler()
-    return []  // scheduler 방식이므로 노드 배열 불필요
-  }
 
   function _playClear(ac) {
     const t      = ac.currentTime
@@ -323,16 +216,19 @@ export default function useBossSound() {
 
   /** BGM 재생. 기존 BGM은 자동으로 정지됩니다. */
   const playBGM = useCallback((type) => {
+    // 파일로 재생되는 타입(보스 등장~전투)
+    if (BGM_FILES[type]) {
+      _playFileBgm(BGM_FILES[type])
+      return
+    }
+
+    // Web Audio 코드 생성 타입(보스 인트로 일부 / 결과 효과음)
     const ac = _getCtx()
     _stopAllBgm()
 
     const doPlay = () => {
       let nodes = []
       switch (type) {
-        case 'miniboss_intro':   nodes = _playMiniBossIntro(ac);  break
-        case 'unitboss_intro':   nodes = _playUnitBossIntro(ac);  break
-        case 'endboss_intro':  nodes = _playFinalBossIntro(ac); break
-        case 'battle':           nodes = _playBattle(ac);         break
         case 'clear':            nodes = _playClear(ac);          break
         case 'fail':             nodes = _playFail(ac);           break
         default:
