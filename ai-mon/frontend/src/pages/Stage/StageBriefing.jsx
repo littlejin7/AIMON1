@@ -14,35 +14,6 @@ function addLineBreaks(text) {
 
 function highlightLine(line, keyPrefix = '') {
   return highlightLineTokens(line, keyPrefix)
-  }
-
-  const commentMatch = line.match(/^(.*?)(\s+#.*)$/)
-  const code    = commentMatch ? commentMatch[1] : line
-  const comment = commentMatch ? commentMatch[2] : ''
-
-  const regex = /(".*?"|'.*?'|\bTrue\b|\bFalse\b|\bNone\b|\b(?:print|input|len|range|int|str|float|list|dict|type|zip|map|filter|sorted|enumerate)\b|\b\d+(?:\.\d+)?\b|[^\s"'#]+|\s+)/g
-  const tokens = []
-  let match
-  let idx = 0
-  while ((match = regex.exec(code)) !== null) {
-    const t = match[0]
-    if (/^(".*"|'.*')$/.test(t)) {
-      tokens.push(<span key={idx++} className="sb-str">{t}</span>)
-    } else if (/^(?:print|input|len|range|int|str|float|list|dict|type|zip|map|filter|sorted|enumerate)$/.test(t)) {
-      tokens.push(<span key={idx++} className="sb-fn">{t}</span>)
-    } else if (/^(?:True|False|None)$/.test(t) || /^\d+(?:\.\d+)?$/.test(t)) {
-      tokens.push(<span key={idx++} className="sb-nm">{t}</span>)
-    } else {
-      tokens.push(t)
-    }
-  }
-
-  return (
-    <>
-      {tokens}
-      {comment && <span className="sb-cm">{comment}</span>}
-    </>
-  )
 }
 
 export default function StageBriefing({
