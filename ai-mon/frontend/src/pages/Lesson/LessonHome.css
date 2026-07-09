@@ -323,50 +323,58 @@ body:has(.lh-page) { background: #F4F3FA; }
 /* ── 유닛별 테마 변수 정의 ── */
 .lh-unit-node.unit-1,
 .lh-selected-unit-card.unit-1 {
-  --unit-accent: #7F77DD;
-  --unit-soft: #F2F0FF;
+  --unit-accent: #E86F7A;
+  --unit-soft: #FFF0F2;
+  --unit-border: #F2B7BE;
 }
 
 .lh-unit-node.unit-2,
 .lh-selected-unit-card.unit-2 {
-  --unit-accent: #4F8EF7;
-  --unit-soft: #EEF5FF;
+  --unit-accent: #F29B50;
+  --unit-soft: #FFF3E8;
+  --unit-border: #F7C89C;
 }
 
 .lh-unit-node.unit-3,
 .lh-selected-unit-card.unit-3 {
-  --unit-accent: #21A89A;
-  --unit-soft: #EAFBF8;
+  --unit-accent: #D8A72E;
+  --unit-soft: #FFF8DD;
+  --unit-border: #EFD27A;
 }
 
 .lh-unit-node.unit-4,
 .lh-selected-unit-card.unit-4 {
-  --unit-accent: #6B5CE7;
-  --unit-soft: #F0EEFF;
+  --unit-accent: #43A883;
+  --unit-soft: #EAF9F2;
+  --unit-border: #91D7BD;
 }
 
 .lh-unit-node.unit-5,
 .lh-selected-unit-card.unit-5 {
-  --unit-accent: #D99A20;
-  --unit-soft: #FFF6DF;
+  --unit-accent: #4F8EF7;
+  --unit-soft: #EEF5FF;
+  --unit-border: #A9C9FF;
 }
 
 .lh-unit-node.unit-6,
 .lh-selected-unit-card.unit-6 {
-  --unit-accent: #D95F9F;
-  --unit-soft: #FFF0F7;
+  --unit-accent: #5C70D6;
+  --unit-soft: #EEF1FF;
+  --unit-border: #AEB9F2;
 }
 
 .lh-unit-node.unit-7,
 .lh-selected-unit-card.unit-7 {
-  --unit-accent: #2D9CDB;
-  --unit-soft: #EAF7FF;
+  --unit-accent: #9A6BE8;
+  --unit-soft: #F4EEFF;
+  --unit-border: #C8B2F4;
 }
 
 .lh-unit-node.unit-8,
 .lh-selected-unit-card.unit-8 {
-  --unit-accent: #5C4BCF;
-  --unit-soft: #EFEDFF;
+  --unit-accent: #D56BAE;
+  --unit-soft: #FFF0F8;
+  --unit-border: #F0B6D8;
 }
 
 /* 잠김 상태는 회색 테마로 덮어씌움 */
@@ -374,6 +382,7 @@ body:has(.lh-page) { background: #F4F3FA; }
 .lh-selected-unit-card.locked {
   --unit-accent: #A4A4B8;
   --unit-soft: #F6F6FA;
+  --unit-border: #E2E1EE;
 }
 
 /* ── 유닛 선택 가로 UI ── */
@@ -471,22 +480,22 @@ body:has(.lh-page) { background: #F4F3FA; }
   margin-bottom: 8px;
   z-index: 2;
   transition: all 0.2s ease;
-  border: 1.5px solid var(--unit-accent, #E2E1EE);
+  border: 1.5px solid var(--unit-border, #E2E1EE);
   background: var(--unit-soft, #F7F6FB);
   color: var(--unit-accent, #7A7A94);
 }
 .lh-unit-node.open .lh-unit-node-icon-wrap {
-  border: 1.5px solid var(--unit-accent, #E2E1EE);
+  border: 1.5px solid var(--unit-border, #E2E1EE);
   background: var(--unit-soft, #F7F6FB);
   color: var(--unit-accent, #7A7A94);
 }
 .lh-unit-node.done .lh-unit-node-icon-wrap {
-  border: 1.5px solid var(--unit-accent, #A9A4E8);
+  border: 1.5px solid var(--unit-border, #A9A4E8);
   background: var(--unit-soft, #F2F0FF);
   color: var(--unit-accent, #7F77DD);
 }
 .lh-unit-node.locked .lh-unit-node-icon-wrap {
-  border: 1.5px solid var(--unit-accent, #E2E1EE);
+  border: 1.5px solid var(--unit-border, #E2E1EE);
   background: var(--unit-soft, #FAFAFC);
   color: var(--unit-accent, #C2C2D0);
 }
@@ -601,7 +610,7 @@ body:has(.lh-page) { background: #F4F3FA; }
   height: 50px;
   border-radius: 14px;
   background: var(--unit-soft, #EEEDFE);
-  border: 1.5px solid var(--unit-accent, #7F77DD);
+  border: 1.5px solid var(--unit-border, #7F77DD);
   display: grid;
   place-items: center;
   flex-shrink: 0;
@@ -1193,7 +1202,7 @@ body:has(.lh-page) { background: #F4F3FA; }
   height: 36px;
   border-radius: 50%;
   background: var(--unit-soft, #F2F0FF);
-  border: 1.5px solid var(--unit-accent, #7F77DD);
+  border: 1.5px solid var(--unit-border, #7F77DD);
   color: var(--unit-accent, #7F77DD);
   display: flex;
   align-items: center;
