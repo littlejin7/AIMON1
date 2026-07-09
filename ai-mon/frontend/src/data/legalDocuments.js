@@ -1,16 +1,16 @@
 // 이용약관 / 개인정보처리방침 본문 데이터
 // 국내 법령(개인정보 보호법, 정보통신망법, 전자상거래법 등)에서 요구하는 기재 항목을
-// 충족하도록 구성했습니다. 회사 법인 정보(상호·대표자·사업자등록번호·주소)는
-// 실제 사업자 정보로 교체해야 합니다. 아래 COMPANY 상수만 수정하면 문서 전체에 반영됩니다.
+// 충족하도록 구성했습니다.
+//
+// ※ 아직 사업자 등록 전이라 법인 상호·대표자·사업자등록번호·주소는 기재하지 않았습니다.
+//    사업자 등록 후 COMPANY에 representative / bizNumber / address 등을 추가하고
+//    각 문서(예: 이용약관 부칙, 개인정보처리방침 보호책임자)에 반영하면 됩니다.
 
 export const COMPANY = {
   serviceName: 'AI MON(에이몬)',
-  companyName: 'AI MON 팀',            // TODO: 법인/사업자 상호로 교체
-  representative: '홍길동',             // TODO: 대표자명으로 교체
-  bizNumber: '000-00-00000',           // TODO: 사업자등록번호로 교체
-  address: '서울특별시 (주소 기재 예정)', // TODO: 사업장 주소로 교체
+  companyName: 'AI MON 팀',        // 서비스 운영 주체 (사업자 등록 시 상호로 교체)
   email: 'support@aimon.app',
-  privacyOfficer: '개인정보 보호책임자',  // TODO: 담당자 성명으로 교체
+  privacyOfficer: 'AI MON 운영팀', // 개인정보 보호책임자 (담당자 지정 시 성명으로 교체)
   effectiveDate: '2026년 7월 9일',
 }
 
