@@ -580,46 +580,32 @@ export default function LessonHome() {
                 if (done) {
                   return (
                     <div className="lh-unit-done-container">
-                      <div className="lh-stage-complete-message">
-                        <strong>🎉 모든 스테이지 완료!</strong>
-                        <span>유닛보스에 도전하거나 스테이지를 다시 학습해보세요.</span>
+                      <div className="lh-stage-complete-header">
+                        <h3>완료한 스테이지</h3>
                       </div>
                       <div className="lh-stage-chip-list">
                         {stageNums.map((s) => {
                           return (
-                            <div key={s} className="lh-stage-chip-item">
-                              <button
-                                type="button"
-                                className="lh-stage-chip no-3d"
-                                onClick={() => {
-                                  if (!token) return
-                                  if (!user?.is_level_tested && !(lesson.unit_id === 1 && s === 1)) {
-                                    setPendingUnitId(lesson.unit_id)
-                                    setShowLevelTest(true)
-                                    return
-                                  }
-                                  navigate(`/stage/${lesson.unit_id}/${s}`)
-                                }}
-                                aria-label={`Stage ${s} 복습`}
-                              >
-                                <span className="lh-compact-stage-num">{s}</span>
-                                <span className="lh-compact-stage-check">✓</span>
-                              </button>
-                              <span className="lh-stage-chip-label">Stage {s}</span>
-                            </div>
+                            <button
+                              key={s}
+                              type="button"
+                              className="lh-stage-pill no-3d"
+                              onClick={() => {
+                                if (!token) return
+                                if (!user?.is_level_tested && !(lesson.unit_id === 1 && s === 1)) {
+                                  setPendingUnitId(lesson.unit_id)
+                                  setShowLevelTest(true)
+                                  return
+                                }
+                                navigate(`/stage/${lesson.unit_id}/${s}`)
+                              }}
+                              aria-label={`Stage ${s} 복습`}
+                            >
+                              <span className="lh-stage-pill-num">{s}</span>
+                              <span className="lh-stage-pill-check">✓</span>
+                            </button>
                           )
                         })}
-                        <div className="lh-stage-chip-item">
-                          <button
-                            type="button"
-                            className={`lh-unitboss-chip no-3d ${bossState}`}
-                            disabled={prog.completed < lesson.stages}
-                            onClick={handleBossClick}
-                          >
-                            <span className="lh-unitboss-icon">⚔</span>
-                          </button>
-                          <span className="lh-unitboss-label">유닛보스</span>
-                        </div>
                       </div>
                     </div>
                   )
