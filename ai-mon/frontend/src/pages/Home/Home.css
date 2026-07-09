@@ -35,7 +35,7 @@ body:has(.home-page) { background: #F4F3FA; }
   filter: drop-shadow(0 0 30px rgba(124, 58, 237, 0.7));
 }
 
-.home-hero-char img { max-width: 120px; max-height: 120px; object-fit: contain; }
+.home-hero-char img { max-width: 200px; max-height: 200px; object-fit: contain; }
 
 .home-hero-badge {
   display: inline-block;
@@ -75,6 +75,52 @@ body:has(.home-page) { background: #F4F3FA; }
   gap: var(--sp-3);
   width: 100%;
   max-width: 320px;
+}
+.home-orbit-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 72px);
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  max-width: 360px;
+  margin-top: 2px;
+}
+.home-circle-btn {
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 10px 22px rgba(83, 74, 183, 0.18);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.home-circle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(83, 74, 183, 0.24);
+}
+.home-circle-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+.home-circle-side {
+  width: 72px;
+  height: 72px;
+  background: #FFFFFF;
+  border: 1px solid rgba(127,119,221,0.28);
+  color: var(--clr-primary, #7F77DD);
+  font-size: 12px;
+  font-weight: 700;
+}
+.home-circle-main {
+  width: 72px;
+  height: 72px;
+  flex-direction: column;
+  background: var(--grad-primary);
+  color: white;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.25;
 }
 
 /* 진화 트랙 */
@@ -159,37 +205,45 @@ body:has(.home-page) { background: #F4F3FA; }
 }
 
 .home-feature-grid {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-2);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
 }
 
 .home-feature-card {
-  display: grid;
-  grid-template-columns: 44px 128px minmax(0, 1fr);
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  column-gap: 8px;
-  min-height: 76px;
-  padding: var(--sp-3) var(--sp-4);
+  justify-content: flex-start;
+  min-height: 126px;
+  padding: 14px 8px;
+  text-align: center;
 }
 
 .home-feature-icon {
-  width: 44px;
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  font-size: 1.0rem;
+  font-size: 1.15rem;
   line-height: 1;
+  margin-bottom: 8px;
 }
 .home-feature-title {
-  font-size:  0.9rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  margin-bottom: 0;
-  white-space: nowrap;
+  line-height: 1.25;
+  margin-bottom: 6px;
+  word-break: keep-all;
 }
 .home-feature-desc {
-  font-size: 0.78rem;
+  font-size: 0.68rem;
   color: var(--clr-text-muted);
-  line-height: 1.45;
+  line-height: 1.35;
   margin: 0;
+  word-break: keep-all;
 }
 
 
@@ -267,15 +321,27 @@ body:has(.hd-page) { background: #F4F3FA; }
   border-radius: 20px;
   font-weight: 500;
 }
-.hd-lv-badge {
+.hd-settings-badge {
   position: absolute;
-  top: 14px; right: 14px;
+  top: 14px;
+  right: 14px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(127,119,221,0.22);
   background: #EEEDFE;
-  border-radius: 10px;
-  padding: 3px 10px;
-  font-size: 11px;
   color: #534AB7;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(83,74,183,0.08);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.hd-settings-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(83,74,183,0.14);
 }
 .hd-char-meta {
   display: flex;
@@ -334,11 +400,38 @@ body:has(.hd-page) { background: #F4F3FA; }
   gap: 8px;
   flex-wrap: wrap;
 }
+.hd-status-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+.hd-status-badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hd-stage-badge {
+  justify-self: start;
+  color: #534AB7;
+  background: #EEEDFE;
+}
+.hd-lv-inline-badge {
+  justify-self: end;
+  color: #534AB7;
+  background: #EEEDFE;
+}
 .hd-currency-badge {
   font-size: 12px;
   font-weight: 600;
   padding: 4px 12px;
   border-radius: 20px;
+  white-space: nowrap;
 }
 .hd-coin-badge {
   color: #B8860B;
