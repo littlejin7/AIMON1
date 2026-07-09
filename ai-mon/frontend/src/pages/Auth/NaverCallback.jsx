@@ -3,12 +3,14 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { authApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import SplashLoading from '../../components/loading/SplashLoading'
+import StreakRewardModal from '../../components/StreakRewardModal/StreakRewardModal'
 
 export default function NaverCallback() {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const setAuth = useAuthStore((s) => s.setAuth)
   const [error, setError] = useState('')
+  const [streakReward, setStreakReward] = useState(null)
   const hasRequested = useRef(false)
 
   useEffect(() => {
@@ -35,11 +37,11 @@ export default function NaverCallback() {
         setAuth(access_token, user, refresh_token)
 
         if (streak_reward) {
-          alert(`🔥 ${streak_reward.days}일 연속 로그인 달성!!\n\n🪙 +${streak_reward.coin} 코인${streak_reward.crowns > 0 ? `\n👑 +${streak_reward.crowns} 왕관` : ''} 보상을 획득했습니다!`)
+          setStreakReward(streak_reward)
+        } else {
+          // 신규 소셜 가입이면 홈(레벨 테스트 배너)으로, 기존 유저는 레슨으로
+          navigate('/')
         }
-
-        // 신규 소셜 가입이면 홈(레벨 테스트 배너)으로, 기존 유저는 레슨으로
-        navigate('/')
       } catch (err) {
         console.error(err)
         setError(err.response?.data?.detail || '네이버 로그인 중 오류가 발생했습니다.')
@@ -48,6 +50,10 @@ export default function NaverCallback() {
 
     exchangeCode()
   }, [searchParams, navigate, setAuth])
+
+  if (streakReward) {
+    return <StreakRewardModal reward={streakReward} onClose={() => navigate('/')} />
+  }
 
   if (error) {
     return (
