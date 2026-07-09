@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../../hooks/useAuthStore'
 import useGameBgm from '../../../hooks/useGameBgm'
@@ -7,6 +7,7 @@ import PairsCard from './PairsCard'
 import PairsDash from './PairsDash'
 import WinModal from './WinModal'
 import aizzakBgm from '../../../assets/bgm/aizzak_bgm.mp3'
+import aipairThumb from './assets/AIpairicon.png'
 import './AIPair.css'
 
 import charSlime from '../../../assets/character_slime.png'
@@ -35,10 +36,21 @@ export default function AIPair() {
 
   const {
     deck, flippedIds, matchedIds, wrongIds,
-    score, timerSec, fmtTime, won, reward, init, onCardClick, matchedCount,
+    score, timerSec, fmtTime, won, reward, init, seed, onCardClick, matchedCount,
     isPreview, previewSeconds,
   } = usePairsGame()
 
+  const [started, setStarted] = useState(false)
+
+  /* 시작 전에도 뒤에 카드 보드가 보이도록 미리 깔아둠 */
+  useEffect(() => {
+    seed()
+  }, [seed])
+
+  const handleStart = () => {
+    setStarted(true)
+    init()
+  }
 
   return (
     <div className="mp-root">
@@ -87,7 +99,27 @@ export default function AIPair() {
 
       <WinModal show={won} score={score} timeStr={fmtTime(timerSec)} charSrc={charSrc} reward={reward} onPlayAgain={init} />
 
+      {/* 시작 인트로 — 게임 화면 위에 화이트 박스 팝업으로 오버레이 */}
+      {!started && (
+        <div className="mp-intro-overlay">
+          <div className="mp-intro-panel">
+            <img className="mp-intro-thumb" src={aipairThumb} alt="에이짝" />
 
+            <h1 className="mp-intro-title">AI Pair</h1>
+            <p className="mp-intro-desc">반짝이는 카드 속 짝꿍을 찾아라!</p>
+
+            <div className="mp-intro-rule">
+              <div>🃏&nbsp;카드를 두 장씩 뒤집어</div>
+              <div>파이썬 <strong>개념</strong>과 <strong>비유</strong>의 짝을 맞추세요!</div>
+              <div className="mp-intro-rule-sub">6쌍을 모두 맞추면 클리어 🎉</div>
+            </div>
+
+            <button className="mp-intro-start" onClick={handleStart}>
+              시작하기 ▶
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

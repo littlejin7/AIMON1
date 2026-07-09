@@ -65,6 +65,12 @@ export function usePairsGame() {
     return () => clearInterval(id)
   }, [isPreview])
 
+  /* 시작 전 보드만 미리 깔기 (카운트다운·타이머·토큰 없이 카드 뒷면만 표시) */
+  const seed = useCallback(() => {
+    const picked = shuffle([...PAIRS]).slice(0, PAIRS_PER_GAME)
+    setDeck(buildDeck(picked))
+  }, [])
+
   /* 게임 초기화 (재시작마다 셔플) */
   const init = useCallback(() => {
     const picked = shuffle([...PAIRS]).slice(0, PAIRS_PER_GAME)
@@ -108,8 +114,6 @@ export function usePairsGame() {
   }, [])
 
   
-
-  useEffect(() => { init() }, [init])
 
   /* 카드 클릭 */
   const onCardClick = useCallback((idx) => {
@@ -167,6 +171,7 @@ export function usePairsGame() {
     won,
     reward,
     init,
+    seed,
     onCardClick,
     matchedCount: matchedIds.size / 2,
     isPreview,
