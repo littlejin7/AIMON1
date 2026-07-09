@@ -470,16 +470,6 @@ export default function Settings() {
             </div>
             <span className="st-chevron">›</span>
           </div>
-          <div className="st-srow">
-            <div className="st-srow-icon" style={{ background: 'rgba(95,94,90,0.12)' }}>
-              <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--clr-text-muted)' }}>S</span>
-            </div>
-            <div className="st-srow-text">
-              <div className="st-srow-label">소셜 계정 연결</div>
-              <div className="st-srow-sub">Google / Naver / Kakao</div>
-            </div>
-            <span className="st-chevron">›</span>
-          </div>
         </div>
 
         <p className="st-section-label">알림</p>
