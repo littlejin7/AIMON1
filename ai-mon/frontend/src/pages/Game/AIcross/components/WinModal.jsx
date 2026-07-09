@@ -5,13 +5,13 @@
 // 완료(score===100) 여부와 무관하게 always 적용되는 큰 타이틀.
 function resolveTitle(result) {
   if (result.score >= 100) {
-    return result.is_first_completion ? '새 세트 완료!' : '복습 완료!'
+    return result.is_first_completion ? 'NEW SET COMPLETED!' : '복습 완료!'
   }
   return '아쉬워요!'
 }
 
 function resolveEmoji(result) {
-  if (result.score >= 100) return result.is_first_completion ? '🎉' : '✨'
+  if (result.score >= 100) return ''
   if (result.score >= 80) return '💪'
   return '😅'
 }
@@ -35,7 +35,7 @@ function resolveRewardLines(result) {
   return [{ text: '80점 이상부터 보상을 받을 수 있어요.', tone: 'muted' }]
 }
 
-export default function WinModal({ result, won, onClose, onRetry }) {
+export default function WinModal({ result, won, characterSrc, onClose, onRetry }) {
   const submitFailed = !!result?.submit_failed
 
   if (submitFailed) {
@@ -80,11 +80,20 @@ export default function WinModal({ result, won, onClose, onRetry }) {
   const emoji = resolveEmoji(result)
   const rewardLines = resolveRewardLines(result)
   const hasScoreDetail = Number.isInteger(correct) && Number.isInteger(total)
-
+  const showCharacter = !!characterSrc && score >= 100 && !submitFailed
+  
   return (
     <div className="aicross-win-overlay">
       <div className="aicross-win-modal">
-        <div className="aicross-win-emoji">{emoji}</div>
+        <div className="aicross-win-hero">
+          {showCharacter ? (
+            <div className="aicross-win-character" aria-hidden="true">
+              <img src={characterSrc} alt="" />
+            </div>
+          ) : (
+            <div className="aicross-win-emoji">{emoji}</div>
+          )}
+        </div>
         <div className="aicross-win-title">{title}</div>
         <div className="aicross-win-sub">
           {hasScoreDetail ? `${total}개 중 ${correct}개 정답 (${score}점)` : `${score}점`}
