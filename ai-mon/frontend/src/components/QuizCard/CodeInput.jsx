@@ -1,6 +1,58 @@
-export default function CodeInput({ input, setInput, revealed, disabled, pyLoading, codeRunResult, gradingError, submitting, onRun, onSubmit }) {
+export default function CodeInput({ input, setInput, choices, revealed, disabled, pyLoading, codeRunResult, gradingError, submitting, onRun, onSubmit }) {
+  const handleChoiceClick = (choice) => {
+    if (disabled || revealed) return
+    setInput((prev) => {
+      const trimmed = prev.trim()
+      return trimmed ? `${trimmed}\n${choice}` : choice
+    })
+  }
+
+  const handleClear = () => {
+    if (disabled || revealed) return
+    setInput('')
+  }
+
   return (
     <div className="quiz-code-input">
+      {choices && choices.length > 0 && (
+        <div className="quiz-code-choices" style={{ marginBottom: '12px' }}>
+          <div style={{ fontSize: '13px', fontWeight: 600, color: '#4C4465', marginBottom: '6px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span>코드 조각 예시</span>
+            <button 
+              type="button" 
+              onClick={handleClear} 
+              disabled={disabled || revealed}
+              style={{
+                background: 'transparent', border: 'none', color: '#DC2626', fontSize: '11px', cursor: 'pointer', fontWeight: 600
+              }}
+            >
+              전체 지우기
+            </button>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            {choices.map((choice, idx) => (
+              <div
+                key={idx}
+                style={{
+                  textAlign: 'left',
+                  background: '#F3F4F6',
+                  border: '1px solid #E5E7EB',
+                  borderRadius: '6px',
+                  padding: '6px 10px',
+                  fontFamily: "'D2Coding', monospace",
+                  fontSize: '14px',
+                  color: '#1F2937',
+                  whiteSpace: 'pre-wrap',
+                  wordBreak: 'break-all',
+                }}
+              >
+                {choice}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="quiz-code-editor">
         <div className="quiz-code-editor-lbl"># 여기에 코드를 작성하세요</div>
         <textarea

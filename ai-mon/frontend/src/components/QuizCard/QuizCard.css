@@ -442,3 +442,142 @@
   0%, 100% { opacity: 1; }
   50% { opacity: 0.5; }
 }
+
+/* ── Multiple Blank Input (code_multi_input) ── */
+.quiz-multi-blank {
+  margin-top: 10px;
+}
+
+.mbi-container {
+  display: flex;
+  gap: 16px;
+}
+
+.mbi-left {
+  flex: 1.2;
+  min-width: 0;
+}
+
+.mbi-right {
+  flex: 0.8;
+  background: white;
+  border: 0.5px solid #E5E2F8;
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mbi-code-block {
+  background: #1E1B4B;
+  border-radius: 11px;
+  padding: 12px 14px;
+  overflow-x: auto;
+}
+
+.mbi-pre {
+  margin: 0;
+  font-family: 'd2coding', monospace;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #E9D5FF;
+}
+
+.mbi-code-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 28px;
+}
+
+.mbi-code-text {
+  white-space: pre-wrap;
+}
+
+.mbi-inline-input {
+  background: #2D264D;
+  border: 1px solid #534AB7;
+  border-radius: 5px;
+  color: #F3E8FF;
+  padding: 2px 6px;
+  margin: 0 4px;
+  font-family: 'd2coding', monospace;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+}
+
+.mbi-inline-input:focus {
+  border-color: #A78BFA;
+  box-shadow: 0 0 8px rgba(167, 139, 250, 0.4);
+  background: #3B3166;
+}
+
+.mbi-inline-input.has-val {
+  border-color: #8B5CF6;
+  background: #312E81;
+}
+
+.mbi-inline-input.revealed {
+  background: #1E1B4B;
+  border-color: #4B5563;
+  color: #9CA3AF;
+  cursor: not-allowed;
+}
+
+.mbi-sidebar-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #26215C;
+  border-bottom: 1px solid #EEEDFE;
+  padding-bottom: 8px;
+}
+
+.mbi-inputs-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mbi-inputs-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mbi-sidebar-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mbi-sidebar-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #7F77DD;
+}
+
+.mbi-sidebar-input {
+  border: 0.5px solid #C4BFEE;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 13px;
+  color: #26215C;
+  outline: none;
+  transition: all 0.15s;
+  font-family: 'd2coding', monospace;
+}
+
+.mbi-sidebar-input:focus {
+  border-color: #7F77DD;
+  box-shadow: 0 0 6px rgba(127, 119, 221, 0.2);
+}
+
+@media (max-width: 768px) {
+  .mbi-container {
+    flex-direction: column;
+  }
+}
+

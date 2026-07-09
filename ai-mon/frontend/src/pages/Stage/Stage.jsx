@@ -421,7 +421,7 @@ export default function Stage({ _lessonId, _stage }) {
     const q = questions[current]
     const isVillain = q?.quiz_category === 'miniboss'
     const qType = q?.quiz_type || q?.type
-    const isCodeType = qType === 'code_input'
+    const isCodeType = qType === 'code_input' || qType === 'code_multi_input'
     const qid = q?.question_id || q?.id || ''
 
     let isCorrect = false

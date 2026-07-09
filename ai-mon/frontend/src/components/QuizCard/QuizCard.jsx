@@ -5,10 +5,11 @@ import { useAuthStore } from '../../hooks/useAuthStore'
 import ChoiceOptions from './ChoiceOptions'
 import FillInput from './FillInput'
 import CodeInput from './CodeInput'
+import MultiBlankInput from './MultiBlankInput'
 import AiFeedback from './AiFeedback'
 import { getFillFeedback } from '../../data/fillFeedback'
 import { getChoiceFeedback, choiceLetterOf } from '../../data/choiceFeedback'
-import { highlightLineTokens } from '../../utils/pythonHighlight'
+import { getChoicesForCodeInput } from '../../pages/Boss/bossBattleUtils'
 import './QuizCard.css'
 
 function parseQuestionContent(raw) {
@@ -35,6 +36,40 @@ function parseQuestionContent(raw) {
       content: raw.substring(lastIndex)
     });
   }
+  
+  // Merge after-text that starts with "# 출력" or "출력:" into the preceding code block
+  for (let i = 0; i < parts.length; i++) {
+    if (parts[i].type === 'code' && i + 1 < parts.length && parts[i + 1].type === 'text') {
+      const textVal = parts[i + 1].content.trim();
+      if (textVal.startsWith('# 출력:') || textVal.startsWith('출력:') || textVal.startsWith('#출력:')) {
+        parts[i].lines.push('', textVal);
+        parts.splice(i + 1, 1);
+      }
+    }
+  }
+  
+  // Merge preceding [file.txt ...] state line from text into the following code block
+  for (let i = 0; i < parts.length; i++) {
+    if (parts[i].type === 'code' && i - 1 >= 0 && parts[i - 1].type === 'text') {
+      let lines = parts[i - 1].content.split('\n');
+      let lastNonEmptyIdx = -1;
+      for (let j = lines.length - 1; j >= 0; j--) {
+        if (lines[j].trim()) {
+          lastNonEmptyIdx = j;
+          break;
+        }
+      }
+      if (lastNonEmptyIdx !== -1) {
+        let targetLine = lines[lastNonEmptyIdx].trim();
+        if (targetLine.startsWith('[') && (targetLine.includes(']') || targetLine.includes('파일') || targetLine.includes('.txt') || targetLine.includes('.json'))) {
+          parts[i].lines.unshift('# ' + targetLine, '');
+          lines.splice(lastNonEmptyIdx, 1);
+          parts[i - 1].content = lines.join('\n');
+        }
+      }
+    }
+  }
+  
   return parts;
 }
 
@@ -43,16 +78,15 @@ function CodeBlock({ lines }) {
   return (
     <div style={{
       background: '#1E1B4B', borderRadius: '11px',
-      padding: '12px 14px', overflowX: 'auto', margin: '0 auto 8px',
-      width: '416px', maxWidth: '100%', maxHeight: '400px', overflowY: 'auto', boxSizing: 'border-box',
+      padding: '11px 13px', overflowX: 'auto', margin: '0 0 8px',
     }}>
       <pre style={{
-        fontFamily: "'Courier New', monospace", fontSize: '15px',
-        lineHeight: '1.7', color: '#E9D5FF', whiteSpace: 'pre-wrap', margin: 0,
+        fontFamily: "'d2coding', monospace", fontSize: '18px',
+        lineHeight: '1.7', color: '#ffffff', whiteSpace: 'pre-wrap', margin: 0,
       }}>
         {lines.map((line, i) => (
-          <div key={i}>
-            {highlightLineTokens(line, `${i}-`)}
+          <div key={i} style={{ color: line.trim().startsWith('#') ? '#6B7280' : '#E9D5FF' }}>
+            {line}
           </div>
         ))}
       </pre>
@@ -107,6 +141,40 @@ export default function QuizCard({
     [question?.question_id, question?.id, choicesKey],
   )
   
+  const type = question.quiz_type || question.type
+  const isCodeMultiInput = type === 'code_multi_input' || type === 'code_input'
+  const answersCount = useMemo(() => {
+    if (Array.isArray(question.answer)) return question.answer.length
+    const template = question.code_template || question.question || ''
+    const matches = template.match(/\{slot\d+\}/g)
+    if (matches) {
+      const numbers = matches.map(m => {
+        const numMatch = m.match(/\d+/)
+        return numMatch ? parseInt(numMatch[0], 10) : 0
+      })
+      return Math.max(0, ...numbers)
+    }
+    return 0
+  }, [question?.answer, question?.code_template, question?.question])
+
+  const [slotValues, setSlotValues] = useState(
+    Array.from({ length: answersCount }, () => '')
+  )
+
+  useEffect(() => {
+    setSlotValues(Array.from({ length: answersCount }, () => ''))
+  }, [question?.question_id, question?.id, answersCount])
+
+  const codeInputChoices = useMemo(() => {
+    if (!isCodeInput || !question) return []
+    if (question.choices && question.choices.length >= 2) {
+      return question.choices
+    }
+    const answer = question.answer
+    const customChoices = question.choices || []
+    return getChoicesForCodeInput(answer, customChoices)
+  }, [question?.question_id, question?.id, question?.choices, question?.answer, isCodeInput])
+
   useEffect(() => {
     if (aiFeedback) {
       onFeedbackUpdate?.(aiFeedback)
@@ -122,14 +190,9 @@ export default function QuizCard({
 
   const parsedContent = parseQuestionContent(rawQuestion)
 
-  const type = question.quiz_type || question.type
-
-
   // error_find 는 줄 클릭 UI를 쓰지 않는다 — choices 없이 정답 줄 번호를 직접 입력하는 빈칸형으로 통일.
   const isChoiceType = type === 'multiple_choice' || type === 'output_select'
-  const isCodeInput = type === 'code_input'
-
-
+  const isCodeInput = false
 
   // ── AI 피드백 호출 (SSE 스트리밍) ──
   // correct_answer 는 더 이상 보내지 않는다(F: 클라에 정답 없음). 서버가 question_id 로 조회.
@@ -370,6 +433,64 @@ export default function QuizCard({
     if (!correct) setAiFeedback(data.feedback || r.feedback || '정답을 다시 확인해 보세요!')
   }
 
+  // ── 다중 빈칸 제출 (채점·revealed·onAnswer) ──
+  const handleMultiSubmit = async () => {
+    if (slotValues.some(v => !v?.trim()) || revealed || submitting) return
+    setGradingError('')
+    setSubmitting(true)
+
+    let template = question.code_template || ''
+    let reconstructedCode = template
+    slotValues.forEach((val, i) => {
+      reconstructedCode = reconstructedCode.replace(`{slot${i + 1}}`, val)
+    })
+
+    const unit = parseInt(question.unit, 10) || parseInt(String(stageKey).split('-')[0], 10) || 1
+    const stage = question.stage || stageKey || ''
+
+    let res
+    try {
+      res = await codeApi.submitCode({
+        question_id: question.question_id || question.id || '',
+        code: reconstructedCode,
+        output: '',
+        error: '',
+        unit,
+        stage,
+        course_level: courseLevel,
+        award: false,
+      })
+    } catch {
+      setSubmitting(false)
+      setGradingError('채점 서버에 연결하지 못했어요. 잠시 후 다시 [확인하기]를 눌러주세요.')
+      return
+    } finally {
+      setSubmitting(false)
+    }
+
+    const data = res?.data || {}
+    if (data.grading_failed) {
+      setGradingError('AI 채점이 일시적으로 실패했어요. 잠시 후 다시 [확인하기]를 눌러주세요.')
+      return
+    }
+
+    const correct = !!data.is_correct
+    const userAnswerStr = slotValues.join(', ')
+    setSelected(userAnswerStr)
+    setRevealed(true)
+    setIsCorrectResult(correct)
+
+    let result
+    try {
+      result = await onAnswer?.({ userAnswer: userAnswerStr, retried, clientIsCorrect: correct })
+    } catch { result = null }
+
+    const r = result || {}
+    setRevealedAnswer(r.correct_answer || '')
+    setRevealFeedback(r.feedback || '')
+    if (!correct) setAiFeedback(data.feedback || r.feedback || '정답을 다시 확인해 보세요!')
+  }
+
   // ── 다시 풀기 ──
   const handleRetry = () => {
     setRevealed(false)
@@ -378,6 +499,8 @@ export default function QuizCard({
     setAiFeedback('')
     setGradingError('')
     setRetried(true)
+    const count = Array.isArray(question.answer) ? question.answer.length : 0
+    setSlotValues(Array.from({ length: count }, () => ''))
   }
 
   return (
@@ -386,6 +509,7 @@ export default function QuizCard({
       <div className="quiz-question" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         {parsedContent.map((part, idx) => {
           if (part.type === 'code') {
+            if (isCodeMultiInput) return null;
             return <CodeBlock key={idx} lines={part.lines} />;
           } else if (part.type === 'text') {
             return (
@@ -412,7 +536,7 @@ export default function QuizCard({
         />
       )}
 
-      {!isChoiceType && !isCodeInput && (
+      {!isChoiceType && !isCodeInput && !isCodeMultiInput && (
         <FillInput
           input={input}
           setInput={setInput}
@@ -422,10 +546,31 @@ export default function QuizCard({
         />
       )}
 
+       {isCodeMultiInput && (
+        <MultiBlankInput
+          codeTemplate={question.code_template}
+          answersCount={answersCount}
+          values={slotValues}
+          choices={question?.choices}
+          correctAnswers={question?.answer}
+          onChange={(idx, val) => {
+            const next = [...slotValues]
+            next[idx] = val
+            setSlotValues(next)
+          }}
+          revealed={revealed}
+          disabled={disabled}
+          submitting={submitting}
+          onSubmit={handleMultiSubmit}
+          gradingError={gradingError}
+        />
+      )}
+
       {isCodeInput && (
         <CodeInput
           input={input}
           setInput={setInput}
+          choices={codeInputChoices}
           revealed={revealed}
           disabled={disabled}
           pyLoading={pyLoading}

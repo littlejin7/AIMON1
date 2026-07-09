@@ -230,7 +230,7 @@ export default function EndBoss() {
   // ── 정답 제출 ────────────────────────────────
   const handleSubmit = async () => {
     if (!currentQuestion) return
-    const isCodeType = currentQuestion.type === 'code_input' || currentQuestion.type === 'fill_in_blank'
+    const isCodeType = currentQuestion.type === 'code_input' || currentQuestion.type === 'fill_in_blank' || currentQuestion.type === 'code_multi_input'
     // error_find: 줄 클릭 UI 폐지 → 빈칸 직접 입력(answerInput)으로 채점
     const isTextAnswer = isCodeType || currentQuestion.type === 'error_find'
     const userAnswer = isTextAnswer ? answerInput : selectedOption
@@ -333,28 +333,31 @@ export default function EndBoss() {
     }
     setLoading(true)
     try {
-      if (endbossState.phase === 3) {
-        if (currentQuestion.phase !== 3) {
-          setCurrentQuestion(endbossState.phase3FirstQuestion)
-        } else {
-          setCurrentQuestion(endbossState.nextPhase3Question)
+      setEndbossState(prev => {
+        const { phase, phase1Index, phase1Questions, phase2Index, phase2Questions, phase3FirstQuestion, nextPhase3Question } = prev
+        if (phase === 3) {
+          const nextQ = currentQuestion.phase !== 3 ? phase3FirstQuestion : nextPhase3Question
+          setCurrentQuestion(nextQ)
+          return prev
+        } else if (phase === 1) {
+          const nextIdx = phase1Index + 1
+          if (nextIdx < phase1Questions.length) {
+            setCurrentQuestion(phase1Questions[nextIdx])
+            return { ...prev, phase1Index: nextIdx }
+          } else {
+            // Phase 1 완료 → Phase 2 전환 화면
+            setPhase('phase2_transition')
+            return prev
+          }
+        } else if (phase === 2) {
+          const nextIdx = phase2Index + 1
+          if (nextIdx < phase2Questions.length) {
+            setCurrentQuestion(phase2Questions[nextIdx])
+            return { ...prev, phase2Index: nextIdx }
+          }
         }
-      } else if (endbossState.phase === 1) {
-        const nextIdx = endbossState.phase1Index + 1
-        if (nextIdx < endbossState.phase1Questions.length) {
-          setEndbossState(prev => ({ ...prev, phase1Index: nextIdx }))
-          setCurrentQuestion(endbossState.phase1Questions[nextIdx])
-        } else {
-          // Phase 1 완료 → Phase 2 전환 화면
-          setPhase('phase2_transition')
-        }
-      } else if (endbossState.phase === 2) {
-        const nextIdx = endbossState.phase2Index + 1
-        if (nextIdx < endbossState.phase2Questions.length) {
-          setEndbossState(prev => ({ ...prev, phase2Index: nextIdx }))
-          setCurrentQuestion(endbossState.phase2Questions[nextIdx])
-        }
-      }
+        return prev
+      })
       setAiResult(null)
       setSelectedOption(null)
       setAnswerInput('')
