@@ -37,7 +37,7 @@ export default function LessonHome() {
   const [lessons,  setLessons]  = useState([])
   const [progress, setProgress] = useState([])
   const [loading,  setLoading]  = useState(true)
-  const [expandedUnit, setExpandedUnit] = useState(null)
+  const [expandedUnit, setExpandedUnit] = useState(1)
 
   const courseLevel = user?.course_level || 'beginner'
   const activeLevelIdx = LEVEL_MAP[courseLevel]?.idx ?? 0
