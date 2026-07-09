@@ -115,6 +115,12 @@
   align-items: center;
   position: relative;
 }
+.mb-boss-area img {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+}
 .mb-speech {
   background: #F4F3FA;
   border-radius: 12px;
@@ -203,7 +209,7 @@
   margin-top: 1px;
 }
 .mb-qtext {
-  font-size: 13.5px;
+  font-size: 17px;
   font-weight: 500;
   color: #26215C;
   line-height: 1.5;
@@ -213,11 +219,18 @@
 .mb-q-terminal {
   background: #1C1939;
   border-radius: 14px;
-  padding: 14px 16px;
+  padding: 12px 14px;
+  width: 416px;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-height: 400px;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 .mb-q-code {
   font-family: 'Courier New', monospace;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.9;
   white-space: pre;
   overflow-x: auto;
@@ -285,7 +298,14 @@
 .mb-e-terminal {
   background: #1C1939;
   border-radius: 14px;
-  padding: 14px 16px;
+  padding: 12px 14px;
+  width: 416px;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-height: 400px;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 .mb-e-top {
   display: flex;
@@ -300,7 +320,7 @@
   border: none;
   outline: none;
   font-family: 'Courier New', monospace;
-  font-size: 13px;
+  font-size: 15px;
   color: #D0ACFF;
   resize: none;
   line-height: 1.9;
