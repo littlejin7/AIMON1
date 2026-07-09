@@ -175,11 +175,6 @@ export default function Settings() {
     }
   }
 
-  const handleLogout = () => {
-    logout()
-    navigate('/auth')
-  }
-
   const handleDeleteAccount = () => {
     if (deleting) return
     setShowDeleteConfirm(true)
@@ -596,9 +591,6 @@ export default function Settings() {
         </div>
 
         <p className="st-section-label">계정 관리</p>
-        <button id="btn-logout" className="st-logout-btn" onClick={handleLogout}>
-          로그아웃
-        </button>
         <button className="st-delete-btn" onClick={handleDeleteAccount} disabled={deleting}>
           {deleting ? '탈퇴 처리 중...' : '계정 탈퇴'}
         </button>
