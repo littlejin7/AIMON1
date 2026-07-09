@@ -344,10 +344,11 @@ export default function AICross() {
           <span>세트</span>
           <select value={setIndex ?? ''} onChange={handleSetChange} disabled={loading || !progress}>
             {(progress?.sets || []).map((s) => {
-              const prefix = s.completed ? '✓ ' : (s.index === nextSetIndex ? '→ ' : '')
+              const prefix = s.index === nextSetIndex ? '→ ' : ''
+              const suffix = s.completed ? ' (완료)' : ''
               return (
                 <option key={s.index} value={s.index}>
-                  {prefix}{String(s.index + 1).padStart(2, '0')}. {s.title}
+                  {prefix}{String(s.index + 1).padStart(2, '0')}. {s.title}{suffix}
                 </option>
               )
             })}
