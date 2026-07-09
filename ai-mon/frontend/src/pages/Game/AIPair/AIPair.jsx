@@ -27,7 +27,7 @@ export default function AIPair() {
   const navigate = useNavigate()
   const user = useAuthStore((s) => s.user)
 
-  useGameBgm(aizzakBgm)
+  useGameBgm(aizzakBgm, { enabled: started })
 
   const defaultChar = user?.character && CHARACTER_MAP[user.character]
     ? user.character : 'slime'

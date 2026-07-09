@@ -88,7 +88,7 @@ export default function AICross() {
   const wrapRef = useRef(null)
   const user = useAuthStore((s) => s.user)
 
-  useGameBgm(aikanBgm)
+  useGameBgm(aikanBgm, { enabled: started })
 
   // 서버 진행도/세션 상태
   const [progress, setProgress] = useState(null)

@@ -54,7 +54,7 @@ export default function AIbomb() {
 
   // BGM: 다른 미니게임과 동일하게 전역 bgmVolume(설정)에 연동해 재생.
   //      게임오버(폭발) 시엔 정지되도록 enabled 로 제어.
-  useGameBgm(aibombBgm, { enabled: game.status !== 'gameover' });
+  useGameBgm(aibombBgm, { enabled: game.status !== 'ready' && game.status !== 'gameover' });
 
   const danger = game.timeLeft <= timer.dangerAt;
   const timerState = danger ? 'danger' : game.timeLeft > timer.initialTime * 0.5 ? 'safe' : 'warn';
