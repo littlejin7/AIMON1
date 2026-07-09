@@ -19,7 +19,9 @@ BACKEND = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, BACKEND)
 
 import routers.utils as U
-from routers import game as G
+# 랭킹 로직은 game.py 에서 routers.game_ranking 으로 분리됐다. load_users 패치와
+# game_ranking(_overall) 호출이 같은 모듈에서 해석되도록 G 를 game_ranking 으로 잡는다.
+from routers import game_ranking as G
 
 
 # ── grant_reward: 3차 전 (coin↑, gp 0, ranking↑, lv 동결) ─────────────────────

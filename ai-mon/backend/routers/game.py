@@ -12,6 +12,7 @@ import random
 from routers.utils import (
     get_current_user,
     now_kst,
+    iso_week,
     grant_reward,
     get_evolution_stage,
     current_week_ranking_score,
@@ -21,17 +22,28 @@ from routers.utils import (
 from routers.game_common import (
     SUPPORTED_GAME_IDS,
     MIN_PLAY_SECONDS,
+    TOKEN_TTL_SECONDS,
     _make_game_token,
     _verify_game_token,
     _consume_nonce,
     _maybe_reset_daily_xp,
     _record_weekly_ranking,
 )
+# game_aicross 로 분리된 AICross 로직. routers.game 은 게임 라우터의 진입 facade 이므로,
+# 분리 전 `routers.game.<name>` 을 참조하던 외부/테스트 호환을 위해 아래 이름들을
+# 그대로 re-export 한다. (실제 정의·라우팅은 game_aicross 소유)
 from routers.game_aicross import (
     AICROSS_PUZZLES,
     AICROSS_DEFAULT_PUZZLE_ID,
+    AICROSS_SETS,
+    AicrossStartRequest,
+    AicrossClearRequest,
     _aicross_public_puzzle,
     _score_aicross_answers,
+    _normalize_aicross_answer,
+    game_aicross_progress,
+    game_aicross_start,
+    game_aicross_clear,
 )
 
 router = APIRouter()

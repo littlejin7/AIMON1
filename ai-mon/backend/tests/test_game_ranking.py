@@ -9,7 +9,10 @@ sys.path.insert(0, backend_path)
 os.environ.setdefault("SECRET_KEY", "test-secret-key-at-least-32-characters-long-xx")
 os.environ.setdefault("USE_SUPABASE", "false")
 
-from routers import game as G
+# 랭킹 로직은 game.py 에서 routers.game_ranking 으로 분리됐다. 패치 대상(load_users /
+# RANKING_WEIGHT)과 호출 함수가 같은 모듈에서 해석되도록 G 를 game_ranking 으로 잡는다.
+from routers import game_ranking as G
+from routers import game_common as GC  # _record_weekly_ranking 은 game_common 소유
 
 
 def _user(user_id, nickname, current=None, previous=None, character="slime", deleted=False):
@@ -81,7 +84,7 @@ def test_record_weekly_ranking_stores_raw_and_ranking_helper_does_not_mutate(mon
     )
     rewards = {}
 
-    G._record_weekly_ranking(rewards, "runner", 500)
+    GC._record_weekly_ranking(rewards, "runner", 500)
 
     user = {"game_rewards": rewards}
     raw_before = G._weekly_score_map(user, G.iso_week())
