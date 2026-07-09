@@ -397,7 +397,7 @@ export default function LessonHome() {
                   <button
                     key={lesson.unit_id}
                     type="button"
-                    className={`lh-unit-node no-3d ${done ? 'done' : !unlocked ? 'locked' : isCurrent ? 'current' : 'open'}`}
+                    className={`lh-unit-node no-3d unit-${lesson.unit_id} ${done ? 'done' : !unlocked ? 'locked' : isCurrent ? 'current' : 'open'}`}
                     onClick={() => {
                       if (!unlocked) return
                       setExpandedUnit(lesson.unit_id)
@@ -436,7 +436,7 @@ export default function LessonHome() {
           const stageNums = Array.from({ length: lesson.stages || 0 }, (_, i) => i + 1)
 
           return (
-            <section className={`lh-selected-unit-card ${!unlocked ? 'locked' : ''}`}>
+            <section className={`lh-selected-unit-card unit-${lesson.unit_id} ${!unlocked ? 'locked' : ''}`}>
               <div className="lh-selected-unit-head">
                 <div className="lh-selected-unit-icon">
                   <UnitIcon unitId={lesson.unit_id} className="lh-selected-unit-svg" />
@@ -446,13 +446,44 @@ export default function LessonHome() {
                   <h2>{title}</h2>
                   <p>{lesson.description || `${prog.completed} / ${lesson.stages} 스테이지 완료`}</p>
                 </div>
-                <button
-                  type="button"
-                  className="lh-selected-unit-info-btn no-3d"
-                  aria-label="유닛 정보"
-                >
-                  유닛 정보
-                </button>
+                {(() => {
+                  const isBossFinished = isBossComplete(lesson.unit_id)
+                  const isReadyForBoss = prog.completed >= lesson.stages
+                  
+                  let btnText = "유닛보스 잠김"
+                  let btnClass = "locked"
+                  let btnDisabled = true
+                  
+                  if (isBossFinished) {
+                    btnText = "보스 복습"
+                    btnClass = "cleared"
+                    btnDisabled = false
+                  } else if (isReadyForBoss) {
+                    btnText = "유닛보스 도전"
+                    btnClass = "open"
+                    btnDisabled = false
+                  }
+                  
+                  return (
+                    <button
+                      type="button"
+                      className={`lh-stage-boss-cta no-3d ${btnClass}`}
+                      disabled={btnDisabled}
+                      onClick={() => {
+                        if (btnDisabled) return
+                        if (!token) return
+                        if (!user?.is_level_tested) {
+                          setPendingUnitId(lesson.unit_id)
+                          setShowLevelTest(true)
+                          return
+                        }
+                        navigate(`/boss/${lesson.unit_id}`)
+                      }}
+                    >
+                      {btnText}
+                    </button>
+                  )
+                })()}
               </div>
 
               <div className="lh-selected-unit-progress">
@@ -499,32 +530,7 @@ export default function LessonHome() {
                   )
                 })}
 
-                <button
-                  type="button"
-                  className={`lh-paw-boss no-3d ${prog.completed >= lesson.stages ? 'open' : 'locked'}`}
-                  disabled={prog.completed < lesson.stages}
-                  onClick={() => {
-                    if (!token || prog.completed < lesson.stages) return
-                    if (!user?.is_level_tested) {
-                      setPendingUnitId(lesson.unit_id)
-                      setShowLevelTest(true)
-                      return
-                    }
-                    navigate(`/boss/${lesson.unit_id}`)
-                  }}
-                >
-                  <span className="lh-paw-boss-icon">⚔️</span>
-                  <span className="lh-paw-boss-text">
-                    <strong>유닛보스</strong>
-                    <span>{getUnitShortTitle(title, lesson.unit_id, courseLevel)} 마스터</span>
-                    <span className="lh-paw-boss-desc">
-                      {prog.completed >= lesson.stages ? '보스전에 도전해요' : '모든 스테이지 완료 후 도전 가능'}
-                    </span>
-                  </span>
-                  <span className="lh-paw-boss-action">
-                    {prog.completed >= lesson.stages ? '도전하기' : '잠김'}
-                  </span>
-                </button>
+                {/* 유닛보스 큰 카드는 제거됨 */}
               </div>
             </section>
           )

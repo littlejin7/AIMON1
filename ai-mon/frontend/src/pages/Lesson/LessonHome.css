@@ -320,6 +320,62 @@ body:has(.lh-page) { background: #F4F3FA; }
   overflow: hidden;
 }
 
+/* ── 유닛별 테마 변수 정의 ── */
+.lh-unit-node.unit-1,
+.lh-selected-unit-card.unit-1 {
+  --unit-accent: #7F77DD;
+  --unit-soft: #F2F0FF;
+}
+
+.lh-unit-node.unit-2,
+.lh-selected-unit-card.unit-2 {
+  --unit-accent: #4F8EF7;
+  --unit-soft: #EEF5FF;
+}
+
+.lh-unit-node.unit-3,
+.lh-selected-unit-card.unit-3 {
+  --unit-accent: #21A89A;
+  --unit-soft: #EAFBF8;
+}
+
+.lh-unit-node.unit-4,
+.lh-selected-unit-card.unit-4 {
+  --unit-accent: #6B5CE7;
+  --unit-soft: #F0EEFF;
+}
+
+.lh-unit-node.unit-5,
+.lh-selected-unit-card.unit-5 {
+  --unit-accent: #D99A20;
+  --unit-soft: #FFF6DF;
+}
+
+.lh-unit-node.unit-6,
+.lh-selected-unit-card.unit-6 {
+  --unit-accent: #D95F9F;
+  --unit-soft: #FFF0F7;
+}
+
+.lh-unit-node.unit-7,
+.lh-selected-unit-card.unit-7 {
+  --unit-accent: #2D9CDB;
+  --unit-soft: #EAF7FF;
+}
+
+.lh-unit-node.unit-8,
+.lh-selected-unit-card.unit-8 {
+  --unit-accent: #5C4BCF;
+  --unit-soft: #EFEDFF;
+}
+
+/* 잠김 상태는 회색 테마로 덮어씌움 */
+.lh-unit-node.locked,
+.lh-selected-unit-card.locked {
+  --unit-accent: #A4A4B8;
+  --unit-soft: #F6F6FA;
+}
+
 /* ── 유닛 선택 가로 UI ── */
 .lh-unit-selector-card {
   background: #FFFFFF;
@@ -415,28 +471,31 @@ body:has(.lh-page) { background: #F4F3FA; }
   margin-bottom: 8px;
   z-index: 2;
   transition: all 0.2s ease;
+  border: 1.5px solid var(--unit-accent, #E2E1EE);
+  background: var(--unit-soft, #F7F6FB);
+  color: var(--unit-accent, #7A7A94);
 }
 .lh-unit-node.open .lh-unit-node-icon-wrap {
-  border: 1.5px solid #E2E1EE;
-  background: #F7F6FB;
-  color: #7A7A94;
+  border: 1.5px solid var(--unit-accent, #E2E1EE);
+  background: var(--unit-soft, #F7F6FB);
+  color: var(--unit-accent, #7A7A94);
 }
 .lh-unit-node.done .lh-unit-node-icon-wrap {
-  border: 1.5px solid #A9A4E8;
-  background: #F2F0FF;
-  color: #7F77DD;
+  border: 1.5px solid var(--unit-accent, #A9A4E8);
+  background: var(--unit-soft, #F2F0FF);
+  color: var(--unit-accent, #7F77DD);
 }
 .lh-unit-node.locked .lh-unit-node-icon-wrap {
-  border: 1.5px solid #E2E1EE;
-  background: #FAFAFC;
-  color: #C2C2D0;
+  border: 1.5px solid var(--unit-accent, #E2E1EE);
+  background: var(--unit-soft, #FAFAFC);
+  color: var(--unit-accent, #C2C2D0);
 }
 .lh-unit-node.current .lh-unit-node-icon-wrap {
   width: 70px;
   height: 70px;
-  border: 2px solid #7F77DD;
-  background: #F2F0FF;
-  color: #7F77DD;
+  border: 2px solid var(--unit-accent, #7F77DD);
+  background: var(--unit-soft, #F2F0FF);
+  color: var(--unit-accent, #7F77DD);
   box-shadow: 0 0 0 4px rgba(127, 119, 221, 0.12);
   margin-top: -3px;
   margin-bottom: 5px;
@@ -446,6 +505,7 @@ body:has(.lh-page) { background: #F4F3FA; }
 .lh-unit-node-svg {
   width: 28px;
   height: 28px;
+  color: var(--unit-accent, currentColor);
 }
 
 /* 상태 배지 */
@@ -540,8 +600,8 @@ body:has(.lh-page) { background: #F4F3FA; }
   width: 50px;
   height: 50px;
   border-radius: 14px;
-  background: #EEEDFE;
-  border: 1.5px solid #7F77DD;
+  background: var(--unit-soft, #EEEDFE);
+  border: 1.5px solid var(--unit-accent, #7F77DD);
   display: grid;
   place-items: center;
   flex-shrink: 0;
@@ -555,7 +615,7 @@ body:has(.lh-page) { background: #F4F3FA; }
 .lh-selected-unit-svg {
   width: 26px;
   height: 26px;
-  color: #7F77DD;
+  color: var(--unit-accent, #7F77DD);
 }
 .lh-selected-unit-card.locked .lh-selected-unit-svg {
   color: #A4A4B8;
@@ -568,7 +628,7 @@ body:has(.lh-page) { background: #F4F3FA; }
 .lh-selected-unit-kicker {
   font-size: 10px;
   font-weight: 700;
-  color: #7F77DD;
+  color: var(--unit-accent, #7F77DD);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 2px;
@@ -591,17 +651,34 @@ body:has(.lh-page) { background: #F4F3FA; }
   line-height: 1.4;
 }
 
-.lh-selected-unit-info-btn {
-  background: #F4F3FA;
-  border: none;
+.lh-stage-boss-cta {
   border-radius: 20px;
-  padding: 4px 8px;
-  font-size: 10px;
-  color: #7A7A94;
-  font-weight: 600;
+  padding: 5px 12px;
+  font-size: 10.5px;
+  font-weight: 700;
   cursor: pointer;
   flex-shrink: 0;
   align-self: flex-start;
+  transition: all 0.2s ease;
+}
+.lh-stage-boss-cta.open {
+  background: #7F77DD;
+  color: #FFFFFF;
+  border: none;
+}
+.lh-stage-boss-cta.locked {
+  background: #F1F0F6;
+  color: #9999B0;
+  border: none;
+  cursor: not-allowed;
+}
+.lh-stage-boss-cta.cleared {
+  background: #F2F0FF;
+  color: #6F5FE7;
+  border: 1px solid #DCD6FF;
+}
+.lh-stage-boss-cta:not(.locked):active {
+  transform: scale(0.96);
 }
 
 .lh-selected-unit-progress {
