@@ -11,6 +11,7 @@ import CrosswordGrid from './components/CrosswordGrid'
 import HintBox from './components/HintBox'
 import ClueList from './components/ClueList'
 import aikanBgm from '../../../assets/bgm/aikan_bgm.mp3'
+import aiwordThumb from './AIwordicon.png'
 import './AICross.css'
 
 // 서버 start 응답 puzzle(grid_size + 좌표 포함 entries)을 프론트 렌더링 구조로 변환한다.
@@ -108,6 +109,9 @@ export default function AICross() {
   const [submitting, setSubmitting] = useState(false)
   const [result, setResult] = useState(null)
   const [showResult, setShowResult] = useState(false)
+
+  // 시작 인트로 팝업 (다른 미니게임과 동일하게 게임 화면 위에 화이트 박스로 오버레이)
+  const [started, setStarted] = useState(false)
 
   const { wordData = [], rows = 0, cols = 0, cellMap = {}, wordCells = {} } = layout || {}
 
@@ -412,6 +416,29 @@ export default function AICross() {
             onSelect={(id) => selectWord(id, true)}
           />
         </>
+      )}
+
+      {/* 시작 인트로 — 게임 화면 위에 화이트 박스 팝업으로 오버레이 */}
+      {!started && (
+        <div className="aicross-intro-overlay">
+          <div className="aicross-intro-panel">
+            <img className="aicross-intro-thumb" src={aiwordThumb} alt="에이칸" />
+
+            <h1 className="aicross-intro-title">AIword</h1>
+            <p className="aicross-intro-desc">단어 조각을 모아 십자말을 완성하라!</p>
+
+            <div className="aicross-intro-rule">
+              <div>⌨️&nbsp;가로·세로 <strong>힌트</strong>를 보고</div>
+              <div>빈 칸에 알맞은 <strong>단어</strong>를 채우세요!</div>
+            </div>
+
+            <div className="aicross-intro-reward">⚡ 클리어 보상 · 코인 100~200</div>
+
+            <button className="aicross-intro-start" onClick={() => setStarted(true)}>
+              시작하기 ▶
+            </button>
+          </div>
+        </div>
       )}
     </div>
   )
