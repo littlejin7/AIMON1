@@ -66,7 +66,7 @@ def env(monkeypatch, tmp_path):
     def _sha256_hash(pw: str) -> str:
         return hashlib.sha256(pw.encode()).hexdigest()
 
-    monkeypatch.setattr(A, "hash_password", _sha256_hash)
+    monkeypatch.setattr(A.password, "hash_password", _sha256_hash)
 
     uf = tmp_path / "users.json"
     uf.write_text(
@@ -248,7 +248,7 @@ def test_reset_password_expired_token_rejected(env, monkeypatch):
     expires = datetime.fromisoformat(tokens["user@example.com"]["expires_at"])
     future = expires + timedelta(minutes=1)
     monkeypatch.setattr(U, "now_kst", lambda: future)
-    monkeypatch.setattr(A, "now_kst", lambda: future)
+    monkeypatch.setattr(A.password, "now_kst", lambda: future)
 
     # 토큰 값은 아무거나 (만료 체크가 먼저)
     with pytest.raises(HTTPException) as exc:

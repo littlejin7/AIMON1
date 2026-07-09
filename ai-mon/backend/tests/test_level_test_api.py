@@ -127,7 +127,7 @@ def test_submit_level_test_logged_in():
         mutator(mock_user)
         return mock_user, None
 
-    with patch("routers.auth.mutate_user_atomic", side_effect=mock_mutate_user_atomic):
+    with patch("routers.auth.register.mutate_user_atomic", side_effect=mock_mutate_user_atomic):
         response = client.post("/auth/level-test/submit", json={"answers": ALL_CORRECT_ANSWERS})
         assert response.status_code == 200
         data = response.json()

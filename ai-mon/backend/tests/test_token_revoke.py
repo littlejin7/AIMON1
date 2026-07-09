@@ -100,8 +100,8 @@ def test_reset_password_naive_token_does_not_crash(monkeypatch):
             "failed_attempts": 0,
         }
     }
-    monkeypatch.setattr(AUTH, "load_reset_tokens", lambda: fake_token_store)
-    monkeypatch.setattr(AUTH, "save_reset_tokens", lambda _: None)
+    monkeypatch.setattr(AUTH.password, "load_reset_tokens", lambda: fake_token_store)
+    monkeypatch.setattr(AUTH.password, "save_reset_tokens", lambda _: None)
 
     # 독립 app — 이전 테스트의 rate limit 소진 영향을 받지 않도록
     from unittest.mock import patch as mpatch
@@ -136,8 +136,8 @@ def test_logout_uses_mutate_user_atomic(monkeypatch):
         mutator(fake_user)
         assert fake_user["token_version"] == 4, "mutator가 token_version+1 해야 함"
 
-    monkeypatch.setattr(AUTH, "mutate_user_atomic", _mock_mutate)
-    monkeypatch.setattr(AUTH, "delete_user_refresh_tokens", lambda uid: None)
+    monkeypatch.setattr(AUTH.login, "mutate_user_atomic", _mock_mutate)
+    monkeypatch.setattr(AUTH.login, "delete_user_refresh_tokens", lambda uid: None)
 
     # 유효한 토큰 생성
     uid = "test-user-logout-atomic"
@@ -164,8 +164,8 @@ def test_concurrent_logout_token_version(tmp_path, monkeypatch):
         with lock:
             call_count.append(1)
 
-    monkeypatch.setattr(AUTH, "mutate_user_atomic", _mock_mutate)
-    monkeypatch.setattr(AUTH, "delete_user_refresh_tokens", lambda uid: None)
+    monkeypatch.setattr(AUTH.login, "mutate_user_atomic", _mock_mutate)
+    monkeypatch.setattr(AUTH.login, "delete_user_refresh_tokens", lambda uid: None)
 
     uid = "concurrent-test-user"
     t1_token = AUTH.create_token({"sub": uid, "username": "u"}, token_version=1)

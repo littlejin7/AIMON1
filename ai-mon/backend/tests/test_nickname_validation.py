@@ -134,7 +134,7 @@ def test_register_rechecks_nickname_before_save(tmp_path, monkeypatch):
             return {"id": "other", "nickname": nickname}
         return None
 
-    monkeypatch.setattr(AUTH, "get_user_by_nickname", fake_get_user_by_nickname)
+    monkeypatch.setattr(AUTH._core, "get_user_by_nickname", fake_get_user_by_nickname)
 
     res = client.post("/auth/register", json=_payload("raceuser", "RaceNick", "race@example.com"))
 
@@ -178,7 +178,7 @@ def test_social_nickname_is_refreshed_before_save(monkeypatch):
             return {"id": "other", "nickname": nickname}
         return None
 
-    monkeypatch.setattr(AUTH, "get_user_by_nickname", fake_get_user_by_nickname)
+    monkeypatch.setattr(AUTH._core, "get_user_by_nickname", fake_get_user_by_nickname)
 
     nickname = AUTH._unique_social_nickname("SocialNick", "kakao_123")
     user = {"nickname": nickname}

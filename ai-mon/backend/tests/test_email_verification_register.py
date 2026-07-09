@@ -45,14 +45,14 @@ def _client(tmp_path, monkeypatch):
     monkeypatch.setattr(U, "EMAIL_VERIFICATION_CODES_FILE", str(tmp_path / "email_verification_codes.json"))
     monkeypatch.setattr(U, "USE_SUPABASE", False)
     monkeypatch.setattr(limiter, "enabled", False)
-    monkeypatch.setattr(AUTH, "hash_password", lambda pw: hashlib.sha256(pw.encode()).hexdigest())
+    monkeypatch.setattr(AUTH.register, "hash_password", lambda pw: hashlib.sha256(pw.encode()).hexdigest())
     return TestClient(_make_app(), raise_server_exceptions=False)
 
 
 def test_send_code_success_and_stores_hash(tmp_path, monkeypatch):
     client = _client(tmp_path, monkeypatch)
     sent = []
-    monkeypatch.setattr(AUTH, "send_verification_email", lambda email, code: sent.append((email, code)) or True)
+    monkeypatch.setattr(AUTH.register, "send_verification_email", lambda email, code: sent.append((email, code)) or True)
 
     res = client.post("/auth/email/send-code", json={"email": "User@Example.com", "purpose": "register"})
 
@@ -79,7 +79,7 @@ def test_send_code_rejects_bad_email(tmp_path, monkeypatch):
 
 def test_send_code_cooldown(tmp_path, monkeypatch):
     client = _client(tmp_path, monkeypatch)
-    monkeypatch.setattr(AUTH, "send_verification_email", lambda email, code: True)
+    monkeypatch.setattr(AUTH.register, "send_verification_email", lambda email, code: True)
 
     first = client.post("/auth/email/send-code", json={"email": "cool@example.com", "purpose": "register"})
     second = client.post("/auth/email/send-code", json={"email": "cool@example.com", "purpose": "register"})
@@ -91,7 +91,7 @@ def test_send_code_cooldown(tmp_path, monkeypatch):
 def test_verify_code_success(tmp_path, monkeypatch):
     client = _client(tmp_path, monkeypatch)
     sent = []
-    monkeypatch.setattr(AUTH, "send_verification_email", lambda email, code: sent.append(code) or True)
+    monkeypatch.setattr(AUTH.register, "send_verification_email", lambda email, code: sent.append(code) or True)
 
     client.post("/auth/email/send-code", json={"email": "verify@example.com", "purpose": "register"})
     res = client.post("/auth/email/verify-code", json={
@@ -107,7 +107,7 @@ def test_verify_code_success(tmp_path, monkeypatch):
 
 def test_verify_code_wrong_code_fails(tmp_path, monkeypatch):
     client = _client(tmp_path, monkeypatch)
-    monkeypatch.setattr(AUTH, "send_verification_email", lambda email, code: True)
+    monkeypatch.setattr(AUTH.register, "send_verification_email", lambda email, code: True)
     client.post("/auth/email/send-code", json={"email": "wrong@example.com", "purpose": "register"})
 
     res = client.post("/auth/email/verify-code", json={
@@ -122,11 +122,11 @@ def test_verify_code_wrong_code_fails(tmp_path, monkeypatch):
 def test_verify_code_expired_fails(tmp_path, monkeypatch):
     client = _client(tmp_path, monkeypatch)
     sent = []
-    monkeypatch.setattr(AUTH, "send_verification_email", lambda email, code: sent.append(code) or True)
+    monkeypatch.setattr(AUTH.register, "send_verification_email", lambda email, code: sent.append(code) or True)
     client.post("/auth/email/send-code", json={"email": "expired@example.com", "purpose": "register"})
 
     expires = AUTH._parse_datetime(U.load_email_verification_codes()["expired@example.com:register"]["expires_at"])
-    monkeypatch.setattr(AUTH, "now_kst", lambda: expires + timedelta(seconds=1))
+    monkeypatch.setattr(AUTH.register, "now_kst", lambda: expires + timedelta(seconds=1))
     res = client.post("/auth/email/verify-code", json={
         "email": "expired@example.com",
         "code": sent[0],
@@ -147,7 +147,7 @@ def test_register_requires_verified_email(tmp_path, monkeypatch):
 def test_register_succeeds_after_email_verification(tmp_path, monkeypatch):
     client = _client(tmp_path, monkeypatch)
     sent = []
-    monkeypatch.setattr(AUTH, "send_verification_email", lambda email, code: sent.append(code) or True)
+    monkeypatch.setattr(AUTH.register, "send_verification_email", lambda email, code: sent.append(code) or True)
     client.post("/auth/email/send-code", json={"email": "verified@example.com", "purpose": "register"})
     client.post("/auth/email/verify-code", json={
         "email": "verified@example.com",

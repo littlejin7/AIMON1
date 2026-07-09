@@ -45,11 +45,11 @@ def test_streak_no_double_increment_same_day():
 def test_touch_returns_current_user_when_save_conflict(monkeypatch):
     user = {"id": "u1", "streak": 2, "last_login": "2026-01-01", "username": "tester"}
     monkeypatch.setattr(
-        A,
+        A.login,
         "mutate_user_atomic",
         lambda uid, fn: (_ for _ in ()).throw(UserSaveError(uid)),
     )
-    monkeypatch.setattr(A, "serialize_user", lambda u: {k: v for k, v in u.items() if k != "password"})
+    monkeypatch.setattr(A.login, "serialize_user", lambda u: {k: v for k, v in u.items() if k != "password"})
 
     res = A.touch(user)
 
