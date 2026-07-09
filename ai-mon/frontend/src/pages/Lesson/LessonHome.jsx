@@ -583,45 +583,96 @@ export default function LessonHome() {
                 </div>
               </div>
 
-              <div className="lh-paw-roadmap">
-                {stageNums.map((s) => {
-                  const stageDone = s <= prog.completed
-                  const isCurrent = s === prog.completed + 1
-                  const enabled = unlocked && s <= prog.completed + 1
-                  const stateClass = stageDone ? 'done' : isCurrent ? 'current' : 'locked'
-
+              {(() => {
+                // 1. 잠긴 유닛
+                if (!unlocked) {
                   return (
-                    <button
-                      key={s}
-                      type="button"
-                      className={`lh-paw-stage no-3d ${stateClass}`}
-                      disabled={!enabled}
-                      onClick={() => {
-                        if (!token || !enabled) return
-                        if (!user?.is_level_tested && !(lesson.unit_id === 1 && s === 1)) {
-                          setPendingUnitId(lesson.unit_id)
-                          setShowLevelTest(true)
-                          return
-                        }
-                        navigate(`/stage/${lesson.unit_id}/${s}`)
-                      }}
-                    >
-                      <span className="lh-paw-node">{s}</span>
-                      <span className="lh-paw-content">
-                        <span className="lh-paw-title">{getStageDisplayTitle(lesson.unit_id, s, title)}</span>
-                        <span className="lh-paw-status">
-                          {stageDone ? '완료' : isCurrent ? '진행중' : '잠김'}
-                        </span>
-                      </span>
-                      {stageDone && <span className="lh-paw-action review">복습</span>}
-                      {isCurrent && <span className="lh-paw-action continue">이어하기</span>}
-                      {!enabled && <span className="lh-paw-lock">🔒</span>}
-                    </button>
+                    <div className="lh-unit-lock-notice">
+                      <span className="lh-lock-icon">🔒</span>
+                      <p className="lh-lock-text">
+                        이 유닛은 아직 잠겨 있습니다.<br />
+                        이전 유닛들을 완료하여 해금해 보세요.
+                      </p>
+                    </div>
                   )
-                })}
+                }
 
-                {/* 유닛보스 큰 카드는 제거됨 */}
-              </div>
+                // 2. 완료 유닛
+                if (done) {
+                  return (
+                    <div className="lh-unit-done-container">
+                      <p className="lh-unit-done-msg">
+                        🎉 모든 스테이지 완료! 보스전을 복습하거나 스테이지를 다시 학습해 보세요.
+                      </p>
+                      <div className="lh-compact-stages-grid">
+                        {stageNums.map((s) => {
+                          return (
+                            <button
+                              key={s}
+                              type="button"
+                              className="lh-compact-stage-chip no-3d"
+                              onClick={() => {
+                                if (!token) return
+                                if (!user?.is_level_tested && !(lesson.unit_id === 1 && s === 1)) {
+                                  setPendingUnitId(lesson.unit_id)
+                                  setShowLevelTest(true)
+                                  return
+                                }
+                                navigate(`/stage/${lesson.unit_id}/${s}`)
+                              }}
+                              aria-label={`Stage ${s} 복습`}
+                            >
+                              <span className="lh-compact-stage-num">{s}</span>
+                              <span className="lh-compact-stage-check">✓</span>
+                            </button>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  )
+                }
+
+                // 3. 진행중 유닛 (unlocked && !done)
+                return (
+                  <div className="lh-paw-roadmap">
+                    {stageNums.map((s) => {
+                      const stageDone = s <= prog.completed
+                      const isCurrent = s === prog.completed + 1
+                      const enabled = unlocked && s <= prog.completed + 1
+                      const stateClass = stageDone ? 'done' : isCurrent ? 'current' : 'locked'
+
+                      return (
+                        <button
+                          key={s}
+                          type="button"
+                          className={`lh-paw-stage no-3d ${stateClass}`}
+                          disabled={!enabled}
+                          onClick={() => {
+                            if (!token || !enabled) return
+                            if (!user?.is_level_tested && !(lesson.unit_id === 1 && s === 1)) {
+                              setPendingUnitId(lesson.unit_id)
+                              setShowLevelTest(true)
+                              return
+                            }
+                            navigate(`/stage/${lesson.unit_id}/${s}`)
+                          }}
+                        >
+                          <span className="lh-paw-node">{s}</span>
+                          <span className="lh-paw-content">
+                            <span className="lh-paw-title">{getStageDisplayTitle(lesson.unit_id, s, title)}</span>
+                            <span className="lh-paw-status">
+                              {stageDone ? '완료' : isCurrent ? '진행중' : '잠김'}
+                            </span>
+                          </span>
+                          {stageDone && <span className="lh-paw-action review">복습</span>}
+                          {isCurrent && <span className="lh-paw-action continue">이어하기</span>}
+                          {!enabled && <span className="lh-paw-lock">🔒</span>}
+                        </button>
+                      )
+                    })}
+                  </div>
+                )
+              })()}
             </section>
           )
         })()}
