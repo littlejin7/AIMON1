@@ -112,10 +112,18 @@
       "topic": "Handoff 상태 업데이트 반환",
       "question": "Handoff 패턴에서 researcher 에이전트가 작업 완료 후 다음 에이전트를 \"writer\"로 지정하는 key-value를 반환 딕셔너리에 추가합니다. 빈칸에 들어갈 코드를 작성하세요.",
       "code": "def researcher_handoff(state: AgentState) -> dict:\n    research_data = perform_research(state[\"query\"])\n    return {\n        \"research_data\": research_data,\n        _____  # next_agent를 \"writer\"로 설정\n    }",
-      "answer": "\"next_agent\": \"writer\"",
+      "answer": [
+        "\"next_agent\": \"writer\""
+      ],
       "feedback": {
         "correct": "정답! \"next_agent\": \"writer\"를 반환 딕셔너리에 포함하면, 라우터 함수가 state[\"next_agent\"]를 읽어 writer 에이전트로 자동 핸드오프합니다."
-      }
+      },
+      "code_template": "{slot1}",
+      "choices": [
+        "\"next_agent\": \"writer\"",
+        "await",
+        "async"
+      ]
     },
     {
       "question_id": "adv_u8_r010",
@@ -125,10 +133,18 @@
       "topic": "Supervisor 라우터 종료 처리",
       "question": "Supervisor/Worker 패턴에서 next_worker가 \"FINISH\"일 때 워크플로우를 종료해야 합니다. 빈칸에 올바른 종료 반환 코드를 작성하세요.",
       "code": "from langgraph.graph import END\n\ndef supervisor_router(state: SupervisorState) -> str:\n    next_worker = state.get(\"next_worker\", \"FINISH\")\n    if next_worker == \"FINISH\":\n        _____  # 워크플로우 종료\n    return next_worker",
-      "answer": "return END",
+      "answer": [
+        "return END"
+      ],
       "feedback": {
         "correct": "정답! return END를 사용하면 LangGraph가 워크플로우 실행을 정상 종료합니다. END는 langgraph.graph에서 임포트한 특수 종료 상수입니다."
-      }
+      },
+      "code_template": "{slot1}",
+      "choices": [
+        "await",
+        "async",
+        "return END"
+      ]
     },
     {
       "question_id": "adv_u8_r011",
@@ -138,10 +154,18 @@
       "topic": "태스크 리스트 병렬 실행",
       "question": "미리 생성한 태스크 리스트를 asyncio를 사용해 한 번에 병렬로 실행하려 합니다. 빈칸에 올바른 코드를 작성하세요.",
       "code": "import asyncio\n\nasync def run_all_searches(queries: list) -> list:\n    tasks = [search_tool(q) for q in queries]\n    # tasks 리스트의 모든 코루틴을 병렬 실행\n    results = await _____\n    return results",
-      "answer": "asyncio.gather(*tasks)",
+      "answer": [
+        "asyncio.gather(*tasks)"
+      ],
       "feedback": {
         "correct": "정답! asyncio.gather(*tasks)는 리스트를 언패킹(*tasks)하여 모든 코루틴을 동시에 실행합니다. 이 방식으로 여러 외부 도구를 병렬 호출해 전체 대기 시간을 최소화할 수 있습니다."
-      }
+      },
+      "code_template": "{slot1}",
+      "choices": [
+        "asyncio.gather(*tasks)",
+        "await",
+        "async"
+      ]
     },
     {
       "question_id": "adv_u8_r012",
@@ -151,10 +175,18 @@
       "topic": "에이전트 에러 복구 반환값",
       "question": "외부 API 호출 실패 시 에러 정보를 상태에 저장하는 에러 복구 패턴입니다. except 블록에서 에러 상태를 반환하는 코드를 빈칸에 작성하세요.",
       "code": "def resilient_agent_node(state: AgentState) -> dict:\n    try:\n        result = call_external_api(state[\"input\"])\n        return {\"output\": result, \"status\": \"success\", \"error\": None}\n    except Exception as e:\n        _____  # 에러 정보를 포함한 실패 상태 반환",
-      "answer": "return {\"output\": None, \"status\": \"failed\", \"error\": str(e)}",
+      "answer": [
+        "return {\"output\": None, \"status\": \"failed\", \"error\": str(e)}"
+      ],
       "feedback": {
         "correct": "정답! return {\"output\": None, \"status\": \"failed\", \"error\": str(e)}를 반환하면, 에러 정보를 상태에 기록하면서 워크플로우가 중단되지 않고 후속 노드에서 에러를 처리할 수 있습니다."
-      }
+      },
+      "code_template": "{slot1}",
+      "choices": [
+        "return {\"output\": None, \"status\": \"failed\", \"error\": str(e)}",
+        "async",
+        "await"
+      ]
     },
     {
       "question_id": "adv_u8_r013",
@@ -164,10 +196,18 @@
       "topic": "LangGraph 노드 상태 부분 업데이트 반환",
       "question": "LangGraph 노드 함수는 변경된 상태 필드만 딕셔너리로 반환해야 합니다. step_count를 new_count로 업데이트하는 반환값 코드를 빈칸에 작성하세요.",
       "code": "def step_tracker_node(state: PipelineState) -> dict:\n    new_count = state[\"step_count\"] + 1\n    print(f\"[PIPELINE] 현재 단계: \" + str(new_count))\n    _____  # step_count만 업데이트하여 반환",
-      "answer": "return {\"step_count\": new_count}",
+      "answer": [
+        "return {\"step_count\": new_count}"
+      ],
       "feedback": {
         "correct": "정답! LangGraph 노드는 변경된 필드만 포함한 딕셔너리를 반환합니다. return {\"step_count\": new_count}처럼 필요한 키만 반환하면, 나머지 상태 필드는 자동으로 유지됩니다."
-      }
+      },
+      "code_template": "{slot1}",
+      "choices": [
+        "async",
+        "return {\"step_count\": new_count}",
+        "await"
+      ]
     },
     {
       "question_id": "adv_u8_r014",
@@ -177,10 +217,18 @@
       "topic": "MemorySaver 체크포인터 적용 컴파일",
       "question": "LangGraph 워크플로우에 MemorySaver 체크포인터를 적용해 상태 영속성을 활성화하려 합니다. 빈칸에 컴파일 코드를 작성하세요.",
       "code": "from langgraph.graph import StateGraph, END\nfrom langgraph.checkpoint.memory import MemorySaver\n\ngraph = StateGraph(WorkflowState)\ngraph.add_node(\"process\", process_fn)\ngraph.set_entry_point(\"process\")\ngraph.add_edge(\"process\", END)\n\nmemory = MemorySaver()\n_____  # MemorySaver를 체크포인터로 사용해 그래프를 컴파일하세요",
-      "answer": "app = graph.compile(checkpointer=memory)",
+      "answer": [
+        "app = graph.compile(checkpointer=memory)"
+      ],
       "feedback": {
         "correct": "정답! app = graph.compile(checkpointer=memory)처럼 MemorySaver 인스턴스를 checkpointer 인자로 전달하면, thread_id별로 상태가 저장되어 에러 복구와 실행 이력 관리가 가능합니다."
-      }
+      },
+      "code_template": "{slot1}",
+      "choices": [
+        "async",
+        "app = graph.compile(checkpointer=memory)",
+        "await"
+      ]
     },
     {
       "question_id": "adv_u8_r015",
@@ -190,10 +238,18 @@
       "topic": "create_task를 사용한 병렬 노드 실행",
       "question": "두 에이전트를 asyncio.create_task로 미리 예약한 뒤 동시에 실행하고, 결과를 언패킹합니다. 빈칸에 두 태스크를 병렬 실행하는 코드를 작성하세요.",
       "code": "import asyncio\n\nasync def parallel_worker_node(state: WorkflowState) -> dict:\n    search_task = asyncio.create_task(search_agent(state[\"query\"]))\n    analyze_task = asyncio.create_task(analyze_agent(state[\"data\"]))\n    # 두 태스크를 동시에 실행하고 결과를 언패킹\n    search_result, analyze_result = _____\n    return {\"search\": search_result, \"analysis\": analyze_result}",
-      "answer": "await asyncio.gather(search_task, analyze_task)",
+      "answer": [
+        "await asyncio.gather(search_task, analyze_task)"
+      ],
       "feedback": {
         "correct": "정답! await asyncio.gather(search_task, analyze_task)는 두 태스크를 동시에 실행하고 완료되면 결과를 순서대로 반환합니다. create_task로 미리 예약했으므로 gather 호출 시점에 이미 실행 중인 태스크를 기다립니다."
-      }
+      },
+      "code_template": "{slot1}",
+      "choices": [
+        "async",
+        "await asyncio.gather(search_task, analyze_task)",
+        "await"
+      ]
     }
   ]
 }

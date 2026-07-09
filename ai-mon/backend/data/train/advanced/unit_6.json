@@ -28,16 +28,25 @@
     },
     {
       "question_id": "adv_u6_r003",
-      "type": "code_input",
+      "type": "code_multi_input",
       "difficulty": "hard",
       "unit": "6",
       "concept": "Action-Observation 루프 - run 메서드 전체 흐름 구현",
       "question": "'ReActLoop'의 'run' 메서드 본문을 작성하세요. 'max_steps'만큼 반복하며, 액션 타입이 '\"finish\"'이면 즉시 결과를 반환합니다. 루프가 모두 소진되면 '\"최대 스텝 초과\"'를 반환합니다.",
       "code": "class ReActLoop:\n    def __init__(self, tools: dict, max_steps: int = 10):\n        self.tools = tools\n        self.max_steps = max_steps\n        self.history = []\n\n    def run(self, task: str) -> str:\n        _____",
-      "answer": "for step in range(self.max_steps):\n            action = self._plan(task, self.history)\n            if action[\"type\"] == \"finish\":\n                return action[\"output\"]\n            tool_fn = self.tools[action[\"tool\"]]\n            obs = tool_fn(action[\"input\"])\n            self.history.append({\"step\": step, \"obs\": obs})\n        return \"최대 스텝 초과\"",
+      "answer": [
+        "return",
+        "action[\"output\"]"
+      ],
       "feedback": {
         "correct": "정답! 'range(self.max_steps)'로 반복 횟수를 제한하고, 'action[\"type\"] == \"finish\"' 조건으로 조기 종료합니다. 각 스텝의 액션과 관찰 결과를 'self.history'에 누적하며, 루프 소진 시 '\"최대 스텝 초과\"'를 반환합니다."
-      }
+      },
+      "code_template": "for step in range(self.max_steps):\n            action = self._plan(task, self.history)\n            if action[\"type\"] == \"finish\":\n                {slot1} {slot2}\n            tool_fn = self.tools[action[\"tool\"]]\n            obs = tool_fn(action[\"input\"])\n            self.history.append({\"step\": step, \"obs\": obs})\n        return \"최대 스텝 초과\"",
+      "choices": [
+        "await",
+        "return",
+        "action[\"output\"]"
+      ]
     },
     {
       "question_id": "adv_u6_r004",
@@ -67,16 +76,29 @@
     },
     {
       "question_id": "adv_u6_r006",
-      "type": "code_input",
+      "type": "code_multi_input",
       "difficulty": "hard",
       "unit": "6",
       "concept": "JSON 스키마 - 전체 오류 수집 (Draft7Validator)",
       "question": "'Draft7Validator'를 활용해 도구 입력값의 모든 스키마 위반 메시지를 리스트로 수집하는 'collect_schema_violations' 함수의 본문을 작성하세요.",
       "code": "import jsonschema\n\ndef collect_schema_violations(data: dict, schema: dict) -> list:\n    _____",
-      "answer": "validator = jsonschema.Draft7Validator(schema)\n    return [error.message for error in validator.iter_errors(data)]",
+      "answer": [
+        "return",
+        "[error.message",
+        "for",
+        "error in validator.iter_errors(data)]"
+      ],
       "feedback": {
         "correct": "정답! 'Draft7Validator(schema).iter_errors(data)'는 모든 검증 오류를 이터레이터로 반환합니다. 'validate()'와 달리 첫 번째 오류에서 멈추지 않으므로 전체 오류 목록을 한 번에 수집할 수 있습니다."
-      }
+      },
+      "code_template": "validator = jsonschema.Draft7Validator(schema)\n    {slot1} {slot2} {slot3} {slot4}",
+      "choices": [
+        "error in validator.iter_errors(data)]",
+        "return",
+        "await",
+        "[error.message",
+        "for"
+      ]
     },
     {
       "question_id": "adv_u6_r007",
@@ -106,16 +128,29 @@
     },
     {
       "question_id": "adv_u6_r009",
-      "type": "code_input",
+      "type": "code_multi_input",
       "difficulty": "hard",
       "unit": "6",
       "concept": "에이전트 상태 영속성 - 체크포인트 복원",
       "question": "체크포인트 파일이 있으면 해당 파일에서 상태를 불러오고, 없으면 초기 상태 '{\"step\": 0, \"messages\": [], \"completed\": False}'를 반환하는 'resume_from_checkpoint' 함수의 본문을 작성하세요.",
       "code": "import json, os\n\ndef resume_from_checkpoint(checkpoint_path: str) -> dict:\n    _____",
-      "answer": "if not os.path.exists(checkpoint_path):\n        return {\"step\": 0, \"messages\": [], \"completed\": False}\n    with open(checkpoint_path, \"r\", encoding=\"utf-8\") as f:\n        return json.load(f)",
+      "answer": [
+        "return",
+        "{\"step\":",
+        "0,",
+        "\"messages\": [], \"completed\": False}"
+      ],
       "feedback": {
         "correct": "정답! 'os.path.exists()'로 파일 존재 여부를 먼저 확인합니다. 파일이 없으면 초기 상태를 반환하고, 있으면 'json.load(f)'로 저장된 상태를 복원합니다."
-      }
+      },
+      "code_template": "if not os.path.exists(checkpoint_path):\n        {slot1} {slot2} {slot3} {slot4}\n    with open(checkpoint_path, \"r\", encoding=\"utf-8\") as f:\n        return json.load(f)",
+      "choices": [
+        "0,",
+        "await",
+        "{\"step\":",
+        "return",
+        "\"messages\": [], \"completed\": False}"
+      ]
     },
     {
       "question_id": "adv_u6_r010",
@@ -145,16 +180,29 @@
     },
     {
       "question_id": "adv_u6_r012",
-      "type": "code_input",
+      "type": "code_multi_input",
       "difficulty": "hard",
       "unit": "6",
       "concept": "컨텍스트 관리 - 시스템 메시지 보존 + 최신 메시지 유지",
       "question": "role이 '\"system\"'인 메시지는 반드시 보존하고, 나머지는 'max_messages' 한도 내에서 가장 최신 메시지만 유지하는 'smart_context_trim' 함수의 본문을 작성하세요.",
       "code": "def smart_context_trim(messages: list, max_messages: int) -> list:\n    _____",
-      "answer": "system = [m for m in messages if m[\"role\"] == \"system\"]\n    others = [m for m in messages if m[\"role\"] != \"system\"]\n    keep = max(0, max_messages - len(system))\n    return system + others[-keep:] if keep > 0 else system",
+      "answer": [
+        "return",
+        "system",
+        "+",
+        "others[-keep:] if keep > 0 else system"
+      ],
       "feedback": {
         "correct": "정답! 시스템 메시지를 먼저 분리해 보존하고, 나머지는 'max_messages - len(system)' 개수만큼 최신 순으로 유지합니다. 'keep'이 0 이하면 시스템 메시지만 반환합니다."
-      }
+      },
+      "code_template": "system = [m for m in messages if m[\"role\"] == \"system\"]\n    others = [m for m in messages if m[\"role\"] != \"system\"]\n    keep = max(0, max_messages - len(system))\n    {slot1} {slot2} {slot3} {slot4}",
+      "choices": [
+        "return",
+        "+",
+        "await",
+        "others[-keep:] if keep > 0 else system",
+        "system"
+      ]
     },
     {
       "question_id": "adv_u6_r013",
@@ -184,16 +232,25 @@
     },
     {
       "question_id": "adv_u6_r015",
-      "type": "code_input",
+      "type": "code_multi_input",
       "difficulty": "hard",
       "unit": "6",
       "concept": "재귀적 도구 호출 - 서킷 브레이커 패턴",
       "question": "연속 실패 횟수가 'threshold'에 도달하면 'is_open = True'로 전환해 이후 도구 호출을 차단하는 'call' 메서드의 본문을 작성하세요. 서킷이 열려 있으면 'RuntimeError'를 발생시키고, 성공 시 실패 카운터를 0으로 초기화합니다.",
       "code": "class ToolCircuitBreaker:\n    def __init__(self, failure_threshold: int = 3):\n        self.failures = 0\n        self.threshold = failure_threshold\n        self.is_open = False\n\n    def call(self, tool_fn, *args):\n        _____",
-      "answer": "if self.is_open:\n            raise RuntimeError(\"Circuit breaker OPEN: 도구 호출 차단됨\")\n        try:\n            result = tool_fn(*args)\n            self.failures = 0\n            return result\n        except Exception:\n            self.failures += 1\n            if self.failures >= self.threshold:\n                self.is_open = True\n            raise",
+      "answer": [
+        "return",
+        "result"
+      ],
       "feedback": {
         "correct": "정답! 서킷이 열려 있으면 즉시 'RuntimeError'를 발생시킵니다. 성공 시 'self.failures = 0'으로 초기화하고, 실패 시 카운터를 증가시켜 'threshold'에 도달하면 'is_open = True'로 전환해 이후 호출을 차단합니다."
-      }
+      },
+      "code_template": "if self.is_open: raise RuntimeError(\"Circuit breaker OPEN: 도구 호출 차단됨\")\n        try:\n            result = tool_fn(*args)\n            self.failures = 0\n            {slot1} {slot2}\n        except Exception:\n            self.failures += 1\n            if self.failures >= self.threshold:\n                self.is_open = True\n            raise",
+      "choices": [
+        "result",
+        "await",
+        "return"
+      ]
     }
   ]
 }

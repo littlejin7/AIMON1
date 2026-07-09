@@ -165,16 +165,25 @@
       "stage": "8-1",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "아래 조건에 맞게 파이프라인 코드를 작성하세요.\n\n```python\n조건:\n\n- make_pipeline(*steps): steps를 순서대로 실행하는 run 함수를 반환\n- step_add(state): state['val']에 5를 더해 반환\n- step_double(state): state['val']을 2배로 만들어 반환\n- make_pipeline(step_add, step_double)로 파이프라인 생성\n- {'val': 3}으로 실행하여 result['val'] 출력\n# 출력 목표:\n16\n```",
-      "answer": "def make_pipeline(*steps):\n    def run(state):\n        for step in steps:\n            state = step(state)\n        return state\n    return run\n\ndef step_add(state):\n    state['val'] = state['val'] + 5\n    return state\n\ndef step_double(state):\n    state['val'] = state['val'] * 2\n    return state\n\npipeline = make_pipeline(step_add, step_double)\nresult = pipeline({'val': 3})\nprint(result['val'])",
+      "answer": [
+        "return",
+        "state"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! make_pipeline은 팩토리 함수 → def run(state) → for step in steps 3단계 구조입니다. val=3에 step_add(+5)를 적용하면 8, step_double(×2)를 적용하면 16이 됩니다. return run(함수 객체 반환)과 return run()(즉시 호출)의 차이에 주의하세요. 각 step 함수는 state를 받아 수정 후 반환하는 파이프라인 단계 패턴을 따릅니다. 클리어!"
       },
-      "expected_output": "16\n"
+      "expected_output": "16\n",
+      "code_template": "def make_pipeline(*steps):\n    def run(state):\n        for step in steps:\n            state = step(state)\n        {slot1} {slot2}\n    return run\n\ndef step_add(state):\n    state['val'] = state['val'] + 5\n    return state",
+      "choices": [
+        "return",
+        "await",
+        "state"
+      ]
     },
     {
       "question_id": "miniboss_adv_fib_8_2_001",
@@ -341,16 +350,23 @@
       "stage": "8-2",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "아래 조건에 맞게 simulate_agent 코드를 작성하세요.\n\n```python\n조건:\n\n- simulate_agent(user_input, tools_dict) 함수 정의\n- '[입력] ' + user_input 출력\n- tools_dict의 tool_name이 user_input에 포함되면 해당 도구 실행\n- '[선택] 도구: ' + tool_name 출력\n- '[결과] ' + result 출력\n- '[출력] ' + result + '를 바탕으로 답변 완료' 출력 후 return\n# - 해당 도구 없으면 '[출력] 도구 없이 직접 답변' 출력\n```python\n# - search 함수: 'AI 뉴스' 반환\n# - simulate_agent('search: 오늘 뉴스', {'search': search}) 호출\n```\n\n# 출력 목표:\n```python\n# [입력] search: 오늘 뉴스\n# [선택] 도구: search\n# [결과] AI 뉴스\n```\n# [출력] AI 뉴스를 바탕으로 답변 완료\n```",
-      "answer": "def simulate_agent(user_input, tools_dict):\n    print('[입력] ' + user_input)\n    for tool_name, tool_func in tools_dict.items():\n        if tool_name in user_input:\n            print('[선택] 도구: ' + tool_name)\n            result = tool_func(user_input)\n            print('[결과] ' + result)\n            print('[출력] ' + result + '를 바탕으로 답변 완료')\n            return\n    print('[출력] 도구 없이 직접 답변')\n\ndef search(query):\n    return 'AI 뉴스'\n\nsimulate_agent('search: 오늘 뉴스', {'search': search})",
+      "answer": [
+        "return"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! simulate_agent는 AgentExecutor의 핵심 동작을 모사합니다. tools_dict를 순회해 tool_name in user_input으로 도구를 선택하고, tool_func(user_input)으로 실행한 뒤 결과를 출력하고 return합니다. [출력] 줄은 에이전트가 최종 답변을 생성하는 단계를 표현합니다. 실제 AgentExecutor도 이 흐름(입력 → 도구 선택 → 도구 실행 → 최종 답변)으로 동작합니다. 클리어!"
       },
-      "expected_output": "[입력] search: 오늘 뉴스\n[선택] 도구: search\n[결과] AI 뉴스\n[출력] AI 뉴스를 바탕으로 답변 완료\n"
+      "expected_output": "[입력] search: 오늘 뉴스\n[선택] 도구: search\n[결과] AI 뉴스\n[출력] AI 뉴스를 바탕으로 답변 완료\n",
+      "code_template": "            print('[선택] 도구: ' + tool_name)\n            result = tool_func(user_input)\n            print('[결과] ' + result)\n            print('[출력] ' + result + '를 바탕으로 답변 완료')\n            {slot1}\n    print('[출력] 도구 없이 직접 답변')\n\ndef search(query):\n    return 'AI 뉴스'\n",
+      "choices": [
+        "await",
+        "return"
+      ]
     },
     {
       "question_id": "miniboss_adv_fib_8_3_001",
@@ -517,16 +533,23 @@
       "stage": "8-3",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "아래 조건에 맞게 Monitor 클래스를 작성하세요.\n\n```python\n조건:\n\n- Monitor(threshold): 임계치 저장, alerts 빈 리스트 초기화\n- check(value, label): value > threshold면 '[경고] {label}: {value} > {threshold}' 출력 후 alerts에 추가, 아니면 '[정상] {label}: {value}' 출력\n- summary(): '총 {len(alerts)}건 경고 발생' 출력\n- Monitor(threshold=80)으로 생성, check 4회 호출 후 summary 실행\n# 출력 목표:\n```python\n# [정상] CPU 사용률(%): 65\n# [경고] 메모리 사용률(%): 92 > 80\n```\n# [정상] 디스크 사용률(%): 78\n# [경고] API 응답시간(ms): 95 > 80\n# 총 2건 경고 발생\n```",
-      "answer": "class Monitor:\n    def __init__(self, threshold):\n        self.threshold = threshold\n        self.alerts = []\n\n    def check(self, value, label):\n        if value > self.threshold:\n            msg = '[경고] ' + label + ': ' + str(value) + ' > ' + str(self.threshold)\n            self.alerts.append(msg)\n            print(msg)\n        else:\n            print('[정상] ' + label + ': ' + str(value))\n\n    def summary(self):\n        print('총 ' + str(len(self.alerts)) + '건 경고 발생')\n\nm = Monitor(threshold=80)\nm.check(65, 'CPU 사용률(%)')\nm.check(92, '메모리 사용률(%)')\nm.check(78, '디스크 사용률(%)')\nm.check(95, 'API 응답시간(ms)')\nm.summary()",
+      "answer": [
+        "m.summary()"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! Monitor는 조건 기반 자동화의 핵심 패턴입니다. check에서 value > threshold 비교로 경고 여부를 결정하고, msg를 alerts 리스트에 누적합니다. summary에서 len(self.alerts)로 총 경고 건수를 출력합니다. 80 초과인 92와 95만 경고이므로 총 2건이 됩니다. 클리어!"
       },
-      "expected_output": "[정상] CPU 사용률(%): 65\n[경고] 메모리 사용률(%): 92 > 80\n[정상] 디스크 사용률(%): 78\n[경고] API 응답시간(ms): 95 > 80\n총 2건 경고 발생\n"
+      "expected_output": "[정상] CPU 사용률(%): 65\n[경고] 메모리 사용률(%): 92 > 80\n[정상] 디스크 사용률(%): 78\n[경고] API 응답시간(ms): 95 > 80\n총 2건 경고 발생\n",
+      "code_template": "\n    def summary(self):\n        print('총 ' + str(len(self.alerts)) + '건 경고 발생')\n\nm = Monitor(threshold=80)\nm.check(65, 'CPU 사용률(%)')\nm.check(92, '메모리 사용률(%)')\nm.check(78, '디스크 사용률(%)')\nm.check(95, 'API 응답시간(ms)')\n{slot1}",
+      "choices": [
+        "m.summary()",
+        "await"
+      ]
     },
     {
       "question_id": "miniboss_adv_fib_8_4_001",
@@ -693,16 +716,29 @@
       "stage": "8-4",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "아래 조건에 맞게 safe_fetch 함수를 작성하세요.\n\n```python\n조건:\n\n- safe_fetch(url: str) -> str 함수 정의\n- allowed = ['api.example.com', 'data.mysite.com']\n- '//' 포함 시 url.split('/')[2]로 domain 추출, 아니면 url 그대로 사용\n- any()로 allowed 중 하나라도 domain에 포함되면 '[성공] {url}: 데이터 200건 수신' 반환\n# - 아니면 '[차단] {url}: 허가되지 않은 도메인' 반환\n# - safe_fetch 2회 호출\n\n# 출력 목표:\n```python\n# [성공] https://api.example.com/news: 데이터 200건 수신\n# [차단] https://blocked.site.com/data: 허가되지 않은 도메인\n```\n```",
-      "answer": "def safe_fetch(url):\n    allowed = ['api.example.com', 'data.mysite.com']\n    domain = url.split('/')[2] if '//' in url else url\n    if any(a in domain for a in allowed):\n        return '[성공] ' + url + ': 데이터 200건 수신'\n    return '[차단] ' + url + ': 허가되지 않은 도메인'\n\nprint(safe_fetch('https://api.example.com/news'))\nprint(safe_fetch('https://blocked.site.com/data'))",
+      "answer": [
+        "return",
+        "'[성공]",
+        "'",
+        "+ url + ': 데이터 200건 수신'"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! 핵심은 url.split('/')[2]로 도메인을 추출하고 any(a in domain for a in allowed)로 화이트리스트를 확인하는 것입니다. '//' in url 조건으로 일반 URL과 도메인만 있는 경우를 구분합니다. any()는 allowed 리스트를 순회해 하나라도 domain에 포함되면 True를 반환합니다. 이 패턴으로 에이전트가 승인된 API만 호출하도록 제한할 수 있습니다. 클리어!"
       },
-      "expected_output": "[성공] https://api.example.com/news: 데이터 200건 수신\n[차단] https://blocked.site.com/data: 허가되지 않은 도메인\n"
+      "expected_output": "[성공] https://api.example.com/news: 데이터 200건 수신\n[차단] https://blocked.site.com/data: 허가되지 않은 도메인\n",
+      "code_template": "def safe_fetch(url):\n    allowed = ['api.example.com', 'data.mysite.com']\n    domain = url.split('/')[2] if '//' in url else url\n    if any(a in domain for a in allowed):\n        {slot1} {slot2} {slot3} {slot4}\n    return '[차단] ' + url + ': 허가되지 않은 도메인'\n\nprint(safe_fetch('https://api.example.com/news'))\nprint(safe_fetch('https://blocked.site.com/data'))",
+      "choices": [
+        "'[성공]",
+        "return",
+        "+ url + ': 데이터 200건 수신'",
+        "'",
+        "await"
+      ]
     },
     {
       "question_id": "miniboss_adv_fib_8_5_001",
@@ -869,16 +905,29 @@
       "stage": "8-5",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "아래 조건에 맞게 Agent와 Orchestrator 클래스를 작성하세요.\n\n```python\n조건:\n\n- Agent(name, keyword): can_handle(task)는 keyword in task 반환, run(task)는 '[{name}] 완료' 반환\n- Orchestrator(agents): dispatch(task)는 '[작업] {task}' 출력 후 can_handle이 True인 첫 에이전트 run 결과를 '  → {result}' 출력, 없으면 '  → 처리 가능한 에이전트 없음' 출력\n- agents = [Agent('검색봇','검색'), Agent('분석봇','분석')]\n- dispatch 2회 호출\n# 출력 목표:\n# [작업] 뉴스 검색 실행\n# → [검색봇] 완료\n# [작업] 번역 요청\n# → 처리 가능한 에이전트 없음\n```",
-      "answer": "class Agent:\n    def __init__(self, name, keyword):\n        self.name = name\n        self.keyword = keyword\n    def can_handle(self, task):\n        return self.keyword in task\n    def run(self, task):\n        return '[' + self.name + '] 완료'\n\nclass Orchestrator:\n    def __init__(self, agents):\n        self.agents = agents\n    def dispatch(self, task):\n        print('[작업] ' + task)\n        for agent in self.agents:\n            if agent.can_handle(task):\n                result = agent.run(task)\n                print('  → ' + result)\n                return result\n        print('  → 처리 가능한 에이전트 없음')\n        return None\n\nagents = [Agent('검색봇', '검색'), Agent('분석봇', '분석')]\norch = Orchestrator(agents)\norch.dispatch('뉴스 검색 실행')\norch.dispatch('번역 요청')",
+      "answer": [
+        "return",
+        "self.keyword",
+        "in",
+        "task"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! 오케스트레이터-워커 패턴의 핵심입니다. dispatch에서 agents를 for 루프로 순회해 can_handle이 True인 첫 에이전트를 찾으면 run을 호출하고 즉시 return합니다. 루프가 끝날 때까지 처리 가능한 에이전트가 없으면 '처리 가능한 에이전트 없음'을 출력합니다. 이 패턴으로 전문화된 에이전트들이 각자 담당 작업만 처리하는 멀티 에이전트 시스템을 구축합니다. 클리어!"
       },
-      "expected_output": "[작업] 뉴스 검색 실행\n  → [검색봇] 완료\n[작업] 번역 요청\n  → 처리 가능한 에이전트 없음\n"
+      "expected_output": "[작업] 뉴스 검색 실행\n  → [검색봇] 완료\n[작업] 번역 요청\n  → 처리 가능한 에이전트 없음\n",
+      "code_template": "    def __init__(self, name, keyword):\n        self.name = name\n        self.keyword = keyword\n    def can_handle(self, task):\n        {slot1} {slot2} {slot3} {slot4}\n    def run(self, task):\n        return '[' + self.name + '] 완료'\n\nclass Orchestrator:\n    def __init__(self, agents):",
+      "choices": [
+        "self.keyword",
+        "return",
+        "task",
+        "in",
+        "await"
+      ]
     },
     {
       "question_id": "miniboss_adv_fib_8_6_001",
@@ -1045,15 +1094,24 @@
       "stage": "8-6",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "아래 조건에 맞게 analyze_articles 함수를 작성하세요.\n\n```python\n조건:\n\n- analyze_articles(articles: list) -> dict\n- keywords 딕셔너리에 4글자 초과(len > 3) 단어의 빈도 집계\n- sorted(keywords.items(), key=lambda x: x[1], reverse=True)[:3]으로 상위 3개 추출\n- 반환: {'total': len(articles), 'top_keywords': [k for k,v in top], 'summary': '총 N건 분석 — 핵심 주제: 상위키워드'}\n# - 3개 기사로 테스트 후 요약과 상위 키워드 출력\n\n# 출력 목표:\n```python\n# 요약: 총 3건 분석 — 핵심 주제: 인공지능\n# 상위 키워드: ['인공지능', '에이전트', '파이프라인']\n```\n```",
-      "answer": "def analyze_articles(articles):\n    keywords = {}\n    for article in articles:\n        words = article['title'].split()\n        for word in words:\n            if len(word) > 3:\n                keywords[word] = keywords.get(word, 0) + 1\n    top = sorted(keywords.items(), key=lambda x: x[1], reverse=True)[:3]\n    return {\n        'total': len(articles),\n        'top_keywords': [k for k, v in top],\n        'summary': '총 ' + str(len(articles)) + '건 분석 — 핵심 주제: ' + top[0][0]\n    }\n\nsample = [\n    {'title': '인공지능 에이전트 동향과 트렌드'},\n    {'title': '인공지능 파이프라인 설계 패턴'},\n    {'title': 'LangChain 에이전트 프레임워크 업데이트'},\n]\nresult = analyze_articles(sample)\nprint('요약: ' + result['summary'])\nprint('상위 키워드: ' + str(result['top_keywords']))",
+      "answer": [
+        "return",
+        "{"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! analyze_articles의 핵심은 3단계입니다: ① len(word) > 3 조건으로 의미 있는 단어만 집계, ② keywords.get(word, 0) + 1로 빈도 누적, ③ sorted(items, key=lambda x: x[1], reverse=True)[:3]으로 상위 키워드 추출. '인공지능'과 '에이전트'는 각각 2회 등장해 공동 1위이고, Python의 stable sort로 먼저 삽입된 '인공지능'이 앞섭니다. 클리어!"
-      }
+      },
+      "code_template": "        for word in words:\n            if len(word) > 3:\n                keywords[word] = keywords.get(word, 0) + 1\n    top = sorted(keywords.items(), key=lambda x: x[1], reverse=True)[:3]\n    {slot1} {slot2}\n        'total': len(articles),\n        'top_keywords': [k for k, v in top],\n        'summary': '총 ' + str(len(articles)) + '건 분석 — 핵심 주제: ' + top[0][0]\n    }\n",
+      "choices": [
+        "await",
+        "{",
+        "return"
+      ]
     }
   ]
 }

@@ -155,16 +155,22 @@
       "stage": "8-boss",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "도구 레지스트리에서 이름으로 함수를 찾아 실행하는 한 줄을 완성하세요.\n\n```python\ntools = {\n    \"add\": lambda a, b: a + b,\n    \"multiply\": lambda a, b: a * b\n}\n\ndef run_tool(name, **kwargs):\n    return _______\n\nprint(run_tool(\"add\", a=3, b=4))  # 7\n```",
-      "choices": [],
-      "answer": "tools[name](**kwargs)",
+      "choices": [
+        "await",
+        "tools[name](**kwargs)"
+      ],
+      "answer": [
+        "tools[name](**kwargs)"
+      ],
       "hint": "레지스트리에서 name으로 함수를 꺼내 kwargs를 언패킹해 호출하세요.",
       "feedback": {
         "correct": "정답! tools[name]으로 등록된 함수를 꺼내고 **kwargs로 키워드 인자를 언패킹해 호출합니다. 이 패턴이 멀티 에이전트에서 도구를 이름 기반으로 동적 실행하는 핵심입니다."
-      }
+      },
+      "code_template": "{slot1}"
     },
     {
       "question_id": "unitboss_adv_ci_8_010",
@@ -172,16 +178,22 @@
       "stage": "8-boss",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "에이전트 루프에서 Claude의 최종 텍스트 응답을 반환하는 stop_reason 값을 빈칸에 채우세요.\n\n```python\ndef agent_loop(client, tools, messages):\n    while True:\n        response = client.messages.create(\n            model=\"claude-haiku-4-5-20251001\",\n            max_tokens=1000,\n            tools=tools,\n            messages=messages\n        )\n        if response.stop_reason == ______:\n            return response.content[0].text\n        # 도구 처리 생략\n```",
-      "choices": [],
-      "answer": "\"end_turn\"",
+      "choices": [
+        "\"end_turn\"",
+        "await"
+      ],
+      "answer": [
+        "\"end_turn\""
+      ],
       "hint": "도구 사용이 끝나고 Claude가 최종 답변을 낼 때의 stop_reason입니다.",
       "feedback": {
         "correct": "정답! response.stop_reason == \"end_turn\"이면 Claude가 도구 없이 최종 답변을 반환하는 단계입니다. 이때 content[0].text를 꺼내 에이전트 루프를 종료합니다."
-      }
+      },
+      "code_template": "{slot1}"
     }
   ]
 }

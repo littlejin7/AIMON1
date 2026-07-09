@@ -702,16 +702,23 @@
       "stage": "7-1",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "Pydantic BaseModel로 Memo 모델을 정의하고 인스턴스를 생성해보세요.\n\n```python\n조건:\n\n- title: str (필수), content: str (기본값 \"\")\n- Memo(title=\"FastAPI 학습\") 생성\n- m.title, m.content, type(m.title).__name__ 순서대로 출력\n# 출력 목표:\n# FastAPI 학습\n\nstr\n```",
-      "answer": "from pydantic import BaseModel\n\nclass Memo(BaseModel):\n    title: str\n    content: str = \"\"\n\nm = Memo(title=\"FastAPI 학습\")\nprint(m.title)\nprint(m.content)\nprint(type(m.title).__name__)",
+      "answer": [
+        "print(type(m.title).__name__)"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! Pydantic BaseModel은 타입 힌트를 기반으로 자동으로 데이터 검증을 수행합니다. content는 기본값이 \"\"이므로 전달하지 않으면 빈 문자열이 되어 두 번째 줄이 비어 보여요. FastAPI는 이 모델을 요청 본문 파싱에 그대로 활용합니다. 클리어!"
       },
-      "expected_output": "FastAPI 학습\n\nstr\n"
+      "expected_output": "FastAPI 학습\n\nstr\n",
+      "code_template": "from pydantic import BaseModel\n\nclass Memo(BaseModel):\n    title: str\n    content: str = \"\"\n\nm = Memo(title=\"FastAPI 학습\")\nprint(m.title)\nprint(m.content)\n{slot1}",
+      "choices": [
+        "print(type(m.title).__name__)",
+        "await"
+      ]
     },
     {
       "question_id": "miniboss_adv_ci_7_1_010",
@@ -719,16 +726,25 @@
       "stage": "7-1",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "메모 조회 시 없는 id면 HTTPException을 발생시키는 get_memo 함수를 작성해보세요.\n조건:\n\n```python\n조건:\n\n- 없으면 HTTPException(status_code=404, detail=\"메모 없음\") 발생\n- get_memo(99) 호출 시 status_code와 detail 출력\n# 출력 목표:\n404\n# 메모 없음\n```",
-      "answer": "class HTTPException(Exception):\n    def __init__(self, status_code, detail):\n        self.status_code = status_code\n        self.detail = detail\n\nmemos = [{\"id\": 1, \"title\": \"학습\"}]\n\ndef get_memo(memo_id):\n    memo = next((m for m in memos if m[\"id\"] == memo_id), None)\n    if not memo:\n        raise HTTPException(status_code=404, detail=\"메모 없음\")\n    return memo\n\ntry:\n    get_memo(99)\nexcept HTTPException as e:\n    print(e.status_code)\n    print(e.detail)",
+      "answer": [
+        "return",
+        "memo"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! next(generator, None) 패턴은 조건에 맞는 첫 항목을 찾고 없으면 None을 반환합니다. None 체크 후 HTTPException을 발생시키는 것이 FastAPI의 표준 404 처리 방식이에요. 실제 FastAPI에서는 raise HTTPException 하나로 자동으로 JSON 오류 응답이 생성됩니다. 클리어!"
       },
-      "expected_output": "404\n메모 없음\n"
+      "expected_output": "404\n메모 없음\n",
+      "code_template": "\ndef get_memo(memo_id):\n    memo = next((m for m in memos if m[\"id\"] == memo_id), None)\n    if not memo: raise HTTPException(status_code=404, detail=\"메모 없음\")\n    {slot1} {slot2}\n\ntry:\n    get_memo(99)\nexcept HTTPException as e:\n    print(e.status_code)",
+      "choices": [
+        "await",
+        "memo",
+        "return"
+      ]
     },
     {
       "question_id": "miniboss_adv_ci_7_2_009",
@@ -736,16 +752,31 @@
       "stage": "7-2",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "멀티턴 대화를 위한 Turn 클래스를 구현하고 메시지 목록을 만들어보세요.\n\n```python\n조건:\n\n- Turn(role, content): dict() 메서드로 {\"role\": ..., \"content\": ...} 반환\n- user/assistant/user 순서로 3개 Turn 생성\n- len(messages)와 messages[0].dict() 출력\n# 출력 목표:\n3\n# {'role': 'user', 'content': '안녕하세요'}\n```",
-      "answer": "class Turn:\n    def __init__(self, role, content):\n        self.role = role\n        self.content = content\n\n    def dict(self):\n        return {\"role\": self.role, \"content\": self.content}\n\nmessages = [Turn(\"user\", \"안녕하세요\")]\nmessages.append(Turn(\"assistant\", \"안녕하세요! 무엇을 도와드릴까요?\"))\nmessages.append(Turn(\"user\", \"FastAPI 알려줘\"))\n\nprint(len(messages))\nprint(messages[0].dict())",
+      "answer": [
+        "return",
+        "{\"role\":",
+        "self.role,",
+        "\"content\":",
+        "self.content}"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! Turn 클래스는 대화 메시지 하나를 객체로 감싸 관리합니다. dict() 메서드로 Claude API가 요구하는 {role, content} 딕셔너리 형태로 변환할 수 있어요. [m.dict() for m in messages]로 API 전송용 리스트를 만드는 패턴이 실제 코드와 동일합니다. 클리어!"
       },
-      "expected_output": "3\n{'role': 'user', 'content': '안녕하세요'}\n"
+      "expected_output": "3\n{'role': 'user', 'content': '안녕하세요'}\n",
+      "code_template": "        self.role = role\n        self.content = content\n\n    def dict(self):\n        {slot1} {slot2} {slot3} {slot4} {slot5}\n\nmessages = [Turn(\"user\", \"안녕하세요\")]\nmessages.append(Turn(\"assistant\", \"안녕하세요! 무엇을 도와드릴까요?\"))\nmessages.append(Turn(\"user\", \"FastAPI 알려줘\"))\n",
+      "choices": [
+        "return",
+        "await",
+        "self.content}",
+        "self.role,",
+        "{\"role\":",
+        "\"content\":"
+      ]
     },
     {
       "question_id": "miniboss_adv_ci_7_2_010",
@@ -753,16 +784,29 @@
       "stage": "7-2",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "빈 메시지 리스트를 검증하는 call_claude 함수를 작성해보세요.\n조건:\n- messages가 비어있으면 ValueError(\"메시지가 비어 있습니다.\") 발생\n- 정상이면 \"응답: \" + 마지막 메시지의 content 반환\n- 정상 호출과 빈 리스트 호출 결과를 순서대로 출력\n\n출력 목표:\n응답: Python이란?\n메시지가 비어 있습니다.",
-      "answer": "def call_claude(messages):\n    if not messages:\n        raise ValueError(\"메시지가 비어 있습니다.\")\n    return \"응답: \" + messages[-1][\"content\"]\n\nmsgs = [{\"role\": \"user\", \"content\": \"Python이란?\"}]\nprint(call_claude(msgs))\n\ntry:\n    call_claude([])\nexcept ValueError as e:\n    print(e)",
+      "answer": [
+        "if",
+        "not",
+        "messages:",
+        "raise ValueError(\"메시지가 비어 있습니다.\")"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! if not messages: 는 빈 리스트일 때 True가 되어 즉시 ValueError를 발생시킵니다. FastAPI 엔드포인트에서 이 검증을 수행하면 빈 메시지로 Claude API를 호출해 422 오류가 나는 상황을 사전에 방지할 수 있어요. 클리어!"
       },
-      "expected_output": "응답: Python이란?\n메시지가 비어 있습니다.\n"
+      "expected_output": "응답: Python이란?\n메시지가 비어 있습니다.\n",
+      "code_template": "def call_claude(messages):\n    {slot1} {slot2} {slot3} {slot4}\n    return \"응답: \" + messages[-1][\"content\"]\n\nmsgs = [{\"role\": \"user\", \"content\": \"Python이란?\"}]\nprint(call_claude(msgs))\n\ntry:\n    call_claude([])\nexcept ValueError as e:",
+      "choices": [
+        "messages:",
+        "raise ValueError(\"메시지가 비어 있습니다.\")",
+        "not",
+        "await",
+        "if"
+      ]
     },
     {
       "question_id": "miniboss_adv_ci_7_3_009",
@@ -770,16 +814,23 @@
       "stage": "7-3",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "주어진 JSON 문자열을 json.loads()로 파싱하여 'title' 값을 출력해보세요.\n\n```python\nimport json\njson_str = '{\"title\": \"FastAPI 학습\"}'\n# 출력 목표:\n# FastAPI 학습\n```",
-      "answer": "import json\njson_str = '{\"title\": \"FastAPI 학습\"}'\nprint(json.loads(json_str)[\"title\"])",
+      "answer": [
+        "print(json.loads(json_str)[\"title\"])"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! fetch POST 요청에서 body: JSON.stringify(data)와 대응하는 Python 코드가 json.dumps()입니다. ensure_ascii=False를 설정해야 한글이 유니코드 이스케이프 없이 그대로 출력돼요. 서버에서 json.loads()로 다시 파싱하는 흐름이 프론트-백엔드 JSON 통신의 기본입니다. 클리어!"
       },
-      "expected_output": "FastAPI 학습\n"
+      "expected_output": "FastAPI 학습\n",
+      "code_template": "import json\njson_str = '{\"title\": \"FastAPI 학습\"}'\n{slot1}",
+      "choices": [
+        "await",
+        "print(json.loads(json_str)[\"title\"])"
+      ]
     },
     {
       "question_id": "miniboss_adv_ci_7_3_010",
@@ -787,16 +838,23 @@
       "stage": "7-3",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "ok가 False일 때 RuntimeError(detail)를 발생시키는 safe_fetch(ok, detail) 함수를 작성하고, 이 함수를 호출하여 예외 메시지 '메모 없음'을 출력해보세요.\n\n출력 목표:\n메모 없음",
-      "answer": "def safe_fetch(ok, detail):\n    if not ok:\n        raise RuntimeError(detail)\n\ntry:\n    safe_fetch(False, \"메모 없음\")\nexcept RuntimeError as e:\n    print(e)",
+      "answer": [
+        "print(e)"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! response.ok 체크 후 오류면 detail을 꺼내 예외를 발생시키는 패턴이 safeFetch의 핵심입니다. detail이 있으면 FastAPI의 오류 메시지를, 없으면 HTTP 상태 코드를 폴백으로 사용해요. try/catch로 예외를 잡아 사용자에게 보여주는 흐름까지 완성입니다. 클리어!"
       },
-      "expected_output": "메모 없음\n"
+      "expected_output": "메모 없음\n",
+      "code_template": "def safe_fetch(ok, detail):\n    if not ok:\n        raise RuntimeError(detail)\n\ntry:\n    safe_fetch(False, \"메모 없음\")\nexcept RuntimeError as e:\n    {slot1}",
+      "choices": [
+        "await",
+        "print(e)"
+      ]
     },
     {
       "question_id": "miniboss_adv_ci_7_4_009",
@@ -804,16 +862,23 @@
       "stage": "7-4",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "SQLAlchemy 인메모리 DB로 메모를 저장하고 조회해보세요.\n\n```python\n조건:\n\n- Memo 모델: id(Integer PK), title(String)\n- 두 개의 메모(\"FastAPI 학습\", \"SQLAlchemy\") 추가 후 commit\n- 전체 count와 id=1인 메모의 title 출력\n# 출력 목표:\n2\n# FastAPI 학습\n```",
-      "answer": "from sqlalchemy import create_engine, Column, Integer, String\nfrom sqlalchemy.orm import declarative_base, sessionmaker\n\nengine = create_engine(\"sqlite:///:memory:\")\nBase = declarative_base()\n\nclass Memo(Base):\n    __tablename__ = \"memos\"\n    id = Column(Integer, primary_key=True)\n    title = Column(String)\n\nBase.metadata.create_all(bind=engine)\ndb = sessionmaker(bind=engine)()\n\ndb.add(Memo(title=\"FastAPI 학습\"))\ndb.add(Memo(title=\"SQLAlchemy\"))\ndb.commit()\n\ncount = db.query(Memo).count()\nfirst = db.query(Memo).filter(Memo.id == 1).first()\nprint(count)\nprint(first.title)\ndb.close()",
+      "answer": [
+        "db.close()"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! sqlite:///:memory:는 파일 없이 메모리에서만 동작하는 테스트용 DB입니다. add() -> commit() -> query()의 흐름이 SQLAlchemy CRUD의 기본 패턴이에요. filter(Memo.id == 1).first()는 id가 1인 첫 번째 레코드를 반환하고 없으면 None을 반환합니다. 클리어!"
       },
-      "expected_output": "2\nFastAPI 학습\n"
+      "expected_output": "2\nFastAPI 학습\n",
+      "code_template": "\ndb.add(Memo(title=\"FastAPI 학습\"))\ndb.add(Memo(title=\"SQLAlchemy\"))\ndb.commit()\n\ncount = db.query(Memo).count()\nfirst = db.query(Memo).filter(Memo.id == 1).first()\nprint(count)\nprint(first.title)\n{slot1}",
+      "choices": [
+        "db.close()",
+        "await"
+      ]
     },
     {
       "question_id": "miniboss_adv_ci_7_4_010",
@@ -821,16 +886,23 @@
       "stage": "7-4",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "SQLAlchemy로 페이지네이션을 구현해보세요.\n\n```python\n조건:\n\n- Item 모델: id(Integer PK), name(String)\n- 항목1~항목5 저장 후 commit\n- skip=2, limit=2로 id 오름차순 조회\n- page = skip // limit + 1\n- \"페이지: {page}\" 출력 후 각 항목 name 출력\n# 출력 목표:\n# 페이지: 2\n# 항목3\n# 항목4\n```",
-      "answer": "from sqlalchemy import create_engine, Column, Integer, String\nfrom sqlalchemy.orm import declarative_base, sessionmaker\n\nengine = create_engine(\"sqlite:///:memory:\")\nBase = declarative_base()\n\nclass Item(Base):\n    __tablename__ = \"items\"\n    id = Column(Integer, primary_key=True)\n    name = Column(String)\n\nBase.metadata.create_all(bind=engine)\ndb = sessionmaker(bind=engine)()\n\nfor i in range(1, 6):\n    db.add(Item(name=f\"항목{i}\"))\ndb.commit()\n\nskip, limit = 2, 2\nitems = db.query(Item).order_by(Item.id).offset(skip).limit(limit).all()\npage = skip // limit + 1\nprint(f\"페이지: {page}\")\nfor item in items:\n    print(item.name)\ndb.close()",
+      "answer": [
+        "db.close()"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! offset(skip)은 앞에서 skip개를 건너뛰고, limit(limit)는 최대 limit개만 가져옵니다. skip=2, limit=2면 3번째와 4번째 항목(항목3, 항목4)이 반환돼요. page = skip // limit + 1 = 2 // 2 + 1 = 2가 현재 페이지 번호입니다. 클리어!"
       },
-      "expected_output": "페이지: 2\n항목3\n항목4\n"
+      "expected_output": "페이지: 2\n항목3\n항목4\n",
+      "code_template": "    db.add(Item(name=f\"항목{i}\"))\ndb.commit()\n\nskip, limit = 2, 2\nitems = db.query(Item).order_by(Item.id).offset(skip).limit(limit).all()\npage = skip // limit + 1\nprint(f\"페이지: {page}\")\nfor item in items:\n    print(item.name)\n{slot1}",
+      "choices": [
+        "await",
+        "db.close()"
+      ]
     },
     {
       "question_id": "miniboss_adv_ci_7_5_009",
@@ -838,16 +910,23 @@
       "stage": "7-5",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "asynccontextmanager로 lifespan 함수를 구현하고 실행 순서를 확인해보세요.\n조건:\n- log 리스트에 \"[시작] DB 초기화...\", \"[실행중] 요청 처리\", \"[종료] 서버 종료 정리...\" 순서로 추가\n- asyncio.run()으로 실행\n- log의 각 항목을 줄별로 출력\n\n출력 목표:\n[시작] DB 초기화...\n[실행중] 요청 처리\n[종료] 서버 종료 정리...",
-      "answer": "import asyncio\nfrom contextlib import asynccontextmanager\n\nlog = []\n\n@asynccontextmanager\nasync def lifespan(app):\n    log.append(\"[시작] DB 초기화...\")\n    yield\n    log.append(\"[종료] 서버 종료 정리...\")\n\nasync def simulate():\n    async with lifespan(None):\n        log.append(\"[실행중] 요청 처리\")\n    for entry in log:\n        print(entry)\n\nasyncio.run(simulate())",
+      "answer": [
+        "asyncio.run(simulate())"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! @asynccontextmanager + yield 패턴에서 yield 전이 startup, yield 후가 shutdown입니다. async with 블록 안이 서버 실행 중에 해당하므로 시작 -> 실행중 -> 종료 순서가 보장돼요. FastAPI에서 lifespan=lifespan으로 등록하면 이 패턴이 서버 생명주기에 자동으로 적용됩니다. 클리어!"
       },
-      "expected_output": "[시작] DB 초기화...\n[실행중] 요청 처리\n[종료] 서버 종료 정리...\n"
+      "expected_output": "[시작] DB 초기화...\n[실행중] 요청 처리\n[종료] 서버 종료 정리...\n",
+      "code_template": "    yield\n    log.append(\"[종료] 서버 종료 정리...\")\n\nasync def simulate():\n    async with lifespan(None):\n        log.append(\"[실행중] 요청 처리\")\n    for entry in log:\n        print(entry)\n\n{slot1}",
+      "choices": [
+        "asyncio.run(simulate())",
+        "await"
+      ]
     },
     {
       "question_id": "miniboss_adv_ci_7_5_010",
@@ -855,16 +934,25 @@
       "stage": "7-5",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "APIRouter와 FastAPI의 include_router를 시뮬레이션해보세요.\n\n```python\n조건:\n\n- APIRouter: prefix 저장, get(path) 데코레이터로 routes에 {method, path} 추가\n- FastAPI: include_router()로 라우터의 routes를 앱에 병합\n- prefix=\"/memos\"로 \"/\" 와 \"/{id}\" 두 경로 등록\n- len(app.routes)와 각 route의 path 출력\n# 출력 목표:\n2\n```python\n/memos/\n/memos/{id}\n```\n```",
-      "answer": "class APIRouter:\n    def __init__(self, prefix=\"\", tags=None):\n        self.prefix = prefix\n        self.tags = tags or []\n        self.routes = []\n\n    def get(self, path):\n        def decorator(func):\n            self.routes.append({\"method\": \"GET\", \"path\": self.prefix + path})\n            return func\n        return decorator\n\nclass FastAPI:\n    def __init__(self):\n        self.routes = []\n\n    def include_router(self, router):\n        self.routes.extend(router.routes)\n\nmemo_router = APIRouter(prefix=\"/memos\", tags=[\"memos\"])\n\n@memo_router.get(\"/\")\ndef list_memos(): pass\n\n@memo_router.get(\"/{id}\")\ndef get_memo(): pass\n\napp = FastAPI()\napp.include_router(memo_router)\n\nprint(len(app.routes))\nfor r in app.routes:\n    print(r[\"path\"])",
+      "answer": [
+        "return",
+        "func"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! APIRouter의 prefix와 개별 경로를 더하면 최종 URL이 됩니다. include_router()는 라우터의 모든 경로를 앱에 병합해요. 실제 FastAPI에서는 app.include_router(router, prefix=\"/v1\")처럼 등록 시점에 prefix를 추가할 수도 있습니다. 클리어!"
       },
-      "expected_output": "2\n/memos/\n/memos/{id}\n"
+      "expected_output": "2\n/memos/\n/memos/{id}\n",
+      "code_template": "\n    def get(self, path):\n        def decorator(func):\n            self.routes.append({\"method\": \"GET\", \"path\": self.prefix + path})\n            {slot1} {slot2}\n        return decorator\n\nclass FastAPI:\n    def __init__(self):\n        self.routes = []",
+      "choices": [
+        "func",
+        "await",
+        "return"
+      ]
     }
   ]
 }

@@ -159,12 +159,19 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "FastAPI 앱 인스턴스를 생성하는 한 줄을 완성하세요.\n\n```python\nfrom fastapi import FastAPI\n\napp = _______\nprint(type(app).__name__)  # FastAPI\n```",
-      "choices": [],
-      "answer": "FastAPI()",
+      "choices": [
+        "async",
+        "await",
+        "FastAPI()"
+      ],
+      "answer": [
+        "FastAPI()"
+      ],
       "hint": "FastAPI 클래스의 인스턴스를 생성합니다.",
       "feedback": {
         "correct": "정답! FastAPI()로 앱 인스턴스를 생성합니다. title, version, description 등 옵션을 전달할 수도 있지만 기본값만으로도 동작합니다."
-      }
+      },
+      "code_template": "from fastapi import FastAPI\n\napp = {slot1}\nprint(type(app).__name__)  # FastAPI\n"
     },
     {
       "question_id": "unitboss_adv_ci_7_010",
@@ -172,16 +179,22 @@
       "stage": "7-boss",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "'/messages' 경로로 POST 요청을 처리하는 라우트 데코레이터를 빈칸에 채우세요.\n\n```python\nfrom fastapi import FastAPI\napp = FastAPI()\n\n@app._______(\"/messages\")\nasync def create_message(body: dict):\n    return {\"received\": True}\n```",
-      "choices": [],
-      "answer": "post",
+      "choices": [
+        "post",
+        "await"
+      ],
+      "answer": [
+        "post"
+      ],
       "hint": "데이터를 서버로 생성/전송할 때 쓰는 HTTP 메서드 이름입니다.",
       "feedback": {
         "correct": "정답! @app.post(\"/messages\")는 /messages 경로로 오는 POST 요청을 create_message 함수에 연결합니다. 메시지 생성, 채팅 전송 등 데이터를 보낼 때 POST를 사용합니다."
-      }
+      },
+      "code_template": "{slot1}"
     }
   ]
 }

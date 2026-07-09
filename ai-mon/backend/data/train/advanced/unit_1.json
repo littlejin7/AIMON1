@@ -138,10 +138,18 @@
       "topic": "데코레이터(@)의 정의",
       "question": "빈칸을 채워 uppercase 데코레이터를 완성하세요. wrapper 내부에서 원본 함수를 호출하는 코드를 입력하면, 반환값이 모두 대문자로 변환되어 'HELLO, WORLD'가 출력됩니다.",
       "code": "def uppercase(func):\n    def wrapper(*args, **kwargs):\n        result = _____\n        return result.upper()\n    return wrapper\n\n@uppercase\ndef greet(name):\n    return f'hello, {name}'\n\nprint(greet('world'))  # HELLO, WORLD",
-      "answer": "func(*args, **kwargs)",
+      "answer": [
+        "func(*args, **kwargs)"
+      ],
       "feedback": {
         "correct": "정답! wrapper 안에서 원본 함수를 실행하려면 func(*args, **kwargs)를 호출해야 합니다. 반환된 문자열에 .upper()를 적용하면 'hello, world' → 'HELLO, WORLD'가 출력됩니다."
-      }
+      },
+      "code_template": "{slot1}",
+      "choices": [
+        "await",
+        "async",
+        "func(*args, **kwargs)"
+      ]
     },
     {
       "question_id": "adv_u1_r012",
@@ -151,10 +159,18 @@
       "topic": "클래스 기반 데코레이터",
       "question": "클래스 기반 데코레이터 Singleton을 완성하세요. 빈칸에 처음 호출 시 인스턴스를 생성해 저장하는 코드를 입력하면, 이후 호출 시 동일한 인스턴스가 반환되어 True가 출력됩니다.",
       "code": "class Singleton:\n    def __init__(self, cls):\n        self.cls = cls\n        self._instance = None\n\n    def __call__(self, *args, **kwargs):\n        if self._instance is None:\n            _____\n        return self._instance\n\n@Singleton\nclass Config:\n    def __init__(self):\n        self.debug = True\n\nc1 = Config()\nc2 = Config()\nprint(c1 is c2)  # True",
-      "answer": "self._instance = self.cls(*args, **kwargs)",
+      "answer": [
+        "self._instance = self.cls(*args, **kwargs)"
+      ],
       "feedback": {
         "correct": "정답! 처음 __call__ 호출 시 self._instance가 None이므로 self.cls(*args, **kwargs)로 인스턴스를 생성해 저장합니다. 이후 호출 시 이미 저장된 인스턴스를 반환하므로 c1 is c2가 True가 됩니다."
-      }
+      },
+      "code_template": "{slot1}",
+      "choices": [
+        "await",
+        "self._instance = self.cls(*args, **kwargs)",
+        "async"
+      ]
     },
     {
       "question_id": "adv_u1_r013",
@@ -164,10 +180,18 @@
       "topic": "yield를 사용한 제너레이터의 메모리 효율성",
       "question": "짝수만 걸러서 하나씩 생성하는 제너레이터 even_filter를 완성하세요. 빈칸에 알맞은 코드를 입력하면 [2, 4, 6]이 출력됩니다.",
       "code": "def even_filter(numbers):\n    for num in numbers:\n        if num % 2 == 0:\n            _____\n\ndata = [1, 2, 3, 4, 5, 6]\ngen = even_filter(data)\nprint(list(gen))  # [2, 4, 6]",
-      "answer": "yield num",
+      "answer": [
+        "yield num"
+      ],
       "feedback": {
         "correct": "정답! yield num은 짝수인 num을 호출자에게 하나씩 전달합니다. 제너레이터는 모든 값을 메모리에 저장하지 않고 필요할 때만 생성하므로 대용량 데이터 처리에 효율적입니다."
-      }
+      },
+      "code_template": "{slot1}",
+      "choices": [
+        "yield num",
+        "async",
+        "await"
+      ]
     },
     {
       "question_id": "adv_u1_r014",
@@ -177,10 +201,18 @@
       "topic": "__enter__와 __exit__을 활용한 컨텍스트 매니저 설계",
       "question": "실행 시간을 측정하는 컨텍스트 매니저 Timer를 완성하세요. __enter__의 빈칸에 시작 시간을 기록하는 코드를 입력하면, __exit__에서 경과 시간을 계산해 출력합니다.",
       "code": "import time\n\nclass Timer:\n    def __enter__(self):\n        _____\n        return self\n\n    def __exit__(self, *args):\n        self.elapsed = time.time() - self.start\n        print(f'실행 시간: {self.elapsed:.2f}초')\n        return False\n\nwith Timer() as t:\n    time.sleep(0.1)\n# 실행 시간: 0.10초 (근사값)",
-      "answer": "self.start = time.time()",
+      "answer": [
+        "self.start = time.time()"
+      ],
       "feedback": {
         "correct": "정답! __enter__에서 self.start = time.time()으로 진입 시각을 저장합니다. __exit__에서 time.time() - self.start로 경과 시간을 계산하므로, 빈칸이 없으면 self.start가 정의되지 않아 AttributeError가 발생합니다."
-      }
+      },
+      "code_template": "{slot1}",
+      "choices": [
+        "await",
+        "self.start = time.time()",
+        "async"
+      ]
     },
     {
       "question_id": "adv_u1_r015",
@@ -190,10 +222,18 @@
       "topic": "인수를 받는 데코레이터",
       "question": "호출 횟수를 제한하는 데코레이터 팩토리 limit_calls를 완성하세요. decorator 함수 끝의 빈칸에 적절한 코드를 입력하면 세 번째 호출에서 RuntimeError 메시지가 출력됩니다.",
       "code": "import functools\n\ndef limit_calls(max_calls):\n    def decorator(func):\n        count = 0\n        @functools.wraps(func)\n        def wrapper(*args, **kwargs):\n            nonlocal count\n            count += 1\n            if count > max_calls:\n                raise RuntimeError(f'{func.__name__}은 최대 {max_calls}번 호출 가능합니다.')\n            return func(*args, **kwargs)\n        _____\n    return decorator\n\n@limit_calls(max_calls=2)\ndef send_alert(msg):\n    \"\"\"경고 메시지를 전송합니다.\"\"\"\n    print(f'Alert: {msg}')\n\nsend_alert('disk full')\nsend_alert('memory low')\ntry:\n    send_alert('cpu high')\nexcept RuntimeError as e:\n    print(e)",
-      "answer": "return wrapper",
+      "answer": [
+        "return wrapper"
+      ],
       "feedback": {
         "correct": "정답! decorator 함수는 반드시 wrapper를 반환해야 합니다. return wrapper가 없으면 decorator가 None을 반환해 @limit_calls(2) 적용 후 send_alert가 None이 되고, 호출 시 TypeError가 발생합니다."
-      }
+      },
+      "code_template": "{slot1}",
+      "choices": [
+        "return wrapper",
+        "await",
+        "async"
+      ]
     }
   ]
 }

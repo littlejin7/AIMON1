@@ -67,16 +67,31 @@
     },
     {
       "question_id": "adv_u7_r006",
-      "type": "code_input",
+      "type": "code_multi_input",
       "difficulty": "medium",
       "unit": "7",
       "topic": "Pydantic 모델 + FastAPI 엔드포인트 작성",
       "question": "아래 조건에 맞는 Pydantic 모델과 FastAPI 엔드포인트를 작성하세요.\n\n```python\n조건:\n\n- Pydantic 모델 이름: AIRequest\n- 필드: prompt(str, 필수), max_tokens(int, 기본값 500)\n- 엔드포인트: POST /generate\n- AIRequest를 입력으로 받아 {\"result\": \"AI response placeholder\"} 반환\n- FastAPI 앱 인스턴스 이름: app\n```",
       "code": null,
-      "answer": "from pydantic import BaseModel\nfrom fastapi import FastAPI\n\napp = FastAPI()\n\nclass AIRequest(BaseModel):\n    prompt: str\n    max_tokens: int = 500\n\n@app.post(\"/generate\")\nasync def generate(request: AIRequest):\n    return {\"result\": \"AI response placeholder\"}",
+      "answer": [
+        "return",
+        "{\"result\":",
+        "\"AI",
+        "response",
+        "placeholder\"}"
+      ],
       "feedback": {
         "correct": "정답! Pydantic 'BaseModel'로 요청 구조를 정의하고 FastAPI 엔드포인트의 타입 힌트로 사용하면, FastAPI가 요청 바디를 자동 파싱하고 유효성을 검사합니다. 'max_tokens: int = 500'처럼 기본값을 지정하면 선택적 필드가 됩니다."
-      }
+      },
+      "code_template": "\napp = FastAPI()\n\nclass AIRequest(BaseModel):\n    prompt: str\n    max_tokens: int = 500\n\n@app.post(\"/generate\")\nasync def generate(request: AIRequest):\n    {slot1} {slot2} {slot3} {slot4} {slot5}",
+      "choices": [
+        "await",
+        "\"AI",
+        "placeholder\"}",
+        "response",
+        "{\"result\":",
+        "return"
+      ]
     },
     {
       "question_id": "adv_u7_r007",
@@ -93,16 +108,25 @@
     },
     {
       "question_id": "adv_u7_r008",
-      "type": "code_input",
+      "type": "code_multi_input",
       "difficulty": "medium",
       "unit": "7",
       "topic": "Streamlit에서 FastAPI 호출",
       "question": "Streamlit 앱에서 FastAPI 서버('http://localhost:8000/chat')에 POST 요청을 보내는 함수 'call_api'를 작성하세요.\n\n```python\n조건:\n\n- 입력: user_message(str)\n- 반환: 응답 JSON의 \"reply\" 필드 문자열\n```\n- 오류 발생 시: \"오류가 발생했습니다.\" 반환",
       "code": null,
-      "answer": "import requests\n\ndef call_api(user_message: str) -> str:\n    try:\n        response = requests.post(\n            \"http://localhost:8000/chat\",\n            json={\"message\": user_message}\n        )\n        return response.json()[\"reply\"]\n    except Exception:\n        return \"오류가 발생했습니다.\"",
+      "answer": [
+        "return",
+        "response.json()[\"reply\"]"
+      ],
       "feedback": {
         "correct": "정답! 'requests.post()'에서 'json=' 파라미터를 사용하면 딕셔너리가 자동으로 JSON으로 직렬화되고 'Content-Type: application/json' 헤더도 자동 설정됩니다. 'try-except'로 네트워크 오류 등 예외 상황을 안전하게 처리합니다."
-      }
+      },
+      "code_template": "\ndef call_api(user_message: str) -> str:\n    try:\n        response = requests.post(\n            \"http://localhost:8000/chat\",\n            json={\"message\": user_message}\n        )\n        {slot1} {slot2}\n    except Exception:\n        return \"오류가 발생했습니다.\"",
+      "choices": [
+        "await",
+        "response.json()[\"reply\"]",
+        "return"
+      ]
     },
     {
       "question_id": "adv_u7_r009",
@@ -132,16 +156,29 @@
     },
     {
       "question_id": "adv_u7_r011",
-      "type": "code_input",
+      "type": "code_multi_input",
       "difficulty": "hard",
       "unit": "7",
       "topic": "Motor 비동기 MongoDB 저장",
       "question": "Motor(비동기 MongoDB 드라이버)를 사용해 대화 기록을 저장하는 비동기 함수를 작성하세요.\n\n```python\n조건:\n\n- 함수명: save_conversation\n- 파라미터: user_id(str), role(str), content(str)\n- 컬렉션: db.conversations (전역 변수로 존재)\n- 저장 문서: {\"user_id\": user_id, \"role\": role, \"content\": content}\n```\n- 반환값: 삽입된 문서의 _id를 문자열로 변환하여 반환",
       "code": null,
-      "answer": "async def save_conversation(user_id: str, role: str, content: str) -> str:\n    result = await db.conversations.insert_one({\n        \"user_id\": user_id,\n        \"role\": role,\n        \"content\": content\n    })\n    return str(result.inserted_id)",
+      "answer": [
+        "result",
+        "=",
+        "await",
+        "db.conversations.insert_one({"
+      ],
       "feedback": {
         "correct": "정답! Motor의 'insert_one()'은 코루틴을 반환하므로 'await'로 실행해야 합니다. 'result.inserted_id'는 MongoDB가 자동 생성한 'ObjectId' 타입이며, 'str()'로 변환해야 FastAPI 응답에서 JSON으로 직렬화할 수 있습니다."
-      }
+      },
+      "code_template": "async def save_conversation(user_id: str, role: str, content: str) -> str:\n    {slot1} {slot2} {slot3} {slot4}\n        \"user_id\": user_id,\n        \"role\": role,\n        \"content\": content\n    })\n    return str(result.inserted_id)",
+      "choices": [
+        "result",
+        "=",
+        "async",
+        "db.conversations.insert_one({",
+        "await"
+      ]
     },
     {
       "question_id": "adv_u7_r012",
@@ -171,16 +208,29 @@
     },
     {
       "question_id": "adv_u7_r014",
-      "type": "code_input",
+      "type": "code_multi_input",
       "difficulty": "hard",
       "unit": "7",
       "topic": "FastAPI BackgroundTasks",
       "question": "FastAPI의 'BackgroundTasks'를 활용해 채팅 응답을 즉시 반환하고, 백그라운드에서 DB에 저장하는 엔드포인트를 작성하세요.\n\n```python\n조건:\n\n- 경로: POST /chat\n- 파라미터: request(ChatRequest), background_tasks(BackgroundTasks)\n- AI 응답 생성: await get_ai_response(request.message) 호출 (이미 정의된 함수)\n- 백그라운드 작업으로 save_to_db(request.message, response) 등록\n- 반환: {\"response\": response}\n```",
       "code": null,
-      "answer": "from fastapi import BackgroundTasks\n\n@app.post(\"/chat\")\nasync def chat(request: ChatRequest, background_tasks: BackgroundTasks):\n    response = await get_ai_response(request.message)\n    background_tasks.add_task(save_to_db, request.message, response)\n    return {\"response\": response}",
+      "answer": [
+        "response",
+        "=",
+        "await",
+        "get_ai_response(request.message)"
+      ],
       "feedback": {
         "correct": "정답! 'BackgroundTasks'를 파라미터로 선언하면 FastAPI가 자동 주입합니다. 'background_tasks.add_task(func, *args)'로 등록된 작업은 응답을 클라이언트에 전송한 후 백그라운드에서 실행되므로, 응답 지연 없이 DB 저장 등의 작업을 처리할 수 있습니다."
-      }
+      },
+      "code_template": "from fastapi import BackgroundTasks\n\n@app.post(\"/chat\")\nasync def chat(request: ChatRequest, background_tasks: BackgroundTasks):\n    {slot1} {slot2} {slot3} {slot4}\n    background_tasks.add_task(save_to_db, request.message, response)\n    return {\"response\": response}",
+      "choices": [
+        "await",
+        "get_ai_response(request.message)",
+        "=",
+        "async",
+        "response"
+      ]
     },
     {
       "question_id": "adv_u7_r015",

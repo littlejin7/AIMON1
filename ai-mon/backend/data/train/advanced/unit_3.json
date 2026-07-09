@@ -122,63 +122,112 @@
     },
     {
       "question_id": "adv_u3_r011",
-      "type": "code_input",
+      "type": "code_multi_input",
       "difficulty": "easy",
       "unit": 3,
       "question": "'python-dotenv'를 사용해 '.env' 파일을 로드하고, 'ANTHROPIC_API_KEY' 환경변수 값을 'api_key' 변수에 저장하는 코드를 작성해 보세요.",
       "starter_code": "# 필요한 모듈 임포트 후 환경변수 로드",
-      "answer": "from dotenv import load_dotenv\nimport os\n\nload_dotenv()\napi_key = os.environ.get(\"ANTHROPIC_API_KEY\")",
+      "answer": [
+        "api_key",
+        "=",
+        "os.environ.get(\"ANTHROPIC_API_KEY\")"
+      ],
       "feedback": {
         "correct": "정답! 'load_dotenv()'로 '.env' 파일을 로드한 뒤 'os.environ.get()'으로 API 키를 안전하게 읽는 패턴은 API 키 보안 관리의 기본입니다."
-      }
+      },
+      "code_template": "from dotenv import load_dotenv\nimport os\n\nload_dotenv()\n{slot1} {slot2} {slot3}",
+      "choices": [
+        "api_key",
+        "await",
+        "os.environ.get(\"ANTHROPIC_API_KEY\")",
+        "="
+      ]
     },
     {
       "question_id": "adv_u3_r012",
-      "type": "code_input",
+      "type": "code_multi_input",
       "difficulty": "medium",
       "unit": 3,
       "question": "'client' 객체가 이미 생성되어 있다고 가정하고, 'temperature=0.7', 'max_tokens=256'으로 설정해 '파이썬의 장점 3가지를 알려줘'라는 메시지로 Claude API를 호출하세요. 응답 텍스트를 'result' 변수에 저장하는 코드를 작성해 보세요.",
       "starter_code": "# client 객체는 이미 생성되어 있음",
-      "answer": "response = client.messages.create(\n    model=\"claude-opus-4-5\",\n    max_tokens=256,\n    temperature=0.7,\n    messages=[{\"role\": \"user\", \"content\": \"파이썬의 장점 3가지를 알려줘\"}]\n)\nresult = response.content[0].text",
+      "answer": [
+        "result",
+        "=",
+        "response.content[0].text"
+      ],
       "feedback": {
         "correct": "정답! 'messages.create()'에 'temperature'와 'max_tokens'를 함께 지정하고, 'response.content[0].text'로 텍스트를 추출하는 기본 호출 패턴입니다."
-      }
+      },
+      "code_template": "response = client.messages.create(\n    model=\"claude-opus-4-5\",\n    max_tokens=256,\n    temperature=0.7,\n    messages=[{\"role\": \"user\", \"content\": \"파이썬의 장점 3가지를 알려줘\"}]\n)\n{slot1} {slot2} {slot3}",
+      "choices": [
+        "=",
+        "result",
+        "response.content[0].text",
+        "await"
+      ]
     },
     {
       "question_id": "adv_u3_r013",
-      "type": "code_input",
+      "type": "code_multi_input",
       "difficulty": "medium",
       "unit": 3,
       "question": "사용자가 '안녕'이라고 말하고 AI가 '안녕하세요!'라고 대답한 뒤, 사용자가 '오늘 날씨가 좋네요'라고 추가 발언하는 멀티턴 메시지 리스트를 'messages' 변수로 작성해 보세요.",
       "starter_code": "messages = []",
-      "answer": "messages = [\n    {\"role\": \"user\", \"content\": \"안녕\"},\n    {\"role\": \"assistant\", \"content\": \"안녕하세요!\"},\n    {\"role\": \"user\", \"content\": \"오늘 날씨가 좋네요\"}\n]",
+      "answer": [
+        "]"
+      ],
       "feedback": {
         "correct": "정답! 멀티턴 대화는 'user'와 'assistant'가 교대로 등장하는 리스트 구조입니다. 이 히스토리를 API에 전달하면 모델이 이전 맥락을 이해하고 자연스럽게 이어서 답변합니다."
-      }
+      },
+      "code_template": "messages = [\n    {\"role\": \"user\", \"content\": \"안녕\"},\n    {\"role\": \"assistant\", \"content\": \"안녕하세요!\"},\n    {\"role\": \"user\", \"content\": \"오늘 날씨가 좋네요\"}\n{slot1}",
+      "choices": [
+        "await",
+        "]"
+      ]
     },
     {
       "question_id": "adv_u3_r014",
-      "type": "code_input",
+      "type": "code_multi_input",
       "difficulty": "hard",
       "unit": 3,
       "question": "'client.messages.stream()'을 활용해 모델 'claude-opus-4-5', 'max_tokens=512', 메시지 '우주에 대해 설명해줘'로 스트리밍 호출하고, 'text_stream'으로 텍스트 조각을 실시간 출력하는 코드를 작성해 보세요.",
       "starter_code": "# client 객체는 이미 생성되어 있음",
-      "answer": "with client.messages.stream(\n    model=\"claude-opus-4-5\",\n    max_tokens=512,\n    messages=[{\"role\": \"user\", \"content\": \"우주에 대해 설명해줘\"}]\n) as stream:\n    for text in stream.text_stream:\n        print(text, end=\"\", flush=True)",
+      "answer": [
+        "print(text,",
+        "end=\"\",",
+        "flush=True)"
+      ],
       "feedback": {
         "correct": "정답! 'with ... as stream' 컨텍스트 매니저로 스트림을 열고, 'stream.text_stream'을 순회하며 'print(text, end=\"\", flush=True)'로 실시간 출력하는 스트리밍 핵심 패턴입니다."
-      }
+      },
+      "code_template": "with client.messages.stream(\n    model=\"claude-opus-4-5\",\n    max_tokens=512,\n    messages=[{\"role\": \"user\", \"content\": \"우주에 대해 설명해줘\"}]\n) as stream:\n    for text in stream.text_stream:\n        {slot1} {slot2} {slot3}",
+      "choices": [
+        "end=\"\",",
+        "await",
+        "flush=True)",
+        "print(text,"
+      ]
     },
     {
       "question_id": "adv_u3_r015",
-      "type": "code_input",
+      "type": "code_multi_input",
       "difficulty": "hard",
       "unit": 3,
       "question": "빈 'messages' 리스트로 시작해 사용자 입력을 받고 API를 호출한 뒤 AI 응답을 히스토리에 추가하는 멀티턴 대화 루프를 작성해 보세요. 사용자가 'exit'를 입력하면 종료되어야 하며, 'client' 객체는 이미 생성되어 있고 모델은 'claude-opus-4-5', 'max_tokens'는 '1024'로 설정하세요.",
       "starter_code": "# client 객체는 이미 생성되어 있음\nmessages = []",
-      "answer": "messages = []\nwhile True:\n    user_input = input(\"You: \")\n    if user_input.lower() == \"exit\":\n        break\n    messages.append({\"role\": \"user\", \"content\": user_input})\n    response = client.messages.create(\n        model=\"claude-opus-4-5\",\n        max_tokens=1024,\n        messages=messages\n    )\n    reply = response.content[0].text\n    messages.append({\"role\": \"assistant\", \"content\": reply})\n    print(f\"AI: {reply}\")",
+      "answer": [
+        "print(f\"AI:",
+        "{reply}\")"
+      ],
       "feedback": {
         "correct": "정답! 'messages' 리스트에 사용자 입력과 AI 응답을 번갈아 추가하고, 매 API 호출 시 전체 히스토리를 전달하여 대화 컨텍스트를 유지하는 멀티턴 구현의 핵심 패턴입니다."
-      }
+      },
+      "code_template": "        break\n    messages.append({\"role\": \"user\", \"content\": user_input})\n    response = client.messages.create(\n        model=\"claude-opus-4-5\",\n        max_tokens=1024,\n        messages=messages\n    )\n    reply = response.content[0].text\n    messages.append({\"role\": \"assistant\", \"content\": reply})\n    {slot1} {slot2}",
+      "choices": [
+        "{reply}\")",
+        "print(f\"AI:",
+        "await"
+      ]
     }
   ]
 }

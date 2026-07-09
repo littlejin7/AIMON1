@@ -41,16 +41,25 @@
     },
     {
       "question_id": "adv_u2_q004",
-      "type": "code_input",
+      "type": "code_multi_input",
       "difficulty": "easy",
       "unit": "2",
       "topic": "async/await 기본 코루틴 작성",
       "question": "asyncio.sleep(2)로 2초 대기한 뒤 \"작업 완료\"를 출력하는 코루틴 함수 run_task를 작성해보세요. async def와 await를 사용해야 합니다.",
       "code": "import asyncio\n\n# run_task 코루틴 함수를 작성하세요\n\nasyncio.run(run_task())",
-      "answer": "async def run_task():\n    await asyncio.sleep(2)\n    print(\"작업 완료\")",
+      "answer": [
+        "await",
+        "asyncio.sleep(2)"
+      ],
       "feedback": {
         "correct": "정답! async def로 코루틴을 정의하고, await asyncio.sleep(2)로 2초간 비동기 대기 후 출력합니다. asyncio.sleep()은 블로킹 없이 이벤트 루프에 제어권을 넘겨 다른 코루틴이 실행될 수 있게 합니다."
-      }
+      },
+      "code_template": "async def run_task():\n    {slot1} {slot2}\n    print(\"작업 완료\")",
+      "choices": [
+        "async",
+        "asyncio.sleep(2)",
+        "await"
+      ]
     },
     {
       "question_id": "adv_u2_q005",
@@ -80,16 +89,31 @@
     },
     {
       "question_id": "adv_u2_q007",
-      "type": "code_input",
+      "type": "code_multi_input",
       "difficulty": "medium",
       "unit": "2",
       "topic": "asyncio.gather()를 통한 동시 실행",
       "question": "asyncio.gather()를 사용하여 coroutine_1()과 coroutine_2()를 동시에 실행하고, 결과를 results 변수에 저장한 뒤 출력하는 main 코루틴을 작성해보세요.",
       "code": "import asyncio\n\nasync def coroutine_1():\n    await asyncio.sleep(1)\n    return \"Result 1\"\n\nasync def coroutine_2():\n    await asyncio.sleep(2)\n    return \"Result 2\"\n\n# main 코루틴을 작성하세요\n\nasyncio.run(main())",
-      "answer": "async def main():\n    results = await asyncio.gather(coroutine_1(), coroutine_2())\n    print(results)",
+      "answer": [
+        "results",
+        "=",
+        "await",
+        "asyncio.gather(coroutine_1(),",
+        "coroutine_2())"
+      ],
       "feedback": {
         "correct": "정답! asyncio.gather(coroutine_1(), coroutine_2())는 두 코루틴을 병렬로 실행합니다. 순차 실행 시 3초가 걸리지만 gather() 덕분에 2초만에 ['Result 1', 'Result 2']가 출력됩니다."
-      }
+      },
+      "code_template": "async def main():\n    {slot1} {slot2} {slot3} {slot4} {slot5}\n    print(results)",
+      "choices": [
+        "=",
+        "async",
+        "results",
+        "await",
+        "asyncio.gather(coroutine_1(),",
+        "coroutine_2())"
+      ]
     },
     {
       "question_id": "adv_u2_q008",
@@ -119,16 +143,25 @@
     },
     {
       "question_id": "adv_u2_q010",
-      "type": "code_input",
+      "type": "code_multi_input",
       "difficulty": "medium",
       "unit": "2",
       "topic": "aiohttp GET 요청과 상태 코드 처리",
       "question": "aiohttp를 사용하여 주어진 url에 GET 요청을 보내고, HTTP 상태 코드(response.status)를 반환하는 코루틴 함수 check_status를 작성해보세요.",
       "code": "import aiohttp\nimport asyncio\n\n# check_status(url) 코루틴 함수를 작성하세요\n\nasyncio.run(check_status(\"https://example.com\"))",
-      "answer": "async def check_status(url):\n    async with aiohttp.ClientSession() as session:\n        async with session.get(url) as response:\n            return response.status",
+      "answer": [
+        "return",
+        "response.status"
+      ],
       "feedback": {
         "correct": "정답! async with aiohttp.ClientSession() as session으로 세션을 만들고, async with session.get(url) as response로 GET 요청을 보냅니다. response.status는 정수형 속성이므로 await 없이 바로 반환합니다."
-      }
+      },
+      "code_template": "async def check_status(url):\n    async with aiohttp.ClientSession() as session:\n        async with session.get(url) as response:\n            {slot1} {slot2}",
+      "choices": [
+        "return",
+        "response.status",
+        "await"
+      ]
     },
     {
       "question_id": "adv_u2_q011",
@@ -158,16 +191,27 @@
     },
     {
       "question_id": "adv_u2_q013",
-      "type": "code_input",
+      "type": "code_multi_input",
       "difficulty": "hard",
       "unit": "2",
       "topic": "create_task()와 gather()의 결합 활용",
       "question": "asyncio.create_task()로 download(1)과 download(2)를 Task로 만들고, asyncio.gather()로 두 Task를 동시에 실행한 뒤 결과를 출력하는 main 코루틴을 작성해보세요.",
       "code": "import asyncio\n\nasync def download(n):\n    await asyncio.sleep(n)\n    return f\"File {n} downloaded\"\n\n# main 코루틴을 작성하세요\n\nasyncio.run(main())",
-      "answer": "async def main():\n    t1 = asyncio.create_task(download(1))\n    t2 = asyncio.create_task(download(2))\n    results = await asyncio.gather(t1, t2)\n    print(results)",
+      "answer": [
+        "t1",
+        "=",
+        "asyncio.create_task(download(1))"
+      ],
       "feedback": {
         "correct": "정답! create_task()로 각 코루틴을 즉시 이벤트 루프에 예약한 뒤, gather()로 두 Task 완료를 기다립니다. 순차 실행 시 3초가 걸리지만 2초만에 ['File 1 downloaded', 'File 2 downloaded']가 출력됩니다."
-      }
+      },
+      "code_template": "async def main():\n    {slot1} {slot2} {slot3}\n    t2 = asyncio.create_task(download(2))\n    results = await asyncio.gather(t1, t2)\n    print(results)",
+      "choices": [
+        "=",
+        "await",
+        "t1",
+        "asyncio.create_task(download(1))"
+      ]
     },
     {
       "question_id": "adv_u2_q014",
@@ -184,16 +228,29 @@
     },
     {
       "question_id": "adv_u2_q015",
-      "type": "code_input",
+      "type": "code_multi_input",
       "difficulty": "hard",
       "unit": "2",
       "topic": "aiohttp와 gather()를 결합한 다중 요청 처리",
       "question": "aiohttp와 asyncio.gather()를 함께 사용하여 urls 리스트의 모든 URL에 동시에 GET 요청을 보내는 fetch_all(urls) 코루틴을 작성해보세요. 내부에 fetch_one(url) 헬퍼 코루틴을 정의하고, gather()로 각 URL의 상태 코드를 동시에 수집하여 반환하세요.",
       "code": "import aiohttp\nimport asyncio\n\nurls = [\n    \"https://example.com\",\n    \"https://httpbin.org/get\",\n    \"https://python.org\"\n]\n\n# fetch_all(urls) 코루틴을 작성하세요\n\nasyncio.run(fetch_all(urls))",
-      "answer": "async def fetch_all(urls):\n    async with aiohttp.ClientSession() as session:\n        async def fetch_one(url):\n            async with session.get(url) as response:\n                return response.status\n        results = await asyncio.gather(*[fetch_one(url) for url in urls])\n        return results",
+      "answer": [
+        "results",
+        "=",
+        "await",
+        "asyncio.gather(*[fetch_one(url) for url in urls])"
+      ],
       "feedback": {
         "correct": "정답! ClientSession 하나를 공유하면서 내부 헬퍼 fetch_one()을 정의하고, gather()와 리스트 컴프리헨션으로 모든 URL에 동시 요청을 보냅니다. *[fetch_one(url) for url in urls]로 코루틴 리스트를 언패킹하여 gather()에 전달하는 패턴이 핵심입니다."
-      }
+      },
+      "code_template": "async def fetch_all(urls):\n    async with aiohttp.ClientSession() as session:\n        async def fetch_one(url):\n            async with session.get(url) as response:\n                return response.status\n        {slot1} {slot2} {slot3} {slot4}\n        return results",
+      "choices": [
+        "results",
+        "asyncio.gather(*[fetch_one(url) for url in urls])",
+        "async",
+        "=",
+        "await"
+      ]
     }
   ]
 }

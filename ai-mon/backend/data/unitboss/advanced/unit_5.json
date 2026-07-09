@@ -9,7 +9,7 @@
       "type": "output_select",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "LangChain에서 Document 리스트의 page_content만 추출했을 때 출력 결과는?\n\n```python\ndocs = [\n    {\"page_content\": \"LangChain 소개\", \"metadata\": {\"source\": \"doc1\"}},\n    {\"page_content\": \"RAG 파이프라인\", \"metadata\": {\"source\": \"doc2\"}},\n]\ncontents = [d[\"page_content\"] for d in docs]\nprint(contents)\n```",
+      "question": "LangChain에서 Document 리스트의 page_content만 추출했을 때 출력 결과는?\n\n```python\ndocs = [\n    {\n        \"page_content\": \"LangChain 소개\", \n        \"metadata\": {\"source\": \"doc1\"}\n    },\n    {\n        \"page_content\": \"RAG 파이프라인\", \n        \"metadata\": {\"source\": \"doc2\"}\n    },\n]\ncontents = [d[\"page_content\"] for d in docs]\nprint(contents)\n```",
       "choices": [
         "A. ['doc1', 'doc2']",
         "B. {'LangChain 소개', 'RAG 파이프라인'}",
@@ -48,7 +48,7 @@
       "type": "fill_in_blank",
       "quiz_category": "unit_boss",
       "is_boss": true,
-      "question": "RAG 파이프라인에서 문서 조각을 표현하는 클래스를 임포트하는 빈칸을 완성하세요.\n\n```python\nfrom langchain_core.documents import _______\ndoc = Document(page_content=\"RAG 기초\", metadata={\"source\": \"a.txt\"})\n```",
+      "question": "RAG 파이프라인에서 문서 조각을 표현하는 클래스를 임포트하는 빈칸을 완성하세요.\n\n```python\nfrom langchain_core.documents import _______\ndoc = Document(\n    page_content=\"RAG 기초\", \n    metadata={\"source\": \"a.txt\"}\n)\n```",
       "choices": [],
       "answer": "Document",
       "hint": "langchain_core.documents에서 가져오는 클래스 이름입니다.",
@@ -171,12 +171,19 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "StrOutputParser 인스턴스를 생성하는 한 줄을 빈칸에 채우세요.\n\n```python\nfrom langchain_core.output_parsers import StrOutputParser\n\nparser = _______\nprint(type(parser).__name__)  # StrOutputParser\n```",
-      "choices": [],
-      "answer": "StrOutputParser()",
+      "choices": [
+        "StrOutputParser()",
+        "await",
+        "async"
+      ],
+      "answer": [
+        "StrOutputParser()"
+      ],
       "hint": "클래스 이름 뒤에 괄호를 붙여 인스턴스를 생성하세요.",
       "feedback": {
         "correct": "정답! StrOutputParser()로 파서 인스턴스를 만들고 chain = prompt | llm | parser 형태로 체인에 연결합니다."
-      }
+      },
+      "code_template": "from langchain_core.output_parsers import StrOutputParser\n\nparser = {slot1}\nprint(type(parser).__name__)  # StrOutputParser\n"
     },
     {
       "question_id": "unitboss_adv_ci_5_010",
@@ -188,12 +195,19 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "page_content가 \"LangChain RAG 기초\"인 Document 객체를 생성하는 한 줄을 완성하세요.\n\n```python\nfrom langchain_core.documents import Document\n\ndoc = _______\nprint(doc.page_content)  # LangChain RAG 기초\n```",
-      "choices": [],
-      "answer": "Document(page_content=\"LangChain RAG 기초\")",
+      "choices": [
+        "Document(page_content=\"LangChain RAG 기초\")",
+        "async",
+        "await"
+      ],
+      "answer": [
+        "Document(page_content=\"LangChain RAG 기초\")"
+      ],
       "hint": "Document 클래스의 page_content 키워드 인자를 사용하세요.",
       "feedback": {
         "correct": "정답! Document(page_content=...) 형태로 생성합니다. metadata 인자는 생략 가능하며 기본값은 빈 딕셔너리입니다."
-      }
+      },
+      "code_template": "from langchain_core.documents import Document\n\ndoc = {slot1}\nprint(doc.page_content)  # LangChain RAG 기초\n"
     }
   ]
 }

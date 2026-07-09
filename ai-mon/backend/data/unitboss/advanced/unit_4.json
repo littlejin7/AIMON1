@@ -155,16 +155,26 @@
       "stage": "4-boss",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "'messages' 키가 없을 때만 빈 리스트로 초기화하는 코드를 두 줄로 완성하세요.\n\n```python\nimport streamlit as st\n\n_______\n_______\n\n# 이후 st.session_state[\"messages\"]를 안전하게 사용 가능\n```",
-      "choices": [],
-      "answer": "if \"messages\" not in st.session_state:\n    st.session_state[\"messages\"] = []",
+      "choices": [
+        "await",
+        "=",
+        "[]",
+        "st.session_state[\"messages\"]"
+      ],
+      "answer": [
+        "st.session_state[\"messages\"]",
+        "=",
+        "[]"
+      ],
       "hint": "in 연산자로 키 존재 여부를 확인한 뒤 초기화하세요.",
       "feedback": {
         "correct": "정답! if \"messages\" not in st.session_state: / st.session_state[\"messages\"] = [] 패턴으로 첫 실행 시에만 초기화합니다. Streamlit 챗봇의 필수 초기화 패턴입니다."
-      }
+      },
+      "code_template": "if \"messages\" not in st.session_state:\n    {slot1} {slot2} {slot3}"
     },
     {
       "question_id": "unitboss_adv_ci_4_010",
@@ -172,16 +182,22 @@
       "stage": "4-boss",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "대화 기록을 순서대로 렌더링하는 for 루프의 빈칸을 완성하세요.\n\n```python\nimport streamlit as st\n\nfor msg in st.session_state[\"messages\"]:\n    with st.chat_message(msg[_______]):\n        st.markdown(msg[\"content\"])\n```",
-      "choices": [],
-      "answer": "\"role\"",
+      "choices": [
+        "\"role\"",
+        "await"
+      ],
+      "answer": [
+        "\"role\""
+      ],
       "hint": "chat_message()에는 말풍선의 주체(user/assistant)를 전달해야 합니다.",
       "feedback": {
         "correct": "정답! msg[\"role\"]로 각 메시지의 역할(user/assistant)을 꺼내 st.chat_message()에 전달하면 role에 맞는 아이콘과 말풍선이 렌더링됩니다."
-      }
+      },
+      "code_template": "{slot1}"
     }
   ]
 }

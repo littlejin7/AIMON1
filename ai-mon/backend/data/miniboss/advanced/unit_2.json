@@ -114,16 +114,25 @@
       "stage": "2-1",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "두 async 함수를 순서대로 실행하는 코드를 작성하세요.\n\n```python\n조건:\n\n- async def say(msg): print(msg) 정의\n- main에서 say('첫번째'), say('두번째')를 순서대로 await\n- asyncio.run(main()) 호출\n# 출력 목표:\n# 첫번째\n# 두번째\n```",
-      "answer": "import asyncio\n\nasync def say(msg):\n    print(msg)\n\nasync def main():\n    await say('첫번째')\n    await say('두번째')\n\nasyncio.run(main())",
+      "answer": [
+        "await",
+        "say('첫번째')"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! async def로 코루틴 함수를 정의하고, 다른 코루틴 안에서 await으로 호출하면 완료될 때까지 기다립니다. main은 asyncio.run()으로 실행해요. 클리어!"
       },
-      "expected_output": "첫번째\n두번째\n"
+      "expected_output": "첫번째\n두번째\n",
+      "code_template": "import asyncio\n\nasync def say(msg):\n    print(msg)\n\nasync def main():\n    {slot1} {slot2}\n    await say('두번째')\n\nasyncio.run(main())",
+      "choices": [
+        "await",
+        "say('첫번째')",
+        "async"
+      ]
     },
     {
       "question_id": "miniboss_adv_os_2_1_008",
@@ -167,16 +176,25 @@
       "stage": "2-1",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "n부터 1까지 카운트다운하는 코루틴을 작성하세요.\n\n```python\n조건:\n\n- async def countdown(n): n부터 1까지 print\n- 각 숫자 출력 후 await asyncio.sleep(0)\n- asyncio.run(countdown(3)) 호출\n# 출력 목표:\n3\n2\n1\n```",
-      "answer": "import asyncio\n\nasync def countdown(n):\n    while n > 0:\n        print(n)\n        await asyncio.sleep(0)\n        n -= 1\n\nasyncio.run(countdown(3))",
+      "answer": [
+        "await",
+        "asyncio.sleep(0)"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! while 루프와 await asyncio.sleep(0)으로 각 단계에서 이벤트 루프에 제어권을 양보합니다. asyncio.sleep(0)은 실제로 0초 대기가 아니라 '이번 루프 사이클은 여기서 멈춤'을 의미합니다. 클리어!"
       },
-      "expected_output": "3\n2\n1\n"
+      "expected_output": "3\n2\n1\n",
+      "code_template": "import asyncio\n\nasync def countdown(n):\n    while n > 0:\n        print(n)\n        {slot1} {slot2}\n        n -= 1\n\nasyncio.run(countdown(3))",
+      "choices": [
+        "async",
+        "await",
+        "asyncio.sleep(0)"
+      ]
     },
     {
       "question_id": "miniboss_adv_fib_2_2_001",
@@ -328,16 +346,25 @@
       "stage": "2-2",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "asyncio.gather()로 두 코루틴을 동시 실행하고 결과를 합산하세요.\n\n```python\n조건:\n\n- async def fetch(n): await asyncio.sleep(0) 후 n * 10 반환\n- gather로 fetch(3), fetch(5) 동시 실행\n# - 두 결과를 더해 출력\n\n# 출력 목표:\n80\n```",
-      "answer": "import asyncio\n\nasync def fetch(n):\n    await asyncio.sleep(0)\n    return n * 10\n\nasync def main():\n    a, b = await asyncio.gather(fetch(3), fetch(5))\n    print(a + b)\n\nasyncio.run(main())",
+      "answer": [
+        "await",
+        "asyncio.sleep(0)"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! gather()로 두 코루틴을 동시 실행하면 결과가 리스트로 반환됩니다. a, b = await asyncio.gather(...)로 언패킹하고 합산하면 30 + 50 = 80이에요. 클리어!"
       },
-      "expected_output": "80\n"
+      "expected_output": "80\n",
+      "code_template": "import asyncio\n\nasync def fetch(n):\n    {slot1} {slot2}\n    return n * 10\n\nasync def main():\n    a, b = await asyncio.gather(fetch(3), fetch(5))\n    print(a + b)\n",
+      "choices": [
+        "async",
+        "asyncio.sleep(0)",
+        "await"
+      ]
     },
     {
       "question_id": "miniboss_adv_ci_2_2_010",
@@ -345,16 +372,25 @@
       "stage": "2-2",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "gather()의 return_exceptions를 활용해 예외 포함 결과를 처리하세요.\n\n```python\n조건:\n\n- async def good(): return 'OK'\n- async def bad(): raise ValueError('실패')\n- gather(good(), bad(), return_exceptions=True)로 실행\n# - 각 결과가 예외면 '에러', 아니면 값을 출력\n\n# 출력 목표:\nOK\n# 에러\n```",
-      "answer": "import asyncio\n\nasync def good():\n    return 'OK'\n\nasync def bad():\n    raise ValueError('실패')\n\nasync def main():\n    results = await asyncio.gather(good(), bad(), return_exceptions=True)\n    for r in results:\n        if isinstance(r, Exception):\n            print('에러')\n        else:\n            print(r)\n\nasyncio.run(main())",
+      "answer": [
+        "raise",
+        "ValueError('실패')"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! return_exceptions=True로 예외를 결과에 담고, isinstance(r, Exception)으로 오류 여부를 판별합니다. 이 패턴은 일부 실패해도 나머지 결과를 활용하는 실전 비동기 코드에서 자주 쓰입니다. 클리어!"
       },
-      "expected_output": "OK\n에러\n"
+      "expected_output": "OK\n에러\n",
+      "code_template": "async def good():\n    return 'OK'\n\nasync def bad():\n    {slot1} {slot2}\n\nasync def main():\n    results = await asyncio.gather(good(), bad(), return_exceptions=True)\n    for r in results:\n        if isinstance(r, Exception):",
+      "choices": [
+        "await",
+        "raise",
+        "ValueError('실패')"
+      ]
     },
     {
       "question_id": "miniboss_adv_fib_2_3_001",
@@ -470,16 +506,27 @@
       "stage": "2-3",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "create_task로 세 작업을 병렬 실행하고 결과를 모두 출력하세요.\n\n```python\n조건:\n\n- async def compute(n): return n ** 2\n- create_task로 compute(2), compute(3), compute(4) 등록\n- 모든 task await 후 각 result() 출력\n# 출력 목표:\n4\n9\n16\n```",
-      "answer": "import asyncio\n\nasync def compute(n):\n    return n ** 2\n\nasync def main():\n    t1 = asyncio.create_task(compute(2))\n    t2 = asyncio.create_task(compute(3))\n    t3 = asyncio.create_task(compute(4))\n    await t1\n    await t2\n    await t3\n    print(t1.result())\n    print(t2.result())\n    print(t3.result())\n\nasyncio.run(main())",
+      "answer": [
+        "t1",
+        "=",
+        "asyncio.create_task(compute(2))"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! create_task()로 Task를 생성하고, await 후 task.result()로 반환값을 꺼냅니다. await task는 완료를 기다리고, task.result()는 완료 후 반환값을 가져옵니다. 클리어!"
       },
-      "expected_output": "4\n9\n16\n"
+      "expected_output": "4\n9\n16\n",
+      "code_template": "async def compute(n):\n    return n ** 2\n\nasync def main():\n    {slot1} {slot2} {slot3}\n    t2 = asyncio.create_task(compute(3))\n    t3 = asyncio.create_task(compute(4))\n    await t1\n    await t2\n    await t3",
+      "choices": [
+        "=",
+        "asyncio.create_task(compute(2))",
+        "await",
+        "t1"
+      ]
     },
     {
       "question_id": "miniboss_adv_fib_2_3_008",
@@ -523,16 +570,25 @@
       "stage": "2-3",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "asyncio.wait()로 먼저 완료된 태스크의 결과만 출력하세요.\n\n```python\n조건:\n\n- async def fast(): return 'fast'\n- async def slow(): await asyncio.sleep(0); return 'slow'\n- asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED) 사용\n- done 집합의 태스크 result를 출력\n# 출력 목표:\nfast\n```",
-      "answer": "import asyncio\n\nasync def fast():\n    return 'fast'\n\nasync def slow():\n    await asyncio.sleep(0)\n    return 'slow'\n\nasync def main():\n    tasks = [asyncio.create_task(fast()), asyncio.create_task(slow())]\n    done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)\n    for t in done:\n        print(t.result())\n    for t in pending:\n        t.cancel()\n\nasyncio.run(main())",
+      "answer": [
+        "await",
+        "asyncio.sleep(0)"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! FIRST_COMPLETED로 가장 먼저 끝난 task만 done에 담깁니다. fast()가 await 없이 바로 반환하므로 먼저 완료돼요. pending에 남은 task는 cancel()로 정리하는 것이 좋은 습관입니다. 클리어!"
       },
-      "expected_output": "fast\nslow\n"
+      "expected_output": "fast\nslow\n",
+      "code_template": "async def fast():\n    return 'fast'\n\nasync def slow():\n    {slot1} {slot2}\n    return 'slow'\n\nasync def main():\n    tasks = [asyncio.create_task(fast()), asyncio.create_task(slow())]\n    done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)",
+      "choices": [
+        "async",
+        "asyncio.sleep(0)",
+        "await"
+      ]
     },
     {
       "question_id": "miniboss_adv_fib_2_4_001",
@@ -648,16 +704,25 @@
       "stage": "2-4",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "Semaphore로 동시 실행 수를 2개로 제한하는 코드를 작성하세요.\n\n```python\n조건:\n\n- async def task(sem, n): async with sem 안에서 await asyncio.sleep(0) 후 n 반환\n- Semaphore(2) 생성\n- task(sem, i) for i in range(5)를 gather로 실행\n# - 결과를 출력\n\n# 출력 목표:\n[0, 1, 2, 3, 4]\n```",
-      "answer": "import asyncio\n\nasync def task(sem, n):\n    async with sem:\n        await asyncio.sleep(0)\n        return n\n\nasync def main():\n    sem = asyncio.Semaphore(2)\n    results = await asyncio.gather(*[task(sem, i) for i in range(5)])\n    print(results)\n\nasyncio.run(main())",
+      "answer": [
+        "await",
+        "asyncio.sleep(0)"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! asyncio.Semaphore(2)로 동시에 2개의 task만 async with 블록에 진입하도록 제한합니다. gather()가 결과를 입력 순서대로 반환하므로 [0, 1, 2, 3, 4]가 출력됩니다. 클리어!"
       },
-      "expected_output": "[0, 1, 2, 3, 4]\n"
+      "expected_output": "[0, 1, 2, 3, 4]\n",
+      "code_template": "import asyncio\n\nasync def task(sem, n):\n    async with sem:\n        {slot1} {slot2}\n        return n\n\nasync def main():\n    sem = asyncio.Semaphore(2)\n    results = await asyncio.gather(*[task(sem, i) for i in range(5)])",
+      "choices": [
+        "asyncio.sleep(0)",
+        "async",
+        "await"
+      ]
     },
     {
       "question_id": "miniboss_adv_fib_2_4_008",
@@ -701,16 +766,25 @@
       "stage": "2-4",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "wait_for로 타임아웃을 처리하는 코드를 작성하세요.\n\n```python\n조건:\n\n- async def fetch(): await asyncio.sleep(5) 후 '성공' 반환\n- asyncio.wait_for(fetch(), timeout=0.01) 실행\n- TimeoutError 발생 시 '타임아웃' 출력\n# 출력 목표:\n# 타임아웃\n```",
-      "answer": "import asyncio\n\nasync def fetch():\n    await asyncio.sleep(5)\n    return '성공'\n\nasync def main():\n    try:\n        result = await asyncio.wait_for(fetch(), timeout=0.01)\n        print(result)\n    except asyncio.TimeoutError:\n        print('타임아웃')\n\nasyncio.run(main())",
+      "answer": [
+        "await",
+        "asyncio.sleep(5)"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! asyncio.wait_for()에 timeout을 설정하면 초과 시 TimeoutError를 발생시킵니다. try/except asyncio.TimeoutError로 처리하면 타임아웃 상황을 안전하게 핸들링할 수 있어요. 클리어!"
       },
-      "expected_output": "타임아웃\n"
+      "expected_output": "타임아웃\n",
+      "code_template": "import asyncio\n\nasync def fetch():\n    {slot1} {slot2}\n    return '성공'\n\nasync def main():\n    try:\n        result = await asyncio.wait_for(fetch(), timeout=0.01)\n        print(result)",
+      "choices": [
+        "async",
+        "asyncio.sleep(5)",
+        "await"
+      ]
     },
     {
       "question_id": "miniboss_adv_fib_2_5_001",
@@ -826,16 +900,25 @@
       "stage": "2-5",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "asyncio.Queue를 이용한 생산자-소비자 패턴을 구현하세요.\n\n```python\n조건:\n\n- producer: 'A', 'B', 'C' 순서로 큐에 put 후 None 전송\n- consumer: None 받을 때까지 꺼내서 출력\n- asyncio.gather로 동시 실행\n# 출력 목표:\nA\nB\nC\n```",
-      "answer": "import asyncio\n\nasync def producer(q):\n    for item in ['A', 'B', 'C']:\n        await q.put(item)\n    await q.put(None)\n\nasync def consumer(q):\n    while True:\n        item = await q.get()\n        if item is None:\n            break\n        print(item)\n\nasync def main():\n    q = asyncio.Queue()\n    await asyncio.gather(producer(q), consumer(q))\n\nasyncio.run(main())",
+      "answer": [
+        "await",
+        "q.put(item)"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! 생산자-소비자 패턴에서 큐는 두 코루틴을 안전하게 연결합니다. None을 종료 신호로 쓰는 패턴이 일반적이에요. gather()로 두 코루틴을 동시 실행해야 producer가 put한 것을 consumer가 실시간으로 get할 수 있습니다. 클리어!"
       },
-      "expected_output": "A\nB\nC\n"
+      "expected_output": "A\nB\nC\n",
+      "code_template": "import asyncio\n\nasync def producer(q):\n    for item in ['A', 'B', 'C']:\n        {slot1} {slot2}\n    await q.put(None)\n\nasync def consumer(q):\n    while True:\n        item = await q.get()",
+      "choices": [
+        "q.put(item)",
+        "await",
+        "async"
+      ]
     },
     {
       "question_id": "miniboss_adv_fib_2_5_008",
@@ -879,16 +962,29 @@
       "stage": "2-5",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "miniboss",
       "is_boss": false,
       "question": "비동기 데코레이터를 작성하고 async 함수에 적용하세요.\n\n```python\n조건:\n\n- timed 데코레이터: functools.wraps 적용, '{func.__name__} 실행' 출력 후 func 호출 결과 반환\n- @timed를 async def process(): return 100에 적용\n- asyncio.run으로 실행 후 결과 출력\n# 출력 목표:\n# process 실행\n100\n```",
-      "answer": "import asyncio\nimport functools\n\ndef timed(func):\n    @functools.wraps(func)\n    async def wrapper(*args, **kwargs):\n        print(f'{func.__name__} 실행')\n        return await func(*args, **kwargs)\n    return wrapper\n\n@timed\nasync def process():\n    return 100\n\nasync def main():\n    result = await process()\n    print(result)\n\nasyncio.run(main())",
+      "answer": [
+        "return",
+        "await",
+        "func(*args,",
+        "**kwargs)"
+      ],
       "pyodide_eval": true,
       "feedback": {
         "correct": "정답! async 함수 데코레이터의 핵심은 wrapper도 async def로 선언하고, func 호출 시 await를 붙이는 것입니다. functools.wraps로 메타데이터를 보존하는 것까지 포함하면 실전 수준의 비동기 데코레이터가 완성됩니다. 클리어!"
       },
-      "expected_output": "process 실행\n100\n"
+      "expected_output": "process 실행\n100\n",
+      "code_template": "def timed(func):\n    @functools.wraps(func)\n    async def wrapper(*args, **kwargs):\n        print(f'{func.__name__} 실행')\n        {slot1} {slot2} {slot3} {slot4}\n    return wrapper\n\n@timed\nasync def process():\n    return 100",
+      "choices": [
+        "await",
+        "async",
+        "return",
+        "**kwargs)",
+        "func(*args,"
+      ]
     }
   ]
 }

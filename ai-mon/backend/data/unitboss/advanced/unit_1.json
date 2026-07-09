@@ -159,13 +159,20 @@
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "yield from을 사용해 0부터 n-1까지 정수를 생성하는 제너레이터를 한 줄로 완성하세요.\n\n```python\ndef gen_range(n):\n    _______\n\nprint(list(gen_range(4)))  # [0, 1, 2, 3]\n```",
-      "choices": [],
-      "answer": "yield from range(n)",
+      "choices": [
+        "yield from range(n)",
+        "await",
+        "async"
+      ],
+      "answer": [
+        "yield from range(n)"
+      ],
       "hint": "yield from은 이터러블의 모든 값을 순서대로 yield합니다.",
       "feedback": {
         "correct": "정답! yield from range(n)은 range(n)의 각 값을 차례로 yield합니다. for i in range(n): yield i 와 동일하지만 더 간결합니다."
       },
-      "expected_output": "[0, 1, 2, 3]\n"
+      "expected_output": "[0, 1, 2, 3]\n",
+      "code_template": "def gen_range(n):\n    {slot1}\n\nprint(list(gen_range(4)))  # [0, 1, 2, 3]\n"
     },
     {
       "question_id": "unitboss_adv_ci_1_010",
@@ -173,17 +180,23 @@
       "stage": "1-boss",
       "course_level": "advanced",
       "difficulty": "hard",
-      "type": "code_input",
+      "type": "code_multi_input",
       "quiz_category": "unit_boss",
       "is_boss": true,
       "question": "@contextmanager 데코레이터에서 with 블록의 실행 지점을 표시하는 빈칸을 완성하세요.\n\n```python\nfrom contextlib import contextmanager\n\n@contextmanager\ndef session():\n    print(\"연결\")\n    _______\n    print(\"종료\")\n\nwith session():\n    print(\"작업 중\")\n# 출력: 연결 -> 작업 중 -> 종료\n```",
-      "choices": [],
-      "answer": "yield",
+      "choices": [
+        "await",
+        "yield"
+      ],
+      "answer": [
+        "yield"
+      ],
       "hint": "@contextmanager에서 yield 앞이 __enter__, yield 뒤가 __exit__에 해당합니다.",
       "feedback": {
         "correct": "정답! @contextmanager 데코레이터에서 yield는 with 블록의 실행 지점을 표시합니다. yield 앞 코드는 블록 진입 시, yield 뒤 코드는 블록 종료 시 실행됩니다."
       },
-      "expected_output": "연결\n작업 중\n종료\n"
+      "expected_output": "연결\n작업 중\n종료\n",
+      "code_template": "{slot1}"
     }
   ]
 }

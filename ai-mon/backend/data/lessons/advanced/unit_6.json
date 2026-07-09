@@ -1156,7 +1156,7 @@
             "                                    \"tool_use_id\": b.id,",
             "                                    \"content\": r[\"result\"]})",
             "            messages.append({\"role\": \"user\", \"content\": results})",
-          "        return \"최대 반복 횟수 초과\""
+            "        return \"최대 반복 횟수 초과\""
           ],
           "output": [
             "서울은 현재 맑음 22°C 입니다.",
