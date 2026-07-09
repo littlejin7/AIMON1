@@ -119,8 +119,12 @@ def test_concurrent_boss_and_game_no_derived_drift(temp_user):
     # 파생 카운터는 어느 경로로 써도 영속 안 됨
     assert "boss_cleared" not in saved
     assert "completed_stages" not in saved
-    # 두 보상 모두 원자적으로 반영 (보스 3000 + 게임 350)
-    assert saved["xp"] == 3350, f"xp drift: {saved.get('xp')}"
+    # 두 보상 모두 원자적으로 반영돼야 한다. 게임 보상은 더 이상 xp 가 아니라
+    # coin/ranking 으로 지급된다(grant_reward 이관). runner distance=600(<1000) →
+    # 보상 단위 200. slime(진화<3)이라 gp 는 게이트로 0.
+    assert saved["xp"] == 3000, f"boss xp drift: {saved.get('xp')}"
+    assert saved.get("coin_balance") == 200, f"game coin drift: {saved.get('coin_balance')}"
+    assert saved.get("ranking_score") == 200, f"game ranking drift: {saved.get('ranking_score')}"
     assert saved["game_rewards"]["runner_today_count"] == 1
 
 
