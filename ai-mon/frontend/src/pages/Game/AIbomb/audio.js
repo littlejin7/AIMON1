@@ -2,61 +2,32 @@
 //  audio.js — Web Audio API 엔진
 // ═══════════════════════════════════════════════════════════════
 
+import aibombBgm from '@/assets/bgm/aibomb_bgm.mp3';
+
 export function createAudioCtx() {
   return new (window.AudioContext || window.webkitAudioContext)();
 }
 
-// ── BGM: Sneaky Mission (스파이 재즈 루프) ──
+// ── BGM: aibomb_bgm.mp3 루프 ──
+// mp3 파일을 MediaElementSource 로 Web Audio 그래프에 연결해 masterGain(볼륨 슬라이더)
+// 아래로 흐르게 한다. → SFX 와 동일하게 게임 볼륨/음소거가 그대로 BGM 에도 적용됨.
 export function startBgm(ctx, masterGain) {
-  const master = ctx.createGain();
-  master.gain.value = 0.14;
-  master.connect(masterGain ?? ctx.destination);
+  const audio = new Audio(aibombBgm);
+  audio.loop = true;
+  audio.preload = 'auto';
 
-  // 베이스 드론
-  const bass = ctx.createOscillator();
-  bass.type = 'triangle';
-  bass.frequency.value = 55;
-  const bassG = ctx.createGain();
-  bassG.gain.value = 0.35;
-  bass.connect(bassG);
-  bassG.connect(master);
-  bass.start();
+  const srcNode = ctx.createMediaElementSource(audio);
+  const bgmGain = ctx.createGain();
+  bgmGain.gain.value = 0.5;   // SFX 아래로 살짝 낮춰 배경으로 깔림
+  srcNode.connect(bgmGain);
+  bgmGain.connect(masterGain ?? ctx.destination);
 
-  // 멜로디 아르페지오 루프
-  const notes = [220, 261, 196, 233, 220, 174, 196, 220];
-  const noteDur = 0.22;
-  const loopDur = notes.length * noteDur;
-  let loopStart = ctx.currentTime;
-
-  function scheduleLoop() {
-    notes.forEach((freq, i) => {
-      const t = loopStart + i * noteDur;
-      const o = ctx.createOscillator();
-      o.type = 'sawtooth';
-      o.frequency.value = freq;
-      const eg = ctx.createGain();
-      eg.gain.setValueAtTime(0, t);
-      eg.gain.linearRampToValueAtTime(0.55, t + 0.04);
-      eg.gain.linearRampToValueAtTime(0,    t + noteDur - 0.02);
-      o.connect(eg);
-      eg.connect(master);
-      o.start(t);
-      o.stop(t + noteDur);
-    });
-    loopStart += loopDur;
-  }
-
-  scheduleLoop();
-  const intervalId = setInterval(() => {
-    if (ctx.state === 'closed') { clearInterval(intervalId); return; }
-    scheduleLoop();
-  }, loopDur * 1000);
+  audio.play().catch(() => {});
 
   return () => {
-    clearInterval(intervalId);
-    try { bass.stop(); } catch(e) {}
-    master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
-    master.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.3);
+    try { audio.pause(); } catch(e) {}
+    try { srcNode.disconnect(); } catch(e) {}
+    try { bgmGain.disconnect(); } catch(e) {}
   };
 }
 
