@@ -25,7 +25,6 @@ export default function StageQuiz({
   unitInfo,
 }) {
   const navigate = useNavigate()
-  const user = useAuthStore((s) => s.user)
   const charSrc = amon
 
   const currentQ = questions[current]
