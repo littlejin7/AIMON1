@@ -36,6 +36,88 @@
   margin-bottom: 12px;
 }
 
+/* 시작 팝업만 뒷배경을 옅게 — 뒤에 깔린 퍼즐 보드가 비쳐 보이게 한다(에이런/에이짝 동일). */
+#popup-title {
+  background: rgba(6, 2, 26, 0.8);
+  backdrop-filter: blur(5px);
+}
+
+/* ── 시작 화면 팝업: 화이트 박스 스타일(다른 미니게임 인트로와 통일) ── */
+.popup-card--white {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1.5px solid rgba(90, 26, 240, 0.28);
+  box-shadow: 0 24px 60px rgba(30, 10, 70, 0.28), 0 0 34px rgba(140, 80, 240, 0.2);
+  padding: 22px 26px 24px;
+}
+
+.popup-thumb {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+
+.popup-title-text--modern {
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #3a1470;
+  text-shadow: none;
+  margin: 0;
+}
+
+.popup-sub--dark {
+  color: #8b7ec8;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* 규칙 박스 */
+.popup-rule {
+  width: 100%;
+  margin-top: 2px;
+  background: rgba(90, 26, 240, 0.06);
+  border: 1px solid rgba(90, 26, 240, 0.16);
+  border-radius: 14px;
+  padding: 11px 16px;
+  color: #4a3f78;
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.popup-rule strong {
+  color: #6a2ff5;
+}
+
+/* 보상 배지 */
+.popup-reward-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #fff3d0, #ffe49c);
+  color: #8a5a00;
+  font-weight: 800;
+  font-size: 0.82rem;
+  padding: 7px 16px;
+  border-radius: 99px;
+  border: 1px solid rgba(180, 120, 0, 0.25);
+}
+
+.popup-error {
+  color: #e0445e;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* 화이트 카드 안에서는 시작 버튼 상단 여백을 flex gap이 담당하므로 제거 */
+.popup-card--white .btn {
+  margin-top: 4px;
+}
+
 /* 보스 이미지 행 */
 .popup-boss-row {
   display: flex;

@@ -156,6 +156,18 @@ useEffect(() => {
     setGrid(gridRef.current.map(row => [...row]));
   }, []);
 
+  // ── 시작 팝업 뒤에 퍼즐 보드가 비쳐 보이도록, 마운트 시 매치 없는 그리드를 미리 깔아둔다.
+  //    (게임 시작/보스/BGM은 건드리지 않고 시각적 보드만 seed — 에이런/에이짝 인트로와 동일한 연출) ──
+  useEffect(() => {
+    let seedGrid;
+    do {
+      seedGrid = createFreshGrid();
+    } while (findAllMatchedCells(seedGrid).length > 0);
+    gridRef.current = seedGrid;
+    setGrid(seedGrid.map(row => [...row]));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // ── 셀 애니메이션 관리 ──
   const addCellAnim = useCallback((cells, anim) => {
     setCellAnims(prev => {

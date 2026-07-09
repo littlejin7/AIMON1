@@ -1,6 +1,6 @@
 import React from 'react';
 import './Popup.css';
-import { AP_IMGS, BOSS_UNIT, BOSS_FINAL } from '../../assetPaths';
+import { AP_IMGS, BOSS_UNIT, BOSS_FINAL, AIPANG_ICON } from '../../assetPaths';
 
 /**
  * 타이틀 화면 팝업
@@ -9,22 +9,20 @@ export function PopupTitle({ visible, onStart, errorMsg }) {
   if (!visible) return null;
   return (
     <div className="popup" id="popup-title">
-      <div className="popup-card">
-        <div className="popup-title-text">AI팡!</div>
-        <div className="popup-boss-row">
-          <img src={BOSS_UNIT}  alt="Unit Boss"  />
-          <img src={BOSS_FINAL} alt="Final Boss" />
+      <div className="popup-card popup-card--white">
+        <img className="popup-thumb" src={AIPANG_ICON} alt="AI Pang" />
+        <div className="popup-title-text popup-title-text--modern">AI Pang</div>
+        <div className="popup-sub popup-sub--dark">블록을 매치해서 보스를 공격하세요!</div>
+
+        <div className="popup-rule">
+          <div>🧩&nbsp;같은 블록을 <strong>3개 이상</strong> 매치해</div>
+          <div>보스에게 <strong>데미지</strong>를 주세요!</div>
         </div>
-        <div className="popup-sub">블록을 매치해서 보스를 공격하세요!</div>
-        <div className="char-row">
-          {[1, 2, 3, 4].map(i => (
-            <img key={i} src={AP_IMGS[i]} alt={`char-${i}`} />
-          ))}
-        </div>
+
+        <div className="popup-reward-pill">👑 클리어 보상 · 왕관 획득</div>
+
         {errorMsg && (
-          <div style={{ color: '#ff6b6b', fontSize: '0.85rem', margin: '8px 0' }}>
-            ⚠️ {errorMsg}
-          </div>
+          <div className="popup-error">⚠️ {errorMsg}</div>
         )}
         <button className="btn" onClick={onStart}>
           {errorMsg ? '다시 시도' : '게임 시작!'}
