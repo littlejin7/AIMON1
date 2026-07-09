@@ -1081,3 +1081,64 @@ body:has(.lh-page) { background: #F4F3FA; }
   transform: translateY(0);
 }
 
+/* ── 3차: 통합 로드맵 보드 ── */
+.lh-roadmap-board {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F3F0FF 100%);
+  border: 1px solid #E2E1EE;
+  border-radius: 22px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 4px 18px rgba(103, 87, 216, 0.04);
+}
+
+.lh-roadmap-board-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.lh-roadmap-board-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.lh-roadmap-board-title-group h2 {
+  font-size: 15px;
+  font-weight: 800;
+  color: #1A1A2E;
+  margin: 0;
+}
+
+.lh-roadmap-board-count {
+  font-size: 11px;
+  color: #7A7A94;
+}
+
+.lh-roadmap-board-count strong {
+  color: #7F77DD;
+  font-weight: 700;
+}
+
+.lh-roadmap-board-percent {
+  font-size: 20px;
+  font-weight: 800;
+  color: #7F77DD;
+}
+
+.lh-roadmap-board-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: #EAE8F5;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.lh-roadmap-board-progress-fill {
+  height: 100%;
+  background: #7F77DD;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}

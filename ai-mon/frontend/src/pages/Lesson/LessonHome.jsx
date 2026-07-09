@@ -453,32 +453,27 @@ export default function LessonHome() {
           )
         })()}
 
-        {/* ── 진행률 요약 ── */}
-        {token && (
-          <div className="lh-progress-card lh-progress-card-v2">
-            <div className="lh-progress-head">
-              <span className="lh-progress-label">{LEVEL_MAP[courseLevel]?.label} 진행률</span>
-              <span className="lh-progress-count">
-                <strong>{doneStages}</strong> / {totalStages} 스테이지 완료
-              </span>
-            </div>
-            <div className="lh-progress-main">
-              <span className="lh-progress-percent">{overallPct}%</span>
-              <div className="lh-prog-bar lh-prog-bar-v2">
-                <div className="lh-prog-fill" style={{ width: `${overallPct}%` }} />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* ── 유닛 선택 가로 UI ── */}
+        {/* ── 3차: 통합 로드맵 보드 ── */}
         {lessons.length > 0 && (
-          <section className="lh-unit-selector-card" aria-label={`${LEVEL_MAP[courseLevel]?.label} 유닛 선택`}>
-            <div className="lh-unit-selector-head">
-              <h2>{LEVEL_MAP[courseLevel]?.label} 유닛</h2>
-              <span>총 {lessons.length}개 Unit</span>
+          <section className="lh-roadmap-board" aria-label={`${LEVEL_MAP[courseLevel]?.label} 로드맵`}>
+            {/* 상단: 진행률 요약 */}
+            <div className="lh-roadmap-board-head">
+              <div className="lh-roadmap-board-title-group">
+                <h2>{LEVEL_MAP[courseLevel]?.label} 로드맵</h2>
+                <span className="lh-roadmap-board-count">
+                  <strong>{doneStages}</strong> / {totalStages} 스테이지 완료
+                </span>
+              </div>
+              <span className="lh-roadmap-board-percent">{overallPct}%</span>
             </div>
+            
+            {token && (
+              <div className="lh-roadmap-board-progress-bar">
+                <div className="lh-roadmap-board-progress-fill" style={{ width: `${overallPct}%` }} />
+              </div>
+            )}
 
+            {/* 하단: 유닛 가로 선택 노드 */}
             <div className="lh-unit-selector-scroll">
               {lessons.map((lesson, idx) => {
                 const unlocked = token ? lesson.unit_id <= maxUnlocked : lesson.unit_id === 1
@@ -487,7 +482,6 @@ export default function LessonHome() {
                 const isCurrent = unlocked && !done && lesson.unit_id === expandedUnit
                 const title = lesson.title || UNIT_TITLES[idx] || `Unit ${lesson.unit_id}`
                 const shortTitle = getUnitShortTitle(title, lesson.unit_id, courseLevel)
-                const icon = lesson.icon || getFallbackUnitIcon(lesson.unit_id)
 
                 return (
                   <button
