@@ -601,16 +601,17 @@ export default function LessonHome() {
                 if (done) {
                   return (
                     <div className="lh-unit-done-container">
-                      <p className="lh-unit-done-msg">
-                        🎉 모든 스테이지 완료! 보스전을 복습하거나 스테이지를 다시 학습해 보세요.
-                      </p>
-                      <div className="lh-compact-stages-grid">
+                      <div className="lh-stage-complete-message">
+                        <strong>🎉 모든 스테이지 완료!</strong>
+                        <span>유닛보스에 도전하거나 스테이지를 다시 학습해보세요.</span>
+                      </div>
+                      <div className="lh-stage-chip-list">
                         {stageNums.map((s) => {
                           return (
                             <button
                               key={s}
                               type="button"
-                              className="lh-compact-stage-chip no-3d"
+                              className="lh-stage-chip no-3d"
                               onClick={() => {
                                 if (!token) return
                                 if (!user?.is_level_tested && !(lesson.unit_id === 1 && s === 1)) {
