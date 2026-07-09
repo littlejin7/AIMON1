@@ -71,6 +71,11 @@
   height: 200px;
   object-fit: contain;
   filter: drop-shadow(0 0 16px rgba(125,211,252,0.3));
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+}
 }
 
 .stage-char-img.villain-char {
@@ -101,7 +106,8 @@
   text-align: right;
 }
 
-.stage-content { padding-top: var(--sp-6) !important; padding-bottom: 120px !important; }
+.stage-content { padding-top: var(--sp-6) !important; padding-bottom: 120px !important; max-width: 480px !important; width: 100% !important; margin: 0 !important; }
+
 
 /* ── Result screen ── */
 .stage-result {
