@@ -28,7 +28,7 @@ const FADE_IN_MS  = 800
 // "홈 BGM 만" 이 배율만큼 더 작게 재생한다.
 // 값이 작을수록 조용하다.
 // (예: 슬라이더 50% → 실제 0.5 × 0.18 = 0.09). 더 줄이려면 값을 낮추고, 키우려면 올린다.
-const GLOBAL_BGM_GAIN = 0.06
+const GLOBAL_BGM_GAIN = 0.08
 
 // 자체 BGM 을 가진 "실제 플레이 화면" 경로 (전역 BGM 정지 대상).
 // ⚠ 선택/허브 화면(/boss, /game, /game/ranking)은 자체 BGM 이 없으므로 제외하지 않는다
