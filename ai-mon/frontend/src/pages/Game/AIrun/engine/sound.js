@@ -1,10 +1,12 @@
+import airunBgm from '@/assets/bgm/airun_bgm.mp3';
+
 export class SoundManager {
   constructor() {
     this._ctx = null;
     this._master = null;
-    this._bgmNodes = [];
+    this._bgmEl = null;         // BGM용 HTMLAudioElement (파일 재생)
     this._bgmActive = false;
-    this._bgmTimer = null;
+    this._bgmPending = null;    // 자동재생 대기 리스너 해제 함수
     this._volume = 0.7;
     this._destroyed = false;
   }
@@ -26,55 +28,50 @@ export class SoundManager {
   setVolume(v) {
     this._volume = Math.max(0, Math.min(1, v));
     if (this._master) this._master.gain.value = this._volume;
+    if (this._bgmEl) this._bgmEl.volume = this._volume;   // BGM도 동일 볼륨 적용
   }
 
-  // ── 배경음 (8비트 칩튠) ────────────────────
+  // ── 배경음 (airun_bgm.mp3 루프) ────────────────────
   startBGM() {
     if (this._destroyed || this._bgmActive) return;
     this._bgmActive = true;
-    this._loopChiptune();
+
+    if (!this._bgmEl) {
+      this._bgmEl = new Audio(airunBgm);
+      this._bgmEl.loop = true;
+      this._bgmEl.preload = 'auto';
+    }
+    this._bgmEl.volume = this._volume;
+    this._bgmEl.currentTime = 0;
+
+    this._bgmEl.play().catch(() => {
+      // 자동재생 차단 → 첫 인터랙션까지 대기
+      const onInteract = () => {
+        if (this._bgmActive) this._bgmEl?.play().catch(() => {});
+        this._clearBgmPending();
+      };
+      document.addEventListener('click',      onInteract, { once: true });
+      document.addEventListener('keydown',    onInteract, { once: true });
+      document.addEventListener('touchstart', onInteract, { once: true });
+      this._bgmPending = () => {
+        document.removeEventListener('click',      onInteract);
+        document.removeEventListener('keydown',    onInteract);
+        document.removeEventListener('touchstart', onInteract);
+      };
+    });
   }
 
   stopBGM() {
     this._bgmActive = false;
-    if (this._bgmTimer) { clearTimeout(this._bgmTimer); this._bgmTimer = null; }
-    this._bgmNodes.forEach(n => { try { n.stop(); } catch (e) {} });
-    this._bgmNodes = [];
+    this._clearBgmPending();
+    if (this._bgmEl) {
+      this._bgmEl.pause();
+      this._bgmEl.currentTime = 0;
+    }
   }
 
-  _loopChiptune() {
-    if (this._destroyed || !this._bgmActive) return;
-    const ctx = this._ctx_();
-    const out = this._out();
-    const beat = 60 / 160;
-    const melody = [523,659,784,1047,784,659,523,659,784,1047,1047,784,880,1047,880,784];
-    const bass   = [131,131,165,131,131,131,165,131];
-    let t = ctx.currentTime + 0.05;
-
-    melody.forEach((f, i) => {
-      const o = ctx.createOscillator();
-      const g = ctx.createGain();
-      o.type = 'square'; o.frequency.value = f;
-      g.gain.setValueAtTime(0.06, t + i * beat * 0.5);
-      g.gain.exponentialRampToValueAtTime(0.001, t + i * beat * 0.5 + beat * 0.45);
-      o.connect(g); g.connect(out);
-      o.start(t + i * beat * 0.5); o.stop(t + i * beat * 0.5 + beat * 0.5);
-      this._bgmNodes.push(o);
-    });
-
-    bass.forEach((f, i) => {
-      const o = ctx.createOscillator();
-      const g = ctx.createGain();
-      o.type = 'sawtooth'; o.frequency.value = f;
-      g.gain.setValueAtTime(0.08, t + i * beat);
-      g.gain.exponentialRampToValueAtTime(0.001, t + i * beat + beat * 0.9);
-      o.connect(g); g.connect(out);
-      o.start(t + i * beat); o.stop(t + i * beat + beat);
-      this._bgmNodes.push(o);
-    });
-
-    const loopLen = melody.length * beat * 0.5;
-    this._bgmTimer = setTimeout(() => this._loopChiptune(), (loopLen - 0.2) * 1000);
+  _clearBgmPending() {
+    if (this._bgmPending) { this._bgmPending(); this._bgmPending = null; }
   }
 
   // ── 점프 (가벼운 통통) ─────────────────────
@@ -132,6 +129,7 @@ export class SoundManager {
   destroy() {
     this._destroyed = true;
     this.stopBGM();
+    if (this._bgmEl) { this._bgmEl.src = ''; this._bgmEl = null; }
     if (this._ctx) { this._ctx.close(); this._ctx = null; }
   }
 }
