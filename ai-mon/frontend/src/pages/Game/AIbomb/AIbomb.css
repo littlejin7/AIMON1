@@ -219,37 +219,142 @@
 /* ── 버튼 풀 사이즈 ── */
 .bd-btn--full { width: 100%; margin-top: 4px; }
 
-/* ── ① 인트로 화면 ── */
-.bd-intro {
+/* ── ① 인트로 화면 — 다른 미니게임과 통일된 화이트 박스 오버레이 ── */
+.bd-intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(45, 40, 90, 0.35);
+  backdrop-filter: blur(5px);
+}
+
+/* 박스 크기/테두리는 다른 게임과 통일(width 300 / padding 22 26 24 / radius 26),
+   안쪽 레이아웃은 기존 .bd-intro 그대로(flex column·gap 10) 유지 */
+.bd-intro-panel {
+  width: 300px;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 10px;
-  padding: 6px 2px 2px;
+  gap: 8px;
+  padding: 22px 26px 24px;
+  background: #fff;
+  border: 1.5px solid rgba(123, 47, 247, 0.28);
+  border-radius: 26px;
+  box-shadow: 0 24px 60px rgba(50, 30, 90, 0.28), 0 0 34px rgba(155, 93, 229, 0.22);
+  animation: bd-intro-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
-.bd-intro-title {
-  font-family: 'Press Start 2P', 'Galmuri11', monospace;
-  font-size: 17px;
-  line-height: 1.7;
+
+@keyframes bd-intro-pop {
+  0%   { opacity: 0; transform: scale(0.82) translateY(20px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* 코너 닫기 버튼 — 다른 게임(✕)과 동일 규격 */
+.bd-intro-back {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 41;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(127, 119, 221, 0.4);
+  border-radius: 10px;
   color: var(--bd-accent-dark);
-  margin: 4px 0 0;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.bd-intro-back:hover { background: #fff; }
+.bd-intro-title {
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  font-size: 2.2rem;
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #3a1470;
+  margin: 0;
+}
+.bd-intro-thumb {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin: 0 0 2px;
 }
 .bd-intro-desc {
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--bd-muted);
-  font-family: 'Galmuri11', sans-serif;
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: #8b7ec8;
+  font-weight: 600;
+  margin: 0;
 }
 .bd-intro-rule-box {
   width: 100%;
-  border: 2px dashed var(--bd-accent);
-  border-radius: 10px;
-  padding: 12px 14px;
-  background: var(--bd-accent-soft);
-  color: var(--bd-ink);
-  font-size: 12px;
-  line-height: 1.7;
+  margin-top: 2px;
+  border: 1px solid rgba(123, 47, 247, 0.18);
+  border-radius: 14px;
+  padding: 11px 16px;
+  background: rgba(123, 47, 247, 0.06);
+  color: #4a3f78;
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  font-weight: 500;
+}
+.bd-intro-rule-lines {
+  color: #4a3f78;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  font-weight: 500;
+}
+.bd-intro-reward {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #fff3d0, #ffe49c);
+  color: #8a5a00;
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  font-weight: 800;
+  font-size: 0.82rem;
+  padding: 7px 16px;
+  border-radius: 99px;
+  border: 1px solid rgba(180, 120, 0, 0.25);
+}
+.bd-intro-panel .bd-btn {
+  margin-top: 4px;
+  padding: 11px 36px;
+  width: auto;
+  min-width: 160px;
+  min-height: auto;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #5a1af0, #b038f5);
+  box-shadow: 0 5px 20px rgba(140, 50, 240, 0.5);
+  color: #fff;
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 900;
+  line-height: 1.2;
+}
+.bd-intro-panel .bd-btn::before,
+.bd-intro-panel .bd-btn::after {
+  display: none;
+}
+.bd-intro-panel .bd-btn:hover {
+  filter: brightness(1.08);
+}
+.bd-intro-panel .bd-btn:active {
+  transform: scale(0.98);
 }
 
 /* ── ② 플레이 화면 ── */

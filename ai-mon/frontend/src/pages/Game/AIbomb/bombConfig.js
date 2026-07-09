@@ -5,10 +5,11 @@
 
 export const BOMB_CONFIG = {
   intro: {
-    title: 'AI BOMB\n미니게임',
-    desc: 'Git 미션을 해결해서\n폭탄을 해체하라!',
+    title: 'AI Bomb',
+    desc: '미션을 해결해서 폭탄을 해체하라!',
     rule: (total, need) => `문제 ${total}개 중\n${need}개 이상 맞히면 해체 성공!`,
-    startButton: '시작하기 ▶',
+    rewardText: '⚡ 클리어 보상 · 코인 최대 100',
+    startButton: '게임시작 ▶',
     passRatio: 0.7,                 // 총 문제 중 이 비율 이상 클리어하면 최종 성공 처리(표시용)
   },
   timer: {

@@ -30,6 +30,7 @@ import { useTapGame } from './hooks/useTapGame';
 import useGameBgm     from '../../../hooks/useGameBgm';
 
 import { RunningMonstersSprite, PixelHeart, ClearCheck } from './sprites';
+import aibombIcon from './assets/AIbombicon.png';
 import aibombfail from './assets/AIbombfail.png';
 import aibombclear from './assets/AIbombclear.png';
 import aibombBgm  from '@/assets/bgm/aibomb_bgm.mp3';
@@ -79,23 +80,8 @@ export default function AIbomb() {
           </div>
         </div>
 
-        {/* ── ① 인트로 ── */}
-        {game.status === 'ready' && (
-          <div className="bd-intro">
-            <h1 className="bd-intro-title">{intro.title.split('\n').map((l,i) => <div key={i}>{l}</div>)}</h1>
-            <div className="bd-intro-desc">{intro.desc.split('\n').map((l,i) => <div key={i}>{l}</div>)}</div>
-            <div className="bd-bomb-stage"><RunningMonstersSprite danger={false} /></div>
-            <div className="bd-intro-rule-box">
-              {intro.rule(STAGE_COUNT, NEED_STAGES).split('\n').map((l,i) => <div key={i}>{l}</div>)}
-            </div>
-            <button className="bd-btn bd-btn--primary bd-btn--full" onClick={game.startGame}>
-              {intro.startButton}
-            </button>
-          </div>
-        )}
-
         {/* ── ② 플레이 (칠판 코드 터치 — 기존 문제 로직) ── */}
-        {(game.status === 'playing') && (
+        {(game.status === 'ready' || game.status === 'playing') && (
           <div className="bd-play">
             <div className="bd-timer-ring">
               <svg viewBox="0 0 100 100" className="bd-timer-ring-svg">
@@ -213,6 +199,27 @@ export default function AIbomb() {
         )}
 
       </div>
+
+      {/* ── 시작 인트로 — 다른 미니게임처럼 화이트 박스 오버레이 (안쪽 내용은 그대로) ── */}
+      {game.status === 'ready' && (
+        <div className="bd-intro-overlay">
+          <button className="bd-intro-back" onClick={() => navigate(-1)} aria-label="뒤로가기">✕</button>
+          <div className="bd-intro-panel">
+            <img className="bd-intro-thumb" src={aibombIcon} alt="AI Bomb" />
+            <h1 className="bd-intro-title">{intro.title.split('\n').map((l,i) => <div key={i}>{l}</div>)}</h1>
+            <div className="bd-intro-desc">{intro.desc.split('\n').map((l,i) => <div key={i}>{l}</div>)}</div>
+            <div className="bd-intro-rule-box">
+              <div className="bd-intro-rule-lines">
+                {intro.rule(STAGE_COUNT, NEED_STAGES).split('\n').map((l,i) => <div key={i}>{l}</div>)}
+              </div>
+            </div>
+            <div className="bd-intro-reward">{intro.rewardText}</div>
+            <button className="bd-btn bd-btn--primary bd-btn--full" onClick={game.startGame}>
+              {intro.startButton}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
