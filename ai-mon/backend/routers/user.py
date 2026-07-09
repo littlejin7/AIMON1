@@ -18,7 +18,7 @@ from routers.utils import (
     get_evolution_stage,
     CHARACTER_TO_STAGE,
 )
-from routers.auth import hash_password, verify_password
+from routers.auth import hash_password, verify_password, validate_password_policy
 
 logger = logging.getLogger("uvicorn.error")
 router = APIRouter()
@@ -189,8 +189,7 @@ def change_password(req: ChangePasswordRequest, user: dict = Depends(get_current
     if username.startswith(("google_", "naver_", "kakao_")):
         raise HTTPException(status_code=400, detail="소셜 로그인 계정은 비밀번호를 변경할 수 없습니다.")
 
-    if len(req.new_password) < 8:
-        raise HTTPException(status_code=400, detail="새 비밀번호는 8자 이상이어야 합니다.")
+    validate_password_policy(req.new_password)
     if req.new_password == req.current_password:
         raise HTTPException(status_code=400, detail="새 비밀번호가 현재 비밀번호와 동일합니다.")
 

@@ -5,6 +5,7 @@ import { useAuthStore } from '../../hooks/useAuthStore'
 import EmailVerificationStep from './components/EmailVerificationStep'
 import { useEmailVerification } from './hooks/useEmailVerification'
 import LegalModal from '../../components/LegalModal/LegalModal'
+import { isValidPassword, passwordError } from '../../utils/passwordPolicy'
 import beginnerHappyIcon from '../../assets/character_beginnerhappy.png'
 import slimeIcon         from '../../assets/character_slime.png'
 import './Auth.css'
@@ -353,7 +354,7 @@ export default function Register() {
 
   const allTermsRequired = terms.tos && terms.privacy
   const canGoStep2 = isIdChecked && isEmailChecked && form.email.includes('@') && form.email.split('@')[1]?.length > 1
-    && form.password.length >= 8 && form.password === form.passwordConfirm
+    && isValidPassword(form.password) && form.password === form.passwordConfirm
   const canGoStep5 = isNicknameChecked && form.nickname.trim().length >= 2
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -543,16 +544,16 @@ export default function Register() {
                 <div className="reg-field-label"><span className="reg-field-label-icon">🔒</span>비밀번호</div>
                 <div className="reg-field-wrap">
                   <input className="reg-field-in" type={showPw ? 'text' : 'password'}
-                    placeholder="8자 이상" value={form.password} onChange={handlePwChange} autoComplete="new-password" />
+                    placeholder="영문·숫자·특수문자 포함 8자 이상" value={form.password} onChange={handlePwChange} autoComplete="new-password" />
                   <button type="button" className="reg-field-suffix" onClick={() => setShowPw(v => !v)}>
                     {showPw ? '숨기기' : '보기'}
                   </button>
                 </div>
-                {form.password.length > 0 && form.password.length >= 8 && (
-                  <div className="reg-field-hint ok">✓ 영문, 숫자 포함 8자 이상</div>
+                {form.password.length > 0 && isValidPassword(form.password) && (
+                  <div className="reg-field-hint ok">✓ 영문·숫자·특수문자 포함 8자 이상</div>
                 )}
-                {form.password.length > 0 && form.password.length < 8 && (
-                  <div className="reg-field-hint err">⚠ 8자 이상 입력해주세요 ({form.password.length}/8)</div>
+                {form.password.length > 0 && !isValidPassword(form.password) && (
+                  <div className="reg-field-hint err">⚠ {passwordError(form.password)}</div>
                 )}
               </div>
 

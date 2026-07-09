@@ -4,6 +4,7 @@ import { useAuthStore } from '../../hooks/useAuthStore'
 import { useSoundStore } from '../../hooks/useSoundStore'
 import { userApi, authApi } from '../../api/index'
 import LegalModal from '../../components/LegalModal/LegalModal'
+import { isValidPassword, passwordError } from '../../utils/passwordPolicy'
 import './Settings.css'
 
 // 닉네임 중복확인/저장 에러를 사용자용 메시지로 변환 (Register.jsx와 동일 규칙)
@@ -238,8 +239,8 @@ export default function Settings() {
 
   const handlePwSubmit = async (e) => {
     e.preventDefault()
-    if (pwForm.next.length < 8) {
-      setPwMsg({ type: 'err', text: '새 비밀번호는 8자 이상이어야 합니다.' })
+    if (!isValidPassword(pwForm.next)) {
+      setPwMsg({ type: 'err', text: `새 비밀번호는 ${passwordError(pwForm.next)}` })
       return
     }
     if (pwForm.next !== pwForm.confirm) {
@@ -344,7 +345,7 @@ export default function Settings() {
                     value={pwForm.next}
                     onChange={handlePwFieldChange('next')}
                     autoComplete="new-password"
-                    placeholder="8자 이상"
+                    placeholder="영문·숫자·특수문자 포함 8자 이상"
                     required
                   />
                   <button

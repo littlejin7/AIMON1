@@ -90,6 +90,24 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 def hash_password(password: str) -> str:
     return pwd_context.hash(password)
 
+
+# 비밀번호 정책 (회원가입 / 비밀번호 변경 / 비밀번호 재설정 공통)
+# 규칙: 최소 8자 + 영문 1자 이상 + 숫자 1자 이상 + 특수문자 1자 이상
+_PW_SPECIAL_CHARS = set("!@#$%^&*()_+-=[]{};':\"\\|,.<>/?~`")
+
+
+def validate_password_policy(password: str) -> None:
+    """정책 위반 시 HTTPException(400) 을 raise. 통과하면 None."""
+    pw = password or ""
+    if len(pw) < 8:
+        raise HTTPException(status_code=400, detail="비밀번호는 8자 이상이어야 합니다.")
+    if not any(c.isascii() and c.isalpha() for c in pw):
+        raise HTTPException(status_code=400, detail="비밀번호에 영문을 1자 이상 포함해주세요.")
+    if not any(c.isascii() and c.isdigit() for c in pw):
+        raise HTTPException(status_code=400, detail="비밀번호에 숫자를 1자 이상 포함해주세요.")
+    if not any(c in _PW_SPECIAL_CHARS for c in pw):
+        raise HTTPException(status_code=400, detail="비밀번호에 특수문자를 1자 이상 포함해주세요.")
+
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     # 하위 호환: 만약 기존의 SHA-256 해시값이라면 기존 방식 적용
     if hashed_password.startswith("$2b$") or hashed_password.startswith("$2a$"):
@@ -464,6 +482,7 @@ def verify_email_code(req: VerifyEmailCodeRequest, request: Request):
 @router.post("/register", status_code=status.HTTP_201_CREATED)
 @limiter.limit("5/minute")
 def register(req: RegisterRequest, request: Request):
+    validate_password_policy(req.password)
     # ── [추가] 대문자 검사 ──
     if any(c.isupper() for c in req.username):
         raise HTTPException(status_code=400, detail="아이디는 소문자로만 입력해주세요.")
@@ -693,6 +712,9 @@ def reset_password(req: ResetPasswordRequest, request: Request):
     user = get_user_by_email(req.email)
     if user is None:
         raise _INVALID
+
+    # 토큰 검증을 통과한 뒤에 비밀번호 정책 검사 (기존 토큰 소진/실패 카운트 테스트 유지)
+    validate_password_policy(req.new_password)
 
     # 비밀번호 변경 — mutate_user_atomic 원자 경로로 저장 (C-1)
     new_hashed_pw = hash_password(req.new_password)

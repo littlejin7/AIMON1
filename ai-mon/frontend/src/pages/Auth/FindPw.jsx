@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { authApi } from '../../api/index'
 import InfoModal from '../../components/InfoModal/InfoModal'
+import { isValidPassword, passwordError } from '../../utils/passwordPolicy'
 import beginnerHappyIcon from '../../assets/character_beginnerhappy.png'
 import './Auth.css'
 
@@ -39,6 +40,10 @@ export default function FindPw() {
   // (b) 토큰 + 새 비밀번호로 재설정
   const handleReset = async (e) => {
     e.preventDefault()
+    if (!isValidPassword(newPassword)) {
+      setError(`새 비밀번호는 ${passwordError(newPassword)}`)
+      return
+    }
     setLoading(true)
     setError('')
     try {
@@ -173,7 +178,7 @@ export default function FindPw() {
                     name="new_password"
                     type={showPw ? 'text' : 'password'}
                     className="auth-field-input"
-                    placeholder="새 비밀번호를 입력하세요"
+                    placeholder="영문·숫자·특수문자 포함 8자 이상"
                     value={newPassword}
                     onChange={(e) => { setNewPassword(e.target.value); setError('') }}
                     required
