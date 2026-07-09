@@ -1,12 +1,20 @@
 /* ── 타임킬링 래퍼 ── */
+/* 다른 게임들과 동일하게 가로폭을 앱 프레임(480px)으로 고정 —
+   전체화면(넓은 데스크톱 창)에서도 가로로 늘어나지 않도록 */
 .aipang-wrap {
   position: fixed;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
   background: #06021a;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 0;
+  overflow: hidden;
 }
 
 /* 좌상단 뒤로가기 버튼 */
