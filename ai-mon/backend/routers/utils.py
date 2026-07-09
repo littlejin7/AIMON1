@@ -33,6 +33,24 @@ from supabase import create_client, ClientOptions
 from typing import Optional
 from dotenv import load_dotenv
 
+# 순수 leaf 헬퍼는 _helpers.py 로 분리했다. 외부는 계속 routers.utils 에서
+# import 하므로 여기서 그대로 re-export 한다. (아래 __all__ 및 명시 import 참고)
+from routers._helpers import (
+    UserNotFoundError,
+    UserSaveError,
+    normalize_nickname,
+    _merge_dicts,
+    _attempt_log_context,
+    LESSON_MODES,
+    REVIEW_MODES,
+    _DERIVED_USER_FIELDS,
+    _strip_derived_fields,
+    calc_level,
+    CHARACTER_TO_STAGE,
+    STAGE_TO_CHARACTER,
+    character_for_stage,
+)
+
 def now_kst() -> datetime:
     return datetime.now(timezone(timedelta(hours=9)))
 
@@ -49,16 +67,6 @@ def prev_iso_week() -> str:
 
 
 logger = logging.getLogger("uvicorn.error")
-
-
-class UserNotFoundError(Exception):
-    """mutate_user_atomic: 대상 유저가 존재하지 않음."""
-    pass
-
-
-class UserSaveError(Exception):
-    """저장이 '조용한 덮어쓰기' 없이는 완료될 수 없음(lost-update 위험). 호출부로 거부 신호."""
-    pass
 
 
 _user_read_state = contextvars.ContextVar("_user_read_state", default=None)
@@ -241,10 +249,6 @@ def get_user_by_username_any(username: str) -> dict | None:
     return _cache_original_user(next((u for u in users if u["username"] == username), None))
 
 
-def normalize_nickname(nickname: str | None) -> str:
-    return str(nickname or "").strip()
-
-
 def get_user_by_nickname(nickname: str | None, exclude_user_id: str | None = None) -> dict | None:
     nickname_key = normalize_nickname(nickname).casefold()
     if not nickname_key:
@@ -424,25 +428,6 @@ def save_users(users):
         _save_json_locked(USERS_FILE, users)
 
 
-def _merge_dicts(current: dict, original: dict, modified: dict) -> dict:
-    res = copy.deepcopy(current)
-    for k, v in modified.items():
-        if k not in original:
-            res[k] = copy.deepcopy(v)
-        elif original[k] != v:
-            if isinstance(v, (int, float)) and isinstance(original[k], (int, float)) and isinstance(current.get(k), (int, float)):
-                delta = v - original[k]
-                res[k] = current.get(k, 0) + delta
-            elif isinstance(v, dict) and isinstance(original[k], dict) and isinstance(current.get(k), dict):
-                res[k] = _merge_dicts(current.get(k, {}), original[k], v)
-            else:
-                res[k] = copy.deepcopy(v)
-    for k in list(original.keys()):
-        if k not in modified:
-            res.pop(k, None)
-    return res
-
-
 def save_user(user: dict):
     # 파생 카운터 영속화 차단(이중 안전망). SSOT 정책은 _strip_derived_fields 주석 참고.
     user.pop("boss_cleared", None)
@@ -606,17 +591,8 @@ def _write_users_unlocked(users: list):
         raise
 
 
-# ---------------------------------------------------------------------------
-# 파생 카운터 SSOT 정책 (boss_cleared / completed_stages)
-# ---------------------------------------------------------------------------
-# 이 두 값의 단일 진실(SSOT)은 progress(+ endboss_cleared_levels)다.
-# serialize_user 가 매 응답마다 progress 기준으로 *파생 계산*하므로, user 레코드에
-# 절대 영속화하면 안 된다(영속 stale 값 ↔ 파생 계산값 드리프트의 원인).
-# 영속화 차단을 모든 쓰기 경로에서 보장하기 위해 mutate_user_atomic 코어에서
-# write 직전 strip 한다. (save_user 도 같은 키를 pop — 이중 안전망)
-# 부가 효과: Supabase users 테이블엔 이 두 컬럼이 없으므로, 레거시/직렬화 잔재로
-# 키가 끼면 update 가 "column not found" 로 500 난다. 코어 strip 이 이를 원천 차단.
-_DERIVED_USER_FIELDS = ("boss_cleared", "completed_stages")
+# 파생 카운터 SSOT 정책(boss_cleared / completed_stages) 및 _DERIVED_USER_FIELDS /
+# _strip_derived_fields 는 routers._helpers 로 이동해 상단에서 re-export 한다.
 
 COURSE_LEVEL_ORDER = ("beginner", "intermediate", "advanced")
 NEXT_COURSE_LEVEL = {
@@ -733,12 +709,6 @@ def promote_course_level_from_endboss(user: dict) -> bool:
         user["course_level"] = promoted
         return True
     return False
-
-
-def _strip_derived_fields(user: dict) -> None:
-    """progress 파생 카운터를 영속화 직전 제거한다. SSOT=progress. (제자리 변경)"""
-    for k in _DERIVED_USER_FIELDS:
-        user.pop(k, None)
 
 
 def _mutate_user_atomic_json(user_id: str, mutator):
@@ -872,22 +842,6 @@ def save_wrong_answer_item(item: dict):
 # ── Attempts (풀이 전수 기록) ──────────────────────────────────────────────
 # 정오답 무관·AI 피드백과 독립적으로 채점 순간마다 1건 append (retry 포함 전수).
 # 운영은 Supabase attempts 테이블이 단일 진실. JSON 분기는 dev 폴백 전용이다.
-def _attempt_log_context(item: dict) -> dict:
-    """Return only non-sensitive attempt fields for diagnostics."""
-    allowed = {
-        "id",
-        "user_id",
-        "question_id",
-        "unit",
-        "stage",
-        "level",
-        "mode",
-        "is_correct",
-        "answered_at",
-    }
-    return {k: item.get(k) for k in allowed if k in item}
-
-
 def _normalize_attempt_item_for_supabase(item: dict) -> dict | None:
     normalized = item.copy()
     user_id = normalized.get("user_id")
@@ -955,11 +909,6 @@ def _latest_attempt_per_question(user_id: str, course_level: str = None, unit: i
         if cur is None or str(a.get("answered_at") or "") > str(cur.get("answered_at") or ""):
             latest[qid] = a
     return latest
-
-
-# 레슨(채점 결과가 오답 발생원) 모드 vs 복습(맞히면 오답을 해소하는) 모드
-LESSON_MODES = {"quiz", "miniboss"}
-REVIEW_MODES = {"train", "random", "boss_rush"}
 
 
 def get_wrong_answers(user_id: str, course_level: str = None, unit: int = None) -> list:
@@ -1278,33 +1227,6 @@ def serialize_user(user: dict) -> dict:
     res.pop("password", None)
     res.pop("deleted_at", None)
     return res
-
-
-def calc_level(xp: int) -> int:
-    """XP 기준 레벨 계산 (최대 30레벨)"""
-    lv = 1
-    accumulated = 0
-    while lv < 30:
-        needed = lv * 1000
-        if xp < accumulated + needed:
-            break
-        accumulated += needed
-        lv += 1
-    return lv
-
-
-# ── 진화 단계(evolution_stage) ↔ 캐릭터 · 신규 재화 필드 헬퍼 ──────────────────
-# evolution_stage(0~3) 가 성장의 단일 소스이며, character 는 여기서 파생되는
-# 표시값이다. 진화는 엔드보스 클리어(routers/endboss.py)에서 evolution_stage 를
-# 올릴 때만 발생한다. apply_xp 는 더 이상 진화를 트리거하지 않는다.
-CHARACTER_TO_STAGE = {"slime": 0, "robot": 1, "speech_bubble": 2, "final_ghost": 3}
-STAGE_TO_CHARACTER = {v: k for k, v in CHARACTER_TO_STAGE.items()}
-
-
-def character_for_stage(stage: int) -> str:
-    """evolution_stage → 대표 캐릭터. 범위를 벗어나면 0~3 으로 클램프한다."""
-    s = max(0, min(3, int(stage or 0)))
-    return STAGE_TO_CHARACTER[s]
 
 
 def get_evolution_stage(user: dict) -> int:
