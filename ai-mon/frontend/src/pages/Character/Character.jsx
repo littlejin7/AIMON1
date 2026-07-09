@@ -126,6 +126,8 @@ export default function Character() {
 
   // 장착 중인 칭호 이름
   const equippedTitleName = titlesWithState.find(t => t.id === equippedTitle)?.name || ''
+  const equippedTitleMeta = titlesWithState.find(t => t.id === equippedTitle) || null
+  const EquippedTitleIcon = equippedTitleMeta?.Icon || null
 
   const logout = useAuthStore((s) => s.logout)
   const handleLogout = () => {
@@ -139,14 +141,28 @@ export default function Character() {
       {/* ── 히어로 (보라 배경) ── */}
       <div className="char-hero-bg">
         <div className="char-hero-body">
+          <div className="char-hero-top-meta">
+            <span className="char-hero-stage-badge">
+              {stats?.current_unit ? `Unit ${stats.current_unit} · Stage ${stats.current_stage || 1}` : 'Unit 1 · Stage 1'}
+            </span>
+            <span className="char-hero-character-badge">{selectedChar.name}</span>
+          </div>
           <div className="char-hero-meta">
-            <span className="char-hero-username">{user?.nickname || user?.username || user?.email?.split('@')[0] || '유저'}</span>
-            {equippedTitleName && (
-              <span className="char-hero-title-badge">🎖 {equippedTitleName}</span>
-            )}
-            {user?.course_level && (
-              <span className="char-hero-level-badge">
-                {{ beginner: '🟢 초급', intermediate: '🔵 중급', advanced: '🟣 고급' }[user.course_level]}
+            <div className="char-hero-name-row">
+              <span className="char-hero-username">{user?.nickname || user?.username || user?.email?.split('@')[0] || '유저'}</span>
+              <span className="char-hero-inline-lv">Lv. {lv}</span>
+            </div>
+            {equippedTitleMeta && (
+              <span className="char-hero-title-badge">
+                {EquippedTitleIcon && (
+                  <span
+                    className="char-hero-title-icon"
+                    style={{ background: TITLE_ICON_BG[equippedTitle]?.bg || 'rgba(255,255,255,0.16)' }}
+                  >
+                    <EquippedTitleIcon />
+                  </span>
+                )}
+                <span>{equippedTitleName}</span>
               </span>
             )}
           </div>
@@ -157,13 +173,12 @@ export default function Character() {
               className="char-visual-img animate-bob"
             />
           </div>
+          {user?.course_level && (
+            <span className="char-hero-level-badge">
+              {{ beginner: '🟢 초급', intermediate: '🔵 중급', advanced: '🟣 고급' }[user.course_level]}
+            </span>
+          )}
           <div className="char-hero-status">
-            <div className="char-hero-status-row">
-              <span className="char-hero-status-lv">Lv. {lv} · {selectedChar.name}</span>
-              <span className="char-hero-status-num">
-                {stats?.current_unit ? `Unit ${stats.current_unit} · Stage ${stats.current_stage || 1}` : 'Unit 1 · Stage 1'}
-              </span>
-            </div>
             {evolutionStage >= 3 && (
               <p className="char-hero-status-hint">💠 GP {gp.toLocaleString()}</p>
             )}

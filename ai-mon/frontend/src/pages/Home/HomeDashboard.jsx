@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { getEvolutionStage } from './homeUtils'
+import { TITLES, TITLE_ICON_BG } from '../Character/characterData'
 import slimeIcon from '../../assets/character_slime.png'
 import robotIcon from '../../assets/character_robot.png'
 import speechBubbleIcon from '../../assets/character_bubble.png'
@@ -82,6 +83,7 @@ export default function HomeDashboard({ user, stats, onOpenLevelTest }) {
   const streak = user?.streak || 0
   const weekDots = getWeekDots(streak, user?.last_login || '')
   const charImg = CHARACTER_ICONS[user?.character]
+  const courseLevel = user?.course_level || 'beginner'
 
   const handleLearn = () => {
     if (!user?.is_level_tested) onOpenLevelTest()
@@ -114,19 +116,36 @@ export default function HomeDashboard({ user, stats, onOpenLevelTest }) {
 
       {/* ── 히어로 카드 ── */}
       <div className="hd-card hd-hero-card">
+        <div className="hd-hero-top-meta">
+          <span className="hd-status-badge hd-stage-badge">
+            {stats?.current_unit ? `Unit ${stats.current_unit} · Stage ${stats.current_stage || 1}` : 'Unit 1 · Stage 1'}
+          </span>
+          <span className="hd-currency-badge hd-coin-badge">🪙 코인 {coinBalance.toLocaleString()}</span>
+        </div>
         {(() => {
           const equippedTitle = user?.equipped_title
             || (user?.id ? localStorage.getItem(`equipped_title_${user.id}`) : null)
-          const courseLevel = user?.course_level || 'beginner'
+          const equippedTitleMeta = TITLES.find((title) => title.id === equippedTitle)
+          const TitleIcon = equippedTitleMeta?.Icon
+          const titleTheme = TITLE_ICON_BG[equippedTitle] || TITLE_ICON_BG.first_step
           return (
             <div className="hd-char-meta">
-              {user?.nickname && (
-                <span className="hd-char-nickname">{user.nickname}</span>
+              <div className="hd-char-name-row">
+                {user?.nickname && (
+                  <span className="hd-char-nickname">{user.nickname}</span>
+                )}
+                <span className="hd-status-badge hd-lv-inline-badge">Lv. {lv}</span>
+              </div>
+              {equippedTitleMeta && (
+                <span className="hd-char-title-badge">
+                  {TitleIcon && (
+                    <span className="hd-char-title-icon" style={{ background: titleTheme.bg }}>
+                      <TitleIcon />
+                    </span>
+                  )}
+                  <span>{equippedTitleMeta.name}</span>
+                </span>
               )}
-              {equippedTitle && TITLE_NAMES[equippedTitle] && (
-                <span className="hd-char-title-badge">🎖 {TITLE_NAMES[equippedTitle]}</span>
-              )}
-              <span className="hd-char-level-badge">{LEVEL_LABELS[courseLevel]}</span>
             </div>
           )
         })()}
@@ -152,14 +171,8 @@ export default function HomeDashboard({ user, stats, onOpenLevelTest }) {
               </svg>
             )
           }
+          <span className="hd-char-level-badge">{LEVEL_LABELS[courseLevel]}</span>
           <div className="hd-currency-wrap">
-            <div className="hd-status-row">
-              <span className="hd-status-badge hd-stage-badge">
-                {stats?.current_unit ? `Unit ${stats.current_unit} · Stage ${stats.current_stage || 1}` : 'Unit 1 · Stage 1'}
-              </span>
-              <span className="hd-currency-badge hd-coin-badge">🪙 코인 {coinBalance.toLocaleString()}</span>
-              <span className="hd-status-badge hd-lv-inline-badge">Lv. {lv}</span>
-            </div>
             {evolutionStage >= 3 && (
               <div className="hd-currency-row">
                 <span className="hd-currency-badge hd-gp-badge">💠 GP {gp.toLocaleString()}</span>

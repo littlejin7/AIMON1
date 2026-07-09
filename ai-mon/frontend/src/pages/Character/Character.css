@@ -51,26 +51,89 @@
   flex-direction: column;
   align-items: center;
 }
+.char-hero-top-meta {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.char-hero-stage-badge {
+  max-width: 150px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #534AB7;
+  background: #EEEDFE;
+  padding: 4px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.char-hero-character-badge {
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-weight: 600;
+  color: #534AB7;
+  background: #EEEDFE;
+  padding: 4px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
 .char-hero-meta {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  margin: 8px 0 14px;
+  margin: 0 0 20px;
+}
+.char-hero-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  max-width: 100%;
 }
 .char-hero-username {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 700;
   color: white;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.char-hero-inline-lv {
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.92);
 }
 .char-hero-title-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: 11px;
   font-weight: 500;
   color: white;
   background: rgba(255,255,255,0.2);
   padding: 2px 10px;
   border-radius: 20px;
+}
+.char-hero-title-icon {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+.char-hero-title-icon svg {
+  width: 12px;
+  height: 12px;
 }
 .char-hero-level-badge {
   font-size: 11px;
@@ -80,6 +143,8 @@
   padding: 2px 12px;
   border-radius: 20px;
   letter-spacing: 0.3px;
+  margin-top: 18px;
+  margin-bottom: 26px;
 }
 .char-hero-glow {
   width: 90px;
@@ -88,6 +153,7 @@
   align-items: center;
   justify-content: center;
   overflow: visible;
+  margin-top: 10px;
 }
 .char-visual-img {
   width: 85px;
@@ -99,28 +165,14 @@
 /* 레벨·재화 섹션 */
 .char-hero-status {
   width: 100%;
-  padding: 14px 0;
-}
-.char-hero-status-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 6px;
-}
-.char-hero-status-lv {
-  font-size: 13px;
-  font-weight: 700;
-  color: white;
-}
-.char-hero-status-num {
-  font-size: 12px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.8);
+  padding: 0 0 14px;
+  min-height: 16px;
 }
 .char-hero-status-hint {
   font-size: 10px;
   color: rgba(255,255,255,0.65);
-  margin-top: 5px;
-  text-align: right;
+  margin-top: 0;
+  text-align: center;
 }
 
 /* ── 보상 스트립 ── */
