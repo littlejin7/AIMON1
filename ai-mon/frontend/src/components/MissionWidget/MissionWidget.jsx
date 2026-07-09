@@ -1,12 +1,14 @@
 import { useState, useEffect, useCallback } from 'react'
 import { missionApi } from '../../api'
 import { useAuthStore } from '../../hooks/useAuthStore'
+import InfoModal from '../InfoModal/InfoModal'
 import './MissionWidget.css'
 
 export default function MissionWidget() {
   const [missions, setMissions] = useState(null)
   const [loading, setLoading] = useState(true)
   const [claiming, setClaiming] = useState({})
+  const [errorMsg, setErrorMsg] = useState(null)
 
   const load = useCallback(() => {
     missionApi.getMissions()
@@ -37,10 +39,11 @@ export default function MissionWidget() {
             crowns: user_state?.crowns ?? total_crowns ?? currentUser.crowns,
           })
         }
+        window.dispatchEvent(new Event('aimon:reward-status-changed'))
         load()
       })
       .catch((err) => {
-        alert(err.response?.data?.detail || '보상 수령에 실패했습니다.')
+        setErrorMsg(err.response?.data?.detail || '보상 수령에 실패했습니다.')
       })
       .finally(() => setClaiming(p => ({ ...p, [missionId]: false })))
   }
@@ -100,6 +103,8 @@ export default function MissionWidget() {
       <div className="hd-card mw-card">
         {missions.weekly.map(renderRow)}
       </div>
+      
+      <InfoModal icon="⚠️" message={errorMsg} onConfirm={() => setErrorMsg(null)} />
     </>
   )
 }
