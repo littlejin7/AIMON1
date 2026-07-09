@@ -7,6 +7,7 @@ import TrainSession      from './TrainSession'
 import TrainResult       from './TrainResult'
 import TrainHome         from './TrainHome'
 import CodeViewer        from './CodeViewer'
+import InfoModal         from '../../components/InfoModal/InfoModal'
 import './Train.css'
 
 export default function Train() {
@@ -25,6 +26,7 @@ export default function Train() {
   const [checkingLock, setCheckingLock]   = useState(true)
   const [isLocked, setIsLocked]           = useState(false)
   const [showLoginPopup, setShowLoginPopup] = useState(false)
+  const [infoModalMsg, setInfoModalMsg]     = useState(null)
   const [wrongCount, setWrongCount]           = useState(0)
   const [wrongAnswers, setWrongAnswers]       = useState([])
   const [unitAccuracy, setUnitAccuracy]       = useState([])
@@ -107,7 +109,7 @@ export default function Train() {
     try {
       const res = await trainApi.getRandom({ n: 10, course_level: activeLevel })
       if (!res.data || res.data.length === 0) {
-        alert('랜덤 훈련을 하려면 먼저 스테이지를 하나 이상 클리어해보세요!')
+        setInfoModalMsg('랜덤 훈련을 하려면 먼저 스테이지를 하나 이상 클리어해보세요!')
         return
       }
       setTrainSubMode('random')
@@ -117,7 +119,7 @@ export default function Train() {
       setCorrectCount(0)
       setMode('playing')
     } catch {
-      alert('문제를 불러오지 못했습니다.')
+      setInfoModalMsg('문제를 불러오지 못했습니다.')
     } finally {
       setLoading(false)
     }
@@ -135,7 +137,7 @@ export default function Train() {
       }
       const res = await trainApi.getReview(params)
       if (onlyWrong && (!res.data || res.data.length === 0)) {
-        alert('복습할 오답이 없어요! 먼저 퀴즈를 풀어보세요 🙌')
+        setInfoModalMsg('복습할 오답이 없어요! 먼저 퀴즈를 풀어보세요 🙌')
         return
       }
       setTrainSubMode('train')
@@ -145,7 +147,7 @@ export default function Train() {
       setCorrectCount(0)
       setMode('playing')
     } catch {
-      alert('문제를 불러오지 못했습니다.')
+      setInfoModalMsg('문제를 불러오지 못했습니다.')
     } finally {
       setLoading(false)
     }
