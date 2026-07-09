@@ -782,7 +782,7 @@
       "quiz_category": "stage_quiz",
       "quiz_set": "B",
       "is_boss": false,
-      "question": "방해몬이 random.choice()에 잘못된 인자를 넘겼습니다. TypeError가 발생하는 줄은 몇 번째 줄일까요?\n\n1. import random\n```python\n2. inventory = []\n3. new_item = random.choice('HP포션', '철검')\n4. inventory.append(new_item)\n```",
+      "question": "방해몬이 random.choice()에 잘못된 인자를 넘겼습니다. TypeError가 발생하는 줄은 몇 번째 줄일까요?\n\n```python\n1. import random\n2. inventory = []\n3. new_item = random.choice('HP포션', '철검')\n4. inventory.append(new_item)\n```",
       "answer": "3",
       "hint": "random.choice()는 하나의 리스트([])만 인자로 받습니다. 두 개의 문자열을 따로 넘기면 어떻게 될까요?",
       "feedback": {
