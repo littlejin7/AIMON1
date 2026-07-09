@@ -1,4 +1,7 @@
+import { useCallback, useEffect, useState } from 'react'
 import { useLocation, NavLink } from 'react-router-dom'
+import { gameApi, missionApi } from '../../api'
+import { useAuthStore } from '../../hooks/useAuthStore'
 import './NavBar.css'
 
 const NAV_ITEMS = [
@@ -12,6 +15,7 @@ const NAV_ITEMS = [
     ),
     label: '홈',
     exact: true,
+    badgeKey: 'home',
   },
   {
     to: '/lesson',
@@ -44,6 +48,7 @@ const NAV_ITEMS = [
       </svg>
     ),
     label: '미니게임',
+    badgeKey: 'game',
   },
   {
     to: '/character',
@@ -59,6 +64,47 @@ const NAV_ITEMS = [
 
 export default function NavBar() {
   const location = useLocation()
+  const token = useAuthStore((s) => s.token)
+  const [badges, setBadges] = useState({ home: false, game: false })
+
+  const refreshBadges = useCallback(() => {
+    if (!token) {
+      setBadges({ home: false, game: false })
+      return
+    }
+
+    let cancelled = false
+
+    Promise.allSettled([
+      missionApi.getMissions(),
+      gameApi.challengeStatus(),
+    ]).then(([missionResult, challengeResult]) => {
+      if (cancelled) return
+
+      const missions = missionResult.status === 'fulfilled' ? missionResult.value.data : null
+      const allMissions = [
+        ...(missions?.daily || []),
+        ...(missions?.weekly || []),
+      ]
+      const home = allMissions.some((m) => m.progress >= m.goal && !m.claimed)
+
+      const challenge = challengeResult.status === 'fulfilled' ? challengeResult.value.data : null
+      const game = !!challenge?.is_complete && !challenge?.claimed
+
+      setBadges({ home, game })
+    })
+
+    return () => {
+      cancelled = true
+    }
+  }, [token])
+
+  useEffect(() => refreshBadges(), [refreshBadges, location.pathname])
+
+  useEffect(() => {
+    window.addEventListener('aimon:reward-status-changed', refreshBadges)
+    return () => window.removeEventListener('aimon:reward-status-changed', refreshBadges)
+  }, [refreshBadges])
 
   const isActive = (item) => {
     if (item.exact) return location.pathname === item.to
@@ -81,7 +127,10 @@ export default function NavBar() {
             className={`nav-item${isActive(item) ? ' active' : ''}`}
             aria-label={item.label}
           >
-            <span className="nav-icon">{item.icon}</span>
+            <span className="nav-icon">
+              {item.icon}
+              {item.badgeKey && badges[item.badgeKey] && <span className="nav-alert-dot" />}
+            </span>
             <span className="nav-label">{item.label}</span>
           </NavLink>
         ))}
