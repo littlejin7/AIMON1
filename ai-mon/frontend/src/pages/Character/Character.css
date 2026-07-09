@@ -254,12 +254,26 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
+  padding: 0 14px 0 4px;
 }
 .char-section-header + .char-section-card {
   margin-top: -4px;
 }
 .char-section-header .char-section-label {
   margin-bottom: 0;
+}
+.char-section-header--hint {
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 6px;
+  padding-right: 4px;
+}
+.char-section-header--hint .char-section-hint {
+  flex: 0 1 auto;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  line-height: 1.35;
 }
 .char-save-btn-inline {
   flex-shrink: 0;
@@ -544,8 +558,9 @@
   font-weight: 600;
 }
 .char-title-desc {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--clr-text-muted);
+  line-height: 1.35;
 }
 .char-title-equip-btn {
   font-size: 12px;

@@ -264,8 +264,10 @@ export default function Character() {
         </div>
 
         {/* ── 칭호 선택 ── */}
-        <p className="char-section-label">🏅 칭호 선택</p>
-        <p className="char-section-hint">하나를 선택해 프로필에 표시하세요</p>
+        <div className="char-section-header char-section-header--hint">
+          <p className="char-section-label">🏅 칭호 선택</p>
+          <p className="char-section-hint">하나를 선택해 프로필에 표시하세요</p>
+        </div>
         <div className="char-title-list">
           {titlesWithState.map(({ id, Icon, name, desc, owned, equipped }) => {
             const meta = TITLE_ICON_BG[id] || { bg: 'rgba(255,255,255,0.06)', color: '#aaa' }
