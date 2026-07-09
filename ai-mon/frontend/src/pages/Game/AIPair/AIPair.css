@@ -550,13 +550,14 @@
 }
 
 .mp-modal {
-  background: linear-gradient(160deg, #1e154a 0%, #2d1b5e 100%);
+  background: #fff;
   border: 1.5px solid rgba(155, 93, 229, 0.5);
   border-radius: 28px;
   padding: 40px 36px 34px;
   text-align: center;
   max-width: 360px;
   width: 90%;
+  margin: 0 auto;
   box-shadow: 0 0 60px rgba(123, 47, 247, 0.4), 0 24px 48px rgba(0, 0, 0, 0.5);
   animation: mpPopIn 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -586,36 +587,35 @@
 .mp-modal-title {
   font-size: 1.75rem;
   font-weight: 900;
-  background: linear-gradient(135deg, #c77dff, #fff 60%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  background: none;
+  color: #000;
+  -webkit-text-fill-color: #000;
   margin-bottom: 4px;
 }
 
 .mp-modal-sub {
   font-size: 0.83rem;
-  color: var(--mp-text-dim);
+  color: #000;
   margin-bottom: 22px;
 }
 
 .mp-modal-stats {
   display: flex;
   gap: 12px;
-  margin-bottom: 24px;
+  margin: 0 auto 24px;
 }
 
 .mp-modal-stat {
   flex: 1;
-  background: rgba(15, 12, 27, 0.6);
-  border: 1px solid var(--mp-border);
+  background: #fff;
+  border: 1.5px solid #7F77DD;
   border-radius: var(--mp-radius-lg);
   padding: 12px 10px;
 }
 
 .mp-modal-stat-label {
   font-size: 0.6rem;
-  color: var(--mp-text-dim);
+  color: #7F77DD;
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 4px;
@@ -624,12 +624,20 @@
 .mp-modal-stat-val {
   font-size: 1.55rem;
   font-weight: 900;
-  color: var(--mp-yellow);
+  color: #7F77DD;
+}
+
+.mp-modal-reward {
+  color: #000;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .mp-btn-play-again {
   width: 100%;
-  background: linear-gradient(135deg, #7b2ff7 0%, #c77dff 100%);
+  margin-left: auto;
+  margin-right: auto;
+  background: #7F77DD;
   border: none;
   border-radius: var(--mp-radius-lg);
   padding: 14px;
@@ -651,12 +659,12 @@
 
 .mp-btn-to-list {
   width: 100%;
-  margin-top: 10px;
-  background: none;
-  border: 1.5px solid var(--mp-border);
+  margin: 10px auto 0;
+  background: #fff;
+  border: 1.5px solid #d9d6f2;
   border-radius: var(--mp-radius-lg);
   padding: 11px;
-  color: var(--mp-text-dim);
+  color: #5f57c8;
   font-size: 0.88rem;
   font-weight: 600;
   cursor: pointer;
@@ -664,8 +672,9 @@
 }
 
 .mp-btn-to-list:hover {
-  color: var(--mp-white);
-  border-color: var(--mp-purple-soft);
+  color: #534AB7;
+  border-color: #c4bfee;
+  background: #fff;
 }
 
 /* ══════════════════════════════════════════
