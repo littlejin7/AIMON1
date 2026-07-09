@@ -497,3 +497,365 @@ body:has(.lh-page) { background: #F4F3FA; }
 .lh-unit-node.open .lh-unit-node-status {
   color: #7A7A94;
 }
+
+/* ── 2차: 선택된 유닛 상세 카드 ── */
+.lh-selected-unit-card {
+  background: #FFFFFF;
+  border-radius: 18px;
+  border: 0.5px solid #E2E1EE;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+.lh-selected-unit-card.locked {
+  opacity: 0.7;
+}
+
+.lh-selected-unit-head {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  position: relative;
+}
+.lh-selected-unit-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: #EEEDFE;
+  border: 1.5px solid #7F77DD;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.lh-selected-unit-card.locked .lh-selected-unit-icon {
+  background: #F5F4FA;
+  border-color: #DEDDE8;
+}
+
+.lh-selected-unit-info {
+  flex: 1;
+  min-width: 0;
+}
+.lh-selected-unit-kicker {
+  font-size: 10px;
+  font-weight: 700;
+  color: #7F77DD;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+.lh-selected-unit-card.locked .lh-selected-unit-kicker {
+  color: #9999B0;
+}
+
+.lh-selected-unit-info h2 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin: 0 0 3px;
+  line-height: 1.35;
+}
+.lh-selected-unit-info p {
+  font-size: 11px;
+  color: #7A7A94;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.lh-selected-unit-info-btn {
+  background: #F4F3FA;
+  border: none;
+  border-radius: 20px;
+  padding: 4px 8px;
+  font-size: 10px;
+  color: #7A7A94;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.lh-selected-unit-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+  background: #F8F7FD;
+  border-radius: 12px;
+  border: 0.5px solid #EEEDF8;
+}
+.lh-selected-unit-progress span {
+  font-size: 11px;
+  font-weight: 600;
+  color: #7A7A94;
+}
+.lh-selected-unit-bar {
+  height: 6px;
+  background: #EEEDFE;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.lh-selected-unit-bar div {
+  height: 100%;
+  background: #7F77DD;
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+/* ── 2차: 발자국 스테이지 로드맵 ── */
+.lh-paw-roadmap {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0 4px;
+}
+
+/* 개별 스테이지 행 */
+.lh-paw-stage {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  background: none;
+  padding: 10px 12px;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.lh-paw-stage.locked {
+  cursor: not-allowed;
+}
+
+/* 카드 느낌 완화 및 상태별 디자인 적용 */
+.lh-paw-stage.done {
+  background: #FFFFFF;
+  border: 1px solid #EEEAFD;
+  border-radius: 14px;
+  margin-bottom: 4px;
+}
+.lh-paw-stage.current {
+  background: linear-gradient(90deg, #F5F2FF 0%, #FFFFFF 100%);
+  border: 1px solid #CFC8FF;
+  border-radius: 14px;
+  margin-bottom: 4px;
+  box-shadow: 0 8px 20px rgba(127, 119, 221, 0.08);
+}
+.lh-paw-stage.locked {
+  background: #FAFAFC;
+  border: 1px solid #ECEBF3;
+  border-radius: 14px;
+  margin-bottom: 4px;
+}
+
+/* 세로 연결선 (각 스테이지 노드들을 연결) */
+.lh-paw-stage::before {
+  content: '';
+  position: absolute;
+  top: 50px;
+  bottom: -14px;
+  left: 32px;
+  width: 1.5px;
+  border-left: 1.5px dashed #DED9F5;
+  z-index: 1;
+}
+.lh-paw-stage.done::before {
+  border-left: 1.5px dashed #A9A4E8;
+}
+.lh-paw-stage:last-of-type::before {
+  bottom: -16px;
+}
+
+/* 스테이지 원형 노드 (발자국 장식 제거, 숫자만 표시) */
+.lh-paw-node {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+.lh-paw-stage.done .lh-paw-node {
+  background: #F2F0FF;
+  border: 1.5px solid #A9A4E8;
+  color: #7F77DD;
+}
+.lh-paw-stage.current .lh-paw-node {
+  background: #EEEDFE;
+  border: 2.5px solid #7F77DD;
+  color: #7F77DD;
+  font-size: 14px;
+  box-shadow: 0 0 0 4px rgba(127, 119, 221, 0.16);
+}
+.lh-paw-stage.locked .lh-paw-node {
+  background: #F5F4FA;
+  border: 1.5px solid #DEDDE8;
+  color: #9999B0;
+}
+
+/* 텍스트 내용 */
+.lh-paw-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.lh-paw-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1A1A2E;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lh-paw-stage.locked .lh-paw-title {
+  color: #A4A4B8;
+}
+
+.lh-paw-status {
+  font-size: 10px;
+  font-weight: 500;
+}
+.lh-paw-stage.done .lh-paw-status {
+  color: #37B66A; /* 완료상태 텍스트만 초록색 허용 */
+}
+.lh-paw-stage.current .lh-paw-status {
+  color: #7F77DD;
+  font-weight: 700;
+}
+.lh-paw-stage.locked .lh-paw-status {
+  color: #BBBBCC;
+}
+
+/* 액션 배지 */
+.lh-paw-action {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  margin-right: 4px;
+  border: 1px solid transparent;
+}
+.lh-paw-action.review {
+  background: #F2F0FF;
+  color: #6F5FE7;
+  border: 1px solid #DED9FF;
+}
+.lh-paw-action.continue {
+  background: #7F77DD;
+  color: #FFFFFF;
+}
+.lh-paw-lock {
+  font-size: 12px;
+  color: #9999B0;
+  padding-right: 4px;
+}
+
+/* ── 유닛 보스 노드 ── */
+.lh-paw-boss {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid #CFC8FF;
+  border-radius: 16px;
+  padding: 14px 18px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  margin-top: 12px;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(127, 119, 221, 0.04);
+  transition: all 0.2s ease;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.lh-paw-boss.locked {
+  background: #FAFAFC;
+  border: 1px solid #ECEBF3;
+  cursor: not-allowed;
+}
+.lh-paw-boss.open {
+  background: #FFFFFF;
+  border: 1.5px solid #7F77DD;
+  box-shadow: 0 8px 24px rgba(127, 119, 221, 0.08);
+}
+.lh-paw-boss.open:active {
+  transform: scale(0.98);
+}
+
+.lh-paw-boss-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+  background: #EEEDFE;
+  border: 1px solid #7F77DD;
+  color: #7F77DD;
+}
+.lh-paw-boss.locked .lh-paw-boss-icon {
+  background: #EEEDF2;
+  border: 1px solid #DEDDE8;
+  color: #9999B0;
+}
+
+.lh-paw-boss-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+.lh-paw-boss-text strong {
+  font-size: 11px;
+  font-weight: 700;
+  color: #7F77DD;
+}
+.lh-paw-boss.locked .lh-paw-boss-text strong {
+  color: #A4A4B8;
+}
+.lh-paw-boss-text span {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1A1A2E;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lh-paw-boss.locked .lh-paw-boss-text span {
+  color: #A4A4B8;
+}
+
+.lh-paw-boss-action {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+.lh-paw-boss.locked .lh-paw-boss-action {
+  background: #EEEDF2;
+  color: #9999B0;
+}
+.lh-paw-boss.open .lh-paw-boss-action {
+  background: #7F77DD;
+  color: #FFFFFF;
+}

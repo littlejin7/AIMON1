@@ -77,6 +77,21 @@ function getUnitShortTitle(title = '', unitId, courseLevel = 'beginner') {
   return mapping[courseLevel]?.[unitId] || title.replace(/—/g, ' ').split(/\s+/).slice(0, 2).join(' ') || `Unit ${unitId}`
 }
 
+function getStageDisplayTitle(unitId, stageNum, unitTitle = '') {
+  const beginnerUnit2 = {
+    1: '문자열이란?',
+    2: '문자열 인덱싱과 슬라이싱',
+    3: '문자열 메서드 기초',
+    4: '문자열 포매팅',
+    5: '문자열 탐색과 치환',
+    6: '종합 문제',
+  }
+
+  if (unitId === 2) return beginnerUnit2[stageNum] || `Stage ${stageNum}`
+
+  return `Stage ${stageNum}`
+}
+
 export default function LessonHome() {
   const user       = useAuthStore((s) => s.user)
   const token      = useAuthStore((s) => s.token)
@@ -183,12 +198,12 @@ export default function LessonHome() {
   const overallPct  = totalStages > 0 ? Math.round((doneStages / totalStages) * 100) : 0
 
 
-  // 엔드보스 해금 = Unit 1~8 전체 스테이지 완료 + 각 유닛 보스 클리어까지 끝난 상태.
-  // 유닛 카드의 `done` 판정과 동일한 기준을 써야 "해금 문구"와 실제 잠금 상태가 어긋나지 않는다.
   const endbossUnlocked = token && lessons.length > 0 && lessons.every((l) => {
     const prog = getUnitProgress(l.unit_id, l.stages)
     return l.stages > 0 && prog.completed >= l.stages && isBossComplete(l.unit_id)
   })
+
+  const selectedLesson = lessons.find((l) => l.unit_id === expandedUnit) || lessons[0]
 
   
   const handleUnitClick = (lesson, unlocked) => {
@@ -309,116 +324,107 @@ export default function LessonHome() {
           </section>
         )}
 
-        {/* ── 유닛 목록 ── */}
-        {lessons.map((lesson, idx) => {
+        {/* ── 선택된 유닛 상세 및 발자국 로드맵 ── */}
+        {selectedLesson && (() => {
+          const lesson = selectedLesson
+          const idx = lessons.findIndex((l) => l.unit_id === lesson.unit_id)
           const unlocked = token ? lesson.unit_id <= maxUnlocked : lesson.unit_id === 1
           const prog = getUnitProgress(lesson.unit_id, lesson.stages)
           const done = prog.completed >= lesson.stages && lesson.stages > 0 && isBossComplete(lesson.unit_id)
-          const pct  = lesson.stages > 0 ? Math.round((prog.completed / lesson.stages) * 100) : 0
-          const isExpanded = expandedUnit === lesson.unit_id && unlocked
-          const stageNums  = Array.from({ length: lesson.stages || 0 }, (_, i) => i + 1)
+          const pct = lesson.stages > 0 ? Math.round((prog.completed / lesson.stages) * 100) : 0
           const title = lesson.title || UNIT_TITLES[idx] || `Unit ${lesson.unit_id}`
+          const icon = lesson.icon || getFallbackUnitIcon(lesson.unit_id)
+          const stageNums = Array.from({ length: lesson.stages || 0 }, (_, i) => i + 1)
 
           return (
-            <div
-              key={lesson.unit_id}
-              className={`lh-unit-card ${!unlocked ? 'lh-unit-locked' : ''} ${done ? 'lh-unit-done' : ''}`}
-            >
-              {/* 카드 헤더 */}
-              <div
-                className="lh-unit-header"
-                onClick={() => unlocked && toggleExpand(lesson.unit_id, unlocked)}
-              >
-                <div className={`lh-unit-badge ${done ? 'done' : !unlocked ? 'locked' : 'current'}`}>
-                  {done    ? '✓' : !unlocked ? '🔒' : lesson.unit_id}
+            <section className={`lh-selected-unit-card ${!unlocked ? 'locked' : ''}`}>
+              <div className="lh-selected-unit-head">
+                <div className="lh-selected-unit-icon">{icon}</div>
+                <div className="lh-selected-unit-info">
+                  <div className="lh-selected-unit-kicker">Unit {lesson.unit_id}</div>
+                  <h2>{title}</h2>
+                  <p>{lesson.description || `${prog.completed} / ${lesson.stages} 스테이지 완료`}</p>
                 </div>
-                <div className="lh-unit-info">
-                  <div className={`lh-unit-title ${!unlocked ? 'locked' : ''}`}>
-                    Unit {lesson.unit_id} · {title}
-                  </div>
-                  <div className="lh-unit-meta">
-                    {done
-                      ? `${lesson.stages}스테이지 완료 · 보스 클리어 ✓`
-                      : !unlocked
-                      ? `Unit ${idx} 완료 후 해금`
-                      : `${prog.completed} / ${lesson.stages} 스테이지 · 진행 중`
-                    }
-                  </div>
-                </div>
-                {unlocked && (
-                  <span className="lh-unit-chevron">
-                    {isExpanded ? '∧' : '∨'}
-                  </span>
-                )}
+                <button
+                  type="button"
+                  className="lh-selected-unit-info-btn"
+                  aria-label="유닛 정보"
+                >
+                  유닛 정보
+                </button>
               </div>
 
-              {/* 미니 진행 바 */}
-              {unlocked && (
-                <div className="lh-mini-bar">
-                  <div className="lh-mini-fill" style={{ width: `${done ? 100 : pct}%` }} />
+              <div className="lh-selected-unit-progress">
+                <span>{prog.completed} / {lesson.stages} 스테이지 완료</span>
+                <div className="lh-selected-unit-bar">
+                  <div style={{ width: `${done ? 100 : pct}%` }} />
                 </div>
-              )}
+              </div>
 
-              {/* 스테이지 트랙 (펼쳐진 상태) */}
-              {isExpanded && (
-                <div className="lh-stage-track">
-                  <div className="lh-stage-label">스테이지</div>
-                  <div className="lh-stage-row">
-                    {stageNums.map((s, i) => {
-                      // 연속 완료 개수(prog.completed) 기준으로만 판정 →
-                      // 깨진 데이터에서도 ✓는 연속 prefix 에만, current 는 정확히 1개.
-                      const stageDone    = s <= prog.completed
-                      const isCurrent    = s === prog.completed + 1
-                      const enabled      = s <= prog.completed + 1   // 완료분 + 다음 1개만 진입 가능
-                      const stateClass   = stageDone ? 'done' : isCurrent ? 'current' : 'todo'
-                      const lineClass    = stageDone ? 'done' : 'todo'
-                      return (
-                        <div
-                          key={s}
-                          className={`lh-stage-seg${!enabled ? ' lh-stage-disabled' : ''}`}
-                          onClick={() => {
-                            if (!token || !enabled) return
-                            if (!user?.is_level_tested && !(lesson.unit_id === 1 && s === 1)) {
-                              setPendingUnitId(lesson.unit_id)
-                              setShowLevelTest(true)
-                              return
-                            }
-                            navigate(`/stage/${lesson.unit_id}/${s}`)
-                          }}
-                        >
-                          <div className={`lh-stage-node ${stateClass}`}>
-                            {stageDone ? '✓' : s}
-                          </div>
-                          {i < stageNums.length - 1 && (
-                            <div className={`lh-stage-line ${lineClass}`} />
-                          )}
-                        </div>
-                      )
-                    })}
-                    {/* 선 + 보스 노드 */}
-                    <div className={`lh-stage-line ${prog.completed >= lesson.stages ? 'done' : 'todo'}`} />
-                    <div
-                      className={`lh-boss-node${prog.completed < lesson.stages ? ' lh-stage-disabled' : ''}`}
+              <div className="lh-paw-roadmap">
+                {stageNums.map((s) => {
+                  const stageDone = s <= prog.completed
+                  const isCurrent = s === prog.completed + 1
+                  const enabled = unlocked && s <= prog.completed + 1
+                  const stateClass = stageDone ? 'done' : isCurrent ? 'current' : 'locked'
+
+                  return (
+                    <button
+                      key={s}
+                      type="button"
+                      className={`lh-paw-stage ${stateClass}`}
+                      disabled={!enabled}
                       onClick={() => {
-                        if (!token || prog.completed < lesson.stages) return
-                        if (!user?.is_level_tested) {
+                        if (!token || !enabled) return
+                        if (!user?.is_level_tested && !(lesson.unit_id === 1 && s === 1)) {
                           setPendingUnitId(lesson.unit_id)
                           setShowLevelTest(true)
                           return
                         }
-                        navigate(`/boss/${lesson.unit_id}`)
+                        navigate(`/stage/${lesson.unit_id}/${s}`)
                       }}
-                      title="유닛 보스"
                     >
-                      ⚔️
-                    </div>
-                  </div>
-                </div>
-              )}
+                      <span className="lh-paw-node">{s}</span>
+                      <span className="lh-paw-content">
+                        <span className="lh-paw-title">{getStageDisplayTitle(lesson.unit_id, s, title)}</span>
+                        <span className="lh-paw-status">
+                          {stageDone ? '완료' : isCurrent ? '진행중' : '잠김'}
+                        </span>
+                      </span>
+                      {stageDone && <span className="lh-paw-action review">복습</span>}
+                      {isCurrent && <span className="lh-paw-action continue">이어하기</span>}
+                      {!enabled && <span className="lh-paw-lock">🔒</span>}
+                    </button>
+                  )
+                })}
 
-            </div>
+                <button
+                  type="button"
+                  className={`lh-paw-boss ${prog.completed >= lesson.stages ? 'open' : 'locked'}`}
+                  disabled={prog.completed < lesson.stages}
+                  onClick={() => {
+                    if (!token || prog.completed < lesson.stages) return
+                    if (!user?.is_level_tested) {
+                      setPendingUnitId(lesson.unit_id)
+                      setShowLevelTest(true)
+                      return
+                    }
+                    navigate(`/boss/${lesson.unit_id}`)
+                  }}
+                >
+                  <span className="lh-paw-boss-icon">⚔️</span>
+                  <span className="lh-paw-boss-text">
+                    <strong>유닛보스</strong>
+                    <span>{getUnitShortTitle(title, lesson.unit_id, courseLevel)} 마스터</span>
+                  </span>
+                  <span className="lh-paw-boss-action">
+                    {prog.completed >= lesson.stages ? '도전하기' : '스테이지 완료 후 해금'}
+                  </span>
+                </button>
+              </div>
+            </section>
           )
-        })}
+        })()}
 
         {/* ── 엔드보스 티저 ── */}
         <div
