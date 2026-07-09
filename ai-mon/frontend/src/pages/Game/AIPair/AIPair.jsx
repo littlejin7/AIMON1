@@ -67,6 +67,10 @@ export default function AIPair() {
 
       <PairsDash score={score} timeStr={fmtTime(timerSec)} matchedCount={matchedCount} onRestart={init} />
 
+      <div className="mp-hint">
+        💡&nbsp;<strong>카드를 두 장씩 뒤집어 파이썬 개념과 비유의 짝을 맞춰보세요!</strong>
+      </div>
+
       <div className="mp-grid">
         {deck.map((card, idx) => (
           <PairsCard
@@ -79,10 +83,6 @@ export default function AIPair() {
             onClick={() => onCardClick(idx)}
           />
         ))}
-      </div>
-
-      <div className="mp-hint">
-        💡&nbsp;<strong>카드를 두 장씩 뒤집어 파이썬 개념과 비유의 짝을 맞춰보세요!</strong>
       </div>
 
       <WinModal show={won} score={score} timeStr={fmtTime(timerSec)} charSrc={charSrc} reward={reward} onPlayAgain={init} />
