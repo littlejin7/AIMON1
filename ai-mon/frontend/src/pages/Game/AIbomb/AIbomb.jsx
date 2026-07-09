@@ -37,7 +37,7 @@ import VolumeControl  from './components/VolumeControl';
 import { BOMB_CONFIG } from './bombConfig';
 import { STAGE_COUNT } from './bombQuestions';
 
-const { timer, reward, intro, result } = BOMB_CONFIG;
+const { timer, intro, result } = BOMB_CONFIG;
 const NEED_STAGES = Math.ceil(STAGE_COUNT * intro.passRatio);
 const RING_R = 40;
 const RING_CIRC = 2 * Math.PI * RING_R;
@@ -145,12 +145,6 @@ export default function AIbomb() {
             <div className="bd-bomb-stage bd-bomb-stage--clear">
               <img src={aibombclear} alt="폭탄 해제 성공" className="bd-sprite bd-sprite--defused" />
               <div className="bd-clear-check"><ClearCheck size={40} /></div>
-            </div>
-            <div className="bd-reward-box">
-              <span className="bd-reward-label-tag">REWARD</span>
-              <div className="bd-reward-chips">
-                <span className="bd-reward-chip">✨ +{reward.expPerStage}</span>
-              </div>
             </div>
             <button className="bd-btn bd-btn--primary bd-btn--full" onClick={game.nextStage}>
               {result.nextButton}
