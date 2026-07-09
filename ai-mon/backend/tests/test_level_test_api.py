@@ -13,46 +13,53 @@ from routers import utils as U
 
 client = TestClient(app)
 
+# selectedAnswer 값은 routers/auth.py 의 LEVEL_TEST_QUESTIONS_META 정답과 일치해야 한다.
+# 문항별 (레벨/카테고리/정답):
+#   lt1 beginner/syntax/1     lt2 beginner/syntax/2      lt3 beginner/structure/1
+#   lt4 beginner/structure/1  lt5 intermediate/syntax/1  lt6 intermediate/syntax/3
+#   lt7 intermediate/control/0 lt8 advanced/control/3     lt9 advanced/control/2
+#   lt10 advanced/control/2
+
 # 10문항 전체 정답 예시 (이 경우 100점, 레벨: advanced)
 ALL_CORRECT_ANSWERS = [
-    {"questionId": "lt1", "selectedAnswer": 1},  # syntax (answer: 1)
-    {"questionId": "lt2", "selectedAnswer": 1},  # syntax (answer: 1)
-    {"questionId": "lt3", "selectedAnswer": 1},  # structure (answer: 1)
-    {"questionId": "lt4", "selectedAnswer": 1},  # structure (answer: 1)
-    {"questionId": "lt5", "selectedAnswer": 1},  # syntax (answer: 1)
-    {"questionId": "lt6", "selectedAnswer": 1},  # syntax (answer: 1)
-    {"questionId": "lt7", "selectedAnswer": 2},  # control (answer: 2)
-    {"questionId": "lt8", "selectedAnswer": 1},  # control (answer: 1)
-    {"questionId": "lt9", "selectedAnswer": 1},  # control (answer: 1)
-    {"questionId": "lt10", "selectedAnswer": 1}, # control (answer: 1)
+    {"questionId": "lt1", "selectedAnswer": 1},   # beginner/syntax    (O)
+    {"questionId": "lt2", "selectedAnswer": 2},   # beginner/syntax    (O)
+    {"questionId": "lt3", "selectedAnswer": 1},   # beginner/structure (O)
+    {"questionId": "lt4", "selectedAnswer": 1},   # beginner/structure (O)
+    {"questionId": "lt5", "selectedAnswer": 1},   # intermediate/syntax (O)
+    {"questionId": "lt6", "selectedAnswer": 3},   # intermediate/syntax (O)
+    {"questionId": "lt7", "selectedAnswer": 0},   # intermediate/control (O)
+    {"questionId": "lt8", "selectedAnswer": 3},   # advanced/control   (O)
+    {"questionId": "lt9", "selectedAnswer": 2},   # advanced/control   (O)
+    {"questionId": "lt10", "selectedAnswer": 2},  # advanced/control   (O)
 ]
 
-# 일부 오답 예시 (초급 2개만 맞춤, 레벨: beginner)
+# 일부 오답 예시 (초급 syntax lt1,lt2 2개만 맞춤 → 레벨: beginner, syntax 50%)
 SOME_WRONG_ANSWERS = [
-    {"questionId": "lt1", "selectedAnswer": 1},  # syntax (O)
-    {"questionId": "lt2", "selectedAnswer": 1},  # syntax (O)
-    {"questionId": "lt3", "selectedAnswer": 2},  # structure (X)
-    {"questionId": "lt4", "selectedAnswer": 2},  # structure (X)
-    {"questionId": "lt5", "selectedAnswer": 2},  # syntax (X)
-    {"questionId": "lt6", "selectedAnswer": 2},  # syntax (X)
-    {"questionId": "lt7", "selectedAnswer": 1},  # control (X)
-    {"questionId": "lt8", "selectedAnswer": 2},  # control (X)
-    {"questionId": "lt9", "selectedAnswer": 2},  # control (X)
-    {"questionId": "lt10", "selectedAnswer": 2}, # control (X)
+    {"questionId": "lt1", "selectedAnswer": 1},   # beginner/syntax    (O)
+    {"questionId": "lt2", "selectedAnswer": 2},   # beginner/syntax    (O)
+    {"questionId": "lt3", "selectedAnswer": 2},   # beginner/structure (X, 정답 1)
+    {"questionId": "lt4", "selectedAnswer": 2},   # beginner/structure (X, 정답 1)
+    {"questionId": "lt5", "selectedAnswer": 2},   # intermediate/syntax (X, 정답 1)
+    {"questionId": "lt6", "selectedAnswer": 1},   # intermediate/syntax (X, 정답 3)
+    {"questionId": "lt7", "selectedAnswer": 1},   # intermediate/control (X, 정답 0)
+    {"questionId": "lt8", "selectedAnswer": 1},   # advanced/control   (X, 정답 3)
+    {"questionId": "lt9", "selectedAnswer": 1},   # advanced/control   (X, 정답 2)
+    {"questionId": "lt10", "selectedAnswer": 1},  # advanced/control   (X, 정답 2)
 ]
 
-# 중급 레벨 도달 예시 (초급 3/4 [O], 중급 2/3 [O], 고급 1/3 [X] -> intermediate)
+# 중급 레벨 도달 예시 (초급 3/4 [O], 중급 2/3 [O], 고급 0/3 [X] -> intermediate)
 INTERMEDIATE_ANSWERS = [
-    {"questionId": "lt1", "selectedAnswer": 1},  # syntax (O)
-    {"questionId": "lt2", "selectedAnswer": 1},  # syntax (O)
-    {"questionId": "lt3", "selectedAnswer": 1},  # structure (O)
-    {"questionId": "lt4", "selectedAnswer": 2},  # structure (X)
-    {"questionId": "lt5", "selectedAnswer": 1},  # syntax (O)
-    {"questionId": "lt6", "selectedAnswer": 1},  # syntax (O)
-    {"questionId": "lt7", "selectedAnswer": 1},  # control (X)
-    {"questionId": "lt8", "selectedAnswer": 2},  # control (X)
-    {"questionId": "lt9", "selectedAnswer": 2},  # control (X)
-    {"questionId": "lt10", "selectedAnswer": 2}, # control (X)
+    {"questionId": "lt1", "selectedAnswer": 1},   # beginner/syntax    (O)
+    {"questionId": "lt2", "selectedAnswer": 2},   # beginner/syntax    (O)
+    {"questionId": "lt3", "selectedAnswer": 1},   # beginner/structure (O)
+    {"questionId": "lt4", "selectedAnswer": 2},   # beginner/structure (X, 정답 1)
+    {"questionId": "lt5", "selectedAnswer": 1},   # intermediate/syntax (O)
+    {"questionId": "lt6", "selectedAnswer": 3},   # intermediate/syntax (O)
+    {"questionId": "lt7", "selectedAnswer": 1},   # intermediate/control (X, 정답 0)
+    {"questionId": "lt8", "selectedAnswer": 1},   # advanced/control   (X, 정답 3)
+    {"questionId": "lt9", "selectedAnswer": 1},   # advanced/control   (X, 정답 2)
+    {"questionId": "lt10", "selectedAnswer": 1},  # advanced/control   (X, 정답 2)
 ]
 
 
