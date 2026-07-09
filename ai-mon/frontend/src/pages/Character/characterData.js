@@ -22,11 +22,12 @@ export const TITLES = [
 ]
 
 export const CHARACTERS = [
-  { id: 'slime',         icon: '/src/assets/character_slime.png',      name: '에이원', desc: '기본 캐릭터',         requiredLevel: null },
-  { id: 'robot',         icon: '/src/assets/character_robot.png',       name: '에이량',   desc: '초급 클리어 시 해금', requiredLevel: 'beginner' },
-  { id: 'speech_bubble', icon: '/src/assets/character_bubble.png',      name: '에이훈', desc: '중급 클리어 시 해금', requiredLevel: 'intermediate' },
-  { id: 'final_ghost',   icon: '/src/assets/character_final_ghost.png', name: '에이왕', desc: '고급 클리어 시 해금', requiredLevel: 'advanced' },
+  { id: 'slime',         icon: '/src/assets/character_slime_crop.png',      name: '에이원', desc: '기본 캐릭터',         requiredLevel: null },
+  { id: 'robot',         icon: '/src/assets/character_robot_crop.png',       name: '에이량',   desc: '초급 클리어 시 해금', requiredLevel: 'beginner' },
+  { id: 'speech_bubble', icon: '/src/assets/character_bubble_crop.png',      name: '에이훈', desc: '중급 클리어 시 해금', requiredLevel: 'intermediate' },
+  { id: 'final_ghost',   icon: '/src/assets/character_final_ghost_crop.png', name: '에이왕', desc: '고급 클리어 시 해금', requiredLevel: 'advanced' },
 ]
+
 
 
 export const CHAR_ICONS = Object.fromEntries(CHARACTERS.map(c => [c.id, c.icon]))
