@@ -10,6 +10,9 @@
 .char-hero-bg {
   background: var(--clr-primary, #7F77DD);
   padding: 14px 16px 0;
+  margin: 12px 12px 0;
+  border-radius: 28px;
+  overflow: hidden;
 }
 .char-hero-topbar {
   display: flex;
@@ -48,30 +51,35 @@
   flex-direction: column;
   align-items: center;
 }
-.char-hero-title-badge {
-  background: rgba(255,255,255,0.2);
-  color: white;
-  font-size: 11px;
-  font-weight: 500;
-  padding: 3px 14px;
-  border-radius: 20px;
-  margin-bottom: 6px;
-}
-.char-hero-level-badge {
-  background: rgba(255,255,255,0.12);
-  color: rgba(255,255,255,0.85);
-  font-size: 11px;
-  font-weight: 500;
-  padding: 2px 12px;
-  border-radius: 20px;
-  margin-bottom: 6px;
-  letter-spacing: 0.3px;
+.char-hero-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 8px 0 14px;
 }
 .char-hero-username {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
   color: white;
-  margin: 0 0 14px;
+}
+.char-hero-title-badge {
+  font-size: 11px;
+  font-weight: 500;
+  color: white;
+  background: rgba(255,255,255,0.2);
+  padding: 2px 10px;
+  border-radius: 20px;
+}
+.char-hero-level-badge {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.88);
+  background: rgba(255,255,255,0.12);
+  padding: 2px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
 }
 .char-hero-glow {
   width: 90px;
@@ -82,8 +90,8 @@
   overflow: visible;
 }
 .char-visual-img {
-  width: 150px;
-  height: 150px;
+  width: 85px;
+  height: 85px;
   max-width: none;
   object-fit: contain;
   filter: drop-shadow(0 4px 16px rgba(0,0,0,0.2));
@@ -100,11 +108,12 @@
 }
 .char-hero-status-lv {
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 700;
   color: white;
 }
 .char-hero-status-num {
   font-size: 12px;
+  font-weight: 700;
   color: rgba(255,255,255,0.8);
 }
 .char-hero-status-hint {
@@ -168,6 +177,14 @@
   padding: 2px 4px;
   margin-bottom: -4px;
 }
+/* 해금 배너 바로 다음 "학습 스탯" 라벨: 기본 gap(10px)에 여유를 더 */
+.char-level-banner + .char-section-label {
+  margin-top: 10px;
+}
+/* 학습 스탯 그리드 다음 "캐릭터 변경" 헤더: 기본 gap(10px)에 여유를 더 */
+.char-stats-grid + .char-section-header {
+  margin-top: 10px;
+}
 .char-section-hint {
   font-size: 11px;
   color: var(--clr-text-muted);
@@ -175,37 +192,96 @@
   margin-top: -6px;
 }
 
+/* ── 섹션 헤더 (레이블 + 인라인 버튼) ── */
+.char-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.char-section-header .char-section-label {
+  margin-bottom: 0;
+}
+.char-save-btn-inline {
+  flex-shrink: 0;
+  background: var(--clr-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(83,74,183,0.16), 0 0 0 1px rgba(127,119,221,0.08);
+  transition: opacity var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.char-save-btn-inline:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.char-save-btn-inline:not(:disabled):hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(83,74,183,0.2), 0 0 0 3px rgba(127,119,221,0.1);
+}
+.char-save-btn-inline:not(:disabled):active {
+  transform: translateY(0) scale(0.96);
+}
+.char-save-error {
+  font-size: 11px;
+  color: var(--clr-danger, #ef4444);
+  padding: 0 4px;
+  margin: -6px 0 0;
+}
+
 /* ── 학습 스탯 그리드 ── */
 .char-stats-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
 }
 .char-stat-card {
   background: var(--clr-bg-card);
   border: 0.5px solid var(--clr-border);
-  border-radius: 14px;
-  padding: 13px 14px;
+  border-radius: 12px;
+  aspect-ratio: 1 / 1;
+  padding: 10px 8px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 .char-stat-icon {
-  width: 30px;
-  height: 30px;
-  border-radius: 9px;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
+  font-size: 13px;
   margin-bottom: 8px;
 }
 .char-stat-val {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--clr-text);
+  line-height: 1.15;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .char-stat-label {
-  font-size: 11px;
+  font-size: 10px;
   color: var(--clr-text-muted);
-  margin-top: 2px;
+  line-height: 1.2;
+  margin-top: 5px;
+  width: 100%;
+  word-break: keep-all;
 }
 
 /* ── 섹션 카드 ── */
@@ -220,7 +296,8 @@
 .char-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  column-gap: 4px;
+  row-gap: 2px;
   margin-bottom: 12px;
 }
 .char-option {
@@ -228,8 +305,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 14px 10px 12px;
+  gap: 0px;
+  padding: 1px 2px 2px;
   background: var(--clr-bg);
   border: 1.5px solid var(--clr-border);
   border-radius: var(--radius-lg);
@@ -275,15 +352,15 @@
   font-size: 12px;
 }
 .char-opt-img {
-  width: 58px;
-  height: 58px;
+  width: 80px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .char-opt-img img {
-  width: 100%;
-  height: 100%;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
 }
 .char-opt-name {
