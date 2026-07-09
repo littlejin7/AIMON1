@@ -25,7 +25,7 @@ export function PopupTitle({ visible, onStart, errorMsg }) {
           <div className="popup-error">⚠️ {errorMsg}</div>
         )}
         <button className="btn" onClick={onStart}>
-          {errorMsg ? '다시 시도' : '게임 시작!'}
+          {errorMsg ? '다시 시도' : '게임시작 ▶'}
         </button>
       </div>
     </div>
