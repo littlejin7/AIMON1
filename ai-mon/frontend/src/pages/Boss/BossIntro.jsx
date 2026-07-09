@@ -1,6 +1,15 @@
 import bossIcon from '../../assets/boss_finalorg.png'
 
 export default function BossIntro({ bossData, errorMsg, onStart }) {
+  const freeAttempts = bossData?.free_attempts_per_day ?? 0
+  const crownCost = bossData?.crown_cost_from_attempt ?? 1
+  const crowns = bossData?.crowns ?? 0
+  const costLabel = freeAttempts > 0
+    ? `무료 (오늘 ${freeAttempts}회 남음)`
+    : crowns >= crownCost
+      ? `왕관 ${crownCost}개`
+      : `왕관 부족 (${crownCost}개 필요)`
+
   return (
     <div className="boss-card intro-card card-glass animate-fade-in-up">
       <div className="boss-avatar animate-float">
@@ -21,7 +30,7 @@ export default function BossIntro({ bossData, errorMsg, onStart }) {
       <div style={{ margin: '8px 0 16px', padding: '12px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px', fontSize: '0.9rem', color: '#a0a0b0', textAlign: 'left' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
           <span>도전 비용:</span>
-          <span style={{ color: '#34d399' }}>무료 (오늘 {bossData?.free_attempts_per_day || 3}회 남음)</span>
+          <span style={{ color: freeAttempts > 0 ? '#34d399' : crowns >= crownCost ? '#fbbf24' : '#ef4444' }}>{costLabel}</span>
         </div>
         {bossData?.hints_allowed > 0 ? (
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
