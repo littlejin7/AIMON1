@@ -458,13 +458,13 @@ export default function LessonHome() {
           <section className="lh-roadmap-board" aria-label={`${LEVEL_MAP[courseLevel]?.label} 로드맵`}>
             {/* 상단: 진행률 요약 */}
             <div className="lh-roadmap-board-head">
-              <div className="lh-roadmap-board-title-group">
+              <div className="lh-roadmap-board-header-row">
                 <h2>{LEVEL_MAP[courseLevel]?.label} 로드맵</h2>
-                <span className="lh-roadmap-board-count">
-                  <strong>{doneStages}</strong> / {totalStages} 스테이지 완료
-                </span>
+                <span className="lh-roadmap-board-percent">{overallPct}%</span>
               </div>
-              <span className="lh-roadmap-board-percent">{overallPct}%</span>
+              <div className="lh-roadmap-board-count">
+                <strong>{doneStages}</strong> / {totalStages} 스테이지 완료
+              </div>
             </div>
             
             {token && (
@@ -503,9 +503,7 @@ export default function LessonHome() {
                     </span>
                     <span className="lh-unit-node-num">{lesson.unit_id}</span>
                     <span className="lh-unit-node-title">{shortTitle}</span>
-                    <span className="lh-unit-node-status">
-                      {done ? '완료' : !unlocked ? '잠김' : isCurrent ? '진행중' : '열림'}
-                    </span>
+                    {/* status text is hidden to match roadmap box mock */}
                   </button>
                 )
               })}
