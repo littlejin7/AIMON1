@@ -9,6 +9,8 @@ import MiniBossAlert from './MiniBossAlert'
 import StageQuiz from './StageQuiz'
 import StageResult from './StageResult'
 import TitleEarnedModal from '../../components/TitleEarnedModal/TitleEarnedModal'
+import MiniBossGateModal from '../../components/MiniBossGateModal/MiniBossGateModal'
+import InfoModal from '../../components/InfoModal/InfoModal'
 import '../Boss/Boss.css'
 import './Stage.css'
 
@@ -121,6 +123,11 @@ export default function Stage({ _lessonId, _stage }) {
   const [showAuthModal, setShowAuthModal] = useState(false)
   const [newlyEarnedTitles, setNewlyEarnedTitles] = useState([])
 
+  // ── 개념 퀴즈 실패(60% 미만) 안내 팝업 ──
+  const [showQuizFailModal, setShowQuizFailModal] = useState(false)
+  // ── 미니보스 로드 실패 안내 팝업(임시 바로가기 버튼 / 미니보스 재도전 공용) ──
+  const [minibossLoadErrorMsg, setMinibossLoadErrorMsg] = useState(null)
+
   // ── 미니보스 상태 ──
   const [showMinibossAlert,  setShowMinibossAlert]  = useState(false)
   const [minibossStartIndex, setMinibossStartIndex] = useState(null)
@@ -151,6 +158,7 @@ export default function Stage({ _lessonId, _stage }) {
     setMinibossHp({ my_hp: 900, boss_hp: 500 })
     setLoading(true)
     setShowMinibossAlert(false)
+    setShowQuizFailModal(false)
     setLoadError(null)
     sessionAnswersRef.current = new Map()   // 재도전/재시작 시 누적 답안 초기화
     setRetryTick(t => t + 1)
@@ -284,9 +292,14 @@ export default function Stage({ _lessonId, _stage }) {
   }, [lessonId, stageNum, courseLevel, attempt, token, retryTick, loading])
 
   // ── 스테이지 퀴즈 실패 (60% 미만) ──
+  // 브라우저 alert() 대신 현재 화면 위에 뜨는 모달(MiniBossGateModal)로 안내.
+  // 페이지 전환 없이 "확인"을 누르면 재도전(retryWithNextSet)이 실행된다.
   const handleStageQuizFailure = () => {
-    alert('개념 퀴즈를 60% 이상 맞춰야 미니보스에 도전할 수 있어요! 다시 도전해봐요 💪')
-    // attempt+1 로 직전과 다른 세트를 재fetch (useEffect 트리거).
+    setShowQuizFailModal(true)
+  }
+
+  const handleQuizFailModalConfirm = () => {
+    setShowQuizFailModal(false)
     retryWithNextSet()
   }
 
@@ -309,7 +322,8 @@ export default function Stage({ _lessonId, _stage }) {
       playBGM('miniboss_intro')
       setShowMinibossAlert(true)
     } catch (err) {
-      alert('미니보스 로드 실패: ' + (err?.message || err))
+      setMinibossLoadErrorMsg('미니보스 로드 실패: ' + (err?.message || err))
+
     }
   }
 
@@ -375,7 +389,7 @@ export default function Stage({ _lessonId, _stage }) {
       playBGM('miniboss_intro')
     } catch (err) {
       console.error('미니보스 재도전 로드 실패', err)
-      alert('미니보스 로드 실패: ' + (err?.message || err))
+      setMinibossLoadErrorMsg('미니보스 로드 실패: ' + (err?.message || err))
     }
   }
 
@@ -688,6 +702,11 @@ export default function Stage({ _lessonId, _stage }) {
             onClose={() => setNewlyEarnedTitles([])}
           />
         )}
+        <InfoModal
+          icon="⚠️"
+          message={minibossLoadErrorMsg}
+          onConfirm={() => setMinibossLoadErrorMsg(null)}
+        />
       </>
     )
   }
@@ -759,6 +778,14 @@ export default function Stage({ _lessonId, _stage }) {
           ⚔️ [임시] 미니보스 바로가기
         </button>
       )} */}
+      {showQuizFailModal && (
+        <MiniBossGateModal onConfirm={handleQuizFailModalConfirm} />
+      )}
+      <InfoModal
+        icon="⚠️"
+        message={minibossLoadErrorMsg}
+        onConfirm={() => setMinibossLoadErrorMsg(null)}
+      />
       <StageQuiz
         lessonId={lessonId}
         stageNum={stageNum}
