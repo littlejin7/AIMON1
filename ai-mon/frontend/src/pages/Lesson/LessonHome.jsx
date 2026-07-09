@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { quizApi, progressApi, userApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import LevelTestModal from '../../components/LevelTestModal/LevelTestModal'
+import InfoModal from '../../components/InfoModal/InfoModal'
 import './LessonHome.css'
 
 const LEVEL_MAP = {
@@ -32,6 +33,7 @@ export default function LessonHome() {
 
   const [showLevelTest, setShowLevelTest] = useState(false)
   const [pendingUnitId, setPendingUnitId] = useState(null)
+  const [levelTestErrorMsg, setLevelTestErrorMsg] = useState(null)
   const [lessons,  setLessons]  = useState([])
   const [progress, setProgress] = useState([])
   const [loading,  setLoading]  = useState(true)
@@ -95,7 +97,7 @@ export default function LessonHome() {
       }
       if (pendingUnitId) navigate(`/lesson/${pendingUnitId}`)
     } catch {
-      alert('레벨 설정 변경에 실패했습니다.')
+      setLevelTestErrorMsg('레벨 설정 변경에 실패했습니다.')
     } finally {
       setShowLevelTest(false)
       setPendingUnitId(null)
@@ -169,6 +171,12 @@ export default function LessonHome() {
           isLoggedIn={true}
         />
       )}
+
+      <InfoModal
+        icon="⚠️"
+        message={levelTestErrorMsg}
+        onConfirm={() => setLevelTestErrorMsg(null)}
+      />
 
       <div className="lh-scroll">
 
