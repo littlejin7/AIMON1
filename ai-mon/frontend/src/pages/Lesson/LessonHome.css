@@ -990,3 +990,94 @@ body:has(.lh-page) { background: #F4F3FA; }
   background: #7F77DD;
   color: #FFFFFF;
 }
+
+/* ── 2차: 오늘의 레슨 루트 히어로 카드 ── */
+.lh-lesson-hero {
+  min-height: 160px;
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(143, 124, 255, 0.96), rgba(103, 87, 216, 0.92)),
+    url('/images/lesson-hero-bg.webp');
+  background-size: cover;
+  background-position: center right;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  color: #FFFFFF;
+  box-shadow: 0 8px 24px rgba(103, 87, 216, 0.15);
+}
+
+.lh-lesson-hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 60%;
+}
+
+.lh-lesson-hero-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.lh-lesson-hero-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.lh-lesson-hero-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.lh-hero-pill {
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+.lh-hero-pill.status {
+  background: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+}
+
+.lh-hero-pill.progress {
+  background: #B8FF6A;
+  color: #534AB7;
+}
+
+.lh-lesson-hero-cta {
+  align-self: flex-start;
+  background: #FFFFFF;
+  color: #6757D8;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 10.5px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.lh-lesson-hero-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.lh-lesson-hero-cta:active {
+  transform: translateY(0);
+}
+

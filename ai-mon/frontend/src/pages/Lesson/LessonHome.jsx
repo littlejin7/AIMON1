@@ -357,6 +357,102 @@ export default function LessonHome() {
           ))}
         </div>
 
+        {/* ── 2차: 오늘의 레슨 루트 히어로 ── */}
+        {selectedLesson && (() => {
+          const lesson = selectedLesson
+          const idx = lessons.findIndex((l) => l.unit_id === lesson.unit_id)
+          const unlocked = token ? lesson.unit_id <= maxUnlocked : lesson.unit_id === 1
+          const prog = getUnitProgress(lesson.unit_id, lesson.stages)
+          const done = prog.completed >= lesson.stages && lesson.stages > 0 && isBossComplete(lesson.unit_id)
+          const title = lesson.title || UNIT_TITLES[idx] || `Unit ${lesson.unit_id}`
+          const shortTitle = getUnitShortTitle(title, lesson.unit_id, courseLevel)
+          
+          const isBossFinished = isBossComplete(lesson.unit_id)
+          const isReadyForBoss = prog.completed >= lesson.stages
+          const nextUnitUnlocked = token ? (lesson.unit_id + 1) <= maxUnlocked : false
+          
+          let heroStatusLabel = ""
+          let heroActionText = ""
+          let heroActionHandler = null
+          let pillText = `${prog.completed} / ${lesson.stages} 완료`
+
+          if (endbossUnlocked && isBossFinished && lesson.unit_id === 8) {
+            heroStatusLabel = "엔드보스 해금 완료"
+            heroActionText = "엔드보스 도전"
+            heroActionHandler = () => {
+              if (!token) return
+              navigate('/boss/endboss')
+            }
+          } else if (isBossFinished) {
+            if (nextUnitUnlocked) {
+              heroStatusLabel = "유닛 완료!"
+              heroActionText = "다음 유닛 보기"
+              heroActionHandler = () => {
+                setExpandedUnit(lesson.unit_id + 1)
+              }
+            } else {
+              heroStatusLabel = "보스 정복 완료"
+              heroActionText = "보스 복습"
+              heroActionHandler = () => {
+                if (!token) return
+                if (!user?.is_level_tested) {
+                  setPendingUnitId(lesson.unit_id)
+                  setShowLevelTest(true)
+                  return
+                }
+                navigate(`/boss/${lesson.unit_id}`)
+              }
+            }
+          } else if (isReadyForBoss) {
+            heroStatusLabel = "유닛보스 준비 완료"
+            heroActionText = "유닛보스 도전"
+            heroActionHandler = () => {
+              if (!token) return
+              if (!user?.is_level_tested) {
+                setPendingUnitId(lesson.unit_id)
+                setShowLevelTest(true)
+                return
+              }
+              navigate(`/boss/${lesson.unit_id}`)
+            }
+          } else {
+            heroStatusLabel = "다음 Stage 이어하기"
+            heroActionText = "이어하기"
+            heroActionHandler = () => {
+              if (!token) return
+              const nextStageNum = prog.completed + 1
+              if (!user?.is_level_tested && !(lesson.unit_id === 1 && nextStageNum === 1)) {
+                setPendingUnitId(lesson.unit_id)
+                setShowLevelTest(true)
+                return
+              }
+              navigate(`/stage/${lesson.unit_id}/${nextStageNum}`)
+            }
+          }
+
+          return (
+            <div className="lh-lesson-hero">
+              <div className="lh-lesson-hero-content">
+                <div className="lh-lesson-hero-kicker">오늘의 레슨 루트</div>
+                <h1 className="lh-lesson-hero-title">
+                  Unit {lesson.unit_id} · {shortTitle}
+                </h1>
+                <div className="lh-lesson-hero-pills">
+                  <span className="lh-hero-pill status">{heroStatusLabel}</span>
+                  <span className="lh-hero-pill progress">{pillText}</span>
+                </div>
+              </div>
+              <button
+                type="button"
+                className="lh-lesson-hero-cta no-3d"
+                onClick={heroActionHandler}
+              >
+                {heroActionText}
+              </button>
+            </div>
+          )
+        })()}
+
         {/* ── 진행률 요약 ── */}
         {token && (
           <div className="lh-progress-card lh-progress-card-v2">
