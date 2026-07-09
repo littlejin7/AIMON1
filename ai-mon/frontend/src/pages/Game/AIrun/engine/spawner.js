@@ -166,13 +166,13 @@ export function spawnObstacle(game) {
     game.scene.add(mesh);
     // type:'hole' — 점프 중이면 통과, 아니면 데미지
     game.obstacles.push({ mesh, ring: null, lane: 'all', active: true, h: 0.5, yPos: 0, type: 'hole' });
-    game.nextObstacleZ -= 4.5 + Math.random() * 1.5;
+    game.nextObstacleZ -= 2.25 + Math.random() * 0.75;
   } else {
     const cone = _makeCone();
     cone.position.set(lane * 3, 0, game.nextObstacleZ);
     game.scene.add(cone);
     game.obstacles.push({ mesh: cone, ring: null, lane, active: true, h: 2.1, yPos: 1.0, type: 'cone' });
-    game.nextObstacleZ -= 3.1 + Math.random() * 1.6;
+    game.nextObstacleZ -= 1.55 + Math.random() * 0.8;
   }
 }
 
