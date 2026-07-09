@@ -91,7 +91,7 @@ export default function TrainHome({
         </div>
 
         {/* 유닛 선택 */}
-        <div className="tr-section-title">유닛 선택</div>
+        <div className="tr-section-title">🎯 유닛 선택</div>
         <UnitSelector
           value={currentUnit}
           onChange={(u) => { setCurrentUnit(u); onStart({ onlyWrong: true, unit: u }) }}

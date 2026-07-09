@@ -91,14 +91,14 @@ export default function MissionWidget() {
   return (
     <>
       <div className="hd-section-header">
-        <span className="hd-section-title">데일리 미션</span>
+        <span className="hd-section-title">📅 데일리 미션</span>
       </div>
       <div className="hd-card mw-card">
         {missions.daily.map(renderRow)}
       </div>
 
       <div className="hd-section-header">
-        <span className="hd-section-title">위클리 미션</span>
+        <span className="hd-section-title">🏆 위클리 미션</span>
       </div>
       <div className="hd-card mw-card">
         {missions.weekly.map(renderRow)}
