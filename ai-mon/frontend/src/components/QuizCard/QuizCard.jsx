@@ -8,6 +8,7 @@ import CodeInput from './CodeInput'
 import AiFeedback from './AiFeedback'
 import { getFillFeedback } from '../../data/fillFeedback'
 import { getChoiceFeedback, choiceLetterOf } from '../../data/choiceFeedback'
+import { highlightLineTokens } from '../../utils/pythonHighlight'
 import './QuizCard.css'
 
 function parseQuestionContent(raw) {
@@ -42,15 +43,16 @@ function CodeBlock({ lines }) {
   return (
     <div style={{
       background: '#1E1B4B', borderRadius: '11px',
-      padding: '11px 13px', overflowX: 'auto', margin: '0 0 8px',
+      padding: '12px 14px', overflowX: 'auto', margin: '0 auto 8px',
+      width: '416px', maxWidth: '100%', maxHeight: '400px', overflowY: 'auto', boxSizing: 'border-box',
     }}>
       <pre style={{
-        fontFamily: "'d2coding', monospace", fontSize: '18px',
-        lineHeight: '1.7', color: '#ffffff', whiteSpace: 'pre-wrap', margin: 0,
+        fontFamily: "'Courier New', monospace", fontSize: '15px',
+        lineHeight: '1.7', color: '#E9D5FF', whiteSpace: 'pre-wrap', margin: 0,
       }}>
         {lines.map((line, i) => (
-          <div key={i} style={{ color: line.trim().startsWith('#') ? '#6B7280' : '#E9D5FF' }}>
-            {line}
+          <div key={i}>
+            {highlightLineTokens(line, `${i}-`)}
           </div>
         ))}
       </pre>
