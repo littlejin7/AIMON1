@@ -25,6 +25,36 @@ const UNIT_TITLES = [
   'AI 에이전트',
 ]
 
+const FALLBACK_UNIT_ICONS = {
+  1: '🖨️',
+  2: '📝',
+  3: '🔀',
+  4: '🔁',
+  5: '📋',
+  6: '⚙️',
+  7: '🗂️',
+  8: '🚀',
+}
+
+function getFallbackUnitIcon(unitId) {
+  return FALLBACK_UNIT_ICONS[unitId] || '📘'
+}
+
+function getUnitShortTitle(title = '', unitId) {
+  const byUnit = {
+    1: '파이썬 첫걸음',
+    2: '문자열',
+    3: '조건문',
+    4: '반복문',
+    5: '리스트/파일',
+    6: '함수',
+    7: '딕셔너리',
+    8: '프로젝트',
+  }
+
+  return byUnit[unitId] || title.replace(/—/g, ' ').split(/\s+/).slice(0, 2).join(' ') || `Unit ${unitId}`
+}
+
 export default function LessonHome() {
   const user       = useAuthStore((s) => s.user)
   const token      = useAuthStore((s) => s.token)
@@ -193,17 +223,68 @@ export default function LessonHome() {
 
         {/* ── 진행률 요약 ── */}
         {token && (
-          <div className="lh-progress-card">
-            <div className="lh-progress-row">
-              <span className="lh-progress-label">{LEVEL_MAP[courseLevel]?.label} 전체 진행률</span>
-              <span className="lh-progress-val">
-                {overallPct}% · {doneStages}/{totalStages} 스테이지
+          <div className="lh-progress-card lh-progress-card-v2">
+            <div className="lh-progress-head">
+              <span className="lh-progress-label">{LEVEL_MAP[courseLevel]?.label} 진행률</span>
+              <span className="lh-progress-count">
+                <strong>{doneStages}</strong> / {totalStages} 스테이지 완료
               </span>
             </div>
-            <div className="lh-prog-bar">
-              <div className="lh-prog-fill" style={{ width: `${overallPct}%` }} />
+            <div className="lh-progress-main">
+              <span className="lh-progress-percent">{overallPct}%</span>
+              <div className="lh-prog-bar lh-prog-bar-v2">
+                <div className="lh-prog-fill" style={{ width: `${overallPct}%` }} />
+              </div>
             </div>
           </div>
+        )}
+
+        {/* ── 유닛 선택 가로 UI ── */}
+        {lessons.length > 0 && (
+          <section className="lh-unit-selector-card" aria-label={`${LEVEL_MAP[courseLevel]?.label} 유닛 선택`}>
+            <div className="lh-unit-selector-head">
+              <h2>{LEVEL_MAP[courseLevel]?.label} 유닛</h2>
+              <span>총 {lessons.length}개 Unit</span>
+            </div>
+
+            <div className="lh-unit-selector-scroll">
+              {lessons.map((lesson, idx) => {
+                const unlocked = token ? lesson.unit_id <= maxUnlocked : lesson.unit_id === 1
+                const prog = getUnitProgress(lesson.unit_id, lesson.stages)
+                const done = prog.completed >= lesson.stages && lesson.stages > 0 && isBossComplete(lesson.unit_id)
+                const isCurrent = unlocked && !done && lesson.unit_id === expandedUnit
+                const title = lesson.title || UNIT_TITLES[idx] || `Unit ${lesson.unit_id}`
+                const shortTitle = getUnitShortTitle(title, lesson.unit_id)
+                const icon = lesson.icon || getFallbackUnitIcon(lesson.unit_id)
+
+                return (
+                  <button
+                    key={lesson.unit_id}
+                    type="button"
+                    className={`lh-unit-node ${done ? 'done' : !unlocked ? 'locked' : isCurrent ? 'current' : 'open'}`}
+                    onClick={() => {
+                      if (!unlocked) return
+                      setExpandedUnit(lesson.unit_id)
+                    }}
+                    disabled={!unlocked}
+                    aria-label={`Unit ${lesson.unit_id} ${shortTitle}`}
+                  >
+                    <span className="lh-unit-node-icon-wrap">
+                      <span className="lh-unit-node-icon">{icon}</span>
+                      {done && <span className="lh-unit-node-state done">✓</span>}
+                      {!unlocked && <span className="lh-unit-node-state locked">🔒</span>}
+                      {isCurrent && <span className="lh-unit-node-state current">▶</span>}
+                    </span>
+                    <span className="lh-unit-node-num">{lesson.unit_id}</span>
+                    <span className="lh-unit-node-title">{shortTitle}</span>
+                    <span className="lh-unit-node-status">
+                      {done ? '완료' : !unlocked ? '잠김' : isCurrent ? '진행중' : '열림'}
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
+          </section>
         )}
 
         {/* ── 유닛 목록 ── */}

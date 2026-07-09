@@ -273,3 +273,227 @@ body:has(.lh-page) { background: #F4F3FA; }
 }
 .lh-endboss-title { font-size: 13px; font-weight: 500; color: #1A1A2E; }
 .lh-endboss-desc  { font-size: 10px; color: #7A7A94; margin-top: 2px; }
+
+/* ── 진행률 요약 v2 ── */
+.lh-progress-card-v2 {
+  border-radius: 18px;
+  padding: 16px 20px;
+}
+.lh-progress-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+.lh-progress-head .lh-progress-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #7A7A94;
+}
+.lh-progress-count {
+  font-size: 11px;
+  color: #7A7A94;
+}
+.lh-progress-count strong {
+  color: #534AB7;
+  font-weight: 700;
+  font-size: 13px;
+}
+.lh-progress-main {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.lh-progress-percent {
+  font-size: 26px;
+  font-weight: 800;
+  color: #1A1A2E;
+  min-width: 65px;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+.lh-prog-bar-v2 {
+  flex: 1;
+  height: 8px;
+  background: #EEEDFE;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* ── 유닛 선택 가로 UI ── */
+.lh-unit-selector-card {
+  background: #FFFFFF;
+  border-radius: 18px;
+  border: 0.5px solid #E2E1EE;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.lh-unit-selector-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.lh-unit-selector-head h2 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin: 0;
+}
+.lh-unit-selector-head span {
+  font-size: 11px;
+  color: #7A7A94;
+  font-weight: 500;
+}
+.lh-unit-selector-scroll {
+  display: flex;
+  gap: 20px;
+  padding: 4px 4px 8px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  position: relative;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.lh-unit-selector-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* 유닛 노드 버튼 */
+.lh-unit-node {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 72px;
+  text-align: center;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.lh-unit-node.locked {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* 연결선 처리 */
+.lh-unit-node:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: calc(50% + 24px);
+  width: calc(100% - 28px);
+  height: 1px;
+  border-top: 1.5px dashed #DEDDE8;
+  z-index: 1;
+}
+.lh-unit-node.done:not(:last-child)::after {
+  border-top: 1.5px dashed #7F77DD;
+}
+
+/* 아이콘 랩 */
+.lh-unit-node-icon-wrap {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  z-index: 2;
+  transition: all 0.2s ease;
+  background: #FFFFFF;
+}
+.lh-unit-node.open .lh-unit-node-icon-wrap {
+  border: 1.5px solid #E2E1EE;
+  background: #F8F7FD;
+}
+.lh-unit-node.done .lh-unit-node-icon-wrap {
+  border: 1.5px solid #7F77DD;
+  background: #EEEDFE;
+}
+.lh-unit-node.locked .lh-unit-node-icon-wrap {
+  border: 1.5px solid #DEDDE8;
+  background: #F5F4FA;
+}
+.lh-unit-node.current .lh-unit-node-icon-wrap {
+  border: 2px solid #7F77DD;
+  background: #EEEDFE;
+  box-shadow: 0 0 0 3px rgba(127, 119, 221, 0.18);
+}
+.lh-unit-node-icon {
+  font-size: 20px;
+}
+
+/* 상태 배지 */
+.lh-unit-node-state {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  border: 1.5px solid #FFFFFF;
+  z-index: 3;
+}
+.lh-unit-node-state.done {
+  background: #22C55E;
+  color: #FFFFFF;
+  font-size: 9px;
+}
+.lh-unit-node-state.locked {
+  background: #9999B0;
+  color: #FFFFFF;
+  font-size: 8px;
+}
+.lh-unit-node-state.current {
+  background: #7F77DD;
+  color: #FFFFFF;
+  font-size: 7px;
+}
+
+/* 유닛 텍스트 정보 */
+.lh-unit-node-num {
+  font-size: 10px;
+  font-weight: 600;
+  color: #7A7A94;
+  margin-bottom: 2px;
+}
+.lh-unit-node-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1A1A2E;
+  margin-bottom: 3px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lh-unit-node-status {
+  font-size: 9px;
+  font-weight: 500;
+}
+.lh-unit-node.done .lh-unit-node-status {
+  color: #22C55E;
+}
+.lh-unit-node.locked .lh-unit-node-status {
+  color: #BBBBCC;
+}
+.lh-unit-node.current .lh-unit-node-status {
+  color: #7F77DD;
+  font-weight: 700;
+}
+.lh-unit-node.open .lh-unit-node-status {
+  color: #7A7A94;
+}
