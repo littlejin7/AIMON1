@@ -92,9 +92,8 @@ export function useTapGame({ audio }) {
       const remainingLives = lives - 1;
 
       if (remainingLives <= 0) {
-        // 하트 전부 소진 → 진짜 게임오버
-        audio.stopBgmRef.current?.();
-        if (ctx) playSoundGameOver(ctx, audio.masterGainRef.current);
+        // 하트 전부 소진 → 진짜 게임오버 (BGM 정지는 useGameBgm 의 enabled 플래그가 담당)
+        if (ctx) playSoundGameOver(ctx, audio.sfxGainRef.current);
         setLives(0);
         setStatus('gameover');
         setRunning(false);
@@ -102,7 +101,7 @@ export function useTapGame({ audio }) {
       }
 
       // 하트가 남아있으면 이번 스테이지만 실패 처리하고 다음 스테이지로 계속 진행
-      if (ctx) playSoundError(ctx, audio.masterGainRef.current);
+      if (ctx) playSoundError(ctx, audio.sfxGainRef.current);
       setLives(remainingLives);
       showFeedback(`시간 초과! 하트 -1 (남은 하트 ${remainingLives})`);
 
@@ -162,7 +161,7 @@ export function useTapGame({ audio }) {
     const ctx = audio.ensureAudio();
 
     if (tok.error) {
-      playSoundCorrect(ctx, audio.masterGainRef.current);
+      playSoundCorrect(ctx, audio.sfxGainRef.current);
       setSolved(true);
       setRunning(false);
       setCoins(c => c + reward.coinsPerStage);
@@ -170,7 +169,7 @@ export function useTapGame({ audio }) {
       clearedRef.current = Math.min(clearedRef.current + 1, STAGE_COUNT);
       setStatus('stageclear');
     } else {
-      playSoundError(ctx, audio.masterGainRef.current);
+      playSoundError(ctx, audio.sfxGainRef.current);
       setTimeLeft(t => Math.max(0, t - timer.penaltySec));
       showFeedback(`오류가 아니에요! -${timer.penaltySec}초`);
     }

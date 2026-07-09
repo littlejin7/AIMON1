@@ -1,34 +1,10 @@
 // ═══════════════════════════════════════════════════════════════
-//  audio.js — Web Audio API 엔진
+//  audio.js — Web Audio API 엔진 (효과음 합성)
+//  BGM(aibomb_bgm.mp3)은 useGameBgm 훅이 전역 bgmVolume 으로 재생한다.
 // ═══════════════════════════════════════════════════════════════
-
-import aibombBgm from '@/assets/bgm/aibomb_bgm.mp3';
 
 export function createAudioCtx() {
   return new (window.AudioContext || window.webkitAudioContext)();
-}
-
-// ── BGM: aibomb_bgm.mp3 루프 ──
-// mp3 파일을 MediaElementSource 로 Web Audio 그래프에 연결해 masterGain(볼륨 슬라이더)
-// 아래로 흐르게 한다. → SFX 와 동일하게 게임 볼륨/음소거가 그대로 BGM 에도 적용됨.
-export function startBgm(ctx, masterGain) {
-  const audio = new Audio(aibombBgm);
-  audio.loop = true;
-  audio.preload = 'auto';
-
-  const srcNode = ctx.createMediaElementSource(audio);
-  const bgmGain = ctx.createGain();
-  bgmGain.gain.value = 0.5;   // SFX 아래로 살짝 낮춰 배경으로 깔림
-  srcNode.connect(bgmGain);
-  bgmGain.connect(masterGain ?? ctx.destination);
-
-  audio.play().catch(() => {});
-
-  return () => {
-    try { audio.pause(); } catch(e) {}
-    try { srcNode.disconnect(); } catch(e) {}
-    try { bgmGain.disconnect(); } catch(e) {}
-  };
 }
 
 // ── 정답 효과음 ──

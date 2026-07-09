@@ -1,77 +1,53 @@
 // ═══════════════════════════════════════════════════════════════
-//  hooks/useAudio.js — AudioContext, BGM, 볼륨 관리
+//  hooks/useAudio.js — 효과음(SFX) 전용 AudioContext 관리
+//  · BGM 은 useGameBgm(전역 bgmVolume 연동)이 담당한다.
+//  · 효과음 볼륨은 전역 useSoundStore.sfxVolume 에 실시간 연동된다.
+//    → 게임 내 볼륨 UI 없이 설정 페이지 슬라이더가 BGM·SFX 를 모두 지배.
 // ═══════════════════════════════════════════════════════════════
 
-import { useRef, useState, useCallback, useEffect } from 'react';
-import { createAudioCtx, startBgm } from '../audio';
+import { useRef, useCallback, useEffect } from 'react';
+import { createAudioCtx } from '../audio';
+import { useSoundStore } from '../../../../hooks/useSoundStore';
 
 export function useAudio() {
-  const audioCtxRef   = useRef(null);
-  const masterGainRef = useRef(null);
-  const stopBgmRef    = useRef(null);
-  const volumeRef     = useRef(70);  // ref로 최신 볼륨 유지 (클로저 문제 방지)
+  const audioCtxRef = useRef(null);
+  const sfxGainRef  = useRef(null);
+  const unsubRef    = useRef(null);
 
-  const [volume, setVolumeState] = useState(70);
-
-  // 볼륨 설정 (state + GainNode + ref 동기화)
-  const setVolumeTo = useCallback((val) => {
-    volumeRef.current = val;
-    setVolumeState(val);
-    if (masterGainRef.current) {
-      masterGainRef.current.gain.value = val / 100;
-    }
-  }, []);
-
-  const handleVolume = useCallback((e) => {
-    setVolumeTo(Number(e.target.value));
-  }, [setVolumeTo]);
-
-  const toggleMute = useCallback(() => {
-    setVolumeTo(volumeRef.current === 0 ? 70 : 0);
-  }, [setVolumeTo]);
-
-  // 첫 사용자 인터랙션 시 AudioContext + BGM 초기화
+  // 첫 사용자 제스처 시 AudioContext 생성 (브라우저 자동재생 정책 대응).
+  // 효과음 gain 을 전역 sfxVolume 으로 초기화하고, 이후 설정 변경을 실시간 반영한다.
   const ensureAudio = useCallback(() => {
-    if (audioCtxRef.current) return audioCtxRef.current;
+    if (audioCtxRef.current) {
+      if (audioCtxRef.current.state === 'suspended') {
+        audioCtxRef.current.resume().catch(() => {});
+      }
+      return audioCtxRef.current;
+    }
     const ctx = createAudioCtx();
-    const masterGain = ctx.createGain();
-    masterGain.gain.value = volumeRef.current / 100;
-    masterGain.connect(ctx.destination);
-    masterGainRef.current = masterGain;
+    const sfxGain = ctx.createGain();
+    sfxGain.gain.value = useSoundStore.getState().sfxVolume;
+    sfxGain.connect(ctx.destination);
+
+    // 전역 효과음 볼륨(설정 슬라이더) 실시간 반영
+    unsubRef.current = useSoundStore.subscribe((state) => {
+      if (sfxGainRef.current) sfxGainRef.current.gain.value = state.sfxVolume;
+    });
+
+    sfxGainRef.current = sfxGain;
     audioCtxRef.current = ctx;
-    stopBgmRef.current = startBgm(ctx, masterGain);
     return ctx;
   }, []);
 
-  // 재시작 시 오디오 컨텍스트 재생성
-  const restartAudio = useCallback(() => {
-    stopBgmRef.current?.();
-    try { audioCtxRef.current?.close(); } catch(e) {}
-    const ctx = createAudioCtx();
-    const masterGain = ctx.createGain();
-    masterGain.gain.value = volumeRef.current / 100;
-    masterGain.connect(ctx.destination);
-    masterGainRef.current = masterGain;
-    audioCtxRef.current = ctx;
-    stopBgmRef.current = startBgm(ctx, masterGain);
-  }, []);
+  // 재시작 시에도 동일 컨텍스트 재사용 (BGM 은 useGameBgm 이 관리하므로 별도 처리 불필요)
+  const restartAudio = ensureAudio;
 
   // 언마운트 시 정리
   useEffect(() => {
     return () => {
-      stopBgmRef.current?.();
-      try { audioCtxRef.current?.close(); } catch(e) {}
+      unsubRef.current?.();
+      try { audioCtxRef.current?.close(); } catch (e) {}
     };
   }, []);
 
-  return {
-    audioCtxRef,
-    masterGainRef,
-    stopBgmRef,
-    ensureAudio,
-    restartAudio,
-    volume,
-    handleVolume,
-    toggleMute,
-  };
+  return { audioCtxRef, sfxGainRef, ensureAudio, restartAudio };
 }

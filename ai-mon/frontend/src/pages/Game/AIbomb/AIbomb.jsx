@@ -27,12 +27,13 @@ import './AIbomb.css';
 
 import { useAudio }   from './hooks/useAudio';
 import { useTapGame } from './hooks/useTapGame';
+import useGameBgm     from '../../../hooks/useGameBgm';
 
 import { RunningMonstersSprite, PixelHeart, ClearCheck } from './sprites';
 import aibombfail from './assets/AIbombfail.png';
 import aibombclear from './assets/AIbombclear.png';
+import aibombBgm  from '@/assets/bgm/aibomb_bgm.mp3';
 import ChalkBoard     from './components/ChalkBoard';
-import VolumeControl  from './components/VolumeControl';
 
 import { BOMB_CONFIG } from './bombConfig';
 import { STAGE_COUNT } from './bombQuestions';
@@ -49,6 +50,10 @@ export default function AIbomb() {
 
   const audio = useAudio();
   const game  = useTapGame({ audio });
+
+  // BGM: 다른 미니게임과 동일하게 전역 bgmVolume(설정)에 연동해 재생.
+  //      게임오버(폭발) 시엔 정지되도록 enabled 로 제어.
+  useGameBgm(aibombBgm, { enabled: game.status !== 'gameover' });
 
   const danger = game.timeLeft <= timer.dangerAt;
   const timerState = danger ? 'danger' : game.timeLeft > timer.initialTime * 0.5 ? 'safe' : 'warn';
@@ -208,13 +213,6 @@ export default function AIbomb() {
         )}
 
       </div>
-
-      {/* ── 볼륨 ── */}
-      <VolumeControl
-        volume={audio.volume}
-        onVolumeChange={audio.handleVolume}
-        onMuteToggle={audio.toggleMute}
-      />
     </div>
   );
 }
