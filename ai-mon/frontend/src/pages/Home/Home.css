@@ -285,6 +285,11 @@ body:has(.hd-page) { background: #F4F3FA; }
   gap: 6px;
   margin: 8px 0 0;
 }
+.hd-char-nickname {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1A1A2E;
+}
 .hd-char-title-badge {
   font-size: 11px;
   font-weight: 500;
