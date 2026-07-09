@@ -10,22 +10,24 @@
   position: relative;
 }
 
+/* AICross/AIPair와 동일한 좌상단 코너 32×32 버튼 (테마색만 유지) */
 .rg-back-btn {
   position: absolute;
-  top: clamp(6px, 2vw, 14px);
-  left: clamp(8px, 2vw, 16px);
+  top: 14px;
+  left: 14px;
   z-index: 30;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: rgba(255, 255, 255, 0.85);
   color: #3388cc;
-  border: clamp(1px, 0.3vw, 2px) solid #66bbee;
-  border-radius: 20px;
-  padding: clamp(5px, 1.4vw, 10px) clamp(12px, 3.2vw, 24px);
-  font-size: clamp(10px, 2vw, 14px);
-  font-weight: 700;
+  border: 1px solid #66bbee;
+  border-radius: 10px;
+  font-size: 16px;
   cursor: pointer;
   transition: background 0.15s, transform 0.1s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  white-space: nowrap;
 }
 
 .rg-back-btn:hover {
@@ -337,12 +339,13 @@
 .rg-panel {
   background: #fff;
   border: 1.5px solid rgba(127, 119, 221, 0.5);
-  border-radius: 24px;
-  padding: clamp(20px, 5vw, 36px) clamp(24px, 6vw, 46px);
+  /* 박스 크기 기준: 에이팡 화이트박스와 통일 (width 300 / padding 22 26 24 / radius 26) */
+  border-radius: 26px;
+  padding: 22px 26px 24px;
   text-align: center;
   box-shadow: 0 24px 48px rgba(127, 119, 221, 0.18);
-  max-width: 460px;
-  width: 90%;
+  width: 300px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -394,6 +397,67 @@
   transform: scale(1.05);
   box-shadow: none;
   opacity: 0.92;
+}
+
+/* ── 시작 화면 내부 요소: 에이팡 화이트박스 기준으로 통일 ── */
+.rg-panel--start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.rg-thumb {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+
+.rg-title--modern {
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #3a2b7a;
+  text-shadow: none;
+  margin: 0;
+}
+
+/* flex gap이 간격을 담당하므로 시작 화면 내부 요소의 기존 마진 제거 */
+.rg-panel--start .rg-subtitle {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.rg-panel--start .rg-controls {
+  width: 100%;
+  margin: 2px 0 0;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  border-radius: 14px;
+  padding: 11px 16px;
+}
+
+/* 보상 배지 — 에이팡과 동일한 골드 pill */
+.rg-reward-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #fff3d0, #ffe49c);
+  color: #8a5a00;
+  font-weight: 800;
+  font-size: 0.82rem;
+  padding: 7px 16px;
+  border-radius: 99px;
+  border: 1px solid rgba(180, 120, 0, 0.25);
+}
+
+.rg-panel--start .rg-btn {
+  margin: 4px auto 0;
+  font-size: 0.95rem;
+  font-weight: 900;
+  padding: 11px 36px;
 }
 
 .rg-score-final {

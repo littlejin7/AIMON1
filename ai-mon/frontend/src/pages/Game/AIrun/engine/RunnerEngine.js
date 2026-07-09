@@ -173,15 +173,16 @@ export class RunnerEngine {
   _showStartScreen() {
     this.overlay.style.display = 'flex';
     this.overlay.innerHTML = `
-      <div class="rg-panel">
-        <img src="${airunIconUrl}" class="rg-icon" alt="AIrun" />
-        <div class="rg-title">AIrun</div>
-        <div class="rg-subtitle">AIMON Python OX 퀴즈 달리기 게임</div>
+      <div class="rg-panel rg-panel--start">
+        <img src="${airunIconUrl}" class="rg-thumb" alt="AIrun" />
+        <div class="rg-title rg-title--modern">AIrun</div>
+        <div class="rg-subtitle">달리고! 피하고! 맞혀라!</div>
         <div class="rg-controls">
           <div><kbd>◀ ▶</kbd> 레인 이동</div>
           <div><kbd>SPACE</kbd> 점프</div>
           <div><kbd>O</kbd> / <kbd>X</kbd> 퀴즈 정답</div>
         </div>
+        <div class="rg-reward-pill">⚡ 클리어 보상 · 코인 200~500</div>
         <button class="rg-btn" id="rg-start-btn">▶ START GAME</button>
       </div>
     `;
