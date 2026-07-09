@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom'
 import { incrementGamePlay } from '../Game'
 import { aicrossApi } from '../../../api'
 import { useAuthStore } from '../../../hooks/useAuthStore'
+import useGameBgm from '../../../hooks/useGameBgm'
 import { CHAR_ICONS } from '../../Character/characterData'
 import TitleBlock from './components/TitleBlock'
 import WinModal from './components/WinModal'
 import CrosswordGrid from './components/CrosswordGrid'
 import HintBox from './components/HintBox'
 import ClueList from './components/ClueList'
+import aikanBgm from '../../../assets/bgm/aikan_bgm.mp3'
 import './AICross.css'
 
 // 서버 start 응답 puzzle(grid_size + 좌표 포함 entries)을 프론트 렌더링 구조로 변환한다.
@@ -84,6 +86,8 @@ export default function AICross() {
   const navigate = useNavigate()
   const wrapRef = useRef(null)
   const user = useAuthStore((s) => s.user)
+
+  useGameBgm(aikanBgm)
 
   // 서버 진행도/세션 상태
   const [progress, setProgress] = useState(null)
