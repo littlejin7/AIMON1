@@ -397,7 +397,7 @@ export default function LessonHome() {
                   <button
                     key={lesson.unit_id}
                     type="button"
-                    className={`lh-unit-node ${done ? 'done' : !unlocked ? 'locked' : isCurrent ? 'current' : 'open'}`}
+                    className={`lh-unit-node no-3d ${done ? 'done' : !unlocked ? 'locked' : isCurrent ? 'current' : 'open'}`}
                     onClick={() => {
                       if (!unlocked) return
                       setExpandedUnit(lesson.unit_id)
@@ -448,7 +448,7 @@ export default function LessonHome() {
                 </div>
                 <button
                   type="button"
-                  className="lh-selected-unit-info-btn"
+                  className="lh-selected-unit-info-btn no-3d"
                   aria-label="유닛 정보"
                 >
                   유닛 정보
@@ -473,7 +473,7 @@ export default function LessonHome() {
                     <button
                       key={s}
                       type="button"
-                      className={`lh-paw-stage ${stateClass}`}
+                      className={`lh-paw-stage no-3d ${stateClass}`}
                       disabled={!enabled}
                       onClick={() => {
                         if (!token || !enabled) return
@@ -501,7 +501,7 @@ export default function LessonHome() {
 
                 <button
                   type="button"
-                  className={`lh-paw-boss ${prog.completed >= lesson.stages ? 'open' : 'locked'}`}
+                  className={`lh-paw-boss no-3d ${prog.completed >= lesson.stages ? 'open' : 'locked'}`}
                   disabled={prog.completed < lesson.stages}
                   onClick={() => {
                     if (!token || prog.completed < lesson.stages) return
