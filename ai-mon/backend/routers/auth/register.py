@@ -243,7 +243,7 @@ def register(req: RegisterRequest, request: Request):
             try:
                 restored, (streak_reward, attendance_reward) = mutate_user_atomic(restored["id"], login_mutator)
             except UserNotFoundError:
-                raise HTTPException(status_code=404, detail="?ъ슜?먮? 李얠쓣 ???놁뒿?덈떎.")
+                raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")
             return _issue_auth_response(restored, is_new=False, account_restored=True, streak_reward=streak_reward, attendance_reward=attendance_reward)
 
         delete_soft_deleted_user_by_username(req.username)

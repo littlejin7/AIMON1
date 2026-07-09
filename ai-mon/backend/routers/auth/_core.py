@@ -251,7 +251,7 @@ def _restore_for_login(user: dict, updater=None) -> dict:
     try:
         return restore_soft_deleted_user(user["id"], updater)
     except UserNotFoundError:
-        raise HTTPException(status_code=404, detail="?ъ슜?먮? 李얠쓣 ???놁뒿?덈떎.")
+        raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")
 
 
 def _env_flag(name: str, default: str = "false") -> bool:
