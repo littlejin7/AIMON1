@@ -15,6 +15,9 @@ import {
   PopupFinal,
 } from './components/Popup';
 
+// 다른 미니게임들과 동일한 앱 프레임 최대 가로폭(px) — Aipang.css의 .aipang-wrap과 맞춘다.
+const MAX_FRAME_W = 480;
+
 /**
  * AI팡 퍼즐 — 루트 컴포넌트
  * 모든 서브 컴포넌트와 게임 로직 훅을 조합하는 진입점
@@ -59,9 +62,13 @@ export default function AipangPuzzle() {
   } = useGameLogic(pCanvasRef, lCanvasRef);
 
   // ── 화면 크기에 맞게 게임 스케일 조정 ──
+  // 가로 기준값은 다른 게임들과 동일한 앱 프레임 폭(480px)으로 고정한다.
+  // window.innerWidth를 그대로 쓰면 데스크톱 전체화면처럼 창이 넓을 때
+  // 가로로 과하게 커져 다른 미니게임들과 다르게 꽉 차 보이는 문제가 있었다.
   useEffect(() => {
     const applyScale = () => {
-      const s = Math.min(window.innerWidth / GAME_W, window.innerHeight / GAME_H, 1.5);
+      const viewportW = Math.min(window.innerWidth, MAX_FRAME_W);
+      const s = Math.min(viewportW / GAME_W, window.innerHeight / GAME_H, 1.5);
       const el = gameRootRef.current;
       if (!el) return;
       el.style.transform = `scale(${s})`;
@@ -76,14 +83,17 @@ export default function AipangPuzzle() {
   }, []);
 
   // ── 캔버스 크기 동기화 ──
+  // 캔버스도 동일하게 480px 프레임 폭 기준으로 맞춘다(부모 .aipang-wrap이
+  // transform으로 fixed 자손의 컨테이닝 블록이 되므로 실제로도 이 폭 안에서만 그려진다).
   useEffect(() => {
     const resize = () => {
+      const w = Math.min(window.innerWidth, MAX_FRAME_W);
       if (pCanvasRef.current) {
-        pCanvasRef.current.width  = window.innerWidth;
+        pCanvasRef.current.width  = w;
         pCanvasRef.current.height = window.innerHeight;
       }
       if (lCanvasRef.current) {
-        lCanvasRef.current.width  = window.innerWidth;
+        lCanvasRef.current.width  = w;
         lCanvasRef.current.height = window.innerHeight;
       }
     };
