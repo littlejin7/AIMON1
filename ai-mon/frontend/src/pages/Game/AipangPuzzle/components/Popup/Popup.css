@@ -121,3 +121,14 @@
 .popup .btn-gray {
   background: linear-gradient(135deg, #444, #666);
 }
+
+.popup-btn-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.popup-btn-stack .btn {
+  min-width: 150px;
+}
