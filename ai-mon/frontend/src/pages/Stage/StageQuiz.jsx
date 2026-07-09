@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom'
-import { useAuthStore } from '../../hooks/useAuthStore'
 import QuizCard from '../../components/QuizCard/QuizCard'
 import './BossMini.css'
 import villainIcon from '../../assets/boss_midcmorg.png'
@@ -20,7 +19,6 @@ export default function StageQuiz({
   stageNum,
   questions,
   current,
-  score,
   minibossStartIndex,
   handleAnswer,
   handleNext,
@@ -44,44 +42,34 @@ export default function StageQuiz({
   
   const tauntPool = VILLAIN_TAUNTS[currentQ?.type] || VILLAIN_TAUNTS.default
   const tauntText = VILLAIN_TAUNTS[(current || 0) % VILLAIN_TAUNTS.length]
-  const levelLabel = (user?.lv || 1) <= 3 ? '초급' : (user?.lv || 1) <= 6 ? '중급' : '고급'
 
   /* ── 미니보스 모드 레이아웃 ── */
   if (isVillain) {
     return (
       <div className="mb-page">
 
-        {/* 탑 네비 */}
-        <div className="mb-topnav">
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-            <span className="mb-logo">AI MON</span>
-            <span style={{ fontSize: 10, color: '#888' }}>UNIT {lessonId} · Stage {stageNum}</span>
-          </div>
-          <div className="mb-crown-pill">⭐ {score}</div>
-          <div className="mb-user-info">
-            <div className="mb-uavatar">
-              <img src={charSrc} alt="캐릭터" style={{ width: 20, height: 20, objectFit: 'contain' }} />
-            </div>
-            <div className="mb-utext">
-              <span className="mb-uname">{user?.username || '플레이어'}</span>
-              <span className="mb-ulvl">{levelLabel}</span>
-            </div>
-            <button
-              className="mb-escape-btn"
-              onClick={() => navigate(`/lesson/${lessonId}`)}
-            >
-              나가기 ✕
-            </button>
+        {/* 히어로 섹션 */}
+        <div className="stage-hero">
+          <button
+            className="stage-hero-close"
+            onClick={() => navigate(`/lesson/${lessonId}`)}
+            aria-label="레슨 목록으로"
+          >✕</button>
+          <div className="stage-hero-text">
+            <p className="stage-breadcrumb">UNIT {lessonId} · Stage {stageNum}</p>
+            {unitInfo?.title && <h1 className="stage-hero-title">{unitInfo.title}</h1>}
           </div>
         </div>
 
-        {/* 진행도 스트립 */}
-        <div className="mb-prog-strip">
-          <span className="mb-prog-lbl">진행도</span>
-          <div className="mb-prog-track">
-            <div className="mb-prog-fill" style={{ width: `${progressPct}%` }} />
+        {/* 상단 진행 바 */}
+        <div className="stage-bottom-progress">
+          <div className="stage-progress-label">
+            <span>진행도</span>
+            <span>문제 {currentNum} / {totalQ}</span>
           </div>
-          <span className="mb-prog-cnt">문제 {currentNum} / {totalQ}</span>
+          <div className="progress-bar">
+            <div className="progress-bar-fill" style={{ width: `${progressPct}%` }} />
+          </div>
         </div>
 
         {/* 본문 */}
@@ -93,11 +81,16 @@ export default function StageQuiz({
               src={villainIcon}
               alt="미니보스"
               className="animate-float"
+              draggable={false}
               style={{
-                width: 110,
-                height: 110,
+                width: 200,
+                height: 200,
                 objectFit: 'contain',
                 filter: 'drop-shadow(0 4px 16px rgba(83,74,183,0.35))',
+                userSelect: 'none',
+                WebkitUserSelect: 'none',
+                WebkitUserDrag: 'none',
+                WebkitTouchCallout: 'none',
               }}
             />
             <div className="mb-speech">{tauntText}</div>
@@ -132,7 +125,6 @@ export default function StageQuiz({
           <p className="stage-breadcrumb">UNIT {lessonId} · Stage {stageNum}</p>
           {unitInfo?.title && <h1 className="stage-hero-title">{unitInfo.title}</h1>}
         </div>
-        <div className="stage-score-badge">⭐ {score}</div>
       </div>
 
       {/* 상단 진행 바 */}
@@ -150,7 +142,12 @@ export default function StageQuiz({
       
       {/* 캐릭터 영역 */}
       <div className="stage-char-area">
-        <img src={charSrc} alt="캐릭터" className="stage-char-img animate-bob" />
+        <img
+          src={charSrc}
+          alt="캐릭터"
+          className="stage-char-img animate-bob"
+          draggable={false}
+        />
       </div>
 
       {/* 퀴즈 카드 */}
