@@ -5,6 +5,7 @@ import { authApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import SocialButtons from './SocialButtons'
 import AuthForm from './AuthForm'
+import StreakRewardModal from '../../components/StreakRewardModal/StreakRewardModal'
 import beginnerHappyIcon from '../../assets/character_beginnerhappy.png'
 import './Auth.css'
 
@@ -14,6 +15,7 @@ export default function Auth() {
   const [loading, setLoading] = useState(false)
   const [error, setError]     = useState('')
   const [socialMsg, setSocialMsg] = useState('')
+  const [streakReward, setStreakReward] = useState(null)
 
   const setAuth  = useAuthStore((s) => s.setAuth)
   const navigate = useNavigate()
@@ -56,10 +58,10 @@ export default function Auth() {
       if (!mountedRef.current) return
       setAuth(res.data.access_token, res.data.user, res.data.refresh_token)
       if (res.data.streak_reward) {
-        const reward = res.data.streak_reward
-        alert(`🔥 ${reward.days}일 연속 로그인 달성!!\n\n🪙 +${reward.coin} 코인${reward.crowns > 0 ? `\n👑 +${reward.crowns} 왕관` : ''} 보상을 획득했습니다!`)
+        setStreakReward(res.data.streak_reward)
+      } else {
+        navigate('/')
       }
-      navigate('/')
     } catch (err) {
       // AbortController로 취소된 요청은 조용히 무시
       if (axios.isCancel(err)) return
@@ -110,6 +112,9 @@ export default function Auth() {
 
   return (
     <div className="auth-page">
+      {streakReward && (
+        <StreakRewardModal reward={streakReward} onClose={() => navigate('/')} />
+      )}
       <div className="auth-card animate-fade-in-up">
 
         {/* 뒤로가기 */}
