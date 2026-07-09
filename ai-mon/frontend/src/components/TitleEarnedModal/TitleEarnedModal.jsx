@@ -20,15 +20,18 @@ const TITLE_DETAILS = {
 }
 
 export default function TitleEarnedModal({ titles = [], onClose }) {
+  const hasTitles = titles && titles.length > 0
+
   useEffect(() => {
+    if (!hasTitles) return
     // 팝업 열렸을 때 뒷배경 스크롤 막기
     document.body.style.overflow = 'hidden'
     return () => {
       document.body.style.overflow = ''
     }
-  }, [])
+  }, [hasTitles])
 
-  if (!titles || titles.length === 0) return null
+  if (!hasTitles) return null
 
   return (
     <div className="title-modal-overlay animate-fade-in">
