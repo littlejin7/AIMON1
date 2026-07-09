@@ -524,6 +524,20 @@ export default function LessonHome() {
           const title = lesson.title || UNIT_TITLES[idx] || `Unit ${lesson.unit_id}`
           const icon = lesson.icon || getFallbackUnitIcon(lesson.unit_id)
           const stageNums = Array.from({ length: lesson.stages || 0 }, (_, i) => i + 1)
+          
+          const isBossFinished = isBossComplete(lesson.unit_id)
+          const isReadyForBoss = prog.completed >= lesson.stages
+          const bossState = isBossFinished ? 'cleared' : isReadyForBoss ? 'open' : 'locked'
+
+          const handleBossClick = () => {
+            if (!token || prog.completed < lesson.stages) return
+            if (!user?.is_level_tested) {
+              setPendingUnitId(lesson.unit_id)
+              setShowLevelTest(true)
+              return
+            }
+            navigate(`/boss/${lesson.unit_id}`)
+          }
 
           return (
             <section className={`lh-selected-unit-card unit-${lesson.unit_id} ${!unlocked ? 'locked' : ''}`}>
@@ -536,44 +550,6 @@ export default function LessonHome() {
                   <h2>{title}</h2>
                   <p>{lesson.description || `${prog.completed} / ${lesson.stages} 스테이지 완료`}</p>
                 </div>
-                {(() => {
-                  const isBossFinished = isBossComplete(lesson.unit_id)
-                  const isReadyForBoss = prog.completed >= lesson.stages
-                  
-                  let btnText = "유닛보스 잠김"
-                  let btnClass = "locked"
-                  let btnDisabled = true
-                  
-                  if (isBossFinished) {
-                    btnText = "보스 복습"
-                    btnClass = "cleared"
-                    btnDisabled = false
-                  } else if (isReadyForBoss) {
-                    btnText = "유닛보스 도전"
-                    btnClass = "open"
-                    btnDisabled = false
-                  }
-                  
-                  return (
-                    <button
-                      type="button"
-                      className={`lh-stage-boss-cta no-3d ${btnClass}`}
-                      disabled={btnDisabled}
-                      onClick={() => {
-                        if (btnDisabled) return
-                        if (!token) return
-                        if (!user?.is_level_tested) {
-                          setPendingUnitId(lesson.unit_id)
-                          setShowLevelTest(true)
-                          return
-                        }
-                        navigate(`/boss/${lesson.unit_id}`)
-                      }}
-                    >
-                      {btnText}
-                    </button>
-                  )
-                })()}
               </div>
 
               <div className="lh-selected-unit-progress">
@@ -628,6 +604,15 @@ export default function LessonHome() {
                             </button>
                           )
                         })}
+                        <button
+                          type="button"
+                          className={`lh-stage-chip lh-unitboss-chip no-3d ${bossState}`}
+                          disabled={prog.completed < lesson.stages}
+                          onClick={handleBossClick}
+                        >
+                          <span className="lh-unitboss-chip-icon">⚔</span>
+                          <span className="lh-unitboss-chip-label">유닛보스</span>
+                        </button>
                       </div>
                     </div>
                   )
@@ -671,6 +656,15 @@ export default function LessonHome() {
                         </button>
                       )
                     })}
+                    <button
+                      type="button"
+                      className={`lh-stage-chip lh-unitboss-chip no-3d ${bossState}`}
+                      disabled={prog.completed < lesson.stages}
+                      onClick={handleBossClick}
+                    >
+                      <span className="lh-unitboss-chip-icon">⚔</span>
+                      <span className="lh-unitboss-chip-label">유닛보스</span>
+                    </button>
                   </div>
                 )
               })()}
