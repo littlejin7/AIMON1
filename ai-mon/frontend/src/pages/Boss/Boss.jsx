@@ -109,6 +109,15 @@ export default function Boss() {
     try {
       const res = await bossApi.startBattle(lessonId)
       // 응답 형식: { question, battle_token }
+      setBossData(prev => {
+        if (!prev) return prev
+        const freeAttempts = prev.free_attempts_per_day ?? 0
+        const crownCost = prev.crown_cost_from_attempt ?? 1
+        if (freeAttempts > 0) {
+          return { ...prev, free_attempts_per_day: freeAttempts - 1 }
+        }
+        return { ...prev, crowns: Math.max(0, (prev.crowns ?? 0) - crownCost) }
+      })
       setBattleToken(res.data.battle_token)
       setCurrentQuestion(res.data.question)
       playBGM('unitboss_intro')
