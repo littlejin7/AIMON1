@@ -107,12 +107,6 @@ export default function Game() {
   return (
     <div className="game-page">
 
-      {/* ── 헤더 ── */}
-      <div className="game-header">
-        <p className="game-header-label">GAME</p>
-        <h1 className="game-title">미니게임</h1>
-      </div>
-
       {/* ── 오늘의 챌린지 카드 ── */}
       <div className="game-challenge-hero card-glass">
         <div className="game-challenge-top">

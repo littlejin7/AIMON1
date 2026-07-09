@@ -114,11 +114,6 @@ export default function HomeDashboard({ user, stats, onOpenLevelTest }) {
 
       {/* ── 히어로 카드 ── */}
       <div className="hd-card hd-hero-card">
-        <div className="hd-hero-badge">AIMON</div>
-        <button className="hd-settings-badge" onClick={() => navigate('/settings')} aria-label="설정">
-          ⚙️
-        </button>
-        
         {(() => {
           const equippedTitle = user?.equipped_title
             || (user?.id ? localStorage.getItem(`equipped_title_${user.id}`) : null)

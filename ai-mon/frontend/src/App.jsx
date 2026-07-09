@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import AppHeader, { getAppHeaderTitle } from "./components/AppHeader/AppHeader";
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./pages/Home/Home";
 import LessonHome from "./pages/Lesson/LessonHome";
@@ -39,9 +40,17 @@ function ProtectedRoute({ children }) {
 
 /** NavBar가 포함된 공통 레이아웃 */
 function AppLayout({ children }) {
+  const location = useLocation();
+  const header = getAppHeaderTitle(location.pathname);
+  const hasHeader = !!header;
+  const hasCompactHeader = !!header?.compact;
+
   return (
-    <div className="page">
-      {children}
+    <div className={`page app-shell${hasHeader ? " has-app-header" : ""}${hasCompactHeader ? " has-compact-app-header" : ""}`}>
+      <AppHeader />
+      <main className="app-main">
+        {children}
+      </main>
       <NavBar />
     </div>
   );

@@ -179,11 +179,6 @@ export default function LessonHome() {
       />
 
       <div className="lh-scroll">
-        <div className="lh-header">
-          <p className="lh-header-label">LESSON</p>
-          <h1 className="lh-title">레슨</h1>
-        </div>
-
         {/* ── 레벨 표시 ── */}
         <div className="lh-level-tabs">
           {LEVELS.map((lv, i) => (

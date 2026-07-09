@@ -138,12 +138,6 @@ export default function Character() {
 
       {/* ── 히어로 (보라 배경) ── */}
       <div className="char-hero-bg">
-        <div className="char-hero-topbar">
-          <span className="char-hero-logo">AIMON</span>
-          <button className="char-hero-settings" onClick={() => navigate('/settings')} aria-label="설정">
-            ⚙️
-          </button>
-        </div>
         <div className="char-hero-body">
           <div className="char-hero-meta">
             <span className="char-hero-username">{user?.nickname || user?.username || user?.email?.split('@')[0] || '유저'}</span>

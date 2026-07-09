@@ -1,0 +1,118 @@
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: calc(var(--z-nav) + 1);
+  padding-top: env(safe-area-inset-top);
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 0.5px solid var(--clr-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.app-header-inner {
+  height: 52px;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 0 16px;
+}
+
+.app-header--compact .app-header-inner {
+  height: 48px;
+}
+
+.app-header-title-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-header-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--clr-text);
+  line-height: 1;
+}
+
+.app-header-subtitle {
+  margin: 4px 0 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--clr-text-muted);
+  line-height: 1;
+}
+
+.app-header-icon-btn {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  margin: auto 0;
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(127, 119, 221, 0.16);
+  color: #7F77DD;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow: 0 2px 8px rgba(83, 74, 183, 0.06);
+  transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast), opacity var(--transition-fast);
+}
+
+.app-header-icon-btn svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.app-header-icon-btn:hover {
+  transform: translateY(-1px);
+  background: #FFFFFF;
+  border-color: rgba(127, 119, 221, 0.28);
+  box-shadow: 0 4px 12px rgba(83, 74, 183, 0.10);
+}
+
+.app-header-icon-btn:active {
+  transform: scale(0.96);
+}
+
+.app-header-icon-btn.is-muted {
+  color: #A9A4E8;
+  opacity: 0.82;
+}
+
+.app-header-left {
+  left: 16px;
+}
+
+.app-header-right {
+  right: 16px;
+}
+
+.app-main {
+  min-height: 100dvh;
+}
+
+.has-app-header .app-main {
+  padding-top: calc(52px + env(safe-area-inset-top));
+}
+
+.has-compact-app-header .app-main {
+  padding-top: calc(48px + env(safe-area-inset-top));
+}
