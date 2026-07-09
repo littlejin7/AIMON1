@@ -595,13 +595,18 @@
 /* ── 인증카드 ── */
 .char-cert-scroll {
   display: flex;
-  gap: 9px;
+  gap: 12px;
   overflow-x: auto;
-  padding-bottom: 4px;
+  padding: 4px 0 8px;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 .char-cert-scroll::-webkit-scrollbar { display: none; }
+.char-cert-scroll::before,
+.char-cert-scroll::after {
+  content: '';
+  flex-grow: 1;
+}
 
 .char-cert-card {
   width: 120px;
