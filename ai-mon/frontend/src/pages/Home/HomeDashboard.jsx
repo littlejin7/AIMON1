@@ -114,10 +114,10 @@ export default function HomeDashboard({ user, stats, onOpenLevelTest }) {
 
       {/* ── 히어로 카드 ── */}
       <div className="hd-card hd-hero-card">
-        <div className="hd-hero-badge">
-          {stats?.current_unit ? `Unit ${stats.current_unit} · Stage ${stats.current_stage || 1}` : 'Unit 1 · Stage 1'}
-        </div>
-        <div className="hd-lv-badge">Lv. {lv}</div>
+        <div className="hd-hero-badge">AIMON</div>
+        <button className="hd-settings-badge" onClick={() => navigate('/settings')} aria-label="설정">
+          ⚙️
+        </button>
         
         {(() => {
           const equippedTitle = user?.equipped_title
@@ -158,12 +158,18 @@ export default function HomeDashboard({ user, stats, onOpenLevelTest }) {
             )
           }
           <div className="hd-currency-wrap">
-            <div className="hd-currency-row">
+            <div className="hd-status-row">
+              <span className="hd-status-badge hd-stage-badge">
+                {stats?.current_unit ? `Unit ${stats.current_unit} · Stage ${stats.current_stage || 1}` : 'Unit 1 · Stage 1'}
+              </span>
               <span className="hd-currency-badge hd-coin-badge">🪙 코인 {coinBalance.toLocaleString()}</span>
-              {evolutionStage >= 3 && (
-                <span className="hd-currency-badge hd-gp-badge">💠 GP {gp.toLocaleString()}</span>
-              )}
+              <span className="hd-status-badge hd-lv-inline-badge">Lv. {lv}</span>
             </div>
+            {evolutionStage >= 3 && (
+              <div className="hd-currency-row">
+                <span className="hd-currency-badge hd-gp-badge">💠 GP {gp.toLocaleString()}</span>
+              </div>
+            )}
           </div>
         </div>
 
