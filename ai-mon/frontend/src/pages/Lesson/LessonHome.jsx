@@ -584,35 +584,39 @@ export default function LessonHome() {
                       <div className="lh-stage-chip-list">
                         {stageNums.map((s) => {
                           return (
-                            <button
-                              key={s}
-                              type="button"
-                              className="lh-stage-chip no-3d"
-                              onClick={() => {
-                                if (!token) return
-                                if (!user?.is_level_tested && !(lesson.unit_id === 1 && s === 1)) {
-                                  setPendingUnitId(lesson.unit_id)
-                                  setShowLevelTest(true)
-                                  return
-                                }
-                                navigate(`/stage/${lesson.unit_id}/${s}`)
-                              }}
-                              aria-label={`Stage ${s} 복습`}
-                            >
-                              <span className="lh-compact-stage-num">{s}</span>
-                              <span className="lh-compact-stage-check">✓</span>
-                            </button>
+                            <div key={s} className="lh-stage-chip-item">
+                              <button
+                                type="button"
+                                className="lh-stage-chip no-3d"
+                                onClick={() => {
+                                  if (!token) return
+                                  if (!user?.is_level_tested && !(lesson.unit_id === 1 && s === 1)) {
+                                    setPendingUnitId(lesson.unit_id)
+                                    setShowLevelTest(true)
+                                    return
+                                  }
+                                  navigate(`/stage/${lesson.unit_id}/${s}`)
+                                }}
+                                aria-label={`Stage ${s} 복습`}
+                              >
+                                <span className="lh-compact-stage-num">{s}</span>
+                                <span className="lh-compact-stage-check">✓</span>
+                              </button>
+                              <span className="lh-stage-chip-label">Stage {s}</span>
+                            </div>
                           )
                         })}
-                        <button
-                          type="button"
-                          className={`lh-stage-chip lh-unitboss-chip no-3d ${bossState}`}
-                          disabled={prog.completed < lesson.stages}
-                          onClick={handleBossClick}
-                        >
-                          <span className="lh-unitboss-chip-icon">⚔</span>
-                          <span className="lh-unitboss-chip-label">유닛보스</span>
-                        </button>
+                        <div className="lh-stage-chip-item">
+                          <button
+                            type="button"
+                            className={`lh-unitboss-chip no-3d ${bossState}`}
+                            disabled={prog.completed < lesson.stages}
+                            onClick={handleBossClick}
+                          >
+                            <span className="lh-unitboss-icon">⚔</span>
+                          </button>
+                          <span className="lh-unitboss-label">유닛보스</span>
+                        </div>
                       </div>
                     </div>
                   )
@@ -658,12 +662,20 @@ export default function LessonHome() {
                     })}
                     <button
                       type="button"
-                      className={`lh-stage-chip lh-unitboss-chip no-3d ${bossState}`}
+                      className={`lh-paw-stage lh-paw-stage-boss no-3d ${bossState}`}
                       disabled={prog.completed < lesson.stages}
                       onClick={handleBossClick}
                     >
-                      <span className="lh-unitboss-chip-icon">⚔</span>
-                      <span className="lh-unitboss-chip-label">유닛보스</span>
+                      <span className="lh-paw-node">⚔</span>
+                      <span className="lh-paw-content">
+                        <span className="lh-paw-title">유닛보스</span>
+                        <span className="lh-paw-status">
+                          {bossState === 'cleared' ? '완료' : bossState === 'open' ? '도전 가능' : '잠김'}
+                        </span>
+                      </span>
+                      {bossState === 'cleared' && <span className="lh-paw-action review">복습</span>}
+                      {bossState === 'open' && <span className="lh-paw-action continue">도전</span>}
+                      {bossState === 'locked' && <span className="lh-paw-lock">🔒</span>}
                     </button>
                   </div>
                 )
