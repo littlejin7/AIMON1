@@ -342,7 +342,7 @@ body:has(.tr-page) { background: #F4F3FA; }
   min-height: 100vh;
   padding-top: 2rem;
   padding-bottom: 5rem;
-  background: #0f0f1a;
+  background: var(--clr-bg);
 }
 .train-header {
   display: flex;
