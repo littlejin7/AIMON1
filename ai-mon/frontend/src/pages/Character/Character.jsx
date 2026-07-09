@@ -14,6 +14,7 @@ export default function Character() {
   const [selected,      setSelected]      = useState(user?.character || 'slime')
   const [saving,        setSaving]        = useState(false)
   const [saved,         setSaved]         = useState(false)
+  const [saveError,     setSaveError]     = useState('')
   const [stats,         setStats]         = useState(null)
   const [equippedTitle, setEquippedTitle] = useState(
     user?.equipped_title || localStorage.getItem(`equipped_title_${user?.id || 'guest'}`) || 'first_step'
@@ -84,11 +85,18 @@ export default function Character() {
 
   const handleSave = async () => {
     setSaving(true)
+    setSaveError('')
     try {
       const res = await userApi.updateMe({ character: selected })
       updateUser(res.data)
       setSaved(true)
       setTimeout(() => setSaved(false), 2000)
+    } catch (err) {
+      const message = err?.response?.data?.detail || '캐릭터 저장에 실패했어요. 다시 시도해 주세요.'
+      console.error('캐릭터 저장 실패:', err)
+      setSaveError(message)
+      // 저장 실패 시 선택값을 실제 저장된 캐릭터로 되돌려 UI가 거짓으로 "선택됨" 표시하지 않게 한다.
+      setSelected(user?.character || 'slime')
     } finally {
       setSaving(false)
     }
@@ -137,15 +145,17 @@ export default function Character() {
           </button>
         </div>
         <div className="char-hero-body">
-          {equippedTitleName && (
-            <div className="char-hero-title-badge">🎖 {equippedTitleName}</div>
-          )}
-          {user?.course_level && (
-            <div className="char-hero-level-badge">
-              {{ beginner: '🟢 초급', intermediate: '🔵 중급', advanced: '🟣 고급' }[user.course_level]}
-            </div>
-          )}
-          <p className="char-hero-username">{user?.nickname || user?.username || user?.email?.split('@')[0] || '유저'}</p>
+          <div className="char-hero-meta">
+            <span className="char-hero-username">{user?.nickname || user?.username || user?.email?.split('@')[0] || '유저'}</span>
+            {equippedTitleName && (
+              <span className="char-hero-title-badge">🎖 {equippedTitleName}</span>
+            )}
+            {user?.course_level && (
+              <span className="char-hero-level-badge">
+                {{ beginner: '🟢 초급', intermediate: '🔵 중급', advanced: '🟣 고급' }[user.course_level]}
+              </span>
+            )}
+          </div>
           <div className="char-hero-glow">
             <img
               src={CHAR_ICONS[selected]}
@@ -156,7 +166,9 @@ export default function Character() {
           <div className="char-hero-status">
             <div className="char-hero-status-row">
               <span className="char-hero-status-lv">Lv. {lv} · {selectedChar.name}</span>
-              <span className="char-hero-status-num">🪙 {coinBalance.toLocaleString()}</span>
+              <span className="char-hero-status-num">
+                {stats?.current_unit ? `Unit ${stats.current_unit} · Stage ${stats.current_stage || 1}` : 'Unit 1 · Stage 1'}
+              </span>
             </div>
             {evolutionStage >= 3 && (
               <p className="char-hero-status-hint">💠 GP {gp.toLocaleString()}</p>
@@ -165,21 +177,6 @@ export default function Character() {
         </div>
       </div>
 
-      {/* ── 보상 스트립 ── */}
-      <div className="char-reward-strip">
-        <div className="char-ri">
-          <span className="char-ri-val">👑 {user?.crowns || 0}</span>
-          <span className="char-ri-label">보유 왕관</span>
-        </div>
-        <div className="char-ri">
-          <span className="char-ri-val">🔥 {user?.streak || 0}일</span>
-          <span className="char-ri-label">연속 학습</span>
-        </div>
-        <div className="char-ri">
-          <span className="char-ri-val">⚔️ {bossCleared}회</span>
-          <span className="char-ri-label">보스 클리어</span>
-        </div>
-      </div>
 
       <div className="char-scroll">
 
@@ -191,29 +188,39 @@ export default function Character() {
         <p className="char-section-label">학습 스탯</p>
         <div className="char-stats-grid">
           <div className="char-stat-card">
-            <div className="char-stat-icon" style={{ background: 'rgba(83,74,183,0.18)' }}>🪙</div>
-            <div className="char-stat-val">{coinBalance.toLocaleString()}</div>
-            <div className="char-stat-label">보유 코인</div>
-          </div>
-          <div className="char-stat-card">
-            <div className="char-stat-icon" style={{ background: 'rgba(15,110,86,0.18)' }}>📈</div>
-            <div className="char-stat-val">{stats?.accuracy != null ? `${Math.round(stats.accuracy)}%` : '—'}</div>
-            <div className="char-stat-label">전체 정답률</div>
-          </div>
-          <div className="char-stat-card">
             <div className="char-stat-icon" style={{ background: 'rgba(133,79,11,0.18)' }}>🔥</div>
             <div className="char-stat-val">{user?.streak || 0}일</div>
             <div className="char-stat-label">최장 스트릭</div>
           </div>
           <div className="char-stat-card">
-            <div className="char-stat-icon" style={{ background: 'rgba(163,45,45,0.15)' }}>🧠</div>
-            <div className="char-stat-val">{stats?.total_answers || user?.completed_stages || 0}개</div>
-            <div className="char-stat-label">총 푼 문제</div>
+            <div className="char-stat-icon" style={{ background: 'rgba(83,74,183,0.18)' }}>🪙</div>
+            <div className="char-stat-val">{coinBalance.toLocaleString()}</div>
+            <div className="char-stat-label">보유 코인</div>
+          </div>
+          <div className="char-stat-card">
+            <div className="char-stat-icon" style={{ background: 'rgba(245,158,11,0.18)' }}>👑</div>
+            <div className="char-stat-val">{user?.crowns || 0}개</div>
+            <div className="char-stat-label">보유 왕관</div>
+          </div>
+          <div className="char-stat-card">
+            <div className="char-stat-icon" style={{ background: 'rgba(163,45,45,0.15)' }}>⚔️</div>
+            <div className="char-stat-val">{bossCleared}회</div>
+            <div className="char-stat-label">보스 클리어</div>
           </div>
         </div>
 
         {/* ── 캐릭터 변경 ── */}
-        <p className="char-section-label">😺 캐릭터 변경</p>
+        <div className="char-section-header">
+          <p className="char-section-label">😺 캐릭터 변경</p>
+          <button
+            className="char-save-btn-inline"
+            onClick={handleSave}
+            disabled={saving || selected === user?.character}
+          >
+            {saved ? '✅ 완료' : saving ? '저장 중' : '저장하기'}
+          </button>
+        </div>
+        {saveError && <p className="char-save-error">⚠ {saveError}</p>}
         <div className="char-section-card">
           <div className="char-grid">
             {CHARACTERS.map(char => {
@@ -244,13 +251,6 @@ export default function Character() {
               )
             })}
           </div>
-          <button
-            className="char-save-btn"
-            onClick={handleSave}
-            disabled={saving || selected === user?.character}
-          >
-            {saved ? '✅ 저장 완료!' : saving ? '저장 중...' : '캐릭터 저장하기'}
-          </button>
         </div>
 
         {/* ── 칭호 선택 ── */}
