@@ -101,9 +101,9 @@ export function PopupFinal({ visible, onRestart, onHome, clearData }) {
             👑 왕관 획득! (총 {clearData.total_crowns}개)
           </div>
         )}
-        <div className="popup-btn-row">
+        <div className="popup-btn-row popup-btn-stack">
           <button className="btn" onClick={onRestart}>처음부터</button>
-          <button className="btn btn-gray" onClick={onHome}>✕</button>
+          <button className="btn btn-gray" onClick={onHome}>돌아가기</button>
         </div>
       </div>
     </div>
