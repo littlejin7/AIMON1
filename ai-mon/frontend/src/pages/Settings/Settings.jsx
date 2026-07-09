@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import { useSoundStore } from '../../hooks/useSoundStore'
 import { userApi, authApi } from '../../api/index'
+import LegalModal from '../../components/LegalModal/LegalModal'
 import './Settings.css'
 
 // 닉네임 중복확인/저장 에러를 사용자용 메시지로 변환 (Register.jsx와 동일 규칙)
@@ -85,6 +86,8 @@ export default function Settings() {
     daily: true,
     updates: false,
   })
+
+  const [legalDoc, setLegalDoc] = useState(null) // 'tos' | 'privacy' | null
 
   useEffect(() => {
     return () => {
@@ -581,11 +584,11 @@ export default function Settings() {
             <span className="st-info-label">문의</span>
             <span className="st-info-val" style={{ color: 'var(--clr-primary)' }}>support@aimon.app</span>
           </div>
-          <div className="st-info-row" style={{ cursor: 'pointer' }}>
+          <div className="st-info-row" style={{ cursor: 'pointer' }} onClick={() => setLegalDoc('tos')}>
             <span className="st-info-label">이용약관</span>
             <span className="st-chevron">›</span>
           </div>
-          <div className="st-info-row" style={{ cursor: 'pointer' }}>
+          <div className="st-info-row" style={{ cursor: 'pointer' }} onClick={() => setLegalDoc('privacy')}>
             <span className="st-info-label">개인정보처리방침</span>
             <span className="st-chevron">›</span>
           </div>
@@ -601,6 +604,8 @@ export default function Settings() {
 
         <p className="st-footer">AI MON made with care</p>
       </div>
+
+      <LegalModal docType={legalDoc} onClose={() => setLegalDoc(null)} />
     </div>
   )
 }

@@ -463,6 +463,19 @@
 .reg-terms-arrow    { font-size: 13px; color: #C4BFEE; }
 .reg-terms-divider  { height: 1px; background: #F0EFFE; }
 
+.reg-terms-view {
+  background: none;
+  border: none;
+  padding: 4px 6px;
+  font-size: 12px;
+  color: #9B96D0;
+  text-decoration: underline;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: inherit;
+}
+.reg-terms-view:hover { color: #7F77DD; }
+
 /* ─────────────────────────────────────────────
    닉네임 캐릭터 미리보기
 ───────────────────────────────────────────── */

@@ -1,0 +1,130 @@
+.legal-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 20px;
+  animation: legal-fade-in 0.18s ease;
+}
+
+@keyframes legal-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.legal-modal-card {
+  background: #ffffff;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 18px 48px rgba(38, 33, 92, 0.28);
+  overflow: hidden;
+  animation: legal-pop-in 0.2s ease;
+}
+
+@keyframes legal-pop-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.legal-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid #EFEEFA;
+  flex-shrink: 0;
+}
+
+.legal-modal-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: #26215C;
+}
+
+.legal-modal-close {
+  background: none;
+  border: none;
+  font-size: 16px;
+  line-height: 1;
+  color: #9B96D0;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.legal-modal-close:hover {
+  background: #F5F4FD;
+  color: #26215C;
+}
+
+.legal-modal-body {
+  padding: 18px 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.legal-modal-date {
+  margin: 0 0 14px;
+  font-size: 12px;
+  color: #9B96D0;
+  font-weight: 500;
+}
+
+.legal-modal-intro {
+  margin: 0 0 18px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #4A4573;
+  white-space: pre-wrap;
+}
+
+.legal-section {
+  margin-bottom: 16px;
+}
+
+.legal-section-heading {
+  margin: 0 0 6px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #26215C;
+}
+
+.legal-section-body {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: #5B5685;
+  white-space: pre-wrap;
+}
+
+.legal-modal-footer {
+  padding: 14px 20px;
+  border-top: 1px solid #EFEEFA;
+  flex-shrink: 0;
+}
+
+.legal-modal-confirm {
+  width: 100%;
+  height: 44px;
+  border: none;
+  border-radius: 12px;
+  background: #7F77DD;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.legal-modal-confirm:hover {
+  background: #6C63D4;
+}

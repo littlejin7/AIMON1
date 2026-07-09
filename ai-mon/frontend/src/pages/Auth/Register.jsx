@@ -4,6 +4,7 @@ import { authApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import EmailVerificationStep from './components/EmailVerificationStep'
 import { useEmailVerification } from './hooks/useEmailVerification'
+import LegalModal from '../../components/LegalModal/LegalModal'
 import beginnerHappyIcon from '../../assets/character_beginnerhappy.png'
 import slimeIcon         from '../../assets/character_slime.png'
 import './Auth.css'
@@ -86,6 +87,7 @@ export default function Register() {
   const [showPwC, setShowPwC]       = useState(false)
   const [loading, setLoading]       = useState(false)
   const [error, setError]           = useState('')
+  const [legalDoc, setLegalDoc]     = useState(null) // 'tos' | 'privacy' | null
 
   const [isIdChecked, setIsIdChecked] = useState(false)
   const [idChecking, setIdChecking] = useState(false)
@@ -606,8 +608,8 @@ export default function Register() {
 
             <div style={{ textAlign: 'center', fontSize: '11px', color: '#C4BFEE', lineHeight: 1.6 }}>
               가입 시{' '}
-              <span style={{ color: '#9B96D0', textDecoration: 'underline', cursor: 'pointer' }}>이용약관</span> 및{' '}
-              <span style={{ color: '#9B96D0', textDecoration: 'underline', cursor: 'pointer' }}>개인정보처리방침</span>에<br />
+              <span onClick={() => setLegalDoc('tos')} style={{ color: '#9B96D0', textDecoration: 'underline', cursor: 'pointer' }}>이용약관</span> 및{' '}
+              <span onClick={() => setLegalDoc('privacy')} style={{ color: '#9B96D0', textDecoration: 'underline', cursor: 'pointer' }}>개인정보처리방침</span>에<br />
               동의한 것으로 간주됩니다.
             </div>
           </div>
@@ -645,10 +647,10 @@ export default function Register() {
               <div className="reg-terms-divider" />
 
               {[
-                { key: 'tos',        label: '[필수] 이용약관 동의',              sub: false },
-                { key: 'privacy',    label: '[필수] 개인정보 수집 · 이용 동의',  sub: false },
-                { key: 'marketing',  label: '[선택] 마케팅 · 이벤트 알림 수신', sub: true },
-                { key: 'thirdparty', label: '[선택] 개인정보 제3자 제공 동의',  sub: true },
+                { key: 'tos',        label: '[필수] 이용약관 동의',              sub: false, doc: 'tos' },
+                { key: 'privacy',    label: '[필수] 개인정보 수집 · 이용 동의',  sub: false, doc: 'privacy' },
+                { key: 'marketing',  label: '[선택] 마케팅 · 이벤트 알림 수신', sub: true,  doc: null },
+                { key: 'thirdparty', label: '[선택] 개인정보 제3자 제공 동의',  sub: true,  doc: 'privacy' },
               ].map(t => (
                 <div key={t.key} className="reg-terms-row"
                   onClick={() => setTerms(prev => ({ ...prev, [t.key]: !prev[t.key] }))}>
@@ -656,7 +658,15 @@ export default function Register() {
                     {terms[t.key] && '✓'}
                   </div>
                   <span className={`reg-terms-text${t.sub ? ' sub' : ''}`}>{t.label}</span>
-                  <span className="reg-terms-arrow">›</span>
+                  {t.doc && (
+                    <button
+                      type="button"
+                      className="reg-terms-view"
+                      onClick={(e) => { e.stopPropagation(); setLegalDoc(t.doc) }}
+                    >
+                      보기
+                    </button>
+                  )}
                 </div>
               ))}
             </div>
@@ -884,6 +894,8 @@ export default function Register() {
         )}
 
       </div>
+
+      <LegalModal docType={legalDoc} onClose={() => setLegalDoc(null)} />
     </div>
   )
 }
