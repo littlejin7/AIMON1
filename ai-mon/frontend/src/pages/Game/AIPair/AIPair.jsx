@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../../hooks/useAuthStore'
+import useGameBgm from '../../../hooks/useGameBgm'
 import { usePairsGame } from './usePairsGame'
 import PairsCard from './PairsCard'
 import PairsDash from './PairsDash'
 import WinModal from './WinModal'
+import aizzakBgm from '../../../assets/bgm/aizzak_bgm.mp3'
 import './AIPair.css'
 
 import charSlime from '../../../assets/character_slime.png'
@@ -23,6 +25,8 @@ const CHAR_LIST = Object.entries(CHARACTER_MAP)
 export default function AIPair() {
   const navigate = useNavigate()
   const user = useAuthStore((s) => s.user)
+
+  useGameBgm(aizzakBgm)
 
   const defaultChar = user?.character && CHARACTER_MAP[user.character]
     ? user.character : 'slime'
