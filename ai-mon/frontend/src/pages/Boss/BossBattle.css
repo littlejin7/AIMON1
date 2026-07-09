@@ -197,16 +197,18 @@
   border-radius: 16px; padding: 13px; display: flex; flex-direction: column; gap: 9px;
 }
 .eb-b-qtext {
-  font-size: 13px; font-weight: 500; color: #26215C; line-height: 1.6;
+  font-size: 17px; font-weight: 500; color: #26215C; line-height: 1.6;
   white-space: pre-wrap;
 }
 
 /* 코드 터미널 */
 .eb-b-terminal {
   background: #1C1939; border-radius: 12px; padding: 12px 14px; overflow-x: auto;
+  width: 416px; max-width: 100%; margin-left: auto; margin-right: auto;
+  max-height: 400px; overflow-y: auto; box-sizing: border-box;
 }
 .eb-b-code {
-  font-family: 'Courier New', monospace; font-size: 12px;
+  font-family: 'Courier New', monospace; font-size: 15px;
   line-height: 1.8; color: #E9D5FF; white-space: pre; margin: 0;
 }
 
@@ -241,11 +243,15 @@
 .eb-b-fib-in::placeholder { color: #ccc; }
 
 /* 코드 에디터 */
-.eb-b-editor { background: #1C1939; border-radius: 12px; padding: 11px 14px; }
+.eb-b-editor {
+  background: #1C1939; border-radius: 12px; padding: 12px 14px;
+  width: 416px; max-width: 100%; margin-left: auto; margin-right: auto;
+  max-height: 400px; overflow-y: auto; box-sizing: border-box;
+}
 .eb-b-edlbl  { font-size: 10px; color: #4C4465; margin-bottom: 6px; font-family: 'Courier New', monospace; }
 .eb-b-edta {
   width: 100%; background: transparent; border: none; outline: none;
-  font-family: 'Courier New', monospace; font-size: 12px;
+  font-family: 'Courier New', monospace; font-size: 15px;
   color: #E9D5FF; resize: vertical; line-height: 1.7; caret-color: #7F77DD;
 }
 .eb-b-edta::placeholder { color: #3A3560; }
