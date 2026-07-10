@@ -5,11 +5,10 @@ from typing import Optional
 from routers.quiz import load_questions_by_category, serialize_question
 import logging
 from routers.utils import (
-    get_wrong_answers_by_user,
     get_wrong_answers,
     get_unit_accuracy,
     get_progress_by_user,
-    save_wrong_answer_item,
+    mark_wrong_answer_reviewed,
     get_current_user,
     get_current_user_optional,
     mutate_user_atomic,
@@ -194,22 +193,24 @@ class ReviewedRequest(BaseModel):
 def mark_question_reviewed(req: ReviewedRequest, user_ref: dict = Depends(get_current_user)):
     user_id = user_ref["id"]
 
-    wrong_answers = get_wrong_answers_by_user(user_id)
-    for entry in wrong_answers:
-        if entry.get("question_id") == req.question_id:
-            entry["reviewed"] = True
-            save_wrong_answer_item(entry)
+    # P0: 오답 reviewed=False→True 전환과 '전환 여부 판정'을 wrong_answers 스토리지의
+    # 단일 임계구역(JSON 파일락 / Supabase 조건부 UPDATE)에서 원자적으로 수행한다.
+    # 이 함수가 True 를 반환한 요청만 실제로 전환을 성사시킨 요청이므로, review_done
+    # 미션은 그 요청에서만 올린다 — 존재하지 않는 question_id, 이미 reviewed=true,
+    # 타 유저 소유 오답, 동시 중복 요청 모두 여기서 걸러진다(멱등 + 동시성 안전).
+    transitioned = mark_wrong_answer_reviewed(user_id, req.question_id)
 
-    # d_review 미션 진척: missions.daily.progress 를 원자 쓰기 경로로 갱신. (C-1 [필수])
-    def mutator(user: dict) -> None:
-        from routers.missions_core import bump_mission
-        bump_mission(user, "review_done")
-        return None
+    if transitioned:
+        # d_review 미션 진척: missions.daily.progress 를 원자 쓰기 경로로 갱신. (C-1 [필수])
+        def mutator(user: dict) -> None:
+            from routers.missions_core import bump_mission
+            bump_mission(user, "review_done")
+            return None
 
-    try:
-        mutate_user_atomic(user_id, mutator)
-    except Exception:
-        logger.exception("review_done bump_mission failed for user %s", user_id)
+        try:
+            mutate_user_atomic(user_id, mutator)
+        except Exception:
+            logger.exception("review_done bump_mission failed for user %s", user_id)
 
     return {"success": True}
 

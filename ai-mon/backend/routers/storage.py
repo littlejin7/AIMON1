@@ -646,6 +646,76 @@ def save_wrong_answer_item(item: dict):
         _save_json_locked(_u.WRONG_ANSWERS_FILE, wrong)
 
 
+def _read_wrong_answers_unlocked() -> list:
+    if not os.path.exists(_u.WRONG_ANSWERS_FILE):
+        return []
+    try:
+        with open(_u.WRONG_ANSWERS_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return []
+
+
+def _write_wrong_answers_unlocked(data: list):
+    dir_name = os.path.dirname(_u.WRONG_ANSWERS_FILE)
+    os.makedirs(dir_name, exist_ok=True)
+    temp_fd, temp_path = tempfile.mkstemp(dir=dir_name)
+    try:
+        with os.fdopen(temp_fd, "w", encoding="utf-8") as tmp:
+            json.dump(data, tmp, ensure_ascii=False, indent=2)
+        os.replace(temp_path, _u.WRONG_ANSWERS_FILE)
+    except Exception:
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+        raise
+
+
+def mark_wrong_answer_reviewed(user_id: str, question_id: str) -> bool:
+    """user_id 소유의 question_id 오답을 reviewed=False→True 로 전환한다.
+
+    반환값은 '이번 호출이 실제로 최초 전환을 일으켰는가' — train.py 는 이 값이 True 인
+    호출에서만 review_done 미션을 올려야 한다(멱등 + 동시성 안전 판단의 단일 진실).
+      - 매칭 레코드 없음(question_id 오타/타 유저 소유) → False, 아무것도 쓰지 않음
+      - 매칭 레코드가 이미 전부 reviewed=True → False, 아무것도 쓰지 않음(멱등)
+      - 하나라도 reviewed=False→True 전환 → 해당 user_id 의 매칭 레코드를 전부
+        reviewed=True 로 갱신하고 True 반환
+
+    Supabase: user_id+question_id+reviewed=false 조건부 UPDATE. 동시 요청 2건이 같은
+    행을 노려도 WHERE reviewed=false 는 한쪽 트랜잭션에서만 매치되므로(먼저 커밋한
+    쪽이 reviewed 를 true 로 바꾸면 다른 쪽은 조건에 안 걸림) 변경 행이 있는 요청만
+    True 를 받는다 — DB 자체가 CAS 역할을 한다.
+    JSON: WRONG_ANSWERS_FILE 락 안에서 read→검사→write 를 한 임계구역으로 묶어
+    동일 보장(mutate_user_atomic_json 과 같은 패턴, 락 재진입 방지를 위해 unlocked
+    read/write 헬퍼만 사용).
+    """
+    if _u.USE_SUPABASE:
+        res = (
+            _u.supabase.table("wrong_answers")
+            .update({"reviewed": True})
+            .eq("user_id", user_id)
+            .eq("question_id", question_id)
+            .eq("reviewed", False)
+            .execute()
+        )
+        return bool(res.data)
+
+    with file_lock(_u.WRONG_ANSWERS_FILE):
+        wrong = _read_wrong_answers_unlocked()
+        matched = [
+            wa for wa in wrong
+            if wa.get("user_id") == user_id and wa.get("question_id") == question_id
+        ]
+        if not matched:
+            return False
+        transitioned = any(not wa.get("reviewed") for wa in matched)
+        if not transitioned:
+            return False
+        for wa in matched:
+            wa["reviewed"] = True
+        _write_wrong_answers_unlocked(wrong)
+        return True
+
+
 # ── Attempts (풀이 전수 기록) ──────────────────────────────────────────────
 # 정오답 무관·AI 피드백과 독립적으로 채점 순간마다 1건 append (retry 포함 전수).
 # 운영은 Supabase attempts 테이블이 단일 진실. JSON 분기는 dev 폴백 전용이다.

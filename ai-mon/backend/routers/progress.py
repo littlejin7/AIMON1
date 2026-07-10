@@ -278,8 +278,14 @@ def update_progress(req: ProgressUpdateRequest, user_ref: dict = Depends(get_cur
         context = {"stage_completed": award_xp, "unit_fully_done": unit_just_completed}
         # xp 신규 지급 중단 → coin/ranking 분리 발급. gp 는 gate 통과 시만.
         amount = xp_gain if award_xp else 0
+        # P0: award_xp 는 '이번 요청이 서버가 확인한 최초 완료 전환'을 정확히 나타낸다
+        # (existing.is_completed False→True, 또는 신규 행+is_completed=True). 이 값이
+        # False 인 경우(재저장/checkpoint/미완료 요청/반복 완료 요청)엔 event_type 을
+        # None 으로 둬 bump_mission 이 굴지 않게 한다 — 그전엔 매 POST 마다 무조건
+        # event_type="stage_clear" 를 넘겨 d_quiz3 진척이 반복 증가할 수 있었다.
         rr = grant_reward(user, coin_delta=amount, ranking_score_delta=amount,
-                          gp_delta=amount, context=context, event_type="stage_clear")
+                          gp_delta=amount, context=context,
+                          event_type="stage_clear" if award_xp else None)
         reward = {"coin_delta": rr["coin_delta"], "gp_delta": rr["gp_delta"],
                   "ranking_score_delta": rr["ranking_score_delta"]}
         return {"crowns_awarded": crowns_awarded, "events": rr["events"], "reward": reward}

@@ -160,6 +160,7 @@ from routers.storage import (  # noqa: E402
     get_wrong_answers_by_user,
     save_wrong_answers,
     save_wrong_answer_item,
+    mark_wrong_answer_reviewed,
     _normalize_attempt_item_for_supabase,
     save_attempt_item,
     get_attempts_by_user,
