@@ -18,7 +18,7 @@
         "C. n",
         "D. python"
       ],
-      "answer": "p",
+      "answer": "A",
       "feedback": {
         "correct": "정답! 인덱스는 0부터 시작해요. s[0]은 'python'의 첫 번째 글자 'p'예요."
       }
@@ -41,7 +41,7 @@
         "C. l",
         "D. o"
       ],
-      "answer": "o",
+      "answer": "D",
       "feedback": {
         "correct": "정답! s[-1]은 마지막 글자를 가져와요. 'hello'의 마지막 글자는 'o'예요."
       }
@@ -64,7 +64,7 @@
         "C. ytho",
         "D. ython"
       ],
-      "answer": "yth",
+      "answer": "B",
       "feedback": {
         "correct": "정답! s[1:4]는 인덱스 1, 2, 3번이에요. y(1), t(2), h(3) → 'yth'. 끝 번호(4)는 포함되지 않아요."
       }
@@ -87,7 +87,7 @@
         "C. aimo",
         "D. aimon"
       ],
-      "answer": "aim",
+      "answer": "A",
       "feedback": {
         "correct": "정답! s[:3]은 처음부터 인덱스 2번까지예요. 'aimon'의 0, 1, 2번 → 'aim'."
       }
@@ -110,7 +110,7 @@
         "C. ding",
         "D. odin"
       ],
-      "answer": "ing",
+      "answer": "B",
       "feedback": {
         "correct": "정답! s[3:]은 인덱스 3번부터 끝까지예요. 'coding'에서 i(3), n(4), g(5) → 'ing'."
       }
@@ -133,7 +133,7 @@
         "C. l",
         "D. o"
       ],
-      "answer": "l",
+      "answer": "C",
       "feedback": {
         "correct": "정답! s[-2]는 뒤에서 두 번째 글자예요. 'hello'에서 o(-1), l(-2) → 'l'."
       }
@@ -156,7 +156,7 @@
         "C. pyt",
         "D. hon"
       ],
-      "answer": "pto",
+      "answer": "A",
       "feedback": {
         "correct": "정답! s[::2]는 0, 2, 4번 인덱스를 가져와요. 'python'에서 p(0), t(2), o(4) → 'pto'."
       }
@@ -179,7 +179,7 @@
         "C. hloe",
         "D. olelh"
       ],
-      "answer": "olleh",
+      "answer": "B",
       "feedback": {
         "correct": "정답! s[::-1]은 문자열을 거꾸로 뒤집어요. 'hello' → 'olleh'."
       }
@@ -202,7 +202,7 @@
         "C. bc",
         "D. bdf"
       ],
-      "answer": "bd",
+      "answer": "B",
       "feedback": {
         "correct": "정답! s[1:5:2]는 인덱스 1, 3번을 가져와요. 'abcdef'에서 b(1), d(3) → 'bd'."
       }
@@ -225,7 +225,7 @@
         "C. im",
         "D. mon"
       ],
-      "answer": "mo",
+      "answer": "A",
       "feedback": {
         "correct": "정답! 'aimon'에서 -3=m, -2=o예요. word[-3:-1]은 m, o만 가져와 'mo'."
       }
@@ -248,7 +248,7 @@
         "C. Hello",
         "D. hELLO"
       ],
-      "answer": "HELLO",
+      "answer": "B",
       "feedback": {
         "correct": "정답! .upper()는 문자열의 모든 글자를 대문자로 바꿔요. 'hello' → 'HELLO'."
       }
@@ -271,7 +271,7 @@
         "C. aimon__",
         "D. __aimon"
       ],
-      "answer": "aimon",
+      "answer": "B",
       "feedback": {
         "correct": "정답! .strip()은 앞뒤 공백을 모두 제거해요. '  aimon  ' → 'aimon'."
       }
@@ -294,7 +294,7 @@
         "C. python",
         "D. pYTHON"
       ],
-      "answer": "python",
+      "answer": "C",
       "feedback": {
         "correct": "정답! .lower()는 모든 글자를 소문자로 바꿔요. 'PYTHON' → 'python'."
       }
@@ -317,7 +317,7 @@
         "C. I AI Python",
         "D. AI love Python"
       ],
-      "answer": "I love AI",
+      "answer": "B",
       "feedback": {
         "correct": "정답! .replace(old, new)는 old를 모두 찾아 new로 바꿔요. 'Python' → 'AI'."
       }
@@ -340,7 +340,7 @@
         "C. Hello Worrd",
         "D. Herro World"
       ],
-      "answer": "Herro Worrd",
+      "answer": "A",
       "feedback": {
         "correct": "정답! .replace()는 일치하는 모든 부분을 바꿔요. 'Hello World'의 l 세 개가 모두 r로 → 'Herro Worrd'."
       }
@@ -363,7 +363,7 @@
         "C. Hello",
         "D. 오류 발생"
       ],
-      "answer": "hello",
+      "answer": "B",
       "feedback": {
         "correct": "정답! 문자열은 변경 불가(immutable)예요. s.upper()는 새 문자열을 반환할 뿐, 원본 s는 'hello' 그대로예요."
       }
@@ -386,7 +386,7 @@
         "C. hello world",
         "D.   Hello World"
       ],
-      "answer": "hello world",
+      "answer": "A",
       "feedback": {
         "correct": "정답! s.strip() → 'Hello World', .lower() → 'hello world'. 체이닝은 왼쪽 → 오른쪽 순서예요."
       }
@@ -409,7 +409,7 @@
         "C. python",
         "D.   python"
       ],
-      "answer": "python",
+      "answer": "C",
       "feedback": {
         "correct": "정답! strip() → 'AIMON', lower() → 'aimon', replace() → 'python'. 체이닝 세 단계 결과예요."
       }
@@ -432,7 +432,7 @@
         "C. hi hi hello",
         "D. hello hello hi"
       ],
-      "answer": "hi hi hello",
+      "answer": "C",
       "feedback": {
         "correct": "정답! .replace(old, new, 2)는 앞에서부터 2번만 교체해요. 'hello hello hello' → 'hi hi hello'."
       }
@@ -455,7 +455,7 @@
         "C. PyThOn",
         "D.   AIMON"
       ],
-      "answer": "AIMON",
+      "answer": "A",
       "feedback": {
         "correct": "정답! strip() → 'PyThOn', upper() → 'PYTHON', replace() → 'AIMON'. 세 메서드 체이닝 결과예요."
       }
@@ -478,7 +478,7 @@
         "C. ('apple', 'banana', 'cherry')",
         "D. apple, banana, cherry"
       ],
-      "answer": "['apple', 'banana', 'cherry']",
+      "answer": "B",
       "feedback": {
         "correct": "정답! .split()은 공백 기준으로 나눠 리스트를 반환해요. 결과는 ['apple', 'banana', 'cherry']."
       }
@@ -501,7 +501,7 @@
         "C. 3",
         "D. 0"
       ],
-      "answer": "3",
+      "answer": "C",
       "feedback": {
         "correct": "정답! 'banana'에서 a는 2번째, 4번째, 6번째 자리에 있어요. .count('a') = 3."
       }
@@ -524,7 +524,7 @@
         "C. 홍길동 20 서울",
         "D. ['홍길동' '20' '서울']"
       ],
-      "answer": "['홍길동', '20', '서울']",
+      "answer": "A",
       "feedback": {
         "correct": "정답! .split(',')은 콤마 기준으로 나눠요. '홍길동,20,서울' → ['홍길동', '20', '서울']."
       }
@@ -547,7 +547,7 @@
         "C. a-b-c",
         "D. ['a', 'b', 'c']"
       ],
-      "answer": "a-b-c",
+      "answer": "C",
       "feedback": {
         "correct": "정답! '-'.join(words)는 리스트 요소를 '-'로 이어 붙여요. ['a', 'b', 'c'] → 'a-b-c'."
       }
@@ -570,7 +570,7 @@
         "C. 5",
         "D. -1"
       ],
-      "answer": "5",
+      "answer": "C",
       "feedback": {
         "correct": "정답! 'aimon@test.com'에서 @는 인덱스 5번이에요. .find('@') = 5."
       }
@@ -593,7 +593,7 @@
         "C. -1",
         "D. 오류 발생"
       ],
-      "answer": "-1",
+      "answer": "C",
       "feedback": {
         "correct": "정답! .find()는 찾는 문자가 없으면 -1을 반환해요. 오류가 발생하지 않는 게 특징이에요."
       }
@@ -616,7 +616,7 @@
         "C. ['kim', 'lee', 'park']",
         "D. kim lee park"
       ],
-      "answer": "kim / lee / park",
+      "answer": "B",
       "feedback": {
         "correct": "정답! split(',') → ['kim','lee','park'], ' / '.join() → 'kim / lee / park'. split과 join의 조합이에요."
       }
@@ -639,7 +639,7 @@
         "C. 1 / 5",
         "D. 2 / 4"
       ],
-      "answer": "2 / 6",
+      "answer": "B",
       "feedback": {
         "correct": "정답! count('hello') = 2, find('world') = 6. 'hello world hello'에서 w는 인덱스 6번이에요."
       }
@@ -662,7 +662,7 @@
         "C. 19 / fox",
         "D. 3 / fox"
       ],
-      "answer": "4 / fox",
+      "answer": "A",
       "feedback": {
         "correct": "정답! split() → ['the','quick','brown','fox'], len = 4, [-1] = 'fox'."
       }
@@ -685,7 +685,7 @@
         "C. 2 / 2",
         "D. 2 / 0"
       ],
-      "answer": "2 / 1",
+      "answer": "A",
       "feedback": {
         "correct": "정답! 'abcabc'에서 'bc'는 인덱스 1과 4에서 등장해요. count = 2, find = 1(첫 번째 위치)."
       }
@@ -708,7 +708,7 @@
         "C. 3.1",
         "D. 3.142"
       ],
-      "answer": "3.14",
+      "answer": "B",
       "feedback": {
         "correct": "정답! :.2f는 소수점 아래 2자리까지 출력하는 포맷이에요. 3.14159 → 3.14."
       }
@@ -731,7 +731,7 @@
         "C. 1.234.567원",
         "D. 12,34,567원"
       ],
-      "answer": "1,234,567원",
+      "answer": "B",
       "feedback": {
         "correct": "정답! :, 는 숫자를 천 단위마다 콤마로 구분해줘요. 1234567 → 1,234,567."
       }
@@ -754,7 +754,7 @@
         "C. Aimon 시작!",
         "D. name.upper() 시작!"
       ],
-      "answer": "AIMON 시작!",
+      "answer": "B",
       "feedback": {
         "correct": "정답! f-string {} 안에서 메서드를 직접 호출할 수 있어요. 'aimon'.upper() → 'AIMON' → 'AIMON 시작!'."
       }
@@ -777,7 +777,7 @@
         "C. 25의 제곱근은 5입니다",
         "D. 10의 제곱근은 5입니다"
       ],
-      "answer": "25의 제곱근은 5입니다",
+      "answer": "C",
       "feedback": {
         "correct": "정답! f-string {} 안에 x * x 표현식을 넣으면 직접 계산돼요. 5 * 5 = 25 → '25의 제곱근은 5입니다'."
       }
@@ -800,7 +800,7 @@
         "C. 합계: 45,000.50원",
         "D. 합계: 45.000.5원"
       ],
-      "answer": "합계: 45,000.5원",
+      "answer": "B",
       "feedback": {
         "correct": "정답! :,.1f 는 두 포맷을 동시에 적용해요. :, 로 천 단위 콤마, .1f 로 소수점 1자리. 45000.5 → 45,000.5."
       }
@@ -823,7 +823,7 @@
         "C. 메서드 호출 (예: name.upper())",
         "D. if/else 조건문 블록"
       ],
-      "answer": "if/else 조건문 블록",
+      "answer": "D",
       "feedback": {
         "correct": "정답! f-string {} 안에는 값을 반환하는 표현식만 들어갈 수 있어요. if/else 블록처럼 실행되는 구문(statement)은 넣을 수 없어요."
       }
@@ -846,7 +846,7 @@
         "C. [  98.6  ]",
         "D. [98.60000]"
       ],
-      "answer": "[    98.6]",
+      "answer": "B",
       "feedback": {
         "correct": "정답! :8.1f 에서 8은 전체 너비, .1f는 소수점 1자리예요. '98.6'(4자)을 8칸에 오른쪽 정렬 → [    98.6]."
       }
@@ -869,7 +869,7 @@
         "C. 결과: 2469.14",
         "D. 결과: 2,469.1356"
       ],
-      "answer": "결과: 2,469.14",
+      "answer": "B",
       "feedback": {
         "correct": "정답! x = 1234.5678 × 2 = 2469.1356이고, :,.2f 로 소수 2자리 반올림 + 천 단위 콤마 → 2,469.14."
       }
@@ -892,7 +892,7 @@
         "C. 첫 번째 과일: 사과.upper(), 개수: 3",
         "D. 첫 번째 과일: 사과, 개수: len(items)"
       ],
-      "answer": "첫 번째 과일: 사과, 개수: 3",
+      "answer": "A",
       "feedback": {
         "correct": "정답! items[0] = '사과', 한국어는 upper()에 영향 없어요. len(items) = 3. 결과: '첫 번째 과일: 사과, 개수: 3'."
       }
@@ -915,7 +915,7 @@
         "C. 원가: 20,000원 → 할인가: 17000원",
         "D. 원가: 20000원 → 할인가: 17,000원"
       ],
-      "answer": "원가: 20,000원 → 할인가: 17,000원",
+      "answer": "B",
       "feedback": {
         "correct": "정답! original :, → 20,000. final = 17000.0, :,.0f → 17,000. 두 포맷이 모두 적용된 결과예요."
       }
@@ -938,7 +938,7 @@
         "C. hahaha",
         "D. hahaHA"
       ],
-      "answer": "hahaha",
+      "answer": "C",
       "feedback": {
         "correct": "정답! 문자열 * 숫자는 해당 문자열을 반복해요. 'ha' * 3 → 'hahaha'."
       }
@@ -961,7 +961,7 @@
         "C. 7",
         "D. 4"
       ],
-      "answer": "6",
+      "answer": "B",
       "feedback": {
         "correct": "정답! 'Python'은 6글자예요. len('Python') = 6."
       }
@@ -984,7 +984,7 @@
         "C. 2",
         "D. 9"
       ],
-      "answer": "11",
+      "answer": "B",
       "feedback": {
         "correct": "정답! 공백도 1글자로 계산돼요. 'hello world' = 11글자."
       }
@@ -1007,7 +1007,7 @@
         "C. 1",
         "D. ai"
       ],
-      "answer": "True",
+      "answer": "A",
       "feedback": {
         "correct": "정답! 'ai' in 'aimon'은 포함 여부를 검사해요. 'aimon'에 'ai'가 있으므로 True."
       }
@@ -1030,7 +1030,7 @@
         "C. 0",
         "D. -1"
       ],
-      "answer": "False",
+      "answer": "B",
       "feedback": {
         "correct": "정답! 'I love Python'에 'Java'는 없어요. in 연산자는 포함되지 않으면 False를 반환해요."
       }
@@ -1053,7 +1053,7 @@
         "C. print('-' + '-' + '-' + '-' + '-')",
         "D. print('-' * 4)"
       ],
-      "answer": "print('-' * 4)",
+      "answer": "D",
       "feedback": {
         "correct": "정답! A, B, C는 모두 '-'가 5개인 '-----'를 출력해요. D만 '-' * 4 = '----'(4개)로 달라요."
       }
@@ -1076,7 +1076,7 @@
         "C. * * * * *",
         "D. *5"
       ],
-      "answer": "*****",
+      "answer": "B",
       "feedback": {
         "correct": "정답! len('aimon') = 5이고, '*' * 5 = '*****'. len()과 * 연산자의 조합이에요."
       }
@@ -1099,7 +1099,7 @@
         "C. True False",
         "D. 오류 발생"
       ],
-      "answer": "True",
+      "answer": "A",
       "feedback": {
         "correct": "정답! 'e' in 'hello' = True, 'z' not in 'hello' = True. True and True = True."
       }
@@ -1122,7 +1122,7 @@
         "C. 9",
         "D. 10"
       ],
-      "answer": "9",
+      "answer": "C",
       "feedback": {
         "correct": "정답! 'code' * 2 = 'codecode'(8자), + '!' = 'codecode!'(9자). len() = 9."
       }
@@ -1145,7 +1145,7 @@
         "C. True / False",
         "D. False / False"
       ],
-      "answer": "True / True",
+      "answer": "A",
       "feedback": {
         "correct": "정답! len('aimon2024') = 9, 9 >= 8 → True. '2024'는 'aimon2024'에 포함 → True."
       }
@@ -1168,7 +1168,7 @@
         "C. hello",
         "D.   hello"
       ],
-      "answer": "HELLO",
+      "answer": "A",
       "feedback": {
         "correct": "정답! strip() → 'hello', upper() → 'HELLO'. 체이닝은 왼쪽에서 오른쪽 순서예요."
       }
@@ -1191,7 +1191,7 @@
         "C. 이름: aimon, 길이: 5",
         "D. 이름: aimon, 길이: 6"
       ],
-      "answer": "이름: aimon, 길이: 5",
+      "answer": "C",
       "feedback": {
         "correct": "정답! {name} → 'aimon', {len(name)} → 5. 결과: '이름: aimon, 길이: 5'."
       }
@@ -1214,7 +1214,7 @@
         "C. aimon",
         "D. AIMON"
       ],
-      "answer": "True",
+      "answer": "A",
       "feedback": {
         "correct": "정답! strip() → 'AIMON', lower() → 'aimon'. 'aimon' == 'aimon' → True. 입력값 정제 후 비교하는 실전 패턴이에요."
       }
@@ -1237,7 +1237,7 @@
         "C. pass",
         "D. ['alice', '85', 'pass']"
       ],
-      "answer": "85",
+      "answer": "B",
       "feedback": {
         "correct": "정답! split(',') → ['alice', '85', 'pass']. [1] = '85'. CSV 파싱의 기본 패턴이에요."
       }
@@ -1260,7 +1260,7 @@
         "C. @ .",
         "D. True True"
       ],
-      "answer": "True",
+      "answer": "A",
       "feedback": {
         "correct": "정답! 두 조건 모두 True이므로 True and True = True. 이메일 유효성 간단 검사 패턴이에요."
       }
@@ -1283,7 +1283,7 @@
         "C. Python / Python / Python",
         "D. ====== / ====== / ======"
       ],
-      "answer": "====== / Python / ======",
+      "answer": "B",
       "feedback": {
         "correct": "정답! len('Python') = 6, '=' * 6 = '======'. 출력 순서: '======', 'Python', '======'."
       }
@@ -1306,7 +1306,7 @@
         "C. 4 / kim & lee",
         "D. 4 / kim & choi"
       ],
-      "answer": "4 / park & choi",
+      "answer": "A",
       "feedback": {
         "correct": "정답! split → 4개 리스트, [-2:] → ['park','choi'], ' & '.join() → 'park & choi'."
       }
@@ -1329,7 +1329,7 @@
         "C. HELLO-WORLD",
         "D. Hello-World"
       ],
-      "answer": "HELLO-WORLD",
+      "answer": "C",
       "feedback": {
         "correct": "정답! replace(' ', '-') → 'hello-world', upper() → 'HELLO-WORLD'. 체이닝 결과예요."
       }
@@ -1352,7 +1352,7 @@
         "C. apple,banana,cherry",
         "D. APPLE,BANANA,CHERRY"
       ],
-      "answer": "APPLE,banana,CHERRY",
+      "answer": "B",
       "feedback": {
         "correct": "정답! upper/lower 적용 후 join. ['APPLE','banana','CHERRY'] → 'APPLE,banana,CHERRY'."
       }
@@ -1375,7 +1375,7 @@
         "C. AIM!!!!",
         "D. AIMON!!!!!"
       ],
-      "answer": "AIM!!!!!",
+      "answer": "A",
       "feedback": {
         "correct": "정답! s.upper()[:3] = 'AIM', '!' * len('aimon') = '!!!!!'. f-string으로 합치면 'AIM!!!!!'."
       }
