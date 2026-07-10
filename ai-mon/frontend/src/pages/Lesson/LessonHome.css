@@ -3018,15 +3018,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
   background: #FFFFFF;
 
-  border: 0.5px solid #E2E1EE;
+  border: 1px solid #E2E1EE;
 
   border-radius: 22px;
 
-  padding: 14px;
+  padding: 18px 20px;
 
   box-sizing: border-box;
 
-  margin-top: 18px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
 
 }
 
@@ -3036,9 +3036,9 @@ body:has(.lh-page) { background: #F4F3FA; }
 
   border: 1px solid #E9C46A;
 
-  border-radius: 18px;
+  border-radius: 20px;
 
-  padding: 18px;
+  padding: 16px 18px;
 
   display: flex;
 
@@ -3047,8 +3047,6 @@ body:has(.lh-page) { background: #F4F3FA; }
   gap: 14px;
 
   box-sizing: border-box;
-
-  box-shadow: 0 2px 8px rgba(233, 196, 106, 0.1);
 
 }
 
