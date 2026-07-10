@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { quizApi, progressApi, minibossApi, attemptsApi } from '../../api/index'
 import { getApiErrorInfo, logApiError } from '../../api/client'
 import { useAuthStore } from '../../hooks/useAuthStore'
@@ -94,7 +94,10 @@ export default function Stage({ _lessonId, _stage }) {
   const lessonId  = _lessonId || params.lessonId
   const stage     = _stage    || params.stage
   const navigate  = useNavigate()
+  const [searchParams] = useSearchParams()
   const stageNum  = parseInt(stage, 10)
+  const requestedStartMode = searchParams.get('mode')
+  const startMode = ['lesson', 'quiz', 'miniboss'].includes(requestedStartMode) ? requestedStartMode : 'lesson'
 
   const token      = useAuthStore((s) => s.token)
   const user       = useAuthStore((s) => s.user)
@@ -188,12 +191,13 @@ export default function Stage({ _lessonId, _stage }) {
   // ── 데이터 로드 ──
   useEffect(() => {
     const stageKey = `${lessonId}-${stageNum}`
-    if (loadedStageRef.current !== null && loadedStageRef.current !== stageKey) {
-      loadedStageRef.current = stageKey
+    const loadKey = `${stageKey}:${startMode}`
+    if (loadedStageRef.current !== null && loadedStageRef.current !== loadKey) {
+      loadedStageRef.current = loadKey
       resetStageState()
       return
     }
-    loadedStageRef.current = stageKey
+    loadedStageRef.current = loadKey
 
     if (!loading) return
 
@@ -248,7 +252,7 @@ export default function Stage({ _lessonId, _stage }) {
 
         // 브리핑은 신규 진입(attempt===1)에서만. 재도전(attempt>1)은 바로 퀴즈로.
         let shouldShowBriefing = false
-        if (attempt === 1 && lessonData?.slides?.length > 0) {
+        if (attempt === 1 && startMode === 'lesson' && lessonData?.slides?.length > 0) {
           setBriefings(lessonData.slides)
           shouldShowBriefing = true
         } else {
@@ -263,7 +267,24 @@ export default function Stage({ _lessonId, _stage }) {
         let startMini = false
         let finalQuestions = questionsData
 
-        if (existing?.checkpoint === 'miniboss_ready' && !existing?.is_completed && questionsData.length > 0 && !minibossDefeatedRef.current) {
+        if (startMode === 'miniboss' && !minibossDefeatedRef.current) {
+          try {
+            const res = await minibossApi.startBattle(lessonId, stageKey, attempt)
+            setMinibossToken(res.data.battle_token)
+            finalQuestions = res.data.questions
+            shouldShowBriefing = false
+            startMini = true
+            setCurrent(0)
+            setMinibossStartIndex(0)
+            setStageQuizCorrect(0)
+            setCorrect(0)
+            setScore(0)
+            setMinibossHp({ my_hp: 900, boss_hp: 500 })
+          } catch (err) {
+            logApiError('誘몃땲蹂댁뒪 諛붾줈媛湲?濡쒕뱶 ?ㅽ뙣', err)
+            setMinibossLoadErrorMsg(messageForMinibossError(err))
+          }
+        } else if (existing?.checkpoint === 'miniboss_ready' && !existing?.is_completed && questionsData.length > 0 && !minibossDefeatedRef.current) {
           try {
             const res = await minibossApi.startBattle(lessonId, stageKey, attempt)
             setMinibossToken(res.data.battle_token)
@@ -298,7 +319,7 @@ export default function Stage({ _lessonId, _stage }) {
         setLoadError(messageForLoadError(getApiErrorInfo(err)))
         setLoading(false)
       })
-  }, [lessonId, stageNum, courseLevel, attempt, token, retryTick, loading])
+  }, [lessonId, stageNum, courseLevel, attempt, token, retryTick, loading, startMode])
 
   // ── 스테이지 퀴즈 실패 (60% 미만) ──
   // 브라우저 alert() 대신 현재 화면 위에 뜨는 모달(MiniBossGateModal)로 안내.

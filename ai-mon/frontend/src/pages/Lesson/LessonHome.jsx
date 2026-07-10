@@ -242,6 +242,7 @@ export default function LessonHome() {
     didDrag: false,
   })
   const [unitSelectorDragging, setUnitSelectorDragging] = useState(false)
+  const [quickStageMenu, setQuickStageMenu] = useState(null)
 
   const courseLevel = user?.course_level || 'beginner'
   const activeLevelIdx = LEVEL_MAP[courseLevel]?.idx ?? 0
@@ -303,6 +304,7 @@ export default function LessonHome() {
 
   useEffect(() => {
     setUnitInfoOpen(false)
+    setQuickStageMenu(null)
   }, [expandedUnit])
 
   const handleLevelTestFinish = async (levelKey, updatedUser) => {
@@ -415,6 +417,30 @@ export default function LessonHome() {
     unitDragRef.current.didDrag = false
   }
 
+  const scrollUnitSelector = (direction) => {
+    const scroller = unitSelectorRef.current
+    if (!scroller) return
+
+    const scrollAmount = Math.max(scroller.clientWidth * 0.65, 180)
+    scroller.scrollBy({
+      left: direction * scrollAmount,
+      behavior: 'smooth',
+    })
+  }
+
+  const openStageMode = (unitId, stageNum, mode = 'lesson') => {
+    if (!token) {
+      navigate('/auth')
+      return
+    }
+    if (!user?.is_level_tested && !(unitId === 1 && stageNum === 1)) {
+      setPendingUnitId(unitId)
+      setShowLevelTest(true)
+      return
+    }
+    navigate(`/stage/${unitId}/${stageNum}?mode=${mode}`)
+  }
+
   if (loading) {
     return (
       <div className="lh-loading">
@@ -476,7 +502,12 @@ export default function LessonHome() {
 
             {/* 하단: 유닛 가로 선택 노드 */}
             <div className="lh-unit-selector-viewport">
-              <span className="lh-roadmap-arrow lh-roadmap-arrow-left" aria-hidden="true" />
+              <button
+                type="button"
+                className="lh-roadmap-arrow lh-roadmap-arrow-left no-3d"
+                onClick={() => scrollUnitSelector(-1)}
+                aria-label="로드맵 왼쪽으로 이동"
+              />
               <div
                 ref={unitSelectorRef}
                 className={`lh-unit-selector-scroll ${unitSelectorDragging ? 'dragging' : ''}`}
@@ -491,6 +522,7 @@ export default function LessonHome() {
                 const unlocked = token ? lesson.unit_id <= maxUnlocked : lesson.unit_id === 1
                 const prog = getUnitProgress(lesson.unit_id, lesson.stages)
                 const done = prog.completed >= lesson.stages && lesson.stages > 0 && isBossComplete(lesson.unit_id)
+                const isSelected = lesson.unit_id === expandedUnit
                 const isCurrent = unlocked && !done && lesson.unit_id === expandedUnit
                 const title = lesson.title || UNIT_TITLES[idx] || `Unit ${lesson.unit_id}`
                 const shortTitle = getUnitShortTitle(title, lesson.unit_id, courseLevel)
@@ -499,7 +531,7 @@ export default function LessonHome() {
                   <button
                     key={lesson.unit_id}
                     type="button"
-                    className={`lh-unit-node no-3d unit-${lesson.unit_id} ${done ? 'done' : !unlocked ? 'locked' : isCurrent ? 'current' : 'open'}`}
+                    className={`lh-unit-node no-3d unit-${lesson.unit_id} ${done ? 'done' : !unlocked ? 'locked' : isCurrent ? 'current' : 'open'} ${isSelected ? 'selected' : ''}`}
                     onClick={() => {
                       if (!unlocked) return
                       setExpandedUnit(lesson.unit_id)
@@ -520,7 +552,12 @@ export default function LessonHome() {
                 )
               })}
               </div>
-              <span className="lh-roadmap-arrow lh-roadmap-arrow-right" aria-hidden="true" />
+              <button
+                type="button"
+                className="lh-roadmap-arrow lh-roadmap-arrow-right no-3d"
+                onClick={() => scrollUnitSelector(1)}
+                aria-label="로드맵 오른쪽으로 이동"
+              />
             </div>
           </section>
         )}
@@ -540,6 +577,49 @@ export default function LessonHome() {
           const isBossFinished = isBossComplete(lesson.unit_id)
           const isReadyForBoss = prog.completed >= lesson.stages
           const bossState = isBossFinished ? 'cleared' : isReadyForBoss ? 'open' : 'locked'
+          const activeQuickStage = quickStageMenu?.unitId === lesson.unit_id ? quickStageMenu.stage : null
+
+          const toggleQuickStage = (stageNum) => {
+            setQuickStageMenu(prev => (
+              prev?.unitId === lesson.unit_id && prev.stage === stageNum
+                ? null
+                : { unitId: lesson.unit_id, stage: stageNum }
+            ))
+          }
+
+          const renderQuickStageActions = () => {
+            if (!activeQuickStage) return null
+            return (
+              <div className="lh-stage-quick-actions">
+                <div className="lh-stage-quick-head">
+                  <span>Stage {activeQuickStage}</span>
+                </div>
+                <div className="lh-stage-quick-buttons">
+                  <button
+                    type="button"
+                    className="lh-stage-quick-btn no-3d lesson"
+                    onClick={() => openStageMode(lesson.unit_id, activeQuickStage, 'lesson')}
+                  >
+                    레슨
+                  </button>
+                  <button
+                    type="button"
+                    className="lh-stage-quick-btn no-3d quiz"
+                    onClick={() => openStageMode(lesson.unit_id, activeQuickStage, 'quiz')}
+                  >
+                    퀴즈
+                  </button>
+                  <button
+                    type="button"
+                    className="lh-stage-quick-btn no-3d miniboss"
+                    onClick={() => openStageMode(lesson.unit_id, activeQuickStage, 'miniboss')}
+                  >
+                    미니보스
+                  </button>
+                </div>
+              </div>
+            )
+          }
 
           const handleBossClick = () => {
             if (!token || prog.completed < lesson.stages) return
@@ -610,16 +690,11 @@ export default function LessonHome() {
                               <button
                                 key={s}
                                 type="button"
-                                className="lh-stage-pill no-3d"
+                                className={`lh-stage-pill no-3d ${activeQuickStage === s ? 'active' : ''}`}
                                 onClick={() => {
-                                  if (!token) return
-                                  if (!user?.is_level_tested && !(lesson.unit_id === 1 && s === 1)) {
-                                    setPendingUnitId(lesson.unit_id)
-                                    setShowLevelTest(true)
-                                    return
-                                  }
-                                  navigate(`/stage/${lesson.unit_id}/${s}`)
+                                  toggleQuickStage(s)
                                 }}
+                                aria-expanded={activeQuickStage === s}
                                 aria-label={`Stage ${s} 복습`}
                               >
                                 <span className="lh-stage-pill-num">{s}</span>
@@ -628,8 +703,10 @@ export default function LessonHome() {
                             )
                           })}
                         </div>
+                        {renderQuickStageActions()}
                       </div>
                     ) : (
+                      <>
                       <div className="lh-paw-roadmap">
                         {stageNums.map((s) => {
                           const stageDone = s <= prog.completed
@@ -641,10 +718,14 @@ export default function LessonHome() {
                             <button
                               key={s}
                               type="button"
-                              className={`lh-paw-stage no-3d ${stateClass}`}
+                              className={`lh-paw-stage no-3d ${stateClass} ${activeQuickStage === s ? 'active' : ''}`}
                               disabled={!enabled}
                               onClick={() => {
                                 if (!token || !enabled) return
+                                if (stageDone) {
+                                  toggleQuickStage(s)
+                                  return
+                                }
                                 if (!user?.is_level_tested && !(lesson.unit_id === 1 && s === 1)) {
                                   setPendingUnitId(lesson.unit_id)
                                   setShowLevelTest(true)
@@ -667,6 +748,8 @@ export default function LessonHome() {
                           )
                         })}
                       </div>
+                      {renderQuickStageActions()}
+                      </>
                     )}
 
                     {/* ── 유닛보스 게이트 박스 ── */}
