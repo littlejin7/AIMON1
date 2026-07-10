@@ -60,24 +60,6 @@ export function setupPlayer(game) {
 }
 
 export function preloadModels(game) {
-  game.gltfLoader.load('/obstacle_fence.glb', (gltf) => {
-    gltf.scene.traverse(c => {
-      if (!c.isMesh) return;
-      c.castShadow = c.receiveShadow = true;
-      if (c.material) {
-        c.material.side = THREE.DoubleSide;
-        if (c.material.alphaMap || c.material.map) { c.material.transparent = true; c.material.alphaTest = 0.3; }
-        c.material.needsUpdate = true;
-      }
-    });
-    game.gltfModels.fence = gltf.scene;
-  });
-
-  game.gltfLoader.load('/obstacle_boulder.glb', (gltf) => {
-    gltf.scene.traverse(c => { if (c.isMesh) c.castShadow = c.receiveShadow = true; });
-    game.gltfModels.boulder = gltf.scene;
-  });
-
   game.gltfLoader.load('/player_character.glb', (gltf) => {
     const model = gltf.scene;
     while (game.playerGroup.children.length > 0) game.playerGroup.remove(game.playerGroup.children[0]);

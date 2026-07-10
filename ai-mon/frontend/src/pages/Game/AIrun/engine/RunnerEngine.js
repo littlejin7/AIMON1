@@ -45,7 +45,7 @@ export class RunnerEngine {
     this.nextObstacleZ = -60;
     this.nextQuizZ = -130;
     this.nextHeartZ = -200;
-    this.gltfModels = { fence: null, boulder: null, player: null };
+    this.gltfModels = { player: null };
     this.gltfLoader = new GLTFLoader();
 
     this.quizPool = [...OX_QUESTIONS].sort(() => Math.random() - 0.5);
