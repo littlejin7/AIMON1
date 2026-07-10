@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { quizApi, progressApi, userApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
@@ -234,6 +234,14 @@ export default function LessonHome() {
     Number.isInteger(routeExpandedUnit) ? routeExpandedUnit : 1
   )
   const [unitInfoOpen, setUnitInfoOpen] = useState(false)
+  const unitSelectorRef = useRef(null)
+  const unitDragRef = useRef({
+    isDown: false,
+    startX: 0,
+    scrollLeft: 0,
+    didDrag: false,
+  })
+  const [unitSelectorDragging, setUnitSelectorDragging] = useState(false)
 
   const courseLevel = user?.course_level || 'beginner'
   const activeLevelIdx = LEVEL_MAP[courseLevel]?.idx ?? 0
@@ -365,6 +373,48 @@ export default function LessonHome() {
     setExpandedUnit(prev => prev === unitId ? null : unitId)
   }
 
+  const handleUnitSelectorPointerDown = (event) => {
+    if (event.pointerType !== 'mouse' || event.button !== 0) return
+    const scroller = unitSelectorRef.current
+    if (!scroller) return
+
+    unitDragRef.current = {
+      isDown: true,
+      startX: event.clientX,
+      scrollLeft: scroller.scrollLeft,
+      didDrag: false,
+    }
+    setUnitSelectorDragging(true)
+    event.currentTarget.setPointerCapture?.(event.pointerId)
+  }
+
+  const handleUnitSelectorPointerMove = (event) => {
+    const drag = unitDragRef.current
+    const scroller = unitSelectorRef.current
+    if (!drag.isDown || !scroller) return
+
+    const deltaX = event.clientX - drag.startX
+    if (Math.abs(deltaX) > 3) {
+      drag.didDrag = true
+    }
+    scroller.scrollLeft = drag.scrollLeft - deltaX
+    event.preventDefault()
+  }
+
+  const stopUnitSelectorDrag = (event) => {
+    if (!unitDragRef.current.isDown) return
+    unitDragRef.current.isDown = false
+    setUnitSelectorDragging(false)
+    event.currentTarget.releasePointerCapture?.(event.pointerId)
+  }
+
+  const handleUnitSelectorClickCapture = (event) => {
+    if (!unitDragRef.current.didDrag) return
+    event.preventDefault()
+    event.stopPropagation()
+    unitDragRef.current.didDrag = false
+  }
+
   if (loading) {
     return (
       <div className="lh-loading">
@@ -425,7 +475,18 @@ export default function LessonHome() {
             )}
 
             {/* 하단: 유닛 가로 선택 노드 */}
-            <div className="lh-unit-selector-scroll">
+            <div className="lh-unit-selector-viewport">
+              <span className="lh-roadmap-arrow lh-roadmap-arrow-left" aria-hidden="true" />
+              <div
+                ref={unitSelectorRef}
+                className={`lh-unit-selector-scroll ${unitSelectorDragging ? 'dragging' : ''}`}
+                onPointerDown={handleUnitSelectorPointerDown}
+                onPointerMove={handleUnitSelectorPointerMove}
+                onPointerUp={stopUnitSelectorDrag}
+                onPointerCancel={stopUnitSelectorDrag}
+                onPointerLeave={stopUnitSelectorDrag}
+                onClickCapture={handleUnitSelectorClickCapture}
+              >
               {lessons.map((lesson, idx) => {
                 const unlocked = token ? lesson.unit_id <= maxUnlocked : lesson.unit_id === 1
                 const prog = getUnitProgress(lesson.unit_id, lesson.stages)
@@ -458,6 +519,8 @@ export default function LessonHome() {
                   </button>
                 )
               })}
+              </div>
+              <span className="lh-roadmap-arrow lh-roadmap-arrow-right" aria-hidden="true" />
             </div>
           </section>
         )}
