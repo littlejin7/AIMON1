@@ -6,6 +6,7 @@ import LevelTestModal from '../../components/LevelTestModal/LevelTestModal'
 import InfoModal from '../../components/InfoModal/InfoModal'
 import HomeLanding   from './HomeLanding'
 import HomeDashboard from './HomeDashboard'
+import QnaBot from '../../components/QnaBot/QnaBot'
 import './Home.css'
 
 export default function Home() {
@@ -115,6 +116,7 @@ export default function Home() {
         stats={stats}
         onOpenLevelTest={() => setShowLevelTest(true)}
       />
+      <QnaBot />
     </>
   )
 }
