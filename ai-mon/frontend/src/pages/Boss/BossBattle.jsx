@@ -209,6 +209,10 @@ export default function BossBattle({
       <div className="eb-b-bg" style={{ backgroundImage: `url(${unitbossBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="eb-b-ground-bot" />
 
+        <div className="eb-b-hp-sub">
+          <span className="eb-b-boss-label">Unit {lessonId} 보스</span>
+        </div>
+        
         {/* 플레이어 HP 박스 — 상단 왼쪽 */}
         <div className={`eb-b-player-hpbox${myShake ? ' shake' : ''}`}>
           <div className="eb-b-hp-bar-wrap">
@@ -221,14 +225,14 @@ export default function BossBattle({
         </div>
 
         {/* 보스 HP 박스 — 상단 오른쪽 */}
-        <div className="eb-b-boss-hpbox">
-          <div className="eb-b-hp-name">{bossData?.boss_name || '코드몬 보스'}</div>
+        <div className="eb-b-boss-hpbox" style={{ top: '12px', right: '12px' }}>
           <div className="eb-b-hp-bar-wrap">
             <span className="eb-b-hp-label">HP</span>
             <div className="eb-b-hp-track">
               <div className="eb-b-hp-fill" style={{ width: `${bossPct}%`, background: bossHpGrad }} />
             </div>
           </div>
+          <div className="eb-b-hp-nums">{bossHp}/{BOSS_HP_MAX}</div>
         </div>
 
         {/* 보스 3D 캐릭터 — 하단 오른쪽 */}
@@ -295,7 +299,7 @@ export default function BossBattle({
             <div className="eb-b-terminal" style={{ background: '#1E1B4B' }}>
               <pre style={{
                 fontFamily: "'D2Coding', monospace", fontSize: '13px',
-                lineHeight: '1.8', color: '#E9D5FF', whiteSpace: 'pre-wrap', margin: 0,
+                lineHeight: '1.8', color: '#E9D5FF', whiteSpace: 'pre-wrap', overflowWrap: 'anywhere', wordBreak: 'break-word', margin: 0,
               }}>
                 {templateLines.map((line, lineIdx) => {
                   const hasSlot = /\{slot\d+\}/.test(line)
@@ -303,7 +307,7 @@ export default function BossBattle({
                     const indentMatch = line.match(/^(\s*)/)
                     const indent = indentMatch ? indentMatch[1] : ''
                     return (
-                      <div key={lineIdx} style={{ display: 'flex', alignItems: 'center', minHeight: '26px' }}>
+                      <div key={lineIdx} style={{ display: 'flex', alignItems: 'center', minHeight: '26px', flexWrap: 'wrap' }}>
                         <span style={{ whiteSpace: 'pre' }}>{indent}</span>
                         <span style={{
                           display: 'inline-block',
@@ -321,8 +325,8 @@ export default function BossBattle({
                     )
                   }
                   return (
-                    <div key={lineIdx} style={{ display: 'flex', alignItems: 'center', minHeight: '26px' }}>
-                      <span style={{ whiteSpace: 'pre-wrap' }}>{line}</span>
+                    <div key={lineIdx} style={{ minHeight: '26px' }}>
+                      <span style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere', wordBreak: 'break-word' }}>{line}</span>
                     </div>
                   )
                 })}
