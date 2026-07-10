@@ -1,8 +1,12 @@
 import { useNavigate } from 'react-router-dom'
 import QuizCard from '../../components/QuizCard/QuizCard'
+import AppHeader from '../../components/AppHeader/AppHeader'
 import './BossMini.css'
 import villainIcon from '../../assets/boss_midcmorg.png'
 import amon from '../../assets/amon.png'
+
+// 레슨페이지(/lesson)와 동일한 상단 헤더. 경로 매핑엔 /stage 가 없으므로 override 로 강제 렌더.
+const STAGE_APP_HEADER = { title: 'LESSON', compact: true, sound: true, settings: true }
 
 
 
@@ -38,6 +42,7 @@ export default function StageQuiz({
     ? current - minibossStartIndex + 1
     : current + 1
   const progressPct = (currentNum / totalQ) * 100
+  const stageLabel = `UNIT ${lessonId} · Stage ${stageNum}`
   
   const tauntPool = VILLAIN_TAUNTS[currentQ?.type] || VILLAIN_TAUNTS.default
   const tauntText = VILLAIN_TAUNTS[(current || 0) % VILLAIN_TAUNTS.length]
@@ -47,23 +52,10 @@ export default function StageQuiz({
     return (
       <div className="mb-page">
 
-        {/* 히어로 섹션 */}
-        <div className="stage-hero">
-          <button
-            className="stage-hero-close"
-            onClick={() => navigate(`/lesson/${lessonId}`)}
-            aria-label="레슨 목록으로"
-          >✕</button>
-          <div className="stage-hero-text">
-            <p className="stage-breadcrumb">UNIT {lessonId} · Stage {stageNum}</p>
-            {unitInfo?.title && <h1 className="stage-hero-title">{unitInfo.title}</h1>}
-          </div>
-        </div>
-
         {/* 상단 진행 바 */}
         <div className="stage-bottom-progress">
           <div className="stage-progress-label">
-            <span>진행도</span>
+            <span className="stage-progress-title">{stageLabel}</span>
             <span>문제 {currentNum} / {totalQ}</span>
           </div>
           <div className="progress-bar">
@@ -111,25 +103,22 @@ export default function StageQuiz({
 
   /* ── 일반 스테이지 레이아웃 ── */
   return (
-    <div className="stage-page">
+    <div className="stage-page stage-page--app-header">
 
-      {/* 히어로 섹션 */}
-      <div className="stage-hero">
-        <button
-          className="stage-hero-close"
-          onClick={() => navigate(`/lesson/${lessonId}`)}
-          aria-label="레슨 목록으로"
-        >✕</button>
-        <div className="stage-hero-text">
-          <p className="stage-breadcrumb">UNIT {lessonId} · Stage {stageNum}</p>
-          {unitInfo?.title && <h1 className="stage-hero-title">{unitInfo.title}</h1>}
-        </div>
-      </div>
+      {/* 레슨 헤더 (레슨페이지와 동일) */}
+      <AppHeader override={STAGE_APP_HEADER} />
+
+      {/* 나가기 (헤더 아래로) */}
+      <button
+        className="stage-exit-btn"
+        onClick={() => navigate(`/lesson/${lessonId}`)}
+        aria-label="레슨 목록으로"
+      >✕</button>
 
       {/* 상단 진행 바 */}
       <div className="stage-bottom-progress">
         <div className="stage-progress-label">
-          <span>진행도</span>
+          <span className="stage-progress-title">{stageLabel}</span>
           <span>문제 {currentNum} / {totalQ}</span>
         </div>
         <div className="progress-bar">

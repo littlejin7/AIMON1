@@ -1,6 +1,10 @@
 import { useNavigate } from 'react-router-dom'
+import AppHeader from '../../components/AppHeader/AppHeader'
 import { highlightLineTokens } from '../../utils/pythonHighlight'
 import './StageBriefing.css'
+
+// 레슨페이지(/lesson)와 동일한 상단 헤더. 경로 매핑엔 /stage 가 없으므로 override 로 강제 렌더.
+const STAGE_APP_HEADER = { title: 'LESSON', compact: true, sound: true, settings: true }
 
 
 function addLineBreaks(text) {
@@ -33,27 +37,18 @@ export default function StageBriefing({
   const isFirst = briefingIndex === 0
   const isLast  = briefingIndex === total - 1
   const progress = ((briefingIndex + 1) / total) * 100
+  const stageLabel = `UNIT ${lessonId} · Stage ${stageNum}`
 
   return (
-    <div className="sb-page">
+    <div className="sb-page sb-page--app-header">
 
-      {/* ── 헤더 ── */}
-      <div className="stage-hero">
-        <button
-          className="stage-hero-close"
-          onClick={() => navigate(`/lesson/${lessonId}`)}
-          aria-label="레슨 목록으로"
-        >✕</button>
-        <div className="stage-hero-text">
-          <p className="stage-breadcrumb">UNIT {lessonId} · Stage {stageNum}</p>
-        </div>
-        <div style={{ width: 40 }} />
-      </div>
+      {/* ── 레슨 헤더 (레슨페이지와 동일) ── */}
+      <AppHeader override={STAGE_APP_HEADER} />
 
       {/* ── 진행도 ── */}
       <div className="stage-bottom-progress">
         <div className="stage-progress-label">
-          <span>진행도</span>
+          <span className="stage-progress-title">{stageLabel}</span>
           <span>슬라이드 {briefingIndex + 1} / {total}</span>
         </div>
         <div className="progress-bar">
@@ -61,9 +56,17 @@ export default function StageBriefing({
         </div>
       </div>
 
-      {unitInfo?.title && (
-        <div className="sb-lesson-title">{unitInfo.title}</div>
-      )}
+      {/* ── 대제목 + 나가기(오른쪽) ── */}
+      <div className="sb-title-row">
+        {unitInfo?.title && (
+          <div className="sb-lesson-title">{unitInfo.title}</div>
+        )}
+        <button
+          className="stage-exit-btn"
+          onClick={() => navigate(`/lesson/${lessonId}`)}
+          aria-label="레슨 목록으로"
+        >✕</button>
+      </div>
 
       {/* ── Body ── */}
       <div className="sb-body">
@@ -101,9 +104,9 @@ export default function StageBriefing({
         <button
           className="sb-nav-btn sb-nav-prev"
           onClick={() => setBriefingIndex(b => b - 1)}
-          disabled={isFirst}
+          style={{ visibility: isFirst ? 'hidden' : 'visible' }}
         >
-          ✕
+          ← 이전
         </button>
 
         <div className="sb-slide-dots">

@@ -1,4 +1,35 @@
 .stage-page { min-height: 100vh; display: flex; flex-direction: column; max-width: 480px; margin: 0 auto; }
+
+/* 레슨 헤더(AppHeader, position:fixed) 를 얹은 화면 — 헤더 높이만큼 본문을 내린다. */
+.stage-page--app-header { padding-top: calc(48px + env(safe-area-inset-top)); }
+
+/* 나가기 버튼 — 헤더에서 빼서 본문 좌상단으로 내림 (기존 stage-hero-close 스타일 계승) */
+.stage-exit-btn {
+  align-self: flex-start;
+  margin: var(--sp-4) var(--sp-4) 0;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--clr-bg-card);
+  border: 1px solid var(--clr-border);
+  color: var(--clr-primary-lt);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast),
+              background var(--transition-fast), transform var(--transition-fast);
+  box-shadow: 0 1px 3px rgba(83,74,183,0.08);
+}
+.stage-exit-btn:hover {
+  color: var(--clr-primary);
+  border-color: var(--clr-primary-lt);
+  background: var(--clr-bg-2);
+  transform: translateY(-1px);
+}
+.stage-exit-btn:active { transform: scale(0.94); }
 .stage-loading { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-4); }
 
 .mb-page {
@@ -82,18 +113,35 @@
 }
 
 /* ── 진행 바 ── */
+/* A안: 강한 컬러로 통치지 않고, 옅은 primary 틴트 + 라운드 + 얇은 하단 구분선으로
+   "헤더 카드"처럼 은은하게 묶어준다(본문과 시선 경쟁 방지). 채움바 그라데이션은 유지. */
 .stage-bottom-progress {
-  padding: var(--sp-3) var(--sp-4) var(--sp-4);
-  background: var(--clr-bg-card);
+  margin: var(--sp-2) var(--sp-4) 0;
+  padding: var(--sp-3) var(--sp-4);
+  background: color-mix(in srgb, var(--clr-primary) 6%, transparent);
+  border-radius: var(--radius-md);
+  border-bottom: 1px solid var(--clr-border);
+}
+
+/* 빈 트랙이 라이트 배경에서 안 보이지 않게 옅은 primary 트랙으로 */
+.stage-bottom-progress .progress-bar {
+  background: color-mix(in srgb, var(--clr-primary) 12%, transparent);
+  border-color: transparent;
 }
 
 .stage-progress-label {
   display: flex;
   justify-content: space-between;
+  gap: var(--sp-3);
   font-size: var(--font-size-xs);
   font-weight: 600;
   color: var(--clr-text-muted);
   margin-bottom: var(--sp-2);
+}
+
+.stage-progress-title {
+  color: var(--clr-primary);
+  letter-spacing: 0.04em;
 }
 
 .stage-score-badge {

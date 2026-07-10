@@ -12,6 +12,29 @@
   margin: 0 auto;
 }
 
+/* 레슨 헤더(AppHeader, position:fixed) 높이만큼 본문을 내린다. */
+.sb-page--app-header { padding-top: calc(48px + env(safe-area-inset-top)); }
+
+/* 나가기 ✕ 스타일은 Stage.css 의 .stage-exit-btn(원형 아이콘 버튼) 을 공용으로 사용 */
+
+/* 대제목 줄 — 제목 왼쪽, 나가기 ✕ 오른쪽 */
+.sb-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 20px 0;
+  margin-bottom: 24px;
+}
+.sb-title-row .sb-lesson-title {
+  margin: 0;
+  padding-top: 2px;
+}
+.sb-title-row .stage-exit-btn {
+  margin: 0 0 0 auto;
+  flex-shrink: 0;
+}
+
 /* Progress */
 .sb-progress-wrap { padding: 0 20px 14px; }
 .sb-progress-track {
@@ -139,8 +162,8 @@
 }
 .sb-output-label {
   font-size: 17px;
-  color: #aaa;
-  font-weight: 500;
+  color: #534AB7;
+  font-weight: 600;
   letter-spacing: 0.3px;
 }
 .sb-output-box {
@@ -189,29 +212,42 @@
 }
 
 .sb-nav-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 10px 18px;
-  border-radius: 14px;
-  font-size: 20px;
-  font-weight: 500;
+  gap: 5px;
+  padding: 8px 15px;
+  border-radius: 11px;
+  font-size: 14px;
+  font-weight: 600;
   border: none;
   cursor: pointer;
   font-family: inherit;
-  transition: opacity 0.15s;
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+              background 0.15s ease, color 0.15s ease, opacity 0.15s ease;
 }
-.sb-nav-btn:hover { opacity: 0.85; }
+.sb-nav-btn:active { transform: scale(0.97); }
 .sb-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
 .sb-nav-prev {
-  background: white;
+  background: #fff;
   border: 0.5px solid #D8D4F8;
-  color: #888;
+  color: #7A7A94;
 }
+.sb-nav-prev:hover {
+  background: #F5F3FE;
+  color: #534AB7;
+  border-color: #C9C3F0;
+}
+
 .sb-nav-next {
   background: #7F77DD;
-  color: white;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(127,119,221,0.28);
+}
+.sb-nav-next:hover {
+  background: #6D64D4;
+  box-shadow: 0 4px 12px rgba(127,119,221,0.34);
+  transform: translateY(-1px);
 }
 
 .sb-slide-dots {

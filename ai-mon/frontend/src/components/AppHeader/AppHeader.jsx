@@ -41,14 +41,15 @@ export function getAppHeaderTitle(pathname) {
   return null
 }
 
-export default function AppHeader() {
+export default function AppHeader({ override }) {
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const token = useAuthStore((s) => s.token)
   const bgmVolume = useSoundStore((s) => s.bgmVolume)
   const setBgmVolume = useSoundStore((s) => s.setBgmVolume)
   const lastBgmVolumeRef = useRef(bgmVolume > 0 ? bgmVolume : 0.5)
-  const header = getAppHeaderTitle(pathname)
+  // override: 경로 매핑에 없는 화면(예: /stage 브리핑·일반퀴즈)에서 헤더를 강제 렌더할 때 사용.
+  const header = override || getAppHeaderTitle(pathname)
 
   useEffect(() => {
     if (bgmVolume > 0) lastBgmVolumeRef.current = bgmVolume
