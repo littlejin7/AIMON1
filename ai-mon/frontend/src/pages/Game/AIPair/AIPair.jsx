@@ -27,8 +27,6 @@ export default function AIPair() {
   const navigate = useNavigate()
   const user = useAuthStore((s) => s.user)
 
-  useGameBgm(aizzakBgm, { enabled: started })
-
   const defaultChar = user?.character && CHARACTER_MAP[user.character]
     ? user.character : 'slime'
 
@@ -41,6 +39,8 @@ export default function AIPair() {
   } = usePairsGame()
 
   const [started, setStarted] = useState(false)
+
+  useGameBgm(aizzakBgm, { enabled: started })
 
   /* 시작 전에도 뒤에 카드 보드가 보이도록 미리 깔아둠 */
   useEffect(() => {
