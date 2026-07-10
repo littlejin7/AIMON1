@@ -22,6 +22,7 @@ import base64
 import hashlib
 import hmac
 import json
+import re
 import secrets
 from typing import Optional
 
@@ -199,6 +200,16 @@ def grade_objective(user_answer: str, correct_answer: str) -> bool:
         return True
     if ua.lower() == ca.lower():
         return True
+    # Choice UIs submit labels with the text ("A. p"), while some JSON answers
+    # store only the answer text ("p"). Compare the text body as a fallback.
+    option_label_re = re.compile(r"^[A-Ea-e][.)]\s+")
+    ua_text = option_label_re.sub("", ua).strip()
+    ca_text = option_label_re.sub("", ca).strip()
+    if ua_text and ca_text:
+        if ua_text == ca_text:
+            return True
+        if ua_text.lower() == ca_text.lower():
+            return True
     # "A" vs "A. Bye" — 한쪽이 기호 1글자
     if len(ua) == 1 and ca.upper().startswith(ua.upper() + "."):
         return True

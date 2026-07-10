@@ -5,6 +5,10 @@ function stripLabel(opt) {
   return opt.replace(/^[A-E]\.\s*/, '')
 }
 
+function sameAnswerText(opt, answer) {
+  return stripLabel(String(opt || '')).trim().toLowerCase() === stripLabel(String(answer || '')).trim().toLowerCase()
+}
+
 export default function ChoiceOptions({
   choicesList,
   selected,
@@ -18,13 +22,13 @@ export default function ChoiceOptions({
 
   const isCorrect = (opt) => {
     if (!revealed) return false
-    return isLetterAnswer ? opt.startsWith(answer + '.') : opt === answer
+    return isLetterAnswer ? opt.startsWith(answer + '.') : sameAnswerText(opt, answer)
   }
 
   const isWrong = (opt) => {
     if (!revealed) return false
     if (isLetterAnswer) return opt === selected && !opt.startsWith(answer + '.')
-    return opt === selected && opt !== answer
+    return opt === selected && !sameAnswerText(opt, answer)
   }
 
   const normalizedChoices = choicesList.map(opt => opt.replace(/\\n/g, '\n'))
