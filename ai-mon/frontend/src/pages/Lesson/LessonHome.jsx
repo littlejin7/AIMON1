@@ -594,29 +594,38 @@ export default function LessonHome() {
         })()}
 
         {/* ── 엔드보스 티저 ── */}
-        <div className={`lh-endboss-gate-card ${endbossUnlocked ? 'unlocked' : 'locked'}`}>
-          <div className="lh-endboss-gate-body">
-            <div className="lh-endboss-gate-text">
-              <span className="lh-endboss-gate-kicker">👑 최종 관문</span>
-              <h4>엔드보스</h4>
-              <p>
-                {endbossUnlocked
-                  ? "모든 유닛을 클리어했어요. 최종 보스에 도전하세요!"
-                  : "모든 유닛을 클리어하고 최종 보스에 도전하세요!"}
-              </p>
+        <div className="lh-endboss-outer-card">
+          <div className={`lh-endboss-gate-card ${endbossUnlocked ? 'unlocked' : 'locked'}`}>
+            <div className="lh-endboss-gate-body">
+              <div className="lh-endboss-gate-text">
+                <span className="lh-endboss-gate-kicker">
+                  <span className="lh-endboss-crown-badge" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none">
+                      <path d="M3 8l4 3 5-6 5 6 4-3-1.5 10h-15L3 8z" fill="currentColor" />
+                    </svg>
+                  </span>
+                  최종 관문
+                </span>
+                <h4>엔드보스</h4>
+                <p>
+                  {endbossUnlocked
+                    ? "모든 유닛을 클리어했어요. 최종 보스에 도전하세요!"
+                    : "모든 유닛을 클리어하고 최종 보스에 도전하세요."}
+                </p>
+              </div>
+              <div className="lh-endboss-gate-media">
+                <span className="lh-endboss-gate-icon">{endbossUnlocked ? '👑' : '🔒'}</span>
+              </div>
             </div>
-            <div className="lh-endboss-gate-media">
-              <span className="lh-endboss-gate-icon">{endbossUnlocked ? '👑' : '🔒'}</span>
-            </div>
+            <button
+              type="button"
+              className={`lh-endboss-gate-cta no-3d ${endbossUnlocked ? 'unlocked' : 'locked'}`}
+              disabled={!endbossUnlocked}
+              onClick={() => endbossUnlocked && navigate('/boss/endboss')}
+            >
+              {endbossUnlocked ? "엔드보스 도전하기" : "엔드보스 잠김"}
+            </button>
           </div>
-          <button
-            type="button"
-            className={`lh-endboss-gate-cta no-3d ${endbossUnlocked ? 'unlocked' : 'locked'}`}
-            disabled={!endbossUnlocked}
-            onClick={() => endbossUnlocked && navigate('/boss/endboss')}
-          >
-            {endbossUnlocked ? "엔드보스 도전하기" : "엔드보스 잠김"}
-          </button>
         </div>
 
       </div>
