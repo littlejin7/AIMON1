@@ -2,9 +2,9 @@
    전체화면(넓은 데스크톱 창)에서도 가로로 늘어나지 않도록 */
 .runner-game-wrapper {
   width: 100%;
-  max-width: 480px;
-  height: 100vh;
-  margin: 0 auto;
+  max-width: none;
+  height: 100%;
+  margin: 0;
   overflow: hidden;
   background: #55b5f0;
   position: relative;
