@@ -45,7 +45,7 @@ export default function StageQuiz({
   const stageLabel = `UNIT ${lessonId} · Stage ${stageNum}`
   
   const tauntPool = VILLAIN_TAUNTS[currentQ?.type] || VILLAIN_TAUNTS.default
-  const tauntText = VILLAIN_TAUNTS[(current || 0) % VILLAIN_TAUNTS.length]
+  const tauntText = tauntPool[(current || 0) % tauntPool.length]
 
   /* ── 미니보스 모드 레이아웃 ── */
   if (isVillain) {
