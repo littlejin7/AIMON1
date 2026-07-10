@@ -244,6 +244,10 @@ export default function Train() {
     )
   }
 
+  if (searchParams.get('view') === 'codebook') {
+    return <CodeViewer onBack={() => navigate('/train', { replace: true })} />
+  }
+
   //if (!token) return <TrainLocked reason="login" />   // 비로그인 잠금화면
 
   if (checkingLock && token) {
