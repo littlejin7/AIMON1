@@ -21,7 +21,8 @@
   --bd-shadow:        0 6px 18px rgba(30, 30, 60, 0.08);
   --bd-shadow-sm:     0 3px 10px rgba(30, 30, 60, 0.07);
 
-  min-height: 100vh;
+  min-height: 100%;
+  height: 100%;
   background: var(--bd-bg);
   color: var(--bd-ink);
   display: flex;
