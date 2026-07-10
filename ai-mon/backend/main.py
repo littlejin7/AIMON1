@@ -26,7 +26,7 @@ _SERVER_VERSION = _detect_version()
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import auth, quiz, boss, endboss, miniboss, progress, user, code, train, titles, game, game_aicross, game_ranking, mission, admin, attempts
+from routers import auth, quiz, boss, endboss, miniboss, progress, user, code, train, titles, game, game_aicross, game_ranking, mission, admin, attempts, guide
 
 
 @asynccontextmanager
@@ -110,6 +110,7 @@ app.include_router(game_aicross.router, prefix="/game", tags=["Game"])
 app.include_router(game_ranking.router, prefix="/game", tags=["Game"])
 app.include_router(mission.router, prefix="/missions", tags=["Missions"])
 app.include_router(admin.router, prefix="/admin", tags=["Admin"])
+app.include_router(guide.router, prefix="/guide", tags=["Guide"])
 
 @app.get("/")
 def health_check():
