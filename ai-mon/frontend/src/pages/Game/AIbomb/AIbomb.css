@@ -31,7 +31,9 @@
   font-family: 'Galmuri11', 'Apple SD Gothic Neo', sans-serif;
   font-weight: 700;
   position: relative;
-  overflow: hidden;
+  /* 세로 오버플로는 스크롤 허용(overflow:hidden이면 좁은 화면에서 하단이 잘림), 가로만 숨김 */
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* ── SVG 배경 회로 패턴 — 미니멀 톤에서는 숨김 ─────────────────── */
@@ -183,7 +185,7 @@
 .bd-screen {
   width: 100%;
   max-width: 380px;
-  margin-top: 70px;
+  margin-top: 40px;
   background: var(--bd-card);
   border: 3px solid var(--bd-accent);
   border-radius: 20px;
@@ -608,3 +610,18 @@
   box-shadow: 3px 3px 0 #b23a30;
 }
 .bd-clear-screen--fail .bd-btn--primary:active { box-shadow: 1px 1px 0 #b23a30; }
+
+/* ── 좁은 화면(≤400px): 코드가 여러 줄로 줄바꿈되어 세로가 길어지므로
+      상단 여백/타이머/스프라이트를 줄여 한 화면에 담기도록 압축 ── */
+@media (max-width: 400px) {
+  .bd-screen {
+    margin-top: 24px;
+    padding: 14px 16px 18px;
+  }
+  .bd-play { gap: 6px; }
+  .bd-timer-ring { width: 112px; height: 112px; }
+  .bd-timer-ring-digits { font-size: 17px; }
+  .bd-runner-stage { width: 132px; height: 132px; }
+  .bd-bomb-stage { margin: 4px 0; }
+  .bd-code-tap { font-size: 11px; line-height: 1.9; padding: 8px 14px; }
+}
