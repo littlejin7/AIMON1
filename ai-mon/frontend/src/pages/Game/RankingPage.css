@@ -171,6 +171,9 @@
   font-size: 14px;
   font-weight: 800;
   color: var(--clr-text-bright);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .ranking-game-sub {
@@ -238,6 +241,7 @@
   gap: 10px;
   padding: 9px 14px;
   border-top: 0.5px solid var(--clr-border);
+  min-width: 0;
 }
 
 .ranking-row--me {
@@ -276,12 +280,82 @@
 
 .ranking-name {
   flex: 1;
+  min-width: 0;
   font-size: 12px;
   color: var(--clr-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .ranking-score {
   font-size: 12px;
   font-weight: 600;
   color: #e8a44a;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 460px) {
+  .ranking-page {
+    max-width: none;
+  }
+
+  .ranking-game-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin: 0 14px 14px;
+  }
+
+  .ranking-game-card {
+    border-radius: 18px;
+  }
+
+  .ranking-game-card-header {
+    padding: 12px 14px;
+  }
+
+  .ranking-game-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .ranking-game-icon img {
+    width: 27px;
+    height: 27px;
+  }
+
+  .ranking-game-title {
+    font-size: 15px;
+  }
+
+  .ranking-game-list {
+    min-height: 0;
+  }
+
+  .ranking-game-row,
+  .ranking-row {
+    gap: 8px;
+    padding: 9px 12px;
+  }
+
+  .ranking-game-row .ranking-medal,
+  .ranking-medal {
+    min-width: 26px;
+  }
+
+  .ranking-game-row .ranking-avatar,
+  .ranking-avatar {
+    width: 28px;
+    height: 28px;
+  }
+
+  .ranking-game-row .ranking-score,
+  .ranking-score {
+    font-size: 12px;
+  }
+
+  .ranking-game-empty {
+    min-height: 64px;
+  }
 }
