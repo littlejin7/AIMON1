@@ -10,6 +10,7 @@ export default function Character() {
   const token      = useAuthStore((s) => s.token)
   const user       = useAuthStore((s) => s.user)
   const updateUser = useAuthStore((s) => s.updateUser)
+  const logout     = useAuthStore((s) => s.logout)
 
   const [selected,      setSelected]      = useState(user?.character || 'slime')
   const [saving,        setSaving]        = useState(false)
@@ -127,7 +128,6 @@ export default function Character() {
   const equippedTitleMeta = titlesWithState.find(t => t.id === equippedTitle) || null
   const EquippedTitleIcon = equippedTitleMeta?.Icon || null
 
-  const logout = useAuthStore((s) => s.logout)
   const handleLogout = () => {
     logout?.()
     navigate('/auth')
