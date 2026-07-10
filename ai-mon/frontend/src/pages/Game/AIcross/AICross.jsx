@@ -88,8 +88,6 @@ export default function AICross() {
   const wrapRef = useRef(null)
   const user = useAuthStore((s) => s.user)
 
-  useGameBgm(aikanBgm, { enabled: started })
-
   // 서버 진행도/세션 상태
   const [progress, setProgress] = useState(null)
   const [setIndex, setSetIndex] = useState(null)
@@ -112,6 +110,8 @@ export default function AICross() {
 
   // 시작 인트로 팝업 (다른 미니게임과 동일하게 게임 화면 위에 화이트 박스로 오버레이)
   const [started, setStarted] = useState(false)
+
+  useGameBgm(aikanBgm, { enabled: started })
 
   const { wordData = [], rows = 0, cols = 0, cellMap = {}, wordCells = {} } = layout || {}
 
