@@ -137,11 +137,11 @@ export default function EndBoss() {
 
   // ── 공격 이펙트 ──────────────────────────────
   const playAttackEffect = (damage) => {
+    playSFX('endboss_attack')
     setAttackAnim(true)
     setTimeout(() => {
       setBossHit(true)
       setBossShake(true)
-      playSFX('attack')
       setDmgPopup(damage)
       setTimeout(() => {
         setBossHit(false)
