@@ -80,7 +80,13 @@
   --z-nav:    100;
   --z-modal:  200;
   --z-toast:  300;
+   
+  /* App viewport scale */
+  --app-canvas-width: 420px;
+  --app-scale: 1;
+  --app-layout-height: 100dvh;
 
+   
   /* === Redesign tokens (Egyptian temple ✕ neon cyber) ===
      색 토큰은 테마 변수(secondary/primary/accent)에서 파생 → 9개 테마 자동 연동.
      구조/형태 토큰은 테마 무관, 여기서만 정의. */
@@ -158,6 +164,55 @@ body::after {
 #root {
   position: relative;
   z-index: 1;
+}
+
+.app-shell {
+  width: 100%;
+  max-width: var(--app-canvas-width);
+  min-height: 100dvh;
+  margin: 0 auto;
+  position: relative;
+}
+
+@media (max-width: 420px) {
+  html,
+  body {
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  #root {
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .app-shell {
+    width: var(--app-canvas-width);
+    max-width: none;
+    height: var(--app-layout-height);
+    min-height: var(--app-layout-height);
+    left: 50%;
+    margin-left: calc(var(--app-canvas-width) / -2);
+    margin-right: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    transform: scale(var(--app-scale));
+    transform-origin: top center;
+  }
+
+  .app-shell .app-main {
+    min-height: var(--app-layout-height);
+  }
+
+  .app-shell .app-header {
+    left: 0;
+    right: 0;
+  }
 }
 
 img, video, svg { display: block; max-width: 100%; }
