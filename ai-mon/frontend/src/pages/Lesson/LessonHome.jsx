@@ -77,19 +77,44 @@ function getUnitShortTitle(title = '', unitId, courseLevel = 'beginner') {
   return mapping[courseLevel]?.[unitId] || title.replace(/—/g, ' ').split(/\s+/).slice(0, 2).join(' ') || `Unit ${unitId}`
 }
 
-function getStageDisplayTitle(unitId, stageNum, unitTitle = '') {
-  const beginnerUnit2 = {
-    1: '문자열이란?',
-    2: '문자열 인덱싱과 슬라이싱',
-    3: '문자열 메서드 기초',
-    4: '문자열 포매팅',
-    5: '문자열 탐색과 치환',
-    6: '종합 문제',
-  }
+// 실제 커리큘럼 데이터(backend/data/lessons/{level}/unit_N.json)의 스테이지별 title.
+// 코드에서 다시 fetch하지 않도록 정적 테이블로 유지한다.
+const STAGE_TITLES = {
+  beginner: {
+    1: ['Hello, Python!', '변수 만들기', '숫자형', '문자열형', '불리언 & 비교', '자료형 변환', '입력 & f-string'],
+    2: ['인덱싱 & 슬라이싱', '문자열 메서드 1', '문자열 메서드 2', 'f-string 심화', 'len() & 문자열 연산', '문자열 종합실습'],
+    3: ['if / else 기본', 'elif 다중 조건', '비교 연산자', '논리 연산자', '중첩 조건문', '조건문 종합실습'],
+    4: ['for + range', 'for + 리스트 순회', 'for + 딕셔너리 순회', 'while 반복', 'break & continue', '중첩 for', '반복문 종합실습'],
+    5: ['리스트 기초', '리스트 수정', '리스트 메서드', '리스트 순회 & 탐색', '파일 읽기', '파일 쓰기', '리스트&파일 종합실습'],
+    6: ['함수 기초', '매개변수 & 인수', 'return 반환값', '기본값 매개변수', '스코프', '함수 안의 함수', '함수 종합실습'],
+    7: ['딕셔너리 기초', '딕셔너리 수정', '딕셔너리 순회', '세트 기초', '세트 연산', '딕셔너리&세트 종합실습'],
+    8: ['인벤토리 메뉴 만들기', '아이템 획득하기', '인벤토리 상태 확인하기', '아이템 버리기', '아이템 검색하기', '데이터 저장하고 불러오기', '시스템 구동 엔진 만들기'],
+  },
+  intermediate: {
+    1: ['try / except 기초', '다양한 예외 유형', 'finally & else', 'raise & 커스텀 예외', '예외처리 종합실습'],
+    2: ['튜플 기초', '패킹 & 언패킹', '자료형 비교', '중첩 자료구조 심화', '자료형 심화 종합실습'],
+    3: ['lambda 익명 함수', '*args와 **kwargs', '재귀 함수', '고차 함수 — map과 filter', '함수심화 종합실습'],
+    4: ['클래스 기초', '인스턴스 메서드 & 속성', '클래스 변수 vs 인스턴스 변수', '상속', '캡슐화 & 특수 메서드', 'OOP 종합실습'],
+    5: ['리스트 컴프리헨션', '딕셔너리·세트 컴프리헨션', 'JSON 파일 처리', 'CSV 파일 처리', '파일처리 종합실습'],
+    6: ['가상환경이란', 'venv 생성 & 활성화', 'pip 패키지 관리', '표준 라이브러리 활용', '가상환경 종합실습'],
+    7: ['정규식 기초', '주요 패턴', '그룹 & 추출', '치환 & 분리', '정규식 종합실습'],
+    8: ['requests 라이브러리', 'API 인증', 'API 응답 파싱', '에러 처리 & 재시도', '실전 API 연동 1', '실전 API 연동 2', 'API 종합 프로젝트'],
+  },
+  advanced: {
+    1: ['데코레이터 기초', '데코레이터 심화', '제너레이터', '컨텍스트 매니저', '고급 문법 종합실습'],
+    2: ['동기 vs 비동기 개념', 'asyncio 기초', '비동기 태스크', '비동기 HTTP 요청', '비동기 종합실습'],
+    3: ['API 키 & 보안', 'Claude API 기초', '시스템 프롬프트 & 멀티턴', '스트리밍 응답', 'AI API 종합실습'],
+    4: ['Streamlit 기초', 'Streamlit 상태 관리', '챗봇 UI 구성', 'Claude API 연결', '챗봇 기능 확장', 'Streamlit 앱 배포'],
+    5: ['LangChain 개요 & 설치', 'LLM 체인 구성', '메모리', 'RAG 기초', 'LangChain 종합실습'],
+    6: ['Tool Use 개념', '도구 정의 & 등록', '에이전트 루프 기초', '멀티 도구 에이전트', '에러 처리 & 안전장치', 'AI 에이전트 종합실습'],
+    7: ['FastAPI 기초', 'FastAPI + AI 연동', '프론트엔드 연결', '데이터베이스 연동', '웹 프로젝트 종합'],
+    8: ['에이전트 + 파이프라인 설계', 'LangChain 에이전트 구성', '자동화 워크플로우', '외부 도구 연동', '멀티 에이전트 패턴', 'AI 자동화 최종 프로젝트'],
+  },
+}
 
-  if (unitId === 2) return beginnerUnit2[stageNum] || `Stage ${stageNum}`
-
-  return `Stage ${stageNum}`
+function getStageDisplayTitle(unitId, stageNum, unitTitle = '', courseLevel = 'beginner') {
+  const fromData = STAGE_TITLES[courseLevel]?.[unitId]?.[stageNum - 1]
+  return fromData ? `Stage ${stageNum} - ${fromData}` : `Stage ${stageNum}`
 }
 
 function UnitIcon({ unitId, className = '' }) {
@@ -557,7 +582,7 @@ export default function LessonHome() {
                             >
                               <span className="lh-paw-node">{s}</span>
                               <span className="lh-paw-content">
-                                <span className="lh-paw-title">{getStageDisplayTitle(lesson.unit_id, s, title)}</span>
+                                <span className="lh-paw-title">{getStageDisplayTitle(lesson.unit_id, s, title, courseLevel)}</span>
                                 <span className="lh-paw-status">
                                   {stageDone ? '완료' : isCurrent ? '진행중' : '잠김'}
                                 </span>
@@ -636,7 +661,7 @@ export default function LessonHome() {
                     <span className="lh-unit-info-label">스테이지 ({lesson.stages}개)</span>
                     <ol className="lh-unit-info-stage-list">
                       {stageNums.map((s) => (
-                        <li key={s}>{getStageDisplayTitle(lesson.unit_id, s, title)}</li>
+                        <li key={s}>{getStageDisplayTitle(lesson.unit_id, s, title, courseLevel)}</li>
                       ))}
                     </ol>
                   </div>
