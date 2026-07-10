@@ -16,8 +16,19 @@ CREATE TABLE IF NOT EXISTS users (
   character text DEFAULT 'slime',
   lv integer DEFAULT 1,
   xp integer DEFAULT 0,
+
+  -- GP·Coin·Ranking
+  coin_balance integer NOT NULL DEFAULT 0,
+  total_coin_earned integer NOT NULL DEFAULT 0,
+  gp integer NOT NULL DEFAULT 0,
+  gp_level_base integer NOT NULL DEFAULT 0,
+  evolution_stage integer NOT NULL DEFAULT 0,
+  ranking_score integer NOT NULL DEFAULT 0,
+  weekly_ranking_score integer NOT NULL DEFAULT 0,
+  legacy_xp_snapshot integer DEFAULT NULL,
+  
   crowns integer DEFAULT 5,
-  streak integer DEFAULT 0,
+  streak integer DEFAULT 0, 
   last_login text,
   daily_free_attempts integer DEFAULT 2,
   last_free_attempt_date text,

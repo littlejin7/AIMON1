@@ -131,12 +131,42 @@ def main(apply: bool) -> None:
 # 가드로 이미 컷오버된 유저를 재실행이 덮어쓰지 않는다. ⚠ 실행 전 users 테이블 백업 필수.
 #
 #   UPDATE users
-#      SET coin_balance         = COALESCE(xp, 0),
-#          total_coin_earned    = COALESCE(xp, 0),
-#          ranking_score        = COALESCE(xp, 0),
-#          gp                   = 0,
-#          weekly_ranking_score = 0,
-#          evolution_stage      = CASE character
+#      SET coin_balance =
+#              COALESCE(coin_balance, 0) + COALESCE(xp, 0),
+#
+#          total_coin_earned =
+#              COALESCE(total_coin_earned, 0) + COALESCE(xp, 0),
+#
+#          ranking_score =
+#              COALESCE(ranking_score, 0) + COALESCE(xp, 0),
+#
+#          gp = COALESCE(gp, 0),
+#
+#          weekly_ranking_score =
+#              COALESCE(weekly_ranking_score, 0),
+#
+#          evolution_stage = GREATEST(
+#              COALESCE(evolution_stage, 0),
+#              CASE character
+#                  WHEN 'robot'         THEN 1
+#                  WHEN 'speech_bubble' THEN 2
+#                  WHEN 'final_ghost'   THEN 3
+#                  ELSE 0
+#              END
+#          ),
+#
+#          gp_level_base = CASE
+#              WHEN character = 'final_ghost' THEN GREATEST(
+#                  COALESCE(gp_level_base, 0),
+#                  COALESCE(lv, 1)
+#              )
+#              ELSE COALESCE(gp_level_base, 0)
+#          END,
+#
+#          legacy_xp_snapshot = COALESCE(xp, 0)
+#
+#    WHERE legacy_xp_snapshot IS NULL
+#      AND deleted_at IS NULL;
 #                                   WHEN 'robot'         THEN 1
 #                                   WHEN 'speech_bubble' THEN 2
 #                                   WHEN 'final_ghost'   THEN 3
