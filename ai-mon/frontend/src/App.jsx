@@ -32,6 +32,28 @@ import AICross from "./pages/Game/AIcross/AICross";
 // 앱 시작 시 Pyodide를 백그라운드에서 미리 로드 (code_input 문제 대비)
 // App.jsx 내의 useEffect에서 처리하도록 이동되었습니다.
 
+const APP_CANVAS_WIDTH = 420;
+
+function useAppViewportScale() {
+  useEffect(() => {
+    const updateScale = () => {
+      if (typeof window === "undefined") return;
+      const viewportWidth = window.visualViewport?.width || window.innerWidth || APP_CANVAS_WIDTH;
+      const viewportHeight = window.visualViewport?.height || window.innerHeight || 0;
+      const scale = Math.min(1, viewportWidth / APP_CANVAS_WIDTH);
+      document.documentElement.style.setProperty("--app-scale", scale.toFixed(4));
+      document.documentElement.style.setProperty("--app-layout-height", `${Math.ceil(viewportHeight / scale)}px`);
+    };
+
+    updateScale();
+    window.addEventListener("resize", updateScale);
+    window.visualViewport?.addEventListener("resize", updateScale);
+    return () => {
+      window.removeEventListener("resize", updateScale);
+      window.visualViewport?.removeEventListener("resize", updateScale);
+    };
+  }, []);
+}
 /** 로그인 필수 경로 */
 function ProtectedRoute({ children }) {
   const token = useAuthStore((s) => s.token);
@@ -46,13 +68,15 @@ function AppLayout({ children }) {
   const hasCompactHeader = !!header?.compact;
 
   return (
-    <div className={`page app-shell${hasHeader ? " has-app-header" : ""}${hasCompactHeader ? " has-compact-app-header" : ""}`}>
-      <AppHeader />
-      <main className="app-main">
-        {children}
-      </main>
+    <>
+      <div className={`page app-shell${hasHeader ? " has-app-header" : ""}${hasCompactHeader ? " has-compact-app-header" : ""}`}>
+        <AppHeader />
+        <main className="app-main">
+          {children}
+        </main>
+      </div>
       <NavBar />
-    </div>
+    </>
   );
 }
 
@@ -74,6 +98,8 @@ export default function App() {
   const theme = useAuthStore((s) => s.theme);
   const [ready, setReady] = useState(false);
 
+  useAppViewportScale();
+  
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme || "dark");
   }, [theme]);
