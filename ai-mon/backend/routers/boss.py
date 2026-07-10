@@ -130,7 +130,7 @@ def get_boss_info(unit: str = "1", user: dict = Depends(get_current_user)):
         
     # 보스 메타데이터 (고정값으로 MVP 구현)
     return {
-        "boss_name": f"코드몬 Unit {unit} 보스",
+        "boss_name": f"Unit {unit} 보스",
         "xp_reward": 3000,
         "hints_allowed": 2,
         "crown_cost_from_attempt": 1,

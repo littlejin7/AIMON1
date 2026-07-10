@@ -121,8 +121,8 @@ export default function BossBattle({
   const parsed = parseQuestionText(currentQuestion.question)
   const badge  = TYPE_BADGE[currentQuestion.type] ?? TYPE_BADGE.multiple_choice
 
-  const isCodeMultiInput = currentQuestion.type === 'code_multi_input'
-  const isCodeType = currentQuestion.type === 'code_input'
+  const isCodeMultiInput = currentQuestion.type === 'code_multi_input' || currentQuestion.type === 'code_input'
+  const isCodeType = false
   const isFibType  = currentQuestion.type === 'fill_in_blank'
   const hasChoice  = !isCodeType && !isFibType && !isCodeMultiInput && currentQuestion.choices?.length > 0
   
@@ -431,60 +431,6 @@ export default function BossBattle({
                   placeholder="빈칸 줄 전체를 입력하세요..."
                   disabled={loading || !!aiResult}
                   onKeyDown={e => { if (e.key === 'Enter' && singleLineValue.trim() && !aiResult) onSubmit() }}
-                />
-              </div>
-            </div>
-          )}
-
-           {isCodeType && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {codeTypeChoices && codeTypeChoices.length > 0 && (
-                <div className="eb-b-choices-wrap" style={{ marginBottom: '8px' }}>
-                  <div style={{ fontSize: '11px', fontWeight: 600, color: '#4C4465', marginBottom: '6px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span>{isSingleAnswer ? '알맞은 코드를 입력하세요.' : '코드 조각을 순서에 맞게 바르게 입력하세요.'}</span>
-                    <button 
-                      type="button" 
-                      onClick={() => !loading && !aiResult && setAnswerInput('')} 
-                      disabled={loading || !!aiResult}
-                      style={{
-                        background: 'transparent', border: 'none', color: '#DC2626', fontSize: '10px', cursor: 'pointer', fontWeight: 600
-                      }}
-                    >
-                      전체 지우기
-                    </button>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                    {codeTypeChoices.map((choice, idx) => (
-                      <div
-                        key={idx}
-                        style={{
-                          textAlign: 'left',
-                          background: '#F3F4F6',
-                          border: '1px solid #E5E7EB',
-                          borderRadius: '6px',
-                          padding: '6px 10px',
-                          fontFamily: "'D2Coding', monospace",
-                          fontSize: '14px',
-                          color: '#1F2937',
-                          whiteSpace: 'pre-wrap',
-                          wordBreak: 'break-all',
-                        }}
-                      >
-                        {choice}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <div className="eb-b-editor">
-                <div className="eb-b-edlbl"># 코드를 작성하세요</div>
-                <textarea
-                  className="eb-b-edta"
-                  rows={5}
-                  value={answerInput}
-                  onChange={e => setAnswerInput(e.target.value)}
-                  placeholder="여기에 코드 작성..."
                 />
               </div>
             </div>
