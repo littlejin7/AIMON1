@@ -222,6 +222,7 @@ export default function AIbomb() {
           </div>
         </div>
       )}
-    </div>
+      </div>
+    </GameScaleFrame>
   );
 }
