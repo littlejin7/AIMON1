@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { trainApi, progressApi, quizApi, attemptsApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import TrainLocked       from './TrainLocked'
@@ -13,6 +13,7 @@ import './Train.css'
 export default function Train() {
   const { token, user } = useAuthStore()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
 
   const [questions, setQuestions]         = useState([])
   const [currentUnit, setCurrentUnit]     = useState(null)          // null = 전체
@@ -34,6 +35,7 @@ export default function Train() {
   const [completedStageCount, setCompletedStageCount] = useState(0)
 
   const activeLevel = trainingLevel || user?.course_level || 'beginner'
+  const resultPreview = searchParams.get('result')
 
   // 잠금 체크 — 로그인 후 1회
   useEffect(() => {
@@ -225,6 +227,21 @@ export default function Train() {
   const finishTraining = async (finalCorrect) => {
     setCorrectCount(finalCorrect)
     setMode('result')
+  }
+
+  if (resultPreview === 'perfect' || resultPreview === 'complete') {
+    const previewTotal = Math.max(Number(searchParams.get('total')) || 10, 1)
+    const previewCorrect = resultPreview === 'perfect'
+      ? previewTotal
+      : Math.max(previewTotal - 2, 0)
+
+    return (
+      <TrainResult
+        correctCount={previewCorrect}
+        total={previewTotal}
+        onDone={() => navigate('/train', { replace: true })}
+      />
+    )
   }
 
   //if (!token) return <TrainLocked reason="login" />   // 비로그인 잠금화면
