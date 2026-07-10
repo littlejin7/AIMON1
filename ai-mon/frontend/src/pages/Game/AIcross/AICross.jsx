@@ -4,6 +4,7 @@ import { incrementGamePlay } from '../Game'
 import { aicrossApi } from '../../../api'
 import { useAuthStore } from '../../../hooks/useAuthStore'
 import useGameBgm from '../../../hooks/useGameBgm'
+import GameScaleFrame from '../GameScaleFrame'
 import { CHAR_ICONS } from '../../Character/characterData'
 import TitleBlock from './components/TitleBlock'
 import WinModal from './components/WinModal'
@@ -331,9 +332,10 @@ export default function AICross() {
   const currentIsCompleted = setIndex !== null && completedSets.includes(setIndex)
 
   return (
-    <div className="aicross-wrap" ref={wrapRef} tabIndex={-1}>
+    <GameScaleFrame baseHeight={null} background="#ece2fb" scaleMode="width" frameOverflow="visible">
+      <div className="aicross-wrap" ref={wrapRef} tabIndex={-1}>
       <button className="aicross-back" onClick={() => navigate('/game')}>✕</button>
-
+        
       <TitleBlock setLabel={setLabel} />
 
       {progress && (
@@ -440,6 +442,7 @@ export default function AICross() {
           </div>
         </div>
       )}
-    </div>
+      </div>
+    </GameScaleFrame>
   )
 }
