@@ -69,7 +69,11 @@ export default function StageResult({
       )}
 
       {/* 결과 아이콘 */}
-      <div className="result-icon animate-float">
+      <div
+        className="result-icon animate-float"
+        draggable={false}
+        onDragStart={(event) => event.preventDefault()}
+      >
         {passed
           ? <img src={stageClearIcon} alt="클리어" />
           : <img src={stageFailIcon} alt="실패" />

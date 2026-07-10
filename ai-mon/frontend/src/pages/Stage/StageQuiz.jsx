@@ -67,7 +67,11 @@ export default function StageQuiz({
         <div className="mb-content">
 
           {/* 보스 영역 */}
-          <div className="mb-boss-area">
+          <div
+            className="mb-boss-area"
+            draggable={false}
+            onDragStart={(event) => event.preventDefault()}
+          >
             <img
               src={villainIcon}
               alt="미니보스"

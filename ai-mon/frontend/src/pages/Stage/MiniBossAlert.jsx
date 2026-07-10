@@ -5,7 +5,11 @@ export default function MiniBossAlert({ onFight }) {
     <div className="stage-page villain-mode">
       <div className="boss-container" style={{ paddingTop: '2rem' }}>
         <div className="boss-card intro-card card-glass animate-fade-in-up">
-          <div className="boss-avatar animate-float">
+          <div
+            className="boss-avatar animate-float"
+            draggable={false}
+            onDragStart={(event) => event.preventDefault()}
+          >
             <img src={villainIcon} alt="미니보스" />
           </div>
           <h1 className="boss-title">‼️ 미니보스 등장!</h1>
