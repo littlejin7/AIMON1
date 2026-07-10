@@ -633,8 +633,12 @@ export default function LessonHome() {
                   </div>
 
                   <div className="lh-unit-info-section">
-                    <span className="lh-unit-info-label">스테이지</span>
-                    <p className="lh-unit-info-value">{lesson.stages}개 스테이지</p>
+                    <span className="lh-unit-info-label">스테이지 ({lesson.stages}개)</span>
+                    <ol className="lh-unit-info-stage-list">
+                      {stageNums.map((s) => (
+                        <li key={s}>{getStageDisplayTitle(lesson.unit_id, s, title)}</li>
+                      ))}
+                    </ol>
                   </div>
 
                   <button
