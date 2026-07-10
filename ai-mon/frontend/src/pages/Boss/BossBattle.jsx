@@ -210,7 +210,7 @@ export default function BossBattle({
         <div className="eb-b-ground-bot" />
 
         {/* 플레이어 HP 박스 — 상단 왼쪽 */}
-        <div className={`eb-b-player-hpbox${myShake ? ' shake' : ''}`} style={{ top: '12px', bottom: 'auto', left: '12px' }}>
+        <div className={`eb-b-player-hpbox${myShake ? ' shake' : ''}`}>
           <div className="eb-b-hp-bar-wrap">
             <span className="eb-b-hp-label">HP</span>
             <div className="eb-b-hp-track">
@@ -221,7 +221,7 @@ export default function BossBattle({
         </div>
 
         {/* 보스 HP 박스 — 상단 오른쪽 */}
-        <div className="eb-b-boss-hpbox" style={{ top: '12px' }}>
+        <div className="eb-b-boss-hpbox">
           <div className="eb-b-hp-name">{bossData?.boss_name || '코드몬 보스'}</div>
           <div className="eb-b-hp-bar-wrap">
             <span className="eb-b-hp-label">HP</span>
@@ -229,22 +229,10 @@ export default function BossBattle({
               <div className="eb-b-hp-fill" style={{ width: `${bossPct}%`, background: bossHpGrad }} />
             </div>
           </div>
-          <Canvas
-            camera={{ position: [0, 0, 3], fov: 40 }}
-            style={{ background: 'transparent' }}
-            gl={{ alpha: true }}
-          >
-            <ambientLight intensity={3} />
-            <directionalLight position={[2, 4, 2]} intensity={2.0} />
-            <directionalLight position={[-2, 2, 2]} intensity={1.0} />
-            <Suspense fallback={null}>
-              <PlayerModel3D myShake={myShake} attackAnim={attackAnim} character={user?.character} position={[0, -0.9, 0]} rotation={[0, Math.PI * 0.15, 0]} />
-            </Suspense>
-          </Canvas>
         </div>
 
         {/* 보스 3D 캐릭터 — 하단 오른쪽 */}
-        <div className={`eb-b-boss-canvas${bossHit ? ' hit-red' : ''}`} style={{ bottom: '10px', top: 'auto', right: '-25px', width: '220px', height: '220px' }}>
+        <div className={`eb-b-boss-canvas${bossHit ? ' hit-red' : ''}`}>
           <Canvas
             camera={{ position: [0, 0, 3], fov: 40 }}
             style={{ background: 'transparent' }}

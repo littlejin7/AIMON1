@@ -30,10 +30,13 @@
 .eb-b-boss-hpbox,
 .eb-b-player-hpbox {
   position: absolute;
-  min-width: 170px;
+  top: 12px;
+  z-index: 6;
+  width: min(42%, 170px);
+  min-width: 0;
 }
-.eb-b-boss-hpbox   { top: 8px; right: 8px; }
-.eb-b-player-hpbox { bottom: -8px; left: 8px; }
+.eb-b-boss-hpbox   { right: 12px; }
+.eb-b-player-hpbox { left: 12px; }
 .eb-b-player-hpbox.shake { animation: eb-b-shake .4s ease; }
 @keyframes eb-b-shake {
   0%,100%{transform:translateX(0)}
@@ -58,16 +61,43 @@
 
 /* 보스 3D 캔버스 */
 .eb-b-boss-canvas {
-  position: absolute; top: 15px; right: -0px;
-  width: 220px; height: 220px;
+  position: absolute;
+  right: -18px;
+  bottom: 10px;
+  width: 205px;
+  height: 205px;
   pointer-events: none;
+  z-index: 2;
 }
 
 /* 플레이어 3D 캔버스 */
 .eb-b-player-canvas {
-  position: absolute; bottom: 25px; left: -0px;
-  width: 139px; height: 139px;
+  position: absolute;
+  bottom: 22px;
+  left: 18px;
+  width: 132px;
+  height: 132px;
   pointer-events: none;
+  z-index: 3;
+}
+
+@media (max-width: 420px) {
+  .eb-b-boss-hpbox,
+  .eb-b-player-hpbox {
+    width: calc(50% - 22px);
+  }
+
+  .eb-b-boss-canvas {
+    right: -12px;
+    width: 190px;
+    height: 190px;
+  }
+
+  .eb-b-player-canvas {
+    left: 20px;
+    width: 118px;
+    height: 118px;
+  }
 }
 
 /* 피격 빨간 틴트 */
