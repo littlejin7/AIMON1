@@ -64,6 +64,14 @@ function messageForLoadError(info) {
   return { status, message: '문제를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.' }
 }
 
+function messageForMinibossError(error) {
+  const info = getApiErrorInfo(error)
+  const detail = typeof info?.detail === 'string' ? info.detail : null
+  if (detail) return `미니보스 시작 실패: ${detail}`
+  if (info?.status) return `미니보스 시작 실패: 서버 응답 ${info.status}`
+  return `미니보스 시작 실패: ${info?.message || error?.message || '알 수 없는 오류'}`
+}
+
 // 완료(is_completed) 저장은 다음 스테이지 진입 게이트의 근거다 — 유실되면 진입 불가
 // (실제 사례: de0040ab). fire-and-forget 대신 await + 실패 재시도(최대 attempts 회).
 // 최종 실패는 throw 해서 호출부가 처리(미니보스 스테이지는 서버 clearBoss 가 이미
@@ -269,7 +277,8 @@ export default function Stage({ _lessonId, _stage }) {
             setCorrect(0)
             setMinibossHp({ my_hp: 900, boss_hp: 500 })
           } catch (err) {
-            console.error("체크포인트 미니보스 로드 실패", err)
+            logApiError('체크포인트 미니보스 로드 실패', err)
+            setMinibossLoadErrorMsg(messageForMinibossError(err))
           }
         }
 
@@ -322,7 +331,8 @@ export default function Stage({ _lessonId, _stage }) {
       playBGM('miniboss_intro')
       setShowMinibossAlert(true)
     } catch (err) {
-      setMinibossLoadErrorMsg('미니보스 로드 실패: ' + (err?.message || err))
+      logApiError('미니보스 바로가기 로드 실패', err)
+      setMinibossLoadErrorMsg(messageForMinibossError(err))
 
     }
   }
@@ -388,8 +398,8 @@ export default function Stage({ _lessonId, _stage }) {
 
       playBGM('miniboss_intro')
     } catch (err) {
-      console.error('미니보스 재도전 로드 실패', err)
-      setMinibossLoadErrorMsg('미니보스 로드 실패: ' + (err?.message || err))
+      logApiError('미니보스 재도전 로드 실패', err)
+      setMinibossLoadErrorMsg(messageForMinibossError(err))
     }
   }
 
@@ -532,8 +542,9 @@ export default function Stage({ _lessonId, _stage }) {
           setShowMinibossAlert(true)
           return
         } catch (err) {
-          console.error("미니보스 시작 실패", err)
-          // 미니보스가 없다면 그대로 스테이지 클리어로 진행
+          logApiError('미니보스 시작 실패', err)
+          setMinibossLoadErrorMsg(messageForMinibossError(err))
+          return
         }
       }
       if (currentCategory === 'stage_quiz') {

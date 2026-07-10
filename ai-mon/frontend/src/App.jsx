@@ -168,8 +168,15 @@ export default function App() {
 
         {/* ── Private Routes: 로그인 필수 ── */}
 
-        {/* 유닛 상세 → 레슨홈으로 리다이렉트 */}
-        <Route path="/lesson/:id" element={<Navigate to="/lesson" replace />} />
+        {/* 유닛 상세: 레슨홈에서 해당 유닛을 펼침 */}
+        <Route
+          path="/lesson/:id"
+          element={
+            <AppLayout>
+              <LessonHome />
+            </AppLayout>
+          }
+        />
 
         {/* 스테이지 퀴즈 (1-1 제외한 모든 스테이지) */}
         <Route

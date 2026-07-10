@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { quizApi, progressApi, userApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import LevelTestModal from '../../components/LevelTestModal/LevelTestModal'
@@ -221,6 +221,8 @@ export default function LessonHome() {
   const token      = useAuthStore((s) => s.token)
   const updateUser = useAuthStore((s) => s.updateUser)
   const navigate   = useNavigate()
+  const { id: routeUnitId } = useParams()
+  const routeExpandedUnit = Number.parseInt(routeUnitId, 10)
 
   const [showLevelTest, setShowLevelTest] = useState(false)
   const [pendingUnitId, setPendingUnitId] = useState(null)
@@ -228,7 +230,9 @@ export default function LessonHome() {
   const [lessons,  setLessons]  = useState([])
   const [progress, setProgress] = useState([])
   const [loading,  setLoading]  = useState(true)
-  const [expandedUnit, setExpandedUnit] = useState(1)
+  const [expandedUnit, setExpandedUnit] = useState(
+    Number.isInteger(routeExpandedUnit) ? routeExpandedUnit : 1
+  )
   const [unitInfoOpen, setUnitInfoOpen] = useState(false)
 
   const courseLevel = user?.course_level || 'beginner'
@@ -271,13 +275,17 @@ export default function LessonHome() {
   // 진행 중인 유닛 자동 펼치기
   useEffect(() => {
     if (lessons.length === 0) return
+    if (Number.isInteger(routeExpandedUnit) && lessons.some((l) => l.unit_id === routeExpandedUnit)) {
+      setExpandedUnit(routeExpandedUnit)
+      return
+    }
     const currentUnit = lessons.find((l) => {
       if (l.unit_id > maxUnlocked) return false
       const prog = getUnitProgress(l.unit_id, l.stages)
       return prog.completed < l.stages
     })
     if (currentUnit) setExpandedUnit(currentUnit.unit_id)
-  }, [lessons, progress])
+  }, [lessons, progress, routeExpandedUnit, maxUnlocked])
 
   useEffect(() => {
     if (!unitInfoOpen) return
@@ -297,7 +305,10 @@ export default function LessonHome() {
         const res = await userApi.updateMe({ course_level: levelKey, is_level_tested: true })
         updateUser(res.data)
       }
-      if (pendingUnitId) navigate(`/lesson/${pendingUnitId}`)
+      if (pendingUnitId) {
+        setExpandedUnit(pendingUnitId)
+        navigate(`/lesson/${pendingUnitId}`)
+      }
     } catch {
       setLevelTestErrorMsg('레벨 설정 변경에 실패했습니다.')
     } finally {

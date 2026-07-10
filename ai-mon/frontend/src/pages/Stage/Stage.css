@@ -159,6 +159,11 @@
   background: radial-gradient(circle at 50% 0%, rgba(139, 0, 0, 0.15) 0%, var(--clr-bg) 70%);
 }
 
+.stage-page.villain-mode .boss-avatar,
+.stage-page.villain-mode .boss-avatar img {
+  pointer-events: none;
+}
+
 .villain-emoji {
   width: 200px;
   height: 200px;
