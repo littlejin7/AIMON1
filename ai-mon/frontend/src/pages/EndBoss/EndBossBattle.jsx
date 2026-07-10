@@ -80,7 +80,7 @@ export default function EndBossBattle({
   questionNum,
   questionTotal,
 }) {
-  const BOSS_HP_MAX = 1800
+  const BOSS_HP_MAX = 1400
   const MY_HP_MAX   = 1200
 
   const bossPct = Math.max(0, (bossHp / BOSS_HP_MAX) * 100)
@@ -305,7 +305,7 @@ export default function EndBossBattle({
             <div className="eb-b-terminal" style={{ background: '#1E1B4B' }}>
               <pre style={{
                 fontFamily: "'D2Coding', monospace", fontSize: '13px',
-                lineHeight: '1.8', color: '#E9D5FF', whiteSpace: 'pre-wrap', margin: 0,
+                lineHeight: '1.8', color: '#E9D5FF', whiteSpace: 'pre-wrap', overflowWrap: 'anywhere', wordBreak: 'break-word', margin: 0,
               }}>
                 {currentQuestion.code_template ? currentQuestion.code_template.split('\n').map((line, lineIdx) => {
                   const hasSlot = /\{slot\d+\}/.test(line)
@@ -313,7 +313,7 @@ export default function EndBossBattle({
                     const indentMatch = line.match(/^(\s*)/)
                     const indent = indentMatch ? indentMatch[1] : ''
                     return (
-                      <div key={lineIdx} style={{ display: 'flex', alignItems: 'center', minHeight: '26px' }}>
+                      <div key={lineIdx} style={{ display: 'flex', alignItems: 'center', minHeight: '26px', flexWrap: 'wrap' }}>
                         <span style={{ whiteSpace: 'pre' }}>{indent}</span>
                         <span style={{
                           display: 'inline-block',
@@ -331,8 +331,8 @@ export default function EndBossBattle({
                     )
                   }
                   return (
-                    <div key={lineIdx} style={{ display: 'flex', alignItems: 'center', minHeight: '26px' }}>
-                      <span style={{ whiteSpace: 'pre-wrap' }}>{line}</span>
+                    <div key={lineIdx} style={{ minHeight: '26px' }}>
+                      <span style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere', wordBreak: 'break-word' }}>{line}</span>
                     </div>
                   )
                 }) : null}
