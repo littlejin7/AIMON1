@@ -604,7 +604,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 /* ── 유닛별 테마 변수 정의 ── */
 
-.lh-unit-node.unit-1,
+.lh-unit-node.unit-1 {
+
+  --unit-accent: #D96F7A;
+
+  --unit-soft: #FFF5F6;
+
+  --unit-border: #F0C7CC;
+
+}
 
 .lh-selected-unit-card.unit-1 {
 
@@ -616,7 +624,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 }
 
-.lh-unit-node.unit-2,
+.lh-unit-node.unit-2 {
+
+  --unit-accent: #E28A45;
+
+  --unit-soft: #FFF7EF;
+
+  --unit-border: #F2D1B2;
+
+}
 
 .lh-selected-unit-card.unit-2 {
 
@@ -628,7 +644,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 }
 
-.lh-unit-node.unit-3,
+.lh-unit-node.unit-3 {
+
+  --unit-accent: #C9A227;
+
+  --unit-soft: #FFFBEA;
+
+  --unit-border: #EAD98D;
+
+}
 
 .lh-selected-unit-card.unit-3 {
 
@@ -640,7 +664,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 }
 
-.lh-unit-node.unit-4,
+.lh-unit-node.unit-4 {
+
+  --unit-accent: #55A98A;
+
+  --unit-soft: #F0FBF6;
+
+  --unit-border: #A8D9C6;
+
+}
 
 .lh-selected-unit-card.unit-4 {
 
@@ -652,7 +684,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 }
 
-.lh-unit-node.unit-5,
+.lh-unit-node.unit-5 {
+
+  --unit-accent: #5C8FE8;
+
+  --unit-soft: #F2F7FF;
+
+  --unit-border: #B9D1FA;
+
+}
 
 .lh-selected-unit-card.unit-5 {
 
@@ -664,7 +704,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 }
 
-.lh-unit-node.unit-6,
+.lh-unit-node.unit-6 {
+
+  --unit-accent: #6674D8;
+
+  --unit-soft: #F4F6FF;
+
+  --unit-border: #BBC3F4;
+
+}
 
 .lh-selected-unit-card.unit-6 {
 
@@ -676,7 +724,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 }
 
-.lh-unit-node.unit-7,
+.lh-unit-node.unit-7 {
+
+  --unit-accent: #9270D8;
+
+  --unit-soft: #F7F2FF;
+
+  --unit-border: #D0BFF0;
+
+}
 
 .lh-selected-unit-card.unit-7 {
 
@@ -688,7 +744,15 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 }
 
-.lh-unit-node.unit-8,
+.lh-unit-node.unit-8 {
+
+  --unit-accent: #CC75A8;
+
+  --unit-soft: #FFF4FA;
+
+  --unit-border: #EABFDB;
+
+}
 
 .lh-selected-unit-card.unit-8 {
 
@@ -938,9 +1002,9 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 .lh-unit-node.current .lh-unit-node-icon-wrap {
 
-  width: 70px;
+  width: 68px;
 
-  height: 70px;
+  height: 68px;
 
   border: 2px solid var(--unit-accent, #7F77DD);
 
@@ -1004,7 +1068,7 @@ body:has(.lh-page) { background: #F4F3FA; }
 
   background: #7F77DD;
 
-  color: #B8FF6A;
+  color: #FFFFFF;
 
   font-size: 9px;
 
