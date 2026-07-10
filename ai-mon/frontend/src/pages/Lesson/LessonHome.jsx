@@ -204,6 +204,7 @@ export default function LessonHome() {
   const [progress, setProgress] = useState([])
   const [loading,  setLoading]  = useState(true)
   const [expandedUnit, setExpandedUnit] = useState(1)
+  const [unitInfoOpen, setUnitInfoOpen] = useState(false)
 
   const courseLevel = user?.course_level || 'beginner'
   const activeLevelIdx = LEVEL_MAP[courseLevel]?.idx ?? 0
@@ -252,6 +253,16 @@ export default function LessonHome() {
     })
     if (currentUnit) setExpandedUnit(currentUnit.unit_id)
   }, [lessons, progress])
+
+  useEffect(() => {
+    if (!unitInfoOpen) return
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = '' }
+  }, [unitInfoOpen])
+
+  useEffect(() => {
+    setUnitInfoOpen(false)
+  }, [expandedUnit])
 
   const handleLevelTestFinish = async (levelKey, updatedUser) => {
     try {
@@ -442,6 +453,7 @@ export default function LessonHome() {
           }
 
           return (
+            <>
             <section className={`lh-selected-unit-card unit-${lesson.unit_id} ${!unlocked ? 'locked' : ''}`}>
               <div className="lh-selected-unit-head">
                 <div className="lh-selected-unit-icon">
@@ -450,7 +462,11 @@ export default function LessonHome() {
                 <div className="lh-selected-unit-info">
                   <div className="lh-selected-unit-meta-row">
                     <span className="lh-selected-unit-kicker">UNIT {lesson.unit_id}</span>
-                    <button type="button" className="lh-selected-unit-info-pill no-3d">
+                    <button
+                      type="button"
+                      className="lh-selected-unit-info-pill no-3d"
+                      onClick={() => setUnitInfoOpen(true)}
+                    >
                       유닛 정보
                     </button>
                   </div>
@@ -590,6 +606,48 @@ export default function LessonHome() {
                 )
               })()}
             </section>
+
+            {unitInfoOpen && (
+              <div className="lh-unit-info-overlay" onClick={() => setUnitInfoOpen(false)}>
+                <div className="lh-unit-info-card" onClick={(e) => e.stopPropagation()}>
+                  <div className="lh-unit-info-header">
+                    <h3>Unit {lesson.unit_id} 정보</h3>
+                    <button
+                      type="button"
+                      className="lh-unit-info-close no-3d"
+                      onClick={() => setUnitInfoOpen(false)}
+                      aria-label="닫기"
+                    >
+                      ✕
+                    </button>
+                  </div>
+
+                  <div className="lh-unit-info-section">
+                    <span className="lh-unit-info-label">유닛명</span>
+                    <p className="lh-unit-info-value">{lesson.title}</p>
+                  </div>
+
+                  <div className="lh-unit-info-section">
+                    <span className="lh-unit-info-label">설명</span>
+                    <p className="lh-unit-info-value">{lesson.description || '설명이 등록되지 않았습니다.'}</p>
+                  </div>
+
+                  <div className="lh-unit-info-section">
+                    <span className="lh-unit-info-label">스테이지</span>
+                    <p className="lh-unit-info-value">{lesson.stages}개 스테이지</p>
+                  </div>
+
+                  <button
+                    type="button"
+                    className="lh-unit-info-close-btn no-3d"
+                    onClick={() => setUnitInfoOpen(false)}
+                  >
+                    닫기
+                  </button>
+                </div>
+              </div>
+            )}
+            </>
           )
         })()}
 
