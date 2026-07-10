@@ -496,7 +496,6 @@ export default function LessonHome() {
                     </button>
                   </div>
                   <h2>{title}</h2>
-                  <p>{lesson.description || `${prog.completed} / ${lesson.stages} 스테이지 완료`}</p>
                 </div>
               </div>
 
