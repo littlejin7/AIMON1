@@ -1,16 +1,19 @@
 .navbar {
   position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: 50%;
+  width: var(--app-canvas-width, 420px);
   z-index: var(--z-nav);
   padding: 0 env(safe-area-inset-right) env(safe-area-inset-bottom);
   background: #FFFFFF;
   border-top: 0.5px solid #E2E1EE;
+  overflow: hidden;
+  transform: translateX(-50%) scale(var(--app-scale));
+  transform-origin: bottom center;
 }
 
 .navbar-inner {
-  max-width: 480px;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   align-items: center;
