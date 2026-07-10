@@ -25,6 +25,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AIbomb.css';
 
+import GameScaleFrame from '../GameScaleFrame';
 import { useAudio }   from './hooks/useAudio';
 import { useTapGame } from './hooks/useTapGame';
 import useGameBgm     from '../../../hooks/useGameBgm';
@@ -61,7 +62,8 @@ export default function AIbomb() {
   const ringPct = game.timeLeft / timer.initialTime;
 
   return (
-    <div className="bd-root">
+    <GameScaleFrame background="#F4F3FA">
+      <div className="bd-root">
       <div className={`bd-screen ${game.shake ? 'bd-bomb-stage--shake' : ''}`}>
 
         {/* ── 상단 바(공통) ── */}
