@@ -71,6 +71,9 @@ export default function EndBoss() {
   const submitLockRef = useRef(false)
   const shownPhaseIntroRef = useRef(new Set())
   const phaseTimerRef = useRef(null)
+  // 서버 권위 전투 세션 토큰 — /start 에서 발급받아 /answer·/clear 에 동봉한다.
+  // (HP/페이즈/승리는 서버 세션이 소유. 이 토큰 없이는 /clear 가 보상을 주지 않음.)
+  const battleTokenRef = useRef(null)
 
   const clearPhaseTimer = () => {
     if (phaseTimerRef.current) {
@@ -179,6 +182,7 @@ export default function EndBoss() {
       if (!project) throw new Error('프로젝트를 선택해주세요.')
       const res = await endbossApi.startBattle(project, selectedLevel)
       const d = res.data
+      battleTokenRef.current = d.battle_token || null
       setEndbossState({
         project: d.project,
         phase: d.phase,
@@ -246,9 +250,7 @@ export default function EndBoss() {
         question_id: currentQuestion.question_id,
         user_answer: userAnswer,
         phase: endbossState.phase,
-        my_hp: myHp,
-        boss_hp: bossHp,
-        phase3_tries: endbossState.phase3Tries,
+        battle_token: battleTokenRef.current,
         project: endbossState.project,
         ...(selectedLevel && { target_level: selectedLevel }),
       })
@@ -273,7 +275,7 @@ export default function EndBoss() {
           phaseTimerRef.current = window.setTimeout(async () => {
             phaseTimerRef.current = null
             try {
-              const clearRes = await endbossApi.clearBoss(endbossState.project, selectedLevel)
+              const clearRes = await endbossApi.clearBoss(endbossState.project, selectedLevel, battleTokenRef.current)
               setClearResult(clearRes?.data || null)
               if (clearRes?.data?.newly_earned_titles?.length > 0) {
                 setNewlyEarnedTitles(clearRes.data.newly_earned_titles)

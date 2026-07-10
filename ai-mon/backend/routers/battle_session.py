@@ -184,6 +184,114 @@ def consume_session(u: dict, sid: str) -> None:
     u["battle_sessions"] = sessions
 
 
+# ── 엔드보스 3-페이즈 세션 (phase1~2 HP 게이트 → phase3 승리) ──────────────────
+# 엔드보스는 miniboss/unitboss 의 '정답 N개 누적 = 승리' 모델과 다르다:
+#   phase1~2 는 보스 HP(정답으로 차감)·내 HP(오답으로 차감) 게이트이고, phase3 는
+#   그 게이트를 통과(boss_hp<=0)한 뒤 정답 1개로 승리한다. 그래서 generic apply_answer
+#   대신 페이즈를 아는 전용 apply 를 둔다. status: active → won / lost.
+#
+# 클리어 보상(endboss /clear)은 이 세션 status=="won" 일 때만 허용한다 — /answer 로
+# phase3 를 실제로 맞혀야만 won 이 되므로, /clear 직접 호출로 보상 탈취가 불가능하다.
+
+def create_endboss_session(u: dict, sid: str, level: str, project: str,
+                           boss_hp_init: int, my_hp_init: int, phase3_max_tries: int) -> None:
+    """엔드보스 전투 세션을 생성/초기화한다. (mutator 안에서 호출 — 제자리 변경)"""
+    now_ts = int(now_kst().timestamp())
+    sessions = _prune(_sessions(u), now_ts)
+    sessions[sid] = {
+        "sid": sid,
+        "mode": "endboss",
+        "level": level,
+        "project": project,
+        "boss_hp": int(boss_hp_init),
+        "my_hp": int(my_hp_init),
+        "correct_qids": [],            # phase1~2 distinct 정답 (같은 문제 반복 정답 → 보스 HP 이중 차감 방지)
+        "phase3_tries": 0,
+        "phase3_max_tries": int(phase3_max_tries),
+        "phase3_unlocked": False,      # boss_hp<=0 도달 시 개방(=phase3 진입 허용). 승리 아님.
+        "status": "active",
+        "exp": now_ts + BATTLE_TOKEN_TTL,
+    }
+    u["battle_sessions"] = sessions
+
+
+def _endboss_view(sess: dict) -> dict:
+    """라우터로 돌려줄 엔드보스 세션 스냅샷 (표시용 HP 는 서버 세션이 소유)."""
+    return {
+        "sid": sess.get("sid"),
+        "level": sess.get("level"),
+        "project": sess.get("project"),
+        "boss_hp": int(sess.get("boss_hp", 0)),
+        "my_hp": int(sess.get("my_hp", 0)),
+        "correct": len(sess.get("correct_qids", [])),
+        "phase3_tries": int(sess.get("phase3_tries", 0)),
+        "phase3_unlocked": bool(sess.get("phase3_unlocked", False)),
+        "status": sess.get("status", "active"),
+    }
+
+
+def get_endboss_session(u: dict, sid: str) -> Optional[dict]:
+    """엔드보스 세션 스냅샷 조회 (만료분 prune 후). 없으면 None."""
+    now_ts = int(now_kst().timestamp())
+    sessions = _prune(_sessions(u), now_ts)
+    u["battle_sessions"] = sessions
+    sess = sessions.get(sid)
+    return _endboss_view(sess) if sess else None
+
+
+def apply_endboss_answer(u: dict, payload: dict, qid: str, phase: int, is_correct: bool,
+                         *, boss_hp_delta: int, my_hp_delta: int) -> dict:
+    """서버 채점 결과(is_correct)로 엔드보스 세션을 갱신하고 스냅샷을 반환.
+
+    phase 1~2:
+      - 정답: distinct qid 1건당 boss_hp -= delta (같은 문제 반복 정답은 무카운트 → 리플레이 방어)
+      - 오답: my_hp -= delta
+      - my_hp<=0 → status="lost"  /  boss_hp<=0 → phase3_unlocked=True (승리 아님)
+    phase 3:
+      - phase3_unlocked 여야 유효(boss_hp<=0 게이트 통과 강제 — 우회 진입 차단)
+      - 정답 → status="won"  /  오답 → phase3_tries+1, tries>=max → status="lost"
+    이미 won/lost 인 세션은 멱등하게 현재 스냅샷만 반환. 세션 없음/만료 시 400.
+    """
+    now_ts = int(now_kst().timestamp())
+    sessions = _prune(_sessions(u), now_ts)
+    sid = payload.get("sid")
+    sess = sessions.get(sid)
+    if not sess:
+        raise HTTPException(status_code=400, detail="전투 세션이 만료되었거나 존재하지 않습니다. 다시 시작해주세요.")
+
+    if sess.get("status") in ("won", "lost"):
+        u["battle_sessions"] = sessions  # prune 반영
+        return _endboss_view(sess)
+
+    if phase in (1, 2):
+        correct_qids = sess.setdefault("correct_qids", [])
+        if is_correct:
+            if qid and qid not in correct_qids:
+                correct_qids.append(qid)
+                sess["boss_hp"] = max(0, int(sess.get("boss_hp", 0)) - int(boss_hp_delta))
+        else:
+            sess["my_hp"] = max(0, int(sess.get("my_hp", 0)) - int(my_hp_delta))
+
+        if int(sess.get("my_hp", 0)) <= 0:
+            sess["status"] = "lost"
+        elif int(sess.get("boss_hp", 0)) <= 0:
+            sess["phase3_unlocked"] = True
+    else:
+        # phase 3 — phase1~2 게이트(boss_hp<=0) 통과 후에만 유효. 우회 진입 시도 차단.
+        if not sess.get("phase3_unlocked"):
+            raise HTTPException(status_code=400, detail="아직 최종 관문에 진입할 수 없습니다.")
+        if is_correct:
+            sess["status"] = "won"
+        else:
+            sess["phase3_tries"] = int(sess.get("phase3_tries", 0)) + 1
+            if sess["phase3_tries"] >= int(sess.get("phase3_max_tries", 3)):
+                sess["status"] = "lost"
+
+    sessions[sid] = sess
+    u["battle_sessions"] = sessions
+    return _endboss_view(sess)
+
+
 # ── 객관식/단답 서버 채점 (boss·miniboss·attempts 공용) ──────────────────────
 
 def grade_objective(user_answer: str, correct_answer: str) -> bool:

@@ -74,7 +74,7 @@ export const endbossApi = {
   getInfo:       (targetLevel)        => api.get('/boss/endboss/info', { params: targetLevel ? { target_level: targetLevel } : {} }),
   startBattle:   (project, targetLevel) => api.post('/boss/endboss/start', { project, ...(targetLevel && { target_level: targetLevel }) }),
   submitAnswer:  (data)                => api.post('/boss/endboss/answer', data),
-  clearBoss:     (project, targetLevel) => api.post('/boss/endboss/clear', { project, ...(targetLevel && { target_level: targetLevel }) }),
+  clearBoss:     (project, targetLevel, battleToken) => api.post('/boss/endboss/clear', { project, battle_token: battleToken, ...(targetLevel && { target_level: targetLevel }) }),
 }
 
 export const minibossApi = {

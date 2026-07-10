@@ -14,6 +14,15 @@ from fastapi import HTTPException
 
 import routers.endboss as E
 import routers.utils as U
+from routers.battle_session import make_battle_token, create_endboss_session
+
+
+def _won_battle_token(user, level, project="account"):
+    """엔드보스 won 세션을 user(파일 저장 전)에 심고 대응 battle_token 을 반환."""
+    token, sid = make_battle_token(E.MODE, None, level, user["id"])
+    create_endboss_session(user, sid, level, project, E.BOSS_HP_INIT, E.MY_HP_INIT, E.PHASE3_MAX_TRIES)
+    user["battle_sessions"][sid]["status"] = "won"
+    return token
 
 
 def _make_user(**overrides):
@@ -104,6 +113,9 @@ def test_target_level_intermediate_leaks_no_beginner_data(monkeypatch, tmp_path)
     assert all(qid.startswith("endboss_mid_") for qid in all_ids)
     assert sum(qid.startswith("endboss_beg_") for qid in all_ids) == 0
 
+    # endboss_start 는 mutate_user_atomic 로 파일만 갱신(in-memory user 불변) → 재조회.
+    user = U.get_user_by_id("u-leak")
+
     # seen 키가 intermediate 로 기록되고 beginner 키는 전혀 생기지 않아야 함.
     seen = user["seen_questions"]
     assert "endboss_p1_intermediate_todo" in seen
@@ -117,9 +129,7 @@ def test_target_level_intermediate_leaks_no_beginner_data(monkeypatch, tmp_path)
             question_id="endboss_mid_todo_p1_001",
             user_answer="B",
             phase=1,
-            my_hp=1200,
-            boss_hp=1800,
-            phase3_tries=0,
+            battle_token=start_res["battle_token"],
             project="todo",
             target_level="intermediate",
         ),
@@ -136,10 +146,11 @@ def test_target_level_intermediate_leaks_no_beginner_data(monkeypatch, tmp_path)
 def test_target_level_clear_appends_requested_level_and_promotes_one_step(monkeypatch, tmp_path):
     monkeypatch.setattr(U, "USERS_FILE", str(tmp_path / "users.json"))
     user = _make_user(id="u-promote", course_level="beginner", endboss_cleared_levels=[])
+    token = _won_battle_token(user, "beginner")
     U.save_users([user])
 
     result = E.endboss_clear(
-        E.ClearRequest(project="account", target_level="beginner"), user=user
+        E.ClearRequest(project="account", target_level="beginner", battle_token=token), user=user
     )
 
     assert result["already_cleared"] is False
@@ -162,10 +173,11 @@ def test_advanced_course_level_user_clearing_beginner_does_not_demote(monkeypatc
         endboss_cleared_levels=[],
         max_unlocked_unit={"beginner": 9, "advanced": 1},
     )
+    token = _won_battle_token(user, "beginner")
     U.save_users([user])
 
     result = E.endboss_clear(
-        E.ClearRequest(project="account", target_level="beginner"), user=user
+        E.ClearRequest(project="account", target_level="beginner", battle_token=token), user=user
     )
 
     assert result["cleared_levels"] == ["beginner"]
@@ -188,8 +200,12 @@ def test_target_gate_fires_before_crown_check_even_when_crowns_insufficient():
     assert exc.value.detail == "해금되지 않은 레벨입니다."
 
 
-def test_crown_gate_fires_after_level_gate_passes():
+def test_crown_gate_fires_after_level_gate_passes(monkeypatch, tmp_path):
+    # 왕관 가드는 이제 임계구역(mutate_user_atomic) 안에서 fresh user 로 평가된다
+    # (TOCTOU 방어, CLAUDE.md §3) → 유저가 스토어에 존재해야 하므로 저장 후 호출한다.
+    monkeypatch.setattr(U, "USERS_FILE", str(tmp_path / "users.json"))
     user = _make_user(course_level="beginner", endboss_cleared_levels=[], crowns=0)
+    U.save_users([user])
     with pytest.raises(HTTPException) as exc:
         E.endboss_start(
             E.StartRequest(project="account", target_level="beginner"), user=user

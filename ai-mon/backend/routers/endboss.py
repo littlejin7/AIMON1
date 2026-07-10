@@ -16,7 +16,6 @@ import json, os, uuid, re
 from typing import Optional
 
 from routers.utils import (
-    save_user,
     limiter,
     get_current_user,
     grant_reward,
@@ -32,8 +31,18 @@ from routers.utils import (
     current_week_ranking_score,
 )
 from routers.quiz import serialize_question
+from routers.battle_session import (
+    make_battle_token,
+    verify_battle_token,
+    create_endboss_session,
+    apply_endboss_answer,
+    get_endboss_session,
+    consume_session,
+)
 
 router = APIRouter()
+
+MODE = "endboss"   # 배틀 토큰/세션 모드 식별자 (start/answer/clear 공통)
 
 ENDBOSS_DIR    = os.path.join(os.path.dirname(__file__), "../data/endboss")
 
@@ -236,14 +245,20 @@ class AnswerRequest(BaseModel):
     question_id: str
     user_answer:  str = Field(..., max_length=4000)
     phase:        int          # 1 | 2 | 3
-    my_hp:        int = MY_HP_INIT
-    boss_hp:      int = BOSS_HP_INIT
-    phase3_tries: int = 0      # Phase 3 현재 시도 횟수 (0-based)
+    battle_token: str          # /start 에서 발급. 서버 세션 식별·검증(HP/페이즈 권위).
     project:      str = ""
     target_level: Optional[str] = None   # 미지정 시 계정 course_level 사용(하위호환)
+    # my_hp/boss_hp/phase3_tries 는 더 이상 받지 않는다(클라 권위 제거) — 응답 HP·시도수는
+    # 서버 세션에서 파생한다. (하위호환: 클라가 보내도 무시)
+    my_hp:        int = MY_HP_INIT
+    boss_hp:      int = BOSS_HP_INIT
+    phase3_tries: int = 0
 
 class ClearRequest(BaseModel):
     project: str
+    # 신규 클리어엔 필수(status=="won" 검증용). 이미 클리어한 레벨의 멱등 재호출은
+    # 세션 없이도 통과하므로 Optional 로 둔다.
+    battle_token: Optional[str] = None
     target_level: Optional[str] = None   # 미지정 시 계정 course_level 사용(하위호환)
 
 
@@ -283,9 +298,7 @@ def endboss_start(req: StartRequest, user: dict = Depends(get_current_user)):
     if not is_endboss_unlocked(user, level):
         raise HTTPException(status_code=403, detail="엔드보스가 아직 해금되지 않았습니다. Unit 8 보스를 먼저 클리어하세요.")
 
-    if user.get("crowns", 0) < RETRY_CROWN_COST:
-        raise HTTPException(status_code=400, detail=f"왕관이 부족합니다. 엔드보스 도전에는 왕관 {RETRY_CROWN_COST}개가 필요합니다.")
-
+    # 문제 로드/풀 검증은 유저 상태 무관 → 원자 경계 밖에서 먼저 (실패해도 왕관 차감 없음).
     all_qs = load_endboss_questions(level)
     if not all_qs:
         raise HTTPException(status_code=404, detail="엔드보스 문제 데이터가 없습니다.")
@@ -299,41 +312,65 @@ def endboss_start(req: StartRequest, user: dict = Depends(get_current_user)):
     if len(phase2_pool) < 4:
         raise HTTPException(status_code=404, detail=f"프로젝트 '{req.project}'의 Phase 2 문제가 부족합니다. (최소 4개 필요)")
 
-    # 왕관 차감
-    user["crowns"] = user.get("crowns", 0) - RETRY_CROWN_COST
+    # 배틀 토큰(sid)은 서버 발급 nonce → 위조 불가. HP·페이즈·승리는 서버 세션에만 쌓인다.
+    token, sid = make_battle_token(MODE, None, level, user_id)
 
-    if "seen_questions" not in user or user["seen_questions"] is None:
-        user["seen_questions"] = {}
-    seen_qs = user["seen_questions"]
-
-    # Phase 1, 2 문제 확정 — 이력 기반 안 본 문제 우선 + shuffle, 소진 시 재오픈.
+    # ── 왕관 가드+차감 / 문제 선택 / seen 갱신 / 세션 생성을 한 임계구역에서 (CLAUDE.md §1·§3) ──
+    # 왕관 검사→차감을 fresh user 기준 같은 락 안에서 수행 → 동시 진입에도 TOCTOU 이중차감/우회 없음.
+    # 가드 미통과 시 HTTPException raise → mutate_user_atomic 이 write 없이 no-op(차감 안 됨) 로 중단.
     p1_key = _phase12_seen_key(level, req.project, 1)
     p2_key = _phase12_seen_key(level, req.project, 2)
-    p1_questions, p1_seen = pick_batch_unseen(phase1_pool, seen_qs.get(p1_key, []), 5)
-    p2_questions, p2_seen = pick_batch_unseen(phase2_pool, seen_qs.get(p2_key, []), 4)
-    seen_qs[p1_key] = p1_seen
-    seen_qs[p2_key] = p2_seen
-
-    # Phase 3 첫 문제 확정 + seen 기록 (phase1/2 서브키와 분리된 phase3 전용 키)
-    p3_first = phase3_pool[0] if phase3_pool else None
     p3_key = _seen_key(level, req.project)
-    p3_seen = seen_qs.get(p3_key, [])
-    if p3_first:
-        p3_seen = p3_seen + [p3_first["question_id"]]
-    seen_qs[p3_key] = p3_seen
-    seen_qs["endboss"] = p3_seen
-    user["seen_questions"] = seen_qs
-    save_user(user)
+
+    def mutator(u: dict) -> dict:
+        if u.get("crowns", 0) < RETRY_CROWN_COST:
+            raise HTTPException(status_code=400, detail=f"왕관이 부족합니다. 엔드보스 도전에는 왕관 {RETRY_CROWN_COST}개가 필요합니다.")
+        u["crowns"] = u.get("crowns", 0) - RETRY_CROWN_COST
+
+        if "seen_questions" not in u or u["seen_questions"] is None:
+            u["seen_questions"] = {}
+        seen_qs = u["seen_questions"]
+
+        # Phase 1, 2 문제 확정 — 이력 기반 안 본 문제 우선 + shuffle, 소진 시 재오픈.
+        p1_questions, p1_seen = pick_batch_unseen(phase1_pool, seen_qs.get(p1_key, []), 5)
+        p2_questions, p2_seen = pick_batch_unseen(phase2_pool, seen_qs.get(p2_key, []), 4)
+        seen_qs[p1_key] = p1_seen
+        seen_qs[p2_key] = p2_seen
+
+        # Phase 3 첫 문제 확정 + seen 기록 (phase1/2 서브키와 분리된 phase3 전용 키)
+        p3_first = phase3_pool[0] if phase3_pool else None
+        p3_seen = seen_qs.get(p3_key, [])
+        if p3_first:
+            p3_seen = p3_seen + [p3_first["question_id"]]
+        seen_qs[p3_key] = p3_seen
+        seen_qs["endboss"] = p3_seen
+        u["seen_questions"] = seen_qs
+
+        # 서버 권위 세션 생성: phase1~2 HP 게이트 → phase3 정답으로만 status="won".
+        create_endboss_session(u, sid, level, req.project, BOSS_HP_INIT, MY_HP_INIT, PHASE3_MAX_TRIES)
+
+        return {
+            "p1_questions": p1_questions,
+            "p2_questions": p2_questions,
+            "p3_first": p3_first,
+            "crowns_left": u["crowns"],
+        }
+
+    try:
+        user, result = mutate_user_atomic(user_id, mutator)
+    except UserNotFoundError:
+        raise HTTPException(status_code=404, detail="User not found")
 
     return {
         "phase":               1,
         "project":             req.project,
-        "phase1_questions":    [serialize_question(q) for q in p1_questions],   # 정답 제거(F)
-        "phase2_questions":    [serialize_question(q) for q in p2_questions],   # 정답 제거(F)
-        "phase3_first_question": serialize_question(p3_first) if p3_first else None,
+        "battle_token":        token,
+        "phase1_questions":    [serialize_question(q) for q in result["p1_questions"]],   # 정답 제거(F)
+        "phase2_questions":    [serialize_question(q) for q in result["p2_questions"]],   # 정답 제거(F)
+        "phase3_first_question": serialize_question(result["p3_first"]) if result["p3_first"] else None,
         "my_hp":               MY_HP_INIT,
         "boss_hp":             BOSS_HP_INIT,
-        "crowns_left":         user["crowns"],
+        "crowns_left":         result["crowns_left"],
     }
 
 
@@ -359,6 +396,9 @@ async def endboss_answer(request: Request, req: AnswerRequest, user: dict = Depe
     # user 는 Depends(get_current_user) 로 이미 주입됨. (기존 verify_token(authorization)
     # 호출은 미정의 심볼 참조로 NameError 를 일으키던 버그 — 제거.)
     user_id = user["id"]
+
+    # 배틀 토큰 검증(서명·소유자·모드·만료) — 상태 무관이므로 원자 경계 밖에서 먼저.
+    payload = verify_battle_token(req.battle_token, user_id, MODE)
 
     level  = resolve_level(user, req.target_level)
     all_qs = load_endboss_questions(level)
@@ -501,84 +541,70 @@ async def endboss_answer(request: Request, req: AnswerRequest, user: dict = Depe
             "answered_at": now_kst().isoformat(),
         })
 
-    # ── Phase 1 / 2 HP 계산 ───────────────────────────────────────────────────
-    if req.phase in (1, 2):
-        safe_boss_hp = max(0, min(req.boss_hp, BOSS_HP_INIT))
-        safe_my_hp   = max(0, min(req.my_hp, MY_HP_INIT))
+    # ── 서버 권위 세션 갱신 (클라 my_hp/boss_hp/phase3_tries 불신) ──────────────
+    # HP·페이즈·승리 판정은 모두 서버 세션이 소유한다. 클라가 boss_hp=200 등을 위조해도
+    # 서버 세션 카운트만 쓰므로 무의미하다. phase3 승리(status="won")만 /clear 보상을 연다.
+    grading_failed = result.get("grading_failed", False)
+    qid = question.get("question_id")
 
-        grading_failed = result.get("grading_failed", False)
-
-        if grading_failed:
-            new_boss_hp  = safe_boss_hp
-            new_my_hp    = safe_my_hp
-            is_fail      = False
-            phase3_ready = False
-        elif is_correct:
-            new_boss_hp = safe_boss_hp - BOSS_HP_DELTA
-            new_my_hp   = safe_my_hp
-            is_fail      = False
-            phase3_ready = (new_boss_hp <= 0)
-        else:
-            new_boss_hp = safe_boss_hp
-            new_my_hp   = safe_my_hp - MY_HP_DELTA
-            is_fail      = new_my_hp <= 0
-            phase3_ready = False
-
-        result.update({
-            "my_hp":        new_my_hp,
-            "boss_hp":      new_boss_hp,
-            "is_fail":      is_fail,
-            "phase3_ready": phase3_ready,
-            "phase3_tries": 0,
-            "is_clear":     False,
-            "next_phase3_question": None,
-        })
-
-    # ── Phase 3 ───────────────────────────────────────────────────────────────
+    if grading_failed:
+        # 채점 실패: 세션 변경 없음 — 표시용은 현재 스냅샷에서 읽는다.
+        view = get_endboss_session(user, payload["sid"]) or {
+            "boss_hp": BOSS_HP_INIT, "my_hp": MY_HP_INIT, "correct": 0,
+            "phase3_tries": 0, "phase3_unlocked": False, "status": "active",
+        }
+        next_q = None
     else:
-        grading_failed = result.get("grading_failed", False)
+        # phase3 오답 시 다음 문제 출제용 풀(seen 중복 없이). phase1~2 엔 불필요.
+        phase3_pool = get_phase_questions(all_qs, phase=3, project=req.project) if req.phase == 3 else []
 
-        if grading_failed:
-            new_tries = req.phase3_tries
-            is_clear  = False
-            is_fail   = False
-            next_q    = None
-        else:
-            new_tries = req.phase3_tries + (0 if is_correct else 1)
-            is_clear  = is_correct
-            is_fail   = (not is_correct) and (new_tries >= PHASE3_MAX_TRIES)
-
-            next_q = None
-            if not is_correct and not is_fail:
-                # 다음 Phase 3 문제 출제 (중복 없음)
-                if "seen_questions" not in user or user["seen_questions"] is None:
-                    user["seen_questions"] = {}
-                p3_pool = get_phase_questions(all_qs, phase=3, project=req.project)
-                seen_questions = user["seen_questions"]
+        def mutator(u: dict) -> dict:
+            v = apply_endboss_answer(
+                u, payload, qid, req.phase, is_correct,
+                boss_hp_delta=BOSS_HP_DELTA, my_hp_delta=MY_HP_DELTA,
+            )
+            nq = None
+            # phase3 오답이고 아직 패배(lost)가 아니면 다음 phase3 문제 출제 + seen 기록.
+            if req.phase == 3 and not is_correct and v["status"] != "lost":
+                if "seen_questions" not in u or u["seen_questions"] is None:
+                    u["seen_questions"] = {}
+                seen_questions = u["seen_questions"]
                 key = _seen_key(level, req.project)
                 seen = seen_questions.get(key)
                 if not isinstance(seen, list):
                     seen = seen_questions.get("endboss", [])
-                next_q  = pick_unseen(p3_pool, seen)
-                if not next_q:
-                    seen = [req.question_id]
-                    next_q = pick_unseen(p3_pool, seen)
-                if next_q:
-                    next_seen = seen + [next_q["question_id"]]
+                nq = pick_unseen(phase3_pool, seen)
+                if not nq:
+                    seen = [qid]
+                    nq = pick_unseen(phase3_pool, seen)
+                if nq:
+                    next_seen = seen + [nq["question_id"]]
                     seen_questions[key] = next_seen
                     seen_questions["endboss"] = next_seen
-                    user["seen_questions"] = seen_questions
-                    save_user(user)
+                    u["seen_questions"] = seen_questions
+            return {"view": v, "next_q": nq}
 
-        result.update({
-            "my_hp":        req.my_hp,
-            "boss_hp":      0,
-            "is_fail":      is_fail,
-            "phase3_ready": False,
-            "phase3_tries": new_tries,
-            "is_clear":     is_clear,
-            "next_phase3_question": serialize_question(next_q) if next_q else None,  # 정답 제거(F)
-        })
+        try:
+            user, mres = mutate_user_atomic(user_id, mutator)
+        except UserNotFoundError:
+            raise HTTPException(status_code=404, detail="User not found")
+        view   = mres["view"]
+        next_q = mres["next_q"]
+
+    is_clear = (view["status"] == "won")  if not grading_failed else False
+    is_fail  = (view["status"] == "lost") if not grading_failed else False
+    # phase3_ready: 이번 정답으로 phase1~2 게이트(boss_hp<=0)를 막 통과한 순간에만 True.
+    phase3_ready = (not grading_failed) and req.phase in (1, 2) and is_correct and view["boss_hp"] <= 0
+
+    result.update({
+        "my_hp":        view["my_hp"],
+        "boss_hp":      view["boss_hp"],
+        "is_fail":      is_fail,
+        "phase3_ready": phase3_ready,
+        "phase3_tries": view["phase3_tries"],
+        "is_clear":     is_clear,
+        "next_phase3_question": serialize_question(next_q) if next_q else None,  # 정답 제거(F)
+    })
 
     # correct_answer 는 제출 '후' 응답에만 — error_find reveal 하이라이트용
     result["correct_answer"] = question.get("answer", "")
@@ -602,6 +628,13 @@ def endboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
     # 임계구역 밖에서 1회만 — mutator 는 CAS 로 여러 번 실행될 수 있으므로.
     level = resolve_level(user, req.target_level)
 
+    # 배틀 토큰 검증(서명·소유자·모드·만료) — 상태 무관이므로 원자 경계 밖에서 먼저.
+    # 이미 클리어한 레벨의 멱등 재호출은 토큰 없이도 통과하므로, 있을 때만 검증한다.
+    sid = None
+    if req.battle_token:
+        payload = verify_battle_token(req.battle_token, user_id, MODE)
+        sid = payload.get("sid")
+
     # 클리어 보상(중복 가드 + 진화 + 칭호 + XP + 미션 boss_clear + seen 리셋)을
     # fresh user 기준으로 원자 처리. endboss_cleared_levels(list append) 와 missions 가
     # save_user delta-merge 에서 last-writer-wins 되던 문제 해소. (M-1, C-1 deferred)
@@ -614,6 +647,17 @@ def endboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
         to_stage   = from_stage
 
         if not already_cleared:
+            # ★ 서버 권위 클리어 게이트: 신규 클리어는 서버 세션 status=="won"(=phase3 를
+            #   실제로 맞혀 승리)일 때만 허용한다. /answer 없이 /clear 를 직접 호출하면 세션이
+            #   없거나 active/lost 라 403 으로 차단된다(보상 탈취 방어 — P0). 이미 클리어한
+            #   레벨은 위 already_cleared 로 세션 없이도 멱등 성공한다.
+            view = get_endboss_session(u, sid) if sid else None
+            if not view or view["status"] != "won":
+                raise HTTPException(status_code=403, detail="엔드보스를 실제로 물리쳐야 클리어할 수 있습니다.")
+            # 세션의 레벨/프로젝트가 요청과 일치하는지 확인 (다른 레벨 승리 세션 재사용 차단).
+            if view.get("level") != level or view.get("project") != req.project:
+                raise HTTPException(status_code=403, detail="이 전투의 클리어 대상이 일치하지 않습니다.")
+
             # 왕관
             u["crowns"] = u.get("crowns", 0) + CLEAR_CROWNS
 
@@ -661,6 +705,9 @@ def endboss_clear(req: ClearRequest, user: dict = Depends(get_current_user)):
             if "seen_questions" not in u or u["seen_questions"] is None:
                 u["seen_questions"] = {}
             u["seen_questions"]["endboss"] = []
+
+            # 보상 후 세션 소비 — 같은 won 세션으로 재클리어(리플레이) 차단.
+            consume_session(u, sid)
 
         return {
             "already_cleared": already_cleared,

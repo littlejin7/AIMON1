@@ -22,6 +22,19 @@ from fastapi import HTTPException
 import routers.endboss as E
 import routers.user as UR
 import routers.utils as U
+from routers.battle_session import make_battle_token, create_endboss_session
+
+
+def _won_battle_token(user, level, project="account"):
+    """엔드보스 won 세션을 user(파일 저장 전)에 심고 대응 battle_token 을 반환.
+
+    서버 권위 클리어 게이트(status=="won")를 통과시키기 위한 테스트 픽스처.
+    caller 가 이후 U.save_users([user]) 로 세션을 영속해야 clear mutator 가 읽는다.
+    """
+    token, sid = make_battle_token(E.MODE, None, level, user["id"])
+    create_endboss_session(user, sid, level, project, E.BOSS_HP_INIT, E.MY_HP_INIT, E.PHASE3_MAX_TRIES)
+    user["battle_sessions"][sid]["status"] = "won"
+    return token
 
 
 def _make_user(**overrides):
@@ -78,10 +91,11 @@ def test_gp_gate_blocks_gp_before_stage3():
 def test_endboss_clear_increments_evolution_stage(monkeypatch, tmp_path, level, expected_stage, expected_char):
     monkeypatch.setattr(U, "USERS_FILE", str(tmp_path / "users.json"))
     user = _make_user(id=f"u-{level}", course_level=level, endboss_cleared_levels=[])
+    token = _won_battle_token(user, level)
     U.save_users([user])
 
     result = E.endboss_clear(
-        E.ClearRequest(project="account", target_level=level), user=user
+        E.ClearRequest(project="account", target_level=level, battle_token=token), user=user
     )
 
     # 진화 발생 + gp 미지급
@@ -123,10 +137,11 @@ def test_endboss_clear_does_not_demote_evolution_stage(monkeypatch, tmp_path):
         endboss_cleared_levels=[],
         max_unlocked_unit={"beginner": 9, "advanced": 1},
     )
+    token = _won_battle_token(user, "beginner")
     U.save_users([user])
 
     result = E.endboss_clear(
-        E.ClearRequest(project="account", target_level="beginner"), user=user
+        E.ClearRequest(project="account", target_level="beginner", battle_token=token), user=user
     )
 
     assert result["evolution_stage"] == 3

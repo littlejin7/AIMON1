@@ -172,9 +172,15 @@ def test_endboss_answer_returns_200(monkeypatch):
         "question_id": "eb1", "type": "multiple_choice", "question": "Q?",
         "answer": "B", "feedback": {"correct": "정답", "incorrect": "오답"}, "hint": "h",
     }])
+    # 서버 권위 세션 준비: 유저 저장 + active 세션 + 대응 battle_token (없으면 400/404).
+    from routers.battle_session import make_battle_token, create_endboss_session
+    user = dict(TEST_USER)
+    token, sid = make_battle_token(EB.MODE, None, "beginner", user["id"])
+    create_endboss_session(user, sid, "beginner", "account", EB.BOSS_HP_INIT, EB.MY_HP_INIT, EB.PHASE3_MAX_TRIES)
+    U.save_users([user])
     r = client.post("/boss/endboss/answer", json={
         "question_id": "eb1", "user_answer": "B", "phase": 1,
-        "my_hp": 1200, "boss_hp": 1800, "project": "account",
+        "battle_token": token, "project": "account",
     })
     assert r.status_code == 200, r.text
     assert r.json()["is_correct"] is True

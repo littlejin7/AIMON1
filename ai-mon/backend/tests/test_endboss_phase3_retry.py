@@ -10,6 +10,17 @@ sys.path.insert(0, BACKEND)
 
 import routers.endboss as E
 import routers.utils as U
+from routers.battle_session import make_battle_token, create_endboss_session
+
+
+def _phase3_unlocked_token(user, level, project="account"):
+    """phase3 진입 게이트(boss_hp<=0)를 통과한 active 세션을 심고 battle_token 반환."""
+    token, sid = make_battle_token(E.MODE, None, level, user["id"])
+    create_endboss_session(user, sid, level, project, E.BOSS_HP_INIT, E.MY_HP_INIT, E.PHASE3_MAX_TRIES)
+    sess = user["battle_sessions"][sid]
+    sess["boss_hp"] = 0
+    sess["phase3_unlocked"] = True
+    return token
 
 
 def _phase3_q(qid: str, answer: str):
@@ -44,15 +55,14 @@ def test_endboss_phase3_retry_reopens_pool_when_seen_is_exhausted(tmp_path, monk
             "endboss": ["p3_q1", "p3_q2"],
         },
     }
+    token = _phase3_unlocked_token(user, "beginner")
     U.save_users([user])
 
     req = E.AnswerRequest(
         question_id="p3_q1",
         user_answer="wrong",
         phase=3,
-        my_hp=1000,
-        boss_hp=0,
-        phase3_tries=0,
+        battle_token=token,
         project="account",
     )
 
