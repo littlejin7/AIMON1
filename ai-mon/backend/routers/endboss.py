@@ -12,7 +12,7 @@
 from fastapi import APIRouter, HTTPException, Depends, Request
 from pydantic import BaseModel, Field
 from services.claude_service import ask_claude_json
-import json, os, uuid, re
+import json, os, random, uuid, re
 from typing import Optional
 
 from routers.utils import (
@@ -50,7 +50,7 @@ ENDBOSS_DIR    = os.path.join(os.path.dirname(__file__), "../data/endboss")
 RETRY_CROWN_COST = 3
 
 # ── HP 설정 (Phase 1~2 전용) ──────────────────────────────────────────────────
-BOSS_HP_INIT   = 1400
+BOSS_HP_INIT   = 1800
 MY_HP_INIT     = 1200
 BOSS_HP_DELTA  = 200   # 정답 시 보스 HP 감소
 MY_HP_DELTA    = 400   # 오답 시 내 HP 감소
@@ -215,7 +215,9 @@ def pick_batch_unseen(pool: list, seen: list, count: int) -> tuple[list, list]:
     if len(unseen) < count:
         unseen = list(pool)
         seen = []
-    chosen = unseen[:count]
+    candidates = list(unseen)
+    random.shuffle(candidates)
+    chosen = candidates[:count]
     new_seen = seen + [q["question_id"] for q in chosen]
     return chosen, new_seen
 
@@ -311,6 +313,8 @@ def endboss_start(req: StartRequest, user: dict = Depends(get_current_user)):
         raise HTTPException(status_code=404, detail=f"프로젝트 '{req.project}'의 Phase 1 문제가 부족합니다. (최소 5개 필요)")
     if len(phase2_pool) < 4:
         raise HTTPException(status_code=404, detail=f"프로젝트 '{req.project}'의 Phase 2 문제가 부족합니다. (최소 4개 필요)")
+    if len(phase3_pool) < PHASE3_MAX_TRIES:
+        raise HTTPException(status_code=404, detail="엔드보스 문제 데이터가 부족합니다. 잠시 후 다시 시도해주세요.")
 
     # 배틀 토큰(sid)은 서버 발급 nonce → 위조 불가. HP·페이즈·승리는 서버 세션에만 쌓인다.
     token, sid = make_battle_token(MODE, None, level, user_id)

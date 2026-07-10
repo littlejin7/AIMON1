@@ -27,10 +27,10 @@ def _phase_q(phase: int, i: int, project: str = "account"):
 
 
 def _all_questions():
-    # phase1: 10개(5개씩 두 배치), phase2: 8개(4개씩 두 배치), phase3: 1개(길이 체크 통과용)
+    # phase1: 10개(5개씩 두 배치), phase2: 8개(4개씩 두 배치), phase3: 3개(길이 체크 통과용)
     qs = [_phase_q(1, i) for i in range(1, 11)]
     qs += [_phase_q(2, i) for i in range(1, 9)]
-    qs += [{**_phase_q(1, 99), "question_id": "p3_q1", "phase": 3}]
+    qs += [_phase_q(3, i) for i in range(1, 4)]
     return qs
 
 

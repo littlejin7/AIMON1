@@ -205,7 +205,7 @@ def test_full_flow_start_answer_clear(monkeypatch, tmp_path):
     monkeypatch.setattr(U, "ATTEMPTS_FILE", str(tmp_path / "attempts.json"))
     monkeypatch.setattr(U.limiter, "enabled", False)
 
-    questions = [_mc_q(1, i) for i in range(1, 6)] + [_mc_q(2, i) for i in range(1, 5)] + [_mc_q(3, 1)]
+    questions = [_mc_q(1, i) for i in range(1, 6)] + [_mc_q(2, i) for i in range(1, 5)] + [_mc_q(3, i) for i in range(1, 4)]
     monkeypatch.setattr(E, "load_endboss_questions", lambda level: questions)
 
     user = _make_user(id="u-flow")
@@ -216,9 +216,9 @@ def test_full_flow_start_answer_clear(monkeypatch, tmp_path):
     assert token
     assert U.get_user_by_id("u-flow")["crowns"] == 20 - E.RETRY_CROWN_COST  # 입장 비용 차감
 
-    # phase1~2 문제를 정답으로 누적 — boss_hp(1400)/delta(200)=7 정답이면 게이트 개방.
+    # phase1~2 문제를 정답으로 누적 — boss_hp(1800)/delta(200)=9 정답이면 게이트 개방.
     p12 = start["phase1_questions"] + start["phase2_questions"]
-    needed = E.BOSS_HP_INIT // E.BOSS_HP_DELTA  # 7
+    needed = E.BOSS_HP_INIT // E.BOSS_HP_DELTA  # 9
     phase3_ready = False
     for q in p12[:needed]:
         phase = 1 if q["question_id"].startswith("p1") else 2
