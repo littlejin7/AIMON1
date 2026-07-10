@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { RunnerEngine } from './engine/RunnerEngine';
 import { gameApi } from '../../../api';
 import { incrementGamePlay } from '../Game';
+import GameScaleFrame from '../GameScaleFrame';
 import './AIrun.css';
 
 export default function AIrun() {
@@ -84,26 +85,30 @@ export default function AIrun() {
 
   if (startError) {
     return (
-      <div className="runner-game-wrapper">
-        <button className="rg-back-btn" onClick={() => navigate(-1)}>✕</button>
-        <div style={{ padding: '40px', textAlign: 'center', color: '#7A7A94' }}>
-          <div style={{ fontSize: '2rem', marginBottom: '12px' }}>⚠️</div>
-          <div>{startError}</div>
-          <button
-            style={{ marginTop: '20px', padding: '10px 24px', borderRadius: '99px', background: '#7F77DD', color: '#fff', border: 'none', cursor: 'pointer' }}
-            onClick={() => setRetryKey(k => k + 1)}
-          >
-            다시 시도
-          </button>
+      <GameScaleFrame background="#55b5f0">
+        <div className="runner-game-wrapper">
+          <button className="rg-back-btn" onClick={() => navigate(-1)}>✕</button>
+          <div style={{ padding: '40px', textAlign: 'center', color: '#7A7A94' }}>
+            <div style={{ fontSize: '2rem', marginBottom: '12px' }}>⚠️</div>
+            <div>{startError}</div>
+            <button
+              style={{ marginTop: '20px', padding: '10px 24px', borderRadius: '99px', background: '#7F77DD', color: '#fff', border: 'none', cursor: 'pointer' }}
+              onClick={() => setRetryKey(k => k + 1)}
+            >
+              다시 시도
+            </button>
+          </div>
         </div>
-      </div>
+      </GameScaleFrame>
     );
   }
 
   return (
-    <div className="runner-game-wrapper">
-      <button className="rg-back-btn" onClick={() => navigate(-1)}>✕</button>
-      <div className="runner-game-mount" ref={mountRef} />
-    </div>
+    <GameScaleFrame background="#55b5f0">
+      <div className="runner-game-wrapper">
+        <button className="rg-back-btn" onClick={() => navigate(-1)}>✕</button>
+        <div className="runner-game-mount" ref={mountRef} />
+      </div>
+    </GameScaleFrame>
   );
 }
