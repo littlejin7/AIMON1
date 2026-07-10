@@ -3,6 +3,8 @@ import { useSoundStore } from './useSoundStore'
 import minibossSrc from '@/assets/bgm/miniboss_bgm.mp3'
 import unitbossSrc from '@/assets/bgm/unitboss_bgm.mp3'
 import endbossSrc  from '@/assets/bgm/endboss_bgm.mp3'
+import unitbossAttackSrc from '@/assets/bgm/unitboss_attack.mp3'
+import endbossAttackSrc from '@/assets/bgm/endboss_attack.mp3'
 /**
  * useBossSound
  *
@@ -27,6 +29,11 @@ const BGM_FILES = {
   battle:         minibossSrc,
   unitboss_intro: unitbossSrc,
   endboss_intro:  endbossSrc,
+}
+
+const SFX_FILES = {
+  unitboss_attack: unitbossAttackSrc,
+  endboss_attack:  endbossAttackSrc,
 }
 
 export default function useBossSound() {
@@ -197,14 +204,6 @@ export default function useBossSound() {
 
   // ─── SFX 생성 함수들 ─────────────────────────────────────────
 
-  function _playAttack(ac) {
-    const t = ac.currentTime
-    const sv = _sfxVol()
-    _note(ac, 'square', 440,  t,        0.05, 0.30, undefined, sv)
-    _note(ac, 'square', 660,  t + 0.05, 0.05, 0.30, undefined, sv)
-    _note(ac, 'square', 880,  t + 0.10, 0.10, 0.40, undefined, sv)
-    _note(ac, 'sine',   1320, t + 0.15, 0.20, 0.25, 880,       sv)
-  }
 
   function _playHit(ac) {
     const t = ac.currentTime
@@ -212,6 +211,12 @@ export default function useBossSound() {
     _noise(ac, t, 0.3, 0.6, 0.08, sv)
     _note(ac, 'sawtooth', 150, t,        0.05, 0.30, 60,  sv)
     _note(ac, 'sawtooth', 80,  t + 0.05, 0.20, 0.25, 30,  sv)
+  }
+  function _playFileSfx(src) {
+    const a = new Audio(src)
+    a.preload = 'auto'
+    a.volume = _sfxVol()
+    a.play().catch(() => {})
   }
 
   // ─── 공개 API ────────────────────────────────────────────────
@@ -258,10 +263,14 @@ export default function useBossSound() {
 
   /** SFX 재생 (BGM과 독립적으로 재생됩니다) */
   const playSFX = useCallback((type) => {
+    if (SFX_FILES[type]) {
+      _playFileSfx(SFX_FILES[type])
+      return
+    }
+
     const ac = _getCtx()
     const doPlay = () => {
       switch (type) {
-        case 'attack': _playAttack(ac); break
         case 'hit':    _playHit(ac);    break
         default:
           console.warn(`useBossSound: 알 수 없는 SFX 타입 "${type}"`)
