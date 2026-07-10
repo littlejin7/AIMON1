@@ -71,11 +71,11 @@ export default function Boss() {
 
   // ── 공격 이펙트 ──
   const playAttackEffect = (damage) => {
+    playSFX('unitboss_attack')
     setAttackAnim(true)
     setTimeout(() => {
       setBossHit(true)
       setBossShake(true)
-      playSFX('attack')
       setDmgPopup(damage)
       setTimeout(() => {
         setBossHit(false)
