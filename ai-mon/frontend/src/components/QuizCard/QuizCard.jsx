@@ -143,6 +143,9 @@ export default function QuizCard({
   
   const type = question.quiz_type || question.type
   const isCodeMultiInput = type === 'code_multi_input' || type === 'code_input'
+  // error_find 는 줄 클릭 UI를 쓰지 않는다 — choices 없이 정답 줄 번호를 직접 입력하는 빈칸형으로 통일.
+  const isChoiceType = type === 'multiple_choice' || type === 'output_select'
+  const isCodeInput = false
   const answersCount = useMemo(() => {
     if (Array.isArray(question.answer)) return question.answer.length
     const template = question.code_template || question.question || ''
@@ -190,10 +193,6 @@ export default function QuizCard({
   }
 
   const parsedContent = parseQuestionContent(rawQuestion)
-
-  // error_find 는 줄 클릭 UI를 쓰지 않는다 — choices 없이 정답 줄 번호를 직접 입력하는 빈칸형으로 통일.
-  const isChoiceType = type === 'multiple_choice' || type === 'output_select'
-  const isCodeInput = false
 
   // ── AI 피드백 호출 (SSE 스트리밍) ──
   // correct_answer 는 더 이상 보내지 않는다(F: 클라에 정답 없음). 서버가 question_id 로 조회.
