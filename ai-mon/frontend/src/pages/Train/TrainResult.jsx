@@ -19,14 +19,16 @@ export default function TrainResult({ correctCount, total, onDone }) {
           <span className="tr-result-medal-mark">{isPerfect ? '✓' : '•'}</span>
         </div>
 
-        <h1 id="train-result-title" className="tr-result-title">
-          {isPerfect ? '완벽 클리어!' : '훈련 완료!'}
-        </h1>
-        <p className="tr-result-subtitle">
-          {isPerfect
-            ? '첫 시도 기준으로 모든 문제를 정확히 해결했어요.'
-            : `${missedCount}문제만 더 다듬으면 완벽 클리어예요.`}
-        </p>
+        <div className="tr-result-copy">
+          <h1 id="train-result-title" className="tr-result-title">
+            {isPerfect ? '완벽 클리어!' : '훈련 완료!'}
+          </h1>
+          <p className="tr-result-subtitle">
+            {isPerfect
+              ? '첫 시도 기준으로 모든 문제를 정확히 해결했어요.'
+              : `${missedCount}문제만 더 다듬으면 완벽 클리어예요.`}
+          </p>
+        </div>
 
         <div
           className="tr-result-score-ring"

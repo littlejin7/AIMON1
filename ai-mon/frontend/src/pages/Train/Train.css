@@ -501,7 +501,7 @@ body:has(.tr-result-page) { background: #F4F3FA; }
 .tr-result-medal {
   width: 86px;
   height: 86px;
-  margin: 0 auto 18px;
+  margin: 0 auto;
   display: grid;
   place-items: center;
   border-radius: 50%;
@@ -531,6 +531,15 @@ body:has(.tr-result-page) { background: #F4F3FA; }
   font-size: 40px;
 }
 
+.tr-result-copy {
+  min-height: 132px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .tr-result-title {
   margin: 0;
   color: #fff;
@@ -541,8 +550,7 @@ body:has(.tr-result-page) { background: #F4F3FA; }
 
 .tr-result-subtitle {
   max-width: 310px;
-  min-height: 44px;
-  margin: 12px auto 20px;
+  margin: 12px auto 0;
   color: rgba(255,255,255,0.78);
   font-size: 15px;
   font-weight: 600;
@@ -701,6 +709,10 @@ body:has(.tr-result-page) { background: #F4F3FA; }
 
   .tr-result-score-ring {
     width: 122px;
+  }
+
+  .tr-result-copy {
+    min-height: 116px;
   }
 
   .tr-result-score-inner {
