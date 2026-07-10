@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../../hooks/useAuthStore'
 import useGameBgm from '../../../hooks/useGameBgm'
+import GameScaleFrame from '../GameScaleFrame'
 import { usePairsGame } from './usePairsGame'
 import PairsCard from './PairsCard'
 import PairsDash from './PairsDash'
@@ -53,7 +54,8 @@ export default function AIPair() {
   }
 
   return (
-    <div className="mp-root">
+    <GameScaleFrame background="#eae3f3">
+      <div className="mp-root">
       <button className="mp-back" onClick={() => navigate('/game')}>✕</button>
 
       {/* 미리보기 카운트다운 */}
@@ -122,6 +124,7 @@ export default function AIPair() {
           </div>
         </div>
       )}
-    </div>
+      </div>
+    </GameScaleFrame>
   )
 }
