@@ -350,7 +350,7 @@ export default function Stage({ _lessonId, _stage }) {
         stage: `${lessonId}-${stageNum}`,
         score: 0,
         is_completed: false,
-        checkpoint: 'concept_quiz',
+        checkpoint: 'miniboss_ready',
       }
       try {
         await progressApi.saveProgress(payload)
@@ -523,21 +523,21 @@ export default function Stage({ _lessonId, _stage }) {
         // 미니보스 문제 로드
         try {
           const res = await minibossApi.startBattle(lessonId, `${lessonId}-${stageNum}`, attempt)
-          setMinibossToken(res.data.battle_token)
           const miniQuestions = res.data.questions.map(q => shuffleChoices(q))
-          setQuestions(prev => [...prev, ...miniQuestions])
-          setMinibossStartIndex(current + 1)
-          setStageQuizCorrect(correct)
-          setMinibossHp({ my_hp: 900, boss_hp: 500 })
           if (token) {
-            progressApi.saveProgress({
+            await saveProgressWithRetry({
               unit: parseInt(lessonId, 10),
               stage: `${lessonId}-${stageNum}`,
               score: stageQuizScore,
               is_completed: false,
               checkpoint: 'miniboss_ready',
-            }).catch(err => console.error(err))
+            })
           }
+          setMinibossToken(res.data.battle_token)
+          setQuestions(prev => [...prev, ...miniQuestions])
+          setMinibossStartIndex(current + 1)
+          setStageQuizCorrect(correct)
+          setMinibossHp({ my_hp: 900, boss_hp: 500 })
           playBGM('miniboss_intro')
           setShowMinibossAlert(true)
           return
