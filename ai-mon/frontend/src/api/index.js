@@ -180,3 +180,7 @@ export const missionApi = {
   getMissions:  ()          => api.get('/missions/'),
   claimMission: (missionId) => api.post('/missions/claim', { mission_id: missionId }),
 }
+
+export const guideApi = {
+  getFaq: () => api.get('/guide/faq'),
+}
