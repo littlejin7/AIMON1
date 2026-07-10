@@ -60,6 +60,10 @@ body:has(.boss-page) { background: #F4F3FA; background-image: none; }
   width: 200px;
   height: 200px;
   object-fit: contain;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
 }
 
 .boss-title {
