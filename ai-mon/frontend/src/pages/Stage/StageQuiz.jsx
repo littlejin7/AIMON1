@@ -108,13 +108,6 @@ export default function StageQuiz({
       {/* 레슨 헤더 (레슨페이지와 동일) */}
       <AppHeader override={STAGE_APP_HEADER} />
 
-      {/* 나가기 (헤더 아래로) */}
-      <button
-        className="stage-exit-btn"
-        onClick={() => navigate(`/lesson/${lessonId}`)}
-        aria-label="레슨 목록으로"
-      >✕</button>
-
       {/* 상단 진행 바 */}
       <div className="stage-bottom-progress">
         <div className="stage-progress-label">
@@ -126,10 +119,13 @@ export default function StageQuiz({
         </div>
       </div>
 
-
-      
-      {/* 캐릭터 영역 */}
+      {/* 캐릭터 영역 (나가기 버튼은 이 배경 안 우상단에 배치) */}
       <div className="stage-char-area">
+        <button
+          className="stage-exit-btn"
+          onClick={() => navigate(`/lesson/${lessonId}`)}
+          aria-label="레슨 목록으로"
+        >✕</button>
         <img
           src={charSrc}
           alt="캐릭터"

@@ -90,11 +90,20 @@
 
 /* ── 캐릭터 영역 ── */
 .stage-char-area {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: var(--sp-4) var(--sp-4) var(--sp-2);
   background: var(--clr-bg-2);
+}
+
+/* 나가기 버튼을 캐릭터 배경 안 우상단에 얹는다(별도 여백 행 없이) */
+.stage-char-area .stage-exit-btn {
+  position: absolute;
+  top: var(--sp-3);
+  right: var(--sp-8);
+  margin: 0;
 }
 
 .stage-char-img {
