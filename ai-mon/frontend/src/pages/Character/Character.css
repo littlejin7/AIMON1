@@ -609,7 +609,8 @@
 }
 
 .char-cert-card {
-  width: 120px;
+  /* 좁은 화면에선 3장이 가로 스크롤 없이 들어오게 유동 축소, 412px 부근~이상에선 120px 유지 */
+  width: clamp(100px, calc((100vw - 54px) / 3), 120px);
   border-radius: 14px;
   overflow: hidden;
   flex-shrink: 0;
