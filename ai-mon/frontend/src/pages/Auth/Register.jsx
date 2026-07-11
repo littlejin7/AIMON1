@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { authApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
@@ -6,8 +6,15 @@ import EmailVerificationStep from './components/EmailVerificationStep'
 import { useEmailVerification } from './hooks/useEmailVerification'
 import ExternalBrowserGuideModal from '../../components/ExternalBrowserGuideModal/ExternalBrowserGuideModal'
 import LegalModal from '../../components/LegalModal/LegalModal'
+import PwaInstallModal from '../../components/PwaInstallModal/PwaInstallModal'
 import { isValidPassword, passwordError } from '../../utils/passwordPolicy'
 import { detectInAppBrowser } from '../../utils/inAppBrowser'
+import {
+  canShowPostSignupInstallPrompt,
+  promptPwaInstall,
+  recordPostSignupInstallDismissal,
+  subscribePwaInstallState,
+} from '../../utils/pwaInstall'
 import beginnerHappyIcon from '../../assets/character_beginnerhappy.png'
 import slimeIcon         from '../../assets/character_slime.png'
 import './Auth.css'
@@ -92,6 +99,7 @@ export default function Register() {
   const [error, setError]           = useState('')
   const [legalDoc, setLegalDoc]     = useState(null) // 'tos' | 'privacy' | null
   const [externalBrowserGuide, setExternalBrowserGuide] = useState(null)
+  const [showInstallModal, setShowInstallModal] = useState(false)
 
   const [isIdChecked, setIsIdChecked] = useState(false)
   const [idChecking, setIdChecking] = useState(false)
@@ -132,6 +140,21 @@ export default function Register() {
     onError: setError,
   })
   const { reset: resetEmailVerification, verified: emailVerified } = emailVerification
+
+  useEffect(() => {
+    if (step !== 7) return undefined
+
+    const syncInstallModal = () => {
+      setShowInstallModal(canShowPostSignupInstallPrompt())
+    }
+
+    const timer = window.setTimeout(syncInstallModal, 0)
+    const unsubscribe = subscribePwaInstallState(syncInstallModal)
+    return () => {
+      window.clearTimeout(timer)
+      unsubscribe()
+    }
+  }, [step])
 
   /* ── helpers ── */
   const set = (field) => (e) => { setForm(f => ({ ...f, [field]: e.target.value })); setError('') }
@@ -379,6 +402,19 @@ export default function Register() {
     })
   }
 
+  const handleInstallApp = async () => {
+    const result = await promptPwaInstall()
+    if (result?.outcome !== 'accepted') {
+      recordPostSignupInstallDismissal()
+    }
+    setShowInstallModal(false)
+  }
+
+  const handleInstallLater = () => {
+    recordPostSignupInstallDismissal()
+    setShowInstallModal(false)
+  }
+
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      RENDER
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -392,6 +428,11 @@ export default function Register() {
           onClose={closeExternalBrowserGuide}
         />
       )}
+      <PwaInstallModal
+        open={showInstallModal}
+        onInstall={handleInstallApp}
+        onLater={handleInstallLater}
+      />
       <div className="reg-card animate-fade-in-up">
 
         {/* ── Step 헤더 (1~6) ── */}

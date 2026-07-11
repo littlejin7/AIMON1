@@ -20,6 +20,7 @@ import NaverCallback from "./pages/Auth/NaverCallback";
 import KakaoCallback from "./pages/Auth/KakaoCallback";
 import LevelTestInfo from "./pages/LevelTestInfo/LevelTestInfo";
 import { useAuthStore } from "./hooks/useAuthStore";
+import { initPwaInstallPrompt } from "./utils/pwaInstall";
 import SplashLoading from "./components/loading/SplashLoading";
 import GlobalBGM from "./components/GlobalBGM";
 import Game from "./pages/Game/Game";
@@ -84,6 +85,10 @@ export default function App() {
   useEffect(() => {
     const timer = setTimeout(() => setReady(true), 3500);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    initPwaInstallPrompt();
   }, []);
 
   useEffect(() => {
