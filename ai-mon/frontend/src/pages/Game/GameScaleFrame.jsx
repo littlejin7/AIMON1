@@ -17,8 +17,8 @@ function getViewportSize() {
 export default function GameScaleFrame({
   children,
   baseWidth = BASE_WIDTH,
-  baseHeight = BASE_HEIGHT,
-  background = '#F4F3FA',
+  baseHeight = null,
+  background = 'var(--clr-bg)',
   frameOverflow = 'hidden',
   scaleMode = 'fit',
 }) {
