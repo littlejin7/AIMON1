@@ -14,8 +14,7 @@ export default function StageResult({
   unitInfo,
   stageNum,
   lessonId,
-  showAuthModal,
-  setShowAuthModal,
+  isGuestTrial = false,
   handleMinibossRetry,
   handleRestartFromBeginning,
   resetStageState,
@@ -24,6 +23,14 @@ export default function StageResult({
   setEvoModal,
 }) {
   const navigate = useNavigate()
+  const resultTitle = isGuestTrial
+    ? '무료 체험 결과'
+    : passed ? '스테이지 클리어!' : '다시 도전해보세요!'
+  const resultDesc = isGuestTrial
+    ? passed
+      ? '1-1 체험 기록은 가입 후 이어받을 수 있어요.'
+      : '가입하면 다시 도전하고 다음 스테이지를 이어가세요!'
+    : `${isMinibossPlayed ? '미니보스 ' : ''}${evalTotalCount}문제 중 ${evalCorrectCount}개 정답`
 
   return (
     <div className="stage-result animate-fade-in">
@@ -35,37 +42,6 @@ export default function StageResult({
           stage={evoModal.stage}
           onClose={() => setEvoModal(null)}
         />
-      )}
-
-      {/* 비로그인 체험 완료 모달 */}
-      {showAuthModal && (
-        <div className="auth-modal-overlay" onClick={() => setShowAuthModal(false)}>
-          <div className="auth-modal" onClick={e => e.stopPropagation()}>
-            <h2>🎉 1-1 클리어!</h2>
-            <p>회원가입하면 모든 스테이지를 계속 진행할 수 있어요.</p>
-            <button
-              className="btn btn-primary"
-              style={{ width: '100%', marginBottom: '0.5rem' }}
-              onClick={() => navigate('/register')}
-            >
-              회원가입하기
-            </button>
-            <button
-              className="btn btn-secondary"
-              style={{ width: '100%', marginBottom: '0.5rem' }}
-              onClick={() => navigate('/auth')}
-            >
-              이미 계정이 있어요
-            </button>
-            <button
-              className="btn btn-ghost"
-              style={{ width: '100%' }}
-              onClick={() => setShowAuthModal(false)}
-            >
-              나중에 할게요
-            </button>
-          </div>
-        </div>
       )}
 
       {/* 결과 아이콘 */}
@@ -80,18 +56,16 @@ export default function StageResult({
         }
       </div>
 
-      <h2 className="result-title">{passed ? '스테이지 클리어!' : '다시 도전해보세요!'}</h2>
+      <h2 className="result-title">{resultTitle}</h2>
 
       <div className="result-score" style={{ color: passed ? '#10b981' : '#ef4444' }}>
         {finalScore}점
       </div>
 
-      <p className="result-desc">
-        {isMinibossPlayed && '미니보스 '}{evalTotalCount}문제 중 {evalCorrectCount}개 정답
-      </p>
+      <p className="result-desc">{resultDesc}</p>
 
       {/* 코인(+GP) 보상 */}
-      {passed && xpAwarded > 0 && (
+      {!isGuestTrial && passed && xpAwarded > 0 && (
         <div className="result-reward" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px', marginBottom: '16px' }}>
           <span>⭐ 스테이지 완료</span>
           <span style={{ color: '#a6e3a1', fontWeight: 'bold' }}>
@@ -99,7 +73,7 @@ export default function StageResult({
           </span>
         </div>
       )}
-      {passed && xpAwarded === 0 && (
+      {!isGuestTrial && passed && xpAwarded === 0 && (
         <div className="result-reward" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px', marginBottom: '16px' }}>
           <span>⭐ 스테이지 재완료</span>
           <span style={{ fontSize: '0.9em', color: '#a0a0b0' }}>이미 보상을 획득했습니다.</span>
@@ -108,7 +82,14 @@ export default function StageResult({
 
       {/* 액션 버튼 */}
       <div className="result-actions">
-        {passed && unitInfo && (
+        {isGuestTrial ? (
+          <button
+            className="btn btn-primary"
+            onClick={() => navigate('/register?from=trial')}
+          >
+            {passed ? '다음 스테이지 계속하기' : '가입하고 다시 도전하기'}
+          </button>
+        ) : passed && unitInfo && (
           <button
             className="btn btn-primary"
             onClick={() => {
@@ -123,10 +104,10 @@ export default function StageResult({
             다음 스테이지로 ➔
           </button>
         )}
-        <button className="btn btn-secondary" onClick={() => navigate(`/lesson/${lessonId}`)}>
-          홈으로 돌아가기
+        <button className="btn btn-secondary" onClick={() => navigate(isGuestTrial ? '/lesson' : `/lesson/${lessonId}`)}>
+          {isGuestTrial ? '레슨으로 돌아가기' : '홈으로 돌아가기'}
         </button>
-        {!passed && (
+        {!isGuestTrial && !passed && (
           isMinibossPlayed ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
               <button className="btn btn-primary" onClick={handleMinibossRetry}>

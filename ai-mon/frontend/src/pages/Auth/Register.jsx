@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { authApi } from '../../api/index'
+import { authApi, progressApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import EmailVerificationStep from './components/EmailVerificationStep'
 import { useEmailVerification } from './hooks/useEmailVerification'
@@ -9,6 +9,7 @@ import LegalModal from '../../components/LegalModal/LegalModal'
 import PwaInstallModal from '../../components/PwaInstallModal/PwaInstallModal'
 import { isValidPassword, passwordError } from '../../utils/passwordPolicy'
 import { detectInAppBrowser } from '../../utils/inAppBrowser'
+import { clearGuestTrialProgress, readGuestTrialProgress } from '../../utils/guestTrialProgress'
 import {
   canShowPostSignupInstallPrompt,
   promptPwaInstall,
@@ -382,6 +383,28 @@ export default function Register() {
       }
       const res = await authApi.register(payload)
       setAuth(res.data.access_token, res.data.user, res.data.refresh_token)
+      const guestProgress = readGuestTrialProgress()
+      if (
+        guestProgress?.unit === 1 &&
+        guestProgress?.stage === '1-1' &&
+        guestProgress?.is_completed &&
+        Array.isArray(guestProgress.answered_questions) &&
+        guestProgress.answered_questions.length > 0
+      ) {
+        try {
+          await progressApi.saveProgress({
+            unit: 1,
+            stage: '1-1',
+            score: Number(guestProgress.score) || 0,
+            is_completed: true,
+            checkpoint: 'done',
+            answered_questions: guestProgress.answered_questions,
+          })
+          clearGuestTrialProgress()
+        } catch (progressErr) {
+          console.warn('게스트 체험 진행도 승계 실패', progressErr)
+        }
+      }
       setStep(7)
     } catch (err) {
       setError(err.response?.data?.detail || '오류가 발생했습니다. 다시 시도해주세요.')

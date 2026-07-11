@@ -11,6 +11,7 @@ import StageResult from './StageResult'
 import TitleEarnedModal from '../../components/TitleEarnedModal/TitleEarnedModal'
 import MiniBossGateModal from '../../components/MiniBossGateModal/MiniBossGateModal'
 import InfoModal from '../../components/InfoModal/InfoModal'
+import { saveGuestTrialProgress } from '../../utils/guestTrialProgress'
 import '../Boss/Boss.css'
 import './Stage.css'
 
@@ -131,7 +132,6 @@ export default function Stage({ _lessonId, _stage }) {
   const [gpAwarded,     setGpAwarded]     = useState(0)
   const [unitInfo,      setUnitInfo]      = useState(null)
   const [evoModal,      setEvoModal]      = useState(null)
-  const [showAuthModal, setShowAuthModal] = useState(false)
   const [newlyEarnedTitles, setNewlyEarnedTitles] = useState([])
 
   // ── 개념 퀴즈 실패(60% 미만) 안내 팝업 ──
@@ -510,7 +510,7 @@ export default function Stage({ _lessonId, _stage }) {
       // 완료 게이트 폴백용: 서버가 재채점할 (qid, 첫 답안) 누적.
       // 게이트는 'qid별 첫 시도 정답'만 집계하므로 폴백도 '첫 답안'을 보존한다.
       // 이미 키가 있으면 덮지 않음 → 재시도 정답이 첫 오답을 가리지 못한다(엿보기 차단).
-      if (token && qid && !sessionAnswersRef.current.has(qid)) {
+      if (qid && !sessionAnswersRef.current.has(qid)) {
         sessionAnswersRef.current.set(qid, { question_id: qid, user_answer: userAnswer })
       }
     }
@@ -533,6 +533,27 @@ export default function Stage({ _lessonId, _stage }) {
 
     // 모든 문제 완료 시도
     if (current + 1 >= questions.length) {
+      // 비로그인 공개 체험은 1-1 개념 퀴즈까지만 제공하고, 미니보스/진행 저장은 가입 후로 넘긴다.
+      const isFreeTrial = String(lessonId) === '1' && stageNum === 1
+      if (isFreeTrial && !token && currentCategory === 'stage_quiz' && minibossStartIndex === null) {
+        const guestScore = Math.round((correct / questions.length) * 100)
+        if (guestScore >= 80) {
+          saveGuestTrialProgress({
+            unit: 1,
+            stage: '1-1',
+            score: guestScore,
+            is_completed: true,
+            checkpoint: 'done',
+            answered_questions: Array.from(sessionAnswersRef.current.values()),
+            saved_at: new Date().toISOString(),
+          })
+        }
+        stopBGM()
+        playBGM('clear')
+        setFinished(true)
+        return
+      }
+
       // 1. 스테이지 퀴즈 완료 -> 미니보스로 전환
       if (currentCategory === 'stage_quiz' && minibossStartIndex === null) {
         const stageQuizScore = Math.round((correct / questions.length) * 100)
@@ -577,12 +598,10 @@ export default function Stage({ _lessonId, _stage }) {
       }
 
       // 비로그인 체험 (1-1)
-      const isFreeTrial = String(lessonId) === '1' && stageNum === 1
       if (isFreeTrial && !token) {
         stopBGM()
         playBGM('clear')
         setFinished(true)
-        setShowAuthModal(true)
         return
       }
 
@@ -719,8 +738,7 @@ export default function Stage({ _lessonId, _stage }) {
           unitInfo={unitInfo}
           stageNum={stageNum}
           lessonId={lessonId}
-          showAuthModal={showAuthModal}
-          setShowAuthModal={setShowAuthModal}
+          isGuestTrial={!token && String(lessonId) === '1' && stageNum === 1}
           handleMinibossRetry={handleMinibossRetry}
           handleRestartFromBeginning={handleRestartFromBeginning}
           resetStageState={resetStageState}

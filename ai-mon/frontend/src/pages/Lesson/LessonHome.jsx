@@ -229,6 +229,7 @@ export default function LessonHome() {
   const [showLevelTest, setShowLevelTest] = useState(false)
   const [pendingUnitId, setPendingUnitId] = useState(null)
   const [levelTestErrorMsg, setLevelTestErrorMsg] = useState(null)
+  const [guestNoticeMsg, setGuestNoticeMsg] = useState(null)
   const [lessons,  setLessons]  = useState([])
   const [progress, setProgress] = useState([])
   const [loading,  setLoading]  = useState(true)
@@ -433,13 +434,17 @@ export default function LessonHome() {
   const isFreeTrialStage = (unitId, stageNum) =>
     Number(unitId) === 1 && Number(stageNum) === 1
 
+  const showGuestTrialNotice = () => {
+    setGuestNoticeMsg('로그인 없이 1-1만 무료로 체험할 수 있어요. 계속 학습하려면 회원가입 또는 로그인을 진행해주세요.')
+  }
+
   const openStageMode = (unitId, stageNum, mode = 'lesson') => {
     if (!token) {
       if (isFreeTrialStage(unitId, stageNum) && mode === 'lesson') {
         navigate('/stage/1/1')
-        return
+      } else {
+        showGuestTrialNotice()
       }
-      navigate('/auth')
       return
     }
     if (!user?.is_level_tested && !isFreeTrialStage(unitId, stageNum)) {
@@ -474,6 +479,12 @@ export default function LessonHome() {
         icon="⚠️"
         message={levelTestErrorMsg}
         onConfirm={() => setLevelTestErrorMsg(null)}
+      />
+
+      <InfoModal
+        icon="🔒"
+        message={guestNoticeMsg}
+        onConfirm={() => setGuestNoticeMsg(null)}
       />
 
       <div className="lh-scroll">
@@ -721,6 +732,7 @@ export default function LessonHome() {
                           const stageDone = s <= prog.completed
                           const isCurrent = s === prog.completed + 1
                           const enabled = unlocked && s <= prog.completed + 1
+                          const isGuestFreeTrial = !token && isFreeTrialStage(lesson.unit_id, s)
                           const stateClass = stageDone ? 'done' : isCurrent ? 'current' : 'locked'
 
                           return (
@@ -728,15 +740,17 @@ export default function LessonHome() {
                               key={s}
                               type="button"
                               className={`lh-paw-stage no-3d ${stateClass} ${activeQuickStage === s ? 'active' : ''}`}
-                              disabled={!enabled}
+                              disabled={token ? !enabled : false}
                               onClick={() => {
-                                if (!enabled) return
                                 if (!token) {
-                                  if (isFreeTrialStage(lesson.unit_id, s)) {
+                                  if (isGuestFreeTrial) {
                                     navigate('/stage/1/1')
+                                  } else {
+                                    showGuestTrialNotice()
                                   }
                                   return
                                 }
+                                if (!enabled) return
                                 if (stageDone) {
                                   toggleQuickStage(s)
                                   return
@@ -753,11 +767,11 @@ export default function LessonHome() {
                               <span className="lh-paw-content">
                                 <span className="lh-paw-title">{getStageDisplayTitle(lesson.unit_id, s, title, courseLevel)}</span>
                                 <span className="lh-paw-status">
-                                  {stageDone ? '완료' : isCurrent ? '진행중' : '잠김'}
+                                  {isGuestFreeTrial ? '체험 가능' : stageDone ? '완료' : isCurrent ? '진행중' : '잠김'}
                                 </span>
                               </span>
                               {stageDone && <span className="lh-paw-action review">복습</span>}
-                              {isCurrent && <span className="lh-paw-action continue">이어하기</span>}
+                              {isCurrent && <span className="lh-paw-action continue">{isGuestFreeTrial ? '무료 체험' : '이어하기'}</span>}
                               {!enabled && <span className="lh-paw-lock">🔒</span>}
                             </button>
                           )
