@@ -62,8 +62,8 @@ export default function TrainHome({
         {/* 훈련 모드 그리드 */}
         <div className="tr-grid">
           {TRAIN_MODES.map(m => {
+            // 랜덤 퀴즈는 조건 미충족이어도 카드를 끄지 않고, 눌렀을 때 안내 알림을 띄운다(오답 복습과 동일 패턴).
             const isDisabled = m.locked
-              || (m.id === 'random' && !hasCompletedStages)
             const countLabel = m.id === 'random' && !hasCompletedStages  ? '스테이지 클리어 필요'
                              : m.locked ? m.lockHint
                              : m.id === 'wrong'  ? `${wrongCount}문제 대기 중`
