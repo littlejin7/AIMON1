@@ -26,6 +26,6 @@ export const TRAIN_MODES = [
     icon: '💻',
     iconBg: '#F0EFF8',
     name: '코드도감',
-    desc: '지금 까지 모은 코드를 확인해보세요!',
+    desc: '지금까지 모은 코드 확인하기',
   },
 ]
