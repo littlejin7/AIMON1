@@ -20,30 +20,34 @@
 
 import { useState, useEffect } from 'react'
 import './Evolution.css'
+import slimeIcon from '../../assets/character_slime.png'
+import robotIcon from '../../assets/character_robot.png'
+import bubbleIcon from '../../assets/character_bubble.png'
+import finalGhostIcon from '../../assets/character_final_ghost.png'
 
 // 캐릭터 메타 정보. evolution_stage(0~3) ↔ 캐릭터 매핑은 백엔드
 // character_for_stage 와 동일 기준(slime=0/robot=1/speech_bubble=2/final_ghost=3).
 export const CHAR_META = {
   slime: {
-    icon: '/src/assets/character_slime.png',
+    icon: slimeIcon,
     name: '에이원',
     color: '#7c3aed',
     glow: 'rgba(124,58,237,0.5)',
   },
   robot: {
-    icon: '/src/assets/character_robot.png',
+    icon: robotIcon,
     name: '에이량',
     color: '#06b6d4',
     glow: 'rgba(6,182,212,0.5)',
   },
   speech_bubble: {
-    icon: '/src/assets/character_bubble.png',
+    icon: bubbleIcon,
     name: '에이훈',
     color: '#10b981',
     glow: 'rgba(16,185,129,0.5)',
   },
   final_ghost: {
-    icon: '/src/assets/character_final_ghost.png',
+    icon: finalGhostIcon,
     name: '에이왕',
     color: '#f59e0b',
     glow: 'rgba(245,158,11,0.5)',
