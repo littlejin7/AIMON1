@@ -1,7 +1,7 @@
 import aipangIconUrl from './AipangPuzzle/assets/aipangicon.png'
 import airunIconUrl  from './AIrun/assets/AIRUNicon.png'
 import aibombIconUrl from './AIbomb/assets/AIbombicon.png'
-import aipairIconUrl from './AIPair/assets/AIPairicon.png'
+import aipairIconUrl from './AIPair/assets/AIpairicon.png'
 import aiwordIconUrl from './AIcross/AIwordicon.png'
 
 export const GAMES = [
