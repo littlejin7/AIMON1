@@ -8,7 +8,7 @@ export default function CrosswordGrid({ rows, cols, cellMap, selSet, cursor, che
         style={{
           gridTemplateColumns: `repeat(${cols}, 1fr)`,
           gridTemplateRows: `repeat(${rows}, 1fr)`,
-          '--cell-size': `clamp(22px, calc((420px - 88px) / ${cols}), 40px)`,
+          '--cell-size': `clamp(22px, calc((480px - 96px) / ${cols}), 40px)`,
         }}
       >
         {Array.from({ length: rows * cols }, (_, i) => {
