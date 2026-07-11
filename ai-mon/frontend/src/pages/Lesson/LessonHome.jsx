@@ -430,12 +430,19 @@ export default function LessonHome() {
     })
   }
 
+  const isFreeTrialStage = (unitId, stageNum) =>
+    Number(unitId) === 1 && Number(stageNum) === 1
+
   const openStageMode = (unitId, stageNum, mode = 'lesson') => {
     if (!token) {
+      if (isFreeTrialStage(unitId, stageNum) && mode === 'lesson') {
+        navigate('/stage/1/1')
+        return
+      }
       navigate('/auth')
       return
     }
-    if (!user?.is_level_tested && !(unitId === 1 && stageNum === 1)) {
+    if (!user?.is_level_tested && !isFreeTrialStage(unitId, stageNum)) {
       setPendingUnitId(unitId)
       setShowLevelTest(true)
       return
@@ -723,12 +730,18 @@ export default function LessonHome() {
                               className={`lh-paw-stage no-3d ${stateClass} ${activeQuickStage === s ? 'active' : ''}`}
                               disabled={!enabled}
                               onClick={() => {
-                                if (!token || !enabled) return
+                                if (!enabled) return
+                                if (!token) {
+                                  if (isFreeTrialStage(lesson.unit_id, s)) {
+                                    navigate('/stage/1/1')
+                                  }
+                                  return
+                                }
                                 if (stageDone) {
                                   toggleQuickStage(s)
                                   return
                                 }
-                                if (!user?.is_level_tested && !(lesson.unit_id === 1 && s === 1)) {
+                                if (!user?.is_level_tested && !isFreeTrialStage(lesson.unit_id, s)) {
                                   setPendingUnitId(lesson.unit_id)
                                   setShowLevelTest(true)
                                   return
