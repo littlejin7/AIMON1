@@ -785,6 +785,7 @@ export default function Stage({ _lessonId, _stage }) {
   if (showMinibossAlert) {
     return (
       <MiniBossAlert
+        onClose={() => navigate(-1)}
         onFight={() => {
           setShowMinibossAlert(false)
           if (minibossStartIndex !== null) setCurrent(minibossStartIndex)
