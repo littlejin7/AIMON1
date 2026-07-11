@@ -4,6 +4,8 @@ import { quizApi, progressApi, userApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import LevelTestModal from '../../components/LevelTestModal/LevelTestModal'
 import InfoModal from '../../components/InfoModal/InfoModal'
+import unitBossImg from '../../assets/boss_finalorg.png'
+import endBossImg from '../../assets/endboss_finalorg.png'
 import './LessonHome.css'
 
 const LEVEL_MAP = {
@@ -756,7 +758,7 @@ export default function LessonHome() {
                     <div className="lh-unitboss-gate-card">
                       <div className="lh-unitboss-gate-body">
                         <div className="lh-unitboss-gate-text">
-                          <span className="lh-unitboss-gate-kicker">👑 유닛보스 게이트</span>
+                          <span className="lh-unitboss-gate-kicker">유닛보스 게이트</span>
                           <h4>{shortTitle} 마스터</h4>
                           <p>
                             {bossState === 'cleared'
@@ -767,7 +769,12 @@ export default function LessonHome() {
                           </p>
                         </div>
                         <div className="lh-unitboss-gate-monster">
-                          <span className="lh-unitboss-gate-silhouette">👾</span>
+                          <img
+                            className={`lh-unitboss-gate-img ${bossState}`}
+                            src={unitBossImg}
+                            alt="유닛보스"
+                            draggable={false}
+                          />
                         </div>
                       </div>
                       <button
@@ -857,7 +864,13 @@ export default function LessonHome() {
                 </p>
               </div>
               <div className="lh-endboss-gate-media">
-                <span className="lh-endboss-gate-icon">{endbossUnlocked ? '👑' : '🔒'}</span>
+                <img
+                  className={`lh-endboss-gate-img ${endbossUnlocked ? 'unlocked' : 'locked'}`}
+                  src={endBossImg}
+                  alt="엔드보스"
+                  draggable={false}
+                />
+                {!endbossUnlocked && <span className="lh-endboss-lock-badge">LOCK</span>}
               </div>
             </div>
             <button
