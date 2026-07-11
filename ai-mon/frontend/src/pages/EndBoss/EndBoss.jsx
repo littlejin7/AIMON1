@@ -35,7 +35,7 @@ export default function EndBoss() {
   const [errorMsg, setErrorMsg] = useState('')
 
   // HP (엔드보스: 1200/1800)
-  const BOSS_HP_INIT = 1800
+  const BOSS_HP_INIT = 1400
   const MY_HP_INIT = 1200
   const [myHp, setMyHp] = useState(MY_HP_INIT)
   const [bossHp, setBossHp] = useState(BOSS_HP_INIT)
@@ -63,6 +63,7 @@ export default function EndBoss() {
 
   // 레벨업 / 칭호
   const [initialLevel, setInitialLevel] = useState(1)
+  const nextQuestionLockRef = useRef(false)
   const [levelUpMessage, setLevelUpMessage] = useState('')
   const [newlyEarnedTitles, setNewlyEarnedTitles] = useState([])
 
@@ -327,39 +328,46 @@ export default function EndBoss() {
 
   // ── 다음 문제 ────────────────────────────────
   const handleNextQuestion = async () => {
+    if (nextQuestionLockRef.current) return
+    nextQuestionLockRef.current = true
     clearPhaseTimer()
     if (myHp <= 0 || endbossState.phase3Tries >= 3) {
       playBGM('fail')
       setPhase('failed')
+      nextQuestionLockRef.current = false
       return
     }
     setLoading(true)
     try {
-      setEndbossState(prev => {
-        const { phase, phase1Index, phase1Questions, phase2Index, phase2Questions, phase3FirstQuestion, nextPhase3Question } = prev
-        if (phase === 3) {
-          const nextQ = currentQuestion.phase !== 3 ? phase3FirstQuestion : nextPhase3Question
-          setCurrentQuestion(nextQ)
-          return prev
-        } else if (phase === 1) {
-          const nextIdx = phase1Index + 1
-          if (nextIdx < phase1Questions.length) {
-            setCurrentQuestion(phase1Questions[nextIdx])
-            return { ...prev, phase1Index: nextIdx }
-          } else {
-            // Phase 1 완료 → Phase 2 전환 화면
-            setPhase('phase2_transition')
-            return prev
-          }
-        } else if (phase === 2) {
-          const nextIdx = phase2Index + 1
-          if (nextIdx < phase2Questions.length) {
-            setCurrentQuestion(phase2Questions[nextIdx])
-            return { ...prev, phase2Index: nextIdx }
-          }
+      const {
+        phase,
+        phase1Index,
+        phase1Questions,
+        phase2Index,
+        phase2Questions,
+        phase3FirstQuestion,
+        nextPhase3Question,
+      } = endbossState
+
+      if (phase === 3) {
+        const nextQ = currentQuestion?.phase !== 3 ? phase3FirstQuestion : nextPhase3Question
+        if (nextQ) setCurrentQuestion(nextQ)
+      } else if (phase === 1) {
+        const nextIdx = phase1Index + 1
+        if (nextIdx < phase1Questions.length) {
+          setCurrentQuestion(phase1Questions[nextIdx])
+          setEndbossState(prev => ({ ...prev, phase1Index: nextIdx }))
+        } else {
+          // Phase 1 완료 → Phase 2 전환 화면
+          setPhase('phase2_transition')
         }
-        return prev
-      })
+      } else if (phase === 2) {
+        const nextIdx = phase2Index + 1
+        if (nextIdx < phase2Questions.length) {
+          setCurrentQuestion(phase2Questions[nextIdx])
+          setEndbossState(prev => ({ ...prev, phase2Index: nextIdx }))
+        }
+      }
       setAiResult(null)
       setSelectedOption(null)
       setAnswerInput('')
@@ -367,6 +375,9 @@ export default function EndBoss() {
       console.error(err)
     } finally {
       setLoading(false)
+      window.setTimeout(() => {
+        nextQuestionLockRef.current = false
+      }, 0)
     }
   }
 
