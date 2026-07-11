@@ -61,7 +61,7 @@ export default function GameScaleFrame({
         style={{
           position: 'relative',
           width: `${baseWidth}px`,
-          height: hasFixedHeight ? `${baseHeight}px` : 'auto',
+          height: hasFixedHeight ? `${baseHeight}px` : '100%',
           minHeight: hasFixedHeight ? undefined : '100%',
           flexShrink: 0,
           overflow: frameOverflow,
