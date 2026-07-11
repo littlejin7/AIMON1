@@ -50,7 +50,7 @@ export default function GameScaleFrame({
         position: 'fixed',
         inset: 0,
         display: 'flex',
-        alignItems: hasFixedHeight ? 'center' : 'flex-start',
+        alignItems: 'flex-start',
         justifyContent: 'center',
         overflow: hasFixedHeight ? 'hidden' : 'auto',
         background,
@@ -66,7 +66,7 @@ export default function GameScaleFrame({
           flexShrink: 0,
           overflow: frameOverflow,
           transform: `scale(${scale})`,
-          transformOrigin: 'center center',
+          transformOrigin: 'top center',
         }}
       >
         {children}
