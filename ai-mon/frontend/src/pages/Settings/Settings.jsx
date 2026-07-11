@@ -5,6 +5,12 @@ import { useSoundStore } from '../../hooks/useSoundStore'
 import { userApi, authApi } from '../../api/index'
 import LegalModal from '../../components/LegalModal/LegalModal'
 import { isValidPassword, passwordError } from '../../utils/passwordPolicy'
+import {
+  getPwaInstallStatus,
+  promptPwaInstall,
+  reloadAppFromNetwork,
+  subscribePwaInstallState,
+} from '../../utils/pwaInstall'
 import './Settings.css'
 import slimeIcon from '../../assets/character_slime.png'
 import robotIcon from '../../assets/character_robot.png'
@@ -75,6 +81,14 @@ export default function Settings() {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [deleteNotice, setDeleteNotice] = useState(null)
   const deleteRedirectTimerRef = useRef(null)
+  const [installStatus, setInstallStatus] = useState({
+    installed: false,
+    canPrompt: false,
+    canInstallManually: false,
+  })
+  const [appNotice, setAppNotice] = useState(null)
+  const [refreshingApp, setRefreshingApp] = useState(false)
+  const appNoticeTimerRef = useRef(null)
 
   const isSocialAccount = /^(google_|naver_|kakao_)/.test(user?.username || '')
   const [showPwModal, setShowPwModal] = useState(false)
@@ -102,6 +116,24 @@ export default function Settings() {
       if (pwNoticeTimerRef.current) {
         clearTimeout(pwNoticeTimerRef.current)
       }
+      if (appNoticeTimerRef.current) {
+        clearTimeout(appNoticeTimerRef.current)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    const syncInstallStatus = () => {
+      setInstallStatus(getPwaInstallStatus())
+    }
+
+    syncInstallStatus()
+    const timer = window.setTimeout(syncInstallStatus, 0)
+    const unsubscribe = subscribePwaInstallState(syncInstallStatus)
+
+    return () => {
+      window.clearTimeout(timer)
+      unsubscribe()
     }
   }, [])
 
@@ -202,6 +234,46 @@ export default function Settings() {
   }
 
   const toggleNotif = (key) => setNotifs((prev) => ({ ...prev, [key]: !prev[key] }))
+
+  const showAppNotice = (notice) => {
+    setAppNotice(notice)
+    if (appNoticeTimerRef.current) {
+      clearTimeout(appNoticeTimerRef.current)
+    }
+    appNoticeTimerRef.current = setTimeout(() => setAppNotice(null), 3200)
+  }
+
+  const handleInstallApp = async () => {
+    if (installStatus.installed) {
+      showAppNotice({ type: 'success', message: '이미 앱으로 설치되어 있습니다.' })
+      return
+    }
+
+    if (installStatus.canPrompt) {
+      const result = await promptPwaInstall()
+      setInstallStatus(getPwaInstallStatus())
+      if (result?.outcome === 'accepted') {
+        showAppNotice({ type: 'success', message: '앱 설치가 시작되었습니다.' })
+      } else {
+        showAppNotice({ type: 'error', message: '설치를 취소했습니다. 필요하면 설정에서 다시 누를 수 있어요.' })
+      }
+      return
+    }
+
+    if (installStatus.canInstallManually) {
+      showAppNotice({ type: 'success', message: '공유 버튼을 누른 뒤 홈 화면에 추가를 선택해주세요.' })
+      return
+    }
+
+    showAppNotice({ type: 'error', message: '브라우저 메뉴에서 앱 설치 또는 홈 화면에 추가를 선택해주세요.' })
+  }
+
+  const handleRefreshApp = async () => {
+    if (refreshingApp) return
+    setRefreshingApp(true)
+    showAppNotice({ type: 'success', message: '최신 버전으로 다시 불러옵니다.' })
+    await reloadAppFromNetwork()
+  }
 
   const openPwModal = () => {
     if (isSocialAccount) {
@@ -305,6 +377,12 @@ export default function Settings() {
       {pwNotice && (
         <div className={`st-toast st-toast-${pwNotice.type}`}>
           {pwNotice.message}
+        </div>
+      )}
+
+      {appNotice && (
+        <div className={`st-toast st-toast-${appNotice.type}`}>
+          {appNotice.message}
         </div>
       )}
 
@@ -572,6 +650,39 @@ export default function Settings() {
 
         <p className="st-section-label">앱 정보</p>
         <div className="st-group">
+          <button
+            type="button"
+            className="st-info-action-row"
+            onClick={handleInstallApp}
+          >
+            <span className="st-info-action-icon">⬇️</span>
+            <span className="st-info-action-text">
+              <span className="st-info-action-label">
+                {installStatus.installed ? '앱 설치됨' : '앱 설치하기'}
+              </span>
+              <span className="st-info-action-sub">
+                {installStatus.installed
+                  ? '홈 화면에서 바로 실행할 수 있어요'
+                  : installStatus.canPrompt
+                    ? '기기 홈 화면에 AI MON을 추가합니다'
+                    : '브라우저 메뉴로 홈 화면에 추가할 수 있어요'}
+              </span>
+            </span>
+            <span className="st-chevron">›</span>
+          </button>
+          <button
+            type="button"
+            className="st-info-action-row"
+            onClick={handleRefreshApp}
+            disabled={refreshingApp}
+          >
+            <span className="st-info-action-icon">↻</span>
+            <span className="st-info-action-text">
+              <span className="st-info-action-label">최신 버전으로 새로고침</span>
+              <span className="st-info-action-sub">업데이트가 안 보일 때 앱 캐시를 정리하고 다시 불러옵니다</span>
+            </span>
+            <span className="st-chevron">›</span>
+          </button>
           <div className="st-info-row">
             <span className="st-info-label">버전</span>
             <span className="st-info-val accent">v1.0.0 MVP</span>

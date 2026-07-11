@@ -61,6 +61,26 @@ export function subscribePwaInstallState(callback) {
   return () => window.removeEventListener(INSTALL_STATE_EVENT, callback)
 }
 
+export function canPromptPwaInstall() {
+  if (typeof window === 'undefined') return false
+  return !isPwaInstalled() && !!deferredInstallPrompt
+}
+
+export function getPwaInstallStatus() {
+  if (typeof window === 'undefined') {
+    return { installed: false, canPrompt: false, canInstallManually: false }
+  }
+
+  const installed = isPwaInstalled()
+  const isIos = /iphone|ipad|ipod/i.test(window.navigator.userAgent || '')
+
+  return {
+    installed,
+    canPrompt: !installed && !!deferredInstallPrompt,
+    canInstallManually: !installed && !deferredInstallPrompt && isIos,
+  }
+}
+
 export function canShowPostSignupInstallPrompt() {
   if (typeof window === 'undefined') return false
   if (isPwaInstalled() || !deferredInstallPrompt) return false
@@ -111,4 +131,32 @@ export async function promptPwaInstall() {
   } catch {
     return { outcome: 'unavailable' }
   }
+}
+
+export async function reloadAppFromNetwork() {
+  if (typeof window === 'undefined') return
+
+  try {
+    if ('serviceWorker' in window.navigator) {
+      const registrations = await window.navigator.serviceWorker.getRegistrations()
+      await Promise.all(registrations.map((registration) => registration.update().catch(() => null)))
+
+      registrations.forEach((registration) => {
+        registration.waiting?.postMessage({ type: 'SKIP_WAITING' })
+      })
+    }
+  } catch {
+    // A stale app should still be reloadable even if service worker update checks fail.
+  }
+
+  try {
+    if ('caches' in window) {
+      const cacheKeys = await window.caches.keys()
+      await Promise.all(cacheKeys.map((key) => window.caches.delete(key)))
+    }
+  } catch {
+    // Cache deletion is a best-effort update helper, not a blocking requirement.
+  }
+
+  window.location.reload()
 }

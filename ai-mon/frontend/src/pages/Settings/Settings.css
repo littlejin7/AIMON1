@@ -567,6 +567,55 @@
 }
 
 /* ── 앱 정보 ── */
+.st-info-action-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 13px 14px;
+  border: 0;
+  border-bottom: 0.5px solid var(--clr-border);
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.st-info-action-row:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.st-info-action-row:not(:disabled):hover {
+  background: rgba(127,119,221,0.08);
+}
+.st-info-action-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(83,74,183,0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 16px;
+}
+.st-info-action-text {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.st-info-action-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--clr-text);
+}
+.st-info-action-sub {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--clr-text-muted);
+}
 .st-info-row {
   display: flex;
   justify-content: space-between;
