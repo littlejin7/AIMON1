@@ -2,13 +2,13 @@
   position: fixed;
   bottom: 0;
   left: 50%;
-  width: var(--app-canvas-width, 420px);
+  width: min(100vw, var(--app-canvas-width, 420px));
   z-index: var(--z-nav);
   padding: 0 env(safe-area-inset-right) env(safe-area-inset-bottom);
   background: #FFFFFF;
   border-top: 0.5px solid #E2E1EE;
   overflow: hidden;
-  transform: translateX(-50%) scale(var(--app-scale));
+  transform: translateX(-50%);
   transform-origin: bottom center;
 }
 
