@@ -49,7 +49,6 @@ export default function Train() {
         const prog = progressRes.data || []
         const isUnit1BossCleared = prog.some(p => p.unit === 1 && p.stage === '1-boss' && p.is_completed)
         setIsLocked(!isUnit1BossCleared)
-        setCompletedStageCount(prog.filter(p => p.is_completed).length)
         setLessons(lessonsRes.data || [])
         const cacheKey = user?.id ? `is_train_unlocked_${user.id}` : 'is_train_unlocked'
         localStorage.setItem(cacheKey, isUnit1BossCleared ? 'true' : 'false')
@@ -84,6 +83,12 @@ export default function Train() {
             .slice(0, 4)
             .map(a => ({ unit_id: a.unit, title: titleByUnit[a.unit] || `Unit ${a.unit}`, pct: a.pct }))
         )
+      } catch {}
+      // 랜덤 퀴즈 활성화 판단은 화면 탭(activeLevel) 기준 완료 스테이지 수로 맞춘다
+      try {
+        const progRes = await progressApi.getProgress(activeLevel)
+        const prog = progRes.data || []
+        setCompletedStageCount(prog.filter(p => p.is_completed).length)
       } catch {}
     }
     fetchStats()
