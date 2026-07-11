@@ -279,7 +279,11 @@ export default function Register() {
   /* ── Social OAuth ── */
   const handleSocial = (id) => {
     if (id === 'google') {
-      const clientId   = '351430087231-s44028ntujf7a2r39svls4ol5v37ftte.apps.googleusercontent.com'
+      const clientId   = import.meta.env.VITE_GOOGLE_CLIENT_ID
+      if (!clientId) {
+        setError('구글 로그인 설정이 누락되었습니다.')
+        return
+      }
       const redirectUri = `${window.location.origin}/auth/callback/google`
       window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${encodeURIComponent('openid email profile')}&state=google`
       return
@@ -411,6 +415,8 @@ export default function Register() {
                   </button>
                 ))}
               </div>
+
+              {error && <div className="reg-error">{error}</div>}
 
               <div className="reg-divider">
                 <div className="reg-divider-line" />
