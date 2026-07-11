@@ -317,14 +317,19 @@ export default function Train() {
       {showLoginPopup && (
         <div className="tr-login-overlay" onClick={() => setShowLoginPopup(false)}>
           <div className="tr-login-popup" onClick={e => e.stopPropagation()}>
+            <button
+              type="button"
+              className="tr-login-close no-3d"
+              onClick={() => setShowLoginPopup(false)}
+              aria-label="닫기"
+            >
+              ✕
+            </button>
             <div style={{ fontSize: '36px', marginBottom: '12px' }}>🔒</div>
             <h3 className="tr-login-title">로그인이 필요해요</h3>
             <p className="tr-login-desc">훈련을 진행하려면 로그인해주세요.</p>
             <button className="btn btn-primary btn-lg btn-full" onClick={() => navigate('/auth')}>
               로그인하러 가기
-            </button>
-            <button className="tr-login-close-btn" onClick={() => setShowLoginPopup(false)}>
-              닫기
             </button>
           </div>
         </div>

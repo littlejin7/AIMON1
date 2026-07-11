@@ -390,6 +390,7 @@ body:has(.tr-result-page) { background: #F4F3FA; }
 @keyframes trOverlayIn { from { opacity: 0 } to { opacity: 1 } }
 
 .tr-login-popup {
+  position: relative;
   background: #fff;
   border-radius: 20px;
   padding: 32px 28px;
@@ -412,17 +413,20 @@ body:has(.tr-result-page) { background: #F4F3FA; }
   color: #666;
   line-height: 1.6;
 }
-.tr-login-close-btn {
-  display: block;
-  width: 100%;
-  margin-top: 12px;
+.tr-login-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
   background: none;
   border: none;
-  color: #999;
-  font-size: 13px;
+  font-size: 16px;
+  line-height: 1;
+  color: #9B96D0;
   cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
 }
-.tr-login-close-btn:hover { color: #333; }
+.tr-login-close:hover { background: #F5F4FD; color: #26215C; }
 
 /* Train result */
 .tr-result-page {
