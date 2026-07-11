@@ -83,8 +83,6 @@
    
   /* App viewport scale */
   --app-canvas-width: 420px;
-  --app-scale: 1;
-  --app-layout-height: 100dvh;
 
    
   /* === Redesign tokens (Egyptian temple ✕ neon cyber) ===
@@ -175,43 +173,9 @@ body::after {
 }
 
 @media (max-width: 420px) {
-  html,
-  body {
-    height: 100dvh;
-    overflow: hidden;
-  }
-
-  body {
-    overflow-x: hidden;
-  }
-
-  #root {
-    height: 100dvh;
-    overflow: hidden;
-  }
-
   .app-shell {
-    width: var(--app-canvas-width);
+    width: 100%;
     max-width: none;
-    height: var(--app-layout-height);
-    min-height: var(--app-layout-height);
-    left: 50%;
-    margin-left: calc(var(--app-canvas-width) / -2);
-    margin-right: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    transform: scale(var(--app-scale));
-    transform-origin: top center;
-  }
-
-  .app-shell .app-main {
-    min-height: var(--app-layout-height);
-  }
-
-  .app-shell .app-header {
-    left: 0;
-    right: 0;
   }
 }
 
