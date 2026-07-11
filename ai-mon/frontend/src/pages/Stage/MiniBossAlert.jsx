@@ -5,6 +5,14 @@ export default function MiniBossAlert({ onFight }) {
     <div className="stage-page villain-mode">
       <div className="boss-container" style={{ paddingTop: '2rem' }}>
         <div className="boss-card intro-card card-glass animate-fade-in-up">
+          <button
+            type="button"
+            className="miniboss-alert-close no-3d"
+            onClick={onClose}
+            aria-label="미니보스 시작 화면 닫기"
+          >
+            ✕
+          </button>
           <div
             className="boss-avatar animate-float"
             draggable={false}
