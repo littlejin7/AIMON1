@@ -550,6 +550,7 @@ export default function QuizCard({
 
        {isCodeMultiInput && (
         <MultiBlankInput
+          type={type}
           codeTemplate={question.code_template}
           answersCount={answersCount}
           values={slotValues}

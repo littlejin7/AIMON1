@@ -390,7 +390,7 @@ export default function BossBattle({
                     marginBottom: '4px',
                   }}>
                     <div style={{ fontSize: '13px', fontWeight: 700, color: '#5B21B6', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span>{isSingleAnswer ? '알맞은 코드를 입력하세요.' : '코드 조각을 순서에 맞게 바르게 입력하세요.'}</span>
+                      <span>{currentQuestion.type === 'code_input' ? '알맞은 코드를 선택하여 입력하세요.' : '다음 코드 조각을 순서에 맞게 입력하세요.'}</span>
                       <button
                         type="button"
                         onClick={() => !loading && !aiResult && setSingleLineValue('')}

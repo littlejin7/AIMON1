@@ -1,6 +1,7 @@
 import { useEffect, useRef, useMemo } from 'react'
 
 export default function MultiBlankInput({
+  type,
   codeTemplate,
   answersCount,
   values,
@@ -111,7 +112,7 @@ export default function MultiBlankInput({
           {displayChoices && displayChoices.length > 0 && (
             <div style={{ marginTop: '12px' }}>
               <div style={{ fontSize: '13px', fontWeight: 600, color: '#4C4465', marginBottom: '6px' }}>
-                {answersCount === 1 ? '알맞은 코드를 입력하세요.' : '코드 조각을 순서에 맞게 바르게 입력하세요.'}
+                {type === 'code_input' ? '알맞은 코드를 선택하여 입력하세요.' : '다음 코드 조각을 순서에 맞게 입력하세요.'}
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                 {displayChoices.map((choice, idx) => (
