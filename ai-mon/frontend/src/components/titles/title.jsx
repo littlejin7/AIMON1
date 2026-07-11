@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import { userApi } from '../../api/index'
 import './title.css'
+import slimeIcon from '../../assets/character_slime.png'
+import robotIcon from '../../assets/character_robot.png'
+import bubbleIcon from '../../assets/character_bubble.png'
+import finalGhostIcon from '../../assets/character_final_ghost.png'
 
 // ── 레벨 → 테두리 티어
 function getRingTier(lv) {
@@ -199,10 +203,10 @@ export default function Profile() {
 
           <div className="pf-ring-list">
             {[
-              { tier: 'ring-purple',  label: '에이원',  range: 'Lv.1 ~ 9',   icon: '/src/assets/character_slime.png', active: lv < 10 },
-              { tier: 'ring-cyan',    label: '에이량',    range: 'Lv.10 ~ 19', icon: '/src/assets/character_robot.png', active: lv >= 10 && lv < 20 },
-              { tier: 'ring-emerald', label: '에이훈',  range: 'Lv.20 ~ 29', icon: '/src/assets/character_bubble.png', active: lv >= 20 && lv < 30 },
-              { tier: 'ring-gold',    label: '에이왕',  range: 'Lv.30+',     icon: '/src/assets/character_final_ghost.png', active: lv >= 30 },
+              { tier: 'ring-purple',  label: '에이원',  range: 'Lv.1 ~ 9',   icon: slimeIcon, active: lv < 10 },
+              { tier: 'ring-cyan',    label: '에이량',    range: 'Lv.10 ~ 19', icon: robotIcon, active: lv >= 10 && lv < 20 },
+              { tier: 'ring-emerald', label: '에이훈',  range: 'Lv.20 ~ 29', icon: bubbleIcon, active: lv >= 20 && lv < 30 },
+              { tier: 'ring-gold',    label: '에이왕',  range: 'Lv.30+',     icon: finalGhostIcon, active: lv >= 30 },
             ].map((r) => (
               <div key={r.tier} className={`pf-ring-row card-glass ${r.active ? 'current' : ''}`}>
                 <div className={`pf-ring-preview ${r.tier}`}>
