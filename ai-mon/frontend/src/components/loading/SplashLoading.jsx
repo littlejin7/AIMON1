@@ -7,26 +7,29 @@
 //   if (!ready) return <SplashLoading />
 
 import './SplashLoading.css'
+import characterA from '../../assets/character_a.png'
+import characterB from '../../assets/character_b.png'
+import characterC from '../../assets/character_c.png'
+import characterMerged from '../../assets/character_merged.png'
 
 export default function SplashLoading() {
   return (
     <div className="splash-overlay">
       <div className="splash-track">
 
-        {/* 이미지 경로만 교체하세요 */}
         <div className="blob blob-a">
-          <img src="/src/assets/character_a.png" alt="" />
+          <img src={characterA} alt="" />
         </div>
         <div className="blob blob-b">
-          <img src="/src/assets/character_b.png" alt="" />
+          <img src={characterB} alt="" />
         </div>
         <div className="blob blob-c">
-          <img src="/src/assets/character_c.png" alt="" />
+          <img src={characterC} alt="" />
         </div>
 
         {/* 합체 에이몬 */}
         <div className="blob-merged">
-          <img src="/src/assets/character_merged.png" alt="" />
+          <img src={characterMerged} alt="" />
         </div>
       </div>
 
