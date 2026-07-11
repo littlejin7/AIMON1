@@ -888,7 +888,7 @@ export default function LessonHome() {
                 <p>
                   {endbossUnlocked
                     ? "모든 유닛을 클리어했어요. 최종 보스에 도전하세요!"
-                    : "모든 유닛을 클리어하고 최종 보스에 도전하세요."}
+                    : "모든 유닛 클리어 후 도전 가능"}
                 </p>
               </div>
               <div className="lh-endboss-gate-media">
