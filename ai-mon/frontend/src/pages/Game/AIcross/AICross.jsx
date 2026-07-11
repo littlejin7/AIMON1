@@ -332,7 +332,7 @@ export default function AICross() {
   const currentIsCompleted = setIndex !== null && completedSets.includes(setIndex)
 
   return (
-    <GameScaleFrame baseHeight={null} background="#ece2fb" scaleMode="width" frameOverflow="visible">
+    <GameScaleFrame baseHeight={null} background="var(--clr-bg)" scaleMode="width" frameOverflow="visible">
       <div className="aicross-wrap" ref={wrapRef} tabIndex={-1}>
       <button className="aicross-back" onClick={() => navigate('/game')}>✕</button>
         
