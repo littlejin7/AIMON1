@@ -6,6 +6,10 @@ import {
   IconUnitMaster,
   IconAimonMaster,
 } from './CharacterIcons'
+import slimeCropIcon from '../../assets/character_slime_crop.png'
+import robotCropIcon from '../../assets/character_robot_crop.png'
+import bubbleCropIcon from '../../assets/character_bubble_crop.png'
+import finalGhostCropIcon from '../../assets/character_final_ghost_crop.png'
 
 export const TITLES = [
   { id: 'first_step',   Icon: IconFirstStep,   name: '첫 발걸음',    desc: '첫 스테이지 클리어',   condition: (u) => (u?.completed_stages || 0) >= 1 },
@@ -22,10 +26,10 @@ export const TITLES = [
 ]
 
 export const CHARACTERS = [
-  { id: 'slime',         icon: '/src/assets/character_slime_crop.png',      name: '에이원', desc: '기본 캐릭터',         requiredLevel: null },
-  { id: 'robot',         icon: '/src/assets/character_robot_crop.png',       name: '에이량',   desc: '초급 클리어 시 해금', requiredLevel: 'beginner' },
-  { id: 'speech_bubble', icon: '/src/assets/character_bubble_crop.png',      name: '에이훈', desc: '중급 클리어 시 해금', requiredLevel: 'intermediate' },
-  { id: 'final_ghost',   icon: '/src/assets/character_final_ghost_crop.png', name: '에이왕', desc: '고급 클리어 시 해금', requiredLevel: 'advanced' },
+  { id: 'slime',         icon: slimeCropIcon,       name: '에이원', desc: '기본 캐릭터',         requiredLevel: null },
+  { id: 'robot',         icon: robotCropIcon,       name: '에이량',   desc: '초급 클리어 시 해금', requiredLevel: 'beginner' },
+  { id: 'speech_bubble', icon: bubbleCropIcon,      name: '에이훈', desc: '중급 클리어 시 해금', requiredLevel: 'intermediate' },
+  { id: 'final_ghost',   icon: finalGhostCropIcon,  name: '에이왕', desc: '고급 클리어 시 해금', requiredLevel: 'advanced' },
 ]
 
 
