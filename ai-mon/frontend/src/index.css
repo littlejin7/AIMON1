@@ -141,22 +141,10 @@ body::before {
   z-index: 0;
 }
 
-/* Carved-stone temple columns + hieroglyph cartouche texture (subtle, themed) */
+/* Carved-stone temple columns + hieroglyph cartouche texture (subtle, themed)
+   — 전역 빗금 텍스처: 모든 화면 배경에서 숨김 (요청) */
 body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    repeating-linear-gradient(90deg,
-      var(--clr-glyph) 0 2px,
-      transparent 2px 120px),
-    repeating-linear-gradient(0deg,
-      var(--clr-glyph-soft) 0 1px,
-      transparent 1px 96px);
-  background-position: center;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.6;
+  display: none;
 }
 
 #root {
