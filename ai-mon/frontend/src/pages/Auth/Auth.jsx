@@ -3,9 +3,11 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 import { authApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
+import ExternalBrowserGuideModal from '../../components/ExternalBrowserGuideModal/ExternalBrowserGuideModal'
 import SocialButtons from './SocialButtons'
 import AuthForm from './AuthForm'
 import StreakRewardModal from '../../components/StreakRewardModal/StreakRewardModal'
+import { detectInAppBrowser } from '../../utils/inAppBrowser'
 import beginnerHappyIcon from '../../assets/character_beginnerhappy.png'
 import './Auth.css'
 
@@ -16,6 +18,7 @@ export default function Auth() {
   const [error, setError]     = useState('')
   const [socialMsg, setSocialMsg] = useState('')
   const [streakReward, setStreakReward] = useState(null)
+  const [externalBrowserGuide, setExternalBrowserGuide] = useState(null)
 
   const setAuth  = useAuthStore((s) => s.setAuth)
   const navigate = useNavigate()
@@ -85,24 +88,32 @@ export default function Auth() {
         setError('구글 로그인 설정이 누락되었습니다.')
         return
       }
+      const browser = detectInAppBrowser()
+      if (browser.isInApp) {
+        setExternalBrowserGuide({
+          appName: browser.appName,
+          currentUrl: window.location.href,
+        })
+        return
+      }
       const redirectUri = `${window.location.origin}/auth/callback/google`
       const scope = 'openid email profile'
       const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${encodeURIComponent(scope)}&state=google`
-      window.location.href = authUrl
+      window.location.assign(authUrl)
       return
     }
     if (provider.id === 'naver') {
       const clientId  = import.meta.env.VITE_NAVER_CLIENT_ID || '0LAXJWCUUDT5GXPmWzi4'
       const redirectUri = `${window.location.origin}/auth/callback/naver`
       const authUrl = `https://nid.naver.com/oauth2.0/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&state=naver_state`
-      window.location.href = authUrl
+      window.location.assign(authUrl)
       return
     }
     if (provider.id === 'kakao') {
       const clientId  = import.meta.env.VITE_KAKAO_CLIENT_ID || '7300172418d9267abc7889f60b1602fe'
       const redirectUri = `${window.location.origin}/auth/callback/kakao`
       const authUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code`
-      window.location.href = authUrl
+      window.location.assign(authUrl)
       return
     }
     setSocialMsg(`${provider.label} 로그인은 곧 지원될 예정이에요! 🛠️`)
@@ -114,8 +125,23 @@ export default function Auth() {
     cancelAndNavigate(level ? `/register?level=${level}` : '/register')
   }
 
+  const closeExternalBrowserGuide = () => {
+    setExternalBrowserGuide(null)
+    window.requestAnimationFrame(() => {
+      document.getElementById('btn-social-google')?.focus()
+    })
+  }
+
   return (
     <div className="auth-page">
+      {externalBrowserGuide && (
+        <ExternalBrowserGuideModal
+          open
+          appName={externalBrowserGuide.appName}
+          currentUrl={externalBrowserGuide.currentUrl}
+          onClose={closeExternalBrowserGuide}
+        />
+      )}
       {streakReward && (
         <StreakRewardModal reward={streakReward} onClose={() => navigate('/')} />
       )}

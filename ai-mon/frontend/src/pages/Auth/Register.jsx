@@ -4,8 +4,10 @@ import { authApi } from '../../api/index'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import EmailVerificationStep from './components/EmailVerificationStep'
 import { useEmailVerification } from './hooks/useEmailVerification'
+import ExternalBrowserGuideModal from '../../components/ExternalBrowserGuideModal/ExternalBrowserGuideModal'
 import LegalModal from '../../components/LegalModal/LegalModal'
 import { isValidPassword, passwordError } from '../../utils/passwordPolicy'
+import { detectInAppBrowser } from '../../utils/inAppBrowser'
 import beginnerHappyIcon from '../../assets/character_beginnerhappy.png'
 import slimeIcon         from '../../assets/character_slime.png'
 import './Auth.css'
@@ -89,6 +91,7 @@ export default function Register() {
   const [loading, setLoading]       = useState(false)
   const [error, setError]           = useState('')
   const [legalDoc, setLegalDoc]     = useState(null) // 'tos' | 'privacy' | null
+  const [externalBrowserGuide, setExternalBrowserGuide] = useState(null)
 
   const [isIdChecked, setIsIdChecked] = useState(false)
   const [idChecking, setIdChecking] = useState(false)
@@ -284,20 +287,28 @@ export default function Register() {
         setError('구글 로그인 설정이 누락되었습니다.')
         return
       }
+      const browser = detectInAppBrowser()
+      if (browser.isInApp) {
+        setExternalBrowserGuide({
+          appName: browser.appName,
+          currentUrl: window.location.href,
+        })
+        return
+      }
       const redirectUri = `${window.location.origin}/auth/callback/google`
-      window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${encodeURIComponent('openid email profile')}&state=google`
+      window.location.assign(`https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${encodeURIComponent('openid email profile')}&state=google`)
       return
     }
     if (id === 'kakao') {
       const clientId   = import.meta.env.VITE_KAKAO_CLIENT_ID || '7300172418d9267abc7889f60b1602fe'
       const redirectUri = `${window.location.origin}/auth/callback/kakao`
-      window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code`
+      window.location.assign(`https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code`)
       return
     }
     if (id === 'naver') {
       const clientId   = import.meta.env.VITE_NAVER_CLIENT_ID || '0LAXJWCUUDT5GXPmWzi4'
       const redirectUri = `${window.location.origin}/auth/callback/naver`
-      window.location.href = `https://nid.naver.com/oauth2.0/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&state=naver_state`
+      window.location.assign(`https://nid.naver.com/oauth2.0/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&state=naver_state`)
       return
     }
   }
@@ -361,11 +372,26 @@ export default function Register() {
     && isValidPassword(form.password) && form.password === form.passwordConfirm
   const canGoStep5 = isNicknameChecked && form.nickname.trim().length >= 2
 
+  const closeExternalBrowserGuide = () => {
+    setExternalBrowserGuide(null)
+    window.requestAnimationFrame(() => {
+      document.getElementById('btn-register-social-google')?.focus()
+    })
+  }
+
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      RENDER
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   return (
     <div className="auth-page">
+      {externalBrowserGuide && (
+        <ExternalBrowserGuideModal
+          open
+          appName={externalBrowserGuide.appName}
+          currentUrl={externalBrowserGuide.currentUrl}
+          onClose={closeExternalBrowserGuide}
+        />
+      )}
       <div className="reg-card animate-fade-in-up">
 
         {/* ── Step 헤더 (1~6) ── */}
@@ -409,7 +435,12 @@ export default function Register() {
                   { id: 'google', label: '구글로 시작하기',    iconBg: '#F4F4F4', icon: <GoogleIcon /> },
                   { id: 'naver',  label: '네이버로 시작하기',  iconBg: '#03C75A', icon: <NaverIcon /> },
                 ].map(p => (
-                  <button key={p.id} className="reg-social-btn" onClick={() => handleSocial(p.id)}>
+                  <button
+                    key={p.id}
+                    id={`btn-register-social-${p.id}`}
+                    className="reg-social-btn"
+                    onClick={() => handleSocial(p.id)}
+                  >
                     <div className="reg-social-icon" style={{ background: p.iconBg }}>{p.icon}</div>
                     {p.label}
                   </button>
