@@ -23,6 +23,28 @@ export default function TrainHome({
   onStartRandom,
   onOpenCodeViewer,
 }) {
+  // 오늘의 추천 훈련 — 상태에 따라 다른 모드를 추천해 그리드 카드와 중복되지 않게 한다.
+  //  · 오답 있음        → 오답 복습
+  //  · 오답 0 + 클리어함 → 랜덤 퀴즈
+  //  · 그 외(폴백)      → 오답 복습(빈 상태 안내 알림으로 유도)
+  const recommend = wrongCount > 0
+    ? {
+        title: `오답 복습 · ${wrongCount}문제`,
+        meta: `${currentUnit !== null ? `Unit ${currentUnit}` : '전체 유닛'} · 틀린 문제 모음`,
+        onStart: () => onStart({ onlyWrong: true }),
+      }
+    : hasCompletedStages
+    ? {
+        title: '랜덤 퀴즈 · 10문제',
+        meta: '전 범위에서 랜덤 출제',
+        onStart: onStartRandom,
+      }
+    : {
+        title: '오답 복습 · 준비 중',
+        meta: '전체 유닛 · 틀린 문제 모음',
+        onStart: () => onStart({ onlyWrong: true }),
+      }
+
   return (
     <div className="tr-page">
       <div className="tr-scroll">
@@ -44,14 +66,12 @@ export default function TrainHome({
           })}
         </div>
 
-        {/* 오늘의 추천 훈련 */}
-        <div className="tr-today-card" onClick={() => onStart({ onlyWrong: true })}>
+        {/* 오늘의 추천 훈련 — recommend 상태에 따라 동작이 달라진다 */}
+        <div className="tr-today-card" onClick={recommend.onStart}>
           <div className="tr-today-text">
             <div className="tr-today-label">오늘의 추천 훈련</div>
-            <div className="tr-today-title">오답 복습 · {wrongCount > 0 ? `${wrongCount}문제` : '준비 중'}</div>
-            <div className="tr-today-meta">
-              {currentUnit !== null ? `Unit ${currentUnit}` : '전체 유닛'} · 틀린 문제 모음
-            </div>
+            <div className="tr-today-title">{recommend.title}</div>
+            <div className="tr-today-meta">{recommend.meta}</div>
           </div>
           <button className="tr-today-btn" disabled={loading}>
             {loading ? '...' : '시작'}
