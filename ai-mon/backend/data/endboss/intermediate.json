@@ -725,7 +725,7 @@
     "difficulty": "hard",
     "type": "error_find",
     "question": "로그 파서 클래스에 버그가 있습니다. 오류가 있는 줄을 고르세요. 오류가 없다면 'K'를 선택하세요.\n\n```python\nclass LogParser:                                    # (A)\n    def __init__(self, filepath):                   # (B)\n        self.filepath = filepath                    # (C)\n        self.logs = self.load()                     # (D)\n\n    def load(self):                                 # (E)\n        with open(self.filepath, 'r') as f:         # (F)\n            return f.readlines()                    # (G)\n\nparser = LogParser('server.log')                   # (H)\nparser2 = LogParser('server.log')                  # (I)\nprint(parser.logs is parser2.logs)                 # (J)\n```",
-    "answer": "E",
+    "answer": "K",
     "feedback": {
       "correct": "정답! 이 코드는 정상 동작합니다. parser와 parser2는 각자 load()를 호출해 별도 리스트를 가지므로 (J)는 False를 출력해요. 설계와 동작 모두 의도대로입니다.",
       "incorrect": "각 인스턴스는 __init__에서 독립적으로 load()를 호출해 별도 리스트를 생성합니다. parser.logs is parser2.logs는 False예요. 코드에 버그가 없습니다."
@@ -741,11 +741,10 @@
     "unit": 9,
     "course_level": "intermediate",
     "difficulty": "hard",
-    "type": "code_multi_input",
+    "type": "code_input",
     "question": "할 일 목록을 관리하는 함수를 구현하세요.\n\n```python\n# [조건]\n# - 'add_todo(todos, title)' 함수 정의\n# - todos 리스트에 '{\"title\": title, \"done\": False}' 딕셔너리를 추가\n# - 추가 후 전체 개수를 반환\n#\n# [실행 예시]\ntodos = []\nprint(add_todo(todos, '운동'))   # 1\nprint(add_todo(todos, '독서'))   # 2\nprint(todos[0]['title'])         # 운동\n```",
     "answer": [
-      "return",
-      "len(todos)"
+      "return len(todos)"
     ],
     "feedback": {
       "correct": "클리어! append()로 딕셔너리를 추가하고 len()으로 개수를 반환하는 깔끔한 구현입니다.",
@@ -765,11 +764,11 @@
         "expect": 1
       }
     ],
-    "code_template": "def add_todo(todos, title):\n    todos.append({\"title\": title, \"done\": False})\n    {slot1} {slot2}",
+    "code_template": "def add_todo(todos, title):\n    todos.append({\"title\": title, \"done\": False})\n    {slot1}",
     "choices": [
-      "return",
-      "await",
-      "len(todos)"
+      "return len(todos)",
+      "return count(todos)",
+      "return todos.length"
     ]
   },
   {
@@ -819,11 +818,10 @@
     ],
     "code_template": "def get_done_todos(todos):\n    {slot1} {slot2} {slot3} {slot4}",
     "choices": [
-      "await",
-      "t in todos if t['done']]",
       "return",
+      "[t",
       "for",
-      "[t"
+      "t in todos if t['done']]"
     ]
   },
   {
@@ -836,21 +834,20 @@
     "unit": 9,
     "course_level": "intermediate",
     "difficulty": "hard",
-    "type": "code_multi_input",
+    "type": "code_input",
     "question": "할 일 목록을 JSON 파일로 저장하고 불러오는 함수를 구현하세요.\n\n```python\n# [조건]\n# - 'save_todos(todos, filepath)' 함수 정의\n#   - todos 리스트를 JSON 파일로 저장 (ensure_ascii=False, indent=2)\n# - 'load_todos(filepath)' 함수 정의\n#   - 파일에서 JSON을 읽어 반환\n#   - 파일이 없으면 빈 리스트 반환\n#\n# [실행 예시]\ntodos = [{\"title\": \"운동\", \"done\": False}]\nsave_todos(todos, 'test.json')\nloaded = load_todos('test.json')\nprint(loaded[0]['title'])   # 운동\nprint(load_todos('없는파일.json'))  # []\n```",
     "answer": [
-      "return",
-      "json.load(f)"
+      "return json.load(f)"
     ],
     "feedback": {
       "correct": "클리어! json.dump/load와 예외처리를 모두 정확히 구현했습니다.",
       "incorrect": "save는 json.dump(todos, f, ensure_ascii=False, indent=2), load는 try/except FileNotFoundError로 json.load(f)를 감싸면 됩니다."
     },
-    "code_template": "def save_todos(todos, filepath):\n    with open(filepath, 'w', encoding='utf-8') as f:\n        json.dump(todos, f, ensure_ascii=False, indent=2)\n\ndef load_todos(filepath):\n    try:\n        with open(filepath, 'r', encoding='utf-8') as f:\n            {slot1} {slot2}\n    except FileNotFoundError:\n        return []",
+    "code_template": "def save_todos(todos, filepath):\n    with open(filepath, 'w', encoding='utf-8') as f:\n        json.dump(todos, f, ensure_ascii=False, indent=2)\n\ndef load_todos(filepath):\n    try:\n        with open(filepath, 'r', encoding='utf-8') as f:\n            {slot1}\n    except FileNotFoundError:\n        return []",
     "choices": [
-      "return",
-      "json.load(f)",
-      "await"
+      "return json.load(f)",
+      "return json.loads(f)",
+      "return f.read_json()"
     ]
   },
   {
@@ -882,8 +879,7 @@
       "f\"이름:",
       "{self.name},",
       "전화:",
-      "{self.phone}\"",
-      "await"
+      "{self.phone}\""
     ]
   },
   {
@@ -944,11 +940,10 @@
     "code_template": "def sort_contacts(contacts):\n    {slot1} {slot2} {slot3} {slot4} {slot5}",
     "choices": [
       "return",
-      "c:",
-      "await",
-      "c['name'])",
       "sorted(contacts,",
-      "key=lambda"
+      "key=lambda",
+      "c:",
+      "c['name'])"
     ]
   },
   {
@@ -961,11 +956,10 @@
     "unit": 9,
     "course_level": "intermediate",
     "difficulty": "hard",
-    "type": "code_multi_input",
+    "type": "code_input",
     "question": "연락처 검색 함수를 구현하세요.\n\n```python\n# [조건]\n# - 'search_contact(contacts, keyword)' 함수 정의\n# - contacts는 딕셔너리 리스트 (각 항목에 'name', 'phone' 키 존재)\n# - name 또는 phone에 keyword가 포함된 항목을 리스트로 반환\n# - 대소문자 무시 (lower() 사용)\n#\n# [실행 예시]\ncontacts = [\n    {\"name\": \"에이몬\", \"phone\": \"010-1111\"},\n    {\"name\": \"AI로봇\", \"phone\": \"010-2222\"},\n    {\"name\": \"고스트\", \"phone\": \"010-1234\"}\n]\nprint(len(search_contact(contacts, \"010-1\")))  # 2\nprint(search_contact(contacts, \"ai\")[0]['name'])  # AI로봇\n```",
     "answer": [
-      "return",
-      "["
+      "return ["
     ],
     "feedback": {
       "correct": "클리어! lower()로 대소문자를 통일하고 name과 phone 모두 검색하는 완성도 높은 구현입니다.",
@@ -1003,11 +997,11 @@
         "expect": []
       }
     ],
-    "code_template": "def search_contact(contacts, keyword):\n    keyword = keyword.lower()\n    {slot1} {slot2}\n        c for c in contacts\n        if keyword in c['name'].lower() or keyword in c['phone'].lower()\n    ]",
+    "code_template": "def search_contact(contacts, keyword):\n    keyword = keyword.lower()\n    {slot1}\n        c for c in contacts\n        if keyword in c['name'].lower() or keyword in c['phone'].lower()\n    ]",
     "choices": [
-      "[",
-      "await",
-      "return"
+      "return [",
+      "return {",
+      "yield ["
     ]
   },
   {
@@ -1020,11 +1014,10 @@
     "unit": 9,
     "course_level": "intermediate",
     "difficulty": "hard",
-    "type": "code_multi_input",
+    "type": "code_input",
     "question": "날씨 데이터에서 평균 기온을 계산하는 함수를 구현하세요.\n\n```python\n# [조건]\n# - 'average_temp(forecasts)' 함수 정의\n# - forecasts는 딕셔너리 리스트 (각 항목에 'temp' 키 존재)\n# - 평균 기온을 소수점 첫째 자리까지 반올림해 반환 (round() 사용)\n# - 빈 리스트면 0 반환\n#\n# [실행 예시]\nforecasts = [\n    {\"day\": \"월\", \"temp\": 20},\n    {\"day\": \"화\", \"temp\": 25},\n    {\"day\": \"수\", \"temp\": 18}\n]\nprint(average_temp(forecasts))   # 21.0\nprint(average_temp([]))          # 0\n```",
     "answer": [
-      "return",
-      "0"
+      "return 0"
     ],
     "feedback": {
       "correct": "클리어! 빈 리스트 처리와 round()를 모두 정확히 사용했습니다.",
@@ -1044,11 +1037,11 @@
         "expect": 21.5
       }
     ],
-    "code_template": "def average_temp(forecasts):\n    if not forecasts:\n        {slot1} {slot2}\n    return round(sum(f['temp'] for f in forecasts) / len(forecasts), 1)",
+    "code_template": "def average_temp(forecasts):\n    if not forecasts:\n        {slot1}\n    return round(sum(f['temp'] for f in forecasts) / len(forecasts), 1)",
     "choices": [
-      "0",
-      "await",
-      "return"
+      "return 0",
+      "return None",
+      "return []"
     ]
   },
   {
@@ -1097,11 +1090,10 @@
     ],
     "code_template": "import json\n\ndef parse_weather(json_str):\n    try:\n        data = json.loads(json_str)\n        {slot1} {slot2} {slot3} {slot4}\n    except (json.JSONDecodeError, KeyError):\n        return None",
     "choices": [
-      "await",
       "return",
+      "{\"city\":",
       "data[\"city\"],",
-      "\"temp\": data[\"temp\"], \"desc\": data[\"desc\"]}",
-      "{\"city\":"
+      "\"temp\": data[\"temp\"], \"desc\": data[\"desc\"]}"
     ]
   },
   {
@@ -1118,7 +1110,8 @@
     "question": "로그에서 날씨 데이터를 정규식으로 추출하는 함수를 구현하세요.\n\n```python\n# [조건]\n# - 'extract_temp(log_line)' 함수 정의\n# - 로그 문자열에서 숫자(정수) 기온 값을 추출해 int로 반환\n# - 형식: '\"temp=숫자\"' 패턴 (예: temp=23)\n# - 매칭 실패 시 None 반환\n# - re 모듈 사용\n#\n# [실행 예시]\nprint(extract_temp(\"2026-06-17 temp=23 humidity=60\"))  # 23\nprint(extract_temp(\"2026-06-17 ERROR: no data\"))       # None\n```",
     "answer": [
       "return",
-      "int(match.group(1))"
+      "int(",
+      "match.group(1))"
     ],
     "feedback": {
       "correct": "클리어! re.search()로 그룹 캡처 후 int 변환까지 정확히 구현했습니다.",
@@ -1142,11 +1135,11 @@
         "expect": 0
       }
     ],
-    "code_template": "import re\n\ndef extract_temp(log_line):\n    match = re.search(r'temp=(\\d+)', log_line)\n    if match:\n        {slot1} {slot2}\n    return None",
+    "code_template": "import re\n\ndef extract_temp(log_line):\n    match = re.search(r'temp=(\\d+)', log_line)\n    if match:\n        {slot1} {slot2} {slot3}\n    return None",
     "choices": [
       "return",
-      "await",
-      "int(match.group(1))"
+      "int(",
+      "match.group(1))"
     ]
   },
   {
@@ -1159,11 +1152,10 @@
     "unit": 9,
     "course_level": "intermediate",
     "difficulty": "hard",
-    "type": "code_multi_input",
+    "type": "code_input",
     "question": "로그 레벨별 개수를 집계하는 함수를 구현하세요.\n\n```python\n# [조건]\n# - 'count_levels(logs)' 함수 정의\n# - logs는 문자열 리스트 (예: [\"ERROR: ...\", \"INFO: ...\"])\n# - 각 줄의 첫 단어(: 이전)를 레벨로 취급\n# - 레벨별 등장 횟수를 딕셔너리로 반환\n#\n# [실행 예시]\nlogs = [\n    \"ERROR: DB 오류\",\n    \"INFO: 시작\",\n    \"ERROR: 타임아웃\",\n    \"WARN: 메모리\",\n    \"INFO: 완료\"\n]\nresult = count_levels(logs)\nprint(result['ERROR'])   # 2\nprint(result['INFO'])    # 2\nprint(result['WARN'])    # 1\n```",
     "answer": [
-      "return",
-      "result"
+      "return result"
     ],
     "feedback": {
       "correct": "클리어! split(':')[0]으로 레벨을 추출하고 dict.get()으로 안전하게 카운트하는 깔끔한 구현입니다.",
@@ -1189,11 +1181,11 @@
         }
       }
     ],
-    "code_template": "def count_levels(logs):\n    result = {}\n    for log in logs:\n        level = log.split(':')[0].strip()\n        result[level] = result.get(level, 0) + 1\n    {slot1} {slot2}",
+    "code_template": "def count_levels(logs):\n    result = {}\n    for log in logs:\n        level = log.split(':')[0].strip()\n        result[level] = result.get(level, 0) + 1\n    {slot1}",
     "choices": [
-      "return",
-      "result",
-      "await"
+      "return result",
+      "return list(result)",
+      "return dict(result)"
     ]
   },
   {
@@ -1206,11 +1198,10 @@
     "unit": 9,
     "course_level": "intermediate",
     "difficulty": "hard",
-    "type": "code_multi_input",
+    "type": "code_input",
     "question": "정규식으로 로그에서 타임스탬프를 추출하는 함수를 구현하세요.\n\n```python\n# [조건]\n# - 'extract_timestamps(logs)' 함수 정의\n# - logs는 문자열 리스트\n# - 각 줄에서 'YYYY-MM-DD HH:MM:SS' 형식의 타임스탬프를 추출\n# - 추출된 타임스탬프 문자열 리스트 반환 (없는 줄은 스킵)\n#\n# [실행 예시]\nlogs = [\n    \"[2026-06-17 14:30:00] ERROR: 오류\",\n    \"[2026-06-17 15:00:00] INFO: 정상\",\n    \"--- 구분선 ---\"\n]\nresult = extract_timestamps(logs)\nprint(result)  # ['2026-06-17 14:30:00', '2026-06-17 15:00:00']\n```",
     "answer": [
-      "return",
-      "result"
+      "return result"
     ],
     "feedback": {
       "correct": "클리어! 정규식 그룹 캡처와 리스트 누적을 정확히 구현했습니다.",
@@ -1233,11 +1224,11 @@
         "expect": []
       }
     ],
-    "code_template": "import re\n\ndef extract_timestamps(logs):\n    pattern = r'(\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2})'\n    result = []\n    for log in logs:\n        match = re.search(pattern, log)\n        if match:\n            result.append(match.group(1))\n    {slot1} {slot2}",
+    "code_template": "import re\n\ndef extract_timestamps(logs):\n    pattern = r'(\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2})'\n    result = []\n    for log in logs:\n        match = re.search(pattern, log)\n        if match:\n            result.append(match.group(1))\n    {slot1}",
     "choices": [
-      "return",
-      "result",
-      "await"
+      "return result",
+      "return logs",
+      "return match"
     ]
   },
   {
@@ -1264,11 +1255,10 @@
     },
     "code_template": "class LogParser:\n    def __init__(self, logs):\n        self.logs = logs\n\n    def filter(self, level):\n        {slot1} {slot2} {slot3} {slot4}\n\n    def count(self):\n        return len(self.logs)",
     "choices": [
-      "[log",
-      "log in self.logs if log.startswith(level)]",
-      "for",
       "return",
-      "await"
+      "[log",
+      "for",
+      "log in self.logs if log.startswith(level)]"
     ]
   }
 ]
