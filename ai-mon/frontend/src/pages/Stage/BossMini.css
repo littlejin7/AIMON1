@@ -13,6 +13,36 @@
 
 /* Boss 페이지에서는 fixed 불필요 — Stage에서만 override */
 
+.intro-card {
+  position: relative;
+}
+
+.miniboss-alert-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(127, 119, 221, 0.28);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.82);
+  color: #534AB7;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.miniboss-alert-close:hover {
+  background: #fff;
+  border-color: rgba(127, 119, 221, 0.45);
+}
+
+
 /* 탑 네비 */
 .mb-topnav {
   background: white;
