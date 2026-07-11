@@ -1,11 +1,11 @@
 ---
 notion_page: https://app.notion.com/p/AI-MON-PIPELINE-373ea473fb45813a8d91cd58551751ab
 title: AI-MON 실행 파이프라인
-version: "2.1"
+version: "2.2"
 status: current
 source_of_truth: GitHub main branch code and data
-last_verified_commit: 6683cb7b4a9592aedceb1a6ee8a884d63661b8ef
-last_verified_at: 2026-07-11
+last_verified_commit: f64c79178a32a4953ff1b30c56a539080f73df83
+last_verified_at: 2026-07-12
 ---
 
 # AI-MON 실행 파이프라인
@@ -40,9 +40,11 @@ FastAPI
   ├─ 진행도 게이트
   ├─ 배틀 세션
   ├─ 보상·미션·게임 검증
+  ├─ QnA 안내 FAQ 파싱
   └─ 원자적 사용자 상태 변경
         ├─ Supabase PostgreSQL
         ├─ JSON 정적 데이터·개발 fallback
+        ├─ guide_context.md 안내 FAQ
         ├─ Anthropic Claude
         ├─ Resend
         └─ SendGrid
@@ -55,7 +57,7 @@ FastAPI
 | 프론트 | 화면, 입력, 설치 UX, API 호출, Pyodide |
 | FastAPI | 인증, 채점, 권한, 보상, 세션, 저장 |
 | Supabase | 사용자·진도·시도·오답·토큰 |
-| JSON | 커리큘럼·문제·미션 원본 |
+| JSON·Markdown | 커리큘럼·문제·미션·QnA FAQ 원본 |
 | Claude | 자유도 높은 코드 채점·맞춤 설명 |
 | Scheduler | 알림, 백업, 탈퇴 계정 정리 |
 
@@ -150,7 +152,71 @@ B. 공개 미리보기 + 명시적 로그인 CTA
 
 ---
 
-## 4. 비로그인 체험
+## 4. 홈 QnA 안내봇
+
+현재 QnA봇은 로그인 사용자의 홈에서만 마운트됩니다. 비로그인 홈은 랜딩 화면을 반환하므로 봇이 표시되지 않습니다.
+
+```text
+로그인 홈 렌더
+→ <QnaBot /> 마운트
+→ 플로팅 캐릭터 표시
+→ 클릭하면 대화 패널 열기
+→ 최초 인사 메시지 생성
+→ FAQ 목록이 없으면 GET /guide/faq
+→ backend/routers/guide.py
+→ backend/data/guide_context.md를 요청마다 읽음
+→ "- Q:" / "A:" 쌍 파싱
+→ { items: [{ question, answer }] } 반환
+→ 질문 버튼 렌더
+→ 버튼 선택 시 질문·고정 답변을 프론트 메시지 배열에 추가
+```
+
+### 4-1. API와 콘텐츠 원본
+
+| 항목 | 값 |
+|---|---|
+| 프론트 컴포넌트 | `frontend/src/components/QnaBot/QnaBot.jsx` |
+| API helper | `guideApi.getFaq()` |
+| 백엔드 라우터 | `backend/routers/guide.py` |
+| API | `GET /guide/faq` |
+| FAQ 원본 | `backend/data/guide_context.md` |
+| 응답 | `items[]`의 `question`, `answer` |
+
+`guide_context.md`는 요청마다 다시 읽으므로 파일 내용 변경은 서버 재시작 없이 다음 요청부터 반영됩니다.
+
+### 4-2. 사용자 상호작용
+
+- 플로팅 캐릭터는 포인터 드래그로 이동합니다.
+- 좌표는 `localStorage`의 `aimon:qna-bot-position`에 저장합니다.
+- 저장값이 없거나 깨졌으면 화면 오른쪽 아래 기본 위치로 복구합니다.
+- 패널은 화면 경계를 벗어나지 않도록 위치를 계산합니다.
+- 10초 동안 사용자 입력이 없으면 고정 응원·도발 문구를 순환 표시합니다.
+- 창을 열면 유휴 문구를 숨깁니다.
+- FAQ 로드 실패 시 `버튼 목록을 불러오지 못했어요.`를 표시합니다.
+
+### 4-3. 비용·보안 특성
+
+```text
+자유 텍스트 입력 없음
++ Claude 호출 없음
++ 답변별 추가 API 없음
++ 대화 로그 서버 저장 없음
+= 예측 가능한 비용과 답변 범위
+```
+
+QnA봇은 학습 문제의 AI 피드백과 별도입니다. `guide_context.md`가 시스템 프롬프트로 사용되는 것이 아니라 FAQ 데이터 원본으로 사용됩니다.
+
+### 4-4. 현재 한계
+
+- 미리 등록된 질문 외에는 답할 수 없습니다.
+- 비로그인 랜딩에는 표시되지 않습니다.
+- 대화 내용은 새로고침·컴포넌트 재마운트 시 초기화됩니다.
+- 기능명·재화·경로가 변경되어도 FAQ가 자동 갱신되지 않습니다.
+- Markdown 형식이 깨지면 질문 목록이 비어도 서버 오류로 감지되지 않을 수 있습니다.
+
+---
+
+## 5. 비로그인 체험
 
 ```text
 /lesson
@@ -220,7 +286,7 @@ Google·Kakao·Naver callback은 인증 후 바로 홈으로 이동합니다.
 
 ---
 
-## 5. 일반 회원가입
+## 6. 일반 회원가입
 
 ```text
 /register
@@ -270,7 +336,7 @@ EMAIL_FROM
 
 ---
 
-## 6. 소셜 OAuth
+## 7. 소셜 OAuth
 
 ### 6-1. Google
 
@@ -315,7 +381,7 @@ authorize
 
 ---
 
-## 7. 레벨 테스트와 코스
+## 8. 레벨 테스트와 코스
 
 ```text
 가입·로그인
@@ -332,7 +398,7 @@ authorize
 
 ---
 
-## 8. 스테이지 로드
+## 9. 스테이지 로드
 
 ```text
 /stage/:unit/:stage
@@ -373,7 +439,7 @@ attempt 3+ → A+B 혼합
 
 ---
 
-## 9. 개념 퀴즈
+## 10. 개념 퀴즈
 
 ```text
 문제 표시
@@ -409,7 +475,7 @@ attempt 3+ → A+B 혼합
 
 ---
 
-## 10. 스테이지 미니보스
+## 11. 스테이지 미니보스
 
 ```text
 POST /boss/miniboss/start
@@ -449,7 +515,7 @@ POST /boss/miniboss/clear
 
 ---
 
-## 11. 유닛 보스
+## 12. 유닛 보스
 
 ```text
 모든 스테이지 완료
@@ -467,7 +533,7 @@ POST /boss/miniboss/clear
 
 ---
 
-## 12. 엔드보스
+## 13. 엔드보스
 
 ```text
 Unit 8 보스 완료 또는 하위 코스 인정
@@ -494,7 +560,7 @@ Unit 8 보스 완료 또는 하위 코스 인정
 
 ---
 
-## 13. 진행도와 시도 기록
+## 14. 진행도와 시도 기록
 
 ### progress
 
@@ -527,7 +593,7 @@ Unit 8 보스 완료 또는 하위 코스 인정
 
 ---
 
-## 14. 보상
+## 15. 보상
 
 ```text
 도메인 이벤트
@@ -557,7 +623,7 @@ gp·ranking_score 불변
 
 ---
 
-## 15. 미션
+## 16. 미션
 
 ```text
 사용자 행동
@@ -579,7 +645,7 @@ gp·ranking_score 불변
 
 ---
 
-## 16. 미니게임과 랭킹
+## 17. 미니게임과 랭킹
 
 ```text
 게임 시작
@@ -609,7 +675,7 @@ gp·ranking_score 불변
 
 ---
 
-## 17. 저장과 동시성
+## 18. 저장과 동시성
 
 운영:
 
@@ -631,7 +697,7 @@ FastAPI
 
 ---
 
-## 18. 이메일과 스케줄러
+## 19. 이메일과 스케줄러
 
 가입 인증:
 
@@ -657,7 +723,7 @@ Scheduler 후보 작업:
 
 ---
 
-## 19. 오류 처리 원칙
+## 20. 오류 처리 원칙
 
 | 오류 | 원칙 |
 |---|---|
@@ -669,10 +735,12 @@ Scheduler 후보 작업:
 | 배틀 중복 제출 | 프론트 lock + 서버 세션 멱등 |
 | 이메일 실패 | 가입 인증 실패로 명확히 반환 |
 | OAuth 인앱 | 외부 브라우저 안내 |
+| QnA FAQ 로드 실패 | 패널 내 오류 표시, 학습 흐름은 계속 유지 |
+| QnA FAQ 형식 오류 | 빈 목록 탐지 테스트와 콘텐츠 검수 필요 |
 
 ---
 
-## 20. 현재 파이프라인 갭
+## 21. 현재 파이프라인 갭
 
 ### P0
 
@@ -680,12 +748,14 @@ Scheduler 후보 작업:
 - OAuth Client ID fallback 제거
 - `.env.example`, Render, 배포 문서 환경변수 일치
 - 공개 셸 라우트 인증 UX 통일
+- `guide_context.md`의 기능명·재화·경로 최신화
 
 ### P1
 
 - iOS PWA 수동 설치 흐름
 - 배포 전체 스모크 자동화
 - 외부 OAuth 검수 상태 표준화
+- QnA FAQ 파싱·빈 목록 회귀 테스트
 - Scheduler 운영 방식 확정
 
 ### P2

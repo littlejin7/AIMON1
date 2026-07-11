@@ -1,13 +1,13 @@
 ---
 title: AI MON 데이터 스키마
-version: "2.1"
+version: "2.2"
 status: current
 source_of_truth:
   - GitHub main branch code
   - backend/data JSON files
   - backend/data/schema.sql
-last_verified_commit: 6683cb7b4a9592aedceb1a6ee8a884d63661b8ef
-last_verified_at: 2026-07-11
+last_verified_commit: f64c79178a32a4953ff1b30c56a539080f73df83
+last_verified_at: 2026-07-12
 ---
 
 # AI-MON 데이터 스키마
@@ -51,6 +51,7 @@ AI-MON의 데이터는 한 저장소에만 존재하지 않는다.
 | 유닛보스 | `backend/data/unitboss/` | 유닛 종합 문제 | JSON |
 | 엔드보스 | `backend/data/endboss/` | 코스 최종 프로젝트 전투 | JSON |
 | 미션 정의 | `backend/data/missions.json` | 목표·이벤트·보상 | JSON |
+| QnA 안내 FAQ | `backend/data/guide_context.md` | 홈 안내봇 질문·고정 답변 | Markdown |
 | 에이칸 퍼즐 | `backend/data/aicross_puzzles.json`, `aicross_sets.json` | 서버 채점 퍼즐 | JSON |
 | 사용자 계정·복합 상태 | Supabase `users` | 인증, 재화, 코스, 보스, 미션, 게임 상태 | PostgreSQL + JSONB |
 | 학습 진도 | Supabase `progress` | 스테이지별 완료·점수 | PostgreSQL |
@@ -80,6 +81,7 @@ backend/data/
 ├─ schema.sql
 ├─ migration_gp_coin_additive.sql
 ├─ missions.json
+├─ guide_context.md
 ├─ lessons.json
 ├─ lessons_intermediate.json
 ├─ lessons_advanced.json
@@ -334,9 +336,58 @@ POST /game/clear
 
 ---
 
+## 8. QnA 안내봇 FAQ 원본
+
+파일:
+
+```text
+backend/data/guide_context.md
+```
+
+현재 QnA봇은 이 Markdown을 자유형 AI 프롬프트가 아니라 **선택형 FAQ 데이터**로 사용한다.
+
+파싱 형식:
+
+```markdown
+- Q: 뭐부터 해야 돼?
+  A: 먼저 레벨테스트를 확인하고 레슨 탭에서 현재 코스의 유닛을 진행하세요.
+```
+
+논리 스키마:
+
+| 필드 | 타입 | 설명 |
+|---|---|---|
+| `question` | string | 버튼에 표시할 질문 |
+| `answer` | string | 선택 후 표시할 고정 답변 |
+
+검증 규칙:
+
+- 질문 줄은 `- Q:`로 시작한다.
+- 바로 다음 답변 줄은 공백 뒤 `A:` 형식을 사용한다.
+- 현재 정규식은 한 줄 답변을 기준으로 하므로 답변 내부 줄바꿈을 넣지 않는다.
+- 같은 질문을 중복 등록하지 않는다.
+- 기능명, 경로, 재화, 보상 정책이 코드와 일치해야 한다.
+- Claude 시스템 프롬프트나 비밀값을 넣지 않는다.
+- 파일은 요청마다 읽히므로 변경 후 서버 재시작은 필요하지 않지만, 운영 배포에는 Git 반영이 필요하다.
+
+API 변환 결과:
+
+```json
+{
+  "items": [
+    {
+      "question": "뭐부터 해야 돼?",
+      "answer": "먼저 레벨테스트를 확인하고 레슨 탭에서 현재 코스의 유닛을 진행하세요."
+    }
+  ]
+}
+```
+
+---
+
 # Part B. Supabase 영속 데이터
 
-## 8. `users`
+## 9. `users`
 
 `users`는 계정 기본 정보와 복합 게임 상태를 저장한다. 실제 컬럼은 `backend/data/schema.sql`과 운영 Supabase를 기준으로 확인한다.
 
@@ -386,7 +437,7 @@ POST /game/clear
 
 ---
 
-## 9. `progress`
+## 10. `progress`
 
 스테이지 단위 학습 진도를 저장한다.
 
@@ -407,7 +458,7 @@ POST /game/clear
 
 ---
 
-## 10. `attempts`
+## 11. `attempts`
 
 문제 제출의 전수 기록이다.
 
@@ -434,7 +485,7 @@ POST /game/clear
 
 ---
 
-## 11. `wrong_answers`
+## 12. `wrong_answers`
 
 오답 복습 상태를 저장한다.
 
@@ -452,7 +503,7 @@ POST /game/clear
 
 ---
 
-## 12. 인증 보조 테이블
+## 13. 인증 보조 테이블
 
 | 테이블 | 역할 |
 |---|---|
@@ -470,7 +521,7 @@ POST /game/clear
 
 ---
 
-## 13. 미션 JSONB
+## 14. 미션 JSONB
 
 미션 정의는 `backend/data/missions.json`, 사용자 진척은 `users.missions` JSONB가 기준이다.
 
@@ -503,7 +554,7 @@ POST /game/clear
 
 ---
 
-## 14. 배틀 세션 JSONB
+## 15. 배틀 세션 JSONB
 
 보스 전투의 서버 권위 상태를 저장한다.
 
@@ -532,7 +583,7 @@ POST /game/clear
 
 # Part C. 브라우저 상태
 
-## 15. 비로그인 체험 진도
+## 16. 비로그인 체험 진도
 
 현재 로컬 키:
 
@@ -562,7 +613,7 @@ aimon-guest-trial-progress
 
 ---
 
-## 16. PWA 관련 브라우저 상태
+## 17. PWA 관련 브라우저 상태
 
 PWA는 `vite-plugin-pwa` 기반이며 manifest와 서비스 워커를 사용한다.
 
@@ -585,9 +636,82 @@ PWA는 `vite-plugin-pwa` 기반이며 manifest와 서비스 워커를 사용한�
 
 ---
 
+## 18. QnA봇 위치 상태
+
+현재 로컬 키:
+
+```text
+aimon:qna-bot-position
+```
+
+저장 객체:
+
+```json
+{
+  "x": 1120,
+  "y": 680
+}
+```
+
+| 필드 | 타입 | 설명 |
+|---|---|---|
+| `x` | number | 플로팅 캐릭터의 화면 좌측 기준 가로 좌표 |
+| `y` | number | 플로팅 캐릭터의 화면 상단 기준 세로 좌표 |
+
+원칙:
+
+- 좌표만 저장하며 질문·답변·사용자 식별 정보는 저장하지 않는다.
+- 화면 크기가 바뀌면 현재 viewport 안으로 좌표를 다시 제한한다.
+- JSON이 깨졌거나 숫자가 아니면 기본 위치를 사용한다.
+- 이 값은 UI 편의 상태이며 서버 데이터·보상·학습 진도와 무관하다.
+
+대화 메시지, 패널 열림 여부, FAQ 목록은 영속 저장하지 않는다.
+
+---
+
 # Part D. API 데이터 계약
 
-## 17. 인증
+## 19. QnA 안내봇
+
+요청:
+
+```http
+GET /guide/faq
+```
+
+- 인증 정보를 요청 본문으로 받지 않는다.
+- 쿼리 파라미터가 없다.
+- 서버는 `backend/data/guide_context.md`를 요청마다 읽는다.
+
+성공 응답:
+
+```json
+{
+  "items": [
+    {
+      "question": "로그인 안 해도 써볼 수 있어?",
+      "answer": "네, 초급 Stage 1-1의 개념 퀴즈는 로그인 없이 체험할 수 있습니다."
+    }
+  ]
+}
+```
+
+| 필드 | 타입 | 설명 |
+|---|---|---|
+| `items` | array | 파싱된 FAQ 목록 |
+| `items[].question` | string | 질문 버튼 문구 |
+| `items[].answer` | string | 고정 답변 |
+
+현재 실패·예외 특성:
+
+- 파일 읽기 실패 시 fallback 문자열이 사용되지만 FAQ 형식이 아니므로 `items`가 빈 배열이 될 수 있다.
+- 형식이 깨진 항목은 파싱 결과에서 제외된다.
+- 자유형 질문, 사용자 메시지, 대화 이력은 서버로 전송하지 않는다.
+- Claude 호출과 미션의 `ai_feedback` 이벤트를 발생시키지 않는다.
+
+---
+
+## 20. 인증
 
 ### 일반 가입
 
@@ -623,7 +747,7 @@ RESEND_API_KEY
 
 ---
 
-## 18. 학습·보스 상태
+## 21. 학습·보스 상태
 
 클라이언트가 표시할 수 있는 계산 필드 예:
 
@@ -639,7 +763,7 @@ RESEND_API_KEY
 
 ---
 
-## 19. 랭킹
+## 22. 랭킹
 
 랭킹은 주간 점수 집계를 사용한다.
 
@@ -657,7 +781,7 @@ RESEND_API_KEY
 
 # Part E. 변경·검수 규칙
 
-## 20. 스키마 변경 절차
+## 23. 스키마 변경 절차
 
 1. 현재 코드가 읽고 쓰는 필드를 검색한다.
 2. `schema.sql`과 운영 Supabase 컬럼을 비교한다.
@@ -679,7 +803,7 @@ RESEND_API_KEY
 
 ---
 
-## 21. 배포 전 데이터 체크리스트
+## 24. 배포 전 데이터 체크리스트
 
 ### 정적 데이터
 
@@ -713,17 +837,19 @@ RESEND_API_KEY
 
 ---
 
-## 22. 현재 보완 과제
+## 25. 현재 보완 과제
 
 1. Google·Kakao 소셜 가입 콜백에도 비로그인 체험 진도 이전 연결
 2. `.env.example`에 Resend 환경변수 예시 추가
 3. 프론트 `.env.example`에 Kakao·Naver 공개 클라이언트 설정 키 정리
 4. 운영 Supabase 적용 여부를 문서의 고정 숫자가 아니라 검사 쿼리로 관리
 5. 실제 점수 분포 확보 후 랭킹 정규화 계수 재검토
+6. QnA FAQ 파일 형식과 빈 목록을 검증하는 회귀 테스트 추가
+7. 기능명·재화·경로 변경 시 `guide_context.md` 동시 갱신
 
 ---
 
-## 23. 문서 갱신 규칙
+## 26. 문서 갱신 규칙
 
 다음 변경이 있으면 이 문서를 갱신한다.
 
@@ -735,3 +861,4 @@ RESEND_API_KEY
 - 미션 저장 구조 변경
 - 랭킹 계산 기준 변경
 - 인증 제공자 또는 이메일 제공자 변경
+- QnA FAQ 형식·API 계약·로컬 위치 키 변경
