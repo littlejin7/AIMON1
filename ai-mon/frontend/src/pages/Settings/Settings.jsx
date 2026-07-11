@@ -6,6 +6,10 @@ import { userApi, authApi } from '../../api/index'
 import LegalModal from '../../components/LegalModal/LegalModal'
 import { isValidPassword, passwordError } from '../../utils/passwordPolicy'
 import './Settings.css'
+import slimeIcon from '../../assets/character_slime.png'
+import robotIcon from '../../assets/character_robot.png'
+import bubbleIcon from '../../assets/character_bubble.png'
+import finalGhostIcon from '../../assets/character_final_ghost.png'
 
 // 닉네임 중복확인/저장 에러를 사용자용 메시지로 변환 (Register.jsx와 동일 규칙)
 function getNicknameErrorMessage(err) {
@@ -21,10 +25,10 @@ function getNicknameErrorMessage(err) {
 }
 
 const CHARACTER_ICON = {
-  slime: '/src/assets/character_slime.png',
-  robot: '/src/assets/character_robot.png',
-  speech_bubble: '/src/assets/character_bubble.png',
-  final_ghost: '/src/assets/character_final_ghost.png',
+  slime: slimeIcon,
+  robot: robotIcon,
+  speech_bubble: bubbleIcon,
+  final_ghost: finalGhostIcon,
 }
 
 const LEVELS = [
