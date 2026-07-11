@@ -1,40 +1,27 @@
 ---
 title: AI-MON Supabase 스키마 적용 체크리스트
-version: "2.1"
+version: "2.2"
 status: current
 scope: production and staging database changes
 source_of_truth: backend/data/schema.sql plus approved additive migrations
-last_verified_commit: d4eb619e1479eb83d3c02859af8e6733e97e9d82
+last_verified_commit: 6683cb7b4a9592aedceb1a6ee8a884d63661b8ef
 last_verified_at: 2026-07-11
 ---
 
 # AI-MON Supabase 스키마 적용 체크리스트
 
-> 운영 Supabase 구조, 데이터 이관, 인덱스, RLS, 권한을 검증하는 현재 기준 문서입니다.  
-> 기존 운영 DB에 `schema.sql` 전체를 무조건 다시 실행하지 않습니다.
+> Git 저장소의 목표 구조와 실제 운영 DB 상태를 분리합니다.
+> 특정 시점 사용자 수나 완료 상태를 현재 문서에 고정하지 않습니다.
 
----
+## 0. 핵심 원칙
 
-## 0. 현재 운영 상태
-
-| 항목 | 상태 |
-|---|---|
-| Supabase 모드 | 적용 완료 |
-| Render 백엔드 | 배포 완료 |
-| 백엔드 URL | `https://aimon1.onrender.com` |
-| 서버 DB 키 | Render 서버 환경변수에만 저장 |
-| 신규 재화·GP·랭킹 컬럼 8개 | 적용 완료 |
-| 활성 사용자 backfill | 14명 완료 |
-| 미처리 사용자 | 0명 |
-| 기존 코인·랭킹 값 보존 | 확인 완료 |
-| 주요 테이블 RLS | 8개 활성화 완료 |
-| anon/authenticated 테이블 직접 권한 | 제거 완료 |
-| 공개 RPC 실행권한 | 제거 완료 |
-| service_role RPC 권한 | 유지 확인 |
-| username/email 대소문자 중복 | 0건 |
-| 부분 unique index | 2개 적용 확인 |
-| 적용 후 앱 스모크 테스트 | 완료 |
-| `RUN_SCHEDULER` | 현재 `0` 유지 |
+- 운영 DB에 `schema.sql` 전체를 무조건 재실행하지 않음
+- 기존 컬럼·데이터를 삭제하지 않는 additive migration 우선
+- 실행 전 백업
+- 실행 전 영향 행 수 조회
+- 실행 후 구조·권한·앱 스모크
+- 실제 키와 개인정보를 출력·기록하지 않음
+- 완료된 backfill을 재실행하지 않음
 
 ---
 
@@ -47,155 +34,37 @@ backend/scripts/backfill_gp_coin.py
 docs/ops/supabase-schema-apply-checklist.md
 ```
 
-### 역할
+역할:
 
-- `schema.sql`
-  - 신규 환경의 기본 테이블, 인덱스, RPC 기준
-  - 기존 운영 DB의 누락 컬럼을 자동으로 모두 보완하는 migration 파일은 아님
-- `migration_gp_coin_additive.sql`
-  - 재화·GP·랭킹 컬럼 추가용 additive migration
-  - 운영 적용 완료
-- `backfill_gp_coin.py`
-  - JSON 저장소용 Python backfill
-  - Supabase용 가산형 SQL 예시 포함
-- 이 문서
-  - 실제 운영 적용 상태와 재검증 절차 기록
+| 파일 | 역할 |
+|---|---|
+| `schema.sql` | 신규 환경 목표 구조 |
+| additive migration | 기존 환경 컬럼 추가 |
+| backfill script | 기존 데이터 이관 보조 |
+| 이 문서 | 운영 검수 절차 |
 
 ---
 
-## 2. 운영 적용 완료 기록
-
-### 2-1. 신규 컬럼
-
-`public.users`에 다음 8개 컬럼 적용 완료:
+## 2. 실행 전 기록
 
 ```text
-coin_balance
-total_coin_earned
-gp
-gp_level_base
-evolution_stage
-ranking_score
-weekly_ranking_score
-legacy_xp_snapshot
+환경: staging / production
+Project:
+실행일:
+실행자:
+애플리케이션 SHA:
+현재 DB backup:
+변경 SQL 파일:
+롤백 또는 완화 방법:
 ```
 
-### 2-2. 가산형 backfill
-
-활성 사용자 14명 대상으로 기존 값을 덮어쓰지 않고 가산형으로 이관했습니다.
-
-```sql
-UPDATE public.users
-SET
-    coin_balance =
-        COALESCE(coin_balance, 0) + COALESCE(xp, 0),
-
-    total_coin_earned =
-        COALESCE(total_coin_earned, 0) + COALESCE(xp, 0),
-
-    ranking_score =
-        COALESCE(ranking_score, 0) + COALESCE(xp, 0),
-
-    gp = COALESCE(gp, 0),
-
-    weekly_ranking_score =
-        COALESCE(weekly_ranking_score, 0),
-
-    evolution_stage = GREATEST(
-        COALESCE(evolution_stage, 0),
-        CASE character
-            WHEN 'robot' THEN 1
-            WHEN 'speech_bubble' THEN 2
-            WHEN 'final_ghost' THEN 3
-            ELSE 0
-        END
-    ),
-
-    gp_level_base = CASE
-        WHEN character = 'final_ghost' THEN GREATEST(
-            COALESCE(gp_level_base, 0),
-            COALESCE(lv, 1)
-        )
-        ELSE COALESCE(gp_level_base, 0)
-    END,
-
-    legacy_xp_snapshot = COALESCE(xp, 0)
-
-WHERE legacy_xp_snapshot IS NULL
-  AND deleted_at IS NULL;
-```
-
-### 2-3. 멱등 가드
-
-재실행 방지는 다음 조건을 사용합니다.
-
-```sql
-legacy_xp_snapshot IS NULL
-```
-
-운영 backfill 완료 후 같은 SQL을 다시 실행하지 않습니다.
+민감값은 기록하지 않습니다.
 
 ---
 
-## 3. 절대 금지
+## 3. 대상 테이블
 
-- 운영 백업 없이 대량 SQL 실행
-- `users` 테이블 삭제·재생성
-- 기존 `xp`, `lv`, `character`, `crowns` 삭제
-- 중복 검사 전 unique index 생성
-- `coin_balance`, `ranking_score` 등을 기존 값 무시하고 XP로 덮어쓰기
-- 완료된 backfill SQL 재실행
-- `anon` 또는 `authenticated`에 테이블 쓰기 권한 부여
-- 프론트에 service-role/secret 키 포함
-- `VITE_` 또는 `REACT_APP_` 변수로 서버 키 노출
-- 실제 키를 Git, 문서, 로그, 스크린샷에 기록
-- RLS 오류 발생 시 원인 확인 없이 RLS 비활성화
-
----
-
-## 4. 서버 환경변수 기준
-
-Render 백엔드:
-
-```text
-USE_SUPABASE=true
-SUPABASE_URL=<project-url>
-SUPABASE_KEY=<server-only-secret-or-service-role-key>
-SECRET_KEY=<long-random-secret>
-ANTHROPIC_API_KEY=<server-key>
-ALLOWED_ORIGINS=<comma-separated-frontend-origins>
-RUN_SCHEDULER=0
-```
-
-### 보안 기준
-
-- `SUPABASE_KEY`는 Render 서버 환경변수에만 존재
-- 프론트 저장소에 없음
-- Vercel 공개 환경변수에 없음
-- `VITE_` 접두사로 사용하지 않음
-- Git에 실제 값이 커밋되지 않음
-- 애플리케이션 로그에 출력하지 않음
-
-로컬 확인:
-
-```powershell
-git grep -n -I -E "sb_secret_|service_role|SUPABASE_KEY|VITE_SUPABASE|REACT_APP_SUPABASE"
-```
-
-정상적으로 나올 수 있는 항목:
-
-```text
-.env.example의 placeholder
-backend의 os.getenv("SUPABASE_KEY")
-render.yaml의 환경변수 이름
-보안 문서 설명
-```
-
----
-
-## 5. 주요 테이블 기준
-
-현재 보안 대상:
+현재 주요 테이블:
 
 ```text
 users
@@ -208,174 +77,417 @@ attempts
 scheduler_locks
 ```
 
-### RLS 확인
+존재 확인:
+
+```sql
+SELECT table_name
+FROM information_schema.tables
+WHERE table_schema = 'public'
+  AND table_name IN (
+    'users',
+    'refresh_tokens',
+    'reset_tokens',
+    'email_verification_codes',
+    'progress',
+    'wrong_answers',
+    'attempts',
+    'scheduler_locks'
+  )
+ORDER BY table_name;
+```
+
+기대:
+
+```text
+8 rows
+```
+
+---
+
+## 4. users 필수 컬럼
+
+```text
+id
+username
+password
+nickname
+email
+role
+course_level
+is_level_tested
+marketing_agreed
+character
+lv
+xp
+coin_balance
+total_coin_earned
+gp
+gp_level_base
+evolution_stage
+ranking_score
+weekly_ranking_score
+legacy_xp_snapshot
+crowns
+streak
+last_login
+daily_free_attempts
+last_free_attempt_date
+ai_feedback_count
+token_version
+equipped_title
+endboss_cleared_levels
+miniboss_cleared_stages
+unitboss_cleared_units
+battle_sessions
+seen_questions
+max_unlocked_unit
+completed_units
+awarded_crown_units
+earned_streak_milestones
+titles
+game_rewards
+version
+missions
+purchased_themes
+created_at
+deleted_at
+```
+
+조회:
 
 ```sql
 SELECT
-    c.relname AS table_name,
-    c.relrowsecurity AS rls_enabled,
-    c.relforcerowsecurity AS rls_forced
+  column_name,
+  data_type,
+  is_nullable,
+  column_default
+FROM information_schema.columns
+WHERE table_schema = 'public'
+  AND table_name = 'users'
+ORDER BY ordinal_position;
+```
+
+누락 컬럼은 승인된 additive migration으로만 추가합니다.
+
+---
+
+## 5. 신규 재화·랭킹 컬럼
+
+필수:
+
+```text
+coin_balance
+total_coin_earned
+gp
+gp_level_base
+evolution_stage
+ranking_score
+weekly_ranking_score
+legacy_xp_snapshot
+```
+
+null 확인:
+
+```sql
+SELECT
+  count(*) FILTER (WHERE coin_balance IS NULL) AS coin_balance_null,
+  count(*) FILTER (WHERE total_coin_earned IS NULL) AS total_coin_earned_null,
+  count(*) FILTER (WHERE gp IS NULL) AS gp_null,
+  count(*) FILTER (WHERE evolution_stage IS NULL) AS evolution_stage_null,
+  count(*) FILTER (WHERE ranking_score IS NULL) AS ranking_score_null,
+  count(*) FILTER (WHERE weekly_ranking_score IS NULL) AS weekly_ranking_score_null
+FROM public.users
+WHERE deleted_at IS NULL;
+```
+
+현재 수치는 실행 시 기록합니다.
+
+```text
+활성 사용자:
+null 보유:
+미처리:
+```
+
+---
+
+## 6. backfill
+
+현재 migration은 기존 값을 덮어쓰지 않는 가산형 정책을 사용합니다.
+
+핵심 가드:
+
+```sql
+legacy_xp_snapshot IS NULL
+```
+
+실행 전 대상 수:
+
+```sql
+SELECT count(*) AS backfill_targets
+FROM public.users
+WHERE legacy_xp_snapshot IS NULL
+  AND deleted_at IS NULL;
+```
+
+`0`이면 이미 처리됐을 가능성이 높습니다. 기록과 이전 SQL을 확인한 후 재실행하지 않습니다.
+
+실행 전 샘플은 개인정보 대신 집계값만 사용합니다.
+
+```sql
+SELECT
+  count(*) AS users,
+  sum(coalesce(xp, 0)) AS legacy_xp_total,
+  sum(coalesce(coin_balance, 0)) AS coin_total,
+  sum(coalesce(ranking_score, 0)) AS ranking_total
+FROM public.users
+WHERE deleted_at IS NULL;
+```
+
+실행 후 같은 집계를 비교합니다.
+
+---
+
+## 7. 활성 계정 중복
+
+username:
+
+```sql
+SELECT lower(username), count(*)
+FROM public.users
+WHERE deleted_at IS NULL
+GROUP BY lower(username)
+HAVING count(*) > 1;
+```
+
+email:
+
+```sql
+SELECT lower(email), count(*)
+FROM public.users
+WHERE deleted_at IS NULL
+  AND email IS NOT NULL
+  AND email <> ''
+GROUP BY lower(email)
+HAVING count(*) > 1;
+```
+
+기대:
+
+```text
+0 rows
+```
+
+중복이 있으면 unique index 생성 전에 수동 정리합니다.
+
+---
+
+## 8. partial unique index
+
+확인:
+
+```sql
+SELECT indexname, indexdef
+FROM pg_indexes
+WHERE schemaname = 'public'
+  AND indexname IN (
+    'users_username_active_uq',
+    'users_email_active_uq'
+  )
+ORDER BY indexname;
+```
+
+기대:
+
+```text
+users_username_active_uq → lower(username), deleted_at IS NULL
+users_email_active_uq → lower(email), deleted_at IS NULL, 빈 이메일 제외
+```
+
+소프트 삭제 계정은 재사용 정책에 따라 인덱스 조건에서 제외됩니다.
+
+---
+
+## 9. progress
+
+확인:
+
+- `user_id`
+- `unit`
+- `stage`
+- `score`
+- `is_completed`
+- `checkpoint`
+- `course_level`
+- timestamps
+- `(user_id, unit, stage, course_level)` unique
+
+중복 확인:
+
+```sql
+SELECT user_id, unit, stage, course_level, count(*)
+FROM public.progress
+GROUP BY user_id, unit, stage, course_level
+HAVING count(*) > 1;
+```
+
+기대:
+
+```text
+0 rows
+```
+
+---
+
+## 10. attempts
+
+필수:
+
+```text
+id uuid
+user_id uuid
+question_id text
+unit integer
+stage text
+level text
+mode text
+is_correct boolean
+answered_at timestamptz
+created_at timestamptz
+```
+
+구조:
+
+```sql
+SELECT column_name, data_type, is_nullable
+FROM information_schema.columns
+WHERE table_schema = 'public'
+  AND table_name = 'attempts'
+ORDER BY ordinal_position;
+```
+
+인덱스:
+
+```sql
+SELECT indexname, indexdef
+FROM pg_indexes
+WHERE schemaname = 'public'
+  AND tablename = 'attempts';
+```
+
+---
+
+## 11. JSONB 상태
+
+`users` JSONB 주요 필드:
+
+```text
+endboss_cleared_levels
+miniboss_cleared_stages
+unitboss_cleared_units
+battle_sessions
+seen_questions
+max_unlocked_unit
+completed_units
+awarded_crown_units
+earned_streak_milestones
+titles
+game_rewards
+missions
+purchased_themes
+```
+
+타입 이상 확인:
+
+```sql
+SELECT count(*) AS invalid_rows
+FROM public.users
+WHERE deleted_at IS NULL
+  AND (
+    jsonb_typeof(coalesce(battle_sessions, '{}'::jsonb)) <> 'object'
+    OR jsonb_typeof(coalesce(missions, '{}'::jsonb)) <> 'object'
+    OR jsonb_typeof(coalesce(titles, '[]'::jsonb)) <> 'array'
+    OR jsonb_typeof(coalesce(purchased_themes, '[]'::jsonb)) <> 'array'
+  );
+```
+
+기대:
+
+```text
+0
+```
+
+---
+
+## 12. RLS
+
+조회:
+
+```sql
+SELECT
+  c.relname AS table_name,
+  c.relrowsecurity AS rls_enabled,
+  c.relforcerowsecurity AS rls_forced
 FROM pg_class AS c
-JOIN pg_namespace AS n
-  ON n.oid = c.relnamespace
+JOIN pg_namespace AS n ON n.oid = c.relnamespace
 WHERE n.nspname = 'public'
   AND c.relkind = 'r'
   AND c.relname IN (
-      'users',
-      'refresh_tokens',
-      'reset_tokens',
-      'email_verification_codes',
-      'progress',
-      'wrong_answers',
-      'attempts',
-      'scheduler_locks'
+    'users',
+    'refresh_tokens',
+    'reset_tokens',
+    'email_verification_codes',
+    'progress',
+    'wrong_answers',
+    'attempts',
+    'scheduler_locks'
   )
 ORDER BY c.relname;
 ```
 
-기대 결과:
+운영 기준:
 
 ```text
-8개 모두 rls_enabled = true
+8개 모두 rls_enabled=true
 ```
 
-`rls_forced=false`는 현재 서버 구조에서 허용됩니다.
+`rls_forced=false`는 현재 service-role 백엔드 구조에서 허용할 수 있습니다.
 
 ---
 
-## 6. RLS·직접 접근 보안 기준
+## 13. 정책과 직접 권한
 
-AI-MON은 FastAPI 백엔드를 데이터 접근의 단일 경로로 사용합니다.
+AI-MON은 FastAPI를 데이터 접근의 단일 경로로 사용합니다.
 
 운영 기준:
 
 ```text
 anon 정책 없음
 authenticated 정책 없음
-anon/authenticated 테이블 직접 권한 없음
-anon/authenticated 공개 RPC 실행권한 없음
-service_role 백엔드 접근만 허용
+anon/authenticated 테이블 직접 grant 없음
+anon/authenticated RPC execute 없음
+service_role 백엔드 접근 가능
 ```
 
-### 적용 SQL
-
-신규 환경 또는 권한이 되돌아간 환경에서만 검토 후 실행합니다.
+정책:
 
 ```sql
-BEGIN;
-
-DROP POLICY IF EXISTS allow_anon_select
-ON public.users;
-
-ALTER TABLE public.users ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.refresh_tokens ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.reset_tokens ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.email_verification_codes ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.progress ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.wrong_answers ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.attempts ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.scheduler_locks ENABLE ROW LEVEL SECURITY;
-
-REVOKE ALL PRIVILEGES
-ON TABLE
-    public.users,
-    public.refresh_tokens,
-    public.reset_tokens,
-    public.email_verification_codes,
-    public.progress,
-    public.wrong_answers,
-    public.attempts,
-    public.scheduler_locks
-FROM PUBLIC, anon, authenticated;
-
-GRANT SELECT, INSERT, UPDATE, DELETE
-ON TABLE
-    public.users,
-    public.refresh_tokens,
-    public.reset_tokens,
-    public.email_verification_codes,
-    public.progress,
-    public.wrong_answers,
-    public.attempts,
-    public.scheduler_locks
-TO service_role;
-
-REVOKE EXECUTE
-ON ALL FUNCTIONS IN SCHEMA public
-FROM PUBLIC, anon, authenticated;
-
-GRANT EXECUTE
-ON ALL FUNCTIONS IN SCHEMA public
-TO service_role;
-
-COMMIT;
-```
-
----
-
-## 7. 정책 확인
-
-```sql
-SELECT
-    tablename,
-    policyname,
-    roles,
-    cmd,
-    qual,
-    with_check
+SELECT schemaname, tablename, policyname, roles, cmd
 FROM pg_policies
 WHERE schemaname = 'public'
-  AND tablename IN (
-      'users',
-      'refresh_tokens',
-      'reset_tokens',
-      'email_verification_codes',
-      'progress',
-      'wrong_answers',
-      'attempts',
-      'scheduler_locks'
-  )
 ORDER BY tablename, policyname;
 ```
 
-현재 기대 결과:
-
-```text
-0 rows
-```
-
-특히 아래 정책이 없어야 합니다.
-
-```text
-allow_anon_select
-```
-
----
-
-## 8. 테이블 직접 권한 확인
+테이블 권한:
 
 ```sql
-SELECT
-    table_name,
-    grantee,
-    privilege_type
+SELECT grantee, table_name, privilege_type
 FROM information_schema.role_table_grants
 WHERE table_schema = 'public'
-  AND table_name IN (
-      'users',
-      'refresh_tokens',
-      'reset_tokens',
-      'email_verification_codes',
-      'progress',
-      'wrong_answers',
-      'attempts',
-      'scheduler_locks'
-  )
-  AND grantee IN ('PUBLIC', 'anon', 'authenticated')
-ORDER BY table_name, grantee, privilege_type;
+  AND grantee IN ('anon', 'authenticated')
+ORDER BY grantee, table_name, privilege_type;
 ```
 
-기대 결과:
+기대:
 
 ```text
 0 rows
@@ -383,277 +495,160 @@ ORDER BY table_name, grantee, privilege_type;
 
 ---
 
-## 9. RPC 권한 확인
+## 14. RPC 권한
+
+대상 예:
+
+```text
+update_user_atomic
+try_acquire_scheduler_lock
+renew_scheduler_lock
+release_scheduler_lock
+```
+
+권한은 실제 함수 signature를 조회한 뒤 적용합니다.
+
+조회:
 
 ```sql
 SELECT
-    p.proname AS function_name,
-    pg_get_function_identity_arguments(p.oid) AS arguments,
-
-    has_function_privilege(
-        'anon',
-        p.oid,
-        'EXECUTE'
-    ) AS anon_can_execute,
-
-    has_function_privilege(
-        'authenticated',
-        p.oid,
-        'EXECUTE'
-    ) AS authenticated_can_execute,
-
-    has_function_privilege(
-        'service_role',
-        p.oid,
-        'EXECUTE'
-    ) AS service_role_can_execute
-
-FROM pg_proc AS p
-JOIN pg_namespace AS n
-  ON n.oid = p.pronamespace
+  n.nspname AS schema_name,
+  p.proname AS function_name,
+  pg_get_function_identity_arguments(p.oid) AS arguments,
+  p.proacl
+FROM pg_proc p
+JOIN pg_namespace n ON n.oid = p.pronamespace
 WHERE n.nspname = 'public'
 ORDER BY p.proname;
 ```
 
-기대:
+검증:
 
-```text
-anon_can_execute = false
-authenticated_can_execute = false
-service_role_can_execute = true
-```
-
-핵심 함수:
-
-```text
-update_user_atomic(uuid, jsonb, jsonb, jsonb)
-```
+- public execute revoke
+- anon execute revoke
+- authenticated execute revoke
+- service-role backend 호출 성공
 
 ---
 
-## 10. username/email 중복 검사
-
-### 활성 username
-
-```sql
-SELECT
-    lower(username) AS normalized_username,
-    COUNT(*) AS duplicate_count
-FROM public.users
-WHERE deleted_at IS NULL
-GROUP BY lower(username)
-HAVING COUNT(*) > 1;
-```
-
-기대:
-
-```text
-0 rows
-```
-
-### 활성 email
-
-```sql
-SELECT
-    lower(email) AS normalized_email,
-    COUNT(*) AS duplicate_count
-FROM public.users
-WHERE deleted_at IS NULL
-  AND email IS NOT NULL
-  AND email <> ''
-GROUP BY lower(email)
-HAVING COUNT(*) > 1;
-```
-
-기대:
-
-```text
-0 rows
-```
-
----
-
-## 11. 부분 unique index
-
-현재 기준:
-
-```sql
-CREATE UNIQUE INDEX IF NOT EXISTS users_username_active_uq
-ON public.users (lower(username))
-WHERE deleted_at IS NULL;
-```
-
-```sql
-CREATE UNIQUE INDEX IF NOT EXISTS users_email_active_uq
-ON public.users (lower(email))
-WHERE deleted_at IS NULL
-  AND email IS NOT NULL
-  AND email <> '';
-```
+## 15. 외래키와 삭제
 
 확인:
 
+- refresh_tokens → users
+- progress → users
+- wrong_answers → users
+- attempts → users
+- `ON DELETE CASCADE` 의도
+
+조회:
+
 ```sql
 SELECT
-    indexname,
-    indexdef
-FROM pg_indexes
-WHERE schemaname = 'public'
-  AND tablename = 'users'
-  AND indexname IN (
-      'users_username_active_uq',
-      'users_email_active_uq'
-  )
-ORDER BY indexname;
-```
-
-기대 결과:
-
-```text
-2 rows
-```
-
-보장되는 동작:
-
-```text
-Test / test 중복 불가
-A@MAIL.COM / a@mail.com 중복 불가
-소프트 삭제된 계정은 조건에서 제외
-```
-
-기존 단순 unique 제약이 추가로 남아 있으면 대소문자 중복 방지는 유지되지만, 탈퇴 계정의 값 재사용을 막을 수 있으므로 별도 정리 여부를 검토합니다.
-
----
-
-## 12. 재화·랭킹 스모크 테스트
-
-### 보상 획득 전후
-
-확인 필드:
-
-```text
-coin_balance
-total_coin_earned
-ranking_score
-gp
-evolution_stage
-```
-
-정상:
-
-```text
-코인 보상 획득
-→ coin_balance 증가
-→ total_coin_earned 증가
-→ 랭킹 대상 보상이면 ranking_score 증가
-```
-
-### 상점 구매 전후
-
-정상:
-
-```text
-coin_balance만 상품 가격만큼 감소
-total_coin_earned 유지
-ranking_score 유지
-gp 유지
-구매 상품 지급
+  tc.table_name,
+  tc.constraint_name,
+  kcu.column_name,
+  ccu.table_name AS foreign_table_name,
+  ccu.column_name AS foreign_column_name
+FROM information_schema.table_constraints tc
+JOIN information_schema.key_column_usage kcu
+  ON tc.constraint_name = kcu.constraint_name
+ AND tc.table_schema = kcu.table_schema
+JOIN information_schema.constraint_column_usage ccu
+  ON ccu.constraint_name = tc.constraint_name
+ AND ccu.table_schema = tc.table_schema
+WHERE tc.constraint_type = 'FOREIGN KEY'
+  AND tc.table_schema = 'public'
+ORDER BY tc.table_name;
 ```
 
 ---
 
-## 13. RLS 적용 후 앱 스모크 테스트
-
-Render 백엔드를 통해 실행:
+## 16. 적용 순서
 
 ```text
-로그인
-→ 내 프로필 조회
-→ 스테이지 진입
-→ 진행도 저장
-→ 보상 획득
-→ 로그아웃
-→ 재로그인
+1. 백업
+2. 현재 구조·대상 행 수 기록
+3. 중복·null·타입 이상 검사
+4. additive DDL
+5. index
+6. backfill
+7. RLS
+8. table grant revoke
+9. RPC execute revoke
+10. backend environment 확인
+11. backend deploy
+12. 앱 스모크
+13. 전후 집계
+14. 완료 기록
 ```
 
-오류 예시:
+---
+
+## 17. 애플리케이션 스모크
+
+- 일반 회원가입
+- 이메일 인증
+- 로그인·refresh
+- 진행도 저장
+- attempts 저장
+- wrong_answers 저장·복습
+- 미니보스 세션
+- 유닛보스 세션
+- 엔드보스 세션
+- 미션 수령
+- 게임 보상
+- 상점 구매
+- soft delete
+- scheduler lock
+
+오류 로그에서 확인:
 
 ```text
-permission denied for table users
-new row violates row-level security policy
+permission denied
+row-level security
 42501
+column does not exist
+invalid input syntax
+RPC not found
 ```
-
-오류 발생 시:
-
-1. RLS를 끄지 않음
-2. Render `SUPABASE_KEY` 종류 확인
-3. 공개 키가 아니라 서버용 secret/service-role인지 확인
-4. 환경변수 따옴표 포함 여부 확인
-5. 재배포 후 로그 확인
 
 ---
 
-## 14. 배포 및 스케줄러 상태
+## 18. 절대 금지
 
-현재:
-
-```text
-Render Backend: https://aimon1.onrender.com
-RUN_SCHEDULER=0
-Frontend production deploy: 미완료
-```
-
-`RUN_SCHEDULER=1` 전환 조건:
-
-- 프론트 운영 배포 완료
-- 예약 메일 발송 설정 확인
-- 백업 및 탈퇴 계정 정리 작업 확인
-- 실행 프로세스가 정확히 1개임을 확인
-- 중복 실행 방지 락 확인
-
-무료 Render 인스턴스가 잠든 동안 내부 스케줄러는 실행되지 않을 수 있으므로 운영 스케줄러 구조는 별도 결정합니다.
+- 백업 없는 대량 UPDATE
+- `users` 삭제·재생성
+- `xp`, `lv`, `character`, `crowns` 즉시 삭제
+- 중복 확인 전 unique index
+- 기존 coin·ranking 값을 XP로 덮어쓰기
+- 완료된 backfill 재실행
+- 문제 해결을 위한 RLS 비활성화
+- anon/authenticated direct write 허용
+- 프론트에 service-role key
+- 실제 사용자 데이터 문서 복사
+- 실제 key·JWT·email 목록 출력
 
 ---
 
-## 15. 운영 변경 기록 템플릿
+## 19. 완료 기록
 
 ```text
 환경:
-작업 일시:
-작업자:
-검증 기준 commit:
-백업 ID:
+Project:
+적용 SHA:
 적용 SQL:
-적용 대상:
-적용 전 건수:
-적용 후 건수:
-RLS 결과:
-테이블 grant 결과:
-RPC 권한 결과:
-unique index 결과:
-앱 smoke 결과:
-롤백 여부:
-비고:
+백업:
+적용 전 대상 행:
+적용 후 미처리 행:
+중복 검사:
+RLS:
+direct grants:
+RPC grants:
+backend smoke:
+실행자:
+실행일:
+결론:
 ```
 
----
-
-## 16. 완료 기준
-
-```text
-[완료] 신규 컬럼 8개 존재
-[완료] 활성 사용자 14명 가산형 backfill
-[완료] legacy_xp_snapshot 미처리 사용자 0명
-[완료] 기존 코인·랭킹 값 보존
-[완료] 주요 8개 테이블 RLS 활성화
-[완료] allow_anon_select 제거
-[완료] anon/authenticated 직접 테이블 권한 0건
-[완료] anon/authenticated 공개 RPC 실행권한 false
-[완료] service_role RPC 실행권한 true
-[완료] username/email 대소문자 중복 0건
-[완료] 부분 unique index 2개
-[완료] Render 백엔드 스모크 테스트
-[대기] 프론트 운영 배포
-[대기] RUN_SCHEDULER 최종 전환
-```
+운영 상태를 바꿀 때 이 기록을 별도 배포 로그나 이슈에 남기고, 현재 기준 문서에는 시점성 사용자 수를 고정하지 않습니다.
