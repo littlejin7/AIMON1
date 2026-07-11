@@ -52,7 +52,8 @@ export default function GameScaleFrame({
         display: 'flex',
         alignItems: 'flex-start',
         justifyContent: 'center',
-        overflow: hasFixedHeight ? 'hidden' : 'auto',
+        overflowX: 'hidden',
+        overflowY: hasFixedHeight ? 'hidden' : 'auto',
         background,
       }}
     >
