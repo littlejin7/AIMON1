@@ -6927,7 +6927,8 @@ body:has(.lh-page) { background: #F4F3FA; }
   filter: grayscale(0.85) drop-shadow(0 8px 12px rgba(83, 74, 183, 0.12));
 }
 
-.lh-endboss-lock-badge {
+.lh-endboss-lock-badge,
+.lh-unitboss-lock-badge {
   position: absolute;
   right: -8px;
   bottom: -4px;

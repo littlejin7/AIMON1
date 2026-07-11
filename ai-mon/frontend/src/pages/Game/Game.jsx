@@ -93,8 +93,8 @@ export default function Game() {
             {lockedGame.title} 잠김
           </h2>
           <p className="app-locked-desc">
-            로그인하시면 <strong>{lockedGame.title}</strong> 미니게임을 플레이하고<br />
-            다양한 코딩 학습 모험과 <strong>코인, 왕관</strong> 보상을 받을 수 있습니다!
+            로그인하고 게임하며<br />
+            <strong>코인·왕관</strong> 보상을 받아보세요!
           </p>
           <button className="btn btn-primary btn-lg btn-full" onClick={() => navigate('/auth')}>
             로그인하러 가기

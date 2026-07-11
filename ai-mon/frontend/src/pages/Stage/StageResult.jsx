@@ -29,7 +29,7 @@ export default function StageResult({
   const resultDesc = isGuestTrial
     ? passed
       ? '1-1 체험 기록은 가입 후 이어받을 수 있어요.'
-      : '가입하면 다시 도전하고 다음 스테이지를 이어가세요!'
+      : ''
     : `${isMinibossPlayed ? '미니보스 ' : ''}${evalTotalCount}문제 중 ${evalCorrectCount}개 정답`
 
   return (
@@ -62,7 +62,7 @@ export default function StageResult({
         {finalScore}점
       </div>
 
-      <p className="result-desc">{resultDesc}</p>
+      {resultDesc && <p className="result-desc">{resultDesc}</p>}
 
       {/* 코인(+GP) 보상 */}
       {!isGuestTrial && passed && xpAwarded > 0 && (

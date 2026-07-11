@@ -54,8 +54,7 @@ export default function Character() {
           </h2>
           
           <p className="app-locked-desc">
-            로그인하시면 나만의 캐릭터와 칭호를 변경하고,<br />
-            학습 진행 상황에 따라 새로운 캐릭터를 해금할 수 있습니다!
+            로그인하고 나만의 캐릭터를 꾸며보세요!
           </p>
 
           <button className="btn btn-primary btn-lg btn-full" onClick={() => navigate('/auth')}>

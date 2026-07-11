@@ -802,6 +802,7 @@ export default function LessonHome() {
                             alt="유닛보스"
                             draggable={false}
                           />
+                          {bossState === 'locked' && <span className="lh-unitboss-lock-badge">LOCK</span>}
                         </div>
                       </div>
                       <button
