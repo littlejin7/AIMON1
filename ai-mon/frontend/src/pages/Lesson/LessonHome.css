@@ -1,835 +1,1666 @@
-/* ══════════════════════════════
-
-   LessonHome — 라이트 테마
-
-══════════════════════════════ */
-
-.lh-loading {
-
-  min-height: 100vh;
-
+/* ══════════════════════════════
+
+
+
+   LessonHome — 라이트 테마
+
+
+
+══════════════════════════════ */
+
+
+
+.lh-loading {
+
+
+
+  min-height: 100vh;
+
+
+
   display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 12px;
-
-  color: #7A7A94;
-
-  background: #F4F3FA;
-
-}
-
-.lh-page {
-
-  background: #F4F3FA;
-
-  min-height: 100dvh;
-
-}
-
-body:has(.lh-page) { background: #F4F3FA; }
-
-.lh-scroll {
-
-  padding: 8px 12px 90px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 10px;
-
-  max-width: 480px;
-
-  margin: 0 auto;
-
-}
-
-/* ── 헤더 ── */
-
-.lh-header {
-
-  padding: 20px 0 12px;
-
-}
-
-.lh-header-label {
-
-  font-size: var(--font-size-xs);
-
-  font-weight: 600;
-
-  color: var(--clr-primary);
-
-  letter-spacing: 0.08em;
-
-  margin: 0 0 4px;
-
-}
-
-.lh-title {
-
-  font-size: var(--font-size-2xl);
-
-  font-weight: 700;
-
-  color: var(--clr-text);
-
-  margin: 0;
-
-}
-
-/* ── 레벨 탭 ── */
-
-.lh-level-tabs {
-
-  display: flex;
-
-  gap: 6px;
-
-}
-
-.lh-tab {
-
-  flex: 1;
-
-  text-align: center;
-
-  padding: 9px 4px;
-
-  border-radius: 10px;
-
-  font-size: 13px;
-
-  border: 0.5px solid #E2E1EE;
-
-  background: #FFFFFF;
-
-  color: #7A7A94;
-
-  font-weight: 500;
-
-}
-
-.lh-tab.active {
-
-  background: #7F77DD;
-
-  color: #FFFFFF;
-
-  border-color: #7F77DD;
-
-  font-weight: 700;
-
-}
-
-.lh-tab.locked { color: #BBBBCC; }
-
-.lh-tab-lock { font-size: 11px; }
-
-/* ── 진행률 요약 ── */
-
-.lh-progress-card {
-
-  background: #FFFFFF;
-
-  border-radius: 14px;
-
-  border: 0.5px solid #E2E1EE;
-
-  padding: 12px 14px;
-
-}
-
-.lh-progress-row {
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  margin-bottom: 8px;
-
-}
-
-.lh-progress-label { font-size: 12px; color: #7A7A94; }
-
-.lh-progress-val   { font-size: 12px; font-weight: 500; color: #534AB7; }
-
-.lh-prog-bar {
-
-  height: 6px;
-
-  background: #EEEDFE;
-
-  border-radius: 10px;
-
-  overflow: hidden;
-
-}
-
-.lh-prog-fill {
-
-  height: 100%;
-
-  background: #7F77DD;
-
-  border-radius: 10px;
-
-  transition: width 0.5s ease;
-
-}
-
-/* ── 유닛 카드 ── */
-
-.lh-unit-card {
-
-  background: #FFFFFF;
-
-  border-radius: 14px;
-
-  border: 0.5px solid #E2E1EE;
-
-  overflow: hidden;
-
-}
-
-.lh-unit-locked { opacity: 0.5; }
-
-.lh-unit-header {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 10px;
-
-  padding: 12px 13px;
-
-  cursor: pointer;
-
-  user-select: none;
-
-}
-
-.lh-unit-locked .lh-unit-header { cursor: default; }
-
-.lh-unit-badge {
-
-  width: 32px;
-
-  height: 32px;
-
-  border-radius: 9px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: 13px;
-
-  font-weight: 600;
-
-  flex-shrink: 0;
-
-}
-
-.lh-unit-badge.done    { background: #7F77DD; color: #B8FF6A; font-size: 16px; }
-
-.lh-unit-badge.current { background: #EEEDFE; color: #534AB7; }
-
-.lh-unit-badge.locked  { background: #F0EFF8; color: #9999B0; font-size: 15px; }
-
-.lh-unit-info { flex: 1; min-width: 0; }
-
-.lh-unit-title {
-
-  font-size: 13px;
-
-  font-weight: 500;
-
-  color: #1A1A2E;
-
-  white-space: nowrap;
-
-  overflow: hidden;
-
-  text-overflow: ellipsis;
-
-}
-
-.lh-unit-title.locked { color: #9999B0; }
-
-.lh-unit-meta { font-size: 10px; color: #7A7A94; margin-top: 2px; }
-
-.lh-unit-chevron {
-
-  font-size: 16px;
-
-  color: #9999B0;
-
-  flex-shrink: 0;
-
-}
-
-/* 미니 진행바 */
-
-.lh-mini-bar {
-
-  height: 4px;
-
-  background: #EEEDFE;
-
-  margin: 0 13px;
-
-  border-radius: 10px;
-
-  overflow: hidden;
-
-}
-
-.lh-mini-fill {
-
-  height: 100%;
-
-  background: #7F77DD;
-
-  border-radius: 10px;
-
-  transition: width 0.5s ease;
-
-}
-
-/* ── 스테이지 트랙 ── */
-
-.lh-stage-track {
-
-  padding: 8px 13px 13px;
-
-  border-top: 0.5px solid #EEEDF6;
-
-}
-
-.lh-stage-label {
-
-  font-size: 10px;
-
-  color: #7A7A94;
-
-  margin-bottom: 8px;
-
-}
-
-.lh-stage-row {
-
-  display: flex;
-
-  align-items: center;
-
-}
-
-.lh-stage-seg {
-
-  display: flex;
-
-  align-items: center;
-
-  flex: 0 0 auto;
-
-}
-
-.lh-stage-seg:has(.lh-stage-line) {
-
-  flex: 1;
-
-}
-
-.lh-stage-node {
-
-  width: 30px;
-
-  height: 30px;
-
-  border-radius: 50%;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: 11px;
-
-  font-weight: 600;
-
-  flex-shrink: 0;
-
-  cursor: pointer;
-
-  transition: transform 0.1s;
-
-}
-
-.lh-stage-node:active { transform: scale(0.92); }
-
-.lh-stage-node.done    { background: #7F77DD; color: #fff; font-size: 13px; }
-
-.lh-stage-node.current { background: #EEEDFE; border: 2px solid #7F77DD; color: #534AB7; }
-
-.lh-stage-node.todo    { background: #F0EFF8; border: 1.5px solid #DEDDE8; color: #9999B0; }
-
-.lh-stage-line {
-
-  flex: 1;
-
-  height: 2px;
-
-  min-width: 4px;
-
-}
-
-.lh-stage-line.done { background: #7F77DD; }
-
-.lh-stage-line.todo { background: #DEDDE8; }
-
-.lh-boss-node {
-
-  width: 32px;
-
-  height: 32px;
-
-  border-radius: 50%;
-
-  background: #FAEEDA;
-
-  border: 2px solid #EF9F27;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: 14px;
-
-  flex-shrink: 0;
-
-  cursor: pointer;
-
-}
-
-/* 완료 유닛 복습 링크 */
-
-.lh-unit-done-action {
-
-  padding: 8px 14px;
-
-  font-size: 12px;
-
-  color: #7F77DD;
-
-  border-top: 0.5px solid #EEEDF6;
-
-  cursor: pointer;
-
-  text-align: right;
-
-}
-
-/* ── 엔드보스 티저 ── */
-
-.lh-endboss-teaser-old {
-
-  background: #FFFFFF;
-
-  border-radius: 14px;
-
-  border: 1.5px dashed #CECBF6;
-
-  padding: 13px 14px;
-
-  display: flex;
-
-  gap: 10px;
-
-  align-items: center;
-
-  transition: opacity 0.2s, border-color 0.2s, box-shadow 0.2s;
-
-}
-
-.lh-endboss-teaser.locked {
-
-  opacity: 0.6;
-
-  cursor: default;
-
-}
-
-.lh-endboss-teaser.unlocked {
-
-  opacity: 1;
-
-  cursor: pointer;
-
-  border: 1.5px solid #F0B429;
-
-  box-shadow: 0 2px 10px rgba(240, 180, 41, 0.25);
-
-}
-
-.lh-endboss-icon {
-
-  width: 36px;
-
-  height: 36px;
-
-  border-radius: 50%;
-
-  background: #FAEEDA;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: 18px;
-
-  flex-shrink: 0;
-
-}
-
-.lh-endboss-title { font-size: 13px; font-weight: 500; color: #1A1A2E; }
-
-.lh-endboss-desc  { font-size: 10px; color: #7A7A94; margin-top: 2px; }
-
-/* ── 진행률 요약 v2 ── */
-
-.lh-progress-card-v2 {
-
-  border-radius: 18px;
-
-  padding: 16px 20px;
-
-}
-
-.lh-progress-head {
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: baseline;
-
-  margin-bottom: 12px;
-
-}
-
-.lh-progress-head .lh-progress-label {
-
-  font-size: 13px;
-
-  font-weight: 700;
-
-  color: #7A7A94;
-
-}
-
-.lh-progress-count {
-
-  font-size: 11px;
-
-  color: #7A7A94;
-
-}
-
-.lh-progress-count strong {
-
-  color: #534AB7;
-
-  font-weight: 700;
-
-  font-size: 13px;
-
-}
-
-.lh-progress-main {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 14px;
-
-}
-
-.lh-progress-percent {
-
-  font-size: 26px;
-
-  font-weight: 800;
-
-  color: #1A1A2E;
-
-  min-width: 65px;
-
-  line-height: 1;
-
-  letter-spacing: -0.5px;
-
-}
-
-.lh-prog-bar-v2 {
-
-  flex: 1;
-
-  height: 8px;
-
-  background: #EEEDFE;
-
-  border-radius: 10px;
-
-  overflow: hidden;
-
-}
-
-/* ── 유닛별 테마 변수 정의 ── */
-
-.lh-unit-node.unit-1 {
-
-  --unit-accent: #D96F7A;
-
-  --unit-soft: #FFF5F6;
-
-  --unit-border: #F0C7CC;
-
-}
-
-.lh-selected-unit-card.unit-1 {
-
-  --unit-accent: #E86F7A;
-
-  --unit-soft: #FFF0F2;
-
-  --unit-border: #F2B7BE;
-
-}
-
-.lh-unit-node.unit-2 {
-
-  --unit-accent: #E28A45;
-
-  --unit-soft: #FFF7EF;
-
-  --unit-border: #F2D1B2;
-
-}
-
-.lh-selected-unit-card.unit-2 {
-
-  --unit-accent: #F29B50;
-
-  --unit-soft: #FFF3E8;
-
-  --unit-border: #F7C89C;
-
-}
-
-.lh-unit-node.unit-3 {
-
-  --unit-accent: #C9A227;
-
-  --unit-soft: #FFFBEA;
-
-  --unit-border: #EAD98D;
-
-}
-
-.lh-selected-unit-card.unit-3 {
-
-  --unit-accent: #D8A72E;
-
-  --unit-soft: #FFF8DD;
-
-  --unit-border: #EFD27A;
-
-}
-
-.lh-unit-node.unit-4 {
-
-  --unit-accent: #55A98A;
-
-  --unit-soft: #F0FBF6;
-
-  --unit-border: #A8D9C6;
-
-}
-
-.lh-selected-unit-card.unit-4 {
-
-  --unit-accent: #43A883;
-
-  --unit-soft: #EAF9F2;
-
-  --unit-border: #91D7BD;
-
-}
-
-.lh-unit-node.unit-5 {
-
-  --unit-accent: #5C8FE8;
-
-  --unit-soft: #F2F7FF;
-
-  --unit-border: #B9D1FA;
-
-}
-
-.lh-selected-unit-card.unit-5 {
-
-  --unit-accent: #4F8EF7;
-
-  --unit-soft: #EEF5FF;
-
-  --unit-border: #A9C9FF;
-
-}
-
-.lh-unit-node.unit-6 {
-
-  --unit-accent: #6674D8;
-
-  --unit-soft: #F4F6FF;
-
-  --unit-border: #BBC3F4;
-
-}
-
-.lh-selected-unit-card.unit-6 {
-
-  --unit-accent: #5C70D6;
-
-  --unit-soft: #EEF1FF;
-
-  --unit-border: #AEB9F2;
-
-}
-
-.lh-unit-node.unit-7 {
-
-  --unit-accent: #9270D8;
-
-  --unit-soft: #F7F2FF;
-
-  --unit-border: #D0BFF0;
-
-}
-
-.lh-selected-unit-card.unit-7 {
-
-  --unit-accent: #9A6BE8;
-
-  --unit-soft: #F4EEFF;
-
-  --unit-border: #C8B2F4;
-
-}
-
-.lh-unit-node.unit-8 {
-
-  --unit-accent: #CC75A8;
-
-  --unit-soft: #FFF4FA;
-
-  --unit-border: #EABFDB;
-
-}
-
-.lh-selected-unit-card.unit-8 {
-
-  --unit-accent: #D56BAE;
-
-  --unit-soft: #FFF0F8;
-
-  --unit-border: #F0B6D8;
-
-}
-
-/* 잠김 상태는 회색 테마로 덮어씌움 */
-
-.lh-unit-node.locked,
-
-.lh-selected-unit-card.locked {
-
-  --unit-accent: #A4A4B8;
-
-  --unit-soft: #F6F6FA;
-
-  --unit-border: #E2E1EE;
-
-}
-
-/* ── 유닛 선택 가로 UI ── */
-
-.lh-unit-selector-card {
-
-  background: #FFFFFF;
-
-  border-radius: 18px;
-
-  border: 0.5px solid #E2E1EE;
-
-  padding: 16px 20px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 14px;
-
-}
-
-.lh-unit-selector-head {
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: baseline;
-
-}
-
-.lh-unit-selector-head h2 {
-
-  font-size: 14px;
-
-  font-weight: 700;
-
-  color: #1A1A2E;
-
-  margin: 0;
-
-}
-
-.lh-unit-selector-head span {
-
-  font-size: 11px;
-
-  color: #7A7A94;
-
-  font-weight: 500;
-
-}
-
+
+
+  flex-direction: column;
+
+
+
+  align-items: center;
+
+
+
+  justify-content: center;
+
+
+
+  gap: 12px;
+
+
+
+  color: #7A7A94;
+
+
+
+  background: #F4F3FA;
+
+
+
+}
+
+
+
+.lh-page {
+
+
+
+  background: #F4F3FA;
+
+
+
+  min-height: 100dvh;
+
+
+
+}
+
+
+
+body:has(.lh-page) { background: #F4F3FA; }
+
+
+
+.lh-scroll {
+
+
+
+  padding: 8px 12px 90px;
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  gap: 10px;
+
+
+
+  max-width: 480px;
+
+
+
+  margin: 0 auto;
+
+
+
+}
+
+
+
+/* ── 헤더 ── */
+
+
+
+.lh-header {
+
+
+
+  padding: 20px 0 12px;
+
+
+
+}
+
+
+
+.lh-header-label {
+
+
+
+  font-size: var(--font-size-xs);
+
+
+
+  font-weight: 600;
+
+
+
+  color: var(--clr-primary);
+
+
+
+  letter-spacing: 0.08em;
+
+
+
+  margin: 0 0 4px;
+
+
+
+}
+
+
+
+.lh-title {
+
+
+
+  font-size: var(--font-size-2xl);
+
+
+
+  font-weight: 700;
+
+
+
+  color: var(--clr-text);
+
+
+
+  margin: 0;
+
+
+
+}
+
+
+
+/* ── 레벨 탭 ── */
+
+
+
+.lh-level-tabs {
+
+
+
+  display: flex;
+
+
+
+  gap: 6px;
+
+
+
+}
+
+
+
+.lh-tab {
+
+
+
+  flex: 1;
+
+
+
+  text-align: center;
+
+
+
+  padding: 9px 4px;
+
+
+
+  border-radius: 10px;
+
+
+
+  font-size: 13px;
+
+
+
+  border: 0.5px solid #E2E1EE;
+
+
+
+  background: #FFFFFF;
+
+
+
+  color: #7A7A94;
+
+
+
+  font-weight: 500;
+
+
+
+}
+
+
+
+.lh-tab.active {
+
+
+
+  background: #7F77DD;
+
+
+
+  color: #FFFFFF;
+
+
+
+  border-color: #7F77DD;
+
+
+
+  font-weight: 700;
+
+
+
+}
+
+
+
+.lh-tab.locked { color: #BBBBCC; }
+
+
+
+.lh-tab-lock { font-size: 11px; }
+
+
+
+/* ── 진행률 요약 ── */
+
+
+
+.lh-progress-card {
+
+
+
+  background: #FFFFFF;
+
+
+
+  border-radius: 14px;
+
+
+
+  border: 0.5px solid #E2E1EE;
+
+
+
+  padding: 12px 14px;
+
+
+
+}
+
+
+
+.lh-progress-row {
+
+
+
+  display: flex;
+
+
+
+  justify-content: space-between;
+
+
+
+  align-items: center;
+
+
+
+  margin-bottom: 8px;
+
+
+
+}
+
+
+
+.lh-progress-label { font-size: 12px; color: #7A7A94; }
+
+
+
+.lh-progress-val   { font-size: 12px; font-weight: 500; color: #534AB7; }
+
+
+
+.lh-prog-bar {
+
+
+
+  height: 6px;
+
+
+
+  background: #EEEDFE;
+
+
+
+  border-radius: 10px;
+
+
+
+  overflow: hidden;
+
+
+
+}
+
+
+
+.lh-prog-fill {
+
+
+
+  height: 100%;
+
+
+
+  background: #7F77DD;
+
+
+
+  border-radius: 10px;
+
+
+
+  transition: width 0.5s ease;
+
+
+
+}
+
+
+
+/* ── 유닛 카드 ── */
+
+
+
+.lh-unit-card {
+
+
+
+  background: #FFFFFF;
+
+
+
+  border-radius: 14px;
+
+
+
+  border: 0.5px solid #E2E1EE;
+
+
+
+  overflow: hidden;
+
+
+
+}
+
+
+
+.lh-unit-locked { opacity: 0.5; }
+
+
+
+.lh-unit-header {
+
+
+
+  display: flex;
+
+
+
+  align-items: center;
+
+
+
+  gap: 10px;
+
+
+
+  padding: 12px 13px;
+
+
+
+  cursor: pointer;
+
+
+
+  user-select: none;
+
+
+
+}
+
+
+
+.lh-unit-locked .lh-unit-header { cursor: default; }
+
+
+
+.lh-unit-badge {
+
+
+
+  width: 32px;
+
+
+
+  height: 32px;
+
+
+
+  border-radius: 9px;
+
+
+
+  display: flex;
+
+
+
+  align-items: center;
+
+
+
+  justify-content: center;
+
+
+
+  font-size: 13px;
+
+
+
+  font-weight: 600;
+
+
+
+  flex-shrink: 0;
+
+
+
+}
+
+
+
+.lh-unit-badge.done    { background: #7F77DD; color: #B8FF6A; font-size: 16px; }
+
+
+
+.lh-unit-badge.current { background: #EEEDFE; color: #534AB7; }
+
+
+
+.lh-unit-badge.locked  { background: #F0EFF8; color: #9999B0; font-size: 15px; }
+
+
+
+.lh-unit-info { flex: 1; min-width: 0; }
+
+
+
+.lh-unit-title {
+
+
+
+  font-size: 13px;
+
+
+
+  font-weight: 500;
+
+
+
+  color: #1A1A2E;
+
+
+
+  white-space: nowrap;
+
+
+
+  overflow: hidden;
+
+
+
+  text-overflow: ellipsis;
+
+
+
+}
+
+
+
+.lh-unit-title.locked { color: #9999B0; }
+
+
+
+.lh-unit-meta { font-size: 10px; color: #7A7A94; margin-top: 2px; }
+
+
+
+.lh-unit-chevron {
+
+
+
+  font-size: 16px;
+
+
+
+  color: #9999B0;
+
+
+
+  flex-shrink: 0;
+
+
+
+}
+
+
+
+/* 미니 진행바 */
+
+
+
+.lh-mini-bar {
+
+
+
+  height: 4px;
+
+
+
+  background: #EEEDFE;
+
+
+
+  margin: 0 13px;
+
+
+
+  border-radius: 10px;
+
+
+
+  overflow: hidden;
+
+
+
+}
+
+
+
+.lh-mini-fill {
+
+
+
+  height: 100%;
+
+
+
+  background: #7F77DD;
+
+
+
+  border-radius: 10px;
+
+
+
+  transition: width 0.5s ease;
+
+
+
+}
+
+
+
+/* ── 스테이지 트랙 ── */
+
+
+
+.lh-stage-track {
+
+
+
+  padding: 8px 13px 13px;
+
+
+
+  border-top: 0.5px solid #EEEDF6;
+
+
+
+}
+
+
+
+.lh-stage-label {
+
+
+
+  font-size: 10px;
+
+
+
+  color: #7A7A94;
+
+
+
+  margin-bottom: 8px;
+
+
+
+}
+
+
+
+.lh-stage-row {
+
+
+
+  display: flex;
+
+
+
+  align-items: center;
+
+
+
+}
+
+
+
+.lh-stage-seg {
+
+
+
+  display: flex;
+
+
+
+  align-items: center;
+
+
+
+  flex: 0 0 auto;
+
+
+
+}
+
+
+
+.lh-stage-seg:has(.lh-stage-line) {
+
+
+
+  flex: 1;
+
+
+
+}
+
+
+
+.lh-stage-node {
+
+
+
+  width: 30px;
+
+
+
+  height: 30px;
+
+
+
+  border-radius: 50%;
+
+
+
+  display: flex;
+
+
+
+  align-items: center;
+
+
+
+  justify-content: center;
+
+
+
+  font-size: 11px;
+
+
+
+  font-weight: 600;
+
+
+
+  flex-shrink: 0;
+
+
+
+  cursor: pointer;
+
+
+
+  transition: transform 0.1s;
+
+
+
+}
+
+
+
+.lh-stage-node:active { transform: scale(0.92); }
+
+
+
+.lh-stage-node.done    { background: #7F77DD; color: #fff; font-size: 13px; }
+
+
+
+.lh-stage-node.current { background: #EEEDFE; border: 2px solid #7F77DD; color: #534AB7; }
+
+
+
+.lh-stage-node.todo    { background: #F0EFF8; border: 1.5px solid #DEDDE8; color: #9999B0; }
+
+
+
+.lh-stage-line {
+
+
+
+  flex: 1;
+
+
+
+  height: 2px;
+
+
+
+  min-width: 4px;
+
+
+
+}
+
+
+
+.lh-stage-line.done { background: #7F77DD; }
+
+
+
+.lh-stage-line.todo { background: #DEDDE8; }
+
+
+
+.lh-boss-node {
+
+
+
+  width: 32px;
+
+
+
+  height: 32px;
+
+
+
+  border-radius: 50%;
+
+
+
+  background: #FAEEDA;
+
+
+
+  border: 2px solid #EF9F27;
+
+
+
+  display: flex;
+
+
+
+  align-items: center;
+
+
+
+  justify-content: center;
+
+
+
+  font-size: 14px;
+
+
+
+  flex-shrink: 0;
+
+
+
+  cursor: pointer;
+
+
+
+}
+
+
+
+/* 완료 유닛 복습 링크 */
+
+
+
+.lh-unit-done-action {
+
+
+
+  padding: 8px 14px;
+
+
+
+  font-size: 12px;
+
+
+
+  color: #7F77DD;
+
+
+
+  border-top: 0.5px solid #EEEDF6;
+
+
+
+  cursor: pointer;
+
+
+
+  text-align: right;
+
+
+
+}
+
+
+
+/* ── 엔드보스 티저 ── */
+
+
+
+.lh-endboss-teaser-old {
+
+
+
+  background: #FFFFFF;
+
+
+
+  border-radius: 14px;
+
+
+
+  border: 1.5px dashed #CECBF6;
+
+
+
+  padding: 13px 14px;
+
+
+
+  display: flex;
+
+
+
+  gap: 10px;
+
+
+
+  align-items: center;
+
+
+
+  transition: opacity 0.2s, border-color 0.2s, box-shadow 0.2s;
+
+
+
+}
+
+
+
+.lh-endboss-teaser.locked {
+
+
+
+  opacity: 0.6;
+
+
+
+  cursor: default;
+
+
+
+}
+
+
+
+.lh-endboss-teaser.unlocked {
+
+
+
+  opacity: 1;
+
+
+
+  cursor: pointer;
+
+
+
+  border: 1.5px solid #F0B429;
+
+
+
+  box-shadow: 0 2px 10px rgba(240, 180, 41, 0.25);
+
+
+
+}
+
+
+
+.lh-endboss-icon {
+
+
+
+  width: 36px;
+
+
+
+  height: 36px;
+
+
+
+  border-radius: 50%;
+
+
+
+  background: #FAEEDA;
+
+
+
+  display: flex;
+
+
+
+  align-items: center;
+
+
+
+  justify-content: center;
+
+
+
+  font-size: 18px;
+
+
+
+  flex-shrink: 0;
+
+
+
+}
+
+
+
+.lh-endboss-title { font-size: 13px; font-weight: 500; color: #1A1A2E; }
+
+
+
+.lh-endboss-desc  { font-size: 10px; color: #7A7A94; margin-top: 2px; }
+
+
+
+/* ── 진행률 요약 v2 ── */
+
+
+
+.lh-progress-card-v2 {
+
+
+
+  border-radius: 18px;
+
+
+
+  padding: 16px 20px;
+
+
+
+}
+
+
+
+.lh-progress-head {
+
+
+
+  display: flex;
+
+
+
+  justify-content: space-between;
+
+
+
+  align-items: baseline;
+
+
+
+  margin-bottom: 12px;
+
+
+
+}
+
+
+
+.lh-progress-head .lh-progress-label {
+
+
+
+  font-size: 13px;
+
+
+
+  font-weight: 700;
+
+
+
+  color: #7A7A94;
+
+
+
+}
+
+
+
+.lh-progress-count {
+
+
+
+  font-size: 11px;
+
+
+
+  color: #7A7A94;
+
+
+
+}
+
+
+
+.lh-progress-count strong {
+
+
+
+  color: #534AB7;
+
+
+
+  font-weight: 700;
+
+
+
+  font-size: 13px;
+
+
+
+}
+
+
+
+.lh-progress-main {
+
+
+
+  display: flex;
+
+
+
+  align-items: center;
+
+
+
+  gap: 14px;
+
+
+
+}
+
+
+
+.lh-progress-percent {
+
+
+
+  font-size: 26px;
+
+
+
+  font-weight: 800;
+
+
+
+  color: #1A1A2E;
+
+
+
+  min-width: 65px;
+
+
+
+  line-height: 1;
+
+
+
+  letter-spacing: -0.5px;
+
+
+
+}
+
+
+
+.lh-prog-bar-v2 {
+
+
+
+  flex: 1;
+
+
+
+  height: 8px;
+
+
+
+  background: #EEEDFE;
+
+
+
+  border-radius: 10px;
+
+
+
+  overflow: hidden;
+
+
+
+}
+
+
+
+/* ── 유닛별 테마 변수 정의 ── */
+
+
+
+.lh-unit-node.unit-1 {
+
+
+
+  --unit-accent: #D96F7A;
+
+
+
+  --unit-soft: #FFF5F6;
+
+
+
+  --unit-border: #F0C7CC;
+
+
+
+}
+
+
+
+.lh-selected-unit-card.unit-1 {
+
+
+
+  --unit-accent: #E86F7A;
+
+
+
+  --unit-soft: #FFF0F2;
+
+
+
+  --unit-border: #F2B7BE;
+
+
+
+}
+
+
+
+.lh-unit-node.unit-2 {
+
+
+
+  --unit-accent: #E28A45;
+
+
+
+  --unit-soft: #FFF7EF;
+
+
+
+  --unit-border: #F2D1B2;
+
+
+
+}
+
+
+
+.lh-selected-unit-card.unit-2 {
+
+
+
+  --unit-accent: #F29B50;
+
+
+
+  --unit-soft: #FFF3E8;
+
+
+
+  --unit-border: #F7C89C;
+
+
+
+}
+
+
+
+.lh-unit-node.unit-3 {
+
+
+
+  --unit-accent: #C9A227;
+
+
+
+  --unit-soft: #FFFBEA;
+
+
+
+  --unit-border: #EAD98D;
+
+
+
+}
+
+
+
+.lh-selected-unit-card.unit-3 {
+
+
+
+  --unit-accent: #D8A72E;
+
+
+
+  --unit-soft: #FFF8DD;
+
+
+
+  --unit-border: #EFD27A;
+
+
+
+}
+
+
+
+.lh-unit-node.unit-4 {
+
+
+
+  --unit-accent: #55A98A;
+
+
+
+  --unit-soft: #F0FBF6;
+
+
+
+  --unit-border: #A8D9C6;
+
+
+
+}
+
+
+
+.lh-selected-unit-card.unit-4 {
+
+
+
+  --unit-accent: #43A883;
+
+
+
+  --unit-soft: #EAF9F2;
+
+
+
+  --unit-border: #91D7BD;
+
+
+
+}
+
+
+
+.lh-unit-node.unit-5 {
+
+
+
+  --unit-accent: #5C8FE8;
+
+
+
+  --unit-soft: #F2F7FF;
+
+
+
+  --unit-border: #B9D1FA;
+
+
+
+}
+
+
+
+.lh-selected-unit-card.unit-5 {
+
+
+
+  --unit-accent: #4F8EF7;
+
+
+
+  --unit-soft: #EEF5FF;
+
+
+
+  --unit-border: #A9C9FF;
+
+
+
+}
+
+
+
+.lh-unit-node.unit-6 {
+
+
+
+  --unit-accent: #6674D8;
+
+
+
+  --unit-soft: #F4F6FF;
+
+
+
+  --unit-border: #BBC3F4;
+
+
+
+}
+
+
+
+.lh-selected-unit-card.unit-6 {
+
+
+
+  --unit-accent: #5C70D6;
+
+
+
+  --unit-soft: #EEF1FF;
+
+
+
+  --unit-border: #AEB9F2;
+
+
+
+}
+
+
+
+.lh-unit-node.unit-7 {
+
+
+
+  --unit-accent: #9270D8;
+
+
+
+  --unit-soft: #F7F2FF;
+
+
+
+  --unit-border: #D0BFF0;
+
+
+
+}
+
+
+
+.lh-selected-unit-card.unit-7 {
+
+
+
+  --unit-accent: #9A6BE8;
+
+
+
+  --unit-soft: #F4EEFF;
+
+
+
+  --unit-border: #C8B2F4;
+
+
+
+}
+
+
+
+.lh-unit-node.unit-8 {
+
+
+
+  --unit-accent: #CC75A8;
+
+
+
+  --unit-soft: #FFF4FA;
+
+
+
+  --unit-border: #EABFDB;
+
+
+
+}
+
+
+
+.lh-selected-unit-card.unit-8 {
+
+
+
+  --unit-accent: #D56BAE;
+
+
+
+  --unit-soft: #FFF0F8;
+
+
+
+  --unit-border: #F0B6D8;
+
+
+
+}
+
+
+
+/* 잠김 상태는 회색 테마로 덮어씌움 */
+
+
+
+.lh-unit-node.locked,
+
+
+
+.lh-selected-unit-card.locked {
+
+
+
+  --unit-accent: #A4A4B8;
+
+
+
+  --unit-soft: #F6F6FA;
+
+
+
+  --unit-border: #E2E1EE;
+
+
+
+}
+
+
+
+/* ── 유닛 선택 가로 UI ── */
+
+
+
+.lh-unit-selector-card {
+
+
+
+  background: #FFFFFF;
+
+
+
+  border-radius: 18px;
+
+
+
+  border: 0.5px solid #E2E1EE;
+
+
+
+  padding: 16px 20px;
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  gap: 14px;
+
+
+
+}
+
+
+
+.lh-unit-selector-head {
+
+
+
+  display: flex;
+
+
+
+  justify-content: space-between;
+
+
+
+  align-items: baseline;
+
+
+
+}
+
+
+
+.lh-unit-selector-head h2 {
+
+
+
+  font-size: 14px;
+
+
+
+  font-weight: 700;
+
+
+
+  color: #1A1A2E;
+
+
+
+  margin: 0;
+
+
+
+}
+
+
+
+.lh-unit-selector-head span {
+
+
+
+  font-size: 11px;
+
+
+
+  color: #7A7A94;
+
+
+
+  font-weight: 500;
+
+
+
+}
+
+
+
 .lh-unit-selector-viewport {
 
   position: relative;
@@ -839,19 +1670,32 @@ body:has(.lh-page) { background: #F4F3FA; }
 .lh-unit-selector-scroll {
 
   display: flex;
-
-  gap: 14px;
-
-  padding: 8px 4px;
-
-  overflow-x: auto;
-
-  scroll-behavior: smooth;
-
-  position: relative;
-
-  -ms-overflow-style: none;
-
+
+
+  gap: 14px;
+
+
+
+  padding: 8px 4px;
+
+
+
+  overflow-x: auto;
+
+
+
+  scroll-behavior: smooth;
+
+
+
+  position: relative;
+
+
+
+  -ms-overflow-style: none;
+
+
+
   scrollbar-width: none;
 
   cursor: grab;
@@ -861,7 +1705,8 @@ body:has(.lh-page) { background: #F4F3FA; }
 }
 
 .lh-unit-selector-scroll::-webkit-scrollbar {
-
+
+
   display: none;
 
 }
@@ -955,168 +1800,325 @@ body:has(.lh-page) { background: #F4F3FA; }
   border-left: 10px solid #A9A4E8;
 
 }
-
-/* 유닛 노드 버튼 (아웃라인 및 박스 테두리 완화) */
-
-.lh-unit-node {
-
-  position: relative;
-
-  flex-shrink: 0;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  background: transparent;
-
-  border: 0;
-
-  padding: 0;
-
-  cursor: pointer;
-
-  width: 76px;
-
-  text-align: center;
-
-  outline: none;
-
-  box-shadow: none;
-
-  -webkit-tap-highlight-color: transparent;
-
-  transition: transform 0.2s ease;
-
-}
-
-.lh-unit-node:focus {
-
-  outline: none;
-
-}
-
-.lh-unit-node:focus-visible .lh-unit-node-icon-wrap {
-
-  outline: 2px solid rgba(127, 119, 221, 0.35);
-
-  outline-offset: 3px;
-
-}
-
-.lh-unit-node.locked {
-
-  cursor: not-allowed;
-
-}
-
-/* 연결선 처리 (노드들 사이) */
-
-.lh-unit-node:not(:last-child)::after {
-
-  content: '';
-
-  position: absolute;
-
-  top: 32px;
-
-  left: calc(50% + 32px);
-
-  width: calc(100% - 40px);
-
-  height: 1px;
-
-  border-top: 1.5px dashed #DEDDE8;
-
-  z-index: 1;
-
-}
-
-.lh-unit-node.done:not(:last-child)::after {
-
-  border-top: 1.5px dashed #A9A4E8;
-
-}
-
-/* 아이콘 랩 (둥근 사각형으로 통일 및 비주얼 피드백) */
-
-.lh-unit-node-icon-wrap {
-
-  position: relative;
-
-  width: 64px;
-
-  height: 64px;
-
-  border-radius: 22px;
-
-  display: grid;
-
-  place-items: center;
-
-  margin-bottom: 8px;
-
-  z-index: 2;
-
-  transition: all 0.2s ease;
-
-  border: 1.5px solid var(--unit-border, #E2E1EE);
-
-  background: var(--unit-soft, #F7F6FB);
-
-  color: var(--unit-accent, #7A7A94);
-
-}
-
-.lh-unit-node.open .lh-unit-node-icon-wrap {
-
-  border: 1.5px solid var(--unit-border, #E2E1EE);
-
-  background: var(--unit-soft, #F7F6FB);
-
-  color: var(--unit-accent, #7A7A94);
-
-}
-
-.lh-unit-node.done .lh-unit-node-icon-wrap {
-
-  border: 1.5px solid var(--unit-border, #A9A4E8);
-
-  background: var(--unit-soft, #F2F0FF);
-
-  color: var(--unit-accent, #7F77DD);
-
-}
-
-.lh-unit-node.locked .lh-unit-node-icon-wrap {
-
-  border: 1.5px solid var(--unit-border, #E2E1EE);
-
-  background: var(--unit-soft, #FAFAFC);
-
-  color: var(--unit-accent, #C2C2D0);
-
-}
-
+
+
+/* 유닛 노드 버튼 (아웃라인 및 박스 테두리 완화) */
+
+
+
+.lh-unit-node {
+
+
+
+  position: relative;
+
+
+
+  flex-shrink: 0;
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  align-items: center;
+
+
+
+  background: transparent;
+
+
+
+  border: 0;
+
+
+
+  padding: 0;
+
+
+
+  cursor: pointer;
+
+
+
+  width: 76px;
+
+
+
+  text-align: center;
+
+
+
+  outline: none;
+
+
+
+  box-shadow: none;
+
+
+
+  -webkit-tap-highlight-color: transparent;
+
+
+
+  transition: transform 0.2s ease;
+
+
+
+}
+
+
+
+.lh-unit-node:focus {
+
+
+
+  outline: none;
+
+
+
+}
+
+
+
+.lh-unit-node:focus-visible .lh-unit-node-icon-wrap {
+
+
+
+  outline: 2px solid rgba(127, 119, 221, 0.35);
+
+
+
+  outline-offset: 3px;
+
+
+
+}
+
+
+
+.lh-unit-node.locked {
+
+
+
+  cursor: not-allowed;
+
+
+
+}
+
+
+
+/* 연결선 처리 (노드들 사이) */
+
+
+
+.lh-unit-node:not(:last-child)::after {
+
+
+
+  content: '';
+
+
+
+  position: absolute;
+
+
+
+  top: 32px;
+
+
+
+  left: calc(50% + 32px);
+
+
+
+  width: calc(100% - 40px);
+
+
+
+  height: 1px;
+
+
+
+  border-top: 1.5px dashed #DEDDE8;
+
+
+
+  z-index: 1;
+
+
+
+}
+
+
+
+.lh-unit-node.done:not(:last-child)::after {
+
+
+
+  border-top: 1.5px dashed #A9A4E8;
+
+
+
+}
+
+
+
+/* 아이콘 랩 (둥근 사각형으로 통일 및 비주얼 피드백) */
+
+
+
+.lh-unit-node-icon-wrap {
+
+
+
+  position: relative;
+
+
+
+  width: 64px;
+
+
+
+  height: 64px;
+
+
+
+  border-radius: 22px;
+
+
+
+  display: grid;
+
+
+
+  place-items: center;
+
+
+
+  margin-bottom: 8px;
+
+
+
+  z-index: 2;
+
+
+
+  transition: all 0.2s ease;
+
+
+
+  border: 1.5px solid var(--unit-border, #E2E1EE);
+
+
+
+  background: var(--unit-soft, #F7F6FB);
+
+
+
+  color: var(--unit-accent, #7A7A94);
+
+
+
+}
+
+
+
+.lh-unit-node.open .lh-unit-node-icon-wrap {
+
+
+
+  border: 1.5px solid var(--unit-border, #E2E1EE);
+
+
+
+  background: var(--unit-soft, #F7F6FB);
+
+
+
+  color: var(--unit-accent, #7A7A94);
+
+
+
+}
+
+
+
+.lh-unit-node.done .lh-unit-node-icon-wrap {
+
+
+
+  border: 1.5px solid var(--unit-border, #A9A4E8);
+
+
+
+  background: var(--unit-soft, #F2F0FF);
+
+
+
+  color: var(--unit-accent, #7F77DD);
+
+
+
+}
+
+
+
+.lh-unit-node.locked .lh-unit-node-icon-wrap {
+
+
+
+  border: 1.5px solid var(--unit-border, #E2E1EE);
+
+
+
+  background: var(--unit-soft, #FAFAFC);
+
+
+
+  color: var(--unit-accent, #C2C2D0);
+
+
+
+}
+
+
+
 .lh-unit-node.current .lh-unit-node-icon-wrap {
 
   width: 68px;
 
   height: 68px;
-
-  border: 2px solid var(--unit-accent, #7F77DD);
-
-  background: var(--unit-soft, #F2F0FF);
-
-  color: var(--unit-accent, #7F77DD);
-
-  box-shadow: 0 0 0 4px rgba(127, 119, 221, 0.12);
-
-  margin-top: -3px;
-
-  margin-bottom: 5px;
+
+
+  border: 2px solid var(--unit-accent, #7F77DD);
+
+
+
+  background: var(--unit-soft, #F2F0FF);
+
+
+
+  color: var(--unit-accent, #7F77DD);
+
+
+
+  box-shadow: 0 0 0 4px rgba(127, 119, 221, 0.12);
+
+
+
+  margin-top: -3px;
+
+
+
+  margin-bottom: 5px;
+
 
 }
 
@@ -1141,1773 +2143,3536 @@ body:has(.lh-page) { background: #F4F3FA; }
 /* 유닛 아이콘 SVG 크기 */
 
 .lh-unit-node-svg {
-
-  width: 28px;
-
-  height: 28px;
-
-  color: var(--unit-accent, currentColor);
-
-}
-
-/* 상태 배지 */
-
-.lh-unit-node-state {
-
-  position: absolute;
-
-  bottom: -4px;
-
-  right: -4px;
-
-  width: 17px;
-
-  height: 17px;
-
-  border-radius: 50%;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: 10px;
-
-  font-weight: 700;
-
-  border: 1.5px solid #FFFFFF;
-
-  z-index: 3;
-
-}
-
-.lh-unit-node-state.done {
-
-  background: #7F77DD;
-
-  color: #FFFFFF;
-
-  font-size: 9px;
-
-}
-
-.lh-unit-node-state.locked {
-
-  background: #9999B0;
-
-  color: #FFFFFF;
-
-  font-size: 8px;
-
-}
-
-.lh-unit-node-state.current {
-
-  background: #7F77DD;
-
-  color: #FFFFFF;
-
-  font-size: 7px;
-
-}
-
-/* 유닛 텍스트 정보 */
-
-.lh-unit-node-num {
-
-  font-size: 10px;
-
-  font-weight: 600;
-
-  color: #7A7A94;
-
-  margin-bottom: 2px;
-
-}
-
-.lh-unit-node-title {
-
-  font-size: 12.5px;
-
-  font-weight: 600;
-
-  color: #1A1A2E;
-
-  margin-bottom: 3px;
-
-  width: 100%;
-
-  white-space: nowrap;
-
-  overflow: hidden;
-
-  text-overflow: ellipsis;
-
-}
-
-.lh-unit-node-status {
-
-  display: none !important;
-
-}
-
-.lh-unit-node.done .lh-unit-node-status {
-
-  color: #7F77DD;
-
-}
-
-.lh-unit-node.locked .lh-unit-node-status {
-
-  color: #BBBBCC;
-
-}
-
-.lh-unit-node.current .lh-unit-node-status {
-
-  color: #7F77DD;
-
-  font-weight: 700;
-
-}
-
-.lh-unit-node.open .lh-unit-node-status {
-
-  color: #7A7A94;
-
-}
-
-/* ── 2차: 선택된 유닛 상세 카드 ── */
-
-.lh-selected-unit-card {
-
-  background: #FFFFFF;
-
-  border-radius: 22px;
-
-  border: 1px solid #E2E1EE;
-
-  padding: 18px 20px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 18px;
-
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-
-}
-
-.lh-selected-unit-card.locked {
-
-  opacity: 0.7;
-
-}
-
-.lh-selected-unit-head {
-
-  display: flex;
-
-  gap: 14px;
-
-  align-items: center;
-
-  position: relative;
-
-}
-
-.lh-selected-unit-icon {
-
-  width: 50px;
-
-  height: 50px;
-
-  border-radius: 14px;
-
-  background: var(--unit-soft, #EEEDFE);
-
-  border: 1.5px solid var(--unit-border, #7F77DD);
-
-  display: grid;
-
-  place-items: center;
-
-  flex-shrink: 0;
-
-}
-
-.lh-selected-unit-card.locked .lh-selected-unit-icon {
-
-  background: #F5F4FA;
-
-  border-color: #DEDDE8;
-
-}
-
-/* 상세 유닛 SVG */
-
-.lh-selected-unit-svg {
-
-  width: 26px;
-
-  height: 26px;
-
-  color: var(--unit-accent, #7F77DD);
-
-}
-
-.lh-selected-unit-card.locked .lh-selected-unit-svg {
-
-  color: #A4A4B8;
-
-}
-
-.lh-selected-unit-info {
-
-  flex: 1;
-
-  min-width: 0;
-
-}
-
-.lh-selected-unit-kicker {
-
-  font-size: 10px;
-
-  font-weight: 700;
-
-  color: var(--unit-accent, #7F77DD);
-
-  text-transform: uppercase;
-
-  letter-spacing: 0.5px;
-
-  line-height: 1;
-
-}
-
-.lh-selected-unit-card.locked .lh-selected-unit-kicker {
-
-  color: #9999B0;
-
-}
-
-.lh-selected-unit-info h2 {
-
-  font-size: 18px;
-
-  font-weight: 700;
-
-  color: #1A1A2E;
-
-  margin: 6px 0 0;
-
-  line-height: 1.35;
-
-}
-
-.lh-stage-boss-cta {
-
-  border-radius: 20px;
-
-  padding: 5px 12px;
-
-  font-size: 10.5px;
-
-  font-weight: 700;
-
-  cursor: pointer;
-
-  flex-shrink: 0;
-
-  align-self: flex-start;
-
-  transition: all 0.2s ease;
-
-}
-
-.lh-stage-boss-cta.open {
-
-  background: #7F77DD;
-
-  color: #FFFFFF;
-
-  border: none;
-
-}
-
-.lh-stage-boss-cta.locked {
-
-  background: #F1F0F6;
-
-  color: #9999B0;
-
-  border: none;
-
-  cursor: not-allowed;
-
-}
-
-.lh-stage-boss-cta.cleared {
-
-  background: #F2F0FF;
-
-  color: #6F5FE7;
-
-  border: 1px solid #DCD6FF;
-
-}
-
-.lh-stage-boss-cta:not(.locked):active {
-
-  transform: scale(0.96);
-
-}
-
-.lh-selected-unit-progress {
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 6px;
-
-  padding: 12px 14px;
-
-  background: #F8F7FD;
-
-  border-radius: 12px;
-
-  border: 0.5px solid #EEEDF8;
-
-}
-
-.lh-selected-unit-progress span {
-
-  font-size: 11px;
-
-  font-weight: 600;
-
-  color: #7A7A94;
-
-}
-
-.lh-selected-unit-bar {
-
-  height: 6px;
-
-  background: #EEEDFE;
-
-  border-radius: 10px;
-
-  overflow: hidden;
-
-}
-
-.lh-selected-unit-bar div {
-
-  height: 100%;
-
-  background: #7F77DD;
-
-  border-radius: 10px;
-
-  transition: width 0.5s ease;
-
-}
-
-/* ── 2차: 로드맵 세로선 & 에이몬 발자국 ── */
-
-.lh-paw-roadmap {
-
-  display: flex;
-
-  flex-direction: column;
-
-  position: relative;
-
-  padding: 10px 0 4px;
-
-}
-
-/* 세로 연결 점선 타임라인 */
-
-.lh-paw-roadmap::before {
-
-  content: '';
-
-  position: absolute;
-
-  left: 31px;
-
-  top: 42px;
-
-  bottom: 72px;
-
-  width: 2px;
-
-  background: repeating-linear-gradient(
-
-    to bottom,
-
-    #CFC8FF 0 8px,
-
-    transparent 8px 16px
-
-  );
-
-  z-index: 1;
-
-}
-
-/* 개별 스테이지 행 */
-
-.lh-paw-stage {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 14px;
-
-  width: 100%;
-
-  background: none;
-
-  padding: 10px 12px;
-
-  text-align: left;
-
-  cursor: pointer;
-
-  position: relative;
-
-  z-index: 2;
-
-  outline: none;
-
-  -webkit-tap-highlight-color: transparent;
-
-}
-
-.lh-paw-stage.locked {
-
-  cursor: not-allowed;
-
-}
-
-/* 카드 느낌 완화 및 상태별 디자인 적용 */
-
-.lh-paw-stage.done {
-
-  background: #FFFFFF;
-
-  border: 1px solid #EEEAFD;
-
-  border-radius: 14px;
-
-  margin-bottom: 4px;
-
-}
-
-.lh-paw-stage.current {
-
-  background: linear-gradient(90deg, #F5F2FF 0%, #FFFFFF 100%);
-
-  border: 1px solid #CFC8FF;
-
-  border-radius: 14px;
-
-  margin-bottom: 4px;
-
-  box-shadow: 0 8px 20px rgba(127, 119, 221, 0.08);
-
-}
-
-.lh-paw-stage.locked {
-
-  background: #FAFAFC;
-
-  border: 1px solid #ECEBF3;
-
-  border-radius: 14px;
-
-  margin-bottom: 4px;
-
-}
-
-/* 에이몬 로봇/에너지 발자국 (더블 캡슐 부스터 패드) */
-
-.lh-paw-stage::before {
-
-  content: '';
-
-  position: absolute;
-
-  left: 23px;
-
-  top: -10px;
-
-  width: 18px;
-
-  height: 12px;
-
-  opacity: 0.35;
-
-  background:
-
-    radial-gradient(ellipse at 35% 50%, #7F77DD 0 35%, transparent 38%),
-
-    radial-gradient(ellipse at 65% 50%, #7F77DD 0 35%, transparent 38%);
-
-  transform: rotate(-18deg);
-
-  z-index: 2;
-
-}
-
-.lh-paw-stage.locked::before {
-
-  background:
-
-    radial-gradient(ellipse at 35% 50%, #B8B8C8 0 35%, transparent 38%),
-
-    radial-gradient(ellipse at 65% 50%, #B8B8C8 0 35%, transparent 38%);
-
-  opacity: 0.25;
-
-}
-
-/* 스테이지 원형 노드 (숫자만 깔끔하게 표시) */
-
-.lh-paw-node {
-
-  position: relative;
-
-  width: 40px;
-
-  height: 40px;
-
-  border-radius: 50%;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: 14px;
-
-  font-weight: 700;
-
-  flex-shrink: 0;
-
-  transition: all 0.2s ease;
-
-  z-index: 3;
-
-}
-
-.lh-paw-stage.done .lh-paw-node {
-
-  background: #F2F0FF;
-
-  border: 1.5px solid #A9A4E8;
-
-  color: #7F77DD;
-
-}
-
-.lh-paw-stage.current .lh-paw-node {
-
-  background: #7F77DD;
-
-  border: 2.5px solid #7F77DD;
-
-  color: #FFFFFF;
-
-  font-size: 14px;
-
-  box-shadow: 0 0 0 4px rgba(127, 119, 221, 0.16);
-
-}
-
-.lh-paw-stage.locked .lh-paw-node {
-
-  background: #F6F6FA;
-
-  border: 1.5px solid #E2E1EE;
-
-  color: #A4A4B8;
-
-}
-
-/* 텍스트 내용 */
-
-.lh-paw-content {
-
-  flex: 1;
-
-  min-width: 0;
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 2px;
-
-}
-
-.lh-paw-title {
-
-  font-size: 13px;
-
-  font-weight: 600;
-
-  color: #1A1A2E;
-
-  overflow: hidden;
-
-  text-overflow: ellipsis;
-
-  white-space: nowrap;
-
-}
-
-.lh-paw-stage.locked .lh-paw-title {
-
-  color: #A4A4B8;
-
-}
-
-.lh-paw-status {
-
-  font-size: 10px;
-
-  font-weight: 500;
-
-}
-
-.lh-paw-stage.done .lh-paw-status {
-
-  color: #37B66A; /* 완료 문구만 연한 성공 컬러 */
-
-}
-
-.lh-paw-stage.current .lh-paw-status {
-
-  color: #7F77DD;
-
-  font-weight: 700;
-
-}
-
-.lh-paw-stage.locked .lh-paw-status {
-
-  color: #BBBBCC;
-
-}
-
-/* 액션 배지 */
-
-.lh-paw-action {
-
-  font-size: 9px;
-
-  font-weight: 700;
-
-  padding: 4px 10px;
-
-  border-radius: var(--radius-full);
-
-  margin-right: 4px;
-
-  border: 1px solid transparent;
-
-}
-
-.lh-paw-action.review {
-
-  background: #F2F0FF;
-
-  color: #6F5FE7;
-
-  border: 1px solid #DED9FF;
-
-}
-
-.lh-paw-action.continue {
-
-  background: #7F77DD;
-
-  color: #FFFFFF;
-
-}
-
-.lh-paw-lock {
-
-  font-size: 12px;
-
-  color: #9999B0;
-
-  padding-right: 4px;
-
-}
-
-/* ── 유닛 보스 노드 ── */
-
-.lh-paw-boss {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 14px;
-
-  width: 100%;
-
-  background: #FFFFFF;
-
-  border: 1px solid #CFC8FF;
-
-  border-radius: 16px;
-
-  padding: 14px 18px;
-
-  cursor: pointer;
-
-  position: relative;
-
-  z-index: 2;
-
-  margin-top: 12px;
-
-  text-align: left;
-
-  box-shadow: 0 4px 12px rgba(127, 119, 221, 0.04);
-
-  transition: all 0.2s ease;
-
-  outline: none;
-
-  -webkit-tap-highlight-color: transparent;
-
-}
-
-.lh-paw-boss.locked {
-
-  background: #FAFAFC;
-
-  border: 1px solid #ECEBF3;
-
-  cursor: not-allowed;
-
-}
-
-.lh-paw-boss.open {
-
-  background: #FFFFFF;
-
-  border: 1.5px solid #7F77DD;
-
-  box-shadow: 0 8px 24px rgba(127, 119, 221, 0.08);
-
-}
-
-.lh-paw-boss.open:active {
-
-  transform: scale(0.98);
-
-}
-
-.lh-paw-boss-icon {
-
-  width: 38px;
-
-  height: 38px;
-
-  border-radius: 50%;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: 16px;
-
-  flex-shrink: 0;
-
-  background: #EEEDFE;
-
-  border: 1px solid #7F77DD;
-
-  color: #7F77DD;
-
-}
-
-.lh-paw-boss.locked .lh-paw-boss-icon {
-
-  background: #EEEDF2;
-
-  border: 1px solid #DEDDE8;
-
-  color: #9999B0;
-
-}
-
-.lh-paw-boss-text {
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 2px;
-
-  flex: 1;
-
-  min-width: 0;
-
-}
-
-.lh-paw-boss-text strong {
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  color: #7F77DD;
-
-}
-
-.lh-paw-boss.locked .lh-paw-boss-text strong {
-
-  color: #A4A4B8;
-
-}
-
-.lh-paw-boss-text span {
-
-  font-size: 13px;
-
-  font-weight: 700;
-
-  color: #1A1A2E;
-
-  overflow: hidden;
-
-  text-overflow: ellipsis;
-
-  white-space: nowrap;
-
-}
-
-.lh-paw-boss.locked .lh-paw-boss-text span {
-
-  color: #A4A4B8;
-
-}
-
-.lh-paw-boss-desc {
-
-  font-size: 10px !important;
-
-  font-weight: 500 !important;
-
-  color: #7A7A94 !important;
-
-  margin-top: 1px;
-
-}
-
-.lh-paw-boss.locked .lh-paw-boss-desc {
-
-  color: #BBBBCC !important;
-
-}
-
-.lh-paw-boss-action {
-
-  font-size: 10px;
-
-  font-weight: 700;
-
-  padding: 5px 12px;
-
-  border-radius: 12px;
-
-  flex-shrink: 0;
-
-}
-
-.lh-paw-boss.locked .lh-paw-boss-action {
-
-  background: #EEEDF2;
-
-  color: #9999B0;
-
-}
-
-.lh-paw-boss.open .lh-paw-boss-action {
-
-  background: #7F77DD;
-
-  color: #FFFFFF;
-
-}
-
-/* ── 2차: 오늘의 레슨 루트 히어로 카드 ── */
-
-.lh-lesson-hero {
-
-  min-height: 160px;
-
-  border-radius: 24px;
-
-  background:
-
-    linear-gradient(135deg, rgba(143, 124, 255, 0.96), rgba(103, 87, 216, 0.92)),
-
-    url('/images/lesson-hero-bg.webp');
-
-  background-size: cover;
-
-  background-position: center right;
-
-  padding: 20px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: space-between;
-
-  position: relative;
-
-  overflow: hidden;
-
-  color: #FFFFFF;
-
-  box-shadow: 0 8px 24px rgba(103, 87, 216, 0.15);
-
-}
-
-.lh-lesson-hero-content {
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 6px;
-
-  max-width: 60%;
-
-}
-
-.lh-lesson-hero-kicker {
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  text-transform: uppercase;
-
-  letter-spacing: 1.2px;
-
-  color: rgba(255, 255, 255, 0.85);
-
-}
-
-.lh-lesson-hero-title {
-
-  font-size: 17px;
-
-  font-weight: 800;
-
-  color: #FFFFFF;
-
-  margin: 0;
-
-  line-height: 1.35;
-
-}
-
-.lh-lesson-hero-pills {
-
-  display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 6px;
-
-  margin-top: 4px;
-
-}
-
-.lh-hero-pill {
-
-  font-size: 9.5px;
-
-  font-weight: 700;
-
-  padding: 3px 8px;
-
-  border-radius: 12px;
-
-  white-space: nowrap;
-
-}
-
-.lh-hero-pill.status {
-
-  background: rgba(255, 255, 255, 0.2);
-
-  color: #FFFFFF;
-
-}
-
-.lh-hero-pill.progress {
-
-  background: #B8FF6A;
-
-  color: #534AB7;
-
-}
-
-.lh-lesson-hero-cta {
-
-  align-self: flex-start;
-
-  background: #FFFFFF;
-
-  color: #6757D8;
-
-  border: none;
-
-  border-radius: 20px;
-
-  padding: 6px 14px;
-
-  font-size: 10.5px;
-
-  font-weight: 800;
-
-  cursor: pointer;
-
-  transition: all 0.2s ease;
-
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-
-}
-
-.lh-lesson-hero-cta:hover {
-
-  transform: translateY(-1px);
-
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-
-}
-
-.lh-lesson-hero-cta:active {
-
-  transform: translateY(0);
-
-}
-
-/* ── 3차: 통합 로드맵 보드 ── */
-
-.lh-roadmap-board {
-
-  background: #FFFFFF;
-
-  border: 1px solid #E2E1EE;
-
-  border-radius: 22px;
-
-  padding: 18px 20px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 16px;
-
-  box-shadow: 0 4px 18px rgba(103, 87, 216, 0.04);
-
-}
-
-.lh-roadmap-board-head {
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 4px;
-
-  width: 100%;
-
-}
-
-.lh-roadmap-board-header-row {
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  width: 100%;
-
-}
-
-.lh-roadmap-board-header-row h2 {
-
-  font-size: 18px;
-
-  font-weight: 700;
-
-  color: #1A1A2E;
-
-  margin: 0;
-
-}
-
-.lh-roadmap-board-title-group {
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 3px;
-
-}
-
-.lh-roadmap-board-title-group h2 {
-
-  font-size: 16.5px;
-
-  font-weight: 800;
-
-  color: #1A1A2E;
-
-  margin: 0;
-
-}
-
-.lh-roadmap-board-count {
-
-  font-size: 13px;
-
-  color: #7A7A94;
-
-  text-align: left;
-
-}
-
-.lh-roadmap-board-count strong {
-
-  color: #7F77DD;
-
-  font-weight: 700;
-
-}
-
-.lh-roadmap-board-percent {
-
-  font-size: 20px;
-
-  font-weight: 800;
-
-  color: #7F77DD;
-
-}
-
-.lh-roadmap-board-progress-bar {
-
-  width: 100%;
-
-  height: 6px;
-
-  background: #EAE8F5;
-
-  border-radius: 3px;
-
-  overflow: hidden;
-
-}
-
-.lh-roadmap-board-progress-fill {
-
-  height: 100%;
-
-  background: #7F77DD;
-
-  border-radius: 3px;
-
-  transition: width 0.3s ease;
-
-}
-
-/* ── 4차: 잠금 유닛 안내문 ── */
-
-.lh-unit-lock-notice {
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  justify-content: center;
-
-  padding: 30px 16px;
-
-  background: #F8F7FC;
-
-  border: 1px dashed #E2E1EE;
-
-  border-radius: 16px;
-
-  text-align: center;
-
-  gap: 8px;
-
-}
-
-.lh-lock-icon {
-
-  font-size: 20px;
-
-}
-
-.lh-lock-text {
-
-  font-size: 12px;
-
-  color: #7A7A94;
-
-  margin: 0;
-
-  line-height: 1.5;
-
-}
-
-/* ── 4차: 완료 유닛 스테이지 칩 ── */
-
-.lh-unit-done-container {
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 12px;
-
-  background: #FBFBFE;
-
-  border: 1px solid #EEEDF8;
-
-  border-radius: 16px;
-
-  padding: 16px;
-
-}
-
-.lh-unit-done-msg {
-
-  font-size: 11.5px;
-
-  font-weight: 700;
-
-  color: #534AB7;
-
-  margin: 0;
-
-  line-height: 1.4;
-
-}
-
-.lh-compact-stages-grid {
-
-  display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 8px;
-
-}
-
-.lh-compact-stage-chip {
-
-  width: 36px;
-
-  height: 36px;
-
-  border-radius: 50%;
-
-  background: var(--unit-soft, #F2F0FF);
-
-  border: 1.5px solid var(--unit-border, #7F77DD);
-
-  color: var(--unit-accent, #7F77DD);
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  cursor: pointer;
-
-  outline: none;
-
-  font-size: 12px;
-
-  font-weight: 700;
-
-  transition: all 0.2s ease;
-
-  padding: 0;
-
-}
-
-.lh-compact-stage-chip:hover {
-
-  transform: scale(1.08);
-
-  box-shadow: 0 4px 10px rgba(127, 119, 221, 0.12);
-
-}
-
-.lh-compact-stage-chip:active {
-
-  transform: scale(0.96);
-
-}
-
-.lh-compact-stage-num {
-
-  font-size: 11px;
-
-}
-
-.lh-compact-stage-check {
-
-  font-size: 8px;
-
-  margin-left: 1px;
-
-  margin-bottom: 2px;
-
-}
-
-/* ── 5차: 완료 스테이지 영역 및 보스 노드 디자인 보정 ── */
-
-.lh-unit-done-container {
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 14px;
-
-  background: #FBFBFE;
-
-  border: 1px solid #EEEDF8;
-
-  border-radius: 18px;
-
-  padding: 16px;
-
-}
-
-.lh-stage-complete-message {
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 4px;
-
-  line-height: 1.45;
-
-  text-align: left;
-
-}
-
-.lh-stage-complete-message strong {
-
-  font-size: 16px;
-
-  font-weight: 800;
-
-  color: #1A1A2E;
-
-}
-
-.lh-stage-complete-message span {
-
-  font-size: 13px;
-
-  color: #6D6A85;
-
-}
-
-.lh-stage-chip-list {
-
-  display: grid;
-
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-
-  gap: 14px 12px;
-
-  align-items: start;
-
-  justify-items: center;
-
-  padding-top: 10px;
-
-}
-
-.lh-stage-chip-item {
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  gap: 6px;
-
-  width: 100%;
-
-}
-
-.lh-stage-chip-label {
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  color: #7A7A94;
-
-}
-
+
+
+  width: 28px;
+
+
+
+  height: 28px;
+
+
+
+  color: var(--unit-accent, currentColor);
+
+
+
+}
+
+
+
+/* 상태 배지 */
+
+
+
+.lh-unit-node-state {
+
+
+
+  position: absolute;
+
+
+
+  bottom: -4px;
+
+
+
+  right: -4px;
+
+
+
+  width: 17px;
+
+
+
+  height: 17px;
+
+
+
+  border-radius: 50%;
+
+
+
+  display: flex;
+
+
+
+  align-items: center;
+
+
+
+  justify-content: center;
+
+
+
+  font-size: 10px;
+
+
+
+  font-weight: 700;
+
+
+
+  border: 1.5px solid #FFFFFF;
+
+
+
+  z-index: 3;
+
+
+
+}
+
+
+
+.lh-unit-node-state.done {
+
+
+
+  background: #7F77DD;
+
+
+
+  color: #FFFFFF;
+
+
+
+  font-size: 9px;
+
+
+
+}
+
+
+
+.lh-unit-node-state.locked {
+
+
+
+  background: #9999B0;
+
+
+
+  color: #FFFFFF;
+
+
+
+  font-size: 8px;
+
+
+
+}
+
+
+
+.lh-unit-node-state.current {
+
+
+
+  background: #7F77DD;
+
+
+
+  color: #FFFFFF;
+
+
+
+  font-size: 7px;
+
+
+
+}
+
+
+
+/* 유닛 텍스트 정보 */
+
+
+
+.lh-unit-node-num {
+
+
+
+  font-size: 10px;
+
+
+
+  font-weight: 600;
+
+
+
+  color: #7A7A94;
+
+
+
+  margin-bottom: 2px;
+
+
+
+}
+
+
+
+.lh-unit-node-title {
+
+
+
+  font-size: 12.5px;
+
+
+
+  font-weight: 600;
+
+
+
+  color: #1A1A2E;
+
+
+
+  margin-bottom: 3px;
+
+
+
+  width: 100%;
+
+
+
+  white-space: nowrap;
+
+
+
+  overflow: hidden;
+
+
+
+  text-overflow: ellipsis;
+
+
+
+}
+
+
+
+.lh-unit-node-status {
+
+
+
+  display: none !important;
+
+
+
+}
+
+
+
+.lh-unit-node.done .lh-unit-node-status {
+
+
+
+  color: #7F77DD;
+
+
+
+}
+
+
+
+.lh-unit-node.locked .lh-unit-node-status {
+
+
+
+  color: #BBBBCC;
+
+
+
+}
+
+
+
+.lh-unit-node.current .lh-unit-node-status {
+
+
+
+  color: #7F77DD;
+
+
+
+  font-weight: 700;
+
+
+
+}
+
+
+
+.lh-unit-node.open .lh-unit-node-status {
+
+
+
+  color: #7A7A94;
+
+
+
+}
+
+
+
+/* ── 2차: 선택된 유닛 상세 카드 ── */
+
+
+
+.lh-selected-unit-card {
+
+
+
+  background: #FFFFFF;
+
+
+
+  border-radius: 22px;
+
+
+
+  border: 1px solid #E2E1EE;
+
+
+
+  padding: 18px 20px;
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  gap: 18px;
+
+
+
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+
+
+
+}
+
+
+
+.lh-selected-unit-card.locked {
+
+
+
+  opacity: 0.7;
+
+
+
+}
+
+
+
+.lh-selected-unit-head {
+
+
+
+  display: flex;
+
+
+
+  gap: 14px;
+
+
+
+  align-items: center;
+
+
+
+  position: relative;
+
+
+
+}
+
+
+
+.lh-selected-unit-icon {
+
+
+
+  width: 50px;
+
+
+
+  height: 50px;
+
+
+
+  border-radius: 14px;
+
+
+
+  background: var(--unit-soft, #EEEDFE);
+
+
+
+  border: 1.5px solid var(--unit-border, #7F77DD);
+
+
+
+  display: grid;
+
+
+
+  place-items: center;
+
+
+
+  flex-shrink: 0;
+
+
+
+}
+
+
+
+.lh-selected-unit-card.locked .lh-selected-unit-icon {
+
+
+
+  background: #F5F4FA;
+
+
+
+  border-color: #DEDDE8;
+
+
+
+}
+
+
+
+/* 상세 유닛 SVG */
+
+
+
+.lh-selected-unit-svg {
+
+
+
+  width: 26px;
+
+
+
+  height: 26px;
+
+
+
+  color: var(--unit-accent, #7F77DD);
+
+
+
+}
+
+
+
+.lh-selected-unit-card.locked .lh-selected-unit-svg {
+
+
+
+  color: #A4A4B8;
+
+
+
+}
+
+
+
+.lh-selected-unit-info {
+
+
+
+  flex: 1;
+
+
+
+  min-width: 0;
+
+
+
+}
+
+
+
+.lh-selected-unit-kicker {
+
+
+
+  font-size: 10px;
+
+
+
+  font-weight: 700;
+
+
+
+  color: var(--unit-accent, #7F77DD);
+
+
+
+  text-transform: uppercase;
+
+
+
+  letter-spacing: 0.5px;
+
+
+
+  line-height: 1;
+
+
+
+}
+
+
+
+.lh-selected-unit-card.locked .lh-selected-unit-kicker {
+
+
+
+  color: #9999B0;
+
+
+
+}
+
+
+
+.lh-selected-unit-info h2 {
+
+
+
+  font-size: 18px;
+
+
+
+  font-weight: 700;
+
+
+
+  color: #1A1A2E;
+
+
+
+  margin: 6px 0 0;
+
+
+
+  line-height: 1.35;
+
+
+
+}
+
+
+
+.lh-stage-boss-cta {
+
+
+
+  border-radius: 20px;
+
+
+
+  padding: 5px 12px;
+
+
+
+  font-size: 10.5px;
+
+
+
+  font-weight: 700;
+
+
+
+  cursor: pointer;
+
+
+
+  flex-shrink: 0;
+
+
+
+  align-self: flex-start;
+
+
+
+  transition: all 0.2s ease;
+
+
+
+}
+
+
+
+.lh-stage-boss-cta.open {
+
+
+
+  background: #7F77DD;
+
+
+
+  color: #FFFFFF;
+
+
+
+  border: none;
+
+
+
+}
+
+
+
+.lh-stage-boss-cta.locked {
+
+
+
+  background: #F1F0F6;
+
+
+
+  color: #9999B0;
+
+
+
+  border: none;
+
+
+
+  cursor: not-allowed;
+
+
+
+}
+
+
+
+.lh-stage-boss-cta.cleared {
+
+
+
+  background: #F2F0FF;
+
+
+
+  color: #6F5FE7;
+
+
+
+  border: 1px solid #DCD6FF;
+
+
+
+}
+
+
+
+.lh-stage-boss-cta:not(.locked):active {
+
+
+
+  transform: scale(0.96);
+
+
+
+}
+
+
+
+.lh-selected-unit-progress {
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  gap: 6px;
+
+
+
+  padding: 12px 14px;
+
+
+
+  background: #F8F7FD;
+
+
+
+  border-radius: 12px;
+
+
+
+  border: 0.5px solid #EEEDF8;
+
+
+
+}
+
+
+
+.lh-selected-unit-progress span {
+
+
+
+  font-size: 11px;
+
+
+
+  font-weight: 600;
+
+
+
+  color: #7A7A94;
+
+
+
+}
+
+
+
+.lh-selected-unit-bar {
+
+
+
+  height: 6px;
+
+
+
+  background: #EEEDFE;
+
+
+
+  border-radius: 10px;
+
+
+
+  overflow: hidden;
+
+
+
+}
+
+
+
+.lh-selected-unit-bar div {
+
+
+
+  height: 100%;
+
+
+
+  background: #7F77DD;
+
+
+
+  border-radius: 10px;
+
+
+
+  transition: width 0.5s ease;
+
+
+
+}
+
+
+
+/* ── 2차: 로드맵 세로선 & 에이몬 발자국 ── */
+
+
+
+.lh-paw-roadmap {
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  position: relative;
+
+
+
+  padding: 10px 0 4px;
+
+
+
+}
+
+
+
+/* 세로 연결 점선 타임라인 */
+
+
+
+.lh-paw-roadmap::before {
+
+
+
+  content: '';
+
+
+
+  position: absolute;
+
+
+
+  left: 31px;
+
+
+
+  top: 42px;
+
+
+
+  bottom: 72px;
+
+
+
+  width: 2px;
+
+
+
+  background: repeating-linear-gradient(
+
+
+
+    to bottom,
+
+
+
+    #CFC8FF 0 8px,
+
+
+
+    transparent 8px 16px
+
+
+
+  );
+
+
+
+  z-index: 1;
+
+
+
+}
+
+
+
+/* 개별 스테이지 행 */
+
+
+
+.lh-paw-stage {
+
+
+
+  display: flex;
+
+
+
+  align-items: center;
+
+
+
+  gap: 14px;
+
+
+
+  width: 100%;
+
+
+
+  background: none;
+
+
+
+  padding: 10px 12px;
+
+
+
+  text-align: left;
+
+
+
+  cursor: pointer;
+
+
+
+  position: relative;
+
+
+
+  z-index: 2;
+
+
+
+  outline: none;
+
+
+
+  -webkit-tap-highlight-color: transparent;
+
+
+
+}
+
+
+
+.lh-paw-stage.locked {
+
+
+
+  cursor: not-allowed;
+
+
+
+}
+
+
+
+/* 카드 느낌 완화 및 상태별 디자인 적용 */
+
+
+
+.lh-paw-stage.done {
+
+
+
+  background: #FFFFFF;
+
+
+
+  border: 1px solid #EEEAFD;
+
+
+
+  border-radius: 14px;
+
+
+
+  margin-bottom: 4px;
+
+
+
+}
+
+
+
+.lh-paw-stage.current {
+
+
+
+  background: linear-gradient(90deg, #F5F2FF 0%, #FFFFFF 100%);
+
+
+
+  border: 1px solid #CFC8FF;
+
+
+
+  border-radius: 14px;
+
+
+
+  margin-bottom: 4px;
+
+
+
+  box-shadow: 0 8px 20px rgba(127, 119, 221, 0.08);
+
+
+
+}
+
+
+
+.lh-paw-stage.locked {
+
+
+
+  background: #FAFAFC;
+
+
+
+  border: 1px solid #ECEBF3;
+
+
+
+  border-radius: 14px;
+
+
+
+  margin-bottom: 4px;
+
+
+
+}
+
+
+
+/* 에이몬 로봇/에너지 발자국 (더블 캡슐 부스터 패드) */
+
+
+
+.lh-paw-stage::before {
+
+
+
+  content: '';
+
+
+
+  position: absolute;
+
+
+
+  left: 23px;
+
+
+
+  top: -10px;
+
+
+
+  width: 18px;
+
+
+
+  height: 12px;
+
+
+
+  opacity: 0.35;
+
+
+
+  background:
+
+
+
+    radial-gradient(ellipse at 35% 50%, #7F77DD 0 35%, transparent 38%),
+
+
+
+    radial-gradient(ellipse at 65% 50%, #7F77DD 0 35%, transparent 38%);
+
+
+
+  transform: rotate(-18deg);
+
+
+
+  z-index: 2;
+
+
+
+}
+
+
+
+.lh-paw-stage.locked::before {
+
+
+
+  background:
+
+
+
+    radial-gradient(ellipse at 35% 50%, #B8B8C8 0 35%, transparent 38%),
+
+
+
+    radial-gradient(ellipse at 65% 50%, #B8B8C8 0 35%, transparent 38%);
+
+
+
+  opacity: 0.25;
+
+
+
+}
+
+
+
+/* 스테이지 원형 노드 (숫자만 깔끔하게 표시) */
+
+
+
+.lh-paw-node {
+
+
+
+  position: relative;
+
+
+
+  width: 40px;
+
+
+
+  height: 40px;
+
+
+
+  border-radius: 50%;
+
+
+
+  display: flex;
+
+
+
+  align-items: center;
+
+
+
+  justify-content: center;
+
+
+
+  font-size: 14px;
+
+
+
+  font-weight: 700;
+
+
+
+  flex-shrink: 0;
+
+
+
+  transition: all 0.2s ease;
+
+
+
+  z-index: 3;
+
+
+
+}
+
+
+
+.lh-paw-stage.done .lh-paw-node {
+
+
+
+  background: #F2F0FF;
+
+
+
+  border: 1.5px solid #A9A4E8;
+
+
+
+  color: #7F77DD;
+
+
+
+}
+
+
+
+.lh-paw-stage.current .lh-paw-node {
+
+
+
+  background: #7F77DD;
+
+
+
+  border: 2.5px solid #7F77DD;
+
+
+
+  color: #FFFFFF;
+
+
+
+  font-size: 14px;
+
+
+
+  box-shadow: 0 0 0 4px rgba(127, 119, 221, 0.16);
+
+
+
+}
+
+
+
+.lh-paw-stage.locked .lh-paw-node {
+
+
+
+  background: #F6F6FA;
+
+
+
+  border: 1.5px solid #E2E1EE;
+
+
+
+  color: #A4A4B8;
+
+
+
+}
+
+
+
+/* 텍스트 내용 */
+
+
+
+.lh-paw-content {
+
+
+
+  flex: 1;
+
+
+
+  min-width: 0;
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  gap: 2px;
+
+
+
+}
+
+
+
+.lh-paw-title {
+
+
+
+  font-size: 13px;
+
+
+
+  font-weight: 600;
+
+
+
+  color: #1A1A2E;
+
+
+
+  overflow: hidden;
+
+
+
+  text-overflow: ellipsis;
+
+
+
+  white-space: nowrap;
+
+
+
+}
+
+
+
+.lh-paw-stage.locked .lh-paw-title {
+
+
+
+  color: #A4A4B8;
+
+
+
+}
+
+
+
+.lh-paw-status {
+
+
+
+  font-size: 10px;
+
+
+
+  font-weight: 500;
+
+
+
+}
+
+
+
+.lh-paw-stage.done .lh-paw-status {
+
+
+
+  color: #37B66A; /* 완료 문구만 연한 성공 컬러 */
+
+
+
+}
+
+
+
+.lh-paw-stage.current .lh-paw-status {
+
+
+
+  color: #7F77DD;
+
+
+
+  font-weight: 700;
+
+
+
+}
+
+
+
+.lh-paw-stage.locked .lh-paw-status {
+
+
+
+  color: #BBBBCC;
+
+
+
+}
+
+
+
+/* 액션 배지 */
+
+
+
+.lh-paw-action {
+
+
+
+  font-size: 9px;
+
+
+
+  font-weight: 700;
+
+
+
+  padding: 4px 10px;
+
+
+
+  border-radius: var(--radius-full);
+
+
+
+  margin-right: 4px;
+
+
+
+  border: 1px solid transparent;
+
+
+
+}
+
+
+
+.lh-paw-action.review {
+
+
+
+  background: #F2F0FF;
+
+
+
+  color: #6F5FE7;
+
+
+
+  border: 1px solid #DED9FF;
+
+
+
+}
+
+
+
+.lh-paw-action.continue {
+
+
+
+  background: #7F77DD;
+
+
+
+  color: #FFFFFF;
+
+
+
+}
+
+
+
+.lh-paw-lock {
+
+
+
+  font-size: 12px;
+
+
+
+  color: #9999B0;
+
+
+
+  padding-right: 4px;
+
+
+
+}
+
+
+
+/* ── 유닛 보스 노드 ── */
+
+
+
+.lh-paw-boss {
+
+
+
+  display: flex;
+
+
+
+  align-items: center;
+
+
+
+  gap: 14px;
+
+
+
+  width: 100%;
+
+
+
+  background: #FFFFFF;
+
+
+
+  border: 1px solid #CFC8FF;
+
+
+
+  border-radius: 16px;
+
+
+
+  padding: 14px 18px;
+
+
+
+  cursor: pointer;
+
+
+
+  position: relative;
+
+
+
+  z-index: 2;
+
+
+
+  margin-top: 12px;
+
+
+
+  text-align: left;
+
+
+
+  box-shadow: 0 4px 12px rgba(127, 119, 221, 0.04);
+
+
+
+  transition: all 0.2s ease;
+
+
+
+  outline: none;
+
+
+
+  -webkit-tap-highlight-color: transparent;
+
+
+
+}
+
+
+
+.lh-paw-boss.locked {
+
+
+
+  background: #FAFAFC;
+
+
+
+  border: 1px solid #ECEBF3;
+
+
+
+  cursor: not-allowed;
+
+
+
+}
+
+
+
+.lh-paw-boss.open {
+
+
+
+  background: #FFFFFF;
+
+
+
+  border: 1.5px solid #7F77DD;
+
+
+
+  box-shadow: 0 8px 24px rgba(127, 119, 221, 0.08);
+
+
+
+}
+
+
+
+.lh-paw-boss.open:active {
+
+
+
+  transform: scale(0.98);
+
+
+
+}
+
+
+
+.lh-paw-boss-icon {
+
+
+
+  width: 38px;
+
+
+
+  height: 38px;
+
+
+
+  border-radius: 50%;
+
+
+
+  display: flex;
+
+
+
+  align-items: center;
+
+
+
+  justify-content: center;
+
+
+
+  font-size: 16px;
+
+
+
+  flex-shrink: 0;
+
+
+
+  background: #EEEDFE;
+
+
+
+  border: 1px solid #7F77DD;
+
+
+
+  color: #7F77DD;
+
+
+
+}
+
+
+
+.lh-paw-boss.locked .lh-paw-boss-icon {
+
+
+
+  background: #EEEDF2;
+
+
+
+  border: 1px solid #DEDDE8;
+
+
+
+  color: #9999B0;
+
+
+
+}
+
+
+
+.lh-paw-boss-text {
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  gap: 2px;
+
+
+
+  flex: 1;
+
+
+
+  min-width: 0;
+
+
+
+}
+
+
+
+.lh-paw-boss-text strong {
+
+
+
+  font-size: 11px;
+
+
+
+  font-weight: 700;
+
+
+
+  color: #7F77DD;
+
+
+
+}
+
+
+
+.lh-paw-boss.locked .lh-paw-boss-text strong {
+
+
+
+  color: #A4A4B8;
+
+
+
+}
+
+
+
+.lh-paw-boss-text span {
+
+
+
+  font-size: 13px;
+
+
+
+  font-weight: 700;
+
+
+
+  color: #1A1A2E;
+
+
+
+  overflow: hidden;
+
+
+
+  text-overflow: ellipsis;
+
+
+
+  white-space: nowrap;
+
+
+
+}
+
+
+
+.lh-paw-boss.locked .lh-paw-boss-text span {
+
+
+
+  color: #A4A4B8;
+
+
+
+}
+
+
+
+.lh-paw-boss-desc {
+
+
+
+  font-size: 10px !important;
+
+
+
+  font-weight: 500 !important;
+
+
+
+  color: #7A7A94 !important;
+
+
+
+  margin-top: 1px;
+
+
+
+}
+
+
+
+.lh-paw-boss.locked .lh-paw-boss-desc {
+
+
+
+  color: #BBBBCC !important;
+
+
+
+}
+
+
+
+.lh-paw-boss-action {
+
+
+
+  font-size: 10px;
+
+
+
+  font-weight: 700;
+
+
+
+  padding: 5px 12px;
+
+
+
+  border-radius: 12px;
+
+
+
+  flex-shrink: 0;
+
+
+
+}
+
+
+
+.lh-paw-boss.locked .lh-paw-boss-action {
+
+
+
+  background: #EEEDF2;
+
+
+
+  color: #9999B0;
+
+
+
+}
+
+
+
+.lh-paw-boss.open .lh-paw-boss-action {
+
+
+
+  background: #7F77DD;
+
+
+
+  color: #FFFFFF;
+
+
+
+}
+
+
+
+/* ── 2차: 오늘의 레슨 루트 히어로 카드 ── */
+
+
+
+.lh-lesson-hero {
+
+
+
+  min-height: 160px;
+
+
+
+  border-radius: 24px;
+
+
+
+  background:
+
+
+
+    linear-gradient(135deg, rgba(143, 124, 255, 0.96), rgba(103, 87, 216, 0.92)),
+
+
+
+    url('/images/lesson-hero-bg.webp');
+
+
+
+  background-size: cover;
+
+
+
+  background-position: center right;
+
+
+
+  padding: 20px;
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  justify-content: space-between;
+
+
+
+  position: relative;
+
+
+
+  overflow: hidden;
+
+
+
+  color: #FFFFFF;
+
+
+
+  box-shadow: 0 8px 24px rgba(103, 87, 216, 0.15);
+
+
+
+}
+
+
+
+.lh-lesson-hero-content {
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  gap: 6px;
+
+
+
+  max-width: 60%;
+
+
+
+}
+
+
+
+.lh-lesson-hero-kicker {
+
+
+
+  font-size: 11px;
+
+
+
+  font-weight: 700;
+
+
+
+  text-transform: uppercase;
+
+
+
+  letter-spacing: 1.2px;
+
+
+
+  color: rgba(255, 255, 255, 0.85);
+
+
+
+}
+
+
+
+.lh-lesson-hero-title {
+
+
+
+  font-size: 17px;
+
+
+
+  font-weight: 800;
+
+
+
+  color: #FFFFFF;
+
+
+
+  margin: 0;
+
+
+
+  line-height: 1.35;
+
+
+
+}
+
+
+
+.lh-lesson-hero-pills {
+
+
+
+  display: flex;
+
+
+
+  flex-wrap: wrap;
+
+
+
+  gap: 6px;
+
+
+
+  margin-top: 4px;
+
+
+
+}
+
+
+
+.lh-hero-pill {
+
+
+
+  font-size: 9.5px;
+
+
+
+  font-weight: 700;
+
+
+
+  padding: 3px 8px;
+
+
+
+  border-radius: 12px;
+
+
+
+  white-space: nowrap;
+
+
+
+}
+
+
+
+.lh-hero-pill.status {
+
+
+
+  background: rgba(255, 255, 255, 0.2);
+
+
+
+  color: #FFFFFF;
+
+
+
+}
+
+
+
+.lh-hero-pill.progress {
+
+
+
+  background: #B8FF6A;
+
+
+
+  color: #534AB7;
+
+
+
+}
+
+
+
+.lh-lesson-hero-cta {
+
+
+
+  align-self: flex-start;
+
+
+
+  background: #FFFFFF;
+
+
+
+  color: #6757D8;
+
+
+
+  border: none;
+
+
+
+  border-radius: 20px;
+
+
+
+  padding: 6px 14px;
+
+
+
+  font-size: 10.5px;
+
+
+
+  font-weight: 800;
+
+
+
+  cursor: pointer;
+
+
+
+  transition: all 0.2s ease;
+
+
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+
+
+}
+
+
+
+.lh-lesson-hero-cta:hover {
+
+
+
+  transform: translateY(-1px);
+
+
+
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+
+
+
+}
+
+
+
+.lh-lesson-hero-cta:active {
+
+
+
+  transform: translateY(0);
+
+
+
+}
+
+
+
+/* ── 3차: 통합 로드맵 보드 ── */
+
+
+
+.lh-roadmap-board {
+
+
+
+  background: #FFFFFF;
+
+
+
+  border: 1px solid #E2E1EE;
+
+
+
+  border-radius: 22px;
+
+
+
+  padding: 18px 20px;
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  gap: 16px;
+
+
+
+  box-shadow: 0 4px 18px rgba(103, 87, 216, 0.04);
+
+
+
+}
+
+
+
+.lh-roadmap-board-head {
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  gap: 4px;
+
+
+
+  width: 100%;
+
+
+
+}
+
+
+
+.lh-roadmap-board-header-row {
+
+
+
+  display: flex;
+
+
+
+  justify-content: space-between;
+
+
+
+  align-items: center;
+
+
+
+  width: 100%;
+
+
+
+}
+
+
+
+.lh-roadmap-board-header-row h2 {
+
+
+
+  font-size: 18px;
+
+
+
+  font-weight: 700;
+
+
+
+  color: #1A1A2E;
+
+
+
+  margin: 0;
+
+
+
+}
+
+
+
+.lh-roadmap-board-title-group {
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  gap: 3px;
+
+
+
+}
+
+
+
+.lh-roadmap-board-title-group h2 {
+
+
+
+  font-size: 16.5px;
+
+
+
+  font-weight: 800;
+
+
+
+  color: #1A1A2E;
+
+
+
+  margin: 0;
+
+
+
+}
+
+
+
+.lh-roadmap-board-count {
+
+
+
+  font-size: 13px;
+
+
+
+  color: #7A7A94;
+
+
+
+  text-align: left;
+
+
+
+}
+
+
+
+.lh-roadmap-board-count strong {
+
+
+
+  color: #7F77DD;
+
+
+
+  font-weight: 700;
+
+
+
+}
+
+
+
+.lh-roadmap-board-percent {
+
+
+
+  font-size: 20px;
+
+
+
+  font-weight: 800;
+
+
+
+  color: #7F77DD;
+
+
+
+}
+
+
+
+.lh-roadmap-board-progress-bar {
+
+
+
+  width: 100%;
+
+
+
+  height: 6px;
+
+
+
+  background: #EAE8F5;
+
+
+
+  border-radius: 3px;
+
+
+
+  overflow: hidden;
+
+
+
+}
+
+
+
+.lh-roadmap-board-progress-fill {
+
+
+
+  height: 100%;
+
+
+
+  background: #7F77DD;
+
+
+
+  border-radius: 3px;
+
+
+
+  transition: width 0.3s ease;
+
+
+
+}
+
+
+
+/* ── 4차: 잠금 유닛 안내문 ── */
+
+
+
+.lh-unit-lock-notice {
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  align-items: center;
+
+
+
+  justify-content: center;
+
+
+
+  padding: 30px 16px;
+
+
+
+  background: #F8F7FC;
+
+
+
+  border: 1px dashed #E2E1EE;
+
+
+
+  border-radius: 16px;
+
+
+
+  text-align: center;
+
+
+
+  gap: 8px;
+
+
+
+}
+
+
+
+.lh-lock-icon {
+
+
+
+  font-size: 20px;
+
+
+
+}
+
+
+
+.lh-lock-text {
+
+
+
+  font-size: 12px;
+
+
+
+  color: #7A7A94;
+
+
+
+  margin: 0;
+
+
+
+  line-height: 1.5;
+
+
+
+}
+
+
+
+/* ── 4차: 완료 유닛 스테이지 칩 ── */
+
+
+
+.lh-unit-done-container {
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  gap: 12px;
+
+
+
+  background: #FBFBFE;
+
+
+
+  border: 1px solid #EEEDF8;
+
+
+
+  border-radius: 16px;
+
+
+
+  padding: 16px;
+
+
+
+}
+
+
+
+.lh-unit-done-msg {
+
+
+
+  font-size: 11.5px;
+
+
+
+  font-weight: 700;
+
+
+
+  color: #534AB7;
+
+
+
+  margin: 0;
+
+
+
+  line-height: 1.4;
+
+
+
+}
+
+
+
+.lh-compact-stages-grid {
+
+
+
+  display: flex;
+
+
+
+  flex-wrap: wrap;
+
+
+
+  gap: 8px;
+
+
+
+}
+
+
+
+.lh-compact-stage-chip {
+
+
+
+  width: 36px;
+
+
+
+  height: 36px;
+
+
+
+  border-radius: 50%;
+
+
+
+  background: var(--unit-soft, #F2F0FF);
+
+
+
+  border: 1.5px solid var(--unit-border, #7F77DD);
+
+
+
+  color: var(--unit-accent, #7F77DD);
+
+
+
+  display: flex;
+
+
+
+  align-items: center;
+
+
+
+  justify-content: center;
+
+
+
+  cursor: pointer;
+
+
+
+  outline: none;
+
+
+
+  font-size: 12px;
+
+
+
+  font-weight: 700;
+
+
+
+  transition: all 0.2s ease;
+
+
+
+  padding: 0;
+
+
+
+}
+
+
+
+.lh-compact-stage-chip:hover {
+
+
+
+  transform: scale(1.08);
+
+
+
+  box-shadow: 0 4px 10px rgba(127, 119, 221, 0.12);
+
+
+
+}
+
+
+
+.lh-compact-stage-chip:active {
+
+
+
+  transform: scale(0.96);
+
+
+
+}
+
+
+
+.lh-compact-stage-num {
+
+
+
+  font-size: 11px;
+
+
+
+}
+
+
+
+.lh-compact-stage-check {
+
+
+
+  font-size: 8px;
+
+
+
+  margin-left: 1px;
+
+
+
+  margin-bottom: 2px;
+
+
+
+}
+
+
+
+/* ── 5차: 완료 스테이지 영역 및 보스 노드 디자인 보정 ── */
+
+
+
+.lh-unit-done-container {
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  gap: 14px;
+
+
+
+  background: #FBFBFE;
+
+
+
+  border: 1px solid #EEEDF8;
+
+
+
+  border-radius: 18px;
+
+
+
+  padding: 16px;
+
+
+
+}
+
+
+
+.lh-stage-complete-message {
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  gap: 4px;
+
+
+
+  line-height: 1.45;
+
+
+
+  text-align: left;
+
+
+
+}
+
+
+
+.lh-stage-complete-message strong {
+
+
+
+  font-size: 16px;
+
+
+
+  font-weight: 800;
+
+
+
+  color: #1A1A2E;
+
+
+
+}
+
+
+
+.lh-stage-complete-message span {
+
+
+
+  font-size: 13px;
+
+
+
+  color: #6D6A85;
+
+
+
+}
+
+
+
+.lh-stage-chip-list {
+
+
+
+  display: grid;
+
+
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+
+
+  gap: 14px 12px;
+
+
+
+  align-items: start;
+
+
+
+  justify-items: center;
+
+
+
+  padding-top: 10px;
+
+
+
+}
+
+
+
+.lh-stage-chip-item {
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  align-items: center;
+
+
+
+  gap: 6px;
+
+
+
+  width: 100%;
+
+
+
+}
+
+
+
+.lh-stage-chip-label {
+
+
+
+  font-size: 11px;
+
+
+
+  font-weight: 700;
+
+
+
+  color: #7A7A94;
+
+
+
+}
+
+
+
 .lh-stage-chip {
-
-  position: relative;
-
-  width: 50px;
-
-  height: 50px;
-
-  border-radius: 50%;
-
+
+
+  position: relative;
+
+
+
+  width: 50px;
+
+
+
+  height: 50px;
+
+
+
+  border-radius: 50%;
+
+
+
   background: #F8F6FF;
-
-  border: 1.5px solid #A9A4E8;
-
-  color: #6F5FE7;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  cursor: pointer;
-
-  outline: none;
-
-  font-size: 15px;
-
-  font-weight: 800;
-
-  transition: all 0.2s ease;
-
-  padding: 0;
-
-}
-
-.lh-stage-chip:hover {
-
-  transform: scale(1.08);
-
-  box-shadow: 0 4px 10px rgba(127, 119, 221, 0.12);
-
-}
-
-.lh-stage-chip:active {
-
-  transform: scale(0.96);
-
-}
-
-.lh-compact-stage-num {
-
-  font-size: 14px;
-
-  font-weight: 800;
-
-}
-
-.lh-compact-stage-check {
-
-  position: absolute;
-
-  top: -3px;
-
-  right: -3px;
-
-  width: 16px;
-
-  height: 16px;
-
-  border-radius: 50%;
-
-  background: #7F77DD;
-
-  color: #FFFFFF;
-
-  font-size: 9px;
-
-  font-weight: 700;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  border: 1px solid #FFFFFF;
-
-}
-
-/* 유닛보스 칩 (원형/라운드 스퀘어형 노드) */
-
-.lh-unitboss-chip {
-
-  width: 56px;
-
-  height: 56px;
-
-  border-radius: 18px;
-
-  display: grid;
-
-  place-items: center;
-
-  padding: 0;
-
-  cursor: pointer;
-
-  transition: all 0.2s ease;
-
-  box-sizing: border-box;
-
-}
-
-.lh-unitboss-chip.open {
-
-  background: linear-gradient(135deg, #5A46C8 0%, #7F77DD 100%);
-
-  border: 1.5px solid #C9B36A;
-
-  color: #FFFFFF;
-
-}
-
-.lh-unitboss-chip.cleared {
-
-  background: #F2F0FF;
-
-  border: 1.5px solid #7F77DD;
-
-  color: #534AB7;
-
-}
-
-.lh-unitboss-chip.locked {
-
-  background: #F1F0F6;
-
-  border: 1.5px solid #E2E1EE;
-
-  color: #A4A4B8;
-
-  cursor: not-allowed;
-
-}
-
-.lh-unitboss-icon {
-
-  font-size: 18px;
-
-  display: inline-flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-}
-
-.lh-unitboss-label {
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  color: #534AB7;
-
-}
-
-/* 진행중 세로형 타임라인 보스 노드 오버라이드 */
-
-.lh-paw-stage-boss .lh-paw-node {
-
-  font-size: 16px;
-
-}
-
-.lh-paw-stage-boss.open .lh-paw-node {
-
-  background: linear-gradient(135deg, #5A46C8 0%, #7F77DD 100%);
-
-  border: 1.5px solid #C9B36A;
-
-  color: #FFFFFF;
-
-}
-
-.lh-paw-stage-boss.cleared .lh-paw-node {
-
-  background: #F2F0FF;
-
-  border: 1.5px solid #7F77DD;
-
-  color: #534AB7;
-
-}
-
-.lh-paw-stage-boss.locked .lh-paw-node {
-
-  background: #F1F0F6;
-
-  border: 1.5px solid #E2E1EE;
-
-  color: #A4A4B8;
-
-}
-
-/* ── 유닛 정보 뱃지 및 메타 로우 ── */
-
-.lh-selected-unit-meta-row {
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  width: 100%;
-
-  margin-bottom: 2px;
-
-}
-
-.lh-selected-unit-info-pill {
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  color: #7F77DD;
-
-  background: #F2F0FF;
-
-  border: none;
-
-  padding: 4px 12px;
-
-  border-radius: 12px;
-
-  cursor: pointer;
-
-  outline: none;
-
-  transition: all 0.2s ease;
-
-}
-
-.lh-selected-unit-info-pill:hover {
-
-  background: #EAE8F5;
-
-}
-
-/* ── 6차: 완료 스테이지 요약 박스 (Pill 형태) ── */
-
-.lh-stage-complete-header h3 {
-
-  font-size: 13px;
-
-  font-weight: 700;
-
-  color: #7A7A94;
-
-  margin: 0;
-
-  text-align: left;
-
-}
-
-.lh-unit-done-container .lh-stage-chip-list {
-
-  display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 10px;
-
-  justify-content: flex-start;
-
-  align-items: center;
-
-  padding-top: 4px;
-
-}
-
-.lh-stage-pill {
-
-  height: 36px;
-
-  padding: 0 16px;
-
-  border-radius: 999px;
-
+
+
+  border: 1.5px solid #A9A4E8;
+
+
+
+  color: #6F5FE7;
+
+
+
+  display: flex;
+
+
+
+  align-items: center;
+
+
+
+  justify-content: center;
+
+
+
+  cursor: pointer;
+
+
+
+  outline: none;
+
+
+
+  font-size: 15px;
+
+
+
+  font-weight: 800;
+
+
+
+  transition: all 0.2s ease;
+
+
+
+  padding: 0;
+
+
+
+}
+
+
+
+.lh-stage-chip:hover {
+
+
+
+  transform: scale(1.08);
+
+
+
+  box-shadow: 0 4px 10px rgba(127, 119, 221, 0.12);
+
+
+
+}
+
+
+
+.lh-stage-chip:active {
+
+
+
+  transform: scale(0.96);
+
+
+
+}
+
+
+
+.lh-compact-stage-num {
+
+
+
+  font-size: 14px;
+
+
+
+  font-weight: 800;
+
+
+
+}
+
+
+
+.lh-compact-stage-check {
+
+
+
+  position: absolute;
+
+
+
+  top: -3px;
+
+
+
+  right: -3px;
+
+
+
+  width: 16px;
+
+
+
+  height: 16px;
+
+
+
+  border-radius: 50%;
+
+
+
+  background: #7F77DD;
+
+
+
+  color: #FFFFFF;
+
+
+
+  font-size: 9px;
+
+
+
+  font-weight: 700;
+
+
+
+  display: flex;
+
+
+
+  align-items: center;
+
+
+
+  justify-content: center;
+
+
+
+  border: 1px solid #FFFFFF;
+
+
+
+}
+
+
+
+/* 유닛보스 칩 (원형/라운드 스퀘어형 노드) */
+
+
+
+.lh-unitboss-chip {
+
+
+
+  width: 56px;
+
+
+
+  height: 56px;
+
+
+
+  border-radius: 18px;
+
+
+
+  display: grid;
+
+
+
+  place-items: center;
+
+
+
+  padding: 0;
+
+
+
+  cursor: pointer;
+
+
+
+  transition: all 0.2s ease;
+
+
+
+  box-sizing: border-box;
+
+
+
+}
+
+
+
+.lh-unitboss-chip.open {
+
+
+
+  background: linear-gradient(135deg, #5A46C8 0%, #7F77DD 100%);
+
+
+
+  border: 1.5px solid #C9B36A;
+
+
+
+  color: #FFFFFF;
+
+
+
+}
+
+
+
+.lh-unitboss-chip.cleared {
+
+
+
+  background: #F2F0FF;
+
+
+
+  border: 1.5px solid #7F77DD;
+
+
+
+  color: #534AB7;
+
+
+
+}
+
+
+
+.lh-unitboss-chip.locked {
+
+
+
+  background: #F1F0F6;
+
+
+
+  border: 1.5px solid #E2E1EE;
+
+
+
+  color: #A4A4B8;
+
+
+
+  cursor: not-allowed;
+
+
+
+}
+
+
+
+.lh-unitboss-icon {
+
+
+
+  font-size: 18px;
+
+
+
+  display: inline-flex;
+
+
+
+  align-items: center;
+
+
+
+  justify-content: center;
+
+
+
+}
+
+
+
+.lh-unitboss-label {
+
+
+
+  font-size: 11px;
+
+
+
+  font-weight: 700;
+
+
+
+  color: #534AB7;
+
+
+
+}
+
+
+
+/* 진행중 세로형 타임라인 보스 노드 오버라이드 */
+
+
+
+.lh-paw-stage-boss .lh-paw-node {
+
+
+
+  font-size: 16px;
+
+
+
+}
+
+
+
+.lh-paw-stage-boss.open .lh-paw-node {
+
+
+
+  background: linear-gradient(135deg, #5A46C8 0%, #7F77DD 100%);
+
+
+
+  border: 1.5px solid #C9B36A;
+
+
+
+  color: #FFFFFF;
+
+
+
+}
+
+
+
+.lh-paw-stage-boss.cleared .lh-paw-node {
+
+
+
+  background: #F2F0FF;
+
+
+
+  border: 1.5px solid #7F77DD;
+
+
+
+  color: #534AB7;
+
+
+
+}
+
+
+
+.lh-paw-stage-boss.locked .lh-paw-node {
+
+
+
+  background: #F1F0F6;
+
+
+
+  border: 1.5px solid #E2E1EE;
+
+
+
+  color: #A4A4B8;
+
+
+
+}
+
+
+
+/* ── 유닛 정보 뱃지 및 메타 로우 ── */
+
+
+
+.lh-selected-unit-meta-row {
+
+
+
+  display: flex;
+
+
+
+  justify-content: space-between;
+
+
+
+  align-items: center;
+
+
+
+  width: 100%;
+
+
+
+  margin-bottom: 2px;
+
+
+
+}
+
+
+
+.lh-selected-unit-info-pill {
+
+
+
+  font-size: 11px;
+
+
+
+  font-weight: 700;
+
+
+
+  color: #7F77DD;
+
+
+
+  background: #F2F0FF;
+
+
+
+  border: none;
+
+
+
+  padding: 4px 12px;
+
+
+
+  border-radius: 12px;
+
+
+
+  cursor: pointer;
+
+
+
+  outline: none;
+
+
+
+  transition: all 0.2s ease;
+
+
+
+}
+
+
+
+.lh-selected-unit-info-pill:hover {
+
+
+
+  background: #EAE8F5;
+
+
+
+}
+
+
+
+/* ── 6차: 완료 스테이지 요약 박스 (Pill 형태) ── */
+
+
+
+.lh-stage-complete-header h3 {
+
+
+
+  font-size: 13px;
+
+
+
+  font-weight: 700;
+
+
+
+  color: #7A7A94;
+
+
+
+  margin: 0;
+
+
+
+  text-align: left;
+
+
+
+}
+
+
+
+.lh-unit-done-container .lh-stage-chip-list {
+
+
+
+  display: flex;
+
+
+
+  flex-wrap: wrap;
+
+
+
+  gap: 10px;
+
+
+
+  justify-content: flex-start;
+
+
+
+  align-items: center;
+
+
+
+  padding-top: 4px;
+
+
+
+}
+
+
+
+.lh-stage-pill {
+
+
+
+  height: 36px;
+
+
+  width: 100%;
+
+  min-width: 0;
+
+  padding: 0 8px;
+
+  border-radius: 999px;
+
+
+
   background: var(--unit-soft, #F1EEFF);
-
+
+
   border: 1px solid var(--unit-border, #DCD6FF);
-
+
+
   color: var(--unit-accent, #6F5FE7);
-
-  display: inline-flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: 13px;
-
-  font-weight: 800;
-
-  cursor: pointer;
-
-  outline: none;
-
-  transition: all 0.2s ease;
-
+
+
+  display: inline-flex;
+
+
+
+  align-items: center;
+
+
+
+  justify-content: center;
+
+
+
+  font-size: 13px;
+
+
+
+  font-weight: 800;
+
+
+
+  cursor: pointer;
+
+
+
+  outline: none;
+
+
+
+  transition: all 0.2s ease;
+
+
+
   box-sizing: border-box;
 
 
@@ -2916,13 +5681,19 @@ body:has(.lh-page) { background: #F4F3FA; }
     inset 0 2px 5px rgba(26, 26, 46, 0.06),
     inset 0 -1px 0 rgba(255, 255, 255, 0.8),
     0 1px 2px rgba(26, 26, 46, 0.04);
-
-}
-
-.lh-stage-pill:hover {
-
+
+
+}
+
+
+
+.lh-stage-pill:hover {
+
+
+
   transform: translateY(0);
-
+
+
   background: var(--unit-soft, #F1EEFF);
 
 
@@ -2934,9 +5705,12 @@ body:has(.lh-page) { background: #F4F3FA; }
   box-shadow:
     inset 0 2px 6px rgba(26, 26, 46, 0.08),
     0 0 0 2px rgba(255, 255, 255, 0.65);
-
-}
-
+
+
+}
+
+
+
 .lh-stage-pill:active {
 
   transform: translateY(0);
@@ -3010,23 +5784,32 @@ body:has(.lh-page) { background: #F4F3FA; }
 }
 
 .lh-stage-pill-num {
-
+
+
   font-size: 13px;
 
 
 
   line-height: 1;
-
-}
-
-.lh-stage-pill-check {
-
+
+
+}
+
+
+
+.lh-stage-pill-check {
+
+
+
   font-size: 10px;
-
+
+
   margin-left: 5px;
-
+
+
   font-weight: 800;
-
+
+
   width: 14px;
 
 
@@ -3066,530 +5849,1097 @@ body:has(.lh-page) { background: #F4F3FA; }
 
 
   opacity: 1;
-
-}
-
-/* ── 7차: 유닛보스 게이트 카드 ── */
-
-.lh-unlocked-unit-content {
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 16px;
-
-}
-
-.lh-unitboss-gate-card {
-
-  background: linear-gradient(135deg, #F3EFFF 0%, #E8E2FF 100%);
-
-  border: 1px solid #DCD6FF;
-
-  border-radius: 20px;
-
-  padding: 16px 18px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 14px;
-
-  box-sizing: border-box;
-
-}
-
-.lh-unitboss-gate-body {
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: flex-start;
-
-  width: 100%;
-
-}
-
-.lh-unitboss-gate-text {
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 4px;
-
-  text-align: left;
-
-}
-
-.lh-unitboss-gate-kicker {
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  color: #7F77DD;
-
-}
-
+
+
+}
+
+
+
+/* ── 7차: 유닛보스 게이트 카드 ── */
+
+
+
+.lh-unlocked-unit-content {
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  gap: 16px;
+
+
+
+}
+
+
+
+.lh-unitboss-gate-card {
+
+
+
+  background: linear-gradient(135deg, #F3EFFF 0%, #E8E2FF 100%);
+
+
+
+  border: 1px solid #DCD6FF;
+
+
+
+  border-radius: 20px;
+
+
+
+  padding: 16px 18px;
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  gap: 14px;
+
+
+
+  box-sizing: border-box;
+
+
+
+}
+
+
+
+.lh-unitboss-gate-body {
+
+
+
+  display: flex;
+
+
+
+  justify-content: space-between;
+
+
+
+  align-items: flex-start;
+
+
+
+  width: 100%;
+
+
+
+}
+
+
+
+.lh-unitboss-gate-text {
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  gap: 4px;
+
+
+
+  text-align: left;
+
+
+
+}
+
+
+
+.lh-unitboss-gate-kicker {
+
+
+
+  font-size: 11px;
+
+
+
+  font-weight: 700;
+
+
+
+  color: #7F77DD;
+
+
+
+}
+
+
+
 .lh-unitboss-gate-text h4 {
-
+
+
   font-size: 15px;
-
-  font-weight: 800;
-
-  color: #1A1A2E;
-
-  margin: 0;
-
-}
-
-.lh-unitboss-gate-text p {
-
-  font-size: 12px;
-
-  color: #7A7A94;
-
-  margin: 0;
-
-}
-
-.lh-unitboss-gate-monster {
-
-  width: 48px;
-
-  height: 48px;
-
-  border-radius: 50%;
-
-  background: #FFFFFF;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  box-shadow: 0 4px 10px rgba(127, 119, 221, 0.08);
-
-}
-
-.lh-unitboss-gate-silhouette {
-
-  font-size: 22px;
-
-}
-
-.lh-unitboss-gate-cta {
-
-  width: 100%;
-
-  height: 40px;
-
-  border-radius: 12px;
-
-  border: none;
-
-  font-size: 13px;
-
-  font-weight: 800;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  cursor: pointer;
-
-  outline: none;
-
-  transition: all 0.2s ease;
-
-  box-sizing: border-box;
-
-}
-
-.lh-unitboss-gate-cta.open {
-
-  background: #6F5FE7;
-
-  color: #FFFFFF;
-
-  box-shadow: 0 4px 12px rgba(111, 95, 231, 0.2);
-
-}
-
-.lh-unitboss-gate-cta.cleared {
-
-  background: #6F5FE7;
-
-  color: #FFFFFF;
-
-}
-
-.lh-unitboss-gate-cta.locked {
-
-  background: #D5D2E5;
-
-  color: #8F8CA6;
-
-  cursor: not-allowed;
-
-}
-
-.lh-unitboss-gate-cta:hover:not(:disabled) {
-
-  opacity: 0.95;
-
-  transform: translateY(-1px);
-
-}
-
-.lh-unitboss-gate-cta:active:not(:disabled) {
-
-  transform: translateY(0);
-
-}
-
-/* ── 8차: 엔드보스 최종 관문 카드 ── */
-
-.lh-endboss-outer-card {
-
-  background: #FFFFFF;
-
-  border: 1px solid #E2E1EE;
-
-  border-radius: 22px;
-
-  padding: 18px 20px;
-
-  box-sizing: border-box;
-
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-
-}
-
-.lh-endboss-gate-card {
-
-  background: linear-gradient(135deg, #FFF9E8 0%, #FFF4CC 100%);
-
-  border: 1px solid #EDDFA8;
-
-  border-radius: 20px;
-
-  padding: 16px 18px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 14px;
-
-  box-sizing: border-box;
-
-}
-
-.lh-endboss-gate-body {
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: flex-start;
-
-  width: 100%;
-
-}
-
-.lh-endboss-gate-text {
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 4px;
-
-  text-align: left;
-
-}
-
-.lh-endboss-gate-kicker {
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  color: #D4A325;
-
-  display: inline-flex;
-
-  align-items: center;
-
-  gap: 4px;
-
-}
-
-.lh-endboss-crown-badge {
-
-  display: inline-flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  width: 16px;
-
-  height: 16px;
-
-  border-radius: 50%;
-
-  background: #FFF1B5;
-
-  color: #D4A325;
-
-}
-
+
+
+  font-weight: 800;
+
+
+
+  color: #1A1A2E;
+
+
+
+  margin: 0;
+
+
+
+}
+
+
+
+.lh-unitboss-gate-text p {
+
+
+
+  font-size: 12px;
+
+
+
+  color: #7A7A94;
+
+
+
+  margin: 0;
+
+
+
+}
+
+
+
+.lh-unitboss-gate-monster {
+
+
+
+  width: 48px;
+
+
+
+  height: 48px;
+
+
+
+  border-radius: 50%;
+
+
+
+  background: #FFFFFF;
+
+
+
+  display: flex;
+
+
+
+  align-items: center;
+
+
+
+  justify-content: center;
+
+
+
+  box-shadow: 0 4px 10px rgba(127, 119, 221, 0.08);
+
+
+
+}
+
+
+
+.lh-unitboss-gate-silhouette {
+
+
+
+  font-size: 22px;
+
+
+
+}
+
+
+
+.lh-unitboss-gate-cta {
+
+
+
+  width: 100%;
+
+
+
+  height: 40px;
+
+
+
+  border-radius: 12px;
+
+
+
+  border: none;
+
+
+
+  font-size: 13px;
+
+
+
+  font-weight: 800;
+
+
+
+  display: flex;
+
+
+
+  align-items: center;
+
+
+
+  justify-content: center;
+
+
+
+  cursor: pointer;
+
+
+
+  outline: none;
+
+
+
+  transition: all 0.2s ease;
+
+
+
+  box-sizing: border-box;
+
+
+
+}
+
+
+
+.lh-unitboss-gate-cta.open {
+
+
+
+  background: #6F5FE7;
+
+
+
+  color: #FFFFFF;
+
+
+
+  box-shadow: 0 4px 12px rgba(111, 95, 231, 0.2);
+
+
+
+}
+
+
+
+.lh-unitboss-gate-cta.cleared {
+
+
+
+  background: #6F5FE7;
+
+
+
+  color: #FFFFFF;
+
+
+
+}
+
+
+
+.lh-unitboss-gate-cta.locked {
+
+
+
+  background: #D5D2E5;
+
+
+
+  color: #8F8CA6;
+
+
+
+  cursor: not-allowed;
+
+
+
+}
+
+
+
+.lh-unitboss-gate-cta:hover:not(:disabled) {
+
+
+
+  opacity: 0.95;
+
+
+
+  transform: translateY(-1px);
+
+
+
+}
+
+
+
+.lh-unitboss-gate-cta:active:not(:disabled) {
+
+
+
+  transform: translateY(0);
+
+
+
+}
+
+
+
+/* ── 8차: 엔드보스 최종 관문 카드 ── */
+
+
+
+.lh-endboss-outer-card {
+
+
+
+  background: #FFFFFF;
+
+
+
+  border: 1px solid #E2E1EE;
+
+
+
+  border-radius: 22px;
+
+
+
+  padding: 18px 20px;
+
+
+
+  box-sizing: border-box;
+
+
+
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+
+
+
+}
+
+
+
+.lh-endboss-gate-card {
+
+
+
+  background: linear-gradient(135deg, #FFF9E8 0%, #FFF4CC 100%);
+
+
+
+  border: 1px solid #EDDFA8;
+
+
+
+  border-radius: 20px;
+
+
+
+  padding: 16px 18px;
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  gap: 14px;
+
+
+
+  box-sizing: border-box;
+
+
+
+}
+
+
+
+.lh-endboss-gate-body {
+
+
+
+  display: flex;
+
+
+
+  justify-content: space-between;
+
+
+
+  align-items: flex-start;
+
+
+
+  width: 100%;
+
+
+
+}
+
+
+
+.lh-endboss-gate-text {
+
+
+
+  display: flex;
+
+
+
+  flex-direction: column;
+
+
+
+  gap: 4px;
+
+
+
+  text-align: left;
+
+
+
+}
+
+
+
+.lh-endboss-gate-kicker {
+
+
+
+  font-size: 11px;
+
+
+
+  font-weight: 700;
+
+
+
+  color: #D4A325;
+
+
+
+  display: inline-flex;
+
+
+
+  align-items: center;
+
+
+
+  gap: 4px;
+
+
+
+}
+
+
+
+.lh-endboss-crown-badge {
+
+
+
+  display: inline-flex;
+
+
+
+  align-items: center;
+
+
+
+  justify-content: center;
+
+
+
+  width: 16px;
+
+
+
+  height: 16px;
+
+
+
+  border-radius: 50%;
+
+
+
+  background: #FFF1B5;
+
+
+
+  color: #D4A325;
+
+
+
+}
+
+
+
 .lh-endboss-gate-text h4 {
-
+
+
   font-size: 15px;
-
-  font-weight: 800;
-
-  color: #1A1A2E;
-
-  margin: 0;
-
-}
-
-.lh-endboss-gate-text p {
-
-  font-size: 12px;
-
-  color: #7A7A94;
-
-  margin: 0;
-
-}
-
-.lh-endboss-gate-media {
-
-  width: 48px;
-
-  height: 48px;
-
-  border-radius: 50%;
-
-  background: #FFFFFF;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  box-shadow: 0 4px 10px rgba(233, 196, 106, 0.08);
-
-  border: 1px solid #FFF1B5;
-
-}
-
-.lh-endboss-gate-icon {
-
-  font-size: 22px;
-
-}
-
-.lh-endboss-gate-cta {
-
-  width: 100%;
-
-  height: 46px;
-
-  border-radius: 12px;
-
-  border: none;
-
-  font-size: 13px;
-
-  font-weight: 800;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  cursor: pointer;
-
-  outline: none;
-
-  transition: all 0.2s ease;
-
-  box-sizing: border-box;
-
-}
-
-.lh-endboss-gate-cta.unlocked {
-
-  background: linear-gradient(135deg, #E2AF24 0%, #E9C46A 100%);
-
-  color: #FFFFFF;
-
-  border: 1px solid #D69F1B;
-
-  box-shadow: 0 4px 12px rgba(233, 196, 106, 0.2);
-
-}
-
-.lh-endboss-gate-cta.locked {
-
-  background: #EAE6D2;
-
-  color: #9E9885;
-
-  border: 1px solid #DFD9C0;
-
-  cursor: not-allowed;
-
-}
-
-.lh-endboss-gate-cta:hover:not(:disabled) {
-
-  opacity: 0.95;
-
-  transform: translateY(-1px);
-
-}
-
-.lh-endboss-gate-cta:active:not(:disabled) {
-
-  transform: translateY(0);
-
-}
-
-
-/* ── 유닛 정보 모달 ── */
-
-.lh-unit-info-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 4000;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  background: rgba(26, 26, 46, 0.45);
-  padding: 0;
-}
-
-.lh-unit-info-card {
-  width: 100%;
-  max-width: 420px;
-  max-height: 82vh;
-  overflow-y: auto;
-  background: #FFFFFF;
-  border-radius: 22px 22px 0 0;
-  padding: 22px 20px 24px;
-  box-sizing: border-box;
-  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.12);
-}
-
-@media (min-width: 560px) {
-  .lh-unit-info-overlay {
-    align-items: center;
-  }
-
-  .lh-unit-info-card {
-    border-radius: 22px;
-    max-height: 80vh;
-  }
-}
-
-.lh-unit-info-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 14px;
-}
-
-.lh-unit-info-header h3 {
-  font-size: 16px;
-  font-weight: 800;
-  color: #1A1A2E;
-  margin: 0;
-}
-
-.lh-unit-info-close {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: none;
-  background: #F2F0FF;
-  color: #7A7A94;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.lh-unit-info-section {
-  padding: 10px 0;
-  border-bottom: 1px solid #F0F0F5;
-}
-
-.lh-unit-info-section:last-of-type {
-  border-bottom: none;
-}
-
-.lh-unit-info-label {
-  display: block;
-  font-size: 11px;
-  font-weight: 700;
-  color: #7F77DD;
-  margin-bottom: 4px;
-}
-
-.lh-unit-info-value {
-  font-size: 13.5px;
-  color: #1A1A2E;
-  line-height: 1.5;
-  margin: 0;
-  white-space: pre-line;
-}
-
-.lh-unit-info-stage-list {
-  margin: 4px 0 0;
-  padding-left: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.lh-unit-info-stage-list li {
-  font-size: 13px;
-  color: #1A1A2E;
-  line-height: 1.5;
-}
-
-.lh-unit-info-close-btn {
-  width: 100%;
-  height: 44px;
-  margin-top: 16px;
-  border: none;
-  border-radius: 12px;
-  background: #7F77DD;
-  color: #FFFFFF;
-  font-size: 13.5px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
+
+
+  font-weight: 800;
+
+
+
+  color: #1A1A2E;
+
+
+
+  margin: 0;
+
+
+
+}
+
+
+
+.lh-endboss-gate-text p {
+
+
+
+  font-size: 12px;
+
+
+
+  color: #7A7A94;
+
+
+
+  margin: 0;
+
+
+
+}
+
+
+
+.lh-endboss-gate-media {
+
+
+
+  width: 48px;
+
+
+
+  height: 48px;
+
+
+
+  border-radius: 50%;
+
+
+
+  background: #FFFFFF;
+
+
+
+  display: flex;
+
+
+
+  align-items: center;
+
+
+
+  justify-content: center;
+
+
+
+  box-shadow: 0 4px 10px rgba(233, 196, 106, 0.08);
+
+
+
+  border: 1px solid #FFF1B5;
+
+
+
+}
+
+
+
+.lh-endboss-gate-icon {
+
+
+
+  font-size: 22px;
+
+
+
+}
+
+
+
+.lh-endboss-gate-cta {
+
+
+
+  width: 100%;
+
+
+
+  height: 46px;
+
+
+
+  border-radius: 12px;
+
+
+
+  border: none;
+
+
+
+  font-size: 13px;
+
+
+
+  font-weight: 800;
+
+
+
+  display: flex;
+
+
+
+  align-items: center;
+
+
+
+  justify-content: center;
+
+
+
+  cursor: pointer;
+
+
+
+  outline: none;
+
+
+
+  transition: all 0.2s ease;
+
+
+
+  box-sizing: border-box;
+
+
+
+}
+
+
+
+.lh-endboss-gate-cta.unlocked {
+
+
+
+  background: linear-gradient(135deg, #E2AF24 0%, #E9C46A 100%);
+
+
+
+  color: #FFFFFF;
+
+
+
+  border: 1px solid #D69F1B;
+
+
+
+  box-shadow: 0 4px 12px rgba(233, 196, 106, 0.2);
+
+
+
+}
+
+
+
+.lh-endboss-gate-cta.locked {
+
+
+
+  background: #EAE6D2;
+
+
+
+  color: #9E9885;
+
+
+
+  border: 1px solid #DFD9C0;
+
+
+
+  cursor: not-allowed;
+
+
+
+}
+
+
+
+.lh-endboss-gate-cta:hover:not(:disabled) {
+
+
+
+  opacity: 0.95;
+
+
+
+  transform: translateY(-1px);
+
+
+
+}
+
+
+
+.lh-endboss-gate-cta:active:not(:disabled) {
+
+
+
+  transform: translateY(0);
+
+
+
+}
+
+
+
+
+
+/* ── 유닛 정보 모달 ── */
+
+
+
+.lh-unit-info-overlay {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 4000;
+
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: center;
+
+  background: rgba(26, 26, 46, 0.45);
+
+  padding: 0;
+
+}
+
+
+
+.lh-unit-info-card {
+
+  width: 100%;
+
+  max-width: 420px;
+
+  max-height: 82vh;
+
+  overflow-y: auto;
+
+  background: #FFFFFF;
+
+  border-radius: 22px 22px 0 0;
+
+  padding: 22px 20px 24px;
+
+  box-sizing: border-box;
+
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.12);
+
+}
+
+
+
+@media (min-width: 560px) {
+
+  .lh-unit-info-overlay {
+
+    align-items: center;
+
+  }
+
+
+
+  .lh-unit-info-card {
+
+    border-radius: 22px;
+
+    max-height: 80vh;
+
+  }
+
+}
+
+
+
+.lh-unit-info-header {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 14px;
+
+}
+
+
+
+.lh-unit-info-header h3 {
+
+  font-size: 16px;
+
+  font-weight: 800;
+
+  color: #1A1A2E;
+
+  margin: 0;
+
+}
+
+
+
+.lh-unit-info-close {
+
+  width: 28px;
+
+  height: 28px;
+
+  border-radius: 50%;
+
+  border: none;
+
+  background: #F2F0FF;
+
+  color: #7A7A94;
+
+  font-size: 13px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  cursor: pointer;
+
+}
+
+
+
+.lh-unit-info-section {
+
+  padding: 10px 0;
+
+  border-bottom: 1px solid #F0F0F5;
+
+}
+
+
+
+.lh-unit-info-section:last-of-type {
+
+  border-bottom: none;
+
+}
+
+
+
+.lh-unit-info-label {
+
+  display: block;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  color: #7F77DD;
+
+  margin-bottom: 4px;
+
+}
+
+
+
+.lh-unit-info-value {
+
+  font-size: 13.5px;
+
+  color: #1A1A2E;
+
+  line-height: 1.5;
+
+  margin: 0;
+
+  white-space: pre-line;
+
+}
+
+
+
+.lh-unit-info-stage-list {
+
+  margin: 4px 0 0;
+
+  padding-left: 18px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+
+}
+
+
+
+.lh-unit-info-stage-list li {
+
+  font-size: 13px;
+
+  color: #1A1A2E;
+
+  line-height: 1.5;
+
+}
+
+
+
+.lh-unit-info-close-btn {
+
+  width: 100%;
+
+  height: 44px;
+
+  margin-top: 16px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #7F77DD;
+
+  color: #FFFFFF;
+
+  font-size: 13.5px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+}
+
+
+
 .lh-unit-info-close-btn:hover {
-  background: #6F5FE7;
+  background: #6F5FE7;
+
+}
+
+.lh-unitboss-gate-monster,
+.lh-endboss-gate-media {
+  position: relative;
+}
+
+.lh-unitboss-gate-img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 8px 10px rgba(83, 74, 183, 0.18));
+}
+
+.lh-unitboss-gate-img.locked {
+  opacity: 0.45;
+  filter: grayscale(0.8) drop-shadow(0 8px 10px rgba(83, 74, 183, 0.12));
+}
+
+.lh-endboss-gate-img {
+  width: 62px;
+  height: 62px;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 8px 12px rgba(83, 74, 183, 0.2));
+}
+
+.lh-endboss-gate-img.locked {
+  opacity: 0.42;
+  filter: grayscale(0.85) drop-shadow(0 8px 12px rgba(83, 74, 183, 0.12));
+}
+
+.lh-endboss-lock-badge {
+  position: absolute;
+  right: -8px;
+  bottom: -4px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: #FFFFFF;
+  border: 1px solid #D9D6F2;
+  color: #7A7A94;
+  font-size: 8px;
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
 }
 
 .lh-selected-unit-head {
