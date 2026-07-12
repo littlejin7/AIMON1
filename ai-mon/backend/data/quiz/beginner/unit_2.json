@@ -635,10 +635,10 @@
       "quiz_set": "A",
       "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\ns = '  Welcome to AI-Mon  '\nprint(s.strip().upper())\n```",
       "choices": [
-        "A. Welcome to AI-Mon",
-        "B. WELCOME TO AI-MON",
-        "C. __WELCOME TO AI-MON__",
-        "D. welcome to ai-mon"
+        "A. 'Welcome to AI-Mon'",
+        "B. 'WELCOME TO AI-MON'",
+        "C. '  WELCOME TO AI-MON  '",
+        "D. 'welcome to ai-mon'"
       ],
       "answer": "B",
       "feedback": {
@@ -683,10 +683,10 @@
       "quiz_set": "A",
       "question": "이 코드가 출력하는 값은?\n\n```python\ns = '  test  '\nprint(s.strip())\n```",
       "choices": [
-        "A. '__test__'",
-        "B. test",
-        "C. test__",
-        "D. __test"
+        "A. '  test  '",
+        "B. 'test'",
+        "C. 'test  '",
+        "D. '  test'"
       ],
       "answer": "B",
       "feedback": {
