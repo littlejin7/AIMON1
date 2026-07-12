@@ -111,6 +111,14 @@ export default function AipangPuzzle() {
       {/* 게임 메인 영역 */}
       <div id="game-root" ref={gameRootRef}>
         <div id="frame-container">
+          <button
+            className="aipang-puzzle-back"
+            onClick={() => navigate('/game')}
+            aria-label="미니게임 목록으로"
+          >
+            ✕
+          </button>
+
 
           {/* 상단: 보스 카드 + 정보 스트립 */}
           <BossSection
@@ -152,8 +160,8 @@ export default function AipangPuzzle() {
       <BossIntro visible={popups.bossIntro} onOk={handleBossIntroOk} />
       <PopupTitle visible={popups.title}    onStart={handleStart}    errorMsg={startError} />
       <PopupClear visible={popups.clear}    onNext={handleNext}      clearData={popups.clearData} />
-      <PopupOver  visible={popups.over}   onRetry={handleRetry}    onHome={() => navigate('/')} />
-      <PopupFinal visible={popups.final}  onRestart={handleRestart} onHome={() => navigate('/')} clearData={popups.clearData} />
+      <PopupOver  visible={popups.over}   onRetry={handleRetry}    onHome={() => navigate('/game')} />
+      <PopupFinal visible={popups.final}  onRestart={handleRestart} onHome={() => navigate('/game')} clearData={popups.clearData} />
     </>
   );
 }
