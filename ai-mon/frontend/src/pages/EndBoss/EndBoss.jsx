@@ -34,7 +34,7 @@ export default function EndBoss() {
   const [clearResult, setClearResult] = useState(null)
   const [errorMsg, setErrorMsg] = useState('')
 
-  // HP (엔드보스: 1200/1800)
+  // HP (엔드보스: 1200/1400)
   const BOSS_HP_INIT = 1400
   const MY_HP_INIT = 1200
   const [myHp, setMyHp] = useState(MY_HP_INIT)
@@ -211,6 +211,12 @@ export default function EndBoss() {
 
   // ── 페이즈 전환 핸들러 ──────────────────────
   const handlePhase1Start = () => {
+    const firstQuestion = endbossState.phase1Questions[0]
+    setEndbossState(prev => ({ ...prev, phase: 1, phase1Index: 0 }))
+    if (firstQuestion) setCurrentQuestion(firstQuestion)
+    setAiResult(null)
+    setSelectedOption(null)
+    setAnswerInput('')
     setPhase('battle')
   }
 
@@ -413,6 +419,7 @@ export default function EndBoss() {
 
         {phase === 'battle' && currentQuestion && (
           <EndBossBattle
+            key={`${endbossState.project}-${endbossState.phase}-${currentQuestion.question_id}`}
             bossData={bossData}
             currentQuestion={currentQuestion}
             bossHp={bossHp}
