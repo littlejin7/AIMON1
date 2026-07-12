@@ -80,7 +80,7 @@ export default function EndBossBattle({
   questionNum,
   questionTotal,
 }) {
-  const BOSS_HP_MAX = 1800
+  const BOSS_HP_MAX = 1400
   const MY_HP_MAX   = 1200
 
   const bossPct = Math.max(0, (bossHp / BOSS_HP_MAX) * 100)
