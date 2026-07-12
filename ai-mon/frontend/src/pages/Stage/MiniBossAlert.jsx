@@ -1,6 +1,6 @@
 import villainIcon from '../../assets/boss_midcmorg.png'
 
-export default function MiniBossAlert({ onFight }) {
+export default function MiniBossAlert({ onFight, onClose }) {
   return (
     <div className="stage-page villain-mode">
       <div className="boss-container" style={{ paddingTop: '2rem' }}>

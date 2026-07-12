@@ -85,7 +85,7 @@ export default function AIrun() {
 
   if (startError) {
     return (
-      <GameScaleFrame background="#55b5f0">
+      <GameScaleFrame background="var(--clr-bg)">
         <div className="runner-game-wrapper">
           <button className="rg-back-btn" onClick={() => navigate(-1)}>✕</button>
           <div style={{ padding: '40px', textAlign: 'center', color: '#7A7A94' }}>
@@ -104,7 +104,7 @@ export default function AIrun() {
   }
 
   return (
-    <GameScaleFrame background="#55b5f0">
+    <GameScaleFrame background="var(--clr-bg)">
       <div className="runner-game-wrapper">
         <button className="rg-back-btn" onClick={() => navigate(-1)}>✕</button>
         <div className="runner-game-mount" ref={mountRef} />

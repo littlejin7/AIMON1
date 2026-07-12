@@ -54,7 +54,7 @@ export default function AIPair() {
   }
 
   return (
-    <GameScaleFrame background="#eae3f3">
+    <GameScaleFrame background="var(--clr-bg)">
       <div className="mp-root">
       <button className="mp-back" onClick={() => navigate('/game')}>✕</button>
 

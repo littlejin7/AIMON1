@@ -388,15 +388,6 @@ export default function EndBoss() {
 
   return (
     <div className={`boss-page ${screenShake ? 'screen-shake' : ''}`}>
-      <div className="boss-header">
-        <button
-          className="btn btn-ghost btn-sm"
-          onClick={() => { clearPhaseTimer(); stopBGM(); navigate('/lesson') }}
-        >
-          도망가기 🏃
-        </button>
-      </div>
-
       <div className={`${phase === 'battle' ? 'boss-container-battle' : 'boss-container container'}`}>
         {phase === 'intro' && (
           <EndBossIntro

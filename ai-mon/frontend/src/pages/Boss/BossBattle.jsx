@@ -290,6 +290,12 @@ export default function BossBattle({
           >
             {hintLoading ? '생성 중...' : `💡 힌트 ${hintLeft}회`}
           </span>
+          <button
+            className="eb-b-escape-btn"
+            onClick={onEscape}
+          >
+            🏃 도망가기
+          </button>
         </div>
 
         {/* 문제 카드 */}

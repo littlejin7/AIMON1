@@ -95,13 +95,7 @@ export class RunnerEngine {
         </div>
         <button class="rg-time-btn" id="rg-time-btn">☀️ 아침</button>
       </div>
-      <div class="rg-hud-bl-controls">
-        <button class="rg-dir-btn" id="rg-left-btn" aria-label="왼쪽 이동">◀</button>
-        <button class="rg-dir-btn" id="rg-right-btn" aria-label="오른쪽 이동">▶</button>
-      </div>
-      <div class="rg-hud-br-controls">
-        <button class="rg-jump-btn" id="rg-jump-btn" aria-label="점프">⬆<br>점프</button>
-      </div>
+      <div class="rg-touch-zones" id="rg-touch-zones" aria-label="터치 조작 영역"></div>
     `;
     this.container.appendChild(this.hud);
 
@@ -139,19 +133,19 @@ export class RunnerEngine {
     });
 
 
-    // 모바일용 방향키 / 점프 버튼 (터치 즉시 반응 위해 pointerdown 사용)
-    const bindHold = (id, action) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.addEventListener('pointerdown', (e) => {
-        e.preventDefault();
-        if (this.state === 'running') action();
-        el.blur();
-      });
-    };
-    bindHold('rg-left-btn', () => this._moveLane(-1));
-    bindHold('rg-right-btn', () => this._moveLane(1));
-    bindHold('rg-jump-btn', () => this._jump());
+    // 화면 3분할 터치 조작 (단일 투명 레이어에서 위치 계산)
+    document.getElementById('rg-touch-zones')?.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      if (this.state !== 'running') return;
+
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const third = rect.width / 3;
+
+      if (x < third) this._moveLane(-1);
+      else if (x > third * 2) this._moveLane(1);
+      else this._jump();
+    });
   }
 
   _setupOverlay() {
@@ -204,13 +198,29 @@ export class RunnerEngine {
     const show = () => {
       this.overlay.style.display = 'flex';
       this.overlay.innerHTML = `
-        <div class="rg-countdown">${count}</div>
+        <div class="rg-countdown-wrap">
+          <div class="rg-countdown-guide" aria-hidden="true">
+            <div class="rg-countdown-zone">좌로 이동</div>
+            <div class="rg-countdown-zone">점프</div>
+            <div class="rg-countdown-zone">우로 이동</div>
+          </div>
+          <div class="rg-countdown">${count}</div>
+        </div>
       `;
       count--;
       if (count >= 0) {
         this._countdownTimer = setTimeout(show, 1000);
       } else {
-        this.overlay.innerHTML = `<div class="rg-countdown rg-countdown-go">GO!</div>`;
+        this.overlay.innerHTML = `
+          <div class="rg-countdown-wrap rg-countdown-wrap--go">
+            <div class="rg-countdown-guide" aria-hidden="true">
+              <div class="rg-countdown-zone">좌로 이동</div>
+              <div class="rg-countdown-zone">점프</div>
+              <div class="rg-countdown-zone">우로 이동</div>
+            </div>
+            <div class="rg-countdown rg-countdown-go">GO!</div>
+          </div>
+        `;
         this._countdownTimer = setTimeout(() => {
           this._countdownTimer = null;
           this.overlay.style.display = 'none';

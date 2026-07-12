@@ -18,7 +18,7 @@ export default function GameScaleFrame({
   children,
   baseWidth = BASE_WIDTH,
   baseHeight = BASE_HEIGHT,
-  background = '#F4F3FA',
+  background = 'var(--clr-bg)',
   frameOverflow = 'hidden',
   scaleMode = 'fit',
 }) {
@@ -50,9 +50,10 @@ export default function GameScaleFrame({
         position: 'fixed',
         inset: 0,
         display: 'flex',
-        alignItems: hasFixedHeight ? 'center' : 'flex-start',
+        alignItems: 'flex-start',
         justifyContent: 'center',
-        overflow: hasFixedHeight ? 'hidden' : 'auto',
+        overflowX: 'hidden',
+        overflowY: hasFixedHeight ? 'hidden' : 'auto',
         background,
       }}
     >
@@ -66,7 +67,7 @@ export default function GameScaleFrame({
           flexShrink: 0,
           overflow: frameOverflow,
           transform: `scale(${scale})`,
-          transformOrigin: 'center center',
+          transformOrigin: 'top center',
         }}
       >
         {children}

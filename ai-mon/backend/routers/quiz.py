@@ -306,12 +306,17 @@ def assert_stage_access(user: dict, unit: int, stage: str, course_level: str) ->
 def assert_boss_access(user: dict, unit: int, course_level: str) -> None:
     """유닛 보스 진입 가능 여부 검증. 불가 시 HTTP 403 raise.
 
-    순서: 레벨 테스트 완료 → 유닛 해금 → 선행 스테이지 완료 (이미 깬 보스는 면제).
+    순서: 레벨 테스트 완료 → 레벨 클리어/유닛 해금 → 선행 스테이지 완료 (이미 깬 보스는 면제).
     이미 보스를 클리어한 유저(unitboss_cleared_units에 키 존재)는 재진입 시
     스테이지 진행도 체크를 건너뛴다. is_level_tested 검증은 항상 유지.
     """
     if not user.get("is_level_tested"):
         raise HTTPException(status_code=403, detail="레벨 테스트를 먼저 완료해주세요.")
+
+    # 레슨 화면은 현재 레벨 엔드보스를 클리어한 유저를 해당 레벨 전체 완료로 표시한다.
+    # 같은 상태에서 unitboss progress 행이 없다는 이유로 재입장을 막지 않도록 서버 게이트도 맞춘다.
+    if course_level in (user.get("endboss_cleared_levels") or []):
+        return
 
     max_unlocked = user.get("max_unlocked_unit", 1)
     max_unit = (
