@@ -31,6 +31,38 @@ body.aipang-active {
   flex-shrink: 0;
 }
 
+.aipang-puzzle-back {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 200;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(30, 10, 80, 0.88);
+  border: 1.5px solid rgba(120, 170, 255, 0.55);
+  border-radius: 10px;
+  color: #d8e4ff;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 14px rgba(10, 4, 32, 0.32);
+  transition: background 0.15s, transform 0.12s;
+}
+
+.aipang-puzzle-back:hover {
+  background: rgba(60, 20, 140, 0.92);
+  transform: translateY(-1px);
+}
+
+.aipang-puzzle-back:active {
+  transform: scale(0.95);
+}
+
 /* ── 캔버스 레이어 ── */
 #particle-layer {
   position: fixed;
