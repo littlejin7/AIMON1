@@ -804,9 +804,9 @@
       "question": "이 코드가 출력하는 값은?\n\n```python\ns = '  abc  '\nprint(s.strip())\n```",
       "choices": [
         "A. '  abc  '",
-        "B. abc  ",
-        "C. abc",
-        "D.   abc"
+        "B. 'abc  '",
+        "C. 'abc'",
+        "D. '  abc'"
       ],
       "answer": "C",
       "feedback": {
@@ -876,9 +876,9 @@
       "question": "다음 코드의 출력 결과를 골라봐요!\n\n```python\ns = '  ai  '\nprint(s.strip())\n```",
       "choices": [
         "A. '  ai  '",
-        "B. ai  ",
-        "C.   ai",
-        "D. ai"
+        "B. 'ai  '",
+        "C. '  ai'",
+        "D. 'ai'"
       ],
       "answer": "D",
       "feedback": {
@@ -899,10 +899,10 @@
       "quiz_set": "B",
       "question": "실행하면 어떤 값이 나올까요?\n\n```python\ns = '  AI-Mon  '\nprint(s.strip().lower())\n```",
       "choices": [
-        "A. AI-Mon",
-        "B. ai-mon",
-        "C.   ai-mon  ",
-        "D. AI-MON"
+        "A. 'AI-Mon'",
+        "B. 'ai-mon'",
+        "C. '  ai-mon  '",
+        "D. 'AI-MON'"
       ],
       "answer": "B",
       "feedback": {
@@ -2460,9 +2460,9 @@
       "question": "실행하면 어떤 값이 나올까요?\n\n```python\nraw = '  hello world  '\nclean = raw.strip()\nprint(clean)\n```",
       "choices": [
         "A. '  hello world  '",
-        "B. hello world",
-        "C. helloworld",
-        "D. HELLO WORLD"
+        "B. 'hello world'",
+        "C. 'helloworld'",
+        "D. 'HELLO WORLD'"
       ],
       "answer": "B",
       "feedback": {
@@ -2483,9 +2483,9 @@
       "quiz_set": "A",
       "question": "이 코드가 출력하는 값은?\n\n```python\nemail = '  User@Example.COM  '\nclean = email.strip().lower()\nprint(clean)\n```",
       "choices": [
-        "A. User@Example.COM",
-        "B. user@example.com",
-        "C. USER@EXAMPLE.COM",
+        "A. 'User@Example.COM'",
+        "B. 'user@example.com'",
+        "C. 'USER@EXAMPLE.COM'",
         "D. '  User@Example.COM  '"
       ],
       "answer": "B",
