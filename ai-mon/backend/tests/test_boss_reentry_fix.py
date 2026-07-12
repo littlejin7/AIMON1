@@ -69,3 +69,28 @@ def test_boss_access_already_cleared_level_test_still_required(monkeypatch):
         Q.assert_boss_access(user, 2, "beginner")
     assert e.value.status_code == 403
     assert "레벨 테스트" in e.value.detail
+
+
+def test_boss_access_endboss_cleared_level_skips_stage_check(monkeypatch):
+    """현재 레벨 엔드보스를 깬 유저는 레슨 화면과 동일하게 전체 완료로 보고 보스 재입장을 허용한다."""
+    _patch_progress(monkeypatch, [])
+    user = {
+        "id": "u1", "is_level_tested": True,
+        "max_unlocked_unit": {"beginner": 1},
+        "endboss_cleared_levels": ["beginner"],
+    }
+    Q.assert_boss_access(user, 1, "beginner")
+
+
+def test_boss_access_endboss_cleared_level_test_still_required(monkeypatch):
+    """엔드보스 클리어 이력이 있어도 레벨테스트 게이트는 유지한다."""
+    _patch_progress(monkeypatch, [])
+    user = {
+        "id": "u1", "is_level_tested": False,
+        "max_unlocked_unit": {"beginner": 1},
+        "endboss_cleared_levels": ["beginner"],
+    }
+    with pytest.raises(HTTPException) as e:
+        Q.assert_boss_access(user, 1, "beginner")
+    assert e.value.status_code == 403
+    assert "레벨 테스트" in e.value.detail
