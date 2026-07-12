@@ -12,7 +12,7 @@
 from fastapi import APIRouter, HTTPException, Depends, Request
 from pydantic import BaseModel, Field
 from services.claude_service import ask_claude_json
-import json, os, random, uuid, re
+import json, os, uuid, re
 from typing import Optional
 
 from routers.utils import (
@@ -50,7 +50,7 @@ ENDBOSS_DIR    = os.path.join(os.path.dirname(__file__), "../data/endboss")
 RETRY_CROWN_COST = 3
 
 # ── HP 설정 (Phase 1~2 전용) ──────────────────────────────────────────────────
-BOSS_HP_INIT   = 1800
+BOSS_HP_INIT   = 1400
 MY_HP_INIT     = 1200
 BOSS_HP_DELTA  = 200   # 정답 시 보스 HP 감소
 MY_HP_DELTA    = 400   # 오답 시 내 HP 감소
@@ -208,16 +208,10 @@ def _phase12_seen_key(level: str, project: str, phase: int) -> str:
 
 
 def pick_batch_unseen(pool: list, seen: list, count: int) -> tuple[list, list]:
-    """안 본 문제를 우선으로 섞어서 count개 선택.
-    안 본 문제가 모자라면 전체 풀을 재오픈(seen 리셋)한다.
+    """원본 데이터 순서대로 count개 선택.
+    Phase 1/2 엔드보스는 고정된 문제 순서를 유지한다.
     반환: (선택된 문제 리스트, 갱신된 seen id 리스트)."""
-    unseen = [q for q in pool if q["question_id"] not in seen]
-    if len(unseen) < count:
-        unseen = list(pool)
-        seen = []
-    candidates = list(unseen)
-    random.shuffle(candidates)
-    chosen = candidates[:count]
+    chosen = list(pool)[:count]
     new_seen = seen + [q["question_id"] for q in chosen]
     return chosen, new_seen
 
@@ -335,7 +329,7 @@ def endboss_start(req: StartRequest, user: dict = Depends(get_current_user)):
             u["seen_questions"] = {}
         seen_qs = u["seen_questions"]
 
-        # Phase 1, 2 문제 확정 — 이력 기반 안 본 문제 우선 + shuffle, 소진 시 재오픈.
+        # Phase 1, 2 문제 확정 — JSON 원본 순서 고정.
         p1_questions, p1_seen = pick_batch_unseen(phase1_pool, seen_qs.get(p1_key, []), 5)
         p2_questions, p2_seen = pick_batch_unseen(phase2_pool, seen_qs.get(p2_key, []), 4)
         seen_qs[p1_key] = p1_seen
