@@ -266,10 +266,10 @@
       "pass_score": 70,
       "question": "다음 코드의 출력 결과는?\n\n```python\ns = '  aimon  '\nprint(s.strip())\n```",
       "choices": [
-        "A. __aimon__",
-        "B. aimon",
-        "C. aimon__",
-        "D. __aimon"
+        "A. '  aimon  '",
+        "B. 'aimon'",
+        "C. 'aimon  '",
+        "D. '  aimon'"
       ],
       "answer": "B",
       "feedback": {
@@ -379,16 +379,16 @@
       "is_boss": true,
       "villain": "codemmon",
       "pass_score": 70,
-      "question": "다음 코드의 출력 결과는?\n\n```python\ns = '  Hello World  '\nprint(s.strip().lower())\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = '  Hello Langchain  '\nprint(s.strip().lower())\n```",
       "choices": [
-        "A.   hello world",
-        "B. Hello World",
-        "C. hello world",
-        "D.   Hello World"
+        "A. '  hello langchain  '",
+        "B. 'hello langchain'",
+        "C. 'hello world'",
+        "D. '  Hello Langchain  '"
       ],
-      "answer": "A",
+      "answer": "B",
       "feedback": {
-        "correct": "정답! s.strip() → 'Hello World', .lower() → 'hello world'. 체이닝은 왼쪽 → 오른쪽 순서예요."
+        "correct": "정답! s.strip() → 'Hello Langchain', .lower() → 'hello langchain'. 체이닝은 왼쪽 → 오른쪽 순서예요."
       }
     },
     {
@@ -404,10 +404,10 @@
       "pass_score": 70,
       "question": "다음 코드의 출력 결과는?\n\n```python\ns = '  AIMON  '\nresult = s.strip().lower().replace('aimon', 'python')\nprint(result)\n```",
       "choices": [
-        "A.   AIMON",
-        "B. aimon",
-        "C. python",
-        "D.   python"
+        "A. '  AIMON  '",
+        "B. 'aimon'",
+        "C. 'python'",
+        "D. '  python  '"
       ],
       "answer": "C",
       "feedback": {
@@ -450,10 +450,10 @@
       "pass_score": 70,
       "question": "다음 코드의 출력 결과는?\n\n```python\nname = '  PyThOn  '\nprint(name.strip().upper().replace('PYTHON', 'AIMON'))\n```",
       "choices": [
-        "A. AIMON",
-        "B. python",
-        "C. PyThOn",
-        "D.   AIMON"
+        "A. 'AIMON'",
+        "B. 'PYTHON'",
+        "C. '  PyThOn  '",
+        "D. '  AIMON  '"
       ],
       "answer": "A",
       "feedback": {
@@ -1161,16 +1161,16 @@
       "is_boss": true,
       "villain": "codemmon",
       "pass_score": 70,
-      "question": "다음 코드의 출력 결과는?\n\n```python\ns = '  hello  '\nprint(s.strip().upper())\n```",
+      "question": "다음 코드의 출력 결과는?\n\n```python\ns = '  welcome  '\nprint(s.strip().upper())\n```",
       "choices": [
-        "A.   HELLO",
-        "B. HELLO",
-        "C. hello",
-        "D.   hello"
+        "A. '  WELCOME  '",
+        "B. 'WELCOME'",
+        "C. 'welcome'",
+        "D. '  welcome  '"
       ],
-      "answer": "A",
+      "answer": "B",
       "feedback": {
-        "correct": "정답! strip() → 'hello', upper() → 'HELLO'. 체이닝은 왼쪽에서 오른쪽 순서예요."
+        "correct": "정답! strip() → 'welcome', upper() → 'WELCOME'. 체이닝은 왼쪽에서 오른쪽 순서예요."
       }
     },
     {
