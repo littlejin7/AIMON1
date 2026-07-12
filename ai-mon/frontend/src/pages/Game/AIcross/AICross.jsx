@@ -87,6 +87,7 @@ function buildServerLayout(puzzle) {
 export default function AICross() {
   const navigate = useNavigate()
   const wrapRef = useRef(null)
+  const mobileInputRef = useRef(null)
   const user = useAuthStore((s) => s.user)
 
   // 서버 진행도/세션 상태
@@ -186,14 +187,62 @@ export default function AICross() {
     ? new Set(wordCells[selectedId].map(({ r, c }) => `${r},${c}`))
     : new Set()
 
+  const focusMobileKeyboard = useCallback(() => {
+    if (showResult) return
+    const input = mobileInputRef.current
+    if (!input) return
+    try {
+      input.focus({ preventScroll: true })
+    } catch {
+      input.focus()
+    }
+  }, [showResult])
+
   const selectWord = (id, jumpToStart = false) => {
     setSelectedId(id)
     if (jumpToStart) {
       const w = wordData.find(x => x.id === id)
       if (w) setCursor({ r: w.r, c: w.c })
     }
+    focusMobileKeyboard()
   }
 
+  const enterLetter = useCallback((letter) => {
+    if (!layout || showResult || !selWord) return
+    const normalized = String(letter || '').toUpperCase()
+    if (!/^[A-Z]$/.test(normalized)) return
+
+    const { r, c } = cursor
+    const key = `${r},${c}`
+    if (!cellMap[key]) return
+
+    setInputs(prev => ({ ...prev, [key]: normalized }))
+
+    const cells = wordCells[selWord.id] || []
+    const idx = cells.findIndex(x => x.r === r && x.c === c)
+    if (idx >= 0 && idx < cells.length - 1) {
+      setCursor(cells[idx + 1])
+    }
+  }, [cellMap, cursor, layout, selWord, showResult, wordCells])
+
+  const deleteLetter = useCallback(() => {
+    if (!layout || showResult) return
+    const { r, c } = cursor
+    const key = `${r},${c}`
+
+    if (inputs[key]) {
+      setInputs(prev => { const n = { ...prev }; delete n[key]; return n })
+    } else if (selWord) {
+      const cells = wordCells[selWord.id] || []
+      const idx = cells.findIndex(x => x.r === r && x.c === c)
+      if (idx > 0) {
+        const prev = cells[idx - 1]
+        setCursor(prev)
+        const pk = `${prev.r},${prev.c}`
+        setInputs(p => { const n = { ...p }; delete n[pk]; return n })
+      }
+    }
+  }, [cursor, inputs, layout, selWord, showResult, wordCells])
   const handleCellClick = (r, c) => {
     const key = `${r},${c}`
     if (!cellMap[key]) return
@@ -210,6 +259,26 @@ export default function AICross() {
       const h = wordsHere.find(w => w.dir === 'H')
       setSelectedId(h ? h.id : wordsHere[0].id)
     }
+    focusMobileKeyboard()
+  }
+
+  const handleLetterBoxClick = (cellPos) => {
+    setCursor(cellPos)
+    focusMobileKeyboard()
+  }
+
+  const handleMobileInputChange = (e) => {
+    const value = e.target.value || ''
+    const letter = value.match(/[A-Za-z]/g)?.pop()
+    if (letter) enterLetter(letter)
+    e.target.value = ''
+  }
+
+  const handleMobileInputKeyDown = (e) => {
+    if (e.key === 'Backspace') {
+      e.preventDefault()
+      deleteLetter()
+    }
   }
 
   const handleKeyDown = useCallback((e) => {
@@ -221,26 +290,10 @@ export default function AICross() {
 
     if (e.key.length === 1 && /^[A-Za-z]$/.test(e.key)) {
       e.preventDefault()
-      setInputs(prev => ({ ...prev, [key]: letter }))
-      if (selWord) {
-        const cells = wordCells[selWord.id]
-        const idx = cells.findIndex(x => x.r === r && x.c === c)
-        if (idx < cells.length - 1) setCursor(cells[idx + 1])
-      }
+      enterLetter(letter)
     } else if (e.key === 'Backspace') {
       e.preventDefault()
-      if (inputs[key]) {
-        setInputs(prev => { const n = { ...prev }; delete n[key]; return n })
-      } else if (selWord) {
-        const cells = wordCells[selWord.id]
-        const idx = cells.findIndex(x => x.r === r && x.c === c)
-        if (idx > 0) {
-          const prev = cells[idx - 1]
-          setCursor(prev)
-          const pk = `${prev.r},${prev.c}`
-          setInputs(p => { const n = { ...p }; delete n[pk]; return n })
-        }
-      }
+      deleteLetter()
     } else if (e.key === 'Tab') {
       e.preventDefault()
       if (!wordData.length) return
@@ -249,7 +302,7 @@ export default function AICross() {
       setSelectedId(next.id)
       setCursor({ r: next.r, c: next.c })
     }
-  }, [cursor, selWord, selectedId, inputs, wordData, wordCells, showResult, layout])
+  }, [cursor, selectedId, inputs, wordData, showResult, layout, enterLetter, deleteLetter])
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown)
@@ -335,6 +388,19 @@ export default function AICross() {
     <GameScaleFrame baseHeight={null} background="var(--clr-bg)" scaleMode="width" frameOverflow="visible">
       <div className="aicross-wrap" ref={wrapRef} tabIndex={-1}>
       <button className="aicross-back" onClick={() => navigate('/game')}>✕</button>
+      <input
+        ref={mobileInputRef}
+        className="aicross-mobile-input"
+        type="text"
+        inputMode="text"
+        autoCapitalize="characters"
+        autoComplete="off"
+        autoCorrect="off"
+        spellCheck="false"
+        aria-label="에이칸 글자 입력"
+        onChange={handleMobileInputChange}
+        onKeyDown={handleMobileInputKeyDown}
+      />
         
       <TitleBlock setLabel={setLabel} />
 
@@ -406,7 +472,8 @@ export default function AICross() {
             cursor={cursor}
             checked={checked}
             inputs={inputs}
-            onLetterClick={setCursor}
+            onLetterClick={handleLetterBoxClick}
+            onLetterInput={enterLetter}
             onCheck={handleSubmit}
             disabled={!isAllFilled || submitting}
           />
