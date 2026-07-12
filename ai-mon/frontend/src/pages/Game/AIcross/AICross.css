@@ -33,6 +33,19 @@
 }
 .aicross-back:hover { background: rgba(255, 255, 255, 0.95); }
 
+.aicross-mobile-input {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0.01;
+  pointer-events: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: transparent;
+}
 /* ══════════════════════════════════════════
    시작 인트로 팝업 — 다른 미니게임(에이팡 기준)과 통일된 화이트 박스
 ══════════════════════════════════════════ */
@@ -881,6 +894,7 @@
   justify-content: center;
   width: 24px;
   height: 24px;
+  padding: 0;
   background: #cbb3f7;
   border: 1px solid rgba(110, 50, 210, 0.45);
   border-radius: 6px;
@@ -891,6 +905,7 @@
   box-shadow: 0 2px 4px rgba(120, 80, 200, 0.12);
   text-transform: uppercase;
   transition: all 0.15s ease;
+  cursor: pointer;
 }
 
 .aicross-word-bank-letter.is-used {
@@ -899,6 +914,7 @@
   color: #1e293b;
   border-color: #64748b;
   box-shadow: none;
+  cursor: default;
 }
 
 
