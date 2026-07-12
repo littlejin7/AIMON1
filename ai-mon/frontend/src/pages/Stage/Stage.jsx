@@ -109,6 +109,8 @@ export default function Stage({ _lessonId, _stage }) {
   // 이 세션에서 미니보스 패배가 발생했음을 기록 — 서버 저장 실패 시에도
   // 체크포인트 복원 자동 재진입을 클라이언트 측에서 차단하는 보조 가드
   const minibossDefeatedRef   = useRef(false)
+  const minibossStartLockRef  = useRef(false)
+  const minibossFightLockRef  = useRef(false)
   // quiz 답안 누적 (question_id → attempt payload). 완료 직전 flush 에 사용.
   // miniboss/code_input 은 제외 — 각각 서버 battle session / /code/submit 이 권위.
   const sessionAnswersRef     = useRef(new Map())
@@ -171,6 +173,8 @@ export default function Stage({ _lessonId, _stage }) {
     setShowMinibossAlert(false)
     setShowQuizFailModal(false)
     setLoadError(null)
+    minibossStartLockRef.current = false
+    minibossFightLockRef.current = false
     sessionAnswersRef.current = new Map()   // 재도전/재시작 시 누적 답안 초기화
     setRetryTick(t => t + 1)
   }
@@ -556,8 +560,11 @@ export default function Stage({ _lessonId, _stage }) {
 
       // 1. 스테이지 퀴즈 완료 -> 미니보스로 전환
       if (currentCategory === 'stage_quiz' && minibossStartIndex === null) {
+        if (minibossStartLockRef.current) return
+        minibossStartLockRef.current = true
         const stageQuizScore = Math.round((correct / questions.length) * 100)
         if (stageQuizScore < 60) {
+          minibossStartLockRef.current = false
           handleStageQuizFailure()
           return
         }
@@ -576,14 +583,22 @@ export default function Stage({ _lessonId, _stage }) {
             })
           }
           setMinibossToken(res.data.battle_token)
-          setQuestions(prev => [...prev, ...miniQuestions])
-          setMinibossStartIndex(current + 1)
+          const nextMinibossStartIndex = current + 1
+          setQuestions(prev => {
+            const existingMiniIndex = prev.findIndex(q => q?.quiz_category === 'miniboss')
+            const baseQuestions = existingMiniIndex >= 0
+              ? prev.slice(0, existingMiniIndex)
+              : prev.slice(0, nextMinibossStartIndex)
+            return [...baseQuestions, ...miniQuestions]
+          })
+          setMinibossStartIndex(nextMinibossStartIndex)
           setStageQuizCorrect(correct)
           setMinibossHp({ my_hp: 900, boss_hp: 500 })
           playBGM('miniboss_intro')
           setShowMinibossAlert(true)
           return
         } catch (err) {
+          minibossStartLockRef.current = false
           logApiError('미니보스 시작 실패', err)
           setMinibossLoadErrorMsg(messageForMinibossError(err))
           return
@@ -805,9 +820,15 @@ export default function Stage({ _lessonId, _stage }) {
       <MiniBossAlert
         onClose={() => navigate(-1)}
         onFight={() => {
+          if (minibossFightLockRef.current) return
+          minibossFightLockRef.current = true
           setShowMinibossAlert(false)
           if (minibossStartIndex !== null) setCurrent(minibossStartIndex)
-          playBGM('battle')
+          try {
+            playBGM('battle')
+          } catch (err) {
+            console.error('미니보스 전투 BGM 시작 실패', err)
+          }
         }}
       />
     )
