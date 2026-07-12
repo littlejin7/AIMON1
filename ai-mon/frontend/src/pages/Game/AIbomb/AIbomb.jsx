@@ -62,7 +62,7 @@ export default function AIbomb() {
   const ringPct = game.timeLeft / timer.initialTime;
 
   return (
-    <GameScaleFrame background="var(--clr-bg)">
+    <GameScaleFrame background="var(--clr-bg)" scaleMode="fill-height">
       <div className="bd-root">
       <div className={`bd-screen ${game.shake ? 'bd-bomb-stage--shake' : ''}`}>
 
