@@ -17,21 +17,34 @@ function getViewportSize() {
 export default function GameScaleFrame({
   children,
   baseWidth = BASE_WIDTH,
-  baseHeight = null,
+  baseHeight = BASE_HEIGHT,
   background = 'var(--clr-bg)',
   frameOverflow = 'hidden',
   scaleMode = 'fit',
 }) {
-  const [scale, setScale] = useState(1)
+  const [metrics, setMetrics] = useState({ scale: 1, frameHeight: baseHeight })
 
   const hasFixedHeight = typeof baseHeight === 'number'
 
   useEffect(() => {
     const updateScale = () => {
       const { width, height } = getViewportSize()
-      const widthScale = width / baseWidth
+      const widthScale = Math.min(width / baseWidth, 1)
       const heightScale = hasFixedHeight ? height / baseHeight : 1
-      setScale(Math.min(widthScale, scaleMode === 'width' ? 1 : heightScale, 1))
+
+      if (scaleMode === 'fill-height' && hasFixedHeight) {
+        const nextScale = widthScale
+        setMetrics({
+          scale: nextScale,
+          frameHeight: Math.max(baseHeight, height / Math.max(nextScale, 0.001)),
+        })
+        return
+      }
+
+      setMetrics({
+        scale: Math.min(widthScale, scaleMode === 'width' ? 1 : heightScale, 1),
+        frameHeight: baseHeight,
+      })
     }
 
     updateScale()
@@ -62,11 +75,11 @@ export default function GameScaleFrame({
         style={{
           position: 'relative',
           width: `${baseWidth}px`,
-          height: hasFixedHeight ? `${baseHeight}px` : '100%',
+          height: hasFixedHeight ? `${metrics.frameHeight}px` : 'auto',
           minHeight: hasFixedHeight ? undefined : '100%',
           flexShrink: 0,
           overflow: frameOverflow,
-          transform: `scale(${scale})`,
+          transform: `scale(${metrics.scale})`,
           transformOrigin: 'top center',
         }}
       >
