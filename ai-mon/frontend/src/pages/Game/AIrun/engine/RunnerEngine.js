@@ -9,8 +9,8 @@ import { SoundManager } from './sound.js';
 
 const COUNTDOWN_START = 3;
 const START_SPEED = 0.5;
-const MAX_SPEED = 4.0;
-const SPEED_GAIN_PER_100M = 0.2;
+const MAX_SPEED = 3.5;
+const SPEED_GAIN_PER_100M = 0.15;
 
 export class RunnerEngine {
   constructor(container, onGameOver, onGetNewToken) {
