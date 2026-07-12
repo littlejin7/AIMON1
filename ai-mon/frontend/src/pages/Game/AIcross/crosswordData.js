@@ -27,7 +27,7 @@ const CROSSWORD_SETS = [
       {
         "id": "range",
         "word": "RANGE",
-        "clue": "for문에서 연속된 숫자 범위를 만드는 함수 — range(5)는 0~4",
+        "clue": "for문에서 연속된 숫자 범위를 만드는 함수",
         "easyClue": "숫자를 순서대로 나열해주는 함수예요. 예: 0,1,2,3,4"
       },
       {
@@ -207,8 +207,8 @@ const CROSSWORD_SETS = [
       {
         "id": "type",
         "word": "TYPE",
-        "clue": "데이터의 종류를 확인하는 함수 — type(3) → int",
-        "easyClue": "데이터가 어떤 종류인지 알려주는 함수예요."
+        "clue": "데이터의 종류를 확인하는 함수",
+        "easyClue": "데이터가 어떤 종류인지 확인하고 싶을 때 사용하는 함수예요."
       }
     ]
   },
@@ -237,7 +237,7 @@ const CROSSWORD_SETS = [
       {
         "id": "syntax",
         "word": "SYNTAX",
-        "clue": "프로그래밍 언어의 문법 규칙 — 위반 시 SyntaxError 발생",
+        "clue": "프로그래밍 언어의 문법 규칙 — 위반 시 에러 발생",
         "easyClue": "프로그래밍 언어의 문법 규칙이에요."
       },
       {
@@ -699,7 +699,7 @@ const CROSSWORD_SETS = [
       {
         "id": "chain",
         "word": "CHAIN",
-        "clue": "LangChain에서 여러 처리 단계를 연결한 파이프라인",
+        "clue": "Lang...에서 여러 처리 단계를 연결한 파이프라인",
         "easyClue": "여러 처리 단계를 연결해놓은 흐름이에요."
       },
       {
@@ -849,7 +849,7 @@ const CROSSWORD_SETS = [
       {
         "id": "venv",
         "word": "VENV",
-        "clue": "프로젝트별로 독립된 파이썬 실행 환경을 만드는 표준 모듈 — python -m venv",
+        "clue": "프로젝트별로 독립된 파이썬 실행 환경을 만드는 표준 모듈",
         "easyClue": "프로젝트마다 따로 독립된 파이썬 환경을 만드는 도구예요."
       },
       {
@@ -873,13 +873,13 @@ const CROSSWORD_SETS = [
       {
         "id": "freeze",
         "word": "FREEZE",
-        "clue": "현재 설치된 패키지와 버전을 파일로 저장하는 명령 — pip freeze",
+        "clue": "현재 설치된 패키지와 버전을 파일로 저장하는 명령",
         "easyClue": "지금 설치된 패키지 목록을 파일로 저장하는 명령이에요."
       },
       {
         "id": "requirements",
         "word": "REQUIREMENTS",
-        "clue": "설치할 패키지 목록을 적어두는 파일 — requirements.txt",
+        "clue": "설치할 패키지 목록을 적어두는 텍스트 파일 (.txt)",
         "easyClue": "설치해야 할 패키지 목록을 적어둔 파일이에요."
       }
     ]
@@ -933,14 +933,14 @@ const CROSSWORD_SETS = [
       {
         "id": "args",
         "word": "ARGS",
-        "clue": "함수에서 개수가 정해지지 않은 위치 인자를 튜플로 받는 문법 — *args",
-        "easyClue": "개수가 정해지지 않은 값들을 튜플로 받는 문법이에요. *args"
+        "clue": "함수에서 개수가 정해지지 않은 위치 인자를 튜플로 받는 문법",
+        "easyClue": "개수가 정해지지 않은 값들을 튜플로 받는 문법이에요."
       },
       {
         "id": "kwargs",
         "word": "KWARGS",
-        "clue": "함수에서 이름=값 형태의 가변 인자를 딕셔너리로 받는 문법 — **kwargs",
-        "easyClue": "이름=값 형태의 인자를 딕셔너리로 받는 문법이에요. **kwargs"
+        "clue": "함수에서 이름=값 형태의 가변 인자를 딕셔너리로 받는 문법",
+        "easyClue": "이름=값 형태의 인자를 딕셔너리로 받는 문법이에요."
       },
       {
         "id": "anonymous",
@@ -981,25 +981,25 @@ const CROSSWORD_SETS = [
       {
         "id": "sidebar",
         "word": "SIDEBAR",
-        "clue": "화면 좌측에 별도 영역을 만드는 레이아웃 요소 — st.sidebar",
+        "clue": "화면 좌측에 별도 영역을 만드는 스트림릿 레이아웃 요소",
         "easyClue": "화면 왼쪽에 따로 만드는 영역이에요."
       },
       {
         "id": "session",
         "word": "SESSION",
-        "clue": "새로고침해도 값을 유지시켜주는 상태 저장 객체 — st.session_state",
+        "clue": "새로고침해도 값을 유지시켜주는 상태 저장 객체",
         "easyClue": "새로고침해도 값을 기억해주는 저장소예요."
       },
       {
         "id": "cache",
         "word": "CACHE",
-        "clue": "함수 반환값이나 리소스를 저장해 재실행 속도를 높이는 데코레이터 — @st.cache_data",
+        "clue": "함수 반환값이나 리소스를 저장해 재실행 속도를 높이는 데코레이터",
         "easyClue": "다시 계산 안 하고 저장해둔 결과를 재사용하는 기능이에요."
       },
       {
         "id": "secrets",
         "word": "SECRETS",
-        "clue": "API 키 같은 민감한 값을 안전하게 저장·관리하는 설정 파일 — secrets.toml",
+        "clue": "API 키 같은 민감한 값을 안전하게 저장·관리하는 설정 파일 (.toml)",
         "easyClue": "API 키처럼 중요한 값을 안전하게 저장하는 파일이에요."
       },
       {
@@ -1113,7 +1113,7 @@ const CROSSWORD_SETS = [
       {
         "id": "middleware",
         "word": "MIDDLEWARE",
-        "clue": "요청과 응답 사이에 공통 처리를 끼워 넣는 계층 — CORSMiddleware 등",
+        "clue": "요청과 응답 사이에 공통 처리를 끼워 넣는 계층",
         "easyClue": "요청과 응답 사이에서 공통으로 처리해주는 부분이에요."
       },
       {
