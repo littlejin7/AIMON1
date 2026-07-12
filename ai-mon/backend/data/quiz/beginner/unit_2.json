@@ -540,9 +540,9 @@
       "question": "실행하면 어떤 값이 나올까요?\n\n```python\ns = '  hi  '\nprint(s.strip())\n```",
       "choices": [
         "A. '  hi  '",
-        "B. hi",
-        "C. hi  ",
-        "D.   hi"
+        "B. 'hi'",
+        "C. 'hi  '",
+        "D. '  hi'"
       ],
       "answer": "B",
       "feedback": {
