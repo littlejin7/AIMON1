@@ -103,7 +103,14 @@ def test_endboss_clear_increments_evolution_stage(monkeypatch, tmp_path, level, 
     assert result["gp_delta"] == 0
     assert result["evolution_stage"] == expected_stage
     assert result["character"] == expected_char
-    assert result["evolution"] == {"evolved": True, "from_stage": 0, "to_stage": expected_stage}
+    # 레벨테스트로 해당 레벨에 배정된 유저는 하위 티어를 인정 클리어한 것으로 쳐서
+    # 클리어 직전 단계가 expected_stage-1 이다(beginner=0, intermediate=1, advanced=2).
+    # 엔드보스 클리어로 그 레벨 목표 단계(expected_stage)까지 1단계 진화한다.
+    assert result["evolution"] == {
+        "evolved": True,
+        "from_stage": expected_stage - 1,
+        "to_stage": expected_stage,
+    }
 
     # 2-C: 보상은 coin + ranking_score 분리 발급, gp 는 0
     assert result["reward"] == {

@@ -130,6 +130,46 @@ def test_update_me_allows_beginner_even_without_unlocks(monkeypatch):
     assert response["course_level"] == "beginner"
 
 
+def test_level_test_advanced_placement_grants_lower_endboss_character_stages():
+    user = {"id": "u1", "course_level": "beginner", "character": "slime", "evolution_stage": 0}
+
+    U.apply_level_test_placement(user, "advanced")
+
+    assert user["endboss_cleared_levels"] == ["beginner", "intermediate"]
+    assert user["evolution_stage"] == 2
+    assert user["character"] == "speech_bubble"
+
+
+def test_level_test_placement_does_not_demote_existing_evolution():
+    user = {
+        "id": "u1",
+        "course_level": "advanced",
+        "character": "final_ghost",
+        "evolution_stage": 3,
+        "endboss_cleared_levels": ["advanced"],
+    }
+
+    U.apply_level_test_placement(user, "intermediate")
+
+    assert user["evolution_stage"] == 3
+    assert user["character"] == "final_ghost"
+
+
+def test_existing_advanced_placement_allows_lower_endboss_characters(monkeypatch):
+    stored_user = {
+        "id": "u1",
+        "course_level": "advanced",
+        "endboss_cleared_levels": ["beginner", "intermediate"],
+        "character": "slime",
+        "evolution_stage": 0,
+    }
+    _patch_update_me_storage(monkeypatch, stored_user)
+
+    response = USER.update_me(USER.UpdateProfileRequest(character="speech_bubble"), stored_user.copy())
+
+    assert response["character"] == "speech_bubble"
+
+
 @pytest.mark.parametrize("locked_level", ["intermediate", "advanced"])
 def test_update_me_rejects_locked_levels_without_endboss_clears(monkeypatch, locked_level):
     stored_user = {"id": "u1", "course_level": "beginner", "endboss_cleared_levels": []}

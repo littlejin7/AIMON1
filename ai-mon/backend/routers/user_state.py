@@ -14,7 +14,7 @@ routers.utils 가 여기 정의를 re-export 하므로, 외부는 계속
 import logging
 
 import routers.utils as _u  # call-time 역참조 전용 (iso_week / get_progress_by_user)
-from routers._helpers import CHARACTER_TO_STAGE
+from routers._helpers import CHARACTER_TO_STAGE, character_for_stage
 
 logger = logging.getLogger("uvicorn.error")
 
@@ -83,6 +83,7 @@ def apply_level_test_placement(user: dict, level: str) -> str:
     itself remains the current learning target.
     """
     level = level if level in COURSE_LEVEL_ORDER else "beginner"
+    previous_stage = get_evolution_stage(user)
     user["course_level"] = level
     user["is_level_tested"] = True
 
@@ -95,6 +96,14 @@ def apply_level_test_placement(user: dict, level: str) -> str:
         if lower not in cleared:
             cleared.append(lower)
     user["endboss_cleared_levels"] = cleared
+
+    # 레벨테스트 배정은 배정 레벨 아래 티어의 엔드보스를 인정 클리어로 처리한다.
+    # 따라서 캐릭터 해금의 서버 기준인 evolution_stage 도 인정 클리어 단계까지 맞춘다.
+    # intermediate 배정 -> 초급 인정 클리어(stage 1), advanced 배정 -> 초/중급 인정 클리어(stage 2).
+    recognized_stage = len(lower_levels)
+    if recognized_stage > previous_stage:
+        user["evolution_stage"] = recognized_stage
+        user["character"] = character_for_stage(recognized_stage)
 
     max_unlocked = user.get("max_unlocked_unit")
     if not isinstance(max_unlocked, dict):
@@ -143,14 +152,29 @@ def promote_course_level_from_endboss(user: dict) -> bool:
 def get_evolution_stage(user: dict) -> int:
     """유저의 진화 단계(0~3)를 반환한다.
 
-    evolution_stage 필드가 있으면 그 값을, 없으면(레거시 유저) 기존 character
-    로부터 산출한다. 실제 DB backfill 은 3단계에서 수행하며, 그 전까지는 런타임
-    파생으로 호환한다.
+    evolution_stage 필드, 기존 character, 엔드보스 클리어/레벨테스트 인정 클리어
+    상태 중 가장 높은 단계를 반환한다. 레벨테스트로 intermediate/advanced 에 배정된
+    유저는 배정 레벨 아래 티어 엔드보스를 클리어한 것으로 인정되므로, 캐릭터 해금
+    단계도 그 인정 클리어와 일치해야 한다.
     """
     stage = user.get("evolution_stage")
     if isinstance(stage, int) and not isinstance(stage, bool):
-        return max(0, min(3, stage))
-    return CHARACTER_TO_STAGE.get(user.get("character") or "slime", 0)
+        base_stage = stage
+    else:
+        base_stage = CHARACTER_TO_STAGE.get(user.get("character") or "slime", 0)
+
+    recognized_stage = 0
+    cleared = user.get("endboss_cleared_levels")
+    if isinstance(cleared, list):
+        for level in cleared:
+            if level in COURSE_LEVEL_ORDER:
+                recognized_stage = max(recognized_stage, COURSE_LEVEL_ORDER.index(level) + 1)
+
+    course_level = user.get("course_level")
+    if course_level in COURSE_LEVEL_ORDER:
+        recognized_stage = max(recognized_stage, len(course_level_floor(course_level)) - 1)
+
+    return max(0, min(3, max(base_stage, recognized_stage)))
 
 
 def gp_gate(user: dict, gp_delta: int) -> int:
@@ -186,8 +210,9 @@ def ensure_reward_fields(user: dict) -> dict:
         if user.get(k) is None:
             user[k] = v
     ev = user.get("evolution_stage")
-    if not isinstance(ev, int) or isinstance(ev, bool):
-        user["evolution_stage"] = get_evolution_stage(user)
+    stage = get_evolution_stage(user)
+    if not isinstance(ev, int) or isinstance(ev, bool) or stage > ev:
+        user["evolution_stage"] = stage
     return user
 
 
