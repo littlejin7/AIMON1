@@ -1,3 +1,5 @@
+import levelBotImage from '../../assets/levelbot.png'
+
 export default function LevelTestIntro({ onStart, onClose }) {
   return (
     <div>
@@ -9,25 +11,11 @@ export default function LevelTestIntro({ onStart, onClose }) {
         gap: '8px', textAlign: 'center',
         borderRadius: '24px 24px 0 0',
       }}>
-        {/* 에이몬 캐릭터 SVG */}
-        <svg width="64" height="64" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="65" cy="118" rx="35" ry="8" fill="#CECBF6" opacity=".4"/>
-          <ellipse cx="65" cy="64" rx="30" ry="30" fill="#9B94E8"/>
-          <ellipse cx="65" cy="60" rx="28" ry="28" fill="#7F77DD"/>
-          {/* 돋보기 */}
-          <circle cx="65" cy="54" r="12" fill="none" stroke="white" strokeWidth="3"/>
-          <line x1="73" y1="62" x2="80" y2="70" stroke="white" strokeWidth="3.5" strokeLinecap="round"/>
-          {/* 눈 */}
-          <circle cx="53" cy="42" r="6" fill="white"/><circle cx="77" cy="42" r="6" fill="white"/>
-          <circle cx="53" cy="43" r="3" fill="#26215C"/><circle cx="77" cy="43" r="3" fill="#26215C"/>
-          <circle cx="54" cy="41" r="1.1" fill="white"/><circle cx="78" cy="41" r="1.1" fill="white"/>
-          {/* 팔 */}
-          <ellipse cx="33" cy="70" rx="9" ry="13" fill="#7F77DD" transform="rotate(-12 33 70)"/>
-          <ellipse cx="97" cy="70" rx="9" ry="13" fill="#7F77DD" transform="rotate(12 97 70)"/>
-          {/* 발 */}
-          <ellipse cx="50" cy="100" rx="9" ry="6" fill="#534AB7"/>
-          <ellipse cx="80" cy="100" rx="9" ry="6" fill="#534AB7"/>
-        </svg>
+        <img
+          src={levelBotImage}
+          alt="레벨 테스트 에이몬"
+          style={{ width: '100px', height: '100px', objectFit: 'contain' }}
+        />
 
         <div>
           <div style={{ fontSize: '10px', fontWeight: 600, color: '#7F77DD', letterSpacing: '1px', marginBottom: '4px' }}>
