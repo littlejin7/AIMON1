@@ -14,6 +14,8 @@ ANSWER_KEYS = {"answer", "answers", "correct", "correct_answer", "solution", "co
 # 보기/선택지 필드 후보
 OPTION_KEYS = {"options", "choices", "candidates", "selections"}
 
+# JSON 트리를 재귀적으로 순회하며 (경로, 문자열) 쌍만 모두 방출한다.
+# 문자열 값에 대해서만 포맷/이스케이프 검사를 수행하기 때문이다.
 def walk(o, path=""):
     if isinstance(o, dict):
         for k, v in o.items():
@@ -26,6 +28,7 @@ def walk(o, path=""):
 
 def scan_strings(data, fname, issues):
     for path, s in walk(data):
+        # 코드/출력/터미널 필드는 리터럴 \n·스마트따옴표가 의도된 값일 수 있어 별도 취급한다.
         in_code = ".code" in path or ".output" in path or "terminal" in path
         # 1) 마크다운 코드펜스 (```), 거의 항상 버그
         if "```" in s:
